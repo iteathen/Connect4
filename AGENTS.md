@@ -30,7 +30,7 @@ Preserve valid work. Treat issues, comments, benchmark results, legacy code, and
 
 Connect4 owns:
 
-- standard 7x6 Connect Four rules and state semantics used by this product;
+- Connect Four game/domain semantics used by this product, including the canonical standard 7x6 benchmark profile and supported adjustable-board incumbent profiles;
 - the custom Connect Four evaluator meaning and its independent conformance vectors;
 - product-specific state/action/evaluator Device-JS realization;
 - incumbent minimax/alpha-beta search implementation used as a benchmark control;
@@ -49,6 +49,8 @@ CUDA-MCGS owns generic graph/search/evaluator-request/resource/progress/session 
 - Tree-equivalent and graph/transposition-enabled CUDA-MCGS results remain separate so device residency and graph reuse are not conflated.
 - Benchmark adapters may express the same workload differently only when the mode explicitly permits idiomatic optimization; the benchmark contract owns the workload and acceptance conditions.
 - Results bind to exact source revisions, runtime, OS, hardware/provider identity and benchmark configuration. No result silently transfers to another profile.
+- Persistent cross-move transposition memory is normal incumbent production policy. Explicit TT reset is allowed for benchmark isolation; it is not a production simplification.
+- Adjustable board dimensions remain profile data for incumbent evaluator/search machinery. The canonical 7x6 benchmark does not authorize hidden 7x6 implementation assumptions.
 
 ## Device-closure rule
 
@@ -62,8 +64,18 @@ Maintained Connect4 source is ordinary JavaScript/Node.js plus product Device-JS
 
 The supplied 2025 browser game is source material only. Do not import its DOM, audio, graphics, browser Worker plumbing, or application layout into the benchmark product. Reuse semantics or algorithms only after identifying their owner, intent and conformance evidence.
 
-Two evaluator generations in the legacy source already disagree. Therefore neither implementation may become the new evaluator oracle merely by being newer or faster. Freeze intended evaluator semantics and independent vectors first.
+The exact benchmark-relevant legacy engine/evaluator source is retained in `reference/legacy-source/Connect4-engine-source.zip` with hashes in the manifest. This exists for reproducibility/provenance and is not maintained architecture or specification authority.
+
+Two evaluator generations in the legacy source differ semantically. C4-0002 freezes the optimized incumbent-v1 observable evaluator behavior, including the repeated-immediate horizon promotion, without claiming that historical diagnostic labels literally describe distinct threat lines.
+
+## Incumbent search rule
+
+The evaluator is root-relative and asymmetric; do not rewrite the incumbent as negamax. Search owns the tactical prepass and depth preference described by C4-0003.
+
+The TT survives ordinary moves. Score/bound reuse must be same-root-perspective and depth-sufficient; opposite-perspective or shallower entries may still contribute a best move for ordering under the production policy. Do not clear the TT between ordinary moves to make validity reasoning easier.
 
 ## Current phase
 
-Benchmark bootstrap and evaluator-semantic extraction. The clean standard Connect Four domain may be implemented and tested independently. Do not implement or claim the CUDA-MCGS performance lane until the shared evaluator contract is accepted and the required public CUDA-MCGS composition is dependency-ready under current owner instruction.
+The low-level Node incumbent evaluator/search candidate is locally differential-qualified against the retained exact legacy source. The next gate is exact Node 26.7 CI and benchmark-protocol evidence. Do not implement or claim the CUDA-MCGS performance lane until the incumbent benchmark is accepted and required public CUDA-MCGS composition is dependency-ready under current owner instruction.
+
+CUDA-MCGS #124 remains paused until explicit owner instruction.

@@ -1,0 +1,22 @@
+export const MIN_SAFE = -10000000000000;
+export const MAX_SAFE = 10000000000000;
+export const POSITIONAL_INCREMENT = 20;
+export const EVAL_PLAYER_SCORE_RATIO = 0.65;
+export const DEPTH_DEPENDENT_WEIGHT = 1.01;
+export const MATE_THRESHOLD = 1000000000000;
+
+export const TT_EMPTY = 0;
+export const TT_EXACT = 1;
+export const TT_LOWER = 2;
+export const TT_UPPER = 3;
+
+export const INCUMBENT_CONSTANTS = Object.freeze({
+  MIN_SAFE,
+  MAX_SAFE,
+  POSITIONAL_INCREMENT,
+  EVAL_PLAYER_SCORE_RATIO,
+  DEPTH_DEPENDENT_WEIGHT,
+  TT_EXACT,
+  TT_LOWER,
+  TT_UPPER,
+});
