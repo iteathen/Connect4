@@ -57,8 +57,14 @@ test("vertical win is detected", () => {
   assert.equal(position.winner(), 0);
 });
 
-test("ascending diagonal win is detected", () => {
+test("rising diagonal win is detected", () => {
   const position = Connect4Position.fromMoves([0, 1, 1, 2, 4, 2, 2, 3, 4, 3, 5, 3, 3]);
+  assert.equal(position.status, STATUS_PLAYER0_WIN);
+  assert.equal(position.winner(), 0);
+});
+
+test("falling diagonal win is detected", () => {
+  const position = Connect4Position.fromMoves([3, 3, 3, 3, 5, 5, 2, 1, 2, 0, 5, 0, 1, 5, 1, 0, 3, 1, 0]);
   assert.equal(position.status, STATUS_PLAYER0_WIN);
   assert.equal(position.winner(), 0);
 });
