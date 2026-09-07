@@ -1,78 +1,87 @@
 # Connect4 Status
 
 **Updated:** 2026-09-07
-**Phase:** solved-strength oracle candidate / Node 26 qualification
+**Phase:** qualified incumbent Node + solved-strength baseline / CUDA-MCGS public-composition assessment next
 
 ## Product role
 
-Connect4 is an independent Node benchmark/validation product. It owns Connect Four domain/evaluator/benchmark meaning and consumes generic CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS contracts only through public surfaces.
+Connect4 is the product-owned Node benchmark/validation lane for Connect Four search. It owns Connect Four domain/evaluator/benchmark meaning and consumes CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS only through public surfaces.
 
-It is not a CUDA-family semantic library and does not own generic search/runtime/Tensor mechanisms.
+## Qualified incumbent foundation
 
-## Protected incumbent baseline
+C4-0001 through C4-0004 establish:
 
-`main@33888bee6cf8d3e1941ad53819ef24a1432a2244` protects C4-0001 through C4-0004:
-
-- canonical 7×6 product-domain semantics while incumbent machinery remains dimension-parameterized;
-- frozen optimized incumbent evaluator behavior, including repeated-immediate frontier promotion;
-- explicit-root-player low-allocation alpha-beta and persistent cross-move TT semantics;
+- canonical standard 7×6 benchmark-domain semantics while incumbent machinery remains dimension-parameterized;
+- the frozen optimized incumbent evaluator, including live-line positional value, parity reasoning and repeated-immediate frontier promotion;
+- explicit-root-player low-allocation alpha-beta with tactical prepass;
+- fixed-size persistent cross-move TT with perspective/depth-qualified score reuse and ordering-only reuse of otherwise-ineligible best moves;
 - exact legacy evaluator/search/self-play conformance;
-- Node 26.7 persistent-vs-reset benchmark evidence and fixed-wall-clock depth evidence.
+- fixed-request persistent-vs-reset and fixed-wall-clock Node benchmark protocol.
 
-Main push `verify` run **34116478402** succeeded after PR #4 merged.
+Protected `main@33888bee6cf8d3e1941ad53819ef24a1432a2244` passed post-merge `verify` run **34116478402**.
 
-## Solved-strength candidate
+The reference Node 26.7 benchmark run remains **34116027347** at source `5ca077c2073b7e5e4432c9267da729836efbacb0`: persistent TT completed the frozen depth-8 reroot workload with **501,027 nodes / 289,914 evaluator calls / 480.55 ms**, versus reset-each-root at **624,351 / 371,565 / 542.69 ms**, with the same decision checksum. This is exact-runner evidence, not a universal CPU performance claim.
 
-C4-0005 adds an independent exact 7×6 numerical oracle used only for solved-game strength evidence. It does not import or reuse incumbent evaluator/search/TT code.
+## C4-0005 solved-game strength qualification
 
-External parent scores come from Pascal Pons benchmark test sets. Matching test-set bytes were independently read in two public mirrors at fixed revisions. The candidate freezes:
+C4-0005 adds a separate exact 7×6 numerical oracle used only for strength/correctness evidence. It does not import or reuse the incumbent evaluator, alpha-beta implementation, TT, or product-domain class.
 
-- 128 deterministic calibration positions: first 64 `Test_L3_R1` + first 64 `Test_L2_R1`;
-- 30 separately labeled beginning-position spot checks from `Test_L1_R1`/`Test_L1_R2`;
-- exact per-column strong scores generated only after external parent-score parity.
+External parent scores are Pascal Pons strong-solver benchmark checkpoints. Matching test-set bytes were independently observed in two unrelated public GitHub mirrors at fixed revisions before corpus generation. Oracle-generated per-column action labels are admitted only after exact parent-score parity.
 
-Local Node qualification currently shows:
+At candidate source `952cf15dfc86e08abdc86e508025a056c8865687` under exact Node **26.7.0**:
 
-- **158/158** external parent scores matched exactly;
-- all 128 calibration per-column action-score vectors regenerate exactly;
-- all 30 beginning spot-check action-score vectors regenerate exactly;
-- primary calibration reaches 128/128 exact optimal moves and 128/128 W/D/L preservation at depth 8 and remains exact through depth 12;
-- beginning spot checks remain 29/30 W/D/L-correct at depth 12, so depth 12 is demonstrably not perfect on the solved evidence.
+- `verify` run **34122018213** passed **27/27** tests;
+- all **158/158** external Pons parent strong-score checkpoints matched exactly;
+- all 128 deterministic calibration action-score vectors and all 30 separately labeled beginning spot-check vectors regenerated exactly;
+- `strength-evidence` run **34122018076** passed and reproduced the local strength evidence exactly;
+- incumbent `benchmark-evidence` regression run **34122018187** also passed.
 
-## Known solved incumbent-v1 defect
+### Deterministic 128-position calibration
 
-Sequence:
+The first 64 `Test_L3_R1` plus first 64 `Test_L2_R1` positions reach:
+
+- depth 6: **127/128** exact-strong optimal, **128/128** W/D/L preserved;
+- depth 7: **126/128** exact-strong optimal, **127/128** W/D/L preserved;
+- depths 8–12: **128/128** exact-strong optimal and **128/128** W/D/L preserved.
+
+The depth-4 and depth-7 regressions demonstrate that strength is not monotonically increasing at every fixed horizon. This calibration corpus is not evidence that depth 8 is globally perfect.
+
+### Beginning spot checks
+
+The 30 beginning positions are deliberately selection-biased/cost-bounded and remain reported separately. At depth 12 they are **28/30** exact-strong optimal and **29/30** W/D/L preserving. Therefore depth 12 is demonstrably **not perfect** on the solved evidence.
+
+Known solved defect:
 
 `54676552255627`
 
-Solved column scores:
+Per-column strong scores: `[1, 2, -2, -5, 1, -2, -14]`.
 
-`[1, 2, -2, -5, 1, -2, -14]`
+At depth 12 incumbent v1 chooses one-based column 3 (`-2`), converting a solved win into a solved loss. It first selects exact-optimal one-based column 2 (`+2`) at depth 19 and remains correct through the locally checked deeper seam.
 
-At depth 12 incumbent v1 selects column 3 (`-2`), turning a solved win into a solved loss. The same baseline selects optimal column 2 (`+2`) at depth 19 and remains on column 2 through the locally checked depths 20–24.
+Both `legacy-qualified` fixed-depth and production persistent-ordering policies make the same choices through the investigated correction seam, falsifying cross-move TT ordering as the cause. The evidence points to a horizon/evaluator-search limitation.
 
-`legacy-qualified` fixed-depth and production persistent-ordering search make identical choices on this vector through the investigated correction seam, falsifying TT ordering as the cause. The evidence points to a horizon/evaluator-search limitation, not to cross-move TT contamination.
-
-A controlled local experiment removing only the repeated-immediate promotion produced mixed solved-corpus results: some horizons improved and others regressed, with the isolated failure still oscillating before depth 19. C4-0002 therefore remains unchanged; no replacement evaluator has demonstrated uniform dominance.
+A controlled experiment removing only the repeated-immediate promotion produced mixed solved-corpus gains and regressions and did not improve the eventual correction depth. C4-0002 therefore remains unchanged; no evaluator replacement has demonstrated uniform dominance.
 
 ## Next executable seam
 
-1. Qualify C4-0005 and both strength corpora in exact Node 26.7 CI.
-2. Capture revision-bound `strength-evidence` output under Node 26.7.
-3. Promote the solved-strength baseline only after readback/review.
-4. Then assess the public CUDA-MCGS composition needed for the Connect4 comparison lane without resuming CUDA-MCGS #124 or making upstream mutations.
+Assess the **public** CUDA-MCGS composition required to express the Connect4 comparison lane, read-only first:
 
-CUDA-MCGS #124 remains paused under explicit owner instruction.
+1. inspect current protected CUDA-MCGS/public package state and relevant public evaluator/search/session contracts;
+2. map C4-0002/C4-0004/C4-0005 requirements onto public composition points;
+3. identify any dependency gap without pushing Connect4 semantics upstream;
+4. freeze a Connect4-owned comparison contract only if the existing public dependency is sufficient.
+
+**CUDA-MCGS issue #124 remains paused.** This next seam does not authorize resuming it or mutating CUDA-MCGS.
 
 ## Repository governance
 
-Governance alignment remains tracked separately in issue #3. Main is still not protected at the last live readback. Product CI success does not complete repository-policy alignment.
+Governance alignment remains separately tracked by issue #3. `main` was still unprotected at the latest live readback; product CI success does not complete repository-policy alignment.
 
 ## Non-claims
 
 - no CUDA-MCGS performance advantage is demonstrated;
-- no GPU-resident Connect Four engine exists here yet;
-- perfect performance on the calibration corpus does not prove globally perfect play at that depth;
-- the beginning spot-check sample is explicitly non-representative;
-- the repeated-immediate behavior has not been proven either necessary or defective in isolation;
+- no GPU-resident Connect Four comparison lane exists yet;
+- perfect performance on the 128-position calibration corpus does not establish global perfect play at depth 8;
+- the 30 beginning spot checks are explicitly non-representative;
+- the repeated-immediate behavior is not proven either necessary or defective in isolation;
 - no Python or cross-language comparison is in scope for the first benchmark gate.

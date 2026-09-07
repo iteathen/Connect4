@@ -135,13 +135,28 @@ The result was mixed:
 
 Therefore removing the repeated-immediate behavior is **not demonstrated to be a uniformly better replacement**. C4-0002 remains unchanged. The oracle has converted the quirk from speculation into a testable candidate, but the current evidence supports preservation of the frozen incumbent while recording the solved defect separately.
 
+## Exact Node 26.7 qualification
+
+Candidate source revision:
+
+`952cf15dfc86e08abdc86e508025a056c8865687`
+
+Repository `verify` run **34122018213** used exact Node **v26.7.0** / V8 `14.6.202.34-node.28` and passed **27/27** tests. That run independently re-solved all **158 external parent checkpoints**, regenerated all 128 deterministic calibration action vectors, regenerated all 30 bounded beginning spot-check action vectors, reproduced the full strength curves, retained all incumbent conformance/self-play tests, and reproduced the known depth-12→19 defect trace.
+
+Separate `strength-evidence` run **34122018076** also used exact Node **v26.7.0** and reproduced the frozen strength measurements exactly. Its defect trace reported:
+
+- depth 12: one-based column 3, solved strong score `-2`, **result class not preserved**, 110,576 incumbent nodes / 47,589 evaluator calls;
+- depth 19: one-based column 2, solved strong score `+2`, **exact optimal**, 1,320,048 incumbent nodes / 362,950 evaluator calls.
+
+The existing incumbent `benchmark-evidence` workflow reran at the same candidate revision as run **34122018187** and passed, providing a regression gate that C4-0005 did not change the incumbent performance harness.
+
 ## Disposition
 
 The first Node incumbent now has both:
 
 1. exact legacy compatibility evidence; and
-2. independent solved-game strength evidence.
+2. independent solved-game strength evidence under the canonical Node 26.7 runtime.
 
-The baseline is strong but not perfect at depth 12. A concrete solved W/D/L failure is now frozen for later evaluator/search-v2 experiments.
+The baseline is strong but not perfect at depth 12. A concrete solved W/D/L failure is frozen for later evaluator/search-v2 experiments.
 
-No CUDA-MCGS code or issue #124 work was resumed by this investigation.
+The next Connect4 seam is a **read-only assessment of CUDA-MCGS public composition readiness**. No CUDA-MCGS code or issue #124 work is resumed by that assessment.
