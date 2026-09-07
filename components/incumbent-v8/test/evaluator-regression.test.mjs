@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { gunzipSync } from "node:zlib";
@@ -6,7 +7,14 @@ import { gunzipSync } from "node:zlib";
 import { compileConnect4Geometry, legacyCurrentScore } from "../index.mjs";
 import { positionFromMoves } from "../search.mjs";
 
-const vectors = JSON.parse(gunzipSync(await readFile(new URL("../../../reference/legacy-evaluator-vectors.json.gz", import.meta.url))).toString("utf8"));
+const encoded = await readFile(new URL("../../../reference/legacy-evaluator-vectors.json.gz.b64", import.meta.url), "utf8");
+const compressed = Buffer.from(encoded.trim(), "base64");
+assert.equal(
+  createHash("sha256").update(compressed).digest("hex"),
+  "20157f8250e46c4a85b200463bbe0204e1379d81c2bb558cd6c9c25274bd72ca",
+  "frozen evaluator evidence bytes changed",
+);
+const vectors = JSON.parse(gunzipSync(compressed).toString("utf8"));
 
 test("legacy-current evaluator matches frozen adjustable-board vectors", () => {
   let geometry = null;
