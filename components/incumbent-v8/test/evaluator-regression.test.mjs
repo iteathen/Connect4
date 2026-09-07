@@ -2,39 +2,31 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { gunzipSync } from "node:zlib";
 
 import { compileConnect4Geometry, legacyCurrentScore } from "../index.mjs";
 import { positionFromMoves } from "../search.mjs";
 
-const encoded = await readFile(new URL("../../../reference/legacy-evaluator-vectors.json.gz.b64", import.meta.url), "utf8");
-const compressed = Buffer.from(encoded.trim(), "base64");
-assert.equal(
-  createHash("sha256").update(compressed).digest("hex"),
-  "20157f8250e46c4a85b200463bbe0204e1379d81c2bb558cd6c9c25274bd72ca",
-  "frozen evaluator evidence bytes changed",
-);
-const vectors = JSON.parse(gunzipSync(compressed).toString("utf8"));
+const fixture = JSON.parse(await readFile(new URL("../../../reference/legacy-evaluator-regression.json", import.meta.url), "utf8"));
 
-test("legacy-current evaluator matches frozen adjustable-board vectors", () => {
-  let geometry = null;
-  let geometryKey = "";
-  for (const vector of vectors.vectors) {
-    const key = `${vector.columns}x${vector.rows}`;
-    if (key !== geometryKey) {
-      geometry = compileConnect4Geometry(vector.columns, vector.rows);
-      geometryKey = key;
+assert.equal(fixture.profile, "legacy-current-evaluator-v1");
+assert.equal(fixture.sourceArchiveSha256, "3dee57256552c2a0c8104cdc76c6b103e7de4a2bc69332a6723d4a5d1e543f20");
+assert.equal(fixture.sourceVirtualBoardSha256, "506fa4aa5303c8118ec7a5cb7b1a2bed9115bf008a24c619270a128cc0c6642e");
+
+test("legacy-current evaluator matches frozen adjustable-board score digests", () => {
+  for (const group of fixture.groups) {
+    const geometry = compileConnect4Geometry(group.columns, group.rows);
+    const digest = createHash("sha256");
+    for (const encodedMoves of group.moves) {
+      const moves = encodedMoves === "" ? [] : Array.from(encodedMoves, Number);
+      const position = positionFromMoves(geometry, moves);
+      const score0 = legacyCurrentScore(geometry, position.p0Low, position.p0High, position.p1Low, position.p1High, position.ply);
+      const score1 = legacyCurrentScore(geometry, position.p1Low, position.p1High, position.p0Low, position.p0High, position.ply);
+      digest.update(`${score0}:${score1}\n`);
     }
-    const position = positionFromMoves(geometry, vector.moves);
     assert.equal(
-      legacyCurrentScore(geometry, position.p0Low, position.p0High, position.p1Low, position.p1High, position.ply),
-      vector.score0,
-      `${key} p0 ${vector.moves.join(",")}`,
-    );
-    assert.equal(
-      legacyCurrentScore(geometry, position.p1Low, position.p1High, position.p0Low, position.p0High, position.ply),
-      vector.score1,
-      `${key} p1 ${vector.moves.join(",")}`,
+      digest.digest("hex"),
+      group.scoresSha256,
+      `${group.columns}x${group.rows} legacy evaluator digest`,
     );
   }
 });
