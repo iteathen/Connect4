@@ -1,87 +1,64 @@
 # Connect4 Status
 
 **Updated:** 2026-09-07
-**Phase:** qualified incumbent Node + solved-strength baseline / CUDA-MCGS public-composition assessment next
+**Phase:** paused after qualified Node + solved-strength baseline; waiting on CUDA-MCGS #124
 
 ## Product role
 
 Connect4 is the product-owned Node benchmark/validation lane for Connect Four search. It owns Connect Four domain/evaluator/benchmark meaning and consumes CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS only through public surfaces.
 
-## Qualified incumbent foundation
+## Protected baseline
 
-C4-0001 through C4-0004 establish:
+Protected `main@0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e` contains C4-0001 through C4-0005:
 
-- canonical standard 7×6 benchmark-domain semantics while incumbent machinery remains dimension-parameterized;
-- the frozen optimized incumbent evaluator, including live-line positional value, parity reasoning and repeated-immediate frontier promotion;
+- dimension-parameterized Connect Four incumbent semantics with canonical 7×6 benchmark profile;
+- frozen optimized evaluator semantics including parity reasoning and repeated-immediate frontier promotion;
 - explicit-root-player low-allocation alpha-beta with tactical prepass;
-- fixed-size persistent cross-move TT with perspective/depth-qualified score reuse and ordering-only reuse of otherwise-ineligible best moves;
+- persistent cross-move TT with safe score/bound reuse and ordering-only inherited move reuse;
 - exact legacy evaluator/search/self-play conformance;
-- fixed-request persistent-vs-reset and fixed-wall-clock Node benchmark protocol.
+- Node 26.7 persistent-vs-reset and wall-clock benchmark evidence;
+- independent solved-game oracle evidence and the frozen depth-12 W/D/L defect.
 
-Protected `main@33888bee6cf8d3e1941ad53819ef24a1432a2244` passed post-merge `verify` run **34116478402**.
+Post-merge `verify` run **34122562926** succeeded on the C4-0005 main head.
 
-The reference Node 26.7 benchmark run remains **34116027347** at source `5ca077c2073b7e5e4432c9267da729836efbacb0`: persistent TT completed the frozen depth-8 reroot workload with **501,027 nodes / 289,914 evaluator calls / 480.55 ms**, versus reset-each-root at **624,351 / 371,565 / 542.69 ms**, with the same decision checksum. This is exact-runner evidence, not a universal CPU performance claim.
+Reference incumbent benchmark evidence remains run **34116027347**. C4-0005 qualification remains backed by `verify` **34122018213**, `strength-evidence` **34122018076**, and benchmark regression **34122018187**.
 
-## C4-0005 solved-game strength qualification
+## Solved-strength disposition
 
-C4-0005 adds a separate exact 7×6 numerical oracle used only for strength/correctness evidence. It does not import or reuse the incumbent evaluator, alpha-beta implementation, TT, or product-domain class.
+C4-0005 established that incumbent v1 is strong but not globally perfect at depth 12. The frozen defect `54676552255627` chooses a solved losing move at depth 12 and first reaches the exact-optimal move at depth 19 in the investigated seam. Cross-move TT ordering was falsified as the cause. The repeated-immediate evaluator behavior remains frozen because the isolated removal experiment produced mixed gains and regressions rather than a uniformly better replacement.
 
-External parent scores are Pascal Pons strong-solver benchmark checkpoints. Matching test-set bytes were independently observed in two unrelated public GitHub mirrors at fixed revisions before corpus generation. Oracle-generated per-column action labels are admitted only after exact parent-score parity.
+## CUDA-MCGS composition assessment
 
-At candidate source `952cf15dfc86e08abdc86e508025a056c8865687` under exact Node **26.7.0**:
+Read-only assessment of CUDA-MCGS `main@893a1676a303bf28aff8f24847b0be1559ba859c` and CUDA-JS-Tensor `main@cbecc75138769419ed2c09fbfeb227f3ffe2de57` found:
 
-- `verify` run **34122018213** passed **27/27** tests;
-- all **158/158** external Pons parent strong-score checkpoints matched exactly;
-- all 128 deterministic calibration action-score vectors and all 30 separately labeled beginning spot-check vectors regenerated exactly;
-- `strength-evidence` run **34122018076** passed and reproduced the local strength evidence exactly;
-- incumbent `benchmark-evidence` regression run **34122018187** also passed.
+- required public package entry points and external Device-JS import composition exist;
+- the public CUDA-JS-Tensor evaluator connector can bind a public `TensorDeviceProgram` without deep imports;
+- CUDA-MCGS evaluator semantics already define the required request/batch/lifecycle ports;
+- the executable comparison lane is **not dependency-ready** because CUDA-MCGS #124 still owns and lacks the active device-resident evaluator request/batching/scatter/freshness/failure/cleanup runtime bridge.
 
-### Deterministic 128-position calibration
+Connect4 must not implement those generic lifecycle semantics downstream. The full assessment is recorded in `docs/research/2026-09-07-cuda-mcgs-composition-readiness.md`.
 
-The first 64 `Test_L3_R1` plus first 64 `Test_L2_R1` positions reach:
+## Pause / resume seam
 
-- depth 6: **127/128** exact-strong optimal, **128/128** W/D/L preserved;
-- depth 7: **126/128** exact-strong optimal, **127/128** W/D/L preserved;
-- depths 8–12: **128/128** exact-strong optimal and **128/128** W/D/L preserved.
+Connect4 is now intentionally paused while owner attention shifts to CUDA-MCGS #124.
 
-The depth-4 and depth-7 regressions demonstrate that strength is not monotonically increasing at every fixed horizon. This calibration corpus is not evidence that depth 8 is globally perfect.
+When returning to Connect4:
 
-### Beginning spot checks
+1. re-read protected Connect4 and dependency state;
+2. require #124's generic evaluator lifecycle to be public/protected enough for execution;
+3. freeze the Connect4-owned comparison contract;
+4. implement three distinct evidence lanes: incumbent Node, tree-equivalent CUDA-MCGS, graph/transposition-enabled CUDA-MCGS;
+5. preserve C4-0002 evaluator semantics and apply C4-0005 solved-strength evidence to comparison outputs.
 
-The 30 beginning positions are deliberately selection-biased/cost-bounded and remain reported separately. At depth 12 they are **28/30** exact-strong optimal and **29/30** W/D/L preserving. Therefore depth 12 is demonstrably **not perfect** on the solved evidence.
-
-Known solved defect:
-
-`54676552255627`
-
-Per-column strong scores: `[1, 2, -2, -5, 1, -2, -14]`.
-
-At depth 12 incumbent v1 chooses one-based column 3 (`-2`), converting a solved win into a solved loss. It first selects exact-optimal one-based column 2 (`+2`) at depth 19 and remains correct through the locally checked deeper seam.
-
-Both `legacy-qualified` fixed-depth and production persistent-ordering policies make the same choices through the investigated correction seam, falsifying cross-move TT ordering as the cause. The evidence points to a horizon/evaluator-search limitation.
-
-A controlled experiment removing only the repeated-immediate promotion produced mixed solved-corpus gains and regressions and did not improve the eventual correction depth. C4-0002 therefore remains unchanged; no evaluator replacement has demonstrated uniform dominance.
-
-## Next executable seam
-
-Assess the **public** CUDA-MCGS composition required to express the Connect4 comparison lane, read-only first:
-
-1. inspect current protected CUDA-MCGS/public package state and relevant public evaluator/search/session contracts;
-2. map C4-0002/C4-0004/C4-0005 requirements onto public composition points;
-3. identify any dependency gap without pushing Connect4 semantics upstream;
-4. freeze a Connect4-owned comparison contract only if the existing public dependency is sufficient.
-
-**CUDA-MCGS issue #124 remains paused.** This next seam does not authorize resuming it or mutating CUDA-MCGS.
+Do not reopen C4-0001 through C4-0005 merely because #124 changes upstream implementation details.
 
 ## Repository governance
 
-Governance alignment remains separately tracked by issue #3. `main` was still unprotected at the latest live readback; product CI success does not complete repository-policy alignment.
+Governance alignment remains separately tracked by issue #3. Product pause/completeness does not imply repository-policy alignment.
 
 ## Non-claims
 
 - no CUDA-MCGS performance advantage is demonstrated;
 - no GPU-resident Connect Four comparison lane exists yet;
-- perfect performance on the 128-position calibration corpus does not establish global perfect play at depth 8;
-- the 30 beginning spot checks are explicitly non-representative;
-- the repeated-immediate behavior is not proven either necessary or defective in isolation;
-- no Python or cross-language comparison is in scope for the first benchmark gate.
+- no downstream workaround for missing #124 semantics is authorized;
+- no Python or cross-language comparison is part of the first benchmark gate.
