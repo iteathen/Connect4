@@ -74,8 +74,16 @@ The evaluator is root-relative and asymmetric; do not rewrite the incumbent as n
 
 The TT survives ordinary moves. Score/bound reuse must be same-root-perspective and depth-sufficient; opposite-perspective or shallower entries may still contribute a best move for ordering under the production policy. Do not clear the TT between ordinary moves to make validity reasoning easier.
 
+## Solved-strength oracle rule
+
+C4-0005 owns the independent 7×6 solved-game strength oracle and strength metrics. The oracle is evidence about the incumbent, not part of the incumbent evaluator/search and not a benchmark competitor. Oracle-generated action labels are accepted only after exact external parent-score checkpoint parity.
+
+Keep exact strong-score optimality distinct from game-theoretic W/D/L preservation. Calibration and selection-biased spot-check corpora must remain visibly separate; neither may be generalized into a global perfect-depth claim.
+
+A solved-position regression can justify investigating a frozen evaluator quirk, but incumbent-v1 semantics do not change until a replacement is shown to improve solved evidence without offsetting regressions and is versioned explicitly.
+
 ## Current phase
 
-The low-level Node incumbent evaluator/search candidate is locally differential-qualified against the retained exact legacy source. The next gate is exact Node 26.7 CI and benchmark-protocol evidence. Do not implement or claim the CUDA-MCGS performance lane until the incumbent benchmark is accepted and required public CUDA-MCGS composition is dependency-ready under current owner instruction.
+The Node incumbent is qualified under C4-0001 through C4-0005: exact legacy evaluator/search compatibility, persistent cross-move TT benchmark evidence, and independent solved-game strength evidence. The next Connect4 work may assess and specify the CUDA-MCGS comparison composition through public dependency surfaces, but CUDA-MCGS issue #124 remains paused and no upstream mutation is authorized by this status alone.
 
 CUDA-MCGS #124 remains paused until explicit owner instruction.

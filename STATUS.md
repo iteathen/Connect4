@@ -1,82 +1,87 @@
 # Connect4 Status
 
 **Updated:** 2026-09-07
-**Phase:** qualified incumbent Node baseline / strength-oracle next
+**Phase:** qualified incumbent Node + solved-strength baseline / CUDA-MCGS public-composition assessment next
 
 ## Product role
 
-Connect4 is an independent Node benchmark/validation product. It owns Connect Four domain/evaluator/benchmark meaning and consumes generic CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS contracts only through public surfaces.
+Connect4 is the product-owned Node benchmark/validation lane for Connect Four search. It owns Connect Four domain/evaluator/benchmark meaning and consumes CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS only through public surfaces.
 
-It is not a CUDA-family semantic library and does not own generic search/runtime/Tensor mechanisms.
+## Qualified incumbent foundation
 
-## Protected foundation
+C4-0001 through C4-0004 establish:
 
-C4-0001 owns the accepted canonical standard 7×6 benchmark-domain rules. The incumbent evaluator/search implementation remains dimension-parameterized because the historical engine supports adjustable boards.
+- canonical standard 7×6 benchmark-domain semantics while incumbent machinery remains dimension-parameterized;
+- the frozen optimized incumbent evaluator, including live-line positional value, parity reasoning and repeated-immediate frontier promotion;
+- explicit-root-player low-allocation alpha-beta with tactical prepass;
+- fixed-size persistent cross-move TT with perspective/depth-qualified score reuse and ordering-only reuse of otherwise-ineligible best moves;
+- exact legacy evaluator/search/self-play conformance;
+- fixed-request persistent-vs-reset and fixed-wall-clock Node benchmark protocol.
 
-C4-0002 freezes the optimized incumbent evaluator behavior. C4-0003 freezes the explicit-root-player low-allocation alpha-beta control and persistent cross-move TT semantics. C4-0004 freezes the first Node-local benchmark protocol.
+Protected `main@33888bee6cf8d3e1941ad53819ef24a1432a2244` passed post-merge `verify` run **34116478402**.
 
-## Qualified incumbent baseline
+The reference Node 26.7 benchmark run remains **34116027347** at source `5ca077c2073b7e5e4432c9267da729836efbacb0`: persistent TT completed the frozen depth-8 reroot workload with **501,027 nodes / 289,914 evaluator calls / 480.55 ms**, versus reset-each-root at **624,351 / 371,565 / 542.69 ms**, with the same decision checksum. This is exact-runner evidence, not a universal CPU performance claim.
 
-The incumbent establishes:
+## C4-0005 solved-game strength qualification
 
-- live-line positional evaluation, tactical packing, support/parity reasoning and the preserved repeated-immediate frontier promotion;
-- explicit-root-player alpha-beta with immediate-win, forced-block and double-threat tactical prepass;
-- primitive typed-array game/search state with no board cloning or object-per-node hot path;
-- fixed-size preallocated persistent TT with separate root-perspective banks;
-- same-perspective/depth-qualified score and bound reuse;
-- shallow/opposite-perspective inherited best moves for ordering under the production policy;
-- reroot-safe terminal score normalization;
-- explicit benchmark reset without making reset the production move policy;
-- frozen evaluator, fixed-depth search and historical self-play conformance vectors;
-- fixed-request persistent-vs-reset and fixed-wall-clock benchmark lanes.
+C4-0005 adds a separate exact 7×6 numerical oracle used only for strength/correctness evidence. It does not import or reuse the incumbent evaluator, alpha-beta implementation, TT, or product-domain class.
 
-## Correctness qualification
+External parent scores are Pascal Pons strong-solver benchmark checkpoints. Matching test-set bytes were independently observed in two unrelated public GitHub mirrors at fixed revisions before corpus generation. Oracle-generated per-column action labels are admitted only after exact parent-score parity.
 
-The owner re-supplied the exact legacy archive. Its SHA-256 matched the recorded provenance. Exact benchmark-relevant source bytes are retained in `reference/legacy-source/Connect4-engine-source.zip` so future evaluator/search work does not depend on a transient upload.
+At candidate source `952cf15dfc86e08abdc86e508025a056c8865687` under exact Node **26.7.0**:
 
-Direct differential work against those exact bytes produced:
+- `verify` run **34122018213** passed **27/27** tests;
+- all **158/158** external Pons parent strong-score checkpoints matched exactly;
+- all 128 deterministic calibration action-score vectors and all 30 separately labeled beginning spot-check vectors regenerated exactly;
+- `strength-evidence` run **34122018076** passed and reproduced the local strength evidence exactly;
+- incumbent `benchmark-evidence` regression run **34122018187** also passed.
 
-- **400,442/400,442** exact optimized evaluator player-score matches across 4×4, 5×4, 6×5, 7×6 and 8×7 legal random positions;
-- **190/190** exact fixed-depth move and score matches across the same profile family;
-- exact reproduction of every historical self-play move sequence at depths 3 through 12 under the `legacy-qualified` compatibility policy.
+### Deterministic 128-position calibration
 
-Repository `verify` run **34116027286** passed on the C4-0004 head under exact Node **26.7.0**. The earlier incumbent qualification run **34114421777** also passed all 20 tests under exact Node 26.7.0, including depth-3 through depth-12 self-play.
+The first 64 `Test_L3_R1` plus first 64 `Test_L2_R1` positions reach:
 
-## Node 26.7 benchmark evidence
+- depth 6: **127/128** exact-strong optimal, **128/128** W/D/L preserved;
+- depth 7: **126/128** exact-strong optimal, **127/128** W/D/L preserved;
+- depths 8–12: **128/128** exact-strong optimal and **128/128** W/D/L preserved.
 
-`benchmark-evidence` run **34116027347** executed C4-0004 at source revision `5ca077c2073b7e5e4432c9267da729836efbacb0` on Ubuntu 24.04, AMD EPYC 7763, 4 logical CPUs.
+The depth-4 and depth-7 regressions demonstrate that strength is not monotonically increasing at every fixed horizon. This calibration corpus is not evidence that depth 8 is globally perfect.
 
-At the frozen 7×6 depth-8 reroot workload, 3 repetitions / 36 root searches:
+### Beginning spot checks
 
-- persistent TT: **501,027 nodes**, **289,914 evaluator calls**, **480.55 ms**;
-- reset before every root: **624,351 nodes**, **371,565 evaluator calls**, **542.69 ms**;
-- both lanes produced decision checksum `2804412475`;
-- persistence reduced nodes by about **19.75%**, evaluator calls by about **21.97%**, and elapsed time by about **11.45%** on this runner;
-- persistent search recorded **40,290** cross-generation position hits, **40,461** cross-generation ordering hits and **564** cross-generation score hits.
+The 30 beginning positions are deliberately selection-biased/cost-bounded and remain reported separately. At depth 12 they are **28/30** exact-strong optimal and **29/30** W/D/L preserving. Therefore depth 12 is demonstrably **not perfect** on the solved evidence.
 
-The same evidence run's 250 ms wall-clock depth sweep completed depth 12 at a **200.96 ms** median and found depth 13 over budget at **361.72 ms** median.
+Known solved defect:
 
-Raw nodes/second was higher in the reset lane than the persistent lane. That does not contradict the persistence win: persistence completed the same semantic request workload sooner by eliminating substantially more nodes/evaluator calls. Throughput and useful-work reduction are therefore reported together.
+`54676552255627`
 
-This is exact-profile, machine-bound reference evidence, not a universal CPU performance claim. See `docs/research/2026-09-07-node26-benchmark-evidence.md`.
+Per-column strong scores: `[1, 2, -2, -5, 1, -2, -14]`.
+
+At depth 12 incumbent v1 chooses one-based column 3 (`-2`), converting a solved win into a solved loss. It first selects exact-optimal one-based column 2 (`+2`) at depth 19 and remains correct through the locally checked deeper seam.
+
+Both `legacy-qualified` fixed-depth and production persistent-ordering policies make the same choices through the investigated correction seam, falsifying cross-move TT ordering as the cause. The evidence points to a horizon/evaluator-search limitation.
+
+A controlled experiment removing only the repeated-immediate promotion produced mixed solved-corpus gains and regressions and did not improve the eventual correction depth. C4-0002 therefore remains unchanged; no evaluator replacement has demonstrated uniform dominance.
 
 ## Next executable seam
 
-1. Add an independent solved-game oracle/position corpus and report strength by depth without treating self-play as proof of perfect play.
-2. Use that oracle to distinguish useful incumbent quirks from genuine evaluator/search defects before changing frozen behavior.
-3. Only after the incumbent benchmark/strength baseline is accepted should a CUDA-MCGS comparison lane be defined through public dependency surfaces and under current owner authorization.
+Assess the **public** CUDA-MCGS composition required to express the Connect4 comparison lane, read-only first:
 
-CUDA-MCGS #124 remains paused under explicit owner instruction.
+1. inspect current protected CUDA-MCGS/public package state and relevant public evaluator/search/session contracts;
+2. map C4-0002/C4-0004/C4-0005 requirements onto public composition points;
+3. identify any dependency gap without pushing Connect4 semantics upstream;
+4. freeze a Connect4-owned comparison contract only if the existing public dependency is sufficient.
+
+**CUDA-MCGS issue #124 remains paused.** This next seam does not authorize resuming it or mutating CUDA-MCGS.
 
 ## Repository governance
 
-Governance alignment remains tracked separately in issue #3. Do not infer repository-policy parity from product CI success. Main protection and required `verify` remain governance facts requiring independent live readback/admin alignment.
+Governance alignment remains separately tracked by issue #3. `main` was still unprotected at the latest live readback; product CI success does not complete repository-policy alignment.
 
 ## Non-claims
 
 - no CUDA-MCGS performance advantage is demonstrated;
-- no GPU-resident Connect Four engine exists here yet;
-- GitHub-hosted-runner timing does not generalize to another CPU/runtime/profile;
-- process-memory snapshots are not a complete V8 allocation count;
-- historical self-play is an integration oracle, not proof of game-theoretic perfect play;
+- no GPU-resident Connect Four comparison lane exists yet;
+- perfect performance on the 128-position calibration corpus does not establish global perfect play at depth 8;
+- the 30 beginning spot checks are explicitly non-representative;
+- the repeated-immediate behavior is not proven either necessary or defective in isolation;
 - no Python or cross-language comparison is in scope for the first benchmark gate.
