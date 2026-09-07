@@ -29,13 +29,14 @@ Relevant source hashes:
 - forced single-block restriction and double-threat loss shortcut;
 - depth-dependent terminal/evaluator weighting.
 
-This is useful as the incumbent Node search baseline after removal of browser Worker/application plumbing.
+The module-scope TT is intentionally retained across turns. After a played move, the next root lies inside the previously searched subtree, so persistence is a valid search-memory design goal. The legacy depth gate prevented most retained next-root best moves from being used for ordering; C4-0003 separates ordering reuse from numeric-bound reuse rather than deleting persistence.
 
 ### Optimized reversible board
 
 `virtualBoard.js` contains useful implementation ideas:
 
 - compact one-dimensional board storage;
+- adjustable columns/rows;
 - column-height gravity tracking;
 - reversible apply/undo;
 - last-move-local win checks;
@@ -43,7 +44,7 @@ This is useful as the incumbent Node search baseline after removal of browser Wo
 - position-to-winning-line indexing;
 - incrementally invalidated per-player winnable-line status.
 
-Those mechanisms are source material. The new domain contract is specified independently in C4-0001.
+Those mechanisms are source material. C4-0001 owns the standard 7x6 benchmark game contract; later implementation profiles must not silently erase the legacy engine's adjustable-board design.
 
 ### Custom evaluator concepts
 
@@ -51,40 +52,39 @@ The archive contains two generations of the custom evaluator. Reusable concepts 
 
 - positional value from still-winnable four-cell lines;
 - immediate threats;
-- multiple/fork threats;
-- parity/zugzwang-style threat classification based on gravity and remaining move parity;
+- multiple/fork-like tactical classes;
+- parity/zugwang-style threat classification based on gravity and remaining move parity;
 - asymmetric root-player/opponent weighting (`evalPlayerScoreRatio = 0.65` in the worker generation);
 - depth-dependent score scaling (`depthDependantWeight = 1.01`);
 - terminal values at approximately +/-1e13;
 - the optimized generation packs tactical classes above positional score bits.
 
-These concepts are promising, but the implementations are not interchangeable or self-authorizing.
+The live-line evaluator is not a conventional center/piece-square table: geometry, connectivity, blocking value and future opportunity emerge from the still-available winning-line solution space.
 
-## Confirmed semantic divergence
+The parity mechanism also performs domain-specific forward reasoning at the search horizon. The historical source explicitly notes that its apparently unusual parity relation accounts for evaluation happening before the next recursive move is applied.
 
-The older `Board.findZugzwang()` and newer `virtualBoard._computeThreatFlags()` do not classify all legal positions the same way.
+## Observed evaluator-generation divergence
+
+The older `Board.findZugzweng()` and newer `virtualBoard._computeThreatFlags()` do not classify all legal positions the same way.
 
 A reproduced legal move sequence is:
 
 `[5, 3, 4, 1, 3, 2, 3, 4, 6, 5]`
 
-For player `1`, the older implementation reports one `blockableFork` plus `simpleThreat`. The actual board has one immediate threat line with empty winning cell `[0,0]`:
+For player `1`, the older implementation reports one `blockableFork` plus `simpleThreat`. The board has one immediately playable 3+1 winning target at `[0,0]`. The optimized `_computeThreatFlags()` reports its high `hasForkThreat` tier because the same line is revisited through each owned token.
 
-`[(0,0),(1,0),(2,0),(3,0)]`
+This is an implementation/classification difference, **not a demonstrated gameplay defect**. The repeated traversal materially affects the optimized packed score and can function as horizon tactical weighting. C4-0002 therefore freezes the actual optimized score behavior without requiring the repeated traversal or treating historical variable names as semantic authority.
 
-The optimized `_computeThreatFlags()` reports `hasForkThreat: true`.
+Similarly, the odd-looking parity relation is intentional and must not be "fixed" by local pattern matching.
 
-The cause is concrete: `_computeThreatFlags()` iterates each owned token and then each winning line containing that token, but does not deduplicate line indices before incrementing `immediateThreatCount`. A single three-token threat line is therefore visited once per owned token and can be counted multiple times. The `hasForkThreat` label is consequently not a trustworthy semantic oracle by itself.
-
-This does not establish that the incumbent engine is weak or that its resulting ranking should simply be changed. The packed score may have benefited from the effective weighting. It establishes only that optimization labels and older intent have diverged and must be adjudicated deliberately.
-
-## Bootstrap disposition
+## Disposition
 
 1. Preserve the archive/hash as provenance rather than importing UI/audio/graphics/browser structure.
-2. Keep C4-0001 game semantics independent.
-3. Specify evaluator behavior separately from implementation names such as `fork` or `zugzwang`.
-4. Build independent evaluator conformance vectors from deliberately chosen legal positions, including ambiguous/multi-line threat cases.
-5. Re-express the incumbent minimax control in Node only after the evaluator profile to be benchmarked is explicit.
-6. Require the future CUDA-MCGS lane to match the same accepted evaluator vectors before performance/strength comparison.
+2. Keep domain/game authority independent of the legacy implementation.
+3. Freeze the actual optimized evaluator as C4-0002 before semantic cleanup.
+4. Remove redundant scans/traversals only under exact score regression evidence.
+5. Preserve TT lifetime and fix its reuse semantics rather than deleting it.
+6. Use solved Connect Four evidence to judge any later evaluator semantic revision.
+7. Require a future CUDA-MCGS lane to match the selected evaluator profile before architecture-isolation performance comparison.
 
 No CUDA-MCGS implementation work is authorized by this extraction note.

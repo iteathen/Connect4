@@ -1,31 +1,41 @@
-state: evaluator_semantics_next
-updated: 2026-09-06
+state: incumbent_v8_qualification_next
+updated: 2026-09-07
 repository_role: connect4_product_benchmark
 current:
-  action: freeze_shared_evaluator_profile_and_independent_vectors
+  action: qualify_and_review_incumbent_v8_rewrite
   owner: Connect4
-  reason: legacy_evaluator_generations_diverge
   prerequisites:
     - C4-0001_domain_reference_qualified
+    - C4-0002_legacy_current_evaluator_frozen
+    - C4-0003_incumbent_v8_search_defined
+  evidence:
+    - archive_derived_evaluator_vectors_adjustable_boards
+    - legacy_fixed_depth_search_vectors
+    - legacy_self_play_move_and_score_traces_depth_4_through_8
+    - persistent_tt_cross_root_ordering_falsifier
   outputs:
-    - accepted_evaluator_contract
-    - independent_position_vectors
-    - deterministic_host_reference
-    - incumbent_behavior_retention_decision
+    - protected_node26_7_verify
+    - reviewed_incumbent_v8_candidate
 then:
-  - port_incumbent_node_minimax_alpha_beta_control
-  - qualify_incumbent_against_shared_evaluator
   - define_node_local_benchmark_protocol
-  - add_cuda_mcgs_lane_only_when_public_dependency_is_ready
+  - add_solved_connect4_oracle_and_strength_suite
+  - qualify_exact_node_host_performance
+  - evaluate_optional_evaluator_v2_only_against_frozen_v1
+  - add_cuda_mcgs_lane_only_when_public_dependency_is_ready_and_owner_resumes_it
 blocked_or_paused:
   cuda_mcgs_issue_124:
     state: paused
     resume: explicit_owner_instruction_only
   performance_claims:
-    state: blocked_until_correctness_and_exact_profile_evidence
+    state: blocked_until_exact_node26_7_host_evidence
+  optimized_persistent_ordering_strength:
+    state: blocked_until_solved_position_evidence
 constraints:
   - node_only_first_comparison_gate
   - no_python
   - no_direct_cuda_ffi_or_native_addon_in_connect4
   - same_game_and_evaluator_semantics_for_architecture_isolation_claims
+  - preserve_adjustable_board_semantics
+  - avoid_hot_path_high_level_operations_transformations_and_game_state_mutation
+  - persistent_tt_is_intentional_search_memory
   - separate_device_residency_gain_from_graph_reuse_gain

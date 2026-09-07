@@ -1,7 +1,7 @@
 # Connect4 Status
 
-**Updated:** 2026-09-06
-**Phase:** benchmark bootstrap / evaluator-semantic extraction
+**Updated:** 2026-09-07
+**Phase:** incumbent Node/V8 rewrite qualification
 
 ## Product role
 
@@ -11,48 +11,72 @@ It is not a CUDA-family semantic library and does not own generic search/runtime
 
 ## Current integration candidate
 
-The bootstrap candidate establishes:
+The candidate adds two accepted compatibility specifications above C4-0001:
 
-- C4-0001 standard 7x6 Connect Four domain semantics;
-- a clean Node reference domain with reversible play/undo and all 69 winning lines;
-- tests for gravity, legality, horizontal/vertical/diagonal wins, full-column rejection and exact undo restoration;
-- legacy archive provenance without importing UI/assets/browser application structure;
-- an explicit evaluator-semantic extraction gate after confirming that two legacy evaluator generations diverge.
+- **C4-0002** freezes the actual optimized 2025 custom evaluator behavior, including adjustable-board parity semantics, live-line positional investment, root-side weighting, depth scaling, and the current packed tactical score behavior;
+- **C4-0003** defines the low-overhead Node/V8 incumbent search with primitive value state, no board apply/undo mutation, no per-node result objects/arrays/closures, and a typed persistent TT.
 
-No incumbent minimax port, CUDA-MCGS lane, benchmark timing, performance result or strength claim exists yet.
+The first fast position profile is adjustable by `columns x rows` and uses two `uint32` lanes up to 64 cells. The 64-cell bound is an implementation profile, not a redefinition of adjustable-board product semantics.
 
-## Legacy source material
+## Legacy source material and regression truth
 
 Owner-supplied `Connect4.zip` SHA-256:
 
 `3dee57256552c2a0c8104cdc76c6b103e7de4a2bc69332a6723d4a5d1e543f20`
 
-The archive contains useful alpha-beta/transposition search, reversible-board, Zobrist and custom threat/parity evaluation ideas. It is evidence/provenance, not the target repository structure or evaluator oracle.
+The archive contains the incumbent alpha-beta/transposition search, adjustable `virtualBoard`, deterministic Zobrist identity and custom threat/parity evaluator. It remains evidence/provenance rather than specification authority.
 
-A confirmed divergence in the optimized threat counter prevents either legacy evaluator implementation from silently becoming normative. See `docs/research/2026-09-06-legacy-engine-extraction.md`.
+The previous extraction note's immediate-threat divergence is now classified more carefully: it is an **observed optimized scoring quirk, not a demonstrated gameplay defect**. The unusual parity relation is intentionally coupled to evaluation-before-recursive-move timing and is preserved exactly in C4-0002.
+
+Durable archive-derived regression fixtures include:
+
+- 400 evaluator positions across 4x4, 5x4, 6x5, 7x6 and 8x7;
+- adjustable-board fixed-depth search vectors;
+- complete legacy 7x6 self-play move+score traces for depths 4 through 8.
+
+## Qualification result before protected integration
+
+Local differential work demonstrated:
+
+- more than 462,000 player-position evaluator score comparisons matched the optimized `virtualBoard.score()` exactly across five board sizes;
+- compatibility-mode fixed-depth search reproduces legacy move and score vectors;
+- standard 7x6 compatibility mode reproduces complete legacy self-play traces depth 4 through 8;
+- retained TT best-move ordering participates across roots while numeric bounds remain restricted to the same root player/root ply/sufficient depth;
+- hot-path source rejects high-level collection/transformation helpers such as `map`, `filter`, `reduce`, `sort`, `Map`, `Set`, JSON transforms, board copies and apply/undo mutation.
+
+Local Node 22.16.0 timing showed roughly 1.9x-3.8x lower wall time than an archive-derived Node control on the exact-compatible depth 4-8 self-play traces. **This is diagnostic only**, not qualified Node 26.7.0 performance evidence.
+
+## Persistent TT ownership
+
+TT persistence is intentional: after a move, the next root is a descendant of the prior search tree.
+
+The legacy worker retained the table but gated `bestMove` use behind the same remaining-depth test as numeric bounds, preventing most next-turn ordering reuse at constant depth. C4-0003 separates:
+
+- exact-board retained move -> reusable ordering hint;
+- numeric bound -> same root player + same root ply + sufficient remaining depth only.
+
+This preserves the intended search memory without moving the goalpost to TT deletion or accepting stale root-relative values.
 
 ## Next executable seam
 
-Define and qualify the shared evaluator profile before porting the incumbent minimax control or implementing a CUDA-MCGS comparison lane.
+1. qualify the candidate on repository CI at exact Node 26.7.0;
+2. review and protect the incumbent rewrite;
+3. define the Node-local benchmark protocol and exact host timing evidence;
+4. add a solved Connect Four oracle/position suite to measure game-theoretic strength and identify the depth/profile at which play becomes perfect;
+5. evaluate any semantic evaluator revisions only as new profiles against the frozen legacy-current baseline;
+6. add the CUDA-MCGS lane only after explicit owner resumption and public dependency readiness.
 
-The evaluator work must:
-
-1. separate semantic classes from incidental legacy names/bit packing;
-2. decide which incumbent ranking behavior is intentionally retained;
-3. freeze independent legal-position conformance vectors, including immediate threats, shared-cell multi-line threats, true distinct winning moves, parity threats and terminal positions;
-4. provide a deterministic host reference;
-5. make any later Device-JS realization match those vectors before benchmark timing.
-
-CUDA-MCGS #124 remains paused under its existing owner instruction. This repository bootstrap does not resume it.
+CUDA-MCGS #124 remains paused. This work does not resume it.
 
 ## Repository governance
 
-The repository now has a `main` branch only because the bootstrap seed commit was required to initialize the previously empty repository. Live settings still do not match the selected CUDA-family baseline: merge commits remain enabled and auto-merge/update-branch remain disabled. Main protection must be read back after repository-admin alignment; do not claim parity before that evidence exists.
+Live repository controls still do not match the selected CUDA-family baseline: `main` remains unprotected and repository-admin settings require the separate governance issue. Do not claim governance parity before live readback proves it.
 
 ## Non-claims
 
 - no CUDA-MCGS performance advantage is demonstrated;
 - no GPU-resident Connect Four engine exists here yet;
-- no benchmark result exists yet;
-- no evaluator generation from the legacy archive is accepted as normative merely because it is newer;
+- no Node 26.7.0 qualified performance number exists yet;
+- no claim is made that depth 12 or lower is perfect play;
+- the optimized persistent-ordering lane is not promoted as stronger until solved-position evidence exists;
 - no Python or cross-language comparison is in scope for the first benchmark gate.

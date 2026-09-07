@@ -30,8 +30,8 @@ Preserve valid work. Treat issues, comments, benchmark results, legacy code, and
 
 Connect4 owns:
 
-- standard 7x6 Connect Four rules and state semantics used by this product;
-- the custom Connect Four evaluator meaning and its independent conformance vectors;
+- standard 7x6 benchmark rules/state plus adjustable rectangular Connect Four product semantics where explicitly profiled;
+- the custom Connect Four evaluator meaning and its independent/archive-derived conformance evidence;
 - product-specific state/action/evaluator Device-JS realization;
 - incumbent minimax/alpha-beta search implementation used as a benchmark control;
 - benchmark positions, budgets, fairness policy, metrics, result identity, and performance/strength evidence;
@@ -50,6 +50,23 @@ CUDA-MCGS owns generic graph/search/evaluator-request/resource/progress/session 
 - Benchmark adapters may express the same workload differently only when the mode explicitly permits idiomatic optimization; the benchmark contract owns the workload and acceptance conditions.
 - Results bind to exact source revisions, runtime, OS, hardware/provider identity and benchmark configuration. No result silently transfers to another profile.
 
+## Incumbent Node/V8 hot-path rule
+
+The incumbent CPU control is intentionally specialized and low-level. During active search/evaluation:
+
+- avoid high-level collection operations and transformation pipelines;
+- avoid board/object cloning, apply/undo game-state mutation, JSON/string representations, and allocation of per-node objects/arrays/closures;
+- carry position facts in the representation in which search/evaluation consumes them;
+- generated/static geometry tables are allowed outside the hot path;
+- a preallocated transposition table is an explicitly owned mutable performance cache and is not game-state mutation;
+- persistent TT lifetime is intentional because the next played position is a descendant of prior search work; do not delete/reset it as a simplification without explicit evidence/authority.
+
+An optimization may change implementation mechanics without changing an accepted evaluator/search compatibility profile only after exact regression evidence proves semantic parity.
+
+## Adjustable-board rule
+
+Do not silently bake 7x6 arithmetic into evaluator semantics. The headline benchmark profile is standard 7x6, but legacy evaluator/search ideas were written against adjustable `columns x rows` boards. Any specialized representation limit must be explicit as an implementation profile and must not be misreported as the product semantic boundary.
+
 ## Device-closure rule
 
 For a CUDA-MCGS benchmark lane, after search ignition no active search decision may require a CPU-produced intermediate result. Bounded asynchronous observation, external control/cancellation, completion and teardown are allowed; a host read-decide-write loop that advances search is not.
@@ -62,8 +79,8 @@ Maintained Connect4 source is ordinary JavaScript/Node.js plus product Device-JS
 
 The supplied 2025 browser game is source material only. Do not import its DOM, audio, graphics, browser Worker plumbing, or application layout into the benchmark product. Reuse semantics or algorithms only after identifying their owner, intent and conformance evidence.
 
-Two evaluator generations in the legacy source already disagree. Therefore neither implementation may become the new evaluator oracle merely by being newer or faster. Freeze intended evaluator semantics and independent vectors first.
+The older and optimized evaluator generations differ. That fact is not by itself proof that the optimized behavior is a gameplay bug. The accepted C4-0002 compatibility profile freezes the actual optimized score behavior; future semantic changes require a new profile and strength/correctness evidence.
 
 ## Current phase
 
-Benchmark bootstrap and evaluator-semantic extraction. The clean standard Connect Four domain may be implemented and tested independently. Do not implement or claim the CUDA-MCGS performance lane until the shared evaluator contract is accepted and the required public CUDA-MCGS composition is dependency-ready under current owner instruction.
+Incumbent Node/V8 rewrite qualification. C4-0002 freezes the legacy-current evaluator and C4-0003 defines the optimized CPU search lane. Do not implement or claim the CUDA-MCGS performance lane until the required public CUDA-MCGS composition is dependency-ready and explicitly resumed by the project owner.
