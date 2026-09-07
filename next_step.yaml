@@ -1,48 +1,48 @@
-state: solved_strength_oracle_qualified
+state: paused_waiting_on_cuda_mcgs_124
 updated: 2026-09-07
 repository_role: connect4_product_benchmark
 current:
-  action: assess_cuda_mcgs_public_composition_readiness_without_resuming_issue_124
+  action: hold_connect4_while_cuda_mcgs_124_executes
   owner: Connect4
-  mode: read_only_dependency_assessment
-  prerequisites:
-    - C4-0001_domain_reference_qualified
-    - C4-0002_incumbent_evaluator_vectors_exact
-    - C4-0003_incumbent_search_node_26_qualified
-    - C4-0004_incumbent_benchmark_protocol_qualified
-    - C4-0005_solved_strength_oracle_node_26_qualified
-  outputs:
-    - cuda_mcgs_public_surface_readback
-    - connect4_to_cuda_mcgs_composition_map
-    - dependency_gap_classification_if_any
-    - connect4_comparison_contract_candidate_if_dependency_ready
-then:
-  - freeze_connect4_cuda_mcgs_comparison_contract_if_dependency_ready
-  - implement_connect4_cuda_mcgs_lane_only_under_current_owner_authorization_and_without_resuming_paused_upstream_issue
+  mode: paused
+  prerequisites_completed:
+    - C4_0001_domain_reference_qualified
+    - C4_0002_incumbent_evaluator_vectors_exact
+    - C4_0003_incumbent_search_node_26_qualified
+    - C4_0004_incumbent_benchmark_protocol_qualified
+    - C4_0005_solved_strength_oracle_node_26_qualified
+  secured_outputs:
+    - exact_legacy_source_provenance_in_repo
+    - qualified_node_incumbent
+    - persistent_tt_benchmark_evidence
+    - solved_strength_oracle_and_known_defect
+    - cuda_mcgs_public_composition_readiness_assessment
 blocked_or_paused:
-  cuda_mcgs_issue_124:
+  connect4_execution:
     state: paused
-    resume: explicit_owner_instruction_only
-  cuda_mcgs_upstream_mutation:
-    state: blocked
-    reason: issue_124_paused_and_current_seam_is_read_only_dependency_assessment
+    resume: explicit_owner_return_after_cuda_mcgs_124_dependency_progress
+  cuda_mcgs_comparison_lane:
+    state: blocked_on_upstream_generic_lifecycle
+    blocker: CUDA-MCGS_issue_124
+    reason: device_resident_evaluator_request_batch_scatter_freshness_failure_cleanup_runtime_not_yet_protected_complete
+resume_condition:
+  - reread_exact_connect4_main_and_cuda_mcgs_public_state
+  - cuda_mcgs_124_exposes_protected_public_executable_evaluator_lifecycle
+  - freeze_connect4_owned_comparison_contract_before_product_lane_implementation
 reference_evidence:
-  protected_incumbent_main: 33888bee6cf8d3e1941ad53819ef24a1432a2244
-  protected_main_verify_run: 34116478402
-  node_26_7_benchmark_run: 34116027347
-  c4_0005_candidate_revision: 952cf15dfc86e08abdc86e508025a056c8865687
+  connect4_main: 0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e
+  connect4_main_verify_run: 34122562926
+  incumbent_benchmark_run: 34116027347
   c4_0005_verify_run: 34122018213
   c4_0005_strength_run: 34122018076
-  c4_0005_benchmark_regression_run: 34122018187
+  assessed_cuda_mcgs_main: 893a1676a303bf28aff8f24847b0be1559ba859c
+  assessed_cuda_js_tensor_main: cbecc75138769419ed2c09fbfeb227f3ffe2de57
 constraints:
-  - node_only_first_comparison_gate
+  - no_connect4_specific_semantics_upstream
+  - no_downstream_reimplementation_of_cuda_mcgs_evaluator_lifecycle
+  - no_deep_cuda_sibling_imports
   - no_python
-  - no_direct_cuda_ffi_or_native_addon_in_connect4
   - preserve_adjustable_board_incumbent_semantics
   - solved_oracle_is_7x6_evidence_only
-  - calibration_and_selection_biased_spotchecks_remain_separate
   - persistent_tt_is_normal_production_policy
-  - explicit_tt_reset_is_benchmark_isolation_only
-  - same_game_and_evaluator_semantics_for_architecture_isolation_claims
-  - separate_device_residency_gain_from_graph_reuse_gain
-  - do_not_resume_cuda_mcgs_issue_124
+  - separate_tree_equivalent_from_graph_reuse_comparison
