@@ -1,40 +1,43 @@
-state: incumbent_node_baseline_qualified
+state: solved_strength_oracle_candidate
 updated: 2026-09-07
 repository_role: connect4_product_benchmark
 current:
-  action: add_independent_solved_game_strength_oracle
+  action: qualify_c4_0005_solved_strength_oracle_in_node_26_7
   owner: Connect4
   prerequisites:
     - C4-0001_domain_reference_qualified
     - C4-0002_incumbent_evaluator_vectors_exact
     - C4-0003_incumbent_search_node_26_qualified
     - C4-0004_incumbent_benchmark_protocol_qualified
-    - legacy_selfplay_depth_3_through_12_exact
   outputs:
     - independent_oracle_provenance
-    - solved_position_corpus
+    - external_parent_checkpoint_parity
+    - solved_action_corpora
     - strength_by_depth
-    - evaluator_search_defect_evidence_if_any
+    - known_solved_defect_vector
+    - node_26_7_strength_evidence
 then:
-  - define_connect4_cuda_mcgs_comparison_lane_only_when_public_dependency_is_ready_and_owner_authorizes_progress
+  - assess_cuda_mcgs_public_composition_readiness_without_resuming_issue_124
+  - freeze_connect4_cuda_mcgs_comparison_contract_if_dependency_ready
 blocked_or_paused:
   cuda_mcgs_issue_124:
     state: paused
     resume: explicit_owner_instruction_only
-  cuda_mcgs_execution_lane:
-    state: not_started
-    reason: incumbent_strength_oracle_next_and_issue_124_paused
+  cuda_mcgs_upstream_mutation:
+    state: blocked
+    reason: issue_124_paused_and_connect4_read_only_dependency_assessment_next
 reference_evidence:
-  node_26_7_verify_run: 34116027286
+  protected_incumbent_main: 33888bee6cf8d3e1941ad53819ef24a1432a2244
+  protected_main_verify_run: 34116478402
   node_26_7_benchmark_run: 34116027347
-  source_revision: 5ca077c2073b7e5e4432c9267da729836efbacb0
 constraints:
   - node_only_first_comparison_gate
   - no_python
   - no_direct_cuda_ffi_or_native_addon_in_connect4
-  - preserve_adjustable_board_evaluator_and_search_semantics
+  - preserve_adjustable_board_incumbent_semantics
+  - solved_oracle_is_7x6_evidence_only
+  - calibration_and_selection_biased_spotchecks_remain_separate
   - persistent_tt_is_normal_production_policy
   - explicit_tt_reset_is_benchmark_isolation_only
-  - performance_evidence_is_exact_profile_and_machine_bound
   - same_game_and_evaluator_semantics_for_architecture_isolation_claims
   - separate_device_residency_gain_from_graph_reuse_gain
