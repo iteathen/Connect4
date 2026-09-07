@@ -1,0 +1,31 @@
+state: evaluator_semantics_next
+updated: 2026-09-06
+repository_role: connect4_product_benchmark
+current:
+  action: freeze_shared_evaluator_profile_and_independent_vectors
+  owner: Connect4
+  reason: legacy_evaluator_generations_diverge
+  prerequisites:
+    - C4-0001_domain_reference_qualified
+  outputs:
+    - accepted_evaluator_contract
+    - independent_position_vectors
+    - deterministic_host_reference
+    - incumbent_behavior_retention_decision
+then:
+  - port_incumbent_node_minimax_alpha_beta_control
+  - qualify_incumbent_against_shared_evaluator
+  - define_node_local_benchmark_protocol
+  - add_cuda_mcgs_lane_only_when_public_dependency_is_ready
+blocked_or_paused:
+  cuda_mcgs_issue_124:
+    state: paused
+    resume: explicit_owner_instruction_only
+  performance_claims:
+    state: blocked_until_correctness_and_exact_profile_evidence
+constraints:
+  - node_only_first_comparison_gate
+  - no_python
+  - no_direct_cuda_ffi_or_native_addon_in_connect4
+  - same_game_and_evaluator_semantics_for_architecture_isolation_claims
+  - separate_device_residency_gain_from_graph_reuse_gain
