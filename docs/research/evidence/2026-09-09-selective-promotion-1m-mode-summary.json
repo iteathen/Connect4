@@ -1,0 +1,17 @@
+{
+  "kind": "derived compact summary",
+  "source_command": "node reference/research-prototypes/2026-09-09-selective-promotion/coarse_selective_promotion_summary.mjs <seq> 4 20 3 flat,promote1,promote3,promote7,weighted",
+  "note": "The committed summary wrapper executes the full benchmark and preserves exact per-run scalar metrics while omitting the full task trace. A representative full-task run is described in the research note.",
+  "results": [
+    {"seq":"41267575","mode":"flat","score":3,"medianSec":1.098133052,"medianNodes":9121031,"runs":[[1.340707661,9121031],[1.098133052,9216966],[1.058368248,9104628]]},
+    {"seq":"41267575","mode":"promote1","score":3,"medianSec":1.003765803,"medianNodes":10792754,"runs":[[1.003765803,10710194],[0.977377032,10915601],[1.092028395,10792754]]},
+    {"seq":"41267575","mode":"promote3","score":3,"medianSec":1.332023489,"medianNodes":13965128,"runs":[[1.492872588,13764428],[1.332023489,14010376],[1.25977903,13965128]]},
+    {"seq":"41267575","mode":"promote7","score":3,"medianSec":1.324518781,"medianNodes":13902244,"runs":[[1.192604717,13797565],[1.324518781,13902244],[1.554442253,14947687]]},
+    {"seq":"41267575","mode":"weighted","score":3,"medianSec":1.121235376,"medianNodes":13739357,"runs":[[1.121235376,13732706],[1.115598202,14313698],[1.146913976,13739357]]},
+    {"seq":"663152175","mode":"flat","score":-4,"medianSec":0.191839513,"medianNodes":1109078,"runs":[[0.191839513,1067403],[0.165384318,1111828],[0.196211296,1109078]]},
+    {"seq":"663152175","mode":"promote1","score":-4,"medianSec":0.186391337,"medianNodes":1301996,"runs":[[0.203539276,1299624],[0.168847578,1301996],[0.186391337,1317268]]},
+    {"seq":"663152175","mode":"promote3","score":-4,"medianSec":0.154683671,"medianNodes":1488460,"runs":[[0.177056252,1492656],[0.154683671,1488460],[0.148536918,1487801]]},
+    {"seq":"663152175","mode":"promote7","score":-4,"medianSec":0.159833168,"medianNodes":1451901,"runs":[[0.171029103,1451901],[0.159833168,1556868],[0.143495725,1434119]]},
+    {"seq":"663152175","mode":"weighted","score":-4,"medianSec":0.180483676,"medianNodes":1505882,"runs":[[0.17691175,1518382],[0.218305965,1505882],[0.180483676,1496881]]}
+  ]
+}
