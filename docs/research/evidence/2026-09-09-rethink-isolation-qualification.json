@@ -1,0 +1,31 @@
+[
+  {
+    "kind": "environment",
+    "pinnedHead": "990686a094acaddc0bc37d0995759ab138d63aa4",
+    "kernelBlob": "965c3806c92a7add544dce4777d965b3e12376d6",
+    "kernelSha256": "1c1941be7e356f599b86800b11d6a59593acf3f87f9d21fe86f69e7785b2c8bf",
+    "node": "v22.16.0",
+    "v8": "12.4.254.21-node.26",
+    "arch": "x64",
+    "platform": "linux",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "availableParallelism": 4,
+    "repeats": 3,
+    "pows": [18, 19, 20],
+    "tasks": [
+      {"name":"A1","id":91,"sig2":1008138,"cLo":1075839104,"cHi":7168,"mLo":1881145473,"mHi":15384,"moves":12,"alpha":3,"beta":4},
+      {"name":"B","id":112,"sig2":975370,"cLo":1075839104,"cHi":3088,"mLo":4028629121,"mHi":3128,"moves":12,"alpha":3,"beta":4},
+      {"name":"A2","id":130,"sig2":1008138,"cLo":1075839104,"cHi":3104,"mLo":1881145473,"mHi":3192,"moves":12,"alpha":3,"beta":4}
+    ],
+    "scope": "single-worker fixed-root replay; not whole solve, online scheduler, or concurrent-publication qualification"
+  },
+  {"kind":"taskFullSolve","task":"A1","value":3,"nodes":1515100,"ms":387.57604200000003,"oracle":"same-kernel cold full-window convergence"},
+  {"kind":"taskFullSolve","task":"B","value":3,"nodes":1075176,"ms":215.95275500000002,"oracle":"same-kernel cold full-window convergence"},
+  {"kind":"taskFullSolve","task":"A2","value":3,"nodes":1390509,"ms":292.2730700000001,"oracle":"same-kernel cold full-window convergence"},
+  {
+    "kind": "qualification",
+    "passed": true,
+    "checks": ["kernel Git blob identity","irreversible discriminator occupied with opposite owners","bound versus full-value consistency for every task","deterministic per-mode nodes across repeats","splitExtra equals groupedSmall total nodes"],
+    "limitation": "Full values share solver ancestry; not an independent exactness oracle. Single worker only."
+  }
+]
