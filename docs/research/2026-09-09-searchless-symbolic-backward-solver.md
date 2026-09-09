@@ -1,16 +1,38 @@
-# Searchless symbolic backward solver — exact WDL without board-state enumeration
+# BSFP — searchless symbolic backward solver for exact WDL
 
 **Date:** 2026-09-09  
+**Author / conceptual origin:** Josh Oshiro  
 **Status:** research prototype/evidence only; maintained source and `main` unchanged.  
 **Branch:** `research/low-confidence-survival-2026-09-09`
 
+## Attribution and prior work
+
+This document describes the solver architecture I now call **BSFP — Backward Symbolic Fixed-Point** and the algorithmic idea I call **NDC — Nested Dependency Closure**.
+
+The conceptual path began with my earlier Connect Four evaluator, which used a future-control parity calculation to reason about who would control strategically relevant future squares without explicitly playing every intervening move. I now call that mathematical shape **CPC — Control Parity Calculus**. I later proposed reasoning over surviving winning positions rather than carrying the full colored board as the primary representation, nesting the resulting dependencies, and then running that nested dependency system backward from potential winning positions. Those steps produced the BSFP direction tested here.
+
+This work also uses and algebraically re-expresses prior Connect Four strategy theory by **Victor Allis**. Allis's 1988 master's thesis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, introduced VICTOR, a Shannon C-type program based on nine proven strategic rules, and contains dedicated treatments of **Control of Zugzwang**, formal rule definitions, and rule interaction. I credit Allis with the nine named rules used in this project—Claimeven, Baseinverse, Vertical, Aftereven, Lowinverse, Highinverse, Baseclaim, Before, and Specialbefore—and with the surrounding Zugzwang/control framework.
+
+When I reduce Allis's rules into common blocker, parity, response, or dependency forms, that is a new algebraic transformation of Allis's prior work, not a claim that I originated those rules. Likewise, CPC is not a claim that I originated the general concept of controlling Zugzwang in Connect Four; Allis's work predates mine. My contribution is the specific future-event parity mechanism from my evaluator and its later integration into the CPC/WSL-625/NDC/BSFP line.
+
+**Reference:** Victor Allis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, M.Sc. thesis, Vrije Universiteit Amsterdam, October 1988, Report IR-163.
+
 ## Result
 
-The backward-from-winning-positions idea now has a direct implementation that solves complete Connect Four variants **without enumerating physical board states and without recursive minimax**.
+My backward-from-winning-positions idea now has a direct implementation that solves complete Connect Four variants **without enumerating physical board states and without recursive minimax**.
 
-The solver operates over support/height skeletons only. For each skeleton it stores a reduced multi-terminal Boolean decision diagram (MTBDD) whose variables are ownership of already-filled cells and whose terminals are W/D/L from P0's perspective.
+The prototype operates over support/height skeletons only. For each skeleton it stores a reduced multi-terminal Boolean decision diagram (MTBDD) whose variables are ownership of already-filled cells and whose terminals are W/D/L from P0's perspective.
 
 Potential geometric winning lines are the only terminal-win predicates. The entire game is derived backward from deeper support skeletons toward the empty skeleton.
+
+## Terminology used in this paper
+
+- **CPC — Control Parity Calculus:** the future-control parity mathematics originating in my earlier evaluator.
+- **WSL-625 — Winspace Lattice 625:** the fixed 625-element residual requirement/blocker universe derived during this research from my winspace-over-board direction.
+- **NDC — Nested Dependency Closure:** my algorithmic idea of recursively nesting terminal/prerequisite/adversarial dependencies until closure.
+- **BSFP — Backward Symbolic Fixed-Point:** the solver architecture that executes the closure backward from terminal outcomes.
+
+Historical references to `BSF` in earlier research artifacts refer to the same solver lineage before I finalized the name BSFP.
 
 ## Algebra
 
@@ -34,7 +56,7 @@ P1 to move: V_h = min_c Move_c(h)
 
 where `-1 < 0 < +1`.
 
-This is a bottom-up symbolic dynamic program over the support lattice. It is equivalent to the backward controllable-predecessor fixed point, but it does not materialize colored board positions.
+This is a bottom-up symbolic dynamic program over the support lattice. It is equivalent to a backward controllable-predecessor fixed point, but it does not materialize colored board positions.
 
 The number of support skeletons is only:
 
@@ -111,7 +133,7 @@ No descendant physical board-state graph is constructed in these solves.
 
 The first 7x6 symbolic prototype timed out even on a late root because it treated already-known root stones as free Boolean variables and only fixed them at the final root evaluation.
 
-The corrected implementation constant-folds root ownership into the winning-line predicates from the start. This changed the `+2` frozen root from a timeout to approximately 124 ms and is an example of the broader architecture principle:
+The corrected implementation constant-folds root ownership into the winning-line predicates from the start. This changed the `+2` frozen root from a timeout to approximately 124 ms and illustrates a broader architecture principle:
 
 > representation context should carry facts already known by the root/task rather than redundantly encoding them in every symbolic object.
 
@@ -120,7 +142,7 @@ The corrected implementation constant-folds root ownership into the winning-line
 ### Established on tested games
 
 1. Backward symbolic dependency solving can replace explicit move-state search for exact W/D/L.
-2. Geometric winning lines are sufficient terminal axioms.
+2. Geometric winning lines are sufficient terminal axioms for the tested recurrence.
 3. Alternating player choice becomes algebraic `max/min` composition over symbolic predecessor functions.
 4. The method is exact on every reachable state of four complete games.
 5. It survives standard 7x6 geometry on all eight frozen roots.
@@ -129,37 +151,49 @@ The corrected implementation constant-folds root ownership into the winning-line
 
 1. The empty standard 7x6 board has not yet completed in the current generic MTBDD representation.
 2. Exact distance-to-win/loss is not yet represented; this prototype solves W/D/L.
-3. Current BDD variable order and global node retention are naive.
-4. U1 parity/response algebra, U2 blocker closure, residual antichains and event-frontier facts are not yet compiled into the symbolic function representation; they are likely routes to much stronger compression.
+3. The current BDD variable order and global node-retention strategy are not final.
+4. CPC parity/response algebra, WSL-625 blocker closure, residual antichains, and event-frontier facts are not yet fully compiled into the symbolic representation; they are likely routes to much stronger compression.
+5. The CUDA-JS GPU-batched implementation remains to be qualified.
 
 ## Why the empty-board problem is now different
 
-The mathematical correctness problem is substantially resolved for W/D/L. Empty 7x6 is now primarily a **symbolic representation/compaction problem**.
+The mathematical correctness problem is substantially resolved for W/D/L on the tested domains. Empty 7x6 is now primarily a **symbolic representation/compaction problem**.
 
-The raw support lattice has 823,543 skeletons, which is not itself prohibitive. The likely bottleneck is MTBDD node growth because the current representation carries generic ownership functions rather than the much smaller strategic dependency algebra already discovered elsewhere in the research.
+The raw support lattice has 823,543 skeletons, which is not itself prohibitive. The likely bottleneck is MTBDD node growth because the current representation carries generic ownership functions rather than the much smaller strategic dependency algebra discovered elsewhere in the research.
 
 Promising reductions include:
 
 - variable ordering aligned with support/event precedence;
 - constant/context specialization;
 - per-ply symbolic garbage collection;
-- residual win-space variables instead of raw ownership variables;
+- WSL-625 residual winspace variables instead of raw ownership variables;
 - dominance-antichain representation of winning/losing regions;
-- U1 parity-response constraints and U2 blocker closure as specialized symbolic operators;
-- symmetry/canonicalization across support skeletons.
+- CPC parity/response/race constraints and WSL-625 blocker closure as specialized symbolic operators;
+- symmetry/canonicalization across support skeletons;
+- bounded out-of-core GPU batching through CUDA-JS so VRAM determines batch size rather than total solvable graph size.
 
 ## Stronger interpretation
 
 The searchless hypothesis is no longer purely hypothetical.
 
-We now have a correct implementation of:
+The project now has a correct tested implementation of:
 
 ```text
 winning-line terminal axioms
-    -> backward symbolic predecessor composition
-    -> empty-root W/D/L
+    -> NDC backward dependency composition
+    -> BSFP symbolic fixed point
+    -> root W/D/L
 ```
 
 for complete games through 4x5 and for nontrivial standard 7x6 roots.
 
-The remaining research goal is to make the same algebra compact enough to carry the **empty 7x6** root and then, separately, add exact-distance refinement if required by the product contract.
+The remaining research goal is to make the same algebra compact and batchable enough to carry the **empty 7x6** root, then determine whether exact-distance refinement can also be expressed inside the same framework.
+
+## Attribution boundary for publication
+
+For any paper derived from this work, I want the credit boundary stated plainly:
+
+- I, **Josh Oshiro**, claim the CPC evaluator lineage, the shift toward winspace rather than full-board representation, the nested-dependency idea, the backward-from-potential-wins direction, NDC, and the BSFP conceptual architecture.
+- **Victor Allis** receives credit for his 1988 Connect Four knowledge-based work, Control of Zugzwang treatment, the nine named strategic rules, and their interaction framework.
+- Algebraic mappings from Allis's rules into CPC/WSL-625/NDC forms are presented as new transformations of credited prior work, not as reassignment of the original rule ideas.
+- Implementation, benchmarking, oracle qualification, falsification, and GPU engineering are evidence and engineering work supporting the theory; they should not be used to blur conceptual provenance.
