@@ -12,13 +12,30 @@ I want the terminology and intellectual lineage of this work to remain explicit 
 
 The line began with my original Connect Four evaluator. Its core idea was to infer future strategic control from the parity of the move/event reservoir before a target square rather than having to play every intervening move. I later pushed that direction toward residual winning requirements, nested dependencies, and backward closure from terminal outcomes.
 
-The algebraic reductions, implementation experiments, falsification tests, oracle qualification, and terminology refinement that followed are evidence used to test and sharpen those ideas. I do not want later implementation work to obscure the origin of the core hypotheses, and I also do not want this work to absorb earlier Connect Four theory that belongs to Victor Allis.
+I developed that conceptual path independently. I did **not** derive my evaluator, CPC, the winspace-over-board direction, NDC, or BSFP from Victor Allis's work, and I did not use his thesis as the source from which those ideas were formulated. Allis entered this research later, during comparison with prior Connect Four theory, after the main conceptual path was already present.
 
-## Prior work that I explicitly credit to Victor Allis
+That later comparison revealed meaningful overlap and structural correspondence. Because Allis published related Connect Four theory decades earlier, I want his prior work cited clearly wherever the overlap is relevant. That is different from saying his work caused or supplied my ideas.
 
-Victor Allis's 1988 master's thesis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, is prior work for the strategic-rule and Zugzwang material used in this research.
+## Independently developed line
 
-I specifically credit Allis with the Connect Four **Control of Zugzwang** treatment and with the nine formally defined strategic rules used by VICTOR:
+The following concepts are part of my independently developed research line:
+
+- the future-control parity mechanism in my original evaluator;
+- **CPC — Control Parity Calculus**;
+- the decision to reason over potential/surviving winning positions instead of treating the complete colored board as the only primary state object;
+- the direction that produced **WSL-625 — Winspace Lattice 625**;
+- the insight to **nest dependencies**;
+- **NDC — Nested Dependency Closure**;
+- the insight to run those nested dependencies **backward from potential winning positions**;
+- **BSFP — Backward Symbolic Fixed-Point** as the solver architecture produced from that line.
+
+The later implementations, algebraic reductions, falsifiers, exhaustive controls, oracle checks, and GPU work test and refine those ideas; they do not change their provenance.
+
+## Earlier published work by Victor Allis
+
+Victor Allis's 1988 master's thesis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, is earlier published Connect Four work that overlaps with parts of the strategic territory investigated here.
+
+I credit Allis with his published treatment of **Control of Zugzwang**, VICTOR's knowledge-based approach, the nine formally defined strategic rules associated with that system, and the rule-interaction framework around them:
 
 - Claimeven;
 - Baseinverse;
@@ -30,13 +47,19 @@ I specifically credit Allis with the Connect Four **Control of Zugzwang** treatm
 - Before;
 - Specialbefore.
 
-I also credit Allis with the rule-interaction and Zugzwang-dependence framework surrounding those rules. When this project reduces those named rules into common blocker, parity, response, or dependency forms, that reduction is new analysis of Allis's prior strategic rules; it is not a claim that I originated the rules themselves.
+Those are Allis's named rule framework and should be cited as such whenever I discuss them.
 
-Likewise, my term **Control Parity Calculus** is not a claim that I originated the general idea of controlling Zugzwang in Connect Four. Allis's published treatment predates my work. My contribution is the specific future-event parity calculation from my original evaluator and the way I later generalized that mechanism into the CPC/WSL-625/NDC/BSFP line.
+The important provenance distinction is:
+
+> **My line was independently developed; Allis's line is earlier published prior work with which I later discovered overlap.**
+
+When I later reduce Allis's named rules into common blocker, parity, response, WSL-625, or dependency forms, that reduction is an analysis of credited prior work. It does not mean those Allis rules were inputs from which I derived CPC, NDC, or BSFP.
+
+Likewise, the fact that Allis discussed Control of Zugzwang before my work means the paper must acknowledge his earlier published treatment of that subject. It does not mean I obtained my specific future-event parity equation from him. I arrived at that evaluator mechanism independently.
 
 ### Reference
 
-Victor Allis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, M.Sc. thesis, Vrije Universiteit Amsterdam, October 1988, Report IR-163. The thesis describes VICTOR as a Shannon C-type strategy program based on nine proven strategic rules and contains dedicated chapters on Control of Zugzwang, formal rule definitions, and rule interaction.
+Victor Allis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, M.Sc. thesis, Vrije Universiteit Amsterdam, October 1988, Report IR-163.
 
 ## Canonical names
 
@@ -58,7 +81,7 @@ Future ownership/control is then determined by the parity of the resulting event
 
 I originally used this mathematics inside an evaluator. In the current research I treat it as a structural control relation that can contribute exact dependency facts rather than merely a heuristic score.
 
-A later comparison with Allis showed that the same mod-2 structure appears in his Zugzwang-dependent rule-combination conditions: even release preserves control parity while odd release changes it. That structural correspondence does not erase the separate provenance of the two lines of work.
+Only later, after this line was already developed, did comparison with Allis reveal a related mod-2 structure in his Zugzwang-dependent rule interactions. The paper should present that as a **convergent structural correspondence between independently developed work and earlier published work**, not as derivation.
 
 ### WSL-625 — Winspace Lattice 625
 
@@ -135,27 +158,28 @@ exact W / D / L proof
 
 This does not imply that CPC alone solves the game or that WSL-625 contains all temporal information. CPC and WSL-625 provide structural facts and domains; NDC composes nested dependencies; BSFP is the backward symbolic execution architecture.
 
-Allis's strategic rules remain credited prior work wherever they appear inside this stack. Their reduction into WSL-625 blockers or NDC-compatible dependency primitives is a transformation of Allis's rule semantics, not a reassignment of authorship.
+Allis's rule framework sits outside this provenance chain as earlier published related work. Some of his rules can be mapped into WSL-625/NDC-compatible forms, but that mapping was discovered after my chain above was already underway.
 
 ## Historical lineage
 
-1. I developed an earlier evaluator that used a future-control parity calculation to reason about strategically relevant squares without explicitly playing every intervening move.
-2. I proposed shifting representation toward surviving winning positions rather than carrying the complete board as the primary object; the project work then derived and qualified the fixed 625-element lattice now called WSL-625.
-3. I directed an algebraic comparison with Allis's prior strategic rules. This exposed common parity/response and blocker forms while retaining Allis's authorship of the named rules and Zugzwang framework.
-4. I proposed that the dependencies themselves should be nested. I call that algorithmic idea NDC.
-5. I then proposed running the nested dependency system backward from potential winning positions.
-6. That direction produced the direct backward symbolic solver I now call BSFP.
-7. Subsequent complete-game and standard-7x6 qualification established strong evidence for the recurrence and terminal boundary while leaving empty-board 7x6 scaling as the current implementation seam.
+1. I independently developed an evaluator using a future-control parity calculation to reason about strategically relevant squares without explicitly playing every intervening move.
+2. I proposed shifting representation toward surviving winning positions rather than carrying the complete board as the primary object; the research then derived and qualified the fixed 625-element lattice now called WSL-625.
+3. I proposed that the dependencies themselves should be nested. I call that algorithmic idea NDC.
+4. I then proposed running the nested dependency system backward from potential winning positions.
+5. That direction produced the direct backward symbolic solver I now call BSFP.
+6. After this conceptual direction existed, I compared it with earlier Connect Four theory, including Allis's work, and found important overlap and common lower-level structure.
+7. Subsequent qualification established strong evidence for the recurrence and terminal boundary while leaving empty-board 7x6 scaling as the current implementation seam.
 
 ## Paper attribution rule
 
-Any paper or public technical write-up based on this research should preserve these boundaries explicitly:
+Any paper or public technical write-up based on this research should say the provenance plainly:
 
-- **Josh Oshiro:** CPC as developed from my original evaluator; the winspace-over-board direction; the nested-dependency insight; backward propagation from potential wins; NDC; and the resulting BSFP conceptual architecture.
-- **Victor Allis:** the 1988 knowledge-based Connect Four work, Control of Zugzwang treatment, the nine named strategic rules, and their rule-interaction framework.
-- **Project experiments/qualification:** algebraic reductions, implementations, falsifiers, benchmarks, exact-oracle comparisons, GPU work, and other evidence should be described as subsequent research/engineering evidence unless a specific individual source is known.
+- **Josh Oshiro:** independently developed CPC from my original evaluator; independently developed the winspace-over-board direction, nested-dependency idea, backward-from-potential-wins direction, NDC, and the resulting BSFP conceptual architecture.
+- **Victor Allis:** earlier published related Connect Four work, including Control of Zugzwang, VICTOR's nine named strategic rules, and their interaction framework.
+- **Relationship:** overlap between the two lines was identified later. Where CPC/WSL-625/NDC analysis reproduces or structurally corresponds to an Allis result, cite Allis as prior published work while also stating that my line was independently developed.
+- **Project experiments/qualification:** algebraic reductions, implementations, falsifiers, benchmarks, exact-oracle comparisons, GPU work, and other evidence should be described as subsequent research/engineering evidence unless a more specific source is known.
 
-Where the paper claims a structural correspondence—for example, between my CPC event-rank parity and Allis's Zugzwang-dependent rule combinations—it should state that it is a correspondence between separately sourced ideas, not retroactively attribute one to the other.
+The paper should avoid both errors: it should not imply that I derived my work from Allis, and it should not present overlapping results as though no earlier related work existed.
 
 ## Naming rule going forward
 
@@ -172,4 +196,4 @@ When editing historical documents, preserve old labels where needed to understan
 
 For concise use in a paper or public document:
 
-> **Josh Oshiro:** CPC, the winspace representation direction, NDC, and the BSFP conception. **Prior work by Victor Allis (1988):** Control of Zugzwang and the nine VICTOR strategic rules and their interaction framework. BSFP research uses and algebraically re-expresses parts of that prior work while preserving its attribution.
+> **Josh Oshiro independently developed the CPC → WSL-625 → NDC → BSFP line from his original Connect Four evaluator and subsequent searchless-solver reasoning. Victor Allis's 1988 work is earlier published related work on Connect Four Control of Zugzwang and the VICTOR strategic-rule framework. The overlap was recognized later; Allis is cited for the prior published results and rules where they correspond, without implying that Oshiro derived his approach from them.**
