@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "status": "passed",
+  "execution": {
+    "workflow": "research-terminal-boundary",
+    "authoritativeRunId": 34412654221,
+    "authoritativeJobId": 102670394371,
+    "headSha": "ee1c8f294fe3f6483f27e16891cde19b56c40932",
+    "node": "26.7.0",
+    "conclusion": "success"
+  },
+  "smallGameExhaustiveBoundary": {
+    "totals": {
+      "nonterminalStatesChecked": 1634924,
+      "legalEdgesChecked": 3869237,
+      "winTerminalEdgesChecked": 414691,
+      "drawTerminalEdgesChecked": 96960,
+      "terminalPredicateMismatches": 0,
+      "terminalBoardMismatches": 0,
+      "priorTerminalViolations": 0
+    },
+    "profiles": [
+      {"profile":"4x3c3","winningLineSchemas":"14/14","states":4631,"legalEdges":11818,"winTerminalEdges":3192,"drawTerminalEdges":56,"mismatches":0},
+      {"profile":"4x4c4","winningLineSchemas":"10/10","states":134289,"legalEdges":304574,"winTerminalEdges":25780,"drawTerminalEdges":10692,"mismatches":0},
+      {"profile":"5x3c4","winningLineSchemas":"6/6","states":147563,"legalEdges":377229,"winTerminalEdges":11237,"drawTerminalEdges":11840,"mismatches":0},
+      {"profile":"4x5c4","winningLineSchemas":"17/17","states":1348441,"legalEdges":3175616,"winTerminalEdges":374482,"drawTerminalEdges":74372,"mismatches":0}
+    ],
+    "independentChecks": [
+      "pre-enumerated winning-line mask includes landing stone and is fully owned after move",
+      "independent directional scan through landing stone finds K-in-row",
+      "gravity is valid before and after every checked move",
+      "stone counts agree with ply/side to move",
+      "no nonterminal source state already contains a win",
+      "winning terminal board has mover win and no opponent win",
+      "full-board draw terminal has no winning line for either side",
+      "terminal children are not re-admitted as playable states"
+    ]
+  },
+  "frozenPonsActionCorpus": {
+    "source": "reference/oracles/solved-actions-v1.tsv",
+    "provenance": "128 frozen vectors derived from Pascal Pons benchmark checkpoints; parent scores external, move scores checkpoint-qualified independent Node oracle",
+    "vectors": 128,
+    "actionSlots": 896,
+    "legalActions": 583,
+    "immediateTerminalActionsPresentInThisCorpus": 0,
+    "fullBoardDrawActions": 5,
+    "terminalPredicateMismatches": 0,
+    "knownScoreMismatches": 0,
+    "terminalBoardMismatches": 0,
+    "maxScoreConsistencyMismatches": 0,
+    "coverageCaveat": "This frozen 128-vector slice contains no immediate-win actions, so it independently anchors nonterminal action-score consistency and five terminal draws but not 7x6 immediate-win terminal boards. External documented terminal fixtures fill that gap."
+  },
+  "externalKnownTerminalFixtures": {
+    "mismatches": 0,
+    "winFixtures": [
+      {"source":"connectpy README","sequence":"4455673","expectedWinner":0,"observedWinner":0,"lastCell":2,"winningLineIds":[6],"terminalP0Hex":"3c","terminalP1Hex":"c40","parent":"445567","maintainedOracleParentScore":18,"expectedImmediateScore":18},
+      {"source":"RenaudGaudron/connect-4-game-engine README, 0-based 0101010 converted to 1-based","sequence":"1212121","expectedWinner":0,"observedWinner":0,"lastCell":21,"winningLineIds":[1],"terminalP0Hex":"204081","terminalP1Hex":"8102","parent":"121212","maintainedOracleParentScore":18,"expectedImmediateScore":18},
+      {"source":"RenaudGaudron/connect-4-game-engine README, 0-based 041425 + winning move 3 converted to 1-based","sequence":"1525364","expectedWinner":0,"observedWinner":0,"lastCell":3,"winningLineIds":[0],"terminalP0Hex":"f","terminalP1Hex":"830","parent":"152536","maintainedOracleParentScore":18,"expectedImmediateScore":18}
+    ],
+    "drawFixture": {"source":"RenaudGaudron/connect-4-game-engine README, 4x4 0-based 0213203102132031 converted to 1-based","sequence":"1324314213243142","expected":"draw","observed":"draw","p0Hex":"c3c3","p1Hex":"3c3c"},
+    "additionalStrongScoreAnchorsFromPriorPassingRun": [
+      {"source":"Pascal Pons public benchmark tutorial","sequence":"4455","expected":18,"maintainedOracleActual":18,"runId":34412572715},
+      {"source":"Pascal Pons public benchmark tutorial","sequence":"44455554221","expected":-15,"maintainedOracleActual":-15,"runId":34412572715}
+    ]
+  },
+  "interpretation": [
+    "The terminal boundary used by the backward symbolic solver is independently supported by exhaustive physical-game enumeration on four complete variants and by external known terminal fixtures on standard 7x6 geometry.",
+    "Every small-game geometric winning-line schema was exercised by at least one actual terminal edge.",
+    "There were zero disagreements between mask-based and directional win detection, zero reconstructed terminal-board mismatches, zero admitted post-terminal states, and zero frozen-oracle consistency mismatches.",
+    "The standard 7x6 frozen Pons slice happened to contain no immediate terminal actions; this limitation is explicit rather than being treated as coverage it does not provide."
+  ]
+}
