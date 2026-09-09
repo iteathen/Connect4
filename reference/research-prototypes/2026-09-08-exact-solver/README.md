@@ -9,6 +9,19 @@ They preserve the current executable line used for the dependency-chunk cleanup 
 - `ybwc_depclean_start.mjs` — runtime worker-capacity selection, lazy eldest-first parallel shell, dynamic coarse resource selector, and start-position runner;
 - `depclean_check.mjs` — small exact-result/correctness probe for the cleanup solver.
 
+Representative earlier benchmark sources are also checked in individually, including the task-local TT, capacity sweep, raw multicore throughput, lazy YBWC, and dynamic YBWC experiments.
+
+For complete recovery, `sandbox-all-2026-09-08.tar.gz.b64` is an exact compressed snapshot of **all `.mjs` prototypes present in the sandbox at checkpoint time**. Decode it and verify the resulting archive before extraction:
+
+```sh
+base64 -d sandbox-all-2026-09-08.tar.gz.b64 > sandbox-all-2026-09-08.tar.gz
+sha256sum sandbox-all-2026-09-08.tar.gz
+# expected: 0feb70443f7c532f759608e2638ef31f11dfecbfc002331dcf3412eb1cabc3e1
+tar -xzf sandbox-all-2026-09-08.tar.gz
+```
+
+`SANDBOX_MANIFEST.sha256` records the SHA-256 of each prototype source in that archive.
+
 The clean 15-minute empty-board configuration recorded in `docs/research/evidence/2026-09-08-empty-board-cleanup-15min.log` corresponds to the equivalent of:
 
 ```sh
