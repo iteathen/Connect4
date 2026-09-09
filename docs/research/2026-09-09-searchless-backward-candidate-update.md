@@ -1,11 +1,15 @@
-# Candidate update — backward symbolic fixed-point solver
+# Candidate update — Backward Symbolic Fixed-Point
 
 **Date:** 2026-09-09  
-**Status:** research classification update; maintained source and `main` unchanged.
+**Status:** research classification update; maintained source and `main` unchanged.  
+**Canonical name:** `BSFP` — Backward Symbolic Fixed-Point.  
+**Conceptual origin:** Josh Oshiro.
 
-## New candidate: `BSF` — backward symbolic fixed-point solver
+> Naming note: the earlier temporary research label `BSF` refers to this same solver lineage. `BSFP` is the canonical name going forward.
 
-`BSF` starts from geometric winning-line predicates and derives the game backward over the support/height lattice. It represents each support skeleton by a symbolic W/D/L function over ownership variables and composes predecessor values algebraically:
+## Candidate: `BSFP` — Backward Symbolic Fixed-Point
+
+`BSFP` starts from geometric winning-line predicates and derives the game backward over the support/height lattice. It represents each support skeleton by a symbolic W/D/L function over ownership variables and composes predecessor values algebraically:
 
 ```text
 P0 turn: max over legal symbolic move functions
@@ -14,6 +18,21 @@ P1 turn: min over legal symbolic move functions
 
 No physical colored-board state graph and no recursive minimax are required in the direct solver.
 
+The architecture arose from Josh Oshiro's earlier evaluator mathematics and subsequent owner insights:
+
+```text
+CPC      — Control Parity Calculus
+WSL-625  — Winspace Lattice 625
+NDC      — Nested Dependency Closure
+BSFP     — Backward Symbolic Fixed-Point
+```
+
+CPC preserves the mathematical shape of Oshiro's original evaluator: infer future strategic control from event-rank parity, support, response, and timing rather than explicitly playing every intervening move. WSL-625 is the fixed residual requirement/blocker lattice. NDC is the algorithm that recursively nests terminal and adversarial dependencies. BSFP is the symbolic backward fixed-point execution architecture.
+
+The canonical terminology and attribution are recorded in:
+
+`docs/research/2026-09-09-bsfp-terminology-and-attribution.md`
+
 ## Classification
 
 - **projected effectiveness:** potentially transformative for W/D/L if empty 7x6 symbolic width can be controlled;
@@ -21,7 +40,7 @@ No physical colored-board state graph and no recursive minimax are required in t
 - **assessment confidence — semantic correctness of recurrence:** 0.99;
 - **assessment confidence — exactness of current implementation on tested complete games:** 1.00 relative to exhaustive differential qualification (1,681,808 states, zero mismatches);
 - **assessment confidence — viability on empty 7x6 in current raw-ownership MTBDD form:** 0.35;
-- **assessment confidence — viability after residual/event/U1/U2 compression:** 0.72 projected;
+- **assessment confidence — viability after residual/event/CPC/WSL-625 compression:** 0.72 projected;
 - **proof authority:** exact W/D/L solver;
 - **terminalization role:** none; this is a proof engine, not a semantic terminal detector;
 - **semantic reach:** whole remaining game;
@@ -35,42 +54,43 @@ No physical colored-board state graph and no recursive minimax are required in t
 Projected relationships:
 
 ```text
-SUP-event -> BSF = +4
-RWS       -> BSF = +4
-RID/U2    -> BSF = +4
-U1        -> BSF = +4
-INC       -> BSF = +3
-AUTO      -> BSF = +2/+3 if symbolic canonicalization is cheap
+SUP-event -> BSFP = +4
+RWS       -> BSFP = +4
+WSL-625   -> BSFP = +4
+CPC       -> BSFP = +4
+INC       -> BSFP = +3
+AUTO      -> BSFP = +2/+3 if symbolic canonicalization is cheap
 ```
 
 because they can replace raw ownership-function width with the already-discovered strategic algebra.
 
-If BSF scales to the empty 7x6 W/D/L problem:
+If BSFP scales to the empty 7x6 W/D/L problem:
 
 ```text
-BSF -> recursive minimax/alpha-beta driver = -4 substitution
-BSF -> YBWC search shell                = -3/-4 for WDL proof
-BSF -> recursive TT/search placement    = -3 for WDL proof
-BSF -> move ordering                    = -3 for WDL proof
+BSFP -> recursive minimax/alpha-beta driver = -4 substitution
+BSFP -> YBWC search shell                  = -3/-4 for WDL proof
+BSFP -> recursive TT/search placement      = -3 for WDL proof
+BSFP -> move ordering                      = -3 for WDL proof
 ```
 
 These negative edges are **architectural substitution**, not incompatibility. Exact-distance refinement may still require a smaller second-stage proof/search mechanism.
 
 ## Universalization relation
 
-`BSF` is the strongest candidate for the top-level universal proof engine:
+`BSFP` is the strongest candidate for the top-level universal proof engine:
 
 ```text
 geometric win axioms
  + support/event precedence
- + U1 parity/response algebra
- + U2 blocker/requirement lattice
+ + CPC control-parity / response / race facts
+ + WSL-625 blocker / residual requirement lattice
  + dominance antichains
-    -> BSF fixed point
+    -> NDC
+    -> BSFP fixed point
     -> W / D / L
 ```
 
-U1 and U2 do not compete with BSF. They are projected compact representations/operators inside it.
+CPC, WSL-625, and NDC do not compete with BSFP. They are, respectively, a structural control calculus, a finite requirement/blocker domain, and the dependency-closure algorithm used by the solver architecture.
 
 ## Scaling evidence
 
@@ -94,14 +114,15 @@ On 4x5, gravity-aligned variable ordering reduced accumulated DD nodes from 302,
 
 ## Research priority
 
-Do not return to optimizing forward search before testing compact BSF representations.
+Do not return to optimizing forward search before testing compact BSFP representations.
 
 Next representation candidates, in order:
 
-1. residual requirement / blocker variables instead of raw cell ownership;
+1. WSL-625 residual requirement/blocker variables instead of raw cell ownership;
 2. support-event state instead of raw heights where exact;
 3. dominance-antichain W/L frontiers;
-4. U1 parity-response constraints for temporal ownership/race facts;
-5. U2/RID upward-closure terminal queries;
+4. CPC parity/response constraints for temporal ownership/race facts;
+5. WSL-625 upward-closure terminal queries;
 6. symbolic symmetry/canonicalization;
-7. only then revisit empty-7x6 scaling.
+7. GPU-batched/out-of-core BSFP execution through CUDA-JS;
+8. only then revisit empty-7x6 scaling at full size.
