@@ -1,5 +1,5 @@
 import { parentPort, workerData } from 'node:worker_threads';
-import { Solver } from './twoword_solver_sharedtt.mjs';
+import { Solver } from '../2026-09-08-exact-solver/twoword_solver_sharedtt.mjs';
 const wid=workerData.workerId|0;
 const solver=new Solver(15,false,wid);
 const keyLoSab=workerData.keyLoSab,keyHiSab=workerData.keyHiSab,valSab=workerData.valSab,ctrlSab=workerData.ctrlSab,ownerSab=workerData.ownerSab;
