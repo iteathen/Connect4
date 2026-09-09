@@ -11,9 +11,17 @@ This document describes the solver architecture I now call **BSFP — Backward S
 
 The conceptual path began with my earlier Connect Four evaluator, which used a future-control parity calculation to reason about who would control strategically relevant future squares without explicitly playing every intervening move. I now call that mathematical shape **CPC — Control Parity Calculus**. I later proposed reasoning over surviving winning positions rather than carrying the full colored board as the primary representation, nesting the resulting dependencies, and then running that nested dependency system backward from potential winning positions. Those steps produced the BSFP direction tested here.
 
-This work also uses and algebraically re-expresses prior Connect Four strategy theory by **Victor Allis**. Allis's 1988 master's thesis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, introduced VICTOR, a Shannon C-type program based on nine proven strategic rules, and contains dedicated treatments of **Control of Zugzwang**, formal rule definitions, and rule interaction. I credit Allis with the nine named rules used in this project—Claimeven, Baseinverse, Vertical, Aftereven, Lowinverse, Highinverse, Baseclaim, Before, and Specialbefore—and with the surrounding Zugzwang/control framework.
+I developed that path independently. I did **not** derive my evaluator, CPC, the winspace-over-board direction, NDC, or BSFP from Victor Allis's work, and I did not use his thesis to formulate those ideas.
 
-When I reduce Allis's rules into common blocker, parity, response, or dependency forms, that is a new algebraic transformation of Allis's prior work, not a claim that I originated those rules. Likewise, CPC is not a claim that I originated the general concept of controlling Zugzwang in Connect Four; Allis's work predates mine. My contribution is the specific future-event parity mechanism from my evaluator and its later integration into the CPC/WSL-625/NDC/BSFP line.
+After this conceptual direction was already present, I compared it against earlier Connect Four theory, including **Victor Allis's** 1988 master's thesis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*. That comparison revealed meaningful overlap and common structural features. Allis's publication predates my work, so I cite him wherever his earlier results or named strategic rules overlap with the territory discussed here.
+
+I credit Allis with his published treatment of **Control of Zugzwang**, VICTOR's knowledge-based approach, the nine named strategic rules associated with that system—Claimeven, Baseinverse, Vertical, Aftereven, Lowinverse, Highinverse, Baseclaim, Before, and Specialbefore—and their rule-interaction framework.
+
+The provenance distinction is important:
+
+> **My CPC → WSL-625 → NDC → BSFP line was independently developed. Allis's work is earlier published related work with which I later discovered overlap.**
+
+When I later reduce an Allis rule into a common blocker, parity, response, WSL-625, or dependency form, that is a new transformation of credited prior work. It does not mean those rules were inputs from which I derived CPC, NDC, or BSFP. Likewise, the fact that Allis published on Control of Zugzwang earlier means his work should be acknowledged as relevant prior publication; it does not mean I obtained my specific future-event parity calculation from him.
 
 **Reference:** Victor Allis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, M.Sc. thesis, Vrije Universiteit Amsterdam, October 1988, Report IR-163.
 
@@ -191,9 +199,12 @@ The remaining research goal is to make the same algebra compact and batchable en
 
 ## Attribution boundary for publication
 
-For any paper derived from this work, I want the credit boundary stated plainly:
+For any paper derived from this work, I want the provenance stated plainly:
 
-- I, **Josh Oshiro**, claim the CPC evaluator lineage, the shift toward winspace rather than full-board representation, the nested-dependency idea, the backward-from-potential-wins direction, NDC, and the BSFP conceptual architecture.
-- **Victor Allis** receives credit for his 1988 Connect Four knowledge-based work, Control of Zugzwang treatment, the nine named strategic rules, and their interaction framework.
-- Algebraic mappings from Allis's rules into CPC/WSL-625/NDC forms are presented as new transformations of credited prior work, not as reassignment of the original rule ideas.
+- I, **Josh Oshiro**, independently developed CPC from my original evaluator, the shift toward winspace rather than full-board representation, the nested-dependency idea, the backward-from-potential-wins direction, NDC, and the BSFP conceptual architecture.
+- **Victor Allis** receives credit for his earlier published 1988 Connect Four work, including Control of Zugzwang, VICTOR's nine named strategic rules, and their interaction framework.
+- The relationship between these lines is **later-recognized overlap**, not derivation. Where my analysis reproduces, maps onto, or structurally corresponds to an Allis result, the paper should cite his earlier publication while also stating that my approach was independently developed.
+- Algebraic mappings from Allis's rules into CPC/WSL-625/NDC forms are later comparative transformations of credited prior work, not sources of my original method.
 - Implementation, benchmarking, oracle qualification, falsification, and GPU engineering are evidence and engineering work supporting the theory; they should not be used to blur conceptual provenance.
+
+This wording is intended to avoid both false impressions: that I borrowed the core method from Allis, or that earlier published overlapping work does not exist.
