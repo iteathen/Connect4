@@ -13,6 +13,24 @@ The design discussion intentionally does **not** address move ordering yet. The 
 
 ## Core direction
 
+### 0. Preallocate the complete TT arena at game initialization
+
+The TT capacity is fixed for the lifetime of a game/search session.
+
+The intended storage is one preallocated `SharedArrayBuffer` arena sized from the configured TT memory budget at game initialization, with fixed-length typed-array views established before search begins.
+
+There is **no TT growth during the game or search**:
+
+- no growable `SharedArrayBuffer` in the search path;
+- no dynamic backing-store expansion;
+- no new TT arrays created because the table becomes full;
+- no copying/repacking into a larger TT;
+- no allocation/growth fallback inside negamax.
+
+Chunk cleanup therefore means releasing a chunk's allocation **back to the already allocated TT arena for reuse**, not shrinking the `SharedArrayBuffer` or returning physical memory to the operating system.
+
+The cleaner and search workers operate over the same fixed shared arena. Capacity exhaustion, if encountered, must be handled by the eventual fixed-capacity TT/reuse policy rather than by growing the TT.
+
 ### 1. Keep cleanup out of the search hot loop
 
 The search path should not acquire cleanup-specific work such as:
@@ -35,7 +53,7 @@ Its execution does not require a dedicated CPU lane. It may run opportunisticall
 
 The desired reclamation unit is an independently releasable TT chunk/slab.
 
-Rather than scanning arbitrary entries and deleting individual keys, the cleaner should be able to prove that a whole chunk can no longer contain a useful reachable state and release that chunk's backing storage as one lifecycle operation.
+Rather than scanning arbitrary entries and deleting individual keys, the cleaner should be able to prove that a whole chunk can no longer contain a useful reachable state and release that chunk's arena allocation as one lifecycle operation.
 
 This avoids making reclamation depend on large numbers of hash-table mutations, tombstones, entry-by-entry deletes, or allocator operations.
 
@@ -120,7 +138,7 @@ The useful asymmetry is:
 ```text
 small amount of cleaner work
     -> prove one state family impossible
-    -> release a large TT chunk
+    -> release a large TT chunk back to the arena
 ```
 
 This means cleaner throughput does not need to track TT insertion throughput entry-for-entry.
@@ -135,7 +153,7 @@ repeat opportunistically:
     inspect a bounded set of TT chunk signatures
     for each chunk:
         if incompatible with every live region:
-            release chunk backing storage
+            release chunk allocation to the arena free pool
     yield / return worker capacity
 ```
 
@@ -151,9 +169,9 @@ Therefore the cleanup execution context must be genuinely separate from the sync
 
 Search should never wait for cleanup policy.
 
-Any future shared-storage implementation must make chunk lifetime/publication safe so the search cannot use released storage incorrectly. That synchronization/lifetime protocol remains an implementation question and should be solved at the TT/chunk ownership boundary, not by spreading cleanup bookkeeping through negamax.
+Any future shared-storage implementation must make chunk lifetime/publication safe so the search cannot use a released/recycled chunk incorrectly. That synchronization/lifetime protocol remains an implementation question and should be solved at the TT/chunk ownership boundary, not by spreading cleanup bookkeeping through negamax.
 
-A cleanup race may at worst turn a potentially reusable transposition into recomputation; it must never manufacture a false hit for a different position or permit use-after-release.
+A cleanup race may at worst turn a potentially reusable transposition into recomputation; it must never manufacture a false hit for a different position or permit use-after-recycle.
 
 ## Explicit non-goals
 
@@ -168,6 +186,7 @@ This direction does not presently propose:
 - path-owned TT entries;
 - per-entry reachability/reference counting;
 - a dedicated cleaner CPU lane;
+- dynamic TT growth during a game/search;
 - a fixed chunk geometry before measurement.
 
 ## Open design questions
@@ -177,15 +196,23 @@ The concept is mature; these details remain deliberately unresolved:
 1. **Chunk projection:** which subset/projection of the existing canonical board encoding best groups states that become invalid together while retaining cheap addressing?
 2. **Granularity:** how large should chunks be so release has useful leverage without excessive allocation/metadata fragmentation?
 3. **Live-region representation:** what is the coarsest correct representation the cleaner can observe without adding work to the negamax hot loop?
-4. **Storage substrate:** whether the eventual implementation is shared typed storage, segmented storage, or another Node-native representation that supports independently releasable chunks and canonical lookup.
-5. **Safe release protocol:** how search and cleaner establish chunk lifetime without turning cleanup synchronization into hot-path cost.
-6. **Empirical reclamation:** how much of the exact solve's retained state becomes provably impossible soon enough for chunk release to materially reduce peak TT footprint.
-7. **Search-work consequence:** how much recomputation, if any, results from conservative chunk release; correctness must remain exact even if node count changes.
+4. **Safe release/reuse protocol:** how search and cleaner establish chunk lifetime so a retired chunk is not recycled while a worker can still observe it, without turning synchronization into hot-path cost.
+5. **Empirical reclamation:** how much of the exact solve's retained state becomes provably impossible soon enough for chunk release to materially reduce peak TT occupancy?
+6. **Search-work consequence:** how much recomputation, if any, results from conservative chunk release; correctness must remain exact even if node count changes.
+7. **Fixed-capacity full-table behavior:** what minimal policy applies if the arena has no immediately reusable chunk; growth is explicitly not an option.
+
+## Settled storage direction
+
+The storage substrate is no longer an open question at the conceptual level:
+
+> **One fixed-capacity `SharedArrayBuffer` TT arena is allocated at game initialization and shared by search workers and the cleaner. The TT does not grow during the game. Reclamation recycles chunks inside that arena.**
+
+Exact field layout, chunk geometry, publication protocol, and full-table behavior remain implementation questions.
 
 ## Working principle
 
 The compact summary of the proposed design is:
 
-> **Canonical state-based chunking + proof-of-impossibility asynchronous chunk release.**
+> **Canonical state-based chunking + proof-of-impossibility asynchronous chunk release inside a fixed preallocated shared arena.**
 >
-> Group dependent/transposed branches by irreversible board-state facts, not procedural ancestry. Keep the negamax hot loop free of cleanup policy. Let an opportunistic background cleaner use the bitwise algebra already native to the TT state to release whole chunks only when no live search region can reach them.
+> Group dependent/transposed branches by irreversible board-state facts, not procedural ancestry. Keep the negamax hot loop free of cleanup policy. Let an opportunistic background cleaner use the bitwise algebra already native to the TT state to return whole chunks to the preallocated arena only when no live search region can reach them.
