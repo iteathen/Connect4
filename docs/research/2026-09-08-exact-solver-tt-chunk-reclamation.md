@@ -138,7 +138,7 @@ The useful asymmetry is:
 ```text
 small amount of cleaner work
     -> prove one state family impossible
-    -> release a large TT chunk back to the arena
+    -> return a large TT chunk to the arena free pool
 ```
 
 This means cleaner throughput does not need to track TT insertion throughput entry-for-entry.
