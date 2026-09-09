@@ -147,7 +147,7 @@ node reference/research-prototypes/2026-09-09-rethink/root_entry_precondition_sm
 node reference/research-prototypes/2026-09-09-rethink/restore_raw_evidence.mjs
 ```
 
-The TSV contains every trial's unrounded wall/task times, node/hit/write counts, bounds, mode, order, and active capacity. The qualification JSON contains the original environment, task states, full-value runs, and assertions. All task writeBusy values were zero. Descriptor sizes and fixed arena sizes are defined by mode. `restore_raw_evidence.mjs` reconstructs the original 39,525-byte / 59-line stdout byte-for-byte and checks SHA-256 `5475278656c649d148efb36eb076cfaa46d29fa6687b112b3e9987b496f0d9`. This preserves exact raw evidence in small UTF-8 files rather than large base64 transport. Kernel source was copied locally through the connector and matched its Git blob before execution.
+The TSV contains every trial's unrounded wall/task times, node/hit/write counts, bounds, mode, order, and active capacity. The qualification JSON contains the original environment, task states, full-value runs, and assertions. All task writeBusy values were zero. Descriptor sizes and fixed arena sizes are defined by mode. `restore_raw_evidence.mjs` reconstructs the original 39,525-byte / 59-line stdout byte-for-byte and checks SHA-256 `5475278656c649d148efb36eb076cfaa46d29fa668ba7b112b3e9987b496f0d9`. This preserves exact raw evidence in small UTF-8 files rather than large base64 transport. Kernel source was copied locally through the connector and matched its Git blob before execution.
 
 The root-entry smoke prints its exact observation as JSON. Older failed implementations were not changed or deleted. `main` is not an intended write target.
 
