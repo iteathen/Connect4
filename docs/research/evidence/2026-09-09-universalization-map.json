@@ -1,0 +1,60 @@
+{
+  "schema": "candidate-universalization-v1",
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "universalizers": [
+    {
+      "id": "U1",
+      "label": "Parity/response algebra",
+      "description": "GF(2) future-event rank parity plus response/resource/event-order constraints"
+    },
+    {
+      "id": "U2",
+      "label": "Strategic blocker lattice",
+      "description": "Certified blockers represented in the existing 625-ID RID lattice with upward-closure coverage"
+    },
+    {
+      "id": "UCLOSE",
+      "label": "Deterministic tactical/forced closure",
+      "description": "Single normalization operator owning immediate wins, bounded double-threat losses, forced block restriction and repeated forced transit"
+    }
+  ],
+  "mappings": [
+    {"source":"U1","target":"E2","mapping_kind":"exact-direct","confidence":0.99,"remaining_special_logic":"heuristic aggregation may remain separate"},
+    {"source":"U1","target":"ZPAR","mapping_kind":"projected","confidence":0.84,"remaining_special_logic":"exact terminal predicate not yet qualified"},
+    {"source":"U1","target":"A1","mapping_kind":"exact-direct","confidence":0.98},
+    {"source":"U1","target":"A2","mapping_kind":"exact-direct","confidence":0.99},
+    {"source":"U1","target":"A3","mapping_kind":"exact-direct","confidence":0.99},
+    {"source":"U1","target":"A5","mapping_kind":"derived-theorem","confidence":0.96},
+    {"source":"U1","target":"A6","mapping_kind":"derived-theorem","confidence":0.94},
+    {"source":"U1","target":"A7","mapping_kind":"derived-theorem","confidence":0.97},
+    {"source":"U1","target":"A4","mapping_kind":"projected","confidence":0.82,"remaining_special_logic":"own-win deadline/race derivation"},
+    {"source":"U1","target":"A8","mapping_kind":"derived-theorem","confidence":0.88,"remaining_special_logic":"generic race closure qualification"},
+    {"source":"U1","target":"A9","mapping_kind":"projected","confidence":0.78,"remaining_special_logic":"alternate response resource/race closure"},
+
+    {"source":"U2","target":"A1","mapping_kind":"exact-direct","confidence":0.99,"evidence":"331955-instance A1-A9 aggregate test, zero coverage mismatches"},
+    {"source":"U2","target":"A2","mapping_kind":"exact-direct","confidence":0.99,"evidence":"331955-instance A1-A9 aggregate test, zero coverage mismatches"},
+    {"source":"U2","target":"A3","mapping_kind":"exact-direct","confidence":0.99,"evidence":"331955-instance A1-A9 aggregate test, zero coverage mismatches"},
+    {"source":"U2","target":"A4","mapping_kind":"exact-direct","confidence":0.95,"evidence":"1844 generated Aftereven instances, zero coverage mismatches"},
+    {"source":"U2","target":"A5","mapping_kind":"exact-direct","confidence":0.99,"evidence":"32787 generated Lowinverse instances, zero coverage mismatches"},
+    {"source":"U2","target":"A6","mapping_kind":"exact-direct","confidence":0.99,"evidence":"32787 generated Highinverse instances, zero coverage mismatches"},
+    {"source":"U2","target":"A7","mapping_kind":"exact-direct","confidence":0.99,"evidence":"55956 generated Baseclaim instances, zero coverage mismatches"},
+    {"source":"U2","target":"A8","mapping_kind":"exact-direct","confidence":0.96,"evidence":"26976 generated Before instances, zero coverage mismatches"},
+    {"source":"U2","target":"A9","mapping_kind":"exact-direct","confidence":0.95,"evidence":"130319 generated Specialbefore instances, zero coverage mismatches"},
+    {"source":"U2","target":"A10","mapping_kind":"exact-direct","confidence":0.94,"remaining_special_logic":"requires U1-compatible blocker set"},
+    {"source":"U2","target":"EXH","mapping_kind":"exact-direct","confidence":1.0},
+    {"source":"U2","target":"BEXH","mapping_kind":"exact-direct","confidence":1.0},
+    {"source":"U2","target":"IMPL","mapping_kind":"shared-primitive","confidence":0.94,"remaining_special_logic":"cross-state proof index remains separate"},
+    {"source":"U2","target":"RID","mapping_kind":"shared-representation","confidence":1.0,"remaining_special_logic":"U2 is implemented as a semantic use of RID, not a separate universe"},
+
+    {"source":"UCLOSE","target":"IWIN","mapping_kind":"exact-direct","confidence":0.99},
+    {"source":"UCLOSE","target":"DTH","mapping_kind":"exact-direct","confidence":0.99},
+    {"source":"UCLOSE","target":"FBLK","mapping_kind":"exact-direct","confidence":0.99},
+    {"source":"UCLOSE","target":"FMAC","mapping_kind":"exact-direct","confidence":0.97,"remaining_special_logic":"TT admission policy remains an integration detail"}
+  ],
+  "notes": [
+    "Universalization is not synergy or exclusion.",
+    "A semantic candidate can remain named/documented while its dedicated implementation disappears.",
+    "U2 coverage unification is mechanically tested; U1 full strategy-selection unification remains the main uncertainty."
+  ]
+}
