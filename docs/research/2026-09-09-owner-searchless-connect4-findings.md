@@ -1,31 +1,32 @@
-# Owner-originated findings — toward a single searchless mathematics for Connect Four
+# My findings toward a searchless mathematics for Connect Four
 
 **Date:** 2026-09-09  
-**Status:** preserved owner research findings with subsequent qualification evidence.  
+**Author:** Josh Oshiro  
+**Status:** my preserved research findings with subsequent qualification evidence.  
 **Branch:** `research/low-confidence-survival-2026-09-09`  
 **Maintained source / `main`:** unchanged.
 
 ## Purpose
 
-This note preserves the project owner's conceptual findings separately from later implementation and qualification work.
+I am preserving the conceptual path that led from my earlier Connect Four evaluator to the current searchless solver work.
 
-The distinction matters. Several of the strongest ideas in the current research direction did not arise as post-hoc interpretations of benchmarks. They originated as design intuitions from the owner's earlier Connect Four engine work and were then sharpened, algebraically reduced, implemented, falsified where necessary, and qualified against exact oracles.
+Several of the strongest ideas here began as intuitions from my earlier engine rather than as conclusions read out of later benchmarks. The later algebraic reductions, prototypes, falsifiers, and oracle checks are evidence used to test those ideas.
 
-The core owner hypothesis is:
+My core hypothesis is:
 
 > **Connect Four may ultimately be solvable by one fairly simple mathematics rather than by conventional move-tree search.**
 
-The current research has materially strengthened that hypothesis.
+I developed the CPC → winspace → nested-dependency → backward-closure line independently. I did not derive it from Victor Allis's work. Only later, after the main conceptual path was already present, did I compare it against Allis's earlier published Connect Four theory and discover meaningful overlap. Where that overlap exists, I want Allis cited correctly as earlier published related work without implying that his work was the source of my method.
 
 ---
 
-## 1. Original parity / Zugzwang intuition
+## 1. My original future-control parity intuition — CPC
 
-The owner's earlier Connect Four engine used a parity count over the number of moves that can occur before a strategically relevant target square.
+My earlier Connect Four engine used a parity count over the number of moves that can occur before a strategically relevant target square.
 
-The original intuition was not merely that parity is a useful evaluator feature. It was that the future owner of a square can sometimes be known without playing the intervening moves.
+The idea was not merely that parity is a useful evaluator feature. I was using it to infer that the future controller of a square can sometimes be known without explicitly playing the intervening moves.
 
-For target cell `t=(c,r)` with current column height `h_c`, the relevant future-event count reduces algebraically to:
+For target cell `t=(c,r)` with current column height `h_c`, the future-event count reduces to:
 
 ```text
 N(t)
@@ -37,7 +38,7 @@ N(t)
 
 The target-column height cancels.
 
-Therefore future target ownership depends only on the parity of this event rank:
+Future target ownership/control therefore depends on the parity of the event rank:
 
 ```text
 owner(t) <- (N(t) - 1) mod 2
@@ -45,13 +46,13 @@ owner(t) <- (N(t) - 1) mod 2
 
 For standard 7x6, `(W-1)H = 36` is even, so the relation simplifies further.
 
-### Later connection to Allis
+I now call this mathematical shape **CPC — Control Parity Calculus**.
 
-When Allis's strategic rules were reduced below their named surface forms, the same invariant appeared again.
+### Later-recognized correspondence with Allis
 
-Allis's Zugzwang compatibility condition says, operationally, that composing a strategic rule must release an even number of squares if future Zugzwang ownership is to remain unchanged.
+After this line was already developed, I compared it against Victor Allis's earlier Connect Four theory. His published Control of Zugzwang and strategic-rule interaction framework contains related parity-sensitive control structure.
 
-That is the same algebra:
+In particular, when his Zugzwang-dependent rule combinations are reduced algebraically, even versus odd release of future squares produces a mod-2 control effect of the form:
 
 ```text
 N'(t) = N(t) + Delta
@@ -60,22 +61,22 @@ owner'(t) = owner(t)
     iff Delta mod 2 = 0
 ```
 
-Thus the owner's parity calculation and Allis's rule-combination Zugzwang condition are two expressions of the same GF(2) future-event invariant.
+I treat that as a **later-recognized structural correspondence between independently developed work and earlier published work**. It is not the source from which I derived CPC.
 
-This is preserved in:
+Related analysis is preserved in:
 
 - `docs/research/2026-09-09-universal-strategic-algebra.md`
 - `docs/research/2026-09-09-unification-candidate-map.md`
 
 ---
 
-## 2. Winning positions rather than the full board
+## 2. Winning positions rather than the full board — WSL-625
 
-A second owner observation was that search does not fundamentally need the full colored board history.
+I then pushed toward the idea that the solver does not fundamentally need to carry the full colored board history as its primary state object.
 
-What matters is the remaining set of ways each player can still win, together with enough support/accessibility information to preserve legality.
+What matters is the remaining set of ways each player can still win, together with enough support/accessibility and timing information to preserve legality.
 
-This led to the residual win-space representation:
+This led to the residual winspace representation:
 
 ```text
 state ~= surviving winning requirements
@@ -83,15 +84,25 @@ state ~= surviving winning requirements
       + side / event rank
 ```
 
-rather than:
+rather than treating:
 
 ```text
 state = complete historical colored board
 ```
 
-The residual requirement universe for standard 7x6 was later reduced to a fixed **625-ID** subset universe.
+as the only useful representation.
 
-That universe now appears to be more than a compact search identity. It is also a natural algebraic domain for strategic blockers, implication, exhaustion, and potentially the backward symbolic proof engine.
+The standard 7x6 residual requirement universe was later reduced to a fixed **625-element** subset universe. I now call it **WSL-625 — Winspace Lattice 625**.
+
+WSL-625 is useful not only as a compact identity. It is also a natural domain for:
+
+- surviving winning requirements;
+- strategic blockers;
+- implication/subsumption;
+- exhaustion;
+- solved-group coverage;
+- upward-closure queries;
+- strategic certificates.
 
 Evidence and development are preserved in:
 
@@ -104,25 +115,25 @@ Evidence and development are preserved in:
 
 ## 3. Terminal detectors are not ordinary search optimizations
 
-The owner identified a missing conceptual category in the candidate graph.
+I identified a missing conceptual category in the candidate graph.
 
-Methods such as an exact parity/Zugzwang disposition are not simply pruning or search-structure techniques. They can infer an eventual terminal proposition from the current state while skipping the intervening game entirely.
+Methods that infer a future disposition are not simply pruning or search-structure techniques. They can infer an eventual terminal proposition from the current state while skipping the intervening game entirely.
 
-This led to the explicit distinction between:
+This led me to distinguish:
 
 - search-structure optimization;
 - admissible future bounds;
 - forced-transition compression;
 - **future-terminal detection / terminalization**.
 
-Examples:
+Examples include:
 
 - immediate win: exact one-ply terminalizer;
 - double threat: bounded forced terminalizer;
-- bilateral win-space exhaustion: exact strategic draw terminalizer;
+- bilateral winspace exhaustion: exact strategic draw terminalizer;
 - one-sided exhaustion: exact one-sided no-win certificate;
-- Allis compatible cover: strategic one-sided no-win certificate;
-- projected exact parity/Zugzwang detector (`ZPAR`): strategic future-terminal candidate.
+- compatible strategic cover: one-sided no-win certificate;
+- projected exact parity/Zugzwang disposition: strategic future-terminal candidate.
 
 This distinction is preserved in:
 
@@ -131,15 +142,15 @@ This distinction is preserved in:
 
 ---
 
-## 4. Search for a universal solution, not a catalog of tricks
+## 4. Search for one underlying mechanism, not a catalog of tricks
 
-The owner then proposed that several candidates might not merely interact well, but might be solvable by **one universal cheap mechanism**.
+I then proposed that several candidates might not merely interact well but might reduce to **one universal cheap mechanism**.
 
-The instruction was to ignore named surface details, algebraically reduce the problems to lower-level shape, and only then compare them.
+My instruction was to ignore named surface details, reduce the problems to lower-level algebraic shape, and only then compare them.
 
-That reduction produced two closely related universal mechanisms.
+That reduction exposed two especially useful universal forms.
 
-### U1 — parity / response algebra
+### U1 — parity / response / race algebra
 
 Primitive strategic facts reduce largely to:
 
@@ -160,25 +171,19 @@ precedence / race constraints:
     event A must occur before event B
 ```
 
-This captures the common lower-level shape behind:
+This captures a common lower-level shape behind CPC and multiple strategic response patterns.
 
-- the owner's parity/Zugzwang calculation;
-- Allis Zugzwang compatibility;
-- Claimeven;
-- Baseinverse;
-- Vertical;
-- much of Lowinverse, Highinverse, and Baseclaim;
-- projected generic forms of Aftereven, Before, and Specialbefore.
+Later comparison showed that several of Allis's named strategic rules also admit reductions into this kind of structure. I credit Allis for the original named rules; the reduction into the common algebra is later comparative analysis.
 
 ### U2 — blocker lattice
 
-The owner/assistant reduction also exposed a universal terminally relevant proposition:
+Another universal proposition emerged:
 
 > the opponent cannot own every cell in blocker set `B`.
 
 Any winning requirement containing `B` is therefore dead.
 
-Because every useful blocker is a subset of some geometric winning line, it fits in the same 625-ID residual requirement universe.
+Because useful blockers are subsets of geometric winning lines, they fit naturally into WSL-625.
 
 The solved-group operation becomes:
 
@@ -187,12 +192,14 @@ Solved(B)
   = OR over precomputed upward closures of blocker IDs
 ```
 
-This was mechanically tested across all nine Allis rule families:
+As a comparative test against Allis's prior rule framework, this generic blocker operation was checked across all nine of his rule families:
 
 - **331,955 generated A1-A9 rule instances**;
-- **0 solved-group mismatches** between named Allis `Solutions` predicates and the generic blocker-upward-closure operation.
+- **0 solved-group mismatches** between the named Allis `Solutions` predicates and the generic blocker-upward-closure operation.
 
-This is preserved in:
+This does not mean the rule families originated here. It means their solved-group semantics can be represented by the common WSL-625 blocker operation.
+
+Evidence:
 
 - `docs/research/2026-09-09-universal-strategic-algebra.md`
 - `docs/research/2026-09-09-universal-strategic-algebra-test-a.md`
@@ -200,9 +207,9 @@ This is preserved in:
 
 ---
 
-## 5. The critical owner insight: nest the dependencies
+## 5. My critical insight: nest the dependencies — NDC
 
-The owner then sharpened the hypothesis substantially:
+I then sharpened the hypothesis substantially:
 
 > **The trick to solve from the first move is to nest the dependencies.**
 
@@ -218,7 +225,9 @@ D depends on a terminal winning condition
 
 Once `D` is established, it supports `B`; once `B` and `C` are established, they support `A`.
 
-The proof can therefore span many future plies without enumerating those plies as game states.
+The proof can therefore span many future plies without enumerating those plies as conventional game states.
+
+I now call this algorithmic idea **NDC — Nested Dependency Closure**.
 
 ### Why flat blocker closure was insufficient
 
@@ -234,7 +243,7 @@ That falsifier was important:
 "I get these cells before the opponent completes a win"
 ```
 
-Therefore the nested dependency algebra must include **temporal/event precedence** as a first-class fact.
+Therefore NDC must include **temporal/event precedence** as a first-class fact.
 
 This is preserved in:
 
@@ -243,17 +252,17 @@ This is preserved in:
 
 ---
 
-## 6. Stronger owner claim: the game may be solvable without search
+## 6. Stronger claim: the dependencies may replace search
 
-The owner clarified that the intended claim was not merely:
+I clarified that I was not merely proposing:
 
 > use these dependencies to prune search.
 
-It was:
+I meant:
 
 > **the dependencies may replace search entirely.**
 
-This led to a deliberately stronger experimental target:
+That led to a deliberately stronger experimental target:
 
 ```text
 no recursive minimax
@@ -264,7 +273,7 @@ derive the game algebraically backward
 
 ### Proof-dependency compression control
 
-Before a direct solver existed, the complete game graph was solved as a control and then quotient-compressed by proof dependency shape.
+Before the direct symbolic solver existed, the complete game graph was solved as a control and then quotient-compressed by proof dependency shape.
 
 The resulting W/D/L proof objects were extraordinarily small:
 
@@ -287,28 +296,28 @@ Evidence:
 
 ---
 
-## 7. The owner's backward direction: start at every potential win
+## 7. My backward direction: start at every potential win
 
-The owner then supplied the decisive direction of propagation:
+I then supplied the decisive propagation direction:
 
 > **Run the nested tree backwards starting from each potential winning position.**
 
-This reframes geometric winning lines as the proof axioms.
+This reframes geometric winning lines as proof axioms.
 
-Instead of forward questions such as:
+Instead of asking forward:
 
 ```text
 what happens after this move?
 ```
 
-the solver asks backward:
+I wanted the solver to ask backward:
 
 ```text
 what predecessor ownership/support facts can reach this win?
 what predecessor states force all replies into a win/loss class?
 ```
 
-For W/D/L this is naturally an alternating fixed point:
+For W/D/L this naturally becomes an alternating fixed point:
 
 ```text
 wins/losses: least fixed point grown backward from terminal wins
@@ -328,7 +337,7 @@ This direction is preserved in:
 
 ---
 
-## 8. Direct searchless symbolic solver produced from that finding
+## 8. Direct searchless symbolic solver — BSFP
 
 The backward formulation was then implemented directly.
 
@@ -353,7 +362,9 @@ P1 turn: V_h = min over move functions
 
 This is processed **backward from deeper support skeletons toward the empty skeleton**.
 
-It does not recursively call minimax and does not enumerate physical colored board states during the direct solve.
+It does not recursively call minimax and does not enumerate physical colored-board states during the direct solve.
+
+I now call the solver architecture **BSFP — Backward Symbolic Fixed-Point**.
 
 ### Exact complete-game results
 
@@ -364,7 +375,7 @@ The direct backward symbolic solver correctly solved:
 - 5x3 connect-4 -> draw;
 - 4x5 connect-4 -> draw.
 
-The independent qualification then compared its symbolic W/D/L function against **every reachable physical state** of those games:
+Independent qualification compared its symbolic W/D/L function against **every reachable physical state** of those games:
 
 - **1,681,808 physical states**;
 - **3,869,237 legal edges**;
@@ -380,19 +391,11 @@ Evidence:
 - `docs/research/evidence/2026-09-09-searchless-symbolic-backward-solver.json`
 - `docs/research/2026-09-09-searchless-backward-candidate-update.md`
 
-The resulting candidate is tracked as:
-
-```text
-BSF — backward symbolic fixed-point solver
-```
-
 ---
 
-## 9. Terminal facts independently qualified
+## 9. I required the terminal facts to be independently qualified
 
-Because the entire backward proof begins at terminal winning axioms, the owner requested a separate terminal-boundary check against known boards/outcomes.
-
-That qualification was intentionally independent of the BSF recurrence.
+Because the whole backward proof begins at terminal winning axioms, I asked for a separate terminal-boundary check against known boards and outcomes rather than allowing BSFP to certify its own axioms.
 
 ### Exhaustive small-game terminal boundary
 
@@ -403,14 +406,14 @@ Across four complete games:
 - **414,691 actual winning terminal edges**;
 - **96,960 full-board terminal draws**;
 - every geometric winning-line schema exercised;
-- independent line-mask vs directional-scan agreement;
+- independent line-mask versus directional-scan agreement;
 - **0 terminal predicate mismatches**;
-- **0 reconstructed terminal board mismatches**;
+- **0 reconstructed terminal-board mismatches**;
 - **0 post-terminal states admitted**.
 
 ### Standard 7x6 external anchors
 
-Externally documented 7x6 terminal games were reconstructed and matched:
+Externally documented 7x6 terminal games were independently reconstructed and matched:
 
 - `4455673` -> first-player win;
 - `1212121` -> first-player vertical win;
@@ -427,33 +430,34 @@ Evidence:
 
 ---
 
-## 10. Current synthesis of the owner's hypothesis
+## 10. Current synthesis
 
-The strongest current formulation is:
+My current conceptual stack is:
 
 ```text
 GEOMETRIC WINNING-LINE AXIOMS
         |
         v
-SUPPORT / EVENT PRECEDENCE
-        |
-        +----> U1 parity / response / race algebra
-        |
-        +----> U2 blocker / residual requirement lattice
+CPC — CONTROL PARITY / EVENT PRECEDENCE / RACE
         |
         v
-NESTED BACKWARD DEPENDENCY CLOSURE
+WSL-625 — WINSPACE REQUIREMENTS / BLOCKERS
         |
         v
-BSF FIXED POINT
+NDC — NESTED DEPENDENCY CLOSURE
+        |
+        v
+BSFP — BACKWARD SYMBOLIC FIXED-POINT
         |
         v
 W / D / L
 ```
 
-The named Allis rules, parity/Zugzwang facts, blockers, exhaustion, immediate terminals, and many historical search candidates may ultimately be simplification rules or special cases inside this one proof algebra rather than independent solving systems.
+Named strategic rules, parity/Zugzwang facts, blockers, exhaustion, immediate terminals, and several historical search candidates may ultimately be simplification rules or special cases inside one proof algebra rather than independent solving systems.
 
-This is the closest the research has come to the owner's long-standing intuition that there is **one fairly simple mathematics underlying Connect Four**.
+Later comparison with Allis's prior work showed that several of his named strategic rules map cleanly into parts of this algebra. I treat that as evidence that two independently developed descriptions are touching some of the same underlying Connect Four structure.
+
+This is the closest the research has come to my long-standing intuition that there is **one fairly simple mathematics underlying Connect Four**.
 
 ---
 
@@ -461,12 +465,12 @@ This is the closest the research has come to the owner's long-standing intuition
 
 ### Established with strong evidence
 
-1. Future square ownership has a parity/event-rank structure.
-2. The owner's Zugzwang parity relation and Allis's even-release compatibility condition share the same mod-2 invariant.
-3. All nine Allis solved-group relations can be represented by one generic blocker/upward-closure operation over the 625-ID lattice.
+1. Future-square control has a parity/event-rank structure in CPC.
+2. Later comparison shows a structural correspondence between CPC-style control parity and parts of Allis's earlier published Zugzwang framework.
+3. All nine Allis solved-group relations tested can be represented by one generic blocker/upward-closure operation over WSL-625, with 331,955 generated instances and zero solved-group mismatches.
 4. Flat static strategic rules are insufficient; dependency nesting and temporal precedence matter.
 5. Exact W/D/L proof objects are dramatically smaller than physical move/state graphs.
-6. Backward propagation from winning-line axioms is a correct direction for exact W/D/L solving.
+6. Backward propagation from winning-line axioms is a correct direction for exact W/D/L solving on the tested games.
 7. A direct backward symbolic solver can solve complete small games exactly without explicit colored-state enumeration or recursive minimax.
 8. The same recurrence works on nontrivial standard 7x6 frozen roots.
 9. The terminal axioms have been independently validated against exhaustive physical games, known terminal fixtures, and the maintained oracle.
@@ -474,9 +478,9 @@ This is the closest the research has come to the owner's long-standing intuition
 ### Still open
 
 1. Empty standard 7x6 has **not yet completed** in the current generic raw-ownership MTBDD implementation.
-2. The primary current obstacle is symbolic representation width, not correctness of the backward W/D/L recurrence.
+2. The primary current obstacle is symbolic representation width, not correctness of the backward W/D/L recurrence on the tested domains.
 3. The generic MTBDD is almost certainly not the final representation.
-4. The strongest next representation is expected to use residual requirements, support events, U1 parity/response facts, U2 blocker closure, and dominance antichains directly.
+4. The strongest next representation is expected to use WSL-625 residual requirements, support events, CPC parity/response facts, blocker closure, and dominance antichains directly.
 5. Exact strong-score/distance refinement remains a second proof problem after W/D/L unless the backward algebra is extended to carry distance directly.
 6. It remains to be shown whether the entire strategic response-selection problem collapses to canonical algebraic closure with no combinatorial branch selection.
 
@@ -484,33 +488,49 @@ This is the closest the research has come to the owner's long-standing intuition
 
 ## 12. Research priority implied by these findings
 
-Do not treat ordinary forward-search optimization as the primary path until the compact backward algebra has been fairly tested.
+I do not want ordinary forward-search optimization treated as the primary path until the compact backward algebra has been fairly tested.
 
 The next high-value work is:
 
-1. replace raw ownership variables inside BSF with the already-proven residual/event algebra;
-2. represent winning/losing regions by dominance antichain frontiers;
-3. compile U1 parity/response/race constraints into backward predecessor operators;
-4. use U2/RID blocker closure directly as symbolic terminal/proof simplification;
+1. replace raw ownership variables inside BSFP with the already-proven residual/event algebra;
+2. represent winning/losing regions by dominance-antichain frontiers;
+3. compile CPC parity/response/race constraints into backward predecessor operators;
+4. use WSL-625 blocker closure directly as symbolic terminal/proof simplification;
 5. exploit symmetry/canonicalization at the symbolic proof level;
-6. retry the empty 7x6 board;
-7. only after W/D/L is solved compactly, decide whether exact-distance refinement should also be searchless or use a much smaller second-stage proof process.
+6. batch the work so bounded VRAM determines shard size rather than maximum solvable graph size;
+7. use the CUDA-JS ecosystem for GPU execution where the fixed-width symbolic workload maps cleanly;
+8. retry the empty 7x6 board;
+9. only after W/D/L is solved compactly, decide whether exact-distance refinement should also be searchless or use a smaller second-stage proof process.
 
 ---
 
-## Attribution note
+## Attribution and publication note
 
-The following conceptual directions are specifically preserved as **owner-originated findings/intuition** from this research sequence:
+I want the provenance stated accurately in any paper or public write-up.
 
-- the belief that Connect Four ultimately has one fairly simple mathematical solution;
-- future-square ownership via parity/Zugzwang counting from the earlier engine;
-- reducing search state toward surviving winning positions rather than carrying the full board;
-- recognizing future-terminal detectors as a different class from search-structure optimization;
-- looking for one universal cheap mechanism across owner methods, Allis, and other candidates;
-- algebraically reducing named methods until common lower-level shape appears;
+### My independently developed line
+
+I, **Josh Oshiro**, independently developed or supplied the conceptual direction for:
+
+- my original future-control parity evaluator;
+- CPC — Control Parity Calculus;
+- reasoning over potential/surviving winning positions rather than treating the full board as the only primary representation;
+- the direction that led to WSL-625;
+- recognizing future-terminal detectors as distinct from ordinary search-structure optimization;
+- looking for one underlying algebra across apparently different mechanisms;
 - **nesting dependencies** as the route to solving from the first move;
-- the stronger claim that those dependencies may replace search entirely;
+- NDC — Nested Dependency Closure;
+- the stronger hypothesis that those dependencies may replace search entirely;
 - **running the nested dependency system backward from every potential winning position**;
+- BSFP — Backward Symbolic Fixed-Point;
 - requiring terminal states to be independently confirmed against known solutions and reconstructed terminal boards before trusting the backward proof.
 
-Subsequent algebraic derivations, prototypes, falsifiers, benchmarks, oracle checks, and symbolic fixed-point implementations are the qualification/execution evidence that followed those owner directions.
+### Victor Allis's earlier published related work
+
+Victor Allis independently published earlier Connect Four work that overlaps with parts of the strategic territory here. I credit him for his 1988 treatment of Control of Zugzwang, the VICTOR knowledge-based framework, the nine named strategic rules, and their rule interactions.
+
+I did not take CPC, NDC, or BSFP from Allis. The overlap was recognized later. When my later analysis maps an Allis rule into CPC/WSL-625/NDC form or reproduces a structure already present in his work, the paper should cite him as earlier published prior work while stating that my route to the method was independent.
+
+That wording avoids both mistakes: claiming earlier overlapping work as though it did not exist, or falsely implying that my method was derived from it.
+
+**Allis reference:** Victor Allis, *A Knowledge-based Approach of Connect-Four: The Game is Solved: White Wins*, M.Sc. thesis, Vrije Universiteit Amsterdam, October 1988, Report IR-163.
