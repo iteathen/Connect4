@@ -1,0 +1,6 @@
+import {Solver,pairFromBig} from './twoword_solver_capacity_fast.mjs';
+const WIDTH=7,HEIGHT=6,STRIDE=7,CELLS=42; const bot=[],col=[];
+for(let c=0;c<WIDTH;c++){const sh=BigInt(c*STRIDE);bot[c]=1n<<sh;col[c]=((1n<<6n)-1n)<<sh;}
+function state(seq){let current=0n,mask=0n,moves=0;for(const ch of seq){const c=ch.charCodeAt(0)-49;const mv=(mask+bot[c])&col[c];current^=mask;mask|=mv;moves++;}const [cLo,cHi]=pairFromBig(current),[mLo,mHi]=pairFromBig(mask);return {cLo,cHi,mLo,mHi,moves};}
+function profile(seq,pow=3){const st=state(seq);const s=new Solver(pow,true,15);let min=-Math.trunc((CELLS-st.moves)/2),max=Math.trunc((CELLS+1-st.moves)/2);const its=[];while(min<max){let med=min+Math.trunc((max-min)/2);if(med<=0&&Math.trunc(min/2)<med)med=Math.trunc(min/2);else if(med>=0&&Math.trunc(max/2)>med)med=Math.trunc(max/2);const n0=s.nodes,t0=process.hrtime.bigint();const score=s.negamax(st.cLo,st.cHi,st.mLo,st.mHi,st.moves,med,med+1);const sec=Number(process.hrtime.bigint()-t0)/1e9;its.push({med,score,nodes:s.nodes-n0,sec});if(score<=med)max=score;else min=score;}return {seq,pow,score:min,nodes:s.nodes,iterations:its};}
+for(const seq of process.argv.slice(2))console.log(JSON.stringify(profile(seq,3)));
