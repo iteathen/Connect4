@@ -37,6 +37,7 @@ solver_lanes:
     disposition: active_development
 
 exact_dependency_pair:
+  connect4_portable_qualification_head: d39322a1a66585114a35558f910a5582c0fc05e2
   cuda_algorithms:
     repository: iteathen/CUDA-Algorithms
     revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
@@ -53,6 +54,14 @@ exact_dependency_pair:
     package: cuda-js@0.1.0-alpha.20
     accepted_spec: docs/specs/SPEC-0028-device-js-library-composition.md
     mutation_in_this_work: none
+
+portable_ci:
+  verify: 34438946185
+  benchmark_evidence: 34438946186
+  strength_evidence: 34438946188
+  bsfp_portable: 34438946196
+  result: all_success
+  evidence: docs/research/2026-09-09-cuda-bsfp-first-maintained-slice.md
 
 qualified_reference:
   geometry: 4x3_connect3
@@ -72,7 +81,7 @@ ranked_activation_slice:
   max_emissions_per_item: 4
   algorithms_contract: CUDA-Algorithms-ranked-derived-activation-u32-working-v0
   consumer_signature: (u32 sourceIndex, u32 emissionLane) -> u32 targetIndex | 0xffffffff
-  portable_status: passed_before_final_repin_and_repin_ci_pending
+  portable_status: passed_final_exact_pair
   native_checks:
     - exact_predecessor_output
     - duplicate_activation_idempotence
@@ -91,7 +100,7 @@ dense_wdl_slice:
   prepared_rank_nodes: 13
   rank_order: 12_to_0
   node_semantic_progression: none
-  portable_status: passed
+  portable_status: passed_final_exact_pair
   native_required_result:
     root_wdl: win
     nonterminal_states_checked: 4631
@@ -119,7 +128,6 @@ ownership:
     - compiler_linker_runtime_memory_prepared_execution_and_native_lifecycle
 
 next_actions:
-  - confirm_final_repin_connect4_ci_passes_against_cuda_algorithms_48ee0aec_and_cuda_js_98e2ebc
   - run_cuda_algorithms_experiments_native_qualification_run_ranked_derived_activation_mjs_on_real_nvidia_host
   - run_connect4_experiments_cuda_bsfp_vertical_slice_run_mjs_native_on_same_or_frozen_compatible_host
   - run_connect4_experiments_cuda_bsfp_dense_4x3_run_mjs_native_and_require_4631_state_11818_edge_zero_mismatch_result
