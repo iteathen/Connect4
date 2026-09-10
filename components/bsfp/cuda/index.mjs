@@ -14,3 +14,8 @@ export {
   SEGMENTED_PACKED_ANTICHAIN_42_STATUS,
   createSegmentedPackedAntichain42Plan,
 } from './segmented-packed-antichain-42-plan.mjs';
+
+export {
+  SEGMENTED_PACKED_PAIR_ANTICHAIN_42_CONTRACT,
+  createSegmentedPackedPairAntichain42Plan,
+} from './segmented-packed-pair-antichain-42-plan.mjs';

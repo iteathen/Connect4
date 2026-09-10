@@ -77,6 +77,9 @@ jobs:
       - name: Run segmented packed-antichain portable slice
         run: node experiments/cuda-bsfp-segmented-antichain/run.mjs portable
 
+      - name: Run segmented pair-generate-normalize portable slice
+        run: node experiments/cuda-bsfp-pair-antichain/run.mjs
+
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 
