@@ -1,0 +1,50 @@
+name: bsfp-portable
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bsfp-portable:
+    name: bsfp-portable
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Connect4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout exact CUDA-Algorithms candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/CUDA-Algorithms
+          ref: 7605326816ee523d69e66dcfde5b03caf098f559
+          path: cuda-algorithms
+          persist-credentials: false
+
+      - name: Checkout exact CUDA-JS authority
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/CUDA-JS
+          ref: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+          path: cuda-js
+          persist-credentials: false
+
+      - name: Use supported Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Install exact CUDA-JS dependencies
+        run: npm ci --prefix cuda-js
+
+      - name: Bind exact CUDA packages through public package surfaces
+        run: |
+          mkdir -p node_modules
+          ln -s ../cuda-js node_modules/cuda-js
+          ln -s ../cuda-algorithms node_modules/cuda-algorithms
+
+      - name: Run CUDA-BSFP portable composition slice
+        run: node experiments/cuda-bsfp-vertical-slice/run.mjs portable
