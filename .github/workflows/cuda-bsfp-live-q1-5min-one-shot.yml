@@ -1,0 +1,81 @@
+name: CUDA-BSFP live Q1 five-minute one-shot
+
+on:
+  push:
+    branches:
+      - research/live-q1-5min-20260910
+
+permissions:
+  contents: read
+
+jobs:
+  live-q1-five-minute:
+    name: live Q1 five-minute candidate batch
+    runs-on:
+      - self-hosted
+      - Windows
+      - X64
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Connect4 transport branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Select qualification Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '26.7.0'
+
+      - name: Record live host preflight
+        shell: pwsh
+        run: |
+          node --version
+          nvidia-smi
+
+      - name: Prepare exact clean Q1 sibling workspace
+        shell: pwsh
+        run: |
+          $workspace = "C:\r\c4-live-q1-${{ github.run_id }}"
+          if (Test-Path $workspace) { Remove-Item -Recurse -Force $workspace }
+          node tools/bootstrap-cuda-bsfp-q1.mjs --workspace $workspace --connect4-ref $env:GITHUB_SHA --prepare-only
+          "Q1_WORKSPACE=$workspace" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "Q1_CONNECT4=$workspace\Connect4" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: B2 cardinality-bucketed normalizer A/B
+        shell: pwsh
+        run: |
+          Set-Location $env:Q1_CONNECT4
+          node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --no-publish --profile c4-0009-b2-packed-normalizer-bucketed-42 --cases 7x6:c4 --case-timeout-ms 300000 --run-timeout-ms 300000 --spool-root "$env:Q1_WORKSPACE\spool-b2"
+
+      - name: B3 duplicate-first normalizer A/B
+        shell: pwsh
+        run: |
+          Set-Location $env:Q1_CONNECT4
+          node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --no-publish --profile c4-0009-b3-packed-dedup-first-42 --cases 7x6:c4 --case-timeout-ms 300000 --run-timeout-ms 300000 --spool-root "$env:Q1_WORKSPACE\spool-b3"
+
+      - name: C3 one-static-epoch 6x5 diagnostic
+        shell: pwsh
+        run: |
+          Set-Location $env:Q1_CONNECT4
+          node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --no-publish --profile c4-0009-c3-compact-work-diagnostic-42 --cases 6x5:c4 --case-timeout-ms 300000 --run-timeout-ms 300000 --spool-root "$env:Q1_WORKSPACE\spool-c3"
+
+      - name: C2 6x5 compact BSFP control
+        shell: pwsh
+        run: |
+          Set-Location $env:Q1_CONNECT4
+          node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --no-publish --profile c4-0009-c2-compact-scaling-42 --cases 6x5:c4 --case-timeout-ms 300000 --run-timeout-ms 300000 --spool-root "$env:Q1_WORKSPACE\spool-c2"
+
+      - name: Emit exact Q1 case results
+        if: always()
+        shell: pwsh
+        run: |
+          if (-not $env:Q1_WORKSPACE -or -not (Test-Path $env:Q1_WORKSPACE)) { exit 0 }
+          Get-ChildItem -Path $env:Q1_WORKSPACE -Recurse -Filter result.json | Sort-Object FullName | ForEach-Object {
+            Write-Output "===== $($_.FullName) ====="
+            Get-Content -Raw $_.FullName
+          }
+
+      - name: Remove one-shot live workspace
+        if: always()
+        shell: pwsh
+        run: |
+          if ($env:Q1_WORKSPACE -and (Test-Path $env:Q1_WORKSPACE)) { Remove-Item -Recurse -Force $env:Q1_WORKSPACE }
