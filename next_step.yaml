@@ -1,48 +1,74 @@
-state: paused_waiting_on_cuda_mcgs_124
-updated: 2026-09-07
-repository_role: connect4_product_benchmark
+schema_version: 4
+updated: 2026-09-09
+state: active_cuda_bsfp_branch
+repository_role: connect4_solver_validation
+branch: feature/cuda-bsfp
+
 current:
-  action: hold_connect4_while_cuda_mcgs_124_executes
+  action: establish_bsfp_consumer_semantics_and_ranked_closure_composition
   owner: Connect4
-  mode: paused
-  prerequisites_completed:
-    - C4_0001_domain_reference_qualified
-    - C4_0002_incumbent_evaluator_vectors_exact
-    - C4_0003_incumbent_search_node_26_qualified
-    - C4_0004_incumbent_benchmark_protocol_qualified
-    - C4_0005_solved_strength_oracle_node_26_qualified
-  secured_outputs:
-    - exact_legacy_source_provenance_in_repo
-    - qualified_node_incumbent
-    - persistent_tt_benchmark_evidence
-    - solved_strength_oracle_and_known_defect
-    - cuda_mcgs_public_composition_readiness_assessment
-blocked_or_paused:
-  connect4_execution:
-    state: paused
-    resume: explicit_owner_return_after_cuda_mcgs_124_dependency_progress
-  cuda_mcgs_comparison_lane:
-    state: blocked_on_upstream_generic_lifecycle
-    blocker: CUDA-MCGS_issue_124
-    reason: device_resident_evaluator_request_batch_scatter_freshness_failure_cleanup_runtime_not_yet_protected_complete
-resume_condition:
-  - reread_exact_connect4_main_and_cuda_mcgs_public_state
-  - cuda_mcgs_124_exposes_protected_public_executable_evaluator_lifecycle
-  - freeze_connect4_owned_comparison_contract_before_product_lane_implementation
-reference_evidence:
-  connect4_main: 0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e
-  connect4_main_verify_run: 34122562926
-  incumbent_benchmark_run: 34116027347
-  c4_0005_verify_run: 34122018213
-  c4_0005_strength_run: 34122018076
-  assessed_cuda_mcgs_main: 893a1676a303bf28aff8f24847b0be1559ba859c
-  assessed_cuda_js_tensor_main: cbecc75138769419ed2c09fbfeb227f3ffe2de57
+  mode: active
+  branch_base: de47d43f4f4133a68973d0876a402531ef5735da
+  solver_lane: cuda_bsfp
+
+solver_lanes:
+  incumbent_search:
+    path: components/incumbent
+    semantics: minimax_alpha_beta_search
+    disposition: preserve_unchanged_as_independent_comparison_lane
+    cuda_mcgs_124_dependency: applies_only_to_cuda_mcgs_search_comparison
+  cuda_bsfp:
+    path: components/bsfp
+    semantics: backward_symbolic_fixed_point_proof
+    disposition: active_development
+    cuda_mcgs_dependency: none_by_default
+
+ownership:
+  connect4:
+    - connect4_domain_truth
+    - connect4_oracle_and_validation_evidence
+    - bsfp_proof_state_meaning
+    - bsfp_domain_derivation_and_terminal_semantics
+    - bsfp_exact_identity_and_canonicalization_meaning
+    - solver_level_fixed_point_interpretation
+  cuda_algorithms:
+    - generic_bounded_worksets
+    - generic_ranked_progression
+    - generic_activation_and_active_count_semantics
+    - generic_selection_ordering_compaction
+    - generic_device_owned_epoch_and_admin_state
+  cuda_js:
+    - runtime_compiler_memory_provider_and_native_lifecycle
+
+active_dependency:
+  repository: iteathen/CUDA-Algorithms
+  branch: feature/ranked-closure
+  protected_milestone: 6dac37af888c70e437caac3c0eb7224cd87dd73f
+  spec: docs/specs/SPEC-0004-device-worksets-and-fixed-point-closure.md
+  status: working_draft
+
+next_actions:
+  - recover_and_read_actual_bsfp_theory_and_research_artifacts_before_freezing_consumer_semantics
+  - create_components_bsfp_as_a_separate_solver_lego_without_importing_incumbent_search_internals
+  - define_the_smallest_exact_bsfp_consumer_record_rank_and_derivation_contract
+  - map_only_generic_progression_mechanics_to_cuda_algorithms_ranked_closure
+  - qualify_reference_bsfp_results_against_independent_connect4_domain_oracle_evidence
+  - compose_the_first_device_js_vertical_slice_without_host_semantic_progression
+  - preserve_material_research_findings_and_falsified_forms_durably
+
 constraints:
-  - no_connect4_specific_semantics_upstream
-  - no_downstream_reimplementation_of_cuda_mcgs_evaluator_lifecycle
+  - no_bsfp_as_minimax_or_search_specialization
+  - no_incumbent_search_semantics_in_bsfp
+  - no_bsfp_proof_or_domain_semantics_in_cuda_algorithms
+  - no_reimplementation_of_generic_cuda_algorithms_mechanics_in_connect4_production_path
   - no_deep_cuda_sibling_imports
   - no_python
-  - preserve_adjustable_board_incumbent_semantics
-  - solved_oracle_is_7x6_evidence_only
-  - persistent_tt_is_normal_production_policy
-  - separate_tree_equivalent_from_graph_reuse_comparison
+  - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
+  - node_may_administer_gpu_epochs_but_may_not_decide_mathematical_progression
+  - exact_equality_is_consumer_owned_hash_is_not_equality
+  - capacity_or_budget_boundaries_must_not_false_converge
+
+non_claims:
+  - no_7x6_cuda_bsfp_solve_yet
+  - no_cuda_bsfp_gpu_performance_claim_yet
+  - cuda_algorithms_spec_0004_not_yet_accepted_compatibility_authority
