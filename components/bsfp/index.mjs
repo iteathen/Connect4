@@ -17,6 +17,11 @@ export {
 } from './residual-winspace.mjs';
 
 export {
+  createPackedResidualRequirementLattice,
+  packedRequirementClosureSubset,
+} from './wsl-requirement-lattice.mjs';
+
+export {
   createResidualWdlFrontierBucket,
   insertP0LossFrontier,
   insertP0WinFrontier,
