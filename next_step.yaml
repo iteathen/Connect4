@@ -1,23 +1,16 @@
-schema_version: 16
+schema_version: 17
 updated: 2026-09-10
-state: cuda_bsfp_native_c3_diagnostic_required_double_threat_filter_research_positive
+state: cuda_bsfp_c3_and_b2_native_measurements_ready
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: run_c3_native_one_epoch_diagnostic_then_select_first_measured_6x5_intervention
+  action: obtain_native_c3_cause_profile_and_b2_normalizer_ab_then_select_smallest_measured_intervention
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
   draft_pr: 14
   solver_lane: cuda_bsfp
-  exact_solver_spec: docs/specs/C4-0008-bsfp-exact-solver-v1.md
-  cuda_execution_spec: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
-  qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
-  compact_profile: docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md
-  diagnostic_profile: docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md
-  bootstrap_entrypoint: node tools/bootstrap-cuda-bsfp-q1.mjs
-  native_candidate_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
 
 product_goal:
   geometry: 7x6_connect4
@@ -35,70 +28,40 @@ native_milestones:
   p1:
     evidence_pr: 18
     run_id: 20260910T065508562Z-fb451dd8
-    result: 4x3_c3_exact_native_pass
+    result: exact_4x3_native_correctness
   b1:
     evidence_pr: 19
     run_id: 20260910T083225135Z-2245e20a
     subset_checks_per_second_median: 35349174303
-    conclusion: flat_packed42_subset_throughput_is_not_first_wall
+    result: raw_packed42_subset_primitive_not_first_wall
   c1:
     evidence_pr: 20
     run_id: 20260910T100734116Z-e8de3c61
     qualified_source: fc7c8cc233b3cf1670ef75fde69750c91dd6492b
-    results:
-      4x3_c3: win_256_supports_zero_frontier_mismatch
-      4x4_c4: draw_625_supports_zero_frontier_mismatch
-      5x5_c4: draw_7776_supports_zero_frontier_mismatch
-    5x5:
-      warm_solve_wall_ms: 3568.618
-      submit_wait_ms: 3299.957
-      cpu_reference_with_observer_ms: 11663.782
-      gpu_pair_candidates: 85934909
-      gpu_subset_checks_approx: 2155626495
+    exact_frontiers:
+      4x3_c3: win_zero_mismatch
+      4x4_c4: draw_zero_mismatch
+      5x5_c4: draw_zero_mismatch
+    5x5_submit_wait_ms: 3299.957
+    5x5_warm_solve_wall_ms: 3568.618
+    cpu_reference_with_observer_ms: 11663.782
 
-cpu_packed42_control:
-  5x4_c4:
-    wall_ms_approx: 801
-    pair_candidates: 2298403
-  5x5_c4:
-    historical_wall_ms_approx: 18865
-    pair_candidates: 81515570
-    boundary_records: 1044159
-    maximum_win_frontier: 562
-    maximum_loss_frontier: 568
-  6x5_c4: timeout_600s
-  7x6_c4: timeout_600s
-
-c2_6x5_scaling_wall:
-  geometry: 6x5_c4
-  frontier_capacity: 8192
+six_by_five_wall:
+  result: unresolved
   attempts:
-    - run: 20260910T095159242Z-776e7432
-      candidate_tile_capacity: 8192
-      result: timeout_180s
-    - run: 20260910T095634168Z-7302f02d
-      candidate_tile_capacity: 2048
-      result: timeout_180s
-      first_32_node_epoch_ms: 75117.652
-  owner_gpu_observation: approximately_95_to_100_percent_utilization_during_slow_interval
-  interpretation:
-    - host_starvation_is_not_a_sufficient_explanation
-    - algorithmic_volume_and_parallel_work_quality_are_both_active_suspects
-  root_result: unresolved
+    - candidate_tile: 8192
+      timeout_seconds: 180
+    - candidate_tile: 2048
+      timeout_seconds: 180
+      first_static_epoch_ms: 75117.652
+  owner_gpu_observation: approximately_95_to_100_percent_utilization
 
 c3_work_diagnostic:
-  initial_implementation_commit: 878b31840d4863ad941970c502a77995c8a0070b
-  low_perturbation_observer_commit: 468611d9e2f743a6a30a55a2db23cc70a824f988
   profile_id: c4-0009-c3-compact-work-diagnostic-42
+  exact_native_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
   geometry: 6x5_c4
   static_epoch_limit: 1
-  frontier_capacity: 8192
-  candidate_tile_capacity: 2048
-  shard_capacity: 64
-  block_size: 128
-  semantic_progression_changed: false
-  result_role: partial_rank_diagnostic_only
-  root_wdl_claim: forbidden
+  root_claim: forbidden
   counters:
     - pair_candidates_generated
     - subset_checks_performed
@@ -112,80 +75,64 @@ c3_work_diagnostic:
     - terminal_intersection_normalization_input_records
     - terminal_union_normalization_input_records
     - aggregate_normalization_input_records
-  derived:
-    - cardinality_phase_candidate_visits
-    - rank_summaries
-    - statically_scheduled_supports_by_rank
-    - hot_supports
-  portable_qualification:
-    exact_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
+  portable:
     verify_run: 34485057956
-    verify: success
     bsfp_portable_run: 34485057959
+    matrix: windows_ubuntu_node24_node26_pass
+  native_status: required
+
+winspace_double_threat:
+  research_source: 80f6d20f10a40ce95882e091665cac901a091d73
+  benchmark_run: 34485833438
+  exact_complete_controls: 4x3_4x4_5x3_4x5_5x4_5x5_zero_mismatch
+  five_by_five:
+    baseline_pairs: 81515570
+    absorber_pairs: 79580610
+    direct_pair_reduction_fraction: 0.023737305646025608
+    post_combine_candidates_already_proved: 21671147
+    post_combine_absorption_fraction: 0.2658528548595072
+  disposition: retain_as_semantic_pre_normalization_filter_not_standalone_breakthrough
+
+b2_bucketed_normalizer:
+  profile_id: c4-0009-b2-packed-normalizer-bucketed-42
+  exact_native_source: 24c5aa5297c56b37a3901c9c2560cf111263f6a9
+  solver_integration: false
+  legacy_control_preserved: true
+  workload:
+    segments: 1024
+    segment_size: 512
+    candidates: 524288
+    one_exact_duplicate_per_segment: true
+  candidate_algorithm:
+    - linear_count_by_popcount
+    - 43_entry_prefix
+    - linear_scatter_original_candidate_indices
+    - process_only_selected_cardinality_bucket
+    - exact_same_bucket_equality_dedup
+    - exact_prior_cardinality_subset_dominance
+  portable:
+    verify_run: 34494094579
+    verify_result: success
+    bsfp_portable_run: 34494094890
     matrix: windows_2025_and_ubuntu_24_04_node_24_15_and_26_7_all_pass
-    result: native_datum_is_now_required
+    b2_dry_run: pass_all_four_lanes
+    b2_bootstrap_prepare: pass_all_four_lanes
+  native_status: required_ab_before_c1_integration
 
-code_review_diagnosis:
-  - current_normalizer_rescans_candidate_interval_across_43_cardinality_phases
-  - same_cardinality_exact_dedup_has_quadratic_prior_scan_work_previously_unmeasured
-  - one_block_owns_one_support_through_long_fused_serial_semantic_pipeline
-  - full_solver_useful_subset_rate_is_far_below_flat_b1_rate_because_many_other_operations_fill_the_gpu
-  - first_6x5_epoch_hits_wall_near_terminal_ranks_before_peak_support_count
-  - generic_terminal_subtraction_remains_a_plausible_late_rank_cost_source
-
-winspace:
-  wsl625:
-    winning_lines: 69
-    requirement_count: 625
-    closure_words_u32: 20
-    closure_bytes: 80
-  preferred_integration: exact_inference_seeded_or_filtered_ownership_antichains_before_expensive_normalization
-  blanket_full_residual_record_replacement: not_justified
-
-  double_threat_absorber_research:
-    source_commit: 80f6d20f10a40ce95882e091665cac901a091d73
-    benchmark_run: 34485833438
-    research_record: docs/research/2026-09-10-double-threat-absorber-results.md
-    tested_complete_geometries:
-      - 4x3_c3
-      - 4x4_c4
-      - 5x3_c4
-      - 4x5_c4
-      - 5x4_c4
-      - 5x5_c4
-    exactness:
-      unsound_seed_count: 0
-      baseline_frontier_mismatches: 0
-      absorber_frontier_mismatches: 0
-    5x5:
-      supports_with_seed: 6468
-      supports_total: 7776
-      seed_records: 147873
-      baseline_pair_candidates: 81515570
-      absorber_pair_candidates: 79580610
-      direct_pair_reduction_fraction: 0.023737305646025608
-      post_combine_candidates_already_proved: 21671147
-      post_combine_absorption_fraction_of_baseline_pairs: 0.2658528548595072
-    disposition:
-      - retain_exact_candidate
-      - insufficient_as_standalone_pair_space_reducer
-      - promising_as_direct_semantic_filter_before_dominance_dedup_normalization
-      - use_direct_threat_predicate_against_existing_terminal_requirement_data_rather_than_scanning_seed_frontier
-
-candidate_selection_after_native_c3:
-  duplicate_or_prior_scan_dominates: exact_pre_dedup_or_cardinality_bucket_dedup
-  phase_visits_dominate_with_low_duplicates: bucket_once_by_popcount_and_process_occupied_buckets
+selection_after_measurement:
+  prior_scan_or_duplicate_work_dominates: exact_pre_dedup_or_bucketed_dedup
+  cardinality_candidate_visits_dominate: bucketed_normalizer
   terminal_pair_work_dominates: specialized_exact_terminal_subtraction
-  aggregate_pair_work_dominates: broader_winspace_cpc_ndc_operand_reduction
-  normalization_dominates_and_direct_threat_hits_are_common: combine_double_threat_filter_with_dense_survivor_compaction
-  hot_support_skew_dominates: split_one_support_candidate_frontier_work_across_multiple_blocks
+  aggregate_pair_work_dominates: broader_wsl_cpc_ndc_operand_reduction
+  normalization_dominates_and_threat_filter_is_common: double_threat_filter_plus_dense_survivor_compaction
+  hot_support_skew_dominates: split_one_support_work_across_multiple_blocks
 
 next_actions:
-  - run_exact_source_468611d9e2f743a6a30a55a2db23cc70a824f988_with_c3_on_authorized_gtx1660ti_through_q1
-  - publish_append_only_c3_evidence
-  - classify_first_epoch_by_pair_class_prior_scans_duplicates_normalization_volume_and_hot_support_skew
-  - select_smallest_measured_physical_or_semantic_intervention
-  - requalify_complete_4x3_4x4_5x5_frontiers_after_any_c1_semantic_or_reducer_change
+  - run_c3_exact_source_468611d9e2f743a6a30a55a2db23cc70a824f988_on_authorized_gtx1660ti_through_q1
+  - run_b2_exact_source_24c5aa5297c56b37a3901c9c2560cf111263f6a9_on_same_authorized_gpu_through_q1
+  - publish_append_only_evidence_for_each_native_measurement
+  - select_smallest_intervention_supported_by_c3_and_b2
+  - if_bucketed_wins_integrate_into_c1_then_requalify_all_4x3_4x4_5x5_support_frontiers
   - retry_6x5_only_after_measured_intervention
   - attempt_7x6_only_after_6x5_completes_with_resource_and_cost_evidence
 
@@ -193,9 +140,7 @@ constraints:
   - no_post_ignition_host_semantic_progression
   - no_bsfp_as_minimax_or_search_specialization
   - no_full_colored_state_table_for_7x6
-  - no_retaining_all_ranks_when_only_root_is_required
   - no_silent_frontier_or_candidate_truncation
-  - no_monolithic_allocation_target_from_95_percent_vram_policy
   - no_performance_threshold_as_correctness_authority
   - no_cuda_algorithms_connect4_semantics
   - no_cuda_js_mutation_without_generic_missing_mechanism
