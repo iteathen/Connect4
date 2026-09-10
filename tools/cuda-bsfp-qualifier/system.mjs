@@ -5,7 +5,7 @@ import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 const execFileAsync = promisify(execFile);
-async function execText(command, args, options = {}) { const result = await execFileAsync(command, args, { encoding: 'utf8', windowsHide: true, maxBuffer: 4 * 1024 * 1024, ...options }); return result.stdout.trim(); }
+async function execText(command, args, options = {}) { const result = await execFileAsync(command, args, { encoding: 'utf8', windowsHide: true, maxBuffer: 4 * 1024 * 1024, timeout: 5000, ...options }); return result.stdout.trim(); }
 function atomicWrite(filePath, content) { fs.mkdirSync(path.dirname(filePath), { recursive: true }); const temp = `${filePath}.tmp-${process.pid}`; fs.writeFileSync(temp, content, 'utf8'); fs.renameSync(temp, filePath); }
 export function ensureAnonymousMachineId(spoolRoot) {
   const filePath = path.resolve(spoolRoot, 'machine-id');
