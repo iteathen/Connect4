@@ -98,11 +98,17 @@ jobs:
       - name: Run B1 Q1 dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-b1-packed-dominance-42 --cases 7x6:c4 --spool-root .q1-b1-ci-spool
 
+      - name: Run B2 normalizer A/B Q1 dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-b2-packed-normalizer-bucketed-42 --cases 7x6:c4 --spool-root .q1-b2-ci-spool
+
       - name: Run C3 diagnostic Q1 dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-c3-compact-work-diagnostic-42 --cases 6x5:c4 --spool-root .q1-c3-ci-spool
 
       - name: Reproduce clean sibling bootstrap topology
         run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-bootstrap-probe" --q1-profile c4-0009-b1-packed-dominance-42 --q1-cases 7x6:c4
+
+      - name: Reproduce B2 normalizer A/B bootstrap topology
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-b2-bootstrap-probe" --q1-profile c4-0009-b2-packed-normalizer-bucketed-42 --q1-cases 7x6:c4
 
       - name: Reproduce C3 diagnostic bootstrap topology
         run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-c3-bootstrap-probe" --q1-profile c4-0009-c3-compact-work-diagnostic-42 --q1-cases 6x5:c4

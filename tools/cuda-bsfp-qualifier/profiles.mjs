@@ -5,6 +5,13 @@ const P1_OVERHEAD_BYTES = 256n * MIB;
 const B1_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
 const B1_CANDIDATE_COUNT = 1_048_576n;
 const B1_FRONTIER_COUNT = 568n;
+const B2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
+const B2_SEGMENT_COUNT = 1_024n;
+const B2_SEGMENT_SIZE = 512n;
+const B2_CANDIDATE_COUNT = B2_SEGMENT_COUNT * B2_SEGMENT_SIZE;
+const B2_BUCKET_META_COUNT = 43n * B2_SEGMENT_COUNT;
+const B2_LEGACY_STRATEGY = 'legacy-43-phase-scan';
+const B2_BUCKETED_STRATEGY = 'bucketed-cardinality-v0';
 const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
 const P2_CANDIDATE_CAPACITY = 4_194_304n;
 const P2_SEGMENT_CAPACITY = 256n;
@@ -34,13 +41,29 @@ function b1Estimate(spec) {
   const frontierBytes = B1_FRONTIER_COUNT * 4n * 2n;
   const upperBoundBytes = candidateBytes + frontierBytes + B1_RUNTIME_ALLOWANCE_BYTES;
   return Object.freeze({
-    kind: 'proved-benchmark-upper-bound',
-    executable: true,
-    candidateCount: Number(B1_CANDIDATE_COUNT),
-    frontierCount: Number(B1_FRONTIER_COUNT),
-    devicePayloadBytes: Number(candidateBytes + frontierBytes),
-    fixedRuntimeAllowanceBytes: B1_RUNTIME_ALLOWANCE_BYTES.toString(),
+    kind: 'proved-benchmark-upper-bound', executable: true,
+    candidateCount: Number(B1_CANDIDATE_COUNT), frontierCount: Number(B1_FRONTIER_COUNT),
+    devicePayloadBytes: Number(candidateBytes + frontierBytes), fixedRuntimeAllowanceBytes: B1_RUNTIME_ALLOWANCE_BYTES.toString(),
     upperBoundBytes: Number(upperBoundBytes),
+  });
+}
+
+function b2Estimate(spec) {
+  const exactSupported = spec.columns === 7 && spec.rows === 6 && spec.connect === 4;
+  if (!exactSupported) return Object.freeze({ kind: 'unsupported-normalizer-benchmark-geometry', executable: false, upperBoundBytes: null });
+  const candidateBytes = B2_CANDIDATE_COUNT * 4n * 3n;
+  const outputBytes = B2_CANDIDATE_COUNT * 4n * 2n;
+  const checksBytes = B2_CANDIDATE_COUNT * 4n;
+  const bucketIndexBytes = B2_CANDIDATE_COUNT * 4n;
+  const bucketMetaBytes = B2_BUCKET_META_COUNT * 4n * 3n;
+  const smallControlBytes = ((B2_SEGMENT_COUNT + 1n) + B2_SEGMENT_COUNT * 3n) * 4n;
+  const devicePayloadBytes = candidateBytes + outputBytes + checksBytes + bucketIndexBytes + bucketMetaBytes + smallControlBytes;
+  const upperBoundBytes = devicePayloadBytes + B2_RUNTIME_ALLOWANCE_BYTES;
+  return Object.freeze({
+    kind: 'proved-packed-normalizer-ab-upper-bound', executable: true,
+    segmentCount: Number(B2_SEGMENT_COUNT), segmentSize: Number(B2_SEGMENT_SIZE), candidateCount: Number(B2_CANDIDATE_COUNT),
+    bucketMetaCount: Number(B2_BUCKET_META_COUNT), devicePayloadBytes: Number(devicePayloadBytes),
+    fixedRuntimeAllowanceBytes: B2_RUNTIME_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes),
   });
 }
 
@@ -57,16 +80,10 @@ function p2Estimate(spec) {
   const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
   const upperBoundBytes = devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES;
   return Object.freeze({
-    kind: 'proved-hybrid-workspace-upper-bound',
-    executable: true,
-    cellCount,
-    candidateCapacity: Number(P2_CANDIDATE_CAPACITY),
-    segmentCapacity: Number(P2_SEGMENT_CAPACITY),
-    sideCapacity: Number(P2_SIDE_CAPACITY),
-    frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY),
-    devicePayloadBytes: Number(devicePayloadBytes),
-    fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(),
-    upperBoundBytes: Number(upperBoundBytes),
+    kind: 'proved-hybrid-workspace-upper-bound', executable: true, cellCount,
+    candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY),
+    frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes),
+    fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes),
   });
 }
 
@@ -83,12 +100,8 @@ const REQUIRED_DEPENDENCIES = Object.freeze({
 });
 
 const P1 = Object.freeze({
-  id: 'c4-0009-p1',
-  specification: 'docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md',
-  gpuRequired: true,
-  requiredDependencies: REQUIRED_DEPENDENCIES,
-  supports(spec) { return spec.columns === 4 && spec.rows === 3 && spec.connect === 3; },
-  estimate: p1Estimate,
+  id: 'c4-0009-p1', specification: 'docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 4 && spec.rows === 3 && spec.connect === 3; }, estimate: p1Estimate,
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return Object.freeze([]);
     return Object.freeze([
@@ -99,108 +112,86 @@ const P1 = Object.freeze({
 });
 
 const B1 = Object.freeze({
-  id: 'c4-0009-b1-packed-dominance-42',
-  specification: 'docs/specs/profiles/C4-0009-B1-packed-dominance-throughput-v0.md',
-  gpuRequired: true,
-  requiredDependencies: REQUIRED_DEPENDENCIES,
-  supports(spec) { return spec.columns === 7 && spec.rows === 6 && spec.connect === 4; },
-  estimate: b1Estimate,
+  id: 'c4-0009-b1-packed-dominance-42', specification: 'docs/specs/profiles/C4-0009-B1-packed-dominance-throughput-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 7 && spec.rows === 6 && spec.connect === 4; }, estimate: b1Estimate,
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return Object.freeze([]);
+    return Object.freeze([Object.freeze({
+      id: 'packed-dominance-throughput', command: process.execPath,
+      args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-packed-dominance/run.mjs')),
+      expected(result) {
+        return result?.outcome === 'native-packed-dominance-pass'
+          && result?.candidateCount === Number(B1_CANDIDATE_COUNT) && result?.frontierCount === Number(B1_FRONTIER_COUNT)
+          && result?.totalSubsetChecksPerMeasuredPass === Number(B1_CANDIDATE_COUNT * B1_FRONTIER_COUNT)
+          && result?.observedSubsetChecks === Number(B1_CANDIDATE_COUNT * B1_FRONTIER_COUNT) && result?.dominatedCount === 0
+          && Number.isFinite(result?.throughput?.subsetChecksPerSecondMedian) && result.throughput.subsetChecksPerSecondMedian > 0;
+      },
+    })]);
+  },
+});
+
+const B2 = Object.freeze({
+  id: 'c4-0009-b2-packed-normalizer-bucketed-42', specification: 'docs/specs/profiles/C4-0009-B2-packed-normalizer-bucketed-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 7 && spec.rows === 6 && spec.connect === 4; }, estimate: b2Estimate,
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return Object.freeze([]);
+    const script = path.join(repositoryRoot, 'experiments/cuda-bsfp-segmented-antichain/run.mjs');
+    const expected = (strategy) => (result) => result?.outcome === 'native-segmented-packed-antichain-pass'
+      && result?.strategy === strategy && result?.segmentCount === Number(B2_SEGMENT_COUNT) && result?.segmentSize === Number(B2_SEGMENT_SIZE)
+      && result?.candidateCount === Number(B2_CANDIDATE_COUNT) && result?.removedDuplicates === Number(B2_SEGMENT_COUNT)
+      && result?.survivors === Number(B2_SEGMENT_COUNT * (B2_SEGMENT_SIZE - 1n))
+      && Number.isFinite(result?.timingsMs?.submissionWait) && result.timingsMs.submissionWait >= 0;
     return Object.freeze([
-      Object.freeze({
-        id: 'packed-dominance-throughput',
-        command: process.execPath,
-        args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-packed-dominance/run.mjs')),
-        expected(result) {
-          return result?.outcome === 'native-packed-dominance-pass'
-            && result?.candidateCount === Number(B1_CANDIDATE_COUNT)
-            && result?.frontierCount === Number(B1_FRONTIER_COUNT)
-            && result?.totalSubsetChecksPerMeasuredPass === Number(B1_CANDIDATE_COUNT * B1_FRONTIER_COUNT)
-            && result?.observedSubsetChecks === Number(B1_CANDIDATE_COUNT * B1_FRONTIER_COUNT)
-            && result?.dominatedCount === 0
-            && Number.isFinite(result?.throughput?.subsetChecksPerSecondMedian)
-            && result.throughput.subsetChecksPerSecondMedian > 0;
-        },
-      }),
+      Object.freeze({ id: 'legacy-cardinality-normalizer', command: process.execPath, args: nativeNodeArgs(script, 'native'), expected: expected(B2_LEGACY_STRATEGY) }),
+      Object.freeze({ id: 'bucketed-cardinality-normalizer', command: process.execPath, args: nativeNodeArgs(script, 'native-bucketed'), expected: expected(B2_BUCKETED_STRATEGY) }),
     ]);
   },
 });
 
 const KNOWN_P2_ROOTS = Object.freeze(new Map([
-  ['4x3-c3', 1],
-  ['4x4-c4', 0],
-  ['5x4-c4', 0],
-  ['5x5-c4', 0],
-  ['7x6-c4', 1],
+  ['4x3-c3', 1], ['4x4-c4', 0], ['5x4-c4', 0], ['5x5-c4', 0], ['7x6-c4', 1],
 ]));
 
 const P2 = Object.freeze({
-  id: 'c4-0009-p2-compact-hybrid',
-  specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md',
-  gpuRequired: true,
-  requiredDependencies: REQUIRED_DEPENDENCIES,
-  supports(spec) {
-    const cells = spec.columns * spec.rows;
-    return Number.isSafeInteger(cells) && cells >= 1 && cells <= 42;
-  },
-  estimate: p2Estimate,
+  id: 'c4-0009-p2-compact-hybrid', specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { const cells = spec.columns * spec.rows; return Number.isSafeInteger(cells) && cells >= 1 && cells <= 42; }, estimate: p2Estimate,
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return Object.freeze([]);
     const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`;
     const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`;
     const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry);
-    return Object.freeze([
-      Object.freeze({
-        id: 'compact-hybrid-root-wdl',
-        command: process.execPath,
-        args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]),
-        expected(result) {
-          return result?.outcome === 'native-compact-hybrid-root-wdl-pass'
-            && result?.geometry === resultGeometry
-            && [-1, 0, 1].includes(result?.rootWdl)
-            && (expectedRoot === undefined || result.rootWdl === expectedRoot)
-            && Number.isFinite(result?.timingsMs?.solve)
-            && result.timingsMs.solve >= 0
-            && Number.isFinite(result?.gpuReducer?.generatedPairCandidates);
-        },
-      }),
-    ]);
+    return Object.freeze([Object.freeze({
+      id: 'compact-hybrid-root-wdl', command: process.execPath,
+      args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]),
+      expected(result) {
+        return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl)
+          && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0
+          && Number.isFinite(result?.gpuReducer?.generatedPairCandidates);
+      },
+    })]);
   },
 });
 
 const C1 = Object.freeze({
-  id: 'c4-0009-c1-compact-ownership-42',
-  specification: 'docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md',
-  gpuRequired: true,
-  requiredDependencies: REQUIRED_DEPENDENCIES,
-  supports(spec) { return (spec.columns === 4 && spec.rows === 3 && spec.connect === 3)
-    || (spec.columns === 4 && spec.rows === 4 && spec.connect === 4)
-    || (spec.columns === 5 && spec.rows === 5 && spec.connect === 4); },
+  id: 'c4-0009-c1-compact-ownership-42', specification: 'docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return (spec.columns === 4 && spec.rows === 3 && spec.connect === 3) || (spec.columns === 4 && spec.rows === 4 && spec.connect === 4) || (spec.columns === 5 && spec.rows === 5 && spec.connect === 4); },
   estimate(spec) {
     if (!this.supports(spec)) return { kind: 'unsupported-compact-geometry', executable: false, upperBoundBytes: null };
     const shape = compactOwnership42Shape(spec);
-    return { kind: 'bounded-compact-arenas-with-oracle', executable: true, upperBoundBytes: shape.upperBoundBytes,
-      payloadUpperBoundBytes: shape.payloadUpperBoundBytes, oracleUpperBoundBytes: shape.oracleUpperBoundBytes,
-      frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity };
+    return { kind: 'bounded-compact-arenas-with-oracle', executable: true, upperBoundBytes: shape.upperBoundBytes, payloadUpperBoundBytes: shape.payloadUpperBoundBytes,
+      oracleUpperBoundBytes: shape.oracleUpperBoundBytes, frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity };
   },
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return [];
     return [{ id: 'compact-root-wdl', command: process.execPath,
       args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs')), String(spec.columns), String(spec.rows), String(spec.connect)],
-      expected(result) {
-        return result?.outcome === 'native-compact-frontier-pass' && result?.closure === 'full-root'
-          && result?.rootWdl === (spec.connect === 3 ? 1 : 0)
-          && result?.comparedSupports === (spec.rows + 1) ** spec.columns
-          && result?.frontierMismatches === 0 && result?.cleanup === 'graceful';
-      } }];
+      expected(result) { return result?.outcome === 'native-compact-frontier-pass' && result?.closure === 'full-root' && result?.rootWdl === (spec.connect === 3 ? 1 : 0)
+        && result?.comparedSupports === (spec.rows + 1) ** spec.columns && result?.frontierMismatches === 0 && result?.cleanup === 'graceful'; } }];
   },
 });
 
 const C2 = Object.freeze({
-  id: 'c4-0009-c2-compact-scaling-42',
-  specification: 'docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md',
-  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  id: 'c4-0009-c2-compact-scaling-42', specification: 'docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
   supports(spec) { return spec.columns === 6 && spec.rows === 5 && spec.connect === 4; },
   estimate(spec) {
     if (!this.supports(spec)) return { kind: 'unsupported-compact-scaling-geometry', executable: false, upperBoundBytes: null };
@@ -212,22 +203,19 @@ const C2 = Object.freeze({
     if (!this.supports(spec)) return [];
     return [{ id: 'compact-scaling-root', command: process.execPath,
       args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs'), 'scaling'), '6', '5', '4', '8192', '2048'],
-      expected(result) { return result?.outcome === 'native-compact-root-complete' && result?.closure === 'full-root'
-        && [-1, 0, 1].includes(result?.rootWdl) && result?.comparedSupports === 0 && result?.cleanup === 'graceful'; } }];
+      expected(result) { return result?.outcome === 'native-compact-root-complete' && result?.closure === 'full-root' && [-1, 0, 1].includes(result?.rootWdl)
+        && result?.comparedSupports === 0 && result?.cleanup === 'graceful'; } }];
   },
 });
 
 const C3 = Object.freeze({
-  id: 'c4-0009-c3-compact-work-diagnostic-42',
-  specification: 'docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md',
-  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  id: 'c4-0009-c3-compact-work-diagnostic-42', specification: 'docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
   supports(spec) { return spec.columns === 6 && spec.rows === 5 && spec.connect === 4; },
   estimate(spec) {
     if (!this.supports(spec)) return { kind: 'unsupported-compact-diagnostic-geometry', executable: false, upperBoundBytes: null };
     const shape = compactOwnership42Shape({ ...spec, frontierCapacity: 8192, candidateTileSize: 2048, qualificationOracle: false });
     return { kind: 'bounded-compact-diagnostic-arenas-no-oracle', executable: true, upperBoundBytes: shape.upperBoundBytes,
-      frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity,
-      staticEpochLimit: 1 };
+      frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity, staticEpochLimit: 1 };
   },
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return [];
@@ -235,20 +223,16 @@ const C3 = Object.freeze({
       args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs'), 'diagnostic'), '6', '5', '4', '8192', '2048', '64', '128', '1'],
       expected(result) {
         const run = result?.runs?.[0];
-        return result?.outcome === 'native-compact-diagnostic-prefix-pass'
-          && result?.caseRole === 'partial-rank-diagnostic' && result?.closure === 'partial-static-prefix'
-          && result?.rootWdl === null && result?.comparedSupports === 0
-          && run?.executedEpochCount === 1 && run?.completedFullSchedule === false
-          && run?.diagnostics?.executedEpochCount === 1
-          && Number.isFinite(run?.diagnostics?.totals?.normalizationCalls)
-          && Number.isFinite(run?.diagnostics?.totals?.normalizationInputRecords)
-          && Array.isArray(run?.diagnostics?.hotSupports)
-          && result?.cleanup === 'graceful';
+        return result?.outcome === 'native-compact-diagnostic-prefix-pass' && result?.caseRole === 'partial-rank-diagnostic'
+          && result?.closure === 'partial-static-prefix' && result?.rootWdl === null && result?.comparedSupports === 0
+          && run?.executedEpochCount === 1 && run?.completedFullSchedule === false && run?.diagnostics?.executedEpochCount === 1
+          && Number.isFinite(run?.diagnostics?.totals?.normalizationCalls) && Number.isFinite(run?.diagnostics?.totals?.normalizationInputRecords)
+          && Array.isArray(run?.diagnostics?.hotSupports) && result?.cleanup === 'graceful';
       } }];
   },
 });
 
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3]]);
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };
