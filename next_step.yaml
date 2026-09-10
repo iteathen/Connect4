@@ -1,11 +1,11 @@
-schema_version: 17
+schema_version: 18
 updated: 2026-09-10
-state: cuda_bsfp_c3_and_b2_native_measurements_ready
+state: cuda_bsfp_c3_and_stronger_b2_native_measurements_ready
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: obtain_native_c3_cause_profile_and_b2_normalizer_ab_then_select_smallest_measured_intervention
+  action: obtain_native_c3_cause_profile_and_stronger_b2_ab_then_select_smallest_measured_intervention
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
@@ -42,18 +42,14 @@ native_milestones:
       4x3_c3: win_zero_mismatch
       4x4_c4: draw_zero_mismatch
       5x5_c4: draw_zero_mismatch
-    5x5_submit_wait_ms: 3299.957
-    5x5_warm_solve_wall_ms: 3568.618
+    five_by_five_submit_wait_ms: 3299.957
+    five_by_five_warm_solve_wall_ms: 3568.618
     cpu_reference_with_observer_ms: 11663.782
 
 six_by_five_wall:
   result: unresolved
-  attempts:
-    - candidate_tile: 8192
-      timeout_seconds: 180
-    - candidate_tile: 2048
-      timeout_seconds: 180
-      first_static_epoch_ms: 75117.652
+  first_32_node_epoch_ms: 75117.652
+  bounded_attempts_seconds: [180, 180]
   owner_gpu_observation: approximately_95_to_100_percent_utilization
 
 c3_work_diagnostic:
@@ -62,19 +58,14 @@ c3_work_diagnostic:
   geometry: 6x5_c4
   static_epoch_limit: 1
   root_claim: forbidden
-  counters:
-    - pair_candidates_generated
-    - subset_checks_performed
+  measures:
+    - pair_candidate_classes
+    - subset_checks
     - prior_scan_iterations
     - duplicate_hits
-    - normalization_input_records
-    - normalization_calls
-    - terminal_pair_candidates
-    - aggregate_pair_candidates
-    - cofactor_normalization_input_records
-    - terminal_intersection_normalization_input_records
-    - terminal_union_normalization_input_records
-    - aggregate_normalization_input_records
+    - normalization_volume_and_calls
+    - rank_summaries
+    - hot_support_skew
   portable:
     verify_run: 34485057956
     bsfp_portable_run: 34485057959
@@ -95,29 +86,37 @@ winspace_double_threat:
 
 b2_bucketed_normalizer:
   profile_id: c4-0009-b2-packed-normalizer-bucketed-42
-  exact_native_source: 24c5aa5297c56b37a3901c9c2560cf111263f6a9
+  exact_native_source: 7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5
   solver_integration: false
   legacy_control_preserved: true
-  workload:
+  common_workload:
     segments: 1024
     segment_size: 512
-    candidates: 524288
-    one_exact_duplicate_per_segment: true
-  candidate_algorithm:
-    - linear_count_by_popcount
-    - 43_entry_prefix
-    - linear_scatter_original_candidate_indices
-    - process_only_selected_cardinality_bucket
-    - exact_same_bucket_equality_dedup
-    - exact_prior_cardinality_subset_dominance
+    candidates_per_child: 524288
+    block_size: 256
+  fixtures:
+    equal_cardinality_duplicate_stress:
+      purpose: isolate_43_phase_scan_and_same_bucket_duplicate_cost
+      exact_duplicate_per_segment: 1
+    mixed_cardinality_deterministic:
+      purpose: prevent_promotion_from_one_bucket_only_gain
+      expected_sets: exact_host_subset_normalization_minimal_and_maximal
+      exact_duplicate_per_segment: 1
+  steps:
+    - legacy_equal
+    - bucketed_equal
+    - legacy_mixed
+    - bucketed_mixed
   portable:
-    verify_run: 34494094579
+    verify_run: 34494972124
     verify_result: success
-    bsfp_portable_run: 34494094890
+    bsfp_portable_run: 34494972278
     matrix: windows_2025_and_ubuntu_24_04_node_24_15_and_26_7_all_pass
+    mixed_bucketed_submit: pass_all_four_lanes
     b2_dry_run: pass_all_four_lanes
     b2_bootstrap_prepare: pass_all_four_lanes
   native_status: required_ab_before_c1_integration
+  promotion_rule: material_native_gain_must_generalize_to_mixed_fixture_then_c1_all_frontier_requalification
 
 selection_after_measurement:
   prior_scan_or_duplicate_work_dominates: exact_pre_dedup_or_bucketed_dedup
@@ -129,7 +128,7 @@ selection_after_measurement:
 
 next_actions:
   - run_c3_exact_source_468611d9e2f743a6a30a55a2db23cc70a824f988_on_authorized_gtx1660ti_through_q1
-  - run_b2_exact_source_24c5aa5297c56b37a3901c9c2560cf111263f6a9_on_same_authorized_gpu_through_q1
+  - run_b2_exact_source_7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5_on_same_authorized_gpu_through_q1
   - publish_append_only_evidence_for_each_native_measurement
   - select_smallest_intervention_supported_by_c3_and_b2
   - if_bucketed_wins_integrate_into_c1_then_requalify_all_4x3_4x4_5x5_support_frontiers

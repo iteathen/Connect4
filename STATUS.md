@@ -13,7 +13,7 @@ goal:   exact empty-board 7x6 connect-4 W/D/L, extremely fast on CUDA
 method: backward symbolic fixed-point, not move-tree search
 ```
 
-Connect4 still keeps the incumbent minimax/alpha-beta lane separate under `components/incumbent/`. CUDA-BSFP is under `components/bsfp/` and must not be converted into recursive search.
+Connect4 keeps the incumbent minimax/alpha-beta lane separate under `components/incumbent/`. CUDA-BSFP is under `components/bsfp/` and must not be converted into recursive search.
 
 ## Exact dependency pair
 
@@ -34,19 +34,13 @@ No lower repository change is currently required.
 
 ## 6x5 wall
 
-Two bounded C1 6x5 attempts timed out at 180 s. With a 2,048-candidate tile, the first 32-node static epoch took about 75.118 s. The owner observed roughly 95–100% GPU utilization during the expensive interval.
+Two bounded C1 6x5 attempts timed out at 180 seconds. With a 2,048-candidate tile, the first 32-node static epoch took about 75.118 seconds. The owner observed roughly 95–100% GPU utilization during the expensive interval.
 
-Code review therefore treats high utilization as compatible with low-quality repeated GPU work. Current suspects are:
-
-- complete candidate interval rescanned through 43 cardinality phases;
-- quadratic same-cardinality prior-input duplicate scan;
-- one block owning a support through a long fused semantic pipeline;
-- generic terminal subtraction creating avoidable Cartesian work;
-- genuinely excessive aggregate pair volume requiring broader winspace/CPC/NDC inference.
+Current suspects are complete 43-phase candidate rescans, quadratic same-cardinality duplicate scans, one-block-per-support serialization, generic terminal subtraction, and genuinely excessive aggregate pair volume requiring stronger winspace/CPC/NDC inference.
 
 ## C3 workload diagnostic
 
-C3 is a one-static-epoch, result-neutral 6x5 profile. It records pair class, subset checks, prior-scan iterations, duplicate hits, normalization volume/calls, rank summaries and hot-support skew. It is explicitly `partial-rank-diagnostic`; it cannot publish root W/D/L.
+C3 is a one-static-epoch result-neutral 6x5 profile. It records pair class, subset checks, prior-scan iterations, duplicate hits, normalization volume/calls, rank summaries and hot-support skew. It is explicitly `partial-rank-diagnostic` and cannot publish root W/D/L.
 
 Exact low-perturbation native source:
 
@@ -73,40 +67,52 @@ Disposition: insufficient as a standalone pair-space breakthrough, but promising
 
 ## B2 cardinality-bucketed normalizer
 
-A separate exact primitive candidate now exists; C1 and C3 still use the legacy reducer.
+C1/C3 still use the legacy reducer. B2 is a separate exact primitive A/B profile.
 
-The bucketed reducer replaces 43 complete candidate rescans with count -> prefix -> scatter -> per-bucket exact processing. It preserves cardinality order, exact subset dominance, exact equality deduplication, and capacity-fail-closed behavior. Invalid popcount sentinels are excluded from buckets.
+The bucketed reducer replaces 43 complete candidate rescans with count -> prefix -> scatter -> exact per-bucket processing. It preserves cardinality order, exact subset dominance, exact equality deduplication, invalid-candidate handling and capacity-fail-closed behavior.
 
-B2 profile:
+B2 now contains two fixed workload families so a result cannot be optimized to a single favorable shape:
+
+1. equal-cardinality duplicate stress;
+2. deterministic mixed-cardinality control with exact host-derived minimal/maximal survivor sets.
+
+Each family runs legacy and bucketed native children independently, for four exact A/B steps total.
+
+Current exact native B2 source:
 
 ```text
-id:          c4-0009-b2-packed-normalizer-bucketed-42
-source:      24c5aa5297c56b37a3901c9c2560cf111263f6a9
-segments:    1,024
-segment size:512
-candidates:  524,288
-steps:       legacy native control, then bucketed native candidate
+7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5
 ```
 
-Portable qualification at source `24c5aa5297c56b37a3901c9c2560cf111263f6a9`:
+Fixed physical size:
 
 ```text
-verify:        34494094579 success
-bsfp-portable: 34494094890 success
+segments:     1,024
+segment size: 512
+candidates:   524,288 per child
+block size:   256
+```
+
+Portable qualification at that exact source:
+
+```text
+verify:        34494972124 success
+bsfp-portable: 34494972278 success
 matrix:        Windows/Ubuntu x Node 24.15/26.7 all pass
+mixed fixture: compile/submit pass on all four lanes
 B2 dry-run:    pass on all four lanes
 B2 bootstrap:  pass on all four lanes
 ```
 
-This proves representability/composition through the pinned runtime, not native speed. B2 must win a native same-hardware A/B before C1 integration is allowed.
+This proves representability/composition only. A native same-GPU A/B must show a material gain on the mixed control, not merely the one-bucket stress case, before C1 integration is allowed.
 
 ## Next gate
 
-Two physical measurements are now independently ready:
+Two independent native measurements are ready:
 
-1. **C3** at exact source `468611d9...`: identify what dominates the first 6x5 epoch.
-2. **B2** at exact source `24c5aa...`: determine whether cardinality bucketing actually repays count/scatter/global-memory cost.
+1. **C3**, exact source `468611d9...`: classify the first 6x5 epoch by actual work source.
+2. **B2**, exact source `7298bb...`: compare legacy versus bucketed normalization on both workload families.
 
-After those measurements, select the smallest intervention supported by evidence. If bucketed normalization wins, integrate it into C1 and requalify every support frontier for 4x3, 4x4 and 5x5 before retrying 6x5. If it does not win, retain the negative result and use C3 to choose terminal specialization, heavy-support decomposition, semantic filtering, or broader WSL/CPC/NDC operand reduction.
+After those measurements, select the smallest intervention supported by evidence. If bucketed normalization wins, integrate it into C1 and requalify every support frontier for 4x3, 4x4 and 5x5 before retrying 6x5. If it does not win, preserve the negative result and use C3 to choose terminal specialization, heavy-support decomposition, semantic filtering, or broader WSL/CPC/NDC operand reduction.
 
 Empty 7x6 remains unsolved by complete BSFP closure. No exact-distance result or protected-main merge is claimed.
