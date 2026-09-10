@@ -57,6 +57,13 @@ export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAl
   });
 }
 
+export function qualificationNodeOptions(existing = process.env.NODE_OPTIONS ?? '') {
+  const flag = '--experimental-ffi';
+  const tokens = existing.trim() ? existing.trim().split(/\s+/) : [];
+  if (process.allowedNodeEnvironmentFlags?.has(flag) && !tokens.includes(flag)) tokens.push(flag);
+  return tokens.join(' ');
+}
+
 function uniqueWorkspace(baseDirectory) {
   const stamp = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14);
   let candidate = path.resolve(baseDirectory, `Connect4-BSFP-Q1-work-${stamp}`);
@@ -140,6 +147,10 @@ export async function main(argv = process.argv.slice(2)) {
   cloneAndCheckout(CUDA_JS_REPOSITORY, cudaJsRoot, config.cudaJsRef);
 
   const env = { ...process.env, npm_config_engine_strict: 'false' };
+  const nodeOptions = qualificationNodeOptions(env.NODE_OPTIONS);
+  if (nodeOptions) env.NODE_OPTIONS = nodeOptions;
+  else delete env.NODE_OPTIONS;
+
   shell('npm ci --no-audit --no-fund', cudaJsRoot, env);
   const topology = wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot });
 
@@ -161,11 +172,14 @@ export async function main(argv = process.argv.slice(2)) {
   console.error('[cuda-bsfp-q1-bootstrap] package topology verified');
   console.error(`[cuda-bsfp-q1-bootstrap] cuda-js -> ${resolvedCudaJsFromAlgorithms}`);
   console.error(`[cuda-bsfp-q1-bootstrap] cuda-algorithms -> ${resolvedCudaAlgorithmsFromConnect4}`);
+  console.error(`[cuda-bsfp-q1-bootstrap] experimental FFI flag ${process.allowedNodeEnvironmentFlags?.has('--experimental-ffi') ? 'enabled for Q1 children' : 'not available on this Node build'}`);
 
   if (config.prepareOnly) {
     console.log(JSON.stringify({
       outcome: 'prepared',
       nodeVersion: process.version,
+      nodeOptions: env.NODE_OPTIONS ?? '',
+      experimentalFfiEnabled: process.allowedNodeEnvironmentFlags?.has('--experimental-ffi') === true,
       workspaceRoot,
       connect4Root,
       cudaAlgorithmsRoot,
