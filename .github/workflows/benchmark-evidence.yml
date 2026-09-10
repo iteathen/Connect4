@@ -21,3 +21,9 @@ jobs:
         env:
           C4_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
         run: node --expose-gc benchmarks/incumbent.mjs | tee benchmark-evidence.json
+      - name: Capture BSFP representation performance evidence
+        env:
+          C4_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+          BSFP_BENCH_REPS: "5"
+          BSFP_BENCH_WARMUPS: "1"
+        run: node --expose-gc benchmarks/bsfp-performance.mjs | tee bsfp-performance-evidence.json
