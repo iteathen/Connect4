@@ -1,16 +1,17 @@
-schema_version: 6
+schema_version: 7
 updated: 2026-09-09
 state: cuda_bsfp_4x3_portable_qualified_native_next
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: run_physical_cuda_qualification_for_first_bsfp_slices
+  action: run_physical_cuda_qualification_for_first_bsfp_profile
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
   solver_lane: cuda_bsfp
   draft_pr: 14
+  execution_profile: docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md
 
 formal_bsfp_spec_stack:
   - path: docs/specs/C4-0006-control-parity-and-winspace-v1.md
@@ -25,6 +26,9 @@ formal_bsfp_spec_stack:
   - path: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
     owns: connect4_consumer_projection_onto_cuda_algorithms_and_cuda_js
     status: working_until_first_physical_vertical_slice
+  - path: docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md
+    owns: exact_first_4x3_cuda_bsfp_qualification_shape
+    status: working_portable_qualified_native_pending
 
 solver_lanes:
   incumbent_search:
@@ -75,6 +79,7 @@ qualified_reference:
   wdl_mismatches: 0
 
 ranked_activation_slice:
+  profile_section: P1-A
   implementation: experiments/cuda-bsfp-vertical-slice/run.mjs
   support_item_capacity: 256
   max_rank: 12
@@ -90,6 +95,7 @@ ranked_activation_slice:
     - cleanup
 
 dense_wdl_slice:
+  profile_section: P1-B
   implementation: components/bsfp/cuda/dense-symbolic-4x3-plan.mjs
   harness: experiments/cuda-bsfp-dense-4x3/run.mjs
   contract: Connect4-CUDA-BSFP-dense-symbolic-4x3-wdl-v0
@@ -132,7 +138,7 @@ next_actions:
   - run_connect4_experiments_cuda_bsfp_vertical_slice_run_mjs_native_on_same_or_frozen_compatible_host
   - run_connect4_experiments_cuda_bsfp_dense_4x3_run_mjs_native_and_require_4631_state_11818_edge_zero_mismatch_result
   - preserve_raw_physical_results_and_exact_connect4_cuda_algorithms_cuda_js_node_gpu_driver_provider_identity
-  - only_after_native_correctness_reconcile_c4_0009_and_cuda_algorithms_spec_0004_maturity
+  - only_after_native_correctness_reconcile_c4_0009_c4_0009_p1_and_cuda_algorithms_spec_0004_maturity
   - then_begin_compact_bsfp_representation_work_using_wsl_ndc_cpc_dominance_and_exact_canonicalization
   - add_new_cuda_algorithms_mechanisms_only_when_they_pass_the_deletion_test_and_have_materially_different_consumer_evidence
 
