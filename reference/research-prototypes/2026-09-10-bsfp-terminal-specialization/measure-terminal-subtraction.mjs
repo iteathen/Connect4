@@ -130,7 +130,7 @@ function newStats() {
 }
 
 function addStats(target, source) {
-  for (const key of Object.keys(target)) target[key] += source[key];
+  for (const key of Object.keys(source)) target[key] += source[key];
 }
 
 function analyzeCase(spec) {
