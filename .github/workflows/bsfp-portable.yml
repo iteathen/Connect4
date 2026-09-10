@@ -46,5 +46,8 @@ jobs:
           ln -s ../cuda-js node_modules/cuda-js
           ln -s ../cuda-algorithms node_modules/cuda-algorithms
 
-      - name: Run CUDA-BSFP portable composition slice
+      - name: Run ranked-activation CUDA-BSFP portable slice
         run: node experiments/cuda-bsfp-vertical-slice/run.mjs portable
+
+      - name: Run dense 4x3 CUDA-BSFP WDL portable slice
+        run: node experiments/cuda-bsfp-dense-4x3/run.mjs portable
