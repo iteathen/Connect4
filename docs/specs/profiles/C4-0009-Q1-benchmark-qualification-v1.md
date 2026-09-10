@@ -21,7 +21,7 @@ npm run bench:bsfp:qualify
 
 ## Evidence ownership and destination
 
-Every published run receives a unique immutable path `docs/evidence/cuda-bsfp/qualification/<run-id>/` and branch `evidence/cuda-bsfp-q1/<run-id>`. The runner opens a pull request to the selected report base and does not push generated evidence directly to protected `main`. Requalification always uses a new run ID.
+Every published run receives a unique immutable path `docs/evidence/cuda-bsfp/qualification/<run-id>/` and branch `evidence/cuda-bsfp-q1/<run-id>`. The runner opens a pull request to protected `main` by default and does not push generated evidence directly to protected `main`. Requalification always uses a new run ID.
 
 ## Repository authentication and source identity
 
@@ -30,6 +30,16 @@ Publication uses GitHub HTTPS APIs and requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHU
 Official publication requires a clean Git source checkout with a discoverable source revision. A profile may additionally freeze exact dependency revisions. Current P1 requires CUDA-Algorithms `48ee0aec9acae7776950f03ab52ab1737e598b6e` and CUDA-JS `98e2ebc942c14d63acf4dd82e912dd548c363a05`.
 
 If publication fails, completed local evidence remains preserved and a later qualifier invocation may retry pending/failed publication.
+
+## Node-version discovery policy
+
+Q1 **must not require, reject, whitelist or otherwise gate execution by Node version**. Node version is observed evidence, not an admission criterion.
+
+Every run records the exact `process.version` and `process.versions` tuple that actually executed the qualifier. Compatibility claims are derived from successful qualification evidence for concrete Node versions; they are never inferred from package `engines` metadata or from a preferred maintenance toolchain.
+
+Package `engines` declarations elsewhere in the ecosystem are support-policy metadata and must not be used by Q1 as proof that another Node version cannot work. Compatibility probes may disable package-manager engine enforcement so the real code path is exercised. A version that passes portable tests is portable-compatibility evidence; native support requires corresponding physical qualification where native behavior is material.
+
+The initial compatibility probe on 2026-09-09 exercised Node **24.15.0** and **26.7.0** on both Windows Server 2025 and Ubuntu 24.04. Both versions passed the complete portable CUDA-BSFP path, including CUDA-JS dependency installation, public package binding, ranked activation, dense 4x3 W/D/L Device-JS execution through the testing runtime, and Q1 dry-run orchestration. This does not by itself promote Node 24 to native CUDA support authority.
 
 ## Local crash-survival spool
 
@@ -68,6 +78,8 @@ Default emergency runtime floor is 512 MiB free VRAM. While a child is active, Q
 Defaults are 120000 ms per case and 900000 ms per run. Each solver step receives the smaller remaining budget. Timeout terminates the child process tree. Timeout is evidence, not convergence and not automatically a correctness failure.
 
 By default timeout, emergency memory abort, runtime failure, or correctness failure prevents later solver launches while leaving their planned report entries as `skipped-after-boundary`. `--continue-after-boundary` is an explicit diagnostic override.
+
+System/GPU/Git probes are separately bounded so a wedged telemetry command cannot indefinitely block the supervisor. Repository-publication network calls are also bounded; publication timeout preserves the local report as a publication failure rather than hanging qualification.
 
 ## Default geometry ladder
 
@@ -139,4 +151,4 @@ Performance interpretation is separate from correctness and must not overwrite p
 
 ## Falsifiers
 
-Rework Q1 if solver crashes can routinely destroy active-case evidence; unknown memory growth can reach allocation before refusal; timeout leaves uncontrolled process trees; solver children need repository credentials; report history can be overwritten; failed/timed-out/refused/unsupported cases disappear; personal host identifiers become necessary; representation details leak into the generic report schema; or benchmark completion can be mistaken for exact correctness without an explicit result predicate.
+Rework Q1 if solver crashes can routinely destroy active-case evidence; unknown memory growth can reach allocation before refusal; timeout leaves uncontrolled process trees; solver children need repository credentials; report history can be overwritten; failed/timed-out/refused/unsupported cases disappear; personal host identifiers become necessary; representation details leak into the generic report schema; Node version is used as a substitute for compatibility evidence; or benchmark completion can be mistaken for exact correctness without an explicit result predicate.
