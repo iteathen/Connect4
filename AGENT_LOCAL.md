@@ -4,7 +4,7 @@ Universal engineering and design guidance comes from the account-global `AGENTS.
 
 ## Mission and ownership
 
-Connect4 is an independent Node benchmark/validation product and exact-solver laboratory for Connect Four. It owns Connect Four domain semantics, the custom evaluator and conformance vectors, solved-game oracle evidence, benchmark positions/budgets/fairness/metrics/evidence, and product composition of public CUDA libraries.
+Connect4 is an independent Node benchmark/validation product and exact-solver laboratory for Connect Four. It owns Connect Four domain semantics, the custom evaluator and conformance vectors, solved-game oracle evidence, benchmark positions/budgets/fairness/metrics/evidence, BSFP qualification semantics/evidence, and product composition of public CUDA libraries.
 
 The repository currently contains two deliberately separate solver lanes:
 
@@ -23,11 +23,15 @@ CUDA-Algorithms owns reusable provider-neutral GPU parallel-algorithm semantics.
 - `docs/specs/C4-0007-nested-dependency-closure-v1.md` — NDC dependency/certificate/fixed-point proof semantics.
 - `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — exact BSFP W/D/L solver semantics, terminal axioms and result meaning.
 - `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA-BSFP consumer projection, CUDA-Algorithms/CUDA-JS seam, GPU/Node boundary and physical qualification gate.
+- `docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md` — exact first 4x3 CUDA-BSFP qualification profile.
+- `docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md` — benchmark qualifier, crash-safe evidence, timeout/VRAM safety and repository publication authority.
+- `docs/evidence/cuda-bsfp/qualification/` — immutable Q1-generated report bundles; never rewrite a prior run into a different outcome.
 - `docs/research/2026-09-09-*` plus associated evidence/prototypes — preserved research/provenance supporting C4-0006..0009; evidence is not stronger authority than the formal specs.
 - `components/bsfp/` — BSFP consumer implementation and local proof semantics on BSFP work branches.
+- `tools/cuda-bsfp-qualifier.mjs` and `tools/cuda-bsfp-qualifier/` — Connect4-owned outer qualification/reporting machinery; solver children must not own repository credentials/publication.
 - `reference/legacy-source/` — provenance/source evidence only, not specification authority.
 
-On a BSFP work branch, read **C4-0006 → C4-0007 → C4-0008 → C4-0009** before implementing or changing the CUDA-BSFP path. C4-0009 intentionally leaves its exact consumer Device-JS call surface mutable until the first physical BSFP-backed CUDA-Algorithms vertical slice establishes the right generic composition shape.
+On a BSFP work branch, read **C4-0006 → C4-0007 → C4-0008 → C4-0009**, then the selected execution/qualification profile before implementing or changing CUDA-BSFP.
 
 ## Local constraints
 
@@ -36,3 +40,5 @@ Maintained source is JavaScript/Node.js plus product Device-JS through public CU
 BSFP may consume CUDA-Algorithms only through its public consumer-neutral contracts; generic workset/closure/sequence mechanics must not be copied downstream into Connect4. Conversely, CPC/WSL-625/NDC/WDL semantics, exact BSFP equality/dominance, existential/universal proof reduction and semantic rank completion must not move into CUDA-Algorithms.
 
 Generic ranked activation is not by itself BSFP W/D/L evaluation. A lower-rank BSFP target is authoritative only after the complete required higher-rank contribution set has been accounted for and consumer-owned semantic reduction has finalized it.
+
+Q1 qualification is fail-closed for GPU memory: no GPU case may launch without both a profile-owned finite upper memory bound and current free-VRAM telemetry. Timeouts, memory-safety refusals/aborts, crashes and unsupported geometries must remain visible in evidence. Official qualifier runs publish append-only evidence through a dedicated branch/PR; never push generated reports directly to protected `main` and never pass repository tokens into solver children.

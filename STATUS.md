@@ -1,74 +1,57 @@
 # Connect4 Status
 
 **Updated:** 2026-09-09
-**Phase:** first CUDA-BSFP 4x3 slices implemented and portable-qualified; native CUDA numerical qualification next
+**Phase:** CUDA-BSFP P1 portable-qualified; Q1 benchmark/report qualifier implemented; native repository-reported qualification next
 
 ## Product role
 
-Connect4 is the product-owned Connect Four solver/validation repository. It owns Connect Four domain truth, evaluator/oracle evidence, benchmark fairness, and two intentionally separate exact-solver lanes:
+Connect4 is the product-owned Connect Four exact-solver laboratory and benchmark/validation repository. It intentionally preserves two separate solver lanes:
 
-1. `components/incumbent/` — incumbent minimax/alpha-beta/search implementation;
-2. `components/bsfp/` — CUDA-BSFP, using backward symbolic fixed-point proof semantics rather than search semantics.
+1. `components/incumbent/` — incumbent minimax/alpha-beta/search baseline;
+2. `components/bsfp/` — CUDA-BSFP backward symbolic fixed-point solving.
 
-The lanes share Connect4-owned domain/oracle authority but do not inherit each other's solver internals.
+The lanes share Connect4 domain/oracle authority but do not share solver semantics by convenience.
 
-## Protected baseline and active branch
-
-Protected `main@de47d43f4f4133a68973d0876a402531ef5735da` remains unchanged.
-
-Active BSFP development:
+## Active development
 
 ```text
 branch: feature/cuda-bsfp
 PR:     #14 (draft)
+base:   protected main@de47d43f4f4133a68973d0876a402531ef5735da
 ```
 
-The recovered 2026-09-09 BSFP research/evidence packet is preserved on this branch as provenance/evidence. The incumbent lane remains intact.
+The recovered 2026-09-09 CPC/WSL-625/NDC/BSFP research/evidence packet is preserved on this branch.
 
-## Formal BSFP specification stack
+## Formal BSFP authority
 
 - `C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL-625 structural/domain mathematics;
-- `C4-0007-nested-dependency-closure-v1.md` — NDC dependency/certificate/fixed-point proof semantics;
+- `C4-0007-nested-dependency-closure-v1.md` — NDC proof/dependency/fixed-point semantics;
 - `C4-0008-bsfp-exact-solver-v1.md` — exact BSFP W/D/L semantics;
-- `C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA-BSFP realization and CUDA-Algorithms/CUDA-JS composition.
+- `C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA realization and CUDA-Algorithms/CUDA-JS seam;
+- `profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md` — first 4x3 CUDA correctness profile;
+- `profiles/C4-0009-Q1-benchmark-qualification-v1.md` — benchmark qualification, timeout/VRAM safety, crash evidence and repository publication.
 
-C4-0006..0008 are branch-local Candidate semantic specs. C4-0009 remains Working until physical CUDA evidence closes its first execution profile. None is Accepted protected-main authority yet.
+C4-0006..0008 are branch-local Candidate semantic specs. C4-0009/P1/Q1 remain Working until required physical evidence closes their current gates. None is Accepted protected-main authority yet.
 
-## First maintained BSFP semantic/reference slice
+## First maintained BSFP result
 
-`components/bsfp/` now owns a maintained, CUDA-free BSFP semantic/reference surface:
-
-- geometry-driven support lattice;
-- exact support rank table and backward predecessor mapping;
-- BSFP-owned geometric winning-line schemas;
-- exact MTBDD reference machinery;
-- direct symbolic support-lattice W/D/L solver;
-- dense symbolic 4x3 correctness profile.
-
-The maintained direct symbolic solver is not recursive minimax/search. It evaluates complete symbolic predecessor functions bottom-up over support skeletons.
-
-For **4x3 connect-3**:
+The CUDA-free direct symbolic support-lattice reference is qualified for 4x3 connect-3:
 
 ```text
-support skeletons: 256
-rank range:         0..12
-winning lines:      14
-root W/D/L:         Win
+support skeletons:              256
+rank range:                     0..12
+winning lines:                  14
+empty-root W/D/L:               Win
+reachable nonterminal states:   4,631
+legal edges:                    11,818
+W/D/L mismatches:               0
 ```
 
-The independent test oracle is an explicit physical-state solver used only for differential qualification. The maintained BSFP result agrees on every reachable nonterminal state:
-
-```text
-nonterminal states checked: 4,631
-legal edges checked:         11,818
-W/D/L mismatches:            0
-```
-
-This preserves an independent semantic oracle for the CUDA implementation without making search part of the BSFP production path.
+The independent explicit-state oracle exists only in qualification/tests; recursive search is not the maintained BSFP solver path.
 
 ## CUDA-Algorithms seam
 
-Exact current upstream development pair:
+Current exact upstream pair:
 
 ```text
 CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
@@ -78,149 +61,82 @@ CUDA-JS:         98e2ebc942c14d63acf4dd82e912dd548c363a05
 package:         cuda-js@0.1.0-alpha.20
 ```
 
-CUDA-Algorithms now has a narrow Working **implicit ranked derived activation** subprofile:
+CUDA-Algorithms owns only the reusable implicit ranked-derived-activation subprofile and lower generic sequence/workset behavior. Connect4 retains CPC/WSL/NDC/WDL/proof/equality/dominance/terminal semantics.
+
+The upstream typed composition path is portable-qualified with two materially different non-BSFP consumer shapes. CUDA-JS was not modified.
+
+## P1 CUDA slices
+
+P1-A maps Connect4 support predecessors onto the CUDA-Algorithms typed `(sourceIndex, emissionLane) -> targetIndex|INVALID` activation seam.
+
+P1-B is the complete dense 4x3 Device-JS W/D/L recurrence:
 
 ```text
-(u32 sourceIndex, u32 emissionLane)
-  -> u32 targetIndex | 0xffffffff
+support skeletons:     256
+ownership valuations:  4,096
+table elements:         1,048,576
+table bytes:            4,194,304 (4 MiB)
+prepared rank kernels:  13
+rank order:             12 -> 0
 ```
 
-It owns bounded emission, strict rank validation, duplicate-idempotent activation, deterministic next-workset compaction, device-resident next extent/status, capacity truth and prepared-epoch lifecycle.
+The dense profile is deliberately redundant correctness machinery, not the intended standard-7x6 representation.
 
-It does **not** own BSFP W/D/L, CPC, WSL-625, NDC, proof equality, dominance, terminal semantics, or existential/universal reduction.
-
-The upstream profile has portable typed-composition evidence from two materially different generic consumers: an implicit dependency DAG and staged data lineage. Connect4 is a third consumer mapping through the same public package surface.
-
-## Ranked-activation CUDA-BSFP slice
-
-`experiments/cuda-bsfp-vertical-slice/run.mjs` maps the 4x3 support-lattice predecessor relation onto CUDA-Algorithms ranked derived activation through CUDA-JS typed Device-JS library composition.
-
-The portable slice proves:
-
-- exact typed consumer leaf composition;
-- public-package-only dependency path;
-- one four-node prepared device epoch;
-- no host semantic progression inside the epoch;
-- bounded support item universe of 256;
-- max predecessor emissions of 4;
-- resource lifecycle/cleanup through public CUDA-JS.
-
-Native mode is already prepared to check exact predecessor output, duplicate activation idempotence, output-capacity truth and strict rank-violation failure on a real NVIDIA host.
-
-## Complete dense CUDA-BSFP W/D/L slice
-
-A second 4x3 profile proves that the complete BSFP W/D/L recurrence can be expressed directly in Device-JS **without adding another CUDA-Algorithms primitive**.
-
-The correctness-first dense profile is intentionally redundant:
+Final portable CI for the frozen first profile passed on Connect4 head `811cc0b8e1078f59be85da142de059d8d6b74784`:
 
 ```text
-support skeletons:       256
-ownership valuations:    4,096
-symbolic table entries:  1,048,576
-table bytes:             4,194,304 (4 MiB)
-prepared rank nodes:     13
-rank order:              12 -> 0
+verify:             34439253107 success
+bsfp-portable:      34439253134 success
+strength-evidence:  34439253157 success
+benchmark-evidence: 34439253187 success
 ```
 
-`components/bsfp/cuda/dense-symbolic-4x3-plan.mjs` submits one fixed prepared DAG. Each rank reads only already-finalized rank+1 table entries and performs Connect4-owned immediate-terminal and P0-max/P1-min W/D/L composition on device. Node does not choose the next rank or inspect intermediate values.
+## Q1 benchmark qualifier
 
-This dense table is a **correctness profile, not a scalability design**. It intentionally avoids introducing compression complexity before the device recurrence is physically qualified.
-
-`experiments/cuda-bsfp-dense-4x3/run.mjs` has two modes:
-
-- `portable` — compile/prepare/submit/cleanup through CUDA-JS testing runtime;
-- `native` — execute on real CUDA, read the completed table after the operation, and compare every 4x3 nonterminal state with the independent physical-game oracle.
-
-## Portable qualification — complete
-
-Final exact Connect4 portable qualification head:
+The maintained entry point is:
 
 ```text
-d39322a1a66585114a35558f910a5582c0fc05e2
+npm run bench:bsfp:qualify
 ```
 
-Exact dependency pair:
+which expands to the explicitly armed:
 
 ```text
-CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-CUDA-JS:         98e2ebc942c14d63acf4dd82e912dd548c363a05
-Node:            26.7.0
+node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark
 ```
 
-All four PR workflows passed on the final repinned tuple:
+Q1 provides outer-process supervision, fsync'd event journaling, interrupted-run recovery, anonymous machine/system/GPU identity, conservative profile-owned VRAM admission, current free-VRAM gating, emergency low-VRAM termination, case/run timeouts, process-tree cleanup, the default 4x3-through-9x7 geometry ladder, explicit failure/boundary statuses, stdout/stderr and traceback capture, sanitized bounded repository logs, a SHA-256 manifest, and immutable evidence-branch/PR publication.
 
-```text
-verify:             run 34438946185 — success
-benchmark-evidence: run 34438946186 — success
-strength-evidence:  run 34438946188 — success
-bsfp-portable:      run 34438946196 — success
-```
+Default VRAM policy is `min(70% free, free-1024 MiB, 12288 MiB)` with a 512 MiB emergency free-VRAM floor. Default timeouts are 120 seconds per case and 900 seconds per run.
 
-The `bsfp-portable` workflow successfully compiled/submitted both:
+Official publication requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN`. Repository tokens are stripped from solver-child environments. Official P1 evidence additionally requires a clean discoverable Connect4 Git revision and the exact qualified CUDA-Algorithms/CUDA-JS revisions.
 
-1. ranked activation: 256 support items, rank 0..12, max fanout 4, four prepared nodes;
-2. dense W/D/L: 1,048,576 table entries, 4 MiB, 14 winning lines, 13 prepared rank nodes.
+Generated reports live under `docs/evidence/cuda-bsfp/qualification/<run-id>/` on `evidence/cuda-bsfp-q1/<run-id>` and arrive through an evidence PR rather than a direct protected-main push. Publication is retry-safe if a crash happens after branch/PR creation.
 
-CUDA-Algorithms itself passed full CI on `48ee0aec9acae7776950f03ab52ab1737e598b6e` in run `34438700869`, including reference semantics, two materially different typed consumer-composition paths, maintained API checks, document validation and syntax checks for its physical native harnesses.
+## Current geometry behavior
 
-The consolidated checkpoint is preserved in `docs/research/2026-09-09-cuda-bsfp-first-maintained-slice.md`.
+The Q1 ladder is broader than P1 by design. Current P1 executes only 4x3 connect-3. Larger ladder cases are retained as `unsupported-profile` with hypothetical dense-scaling context where useful.
 
-## CUDA-JS boundary
+Future compact WSL/NDC/CPC/antichain CUDA-BSFP representations register as new Q1 profiles with their own geometry support and conservative device-memory bound. The qualifier/report schema does not change merely because the solver representation changes.
 
-**CUDA-JS was not modified.**
+## Portable Q1 validation
 
-The slices consume existing accepted/public capabilities only:
+Portable tests cover explicit arming, geometry parsing/ladder breadth, simultaneous VRAM constraints, BigInt scaling, child success and timeout containment, log sanitization/truncation with traceback-tail retention, interrupted/local-only recovery, GitHub evidence publication, and idempotent publication resume. A dry-run exercises orchestration/report finalization without GPU allocation or repository publication.
 
-- SPEC-0028 typed Device-JS library composition;
-- Device-JS program compilation/linking;
-- device views and public range-relation inspection;
-- prepared operation DAGs;
-- atomic/status mechanisms used by CUDA-Algorithms;
-- ordinary operations and resource lifecycle.
+## Next gate
 
-No direct CUDA FFI, C/C++/CUDA C++, hand PTX, native-addon escape, private lower import, or Python was added.
+Run an official Q1 qualification on an authorized NVIDIA host. For P1, native success still requires root Win, 4,631 nonterminal states, 11,818 legal edges, zero mismatches, and the ranked-activation predecessor/duplicate/capacity/rank-failure checks. The complete report must be published back to the repository.
 
-## Native qualification still required
-
-No native NVIDIA CUDA-BSFP numerical result is claimed yet.
-
-Required physical runs are prepared:
-
-```text
-CUDA-Algorithms:
-  node experiments/native-qualification/run-ranked-derived-activation.mjs
-
-Connect4 ranked activation:
-  node experiments/cuda-bsfp-vertical-slice/run.mjs native
-
-Connect4 dense W/D/L:
-  node experiments/cuda-bsfp-dense-4x3/run.mjs native
-```
-
-The dense native run is the decisive first solver gate: root must be Win and all **4,631** reachable nonterminal states / **11,818** legal edges must agree with the independent oracle.
-
-## Next engineering seam after native correctness
-
-Do **not** scale the dense ownership table toward empty 7x6. Its purpose is to qualify the recurrence and GPU execution path.
-
-After native parity, move the same exact BSFP semantics toward compact representation, beginning with the already-established structural candidates:
-
-- WSL/residual requirement and blocker state;
-- NDC shared dependency/certificate structure;
-- CPC event/response facts;
-- exact dominance/antichain frontiers;
-- exact residual symmetry/canonicalization;
-- bounded rank/shard execution where required.
-
-Only generic mechanisms demonstrated reusable by materially different consumers should be promoted to CUDA-Algorithms. BSFP semantics remain in Connect4.
+After native correctness, do not scale the dense table toward standard 7x6. Move to compact WSL/NDC/CPC + dominance/antichain/exact-canonicalization representations and register each serious candidate in Q1. Add new CUDA-Algorithms mechanisms only when they survive the deletion test and have materially different consumer evidence.
 
 ## Non-claims
 
-- no native CUDA-BSFP numerical correctness result yet;
-- no CUDA-BSFP GPU performance result;
+- no native NVIDIA CUDA-BSFP numerical correctness result yet;
+- no CUDA-BSFP GPU performance result yet;
 - no empty-board standard-7x6 CUDA-BSFP completion;
 - no exact strong-distance BSFP result;
-- the dense 4 MiB profile is not a proposed 7x6 representation;
+- current P1 does not execute the larger Q1 ladder;
+- the dense 4 MiB profile is not a 7x6 representation;
 - CUDA-Algorithms SPEC-0004 remains Working Draft;
-- C4-0006..0009 are not Accepted protected-main authority;
+- C4-0006..0009/P1/Q1 are not Accepted protected-main authority;
 - the incumbent minimax/search lane is not replaced or modified.
