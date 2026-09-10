@@ -25,3 +25,5 @@ jobs:
         run: node --version
       - name: Falsify identified winline quotient
         run: node --expose-gc reference/research-prototypes/2026-09-10-identified-winline-quotient/qualify.mjs | tee identified-winline-quotient-evidence.json
+      - name: Direct quotient recurrence scaling probe
+        run: node --expose-gc reference/research-prototypes/2026-09-10-identified-winline-quotient/solve-quotient.mjs | tee identified-winline-quotient-scaling.json
