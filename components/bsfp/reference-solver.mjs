@@ -1,41 +1,6 @@
+import { createConnectWinningLines } from './geometry.mjs';
 import { createBsfpSupportLatticeProfile } from './support-lattice.mjs';
 import { ExactMtbdd } from './symbolic-mtbdd.mjs';
-
-function winningLines(columns, rows, connect) {
-  const lines = [];
-  const index = (column, row) => row * columns + column;
-
-  for (let row = 0; row < rows; row += 1) {
-    for (let column = 0; column <= columns - connect; column += 1) {
-      const line = [];
-      for (let step = 0; step < connect; step += 1) line.push(index(column + step, row));
-      lines.push(Object.freeze(line));
-    }
-  }
-  for (let column = 0; column < columns; column += 1) {
-    for (let row = 0; row <= rows - connect; row += 1) {
-      const line = [];
-      for (let step = 0; step < connect; step += 1) line.push(index(column, row + step));
-      lines.push(Object.freeze(line));
-    }
-  }
-  for (let column = 0; column <= columns - connect; column += 1) {
-    for (let row = 0; row <= rows - connect; row += 1) {
-      const line = [];
-      for (let step = 0; step < connect; step += 1) line.push(index(column + step, row + step));
-      lines.push(Object.freeze(line));
-    }
-  }
-  for (let column = 0; column <= columns - connect; column += 1) {
-    for (let row = connect - 1; row < rows; row += 1) {
-      const line = [];
-      for (let step = 0; step < connect; step += 1) line.push(index(column + step, row - step));
-      lines.push(Object.freeze(line));
-    }
-  }
-
-  return Object.freeze(lines);
-}
 
 function buildLineIncidence(lines, cellCount) {
   const incidence = Array.from({ length: cellCount }, () => []);
@@ -54,7 +19,7 @@ function assertOwnershipBits(bits, cellCount) {
 export function solveBsfpSymbolicWdl({ columns, rows, connect }) {
   const support = createBsfpSupportLatticeProfile({ columns, rows, connect });
   const cellCount = columns * rows;
-  const lines = winningLines(columns, rows, connect);
+  const lines = createConnectWinningLines({ columns, rows, connect });
   const incidence = buildLineIncidence(lines, cellCount);
   const manager = new ExactMtbdd();
   const roots = new Array(support.itemCapacity);
