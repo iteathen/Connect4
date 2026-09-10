@@ -1,11 +1,11 @@
-schema_version: 13
+schema_version: 14
 updated: 2026-09-10
-state: cuda_bsfp_p2_compact_root_native_qualification_next
+state: cuda_bsfp_device_compact_5x5_qualified_6x5_cost_diagnosis_next
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: run_p2_compact_hybrid_root_wdl_ladder_on_owner_gtx1660ti_and_measure_where_time_moves
+  action: publish_c1_exact_frontier_evidence_then_diagnose_6x5_deep_rank_algebra
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
@@ -14,7 +14,7 @@ current:
   exact_solver_spec: docs/specs/C4-0008-bsfp-exact-solver-v1.md
   cuda_execution_spec: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
   qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
-  compact_profile: docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md
+  compact_profile: docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md
   bootstrap_entrypoint: node tools/bootstrap-cuda-bsfp-q1.mjs
 
 product_goal:
@@ -142,16 +142,55 @@ q1_memory_policy:
   absolute_max_mib: 12288
   behavior: reusable_arena_capacity_ceiling_not_monolithic_allocation_target
 
+c1_device_compact:
+  implementation_commit: 2052c4d
+  profile_id: c4-0009-c1-compact-ownership-42
+  recurrence_owner: gpu
+  host_semantic_progression: false
+  rank_window: 2
+  scratch_shard_supports: 64
+  frontier_capacity: 1024
+  candidate_tile_capacity: 2048
+  local_4x4_c4: draw_all_625_support_frontiers_match
+  local_5x5_c4: draw_all_7776_support_frontiers_match
+  local_5x5_boundary_records: 1044159
+  local_5x5_execution_without_oracle_ms: 3286.975
+  local_5x5_warm_solve_wall_ms: 3590.926
+  local_5x5_cpu_reference_with_observer_ms: 11778.537
+  official_evidence: pending_clean_source_q1_publication
+  controls: all_frontier_batching_high_42bit_and_capacity_failure_pass
+  research_record: docs/research/2026-09-10-compact-cuda-vertical-slice.md
+  limits:
+    - fixed_shard_ceiling_not_yet_free_vram_adaptive
+    - no_spill_or_resize_on_frontier_overflow
+    - fused_phase_device_times_unavailable
+    - residual_event_cpc_compression_not_yet_implemented
+
+c2_scaling:
+  geometry: 6x5_c4
+  frontier_capacity: 8192
+  local_runs:
+    - id: 20260910T095159242Z-776e7432
+      candidate_tile_capacity: 8192
+      outcome: timeout_180s
+    - id: 20260910T095634168Z-7302f02d
+      candidate_tile_capacity: 2048
+      outcome: timeout_180s
+      first_static_epoch_ms: 75117.652
+  root_result: unresolved
+  empty_7x6: not_attempted_no_solve_claim
+
 next_actions:
-  - run_p2_on_4x3_4x4_5x4_5x5_6x5_7x5_7x6_under_q1
-  - require_known_root_checks_to_pass_before_interpreting_performance
-  - record_structural_prepare_gpu_pair_reduce_finalize_upload_execution_readback_and_rank_times
-  - if_frontier_capacity_exceeds_1024_preserve_required_count_then_widen_or_shard_from_evidence
-  - if_host_structural_or_finalize_time_dominates_move_those_connect4_owned_transforms_into_rank_shard_device_kernel
-  - if_surviving_frontier_width_becomes_primary_wall_shift_compression_to_wsl625_cpc_ndc
-  - only_claim_empty_7x6_solved_after_p2_or_successor_returns_exact_root_wdl_win
+  - publish_c1_4x3_4x4_5x5_native_q1_evidence_from_clean_integrated_source
+  - isolate_6x5_deep_rank_candidate_counts_frontier_width_duplicate_scans_and_dominance_cost
+  - use_bounded_device_diagnostics_without_host_semantic_progression
+  - choose_reducer_or_residual_event_cpc_compression_change_from_measured_cause
+  - qualify_against_all_small_support_frontiers_before_scaling
+  - attempt_7x6_only_after_6x5_completes_with_resource_and_cost_evidence
+  - preserve_p2_as_transitional_hybrid_control_not_the_device_owned_solver_path
 
 constraints:
+  - no_post_ignition_host_semantic_progression
   - no_bsfp_as_minimax_or_search_specialization
   - no_full_colored_state_table_for_7x6
   - no_retaining_all_ranks_when_only_root_is_required

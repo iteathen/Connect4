@@ -105,6 +105,15 @@ C1 is the device-owned recurrence requested here. Integration must retain both
 profiles and their distinct evidence grades. No independent review or main merge
 is claimed; the working PR remains draft.
 
+Author-side bounded review covered the new device collectives/recurrence, static
+layout/epoch plan, memory/counter bounds, overflow and cleanup paths, oracle
+separation, Q1 acceptance and integration with the preserved P2 registry. All 84
+integrated Node tests passed; the 25-epoch portable 6x5 composition passed. Source
+and native evidence are still experimental; this is not independent review or
+a full repository audit. Per-support u64 counters are bounded before compilation,
+JSON conversion rejects unsafe integers, and a failed plan cannot be executed
+again against partially modified arenas.
+
 ## Research lineage re-read at the owner's request
 
 The five preserved research tips were read without changing their branches:

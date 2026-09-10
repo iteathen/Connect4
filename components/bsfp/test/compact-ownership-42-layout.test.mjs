@@ -61,4 +61,5 @@ test('capacity and memory admission bound the complete physical layout before al
   assert.throws(() => compactOwnership42Shape({ columns: 4, rows: 4, connect: 4, frontierCapacity: 65536, candidateTileSize: 65536 }), /pair product/);
   assert.throws(() => compactOwnership42Shape({ columns: 21, rows: 2, connect: 4 }), /support envelope/);
   assert.throws(() => compactOwnership42Shape({ columns: 7, rows: 7, connect: 4 }), /bounds/);
+  assert.throws(() => compactOwnership42Shape({ columns: 1, rows: 42, connect: 4, frontierCapacity: 65535, candidateTileSize: 1 }), /counter exceeds u64/);
 });

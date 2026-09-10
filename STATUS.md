@@ -1,7 +1,15 @@
 # Connect4 Status
 
-**Updated:** 2026-09-09
-**Phase:** CUDA-BSFP P1 portable-qualified; Q1 benchmark/report qualifier implemented; native repository-reported qualification next
+**Updated:** 2026-09-10
+**Phase:** Compact device-owned BSFP locally qualified through 5x5; Q1 publication and 6x5 cost diagnosis
+
+The current continuation is recorded in [next_step.yaml](next_step.yaml) and
+[the compact CUDA research record](docs/research/2026-09-10-compact-cuda-vertical-slice.md).
+C1 computes cofactor, terminal handling, antichain composition and rank finalization
+on device, with two resident ranks. Local 4x4 and 5x5 complete frontier comparisons
+passed; 6x5 timed out twice at 180 seconds. Empty 7x6 remains unsolved here.
+P2's newer owner-authored hybrid profile is preserved as a separate control.
+The historical P1/portable milestones below retain their original scope.
 
 ## Product role
 
@@ -107,7 +115,7 @@ node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark
 
 Q1 provides outer-process supervision, fsync'd event journaling, interrupted-run recovery, anonymous machine/system/GPU identity, conservative profile-owned VRAM admission, current free-VRAM gating, emergency low-VRAM termination, case/run timeouts, process-tree cleanup, the default 4x3-through-9x7 geometry ladder, explicit failure/boundary statuses, stdout/stderr and traceback capture, sanitized bounded repository logs, a SHA-256 manifest, and immutable evidence-branch/PR publication.
 
-Default VRAM policy is `min(70% free, free-1024 MiB, 12288 MiB)` with a 512 MiB emergency free-VRAM floor. Default timeouts are 120 seconds per case and 900 seconds per run.
+Default VRAM policy is `min(95% free, free-256 MiB, 12288 MiB)` with a 256 MiB emergency free-VRAM floor. Default timeouts are 120 seconds per case and 900 seconds per run.
 
 Official publication requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN`. Repository tokens are stripped from solver-child environments. Official P1 evidence additionally requires a clean discoverable Connect4 Git revision and the exact qualified CUDA-Algorithms/CUDA-JS revisions.
 
