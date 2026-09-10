@@ -1,11 +1,11 @@
-schema_version: 10
+schema_version: 11
 updated: 2026-09-09
-state: cuda_bsfp_q1_bootstrap_fixed_native_rerun_next
+state: cuda_bsfp_q1_node26_ffi_bootstrap_fixed_native_rerun_next
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: rerun_official_q1_native_qualification_on_owner_windows_nvidia_host_using_qualified_bootstrap
+  action: rerun_official_q1_native_qualification_on_owner_windows_nvidia_host_using_ffi_enabled_bootstrap
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
@@ -50,8 +50,9 @@ exact_dependency_pair:
     mutation_in_this_work: none
 
 node_compatibility:
-  policy: observe_and_qualify_do_not_gate_by_version
-  q1_version_admission: none
+  q1_policy: observe_and_record_do_not_gate_by_version
+  cuda_js_supported_native_baseline: 26.7.0
+  current_owner_host_node: 26.7.0
   portable_probe_run: 34441693369
   portable_results:
     - os: ubuntu_24_04
@@ -66,27 +67,35 @@ node_compatibility:
     - os: windows_server_2025
       node: 26.7.0
       result: pass
-  evidence: docs/research/2026-09-09-node-24-portable-compatibility.md
-  support_metadata_note: package_engines_are_not_runtime_incompatibility_evidence
-  native_node24: pending_owner_windows_gpu_rerun
+  native_node24: blocked_by_cuda_js_node_ffi_support_policy
+  native_node26: pending_ffi_enabled_rerun
 
-first_hardware_report:
-  run_id: 20260910T054132880Z-b043b1eb
-  evidence_pr: 15
-  source_revision: e9db3d0464277b60989c3aa160bb6122f17b0b46
-  node: 24.15.0
-  gpu: NVIDIA_GeForce_GTX_1660_Ti
-  outcome: failed_before_cuda_execution
-  first_case: 4x3_connect3
-  first_step: ranked_activation
-  failure: ERR_MODULE_NOT_FOUND_cuda_js_from_sibling_cuda_algorithms
-  root_cause: bootstrap_exposed_cuda_js_only_below_connect4_so_node_resolution_from_cuda_algorithms_could_not_reach_it
-  interpretation: not_node24_incompatibility_and_not_cuda_failure
-  evidence: docs/research/2026-09-09-q1-first-native-report-bootstrap-failure.md
-  disposition: preserve_as_failure_evidence_do_not_overwrite
+hardware_reports:
+  - run_id: 20260910T054132880Z-b043b1eb
+    evidence_pr: 15
+    node: 24.15.0
+    outcome: failed_before_cuda_execution
+    failure: ERR_MODULE_NOT_FOUND_cuda_js_from_sibling_cuda_algorithms
+    root_cause: bootstrap_package_resolution_topology
+    disposition: preserved_failure_evidence
+  - run_id: 20260910T055412412Z-59fbc872
+    evidence_pr: 16
+    node: 24.15.0
+    outcome: failed_before_cuda_execution
+    failure: CUDA_JS_NODE_INCOMPATIBLE
+    root_cause: cuda_js_native_node_ffi_baseline_requires_node_26_1_or_newer
+    disposition: preserved_failure_evidence
+  - run_id: 20260910T064427961Z-92f8a76d
+    evidence_pr: 17
+    node: 26.7.0
+    outcome: failed_before_cuda_kernel_execution
+    failure: CUDA_JS_FFI_FLAG_REQUIRED
+    root_cause: q1_bootstrap_did_not_enable_node_experimental_ffi_for_child_processes
+    disposition: preserved_failure_evidence
 
 bootstrap:
   implementation: tools/bootstrap-cuda-bsfp-q1.mjs
+  current_head: 16f03c8cbfa6fa9778ce9905b42adae02aedb88b
   topology:
     - shared_workspace_node_modules_exposes_cuda_js_and_cuda_algorithms_to_sibling_consumers
     - connect4_node_modules_is_a_real_ignored_directory_with_links_to_both_packages
@@ -96,16 +105,34 @@ bootstrap:
     - resolve_cuda_js_from_actual_cuda_algorithms_consumer_root
     - resolve_cuda_algorithms_from_actual_connect4_consumer_root
     - require_clean_connect4_checkout
-  node_behavior: use_invoking_node_version_without_selection_or_gate
-  qualification_head: 1e780d6a330164cc4b5f4c4ad70a7f2f8c94c062
-  qualification_ci_run: 34442665043
-  qualified_prepare_only:
+  node_behavior: use_invoking_node_version_without_selection
+  ffi_behavior:
+    capability_source: process.allowedNodeEnvironmentFlags
+    required_flag: --experimental-ffi
+    propagation: append_to_NODE_OPTIONS_when_supported_preserve_existing_options
+    q1_children_inherit: true
+  qualification_ci:
+    bsfp_portable: 34446964694
+    verify: 34446964544
+    strength_evidence: 34446964629
+    benchmark_evidence: 34446964661
+  qualified_matrix:
+    - os: windows_server_2025
+      node: 26.7.0
+      ffi_propagation: pass
+      clean_bootstrap: pass
+    - os: ubuntu_24_04
+      node: 26.7.0
+      ffi_propagation: pass
+      clean_bootstrap: pass
     - os: windows_server_2025
       node: 24.15.0
-      result: pass
+      ffi_propagation_policy: pass_no_unsupported_flag_injected
+      clean_bootstrap: pass
     - os: ubuntu_24_04
       node: 24.15.0
-      result: pass
+      ffi_propagation_policy: pass_no_unsupported_flag_injected
+      clean_bootstrap: pass
 
 q1:
   entrypoint: tools/cuda-bsfp-qualifier.mjs
@@ -116,7 +143,6 @@ q1:
   publication: github_git_data_api_plus_pull_request
   local_spool: .cuda-bsfp-qualification
   recovery: finalize_running_prior_run_and_retry_requested_publication
-  node_version_behavior: record_exact_version_never_admit_or_refuse_by_version
   default_geometry_ladder:
     - 4x3_c3
     - 4x4_c4
@@ -153,18 +179,15 @@ p1_native_acceptance:
     - cleanup
 
 next_actions:
-  - run_tools_bootstrap_cuda_bsfp_q1_mjs_on_owner_windows_nvidia_host_under_installed_node_24_15_0
-  - require_new_q1_run_id_and_preserve_pr_15_as_prior_failure_evidence
-  - require_q1_to_capture_node_24_15_0_in_system_evidence_not_as_an_admission_rule
-  - require_q1_to_publish_the_complete_evidence_bundle_to_an_evidence_branch_and_pr
+  - rerun_supported_bootstrap_on_owner_windows_nvidia_host_under_node_26_7_0
+  - require_new_q1_run_id_and_preserve_pr_15_pr_16_pr_17_as_prior_failure_evidence
+  - confirm_ranked_activation_reaches_real_cuda_execution_with_experimental_ffi_enabled
+  - require_q1_to_publish_complete_evidence_bundle_to_new_evidence_pr
   - inspect_native_p1_memory_telemetry_timeout_status_logs_and_exact_wdl_result
-  - if_node24_native_passes_record_it_as_native_compatibility_evidence_before_any_support_floor_change
   - reconcile_c4_0009_p1_q1_maturity_only_after_physical_evidence
   - then_begin_compact_bsfp_profiles_and_register_each_with_q1_geometry_support_and_memory_bound
 
 constraints:
-  - no_node_version_whitelist_blacklist_or_minimum_gate_in_q1
-  - no_package_engines_metadata_as_proof_of_runtime_incompatibility
   - no_bsfp_as_minimax_or_search_specialization
   - no_incumbent_search_semantics_in_bsfp
   - no_bsfp_proof_value_terminal_or_domain_semantics_in_cuda_algorithms
@@ -184,7 +207,6 @@ constraints:
   - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
 
 non_claims:
-  - node_24_native_cuda_compatibility_not_yet_proven
   - no_native_cuda_bsfp_numerical_correctness_yet
   - no_cuda_bsfp_gpu_performance_claim
   - no_empty_7x6_cuda_bsfp_solve
