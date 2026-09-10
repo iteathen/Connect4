@@ -27,3 +27,5 @@ jobs:
           BSFP_BENCH_REPS: "5"
           BSFP_BENCH_WARMUPS: "1"
         run: node --expose-gc benchmarks/bsfp-performance.mjs | tee bsfp-performance-evidence.json
+      - name: Evaluate exact double-threat absorber candidate
+        run: node --expose-gc reference/research-prototypes/2026-09-10-bsfp-winspace-inference/double-threat-absorber.mjs | tee double-threat-absorber-evidence.json
