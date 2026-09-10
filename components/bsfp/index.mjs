@@ -5,3 +5,8 @@ export {
 } from './support-lattice.mjs';
 
 export { createBsfpSupportPredecessorDeviceLibraryRequest } from './device/support-predecessor-library.mjs';
+
+export {
+  solveBsfpSymbolicWdl,
+  solveBsfp4x3Connect3Reference,
+} from './reference-solver.mjs';
