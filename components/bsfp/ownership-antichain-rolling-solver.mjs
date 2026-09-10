@@ -1,114 +1,48 @@
 import { createConnectWinningLines } from './geometry.mjs';
 import { createBsfpSupportLatticeProfile } from './support-lattice.mjs';
-import { classifyOwnershipAntichainWdl } from './ownership-antichain-solver.mjs';
+import {
+  classifyOwnershipAntichainWdl,
+  normalizeMaximalOwnershipAntichain,
+  normalizeMinimalOwnershipAntichain,
+} from './ownership-antichain-solver.mjs';
 
 function positiveSafeInteger(value, label) {
   if (!Number.isSafeInteger(value) || value < 1) throw new RangeError(`${label} must be a positive safe integer`);
   return value;
 }
 
-function isSubset(left, right) {
-  return (left & ~right) === 0n;
-}
-
-function addMinimalCandidate(frontier, candidate, stats) {
-  stats.incrementalCandidates += 1;
-  for (let index = 0; index < frontier.length; index += 1) {
-    stats.dominanceComparisons += 1;
-    if (isSubset(frontier[index], candidate)) {
-      stats.dominatedCandidates += 1;
-      return false;
-    }
-  }
-
-  let write = 0;
-  for (let index = 0; index < frontier.length; index += 1) {
-    const retained = frontier[index];
-    stats.dominanceComparisons += 1;
-    if (isSubset(candidate, retained)) {
-      stats.retainedCandidatesRemoved += 1;
-      continue;
-    }
-    frontier[write] = retained;
-    write += 1;
-  }
-  frontier.length = write;
-  frontier.push(candidate);
-  stats.maximumIncrementalFrontier = Math.max(stats.maximumIncrementalFrontier, frontier.length);
-  return true;
-}
-
-function addMaximalCandidate(frontier, candidate, stats) {
-  stats.incrementalCandidates += 1;
-  for (let index = 0; index < frontier.length; index += 1) {
-    stats.dominanceComparisons += 1;
-    if (isSubset(candidate, frontier[index])) {
-      stats.dominatedCandidates += 1;
-      return false;
-    }
-  }
-
-  let write = 0;
-  for (let index = 0; index < frontier.length; index += 1) {
-    const retained = frontier[index];
-    stats.dominanceComparisons += 1;
-    if (isSubset(retained, candidate)) {
-      stats.retainedCandidatesRemoved += 1;
-      continue;
-    }
-    frontier[write] = retained;
-    write += 1;
-  }
-  frontier.length = write;
-  frontier.push(candidate);
-  stats.maximumIncrementalFrontier = Math.max(stats.maximumIncrementalFrontier, frontier.length);
-  return true;
-}
-
-function normalizeIncremental(masks, addCandidate, stats) {
+function normalizeMinimal(masks, stats) {
   stats.normalizationCalls += 1;
   stats.maximumNormalizationInput = Math.max(stats.maximumNormalizationInput, masks.length);
-  const frontier = [];
-  for (const candidate of masks) addCandidate(frontier, candidate, stats);
-  return Object.freeze(frontier);
-}
-
-function mergeIncremental(left, right, addCandidate, stats) {
-  stats.normalizationCalls += 1;
-  stats.maximumNormalizationInput = Math.max(stats.maximumNormalizationInput, left.length + right.length);
-  const frontier = left.slice();
-  for (const candidate of right) addCandidate(frontier, candidate, stats);
-  return Object.freeze(frontier);
-}
-
-function normalizeMinimal(masks, stats) {
-  return normalizeIncremental(masks, addMinimalCandidate, stats);
+  return normalizeMinimalOwnershipAntichain(masks);
 }
 
 function normalizeMaximal(masks, stats) {
-  return normalizeIncremental(masks, addMaximalCandidate, stats);
+  stats.normalizationCalls += 1;
+  stats.maximumNormalizationInput = Math.max(stats.maximumNormalizationInput, masks.length);
+  return normalizeMaximalOwnershipAntichain(masks);
 }
 
 function unionUpward(left, right, stats) {
-  return mergeIncremental(left, right, addMinimalCandidate, stats);
+  return normalizeMinimal([...left, ...right], stats);
 }
 
 function unionDownward(left, right, stats) {
-  return mergeIncremental(left, right, addMaximalCandidate, stats);
+  return normalizeMaximal([...left, ...right], stats);
 }
 
-function tiledPairReduce(left, right, combine, addCandidate, tileSize, stats) {
+function tiledPairReduce(left, right, combine, normalize, tileSize, stats) {
   if (left.length === 0 || right.length === 0) return Object.freeze([]);
-  const frontier = [];
+  let frontier = Object.freeze([]);
   let tile = [];
 
   function flush() {
     if (tile.length === 0) return;
     stats.candidateTiles += 1;
     stats.maximumCandidateTile = Math.max(stats.maximumCandidateTile, tile.length);
-    const unique = new Set(tile);
-    stats.uniquePairCandidates += unique.size;
-    for (const candidate of unique) addCandidate(frontier, candidate, stats);
+    const unique = [...new Set(tile)];
+    const reducedTile = normalize(unique, stats);
+    frontier = normalize([...frontier, ...reducedTile], stats);
     tile = [];
   }
 
@@ -120,15 +54,15 @@ function tiledPairReduce(left, right, combine, addCandidate, tileSize, stats) {
     }
   }
   flush();
-  return Object.freeze(frontier);
+  return frontier;
 }
 
 function intersectUpward(left, right, tileSize, stats) {
-  return tiledPairReduce(left, right, (a, b) => a | b, addMinimalCandidate, tileSize, stats);
+  return tiledPairReduce(left, right, (a, b) => a | b, normalizeMinimal, tileSize, stats);
 }
 
 function intersectDownward(left, right, tileSize, stats) {
-  return tiledPairReduce(left, right, (a, b) => a & b, addMaximalCandidate, tileSize, stats);
+  return tiledPairReduce(left, right, (a, b) => a & b, normalizeMaximal, tileSize, stats);
 }
 
 function cofactorUpward(frontier, landingBit, mover, stats) {
@@ -233,11 +167,23 @@ function frontiersOverlap(wins, losses) {
 
 function createRankItems(support) {
   const ranks = Array.from({ length: support.maxRank + 1 }, () => []);
-  for (let supportIndex = 0; supportIndex < support.itemCapacity; supportIndex += 1) ranks[support.ranks[supportIndex]].push(supportIndex);
+  for (let supportIndex = 0; supportIndex < support.itemCapacity; supportIndex += 1) {
+    ranks[support.ranks[supportIndex]].push(supportIndex);
+  }
   return Object.freeze(ranks.map((items) => Object.freeze(items)));
 }
 
-function solveSupport({ supportIndex, rank, support, childRank, columns, rows, incidence, candidateTileSize, stats }) {
+function solveSupport({
+  supportIndex,
+  rank,
+  support,
+  childRank,
+  columns,
+  rows,
+  incidence,
+  candidateTileSize,
+  stats,
+}) {
   const heights = support.decodeHeights(supportIndex);
   const mover = rank & 1;
   const universeMask = supportUniverseMask(heights, columns);
@@ -302,8 +248,22 @@ function solveSupport({ supportIndex, rank, support, childRank, columns, rows, i
   return Object.freeze({ wins, losses });
 }
 
-/** Root-only exact BSFP using rolling ranks, bounded support shards, and streaming dominance reduction. */
-export function solveBsfpOwnershipAntichainRootWdlRolling({ columns, rows, connect, supportShardSize = 2048, candidateTileSize = 8192 }) {
+/**
+ * Root-only direct BSFP W/D/L using a rolling two-rank window.
+ *
+ * Only rank r+1 is retained while rank r is produced. Current-rank supports
+ * are processed in bounded shards, and pairwise antichain intersections are
+ * reduced in bounded candidate tiles. This is the CPU reference execution
+ * shape for a future bounded-arena CUDA profile; it does not enumerate the
+ * physical colored-state graph or recursively search legal move trees.
+ */
+export function solveBsfpOwnershipAntichainRootWdlRolling({
+  columns,
+  rows,
+  connect,
+  supportShardSize = 2048,
+  candidateTileSize = 8192,
+}) {
   const shardSize = positiveSafeInteger(supportShardSize, 'supportShardSize');
   const tileSize = positiveSafeInteger(candidateTileSize, 'candidateTileSize');
   const support = createBsfpSupportLatticeProfile({ columns, rows, connect });
@@ -328,16 +288,10 @@ export function solveBsfpOwnershipAntichainRootWdlRolling({ columns, rows, conne
     peakRankSupportCount: 0,
     totalShards: 0,
     generatedPairCandidates: 0,
-    uniquePairCandidates: 0,
     candidateTiles: 0,
     maximumCandidateTile: 0,
     normalizationCalls: 0,
     maximumNormalizationInput: 0,
-    incrementalCandidates: 0,
-    dominanceComparisons: 0,
-    dominatedCandidates: 0,
-    retainedCandidatesRemoved: 0,
-    maximumIncrementalFrontier: 0,
   };
   const rankSummaries = [];
   let childRank = new Map();
@@ -358,9 +312,22 @@ export function solveBsfpOwnershipAntichainRootWdlRolling({ columns, rows, conne
       stats.totalShards += 1;
       for (let offset = shardStart; offset < shardEnd; offset += 1) {
         const supportIndex = items[offset];
-        const frontier = rank === support.maxRank
-          ? Object.freeze({ wins: Object.freeze([]), losses: Object.freeze([]) })
-          : solveSupport({ supportIndex, rank, support, childRank, columns, rows, incidence, candidateTileSize: tileSize, stats });
+        let frontier;
+        if (rank === support.maxRank) {
+          frontier = Object.freeze({ wins: Object.freeze([]), losses: Object.freeze([]) });
+        } else {
+          frontier = solveSupport({
+            supportIndex,
+            rank,
+            support,
+            childRank,
+            columns,
+            rows,
+            incidence,
+            candidateTileSize: tileSize,
+            stats,
+          });
+        }
         currentRank.set(supportIndex, frontier);
         rankWinRecords += frontier.wins.length;
         rankLossRecords += frontier.losses.length;
@@ -378,7 +345,17 @@ export function solveBsfpOwnershipAntichainRootWdlRolling({ columns, rows, conne
     stats.totalLossRecords += rankLossRecords;
     stats.peakRankBoundaryRecords = Math.max(stats.peakRankBoundaryRecords, rankBoundaryRecords);
     stats.peakRankSupportCount = Math.max(stats.peakRankSupportCount, items.length);
-    rankSummaries.push(Object.freeze({ rank, supportCount: items.length, shardCount: rankShards, winRecords: rankWinRecords, lossRecords: rankLossRecords, boundaryRecords: rankBoundaryRecords, maximumWinFrontier: rankMaximumWinFrontier, maximumLossFrontier: rankMaximumLossFrontier }));
+    rankSummaries.push(Object.freeze({
+      rank,
+      supportCount: items.length,
+      shardCount: rankShards,
+      winRecords: rankWinRecords,
+      lossRecords: rankLossRecords,
+      boundaryRecords: rankBoundaryRecords,
+      maximumWinFrontier: rankMaximumWinFrontier,
+      maximumLossFrontier: rankMaximumLossFrontier,
+    }));
+
     childRank = currentRank;
     childBoundaryRecords = rankBoundaryRecords;
   }
@@ -397,7 +374,17 @@ export function solveBsfpOwnershipAntichainRootWdlRolling({ columns, rows, conne
     winningLineCount: lineMasks.length,
     rootWdl,
     rootFrontier: root,
-    execution: Object.freeze({ rankWindow: 2, supportShardSize: shardSize, candidateTileSize: tileSize, dominanceReducer: 'streaming-incremental-v1' }),
-    stats: Object.freeze({ ...stats, totalBoundaryRecords, retainedBoundaryRecordsAtEnd: root.wins.length + root.losses.length, peakResidentToTotalBoundaryRatio: totalBoundaryRecords === 0 ? 0 : stats.peakResidentBoundaryRecords / totalBoundaryRecords, rankSummaries: Object.freeze(rankSummaries) }),
+    execution: Object.freeze({
+      rankWindow: 2,
+      supportShardSize: shardSize,
+      candidateTileSize: tileSize,
+    }),
+    stats: Object.freeze({
+      ...stats,
+      totalBoundaryRecords,
+      retainedBoundaryRecordsAtEnd: root.wins.length + root.losses.length,
+      peakResidentToTotalBoundaryRatio: totalBoundaryRecords === 0 ? 0 : stats.peakResidentBoundaryRecords / totalBoundaryRecords,
+      rankSummaries: Object.freeze(rankSummaries),
+    }),
   });
 }
