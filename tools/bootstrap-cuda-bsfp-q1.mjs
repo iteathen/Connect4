@@ -103,7 +103,19 @@ function discoverGhToken() {
 }
 
 export function resolvePackageFrom(baseDirectory, packageName) {
-  return import.meta.resolve(packageName, pathToFileURL(path.join(baseDirectory, 'probe.mjs')).href);
+  const probePath = path.join(baseDirectory, `.cuda-bsfp-resolution-probe-${process.pid}-${Date.now()}.mjs`);
+  const source = `console.log(import.meta.resolve(${JSON.stringify(packageName)}));\n`;
+  fs.writeFileSync(probePath, source, 'utf8');
+  try {
+    return execFileSync(process.execPath, [probePath], {
+      cwd: baseDirectory,
+      encoding: 'utf8',
+      windowsHide: true,
+      timeout: 10000,
+    }).trim();
+  } finally {
+    fs.rmSync(probePath, { force: true });
+  }
 }
 
 export async function main(argv = process.argv.slice(2)) {
