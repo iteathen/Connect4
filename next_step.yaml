@@ -1,16 +1,15 @@
-schema_version: 4
+schema_version: 5
 updated: 2026-09-09
-state: active_cuda_bsfp_branch
+state: cuda_bsfp_specs_promoted_execution_seam_active
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: implement_first_bsfp_consumer_slice_from_recovered_spec
+  action: qualify_bsfp_cuda_algorithms_consumer_projection_and_build_first_small_gpu_slice
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
   solver_lane: cuda_bsfp
-  governing_spec: docs/specs/C4-0006-cuda-bsfp-wdl-v1.md
 
 solver_lanes:
   incumbent_search:
@@ -24,69 +23,118 @@ solver_lanes:
     disposition: active_development
     cuda_mcgs_dependency: none_by_default
 
-ownership:
-  connect4:
-    - connect4_domain_truth
-    - connect4_oracle_and_validation_evidence
-    - bsfp_proof_state_meaning
-    - bsfp_domain_derivation_and_terminal_semantics
-    - bsfp_exact_identity_and_canonicalization_meaning
-    - cpc_wsl625_ndc_solver_semantics
-    - solver_level_fixed_point_interpretation
-  cuda_algorithms:
-    - generic_bounded_worksets
-    - generic_ranked_progression
-    - generic_activation_and_active_count_semantics
-    - generic_selection_ordering_compaction
-    - generic_device_owned_epoch_and_admin_state
-  cuda_js:
-    - runtime_compiler_memory_provider_and_native_lifecycle
+formal_bsfp_spec_stack:
+  - path: docs/specs/C4-0006-control-parity-and-winspace-v1.md
+    owns: cpc_wsl625_structural_mathematics
+    status: candidate_branch_local
+  - path: docs/specs/C4-0007-nested-dependency-closure-v1.md
+    owns: ndc_dependency_and_proof_semantics
+    status: candidate_branch_local
+  - path: docs/specs/C4-0008-bsfp-exact-solver-v1.md
+    owns: exact_wdl_bsfp_solver_semantics
+    status: candidate_branch_local
+  - path: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
+    owns: connect4_consumer_projection_onto_cuda_algorithms_and_cuda_js
+    status: working_until_first_physical_vertical_slice
 
-authority:
-  bsfp_working_spec: docs/specs/C4-0006-cuda-bsfp-wdl-v1.md
-  preserved_research_packet:
-    - docs/research/2026-09-09-bsfp-terminology-and-attribution.md
-    - docs/research/2026-09-09-searchless-solver-hypothesis.md
-    - docs/research/2026-09-09-nested-strategic-dependency-closure.md
-    - docs/research/2026-09-09-backward-winline-fixed-point.md
-    - docs/research/2026-09-09-searchless-symbolic-backward-solver.md
-    - docs/research/2026-09-09-owner-searchless-connect4-findings.md
-    - docs/research/2026-09-09-strategic-candidate-theory-state-proof.md
-    - docs/research/2026-09-09-terminal-boundary-qualification.md
+preserved_research_authority:
+  terminology: docs/research/2026-09-09-bsfp-terminology-and-attribution.md
+  ndc: docs/research/2026-09-09-nested-strategic-dependency-closure.md
+  direct_bsfp: docs/research/2026-09-09-searchless-symbolic-backward-solver.md
+  backward_fixed_point: docs/research/2026-09-09-backward-winline-fixed-point.md
+  terminal_boundary: docs/research/2026-09-09-terminal-boundary-qualification.md
+  strategic_algebra: docs/research/2026-09-09-universal-strategic-algebra.md
+  winspace: docs/research/2026-09-09-winspace-results.md
   evidence_roots:
     - docs/research/evidence
     - reference/research-prototypes
 
-active_dependency:
-  repository: iteathen/CUDA-Algorithms
-  branch: feature/ranked-closure
-  protected_milestone: 6dac37af888c70e437caac3c0eb7224cd87dd73f
-  spec: docs/specs/SPEC-0004-device-worksets-and-fixed-point-closure.md
-  status: working_draft
+ownership:
+  connect4:
+    - connect4_domain_truth
+    - connect4_oracle_and_validation_evidence
+    - cpc_and_wsl625_semantics
+    - ndc_fact_dependency_and_certificate_semantics
+    - bsfp_terminal_predecessor_wdl_and_draw_semantics
+    - bsfp_exact_identity_dominance_and_canonicalization
+    - bsfp_rank_complete_semantic_reduction
+    - product_solve_result_and_host_orchestration
+  cuda_algorithms:
+    - generic_algorithm_plans_and_device_active_extents
+    - generic_stable_index_selection_and_permutation_ordering
+    - generic_bounded_worksets_and_ranked_progression
+    - generic_activation_compaction_and_administrative_yield_semantics
+  cuda_js:
+    - typed_device_js_library_composition
+    - runtime_compiler_memory_prepared_execution_and_native_lifecycle
+
+active_dependencies:
+  cuda_algorithms:
+    repository: iteathen/CUDA-Algorithms
+    branch: feature/ranked-closure
+    protected_milestone: 6dac37af888c70e437caac3c0eb7224cd87dd73f
+    specs:
+      - docs/specs/SPEC-0002-algorithm-plans-active-extents-and-device-chaining.md
+      - docs/specs/SPEC-0003-core-sequence-and-keyed-primitives.md
+      - docs/specs/SPEC-0004-device-worksets-and-fixed-point-closure.md
+    note: SPEC-0004 remains Working Draft and its exact consumer-composition API is intentionally to be settled by a real BSFP-backed GPU slice
+  cuda_js:
+    repository: iteathen/CUDA-JS
+    reference_commit: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+    accepted_spec: docs/specs/SPEC-0028-device-js-library-composition.md
+
+first_vertical_slice:
+  preferred_geometry: 4x3_connect3
+  reason:
+    - complete_independent_oracle_exists
+    - complete_direct_bsfp_qualification_exists
+    - support_lattice_is_256_skeletons
+    - small_enough_to_exercise_full_rank_completion_capacity_and_shard_invariance
+  required_semantics:
+    - explicit_finite_backward_rank
+    - bounded_consumer_owned_derivation
+    - consumer_owned_exact_equality
+    - complete_cross_source_contribution_aggregation_per_target
+    - consumer_owned_existential_universal_or_equivalent_wdl_reduction
+    - authoritative_target_publication_only_after_rank_complete_semantic_reduction
+    - cuda_algorithms_owned_generic_index_order_selection_workset_progression
+    - device_resident_active_extents_and_mathematical_progression
+    - node_administrative_only
+    - explicit_capacity_budget_and_failure_truth
+    - exact_batch_and_shard_invariance
+    - complete_resource_cleanup
 
 next_actions:
   - create_components_bsfp_as_a_separate_solver_lego_without_importing_incumbent_search_internals
-  - implement_the_smallest_exact_bsfp_consumer_record_rank_and_derivation_contract_from_C4_0006
-  - map_only_generic_progression_mechanics_to_cuda_algorithms_ranked_closure
-  - qualify_bsfp_semantics_against_preserved_direct_symbolic_and_independent_oracle_evidence
-  - compose_the_first_device_js_vertical_slice_without_host_semantic_progression
-  - preserve_material_research_findings_and_falsified_forms_durably
+  - derive_the_smallest_bsfp_device_record_and_contribution_profile_from_C4_0006_through_C4_0009
+  - build_the_4x3_reference_projection_that_exposes_the_same_rank_contributions_expected_on_gpu_without_using_minimax_as_production_logic
+  - map_generic_sequence_and_ranked_progression_only_to_cuda_algorithms
+  - use_cuda_js_spec_0028_typed_leaf_library_composition_for_consumer_device_functions_if_the_first_slice_confirms_that_seam
+  - revise_cuda_algorithms_spec_0004_only_if_the_physical_slice_exposes_a_generic_missing_contract
+  - qualify_every_gpu_rank_and_root_result_against_independent_connect4_oracles_and_preserved_direct_bsfp_evidence
+  - exercise_duplicate_equality_capacity_budget_and_shard_falsifiers
+  - preserve_material_findings_and_rejected_forms_durably
 
 constraints:
   - no_bsfp_as_minimax_or_search_specialization
   - no_incumbent_search_semantics_in_bsfp
   - no_bsfp_proof_or_domain_semantics_in_cuda_algorithms
   - no_reimplementation_of_generic_cuda_algorithms_mechanics_in_connect4_production_path
+  - generic_ranked_activation_is_not_bsfp_wdl_evaluation
+  - no_target_rank_finalization_before_complete_required_source_contributions
+  - no_hash_as_exact_equality
+  - no_host_semantic_progression_or_count_decision_loop
+  - capacity_budget_watchdog_or_spill_yield_must_not_false_converge
+  - physical_sharding_must_not_change_exact_wdl
   - no_deep_cuda_sibling_imports
   - no_python
   - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
-  - node_may_administer_gpu_epochs_but_may_not_decide_mathematical_progression
-  - exact_equality_is_consumer_owned_hash_is_not_equality
-  - capacity_or_budget_boundaries_must_not_false_converge
   - preserved_research_evidence_must_not_be_rewritten_as_stronger_claims
 
 non_claims:
   - no_empty_7x6_cuda_bsfp_solve_yet
+  - no_cuda_bsfp_native_gpu_correctness_claim_yet
   - no_cuda_bsfp_gpu_performance_claim_yet
+  - no_exact_strong_distance_bsfp_claim_yet
   - cuda_algorithms_spec_0004_not_yet_accepted_compatibility_authority
-  - c4_0006_not_yet_accepted_compatibility_authority
+  - c4_0006_through_c4_0009_not_yet_accepted_main_authority
