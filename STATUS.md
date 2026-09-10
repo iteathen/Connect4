@@ -1,30 +1,13 @@
 # Connect4 Status
 
 **Updated:** 2026-09-10  
-**Phase:** Compact device-owned CUDA-BSFP native-qualified through 5x5; C3 6x5 workload diagnostic portable-qualified and awaiting one bounded native datum
+**Phase:** Device-owned compact CUDA-BSFP exact through 5x5; native C3 6x5 workload diagnosis is the next physical gate
 
-The active continuation is [next_step.yaml](next_step.yaml). The device-owned C1 solver computes cofactor, terminal handling, packed ownership-antichain composition and rank finalization on CUDA with two resident rank arenas. [Q1 evidence PR #20](https://github.com/iteathen/Connect4/pull/20) records complete all-frontier native agreement for 4x3, 4x4 and 5x5. Two bounded 6x5 attempts timed out at 180 seconds; empty 7x6 remains unsolved.
+The active continuation is [next_step.yaml](next_step.yaml). C1 is a real bottom-up compact CUDA-BSFP solver: cofactor, terminal handling, ownership-antichain composition and rank finalization execute on device using two resident rank arenas. Q1 evidence PR #20 records complete all-frontier native agreement for 4x3, 4x4 and 5x5. Empty 7x6 remains unsolved.
 
-The owner observed approximately 95–100% GPU utilization during the slow native interval. Code review therefore treats both **algorithmic volume** and **parallel-work quality** as active suspects rather than assuming host/launch starvation. The new C3 profile measures the first 6x5 static epoch without changing BSFP recurrence semantics or permitting a root-result claim.
+Two bounded 6x5 attempts timed out at 180 seconds. With 2,048-candidate tiles, the first 32-node static epoch took about 75.118 seconds. The owner observed approximately 95–100% GPU utilization during the slow interval, so the current problem is not adequately described as launch starvation: both excessive symbolic work and poor quality of the parallel work are active suspects.
 
-## Product role and ownership
-
-Connect4 is the Connect Four exact-solver laboratory and benchmark/validation product. It intentionally preserves two separate solver lanes:
-
-1. `components/incumbent/` — minimax/alpha-beta/search baseline;
-2. `components/bsfp/` — backward symbolic fixed-point solving.
-
-Connect4 owns CPC, WSL-625, NDC, BSFP W/D/L/proof/frontier/terminal semantics and Connect4 CUDA profiles. CUDA-Algorithms remains consumer-neutral; CUDA-JS remains the runtime/compiler/device-memory owner.
-
-## Active development
-
-```text
-branch: feature/cuda-bsfp
-PR:     #14 (draft)
-base:   protected main@de47d43f4f4133a68973d0876a402531ef5735da
-```
-
-Exact lower pair remains unchanged:
+## Current exact dependency pair
 
 ```text
 CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
@@ -32,97 +15,80 @@ CUDA-JS:         98e2ebc942c14d63acf4dd82e912dd548c363a05
 package:         cuda-js@0.1.0-alpha.20
 ```
 
-## Formal BSFP authority
-
-- `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL-625 structural mathematics;
-- `docs/specs/C4-0007-nested-dependency-closure-v1.md` — NDC proof/dependency closure;
-- `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — exact BSFP W/D/L semantics;
-- `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA realization boundary;
-- `docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md` — device-owned compact ownership profile;
-- `docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md` — bounded partial-rank workload diagnostic;
-- `docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md` — native evidence/VRAM/timeout/publication authority.
-
-These branch-local solver specifications remain experimental until normal review/integration. Evidence does not promote them to protected-main authority by itself.
+No lower dependency was repinned.
 
 ## Native milestones
 
-### P1 correctness
+- **P1 / PR #18:** exact native 4x3 dense qualification passed.
+- **B1 / PR #19:** approximately 35.35B exact packed42 subset checks/s on the GTX 1660 Ti.
+- **C1 / PR #20:** 4x3, 4x4 and 5x5 complete support-frontier equality passed. The official 5x5 warm solve wall was about 3.569 s; the same-machine CPU reference with qualification observer was about 11.664 s.
 
-PR #18, run `20260910T065508562Z-fb451dd8` on Windows 11 / GTX 1660 Ti / Node 26.7.0:
+The official C1 5x5 run reported 85,934,909 generated GPU pairs and about 2.156B subset checks. This is not evidence that the flat B1 primitive runs at the same rate inside the fused solver; candidate generation, terminal algebra, copying, barriers, duplicate scans and cardinality phases also occupy device time.
 
-```text
-root:                         Win
-reachable nonterminal states: 4,631
-legal edges:                  11,818
-W/D/L mismatches:             0
-```
+## C3 workload diagnostic
 
-### B1 packed dominance
+C3 is deliberately **not a solver result profile**. It executes one statically selected prefix of the same C1 recurrence and reads observer counters only after that prefix completes.
 
-PR #19 measured approximately **35.35 billion exact 42-bit subset checks/second** on the GTX 1660 Ti for the flat 1,048,576 × 568 benchmark. B1 is primitive throughput evidence, not a 7x6 solve.
-
-### C1 compact root closure
-
-PR #20, run `20260910T100734116Z-e8de3c61` at source `fc7c8cc233b3cf1670ef75fde69750c91dd6492b`:
+The low-perturbation observer source is:
 
 ```text
-4x3 c3: 256 supports, Win,  zero frontier mismatches
-4x4 c4: 625 supports, Draw, zero frontier mismatches
-5x5 c4: 7,776 supports, Draw, zero frontier mismatches
+468611d9e2f743a6a30a55a2db23cc70a824f988
 ```
 
-The official 5x5 warm solve wall was approximately 3.569 s versus 11.664 s for the same-machine CPU reference including its qualification observer. The run reported 85,934,909 generated pairs and about 2.156 billion subset checks. Cold/runtime/compiler costs remain separately reported.
-
-## 6x5 wall
-
-C1/C2 uses one block per support and exact packed cardinality-phased antichain normalization. Two local 6x5 runs timed out at 180 seconds. With 2,048-candidate tiles, the first 32-node static epoch took approximately 75.118 seconds.
-
-Review found four high-value suspects:
-
-- every normalization scans its candidate interval through 43 cardinality phases;
-- exact same-cardinality duplicate suppression performs an unreported `prior < i` scan;
-- one block owns each support through a long serial column/terminal/tile pipeline;
-- generic terminal subtraction may generate unnecessary Cartesian work near the terminal ranks.
-
-The fact that the wall appears in the first epoch, before the middle-rank support-count maximum, makes raw support count alone an insufficient explanation.
-
-## C3 diagnostic
-
-Commit `878b31840d4863ad941970c502a77995c8a0070b` adds a result-neutral observer profile for exactly one statically selected 6x5 epoch. It records per-support:
-
-- generated pairs and subset checks;
-- previously invisible same-cardinality prior-scan iterations and duplicate hits;
-- normalization input volume/calls;
-- terminal-vs-aggregate pair work;
-- cofactor/terminal/aggregate normalization volume;
-- rank summaries and the hottest supports.
-
-A C3 result is always `partial-rank-diagnostic`; it cannot report root W/D/L and `result()` still requires the complete schedule.
-
-Portable qualification at this commit is green:
+Its portable gate is complete:
 
 ```text
-verify:             34483742485 — 85/85 tests pass
-bsfp-portable:      34483742515 — Windows/Linux × Node 24.15/26.7 all pass
-benchmark-evidence: success
-strength-evidence:  success
+verify:        34485057956 — success
+bsfp-portable: 34485057959 — Windows/Linux × Node 24.15/26.7 all pass
 ```
 
-Every portable lane executes the diagnostic composition, C3 Q1 dry-run, and clean-sibling C3 bootstrap preparation through the exact pinned dependency pair.
+The diagnostic records per-support pair candidates, subset checks, same-cardinality prior-scan iterations, duplicate hits, normalization volume/calls, terminal-vs-aggregate pair work, rank summaries and hot-support skew. The observer repair avoids incrementing a u64 counter on every duplicate-scan comparison; it derives the scan count from the terminating index and accumulates once per candidate.
 
-## Winspace inference direction
+C3 emits `partial-rank-diagnostic`, has `rootWdl: null`, and the normal result path still refuses an incomplete schedule. A partial epoch therefore cannot look like a 6x5 solve.
 
-The current preferred semantic optimization is **exact inference before expensive ownership Cartesian algebra**, not blanket replacement of every compact ownership record with a much wider WSL/NDC record.
+## Code-review diagnosis
 
-WSL-625 already provides an exact standard-board 625-element residual universe and a 20-u32 upward-closure encoding. C4-0007 provides the NDC proof model. Initial inference candidates are direct/double threats, exact requirement exhaustion, cheap certified blocker coverage, then local Claimeven/Baseinverse/Vertical consequences. Any optional inference may fail to prove something and fall back to ordinary BSFP; an unproved heuristic may never prune exact work.
+The present packed normalizer has several measurable inefficiencies:
 
-The optimization metric is candidate/proof work eliminated before materialization per unit inference cost. Because BSFP intersections form Cartesian products, moderate frontier reductions can compound multiplicatively.
+1. every normalization revisits the candidate interval through 43 cardinality phases;
+2. same-cardinality exact duplicate removal performs a serial `prior < i` scan that was previously invisible in metrics;
+3. one block owns one support through columns, terminal requirements, tiles and reductions, so a pathological support cannot distribute that semantic work over multiple blocks;
+4. generic terminal subtraction may create unnecessary Cartesian work close to terminal ranks.
+
+The first 6x5 epoch reaches the wall well before the middle-rank support-count maximum, which makes raw support count alone an insufficient explanation.
+
+## Winspace inference result
+
+The first concrete inference candidate is now measured rather than hypothetical. `reference/research-prototypes/2026-09-10-bsfp-winspace-inference/double-threat-absorber.mjs` derives exact Win/Loss ownership cones from two **distinct currently playable** completion cells, subtracting the mover's own immediate-win region so first-win behavior remains authoritative.
+
+Research run `34485833438` tested complete 4x3, 4x4, 5x3, 4x5, 5x4 and 5x5 games. It reproduced the maintained aggregate pair counts and every target frontier exactly: zero unsound seeds, zero baseline frontier mismatches and zero absorber frontier mismatches.
+
+For 5x5:
+
+```text
+supports with an inferred seed:           6,468 / 7,776
+baseline aggregate pair candidates:       81,515,570
+absorber aggregate pair candidates:       79,580,610
+direct generated-pair reduction:          2.37%
+post-combine candidates already proved:   21,671,147 (~26.59% of baseline pairs)
+```
+
+This rejects the strongest version of the hypothesis: simple double-threat inference is **not** a sufficient standalone search-space reduction. Its more promising role is as a cheap semantic filter before expensive dominance/dedup normalization. The production predicate can test the already-present local terminal requirement masks directly rather than scan the normalized seed frontier.
+
+The result is preserved in `docs/research/2026-09-10-double-threat-absorber-results.md`. It is research evidence only and is not integrated into C1.
 
 ## Next gate
 
-Run the C3 profile once on the authorized NVIDIA host through Q1 and publish the append-only evidence. Classify the first epoch by candidate class, duplicate scans, normalization volume and hot-support skew. Only then select the first reducer/inference intervention and requalify complete small-game frontiers before retrying 6x5.
+Run one bounded native C3 first-epoch diagnostic on the authorized GTX 1660 Ti using exact Connect4 source `468611d9e2f743a6a30a55a2db23cc70a824f988` through the maintained Q1/bootstrap path. That one datum should select the next intervention:
 
-Do not attempt standard 7x6 merely to produce another timeout. A solved-game claim requires complete BSFP closure to rank 0.
+- duplicate/prior-scan heavy → exact early dedup/cardinality bucketing;
+- 43-phase visit heavy → bucket once by popcount;
+- terminal-pair heavy → specialized exact terminal subtraction;
+- aggregate-pair heavy → broader WSL/CPC/NDC operand reduction;
+- normalization-heavy with many exact double-threat hits → double-threat filtering plus dense survivor compaction;
+- strongly skewed supports → split one semantic support's physical work across multiple blocks.
+
+Do not spend another full 180-second 6x5 run merely to reconfirm GPU saturation. Do not attempt 7x6 until 6x5 has a bounded completion with cost/resource evidence.
 
 ## Non-claims
 
@@ -130,6 +96,5 @@ Do not attempt standard 7x6 merely to produce another timeout. A solved-game cla
 - no empty-board standard-7x6 CUDA-BSFP completion;
 - no exact strong-distance BSFP result;
 - C3 partial-rank evidence is not root W/D/L evidence;
-- no current evidence that full WSL/NDC records are cheaper than compact ownership records;
-- no CUDA-Algorithms or CUDA-JS repin is authorized by the present diagnosis;
+- double-threat inference is not yet a native optimization;
 - the incumbent minimax/search lane is unchanged.

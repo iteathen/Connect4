@@ -1,22 +1,23 @@
-schema_version: 15
+schema_version: 16
 updated: 2026-09-10
-state: cuda_bsfp_c3_portable_qualified_native_diagnostic_next
+state: cuda_bsfp_native_c3_diagnostic_required_double_threat_filter_research_positive
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: run_c3_native_one_epoch_diagnostic_and_classify_6x5_wall
+  action: run_c3_native_one_epoch_diagnostic_then_select_first_measured_6x5_intervention
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
-  solver_lane: cuda_bsfp
   draft_pr: 14
+  solver_lane: cuda_bsfp
   exact_solver_spec: docs/specs/C4-0008-bsfp-exact-solver-v1.md
   cuda_execution_spec: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
   qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
   compact_profile: docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md
   diagnostic_profile: docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md
   bootstrap_entrypoint: node tools/bootstrap-cuda-bsfp-q1.mjs
+  native_candidate_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
 
 product_goal:
   geometry: 7x6_connect4
@@ -26,114 +27,69 @@ product_goal:
   forbidden_primary_method: move_tree_search_or_minimax
 
 exact_dependency_pair:
-  cuda_algorithms:
-    revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-  cuda_js:
-    revision: 98e2ebc942c14d63acf4dd82e912dd548c363a05
-    package: cuda-js@0.1.0-alpha.20
+  cuda_algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
+  cuda_js: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+  cuda_js_package: cuda-js@0.1.0-alpha.20
 
-native_p1:
-  evidence_pr: 18
-  run_id: 20260910T065508562Z-fb451dd8
-  host: windows_11_gtx1660ti_6gb_node_26_7_0
-  result: passed
-  root_wdl: win
-  checked_nonterminal_states: 4631
-  legal_edges: 11818
-  status: physically_native_numerically_qualified
+native_milestones:
+  p1:
+    evidence_pr: 18
+    run_id: 20260910T065508562Z-fb451dd8
+    result: 4x3_c3_exact_native_pass
+  b1:
+    evidence_pr: 19
+    run_id: 20260910T083225135Z-2245e20a
+    subset_checks_per_second_median: 35349174303
+    conclusion: flat_packed42_subset_throughput_is_not_first_wall
+  c1:
+    evidence_pr: 20
+    run_id: 20260910T100734116Z-e8de3c61
+    qualified_source: fc7c8cc233b3cf1670ef75fde69750c91dd6492b
+    results:
+      4x3_c3: win_256_supports_zero_frontier_mismatch
+      4x4_c4: draw_625_supports_zero_frontier_mismatch
+      5x5_c4: draw_7776_supports_zero_frontier_mismatch
+    5x5:
+      warm_solve_wall_ms: 3568.618
+      submit_wait_ms: 3299.957
+      cpu_reference_with_observer_ms: 11663.782
+      gpu_pair_candidates: 85934909
+      gpu_subset_checks_approx: 2155626495
 
-b1_native_dominance:
-  evidence_pr: 19
-  run_id: 20260910T083225135Z-2245e20a
-  host: windows_11_gtx1660ti_6gb_node_26_7_0
-  profile_id: c4-0009-b1-packed-dominance-42
-  result: qualified
-  candidate_count: 1048576
-  frontier_count: 568
-  subset_checks_per_pass: 595591168
-  median_submission_wait_ms: 16.8488
-  subset_checks_per_second_median: 35349174303
-  candidate_records_per_second_median: 62234462
-  conclusion: fixed_width_dominance_throughput_is_not_the_first_gpu_wall
-
-packed42_cpu_control:
-  representation: exact_number_below_2pow42_logically_two_u32_lanes
-  exact_equivalence: passed_small_geometry_controls_and_normalization
+cpu_packed42_control:
   5x4_c4:
-    wall_ms: 801
-    boundary_records: 108266
-    max_frontier_win: 284
-    max_frontier_loss: 194
+    wall_ms_approx: 801
     pair_candidates: 2298403
   5x5_c4:
-    historical_wall_ms: 18865
-    boundary_records: 1044159
-    max_frontier_win: 562
-    max_frontier_loss: 568
+    historical_wall_ms_approx: 18865
     pair_candidates: 81515570
+    boundary_records: 1044159
+    maximum_win_frontier: 562
+    maximum_loss_frontier: 568
   6x5_c4: timeout_600s
   7x6_c4: timeout_600s
-  diagnosis: fixed_width_removed_a_major_constant_but_cartesian_frontier_algebra_still_dominates
 
-wsl625_packed:
-  standard_geometry:
-    winning_lines: 69
-    requirement_count: 625
-    closure_words_u32: 20
-    closure_bytes: 80
-  exact_relation: A_implies_B_iff_UpA_subset_UpB
-  qualification: full_625x625_singleton_matrix_and_legal_residual_dominance_pass
-  disposition: available_for_exact_pre_algebra_inference_not_blanket_record_replacement
-
-c1_device_compact:
-  implementation_commit: 2052c4d00a6b472a1d998addce927bf00bfb831b
-  profile_id: c4-0009-c1-compact-ownership-42
-  recurrence_owner: gpu
-  host_semantic_progression: false
-  rank_window: 2
-  scratch_shard_supports: 64
-  frontier_capacity: 1024
-  candidate_tile_capacity: 2048
-  official_evidence_pr: 20
-  official_run: 20260910T100734116Z-e8de3c61
-  qualified_source: fc7c8cc233b3cf1670ef75fde69750c91dd6492b
-  all_frontier_results:
-    4x3_c3: win_256_supports_zero_mismatch
-    4x4_c4: draw_625_supports_zero_mismatch
-    5x5_c4: draw_7776_supports_zero_mismatch
-  official_5x5_pair_candidates: 85934909
-  official_5x5_subset_checks_approx: 2155626495
-  official_5x5_submit_wait_ms: 3299.957
-  official_5x5_warm_solve_wall_ms: 3568.618
-  official_5x5_cpu_reference_with_observer_ms: 11663.782
-  controls: all_frontier_batching_high_42bit_and_capacity_failure_pass
-  limits:
-    - fixed_shard_ceiling_not_yet_free_vram_adaptive
-    - no_spill_or_resize_on_frontier_overflow
-    - fused_phase_device_times_unavailable
-    - residual_event_cpc_compression_not_yet_implemented
-
-c2_scaling:
+c2_6x5_scaling_wall:
   geometry: 6x5_c4
   frontier_capacity: 8192
-  local_runs:
-    - id: 20260910T095159242Z-776e7432
+  attempts:
+    - run: 20260910T095159242Z-776e7432
       candidate_tile_capacity: 8192
-      outcome: timeout_180s
-    - id: 20260910T095634168Z-7302f02d
+      result: timeout_180s
+    - run: 20260910T095634168Z-7302f02d
       candidate_tile_capacity: 2048
-      outcome: timeout_180s
-      first_static_epoch_ms: 75117.652
-  owner_physical_observation:
-    gpu_utilization_percent: approximately_95_to_100
-    interpretation: device_is_busy_but_useful_parallel_work_quality_and_algorithmic_volume_remain_open
+      result: timeout_180s
+      first_32_node_epoch_ms: 75117.652
+  owner_gpu_observation: approximately_95_to_100_percent_utilization_during_slow_interval
+  interpretation:
+    - host_starvation_is_not_a_sufficient_explanation
+    - algorithmic_volume_and_parallel_work_quality_are_both_active_suspects
   root_result: unresolved
-  empty_7x6: not_attempted_no_solve_claim
 
 c3_work_diagnostic:
-  implementation_commit: 878b31840d4863ad941970c502a77995c8a0070b
+  initial_implementation_commit: 878b31840d4863ad941970c502a77995c8a0070b
+  low_perturbation_observer_commit: 468611d9e2f743a6a30a55a2db23cc70a824f988
   profile_id: c4-0009-c3-compact-work-diagnostic-42
-  purpose: classify_first_6x5_epoch_work_without_root_claim
   geometry: 6x5_c4
   static_epoch_limit: 1
   frontier_capacity: 8192
@@ -141,7 +97,9 @@ c3_work_diagnostic:
   shard_capacity: 64
   block_size: 128
   semantic_progression_changed: false
-  counters_per_support:
+  result_role: partial_rank_diagnostic_only
+  root_wdl_claim: forbidden
+  counters:
     - pair_candidates_generated
     - subset_checks_performed
     - prior_scan_iterations
@@ -154,57 +112,80 @@ c3_work_diagnostic:
     - terminal_intersection_normalization_input_records
     - terminal_union_normalization_input_records
     - aggregate_normalization_input_records
-  derived_observers:
+  derived:
     - cardinality_phase_candidate_visits
     - rank_summaries
-    - top_hot_supports
     - statically_scheduled_supports_by_rank
-  correctness_boundary:
-    case_role: partial_rank_diagnostic
-    closure: partial_static_prefix
-    root_wdl: forbidden
-    result_requires_full_schedule: true
+    - hot_supports
   portable_qualification:
-    commit: 878b31840d4863ad941970c502a77995c8a0070b
-    verify_run: 34483742485
-    verify_result: 85_of_85_pass
-    bsfp_portable_run: 34483742515
+    exact_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
+    verify_run: 34485057956
+    verify: success
+    bsfp_portable_run: 34485057959
     matrix: windows_2025_and_ubuntu_24_04_node_24_15_and_26_7_all_pass
-    diagnostic_composition: pass_all_four_lanes
-    q1_dry_run: pass_all_four_lanes
-    bootstrap_prepare: pass_all_four_lanes
-    benchmark_evidence: success
-    strength_evidence: success
-  native_status: required_next
+    result: native_datum_is_now_required
 
 code_review_diagnosis:
-  - packed_normalization_scans_each_candidate_across_43_cardinality_phases
-  - same_cardinality_exact_dedup_uses_quadratic_prior_scan_not_previously_measured
-  - one_block_owns_one_support_through_long_serial_semantic_pipeline
-  - 5x5_full_solver_reported_check_rate_is_far_below_flat_b1_primitive_rate_because_full_interval_contains_much_other_work
-  - first_6x5_epoch_reaches_wall_close_to_terminal_ranks_before_peak_support_count
+  - current_normalizer_rescans_candidate_interval_across_43_cardinality_phases
+  - same_cardinality_exact_dedup_has_quadratic_prior_scan_work_previously_unmeasured
+  - one_block_owns_one_support_through_long_fused_serial_semantic_pipeline
+  - full_solver_useful_subset_rate_is_far_below_flat_b1_rate_because_many_other_operations_fill_the_gpu
+  - first_6x5_epoch_hits_wall_near_terminal_ranks_before_peak_support_count
+  - generic_terminal_subtraction_remains_a_plausible_late_rank_cost_source
 
-winspace_inference_direction:
-  preferred_seam: exact_inference_seeded_ownership_antichains_before_expensive_pair_algebra
-  first_candidates:
-    - direct_and_double_threat_certificates
-    - bilateral_and_one_sided_requirement_exhaustion_where_exact
-    - cheap_certified_wsl_blocker_coverage
-    - local_claimeven_baseinverse_vertical_consequences
-    - bounded_ndc_feedback_after_local_profitability_is_established
-  avoid_initially:
-    - replacing_every_ownership_record_with_full_wsl_ndc_record_without_measured_large_compression
-    - combinatorial_named_rule_cover_search
-    - heuristic_pruning_without_exact_certificate
-  profitability_metric: exact_candidate_or_proof_work_eliminated_before_cartesian_materialization_per_unit_inference_cost
+winspace:
+  wsl625:
+    winning_lines: 69
+    requirement_count: 625
+    closure_words_u32: 20
+    closure_bytes: 80
+  preferred_integration: exact_inference_seeded_or_filtered_ownership_antichains_before_expensive_normalization
+  blanket_full_residual_record_replacement: not_justified
+
+  double_threat_absorber_research:
+    source_commit: 80f6d20f10a40ce95882e091665cac901a091d73
+    benchmark_run: 34485833438
+    research_record: docs/research/2026-09-10-double-threat-absorber-results.md
+    tested_complete_geometries:
+      - 4x3_c3
+      - 4x4_c4
+      - 5x3_c4
+      - 4x5_c4
+      - 5x4_c4
+      - 5x5_c4
+    exactness:
+      unsound_seed_count: 0
+      baseline_frontier_mismatches: 0
+      absorber_frontier_mismatches: 0
+    5x5:
+      supports_with_seed: 6468
+      supports_total: 7776
+      seed_records: 147873
+      baseline_pair_candidates: 81515570
+      absorber_pair_candidates: 79580610
+      direct_pair_reduction_fraction: 0.023737305646025608
+      post_combine_candidates_already_proved: 21671147
+      post_combine_absorption_fraction_of_baseline_pairs: 0.2658528548595072
+    disposition:
+      - retain_exact_candidate
+      - insufficient_as_standalone_pair_space_reducer
+      - promising_as_direct_semantic_filter_before_dominance_dedup_normalization
+      - use_direct_threat_predicate_against_existing_terminal_requirement_data_rather_than_scanning_seed_frontier
+
+candidate_selection_after_native_c3:
+  duplicate_or_prior_scan_dominates: exact_pre_dedup_or_cardinality_bucket_dedup
+  phase_visits_dominate_with_low_duplicates: bucket_once_by_popcount_and_process_occupied_buckets
+  terminal_pair_work_dominates: specialized_exact_terminal_subtraction
+  aggregate_pair_work_dominates: broader_winspace_cpc_ndc_operand_reduction
+  normalization_dominates_and_direct_threat_hits_are_common: combine_double_threat_filter_with_dense_survivor_compaction
+  hot_support_skew_dominates: split_one_support_candidate_frontier_work_across_multiple_blocks
 
 next_actions:
-  - run_c3_on_authorized_gtx1660ti_through_q1_and_publish_append_only_evidence
-  - classify_first_epoch_by_candidate_class_duplicate_scans_normalization_volume_and_hot_support_skew
-  - choose_first_physical_reducer_change_only_from_measured_cause
-  - independently_falsify_first_exact_winspace_certificate_family_on_complete_small_games
-  - measure_candidate_products_avoided_before_integrating_inference_into_c1
-  - requalify_all_small_support_frontiers_after_each_semantic_or_reducer_change
+  - run_exact_source_468611d9e2f743a6a30a55a2db23cc70a824f988_with_c3_on_authorized_gtx1660ti_through_q1
+  - publish_append_only_c3_evidence
+  - classify_first_epoch_by_pair_class_prior_scans_duplicates_normalization_volume_and_hot_support_skew
+  - select_smallest_measured_physical_or_semantic_intervention
+  - requalify_complete_4x3_4x4_5x5_frontiers_after_any_c1_semantic_or_reducer_change
   - retry_6x5_only_after_measured_intervention
   - attempt_7x6_only_after_6x5_completes_with_resource_and_cost_evidence
 
@@ -218,5 +199,5 @@ constraints:
   - no_performance_threshold_as_correctness_authority
   - no_cuda_algorithms_connect4_semantics
   - no_cuda_js_mutation_without_generic_missing_mechanism
-  - no_python
+  - no_python_in_maintained_ecosystem_code
   - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
