@@ -79,7 +79,8 @@ function compactSegmentSurvivorsPacked42(candidateLo, candidateHi, dominated, se
   }
 
   outputCounts[segment] = required;
-  outputStatus[segment] = required > outputCapacityPerSegment ? gpu.u32(1) : gpu.u32(0);
+  outputStatus[segment] = gpu.u32(0);
+  if (required > outputCapacityPerSegment) outputStatus[segment] = gpu.u32(1);
 }
 `;
 
