@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - research/zdd-transfer-20260910
+    paths:
+      - '.github/workflows/zdd-transfer-one-shot.yml'
+      - 'reference/research-prototypes/2026-09-10-zdd-transfer/**'
+      - 'components/bsfp/**'
 
 permissions:
   contents: read
@@ -27,5 +31,7 @@ jobs:
         run: node reference/research-prototypes/2026-09-10-zdd-transfer/line-frontier-support-census.mjs
       - name: Census exact separator hidden-history classes (corrected reporting)
         run: node --expose-gc reference/research-prototypes/2026-09-10-zdd-transfer/separator-history-classes-corrected.mjs
+      - name: Falsify processed-line accumulator candidates
+        run: node --expose-gc reference/research-prototypes/2026-09-10-zdd-transfer/processed-line-accumulator.mjs
       - name: Solve exact BSFP with monotone-closure ROBDDs
         run: node --expose-gc reference/research-prototypes/2026-09-10-zdd-transfer/monotone-closure-bdd.mjs

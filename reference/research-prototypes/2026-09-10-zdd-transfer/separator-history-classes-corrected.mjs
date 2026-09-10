@@ -60,9 +60,48 @@ replaceExact(
 );
 
 const tempPath = fileURLToPath(TEMP_URL);
+const originalLog = console.log;
+const captured = [];
+let parsed = null;
 try {
   writeFileSync(tempPath, source, 'utf8');
+  console.log = (...args) => captured.push(args.map(String).join(' '));
   await import(`${pathToFileURL(tempPath).href}?reporting-corrected=1`);
+  const payload = captured.findLast((message) => message.includes('"kind": "connect4-bsfp-separator-hidden-history-census"'));
+  if (!payload) throw new Error('corrected separator census did not emit its expected JSON payload');
+  parsed = JSON.parse(payload);
 } finally {
+  console.log = originalLog;
   rmSync(tempPath, { force: true });
 }
+
+const compact = {
+  kind: 'connect4-bsfp-separator-hidden-history-census-summary',
+  status: parsed.status,
+  semantics: parsed.semantics,
+  hypothesis: parsed.hypothesis,
+  reportingCorrections: parsed.reportingCorrections,
+  cases: parsed.cases.map((entry) => ({
+    geometry: entry.geometry,
+    selection: entry.selection,
+    selectedSupportCount: entry.selectedSupportCount,
+    structuralMaximumCrossingWidth: entry.structuralMaximumCrossingWidth,
+    maxHistoryClasses: entry.maxHistoryClasses,
+    historyBits: entry.historyBits,
+    meanHistoryClassesAcrossCrossingAssignments: entry.meanHistoryClassesAcrossCrossingAssignments,
+    capacityCuts: entry.capacityCuts,
+    worstSupport: entry.worstSupport ? {
+      supportIndex: entry.worstSupport.supportIndex,
+      rank: entry.worstSupport.rank,
+      heights: entry.worstSupport.heights,
+      maxHistoryClasses: entry.worstSupport.maxHistoryClasses,
+      historyBits: entry.worstSupport.historyBits,
+      meanHistoryClasses: entry.worstSupport.meanHistoryClasses,
+      worstCut: entry.worstSupport.worstCut,
+    } : null,
+    hasPhysicallyReachableCollision: entry.firstPhysicallyReachableCollision !== null,
+    firstPhysicallyReachableCollision: entry.firstPhysicallyReachableCollision,
+  })),
+};
+
+console.log(JSON.stringify(compact));
