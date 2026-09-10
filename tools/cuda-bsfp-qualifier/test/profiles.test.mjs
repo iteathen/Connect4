@@ -63,6 +63,43 @@ test('B2 compares legacy and bucketed exact packed42 normalizers on equal and mi
   assert.ok(listQualificationProfiles().includes(profile.id));
 });
 
+test('B3 compares ordinary bucketed and exact duplicate-first packed42 normalization on Cartesian duplicate stress', () => {
+  const profile = getQualificationProfile('c4-0009-b3-packed-dedup-first-42');
+  const geometry = { columns: 7, rows: 6, connect: 4 };
+  assert.equal(profile.supports(geometry), true);
+  assert.equal(profile.supports({ columns: 6, rows: 5, connect: 4 }), false);
+  const estimate = profile.estimate(geometry);
+  assert.equal(estimate.executable, true);
+  assert.equal(estimate.kind, 'proved-packed-dedup-order-ab-upper-bound');
+  assert.equal(estimate.segmentCount, 1024);
+  assert.equal(estimate.segmentSize, 512);
+  assert.equal(estimate.candidateCount, 524288);
+  assert.ok(estimate.upperBoundBytes > 256 * 1024 * 1024);
+  assert.ok(estimate.upperBoundBytes < 300 * 1024 * 1024);
+  const steps = profile.steps(geometry, '/repo');
+  assert.deepEqual(steps.map((step) => step.id), ['bucketed-duplicate-rich-control', 'dedup-first-duplicate-rich']);
+  assert.deepEqual(steps.map((step) => step.args.at(-1)), ['native-bucketed', 'native-dedup-first']);
+  const common = {
+    outcome: 'native-dedup-first-stress-pass',
+    fixture: 'cartesian-or-and-duplicate-stress',
+    segmentCount: 1024,
+    segmentSize: 512,
+    candidateCount: 524288,
+    uniqueCandidateCount: 430000,
+    exactDuplicateCount: 94288,
+    duplicateFraction: 94288 / 524288,
+    survivors: 120000,
+    observedFrontierSubsetChecks: 1_000_000,
+    timingsMs: { submissionWait: 12.5 },
+  };
+  assert.equal(steps[0].expected({ ...common, strategy: 'bucketed-cardinality-v0' }), true);
+  assert.equal(steps[1].expected({ ...common, strategy: 'bucketed-dedup-first-v0' }), true);
+  assert.equal(steps[1].expected({ ...common, strategy: 'bucketed-cardinality-v0' }), false);
+  assert.equal(steps[1].expected({ ...common, exactDuplicateCount: 0, uniqueCandidateCount: 524288, duplicateFraction: 0 }), false);
+  assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);
+  assert.ok(listQualificationProfiles().includes(profile.id));
+});
+
 test('P2 admits the <=42-cell compact ladder with a finite reusable GPU workspace', () => {
   const profile = getQualificationProfile('c4-0009-p2-compact-hybrid');
   for (const geometry of [{ columns: 4, rows: 3, connect: 3 }, { columns: 4, rows: 4, connect: 4 }, { columns: 5, rows: 5, connect: 4 }, { columns: 6, rows: 5, connect: 4 }, { columns: 7, rows: 5, connect: 4 }, { columns: 7, rows: 6, connect: 4 }]) assert.equal(profile.supports(geometry), true);
