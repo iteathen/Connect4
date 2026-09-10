@@ -23,3 +23,7 @@ jobs:
         run: node reference/research-prototypes/2026-09-10-zdd-transfer/fused-minjoin.mjs
       - name: Optimize 7x6 line-first crossing-cell order
         run: node reference/research-prototypes/2026-09-10-zdd-transfer/optimize-line-frontier-order.mjs
+      - name: Census line-first frontier over all 7x6 supports
+        run: node reference/research-prototypes/2026-09-10-zdd-transfer/line-frontier-support-census.mjs
+      - name: Solve exact BSFP with monotone-closure ROBDDs
+        run: node --expose-gc reference/research-prototypes/2026-09-10-zdd-transfer/monotone-closure-bdd.mjs
