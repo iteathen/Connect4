@@ -1,13 +1,13 @@
 # Connect4 Status
 
 **Updated:** 2026-09-10
-**Phase:** Compact device-owned BSFP locally qualified through 5x5; Q1 publication and 6x5 cost diagnosis
+**Phase:** Compact device-owned BSFP native-qualified through 5x5; 6x5 cost diagnosis
 
 The current continuation is recorded in [next_step.yaml](next_step.yaml) and
 [the compact CUDA research record](docs/research/2026-09-10-compact-cuda-vertical-slice.md).
 C1 computes cofactor, terminal handling, antichain composition and rank finalization
-on device, with two resident ranks. Local 4x4 and 5x5 complete frontier comparisons
-passed; 6x5 timed out twice at 180 seconds. Empty 7x6 remains unsolved here.
+on device, with two resident ranks. [Q1 evidence PR #20](https://github.com/iteathen/Connect4/pull/20) records passing
+4x3, 4x4 and 5x5 complete frontier comparisons; 6x5 timed out twice at 180 seconds. Empty 7x6 remains unsolved here.
 P2's newer owner-authored hybrid profile is preserved as a separate control.
 The historical P1/portable milestones below retain their original scope.
 

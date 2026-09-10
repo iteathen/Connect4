@@ -36,15 +36,15 @@ qualification criterion. Oracle comparisons cannot feed semantic progression.
 
 ## Focus map and falsifiers
 
-1. **C1, locally qualified:** shared packed collective and device recurrence. Repair the
+1. **C1, native qualified:** shared packed collective and device recurrence. Repair the
    existing reducer's same-phase publication race by reading only the completed
    earlier-phase frontier. Preserve counters instead of zeroing them in later
    phases. Falsifier: any exact frontier difference, race, overflow accepted as
    success, or host semantic decision. Write boundary: BSFP CUDA sources/tests.
-2. **C2, locally qualified, publication pending:** bounded rank/shard plan and Q1 C1 profile, portable
+2. **C2, native qualified and published:** bounded rank/shard plan and Q1 C1 profile, portable
    compile/submission, capacity negatives, exact all-support native comparison
    for 4x4 and win/loss controls. Write boundary: experiment/Q1/profile/CI.
-3. **C3, active bounded scaling evidence:** measure 5x5, then attempt 6x5 only when measured
+3. **C3, paused for measured-cost diagnosis:** measure 5x5, then attempt 6x5 only when measured
    bottlenecks justify it; 7x6 remains downstream of exact completed rank closure.
 
 Integration owner is the executing agent for iteathen. Keep one active leaf;
@@ -149,3 +149,30 @@ does not establish a mathematical failure or justify restarting forward search.
 Josh Oshiro's independently developed CPC → WSL-625 → NDC → BSFP provenance is
 preserved; Allis is credited as earlier published related work, as the owner
 research explicitly requires.
+
+## Published qualification and disposition
+
+[Q1 PR #20](https://github.com/iteathen/Connect4/pull/20) preserves run
+`20260910T100734116Z-e8de3c61`, clean source
+`fc7c8cc233b3cf1670ef75fde69750c91dd6492b`, with unchanged pinned dependencies.
+All 256 / 625 / 7,776 support frontiers match on 4x3 / 4x4 / 5x5, respectively.
+The roots are Win / Draw / Draw. Batching, high-lane and capacity controls pass.
+5x5 reports 3,299.957 ms submit/wait, 3,568.618 ms warm solve wall and
+11,663.782 ms CPU reference with observer. These are single-run measurements;
+setup/cold costs and the observer caveat remain material. All 23 published files
+were checked against their SHA-256 manifest and exact remote Git blob IDs.
+The local event journal additionally contains the later publication receipt.
+
+At the qualified source, portable CI 34464383666 passed all four Windows/Ubuntu
+Node 24.15/26.7 lanes. The later evidence-routing update changes documentation only.
+The source PR remains draft; no merge or independent review was performed.
+
+Cleanup: CUDA plans/operations/views/allocations/runtime closed gracefully. Q1
+children exited, memory returned after timeout termination, and GPU telemetry
+after the successful run showed over 5 GiB free. The original UMCGS repository,
+the initial OneDrive Connect4 checkpoint clone, and both pinned dependency
+repositories remained clean and unchanged. The short-path bootstrap workspace,
+verified Node runtime/archive, local test logs and immutable failed/successful
+Q1 spools are retained for the next 6x5 diagnosis; do not discard timeout evidence
+or replace it with a successful run. Repository evidence branches/PRs are retained
+as append-only records. No CUDA solver process is intentionally left running.

@@ -5,7 +5,7 @@ repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: publish_c1_exact_frontier_evidence_then_diagnose_6x5_deep_rank_algebra
+  action: diagnose_6x5_deep_rank_candidate_and_normalization_cost
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
@@ -157,7 +157,12 @@ c1_device_compact:
   local_5x5_execution_without_oracle_ms: 3286.975
   local_5x5_warm_solve_wall_ms: 3590.926
   local_5x5_cpu_reference_with_observer_ms: 11778.537
-  official_evidence: pending_clean_source_q1_publication
+  official_evidence_pr: 20
+  official_run: 20260910T100734116Z-e8de3c61
+  qualified_source: fc7c8cc233b3cf1670ef75fde69750c91dd6492b
+  official_5x5_submit_wait_ms: 3299.957
+  official_5x5_warm_solve_wall_ms: 3568.618
+  official_5x5_cpu_reference_with_observer_ms: 11663.782
   controls: all_frontier_batching_high_42bit_and_capacity_failure_pass
   research_record: docs/research/2026-09-10-compact-cuda-vertical-slice.md
   limits:
@@ -181,7 +186,6 @@ c2_scaling:
   empty_7x6: not_attempted_no_solve_claim
 
 next_actions:
-  - publish_c1_4x3_4x4_5x5_native_q1_evidence_from_clean_integrated_source
   - isolate_6x5_deep_rank_candidate_counts_frontier_width_duplicate_scans_and_dominance_cost
   - use_bounded_device_diagnostics_without_host_semantic_progression
   - choose_reducer_or_residual_event_cpc_compression_change_from_measured_cause

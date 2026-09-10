@@ -1,7 +1,8 @@
 # C4-0009-C1 — Compact ownership CUDA-BSFP v0
 
-Working experimental profile under C4-0008/C4-0009 and Q1. Native local
-all-frontier passes exist for 4x3, 4x4 and 5x5; official publication is pending.
+Working experimental profile under C4-0008/C4-0009 and Q1. Native all-frontier
+passes for 4x3, 4x4 and 5x5 are published in [Q1 evidence PR #20](https://github.com/iteathen/Connect4/pull/20),
+run 20260910T100734116Z-e8de3c61 at clean source fc7c8cc233b3cf1670ef75fde69750c91dd6492b.
 This is a full compact root solve, distinct from B1 throughput.
 
 The exact symbolic regions are minimal P0-Win generators and maximal P0-Loss
@@ -50,7 +51,7 @@ records. Counterexample runs are isolated and close before the next begins.
 The separate Q1 registry ID `c4-0009-c2-compact-scaling-42` attempts only 6x5,
 with 8,192-record rank/frontier capacity, 2,048-candidate tiles and no large CPU
 oracle. Its result grade is complete symbolic closure, not independent all-state
-qualification. The first 8,192-candidate attempt timed out at 180 s. No 6x5/7x6
+qualification. Both 8,192- and 2,048-candidate local attempts timed out at 180 s. No 6x5/7x6
 root result or acceleration is currently established. Static support metadata is
 capped at 1,048,576 items before host allocation. Public CUDA-JS memory policy is
 configured to the admitted profile bound; no lower-library limit is bypassed.
