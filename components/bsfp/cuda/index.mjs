@@ -7,3 +7,10 @@ export {
   PACKED_OWNERSHIP_DOMINANCE_42_CONTRACT,
   createPackedOwnershipDominance42Plan,
 } from './packed-ownership-dominance-42-plan.mjs';
+
+export {
+  SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT,
+  SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION,
+  SEGMENTED_PACKED_ANTICHAIN_42_STATUS,
+  createSegmentedPackedAntichain42Plan,
+} from './segmented-packed-antichain-42-plan.mjs';

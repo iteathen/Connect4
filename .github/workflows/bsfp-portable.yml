@@ -74,6 +74,9 @@ jobs:
       - name: Run packed 42-bit dominance portable benchmark
         run: node experiments/cuda-bsfp-packed-dominance/run.mjs portable
 
+      - name: Run segmented packed-antichain portable slice
+        run: node experiments/cuda-bsfp-segmented-antichain/run.mjs portable
+
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 
