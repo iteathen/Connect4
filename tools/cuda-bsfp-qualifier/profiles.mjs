@@ -14,6 +14,9 @@ const B2_LEGACY_STRATEGY = 'legacy-43-phase-scan';
 const B2_BUCKETED_STRATEGY = 'bucketed-cardinality-v0';
 const B2_EQUAL_FIXTURE = 'equal-cardinality-duplicate-stress';
 const B2_MIXED_FIXTURE = 'mixed-cardinality-deterministic';
+const B3_BUCKETED_STRATEGY = 'bucketed-cardinality-v0';
+const B3_DEDUP_FIRST_STRATEGY = 'bucketed-dedup-first-v0';
+const B3_FIXTURE = 'cartesian-or-and-duplicate-stress';
 const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
 const P2_CANDIDATE_CAPACITY = 4_194_304n;
 const P2_SEGMENT_CAPACITY = 256n;
@@ -56,6 +59,12 @@ function b2Estimate(spec) {
   const smallControlBytes = ((B2_SEGMENT_COUNT + 1n) + B2_SEGMENT_COUNT * 3n) * 4n;
   const devicePayloadBytes = candidateBytes + outputBytes + checksBytes + bucketIndexBytes + bucketMetaBytes + smallControlBytes;
   return Object.freeze({ kind: 'proved-packed-normalizer-ab-upper-bound', executable: true, segmentCount: Number(B2_SEGMENT_COUNT), segmentSize: Number(B2_SEGMENT_SIZE), candidateCount: Number(B2_CANDIDATE_COUNT), bucketMetaCount: Number(B2_BUCKET_META_COUNT), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: B2_RUNTIME_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(devicePayloadBytes + B2_RUNTIME_ALLOWANCE_BYTES) });
+}
+
+function b3Estimate(spec) {
+  const base = b2Estimate(spec);
+  if (!base.executable) return Object.freeze({ ...base, kind: 'unsupported-dedup-benchmark-geometry' });
+  return Object.freeze({ ...base, kind: 'proved-packed-dedup-order-ab-upper-bound' });
 }
 
 function p2Estimate(spec) {
@@ -111,6 +120,29 @@ const B2 = Object.freeze({
   },
 });
 
+const B3 = Object.freeze({
+  id: 'c4-0009-b3-packed-dedup-first-42', specification: 'docs/specs/profiles/C4-0009-B3-packed-dedup-first-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 7 && spec.rows === 6 && spec.connect === 4; }, estimate: b3Estimate,
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return Object.freeze([]);
+    const script = path.join(repositoryRoot, 'experiments/cuda-bsfp-dedup-first/run.mjs');
+    const expected = (strategy) => (result) => result?.outcome === 'native-dedup-first-stress-pass'
+      && result?.strategy === strategy && result?.fixture === B3_FIXTURE
+      && result?.segmentCount === Number(B2_SEGMENT_COUNT) && result?.segmentSize === Number(B2_SEGMENT_SIZE)
+      && result?.candidateCount === Number(B2_CANDIDATE_COUNT)
+      && Number.isFinite(result?.uniqueCandidateCount) && result.uniqueCandidateCount > 0 && result.uniqueCandidateCount < result.candidateCount
+      && Number.isFinite(result?.exactDuplicateCount) && result.exactDuplicateCount === result.candidateCount - result.uniqueCandidateCount
+      && Number.isFinite(result?.duplicateFraction) && result.duplicateFraction > 0 && result.duplicateFraction < 1
+      && Number.isFinite(result?.survivors) && result.survivors > 0 && result.survivors <= result.uniqueCandidateCount
+      && Number.isFinite(result?.observedFrontierSubsetChecks) && result.observedFrontierSubsetChecks >= 0
+      && Number.isFinite(result?.timingsMs?.submissionWait) && result.timingsMs.submissionWait >= 0;
+    return Object.freeze([
+      Object.freeze({ id: 'bucketed-duplicate-rich-control', command: process.execPath, args: nativeNodeArgs(script, 'native-bucketed'), expected: expected(B3_BUCKETED_STRATEGY) }),
+      Object.freeze({ id: 'dedup-first-duplicate-rich', command: process.execPath, args: nativeNodeArgs(script, 'native-dedup-first'), expected: expected(B3_DEDUP_FIRST_STRATEGY) }),
+    ]);
+  },
+});
+
 const KNOWN_P2_ROOTS = Object.freeze(new Map([['4x3-c3', 1], ['4x4-c4', 0], ['5x4-c4', 0], ['5x5-c4', 0], ['7x6-c4', 1]]));
 const P2 = Object.freeze({
   id: 'c4-0009-p2-compact-hybrid', specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
@@ -139,7 +171,7 @@ const C3 = Object.freeze({
   steps(spec, repositoryRoot) { if (!this.supports(spec)) return []; return [{ id: 'compact-work-diagnostic-prefix', command: process.execPath, args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs'), 'diagnostic'), '6', '5', '4', '8192', '2048', '64', '128', '1'], expected(result) { const run = result?.runs?.[0]; return result?.outcome === 'native-compact-diagnostic-prefix-pass' && result?.caseRole === 'partial-rank-diagnostic' && result?.closure === 'partial-static-prefix' && result?.rootWdl === null && result?.comparedSupports === 0 && run?.executedEpochCount === 1 && run?.completedFullSchedule === false && run?.diagnostics?.executedEpochCount === 1 && Number.isFinite(run?.diagnostics?.totals?.normalizationCalls) && Number.isFinite(run?.diagnostics?.totals?.normalizationInputRecords) && Array.isArray(run?.diagnostics?.hotSupports) && result?.cleanup === 'graceful'; } }]; },
 });
 
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3]]);
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };
