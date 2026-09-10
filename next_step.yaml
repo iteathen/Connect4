@@ -1,217 +1,153 @@
-schema_version: 11
-updated: 2026-09-09
-state: cuda_bsfp_q1_node26_ffi_bootstrap_fixed_native_rerun_next
+schema_version: 12
+updated: 2026-09-10
+state: cuda_bsfp_compact_scaling_native_dominance_throughput_next
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: rerun_official_q1_native_qualification_on_owner_windows_nvidia_host_using_ffi_enabled_bootstrap
+  action: run_b1_packed_42bit_dominance_throughput_on_owner_gtx1660ti_and_use_result_to_choose_full_compact_cuda_path
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
   solver_lane: cuda_bsfp
   draft_pr: 14
-  execution_profile: docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md
+  exact_solver_spec: docs/specs/C4-0008-bsfp-exact-solver-v1.md
+  cuda_execution_spec: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
   qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
-  qualifier_entrypoint: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark
+  performance_profile: docs/specs/profiles/C4-0009-B1-packed-dominance-throughput-v0.md
   bootstrap_entrypoint: node tools/bootstrap-cuda-bsfp-q1.mjs
 
-formal_bsfp_spec_stack:
-  - path: docs/specs/C4-0006-control-parity-and-winspace-v1.md
-    owns: cpc_wsl625_structural_mathematics
-    status: candidate_branch_local
-  - path: docs/specs/C4-0007-nested-dependency-closure-v1.md
-    owns: ndc_dependency_and_proof_semantics
-    status: candidate_branch_local
-  - path: docs/specs/C4-0008-bsfp-exact-solver-v1.md
-    owns: exact_wdl_bsfp_solver_semantics
-    status: candidate_branch_local
-  - path: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
-    owns: connect4_consumer_projection_onto_cuda_algorithms_and_cuda_js
-    status: working
-  - path: docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md
-    owns: exact_first_4x3_cuda_bsfp_execution_shape
-    status: working_portable_qualified_native_pending
-  - path: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
-    owns: benchmark_supervision_system_capture_timeout_vram_safety_crash_evidence_repository_publication_and_node_compatibility_discovery
-    status: working_portable_qualified_native_use_pending
+product_goal:
+  geometry: 7x6_connect4
+  root: empty_board
+  result: exact_wdl
+  objective: super_fast_cuda_solve
+  forbidden_primary_method: move_tree_search_or_minimax
 
 exact_dependency_pair:
   cuda_algorithms:
-    repository: iteathen/CUDA-Algorithms
     revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-    branch: feature/ranked-closure
-    draft_pr: 8
-    implemented_subprofile: implicit_ranked_derived_activation_u32
+    role: generic_ranked_activation_and_future_generic_compaction
   cuda_js:
-    repository: iteathen/CUDA-JS
     revision: 98e2ebc942c14d63acf4dd82e912dd548c363a05
     package: cuda-js@0.1.0-alpha.20
-    mutation_in_this_work: none
+    role: runtime_compiler_device_memory_and_device_js
 
-node_compatibility:
-  q1_policy: observe_and_record_do_not_gate_by_version
-  cuda_js_supported_native_baseline: 26.7.0
-  current_owner_host_node: 26.7.0
-  portable_probe_run: 34441693369
-  portable_results:
-    - os: ubuntu_24_04
-      node: 24.15.0
-      result: pass
-    - os: ubuntu_24_04
-      node: 26.7.0
-      result: pass
-    - os: windows_server_2025
-      node: 24.15.0
-      result: pass
-    - os: windows_server_2025
-      node: 26.7.0
-      result: pass
-  native_node24: blocked_by_cuda_js_node_ffi_support_policy
-  native_node26: pending_ffi_enabled_rerun
-
-hardware_reports:
-  - run_id: 20260910T054132880Z-b043b1eb
-    evidence_pr: 15
-    node: 24.15.0
-    outcome: failed_before_cuda_execution
-    failure: ERR_MODULE_NOT_FOUND_cuda_js_from_sibling_cuda_algorithms
-    root_cause: bootstrap_package_resolution_topology
-    disposition: preserved_failure_evidence
-  - run_id: 20260910T055412412Z-59fbc872
-    evidence_pr: 16
-    node: 24.15.0
-    outcome: failed_before_cuda_execution
-    failure: CUDA_JS_NODE_INCOMPATIBLE
-    root_cause: cuda_js_native_node_ffi_baseline_requires_node_26_1_or_newer
-    disposition: preserved_failure_evidence
-  - run_id: 20260910T064427961Z-92f8a76d
-    evidence_pr: 17
-    node: 26.7.0
-    outcome: failed_before_cuda_kernel_execution
-    failure: CUDA_JS_FFI_FLAG_REQUIRED
-    root_cause: q1_bootstrap_did_not_enable_node_experimental_ffi_for_child_processes
-    disposition: preserved_failure_evidence
-
-bootstrap:
-  implementation: tools/bootstrap-cuda-bsfp-q1.mjs
-  current_head: 16f03c8cbfa6fa9778ce9905b42adae02aedb88b
-  topology:
-    - shared_workspace_node_modules_exposes_cuda_js_and_cuda_algorithms_to_sibling_consumers
-    - connect4_node_modules_is_a_real_ignored_directory_with_links_to_both_packages
-    - cuda_js_owns_its_local_npm_dependencies
-  windows_npm_launch: platform_shell_not_direct_npm_cmd_spawn
-  preflight:
-    - resolve_cuda_js_from_actual_cuda_algorithms_consumer_root
-    - resolve_cuda_algorithms_from_actual_connect4_consumer_root
-    - require_clean_connect4_checkout
-  node_behavior: use_invoking_node_version_without_selection
-  ffi_behavior:
-    capability_source: process.allowedNodeEnvironmentFlags
-    required_flag: --experimental-ffi
-    propagation: append_to_NODE_OPTIONS_when_supported_preserve_existing_options
-    q1_children_inherit: true
-  qualification_ci:
-    bsfp_portable: 34446964694
-    verify: 34446964544
-    strength_evidence: 34446964629
-    benchmark_evidence: 34446964661
-  qualified_matrix:
-    - os: windows_server_2025
-      node: 26.7.0
-      ffi_propagation: pass
-      clean_bootstrap: pass
-    - os: ubuntu_24_04
-      node: 26.7.0
-      ffi_propagation: pass
-      clean_bootstrap: pass
-    - os: windows_server_2025
-      node: 24.15.0
-      ffi_propagation_policy: pass_no_unsupported_flag_injected
-      clean_bootstrap: pass
-    - os: ubuntu_24_04
-      node: 24.15.0
-      ffi_propagation_policy: pass_no_unsupported_flag_injected
-      clean_bootstrap: pass
-
-q1:
-  entrypoint: tools/cuda-bsfp-qualifier.mjs
-  publish_default: true
-  evidence_path: docs/evidence/cuda-bsfp/qualification/<run-id>
-  evidence_branch: evidence/cuda-bsfp-q1/<run-id>
-  publication_base_default: main
-  publication: github_git_data_api_plus_pull_request
-  local_spool: .cuda-bsfp-qualification
-  recovery: finalize_running_prior_run_and_retry_requested_publication
-  default_geometry_ladder:
-    - 4x3_c3
-    - 4x4_c4
-    - 5x4_c4
-    - 5x5_c4
-    - 6x5_c4
-    - 7x5_c4
-    - 7x6_c4
-    - 8x6_c4
-    - 8x7_c4
-    - 9x7_c4
-  default_timeouts:
-    case_ms: 120000
-    run_ms: 900000
-  default_vram_policy:
-    safe_fraction_of_current_free: 0.70
-    reserve_mib: 1024
-    absolute_max_mib: 12288
-    emergency_free_floor_mib: 512
-    unknown_profile_bound: refuse
-    unavailable_free_vram_telemetry: refuse
-
-p1_native_acceptance:
-  geometry: 4x3_connect3
+native_p1:
+  evidence_pr: 18
+  run_id: 20260910T065508562Z-fb451dd8
+  host: windows_11_gtx1660ti_6gb_node_26_7_0
+  result: passed
   root_wdl: win
-  independent_nonterminal_states: 4631
+  checked_nonterminal_states: 4631
   legal_edges: 11818
-  mismatches: 0
-  ranked_activation_required:
-    - exact_predecessor_output
-    - duplicate_activation_idempotence
-    - output_capacity_truth
-    - strict_rank_violation_failure
-    - cleanup
+  dense_wdl_step_ms: 1418
+  full_case_ms: 13285
+  status: physically_native_numerically_qualified
+
+compact_reference:
+  representation: ownership_antichain
+  exact_small_geometry_differential: passed
+  repeated_performance:
+    4x4_c4:
+      antichain_median_ms: 31.942
+      mtbdd_median_ms: 97.144
+      speedup: 3.041
+      representation_reduction_pct: 82.8
+    4x5_c4:
+      antichain_median_ms: 378.139
+      mtbdd_median_ms: 899.330
+      speedup: 2.378
+      representation_reduction_pct: 86.6
+
+scaling_baseline:
+  retained_ownership_antichain:
+    5x4_c4:
+      wall_ms: 1531
+      boundary_records: 108266
+      max_frontier_win: 284
+      max_frontier_loss: 194
+      peak_rss_mib: 100
+    5x5_c4:
+      wall_ms: 58326
+      boundary_records: 1044159
+      max_frontier_win: 562
+      max_frontier_loss: 568
+      peak_rss_mib: 243
+    6x5_c4: timeout_600s
+    7x5_c4: timeout_600s
+    7x6_c4: timeout_600s
+  diagnosis: compute_and_frontier_manipulation_cost_is_first_wall_not_retained_memory
+
+rolling_memory_result:
+  rank_window: 2
+  support_sharding: true
+  candidate_tiling: true
+  5x5_peak_rss_mib: 164
+  5x5_peak_resident_fraction_of_total_boundary_records: 0.2564
+  5x5_generated_pair_candidates: 81515570
+  conclusion: batching_controls_residency_but_does_not_by_itself_fix_runtime
+
+rejected_candidates:
+  - name: no_sort_streaming_bigint_incremental_dominance
+    commit: 307e2ab8222c5e3669f66381bd7e9368aa920213
+    5x5_wall_ms: 73806
+    reason: too_many_subset_comparisons_in_unfavorable_candidate_order
+    evidence: docs/research/2026-09-10-bsfp-incremental-dominance-rejected.md
+
+wsl625_packed:
+  implementation_commit: 1d50e616fce1ba4a0cb2db5b8911452054ed50fd
+  standard_geometry:
+    winning_lines: 69
+    requirement_count: 625
+    closure_words_u32: 20
+    closure_bytes: 80
+  exact_relation: A_implies_B_iff_UpA_subset_UpB
+  qualification:
+    full_singleton_matrix: 625x625_pass
+    composite_implication: pass
+    legal_same_support_residual_dominance: pass
+  status: maintained_exact_representation_substrate
+
+b1_packed_dominance:
+  implementation_commit: 787210ecfb4e87c06bab37ad9315bf6d2d82b50f
+  profile_id: c4-0009-b1-packed-dominance-42
+  geometry_label: 7x6_connect4
+  candidate_count: 1048576
+  frontier_count: 568
+  mask_bits: 42
+  storage: two_u32_lanes
+  fixture: full_scan_no_hit_bit41
+  subset_checks_per_measured_pass: 595591168
+  u32_lane_subset_ops_per_measured_pass: 1191182336
+  warmups: 1
+  measured_repetitions: 5
+  portable_ci: 34455304919
+  portable_matrix: windows_and_ubuntu_node_24_15_and_26_7_all_pass
+  native_status: pending_owner_hardware
+
+q1_memory_policy:
+  safe_fraction_of_current_free: 0.95
+  reserve_mib: 256
+  emergency_free_floor_mib: 256
+  absolute_max_mib: 12288
+  behavior: reusable_arena_capacity_ceiling_not_monolithic_allocation_target
 
 next_actions:
-  - rerun_supported_bootstrap_on_owner_windows_nvidia_host_under_node_26_7_0
-  - require_new_q1_run_id_and_preserve_pr_15_pr_16_pr_17_as_prior_failure_evidence
-  - confirm_ranked_activation_reaches_real_cuda_execution_with_experimental_ffi_enabled
-  - require_q1_to_publish_complete_evidence_bundle_to_new_evidence_pr
-  - inspect_native_p1_memory_telemetry_timeout_status_logs_and_exact_wdl_result
-  - reconcile_c4_0009_p1_q1_maturity_only_after_physical_evidence
-  - then_begin_compact_bsfp_profiles_and_register_each_with_q1_geometry_support_and_memory_bound
+  - run_b1_through_parameterized_bootstrap_on_owner_windows_gtx1660ti_node_26_7_0
+  - inspect_native_submit_wait_distribution_subset_checks_per_second_candidate_throughput_compile_upload_readback_verify_and_vram
+  - preserve_b1_report_as_repository_evidence
+  - if_b1_throughput_is_strong_build_rank_local_packed_antichain_cuda_vertical_slice_with_cuda_algorithms_compaction
+  - if_b1_throughput_is_weak_shift_more_work_into_wsl625_cpc_ndc_semantic_compression_before_full_cuda_solver
+  - keep_rolling_two_rank_and_vram_derived_shard_width_in_either_path
 
 constraints:
   - no_bsfp_as_minimax_or_search_specialization
-  - no_incumbent_search_semantics_in_bsfp
-  - no_bsfp_proof_value_terminal_or_domain_semantics_in_cuda_algorithms
-  - no_cuda_js_mutation_without_demonstrated_generic_missing_mechanism
-  - no_gpu_case_without_finite_profile_memory_upper_bound
-  - no_gpu_case_without_current_free_vram_telemetry
-  - no_timeout_or_memory_boundary_may_report_solver_convergence
-  - no_direct_generated_evidence_push_to_protected_main
-  - no_repository_token_in_solver_child_environment_or_evidence
-  - no_overwrite_of_prior_qualification_run
-  - no_omission_of_failed_timed_out_unsupported_or_memory_refused_cases
-  - no_hostname_username_serial_or_network_identifier_collection
-  - no_hash_as_exact_bsfp_equality
-  - no_host_semantic_progression_or_count_decision_loop
-  - no_deep_cuda_sibling_imports
+  - no_full_colored_state_table_for_7x6
+  - no_retaining_all_ranks_when_only_root_is_required
+  - no_monolithic_allocation_target_from_95_percent_vram_policy
+  - no_performance_threshold_as_correctness_authority
+  - no_cuda_algorithms_connect4_semantics
+  - no_cuda_js_mutation_without_generic_missing_mechanism
   - no_python
   - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
-
-non_claims:
-  - no_native_cuda_bsfp_numerical_correctness_yet
-  - no_cuda_bsfp_gpu_performance_claim
-  - no_empty_7x6_cuda_bsfp_solve
-  - no_exact_strong_distance_bsfp
-  - current_p1_larger_ladder_cases_are_unsupported_not_solved
-  - dense_p1_not_a_7x6_representation
-  - cuda_algorithms_spec_0004_not_accepted
-  - c4_0006_through_c4_0009_p1_q1_not_accepted_main_authority
