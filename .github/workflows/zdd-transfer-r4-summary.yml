@@ -1,0 +1,59 @@
+name: R4 flat transfer compact summary
+
+on:
+  push:
+    branches:
+      - research/zdd-transfer-20260910
+    paths:
+      - '.github/workflows/zdd-transfer-r4-summary.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  r4-summary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '26.7.0'
+      - name: Run R4 only and emit compact metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --expose-gc reference/research-prototypes/2026-09-10-zdd-transfer/flat-transfer-table.mjs > /tmp/r4.json
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const result = JSON.parse(readFileSync('/tmp/r4.json', 'utf8'));
+          const compact = {
+            kind: 'connect4-bsfp-r4-flat-transfer-table-summary',
+            sourceKind: result.kind,
+            status: result.status,
+            claim: result.claim,
+            results: result.results.map((entry) => ({
+              geometry: entry.geometry,
+              selection: entry.selection,
+              selectedSupportCount: entry.selectedSupportCount,
+              supportsVisited: entry.supportsVisited,
+              layersBuilt: entry.layersBuilt,
+              status: entry.status,
+              capacityFailure: entry.capacityFailure,
+              firstSemanticMismatch: entry.firstSemanticMismatch,
+              firstSerializationMismatch: entry.firstSerializationMismatch,
+              totalTables: entry.totalTables,
+              totalDenseStates: entry.totalDenseStates,
+              maxDenseStates: entry.maxDenseStates,
+              maxFlatSlots: entry.maxFlatSlots,
+              maxIntroducedWidth: entry.maxIntroducedWidth,
+              maxFanout: entry.maxFanout,
+              minTargetCoverage: entry.minTargetCoverage,
+              flatArtifact: entry.flatArtifact,
+              optionalStateLookup: entry.optionalStateLookup,
+              cpuReplaySanity: entry.cpuReplaySanity,
+              elapsedMs: entry.elapsedMs,
+            })),
+          };
+          console.log(JSON.stringify(compact));
+          NODE
