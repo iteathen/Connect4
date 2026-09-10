@@ -23,6 +23,13 @@ function positiveIntegerEnv(name, fallback) {
   return value;
 }
 
+function pop32(value) {
+  let x = value >>> 0;
+  x -= (x >>> 1) & 0x55555555;
+  x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
+  return Math.imul((x + (x >>> 4)) & 0x0f0f0f0f, 0x01010101) >>> 24;
+}
+
 function firstEqualPopcountMasks(count) {
   const masks = [];
   function visit(nextBit, remaining, mask) {
@@ -46,7 +53,7 @@ function createFixture(segmentCount, segmentSize) {
   const baseMasks = firstEqualPopcountMasks(segmentSize - 1);
   const candidateLo = new Uint32Array(candidateCount);
   const candidateHi = new Uint32Array(candidateCount);
-  const candidateSegment = new Uint32Array(candidateCount);
+  const candidatePopcount = new Uint32Array(candidateCount);
   const segmentOffsets = new Uint32Array(segmentCount + 1);
   const segmentDirections = new Uint32Array(segmentCount);
 
@@ -57,18 +64,18 @@ function createFixture(segmentCount, segmentSize) {
       ? SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MAXIMAL
       : SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL;
     const highSalt = ((segment * 73) ^ (segment >>> 2)) & 0x3ff;
+    const highCount = pop32(highSalt);
     for (let local = 0; local < segmentSize - 1; local += 1) {
       const index = base + local;
       candidateLo[index] = baseMasks[local];
       candidateHi[index] = highSalt;
-      candidateSegment[index] = segment;
+      candidatePopcount[index] = pop32(baseMasks[local]) + highCount;
     }
-    // One exact duplicate per segment exercises deterministic tie-breaking:
-    // the earlier record survives and the final record is removed.
+    // One exact duplicate per segment exercises deterministic lowest-input-index deduplication.
     const duplicate = base + segmentSize - 1;
     candidateLo[duplicate] = candidateLo[base];
     candidateHi[duplicate] = candidateHi[base];
-    candidateSegment[duplicate] = segment;
+    candidatePopcount[duplicate] = candidatePopcount[base];
   }
   segmentOffsets[segmentCount] = candidateCount;
 
@@ -79,7 +86,7 @@ function createFixture(segmentCount, segmentSize) {
     expectedSurvivorsPerSegment: segmentSize - 1,
     candidateLo,
     candidateHi,
-    candidateSegment,
+    candidatePopcount,
     segmentOffsets,
     segmentDirections,
   });
@@ -122,6 +129,10 @@ async function runOperation(plan, bindings) {
   }
 }
 
+function pairKey(low, high) {
+  return `${high.toString(16).padStart(8, '0')}:${low.toString(16).padStart(8, '0')}`;
+}
+
 async function qualify(runtime, native, fixture) {
   const allocations = [];
   const outputCapacityPerSegment = fixture.segmentSize;
@@ -139,22 +150,21 @@ async function qualify(runtime, native, fixture) {
     const allocationStarted = performance.now();
     const candidateLo = await allocateU32(runtime, fixture.candidateCount, 'read');
     const candidateHi = await allocateU32(runtime, fixture.candidateCount, 'read');
-    const candidateSegment = await allocateU32(runtime, fixture.candidateCount, 'read');
+    const candidatePopcount = await allocateU32(runtime, fixture.candidateCount, 'read');
     const segmentOffsets = await allocateU32(runtime, fixture.segmentCount + 1, 'read');
     const segmentDirections = await allocateU32(runtime, fixture.segmentCount, 'read');
-    const dominated = await allocateU32(runtime, fixture.candidateCount, 'read-write');
+    const outputLo = await allocateU32(runtime, outputElements, 'read-write');
+    const outputHi = await allocateU32(runtime, outputElements, 'read-write');
+    const outputCounts = await allocateU32(runtime, fixture.segmentCount, 'read-write');
+    const outputStatus = await allocateU32(runtime, fixture.segmentCount, 'read-write');
     const checks = await allocateU32(runtime, fixture.candidateCount, 'write');
-    const outputLo = await allocateU32(runtime, outputElements, 'write');
-    const outputHi = await allocateU32(runtime, outputElements, 'write');
-    const outputCounts = await allocateU32(runtime, fixture.segmentCount, 'write');
-    const outputStatus = await allocateU32(runtime, fixture.segmentCount, 'write');
-    allocations.push(candidateLo, candidateHi, candidateSegment, segmentOffsets, segmentDirections, dominated, checks, outputLo, outputHi, outputCounts, outputStatus);
+    allocations.push(candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections, outputLo, outputHi, outputCounts, outputStatus, checks);
     const allocationMs = performance.now() - allocationStarted;
 
     const uploadStarted = performance.now();
     await writeU32(candidateLo, fixture.candidateLo);
     await writeU32(candidateHi, fixture.candidateHi);
-    await writeU32(candidateSegment, fixture.candidateSegment);
+    await writeU32(candidatePopcount, fixture.candidatePopcount);
     await writeU32(segmentOffsets, fixture.segmentOffsets);
     await writeU32(segmentDirections, fixture.segmentDirections);
     const uploadMs = performance.now() - uploadStarted;
@@ -162,21 +172,21 @@ async function qualify(runtime, native, fixture) {
     const bindings = {
       candidateLo: candidateLo.view,
       candidateHi: candidateHi.view,
-      candidateSegment: candidateSegment.view,
+      candidatePopcount: candidatePopcount.view,
       segmentOffsets: segmentOffsets.view,
       segmentDirections: segmentDirections.view,
-      dominated: dominated.view,
-      checks: checks.view,
       outputLo: outputLo.view,
       outputHi: outputHi.view,
       outputCounts: outputCounts.view,
       outputStatus: outputStatus.view,
+      checks: checks.view,
     };
 
     const executionMs = await runOperation(plan, bindings);
     const result = {
-      schemaVersion: 1,
+      schemaVersion: 2,
       kind: 'connect4-cuda-bsfp-segmented-packed-antichain-42-qualification',
+      strategy: 'one-block-per-segment-43-cardinality-phases',
       mode: native ? 'native' : 'portable',
       outcome: native ? 'native-segmented-packed-antichain-pass' : 'portable-segmented-packed-antichain-compile-submit-pass',
       planContract: plan.contract,
@@ -190,7 +200,6 @@ async function qualify(runtime, native, fixture) {
 
     if (native) {
       const readStarted = performance.now();
-      const dominatedValues = await readU32(dominated);
       const checksValues = await readU32(checks);
       const outputLoValues = await readU32(outputLo);
       const outputHiValues = await readU32(outputHi);
@@ -200,28 +209,35 @@ async function qualify(runtime, native, fixture) {
 
       const verifyStarted = performance.now();
       let observedChecks = 0;
-      let removedDuplicates = 0;
+      let survivors = 0;
       for (let segment = 0; segment < fixture.segmentCount; segment += 1) {
         const base = segment * fixture.segmentSize;
         assert.equal(outputStatusValues[segment], SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OK, `segment ${segment} overflowed`);
         assert.equal(outputCountValues[segment], fixture.expectedSurvivorsPerSegment, `segment ${segment} survivor count`);
+        const expected = [];
         for (let local = 0; local < fixture.segmentSize - 1; local += 1) {
           const index = base + local;
-          assert.equal(dominatedValues[index], 0, `segment ${segment} survivor ${local} marked dominated`);
-          assert.equal(outputLoValues[segment * outputCapacityPerSegment + local], fixture.candidateLo[index]);
-          assert.equal(outputHiValues[segment * outputCapacityPerSegment + local], fixture.candidateHi[index]);
-          observedChecks += checksValues[index];
+          expected.push(pairKey(fixture.candidateLo[index], fixture.candidateHi[index]));
         }
-        const duplicate = base + fixture.segmentSize - 1;
-        assert.equal(dominatedValues[duplicate], 1, `segment ${segment} duplicate survived`);
-        assert.ok(checksValues[duplicate] >= 1 && checksValues[duplicate] < fixture.segmentSize);
-        observedChecks += checksValues[duplicate];
-        removedDuplicates += 1;
+        expected.sort();
+        const actual = [];
+        const outputBase = segment * outputCapacityPerSegment;
+        for (let local = 0; local < outputCountValues[segment]; local += 1) {
+          actual.push(pairKey(outputLoValues[outputBase + local], outputHiValues[outputBase + local]));
+        }
+        actual.sort();
+        assert.deepEqual(actual, expected, `segment ${segment} survivor set`);
+        survivors += actual.length;
+        for (let local = 0; local < fixture.segmentSize; local += 1) observedChecks += checksValues[base + local];
       }
       result.timingsMs.verification = performance.now() - verifyStarted;
-      result.observedSubsetChecks = observedChecks;
-      result.removedDuplicates = removedDuplicates;
-      result.survivors = fixture.segmentCount * fixture.expectedSurvivorsPerSegment;
+      result.observedFrontierSubsetChecks = observedChecks;
+      result.removedDuplicates = fixture.segmentCount;
+      result.survivors = survivors;
+      result.throughput = {
+        candidatesPerSecond: fixture.candidateCount * 1000 / executionMs,
+        frontierSubsetChecksPerSecond: observedChecks * 1000 / executionMs,
+      };
     }
 
     return result;

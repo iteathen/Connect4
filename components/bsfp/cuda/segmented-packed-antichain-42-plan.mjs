@@ -5,7 +5,7 @@ import { segmentedPackedAntichain42DeviceProgram } from './segmented-packed-anti
 const U32_BYTES = 4;
 const CUDA_THREAD_BLOCK_CEILING = 1024;
 
-export const SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT = 'Connect4-CUDA-BSFP-segmented-packed-antichain-42-candidate-v0';
+export const SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT = 'Connect4-CUDA-BSFP-segmented-packed-antichain-42-cardinality-v1';
 export const SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION = Object.freeze({ MINIMAL: 0, MAXIMAL: 1 });
 export const SEGMENTED_PACKED_ANTICHAIN_42_STATUS = Object.freeze({ OK: 0, OUTPUT_CAPACITY_EXCEEDED: 1 });
 
@@ -83,98 +83,71 @@ export async function createSegmentedPackedAntichain42Plan(runtime, options = {}
   }
 
   const module = await runtime.loadModule({ format: artifact.format, bytes: artifact.bytes });
-  const markKernel = kernelByName(compiled, 'markSegmentDominatedPacked42');
-  const compactKernel = kernelByName(compiled, 'compactSegmentSurvivorsPacked42');
-  const mark = await module.getFunction({ name: markKernel.functionName, parameters: markKernel.parameters });
-  const compact = await module.getFunction({ name: compactKernel.functionName, parameters: compactKernel.parameters });
-  const markGridX = Math.ceil(candidateCapacity / blockSize);
-  const compactGridX = Math.ceil(segmentCapacity / blockSize);
+  const normalizeKernel = kernelByName(compiled, 'normalizeSegmentPacked42');
+  const normalize = await module.getFunction({ name: normalizeKernel.functionName, parameters: normalizeKernel.parameters });
 
-  const prepared = await runtime.prepareOperationDag({ nodes: [
-    {
-      id: 'mark-dominated',
-      function: mark,
-      grid: { x: markGridX, y: 1, z: 1 },
-      block: { x: blockSize, y: 1, z: 1 },
-      arguments: [
-        binding('candidateLo'), binding('candidateHi'), binding('candidateSegment'), binding('segmentOffsets'),
-        binding('segmentDirections'), binding('dominated'), binding('checks'), candidateCapacity, segmentCapacity,
-      ],
-      accesses: [
-        { argumentIndex: 0, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 1, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 2, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 3, byteOffset: 0, byteLength: (segmentCapacity + 1) * U32_BYTES, mode: 'read' },
-        { argumentIndex: 4, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 5, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'write' },
-        { argumentIndex: 6, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'write' },
-      ],
-    },
-    {
-      id: 'compact-survivors',
-      after: ['mark-dominated'],
-      function: compact,
-      grid: { x: compactGridX, y: 1, z: 1 },
-      block: { x: blockSize, y: 1, z: 1 },
-      arguments: [
-        binding('candidateLo'), binding('candidateHi'), binding('dominated'), binding('segmentOffsets'),
-        binding('outputLo'), binding('outputHi'), binding('outputCounts'), binding('outputStatus'),
-        candidateCapacity, segmentCapacity, outputCapacityPerSegment,
-      ],
-      accesses: [
-        { argumentIndex: 0, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 1, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 2, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-        { argumentIndex: 3, byteOffset: 0, byteLength: (segmentCapacity + 1) * U32_BYTES, mode: 'read' },
-        { argumentIndex: 4, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'write' },
-        { argumentIndex: 5, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'write' },
-        { argumentIndex: 6, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'write' },
-        { argumentIndex: 7, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'write' },
-      ],
-    },
-  ] });
+  const prepared = await runtime.prepareOperationDag({ nodes: [{
+    id: 'normalize-cardinality-antichains',
+    function: normalize,
+    grid: { x: segmentCapacity, y: 1, z: 1 },
+    block: { x: blockSize, y: 1, z: 1 },
+    arguments: [
+      binding('candidateLo'), binding('candidateHi'), binding('candidatePopcount'), binding('segmentOffsets'),
+      binding('segmentDirections'), binding('outputLo'), binding('outputHi'), binding('outputCounts'),
+      binding('outputStatus'), binding('checks'), candidateCapacity, segmentCapacity, outputCapacityPerSegment,
+    ],
+    accesses: [
+      { argumentIndex: 0, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
+      { argumentIndex: 1, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
+      { argumentIndex: 2, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
+      { argumentIndex: 3, byteOffset: 0, byteLength: (segmentCapacity + 1) * U32_BYTES, mode: 'read' },
+      { argumentIndex: 4, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read' },
+      { argumentIndex: 5, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 6, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 7, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 8, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 9, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'write' },
+    ],
+  }] });
 
-  const owned = [module, mark, compact, prepared];
+  const owned = [module, normalize, prepared];
   let closed = false;
 
   return Object.freeze({
     kind: 'connect4-bsfp-cuda-plan',
     contract: SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT,
-    family: 'segmented-packed-antichain-42',
+    family: 'segmented-packed-antichain-42-cardinality',
     candidateCapacity,
     segmentCapacity,
     outputCapacityPerSegment,
     outputElements,
     blockSize,
-    markGridX,
-    compactGridX,
+    gridX: segmentCapacity,
     async submit(bindings) {
       if (closed) throw new Error('segmented packed antichain plan is closed');
       const normalized = {
         candidateLo: requireU32View(bindings?.candidateLo, candidateCapacity, 'candidateLo', 'read'),
         candidateHi: requireU32View(bindings?.candidateHi, candidateCapacity, 'candidateHi', 'read'),
-        candidateSegment: requireU32View(bindings?.candidateSegment, candidateCapacity, 'candidateSegment', 'read'),
+        candidatePopcount: requireU32View(bindings?.candidatePopcount, candidateCapacity, 'candidatePopcount', 'read'),
         segmentOffsets: requireU32View(bindings?.segmentOffsets, segmentCapacity + 1, 'segmentOffsets', 'read'),
         segmentDirections: requireU32View(bindings?.segmentDirections, segmentCapacity, 'segmentDirections', 'read'),
-        dominated: requireU32View(bindings?.dominated, candidateCapacity, 'dominated', 'write'),
+        outputLo: requireU32View(bindings?.outputLo, outputElements, 'outputLo', 'read-write'),
+        outputHi: requireU32View(bindings?.outputHi, outputElements, 'outputHi', 'read-write'),
+        outputCounts: requireU32View(bindings?.outputCounts, segmentCapacity, 'outputCounts', 'read-write'),
+        outputStatus: requireU32View(bindings?.outputStatus, segmentCapacity, 'outputStatus', 'read-write'),
         checks: requireU32View(bindings?.checks, candidateCapacity, 'checks', 'write'),
-        outputLo: requireU32View(bindings?.outputLo, outputElements, 'outputLo', 'write'),
-        outputHi: requireU32View(bindings?.outputHi, outputElements, 'outputHi', 'write'),
-        outputCounts: requireU32View(bindings?.outputCounts, segmentCapacity, 'outputCounts', 'write'),
-        outputStatus: requireU32View(bindings?.outputStatus, segmentCapacity, 'outputStatus', 'write'),
       };
       rejectWriteConflicts([
         { label: 'candidateLo', view: normalized.candidateLo, access: 'read' },
         { label: 'candidateHi', view: normalized.candidateHi, access: 'read' },
-        { label: 'candidateSegment', view: normalized.candidateSegment, access: 'read' },
+        { label: 'candidatePopcount', view: normalized.candidatePopcount, access: 'read' },
         { label: 'segmentOffsets', view: normalized.segmentOffsets, access: 'read' },
         { label: 'segmentDirections', view: normalized.segmentDirections, access: 'read' },
-        { label: 'dominated', view: normalized.dominated, access: 'write' },
-        { label: 'checks', view: normalized.checks, access: 'write' },
         { label: 'outputLo', view: normalized.outputLo, access: 'write' },
         { label: 'outputHi', view: normalized.outputHi, access: 'write' },
         { label: 'outputCounts', view: normalized.outputCounts, access: 'write' },
         { label: 'outputStatus', view: normalized.outputStatus, access: 'write' },
+        { label: 'checks', view: normalized.checks, access: 'write' },
       ]);
       return prepared.submit({ bindings: normalized });
     },
