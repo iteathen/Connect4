@@ -32,7 +32,6 @@ function generateSegmentPairCandidatesPacked42(leftLo, leftHi, rightLo, rightHi,
 function normalizeSegmentPacked42(candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections, outputLo, outputHi, outputCounts, outputStatus, checks, candidateCount, segmentCount, outputCapacityPerSegment) {
   const segment = gpu.block.x();
   if (segment >= segmentCount) return;
-
   const start = segmentOffsets[segment];
   const end = segmentOffsets[segment + gpu.u32(1)];
   if (start > end || end > candidateCount) {
@@ -45,7 +44,6 @@ function normalizeSegmentPacked42(candidateLo, candidateHi, candidatePopcount, s
 function normalizeSegmentPacked42Bucketed(candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections, outputLo, outputHi, outputCounts, outputStatus, checks, bucketIndices, bucketCounts, bucketOffsets, bucketCursors, candidateCount, segmentCount, outputCapacityPerSegment) {
   const segment = gpu.block.x();
   if (segment >= segmentCount) return;
-
   const start = segmentOffsets[segment];
   const end = segmentOffsets[segment + gpu.u32(1)];
   if (start > end || end > candidateCount) {
@@ -57,7 +55,34 @@ function normalizeSegmentPacked42Bucketed(candidateLo, candidateHi, candidatePop
     segment, outputCapacityPerSegment, segmentDirections[segment], start);
 }
 
+function normalizeSegmentPacked42BucketedDedupFirst(candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections, outputLo, outputHi, outputCounts, outputStatus, checks, bucketIndices, bucketCounts, bucketOffsets, bucketCursors, candidateCount, segmentCount, outputCapacityPerSegment) {
+  const segment = gpu.block.x();
+  if (segment >= segmentCount) return;
+  const start = segmentOffsets[segment];
+  const end = segmentOffsets[segment + gpu.u32(1)];
+  if (start > end || end > candidateCount) {
+    if (gpu.thread.x() === gpu.u32(0)) { outputStatus[segment] = gpu.u32(1); outputCounts[segment] = gpu.u32(0); }
+    return;
+  }
+  packedNormalize42BucketedDedupFirst(candidateLo, candidateHi, candidatePopcount, outputLo, outputHi, outputCounts, outputStatus, checks,
+    bucketIndices, bucketCounts, bucketOffsets, bucketCursors, start, end, segment * outputCapacityPerSegment,
+    segment, outputCapacityPerSegment, segmentDirections[segment], start);
+}
 `;
+
+const u32 = (name) => Object.freeze({ name, type: 'u32' });
+const ptr = (name) => Object.freeze({ name, type: 'ptr<u32>' });
+const normalizeParameters = Object.freeze([
+  ptr('candidateLo'), ptr('candidateHi'), ptr('candidatePopcount'), ptr('segmentOffsets'), ptr('segmentDirections'),
+  ptr('outputLo'), ptr('outputHi'), ptr('outputCounts'), ptr('outputStatus'), ptr('checks'),
+  u32('candidateCount'), u32('segmentCount'), u32('outputCapacityPerSegment'),
+]);
+const bucketedParameters = Object.freeze([
+  ptr('candidateLo'), ptr('candidateHi'), ptr('candidatePopcount'), ptr('segmentOffsets'), ptr('segmentDirections'),
+  ptr('outputLo'), ptr('outputHi'), ptr('outputCounts'), ptr('outputStatus'), ptr('checks'),
+  ptr('bucketIndices'), ptr('bucketCounts'), ptr('bucketOffsets'), ptr('bucketCursors'),
+  u32('candidateCount'), u32('segmentCount'), u32('outputCapacityPerSegment'),
+]);
 
 export const segmentedPackedAntichain42DeviceProgram = Object.freeze({
   source: packedAntichain42CollectiveSource + source,
@@ -65,71 +90,15 @@ export const segmentedPackedAntichain42DeviceProgram = Object.freeze({
   functions: Object.freeze([
     ...packedAntichain42CollectiveFunctions,
     Object.freeze({
-      name: 'generateSegmentPairCandidatesPacked42',
-      kind: 'kernel',
-      returns: 'void',
+      name: 'generateSegmentPairCandidatesPacked42', kind: 'kernel', returns: 'void',
       parameters: Object.freeze([
-        Object.freeze({ name: 'leftLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'leftHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'rightLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'rightHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'leftOffsets', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'rightOffsets', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateOffsets', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'segmentDirections', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidatePopcount', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'generationStatus', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'leftCapacity', type: 'u32' }),
-        Object.freeze({ name: 'rightCapacity', type: 'u32' }),
-        Object.freeze({ name: 'candidateCapacity', type: 'u32' }),
-        Object.freeze({ name: 'segmentCount', type: 'u32' }),
+        ptr('leftLo'), ptr('leftHi'), ptr('rightLo'), ptr('rightHi'), ptr('leftOffsets'), ptr('rightOffsets'),
+        ptr('candidateOffsets'), ptr('segmentDirections'), ptr('candidateLo'), ptr('candidateHi'), ptr('candidatePopcount'),
+        ptr('generationStatus'), u32('leftCapacity'), u32('rightCapacity'), u32('candidateCapacity'), u32('segmentCount'),
       ]),
     }),
-    Object.freeze({
-      name: 'normalizeSegmentPacked42',
-      kind: 'kernel',
-      returns: 'void',
-      parameters: Object.freeze([
-        Object.freeze({ name: 'candidateLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidatePopcount', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'segmentOffsets', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'segmentDirections', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputCounts', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputStatus', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'checks', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateCount', type: 'u32' }),
-        Object.freeze({ name: 'segmentCount', type: 'u32' }),
-        Object.freeze({ name: 'outputCapacityPerSegment', type: 'u32' }),
-      ]),
-    }),
-    Object.freeze({
-      name: 'normalizeSegmentPacked42Bucketed',
-      kind: 'kernel',
-      returns: 'void',
-      parameters: Object.freeze([
-        Object.freeze({ name: 'candidateLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidatePopcount', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'segmentOffsets', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'segmentDirections', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputLo', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputHi', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputCounts', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'outputStatus', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'checks', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'bucketIndices', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'bucketCounts', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'bucketOffsets', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'bucketCursors', type: 'ptr<u32>' }),
-        Object.freeze({ name: 'candidateCount', type: 'u32' }),
-        Object.freeze({ name: 'segmentCount', type: 'u32' }),
-        Object.freeze({ name: 'outputCapacityPerSegment', type: 'u32' }),
-      ]),
-    }),
+    Object.freeze({ name: 'normalizeSegmentPacked42', kind: 'kernel', returns: 'void', parameters: normalizeParameters }),
+    Object.freeze({ name: 'normalizeSegmentPacked42Bucketed', kind: 'kernel', returns: 'void', parameters: bucketedParameters }),
+    Object.freeze({ name: 'normalizeSegmentPacked42BucketedDedupFirst', kind: 'kernel', returns: 'void', parameters: bucketedParameters }),
   ]),
 });

@@ -83,6 +83,12 @@ jobs:
       - name: Run mixed-cardinality bucketed portable candidate
         run: node experiments/cuda-bsfp-segmented-antichain/run.mjs portable-bucketed mixed
 
+      - name: Run duplicate-rich bucketed control
+        run: node experiments/cuda-bsfp-dedup-first/run.mjs portable-bucketed
+
+      - name: Run duplicate-first portable candidate
+        run: node experiments/cuda-bsfp-dedup-first/run.mjs portable-dedup-first
+
       - name: Run segmented pair-generate-normalize portable slice
         run: node experiments/cuda-bsfp-pair-antichain/run.mjs
 
