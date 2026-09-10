@@ -51,7 +51,6 @@ function compactNormalizeObserved(candidateLo, candidateHi, candidatePopcount, o
         if (!dominated) {
           let prior = start;
           while (prior < i) {
-            priorScans = priorScans + gpu.u64(1);
             if (candidatePopcount[prior] === target && candidateLo[prior] === low && candidateHi[prior] === high) {
               dominated = true;
               duplicateHits = duplicateHits + gpu.u64(1);
@@ -59,6 +58,8 @@ function compactNormalizeObserved(candidateLo, candidateHi, candidatePopcount, o
             }
             prior++;
           }
+          if (prior < i) priorScans = priorScans + gpu.u64(prior - start + gpu.u32(1));
+          else priorScans = priorScans + gpu.u64(i - start);
         }
         checks[i] = tested;
         if (!dominated) {
