@@ -97,3 +97,32 @@ test('compact qualification cannot confuse partial/scaling/portable evidence wit
   assert.equal(scaling.supports({ columns: 7, rows: 6, connect: 4 }), false);
   assert.ok(scaling.estimate({ columns: 6, rows: 5, connect: 4 }).upperBoundBytes < 2 * 1024 ** 3);
 });
+
+test('C3 is a one-epoch 6x5 diagnostic and cannot be accepted as a root solve', () => {
+  const profile = getQualificationProfile('c4-0009-c3-compact-work-diagnostic-42');
+  const geometry = { columns: 6, rows: 5, connect: 4 };
+  assert.equal(profile.supports(geometry), true);
+  assert.equal(profile.supports({ columns: 5, rows: 5, connect: 4 }), false);
+  assert.equal(profile.estimate(geometry).staticEpochLimit, 1);
+  assert.ok(profile.estimate(geometry).upperBoundBytes < 2 * 1024 ** 3);
+  assert.ok(listQualificationProfiles().includes(profile.id));
+  const step = profile.steps(geometry, '/repo')[0];
+  assert.equal(step.id, 'compact-work-diagnostic-prefix');
+  const valid = {
+    outcome: 'native-compact-diagnostic-prefix-pass',
+    caseRole: 'partial-rank-diagnostic',
+    closure: 'partial-static-prefix',
+    rootWdl: null,
+    comparedSupports: 0,
+    cleanup: 'graceful',
+    runs: [{ executedEpochCount: 1, completedFullSchedule: false, diagnostics: {
+      executedEpochCount: 1,
+      totals: { normalizationCalls: 5, normalizationInputRecords: 123 },
+      hotSupports: [],
+    } }],
+  };
+  assert.equal(step.expected(valid), true);
+  assert.equal(step.expected({ ...valid, closure: 'full-root' }), false);
+  assert.equal(step.expected({ ...valid, rootWdl: 1 }), false);
+  assert.equal(step.expected({ ...valid, runs: [{ ...valid.runs[0], completedFullSchedule: true }] }), false);
+});

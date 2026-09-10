@@ -216,7 +216,39 @@ const C2 = Object.freeze({
         && [-1, 0, 1].includes(result?.rootWdl) && result?.comparedSupports === 0 && result?.cleanup === 'graceful'; } }];
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [P2.id, P2], [C1.id, C1], [C2.id, C2]]);
+
+const C3 = Object.freeze({
+  id: 'c4-0009-c3-compact-work-diagnostic-42',
+  specification: 'docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md',
+  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 6 && spec.rows === 5 && spec.connect === 4; },
+  estimate(spec) {
+    if (!this.supports(spec)) return { kind: 'unsupported-compact-diagnostic-geometry', executable: false, upperBoundBytes: null };
+    const shape = compactOwnership42Shape({ ...spec, frontierCapacity: 8192, candidateTileSize: 2048, qualificationOracle: false });
+    return { kind: 'bounded-compact-diagnostic-arenas-no-oracle', executable: true, upperBoundBytes: shape.upperBoundBytes,
+      frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity,
+      staticEpochLimit: 1 };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'compact-work-diagnostic-prefix', command: process.execPath,
+      args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs'), 'diagnostic'), '6', '5', '4', '8192', '2048', '64', '128', '1'],
+      expected(result) {
+        const run = result?.runs?.[0];
+        return result?.outcome === 'native-compact-diagnostic-prefix-pass'
+          && result?.caseRole === 'partial-rank-diagnostic' && result?.closure === 'partial-static-prefix'
+          && result?.rootWdl === null && result?.comparedSupports === 0
+          && run?.executedEpochCount === 1 && run?.completedFullSchedule === false
+          && run?.diagnostics?.executedEpochCount === 1
+          && Number.isFinite(run?.diagnostics?.totals?.normalizationCalls)
+          && Number.isFinite(run?.diagnostics?.totals?.normalizationInputRecords)
+          && Array.isArray(run?.diagnostics?.hotSupports)
+          && result?.cleanup === 'graceful';
+      } }];
+  },
+});
+
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

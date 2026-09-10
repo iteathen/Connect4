@@ -18,21 +18,24 @@ export function compactOwnership42Shape({ columns, rows, connect, frontierCapaci
   const scratchElements = shards * (candidateTileSize + frontierCapacity);
   const workElements = shards * 6 * frontierCapacity;
   const lineCount = createConnectWinningLines({ columns, rows, connect }).length;
-  // Bound every per-support u64 counter before compilation, including repeated
-  // carry normalization in one-candidate tiles. Duplicate scans are not counted.
   const f = BigInt(frontierCapacity);
   const total = f * f > 2n * f ? f * f : 2n * f;
   const tile = BigInt(candidateTileSize);
-  const combinedCandidates = total + ((total + tile - 1n) / tile) * f;
+  const tilesPerCombine = (total + tile - 1n) / tile;
+  const combinedCandidates = total + tilesPerCombine * f;
   const combines = BigInt(columns) * (2n * BigInt(lineCount) + 2n);
   const perSupportChecks = combines * combinedCandidates * f + 2n * BigInt(columns) * f * f;
-  if (perSupportChecks > 0xffff_ffff_ffff_ffffn) throw new RangeError('compact42 per-support counter exceeds u64');
-  // Deliberately conservative: every support/move could name every line.
+  const normalizationCalls = combines * tilesPerCombine + 2n * BigInt(columns);
+  const maxNormalizationInput = tile + f;
+  const perSupportPriorScans = normalizationCalls * maxNormalizationInput * maxNormalizationInput;
+  for (const [name, value] of [['subset', perSupportChecks], ['prior-scan', perSupportPriorScans]]) {
+    if (value > 0xffff_ffff_ffff_ffffn) throw new RangeError(`compact42 per-support ${name} counter exceeds u64`);
+  }
   const structuralBytes = 4 * (4 * support.itemCapacity + 4 * support.itemCapacity * columns + 1)
     + 8 * support.itemCapacity * columns * lineCount;
+  // Per-support observer metrics are 12 u64 lanes plus four u32 report lanes = 112 bytes/support.
   const payloadUpperBoundBytes = 8 * rankElements + 16 * rankCapacity + 16 * scratchElements
-    + 8 * workElements + 8 * shards + 4 + 32 * support.itemCapacity + structuralBytes;
-  // Qualification-only expected frontiers, never authoritative solver state.
+    + 8 * workElements + 8 * shards + 4 + 112 * support.itemCapacity + structuralBytes;
   const oracleUpperBoundBytes = 16 * support.itemCapacity * frontierCapacity + 4 * (2 * support.itemCapacity + 1);
   for (const count of [rankElements, scratchElements, workElements, support.itemCapacity * columns * lineCount]) {
     if (count > 0xffff_ffff) throw new RangeError('compact42 layout exceeds u32 indexing');
