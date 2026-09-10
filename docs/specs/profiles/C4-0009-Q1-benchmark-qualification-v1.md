@@ -59,19 +59,21 @@ It does not intentionally collect hostname, username, hardware serials, GPU UUID
 
 A GPU case may launch only if the selected profile provides a conservative finite upper bound for simultaneously resident device memory and current free VRAM can be measured.
 
-Default envelope:
+Default envelope targets 95% of the **currently free** selected-device VRAM while retaining a 256 MiB emergency floor:
 
 ```text
 allowedMiB = min(
-  floor(currentFreeMiB * 0.70),
-  max(0, currentFreeMiB - 1024 MiB),
+  floor(currentFreeMiB * 0.95),
+  max(0, currentFreeMiB - 256 MiB),
   12288 MiB
 )
 ```
 
 The profile upper bound must not exceed `allowedMiB`. Unknown profile memory growth or unavailable free-VRAM telemetry is a refusal, not an attempted allocation.
 
-Default emergency runtime floor is 512 MiB free VRAM. While a child is active, Q1 samples selected-device memory; crossing the emergency floor terminates the child and records `memory-safety-abort`. Device-wide telemetry may include unrelated processes and is a safety signal, not exact per-process accounting.
+The 95% value is a capacity ceiling for bounded arenas/shards, not permission for a single monolithic allocation. Compact BSFP profiles should prefer reusable rank/shard/candidate arenas, smaller retryable allocations, and deterministic reduction of shard width when capacity cannot be reserved.
+
+Default emergency runtime floor is 256 MiB free VRAM. While a child is active, Q1 samples selected-device memory; crossing the emergency floor terminates the child and records `memory-safety-abort`. Device-wide telemetry may include unrelated processes and is a safety signal, not exact per-process accounting.
 
 ## Time bounds
 

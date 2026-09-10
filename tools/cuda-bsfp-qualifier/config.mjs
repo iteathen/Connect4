@@ -16,10 +16,10 @@ export const DEFAULT_GEOMETRY_LADDER = Object.freeze([
 export const DEFAULT_QUALIFIER_LIMITS = Object.freeze({
   caseTimeoutMs: 120_000,
   runTimeoutMs: 900_000,
-  vramSafeFraction: 0.70,
-  vramReserveMiB: 1024,
+  vramSafeFraction: 0.95,
+  vramReserveMiB: 256,
   vramAbsoluteMaxMiB: 12 * 1024,
-  emergencyFreeMiB: 512,
+  emergencyFreeMiB: 256,
   gpuSampleIntervalMs: 500,
   publishLogBytes: 8 * MIB,
 });
