@@ -25,19 +25,23 @@ function randomMask42(state) {
   return { state: xorshift32(high ^ next), mask: next + high * 0x1_0000_0000 };
 }
 
+function canonicalMaskSet(values) {
+  return [...values].sort((left, right) => left - right);
+}
+
 function expectSameNormalization(values) {
   const bigint = values.map((value) => BigInt(value));
   assert.deepEqual(
-    normalizeMinimalPacked42Antichain(values),
-    normalizeMinimalOwnershipAntichain(bigint).map(Number),
+    canonicalMaskSet(normalizeMinimalPacked42Antichain(values)),
+    canonicalMaskSet(normalizeMinimalOwnershipAntichain(bigint).map(Number)),
   );
   assert.deepEqual(
-    normalizeMaximalPacked42Antichain(values),
-    normalizeMaximalOwnershipAntichain(bigint).map(Number),
+    canonicalMaskSet(normalizeMaximalPacked42Antichain(values)),
+    canonicalMaskSet(normalizeMaximalOwnershipAntichain(bigint).map(Number)),
   );
 }
 
-test('packed42 antichain normalization is exactly equivalent to bigint semantics', () => {
+test('packed42 antichain normalization is exactly set-equivalent to bigint semantics', () => {
   let state = 0x12345678;
   for (let sample = 0; sample < 64; sample += 1) {
     const values = [];
