@@ -12,7 +12,7 @@ import {
 } from '../../components/bsfp/index.mjs';
 
 const U32_BYTES = 4;
-const ALGORITHMS_REVISION = '7605326816ee523d69e66dcfde5b03caf098f559';
+const ALGORITHMS_REVISION = '48ee0aec9acae7776950f03ab52ab1737e598b6e';
 const CUDA_JS_REVISION = '98e2ebc942c14d63acf4dd82e912dd548c363a05';
 
 function encodeU32(values) {
