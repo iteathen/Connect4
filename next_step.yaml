@@ -1,11 +1,11 @@
-schema_version: 8
+schema_version: 9
 updated: 2026-09-09
-state: cuda_bsfp_q1_qualifier_ready_native_repository_evidence_next
+state: cuda_bsfp_q1_node24_portable_compatible_native_repository_evidence_next
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: run_official_q1_native_qualification_and_publish_evidence_pr
+  action: run_official_q1_native_qualification_on_owner_windows_nvidia_host_and_publish_evidence_pr
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
@@ -32,11 +32,10 @@ formal_bsfp_spec_stack:
     owns: exact_first_4x3_cuda_bsfp_execution_shape
     status: working_portable_qualified_native_pending
   - path: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
-    owns: benchmark_supervision_system_capture_timeout_vram_safety_crash_evidence_and_repository_publication
+    owns: benchmark_supervision_system_capture_timeout_vram_safety_crash_evidence_repository_publication_and_node_compatibility_discovery
     status: working_portable_qualified_native_use_pending
 
 exact_dependency_pair:
-  connect4_pre_q1_portable_head: 811cc0b8e1078f59be85da142de059d8d6b74784
   cuda_algorithms:
     repository: iteathen/CUDA-Algorithms
     revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
@@ -49,14 +48,37 @@ exact_dependency_pair:
     package: cuda-js@0.1.0-alpha.20
     mutation_in_this_work: none
 
+node_compatibility:
+  policy: observe_and_qualify_do_not_gate_by_version
+  q1_version_admission: none
+  portable_probe_run: 34441693369
+  portable_results:
+    - os: ubuntu_24_04
+      node: 24.15.0
+      result: pass
+    - os: ubuntu_24_04
+      node: 26.7.0
+      result: pass
+    - os: windows_server_2025
+      node: 24.15.0
+      result: pass
+    - os: windows_server_2025
+      node: 26.7.0
+      result: pass
+  evidence: docs/research/2026-09-09-node-24-portable-compatibility.md
+  support_metadata_note: package_engines_are_not_runtime_incompatibility_evidence
+  native_node24: pending_owner_windows_gpu_run
+
 q1:
   entrypoint: tools/cuda-bsfp-qualifier.mjs
   publish_default: true
   evidence_path: docs/evidence/cuda-bsfp/qualification/<run-id>
   evidence_branch: evidence/cuda-bsfp-q1/<run-id>
+  publication_base_default: main
   publication: github_git_data_api_plus_pull_request
   local_spool: .cuda-bsfp-qualification
   recovery: finalize_running_prior_run_and_retry_requested_publication
+  node_version_behavior: record_exact_version_never_admit_or_refuse_by_version
   default_geometry_ladder:
     - 4x3_c3
     - 4x4_c4
@@ -100,15 +122,18 @@ p1_native_acceptance:
     - cleanup
 
 next_actions:
-  - run_npm_test_and_q1_dry_run_in_repository_ci_on_the_q1_implementation_head
-  - run_npm_run_bench_bsfp_qualify_on_an_authorized_nvidia_host_with_repository_publish_credentials
+  - run_q1_on_the_owner_windows_nvidia_host_using_installed_node_24_15_0_without_version_override
+  - require_q1_to_capture_node_24_15_0_in_system_evidence_not_as_an_admission_rule
   - require_q1_to_publish_the_complete_evidence_bundle_to_an_evidence_branch_and_pr
   - inspect_native_p1_memory_telemetry_timeout_status_logs_and_exact_wdl_result
+  - if_node24_native_passes_record_it_as_native_compatibility_evidence_before_any_support_floor_change
   - reconcile_c4_0009_p1_q1_maturity_only_after_physical_evidence
   - then_begin_compact_bsfp_profiles_and_register_each_with_q1_geometry_support_and_memory_bound
   - add_cuda_algorithms_mechanisms_only_when_universal_and_supported_by_materially_different_consumers
 
 constraints:
+  - no_node_version_whitelist_blacklist_or_minimum_gate_in_q1
+  - no_package_engines_metadata_as_proof_of_runtime_incompatibility
   - no_bsfp_as_minimax_or_search_specialization
   - no_incumbent_search_semantics_in_bsfp
   - no_bsfp_proof_value_terminal_or_domain_semantics_in_cuda_algorithms
@@ -128,6 +153,7 @@ constraints:
   - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
 
 non_claims:
+  - node_24_native_cuda_compatibility_not_yet_proven
   - no_native_cuda_bsfp_numerical_correctness_yet
   - no_cuda_bsfp_gpu_performance_claim
   - no_empty_7x6_cuda_bsfp_solve
