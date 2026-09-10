@@ -5,11 +5,12 @@ repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: establish_bsfp_consumer_semantics_and_ranked_closure_composition
+  action: implement_first_bsfp_consumer_slice_from_recovered_spec
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
   solver_lane: cuda_bsfp
+  governing_spec: docs/specs/C4-0006-cuda-bsfp-wdl-v1.md
 
 solver_lanes:
   incumbent_search:
@@ -30,6 +31,7 @@ ownership:
     - bsfp_proof_state_meaning
     - bsfp_domain_derivation_and_terminal_semantics
     - bsfp_exact_identity_and_canonicalization_meaning
+    - cpc_wsl625_ndc_solver_semantics
     - solver_level_fixed_point_interpretation
   cuda_algorithms:
     - generic_bounded_worksets
@@ -40,6 +42,21 @@ ownership:
   cuda_js:
     - runtime_compiler_memory_provider_and_native_lifecycle
 
+authority:
+  bsfp_working_spec: docs/specs/C4-0006-cuda-bsfp-wdl-v1.md
+  preserved_research_packet:
+    - docs/research/2026-09-09-bsfp-terminology-and-attribution.md
+    - docs/research/2026-09-09-searchless-solver-hypothesis.md
+    - docs/research/2026-09-09-nested-strategic-dependency-closure.md
+    - docs/research/2026-09-09-backward-winline-fixed-point.md
+    - docs/research/2026-09-09-searchless-symbolic-backward-solver.md
+    - docs/research/2026-09-09-owner-searchless-connect4-findings.md
+    - docs/research/2026-09-09-strategic-candidate-theory-state-proof.md
+    - docs/research/2026-09-09-terminal-boundary-qualification.md
+  evidence_roots:
+    - docs/research/evidence
+    - reference/research-prototypes
+
 active_dependency:
   repository: iteathen/CUDA-Algorithms
   branch: feature/ranked-closure
@@ -48,11 +65,10 @@ active_dependency:
   status: working_draft
 
 next_actions:
-  - recover_and_read_actual_bsfp_theory_and_research_artifacts_before_freezing_consumer_semantics
   - create_components_bsfp_as_a_separate_solver_lego_without_importing_incumbent_search_internals
-  - define_the_smallest_exact_bsfp_consumer_record_rank_and_derivation_contract
+  - implement_the_smallest_exact_bsfp_consumer_record_rank_and_derivation_contract_from_C4_0006
   - map_only_generic_progression_mechanics_to_cuda_algorithms_ranked_closure
-  - qualify_reference_bsfp_results_against_independent_connect4_domain_oracle_evidence
+  - qualify_bsfp_semantics_against_preserved_direct_symbolic_and_independent_oracle_evidence
   - compose_the_first_device_js_vertical_slice_without_host_semantic_progression
   - preserve_material_research_findings_and_falsified_forms_durably
 
@@ -67,8 +83,10 @@ constraints:
   - node_may_administer_gpu_epochs_but_may_not_decide_mathematical_progression
   - exact_equality_is_consumer_owned_hash_is_not_equality
   - capacity_or_budget_boundaries_must_not_false_converge
+  - preserved_research_evidence_must_not_be_rewritten_as_stronger_claims
 
 non_claims:
-  - no_7x6_cuda_bsfp_solve_yet
+  - no_empty_7x6_cuda_bsfp_solve_yet
   - no_cuda_bsfp_gpu_performance_claim_yet
   - cuda_algorithms_spec_0004_not_yet_accepted_compatibility_authority
+  - c4_0006_not_yet_accepted_compatibility_authority
