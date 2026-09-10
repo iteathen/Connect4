@@ -25,8 +25,8 @@ function resolveRepository(config, source) {
   return config.reportRepository || process.env.GITHUB_REPOSITORY || source.repository || 'iteathen/Connect4';
 }
 
-function resolveBase(config, source) {
-  return config.reportBase || process.env.CUDA_BSFP_REPORT_BASE || source.branch || 'main';
+function resolveBase(config) {
+  return config.reportBase || process.env.CUDA_BSFP_REPORT_BASE || 'main';
 }
 
 function classifyChild(step, child) {
@@ -80,7 +80,7 @@ async function main() {
   const config = parseQualifierArgs();
   const source = await collectGitIdentity(repositoryRoot);
   const reportRepository = resolveRepository(config, source);
-  const reportBase = resolveBase(config, source);
+  const reportBase = resolveBase(config);
   await recoverAndPublish(config);
 
   const runId = createRunId();
