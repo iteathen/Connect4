@@ -71,8 +71,14 @@ jobs:
       - name: Run dense 4x3 CUDA-BSFP WDL portable slice
         run: node experiments/cuda-bsfp-dense-4x3/run.mjs portable
 
+      - name: Run packed 42-bit dominance portable benchmark
+        run: node experiments/cuda-bsfp-packed-dominance/run.mjs portable
+
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 
+      - name: Run B1 Q1 dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-b1-packed-dominance-42 --cases 7x6:c4 --spool-root .q1-b1-ci-spool
+
       - name: Reproduce clean sibling bootstrap topology
-        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-bootstrap-probe"
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-bootstrap-probe" --q1-profile c4-0009-b1-packed-dominance-42 --q1-cases 7x6:c4

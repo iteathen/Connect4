@@ -1,6 +1,39 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { denseShapeBytes, getQualificationProfile } from '../profiles.mjs';
-test('P1 is executable only for its frozen 4x3 connect-3 qualification geometry', () => { const profile = getQualificationProfile('c4-0009-p1'); const small = { columns: 4, rows: 3, connect: 3 }; const large = { columns: 8, rows: 7, connect: 4 }; assert.equal(profile.supports(small), true); assert.equal(profile.supports(large), false); assert.ok(profile.estimate(small).upperBoundBytes > 4 * 1024 * 1024); assert.equal(profile.estimate(large).upperBoundBytes, null); });
-test('dense scaling estimator is exact bigint arithmetic and does not overflow host Number', () => { assert.equal(denseShapeBytes({ columns: 4, rows: 3 }).toString(), String(256 * 4096 * 4)); assert.ok(denseShapeBytes({ columns: 9, rows: 7 }) > BigInt(Number.MAX_SAFE_INTEGER)); });
-test('P1 freezes the exact lower revision pair required for official evidence', () => { const profile = getQualificationProfile('c4-0009-p1'); assert.equal(profile.requiredDependencies.cudaAlgorithmsRevision, '48ee0aec9acae7776950f03ab52ab1737e598b6e'); assert.equal(profile.requiredDependencies.cudaJsRevision, '98e2ebc942c14d63acf4dd82e912dd548c363a05'); });
+import { denseShapeBytes, getQualificationProfile, listQualificationProfiles } from '../profiles.mjs';
+
+test('P1 is executable only for its frozen 4x3 connect-3 qualification geometry', () => {
+  const profile = getQualificationProfile('c4-0009-p1');
+  const small = { columns: 4, rows: 3, connect: 3 };
+  const large = { columns: 8, rows: 7, connect: 4 };
+  assert.equal(profile.supports(small), true);
+  assert.equal(profile.supports(large), false);
+  assert.ok(profile.estimate(small).upperBoundBytes > 4 * 1024 * 1024);
+  assert.equal(profile.estimate(large).upperBoundBytes, null);
+});
+
+test('dense scaling estimator is exact bigint arithmetic and does not overflow host Number', () => {
+  assert.equal(denseShapeBytes({ columns: 4, rows: 3 }).toString(), String(256 * 4096 * 4));
+  assert.ok(denseShapeBytes({ columns: 9, rows: 7 }) > BigInt(Number.MAX_SAFE_INTEGER));
+});
+
+test('P1 freezes the exact lower revision pair required for official evidence', () => {
+  const profile = getQualificationProfile('c4-0009-p1');
+  assert.equal(profile.requiredDependencies.cudaAlgorithmsRevision, '48ee0aec9acae7776950f03ab52ab1737e598b6e');
+  assert.equal(profile.requiredDependencies.cudaJsRevision, '98e2ebc942c14d63acf4dd82e912dd548c363a05');
+});
+
+test('B1 exposes a finite 7x6-only packed-dominance performance workload', () => {
+  const profile = getQualificationProfile('c4-0009-b1-packed-dominance-42');
+  assert.equal(profile.supports({ columns: 7, rows: 6, connect: 4 }), true);
+  assert.equal(profile.supports({ columns: 5, rows: 5, connect: 4 }), false);
+  const estimate = profile.estimate({ columns: 7, rows: 6, connect: 4 });
+  assert.equal(estimate.executable, true);
+  assert.equal(estimate.candidateCount, 1_048_576);
+  assert.equal(estimate.frontierCount, 568);
+  assert.ok(estimate.upperBoundBytes > 256 * 1024 * 1024);
+  assert.ok(estimate.upperBoundBytes < 300 * 1024 * 1024);
+  assert.equal(profile.estimate({ columns: 5, rows: 5, connect: 4 }).upperBoundBytes, null);
+  assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);
+  assert.ok(listQualificationProfiles().includes(profile.id));
+});

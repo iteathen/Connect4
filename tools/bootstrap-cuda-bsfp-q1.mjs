@@ -82,6 +82,8 @@ function parseArgs(argv) {
     connect4Ref: DEFAULT_REVISIONS.connect4,
     cudaAlgorithmsRef: DEFAULT_REVISIONS.cudaAlgorithms,
     cudaJsRef: DEFAULT_REVISIONS.cudaJs,
+    q1Profile: null,
+    q1Cases: null,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -91,6 +93,8 @@ function parseArgs(argv) {
     else if (arg === '--connect4-ref') config.connect4Ref = argv[++index];
     else if (arg === '--cuda-algorithms-ref') config.cudaAlgorithmsRef = argv[++index];
     else if (arg === '--cuda-js-ref') config.cudaJsRef = argv[++index];
+    else if (arg === '--q1-profile') config.q1Profile = argv[++index];
+    else if (arg === '--q1-cases') config.q1Cases = argv[++index];
     else throw new RangeError(`unknown bootstrap argument: ${arg}`);
   }
 
@@ -184,6 +188,8 @@ export async function main(argv = process.argv.slice(2)) {
       connect4Root,
       cudaAlgorithmsRoot,
       cudaJsRoot,
+      q1Profile: config.q1Profile,
+      q1Cases: config.q1Cases,
       topology,
     }, null, 2));
     return;
@@ -195,7 +201,10 @@ export async function main(argv = process.argv.slice(2)) {
     console.error('[cuda-bsfp-q1-bootstrap] no GitHub publication token discovered; Q1 will preserve local evidence and report publication failure');
   }
 
-  exec(process.execPath, ['tools/cuda-bsfp-qualifier.mjs', '--qualify-benchmark'], {
+  const qualifierArgs = ['tools/cuda-bsfp-qualifier.mjs', '--qualify-benchmark'];
+  if (config.q1Profile) qualifierArgs.push('--profile', config.q1Profile);
+  if (config.q1Cases) qualifierArgs.push('--cases', config.q1Cases);
+  exec(process.execPath, qualifierArgs, {
     cwd: connect4Root,
     env,
   });
