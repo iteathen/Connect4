@@ -114,12 +114,12 @@ A second 4x3 profile proves that the complete BSFP W/D/L recurrence can be expre
 The correctness-first dense profile is intentionally redundant:
 
 ```text
-support skeletons:    256
-ownership valuations: 4,096
-symbolic table entries: 1,048,576
-table bytes:          4,194,304 (4 MiB)
-prepared rank nodes:  13
-rank order:           12 -> 0
+support skeletons:       256
+ownership valuations:    4,096
+symbolic table entries:  1,048,576
+table bytes:             4,194,304 (4 MiB)
+prepared rank nodes:     13
+rank order:              12 -> 0
 ```
 
 `components/bsfp/cuda/dense-symbolic-4x3-plan.mjs` submits one fixed prepared DAG. Each rank reads only already-finalized rank+1 table entries and performs Connect4-owned immediate-terminal and P0-max/P1-min W/D/L composition on device. Node does not choose the next rank or inspect intermediate values.
@@ -131,25 +131,39 @@ This dense table is a **correctness profile, not a scalability design**. It inte
 - `portable` — compile/prepare/submit/cleanup through CUDA-JS testing runtime;
 - `native` — execute on real CUDA, read the completed table after the operation, and compare every 4x3 nonterminal state with the independent physical-game oracle.
 
-## Portable qualification
+## Portable qualification — complete
 
-The exact pre-repin Connect4 slice at `ace55b2b5558e22d195abf19694446c5805af86c` passed all four PR workflows, including the initial pinned CUDA-Algorithms revision:
+Final exact Connect4 portable qualification head:
 
 ```text
-verify:             success
-benchmark-evidence: success
-strength-evidence:  success
-bsfp-portable:      success
+d39322a1a66585114a35558f910a5582c0fc05e2
 ```
 
-`bsfp-portable` run `34438350937` successfully compiled/submitted both:
+Exact dependency pair:
+
+```text
+CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
+CUDA-JS:         98e2ebc942c14d63acf4dd82e912dd548c363a05
+Node:            26.7.0
+```
+
+All four PR workflows passed on the final repinned tuple:
+
+```text
+verify:             run 34438946185 — success
+benchmark-evidence: run 34438946186 — success
+strength-evidence:  run 34438946188 — success
+bsfp-portable:      run 34438946196 — success
+```
+
+The `bsfp-portable` workflow successfully compiled/submitted both:
 
 1. ranked activation: 256 support items, rank 0..12, max fanout 4, four prepared nodes;
 2. dense W/D/L: 1,048,576 table entries, 4 MiB, 14 winning lines, 13 prepared rank nodes.
 
-The workflow is now repinned to the final CUDA-Algorithms development head `48ee0aec9acae7776950f03ab52ab1737e598b6e`; the resulting exact-pair CI run is the next evidence record to freeze.
+CUDA-Algorithms itself passed full CI on `48ee0aec9acae7776950f03ab52ab1737e598b6e` in run `34438700869`, including reference semantics, two materially different typed consumer-composition paths, maintained API checks, document validation and syntax checks for its physical native harnesses.
 
-CUDA-Algorithms itself passed full CI on `48ee0aec9acae7776950f03ab52ab1737e598b6e`, including reference tests, two typed consumer-composition cases and syntax checks for its native harness.
+The consolidated checkpoint is preserved in `docs/research/2026-09-09-cuda-bsfp-first-maintained-slice.md`.
 
 ## CUDA-JS boundary
 
