@@ -95,7 +95,7 @@ function orderedUnique42(masks, descending) {
   const result = [];
   if (descending) {
     for (let count = 42; count >= 0; count -= 1) {
-      buckets[count].sort((a, b) => b - a);
+      buckets[count].sort((a, b) => a - b);
       result.push(...buckets[count]);
     }
   } else {
