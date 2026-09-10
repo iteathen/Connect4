@@ -1,0 +1,21 @@
+{
+  "caseId": "02-4x4-c4",
+  "geometry": {
+    "columns": 4,
+    "rows": 4,
+    "connect": 4,
+    "tier": "known-oracle"
+  },
+  "profile": "c4-0009-p1",
+  "estimate": {
+    "kind": "hypothetical-dense-shape",
+    "executable": false,
+    "denseTableBytes": "163840000",
+    "upperBoundBytes": null,
+    "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+  },
+  "status": "skipped-after-boundary",
+  "durationMs": 0,
+  "steps": [],
+  "reason": "01-4x3-c3: runtime-failure"
+}
