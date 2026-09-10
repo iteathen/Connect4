@@ -31,6 +31,8 @@ export {
   solveBsfpOwnershipAntichainWdl,
 } from './ownership-antichain-solver.mjs';
 
+export { solveBsfpOwnershipAntichainRootWdlRolling } from './ownership-antichain-rolling-solver.mjs';
+
 export {
   solveBsfpSymbolicWdl,
   solveBsfp4x3Connect3Reference,
