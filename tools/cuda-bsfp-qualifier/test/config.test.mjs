@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { DEFAULT_GEOMETRY_LADDER, DEFAULT_QUALIFIER_LIMITS, MIB, computeMemoryAdmission, parseCaseList, parseQualifierArgs } from '../config.mjs';
+test('qualifier requires an explicit arming flag', () => { assert.throws(() => parseQualifierArgs([]), /--qualify-benchmark/); });
+test('default ladder extends beyond the 7x5 scale', () => { assert.ok(DEFAULT_GEOMETRY_LADDER.some((entry) => entry.columns >= 8 && entry.rows >= 7)); assert.deepEqual(DEFAULT_GEOMETRY_LADDER.at(-1), { columns: 9, rows: 7, connect: 4, tier: 'scaling' }); });
+test('custom case parser preserves explicit connect lengths', () => { assert.deepEqual(parseCaseList('4x3:c3,8x7:c4'), [{ columns: 4, rows: 3, connect: 3, tier: 'user-specified' }, { columns: 8, rows: 7, connect: 4, tier: 'user-specified' }]); });
+test('memory admission obeys fraction, reserve, and absolute limits simultaneously', () => { const limits = { ...DEFAULT_QUALIFIER_LIMITS, vramSafeFraction: 0.7, vramReserveMiB: 1024, vramAbsoluteMaxMiB: 12 * 1024 }; const admitted = computeMemoryAdmission({ estimatedBytes: 1024 * MIB, freeMiB: 8192, limits }); assert.equal(admitted.allowed, true); assert.equal(admitted.allowedMiB, 5734); const refused = computeMemoryAdmission({ estimatedBytes: 6000 * MIB, freeMiB: 8192, limits }); assert.equal(refused.allowed, false); assert.equal(refused.reason, 'estimated-working-set-exceeds-safe-vram-budget'); });
+test('dry-run disables publication but keeps qualification planning armed', () => { const parsed = parseQualifierArgs(['--qualify-benchmark', '--dry-run', '--cases', '4x3:c3']); assert.equal(parsed.dryRun, true); assert.equal(parsed.publish, false); assert.equal(parsed.cases.length, 1); });
