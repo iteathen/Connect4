@@ -1,11 +1,14 @@
 import path from 'node:path';
 const MIB = 1024n * 1024n;
 const P1_OVERHEAD_BYTES = 256n * MIB;
+const EXPERIMENTAL_FFI_FLAG = '--experimental-ffi';
+
 function denseShapeBytes({ columns, rows }) {
   const supportSkeletons = BigInt(rows + 1) ** BigInt(columns);
   const assignments = 1n << BigInt(columns * rows);
   return supportSkeletons * assignments * 4n;
 }
+
 function p1Estimate(spec) {
   const denseTableBytes = denseShapeBytes(spec);
   const exactSupported = spec.columns === 4 && spec.rows === 3 && spec.connect === 3;
@@ -14,6 +17,14 @@ function p1Estimate(spec) {
   const upperBoundBytes = denseTableBytes + ancillaryBytes + P1_OVERHEAD_BYTES;
   return Object.freeze({ kind: 'proved-profile-upper-bound', executable: true, denseTableBytes: denseTableBytes.toString(), ancillaryBytes: ancillaryBytes.toString(), fixedRuntimeAllowanceBytes: P1_OVERHEAD_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });
 }
+
+export function nativeNodeArgs(scriptPath, mode = 'native') {
+  const args = [];
+  if (process.allowedNodeEnvironmentFlags?.has(EXPERIMENTAL_FFI_FLAG)) args.push(EXPERIMENTAL_FFI_FLAG);
+  args.push(scriptPath, mode);
+  return Object.freeze(args);
+}
+
 const P1 = Object.freeze({
   id: 'c4-0009-p1',
   specification: 'docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md',
@@ -24,11 +35,12 @@ const P1 = Object.freeze({
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return Object.freeze([]);
     return Object.freeze([
-      Object.freeze({ id: 'ranked-activation', command: process.execPath, args: [path.join(repositoryRoot, 'experiments/cuda-bsfp-vertical-slice/run.mjs'), 'native'], expected(result) { return result?.outcome === 'native-numerical-pass'; } }),
-      Object.freeze({ id: 'dense-wdl', command: process.execPath, args: [path.join(repositoryRoot, 'experiments/cuda-bsfp-dense-4x3/run.mjs'), 'native'], expected(result) { return result?.outcome === 'native-exhaustive-wdl-pass' && result?.rootWdl === 1 && result?.checkedStates === 4631 && result?.legalEdges === 11818; } }),
+      Object.freeze({ id: 'ranked-activation', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-vertical-slice/run.mjs')), expected(result) { return result?.outcome === 'native-numerical-pass'; } }),
+      Object.freeze({ id: 'dense-wdl', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-dense-4x3/run.mjs')), expected(result) { return result?.outcome === 'native-exhaustive-wdl-pass' && result?.rootWdl === 1 && result?.checkedStates === 4631 && result?.legalEdges === 11818; } }),
     ]);
   },
 });
+
 const PROFILES = new Map([[P1.id, P1]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
