@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T10:07:59.662Z",
+  "files": [
+    {
+      "relativePath": "cases/01-4x3-c3/admission.json",
+      "sha256": "bdd383eaec6fc1d0ac34c043f14ce31b0454e336c496613c4fe9e6d3a1c6987e",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/case.json",
+      "sha256": "8ecf02b07b972cfb60f6054b320da235f6accee5e92f1b15d7dc4c643cd8c32e",
+      "sourceBytes": 525,
+      "publishedBytes": 525,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/compact-root-wdl/result.json",
+      "sha256": "2fbf2ab528b19d34d6c12362b4645f66f7a11bf50e0ce931e21d27a9bad5ed3d",
+      "sourceBytes": 3359,
+      "publishedBytes": 3359,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/compact-root-wdl/stderr.log",
+      "sha256": "9f2e7033bd6ce7aaec9ae263635255d596f0226756e9e801a7e8fcc63a4a8005",
+      "text": "(node:4764) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:4764) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n[compact audit] epoch 1/1: 21.800 ms\n[compact solve] epoch 1/1: 11.371 ms\n",
+      "sourceBytes": 404,
+      "publishedBytes": 404,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/compact-root-wdl/stdout.log",
+      "sha256": "985cf5092ad47e99c8bb8f29cc98e843e854ef9d3747ae2aee4eb50d0c0b496d",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"kind\": \"connect4-cuda-bsfp-compact-root-solve\",\n  \"mode\": \"native\",\n  \"columns\": 4,\n  \"rows\": 3,\n  \"connect\": 3,\n  \"caseRole\": \"full-root-solve\",\n  \"outcome\": \"native-compact-frontier-pass\",\n  \"rootWdl\": 1,\n  \"closure\": \"full-root\",\n  \"comparedSupports\": 256,\n  \"frontierMismatches\": 0,\n  \"evidenceGrade\": \"all-support-frontier-differential\",\n  \"boundaryControls\": [],\n  \"options\": {\n    \"columns\": 4,\n    \"rows\": 3,\n    \"connect\": 3,\n    \"frontierCapacity\": 1024,\n    \"candidateTileSize\": 2048,\n    \"shardCapacity\": 64,\n    \"blockSize\": 128,\n    \"qualificationOracle\": true\n  },\n  \"cpuReferenceMs\": 34.74589999999999,\n  \"cpuPairCandidates\": 11697,\n  \"runtimeOpenMs\": 459.28189999999995,\n  \"runs\": [\n    {\n      \"audit\": true,\n      \"rootWdl\": 1,\n      \"closure\": \"full-root\",\n      \"completedRank\": 0,\n      \"comparedSupports\": 256,\n      \"frontierMismatches\": 0,\n      \"pairCandidatesGenerated\": 20158,\n      \"subsetChecksPerformed\": 68080,\n      \"totalFrontierRecords\": 3004,\n      \"maxFrontierWidth\": 48,\n      \"readbackMs\": 1.4671999999998206,\n      \"hostResultValidationMs\": 0.07970000000000255,\n      \"rankSetupMs\": 2.697999999999979,\n      \"compileLoadMs\": 951.2318999999999,\n      \"allocationMs\": 9.60310000000004,\n      \"uploadMs\": 3.4383000000000266,\n      \"prepareMs\": 8.05230000000006,\n      \"submitWaitMs\": 22.430499999999938,\n      \"epochSubmitWaitMs\": [\n        21.799999999999955\n      ],\n      \"epochCount\": 1,\n      \"devicePayloadBytes\": 5829132,\n      \"admissionUpperBoundBytes\": 278543404,\n      \"launchCount\": 26,\n      \"rankBatches\": 13,\n      \"solveWallMs\": 1000.6596999999999\n    },\n    {\n      \"audit\": false,\n      \"rootWdl\": 1,\n      \"closure\": \"full-root\",\n      \"completedRank\": 0,\n      \"comparedSupports\": 0,\n      \"frontierMismatches\": null,\n      \"pairCandidatesGenerated\": 20158,\n      \"subsetChecksPerformed\": 68080,\n      \"totalFrontierRecords\": 3004,\n      \"maxFrontierWidth\": 48,\n      \"readbackMs\": 1.9074000000000524,\n      \"hostResultValidationMs\": 0.03689999999983229,\n      \"rankSetupMs\": 1.192600000000084,\n      \"compileLoadMs\": 197.5734,\n      \"allocationMs\": 6.296800000000076,\n      \"uploadMs\": 2.973700000000008,\n      \"prepareMs\": 3.634399999999914,\n      \"submitWaitMs\": 11.658799999999928,\n      \"epochSubmitWaitMs\": [\n        11.370599999999968\n      ],\n      \"epochCount\": 1,\n      \"devicePayloadBytes\": 5803048,\n      \"admissionUpperBoundBytes\": 278543404,\n      \"launchCount\": 26,\n      \"rankBatches\": 13,\n      \"solveWallMs\": 225.33320000000003\n    }\n  ],\n  \"phaseTiming\": {\n    \"candidateGenerationMs\": null,\n    \"normalizationMs\": null,\n    \"compactionMs\": null,\n    \"reason\": \"Fused block collectives; submitWaitMs measures the complete prepared DAG including orchestration. No device clock profiler is installed.\"\n  },\n  \"totalWallMs\": 1751.8066,\n  \"cleanup\": \"graceful\"\n}\n",
+      "sourceBytes": 2862,
+      "publishedBytes": 2862,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/result.json",
+      "sha256": "82e22d5ed1ceea203842e01bf7e09119618be3f528cfc198874a43b731857a6a",
+      "sourceBytes": 7428,
+      "publishedBytes": 7428,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/admission.json",
+      "sha256": "827a50ed8e063960376e93732ab362b9e5e7625c7cde4ecabdc023b857c075fa",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/case.json",
+      "sha256": "f701eef870b3893f91d98fc9517c9e2b93c2a18b377595886df874504d84f16e",
+      "sourceBytes": 526,
+      "publishedBytes": 526,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/compact-root-wdl/result.json",
+      "sha256": "aa8768af04faeae3888db9bcdbb8abac9404ee308be63ade000ee213422d99dc",
+      "sourceBytes": 3681,
+      "publishedBytes": 3681,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/compact-root-wdl/stderr.log",
+      "sha256": "e68cbe86025302d6072e59036036fb5ba3766f99b8655aead39a5ae251fa7901",
+      "text": "(node:4496) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:4496) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n[compact audit] epoch 1/2: 20.356 ms\n[compact audit] epoch 2/2: 13.541 ms\n[compact solve] epoch 1/2: 22.172 ms\n[compact solve] epoch 2/2: 17.988 ms\n",
+      "sourceBytes": 478,
+      "publishedBytes": 478,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/compact-root-wdl/stdout.log",
+      "sha256": "1be447cdf035af633f965d9dda7bf7d0d556b26c0f23aa2ea500b5fca11e587e",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"kind\": \"connect4-cuda-bsfp-compact-root-solve\",\n  \"mode\": \"native\",\n  \"columns\": 4,\n  \"rows\": 4,\n  \"connect\": 4,\n  \"caseRole\": \"full-root-solve\",\n  \"outcome\": \"native-compact-frontier-pass\",\n  \"rootWdl\": 0,\n  \"closure\": \"full-root\",\n  \"comparedSupports\": 625,\n  \"frontierMismatches\": 0,\n  \"evidenceGrade\": \"all-support-frontier-differential\",\n  \"boundaryControls\": [\n    {\n      \"id\": \"shard-tile-block-invariance\",\n      \"outcome\": \"native-pass\"\n    },\n    {\n      \"id\": \"high-lane-42-bit-recurrence\",\n      \"outcome\": \"native-pass\"\n    },\n    {\n      \"id\": \"capacity-is-not-convergence\",\n      \"outcome\": \"native-pass\"\n    }\n  ],\n  \"options\": {\n    \"columns\": 4,\n    \"rows\": 4,\n    \"connect\": 4,\n    \"frontierCapacity\": 1024,\n    \"candidateTileSize\": 2048,\n    \"shardCapacity\": 64,\n    \"blockSize\": 128,\n    \"qualificationOracle\": true\n  },\n  \"cpuReferenceMs\": 60.3506,\n  \"cpuPairCandidates\": 33427,\n  \"runtimeOpenMs\": 416.3262,\n  \"runs\": [\n    {\n      \"audit\": true,\n      \"rootWdl\": 0,\n      \"closure\": \"full-root\",\n      \"completedRank\": 0,\n      \"comparedSupports\": 625,\n      \"frontierMismatches\": 0,\n      \"pairCandidatesGenerated\": 48801,\n      \"subsetChecksPerformed\": 203873,\n      \"totalFrontierRecords\": 6591,\n      \"maxFrontierWidth\": 54,\n      \"readbackMs\": 2.3134999999999764,\n      \"hostResultValidationMs\": 0.17450000000008004,\n      \"rankSetupMs\": 2.9804000000000315,\n      \"compileLoadMs\": 918.4595999999999,\n      \"allocationMs\": 10.494199999999864,\n      \"uploadMs\": 3.7674999999999272,\n      \"prepareMs\": 10.855999999999995,\n      \"submitWaitMs\": 34.90300000000002,\n      \"epochSubmitWaitMs\": [\n        20.355800000000045,\n        13.54099999999994\n      ],\n      \"epochCount\": 2,\n      \"devicePayloadBytes\": 9214348,\n      \"admissionUpperBoundBytes\": 288029076,\n      \"launchCount\": 39,\n      \"rankBatches\": 17,\n      \"solveWallMs\": 985.9372\n    },\n    {\n      \"audit\": false,\n      \"rootWdl\": 0,\n      \"closure\": \"full-root\",\n      \"completedRank\": 0,\n      \"comparedSupports\": 0,\n      \"frontierMismatches\": null,\n      \"pairCandidatesGenerated\": 48801,\n      \"subsetChecksPerformed\": 203873,\n      \"totalFrontierRecords\": 6591,\n      \"maxFrontierWidth\": 54,\n      \"readbackMs\": 2.8782999999998538,\n      \"hostResultValidationMs\": 0.06640000000015789,\n      \"rankSetupMs\": 2.224899999999934,\n      \"compileLoadMs\": 201.52929999999992,\n      \"allocationMs\": 7.225799999999936,\n      \"uploadMs\": 1.9003000000000156,\n      \"prepareMs\": 5.314599999999928,\n      \"submitWaitMs\": 42.0954999999999,\n      \"epochSubmitWaitMs\": [\n        22.172000000000025,\n        17.98829999999998\n      ],\n      \"epochCount\": 2,\n      \"devicePayloadBytes\": 9156616,\n      \"admissionUpperBoundBytes\": 288029076,\n      \"launchCount\": 39,\n      \"rankBatches\": 17,\n      \"solveWallMs\": 263.2999\n    }\n  ],\n  \"phaseTiming\": {\n    \"candidateGenerationMs\": null,\n    \"normalizationMs\": null,\n    \"compactionMs\": null,\n    \"reason\": \"Fused block collectives; submitWaitMs measures the complete prepared DAG including orchestration. No device clock profiler is installed.\"\n  },\n  \"totalWallMs\": 2536.5245,\n  \"cleanup\": \"graceful\"\n}\n",
+      "sourceBytes": 3154,
+      "publishedBytes": 3154,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/result.json",
+      "sha256": "f7bf87583ebc4eb1cbaea9f4772c8a8e05b270b66091dc9e6e31950352510ff3",
+      "sourceBytes": 8133,
+      "publishedBytes": 8133,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/admission.json",
+      "sha256": "bb9b719de965045b5d1cd4a87debd867d09f1d88653071bae0e9e8da66a59413",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/case.json",
+      "sha256": "84b091a5f8ea0d857ee03e67ad48696fad095c03da2bc57ca7bb086a3b248051",
+      "sourceBytes": 528,
+      "publishedBytes": 528,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/compact-root-wdl/result.json",
+      "sha256": "9e40cc9b745179b051fc7d48e592c85f88942a5ca5292bd931af4f3e220909cf",
+      "sourceBytes": 3705,
+      "publishedBytes": 3705,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/compact-root-wdl/stderr.log",
+      "sha256": "449038c9f95a82ffe356214c7155d232e6c75958c5ee0d69c6a2b317308e74bc",
+      "text": "(node:24684) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:24684) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n[compact audit] epoch 1/6: 1390.841 ms\n[compact audit] epoch 2/6: 1263.111 ms\n[compact audit] epoch 3/6: 497.392 ms\n[compact audit] epoch 4/6: 152.496 ms\n[compact audit] epoch 5/6: 32.594 ms\n[compact audit] epoch 6/6: 3.010 ms\n[compact solve] epoch 1/6: 1332.644 ms\n[compact solve] epoch 2/6: 1265.399 ms\n[compact solve] epoch 3/6: 500.151 ms\n[compact solve] epoch 4/6: 163.458 ms\n[compact solve] epoch 5/6: 29.719 ms\n[compact solve] epoch 6/6: 3.194 ms\n",
+      "sourceBytes": 786,
+      "publishedBytes": 786,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/compact-root-wdl/stdout.log",
+      "sha256": "1d15a69c8d65bd6403f759cad929dd6a0a31b1e276ae05e2caf3261595365de4",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"kind\": \"connect4-cuda-bsfp-compact-root-solve\",\n  \"mode\": \"native\",\n  \"columns\": 5,\n  \"rows\": 5,\n  \"connect\": 4,\n  \"caseRole\": \"full-root-solve\",\n  \"outcome\": \"native-compact-frontier-pass\",\n  \"rootWdl\": 0,\n  \"closure\": \"full-root\",\n  \"comparedSupports\": 7776,\n  \"frontierMismatches\": 0,\n  \"evidenceGrade\": \"all-support-frontier-differential\",\n  \"boundaryControls\": [],\n  \"options\": {\n    \"columns\": 5,\n    \"rows\": 5,\n    \"connect\": 4,\n    \"frontierCapacity\": 1024,\n    \"candidateTileSize\": 2048,\n    \"shardCapacity\": 64,\n    \"blockSize\": 128,\n    \"qualificationOracle\": true\n  },\n  \"cpuReferenceMs\": 11663.782000000001,\n  \"cpuPairCandidates\": 81515570,\n  \"runtimeOpenMs\": 461.6707999999999,\n  \"runs\": [\n    {\n      \"audit\": true,\n      \"rootWdl\": 0,\n      \"closure\": \"full-root\",\n      \"completedRank\": 0,\n      \"comparedSupports\": 7776,\n      \"frontierMismatches\": 0,\n      \"pairCandidatesGenerated\": 85934909,\n      \"subsetChecksPerformed\": 2154918579,\n      \"totalFrontierRecords\": 1044159,\n      \"maxFrontierWidth\": 568,\n      \"readbackMs\": 2.670799999999872,\n      \"hostResultValidationMs\": 1.0123999999996158,\n      \"rankSetupMs\": 25.8666000000012,\n      \"compileLoadMs\": 933.2458999999999,\n      \"allocationMs\": 9.447599999999511,\n      \"uploadMs\": 10.501000000000204,\n      \"prepareMs\": 37.58690000000024,\n      \"submitWaitMs\": 3345.402000000002,\n      \"epochSubmitWaitMs\": [\n        1390.841199999999,\n        1263.1113999999998,\n        497.3917999999994,\n        152.49619999999777,\n        32.59449999999924,\n        3.0102999999980966\n      ],\n      \"epochCount\": 6,\n      \"devicePayloadBytes\": 41503556,\n      \"admissionUpperBoundBytes\": 437467596,\n      \"launchCount\": 164,\n      \"rankBatches\": 26,\n      \"solveWallMs\": 4626.411499999998\n    },\n    {\n      \"audit\": false,\n      \"rootWdl\": 0,\n      \"closure\": \"full-root\",\n      \"completedRank\": 0,\n      \"comparedSupports\": 0,\n      \"frontierMismatches\": null,\n      \"pairCandidatesGenerated\": 85934909,\n      \"subsetChecksPerformed\": 2155626495,\n      \"totalFrontierRecords\": 1044159,\n      \"maxFrontierWidth\": 568,\n      \"readbackMs\": 2.8765000000021246,\n      \"hostResultValidationMs\": 1.3414999999986321,\n      \"rankSetupMs\": 29.380800000002637,\n      \"compileLoadMs\": 200.52149999999892,\n      \"allocationMs\": 6.15940000000046,\n      \"uploadMs\": 2.953400000002148,\n      \"prepareMs\": 25.325300000000425,\n      \"submitWaitMs\": 3299.9569999999985,\n      \"epochSubmitWaitMs\": [\n        1332.644400000001,\n        1265.3988000000027,\n        500.1512999999977,\n        163.45809999999983,\n        29.718699999997625,\n        3.1935000000012224\n      ],\n      \"epochCount\": 6,\n      \"devicePayloadBytes\": 33088072,\n      \"admissionUpperBoundBytes\": 437467596,\n      \"launchCount\": 164,\n      \"rankBatches\": 26,\n      \"solveWallMs\": 3568.6181000000033\n    }\n  ],\n  \"phaseTiming\": {\n    \"candidateGenerationMs\": null,\n    \"normalizationMs\": null,\n    \"compactionMs\": null,\n    \"reason\": \"Fused block collectives; submitWaitMs measures the complete prepared DAG including orchestration. No device clock profiler is installed.\"\n  },\n  \"totalWallMs\": 20338.489400000002,\n  \"cleanup\": \"graceful\"\n}\n",
+      "sourceBytes": 3186,
+      "publishedBytes": 3186,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/result.json",
+      "sha256": "e6166eb7d81e745c87ef75c4d7be8bd0c2e5afc972d87b7548d81e9951308dcc",
+      "sourceBytes": 8162,
+      "publishedBytes": 8162,
+      "truncated": false
+    },
+    {
+      "relativePath": "events.jsonl",
+      "sha256": "d83f37de489a753bc870e47d4191e67cbe503c0baf93c641429da130c2fa60c3",
+      "sourceBytes": 3937,
+      "publishedBytes": 3937,
+      "truncated": false
+    },
+    {
+      "relativePath": "results.json",
+      "sha256": "6bff2b6891c4d027358a29f16c25130b3e9b2f3d0055a32143add2e36ba9419d",
+      "sourceBytes": 26845,
+      "publishedBytes": 26845,
+      "truncated": false
+    },
+    {
+      "relativePath": "summary.md",
+      "sha256": "4003b365bb1388a52cd7181c9322087136d0efe11ee56500df64fadcd470d2c4",
+      "sourceBytes": 1034,
+      "publishedBytes": 1034,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.json",
+      "sha256": "0e92736eac0dd69e5f2c681d7860798e854bf70b6e5a4e9e75c5f437e37d3dc0",
+      "sourceBytes": 2204,
+      "publishedBytes": 2204,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.preflight.json",
+      "sha256": "0e92736eac0dd69e5f2c681d7860798e854bf70b6e5a4e9e75c5f437e37d3dc0",
+      "sourceBytes": 2204,
+      "publishedBytes": 2204,
+      "truncated": false
+    }
+  ]
+}
