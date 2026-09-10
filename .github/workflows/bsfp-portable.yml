@@ -9,9 +9,18 @@ permissions:
 
 jobs:
   bsfp-portable:
-    name: bsfp-portable
-    runs-on: ubuntu-24.04
+    name: bsfp-portable (${{ matrix.os }}, node-${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - windows-2025
+        node:
+          - 24.15.0
+          - 26.7.0
     steps:
       - name: Checkout Connect4
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -32,19 +41,23 @@ jobs:
           path: cuda-js
           persist-credentials: false
 
-      - name: Use supported Node
+      - name: Select compatibility-probe Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version: 26.7.0
+          node-version: ${{ matrix.node }}
 
-      - name: Install exact CUDA-JS dependencies
+      - name: Record actual Node version
+        run: node --version
+
+      - name: Install exact CUDA-JS dependencies without engine gating
+        env:
+          npm_config_engine_strict: "false"
         run: npm ci --prefix cuda-js
 
       - name: Bind exact CUDA packages through public package surfaces
+        shell: pwsh
         run: |
-          mkdir -p node_modules
-          ln -s ../cuda-js node_modules/cuda-js
-          ln -s ../cuda-algorithms node_modules/cuda-algorithms
+          node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});for(const[n,t]of[['cuda-js','cuda-js'],['cuda-algorithms','cuda-algorithms']]){const link=p.resolve('node_modules',n),target=p.resolve(t);fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,process.platform==='win32'?'junction':'dir')}"
 
       - name: Run ranked-activation CUDA-BSFP portable slice
         run: node experiments/cuda-bsfp-vertical-slice/run.mjs portable
