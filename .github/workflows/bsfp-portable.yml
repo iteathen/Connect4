@@ -52,6 +52,9 @@ jobs:
       - name: Verify bootstrap FFI propagation policy
         run: node -e "import('./tools/bootstrap-cuda-bsfp-q1.mjs').then(({qualificationNodeOptions})=>{const f='--experimental-ffi';const supported=process.allowedNodeEnvironmentFlags?.has(f)===true;const result=qualificationNodeOptions('--trace-warnings');if(supported&&!result.split(/\s+/).includes(f))throw new Error('bootstrap failed to add experimental FFI');if(!supported&&result.split(/\s+/).includes(f))throw new Error('bootstrap added unsupported experimental FFI');console.log(JSON.stringify({node:process.version,supported,nodeOptions:result}))})"
 
+      - name: Verify native Q1 child FFI argv
+        run: node -e "import('./tools/cuda-bsfp-qualifier/profiles.mjs').then(({nativeNodeArgs})=>{const f='--experimental-ffi';const supported=process.allowedNodeEnvironmentFlags?.has(f)===true;const args=nativeNodeArgs('probe.mjs');if(supported&&args[0]!==f)throw new Error('native Q1 child did not receive experimental FFI on argv');if(!supported&&args.includes(f))throw new Error('native Q1 child received unsupported FFI argv');console.log(JSON.stringify({node:process.version,supported,args}))})"
+
       - name: Install exact CUDA-JS dependencies without engine gating
         env:
           npm_config_engine_strict: "false"
