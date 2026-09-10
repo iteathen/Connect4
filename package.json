@@ -14,6 +14,7 @@
     "verify": "node --test",
     "bench:incumbent": "node benchmarks/incumbent.mjs",
     "bench:strength": "node benchmarks/strength.mjs",
+    "bench:bsfp:performance": "node --expose-gc benchmarks/bsfp-performance.mjs",
     "bench:bsfp:qualify": "node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark",
     "bench:bsfp:qualify:plan": "node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run"
   }
