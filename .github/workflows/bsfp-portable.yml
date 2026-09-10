@@ -49,6 +49,9 @@ jobs:
       - name: Record actual Node version
         run: node --version
 
+      - name: Verify bootstrap FFI propagation policy
+        run: node -e "import('./tools/bootstrap-cuda-bsfp-q1.mjs').then(({qualificationNodeOptions})=>{const f='--experimental-ffi';const supported=process.allowedNodeEnvironmentFlags?.has(f)===true;const result=qualificationNodeOptions('--trace-warnings');if(supported&&!result.split(/\s+/).includes(f))throw new Error('bootstrap failed to add experimental FFI');if(!supported&&result.split(/\s+/).includes(f))throw new Error('bootstrap added unsupported experimental FFI');console.log(JSON.stringify({node:process.version,supported,nodeOptions:result}))})"
+
       - name: Install exact CUDA-JS dependencies without engine gating
         env:
           npm_config_engine_strict: "false"
@@ -69,5 +72,4 @@ jobs:
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 
       - name: Reproduce clean sibling bootstrap topology
-        if: matrix.node == '24.15.0'
         run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-bootstrap-probe"
