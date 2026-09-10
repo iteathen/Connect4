@@ -7,6 +7,24 @@ export {
 export { createBsfpSupportPredecessorDeviceLibraryRequest } from './device/support-predecessor-library.mjs';
 
 export {
+  createResidualState,
+  createResidualWinspaceProfile,
+  normalizeResidualRequirements,
+  residualRequirementsImply,
+  residualRequirementsKey,
+  residualStateAtLeastAsFavorableToP0,
+  residualStateKey,
+} from './residual-winspace.mjs';
+
+export {
+  createResidualWdlFrontierBucket,
+  insertP0LossFrontier,
+  insertP0WinFrontier,
+  p0LossFrontierCovers,
+  p0WinFrontierCovers,
+} from './residual-frontier.mjs';
+
+export {
   solveBsfpSymbolicWdl,
   solveBsfp4x3Connect3Reference,
 } from './reference-solver.mjs';
