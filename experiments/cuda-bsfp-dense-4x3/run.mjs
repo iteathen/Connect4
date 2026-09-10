@@ -4,9 +4,9 @@ import { openCudaRuntime } from 'cuda-js';
 import { openCudaRuntimeForTesting } from 'cuda-js/testing';
 import {
   BSFP_4X3_CONNECT3_DENSE_PROFILE as PROFILE,
-  createDenseBsfp4x3WdlPlan,
   decodeBsfpWdlU32,
 } from '../../components/bsfp/index.mjs';
+import { createDenseBsfp4x3WdlPlan } from '../../components/bsfp/cuda/index.mjs';
 
 const U32_BYTES = 4;
 const COLUMNS = 4;
