@@ -1,11 +1,11 @@
-schema_version: 14
+schema_version: 15
 updated: 2026-09-10
-state: cuda_bsfp_device_compact_5x5_qualified_6x5_cost_diagnosis_next
+state: cuda_bsfp_c3_portable_qualified_native_diagnostic_next
 repository_role: connect4_solver_validation
 branch: feature/cuda-bsfp
 
 current:
-  action: diagnose_6x5_deep_rank_candidate_and_normalization_cost
+  action: run_c3_native_one_epoch_diagnostic_and_classify_6x5_wall
   owner: Connect4
   mode: active
   branch_base: de47d43f4f4133a68973d0876a402531ef5735da
@@ -15,6 +15,7 @@ current:
   cuda_execution_spec: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
   qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
   compact_profile: docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md
+  diagnostic_profile: docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md
   bootstrap_entrypoint: node tools/bootstrap-cuda-bsfp-q1.mjs
 
 product_goal:
@@ -65,13 +66,14 @@ packed42_cpu_control:
     max_frontier_loss: 194
     pair_candidates: 2298403
   5x5_c4:
-    wall_ms: 18865
+    historical_wall_ms: 18865
     boundary_records: 1044159
     max_frontier_win: 562
     max_frontier_loss: 568
     pair_candidates: 81515570
   6x5_c4: timeout_600s
-  diagnosis: bigint_cost_was_material_but_cartesian_frontier_algebra_still_dominates
+  7x6_c4: timeout_600s
+  diagnosis: fixed_width_removed_a_major_constant_but_cartesian_frontier_algebra_still_dominates
 
 wsl625_packed:
   standard_geometry:
@@ -81,69 +83,10 @@ wsl625_packed:
     closure_bytes: 80
   exact_relation: A_implies_B_iff_UpA_subset_UpB
   qualification: full_625x625_singleton_matrix_and_legal_residual_dominance_pass
-
-cuda_pair_pipeline:
-  source_head_before_p2: 58bb1027ed536a3a2d372d49cf4fae17d513f481
-  device_program: components/bsfp/cuda/segmented-packed-antichain-42-program.mjs
-  pair_plan: components/bsfp/cuda/segmented-packed-pair-antichain-42-plan.mjs
-  portable_ci: 34460529994
-  portable_matrix: windows_and_ubuntu_node_24_15_and_26_7_all_pass
-  algorithm:
-    - one_block_per_support_segment
-    - generate_cartesian_or_or_and_candidates_on_device
-    - compute_42bit_popcount_on_device
-    - reduce_with_43_cardinality_phases
-    - block_barrier_between_phases
-    - atomic_survivor_append
-    - explicit_overflow_status_no_truncation
-    - bounds_checked_segment_offsets
-
-p2_compact_hybrid:
-  implementation_commit: 5833b504acaa9e0dcf18f5c53d000d4b9c25101f
-  profile_id: c4-0009-p2-compact-hybrid
-  purpose: first_actual_compact_cuda_bsfp_root_wdl_profile
-  host_rank_window: 2
-  support_sharding: true
-  gpu_owned_hot_work:
-    - cartesian_or_and_candidate_generation
-    - candidate_popcount
-    - cardinality_antichain_reduction
-  transitional_host_work:
-    - support_decode_and_legal_columns
-    - cofactor_transforms
-    - terminal_boundary_construction
-    - union_side_normalization
-    - final_terminal_subtraction
-  default_workspace:
-    segments: 256
-    side_records_each: 262144
-    candidate_records: 4194304
-    frontier_records_per_segment: 1024
-  q1_upper_bound: below_400_mib_including_256_mib_runtime_allowance
-  known_root_checks:
-    4x3_c3: win
-    4x4_c4: draw
-    5x4_c4: draw
-    5x5_c4: draw
-    7x6_c4: win
-  ci:
-    verify_run: 34461513067
-    verify_result: pass
-    bsfp_portable_run: 34461513265
-    bsfp_portable_result: pass
-    benchmark_evidence: pass
-    strength_evidence: pass
-  native_status: pending_owner_gtx1660ti
-
-q1_memory_policy:
-  safe_fraction_of_current_free: 0.95
-  reserve_mib: 256
-  emergency_free_floor_mib: 256
-  absolute_max_mib: 12288
-  behavior: reusable_arena_capacity_ceiling_not_monolithic_allocation_target
+  disposition: available_for_exact_pre_algebra_inference_not_blanket_record_replacement
 
 c1_device_compact:
-  implementation_commit: 2052c4d
+  implementation_commit: 2052c4d00a6b472a1d998addce927bf00bfb831b
   profile_id: c4-0009-c1-compact-ownership-42
   recurrence_owner: gpu
   host_semantic_progression: false
@@ -151,20 +94,19 @@ c1_device_compact:
   scratch_shard_supports: 64
   frontier_capacity: 1024
   candidate_tile_capacity: 2048
-  local_4x4_c4: draw_all_625_support_frontiers_match
-  local_5x5_c4: draw_all_7776_support_frontiers_match
-  local_5x5_boundary_records: 1044159
-  local_5x5_execution_without_oracle_ms: 3286.975
-  local_5x5_warm_solve_wall_ms: 3590.926
-  local_5x5_cpu_reference_with_observer_ms: 11778.537
   official_evidence_pr: 20
   official_run: 20260910T100734116Z-e8de3c61
   qualified_source: fc7c8cc233b3cf1670ef75fde69750c91dd6492b
+  all_frontier_results:
+    4x3_c3: win_256_supports_zero_mismatch
+    4x4_c4: draw_625_supports_zero_mismatch
+    5x5_c4: draw_7776_supports_zero_mismatch
+  official_5x5_pair_candidates: 85934909
+  official_5x5_subset_checks_approx: 2155626495
   official_5x5_submit_wait_ms: 3299.957
   official_5x5_warm_solve_wall_ms: 3568.618
   official_5x5_cpu_reference_with_observer_ms: 11663.782
   controls: all_frontier_batching_high_42bit_and_capacity_failure_pass
-  research_record: docs/research/2026-09-10-compact-cuda-vertical-slice.md
   limits:
     - fixed_shard_ceiling_not_yet_free_vram_adaptive
     - no_spill_or_resize_on_frontier_overflow
@@ -182,16 +124,89 @@ c2_scaling:
       candidate_tile_capacity: 2048
       outcome: timeout_180s
       first_static_epoch_ms: 75117.652
+  owner_physical_observation:
+    gpu_utilization_percent: approximately_95_to_100
+    interpretation: device_is_busy_but_useful_parallel_work_quality_and_algorithmic_volume_remain_open
   root_result: unresolved
   empty_7x6: not_attempted_no_solve_claim
 
+c3_work_diagnostic:
+  implementation_commit: 878b31840d4863ad941970c502a77995c8a0070b
+  profile_id: c4-0009-c3-compact-work-diagnostic-42
+  purpose: classify_first_6x5_epoch_work_without_root_claim
+  geometry: 6x5_c4
+  static_epoch_limit: 1
+  frontier_capacity: 8192
+  candidate_tile_capacity: 2048
+  shard_capacity: 64
+  block_size: 128
+  semantic_progression_changed: false
+  counters_per_support:
+    - pair_candidates_generated
+    - subset_checks_performed
+    - prior_scan_iterations
+    - duplicate_hits
+    - normalization_input_records
+    - normalization_calls
+    - terminal_pair_candidates
+    - aggregate_pair_candidates
+    - cofactor_normalization_input_records
+    - terminal_intersection_normalization_input_records
+    - terminal_union_normalization_input_records
+    - aggregate_normalization_input_records
+  derived_observers:
+    - cardinality_phase_candidate_visits
+    - rank_summaries
+    - top_hot_supports
+    - statically_scheduled_supports_by_rank
+  correctness_boundary:
+    case_role: partial_rank_diagnostic
+    closure: partial_static_prefix
+    root_wdl: forbidden
+    result_requires_full_schedule: true
+  portable_qualification:
+    commit: 878b31840d4863ad941970c502a77995c8a0070b
+    verify_run: 34483742485
+    verify_result: 85_of_85_pass
+    bsfp_portable_run: 34483742515
+    matrix: windows_2025_and_ubuntu_24_04_node_24_15_and_26_7_all_pass
+    diagnostic_composition: pass_all_four_lanes
+    q1_dry_run: pass_all_four_lanes
+    bootstrap_prepare: pass_all_four_lanes
+    benchmark_evidence: success
+    strength_evidence: success
+  native_status: required_next
+
+code_review_diagnosis:
+  - packed_normalization_scans_each_candidate_across_43_cardinality_phases
+  - same_cardinality_exact_dedup_uses_quadratic_prior_scan_not_previously_measured
+  - one_block_owns_one_support_through_long_serial_semantic_pipeline
+  - 5x5_full_solver_reported_check_rate_is_far_below_flat_b1_primitive_rate_because_full_interval_contains_much_other_work
+  - first_6x5_epoch_reaches_wall_close_to_terminal_ranks_before_peak_support_count
+
+winspace_inference_direction:
+  preferred_seam: exact_inference_seeded_ownership_antichains_before_expensive_pair_algebra
+  first_candidates:
+    - direct_and_double_threat_certificates
+    - bilateral_and_one_sided_requirement_exhaustion_where_exact
+    - cheap_certified_wsl_blocker_coverage
+    - local_claimeven_baseinverse_vertical_consequences
+    - bounded_ndc_feedback_after_local_profitability_is_established
+  avoid_initially:
+    - replacing_every_ownership_record_with_full_wsl_ndc_record_without_measured_large_compression
+    - combinatorial_named_rule_cover_search
+    - heuristic_pruning_without_exact_certificate
+  profitability_metric: exact_candidate_or_proof_work_eliminated_before_cartesian_materialization_per_unit_inference_cost
+
 next_actions:
-  - isolate_6x5_deep_rank_candidate_counts_frontier_width_duplicate_scans_and_dominance_cost
-  - use_bounded_device_diagnostics_without_host_semantic_progression
-  - choose_reducer_or_residual_event_cpc_compression_change_from_measured_cause
-  - qualify_against_all_small_support_frontiers_before_scaling
+  - run_c3_on_authorized_gtx1660ti_through_q1_and_publish_append_only_evidence
+  - classify_first_epoch_by_candidate_class_duplicate_scans_normalization_volume_and_hot_support_skew
+  - choose_first_physical_reducer_change_only_from_measured_cause
+  - independently_falsify_first_exact_winspace_certificate_family_on_complete_small_games
+  - measure_candidate_products_avoided_before_integrating_inference_into_c1
+  - requalify_all_small_support_frontiers_after_each_semantic_or_reducer_change
+  - retry_6x5_only_after_measured_intervention
   - attempt_7x6_only_after_6x5_completes_with_resource_and_cost_evidence
-  - preserve_p2_as_transitional_hybrid_control_not_the_device_owned_solver_path
 
 constraints:
   - no_post_ignition_host_semantic_progression
