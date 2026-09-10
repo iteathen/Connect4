@@ -10,35 +10,40 @@ The comparison isolates one specific code-review finding: the legacy reducer sca
 
 ## Ownership
 
-Connect4 owns the packed42 dominance/equality semantics and this benchmark fixture. CUDA-JS supplies only the generic Device-JS/runtime mechanisms. CUDA-Algorithms is not changed by this profile.
+Connect4 owns the packed42 dominance/equality semantics and benchmark fixtures. CUDA-JS supplies only the generic Device-JS/runtime mechanisms. CUDA-Algorithms is not changed by this profile.
 
 ## Fixed native workload
 
 B2 is selected through the standard 7x6 connect-4 geometry but is a primitive benchmark, not a 7x6 solve.
 
-Both strategies receive the same deterministic workload:
+Every step uses:
 
 - 1,024 independent segments;
 - 512 packed42 candidates per segment;
 - 524,288 candidates total;
 - alternating minimal/maximal antichain direction;
-- equal-popcount distinct masks plus one exact duplicate per segment;
 - output capacity 512 records per segment;
 - 256 threads per block.
 
-The legacy and bucketed steps execute in separate child processes under the same Q1 hardware/memory/timeout supervision.
+Two deterministic fixtures are required.
+
+### Equal-cardinality duplicate stress
+
+Each segment contains distinct equal-popcount masks plus one exact duplicate. This deliberately maximizes the legacy 43-phase interval-scan overhead while exercising exact duplicate suppression.
+
+### Mixed-cardinality deterministic control
+
+Every segment receives the same frozen xorshift-generated 42-bit corpus spanning multiple cardinalities plus one exact duplicate. Exact expected minimal and maximal survivor sets are computed once from ordinary subset semantics and every native segment is compared against the appropriate set.
+
+This second fixture prevents an optimization decision from being based only on the most favorable one-bucket workload.
 
 ## Strategies
 
-### Legacy control
+### Legacy control — `legacy-43-phase-scan`
 
-`legacy-43-phase-scan`
+For every cardinality phase, every candidate position is visited and a popcount equality guard selects active records. Exact duplicate suppression scans earlier input positions and checks cardinality before equality.
 
-For every cardinality phase, every candidate position is visited and a popcount equality guard selects the active records. Exact duplicate suppression scans earlier input positions and checks their cardinality before equality.
-
-### Candidate
-
-`bucketed-cardinality-v0`
+### Candidate — `bucketed-cardinality-v0`
 
 The candidate performs:
 
@@ -52,43 +57,39 @@ The candidate adds one u32 candidate-index scratch lane and three 43×segment u3
 
 ## Native correctness gate
 
-Each child independently verifies:
+Each of the four child steps independently verifies:
 
 - status OK for every segment;
-- exactly 511 survivors per segment;
-- survivor set equals the deterministic expected exact mask set;
-- exactly one duplicate removed per segment.
+- exact survivor count for that direction and fixture;
+- exact survivor set equality;
+- the injected duplicate is represented only once;
+- every one of the 1,024 segments is checked.
 
-A timing result is admissible only after those assertions pass.
+The four steps are:
+
+1. legacy / equal-cardinality;
+2. bucketed / equal-cardinality;
+3. legacy / mixed-cardinality;
+4. bucketed / mixed-cardinality.
+
+A timing result is admissible only after its step's exact assertions pass.
 
 ## Memory bound
 
-The Q1 estimate includes all candidate, output, check, bucket-index and bucket-metadata arrays plus a fixed 256 MiB runtime allowance. The two strategies execute sequentially, so the bound is the larger bucketed peak, not their sum.
+The Q1 estimate includes all candidate, output, check, bucket-index and bucket-metadata arrays plus a fixed 256 MiB runtime allowance. Steps execute sequentially, so the bound is the larger bucketed peak, not the sum of all four children.
 
 ## Timing interpretation
 
-The primary comparison is `timingsMs.submissionWait` from the two step results on the same native Q1 run.
+Compare `timingsMs.submissionWait` only within the same fixture on the same native Q1 run. The equal-cardinality fixture is the scan-overhead stress case; the mixed fixture is the generalization control. Promotion should require a material gain that is not confined to the deliberately favorable stress case.
 
-This is a primitive normalizer result. It does not establish whole-solver speedup because C1 also performs pair generation, cofactor handling, terminal subtraction, unions, copies, barriers and support-level orchestration.
+B2 remains a primitive normalizer result. It does not establish whole-solver speedup because C1 also performs pair generation, cofactor handling, terminal subtraction, unions, copies, barriers and support-level orchestration.
 
-Promotion requires a material native gain followed by C1 integration and all-frontier requalification on 4x3, 4x4 and 5x5.
+Promotion requires a native A/B win followed by C1 integration and exact all-frontier requalification on 4x3, 4x4 and 5x5.
 
 ## Falsifiers
 
-Reject or redesign this candidate if:
-
-- survivor sets differ;
-- output capacity behavior differs;
-- portable compilation/submission fails on a supported pinned-runtime lane;
-- native count/scatter/global-memory overhead erases the avoided 43-scan work;
-- integration changes any qualified C1 frontier.
+Reject or redesign this candidate if survivor sets differ, capacity behavior differs, portable composition fails, native count/scatter traffic erases the avoided rescans, or the apparent gain exists only on the one-bucket stress fixture and disappears on mixed cardinalities.
 
 ## Non-claims
 
-B2 does not claim:
-
-- a standard 7x6 result;
-- a complete 6x5 result;
-- that bucketed normalization is already the C1 reducer;
-- a CUDA-Algorithms or CUDA-JS capability gap;
-- that high GPU utilization alone proves either strategy efficient.
+B2 does not claim a standard 7x6 result, a complete 6x5 result, that bucketed normalization is already the C1 reducer, a CUDA-Algorithms/CUDA-JS capability gap, or that high GPU utilization proves either strategy efficient.

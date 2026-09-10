@@ -31,6 +31,39 @@ function pop32(value) {
   return Math.imul((x + (x >>> 4)) & 0x0f0f0f0f, 0x01010101) >>> 24;
 }
 
+function pairKey(low, high) {
+  return `${high.toString(16).padStart(8, '0')}:${low.toString(16).padStart(8, '0')}`;
+}
+
+function subsetPair(aLow, aHigh, bLow, bHigh) {
+  return ((aLow & ~bLow) >>> 0) === 0 && ((aHigh & ~bHigh) >>> 0) === 0;
+}
+
+function exactExpectedKeys(candidateLo, candidateHi, candidatePopcount, direction) {
+  const indices = [];
+  for (let index = 0; index < candidateLo.length; index += 1) if (candidatePopcount[index] < 43) indices.push(index);
+  indices.sort((a, b) => {
+    const delta = direction === SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL
+      ? candidatePopcount[a] - candidatePopcount[b]
+      : candidatePopcount[b] - candidatePopcount[a];
+    return delta || a - b;
+  });
+  const retained = [];
+  outer: for (const index of indices) {
+    const low = candidateLo[index];
+    const high = candidateHi[index];
+    for (const prior of retained) {
+      const priorLow = candidateLo[prior];
+      const priorHigh = candidateHi[prior];
+      if (direction === SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL
+        ? subsetPair(priorLow, priorHigh, low, high)
+        : subsetPair(low, high, priorLow, priorHigh)) continue outer;
+    }
+    retained.push(index);
+  }
+  return Object.freeze(retained.map((index) => pairKey(candidateLo[index], candidateHi[index])).sort());
+}
+
 function firstEqualPopcountMasks(count) {
   const masks = [];
   function visit(nextBit, remaining, mask) {
@@ -48,7 +81,7 @@ function firstEqualPopcountMasks(count) {
   return Uint32Array.from(masks);
 }
 
-function createFixture(segmentCount, segmentSize) {
+function createEqualFixture(segmentCount, segmentSize) {
   const candidateCount = segmentCount * segmentSize;
   if (!Number.isSafeInteger(candidateCount)) throw new RangeError('candidate fixture size exceeds safe integer range');
   const baseMasks = firstEqualPopcountMasks(segmentSize - 1);
@@ -80,16 +113,94 @@ function createFixture(segmentCount, segmentSize) {
   segmentOffsets[segmentCount] = candidateCount;
 
   return Object.freeze({
-    segmentCount,
-    segmentSize,
-    candidateCount,
-    expectedSurvivorsPerSegment: segmentSize - 1,
-    candidateLo,
-    candidateHi,
-    candidatePopcount,
-    segmentOffsets,
-    segmentDirections,
+    kind: 'equal-cardinality-duplicate-stress', segmentCount, segmentSize, candidateCount,
+    candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections,
+    injectedExactDuplicates: segmentCount,
+    expectedSurvivorsByDirection: Object.freeze([segmentSize - 1, segmentSize - 1]),
+    expectedKeys(segment) {
+      const base = segment * segmentSize;
+      const expected = [];
+      for (let local = 0; local < segmentSize - 1; local += 1) {
+        const index = base + local;
+        expected.push(pairKey(candidateLo[index], candidateHi[index]));
+      }
+      return expected.sort();
+    },
   });
+}
+
+function nextXorshift32(state) {
+  let x = state.value >>> 0;
+  x ^= x << 13;
+  x ^= x >>> 17;
+  x ^= x << 5;
+  state.value = x >>> 0;
+  return state.value;
+}
+
+function createMixedBase(segmentSize) {
+  const low = new Uint32Array(segmentSize);
+  const high = new Uint32Array(segmentSize);
+  const pop = new Uint32Array(segmentSize);
+  const state = { value: 0x9e3779b9 };
+  const seen = new Set();
+  let local = 0;
+  while (local < segmentSize - 1) {
+    const candidateLow = nextXorshift32(state);
+    const candidateHigh = nextXorshift32(state) & 0x3ff;
+    const cardinality = pop32(candidateLow) + pop32(candidateHigh);
+    if (cardinality < 4 || cardinality > 38) continue;
+    const key = pairKey(candidateLow, candidateHigh);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    low[local] = candidateLow;
+    high[local] = candidateHigh;
+    pop[local] = cardinality;
+    local += 1;
+  }
+  low[segmentSize - 1] = low[0];
+  high[segmentSize - 1] = high[0];
+  pop[segmentSize - 1] = pop[0];
+  return Object.freeze({ low, high, pop });
+}
+
+function createMixedFixture(segmentCount, segmentSize) {
+  const candidateCount = segmentCount * segmentSize;
+  if (!Number.isSafeInteger(candidateCount)) throw new RangeError('candidate fixture size exceeds safe integer range');
+  const base = createMixedBase(segmentSize);
+  const candidateLo = new Uint32Array(candidateCount);
+  const candidateHi = new Uint32Array(candidateCount);
+  const candidatePopcount = new Uint32Array(candidateCount);
+  const segmentOffsets = new Uint32Array(segmentCount + 1);
+  const segmentDirections = new Uint32Array(segmentCount);
+  for (let segment = 0; segment < segmentCount; segment += 1) {
+    const start = segment * segmentSize;
+    segmentOffsets[segment] = start;
+    segmentDirections[segment] = segment & 1
+      ? SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MAXIMAL
+      : SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL;
+    candidateLo.set(base.low, start);
+    candidateHi.set(base.high, start);
+    candidatePopcount.set(base.pop, start);
+  }
+  segmentOffsets[segmentCount] = candidateCount;
+  const expected = Object.freeze([
+    exactExpectedKeys(base.low, base.high, base.pop, SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL),
+    exactExpectedKeys(base.low, base.high, base.pop, SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MAXIMAL),
+  ]);
+  return Object.freeze({
+    kind: 'mixed-cardinality-deterministic', segmentCount, segmentSize, candidateCount,
+    candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections,
+    injectedExactDuplicates: segmentCount,
+    expectedSurvivorsByDirection: Object.freeze(expected.map((keys) => keys.length)),
+    expectedKeys(segment) { return expected[segmentDirections[segment]]; },
+  });
+}
+
+function createFixture(segmentCount, segmentSize, fixtureKind) {
+  if (fixtureKind === 'equal') return createEqualFixture(segmentCount, segmentSize);
+  if (fixtureKind === 'mixed') return createMixedFixture(segmentCount, segmentSize);
+  throw new RangeError('fixture must be equal or mixed');
 }
 
 function encodeU32(values) {
@@ -129,10 +240,6 @@ async function runOperation(plan, bindings) {
   }
 }
 
-function pairKey(low, high) {
-  return `${high.toString(16).padStart(8, '0')}:${low.toString(16).padStart(8, '0')}`;
-}
-
 async function qualify(runtime, native, bucketed, fixture) {
   const allocations = [];
   const outputCapacityPerSegment = fixture.segmentSize;
@@ -162,16 +269,10 @@ async function qualify(runtime, native, bucketed, fixture) {
     const checks = await allocateU32(runtime, fixture.candidateCount, 'write');
     allocations.push(candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections, outputLo, outputHi, outputCounts, outputStatus, checks);
     const bindings = {
-      candidateLo: candidateLo.view,
-      candidateHi: candidateHi.view,
-      candidatePopcount: candidatePopcount.view,
-      segmentOffsets: segmentOffsets.view,
-      segmentDirections: segmentDirections.view,
-      outputLo: outputLo.view,
-      outputHi: outputHi.view,
-      outputCounts: outputCounts.view,
-      outputStatus: outputStatus.view,
-      checks: checks.view,
+      candidateLo: candidateLo.view, candidateHi: candidateHi.view, candidatePopcount: candidatePopcount.view,
+      segmentOffsets: segmentOffsets.view, segmentDirections: segmentDirections.view,
+      outputLo: outputLo.view, outputHi: outputHi.view, outputCounts: outputCounts.view,
+      outputStatus: outputStatus.view, checks: checks.view,
     };
     if (bucketed) {
       const bucketIndices = await allocateU32(runtime, fixture.candidateCount, 'read-write');
@@ -180,10 +281,8 @@ async function qualify(runtime, native, bucketed, fixture) {
       const bucketCursors = await allocateU32(runtime, plan.bucketMetaElements, 'read-write');
       allocations.push(bucketIndices, bucketCounts, bucketOffsets, bucketCursors);
       Object.assign(bindings, {
-        bucketIndices: bucketIndices.view,
-        bucketCounts: bucketCounts.view,
-        bucketOffsets: bucketOffsets.view,
-        bucketCursors: bucketCursors.view,
+        bucketIndices: bucketIndices.view, bucketCounts: bucketCounts.view,
+        bucketOffsets: bucketOffsets.view, bucketCursors: bucketCursors.view,
       });
     }
     const allocationMs = performance.now() - allocationStarted;
@@ -198,9 +297,10 @@ async function qualify(runtime, native, bucketed, fixture) {
 
     const executionMs = await runOperation(plan, bindings);
     const result = {
-      schemaVersion: 3,
+      schemaVersion: 4,
       kind: 'connect4-cuda-bsfp-segmented-packed-antichain-42-qualification',
       strategy,
+      fixture: fixture.kind,
       mode: native ? 'native' : 'portable',
       outcome: native ? 'native-segmented-packed-antichain-pass' : 'portable-segmented-packed-antichain-compile-submit-pass',
       planContract: plan.contract,
@@ -208,7 +308,8 @@ async function qualify(runtime, native, bucketed, fixture) {
       segmentSize: fixture.segmentSize,
       candidateCount: fixture.candidateCount,
       outputCapacityPerSegment,
-      expectedSurvivorsPerSegment: fixture.expectedSurvivorsPerSegment,
+      injectedExactDuplicates: fixture.injectedExactDuplicates,
+      expectedSurvivorsByDirection: fixture.expectedSurvivorsByDirection,
       timingsMs: { compileLoadPrepare: compileLoadPrepareMs, allocation: allocationMs, upload: uploadMs, submissionWait: executionMs },
     };
 
@@ -227,13 +328,8 @@ async function qualify(runtime, native, bucketed, fixture) {
       for (let segment = 0; segment < fixture.segmentCount; segment += 1) {
         const base = segment * fixture.segmentSize;
         assert.equal(outputStatusValues[segment], SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OK, `segment ${segment} overflowed`);
-        assert.equal(outputCountValues[segment], fixture.expectedSurvivorsPerSegment, `segment ${segment} survivor count`);
-        const expected = [];
-        for (let local = 0; local < fixture.segmentSize - 1; local += 1) {
-          const index = base + local;
-          expected.push(pairKey(fixture.candidateLo[index], fixture.candidateHi[index]));
-        }
-        expected.sort();
+        const expected = fixture.expectedKeys(segment);
+        assert.equal(outputCountValues[segment], expected.length, `segment ${segment} survivor count`);
         const actual = [];
         const outputBase = segment * outputCapacityPerSegment;
         for (let local = 0; local < outputCountValues[segment]; local += 1) {
@@ -246,8 +342,9 @@ async function qualify(runtime, native, bucketed, fixture) {
       }
       result.timingsMs.verification = performance.now() - verifyStarted;
       result.observedFrontierSubsetChecks = observedChecks;
-      result.removedDuplicates = fixture.segmentCount;
+      result.removedDuplicates = fixture.injectedExactDuplicates;
       result.survivors = survivors;
+      result.verifiedSegments = fixture.segmentCount;
       result.throughput = {
         candidatesPerSecond: fixture.candidateCount * 1000 / executionMs,
         frontierSubsetChecksPerSecond: observedChecks * 1000 / executionMs,
@@ -263,17 +360,17 @@ async function qualify(runtime, native, bucketed, fixture) {
 
 const mode = process.argv[2] ?? 'portable';
 if (!['portable', 'native', 'portable-bucketed', 'native-bucketed'].includes(mode)) throw new RangeError('mode must be portable, native, portable-bucketed, or native-bucketed');
+const fixtureKind = process.argv[3] ?? 'equal';
+if (!['equal', 'mixed'].includes(fixtureKind)) throw new RangeError('fixture must be equal or mixed');
 const native = mode.startsWith('native');
 const bucketed = mode.endsWith('bucketed');
 const segmentCount = positiveIntegerEnv('BSFP_SEGMENTED_ANTICHAIN_SEGMENTS', native ? DEFAULT_NATIVE_SEGMENTS : PORTABLE_SEGMENTS);
 const segmentSize = positiveIntegerEnv('BSFP_SEGMENTED_ANTICHAIN_SEGMENT_SIZE', native ? DEFAULT_NATIVE_SEGMENT_SIZE : PORTABLE_SEGMENT_SIZE);
-const fixture = createFixture(segmentCount, segmentSize);
+const fixture = createFixture(segmentCount, segmentSize, fixtureKind);
 
 let runtime;
 try {
-  runtime = native
-    ? await openCudaRuntime({ compiler: true })
-    : await openCudaRuntimeForTesting({ compiler: true });
+  runtime = native ? await openCudaRuntime({ compiler: true }) : await openCudaRuntimeForTesting({ compiler: true });
   const result = await qualify(runtime, native, bucketed, fixture);
   console.log(JSON.stringify(result, null, 2));
 } finally {
