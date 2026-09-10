@@ -142,7 +142,7 @@ async function qualify(runtime, native, fixture) {
     const candidateSegment = await allocateU32(runtime, fixture.candidateCount, 'read');
     const segmentOffsets = await allocateU32(runtime, fixture.segmentCount + 1, 'read');
     const segmentDirections = await allocateU32(runtime, fixture.segmentCount, 'read');
-    const dominated = await allocateU32(runtime, fixture.candidateCount, 'write');
+    const dominated = await allocateU32(runtime, fixture.candidateCount, 'read-write');
     const checks = await allocateU32(runtime, fixture.candidateCount, 'write');
     const outputLo = await allocateU32(runtime, outputElements, 'write');
     const outputHi = await allocateU32(runtime, outputElements, 'write');
