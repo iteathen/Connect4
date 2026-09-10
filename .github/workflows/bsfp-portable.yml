@@ -67,3 +67,7 @@ jobs:
 
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
+
+      - name: Reproduce clean sibling bootstrap topology
+        if: matrix.node == '24.15.0'
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-bootstrap-probe"
