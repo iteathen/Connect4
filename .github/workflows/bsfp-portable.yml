@@ -51,3 +51,6 @@ jobs:
 
       - name: Run dense 4x3 CUDA-BSFP WDL portable slice
         run: node experiments/cuda-bsfp-dense-4x3/run.mjs portable
+
+      - name: Run Q1 qualifier dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
