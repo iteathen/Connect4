@@ -1,0 +1,127 @@
+{
+  "caseId": "01-7x6-c4",
+  "geometry": {
+    "columns": 7,
+    "rows": 6,
+    "connect": 4,
+    "tier": "user-specified"
+  },
+  "profile": "c4-0009-b1-packed-dominance-42",
+  "estimate": {
+    "kind": "proved-benchmark-upper-bound",
+    "executable": true,
+    "candidateCount": 1048576,
+    "frontierCount": 568,
+    "devicePayloadBytes": 16781760,
+    "fixedRuntimeAllowanceBytes": "268435456",
+    "upperBoundBytes": 285217216
+  },
+  "status": "passed",
+  "durationMs": 2179,
+  "steps": [
+    {
+      "stepId": "packed-dominance-throughput",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 2172,
+      "timedOut": false,
+      "memorySafetyAbort": false,
+      "launchError": null,
+      "gpuTelemetry": {
+        "sampleCount": 4,
+        "peakUsedMiB": 1091,
+        "minimumFreeMiB": 4876
+      },
+      "status": "passed",
+      "solverResult": {
+        "schemaVersion": 1,
+        "kind": "connect4-cuda-bsfp-packed-ownership-dominance-42-benchmark",
+        "mode": "native",
+        "outcome": "native-packed-dominance-pass",
+        "planContract": "Connect4-CUDA-BSFP-packed-ownership-dominance-42-benchmark-v0",
+        "fixture": "full-scan-no-hit-bit41",
+        "candidateCount": 1048576,
+        "frontierCount": 568,
+        "totalSubsetChecksPerMeasuredPass": 595591168,
+        "warmups": 1,
+        "repetitions": 5,
+        "timingsMs": {
+          "compileLoadPrepare": 731.296,
+          "allocation": 3.788400000000138,
+          "upload": 8.089500000000044,
+          "submissionWait": {
+            "min": 14.605699999999842,
+            "median": 16.84880000000021,
+            "mean": 16.188760000000048,
+            "max": 17.221500000000106
+          },
+          "rawSubmissionWaitSamples": [
+            15.389799999999923,
+            16.84880000000021,
+            16.878000000000156,
+            14.605699999999842,
+            17.221500000000106
+          ],
+          "readback": 9.369599999999991,
+          "verification": 20.454299999999876,
+          "fixture": 6.315300000000093,
+          "runtimeOpen": 634.4244000000001,
+          "processToResult": 1515.6748000000002
+        },
+        "throughput": {
+          "candidatesPerSecondMedian": 62234461.80143315,
+          "subsetChecksPerSecondMedian": 35349174303.21403,
+          "u32LaneSubsetOpsPerSecondMedian": 70698348606.42805
+        },
+        "devicePayloadBytes": 16781760,
+        "observedSubsetChecks": 595591168,
+        "dominatedCount": 0
+      }
+    }
+  ],
+  "reason": null,
+  "solverResult": {
+    "schemaVersion": 1,
+    "kind": "connect4-cuda-bsfp-packed-ownership-dominance-42-benchmark",
+    "mode": "native",
+    "outcome": "native-packed-dominance-pass",
+    "planContract": "Connect4-CUDA-BSFP-packed-ownership-dominance-42-benchmark-v0",
+    "fixture": "full-scan-no-hit-bit41",
+    "candidateCount": 1048576,
+    "frontierCount": 568,
+    "totalSubsetChecksPerMeasuredPass": 595591168,
+    "warmups": 1,
+    "repetitions": 5,
+    "timingsMs": {
+      "compileLoadPrepare": 731.296,
+      "allocation": 3.788400000000138,
+      "upload": 8.089500000000044,
+      "submissionWait": {
+        "min": 14.605699999999842,
+        "median": 16.84880000000021,
+        "mean": 16.188760000000048,
+        "max": 17.221500000000106
+      },
+      "rawSubmissionWaitSamples": [
+        15.389799999999923,
+        16.84880000000021,
+        16.878000000000156,
+        14.605699999999842,
+        17.221500000000106
+      ],
+      "readback": 9.369599999999991,
+      "verification": 20.454299999999876,
+      "fixture": 6.315300000000093,
+      "runtimeOpen": 634.4244000000001,
+      "processToResult": 1515.6748000000002
+    },
+    "throughput": {
+      "candidatesPerSecondMedian": 62234461.80143315,
+      "subsetChecksPerSecondMedian": 35349174303.21403,
+      "u32LaneSubsetOpsPerSecondMedian": 70698348606.42805
+    },
+    "devicePayloadBytes": 16781760,
+    "observedSubsetChecks": 595591168,
+    "dominatedCount": 0
+  }
+}
