@@ -1,64 +1,57 @@
 # Connect4 Status
 
-**Updated:** 2026-09-07
-**Phase:** paused after qualified Node + solved-strength baseline; waiting on CUDA-MCGS #124
+**Updated:** 2026-09-09
+**Phase:** CUDA-BSFP activation; incumbent search lane preserved
 
 ## Product role
 
-Connect4 is the product-owned Node benchmark/validation lane for Connect Four search. It owns Connect Four domain/evaluator/benchmark meaning and consumes CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS only through public surfaces.
+Connect4 is the product-owned Connect Four solver/validation repository. It owns Connect Four domain truth, evaluator/oracle evidence, benchmark fairness, and two intentionally separate exact-solver lanes:
+
+1. the incumbent minimax/alpha-beta/search implementation under `components/incumbent/`;
+2. CUDA-BSFP under `components/bsfp/`, using backward symbolic fixed-point proof semantics rather than search semantics.
+
+The lanes may share Connect4-owned domain/oracle authority, but neither may inherit the other solver's internal semantics merely for convenience.
 
 ## Protected baseline
 
-Protected `main@0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e` contains C4-0001 through C4-0005:
+Protected `main@de47d43f4f4133a68973d0876a402531ef5735da` preserves the qualified incumbent/search baseline and subsequent exact-solver research documentation. Existing incumbent evidence remains valid within its recorded identity and is not reopened by CUDA-BSFP activation.
 
-- dimension-parameterized Connect Four incumbent semantics with canonical 7×6 benchmark profile;
-- frozen optimized evaluator semantics including parity reasoning and repeated-immediate frontier promotion;
-- explicit-root-player low-allocation alpha-beta with tactical prepass;
-- persistent cross-move TT with safe score/bound reuse and ordering-only inherited move reuse;
-- exact legacy evaluator/search/self-play conformance;
-- Node 26.7 persistent-vs-reset and wall-clock benchmark evidence;
-- independent solved-game oracle evidence and the frozen depth-12 W/D/L defect.
+## CUDA-BSFP branch
 
-Post-merge `verify` run **34122562926** succeeded on the C4-0005 main head.
+Active development branch:
 
-Reference incumbent benchmark evidence remains run **34116027347**. C4-0005 qualification remains backed by `verify` **34122018213**, `strength-evidence` **34122018076**, and benchmark regression **34122018187**.
+`feature/cuda-bsfp`
 
-## Solved-strength disposition
+The branch was created directly from protected `main@de47d43f4f4133a68973d0876a402531ef5735da` after verifying no pre-existing BSFP branch or commit lineage existed.
 
-C4-0005 established that incumbent v1 is strong but not globally perfect at depth 12. The frozen defect `54676552255627` chooses a solved losing move at depth 12 and first reaches the exact-optimal move at depth 19 in the investigated seam. Cross-move TT ordering was falsified as the cause. The repeated-immediate evaluator behavior remains frozen because the isolated removal experiment produced mixed gains and regressions rather than a uniformly better replacement.
+CUDA-BSFP owns Connect4-specific backward symbolic fixed-point semantics, including proof-state representation, Connect4-specific derivation/terminal rules, exact identity/canonicalization meaning, and solver-level fixed-point interpretation.
 
-## CUDA-MCGS composition assessment
+It must not be implemented as a minimax/search variant and must not depend on CUDA-MCGS search/session semantics merely because the incumbent lane does.
 
-Read-only assessment of CUDA-MCGS `main@893a1676a303bf28aff8f24847b0be1559ba859c` and CUDA-JS-Tensor `main@cbecc75138769419ed2c09fbfeb227f3ffe2de57` found:
+## CUDA-Algorithms dependency seam
 
-- required public package entry points and external Device-JS import composition exist;
-- the public CUDA-JS-Tensor evaluator connector can bind a public `TensorDeviceProgram` without deep imports;
-- CUDA-MCGS evaluator semantics already define the required request/batch/lifecycle ports;
-- the executable comparison lane is **not dependency-ready** because CUDA-MCGS #124 still owns and lacks the active device-resident evaluator request/batching/scatter/freshness/failure/cleanup runtime bridge.
+CUDA-Algorithms is the reusable provider-neutral algorithm substrate. Its current ranked-closure work owns generic workset/frontier, bounded active-count/capacity, strict ranked progression, device-owned epoch/admin state, and reusable ordering/selection/compaction mechanics.
 
-Connect4 must not implement those generic lifecycle semantics downstream. The full assessment is recorded in `docs/research/2026-09-07-cuda-mcgs-composition-readiness.md`.
+BSFP remains the consumer owner for proof/domain meaning. The first intended composition seam is the CUDA-Algorithms ranked-closure vertical slice, currently developed separately on `iteathen/CUDA-Algorithms` branch `feature/ranked-closure`.
 
-## Pause / resume seam
+The CUDA-MCGS #124 dependency applies only to the separate CUDA-MCGS/search comparison lane. It is not a blocker for CUDA-BSFP.
 
-Connect4 is now intentionally paused while owner attention shifts to CUDA-MCGS #124.
+## Current BSFP objective
 
-When returning to Connect4:
+Establish the smallest exact BSFP consumer slice that can exercise generic ranked closure without importing search semantics:
 
-1. re-read protected Connect4 and dependency state;
-2. require #124's generic evaluator lifecycle to be public/protected enough for execution;
-3. freeze the Connect4-owned comparison contract;
-4. implement three distinct evidence lanes: incumbent Node, tree-equivalent CUDA-MCGS, graph/transposition-enabled CUDA-MCGS;
-5. preserve C4-0002 evaluator semantics and apply C4-0005 solved-strength evidence to comparison outputs.
-
-Do not reopen C4-0001 through C4-0005 merely because #124 changes upstream implementation details.
-
-## Repository governance
-
-Governance alignment remains separately tracked by issue #3. Product pause/completeness does not imply repository-policy alignment.
+- explicit finite rank owned by the BSFP state model;
+- strict backward dependency descent;
+- bounded deterministic derivation fanout;
+- consumer-owned exact state/equality/proof semantics;
+- generic CUDA-Algorithms-owned activation, workset progression and bounded administrative yields;
+- Node administrative only during GPU-owned progression;
+- qualification against independent Connect4 domain/oracle evidence and CPU/reference semantics where applicable.
 
 ## Non-claims
 
-- no CUDA-MCGS performance advantage is demonstrated;
-- no GPU-resident Connect Four comparison lane exists yet;
-- no downstream workaround for missing #124 semantics is authorized;
-- no Python or cross-language comparison is part of the first benchmark gate.
+- no CUDA-BSFP 7x6 solve is yet claimed;
+- no CUDA-BSFP GPU performance result is yet claimed;
+- CUDA-Algorithms SPEC-0004 remains Working Draft and is not compatibility authority;
+- the incumbent minimax/search lane is not being replaced or modified by the initial BSFP activation;
+- CUDA-MCGS #124 does not block the BSFP lane.
