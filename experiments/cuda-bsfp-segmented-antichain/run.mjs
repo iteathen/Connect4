@@ -6,6 +6,7 @@ import { openCudaRuntimeForTesting } from 'cuda-js/testing';
 import {
   SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION,
   SEGMENTED_PACKED_ANTICHAIN_42_STATUS,
+  SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY,
   createSegmentedPackedAntichain42Plan,
 } from '../../components/bsfp/cuda/index.mjs';
 
@@ -71,7 +72,6 @@ function createFixture(segmentCount, segmentSize) {
       candidateHi[index] = highSalt;
       candidatePopcount[index] = pop32(baseMasks[local]) + highCount;
     }
-    // One exact duplicate per segment exercises deterministic lowest-input-index deduplication.
     const duplicate = base + segmentSize - 1;
     candidateLo[duplicate] = candidateLo[base];
     candidateHi[duplicate] = candidateHi[base];
@@ -133,16 +133,18 @@ function pairKey(low, high) {
   return `${high.toString(16).padStart(8, '0')}:${low.toString(16).padStart(8, '0')}`;
 }
 
-async function qualify(runtime, native, fixture) {
+async function qualify(runtime, native, bucketed, fixture) {
   const allocations = [];
   const outputCapacityPerSegment = fixture.segmentSize;
   const outputElements = fixture.segmentCount * outputCapacityPerSegment;
+  const strategy = bucketed ? SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED : SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.LEGACY;
   const planStarted = performance.now();
   const plan = await createSegmentedPackedAntichain42Plan(runtime, {
     candidateCapacity: fixture.candidateCount,
     segmentCapacity: fixture.segmentCount,
     outputCapacityPerSegment,
     blockSize: 256,
+    strategy,
   });
   const compileLoadPrepareMs = performance.now() - planStarted;
 
@@ -159,16 +161,6 @@ async function qualify(runtime, native, fixture) {
     const outputStatus = await allocateU32(runtime, fixture.segmentCount, 'read-write');
     const checks = await allocateU32(runtime, fixture.candidateCount, 'write');
     allocations.push(candidateLo, candidateHi, candidatePopcount, segmentOffsets, segmentDirections, outputLo, outputHi, outputCounts, outputStatus, checks);
-    const allocationMs = performance.now() - allocationStarted;
-
-    const uploadStarted = performance.now();
-    await writeU32(candidateLo, fixture.candidateLo);
-    await writeU32(candidateHi, fixture.candidateHi);
-    await writeU32(candidatePopcount, fixture.candidatePopcount);
-    await writeU32(segmentOffsets, fixture.segmentOffsets);
-    await writeU32(segmentDirections, fixture.segmentDirections);
-    const uploadMs = performance.now() - uploadStarted;
-
     const bindings = {
       candidateLo: candidateLo.view,
       candidateHi: candidateHi.view,
@@ -181,12 +173,34 @@ async function qualify(runtime, native, fixture) {
       outputStatus: outputStatus.view,
       checks: checks.view,
     };
+    if (bucketed) {
+      const bucketIndices = await allocateU32(runtime, fixture.candidateCount, 'read-write');
+      const bucketCounts = await allocateU32(runtime, plan.bucketMetaElements, 'read-write');
+      const bucketOffsets = await allocateU32(runtime, plan.bucketMetaElements, 'read-write');
+      const bucketCursors = await allocateU32(runtime, plan.bucketMetaElements, 'read-write');
+      allocations.push(bucketIndices, bucketCounts, bucketOffsets, bucketCursors);
+      Object.assign(bindings, {
+        bucketIndices: bucketIndices.view,
+        bucketCounts: bucketCounts.view,
+        bucketOffsets: bucketOffsets.view,
+        bucketCursors: bucketCursors.view,
+      });
+    }
+    const allocationMs = performance.now() - allocationStarted;
+
+    const uploadStarted = performance.now();
+    await writeU32(candidateLo, fixture.candidateLo);
+    await writeU32(candidateHi, fixture.candidateHi);
+    await writeU32(candidatePopcount, fixture.candidatePopcount);
+    await writeU32(segmentOffsets, fixture.segmentOffsets);
+    await writeU32(segmentDirections, fixture.segmentDirections);
+    const uploadMs = performance.now() - uploadStarted;
 
     const executionMs = await runOperation(plan, bindings);
     const result = {
-      schemaVersion: 2,
+      schemaVersion: 3,
       kind: 'connect4-cuda-bsfp-segmented-packed-antichain-42-qualification',
-      strategy: 'one-block-per-segment-43-cardinality-phases',
+      strategy,
       mode: native ? 'native' : 'portable',
       outcome: native ? 'native-segmented-packed-antichain-pass' : 'portable-segmented-packed-antichain-compile-submit-pass',
       planContract: plan.contract,
@@ -248,8 +262,9 @@ async function qualify(runtime, native, fixture) {
 }
 
 const mode = process.argv[2] ?? 'portable';
-if (!['portable', 'native'].includes(mode)) throw new RangeError('mode must be portable or native');
-const native = mode === 'native';
+if (!['portable', 'native', 'portable-bucketed', 'native-bucketed'].includes(mode)) throw new RangeError('mode must be portable, native, portable-bucketed, or native-bucketed');
+const native = mode.startsWith('native');
+const bucketed = mode.endsWith('bucketed');
 const segmentCount = positiveIntegerEnv('BSFP_SEGMENTED_ANTICHAIN_SEGMENTS', native ? DEFAULT_NATIVE_SEGMENTS : PORTABLE_SEGMENTS);
 const segmentSize = positiveIntegerEnv('BSFP_SEGMENTED_ANTICHAIN_SEGMENT_SIZE', native ? DEFAULT_NATIVE_SEGMENT_SIZE : PORTABLE_SEGMENT_SIZE);
 const fixture = createFixture(segmentCount, segmentSize);
@@ -259,7 +274,7 @@ try {
   runtime = native
     ? await openCudaRuntime({ compiler: true })
     : await openCudaRuntimeForTesting({ compiler: true });
-  const result = await qualify(runtime, native, fixture);
+  const result = await qualify(runtime, native, bucketed, fixture);
   console.log(JSON.stringify(result, null, 2));
 } finally {
   if (runtime) {

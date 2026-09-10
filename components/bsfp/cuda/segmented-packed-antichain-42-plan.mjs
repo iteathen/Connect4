@@ -4,10 +4,15 @@ import { segmentedPackedAntichain42DeviceProgram } from './segmented-packed-anti
 
 const U32_BYTES = 4;
 const CUDA_THREAD_BLOCK_CEILING = 1024;
+const CARDINALITY_BUCKETS = 43;
 
 export const SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT = 'Connect4-CUDA-BSFP-segmented-packed-antichain-42-cardinality-v1';
 export const SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION = Object.freeze({ MINIMAL: 0, MAXIMAL: 1 });
 export const SEGMENTED_PACKED_ANTICHAIN_42_STATUS = Object.freeze({ OK: 0, OUTPUT_CAPACITY_EXCEEDED: 1 });
+export const SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY = Object.freeze({
+  LEGACY: 'legacy-43-phase-scan',
+  BUCKETED: 'bucketed-cardinality-v0',
+});
 
 function positiveSafeInteger(value, label) {
   if (!Number.isSafeInteger(value) || value < 1) throw new RangeError(`${label} must be a positive safe integer`);
@@ -74,8 +79,12 @@ export async function createSegmentedPackedAntichain42Plan(runtime, options = {}
   const outputCapacityPerSegment = positiveSafeInteger(options.outputCapacityPerSegment, 'outputCapacityPerSegment');
   const blockSize = positiveSafeInteger(options.blockSize ?? 256, 'blockSize');
   if (blockSize > CUDA_THREAD_BLOCK_CEILING) throw new RangeError('blockSize exceeds CUDA architectural thread-block ceiling');
+  const strategy = options.strategy ?? SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.LEGACY;
+  if (!Object.values(SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY).includes(strategy)) throw new RangeError(`unknown segmented antichain strategy: ${strategy}`);
+  const bucketed = strategy === SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED;
 
   const outputElements = safeProduct(segmentCapacity, outputCapacityPerSegment, 'segmented output');
+  const bucketMetaElements = safeProduct(segmentCapacity, CARDINALITY_BUCKETS, 'segmented bucket metadata');
   const compiled = await compileDeviceProgram(runtime, segmentedPackedAntichain42DeviceProgram);
   const artifact = compiled.linker?.artifact ?? compiled.compiler?.artifact;
   if (!artifact || (artifact.format !== 'ptx' && artifact.format !== 'cubin')) {
@@ -83,31 +92,45 @@ export async function createSegmentedPackedAntichain42Plan(runtime, options = {}
   }
 
   const module = await runtime.loadModule({ format: artifact.format, bytes: artifact.bytes });
-  const normalizeKernel = kernelByName(compiled, 'normalizeSegmentPacked42');
+  const normalizeKernel = kernelByName(compiled, bucketed ? 'normalizeSegmentPacked42Bucketed' : 'normalizeSegmentPacked42');
   const normalize = await module.getFunction({ name: normalizeKernel.functionName, parameters: normalizeKernel.parameters });
 
+  const argumentsList = [
+    binding('candidateLo'), binding('candidateHi'), binding('candidatePopcount'), binding('segmentOffsets'),
+    binding('segmentDirections'), binding('outputLo'), binding('outputHi'), binding('outputCounts'),
+    binding('outputStatus'), binding('checks'),
+  ];
+  if (bucketed) argumentsList.push(binding('bucketIndices'), binding('bucketCounts'), binding('bucketOffsets'), binding('bucketCursors'));
+  argumentsList.push(candidateCapacity, segmentCapacity, outputCapacityPerSegment);
+
+  const accesses = [
+    { argumentIndex: 0, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
+    { argumentIndex: 1, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
+    { argumentIndex: 2, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
+    { argumentIndex: 3, byteOffset: 0, byteLength: (segmentCapacity + 1) * U32_BYTES, mode: 'read' },
+    { argumentIndex: 4, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read' },
+    { argumentIndex: 5, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'read-write' },
+    { argumentIndex: 6, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'read-write' },
+    { argumentIndex: 7, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
+    { argumentIndex: 8, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
+    { argumentIndex: 9, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'write' },
+  ];
+  if (bucketed) {
+    accesses.push(
+      { argumentIndex: 10, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 11, byteOffset: 0, byteLength: bucketMetaElements * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 12, byteOffset: 0, byteLength: bucketMetaElements * U32_BYTES, mode: 'read-write' },
+      { argumentIndex: 13, byteOffset: 0, byteLength: bucketMetaElements * U32_BYTES, mode: 'read-write' },
+    );
+  }
+
   const prepared = await runtime.prepareOperationDag({ nodes: [{
-    id: 'normalize-cardinality-antichains',
+    id: bucketed ? 'normalize-bucketed-cardinality-antichains' : 'normalize-cardinality-antichains',
     function: normalize,
     grid: { x: segmentCapacity, y: 1, z: 1 },
     block: { x: blockSize, y: 1, z: 1 },
-    arguments: [
-      binding('candidateLo'), binding('candidateHi'), binding('candidatePopcount'), binding('segmentOffsets'),
-      binding('segmentDirections'), binding('outputLo'), binding('outputHi'), binding('outputCounts'),
-      binding('outputStatus'), binding('checks'), candidateCapacity, segmentCapacity, outputCapacityPerSegment,
-    ],
-    accesses: [
-      { argumentIndex: 0, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-      { argumentIndex: 1, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-      { argumentIndex: 2, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read' },
-      { argumentIndex: 3, byteOffset: 0, byteLength: (segmentCapacity + 1) * U32_BYTES, mode: 'read' },
-      { argumentIndex: 4, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read' },
-      { argumentIndex: 5, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'read-write' },
-      { argumentIndex: 6, byteOffset: 0, byteLength: outputElements * U32_BYTES, mode: 'read-write' },
-      { argumentIndex: 7, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
-      { argumentIndex: 8, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
-      { argumentIndex: 9, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'write' },
-    ],
+    arguments: argumentsList,
+    accesses,
   }] });
 
   const owned = [module, normalize, prepared];
@@ -117,10 +140,12 @@ export async function createSegmentedPackedAntichain42Plan(runtime, options = {}
     kind: 'connect4-bsfp-cuda-plan',
     contract: SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT,
     family: 'segmented-packed-antichain-42-cardinality',
+    strategy,
     candidateCapacity,
     segmentCapacity,
     outputCapacityPerSegment,
     outputElements,
+    bucketMetaElements: bucketed ? bucketMetaElements : 0,
     blockSize,
     gridX: segmentCapacity,
     async submit(bindings) {
@@ -137,18 +162,17 @@ export async function createSegmentedPackedAntichain42Plan(runtime, options = {}
         outputStatus: requireU32View(bindings?.outputStatus, segmentCapacity, 'outputStatus', 'read-write'),
         checks: requireU32View(bindings?.checks, candidateCapacity, 'checks', 'write'),
       };
-      rejectWriteConflicts([
-        { label: 'candidateLo', view: normalized.candidateLo, access: 'read' },
-        { label: 'candidateHi', view: normalized.candidateHi, access: 'read' },
-        { label: 'candidatePopcount', view: normalized.candidatePopcount, access: 'read' },
-        { label: 'segmentOffsets', view: normalized.segmentOffsets, access: 'read' },
-        { label: 'segmentDirections', view: normalized.segmentDirections, access: 'read' },
-        { label: 'outputLo', view: normalized.outputLo, access: 'write' },
-        { label: 'outputHi', view: normalized.outputHi, access: 'write' },
-        { label: 'outputCounts', view: normalized.outputCounts, access: 'write' },
-        { label: 'outputStatus', view: normalized.outputStatus, access: 'write' },
-        { label: 'checks', view: normalized.checks, access: 'write' },
-      ]);
+      if (bucketed) {
+        normalized.bucketIndices = requireU32View(bindings?.bucketIndices, candidateCapacity, 'bucketIndices', 'read-write');
+        normalized.bucketCounts = requireU32View(bindings?.bucketCounts, bucketMetaElements, 'bucketCounts', 'read-write');
+        normalized.bucketOffsets = requireU32View(bindings?.bucketOffsets, bucketMetaElements, 'bucketOffsets', 'read-write');
+        normalized.bucketCursors = requireU32View(bindings?.bucketCursors, bucketMetaElements, 'bucketCursors', 'read-write');
+      }
+      rejectWriteConflicts(Object.entries(normalized).map(([label, view]) => ({
+        label,
+        view,
+        access: ['candidateLo', 'candidateHi', 'candidatePopcount', 'segmentOffsets', 'segmentDirections'].includes(label) ? 'read' : 'write',
+      })));
       return prepared.submit({ bindings: normalized });
     },
     async close() {
