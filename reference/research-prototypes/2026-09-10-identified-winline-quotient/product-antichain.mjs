@@ -27,8 +27,6 @@ function subset32(left, right) {
   return ((left & ~right) >>> 0) === 0;
 }
 
-// a <= b means b is at least as favorable to P0:
-// b hits every P1 line that a hits, while P1 hits no additional P0 line.
 function favorableLeq(a, b) {
   return subset32(a.h0, b.h0) && subset32(b.h1, a.h1);
 }
@@ -314,7 +312,7 @@ function aggregate(spec, mode) {
     selectedQuotientBoundaryRecords: totalQuotientBoundary,
     selectedBoundaryRecordRatio: totalOwnershipBoundary === 0 ? null : totalQuotientBoundary / totalOwnershipBoundary,
     minimumSupportBoundaryRecordRatio: minimumBoundaryRecordRatio === Number.POSITIVE_INFINITY ? null : minimumBoundaryRecordRatio,
-    maximumSupportBoundaryRecordRatio,
+    maximumSupportBoundaryRecordRatio: maximumBoundaryRecordRatio,
     solveElapsedMs,
     elapsedMs: performance.now() - solveStarted,
     rankSummaries: Object.freeze(summaries),
