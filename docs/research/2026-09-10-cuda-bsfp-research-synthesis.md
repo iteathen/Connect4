@@ -1,5 +1,6 @@
 # CUDA-BSFP research synthesis — exact state, scaling evidence, representation results, and flat-transfer direction
 
+**Author:** Josh Oshiro  
 **Date:** 2026-09-10  
 **Repository:** `iteathen/Connect4`  
 **Research branch:** `research/zdd-transfer-20260910`  
@@ -1185,3 +1186,76 @@ The research branch now owns the continuity point for:
 ```
 
 The next research mutation should add the exact separator-sufficiency/history-class experiment, not another broad architecture rewrite.
+
+---
+
+## 24. References and credits
+
+### 24.1 Authorship and project contribution
+
+**Author and research lead:** Josh Oshiro.
+
+The CUDA-BSFP research program recorded in this repository—including the project-specific CPC -> WSL-625 -> NDC -> BSFP development path, the identified winning-line quotient and product-order experiments, the CUDA execution constraints, experiment selection, evidence standards, and the current flat rolling-transfer direction—is attributed to Josh Oshiro within this project record.
+
+**AI research and engineering assistance:** OpenAI ChatGPT was used as an AI research/engineering assistant for literature discovery and synthesis, prototype and test-harness generation, repository documentation, experiment orchestration, code review, and adversarial analysis. AI output is working material rather than independent authority. The exact claims in this document are supported by the repository's governing specifications, source revisions, test harnesses, and qualification evidence, not by model agreement.
+
+Prior literature is credited below for concepts, algorithms, and historical context that informed comparison or later experiments. Citation of prior work does not imply that the project-specific CUDA-BSFP formulation or its measured results are derived from those papers unless explicitly stated.
+
+### 24.2 Connect Four prior work
+
+1. **Victor Allis.** “A Knowledge-Based Approach of Connect-Four: The Game Is Solved: White Wins.” *ICGA Journal*, 11(4), 1988. DOI: `10.3233/ICG-1988-11410`.  
+   Relevance here: earlier published Connect Four knowledge/rule framework used for historical comparison and blocker-algebra qualification. The repository's Allis comparison tests validate a mapping of already-certified solved-group representations into generic blocker closure; they do not claim that every Allis rule-selection or compatibility condition is subsumed automatically.
+
+### 24.3 Binary and zero-suppressed decision diagrams
+
+2. **Randal E. Bryant.** “Graph-Based Algorithms for Boolean Function Manipulation.” *IEEE Transactions on Computers*, 35(8), pp. 677–691, 1986. DOI: `10.1109/TC.1986.1676819`.  
+   Relevance here: canonical reduced ordered BDD representation and Boolean Apply/cofactor machinery; directly relevant to the ROBDD closed-region oracle/probe.
+
+3. **Shin-ichi Minato.** “Zero-Suppressed BDDs for Set Manipulation in Combinatorial Problems.” *Proceedings of the 30th Design Automation Conference (DAC '93)*, pp. 272–277, 1993. DOI: `10.1145/157485.164890`.  
+   Relevance here: zero-suppressed canonical representation of sparse set families and the general idea of sharing equal family suffixes.
+
+4. **Olivier Coudert.** “Solving Graph Optimization Problems with ZBDDs.” *Proceedings of the European Design and Test Conference (ED&TC 1997)*, pp. 224–228, 1997. DOI: `10.1109/EDTC.1997.582363`.  
+   Relevance here: specialized ZBDD family operations that fuse combinational construction with extremal/subsumption filtering, motivating the BSFP `MinJoin` experiment rather than materialize-then-normalize execution.
+
+5. **Philippe Chatalic and Laurent Simon.** “Multi-Resolution on Compressed Sets of Clauses.” *12th IEEE International Conference on Tools with Artificial Intelligence (ICTAI 2000)*, 2000. DOI: `10.1109/TAI.2000.889839`.  
+   Relevance here: compressed clause-family operations and subsumption-aware family algebra, a close analogue for constructing antichain results without first retaining every redundant intermediate member.
+
+6. **Masaaki Nishino, Norihito Yasuda, Shin-ichi Minato, and Masaaki Nagata.** “Zero-Suppressed Sentential Decision Diagrams.” *Proceedings of the Thirtieth AAAI Conference on Artificial Intelligence*, 30(1), pp. 1058–1066, 2016. DOI: `10.1609/aaai.v30i1.10114`.  
+   Relevance here: a more structured decomposition alternative when a strict linear ZDD ordering is insufficient; retained as a secondary direction rather than the current implementation target.
+
+7. **Jun Kawahara, Takeru Inoue, Hiroaki Iwashita, and Shin-ichi Minato.** “Frontier-Based Search for Enumerating All Constrained Subgraphs with Compressed Representation.” *IEICE Transactions on Fundamentals of Electronics, Communications and Computer Sciences*, E100-A(9), pp. 1773–1784, 2017. DOI: `10.1587/transfun.E100.A.1773`.  
+   Relevance here: frontier-based decision-diagram construction and forgetting entities after their final incidence. This directly motivated measuring the dual Connect Four incidence decompositions and the line-first crossing-cell frontier.
+
+8. **Randal E. Bryant.** “Chain Reduction for Binary and Zero-Suppressed Decision Diagrams.” In *Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2018)*, LNCS 10805, pp. 81–98, 2018. DOI: `10.1007/978-3-319-89960-2_5`.  
+   Relevance here: hybrid BDD/ZDD reduction ideas and compact representation of chains/ranges; retained as a possible optimization only if future measurements show long forced/skipped-variable runs.
+
+9. **Steffan Christ Sølvsten, Jaco van de Pol, Anna Blume Jakobsen, and Mathias Weller Berg Thomasen.** “Adiar: Binary Decision Diagrams in External Memory.” In *Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2022)*, LNCS 13244, pp. 295–313, 2022. DOI: `10.1007/978-3-030-99527-0_16`.  
+   Relevance here: evidence that BDD Apply/Reduce need not be implemented as recursive pointer chasing; iterative levelized/time-forward processing informed the bulk-GPU interpretation of decision-diagram ideas even though the current direction goes further toward graph-free transfer arrays.
+
+10. **Kengo Nakamura, Masaaki Nishino, and Shuhei Denzumi.** “Single Family Algebra Operation on BDDs and ZDDs Leads to Exponential Blow-Up.” *35th International Symposium on Algorithms and Computation (ISAAC 2024)*, LIPIcs 322, Article 52, 2024. DOI: `10.4230/LIPIcs.ISAAC.2024.52`.  
+    Relevance here: an important negative theoretical bound. Canonical DD representation and favorable variable ordering do not guarantee that rich family-algebra operations remain polynomial in input DD size. This supports the project's empirical requirement to test actual Connect Four operands rather than assuming ZDD/BDD compression removes the combinatorial wall.
+
+### 24.4 Software and implementation references
+
+- **TdZdd** (Kunihiro Saitoh and contributors): top-down/breadth-first decision-diagram manipulation framework. It was consulted as an implementation example showing that DD construction/evaluation can be levelized and parallel rather than inherently depth-first recursive. The project does not import TdZdd code or its C++ runtime into CUDA-BSFP.
+- **Adiar** (Sølvsten et al.): consulted as an implementation/reference point for iterative time-forward BDD operations and memory-structured Apply/Reduce. CUDA-BSFP does not depend on the Adiar software package.
+
+### 24.5 Credit boundary
+
+The literature above receives credit for the concepts it introduced or developed: knowledge-based Connect Four analysis, BDD/ZDD canonicalization, zero suppression, subsumption-aware family operations, structured/frontier decomposition, chain reduction, and levelized DD processing.
+
+The following remain project-specific research claims and require this repository's own evidence:
+
+```text
+CPC / WSL-625 / NDC / BSFP formulation used here
+CUDA-BSFP support-rank execution semantics
+C1 native exact closure and measured scaling wall
+terminal-subtraction specialization measurements
+identified 69-line hit quotient qualification
+line-hit product-antichain compression measurements
+generic ZDD MinJoin negative result on actual BSFP operands
+standard-7x6 line-first frontier-width census
+flat rolling-transfer / separator-sufficiency hypothesis
+```
+
+No citation substitutes for the exact falsifiers and qualification gates attached to those claims.
