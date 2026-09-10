@@ -3,6 +3,7 @@ import { performance } from 'node:perf_hooks';
 import {
   solveBsfpOwnershipAntichainRootWdlRolling,
   solveBsfpOwnershipAntichainWdl,
+  solveBsfpPacked42AntichainRootWdlRolling,
 } from '../components/bsfp/index.mjs';
 
 function parseGeometry(text) {
@@ -34,15 +35,20 @@ const id = `${geometry.columns}x${geometry.rows}-c${geometry.connect}`;
 const executor = process.env.BSFP_SCALE_EXECUTOR ?? 'rolling';
 const supportShardSize = positiveIntegerEnv('BSFP_SUPPORT_SHARD_SIZE', 2048);
 const candidateTileSize = positiveIntegerEnv('BSFP_CANDIDATE_TILE_SIZE', 8192);
-if (executor !== 'rolling' && executor !== 'retained') throw new RangeError('BSFP_SCALE_EXECUTOR must be rolling or retained');
+if (!['rolling', 'retained', 'packed42'].includes(executor)) throw new RangeError('BSFP_SCALE_EXECUTOR must be rolling, retained, or packed42');
 
 global.gc?.();
 const memoryBefore = process.memoryUsage();
 const cpuStart = process.cpuUsage();
 const wallStart = performance.now();
-const solved = executor === 'rolling'
-  ? solveBsfpOwnershipAntichainRootWdlRolling({ ...geometry, supportShardSize, candidateTileSize })
-  : solveBsfpOwnershipAntichainWdl(geometry);
+let solved;
+if (executor === 'rolling') {
+  solved = solveBsfpOwnershipAntichainRootWdlRolling({ ...geometry, supportShardSize, candidateTileSize });
+} else if (executor === 'packed42') {
+  solved = solveBsfpPacked42AntichainRootWdlRolling({ ...geometry, supportShardSize, candidateTileSize });
+} else {
+  solved = solveBsfpOwnershipAntichainWdl(geometry);
+}
 const wallMs = performance.now() - wallStart;
 const cpu = process.cpuUsage(cpuStart);
 const memoryAfter = process.memoryUsage();
@@ -50,9 +56,10 @@ const usage = process.resourceUsage();
 
 const supportSkeletons = solved.support.itemCapacity;
 const totalBoundaryRecords = solved.stats.totalBoundaryRecords;
+const rollingExecution = executor === 'rolling' || executor === 'packed42';
 
 console.log(JSON.stringify({
-  schemaVersion: 2,
+  schemaVersion: 3,
   kind: 'connect4-bsfp-antichain-scaling-case',
   sourceRevision: process.env.C4_SOURCE_REVISION ?? null,
   geometry: id,
@@ -70,10 +77,11 @@ console.log(JSON.stringify({
   maximumLossFrontier: solved.stats.maximumLossFrontier,
   terminalWinSubtractions: solved.stats.terminalWinSubtractions,
   terminalLossSubtractions: solved.stats.terminalLossSubtractions,
-  rolling: executor === 'rolling' ? {
+  rolling: rollingExecution ? {
     rankWindow: solved.execution.rankWindow,
     supportShardSize: solved.execution.supportShardSize,
     candidateTileSize: solved.execution.candidateTileSize,
+    maskRepresentation: solved.execution.maskRepresentation ?? 'bigint',
     peakRankBoundaryRecords: solved.stats.peakRankBoundaryRecords,
     peakResidentBoundaryRecords: solved.stats.peakResidentBoundaryRecords,
     peakResidentToTotalBoundaryRatio: solved.stats.peakResidentToTotalBoundaryRatio,

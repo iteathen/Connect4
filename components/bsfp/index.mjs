@@ -39,6 +39,13 @@ export {
 export { solveBsfpOwnershipAntichainRootWdlRolling } from './ownership-antichain-rolling-solver.mjs';
 
 export {
+  classifyPacked42AntichainWdl,
+  normalizeMaximalPacked42Antichain,
+  normalizeMinimalPacked42Antichain,
+  solveBsfpPacked42AntichainRootWdlRolling,
+} from './ownership-antichain-packed42-rolling-solver.mjs';
+
+export {
   solveBsfpSymbolicWdl,
   solveBsfp4x3Connect3Reference,
 } from './reference-solver.mjs';

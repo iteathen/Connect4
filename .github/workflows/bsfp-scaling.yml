@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   antichain-scaling:
-    name: antichain-scaling (${{ matrix.geometry }})
+    name: packed42-scaling (${{ matrix.geometry }})
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     strategy:
@@ -37,10 +37,11 @@ jobs:
           uname -a
           nproc
           free -h
-      - name: Run bounded antichain scaling case
+      - name: Run bounded packed42 antichain scaling case
         shell: bash
         env:
           C4_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+          BSFP_SCALE_EXECUTOR: packed42
         run: |
           set +e
           /usr/bin/time -v timeout --signal=TERM --kill-after=5s ${{ matrix.timeout_seconds }}s \
