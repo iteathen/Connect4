@@ -37,3 +37,48 @@ test('B1 exposes a finite 7x6-only packed-dominance performance workload', () =>
   assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);
   assert.ok(listQualificationProfiles().includes(profile.id));
 });
+
+test('P2 admits the <=42-cell compact ladder with a finite reusable GPU workspace', () => {
+  const profile = getQualificationProfile('c4-0009-p2-compact-hybrid');
+  for (const geometry of [
+    { columns: 4, rows: 3, connect: 3 },
+    { columns: 4, rows: 4, connect: 4 },
+    { columns: 5, rows: 5, connect: 4 },
+    { columns: 6, rows: 5, connect: 4 },
+    { columns: 7, rows: 5, connect: 4 },
+    { columns: 7, rows: 6, connect: 4 },
+  ]) assert.equal(profile.supports(geometry), true);
+  assert.equal(profile.supports({ columns: 8, rows: 6, connect: 4 }), false);
+  const estimate = profile.estimate({ columns: 7, rows: 6, connect: 4 });
+  assert.equal(estimate.executable, true);
+  assert.equal(estimate.cellCount, 42);
+  assert.equal(estimate.candidateCapacity, 4_194_304);
+  assert.equal(estimate.frontierCapacityPerSegment, 1_024);
+  assert.ok(estimate.upperBoundBytes > 300 * 1024 * 1024);
+  assert.ok(estimate.upperBoundBytes < 400 * 1024 * 1024);
+  assert.equal(profile.estimate({ columns: 8, rows: 6, connect: 4 }).upperBoundBytes, null);
+  assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);
+  assert.ok(listQualificationProfiles().includes(profile.id));
+});
+
+test('P2 passes geometry through the native child and retains known-root checks in the profile', () => {
+  const profile = getQualificationProfile('c4-0009-p2-compact-hybrid');
+  const steps = profile.steps({ columns: 7, rows: 6, connect: 4 }, '/repo');
+  assert.equal(steps.length, 1);
+  assert.equal(steps[0].id, 'compact-hybrid-root-wdl');
+  assert.equal(steps[0].args.at(-1), '7x6:c4');
+  assert.equal(steps[0].expected({
+    outcome: 'native-compact-hybrid-root-wdl-pass',
+    geometry: '7x6-c4',
+    rootWdl: 1,
+    timingsMs: { solve: 12.5 },
+    gpuReducer: { generatedPairCandidates: 123 },
+  }), true);
+  assert.equal(steps[0].expected({
+    outcome: 'native-compact-hybrid-root-wdl-pass',
+    geometry: '7x6-c4',
+    rootWdl: 0,
+    timingsMs: { solve: 12.5 },
+    gpuReducer: { generatedPairCandidates: 123 },
+  }), false);
+});

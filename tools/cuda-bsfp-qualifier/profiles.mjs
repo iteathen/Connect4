@@ -4,6 +4,11 @@ const P1_OVERHEAD_BYTES = 256n * MIB;
 const B1_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
 const B1_CANDIDATE_COUNT = 1_048_576n;
 const B1_FRONTIER_COUNT = 568n;
+const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
+const P2_CANDIDATE_CAPACITY = 4_194_304n;
+const P2_SEGMENT_CAPACITY = 256n;
+const P2_SIDE_CAPACITY = 262_144n;
+const P2_OUTPUT_CAPACITY = 1_024n;
 const EXPERIMENTAL_FFI_FLAG = '--experimental-ffi';
 
 function denseShapeBytes({ columns, rows }) {
@@ -34,6 +39,32 @@ function b1Estimate(spec) {
     frontierCount: Number(B1_FRONTIER_COUNT),
     devicePayloadBytes: Number(candidateBytes + frontierBytes),
     fixedRuntimeAllowanceBytes: B1_RUNTIME_ALLOWANCE_BYTES.toString(),
+    upperBoundBytes: Number(upperBoundBytes),
+  });
+}
+
+function p2Estimate(spec) {
+  const cellCount = spec.columns * spec.rows;
+  if (!Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 42) {
+    return Object.freeze({ kind: 'unsupported-packed42-geometry', executable: false, upperBoundBytes: null, note: 'P2 supports exact packed ownership masks only through 42 cells.' });
+  }
+  const candidateWorkspaceBytes = P2_CANDIDATE_CAPACITY * 4n * 4n;
+  const sideInputBytes = P2_SIDE_CAPACITY * 4n * 4n;
+  const outputBytes = P2_SEGMENT_CAPACITY * P2_OUTPUT_CAPACITY * 4n * 2n;
+  const offsetBytes = (P2_SEGMENT_CAPACITY + 1n) * 4n * 3n;
+  const statusBytes = P2_SEGMENT_CAPACITY * 4n * 4n;
+  const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
+  const upperBoundBytes = devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES;
+  return Object.freeze({
+    kind: 'proved-hybrid-workspace-upper-bound',
+    executable: true,
+    cellCount,
+    candidateCapacity: Number(P2_CANDIDATE_CAPACITY),
+    segmentCapacity: Number(P2_SEGMENT_CAPACITY),
+    sideCapacity: Number(P2_SIDE_CAPACITY),
+    frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY),
+    devicePayloadBytes: Number(devicePayloadBytes),
+    fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(),
     upperBoundBytes: Number(upperBoundBytes),
   });
 }
@@ -95,7 +126,49 @@ const B1 = Object.freeze({
   },
 });
 
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1]]);
+const KNOWN_P2_ROOTS = Object.freeze(new Map([
+  ['4x3-c3', 1],
+  ['4x4-c4', 0],
+  ['5x4-c4', 0],
+  ['5x5-c4', 0],
+  ['7x6-c4', 1],
+]));
+
+const P2 = Object.freeze({
+  id: 'c4-0009-p2-compact-hybrid',
+  specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md',
+  gpuRequired: true,
+  requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) {
+    const cells = spec.columns * spec.rows;
+    return Number.isSafeInteger(cells) && cells >= 1 && cells <= 42;
+  },
+  estimate: p2Estimate,
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return Object.freeze([]);
+    const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`;
+    const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`;
+    const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry);
+    return Object.freeze([
+      Object.freeze({
+        id: 'compact-hybrid-root-wdl',
+        command: process.execPath,
+        args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]),
+        expected(result) {
+          return result?.outcome === 'native-compact-hybrid-root-wdl-pass'
+            && result?.geometry === resultGeometry
+            && [-1, 0, 1].includes(result?.rootWdl)
+            && (expectedRoot === undefined || result.rootWdl === expectedRoot)
+            && Number.isFinite(result?.timingsMs?.solve)
+            && result.timingsMs.solve >= 0
+            && Number.isFinite(result?.gpuReducer?.generatedPairCandidates);
+        },
+      }),
+    ]);
+  },
+});
+
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [P2.id, P2]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };
