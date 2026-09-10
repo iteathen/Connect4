@@ -10,7 +10,8 @@ function evaluateBsfpRank4x3(table, ranks, filledMasks, lineMasks, targetRank, i
   const ownershipMask = i % assignmentCount;
   const filledMask = filledMasks[supportIndex];
   const mover = targetRank & gpu.u32(1);
-  let aggregate = mover === gpu.u32(0) ? gpu.u32(0) : gpu.u32(2);
+  let aggregate = gpu.u32(2);
+  if (mover === gpu.u32(0)) aggregate = gpu.u32(0);
   let hasMove = gpu.u32(0);
   let divisor = gpu.u32(1);
   let column = gpu.u32(0);
@@ -29,9 +30,8 @@ function evaluateBsfpRank4x3(table, ranks, filledMasks, lineMasks, targetRank, i
         if ((lineMask & landingBit) !== gpu.u32(0)) {
           const otherMask = lineMask ^ landingBit;
           if ((otherMask & filledMask) === otherMask) {
-            const ownedMask = mover === gpu.u32(0)
-              ? ownershipMask ^ gpu.u32(4095)
-              : ownershipMask;
+            let ownedMask = ownershipMask;
+            if (mover === gpu.u32(0)) ownedMask = ownershipMask ^ gpu.u32(4095);
             if ((ownedMask & otherMask) === otherMask) immediateWin = gpu.u32(1);
           }
         }
@@ -40,12 +40,12 @@ function evaluateBsfpRank4x3(table, ranks, filledMasks, lineMasks, targetRank, i
 
       let moveValue = gpu.u32(1);
       if (immediateWin === gpu.u32(1)) {
-        moveValue = mover === gpu.u32(0) ? gpu.u32(2) : gpu.u32(0);
+        moveValue = gpu.u32(0);
+        if (mover === gpu.u32(0)) moveValue = gpu.u32(2);
       } else {
         const childSupportIndex = supportIndex + divisor;
-        const childOwnershipMask = mover === gpu.u32(0)
-          ? ownershipMask & (gpu.u32(4095) ^ landingBit)
-          : ownershipMask | landingBit;
+        let childOwnershipMask = ownershipMask | landingBit;
+        if (mover === gpu.u32(0)) childOwnershipMask = ownershipMask & (gpu.u32(4095) ^ landingBit);
         moveValue = table[childSupportIndex * assignmentCount + childOwnershipMask];
       }
 
@@ -60,7 +60,8 @@ function evaluateBsfpRank4x3(table, ranks, filledMasks, lineMasks, targetRank, i
     column++;
   }
 
-  table[i] = hasMove === gpu.u32(0) ? gpu.u32(1) : aggregate;
+  table[i] = aggregate;
+  if (hasMove === gpu.u32(0)) table[i] = gpu.u32(1);
 }
 `;
 
