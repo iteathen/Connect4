@@ -25,6 +25,13 @@ export {
 } from './residual-frontier.mjs';
 
 export {
+  classifyOwnershipAntichainWdl,
+  normalizeMaximalOwnershipAntichain,
+  normalizeMinimalOwnershipAntichain,
+  solveBsfpOwnershipAntichainWdl,
+} from './ownership-antichain-solver.mjs';
+
+export {
   solveBsfpSymbolicWdl,
   solveBsfp4x3Connect3Reference,
 } from './reference-solver.mjs';
