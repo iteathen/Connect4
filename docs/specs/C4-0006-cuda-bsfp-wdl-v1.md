@@ -20,11 +20,61 @@ Connect4 owns:
 - exact symbolic identity/equality and proof meaning;
 - W/D/L fixed-point interpretation and solver-level correctness.
 
-CUDA-Algorithms owns only reusable provider-neutral mechanics such as bounded worksets, ranked progression, active extents, ordering/grouping/selection/compaction, generic activation, and device-owned administrative progression.
-
-CUDA-JS owns generic runtime/compiler/memory/provider/native lifecycle and Device-JS mechanisms.
+CUDA-Algorithms owns reusable provider-neutral algorithm mechanics and plans. CUDA-JS owns generic runtime/compiler/memory/provider/native lifecycle and Device-JS language/composition mechanisms.
 
 CUDA-MCGS/search semantics are not a dependency of this solver contract.
+
+## Existing cross-repository authority chain
+
+The CUDA-BSFP integration seam was already designed from the CUDA-Algorithms side. Do not create a competing generic seam in Connect4.
+
+The relevant existing authorities at the current development seam are:
+
+1. **CUDA-Algorithms SPEC-0002 — Algorithm Plans, Active Extents, and Device Chaining** (**Candidate**)
+   - owns algorithm-plan semantics, host-known capacities, device-resident active extents, algorithm status, bounded workspace/realization facts, and the rule that GPU-produced counts can feed later GPU work without mandatory host readback;
+   - Node may administer submission/observation/epoch boundaries but may not inspect records/counts to decide mathematical survivor sets, ordering, predecessors, or fixed-point progression.
+
+2. **CUDA-Algorithms SPEC-0003 — Stable Index Selection and Permutation Ordering** (**Candidate**)
+   - owns stable selection of indices by device flags and stable lexicographic ordering of an index sequence by external primitive key-word columns;
+   - deliberately leaves arbitrary consumer-record equality/canonicalization with the consumer;
+   - hashes may help partition/group but are never exact BSFP identity.
+
+3. **CUDA-Algorithms SPEC-0004 — Device Worksets and Fixed-Point Closure** (**Working Draft**)
+   - owns bounded workset/frontier meaning, ranked acyclic progression, generic activation/delta/compaction progression, capacity and administrative-yield truth, and shard invariance;
+   - explicitly retains consumer derivation, record/domain meaning, proof semantics, terminal predicates, equality/canonicalization, and domain-specific dominance outside CUDA-Algorithms;
+   - explicitly names BSFP as the strongest first RankedClosure consumer while prohibiting CPC/WSL-625/NDC/WDL vocabulary from the generic RankedClosure contract;
+   - intentionally leaves the consumer callback/composition boundary open until the first real GPU vertical slice determines the simplest statically bounded shape.
+
+4. **CUDA-JS SPEC-0028 — Typed Device-JS Library Composition** (**Accepted**)
+   - provides the existing consumer-neutral mechanism for compiling bounded typed Device-JS leaf libraries and explicitly importing declared device functions into independently compiled Device-JS programs;
+   - imports carry exact typed signatures and semantic/artifact identity through the normal CUDA-JS compile/link path;
+   - no dynamic device function pointers, arbitrary native callback surface, ambient registry, or consumer-specific vocabulary is introduced.
+
+The CUDA-Algorithms first-profile design already records the intended BSFP/NDC shape approximately as:
+
+```text
+consumer produces candidate records / facts
+    -> consumer structural keys or boundary flags
+    -> CUDA-Algorithms stable ordering / selection / generic sequence mechanics
+    -> consumer exact-equivalence / proof-specific reduction facts
+    -> CUDA-Algorithms generic compaction / activation / ranked progression
+    -> next consumer-owned BSFP rank/proof work
+```
+
+The same design states that BSFP/NDC is the motivating first consumer and that Node must not inspect proof records, choose predecessor semantics, deduplicate proof records, or advance the mathematical fixed point on CPU.
+
+### What remains intentionally unfrozen
+
+There is **not** a missing generic semantics specification to invent before implementation. The unresolved question is narrower: how the first BSFP Device-JS consumer functions are statically composed into a CUDA-Algorithms ranked-closure epoch using the already accepted CUDA-JS library mechanism.
+
+SPEC-0004 intentionally leaves open whether the final reusable form is expressed as typed imported Device-JS leaf functions, caller-supplied prepared function capabilities, a bounded declarative transform, or another consumer-neutral composition shape. The first real BSFP-backed GPU slice is the evidence intended to settle that question.
+
+Therefore:
+
+- C4-0006 must specify the BSFP facts/functions required by that slice;
+- CUDA-Algorithms SPEC-0004 must own only the generic progression contract that survives deletion of Connect4;
+- CUDA-JS SPEC-0028 remains the lower language/linking authority;
+- no repository may infer another owner's semantics from function names, record widths, index layouts, or accidental structural similarity.
 
 ## Canonical terminology
 
@@ -107,7 +157,7 @@ P0 to move: V_h = max_c Move_c(h)
 P1 to move: V_h = min_c Move_c(h)
 ```
 
-Evaluation proceeds backward from deeper support skeletons toward the root support skeleton. The recurrence is semantic authority; the current MTBDD representation is not.
+Evaluation proceeds backward from deeper support skeletons toward the root support skeleton. The recurrence is Connect4/BSFP semantic authority; CUDA-Algorithms does not own `max`, `min`, terminal meaning, move meaning, or `V_h` merely because it progresses the ranked workset.
 
 For width `W` and height `H`, the empty-board support lattice contains `(H + 1)^W` skeletons; standard 7x6 therefore has `7^7 = 823,543` skeletons.
 
@@ -172,24 +222,56 @@ A hash is not equality.
 
 BSFP exact state/proof identity remains Connect4-owned. CUDA-Algorithms may sort, group, scan, select, compact or schedule consumer indices, but exact equality/canonicalization of BSFP records is decided by BSFP semantics.
 
+The already-recorded generic boundary is:
+
+```text
+consumer exact equality / semantic comparison
+        -> device boundary/change flags or equivalent exact primitive facts
+        -> CUDA-Algorithms generic sequence/group/selection mechanics
+```
+
+Do not add a CUDA-Algorithms generic proof-record equality callback merely because BSFP is the first consumer unless the first GPU slice proves that the existing typed-library/primitive-fact boundary cannot support a correct efficient path.
+
 Dominance/antichain compression is permitted only under a proved order relation for the exact support/accessibility context. The preserved research theorem candidate uses residual dominance to represent upward/downward-closed W/L regions by frontier antichains.
 
-## Ranked GPU progression
+## Ranked CUDA-Algorithms composition
 
-The preferred CUDA composition maps well-founded BSFP dependencies onto the generic ranked-closure machinery in CUDA-Algorithms.
+The BSFP dependency orientation must expose an explicit finite rank compatible with the selected CUDA-Algorithms RankedClosure profile. A derived dependency submitted to a strictly descending ranked-closure epoch must have lower declared rank than its source; a violation is an exact semantic error, not a request for the library to guess another rank.
 
-Requirements at this boundary:
+The first CUDA-BSFP vertical slice should bind only the consumer-specific functions/facts actually required to exercise the existing generic contract. It must not freeze names or call shapes before the slice demonstrates them.
 
-- finite explicit rank;
-- strict declared rank direction for derived dependencies;
-- bounded deterministic per-item emission or explicit capacity-yield truth;
-- device-resident active counts and mathematical progression;
-- duplicate activation is idempotent where the selected closure algebra requires set semantics;
-- Node may administer bounded epochs but may not inspect records/counts to decide mathematical survival or which proof dependency to expand next;
-- capacity/budget/watchdog/spill boundaries must yield explicitly and must never masquerade as convergence;
-- physical sharding/batching must not change the exact logical result.
+At minimum the composed slice must preserve these ownership facts:
 
-The generic mechanics above are governed by CUDA-Algorithms SPEC-0004 while it remains Working Draft. BSFP-specific proof vocabulary and record meaning remain here.
+- Connect4/BSFP determines consumer item/proof meaning, terminal facts, rank meaning, derivation, exact equality, W/D/L composition, and any proof-specific dominance or canonicalization;
+- CUDA-Algorithms determines generic bounded workset/active-extent progression, stable sequence transformations used by the plan, duplicate activation semantics where the selected profile defines set activation, finite capacity/status handling, and physical shard/epoch invariance;
+- CUDA-JS determines typed Device-JS library/program compilation and linking, device views, prepared execution, native operation lifecycle, memory/synchronization mechanisms, and lower cleanup.
+
+The current JavaScript `runRankedIndexClosure()` reference is an exact reference for generic **index activation/progression** semantics: finite rank, strict descent, bounded emissions, idempotent activation, shard-size invariance, and exact active sets. It is not an alternative specification of BSFP's W/D/L recurrence and must not be treated as one.
+
+### Consumer-program composition constraint
+
+The preferred first experiment is the already-documented CUDA-Algorithms direction: express BSFP-owned bounded device functions through CUDA-JS typed library composition and import them into the finite algorithm epoch/program.
+
+This must remain statically bounded and identity-material. The experiment must prove that:
+
+- the selected BSFP library exports have exact Device-JS signatures;
+- the exact library and imported-function identities are bound into the compiled program identity by CUDA-JS;
+- CUDA-Algorithms does not inspect or reinterpret BSFP record fields to call them;
+- BSFP does not reimplement generic select/order/active-count/workset progression locally;
+- no dynamic device function pointer, native callback ABI, private CUDA-JS import, or host semantic callback is introduced.
+
+If the experiment demonstrates that the Accepted SPEC-0028 leaf-library model is insufficient for a genuinely generic closure epoch, stop and route the minimal missing consumer-neutral capability to CUDA-JS or revise CUDA-Algorithms SPEC-0004 as appropriate. Do not compensate with a Connect4-local native/runtime escape path.
+
+## Administrative and capacity semantics
+
+For a GPU-owned CUDA-BSFP epoch:
+
+- active extents and mathematical progression remain device-resident;
+- Node may prepare/submit, asynchronously observe device-produced administrative status, supply/persist opaque shards/checkpoints where specified, resubmit after a declared administrative yield, cancel/stop, and perform terminal result delivery/cleanup;
+- Node may not inspect individual proof records or active counts to choose what mathematically survives, what dependency is expanded, or which W/D/L result is published;
+- capacity, watchdog, spill, input, or work-budget boundaries must produce explicit administrative truth and must never masquerade as fixed-point convergence;
+- physical batch/shard size must not change the exact logical result;
+- runtime completion and algorithm semantic validity remain separate facts.
 
 ## Qualified evidence inherited by this working spec
 
@@ -226,9 +308,26 @@ C4-0006 v1 governs exact W/D/L only.
 
 Exact distance-to-win/loss is a separate extension. A W/D/L proof must not claim Pascal-Pons-style strong-score equivalence unless distance semantics are separately specified and qualified.
 
+## First cross-repository qualification gate
+
+Before C4-0006 or CUDA-Algorithms SPEC-0004 can be promoted on the strength of the first CUDA-BSFP slice, the exact tested tuple must record:
+
+- Connect4 branch/commit and C4-0006 revision;
+- CUDA-Algorithms branch/commit and SPEC-0002/0003/0004 revisions;
+- CUDA-JS exact revision and Accepted SPEC-0028-compatible library/program path;
+- the selected BSFP consumer record/rank/derivation/equality functions and exact semantic identity;
+- finite capacities, emission bounds, workspace/status resources and administrative-yield behavior;
+- portable differential results against the preserved BSFP/reference/oracle evidence;
+- at least one physical CUDA execution of the exact composed path before any native or GPU correctness claim;
+- capacity/error/rank-violation/shard-invariance falsifiers;
+- lower operation/plan/runtime cleanup evidence;
+- an explicit deletion test showing CUDA-Algorithms still describes a coherent generic ranked-closure algorithm after all CPC/WSL-625/NDC/Connect4 terminology is removed.
+
+Performance remains a separate qualification. Correctness does not imply a throughput win.
+
 ## Falsifiers
 
-Rework the solver design if any required exact root/result cannot be derived without effectively recreating data-dependent move-tree search, if symbolic compression changes W/D/L, if temporal ordering is lost, if physical shard size changes the mathematical result, if a capacity boundary drops work or falsely converges, or if the proposed compact state cannot reproduce independent Connect4 oracle results.
+Rework the solver or seam design if any required exact root/result cannot be derived without effectively recreating data-dependent move-tree search, if symbolic compression changes W/D/L, if temporal ordering is lost, if physical shard size changes the mathematical result, if a capacity boundary drops work or falsely converges, if Node becomes part of mathematical progression, if CUDA-Algorithms must own BSFP record/proof semantics to function, or if the proposed compact state cannot reproduce independent Connect4 oracle results.
 
 ## Preserved source/evidence authority
 
@@ -245,4 +344,4 @@ This working spec is derived from and must be read with the preserved original p
 - `docs/research/2026-09-09-terminal-boundary-qualification.md`
 - associated files under `docs/research/evidence/` and `reference/research-prototypes/`.
 
-Where this thin normalization conflicts with exact preserved evidence or an explicit later owner instruction, stop and reassess rather than silently rewriting the theory.
+Where this thin normalization conflicts with exact preserved evidence, the cited CUDA-Algorithms/CUDA-JS authority, or an explicit later owner instruction, stop and reassess rather than silently rewriting the theory.
