@@ -19,3 +19,5 @@ export {
   SEGMENTED_PACKED_PAIR_ANTICHAIN_42_CONTRACT,
   createSegmentedPackedPairAntichain42Plan,
 } from './segmented-packed-pair-antichain-42-plan.mjs';
+
+export { COMPACT_OWNERSHIP_42_CONTRACT, createCompactOwnership42Plan } from './compact-ownership-42-plan.mjs';

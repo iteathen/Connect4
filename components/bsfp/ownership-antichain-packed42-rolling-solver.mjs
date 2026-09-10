@@ -363,7 +363,9 @@ export function solveBsfpPacked42AntichainRootWdlRolling({
   connect,
   supportShardSize = 2048,
   candidateTileSize = 8192,
+  onFrontier = null,
 }) {
+  if (onFrontier !== null && typeof onFrontier !== 'function') throw new TypeError('onFrontier must be a function');
   if (!Number.isSafeInteger(columns) || !Number.isSafeInteger(rows) || columns < 1 || rows < 1) throw new RangeError('geometry dimensions must be positive safe integers');
   if (columns * rows > 42) throw new RangeError('packed42 BSFP reference supports at most 42 cells');
   const shardSize = positiveSafeInteger(supportShardSize, 'supportShardSize');
@@ -412,6 +414,8 @@ export function solveBsfpPacked42AntichainRootWdlRolling({
           ? Object.freeze({ wins: Object.freeze([]), losses: Object.freeze([]) })
           : solveSupport({ supportIndex, rank, support, childRank, columns, rows, incidence, candidateTileSize: tileSize, stats });
         currentRank.set(supportIndex, frontier);
+        // Qualification observer; its return value never controls the recurrence.
+        if (onFrontier) onFrontier(supportIndex, frontier);
         rankWinRecords += frontier.wins.length;
         rankLossRecords += frontier.losses.length;
         rankMaximumWinFrontier = Math.max(rankMaximumWinFrontier, frontier.wins.length);

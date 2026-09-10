@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { compactOwnership42Shape } from '../../components/bsfp/cuda/compact-ownership-42-layout.mjs';
 const MIB = 1024n * 1024n;
 const P1_OVERHEAD_BYTES = 256n * MIB;
 const B1_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
@@ -168,7 +169,54 @@ const P2 = Object.freeze({
   },
 });
 
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [P2.id, P2]]);
+const C1 = Object.freeze({
+  id: 'c4-0009-c1-compact-ownership-42',
+  specification: 'docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md',
+  gpuRequired: true,
+  requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return (spec.columns === 4 && spec.rows === 3 && spec.connect === 3)
+    || (spec.columns === 4 && spec.rows === 4 && spec.connect === 4)
+    || (spec.columns === 5 && spec.rows === 5 && spec.connect === 4); },
+  estimate(spec) {
+    if (!this.supports(spec)) return { kind: 'unsupported-compact-geometry', executable: false, upperBoundBytes: null };
+    const shape = compactOwnership42Shape(spec);
+    return { kind: 'bounded-compact-arenas-with-oracle', executable: true, upperBoundBytes: shape.upperBoundBytes,
+      payloadUpperBoundBytes: shape.payloadUpperBoundBytes, oracleUpperBoundBytes: shape.oracleUpperBoundBytes,
+      frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'compact-root-wdl', command: process.execPath,
+      args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs')), String(spec.columns), String(spec.rows), String(spec.connect)],
+      expected(result) {
+        return result?.outcome === 'native-compact-frontier-pass' && result?.closure === 'full-root'
+          && result?.rootWdl === (spec.connect === 3 ? 1 : 0)
+          && result?.comparedSupports === (spec.rows + 1) ** spec.columns
+          && result?.frontierMismatches === 0 && result?.cleanup === 'graceful';
+      } }];
+  },
+});
+
+const C2 = Object.freeze({
+  id: 'c4-0009-c2-compact-scaling-42',
+  specification: 'docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md',
+  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 6 && spec.rows === 5 && spec.connect === 4; },
+  estimate(spec) {
+    if (!this.supports(spec)) return { kind: 'unsupported-compact-scaling-geometry', executable: false, upperBoundBytes: null };
+    const shape = compactOwnership42Shape({ ...spec, frontierCapacity: 8192, candidateTileSize: 2048, qualificationOracle: false });
+    return { kind: 'bounded-compact-scaling-arenas-no-oracle', executable: true, upperBoundBytes: shape.upperBoundBytes,
+      frontierCapacity: shape.frontierCapacity, candidateTileSize: shape.candidateTileSize, shardCapacity: shape.shardCapacity };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'compact-scaling-root', command: process.execPath,
+      args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs'), 'scaling'), '6', '5', '4', '8192', '2048'],
+      expected(result) { return result?.outcome === 'native-compact-root-complete' && result?.closure === 'full-root'
+        && [-1, 0, 1].includes(result?.rootWdl) && result?.comparedSupports === 0 && result?.cleanup === 'graceful'; } }];
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [P2.id, P2], [C1.id, C1], [C2.id, C2]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

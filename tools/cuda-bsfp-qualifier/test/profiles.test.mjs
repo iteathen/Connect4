@@ -82,3 +82,18 @@ test('P2 passes geometry through the native child and retains known-root checks 
     gpuReducer: { generatedPairCandidates: 123 },
   }), false);
 });
+
+test('compact qualification cannot confuse partial/scaling/portable evidence with all-frontier success', () => {
+  const geometry = { columns: 4, rows: 4, connect: 4 };
+  const profile = getQualificationProfile('c4-0009-c1-compact-ownership-42');
+  const accepts = profile.steps(geometry, process.cwd())[0].expected;
+  const valid = { outcome: 'native-compact-frontier-pass', closure: 'full-root', rootWdl: 0, comparedSupports: 625, frontierMismatches: 0, cleanup: 'graceful' };
+  assert.equal(accepts(valid), true);
+  for (const patch of [{ closure: 'partial-rank' }, { comparedSupports: 624 }, { frontierMismatches: 1 }, { rootWdl: 1 }, { outcome: 'native-compact-root-complete' }, { cleanup: 'failed' }]) assert.equal(accepts({ ...valid, ...patch }), false);
+  assert.equal(profile.supports({ columns: 7, rows: 6, connect: 4 }), false);
+  assert.equal(profile.estimate({ columns: 7, rows: 6, connect: 4 }).upperBoundBytes, null);
+  const scaling = getQualificationProfile('c4-0009-c2-compact-scaling-42');
+  assert.equal(scaling.supports({ columns: 6, rows: 5, connect: 4 }), true);
+  assert.equal(scaling.supports({ columns: 7, rows: 6, connect: 4 }), false);
+  assert.ok(scaling.estimate({ columns: 6, rows: 5, connect: 4 }).upperBoundBytes < 2 * 1024 ** 3);
+});

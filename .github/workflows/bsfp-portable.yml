@@ -80,6 +80,12 @@ jobs:
       - name: Run segmented pair-generate-normalize portable slice
         run: node experiments/cuda-bsfp-pair-antichain/run.mjs
 
+      - name: Run compact root solver portable composition
+        run: node experiments/cuda-bsfp-compact-ownership/run.mjs portable
+
+      - name: Run compact scaling static epochs portable composition
+        run: node experiments/cuda-bsfp-compact-ownership/run.mjs portable-scaling 6 5 4 8192 2048
+
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 
