@@ -39,17 +39,21 @@ function linkDirectory(target, linkPath) {
 
 export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot }) {
   const sharedNodeModules = path.join(workspaceRoot, 'node_modules');
+  const connect4NodeModules = path.join(connect4Root, 'node_modules');
   fs.mkdirSync(sharedNodeModules, { recursive: true });
+  fs.mkdirSync(connect4NodeModules, { recursive: true });
 
   linkDirectory(cudaJsRoot, path.join(sharedNodeModules, 'cuda-js'));
   linkDirectory(cudaAlgorithmsRoot, path.join(sharedNodeModules, 'cuda-algorithms'));
-  linkDirectory(sharedNodeModules, path.join(connect4Root, 'node_modules'));
+
+  linkDirectory(cudaJsRoot, path.join(connect4NodeModules, 'cuda-js'));
+  linkDirectory(cudaAlgorithmsRoot, path.join(connect4NodeModules, 'cuda-algorithms'));
 
   return Object.freeze({
     sharedNodeModules,
-    connect4NodeModules: path.join(connect4Root, 'node_modules'),
-    cudaJsPackage: path.join(sharedNodeModules, 'cuda-js'),
-    cudaAlgorithmsPackage: path.join(sharedNodeModules, 'cuda-algorithms'),
+    connect4NodeModules,
+    cudaJsPackage: path.join(connect4NodeModules, 'cuda-js'),
+    cudaAlgorithmsPackage: path.join(connect4NodeModules, 'cuda-algorithms'),
   });
 }
 
