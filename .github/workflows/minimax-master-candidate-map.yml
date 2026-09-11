@@ -8,6 +8,7 @@ on:
       - 'docs/research/2026-09-09-historical-107-theory-ledger.md'
       - 'docs/research/evidence/2026-09-09-signed-interaction-graph-terminalization-v2.json'
       - 'research/minimax/candidate-map/**'
+      - 'research/minimax/composition-campaign/**'
       - '.github/workflows/minimax-master-candidate-map.yml'
   workflow_dispatch:
 
@@ -23,6 +24,8 @@ jobs:
         env:
           CANDIDATE_MAP_OUT: /tmp/minimax-candidate-map
         run: node research/minimax/candidate-map/build-master-map.mjs --write | tee /tmp/minimax-candidate-map-summary.json
+      - name: Audit active campaign source coverage
+        run: node research/minimax/candidate-map/audit-campaign-coverage.mjs | tee /tmp/minimax-candidate-map-campaign-coverage.json
       - name: Upload complete map evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
@@ -31,4 +34,5 @@ jobs:
             /tmp/minimax-candidate-map/master-candidate-map.json
             /tmp/minimax-candidate-map/coverage-report.json
             /tmp/minimax-candidate-map-summary.json
+            /tmp/minimax-candidate-map-campaign-coverage.json
           if-no-files-found: error
