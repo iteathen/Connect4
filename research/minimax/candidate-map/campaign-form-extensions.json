@@ -43,10 +43,12 @@
       "label": "Geometry-native fixed-scratch U1/U2 A1-A3 certificate",
       "kind": "certificate-implementation-form",
       "first_seen": "2026-09-11",
-      "test_state": "qualified-strong-near-break-even-form",
+      "test_state": "qualified-strong-distance-two-anchor",
       "evidence": [
         {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_geometry_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; geometry-native 2.913 ms median vs 7.027 ms dynamic, 2.413x speedup"},
-        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/run_a123_geometry_strong_stack.mjs","claim":"preserves exact 823/825-node trees and certificate checks/hits/cuts; 823-node before-bound form is 15.1% faster than dynamic and only 2.17% slower than A123-off while reducing nodes 26.45%"}
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/run_a123_geometry_strong_stack.mjs","claim":"preserves exact 823/825-node trees and certificate checks/hits/cuts; 823-node before-bound form is 15.1% faster than dynamic and only 2.17% slower than A123-off while reducing nodes 26.45%"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_mq5_anchor.mjs","claim":"exact-distance cross preserves both frozen scores; A123-only cuts semantic-MQ5 nodes 29.11% on loss anchor and 23.61% on win anchor"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-mq5-anchor-results.md","claim":"semantic MQ5 plus A123 reaches about 45.05% / 39.91% fewer nodes than the older compact board baseline on loss/win anchors"}
       ]
     },
     {
@@ -97,6 +99,8 @@
     {"source":"A123-U1-ROLE-DYNAMIC","target":"A123-DIRECT-U1U2-V3-NOCACHE","effect":"substitutive-mixed","mechanism":"lifecycle-cost","state":"observed","note":"removes cold support-cache cost but remains slower than dynamic due per-check fragment construction"},
     {"source":"U1-EVENT-RANK","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"representation-simplification","state":"observed","note":"standard 7x6 row-parity ownership permits static singleton/pair blocker geometry and removes runtime owner arithmetic/ID lookup"},
     {"source":"A123-DIRECT-U1U2-V3-NOCACHE","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"cost","state":"observed","note":"fixed geometry and scratch arrays change direct generation from slower than dynamic to 2.41x faster in the differential micro and near-break-even in full strong stack"},
+    {"source":"MQ5-WSL625-U16","target":"A123-GEOMETRY-U1U2-V4","effect":"strong-positive","mechanism":"proof-volume-composition","state":"observed","note":"A123 removes 29.11% / 23.61% of remaining semantic-MQ5 nodes on frozen loss/win exact-distance anchors while preserving exact scores"},
+    {"source":"EXH","target":"A123-GEOMETRY-U1U2-V4","effect":"saturated-near-zero","mechanism":"proof-overlap","state":"observed","note":"EXH alone is slightly adverse on both MQ5 anchors and adds negligible node reduction when A123 is active"},
     {"source":"RID","target":"IMPL-RID-SIG4","effect":"positive","mechanism":"cost-filter","state":"observed","note":"conservative RID signatures reject most impossible exact closure checks without changing proof authority"},
     {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"}
   ]
