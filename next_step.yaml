@@ -1,6 +1,6 @@
-schema_version: 4
+schema_version: 5
 updated: 2026-09-11
-state: semantic_quotient_mq1_passed_mq2_behavioral_partition_active
+state: semantic_quotient_mq1_mq2_mq3_passed_mq4_residual_automaton_active
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -14,85 +14,106 @@ source_lanes:
   cuda_bsfp: solver/cuda-bsfp
 
 current:
-  primary_action: execute_mq2_coarsest_exact_action_labeled_behavioral_partition
+  primary_action: qualify_incremental_support_plus_minimal_residual_automaton
   owner: Connect4
   mode: research
 
 mq1:
   status: passed_complete_bounded_controls
   candidate: support_H0_H1
-  score_semantics: exact_distance_sensitive_side_to_move_score
-  source: research/semantic-quotient/mq1-strong-score.mjs
   workflow_run: 34569663402
   workflow_job: 103168883561
-  evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq1-strong-score.json
-  report: docs/research/2026-09-11-semantic-quotient-mq1-strong-score.md
-  aggregate:
+  result:
     physical_nonterminal_states: 1681808
     identified_line_classes: 420704
     merged_physical_state_comparisons: 1261104
-    multi_member_classes: 156570
-    maximum_class_size: 37080
     state_score_mismatches: 0
     per_column_action_score_mismatches: 0
     terminal_timing_mismatches: 0
     successor_class_mismatches: 0
-  qualified_controls:
-    - 4x3_c3
-    - 4x4_c4
-    - 5x3_c4
-    - 4x5_c4
-  non_claims:
-    - not_standard_7x6_exhaustive_proof
-    - not_production_runtime_encoding
-    - not_coarsest_possible_quotient
-    - not_minimax_speedup_measurement
+  authority:
+    source: research/semantic-quotient/mq1-strong-score.mjs
+    report: docs/research/2026-09-11-semantic-quotient-mq1-strong-score.md
+    evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq1-strong-score.json
 
 mq2:
-  question: what_is_coarsest_exact_action_labeled_behavioral_partition
-  method: exact_bottom_up_partition_refinement_on_acyclic_complete_game_graph
-  action_signature: column_to_illegal_or_immediate_terminal_score_or_child_behavior_class
-  controls:
-    - 4x3_c3
-    - 4x4_c4
-    - 5x3_c4
-    - 4x5_c4_if_practical
-  required_measurements:
-    - physical_state_count
-    - identified_line_class_count
-    - exact_behavior_class_count
-    - physical_to_line_collapse
-    - line_to_behavior_collapse
-    - physical_to_behavior_collapse
-    - line_classes_per_behavior_class
-    - physical_states_per_behavior_class
-    - cross_support_behavior_classes
-    - cross_rank_behavior_classes
-    - first_nontrivial_line_class_merge_representatives
-    - dense_class_description_bytes
-    - labeled_transition_bytes
-  invariants:
-    - every_physical_state_in_one_identified_line_class_maps_to_one_behavior_class
-    - exact_legal_action_labels_preserved
-    - exact_terminal_timing_score_preserved
-    - deterministic_child_behavior_class_preserved
+  status: passed_complete_bounded_controls
+  method: exact_bottom_up_action_labeled_behavioral_partition
+  workflow_run: 34570098421
+  workflow_job: 103170191176
+  aggregate:
+    physical_states: 1681808
+    identified_line_classes: 420704
+    behavior_classes: 269347
+    physical_to_behavior_collapse: 6.244019796025202
+    line_to_behavior_collapse: 1.5619405450961028
+  control_4x5:
+    physical_states: 1385521
+    identified_line_classes: 361427
+    behavior_classes: 229232
+    maximum_line_classes_per_behavior_class: 498
+    cross_support_behavior_classes: 211
+    cross_rank_behavior_classes: 208
+    dense_behavior_id_bits: 18
+    naive_flat_transition_bytes: 3667712
+  authority:
+    source: research/semantic-quotient/mq2-behavioral-partition.mjs
+    report: docs/research/2026-09-11-semantic-quotient-mq2-behavioral-partition.md
+    evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq2-behavioral-partition.json
 
 mq3:
-  question: what_information_remains_redundant_after_line_hit_and_support_state
-  trigger: mq2_pass
-  output: classify_removed_information_and_minimal_counterexamples
+  status: passed_complete_bounded_controls
+  candidate: support_plus_minimal_residual_antichain_pair
+  workflow_run: 34570367110
+  workflow_job: 103170983996
+  invariants:
+    support_plus_residual_pair_sufficient: true
+    residual_pair_without_support_sufficient: false
+    gravity_accessibility_remains_semantically_required: true
+  counts:
+    4x3_c3: {line_classes: 4499, support_residual_classes: 3735, behavior_classes: 2912}
+    4x4_c4: {line_classes: 37323, support_residual_classes: 34095, behavior_classes: 27424}
+    5x3_c4: {line_classes: 17455, support_residual_classes: 11317, behavior_classes: 9779}
+    4x5_c4: {line_classes: 361427, support_residual_classes: 294593, behavior_classes: 229232}
+  control_4x5:
+    line_to_support_residual_collapse: 1.2268689344281771
+    support_residual_to_behavior_overhead: 1.285130348293432
+    support_residual_behavior_mismatches: 0
+    residual_only_behavior_mismatches: 884162
+  authority:
+    source: research/semantic-quotient/mq3-residual-sufficiency.mjs
+    report: docs/research/2026-09-11-semantic-quotient-mq3-residual-sufficiency.md
+    evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq3-residual-sufficiency.json
 
 mq4:
-  question: can_behavior_classes_compile_to_flat_action_transitions
-  target: classId_plus_column_to_terminal_or_nextClassId
+  status: active
+  question: can_support_plus_minimal_residual_pair_form_a_direct_incremental_exact_automaton
+  source: research/semantic-quotient/mq4-residual-automaton.mjs
+  workflow_run: 34570662573
+  required_checks:
+    - direct_residual_reachable_sets_equal_physical_projection_at_every_rank
+    - exact_terminal_observations_match
+    - exact_distance_sensitive_state_scores_match
+    - exact_per_column_action_scores_match
+    - dense_flat_transition_replay_has_zero_missing_targets
+  target_transition_law:
+    mover: subtract_landing_cell_from_requirements_then_minimize_and_terminal_if_empty
+    opponent: discard_requirements_containing_landing_cell
+    support: advance_selected_column
+  rationale: forward_constructible_exact_state_close_to_MQ2_behavioral_minimum
 
 mq5:
-  question: does_serial_alpha_beta_over_compiled_quotient_beat_fixed_width_colored_board_control
+  trigger: mq4_pass
+  question: does_serial_alpha_beta_over_residual_state_or_compiled_residual_ID_beat_fixed_width_colored_board_control
   invariants:
     - same_null_window_sequence
     - same_move_order
     - equal_TT_byte_budget
     - exact_score_and_action_parity
+  first_scope:
+    - unchanged_serial_alpha_beta
+    - no_speculative_evaluator_or_parallel_changes
+    - compare_board_key_vs_support_residual_key_or_dense_ID
 
 transferable_bsfp_methods:
   - hidden_history_census_methodology
@@ -101,18 +122,17 @@ transferable_bsfp_methods:
   - incremental_quotient_synthesis
   - identified_line_semantic_coordinates
   - exact_residual_pair_factorization
+  - asymmetric_antichain_update_law
 
 not_transferable_by_default:
   - bsfp_backward_fixed_point_control_flow
-  - wdl_only_equivalence_for_minimax
   - symbolic_C1_history_required_only_for_unreachable_ownership_domain
   - generic_runtime_BDD_ZDD_graphs
-  - concrete_enumeration_of_all_line_hit_states
   - cuda_specific_layouts_profiles_or_qualifier_policy
 
 next_actions:
-  - implement_MQ2_exact_behavioral_partition_on_complete_small_controls
-  - persist_exact_MQ2_counts_and_first_merge_representatives
-  - compare_identified_line_description_to_behavior_class_ID_and_transition_bytes
-  - if_MQ2_passes_classify_remaining_redundancy_under_MQ3
-  - promote_only_solver_specific_survivors_back_to_owning_solver_branches
+  - finish_MQ4_direct_residual_automaton_qualification
+  - persist_state_transition_byte_and_replay_evidence
+  - if_MQ4_passes_transfer_only_the_residual_state_candidate_to_solver_minimax_alpha_beta
+  - run_MQ5_fair_serial_alpha_beta_AB_test_before_any_production_promotion
+  - continue_MQ3_redundancy_explanation_in_parallel_without_blocking_MQ5
