@@ -1,0 +1,37 @@
+name: Minimax Allis A1-A9 A10 family ablation
+
+on:
+  push:
+    branches:
+      - work/minimax-a1a9-a10-exact-20260911
+    paths:
+      - 'research/minimax/composition-campaign/allis_a1a9_a10_ablation_runner.mjs'
+      - '.github/workflows/minimax-allis-a1a9-a10-ablation.yml'
+  workflow_dispatch:
+
+jobs:
+  ablate:
+    strategy:
+      fail-fast: false
+      matrix:
+        disabled:
+          - 'A9'
+          - 'A8,A9'
+          - 'A4,A9'
+          - 'A6,A9'
+          - 'A4,A8,A9'
+          - 'A4,A6,A8,A9'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run family ablation
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/allis_a1a9_a10_ablation_runner.mjs '${{ matrix.disabled }}' | tee /tmp/allis-a10-${{ strategy.job-index }}.json
+      - name: Preserve ablation evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-allis-a10-ablation-${{ strategy.job-index }}
+          path: /tmp/allis-a10-${{ strategy.job-index }}.json
+          if-no-files-found: error
