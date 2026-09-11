@@ -2,7 +2,7 @@
 
 **Updated:** 2026-09-11  
 **Canonical branch:** `research/semantic-quotient`  
-**State:** MQ1-MQ4 passed; SIU-1 relational exactness passed; search-method and negamax-optimization campaigns complete
+**State:** quotient-native W/D/L negamax exact on complete controls; native physical-economics optimization active
 
 ## Mission
 
@@ -13,11 +13,11 @@ It does **not** own production solver implementation. Current product lanes rema
 - preserved historical `solver/minimax-alpha-beta`;
 - `solver/cuda-bsfp`;
 - `solver/hybrid-confluence`;
-- a future forward solver generation will be based on relational negamax after packed-kernel qualification.
+- a future forward solver generation will be based on quotient-native negamax after kernel qualification.
 
 ## Qualified relational state
 
-The exact shared state is:
+The exact shared state is logically:
 
 ```text
 q = supportIndex
@@ -27,6 +27,8 @@ q = supportIndex
 ```
 
 Across **1,681,808** complete-control physical states, SIU-1 produced zero projection, transition, terminal, strong-score, per-action-score, BSFP W/D/L, or reverse-closure mismatches.
+
+For ordinary legal Connect Four, side-to-move is support-rank parity and need not occupy storage in the hot state.
 
 The common algebra is:
 
@@ -63,106 +65,19 @@ Authority:
 
 ## Negamax optimization campaign
 
-Two campaign passes screened optimizations newly enabled or materially simplified by the side-to-move negamax formulation.
-
-### Structural defaults
-
-These now advance as baseline semantics for the rebuild:
+The precompiled-DAG campaign established semantic/search-control candidates:
 
 ```text
 side-to-move-relative value
 single-perspective exact TT records
 fail-soft exact bounds
 native relational tactical closure
+W/D/L-native default result contract
 ```
 
-Fail-soft beat fail-hard in expansion count on every complete control. On 4x5:
+On the precompiled 4x5 graph, W/D/L + ETC reduced expansions from 15,096 to 10,562. Generic history/killer ordering and child-bound ordering without a real cutoff were rejected. Strong-distance envelopes remain optional strong-mode mechanisms.
 
-```text
-fail-soft: 16,488
-fail-hard: 17,440
-```
-
-### W/D/L-native negamax
-
-The product target is exact root W/D/L, and CUDA-BSFP already speaks exact W/D/L. Carrying distance-sensitive score distinctions through every node is therefore optional work unless a consumer requests strong distance.
-
-Standalone 4x5:
-
-```text
-strong-score negamax: 16,488 expansions
-W/D/L-native negamax: 15,096
-```
-
-The decisive 4x3 control showed a much larger benefit:
-
-```text
-strong-score: 212
-W/D/L:         39
-```
-
-The forward solver should therefore expose:
-
-```text
-solveWdl(q) -> -1 | 0 | +1
-refineStrong(q, provedWdl) -> exact distance-sensitive value  # optional
-```
-
-### Enhanced Transposition Cutoff (ETC)
-
-ETC is the strongest new search-control optimization found. It probes exact child TT bounds and uses negamax sign symmetry to obtain a parent cutoff without recursively expanding the child.
-
-| Geometry | strong baseline | strong + ETC |
-| --- | ---: | ---: |
-| 4x3 c3 | 212 | 189 |
-| 4x4 c4 | 4,478 | 3,074 |
-| 5x3 c4 | 996 | 820 |
-| 4x5 c4 | 16,488 | **11,761** |
-
-On 4x5 ETC produced 3,446 direct child-bound cutoffs. A gated form using ETC only with at least three moves remaining expanded slightly more states (11,811) but had lower measured search-only cost in the research implementation; the exact probe policy remains a packed-kernel tuning question.
-
-### W/D/L + ETC
-
-The leading product-facing composition is currently:
-
-```text
-W/D/L-native fail-soft negamax
-+ exact relational TT
-+ relational tactical closure
-+ ETC
-```
-
-4x5:
-
-```text
-strong baseline: 16,488
-strong + ETC:    11,761
-W/D/L baseline:  15,096
-W/D/L + ETC:     10,562
-```
-
-That is about a **35.9% expansion reduction** from the strong-score baseline before changing the physical relational-state implementation.
-
-### Candidates rejected as defaults
-
-Generic chess-derived ordering did not transfer well:
-
-```text
-4x5 history/killer ordering: 29,674 expansions
-baseline:                     16,488
-```
-
-So generic history/killer ordering is rejected in its current form. Child-bound ordering without an actual cutoff also failed to beat ETC and is not a default. Blindly enabling all candidate optimizations was worse than selecting the individually compatible winners.
-
-Exact rank/distance envelope remains useful only as a conditional strong-distance optimization; it helped the decisive 4x3 case substantially but was neutral/slightly harmful on draw controls.
-
-### W/D/L threshold driver
-
-Two-threshold W/D/L search remains a driver candidate, not a proof-work winner. On 4x5 it expanded 15,203 states versus 15,096 for full-window W/D/L; with ETC, 10,612 versus 10,562. Micro-timing sometimes favored the threshold form, so it stays in the driver tournament until the real packed kernel exists.
-
-### BSFP composition
-
-With the same ideal ~50% BSFP boundary, 4x5 W/D/L threshold + ETC dropped to **1,229 expansions**, versus 1,315 for strong-score + ETC. The ideal wall excludes BSFP construction/publication/query cost and remains a leverage ceiling only.
+The important qualification is now explicit: precompiled-DAG search-control economics are not production authority once child quotient construction has real cost.
 
 Authority:
 
@@ -172,36 +87,109 @@ Authority:
 - broad Actions run `34637521061`, job `103388937756`
 - refinement Actions run `34637786848`, job `103389801743`
 
+## Quotient-native kernel campaign
+
+The physical implementation target was strengthened from “packed relational objects” to a genuinely quotient-native machine state:
+
+```text
+qID -> supportIndex + p0ResidualClassId + p1ResidualClassId
+sideToMove = rank(supportIndex) & 1
+```
+
+The timed search kernel now carries numeric quotient IDs only. Residual masks use two `u32` lanes; there is no recursive colored-board state, BigInt residual state, string key, residual object reconstruction, or precompiled game DAG in the timed kernel.
+
+### Exactness
+
+The quotient-native representation reproduced the exact SIU-1 reachable quotient census:
+
+| Geometry | reachable q states |
+| --- | ---: |
+| 4x3 c3 | 3,735 |
+| 4x4 c4 | 34,095 |
+| 5x3 c4 | 11,317 |
+| 4x5 c4 | 294,593 |
+
+Root and every legal root-action W/D/L matched the independent BSFP oracle. On 4x5 alone, 190,826 own-placement class transitions, 223,828 opponent-block transitions, and 14,158 terminal reductions were checked against the qualified BigInt residual algebra with zero mismatches.
+
+Authority:
+
+- `research/semantic-quotient/state-identity-unification/QUOTIENT_NATIVE_NEGAMAX_RESULT.md`
+- `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-native-negamax.json`
+- qualification Actions run `34646025717`, job `103416896894`
+- refinement Actions run `34646180590`, job `103417404214`
+
+### Native ETC result supersedes the precompiled default
+
+ETC still reduces proof work, but forcing child quotient construction merely to probe a bound is expensive.
+
+4x5:
+
+```text
+no-edge / no-ETC:  15,054 expansions, 18.539 ms, 1,844,704 typed bytes
+forcing ETC:       10,530 expansions, 24.471 ms, 3,991,008 typed bytes
+```
+
+Forcing ETC reduced expansions by about 30.1% but was about 32.0% slower and created substantially more quotient states/classes. Therefore **speculative quotient construction for ETC is rejected as a current default**.
+
+A cached-edge-only ETC variant avoids speculative state growth and helped the 4x4 control, but its edge-cache/scanning cost still lost on 5x3 and 4x5. ETC is now a conditional physical tuning mechanism, not a structural baseline requirement.
+
+### Per-state quotient-edge cache
+
+The edge cache itself did not earn its cost on the larger control:
+
+```text
+4x5 edge-cache/no-ETC: 26.300 ms, 2,106,848 typed bytes
+4x5 no-edge/no-ETC:    18.539 ms, 1,844,704 typed bytes
+```
+
+So the current larger-control baseline carries no per-state quotient-edge table.
+
+### Current strongest native baseline
+
+```text
+quotient-native qID
++ rank-derived side-to-move
++ two-u32 residual substrate
++ lazy exact residual-class transitions
++ quotient-native immediate-win / forced-response / double-threat closure
++ W/D/L-native fail-soft negamax
++ dense exact W/D/L bounds indexed directly by qID
++ no per-state quotient-edge cache
++ no forcing ETC
+```
+
+This is the strongest qualified native quotient kernel, not yet a production-performance claim.
+
 ## Current next seam
 
-The next evidence unit is no longer another precompiled-DAG search experiment. Build the actual **packed/on-the-fly relational negamax kernel** in research first:
+The largest remaining structural waste is now the residual-class transition cache.
+
+On 4x5 the current baseline found 7,470 residual classes, while the dense transition arrays reserve:
 
 ```text
-packed or dense relational q
-+ incremental/on-the-fly T(q,a)
-+ W/D/L-native fail-soft negamax
-+ native relational tactical closure
-+ tuned ETC
-+ compact exact single-perspective TT
+8192 class slots × 20 cells × 2 modes = 327,680 entries
+populated entries                         = 22,039
+occupancy                                 ≈ 6.73%
+reserved typed bytes                      = 1,310,720
 ```
 
-Then compare thin drivers over that exact same kernel:
+That cache dominates the current typed-memory footprint. The next evidence unit is therefore **compact/sparse exact residual-class transition storage**, preserving exact transition semantics while reducing footprint and improving locality if possible.
 
-```text
-full-window alpha-beta control
-PVS / NegaScout
-MTD(f)
-W/D/L threshold driver
-```
+After that representation stabilizes:
 
-Use equal-byte TT/memory controls. After serial kernel economics stabilize, add reflection/residual automorphism, compiled local proof masks, Connect4-specific proof-cost ordering, and only then parallelism.
-
-Actual BSFP-produced boundaries must replace ideal walls before claiming hybrid performance.
+1. run equal-byte comparison against the physical/incumbent control;
+2. compare full-window alpha-beta, PVS/NegaScout, MTD(f), and W/D/L threshold over the same native quotient kernel;
+3. test reflection/residual automorphism;
+4. add compiled local proof masks and Connect4-specific proof-cost ordering;
+5. only then add coarse parallelism;
+6. replace ideal BSFP walls with actual BSFP construction/publication/query cost before hybrid speed claims.
 
 ## Hard non-claims
 
 - no standard 7x6 production performance claim;
-- no packed/on-the-fly transition performance claim yet;
+- no equal-byte incumbent speedup claim yet;
+- typed-array memory reporting is not complete JavaScript heap accounting;
 - no end-to-end hybrid speedup claim;
 - no final PVS vs MTD(f) vs threshold driver selection;
+- no default ETC claim on the native kernel;
 - no safety claim for null-move, futility, razoring, heuristic LMR, or other selective pruning not independently proven exact.
