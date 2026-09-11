@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { oqsCofactor42Shape } from '../../components/bsfp/cuda/oqs-cofactor-42-layout.mjs';
 import { compactOwnership42Shape } from '../../components/bsfp/cuda/compact-ownership-42-layout.mjs';
 const MIB = 1024n * 1024n;
 const P1_OVERHEAD_BYTES = 256n * MIB;
@@ -171,7 +172,57 @@ const C3 = Object.freeze({
   steps(spec, repositoryRoot) { if (!this.supports(spec)) return []; return [{ id: 'compact-work-diagnostic-prefix', command: process.execPath, args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-ownership/run.mjs'), 'diagnostic'), '6', '5', '4', '8192', '2048', '64', '128', '1'], expected(result) { const run = result?.runs?.[0]; return result?.outcome === 'native-compact-diagnostic-prefix-pass' && result?.caseRole === 'partial-rank-diagnostic' && result?.closure === 'partial-static-prefix' && result?.rootWdl === null && result?.comparedSupports === 0 && run?.executedEpochCount === 1 && run?.completedFullSchedule === false && run?.diagnostics?.executedEpochCount === 1 && Number.isFinite(run?.diagnostics?.totals?.normalizationCalls) && Number.isFinite(run?.diagnostics?.totals?.normalizationInputRecords) && Array.isArray(run?.diagnostics?.hotSupports) && result?.cleanup === 'graceful'; } }]; },
 });
 
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3]]);
+const O1 = Object.freeze({
+  id: 'c4-0009-o1-oqs-cofactor-42', specification: 'docs/specs/profiles/C4-0009-O1-oqs-cofactor-42-v0.md',
+  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return (spec.columns === 4 && spec.rows === 3 && spec.connect === 3)
+    || (spec.columns === 4 && spec.rows === 4 && spec.connect === 4)
+    || (spec.columns === 5 && spec.rows === 5 && spec.connect === 4); },
+  estimate(spec) {
+    if (!this.supports(spec)) return { executable: false, upperBoundBytes: null, kind: 'unsupported-oqs-geometry' };
+    const shape = oqsCofactor42Shape(spec);
+    return { executable: true, upperBoundBytes: shape.upperBoundBytes, deviceBytes: shape.deviceBytes, kind: 'bounded-oqs-cofactor-fixture' };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'oqs-cofactor-exact', command: process.execPath,
+      args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-oqs-cofactor/run.mjs')), String(spec.columns), String(spec.rows), String(spec.connect)],
+      expected(result) {
+        const references = result?.referenceSupports;
+        return result?.outcome === 'native-oqs-cofactor-pass' && result?.mode === 'native'
+          && result?.geometry === `${spec.columns}x${spec.rows}:c${spec.connect}`
+          && result?.evidenceGrade === 'all-candidates-of-selected-supports'
+          && result?.fullDeviceQuotientSynthesis === false && result?.rootWdl === null
+          && result?.mismatches === 0 && result?.targetCoverage === 1 && result?.cleanup === 'graceful'
+          && result?.transitionsChecked === (spec.columns === 5 ? 112 : spec.rows === 3 ? 14 : 10)
+          && Array.isArray(references) && references.length === (spec.columns === 5 ? 4 : 1)
+          && result?.candidatesChecked > 0 && result.candidatesChecked === references.reduce((s, r) => s + r.totalCandidates, 0)
+          && (spec.columns !== 4 || spec.rows !== 4 || result.controls?.length === 11);
+      } }];
+  },
+});
+const O2 = Object.freeze({
+  id: 'c4-0009-o2-oqs-7x6-seed-slice', specification: 'docs/specs/profiles/C4-0009-O2-oqs-7x6-seed-slice-v0.md',
+  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 7 && spec.rows === 6 && spec.connect === 4; },
+  estimate(spec) {
+    if (!this.supports(spec)) return { executable: false, upperBoundBytes: null, kind: 'unsupported-oqs-seed-slice' };
+    const shape = oqsCofactor42Shape({ ...spec, slice: 'seed-cut-0' });
+    return { executable: true, upperBoundBytes: shape.upperBoundBytes, deviceBytes: shape.deviceBytes, kind: 'bounded-selected-seed-first-cut' };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'oqs-selected-seed-first-cut', command: process.execPath,
+      args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-oqs-cofactor/run-seed-slice.mjs')),
+      expected(r) { return r?.outcome === 'native-oqs-seed-slice-pass' && r.mode === 'native' && r.geometry === '7x6:c4'
+        && r.supportIndex === 470594 && r.cut === 0 && r.transitionsChecked === 1 && r.candidatesPerPass === 16
+        && r.nativePasses === 8 && r.independentLayers === 2 && r.mismatches === 0 && r.targetCoverage === 1
+        && r.seedWins === 240 && r.seedLosses === 3792 && r.evidenceGrade === 'selected-seed-first-cut-only'
+        && r.fullDeviceQuotientSynthesis === false && r.rootWdl === null && r.cleanup === 'graceful'; },
+    }];
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };
