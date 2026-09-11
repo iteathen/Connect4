@@ -2,7 +2,7 @@
 
 This branch is the consolidation home for the Connect4 **search-based exact-solver** line.
 
-It intentionally collects the maintained Node minimax/alpha-beta baseline, exact-search oracles, fixed-width solver experiments, TT/cache work, multicore/YBWC work, structural search reductions, move/proof ordering experiments, and their qualification evidence.
+It intentionally collects the maintained Node minimax/alpha-beta baseline, historical competing search builds, exact-search oracles, fixed-width solver experiments, TT/cache work, multicore/YBWC work, structural search reductions, move/proof ordering experiments, and their qualification evidence.
 
 It intentionally does **not** promote a new solver implementation yet. Research prototypes remain prototypes until a separate selection and qualification cycle is requested.
 
@@ -18,7 +18,7 @@ Included here:
 - search-state representations such as win-space/residual-state experiments when they were used as recursive search identity;
 - forced tactical closure and forced macro-edges used to reduce the search tree;
 - Allis/VICTOR-derived rule experiments used as exact certificates, pruning, ordering, or proof-cost guidance inside the search solver;
-- positive, negative, and rejected experiments plus raw evidence.
+- positive, negative, superseded and rejected experiments plus raw evidence.
 
 Excluded as a source line:
 
@@ -61,6 +61,18 @@ Historical baseline/qualification notes begin with:
 - `docs/research/2026-09-07-incumbent-node-qualification.md`
 - `docs/research/2026-09-07-node26-benchmark-evidence.md`
 - `docs/research/2026-09-07-solved-strength-oracle.md`
+
+## 1A. Archived incumbent V8 rewrite candidate
+
+The completeness audit found one older executable minimax build that had been preserved only on the live `feature/shared-evaluator-v1` branch rather than in this branch's working tree. It is now organized at:
+
+- `research/minimax/incumbent-v8-rewrite/`
+
+That packet preserves the exact original `components/incumbent-v8/` source, evaluator/search/hot-path regression tests, frozen evaluator/search/self-play vectors, the historical rewrite note, and the old candidate C4-0002/C4-0003 documents. Its `manifest.json` records the original branch/head, PR #5, commit identities and exact Git blob identities.
+
+The original branch head `77c5c0da57ddb65cd7aff9ce131481a19414931a` is also a merge parent of the minimax branch, so its commit provenance is retained.
+
+**Authority:** this is a historical candidate/comparison build, not the current accepted incumbent. The copied candidate spec files live under the packet's `historical/` directory specifically so they cannot be confused with current `docs/specs/` authority.
 
 ## 2. Fixed-width exact-search kernel research
 
@@ -197,21 +209,24 @@ Raw and aggregate research evidence is retained under:
 
 Important subgroups include exact-solver runs, dependency/chunk/scheduling controls, compact/rank/decision-state results, structural quotient evidence, residual automorphism evidence, win-space/native-winspace evidence, forced-macro/implication evidence, and low-confidence survival evidence.
 
+The archived V8 rewrite's own frozen vectors are deliberately kept inside `research/minimax/incumbent-v8-rewrite/evidence/` so they remain scoped to that historical candidate rather than masquerading as current product evidence.
+
 Evidence should remain adjacent to the original research notes/prototype identities. Do not rewrite adverse results out of the branch.
 
 ## 9. Historical branch consolidation
 
 The branch now includes the relevant history/content from:
 
+- `feature/shared-evaluator-v1` — exact V8 rewrite preserved as an organized historical packet;
 - `research/exact-solver-perf-checkpoint-2026-09-08`;
 - `research/exact-solver-rethink-controls-2026-09-09`;
 - `research/residual-automorphisms-2026-09-09`;
 - `research/forced-macro-implication-2026-09-09`;
 - the pre-searchless portion of `research/low-confidence-survival-2026-09-09` through commit `0d2648c83a88c8c3dd2a4836cb19296d1930b35a`.
 
-The accepted incumbent/evaluator/oracle/bootstrap feature work is already represented by the main-derived product files listed in section 1; obsolete feature snapshots are not copied over the accepted versions.
+The accepted incumbent/evaluator/oracle/bootstrap feature work is otherwise represented by the main-derived product files listed in section 1; obsolete feature snapshots are not copied over accepted versions.
 
-See `docs/research/2026-09-10-minimax-branch-lineage-audit.md` for exact branch disposition.
+See `docs/research/2026-09-10-minimax-branch-lineage-audit.md` for the original branch disposition; later restructure preservation packets are indexed by `MINIMAX_BRANCH.md` and packet-local manifests.
 
 ## 10. Working rule for this branch
 
