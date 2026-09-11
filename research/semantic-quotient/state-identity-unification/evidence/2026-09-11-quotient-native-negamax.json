@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "kind": "connect4-quotient-native-negamax-evidence",
+  "date": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "qualification": {
+    "workflow_run": 34646025717,
+    "workflow_job": 103416896894,
+    "status": "pass",
+    "machine_state": "qID -> supportIndex + p0ResidualClassId + p1ResidualClassId",
+    "side_to_move": "derived-from-support-rank-parity",
+    "timed_kernel_bigint": false,
+    "recursive_colored_board": false,
+    "precompiled_game_dag": false,
+    "reachable_q_counts": {
+      "4x3:c3": 3735,
+      "4x4:c4": 34095,
+      "5x3:c4": 11317,
+      "4x5:c4": 294593
+    },
+    "root_and_root_action_wdl_mismatches": 0,
+    "control_4x5_compiled_transition_checks": {
+      "own": 190826,
+      "block": 223828,
+      "terminal": 14158,
+      "mismatches": 0
+    }
+  },
+  "refinement": {
+    "workflow_run": 34646180590,
+    "workflow_job": 103417404214,
+    "status": "pass",
+    "question": "Native ETC and quotient-edge-cache economics after child construction becomes real work",
+    "controls": {
+      "4x3:c3": {
+        "best_candidate": "materialized-threshold-etc",
+        "best_total_ms_median": 0.675384,
+        "best_expanded": 39
+      },
+      "4x4:c4": {
+        "best_candidate": "materialized-etc-interior3",
+        "best_total_ms_median": 7.919210,
+        "best_expanded": 4201,
+        "no_edge_no_etc_total_ms_median": 9.997801,
+        "no_edge_no_etc_expanded": 4250
+      },
+      "5x3:c4": {
+        "best_candidate": "no-edge-cache-no-etc",
+        "best_total_ms_median": 0.781071,
+        "best_expanded": 852
+      },
+      "4x5:c4": {
+        "best_candidate": "no-edge-cache-no-etc",
+        "no_edge_no_etc": {
+          "total_ms_median": 18.539056,
+          "solve_ms_median": 18.255398,
+          "expanded": 15054,
+          "q_states_created": 15728,
+          "residual_classes": 7470,
+          "typed_bytes_lower_bound": 1844704
+        },
+        "edge_cache_no_etc": {
+          "total_ms_median": 26.300070,
+          "expanded": 15054,
+          "typed_bytes_lower_bound": 2106848
+        },
+        "forcing_etc": {
+          "total_ms_median": 24.470683,
+          "expanded": 10530,
+          "q_states_created": 18779,
+          "residual_classes": 9360,
+          "typed_bytes_lower_bound": 3991008
+        },
+        "materialized_etc": {
+          "total_ms_median": 26.224881,
+          "expanded": 14765,
+          "q_states_created": 15724,
+          "typed_bytes_lower_bound": 2106848
+        },
+        "materialized_etc_interior3": {
+          "total_ms_median": 19.824753,
+          "expanded": 14780,
+          "q_states_created": 15724,
+          "typed_bytes_lower_bound": 2106848
+        },
+        "materialized_threshold_etc": {
+          "total_ms_median": 20.224756,
+          "expanded": 14851,
+          "q_states_created": 15727,
+          "typed_bytes_lower_bound": 2106848
+        },
+        "dense_residual_transition_cache": {
+          "capacity_classes": 8192,
+          "cell_count": 20,
+          "modes": 2,
+          "reserved_entries": 327680,
+          "populated_entries": 22039,
+          "occupancy_fraction": 0.0672576904296875,
+          "typed_bytes": 1310720
+        }
+      }
+    }
+  },
+  "disposition": {
+    "advance": [
+      "quotient-native-qID-state",
+      "support-rank-derived-side-to-move",
+      "two-u32-residual-substrate",
+      "lazy-exact-residual-class-transitions",
+      "quotient-native-tactical-closure",
+      "WDL-native-fail-soft-negamax",
+      "dense-exact-WDL-bounds-by-qID",
+      "no-per-state-edge-cache-as-current-larger-control-default"
+    ],
+    "conditional": [
+      "ETC-after-native-transition-economics",
+      "materialized-child-only-ETC",
+      "WDL-threshold-driver"
+    ],
+    "reject_current_default": [
+      "forcing-speculative-child-construction-for-ETC",
+      "unconditional-per-state-quotient-edge-cache"
+    ],
+    "next": "compact-or-sparse-residual-class-transition-cache"
+  },
+  "non_claims": [
+    "no-production-speedup-claim",
+    "no-standard-7x6-scale-claim",
+    "typed-memory-is-not-complete-JS-heap-accounting",
+    "no-equal-byte-incumbent-comparison-yet",
+    "no-final-search-driver-selection"
+  ]
+}
