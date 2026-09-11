@@ -1,0 +1,43 @@
+name: Standard 7x6 chunked quotient forward growth
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-7x6-chunked-forward-growth-campaign.mjs'
+      - '.github/workflows/semantic-quotient-7x6-chunked-growth.yml'
+  workflow_dispatch:
+    inputs:
+      max_rank:
+        description: Maximum support rank to expand through
+        required: false
+        default: '12'
+      max_states:
+        description: Hard q-state cap
+        required: false
+        default: '2000000'
+      prefix_classes:
+        description: Fixed dense-prefix residual classes
+        required: false
+        default: '4096'
+
+permissions:
+  contents: read
+
+jobs:
+  growth:
+    name: Measure chunked 7x6 quotient growth
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      MAX_RANK: ${{ inputs.max_rank || '12' }}
+      MAX_STATES: ${{ inputs.max_states || '2000000' }}
+      PREFIX_CLASSES: ${{ inputs.prefix_classes || '4096' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run hard-capped chunked 7x6 growth census
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-7x6-chunked-forward-growth-campaign.mjs
