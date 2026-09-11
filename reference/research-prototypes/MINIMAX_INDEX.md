@@ -27,13 +27,13 @@ Presence here means **preserved minimax research**, not accepted architecture.
 
 For reconstructing the minimax work without reading every prototype first:
 
-1. `../../..//MINIMAX_BRANCH.md` — branch scope and organization.
-2. `../../../docs/research/2026-09-08-exact-solver-performance-research.md` — fixed-width exact-solver starting point.
-3. `../../../docs/research/2026-09-09-organic-optimization-consolidation.md` — structural rethink/consolidation.
-4. `../../../docs/research/2026-09-09-decision-state-admission-and-proof-frontier-followup.md` — compact/rank/decision-state composition.
-5. `../../../docs/research/2026-09-09-forced-macro-and-support-implication.md` — forced-tree compression vs cross-state implication.
-6. `../../../docs/research/2026-09-09-low-confidence-survival-batch-1.md` — evaluator/Allis/support-event survival tests.
-7. `../../../docs/research/2026-09-10-minimax-branch-lineage-audit.md` — branch provenance and BSFP boundary.
+1. `../../MINIMAX_BRANCH.md` — branch scope and organization.
+2. `../../docs/research/2026-09-08-exact-solver-performance-research.md` — fixed-width exact-solver starting point.
+3. `../../docs/research/2026-09-09-organic-optimization-consolidation.md` — structural rethink/consolidation.
+4. `../../docs/research/2026-09-09-decision-state-admission-and-proof-frontier-followup.md` — compact/rank/decision-state composition.
+5. `../../docs/research/2026-09-09-forced-macro-and-support-implication.md` — forced-tree compression vs cross-state implication.
+6. `../../docs/research/2026-09-09-low-confidence-survival-batch-1.md` — evaluator/Allis/support-event survival tests.
+7. `../../docs/research/2026-09-10-minimax-branch-lineage-audit.md` — branch provenance and BSFP boundary.
 
 ## Reproduction rule
 
