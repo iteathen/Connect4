@@ -49,7 +49,7 @@ Completed:
 - classified historical/duplicate branches for retirement;
 - replaced CUDA-BSFP draft PR #14 with canonical draft PR #25 and closed #14 as superseded.
 
-Remaining cleanup is physical Git-ref retirement. The available connector does not expose branch deletion/tag creation, so stale refs are classified and SHA-preserved but are not falsely claimed deleted.
+Physical ref cleanup archived and deleted 40 gate-passing stale branches; 33 immutable archive tags preserve their exact heads. The four canonical lanes remain intact. Three refs remain blocked: `research/zdd-transfer-20260910` (producer reservation), `research/live-q1-5min-20260910` (queued workflow 34518477566), and `feature/cuda-bsfp` (live Q1 bootstrap/producer dependency). See `research/RETIREMENT_PROOFS.json` for exact inventory, tags and release conditions. The frozen migration census is unchanged.
 
 ## Governing rule
 

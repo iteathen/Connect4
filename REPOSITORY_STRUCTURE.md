@@ -86,4 +86,4 @@ Deletion is allowed only after the exact source SHA is preserved and either:
 1. the branch is a confirmed ancestor/duplicate of a canonical lane; or
 2. its unique durable information is preserved by committed evidence/manifest/archive reference.
 
-The migration tooling available in this session cannot delete Git refs or create tags. Classification is therefore authoritative for intended disposition; physical ref cleanup remains a separate verified operation.
+Physical cleanup results and exact archive tags are recorded in `research/RETIREMENT_PROOFS.json` and `research/BRANCH_RETIREMENT.md`. Forty stale refs passed all live gates and were removed. The incoming staging reservation, queued one-shot workflow and legacy Q1 bootstrap dependency remain explicit deletion blockers. Historical classifications never override live dependency checks.

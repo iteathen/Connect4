@@ -2,7 +2,7 @@
 
 This file is the human-readable companion to `MIGRATION_MANIFEST.json` and `RETIREMENT_PROOFS.json`.
 
-`MIGRATION_MANIFEST.json` is the frozen pre-restructure census. `RETIREMENT_PROOFS.json` records post-migration ancestry/content checks and is the authority before physical cleanup.
+`MIGRATION_MANIFEST.json` is the frozen pre-restructure census. `RETIREMENT_PROOFS.json` records post-migration ancestry/content checks and physical cleanup observations. Recheck live refs and dependents before any later deletion.
 
 ## Keep as durable lanes
 
@@ -31,7 +31,7 @@ Do not delete or repoint `research/zdd-transfer-20260910` until the concurrent p
 
 ## Verified retirement-safe refs
 
-All other historical refs classified in `RETIREMENT_PROOFS.json` are preserved by canonical ancestry, exact duplication, curated artifact migration, qualification-evidence consolidation, or history-only archive merge.
+The historical preservation classifications below describe content safety. Physical deletion additionally requires live PR, workflow and producer gates; the latest execution found three retained dependencies.
 
 ### Minimax history
 
@@ -64,7 +64,7 @@ Divergent legacy product/bootstrap/docs heads are preserved as additional parent
 
 ## Result of the audit
 
-There is no known **curated checkpoint** with an unpreserved unique-content gap. The only branch-level retirement blocker is the intentionally moving incoming `research/zdd-transfer-20260910` ref.
+There is no known **curated checkpoint** with an unpreserved unique-content gap. The earlier audit identified the incoming `research/zdd-transfer-20260910` ref as its only branch-level blocker. The physical execution found the additional workflow/bootstrap dependencies below.
 
 The audit corrected the V8 rewrite gap, consolidated failed and successful CUDA evidence equally, routed post-census O2/O3 evidence, split mixed OQS work by ownership, and established a steady-state rule for later incoming commits.
 
@@ -77,4 +77,35 @@ A live ref may be removed only when:
 3. no open PR/workflow/external producer still depends on the branch name;
 4. post-delete branch inventory is verified.
 
-The current connector cannot delete branches or create tags. Therefore logical restructuring is complete for the canonical lanes and curated history, but physical stale-ref deletion is not claimed. The active incoming staging branch has an additional independent deletion block until its producer stops.
+The earlier connector limitation is resolved by authenticated Git/CLI access. Physical cleanup is now verified for every ref that passed the live deletion gate; dependencies below remain blocked. The frozen census is unchanged.
+
+## Physical cleanup result — 2026-09-10 Pacific / 2026-09-11 UTC
+
+40 historical/delivery/restructuring branches were physically deleted after creating 33 annotated archive tags. The remote inventory fell from 47 to 7 branches before the short-lived cleanup PR. All four canonical heads were unchanged. Tags are covered by existing immutable-tag ruleset 22700180.
+
+Exact heads, tag names, alias sets, owner heads and immediate verification timestamps are in `RETIREMENT_PROOFS.json` → `physicalCleanup.deleted`. Six identified-winline/cone/product/dominance aliases at `b95ad87c...` share one tag; three quotient-test aliases at `900cfa80...` share one tag. All other deleted heads have their own tag. No tag was moved.
+
+Qualification preserved all nine generated run trees byte-for-byte by Git tree identity and verified all 15 V8 manifest blobs against the original source and runnable packet. Each owner ancestry proof was recomputed from Git. No solver, kernel, dependency pin, mathematical source, generated evidence or lane status was changed.
+
+### Retained dependency blockers
+
+| Ref | Exact observed head | Dependency and release condition |
+| --- | --- | --- |
+| `feature/cuda-bsfp` | `093218ca55b37f9179d0ede8255ac1621f2e96f5` | Live Q1 bootstrap DEFAULT_REVISIONS.connect4 still depends on this branch in solver/cuda-bsfp, research/semantic-quotient and active incoming staging; local producer base checkout also tracks this name. Retain until consumers are deliberately rerouted. |
+| `research/live-q1-5min-20260910` | `b8e15aa72c92fb58515a80340876e7df45b5316c` | Active workflow depends on branch: 34518477566 |
+| `research/zdd-transfer-20260910` | `54d63ae9a066dba42b2748b3ad51353611a2c52a` | Incoming producer staging reservation remains in force; local producer checkout still uses this branch. |
+
+The queued one-shot run is [34518477566](https://github.com/iteathen/Connect4/actions/runs/34518477566); its sole job had no executed steps. It was neither cancelled nor treated as completed. Retire its branch only after the run is terminal and any resulting payload is audited. The old feature ref must remain until the live `tools/bootstrap-cuda-bsfp-q1.mjs` default and producer checkout dependency are deliberately rerouted. Staging remains reserved until its producer is explicitly finished and the latest head is fully curated. No unrecognized live refs remain unaudited.
+
+### Canonical checkpoint and PR surface
+
+- `main`: `7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2`
+- `solver/minimax-alpha-beta`: `0d5894876e02609f4a78466d7ffa5c632e44c803`
+- `solver/cuda-bsfp`: `5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb`
+- `research/semantic-quotient`: `312c84afede4427bedbab231e141da36a7fc3510`
+
+Draft [PR #25](https://github.com/iteathen/Connect4/pull/25), `solver/cuda-bsfp` → `main`, is the only pre-cleanup open PR and remains open. Historical closed evidence and superseded implementation PRs were left intact. The cleanup PR contains only repository bookkeeping; its merge commit is the subsequent main checkpoint. The PR record supplies the exact resulting SHA and CI, avoiding an impossible self-referential commit SHA in this document.
+
+### Verification and disposition
+
+Local `node --test` passed 27/27 on Node 26.7.0. Integration must pass `verify`, `strength-evidence` and `benchmark-evidence`; final main receives its push verification. Archive/delete the temporary cleanup branch only after merge and terminal workflows, then verify all retained heads, all archive targets and PR #25 again. Existing local producer worktrees were preserved. The three explicit blockers prevent a claim that every historical ref is gone; all currently gate-passing stale refs are gone.
