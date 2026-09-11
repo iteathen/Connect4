@@ -1,6 +1,6 @@
-schema_version: 12
+schema_version: 13
 updated: 2026-09-11
-state: quotient_native_exact_proof_work_win_wall_clock_near_break_even
+state: quotient_native_bounded_wall_clock_speedup_qualified
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -12,7 +12,7 @@ source_lanes:
   preserved_minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
   hybrid_confluence: solver/hybrid-confluence
-  future_forward_solver: quotient_native_negamax_generation_after_performance_gate
+  future_forward_solver: quotient_native_negamax_after_standard_7x6_scale_and_memory_gate
 
 qualified_chain:
   mq1_to_mq4:
@@ -31,7 +31,6 @@ qualified_chain:
     status: exact_complete_controls
     machine_state: qID_supportIndex_p0ResidualClassId_p1ResidualClassId
     side_to_move: derived_from_support_rank_parity
-    residual_storage: two_u32_lanes
     recursive_colored_board: false
     precompiled_game_dag: false
     exact_reachable_q_counts:
@@ -39,108 +38,118 @@ qualified_chain:
       4x4_c4: 34095
       5x3_c4: 11317
       4x5_c4: 294593
-    root_and_root_action_wdl_mismatches: 0
     qualification_run: 34646025717
     qualification_job: 103416896894
-  class_transition_cache_campaign:
-    status: complete
-    workflow_run: 34646665677
-    workflow_job: 103418974713
-    larger_control_speed_default: dense
-    memory_pressure_candidates:
-      - sparse_exact
-      - direct8
-  best_child_witness_campaign:
-    status: complete
-    workflow_run: 34646887500
-    workflow_job: 103419703662
-    disposition: conditional_not_4x5_default
-  native_driver_campaign:
-    status: complete
-    workflow_run: 34647110759
-    workflow_job: 103420431514
-    selected_current_driver: WDL_native_fail_soft_full_window_negamax
-    conditional:
-      - PVS
-      - MTD_f
-      - WDL_threshold
-      - best_child_witness
-      - witness_only_ETC
-  equal_byte_physical_control:
-    status: complete_bounded_controls_no_forward_speedup_promotion
-    governing_workflow_run: 34647777241
-    governing_workflow_job: 103422562204
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_RESULT.md
-    evidence: research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-vs-physical-wdl.json
+  flat_specialized_transition_kernel:
+    status: pass_complete_graph_identity
+    implementation: flat_two_u32_residual_slabs_specialized_one_cell_algebra
+    workflow_run: 34648796525
+    workflow_job: 103425854486
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_FAST_KERNEL_RESULT.md
+    control_4x5:
+      generic_ms: 20.06286
+      specialized_ms: 13.26911
+      specialized_over_generic: 0.6613767927404146
+  equal_byte_physical_control_v4:
+    status: bounded_wall_clock_speedup_pass
+    workflow_run: 34648899005
+    workflow_job: 103426178175
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_V4_RESULT.md
     physical_control:
       identity: supportIndex_plus_exact_P0_ownership_P1_derived
       TT: bounded_4_way_exact_key_safe_replacement
       value: exact_WDL_fail_soft_full_window
       tactical_closure: same_as_quotient
+    controls:
+      4x4_c4:
+        quotient_ms: 3.182388
+        physical_ms: 4.269585
+        time_ratio_q_over_p: 0.7453623712843281
+      5x3_c4:
+        quotient_ms: 0.708385
+        physical_ms: 2.086072
+        time_ratio_q_over_p: 0.3395784038134656
+      4x5_c4:
+        typed_memory_budget: 1845248
+        quotient_ms: 12.651015
+        physical_ms: 17.715305
+        quotient_expanded: 15054
+        physical_expanded: 36826
+        time_ratio_q_over_p: 0.7141291103935244
+        expansion_ratio_q_over_p: 0.40878726986368324
+  exhaustion_bounds:
+    status: exact_conditional_not_4x5_default
+    combined_run: 34649100614
+    combined_job: 103426816347
+    split_run: 34649184442
+    split_job: 103427078530
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_EXHAUSTION_BOUNDS_RESULT.md
+    exact_rules:
+      opponent_residual_empty: lower_bound_zero
+      own_residual_empty: upper_bound_zero
     control_4x5:
-      typed_memory_budget: 1844704
-      quotient_ms: 16.697357
-      physical_ms: 15.804122
-      quotient_expanded: 15054
-      physical_expanded: 36826
-      quotient_over_physical_time: 1.0565191157091804
-      quotient_over_physical_expansions: 0.40878726986368324
-      conclusion: quotient_qualified_for_proof_work_compression_but_not_wall_clock_speedup
-    other_controls:
-      5x3_c4: quotient_wins_wall_clock
-      4x4_c4: physical_wins_wall_clock
+      baseline_ms: 11.969934
+      best_composed_ms: 11.923855
+      conclusion: effectively_neutral_do_not_default
 
-common_contract:
-  logical_state:
-    - supportIndex
-    - sideToMove_semantically_explicit_hot_storage_derivable
-    - normalized_p0_residual_requirements
-    - normalized_p1_residual_requirements
-  forward: deterministic_T_q_action
-  backward: set_valued_Pre_action_Q
-  shared_default_value: WDL
-  strong_distance: optional_forward_refinement
-  exact_bsfp_fact_dominates_heuristic: true
-  shared_physical_layout_required: false
+current_native_baseline:
+  - qID_hot_state
+  - support_rank_derived_side_to_move
+  - exact_residual_class_ids
+  - dense_residual_class_transition_cache_for_speed
+  - flat_specialized_two_u32_residual_transition_algebra
+  - exact_noop_class_return_when_landing_cell_absent
+  - quotient_native_tactical_closure
+  - WDL_native_fail_soft_full_window_negamax
+  - exact_qID_lower_upper_best_move
+  - no_full_state_edge_cache
+  - no_speculative_ETC
+  - no_one_sided_exhaustion_default_on_4x5
 
 current:
-  primary_action: reduce_quotient_transition_and_interner_cost_per_expansion
+  primary_action: compile_and_qualify_residual_term_ID_substrate
   packet: research/semantic-quotient/state-identity-unification
   owner: Connect4
   mode: research
 
-hot_path_campaign:
-  target: T_q_action
-  decompose:
-    - residual_class_update
-    - residual_canonicalization
-    - residual_class_intern
-    - quotient_state_intern
-  measure:
-    - residual_transition_cache_hit_and_miss_cost
-    - normalization_term_scans
-    - class_hash_probes
-    - class_equality_term_comparisons
-    - q_hash_probes
-    - q_key_comparisons
-    - transient_array_allocations_and_copies
-    - repeated_transition_recomputation
-  candidate_structural_changes:
-    - canonical_transition_without_general_sort_when_single_bit_removed_or_blocked
-    - class_signature_incremental_hashing
-    - preclassified_requirement_membership_by_cell
-    - fixed_width_class_metadata
-    - slab_or_flat_typed_term_storage
-    - specialized_transition_intern_path_separate_from_general_class_intern
-    - quotient_state_intern_hash_precomputation_from_child_support_and_class_ids
-    - bounded_selective_transition_reuse_only_if_it_earns_cost
+term_id_campaign:
+  premise: every_live_residual_requirement_is_a_nonempty_subset_of_a_winning_line
+  discover_do_not_hardcode:
+    - exact_unique_term_count_for_each_control
+    - exact_unique_term_count_for_standard_7x6
+    - max_term_ID_width_required
+  candidate_layout:
+    - compact_term_ID_per_residual_term
+    - precomputed_term_cardinality
+    - precomputed_term_cell_membership
+    - precomputed_reduce_term_by_cell_or_terminal
+    - precomputed_subset_or_dominance_relation
+    - residual_classes_as_sorted_compact_term_ID_sequences
+  qualification:
+    - exact_mask_roundtrip_for_every_term_ID
+    - exact_transition_equivalence_against_flat_two_u32_kernel
+    - exact_complete_q_graph_identity_on_bounded_controls
+    - independent_BSFP_root_and_action_WDL
+  metrics:
+    - full_term_vocabulary_bytes
+    - residual_class_bytes
+    - transition_table_bytes
+    - class_hash_and_equality_cost
+    - T_q_action_wall_clock
+    - full_solver_wall_clock
+    - fair_physical_control_recomparison
   hard_constraints:
+    - no_remembered_625_constant_as_authority
     - preserve_exact_q_identity
     - preserve_complete_control_edge_equivalence
     - no_BigInt_string_object_hot_state_regression
-    - include_transition_and_interning_cost_in_timing
-    - compare_against_same_exact_physical_WDL_control
-    - do_not_trade_wall_clock_for_prettier_memory_without_scale_justification
+    - count_JS_heap_or_move_metadata_into_typed_slabs_before_memory_promotion
+
+conditional_exact_mechanisms:
+  one_sided_exhaustion:
+    nonloss: opponent_residual_empty_implies_LB_0
+    nonwin: own_residual_empty_implies_UB_0
+    disposition: retain_but_not_current_4x5_default
 
 closed_until_cost_model_changes:
   - PVS_default
@@ -148,28 +157,31 @@ closed_until_cost_model_changes:
   - WDL_threshold_default
   - forcing_ETC
   - full_state_edge_cache
+  - best_child_witness_default
   - generic_history_killer
   - child_bound_sorting_without_cutoff
 
-later_after_hot_path:
+later_after_term_id:
+  - Connect4_specific_quotient_proof_cost_ordering
   - reflection_and_residual_automorphism
   - compiled_local_proof_masks
-  - Connect4_specific_relational_proof_cost_ordering
-  - standard_7x6_scale_evidence
+  - complete_memory_accounting
+  - standard_7x6_reachable_scale_and_transition_economics
   - actual_BSFP_boundary_build_publication_query_cost
   - coarse_parallelism
 
 promotion_gates:
   - exact_WDL_root_and_action_semantics
-  - notable_wall_clock_gain_against_exact_physical_WDL_control_or_independently_justified_7x6_scale_advantage
-  - comparable_memory_accounting
+  - complete_bounded_graph_equivalence_for_representation_changes
+  - comparable_full_memory_accounting
+  - standard_7x6_or_independently_justified_scale_evidence_before_production_promotion
   - no_false_exact_TT_or_BSFP_hits
   - actual_BSFP_cost_required_before_hybrid_performance_claim
 
 non_claims:
-  - no_standard_7x6_production_performance
-  - no_quotient_forward_speedup_yet
-  - typed_array_memory_is_not_complete_JS_heap_accounting
-  - no_global_dense_transition_cache_optimality_claim
+  - no_standard_7x6_production_performance_yet
+  - no_complete_equal_total_JS_heap_memory_claim_yet
+  - no_global_dense_transition_cache_optimality_claim_at_7x6
   - no_default_ETC_claim_on_native_quotient_kernel
+  - no_default_one_sided_exhaustion_claim_on_4x5
   - no_end_to_end_hybrid_speedup_claim
