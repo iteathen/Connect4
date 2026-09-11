@@ -13,7 +13,9 @@ It does **not** own the minimax/alpha-beta solver implementation or the CUDA-BSF
 - `solver/minimax-alpha-beta`
 - `solver/cuda-bsfp`
 
-## Established cross-solver evidence
+## Starting evidence
+
+The shared OQS/flat-transfer history is preserved here through the superseded `research/zdd-transfer-20260910` lineage. Important established evidence includes:
 
 - identified-line quotient `(support,H0,H1)` passed complete physical transition/WDL controls through 4x5;
 - separator crossing ownership alone is insufficient for the full symbolic BSFP domain, while measured exact hidden-history classes remained small on controls;
@@ -22,32 +24,19 @@ It does **not** own the minimax/alpha-beta solver implementation or the CUDA-BSF
 - R6 synthesized quotient layers incrementally from prior classes rather than rebuilding forgotten histories;
 - minimax research independently established exact reuse across different colored histories when residual future structure matched.
 
-## Latest OQS factorization result
+## Residual-pair factorization seam
 
-The latest incoming OQS work from former mixed branch head `e04cee12bc24cda63fcf889eb4ca2137837f86bf` is now curated into this branch as semantic research rather than left on a fifth continuity lane.
+The latest shared OQS handoff is `research/zdd-transfer-20260910@5dfe1312a357c48eee53168e82fd6eba27814a06`.
 
-The bounded 7x6 seed/prefix probes strengthened the minimum-description hypothesis:
+The semantic result retained here is that exact canonical residual-pair identity can be factored from crossing-state occurrence identity for the qualified cut-local cofactor operation. The bounded 7x6 observations include 8,192 crossing states but only 48 distinct residual pairs after six cuts, and cut five requires 8,192 logical state/input outputs but only 128 distinct residual/input cofactor evaluations.
 
-- after six cuts, 8,192 logical `(crossing assignment,residual)` states used only **48 distinct exact residual pairs**;
-- 1,732,992 logical frontier-record occurrences corresponded to only **10,597 records** in those distinct residual pairs;
-- at cut 5, 8,192 state/input outputs required only **128 distinct residual/input cofactor evaluations**;
-- exact residual-cofactor reuse on complete 4x4 controls and a bounded 7x6 prefix preserved the exact layer state sets/digests;
-- observed CPU cofactor evaluations dropped from **11,056 to 624** and the six-cut probe from about **22.52 s to 3.28 s** (~6.86x descriptive ratio).
+O3 strengthened the exact regression so factored input IDs must recover the original residual pair and every logical occurrence output remains represented. The CUDA mapping kernel, layout, profile, qualifier, native timing and generated evidence are owned by `solver/cuda-bsfp`; they are implementation evidence for this semantic seam, not semantic ownership.
 
-This does not prove the final 7x6 quotient size or CUDA speedup. It does show that **crossing-state identity and residual-function identity should be factored rather than stored/recomputed one-for-one**.
-
-Active research artifacts are now owned here:
-
-- `docs/research/2026-09-11-oqs-seed-scaling.md`;
-- `docs/research/evidence/2026-09-11-oqs-seed-scaling.json`;
-- `docs/research/evidence/2026-09-11-oqs-residual-cofactor-reuse.json`;
-- `reference/research-prototypes/2026-09-10-oqs/`.
-
-CUDA O1/O2 layouts/profiles/qualifier implementation were separately routed to `solver/cuda-bsfp`.
+This is **not** yet evidence that residual pairs can be globally interned across all supports/cuts, and it is not a complete 7x6 quotient-size or root-W/D/L result.
 
 ## Immediate cross-solver program
 
-The main semantic program remains MQ1-MQ5:
+The first research sequence is MQ1-MQ5:
 
 1. **MQ1:** qualify the identified-line quotient for minimax's exact distance-sensitive state and per-column action values, not only W/D/L.
 2. **MQ2:** compute the coarsest action-labelled behavioral quotient on complete small games by exact partition refinement.
@@ -55,7 +44,7 @@ The main semantic program remains MQ1-MQ5:
 4. **MQ4:** compile exact `(classId,column) -> terminal | nextClassId` transition artifacts and measure description/transition cost.
 5. **MQ5:** compare unchanged serial alpha-beta over the compiled quotient against the strongest fixed-width colored-board control.
 
-The OQS residual-pair factorization is a parallel shared-representation seam because it may expose exactly the kind of class decomposition MQ2–MQ4 seek: many operational states referencing a much smaller immutable semantic kernel.
+Only after those gates should solver-specific optimizations be promoted back into either solver lane.
 
 ## Research principle
 
@@ -63,9 +52,11 @@ Kolmogorov complexity is motivation, not a computable acceptance metric. Accepta
 
 A smaller-looking representation is rejected if it changes legal actions, terminal timing, exact action values or solver-required proof meaning.
 
-## Ownership boundary
+## Existing OQS continuation
 
-The former `research/zdd-transfer-20260910` branch is historical/incoming work, not a fifth durable lane. Its latest audited head is ancestry-preserved by the curated semantic/CUDA handoff. New shared quotient/OQS semantics belong here; CUDA-specific Device-JS profiles and native qualification belong on `solver/cuda-bsfp`.
+The OQS CUDA cofactor/grouping work remains valuable evidence where it answers the shared quotient/compiler question. Production CUDA-BSFP integration decisions belong on `solver/cuda-bsfp`.
+
+The former `research/zdd-transfer-20260910` ref is superseded as the research continuity branch. Its latest audited handoff head is ancestry-preserved here, while CUDA-owned O1/O2/O3 implementation is routed to the solver lane.
 
 ## Preservation caveat
 
