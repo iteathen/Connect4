@@ -1,0 +1,29 @@
+name: Slot64 own-transition locality audit
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-own-locality-audit.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
+      - '.github/workflows/semantic-quotient-slot64-own-locality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Measure exact 7x6 mover slot locality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run rank-8 exact mover locality audit
+        run: >-
+          node --expose-gc --max-old-space-size=6144
+          research/semantic-quotient/state-identity-unification/src/quotient-slot64-own-locality-audit.mjs
