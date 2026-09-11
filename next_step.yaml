@@ -1,6 +1,6 @@
-schema_version: 11
+schema_version: 12
 updated: 2026-09-11
-state: quotient_native_negamax_exact_refinement_complete
+state: quotient_native_exact_proof_work_win_wall_clock_near_break_even
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -12,7 +12,7 @@ source_lanes:
   preserved_minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
   hybrid_confluence: solver/hybrid-confluence
-  future_forward_solver: quotient_native_negamax_generation_after_research_qualification
+  future_forward_solver: quotient_native_negamax_generation_after_performance_gate
 
 qualified_chain:
   mq1_to_mq4:
@@ -21,59 +21,17 @@ qualified_chain:
     exact_state_and_action_mismatches: 0
   siu1:
     status: pass
-    logical_state: supportIndex_sideToMove_p0Residual_p1Residual
+    workflow_run: 34632643724
+    workflow_job: 103372941221
     physical_states_checked: 1681808
     exactness_mismatches: 0
     bsfp_wdl_mismatches: 0
     reverse_closure_mismatches: 0
-    forward_transition_functional: true
-    state_level_inverse_functional: false
-    workflow_run: 34632643724
-    workflow_job: 103372941221
-  search_campaign_v1:
-    status: complete
-    workflow_run: 34636074995
-    workflow_job: 103384159647
-    formulation_selected: side_to_move_relational_negamax
-    driver_candidates:
-      - alpha_beta_control
-      - PVS_NegaScout
-      - MTD_f
-    research_only:
-      - PN_DAG
-      - Proof_Set_Search
-  negamax_optimization_campaign:
-    status: complete_precompiled_graph_evidence
-    broad_workflow_run: 34637521061
-    broad_workflow_job: 103388937756
-    refinement_workflow_run: 34637786848
-    refinement_workflow_job: 103389801743
-    retained_semantics:
-      - single_perspective_side_to_move_value
-      - fail_soft_exact_bounds
-      - exact_single_perspective_TT_semantics
-      - native_relational_tactical_closure
-      - WDL_native_default_product_value_contract
-    conditional_after_native_requalification:
-      - Enhanced_Transposition_Cutoff
-      - WDL_threshold_driver
-      - optional_strong_distance_refinement
-    rejected:
-      - fail_hard_negamax
-      - generic_history_killer_ordering
-      - child_bound_ordering_without_cutoff
-      - blind_all_on_optimization_composition
   quotient_native_kernel:
-    status: exact_complete_controls_native_economics_qualified
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_NATIVE_NEGAMAX_RESULT.md
-    evidence: research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-native-negamax.json
-    qualification_workflow_run: 34646025717
-    qualification_workflow_job: 103416896894
-    refinement_workflow_run: 34646180590
-    refinement_workflow_job: 103417404214
+    status: exact_complete_controls
     machine_state: qID_supportIndex_p0ResidualClassId_p1ResidualClassId
     side_to_move: derived_from_support_rank_parity
-    residual_storage: two_u32_lanes_no_BigInt_in_timed_kernel
+    residual_storage: two_u32_lanes
     recursive_colored_board: false
     precompiled_game_dag: false
     exact_reachable_q_counts:
@@ -81,24 +39,61 @@ qualified_chain:
       4x4_c4: 34095
       5x3_c4: 11317
       4x5_c4: 294593
-    exact_root_and_root_action_wdl_mismatches: 0
-    current_larger_control_baseline:
-      contract: WDL_native_fail_soft_full_window_no_edge_cache_no_forcing_ETC
-      control: 4x5_c4
-      expanded: 15054
-      median_total_ms: 18.539056
-      q_states_created: 15728
-      residual_classes: 7470
-      typed_bytes_lower_bound: 1844704
-    native_etc_disposition:
-      forcing_ETC: reject_current_default_speculative_child_construction
-      materialized_child_ETC: conditional_tuning_candidate
-      reason: child_quotient_construction_is_real_work_and_changes_ETC_economics
+    root_and_root_action_wdl_mismatches: 0
+    qualification_run: 34646025717
+    qualification_job: 103416896894
+  class_transition_cache_campaign:
+    status: complete
+    workflow_run: 34646665677
+    workflow_job: 103418974713
+    larger_control_speed_default: dense
+    memory_pressure_candidates:
+      - sparse_exact
+      - direct8
+  best_child_witness_campaign:
+    status: complete
+    workflow_run: 34646887500
+    workflow_job: 103419703662
+    disposition: conditional_not_4x5_default
+  native_driver_campaign:
+    status: complete
+    workflow_run: 34647110759
+    workflow_job: 103420431514
+    selected_current_driver: WDL_native_fail_soft_full_window_negamax
+    conditional:
+      - PVS
+      - MTD_f
+      - WDL_threshold
+      - best_child_witness
+      - witness_only_ETC
+  equal_byte_physical_control:
+    status: complete_bounded_controls_no_forward_speedup_promotion
+    governing_workflow_run: 34647777241
+    governing_workflow_job: 103422562204
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_RESULT.md
+    evidence: research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-vs-physical-wdl.json
+    physical_control:
+      identity: supportIndex_plus_exact_P0_ownership_P1_derived
+      TT: bounded_4_way_exact_key_safe_replacement
+      value: exact_WDL_fail_soft_full_window
+      tactical_closure: same_as_quotient
+    control_4x5:
+      typed_memory_budget: 1844704
+      quotient_ms: 16.697357
+      physical_ms: 15.804122
+      quotient_expanded: 15054
+      physical_expanded: 36826
+      quotient_over_physical_time: 1.0565191157091804
+      quotient_over_physical_expansions: 0.40878726986368324
+      conclusion: quotient_qualified_for_proof_work_compression_but_not_wall_clock_speedup
+    other_controls:
+      5x3_c4: quotient_wins_wall_clock
+      4x4_c4: physical_wins_wall_clock
 
 common_contract:
   logical_state:
     - supportIndex
-    - sideToMove_semantically_explicit_but_hot_storage_derivable
+    - sideToMove_semantically_explicit_hot_storage_derivable
     - normalized_p0_residual_requirements
     - normalized_p1_residual_requirements
   forward: deterministic_T_q_action
@@ -107,110 +102,74 @@ common_contract:
   strong_distance: optional_forward_refinement
   exact_bsfp_fact_dominates_heuristic: true
   shared_physical_layout_required: false
-  shared_control_flow_required: false
 
 current:
-  primary_action: qualify_compact_sparse_residual_class_transition_storage
+  primary_action: reduce_quotient_transition_and_interner_cost_per_expansion
   packet: research/semantic-quotient/state-identity-unification
   owner: Connect4
   mode: research
 
-quotient_native_kernel_campaign:
-  current_baseline:
-    - dense_qID_exact_state
-    - support_rank_derived_side_to_move
-    - two_u32_residual_masks
-    - lazy_exact_residual_class_transitions
-    - WDL_native_fail_soft_full_window_negamax
-    - quotient_native_tactical_closure
-    - dense_exact_WDL_bounds_by_qID
-    - no_per_state_quotient_edge_cache
-    - no_forcing_ETC
-  immediate_optimization:
-    question: dense_residual_class_transition_cache_is_sparse_and_dominates_memory
-    control_4x5:
-      residual_classes: 7470
-      transition_capacity_classes: 8192
-      cell_count: 20
-      transition_modes: 2
-      reserved_entries: 327680
-      populated_entries: 22039
-      occupancy_fraction: 0.0672576904296875
-      reserved_typed_bytes: 1310720
-    candidates:
-      - sparse_exact_open_address_transition_cache
-      - bounded_tagged_direct_mapped_per_class_transition_cache
-      - support_or_landing_event_conditioned_compact_transition_storage
-    hard_constraints:
-      - exact_transition_result_on_cache_hit
-      - cache_miss_may_recompute_but_never_change_semantics
-      - no_BigInt_object_string_hot_state_regression
-      - include_cache_lookup_recompute_and_memory_cost
-      - preserve_independent_reference_qualification
-  fairness:
-    - equal_byte_TT_controls_before_solver_promotion
-    - include_transition_construction_cost
-    - include_key_handle_and_interning_cost
-    - no_recursive_colored_board_identity
-    - exact_WDL_assertions_against_qualified_oracle
-    - complete_memory_claim_requires_more_than_typed_array_lower_bound
-  driver_tournament_after_representation_stabilizes:
-    - full_window_alpha_beta_control
-    - PVS_NegaScout
-    - MTD_f
-    - WDL_threshold_driver
-  after_serial_kernel_stabilizes:
-    - reflection_and_residual_automorphism
-    - compiled_local_proof_masks
-    - Connect4_specific_relational_proof_cost_ordering
-    - coarse_parallelism
-  hybrid_economics:
-    - replace_ideal_rank_wall_with_actual_BSFP_produced_boundary
-    - include_BSFP_build_cost
-    - include_publication_cost
-    - include_query_cost
-    - measure_forward_work_eliminated_per_total_BSFP_cost
+hot_path_campaign:
+  target: T_q_action
+  decompose:
+    - residual_class_update
+    - residual_canonicalization
+    - residual_class_intern
+    - quotient_state_intern
+  measure:
+    - residual_transition_cache_hit_and_miss_cost
+    - normalization_term_scans
+    - class_hash_probes
+    - class_equality_term_comparisons
+    - q_hash_probes
+    - q_key_comparisons
+    - transient_array_allocations_and_copies
+    - repeated_transition_recomputation
+  candidate_structural_changes:
+    - canonical_transition_without_general_sort_when_single_bit_removed_or_blocked
+    - class_signature_incremental_hashing
+    - preclassified_requirement_membership_by_cell
+    - fixed_width_class_metadata
+    - slab_or_flat_typed_term_storage
+    - specialized_transition_intern_path_separate_from_general_class_intern
+    - quotient_state_intern_hash_precomputation_from_child_support_and_class_ids
+    - bounded_selective_transition_reuse_only_if_it_earns_cost
+  hard_constraints:
+    - preserve_exact_q_identity
+    - preserve_complete_control_edge_equivalence
+    - no_BigInt_string_object_hot_state_regression
+    - include_transition_and_interning_cost_in_timing
+    - compare_against_same_exact_physical_WDL_control
+    - do_not_trade_wall_clock_for_prettier_memory_without_scale_justification
 
-parallel_research:
-  symbolic_preimage:
-    goal: compute_Pre_action_Q_without_materializing_complete_reverse_edges
-    hard_constraint: preserve_or_improve_existing_BSFP_frontier_compression
-  strong_distance:
-    role: optional_consumer_requested_refinement
-    candidates:
-      - exact_rank_distance_envelope
-      - WDL_seeded_strong_bounds
-  native_ETC:
-    role: conditional_after_child_identity_cost
-    retain:
-      - materialized_child_only_ETC
-      - selective_ETC_if_probe_surface_becomes_cheaper
-    reject_current_default:
-      - speculative_child_construction_for_ETC
-  driver_research:
-    retain:
-      - PVS_NegaScout
-      - MTD_f
-      - WDL_threshold
-    do_not_reintroduce_without_new_evidence:
-      - generic_history_killer
-      - child_bound_sorting_without_exact_cutoff
+closed_until_cost_model_changes:
+  - PVS_default
+  - MTD_f_default
+  - WDL_threshold_default
+  - forcing_ETC
+  - full_state_edge_cache
+  - generic_history_killer
+  - child_bound_sorting_without_cutoff
+
+later_after_hot_path:
+  - reflection_and_residual_automorphism
+  - compiled_local_proof_masks
+  - Connect4_specific_relational_proof_cost_ordering
+  - standard_7x6_scale_evidence
+  - actual_BSFP_boundary_build_publication_query_cost
+  - coarse_parallelism
 
 promotion_gates:
   - exact_WDL_root_and_action_semantics
-  - exact_strong_distance_where_claimed
-  - notable_total_wall_clock_or_work_gain
-  - equal_total_memory_accounting
+  - notable_wall_clock_gain_against_exact_physical_WDL_control_or_independently_justified_7x6_scale_advantage
+  - comparable_memory_accounting
   - no_false_exact_TT_or_BSFP_hits
-  - quotient_native_kernel_evidence_before_solver_branch_rebuild
   - actual_BSFP_cost_required_before_hybrid_performance_claim
-  - standard_7x6_or_independently_justified_scale_evidence_before_production_promotion
 
 non_claims:
   - no_standard_7x6_production_performance
-  - no_equal_byte_incumbent_speedup_yet
+  - no_quotient_forward_speedup_yet
   - typed_array_memory_is_not_complete_JS_heap_accounting
-  - no_final_PVS_vs_MTDf_vs_threshold_driver_selection
-  - no_end_to_end_hybrid_speedup_claim_from_ideal_BSFP_walls
+  - no_global_dense_transition_cache_optimality_claim
   - no_default_ETC_claim_on_native_quotient_kernel
-  - no_safety_claim_for_unproven_selective_pruning
+  - no_end_to_end_hybrid_speedup_claim
