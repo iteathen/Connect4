@@ -1,13 +1,25 @@
 {
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "updated": "2026-09-10",
-  "purpose": "Post-restructure verification that historical and delivery refs are preserved by canonical lane ancestry, exact duplication, curated migration, qualification-evidence consolidation, or history-only archive merge. MIGRATION_MANIFEST.json remains the immutable pre-restructure census snapshot.",
+  "purpose": "Post-restructure verification that historical and delivery refs are preserved by canonical lane ancestry, exact duplication, curated migration, qualification-evidence consolidation, ownership-split handoff, or history-only archive merge. MIGRATION_MANIFEST.json remains the immutable pre-restructure census snapshot.",
   "canonicalHeadsAtLatestProof": {
     "main": "f23d0566905287fe8e65e12a89d516b4b7ec8f55",
     "solver/minimax-alpha-beta": "0d5894876e02609f4a78466d7ffa5c632e44c803",
-    "solver/cuda-bsfp": "e800fa564c17aca9f142984c908ecb0ec0dfa91a",
-    "research/semantic-quotient": "99a892b3cb17f5330a31a30993bfdb438c081273"
+    "solver/cuda-bsfp": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+    "research/semantic-quotient": "312c84afede4427bedbab231e141da36a7fc3510"
   },
+  "activeIncomingBranches": [
+    {
+      "ref": "research/zdd-transfer-20260910",
+      "curatedThrough": "54d63ae9a066dba42b2748b3ad51353611a2c52a",
+      "preservedBy": ["solver/cuda-bsfp", "research/semantic-quotient"],
+      "graphProof": "54d63ae9 is the exact merge base and a strict ancestor of both canonical lanes",
+      "branchRetirementSafe": false,
+      "reason": "another authorized producer is still advancing this ref; do not delete or repoint it until that producer stops",
+      "latestCuratedContent": "dependency-evidence checkpoint only: verified CUDA-Algorithms checked-scan experiment / issue 9; no new Connect4 algorithmic implementation",
+      "rule": "new commits on this ref are incoming staging work and must be audited/routed by ownership; they do not regain continuity authority"
+    }
+  ],
   "verifiedRetirementSafe": [
     {"ref":"research/exact-solver-perf-checkpoint-2026-09-08","head":"912359dc9bfd8570bb74651802ce05290d60c0aa","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
     {"ref":"research/exact-solver-rethink-controls-2026-09-09","head":"f585ca9a6b67a74363ea239185adbb449b0c9bc2","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
@@ -15,12 +27,9 @@
     {"ref":"research/minimax-structural-cut-20260909","head":"0d2648c83a88c8c3dd2a4836cb19296d1930b35a","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
     {"ref":"research/residual-automorphisms-2026-09-09","head":"5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
     {"ref":"feature/shared-evaluator-v1","head":"77c5c0da57ddb65cd7aff9ce131481a19414931a","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor after curated archive merge; PR #5 closed as superseded","artifactPacket":"research/minimax/incumbent-v8-rewrite/"},
-
-    {"ref":"research/zdd-transfer-20260910","head":"5dfe1312a357c48eee53168e82fd6eba27814a06","preservedBy":["research/semantic-quotient","solver/cuda-bsfp"],"proof":"latest audited mixed OQS/O3 head is a merge parent/ancestor of both canonical lanes after curated ownership split","note":"shared quotient/residual-pair semantics and strengthened exact reuse control routed to semantic-quotient; O1/O2/O3 CUDA implementation/profile/qualifier/experiment material routed to solver/cuda-bsfp; mixed STATUS/next_step files were not imported wholesale"},
-    {"ref":"research/low-confidence-survival-2026-09-09","head":"f28e79098c0c62fff752eca4aecbf8fd6f4a2073","preservedBy":"research/semantic-quotient","proof":"history-only merge; confirmed ancestor afterwards"},
-    {"ref":"research/direct-line-product-bsfp-20260910","head":"028d508547ac86859cb65f8933b24d219176dc56","preservedBy":"research/semantic-quotient","proof":"curated merge and exact source restoration; confirmed ancestor afterwards"},
+    {"ref":"research/low-confidence-survival-2026-09-09","head":"f28e79098c0c62fff752eca4aecbf8fd6f4a2073","preservedBy":"research/semantic-quotient","proof":"history-only merge; confirmed ancestor"},
+    {"ref":"research/direct-line-product-bsfp-20260910","head":"028d508547ac86859cb65f8933b24d219176dc56","preservedBy":"research/semantic-quotient","proof":"curated merge and exact source restoration; confirmed ancestor"},
     {"ref":"research/live-q1-5min-20260910","head":"b8e15aa72c92fb58515a80340876e7df45b5316c","preservedBy":"research/semantic-quotient","proof":"history-only merge; unique content was a queued one-shot workflow with no durable measurement"},
-
     {"ref":"research/identified-winline-quotient-test","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"confirmed ancestor"},
     {"ref":"research/identified-winline-quotient-test-2","head":"900cfa804fb0b06e524d2642c4feb845a9993077","preservedBy":"research/semantic-quotient","proof":"confirmed ancestor; exact duplicate of -3 and -4"},
     {"ref":"research/identified-winline-quotient-test-3","head":"900cfa804fb0b06e524d2642c4feb845a9993077","preservedBy":"research/semantic-quotient","proof":"same exact head as verified -2"},
@@ -30,71 +39,64 @@
     {"ref":"research/winline-product-antichain-run","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
     {"ref":"research/winline-product-dominance","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
     {"ref":"research/winline-product-dominance-v2","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
-
-    {"ref":"research/winline-product-antichain-final","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"exact old CUDA-BSFP head; canonical solver branch created from this commit"},
+    {"ref":"research/winline-product-antichain-final","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"exact old CUDA-BSFP head"},
     {"ref":"feature/cuda-bsfp","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"canonical solver branch created from exact old head; PR #14 superseded by PR #25"},
-    {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b","preservedBy":"solver/cuda-bsfp","proof":"confirmed strict ancestor of feature/cuda-bsfp; zero unique commits"},
+    {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b","preservedBy":"solver/cuda-bsfp","proof":"confirmed strict ancestor of old CUDA-BSFP branch; zero unique commits"},
     {"ref":"noop","head":"de47d43f4f4133a68973d0876a402531ef5735da","preservedBy":"main","proof":"exact pre-restructure main head"}
   ],
   "mixedOqsOwnershipHandoff": {
-    "supersededIncomingBranch": "research/zdd-transfer-20260910",
-    "latestAuditedHead": "5dfe1312a357c48eee53168e82fd6eba27814a06",
-    "semanticHandoffHead": "99a892b3cb17f5330a31a30993bfdb438c081273",
-    "cudaHandoffHead": "e800fa564c17aca9f142984c908ecb0ec0dfa91a",
-    "semanticOwned": [
-      "shared OQS/quotient mathematics",
-      "seed-scaling and exact residual-pair factorization semantics",
-      "active reference/research-prototypes/2026-09-10-oqs evolution",
-      "strengthened factored-residual exact regression",
-      "minimum-description and behavioral-quotient interpretation"
-    ],
-    "cudaOwned": [
-      "O1/O2/O3 CUDA layouts/plans/programs",
-      "O3 exact occurrence mapping",
-      "O1/O2/O3 qualifier profiles and tests",
-      "CUDA OQS experiment harnesses",
-      "native qualification evidence and solver-specific device composition"
-    ],
-    "frozenQualificationOracleOnCuda": [
-      "reference/research-prototypes/2026-09-10-oqs/",
-      "reference/research-prototypes/2026-09-10-zdd-transfer/"
-    ],
-    "rule": "frozen copies on the CUDA lane are qualification/reproduction authority only; active shared semantic evolution belongs to research/semantic-quotient"
+    "incomingBranch": "research/zdd-transfer-20260910",
+    "curatedThrough": "54d63ae9a066dba42b2748b3ad51353611a2c52a",
+    "o3ImplementationSource": "5dfe1312a357c48eee53168e82fd6eba27814a06",
+    "o3MeasuredCheckpoint": "c8be6474e329e08b0b09304e92dd99706e13adf7",
+    "producerScanCheckpoint": "54d63ae9a066dba42b2748b3ad51353611a2c52a",
+    "semanticHandoffHead": "312c84afede4427bedbab231e141da36a7fc3510",
+    "cudaHandoffHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+    "semanticOwned": ["shared OQS/quotient mathematics", "exact residual-pair factorization/equivalence", "behavioral-quotient interpretation", "active semantic prototype evolution"],
+    "cudaOwned": ["O1/O2/O3 CUDA implementation", "occurrence mapping", "qualifier profiles/tests", "native evidence", "solver-specific OQS composition"],
+    "dependencyEvidence": {
+      "owner": "iteathen/CUDA-Algorithms",
+      "issue": 9,
+      "experimentalBranch": "codex/oqs-segment-scan",
+      "experimentSource": "7d923eb5e4bf4664feab0d0d7c3dded2f81e15b3",
+      "evidenceCheckpoint": "3aa4f6eb4ee434d82835fe9e9daabafd31dcc0d1",
+      "status": "experimental_not_adopted",
+      "connect4DependencyPinChanged": false
+    },
+    "rule": "incoming mixed work is evidence/staging only; route each fact by ownership and never let this branch replace canonical lane authority"
   },
   "qualificationEvidenceMigration": {
     "defaultEvidencePrBase": "solver/cuda-bsfp",
-    "treePolicy": "each generated run directory is attached by its exact Git tree SHA; generated contents are not rewritten",
-    "historicalEvidencePRsClosed": [15,16,17,18,19,20,21,28],
-    "directlyConsolidatedWithoutPublishedPr": ["20260911T050640911Z-b3554293"],
+    "treePolicy": "generated run directories are attached by exact Git tree SHA; generated contents are not rewritten",
+    "historicalEvidencePRsClosed": [15,16,17,18,19,20,21,28,30],
     "runs": [
       {"ref":"evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb","head":"b413d4ae3c9303abb5f0aee11162fd67149de7a1","outcome":"failed"},
       {"ref":"evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872","head":"81ab62b2b4101d37a501b5b4e3e230259203ddc6","outcome":"failed"},
       {"ref":"evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d","head":"b86c046cd85bcce7f277a2df21c093cab7109e2a","outcome":"failed"},
       {"ref":"evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8","head":"936fe9f76fb665aaea47a6d2cfef032d3abc9e1d","outcome":"complete-with-boundaries"},
-      {"ref":"evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a","head":"8315a6093041d24d9c742a04eb5b29cf3d50de62","outcome":"qualified"},
-      {"ref":"evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61","head":"1b07441ed9de113191e715275461d7a901706d8b","outcome":"qualified"},
-      {"ref":"evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3","head":"d2e31abb6f4da79f4b4d006e166e4b39d1960dd3","outcome":"qualified","profile":"c4-0009-o1-oqs-cofactor-42"},
-      {"ref":"evidence/cuda-bsfp-q1/20260911T043015870Z-2d8e0785","head":"05ea4fd0e91c3b11e1074cc68d36738675c4ae51","outcome":"qualified","profile":"c4-0009-o2-oqs-7x6-seed-slice","note":"bounded native 7x6 seed slice; not complete solve"},
-      {"ref":"evidence/cuda-bsfp-q1/20260911T050640911Z-b3554293","head":"e99680503aae6e3d56e168437e4b1ffc5708b6c3","tree":"5878ff0a252a8c9f124815cb5dda8d9bdc92a477","outcome":"qualified","profile":"c4-0009-o3-oqs-residual-reuse","source":"5dfe1312a357c48eee53168e82fd6eba27814a06","note":"4x4 and bounded selected 7x6 residual reuse/occurrence mapping qualified; not complete solve"}
-    ],
-    "retirementMeaning": "all listed evidence heads are ancestry-preserved by the canonical CUDA-BSFP lane and their generated evidence trees are present directly in that lane; live delivery refs are no longer required for evidence preservation"
+      {"ref":"evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a","head":"8315a6093041d24d9c742a04eb5b29cf3d50de62","outcome":"qualified","profile":"b1"},
+      {"ref":"evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61","head":"1b07441ed9de113191e715275461d7a901706d8b","outcome":"qualified","profile":"c1"},
+      {"ref":"evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3","head":"d2e31abb6f4da79f4b4d006e166e4b39d1960dd3","outcome":"qualified","profile":"o1"},
+      {"ref":"evidence/cuda-bsfp-q1/20260911T043015870Z-2d8e0785","head":"05ea4fd0e91c3b11e1074cc68d36738675c4ae51","outcome":"qualified","profile":"o2","note":"bounded native 7x6 seed slice; not complete solve"},
+      {"ref":"evidence/cuda-bsfp-q1/20260911T050640911Z-b3554293","head":"e99680503aae6e3d56e168437e4b1ffc5708b6c3","tree":"5878ff0a252a8c9f124815cb5dda8d9bdc92a477","outcome":"qualified","profile":"o3","source":"5dfe1312a357c48eee53168e82fd6eba27814a06","proof":"evidence head is exact merge base / strict ancestor of solver/cuda-bsfp"}
+    ]
   },
   "legacyHistoryArchive": {
     "archiveMergeCommitOnMain": "eeb054873dfb1f0dc69b22ace3d1d5d82539b070",
-    "treePolicy": "current cleaned tree retained exactly; legacy parent trees are history/provenance only and are not restored into the live filesystem",
     "headsPreservedAsAdditionalParents": [
-      {"ref":"feature/incumbent-node-search","head":"c42d8c7060dcd6d3a5802c5f8b3f5da13089a26"},
-      {"ref":"feature/shared-evaluator-v1","head":"77c5c0da57ddb65cd7aff9ce131481a19414931a","note":"also migrated as runnable historical minimax packet"},
-      {"ref":"feature/solved-strength-oracle","head":"0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e"},
-      {"ref":"feature/cuda-mcgs-composition-assessment","head":"e79922c726b5d6d8baa9783c804996d47eef89a4"},
-      {"ref":"agent/benchmark-bootstrap","head":"dcaed03b03410d8b6f46f1ff5ef53e9bde732a6b"},
-      {"ref":"docs/execution-efficiency-mutation-hygiene","head":"84677fa856d695da760278144f454c4e71106fc7"},
-      {"ref":"docs/global-agent-local-migration","head":"e51efbd5b3746fd1b61dac1cd35baa6ffcda5f20"},
-      {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b"}
+      "feature/incumbent-node-search",
+      "feature/shared-evaluator-v1",
+      "feature/solved-strength-oracle",
+      "feature/cuda-mcgs-composition-assessment",
+      "agent/benchmark-bootstrap",
+      "docs/execution-efficiency-mutation-hygiene",
+      "docs/global-agent-local-migration",
+      "tmp-do-not-use-c4diag"
     ],
-    "retirementMeaning": "historical heads are reachable from protected main and live branch names can be retired without losing commit provenance; old trees are not current product state"
+    "treePolicy": "cleaned current tree retained; obsolete parent trees are provenance only"
   },
   "pendingUniqueContentAudit": [],
   "evidenceRefsPendingPayloadVerification": [],
-  "physicalDeletionStatus": "not_performed_connector_has_no_delete_ref_or_tag_creation"
+  "physicalDeletionStatus": "not_performed_connector_has_no_delete_ref_or_tag_creation",
+  "physicalDeletionAdditionalBlocker": "research/zdd-transfer-20260910 is still being advanced by an active authorized producer; exact curated checkpoints are preserved but the moving ref must not be deleted yet"
 }
