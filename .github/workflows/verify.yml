@@ -17,3 +17,6 @@ jobs:
         with:
           node-version: 26.7.0
       - run: npm test
+      - name: Verify main branch role
+        if: github.event_name == 'push' || github.base_ref == 'main'
+        run: node tools/verify-main-role.mjs

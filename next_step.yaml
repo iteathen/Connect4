@@ -1,52 +1,72 @@
 schema_version: 3
-updated: 2026-09-10
-state: physical_ref_cleanup_integrated_with_three_dependency_blockers
-repository_role: connect4_repository_router
+updated: 2026-09-11
+state: main_shared_foundation_with_three_solver_heads
+repository_role: connect4_shared_foundation_and_router
 
 canonical_lanes:
-  product:
+  shared_product:
     branch: main
-    purpose: accepted_domain_specs_oracles_and_repository_dashboard
+    purpose: accepted_domain_specs_oracles_benchmarks_cross_lane_contracts_and_repository_dashboard
+    solver_head: false
   minimax:
     branch: solver/minimax-alpha-beta
     status_file: STATUS.md
     next_step_file: next_step.yaml
+    solver_head: true
   cuda_bsfp:
     branch: solver/cuda-bsfp
     status_file: STATUS.md
     next_step_file: next_step.yaml
-    canonical_draft_pr: 25
+    solver_head: true
+  hybrid_confluence:
+    branch: solver/hybrid-confluence
+    status_file: STATUS.md
+    next_step_file: next_step.yaml
+    solver_head: true
   semantic_quotient:
     branch: research/semantic-quotient
     status_file: STATUS.md
     next_step_file: next_step.yaml
+    solver_head: false
 
 routing_rules:
+  - main_is_shared_accepted_substrate_not_a_solver_head
   - read_the_target_lane_status_and_next_step_before_execution
   - do_not_use_root_status_as_solver_specific_execution_authority
+  - shared_domain_oracle_benchmark_and_cross_lane_contract_changes_route_to_main
   - shared_future_behavior_or_state_compression_research_routes_to_semantic_quotient
   - minimax_search_policy_tt_scheduler_and_search_kernel_work_routes_to_minimax
-  - bsfp_recurrence_cuda_profiles_and_bsfp_qualification_routes_to_cuda_bsfp
-  - accepted_cross_lane_contracts_promote_deliberately_to_main
+  - bsfp_recurrence_cuda_profiles_symbolic_storage_and_bsfp_qualification_routes_to_cuda_bsfp
+  - hybrid_confluence_transport_proof_exchange_scheduling_and_hybrid_qualification_route_to_hybrid_confluence
+  - solver_branches_are_long_lived_peer_product_heads_not_feature_branches_waiting_for_wholesale_merge
+  - shared_facts_discovered_on_solver_heads_are_extracted_qualified_and_selectively_promoted_to_main
+  - accepted_shared_changes_flow_from_main_into_solver_heads
+  - solver_specific_implementation_does_not_move_to_main_for_history_synchronization
+
+main_role:
+  shared:
+    - components_domain
+    - components_oracle
+    - qualified_incumbent_reference_baseline
+    - benchmark_and_fairness_authority
+    - accepted_cross_lane_specs_and_decisions
+    - repository_routing_and_provenance
+  solver_specific_ownership:
+    minimax: solver/minimax-alpha-beta
+    bsfp: solver/cuda-bsfp
+    hybrid_confluence: solver/hybrid-confluence
 
 restructure:
-  integrated_main_commit: 27fdfed33c9b75fde84942fe36c7e9edc3fdccbf
-  integrated_pr: 24
+  original_lane_decision: docs/decisions/2026-09-10-repository-lane-restructure.md
+  main_role_extension: docs/decisions/2026-09-11-main-shared-foundation-three-solver-heads.md
   manifest: research/MIGRATION_MANIFEST.json
   branch_retirement: research/BRANCH_RETIREMENT.md
   repository_structure: REPOSITORY_STRUCTURE.md
   physical_cleanup: research/RETIREMENT_PROOFS.json
-  deleted_stale_branches: 40
-  archive_tags: 33
-  retained_dependency_blockers:
-    - research/zdd-transfer-20260910
-    - research/live-q1-5min-20260910
-    - feature/cuda-bsfp
 
 next_actions:
-  - preserve_incoming_staging_until_producer_finishes_and_latest_head_is_curated
-  - retain_live_q1_branch_until_run_34518477566_is_terminal_and_payload_is_audited
-  - reroute_live_q1_bootstrap_and_producer_dependency_before_retiring_feature_cuda_bsfp
-  - stop_creating_new_long_lived_research_branches_for_single_experiments
-  - use_short_lived_work_branches_and_commit_research_packets_to_the_owning_lane
-  - keep_evidence_snapshot_refs_until_payload_hash_and_PR_preservation_is_verified
+  - keep_main_role_verification_green_for_changes_targeting_main
+  - initialize_lane_local_status_and_next_step_on_solver_hybrid_confluence_before_substantive_implementation
+  - selectively_flow_shared_main_changes_into_each_solver_head_when_needed
+  - promote_shared_solver_discoveries_back_to_main_only_after_cross_lane_qualification
+  - retain_solver_specific_hot_state_and_implementation_on_its_own_solver_head
