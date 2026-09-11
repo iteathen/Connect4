@@ -1,0 +1,114 @@
+{
+  "stepId": "oqs-residual-transform-and-mapping",
+  "exitCode": 0,
+  "signal": null,
+  "durationMs": 10354,
+  "timedOut": false,
+  "memorySafetyAbort": false,
+  "launchError": null,
+  "gpuTelemetry": {
+    "sampleCount": 20,
+    "peakUsedMiB": 1116,
+    "minimumFreeMiB": 4851
+  },
+  "status": "passed",
+  "solverResult": {
+    "kind": "connect4-bsfp-oqs-factored-reuse",
+    "mode": "native",
+    "geometry": "7x6:c4",
+    "outcome": "native-oqs-factored-reuse-pass",
+    "evidenceGrade": "selected-input-pair-table-transform-and-mapping",
+    "inputPairIds": "CPU-exact-qualification-fixture",
+    "outputPairSlots": "unmerged-residual-input-slots",
+    "devicePairGrouping": false,
+    "fullDeviceQuotientSynthesis": false,
+    "rootWdl": null,
+    "transitionsChecked": 1,
+    "logicalCandidates": 8192,
+    "residualCandidates": 128,
+    "nativePassesPerTransition": 8,
+    "mismatches": 0,
+    "targetCoverage": 1,
+    "controls": [],
+    "samples": [
+      {
+        "cut": 5,
+        "representation": "factored",
+        "pass": 0,
+        "warmup": true,
+        "uploadMs": 5.875299999999697,
+        "submitWaitMs": 4.459800000000541,
+        "readbackMs": 5.296400000000176
+      },
+      {
+        "cut": 5,
+        "representation": "unfactored",
+        "pass": 0,
+        "warmup": true,
+        "uploadMs": 19.90179999999964,
+        "submitWaitMs": 13.897500000000036,
+        "readbackMs": 71.82429999999931
+      },
+      {
+        "cut": 5,
+        "representation": "unfactored",
+        "pass": 1,
+        "warmup": false,
+        "uploadMs": 15.64429999999993,
+        "submitWaitMs": 8.301300000000083,
+        "readbackMs": 86.46000000000004
+      },
+      {
+        "cut": 5,
+        "representation": "factored",
+        "pass": 1,
+        "warmup": false,
+        "uploadMs": 3.9642000000003463,
+        "submitWaitMs": 1.2579999999998108,
+        "readbackMs": 5.267800000000534
+      },
+      {
+        "cut": 5,
+        "representation": "factored",
+        "pass": 2,
+        "warmup": false,
+        "uploadMs": 3.3170000000000073,
+        "submitWaitMs": 1.1091000000005806,
+        "readbackMs": 4.202199999999721
+      },
+      {
+        "cut": 5,
+        "representation": "unfactored",
+        "pass": 2,
+        "warmup": false,
+        "uploadMs": 15.156100000000151,
+        "submitWaitMs": 11.389299999999821,
+        "readbackMs": 76.55439999999999
+      },
+      {
+        "cut": 5,
+        "representation": "unfactored",
+        "pass": 3,
+        "warmup": false,
+        "uploadMs": 15.756900000000314,
+        "submitWaitMs": 9.943500000001222,
+        "readbackMs": 63.328700000000026
+      },
+      {
+        "cut": 5,
+        "representation": "factored",
+        "pass": 3,
+        "warmup": false,
+        "uploadMs": 3.486000000000786,
+        "submitWaitMs": 6.801300000000992,
+        "readbackMs": 4.203400000000329
+      }
+    ],
+    "unfactoredDeviceBytes": 151290024,
+    "factoredDeviceBytes": 2781876,
+    "deviceBytes": 154071900,
+    "upperBoundBytes": 422507356,
+    "setupMs": 952.067,
+    "cleanup": "graceful"
+  }
+}

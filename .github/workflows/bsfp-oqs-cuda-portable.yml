@@ -1,0 +1,65 @@
+name: BSFP OQS CUDA portable
+
+on:
+  push:
+    branches:
+      - solver/cuda-bsfp
+    paths:
+      - 'components/bsfp/cuda/oqs-cofactor-42-*.mjs'
+      - 'components/bsfp/cuda/oqs-factored-42-program.mjs'
+      - 'components/bsfp/cuda/packed-antichain-42-collective.mjs'
+      - 'experiments/cuda-bsfp-oqs-cofactor/**'
+      - 'components/bsfp/test/oqs-cofactor.test.mjs'
+      - 'reference/research-prototypes/2026-09-10-oqs/**'
+      - 'reference/research-prototypes/2026-09-10-zdd-transfer/residual-class-transition.mjs'
+      - '.github/workflows/bsfp-oqs-cuda-portable.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  oqs-cuda-portable:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Connect4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout exact CUDA-JS authority
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/CUDA-JS
+          ref: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+          path: cuda-js
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Install exact CUDA-JS dependencies
+        env:
+          npm_config_engine_strict: 'false'
+        run: npm ci --prefix cuda-js
+
+      - name: Bind CUDA-JS public package surface
+        run: node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});const link=p.resolve('node_modules/cuda-js'),target=p.resolve('cuda-js');fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,'dir')"
+
+      - name: Compile and submit OQS packed cofactor Device-JS
+        run: node experiments/cuda-bsfp-oqs-cofactor/run.mjs
+
+      - name: Submit widened finite OQS envelope
+        run: node experiments/cuda-bsfp-oqs-cofactor/run.mjs portable 5 5 4
+
+      - name: Submit selected 7x6 first-cut envelope
+        run: node experiments/cuda-bsfp-oqs-cofactor/run-seed-slice.mjs portable
+
+      - name: Verify antichain preservation and exact residual reuse
+        run: node --test components/bsfp/test/oqs-cofactor.test.mjs reference/research-prototypes/2026-09-10-oqs/seed-probe.test.mjs
+
+      - name: Submit factored 4x4 controls
+        run: node experiments/cuda-bsfp-oqs-cofactor/run-factored.mjs portable 4 4
+
+      - name: Submit selected 7x6 residual reuse layer
+        run: node experiments/cuda-bsfp-oqs-cofactor/run-factored.mjs portable 7 6

@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "candidate": "U2 strategic blocker lattice",
+  "test": "named Allis A1-A9 solution predicates versus generic 625-ID blocker upward closure",
+  "randomLegal7x6Roots": 1732,
+  "pliesSampled": [8,12,16,20,24,28,32,34],
+  "generatedRuleInstances": {
+    "A1_Claimeven": 15036,
+    "A2_Baseinverse": 25939,
+    "A3_Vertical": 10311,
+    "A4_Aftereven": 1844,
+    "A5_Lowinverse": 32787,
+    "A6_Highinverse": 32787,
+    "A7_Baseclaim": 55956,
+    "A8_Before": 26976,
+    "A9_Specialbefore": 130319
+  },
+  "totalGeneratedRuleInstances": 331955,
+  "requirementBlockerUniverse": 625,
+  "solutionMismatches": 0,
+  "executedSourceSha256": "ed05eefbcff207b489a8f10c5490040e5116d986fcacc2e52e639189e19ce516",
+  "interpretation": [
+    "For every generated rule instance, rule-specific solved opponent requirements were exactly reproduced by OR-ing precomputed upward closures of the rule's certified blocker set(s).",
+    "This tests the coverage representation, not full strategic-rule soundness or compatibility selection.",
+    "A4/A8/A9 were represented from their formal solution shapes as tail/successor blocker sets plus component blockers; their response-policy validity remains a U1 question.",
+    "The result strongly supports using the existing 625-ID subset lattice as the universal strategic coverage owner rather than retaining nine rule-specific solved-group representations."
+  ]
+}

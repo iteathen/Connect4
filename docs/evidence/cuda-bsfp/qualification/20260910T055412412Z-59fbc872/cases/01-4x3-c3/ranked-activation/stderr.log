@@ -1,0 +1,25 @@
+file:///C:/Users/josho/OneDrive/Desktop/New%20folder/Connect4-BSFP-Q1-work-20260910055407/CUDA-JS/components/runtime-facade/src/errors.mjs:86
+  return new CudaJsError(code, category, message, details, { operation });
+         ^
+
+CudaJsError: This Node release lacks the minimum runtime substrate required by CUDA-JS.
+    at facadeError (file:///C:/Users/josho/OneDrive/Desktop/New%20folder/Connect4-BSFP-Q1-work-20260910055407/CUDA-JS/components/runtime-facade/src/errors.mjs:86:10)
+    at preflight (file:///C:/Users/josho/OneDrive/Desktop/New%20folder/Connect4-BSFP-Q1-work-20260910055407/CUDA-JS/components/runtime-facade/src/runtime.mjs:87:61)
+    at openCudaRuntime (file:///C:/Users/josho/OneDrive/Desktop/New%20folder/Connect4-BSFP-Q1-work-20260910055407/CUDA-JS/components/runtime-facade/src/runtime.mjs:801:3)
+    at file:///C:/Users/josho/OneDrive/Desktop/New%20folder/Connect4-BSFP-Q1-work-20260910055407/Connect4/experiments/cuda-bsfp-vertical-slice/run.mjs:203:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  code: 'CUDA_JS_NODE_INCOMPATIBLE',
+  category: 'unsupported',
+  operation: 'open',
+  details: {
+    actualVersion: 'v24.15.0',
+    minimumVersion: 'v26.1.0',
+    reason: 'NODE_FFI_SUBSTRATE_UNAVAILABLE'
+  },
+  healthBefore: null,
+  healthAfter: null
+}
+
+Node.js v24.15.0

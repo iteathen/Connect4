@@ -1,19 +1,32 @@
 # Connect4
 
-Connect4 is the product repository for exact Connect Four semantics, benchmark/oracle authority, solver validation, and product-specific CUDA composition.
+Independent Connect Four exact-solver laboratory and benchmark/validation product.
 
-The repository now carries two intentionally separate exact solver lanes plus one shared representation-research lane:
+The repository deliberately preserves separate solver lanes:
 
-- `solver/minimax-alpha-beta` — exact minimax/negamax/alpha-beta search and search-specific optimization/evidence;
-- `solver/cuda-bsfp` — backward symbolic fixed-point solving on CUDA, not move-tree search;
-- `research/semantic-quotient` — solver-neutral research into win-space, support/accessibility, future-behavior equivalence, quotient construction and minimum-description game state.
+- `components/incumbent/` — the incumbent Node minimax/alpha-beta search baseline;
+- `components/bsfp/` — CUDA-BSFP (Backward Symbolic Fixed-Point), whose proof/solver semantics are not search semantics.
 
-`main` remains the accepted product/domain/spec/oracle baseline and repository-level router. Read `STATUS.md`, `next_step.yaml`, and `REPOSITORY_STRUCTURE.md` before choosing a work lane.
+Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, BSFP structural/proof semantics, and qualification evidence belong here. Reusable CUDA algorithms/runtime mechanisms remain owned by their respective CUDA repositories.
 
-## Current state
+## CUDA-BSFP qualification
 
-The incumbent Node engine, benchmark protocol and solved-strength oracle baseline are qualified on the product line. The minimax research corpus is consolidated but no new maintained kernel is currently promoted. CUDA-BSFP has exact device-owned closure qualified through 5x5 controls; empty-board 7x6 remains unsolved by complete BSFP closure. Shared semantic-quotient research is currently testing whether exact future behavior can be represented by substantially fewer semantic classes than historical colored-board state.
+The maintained benchmark qualifier is governed by `docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md`.
 
-No solver lane should be inferred from old historical branch names. The branch migration/retirement record is preserved in `research/MIGRATION_MANIFEST.json`.
+Official native qualification is explicitly armed and publishes an immutable evidence branch/PR back to this repository:
 
-The archived 2025 browser game is source/provenance material, not the target architecture. UI/audio/browser-specific structure is not imported wholesale.
+```text
+npm run bench:bsfp:qualify
+```
+
+The default ladder includes geometries through 9x7. Every GPU case is admitted only after a conservative profile-owned memory bound is compared with current free VRAM under the configured safety policy. Cases have bounded timeouts, logs/stack traces are captured by an outer process, and interrupted runs are recovered on the next qualifier invocation.
+
+Publication requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN` with suitable repository contents/pull-request permission. Tokens are not forwarded to solver children or evidence.
+
+For a non-publishing plan check:
+
+```text
+node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run
+```
+
+Current C4-0009-P1 native execution is intentionally frozen to 4x3 connect-3; larger default-ladder cases therefore remain visible as unsupported until a later compact CUDA-BSFP profile registers executable semantics and a safe memory bound.

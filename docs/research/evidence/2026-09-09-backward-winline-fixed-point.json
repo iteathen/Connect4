@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "experiment": "retrograde backward fixed point from terminal winning positions",
+  "controlNote": "reachable state graph is enumerated only to supply predecessor relations; solve phase is backward fixed point, not minimax",
+  "results": [
+    {"profile":"4x3c3","states":4659,"edges":11818,"root":"W","seedWins":2570,"maxWave":9,"rootProofDag":9,"geometricWinningLines":14,"rootLineAwareDag":31,"rootLineAxiomsUsed":9},
+    {"profile":"4x4c4","states":139625,"edges":304574,"root":"D","seedWins":24685,"maxWave":12,"geometricWinningLines":10,"rootLineAwareDag":17,"rootLineAxiomsUsed":0},
+    {"profile":"5x3c4","states":152003,"edges":377229,"root":"D","seedWins":11079,"maxWave":10,"geometricWinningLines":6,"rootLineAwareDag":16,"rootLineAxiomsUsed":0},
+    {"profile":"4x5c4","states":1385521,"edges":3175616,"root":"D","seedWins":348191,"maxWave":16,"geometricWinningLines":17},
+    {"profile":"7x6c4","sequence":"764353221241721325116531","states":214461,"edges":689986,"root":"L","seedWins":113996,"maxWave":15,"geometricWinningLines":69,"rootLogicalDag":38,"rootLineAwareDag":58,"rootLineAxiomsUsed":5},
+    {"profile":"7x6c4","sequence":"24763565123272565531172315","states":10855,"edges":36479,"root":"W","seedWins":8009,"maxWave":12,"geometricWinningLines":69,"rootLogicalDag":13,"rootLineAwareDag":17,"rootLineAxiomsUsed":3}
+  ],
+  "dominanceFrontierControl": [
+    {"profile":"4x3c3","residualStates":3735,"winFrontier":1293,"lossFrontier":788,"totalWLFrontier":2081,"frontierVsResidualPct":55.71619812583668,"monotonicityViolations":0},
+    {"profile":"4x4c4","residualStates":34095,"winFrontier":2255,"lossFrontier":2769,"totalWLFrontier":5024,"frontierVsResidualPct":14.735298430854964,"maxWinPerSkeleton":29,"maxLossPerSkeleton":19,"monotonicityViolations":0},
+    {"profile":"5x3c4","residualStates":11317,"winFrontier":1306,"lossFrontier":640,"totalWLFrontier":1946,"frontierVsResidualPct":17.195369797649555,"maxWinPerSkeleton":6,"maxLossPerSkeleton":4,"monotonicityViolations":0}
+  ],
+  "sourceHashes": {
+    "retrograde_backward_control.mjs":"c285c2c2607c29203859f20ed7de7f9da4c1a7e23604f42b75a3e936913baf74",
+    "retrograde_backward_control.json":"322214e35d7fba6c50d6af97804a1b0c1335d3ab084e8e7bb4bdaacb98b9e2c6"
+  },
+  "interpretation": [
+    "Win/loss regions are obtained as a least fixed point grown backward from terminal-win axioms.",
+    "Draw roots are the greatest-fixed-point safety residue outside all winning/loss attractors.",
+    "Terminal-win state seeds are instances of a very small geometric line schema set.",
+    "The next unresolved step is a symbolic controllable predecessor over residual/event antichains with state enumeration forbidden."
+  ]
+}

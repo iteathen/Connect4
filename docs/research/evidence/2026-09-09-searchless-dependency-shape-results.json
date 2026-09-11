@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "experiment": "nested dependency proof-shape quotient",
+  "solveStage": "complete forward DAG followed by bottom-up dependency fixed point; no recursive minimax in proof-shape solve stage",
+  "limitations": [
+    "The reachable state DAG is still enumerated first; this is not yet a direct-from-geometry searchless solver.",
+    "Unlabeled WDL proof shapes forget which action realizes a witness; labeled WDL proof DAG retains column labels and is a stricter strategy-compression control.",
+    "Exact-distance dependency signatures used here conservatively retain every distinct child exact proof shape, so they are intentionally much larger than WDL proof shapes."
+  ],
+  "results": [
+    {"kind":"small","profile":"4x3c3","states":4659,"edges":11818,"rootScore":2,"rootWDL":"W","behaviorShapes":940,"wdlProofShapes":78,"rootWdlProofDag":9,"rootWdlProofTree":14,"labeledWdlProofShapes":942,"rootLabeledWdlProofDag":40,"exactProofShapes":994,"rootExactProofDag":994,"labeledExactProofShapes":2934,"rootLabeledExactProofDag":2934},
+    {"kind":"small","profile":"4x4c4","states":139625,"edges":304574,"rootScore":0,"rootWDL":"D","behaviorShapes":8197,"wdlProofShapes":904,"rootWdlProofDag":17,"rootWdlProofTree":17,"labeledWdlProofShapes":10855,"rootLabeledWdlProofDag":23,"exactProofShapes":8232,"rootExactProofDag":8232,"labeledExactProofShapes":27450,"rootLabeledExactProofDag":27450},
+    {"kind":"small","profile":"5x3c4","states":152003,"edges":377229,"rootScore":0,"rootWDL":"D","behaviorShapes":1087,"wdlProofShapes":151,"rootWdlProofDag":16,"rootWdlProofTree":16,"labeledWdlProofShapes":5737,"rootLabeledWdlProofDag":54,"exactProofShapes":1091,"rootExactProofDag":1091,"labeledExactProofShapes":9789,"rootLabeledExactProofDag":9789},
+    {"kind":"small","profile":"4x5c4","states":1385521,"edges":3175616,"rootScore":0,"rootWDL":"D","behaviorShapes":86518,"wdlProofShapes":8750,"rootWdlProofDag":21,"rootWdlProofTree":21,"labeledWdlProofShapes":75373,"rootLabeledWdlProofDag":407,"exactProofShapes":86777,"rootExactProofDag":86777,"labeledExactProofShapes":229440,"rootLabeledExactProofDag":229440},
+    {"kind":"frozen7x6","sequence":"764353221241721325116531","states":214461,"edges":689986,"rootScore":-2,"rootWDL":"L","behaviorShapes":40267,"wdlProofShapes":1484,"rootWdlProofDag":38,"rootWdlProofTree":211,"labeledWdlProofShapes":14318,"rootLabeledWdlProofDag":145,"exactProofShapes":40504,"rootExactProofDag":40504,"labeledExactProofShapes":64620,"rootLabeledExactProofDag":64620},
+    {"kind":"frozen7x6","sequence":"5563576621726752473477144213","states":7217,"edges":24870,"rootScore":7,"rootWDL":"W","behaviorShapes":2071,"wdlProofShapes":81,"rootWdlProofDag":1,"rootWdlProofTree":1,"labeledWdlProofShapes":818,"rootLabeledWdlProofDag":1,"exactProofShapes":2160,"rootExactProofDag":2160,"labeledExactProofShapes":4552,"rootLabeledExactProofDag":4552},
+    {"kind":"frozen7x6","sequence":"3253472274311154254412135","states":50140,"edges":184874,"rootScore":-9,"rootWDL":"W","behaviorShapes":6987,"wdlProofShapes":116,"rootWdlProofDag":1,"rootWdlProofTree":1,"labeledWdlProofShapes":1637,"rootLabeledWdlProofDag":1,"exactProofShapes":7167,"rootExactProofDag":7167,"labeledExactProofShapes":17323,"rootLabeledExactProofDag":17323},
+    {"kind":"frozen7x6","sequence":"24763565123272565531172315","states":10855,"edges":36479,"rootScore":2,"rootWDL":"W","behaviorShapes":254,"wdlProofShapes":18,"rootWdlProofDag":13,"rootWdlProofTree":21,"labeledWdlProofShapes":362,"rootLabeledWdlProofDag":49,"exactProofShapes":258,"rootExactProofDag":258,"labeledExactProofShapes":1370,"rootLabeledExactProofDag":1370},
+    {"kind":"frozen7x6","sequence":"544111352647536626717444135","states":3227,"edges":11657,"rootScore":-8,"rootWDL":"W","behaviorShapes":582,"wdlProofShapes":3,"rootWdlProofDag":1,"rootWdlProofTree":1,"labeledWdlProofShapes":72,"rootLabeledWdlProofDag":1,"exactProofShapes":631,"rootExactProofDag":631,"labeledExactProofShapes":1689,"rootLabeledExactProofDag":1689},
+    {"kind":"frozen7x6","sequence":"3412761563244125763551573","states":128375,"edges":486089,"rootScore":-9,"rootWDL":"W","behaviorShapes":36380,"wdlProofShapes":837,"rootWdlProofDag":1,"rootWdlProofTree":1,"labeledWdlProofShapes":10469,"rootLabeledWdlProofDag":1,"exactProofShapes":36738,"rootExactProofDag":36738,"labeledExactProofShapes":63026,"rootLabeledExactProofDag":63026},
+    {"kind":"frozen7x6","sequence":"1174534625627233274533652316","states":21834,"edges":69244,"rootScore":-6,"rootWDL":"L","behaviorShapes":2911,"wdlProofShapes":176,"rootWdlProofDag":4,"rootWdlProofTree":5,"labeledWdlProofShapes":1674,"rootLabeledWdlProofDag":6,"exactProofShapes":2941,"rootExactProofDag":2941,"labeledExactProofShapes":5974,"rootLabeledExactProofDag":5974},
+    {"kind":"frozen7x6","sequence":"463141571213634656162165252","states":5437,"edges":16496,"rootScore":7,"rootWDL":"L","behaviorShapes":1554,"wdlProofShapes":60,"rootWdlProofDag":2,"rootWdlProofTree":2,"labeledWdlProofShapes":470,"rootLabeledWdlProofDag":3,"exactProofShapes":1637,"rootExactProofDag":1637,"labeledExactProofShapes":2672,"rootLabeledExactProofDag":2672}
+  ],
+  "root4x3WdlGrammar": [
+    {"id":2,"definition":"T:W"},
+    {"id":5,"definition":"L:2"},
+    {"id":9,"definition":"W:5"},
+    {"id":14,"definition":"L:2,9"},
+    {"id":23,"definition":"W:14"},
+    {"id":31,"definition":"L:2,23"},
+    {"id":46,"definition":"W:31"},
+    {"id":76,"definition":"L:9,46"},
+    {"id":77,"definition":"W:76"}
+  ]
+}

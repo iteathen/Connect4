@@ -1,56 +1,89 @@
-# Connect4 Repository Status
+# Connect4 CUDA-BSFP Status
 
 **Updated:** 2026-09-10  
-**Role:** repository-level dashboard and authority router
+**Lane:** CUDA-BSFP exact solver  
+**Canonical branch:** `solver/cuda-bsfp`  
+**Superseded branch names:** `feature/cuda-bsfp`, `research/zdd-transfer-20260910`
 
-The repository now has multiple active solver/research lanes. This root file no longer owns the detailed execution state of all Connect4 work.
+## Mission
 
-## Canonical durable lanes
+Solve standard empty-board 7x6 Connect Four to exact W/D/L extremely fast with backward symbolic fixed-point computation. This lane is not minimax, alpha-beta, MCTS, proof-number search, recursive legal-move traversal, or a full colored-state solve table.
 
-| Lane | Canonical branch | Purpose | Head at routing cutover |
-| --- | --- | --- | --- |
-| Product baseline | `main` | accepted domain/spec/oracle/product baseline | restructure integrated at `27fdfed33c9b75fde84942fe36c7e9edc3fdccbf` |
-| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | `66fe2fc8dd15f954a37f328950f352d06bbe8f89` |
-| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | `0d8b4d5633e0485ac1bb96ed4f77509bc1217d80` |
-| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | `16a4ca51ed39a93451414bfa9dc4b5aee8091837` |
+## Ownership
 
-Read each lane's own `STATUS.md` and `next_step.yaml` before executing work there.
+Connect4 owns BSFP semantics, terminal/first-win behavior, exact residual equality, product state identity, OQS solver-specific composition and qualification. Generic scalable scan/order/group/unique/compaction belongs in CUDA-Algorithms; runtime/compiler/device mechanisms belong in CUDA-JS. Shared quotient mathematics and behavioral-equivalence research continue on `research/semantic-quotient`.
 
-## Current high-level state
+## Qualified production-adjacent milestones
 
-### Product baseline
+- P1: first physical CUDA-BSFP correctness slice on GTX 1660 Ti.
+- B1: about 35.35 billion exact packed42 subset checks/s.
+- C1: complete device-owned compact recurrence with exact all-frontier agreement on 4x3, 4x4 and 5x5.
+- O1: native packed42 OQS cofactor qualification.
+- O2: native bounded 7x6 selected-seed first-cut qualification; not a complete quotient or root solve.
+- **O3: native exact residual-pair reuse plus crossing-occurrence mapping qualification.** Q1 run `20260911T050640911Z-b3554293` passed all 4x4 controls and the selected 7x6 cut-five A/B layer on the GTX 1660 Ti. Historical evidence PR #30 is closed after exact subtree/ancestry consolidation into this branch.
 
-C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain protected on `main`. Later solver-specific contracts/specs live on their owning solver branches until deliberately accepted/integrated.
+## O3 result
 
-### Minimax
+The selected 7x6 cut retains all **8,192 logical outputs** while performing only **128 distinct residual/input transforms**.
 
-The complete identified minimax research lineage is consolidated on `solver/minimax-alpha-beta`. New maintained-kernel promotion is intentionally paused while the shared semantic-quotient lane tests whether a smaller exact action-labelled state can replace historical colored-board identity without sacrificing distance-sensitive values.
+| Representation | Submit/wait samples (ms) | Median submit/wait | Median upload | Median readback | Allocated device arrays |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Unfactored | 8.3013, 11.3893, 9.9435 | 9.9435 ms | 15.6443 ms | 76.5544 ms | 151,290,024 B |
+| Factored | 1.2580, 1.1091, 6.8013 | 1.2580 ms | 3.4860 ms | 4.2034 ms | 2,781,876 B |
 
-### CUDA-BSFP
+For this bounded layer the median submit/wait ratio is **7.904x** and allocated device arrays shrink **54.384x**. The ratio of the three-sample submit/wait sums is **3.232x** because the third factored sample is slower. These are bounded A/B measurements, not a stable general throughput or complete-solve forecast. O3's two Q1 cases completed in about 2.845 s (4x4) and 10.361 s (bounded 7x6), including fixture construction, verification and cleanup. All 96 local tests passed; expanded portable/reuse CI run `34564683731` passed. All 17 published evidence payload hashes/Git blobs matched.
 
-`solver/cuda-bsfp` supersedes the old branch name `feature/cuda-bsfp`. Draft PR #25 is the canonical continuation of the old PR #14. The production-adjacent seam remains native C3 cause profiling and B2 bucketed-normalizer A/B before another 6x5 attempt.
+## O3 interpretation
 
-### Shared semantic research
+```text
+crossing-state occurrences
+        |
+        v
+exact residual-pair IDs
+        |
+        +--> cofactor each distinct pair/input once
+        |
+        v
+map every occurrence/input back to exact output slots
+```
 
-`research/semantic-quotient` supersedes `research/zdd-transfer-20260910` as the continuity branch for shared representation research. The current program is MQ1-MQ5: strong-score qualification, coarsest behavioral quotient, missing-information analysis, compiled action transitions, and serial alpha-beta A/B.
+O3 does not yet synthesize pair IDs on device, group/unique output residual records into dense next-pair IDs, emit dense next-state IDs, or chain the next OQS layer entirely on device. Complete 7x6 quotient synthesis and root W/D/L remain unclaimed.
 
-## Repository restructuring state
+## CUDA-Algorithms producer evidence
 
-The repository lane restructure was integrated to protected `main` through PR #24 at `27fdfed33c9b75fde84942fe36c7e9edc3fdccbf` after `verify`, `strength-evidence`, and `benchmark-evidence` passed.
+The first generic producer-side scan experiment has now been verified directly in CUDA-Algorithms rather than accepted from the old mixed Connect4 branch as authority.
 
-Completed:
+- isolated branch: `codex/oqs-segment-scan`
+- exact experimental source: `7d923eb5e4bf4664feab0d0d7c3dded2f81e15b3`
+- evidence checkpoint: `3aa4f6eb4ee434d82835fe9e9daabafd31dcc0d1`
+- owner issue: CUDA-Algorithms #9, **Qualify checked device scans for segment IDs and compact record offsets**
+- native evidence: 72 fixture checks / 84 submissions pass; exported OQS cut-five sequence produces exactly 48 CPU-established groups and 10,597 records from 128 payloads
+- median submit/wait: 0.4901 ms at 128 entries, 0.6262 ms at 8,192, 0.8847 ms at 65,536, and 0.9921 ms at 262,144
+- largest device buffers: 11,603,100 bytes
+- portable/reference CI `34565710334` passed at the exact native source
 
-- created canonical `solver/cuda-bsfp`;
-- made minimax, CUDA-BSFP and semantic-quotient branches own their own status/next-step records;
-- created first-class `research/<lane>/` namespaces on all three canonical non-main lanes;
-- created solver-neutral `research/semantic-quotient`;
-- froze the pre-restructure branch topology and exact SHAs in `research/MIGRATION_MANIFEST.json`;
-- established `research/` and `docs/decisions/` as the future organizational surfaces;
-- classified historical/duplicate branches for retirement;
-- replaced CUDA-BSFP draft PR #14 with canonical draft PR #25 and closed #14 as superseded.
+This is **producer evidence, not an adopted CUDA-Algorithms API**. The Connect4 dependency pin remains `48ee0aec9acae7776950f03ab52ab1737e598b6e`. No CUDA-JS mechanism gap was found for this bounded hierarchical checked-scan realization. Exact residual equality/ordering, payload copying, supported public composition and full OQS chaining remain open.
 
-Remaining cleanup is physical Git-ref retirement. The available connector does not expose branch deletion/tag creation, so stale refs are classified and SHA-preserved but are not falsely claimed deleted.
+## Current blocker / next seam
 
-## Governing rule
+The next production seam is **device-resident exact residual ordering/group-boundary generation plus supported checked scan/select, variable-length record compaction, dense pair/state ID assignment, and next-layer chaining**.
 
-Branches represent ongoing ownership/work. Historical checkpoints should eventually be immutable archive refs/tags plus committed evidence, not long-lived active-looking branches.
+Connect4 must provide exact residual descriptors/equality and consume dense IDs; it must not hide generic scalable sort/scan/group infrastructure locally. CUDA-Algorithms #9 now owns qualification of the checked scan/select producer capability, while broader scalable ordering/grouping remains under CUDA-Algorithms ownership. Hash ordering alone is not exact equality: complete collision handling must place all equal residuals into the same exact group before IDs are assigned.
+
+## Parallel C1 track
+
+The earlier C3 cause profiling and B2 legacy-vs-bucketed normalizer track remains preserved as an independent diagnostic/fallback path. It is not the current OQS continuity owner.
+
+## Research boundary
+
+The latest mixed historical OQS checkpoint is `54d63ae9a066dba42b2748b3ad51353611a2c52a`; its O3 implementation source is `5dfe1312a357c48eee53168e82fd6eba27814a06`. The latest checkpoint adds dependency evidence only; it introduces no new Connect4 algorithmic code. CUDA-owned implementation/evidence is curated here, while solver-neutral residual-pair semantics and global reuse questions remain on `research/semantic-quotient`. Both canonical lanes preserve the mixed checkpoint as ancestry.
+
+Frozen OQS/R3 prototype files in this branch are qualification/reproduction oracles, not a competing research owner.
+
+## Non-claims
+
+- empty-board 7x6 is not yet solved by complete CUDA-BSFP closure;
+- no exact-distance result is claimed by BSFP;
+- O3 does not prove global residual interning across arbitrary supports/cuts;
+- the isolated CUDA-Algorithms scan experiment is not a supported dependency API;
+- no bounded O3 or scan timing is a complete-solve speedup claim.

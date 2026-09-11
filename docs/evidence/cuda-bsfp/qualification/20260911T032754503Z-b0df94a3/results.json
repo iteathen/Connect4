@@ -1,0 +1,699 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260911T032754503Z-b0df94a3",
+  "outcome": "qualified",
+  "cases": [
+    {
+      "caseId": "01-4x3-c3",
+      "geometry": {
+        "columns": 4,
+        "rows": 3,
+        "connect": 3,
+        "tier": "user-specified"
+      },
+      "profile": "c4-0009-o1-oqs-cofactor-42",
+      "estimate": {
+        "executable": true,
+        "upperBoundBytes": 272744616,
+        "deviceBytes": 4309160,
+        "kind": "bounded-oqs-cofactor-fixture"
+      },
+      "status": "passed",
+      "durationMs": 5490,
+      "steps": [
+        {
+          "stepId": "oqs-cofactor-exact",
+          "exitCode": 0,
+          "signal": null,
+          "durationMs": 5481,
+          "timedOut": false,
+          "memorySafetyAbort": false,
+          "launchError": null,
+          "gpuTelemetry": {
+            "sampleCount": 10,
+            "peakUsedMiB": 969,
+            "minimumFreeMiB": 4998
+          },
+          "status": "passed",
+          "solverResult": {
+            "kind": "connect4-bsfp-oqs-cofactor-42",
+            "mode": "native",
+            "geometry": "4x3:c3",
+            "outcome": "native-oqs-cofactor-pass",
+            "evidenceGrade": "all-candidates-of-selected-supports",
+            "fullDeviceQuotientSynthesis": false,
+            "rootWdl": null,
+            "transitionsChecked": 14,
+            "candidatesChecked": 1120,
+            "mismatches": 0,
+            "targetCoverage": 1,
+            "controls": [],
+            "timings": {
+              "baseline": {
+                "uploadMs": 25.562399999999798,
+                "submitWaitMs": 13.260200000000623,
+                "readbackMs": 28.924400000000787
+              },
+              "preserved": {
+                "uploadMs": 23.834999999999127,
+                "submitWaitMs": 10.78650000000016,
+                "readbackMs": 28.145000000000437
+              }
+            },
+            "compileLoadMs": 4496.3558,
+            "setupMs": 4512.3733,
+            "deviceBytes": 4309160,
+            "upperBoundBytes": 272744616,
+            "seedConstructionMs": 18.40010000000001,
+            "lineOrderMs": 3.6620999999999952,
+            "referenceSupports": [
+              {
+                "supportIndex": 190,
+                "rank": 10,
+                "heights": [
+                  2,
+                  3,
+                  3,
+                  2
+                ],
+                "oracleMode": true,
+                "validateDirect": true,
+                "oracleChecks": 15,
+                "directChecks": 1120,
+                "totalDenseStates": 803,
+                "maxDenseStates": 116,
+                "transitionEntries": 1120,
+                "totalCandidates": 1120,
+                "maxLayerCandidateCount": 206,
+                "maxActiveLayerPairRecords": 145,
+                "maxWinRecordsPerState": 5,
+                "maxLossRecordsPerState": 48,
+                "maxPairRecordsPerState": 53,
+                "generationMs": 3.3749000000000535,
+                "dedupMs": 0.6435000000000457,
+                "oracleBuildMs": 19.814499999999896,
+                "synthesisMs": 4.018400000000099,
+                "elapsedMs": 25.27029999999999
+              }
+            ],
+            "interpretation": "CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.",
+            "cleanup": "graceful"
+          }
+        }
+      ],
+      "reason": null,
+      "solverResult": {
+        "kind": "connect4-bsfp-oqs-cofactor-42",
+        "mode": "native",
+        "geometry": "4x3:c3",
+        "outcome": "native-oqs-cofactor-pass",
+        "evidenceGrade": "all-candidates-of-selected-supports",
+        "fullDeviceQuotientSynthesis": false,
+        "rootWdl": null,
+        "transitionsChecked": 14,
+        "candidatesChecked": 1120,
+        "mismatches": 0,
+        "targetCoverage": 1,
+        "controls": [],
+        "timings": {
+          "baseline": {
+            "uploadMs": 25.562399999999798,
+            "submitWaitMs": 13.260200000000623,
+            "readbackMs": 28.924400000000787
+          },
+          "preserved": {
+            "uploadMs": 23.834999999999127,
+            "submitWaitMs": 10.78650000000016,
+            "readbackMs": 28.145000000000437
+          }
+        },
+        "compileLoadMs": 4496.3558,
+        "setupMs": 4512.3733,
+        "deviceBytes": 4309160,
+        "upperBoundBytes": 272744616,
+        "seedConstructionMs": 18.40010000000001,
+        "lineOrderMs": 3.6620999999999952,
+        "referenceSupports": [
+          {
+            "supportIndex": 190,
+            "rank": 10,
+            "heights": [
+              2,
+              3,
+              3,
+              2
+            ],
+            "oracleMode": true,
+            "validateDirect": true,
+            "oracleChecks": 15,
+            "directChecks": 1120,
+            "totalDenseStates": 803,
+            "maxDenseStates": 116,
+            "transitionEntries": 1120,
+            "totalCandidates": 1120,
+            "maxLayerCandidateCount": 206,
+            "maxActiveLayerPairRecords": 145,
+            "maxWinRecordsPerState": 5,
+            "maxLossRecordsPerState": 48,
+            "maxPairRecordsPerState": 53,
+            "generationMs": 3.3749000000000535,
+            "dedupMs": 0.6435000000000457,
+            "oracleBuildMs": 19.814499999999896,
+            "synthesisMs": 4.018400000000099,
+            "elapsedMs": 25.27029999999999
+          }
+        ],
+        "interpretation": "CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.",
+        "cleanup": "graceful"
+      }
+    },
+    {
+      "caseId": "02-4x4-c4",
+      "geometry": {
+        "columns": 4,
+        "rows": 4,
+        "connect": 4,
+        "tier": "user-specified"
+      },
+      "profile": "c4-0009-o1-oqs-cofactor-42",
+      "estimate": {
+        "executable": true,
+        "upperBoundBytes": 272744616,
+        "deviceBytes": 4309160,
+        "kind": "bounded-oqs-cofactor-fixture"
+      },
+      "status": "passed",
+      "durationMs": 1849,
+      "steps": [
+        {
+          "stepId": "oqs-cofactor-exact",
+          "exitCode": 0,
+          "signal": null,
+          "durationMs": 1843,
+          "timedOut": false,
+          "memorySafetyAbort": false,
+          "launchError": null,
+          "gpuTelemetry": {
+            "sampleCount": 3,
+            "peakUsedMiB": 972,
+            "minimumFreeMiB": 4995
+          },
+          "status": "passed",
+          "solverResult": {
+            "kind": "connect4-bsfp-oqs-cofactor-42",
+            "mode": "native",
+            "geometry": "4x4:c4",
+            "outcome": "native-oqs-cofactor-pass",
+            "evidenceGrade": "all-candidates-of-selected-supports",
+            "fullDeviceQuotientSynthesis": false,
+            "rootWdl": null,
+            "transitionsChecked": 10,
+            "candidatesChecked": 1409,
+            "mismatches": 0,
+            "targetCoverage": 1,
+            "controls": [
+              "bits-31-32-41-and-cofactor-collapse",
+              "empty-active-extent",
+              "invalid-extent",
+              "candidate-overflow",
+              "invalid-offset",
+              "frontier-overflow",
+              "invalid-input-mask",
+              "invalid-fanout",
+              "invalid-high-lane",
+              "state-shards-17-match-full-candidate-set",
+              "block-64-128-and-success-after-failure"
+            ],
+            "timings": {
+              "baseline": {
+                "uploadMs": 19.86339999999973,
+                "submitWaitMs": 10.524500000000216,
+                "readbackMs": 24.11989999999946
+              },
+              "preserved": {
+                "uploadMs": 18.00589999999943,
+                "submitWaitMs": 8.166799999999967,
+                "readbackMs": 20.151400000000194
+              }
+            },
+            "compileLoadMs": 804.3293000000001,
+            "setupMs": 819.3759,
+            "deviceBytes": 4309160,
+            "upperBoundBytes": 272744616,
+            "seedConstructionMs": 35.217600000000004,
+            "lineOrderMs": 1.9715999999999951,
+            "referenceSupports": [
+              {
+                "supportIndex": 468,
+                "rank": 12,
+                "heights": [
+                  3,
+                  3,
+                  3,
+                  3
+                ],
+                "oracleMode": true,
+                "validateDirect": true,
+                "oracleChecks": 11,
+                "directChecks": 1409,
+                "totalDenseStates": 645,
+                "maxDenseStates": 168,
+                "transitionEntries": 1409,
+                "totalCandidates": 1409,
+                "maxLayerCandidateCount": 408,
+                "maxActiveLayerPairRecords": 160,
+                "maxWinRecordsPerState": 6,
+                "maxLossRecordsPerState": 54,
+                "maxPairRecordsPerState": 60,
+                "generationMs": 4.7885000000000275,
+                "dedupMs": 0.5795999999999708,
+                "oracleBuildMs": 21.60880000000003,
+                "synthesisMs": 5.368099999999998,
+                "elapsedMs": 28.29650000000001
+              }
+            ],
+            "interpretation": "CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.",
+            "cleanup": "graceful"
+          }
+        }
+      ],
+      "reason": null,
+      "solverResult": {
+        "kind": "connect4-bsfp-oqs-cofactor-42",
+        "mode": "native",
+        "geometry": "4x4:c4",
+        "outcome": "native-oqs-cofactor-pass",
+        "evidenceGrade": "all-candidates-of-selected-supports",
+        "fullDeviceQuotientSynthesis": false,
+        "rootWdl": null,
+        "transitionsChecked": 10,
+        "candidatesChecked": 1409,
+        "mismatches": 0,
+        "targetCoverage": 1,
+        "controls": [
+          "bits-31-32-41-and-cofactor-collapse",
+          "empty-active-extent",
+          "invalid-extent",
+          "candidate-overflow",
+          "invalid-offset",
+          "frontier-overflow",
+          "invalid-input-mask",
+          "invalid-fanout",
+          "invalid-high-lane",
+          "state-shards-17-match-full-candidate-set",
+          "block-64-128-and-success-after-failure"
+        ],
+        "timings": {
+          "baseline": {
+            "uploadMs": 19.86339999999973,
+            "submitWaitMs": 10.524500000000216,
+            "readbackMs": 24.11989999999946
+          },
+          "preserved": {
+            "uploadMs": 18.00589999999943,
+            "submitWaitMs": 8.166799999999967,
+            "readbackMs": 20.151400000000194
+          }
+        },
+        "compileLoadMs": 804.3293000000001,
+        "setupMs": 819.3759,
+        "deviceBytes": 4309160,
+        "upperBoundBytes": 272744616,
+        "seedConstructionMs": 35.217600000000004,
+        "lineOrderMs": 1.9715999999999951,
+        "referenceSupports": [
+          {
+            "supportIndex": 468,
+            "rank": 12,
+            "heights": [
+              3,
+              3,
+              3,
+              3
+            ],
+            "oracleMode": true,
+            "validateDirect": true,
+            "oracleChecks": 11,
+            "directChecks": 1409,
+            "totalDenseStates": 645,
+            "maxDenseStates": 168,
+            "transitionEntries": 1409,
+            "totalCandidates": 1409,
+            "maxLayerCandidateCount": 408,
+            "maxActiveLayerPairRecords": 160,
+            "maxWinRecordsPerState": 6,
+            "maxLossRecordsPerState": 54,
+            "maxPairRecordsPerState": 60,
+            "generationMs": 4.7885000000000275,
+            "dedupMs": 0.5795999999999708,
+            "oracleBuildMs": 21.60880000000003,
+            "synthesisMs": 5.368099999999998,
+            "elapsedMs": 28.29650000000001
+          }
+        ],
+        "interpretation": "CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.",
+        "cleanup": "graceful"
+      }
+    },
+    {
+      "caseId": "03-5x5-c4",
+      "geometry": {
+        "columns": 5,
+        "rows": 5,
+        "connect": 4,
+        "tier": "user-specified"
+      },
+      "profile": "c4-0009-o1-oqs-cofactor-42",
+      "estimate": {
+        "executable": true,
+        "upperBoundBytes": 538181800,
+        "deviceBytes": 269746344,
+        "kind": "bounded-oqs-cofactor-fixture"
+      },
+      "status": "passed",
+      "durationMs": 58525,
+      "steps": [
+        {
+          "stepId": "oqs-cofactor-exact",
+          "exitCode": 0,
+          "signal": null,
+          "durationMs": 58517,
+          "timedOut": false,
+          "memorySafetyAbort": false,
+          "launchError": null,
+          "gpuTelemetry": {
+            "sampleCount": 115,
+            "peakUsedMiB": 1230,
+            "minimumFreeMiB": 4737
+          },
+          "status": "passed",
+          "solverResult": {
+            "kind": "connect4-bsfp-oqs-cofactor-42",
+            "mode": "native",
+            "geometry": "5x5:c4",
+            "outcome": "native-oqs-cofactor-pass",
+            "evidenceGrade": "all-candidates-of-selected-supports",
+            "fullDeviceQuotientSynthesis": false,
+            "rootWdl": null,
+            "transitionsChecked": 112,
+            "candidatesChecked": 220744,
+            "mismatches": 0,
+            "targetCoverage": 1,
+            "controls": [],
+            "timings": {
+              "baseline": {
+                "uploadMs": 370.79260000003705,
+                "submitWaitMs": 428.3844000000099,
+                "readbackMs": 2217.5389999999898
+              },
+              "preserved": {
+                "uploadMs": 345.4212000000116,
+                "submitWaitMs": 280.9927000000098,
+                "readbackMs": 2217.2941999999966
+              }
+            },
+            "compileLoadMs": 822.5118000000002,
+            "setupMs": 839.3260000000009,
+            "deviceBytes": 269746344,
+            "upperBoundBytes": 538181800,
+            "seedConstructionMs": 38630.2681,
+            "lineOrderMs": 28.919900000000013,
+            "referenceSupports": [
+              {
+                "supportIndex": 4426,
+                "rank": 16,
+                "heights": [
+                  4,
+                  5,
+                  2,
+                  2,
+                  3
+                ],
+                "oracleMode": true,
+                "validateDirect": true,
+                "oracleChecks": 29,
+                "directChecks": 22598,
+                "totalDenseStates": 16736,
+                "maxDenseStates": 1603,
+                "transitionEntries": 22598,
+                "totalCandidates": 22598,
+                "maxLayerCandidateCount": 2770,
+                "maxActiveLayerPairRecords": 7943,
+                "maxWinRecordsPerState": 344,
+                "maxLossRecordsPerState": 304,
+                "maxPairRecordsPerState": 648,
+                "generationMs": 137.50510000002396,
+                "dedupMs": 17.39129999998113,
+                "oracleBuildMs": 9456.19250000002,
+                "synthesisMs": 154.8964000000051,
+                "elapsedMs": 9629.392699999997
+              },
+              {
+                "supportIndex": 4743,
+                "rank": 18,
+                "heights": [
+                  3,
+                  4,
+                  5,
+                  3,
+                  3
+                ],
+                "oracleMode": false,
+                "validateDirect": true,
+                "oracleChecks": 0,
+                "directChecks": 52129,
+                "totalDenseStates": 40035,
+                "maxDenseStates": 3985,
+                "transitionEntries": 52129,
+                "totalCandidates": 52129,
+                "maxLayerCandidateCount": 6260,
+                "maxActiveLayerPairRecords": 8769,
+                "maxWinRecordsPerState": 364,
+                "maxLossRecordsPerState": 376,
+                "maxPairRecordsPerState": 740,
+                "generationMs": 202.38529999999446,
+                "dedupMs": 32.623300000028394,
+                "oracleBuildMs": 0,
+                "synthesisMs": 235.00860000002285,
+                "elapsedMs": 236.92559999999503
+              },
+              {
+                "supportIndex": 6351,
+                "rank": 16,
+                "heights": [
+                  3,
+                  2,
+                  2,
+                  5,
+                  4
+                ],
+                "oracleMode": false,
+                "validateDirect": true,
+                "oracleChecks": 0,
+                "directChecks": 28444,
+                "totalDenseStates": 21872,
+                "maxDenseStates": 2107,
+                "transitionEntries": 28444,
+                "totalCandidates": 28444,
+                "maxLayerCandidateCount": 2850,
+                "maxActiveLayerPairRecords": 7129,
+                "maxWinRecordsPerState": 344,
+                "maxLossRecordsPerState": 304,
+                "maxPairRecordsPerState": 648,
+                "generationMs": 132.126700000008,
+                "dedupMs": 15.925100000000384,
+                "oracleBuildMs": 0,
+                "synthesisMs": 148.05180000000837,
+                "elapsedMs": 148.7372000000032
+              },
+              {
+                "supportIndex": 6465,
+                "rank": 20,
+                "heights": [
+                  3,
+                  3,
+                  5,
+                  5,
+                  4
+                ],
+                "oracleMode": false,
+                "validateDirect": true,
+                "oracleChecks": 0,
+                "directChecks": 117573,
+                "totalDenseStates": 86965,
+                "maxDenseStates": 9170,
+                "transitionEntries": 117573,
+                "totalCandidates": 117573,
+                "maxLayerCandidateCount": 11132,
+                "maxActiveLayerPairRecords": 17448,
+                "maxWinRecordsPerState": 236,
+                "maxLossRecordsPerState": 456,
+                "maxPairRecordsPerState": 692,
+                "generationMs": 317.9352000000363,
+                "dedupMs": 61.00909999998839,
+                "oracleBuildMs": 0,
+                "synthesisMs": 378.94430000002467,
+                "elapsedMs": 380.62539999999717
+              }
+            ],
+            "interpretation": "CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.",
+            "cleanup": "graceful"
+          }
+        }
+      ],
+      "reason": null,
+      "solverResult": {
+        "kind": "connect4-bsfp-oqs-cofactor-42",
+        "mode": "native",
+        "geometry": "5x5:c4",
+        "outcome": "native-oqs-cofactor-pass",
+        "evidenceGrade": "all-candidates-of-selected-supports",
+        "fullDeviceQuotientSynthesis": false,
+        "rootWdl": null,
+        "transitionsChecked": 112,
+        "candidatesChecked": 220744,
+        "mismatches": 0,
+        "targetCoverage": 1,
+        "controls": [],
+        "timings": {
+          "baseline": {
+            "uploadMs": 370.79260000003705,
+            "submitWaitMs": 428.3844000000099,
+            "readbackMs": 2217.5389999999898
+          },
+          "preserved": {
+            "uploadMs": 345.4212000000116,
+            "submitWaitMs": 280.9927000000098,
+            "readbackMs": 2217.2941999999966
+          }
+        },
+        "compileLoadMs": 822.5118000000002,
+        "setupMs": 839.3260000000009,
+        "deviceBytes": 269746344,
+        "upperBoundBytes": 538181800,
+        "seedConstructionMs": 38630.2681,
+        "lineOrderMs": 28.919900000000013,
+        "referenceSupports": [
+          {
+            "supportIndex": 4426,
+            "rank": 16,
+            "heights": [
+              4,
+              5,
+              2,
+              2,
+              3
+            ],
+            "oracleMode": true,
+            "validateDirect": true,
+            "oracleChecks": 29,
+            "directChecks": 22598,
+            "totalDenseStates": 16736,
+            "maxDenseStates": 1603,
+            "transitionEntries": 22598,
+            "totalCandidates": 22598,
+            "maxLayerCandidateCount": 2770,
+            "maxActiveLayerPairRecords": 7943,
+            "maxWinRecordsPerState": 344,
+            "maxLossRecordsPerState": 304,
+            "maxPairRecordsPerState": 648,
+            "generationMs": 137.50510000002396,
+            "dedupMs": 17.39129999998113,
+            "oracleBuildMs": 9456.19250000002,
+            "synthesisMs": 154.8964000000051,
+            "elapsedMs": 9629.392699999997
+          },
+          {
+            "supportIndex": 4743,
+            "rank": 18,
+            "heights": [
+              3,
+              4,
+              5,
+              3,
+              3
+            ],
+            "oracleMode": false,
+            "validateDirect": true,
+            "oracleChecks": 0,
+            "directChecks": 52129,
+            "totalDenseStates": 40035,
+            "maxDenseStates": 3985,
+            "transitionEntries": 52129,
+            "totalCandidates": 52129,
+            "maxLayerCandidateCount": 6260,
+            "maxActiveLayerPairRecords": 8769,
+            "maxWinRecordsPerState": 364,
+            "maxLossRecordsPerState": 376,
+            "maxPairRecordsPerState": 740,
+            "generationMs": 202.38529999999446,
+            "dedupMs": 32.623300000028394,
+            "oracleBuildMs": 0,
+            "synthesisMs": 235.00860000002285,
+            "elapsedMs": 236.92559999999503
+          },
+          {
+            "supportIndex": 6351,
+            "rank": 16,
+            "heights": [
+              3,
+              2,
+              2,
+              5,
+              4
+            ],
+            "oracleMode": false,
+            "validateDirect": true,
+            "oracleChecks": 0,
+            "directChecks": 28444,
+            "totalDenseStates": 21872,
+            "maxDenseStates": 2107,
+            "transitionEntries": 28444,
+            "totalCandidates": 28444,
+            "maxLayerCandidateCount": 2850,
+            "maxActiveLayerPairRecords": 7129,
+            "maxWinRecordsPerState": 344,
+            "maxLossRecordsPerState": 304,
+            "maxPairRecordsPerState": 648,
+            "generationMs": 132.126700000008,
+            "dedupMs": 15.925100000000384,
+            "oracleBuildMs": 0,
+            "synthesisMs": 148.05180000000837,
+            "elapsedMs": 148.7372000000032
+          },
+          {
+            "supportIndex": 6465,
+            "rank": 20,
+            "heights": [
+              3,
+              3,
+              5,
+              5,
+              4
+            ],
+            "oracleMode": false,
+            "validateDirect": true,
+            "oracleChecks": 0,
+            "directChecks": 117573,
+            "totalDenseStates": 86965,
+            "maxDenseStates": 9170,
+            "transitionEntries": 117573,
+            "totalCandidates": 117573,
+            "maxLayerCandidateCount": 11132,
+            "maxActiveLayerPairRecords": 17448,
+            "maxWinRecordsPerState": 236,
+            "maxLossRecordsPerState": 456,
+            "maxPairRecordsPerState": 692,
+            "generationMs": 317.9352000000363,
+            "dedupMs": 61.00909999998839,
+            "oracleBuildMs": 0,
+            "synthesisMs": 378.94430000002467,
+            "elapsedMs": 380.62539999999717
+          }
+        ],
+        "interpretation": "CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.",
+        "cleanup": "graceful"
+      }
+    }
+  ]
+}

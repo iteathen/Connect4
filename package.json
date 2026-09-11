@@ -2,7 +2,7 @@
   "name": "connect4-search-benchmark",
   "version": "0.0.0-dev.0",
   "private": true,
-  "description": "Node Connect Four search benchmark and CUDA-MCGS product falsifier",
+  "description": "Connect Four exact-solver laboratory and benchmark/validation product",
   "type": "module",
   "license": "AGPL-3.0-or-later",
   "engines": {
@@ -13,6 +13,9 @@
     "test": "node --test",
     "verify": "node --test",
     "bench:incumbent": "node benchmarks/incumbent.mjs",
-    "bench:strength": "node benchmarks/strength.mjs"
+    "bench:strength": "node benchmarks/strength.mjs",
+    "bench:bsfp:performance": "node --expose-gc benchmarks/bsfp-performance.mjs",
+    "bench:bsfp:qualify": "node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark",
+    "bench:bsfp:qualify:plan": "node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run"
   }
 }
