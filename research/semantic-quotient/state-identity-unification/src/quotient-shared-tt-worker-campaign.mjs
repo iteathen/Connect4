@@ -1,0 +1,123 @@
+import { availableParallelism } from 'node:os';
+import { performance } from 'node:perf_hooks';
+import { createSharedTtGraphSearcher } from './quotient-shared-tt-search-lib.mjs';
+import {
+  startDedupOwner,
+  startSearchWorkers,
+  runRootColumns,
+} from './quotient-shared-worker-pool.mjs';
+
+const SPEC = Object.freeze({ columns: 4, rows: 5, connect: 4 });
+const REPEATS = Number(process.env.REPEATS ?? 7);
+const PREFIX_CLASSES = Number(process.env.PREFIX_CLASSES ?? 4096);
+const REQUESTED = (process.env.WORKER_COUNTS ?? '1,2,4')
+  .split(',')
+  .map((value) => Number(value.trim()))
+  .filter((value) => Number.isInteger(value) && value > 0);
+const EXPECTED_ACTIONS = Object.freeze([0, 0, 0, 0]);
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function median(values) {
+  const sorted = [...values].sort((a, b) => a - b);
+  return sorted[Math.floor(sorted.length / 2)];
+}
+
+function assertResult(run, label) {
+  assert(run.rootWdl === 0, `${label}: expected root draw, got ${run.rootWdl}`);
+  for (let column = 0; column < EXPECTED_ACTIONS.length; column += 1) {
+    assert(run.actions[column] === EXPECTED_ACTIONS[column], `${label}: column ${column} expected 0, got ${run.actions[column]}`);
+  }
+}
+
+function runSequential(shared) {
+  const searcher = createSharedTtGraphSearcher(shared, { workerSalt: 0 });
+  const actions = Array(SPEC.columns).fill(null);
+  const started = performance.now();
+  for (const column of shared.graph.centerOrder) actions[column] = searcher.solveRootColumn(column);
+  return Object.freeze({
+    solveMs: performance.now() - started,
+    actions,
+    rootWdl: Math.max(...actions),
+    metrics: Object.freeze({ ...searcher.metrics }),
+  });
+}
+
+const dedup = await startDedupOwner(SPEC, PREFIX_CLASSES);
+const shared = Object.freeze({ spec: SPEC, graph: dedup.published.graph, arena: dedup.published.arena });
+assert(shared.graph.stateCount === 294593, `canonical q-state mismatch: ${shared.graph.stateCount}`);
+assert(shared.graph.residualClassCount === 69707, `residual-class mismatch: ${shared.graph.residualClassCount}`);
+
+const sequentialRuns = [];
+for (let repeat = 0; repeat < REPEATS; repeat += 1) {
+  await dedup.reset();
+  const run = runSequential(shared);
+  assertResult(run, 'sequential');
+  sequentialRuns.push(run);
+}
+
+const workerResults = [];
+for (const requested of REQUESTED) {
+  const count = Math.max(1, Math.min(requested, SPEC.columns, availableParallelism()));
+  const workers = await startSearchWorkers(count, shared);
+  try {
+    await dedup.reset();
+    const warmup = await runRootColumns(workers, shared.graph.centerOrder);
+    assertResult(warmup, `${count}-worker warmup`);
+
+    const runs = [];
+    for (let repeat = 0; repeat < REPEATS; repeat += 1) {
+      await dedup.reset();
+      const run = await runRootColumns(workers, shared.graph.centerOrder);
+      assertResult(run, `${count}-worker`);
+      runs.push(run);
+      await dedup.cleanup();
+    }
+    workerResults.push(Object.freeze({
+      requested,
+      workers: count,
+      solveMsMedian: median(runs.map((run) => run.solveMs)),
+      expandedMedian: median(runs.map((run) => run.metrics.expanded ?? 0)),
+      callsMedian: median(runs.map((run) => run.metrics.calls ?? 0)),
+      ttExactMedian: median(runs.map((run) => run.metrics.ttExactReturns ?? 0)),
+      ttBoundMedian: median(runs.map((run) => run.metrics.ttBoundReturns ?? 0)),
+    }));
+  } finally {
+    await Promise.all(workers.map((worker) => worker.terminate()));
+  }
+}
+
+await dedup.cleanup();
+await dedup.worker.terminate();
+
+const summary = Object.freeze({
+  kind: 'connect4-shared-tt-dedup-worker-v1',
+  status: 'complete',
+  spec: SPEC,
+  repeats: REPEATS,
+  availableParallelism: availableParallelism(),
+  ownership: Object.freeze({
+    canonicalStateDedup: 'dedup-cleanup-worker',
+    proofArenaLifecycle: 'dedup-cleanup-worker',
+    recursiveSearch: 'search-workers',
+    hotLoopDedupBookkeeping: false,
+    sharedProofBytesPerState: 1,
+  }),
+  graph: Object.freeze({
+    stateCount: shared.graph.stateCount,
+    residualClassCount: shared.graph.residualClassCount,
+    edgeCount: shared.graph.edgeCount,
+    buildMs: dedup.published.stats.buildMs,
+  }),
+  sequential: Object.freeze({
+    solveMsMedian: median(sequentialRuns.map((run) => run.solveMs)),
+    expandedMedian: median(sequentialRuns.map((run) => run.metrics.expanded ?? 0)),
+    callsMedian: median(sequentialRuns.map((run) => run.metrics.calls ?? 0)),
+  }),
+  workers: workerResults,
+});
+
+console.error(`SHARED_TT_DEDUP_SUMMARY=${JSON.stringify(summary)}`);
+console.log(JSON.stringify(summary, null, 2));
