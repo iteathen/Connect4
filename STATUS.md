@@ -2,181 +2,206 @@
 
 **Updated:** 2026-09-11  
 **Canonical branch:** `research/semantic-quotient`  
-**State:** MQ1-MQ4 passed; SIU-1 relational exactness passed; search-method campaign v1 complete
+**State:** MQ1-MQ4 passed; SIU-1 relational exactness passed; search-method and negamax-optimization campaigns complete
 
 ## Mission
 
-Find the smallest exact, efficiently updatable description of the remaining Connect Four game and determine which forward/backward exact reasoning forms exploit it best. This branch owns solver-neutral research into future-behavior equivalence, win-space reduction, support/accessibility sufficiency, relational state identity, canonical transitions, cross-solver proof contracts and comparative search-method evidence.
+Find the smallest exact, efficiently updatable description of the remaining Connect Four game and determine which forward/backward exact reasoning forms exploit it best. This branch owns solver-neutral research into relational state identity, future-behavior equivalence, canonical transitions, cross-solver proof contracts, and comparative solver evidence.
 
-It does **not** own production solver implementation. Those remain on:
+It does **not** own production solver implementation. Current product lanes remain:
 
-- `solver/minimax-alpha-beta`
-- `solver/cuda-bsfp`
-- `solver/hybrid-confluence`
+- preserved historical `solver/minimax-alpha-beta`;
+- `solver/cuda-bsfp`;
+- `solver/hybrid-confluence`;
+- a future forward solver generation will be based on relational negamax after packed-kernel qualification.
 
-## Qualified semantic chain
+## Qualified relational state
 
-Complete bounded-game qualification establishes:
+The exact shared state is:
 
 ```text
-physical colored history
-  -> identified-line quotient (support,H0,H1)
-  -> support + minimal residual antichain pair
-  -> coarsest exact action-behavior class
+q = supportIndex
+  + sideToMove
+  + normalized P0 residual requirements
+  + normalized P1 residual requirements
 ```
 
-### MQ1-MQ4
+Across **1,681,808** complete-control physical states, SIU-1 produced zero projection, transition, terminal, strong-score, per-action-score, BSFP W/D/L, or reverse-closure mismatches.
 
-Across **1,681,808** complete-control physical nonterminal states, the shared semantic work established zero exact strong-score/action-score mismatches for the qualified relational reductions. MQ4 generated complete game automata directly from:
-
-```text
-support + minimal residual pair + column
-  -> terminal score | next relational state
-```
-
-without carrying a colored ownership board recursively.
-
-For complete 4x5 c4:
+The common algebra is:
 
 ```text
-physical states:          1,385,521
-relational states:          294,593
-behavioral classes:         229,232
-nonterminal transitions:    814,300  # SIU-1 nonterminal relational DAG
-terminal win edges:           76,058
-```
-
-The earlier MQ4 flat-table accounting remains authoritative for its exact serialized transition profile.
-
-## SIU-1 — one relational language in both directions
-
-`research/semantic-quotient/state-identity-unification/` tested the BSFP-aligned logical state:
-
-```text
-supportIndex
-+ sideToMove
-+ normalized P0 residual requirements
-+ normalized P1 residual requirements
-```
-
-The forward engine used only that relational state. A reverse exact W/D/L closure used only relational IDs plus the exact inverse relation. Colored board state was confined to an independent oracle.
-
-Across the same **1,681,808** complete-control physical states, SIU-1 produced zero physical-projection, forward-transition, terminal, strong-score, per-action-score, BSFP W/D/L, or reverse-closure mismatches.
-
-Observed physical-to-relational reduction ranged from **1.247x to 13.431x**. On 4x5 c4, 1,385,521 physical states collapsed to 294,593 relational states, with one relational state representing as many as 37,080 physical states.
-
-The quotient is deliberately not state-level reversible. The common algebra is:
-
-```text
-forward:       T(q,a) -> q' | terminal
+forward:  T(q,a) -> q' | terminal
 backward: Pre_a(Q) -> exact predecessor set/frontier
-hybrid:        exact classification/proof facts keyed by q
+hybrid:   exact values / sound proof facts keyed by q
 ```
 
-Common semantics must not force common physical representation. On 4x5, the existing BSFP ownership-antichain result used only 40,707 W/L boundary records versus 294,593 explicit relational states.
+Common semantics do not require common physical representation. The existing BSFP ownership-antichain form remains substantially more compressed than explicit `q` enumeration on the 4x5 control.
+
+## Search-method campaign v1
+
+The first solver-method campaign compared relational alpha-beta/negamax, PVS/NegaScout, MTD(f), PN-DAG, and Proof-Set Search over the same precompiled relational DAG.
+
+On the largest 4x5 draw control with relational tactical closure:
+
+```text
+alpha-beta: 16,489 expansions
+PVS:        15,110
+MTD(f):     15,103
+PN-DAG:     61,275
+PSS:        scale-deferred
+```
+
+The result selected **side-to-move negamax as the forward value formulation**, not a final driver. Alpha-beta remains the control/kernel; PVS and MTD(f) remain driver finalists. PN-DAG and PSS remain research-only candidates.
+
+An ideal exact BSFP wall around rank 10 reduced the same 4x5 forward work to roughly 1.3k expansions for the alpha-beta family, establishing a strong confluence leverage ceiling but not an end-to-end hybrid speed claim.
 
 Authority:
 
-- `research/semantic-quotient/state-identity-unification/SIU1_RESULT.md`
-- `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json`
-- Actions run `34632643724`, job `103372941221`
-
-## Search-method evidence campaign v1
-
-The first comparative campaign treated search method as an experimental dimension while holding the BSFP-compatible relational language fixed.
-
-Primary methods tested:
-
-```text
-strong-score:
-  relational negamax alpha-beta
-  PVS / NegaScout
-  MTD(f)
-
-W/D/L proof:
-  PN-DAG
-  exact Proof-Set Search (PSS)
-```
-
-All implemented candidate correctness assertions passed on the bounded controls. Search methods operated over a precompiled relational DAG; positional board state was absent from search.
-
-### Standalone composed work
-
-With relational tactical closure enabled:
-
-| Geometry | AB | PVS | MTD(f) | PN-DAG | PSS |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| 4x3 c3, win | 213 | 227 | **195** | **24** | 56 |
-| 4x4 c4, draw | 4,479 | 4,292 | **4,278** | 11,094 | 13,206 |
-| 5x3 c4, draw | 997 | **972** | 987 | 7,898 | 8,957 |
-| 4x5 c4, draw | 16,489 | 15,110 | **15,103** | 61,275 | deferred |
-
-On 4x5, search-only median elapsed time over the precompiled graph was approximately 9.49 ms AB, 7.88 ms PVS and 7.81 ms MTD(f). These are driver/search measurements only; the research DAG itself required about 7.11 s to construct and is not a production representation.
-
-### Candidate disposition
-
-Advance to the next composition campaign:
-
-- relational negamax alpha-beta as the control and common exact kernel;
-- PVS/NegaScout as a driver;
-- MTD(f) as a driver.
-
-Retain as research candidates, not current hot-path finalists:
-
-- PN-DAG — exceptionally selective on the decisive 4x3 root but weak on the tested draw roots because draw requires two negative player-win proofs;
-- PSS — exact and transposition-aware, but explicit proof-set propagation produced very high set/backup cost and was scale-deferred beyond 50k relational states in v1.
-
-Standard df-pn was not admitted because a DAG/transposition-safe correctness contract was not established for this campaign.
-
-### Tactical composition result
-
-Relational tactical closure materially reduced work across methods. On 4x5:
-
-```text
-alpha-beta: 32,819 -> 16,489
-PVS:        27,927 -> 15,110
-MTD(f):     27,950 -> 15,103
-```
-
-This confirms that search methods must be compared in their best compatible composition, not as bare textbook algorithms.
-
-### Ideal BSFP confluence leverage
-
-The campaign supplied exact relational values at fixed rank walls to measure forward-work elimination. BSFP construction/publication/query cost was intentionally excluded.
-
-On 4x5 c4, composed/tactical:
-
-| Method | no BSFP | rank 10 (~50%) | rank 14 (~70%) |
-| --- | ---: | ---: | ---: |
-| alpha-beta | 16,489 | **1,388** | 9,264 |
-| PVS | 15,110 | **1,305** | 8,562 |
-| MTD(f) | 15,103 | **1,315** | 8,573 |
-| PN-DAG | 61,275 | **6,079** | 36,177 |
-
-The earlier wall is dramatically more valuable, supporting the hypothesis that confluence should occur before forward reasoning traverses most of its hard interior.
-
-This is a leverage ceiling only, not a hybrid speed claim.
-
-Authority:
-
-- `research/semantic-quotient/state-identity-unification/src/search-method-evidence-campaign.mjs`
 - `research/semantic-quotient/state-identity-unification/SEARCH_METHOD_CAMPAIGN_V1_RESULT.md`
-- `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-search-method-campaign-v1.json`
 - Actions run `34636074995`, job `103384159647`
 
-## Hard BSFP compatibility rule
+## Negamax optimization campaign
 
-Future forward candidates must speak the same exact relational `q` language and consume exact BSFP facts directly. They may publish only facts with explicit sound proof meaning (exact values, qualified bounds, certified closures). Heuristic scores, proof-number estimates, neural values and ordering hints are never BSFP authority.
+Two campaign passes screened optimizations newly enabled or materially simplified by the side-to-move negamax formulation.
 
-Compatibility does not require common mutable state or common control flow.
+### Structural defaults
 
-## Current next questions
+These now advance as baseline semantics for the rebuild:
 
-1. Build one **packed/on-the-fly relational negamax kernel** and compare alpha-beta, PVS and MTD(f) as thin drivers over exactly the same implementation.
-2. Reapply the best compatible optimization portfolio: relational tactical closure, automorphism/reflection canonicalization, earliest-win/support bounds, compiled local proof masks and proof-cost ordering.
-3. Use equal-byte exact TT/cache controls rather than equal entry counts where layouts differ.
-4. Replace ideal BSFP rank walls with actual BSFP-produced/queryable boundaries and account for build, publication and lookup cost.
-5. Continue SIU symbolic-preimage work so BSFP retains frontier compression instead of enumerating every `q`.
-6. Characterize standard 7x6 relational scale before any production promotion.
+```text
+side-to-move-relative value
+single-perspective exact TT records
+fail-soft exact bounds
+native relational tactical closure
+```
 
-Production branch restructuring is deferred until the shared-kernel evidence establishes which forward driver/composition deserves the new solver generation.
+Fail-soft beat fail-hard in expansion count on every complete control. On 4x5:
+
+```text
+fail-soft: 16,488
+fail-hard: 17,440
+```
+
+### W/D/L-native negamax
+
+The product target is exact root W/D/L, and CUDA-BSFP already speaks exact W/D/L. Carrying distance-sensitive score distinctions through every node is therefore optional work unless a consumer requests strong distance.
+
+Standalone 4x5:
+
+```text
+strong-score negamax: 16,488 expansions
+W/D/L-native negamax: 15,096
+```
+
+The decisive 4x3 control showed a much larger benefit:
+
+```text
+strong-score: 212
+W/D/L:         39
+```
+
+The forward solver should therefore expose:
+
+```text
+solveWdl(q) -> -1 | 0 | +1
+refineStrong(q, provedWdl) -> exact distance-sensitive value  # optional
+```
+
+### Enhanced Transposition Cutoff (ETC)
+
+ETC is the strongest new search-control optimization found. It probes exact child TT bounds and uses negamax sign symmetry to obtain a parent cutoff without recursively expanding the child.
+
+| Geometry | strong baseline | strong + ETC |
+| --- | ---: | ---: |
+| 4x3 c3 | 212 | 189 |
+| 4x4 c4 | 4,478 | 3,074 |
+| 5x3 c4 | 996 | 820 |
+| 4x5 c4 | 16,488 | **11,761** |
+
+On 4x5 ETC produced 3,446 direct child-bound cutoffs. A gated form using ETC only with at least three moves remaining expanded slightly more states (11,811) but had lower measured search-only cost in the research implementation; the exact probe policy remains a packed-kernel tuning question.
+
+### W/D/L + ETC
+
+The leading product-facing composition is currently:
+
+```text
+W/D/L-native fail-soft negamax
++ exact relational TT
++ relational tactical closure
++ ETC
+```
+
+4x5:
+
+```text
+strong baseline: 16,488
+strong + ETC:    11,761
+W/D/L baseline:  15,096
+W/D/L + ETC:     10,562
+```
+
+That is about a **35.9% expansion reduction** from the strong-score baseline before changing the physical relational-state implementation.
+
+### Candidates rejected as defaults
+
+Generic chess-derived ordering did not transfer well:
+
+```text
+4x5 history/killer ordering: 29,674 expansions
+baseline:                     16,488
+```
+
+So generic history/killer ordering is rejected in its current form. Child-bound ordering without an actual cutoff also failed to beat ETC and is not a default. Blindly enabling all candidate optimizations was worse than selecting the individually compatible winners.
+
+Exact rank/distance envelope remains useful only as a conditional strong-distance optimization; it helped the decisive 4x3 case substantially but was neutral/slightly harmful on draw controls.
+
+### W/D/L threshold driver
+
+Two-threshold W/D/L search remains a driver candidate, not a proof-work winner. On 4x5 it expanded 15,203 states versus 15,096 for full-window W/D/L; with ETC, 10,612 versus 10,562. Micro-timing sometimes favored the threshold form, so it stays in the driver tournament until the real packed kernel exists.
+
+### BSFP composition
+
+With the same ideal ~50% BSFP boundary, 4x5 W/D/L threshold + ETC dropped to **1,229 expansions**, versus 1,315 for strong-score + ETC. The ideal wall excludes BSFP construction/publication/query cost and remains a leverage ceiling only.
+
+Authority:
+
+- `research/semantic-quotient/state-identity-unification/NEGAMAX_OPTIMIZATION_CANDIDATES.md`
+- `research/semantic-quotient/state-identity-unification/NEGAMAX_OPTIMIZATION_CAMPAIGN_RESULT.md`
+- `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-negamax-optimization-campaign.json`
+- broad Actions run `34637521061`, job `103388937756`
+- refinement Actions run `34637786848`, job `103389801743`
+
+## Current next seam
+
+The next evidence unit is no longer another precompiled-DAG search experiment. Build the actual **packed/on-the-fly relational negamax kernel** in research first:
+
+```text
+packed or dense relational q
++ incremental/on-the-fly T(q,a)
++ W/D/L-native fail-soft negamax
++ native relational tactical closure
++ tuned ETC
++ compact exact single-perspective TT
+```
+
+Then compare thin drivers over that exact same kernel:
+
+```text
+full-window alpha-beta control
+PVS / NegaScout
+MTD(f)
+W/D/L threshold driver
+```
+
+Use equal-byte TT/memory controls. After serial kernel economics stabilize, add reflection/residual automorphism, compiled local proof masks, Connect4-specific proof-cost ordering, and only then parallelism.
+
+Actual BSFP-produced boundaries must replace ideal walls before claiming hybrid performance.
+
+## Hard non-claims
+
+- no standard 7x6 production performance claim;
+- no packed/on-the-fly transition performance claim yet;
+- no end-to-end hybrid speedup claim;
+- no final PVS vs MTD(f) vs threshold driver selection;
+- no safety claim for null-move, futility, razoring, heuristic LMR, or other selective pruning not independently proven exact.
