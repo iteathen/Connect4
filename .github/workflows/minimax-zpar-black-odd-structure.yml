@@ -1,0 +1,27 @@
+name: Minimax ZPAR Black-odd structure
+
+on:
+  push:
+    branches:
+      - work/minimax-zpar-single-threat-20260911
+    paths:
+      - 'research/minimax/composition-campaign/zpar_black_odd_structure.mjs'
+      - '.github/workflows/minimax-zpar-black-odd-structure.yml'
+  workflow_dispatch:
+
+jobs:
+  black-odd-structure:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run structural census
+        run: node research/minimax/composition-campaign/zpar_black_odd_structure.mjs | tee /tmp/zpar-black-odd-structure.json
+      - name: Preserve structural evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-zpar-black-odd-structure
+          path: /tmp/zpar-black-odd-structure.json
+          if-no-files-found: error
