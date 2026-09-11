@@ -26,6 +26,8 @@ jobs:
         run: node research/minimax/candidate-map/build-master-map.mjs --write | tee /tmp/minimax-candidate-map-summary.json
       - name: Audit active campaign source coverage
         run: node research/minimax/candidate-map/audit-campaign-coverage.mjs | tee /tmp/minimax-candidate-map-campaign-coverage.json
+      - name: Materialize promotion-blind next-test schedule
+        run: node research/minimax/candidate-map/schedule-next-tests.mjs | tee /tmp/minimax-next-test-schedule.json
       - name: Upload complete map evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
@@ -35,4 +37,5 @@ jobs:
             /tmp/minimax-candidate-map/coverage-report.json
             /tmp/minimax-candidate-map-summary.json
             /tmp/minimax-candidate-map-campaign-coverage.json
+            /tmp/minimax-next-test-schedule.json
           if-no-files-found: error
