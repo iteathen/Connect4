@@ -1,0 +1,29 @@
+name: Quotient-native class transition cache campaign
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-class-cache-campaign.mjs'
+      - '.github/workflows/semantic-quotient-quotient-class-cache.yml'
+      - 'components/bsfp/ownership-antichain-solver.mjs'
+      - 'components/bsfp/support-lattice.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quotient-class-cache:
+    name: Quotient-native class cache qualification and benchmark
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run quotient class-transition cache campaign
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-native-class-cache-campaign.mjs
