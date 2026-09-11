@@ -24,11 +24,29 @@ jobs:
           node-version: 26.7.0
       - name: Run crossed candidate matrix
         run: node --max-old-space-size=6144 research/minimax/composition-campaign/composition_crossed.mjs | tee /tmp/composition.json
-      - name: Preserve compact result
+      - name: Preserve wave 1 result
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: minimax-composition-wave1
           path: /tmp/composition.json
+          if-no-files-found: error
+
+  semantic-synergy:
+    name: Semantic synergy edge matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run semantic edge matrix
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/composition_semantic_edges.mjs | tee /tmp/semantic.json
+      - name: Preserve wave 2 result
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: minimax-composition-wave2-semantic
+          path: /tmp/semantic.json
           if-no-files-found: error
 
   legacy-survival:
@@ -45,16 +63,16 @@ jobs:
             script: reference/research-prototypes/2026-09-09-low-confidence-survival/support_event_equivalence.mjs
           - name: allis-a123
             script: reference/research-prototypes/2026-09-09-low-confidence-survival/allis_a123_survival.mjs
-          - name: allis-blocker-lattice
+          - name: allis-blocker-lattice-a1-a9
             script: reference/research-prototypes/2026-09-09-low-confidence-survival/allis_blocker_unification.mjs
           - name: evaluator-asymmetry
             script: reference/research-prototypes/2026-09-09-low-confidence-survival/e3_root_asymmetry_rank.mjs
           - name: residual-automorphism
             script: reference/research-prototypes/2026-09-09-residual-automorphisms/residual_automorphism_625.mjs
+          - name: implication-dominance-frontier
+            script: reference/research-prototypes/2026-09-09-decision-state/dominance_frontier_wdl.mjs
           - name: invariant-reassessment
             script: reference/research-prototypes/2026-09-09-invariant-reassessment/invariant_probe.mjs
-          - name: structural-quotient
-            script: reference/research-prototypes/2026-09-09-structural-quotient/qualify.mjs
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
