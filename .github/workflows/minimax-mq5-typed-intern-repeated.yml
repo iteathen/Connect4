@@ -1,0 +1,27 @@
+name: Minimax MQ5 typed interning repeated
+
+on:
+  push:
+    branches:
+      - work/minimax-typed-intern-20260911
+    paths:
+      - 'research/minimax/semantic-residual-mq5/run_wsl625_typed_repeated.mjs'
+      - '.github/workflows/minimax-mq5-typed-intern-repeated.yml'
+  workflow_dispatch:
+
+jobs:
+  typed-repeated:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run alternating repeated qualifier
+        run: node --max-old-space-size=6144 research/minimax/semantic-residual-mq5/run_wsl625_typed_repeated.mjs | tee /tmp/mq5-typed-repeated.json
+      - name: Preserve repeated typed evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-mq5-typed-repeated
+          path: /tmp/mq5-typed-repeated.json
+          if-no-files-found: error
