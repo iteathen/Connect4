@@ -92,10 +92,44 @@ function probePinnedCpu(cpuId, env) {
   return null;
 }
 
-function classifyMeasuredCpus(measurements, minGapRatio) {
+export function summarizeCpuSamples(cpuId, samples, limits = {}) {
+  if (!Array.isArray(samples) || samples.length === 0) throw new RangeError('CPU samples must be non-empty');
+  const center = median(samples);
+  const deviations = samples.map((value) => Math.abs(value - center));
+  const mad = median(deviations);
+  const min = Math.min(...samples);
+  const max = Math.max(...samples);
+  const relativeMad = center > 0 ? mad / center : Infinity;
+  const spreadRatio = min > 0 ? max / min : Infinity;
+  const maxRelativeMad = limits.maxRelativeMad ?? 0.12;
+  const maxSpreadRatio = limits.maxSpreadRatio ?? 1.35;
+  return Object.freeze({
+    cpuId,
+    opsPerSecond: center,
+    samples: Object.freeze([...samples]),
+    mad,
+    relativeMad,
+    spreadRatio,
+    stable: relativeMad <= maxRelativeMad && spreadRatio <= maxSpreadRatio,
+  });
+}
+
+export function classifyMeasuredCpus(measurements, options = {}) {
+  const minGapRatio = options.minGapRatio ?? 1.12;
+  const minRobustGapRatio = options.minRobustGapRatio ?? 1.05;
   if (measurements.length < 2) {
-    return { performanceCpuIds: measurements.map((item) => item.cpuId), efficiencyCpuIds: [], gapRatio: 1 };
+    return Object.freeze({
+      accepted: false,
+      confidence: 'insufficient-data',
+      performanceCpuIds: [],
+      efficiencyCpuIds: [],
+      candidatePerformanceCpuIds: measurements.map((item) => item.cpuId),
+      candidateEfficiencyCpuIds: [],
+      gapRatio: 1,
+      robustGapRatio: null,
+    });
   }
+
   const sorted = [...measurements].sort((a, b) => b.opsPerSecond - a.opsPerSecond);
   let bestGap = 1;
   let split = -1;
@@ -106,14 +140,39 @@ function classifyMeasuredCpus(measurements, minGapRatio) {
       split = index + 1;
     }
   }
+
   if (bestGap < minGapRatio || split <= 0 || split >= sorted.length) {
-    return { performanceCpuIds: sorted.map((item) => item.cpuId), efficiencyCpuIds: [], gapRatio: bestGap };
+    return Object.freeze({
+      accepted: false,
+      confidence: 'homogeneous-or-unresolved',
+      performanceCpuIds: [],
+      efficiencyCpuIds: [],
+      candidatePerformanceCpuIds: sorted.map((item) => item.cpuId),
+      candidateEfficiencyCpuIds: [],
+      gapRatio: bestGap,
+      robustGapRatio: null,
+    });
   }
-  return {
-    performanceCpuIds: sorted.slice(0, split).map((item) => item.cpuId),
-    efficiencyCpuIds: sorted.slice(split).map((item) => item.cpuId),
+
+  const performance = sorted.slice(0, split);
+  const efficiency = sorted.slice(split);
+  const allStable = sorted.every((item) => item.stable === true);
+  const performanceFloor = Math.min(...performance.flatMap((item) => item.samples));
+  const efficiencyCeiling = Math.max(...efficiency.flatMap((item) => item.samples));
+  const robustGapRatio = efficiencyCeiling > 0 ? performanceFloor / efficiencyCeiling : Infinity;
+  const accepted = allStable && robustGapRatio >= minRobustGapRatio;
+
+  return Object.freeze({
+    accepted,
+    confidence: accepted ? 'high' : 'low-sample-stability',
+    performanceCpuIds: accepted ? performance.map((item) => item.cpuId) : [],
+    efficiencyCpuIds: accepted ? efficiency.map((item) => item.cpuId) : [],
+    candidatePerformanceCpuIds: performance.map((item) => item.cpuId),
+    candidateEfficiencyCpuIds: efficiency.map((item) => item.cpuId),
     gapRatio: bestGap,
-  };
+    robustGapRatio,
+    allStable,
+  });
 }
 
 async function runConcurrentProbe(searchWorkers, durationMs) {
@@ -174,9 +233,12 @@ export async function calibrateCpuRoles(options = {}) {
   const pinnedRepeats = options.pinnedRepeats ?? 3;
   const pinnedDurationMs = options.pinnedDurationMs ?? 70;
   const saturationDurationMs = options.saturationDurationMs ?? 90;
-  const minGapRatio = options.minGapRatio ?? 1.12;
   const maxProbeCpus = Math.min(options.maxProbeCpus ?? allowed.length, allowed.length);
   const probeCpuIds = allowed.slice(0, maxProbeCpus);
+  const stabilityLimits = {
+    maxRelativeMad: options.maxRelativeMad ?? 0.12,
+    maxSpreadRatio: options.maxSpreadRatio ?? 1.35,
+  };
   const env = {
     ...process.env,
     C4_CPU_PROBE_WARMUP_MS: String(options.pinnedWarmupMs ?? 35),
@@ -196,16 +258,29 @@ export async function calibrateCpuRoles(options = {}) {
       samples.push(sample.opsPerSecond);
     }
     if (!affinityProbeAvailable) break;
-    measurements.push(Object.freeze({ cpuId, opsPerSecond: median(samples), samples: Object.freeze(samples) }));
+    measurements.push(summarizeCpuSamples(cpuId, samples, stabilityLimits));
   }
 
   const roleSplit = affinityProbeAvailable
-    ? classifyMeasuredCpus(measurements, minGapRatio)
-    : { performanceCpuIds: [], efficiencyCpuIds: [], gapRatio: null };
+    ? classifyMeasuredCpus(measurements, {
+        minGapRatio: options.minGapRatio ?? 1.12,
+        minRobustGapRatio: options.minRobustGapRatio ?? 1.05,
+      })
+    : Object.freeze({
+        accepted: false,
+        confidence: 'affinity-unavailable',
+        performanceCpuIds: [],
+        efficiencyCpuIds: [],
+        candidatePerformanceCpuIds: [],
+        candidateEfficiencyCpuIds: [],
+        gapRatio: null,
+        robustGapRatio: null,
+      });
 
+  const topologySearchCeiling = roleSplit.accepted ? roleSplit.performanceCpuIds.length : available;
   const saturationUpper = Math.max(1, Math.min(
     options.maxSearchWorkers ?? available,
-    roleSplit.performanceCpuIds.length || available,
+    topologySearchCeiling,
   ));
   const saturation = [];
   for (let searchWorkers = 1; searchWorkers <= saturationUpper; searchWorkers += 1) {
@@ -216,12 +291,12 @@ export async function calibrateCpuRoles(options = {}) {
   const recommended = saturation.find((item) => item.aggregateSearchOpsPerSecond >= maxThroughput * nearPeakRatio)
     ?? saturation[saturation.length - 1];
 
-  const cleanupCpuId = roleSplit.efficiencyCpuIds.length > 0
+  const cleanupCpuId = roleSplit.accepted && roleSplit.efficiencyCpuIds.length > 0
     ? roleSplit.efficiencyCpuIds[roleSplit.efficiencyCpuIds.length - 1]
     : null;
 
   return Object.freeze({
-    kind: 'connect4-cpu-role-calibration-v1',
+    kind: 'connect4-cpu-role-calibration-v2',
     platform: platform(),
     logicalCpuCount: logicalCount,
     allowedCpuIds: Object.freeze(allowed),
@@ -229,14 +304,14 @@ export async function calibrateCpuRoles(options = {}) {
     affinityProbeAvailable,
     affinityEnforcedForNodeWorkers: false,
     pinnedMeasurements: Object.freeze(measurements),
+    topology: roleSplit,
     performanceCpuIds: Object.freeze(roleSplit.performanceCpuIds),
     efficiencyCpuIds: Object.freeze(roleSplit.efficiencyCpuIds),
-    measuredClusterGapRatio: roleSplit.gapRatio,
     cleanupCpuId,
     saturation: Object.freeze(saturation),
     maxSearchWorkers: recommended.searchWorkers,
-    rationale: cleanupCpuId === null
-      ? 'No distinct efficiency cluster was measured; search-worker count comes from concurrent saturation with one maintenance worker present.'
-      : 'Performance and efficiency logical-CPU clusters were measured; cleanup target is the slow cluster and search-worker count is further bounded by concurrent saturation.',
+    rationale: roleSplit.accepted
+      ? 'Stable, robustly separated CPU throughput clusters bound search capacity; concurrent saturation with one maintenance worker present selects the actual search-worker ceiling.'
+      : 'CPU topology was not accepted with high confidence; worker count comes from concurrent saturation with one maintenance worker present and no affinity-role claim is made.',
   });
 }
