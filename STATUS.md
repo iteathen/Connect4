@@ -7,9 +7,9 @@ The repository now has multiple active solver/research lanes. This root file no 
 
 ## Canonical durable lanes
 
-| Lane | Canonical branch | Purpose | Current branch head at routing cutover |
+| Lane | Canonical branch | Purpose | Head at routing cutover |
 | --- | --- | --- | --- |
-| Product baseline | `main` | accepted domain/spec/oracle/product baseline | `de47d43f4f4133a68973d0876a402531ef5735da` |
+| Product baseline | `main` | accepted domain/spec/oracle/product baseline | restructure integrated at `27fdfed33c9b75fde84942fe36c7e9edc3fdccbf` |
 | Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | `66fe2fc8dd15f954a37f328950f352d06bbe8f89` |
 | CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | `0d8b4d5633e0485ac1bb96ed4f77509bc1217d80` |
 | Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | `16a4ca51ed39a93451414bfa9dc4b5aee8091837` |
@@ -28,7 +28,7 @@ The complete identified minimax research lineage is consolidated on `solver/mini
 
 ### CUDA-BSFP
 
-`solver/cuda-bsfp` supersedes the old branch name `feature/cuda-bsfp`. The production-adjacent seam remains native C3 cause profiling and B2 bucketed-normalizer A/B before another 6x5 attempt.
+`solver/cuda-bsfp` supersedes the old branch name `feature/cuda-bsfp`. Draft PR #25 is the canonical continuation of the old PR #14. The production-adjacent seam remains native C3 cause profiling and B2 bucketed-normalizer A/B before another 6x5 attempt.
 
 ### Shared semantic research
 
@@ -36,19 +36,20 @@ The complete identified minimax research lineage is consolidated on `solver/mini
 
 ## Repository restructuring state
 
-The branch topology and authority routing are being normalized under `restructure/repository-organization-20260910`.
+The repository lane restructure was integrated to protected `main` through PR #24 at `27fdfed33c9b75fde84942fe36c7e9edc3fdccbf` after `verify`, `strength-evidence`, and `benchmark-evidence` passed.
 
-Completed in this migration:
+Completed:
 
 - created canonical `solver/cuda-bsfp`;
 - made minimax, CUDA-BSFP and semantic-quotient branches own their own status/next-step records;
 - created first-class `research/<lane>/` namespaces on all three canonical non-main lanes;
 - created solver-neutral `research/semantic-quotient`;
-- froze the current branch topology and exact SHAs in `research/MIGRATION_MANIFEST.json`;
+- froze the pre-restructure branch topology and exact SHAs in `research/MIGRATION_MANIFEST.json`;
 - established `research/` and `docs/decisions/` as the future organizational surfaces;
-- marked historical research branches for retirement rather than treating branch names as permanent archive storage.
+- classified historical/duplicate branches for retirement;
+- replaced CUDA-BSFP draft PR #14 with canonical draft PR #25 and closed #14 as superseded.
 
-The GitHub connector used for this migration does not expose branch deletion/tag creation. Stale refs are therefore classified and preserved by exact SHA in the migration manifest, but their physical deletion must not be claimed until performed through an authorized ref-management surface.
+Remaining cleanup is physical Git-ref retirement. The available connector does not expose branch deletion/tag creation, so stale refs are classified and SHA-preserved but are not falsely claimed deleted.
 
 ## Governing rule
 
