@@ -164,3 +164,13 @@ Retain the OQS worktree, frozen O2 fixture, raw local probe logs and seed sample
 and both published Q1 evidence PRs for continuation. Every child exited; no GPU
 resources or research temporary modules are intentionally left active. Old solver
 and lower-repository source checkouts remain protected unchanged.
+
+Final code checkpoint `dda06aa174850a5ba6cb8cb52a9e0186f55734f4` passed
+[portable CUDA and residual-reuse CI](https://github.com/iteathen/Connect4/actions/runs/34562943597)
+and [incremental OQS regression](https://github.com/iteathen/Connect4/actions/runs/34562943609).
+The measured pair/state factorization requirement was appended to existing
+[CUDA-Algorithms issue #3](https://github.com/iteathen/CUDA-Algorithms/issues/3)
+with O2 evidence and the CPU growth/reuse bounds. No lower source or contract was
+changed. All local probe/native processes exited, temporary research modules are
+absent, and the OQS, older feature and exact lower worktrees are clean. Retained
+ignored logs/seed samples and open evidence PRs are intentional continuation state.

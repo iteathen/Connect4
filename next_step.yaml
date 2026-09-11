@@ -50,6 +50,10 @@ timeout_policy:
 
 new_evidence:
   integrated_tests_pass: 94
+  final_code_checkpoint: dda06aa174850a5ba6cb8cb52a9e0186f55734f4
+  final_portable_and_reuse_CI: 34562943597_pass
+  final_incremental_regression_CI: 34562943609_pass
+  residual_pair_factorization_routed: CUDA_Algorithms_issue_3
   O2_portable: pass
   O2_native: pass_16_candidates_eight_passes_two_independent_layers_11_payloads_verified
   residual_reuse_all_625_4x4_support_layers: exact
@@ -89,6 +93,9 @@ cleanup:
   runtime_requirement: success_only_after_graceful_cleanup
   historical_replays: ZDD_one_shot_and_R6_compact_manual_only_duplicate_runs_cancelled
   evidence_pr_21: retained_open_no_main_merge
+  evidence_pr_28: retained_open_no_main_merge
+  CPU_probe_logs_and_completed_seed_samples: retained_for_continuation
+  native_and_probe_processes: exited
 
 constraints:
   - no_search_or_colored_state_tree_substitution
