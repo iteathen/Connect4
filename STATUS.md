@@ -64,6 +64,14 @@ storage/transform work from crossing-state storage in the next CUDA composition;
 do not extrapolate throughput using duplicated per-state frontier work.
 All 94 integrated tests pass after this optional reference experiment.
 
+O3 now implements distinct-pair cofactor transforms followed by every crossing
+occurrence's output mapping in one prepared CUDA DAG. Portable 4x4 controls and
+7x6 cut five pass; native qualification is pending. Input pair IDs come from the
+CPU fixture and output slots remain unmerged. The selected 7x6 layer reduces
+8,192 transforms to 128 while retaining all 8,192 outputs, with device arrays
+151,290,024 versus 2,781,876 bytes. See
+`docs/research/2026-09-11-oqs-cuda-residual-reuse.md` and bounded profile O3.
+
 GPU grouping, dense IDs, compact record output and device layer chaining remain
 unimplemented. CUDA-Algorithms' pinned select/order realization is quadratic and
 has no scalability claim. The measured sequence/grouping requirements are now

@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { r3, synthesizeSupport } from '../../reference/research-prototypes/2026-09-10-oqs/incremental-oqs.mjs';
 import { createBsfpSupportLatticeProfile } from '../../components/bsfp/support-lattice.mjs';
 
-export function build7x6SeedSliceFixture() {
+export function prepareFrozen7x6Seed() {
   const seed = JSON.parse(readFileSync(new URL('fixtures/7x6-support-470594.json', import.meta.url), 'utf8'));
   const source = readFileSync(new URL('../../components/bsfp/ownership-antichain-solver.mjs', import.meta.url), 'utf8').replaceAll('\r\n', '\n');
   assert.equal(createHash('sha256').update(source).digest('hex'), seed.sourceSha256);
@@ -15,6 +15,11 @@ export function build7x6SeedSliceFixture() {
   const frontier = { wins: seed.wins.map(BigInt), losses: seed.losses.map(BigInt) };
   const lines = r3.createConnectWinningLines(spec); const orderData = r3.optimizeLineOrder(spec, lines);
   const prepared = { lines, orderData, solution: { support, frontierAt(index) { assert.equal(index, seed.supportIndex); return frontier; } } };
+  return { seed, spec, prepared };
+}
+
+export function build7x6SeedSliceFixture() {
+  const { seed, spec, prepared } = prepareFrozen7x6Seed();
   const stop = new Error('first independently checked transition captured'); let fixture;
   try {
     synthesizeSupport({ spec, prepared, supportIndex: seed.supportIndex, oracleMode: true, validateDirect: true,

@@ -6,6 +6,7 @@ on:
       - research/zdd-transfer-20260910
     paths:
       - 'components/bsfp/cuda/oqs-cofactor-42-*.mjs'
+      - 'components/bsfp/cuda/oqs-factored-42-program.mjs'
       - 'components/bsfp/cuda/packed-antichain-42-collective.mjs'
       - 'experiments/cuda-bsfp-oqs-cofactor/**'
       - 'components/bsfp/test/oqs-cofactor.test.mjs'
@@ -56,3 +57,9 @@ jobs:
 
       - name: Verify antichain preservation and exact residual reuse
         run: node --test components/bsfp/test/oqs-cofactor.test.mjs reference/research-prototypes/2026-09-10-oqs/seed-probe.test.mjs
+
+      - name: Submit factored 4x4 controls
+        run: node experiments/cuda-bsfp-oqs-cofactor/run-factored.mjs portable 4 4
+
+      - name: Submit selected 7x6 residual reuse layer
+        run: node experiments/cuda-bsfp-oqs-cofactor/run-factored.mjs portable 7 6

@@ -1,7 +1,7 @@
 updated: 2026-09-11
 branch: research/zdd-transfer-20260910
 objective: exact_fast_empty_7x6_connect4_wdl_via_cuda_bsfp_no_search
-active_boundary: seed_scaling_and_selected_7x6_first_cut_qualification
+active_boundary: selected_residual_transform_and_mapping_CUDA_qualification
 reference_base: 0b1d67e97e74ae9014621e18ff109bda50997352
 profile: c4-0009-o1-oqs-cofactor-42
 native_source: 6e30e3829ddede96c7a9dce3fdad71df467e4ebe
@@ -35,7 +35,7 @@ completed:
   - concrete_generic_requirements_attached_to_cuda_algorithms_issue_3
 
 next_actions:
-  - factor_exact_residual_pair_storage_and_transform_work_from_crossing_state_table
+  - qualify_O3_native_4x4_controls_and_7x6_cut_five_against_unfactored_work
   - reduce_seed_pair_and_frontier_growth_before_whole_7x6_timing_forecast
   - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
   - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
@@ -49,6 +49,10 @@ timeout_policy:
   global_Q1_defaults_changed: false
 
 new_evidence:
+  O3_profile: c4-0009-o3-oqs-residual-reuse
+  O3_record: docs/research/2026-09-11-oqs-cuda-residual-reuse.md
+  O3_portable: pass_4x4_controls_and_7x6_cut_five
+  O3_native: pending
   integrated_tests_pass: 94
   final_code_checkpoint: dda06aa174850a5ba6cb8cb52a9e0186f55734f4
   final_portable_and_reuse_CI: 34562943597_pass
