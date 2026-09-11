@@ -1,0 +1,137 @@
+{
+  "caseId": "01-4x3-c3",
+  "geometry": {
+    "columns": 4,
+    "rows": 3,
+    "connect": 3,
+    "tier": "exhaustive-known"
+  },
+  "profile": "c4-0009-p1",
+  "estimate": {
+    "kind": "proved-profile-upper-bound",
+    "executable": true,
+    "denseTableBytes": "4194304",
+    "ancillaryBytes": "6200",
+    "fixedRuntimeAllowanceBytes": "268435456",
+    "upperBoundBytes": 272635960
+  },
+  "status": "passed",
+  "durationMs": 13285,
+  "steps": [
+    {
+      "stepId": "ranked-activation",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 11852,
+      "timedOut": false,
+      "memorySafetyAbort": false,
+      "launchError": null,
+      "gpuTelemetry": {
+        "sampleCount": 23,
+        "peakUsedMiB": 1057,
+        "minimumFreeMiB": 4910
+      },
+      "status": "passed",
+      "solverResult": {
+        "schemaVersion": 1,
+        "kind": "connect4-cuda-bsfp-ranked-activation-vertical-slice",
+        "mode": "native",
+        "connect4Profile": "4x3-connect3-support-lattice",
+        "supportItemCapacity": 256,
+        "supportMaxRank": 12,
+        "maxEmissionsPerItem": 4,
+        "expectedFullSkeletonPredecessors": [
+          191,
+          239,
+          251,
+          254
+        ],
+        "dependencyPair": {
+          "cudaAlgorithms": "48ee0aec9acae7776950f03ab52ab1737e598b6e",
+          "cudaJs": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "duplicateSourceFixture": {
+          "operationStatus": "completed",
+          "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+          "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+          "preparedNodeCount": 4,
+          "semanticStatus": 0,
+          "requiredCount": 4,
+          "outputIndices": [
+            191,
+            239,
+            251,
+            254
+          ]
+        },
+        "capacityFixture": {
+          "operationStatus": "completed",
+          "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+          "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+          "preparedNodeCount": 4,
+          "semanticStatus": 5,
+          "requiredCount": 4
+        },
+        "rankViolationFixture": {
+          "operationStatus": "completed",
+          "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+          "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+          "preparedNodeCount": 4,
+          "semanticStatus": 4,
+          "requiredCount": 0
+        },
+        "outcome": "native-numerical-pass"
+      }
+    },
+    {
+      "stepId": "dense-wdl",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1418,
+      "timedOut": false,
+      "memorySafetyAbort": false,
+      "launchError": null,
+      "gpuTelemetry": {
+        "sampleCount": 2,
+        "peakUsedMiB": 1057,
+        "minimumFreeMiB": 4910
+      },
+      "status": "passed",
+      "solverResult": {
+        "schemaVersion": 1,
+        "kind": "connect4-cuda-bsfp-dense-4x3-wdl-qualification",
+        "mode": "native",
+        "cudaJsRevision": "98e2ebc942c14d63acf4dd82e912dd548c363a05",
+        "planContract": "Connect4-CUDA-BSFP-dense-symbolic-4x3-wdl-v0",
+        "tableElements": 1048576,
+        "tableBytes": 4194304,
+        "supportSkeletons": 256,
+        "assignmentCount": 4096,
+        "winningLines": 14,
+        "preparedNodeCount": 13,
+        "checkedStates": 4631,
+        "legalEdges": 11818,
+        "rootWdl": 1,
+        "outcome": "native-exhaustive-wdl-pass"
+      }
+    }
+  ],
+  "reason": null,
+  "solverResult": {
+    "schemaVersion": 1,
+    "kind": "connect4-cuda-bsfp-dense-4x3-wdl-qualification",
+    "mode": "native",
+    "cudaJsRevision": "98e2ebc942c14d63acf4dd82e912dd548c363a05",
+    "planContract": "Connect4-CUDA-BSFP-dense-symbolic-4x3-wdl-v0",
+    "tableElements": 1048576,
+    "tableBytes": 4194304,
+    "supportSkeletons": 256,
+    "assignmentCount": 4096,
+    "winningLines": 14,
+    "preparedNodeCount": 13,
+    "checkedStates": 4631,
+    "legalEdges": 11818,
+    "rootWdl": 1,
+    "outcome": "native-exhaustive-wdl-pass"
+  }
+}

@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260910T065508562Z-fb451dd8",
+  "outcome": "complete-with-boundaries",
+  "cases": [
+    {
+      "caseId": "01-4x3-c3",
+      "geometry": {
+        "columns": 4,
+        "rows": 3,
+        "connect": 3,
+        "tier": "exhaustive-known"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "proved-profile-upper-bound",
+        "executable": true,
+        "denseTableBytes": "4194304",
+        "ancillaryBytes": "6200",
+        "fixedRuntimeAllowanceBytes": "268435456",
+        "upperBoundBytes": 272635960
+      },
+      "status": "passed",
+      "durationMs": 13285,
+      "steps": [
+        {
+          "stepId": "ranked-activation",
+          "exitCode": 0,
+          "signal": null,
+          "durationMs": 11852,
+          "timedOut": false,
+          "memorySafetyAbort": false,
+          "launchError": null,
+          "gpuTelemetry": {
+            "sampleCount": 23,
+            "peakUsedMiB": 1057,
+            "minimumFreeMiB": 4910
+          },
+          "status": "passed",
+          "solverResult": {
+            "schemaVersion": 1,
+            "kind": "connect4-cuda-bsfp-ranked-activation-vertical-slice",
+            "mode": "native",
+            "connect4Profile": "4x3-connect3-support-lattice",
+            "supportItemCapacity": 256,
+            "supportMaxRank": 12,
+            "maxEmissionsPerItem": 4,
+            "expectedFullSkeletonPredecessors": [
+              191,
+              239,
+              251,
+              254
+            ],
+            "dependencyPair": {
+              "cudaAlgorithms": "48ee0aec9acae7776950f03ab52ab1737e598b6e",
+              "cudaJs": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+            },
+            "duplicateSourceFixture": {
+              "operationStatus": "completed",
+              "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+              "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+              "preparedNodeCount": 4,
+              "semanticStatus": 0,
+              "requiredCount": 4,
+              "outputIndices": [
+                191,
+                239,
+                251,
+                254
+              ]
+            },
+            "capacityFixture": {
+              "operationStatus": "completed",
+              "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+              "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+              "preparedNodeCount": 4,
+              "semanticStatus": 5,
+              "requiredCount": 4
+            },
+            "rankViolationFixture": {
+              "operationStatus": "completed",
+              "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+              "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+              "preparedNodeCount": 4,
+              "semanticStatus": 4,
+              "requiredCount": 0
+            },
+            "outcome": "native-numerical-pass"
+          }
+        },
+        {
+          "stepId": "dense-wdl",
+          "exitCode": 0,
+          "signal": null,
+          "durationMs": 1418,
+          "timedOut": false,
+          "memorySafetyAbort": false,
+          "launchError": null,
+          "gpuTelemetry": {
+            "sampleCount": 2,
+            "peakUsedMiB": 1057,
+            "minimumFreeMiB": 4910
+          },
+          "status": "passed",
+          "solverResult": {
+            "schemaVersion": 1,
+            "kind": "connect4-cuda-bsfp-dense-4x3-wdl-qualification",
+            "mode": "native",
+            "cudaJsRevision": "98e2ebc942c14d63acf4dd82e912dd548c363a05",
+            "planContract": "Connect4-CUDA-BSFP-dense-symbolic-4x3-wdl-v0",
+            "tableElements": 1048576,
+            "tableBytes": 4194304,
+            "supportSkeletons": 256,
+            "assignmentCount": 4096,
+            "winningLines": 14,
+            "preparedNodeCount": 13,
+            "checkedStates": 4631,
+            "legalEdges": 11818,
+            "rootWdl": 1,
+            "outcome": "native-exhaustive-wdl-pass"
+          }
+        }
+      ],
+      "reason": null,
+      "solverResult": {
+        "schemaVersion": 1,
+        "kind": "connect4-cuda-bsfp-dense-4x3-wdl-qualification",
+        "mode": "native",
+        "cudaJsRevision": "98e2ebc942c14d63acf4dd82e912dd548c363a05",
+        "planContract": "Connect4-CUDA-BSFP-dense-symbolic-4x3-wdl-v0",
+        "tableElements": 1048576,
+        "tableBytes": 4194304,
+        "supportSkeletons": 256,
+        "assignmentCount": 4096,
+        "winningLines": 14,
+        "preparedNodeCount": 13,
+        "checkedStates": 4631,
+        "legalEdges": 11818,
+        "rootWdl": 1,
+        "outcome": "native-exhaustive-wdl-pass"
+      }
+    },
+    {
+      "caseId": "02-4x4-c4",
+      "geometry": {
+        "columns": 4,
+        "rows": 4,
+        "connect": 4,
+        "tier": "known-oracle"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "163840000",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 4x4-c4"
+    },
+    {
+      "caseId": "03-5x4-c4",
+      "geometry": {
+        "columns": 5,
+        "rows": 4,
+        "connect": 4,
+        "tier": "known-oracle"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "13107200000",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 5x4-c4"
+    },
+    {
+      "caseId": "04-5x5-c4",
+      "geometry": {
+        "columns": 5,
+        "rows": 5,
+        "connect": 4,
+        "tier": "scaling"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "1043677052928",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 5x5-c4"
+    },
+    {
+      "caseId": "05-6x5-c4",
+      "geometry": {
+        "columns": 6,
+        "rows": 5,
+        "connect": 4,
+        "tier": "scaling"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "200385994162176",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 6x5-c4"
+    },
+    {
+      "caseId": "06-7x5-c4",
+      "geometry": {
+        "columns": 7,
+        "rows": 5,
+        "connect": 4,
+        "tier": "scaling"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "38474110879137792",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 7x5-c4"
+    },
+    {
+      "caseId": "07-7x6-c4",
+      "geometry": {
+        "columns": 7,
+        "rows": 6,
+        "connect": 4,
+        "tier": "known-oracle"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "14487921671576485888",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 7x6-c4"
+    },
+    {
+      "caseId": "08-8x6-c4",
+      "geometry": {
+        "columns": 8,
+        "rows": 6,
+        "connect": 4,
+        "tier": "scaling"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "6490588908866265677824",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 8x6-c4"
+    },
+    {
+      "caseId": "09-8x7-c4",
+      "geometry": {
+        "columns": 8,
+        "rows": 7,
+        "connect": 4,
+        "tier": "scaling"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "4835703278458516698824704",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 8x7-c4"
+    },
+    {
+      "caseId": "10-9x7-c4",
+      "geometry": {
+        "columns": 9,
+        "rows": 7,
+        "connect": 4,
+        "tier": "scaling"
+      },
+      "profile": "c4-0009-p1",
+      "estimate": {
+        "kind": "hypothetical-dense-shape",
+        "executable": false,
+        "denseTableBytes": "4951760157141521099596496896",
+        "upperBoundBytes": null,
+        "note": "P1 execution is frozen to 4x3 connect-3; the dense formula is reported only to expose scaling pressure."
+      },
+      "status": "unsupported-profile",
+      "durationMs": 0,
+      "steps": [],
+      "reason": "c4-0009-p1 does not implement 9x7-c4"
+    }
+  ]
+}
