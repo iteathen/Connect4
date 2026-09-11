@@ -1,5 +1,6 @@
 import { availableParallelism, cpus, platform } from 'node:os';
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { Worker } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 
@@ -15,6 +16,34 @@ function parseProbe(stdout) {
   const lines = String(stdout).trim().split(/\r?\n/).filter(Boolean);
   if (lines.length === 0) throw new Error('CPU probe produced no output');
   return JSON.parse(lines[lines.length - 1]);
+}
+
+function parseCpuList(text) {
+  const ids = [];
+  for (const token of String(text).trim().split(',')) {
+    if (!token) continue;
+    const [startText, endText] = token.split('-');
+    const start = Number(startText);
+    const end = endText === undefined ? start : Number(endText);
+    if (!Number.isInteger(start) || !Number.isInteger(end) || end < start) continue;
+    for (let cpu = start; cpu <= end; cpu += 1) ids.push(cpu);
+  }
+  return ids;
+}
+
+function allowedCpuIds(logicalCount) {
+  if (platform() !== 'linux') return Array.from({ length: logicalCount }, (_, cpuId) => cpuId);
+  try {
+    const status = readFileSync('/proc/self/status', 'utf-8');
+    const match = status.match(/^Cpus_allowed_list:\s*(.+)$/m);
+    if (match) {
+      const ids = parseCpuList(match[1]);
+      if (ids.length > 0) return ids;
+    }
+  } catch {
+    // Fall through to the logical list when procfs is unavailable.
+  }
+  return Array.from({ length: logicalCount }, (_, cpuId) => cpuId);
 }
 
 function probeLinuxCpu(cpuId, env) {
@@ -93,8 +122,16 @@ async function runConcurrentProbe(searchWorkers, durationMs) {
       const worker = new Worker(PROBE_URL, { workerData: { warmupMs: 20, durationMs } });
       workers.push(worker);
       await new Promise((resolve, reject) => {
-        worker.once('online', resolve);
-        worker.once('error', reject);
+        const onOnline = () => {
+          worker.off('error', onError);
+          resolve();
+        };
+        const onError = (error) => {
+          worker.off('online', onOnline);
+          reject(error);
+        };
+        worker.once('online', onOnline);
+        worker.once('error', onError);
       });
     }
 
@@ -131,11 +168,13 @@ async function runConcurrentProbe(searchWorkers, durationMs) {
 export async function calibrateCpuRoles(options = {}) {
   const logicalCount = cpus().length;
   const available = availableParallelism();
+  const allowed = allowedCpuIds(logicalCount);
   const pinnedRepeats = options.pinnedRepeats ?? 2;
   const pinnedDurationMs = options.pinnedDurationMs ?? 70;
   const saturationDurationMs = options.saturationDurationMs ?? 90;
   const minGapRatio = options.minGapRatio ?? 1.12;
-  const maxProbeCpus = Math.min(options.maxProbeCpus ?? logicalCount, logicalCount);
+  const maxProbeCpus = Math.min(options.maxProbeCpus ?? allowed.length, allowed.length);
+  const probeCpuIds = allowed.slice(0, maxProbeCpus);
   const env = {
     ...process.env,
     C4_CPU_PROBE_WARMUP_MS: String(options.pinnedWarmupMs ?? 35),
@@ -144,7 +183,7 @@ export async function calibrateCpuRoles(options = {}) {
 
   const measurements = [];
   let affinityProbeAvailable = true;
-  for (let cpuId = 0; cpuId < maxProbeCpus; cpuId += 1) {
+  for (const cpuId of probeCpuIds) {
     const samples = [];
     for (let repeat = 0; repeat < pinnedRepeats; repeat += 1) {
       const sample = probePinnedCpu(cpuId, env);
@@ -183,6 +222,7 @@ export async function calibrateCpuRoles(options = {}) {
     kind: 'connect4-cpu-role-calibration-v1',
     platform: platform(),
     logicalCpuCount: logicalCount,
+    allowedCpuIds: Object.freeze(allowed),
     availableParallelism: available,
     affinityProbeAvailable,
     affinityEnforcedForNodeWorkers: false,
