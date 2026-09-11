@@ -1,69 +1,53 @@
-# Connect4 Status
+# Connect4 Semantic-Quotient Research Status
 
-**Updated:** 2026-09-11 UTC
-**Active lane:** research/zdd-transfer-20260910 — Offline Quotient Synthesis
+**Updated:** 2026-09-10  
+**Canonical branch:** `research/semantic-quotient`  
+**State:** active cross-solver research
 
-Goal: exact, extremely fast empty-board standard 7x6 connect-4 W/D/L through
-CUDA-BSFP. This is symbolic solving, not legal move-tree search.
+## Mission
 
-## Current evidence
+Find the smallest exact, efficiently updatable description of the remaining Connect Four game. This branch owns solver-neutral research into future-behavior equivalence, win-space reduction, support/accessibility sufficiency, identified-line quotients, residual classes, canonical transitions and practical minimum-description representations.
 
-R1 falsified crossing assignment alone as complete state. R3 established exact
-residual-class transition stability on tested controls; R4 qualified a flat
-transfer artifact. R5 located the cost in repeated semantic layer discovery.
-R6 replaces rediscovery with previous exact quotient plus at most four introduced
-ownership bits, exact cofactor candidates, and exact deduplication.
+It does **not** own the minimax/alpha-beta solver implementation or the CUDA-BSFP solver implementation. Those remain on:
 
-The original R6 job 103111963716 has now been read and its metrics preserved in
-[the R6 record](docs/research/2026-09-10-r6-incremental-oqs-results.md). It includes
-17,948 independent layer checks and 478,657 direct-cofactor checks. The three
-additional 5x5 supports have weaker independent R5 count-check scope; do not
-present them as independently rebuilt layer parity.
+- `solver/minimax-alpha-beta`
+- `solver/cuda-bsfp`
 
-The new O1 bounded CUDA cofactor slice reuses packed42 antichain collectives.
-Local Q1 passed all 220,744 candidates across 112 transitions for 5x5 supports
-4426, 4743, 6351 and 6465 in baseline and antichain-preserving modes. Every
-candidate's crossing and Win/Loss sets matched JS and covered the reference next
-quotient. Selected small supports and 4426 also rebuild independent R3 layers.
-Official clean-source Q1 run 20260911T032754503Z-b0df94a3 qualified 4x3, 4x4
-and these 5x5 supports; [evidence PR #21](https://github.com/iteathen/Connect4/pull/21)
-is published and its 23 payload hashes verified. Exact native source: 6e30e382.
+## Starting evidence
 
-The preservation shortcut has a formal set-order argument and exhaustive checks
-on all 168 four-bit antichains. Official 5x5 submit/wait was 428.384 ms baseline and
-280.993 ms optimized; this single pass is not an end-to-end OQS speedup. Readback
-cost about 2.22 s per mode and initial C1 seed construction 38.63 s.
+This branch descends from `research/zdd-transfer-20260910`, so the complete OQS/flat-transfer research history is preserved here. Important established evidence includes:
 
-[O1 profile](docs/specs/profiles/C4-0009-O1-oqs-cofactor-42-v0.md) and
-[assessment, proof and measurements](docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md)
-define the exact scope. All 90 integrated tests pass. Portable execution proves
-composition/lifecycle only, never native numerical parity.
+- identified-line quotient `(support,H0,H1)` passed complete physical transition/WDL controls through 4x5;
+- separator crossing ownership alone is insufficient for the full symbolic BSFP domain, while measured exact hidden-history classes remained small on controls;
+- canonical residual classes were transition-stable on tested controls;
+- R4 compiled those classes to pointer-free `stateId + inputOrdinal -> nextStateId` arrays;
+- R6 synthesized quotient layers incrementally from prior classes rather than rebuilding forgotten histories;
+- minimax research independently established exact reuse across different colored histories when residual future structure matched.
 
-## Next seam and limits
+## Immediate cross-solver program
 
-GPU grouping, dense IDs, compact record output and device layer chaining remain
-unimplemented. CUDA-Algorithms' pinned select/order realization is quadratic and
-has no scalability claim. The measured sequence/grouping requirements are now
-attached to its existing issue #3; exact residual equality stays in Connect4.
-Ordering by hash alone is insufficient: complete collision handling must place
-all equal residuals in one exact group before assigning IDs.
+The first research sequence is MQ1-MQ5:
 
-C1 seed construction remains a separate costly prerequisite. No full device OQS
-or empty7x6 root result is claimed. A bounded 7x6 slice needs an exact seed and a
-measured finite envelope before admission; O1 currently refuses 7x6.
+1. **MQ1:** qualify the identified-line quotient for minimax's exact distance-sensitive state and per-column action values, not only W/D/L.
+2. **MQ2:** compute the coarsest action-labelled behavioral quotient on complete small games by exact partition refinement.
+3. **MQ3:** classify information still removable after identified-line/support state and preserve smallest counterexamples for failed candidate keys.
+4. **MQ4:** compile exact `(classId,column) -> terminal | nextClassId` transition artifacts and measure description/transition cost.
+5. **MQ5:** compare unchanged serial alpha-beta over the compiled quotient against the strongest fixed-width colored-board control.
 
-Exact unchanged dependencies:
+Only after those gates should solver-specific optimizations be promoted back into either solver lane.
 
-- CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-- CUDA-JS: 98e2ebc942c14d63acf4dd82e912dd548c363a05 (0.1.0-alpha.20)
+## Research principle
 
-The older feature/cuda-bsfp lane and its C1/C3/B2 evidence remain separate and
-unchanged. Its inherited status is preserved in Git at 0b1d67e; it is not the
-active OQS plan. No production-lane reducer migration is part of this change.
+Kolmogorov complexity is motivation, not a computable acceptance metric. Acceptance is exact future-behavior equivalence. Track state description bytes, transition bytes, construction cost and actual proof cost separately.
 
-## Retained continuation state
+A smaller-looking representation is rejected if it changes legal actions, terminal timing, exact action values or solver-required proof meaning.
 
-The OQS worktree, package junctions, ignored raw R6 logs and Q1 spools are retained
-for reproducibility/continuation. No lower-repository source changes or persistent
-GPU allocations are intended. Official evidence uses Q1 append-only branch/PR
-publication; source work stays on the research branch, with no main merge.
+## Existing OQS continuation
+
+The OQS CUDA cofactor and grouping work remains valuable evidence and may continue where it answers the shared quotient/compiler question. Production CUDA-BSFP integration decisions belong on `solver/cuda-bsfp`.
+
+The former `research/zdd-transfer-20260910` ref is superseded as the research continuity branch because its head is an ancestor of this branch.
+
+## Preservation caveat
+
+Several older minimax research packets were historically preserved only by durable reports/hashes rather than full committed local bundles. Do not claim those original packets are present merely because their conclusions or reconstructed descendants are available.
