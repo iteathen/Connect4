@@ -2,19 +2,19 @@
 
 **Updated:** 2026-09-11  
 **Canonical branch:** `research/semantic-quotient`  
-**State:** MQ1-MQ4 passed; MQ5 transferred to minimax; SIU-1 relational dual-direction exactness passed
+**State:** MQ1-MQ4 passed; SIU-1 relational exactness passed; search-method campaign v1 complete
 
 ## Mission
 
-Find the smallest exact, efficiently updatable description of the remaining Connect Four game. This branch owns solver-neutral research into future-behavior equivalence, win-space reduction, support/accessibility sufficiency, identified-line quotients, residual classes, canonical transitions and practical minimum-description representations.
+Find the smallest exact, efficiently updatable description of the remaining Connect Four game and determine which forward/backward exact reasoning forms exploit it best. This branch owns solver-neutral research into future-behavior equivalence, win-space reduction, support/accessibility sufficiency, relational state identity, canonical transitions, cross-solver proof contracts and comparative search-method evidence.
 
-It does **not** own solver implementation. Those remain on:
+It does **not** own production solver implementation. Those remain on:
 
 - `solver/minimax-alpha-beta`
 - `solver/cuda-bsfp`
 - `solver/hybrid-confluence`
 
-## Qualified reduction chain
+## Qualified semantic chain
 
 Complete bounded-game qualification establishes:
 
@@ -25,88 +25,28 @@ physical colored history
   -> coarsest exact action-behavior class
 ```
 
-### MQ1 — identified-line strong-score quotient
+### MQ1-MQ4
 
-Across **1,681,808 physical nonterminal states** and **1,261,104 merged-state comparisons**, `(support,H0,H1)` produced zero mismatches in exact distance-sensitive state score, per-column action score, terminal timing, or successor quotient class.
-
-### MQ2 — coarsest action-labelled behavioral quotient
-
-Across the same four independent complete controls:
-
-```text
-physical histories:       1,681,808
-identified-line classes:    420,704
-behavioral classes:         269,347
-```
-
-On complete 4x5 c4:
-
-```text
-physical histories: 1,385,521
-line classes:          361,427
-behavior classes:      229,232
-```
-
-The line quotient is exact but not minimal.
-
-### MQ3 — forward semantic state
-
-The candidate
-
-```text
-support
-+ minimal P0 residual winning-requirement antichain
-+ minimal P1 residual winning-requirement antichain
-```
-
-was sufficient for exact MQ2 behavior on every complete control. Residual requirements without support were not sufficient, proving that gravity/accessibility remains semantic.
-
-For complete 4x5:
-
-```text
-line classes:             361,427
-support+residual states:  294,593
-behavior classes:         229,232
-```
-
-The forward semantic state is only **1.285x** above the theoretical behavioral minimum.
-
-### MQ4 — direct residual automaton
-
-MQ4 generated the game directly from the empty residual root using only:
+Across **1,681,808** complete-control physical nonterminal states, the shared semantic work established zero exact strong-score/action-score mismatches for the qualified relational reductions. MQ4 generated complete game automata directly from:
 
 ```text
 support + minimal residual pair + column
-  -> terminal score | next support + next minimal residual pair
+  -> terminal score | next relational state
 ```
 
-No colored ownership board or identified-line history participates in recursive transition generation.
+without carrying a colored ownership board recursively.
 
-Across all complete controls:
+For complete 4x5 c4:
 
 ```text
-reachable-set mismatches: 0
-strong-score mismatches:  0
-action-score mismatches:  0
-flat-replay mismatches:   0
+physical states:          1,385,521
+relational states:          294,593
+behavioral classes:         229,232
+nonterminal transitions:    814,300  # SIU-1 nonterminal relational DAG
+terminal win edges:           76,058
 ```
 
-Complete 4x5 direct automaton:
-
-```text
-residual states:          294,593
-nonterminal transitions:  890,358
-terminal edges:             76,058
-peak rank frontier:         60,650
-naive flat target table: 4,713,488 bytes
-```
-
-Authority:
-
-- `research/semantic-quotient/mq4-residual-automaton.mjs`
-- Actions run `34570662573`, job `103171852729`
-- `docs/research/2026-09-11-semantic-quotient-mq4-residual-automaton.md`
-- `docs/research/evidence/2026-09-11-semantic-quotient-mq4-residual-automaton.json`
+The earlier MQ4 flat-table accounting remains authoritative for its exact serialized transition profile.
 
 ## SIU-1 — one relational language in both directions
 
@@ -125,36 +65,118 @@ Across the same **1,681,808** complete-control physical states, SIU-1 produced z
 
 Observed physical-to-relational reduction ranged from **1.247x to 13.431x**. On 4x5 c4, 1,385,521 physical states collapsed to 294,593 relational states, with one relational state representing as many as 37,080 physical states.
 
-The forward quotient is deliberately not state-level reversible. On 4x5 c4, **127,374** `(child,column)` pairs had multiple relational predecessors, with up to 21 parents for one pair. This identifies the correct common algebra as:
+The quotient is deliberately not state-level reversible. The common algebra is:
 
 ```text
 forward:       T(q,a) -> q' | terminal
 backward: Pre_a(Q) -> exact predecessor set/frontier
+hybrid:        exact classification/proof facts keyed by q
 ```
 
-rather than requiring `undo(q',a)` to be a function.
-
-An explicit reverse CSR would cost about 4.44 MB on the 4x5 control versus 4.71 MB for the dense forward transition table, so materializing both directions nearly duplicates transition storage. The BSFP-facing next step is therefore symbolic preimage, not history restoration.
-
-The current BSFP ownership-antichain representation is also more compressed than explicit relational enumeration: 40,707 boundary records versus 294,593 relational states on 4x5. Common semantics must not force BSFP to abandon a better physical representation.
+Common semantics must not force common physical representation. On 4x5, the existing BSFP ownership-antichain result used only 40,707 W/L boundary records versus 294,593 explicit relational states.
 
 Authority:
 
-- `research/semantic-quotient/state-identity-unification/src/siu1-relational-dual-direction.mjs`
 - `research/semantic-quotient/state-identity-unification/SIU1_RESULT.md`
 - `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json`
 - Actions run `34632643724`, job `103372941221`
 
-## Transfer and ownership boundary
+## Search-method evidence campaign v1
 
-The residual state law is solver-neutral authority here. Production search control, TT layout, CUDA-BSFP execution, hybrid scheduling and performance claims remain on their solver lanes.
+The first comparative campaign treated search method as an experimental dimension while holding the BSFP-compatible relational language fixed.
 
-No solver should be refactored merely to look unified. The emerging target is one exact relational game algebra with solver-specific execution forms.
+Primary methods tested:
+
+```text
+strong-score:
+  relational negamax alpha-beta
+  PVS / NegaScout
+  MTD(f)
+
+W/D/L proof:
+  PN-DAG
+  exact Proof-Set Search (PSS)
+```
+
+All implemented candidate correctness assertions passed on the bounded controls. Search methods operated over a precompiled relational DAG; positional board state was absent from search.
+
+### Standalone composed work
+
+With relational tactical closure enabled:
+
+| Geometry | AB | PVS | MTD(f) | PN-DAG | PSS |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 4x3 c3, win | 213 | 227 | **195** | **24** | 56 |
+| 4x4 c4, draw | 4,479 | 4,292 | **4,278** | 11,094 | 13,206 |
+| 5x3 c4, draw | 997 | **972** | 987 | 7,898 | 8,957 |
+| 4x5 c4, draw | 16,489 | 15,110 | **15,103** | 61,275 | deferred |
+
+On 4x5, search-only median elapsed time over the precompiled graph was approximately 9.49 ms AB, 7.88 ms PVS and 7.81 ms MTD(f). These are driver/search measurements only; the research DAG itself required about 7.11 s to construct and is not a production representation.
+
+### Candidate disposition
+
+Advance to the next composition campaign:
+
+- relational negamax alpha-beta as the control and common exact kernel;
+- PVS/NegaScout as a driver;
+- MTD(f) as a driver.
+
+Retain as research candidates, not current hot-path finalists:
+
+- PN-DAG — exceptionally selective on the decisive 4x3 root but weak on the tested draw roots because draw requires two negative player-win proofs;
+- PSS — exact and transposition-aware, but explicit proof-set propagation produced very high set/backup cost and was scale-deferred beyond 50k relational states in v1.
+
+Standard df-pn was not admitted because a DAG/transposition-safe correctness contract was not established for this campaign.
+
+### Tactical composition result
+
+Relational tactical closure materially reduced work across methods. On 4x5:
+
+```text
+alpha-beta: 32,819 -> 16,489
+PVS:        27,927 -> 15,110
+MTD(f):     27,950 -> 15,103
+```
+
+This confirms that search methods must be compared in their best compatible composition, not as bare textbook algorithms.
+
+### Ideal BSFP confluence leverage
+
+The campaign supplied exact relational values at fixed rank walls to measure forward-work elimination. BSFP construction/publication/query cost was intentionally excluded.
+
+On 4x5 c4, composed/tactical:
+
+| Method | no BSFP | rank 10 (~50%) | rank 14 (~70%) |
+| --- | ---: | ---: | ---: |
+| alpha-beta | 16,489 | **1,388** | 9,264 |
+| PVS | 15,110 | **1,305** | 8,562 |
+| MTD(f) | 15,103 | **1,315** | 8,573 |
+| PN-DAG | 61,275 | **6,079** | 36,177 |
+
+The earlier wall is dramatically more valuable, supporting the hypothesis that confluence should occur before forward reasoning traverses most of its hard interior.
+
+This is a leverage ceiling only, not a hybrid speed claim.
+
+Authority:
+
+- `research/semantic-quotient/state-identity-unification/src/search-method-evidence-campaign.mjs`
+- `research/semantic-quotient/state-identity-unification/SEARCH_METHOD_CAMPAIGN_V1_RESULT.md`
+- `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-search-method-campaign-v1.json`
+- Actions run `34636074995`, job `103384159647`
+
+## Hard BSFP compatibility rule
+
+Future forward candidates must speak the same exact relational `q` language and consume exact BSFP facts directly. They may publish only facts with explicit sound proof meaning (exact values, qualified bounds, certified closures). Heuristic scores, proof-number estimates, neural values and ordering hints are never BSFP authority.
+
+Compatibility does not require common mutable state or common control flow.
 
 ## Current next questions
 
-1. **SIU-2 direct relational alpha-beta:** can recursive alpha-beta navigate `q` without a colored board and retain or improve wall-clock performance after accounting for transition/key cost?
-2. **SIU-3 semantic TT economics:** how much additional useful proof reuse comes from relational identity rather than physical identity?
-3. **SIU-5 symbolic preimage:** can BSFP compute `Pre_a(Q)` compactly without materializing the complete reverse relation?
-4. **7x6 scale:** how large is the reachable relational space and what packed representation is practical?
-5. **Evaluator/NN compatibility:** which approximate-evaluation features are absent from the relational state and whether they should be derived, carried separately, or intentionally kept outside exact identity.
+1. Build one **packed/on-the-fly relational negamax kernel** and compare alpha-beta, PVS and MTD(f) as thin drivers over exactly the same implementation.
+2. Reapply the best compatible optimization portfolio: relational tactical closure, automorphism/reflection canonicalization, earliest-win/support bounds, compiled local proof masks and proof-cost ordering.
+3. Use equal-byte exact TT/cache controls rather than equal entry counts where layouts differ.
+4. Replace ideal BSFP rank walls with actual BSFP-produced/queryable boundaries and account for build, publication and lookup cost.
+5. Continue SIU symbolic-preimage work so BSFP retains frontier compression instead of enumerating every `q`.
+6. Characterize standard 7x6 relational scale before any production promotion.
+
+Production branch restructuring is deferred until the shared-kernel evidence establishes which forward driver/composition deserves the new solver generation.
