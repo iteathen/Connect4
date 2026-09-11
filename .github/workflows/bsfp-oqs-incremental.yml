@@ -26,4 +26,14 @@ jobs:
         with:
           node-version: 26.7.0
       - name: Qualify incremental OQS transition synthesis
-        run: node --expose-gc reference/research-prototypes/2026-09-10-oqs/incremental-oqs.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node --expose-gc reference/research-prototypes/2026-09-10-oqs/incremental-oqs.mjs | tee oqs-r6-result.json
+      - name: Preserve compact R6 evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: oqs-r6-result
+          path: oqs-r6-result.json
+          if-no-files-found: error
+          retention-days: 7
