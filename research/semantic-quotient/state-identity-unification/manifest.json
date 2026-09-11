@@ -1,40 +1,70 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "name": "state-identity-unification",
-  "status": "research-experiment-plan",
+  "status": "siu1-passed-bounded-controls",
   "owner_branch": "research/semantic-quotient",
   "date": "2026-09-11",
-  "question": "Can an exact primitive/residual semantic identity improve total solver performance and provide a common logical identity across minimax, CUDA-BSFP, and hybrid confluence without forcing shared physical state?",
+  "question": "Can one exact relational game algebra provide common logical identity across minimax, CUDA-BSFP, and hybrid confluence without forcing shared physical state?",
+  "common_state_contract": [
+    "supportIndex",
+    "sideToMove",
+    "normalized-p0-residual-requirements",
+    "normalized-p1-residual-requirements"
+  ],
   "consumers": [
     "solver/minimax-alpha-beta",
     "solver/cuda-bsfp",
     "solver/hybrid-confluence"
   ],
+  "siu1": {
+    "status": "pass",
+    "workflow_run": 34632643724,
+    "workflow_job": 103372941221,
+    "physical_states_checked": 1681808,
+    "exactness_mismatches": 0,
+    "bsfp_wdl_mismatches": 0,
+    "reverse_closure_mismatches": 0,
+    "forward_transition_functional": true,
+    "state_level_inverse_functional": false,
+    "result": "SIU1_RESULT.md",
+    "evidence": "evidence/2026-09-11-siu1-relational-dual-direction.json"
+  },
   "promotion_policy": {
     "exactness_required": true,
-    "notable_net_performance_gain_required": true,
+    "notable_net_performance_gain_required_for_solver_hot_path": true,
+    "necessary_cross_solver_capability_may_justify_shared_contract": true,
     "shared_physical_state_required": false,
     "speculative_solver_changes_allowed": false
   },
   "stages": [
-    "SIU-1-shadow-identity-census",
-    "SIU-2-useful-transposition-replay",
-    "SIU-3-secondary-semantic-tt",
-    "SIU-4-incremental-semantic-transition",
-    "SIU-5-cross-solver-identity-contract",
-    "SIU-6-direct-quotient-navigation"
+    "SIU-1-relational-dual-direction-exactness-PASS",
+    "SIU-2-direct-relational-alpha-beta",
+    "SIU-3-useful-semantic-tt-economics",
+    "SIU-4-packed-incremental-relational-transition",
+    "SIU-5-symbolic-relational-preimage",
+    "SIU-6-cross-solver-proof-contract"
   ],
   "preserved_invariants": [
     "consumer-relative-exactness",
-    "distance-sensitive-score-separation",
+    "distance-sensitive-score-preservation-where-claimed",
     "action-labelled-successor-consistency",
+    "terminal-first-win-semantics",
     "solver-native-hot-path-independence",
     "research-before-promotion"
+  ],
+  "open_gaps": [
+    "minimax-hot-path-transition-and-key-cost",
+    "symbolic-preimage-without-reverse-edge-materialization",
+    "current-bsfp-frontier-compression-must-not-be-regressed",
+    "standard-7x6-reachable-relational-state-scale",
+    "evaluator-and-nn-feature-sufficiency",
+    "symmetry-and-packed-identity"
   ],
   "non_claims": [
     "standard-7x6-exhaustive-quotient-proof",
     "production-speedup",
-    "board-removal",
+    "state-level-reversible-transition",
+    "bsfp-per-relational-state-enumeration-requirement",
     "shared-mutable-state-requirement"
   ]
 }
