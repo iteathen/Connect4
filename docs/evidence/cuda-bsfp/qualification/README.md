@@ -6,9 +6,9 @@ Each child directory is one independently identified qualifier run published by 
 
 Do not hand-edit generated evidence to turn a failure/boundary into a pass. If qualification must be repeated, generate another run.
 
-## Consolidated historical qualification runs
+## Consolidated qualification runs
 
-The repository restructure moved the seven previously branch-isolated qualification directories into the canonical `solver/cuda-bsfp` lane **without rewriting their generated contents**. Commit `09e3db9631e79a068f658c9c6d91c4002ca7820f` has all seven original evidence branch heads as merge parents, preserving branch/PR provenance as well as the run directories themselves.
+The repository restructure moved the original seven branch-isolated qualification directories into the canonical `solver/cuda-bsfp` lane **without rewriting their generated contents**. Commit `09e3db9631e79a068f658c9c6d91c4002ca7820f` has all seven original evidence branch heads as merge parents. A later post-census O2 run was consolidated the same way at `6123473b40e11926b34072d0f64266d50e10c0d1`, demonstrating the intended steady-state workflow for new qualification evidence.
 
 | Run | Historical evidence PR | Outcome | Profile | Qualified source revision |
 | --- | ---: | --- | --- | --- |
@@ -19,7 +19,10 @@ The repository restructure moved the seven previously branch-isolated qualificat
 | `20260910T083225135Z-2245e20a` | #19 | qualified | `c4-0009-b1-packed-dominance-42` | `c9480b50e55222049b55e2ead6ac924c099499bc` |
 | `20260910T100734116Z-e8de3c61` | #20 | qualified | `c4-0009-c1-compact-ownership-42` | `fc7c8cc233b3cf1670ef75fde69750c91dd6492b` |
 | `20260911T032754503Z-b0df94a3` | #21 | qualified | `c4-0009-o1-oqs-cofactor-42` | `6e30e3829ddede96c7a9dce3fdad71df467e4ebe` |
+| `20260911T043015870Z-2d8e0785` | #28 | qualified | `c4-0009-o2-oqs-7x6-seed-slice` | `5c298c7e1dfdf1cfd93116884585144e33fb9dd7` |
+
+The O2 run qualified a native 7x6 OQS seed-slice case on the GTX 1660 Ti; it is **not** a complete 7x6 solver/closure claim.
 
 The generated `summary.md`, `manifest.json`, `results.json`, system records, case records and logs inside each run remain the evidence authority for that run. This table is only a navigation index.
 
-Historical evidence PRs are no longer required as the sole storage surface once their exact trees and commit ancestry are present here; their conversations remain GitHub history.
+Evidence PR branches are delivery surfaces, not durable work lanes. Once an exact generated run subtree and its evidence-head ancestry are consolidated here, the evidence PR can be closed and the delivery ref becomes retirement-safe. The original PR conversation remains GitHub history.
