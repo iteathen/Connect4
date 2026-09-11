@@ -1,7 +1,7 @@
 updated: 2026-09-11
 branch: research/zdd-transfer-20260910
 objective: exact_fast_empty_7x6_connect4_wdl_via_cuda_bsfp_no_search
-active_boundary: bounded_oqs_packed42_cofactor_qualification
+active_boundary: seed_scaling_and_selected_7x6_first_cut_qualification
 reference_base: 0b1d67e97e74ae9014621e18ff109bda50997352
 profile: c4-0009-o1-oqs-cofactor-42
 native_source: 6e30e3829ddede96c7a9dce3fdad71df467e4ebe
@@ -9,6 +9,9 @@ native_run: 20260911T032754503Z-b0df94a3
 evidence_pr: https://github.com/iteathen/Connect4/pull/21
 evidence_commit: d2e31abb6f4da79f4b4d006e166e4b39d1960dd3
 research_record: docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md
+scaling_record: docs/research/2026-09-11-oqs-seed-scaling.md
+scaling_evidence: docs/research/evidence/2026-09-11-oqs-seed-scaling.json
+selected_7x6_profile: c4-0009-o2-oqs-7x6-seed-slice
 r6_evidence: docs/research/evidence/2026-09-11-oqs-r6-original-job-summary.json
 
 dependencies:
@@ -29,9 +32,29 @@ completed:
   - concrete_generic_requirements_attached_to_cuda_algorithms_issue_3
 
 next_actions:
+  - qualify_O2_clean_source_with_30_second_Q1_case_and_publish_evidence
+  - reduce_seed_pair_and_frontier_growth_before_whole_7x6_timing_forecast
   - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
   - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
-  - investigate_seed_construction_cost_before_admitting_finite_7x6_slice
+  - widen_7x6_quotient_cuts_only_under_measured_frontier_and_active_record_bounds
+
+timeout_policy:
+  correctness: short_first
+  seed_probes: 10_to_60_seconds_soft_with_5_second_outer_margin
+  quotient_probes: 20_seconds_between_cuts_25_seconds_outer
+  extend_when: changed_capacity_or_timing_question_has_information_value
+  global_Q1_defaults_changed: false
+
+new_evidence:
+  integrated_tests_pass: 93
+  O2_portable: pass
+  seven_by_six_seed_completed_supports: 184
+  seven_by_six_seed_max_loss_records: 5205
+  seven_by_six_seed_next_rejected_product: 2446901
+  seven_by_six_seed_probe_seconds: 30.689
+  six_by_five_selected_quotient_states: 43776
+  seven_by_six_selected_quotient_states_after_six_cuts: 8192
+  total_solve_timing_forecast: uncalibrated_prior_16_40_hours_are_conditional_scenarios
 
 open_boundaries:
   grouping:

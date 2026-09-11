@@ -51,5 +51,8 @@ jobs:
       - name: Submit widened finite OQS envelope
         run: node experiments/cuda-bsfp-oqs-cofactor/run.mjs portable 5 5 4
 
+      - name: Submit selected 7x6 first-cut envelope
+        run: node experiments/cuda-bsfp-oqs-cofactor/run-seed-slice.mjs portable
+
       - name: Verify antichain preservation and finite memory bounds
         run: node --test components/bsfp/test/oqs-cofactor.test.mjs

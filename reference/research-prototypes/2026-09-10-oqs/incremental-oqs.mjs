@@ -130,7 +130,7 @@ function summarizeLayer(cut, states, candidateCount, introducedWidth, generatedM
   });
 }
 
-function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateDirect, onTransition = null }) {
+function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateDirect, onTransition = null, onTransitionStart = null }) {
   const { lines, orderData, solution } = prepared;
   const started = performance.now();
   const heights = solution.support.decodeHeights(supportIndex);
@@ -168,6 +168,8 @@ function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateD
     const inputs = enumerateAssignments(introduced);
     const candidateCount = states.size * inputs.length;
     assert(Number.isSafeInteger(candidateCount), 'incremental OQS candidate count exceeded safe integer range');
+    // Research stop/observation seam before allocating a candidate layer.
+    if (onTransitionStart) onTransitionStart({ cut, stateCount: states.size, candidateCount, fanout: inputs.length });
     const candidates = new Array(candidateCount);
 
     let cursor = 0;

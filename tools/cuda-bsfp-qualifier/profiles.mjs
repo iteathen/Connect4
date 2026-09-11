@@ -201,7 +201,28 @@ const O1 = Object.freeze({
       } }];
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1]]);
+const O2 = Object.freeze({
+  id: 'c4-0009-o2-oqs-7x6-seed-slice', specification: 'docs/specs/profiles/C4-0009-O2-oqs-7x6-seed-slice-v0.md',
+  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(spec) { return spec.columns === 7 && spec.rows === 6 && spec.connect === 4; },
+  estimate(spec) {
+    if (!this.supports(spec)) return { executable: false, upperBoundBytes: null, kind: 'unsupported-oqs-seed-slice' };
+    const shape = oqsCofactor42Shape({ ...spec, slice: 'seed-cut-0' });
+    return { executable: true, upperBoundBytes: shape.upperBoundBytes, deviceBytes: shape.deviceBytes, kind: 'bounded-selected-seed-first-cut' };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'oqs-selected-seed-first-cut', command: process.execPath,
+      args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-oqs-cofactor/run-seed-slice.mjs')),
+      expected(r) { return r?.outcome === 'native-oqs-seed-slice-pass' && r.mode === 'native' && r.geometry === '7x6:c4'
+        && r.supportIndex === 470594 && r.cut === 0 && r.transitionsChecked === 1 && r.candidatesPerPass === 16
+        && r.nativePasses === 8 && r.independentLayers === 2 && r.mismatches === 0 && r.targetCoverage === 1
+        && r.seedWins === 240 && r.seedLosses === 3792 && r.evidenceGrade === 'selected-seed-first-cut-only'
+        && r.fullDeviceQuotientSynthesis === false && r.rootWdl === null && r.cleanup === 'graceful'; },
+    }];
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

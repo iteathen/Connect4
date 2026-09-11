@@ -41,6 +41,19 @@ composition/lifecycle only, never native numerical parity.
 
 ## Next seam and limits
 
+New [seed/quotient scaling probes](docs/research/2026-09-11-oqs-seed-scaling.md)
+show 7x6 frontiers reaching 5,205 records after only 184 completed near-full
+supports. The 30.689-second CPU probe stopped before a 2,446,901-pair product,
+not on timeout. One selected 7x6 quotient reached 8,192 states after six cuts;
+the 6x5 control reached 43,776 states. These are partial reference measurements.
+The earlier 16/40-hour arithmetic scenarios are not calibrated solve forecasts.
+
+O2 is a new selected 7x6 first-cut qualification profile: support 470594,
+one input state, 16 candidates, 4,096 records per frontier, about 2.16 MB device
+payload. Independent R3 layers and portable execution pass; clean-source native
+qualification is pending. All 93 integrated tests pass. O1 remains unchanged
+in scope. Use short tests; extend only to resolve a measured timing/growth question.
+
 GPU grouping, dense IDs, compact record output and device layer chaining remain
 unimplemented. CUDA-Algorithms' pinned select/order realization is quadratic and
 has no scalability claim. The measured sequence/grouping requirements are now
@@ -50,7 +63,8 @@ all equal residuals in one exact group before assigning IDs.
 
 C1 seed construction remains a separate costly prerequisite. No full device OQS
 or empty7x6 root result is claimed. A bounded 7x6 slice needs an exact seed and a
-measured finite envelope before admission; O1 currently refuses 7x6.
+measured finite envelope before admission; O1 still refuses 7x6 and O2 admits
+only the frozen seed's first cut.
 
 Exact unchanged dependencies:
 

@@ -1,13 +1,15 @@
 /** Finite qualification envelopes; not inferred 7x6 production capacities. */
-export function oqsCofactor42Shape({ columns = 4, rows = 4, connect = 4, blockSize = 128 } = {}) {
+export function oqsCofactor42Shape({ columns = 4, rows = 4, connect = 4, blockSize = 128, slice } = {}) {
   const small = (columns === 4 && rows === 3 && connect === 3) || (columns === 4 && rows === 4 && connect === 4);
   const wide = columns === 5 && rows === 5 && connect === 4;
-  if (!small && !wide) throw new RangeError('unsupported OQS cofactor qualification geometry');
+  const seedSlice = columns === 7 && rows === 6 && connect === 4 && slice === 'seed-cut-0';
+  if (!small && !wide && !seedSlice) throw new RangeError('unsupported OQS cofactor qualification geometry');
+  if (slice !== undefined && !seedSlice) throw new RangeError('unsupported OQS qualification slice');
   if (![64, 128, 256].includes(blockSize)) throw new RangeError('unsupported OQS block size');
-  const stateCapacity = wide ? 16384 : 1024;
-  const candidateCapacity = wide ? 16384 : 2048;
-  const frontierCapacity = wide ? 512 : 64;
-  const recordCapacity = wide ? 32768 : 2048;
+  const stateCapacity = seedSlice ? 1 : wide ? 16384 : 1024;
+  const candidateCapacity = seedSlice ? 16 : wide ? 16384 : 2048;
+  const frontierCapacity = seedSlice ? 4096 : wide ? 512 : 64;
+  const recordCapacity = seedSlice ? 4096 : wide ? 32768 : 2048;
   const inputSizes = {
     stateXLo: stateCapacity, stateXHi: stateCapacity,
     stateWinLo: recordCapacity, stateWinHi: recordCapacity, stateWinOffsets: stateCapacity + 1,

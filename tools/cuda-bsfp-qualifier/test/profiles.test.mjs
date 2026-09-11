@@ -2,6 +2,21 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { denseShapeBytes, getQualificationProfile, listQualificationProfiles } from '../profiles.mjs';
 
+test('O2 admits only a bounded 7x6 seed cut and rejects any root/full-quotient promotion', () => {
+  const p = getQualificationProfile('c4-0009-o2-oqs-7x6-seed-slice');
+  const spec = { columns: 7, rows: 6, connect: 4 };
+  assert(p.estimate(spec).upperBoundBytes < 260 * 1024 ** 2);
+  const accepts = p.steps(spec, process.cwd())[0].expected;
+  const r = { outcome: 'native-oqs-seed-slice-pass', mode: 'native', geometry: '7x6:c4', supportIndex: 470594,
+    cut: 0, transitionsChecked: 1, candidatesPerPass: 16, nativePasses: 8, independentLayers: 2,
+    mismatches: 0, targetCoverage: 1, seedWins: 240, seedLosses: 3792,
+    evidenceGrade: 'selected-seed-first-cut-only', fullDeviceQuotientSynthesis: false, rootWdl: null, cleanup: 'graceful' };
+  assert.equal(accepts(r), true);
+  for (const patch of [{ rootWdl: 1 }, { fullDeviceQuotientSynthesis: true }, { independentLayers: 1 }, { mode: 'portable' },
+    { cut: 1 }, { nativePasses: 0 }, { targetCoverage: 0.9 }, { seedLosses: 100 }]) assert.equal(accepts({ ...r, ...patch }), false);
+  assert.equal(p.supports({ columns: 6, rows: 5, connect: 4 }), false);
+});
+
 test('OQS qualification requires native selected-support parity and does not claim a root solve', () => {
   const p = getQualificationProfile('c4-0009-o1-oqs-cofactor-42');
   const spec = { columns: 4, rows: 4, connect: 4 };
