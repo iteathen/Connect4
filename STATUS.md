@@ -1,8 +1,8 @@
 # Connect4 Minimax / Alpha-Beta Status
 
-**Updated:** 2026-09-10  
+**Updated:** 2026-09-11  
 **Canonical branch:** `solver/minimax-alpha-beta`  
-**State:** consolidated research lane; implementation promotion intentionally paused
+**State:** MQ5 semantic-residual alpha-beta comparison active
 
 ## Mission
 
@@ -16,37 +16,100 @@ The branch contains the complete identified minimax research lineage through the
 - `reference/research-prototypes/MINIMAX_INDEX.md`
 - `docs/research/2026-09-10-minimax-branch-lineage-audit.md`
 
-Historical research branch names are evidence/provenance only once their commits are confirmed behind this branch.
+## Shared semantic gate is now cleared
 
-## Current technical picture
+`research/semantic-quotient` has completed MQ1-MQ4 on complete bounded controls.
 
-The fixed-width two-word exact kernel established roughly 10M nodes/s-class single-thread arithmetic and strong aggregate Node throughput. The unresolved empty-board problem is proof efficiency rather than raw JavaScript arithmetic throughput.
+The qualified state law is:
 
-Strong surviving search-side mechanisms include:
+```text
+support
++ minimal current-player residual winning-requirement antichain
++ minimal opponent residual winning-requirement antichain
+```
 
-- exact tactical closure and forced macro-edges / decision-state admission;
-- compact exact TT identity;
-- rank-aware proof-memory placement;
-- exact residual semantic reuse and residual automorphisms;
-- global proof sharing at coarse boundaries where qualified;
-- fixed-width, allocation-free hot execution.
+with local move transition:
 
-Several semantically useful mechanisms remain too expensive in their tested forms, including generic implication-frontier lookup, dynamic graph/object machinery, full evaluator rescans and per-node placement/resource policy.
+```text
+semantic state + column
+  -> immediate terminal score | next semantic state
+```
 
-## Shared semantic research boundary
+MQ4 generated complete residual automata from the empty root without recursive colored-board ownership or line-hit history and reproduced reachable state sets, exact strong scores, every action score, and flat transition replay with zero mismatches on 4x3 c3, 4x4 c4, 5x3 c4 and 4x5 c4.
 
-The next representation question is no longer owned by this solver branch alone. Questions about the minimum exact description of the remaining game, identified-line quotienting, behavioral equivalence, support/event sufficiency and OQS-style class compilation belong on `research/semantic-quotient`.
+Complete 4x5 evidence:
 
-The first shared gate is explicit minimax strong-score qualification of the identified-line quotient, followed by exact behavioral partition refinement and compiled action transitions. Only solver-specific implementations that survive that research should be promoted back here.
+```text
+physical nonterminal states: 1,385,521
+residual states:               294,593
+coarsest behavior classes:     229,232
+residual transitions:          890,358
+peak residual frontier:         60,650
+```
 
-## Implementation disposition
+The shared semantic result remains owned by `research/semantic-quotient`; this branch owns only the search implementation/benchmark consequences.
 
-Do not build or promote a new maintained minimax kernel merely because the research corpus is consolidated. Preserve the current strongest fixed-width controls and use them as baselines when semantic-quotient MQ1-MQ5 reaches implementation comparison.
+## MQ5 active experiment
+
+Packet:
+
+```text
+research/minimax/semantic-residual-mq5/
+```
+
+The first MQ5 prototype uses a **root-local exact residual-state arena** with lazy cached transitions. Recursive alpha-beta carries a dense semantic state ID rather than the colored board.
+
+The frozen comparison control is the 512K-slot compact exact **decision-state + intrinsic-rank-bank** solver from:
+
+```text
+reference/research-prototypes/2026-09-09-decision-state/solver_compact_decision_rank.mjs
+```
+
+The first fairness mode holds TT slot count and rank-bank layout fixed. It also keeps exact distance scoring, null-window convergence, center-first tie order, immediate threat/forced-block semantics, winning-cell-count move ordering, and decision-only TT admission aligned as closely as the different state representation permits.
+
+The prototype deliberately reports semantic arena construction/interning cost separately. Its JS Map/string arena is reconnaissance, not the intended production representation.
+
+## Strong historical control
+
+At 512K entries on `41267575`, the compact decision+rank control previously produced:
+
+```text
+score:       +3
+nodes:    5,261,422
+TT hits:    888,871
+TT writes: 2,081,030
+```
+
+On `663152175`:
+
+```text
+score:       -4
+nodes:    1,014,754
+TT hits:    167,269
+TT writes:   427,015
+```
+
+MQ5 reruns the control in the same workflow environment rather than relying only on those historical timing measurements.
+
+## Interpretation rule
+
+Do not reject the semantic quotient merely because the first lazy JS interning implementation is slower in wall time.
+
+Assess separately:
+
+1. exact score parity;
+2. alpha-beta proof nodes;
+3. TT hits/writes;
+4. number of unique residual states and computed transitions;
+5. dynamic canonicalization/interning overhead;
+6. total memory footprint.
+
+If proof work improves but compilation dominates, optimize the residual state compiler/WSL-625 representation next. If proof work itself regresses, investigate search-policy interaction before promotion.
 
 ## Correctness obligations retained
 
-- exact distance-sensitive scores and action values must remain authoritative;
-- raw optimized negamax entry requires its no-current-immediate-win precondition to be discharged at the public/task boundary;
-- false TT misses are acceptable, false/torn hits are not;
-- experimental shared multiwriter publication still requires a portable ECMAScript memory-model argument before production authority;
+- exact distance-sensitive scores and action values remain authoritative;
+- raw optimized board negamax entry requires its no-current-immediate-win precondition to be discharged at the public/task boundary;
+- false TT misses are acceptable, false hits are not;
+- experimental shared multiwriter publication is not needed for the first serial MQ5 decision;
 - benchmark and oracle semantics remain Connect4-owned.
