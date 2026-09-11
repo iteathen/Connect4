@@ -1,0 +1,29 @@
+name: Minimax MQ5 typed A123 IMPL V3
+
+on:
+  push:
+    branches:
+      - work/minimax-candidate-composition-20260911
+    paths:
+      - 'research/minimax/semantic-residual-mq5/residual_solver_wsl625_typed_a123.mjs'
+      - 'research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_impl_v3.mjs'
+      - '.github/workflows/minimax-mq5-typed-a123-impl-v3.yml'
+  workflow_dispatch:
+
+jobs:
+  impl-v3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run exact RID-mask frontier V3 qualifier
+        run: node --max-old-space-size=6144 research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_impl_v3.mjs | tee /tmp/mq5-typed-a123-impl-v3.json
+      - name: Preserve IMPL V3 evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-mq5-typed-a123-impl-v3
+          path: /tmp/mq5-typed-a123-impl-v3.json
+          if-no-files-found: error
