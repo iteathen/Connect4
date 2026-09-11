@@ -49,11 +49,11 @@ function dynamicCover(reqs,h,moves,limit=10000){
   return dfs(0n,0n);
 }
 
-const programCache=new Map();let programBuilds=0,programCandidates=0;
+const programCache=new Map();let programBuilds=0,programCandidates=0,zeroAuthorityPairs=0;
 function compileProgram(h,moves){
   const k=`${packH(h)}:${moves&1}`;let p=programCache.get(k);if(p)return p;
   const resources=[],closures=[],byRid=Array.from({length:625},()=>[]),controller=1-(moves&1);
-  function add(resource,blockerMask){const bid=id.get(blockerMask.toString());assert.notEqual(bid,undefined);const idx=resources.length;resources.push(resource);closures.push(upBits[bid]);let z=upBits[bid];while(z){const rid=lowBitIndex(z);byRid[rid].push(idx);z&=z-1n;}}
+  function add(resource,blockerMask){const bid=id.get(blockerMask.toString());if(bid===undefined){zeroAuthorityPairs++;return;}const idx=resources.length;resources.push(resource);closures.push(upBits[bid]);let z=upBits[bid];while(z){const rid=lowBitIndex(z);byRid[rid].push(idx);z&=z-1n;}}
   for(let col=0;col<W;col++)for(let lower=0;lower<H-1;lower++){
     const upper=lower+1,a=lower*W+col,b=upper*W+col;if(!empty(h,a)||!empty(h,b))continue;
     const pair=1n<<BigInt(a)|1n<<BigInt(b),blocker=eventOwner(upper,moves)===controller?1n<<BigInt(b):pair;add(pair,blocker);
@@ -76,10 +76,9 @@ for(const ply of [18,20,22,24,26,28,30,32,34,36])for(let k=0;k<180;k++){
   if(a!==b){mismatches++;throw new Error(`cover mismatch ply=${ply} support=${packH(st.h)} reqs=${reqs.join('.')}`);}if(a)covers++;samples.push({h:st.h.slice(),moves:st.moves,reqs});
 }
 assert.equal(mismatches,0);
-// Warm all support programs before timing the hot comparison. Program construction is reported separately.
 for(const x of samples)compileProgram(x.h,x.moves);
 function run(fn){let hits=0;const t=performance.now();for(let pass=0;pass<20;pass++)for(const x of samples)if(fn(x.reqs,x.h,x.moves))hits++;return{ms:performance.now()-t,hits};}
 const reps=9,warm=2,dyn=[],cmp=[];for(let r=0;r<reps;r++){const a=(r&1)?run(compiledCover):run(dynamicCover),b=(r&1)?run(dynamicCover):run(compiledCover);(r&1?cmp:dyn).push(a);(r&1?dyn:cmp).push(b);assert.equal(a.hits,b.hits);}
 function med(xs){const a=xs.slice(warm).map(x=>x.ms).sort((x,y)=>x-y),n=a.length;return n&1?a[n>>1]:(a[(n>>1)-1]+a[n>>1])/2;}
 const dynamicMs=med(dyn),compiledMs=med(cmp);
-console.log(JSON.stringify({kind:'connect4-a123-compiled-u1u2-micro',status:'pass',samples:samples.length,covers,mismatches,programs:programCache.size,programBuilds,avgCandidatesPerProgram:programCandidates/programBuilds,reps,warmReps:warm,dynamicMedianMs:dynamicMs,compiledMedianMs:compiledMs,speedup:dynamicMs/compiledMs,semantics:'support/controller program caches A1/A3/BI resource pairs; blocker authority is precomputed WSL-625 upward closure; runtime cover sees no rule names'},null,2));
+console.log(JSON.stringify({kind:'connect4-a123-compiled-u1u2-micro',status:'pass',samples:samples.length,covers,mismatches,programs:programCache.size,programBuilds,avgCandidatesPerProgram:programCandidates/programBuilds,zeroAuthorityPairs,reps,warmReps:warm,dynamicMedianMs:dynamicMs,compiledMedianMs:compiledMs,speedup:dynamicMs/compiledMs,semantics:'support/controller program caches A1/A3/BI resource pairs; blocker authority is precomputed WSL-625 upward closure; runtime cover sees no rule names; resource pairs outside WSL-625 have zero authority and are omitted'},null,2));
