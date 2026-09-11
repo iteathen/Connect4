@@ -55,3 +55,28 @@ test('OQS preallocation boundary cannot emit a completed quotient or partial lay
   assert.equal(result.oracleChecks, 11);
   assert.equal(observed, 10);
 });
+
+
+import { oqsCofactor42Shape } from '../../../components/bsfp/cuda/oqs-cofactor-42-layout.mjs';
+import { buildFactoredFixtures, factorOqsFixture, packFactoredFixture } from '../../../experiments/cuda-bsfp-oqs-cofactor/factored-fixtures.mjs';
+
+test('factored input IDs preserve every selected 4x4 residual and fit declared finite shapes', () => {
+  const spec = { columns: 4, rows: 4, connect: 4 };
+  const shape = oqsCofactor42Shape({ ...spec, slice: 'reuse-control', representation: 'factored' });
+  let logical = 0; let residual = 0;
+  for (const fixture of buildFactoredFixtures(spec)) {
+    const factor = factorOqsFixture(fixture); const packed = packFactoredFixture(fixture, shape);
+    fixture.states.forEach((s, i) => assert.deepEqual(factor.states[packed.occurrenceResidualId[i]].pair, s.pair));
+    assert.equal(packed.activeOccurrenceCount[0], fixture.states.length);
+    logical += fixture.candidates.length; residual += factor.states.length * fixture.inputs.length;
+  }
+  assert.equal(logical, 1409); assert.equal(residual, 326);
+  const wide = { columns: 7, rows: 6, connect: 4, slice: 'reuse-cut-5' };
+  const a = oqsCofactor42Shape({ ...wide, representation: 'unfactored' });
+  const b = oqsCofactor42Shape({ ...wide, representation: 'factored' });
+  assert.equal(a.candidateCapacity, 8192); assert.equal(b.candidateCapacity, 128);
+  assert.equal(b.mappedCapacity, a.candidateCapacity);
+  assert(b.deviceBytes < a.deviceBytes / 40);
+  assert(a.deviceBytes + b.deviceBytes + 256 * 1024 ** 2 < 450 * 1024 ** 2);
+  assert.throws(() => oqsCofactor42Shape({ ...wide, slice: 'unknown', representation: 'factored' }), /unsupported/);
+});
