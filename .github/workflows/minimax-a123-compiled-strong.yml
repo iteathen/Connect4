@@ -1,0 +1,31 @@
+name: Minimax compiled A1-A3 strong stack
+
+on:
+  push:
+    branches:
+      - work/minimax-candidate-composition-20260911
+    paths:
+      - 'research/minimax/composition-campaign/a123_compiled_strong_stack.mjs'
+      - '.github/workflows/minimax-a123-compiled-strong.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compiled-a123-strong:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run compiled A1-A3 strong-stack qualification
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/a123_compiled_strong_stack.mjs | tee /tmp/a123-compiled-strong.json
+      - name: Preserve compiled A1-A3 strong-stack evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: minimax-a123-compiled-strong
+          path: /tmp/a123-compiled-strong.json
+          if-no-files-found: error
