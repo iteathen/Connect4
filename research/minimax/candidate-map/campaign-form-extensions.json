@@ -66,6 +66,20 @@
       "retained_failure": "First branch draft omitted full antichain normalization and singleton winning-count metadata; corrected before any benchmark result was accepted."
     },
     {
+      "id": "ZPAR-SINGLETON-PAIR-V1",
+      "mechanism": "ZPAR",
+      "label": "Conservative singleton-only odd/even threat parity classifier",
+      "kind": "strategic-terminalization-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-sampled-partial-one-class-unresolved",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/zpar_single_threat_exact.mjs","claim":"112 qualified exact 7x6 states across four observed singleton-threat classes and mirrors with zero mismatches; no pruning authority granted by harness"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/zpar_black_odd_census.mjs","claim":"2.16M-state targeted census found five WE_BO_diff classifiable cases; all were exact draws as predicted"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/zpar_black_odd_structure.mjs","claim":"1.44M-state structural census found 7,928 both-singleton Black-odd states and 3,441 White-odd/Black-odd pairs, but zero full different-column WO_BO_diff cases"}
+      ],
+      "retained_limitation": "Authority remains restricted to sampled classes under the strict predicate that each player has exactly one nonplayable singleton residual and no other surviving winning requirement. WO_BO_diff remains unresolved and non-authoritative; absence in census is not an impossibility proof."
+    },
+    {
       "id": "IMPL-RID-SIG4",
       "mechanism": "IMPL",
       "label": "RID implication frontier with four conservative 32-bit rejection signatures",
