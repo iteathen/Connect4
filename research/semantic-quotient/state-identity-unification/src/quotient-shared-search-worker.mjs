@@ -14,15 +14,18 @@ function metricDelta(before, after) {
 
 parentPort.postMessage({ type: 'ready', workerId: workerData.workerId });
 parentPort.on('message', (message) => {
-  if (message?.type !== 'solve-column') return;
+  if (message?.type !== 'solve-column' && message?.type !== 'solve-state') return;
   const before = { ...searcher.metrics };
   const started = performance.now();
-  const value = searcher.solveRootColumn(message.column);
+  const value = message.type === 'solve-state'
+    ? searcher.solveState(message.stateId)
+    : searcher.solveRootColumn(message.column);
   parentPort.postMessage({
     type: 'result',
     taskId: message.taskId,
     workerId: workerData.workerId,
-    column: message.column,
+    column: message.column ?? null,
+    stateId: message.stateId ?? null,
     value,
     elapsedMs: performance.now() - started,
     metrics: metricDelta(before, searcher.metrics),
