@@ -8,17 +8,17 @@
     "cudaBsfp": "solver/cuda-bsfp",
     "semanticQuotient": "research/semantic-quotient"
   },
-  "postMigrationCanonicalHeads": {
-    "solver/minimax-alpha-beta": "c0ff7531151e5538dd1389fe994651b1787047d6",
-    "solver/cuda-bsfp": "b23097a7d18b0b1996b00ce69ee9f1582ab808a4",
-    "research/semantic-quotient": "fc33b0f65c2b04c2e674e36c34fb2827f01029ae"
+  "canonicalHeadsAtRoutingCutover": {
+    "solver/minimax-alpha-beta": "66fe2fc8dd15f954a37f328950f352d06bbe8f89",
+    "solver/cuda-bsfp": "0d8b4d5633e0485ac1bb96ed4f77509bc1217d80",
+    "research/semantic-quotient": "16a4ca51ed39a93451414bfa9dc4b5aee8091837"
   },
   "branches": [
     {"name":"main","observedHead":"de47d43f4f4133a68973d0876a402531ef5735da","class":"canonical_product","disposition":"keep"},
-    {"name":"solver/minimax-alpha-beta","observedHead":"87f537f425c03b12c6bff0141ff0b0c6b3810b5e","class":"canonical_solver","disposition":"keep","note":"Status/next-step subsequently advanced on this branch."},
+    {"name":"solver/minimax-alpha-beta","observedHead":"87f537f425c03b12c6bff0141ff0b0c6b3810b5e","class":"canonical_solver","disposition":"keep","note":"Status/next-step and research namespace subsequently advanced on this branch."},
     {"name":"feature/cuda-bsfp","observedHead":"093218ca55b37f9179d0ede8255ac1621f2e96f5","class":"superseded_solver_name","disposition":"retire_after_ref_cleanup","canonical":"solver/cuda-bsfp"},
-    {"name":"research/semantic-quotient","observedHead":"44397e20bb268891a63a9b996e5fe23b21ba00ec","class":"canonical_shared_research","disposition":"keep","note":"Status/next-step subsequently advanced on this branch."},
-    {"name":"research/zdd-transfer-20260910","observedHead":"42e1a1ca90905bb3edec8ad4a2e49c99ef635651","class":"superseded_shared_research","disposition":"retire_confirmed_ancestor","canonical":"research/semantic-quotient","verification":"confirmed ancestor; semantic-quotient was four commits ahead at audit"},
+    {"name":"research/semantic-quotient","observedHead":"44397e20bb268891a63a9b996e5fe23b21ba00ec","class":"canonical_shared_research","disposition":"keep","note":"Status/next-step and research namespace subsequently advanced on this branch."},
+    {"name":"research/zdd-transfer-20260910","observedHead":"42e1a1ca90905bb3edec8ad4a2e49c99ef635651","class":"superseded_shared_research","disposition":"retire_confirmed_ancestor","canonical":"research/semantic-quotient","verification":"confirmed ancestor; semantic-quotient was four commits ahead at audit before later routing commits"},
 
     {"name":"research/exact-solver-perf-checkpoint-2026-09-08","observedHead":"912359dc9bfd8570bb74651802ce05290d60c0aa","class":"historical_minimax_research","disposition":"retire_confirmed_ancestor","canonical":"solver/minimax-alpha-beta","verification":"confirmed ancestor"},
     {"name":"research/exact-solver-rethink-controls-2026-09-09","observedHead":"f585ca9a6b67a74363ea239185adbb449b0c9bc2","class":"historical_minimax_research","disposition":"retire_confirmed_ancestor","canonical":"solver/minimax-alpha-beta","verification":"confirmed ancestor"},
