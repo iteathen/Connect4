@@ -2,16 +2,17 @@
 
 **Updated:** 2026-09-11  
 **Canonical branch:** `research/semantic-quotient`  
-**State:** MQ1-MQ4 passed; minimax implementation transfer active
+**State:** MQ1-MQ4 passed; MQ5 transferred to minimax; state-identity unification experiment open
 
 ## Mission
 
 Find the smallest exact, efficiently updatable description of the remaining Connect Four game. This branch owns solver-neutral research into future-behavior equivalence, win-space reduction, support/accessibility sufficiency, identified-line quotients, residual classes, canonical transitions and practical minimum-description representations.
 
-It does **not** own the minimax/alpha-beta solver implementation or the CUDA-BSFP solver implementation. Those remain on:
+It does **not** own solver implementation. Those remain on:
 
 - `solver/minimax-alpha-beta`
 - `solver/cuda-bsfp`
+- `solver/hybrid-confluence`
 
 ## Qualified reduction chain
 
@@ -109,8 +110,23 @@ Authority:
 
 ## Transfer boundary
 
-The residual state law is now sufficiently qualified to test under alpha-beta. That implementation comparison belongs to `solver/minimax-alpha-beta` as **MQ5**.
+The residual state law is sufficiently qualified to test under alpha-beta. That implementation comparison belongs to `solver/minimax-alpha-beta` as **MQ5**.
 
-This branch retains ownership of the shared mathematical result and may continue investigating the remaining ~1.285x residual-to-behavior redundancy in parallel. It does not own search control, TT layout, or minimax benchmark claims.
+This branch retains ownership of the shared mathematical result. It does not own search control, TT policy, BSFP execution, hybrid scheduling, or production benchmark claims.
 
-The primary shared research question after the MQ5 transfer is whether the remaining behavioral collapse can be explained by a cheap forward invariant such as support-event equivalence, forced-response equivalence, parity/tempo equivalence, or residual automorphism without sacrificing the simple local residual transition law.
+## State-identity unification experiment
+
+`research/semantic-quotient/state-identity-unification/` now owns the next solver-neutral question: whether the qualified primitive/residual state can serve as a useful common **logical identity** across minimax, CUDA-BSFP and hybrid confluence while each solver keeps its fastest native operational representation.
+
+The experiment begins in shadow mode. It must establish useful equivalence, real work elimination and net performance value before speculative state-identity machinery is promoted into any solver branch.
+
+The working default is:
+
+```text
+shared semantic identity
+!= mandatory shared physical state
+```
+
+Physical representation convergence is considered only if measurement shows a notable gain.
+
+The remaining behavioral collapse may also be investigated through support-event equivalence, forced-response equivalence, parity/tempo equivalence or residual automorphism, provided exact action-labelled behavior is preserved.
