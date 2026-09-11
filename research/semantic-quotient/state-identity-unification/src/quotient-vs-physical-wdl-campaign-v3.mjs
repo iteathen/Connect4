@@ -99,7 +99,7 @@ function bench(spec, repeats = 15) {
   return out;
 }
 
-const cases = CASES.map(bench);
+const cases = CASES.map((spec) => bench(spec));
 const summary = cases.map(x => ({
   geometry: x.geometry, budget: x.typedMemoryBudget,
   qMs: x.quotient.totalMsMedian, pMs: x.physical.totalMsMedian,
