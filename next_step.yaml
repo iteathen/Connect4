@@ -1,6 +1,6 @@
-schema_version: 5
+schema_version: 6
 updated: 2026-09-11
-state: semantic_quotient_mq1_mq2_mq3_passed_mq4_residual_automaton_active
+state: semantic_quotient_mq1_to_mq4_passed_mq5_transferred_to_minimax
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -13,126 +13,81 @@ source_lanes:
   minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
 
+qualified_chain:
+  mq1:
+    status: pass
+    state: support_H0_H1
+    exact_state_score_mismatches: 0
+    exact_action_score_mismatches: 0
+    workflow_run: 34569663402
+    workflow_job: 103168883561
+  mq2:
+    status: pass
+    equivalence: coarsest_exact_action_labeled_future_behavior
+    physical_states: 1681808
+    line_classes: 420704
+    behavior_classes: 269347
+    control_4x5_behavior_classes: 229232
+    control_4x5_dense_id_bits: 18
+    workflow_run: 34570098421
+    workflow_job: 103170191176
+  mq3:
+    status: pass
+    state: support_plus_minimal_residual_antichain_pair
+    support_residual_mismatches: 0
+    residual_only_sufficient: false
+    control_4x5_residual_states: 294593
+    control_4x5_behavior_classes: 229232
+    control_4x5_residual_to_behavior_ratio: 1.285130348293432
+    workflow_run: 34570367110
+    workflow_job: 103170983996
+  mq4:
+    status: pass
+    transition: support_plus_residual_pair_plus_column_to_terminal_or_next_residual_state
+    colored_board_required_recursively: false
+    identified_line_history_required_recursively: false
+    reachable_set_mismatches: 0
+    state_score_mismatches: 0
+    action_score_mismatches: 0
+    flat_replay_mismatches: 0
+    control_4x5:
+      residual_states: 294593
+      nonterminal_transitions: 890358
+      terminal_edges: 76058
+      peak_frontier: 60650
+      naive_flat_transition_bytes: 4713488
+    workflow_run: 34570662573
+    workflow_job: 103171852729
+
 current:
-  primary_action: qualify_incremental_support_plus_minimal_residual_automaton
+  primary_action: continue_shared_redundancy_analysis_without_blocking_MQ5
+  mq5_owner: solver/minimax-alpha-beta
   owner: Connect4
   mode: research
 
-mq1:
-  status: passed_complete_bounded_controls
-  candidate: support_H0_H1
-  workflow_run: 34569663402
-  workflow_job: 103168883561
-  result:
-    physical_nonterminal_states: 1681808
-    identified_line_classes: 420704
-    merged_physical_state_comparisons: 1261104
-    state_score_mismatches: 0
-    per_column_action_score_mismatches: 0
-    terminal_timing_mismatches: 0
-    successor_class_mismatches: 0
-  authority:
-    source: research/semantic-quotient/mq1-strong-score.mjs
-    report: docs/research/2026-09-11-semantic-quotient-mq1-strong-score.md
-    evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq1-strong-score.json
+mq5_transfer:
+  candidate: exact_support_plus_minimal_residual_state
+  required_search_invariants:
+    - exact_distance_sensitive_scores
+    - same_null_window_convergence
+    - same_tactical_terminal_semantics
+    - same_move_ordering_policy_where_representation_allows
+    - fixed_and_reported_TT_fairness_mode
+  first_implementation_strategy:
+    - root_local_exact_residual_state_arena
+    - lazy_cached_transitions
+    - recursive_search_carries_dense_state_ID
+    - report_state_compiler_cost_separately
+    - do_not_promote_to_maintained_solver_until_AB_evidence
 
-mq2:
-  status: passed_complete_bounded_controls
-  method: exact_bottom_up_action_labeled_behavioral_partition
-  workflow_run: 34570098421
-  workflow_job: 103170191176
-  aggregate:
-    physical_states: 1681808
-    identified_line_classes: 420704
-    behavior_classes: 269347
-    physical_to_behavior_collapse: 6.244019796025202
-    line_to_behavior_collapse: 1.5619405450961028
-  control_4x5:
-    physical_states: 1385521
-    identified_line_classes: 361427
-    behavior_classes: 229232
-    maximum_line_classes_per_behavior_class: 498
-    cross_support_behavior_classes: 211
-    cross_rank_behavior_classes: 208
-    dense_behavior_id_bits: 18
-    naive_flat_transition_bytes: 3667712
-  authority:
-    source: research/semantic-quotient/mq2-behavioral-partition.mjs
-    report: docs/research/2026-09-11-semantic-quotient-mq2-behavioral-partition.md
-    evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq2-behavioral-partition.json
+shared_next_actions:
+  - characterize_remaining_residual_to_behavior_redundancy
+  - test_support_event_forced_response_parity_and_residual_automorphism_explanations
+  - investigate_single_side_residual_handle_reuse_and_exact_dense_interning
+  - preserve_MQ1_to_MQ4_as_solver_neutral_authority
 
-mq3:
-  status: passed_complete_bounded_controls
-  candidate: support_plus_minimal_residual_antichain_pair
-  workflow_run: 34570367110
-  workflow_job: 103170983996
-  invariants:
-    support_plus_residual_pair_sufficient: true
-    residual_pair_without_support_sufficient: false
-    gravity_accessibility_remains_semantically_required: true
-  counts:
-    4x3_c3: {line_classes: 4499, support_residual_classes: 3735, behavior_classes: 2912}
-    4x4_c4: {line_classes: 37323, support_residual_classes: 34095, behavior_classes: 27424}
-    5x3_c4: {line_classes: 17455, support_residual_classes: 11317, behavior_classes: 9779}
-    4x5_c4: {line_classes: 361427, support_residual_classes: 294593, behavior_classes: 229232}
-  control_4x5:
-    line_to_support_residual_collapse: 1.2268689344281771
-    support_residual_to_behavior_overhead: 1.285130348293432
-    support_residual_behavior_mismatches: 0
-    residual_only_behavior_mismatches: 884162
-  authority:
-    source: research/semantic-quotient/mq3-residual-sufficiency.mjs
-    report: docs/research/2026-09-11-semantic-quotient-mq3-residual-sufficiency.md
-    evidence: docs/research/evidence/2026-09-11-semantic-quotient-mq3-residual-sufficiency.json
-
-mq4:
-  status: active
-  question: can_support_plus_minimal_residual_pair_form_a_direct_incremental_exact_automaton
-  source: research/semantic-quotient/mq4-residual-automaton.mjs
-  workflow_run: 34570662573
-  required_checks:
-    - direct_residual_reachable_sets_equal_physical_projection_at_every_rank
-    - exact_terminal_observations_match
-    - exact_distance_sensitive_state_scores_match
-    - exact_per_column_action_scores_match
-    - dense_flat_transition_replay_has_zero_missing_targets
-  target_transition_law:
-    mover: subtract_landing_cell_from_requirements_then_minimize_and_terminal_if_empty
-    opponent: discard_requirements_containing_landing_cell
-    support: advance_selected_column
-  rationale: forward_constructible_exact_state_close_to_MQ2_behavioral_minimum
-
-mq5:
-  trigger: mq4_pass
-  question: does_serial_alpha_beta_over_residual_state_or_compiled_residual_ID_beat_fixed_width_colored_board_control
-  invariants:
-    - same_null_window_sequence
-    - same_move_order
-    - equal_TT_byte_budget
-    - exact_score_and_action_parity
-  first_scope:
-    - unchanged_serial_alpha_beta
-    - no_speculative_evaluator_or_parallel_changes
-    - compare_board_key_vs_support_residual_key_or_dense_ID
-
-transferable_bsfp_methods:
-  - hidden_history_census_methodology
-  - transition_stable_residual_class_concept
-  - pointer_free_flat_transition_artifacts
-  - incremental_quotient_synthesis
-  - identified_line_semantic_coordinates
-  - exact_residual_pair_factorization
-  - asymmetric_antichain_update_law
-
-not_transferable_by_default:
-  - bsfp_backward_fixed_point_control_flow
-  - symbolic_C1_history_required_only_for_unreachable_ownership_domain
-  - generic_runtime_BDD_ZDD_graphs
-  - cuda_specific_layouts_profiles_or_qualifier_policy
-
-next_actions:
-  - finish_MQ4_direct_residual_automaton_qualification
-  - persist_state_transition_byte_and_replay_evidence
-  - if_MQ4_passes_transfer_only_the_residual_state_candidate_to_solver_minimax_alpha_beta
-  - run_MQ5_fair_serial_alpha_beta_AB_test_before_any_production_promotion
-  - continue_MQ3_redundancy_explanation_in_parallel_without_blocking_MQ5
+non_claims:
+  - no_standard_7x6_exhaustive_semantic_quotient_proof
+  - no_empty_board_minimax_completion_from_residual_state_yet
+  - no_production_speedup_claim
+  - no_reason_to_merge_minimax_and_BSFP_control_flow
