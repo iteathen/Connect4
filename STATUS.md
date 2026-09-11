@@ -3,67 +3,72 @@
 **Updated:** 2026-09-10  
 **Lane:** CUDA-BSFP exact solver  
 **Canonical branch:** `solver/cuda-bsfp`  
-**Superseded branch name:** `feature/cuda-bsfp`
+**Superseded branch names:** `feature/cuda-bsfp`, `research/zdd-transfer-20260910`
 
 ## Mission
 
 Solve standard empty-board 7x6 Connect Four to exact W/D/L extremely fast with backward symbolic fixed-point computation. This lane is not minimax, alpha-beta, MCTS, proof-number search, recursive legal-move traversal, or a full colored-state solve table.
 
-## Protected base and dependencies
+## Ownership
 
-```text
-accepted base:     main
-CUDA-Algorithms:   48ee0aec9acae7776950f03ab52ab1737e598b6e
-CUDA-JS:           98e2ebc942c14d63acf4dd82e912dd548c363a05
-package:           cuda-js@0.1.0-alpha.20
-```
+Connect4 owns BSFP semantics, terminal/first-win behavior, exact residual equality, product state identity, OQS solver-specific composition and qualification. Generic scalable scan/order/group/unique/compaction belongs in CUDA-Algorithms; runtime/compiler/device mechanisms belong in CUDA-JS. Shared quotient mathematics and behavioral-equivalence research continue on `research/semantic-quotient`.
 
-Connect4 owns BSFP semantics, terminal/first-win behavior, product state identity and qualification. Consumer-neutral GPU algorithms remain CUDA-Algorithms-owned; runtime/compiler/device mechanisms remain CUDA-JS-owned.
-
-## Qualified milestones
+## Qualified production-adjacent milestones
 
 - P1: first physical CUDA-BSFP correctness slice on GTX 1660 Ti.
 - B1: about 35.35 billion exact packed42 subset checks/s; the raw two-u32 subset predicate is not the first scaling wall.
 - C1: complete device-owned compact recurrence with exact all-frontier agreement on 4x3, 4x4 and 5x5.
-- Official C1 5x5: about 3.30 s submit/wait and 3.57 s warm solve wall versus about 11.66 s for the same-machine CPU reference including its qualification observer.
-- O1: packed42 CUDA OQS cofactor profile qualified natively; its exact generated Q1 evidence is consolidated under `docs/evidence/cuda-bsfp/qualification/20260911T032754503Z-b0df94a3/`.
-- O2: bounded native 7x6 OQS seed-slice profile qualified on GTX 1660 Ti; exact Q1 evidence is consolidated under `docs/evidence/cuda-bsfp/qualification/20260911T043015870Z-2d8e0785/`.
+- O1: native packed42 OQS cofactor qualification.
+- O2: native bounded 7x6 selected-seed first-cut qualification; not a complete quotient or root solve.
+- **O3: native exact residual-pair reuse + crossing-occurrence mapping qualification.** Q1 run `20260911T050640911Z-b3554293` passed 4x4 and the selected 7x6 reuse cut on the GTX 1660 Ti. The 7x6 bounded case retained all 8,192 logical outputs while transforming only 128 distinct residual/input pairs. The generated evidence is consolidated under `docs/evidence/cuda-bsfp/qualification/`.
 
-O2 is intentionally narrow. It does **not** establish full 7x6 quotient synthesis, BSFP closure, root W/D/L, or complete solver performance.
+O3 observed Q1 case walls were about 2.845 s for 4x4 and 10.361 s for the bounded 7x6 case, with admitted device bounds of 264 MiB and 402 MiB respectively. Those are qualification-case timings, not a full-solve forecast.
 
-## OQS implementation ownership
+## O3 interpretation
 
-The CUDA-specific OQS implementation is now owned here rather than by the former mixed `research/zdd-transfer-20260910` branch:
+O3 establishes the solver composition seam we wanted:
 
-- `components/bsfp/cuda/oqs-cofactor-42-{layout,plan,program}.mjs`;
-- `components/bsfp/test/oqs-cofactor.test.mjs`;
-- `docs/specs/profiles/C4-0009-O1-oqs-cofactor-42-v0.md`;
-- `docs/specs/profiles/C4-0009-O2-oqs-7x6-seed-slice-v0.md`;
-- `experiments/cuda-bsfp-oqs-cofactor/`;
-- O1/O2 qualifier profile integration.
+```text
+crossing-state occurrences
+        |
+        v
+exact residual-pair IDs
+        |
+        +--> cofactor each distinct pair/input once
+        |
+        v
+map every occurrence/input back to exact output slots
+```
 
-The O1/O2 experiment depends on an exact incremental-OQS/R3 reference oracle. A frozen exact copy of that research oracle remains under `reference/research-prototypes/2026-09-10-{oqs,zdd-transfer}/` on this solver branch **for qualification/reproduction only**. Active semantic/OQS research evolution belongs to `research/semantic-quotient`.
+The selected 7x6 layer reduces the cofactor-transform domain from 8,192 logical outputs to 128 distinct residual/input transforms while preserving every logical occurrence. The source commit also cuts the bounded representation's raw device arrays from roughly 151.3 MB unfactored to 2.78 MB factored before fixed runtime allowance.
 
-## Current OQS seam
+What O3 does **not** provide yet:
 
-Latest shared research established that many crossing states reuse the same exact residual pair. On the bounded 7x6 prefix, 8,192 logical states could collapse to only 48 distinct exact residual pairs after six cuts, and optional exact residual-cofactor reuse reduced observed CPU cofactor evaluations from 11,056 to 624 while preserving exact layers.
+- pair IDs are still supplied by the CPU fixture rather than synthesized/grouped on device;
+- output residual records are not yet grouped/uniqued into dense next-pair IDs;
+- dense next-state IDs are not yet emitted;
+- the next OQS layer is not yet chained entirely on device;
+- complete 7x6 quotient synthesis and root W/D/L are not claimed.
 
-The next CUDA/OQS implementation question is therefore **factor residual-pair storage/transforms from crossing-state storage** and map states through exact pair IDs. Generic grouping/compaction remains CUDA-Algorithms-owned rather than being hidden inside Connect4.
+## Current blocker / next seam
 
-## Independent C1 fallback/performance seam
+The next production seam is device-resident exact grouping and dense-ID assignment for OQS successor residual pairs, followed by layer chaining. Connect4 should expose the exact residual descriptors and consume dense IDs; it should **not** hide a generic scalable sort/group/unique implementation locally.
 
-The earlier 6x5 C1 scaling wall remains valid evidence. Native C3 cause profiling and B2 bucketed-normalizer A/B remain available production-adjacent work for the C1 path; they are independent of the OQS factorization direction and should not be silently discarded.
+At the pinned CUDA-Algorithms revision, maintained stable select/order implementations are correctness-first quadratic realizations with no scalability claim. Before broadening 7x6, either CUDA-Algorithms must acquire a scalable generic sequence/grouping implementation through its accepted architecture, or an already accepted generic CUDA primitive path must be demonstrated there.
+
+## Parallel C1 track
+
+The earlier C3 cause profiling and B2 legacy-vs-bucketed normalizer track remains preserved as an independent diagnostic/fallback path. It is not the current OQS continuity owner.
 
 ## Research boundary
 
-Cross-solver representation research no longer uses this lane as its continuity owner. Shared questions such as minimum-description game state, identified-line quotienting, future-behavior equivalence, residual-class construction, OQS seed scaling and residual-pair factorization semantics belong on `research/semantic-quotient`.
+The latest mixed historical OQS source handoff is `5dfe1312a357c48eee53168e82fd6eba27814a06`. CUDA-owned O1/O2/O3 implementation has been curated here. Solver-neutral residual-pair meaning, global reuse questions, minimum-description state and behavioral quotients remain on `research/semantic-quotient`.
 
-The former `research/zdd-transfer-20260910` head `e04cee12bc24cda63fcf889eb4ca2137837f86bf` has been preserved as ancestry of the curated OQS handoff rather than remaining an implementation owner.
+Frozen OQS/R3 prototype files in this branch are qualification/reproduction oracles, not a competing research owner.
 
 ## Non-claims
 
 - empty-board 7x6 is not yet solved by complete CUDA-BSFP closure;
-- O2 is not a complete 7x6 solve or full OQS build;
 - no exact-distance result is claimed by BSFP;
-- shared semantic research is not automatically production architecture;
-- no consumer-neutral grouping/compaction semantics are moved into Connect4 merely for convenience.
+- O3 does not prove global residual interning across arbitrary supports/cuts;
+- no CPU timing ratio is a CUDA/full-solve speedup claim.
