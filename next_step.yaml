@@ -1,18 +1,18 @@
-schema_version: 9
+schema_version: 10
 updated: 2026-09-11
-state: semantic_quotient_siu1_passed_search_method_campaign_v1_complete
+state: relational_negamax_selected_negamax_optimization_campaign_complete
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
 mission:
   objective: smallest_exact_efficiently_updatable_description_and_best_combined_exact_reasoning_architecture_for_connect4
   acceptance: action_labeled_future_behavior_equivalence_for_consumer_scope
-  kolmogorov_role: motivation_only_not_computable_authority
 
 source_lanes:
-  minimax: solver/minimax-alpha-beta
+  preserved_minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
   hybrid_confluence: solver/hybrid-confluence
+  future_forward_solver: relational_negamax_generation_after_research_qualification
 
 qualified_chain:
   mq1_to_mq4:
@@ -34,35 +34,45 @@ qualified_chain:
     status: complete
     workflow_run: 34636074995
     workflow_job: 103384159647
-    source_commit: e243a4a9f320d1d3b631a9baacea4d45af597cdf
-    search_state: precompiled_exact_relational_DAG
-    positional_board_in_search: false
-    strong_score_finalists:
-      - relational_negamax_alpha_beta_control
+    formulation_selected: side_to_move_relational_negamax
+    driver_candidates:
+      - alpha_beta_control
       - PVS_NegaScout
       - MTD_f
-    research_retained:
+    research_only:
       - PN_DAG
       - Proof_Set_Search
-    not_yet_admitted:
-      - ordinary_df_pn_without_DAG_safe_contract
-    control_4x5_no_bsfp_composed:
-      alpha_beta_expanded: 16489
-      pvs_expanded: 15110
-      mtdf_expanded: 15103
-      pn_dag_expanded: 61275
-    control_4x5_ideal_bsfp_rank10_composed:
-      alpha_beta_expanded: 1388
-      pvs_expanded: 1305
-      mtdf_expanded: 1315
-      pn_dag_expanded: 6079
-      bsfp_build_query_cost_included: false
-    control_4x5_ideal_bsfp_rank14_composed:
-      alpha_beta_expanded: 9264
-      pvs_expanded: 8562
-      mtdf_expanded: 8573
-      pn_dag_expanded: 36177
-      bsfp_build_query_cost_included: false
+  negamax_optimization_campaign:
+    status: complete
+    broad_workflow_run: 34637521061
+    broad_workflow_job: 103388937756
+    refinement_workflow_run: 34637786848
+    refinement_workflow_job: 103389801743
+    structural_defaults:
+      - single_perspective_side_to_move_value
+      - fail_soft_exact_bounds
+      - exact_single_perspective_TT_semantics
+      - native_relational_tactical_closure
+    advance:
+      - WDL_native_negamax_as_default_product_value_contract
+      - Enhanced_Transposition_Cutoff
+      - ETC_probe_gating_as_physical_tuning_dimension
+      - optional_strong_distance_refinement
+      - exact_distance_envelope_only_for_strong_mode
+      - exact_BSFP_WDL_injection_by_q
+    reject_current_default:
+      - fail_hard_negamax
+      - generic_history_killer_ordering
+      - child_bound_ordering_without_cutoff
+      - blind_all_on_optimization_composition
+    control_4x5:
+      strong_baseline_expanded: 16488
+      strong_ETC_expanded: 11761
+      WDL_baseline_expanded: 15096
+      WDL_ETC_expanded: 10562
+      WDL_ETC_interior_expanded: 10606
+      ideal_rank10_WDL_threshold_ETC_expanded: 1229
+      ideal_bsfp_cost_included: false
 
 common_contract:
   state:
@@ -72,68 +82,80 @@ common_contract:
     - normalized_p1_residual_requirements
   forward: deterministic_T_q_action
   backward: set_valued_Pre_action_Q
-  hybrid: exact_classification_and_sound_proof_facts_keyed_by_q
+  shared_default_value: WDL
+  strong_distance: optional_forward_refinement
   exact_bsfp_fact_dominates_heuristic: true
   shared_physical_layout_required: false
   shared_control_flow_required: false
 
 current:
-  primary_action: build_shared_packed_relational_negamax_kernel_and_run_composition_campaign_v2
+  primary_action: build_packed_on_the_fly_relational_negamax_kernel_in_research
   packet: research/semantic-quotient/state-identity-unification
   owner: Connect4
   mode: research
 
-campaign_v2:
-  drivers:
-    - alpha_beta_control
+packed_kernel_campaign:
+  baseline:
+    - packed_or_dense_relational_q
+    - incremental_or_on_the_fly_T_q_action
+    - WDL_native_fail_soft_negamax
+    - native_relational_tactical_closure
+    - tuned_ETC
+    - compact_exact_single_perspective_TT
+  fairness:
+    - equal_byte_TT_controls
+    - include_transition_construction_cost
+    - include_key_or_handle_cost
+    - no_recursive_colored_board_identity
+    - exact_WDL_assertions_against_qualified_oracle
+  driver_tournament:
+    - full_window_alpha_beta_control
     - PVS_NegaScout
     - MTD_f
-  common_kernel_requirements:
-    - packed_fixed_width_relational_state_or_exact_dense_handle
-    - on_the_fly_incremental_T_q_action
-    - exact_typed_TT_with_equal_byte_controls
-    - no_colored_board_search_identity
-    - BSFP_exact_fact_query_by_q
-  staged_composition:
-    - native_relational_tactical_closure
+    - WDL_threshold_driver
+  after_serial_kernel_stabilizes:
     - reflection_and_residual_automorphism
-    - earliest_win_and_support_bounds
-    - compiled_local_proof_masks_where_exact
-    - proof_cost_and_cutoff_action_ordering
-    - coarse_parallelism_only_after_serial_stability
+    - compiled_local_proof_masks
+    - Connect4_specific_relational_proof_cost_ordering
+    - coarse_parallelism
   hybrid_economics:
     - replace_ideal_rank_wall_with_actual_BSFP_produced_boundary
     - include_BSFP_build_cost
-    - include_publication_and_query_cost
-    - measure_forward_work_eliminated_per_BSFP_cost
-    - sweep_boundary_rank_or_structural_cut
+    - include_publication_cost
+    - include_query_cost
+    - measure_forward_work_eliminated_per_total_BSFP_cost
 
 parallel_research:
   symbolic_preimage:
     goal: compute_Pre_action_Q_without_materializing_complete_reverse_edges
     hard_constraint: preserve_or_improve_existing_BSFP_frontier_compression
-  pn_pss:
-    status: retain_research_only
-    next_if_revisited:
-      - decisive_subproblem_or_ordering_role
-      - compact_or_truncated_proof_set_experiment_with_explicit_soundness_boundary
-      - DAG_safe_df_pn_or_PDS_contract_before_implementation
+  strong_distance:
+    role: optional_consumer_requested_refinement
+    candidates:
+      - exact_rank_distance_envelope
+      - WDL_seeded_strong_bounds
+  driver_research:
+    retain:
+      - PVS_NegaScout
+      - MTD_f
+      - WDL_threshold
+    do_not_reintroduce_without_new_evidence:
+      - generic_history_killer
+      - child_bound_sorting_without_exact_cutoff
 
 promotion_gates:
-  - exact_distance_sensitive_strong_value_where_claimed
-  - exact_per_action_values_for_strong_score_drivers
-  - exact_WDL_for_proof_drivers
+  - exact_WDL_root_and_action_semantics
+  - exact_strong_distance_where_claimed
   - notable_total_wall_clock_or_work_gain
   - equal_total_memory_accounting
   - no_false_exact_TT_or_BSFP_hits
-  - no_regression_of_solver_native_hot_path_for_architectural_aesthetics
+  - packed_on_the_fly_kernel_evidence_before_solver_branch_rebuild
   - actual_BSFP_cost_required_before_hybrid_performance_claim
   - standard_7x6_or_independently_justified_scale_evidence_before_production_promotion
 
 non_claims:
-  - no_standard_7x6_exhaustive_semantic_quotient_proof
-  - no_production_forward_driver_selected
+  - no_standard_7x6_production_performance
+  - no_packed_on_the_fly_transition_speedup_yet
+  - no_final_PVS_vs_MTDf_vs_threshold_driver_selection
   - no_end_to_end_hybrid_speedup_claim_from_ideal_BSFP_walls
-  - no_reason_to_force_shared_mutable_physical_state
-  - no_reason_to_merge_forward_search_and_BSFP_control_flow
-  - no_reason_to_promote_PN_DAG_or_PSS_to_hot_path_from_campaign_v1
+  - no_safety_claim_for_unproven_selective_pruning
