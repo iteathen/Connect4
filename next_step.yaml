@@ -1,15 +1,14 @@
-schema_version: 19
+schema_version: 20
 updated: 2026-09-10
-state: cuda_bsfp_c3_and_b2_native_measurements_ready
+state: cuda_bsfp_oqs_o2_qualified_factorization_ready
 repository_role: connect4_cuda_bsfp_solver
 canonical_branch: solver/cuda-bsfp
 superseded_branch_name: feature/cuda-bsfp
 
 current:
-  action: obtain_native_c3_cause_profile_and_b2_ab_then_select_smallest_measured_intervention
+  action: factor_exact_residual_pair_storage_from_crossing_state_storage_then_measure_device_composition
   owner: Connect4
   mode: active
-  branch_base: de47d43f4f4133a68973d0876a402531ef5735da
   solver_lane: cuda_bsfp
 
 product_goal:
@@ -31,33 +30,64 @@ qualified_milestones:
     exact_frontiers: 4x3_4x4_5x5_zero_mismatch
     five_by_five_submit_wait_ms: 3299.957
     five_by_five_warm_solve_wall_ms: 3568.618
+  o1:
+    status: qualified_native
+    profile: c4-0009-o1-oqs-cofactor-42
+    evidence: docs/evidence/cuda-bsfp/qualification/20260911T032754503Z-b0df94a3
+  o2:
+    status: qualified_native_bounded_seed_slice
+    profile: c4-0009-o2-oqs-7x6-seed-slice
+    evidence: docs/evidence/cuda-bsfp/qualification/20260911T043015870Z-2d8e0785
+    non_claims:
+      - not_full_7x6_quotient_synthesis
+      - not_full_bsfp_closure
+      - not_root_wdl
 
-production_adjacent_gates:
+current_oqs_evidence:
+  bounded_7x6_prefix:
+    states_after_six_cuts: 8192
+    distinct_exact_residual_pairs: 48
+    logical_frontier_records: 1732992
+    distinct_residual_pair_records: 10597
+    baseline_cpu_cofactor_evaluations: 11056
+    reuse_cpu_cofactor_evaluations: 624
+    observed_cpu_elapsed_ratio: 6.86
+  interpretation: exact_residual_pair_identity_is_a_high_leverage_factorization_axis
+
+next_actions:
+  - preserve_residual_pair_as_exact_canonical_identity_separate_from_crossing_state_identity
+  - map_state_input_to_exact_pair_id_without_recomputing_equivalent_cofactors
+  - keep_generic_grouping_compaction_in_cuda_algorithms_ownership
+  - qualify_any_new_connect4_layout_against_frozen_exact_oqs_reference_oracle
+  - measure_device_cost_against_o1_o2_baselines_before_broadening_7x6_scope
+  - do_not_claim_full_7x6_until_complete_quotient_synthesis_and_bsfp_closure_pass
+
+c1_parallel_track:
   c3:
     exact_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
     need: native_authorized_gpu_cause_profile
   b2:
     exact_source: 7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5
     need: native_same_gpu_legacy_vs_bucketed_ab
-
-next_actions:
-  - run_c3_on_authorized_gtx1660ti_through_q1
-  - run_b2_on_same_authorized_gpu_through_q1
-  - publish_append_only_native_evidence
-  - select_smallest_intervention_supported_by_measurement
-  - requalify_all_affected_4x3_4x4_5x5_support_frontiers
-  - retry_6x5_only_after_measured_intervention
-  - attempt_7x6_only_after_6x5_completes_with_resource_and_cost_evidence
+  rule: retain_as_independent_c1_fallback_and_diagnostic_track_not_as_current_oqs_owner
 
 shared_research_routing:
   semantic_quotient_branch: research/semantic-quotient
+  latest_mixed_handoff_head: e04cee12bc24cda63fcf889eb4ca2137837f86bf
   topics:
     - minimum_description_state
     - identified_line_quotient
     - future_behavior_equivalence
     - residual_class_compilation
-    - oqs_transfer_methods
-  rule: promote_into_this_branch_only_after_solver_specific_acceptance_and_qualification
+    - oqs_seed_scaling
+    - exact_residual_pair_factorization_semantics
+  rule: shared_semantics_evolve_there_cuda_implementation_qualifies_here
+
+qualification_reference:
+  frozen_paths:
+    - reference/research-prototypes/2026-09-10-oqs
+    - reference/research-prototypes/2026-09-10-zdd-transfer
+  role: exact_reproduction_and_qualification_oracle_only
 
 constraints:
   - no_post_ignition_host_semantic_progression
