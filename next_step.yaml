@@ -1,6 +1,6 @@
 schema_version: 3
 updated: 2026-09-10
-state: multi_lane_repository_restructure_integrated
+state: physical_ref_cleanup_integrated_with_three_dependency_blockers
 repository_role: connect4_repository_router
 
 canonical_lanes:
@@ -35,11 +35,18 @@ restructure:
   manifest: research/MIGRATION_MANIFEST.json
   branch_retirement: research/BRANCH_RETIREMENT.md
   repository_structure: REPOSITORY_STRUCTURE.md
-  connector_limit: branch_deletion_and_tag_creation_not_exposed
+  physical_cleanup: research/RETIREMENT_PROOFS.json
+  deleted_stale_branches: 40
+  archive_tags: 33
+  retained_dependency_blockers:
+    - research/zdd-transfer-20260910
+    - research/live-q1-5min-20260910
+    - feature/cuda-bsfp
 
 next_actions:
-  - use_manifest_to_delete_or_archive_retired_refs_through_authorized_ref_management
-  - verify_unique_content_before_retiring_pending_branches
+  - preserve_incoming_staging_until_producer_finishes_and_latest_head_is_curated
+  - retain_live_q1_branch_until_run_34518477566_is_terminal_and_payload_is_audited
+  - reroute_live_q1_bootstrap_and_producer_dependency_before_retiring_feature_cuda_bsfp
   - stop_creating_new_long_lived_research_branches_for_single_experiments
   - use_short_lived_work_branches_and_commit_research_packets_to_the_owning_lane
   - keep_evidence_snapshot_refs_until_payload_hash_and_PR_preservation_is_verified

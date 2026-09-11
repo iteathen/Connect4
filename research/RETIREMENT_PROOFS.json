@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "updated": "2026-09-10",
   "purpose": "Post-restructure verification that historical and delivery refs are preserved by canonical lane ancestry, exact duplication, curated migration, qualification-evidence consolidation, ownership-split handoff, or history-only archive merge. MIGRATION_MANIFEST.json remains the immutable pre-restructure census snapshot.",
   "canonicalHeadsAtLatestProof": {
-    "main": "f23d0566905287fe8e65e12a89d516b4b7ec8f55",
+    "main": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
     "solver/minimax-alpha-beta": "0d5894876e02609f4a78466d7ffa5c632e44c803",
     "solver/cuda-bsfp": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
     "research/semantic-quotient": "312c84afede4427bedbab231e141da36a7fc3510"
@@ -97,6 +97,747 @@
   },
   "pendingUniqueContentAudit": [],
   "evidenceRefsPendingPayloadVerification": [],
-  "physicalDeletionStatus": "not_performed_connector_has_no_delete_ref_or_tag_creation",
-  "physicalDeletionAdditionalBlocker": "research/zdd-transfer-20260910 is still being advanced by an active authorized producer; exact curated checkpoints are preserved but the moving ref must not be deleted yet"
+  "physicalDeletionStatus": "performed_for_all_currently_gate_passing_refs_three_dependency_blockers_retained",
+  "physicalDeletionAdditionalBlocker": "Incoming staging producer reservation; queued live-Q1 workflow 34518477566; Q1 bootstrap and producer checkout dependency on feature/cuda-bsfp.",
+  "physicalCleanup": {
+    "observedAt": "2026-09-11T06:03:24.239Z",
+    "verifiedAt": "2026-09-11T06:10:14.662Z",
+    "scope": "Remote GitHub branches; pre-existing local producer checkouts and their local refs were not changed.",
+    "cycle": "assess live refs/rules -> research ancestry, blobs, run trees and consumers -> reassess three blockers -> plan by owner and exact head -> archive then delete with exact-head leases -> qualify remote absence/tags/ancestry -> review inventory -> reconcile this ledger",
+    "archiveNamespace": "archive/restructure-2026-09/",
+    "archivePolicy": "Annotated tags at exact retired heads; never move. Existing ruleset 22700180 covers all tags and prohibits update/deletion.",
+    "initialLiveBranchCount": 47,
+    "deletedBranchCount": 40,
+    "archiveTagCount": 33,
+    "frozenCensusBlob": "3454bbad200eda2624714fda5ce2898cb93f424e",
+    "frozenCensusChanged": false,
+    "gateEvidence": {
+      "openPRs": [
+        {
+          "baseRefName": "main",
+          "headRefName": "solver/cuda-bsfp",
+          "headRefOid": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+          "isDraft": true,
+          "number": 25
+        }
+      ],
+      "activeWorkflows": [
+        {
+          "id": 34518477566,
+          "headBranch": "research/live-q1-5min-20260910",
+          "headSha": "b8e15aa72c92fb58515a80340876e7df45b5316c",
+          "status": "queued"
+        }
+      ],
+      "consumerAudit": "Canonical lane .github/workflows and tools scanned for branch references; local producer worktrees, task state, relevant processes and available automations inspected. Explicit staging reservation retained even though latest producer turn is idle. No detected active dependency for deleted refs.",
+      "exactHeads": "Recorded before deletion; push --atomic with explicit --force-with-lease=refs/heads/<branch>:<head> guards against concurrent branch advancement.",
+      "postDelete": "Each exact-head group immediately verified absent, archive target unchanged, and canonical owner unchanged."
+    },
+    "v8Packet": {
+      "path": "research/minimax/incumbent-v8-rewrite",
+      "verifiedExactBlobs": 15,
+      "tree": "7a23eeb3e8a356889a6e70b57482cc5d9e73da3d"
+    },
+    "deleted": [
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb",
+        "head": "b413d4ae3c9303abb5f0aee11162fd67149de7a1",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260910T054132880Z-b043b1eb",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260910T054132880Z-b043b1eb",
+          "sourceTree": "26741002c61e4533dac6ebe86c629cb37bd3ae68",
+          "canonicalTree": "26741002c61e4533dac6ebe86c629cb37bd3ae68"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:14.186Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:04:17.566Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872",
+        "head": "81ab62b2b4101d37a501b5b4e3e230259203ddc6",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260910T055412412Z-59fbc872",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260910T055412412Z-59fbc872",
+          "sourceTree": "df769d80fcb581f6450537c711a4e99ebd30dbd7",
+          "canonicalTree": "df769d80fcb581f6450537c711a4e99ebd30dbd7"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:21.669Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:04:25.207Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d",
+        "head": "b86c046cd85bcce7f277a2df21c093cab7109e2a",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260910T064427961Z-92f8a76d",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260910T064427961Z-92f8a76d",
+          "sourceTree": "b0fbaeff8fbc5e70831069e1b8a9ee27b88fcd16",
+          "canonicalTree": "b0fbaeff8fbc5e70831069e1b8a9ee27b88fcd16"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:29.188Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:04:32.634Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8",
+        "head": "936fe9f76fb665aaea47a6d2cfef032d3abc9e1d",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260910T065508562Z-fb451dd8",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260910T065508562Z-fb451dd8",
+          "sourceTree": "7171a6eb9e06586010fa41d0c0a3a840e26cd268",
+          "canonicalTree": "7171a6eb9e06586010fa41d0c0a3a840e26cd268"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:37.263Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:04:40.588Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a",
+        "head": "8315a6093041d24d9c742a04eb5b29cf3d50de62",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260910T083225135Z-2245e20a",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260910T083225135Z-2245e20a",
+          "sourceTree": "257e690250c8ed5dfd346d5bae8363a5516df3e4",
+          "canonicalTree": "257e690250c8ed5dfd346d5bae8363a5516df3e4"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:44.687Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:04:47.906Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61",
+        "head": "1b07441ed9de113191e715275461d7a901706d8b",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260910T100734116Z-e8de3c61",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260910T100734116Z-e8de3c61",
+          "sourceTree": "7ba02e118d71c405a29c5112deb37fed5598438c",
+          "canonicalTree": "7ba02e118d71c405a29c5112deb37fed5598438c"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:51.936Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:04:55.371Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3",
+        "head": "d2e31abb6f4da79f4b4d006e166e4b39d1960dd3",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260911T032754503Z-b0df94a3",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260911T032754503Z-b0df94a3",
+          "sourceTree": "db446233b8d508cef0e10dc36911eeca2efdbfe7",
+          "canonicalTree": "db446233b8d508cef0e10dc36911eeca2efdbfe7"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:04:59.367Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:05:02.650Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260911T043015870Z-2d8e0785",
+        "head": "05ea4fd0e91c3b11e1074cc68d36738675c4ae51",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260911T043015870Z-2d8e0785",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260911T043015870Z-2d8e0785"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260911T043015870Z-2d8e0785",
+          "sourceTree": "d00c707a31bc34f3bcb7e0ad93409f2cca68bd95",
+          "canonicalTree": "d00c707a31bc34f3bcb7e0ad93409f2cca68bd95"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:05:06.807Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:05:10.120Z"
+      },
+      {
+        "ref": "evidence/cuda-bsfp-q1/20260911T050640911Z-b3554293",
+        "head": "e99680503aae6e3d56e168437e4b1ffc5708b6c3",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/evidence--cuda-bsfp-q1--20260911T050640911Z-b3554293",
+        "aliasSet": [
+          "evidence/cuda-bsfp-q1/20260911T050640911Z-b3554293"
+        ],
+        "evidence": {
+          "path": "docs/evidence/cuda-bsfp/qualification/20260911T050640911Z-b3554293",
+          "sourceTree": "5878ff0a252a8c9f124815cb5dda8d9bdc92a477",
+          "canonicalTree": "5878ff0a252a8c9f124815cb5dda8d9bdc92a477"
+        },
+        "archiveVerifiedAt": "2026-09-11T06:05:14.104Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:05:17.268Z"
+      },
+      {
+        "ref": "feature/shared-evaluator-v1",
+        "head": "77c5c0da57ddb65cd7aff9ce131481a19414931a",
+        "status": "physically_deleted",
+        "owner": "solver/minimax-alpha-beta",
+        "ownerHead": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "archiveTag": "archive/restructure-2026-09/feature--shared-evaluator-v1",
+        "aliasSet": [
+          "feature/shared-evaluator-v1"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:05:32.857Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:05:36.285Z"
+      },
+      {
+        "ref": "research/exact-solver-perf-checkpoint-2026-09-08",
+        "head": "912359dc9bfd8570bb74651802ce05290d60c0aa",
+        "status": "physically_deleted",
+        "owner": "solver/minimax-alpha-beta",
+        "ownerHead": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "archiveTag": "archive/restructure-2026-09/research--exact-solver-perf-checkpoint-2026-09-08",
+        "aliasSet": [
+          "research/exact-solver-perf-checkpoint-2026-09-08"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:05:40.420Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:05:44.758Z"
+      },
+      {
+        "ref": "research/exact-solver-rethink-controls-2026-09-09",
+        "head": "f585ca9a6b67a74363ea239185adbb449b0c9bc2",
+        "status": "physically_deleted",
+        "owner": "solver/minimax-alpha-beta",
+        "ownerHead": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "archiveTag": "archive/restructure-2026-09/research--exact-solver-rethink-controls-2026-09-09",
+        "aliasSet": [
+          "research/exact-solver-rethink-controls-2026-09-09"
+        ],
+        "mergedPR": 23,
+        "archiveVerifiedAt": "2026-09-11T06:05:48.859Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:05:52.363Z"
+      },
+      {
+        "ref": "research/forced-macro-implication-2026-09-09",
+        "head": "b01f5d58fa4c1159acdd5cb58e1628e23844306e",
+        "status": "physically_deleted",
+        "owner": "solver/minimax-alpha-beta",
+        "ownerHead": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "archiveTag": "archive/restructure-2026-09/research--forced-macro-implication-2026-09-09",
+        "aliasSet": [
+          "research/forced-macro-implication-2026-09-09"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:05:56.592Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:06:00.294Z"
+      },
+      {
+        "ref": "research/minimax-structural-cut-20260909",
+        "head": "0d2648c83a88c8c3dd2a4836cb19296d1930b35a",
+        "status": "physically_deleted",
+        "owner": "solver/minimax-alpha-beta",
+        "ownerHead": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "archiveTag": "archive/restructure-2026-09/research--minimax-structural-cut-20260909",
+        "aliasSet": [
+          "research/minimax-structural-cut-20260909"
+        ],
+        "mergedPR": 22,
+        "archiveVerifiedAt": "2026-09-11T06:06:04.305Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:06:07.578Z"
+      },
+      {
+        "ref": "research/residual-automorphisms-2026-09-09",
+        "head": "5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d",
+        "status": "physically_deleted",
+        "owner": "solver/minimax-alpha-beta",
+        "ownerHead": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "archiveTag": "archive/restructure-2026-09/research--residual-automorphisms-2026-09-09",
+        "aliasSet": [
+          "research/residual-automorphisms-2026-09-09"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:06:11.657Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:06:15.054Z"
+      },
+      {
+        "ref": "research/direct-line-product-bsfp-20260910",
+        "head": "028d508547ac86859cb65f8933b24d219176dc56",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--direct-line-product-bsfp-20260910",
+        "aliasSet": [
+          "research/direct-line-product-bsfp-20260910"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:33.483Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:36.768Z"
+      },
+      {
+        "ref": "research/identified-winline-quotient-test",
+        "head": "b95ad87c3e904156a72bc64f148165d69f4dabcf",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test",
+        "aliasSet": [
+          "research/identified-winline-quotient-test",
+          "research/winline-cone-image",
+          "research/winline-product-antichain",
+          "research/winline-product-antichain-run",
+          "research/winline-product-dominance",
+          "research/winline-product-dominance-v2"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:40.739Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:44.054Z"
+      },
+      {
+        "ref": "research/winline-cone-image",
+        "head": "b95ad87c3e904156a72bc64f148165d69f4dabcf",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test",
+        "aliasSet": [
+          "research/identified-winline-quotient-test",
+          "research/winline-cone-image",
+          "research/winline-product-antichain",
+          "research/winline-product-antichain-run",
+          "research/winline-product-dominance",
+          "research/winline-product-dominance-v2"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:40.739Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:44.054Z"
+      },
+      {
+        "ref": "research/winline-product-antichain",
+        "head": "b95ad87c3e904156a72bc64f148165d69f4dabcf",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test",
+        "aliasSet": [
+          "research/identified-winline-quotient-test",
+          "research/winline-cone-image",
+          "research/winline-product-antichain",
+          "research/winline-product-antichain-run",
+          "research/winline-product-dominance",
+          "research/winline-product-dominance-v2"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:40.739Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:44.054Z"
+      },
+      {
+        "ref": "research/winline-product-antichain-run",
+        "head": "b95ad87c3e904156a72bc64f148165d69f4dabcf",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test",
+        "aliasSet": [
+          "research/identified-winline-quotient-test",
+          "research/winline-cone-image",
+          "research/winline-product-antichain",
+          "research/winline-product-antichain-run",
+          "research/winline-product-dominance",
+          "research/winline-product-dominance-v2"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:40.739Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:44.054Z"
+      },
+      {
+        "ref": "research/winline-product-dominance",
+        "head": "b95ad87c3e904156a72bc64f148165d69f4dabcf",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test",
+        "aliasSet": [
+          "research/identified-winline-quotient-test",
+          "research/winline-cone-image",
+          "research/winline-product-antichain",
+          "research/winline-product-antichain-run",
+          "research/winline-product-dominance",
+          "research/winline-product-dominance-v2"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:40.739Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:44.054Z"
+      },
+      {
+        "ref": "research/winline-product-dominance-v2",
+        "head": "b95ad87c3e904156a72bc64f148165d69f4dabcf",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test",
+        "aliasSet": [
+          "research/identified-winline-quotient-test",
+          "research/winline-cone-image",
+          "research/winline-product-antichain",
+          "research/winline-product-antichain-run",
+          "research/winline-product-dominance",
+          "research/winline-product-dominance-v2"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:40.739Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:44.054Z"
+      },
+      {
+        "ref": "research/identified-winline-quotient-test-2",
+        "head": "900cfa804fb0b06e524d2642c4feb845a9993077",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test-2",
+        "aliasSet": [
+          "research/identified-winline-quotient-test-2",
+          "research/identified-winline-quotient-test-3",
+          "research/identified-winline-quotient-test-4"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:48.015Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:52.427Z"
+      },
+      {
+        "ref": "research/identified-winline-quotient-test-3",
+        "head": "900cfa804fb0b06e524d2642c4feb845a9993077",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test-2",
+        "aliasSet": [
+          "research/identified-winline-quotient-test-2",
+          "research/identified-winline-quotient-test-3",
+          "research/identified-winline-quotient-test-4"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:48.015Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:52.427Z"
+      },
+      {
+        "ref": "research/identified-winline-quotient-test-4",
+        "head": "900cfa804fb0b06e524d2642c4feb845a9993077",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--identified-winline-quotient-test-2",
+        "aliasSet": [
+          "research/identified-winline-quotient-test-2",
+          "research/identified-winline-quotient-test-3",
+          "research/identified-winline-quotient-test-4"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:48.015Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:07:52.427Z"
+      },
+      {
+        "ref": "research/low-confidence-survival-2026-09-09",
+        "head": "f28e79098c0c62fff752eca4aecbf8fd6f4a2073",
+        "status": "physically_deleted",
+        "owner": "research/semantic-quotient",
+        "ownerHead": "312c84afede4427bedbab231e141da36a7fc3510",
+        "archiveTag": "archive/restructure-2026-09/research--low-confidence-survival-2026-09-09",
+        "aliasSet": [
+          "research/low-confidence-survival-2026-09-09"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:07:56.449Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:00.881Z"
+      },
+      {
+        "ref": "agent/benchmark-bootstrap",
+        "head": "dcaed03b03410d8b6f46f1ff5ef53e9bde732a6b",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/agent--benchmark-bootstrap",
+        "aliasSet": [
+          "agent/benchmark-bootstrap"
+        ],
+        "mergedPR": 2,
+        "archiveVerifiedAt": "2026-09-11T06:08:12.388Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:15.768Z"
+      },
+      {
+        "ref": "docs/execution-efficiency-mutation-hygiene",
+        "head": "84677fa856d695da760278144f454c4e71106fc7",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/docs--execution-efficiency-mutation-hygiene",
+        "aliasSet": [
+          "docs/execution-efficiency-mutation-hygiene"
+        ],
+        "mergedPR": 11,
+        "archiveVerifiedAt": "2026-09-11T06:08:19.964Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:23.360Z"
+      },
+      {
+        "ref": "docs/global-agent-local-migration",
+        "head": "e51efbd5b3746fd1b61dac1cd35baa6ffcda5f20",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/docs--global-agent-local-migration",
+        "aliasSet": [
+          "docs/global-agent-local-migration"
+        ],
+        "mergedPR": 12,
+        "archiveVerifiedAt": "2026-09-11T06:08:27.464Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:30.757Z"
+      },
+      {
+        "ref": "feature/cuda-mcgs-composition-assessment",
+        "head": "e79922c726b5d6d8baa9783c804996d47eef89a4",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/feature--cuda-mcgs-composition-assessment",
+        "aliasSet": [
+          "feature/cuda-mcgs-composition-assessment"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:08:35.820Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:39.246Z"
+      },
+      {
+        "ref": "feature/incumbent-node-search",
+        "head": "c42d8c7060d0cd6d3a5802c5f8b3f5da13089a26",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/feature--incumbent-node-search",
+        "aliasSet": [
+          "feature/incumbent-node-search"
+        ],
+        "mergedPR": 4,
+        "archiveVerifiedAt": "2026-09-11T06:08:43.595Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:47.198Z"
+      },
+      {
+        "ref": "feature/solved-strength-oracle",
+        "head": "0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/feature--solved-strength-oracle",
+        "aliasSet": [
+          "feature/solved-strength-oracle"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:08:51.075Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:08:54.394Z"
+      },
+      {
+        "ref": "noop",
+        "head": "de47d43f4f4133a68973d0876a402531ef5735da",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/noop",
+        "aliasSet": [
+          "noop"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:08:58.285Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:01.416Z"
+      },
+      {
+        "ref": "research/winline-product-antichain-final",
+        "head": "093218ca55b37f9179d0ede8255ac1621f2e96f5",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/research--winline-product-antichain-final",
+        "aliasSet": [
+          "research/winline-product-antichain-final"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:09:05.362Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:08.505Z"
+      },
+      {
+        "ref": "tmp-do-not-use-c4diag",
+        "head": "878b31840d4863ad941970c502a77995c8a0070b",
+        "status": "physically_deleted",
+        "owner": "solver/cuda-bsfp",
+        "ownerHead": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "archiveTag": "archive/restructure-2026-09/tmp-do-not-use-c4diag",
+        "aliasSet": [
+          "tmp-do-not-use-c4diag"
+        ],
+        "archiveVerifiedAt": "2026-09-11T06:09:12.448Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:15.551Z"
+      },
+      {
+        "ref": "restructure/final-oqs-handoff-20260910",
+        "head": "998675b7d2c72f1831e61215f6dc3f5c59c03508",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/restructure--final-oqs-handoff-20260910",
+        "aliasSet": [
+          "restructure/final-oqs-handoff-20260910"
+        ],
+        "mergedPR": 31,
+        "archiveVerifiedAt": "2026-09-11T06:09:29.399Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:32.966Z"
+      },
+      {
+        "ref": "restructure/post-census-evidence-20260910",
+        "head": "0dae1ca94c876902ca759a511bd72642d040cf5e",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/restructure--post-census-evidence-20260910",
+        "aliasSet": [
+          "restructure/post-census-evidence-20260910"
+        ],
+        "mergedPR": 29,
+        "archiveVerifiedAt": "2026-09-11T06:09:39.014Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:42.210Z"
+      },
+      {
+        "ref": "restructure/repository-organization-20260910",
+        "head": "c982b77ca3ed536a1d77c9d4cbafaab61eb54513",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/restructure--repository-organization-20260910",
+        "aliasSet": [
+          "restructure/repository-organization-20260910"
+        ],
+        "mergedPR": 24,
+        "archiveVerifiedAt": "2026-09-11T06:09:46.180Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:50.011Z"
+      },
+      {
+        "ref": "restructure/repository-organization-cleanup-20260910",
+        "head": "4806816fef12818a462bb4106b44e60118ef4242",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/restructure--repository-organization-cleanup-20260910",
+        "aliasSet": [
+          "restructure/repository-organization-cleanup-20260910"
+        ],
+        "mergedPR": 26,
+        "archiveVerifiedAt": "2026-09-11T06:09:54.001Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:09:57.297Z"
+      },
+      {
+        "ref": "restructure/retirement-ledger-20260910",
+        "head": "81844c686ff0802ea8c7aee95547555ebd75ac95",
+        "status": "physically_deleted",
+        "owner": "main",
+        "ownerHead": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "archiveTag": "archive/restructure-2026-09/restructure--retirement-ledger-20260910",
+        "aliasSet": [
+          "restructure/retirement-ledger-20260910"
+        ],
+        "mergedPR": 27,
+        "archiveVerifiedAt": "2026-09-11T06:10:01.607Z",
+        "deletedAndVerifiedAt": "2026-09-11T06:10:04.922Z"
+      }
+    ],
+    "retained": [
+      {
+        "ref": "feature/cuda-bsfp",
+        "head": "093218ca55b37f9179d0ede8255ac1621f2e96f5",
+        "status": "blocked",
+        "reasons": [
+          "Live Q1 bootstrap DEFAULT_REVISIONS.connect4 still depends on this branch in solver/cuda-bsfp, research/semantic-quotient and active incoming staging; local producer base checkout also tracks this name. Retain until consumers are deliberately rerouted."
+        ]
+      },
+      {
+        "ref": "main",
+        "head": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+        "status": "intentionally_retained",
+        "reasons": []
+      },
+      {
+        "ref": "research/live-q1-5min-20260910",
+        "head": "b8e15aa72c92fb58515a80340876e7df45b5316c",
+        "status": "blocked",
+        "reasons": [
+          "Active workflow depends on branch: 34518477566"
+        ]
+      },
+      {
+        "ref": "research/semantic-quotient",
+        "head": "312c84afede4427bedbab231e141da36a7fc3510",
+        "status": "intentionally_retained",
+        "reasons": []
+      },
+      {
+        "ref": "research/zdd-transfer-20260910",
+        "head": "54d63ae9a066dba42b2748b3ad51353611a2c52a",
+        "status": "blocked",
+        "reasons": [
+          "Incoming producer staging reservation remains in force; local producer checkout still uses this branch."
+        ]
+      },
+      {
+        "ref": "solver/cuda-bsfp",
+        "head": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "status": "intentionally_retained",
+        "reasons": [
+          "Open PR head"
+        ]
+      },
+      {
+        "ref": "solver/minimax-alpha-beta",
+        "head": "0d5894876e02609f4a78466d7ffa5c632e44c803",
+        "status": "intentionally_retained",
+        "reasons": []
+      }
+    ],
+    "newlyDiscoveredRequiringAudit": [],
+    "finalBranchInventoryBeforeIntegration": {
+      "feature/cuda-bsfp": "093218ca55b37f9179d0ede8255ac1621f2e96f5",
+      "main": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+      "research/live-q1-5min-20260910": "b8e15aa72c92fb58515a80340876e7df45b5316c",
+      "research/semantic-quotient": "312c84afede4427bedbab231e141da36a7fc3510",
+      "research/zdd-transfer-20260910": "54d63ae9a066dba42b2748b3ad51353611a2c52a",
+      "solver/cuda-bsfp": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+      "solver/minimax-alpha-beta": "0d5894876e02609f4a78466d7ffa5c632e44c803"
+    },
+    "finalOpenPRSurfaceBeforeCleanupPR": [
+      {
+        "baseRefName": "main",
+        "headRefName": "solver/cuda-bsfp",
+        "headRefOid": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+        "isDraft": true,
+        "number": 25
+      }
+    ],
+    "integration": {
+      "branch": "restructure/physical-ref-cleanup-20260910",
+      "base": "7c01e749a80c1c9ba6a64f75b7c0f71c2c26f8a2",
+      "policy": "Documentation-only PR; wait for verify, strength-evidence and benchmark-evidence; merge through configured owner PR exception without bypassing CI. Archive and delete this short-lived branch only after merge and no active dependents.",
+      "resultLocator": "The merged cleanup PR and its immutable archive tag identify the resulting main merge SHA and post-integration CI; a commit cannot embed its own future merge SHA."
+    },
+    "qualification": {
+      "node": "v26.7.0",
+      "localMainTests": {
+        "passed": 27,
+        "failed": 0
+      },
+      "localStrengthBenchmark": "node benchmarks/strength.mjs exited 0",
+      "localIncumbentBenchmark": "node --expose-gc benchmarks/incumbent.mjs exited 0",
+      "qualificationEvidence": "All nine generated run subtrees match their original evidence-head trees exactly; all 15 V8 manifest blobs match both packet and original source."
+    }
+  }
 }
