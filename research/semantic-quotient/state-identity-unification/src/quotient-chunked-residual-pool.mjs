@@ -144,8 +144,8 @@ export function installChunkedResidualPool(kernel, spec, options = {}) {
   if (vocabulary.count !== 625 && spec.columns === 7 && spec.rows === 6 && spec.connect === 4) {
     throw new Error(`standard 7x6 vocabulary drifted: ${vocabulary.count}`);
   }
-  if (Math.ceil(vocabulary.count / 32) !== WORDS_PER_CLASS) {
-    throw new RangeError(`chunked residual pool currently requires <= ${WORDS_PER_CLASS * 32} ontology terms`);
+  if (vocabulary.count > WORDS_PER_CLASS * 32) {
+    throw new RangeError(`chunked residual pool currently supports at most ${WORDS_PER_CLASS * 32} ontology terms`);
   }
   const prefixClasses = options.prefixClasses ?? 4096;
   if (!Number.isInteger(prefixClasses) || prefixClasses < 1) throw new RangeError('prefixClasses must be positive');
