@@ -1,6 +1,6 @@
-schema_version: 2
+schema_version: 3
 updated: 2026-09-10
-state: semantic_quotient_mq1_ready_with_oqs_residual_pair_factorization
+state: semantic_quotient_mq1_ready_with_oqs_o3_exact_reuse_control
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -13,7 +13,7 @@ source_lanes:
   minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
   superseded_oqs_branch: research/zdd-transfer-20260910
-  latest_handoff_head: e04cee12bc24cda63fcf889eb4ca2137837f86bf
+  latest_handoff_head: 5dfe1312a357c48eee53168e82fd6eba27814a06
 
 current:
   primary_action: execute_mq1_strong_score_qualification_of_identified_line_quotient
@@ -57,10 +57,17 @@ oqs_factorization_evidence:
   controls:
     - all_625_4x4_supports_preserve_exact_layer_state_sets
     - bounded_7x6_prefix_preserves_exact_digest
+    - o3_factored_input_ids_preserve_selected_4x4_residuals
+    - o3_every_logical_occurrence_output_remains_represented
+  o3_cuda_result:
+    ownership: solver/cuda-bsfp
+    source: 5dfe1312a357c48eee53168e82fd6eba27814a06
+    interpretation: implementation_evidence_for_the_shared_exact_reuse_seam_not_semantic_ownership
   non_claims:
     - no_final_7x6_quotient_size_bound
     - no_full_7x6_oqs_build
     - no_cuda_speedup_claim_from_cpu_ratio
+    - no_global_residual_interning_claim
 
 research_actions:
   - determine_whether_residual_pair_identity_is_a_general_behavioral_kernel_or_only_line_cut_local_identity
