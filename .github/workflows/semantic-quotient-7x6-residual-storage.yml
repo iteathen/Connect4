@@ -1,0 +1,31 @@
+name: Standard 7x6 residual storage census
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-7x6-residual-storage-census.mjs
+      - .github/workflows/semantic-quotient-7x6-residual-storage.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    name: Measure 7x6 residual encoding economics
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      EXPAND_THROUGH_RANK: 8
+      MAX_STATES: 1000000
+      PREFIX_CLASSES: 4096
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run bounded residual storage census
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-7x6-residual-storage-census.mjs
