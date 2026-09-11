@@ -1,0 +1,28 @@
+name: Negamax optimization refinement campaign
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/negamax-optimization-campaign-v2.mjs'
+      - '.github/workflows/semantic-quotient-negamax-optimization-refinement.yml'
+      - 'components/bsfp/residual-winspace.mjs'
+      - 'components/bsfp/support-lattice.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  negamax-optimization-refinement:
+    name: Negamax optimization refinement
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run negamax optimization refinement campaign
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/negamax-optimization-campaign-v2.mjs
