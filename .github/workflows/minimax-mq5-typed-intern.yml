@@ -1,0 +1,28 @@
+name: Minimax MQ5 typed exact interning
+
+on:
+  push:
+    branches:
+      - work/minimax-typed-intern-20260911
+    paths:
+      - 'research/minimax/semantic-residual-mq5/residual_solver_wsl625_typed.mjs'
+      - 'research/minimax/semantic-residual-mq5/run_wsl625_typed.mjs'
+      - '.github/workflows/minimax-mq5-typed-intern.yml'
+  workflow_dispatch:
+
+jobs:
+  typed-intern:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run typed exact interning qualifier
+        run: node --max-old-space-size=6144 research/minimax/semantic-residual-mq5/run_wsl625_typed.mjs | tee /tmp/mq5-typed.json
+      - name: Preserve typed interning evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-mq5-typed-intern
+          path: /tmp/mq5-typed.json
+          if-no-files-found: error
