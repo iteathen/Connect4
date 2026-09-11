@@ -1,0 +1,27 @@
+name: Minimax U1 Test B Allis compatibility v3
+
+on:
+  push:
+    branches:
+      - work/minimax-u1-testb-compat-20260911
+    paths:
+      - 'research/minimax/composition-campaign/u1_testb_allis_compatibility_v3_runner.mjs'
+      - '.github/workflows/minimax-u1-testb-allis-compat-v3.yml'
+  workflow_dispatch:
+
+jobs:
+  u1-testb-v3:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run generalized compatibility differential
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/u1_testb_allis_compatibility_v3_runner.mjs | tee /tmp/u1-testb-allis-v3.json
+      - name: Preserve generalized compatibility evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-u1-testb-allis-compat-v3
+          path: /tmp/u1-testb-allis-v3.json
+          if-no-files-found: error
