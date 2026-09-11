@@ -16,15 +16,19 @@ The consolidation rule is semantic, not lexical: work belongs here when it was p
 
 `feature/incumbent-node-search` is the historical feature branch for the maintained Node minimax/alpha-beta product baseline. Its accepted implementation/specification content is already present in the main-derived product state, including `components/incumbent/`, the conformance vectors, and C4-0002 through C4-0004. The old feature ref is therefore provenance/history, not an additional branch to merge wholesale.
 
+The same rule applies to `feature/shared-evaluator-v1`, `feature/solved-strength-oracle`, and `agent/benchmark-bootstrap`: the accepted evaluator/oracle/benchmark/domain material is already represented by the main-derived files. Copying the old snapshots over those accepted versions would be regression, not consolidation.
+
 ### Exact-search performance line
 
 `research/exact-solver-perf-checkpoint-2026-09-08` is the main experimental exact-search lineage and is the original base of `solver/minimax-alpha-beta`. It contains the two-word fixed-width solver family, TT geometry/capacity experiments, shared-TT experiments, multicore/YBWC work, dependency/chunk experiments, selective-promotion controls, decision-state experiments, win-space-as-search-state experiments, structural quotient experiments, and associated evidence/docs.
 
-`research/exact-solver-rethink-controls-2026-09-09` diverged with two useful control units that did not land in the later research head. Those files were consolidated in commit `1115ad7d428fb1af41ea3f8da31fe427150fbe6f`:
+`research/exact-solver-rethink-controls-2026-09-09` diverged with two useful control units:
 
 - equal-capacity TT/grouping control;
 - root-entry immediate-win precondition counterexample;
 - their research note and raw evidence.
+
+Their content was first restored onto the minimax branch, then the original two-commit branch ancestry was merged through PR #23. This leaves the artifacts present once while preserving the original historical lineage.
 
 ### Hidden structural-search line
 
@@ -82,9 +86,6 @@ Some of these branches contain older minimax research in ancestry or copy common
 ## Other branches not imported
 
 - `feature/cuda-mcgs-composition-assessment` — composition/integration assessment, not the Connect4 minimax implementation line.
-- `feature/shared-evaluator-v1` — accepted evaluator work already represented in the main-derived product state.
-- `feature/solved-strength-oracle` — accepted oracle work already represented in the main-derived product state.
-- `agent/benchmark-bootstrap` — early benchmark bootstrap superseded by the accepted benchmark/product state.
 - `docs/execution-efficiency-mutation-hygiene` and `docs/global-agent-local-migration` — repository/process documentation branches rather than minimax algorithm research.
 - `noop` — no solver research contribution.
 
@@ -93,13 +94,27 @@ Some of these branches contain older minimax research in ancestry or copy common
 `solver/minimax-alpha-beta` now contains:
 
 1. the accepted incumbent Node minimax/alpha-beta baseline inherited from the product state;
-2. the complete 2026-09-08 fixed-width exact-search/TT/multicore research checkpoint line;
-3. the later 2026-09-09 exact-search structural, cache, scheduling, decision-state, win-space and quotient experiments;
-4. the missing rethink-control unit;
-5. the residual-automorphism / forced-macro / evaluator-ordering / Allis / strategic interaction / terminalization lineage through the last pre-searchless commit.
+2. the exact solved-strength oracle and benchmark/conformance corpus;
+3. the complete 2026-09-08 fixed-width exact-search/TT/multicore research checkpoint line;
+4. the later 2026-09-09 exact-search cache, scheduling, dependency, decision-state, win-space and structural-quotient experiments;
+5. the rethink-control history;
+6. the residual-automorphism / forced-macro / evaluator-ordering / Allis / strategic interaction / terminalization lineage through the last pre-searchless commit;
+7. positive, negative, superseded and rejected experiment evidence needed to reconstruct why candidates survived or failed.
 
-It intentionally does **not** contain the later maintained CUDA-BSFP implementation or BSFP-only research lineage.
+It intentionally does **not** contain the later maintained CUDA-BSFP implementation or BSFP-only research lineage as a source line.
 
-## Engineering consequence
+## Organization without breaking reproduction
 
-Future minimax work should start from `solver/minimax-alpha-beta` and treat the preserved prototypes as candidate/evidence material, not production authority. The next task is to select and independently qualify a clean production exact 7x6 alpha-beta kernel from the strongest measured mechanisms, with exact correctness first and **time to exact proof** as the governing performance metric. Raw NPS remains a supporting metric: the historical Node fixed-width kernel already demonstrated roughly C-class single-thread arithmetic throughput and strong aggregate multicore throughput, while the unfinished empty-board run showed that proof-node count/search policy remained the larger problem.
+Historical prototype/evidence paths are intentionally not renamed or flattened. Many notes, imports, commands, and evidence records reference those paths directly.
+
+Navigation is instead provided by:
+
+- `MINIMAX_BRANCH.md` — branch-wide scope and topic guide;
+- `reference/research-prototypes/MINIMAX_INDEX.md` — prototype directory map;
+- this file — branch/provenance boundary.
+
+That gives the consolidated corpus a clear structure while keeping old experiments reproducible.
+
+## Current working rule
+
+This branch is presently a **consolidation and preservation branch**, not an implementation-promotion branch. Until explicitly requested otherwise, future work here should preserve and organize the minimax corpus rather than selecting or building a new production solver. When implementation work eventually resumes, old conclusions remain evidence rather than authority and must be requalified against the accepted contracts/oracle.
