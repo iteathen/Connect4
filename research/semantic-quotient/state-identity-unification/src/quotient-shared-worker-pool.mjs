@@ -37,6 +37,15 @@ export async function startDedupOwner(spec, prefixClasses = 4096) {
     published,
     reset: () => oneReply(worker, 'reset-complete', { type: 'reset' }),
     cleanup: () => oneReply(worker, 'cleanup-complete', { type: 'cleanup' }),
+    buildPlan: (splitDepth, probeDepth = 2) => oneReply(worker, 'plan-built', {
+      type: 'build-plan', splitDepth, probeDepth,
+    }),
+    reducePlan: (planId, frontierValues) => oneReply(worker, 'plan-reduced', {
+      type: 'reduce-plan', planId, frontierValues,
+    }),
+    releasePlan: (planId) => oneReply(worker, 'plan-released', {
+      type: 'release-plan', planId,
+    }),
   });
 }
 
@@ -65,10 +74,11 @@ function addMetrics(target, source) {
   }
 }
 
-export async function runRootColumns(workers, columns) {
-  const queue = [...columns];
-  const actions = Array(columns.length).fill(null);
+async function runQueuedTasks(workers, tasks, makeMessage, consumeResult) {
+  const queue = [...tasks];
   const metrics = {};
+  const taskElapsedMs = [];
+  const workerTaskCounts = Array(workers.length).fill(0);
   let taskId = 0;
   let completed = 0;
   const started = performance.now();
@@ -78,22 +88,24 @@ export async function runRootColumns(workers, columns) {
     const cleanupListeners = () => {
       for (const [worker, listener] of listeners) worker.off('message', listener);
     };
-    const dispatch = (worker) => {
-      const column = queue.shift();
-      if (column === undefined) return;
-      worker.postMessage({ type: 'solve-column', taskId: taskId++, column });
+    const dispatch = (worker, workerIndex) => {
+      const task = queue.shift();
+      if (task === undefined) return;
+      workerTaskCounts[workerIndex] += 1;
+      worker.postMessage(makeMessage(task, taskId++));
     };
-    for (const worker of workers) {
+    workers.forEach((worker, workerIndex) => {
       const listener = (message) => {
         if (message?.type !== 'result') return;
-        actions[message.column] = message.value;
+        consumeResult(message);
         addMetrics(metrics, message.metrics);
+        taskElapsedMs.push(message.elapsedMs);
         completed += 1;
-        if (completed === columns.length) {
+        if (completed === tasks.length) {
           cleanupListeners();
           resolve();
         } else {
-          dispatch(worker);
+          dispatch(worker, workerIndex);
         }
       };
       listeners.set(worker, listener);
@@ -102,14 +114,44 @@ export async function runRootColumns(workers, columns) {
         reject(error);
       });
       worker.on('message', listener);
-      dispatch(worker);
+      dispatch(worker, workerIndex);
+    });
+    if (tasks.length === 0) {
+      cleanupListeners();
+      resolve();
     }
   });
 
   return Object.freeze({
     solveMs: performance.now() - started,
+    metrics: Object.freeze(metrics),
+    taskElapsedMs: Object.freeze(taskElapsedMs),
+    workerTaskCounts: Object.freeze(workerTaskCounts),
+  });
+}
+
+export async function runRootColumns(workers, columns) {
+  const actions = Array(columns.length).fill(null);
+  const run = await runQueuedTasks(
+    workers,
+    columns,
+    (column, taskId) => ({ type: 'solve-column', taskId, column }),
+    (message) => { actions[message.column] = message.value; },
+  );
+  return Object.freeze({
+    ...run,
     actions,
     rootWdl: Math.max(...actions.filter((value) => value !== null)),
-    metrics: Object.freeze(metrics),
   });
+}
+
+export async function runLookaheadTasks(workers, tasks) {
+  const frontierValues = [];
+  const run = await runQueuedTasks(
+    workers,
+    tasks,
+    (task, taskId) => ({ type: 'solve-state', taskId, stateId: task.stateId }),
+    (message) => { frontierValues.push([message.stateId, message.value]); },
+  );
+  return Object.freeze({ ...run, frontierValues: Object.freeze(frontierValues) });
 }
