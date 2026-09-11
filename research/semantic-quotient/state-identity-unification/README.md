@@ -180,6 +180,16 @@ It is intentionally **not** Connect Four solver authority and does not change th
 
 The chess note closes conceptual debate at a falsifiable seam: bounded transition-congruence discovery, history-fragmentation measurement, proof-transfer qualification, and eventual time-to-exact-proof comparison. The broader project already has a local 6/7-piece endgame tablebase source available for oracle-assisted work, so no new large oracle must be generated before the empirical phase begins.
 
+## Quotient-native neural representation
+
+The neural follow-up is documented in:
+
+- `QUOTIENT_NATIVE_NEURAL_REPRESENTATION.md`
+
+Its hypothesis is that, if exact quotient state already exposes a canonical future-relevant relational substrate, the NN should consume that substrate directly rather than relearning relations from a raw bitmap. This may reduce the marginal advantage of Chessformer/self-attention and make a smaller residual MLP, relation-tensor residual network, or other simple fixed-shape model more inference-efficient.
+
+This is an experiment, not an architectural assumption. Chessformer remains a control. Neural similarity never defines exact quotient identity, and all NN outputs remain heuristic guidance rather than proof authority. The final promotion metric is solver-level time to exact proof.
+
 ## Non-claims
 
 - no standard 7x6 exhaustive quotient proof;
