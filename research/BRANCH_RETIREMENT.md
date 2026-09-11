@@ -15,7 +15,7 @@ Short-lived restructuring/work branches should disappear after integration once 
 
 ## Verified retirement-safe refs
 
-These heads are now preserved by canonical ancestry or exact duplication. Their live branch names are no longer needed for information preservation.
+These heads are preserved by canonical ancestry, exact duplication, curated migration, or a history-only archive merge. Their live branch names are no longer required for information preservation.
 
 ### Minimax history
 
@@ -28,9 +28,9 @@ These heads are now preserved by canonical ancestry or exact duplication. Their 
 ### Shared semantic / searchless / OQS history
 
 - `research/zdd-transfer-20260910`
-- `research/low-confidence-survival-2026-09-09` — its unique post-minimax history was preserved as a history-only parent of `research/semantic-quotient`; its old minimax working tree was intentionally not imported.
-- `research/direct-line-product-bsfp-20260910` — exact unique solver/qualifier blobs were restored at their historical paths and the old head is now a merge parent of `research/semantic-quotient`.
-- `research/live-q1-5min-20260910` — only unique content was a one-shot workflow; its sole run (`34518477566`) remained queued and produced no durable measurement. The attempt commit is now preserved as semantic-lane history.
+- `research/low-confidence-survival-2026-09-09` — unique post-minimax searchless/BSFP history is preserved as semantic-lane ancestry without importing its obsolete working tree.
+- `research/direct-line-product-bsfp-20260910` — exact unique solver/qualifier blobs were restored at their historical paths and its history is now an ancestor of the semantic lane.
+- `research/live-q1-5min-20260910` — unique content was only a one-shot workflow; its sole run stayed queued and produced no durable measurement, while the commit is preserved as semantic-lane ancestry.
 - `research/identified-winline-quotient-test`
 - `research/identified-winline-quotient-test-2`
 - `research/identified-winline-quotient-test-3`
@@ -49,9 +49,9 @@ The `-2/-3/-4` identified-winline refs share one exact SHA. The cone/product/dom
 - `research/winline-product-antichain-final` — exact old CUDA-BSFP head.
 - `noop` — exact pre-restructure `main` head.
 
-## Still requires unique-content audit
+### Legacy product/bootstrap/docs histories
 
-Do not delete these merely because they are old. Their heads are SHA-frozen but their divergent history still needs explicit disposition:
+The following divergent heads are preserved as **additional parents** of history-only archive commit `eeb054873dfb1f0dc69b22ace3d1d5d82539b070` on the retirement-ledger branch. That commit retains the cleaned current tree exactly; no obsolete parent tree is restored.
 
 - `feature/incumbent-node-search`
 - `feature/shared-evaluator-v1`
@@ -62,17 +62,19 @@ Do not delete these merely because they are old. Their heads are SHA-frozen but 
 - `docs/global-agent-local-migration`
 - `tmp-do-not-use-c4diag`
 
-## Evidence refs
+After this restructure branch is integrated to `main`, those live branch names are retirement-safe from a provenance perspective. Their old working trees remain historical, not current product state.
 
-The `evidence/cuda-bsfp-q1/*` refs are append-only evidence snapshots. Do not retire them until payload hashes, evidence PRs and any external references are verified. They are not active development lanes, but evidence preservation has a higher bar than ordinary branch cleanup.
+## Evidence refs still blocked from retirement
+
+The `evidence/cuda-bsfp-q1/*` refs are append-only evidence snapshots. Do **not** retire them until payload hashes, evidence PRs and any external references are verified. They are not active development lanes, but evidence preservation has a higher bar than ordinary branch cleanup.
 
 ## Physical cleanup rule
 
 A live ref may be removed only when:
 
 1. its exact head SHA is frozen in the migration census;
-2. `RETIREMENT_PROOFS.json` or an equivalent audit proves canonical ancestry/duplication, or all unique durable content is migrated;
+2. `RETIREMENT_PROOFS.json` or an equivalent audit proves canonical ancestry/duplication, curated artifact preservation, or history-only archive ancestry;
 3. no open PR/workflow/external process still depends on the branch name;
 4. post-delete branch inventory is verified.
 
-The current connector cannot delete branches or create tags. Therefore the repository has been logically restructured and refs classified, but physical stale-ref deletion is not claimed.
+The current connector cannot delete branches or create tags. Therefore the repository has been logically restructured and almost all non-evidence stale refs are retirement-safe, but physical stale-ref deletion is not claimed.
