@@ -1,6 +1,6 @@
-schema_version: 1
+schema_version: 2
 updated: 2026-09-10
-state: semantic_quotient_mq1_ready
+state: semantic_quotient_mq1_ready_with_oqs_residual_pair_factorization
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -12,10 +12,12 @@ mission:
 source_lanes:
   minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
-  oqs_history: research/zdd-transfer-20260910
+  superseded_oqs_branch: research/zdd-transfer-20260910
+  latest_handoff_head: e04cee12bc24cda63fcf889eb4ca2137837f86bf
 
 current:
-  action: execute_mq1_strong_score_qualification_of_identified_line_quotient
+  primary_action: execute_mq1_strong_score_qualification_of_identified_line_quotient
+  parallel_shared_seam: characterize_exact_residual_pair_factorization_as_reusable_semantic_kernel
   owner: Connect4
   mode: research
 
@@ -41,12 +43,39 @@ mq_program:
       - equal_TT_byte_budget
       - exact_score_and_action_parity
 
+oqs_factorization_evidence:
+  bounded_7x6_prefix:
+    states_after_six_cuts: 8192
+    distinct_exact_residual_pairs: 48
+    logical_frontier_records: 1732992
+    distinct_residual_pair_records: 10597
+    cut5_state_input_outputs: 8192
+    cut5_distinct_residual_input_cofactors: 128
+    baseline_cpu_cofactor_evaluations: 11056
+    reuse_cpu_cofactor_evaluations: 624
+    observed_cpu_elapsed_ratio: 6.86
+  controls:
+    - all_625_4x4_supports_preserve_exact_layer_state_sets
+    - bounded_7x6_prefix_preserves_exact_digest
+  non_claims:
+    - no_final_7x6_quotient_size_bound
+    - no_full_7x6_oqs_build
+    - no_cuda_speedup_claim_from_cpu_ratio
+
+research_actions:
+  - determine_whether_residual_pair_identity_is_a_general_behavioral_kernel_or_only_line_cut_local_identity
+  - measure_pair_id_reuse_across_supports_cuts_and_consumers_before_global_interning_claims
+  - keep_crossing_state_identity_separate_from_residual_function_identity
+  - use_dense_exact_pair_ids_when_behavioral_equivalence_is_already_proved_instead_of_wider_human_readable_accumulators
+  - feed_mq2_mq4_with_any_exact_reusable_class_structure_discovered_here
+
 transferable_bsfp_results:
   - hidden_history_census_methodology
   - transition_stable_residual_class_concept
   - pointer_free_flat_transition_artifacts
   - incremental_quotient_synthesis
   - identified_line_semantic_coordinates
+  - exact_residual_pair_factorization
 
 not_transferable_by_default:
   - bsfp_backward_fixed_point_control_flow
@@ -54,9 +83,11 @@ not_transferable_by_default:
   - symbolic_C1_history_required_only_for_unreachable_ownership_domain
   - generic_runtime_BDD_ZDD_graphs
   - concrete_enumeration_of_all_line_hit_states
+  - cuda_specific_layouts_profiles_or_qualifier_policy
 
 next_actions:
   - implement_and_qualify_MQ1_on_complete_small_controls
+  - characterize_residual_pair_reuse_scope_without_importing_cuda_specific_implementation
   - if_MQ1_passes_compute_MQ2_behavioral_partition
   - record_description_length_state_transition_compile_and_proof_costs_separately
   - promote_only_solver_specific_survivors_back_to_owning_solver_branches
