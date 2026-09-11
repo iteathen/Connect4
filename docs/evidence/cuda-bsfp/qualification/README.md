@@ -20,7 +20,7 @@ The repository restructure moved branch-isolated qualification directories into 
 | `20260910T100734116Z-e8de3c61` | #20 | qualified | `c4-0009-c1-compact-ownership-42` | `fc7c8cc233b3cf1670ef75fde69750c91dd6492b` |
 | `20260911T032754503Z-b0df94a3` | #21 | qualified | `c4-0009-o1-oqs-cofactor-42` | `6e30e3829ddede96c7a9dce3fdad71df467e4ebe` |
 | `20260911T043015870Z-2d8e0785` | #28 | qualified | `c4-0009-o2-oqs-7x6-seed-slice` | `5c298c7e1dfdf1cfd93116884585144e33fb9dd7` |
-| `20260911T050640911Z-b3554293` | — | qualified | `c4-0009-o3-oqs-residual-reuse` | `5dfe1312a357c48eee53168e82fd6eba27814a06` |
+| `20260911T050640911Z-b3554293` | #30 | qualified | `c4-0009-o3-oqs-residual-reuse` | `5dfe1312a357c48eee53168e82fd6eba27814a06` |
 
 O2 qualified a native 7x6 selected seed slice. O3 qualified exact residual-pair reuse and crossing-occurrence mapping on 4x4 and a bounded selected 7x6 reuse cut. Neither is a complete 7x6 quotient, solver closure, or root W/D/L claim.
 
