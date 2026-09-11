@@ -333,6 +333,15 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
     return result;
   };
   pool.termIds = (id) => flatIds.slice(starts[id], starts[id] + lengths[id]);
+  pool.researchStorageView = function researchStorageView() {
+    return Object.freeze({
+      classCount,
+      termCount,
+      starts,
+      lengths,
+      flatIds,
+    });
+  };
 
   pool.ownTransition = function ownTransitionPrefix(id, cell) {
     const cached = cacheGet(ownTransitions, id, cell, 'own');
