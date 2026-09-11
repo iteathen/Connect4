@@ -7,12 +7,12 @@ The repository now has multiple active solver/research lanes. This root file no 
 
 ## Canonical durable lanes
 
-| Lane | Canonical branch | Purpose | Current branch head at restructure |
+| Lane | Canonical branch | Purpose | Current branch head at routing cutover |
 | --- | --- | --- | --- |
 | Product baseline | `main` | accepted domain/spec/oracle/product baseline | `de47d43f4f4133a68973d0876a402531ef5735da` |
-| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | `c0ff7531151e5538dd1389fe994651b1787047d6` |
-| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | `b23097a7d18b0b1996b00ce69ee9f1582ab808a4` |
-| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | `fc33b0f65c2b04c2e674e36c34fb2827f01029ae` |
+| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | `66fe2fc8dd15f954a37f328950f352d06bbe8f89` |
+| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | `0d8b4d5633e0485ac1bb96ed4f77509bc1217d80` |
+| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | `16a4ca51ed39a93451414bfa9dc4b5aee8091837` |
 
 Read each lane's own `STATUS.md` and `next_step.yaml` before executing work there.
 
@@ -42,6 +42,7 @@ Completed in this migration:
 
 - created canonical `solver/cuda-bsfp`;
 - made minimax, CUDA-BSFP and semantic-quotient branches own their own status/next-step records;
+- created first-class `research/<lane>/` namespaces on all three canonical non-main lanes;
 - created solver-neutral `research/semantic-quotient`;
 - froze the current branch topology and exact SHAs in `research/MIGRATION_MANIFEST.json`;
 - established `research/` and `docs/decisions/` as the future organizational surfaces;
