@@ -1,0 +1,28 @@
+name: Minimax IMPL exact-distance monotonicity
+
+on:
+  push:
+    branches:
+      - work/minimax-candidate-composition-20260911
+    paths:
+      - 'research/minimax/semantic-residual-mq5/impl_exact_distance_monotone_small.mjs'
+      - '.github/workflows/minimax-impl-exact-distance-monotone.yml'
+  workflow_dispatch:
+
+jobs:
+  exact-distance-monotonicity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run complete bounded exact-distance dominance controls
+        run: node --max-old-space-size=4096 research/minimax/semantic-residual-mq5/impl_exact_distance_monotone_small.mjs | tee /tmp/impl-exact-distance-monotone.json
+      - name: Preserve exact-distance monotonicity evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-impl-exact-distance-monotone
+          path: /tmp/impl-exact-distance-monotone.json
+          if-no-files-found: error
