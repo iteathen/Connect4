@@ -1,11 +1,11 @@
-schema_version: 8
+schema_version: 9
 updated: 2026-09-11
-state: semantic_quotient_mq1_to_mq4_passed_mq5_transferred_siu1_relational_dual_direction_passed
+state: semantic_quotient_siu1_passed_search_method_campaign_v1_complete
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
 mission:
-  objective: smallest_exact_efficiently_updatable_description_of_remaining_connect4_game
+  objective: smallest_exact_efficiently_updatable_description_and_best_combined_exact_reasoning_architecture_for_connect4
   acceptance: action_labeled_future_behavior_equivalence_for_consumer_scope
   kolmogorov_role: motivation_only_not_computable_authority
 
@@ -15,49 +15,10 @@ source_lanes:
   hybrid_confluence: solver/hybrid-confluence
 
 qualified_chain:
-  mq1:
+  mq1_to_mq4:
     status: pass
-    state: support_H0_H1
-    exact_state_score_mismatches: 0
-    exact_action_score_mismatches: 0
-    workflow_run: 34569663402
-    workflow_job: 103168883561
-  mq2:
-    status: pass
-    equivalence: coarsest_exact_action_labeled_future_behavior
-    physical_states: 1681808
-    line_classes: 420704
-    behavior_classes: 269347
-    control_4x5_behavior_classes: 229232
-    workflow_run: 34570098421
-    workflow_job: 103170191176
-  mq3:
-    status: pass
-    state: support_plus_minimal_residual_antichain_pair
-    support_residual_mismatches: 0
-    residual_only_sufficient: false
-    control_4x5_residual_states: 294593
-    control_4x5_behavior_classes: 229232
-    control_4x5_residual_to_behavior_ratio: 1.285130348293432
-    workflow_run: 34570367110
-    workflow_job: 103170983996
-  mq4:
-    status: pass
-    transition: support_plus_residual_pair_plus_column_to_terminal_or_next_residual_state
-    colored_board_required_recursively: false
-    identified_line_history_required_recursively: false
-    reachable_set_mismatches: 0
-    state_score_mismatches: 0
-    action_score_mismatches: 0
-    flat_replay_mismatches: 0
-    control_4x5:
-      residual_states: 294593
-      nonterminal_transitions: 890358
-      terminal_edges: 76058
-      peak_frontier: 60650
-      naive_flat_transition_bytes: 4713488
-    workflow_run: 34570662573
-    workflow_job: 103171852729
+    physical_states_checked: 1681808
+    exact_state_and_action_mismatches: 0
   siu1:
     status: pass
     state: supportIndex_sideToMove_p0Residual_p1Residual
@@ -67,64 +28,112 @@ qualified_chain:
     reverse_closure_mismatches: 0
     forward_transition_functional: true
     state_level_inverse_functional: false
-    control_4x5:
-      physical_states: 1385521
-      relational_states: 294593
-      compression_ratio: 4.703170136425509
-      maximum_physical_states_per_relational_state: 37080
-      ambiguous_child_column_pairs: 127374
-      maximum_parents_per_child_column: 21
-      reverse_csr_bytes: 4435576
-      forward_dense_bytes: 4713488
-      bsfp_boundary_records: 40707
     workflow_run: 34632643724
     workflow_job: 103372941221
+  search_campaign_v1:
+    status: complete
+    workflow_run: 34636074995
+    workflow_job: 103384159647
+    source_commit: e243a4a9f320d1d3b631a9baacea4d45af597cdf
+    search_state: precompiled_exact_relational_DAG
+    positional_board_in_search: false
+    strong_score_finalists:
+      - relational_negamax_alpha_beta_control
+      - PVS_NegaScout
+      - MTD_f
+    research_retained:
+      - PN_DAG
+      - Proof_Set_Search
+    not_yet_admitted:
+      - ordinary_df_pn_without_DAG_safe_contract
+    control_4x5_no_bsfp_composed:
+      alpha_beta_expanded: 16489
+      pvs_expanded: 15110
+      mtdf_expanded: 15103
+      pn_dag_expanded: 61275
+    control_4x5_ideal_bsfp_rank10_composed:
+      alpha_beta_expanded: 1388
+      pvs_expanded: 1305
+      mtdf_expanded: 1315
+      pn_dag_expanded: 6079
+      bsfp_build_query_cost_included: false
+    control_4x5_ideal_bsfp_rank14_composed:
+      alpha_beta_expanded: 9264
+      pvs_expanded: 8562
+      mtdf_expanded: 8573
+      pn_dag_expanded: 36177
+      bsfp_build_query_cost_included: false
 
-current:
-  primary_action: SIU2_direct_relational_alpha_beta_and_symbolic_preimage_design
-  packet: research/semantic-quotient/state-identity-unification
-  mq5_owner: solver/minimax-alpha-beta
-  owner: Connect4
-  mode: research
-
-state_identity_unification:
-  owner_packet: research/semantic-quotient/state-identity-unification
-  goal: one_exact_relational_game_algebra_with_solver_specific_execution_forms
-  common_state:
+common_contract:
+  state:
     - supportIndex
     - sideToMove
     - normalized_p0_residual_requirements
     - normalized_p1_residual_requirements
-  common_algebra:
-    forward: deterministic_T_q_action
-    backward: set_valued_inverse_image_Pre_action_Q
-    hybrid: exact_proof_classification_over_q
-  promotion_requires:
-    - exactness_for_target_consumer_contract
-    - notable_net_wall_clock_or_work_reduction_for_hot_path_changes
-    - no_material_solver_native_hot_path_regression
-    - deliberate_owner_selection_before_solver_promotion
-  stages:
-    - SIU-1-relational-dual-direction-exactness-PASS
-    - SIU-2-direct-relational-alpha-beta
-    - SIU-3-useful-semantic-tt-economics
-    - SIU-4-packed-incremental-relational-transition
-    - SIU-5-symbolic-relational-preimage
-    - SIU-6-cross-solver-proof-contract
+  forward: deterministic_T_q_action
+  backward: set_valued_Pre_action_Q
+  hybrid: exact_classification_and_sound_proof_facts_keyed_by_q
+  exact_bsfp_fact_dominates_heuristic: true
+  shared_physical_layout_required: false
+  shared_control_flow_required: false
 
-shared_next_actions:
-  - build_SIU2_direct_relational_alpha_beta_without_recursive_colored_board_state
-  - decompose_SIU2_transition_key_TT_and_ordering_costs
-  - design_SIU5_symbolic_preimage_without_restoring_history_or_materializing_all_reverse_edges
-  - preserve_current_BSFP_frontier_compression_as_a_hard_comparison_point
-  - characterize_7x6_reachable_relational_scale_before_any_production_promotion
-  - identify_evaluator_and_NN_features_not_entailed_by_exact_relational_identity
-  - preserve_MQ1_to_MQ4_and_SIU1_as_solver_neutral_authority
+current:
+  primary_action: build_shared_packed_relational_negamax_kernel_and_run_composition_campaign_v2
+  packet: research/semantic-quotient/state-identity-unification
+  owner: Connect4
+  mode: research
+
+campaign_v2:
+  drivers:
+    - alpha_beta_control
+    - PVS_NegaScout
+    - MTD_f
+  common_kernel_requirements:
+    - packed_fixed_width_relational_state_or_exact_dense_handle
+    - on_the_fly_incremental_T_q_action
+    - exact_typed_TT_with_equal_byte_controls
+    - no_colored_board_search_identity
+    - BSFP_exact_fact_query_by_q
+  staged_composition:
+    - native_relational_tactical_closure
+    - reflection_and_residual_automorphism
+    - earliest_win_and_support_bounds
+    - compiled_local_proof_masks_where_exact
+    - proof_cost_and_cutoff_action_ordering
+    - coarse_parallelism_only_after_serial_stability
+  hybrid_economics:
+    - replace_ideal_rank_wall_with_actual_BSFP_produced_boundary
+    - include_BSFP_build_cost
+    - include_publication_and_query_cost
+    - measure_forward_work_eliminated_per_BSFP_cost
+    - sweep_boundary_rank_or_structural_cut
+
+parallel_research:
+  symbolic_preimage:
+    goal: compute_Pre_action_Q_without_materializing_complete_reverse_edges
+    hard_constraint: preserve_or_improve_existing_BSFP_frontier_compression
+  pn_pss:
+    status: retain_research_only
+    next_if_revisited:
+      - decisive_subproblem_or_ordering_role
+      - compact_or_truncated_proof_set_experiment_with_explicit_soundness_boundary
+      - DAG_safe_df_pn_or_PDS_contract_before_implementation
+
+promotion_gates:
+  - exact_distance_sensitive_strong_value_where_claimed
+  - exact_per_action_values_for_strong_score_drivers
+  - exact_WDL_for_proof_drivers
+  - notable_total_wall_clock_or_work_gain
+  - equal_total_memory_accounting
+  - no_false_exact_TT_or_BSFP_hits
+  - no_regression_of_solver_native_hot_path_for_architectural_aesthetics
+  - actual_BSFP_cost_required_before_hybrid_performance_claim
+  - standard_7x6_or_independently_justified_scale_evidence_before_production_promotion
 
 non_claims:
   - no_standard_7x6_exhaustive_semantic_quotient_proof
-  - no_empty_board_minimax_completion_from_relational_state_yet
-  - no_production_speedup_claim
-  - no_reason_to_merge_minimax_BSFP_or_hybrid_control_flow
+  - no_production_forward_driver_selected
+  - no_end_to_end_hybrid_speedup_claim_from_ideal_BSFP_walls
   - no_reason_to_force_shared_mutable_physical_state
-  - no_requirement_for_state_level_inverse_transition
+  - no_reason_to_merge_forward_search_and_BSFP_control_flow
+  - no_reason_to_promote_PN_DAG_or_PSS_to_hot_path_from_campaign_v1
