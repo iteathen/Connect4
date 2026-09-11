@@ -1,6 +1,6 @@
-schema_version: 13
+schema_version: 14
 updated: 2026-09-11
-state: quotient_native_bounded_wall_clock_speedup_qualified
+state: quotient_native_bounded_parallelism_and_standard_7x6_rank8_scaling_qualified
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -12,7 +12,8 @@ source_lanes:
   preserved_minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
   hybrid_confluence: solver/hybrid-confluence
-  future_forward_solver: quotient_native_negamax_after_standard_7x6_scale_and_memory_gate
+  quotient_research: research/semantic-quotient
+  future_forward_solver: quotient_native_negamax_after_online_standard_7x6_gate
 
 qualified_chain:
   mq1_to_mq4:
@@ -21,167 +22,214 @@ qualified_chain:
     exact_state_and_action_mismatches: 0
   siu1:
     status: pass
-    workflow_run: 34632643724
-    workflow_job: 103372941221
     physical_states_checked: 1681808
     exactness_mismatches: 0
     bsfp_wdl_mismatches: 0
     reverse_closure_mismatches: 0
-  quotient_native_kernel:
-    status: exact_complete_controls
-    machine_state: qID_supportIndex_p0ResidualClassId_p1ResidualClassId
-    side_to_move: derived_from_support_rank_parity
-    recursive_colored_board: false
-    precompiled_game_dag: false
     exact_reachable_q_counts:
       4x3_c3: 3735
       4x4_c4: 34095
       5x3_c4: 11317
       4x5_c4: 294593
-    qualification_run: 34646025717
-    qualification_job: 103416896894
-  flat_specialized_transition_kernel:
-    status: pass_complete_graph_identity
-    implementation: flat_two_u32_residual_slabs_specialized_one_cell_algebra
-    workflow_run: 34648796525
-    workflow_job: 103425854486
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_FAST_KERNEL_RESULT.md
-    control_4x5:
-      generic_ms: 20.06286
-      specialized_ms: 13.26911
-      specialized_over_generic: 0.6613767927404146
-  equal_byte_physical_control_v4:
+  quotient_native_identity:
+    machine_state: supportIndex_plus_p0ResidualClass_plus_p1ResidualClass
+    side_to_move: derived_from_support_rank_parity
+    recursive_colored_board: false
+    exact_transition: direct_q_algebra
+  term_id_substrate:
+    status: qualified
+    standard_7x6_term_vocabulary: 625
+    term_id_bits_required: 10
+    representation: compact_term_ID_residual_antichains
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_TERM_ID_KERNEL_RESULT.md
+  packed_support:
+    status: qualified_scaling_candidate
+    standard_7x6_table_support_bytes_approx: 32100000
+    standard_7x6_packed_support_bytes_approx: 3290000
+    bounded_solver_effect: performance_neutral_to_positive
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_PACKED_SUPPORT_LAYOUT_RESULT.md
+  slot64_residual:
+    status: qualified_memory_scaling_architecture
+    layout: 10_slot_64bit_ontology_chunks_with_slot_local_dictionaries
+    standard_7x6_rank8:
+      q_states: 797388
+      residual_classes: 1357101
+      rank9_frontier: 538774
+      typed_bytes_after_sparse_direct_block: 118099719
+      residual_bytes: 86493624
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_RESIDUAL_RESULT.md
+  direct_block_transition:
+    status: promoted_slot64_v2
+    paired_standard_7x6_effect:
+      campaign_speedup_percent_approx: 1.54
+      rank8_speedup_percent_approx: 1.72
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_DIRECT_BLOCK_RESULT.md
+  direct_lazy_mover:
+    status: rejected_at_standard_7x6_scale
+    bounded_4x5_speedup_percent_approx: 8.27
+    standard_7x6_rank8_regression_percent_approx: 21.4
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_DIRECT_OWN_RESULT.md
+  fair_physical_control_v5:
     status: bounded_wall_clock_speedup_pass
-    workflow_run: 34648899005
-    workflow_job: 103426178175
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_V4_RESULT.md
-    physical_control:
-      identity: supportIndex_plus_exact_P0_ownership_P1_derived
-      TT: bounded_4_way_exact_key_safe_replacement
-      value: exact_WDL_fail_soft_full_window
-      tactical_closure: same_as_quotient
-    controls:
-      4x4_c4:
-        quotient_ms: 3.182388
-        physical_ms: 4.269585
-        time_ratio_q_over_p: 0.7453623712843281
-      5x3_c4:
-        quotient_ms: 0.708385
-        physical_ms: 2.086072
-        time_ratio_q_over_p: 0.3395784038134656
-      4x5_c4:
-        typed_memory_budget: 1845248
-        quotient_ms: 12.651015
-        physical_ms: 17.715305
-        quotient_expanded: 15054
-        physical_expanded: 36826
-        time_ratio_q_over_p: 0.7141291103935244
-        expansion_ratio_q_over_p: 0.40878726986368324
-  exhaustion_bounds:
-    status: exact_conditional_not_4x5_default
-    combined_run: 34649100614
-    combined_job: 103426816347
-    split_run: 34649184442
-    split_job: 103427078530
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_EXHAUSTION_BOUNDS_RESULT.md
-    exact_rules:
-      opponent_residual_empty: lower_bound_zero
-      own_residual_empty: upper_bound_zero
     control_4x5:
-      baseline_ms: 11.969934
-      best_composed_ms: 11.923855
-      conclusion: effectively_neutral_do_not_default
+      quotient_ms: 10.183
+      physical_ms: 13.400
+      quotient_expanded: 15054
+      physical_expanded: 36826
+      quotient_time_advantage_percent_approx: 24.0
+      expansion_reduction_percent_approx: 59.1
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_V5_RESULT.md
+  shared_tt_workers:
+    status: qualified_positive_bounded_control
+    workflow_run: 34658872365
+    workflow_job: 103457015792
+    complete_4x5_graph:
+      q_states: 294593
+      residual_classes: 69707
+    sequential_root_split_ms: 6.7476
+    two_worker_ms: 3.2893
+    sequential_expanded: 31174
+    two_worker_expanded: 25532
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SHARED_TT_WORKER_RESULT.md
+  lookahead_work_dag:
+    status: qualified_bounded_scheduler_architecture
+    workflow_run: 34659160200
+    workflow_job: 103457869443
+    tested_depths: [2, 3, 4, 5]
+    bounded_4x5_best:
+      workers: 3
+      depth: 2
+      total_ms: 4.07045
+    note: depth_2_is_not_promoted_as_standard_7x6_constant
+    expected_standard_7x6_candidates: [3, 4]
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_LOOKAHEAD_WORKER_RESULT.md
 
-current_native_baseline:
-  - qID_hot_state
-  - support_rank_derived_side_to_move
-  - exact_residual_class_ids
-  - dense_residual_class_transition_cache_for_speed
-  - flat_specialized_two_u32_residual_transition_algebra
-  - exact_noop_class_return_when_landing_cell_absent
+worker_ownership:
+  search_workers:
+    owns:
+      - synchronous_recursive_negamax
+      - shared_exact_proof_reads_and_sound_writes
+    does_not_own:
+      - canonical_dedup_policy
+      - cleanup_or_reclamation
+      - work_dag_lifecycle
+      - hardware_role_selection
+  dedup_cleanup_worker:
+    owns:
+      - canonical_task_and_state_deduplication
+      - lookahead_work_dag
+      - descriptor_lifecycle
+      - shared_proof_arena_lifecycle
+      - proof_of_impossibility_cleanup_and_reuse
+    rule: no_per_node_dedup_RPC_from_recursive_search
+  coordinator:
+    owns:
+      - session_bootstrap
+      - coarse_task_dispatch
+      - result_publication
+    does_not_own: semantic_dedup_authority
+
+worker_initialization:
+  status: architecture_defined_calibrator_implemented
+  sequence:
+    - enumerate_CPUs_allowed_to_process
+    - pinned_repeated_CPU_microbench_where_supported
+    - confidence_gate_candidate_performance_efficiency_clusters
+    - concurrent_saturation_with_one_maintenance_worker_present
+    - choose_maxSearchWorkers
+    - start_dedup_cleanup_owner
+    - allocate_shared_proof_TT
+    - exact_shallow_depth_calibration_over_2_3_4_5
+    - keep_persistent_workers_for_real_solve
+  topology_rule:
+    accepted_only_if:
+      - material_median_throughput_gap
+      - stable_repeated_per_CPU_samples
+      - robust_cross_cluster_sample_separation
+    otherwise: do_not_claim_PE_topology_use_saturation_authority
+  node_worker_affinity:
+    status: missing_native_provider
+    standard_worker_threads_affinity: unavailable
+    measured_CPU_IDs_are_advisory_until_native_binding_exists
+  files:
+    - research/semantic-quotient/state-identity-unification/src/quotient-cpu-probe-worker.mjs
+    - research/semantic-quotient/state-identity-unification/src/quotient-cpu-role-calibration.mjs
+    - research/semantic-quotient/state-identity-unification/src/quotient-cpu-role-calibration.test.mjs
+  design_note: research/semantic-quotient/state-identity-unification/QUOTIENT_WORKER_INITIALIZATION_PROFILE.md
+
+current_native_components:
+  - quotient_hot_state_not_colored_board
+  - packed_support_descriptor
+  - exact_625_term_ontology
+  - slot64_v2_residual_memory_architecture
+  - direct_block_transition
   - quotient_native_tactical_closure
-  - WDL_native_fail_soft_full_window_negamax
-  - exact_qID_lower_upper_best_move
-  - no_full_state_edge_cache
-  - no_speculative_ETC
-  - no_one_sided_exhaustion_default_on_4x5
+  - WDL_fail_soft_full_window_negamax
+  - shared_exact_proof_TT_for_parallel_search
+  - dedicated_dedup_cleanup_owner
+  - shallow_deduplicated_lookahead_work_DAG
+  - persistent_search_workers
+  - initialization_calibrated_worker_count_and_split_depth
 
 current:
-  primary_action: compile_and_qualify_residual_term_ID_substrate
+  primary_action: build_online_standard_7x6_parallel_quotient_task_runtime
   packet: research/semantic-quotient/state-identity-unification
   owner: Connect4
   mode: research
+  target:
+    - remove_complete_prebuilt_graph_requirement
+    - preserve_shared_TT_and_dedup_cleanup_ownership
+    - preserve_shallow_lookahead_work_DAG
+    - keep_recursive_search_free_of_dedup_RPC
+    - use_packed_quotient_identity_for_online_shared_TT_lookup
+    - qualify_against_existing_standard_7x6_growth_checkpoints_before_root_solve
 
-term_id_campaign:
-  premise: every_live_residual_requirement_is_a_nonempty_subset_of_a_winning_line
-  discover_do_not_hardcode:
-    - exact_unique_term_count_for_each_control
-    - exact_unique_term_count_for_standard_7x6
-    - max_term_ID_width_required
-  candidate_layout:
-    - compact_term_ID_per_residual_term
-    - precomputed_term_cardinality
-    - precomputed_term_cell_membership
-    - precomputed_reduce_term_by_cell_or_terminal
-    - precomputed_subset_or_dominance_relation
-    - residual_classes_as_sorted_compact_term_ID_sequences
-  qualification:
-    - exact_mask_roundtrip_for_every_term_ID
-    - exact_transition_equivalence_against_flat_two_u32_kernel
-    - exact_complete_q_graph_identity_on_bounded_controls
-    - independent_BSFP_root_and_action_WDL
-  metrics:
-    - full_term_vocabulary_bytes
-    - residual_class_bytes
-    - transition_table_bytes
-    - class_hash_and_equality_cost
-    - T_q_action_wall_clock
-    - full_solver_wall_clock
-    - fair_physical_control_recomparison
-  hard_constraints:
-    - no_remembered_625_constant_as_authority
-    - preserve_exact_q_identity
-    - preserve_complete_control_edge_equivalence
-    - no_BigInt_string_object_hot_state_regression
-    - count_JS_heap_or_move_metadata_into_typed_slabs_before_memory_promotion
-
-conditional_exact_mechanisms:
-  one_sided_exhaustion:
-    nonloss: opponent_residual_empty_implies_LB_0
-    nonwin: own_residual_empty_implies_UB_0
-    disposition: retain_but_not_current_4x5_default
+online_parallel_runtime_constraints:
+  - no_worker_local_primary_TT
+  - no_root_branch_blind_split_as_default
+  - no_per_node_message_passing_to_dedup_worker
+  - no_dynamic_TT_growth_during_search
+  - cleanup_recycles_fixed_shared_arena_only_when_exactly_safe
+  - canonical_state_owns_location_not_search_path
+  - duplicate_work_may_cause_recomputation_but_never_false_exact_hit
+  - search_waits_on_coarse_task_dependencies_not_cleanup_policy
+  - worker_count_not_equal_raw_logical_CPU_count_by_assumption
 
 closed_until_cost_model_changes:
+  - private_worker_local_primary_TTs
+  - blind_root_branch_parallelism
   - PVS_default
   - MTD_f_default
   - WDL_threshold_default
-  - forcing_ETC
+  - forcing_speculative_ETC
   - full_state_edge_cache
-  - best_child_witness_default
   - generic_history_killer
-  - child_bound_sorting_without_cutoff
+  - branchy_lazy_mover_transition
+  - fixed_lookahead_depth_as_universal_constant
 
-later_after_term_id:
-  - Connect4_specific_quotient_proof_cost_ordering
+later_after_online_parallel_runtime:
+  - native_thread_affinity_provider_for_measured_PE_roles
+  - exact_cleanup_chunk_geometry_and_safe_reuse_protocol
+  - standard_7x6_empty_root_WDL_wall_clock
   - reflection_and_residual_automorphism
-  - compiled_local_proof_masks
-  - complete_memory_accounting
-  - standard_7x6_reachable_scale_and_transition_economics
+  - quotient_native_proof_cost_or_NN_ordering
   - actual_BSFP_boundary_build_publication_query_cost
-  - coarse_parallelism
+  - hybrid_confluence_wall_clock_comparison
 
 promotion_gates:
   - exact_WDL_root_and_action_semantics
   - complete_bounded_graph_equivalence_for_representation_changes
+  - standard_7x6_rank_growth_checkpoint_identity_for_online_runtime
+  - shared_TT_races_cannot_manufacture_false_bounds
   - comparable_full_memory_accounting
-  - standard_7x6_or_independently_justified_scale_evidence_before_production_promotion
+  - worker_and_depth_policy_selected_by_measurement_not_constants
   - no_false_exact_TT_or_BSFP_hits
+  - actual_standard_7x6_solve_required_before_production_performance_claim
   - actual_BSFP_cost_required_before_hybrid_performance_claim
 
 non_claims:
-  - no_standard_7x6_production_performance_yet
-  - no_complete_equal_total_JS_heap_memory_claim_yet
-  - no_global_dense_transition_cache_optimality_claim_at_7x6
-  - no_default_ETC_claim_on_native_quotient_kernel
-  - no_default_one_sided_exhaustion_claim_on_4x5
+  - no_standard_7x6_empty_root_solve_performance_yet
+  - no_production_native_PE_affinity_yet
+  - no_fixed_depth_2_or_3_or_4_claim_for_standard_7x6
+  - no_online_7x6_shared_TT_dedup_runtime_qualification_yet
   - no_end_to_end_hybrid_speedup_claim
