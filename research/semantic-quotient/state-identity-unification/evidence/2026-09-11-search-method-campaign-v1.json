@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "campaign": "relational-search-method-evidence-v1",
+  "date": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "source_commit": "e243a4a9f320d1d3b631a9baacea4d45af597cdf",
+  "workflow_run": 34636074995,
+  "workflow_job": 103384159647,
+  "node": "26.7.0",
+  "runner": "ubuntu-24.04",
+  "status": "pass",
+  "common_state": "supportIndex + sideToMove + normalized P0/P1 residual requirements",
+  "positional_board_in_search": false,
+  "campaign_model": {
+    "search_input": "precompiled exact relational DAG",
+    "strong_score_methods": ["negamax-alpha-beta", "PVS-NegaScout", "MTD-f"],
+    "wdl_proof_methods": ["PN-DAG", "Proof-Set Search"],
+    "common_features": ["exact relational transpositions", "center-first order"],
+    "composed_features": ["relational immediate-win closure", "forced single response", "double-threat loss closure"],
+    "bsfp_boundary": "ideal exact q classifier at rank >= cut; BSFP construction cost excluded",
+    "cut_fractions": [0.5, 0.7],
+    "pss_policy": "exact untruncated proof sets; deferred when relational state count exceeds 50000"
+  },
+  "cases": [
+    {
+      "geometry": "4x3:c3",
+      "relational_states": 3735,
+      "graph_build_ms": 104.251586,
+      "root_strong": 2,
+      "root_wdl": 1,
+      "no_bsfp_composed": {
+        "alpha_beta": {"expanded": 213, "elapsed_ms_median": 0.247804},
+        "pvs": {"expanded": 227, "elapsed_ms_median": 0.201344},
+        "mtdf": {"expanded": 195, "elapsed_ms_median": 0.144668},
+        "pn_dag": {"expanded": 24, "elapsed_ms": 1.166369},
+        "pss": {"expanded": 56, "elapsed_ms": 1.667866, "max_set_size": 18, "set_elements_produced": 4240}
+      },
+      "ideal_bsfp_composed": {
+        "rank_6": {"alpha_beta": 82, "pvs": 87, "mtdf": 80, "pn_dag": 18, "pss": 36},
+        "rank_9": {"alpha_beta": 170, "pvs": 182, "mtdf": 162, "pn_dag": 23, "pss": 56}
+      }
+    },
+    {
+      "geometry": "4x4:c4",
+      "relational_states": 34095,
+      "graph_build_ms": 646.591829,
+      "root_strong": 0,
+      "root_wdl": 0,
+      "no_bsfp_composed": {
+        "alpha_beta": {"expanded": 4479, "elapsed_ms_median": 2.083363},
+        "pvs": {"expanded": 4292, "elapsed_ms_median": 1.422837},
+        "mtdf": {"expanded": 4278, "elapsed_ms_median": 1.006739},
+        "pn_dag": {"expanded": 11094, "elapsed_ms": 54.767891},
+        "pss": {"expanded": 13206, "elapsed_ms": 250.973048, "max_set_size": 211, "set_elements_produced": 13812478}
+      },
+      "ideal_bsfp_composed": {
+        "rank_8": {"alpha_beta": 566, "pvs": 548, "mtdf": 556, "pn_dag": 1792, "pss": 1629},
+        "rank_12": {"alpha_beta": 3340, "pvs": 3200, "mtdf": 3200, "pn_dag": 8223, "pss": 11041}
+      }
+    },
+    {
+      "geometry": "5x3:c4",
+      "relational_states": 11317,
+      "graph_build_ms": 176.346595,
+      "root_strong": 0,
+      "root_wdl": 0,
+      "no_bsfp_composed": {
+        "alpha_beta": {"expanded": 997, "elapsed_ms_median": 0.908149},
+        "pvs": {"expanded": 972, "elapsed_ms_median": 0.189375},
+        "mtdf": {"expanded": 987, "elapsed_ms_median": 0.186761},
+        "pn_dag": {"expanded": 7898, "elapsed_ms": 64.418945},
+        "pss": {"expanded": 8957, "elapsed_ms": 667.262518, "max_set_size": 336, "set_elements_produced": 43265130}
+      },
+      "ideal_bsfp_composed": {
+        "rank_8": {"alpha_beta": 347, "pvs": 341, "mtdf": 349, "pn_dag": 1551, "pss": 1904},
+        "rank_11": {"alpha_beta": 765, "pvs": 751, "mtdf": 762, "pn_dag": 6055, "pss": 7015}
+      }
+    },
+    {
+      "geometry": "4x5:c4",
+      "relational_states": 294593,
+      "graph_build_ms": 7111.826295,
+      "root_strong": 0,
+      "root_wdl": 0,
+      "no_bsfp_composed": {
+        "alpha_beta": {"expanded": 16489, "elapsed_ms_median": 9.488976},
+        "pvs": {"expanded": 15110, "elapsed_ms_median": 7.876439},
+        "mtdf": {"expanded": 15103, "elapsed_ms_median": 7.814455},
+        "pn_dag": {"expanded": 61275, "elapsed_ms": 425.006292},
+        "pss": {"status": "scale-deferred"}
+      },
+      "ideal_bsfp_composed": {
+        "rank_10": {"alpha_beta": 1388, "pvs": 1305, "mtdf": 1315, "pn_dag": 6079, "pss": "scale-deferred"},
+        "rank_14": {"alpha_beta": 9264, "pvs": 8562, "mtdf": 8573, "pn_dag": 36177, "pss": "scale-deferred"}
+      }
+    }
+  ],
+  "observations": [
+    "All implemented candidate correctness assertions passed on the bounded controls.",
+    "Relational tactical closure materially reduced work for every candidate family where applied.",
+    "PVS and MTD(f) were the strongest tested strong-score drivers on the larger draw controls, with nearly identical work on 4x5.",
+    "PN-DAG was exceptionally selective on the winning 4x3 root but substantially weaker on draw roots because W/D/L classification required disproving both player-win propositions.",
+    "Exact PSS did not offset proof-set backup and set-propagation costs on these controls and was deliberately not scaled to 4x5 in v1.",
+    "Ideal BSFP boundaries produced large forward-work reductions across all candidate families; the earlier boundary was substantially more valuable than the later boundary on 4x5."
+  ],
+  "limits": [
+    "Search timings exclude relational DAG construction and therefore do not establish production end-to-end speed.",
+    "Ideal BSFP boundary timings exclude BSFP construction and publication/query cost and measure only forward work-elimination ceiling.",
+    "The campaign does not establish standard 7x6 performance.",
+    "Campaign v1 does not include packed on-the-fly relational transitions, reflection/automorphism canonicalization, compiled Allis masks, proof-cost ordering, parallelism, actual concurrent BSFP, or equal-byte production TT layouts.",
+    "Standard df-pn was not admitted because a DAG-safe transposition contract was not established for this campaign."
+  ],
+  "survivors_for_next_composition_campaign": [
+    "relational negamax alpha-beta control",
+    "PVS-NegaScout",
+    "MTD-f"
+  ],
+  "research_retained_not_hot_path_promoted": [
+    "PN-DAG",
+    "Proof-Set Search"
+  ]
+}
