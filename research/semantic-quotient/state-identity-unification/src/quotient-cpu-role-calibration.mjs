@@ -9,7 +9,9 @@ const PROBE_PATH = fileURLToPath(PROBE_URL);
 
 function median(values) {
   const sorted = [...values].sort((a, b) => a - b);
-  return sorted[Math.floor(sorted.length / 2)];
+  const middle = Math.floor(sorted.length / 2);
+  if ((sorted.length & 1) === 1) return sorted[middle];
+  return (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
 function parseProbe(stdout) {
@@ -169,7 +171,7 @@ export async function calibrateCpuRoles(options = {}) {
   const logicalCount = cpus().length;
   const available = availableParallelism();
   const allowed = allowedCpuIds(logicalCount);
-  const pinnedRepeats = options.pinnedRepeats ?? 2;
+  const pinnedRepeats = options.pinnedRepeats ?? 3;
   const pinnedDurationMs = options.pinnedDurationMs ?? 70;
   const saturationDurationMs = options.saturationDurationMs ?? 90;
   const minGapRatio = options.minGapRatio ?? 1.12;
