@@ -1,64 +1,52 @@
-# Connect4 Status
+# Connect4 Minimax / Alpha-Beta Status
 
-**Updated:** 2026-09-07
-**Phase:** paused after qualified Node + solved-strength baseline; waiting on CUDA-MCGS #124
+**Updated:** 2026-09-10  
+**Canonical branch:** `solver/minimax-alpha-beta`  
+**State:** consolidated research lane; implementation promotion intentionally paused
 
-## Product role
+## Mission
 
-Connect4 is the product-owned Node benchmark/validation lane for Connect Four search. It owns Connect Four domain/evaluator/benchmark meaning and consumes CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS only through public surfaces.
+This branch owns the exact minimax/negamax/alpha-beta solver line, its search-specific experiments, benchmark evidence, TT/scheduling work, and search-side structural optimizations. CUDA-BSFP remains a separate solver. Shared semantic-quotient research is routed through `research/semantic-quotient`.
 
-## Protected baseline
+## Consolidation state
 
-Protected `main@0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e` contains C4-0001 through C4-0005:
+The branch contains the complete identified minimax research lineage through the pre-BSFP structural cut plus the missing rethink-control history. Durable navigation starts at:
 
-- dimension-parameterized Connect Four incumbent semantics with canonical 7×6 benchmark profile;
-- frozen optimized evaluator semantics including parity reasoning and repeated-immediate frontier promotion;
-- explicit-root-player low-allocation alpha-beta with tactical prepass;
-- persistent cross-move TT with safe score/bound reuse and ordering-only inherited move reuse;
-- exact legacy evaluator/search/self-play conformance;
-- Node 26.7 persistent-vs-reset and wall-clock benchmark evidence;
-- independent solved-game oracle evidence and the frozen depth-12 W/D/L defect.
+- `MINIMAX_BRANCH.md`
+- `reference/research-prototypes/MINIMAX_INDEX.md`
+- `docs/research/2026-09-10-minimax-branch-lineage-audit.md`
 
-Post-merge `verify` run **34122562926** succeeded on the C4-0005 main head.
+Historical research branch names are evidence/provenance only once their commits are confirmed behind this branch.
 
-Reference incumbent benchmark evidence remains run **34116027347**. C4-0005 qualification remains backed by `verify` **34122018213**, `strength-evidence` **34122018076**, and benchmark regression **34122018187**.
+## Current technical picture
 
-## Solved-strength disposition
+The fixed-width two-word exact kernel established roughly 10M nodes/s-class single-thread arithmetic and strong aggregate Node throughput. The unresolved empty-board problem is proof efficiency rather than raw JavaScript arithmetic throughput.
 
-C4-0005 established that incumbent v1 is strong but not globally perfect at depth 12. The frozen defect `54676552255627` chooses a solved losing move at depth 12 and first reaches the exact-optimal move at depth 19 in the investigated seam. Cross-move TT ordering was falsified as the cause. The repeated-immediate evaluator behavior remains frozen because the isolated removal experiment produced mixed gains and regressions rather than a uniformly better replacement.
+Strong surviving search-side mechanisms include:
 
-## CUDA-MCGS composition assessment
+- exact tactical closure and forced macro-edges / decision-state admission;
+- compact exact TT identity;
+- rank-aware proof-memory placement;
+- exact residual semantic reuse and residual automorphisms;
+- global proof sharing at coarse boundaries where qualified;
+- fixed-width, allocation-free hot execution.
 
-Read-only assessment of CUDA-MCGS `main@893a1676a303bf28aff8f24847b0be1559ba859c` and CUDA-JS-Tensor `main@cbecc75138769419ed2c09fbfeb227f3ffe2de57` found:
+Several semantically useful mechanisms remain too expensive in their tested forms, including generic implication-frontier lookup, dynamic graph/object machinery, full evaluator rescans and per-node placement/resource policy.
 
-- required public package entry points and external Device-JS import composition exist;
-- the public CUDA-JS-Tensor evaluator connector can bind a public `TensorDeviceProgram` without deep imports;
-- CUDA-MCGS evaluator semantics already define the required request/batch/lifecycle ports;
-- the executable comparison lane is **not dependency-ready** because CUDA-MCGS #124 still owns and lacks the active device-resident evaluator request/batching/scatter/freshness/failure/cleanup runtime bridge.
+## Shared semantic research boundary
 
-Connect4 must not implement those generic lifecycle semantics downstream. The full assessment is recorded in `docs/research/2026-09-07-cuda-mcgs-composition-readiness.md`.
+The next representation question is no longer owned by this solver branch alone. Questions about the minimum exact description of the remaining game, identified-line quotienting, behavioral equivalence, support/event sufficiency and OQS-style class compilation belong on `research/semantic-quotient`.
 
-## Pause / resume seam
+The first shared gate is explicit minimax strong-score qualification of the identified-line quotient, followed by exact behavioral partition refinement and compiled action transitions. Only solver-specific implementations that survive that research should be promoted back here.
 
-Connect4 is now intentionally paused while owner attention shifts to CUDA-MCGS #124.
+## Implementation disposition
 
-When returning to Connect4:
+Do not build or promote a new maintained minimax kernel merely because the research corpus is consolidated. Preserve the current strongest fixed-width controls and use them as baselines when semantic-quotient MQ1-MQ5 reaches implementation comparison.
 
-1. re-read protected Connect4 and dependency state;
-2. require #124's generic evaluator lifecycle to be public/protected enough for execution;
-3. freeze the Connect4-owned comparison contract;
-4. implement three distinct evidence lanes: incumbent Node, tree-equivalent CUDA-MCGS, graph/transposition-enabled CUDA-MCGS;
-5. preserve C4-0002 evaluator semantics and apply C4-0005 solved-strength evidence to comparison outputs.
+## Correctness obligations retained
 
-Do not reopen C4-0001 through C4-0005 merely because #124 changes upstream implementation details.
-
-## Repository governance
-
-Governance alignment remains separately tracked by issue #3. Product pause/completeness does not imply repository-policy alignment.
-
-## Non-claims
-
-- no CUDA-MCGS performance advantage is demonstrated;
-- no GPU-resident Connect Four comparison lane exists yet;
-- no downstream workaround for missing #124 semantics is authorized;
-- no Python or cross-language comparison is part of the first benchmark gate.
+- exact distance-sensitive scores and action values must remain authoritative;
+- raw optimized negamax entry requires its no-current-immediate-win precondition to be discharged at the public/task boundary;
+- false TT misses are acceptable, false/torn hits are not;
+- experimental shared multiwriter publication still requires a portable ECMAScript memory-model argument before production authority;
+- benchmark and oracle semantics remain Connect4-owned.
