@@ -1,14 +1,6 @@
 name: Slot64 direct block paired 7x6
 
 on:
-  push:
-    branches:
-      - research/semantic-quotient
-    paths:
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-direct-block-7x6-paired.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-direct-block-campaign.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool.mjs'
-      - '.github/workflows/semantic-quotient-slot64-direct-block-paired.yml'
   workflow_dispatch:
 
 permissions:
@@ -19,7 +11,7 @@ env:
 
 jobs:
   benchmark:
-    name: Pair sparse baseline vs direct block at rank 8
+    name: Pair historical sparse baseline vs direct block at rank 8
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -27,7 +19,7 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Run alternating paired target-scale benchmark
+      - name: Run historical alternating paired target-scale benchmark
         run: >-
           node --expose-gc --max-old-space-size=6144
           research/semantic-quotient/state-identity-unification/src/quotient-slot64-direct-block-7x6-paired.mjs
