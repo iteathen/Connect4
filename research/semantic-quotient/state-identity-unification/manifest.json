@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "name": "state-identity-unification",
+  "status": "research-experiment-plan",
+  "owner_branch": "research/semantic-quotient",
+  "date": "2026-09-11",
+  "question": "Can an exact primitive/residual semantic identity improve total solver performance and provide a common logical identity across minimax, CUDA-BSFP, and hybrid confluence without forcing shared physical state?",
+  "consumers": [
+    "solver/minimax-alpha-beta",
+    "solver/cuda-bsfp",
+    "solver/hybrid-confluence"
+  ],
+  "promotion_policy": {
+    "exactness_required": true,
+    "notable_net_performance_gain_required": true,
+    "shared_physical_state_required": false,
+    "speculative_solver_changes_allowed": false
+  },
+  "stages": [
+    "SIU-1-shadow-identity-census",
+    "SIU-2-useful-transposition-replay",
+    "SIU-3-secondary-semantic-tt",
+    "SIU-4-incremental-semantic-transition",
+    "SIU-5-cross-solver-identity-contract",
+    "SIU-6-direct-quotient-navigation"
+  ],
+  "preserved_invariants": [
+    "consumer-relative-exactness",
+    "distance-sensitive-score-separation",
+    "action-labelled-successor-consistency",
+    "solver-native-hot-path-independence",
+    "research-before-promotion"
+  ],
+  "non_claims": [
+    "standard-7x6-exhaustive-quotient-proof",
+    "production-speedup",
+    "board-removal",
+    "shared-mutable-state-requirement"
+  ]
+}
