@@ -1,0 +1,108 @@
+{
+  "kind": "connect4-semantic-quotient-mq1-strong-score",
+  "status": "pass",
+  "dateUtc": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "sourceCommit": "499e031526080ec8bddce1f8861eca960a18f628",
+  "sourceFile": "research/semantic-quotient/mq1-strong-score.mjs",
+  "workflow": ".github/workflows/semantic-quotient-mq1.yml",
+  "workflowRun": 34569663402,
+  "workflowJob": 103168883561,
+  "runtime": {
+    "os": "Ubuntu 24.04.5 LTS",
+    "node": "26.7.0"
+  },
+  "candidate": "(support,p0PhysicalLineHitMask,p1PhysicalLineHitMask)",
+  "scoreSemantics": "side-to-move exact distance-sensitive score; faster wins and slower losses preferred; draws=0",
+  "aggregate": {
+    "physicalNonterminalStates": 1681808,
+    "identifiedLineQuotientClasses": 420704,
+    "physicalToQuotientCollapse": 3.9976040161253517,
+    "multiMemberQuotientClasses": 156570,
+    "mergedPhysicalStateComparisons": 1261104,
+    "maximumPhysicalStatesPerQuotientClass": 37080,
+    "stateScoreMismatches": 0,
+    "perColumnActionScoreMismatches": 0,
+    "terminalTimingMismatches": 0,
+    "successorClassMismatches": 0
+  },
+  "cases": [
+    {
+      "geometry": "4x3:c3",
+      "physicalStates": 4659,
+      "quotientClasses": 4499,
+      "collapse": 1.0355634585463436,
+      "multiMemberClasses": 96,
+      "maximumClassSize": 28,
+      "mergedStateComparisons": 160,
+      "rootStrongScore": 2,
+      "stateScoreMismatches": 0,
+      "actionScoreMismatches": 0,
+      "terminalTimingMismatches": 0,
+      "successorClassMismatches": 0,
+      "elapsedMs": 23.128981000000003
+    },
+    {
+      "geometry": "4x4:c4",
+      "physicalStates": 139625,
+      "quotientClasses": 37323,
+      "collapse": 3.7409908099563274,
+      "multiMemberClasses": 14654,
+      "maximumClassSize": 5336,
+      "mergedStateComparisons": 102302,
+      "rootStrongScore": 0,
+      "stateScoreMismatches": 0,
+      "actionScoreMismatches": 0,
+      "terminalTimingMismatches": 0,
+      "successorClassMismatches": 0,
+      "elapsedMs": 181.238877
+    },
+    {
+      "geometry": "5x3:c4",
+      "physicalStates": 152003,
+      "quotientClasses": 17455,
+      "collapse": 8.708278430249212,
+      "multiMemberClasses": 9943,
+      "maximumClassSize": 4440,
+      "mergedStateComparisons": 134548,
+      "rootStrongScore": 0,
+      "stateScoreMismatches": 0,
+      "actionScoreMismatches": 0,
+      "terminalTimingMismatches": 0,
+      "successorClassMismatches": 0,
+      "elapsedMs": 197.624639
+    },
+    {
+      "geometry": "4x5:c4",
+      "physicalStates": 1385521,
+      "quotientClasses": 361427,
+      "collapse": 3.8334739795311363,
+      "multiMemberClasses": 131877,
+      "maximumClassSize": 37080,
+      "mergedStateComparisons": 1024094,
+      "rootStrongScore": 0,
+      "stateScoreMismatches": 0,
+      "actionScoreMismatches": 0,
+      "terminalTimingMismatches": 0,
+      "successorClassMismatches": 0,
+      "elapsedMs": 1654.7187250000002,
+      "lateRankClasses": [
+        {"rank": 16, "physicalStates": 221834, "quotientClasses": 19405, "maximumClassSize": 1492},
+        {"rank": 17, "physicalStates": 192778, "quotientClasses": 5882, "maximumClassSize": 1954},
+        {"rank": 18, "physicalStates": 153648, "quotientClasses": 968, "maximumClassSize": 5156},
+        {"rank": 19, "physicalStates": 88520, "quotientClasses": 64, "maximumClassSize": 14581},
+        {"rank": 20, "physicalStates": 37080, "quotientClasses": 1, "maximumClassSize": 37080}
+      ]
+    }
+  ],
+  "claims": {
+    "completeSmallGamePhysicalGraph": true,
+    "legalActionSetPreservedBySupport": true,
+    "terminalTimingEquivalent": true,
+    "successorQuotientClassEquivalent": true,
+    "exactStrongStateScoreEquivalentWithinClass": true,
+    "exactPerColumnActionScoreEquivalentWithinClass": true,
+    "productionSolverClaim": false,
+    "standard7x6Claim": false
+  }
+}
