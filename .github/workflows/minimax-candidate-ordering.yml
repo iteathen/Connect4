@@ -5,7 +5,7 @@ on:
     branches:
       - work/minimax-candidate-composition-20260911
     paths:
-      - 'research/minimax/composition-campaign/ordering_stage_controls.mjs'
+      - 'research/minimax/composition-campaign/ordering_stage_controls_v2.mjs'
       - '.github/workflows/minimax-candidate-ordering.yml'
   workflow_dispatch:
 
@@ -22,10 +22,10 @@ jobs:
         with:
           node-version: 26.7.0
       - name: Run ordering stage controls
-        run: node --max-old-space-size=6144 research/minimax/composition-campaign/ordering_stage_controls.mjs | tee /tmp/ordering.json
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/ordering_stage_controls_v2.mjs | tee /tmp/ordering.json
       - name: Preserve ordering evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: minimax-candidate-ordering-controls
+          name: minimax-candidate-ordering-controls-v2
           path: /tmp/ordering.json
           if-no-files-found: error
