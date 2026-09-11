@@ -167,7 +167,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   blockTransitions.fill(CLASS_UNKNOWN);
 
   const containsMasks = new Uint32Array(vocabulary.cellCount * WORDS_PER_CLASS);
-  const strictSupersetMasks = new Uint32Array(vocabulary.count * WORDS_PER_CLASS);
+  let strictSupersetDense = new Uint32Array(vocabulary.count * WORDS_PER_CLASS);
   const singletonTermMasks = new Uint32Array(WORDS_PER_CLASS);
   for (let termId = 0; termId < vocabulary.count; termId += 1) {
     const word = termId >>> 5;
@@ -183,9 +183,35 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     for (let candidate = 0; candidate < vocabulary.count; candidate += 1) {
       if (candidate === termId) continue;
       if (!vocabulary.subset(termId, candidate)) continue;
-      strictSupersetMasks[termId * WORDS_PER_CLASS + (candidate >>> 5)] |= 1 << (candidate & 31);
+      strictSupersetDense[termId * WORDS_PER_CLASS + (candidate >>> 5)] |= 1 << (candidate & 31);
     }
   }
+
+  const strictSupersetStarts = new Uint32Array(vocabulary.count + 1);
+  let strictSupersetEntryCount = 0;
+  for (let termId = 0; termId < vocabulary.count; termId += 1) {
+    strictSupersetStarts[termId] = strictSupersetEntryCount;
+    const base = termId * WORDS_PER_CLASS;
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+      if (strictSupersetDense[base + word] !== 0) strictSupersetEntryCount += 1;
+    }
+  }
+  strictSupersetStarts[vocabulary.count] = strictSupersetEntryCount;
+  const strictSupersetWordIndex = new Uint8Array(strictSupersetEntryCount);
+  const strictSupersetWordMask = new Uint32Array(strictSupersetEntryCount);
+  let strictSupersetWrite = 0;
+  for (let termId = 0; termId < vocabulary.count; termId += 1) {
+    const base = termId * WORDS_PER_CLASS;
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+      const mask = strictSupersetDense[base + word] >>> 0;
+      if (mask === 0) continue;
+      strictSupersetWordIndex[strictSupersetWrite] = word;
+      strictSupersetWordMask[strictSupersetWrite] = mask;
+      strictSupersetWrite += 1;
+    }
+  }
+  if (strictSupersetWrite !== strictSupersetEntryCount) throw new Error('sparse superset row build drifted');
+  strictSupersetDense = null;
 
   const inputBits = new Uint32Array(WORDS_PER_CLASS);
   const resultBits = new Uint32Array(WORDS_PER_CLASS);
@@ -206,6 +232,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     blockNoop: 0,
     ownTerminal: 0,
     reducedTerms: 0,
+    supersetWordProbes: 0,
     supersetWordClears: 0,
     classGrows: 0,
     hashGrows: 0,
@@ -433,13 +460,14 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       while (active !== 0) {
         const lsb = (active & -active) >>> 0;
         const termId = (word << 5) + bitIndex32(lsb);
-        const supersetBase = termId * WORDS_PER_CLASS;
-        for (let targetWord = 0; targetWord < WORDS_PER_CLASS; targetWord += 1) {
-          const mask = strictSupersetMasks[supersetBase + targetWord];
-          if (mask !== 0) {
-            resultBits[targetWord] = (resultBits[targetWord] & ~mask) >>> 0;
-            metrics.supersetWordClears += 1;
-          }
+        const start = strictSupersetStarts[termId];
+        const end = strictSupersetStarts[termId + 1];
+        for (let entry = start; entry < end; entry += 1) {
+          const targetWord = strictSupersetWordIndex[entry];
+          const mask = strictSupersetWordMask[entry];
+          resultBits[targetWord] = (resultBits[targetWord] & ~mask) >>> 0;
+          metrics.supersetWordProbes += 1;
+          metrics.supersetWordClears += 1;
         }
         active = (active & (active - 1)) >>> 0;
       }
@@ -477,7 +505,11 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     const classTupleBytes = classSlotIds.reduce((sum, ids) => sum + ids.byteLength, 0);
     const classMetadataBytes = classTupleBytes + classHashes.byteLength + singletonLo.byteLength + singletonHi.byteLength;
     const transitionCacheBytes = ownTransitions.byteLength + blockTransitions.byteLength;
-    const maskBytes = containsMasks.byteLength + strictSupersetMasks.byteLength + singletonTermMasks.byteLength;
+    const maskBytes = containsMasks.byteLength
+      + strictSupersetStarts.byteLength
+      + strictSupersetWordIndex.byteLength
+      + strictSupersetWordMask.byteLength
+      + singletonTermMasks.byteLength;
     const scratchBytes = inputBits.byteLength + resultBits.byteLength + reducedBits.byteLength + initialBits.byteLength + chunkIds.byteLength;
     const slots = slotPools.map((entry) => entry.memoryStats());
     const chunkPayloadBytes = slots.reduce((sum, entry) => sum + entry.payloadBytes, 0);
@@ -500,6 +532,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       chunkHashSlotBytes,
       chunkDictionaryBytes,
       slotDictionaries: slots,
+      normalizationLayout: 'sparse-superset-word-rows',
+      strictSupersetEntries: strictSupersetEntryCount,
       maskBytes,
       scratchBytes,
       totalTypedBytes: vocabulary.bytes
