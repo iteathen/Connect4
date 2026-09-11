@@ -1,27 +1,70 @@
-schema_version: 2
-updated: 2026-09-10
-state: minimax_research_consolidated_waiting_on_semantic_quotient_gate
+schema_version: 3
+updated: 2026-09-11
+state: minimax_mq5_semantic_residual_ab_active
 repository_role: connect4_exact_search_solver
 canonical_branch: solver/minimax-alpha-beta
 
 current:
   owner: Connect4
-  mode: research_consolidated
-  action: preserve_strongest_exact_search_controls_and_wait_for_shared_semantic_quotient_mq1_to_mq5_before_new_kernel_promotion
+  mode: research_execution
+  action: compare_exact_residual_semantic_state_against_strongest_fixed_width_alpha_beta_control
 
 source_of_truth:
   branch_guide: MINIMAX_BRANCH.md
   prototype_index: reference/research-prototypes/MINIMAX_INDEX.md
   lineage_audit: docs/research/2026-09-10-minimax-branch-lineage-audit.md
+  mq5_packet: research/minimax/semantic-residual-mq5
 
 shared_research_dependency:
   branch: research/semantic-quotient
-  first_gates:
-    - mq1_identified_line_strong_score_qualification
-    - mq2_coarsest_action_labeled_behavioral_partition
-    - mq3_missing_semantic_accumulator_analysis
-    - mq4_compiled_action_transition_artifact
-    - mq5_serial_alpha_beta_ab_against_fixed_width_colored_board_control
+  status: mq1_to_mq4_passed
+  qualified_candidate: support_plus_minimal_residual_antichain_pair
+  transition: semantic_state_plus_column_to_terminal_or_next_semantic_state
+  exact_controls:
+    - 4x3_c3
+    - 4x4_c4
+    - 5x3_c4
+    - 4x5_c4
+  mq4_workflow_run: 34570662573
+  mq4_workflow_job: 103171852729
+
+mq5:
+  status: active
+  first_control: compact_decision_rank_512k
+  control_source: reference/research-prototypes/2026-09-09-decision-state/solver_compact_decision_rank.mjs
+  candidate_source: research/minimax/semantic-residual-mq5/residual_solver.mjs
+  runner: research/minimax/semantic-residual-mq5/run.mjs
+  workflow: .github/workflows/minimax-mq5-residual.yml
+  workflow_run: 34571374414
+  first_root: 663152175
+  first_root_expected_score: -4
+  fairness_mode: equal_512k_TT_slots_and_same_intrinsic_rank_banks
+  held_fixed:
+    - exact_distance_sensitive_score
+    - null_window_convergence
+    - center_first_tie_order
+    - immediate_threat_and_forced_block_semantics
+    - winning_cell_count_move_order_score
+    - decision_only_TT_admission
+    - intrinsic_rank_bank_layout
+  separately_report:
+    - score
+    - nodes
+    - tt_hits
+    - tt_writes
+    - forced_transitions
+    - residual_states_created
+    - residual_transitions_computed
+    - normalize_calls
+    - semantic_intern_hits
+    - compiler_time
+    - recursive_search_time
+    - TT_bytes
+    - semantic_arena_bytes
+  caveats:
+    - lazy_JS_Map_string_interning_is_reconnaissance_not_production_representation
+    - equal_total_memory_not_claimed_in_first_run
+    - exact_state_identity_changes_direct_map_collision_patterns
 
 strong_search_controls:
   - fixed_width_two_word_exact_kernel
@@ -36,11 +79,14 @@ correctness_gates:
   - preserve_exact_distance_sensitive_state_and_action_values
   - discharge_no_immediate_current_player_win_precondition_at_public_or_task_entry
   - false_cache_misses_allowed_false_hits_forbidden
-  - no_unproved_multiwriter_publication_as_production_authority
+  - first_MQ5_is_single_worker_no_multiwriter_publication_claim
   - retain_independent_oracle_and_frozen_benchmark_evidence
 
 next_actions:
-  - do_not_promote_new_maintained_minimax_kernel_yet
-  - consume_semantic_quotient_results_when_mq1_mq4_are_exactly_qualified
-  - run_mq5_against_strongest_fixed_width_search_control
-  - requalify_search_side_mechanisms_only_after_new_state_identity_is_fixed
+  - inspect_first_MQ5_anchor_result
+  - if_score_mismatch_debug_first_semantic_transition_divergence_before_performance_work
+  - if_score_matches_measure_structural_node_and_TT_effects_before_optimizing_interning
+  - run_second_anchor_41267575_only_after_first_candidate_is_semantically_sound
+  - if_proof_work_improves_replace_Map_string_arena_with_fixed_625_ID_or_compiled_dense_residual_handles
+  - add_equal_total_memory_control_after_semantic_arena_footprint_is_measured
+  - do_not_promote_to_maintained_solver_until_fair_holdout_and_independent_oracle_qualification
