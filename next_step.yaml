@@ -1,6 +1,6 @@
-schema_version: 2
+schema_version: 3
 updated: 2026-09-10
-state: multi_lane_repository
+state: multi_lane_repository_restructure_integrated
 repository_role: connect4_repository_router
 
 canonical_lanes:
@@ -15,6 +15,7 @@ canonical_lanes:
     branch: solver/cuda-bsfp
     status_file: STATUS.md
     next_step_file: next_step.yaml
+    canonical_draft_pr: 25
   semantic_quotient:
     branch: research/semantic-quotient
     status_file: STATUS.md
@@ -29,14 +30,16 @@ routing_rules:
   - accepted_cross_lane_contracts_promote_deliberately_to_main
 
 restructure:
-  branch: restructure/repository-organization-20260910
+  integrated_main_commit: 27fdfed33c9b75fde84942fe36c7e9edc3fdccbf
+  integrated_pr: 24
   manifest: research/MIGRATION_MANIFEST.json
   branch_retirement: research/BRANCH_RETIREMENT.md
   repository_structure: REPOSITORY_STRUCTURE.md
   connector_limit: branch_deletion_and_tag_creation_not_exposed
 
 next_actions:
-  - merge_repository_structure_router_pr_after_review
   - use_manifest_to_delete_or_archive_retired_refs_through_authorized_ref_management
+  - verify_unique_content_before_retiring_pending_branches
   - stop_creating_new_long_lived_research_branches_for_single_experiments
   - use_short_lived_work_branches_and_commit_research_packets_to_the_owning_lane
+  - keep_evidence_snapshot_refs_until_payload_hash_and_PR_preservation_is_verified
