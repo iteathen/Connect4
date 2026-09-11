@@ -52,6 +52,20 @@
       ]
     },
     {
+      "id": "MQ5-TYPED-OPENADDR-V1",
+      "mechanism": "FW",
+      "label": "Typed open-address exact semantic interning and transition caches",
+      "kind": "representation-runtime-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-repeated-two-anchor",
+      "evidence": [
+        {"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/residual_solver_wsl625_typed.mjs","claim":"full-record exact equality after open-address hash collisions for side and whole-state identity; typed mover/blocker cache containers"},
+        {"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/run_wsl625_typed.mjs","claim":"strict first-run parity for score, nodes, TT hits/writes, forced transitions, state counts, side counts and transition-cache cardinalities on both MQ5 anchors"},
+        {"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/run_wsl625_typed_repeated.mjs","claim":"7 alternating-order runs per anchor with first 2 warmups: 1.493x median speedup on loss anchor and 1.571x on win anchor with exact proof-tree parity every repetition"}
+      ],
+      "retained_failure": "First branch draft omitted full antichain normalization and singleton winning-count metadata; corrected before any benchmark result was accepted."
+    },
+    {
       "id": "IMPL-RID-SIG4",
       "mechanism": "IMPL",
       "label": "RID implication frontier with four conservative 32-bit rejection signatures",
@@ -101,6 +115,8 @@
     {"source":"A123-DIRECT-U1U2-V3-NOCACHE","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"cost","state":"observed","note":"fixed geometry and scratch arrays change direct generation from slower than dynamic to 2.41x faster in the differential micro and near-break-even in full strong stack"},
     {"source":"MQ5-WSL625-U16","target":"A123-GEOMETRY-U1U2-V4","effect":"strong-positive","mechanism":"proof-volume-composition","state":"observed","note":"A123 removes 29.11% / 23.61% of remaining semantic-MQ5 nodes on frozen loss/win exact-distance anchors while preserving exact scores"},
     {"source":"EXH","target":"A123-GEOMETRY-U1U2-V4","effect":"saturated-near-zero","mechanism":"proof-overlap","state":"observed","note":"EXH alone is slightly adverse on both MQ5 anchors and adds negligible node reduction when A123 is active"},
+    {"source":"MQ5-WSL625-U16","target":"MQ5-TYPED-OPENADDR-V1","effect":"strong-positive","mechanism":"runtime-container-cost","state":"observed","note":"typed exact interning/caches preserve the identical MQ5 proof tree and deliver 1.493x / 1.571x repeated median speedup on frozen loss/win anchors"},
+    {"source":"MQ5-TYPED-EXACT-INTERN","target":"MQ5-TYPED-OPENADDR-V1","effect":"realized-positive-form","mechanism":"implementation","state":"observed","note":"active typed-interning hypothesis is realized by an exact open-address implementation with repeated timing evidence"},
     {"source":"RID","target":"IMPL-RID-SIG4","effect":"positive","mechanism":"cost-filter","state":"observed","note":"conservative RID signatures reject most impossible exact closure checks without changing proof authority"},
     {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"}
   ]
