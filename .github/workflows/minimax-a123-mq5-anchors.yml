@@ -1,0 +1,28 @@
+name: Minimax A1-A3 MQ5 anchors
+
+on:
+  push:
+    branches:
+      - work/minimax-a123-mq5-anchors-20260911
+    paths:
+      - 'research/minimax/composition-campaign/a123_mq5_anchor.mjs'
+      - '.github/workflows/minimax-a123-mq5-anchors.yml'
+  workflow_dispatch:
+
+jobs:
+  a123-mq5-anchors:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Cross baseline, EXH, A123 and EXH+A123 on MQ5 anchors
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/a123_mq5_anchor.mjs | tee /tmp/a123-mq5.json
+      - name: Preserve A123 MQ5 evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-a123-mq5-anchors
+          path: /tmp/a123-mq5.json
+          if-no-files-found: error
