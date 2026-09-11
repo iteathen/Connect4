@@ -26,7 +26,7 @@ function resolveRepository(config, source) {
 }
 
 function resolveBase(config) {
-  return config.reportBase || process.env.CUDA_BSFP_REPORT_BASE || 'main';
+  return config.reportBase || process.env.CUDA_BSFP_REPORT_BASE || 'solver/cuda-bsfp';
 }
 
 function classifyChild(step, child) {
