@@ -1,0 +1,94 @@
+{
+  "kind": "connect4-semantic-quotient-mq4-materialized-flat-replay",
+  "status": "pass",
+  "sourceBranch": "work/semantic-quotient-mq4-flat-replay-20260911",
+  "sourceHead": "2c93953f78a9feed88693eeea36510d364d6e7fe",
+  "workflowRun": 34571535359,
+  "workflowJob": 103174499646,
+  "runtime": {
+    "os": "Ubuntu 24.04",
+    "node": "26.7.0"
+  },
+  "encoding": {
+    "word": "u32",
+    "illegal": "0xffffffff",
+    "terminal": "high-bit | positive strong score",
+    "child": "dense state ID with high bit clear"
+  },
+  "claims": {
+    "flatTableMaterialized": true,
+    "flatTableSerializedAndDecoded": true,
+    "decodedTableReachabilityComplete": true,
+    "decodedTableRankTransitionsExact": true,
+    "decodedTableStrongStateScoreEquivalent": true,
+    "decodedTablePerColumnActionScoreEquivalent": true,
+    "productionSolverClaim": false,
+    "standard7x6Claim": false
+  },
+  "cases": [
+    {
+      "geometry": "4x3:c3",
+      "stateCount": 3735,
+      "entryCount": 14940,
+      "flatTransitionBytes": 59760,
+      "encodedChildren": 7842,
+      "encodedTerminals": 2390,
+      "rootStrongScore": 2,
+      "tableDigestFnv1a32": "37d5ae0f",
+      "orphanStateCount": 0,
+      "invalidTargetCount": 0,
+      "invalidRankTargetCount": 0,
+      "encodedTransitionMismatches": 0,
+      "actionScoreMismatches": 0,
+      "stateScoreMismatches": 0
+    },
+    {
+      "geometry": "4x4:c4",
+      "stateCount": 34095,
+      "entryCount": 136380,
+      "flatTransitionBytes": 545520,
+      "encodedChildren": 94508,
+      "encodedTerminals": 6256,
+      "rootStrongScore": 0,
+      "tableDigestFnv1a32": "b562bf3e",
+      "orphanStateCount": 0,
+      "invalidTargetCount": 0,
+      "invalidRankTargetCount": 0,
+      "encodedTransitionMismatches": 0,
+      "actionScoreMismatches": 0,
+      "stateScoreMismatches": 0
+    },
+    {
+      "geometry": "5x3:c4",
+      "stateCount": 11317,
+      "entryCount": 56585,
+      "flatTransitionBytes": 226340,
+      "encodedChildren": 35933,
+      "encodedTerminals": 1786,
+      "rootStrongScore": 0,
+      "tableDigestFnv1a32": "64fa523f",
+      "orphanStateCount": 0,
+      "invalidTargetCount": 0,
+      "invalidRankTargetCount": 0,
+      "encodedTransitionMismatches": 0,
+      "actionScoreMismatches": 0,
+      "stateScoreMismatches": 0
+    },
+    {
+      "geometry": "4x5:c4",
+      "stateCount": 294593,
+      "entryCount": 1178372,
+      "flatTransitionBytes": 4713488,
+      "encodedChildren": 814300,
+      "encodedTerminals": 76058,
+      "rootStrongScore": 0,
+      "tableDigestFnv1a32": "5a248105",
+      "orphanStateCount": 0,
+      "invalidTargetCount": 0,
+      "invalidRankTargetCount": 0,
+      "encodedTransitionMismatches": 0,
+      "actionScoreMismatches": 0,
+      "stateScoreMismatches": 0
+    }
+  ]
+}
