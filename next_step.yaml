@@ -1,6 +1,6 @@
-schema_version: 21
+schema_version: 22
 updated: 2026-09-10
-state: cuda_bsfp_oqs_o3_qualified_device_grouping_gap
+state: cuda_bsfp_oqs_o3_qualified_grouping_compaction_boundary
 repository_role: connect4_cuda_bsfp_solver
 canonical_branch: solver/cuda-bsfp
 superseded_branch_names:
@@ -8,7 +8,7 @@ superseded_branch_names:
   - research/zdd-transfer-20260910
 
 current:
-  action: establish_scalable_generic_device_grouping_then_emit_dense_residual_pair_ids_and_chain_next_oqs_layer
+  action: establish_scalable_generic_device_grouping_compaction_then_emit_dense_residual_pair_and_state_ids_and_chain_next_oqs_layer
   owner: Connect4_with_cuda_algorithms_dependency
   mode: active
   solver_lane: cuda_bsfp
@@ -43,25 +43,33 @@ qualified_milestones:
   o3:
     status: qualified_native_bounded_residual_reuse
     profile: c4-0009-o3-oqs-residual-reuse
-    source: 5dfe1312a357c48eee53168e82fd6eba27814a06
+    implementation_source: 5dfe1312a357c48eee53168e82fd6eba27814a06
+    final_mixed_checkpoint: c8be6474e329e08b0b09304e92dd99706e13adf7
     evidence: docs/evidence/cuda-bsfp/qualification/20260911T050640911Z-b3554293
-    four_by_four_elapsed_ms: 2845
-    seven_by_six_elapsed_ms: 10361
-    four_by_four_estimated_device_bound_mib: 264
-    seven_by_six_estimated_device_bound_mib: 402
+    historical_evidence_pr: 30_closed_after_consolidation
+    four_by_four_case_elapsed_ms: 2845
+    seven_by_six_case_elapsed_ms: 10361
     seven_by_six_logical_outputs: 8192
     seven_by_six_distinct_pair_input_transforms: 128
+    seven_by_six_unfactored_device_arrays_bytes: 151290024
+    seven_by_six_factored_device_arrays_bytes: 2781876
+    seven_by_six_median_submit_wait_ratio: 7.904
+    seven_by_six_three_sample_sum_ratio: 3.232
+    local_tests_pass: 96
+    portable_reuse_ci: 34564683731_pass
     non_claims:
       - not_full_7x6_quotient_synthesis
       - not_full_bsfp_closure
       - not_root_wdl
       - not_global_pair_interning
+      - not_stable_general_throughput_estimate
 
 current_oqs_shape:
   exact_pair_factorization: qualified
   occurrence_mapping: qualified
   input_pair_ids: cpu_fixture_supplied
   output_pair_grouping: not_implemented
+  variable_length_record_compaction: not_implemented
   dense_next_pair_ids: not_implemented
   dense_next_state_ids: not_implemented
   device_layer_chaining: not_implemented
@@ -84,12 +92,13 @@ ownership_gate:
 cuda_algorithms_gap:
   pinned_revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
   maintained_select_order_status: correctness_first_quadratic_no_scalability_claim
-  next_dependency_action: assess_and_implement_or_promote_scalable_generic_grouping_under_cuda_algorithms_ownership
+  next_dependency_action: assess_cuda_cccl_and_existing_cuda_algorithms_contract_then_implement_or_promote_scalable_generic_grouping_under_cuda_algorithms_ownership
 
 next_actions:
   - audit_cuda_algorithms_and_cuda_js_cuda_cccl_surface_for_accepted_scalable_grouping_path
-  - implement_or_promote_generic_scalable_grouping_in_cuda_algorithms_if_missing
+  - implement_or_promote_generic_scalable_grouping_and_record_compaction_in_cuda_algorithms_if_missing
   - expose_fixed_exact_residual_descriptors_from_connect4_without_string_map_or_bigint_hot_path
+  - group_equal_output_residual_pairs_exactly_before_assigning_ids
   - assign_dense_next_pair_ids_on_device
   - map_every_occurrence_input_to_dense_next_pair_and_state_id
   - chain_one_complete_next_oqs_layer_device_resident
@@ -107,7 +116,7 @@ c1_parallel_track:
 
 shared_research_routing:
   semantic_quotient_branch: research/semantic-quotient
-  latest_mixed_handoff_head: 5dfe1312a357c48eee53168e82fd6eba27814a06
+  latest_mixed_handoff_head: c8be6474e329e08b0b09304e92dd99706e13adf7
   topics:
     - minimum_description_state
     - identified_line_quotient
