@@ -1,0 +1,27 @@
+name: Minimax geometry A1-A3 U1/U2
+
+on:
+  push:
+    branches:
+      - work/minimax-a123-direct-20260911
+    paths:
+      - 'research/minimax/composition-campaign/a123_geometry_u1u2_micro.mjs'
+      - '.github/workflows/minimax-a123-geometry.yml'
+  workflow_dispatch:
+
+jobs:
+  a123-geometry:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run geometry-native A1-A3 U1/U2 microbenchmark
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/a123_geometry_u1u2_micro.mjs | tee /tmp/a123-geometry.json
+      - name: Preserve geometry A1-A3 evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-a123-geometry-u1u2
+          path: /tmp/a123-geometry.json
+          if-no-files-found: error
