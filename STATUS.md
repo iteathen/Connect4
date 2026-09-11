@@ -2,7 +2,7 @@
 
 **Updated:** 2026-09-11  
 **Canonical branch:** `research/semantic-quotient`  
-**State:** MQ1-MQ4 passed; MQ5 transferred to minimax; state-identity unification experiment open
+**State:** MQ1-MQ4 passed; MQ5 transferred to minimax; SIU-1 relational dual-direction exactness passed
 
 ## Mission
 
@@ -16,7 +16,7 @@ It does **not** own solver implementation. Those remain on:
 
 ## Qualified reduction chain
 
-Complete bounded-game qualification now establishes:
+Complete bounded-game qualification establishes:
 
 ```text
 physical colored history
@@ -47,7 +47,7 @@ line classes:          361,427
 behavior classes:      229,232
 ```
 
-The line quotient is therefore exact but not minimal.
+The line quotient is exact but not minimal.
 
 ### MQ3 — forward semantic state
 
@@ -55,8 +55,8 @@ The candidate
 
 ```text
 support
-+ minimal current/P0 residual winning-requirement antichain
-+ minimal opponent/P1 residual winning-requirement antichain
++ minimal P0 residual winning-requirement antichain
++ minimal P1 residual winning-requirement antichain
 ```
 
 was sufficient for exact MQ2 behavior on every complete control. Residual requirements without support were not sufficient, proving that gravity/accessibility remains semantic.
@@ -108,25 +108,53 @@ Authority:
 - `docs/research/2026-09-11-semantic-quotient-mq4-residual-automaton.md`
 - `docs/research/evidence/2026-09-11-semantic-quotient-mq4-residual-automaton.json`
 
-## Transfer boundary
+## SIU-1 — one relational language in both directions
 
-The residual state law is sufficiently qualified to test under alpha-beta. That implementation comparison belongs to `solver/minimax-alpha-beta` as **MQ5**.
-
-This branch retains ownership of the shared mathematical result. It does not own search control, TT policy, BSFP execution, hybrid scheduling, or production benchmark claims.
-
-## State-identity unification experiment
-
-`research/semantic-quotient/state-identity-unification/` now owns the next solver-neutral question: whether the qualified primitive/residual state can serve as a useful common **logical identity** across minimax, CUDA-BSFP and hybrid confluence while each solver keeps its fastest native operational representation.
-
-The experiment begins in shadow mode. It must establish useful equivalence, real work elimination and net performance value before speculative state-identity machinery is promoted into any solver branch.
-
-The working default is:
+`research/semantic-quotient/state-identity-unification/` tested the BSFP-aligned logical state:
 
 ```text
-shared semantic identity
-!= mandatory shared physical state
+supportIndex
++ sideToMove
++ normalized P0 residual requirements
++ normalized P1 residual requirements
 ```
 
-Physical representation convergence is considered only if measurement shows a notable gain.
+The forward engine used only that relational state. A reverse exact W/D/L closure used only relational IDs plus the exact inverse relation. Colored board state was confined to an independent oracle.
 
-The remaining behavioral collapse may also be investigated through support-event equivalence, forced-response equivalence, parity/tempo equivalence or residual automorphism, provided exact action-labelled behavior is preserved.
+Across the same **1,681,808** complete-control physical states, SIU-1 produced zero physical-projection, forward-transition, terminal, strong-score, per-action-score, BSFP W/D/L, or reverse-closure mismatches.
+
+Observed physical-to-relational reduction ranged from **1.247x to 13.431x**. On 4x5 c4, 1,385,521 physical states collapsed to 294,593 relational states, with one relational state representing as many as 37,080 physical states.
+
+The forward quotient is deliberately not state-level reversible. On 4x5 c4, **127,374** `(child,column)` pairs had multiple relational predecessors, with up to 21 parents for one pair. This identifies the correct common algebra as:
+
+```text
+forward:       T(q,a) -> q' | terminal
+backward: Pre_a(Q) -> exact predecessor set/frontier
+```
+
+rather than requiring `undo(q',a)` to be a function.
+
+An explicit reverse CSR would cost about 4.44 MB on the 4x5 control versus 4.71 MB for the dense forward transition table, so materializing both directions nearly duplicates transition storage. The BSFP-facing next step is therefore symbolic preimage, not history restoration.
+
+The current BSFP ownership-antichain representation is also more compressed than explicit relational enumeration: 40,707 boundary records versus 294,593 relational states on 4x5. Common semantics must not force BSFP to abandon a better physical representation.
+
+Authority:
+
+- `research/semantic-quotient/state-identity-unification/src/siu1-relational-dual-direction.mjs`
+- `research/semantic-quotient/state-identity-unification/SIU1_RESULT.md`
+- `research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json`
+- Actions run `34632643724`, job `103372941221`
+
+## Transfer and ownership boundary
+
+The residual state law is solver-neutral authority here. Production search control, TT layout, CUDA-BSFP execution, hybrid scheduling and performance claims remain on their solver lanes.
+
+No solver should be refactored merely to look unified. The emerging target is one exact relational game algebra with solver-specific execution forms.
+
+## Current next questions
+
+1. **SIU-2 direct relational alpha-beta:** can recursive alpha-beta navigate `q` without a colored board and retain or improve wall-clock performance after accounting for transition/key cost?
+2. **SIU-3 semantic TT economics:** how much additional useful proof reuse comes from relational identity rather than physical identity?
+3. **SIU-5 symbolic preimage:** can BSFP compute `Pre_a(Q)` compactly without materializing the complete reverse relation?
+4. **7x6 scale:** how large is the reachable relational space and what packed representation is practical?
+5. **Evaluator/NN compatibility:** which approximate-evaluation features are absent from the relational state and whether they should be derived, carried separately, or intentionally kept outside exact identity.
