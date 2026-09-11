@@ -3,6 +3,42 @@ import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-sl
 export const SHARED_Q_ILLEGAL = -2;
 export const SHARED_Q_TERMINAL_WIN = -1;
 
+export const SHARED_LOWER_MASK = 0b00000011;
+export const SHARED_UPPER_MASK = 0b00001100;
+export const SHARED_BEST_MASK = 0b01110000;
+export const SHARED_INITIAL_RECORD = ((1 + 1) << 2) | (7 << 4);
+
+export function lowerOfSharedRecord(record) {
+  return (record & SHARED_LOWER_MASK) - 1;
+}
+
+export function upperOfSharedRecord(record) {
+  return ((record & SHARED_UPPER_MASK) >>> 2) - 1;
+}
+
+export function bestOfSharedRecord(record) {
+  const best = (record & SHARED_BEST_MASK) >>> 4;
+  return best === 7 ? -1 : best;
+}
+
+export function withSharedLower(record, value) {
+  return (record & ~SHARED_LOWER_MASK) | ((value + 1) & 3);
+}
+
+export function withSharedUpper(record, value) {
+  return (record & ~SHARED_UPPER_MASK) | (((value + 1) & 3) << 2);
+}
+
+export function withSharedBest(record, best) {
+  return (record & ~SHARED_BEST_MASK) | (((best < 0 ? 7 : best) & 7) << 4);
+}
+
+export function withSharedBounds(record, lower, upper) {
+  return (record & ~(SHARED_LOWER_MASK | SHARED_UPPER_MASK))
+    | ((lower + 1) & 3)
+    | (((upper + 1) & 3) << 2);
+}
+
 export function buildSharedQuotientGraph(spec, options = {}) {
   const { kernel } = createSlot64ResidualQuotientKernel(spec, {
     cacheEdges: true,
@@ -34,6 +70,7 @@ export function buildSharedQuotientGraph(spec, options = {}) {
     rootId: kernel.rootId,
     stateCount,
     edgeCount,
+    residualClassCount: kernel.classes.size,
     centerOrder: Object.freeze([...kernel.centerOrder]),
     edgeBuffer,
     tacticalBuffer,
@@ -42,26 +79,16 @@ export function buildSharedQuotientGraph(spec, options = {}) {
 }
 
 export function createSharedProofArena(stateCount) {
-  const lowerBuffer = new SharedArrayBuffer(Int8Array.BYTES_PER_ELEMENT * stateCount);
-  const upperBuffer = new SharedArrayBuffer(Int8Array.BYTES_PER_ELEMENT * stateCount);
-  const bestMoveBuffer = new SharedArrayBuffer(Int8Array.BYTES_PER_ELEMENT * stateCount);
-  const lower = new Int8Array(lowerBuffer);
-  const upper = new Int8Array(upperBuffer);
-  const bestMove = new Int8Array(bestMoveBuffer);
-  lower.fill(-1);
-  upper.fill(1);
-  bestMove.fill(-1);
+  const recordBuffer = new SharedArrayBuffer(Uint8Array.BYTES_PER_ELEMENT * stateCount);
+  const record = new Uint8Array(recordBuffer);
+  record.fill(SHARED_INITIAL_RECORD);
   return Object.freeze({
-    kind: 'connect4-shared-proof-arena-v1',
+    kind: 'connect4-shared-packed-proof-arena-v2',
     stateCount,
-    lowerBuffer,
-    upperBuffer,
-    bestMoveBuffer,
+    recordBuffer,
   });
 }
 
 export function resetSharedProofArena(arena) {
-  new Int8Array(arena.lowerBuffer).fill(-1);
-  new Int8Array(arena.upperBuffer).fill(1);
-  new Int8Array(arena.bestMoveBuffer).fill(-1);
+  new Uint8Array(arena.recordBuffer).fill(SHARED_INITIAL_RECORD);
 }
