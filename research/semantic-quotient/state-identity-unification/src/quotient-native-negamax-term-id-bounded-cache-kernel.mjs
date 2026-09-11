@@ -165,10 +165,10 @@ function createTermVocabulary(spec) {
   });
 }
 
-function createTransitionMemo(policy = {}) {
+function createTransitionMemo(policy = {}, cellCount) {
   const kind = policy.kind ?? 'global-direct';
   if (kind === 'none') {
-    const metrics = { hits: 0, misses: 0, stores: 0, collisions: 0 };
+    const metrics = { hits: 0, misses: 0, stores: 0, collisions: 0, outOfPrefix: 0 };
     return Object.freeze({
       kind,
       metrics,
@@ -180,6 +180,44 @@ function createTransitionMemo(policy = {}) {
       bytes: 0,
     });
   }
+
+  if (kind === 'dense-prefix') {
+    const prefixClasses = policy.classes ?? 2048;
+    if (!Number.isInteger(prefixClasses) || prefixClasses < 1) throw new RangeError('dense-prefix classes must be a positive integer');
+    const own = new Int32Array(prefixClasses * cellCount);
+    const block = new Int32Array(prefixClasses * cellCount);
+    own.fill(CLASS_UNKNOWN);
+    block.fill(CLASS_UNKNOWN);
+    const metrics = { hits: 0, misses: 0, stores: 0, collisions: 0, outOfPrefix: 0 };
+    return Object.freeze({
+      kind,
+      prefixClasses,
+      metrics,
+      get(classId, cell, mode) {
+        if (classId >= prefixClasses) {
+          metrics.misses += 1;
+          metrics.outOfPrefix += 1;
+          return CLASS_UNKNOWN;
+        }
+        const cache = mode === 0 ? own : block;
+        const value = cache[classId * cellCount + cell];
+        if (value !== CLASS_UNKNOWN) {
+          metrics.hits += 1;
+          return value;
+        }
+        metrics.misses += 1;
+        return CLASS_UNKNOWN;
+      },
+      set(classId, cell, mode, target) {
+        if (classId >= prefixClasses) return;
+        const cache = mode === 0 ? own : block;
+        cache[classId * cellCount + cell] = target;
+        metrics.stores += 1;
+      },
+      bytes: own.byteLength + block.byteLength,
+    });
+  }
+
   if (kind !== 'global-direct') throw new RangeError(`unsupported bounded term transition cache: ${kind}`);
 
   const slots = policy.slots ?? 65536;
@@ -191,7 +229,7 @@ function createTransitionMemo(policy = {}) {
   const value = new Int32Array(slots);
   tagMeta.fill(CACHE_EMPTY_META);
   const mask = slots - 1;
-  const metrics = { hits: 0, misses: 0, stores: 0, collisions: 0 };
+  const metrics = { hits: 0, misses: 0, stores: 0, collisions: 0, outOfPrefix: 0 };
 
   function slotFor(classId, meta) {
     return mix32((classId >>> 0) ^ Math.imul((meta + 1) >>> 0, 0x9e3779b1)) & mask;
@@ -235,7 +273,7 @@ function installTermIdPool(kernel, spec, cachePolicy) {
   const scratchUnchanged = new Uint16Array(maxTerms);
   const scratchSurvivor = new Uint16Array(maxTerms);
   const scratchResult = new Uint16Array(maxTerms);
-  const transitionMemo = createTransitionMemo(cachePolicy);
+  const transitionMemo = createTransitionMemo(cachePolicy, vocabulary.cellCount);
 
   let classCount = 0;
   let classCapacity = 1024;
