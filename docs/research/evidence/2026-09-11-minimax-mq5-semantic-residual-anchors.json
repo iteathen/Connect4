@@ -1,0 +1,91 @@
+{
+  "kind": "connect4-minimax-mq5-semantic-residual-anchor-progression",
+  "status": "qualified-research-evidence",
+  "anchors": {
+    "loss": {"sequence": "663152175", "expectedScore": -4},
+    "win": {"sequence": "41267575", "expectedScore": 3}
+  },
+  "fairness": {
+    "baseline": "compact exact decision-state + intrinsic rank banking",
+    "ttSlots": 524288,
+    "rankBanks": "same exact16 layout",
+    "heldFixed": [
+      "distance-sensitive score",
+      "null-window convergence",
+      "center-first tie order",
+      "immediate threat and forced-block semantics",
+      "winning-cell-count move ordering",
+      "decision-only TT admission"
+    ],
+    "caveats": [
+      "equal total memory is not yet claimed",
+      "semantic state identity changes direct-map collision patterns",
+      "hosted-run elapsed ratios are implementation evidence, not production forecasts"
+    ]
+  },
+  "factoredResidual": {
+    "source": "6c10887db22a53f0c51d946cc8b3af8831aad8b5",
+    "workflowRun": 34572020977,
+    "workflowJob": 103175978744,
+    "loss": {
+      "baselineNodes": 1014754,
+      "residualNodes": 786581,
+      "nodeRatio": 0.7751445177846059,
+      "writeRatio": 0.7595892415957285,
+      "ttHitRatio": 1.0575121510859753,
+      "baselineElapsedMs": 200.55,
+      "residualElapsedMs": 4033.05
+    },
+    "win": {
+      "baselineNodes": 5261422,
+      "residualNodes": 4138812,
+      "nodeRatio": 0.7866337275360159,
+      "writeRatio": 0.7718471141694258,
+      "ttHitRatio": 1.0131065137685895,
+      "baselineElapsedMs": 820.5995,
+      "residualElapsedMs": 20703.974
+    }
+  },
+  "wsl625": {
+    "initialSource": "29249774e779c12b458323bb27e905fd595fc761",
+    "initialFailedRun": 34572145083,
+    "initialFailedJob": 103176361012,
+    "initialFailure": "native 7-stride board uses 49 bit slots and playable cells through bit 47; the first remove table was incorrectly bounded to 42 indices and returned loss anchor score 0 instead of -4",
+    "repair": "afac9edc771f54ee976fe3bc359185878849e451",
+    "boundaryGuard": "9fda600ecd5ca6be2b43409a73ce1dd1d3e4940c",
+    "workflowRun": 34572527527,
+    "workflowJob": 103177554442,
+    "loss": {
+      "score": -4,
+      "baselineNodes": 1014754,
+      "residualNodes": 786581,
+      "nodeRatio": 0.7751445177846059,
+      "baselineElapsedMs": 161.906558,
+      "residualElapsedMs": 1815.447007,
+      "elapsedRatio": 11.212930652259312,
+      "ttHitRatio": 1.0575121510859753,
+      "writeRatio": 0.7595892415957285,
+      "sideStates": 494512,
+      "storedRequirementIds": 4064038,
+      "storedRequirementBytes": 8128076,
+      "stateCount": 473036
+    },
+    "win": {
+      "score": 3,
+      "baselineNodes": 5261422,
+      "residualNodes": 4138812,
+      "nodeRatio": 0.7866337275360159,
+      "baselineElapsedMs": 706.643631,
+      "residualElapsedMs": 10886.343538,
+      "elapsedRatio": 15.405705309470195,
+      "ttHitRatio": 1.0131065137685895,
+      "writeRatio": 0.7718471141694258,
+      "sideStates": 2028848,
+      "storedRequirementIds": 18574406,
+      "storedRequirementBytes": 37148812,
+      "stateCount": 2198870
+    },
+    "searchTreeParityWithFactoredResidual": true
+  },
+  "conclusion": "semantic residual identity consistently removes about 21-22.5% of alpha-beta proof nodes on both frozen win/loss anchors; WSL-625 u16 requirements preserve the same search tree while materially reducing representation cost. Remaining dominant overhead is JS Map/BigInt based side, state and transition interning."
+}
