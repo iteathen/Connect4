@@ -83,6 +83,17 @@ attached to its existing issue #3; exact residual equality stays in Connect4.
 Ordering by hash alone is insufficient: complete collision handling must place
 all equal residuals in one exact group before assigning IDs.
 
+The next producer step has native experimental evidence in isolated
+CUDA-Algorithms branch `codex/oqs-segment-scan`, source 7d923eb5. A hierarchical
+checked scan builds group IDs, representatives and compact record offsets in
+one prepared DAG: 72 native fixtures pass, including the exported OQS cut-five
+sequence (128 payloads, 48 exact CPU-established groups, 10,597 records).
+The 262,144-entry control uses 11.6 MB and 0.9921 ms median submit/wait.
+[CUDA-Algorithms #9](https://github.com/iteathen/CUDA-Algorithms/issues/9) now owns
+the supported checked-scan/select capability and acceptance work. This is an
+experiment, not an adopted library API; Connect4's dependency remains unchanged.
+Device residual equality/ordering, payload copying and full chaining remain open.
+
 C1 seed construction remains a separate costly prerequisite. No full device OQS
 or empty7x6 root result is claimed. A bounded 7x6 slice needs an exact seed and a
 measured finite envelope before admission; O1 still refuses 7x6 and O2 admits
