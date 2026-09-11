@@ -25,12 +25,14 @@ Local Q1 passed all 220,744 candidates across 112 transitions for 5x5 supports
 4426, 4743, 6351 and 6465 in baseline and antichain-preserving modes. Every
 candidate's crossing and Win/Loss sets matched JS and covered the reference next
 quotient. Selected small supports and 4426 also rebuild independent R3 layers.
-Official clean-source publication is the remaining qualification transaction.
+Official clean-source Q1 run 20260911T032754503Z-b0df94a3 qualified 4x3, 4x4
+and these 5x5 supports; [evidence PR #21](https://github.com/iteathen/Connect4/pull/21)
+is published and its 23 payload hashes verified. Exact native source: 6e30e382.
 
 The preservation shortcut has a formal set-order argument and exhaustive checks
-on all 168 four-bit antichains. Local 5x5 submit/wait was 451.255 ms baseline and
-285.352 ms optimized; this single pass is not an end-to-end OQS speedup. Readback
-cost about 2.25 s per mode and initial C1 seed construction 38.49 s.
+on all 168 four-bit antichains. Official 5x5 submit/wait was 428.384 ms baseline and
+280.993 ms optimized; this single pass is not an end-to-end OQS speedup. Readback
+cost about 2.22 s per mode and initial C1 seed construction 38.63 s.
 
 [O1 profile](docs/specs/profiles/C4-0009-O1-oqs-cofactor-42-v0.md) and
 [assessment, proof and measurements](docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md)
@@ -41,8 +43,8 @@ composition/lifecycle only, never native numerical parity.
 
 GPU grouping, dense IDs, compact record output and device layer chaining remain
 unimplemented. CUDA-Algorithms' pinned select/order realization is quadratic and
-has no scalability claim. Route scalable sequence/grouping requirements to its
-existing issue #3; keep exact residual equality and Connect4 semantics here.
+has no scalability claim. The measured sequence/grouping requirements are now
+attached to its existing issue #3; exact residual equality stays in Connect4.
 Ordering by hash alone is insufficient: complete collision handling must place
 all equal residuals in one exact group before assigning IDs.
 

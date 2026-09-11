@@ -4,6 +4,10 @@ objective: exact_fast_empty_7x6_connect4_wdl_via_cuda_bsfp_no_search
 active_boundary: bounded_oqs_packed42_cofactor_qualification
 reference_base: 0b1d67e97e74ae9014621e18ff109bda50997352
 profile: c4-0009-o1-oqs-cofactor-42
+native_source: 6e30e3829ddede96c7a9dce3fdad71df467e4ebe
+native_run: 20260911T032754503Z-b0df94a3
+evidence_pr: https://github.com/iteathen/Connect4/pull/21
+evidence_commit: d2e31abb6f4da79f4b4d006e166e4b39d1960dd3
 research_record: docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md
 r6_evidence: docs/research/evidence/2026-09-11-oqs-r6-original-job-summary.json
 
@@ -20,10 +24,11 @@ completed:
   - independent_layer_rebuilds_on_selected_small_supports_and_4426
   - explicit_capacity_offset_input_extent_errors_and_graceful_cleanup
   - integrated_90_tests_and_wide_portable_composition_pass
+  - official_Q1_4x3_4x4_5x5_pass_and_23_published_payload_hashes_verified
+  - CUDA_portable_34558523310_and_incremental_regression_34558523311_pass
+  - concrete_generic_requirements_attached_to_cuda_algorithms_issue_3
 
 next_actions:
-  - publish_clean_source_O1_native_4x3_4x4_5x5_evidence_through_Q1
-  - attach_exact_consumer_requirements_to_cuda_algorithms_issue_3
   - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
   - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
   - investigate_seed_construction_cost_before_admitting_finite_7x6_slice
@@ -36,7 +41,7 @@ open_boundaries:
     collision_rule: hash_match_is_not_exact_equality_or_sufficient_group_order
   initial_residual_seed:
     owner: Connect4
-    observation: local_5x5_C1_seed_38_49_seconds
+    observation: official_5x5_C1_seed_38_63_seconds
     status: exact_reference_prerequisite_not_eliminated
 
 claims:
@@ -50,6 +55,8 @@ cleanup:
   retained: OQS_worktree_package_junctions_ignored_R6_raw_logs_Q1_spools
   protected_unchanged: older_feature_lane_and_exact_lower_repository_sources
   runtime_requirement: success_only_after_graceful_cleanup
+  historical_replays: ZDD_one_shot_and_R6_compact_manual_only_duplicate_runs_cancelled
+  evidence_pr_21: retained_open_no_main_merge
 
 constraints:
   - no_search_or_colored_state_tree_substitution

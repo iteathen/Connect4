@@ -1,13 +1,7 @@
 name: ZDD transfer one-shot
 
 on:
-  push:
-    branches:
-      - research/zdd-transfer-20260910
-    paths:
-      - '.github/workflows/zdd-transfer-one-shot.yml'
-      - 'reference/research-prototypes/2026-09-10-zdd-transfer/**'
-      - 'components/bsfp/**'
+  workflow_dispatch:
 
 permissions:
   contents: read

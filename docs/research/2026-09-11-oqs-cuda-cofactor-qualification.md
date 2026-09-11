@@ -97,3 +97,55 @@ requires valid execution after every deliberate metadata failure. The wide
 portable envelope submits successfully. Clean-source native publication follows
 these final controls; the earlier local results are explicitly dirty-source
 development evidence and are not substituted for that publication.
+
+## Official native qualification and disposition
+
+Exact source: 6e30e3829ddede96c7a9dce3fdad71df467e4ebe, clean checkout.
+Q1 run 20260911T032754503Z-b0df94a3 is `qualified`; all three cases passed.
+[Evidence PR #21](https://github.com/iteathen/Connect4/pull/21) retains the
+append-only bundle at d2e31abb6f4da79f4b4d006e166e4b39d1960dd3. All 23
+published payloads were checked against their manifest SHA-256 values and remote
+Git blob identities. No main merge was performed.
+
+| Geometry / selected supports | Cuts | Candidates per mode | Baseline submit/wait ms | Preservation submit/wait ms |
+| --- | ---: | ---: | ---: | ---: |
+| 4x3:c3 / 190 | 14 | 1,120 | 13.2602 | 10.7865 |
+| 4x4:c4 / 468 | 10 | 1,409 | 10.5245 | 8.1668 |
+| 5x5:c4 / 4426, 4743, 6351, 6465 | 112 | 220,744 | 428.3844 | 280.9927 |
+
+All candidate comparisons have zero mismatches and exact next-target set coverage.
+All eleven small-case controls passed. Independent R3 checks cover 15 layers for
+4x3, 11 for 4x4 and 29 for 4426; the other three supports retain the explicitly
+weaker independent count-check scope. Both device modes compare every candidate
+to JS; JS sequential-cofactor checks cover every candidate on all selected supports.
+
+The official 5x5 timing ratio is 1.52x for submit/wait only, from a single pass
+with mode order alternating by cut. Baseline/preservation uploads are 370.793 /
+345.421 ms and readback 2,217.539 / 2,217.294 ms. Seed construction is 38.630 s;
+plan setup is 839.326 ms. These timings include qualification overhead and cannot
+support an end-to-end OQS speedup claim. The 269,746,344-byte device payload and
+538,181,800-byte admission bound are finite selected-control envelopes.
+
+[Portable CUDA CI](https://github.com/iteathen/Connect4/actions/runs/34558523310)
+and [incremental OQS regression](https://github.com/iteathen/Connect4/actions/runs/34558523311)
+passed at the same exact source. Integrated local tests: 90/90. Review is bounded
+author-side review of the cofactor program/plan, oracle seams, finite layout,
+qualification runner/profile, evidence and lifecycle; not an independent full
+solver audit. No native 7x6, full quotient grouping or device OQS chain was tested.
+
+The concrete generic capability packet is attached to the existing
+[CUDA-Algorithms issue #3](https://github.com/iteathen/CUDA-Algorithms/issues/3).
+It records exact bounds, collision-complete grouping, device active extents,
+finite scratch, dense mapping and a second-consumer requirement. No lower source,
+contract or dependency pin was changed. Accept that bounded generic contract
+before implementation; retain Connect4 exact structural equality here.
+
+Cleanup: all native plans/runtimes closed gracefully and the Q1 process exited.
+The old feature lane and both lower worktrees remain clean and unchanged. Keep
+this OQS worktree, dependency junctions, raw original R6 log and ignored Q1 spools
+for continuation/reproduction. Remote evidence PR #21 remains open. Cancelled
+redundant runs 34558523329 (historical ZDD replay) and 34558523247 (duplicate R6
+compact replay) remain visible as cancelled, not successful evidence. Their
+workflows are retained for manual reproduction and no longer auto-run on pushes;
+the incremental OQS regression and portable CUDA qualification retain automatic
+triggers. No evidence or historical implementation was deleted.
