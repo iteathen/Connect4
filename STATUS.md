@@ -64,12 +64,16 @@ storage/transform work from crossing-state storage in the next CUDA composition;
 do not extrapolate throughput using duplicated per-state frontier work.
 All 94 integrated tests pass after this optional reference experiment.
 
-O3 now implements distinct-pair cofactor transforms followed by every crossing
-occurrence's output mapping in one prepared CUDA DAG. Portable 4x4 controls and
-7x6 cut five pass; native qualification is pending. Input pair IDs come from the
-CPU fixture and output slots remain unmerged. The selected 7x6 layer reduces
-8,192 transforms to 128 while retaining all 8,192 outputs, with device arrays
-151,290,024 versus 2,781,876 bytes. See
+O3 qualifies distinct-pair cofactor transforms followed by every crossing
+occurrence's output mapping in one prepared CUDA DAG. Native 4x4 controls and
+7x6 cut five pass in [evidence PR #30](https://github.com/iteathen/Connect4/pull/30),
+source 5dfe1312. Input pair IDs come from the CPU fixture; output slots remain
+unmerged. The selected 7x6 layer reduces 8,192 transforms to 128 while retaining
+all 8,192 exact outputs. Median submit/wait is 9.9435 versus 1.2580 ms; the ratio
+of the three-sample sums is 3.232x because of one slower factored sample.
+Allocated device arrays are 151,290,024 versus 2,781,876 bytes. The tiny 4x4
+control is slightly slower with mapping. All 96 local tests and portable/reuse
+CI 34564683731 pass; all 17 published payload hashes/Git blobs match. See
 `docs/research/2026-09-11-oqs-cuda-residual-reuse.md` and bounded profile O3.
 
 GPU grouping, dense IDs, compact record output and device layer chaining remain
@@ -82,7 +86,7 @@ all equal residuals in one exact group before assigning IDs.
 C1 seed construction remains a separate costly prerequisite. No full device OQS
 or empty7x6 root result is claimed. A bounded 7x6 slice needs an exact seed and a
 measured finite envelope before admission; O1 still refuses 7x6 and O2 admits
-only the frozen seed's first cut.
+only the frozen seed's first cut. O3 admits just its selected cut-five A/B layer.
 
 Exact unchanged dependencies:
 
