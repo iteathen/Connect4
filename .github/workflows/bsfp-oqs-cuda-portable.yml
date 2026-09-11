@@ -5,9 +5,12 @@ on:
     branches:
       - research/zdd-transfer-20260910
     paths:
-      - 'components/bsfp/cuda/oqs-cofactor-42-program.mjs'
+      - 'components/bsfp/cuda/oqs-cofactor-42-*.mjs'
       - 'components/bsfp/cuda/packed-antichain-42-collective.mjs'
-      - 'experiments/cuda-bsfp-oqs-cofactor/run.mjs'
+      - 'experiments/cuda-bsfp-oqs-cofactor/**'
+      - 'components/bsfp/test/oqs-cofactor.test.mjs'
+      - 'reference/research-prototypes/2026-09-10-oqs/**'
+      - 'reference/research-prototypes/2026-09-10-zdd-transfer/residual-class-transition.mjs'
       - '.github/workflows/bsfp-oqs-cuda-portable.yml'
   workflow_dispatch:
 
@@ -42,5 +45,11 @@ jobs:
       - name: Bind CUDA-JS public package surface
         run: node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});const link=p.resolve('node_modules/cuda-js'),target=p.resolve('cuda-js');fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,'dir')"
 
-      - name: Compile OQS packed cofactor Device-JS
+      - name: Compile and submit OQS packed cofactor Device-JS
         run: node experiments/cuda-bsfp-oqs-cofactor/run.mjs
+
+      - name: Submit widened finite OQS envelope
+        run: node experiments/cuda-bsfp-oqs-cofactor/run.mjs portable 5 5 4
+
+      - name: Verify antichain preservation and finite memory bounds
+        run: node --test components/bsfp/test/oqs-cofactor.test.mjs

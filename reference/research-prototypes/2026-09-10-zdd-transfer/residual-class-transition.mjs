@@ -8,7 +8,7 @@ const TEMP_URL = new URL('./.separator-transition-internals.tmp.mjs', import.met
 const EXPLICIT_X_CAP = 1 << 16;
 
 function loadInternalSource() {
-  let source = readFileSync(SOURCE_URL, 'utf8');
+  let source = readFileSync(SOURCE_URL, 'utf8').replaceAll('\r\n', '\n');
   const marker = '\nconst results = [];\nfor (const config of CASES) results.push(analyzeCase(config));\n\nconsole.log(';
   const first = source.indexOf(marker);
   const last = source.lastIndexOf(marker);

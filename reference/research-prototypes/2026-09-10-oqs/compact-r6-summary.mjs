@@ -1,8 +1,9 @@
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const stdout = execFileSync(
   process.execPath,
-  ['--expose-gc', new URL('./incremental-oqs.mjs', import.meta.url).pathname],
+  ['--expose-gc', fileURLToPath(new URL('./incremental-oqs.mjs', import.meta.url))],
   { encoding: 'utf8', maxBuffer: 128 * 1024 * 1024 },
 );
 

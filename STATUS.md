@@ -1,118 +1,67 @@
 # Connect4 Status
 
-**Updated:** 2026-09-10  
-**Phase:** CUDA-BSFP compact exact closure through 5x5; 6x5 cause isolation and reducer-quality qualification
+**Updated:** 2026-09-11 UTC
+**Active lane:** research/zdd-transfer-20260910 — Offline Quotient Synthesis
 
-## Active lane
+Goal: exact, extremely fast empty-board standard 7x6 connect-4 W/D/L through
+CUDA-BSFP. This is symbolic solving, not legal move-tree search.
 
-```text
-branch: feature/cuda-bsfp
-PR:     #14 (draft)
-base:   main@de47d43f4f4133a68973d0876a402531ef5735da
-goal:   exact empty-board 7x6 connect-4 W/D/L, extremely fast on CUDA
-method: backward symbolic fixed-point, not move-tree search
-```
+## Current evidence
 
-Connect4 keeps the incumbent minimax/alpha-beta lane separate under `components/incumbent/`. CUDA-BSFP is under `components/bsfp/` and must not be converted into recursive search.
+R1 falsified crossing assignment alone as complete state. R3 established exact
+residual-class transition stability on tested controls; R4 qualified a flat
+transfer artifact. R5 located the cost in repeated semantic layer discovery.
+R6 replaces rediscovery with previous exact quotient plus at most four introduced
+ownership bits, exact cofactor candidates, and exact deduplication.
 
-## Exact dependency pair
+The original R6 job 103111963716 has now been read and its metrics preserved in
+[the R6 record](docs/research/2026-09-10-r6-incremental-oqs-results.md). It includes
+17,948 independent layer checks and 478,657 direct-cofactor checks. The three
+additional 5x5 supports have weaker independent R5 count-check scope; do not
+present them as independently rebuilt layer parity.
 
-```text
-CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-CUDA-JS:         98e2ebc942c14d63acf4dd82e912dd548c363a05
-package:         cuda-js@0.1.0-alpha.20
-```
+The new O1 bounded CUDA cofactor slice reuses packed42 antichain collectives.
+Local Q1 passed all 220,744 candidates across 112 transitions for 5x5 supports
+4426, 4743, 6351 and 6465 in baseline and antichain-preserving modes. Every
+candidate's crossing and Win/Loss sets matched JS and covered the reference next
+quotient. Selected small supports and 4426 also rebuild independent R3 layers.
+Official clean-source publication is the remaining qualification transaction.
 
-No lower repository change is currently required.
+The preservation shortcut has a formal set-order argument and exhaustive checks
+on all 168 four-bit antichains. Local 5x5 submit/wait was 451.255 ms baseline and
+285.352 ms optimized; this single pass is not an end-to-end OQS speedup. Readback
+cost about 2.25 s per mode and initial C1 seed construction 38.49 s.
 
-## Native milestones
+[O1 profile](docs/specs/profiles/C4-0009-O1-oqs-cofactor-42-v0.md) and
+[assessment, proof and measurements](docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md)
+define the exact scope. All 90 integrated tests pass. Portable execution proves
+composition/lifecycle only, never native numerical parity.
 
-- P1 / evidence PR #18: first physical CUDA-BSFP correctness slice on GTX 1660 Ti.
-- B1 / evidence PR #19: about 35.35 billion exact packed42 subset checks/s; raw two-u32 subset testing is not the first wall.
-- C1 / evidence PR #20: complete device-owned compact recurrence, exact all-frontier agreement on 4x3, 4x4 and 5x5.
-- Official C1 5x5: about 3.30 s submit/wait and 3.57 s warm solve wall versus about 11.66 s for the same-machine CPU reference including its qualification observer.
+## Next seam and limits
 
-## 6x5 wall
+GPU grouping, dense IDs, compact record output and device layer chaining remain
+unimplemented. CUDA-Algorithms' pinned select/order realization is quadratic and
+has no scalability claim. Route scalable sequence/grouping requirements to its
+existing issue #3; keep exact residual equality and Connect4 semantics here.
+Ordering by hash alone is insufficient: complete collision handling must place
+all equal residuals in one exact group before assigning IDs.
 
-Two bounded C1 6x5 attempts timed out at 180 seconds. With a 2,048-candidate tile, the first 32-node static epoch took about 75.118 seconds. The owner observed roughly 95–100% GPU utilization during the expensive interval.
+C1 seed construction remains a separate costly prerequisite. No full device OQS
+or empty7x6 root result is claimed. A bounded 7x6 slice needs an exact seed and a
+measured finite envelope before admission; O1 currently refuses 7x6.
 
-Current suspects are complete 43-phase candidate rescans, quadratic same-cardinality duplicate scans, one-block-per-support serialization, generic terminal subtraction, and genuinely excessive aggregate pair volume requiring stronger winspace/CPC/NDC inference.
+Exact unchanged dependencies:
 
-## C3 workload diagnostic
+- CUDA-Algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
+- CUDA-JS: 98e2ebc942c14d63acf4dd82e912dd548c363a05 (0.1.0-alpha.20)
 
-C3 is a one-static-epoch result-neutral 6x5 profile. It records pair class, subset checks, prior-scan iterations, duplicate hits, normalization volume/calls, rank summaries and hot-support skew. It is explicitly `partial-rank-diagnostic` and cannot publish root W/D/L.
+The older feature/cuda-bsfp lane and its C1/C3/B2 evidence remain separate and
+unchanged. Its inherited status is preserved in Git at 0b1d67e; it is not the
+active OQS plan. No production-lane reducer migration is part of this change.
 
-Exact low-perturbation native source:
+## Retained continuation state
 
-```text
-468611d9e2f743a6a30a55a2db23cc70a824f988
-```
-
-Portable qualification passed Windows Server 2025 and Ubuntu 24.04 under Node 24.15.0 and 26.7.0. A native C3 datum is still required.
-
-## Exact winspace inference result
-
-The distinct-playable double-threat absorber remains research-only. Complete-game controls through 5x5 had zero unsound seeds and zero frontier mismatches.
-
-On 5x5:
-
-```text
-baseline aggregate pairs:       81,515,570
-with absorber:                  79,580,610
-direct pair reduction:               2.37%
-post-combine pairs already proved: 21,671,147 (~26.59%)
-```
-
-Disposition: insufficient as a standalone pair-space breakthrough, but promising as a cheap semantic filter before expensive dominance/dedup normalization.
-
-## B2 cardinality-bucketed normalizer
-
-C1/C3 still use the legacy reducer. B2 is a separate exact primitive A/B profile.
-
-The bucketed reducer replaces 43 complete candidate rescans with count -> prefix -> scatter -> exact per-bucket processing. It preserves cardinality order, exact subset dominance, exact equality deduplication, invalid-candidate handling and capacity-fail-closed behavior.
-
-B2 now contains two fixed workload families so a result cannot be optimized to a single favorable shape:
-
-1. equal-cardinality duplicate stress;
-2. deterministic mixed-cardinality control with exact host-derived minimal/maximal survivor sets.
-
-Each family runs legacy and bucketed native children independently, for four exact A/B steps total.
-
-Current exact native B2 source:
-
-```text
-7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5
-```
-
-Fixed physical size:
-
-```text
-segments:     1,024
-segment size: 512
-candidates:   524,288 per child
-block size:   256
-```
-
-Portable qualification at that exact source:
-
-```text
-verify:        34494972124 success
-bsfp-portable: 34494972278 success
-matrix:        Windows/Ubuntu x Node 24.15/26.7 all pass
-mixed fixture: compile/submit pass on all four lanes
-B2 dry-run:    pass on all four lanes
-B2 bootstrap:  pass on all four lanes
-```
-
-This proves representability/composition only. A native same-GPU A/B must show a material gain on the mixed control, not merely the one-bucket stress case, before C1 integration is allowed.
-
-## Next gate
-
-Two independent native measurements are ready:
-
-1. **C3**, exact source `468611d9...`: classify the first 6x5 epoch by actual work source.
-2. **B2**, exact source `7298bb...`: compare legacy versus bucketed normalization on both workload families.
-
-After those measurements, select the smallest intervention supported by evidence. If bucketed normalization wins, integrate it into C1 and requalify every support frontier for 4x3, 4x4 and 5x5 before retrying 6x5. If it does not win, preserve the negative result and use C3 to choose terminal specialization, heavy-support decomposition, semantic filtering, or broader WSL/CPC/NDC operand reduction.
-
-Empty 7x6 remains unsolved by complete BSFP closure. No exact-distance result or protected-main merge is claimed.
+The OQS worktree, package junctions, ignored raw R6 logs and Q1 spools are retained
+for reproducibility/continuation. No lower-repository source changes or persistent
+GPU allocations are intended. Official evidence uses Q1 append-only branch/PR
+publication; source work stays on the research branch, with no main merge.

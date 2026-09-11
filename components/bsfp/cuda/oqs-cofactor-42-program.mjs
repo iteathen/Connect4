@@ -27,7 +27,7 @@ function synthesizeOqsCofactor42Candidates(
   outputWinLo, outputWinHi, outputWinCounts, outputWinStatus,
   outputLossLo, outputLossHi, outputLossCounts, outputLossStatus,
   generationStatus, candidateCount, globalStatus,
-  stateCapacity, winRecordCapacity, lossRecordCapacity, candidateCapacity, frontierCapacity
+  stateCapacity, winRecordCapacity, lossRecordCapacity, candidateCapacity, frontierCapacity, preserveAntichains
 ) {
   const candidate = gpu.block.x();
   const lane = gpu.thread.x();
@@ -43,6 +43,10 @@ function synthesizeOqsCofactor42Candidates(
   if (fanout === gpu.u32(0) || fanout > gpu.u32(16)) invalidExtent = true;
   if (fanout !== gpu.u32(0) && (fanout & (fanout - gpu.u32(1))) !== gpu.u32(0)) invalidExtent = true;
   if (fanout !== gpu.u32(0) && active > candidateCapacity / fanout) invalidExtent = true;
+  if (((fixedHi | nextCrossingHi) & gpu.u32(4294966272)) !== gpu.u32(0)) invalidExtent = true;
+  const fixedWidth = packedPopcount42(fixedLo, fixedHi);
+  if (fixedWidth > gpu.u32(4)) invalidExtent = true;
+  if (fanout !== (gpu.u32(1) << fixedWidth)) invalidExtent = true;
   if (invalidExtent) {
     gpu.atomic.cas(globalStatus, gpu.u32(0), gpu.u32(0), gpu.u32(1));
     return;
@@ -80,8 +84,10 @@ function synthesizeOqsCofactor42Candidates(
   }
 
   if (lane === gpu.u32(0)) generationStatus[candidate] = gpu.u32(0);
-  candidateXLo[candidate] = (stateXLo[state] & nextCrossingLo) | (p0Lo & nextCrossingLo);
-  candidateXHi[candidate] = (stateXHi[state] & nextCrossingHi) | (p0Hi & nextCrossingHi);
+  if (lane === gpu.u32(0)) {
+    candidateXLo[candidate] = (stateXLo[state] & nextCrossingLo) | (p0Lo & nextCrossingLo);
+    candidateXHi[candidate] = (stateXHi[state] & nextCrossingHi) | (p0Hi & nextCrossingHi);
+  }
 
   const scratchBase = candidate * frontierCapacity;
 
@@ -101,11 +107,22 @@ function synthesizeOqsCofactor42Candidates(
   }
   gpu.barrier.block();
   const rawWinCount = scratchCounts[candidate];
+  // Fixing only P1 cells filters minimal generators without changing survivors.
+  if (preserveAntichains !== gpu.u32(0) && p0Lo === gpu.u32(0) && p0Hi === gpu.u32(0)) {
+    let copy = lane;
+    while (copy < rawWinCount) {
+      outputWinLo[scratchBase + copy] = scratchLo[scratchBase + copy];
+      outputWinHi[scratchBase + copy] = scratchHi[scratchBase + copy];
+      copy = copy + gpu.blockDim.x();
+    }
+    if (lane === gpu.u32(0)) { outputWinCounts[candidate] = rawWinCount; outputWinStatus[candidate] = gpu.u32(0); }
+  } else {
   packedNormalize42(
     scratchLo, scratchHi, scratchPopcount,
     outputWinLo, outputWinHi, outputWinCounts, outputWinStatus, checks,
     scratchBase, scratchBase + rawWinCount, scratchBase, candidate, frontierCapacity, gpu.u32(0)
   );
+  }
   gpu.barrier.block();
   if (outputWinStatus[candidate] !== gpu.u32(0)) return;
 
@@ -125,11 +142,23 @@ function synthesizeOqsCofactor42Candidates(
   }
   gpu.barrier.block();
   const rawLossCount = scratchCounts[candidate];
+  // All retained maximal caps contain every fixed P0 cell. Clearing that common
+  // subset is injective and preserves subset comparisons between survivors.
+  if (preserveAntichains !== gpu.u32(0) && p1Lo === gpu.u32(0) && p1Hi === gpu.u32(0)) {
+    let copy = lane;
+    while (copy < rawLossCount) {
+      outputLossLo[scratchBase + copy] = scratchLo[scratchBase + copy];
+      outputLossHi[scratchBase + copy] = scratchHi[scratchBase + copy];
+      copy = copy + gpu.blockDim.x();
+    }
+    if (lane === gpu.u32(0)) { outputLossCounts[candidate] = rawLossCount; outputLossStatus[candidate] = gpu.u32(0); }
+  } else {
   packedNormalize42(
     scratchLo, scratchHi, scratchPopcount,
     outputLossLo, outputLossHi, outputLossCounts, outputLossStatus, checks,
     scratchBase, scratchBase + rawLossCount, scratchBase, candidate, frontierCapacity, gpu.u32(1)
   );
+  }
 }
 `;
 
@@ -161,7 +190,7 @@ export const oqsCofactor42DeviceProgram = Object.freeze({
         ptr('outputWinLo'), ptr('outputWinHi'), ptr('outputWinCounts'), ptr('outputWinStatus'),
         ptr('outputLossLo'), ptr('outputLossHi'), ptr('outputLossCounts'), ptr('outputLossStatus'),
         ptr('generationStatus'), ptr('candidateCount'), ptr('globalStatus'),
-        u32('stateCapacity'), u32('winRecordCapacity'), u32('lossRecordCapacity'), u32('candidateCapacity'), u32('frontierCapacity'),
+        u32('stateCapacity'), u32('winRecordCapacity'), u32('lossRecordCapacity'), u32('candidateCapacity'), u32('frontierCapacity'), u32('preserveAntichains'),
       ]),
     }),
   ]),

@@ -22,7 +22,7 @@ function assert(condition, message) {
 }
 
 function exportR3Internals() {
-  let source = readFileSync(R3_SOURCE_URL, 'utf8');
+  let source = readFileSync(R3_SOURCE_URL, 'utf8').replaceAll('\r\n', '\n');
   const marker = '\nconst results = CASES.map(analyzeCase);\nconst failures = results.filter((entry) => entry.transitionClosure !== \'pass\');\n';
   const first = source.indexOf(marker);
   const last = source.lastIndexOf(marker);
@@ -130,7 +130,7 @@ function summarizeLayer(cut, states, candidateCount, introducedWidth, generatedM
   });
 }
 
-function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateDirect }) {
+function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateDirect, onTransition = null }) {
   const { lines, orderData, solution } = prepared;
   const started = performance.now();
   const heights = solution.support.decodeHeights(supportIndex);
@@ -198,6 +198,10 @@ function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateD
     }
     const layerDedupMs = performance.now() - lap;
     dedupMs += layerDedupMs;
+
+    // Qualification observer only: its return cannot alter quotient synthesis.
+    if (onTransition) onTransition({ cut, states: [...states.values()], introduced,
+      inputs, nextCrossingMask, candidates, nextStates: [...next.values()] });
 
     transitionEntries += candidateCount;
     totalCandidates += candidateCount;
@@ -279,6 +283,9 @@ function prepareCase(config) {
   return Object.freeze({ spec, lines, orderData, solution, supportIndices, lineOrderMs, c1SolveMs });
 }
 
+export { r3, prepareCase, synthesizeSupport, directRestrictPair, semanticKey };
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 const results = [];
 for (const config of CASES) {
   const prepared = prepareCase(config);
@@ -322,3 +329,4 @@ console.log(JSON.stringify({
   r5CheckpointSource: 'GitHub Actions run 34538774305 / commit 0dd21bd2d59d8a28a0c794666f0d2ded00b3ab0f',
   results,
 }, null, 2));
+}

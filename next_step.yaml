@@ -1,147 +1,61 @@
-schema_version: 18
-updated: 2026-09-10
-state: cuda_bsfp_c3_and_stronger_b2_native_measurements_ready
-repository_role: connect4_solver_validation
-branch: feature/cuda-bsfp
+updated: 2026-09-11
+branch: research/zdd-transfer-20260910
+objective: exact_fast_empty_7x6_connect4_wdl_via_cuda_bsfp_no_search
+active_boundary: bounded_oqs_packed42_cofactor_qualification
+reference_base: 0b1d67e97e74ae9014621e18ff109bda50997352
+profile: c4-0009-o1-oqs-cofactor-42
+research_record: docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md
+r6_evidence: docs/research/evidence/2026-09-11-oqs-r6-original-job-summary.json
 
-current:
-  action: obtain_native_c3_cause_profile_and_stronger_b2_ab_then_select_smallest_measured_intervention
-  owner: Connect4
-  mode: active
-  branch_base: de47d43f4f4133a68973d0876a402531ef5735da
-  draft_pr: 14
-  solver_lane: cuda_bsfp
-
-product_goal:
-  geometry: 7x6_connect4
-  root: empty_board
-  result: exact_wdl
-  objective: extreme_fast_cuda_solve
-  forbidden_primary_method: move_tree_search_or_minimax
-
-exact_dependency_pair:
+dependencies:
   cuda_algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
   cuda_js: 98e2ebc942c14d63acf4dd82e912dd548c363a05
-  cuda_js_package: cuda-js@0.1.0-alpha.20
+  cuda_js_package: 0.1.0-alpha.20
 
-native_milestones:
-  p1:
-    evidence_pr: 18
-    run_id: 20260910T065508562Z-fb451dd8
-    result: exact_4x3_native_correctness
-  b1:
-    evidence_pr: 19
-    run_id: 20260910T083225135Z-2245e20a
-    subset_checks_per_second_median: 35349174303
-    result: raw_packed42_subset_primitive_not_first_wall
-  c1:
-    evidence_pr: 20
-    run_id: 20260910T100734116Z-e8de3c61
-    qualified_source: fc7c8cc233b3cf1670ef75fde69750c91dd6492b
-    exact_frontiers:
-      4x3_c3: win_zero_mismatch
-      4x4_c4: draw_zero_mismatch
-      5x5_c4: draw_zero_mismatch
-    five_by_five_submit_wait_ms: 3299.957
-    five_by_five_warm_solve_wall_ms: 3568.618
-    cpu_reference_with_observer_ms: 11663.782
-
-six_by_five_wall:
-  result: unresolved
-  first_32_node_epoch_ms: 75117.652
-  bounded_attempts_seconds: [180, 180]
-  owner_gpu_observation: approximately_95_to_100_percent_utilization
-
-c3_work_diagnostic:
-  profile_id: c4-0009-c3-compact-work-diagnostic-42
-  exact_native_source: 468611d9e2f743a6a30a55a2db23cc70a824f988
-  geometry: 6x5_c4
-  static_epoch_limit: 1
-  root_claim: forbidden
-  measures:
-    - pair_candidate_classes
-    - subset_checks
-    - prior_scan_iterations
-    - duplicate_hits
-    - normalization_volume_and_calls
-    - rank_summaries
-    - hot_support_skew
-  portable:
-    verify_run: 34485057956
-    bsfp_portable_run: 34485057959
-    matrix: windows_ubuntu_node24_node26_pass
-  native_status: required
-
-winspace_double_threat:
-  research_source: 80f6d20f10a40ce95882e091665cac901a091d73
-  benchmark_run: 34485833438
-  exact_complete_controls: 4x3_4x4_5x3_4x5_5x4_5x5_zero_mismatch
-  five_by_five:
-    baseline_pairs: 81515570
-    absorber_pairs: 79580610
-    direct_pair_reduction_fraction: 0.023737305646025608
-    post_combine_candidates_already_proved: 21671147
-    post_combine_absorption_fraction: 0.2658528548595072
-  disposition: retain_as_semantic_pre_normalization_filter_not_standalone_breakthrough
-
-b2_bucketed_normalizer:
-  profile_id: c4-0009-b2-packed-normalizer-bucketed-42
-  exact_native_source: 7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5
-  solver_integration: false
-  legacy_control_preserved: true
-  common_workload:
-    segments: 1024
-    segment_size: 512
-    candidates_per_child: 524288
-    block_size: 256
-  fixtures:
-    equal_cardinality_duplicate_stress:
-      purpose: isolate_43_phase_scan_and_same_bucket_duplicate_cost
-      exact_duplicate_per_segment: 1
-    mixed_cardinality_deterministic:
-      purpose: prevent_promotion_from_one_bucket_only_gain
-      expected_sets: exact_host_subset_normalization_minimal_and_maximal
-      exact_duplicate_per_segment: 1
-  steps:
-    - legacy_equal
-    - bucketed_equal
-    - legacy_mixed
-    - bucketed_mixed
-  portable:
-    verify_run: 34494972124
-    verify_result: success
-    bsfp_portable_run: 34494972278
-    matrix: windows_2025_and_ubuntu_24_04_node_24_15_and_26_7_all_pass
-    mixed_bucketed_submit: pass_all_four_lanes
-    b2_dry_run: pass_all_four_lanes
-    b2_bootstrap_prepare: pass_all_four_lanes
-  native_status: required_ab_before_c1_integration
-  promotion_rule: material_native_gain_must_generalize_to_mixed_fixture_then_c1_all_frontier_requalification
-
-selection_after_measurement:
-  prior_scan_or_duplicate_work_dominates: exact_pre_dedup_or_bucketed_dedup
-  cardinality_candidate_visits_dominate: bucketed_normalizer
-  terminal_pair_work_dominates: specialized_exact_terminal_subtraction
-  aggregate_pair_work_dominates: broader_wsl_cpc_ndc_operand_reduction
-  normalization_dominates_and_threat_filter_is_common: double_threat_filter_plus_dense_survivor_compaction
-  hot_support_skew_dominates: split_one_support_work_across_multiple_blocks
+completed:
+  - recovered_original_r6_job_and_distinguished_later_compact_run
+  - reused_existing_device_cofactor_and_exact_packed42_normalization
+  - proved_and_exhaustively_checked_antichain_preservation_shortcut
+  - local_native_parity_all_220744_candidates_112_transitions_four_5x5_supports
+  - independent_layer_rebuilds_on_selected_small_supports_and_4426
+  - explicit_capacity_offset_input_extent_errors_and_graceful_cleanup
+  - integrated_90_tests_and_wide_portable_composition_pass
 
 next_actions:
-  - run_c3_exact_source_468611d9e2f743a6a30a55a2db23cc70a824f988_on_authorized_gtx1660ti_through_q1
-  - run_b2_exact_source_7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5_on_same_authorized_gpu_through_q1
-  - publish_append_only_evidence_for_each_native_measurement
-  - select_smallest_intervention_supported_by_c3_and_b2
-  - if_bucketed_wins_integrate_into_c1_then_requalify_all_4x3_4x4_5x5_support_frontiers
-  - retry_6x5_only_after_measured_intervention
-  - attempt_7x6_only_after_6x5_completes_with_resource_and_cost_evidence
+  - publish_clean_source_O1_native_4x3_4x4_5x5_evidence_through_Q1
+  - attach_exact_consumer_requirements_to_cuda_algorithms_issue_3
+  - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
+  - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
+  - investigate_seed_construction_cost_before_admitting_finite_7x6_slice
+
+open_boundaries:
+  grouping:
+    owner: CUDA-Algorithms_for_generic_primitives_Connect4_for_exact_residual_equality
+    upstream_issue: https://github.com/iteathen/CUDA-Algorithms/issues/3
+    requirements: scalable_order_and_scan_device_active_extents_explicit_overflow
+    collision_rule: hash_match_is_not_exact_equality_or_sufficient_group_order
+  initial_residual_seed:
+    owner: Connect4
+    observation: local_5x5_C1_seed_38_49_seconds
+    status: exact_reference_prerequisite_not_eliminated
+
+claims:
+  full_device_oqs: false
+  empty_7x6_wdl: null
+  native_scope: all_candidates_of_selected_supports
+  other_three_5x5_independent_scope: R5_count_check_not_full_layer_rebuild
+  performance_scope: single_pass_submit_wait_not_end_to_end_speedup
+
+cleanup:
+  retained: OQS_worktree_package_junctions_ignored_R6_raw_logs_Q1_spools
+  protected_unchanged: older_feature_lane_and_exact_lower_repository_sources
+  runtime_requirement: success_only_after_graceful_cleanup
 
 constraints:
-  - no_post_ignition_host_semantic_progression
-  - no_bsfp_as_minimax_or_search_specialization
-  - no_full_colored_state_table_for_7x6
-  - no_silent_frontier_or_candidate_truncation
-  - no_performance_threshold_as_correctness_authority
-  - no_cuda_algorithms_connect4_semantics
-  - no_cuda_js_mutation_without_generic_missing_mechanism
-  - no_python_in_maintained_ecosystem_code
-  - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
+  - no_search_or_colored_state_tree_substitution
+  - no_private_generic_sort_scan_unique_stack
+  - no_direct_CUDA_CPP_PTX_FFI_Python_or_native_escape
+  - no_silent_truncation_or_hash_only_quotient_identity
+  - no_portable_numerical_or_performance_claim
+  - no_full_7x6_claim_from_bounded_controls
+  - no_generalized_10x10_artifact_format_work

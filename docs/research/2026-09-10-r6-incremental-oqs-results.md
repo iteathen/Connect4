@@ -20,6 +20,11 @@ No mismatch occurred.
 
 ## Results
 
+The timing tables below are from the later compact rerun **34555593443**, job
+**103127501632**, source **d3630120305444aa5b66e0585a0bb9712c667e45**.
+They are not the timings of the original R6 job cited in the exactness gate.
+Both logs have now been read; their semantic counts agree.
+
 | Geometry / scope | Incremental synthesis | Independent layer rebuild | Oracle / incremental | Max layer candidates | Max pair records/state |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | 4x3 c3 / all 256 supports | 168.711 ms | 639.847 ms | 3.79x | 224 | 53 |
@@ -62,3 +67,30 @@ A portable compile qualification against CUDA-JS `98e2ebc942c14d63acf4dd82e912dd
 ## Decision
 
 Promote **incremental OQS** as the current production synthesis algorithm candidate. The next performance investigation targets the C1 semantic seed/support-lattice construction and then measures the CUDA cofactor layer against the new incremental CPU baseline.
+
+## Original R6 job extraction
+
+Original run 34550418460 / job 103111963716 at 28b313b605d39b9ba66ffcde9aba45c5cdc7bf89:
+
+| Scope | Synthesis ms | Independent build ms | Max candidates | Transition entries |
+| --- | ---: | ---: | ---: | ---: |
+| 4x3:c3 / 256 supports | 129.467 | 475.149 | 224 | 65503 |
+| 4x4:c4 / 625 supports | 658.448 | 1572.731 | 1536 | 325652 |
+| 5x3:c4 / 1024 supports | 153.765 | 268.812 | 48 | 54447 |
+| 4x5:c4 / 1284 | 11.867 | 214.023 | 818 | 6092 |
+| 5x4:c4 / 2353 | 12.326 | 302.146 | 726 | 4365 |
+| 5x5:c4 / 4426 | 167.893 | 11774.612 | 2770 | 22598 |
+| 5x5:c4 / 4743,6351,6465 | 280.790 | 0.000 | 11132 | 198146 |
+
+Support 4426: 167.893 ms synthesis versus 11,774.612 ms independent rebuild
+(70.13x descriptive ratio), with a 44,354.053 ms C1 seed solve. The original
+count-only supports 4743/6351/6465 took 76.767/47.372/156.652 ms.
+There were 17,948 exact independent layer comparisons and 478,657 direct-versus-
+sequential cofactor checks. Equality is bidirectional, so oracle layers have full
+target coverage; the three count-only checkpoints retain weaker evidence.
+The synthesis timer includes sequential qualification work on oracle controls.
+
+[Structured original-job extraction](evidence/2026-09-11-oqs-r6-original-job-summary.json)
+preserves all geometry/support counts, record bounds, phase times, exact source
+and SHA-256 of the downloaded original log. These are observed bounds, not proof
+of 7x6 capacity.

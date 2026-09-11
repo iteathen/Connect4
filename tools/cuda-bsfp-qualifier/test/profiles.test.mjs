@@ -2,6 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { denseShapeBytes, getQualificationProfile, listQualificationProfiles } from '../profiles.mjs';
 
+test('OQS qualification requires native selected-support parity and does not claim a root solve', () => {
+  const p = getQualificationProfile('c4-0009-o1-oqs-cofactor-42');
+  const spec = { columns: 4, rows: 4, connect: 4 };
+  const expected = p.steps(spec, process.cwd())[0].expected;
+  const result = { outcome: 'native-oqs-cofactor-pass', mode: 'native', geometry: '4x4:c4',
+    evidenceGrade: 'all-candidates-of-selected-supports', fullDeviceQuotientSynthesis: false, rootWdl: null,
+    mismatches: 0, targetCoverage: 1, cleanup: 'graceful', transitionsChecked: 10,
+    candidatesChecked: 1409, referenceSupports: [{ totalCandidates: 1409 }], controls: Array(11) };
+  assert.equal(expected(result), true);
+  for (const patch of [{ mode: 'portable' }, { rootWdl: 0 }, { fullDeviceQuotientSynthesis: true }, { targetCoverage: 0.99 }, { mismatches: 1 }, { transitionsChecked: 9 }, { candidatesChecked: 1408 }, { cleanup: 'failed' }]) assert.equal(expected({ ...result, ...patch }), false);
+  assert.equal(p.supports({ columns: 7, rows: 6, connect: 4 }), false);
+  assert.equal(p.estimate({ columns: 7, rows: 6, connect: 4 }).upperBoundBytes, null);
+});
+
 test('P1 is executable only for its frozen 4x3 connect-3 qualification geometry', () => {
   const profile = getQualificationProfile('c4-0009-p1');
   const small = { columns: 4, rows: 3, connect: 3 };
