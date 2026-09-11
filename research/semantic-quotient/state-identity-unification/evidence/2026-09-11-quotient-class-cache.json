@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "kind": "connect4-quotient-native-class-transition-cache-evidence",
+  "date": "2026-09-11",
+  "workflow_run": 34646665677,
+  "workflow_job": 103418974713,
+  "status": "pass",
+  "qualification": {
+    "modes": ["dense", "none", "sparse", "direct1", "direct2", "direct4", "direct8"],
+    "all_complete_graph_checksums_match_dense_control": true,
+    "control_4x5": {
+      "q_states": 294593,
+      "residual_classes": 69707,
+      "nonterminal_edges": 814300,
+      "terminal_edges": 76058,
+      "illegal_edges": 288014,
+      "edge_checksum": 1119331766
+    }
+  },
+  "search_4x5": {
+    "dense": {"median_total_ms": 18.420371, "typed_bytes_lower_bound": 1844704},
+    "none": {"median_total_ms": 24.806352, "typed_bytes_lower_bound": 533984},
+    "sparse": {"median_total_ms": 21.824768, "typed_bytes_lower_bound": 828896},
+    "direct1": {"median_total_ms": 25.151612, "typed_bytes_lower_bound": 574944},
+    "direct2": {"median_total_ms": 24.676651, "typed_bytes_lower_bound": 615904},
+    "direct4": {"median_total_ms": 23.560589, "typed_bytes_lower_bound": 697824},
+    "direct8": {"median_total_ms": 22.530718, "typed_bytes_lower_bound": 861664}
+  },
+  "other_controls": {
+    "4x4_c4_best": {"mode": "direct8", "median_total_ms": 4.976161},
+    "5x3_c4_best": {"mode": "dense", "median_total_ms": 0.757519}
+  },
+  "disposition": {
+    "current_larger_control_speed_baseline": "dense",
+    "memory_pressure_candidates": ["sparse", "direct8"],
+    "next_hypothesis": "single-best-or-refutation-child-witness-cache"
+  },
+  "non_claims": [
+    "typed-memory-is-not-complete-JS-heap-accounting",
+    "no-standard-7x6-memory-conclusion",
+    "no-global-cache-shape-optimality-claim"
+  ]
+}
