@@ -1,8 +1,10 @@
 # Minimax research-prototype index
 
-This index groups the preserved Connect4 minimax/alpha-beta research prototypes by engineering purpose. Directory names remain unchanged so historical reproduction commands, evidence links, and commit references continue to work.
+This index groups the preserved Connect4 minimax/alpha-beta research prototypes by engineering purpose. Historical directory names remain unchanged so reproduction commands, evidence links, and commit references continue to work.
 
 Presence here means **preserved minimax research**, not accepted architecture.
+
+## Historical prototype directories
 
 | Prototype directory | Primary purpose | General disposition |
 | --- | --- | --- |
@@ -23,18 +25,31 @@ Presence here means **preserved minimax research**, not accepted architecture.
 | `2026-09-09-forced-macro-implication/` | Exact forced macro-edges and support-compatible implication | Macro positive; implication node-positive/time-negative in tested JS form |
 | `2026-09-09-low-confidence-survival/` | Evaluator ordering, Allis A1-A3 survival, support-event equivalence, asymmetry checks | Candidate survival/falsification packet |
 
+## Organized restructure-era packets
+
+New research does not extend the historical `reference/research-prototypes/` catch-all. Restructure-era packets live under `research/minimax/`.
+
+| Packet | Origin | Contents | Disposition |
+| --- | --- | --- | --- |
+| `../../research/minimax/incumbent-v8-rewrite/` | `feature/shared-evaluator-v1` / PR #5 | Exact Node/V8 incumbent rewrite source, TT, evaluator/search regression tests, frozen evaluator/search/self-play vectors, historical note/specs, manifest | Historical executable comparison candidate; not current accepted incumbent |
+
+The V8 packet was recovered during the destructive branch audit because its branch history had been preserved but its executable candidate was not previously present in the consolidated minimax working tree. Its original branch head is now also a merge parent of `solver/minimax-alpha-beta`.
+
 ## Suggested reading order
 
 For reconstructing the minimax work without reading every prototype first:
 
 1. `../../MINIMAX_BRANCH.md` — branch scope and organization.
-2. `../../docs/research/2026-09-08-exact-solver-performance-research.md` — fixed-width exact-solver starting point.
-3. `../../docs/research/2026-09-09-organic-optimization-consolidation.md` — structural rethink/consolidation.
-4. `../../docs/research/2026-09-09-decision-state-admission-and-proof-frontier-followup.md` — compact/rank/decision-state composition.
-5. `../../docs/research/2026-09-09-forced-macro-and-support-implication.md` — forced-tree compression vs cross-state implication.
-6. `../../docs/research/2026-09-09-low-confidence-survival-batch-1.md` — evaluator/Allis/support-event survival tests.
-7. `../../docs/research/2026-09-10-minimax-branch-lineage-audit.md` — branch provenance and BSFP boundary.
+2. `../../research/minimax/incumbent-v8-rewrite/README.md` — early alternate Node/V8 incumbent candidate recovered during restructuring.
+3. `../../docs/research/2026-09-08-exact-solver-performance-research.md` — fixed-width exact-solver starting point.
+4. `../../docs/research/2026-09-09-organic-optimization-consolidation.md` — structural rethink/consolidation.
+5. `../../docs/research/2026-09-09-decision-state-admission-and-proof-frontier-followup.md` — compact/rank/decision-state composition.
+6. `../../docs/research/2026-09-09-forced-macro-and-support-implication.md` — forced-tree compression vs cross-state implication.
+7. `../../docs/research/2026-09-09-low-confidence-survival-batch-1.md` — evaluator/Allis/support-event survival tests.
+8. `../../docs/research/2026-09-10-minimax-branch-lineage-audit.md` — original branch provenance and BSFP boundary.
 
 ## Reproduction rule
 
-Do not rename or flatten these directories merely for tidiness. Research notes cite exact paths and many scripts import siblings by relative path. Organization is supplied by this index and `MINIMAX_BRANCH.md`; the original paths remain part of the evidence record.
+Do not rename or flatten historical prototype directories merely for tidiness. Research notes cite exact paths and many scripts import siblings by relative path. Organization is supplied by this index and `MINIMAX_BRANCH.md`; historical paths remain part of the evidence record.
+
+New recovered or newly created candidates should instead use organized `research/minimax/<packet>/` directories with a packet-local manifest.
