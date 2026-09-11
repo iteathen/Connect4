@@ -3,14 +3,20 @@ import path from 'node:path';
 
 const ROOT = process.cwd();
 const CAMPAIGN = path.join(ROOT, 'research/minimax/composition-campaign');
-const forms = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/minimax/candidate-map/post-ledger-forms.json'), 'utf8'));
-const allowPath = path.join(ROOT, 'research/minimax/candidate-map/campaign-harness-only.json');
-const allow = fs.existsSync(allowPath) ? JSON.parse(fs.readFileSync(allowPath, 'utf8')) : { paths: [] };
+const base = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/minimax/candidate-map/post-ledger-forms.json'), 'utf8'));
+const ext = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/minimax/candidate-map/campaign-form-extensions.json'), 'utf8'));
+const allow = JSON.parse(fs.readFileSync(path.join(ROOT, 'research/minimax/candidate-map/campaign-harness-only.json'), 'utf8'));
+
+const forms = [...(base.forms ?? []), ...(ext.forms ?? [])].map((f) => structuredClone(f));
+const byId = new Map(forms.map((f) => [f.id, f]));
+for (const [id, evidence] of Object.entries(ext.evidence_augmentations ?? {})) {
+  const f = byId.get(id);
+  if (!f) throw new Error(`unknown evidence augmentation target ${id}`);
+  f.evidence = [...(f.evidence ?? []), ...evidence];
+}
 
 const referenced = new Set();
-for (const form of forms.forms ?? []) {
-  for (const ev of form.evidence ?? []) if (ev.path?.startsWith('research/minimax/composition-campaign/')) referenced.add(ev.path);
-}
+for (const form of forms) for (const ev of form.evidence ?? []) if (ev.path?.startsWith('research/minimax/composition-campaign/')) referenced.add(ev.path);
 const allowed = new Set(allow.paths ?? []);
 const sources = fs.existsSync(CAMPAIGN)
   ? fs.readdirSync(CAMPAIGN).filter((name) => name.endsWith('.mjs')).map((name) => `research/minimax/composition-campaign/${name}`).sort()
