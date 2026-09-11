@@ -6,7 +6,10 @@ const ROOT = process.cwd();
 const LEDGER = path.join(ROOT, 'docs/research/2026-09-09-historical-107-theory-ledger.md');
 const SIGNED = path.join(ROOT, 'docs/research/evidence/2026-09-09-signed-interaction-graph-terminalization-v2.json');
 const FORMS = path.join(ROOT, 'research/minimax/candidate-map/post-ledger-forms.json');
+const EXT = path.join(ROOT, 'research/minimax/candidate-map/campaign-form-extensions.json');
+const HARNESS = path.join(ROOT, 'research/minimax/candidate-map/campaign-harness-only.json');
 const ADOPTION = path.join(ROOT, 'research/minimax/candidate-map/adoption-metadata.json');
+const CAMPAIGN = path.join(ROOT, 'research/minimax/composition-campaign');
 
 function readJson(p) { return JSON.parse(fs.readFileSync(p, 'utf8')); }
 
@@ -25,14 +28,9 @@ function parseHistoricalLedger(md) {
       origin: 'historical-107-ledger',
       kind: 'historical-candidate-form',
       assessment: {
-        projected_effectiveness: cells[2],
-        confidence: cells[3],
-        evidence_summary: cells[4],
-        compatibility: cells[5],
-        synergy_overlap_summary: cells[6],
-        leverage: cells[7],
-        risk: cells[8],
-        theoretical_assessment: cells[9]
+        projected_effectiveness: cells[2], confidence: cells[3], evidence_summary: cells[4],
+        compatibility: cells[5], synergy_overlap_summary: cells[6], leverage: cells[7],
+        risk: cells[8], theoretical_assessment: cells[9]
       },
       source: 'docs/research/2026-09-09-historical-107-theory-ledger.md'
     });
@@ -44,10 +42,7 @@ function parseHistoricalLedger(md) {
 }
 
 function relationEndpoints(edge) {
-  return {
-    source: edge.source ?? edge.from ?? edge.src ?? null,
-    target: edge.target ?? edge.to ?? edge.dst ?? null
-  };
+  return { source: edge.source ?? edge.from ?? edge.src ?? null, target: edge.target ?? edge.to ?? edge.dst ?? null };
 }
 
 function assertAssessmentBlind(record, where) {
@@ -59,6 +54,8 @@ function assertAssessmentBlind(record, where) {
 const historical = parseHistoricalLedger(fs.readFileSync(LEDGER, 'utf8'));
 const signed = readJson(SIGNED);
 const supplement = readJson(FORMS);
+const extension = readJson(EXT);
+const harnessOnly = readJson(HARNESS);
 const adoption = readJson(ADOPTION);
 
 assert.equal(signed.schema, 'signed-interaction-graph-terminalization-v2');
@@ -66,9 +63,19 @@ assert(Array.isArray(signed.nodes) && signed.nodes.length > 0, 'signed graph nod
 assert(Array.isArray(signed.edges), 'signed graph edges missing');
 assert(Array.isArray(supplement.forms), 'post-ledger forms missing');
 assert(Array.isArray(supplement.observed_relations), 'post-ledger relations missing');
+assert(Array.isArray(extension.forms), 'campaign extension forms missing');
+assert(extension.evidence_augmentations && typeof extension.evidence_augmentations === 'object', 'campaign evidence augmentations missing');
+
+const forms = [...supplement.forms, ...extension.forms].map((f) => structuredClone(f));
+const byForm = new Map(forms.map((f) => [f.id, f]));
+for (const [id, evidence] of Object.entries(extension.evidence_augmentations)) {
+  const form = byForm.get(id);
+  assert(form, `evidence augmentation target not found: ${id}`);
+  form.evidence = [...(form.evidence ?? []), ...evidence];
+}
 
 for (const x of historical) assertAssessmentBlind(x, x.id);
-for (const x of supplement.forms) assertAssessmentBlind(x, x.id);
+for (const x of forms) assertAssessmentBlind(x, x.id);
 
 const historicalIds = new Set(historical.map((x) => x.id));
 const strategicIds = new Set();
@@ -79,26 +86,36 @@ for (const node of signed.nodes) {
 }
 
 const formIds = new Set();
-for (const form of supplement.forms) {
-  assert(form.id && form.mechanism && form.label, `invalid post-ledger form ${JSON.stringify(form)}`);
-  assert(!historicalIds.has(form.id) && !strategicIds.has(form.id), `post-ledger form collides with existing id ${form.id}`);
-  assert(!formIds.has(form.id), `duplicate post-ledger form ${form.id}`);
+for (const form of forms) {
+  assert(form.id && form.mechanism && form.label, `invalid form ${JSON.stringify(form)}`);
+  assert(!historicalIds.has(form.id) && !strategicIds.has(form.id), `form collides with existing id ${form.id}`);
+  assert(!formIds.has(form.id), `duplicate form ${form.id}`);
   formIds.add(form.id);
 }
 
 const syntheticMechanisms = new Set();
-for (const form of supplement.forms) {
-  if (!strategicIds.has(form.mechanism) && !historicalIds.has(form.mechanism) && !formIds.has(form.mechanism)) syntheticMechanisms.add(form.mechanism);
-}
-
+for (const form of forms) if (!strategicIds.has(form.mechanism) && !historicalIds.has(form.mechanism) && !formIds.has(form.mechanism)) syntheticMechanisms.add(form.mechanism);
 const allIds = new Set([...historicalIds, ...strategicIds, ...formIds, ...syntheticMechanisms]);
+
 for (const edge of [...signed.edges, ...supplement.observed_relations]) {
   const { source, target } = relationEndpoints(edge);
   if (source !== null) assert(allIds.has(source), `relation source not found: ${source}`);
   if (target !== null) assert(allIds.has(target), `relation target not found: ${target}`);
 }
-
 for (const key of Object.keys(adoption.entries ?? {})) assert(allIds.has(key), `adoption metadata refers to unknown candidate ${key}`);
+
+// Completeness over the actively changing composition campaign: every executable research source
+// must either be evidence for a mapped form or explicitly documented as harness-only.
+const referencedCampaign = new Set();
+for (const form of forms) for (const ev of form.evidence ?? []) if (ev.path?.startsWith('research/minimax/composition-campaign/')) referencedCampaign.add(ev.path);
+const allowedHarness = new Set(harnessOnly.paths ?? []);
+const campaignSources = fs.existsSync(CAMPAIGN)
+  ? fs.readdirSync(CAMPAIGN).filter((name) => name.endsWith('.mjs')).map((name) => `research/minimax/composition-campaign/${name}`).sort()
+  : [];
+const unmappedCampaign = campaignSources.filter((p) => !referencedCampaign.has(p) && !allowedHarness.has(p));
+const staleHarness = [...allowedHarness].filter((p) => !campaignSources.includes(p));
+assert.deepEqual(unmappedCampaign, [], `unmapped active campaign sources:\n${unmappedCampaign.join('\n')}`);
+assert.deepEqual(staleHarness, [], `stale campaign harness allowlist entries:\n${staleHarness.join('\n')}`);
 
 const evidenceMap = {
   schema: 'connect4-minimax-master-candidate-map-v1',
@@ -107,43 +124,39 @@ const evidenceMap = {
   source_layers: {
     historical_ledger: 'docs/research/2026-09-09-historical-107-theory-ledger.md',
     signed_interaction_graph: 'docs/research/evidence/2026-09-09-signed-interaction-graph-terminalization-v2.json',
-    post_ledger_forms: 'research/minimax/candidate-map/post-ledger-forms.json'
+    post_ledger_forms: 'research/minimax/candidate-map/post-ledger-forms.json',
+    campaign_form_extensions: 'research/minimax/candidate-map/campaign-form-extensions.json',
+    campaign_harness_only: 'research/minimax/candidate-map/campaign-harness-only.json'
   },
   historical_candidates: historical,
   strategic_mechanisms: signed.nodes,
   synthetic_mechanisms: [...syntheticMechanisms].sort().map((id) => ({ id, origin: 'post-ledger-derived-mechanism' })),
-  post_ledger_forms: supplement.forms,
+  post_ledger_forms: forms,
   relations: {
     inherited_signed_graph: signed.edges,
     post_ledger_observed: supplement.observed_relations,
     missing_edge_semantics: 'unassessed-not-neutral'
-  }
+  },
+  noncandidate_harness_sources: harnessOnly
 };
 
-// Adoption is deliberately joined only after the evidence/assessment map is complete.
+// The evidence map is complete before adoption is visible. This is the bias firewall.
 const joined = structuredClone(evidenceMap);
-joined.adoption_metadata = {
-  governing_rule: adoption.governing_rule,
-  default: adoption.default,
-  entries: adoption.entries
-};
+joined.adoption_metadata = { governing_rule: adoption.governing_rule, default: adoption.default, entries: adoption.entries };
 
 function testBucket(state = '') {
   const s = String(state).toLowerCase();
   if (s.includes('active') || s.includes('unfinished') || s.includes('open')) return 'active-or-open';
+  if (s.includes('invalid')) return 'invalid-form';
   if (s.includes('qualified')) return 'qualified';
   if (s.includes('crossed')) return 'crossed';
   if (!s) return 'unspecified';
   return 'other';
 }
-
 const testBuckets = {};
-for (const f of supplement.forms) testBuckets[testBucket(f.test_state)] = (testBuckets[testBucket(f.test_state)] ?? 0) + 1;
-const openForms = supplement.forms.filter((f) => testBucket(f.test_state) === 'active-or-open').map((f) => ({ id: f.id, label: f.label, test_state: f.test_state }));
-const adoptedOpenForms = openForms.filter((f) => {
-  const state = adoption.entries?.[f.id]?.state ?? adoption.default?.state ?? 'unclassified';
-  return state !== 'unclassified';
-});
+for (const f of forms) testBuckets[testBucket(f.test_state)] = (testBuckets[testBucket(f.test_state)] ?? 0) + 1;
+const openForms = forms.filter((f) => testBucket(f.test_state) === 'active-or-open').map((f) => ({ id: f.id, label: f.label, test_state: f.test_state }));
+const adoptedOpenForms = openForms.filter((f) => (adoption.entries?.[f.id]?.state ?? adoption.default?.state ?? 'unclassified') !== 'unclassified');
 
 const coverage = {
   schema: 'connect4-minimax-candidate-map-coverage-v1',
@@ -151,16 +164,20 @@ const coverage = {
   historical_ids_complete: true,
   signed_graph_node_count: signed.nodes.length,
   signed_graph_edge_count: signed.edges.length,
-  post_ledger_form_count: supplement.forms.length,
+  post_ledger_form_count: forms.length,
   post_ledger_relation_count: supplement.observed_relations.length,
   synthetic_mechanism_count: syntheticMechanisms.size,
   total_unique_ids: allIds.size,
+  campaign_source_count: campaignSources.length,
+  campaign_candidate_evidence_source_count: campaignSources.filter((p) => referencedCampaign.has(p)).length,
+  campaign_harness_only_source_count: campaignSources.filter((p) => allowedHarness.has(p)).length,
+  unmapped_campaign_sources: unmappedCampaign,
   test_state_buckets: testBuckets,
   open_or_active_forms: openForms,
   adopted_but_open_or_active_forms: adoptedOpenForms,
   adoption_is_excluded_from_assessment: true,
   missing_relation_semantics: 'unassessed-not-neutral',
-  completeness_statement: 'Complete over the preserved 107 historical ledger + every node/edge in the signed v2 interaction graph + the explicitly enumerated post-ledger forms file. Future discoveries must be added to post-ledger-forms.json before the map can remain complete.'
+  completeness_statement: 'Complete over all 107 historical rows, all signed-v2 nodes/edges, all enumerated post-ledger forms, and every current composition-campaign executable source classified as candidate evidence or harness-only.'
 };
 
 const args = new Set(process.argv.slice(2));
@@ -170,5 +187,4 @@ if (args.has('--write')) {
   fs.writeFileSync(path.join(outDir, 'master-candidate-map.json'), JSON.stringify(joined, null, 2) + '\n');
   fs.writeFileSync(path.join(outDir, 'coverage-report.json'), JSON.stringify(coverage, null, 2) + '\n');
 }
-
 console.log(JSON.stringify(coverage, null, 2));
