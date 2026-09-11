@@ -2,7 +2,7 @@
 
 This file is the human-readable companion to `MIGRATION_MANIFEST.json` and `RETIREMENT_PROOFS.json`.
 
-`MIGRATION_MANIFEST.json` is the frozen pre-restructure census. `RETIREMENT_PROOFS.json` records post-migration ancestry/content checks and should be used before physical cleanup.
+`MIGRATION_MANIFEST.json` is the frozen pre-restructure census. `RETIREMENT_PROOFS.json` records post-migration ancestry/content checks and is the authority before physical cleanup.
 
 ## Keep as durable lanes
 
@@ -13,84 +13,68 @@ This file is the human-readable companion to `MIGRATION_MANIFEST.json` and `RETI
 
 Short-lived restructuring/work branches should disappear after integration once the ref-management surface permits it.
 
+## Active incoming staging ref
+
+`research/zdd-transfer-20260910` is **not** a continuity owner anymore, but it is still being advanced by an authorized concurrent producer. Therefore its branch name is not currently retirement-safe even though all content through the latest curated checkpoint is preserved.
+
+Curated through `54d63ae9a066dba42b2748b3ad51353611a2c52a`. Git comparison proves that exact commit is the merge base and a strict ancestor of both `solver/cuda-bsfp` and `research/semantic-quotient`.
+
+Ownership routing through that checkpoint is:
+
+- `research/semantic-quotient`: shared quotient/OQS mathematics, exact residual-pair equivalence/reuse semantics, behavioral-quotient interpretation, active semantic prototype evolution;
+- `solver/cuda-bsfp`: O1/O2/O3 CUDA implementation, occurrence mapping, qualifier profiles/tests, native evidence, and solver-specific OQS composition;
+- `iteathen/CUDA-Algorithms`: generic checked scan/select, grouping mechanics, record offsets/compaction and related reusable sequence primitives.
+
+The latest incoming commit adds dependency evidence only. Direct verification confirms CUDA-Algorithms issue #9 owns the checked-device-scan acceptance work; isolated branch `codex/oqs-segment-scan` preserves experiment source `7d923eb5...` and evidence checkpoint `3aa4f6eb...`. The experiment is not yet an adopted library API, and Connect4's dependency pin remains unchanged.
+
+Do not delete or repoint `research/zdd-transfer-20260910` until the concurrent producer stops. Any later commits are incoming staging work and must be audited/routed by ownership; they do not regain authority over either canonical lane.
+
 ## Verified retirement-safe refs
 
-These heads are preserved by canonical ancestry, exact duplication, curated artifact migration, qualification-evidence consolidation, or a history-only archive merge. Their live branch names are no longer required for information preservation.
+All other historical refs classified in `RETIREMENT_PROOFS.json` are preserved by canonical ancestry, exact duplication, curated artifact migration, qualification-evidence consolidation, or history-only archive merge.
 
 ### Minimax history
 
-- `research/exact-solver-perf-checkpoint-2026-09-08`
-- `research/exact-solver-rethink-controls-2026-09-09`
-- `research/forced-macro-implication-2026-09-09`
-- `research/minimax-structural-cut-20260909`
-- `research/residual-automorphisms-2026-09-09`
-- `feature/shared-evaluator-v1` — its previously missing Node/V8 candidate is now preserved as a runnable exact-blob snapshot under `research/minimax/incumbent-v8-rewrite/`; PR #5 is closed as superseded and the original branch head is a minimax ancestor.
+The exact-solver research chain, residual-automorphism work, and old shared-evaluator/V8 branch are preserved on `solver/minimax-alpha-beta`. The previously missing V8 candidate is retained as a runnable exact-blob packet under `research/minimax/incumbent-v8-rewrite/`; PR #5 is closed as superseded.
 
 ### Shared semantic / searchless / OQS history
 
-- `research/zdd-transfer-20260910`
-- `research/low-confidence-survival-2026-09-09` — unique post-minimax searchless/BSFP history is preserved as semantic-lane ancestry without importing its obsolete working tree.
-- `research/direct-line-product-bsfp-20260910` — exact unique solver/qualifier blobs were restored at their historical paths and its history is now an ancestor of the semantic lane.
-- `research/live-q1-5min-20260910` — unique content was only a one-shot workflow; its sole run stayed queued and produced no durable measurement, while the commit is preserved as semantic-lane ancestry.
-- `research/identified-winline-quotient-test`
-- `research/identified-winline-quotient-test-2`
-- `research/identified-winline-quotient-test-3`
-- `research/identified-winline-quotient-test-4`
-- `research/winline-cone-image`
-- `research/winline-product-antichain`
-- `research/winline-product-antichain-run`
-- `research/winline-product-dominance`
-- `research/winline-product-dominance-v2`
-
-The `-2/-3/-4` identified-winline refs share one exact SHA. The cone/product/dominance group shares another exact SHA. Both heads are confirmed ancestors of the canonical semantic branch.
+Older searchless/OQS refs (`low-confidence-survival`, `direct-line-product-bsfp`, `live-q1-5min`, identified-winline aliases, and winline product/dominance aliases) are preserved by semantic-lane ancestry, exact duplication, or curated source restoration. Their exact SHAs/proofs remain in `RETIREMENT_PROOFS.json`.
 
 ### CUDA-BSFP qualification evidence refs
 
-All seven former `evidence/cuda-bsfp-q1/*` branches are now retirement-safe.
-
-Commit `09e3db9631e79a068f658c9c6d91c4002ca7820f` on `solver/cuda-bsfp` has all seven evidence heads as merge parents and attaches each generated run directory by its exact Git tree SHA. Commit `ace8761461e490d01320ee01a2f3dd6b7cfbc049` adds a navigation index; generated run contents are unchanged.
-
-Historical evidence PRs #15–#21 are closed. Their original bodies/conversations remain GitHub history. The canonical evidence paths are now directly under:
+All **nine** known Q1 evidence delivery refs are retirement-safe. Their generated directories are consolidated unchanged into:
 
 `docs/evidence/cuda-bsfp/qualification/`
 
-This includes three failed runs, one `complete-with-boundaries` run, and the qualified B1, C1, and O1 runs. Failures were preserved with the same rigor as passes.
+The corpus includes failed runs, a `complete-with-boundaries` run, qualified B1/C1/O1, bounded O2 7x6 seed-slice evidence, and bounded O3 residual-reuse/occurrence-mapping evidence. O3 evidence head `e9968050...` is a strict ancestor of the canonical CUDA lane; its exact run tree is `5878ff0a...`.
+
+Historical evidence PRs #15–#21, #28, and #30 are closed after preservation. Q1's default evidence PR base is now `solver/cuda-bsfp`, not `main`; evidence branches are delivery surfaces rather than durable development lanes.
 
 ### Renamed / exact duplicate / contained refs
 
-- `feature/cuda-bsfp` — superseded by `solver/cuda-bsfp`, created from the exact old head; PR #14 was closed as superseded by canonical draft PR #25.
+- `feature/cuda-bsfp` — superseded by `solver/cuda-bsfp`; PR #14 closed in favor of canonical draft PR #25.
 - `research/winline-product-antichain-final` — exact old CUDA-BSFP head.
-- `tmp-do-not-use-c4diag` — confirmed strict ancestor of the old CUDA-BSFP branch, zero unique commits, 34 commits behind.
+- `tmp-do-not-use-c4diag` — strict ancestor of the old CUDA-BSFP branch with no unique commits.
 - `noop` — exact pre-restructure `main` head.
 
 ### Legacy product/bootstrap/docs histories
 
-The following divergent heads are preserved as **additional parents** of history-only archive commit `eeb054873dfb1f0dc69b22ace3d1d5d82539b070` on the retirement-ledger branch. That commit retains the cleaned current tree exactly; no obsolete parent tree is restored.
-
-- `feature/incumbent-node-search` — maintained incumbent source/benchmark/spec/qualification blobs were audited against the product baseline and match the accepted product artifacts.
-- `feature/shared-evaluator-v1` — additionally preserved as the runnable minimax packet described above.
-- `feature/solved-strength-oracle` — oracle/strength artifacts are represented by the accepted product baseline; historical ancestry is retained here.
-- `feature/cuda-mcgs-composition-assessment`
-- `agent/benchmark-bootstrap`
-- `docs/execution-efficiency-mutation-hygiene`
-- `docs/global-agent-local-migration`
-- `tmp-do-not-use-c4diag`
-
-After this restructure branch is integrated to `main`, those live branch names are retirement-safe from a provenance perspective. Their old working trees remain historical, not current product state.
+Divergent legacy product/bootstrap/docs heads are preserved as additional parents of the history-only archive commit recorded in `RETIREMENT_PROOFS.json`. The cleaned current tree was retained; obsolete parent trees were not restored. The incumbent/oracle artifacts were audited against the accepted product baseline before classification.
 
 ## Result of the audit
 
-There are no remaining pre-restructure noncanonical refs blocked by a known unique-content preservation gap.
+There is no known **curated checkpoint** with an unpreserved unique-content gap. The only branch-level retirement blocker is the intentionally moving incoming `research/zdd-transfer-20260910` ref.
 
-The one real gap found by the audit was `feature/shared-evaluator-v1`; it is now corrected. The qualification evidence refs were intentionally blocked until their full generated payloads were consolidated; that consolidation is also complete.
+The audit corrected the V8 rewrite gap, consolidated failed and successful CUDA evidence equally, routed post-census O2/O3 evidence, split mixed OQS work by ownership, and established a steady-state rule for later incoming commits.
 
 ## Physical cleanup rule
 
 A live ref may be removed only when:
 
-1. its exact head SHA is frozen in the migration census;
-2. `RETIREMENT_PROOFS.json` or an equivalent audit proves canonical ancestry/duplication, curated artifact preservation, qualification-evidence consolidation, or history-only archive ancestry;
-3. no open PR/workflow/external process still depends on the branch name;
+1. its exact head SHA is frozen in the migration/retirement records;
+2. `RETIREMENT_PROOFS.json` or equivalent evidence proves canonical ancestry/duplication, curated artifact preservation, qualification-evidence consolidation, ownership-split handoff, or history-only archive ancestry;
+3. no open PR/workflow/external producer still depends on the branch name;
 4. post-delete branch inventory is verified.
 
-The current connector cannot delete branches or create tags. Therefore the repository is logically restructured and the pre-restructure stale refs are classified as retirement-safe, but physical stale-ref deletion is not claimed.
+The current connector cannot delete branches or create tags. Therefore logical restructuring is complete for the canonical lanes and curated history, but physical stale-ref deletion is not claimed. The active incoming staging branch has an additional independent deletion block until its producer stops.
