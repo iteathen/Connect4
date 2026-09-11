@@ -6,9 +6,16 @@ const searcher = createSharedTtGraphSearcher(workerData.shared, {
   workerSalt: workerData.workerId ?? 0,
 });
 
+function metricDelta(before, after) {
+  const delta = {};
+  for (const [key, value] of Object.entries(after)) delta[key] = value - (before[key] ?? 0);
+  return delta;
+}
+
 parentPort.postMessage({ type: 'ready', workerId: workerData.workerId });
 parentPort.on('message', (message) => {
   if (message?.type !== 'solve-column') return;
+  const before = { ...searcher.metrics };
   const started = performance.now();
   const value = searcher.solveRootColumn(message.column);
   parentPort.postMessage({
@@ -18,6 +25,6 @@ parentPort.on('message', (message) => {
     column: message.column,
     value,
     elapsedMs: performance.now() - started,
-    metrics: { ...searcher.metrics },
+    metrics: metricDelta(before, searcher.metrics),
   });
 });
