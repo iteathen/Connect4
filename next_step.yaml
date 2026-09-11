@@ -1,6 +1,6 @@
-schema_version: 22
+schema_version: 23
 updated: 2026-09-10
-state: cuda_bsfp_oqs_o3_qualified_grouping_compaction_boundary
+state: cuda_bsfp_oqs_o3_qualified_checked_scan_producer_under_cuda_algorithms_acceptance
 repository_role: connect4_cuda_bsfp_solver
 canonical_branch: solver/cuda-bsfp
 superseded_branch_names:
@@ -8,7 +8,7 @@ superseded_branch_names:
   - research/zdd-transfer-20260910
 
 current:
-  action: establish_scalable_generic_device_grouping_compaction_then_emit_dense_residual_pair_and_state_ids_and_chain_next_oqs_layer
+  action: qualify_supported_checked_scan_select_and_exact_residual_ordering_then_compact_dense_ids_and_chain_next_oqs_layer
   owner: Connect4_with_cuda_algorithms_dependency
   mode: active
   solver_lane: cuda_bsfp
@@ -28,27 +28,19 @@ exact_dependency_pair:
 qualified_milestones:
   p1: exact_4x3_native_correctness
   b1_subset_checks_per_second_median: 35349174303
-  c1:
-    exact_frontiers: 4x3_4x4_5x5_zero_mismatch
-    five_by_five_submit_wait_ms: 3299.957
-    five_by_five_warm_solve_wall_ms: 3568.618
+  c1: exact_frontiers_4x3_4x4_5x5_zero_mismatch
   o1:
     status: qualified_native
-    profile: c4-0009-o1-oqs-cofactor-42
     evidence: docs/evidence/cuda-bsfp/qualification/20260911T032754503Z-b0df94a3
   o2:
     status: qualified_native_bounded_seed_slice
-    profile: c4-0009-o2-oqs-7x6-seed-slice
     evidence: docs/evidence/cuda-bsfp/qualification/20260911T043015870Z-2d8e0785
   o3:
     status: qualified_native_bounded_residual_reuse
-    profile: c4-0009-o3-oqs-residual-reuse
     implementation_source: 5dfe1312a357c48eee53168e82fd6eba27814a06
-    final_mixed_checkpoint: c8be6474e329e08b0b09304e92dd99706e13adf7
+    measured_checkpoint: c8be6474e329e08b0b09304e92dd99706e13adf7
     evidence: docs/evidence/cuda-bsfp/qualification/20260911T050640911Z-b3554293
     historical_evidence_pr: 30_closed_after_consolidation
-    four_by_four_case_elapsed_ms: 2845
-    seven_by_six_case_elapsed_ms: 10361
     seven_by_six_logical_outputs: 8192
     seven_by_six_distinct_pair_input_transforms: 128
     seven_by_six_unfactored_device_arrays_bytes: 151290024
@@ -57,48 +49,69 @@ qualified_milestones:
     seven_by_six_three_sample_sum_ratio: 3.232
     local_tests_pass: 96
     portable_reuse_ci: 34564683731_pass
-    non_claims:
-      - not_full_7x6_quotient_synthesis
-      - not_full_bsfp_closure
-      - not_root_wdl
-      - not_global_pair_interning
-      - not_stable_general_throughput_estimate
 
 current_oqs_shape:
   exact_pair_factorization: qualified
   occurrence_mapping: qualified
   input_pair_ids: cpu_fixture_supplied
-  output_pair_grouping: not_implemented
+  output_pair_exact_ordering: not_implemented_in_connect4
+  output_pair_group_boundaries: not_implemented_in_connect4
+  checked_scan_select_supported_api: pending_cuda_algorithms_acceptance
   variable_length_record_compaction: not_implemented
   dense_next_pair_ids: not_implemented
   dense_next_state_ids: not_implemented
   device_layer_chaining: not_implemented
 
+cuda_algorithms_producer_evidence:
+  issue: 9
+  title: qualify_checked_device_scans_for_segment_ids_and_compact_record_offsets
+  experimental_branch: codex/oqs-segment-scan
+  exact_experiment_source: 7d923eb5e4bf4664feab0d0d7c3dded2f81e15b3
+  evidence_checkpoint: 3aa4f6eb4ee434d82835fe9e9daabafd31dcc0d1
+  api_status: experimental_not_adopted
+  dependency_pin_changed: false
+  native_checks: 72
+  native_submissions: 84
+  oqs_payloads: 128
+  oqs_expected_groups: 48
+  oqs_records: 10597
+  median_submit_wait_ms:
+    n128: 0.4901
+    n8192: 0.6262
+    n65536: 0.8847
+    n262144: 0.9921
+  largest_device_buffers_bytes: 11603100
+  portable_reference_ci: 34565710334_pass
+  cuda_js_mechanism_gap_found: false
+  caveats:
+    - prototype_not_supported_library_api
+    - experiment_did_not_benchmark_old_quadratic_path
+    - exact_residual_equality_and_ordering_remain_consumer_owned
+    - scalable_ordering_payload_copy_and_full_layer_chaining_remain_open
+
 ownership_gate:
   connect4_owns:
     - exact_residual_descriptor_meaning
+    - exact_residual_equality_and_collision_resolution
     - cofactor_semantics
     - crossing_occurrence_mapping_semantics
+    - group_boundary_input_correctness
     - dense_id_consumption_and_bsfp_layer_composition
   cuda_algorithms_owns:
-    - scalable_prefix_scan_select
-    - scalable_order_or_radix_grouping
+    - supported_checked_prefix_scan_select
+    - scalable_order_or_radix_grouping_mechanics
     - run_length_or_unique_segmentation
+    - compact_record_offsets
     - generic_dense_id_assignment_primitives
   cuda_js_owns:
     - runtime_compiler_device_memory_lifecycle
-  rule: do_not_embed_generic_scalable_sort_group_unique_inside_connect4
-
-cuda_algorithms_gap:
-  pinned_revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-  maintained_select_order_status: correctness_first_quadratic_no_scalability_claim
-  next_dependency_action: assess_cuda_cccl_and_existing_cuda_algorithms_contract_then_implement_or_promote_scalable_generic_grouping_under_cuda_algorithms_ownership
+  rule: do_not_embed_generic_scalable_scan_sort_group_unique_inside_connect4
 
 next_actions:
-  - audit_cuda_algorithms_and_cuda_js_cuda_cccl_surface_for_accepted_scalable_grouping_path
-  - implement_or_promote_generic_scalable_grouping_and_record_compaction_in_cuda_algorithms_if_missing
-  - expose_fixed_exact_residual_descriptors_from_connect4_without_string_map_or_bigint_hot_path
-  - group_equal_output_residual_pairs_exactly_before_assigning_ids
+  - qualify_checked_scan_select_public_contract_under_cuda_algorithms_issue_9
+  - qualify_device_exact_residual_ordering_and_group_boundary_generation_with_full_collision_handling
+  - keep_connect4_dependency_pin_unchanged_until_deliberate_cuda_algorithms_adoption
+  - compact_variable_length_representative_records_on_device
   - assign_dense_next_pair_ids_on_device
   - map_every_occurrence_input_to_dense_next_pair_and_state_id
   - chain_one_complete_next_oqs_layer_device_resident
@@ -116,7 +129,7 @@ c1_parallel_track:
 
 shared_research_routing:
   semantic_quotient_branch: research/semantic-quotient
-  latest_mixed_handoff_head: c8be6474e329e08b0b09304e92dd99706e13adf7
+  latest_mixed_handoff_head: 54d63ae9a066dba42b2748b3ad51353611a2c52a
   topics:
     - minimum_description_state
     - identified_line_quotient
@@ -136,6 +149,7 @@ constraints:
   - no_bsfp_as_minimax_or_search_specialization
   - no_full_colored_state_table_for_7x6
   - no_silent_frontier_or_candidate_truncation
+  - no_hash_only_equality_or_grouping
   - no_performance_threshold_as_correctness_authority
   - no_cuda_algorithms_connect4_semantics
   - no_cuda_js_mutation_without_generic_missing_mechanism
