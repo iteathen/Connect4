@@ -1,11 +1,11 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "updated": "2026-09-10",
-  "purpose": "Post-restructure verification that historical refs are preserved by canonical lane ancestry, exact duplication, curated migration, or history-only archive merge. The pre-restructure MIGRATION_MANIFEST remains the immutable census snapshot.",
+  "purpose": "Post-restructure verification that historical and post-census delivery refs are preserved by canonical lane ancestry, exact duplication, curated migration, qualification-evidence consolidation, or history-only archive merge. The pre-restructure MIGRATION_MANIFEST remains the immutable census snapshot.",
   "canonicalHeadsAtLatestProof": {
-    "main": "f62f72b37f8c6d7d88045e25b1b07df77bbac0fb",
+    "main": "fc0a7d088667b14841464fbb28ed0b6919e65c7d",
     "solver/minimax-alpha-beta": "0d5894876e02609f4a78466d7ffa5c632e44c803",
-    "solver/cuda-bsfp": "ace8761461e490d01320ee01a2f3dd6b7cfbc049",
+    "solver/cuda-bsfp": "a6670a333f16b41058b7a82c572711855d075a78",
     "research/semantic-quotient": "939fe77c33cf0dfa02f67be719fa99204e34a50b"
   },
   "verifiedRetirementSafe": [
@@ -37,10 +37,14 @@
     {"ref":"noop","head":"de47d43f4f4133a68973d0876a402531ef5735da","preservedBy":"main","proof":"exact pre-restructure main head"}
   ],
   "qualificationEvidenceMigration": {
-    "canonicalMergeCommit": "09e3db9631e79a068f658c9c6d91c4002ca7820f",
-    "canonicalIndexCommit": "ace8761461e490d01320ee01a2f3dd6b7cfbc049",
-    "treePolicy": "each generated run directory was attached by its exact Git tree SHA; generated contents were not rewritten",
-    "historicalEvidencePRsClosed": [15,16,17,18,19,20,21],
+    "initialCanonicalMergeCommit": "09e3db9631e79a068f658c9c6d91c4002ca7820f",
+    "initialCanonicalIndexCommit": "ace8761461e490d01320ee01a2f3dd6b7cfbc049",
+    "postCensusO2MergeCommit": "6123473b40e11926b34072d0f64266d50e10c0d1",
+    "postCensusO2IndexCommit": "442506cd8297aa85684b32782cabd455ad265de1",
+    "publicationRoutingContractCommit": "a6670a333f16b41058b7a82c572711855d075a78",
+    "defaultEvidencePrBase": "solver/cuda-bsfp",
+    "treePolicy": "each generated run directory is attached by its exact Git tree SHA; generated contents are not rewritten",
+    "historicalEvidencePRsClosed": [15,16,17,18,19,20,21,28],
     "runs": [
       {"ref":"evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb","head":"b413d4ae3c9303abb5f0aee11162fd67149de7a1","tree":"26741002c61e4533dac6ebe86c629cb37bd3ae68","outcome":"failed"},
       {"ref":"evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872","head":"81ab62b2b4101d37a501b5b4e3e230259203ddc6","tree":"df769d80fcb581f6450537c711a4e99ebd30dbd7","outcome":"failed"},
@@ -48,12 +52,13 @@
       {"ref":"evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8","head":"936fe9f76fb665aaea47a6d2cfef032d3abc9e1d","tree":"7171a6eb9e06586010fa41d0c0a3a840e26cd268","outcome":"complete-with-boundaries"},
       {"ref":"evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a","head":"8315a6093041d24d9c742a04eb5b29cf3d50de62","tree":"257e690250c8ed5dfd346d5bae8363a5516df3e4","outcome":"qualified"},
       {"ref":"evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61","head":"1b07441ed9de113191e715275461d7a901706d8b","tree":"7ba02e118d71c405a29c5112deb37fed5598438c","outcome":"qualified"},
-      {"ref":"evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3","head":"d2e31abb6f4da79f4b4d006e166e4b39d1960dd3","tree":"db446233b8d508cef0e10dc36911eeca2efdbfe7","outcome":"qualified"}
+      {"ref":"evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3","head":"d2e31abb6f4da79f4b4d006e166e4b39d1960dd3","tree":"db446233b8d508cef0e10dc36911eeca2efdbfe7","outcome":"qualified"},
+      {"ref":"evidence/cuda-bsfp-q1/20260911T043015870Z-2d8e0785","head":"05ea4fd0e91c3b11e1074cc68d36738675c4ae51","tree":"d00c707a31bc34f3bcb7e0ad93409f2cca68bd95","outcome":"qualified","profile":"c4-0009-o2-oqs-7x6-seed-slice","note":"qualified native 7x6 OQS seed-slice; not a complete 7x6 solve claim"}
     ],
-    "retirementMeaning": "all seven evidence heads are merge parents of the canonical CUDA-BSFP lane and their generated evidence trees are present directly in that lane; their live refs are no longer required for evidence preservation"
+    "retirementMeaning": "all listed evidence heads are merge parents of the canonical CUDA-BSFP lane and their generated evidence trees are present directly in that lane; their live delivery refs are no longer required for evidence preservation"
   },
   "legacyHistoryArchive": {
-    "archiveMergeCommitOnRestructureBranch": "eeb054873dfb1f0dc69b22ace3d1d5d82539b070",
+    "archiveMergeCommitOnMain": "eeb054873dfb1f0dc69b22ace3d1d5d82539b070",
     "treePolicy": "current cleaned tree retained exactly; legacy parent trees are history/provenance only and are not restored into the live filesystem",
     "headsPreservedAsAdditionalParents": [
       {"ref":"feature/incumbent-node-search","head":"c42d8c7060dcd6d3a5802c5f8b3f5da13089a26","artifactAudit":"maintained components/incumbent, benchmark, specs and qualification note blobs match the product baseline"},
@@ -65,7 +70,7 @@
       {"ref":"docs/global-agent-local-migration","head":"e51efbd5b3746fd1b61dac1cd35baa6ffcda5f20"},
       {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b","note":"also confirmed as strict CUDA-BSFP ancestor with no unique commits"}
     ],
-    "retirementMeaning": "After this restructure branch is integrated to main, these historical heads are reachable from main and their live branch names can be retired without losing commit provenance. No claim is made that their old trees are current product state."
+    "retirementMeaning": "These historical heads are reachable from protected main and their live branch names can be retired without losing commit provenance. No claim is made that their old trees are current product state."
   },
   "pendingUniqueContentAudit": [],
   "evidenceRefsPendingPayloadVerification": [],
