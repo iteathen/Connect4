@@ -1,48 +1,42 @@
-state: paused_waiting_on_cuda_mcgs_124
-updated: 2026-09-07
-repository_role: connect4_product_benchmark
-current:
-  action: hold_connect4_while_cuda_mcgs_124_executes
-  owner: Connect4
-  mode: paused
-  prerequisites_completed:
-    - C4_0001_domain_reference_qualified
-    - C4_0002_incumbent_evaluator_vectors_exact
-    - C4_0003_incumbent_search_node_26_qualified
-    - C4_0004_incumbent_benchmark_protocol_qualified
-    - C4_0005_solved_strength_oracle_node_26_qualified
-  secured_outputs:
-    - exact_legacy_source_provenance_in_repo
-    - qualified_node_incumbent
-    - persistent_tt_benchmark_evidence
-    - solved_strength_oracle_and_known_defect
-    - cuda_mcgs_public_composition_readiness_assessment
-blocked_or_paused:
-  connect4_execution:
-    state: paused
-    resume: explicit_owner_return_after_cuda_mcgs_124_dependency_progress
-  cuda_mcgs_comparison_lane:
-    state: blocked_on_upstream_generic_lifecycle
-    blocker: CUDA-MCGS_issue_124
-    reason: device_resident_evaluator_request_batch_scatter_freshness_failure_cleanup_runtime_not_yet_protected_complete
-resume_condition:
-  - reread_exact_connect4_main_and_cuda_mcgs_public_state
-  - cuda_mcgs_124_exposes_protected_public_executable_evaluator_lifecycle
-  - freeze_connect4_owned_comparison_contract_before_product_lane_implementation
-reference_evidence:
-  connect4_main: 0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e
-  connect4_main_verify_run: 34122562926
-  incumbent_benchmark_run: 34116027347
-  c4_0005_verify_run: 34122018213
-  c4_0005_strength_run: 34122018076
-  assessed_cuda_mcgs_main: 893a1676a303bf28aff8f24847b0be1559ba859c
-  assessed_cuda_js_tensor_main: cbecc75138769419ed2c09fbfeb227f3ffe2de57
-constraints:
-  - no_connect4_specific_semantics_upstream
-  - no_downstream_reimplementation_of_cuda_mcgs_evaluator_lifecycle
-  - no_deep_cuda_sibling_imports
-  - no_python
-  - preserve_adjustable_board_incumbent_semantics
-  - solved_oracle_is_7x6_evidence_only
-  - persistent_tt_is_normal_production_policy
-  - separate_tree_equivalent_from_graph_reuse_comparison
+schema_version: 2
+updated: 2026-09-10
+state: multi_lane_repository
+repository_role: connect4_repository_router
+
+canonical_lanes:
+  product:
+    branch: main
+    purpose: accepted_domain_specs_oracles_and_repository_dashboard
+  minimax:
+    branch: solver/minimax-alpha-beta
+    status_file: STATUS.md
+    next_step_file: next_step.yaml
+  cuda_bsfp:
+    branch: solver/cuda-bsfp
+    status_file: STATUS.md
+    next_step_file: next_step.yaml
+  semantic_quotient:
+    branch: research/semantic-quotient
+    status_file: STATUS.md
+    next_step_file: next_step.yaml
+
+routing_rules:
+  - read_the_target_lane_status_and_next_step_before_execution
+  - do_not_use_root_status_as_solver_specific_execution_authority
+  - shared_future_behavior_or_state_compression_research_routes_to_semantic_quotient
+  - minimax_search_policy_tt_scheduler_and_search_kernel_work_routes_to_minimax
+  - bsfp_recurrence_cuda_profiles_and_bsfp_qualification_routes_to_cuda_bsfp
+  - accepted_cross_lane_contracts_promote_deliberately_to_main
+
+restructure:
+  branch: restructure/repository-organization-20260910
+  manifest: research/MIGRATION_MANIFEST.json
+  branch_retirement: research/BRANCH_RETIREMENT.md
+  repository_structure: REPOSITORY_STRUCTURE.md
+  connector_limit: branch_deletion_and_tag_creation_not_exposed
+
+next_actions:
+  - merge_repository_structure_router_pr_after_review
+  - use_manifest_to_delete_or_archive_retired_refs_through_authorized_ref_management
+  - stop_creating_new_long_lived_research_branches_for_single_experiments
+  - use_short_lived_work_branches_and_commit_research_packets_to_the_owning_lane

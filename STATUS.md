@@ -1,64 +1,55 @@
-# Connect4 Status
+# Connect4 Repository Status
 
-**Updated:** 2026-09-07
-**Phase:** paused after qualified Node + solved-strength baseline; waiting on CUDA-MCGS #124
+**Updated:** 2026-09-10  
+**Role:** repository-level dashboard and authority router
 
-## Product role
+The repository now has multiple active solver/research lanes. This root file no longer owns the detailed execution state of all Connect4 work.
 
-Connect4 is the product-owned Node benchmark/validation lane for Connect Four search. It owns Connect Four domain/evaluator/benchmark meaning and consumes CUDA-MCGS/CUDA-JS-Tensor/CUDA-JS only through public surfaces.
+## Canonical durable lanes
 
-## Protected baseline
+| Lane | Canonical branch | Purpose | Current branch head at routing cutover |
+| --- | --- | --- | --- |
+| Product baseline | `main` | accepted domain/spec/oracle/product baseline | `de47d43f4f4133a68973d0876a402531ef5735da` |
+| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | `66fe2fc8dd15f954a37f328950f352d06bbe8f89` |
+| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | `0d8b4d5633e0485ac1bb96ed4f77509bc1217d80` |
+| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | `16a4ca51ed39a93451414bfa9dc4b5aee8091837` |
 
-Protected `main@0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e` contains C4-0001 through C4-0005:
+Read each lane's own `STATUS.md` and `next_step.yaml` before executing work there.
 
-- dimension-parameterized Connect Four incumbent semantics with canonical 7×6 benchmark profile;
-- frozen optimized evaluator semantics including parity reasoning and repeated-immediate frontier promotion;
-- explicit-root-player low-allocation alpha-beta with tactical prepass;
-- persistent cross-move TT with safe score/bound reuse and ordering-only inherited move reuse;
-- exact legacy evaluator/search/self-play conformance;
-- Node 26.7 persistent-vs-reset and wall-clock benchmark evidence;
-- independent solved-game oracle evidence and the frozen depth-12 W/D/L defect.
+## Current high-level state
 
-Post-merge `verify` run **34122562926** succeeded on the C4-0005 main head.
+### Product baseline
 
-Reference incumbent benchmark evidence remains run **34116027347**. C4-0005 qualification remains backed by `verify` **34122018213**, `strength-evidence` **34122018076**, and benchmark regression **34122018187**.
+C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain protected on `main`. Later solver-specific contracts/specs live on their owning solver branches until deliberately accepted/integrated.
 
-## Solved-strength disposition
+### Minimax
 
-C4-0005 established that incumbent v1 is strong but not globally perfect at depth 12. The frozen defect `54676552255627` chooses a solved losing move at depth 12 and first reaches the exact-optimal move at depth 19 in the investigated seam. Cross-move TT ordering was falsified as the cause. The repeated-immediate evaluator behavior remains frozen because the isolated removal experiment produced mixed gains and regressions rather than a uniformly better replacement.
+The complete identified minimax research lineage is consolidated on `solver/minimax-alpha-beta`. New maintained-kernel promotion is intentionally paused while the shared semantic-quotient lane tests whether a smaller exact action-labelled state can replace historical colored-board identity without sacrificing distance-sensitive values.
 
-## CUDA-MCGS composition assessment
+### CUDA-BSFP
 
-Read-only assessment of CUDA-MCGS `main@893a1676a303bf28aff8f24847b0be1559ba859c` and CUDA-JS-Tensor `main@cbecc75138769419ed2c09fbfeb227f3ffe2de57` found:
+`solver/cuda-bsfp` supersedes the old branch name `feature/cuda-bsfp`. The production-adjacent seam remains native C3 cause profiling and B2 bucketed-normalizer A/B before another 6x5 attempt.
 
-- required public package entry points and external Device-JS import composition exist;
-- the public CUDA-JS-Tensor evaluator connector can bind a public `TensorDeviceProgram` without deep imports;
-- CUDA-MCGS evaluator semantics already define the required request/batch/lifecycle ports;
-- the executable comparison lane is **not dependency-ready** because CUDA-MCGS #124 still owns and lacks the active device-resident evaluator request/batching/scatter/freshness/failure/cleanup runtime bridge.
+### Shared semantic research
 
-Connect4 must not implement those generic lifecycle semantics downstream. The full assessment is recorded in `docs/research/2026-09-07-cuda-mcgs-composition-readiness.md`.
+`research/semantic-quotient` supersedes `research/zdd-transfer-20260910` as the continuity branch for shared representation research. The current program is MQ1-MQ5: strong-score qualification, coarsest behavioral quotient, missing-information analysis, compiled action transitions, and serial alpha-beta A/B.
 
-## Pause / resume seam
+## Repository restructuring state
 
-Connect4 is now intentionally paused while owner attention shifts to CUDA-MCGS #124.
+The branch topology and authority routing are being normalized under `restructure/repository-organization-20260910`.
 
-When returning to Connect4:
+Completed in this migration:
 
-1. re-read protected Connect4 and dependency state;
-2. require #124's generic evaluator lifecycle to be public/protected enough for execution;
-3. freeze the Connect4-owned comparison contract;
-4. implement three distinct evidence lanes: incumbent Node, tree-equivalent CUDA-MCGS, graph/transposition-enabled CUDA-MCGS;
-5. preserve C4-0002 evaluator semantics and apply C4-0005 solved-strength evidence to comparison outputs.
+- created canonical `solver/cuda-bsfp`;
+- made minimax, CUDA-BSFP and semantic-quotient branches own their own status/next-step records;
+- created first-class `research/<lane>/` namespaces on all three canonical non-main lanes;
+- created solver-neutral `research/semantic-quotient`;
+- froze the current branch topology and exact SHAs in `research/MIGRATION_MANIFEST.json`;
+- established `research/` and `docs/decisions/` as the future organizational surfaces;
+- marked historical research branches for retirement rather than treating branch names as permanent archive storage.
 
-Do not reopen C4-0001 through C4-0005 merely because #124 changes upstream implementation details.
+The GitHub connector used for this migration does not expose branch deletion/tag creation. Stale refs are therefore classified and preserved by exact SHA in the migration manifest, but their physical deletion must not be claimed until performed through an authorized ref-management surface.
 
-## Repository governance
+## Governing rule
 
-Governance alignment remains separately tracked by issue #3. Product pause/completeness does not imply repository-policy alignment.
-
-## Non-claims
-
-- no CUDA-MCGS performance advantage is demonstrated;
-- no GPU-resident Connect Four comparison lane exists yet;
-- no downstream workaround for missing #124 semantics is authorized;
-- no Python or cross-language comparison is part of the first benchmark gate.
+Branches represent ongoing ownership/work. Historical checkpoints should eventually be immutable archive refs/tags plus committed evidence, not long-lived active-looking branches.
