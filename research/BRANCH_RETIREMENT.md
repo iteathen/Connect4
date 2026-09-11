@@ -1,6 +1,8 @@
 # Branch retirement ledger
 
-This file is the human-readable companion to `MIGRATION_MANIFEST.json`.
+This file is the human-readable companion to `MIGRATION_MANIFEST.json` and `RETIREMENT_PROOFS.json`.
+
+`MIGRATION_MANIFEST.json` is the frozen pre-restructure census. `RETIREMENT_PROOFS.json` records post-migration ancestry/content checks and should be used before physical cleanup.
 
 ## Keep as durable lanes
 
@@ -9,57 +11,68 @@ This file is the human-readable companion to `MIGRATION_MANIFEST.json`.
 - `solver/cuda-bsfp`
 - `research/semantic-quotient`
 
-The restructuring branch itself is temporary and should disappear after integration.
+Short-lived restructuring/work branches should disappear after integration once the ref-management surface permits it.
 
-## Confirmed safe retirement candidates
+## Verified retirement-safe refs
 
-These refs are confirmed ancestors or exact duplicates of a canonical lane at the time of the restructure:
+These heads are now preserved by canonical ancestry or exact duplication. Their live branch names are no longer needed for information preservation.
 
-### Minimax ancestors
+### Minimax history
 
 - `research/exact-solver-perf-checkpoint-2026-09-08`
 - `research/exact-solver-rethink-controls-2026-09-09`
 - `research/forced-macro-implication-2026-09-09`
 - `research/minimax-structural-cut-20260909`
-
-### Shared semantic/OQS ancestor
-
-- `research/zdd-transfer-20260910` — confirmed ancestor of `research/semantic-quotient`
-
-### Exact duplicates
-
-- `noop` — exact head match with `main` during the census
-- `research/identified-winline-quotient-test-2`, `-3`, `-4` — same SHA
-- `research/winline-cone-image`, `research/winline-product-antichain`, `research/winline-product-antichain-run`, `research/winline-product-dominance`, `research/winline-product-dominance-v2` — same SHA
-- `research/winline-product-antichain-final` — exact old CUDA-BSFP head
-
-## Renamed/superseded lane
-
-`feature/cuda-bsfp` is superseded by `solver/cuda-bsfp`. The new canonical branch was created from the exact old head and then received lane-routing status updates.
-
-## Retirement pending verification
-
-Do not delete these merely because they look old. Their exact heads are frozen in the manifest and their unique content/ancestry should be checked first:
-
-- `research/low-confidence-survival-2026-09-09`
 - `research/residual-automorphisms-2026-09-09`
-- `research/direct-line-product-bsfp-20260910`
-- `research/live-q1-5min-20260910`
-- legacy `feature/*` and `agent/*` branches
-- historical `docs/*` work branches
+
+### Shared semantic / searchless / OQS history
+
+- `research/zdd-transfer-20260910`
+- `research/low-confidence-survival-2026-09-09` — its unique post-minimax history was preserved as a history-only parent of `research/semantic-quotient`; its old minimax working tree was intentionally not imported.
+- `research/direct-line-product-bsfp-20260910` — exact unique solver/qualifier blobs were restored at their historical paths and the old head is now a merge parent of `research/semantic-quotient`.
+- `research/live-q1-5min-20260910` — only unique content was a one-shot workflow; its sole run (`34518477566`) remained queued and produced no durable measurement. The attempt commit is now preserved as semantic-lane history.
+- `research/identified-winline-quotient-test`
+- `research/identified-winline-quotient-test-2`
+- `research/identified-winline-quotient-test-3`
+- `research/identified-winline-quotient-test-4`
+- `research/winline-cone-image`
+- `research/winline-product-antichain`
+- `research/winline-product-antichain-run`
+- `research/winline-product-dominance`
+- `research/winline-product-dominance-v2`
+
+The `-2/-3/-4` identified-winline refs share one exact SHA. The cone/product/dominance group shares another exact SHA. Both heads are confirmed ancestors of the canonical semantic branch.
+
+### Renamed / exact duplicate refs
+
+- `feature/cuda-bsfp` — superseded by `solver/cuda-bsfp`, created from the exact old head; PR #14 was closed as superseded by canonical draft PR #25.
+- `research/winline-product-antichain-final` — exact old CUDA-BSFP head.
+- `noop` — exact pre-restructure `main` head.
+
+## Still requires unique-content audit
+
+Do not delete these merely because they are old. Their heads are SHA-frozen but their divergent history still needs explicit disposition:
+
+- `feature/incumbent-node-search`
+- `feature/shared-evaluator-v1`
+- `feature/solved-strength-oracle`
+- `feature/cuda-mcgs-composition-assessment`
+- `agent/benchmark-bootstrap`
+- `docs/execution-efficiency-mutation-hygiene`
+- `docs/global-agent-local-migration`
 - `tmp-do-not-use-c4diag`
 
 ## Evidence refs
 
-The `evidence/cuda-bsfp-q1/*` refs are append-only evidence snapshots. They should be converted to immutable archive/tag/checkpoint form only after payload/hash/PR preservation is verified. They are not active development lanes.
+The `evidence/cuda-bsfp-q1/*` refs are append-only evidence snapshots. Do not retire them until payload hashes, evidence PRs and any external references are verified. They are not active development lanes, but evidence preservation has a higher bar than ordinary branch cleanup.
 
-## Deletion rule
+## Physical cleanup rule
 
-A live branch may be removed only when:
+A live ref may be removed only when:
 
-1. its exact head SHA is preserved in the migration manifest;
-2. it is a confirmed ancestor/duplicate of a canonical lane **or** all unique durable evidence is preserved elsewhere;
-3. no open PR/workflow or external process still requires the branch name;
-4. cleanup is verified after deletion.
+1. its exact head SHA is frozen in the migration census;
+2. `RETIREMENT_PROOFS.json` or an equivalent audit proves canonical ancestry/duplication, or all unique durable content is migrated;
+3. no open PR/workflow/external process still depends on the branch name;
+4. post-delete branch inventory is verified.
 
-The current connector cannot delete branches or create tags, so this file records intended disposition only. No unperformed deletion is claimed.
+The current connector cannot delete branches or create tags. Therefore the repository has been logically restructured and refs classified, but physical stale-ref deletion is not claimed.
