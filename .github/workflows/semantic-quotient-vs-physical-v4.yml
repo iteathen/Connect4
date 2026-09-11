@@ -1,0 +1,29 @@
+name: Flat quotient versus physical WDL control
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-vs-physical-wdl-campaign-v4.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-fast-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/physical-wdl-control.mjs'
+      - '.github/workflows/semantic-quotient-vs-physical-v4.yml'
+      - 'components/bsfp/ownership-antichain-solver.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    name: Flat quotient versus bounded physical exact WDL
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run flat quotient versus physical WDL comparison
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-vs-physical-wdl-campaign-v4.mjs
