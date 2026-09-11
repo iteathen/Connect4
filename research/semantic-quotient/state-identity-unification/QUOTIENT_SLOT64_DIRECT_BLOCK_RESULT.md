@@ -1,8 +1,8 @@
-# Slot64 Direct Block Transition — Bounded Qualification Result
+# Slot64 Direct Block Transition — Qualification Result
 
 **Date:** 2026-09-11  
 **Branch:** `research/semantic-quotient`  
-**Status:** exact bounded qualification passed; target-scale promotion gate still open  
+**Status:** exact at bounded and 7x6 rank-8 scale; performance result contradictory across runner contexts; paired target-scale gate open  
 **Research direction / architecture:** Josh Oshiro  
 **Adversarial implementation / qualification:** OpenAI ChatGPT
 
@@ -24,19 +24,14 @@ The research candidate transforms `blockTransition` only. For each of the ten 64
 6. hashes/interns the resulting ten-chunk tuple using the existing exact class identity;
 7. derives singleton-cell metadata exactly from the parent by clearing the landing cell.
 
-The candidate was generated ephemerally by `src/quotient-slot64-direct-block-campaign.mjs`; it did not silently replace the qualified sparse-normalization implementation.
+The candidate is source-generated ephemerally by the research campaigns; it has not replaced the qualified sparse-normalization implementation.
 
-## Qualification
+## Bounded qualification
 
 Workflow run: `34656048236`  
 Job: `103448573740`
 
-The candidate passed all required bounded exactness checks on:
-
-- 4x3 connect-3;
-- 4x4 connect-4;
-- 5x3 connect-4;
-- 4x5 connect-4.
+The candidate passed all required exactness checks on 4x3 connect-3, 4x4 connect-4, 5x3 connect-4, and 4x5 connect-4.
 
 Checks included:
 
@@ -63,7 +58,7 @@ Class counts, chunk counts, reference widths, and typed memory were unchanged ve
 
 ## 4x5 timing
 
-Twenty-one alternating repeats on the GitHub Ubuntu/Node 26.7.0 runner:
+Twenty-one alternating repeats on one GitHub Ubuntu/Node 26.7.0 runner:
 
 ```text
 sparse-slot64 baseline total median: 25.332199 ms
@@ -77,7 +72,7 @@ solve ratio:                          0.956215
 
 This is approximately a **4.2% total-time improvement** and **4.4% solve-time improvement** on the largest complete bounded control.
 
-The structural work was unchanged:
+Structural work was unchanged:
 
 ```text
 block transition misses: baseline 12,446 / candidate 12,446
@@ -86,19 +81,48 @@ expanded states:         baseline 15,054 / candidate 15,054
 solver calls:            baseline 24,882 / candidate 24,882
 ```
 
-The improvement therefore comes from removing unnecessary whole-class materialization / comparison work, not from changing semantics, cache behavior, search work, or storage.
+## First standard-7x6 rank-8 gate
+
+Candidate workflow run: `34656209257`  
+Candidate job: `103449079065`
+
+The direct-block candidate reproduced every exact target-scale checkpoint:
+
+```text
+q states after expanding rank 8: 797,388
+residual classes:                1,357,101
+rank-9 frontier states:            538,774
+typed bytes:                    118,099,719
+residual bytes:                  86,493,624
+legal nonterminal edges:          1,772,397
+terminal-win edges:                  33,274
+illegal edges:                        4,627
+```
+
+The frozen sparse-slot64 reference is commit `fde0d90c952278fbb796c5a9d3964cf1ec0e71bb`, workflow run `34655651266`, job `103447350433`.
+
+The separate-run timings were:
+
+```text
+                                  sparse baseline     direct block      ratio
+campaign through rank 8           13,145.194 ms      13,304.199 ms     1.01210
+rank-8 expansion                   9,354.055 ms       9,548.464 ms      1.02078
+```
+
+So the first target-scale run was approximately **1.2% slower overall** and **2.1% slower at rank 8**, despite the bounded same-run improvement.
+
+This is not sufficient evidence to classify the candidate as a true regression: the target-scale values came from different hosted runners, while the positive 4x5 result was a same-run alternating comparison. The observed target-scale difference is small enough to be plausibly contaminated by cross-runner variance.
 
 ## Disposition
 
-**Retain as a positive candidate, but do not yet promote it into the qualified slot64 source.**
+**Do not promote or reject direct blocking yet.**
 
-The bounded improvement is real and exact, but the slot64 architecture is being optimized specifically for standard 7x6 scale. The next gate is therefore the same exact rank-8 7x6 forward-growth campaign used for the qualified slot64 and sparse-normalization variants.
+Semantic qualification is complete. Performance qualification now requires a same-run, paired target-scale comparison:
 
-Promotion requires:
+- construct sparse baseline and direct-block candidate from the same revision;
+- run both on the same hosted runner;
+- alternate A/B and B/A order;
+- repeat enough times to compare medians rather than one samples;
+- require every repetition to reproduce the exact rank/state/class/memory checkpoints above.
 
-- exact known 7x6 rank/state/class checkpoints through expansion of rank 8;
-- the same 538,774-state rank-9 frontier;
-- no memory regression;
-- a repeatable target-scale wall-clock improvement versus the frozen sparse-slot64 baseline.
-
-If that gate passes, direct blocking should become the qualified block-transition implementation before work moves to the more complex mover-reduction path.
+If paired 7x6 timing shows a repeatable improvement, promote direct blocking into the qualified slot64 source. If the paired result is neutral or slower, retain this as a rejected/negative optimization result and move directly to the mover-reduction transition path.
