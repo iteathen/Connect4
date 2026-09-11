@@ -1,0 +1,60 @@
+import assert from 'node:assert/strict';
+import { performance } from 'node:perf_hooks';
+
+const W=7,H=6,CELLS=42;
+const lines=[];for(let r=0;r<H;r++)for(let c=0;c<W;c++)for(const[dx,dy]of[[1,0],[0,1],[1,1],[1,-1]]){const x=c+3*dx,y=r+3*dy;if(x<0||x>=W||y<0||y>=H)continue;let m=0n;for(let j=0;j<4;j++)m|=1n<<BigInt((r+j*dy)*W+c+j*dx);lines.push(m);}assert.equal(lines.length,69);
+function pc(v){let n=0;while(v){v&=v-1n;n++;}return n;}
+const uu=new Set();for(const l of lines){const cs=[];for(let i=0;i<CELLS;i++)if((l>>BigInt(i))&1n)cs.push(i);for(let s=1;s<16;s++){let m=0n;for(let j=0;j<4;j++)if((s>>j)&1)m|=1n<<BigInt(cs[j]);uu.add(m.toString());}}
+const masks=[...uu].map(BigInt).sort((a,b)=>pc(a)-pc(b)||(a<b?-1:a>b?1:0));assert.equal(masks.length,625);const id=new Map(masks.map((m,i)=>[m.toString(),i]));
+const upBits=new Array(625);for(let b=0;b<625;b++){let z=0n,bm=masks[b];for(let r=0;r<625;r++)if((bm&~masks[r])===0n)z|=1n<<BigInt(r);upBits[b]=z;}
+function canon(xs){xs.sort((a,b)=>a-b);const out=[];let prev=-1;outer:for(const rid of xs){if(rid===prev)continue;prev=rid;const m=masks[rid];for(const p of out)if((masks[p]&~m)===0n)continue outer;out.push(rid);}return out;}
+function won(bits,bit){for(const l of lines)if((l&bit)!==0n&&(l&bits)===l)return true;return false;}
+function compile(st,pl){const occ=st.p0|st.p1,opp=pl?st.p0:st.p1,out=[];for(const l of lines){if(l&opp)continue;const rem=l&~occ;if(rem)out.push(id.get(rem.toString()));}return canon(out);}
+let seed=0x91a2b3c4>>>0;function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed;}
+function randomState(ply){let p0=0n,p1=0n;const h=new Uint8Array(W);let moves=0;for(;moves<ply;){const cs=[];for(let c=0;c<W;c++)if(h[c]<H){const bit=1n<<BigInt(h[c]*W+c),bits=(moves&1)?p1:p0;if(!won(bits|bit,bit))cs.push(c);}if(!cs.length)break;const c=cs[rnd()%cs.length],bit=1n<<BigInt(h[c]*W+c);if(moves&1)p1|=bit;else p0|=bit;h[c]++;moves++;}return{p0,p1,h,moves};}
+function packH(h){let v=0;for(let c=0;c<W;c++)v|=h[c]<<(3*c);return v>>>0;}
+function empty(h,cell){const row=Math.trunc(cell/W),col=cell-row*W;return row>=h[col];}
+function eventOwner(row,moves){const d=(W-1)*H-moves+row+1,pl=moves&1;return(d&1)?pl:1-pl;}
+function reqBits(reqs){let z=0n;for(const rid of reqs)z|=1n<<BigInt(rid);return z;}
+function lowBitIndex(z){const lo=Number(z&0xffffffffn);if(lo)return 31-Math.clz32(lo&-lo);let shift=32;z>>=32n;while(z){const w=Number(z&0xffffffffn);if(w)return shift+31-Math.clz32(w&-w);z>>=32n;shift+=32;}return-1;}
+
+function dynamicCover(reqs,h,moves,limit=10000){
+  const n=reqs.length;if(!n)return true;const full=(1n<<BigInt(n))-1n,inst=[],controller=1-(moves&1);
+  function add(cells,solved){if(solved)inst.push({cells,solved});}
+  for(let col=0;col<W;col++)for(let lo=0;lo<H-1;lo++){const up=lo+1,a=lo*W+col,b=up*W+col;if(!empty(h,a)||!empty(h,b))continue;const pair=1n<<BigInt(a)|1n<<BigInt(b);let solved=0n;if(eventOwner(up,moves)===controller){for(let i=0;i<n;i++)if((masks[reqs[i]]>>BigInt(b))&1n)solved|=1n<<BigInt(i);}else for(let i=0;i<n;i++)if((masks[reqs[i]]&pair)===pair)solved|=1n<<BigInt(i);add(pair,solved);}
+  const ps=[];for(let c=0;c<W;c++)if(h[c]<H)ps.push(h[c]*W+c);for(let x=0;x<ps.length;x++)for(let y=x+1;y<ps.length;y++){const pair=1n<<BigInt(ps[x])|1n<<BigInt(ps[y]);let solved=0n;for(let i=0;i<n;i++)if((masks[reqs[i]]&pair)===pair)solved|=1n<<BigInt(i);add(pair,solved);}
+  let union=0n;for(const q of inst)union|=q.solved;if(union!==full)return false;const by=Array.from({length:n},()=>[]);for(let j=0;j<inst.length;j++){let z=inst[j].solved;for(let i=0;z;i++,z>>=1n)if(z&1n)by[i].push(j);}let steps=0;
+  function dfs(cov,used){if(++steps>limit)return false;if(cov===full)return true;const miss=full&~cov;let ri=0;while(((miss>>BigInt(ri))&1n)===0n)ri++;for(const j of by[ri]){const q=inst[j];if(q.cells&used)continue;if((q.solved&~cov)===0n)continue;if(dfs(cov|q.solved,used|q.cells))return true;}return false;}
+  return dfs(0n,0n);
+}
+
+function generateFragments(h,moves,resources,blockers,stats){
+  resources.length=0;blockers.length=0;const controller=1-(moves&1);
+  function add(resource,mask){const bid=id.get(mask.toString());if(bid===undefined){stats.zeroAuthority++;return;}resources.push(resource);blockers.push(bid);}
+  for(let col=0;col<W;col++)for(let lo=0;lo<H-1;lo++){const up=lo+1,a=lo*W+col,b=up*W+col;if(!empty(h,a)||!empty(h,b))continue;const pair=1n<<BigInt(a)|1n<<BigInt(b);add(pair,eventOwner(up,moves)===controller?1n<<BigInt(b):pair);}
+  const ps=[];for(let c=0;c<W;c++)if(h[c]<H)ps.push(h[c]*W+c);for(let x=0;x<ps.length;x++)for(let y=x+1;y<ps.length;y++){const pair=1n<<BigInt(ps[x])|1n<<BigInt(ps[y]);add(pair,pair);}
+  stats.builds++;stats.candidates+=resources.length;
+}
+function coverFromFragments(reqs,resources,blockers,limit,stats){
+  if(!reqs.length)return true;const active=reqBits(reqs);let union=0n;for(const bid of blockers)union|=upBits[bid]&active;if(union!==active)return false;let steps=0;
+  function dfs(cov,used){if(++steps>limit)return false;if(cov===active)return true;const rid=lowBitIndex(active&~cov),bit=1n<<BigInt(rid);for(let i=0;i<blockers.length;i++){const closure=upBits[blockers[i]];if((closure&bit)===0n)continue;const res=resources[i];if(res&used)continue;const solved=closure&active;if((solved&~cov)===0n)continue;if(dfs(cov|solved,used|res))return true;}return false;}
+  const out=dfs(0n,0n);stats.dfsSteps+=steps;return out;
+}
+function directCover(reqs,h,moves,stats,limit=10000){const resources=[],blockers=[];generateFragments(h,moves,resources,blockers,stats);return coverFromFragments(reqs,resources,blockers,limit,stats);}
+function makeCompiler(){
+  const cache=new Map(),stats={builds:0,candidates:0,zeroAuthority:0,dfsSteps:0};
+  function program(h,moves){const k=`${packH(h)}:${moves&1}`;let p=cache.get(k);if(p)return p;const resources=[],blockers=[];generateFragments(h,moves,resources,blockers,stats);p={resources,blockers};cache.set(k,p);return p;}
+  function cover(reqs,h,moves,limit=10000){if(!reqs.length)return true;const p=program(h,moves);return coverFromFragments(reqs,p.resources,p.blockers,limit,stats);}
+  return{cover,stats,cache};
+}
+
+const samples=[];for(const ply of[18,20,22,24,26,28,30,32,34,36])for(let k=0;k<180;k++){const st=randomState(ply),reqs=compile(st,st.moves&1);samples.push({h:st.h.slice(),moves:st.moves,reqs});}
+const diffStats={builds:0,candidates:0,zeroAuthority:0,dfsSteps:0};let covers=0;const cmp=makeCompiler();for(const x of samples){const a=dynamicCover(x.reqs,x.h,x.moves),b=directCover(x.reqs,x.h,x.moves,diffStats),c=cmp.cover(x.reqs,x.h,x.moves);assert.equal(b,a,`direct mismatch support=${packH(x.h)} reqs=${x.reqs.join('.')}`);assert.equal(c,a,`cached mismatch support=${packH(x.h)} reqs=${x.reqs.join('.')}`);if(a)covers++;}
+function runDynamic(){let hits=0;const t=performance.now();for(const x of samples)if(dynamicCover(x.reqs,x.h,x.moves))hits++;return{ms:performance.now()-t,hits};}
+function runDirect(){let hits=0;const stats={builds:0,candidates:0,zeroAuthority:0,dfsSteps:0},t=performance.now();for(const x of samples)if(directCover(x.reqs,x.h,x.moves,stats))hits++;return{ms:performance.now()-t,hits,stats};}
+function runCached(compiler){let hits=0;const t=performance.now();for(const x of samples)if(compiler.cover(x.reqs,x.h,x.moves))hits++;return{ms:performance.now()-t,hits};}
+const dyn=[],direct=[],cachedCold=[];for(let r=0;r<9;r++){const order=r%3;if(order===0){const a=runDynamic(),b=runDirect(),c=runCached(makeCompiler());dyn.push(a.ms);direct.push(b.ms);cachedCold.push(c.ms);assert.equal(a.hits,b.hits);assert.equal(a.hits,c.hits);}else if(order===1){const b=runDirect(),c=runCached(makeCompiler()),a=runDynamic();dyn.push(a.ms);direct.push(b.ms);cachedCold.push(c.ms);assert.equal(a.hits,b.hits);assert.equal(a.hits,c.hits);}else{const c=runCached(makeCompiler()),a=runDynamic(),b=runDirect();dyn.push(a.ms);direct.push(b.ms);cachedCold.push(c.ms);assert.equal(a.hits,b.hits);assert.equal(a.hits,c.hits);}}
+const warmCompiler=makeCompiler();runCached(warmCompiler);const cachedWarm=[];for(let r=0;r<9;r++)cachedWarm.push(runCached(warmCompiler).ms);
+function med(v){const a=[...v].sort((x,y)=>x-y);return a[a.length>>1];}
+const d=med(dyn),x=med(direct),cc=med(cachedCold),cw=med(cachedWarm);
+console.log(JSON.stringify({kind:'connect4-a123-direct-u1u2-micro',status:'pass',samples:samples.length,covers,differentialMismatches:0,directStats:{programsBuilt:diffStats.builds,avgCandidatesPerBuild:diffStats.candidates/diffStats.builds,zeroAuthorityPairs:diffStats.zeroAuthority},timing:{dynamicMedianMs:d,directMedianMs:x,cachedColdMedianMs:cc,cachedWarmMedianMs:cw,directSpeedupVsDynamic:d/x,directSpeedupVsCachedCold:cc/x,cachedWarmSpeedupVsDirect:x/cw},semantics:'direct form regenerates only the small resourceMask+blockerID fragment list per check, uses global WSL-625 upward closures, and retains no per-support Map/program object'},null,2));
