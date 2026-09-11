@@ -16,17 +16,30 @@ Connect4 owns BSFP semantics, terminal/first-win behavior, exact residual equali
 ## Qualified production-adjacent milestones
 
 - P1: first physical CUDA-BSFP correctness slice on GTX 1660 Ti.
-- B1: about 35.35 billion exact packed42 subset checks/s; the raw two-u32 subset predicate is not the first scaling wall.
+- B1: about 35.35 billion exact packed42 subset checks/s.
 - C1: complete device-owned compact recurrence with exact all-frontier agreement on 4x3, 4x4 and 5x5.
 - O1: native packed42 OQS cofactor qualification.
 - O2: native bounded 7x6 selected-seed first-cut qualification; not a complete quotient or root solve.
-- **O3: native exact residual-pair reuse + crossing-occurrence mapping qualification.** Q1 run `20260911T050640911Z-b3554293` passed 4x4 and the selected 7x6 reuse cut on the GTX 1660 Ti. The 7x6 bounded case retained all 8,192 logical outputs while transforming only 128 distinct residual/input pairs. The generated evidence is consolidated under `docs/evidence/cuda-bsfp/qualification/`.
+- **O3: native exact residual-pair reuse plus crossing-occurrence mapping qualification.** Q1 run `20260911T050640911Z-b3554293` passed all 4x4 controls and the selected 7x6 cut-five A/B layer on the GTX 1660 Ti. Historical evidence PR #30 is closed after exact subtree/ancestry consolidation into this branch.
 
-O3 observed Q1 case walls were about 2.845 s for 4x4 and 10.361 s for the bounded 7x6 case, with admitted device bounds of 264 MiB and 402 MiB respectively. Those are qualification-case timings, not a full-solve forecast.
+## O3 result
+
+The selected 7x6 cut retains all **8,192 logical outputs** while performing only **128 distinct residual/input transforms**.
+
+Measured samples excluding warmup:
+
+| Representation | Submit/wait samples (ms) | Median submit/wait | Median upload | Median readback | Allocated device arrays |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Unfactored | 8.3013, 11.3893, 9.9435 | 9.9435 ms | 15.6443 ms | 76.5544 ms | 151,290,024 B |
+| Factored | 1.2580, 1.1091, 6.8013 | 1.2580 ms | 3.4860 ms | 4.2034 ms | 2,781,876 B |
+
+For this bounded layer the median submit/wait ratio is **7.904x** and allocated device arrays shrink **54.384x**. Because the third factored sample is slower, the ratio of the three-sample submit/wait sums is **3.232x**. Treat this as a bounded A/B result, not a stable general throughput or complete-solve forecast. The two resident 7x6 plans required about 952.067 ms setup in the qualification run.
+
+O3's two Q1 cases completed in about 2.845 s (4x4) and 10.361 s (bounded 7x6), including fixture construction, verification and cleanup. All 96 local tests passed; expanded portable/reuse CI run `34564683731` passed. All 17 published evidence payload hashes/Git blobs matched.
 
 ## O3 interpretation
 
-O3 establishes the solver composition seam we wanted:
+O3 establishes this solver composition seam:
 
 ```text
 crossing-state occurrences
@@ -40,8 +53,6 @@ exact residual-pair IDs
 map every occurrence/input back to exact output slots
 ```
 
-The selected 7x6 layer reduces the cofactor-transform domain from 8,192 logical outputs to 128 distinct residual/input transforms while preserving every logical occurrence. The source commit also cuts the bounded representation's raw device arrays from roughly 151.3 MB unfactored to 2.78 MB factored before fixed runtime allowance.
-
 What O3 does **not** provide yet:
 
 - pair IDs are still supplied by the CPU fixture rather than synthesized/grouped on device;
@@ -52,9 +63,9 @@ What O3 does **not** provide yet:
 
 ## Current blocker / next seam
 
-The next production seam is device-resident exact grouping and dense-ID assignment for OQS successor residual pairs, followed by layer chaining. Connect4 should expose the exact residual descriptors and consume dense IDs; it should **not** hide a generic scalable sort/group/unique implementation locally.
+The next production seam is **device-resident exact output-pair grouping, variable-length record compaction, dense pair/state ID assignment, and next-layer chaining**.
 
-At the pinned CUDA-Algorithms revision, maintained stable select/order implementations are correctness-first quadratic realizations with no scalability claim. Before broadening 7x6, either CUDA-Algorithms must acquire a scalable generic sequence/grouping implementation through its accepted architecture, or an already accepted generic CUDA primitive path must be demonstrated there.
+Connect4 should expose exact residual descriptors and consume the IDs; it should not hide generic scalable sort/group/unique infrastructure locally. At pinned CUDA-Algorithms revision `48ee0aec9acae7776950f03ab52ab1737e598b6e`, maintained stable select/order realizations are correctness-first quadratic implementations with no scalability claim. The generic scalable mechanism must be established under CUDA-Algorithms ownership before broadening the OQS layer chain.
 
 ## Parallel C1 track
 
@@ -62,7 +73,7 @@ The earlier C3 cause profiling and B2 legacy-vs-bucketed normalizer track remain
 
 ## Research boundary
 
-The latest mixed historical OQS source handoff is `5dfe1312a357c48eee53168e82fd6eba27814a06`. CUDA-owned O1/O2/O3 implementation has been curated here. Solver-neutral residual-pair meaning, global reuse questions, minimum-description state and behavioral quotients remain on `research/semantic-quotient`.
+The latest mixed historical OQS checkpoint is `c8be6474e329e08b0b09304e92dd99706e13adf7`; its O3 implementation source is `5dfe1312a357c48eee53168e82fd6eba27814a06`. CUDA-owned implementation/evidence is curated here, while solver-neutral residual-pair semantics and global reuse questions remain on `research/semantic-quotient`. Both canonical lanes preserve the mixed checkpoint as ancestry.
 
 Frozen OQS/R3 prototype files in this branch are qualification/reproduction oracles, not a competing research owner.
 
@@ -71,4 +82,4 @@ Frozen OQS/R3 prototype files in this branch are qualification/reproduction orac
 - empty-board 7x6 is not yet solved by complete CUDA-BSFP closure;
 - no exact-distance result is claimed by BSFP;
 - O3 does not prove global residual interning across arbitrary supports/cuts;
-- no CPU timing ratio is a CUDA/full-solve speedup claim.
+- no CPU timing ratio or bounded O3 A/B ratio is a complete-solve speedup claim.
