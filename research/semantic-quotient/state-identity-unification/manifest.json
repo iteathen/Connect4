@@ -1,5 +1,5 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "name": "state-identity-unification",
   "status": "negamax-selected-optimization-campaign-complete",
   "owner_branch": "research/semantic-quotient",
@@ -146,6 +146,54 @@
       "no-assumption-that-equal-WDL-implies-proof-transfer",
       "no-assumption-that-endgame-tablebases-cover-full-history-semantics",
       "no-global-chess-partition-refinement-plan"
+    ]
+  },
+  "quotient_native_neural_research": {
+    "status": "hypothesis-documented-empirical-campaign-open",
+    "note": "QUOTIENT_NATIVE_NEURAL_REPRESENTATION.md",
+    "core_hypothesis": "If exact quotient state already exposes canonical future-relevant relations, the NN can learn their consequences rather than relearning relational structure from a raw board bitmap.",
+    "architecture_priority": [
+      "residual-MLP-on-fixed-canonical-q",
+      "residual-relation-tensor-network",
+      "lightweight-graph-message-passing-control-if-variable-structure-remains",
+      "Chessformer-attention-control",
+      "conventional-bitmap-ResNet-control"
+    ],
+    "candidate_heads": [
+      "WDL-or-value-prior",
+      "quotient-successor-policy",
+      "proof-cost-ranking",
+      "bound-or-certificate-utility",
+      "optional-strong-distance-refinement"
+    ],
+    "authority_boundary": [
+      "NN-never-defines-Q_T",
+      "NN-never-defines-R_P-proof-authority",
+      "NN-never-publishes-exact-WDL-or-search-bounds",
+      "NN-may-order-schedule-rank-and-propose-candidates"
+    ],
+    "training_evidence": [
+      "qualified-Q_T-positive-negative-pairs",
+      "quotient-successor-signatures",
+      "typed-R_P-proof-transfer-labels",
+      "verified-local-6-or-7-piece-tablebase-WDL-DTZ-where-rule-compatible"
+    ],
+    "primary_metrics": [
+      "WDL-calibration-and-accuracy",
+      "quotient-action-top-k",
+      "proof-cost-ranking-quality",
+      "inference-latency",
+      "throughput",
+      "VRAM-footprint",
+      "parameter-count",
+      "sample-efficiency",
+      "solver-time-to-exact-proof"
+    ],
+    "non_claims": [
+      "no-ResNet-superiority-claim-before-measurement",
+      "no-requirement-to-force-q-into-8x8-image",
+      "no-neural-similarity-as-exact-equivalence",
+      "no-requirement-to-remove-bitboards-from-execution"
     ]
   },
   "next_kernel_campaign": [
