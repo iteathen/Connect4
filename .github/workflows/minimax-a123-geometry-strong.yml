@@ -1,0 +1,27 @@
+name: Minimax geometry A1-A3 strong stack
+
+on:
+  push:
+    branches:
+      - work/minimax-a123-direct-20260911
+    paths:
+      - 'research/minimax/composition-campaign/run_a123_geometry_strong_stack.mjs'
+      - '.github/workflows/minimax-a123-geometry-strong.yml'
+  workflow_dispatch:
+
+jobs:
+  a123-geometry-strong:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run geometry-native A1-A3 strong-stack qualification
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/run_a123_geometry_strong_stack.mjs | tee /tmp/a123-geometry-strong.json
+      - name: Preserve geometry strong-stack evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-a123-geometry-strong
+          path: /tmp/a123-geometry-strong.json
+          if-no-files-found: error
