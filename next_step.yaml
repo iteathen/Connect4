@@ -1,23 +1,25 @@
-schema_version: 3
+schema_version: 4
 updated: 2026-09-11
-state: minimax_mq5_semantic_residual_ab_active
+state: minimax_mq5_semantic_proof_reduction_qualified_typed_interning_active
 repository_role: connect4_exact_search_solver
 canonical_branch: solver/minimax-alpha-beta
 
 current:
   owner: Connect4
   mode: research_execution
-  action: compare_exact_residual_semantic_state_against_strongest_fixed_width_alpha_beta_control
+  action: replace_JS_Map_BigInt_semantic_identity_and_transition_caches_with_exact_typed_structures_without_changing_search_semantics
 
 source_of_truth:
   branch_guide: MINIMAX_BRANCH.md
   prototype_index: reference/research-prototypes/MINIMAX_INDEX.md
   lineage_audit: docs/research/2026-09-10-minimax-branch-lineage-audit.md
   mq5_packet: research/minimax/semantic-residual-mq5
+  mq5_report: docs/research/2026-09-11-minimax-mq5-semantic-residual-anchor-results.md
+  mq5_evidence: docs/research/evidence/2026-09-11-minimax-mq5-semantic-residual-anchors.json
 
 shared_research_dependency:
   branch: research/semantic-quotient
-  status: mq1_to_mq4_passed
+  status: mq1_to_mq4_passed_with_materialized_flat_replay
   qualified_candidate: support_plus_minimal_residual_antichain_pair
   transition: semantic_state_plus_column_to_terminal_or_next_semantic_state
   exact_controls:
@@ -25,20 +27,37 @@ shared_research_dependency:
     - 4x4_c4
     - 5x3_c4
     - 4x5_c4
-  mq4_workflow_run: 34570662573
-  mq4_workflow_job: 103171852729
 
 mq5:
-  status: active
-  first_control: compact_decision_rank_512k
+  status: semantic_proof_reduction_qualified_on_two_frozen_anchors
+  control: compact_decision_rank_512k
   control_source: reference/research-prototypes/2026-09-09-decision-state/solver_compact_decision_rank.mjs
-  candidate_source: research/minimax/semantic-residual-mq5/residual_solver.mjs
-  runner: research/minimax/semantic-residual-mq5/run.mjs
+  current_candidate: WSL625_u16_residual_antichains_with_factored_side_handles
+  candidate_source: research/minimax/semantic-residual-mq5/residual_solver_wsl625.mjs
+  runner: research/minimax/semantic-residual-mq5/run_wsl625.mjs
   workflow: .github/workflows/minimax-mq5-residual.yml
-  workflow_run: 34571374414
-  first_root: 663152175
-  first_root_expected_score: -4
+  qualified_workflow_run: 34572527527
+  qualified_workflow_job: 103177554442
   fairness_mode: equal_512k_TT_slots_and_same_intrinsic_rank_banks
+  anchors:
+    loss:
+      sequence: 663152175
+      expected_score: -4
+      baseline_nodes: 1014754
+      semantic_nodes: 786581
+      node_ratio: 0.7751445177846059
+      write_ratio: 0.7595892415957285
+      tt_hit_ratio: 1.0575121510859753
+      wsl_elapsed_ratio: 11.212930652259312
+    win:
+      sequence: 41267575
+      expected_score: 3
+      baseline_nodes: 5261422
+      semantic_nodes: 4138812
+      node_ratio: 0.7866337275360159
+      write_ratio: 0.7718471141694258
+      tt_hit_ratio: 1.0131065137685895
+      wsl_elapsed_ratio: 15.405705309470195
   held_fixed:
     - exact_distance_sensitive_score
     - null_window_convergence
@@ -47,33 +66,61 @@ mq5:
     - winning_cell_count_move_order_score
     - decision_only_TT_admission
     - intrinsic_rank_bank_layout
-  separately_report:
-    - score
-    - nodes
-    - tt_hits
-    - tt_writes
-    - forced_transitions
-    - residual_states_created
-    - residual_transitions_computed
-    - normalize_calls
-    - semantic_intern_hits
-    - compiler_time
-    - recursive_search_time
-    - TT_bytes
-    - semantic_arena_bytes
-  caveats:
-    - lazy_JS_Map_string_interning_is_reconnaissance_not_production_representation
-    - equal_total_memory_not_claimed_in_first_run
-    - exact_state_identity_changes_direct_map_collision_patterns
+    - TT_slot_count_524288
+  representation_progression:
+    - lazy_string_whole_state_arena
+    - factored_side_state_arena
+    - WSL625_u16_requirement_IDs
+  wsl_boundary_defect:
+    failed_source: 29249774e779c12b458323bb27e905fd595fc761
+    failed_run: 34572145083
+    symptom: loss_anchor_score_0_instead_of_minus_4
+    cause: confused_42_playable_cells_with_native_49_bit_sentinel_stride_domain
+    repair: afac9edc771f54ee976fe3bc359185878849e451
+    regression_guard: 9fda600ecd5ca6be2b43409a73ce1dd1d3e4940c
 
-strong_search_controls:
-  - fixed_width_two_word_exact_kernel
-  - direct_mapped_exact_tt
-  - decision_state_admission_and_forced_macro_edges
-  - compact_exact_identity
-  - intrinsic_rank_aware_tt_placement
-  - residual_automorphism_candidate
-  - global_shared_proof_memory_controls
+current_bottleneck:
+  side_state_interning: JS_Map_hash_buckets
+  whole_state_interning: JS_Map_with_BigInt_tuple_key
+  mover_transition_cache: JS_Map
+  blocker_transition_cache: JS_Map
+  win_anchor_scale:
+    side_states: 2028848
+    whole_states: 2198870
+    mover_cache_entries: 2687446
+    blocker_cache_entries: 2898179
+    prepare_calls: 14441869
+    stored_requirement_ids: 18574406
+
+next_candidate:
+  name: typed_exact_semantic_arena
+  requirements:
+    - exact_open_address_side_state_interning_over_u16_record_pool
+    - exact_record_compare_after_hash_match
+    - no_fingerprint_only_identity
+    - exact_open_address_whole_state_interning_over_height_currentRef_opponentRef
+    - no_BigInt_hot_identity_key
+    - typed_sparse_exact_mover_transition_cache
+    - typed_sparse_exact_blocker_transition_cache
+    - preserve_WSL625_requirement_ID_semantics
+    - preserve_search_policy
+  acceptance:
+    loss_score: -4
+    loss_nodes: 786581
+    win_score: 3
+    win_nodes: 4138812
+    false_semantic_hits: 0
+    compare_wall_time_and_memory_only_after_above_pass
+
+next_actions:
+  - implement_typed_exact_side_interning
+  - implement_typed_exact_whole_state_interning
+  - replace_transition_JS_Maps_with_typed_sparse_exact_tables
+  - qualify_loss_and_win_anchors_on_same_revision
+  - compare_against_WSL625_Map_candidate_and_fixed_width_baseline
+  - if_parity_holds_profile_remaining_allocation_and_normalization_cost
+  - add_equal_total_memory_control_before_final_solver_performance_claim
+  - do_not_promote_to_maintained_solver_until_fair_holdout_and_independent_oracle_qualification
 
 correctness_gates:
   - preserve_exact_distance_sensitive_state_and_action_values
@@ -81,12 +128,3 @@ correctness_gates:
   - false_cache_misses_allowed_false_hits_forbidden
   - first_MQ5_is_single_worker_no_multiwriter_publication_claim
   - retain_independent_oracle_and_frozen_benchmark_evidence
-
-next_actions:
-  - inspect_first_MQ5_anchor_result
-  - if_score_mismatch_debug_first_semantic_transition_divergence_before_performance_work
-  - if_score_matches_measure_structural_node_and_TT_effects_before_optimizing_interning
-  - run_second_anchor_41267575_only_after_first_candidate_is_semantically_sound
-  - if_proof_work_improves_replace_Map_string_arena_with_fixed_625_ID_or_compiled_dense_residual_handles
-  - add_equal_total_memory_control_after_semantic_arena_footprint_is_measured
-  - do_not_promote_to_maintained_solver_until_fair_holdout_and_independent_oracle_qualification
