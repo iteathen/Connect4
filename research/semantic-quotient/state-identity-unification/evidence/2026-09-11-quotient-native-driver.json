@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "kind": "connect4-quotient-native-driver-evidence",
+  "date": "2026-09-11",
+  "workflow_run": 34647110759,
+  "workflow_job": 103420431514,
+  "status": "pass",
+  "qualification": {
+    "all_candidates_root_and_all_legal_root_action_wdl_match_bsfp_oracle": true,
+    "shared_kernel": "qID/support/p0ResidualClass/p1ResidualClass + dense residual transitions + quotient-native tactical closure + fail-soft WDL bounds",
+    "full_state_edge_cache": false
+  },
+  "control_4x5": {
+    "D0_full_window": {"median_total_ms": 18.759343, "expanded": 15054, "calls": 24882, "typed_bytes_lower_bound": 1844704},
+    "D1_PVS": {"median_total_ms": 19.706479, "expanded": 15062, "calls": 24891, "scout_searches": 9827, "researches": 1, "typed_bytes_lower_bound": 1844704},
+    "D2_MTDf": {"median_total_ms": 19.282410, "expanded": 15058, "calls": 24885, "passes": 2, "typed_bytes_lower_bound": 1844704},
+    "D3_threshold": {"median_total_ms": 19.111404, "expanded": 15159, "calls": 25041, "passes": 2, "typed_bytes_lower_bound": 1844704},
+    "D4_PVS_witness": {"median_total_ms": 19.575151, "expanded": 14808, "calls": 24637, "witness_reuses": 577, "witness_etc_cutoffs": 254, "typed_bytes_lower_bound": 1926624},
+    "D5_MTDf_witness": {"median_total_ms": 19.529052, "expanded": 14835, "calls": 24662, "witness_reuses": 604, "witness_etc_cutoffs": 223, "typed_bytes_lower_bound": 1926624},
+    "D6_threshold_witness": {"median_total_ms": 19.572537, "expanded": 14890, "calls": 24772, "witness_reuses": 659, "witness_etc_cutoffs": 269, "typed_bytes_lower_bound": 1926624}
+  },
+  "other_controls": {
+    "4x4_c4": {"best": "threshold", "median_total_ms": 4.320552, "mtdf_ms": 4.340593, "full_window_ms": 8.126922},
+    "5x3_c4": {"best": "threshold", "median_total_ms": 0.668065, "full_window_ms": 0.684651},
+    "4x3_c3": {"timing_authority": "low", "reason": "tiny control; nominal winner had zero witness activity"}
+  },
+  "disposition": {
+    "current_native_driver": "WDL-native-fail-soft-full-window-negamax",
+    "conditional_candidates": ["PVS", "MTDf", "WDL-threshold", "best-child-witness", "witness-only-ETC"],
+    "reopen_condition": "material scale/TT/move-order/BSFP-boundary/hardware change",
+    "next": "fair-physical-incumbent-control-comparison"
+  },
+  "non_claims": [
+    "no-production-7x6-driver-proof",
+    "no-quotient-vs-incumbent-speedup-claim-yet",
+    "typed-memory-is-lower-bound-not-total-JS-heap"
+  ]
+}
