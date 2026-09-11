@@ -2,11 +2,6 @@ import assert from 'node:assert/strict';
 import { performance } from 'node:perf_hooks';
 import { parse } from '../../../reference/research-prototypes/2026-09-09-winspace-native/support.mjs';
 import { TypedWsl625ResidualSolver } from './residual_solver_wsl625_typed.mjs';
-import './run_wsl625_typed_a123.mjs';
-
-// Import the qualified A123 class through a small duplicate-free dynamic extraction is not available because
-// the single-run module is executable-only. Re-export is deliberately avoided there to keep its evidence frozen.
-// This repeated qualifier therefore loads a generated class module kept beside it.
 import { TypedA123Solver } from './typed_a123_solver.mjs';
 
 const ROOTS=[{seq:'663152175',expected:-4,nodes:557605,label:'anchor-loss'},{seq:'41267575',expected:3,nodes:3161623,label:'anchor-win'}],REPS=5,WARM=1;
