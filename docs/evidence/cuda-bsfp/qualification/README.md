@@ -8,7 +8,7 @@ Do not hand-edit generated evidence to turn a failure/boundary into a pass. If q
 
 ## Consolidated qualification runs
 
-The repository restructure moved the original seven branch-isolated qualification directories into the canonical `solver/cuda-bsfp` lane **without rewriting their generated contents**. Commit `09e3db9631e79a068f658c9c6d91c4002ca7820f` has all seven original evidence branch heads as merge parents. A later post-census O2 run was consolidated the same way at `6123473b40e11926b34072d0f64266d50e10c0d1`, demonstrating the intended steady-state workflow for new qualification evidence.
+The repository restructure moved branch-isolated qualification directories into the canonical `solver/cuda-bsfp` lane **without rewriting generated contents**. Original evidence branch heads are retained as merge parents, and each run directory is attached by its exact Git tree SHA.
 
 | Run | Historical evidence PR | Outcome | Profile | Qualified source revision |
 | --- | ---: | --- | --- | --- |
@@ -20,8 +20,9 @@ The repository restructure moved the original seven branch-isolated qualificatio
 | `20260910T100734116Z-e8de3c61` | #20 | qualified | `c4-0009-c1-compact-ownership-42` | `fc7c8cc233b3cf1670ef75fde69750c91dd6492b` |
 | `20260911T032754503Z-b0df94a3` | #21 | qualified | `c4-0009-o1-oqs-cofactor-42` | `6e30e3829ddede96c7a9dce3fdad71df467e4ebe` |
 | `20260911T043015870Z-2d8e0785` | #28 | qualified | `c4-0009-o2-oqs-7x6-seed-slice` | `5c298c7e1dfdf1cfd93116884585144e33fb9dd7` |
+| `20260911T050640911Z-b3554293` | — | qualified | `c4-0009-o3-oqs-residual-reuse` | `5dfe1312a357c48eee53168e82fd6eba27814a06` |
 
-The O2 run qualified a native 7x6 OQS seed-slice case on the GTX 1660 Ti; it is **not** a complete 7x6 solver/closure claim.
+O2 qualified a native 7x6 selected seed slice. O3 qualified exact residual-pair reuse and crossing-occurrence mapping on 4x4 and a bounded selected 7x6 reuse cut. Neither is a complete 7x6 quotient, solver closure, or root W/D/L claim.
 
 The generated `summary.md`, `manifest.json`, `results.json`, system records, case records and logs inside each run remain the evidence authority for that run. This table is only a navigation index.
 
