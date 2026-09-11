@@ -1,11 +1,11 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "updated": "2026-09-10",
   "purpose": "Post-restructure verification that historical refs are preserved by canonical lane ancestry, exact duplication, curated migration, or history-only archive merge. The pre-restructure MIGRATION_MANIFEST remains the immutable census snapshot.",
   "canonicalHeadsAtLatestProof": {
     "main": "f62f72b37f8c6d7d88045e25b1b07df77bbac0fb",
     "solver/minimax-alpha-beta": "0d5894876e02609f4a78466d7ffa5c632e44c803",
-    "solver/cuda-bsfp": "0d8b4d5633e0485ac1bb96ed4f77509bc1217d80",
+    "solver/cuda-bsfp": "ace8761461e490d01320ee01a2f3dd6b7cfbc049",
     "research/semantic-quotient": "939fe77c33cf0dfa02f67be719fa99204e34a50b"
   },
   "verifiedRetirementSafe": [
@@ -33,34 +33,41 @@
 
     {"ref":"research/winline-product-antichain-final","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"exact old CUDA-BSFP head; canonical solver branch created from this commit"},
     {"ref":"feature/cuda-bsfp","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"canonical solver branch created from exact old head; PR #14 superseded by PR #25"},
+    {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b","preservedBy":"solver/cuda-bsfp","proof":"confirmed strict ancestor of feature/cuda-bsfp; comparison showed zero unique commits and 34 commits behind old canonical head"},
     {"ref":"noop","head":"de47d43f4f4133a68973d0876a402531ef5735da","preservedBy":"main","proof":"exact pre-restructure main head"}
   ],
+  "qualificationEvidenceMigration": {
+    "canonicalMergeCommit": "09e3db9631e79a068f658c9c6d91c4002ca7820f",
+    "canonicalIndexCommit": "ace8761461e490d01320ee01a2f3dd6b7cfbc049",
+    "treePolicy": "each generated run directory was attached by its exact Git tree SHA; generated contents were not rewritten",
+    "historicalEvidencePRsClosed": [15,16,17,18,19,20,21],
+    "runs": [
+      {"ref":"evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb","head":"b413d4ae3c9303abb5f0aee11162fd67149de7a1","tree":"26741002c61e4533dac6ebe86c629cb37bd3ae68","outcome":"failed"},
+      {"ref":"evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872","head":"81ab62b2b4101d37a501b5b4e3e230259203ddc6","tree":"df769d80fcb581f6450537c711a4e99ebd30dbd7","outcome":"failed"},
+      {"ref":"evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d","head":"b86c046cd85bcce7f277a2df21c093cab7109e2a","tree":"b0fbaeff8fbc5e70831069e1b8a9ee27b88fcd16","outcome":"failed"},
+      {"ref":"evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8","head":"936fe9f76fb665aaea47a6d2cfef032d3abc9e1d","tree":"7171a6eb9e06586010fa41d0c0a3a840e26cd268","outcome":"complete-with-boundaries"},
+      {"ref":"evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a","head":"8315a6093041d24d9c742a04eb5b29cf3d50de62","tree":"257e690250c8ed5dfd346d5bae8363a5516df3e4","outcome":"qualified"},
+      {"ref":"evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61","head":"1b07441ed9de113191e715275461d7a901706d8b","tree":"7ba02e118d71c405a29c5112deb37fed5598438c","outcome":"qualified"},
+      {"ref":"evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3","head":"d2e31abb6f4da79f4b4d006e166e4b39d1960dd3","tree":"db446233b8d508cef0e10dc36911eeca2efdbfe7","outcome":"qualified"}
+    ],
+    "retirementMeaning": "all seven evidence heads are merge parents of the canonical CUDA-BSFP lane and their generated evidence trees are present directly in that lane; their live refs are no longer required for evidence preservation"
+  },
   "legacyHistoryArchive": {
     "archiveMergeCommitOnRestructureBranch": "eeb054873dfb1f0dc69b22ace3d1d5d82539b070",
     "treePolicy": "current cleaned tree retained exactly; legacy parent trees are history/provenance only and are not restored into the live filesystem",
     "headsPreservedAsAdditionalParents": [
-      {"ref":"feature/incumbent-node-search","head":"c42d8c7060d0cd6d3a5802c5f8b3f5da13089a26"},
+      {"ref":"feature/incumbent-node-search","head":"c42d8c7060dcd6d3a5802c5f8b3f5da13089a26","artifactAudit":"maintained components/incumbent, benchmark, specs and qualification note blobs match the product baseline"},
       {"ref":"feature/shared-evaluator-v1","head":"77c5c0da57ddb65cd7aff9ce131481a19414931a","note":"also migrated as runnable historical minimax packet"},
-      {"ref":"feature/solved-strength-oracle","head":"0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e"},
+      {"ref":"feature/solved-strength-oracle","head":"0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e","artifactAudit":"oracle components, strength benchmarks and solved-strength materials are represented in the product baseline"},
       {"ref":"feature/cuda-mcgs-composition-assessment","head":"e79922c726b5d6d8baa9783c804996d47eef89a4"},
       {"ref":"agent/benchmark-bootstrap","head":"dcaed03b03410d8b6f46f1ff5ef53e9bde732a6b"},
       {"ref":"docs/execution-efficiency-mutation-hygiene","head":"84677fa856d695da760278144f454c4e71106fc7"},
       {"ref":"docs/global-agent-local-migration","head":"e51efbd5b3746fd1b61dac1cd35baa6ffcda5f20"},
-      {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b"}
+      {"ref":"tmp-do-not-use-c4diag","head":"878b31840d4863ad941970c502a77995c8a0070b","note":"also confirmed as strict CUDA-BSFP ancestor with no unique commits"}
     ],
     "retirementMeaning": "After this restructure branch is integrated to main, these historical heads are reachable from main and their live branch names can be retired without losing commit provenance. No claim is made that their old trees are current product state."
   },
-  "pendingUniqueContentAudit": [
-    "tmp-do-not-use-c4diag"
-  ],
-  "evidenceRefsPendingPayloadVerification": [
-    "evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb",
-    "evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872",
-    "evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d",
-    "evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8",
-    "evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a",
-    "evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61",
-    "evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3"
-  ],
+  "pendingUniqueContentAudit": [],
+  "evidenceRefsPendingPayloadVerification": [],
   "physicalDeletionStatus": "not_performed_connector_has_no_delete_ref_or_tag_creation"
 }
