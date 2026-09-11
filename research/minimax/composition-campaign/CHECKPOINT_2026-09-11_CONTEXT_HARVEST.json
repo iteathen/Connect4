@@ -1,0 +1,184 @@
+{
+  "schema": "connect4-minimax-context-harvest-checkpoint-v1",
+  "date": "2026-09-11",
+  "purpose": "Durable exact resume checkpoint after harvesting the active minimax/semantic-residual composition context window. This file is evidence/routing, not a new governing specification.",
+  "governing_cycle": [
+    "assess",
+    "research",
+    "reassess",
+    "plan",
+    "execute",
+    "qualify",
+    "review",
+    "cleanup/document"
+  ],
+  "research_policy": {
+    "single_negative_result_does_not_reject_mechanism": true,
+    "test_synergy_and_order": true,
+    "promotion_blind_assessment": true,
+    "missing_edge_semantics": "unassessed-not-neutral",
+    "negative_edge_semantics": "scoped-saturation-or-interference-not-global-rejection",
+    "preserve_failed_forms": true
+  },
+  "repository": "iteathen/Connect4",
+  "pinned_refs_observed_before_checkpoint_commit": {
+    "main": "ed26481faef9ec635d1fd0d790cf7030a29f64ee",
+    "solver/minimax-alpha-beta": "bf2c1b4d12a7b6f869d145735371c9ae4336fa38",
+    "research/semantic-quotient": "0e4e64748375e6bf68b9e6d525b265c484e67a0e",
+    "solver/cuda-bsfp": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+    "research/zdd-transfer-20260910": "54d63ae9a066dba42b2748b3ad51353611a2c52a",
+    "campaign_source_head_before_harvest": "6e218ac6c9bf46b31eaed7bfb3a509103c26bc9f",
+    "campaign_context_note_commit": "fd946b37336f7b59bdfd3ab05128cde8e2d4e491",
+    "campaign_handoff_prompt_commit": "c1f03cea89c97994aa0d24c93d7f6a89603d23af"
+  },
+  "durable_artifacts": {
+    "context_window_research_note": "research/minimax/composition-campaign/2026-09-11-context-window-harvest.md",
+    "handoff_prompt": "research/minimax/composition-campaign/HANDOFF_2026-09-11_MINIMAX_COMPOSITION.md",
+    "checkpoint": "research/minimax/composition-campaign/CHECKPOINT_2026-09-11_CONTEXT_HARVEST.json",
+    "candidate_map_extensions": "research/minimax/candidate-map/campaign-form-extensions.json",
+    "candidate_scheduler": "research/minimax/candidate-map/schedule-next-tests.mjs",
+    "ordering_record": "research/minimax/composition-campaign/ORDERING.md"
+  },
+  "candidate_map_snapshot": {
+    "source_campaign_head": "6e218ac6c9bf46b31eaed7bfb3a509103c26bc9f",
+    "workflow_run_id": 34598242656,
+    "artifact_id": 10262881843,
+    "workflow_conclusion": "success",
+    "historical_candidates": 107,
+    "historical_ids_complete": true,
+    "signed_graph_nodes": 52,
+    "signed_graph_edges": 39,
+    "post_ledger_forms": 36,
+    "post_ledger_observed_relations": 20,
+    "synthetic_mechanisms": 1,
+    "total_unique_ids": 196,
+    "campaign_executable_sources": 31,
+    "campaign_candidate_evidence_sources": 30,
+    "campaign_harness_only_sources": 1,
+    "unmapped_campaign_sources": 0,
+    "projected_unobserved_edges": 31,
+    "adoption_excluded_from_assessment": true
+  },
+  "frozen_exact_anchors": [
+    {
+      "sequence": "663152175",
+      "score": -4,
+      "label": "anchor-loss"
+    },
+    {
+      "sequence": "41267575",
+      "score": 3,
+      "label": "anchor-win"
+    }
+  ],
+  "qualified_core_findings": {
+    "semantic_mq5_node_reduction_vs_optimized_board": {
+      "loss_pct": 22.48,
+      "win_pct": 21.34,
+      "semantic_nodes": {
+        "loss": 786581,
+        "win": 4138812
+      }
+    },
+    "typed_open_address_mq5": {
+      "form": "MQ5-TYPED-OPENADDR-V1",
+      "canonical_lane_head": "bf2c1b4d12a7b6f869d145735371c9ae4336fa38",
+      "exact_proof_tree_parity": true,
+      "repeated_median_speedup": {
+        "loss": 1.493,
+        "win": 1.571
+      }
+    },
+    "a123_geometry_v4": {
+      "form": "A123-GEOMETRY-U1U2-V4",
+      "micro_differential_states": 1800,
+      "micro_mismatches": 0,
+      "micro_speedup_vs_dynamic": 2.413,
+      "strong_small_cohort_nodes_before_stage": 823,
+      "strong_small_cohort_nodes_after_stage": 825,
+      "mq5_node_reduction_pct": {
+        "loss": 29.11,
+        "win": 23.61
+      },
+      "mq5_nodes": {
+        "loss": 557605,
+        "win": 3161623
+      },
+      "mq5_a123_checks": {
+        "loss": 245093,
+        "win": 1281767
+      },
+      "mq5_a123_hits": {
+        "loss": 10149,
+        "win": 67137
+      },
+      "mq5_a123_cuts": {
+        "loss": 6394,
+        "win": 39150
+      }
+    },
+    "semantic_plus_a123_node_reduction_vs_older_compact_board_pct": {
+      "loss": 45.05,
+      "win": 39.91
+    },
+    "sewb_event_native": {
+      "differential_requirement_checks": 120617,
+      "differential_bound_checks": 4840,
+      "mismatches": 0,
+      "isolated_speedup": 7.82,
+      "full_search_wall_improvement_range_pct": [15, 18]
+    },
+    "dead_exact": {
+      "crossed_node_reduction_pct_range": [3.25, 14.88],
+      "median_node_reduction_pct": 9.83,
+      "neutral_order": "absolute-last"
+    }
+  },
+  "authority_boundaries": {
+    "zpar": {
+      "form": "ZPAR-SINGLETON-PAIR-V1",
+      "state": "sampled-partial-only",
+      "qualified_exact_states": 112,
+      "targeted_census_states": 2160000,
+      "structural_census_states": 1440000,
+      "WO_BO_diff": "unresolved-non-authoritative",
+      "rule": "Do not widen ZPAR terminalization beyond the explicitly qualified strict singleton predicate. Census absence is not impossibility proof."
+    },
+    "u1_test_b": {
+      "v2_false_negatives": 10938,
+      "v3_pair_comparisons": 695232,
+      "v3_allis_allowed_pairs": 359512,
+      "v3_false_negatives": 0,
+      "v3_generic_extra_pairs": 82367,
+      "rule": "Generic-extra V3 pairs are diagnostic-only until independently proven or exhaustively qualified. Conservative Allis compatibility remains proof authority."
+    },
+    "impl": {
+      "state": "proof-positive-runtime-negative-in-current-forms",
+      "sig4_full_closure_rejection_pct_4x5": 84.64,
+      "index8_candidate_visit_reduction_pct_4x5": 24.2,
+      "rule": "Do not reject parent mechanism. Next test is marginal exact-distance value on strongest composed stack with correct upper/lower bound authority."
+    }
+  },
+  "open_prs_observed": [
+    {
+      "number": 25,
+      "draft": true,
+      "head": "solver/cuda-bsfp",
+      "base": "main",
+      "purpose": "canonical CUDA-BSFP integration/review surface"
+    }
+  ],
+  "next_execution_seam": {
+    "priority_1": "Compose MQ5-TYPED-OPENADDR-V1 with A123-GEOMETRY-U1U2-V4 on both frozen strong-distance anchors. Qualify exact scores, proof nodes, TT authority, full-record collision equality, state/side counts, A123 checks/hits/cuts, and repeated alternating-order timings.",
+    "priority_2": "Then test IMPL marginal proof value on top of typed+A123 using multiple bounded frontier capacities/forms and correct alpha-beta lower/upper-bound transfer. Stop tuning if saturated; strengthen index only if proof marginal remains material.",
+    "priority_3": "Continue U1 Test B by proving/falsifying the 82,367 V3 generic-extra compatibility pairs without granting them proof authority prematurely.",
+    "priority_4": "Advance richer A10 coverage/compatibility in evidence-driven order, especially A4/A5/A8, while retaining conservative compatibility authority.",
+    "priority_5": "Continue ZPAR conservatively; resolve WO_BO_diff or establish a formal impossibility argument before widening authority.",
+    "later": "After serial semantic/proof kernel stabilizes, revisit CTT/RANK/PH/CAP/CPR, then shared-TT/YBWC/AFF/JOIN parallel work."
+  },
+  "cuda_bsfp_separate_lane": {
+    "head": "5397e9c538ef5929b4ddf8bd173d5bf9f91e65cb",
+    "rule": "Do not mix CUDA-BSFP into minimax composition experiments.",
+    "next_seam": "CUDA-Algorithms #9 checked scan/select acceptance; exact residual ordering/group boundaries; variable-record compaction; dense next pair/state IDs; device-resident next OQS layer chaining."
+  }
+}
