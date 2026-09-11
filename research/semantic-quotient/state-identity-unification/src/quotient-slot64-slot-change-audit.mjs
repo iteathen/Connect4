@@ -19,10 +19,12 @@ const EXPECTED_CLASSES_AFTER_EXPANDING_RANK = Object.freeze([
 function assert(condition, message) { if (!condition) throw new Error(message); }
 function popcount10(mask) {
   let x = mask & 0x3ff;
-  x -= (x >>> 1) & 0x555;
-  x = (x & 0x333) + ((x >>> 2) & 0x333);
-  x = (x + (x >>> 4)) & 0x0f0f;
-  return (x * 0x0101) >>> 8;
+  let count = 0;
+  while (x !== 0) {
+    x &= x - 1;
+    count += 1;
+  }
+  return count;
 }
 function percentileFromHistogram(histogram, q) {
   const total = histogram.reduce((sum, value) => sum + value, 0);
@@ -52,6 +54,8 @@ function summarizeHistogram(histogram) {
 
 assert(Number.isInteger(EXPAND_THROUGH_RANK) && EXPAND_THROUGH_RANK >= 0 && EXPAND_THROUGH_RANK <= 8,
   'EXPAND_THROUGH_RANK must be in [0,8] for the known exact checkpoints');
+assert(popcount10(0) === 0, 'popcount10 zero sanity check failed');
+assert(popcount10(0x3ff) === SLOT_COUNT, 'popcount10 full-slot sanity check failed');
 
 const wrap = createScaledTermIdQuotientNativeNegamaxKernel(SPEC, {
   cacheEdges: true,
@@ -194,8 +198,20 @@ for (let rank = 0; rank <= EXPAND_THROUGH_RANK; rank += 1) {
 }
 const auditMs = performance.now() - auditStarted;
 
+for (const [name, histogram] of [
+  ['ownDirect', ownDirectHistogram],
+  ['ownFinal', ownFinalHistogram],
+  ['ownExtra', ownExtraHistogram],
+  ['blockDirect', blockDirectHistogram],
+  ['blockFinal', blockFinalHistogram],
+  ['combinedFinal', combinedFinalHistogram],
+]) {
+  const total = histogram.reduce((sum, value) => sum + value, 0);
+  assert(total === analyzedNonterminal, `${name} histogram total ${total} != analyzed edges ${analyzedNonterminal}`);
+}
+
 const result = {
-  kind: 'connect4-standard-7x6-slot64-transition-locality-audit-v1',
+  kind: 'connect4-standard-7x6-slot64-transition-locality-audit-v2',
   status: 'complete',
   date: '2026-09-11',
   geometry: '7x6:c4',
