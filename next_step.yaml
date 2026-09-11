@@ -1,48 +1,46 @@
-state: paused_waiting_on_cuda_mcgs_124
-updated: 2026-09-07
-repository_role: connect4_product_benchmark
+schema_version: 2
+updated: 2026-09-10
+state: minimax_research_consolidated_waiting_on_semantic_quotient_gate
+repository_role: connect4_exact_search_solver
+canonical_branch: solver/minimax-alpha-beta
+
 current:
-  action: hold_connect4_while_cuda_mcgs_124_executes
   owner: Connect4
-  mode: paused
-  prerequisites_completed:
-    - C4_0001_domain_reference_qualified
-    - C4_0002_incumbent_evaluator_vectors_exact
-    - C4_0003_incumbent_search_node_26_qualified
-    - C4_0004_incumbent_benchmark_protocol_qualified
-    - C4_0005_solved_strength_oracle_node_26_qualified
-  secured_outputs:
-    - exact_legacy_source_provenance_in_repo
-    - qualified_node_incumbent
-    - persistent_tt_benchmark_evidence
-    - solved_strength_oracle_and_known_defect
-    - cuda_mcgs_public_composition_readiness_assessment
-blocked_or_paused:
-  connect4_execution:
-    state: paused
-    resume: explicit_owner_return_after_cuda_mcgs_124_dependency_progress
-  cuda_mcgs_comparison_lane:
-    state: blocked_on_upstream_generic_lifecycle
-    blocker: CUDA-MCGS_issue_124
-    reason: device_resident_evaluator_request_batch_scatter_freshness_failure_cleanup_runtime_not_yet_protected_complete
-resume_condition:
-  - reread_exact_connect4_main_and_cuda_mcgs_public_state
-  - cuda_mcgs_124_exposes_protected_public_executable_evaluator_lifecycle
-  - freeze_connect4_owned_comparison_contract_before_product_lane_implementation
-reference_evidence:
-  connect4_main: 0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e
-  connect4_main_verify_run: 34122562926
-  incumbent_benchmark_run: 34116027347
-  c4_0005_verify_run: 34122018213
-  c4_0005_strength_run: 34122018076
-  assessed_cuda_mcgs_main: 893a1676a303bf28aff8f24847b0be1559ba859c
-  assessed_cuda_js_tensor_main: cbecc75138769419ed2c09fbfeb227f3ffe2de57
-constraints:
-  - no_connect4_specific_semantics_upstream
-  - no_downstream_reimplementation_of_cuda_mcgs_evaluator_lifecycle
-  - no_deep_cuda_sibling_imports
-  - no_python
-  - preserve_adjustable_board_incumbent_semantics
-  - solved_oracle_is_7x6_evidence_only
-  - persistent_tt_is_normal_production_policy
-  - separate_tree_equivalent_from_graph_reuse_comparison
+  mode: research_consolidated
+  action: preserve_strongest_exact_search_controls_and_wait_for_shared_semantic_quotient_mq1_to_mq5_before_new_kernel_promotion
+
+source_of_truth:
+  branch_guide: MINIMAX_BRANCH.md
+  prototype_index: reference/research-prototypes/MINIMAX_INDEX.md
+  lineage_audit: docs/research/2026-09-10-minimax-branch-lineage-audit.md
+
+shared_research_dependency:
+  branch: research/semantic-quotient
+  first_gates:
+    - mq1_identified_line_strong_score_qualification
+    - mq2_coarsest_action_labeled_behavioral_partition
+    - mq3_missing_semantic_accumulator_analysis
+    - mq4_compiled_action_transition_artifact
+    - mq5_serial_alpha_beta_ab_against_fixed_width_colored_board_control
+
+strong_search_controls:
+  - fixed_width_two_word_exact_kernel
+  - direct_mapped_exact_tt
+  - decision_state_admission_and_forced_macro_edges
+  - compact_exact_identity
+  - intrinsic_rank_aware_tt_placement
+  - residual_automorphism_candidate
+  - global_shared_proof_memory_controls
+
+correctness_gates:
+  - preserve_exact_distance_sensitive_state_and_action_values
+  - discharge_no_immediate_current_player_win_precondition_at_public_or_task_entry
+  - false_cache_misses_allowed_false_hits_forbidden
+  - no_unproved_multiwriter_publication_as_production_authority
+  - retain_independent_oracle_and_frozen_benchmark_evidence
+
+next_actions:
+  - do_not_promote_new_maintained_minimax_kernel_yet
+  - consume_semantic_quotient_results_when_mq1_mq4_are_exactly_qualified
+  - run_mq5_against_strongest_fixed_width_search_control
+  - requalify_search_side_mechanisms_only_after_new_state_identity_is_fixed
