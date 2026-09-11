@@ -1,0 +1,29 @@
+name: Flat quotient-native kernel campaign
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-fast-kernel-campaign.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-fast-kernel.mjs'
+      - '.github/workflows/semantic-quotient-fast-kernel.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-kernel.mjs'
+      - 'components/bsfp/ownership-antichain-solver.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flat-kernel:
+    name: Qualify flat quotient-native kernel
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run flat quotient-native kernel campaign
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-fast-kernel-campaign.mjs
