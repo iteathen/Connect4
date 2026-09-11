@@ -1,0 +1,32 @@
+name: Minimax MQ5 typed A123 IMPL tiny frontier screen
+
+on:
+  push:
+    branches:
+      - work/minimax-candidate-composition-20260911
+    paths:
+      - '.github/workflows/minimax-mq5-typed-a123-impl-tiny-screen.yml'
+  workflow_dispatch:
+
+jobs:
+  impl-tiny:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Derive capacity-1/2 qualifier from qualified V1 harness
+        shell: bash
+        run: |
+          perl -0pi -e 's/const CAPACITIES=\[4,8,16,32\]/const CAPACITIES=[1,2]/' research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_impl_screen.mjs
+          grep -F 'const CAPACITIES=[1,2],ORDERS=' research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_impl_screen.mjs
+      - name: Run capacity-1/2 screen and rotating repeats
+        run: node --max-old-space-size=6144 research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_impl_screen.mjs | tee /tmp/mq5-typed-a123-impl-tiny.json
+      - name: Preserve tiny-frontier evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-mq5-typed-a123-impl-tiny
+          path: /tmp/mq5-typed-a123-impl-tiny.json
+          if-no-files-found: error
