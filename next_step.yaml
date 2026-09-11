@@ -1,68 +1,62 @@
-updated: 2026-09-11
-branch: research/zdd-transfer-20260910
-objective: exact_fast_empty_7x6_connect4_wdl_via_cuda_bsfp_no_search
-active_boundary: bounded_oqs_packed42_cofactor_qualification
-reference_base: 0b1d67e97e74ae9014621e18ff109bda50997352
-profile: c4-0009-o1-oqs-cofactor-42
-native_source: 6e30e3829ddede96c7a9dce3fdad71df467e4ebe
-native_run: 20260911T032754503Z-b0df94a3
-evidence_pr: https://github.com/iteathen/Connect4/pull/21
-evidence_commit: d2e31abb6f4da79f4b4d006e166e4b39d1960dd3
-research_record: docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md
-r6_evidence: docs/research/evidence/2026-09-11-oqs-r6-original-job-summary.json
+schema_version: 1
+updated: 2026-09-10
+state: semantic_quotient_mq1_ready
+repository_role: cross_solver_exact_semantic_research
+canonical_branch: research/semantic-quotient
 
-dependencies:
-  cuda_algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
-  cuda_js: 98e2ebc942c14d63acf4dd82e912dd548c363a05
-  cuda_js_package: 0.1.0-alpha.20
+mission:
+  objective: smallest_exact_efficiently_updatable_description_of_remaining_connect4_game
+  acceptance: action_labeled_future_behavior_equivalence_for_consumer_scope
+  kolmogorov_role: motivation_only_not_computable_authority
 
-completed:
-  - recovered_original_r6_job_and_distinguished_later_compact_run
-  - reused_existing_device_cofactor_and_exact_packed42_normalization
-  - proved_and_exhaustively_checked_antichain_preservation_shortcut
-  - local_native_parity_all_220744_candidates_112_transitions_four_5x5_supports
-  - independent_layer_rebuilds_on_selected_small_supports_and_4426
-  - explicit_capacity_offset_input_extent_errors_and_graceful_cleanup
-  - integrated_90_tests_and_wide_portable_composition_pass
-  - official_Q1_4x3_4x4_5x5_pass_and_23_published_payload_hashes_verified
-  - CUDA_portable_34558523310_and_incremental_regression_34558523311_pass
-  - concrete_generic_requirements_attached_to_cuda_algorithms_issue_3
+source_lanes:
+  minimax: solver/minimax-alpha-beta
+  cuda_bsfp: solver/cuda-bsfp
+  oqs_history: research/zdd-transfer-20260910
+
+current:
+  action: execute_mq1_strong_score_qualification_of_identified_line_quotient
+  owner: Connect4
+  mode: research
+
+mq_program:
+  mq1:
+    question: does_support_H0_H1_preserve_exact_distance_sensitive_state_and_per_column_action_values
+    controls: [4x3_c3, 4x4_c4, 5x3_c4, 4x5_c4_if_practical]
+    falsifier: smallest_pair_with_same_candidate_key_but_different_legal_action_terminal_timing_state_value_or_action_value
+  mq2:
+    question: what_is_coarsest_exact_action_labeled_behavioral_partition
+    method: exact_partition_refinement
+  mq3:
+    question: what_information_remains_redundant_after_line_hit_and_support_state
+    output: minimal_counterexamples_and_candidate_accumulator_or_dense_class_ID
+  mq4:
+    question: can_behavior_classes_compile_to_flat_action_transitions
+    target: classId_plus_column_to_terminal_or_nextClassId
+  mq5:
+    question: does_serial_alpha_beta_over_compiled_quotient_beat_fixed_width_colored_board_control
+    invariants:
+      - same_null_window_sequence
+      - same_move_order
+      - equal_TT_byte_budget
+      - exact_score_and_action_parity
+
+transferable_bsfp_results:
+  - hidden_history_census_methodology
+  - transition_stable_residual_class_concept
+  - pointer_free_flat_transition_artifacts
+  - incremental_quotient_synthesis
+  - identified_line_semantic_coordinates
+
+not_transferable_by_default:
+  - bsfp_backward_fixed_point_control_flow
+  - wdl_only_equivalence_for_minimax
+  - symbolic_C1_history_required_only_for_unreachable_ownership_domain
+  - generic_runtime_BDD_ZDD_graphs
+  - concrete_enumeration_of_all_line_hit_states
 
 next_actions:
-  - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
-  - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
-  - investigate_seed_construction_cost_before_admitting_finite_7x6_slice
-
-open_boundaries:
-  grouping:
-    owner: CUDA-Algorithms_for_generic_primitives_Connect4_for_exact_residual_equality
-    upstream_issue: https://github.com/iteathen/CUDA-Algorithms/issues/3
-    requirements: scalable_order_and_scan_device_active_extents_explicit_overflow
-    collision_rule: hash_match_is_not_exact_equality_or_sufficient_group_order
-  initial_residual_seed:
-    owner: Connect4
-    observation: official_5x5_C1_seed_38_63_seconds
-    status: exact_reference_prerequisite_not_eliminated
-
-claims:
-  full_device_oqs: false
-  empty_7x6_wdl: null
-  native_scope: all_candidates_of_selected_supports
-  other_three_5x5_independent_scope: R5_count_check_not_full_layer_rebuild
-  performance_scope: single_pass_submit_wait_not_end_to_end_speedup
-
-cleanup:
-  retained: OQS_worktree_package_junctions_ignored_R6_raw_logs_Q1_spools
-  protected_unchanged: older_feature_lane_and_exact_lower_repository_sources
-  runtime_requirement: success_only_after_graceful_cleanup
-  historical_replays: ZDD_one_shot_and_R6_compact_manual_only_duplicate_runs_cancelled
-  evidence_pr_21: retained_open_no_main_merge
-
-constraints:
-  - no_search_or_colored_state_tree_substitution
-  - no_private_generic_sort_scan_unique_stack
-  - no_direct_CUDA_CPP_PTX_FFI_Python_or_native_escape
-  - no_silent_truncation_or_hash_only_quotient_identity
-  - no_portable_numerical_or_performance_claim
-  - no_full_7x6_claim_from_bounded_controls
-  - no_generalized_10x10_artifact_format_work
+  - implement_and_qualify_MQ1_on_complete_small_controls
+  - if_MQ1_passes_compute_MQ2_behavioral_partition
+  - record_description_length_state_transition_compile_and_proof_costs_separately
+  - promote_only_solver_specific_survivors_back_to_owning_solver_branches
