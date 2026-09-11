@@ -1,10 +1,10 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "updated": "2026-09-10",
   "purpose": "Post-restructure verification that historical refs are preserved by canonical lane ancestry, exact duplication, curated migration, or history-only archive merge. The pre-restructure MIGRATION_MANIFEST remains the immutable census snapshot.",
   "canonicalHeadsAtLatestProof": {
     "main": "f62f72b37f8c6d7d88045e25b1b07df77bbac0fb",
-    "solver/minimax-alpha-beta": "66fe2fc8dd15f954a37f328950f352d06bbe8f89",
+    "solver/minimax-alpha-beta": "0d5894876e02609f4a78466d7ffa5c632e44c803",
     "solver/cuda-bsfp": "0d8b4d5633e0485ac1bb96ed4f77509bc1217d80",
     "research/semantic-quotient": "939fe77c33cf0dfa02f67be719fa99204e34a50b"
   },
@@ -14,6 +14,7 @@
     {"ref":"research/forced-macro-implication-2026-09-09","head":"b01f5d58fa4c1159acdd5cb58e1628e23844306e","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
     {"ref":"research/minimax-structural-cut-20260909","head":"0d2648c83a88c8c3dd2a4836cb19296d1930b35a","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
     {"ref":"research/residual-automorphisms-2026-09-09","head":"5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
+    {"ref":"feature/shared-evaluator-v1","head":"77c5c0da57ddb65cd7aff9ce131481a19414931a","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor after curated archive merge; PR #5 closed as superseded","artifactPacket":"research/minimax/incumbent-v8-rewrite/","artifactProof":"exact original Git blobs preserved under runnable snapshot path topology; source, TT, evaluator/search/hot-path tests, frozen evaluator/search/self-play vectors, research note and historical candidate specs retained"},
 
     {"ref":"research/zdd-transfer-20260910","head":"42e1a1ca90905bb3edec8ad4a2e49c99ef635651","preservedBy":"research/semantic-quotient","proof":"confirmed ancestor"},
     {"ref":"research/low-confidence-survival-2026-09-09","head":"f28e79098c0c62fff752eca4aecbf8fd6f4a2073","preservedBy":"research/semantic-quotient","proof":"history-only merge parent ffe7de24040cfd9df44c26bdcf248e4eace05d9a; confirmed ancestor afterwards","note":"Unique post-minimax commits are the transition into searchless/BSFP research; semantic working tree intentionally does not import old minimax files."},
@@ -39,7 +40,7 @@
     "treePolicy": "current cleaned tree retained exactly; legacy parent trees are history/provenance only and are not restored into the live filesystem",
     "headsPreservedAsAdditionalParents": [
       {"ref":"feature/incumbent-node-search","head":"c42d8c7060d0cd6d3a5802c5f8b3f5da13089a26"},
-      {"ref":"feature/shared-evaluator-v1","head":"77c5c0da57ddb65cd7aff9ce131481a19414931a"},
+      {"ref":"feature/shared-evaluator-v1","head":"77c5c0da57ddb65cd7aff9ce131481a19414931a","note":"also migrated as runnable historical minimax packet"},
       {"ref":"feature/solved-strength-oracle","head":"0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e"},
       {"ref":"feature/cuda-mcgs-composition-assessment","head":"e79922c726b5d6d8baa9783c804996d47eef89a4"},
       {"ref":"agent/benchmark-bootstrap","head":"dcaed03b03410d8b6f46f1ff5ef53e9bde732a6b"},
@@ -49,7 +50,9 @@
     ],
     "retirementMeaning": "After this restructure branch is integrated to main, these historical heads are reachable from main and their live branch names can be retired without losing commit provenance. No claim is made that their old trees are current product state."
   },
-  "pendingUniqueContentAudit": [],
+  "pendingUniqueContentAudit": [
+    "tmp-do-not-use-c4diag"
+  ],
   "evidenceRefsPendingPayloadVerification": [
     "evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb",
     "evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872",
