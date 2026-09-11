@@ -1,4 +1,4 @@
-import { parentPort, workerData } from 'node:worker_threads';
+import { isMainThread, parentPort, workerData } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 
 function runKernel(durationMs, seed) {
@@ -17,8 +17,8 @@ function runKernel(durationMs, seed) {
   return { ops, elapsedMs: now - started, checksum: x >>> 0 };
 }
 
-const warmupMs = workerData?.warmupMs ?? 30;
-const durationMs = workerData?.durationMs ?? 120;
+const warmupMs = workerData?.warmupMs ?? Number(process.env.C4_CPU_PROBE_WARMUP_MS ?? 30);
+const durationMs = workerData?.durationMs ?? Number(process.env.C4_CPU_PROBE_DURATION_MS ?? 120);
 const seed = workerData?.seed ?? 0x12345678;
 runKernel(warmupMs, seed ^ 0xa5a5a5a5);
 
@@ -37,7 +37,7 @@ parentPort?.on('message', (message) => {
   }
 });
 
-if (workerData?.standalone) {
+if (isMainThread) {
   const result = runKernel(durationMs, seed);
   process.stdout.write(`${JSON.stringify({ ...result, opsPerSecond: result.ops / (result.elapsedMs / 1000) })}\n`);
 }
