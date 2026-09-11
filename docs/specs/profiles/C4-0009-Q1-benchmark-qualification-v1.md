@@ -1,6 +1,6 @@
 # C4-0009-Q1 — CUDA-BSFP benchmark qualification and repository-evidence profile v1
 
-**Status:** Working subordinate qualification profile on `feature/cuda-bsfp`.  
+**Status:** Working subordinate qualification profile on `solver/cuda-bsfp`.  
 **Parent authority:** C4-0009 CUDA-BSFP execution profile v1.  
 **Applies to:** all CUDA-BSFP execution/representation profiles that claim benchmark or native qualification evidence.
 
@@ -21,7 +21,11 @@ npm run bench:bsfp:qualify
 
 ## Evidence ownership and destination
 
-Every published run receives a unique immutable path `docs/evidence/cuda-bsfp/qualification/<run-id>/` and branch `evidence/cuda-bsfp-q1/<run-id>`. The runner opens a pull request to protected `main` by default and does not push generated evidence directly to protected `main`. Requalification always uses a new run ID.
+Every published run receives a unique immutable path `docs/evidence/cuda-bsfp/qualification/<run-id>/` and delivery branch `evidence/cuda-bsfp-q1/<run-id>`.
+
+The runner opens the evidence pull request to the canonical CUDA-BSFP lane `solver/cuda-bsfp` by default and does not push generated evidence directly to that canonical branch. `--report-base` or `CUDA_BSFP_REPORT_BASE` may deliberately override the destination when a different review base is required. Requalification always uses a new run ID.
+
+The evidence branch is a delivery surface, not a durable solver/research lane. After the exact generated run subtree and evidence-head ancestry are integrated into the canonical CUDA-BSFP lane, its PR may be closed and the delivery ref may be retired subject to repository cleanup policy. Generated evidence is never rewritten merely to simplify branch topology.
 
 ## Repository authentication and source identity
 
