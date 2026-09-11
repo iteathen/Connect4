@@ -1,7 +1,7 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "name": "state-identity-unification",
-  "status": "siu1-passed-search-campaign-v1-complete",
+  "status": "negamax-selected-optimization-campaign-complete",
   "owner_branch": "research/semantic-quotient",
   "date": "2026-09-11",
   "question": "Can one exact relational game algebra provide common logical identity across forward exact search, CUDA-BSFP, and hybrid confluence while enabling the best combined time-to-proof architecture?",
@@ -12,7 +12,7 @@
     "normalized-p1-residual-requirements"
   ],
   "consumers": [
-    "solver/minimax-alpha-beta",
+    "future-relational-negamax-forward-solver",
     "solver/cuda-bsfp",
     "solver/hybrid-confluence"
   ],
@@ -33,35 +33,61 @@
     "status": "complete",
     "workflow_run": 34636074995,
     "workflow_job": 103384159647,
-    "source_commit": "e243a4a9f320d1d3b631a9baacea4d45af597cdf",
     "result": "SEARCH_METHOD_CAMPAIGN_V1_RESULT.md",
     "evidence": "evidence/2026-09-11-search-method-campaign-v1.json",
-    "state": "precompiled-relational-DAG",
-    "positional_board_in_search": false,
-    "strong_score_finalists": [
-      "relational-negamax-alpha-beta-control",
+    "formulation_selected": "side-to-move-relational-negamax",
+    "driver_candidates": [
+      "alpha-beta-control",
       "PVS-NegaScout",
       "MTD-f"
     ],
-    "research_retained": [
+    "research_only": [
       "PN-DAG",
-      "Proof-Set Search"
+      "Proof-Set-Search"
+    ]
+  },
+  "negamax_optimization_campaign": {
+    "status": "complete",
+    "broad_workflow_run": 34637521061,
+    "broad_workflow_job": 103388937756,
+    "refinement_workflow_run": 34637786848,
+    "refinement_workflow_job": 103389801743,
+    "result": "NEGAMAX_OPTIMIZATION_CAMPAIGN_RESULT.md",
+    "evidence": "evidence/2026-09-11-negamax-optimization-campaign.json",
+    "structural_defaults": [
+      "single-perspective-side-to-move-value",
+      "fail-soft-exact-bounds",
+      "relational-tactical-closure",
+      "exact-single-perspective-TT-semantics"
     ],
-    "not_yet_admitted": [
-      "df-pn-without-DAG-safe-contract"
+    "advance": [
+      "WDL-native-negamax-default-product-contract",
+      "Enhanced-Transposition-Cutoff",
+      "ETC-physical-gating-policy",
+      "optional-strong-distance-refinement",
+      "distance-envelope-only-for-strong-mode",
+      "exact-BSFP-WDL-injection-by-q"
     ],
-    "key_4x5_composed_no_bsfp": {
-      "alpha_beta_expanded": 16489,
-      "pvs_expanded": 15110,
-      "mtdf_expanded": 15103,
-      "pn_dag_expanded": 61275
-    },
-    "key_4x5_ideal_bsfp_rank10": {
-      "alpha_beta_expanded": 1388,
-      "pvs_expanded": 1305,
-      "mtdf_expanded": 1315,
-      "pn_dag_expanded": 6079,
-      "bsfp_cost_included": false
+    "driver_candidates": [
+      "full-window-WDL-alpha-beta",
+      "PVS-NegaScout",
+      "MTD-f",
+      "WDL-threshold-driver"
+    ],
+    "reject_current_default": [
+      "fail-hard-negamax",
+      "generic-history-killer-ordering",
+      "child-bound-ordering-without-cutoff",
+      "blind-all-optimizations-composition"
+    ],
+    "control_4x5": {
+      "strong_baseline_expanded": 16488,
+      "strong_etc_expanded": 11761,
+      "wdl_baseline_expanded": 15096,
+      "wdl_etc_expanded": 10562,
+      "wdl_etc_interior_expanded": 10606,
+      "ideal_rank10_wdl_threshold_etc_expanded": 1229,
+      "ideal_bsfp_cost_included": false
     }
   },
   "bsfp_compatibility_contract": {
@@ -69,65 +95,47 @@
     "colored_board_translation_required": false,
     "forward_operator": "T(q,action)",
     "backward_operator": "Pre_action(Q)",
-    "exact_classifier": "Unknown_or_exact_value_over_q",
-    "search_may_publish": [
-      "exact-WDL",
-      "qualified-exact-strong-value",
-      "declared-sound-lower-upper-bounds",
-      "declared-certified-proof-closure"
-    ],
-    "search_may_not_publish_as_authority": [
-      "heuristic-score",
-      "proof-number-estimate",
-      "neural-value",
-      "ordering-hint"
-    ]
+    "default_shared_value_domain": "WDL",
+    "strong_distance": "optional-forward-refinement",
+    "shared_physical_layout_required": false,
+    "shared_control_flow_required": false
   },
+  "next_kernel_campaign": [
+    "packed-or-dense-relational-q",
+    "on-the-fly-incremental-T-q-action",
+    "WDL-native-fail-soft-negamax",
+    "native-relational-tactical-closure",
+    "tuned-ETC",
+    "compact-exact-single-perspective-TT",
+    "equal-byte-memory-controls",
+    "alpha-beta-PVS-MTDf-threshold-driver-comparison",
+    "then-reflection-residual-automorphism",
+    "then-compiled-local-proof-masks",
+    "then-relational-proof-cost-ordering",
+    "actual-BSFP-boundary-cost-accounting-before-hybrid-claim"
+  ],
   "promotion_policy": {
     "exactness_required": true,
     "notable_net_performance_gain_required_for_solver_hot_path": true,
-    "necessary_cross_solver_capability_may_justify_shared_contract": true,
+    "equal_total_memory_required": true,
     "shared_physical_state_required": false,
-    "speculative_solver_changes_allowed": false
+    "actual_bsfp_cost_required_for_hybrid_speed_claim": true
   },
-  "next_composition_campaign": [
-    "shared-packed-relational-negamax-kernel",
-    "alpha-beta-control",
-    "PVS-driver",
-    "MTD-f-driver",
-    "on-the-fly-packed-relational-transitions",
-    "equal-byte-exact-TT",
-    "reflection-and-residual-automorphism",
-    "native-relational-tactical-closure",
-    "earliest-win-and-support-bounds",
-    "compiled-local-proof-masks",
-    "proof-cost-action-ordering",
-    "actual-BSFP-boundary-cost-and-query-accounting"
-  ],
-  "preserved_invariants": [
-    "consumer-relative-exactness",
-    "distance-sensitive-score-preservation-where-claimed",
-    "action-labelled-successor-consistency",
-    "terminal-first-win-semantics",
-    "solver-native-hot-path-independence",
-    "research-before-promotion"
-  ],
   "open_gaps": [
     "packed-on-the-fly-relational-transition-economics",
+    "single-perspective-packed-TT-layout-and-equal-byte-performance",
+    "PVS-vs-MTDf-vs-WDL-threshold-on-real-kernel",
     "symbolic-preimage-without-reverse-edge-materialization",
     "current-bsfp-frontier-compression-must-not-be-regressed",
     "standard-7x6-reachable-relational-state-scale",
     "actual-BSFP-build-publication-query-cost",
-    "evaluator-and-nn-feature-sufficiency",
-    "symmetry-and-packed-identity"
+    "reflection-and-residual-automorphism-on-packed-state"
   ],
   "non_claims": [
-    "standard-7x6-exhaustive-quotient-proof",
-    "production-speedup",
+    "standard-7x6-production-performance",
+    "packed-on-the-fly-transition-performance",
     "hybrid-end-to-end-speedup-from-ideal-boundary-only",
-    "state-level-reversible-transition",
-    "bsfp-per-relational-state-enumeration-requirement",
-    "shared-mutable-state-requirement",
-    "final-search-driver-selection"
+    "final-search-driver-selection",
+    "safe-selective-pruning-beyond-exact-tested-mechanisms"
   ]
 }
