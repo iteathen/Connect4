@@ -1,6 +1,7 @@
 import { performance } from 'node:perf_hooks';
 import { compileDeviceProgram } from 'cuda-js';
 import { oqsCofactor42DeviceProgram } from './oqs-cofactor-42-program.mjs';
+import { oqsFactored42DeviceProgram } from './oqs-factored-42-program.mjs';
 import { oqsCofactor42Shape } from './oqs-cofactor-42-layout.mjs';
 
 async function closeResources(resources) {
@@ -14,13 +15,14 @@ async function closeResources(resources) {
  * Full-sized input buffers permit deliberate invalid device-metadata tests. */
 export async function createOqsCofactor42Plan(runtime, options) {
   const shape = oqsCofactor42Shape(options);
+  const program = shape.factored ? oqsFactored42DeviceProgram : oqsCofactor42DeviceProgram;
   const resources = [];
   const buffers = {};
   let closed = false;
   let active = false;
   const started = performance.now();
   try {
-    const compiled = await compileDeviceProgram(runtime, oqsCofactor42DeviceProgram);
+    const compiled = await compileDeviceProgram(runtime, program);
     const artifact = compiled.linker?.artifact ?? compiled.compiler?.artifact;
     if (!artifact || !['ptx', 'cubin'].includes(artifact.format)) throw new Error('OQS executable artifact missing');
     const module = await runtime.loadModule({ format: artifact.format, bytes: artifact.bytes });
@@ -39,14 +41,22 @@ export async function createOqsCofactor42Plan(runtime, options) {
       buffers[name] = { memory, view, size };
     }
     const dags = [];
+    const order = ['resetOqsCofactor42Control', 'synthesizeOqsCofactor42Candidates',
+      ...(shape.factored ? ['resetOqsMapping', 'mapOqsResidualOccurrences'] : [])];
+    const orderedKernels = order.map(name => {
+      const kernel = compiled.deviceProgram.kernels.find(k => k.name === name);
+      if (!kernel) throw new Error(`OQS kernel missing: ${name}`);
+      return kernel;
+    });
     for (const preserveAntichains of [0, 1]) {
       const scalars = { ...shape, winRecordCapacity: shape.recordCapacity, lossRecordCapacity: shape.recordCapacity, preserveAntichains };
-      const nodes = compiled.deviceProgram.kernels.map((k, index) => ({
-        id: k.name, ...(index ? { after: [compiled.deviceProgram.kernels[index - 1].name] } : {}),
-        function: kernels[k.name], grid: { x: index ? shape.candidateCapacity : 1, y: 1, z: 1 },
+      const nodes = orderedKernels.map((k, index) => ({
+        id: k.name, ...(index ? { after: [orderedKernels[index - 1].name] } : {}),
+        function: kernels[k.name], grid: { x: k.name === 'synthesizeOqsCofactor42Candidates' ? shape.candidateCapacity
+          : k.name === 'mapOqsResidualOccurrences' ? Math.ceil(shape.mappedCapacity / shape.blockSize) : 1, y: 1, z: 1 },
         block: { x: shape.blockSize, y: 1, z: 1 },
-        arguments: oqsCofactor42DeviceProgram.functions.find(f => f.name === k.name).parameters.map(p => p.type.startsWith('ptr<') ? { binding: p.name } : scalars[p.name]),
-        accesses: oqsCofactor42DeviceProgram.functions.find(f => f.name === k.name).parameters.flatMap((p, argumentIndex) => p.type.startsWith('ptr<') ? [{ argumentIndex,
+        arguments: program.functions.find(f => f.name === k.name).parameters.map(p => p.type.startsWith('ptr<') ? { binding: p.name } : scalars[p.name]),
+        accesses: program.functions.find(f => f.name === k.name).parameters.flatMap((p, argumentIndex) => p.type.startsWith('ptr<') ? [{ argumentIndex,
           byteOffset: 0, byteLength: buffers[p.name].size * 4, mode: shape.inputSizes[p.name] ? 'read' : 'read-write' }] : []),
       }));
       const prepared = await runtime.prepareOperationDag({ nodes });
@@ -86,6 +96,17 @@ export async function createOqsCofactor42Plan(runtime, options) {
           const generations = await read('generationStatus', count);
           for (let i = 0; i < count; i++) if (generations[i] !== 0) throw new Error(`OQS candidate ${i} generation status ${generations[i]}`);
           const output = {};
+          if (shape.factored) {
+            const mappingStatus = (await read('mappingGlobalStatus'))[0];
+            if (mappingStatus !== 0) throw new Error(`OQS mapping global status ${mappingStatus}`);
+            output.mappedCount = (await read('mappedCount'))[0];
+            if (output.mappedCount > shape.mappedCapacity) throw new Error('OQS mapping count outside capacity');
+            for (const name of ['mappedXLo', 'mappedXHi', 'mappedResidualSlots', 'mappedStatus']) output[name] = await read(name, output.mappedCount);
+            for (let i = 0; i < output.mappedCount; i++) {
+              if (output.mappedStatus[i] !== 0) throw new Error(`OQS mapping status ${output.mappedStatus[i]}`);
+              if (output.mappedResidualSlots[i] >= count) throw new Error('OQS mapped residual slot outside extent');
+            }
+          }
           for (const name of ['outputWinCounts', 'outputWinStatus', 'outputLossCounts', 'outputLossStatus', 'candidateXLo', 'candidateXHi']) output[name] = await read(name, count);
           for (let i = 0; i < count; i++) for (const side of ['Win', 'Loss']) {
             if (output[`output${side}Status`][i] || output[`output${side}Counts`][i] > shape.frontierCapacity) throw new Error(`OQS ${side} frontier invalid`);

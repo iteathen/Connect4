@@ -1,5 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+
+test('O3 requires every exact mapped output and native repetition without claiming GPU grouping', () => {
+  const profile = getQualificationProfile('c4-0009-o3-oqs-residual-reuse');
+  for (const small of [true, false]) {
+    const spec = small ? { columns: 4, rows: 4, connect: 4 } : { columns: 7, rows: 6, connect: 4 };
+    const accepts = profile.steps(spec, '/repo')[0].expected;
+    const cuts = small ? Array.from({ length: 10 }, (_, i) => i) : [5];
+    const valid = { outcome: 'native-oqs-factored-reuse-pass', mode: 'native', geometry: `${spec.columns}x${spec.rows}:c4`,
+      evidenceGrade: 'selected-input-pair-table-transform-and-mapping', inputPairIds: 'CPU-exact-qualification-fixture',
+      outputPairSlots: 'unmerged-residual-input-slots', devicePairGrouping: false, fullDeviceQuotientSynthesis: false,
+      rootWdl: null, transitionsChecked: cuts.length, logicalCandidates: small ? 1409 : 8192,
+      residualCandidates: small ? 326 : 128, nativePassesPerTransition: 8, mismatches: 0, targetCoverage: 1,
+      cleanup: 'graceful', controls: Array(small ? 9 : 0).fill('control'),
+      samples: cuts.flatMap(cut => ['unfactored', 'factored'].flatMap(representation => [0, 1, 2, 3].map(pass =>
+        ({ cut, representation, pass, warmup: pass === 0, uploadMs: 1, submitWaitMs: 2, readbackMs: 3 })))) };
+    assert.equal(accepts(valid), true);
+    for (const patch of [{ mode: 'portable' }, { rootWdl: 1 }, { devicePairGrouping: true },
+      { fullDeviceQuotientSynthesis: true }, { targetCoverage: 0.99 }, { logicalCandidates: 128 },
+      { samples: valid.samples.slice(1) }, { samples: valid.samples.map(s => ({ ...s, pass: 0 })) },
+      { cleanup: 'failed' }, { mismatches: 1 }, { nativePassesPerTransition: 2 }]) assert.equal(accepts({ ...valid, ...patch }), false);
+    assert.equal(profile.estimate(spec).upperBoundBytes, small ? 277098844 : 422507356);
+  }
+  assert.equal(profile.supports({ columns: 5, rows: 5, connect: 4 }), false);
+});
 import { denseShapeBytes, getQualificationProfile, listQualificationProfiles } from '../profiles.mjs';
 
 test('O2 admits only a bounded 7x6 seed cut and rejects any root/full-quotient promotion', () => {

@@ -222,7 +222,43 @@ const O2 = Object.freeze({
     }];
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2]]);
+const O3 = Object.freeze({
+  id: 'c4-0009-o3-oqs-residual-reuse', specification: 'docs/specs/profiles/C4-0009-O3-oqs-residual-reuse-v0.md',
+  gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  supports(s) { return s.connect === 4 && ((s.columns === 4 && s.rows === 4) || (s.columns === 7 && s.rows === 6)); },
+  estimate(spec) {
+    if (!this.supports(spec)) return { executable: false, upperBoundBytes: null, kind: 'unsupported-oqs-reuse-slice' };
+    const options = { ...spec, slice: spec.columns === 4 ? 'reuse-control' : 'reuse-cut-5' };
+    const a = oqsCofactor42Shape({ ...options, representation: 'unfactored' });
+    const b = oqsCofactor42Shape({ ...options, representation: 'factored' });
+    const deviceBytes = a.deviceBytes + b.deviceBytes;
+    return { executable: true, deviceBytes, upperBoundBytes: deviceBytes + 256 * 1024 ** 2, kind: 'bounded-residual-transform-and-mapping-ab' };
+  },
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    const small = spec.columns === 4;
+    const cuts = small ? Array.from({ length: 10 }, (_, i) => i) : [5];
+    return [{ id: 'oqs-residual-transform-and-mapping', command: process.execPath,
+      args: [...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-oqs-cofactor/run-factored.mjs')), String(spec.columns), String(spec.rows)],
+      expected(r) {
+        return r?.outcome === 'native-oqs-factored-reuse-pass' && r.mode === 'native'
+          && r.geometry === `${spec.columns}x${spec.rows}:c4`
+          && r.evidenceGrade === 'selected-input-pair-table-transform-and-mapping'
+          && r.inputPairIds === 'CPU-exact-qualification-fixture' && r.outputPairSlots === 'unmerged-residual-input-slots'
+          && r.devicePairGrouping === false && r.fullDeviceQuotientSynthesis === false && r.rootWdl === null
+          && r.transitionsChecked === cuts.length && r.logicalCandidates === (small ? 1409 : 8192)
+          && r.residualCandidates === (small ? 326 : 128) && r.nativePassesPerTransition === 8
+          && r.mismatches === 0 && r.targetCoverage === 1 && r.cleanup === 'graceful'
+          && Array.isArray(r.controls) && r.controls.length === (small ? 9 : 0)
+          && Array.isArray(r.samples) && r.samples.length === cuts.length * 8
+          && cuts.every(cut => ['unfactored', 'factored'].every(representation => [0, 1, 2, 3].every(pass =>
+            r.samples.filter(s => s.cut === cut && s.representation === representation && s.pass === pass
+              && s.warmup === (pass === 0) && ['uploadMs', 'submitWaitMs', 'readbackMs'].every(k => Number.isFinite(s[k]) && s[k] >= 0)).length === 1)));
+      },
+    }];
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };
