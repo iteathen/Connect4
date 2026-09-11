@@ -1,13 +1,15 @@
-schema_version: 20
+schema_version: 21
 updated: 2026-09-10
-state: cuda_bsfp_oqs_o2_qualified_factorization_ready
+state: cuda_bsfp_oqs_o3_qualified_device_grouping_gap
 repository_role: connect4_cuda_bsfp_solver
 canonical_branch: solver/cuda-bsfp
-superseded_branch_name: feature/cuda-bsfp
+superseded_branch_names:
+  - feature/cuda-bsfp
+  - research/zdd-transfer-20260910
 
 current:
-  action: factor_exact_residual_pair_storage_from_crossing_state_storage_then_measure_device_composition
-  owner: Connect4
+  action: establish_scalable_generic_device_grouping_then_emit_dense_residual_pair_ids_and_chain_next_oqs_layer
+  owner: Connect4_with_cuda_algorithms_dependency
   mode: active
   solver_lane: cuda_bsfp
 
@@ -38,29 +40,61 @@ qualified_milestones:
     status: qualified_native_bounded_seed_slice
     profile: c4-0009-o2-oqs-7x6-seed-slice
     evidence: docs/evidence/cuda-bsfp/qualification/20260911T043015870Z-2d8e0785
+  o3:
+    status: qualified_native_bounded_residual_reuse
+    profile: c4-0009-o3-oqs-residual-reuse
+    source: 5dfe1312a357c48eee53168e82fd6eba27814a06
+    evidence: docs/evidence/cuda-bsfp/qualification/20260911T050640911Z-b3554293
+    four_by_four_elapsed_ms: 2845
+    seven_by_six_elapsed_ms: 10361
+    four_by_four_estimated_device_bound_mib: 264
+    seven_by_six_estimated_device_bound_mib: 402
+    seven_by_six_logical_outputs: 8192
+    seven_by_six_distinct_pair_input_transforms: 128
     non_claims:
       - not_full_7x6_quotient_synthesis
       - not_full_bsfp_closure
       - not_root_wdl
+      - not_global_pair_interning
 
-current_oqs_evidence:
-  bounded_7x6_prefix:
-    states_after_six_cuts: 8192
-    distinct_exact_residual_pairs: 48
-    logical_frontier_records: 1732992
-    distinct_residual_pair_records: 10597
-    baseline_cpu_cofactor_evaluations: 11056
-    reuse_cpu_cofactor_evaluations: 624
-    observed_cpu_elapsed_ratio: 6.86
-  interpretation: exact_residual_pair_identity_is_a_high_leverage_factorization_axis
+current_oqs_shape:
+  exact_pair_factorization: qualified
+  occurrence_mapping: qualified
+  input_pair_ids: cpu_fixture_supplied
+  output_pair_grouping: not_implemented
+  dense_next_pair_ids: not_implemented
+  dense_next_state_ids: not_implemented
+  device_layer_chaining: not_implemented
+
+ownership_gate:
+  connect4_owns:
+    - exact_residual_descriptor_meaning
+    - cofactor_semantics
+    - crossing_occurrence_mapping_semantics
+    - dense_id_consumption_and_bsfp_layer_composition
+  cuda_algorithms_owns:
+    - scalable_prefix_scan_select
+    - scalable_order_or_radix_grouping
+    - run_length_or_unique_segmentation
+    - generic_dense_id_assignment_primitives
+  cuda_js_owns:
+    - runtime_compiler_device_memory_lifecycle
+  rule: do_not_embed_generic_scalable_sort_group_unique_inside_connect4
+
+cuda_algorithms_gap:
+  pinned_revision: 48ee0aec9acae7776950f03ab52ab1737e598b6e
+  maintained_select_order_status: correctness_first_quadratic_no_scalability_claim
+  next_dependency_action: assess_and_implement_or_promote_scalable_generic_grouping_under_cuda_algorithms_ownership
 
 next_actions:
-  - preserve_residual_pair_as_exact_canonical_identity_separate_from_crossing_state_identity
-  - map_state_input_to_exact_pair_id_without_recomputing_equivalent_cofactors
-  - keep_generic_grouping_compaction_in_cuda_algorithms_ownership
-  - qualify_any_new_connect4_layout_against_frozen_exact_oqs_reference_oracle
-  - measure_device_cost_against_o1_o2_baselines_before_broadening_7x6_scope
-  - do_not_claim_full_7x6_until_complete_quotient_synthesis_and_bsfp_closure_pass
+  - audit_cuda_algorithms_and_cuda_js_cuda_cccl_surface_for_accepted_scalable_grouping_path
+  - implement_or_promote_generic_scalable_grouping_in_cuda_algorithms_if_missing
+  - expose_fixed_exact_residual_descriptors_from_connect4_without_string_map_or_bigint_hot_path
+  - assign_dense_next_pair_ids_on_device
+  - map_every_occurrence_input_to_dense_next_pair_and_state_id
+  - chain_one_complete_next_oqs_layer_device_resident
+  - qualify_against_frozen_exact_oqs_reference_oracle
+  - measure_against_o1_o2_o3_before_broadening_7x6_scope
 
 c1_parallel_track:
   c3:
@@ -69,17 +103,16 @@ c1_parallel_track:
   b2:
     exact_source: 7298bbbaa5d761b0dd163f68aa00ba9baf9cb1e5
     need: native_same_gpu_legacy_vs_bucketed_ab
-  rule: retain_as_independent_c1_fallback_and_diagnostic_track_not_as_current_oqs_owner
+  rule: preserve_as_independent_fallback_not_current_oqs_owner
 
 shared_research_routing:
   semantic_quotient_branch: research/semantic-quotient
-  latest_mixed_handoff_head: e04cee12bc24cda63fcf889eb4ca2137837f86bf
+  latest_mixed_handoff_head: 5dfe1312a357c48eee53168e82fd6eba27814a06
   topics:
     - minimum_description_state
     - identified_line_quotient
     - future_behavior_equivalence
     - residual_class_compilation
-    - oqs_seed_scaling
     - exact_residual_pair_factorization_semantics
   rule: shared_semantics_evolve_there_cuda_implementation_qualifies_here
 
