@@ -1,0 +1,28 @@
+name: Scaled term-ID quotient composition
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-scaled-term-id-campaign.mjs'
+      - '.github/workflows/semantic-quotient-scaled-term-id.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    name: Qualify scaled term-ID quotient composition
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run scaled term-ID composition campaign
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-scaled-term-id-campaign.mjs
