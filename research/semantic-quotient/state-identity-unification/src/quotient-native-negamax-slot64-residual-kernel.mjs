@@ -1,5 +1,5 @@
 import { createQuotientNativeNegamaxSupportLayoutKernel } from './quotient-native-negamax-support-layout-kernel.mjs';
-import { installSlot64ResidualPool } from './quotient-slot64-residual-pool.mjs';
+import { installSlot64ResidualPool } from './quotient-slot64-residual-pool-v2.mjs';
 
 export function createSlot64ResidualQuotientKernel(spec, options = {}) {
   const kernel = createQuotientNativeNegamaxSupportLayoutKernel(spec, {
