@@ -1,0 +1,33 @@
+name: Slot64 direct mover paired 7x6
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-direct-own-7x6-paired.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-direct-own-campaign.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
+      - '.github/workflows/semantic-quotient-slot64-direct-own-paired.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  REPEATS: '3'
+
+jobs:
+  benchmark:
+    name: Pair slot64-v2 vs direct mover at rank 8
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run alternating paired target-scale benchmark
+        run: >-
+          node --expose-gc --max-old-space-size=6144
+          research/semantic-quotient/state-identity-unification/src/quotient-slot64-direct-own-7x6-paired.mjs
