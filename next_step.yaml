@@ -1,6 +1,6 @@
-schema_version: 7
+schema_version: 8
 updated: 2026-09-11
-state: semantic_quotient_mq1_to_mq4_passed_mq5_transferred_and_state_identity_unification_opened
+state: semantic_quotient_mq1_to_mq4_passed_mq5_transferred_siu1_relational_dual_direction_passed
 repository_role: cross_solver_exact_semantic_research
 canonical_branch: research/semantic-quotient
 
@@ -29,7 +29,6 @@ qualified_chain:
     line_classes: 420704
     behavior_classes: 269347
     control_4x5_behavior_classes: 229232
-    control_4x5_dense_id_bits: 18
     workflow_run: 34570098421
     workflow_job: 103170191176
   mq3:
@@ -59,55 +58,73 @@ qualified_chain:
       naive_flat_transition_bytes: 4713488
     workflow_run: 34570662573
     workflow_job: 103171852729
+  siu1:
+    status: pass
+    state: supportIndex_sideToMove_p0Residual_p1Residual
+    physical_states_checked: 1681808
+    exactness_mismatches: 0
+    bsfp_wdl_mismatches: 0
+    reverse_closure_mismatches: 0
+    forward_transition_functional: true
+    state_level_inverse_functional: false
+    control_4x5:
+      physical_states: 1385521
+      relational_states: 294593
+      compression_ratio: 4.703170136425509
+      maximum_physical_states_per_relational_state: 37080
+      ambiguous_child_column_pairs: 127374
+      maximum_parents_per_child_column: 21
+      reverse_csr_bytes: 4435576
+      forward_dense_bytes: 4713488
+      bsfp_boundary_records: 40707
+    workflow_run: 34632643724
+    workflow_job: 103372941221
 
 current:
-  primary_action: state_identity_unification_shadow_and_economic_experiments
+  primary_action: SIU2_direct_relational_alpha_beta_and_symbolic_preimage_design
   packet: research/semantic-quotient/state-identity-unification
   mq5_owner: solver/minimax-alpha-beta
   owner: Connect4
   mode: research
 
-mq5_transfer:
-  candidate: exact_support_plus_minimal_residual_state
-  required_search_invariants:
-    - exact_distance_sensitive_scores
-    - same_null_window_convergence
-    - same_tactical_terminal_semantics
-    - same_move_ordering_policy_where_representation_allows
-    - fixed_and_reported_TT_fairness_mode
-  first_implementation_strategy:
-    - root_local_exact_residual_state_arena
-    - lazy_cached_transitions
-    - recursive_search_carries_dense_state_ID
-    - report_state_compiler_cost_separately
-    - do_not_promote_to_maintained_solver_until_AB_evidence
-
 state_identity_unification:
   owner_packet: research/semantic-quotient/state-identity-unification
-  goal: common_logical_identity_without_forcing_common_physical_state
+  goal: one_exact_relational_game_algebra_with_solver_specific_execution_forms
+  common_state:
+    - supportIndex
+    - sideToMove
+    - normalized_p0_residual_requirements
+    - normalized_p1_residual_requirements
+  common_algebra:
+    forward: deterministic_T_q_action
+    backward: set_valued_inverse_image_Pre_action_Q
+    hybrid: exact_proof_classification_over_q
   promotion_requires:
     - exactness_for_target_consumer_contract
-    - notable_net_wall_clock_or_work_reduction
+    - notable_net_wall_clock_or_work_reduction_for_hot_path_changes
     - no_material_solver_native_hot_path_regression
     - deliberate_owner_selection_before_solver_promotion
   stages:
-    - SIU-1-shadow-identity-census
-    - SIU-2-useful-transposition-replay
-    - SIU-3-secondary-semantic-tt
-    - SIU-4-incremental-semantic-transition
-    - SIU-5-cross-solver-identity-contract
-    - SIU-6-direct-quotient-navigation
+    - SIU-1-relational-dual-direction-exactness-PASS
+    - SIU-2-direct-relational-alpha-beta
+    - SIU-3-useful-semantic-tt-economics
+    - SIU-4-packed-incremental-relational-transition
+    - SIU-5-symbolic-relational-preimage
+    - SIU-6-cross-solver-proof-contract
 
 shared_next_actions:
-  - run_SIU1_shadow_identity_census_before_solver_mutation
-  - characterize_remaining_residual_to_behavior_redundancy
-  - test_support_event_forced_response_parity_and_residual_automorphism_explanations
-  - investigate_single_side_residual_handle_reuse_and_exact_dense_interning
-  - preserve_MQ1_to_MQ4_as_solver_neutral_authority
+  - build_SIU2_direct_relational_alpha_beta_without_recursive_colored_board_state
+  - decompose_SIU2_transition_key_TT_and_ordering_costs
+  - design_SIU5_symbolic_preimage_without_restoring_history_or_materializing_all_reverse_edges
+  - preserve_current_BSFP_frontier_compression_as_a_hard_comparison_point
+  - characterize_7x6_reachable_relational_scale_before_any_production_promotion
+  - identify_evaluator_and_NN_features_not_entailed_by_exact_relational_identity
+  - preserve_MQ1_to_MQ4_and_SIU1_as_solver_neutral_authority
 
 non_claims:
   - no_standard_7x6_exhaustive_semantic_quotient_proof
-  - no_empty_board_minimax_completion_from_residual_state_yet
+  - no_empty_board_minimax_completion_from_relational_state_yet
   - no_production_speedup_claim
   - no_reason_to_merge_minimax_BSFP_or_hybrid_control_flow
   - no_reason_to_force_shared_mutable_physical_state
+  - no_requirement_for_state_level_inverse_transition
