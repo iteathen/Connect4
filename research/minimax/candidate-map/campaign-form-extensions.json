@@ -27,6 +27,51 @@
       ]
     },
     {
+      "id": "A123-DIRECT-U1U2-V3-NOCACHE",
+      "mechanism": "A10",
+      "label": "Direct no-cache U1/U2 A1-A3 fragment generation",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-cold-improved-still-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_direct_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; 12.446 ms direct median vs 9.350 ms dynamic and 16.037 ms cached-cold; removes per-support program cache but per-check fragment construction remains costly"}
+      ]
+    },
+    {
+      "id": "A123-GEOMETRY-U1U2-V4",
+      "mechanism": "A10",
+      "label": "Geometry-native fixed-scratch U1/U2 A1-A3 certificate",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-strong-near-break-even-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_geometry_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; geometry-native 2.913 ms median vs 7.027 ms dynamic, 2.413x speedup"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/run_a123_geometry_strong_stack.mjs","claim":"preserves exact 823/825-node trees and certificate checks/hits/cuts; 823-node before-bound form is 15.1% faster than dynamic and only 2.17% slower than A123-off while reducing nodes 26.45%"}
+      ]
+    },
+    {
+      "id": "IMPL-RID-SIG4",
+      "mechanism": "IMPL",
+      "label": "RID implication frontier with four conservative 32-bit rejection signatures",
+      "kind": "proof-reuse-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-cost-improved-still-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/impl_rid_signature_prefilter.mjs","claim":"preserves score, expanded states, dominance hits and frontier; on 4x5 rejects 84.64% of full RID closure checks and is about 1.23x faster than unfiltered closure, but remains slower than no-IMPL baseline"}
+      ]
+    },
+    {
+      "id": "IMPL-RID-INDEX8",
+      "mechanism": "IMPL",
+      "label": "RID implication frontier with conservative 8-bit support-local signature index",
+      "kind": "proof-reuse-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-index-improved-still-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/impl_rid_index8.mjs","claim":"preserves exact frontier and proof work; on 4x5 cuts candidate visits 24.2% and improves wall about 1.07x vs raw closure / 1.09x vs signature-only run, but remains far slower than no-IMPL baseline"}
+      ]
+    },
+    {
       "id": "DEAD-POOLED-V1-INVALID-TT",
       "mechanism": "DEAD",
       "label": "First pooled-neutral DEAD construction with invalid exact TT authority after cutoffs",
@@ -47,5 +92,12 @@
       {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_micro.mjs"},
       {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_search.mjs"}
     ]
-  }
+  },
+  "observed_relations": [
+    {"source":"A123-U1-ROLE-DYNAMIC","target":"A123-DIRECT-U1U2-V3-NOCACHE","effect":"substitutive-mixed","mechanism":"lifecycle-cost","state":"observed","note":"removes cold support-cache cost but remains slower than dynamic due per-check fragment construction"},
+    {"source":"U1-EVENT-RANK","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"representation-simplification","state":"observed","note":"standard 7x6 row-parity ownership permits static singleton/pair blocker geometry and removes runtime owner arithmetic/ID lookup"},
+    {"source":"A123-DIRECT-U1U2-V3-NOCACHE","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"cost","state":"observed","note":"fixed geometry and scratch arrays change direct generation from slower than dynamic to 2.41x faster in the differential micro and near-break-even in full strong stack"},
+    {"source":"RID","target":"IMPL-RID-SIG4","effect":"positive","mechanism":"cost-filter","state":"observed","note":"conservative RID signatures reject most impossible exact closure checks without changing proof authority"},
+    {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"}
+  ]
 }
