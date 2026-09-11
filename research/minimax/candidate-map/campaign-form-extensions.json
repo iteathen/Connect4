@@ -80,6 +80,34 @@
       "retained_limitation": "Authority remains restricted to sampled classes under the strict predicate that each player has exactly one nonplayable singleton residual and no other surviving winning requirement. WO_BO_diff remains unresolved and non-authoritative; absence in census is not an impossibility proof."
     },
     {
+      "id": "U1-ALLIS-COMPAT-V1-INVALID",
+      "mechanism": "A10",
+      "label": "First U1 Test B generic Allis compatibility harness with missing claim descriptor plumbing",
+      "kind": "retained-invalid-construction",
+      "first_seen": "2026-09-11",
+      "test_state": "invalid-harness-form-not-candidate-verdict",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_testb_allis_compatibility.mjs","claim":"failed before candidate evidence because descriptor computed claims but omitted them from returned structure"}]
+    },
+    {
+      "id": "U1-ALLIS-COMPAT-V2-STRICT",
+      "mechanism": "A10",
+      "label": "U1 Test B type-blind compatibility with strict overlap exclusion",
+      "kind": "strategic-compatibility-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-incomplete-form",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_testb_allis_compatibility_v2_runner.mjs","claim":"695,232 pair differential; 10,938 false negatives, all isolated to A5/A6 with A1 claim-inverse boundary sharing"}]
+    },
+    {
+      "id": "U1-ALLIS-COMPAT-V3",
+      "mechanism": "A10",
+      "label": "U1 Test B type-blind compatibility with event-interval claim/inverse boundary sharing",
+      "kind": "strategic-compatibility-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-sampled-complete-over-allis-allowed-extras-unresolved",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_testb_allis_compatibility_v3_runner.mjs","claim":"695,232 rule-pair comparisons; all 359,512 Allis-table-allowed pairs accepted with zero false negatives; 82,367 additional generic overlap pairs remain diagnostic-only"}],
+      "retained_limitation": "Generic-extra compatibility has not been proven sound and cannot authorize A10 proof composition. Conservative Allis section 7.4 compatibility remains proof authority."
+    },
+    {
       "id": "IMPL-RID-SIG4",
       "mechanism": "IMPL",
       "label": "RID implication frontier with four conservative 32-bit rejection signatures",
@@ -131,6 +159,7 @@
     {"source":"EXH","target":"A123-GEOMETRY-U1U2-V4","effect":"saturated-near-zero","mechanism":"proof-overlap","state":"observed","note":"EXH alone is slightly adverse on both MQ5 anchors and adds negligible node reduction when A123 is active"},
     {"source":"MQ5-WSL625-U16","target":"MQ5-TYPED-OPENADDR-V1","effect":"strong-positive","mechanism":"runtime-container-cost","state":"observed","note":"typed exact interning/caches preserve the identical MQ5 proof tree and deliver 1.493x / 1.571x repeated median speedup on frozen loss/win anchors"},
     {"source":"MQ5-TYPED-EXACT-INTERN","target":"MQ5-TYPED-OPENADDR-V1","effect":"realized-positive-form","mechanism":"implementation","state":"observed","note":"active typed-interning hypothesis is realized by an exact open-address implementation with repeated timing evidence"},
+    {"source":"U1-EVENT-RANK","target":"U1-ALLIS-COMPAT-V3","effect":"positive","mechanism":"compatibility-abstraction","state":"observed","note":"event-interval claim/inverse boundary sharing removes every sampled false negative against Allis-allowed compatibility without rule-type exceptions"},
     {"source":"RID","target":"IMPL-RID-SIG4","effect":"positive","mechanism":"cost-filter","state":"observed","note":"conservative RID signatures reject most impossible exact closure checks without changing proof authority"},
     {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"}
   ]
