@@ -1,0 +1,27 @@
+name: Minimax indexed RID implication frontier
+
+on:
+  push:
+    branches:
+      - work/minimax-impl-prefilter-20260911-copy
+    paths:
+      - 'research/minimax/composition-campaign/impl_rid_index8.mjs'
+      - '.github/workflows/minimax-impl-index8.yml'
+  workflow_dispatch:
+
+jobs:
+  impl-index8:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run indexed RID implication frontier
+        run: node --max-old-space-size=6144 research/minimax/composition-campaign/impl_rid_index8.mjs | tee /tmp/impl-index8.json
+      - name: Preserve indexed IMPL evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: minimax-impl-index8
+          path: /tmp/impl-index8.json
+          if-no-files-found: error
