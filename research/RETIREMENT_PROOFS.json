@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-09-10",
+  "purpose": "Post-restructure verification that historical refs are preserved by canonical lane ancestry or exact duplication. The pre-restructure MIGRATION_MANIFEST remains the immutable census snapshot.",
+  "canonicalHeadsAtLatestProof": {
+    "main": "f62f72b37f8c6d7d88045e25b1b07df77bbac0fb",
+    "solver/minimax-alpha-beta": "66fe2fc8dd15f954a37f328950f352d06bbe8f89",
+    "solver/cuda-bsfp": "0d8b4d5633e0485ac1bb96ed4f77509bc1217d80",
+    "research/semantic-quotient": "939fe77c33cf0dfa02f67be719fa99204e34a50b"
+  },
+  "verifiedRetirementSafe": [
+    {"ref":"research/exact-solver-perf-checkpoint-2026-09-08","head":"912359dc9bfd8570bb74651802ce05290d60c0aa","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
+    {"ref":"research/exact-solver-rethink-controls-2026-09-09","head":"f585ca9a6b67a74363ea239185adbb449b0c9bc2","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
+    {"ref":"research/forced-macro-implication-2026-09-09","head":"b01f5d58fa4c1159acdd5cb58e1628e23844306e","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
+    {"ref":"research/minimax-structural-cut-20260909","head":"0d2648c83a88c8c3dd2a4836cb19296d1930b35a","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
+    {"ref":"research/residual-automorphisms-2026-09-09","head":"5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d","preservedBy":"solver/minimax-alpha-beta","proof":"confirmed ancestor"},
+
+    {"ref":"research/zdd-transfer-20260910","head":"42e1a1ca90905bb3edec8ad4a2e49c99ef635651","preservedBy":"research/semantic-quotient","proof":"confirmed ancestor"},
+    {"ref":"research/low-confidence-survival-2026-09-09","head":"f28e79098c0c62fff752eca4aecbf8fd6f4a2073","preservedBy":"research/semantic-quotient","proof":"history-only merge parent ffe7de24040cfd9df44c26bdcf248e4eace05d9a; confirmed ancestor afterwards","note":"The unique post-minimax commits are the transition into searchless/BSFP research; semantic working tree intentionally does not import old minimax files."},
+    {"ref":"research/direct-line-product-bsfp-20260910","head":"028d508547ac86859cb65f8933b24d219176dc56","preservedBy":"research/semantic-quotient","proof":"curated merge parent 6a6deb90db96e0ed99f34922dd4c74df82f62c5e; confirmed ancestor afterwards","durableFilesRestored":["reference/research-prototypes/2026-09-10-identified-winline-quotient/direct-line-product-solver.mjs","reference/research-prototypes/2026-09-10-identified-winline-quotient/qualify-direct-line-product.mjs"],"notMigrated":"one-shot workflow only"},
+    {"ref":"research/live-q1-5min-20260910","head":"b8e15aa72c92fb58515a80340876e7df45b5316c","preservedBy":"research/semantic-quotient","proof":"history-only merge parent 939fe77c33cf0dfa02f67be719fa99204e34a50b","note":"Only unique commit was one-shot workflow. Its sole Actions run 34518477566 remained queued and produced no durable result."},
+
+    {"ref":"research/identified-winline-quotient-test","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"confirmed ancestor"},
+    {"ref":"research/identified-winline-quotient-test-2","head":"900cfa804fb0b06e524d2642c4feb845a9993077","preservedBy":"research/semantic-quotient","proof":"confirmed ancestor; exact duplicate of -3 and -4"},
+    {"ref":"research/identified-winline-quotient-test-3","head":"900cfa804fb0b06e524d2642c4feb845a9993077","preservedBy":"research/semantic-quotient","proof":"same exact head as verified -2"},
+    {"ref":"research/identified-winline-quotient-test-4","head":"900cfa804fb0b06e524d2642c4feb845a9993077","preservedBy":"research/semantic-quotient","proof":"same exact head as verified -2"},
+    {"ref":"research/winline-cone-image","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head as verified identified-winline-quotient-test"},
+    {"ref":"research/winline-product-antichain","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
+    {"ref":"research/winline-product-antichain-run","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
+    {"ref":"research/winline-product-dominance","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
+    {"ref":"research/winline-product-dominance-v2","head":"b95ad87c3e904156a72bc64f148165d69f4dabcf","preservedBy":"research/semantic-quotient","proof":"same exact head"},
+
+    {"ref":"research/winline-product-antichain-final","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"exact old CUDA-BSFP head; canonical solver branch created from this commit"},
+    {"ref":"feature/cuda-bsfp","head":"093218ca55b37f9179d0ede8255ac1621f2e96f5","preservedBy":"solver/cuda-bsfp","proof":"canonical solver branch created from exact old head; PR #14 superseded by PR #25"},
+    {"ref":"noop","head":"de47d43f4f4133a68973d0876a402531ef5735da","preservedBy":"main","proof":"exact pre-restructure main head"}
+  ],
+  "pendingUniqueContentAudit": [
+    "feature/incumbent-node-search",
+    "feature/shared-evaluator-v1",
+    "feature/solved-strength-oracle",
+    "feature/cuda-mcgs-composition-assessment",
+    "agent/benchmark-bootstrap",
+    "docs/execution-efficiency-mutation-hygiene",
+    "docs/global-agent-local-migration",
+    "tmp-do-not-use-c4diag"
+  ],
+  "evidenceRefsPendingPayloadVerification": [
+    "evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb",
+    "evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872",
+    "evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d",
+    "evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8",
+    "evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a",
+    "evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61",
+    "evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3"
+  ],
+  "physicalDeletionStatus": "not_performed_connector_has_no_delete_ref_or_tag_creation"
+}
