@@ -50,9 +50,19 @@ The earlier 16/40-hour arithmetic scenarios are not calibrated solve forecasts.
 
 O2 is a new selected 7x6 first-cut qualification profile: support 470594,
 one input state, 16 candidates, 4,096 records per frontier, about 2.16 MB device
-payload. Independent R3 layers and portable execution pass; clean-source native
-qualification is pending. All 93 integrated tests pass. O1 remains unchanged
+payload. Independent R3 layers and native qualification pass in
+[evidence PR #28](https://github.com/iteathen/Connect4/pull/28), source 5c298c7e.
+Median submit/wait: baseline 18.865 ms, preservation 21.272 ms. O1 remains unchanged
 in scope. Use short tests; extend only to resolve a measured timing/growth question.
+
+The new optional CPU residual-cofactor reuse experiment preserves all layers on
+all 625 4x4 supports and matching digests for the six common selected 7x6 layers.
+That 7x6 prefix takes 3.284 s versus 22.518 s baseline (single instrumented CPU
+probe). Reuse reaches 65,536 states after ten cuts in 8.226 s, but those states
+share only 180 residual pairs and 17,748 distinct records. Factor residual-pair
+storage/transform work from crossing-state storage in the next CUDA composition;
+do not extrapolate throughput using duplicated per-state frontier work.
+All 94 integrated tests pass after this optional reference experiment.
 
 GPU grouping, dense IDs, compact record output and device layer chaining remain
 unimplemented. CUDA-Algorithms' pinned select/order realization is quadratic and

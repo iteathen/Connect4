@@ -85,3 +85,82 @@ submission and cleanup pass. Source review covers only the changed research
 observers/stop seams, fixture, finite O2 layout/runner/profile and qualification
 claims. The seed recurrence, CUDA kernel, plan lifecycle and dependency pins are
 unchanged. Native publication and final state reconciliation follow.
+
+## Official O2 native result
+
+Q1 run `20260911T043015870Z-2d8e0785` qualified the selected first cut at clean
+source `5c298c7e1dfdf1cfd93116884585144e33fb9dd7`.
+[Evidence PR #28](https://github.com/iteathen/Connect4/pull/28) is open at
+`05ea4fd0e91c3b11e1074cc68d36738675c4ae51`. All eleven payloads match the
+manifest SHA-256 hashes and the remote Git blob identities.
+
+The 30-second Q1 case passed: 16 candidates in each of eight native executions,
+zero mismatches, full selected-cut target coverage, two independent R3 layers and
+graceful cleanup. Three measured submit/wait samples per mode, after warmup:
+
+| Mode | Samples ms | Median ms |
+| --- | --- | ---: |
+| Baseline | 18.8653, 21.0361, 17.4842 | 18.8653 |
+| Preservation | 21.2722, 21.1138, 21.4477 | 21.2722 |
+
+The shortcut did not improve this small heavy-frontier workload. Setup was
+864.678 ms. Sixteen blocks do not establish large-batch occupancy or per-candidate
+throughput; do not extrapolate this directly or apply the 5x5 throughput blindly.
+The CUDA kernel, O1 semantics and dependencies remain unchanged.
+
+Portable CUDA run 34562427487 and incremental OQS regression 34562427459 passed
+at that source. Subsequent residual-reuse work below is an optional CPU reference
+experiment; O2 native evidence remains scoped to its exact source above.
+
+## Residual sharing: exact structural reduction
+
+The seven-by-six cut census exposed repeated residual work hidden by total state
+counts. After six cuts, 8,192 `(crossing assignment, residual)` states contain only
+48 distinct exact residual pairs. Logical frontier records total 1,732,992, but
+the distinct residual pairs contain only 10,597 records. Cut five requires 8,192
+state/input outputs but only 128 distinct residual/input cofactor evaluations.
+
+For a fixed cut and ownership ordinal, the cofactor function depends only on the
+exact Win/Loss pair and introduced ownership bits, not on the previous crossing
+assignment. Equal canonical pairs therefore produce equal successor pairs. The
+crossing-mask update still runs independently for every state/input; no quotient
+state or transition is omitted. A per-cut cache keyed by the complete canonical
+pair and input ordinal is sound; hash equality alone is not the key. Cache entries
+are immutable cofactor pairs and the cache is discarded between cuts.
+
+An optional `reuseResidualCofactors` reference experiment implements that exact
+reuse with the existing JS Map machinery. The default remains the established
+baseline. Direct-versus-sequential validation executes once per distinct computed
+cofactor; cache hits inherit that same exact result. This is Connect4 semantic
+research, not a private generic GPU sorting/grouping implementation.
+
+Qualification checks every next-layer state set on all 625 4x4 supports against
+the baseline, whose layers are also independently rebuilt by R3: all 325,652
+candidate outputs retain exact parity. The six common layers of the selected
+7x6 A/B probe have identical canonical state-set SHA-256 digests.
+
+[Raw reuse evidence](evidence/2026-09-11-oqs-residual-cofactor-reuse.json):
+
+- Same six-cut prefix: baseline 22.51794 s, reuse 3.28369 s (6.86x observed CPU
+  elapsed ratio), including direct validation, census and digest overhead.
+- Actual cofactor evaluations fall from 11,056 to 624 on that prefix; all state
+  and transition outputs remain present.
+- Reuse reaches ten cuts in 8.22574 s: 65,536 states, 180 distinct residual pairs,
+  6,103,040 logical frontier records but only 17,748 distinct residual records.
+  Across those cuts: 1,476 evaluations and 222,572 cache hits.
+- It then refuses the next 131,072-candidate layer at the 65,536 guard. Baseline
+  stopped on the between-cut 20-second time budget; neither completed OQS.
+
+The measured ratio is a single CPU research A/B result, not CUDA or complete-solve
+speedup. This changes the next CUDA composition target: factor residual-pair
+storage and transforms from the crossing-state table, then use exact pair IDs for
+cheap state/input mapping. Generic grouping/compaction remains CUDA-Algorithms
+work; Connect4 owns pair meaning and cofactor equivalence. A full seed remains
+the separate prerequisite. No reliable complete-solve time follows yet.
+All 94 integrated tests pass after the optional reuse change. This is bounded
+author-side review and qualification, not an independent full solver audit.
+
+Retain the OQS worktree, frozen O2 fixture, raw local probe logs and seed samples,
+and both published Q1 evidence PRs for continuation. Every child exited; no GPU
+resources or research temporary modules are intentionally left active. Old solver
+and lower-repository source checkouts remain protected unchanged.

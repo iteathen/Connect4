@@ -54,5 +54,5 @@ jobs:
       - name: Submit selected 7x6 first-cut envelope
         run: node experiments/cuda-bsfp-oqs-cofactor/run-seed-slice.mjs portable
 
-      - name: Verify antichain preservation and finite memory bounds
-        run: node --test components/bsfp/test/oqs-cofactor.test.mjs
+      - name: Verify antichain preservation and exact residual reuse
+        run: node --test components/bsfp/test/oqs-cofactor.test.mjs reference/research-prototypes/2026-09-10-oqs/seed-probe.test.mjs

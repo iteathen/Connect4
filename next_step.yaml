@@ -12,6 +12,9 @@ research_record: docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md
 scaling_record: docs/research/2026-09-11-oqs-seed-scaling.md
 scaling_evidence: docs/research/evidence/2026-09-11-oqs-seed-scaling.json
 selected_7x6_profile: c4-0009-o2-oqs-7x6-seed-slice
+selected_7x6_native_source: 5c298c7e1dfdf1cfd93116884585144e33fb9dd7
+selected_7x6_native_run: 20260911T043015870Z-2d8e0785
+selected_7x6_evidence_pr: https://github.com/iteathen/Connect4/pull/28
 r6_evidence: docs/research/evidence/2026-09-11-oqs-r6-original-job-summary.json
 
 dependencies:
@@ -32,7 +35,7 @@ completed:
   - concrete_generic_requirements_attached_to_cuda_algorithms_issue_3
 
 next_actions:
-  - qualify_O2_clean_source_with_30_second_Q1_case_and_publish_evidence
+  - factor_exact_residual_pair_storage_and_transform_work_from_crossing_state_table
   - reduce_seed_pair_and_frontier_growth_before_whole_7x6_timing_forecast
   - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
   - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
@@ -46,8 +49,14 @@ timeout_policy:
   global_Q1_defaults_changed: false
 
 new_evidence:
-  integrated_tests_pass: 93
+  integrated_tests_pass: 94
   O2_portable: pass
+  O2_native: pass_16_candidates_eight_passes_two_independent_layers_11_payloads_verified
+  residual_reuse_all_625_4x4_support_layers: exact
+  residual_reuse_7x6_common_layer_digests: 6_matches
+  residual_reuse_7x6_same_prefix_seconds: 3.28369_vs_22.51794_baseline
+  residual_reuse_7x6_after_ten_cuts: 65536_states_180_pairs_17748_distinct_records
+  residual_reuse_7x6_next_candidate_boundary: 131072
   seven_by_six_seed_completed_supports: 184
   seven_by_six_seed_max_loss_records: 5205
   seven_by_six_seed_next_rejected_product: 2446901

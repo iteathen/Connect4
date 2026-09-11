@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { solveBsfpOwnershipAntichainWdl } from '../../../components/bsfp/ownership-antichain-solver.mjs';
 import { loadSeedProbe, ProbeBoundary } from './seed-probe.mjs';
-import { prepareCase, synthesizeSupport } from './incremental-oqs.mjs';
+import { prepareCase, synthesizeSupport, semanticKey } from './incremental-oqs.mjs';
 
 test('observed seed recurrence matches every reference support; boundaries never return root success', async () => {
   const spec = { columns: 4, rows: 4, connect: 4 };
@@ -16,6 +16,27 @@ test('observed seed recurrence matches every reference support; boundaries never
   checked = 0;
   assert.throws(() => solve(spec, { ...observation, rank(r) { if (r < 14) throw new ProbeBoundary('rank-boundary'); } }), ProbeBoundary);
   assert.equal(checked, [...reference.support.ranks].filter(r => r >= 14).length);
+});
+
+test('residual cofactor reuse preserves every exact layer on all 4x4 supports', () => {
+  const spec = { columns: 4, rows: 4, connect: 4 };
+  const prepared = prepareCase({ ...spec, selection: 'all' });
+  let hits = 0; let candidates = 0;
+  for (const supportIndex of prepared.supportIndices) {
+    const layers = [];
+    const keys = t => new Set(t.nextStates.map(s => semanticKey(s.xMask, s.pair)));
+    const baseline = synthesizeSupport({ spec, prepared, supportIndex, oracleMode: true, validateDirect: true,
+      onTransition(t) { layers.push(keys(t)); },
+    });
+    const reused = synthesizeSupport({ spec, prepared, supportIndex, oracleMode: false, validateDirect: true, reuseResidualCofactors: true,
+      onTransition(t) { assert.deepEqual(keys(t), layers[t.cut]); },
+    });
+    assert.equal(reused.totalCandidates, baseline.totalCandidates);
+    assert.equal(reused.cofactorEvaluations + reused.cofactorCacheHits, reused.totalCandidates);
+    assert.equal(reused.directChecks, reused.cofactorEvaluations);
+    hits += reused.cofactorCacheHits; candidates += reused.totalCandidates;
+  }
+  assert(hits > 0); assert.equal(candidates, 325652);
 });
 
 test('OQS preallocation boundary cannot emit a completed quotient or partial layer', () => {
