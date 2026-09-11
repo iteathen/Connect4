@@ -3,6 +3,7 @@ import { geometry, compile } from '../../../reference/research-prototypes/2026-0
 const G = geometry();
 const WIDTH = 7;
 const CELLS = 42;
+const BIT_SLOTS = WIDTH * 7; // 49-bit sentinel-stride board layout; playable cells occupy bit indices through 47.
 const ORDER = G.order;
 const TT_UPPER_LIMIT = 37;
 const TT_LOWER_OFFSET = 56;
@@ -43,7 +44,7 @@ function createWsl625() {
   const card = new Uint8Array(count);
   const singletonCell = new Uint8Array(count); singletonCell.fill(255);
   const subset = new Uint8Array(count * count);
-  const remove = new Int16Array(CELLS * count);
+  const remove = new Int16Array(BIT_SLOTS * count);
 
   for (let id = 0; id < count; id += 1) {
     card[id] = popBig(masks[id]);
@@ -57,7 +58,7 @@ function createWsl625() {
     const left = masks[a];
     for (let b = 0; b < count; b += 1) if ((left & masks[b]) === left) subset[a * count + b] = 1;
   }
-  for (let cell = 0; cell < CELLS; cell += 1) {
+  for (let cell = 0; cell < BIT_SLOTS; cell += 1) {
     const bit = 1n << BigInt(cell);
     for (let id = 0; id < count; id += 1) {
       const mask = masks[id];
@@ -173,6 +174,7 @@ class PackedSideArena {
   }
   transitionKey(ref, cell) { return ref * 64 + cell; }
   mover(ref, cell) {
+    if (cell < 0 || cell >= BIT_SLOTS) throw new RangeError(`invalid board bit index ${cell}`);
     const key = this.transitionKey(ref, cell);
     const cached = this.moverTransitions.get(key);
     if (cached !== undefined) return cached;
@@ -189,6 +191,7 @@ class PackedSideArena {
     return encoded;
   }
   blocker(ref, cell) {
+    if (cell < 0 || cell >= BIT_SLOTS) throw new RangeError(`invalid board bit index ${cell}`);
     const key = this.transitionKey(ref, cell);
     const cached = this.blockerTransitions.get(key);
     if (cached !== undefined) return cached;
