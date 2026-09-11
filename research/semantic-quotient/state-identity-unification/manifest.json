@@ -1,10 +1,10 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "name": "state-identity-unification",
-  "status": "siu1-passed-bounded-controls",
+  "status": "siu1-passed-search-campaign-v1-complete",
   "owner_branch": "research/semantic-quotient",
   "date": "2026-09-11",
-  "question": "Can one exact relational game algebra provide common logical identity across minimax, CUDA-BSFP, and hybrid confluence without forcing shared physical state?",
+  "question": "Can one exact relational game algebra provide common logical identity across forward exact search, CUDA-BSFP, and hybrid confluence while enabling the best combined time-to-proof architecture?",
   "common_state_contract": [
     "supportIndex",
     "sideToMove",
@@ -29,6 +29,60 @@
     "result": "SIU1_RESULT.md",
     "evidence": "evidence/2026-09-11-siu1-relational-dual-direction.json"
   },
+  "search_campaign_v1": {
+    "status": "complete",
+    "workflow_run": 34636074995,
+    "workflow_job": 103384159647,
+    "source_commit": "e243a4a9f320d1d3b631a9baacea4d45af597cdf",
+    "result": "SEARCH_METHOD_CAMPAIGN_V1_RESULT.md",
+    "evidence": "evidence/2026-09-11-search-method-campaign-v1.json",
+    "state": "precompiled-relational-DAG",
+    "positional_board_in_search": false,
+    "strong_score_finalists": [
+      "relational-negamax-alpha-beta-control",
+      "PVS-NegaScout",
+      "MTD-f"
+    ],
+    "research_retained": [
+      "PN-DAG",
+      "Proof-Set Search"
+    ],
+    "not_yet_admitted": [
+      "df-pn-without-DAG-safe-contract"
+    ],
+    "key_4x5_composed_no_bsfp": {
+      "alpha_beta_expanded": 16489,
+      "pvs_expanded": 15110,
+      "mtdf_expanded": 15103,
+      "pn_dag_expanded": 61275
+    },
+    "key_4x5_ideal_bsfp_rank10": {
+      "alpha_beta_expanded": 1388,
+      "pvs_expanded": 1305,
+      "mtdf_expanded": 1315,
+      "pn_dag_expanded": 6079,
+      "bsfp_cost_included": false
+    }
+  },
+  "bsfp_compatibility_contract": {
+    "common_logical_identity_required": true,
+    "colored_board_translation_required": false,
+    "forward_operator": "T(q,action)",
+    "backward_operator": "Pre_action(Q)",
+    "exact_classifier": "Unknown_or_exact_value_over_q",
+    "search_may_publish": [
+      "exact-WDL",
+      "qualified-exact-strong-value",
+      "declared-sound-lower-upper-bounds",
+      "declared-certified-proof-closure"
+    ],
+    "search_may_not_publish_as_authority": [
+      "heuristic-score",
+      "proof-number-estimate",
+      "neural-value",
+      "ordering-hint"
+    ]
+  },
   "promotion_policy": {
     "exactness_required": true,
     "notable_net_performance_gain_required_for_solver_hot_path": true,
@@ -36,13 +90,19 @@
     "shared_physical_state_required": false,
     "speculative_solver_changes_allowed": false
   },
-  "stages": [
-    "SIU-1-relational-dual-direction-exactness-PASS",
-    "SIU-2-direct-relational-alpha-beta",
-    "SIU-3-useful-semantic-tt-economics",
-    "SIU-4-packed-incremental-relational-transition",
-    "SIU-5-symbolic-relational-preimage",
-    "SIU-6-cross-solver-proof-contract"
+  "next_composition_campaign": [
+    "shared-packed-relational-negamax-kernel",
+    "alpha-beta-control",
+    "PVS-driver",
+    "MTD-f-driver",
+    "on-the-fly-packed-relational-transitions",
+    "equal-byte-exact-TT",
+    "reflection-and-residual-automorphism",
+    "native-relational-tactical-closure",
+    "earliest-win-and-support-bounds",
+    "compiled-local-proof-masks",
+    "proof-cost-action-ordering",
+    "actual-BSFP-boundary-cost-and-query-accounting"
   ],
   "preserved_invariants": [
     "consumer-relative-exactness",
@@ -53,18 +113,21 @@
     "research-before-promotion"
   ],
   "open_gaps": [
-    "minimax-hot-path-transition-and-key-cost",
+    "packed-on-the-fly-relational-transition-economics",
     "symbolic-preimage-without-reverse-edge-materialization",
     "current-bsfp-frontier-compression-must-not-be-regressed",
     "standard-7x6-reachable-relational-state-scale",
+    "actual-BSFP-build-publication-query-cost",
     "evaluator-and-nn-feature-sufficiency",
     "symmetry-and-packed-identity"
   ],
   "non_claims": [
     "standard-7x6-exhaustive-quotient-proof",
     "production-speedup",
+    "hybrid-end-to-end-speedup-from-ideal-boundary-only",
     "state-level-reversible-transition",
     "bsfp-per-relational-state-enumeration-requirement",
-    "shared-mutable-state-requirement"
+    "shared-mutable-state-requirement",
+    "final-search-driver-selection"
   ]
 }
