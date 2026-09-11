@@ -130,7 +130,7 @@ function summarizeLayer(cut, states, candidateCount, introducedWidth, generatedM
   });
 }
 
-function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateDirect, onTransition = null }) {
+function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateDirect, onTransition = null, onTransitionStart = null, reuseResidualCofactors = false }) {
   const { lines, orderData, solution } = prepared;
   const started = performance.now();
   const heights = solution.support.decodeHeights(supportIndex);
@@ -148,6 +148,8 @@ function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateD
   let oracleBuildMs = 0;
   let oracleChecks = 0;
   let directChecks = 0;
+  let cofactorEvaluations = 0;
+  let cofactorCacheHits = 0;
   const frontierMetrics = { maxWinRecords: frontier.wins.length, maxLossRecords: frontier.losses.length, maxPairRecords: frontier.wins.length + frontier.losses.length };
   const layerSummaries = [summarizeLayer(0, states, 1, 0, 0, 0)];
 
@@ -168,18 +170,37 @@ function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateD
     const inputs = enumerateAssignments(introduced);
     const candidateCount = states.size * inputs.length;
     assert(Number.isSafeInteger(candidateCount), 'incremental OQS candidate count exceeded safe integer range');
+    // Research stop/observation seam before allocating a candidate layer.
+    if (onTransitionStart) onTransitionStart({ cut, stateCount: states.size, candidateCount, fanout: inputs.length });
     const candidates = new Array(candidateCount);
+    // Domain-specific reference experiment: residual transformation does not
+    // depend on crossing ownership. Reset the exact-pair cache at each cut.
+    const cofactorCache = reuseResidualCofactors ? new Map() : null;
 
     let cursor = 0;
     let lap = performance.now();
     for (const state of states.values()) {
+      let cached;
+      if (cofactorCache) {
+        const key = pairKey(state.pair);
+        cached = cofactorCache.get(key);
+        if (!cached) { cached = []; cofactorCache.set(key, cached); }
+      }
+      let ordinal = 0;
       for (const inputMask of inputs) {
-        const pair = directRestrictPair(state.pair, introduced, inputMask);
-        if (validateDirect) {
-          const sequential = restrictPair(state.pair, introduced, inputMask);
-          assert(pairKey(pair) === pairKey(sequential), `${geometryName(spec)}/support-${supportIndex}/cut-${cut} direct multi-cell cofactor diverged`);
-          directChecks += 1;
+        let pair = cached?.[ordinal];
+        if (pair) cofactorCacheHits++;
+        else {
+          pair = directRestrictPair(state.pair, introduced, inputMask);
+          cofactorEvaluations++;
+          if (validateDirect) {
+            const sequential = restrictPair(state.pair, introduced, inputMask);
+            assert(pairKey(pair) === pairKey(sequential), `${geometryName(spec)}/support-${supportIndex}/cut-${cut} direct multi-cell cofactor diverged`);
+            directChecks += 1;
+          }
+          if (cached) cached[ordinal] = pair;
         }
+        ordinal++;
         const xMask = (state.xMask & nextCrossingMask) | (inputMask & nextCrossingMask);
         candidates[cursor] = Object.freeze({ xMask, pair });
         updateFrontierMetrics(frontierMetrics, pair);
@@ -201,7 +222,7 @@ function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateD
 
     // Qualification observer only: its return cannot alter quotient synthesis.
     if (onTransition) onTransition({ cut, states: [...states.values()], introduced,
-      inputs, nextCrossingMask, candidates, nextStates: [...next.values()] });
+      inputs, nextCrossingMask, candidates, nextStates: [...next.values()], cofactorEvaluations, cofactorCacheHits });
 
     transitionEntries += candidateCount;
     totalCandidates += candidateCount;
@@ -240,6 +261,9 @@ function synthesizeSupport({ spec, prepared, supportIndex, oracleMode, validateD
     validateDirect,
     oracleChecks,
     directChecks,
+    reuseResidualCofactors,
+    cofactorEvaluations,
+    cofactorCacheHits,
     totalDenseStates,
     maxDenseStates,
     transitionEntries,

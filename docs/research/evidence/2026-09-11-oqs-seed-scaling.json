@@ -1,0 +1,1790 @@
+{
+  "kind": "oqs-cpu-seed-and-quotient-scaling",
+  "baseRevision": "42e1a1ca90905bb3edec8ad4a2e49c99ef635651",
+  "sourceState": "development runs; observation code committed with this evidence; original recurrence SHA-256 is in each seed-start",
+  "native": false,
+  "full7x6RootWdl": null,
+  "seedCommands": [
+    "run-scaling-probe.mjs <new-directory>",
+    "run-scaling-probe.mjs <new-directory> widen",
+    "run-scaling-probe.mjs <new-directory> explosion"
+  ],
+  "quotientCommand": "run-quotient-probe.mjs <captured-seeds.json> 0 20000 65536; outer timeout 25000 ms; heap 1536 MiB",
+  "runs": [
+    {
+      "run": "oqs-seed-scaling-01",
+      "file": "5x4.jsonl",
+      "sha256": "9c7c2be544e4f83605a9074070af81d41aa1352cdb71d08de5a5b58da056f0c8",
+      "events": [
+        {
+          "elapsedMs": 0.018700000000002603,
+          "event": "seed-start",
+          "spec": {
+            "columns": 5,
+            "rows": 4,
+            "connect": 4
+          },
+          "minimumRank": 0,
+          "budgetMs": 10000,
+          "maxRaw": 65536,
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a"
+        },
+        {
+          "elapsedMs": 3.9903000000000013,
+          "event": "rank-complete",
+          "rank": 20,
+          "completed": 1,
+          "totalRecords": 0,
+          "maxWins": 0,
+          "maxLosses": 0,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 8.241000000000003,
+          "event": "rank-complete",
+          "rank": 19,
+          "completed": 6,
+          "totalRecords": 17,
+          "maxWins": 0,
+          "maxLosses": 4,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 25.1823,
+          "event": "rank-complete",
+          "rank": 18,
+          "completed": 21,
+          "totalRecords": 531,
+          "maxWins": 5,
+          "maxLosses": 105,
+          "pairCandidates": 4405
+        },
+        {
+          "elapsedMs": 44.3236,
+          "event": "rank-complete",
+          "rank": 17,
+          "completed": 56,
+          "totalRecords": 1970,
+          "maxWins": 102,
+          "maxLosses": 105,
+          "pairCandidates": 11318
+        },
+        {
+          "elapsedMs": 91.6468,
+          "event": "rank-complete",
+          "rank": 16,
+          "completed": 126,
+          "totalRecords": 5849,
+          "maxWins": 102,
+          "maxLosses": 194,
+          "pairCandidates": 67850
+        },
+        {
+          "elapsedMs": 158.32010000000002,
+          "event": "rank-complete",
+          "rank": 15,
+          "completed": 247,
+          "totalRecords": 13465,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 144391
+        },
+        {
+          "elapsedMs": 302.5043,
+          "event": "rank-complete",
+          "rank": 14,
+          "completed": 432,
+          "totalRecords": 24194,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 467776
+        },
+        {
+          "elapsedMs": 449.3537,
+          "event": "rank-complete",
+          "rank": 13,
+          "completed": 687,
+          "totalRecords": 38664,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 729344
+        },
+        {
+          "elapsedMs": 639.8681,
+          "event": "rank-complete",
+          "rank": 12,
+          "completed": 1007,
+          "totalRecords": 54567,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 1251710
+        },
+        {
+          "elapsedMs": 772.0321,
+          "event": "rank-complete",
+          "rank": 11,
+          "completed": 1372,
+          "totalRecords": 70666,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 1540826
+        },
+        {
+          "elapsedMs": 892.0345,
+          "event": "rank-complete",
+          "rank": 10,
+          "completed": 1753,
+          "totalRecords": 84116,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 1954871
+        },
+        {
+          "elapsedMs": 950.1491,
+          "event": "rank-complete",
+          "rank": 9,
+          "completed": 2118,
+          "totalRecords": 94238,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2088499
+        },
+        {
+          "elapsedMs": 973.6605,
+          "event": "support-progress",
+          "active": {
+            "rank": 8,
+            "supportIndex": 1412
+          },
+          "completed": 2309,
+          "totalRecords": 98305,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2175706,
+          "maxNormalizationInput": 5700,
+          "maxPairProduct": 5700,
+          "rssBytes": 85475328
+        },
+        {
+          "elapsedMs": 990.3077,
+          "event": "rank-complete",
+          "rank": 8,
+          "completed": 2438,
+          "totalRecords": 101155,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2235904
+        },
+        {
+          "elapsedMs": 1005.9455,
+          "event": "rank-complete",
+          "rank": 7,
+          "completed": 2693,
+          "totalRecords": 104979,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2264211
+        },
+        {
+          "elapsedMs": 1014.0977,
+          "event": "rank-complete",
+          "rank": 6,
+          "completed": 2878,
+          "totalRecords": 107076,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2293318
+        },
+        {
+          "elapsedMs": 1016.8020999999999,
+          "event": "rank-complete",
+          "rank": 5,
+          "completed": 2999,
+          "totalRecords": 107866,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2295811
+        },
+        {
+          "elapsedMs": 1017.9767999999999,
+          "event": "rank-complete",
+          "rank": 4,
+          "completed": 3069,
+          "totalRecords": 108156,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2298265
+        },
+        {
+          "elapsedMs": 1018.4308000000001,
+          "event": "rank-complete",
+          "rank": 3,
+          "completed": 3104,
+          "totalRecords": 108241,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2298320
+        },
+        {
+          "elapsedMs": 1018.6049,
+          "event": "rank-complete",
+          "rank": 2,
+          "completed": 3119,
+          "totalRecords": 108261,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2298403
+        },
+        {
+          "elapsedMs": 1018.6698999999999,
+          "event": "rank-complete",
+          "rank": 1,
+          "completed": 3124,
+          "totalRecords": 108266,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2298403
+        },
+        {
+          "elapsedMs": 1019.943,
+          "event": "seed-result",
+          "outcome": "full-reference-seed-pass",
+          "boundary": null,
+          "rootWdl": 0,
+          "completed": 3125,
+          "totalRecords": 108266,
+          "maxWins": 284,
+          "maxLosses": 194,
+          "pairCandidates": 2298403,
+          "maxPairProduct": 5700,
+          "maxNormalizationInput": 5700,
+          "normalizationCalls": 161748,
+          "sample": [
+            {
+              "supportIndex": 2343,
+              "rank": 15,
+              "wins": 284,
+              "losses": 9
+            },
+            {
+              "supportIndex": 2368,
+              "rank": 16,
+              "wins": 8,
+              "losses": 194
+            },
+            {
+              "supportIndex": 2348,
+              "rank": 16,
+              "wins": 7,
+              "losses": 170
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-01",
+      "file": "6x5.jsonl",
+      "sha256": "626294f32ad35b6dc2a36f06ea5969febca2b08530acffd6a4a98fbd8beb3ed3",
+      "events": [
+        {
+          "elapsedMs": 0.023500000000002075,
+          "event": "seed-start",
+          "spec": {
+            "columns": 6,
+            "rows": 5,
+            "connect": 4
+          },
+          "minimumRank": 24,
+          "budgetMs": 20000,
+          "maxRaw": 65536,
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a"
+        },
+        {
+          "elapsedMs": 7.896600000000003,
+          "event": "rank-complete",
+          "rank": 30,
+          "completed": 1,
+          "totalRecords": 0,
+          "maxWins": 0,
+          "maxLosses": 0,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 12.482800000000001,
+          "event": "rank-complete",
+          "rank": 29,
+          "completed": 7,
+          "totalRecords": 24,
+          "maxWins": 0,
+          "maxLosses": 5,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 48.54700000000001,
+          "event": "rank-complete",
+          "rank": 28,
+          "completed": 28,
+          "totalRecords": 1938,
+          "maxWins": 7,
+          "maxLosses": 297,
+          "pairCandidates": 15954
+        },
+        {
+          "elapsedMs": 362.1922,
+          "event": "rank-complete",
+          "rank": 27,
+          "completed": 84,
+          "totalRecords": 23306,
+          "maxWins": 1203,
+          "maxLosses": 297,
+          "pairCandidates": 231174
+        },
+        {
+          "elapsedMs": 489.6123,
+          "event": "seed-result",
+          "outcome": "product-capacity",
+          "boundary": {
+            "active": {
+              "rank": 26,
+              "supportIndex": 29801
+            },
+            "a": 525,
+            "b": 204,
+            "n": 107100,
+            "maxRaw": 65536
+          },
+          "rootWdl": null,
+          "completed": 93,
+          "totalRecords": 26207,
+          "maxWins": 1203,
+          "maxLosses": 916,
+          "pairCandidates": 335990,
+          "maxPairProduct": 107100,
+          "maxNormalizationInput": 32724,
+          "normalizationCalls": 4024,
+          "sample": [
+            {
+              "supportIndex": 38867,
+              "rank": 27,
+              "wins": 1203,
+              "losses": 44
+            },
+            {
+              "supportIndex": 44062,
+              "rank": 27,
+              "wins": 1203,
+              "losses": 44
+            },
+            {
+              "supportIndex": 37582,
+              "rank": 27,
+              "wins": 921,
+              "losses": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-01",
+      "file": "7x6.jsonl",
+      "sha256": "2d7096e30e67ca4379df2d1bc2dffd99421678350513b44af661348d632baa81",
+      "events": [
+        {
+          "elapsedMs": 0.01950000000000074,
+          "event": "seed-start",
+          "spec": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumRank": 36,
+          "budgetMs": 20000,
+          "maxRaw": 65536,
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a"
+        },
+        {
+          "elapsedMs": 54.04429999999999,
+          "event": "rank-complete",
+          "rank": 42,
+          "completed": 1,
+          "totalRecords": 0,
+          "maxWins": 0,
+          "maxLosses": 0,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 64.0572,
+          "event": "rank-complete",
+          "rank": 41,
+          "completed": 8,
+          "totalRecords": 31,
+          "maxWins": 0,
+          "maxLosses": 7,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 153.855,
+          "event": "rank-complete",
+          "rank": 40,
+          "completed": 36,
+          "totalRecords": 4822,
+          "maxWins": 9,
+          "maxLosses": 702,
+          "pairCandidates": 39636
+        },
+        {
+          "elapsedMs": 995.0895,
+          "event": "support-progress",
+          "active": {
+            "rank": 39,
+            "supportIndex": 705795
+          },
+          "completed": 59,
+          "totalRecords": 26958,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 351261,
+          "maxNormalizationInput": 44928,
+          "maxPairProduct": 44928,
+          "rssBytes": 148140032
+        },
+        {
+          "elapsedMs": 2025.5097,
+          "event": "support-progress",
+          "active": {
+            "rank": 39,
+            "supportIndex": 822807
+          },
+          "completed": 102,
+          "totalRecords": 63622,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 817140,
+          "maxNormalizationInput": 44928,
+          "maxPairProduct": 44928,
+          "rssBytes": 155594752
+        },
+        {
+          "elapsedMs": 2436.4767,
+          "event": "rank-complete",
+          "rank": 39,
+          "completed": 120,
+          "totalRecords": 77074,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 955830
+        },
+        {
+          "elapsedMs": 3135.9303999999997,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 470594
+          },
+          "completed": 127,
+          "totalRecords": 89829,
+          "maxWins": 3618,
+          "maxLosses": 3792,
+          "pairCandidates": 1142229,
+          "maxNormalizationInput": 55728,
+          "maxPairProduct": 55728,
+          "rssBytes": 160477184
+        },
+        {
+          "elapsedMs": 3391.8735,
+          "event": "seed-result",
+          "outcome": "product-capacity",
+          "boundary": {
+            "active": {
+              "rank": 38,
+              "supportIndex": 571388
+            },
+            "a": 534,
+            "b": 231,
+            "n": 123354,
+            "maxRaw": 65536
+          },
+          "rootWdl": null,
+          "completed": 130,
+          "totalRecords": 92606,
+          "maxWins": 3618,
+          "maxLosses": 3792,
+          "pairCandidates": 1291950,
+          "maxPairProduct": 123354,
+          "maxNormalizationInput": 55728,
+          "normalizationCalls": 7169,
+          "sample": [
+            {
+              "supportIndex": 470594,
+              "rank": 38,
+              "wins": 240,
+              "losses": 3792
+            },
+            {
+              "supportIndex": 705795,
+              "rank": 39,
+              "wins": 3618,
+              "losses": 109
+            },
+            {
+              "supportIndex": 818739,
+              "rank": 39,
+              "wins": 3618,
+              "losses": 109
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-02",
+      "file": "6x5-quotient.jsonl",
+      "sha256": "f0b128152ef287f9c0291d29361f96338c197cbb40cdf288eea2b7d9e43f2fc2",
+      "events": [
+        {
+          "elapsedMs": 0.03509999999999991,
+          "event": "quotient-start",
+          "spec": {
+            "columns": 6,
+            "rows": 5,
+            "connect": 4
+          },
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a",
+          "supportIndex": 36286,
+          "rank": 26,
+          "seedWins": 260,
+          "seedLosses": 2910,
+          "budgetMs": 20000,
+          "maxCandidates": 65536,
+          "orderMs": 108.8596,
+          "validateDirect": true,
+          "independentLayerRebuild": false
+        },
+        {
+          "elapsedMs": 1.3289999999999793,
+          "event": "cut-start",
+          "cut": 0,
+          "stateCount": 1,
+          "candidateCount": 16,
+          "fanout": 16
+        },
+        {
+          "elapsedMs": 1943.1546999999998,
+          "event": "cut-complete",
+          "cut": 0,
+          "states": 16,
+          "candidates": 16,
+          "winRecords": 924,
+          "lossRecords": 9822,
+          "maxWins": 104,
+          "maxLosses": 840,
+          "rssBytes": 89513984
+        },
+        {
+          "elapsedMs": 1943.6478999999997,
+          "event": "cut-start",
+          "cut": 1,
+          "stateCount": 16,
+          "candidateCount": 32,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 2034.2706,
+          "event": "cut-complete",
+          "cut": 1,
+          "states": 32,
+          "candidates": 32,
+          "winRecords": 1004,
+          "lossRecords": 10470,
+          "maxWins": 103,
+          "maxLosses": 490,
+          "rssBytes": 89559040
+        },
+        {
+          "elapsedMs": 2034.3832999999997,
+          "event": "cut-start",
+          "cut": 2,
+          "stateCount": 32,
+          "candidateCount": 256,
+          "fanout": 8
+        },
+        {
+          "elapsedMs": 3049.1361,
+          "event": "cut-complete",
+          "cut": 2,
+          "states": 256,
+          "candidates": 256,
+          "winRecords": 8032,
+          "lossRecords": 83760,
+          "maxWins": 103,
+          "maxLosses": 490,
+          "rssBytes": 128991232
+        },
+        {
+          "elapsedMs": 3049.2632000000003,
+          "event": "cut-start",
+          "cut": 3,
+          "stateCount": 256,
+          "candidateCount": 512,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 3478.2981,
+          "event": "cut-complete",
+          "cut": 3,
+          "states": 512,
+          "candidates": 512,
+          "winRecords": 9184,
+          "lossRecords": 83760,
+          "maxWins": 87,
+          "maxLosses": 292,
+          "rssBytes": 136134656
+        },
+        {
+          "elapsedMs": 3478.4647,
+          "event": "cut-start",
+          "cut": 4,
+          "stateCount": 512,
+          "candidateCount": 2048,
+          "fanout": 4
+        },
+        {
+          "elapsedMs": 4148.7392,
+          "event": "cut-complete",
+          "cut": 4,
+          "states": 1536,
+          "candidates": 2048,
+          "winRecords": 12640,
+          "lossRecords": 106176,
+          "maxWins": 87,
+          "maxLosses": 158,
+          "rssBytes": 142553088
+        },
+        {
+          "elapsedMs": 4149.0696,
+          "event": "cut-start",
+          "cut": 5,
+          "stateCount": 1536,
+          "candidateCount": 6144,
+          "fanout": 4
+        },
+        {
+          "elapsedMs": 4817.8208,
+          "event": "cut-complete",
+          "cut": 5,
+          "states": 6144,
+          "candidates": 6144,
+          "winRecords": 32496,
+          "lossRecords": 179600,
+          "maxWins": 48,
+          "maxLosses": 104,
+          "rssBytes": 168595456
+        },
+        {
+          "elapsedMs": 4818.2102,
+          "event": "cut-start",
+          "cut": 6,
+          "stateCount": 6144,
+          "candidateCount": 12288,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 5202.5656,
+          "event": "cut-complete",
+          "cut": 6,
+          "states": 12160,
+          "candidates": 12288,
+          "winRecords": 53312,
+          "lossRecords": 229920,
+          "maxWins": 44,
+          "maxLosses": 80,
+          "rssBytes": 167817216
+        },
+        {
+          "elapsedMs": 5203.546,
+          "event": "cut-start",
+          "cut": 7,
+          "stateCount": 12160,
+          "candidateCount": 24320,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 5642.3209,
+          "event": "cut-complete",
+          "cut": 7,
+          "states": 22784,
+          "candidates": 24320,
+          "winRecords": 75296,
+          "lossRecords": 270160,
+          "maxWins": 29,
+          "maxLosses": 50,
+          "rssBytes": 181891072
+        },
+        {
+          "elapsedMs": 5644.1202,
+          "event": "cut-start",
+          "cut": 8,
+          "stateCount": 22784,
+          "candidateCount": 22784,
+          "fanout": 1
+        },
+        {
+          "elapsedMs": 5716.7713,
+          "event": "cut-complete",
+          "cut": 8,
+          "states": 22784,
+          "candidates": 22784,
+          "winRecords": 75296,
+          "lossRecords": 270160,
+          "maxWins": 29,
+          "maxLosses": 50,
+          "rssBytes": 184029184
+        },
+        {
+          "elapsedMs": 5717.6634,
+          "event": "cut-start",
+          "cut": 9,
+          "stateCount": 22784,
+          "candidateCount": 45568,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 6222.7771,
+          "event": "cut-complete",
+          "cut": 9,
+          "states": 43776,
+          "candidates": 45568,
+          "winRecords": 119920,
+          "lossRecords": 336224,
+          "maxWins": 26,
+          "maxLosses": 33,
+          "rssBytes": 218935296
+        },
+        {
+          "elapsedMs": 6224.402,
+          "event": "cut-start",
+          "cut": 10,
+          "stateCount": 43776,
+          "candidateCount": 43776,
+          "fanout": 1
+        },
+        {
+          "elapsedMs": 6333.0718,
+          "event": "cut-complete",
+          "cut": 10,
+          "states": 43776,
+          "candidates": 43776,
+          "winRecords": 119920,
+          "lossRecords": 336224,
+          "maxWins": 26,
+          "maxLosses": 33,
+          "rssBytes": 222547968
+        },
+        {
+          "elapsedMs": 6334.981,
+          "event": "cut-start",
+          "cut": 11,
+          "stateCount": 43776,
+          "candidateCount": 87552,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 6335.1817,
+          "event": "quotient-result",
+          "outcome": "candidate-capacity",
+          "boundary": {
+            "cut": 11,
+            "stateCount": 43776,
+            "candidateCount": 87552,
+            "fanout": 2
+          },
+          "active": {
+            "cut": 11,
+            "stateCount": 43776,
+            "candidateCount": 87552,
+            "fanout": 2
+          },
+          "completedCuts": 11,
+          "rootWdl": null
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-02",
+      "file": "6x5.jsonl",
+      "sha256": "51e4748a482a3bb43c167bed903bb79fab786745b975b6a12b86278025cc76a5",
+      "events": [
+        {
+          "elapsedMs": 0.019600000000000506,
+          "event": "seed-start",
+          "spec": {
+            "columns": 6,
+            "rows": 5,
+            "connect": 4
+          },
+          "minimumRank": 24,
+          "budgetMs": 30000,
+          "maxRaw": 262144,
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a"
+        },
+        {
+          "elapsedMs": 8.6176,
+          "event": "rank-complete",
+          "rank": 30,
+          "completed": 1,
+          "totalRecords": 0,
+          "maxWins": 0,
+          "maxLosses": 0,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 14.1857,
+          "event": "rank-complete",
+          "rank": 29,
+          "completed": 7,
+          "totalRecords": 24,
+          "maxWins": 0,
+          "maxLosses": 5,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 53.56949999999999,
+          "event": "rank-complete",
+          "rank": 28,
+          "completed": 28,
+          "totalRecords": 1938,
+          "maxWins": 7,
+          "maxLosses": 297,
+          "pairCandidates": 15954
+        },
+        {
+          "elapsedMs": 373.216,
+          "event": "rank-complete",
+          "rank": 27,
+          "completed": 84,
+          "totalRecords": 23306,
+          "maxWins": 1203,
+          "maxLosses": 297,
+          "pairCandidates": 231174
+        },
+        {
+          "elapsedMs": 1028.6085,
+          "event": "support-progress",
+          "active": {
+            "rank": 26,
+            "supportIndex": 31031
+          },
+          "completed": 100,
+          "totalRecords": 31555,
+          "maxWins": 1203,
+          "maxLosses": 1404,
+          "pairCandidates": 832878,
+          "maxNormalizationInput": 107100,
+          "maxPairProduct": 107100,
+          "rssBytes": 140193792
+        },
+        {
+          "elapsedMs": 2034.1836999999998,
+          "event": "support-progress",
+          "active": {
+            "rank": 26,
+            "supportIndex": 36286
+          },
+          "completed": 110,
+          "totalRecords": 42488,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 1548016,
+          "maxNormalizationInput": 178929,
+          "maxPairProduct": 178929,
+          "rssBytes": 161816576
+        },
+        {
+          "elapsedMs": 3144.5078,
+          "event": "support-progress",
+          "active": {
+            "rank": 26,
+            "supportIndex": 38441
+          },
+          "completed": 123,
+          "totalRecords": 53779,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 2350225,
+          "maxNormalizationInput": 178929,
+          "maxPairProduct": 178929,
+          "rssBytes": 165789696
+        },
+        {
+          "elapsedMs": 4208.184499999999,
+          "event": "support-progress",
+          "active": {
+            "rank": 26,
+            "supportIndex": 38836
+          },
+          "completed": 135,
+          "totalRecords": 63452,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 3131462,
+          "maxNormalizationInput": 178929,
+          "maxPairProduct": 178929,
+          "rssBytes": 161579008
+        },
+        {
+          "elapsedMs": 5251.442,
+          "event": "support-progress",
+          "active": {
+            "rank": 26,
+            "supportIndex": 43846
+          },
+          "completed": 149,
+          "totalRecords": 76345,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 3784628,
+          "maxNormalizationInput": 178929,
+          "maxPairProduct": 178929,
+          "rssBytes": 157229056
+        },
+        {
+          "elapsedMs": 6290.3103,
+          "event": "support-progress",
+          "active": {
+            "rank": 26,
+            "supportIndex": 46001
+          },
+          "completed": 178,
+          "totalRecords": 90978,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 4707809,
+          "maxNormalizationInput": 178929,
+          "maxPairProduct": 178929,
+          "rssBytes": 159150080
+        },
+        {
+          "elapsedMs": 7267.9848999999995,
+          "event": "rank-complete",
+          "rank": 26,
+          "completed": 210,
+          "totalRecords": 107545,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 5426189
+        },
+        {
+          "elapsedMs": 7301.8664,
+          "event": "support-progress",
+          "active": {
+            "rank": 25,
+            "supportIndex": 22025
+          },
+          "completed": 220,
+          "totalRecords": 109378,
+          "maxWins": 1203,
+          "maxLosses": 2910,
+          "pairCandidates": 5453613,
+          "maxNormalizationInput": 178929,
+          "maxPairProduct": 178929,
+          "rssBytes": 170594304
+        },
+        {
+          "elapsedMs": 8033.4706,
+          "event": "seed-result",
+          "outcome": "product-capacity",
+          "boundary": {
+            "active": {
+              "rank": 25,
+              "supportIndex": 28510
+            },
+            "a": 1206,
+            "b": 393,
+            "n": 473958,
+            "maxRaw": 262144
+          },
+          "rootWdl": null,
+          "completed": 235,
+          "totalRecords": 120032,
+          "maxWins": 1653,
+          "maxLosses": 2910,
+          "pairCandidates": 5867735,
+          "maxPairProduct": 473958,
+          "maxNormalizationInput": 178929,
+          "normalizationCalls": 38895,
+          "sample": [
+            {
+              "supportIndex": 36286,
+              "rank": 26,
+              "wins": 260,
+              "losses": 2910
+            },
+            {
+              "supportIndex": 38866,
+              "rank": 26,
+              "wins": 260,
+              "losses": 2910
+            },
+            {
+              "supportIndex": 31096,
+              "rank": 26,
+              "wins": 8,
+              "losses": 2340
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-02",
+      "file": "7x6-quotient.jsonl",
+      "sha256": "f766c58d28919a7c63fe6de9631a52dc858d5e2d62b2486edc83299ed0ac7cac",
+      "events": [
+        {
+          "elapsedMs": 0.032100000000014006,
+          "event": "quotient-start",
+          "spec": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a",
+          "supportIndex": 470594,
+          "rank": 38,
+          "seedWins": 240,
+          "seedLosses": 3792,
+          "budgetMs": 20000,
+          "maxCandidates": 65536,
+          "orderMs": 656.9478,
+          "validateDirect": true,
+          "independentLayerRebuild": false
+        },
+        {
+          "elapsedMs": 1.2388999999999442,
+          "event": "cut-start",
+          "cut": 0,
+          "stateCount": 1,
+          "candidateCount": 16,
+          "fanout": 16
+        },
+        {
+          "elapsedMs": 1285.4264000000003,
+          "event": "cut-complete",
+          "cut": 0,
+          "states": 16,
+          "candidates": 16,
+          "winRecords": 954,
+          "lossRecords": 6339,
+          "maxWins": 76,
+          "maxLosses": 552,
+          "rssBytes": 89387008
+        },
+        {
+          "elapsedMs": 1285.8488000000002,
+          "event": "cut-start",
+          "cut": 1,
+          "stateCount": 16,
+          "candidateCount": 32,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 1345.2218000000003,
+          "event": "cut-complete",
+          "cut": 1,
+          "states": 32,
+          "candidates": 32,
+          "winRecords": 1170,
+          "lossRecords": 8940,
+          "maxWins": 64,
+          "maxLosses": 448,
+          "rssBytes": 89436160
+        },
+        {
+          "elapsedMs": 1345.3354,
+          "event": "cut-start",
+          "cut": 2,
+          "stateCount": 32,
+          "candidateCount": 256,
+          "fanout": 8
+        },
+        {
+          "elapsedMs": 2185.1209,
+          "event": "cut-complete",
+          "cut": 2,
+          "states": 256,
+          "candidates": 256,
+          "winRecords": 9360,
+          "lossRecords": 71520,
+          "maxWins": 64,
+          "maxLosses": 448,
+          "rssBytes": 133922816
+        },
+        {
+          "elapsedMs": 2185.2403,
+          "event": "cut-start",
+          "cut": 3,
+          "stateCount": 256,
+          "candidateCount": 512,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 2991.0625,
+          "event": "cut-complete",
+          "cut": 3,
+          "states": 512,
+          "candidates": 512,
+          "winRecords": 18720,
+          "lossRecords": 143040,
+          "maxWins": 64,
+          "maxLosses": 448,
+          "rssBytes": 136003584
+        },
+        {
+          "elapsedMs": 2991.2918,
+          "event": "cut-start",
+          "cut": 4,
+          "stateCount": 512,
+          "candidateCount": 2048,
+          "fanout": 4
+        },
+        {
+          "elapsedMs": 7856.545699999999,
+          "event": "cut-complete",
+          "cut": 4,
+          "states": 2048,
+          "candidates": 2048,
+          "winRecords": 74880,
+          "lossRecords": 572160,
+          "maxWins": 64,
+          "maxLosses": 448,
+          "rssBytes": 176631808
+        },
+        {
+          "elapsedMs": 7857.1152999999995,
+          "event": "cut-start",
+          "cut": 5,
+          "stateCount": 2048,
+          "candidateCount": 8192,
+          "fanout": 4
+        },
+        {
+          "elapsedMs": 22827.338600000003,
+          "event": "cut-complete",
+          "cut": 5,
+          "states": 8192,
+          "candidates": 8192,
+          "winRecords": 282112,
+          "lossRecords": 1450880,
+          "maxWins": 59,
+          "maxLosses": 370,
+          "rssBytes": 261877760
+        },
+        {
+          "elapsedMs": 22828.728300000002,
+          "event": "cut-start",
+          "cut": 6,
+          "stateCount": 8192,
+          "candidateCount": 16384,
+          "fanout": 2
+        },
+        {
+          "elapsedMs": 22828.8699,
+          "event": "quotient-result",
+          "outcome": "time-boundary",
+          "boundary": {
+            "cut": 6,
+            "stateCount": 8192,
+            "candidateCount": 16384,
+            "fanout": 2
+          },
+          "active": {
+            "cut": 6,
+            "stateCount": 8192,
+            "candidateCount": 16384,
+            "fanout": 2
+          },
+          "completedCuts": 6,
+          "rootWdl": null
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-02",
+      "file": "7x6.jsonl",
+      "sha256": "de31c9094ce4dca0ec4aa633a96026710b58f9ba6eaf3878f47b47318dc6fbfe",
+      "events": [
+        {
+          "elapsedMs": 0.020700000000001495,
+          "event": "seed-start",
+          "spec": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumRank": 36,
+          "budgetMs": 60000,
+          "maxRaw": 262144,
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a"
+        },
+        {
+          "elapsedMs": 52.6878,
+          "event": "rank-complete",
+          "rank": 42,
+          "completed": 1,
+          "totalRecords": 0,
+          "maxWins": 0,
+          "maxLosses": 0,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 64.46619999999999,
+          "event": "rank-complete",
+          "rank": 41,
+          "completed": 8,
+          "totalRecords": 31,
+          "maxWins": 0,
+          "maxLosses": 7,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 153.21349999999998,
+          "event": "rank-complete",
+          "rank": 40,
+          "completed": 36,
+          "totalRecords": 4822,
+          "maxWins": 9,
+          "maxLosses": 702,
+          "pairCandidates": 39636
+        },
+        {
+          "elapsedMs": 1000.8187,
+          "event": "support-progress",
+          "active": {
+            "rank": 39,
+            "supportIndex": 705795
+          },
+          "completed": 59,
+          "totalRecords": 26958,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 351261,
+          "maxNormalizationInput": 44928,
+          "maxPairProduct": 44928,
+          "rssBytes": 148344832
+        },
+        {
+          "elapsedMs": 2016.8579,
+          "event": "support-progress",
+          "active": {
+            "rank": 39,
+            "supportIndex": 822807
+          },
+          "completed": 102,
+          "totalRecords": 63622,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 817140,
+          "maxNormalizationInput": 44928,
+          "maxPairProduct": 44928,
+          "rssBytes": 156270592
+        },
+        {
+          "elapsedMs": 2428.3314,
+          "event": "rank-complete",
+          "rank": 39,
+          "completed": 120,
+          "totalRecords": 77074,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 955830
+        },
+        {
+          "elapsedMs": 3119.0535000000004,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 470594
+          },
+          "completed": 127,
+          "totalRecords": 89829,
+          "maxWins": 3618,
+          "maxLosses": 3792,
+          "pairCandidates": 1142229,
+          "maxNormalizationInput": 55728,
+          "maxPairProduct": 55728,
+          "rssBytes": 160784384
+        },
+        {
+          "elapsedMs": 4551.8111,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 571436
+          },
+          "completed": 133,
+          "totalRecords": 99467,
+          "maxWins": 3618,
+          "maxLosses": 3996,
+          "pairCandidates": 1795392,
+          "maxNormalizationInput": 154413,
+          "maxPairProduct": 154413,
+          "rssBytes": 193597440
+        },
+        {
+          "elapsedMs": 5562.7184,
+          "event": "seed-result",
+          "outcome": "product-capacity",
+          "boundary": {
+            "active": {
+              "rank": 38,
+              "supportIndex": 587558
+            },
+            "a": 996,
+            "b": 1305,
+            "n": 1299780,
+            "maxRaw": 262144
+          },
+          "rootWdl": null,
+          "completed": 138,
+          "totalRecords": 105992,
+          "maxWins": 3618,
+          "maxLosses": 3996,
+          "pairCandidates": 2328075,
+          "maxPairProduct": 1299780,
+          "maxNormalizationInput": 154413,
+          "normalizationCalls": 10086,
+          "sample": [
+            {
+              "supportIndex": 470594,
+              "rank": 38,
+              "wins": 240,
+              "losses": 3792
+            },
+            {
+              "supportIndex": 571436,
+              "rank": 38,
+              "wins": 9,
+              "losses": 3996
+            },
+            {
+              "supportIndex": 705795,
+              "rank": 39,
+              "wins": 3618,
+              "losses": 109
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "oqs-seed-scaling-03",
+      "file": "7x6.jsonl",
+      "sha256": "399c2b3b8f94e62713945e1f64d3a7b5a2660614d07950547f95dafbd2fb15a3",
+      "events": [
+        {
+          "elapsedMs": 0.019600000000000506,
+          "event": "seed-start",
+          "spec": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumRank": 36,
+          "budgetMs": 60000,
+          "maxRaw": 2097152,
+          "sourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a"
+        },
+        {
+          "elapsedMs": 52.872699999999995,
+          "event": "rank-complete",
+          "rank": 42,
+          "completed": 1,
+          "totalRecords": 0,
+          "maxWins": 0,
+          "maxLosses": 0,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 64.9231,
+          "event": "rank-complete",
+          "rank": 41,
+          "completed": 8,
+          "totalRecords": 31,
+          "maxWins": 0,
+          "maxLosses": 7,
+          "pairCandidates": 0
+        },
+        {
+          "elapsedMs": 154.3654,
+          "event": "rank-complete",
+          "rank": 40,
+          "completed": 36,
+          "totalRecords": 4822,
+          "maxWins": 9,
+          "maxLosses": 702,
+          "pairCandidates": 39636
+        },
+        {
+          "elapsedMs": 1007.5722000000001,
+          "event": "support-progress",
+          "active": {
+            "rank": 39,
+            "supportIndex": 705795
+          },
+          "completed": 59,
+          "totalRecords": 26958,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 351261,
+          "maxNormalizationInput": 44928,
+          "maxPairProduct": 44928,
+          "rssBytes": 148340736
+        },
+        {
+          "elapsedMs": 2024.4873,
+          "event": "support-progress",
+          "active": {
+            "rank": 39,
+            "supportIndex": 822807
+          },
+          "completed": 102,
+          "totalRecords": 63622,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 817140,
+          "maxNormalizationInput": 44928,
+          "maxPairProduct": 44928,
+          "rssBytes": 156073984
+        },
+        {
+          "elapsedMs": 2435.8433000000005,
+          "event": "rank-complete",
+          "rank": 39,
+          "completed": 120,
+          "totalRecords": 77074,
+          "maxWins": 3618,
+          "maxLosses": 702,
+          "pairCandidates": 955830
+        },
+        {
+          "elapsedMs": 3126.2213,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 470594
+          },
+          "completed": 127,
+          "totalRecords": 89829,
+          "maxWins": 3618,
+          "maxLosses": 3792,
+          "pairCandidates": 1142229,
+          "maxNormalizationInput": 55728,
+          "maxPairProduct": 55728,
+          "rssBytes": 160772096
+        },
+        {
+          "elapsedMs": 4579.2977,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 571436
+          },
+          "completed": 133,
+          "totalRecords": 99467,
+          "maxWins": 3618,
+          "maxLosses": 3996,
+          "pairCandidates": 1795392,
+          "maxNormalizationInput": 154413,
+          "maxPairProduct": 154413,
+          "rssBytes": 194150400
+        },
+        {
+          "elapsedMs": 7135.5422,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 587558
+          },
+          "completed": 139,
+          "totalRecords": 108822,
+          "maxWins": 3618,
+          "maxLosses": 3996,
+          "pairCandidates": 3627855,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 203993088
+        },
+        {
+          "elapsedMs": 8512.1765,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 588146
+          },
+          "completed": 143,
+          "totalRecords": 115428,
+          "maxWins": 3618,
+          "maxLosses": 3996,
+          "pairCandidates": 4384782,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 236417024
+        },
+        {
+          "elapsedMs": 9920.2278,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 588230
+          },
+          "completed": 146,
+          "totalRecords": 123418,
+          "maxWins": 3618,
+          "maxLosses": 4113,
+          "pairCandidates": 5137434,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 226217984
+        },
+        {
+          "elapsedMs": 11128.7748,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 588242
+          },
+          "completed": 148,
+          "totalRecords": 129088,
+          "maxWins": 3618,
+          "maxLosses": 4743,
+          "pairCandidates": 5675544,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 237821952
+        },
+        {
+          "elapsedMs": 12367.7746,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 672278
+          },
+          "completed": 154,
+          "totalRecords": 140331,
+          "maxWins": 3618,
+          "maxLosses": 4743,
+          "pairCandidates": 6217585,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 236109824
+        },
+        {
+          "elapsedMs": 13379.9497,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 686678
+          },
+          "completed": 158,
+          "totalRecords": 148107,
+          "maxWins": 3618,
+          "maxLosses": 4743,
+          "pairCandidates": 6660907,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 206594048
+        },
+        {
+          "elapsedMs": 15699.1075,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 688400
+          },
+          "completed": 160,
+          "totalRecords": 154401,
+          "maxWins": 3618,
+          "maxLosses": 4743,
+          "pairCandidates": 7672924,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 208543744
+        },
+        {
+          "elapsedMs": 17659.1193,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 688988
+          },
+          "completed": 164,
+          "totalRecords": 162083,
+          "maxWins": 3618,
+          "maxLosses": 4743,
+          "pairCandidates": 8588199,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 241455104
+        },
+        {
+          "elapsedMs": 19505.9314,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 689072
+          },
+          "completed": 167,
+          "totalRecords": 171555,
+          "maxWins": 3618,
+          "maxLosses": 5004,
+          "pairCandidates": 9268785,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 213274624
+        },
+        {
+          "elapsedMs": 21264.0521,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 689084
+          },
+          "completed": 169,
+          "totalRecords": 181520,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 9862965,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 224919552
+        },
+        {
+          "elapsedMs": 22430.6427,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 700748
+          },
+          "completed": 171,
+          "totalRecords": 187256,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 10211560,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 238161920
+        },
+        {
+          "elapsedMs": 25886.963499999998,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 701090
+          },
+          "completed": 174,
+          "totalRecords": 195209,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 11439574,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 208396288
+        },
+        {
+          "elapsedMs": 27390.972999999998,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 702806
+          },
+          "completed": 175,
+          "totalRecords": 197398,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 12199470,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 215146496
+        },
+        {
+          "elapsedMs": 28776.6719,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 703394
+          },
+          "completed": 179,
+          "totalRecords": 202013,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 12794038,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 231268352
+        },
+        {
+          "elapsedMs": 30128.6175,
+          "event": "support-progress",
+          "active": {
+            "rank": 38,
+            "supportIndex": 703490
+          },
+          "completed": 184,
+          "totalRecords": 212886,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 13359503,
+          "maxNormalizationInput": 1299780,
+          "maxPairProduct": 1299780,
+          "rssBytes": 252444672
+        },
+        {
+          "elapsedMs": 30689.0385,
+          "event": "seed-result",
+          "outcome": "product-capacity",
+          "boundary": {
+            "active": {
+              "rank": 38,
+              "supportIndex": 704864
+            },
+            "a": 4393,
+            "b": 557,
+            "n": 2446901,
+            "maxRaw": 2097152
+          },
+          "rootWdl": null,
+          "completed": 184,
+          "totalRecords": 212886,
+          "maxWins": 3618,
+          "maxLosses": 5205,
+          "pairCandidates": 13359503,
+          "maxPairProduct": 2446901,
+          "maxNormalizationInput": 1299780,
+          "normalizationCalls": 30075,
+          "sample": [
+            {
+              "supportIndex": 689078,
+              "rank": 38,
+              "wins": 9,
+              "losses": 5205
+            },
+            {
+              "supportIndex": 689072,
+              "rank": 38,
+              "wins": 10,
+              "losses": 5004
+            },
+            {
+              "supportIndex": 701090,
+              "rank": 38,
+              "wins": 12,
+              "losses": 4778
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
