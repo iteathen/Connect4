@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "experiment": "SIU-1 relational dual-direction",
+  "date": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "source_commit": "7b78d1468a44a68afe7264464fe1c57dcd8a47a7",
+  "script_commit": "a20c10dda1290c400aedfc564282f3edfebb4817",
+  "workflow_run": 34632643724,
+  "workflow_job": 103372941221,
+  "node": "26.7.0",
+  "runner": "ubuntu-24.04",
+  "status": "pass",
+  "question": "Can one BSFP-aligned relational state drive exact forward transitions and exact backward W/D/L closure without colored board state?",
+  "state_contract": {
+    "supportIndex": "BSFP support/accessibility skeleton",
+    "sideToMove": "explicit player orientation constrained by support-rank parity for ordinary legal play",
+    "p0Requirements": "normalized surviving P0 residual winning-requirement antichain",
+    "p1Requirements": "normalized surviving P1 residual winning-requirement antichain"
+  },
+  "aggregate": {
+    "physical_states_checked": 1681808,
+    "relational_states_across_independent_geometries": 343740,
+    "exactness_mismatches": 0,
+    "bsfp_wdl_mismatches": 0,
+    "reverse_closure_mismatches": 0,
+    "local_reverse_transition_functional": false
+  },
+  "cases": [
+    {
+      "geometry": "4x3:c3",
+      "physical_states": 4659,
+      "relational_states": 3735,
+      "compression_ratio": 1.2473895582329317,
+      "maximum_physical_states_per_relational_state": 28,
+      "ambiguous_child_column_pairs": 584,
+      "child_column_pairs": 7078,
+      "child_column_functional_fraction": 0.917490816614863,
+      "maximum_parents_per_child_column": 6,
+      "reverse_csr_bytes": 46312,
+      "forward_dense_bytes": 59760,
+      "bsfp_boundary_records": 3004,
+      "mismatches": 0
+    },
+    {
+      "geometry": "4x4:c4",
+      "physical_states": 139625,
+      "relational_states": 34095,
+      "compression_ratio": 4.09517524563719,
+      "maximum_physical_states_per_relational_state": 5336,
+      "ambiguous_child_column_pairs": 15808,
+      "child_column_pairs": 71698,
+      "child_column_functional_fraction": 0.7795196518731345,
+      "maximum_parents_per_child_column": 11,
+      "reverse_csr_bytes": 514416,
+      "forward_dense_bytes": 545520,
+      "bsfp_boundary_records": 6591,
+      "mismatches": 0
+    },
+    {
+      "geometry": "5x3:c4",
+      "physical_states": 152003,
+      "relational_states": 11317,
+      "compression_ratio": 13.431386409825926,
+      "maximum_physical_states_per_relational_state": 4440,
+      "ambiguous_child_column_pairs": 5969,
+      "child_column_pairs": 29682,
+      "child_column_functional_fraction": 0.7989016912606968,
+      "maximum_parents_per_child_column": 3,
+      "reverse_csr_bytes": 189004,
+      "forward_dense_bytes": 226340,
+      "bsfp_boundary_records": 5442,
+      "mismatches": 0
+    },
+    {
+      "geometry": "4x5:c4",
+      "physical_states": 1385521,
+      "relational_states": 294593,
+      "compression_ratio": 4.703170136425509,
+      "maximum_physical_states_per_relational_state": 37080,
+      "ambiguous_child_column_pairs": 127374,
+      "child_column_pairs": 604992,
+      "child_column_functional_fraction": 0.7894616788321168,
+      "maximum_parents_per_child_column": 21,
+      "reverse_csr_bytes": 4435576,
+      "forward_dense_bytes": 4713488,
+      "bsfp_boundary_records": 40707,
+      "mismatches": 0
+    }
+  ],
+  "qualified_claims": [
+    "The BSFP residual relational state is sufficient to drive forward transitions without colored ownership board state on all complete bounded controls.",
+    "The same relational IDs support exact backward W/D/L propagation when supplied with the exact reverse relation.",
+    "The relational strong score and per-column action scores match an independently enumerated physical solver on all checked states.",
+    "The existing BSFP ownership-antichain solver agrees in W/D/L on all checked physical states.",
+    "The inverse of the relational forward transition is set-valued rather than a state-level function on the checked controls."
+  ],
+  "non_claims": [
+    "standard 7x6 exhaustive sufficiency",
+    "production performance improvement",
+    "state-level reversible relational transition",
+    "requirement that BSFP enumerate every relational state explicitly",
+    "requirement that minimax and BSFP use identical physical layouts"
+  ]
+}
