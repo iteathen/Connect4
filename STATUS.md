@@ -1,56 +1,70 @@
 # Connect4 Repository Status
 
-**Updated:** 2026-09-10  
-**Role:** repository-level dashboard and authority router
+**Updated:** 2026-09-11  
+**Role:** shared-foundation dashboard and authority router
 
-The repository now has multiple active solver/research lanes. This root file no longer owns the detailed execution state of all Connect4 work.
+`main` is the accepted shared Connect4 substrate. It is not the canonical implementation head for any of the three active solver lines.
 
 ## Canonical durable lanes
 
-| Lane | Canonical branch | Purpose | Head at routing cutover |
+| Lane | Canonical branch | Purpose | Current routing note |
 | --- | --- | --- | --- |
-| Product baseline | `main` | accepted domain/spec/oracle/product baseline | restructure integrated at `27fdfed33c9b75fde84942fe36c7e9edc3fdccbf` |
-| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | `66fe2fc8dd15f954a37f328950f352d06bbe8f89` |
-| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | `0d8b4d5633e0485ac1bb96ed4f77509bc1217d80` |
-| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | `16a4ca51ed39a93451414bfa9dc4b5aee8091837` |
+| Shared product foundation | `main` | accepted domain/spec/oracle/benchmark contracts and repository routing | authoritative shared substrate |
+| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | first-class solver head |
+| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | first-class solver head |
+| Hybrid confluence | `solver/hybrid-confluence` | exact minimax + CUDA-BSFP confluence implementation and hybrid qualification | first-class solver head; created from `ed26481faef9ec635d1fd0d790cf7030a29f64ee` |
+| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | shared research lane |
 
-Read each lane's own `STATUS.md` and `next_step.yaml` before executing work there.
+Read each non-main lane's own `STATUS.md` and `next_step.yaml` before executing work there. Root status/next-step on `main` are routing records only.
+
+## Main branch role
+
+`main` owns facts that must be common and stable across solver lines:
+
+- Connect Four rules, legality and state semantics;
+- benchmark positions, fairness and measurement meaning;
+- independent oracle/reference behavior;
+- accepted shared contracts/conformance vectors;
+- repository ownership/routing decisions.
+
+`components/incumbent/` remains on `main` as a qualified reference/baseline comparator. It is not the active minimax solver head.
+
+Solver-specific kernels and performance machinery must not accumulate on `main`. The solver branches are long-lived product heads, not feature branches awaiting wholesale merge.
+
+## Cross-lane flow
+
+Shared accepted changes flow from `main` into solver heads. When a solver discovers a fact that belongs to shared product semantics, the smallest shared change is extracted, qualified and deliberately promoted to `main`; the solver branch itself is not merged wholesale merely to carry that fact.
+
+This makes `main` the common foundation and authority router while allowing the three solvers to optimize independently.
 
 ## Current high-level state
 
-### Product baseline
+### Shared product foundation
 
-C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain protected on `main`. Later solver-specific contracts/specs live on their owning solver branches until deliberately accepted/integrated.
+C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain protected on `main`. Shared-domain and benchmark/oracle corrections belong here. Solver-specific contracts/specs remain on their owning solver branch until deliberately promoted as cross-lane authority.
 
 ### Minimax
 
-The complete identified minimax research lineage is consolidated on `solver/minimax-alpha-beta`. New maintained-kernel promotion is intentionally paused while the shared semantic-quotient lane tests whether a smaller exact action-labelled state can replace historical colored-board identity without sacrificing distance-sensitive values.
+`solver/minimax-alpha-beta` owns exact minimax/negamax/alpha-beta implementation and search-specific optimization/evidence. Its history may diverge substantially from `main`; only shared accepted facts should be promoted back.
 
 ### CUDA-BSFP
 
-`solver/cuda-bsfp` supersedes the old branch name `feature/cuda-bsfp`. Draft PR #25 is the canonical continuation of the old PR #14. The production-adjacent seam remains native C3 cause profiling and B2 bucketed-normalizer A/B before another 6x5 attempt.
+`solver/cuda-bsfp` owns searchless backward symbolic fixed-point implementation, CUDA qualification and BSFP-specific evidence. Its internal symbolic/quotient/recurrence structures are not `main` concerns unless an accepted consumer-neutral contract is extracted.
+
+### Hybrid confluence
+
+`solver/hybrid-confluence` is the dedicated third solver head for asynchronous exact cooperation between the minimax and CUDA-BSFP lines. It owns confluence transport/scheduling, hybrid proof exchange, hybrid-specific performance experiments and eventual hybrid implementation. It may consume accepted/public behavior from both solver lines without becoming owner of their private internal state.
 
 ### Shared semantic research
 
-`research/semantic-quotient` supersedes `research/zdd-transfer-20260910` as the continuity branch for shared representation research. The current program is MQ1-MQ5: strong-score qualification, coarsest behavioral quotient, missing-information analysis, compiled action transitions, and serial alpha-beta A/B.
+`research/semantic-quotient` remains the solver-neutral lane for minimum-description/future-behavior representation research. Research does not become shared architecture or solver implementation until deliberately promoted.
 
 ## Repository restructuring state
 
-The repository lane restructure was integrated to protected `main` through PR #24 at `27fdfed33c9b75fde84942fe36c7e9edc3fdccbf` after `verify`, `strength-evidence`, and `benchmark-evidence` passed.
+The 2026-09-10 lane restructure established `main`, minimax, CUDA-BSFP and semantic-quotient ownership. The emergence of hybrid confluence triggered the documented reopen condition for a new independently owned solver line. The 2026-09-11 main-role decision extends the topology to three peer solver heads while preserving the original cleanup, research and provenance rules.
 
-Completed:
-
-- created canonical `solver/cuda-bsfp`;
-- made minimax, CUDA-BSFP and semantic-quotient branches own their own status/next-step records;
-- created first-class `research/<lane>/` namespaces on all three canonical non-main lanes;
-- created solver-neutral `research/semantic-quotient`;
-- froze the pre-restructure branch topology and exact SHAs in `research/MIGRATION_MANIFEST.json`;
-- established `research/` and `docs/decisions/` as the future organizational surfaces;
-- classified historical/duplicate branches for retirement;
-- replaced CUDA-BSFP draft PR #14 with canonical draft PR #25 and closed #14 as superseded.
-
-Physical ref cleanup archived and deleted 40 gate-passing stale branches; 33 immutable archive tags preserve their exact heads. The four canonical lanes remain intact. Three refs remain blocked: `research/zdd-transfer-20260910` (producer reservation), `research/live-q1-5min-20260910` (queued workflow 34518477566), and `feature/cuda-bsfp` (live Q1 bootstrap/producer dependency). See `research/RETIREMENT_PROOFS.json` for exact inventory, tags and release conditions. The frozen migration census is unchanged.
+Physical ref cleanup and archive evidence remain recorded under `research/`. Those historical cleanup records are not rewritten by this topology update.
 
 ## Governing rule
 
-Branches represent ongoing ownership/work. Historical checkpoints should eventually be immutable archive refs/tags plus committed evidence, not long-lived active-looking branches.
+`main` is shared accepted truth, not "the winning solver." Solver heads own implementation. Historical checkpoints should eventually become immutable archive refs/tags plus committed evidence, not long-lived active-looking branches.
