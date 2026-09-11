@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { pathToFileURL } from 'node:url';
 
 const disabled=(process.argv[2]??'').split(',').filter(Boolean);
 assert(disabled.length,'pass comma-separated disabled rule families');
@@ -11,4 +10,4 @@ const after=`const A123=new Set(['A1','A2','A3']),DISABLED=new Set(${setLiteral}
 assert(source.includes(before),'A1A9 allowed-set seam not found');source=source.replace(before,after);
 source=source.replace("kind:'connect4-allis-a1-a9-compatible-a10-exact'","kind:'connect4-allis-a1-a9-compatible-a10-ablation',disabled:[...DISABLED]");
 source=source.replace("if(falseClaims)process.exitCode=2;","");
-const tmp=`/tmp/allis_a1a9_ablate_${disabled.join('_')}.mjs`;fs.writeFileSync(tmp,source);await import(pathToFileURL(tmp).href+`?v=${Date.now()}`);
+const tmp=new URL(`./.generated_allis_a1a9_ablate_${disabled.join('_')}.mjs`,import.meta.url);fs.writeFileSync(tmp,source);try{await import(tmp.href+`?v=${Date.now()}`);}finally{fs.rmSync(tmp,{force:true});}
