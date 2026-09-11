@@ -168,6 +168,18 @@ The strongest candidate is now:
 
 The engines can therefore speak the same language through and through without being forced to use the same data structure or execution schedule.
 
+## Cross-domain adversarial extension: chess
+
+The same research principles are now being stress-tested against chess, where cycles, reversible reactivation, repetition rules and non-monotonic piece mobility invalidate several simplifications available in Connect Four.
+
+The corrected research note is:
+
+- `CHESS_RELATIONAL_QUOTIENT_RESEARCH_NOTES.md`
+
+It is intentionally **not** Connect Four solver authority and does not change the current Connect Four implementation roadmap. Its role is to test whether the underlying semantic-quotient method generalizes when the authoritative state must be augmented with history, transition identity must be distinguished from proof-transfer identity, and operational bitboards may remain separate from semantic identity.
+
+The chess note closes conceptual debate at a falsifiable seam: bounded transition-congruence discovery, history-fragmentation measurement, proof-transfer qualification, and eventual time-to-exact-proof comparison. The broader project already has a local 6/7-piece endgame tablebase source available for oracle-assisted work, so no new large oracle must be generated before the empirical phase begins.
+
 ## Non-claims
 
 - no standard 7x6 exhaustive quotient proof;
