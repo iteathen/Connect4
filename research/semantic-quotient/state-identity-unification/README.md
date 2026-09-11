@@ -1,208 +1,177 @@
 # State identity unification experiment
 
-**Status:** Research / experiment plan
+**Status:** SIU-1 passed on complete bounded controls; operational/performance qualification open
 
 **Branch:** `research/semantic-quotient`
 
 ## Question
 
-Can Connect Four state identity be reduced from physical board identity to a smaller exact primitive/residual relationship state that is useful across minimax/alpha-beta, CUDA-BSFP, and hybrid confluence **without making any solver's hot path slower**?
+Can Connect Four state identity be reduced from physical colored-board identity to one smaller exact relational state that can serve minimax/alpha-beta, CUDA-BSFP and hybrid confluence without forcing any solver into a slower physical representation?
 
-This experiment is solver-neutral. It does not own search control flow, CUDA-BSFP execution, hybrid scheduling, or production solver state layouts.
+This packet is solver-neutral. It does not own production search control flow, CUDA-BSFP execution, hybrid scheduling or solver-specific state layouts.
+
+## Common relational language
+
+SIU-1 tested the logical state already present in the BSFP residual semantics:
+
+```text
+q = supportIndex
+  + sideToMove
+  + normalized P0 residual winning-requirement antichain
+  + normalized P1 residual winning-requirement antichain
+```
+
+`supportIndex` is the BSFP support/accessibility skeleton. The residual requirements are surviving future winning relationships rather than a colored ownership board.
+
+For ordinary legal play, `sideToMove` is derivable from support rank parity, but it remains explicit in the logical contract because solver/proof orientation may require it.
+
+## SIU-1 result
+
+The first experiment deliberately went beyond a shadow-key census. The same `q` drove:
+
+1. deterministic forward transitions without recursive colored-board state;
+2. exact distance-sensitive strong-score evaluation;
+3. exact per-column action scores;
+4. exact reverse W/D/L closure using relational IDs plus the inverse relation;
+5. comparison against an independent physical-state oracle;
+6. comparison against the existing BSFP ownership-antichain W/D/L solver.
+
+Across complete 4x3 c3, 4x4 c4, 5x3 c4 and 4x5 c4 controls:
+
+```text
+physical states checked: 1,681,808
+exactness mismatches:             0
+BSFP W/D/L mismatches:            0
+reverse-closure mismatches:       0
+```
+
+Observed physical-to-relational compression ranged from **1.247x to 13.431x**. On 4x5 c4, 1,385,521 physical states collapsed to 294,593 relational states; one relational identity represented as many as 37,080 physical states.
+
+Evidence:
+
+- `src/siu1-relational-dual-direction.mjs`
+- `evidence/2026-09-11-siu1-relational-dual-direction.json`
+- `SIU1_RESULT.md`
+- workflow run `34632643724`, job `103372941221`
+
+## Important result: forward function, backward relation
+
+The quotient is exact but is not state-level reversible.
+
+Forward play is deterministic:
+
+```text
+T(q, column) -> terminal | q'
+```
+
+The inverse is generally set-valued:
+
+```text
+T^-1(q', column) -> {q1, q2, ...}
+```
+
+On 4x5 c4, 127,374 `(child,column)` pairs had more than one relational predecessor, with as many as 21 parents for one pair.
+
+This is not a reason to restore colored history. Useful quotienting naturally loses distinctions that do not affect future behavior. The common algebra should therefore expose both:
+
+- a cheap deterministic forward image for search;
+- an exact symbolic inverse-image/preimage operator for BSFP.
+
+An explicit reverse CSR proves correctness but nearly duplicates transition storage, so the next backward-facing experiment should derive the preimage symbolically rather than materialize every reverse edge.
 
 ## Working distinction
 
-Treat three concepts separately:
+Keep three concepts separate:
 
-1. **Operational state** — the representation a solver uses to execute transitions cheaply. Minimax may continue using a bitboard even if another identity becomes authoritative for equivalence.
-2. **Semantic identity** — the smallest exact state needed to preserve the consumer's future game behavior.
-3. **Proof state** — exact W/D/L, strong score, bounds, distance or other certified facts associated with an identity.
+1. **Operational state** — whatever physical representation makes one solver fastest.
+2. **Semantic identity** — the exact relational identity `q` shared across solver boundaries.
+3. **Proof state** — W/D/L, strong score, alpha-beta bounds, BSFP frontiers or other certified facts associated with `q` or sets of `q`.
 
-The experiment must not assume these should collapse into one physical representation.
+SIU-1 strengthens the hypothesis that semantic identity can be unified without requiring physical representation unification.
 
-## Candidate semantic state
+## Current gaps
 
-The current qualified semantic-quotient chain already supports a strong candidate:
+### Minimax hot-path economics
 
-```text
-support/accessibility
-+ minimal current-player residual winning-requirement antichain
-+ minimal opponent residual winning-requirement antichain
-```
+Exactness is established on the bounded controls, but the prototype uses BigInt masks, normalized arrays, objects and string keys. Direct alpha-beta must still prove that relational navigation can compete with a highly optimized bitboard hot path.
 
-MQ4 showed that bounded controls can transition directly from this residual state without recursively carrying the colored board or identified-line history.
+The minimax-facing follow-up must measure:
 
-The next question is not merely whether this state is exact. It is whether it is economically useful as a common identity for the three solver lines.
+- transition cost;
+- dense/packed identity and interning cost;
+- TT hit increase from semantic merging;
+- total nodes and wall time;
+- immediate-win / forced-response extraction;
+- move ordering and symmetry handling;
+- evaluator or NN features that are not directly encoded by `q`.
 
-## Exactness levels
+### BSFP preimage economics
 
-Do not conflate these levels:
+Current BSFP can symbolically compress solved regions more aggressively than explicit relational-state enumeration. On 4x5 c4, the relational automaton had 294,593 states while the ownership-antichain BSFP solution used 40,707 Win/Loss boundary records.
 
-### Value equivalence
+Therefore BSFP should not be forced to enumerate every `q`. It should learn to express its symbolic predecessor/frontier operations in the same relational algebra.
 
-```text
-q(s1) == q(s2) => V(s1) == V(s2)
-```
+### Standard 7x6 scale
 
-Useful for exact lookup/proof reuse, but insufficient to replace operational state.
+No exhaustive 7x6 relational-state census or speed claim exists. WSL-625 and the 823,543 support skeletons provide finite structural universes, not a bound proving that all reachable relational combinations are economical.
 
-### Action-score equivalence
+## Revised experiment program
 
-Corresponding legal actions have equal exact scores.
+### SIU-1 — relational dual-direction exactness — **PASS**
 
-Useful for stronger TT/proof reuse and move-order information.
+Establish a common BSFP-aligned state language, direct forward transition sufficiency, exact strong/action scores, exact reverse closure, compression and inverse-relation ambiguity.
 
-### Action-labelled game congruence
+### SIU-2 — direct relational alpha-beta
 
-For corresponding legal actions:
+Run alpha-beta recursively on `q` without a colored board in recursive state. Compare fairly against positional search while decomposing node savings versus per-node relational cost.
 
-```text
-q(next(s1, a)) == q(next(s2, phi(a)))
-```
+### SIU-3 — useful semantic TT / identity economics
 
-with terminal semantics and action correspondence preserved.
+Measure whether merged relational identity produces useful earlier TT facts and net wall-clock savings under fair TT memory and ordering controls.
 
-Only this stronger form can justify navigating the quotient directly instead of carrying a physical board representation.
+### SIU-4 — packed incremental transition
 
-## Consumer-sensitive identity
+Replace research objects/string keys with dense or packed incremental relational transitions and measure the true hot-path cost.
 
-Equivalence is relative to the value contract.
+### SIU-5 — symbolic relational preimage
 
-A quotient exact for W/D/L may not be exact for a distance-sensitive strong score. Maintain separate evidence for at least:
+Implement `Pre_a(Q)` over relational sets/frontiers without materializing the complete reverse graph. Compare against the explicit reverse relation from SIU-1.
 
-- W/D/L identity;
-- distance/strong-score identity;
-- action-labelled transition identity.
+### SIU-6 — cross-solver proof contract
 
-Do not broaden a result beyond the value contract actually tested.
+Use the common identity/algebra as the publication/query contract between minimax, BSFP and hybrid while retaining solver-native physical layouts when those remain faster.
 
-## Experiment program
+## Promotion rule
 
-### SIU-1 — shadow identity census
-
-Run an unchanged exact solver over bounded complete controls while computing candidate semantic identity `q(s)` in shadow mode.
-
-Measure:
-
-- physical states per semantic identity;
-- exact W/D/L collision correctness;
-- strong-score collision correctness;
-- action-score collision correctness;
-- successor-class consistency;
-- distribution of merge multiplicity, not just the mean.
-
-**Falsifier:** any collision violating the tested consumer contract.
-
-### SIU-2 — useful-transposition replay
-
-Replay a real minimax trace without changing search behavior.
-
-For each repeated semantic identity, measure whether an exact reusable fact was already available early enough to save work.
-
-Measure:
-
-- additional useful hits versus ordinary board identity;
-- descendant nodes that would have been avoided;
-- cutoff amplification;
-- heavy-tail concentration of savings;
-- semantic-key compute cost.
-
-The relevant quantity is saved work, not raw collision count.
-
-### SIU-3 — secondary semantic TT
-
-Keep the ordinary minimax board/TT path intact and add the semantic identity only as an experimental secondary lookup.
-
-Compare:
-
-- exact result equivalence;
-- wall-clock time;
-- node count;
-- TT hit usefulness;
-- cache footprint;
-- key-generation cost;
-- move-order stability.
-
-A smaller key that produces more hits but slower wall time is a failed optimization.
-
-### SIU-4 — incremental semantic transition
-
-Test whether the semantic identity can be maintained locally per move:
-
-```text
-q' = T(q, move)
-```
-
-without rescanning the board.
-
-Measure transition cost against the incumbent board update and against recomputation from board state.
-
-### SIU-5 — cross-solver identity contract
-
-If SIU-1 through SIU-4 succeed, test whether minimax and CUDA-BSFP can publish/consume the same logical identity while retaining different physical hot representations.
-
-The desired shape is:
-
-```text
-minimax operational board B + semantic q
-CUDA-BSFP native structure      + semantic q
-hybrid proof publication keyed by q
-```
-
-Physical state is shared only if later measurement proves that doing so is faster.
-
-### SIU-6 — direct quotient navigation
-
-Only after action-labelled congruence and transition economics are established should an experiment remove the physical board from recursive forward solving.
-
-This is the strongest and highest-risk step, not the starting point.
-
-## Performance rule
-
-Unification is accepted only when it produces a measurable total-system benefit.
-
-Use the decision inequality:
-
-```text
-saved solver work
-  > semantic conversion cost
-  + synchronization/publication cost
-  + locality/cache cost
-  + any slowdown to solver-native operations
-```
-
-Architectural elegance is not evidence.
-
-## Ownership / promotion gate
-
-This packet owns experimentation only.
-
-- minimax-specific implementation remains on `solver/minimax-alpha-beta`;
-- CUDA-BSFP-specific implementation remains on `solver/cuda-bsfp`;
-- hybrid-confluence implementation remains on `solver/hybrid-confluence`;
-- shared exact semantic findings remain on `research/semantic-quotient` until deliberately promoted.
-
-No solver branch should receive speculative state-identity machinery merely to prepare for possible future unification.
+No solver branch receives speculative state machinery merely to make the architectures look unified.
 
 Promotion requires:
 
-1. exactness evidence for the target consumer contract;
-2. benchmark evidence showing a notable net gain;
-3. a clear ownership boundary for the promoted mechanism;
-4. no material regression to solver-native hot-path operations.
+1. exactness for the intended consumer contract;
+2. notable net performance gain or a necessary cross-solver capability;
+3. clear ownership and lifecycle boundaries;
+4. no material regression to solver-native hot paths.
 
-## Current hypothesis
+## Current architectural hypothesis
 
-The likely winning architecture is **logical identity unification without mandatory physical representation unification**.
+The strongest candidate is now:
 
-Minimax can retain a bitboard for cheap move execution while carrying or deriving an exact residual identity. CUDA-BSFP can use its own bulk representation. Hybrid confluence can exchange proof facts keyed by the common semantic identity.
+```text
+                 one exact relational game algebra
+                           q
+              /             |              \
+     forward image       inverse image      proof/classify
+       T(q,a)             Pre_a(Q)             over q
+          |                  |                   |
+       minimax              BSFP               hybrid
+```
 
-If later experiments show that a direct residual transition machine is faster than the bitboard path, physical convergence can occur as an observed optimization rather than as a design objective.
+The engines can therefore speak the same language through and through without being forced to use the same data structure or execution schedule.
 
 ## Non-claims
 
-- no standard 7x6 exhaustive quotient proof is established by this packet;
-- no production minimax speedup is claimed;
-- no claim is made that board state should be removed;
-- no claim is made that transposition disappears;
-- no claim is made that minimax, BSFP and hybrid should share mutable physical state.
+- no standard 7x6 exhaustive quotient proof;
+- no production minimax speedup yet;
+- no claim that BSFP should enumerate all relational states;
+- no claim that the relational transition is reversibly functional;
+- no requirement for shared mutable physical state.
