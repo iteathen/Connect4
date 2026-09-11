@@ -1,0 +1,51 @@
+{
+  "schema": "connect4-minimax-campaign-form-extensions-v1",
+  "forms": [
+    {
+      "id": "A123-COMPILED-U1U2-V1-REVERSE-INDEX",
+      "mechanism": "A10",
+      "label": "Compiled U1/U2 A1-A3 v1 with 625-way support-local reverse index",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-hot-positive-lifecycle-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_compiled_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; compiled hot median about 3.025x faster than dynamic"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_compiled_strong_stack.mjs","claim":"identical strong-stack nodes/checks/hits/cuts but catastrophic lifecycle cost from mostly-unique support programs and 625 reverse arrays"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-compiled-lifecycle.md"}
+      ]
+    },
+    {
+      "id": "A123-COMPILED-U1U2-V2-LIGHT",
+      "mechanism": "A10",
+      "label": "Compiled U1/U2 A1-A3 v2 lightweight useful-fragment program",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-warm-positive-cold-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_compiled_u1u2_light_micro.mjs","claim":"1800-state differential with zero mismatches; warm about 2.765x faster, cold about 19.5% slower than dynamic"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-compiled-lifecycle.md"}
+      ]
+    },
+    {
+      "id": "DEAD-POOLED-V1-INVALID-TT",
+      "mechanism": "DEAD",
+      "label": "First pooled-neutral DEAD construction with invalid exact TT authority after cutoffs",
+      "kind": "retained-invalid-construction",
+      "first_seen": "2026-09-11",
+      "test_state": "invalid-harness-form-not-candidate-verdict",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/dead_neutral_exact.mjs","claim":"retained failed construction; replaced by interval-TT v2 before any DEAD result was accepted"}]
+    }
+  ],
+  "evidence_augmentations": {
+    "A123-DEAD-PHYSICAL-RESTORE": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/allis_dead_strong_stack.mjs"}
+    ],
+    "COMPOSITION-STRONG-SERIAL": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/composition_semantic_edges.mjs","claim":"crossed semantic-edge harness for interaction/saturation effects"}
+    ],
+    "SEWB-EVENT-NATIVE": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_micro.mjs"},
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_search.mjs"}
+    ]
+  }
+}
