@@ -65,6 +65,7 @@ assert(Array.isArray(supplement.forms), 'post-ledger forms missing');
 assert(Array.isArray(supplement.observed_relations), 'post-ledger relations missing');
 assert(Array.isArray(extension.forms), 'campaign extension forms missing');
 assert(extension.evidence_augmentations && typeof extension.evidence_augmentations === 'object', 'campaign evidence augmentations missing');
+assert(extension.observed_relations === undefined || Array.isArray(extension.observed_relations), 'campaign extension relations invalid');
 
 const forms = [...supplement.forms, ...extension.forms].map((f) => structuredClone(f));
 const byForm = new Map(forms.map((f) => [f.id, f]));
@@ -73,6 +74,7 @@ for (const [id, evidence] of Object.entries(extension.evidence_augmentations)) {
   assert(form, `evidence augmentation target not found: ${id}`);
   form.evidence = [...(form.evidence ?? []), ...evidence];
 }
+const observedRelations = [...supplement.observed_relations, ...(extension.observed_relations ?? [])];
 
 for (const x of historical) assertAssessmentBlind(x, x.id);
 for (const x of forms) assertAssessmentBlind(x, x.id);
@@ -97,15 +99,13 @@ const syntheticMechanisms = new Set();
 for (const form of forms) if (!strategicIds.has(form.mechanism) && !historicalIds.has(form.mechanism) && !formIds.has(form.mechanism)) syntheticMechanisms.add(form.mechanism);
 const allIds = new Set([...historicalIds, ...strategicIds, ...formIds, ...syntheticMechanisms]);
 
-for (const edge of [...signed.edges, ...supplement.observed_relations]) {
+for (const edge of [...signed.edges, ...observedRelations]) {
   const { source, target } = relationEndpoints(edge);
   if (source !== null) assert(allIds.has(source), `relation source not found: ${source}`);
   if (target !== null) assert(allIds.has(target), `relation target not found: ${target}`);
 }
 for (const key of Object.keys(adoption.entries ?? {})) assert(allIds.has(key), `adoption metadata refers to unknown candidate ${key}`);
 
-// Completeness over the actively changing composition campaign: every executable research source
-// must either be evidence for a mapped form or explicitly documented as harness-only.
 const referencedCampaign = new Set();
 for (const form of forms) for (const ev of form.evidence ?? []) if (ev.path?.startsWith('research/minimax/composition-campaign/')) referencedCampaign.add(ev.path);
 const allowedHarness = new Set(harnessOnly.paths ?? []);
@@ -134,13 +134,12 @@ const evidenceMap = {
   post_ledger_forms: forms,
   relations: {
     inherited_signed_graph: signed.edges,
-    post_ledger_observed: supplement.observed_relations,
+    post_ledger_observed: observedRelations,
     missing_edge_semantics: 'unassessed-not-neutral'
   },
   noncandidate_harness_sources: harnessOnly
 };
 
-// The evidence map is complete before adoption is visible. This is the bias firewall.
 const joined = structuredClone(evidenceMap);
 joined.adoption_metadata = { governing_rule: adoption.governing_rule, default: adoption.default, entries: adoption.entries };
 
@@ -165,7 +164,7 @@ const coverage = {
   signed_graph_node_count: signed.nodes.length,
   signed_graph_edge_count: signed.edges.length,
   post_ledger_form_count: forms.length,
-  post_ledger_relation_count: supplement.observed_relations.length,
+  post_ledger_relation_count: observedRelations.length,
   synthetic_mechanism_count: syntheticMechanisms.size,
   total_unique_ids: allIds.size,
   campaign_source_count: campaignSources.length,
@@ -177,7 +176,7 @@ const coverage = {
   adopted_but_open_or_active_forms: adoptedOpenForms,
   adoption_is_excluded_from_assessment: true,
   missing_relation_semantics: 'unassessed-not-neutral',
-  completeness_statement: 'Complete over all 107 historical rows, all signed-v2 nodes/edges, all enumerated post-ledger forms, and every current composition-campaign executable source classified as candidate evidence or harness-only.'
+  completeness_statement: 'Complete over all 107 historical rows, all signed-v2 nodes/edges, all enumerated post-ledger forms/relations, and every current composition-campaign executable source classified as candidate evidence or harness-only.'
 };
 
 const args = new Set(process.argv.slice(2));
