@@ -1,0 +1,56 @@
+import assert from 'node:assert/strict';
+import { performance } from 'node:perf_hooks';
+
+const W=7,H=6,CELLS=42,ORDER=[3,4,2,5,1,6,0];
+const lines=[];
+for(let r=0;r<H;r++)for(let c=0;c<W;c++)for(const [dx,dy] of [[1,0],[0,1],[1,1],[1,-1]]){const x=c+3*dx,y=r+3*dy;if(x<0||x>=W||y<0||y>=H)continue;let m=0n;for(let j=0;j<4;j++)m|=1n<<BigInt((r+j*dy)*W+c+j*dx);lines.push(m);}assert.equal(lines.length,69);
+function pc(v){let n=0;while(v){v&=v-1n;n++;}return n;}
+const uu=new Set();for(const line of lines){const cs=[];for(let i=0;i<CELLS;i++)if((line>>BigInt(i))&1n)cs.push(i);for(let s=1;s<16;s++){let m=0n;for(let j=0;j<4;j++)if((s>>j)&1)m|=1n<<BigInt(cs[j]);uu.add(m.toString());}}
+const masks=[...uu].map(BigInt).sort((a,b)=>pc(a)-pc(b)||(a<b?-1:a>b?1:0));assert.equal(masks.length,625);const id=new Map(masks.map((m,i)=>[m.toString(),i]));
+const reqSize=Uint8Array.from(masks,pc),singletonCell=new Int16Array(625).fill(-1);const target=Array.from({length:CELLS},()=>new Int16Array(625).fill(-1)),contains=Array.from({length:CELLS},()=>new Uint8Array(625));
+for(let rid=0;rid<625;rid++){if(reqSize[rid]===1){for(let i=0;i<CELLS;i++)if((masks[rid]>>BigInt(i))&1n){singletonCell[rid]=i;break;}}for(let cell=0;cell<CELLS;cell++)if((masks[rid]>>BigInt(cell))&1n){contains[cell][rid]=1;const n=masks[rid]&~(1n<<BigInt(cell));target[cell][rid]=n===0n?-2:id.get(n.toString());}}
+function canon(xs){xs.sort((a,b)=>a-b);const out=[];let prev=-1;outer:for(const rid of xs){if(rid===prev)continue;prev=rid;const m=masks[rid];for(const p of out)if((masks[p]&~m)===0n)continue outer;out.push(rid);}return out;}
+function ownMove(rs,cell){const out=[];for(const rid of rs){const n=target[cell][rid];if(n===-2)return[null,true];out.push(n>=0?n:rid);}return[canon(out),false];}
+function oppMove(rs,cell){const out=[];for(const rid of rs)if(!contains[cell][rid])out.push(rid);return out;}
+function won(bits,bit){for(const l of lines)if((l&bit)!==0n&&(l&bits)===l)return true;return false;}
+function parse(seq){let p0=0n,p1=0n;const h=new Uint8Array(W);for(let mv=0;mv<seq.length;mv++){const c=seq.charCodeAt(mv)-49,r=h[c];assert(c>=0&&c<W&&r<H);const bit=1n<<BigInt(r*W+c);if(mv&1){p1|=bit;assert(!won(p1,bit));}else{p0|=bit;assert(!won(p0,bit));}h[c]++;}return{p0,p1,h,moves:seq.length};}
+function compile(root,pl){const occ=root.p0|root.p1,opp=pl?root.p0:root.p1,out=[];for(const l of lines){if(l&opp)continue;const rem=l&~occ;if(rem)out.push(id.get(rem.toString()));}return canon(out);}
+function packH(h){let v=0;for(let c=0;c<W;c++)v|=h[c]<<(3*c);return v>>>0;}function stateKey(h,a,b){return`${packH(h)}|${a.join('.')}/${b.join('.')}`;}
+function density(rs){let s=0;for(const rid of rs)s+=1<<(4-reqSize[rid]);return s;}
+function parity(rs,h,moves){let cls=0,future=0;for(const rid of rs){if(reqSize[rid]!==1)continue;const cell=singletonCell[rid],row=Math.trunc(cell/W),col=cell-row*W,d=row-h[col]+1;if(d<=1)continue;future++;if(((((W-1)*H)-moves+row+1)&1)===1)cls=1;}return{cls,future};}
+function playableSingletons(rs,h){const out=[];for(const rid of rs){if(reqSize[rid]!==1)continue;const cell=singletonCell[rid],row=Math.trunc(cell/W),col=cell-row*W;if(h[col]===row)out.push(cell);}return out;}
+function optimistic(rs,player,moves,stats){if(rs.length===0)return 0;const next=(moves&1)===player;let min=9;for(const rid of rs){stats.boundScans++;if(reqSize[rid]<min)min=reqSize[rid];}const delta=next?2*min-1:2*min,before=moves+delta-1;if(before>=CELLS)return 0;return Math.trunc((CELLS+1-before)/2);}
+
+const columnMasks=[];for(let c=0;c<W;c++){let m=0n;for(let r=0;r<H;r++)m|=1n<<BigInt(r*W+c);columnMasks.push(m);}function swapMask(mask,a,b){if(a===b)return mask;const ma=columnMasks[a],mb=columnMasks[b],aa=mask&ma,bb=mask&mb,rest=mask&~(ma|mb),d=b-a;return d>0?rest|(aa<<BigInt(d))|(bb>>BigInt(d)):rest|(aa>>BigInt(-d))|(bb<<BigInt(-d));}
+const swapMap=Array.from({length:W},()=>Array(W).fill(null));for(let a=0;a<W;a++)for(let b=a+1;b<W;b++){const map=new Int16Array(625).fill(-1);for(let rid=0;rid<625;rid++){const x=id.get(swapMask(masks[rid],a,b).toString());if(x!==undefined)map[rid]=x;}swapMap[a][b]=map;swapMap[b][a]=map;}
+function hasSorted(v,t){let lo=0,hi=v.length-1;while(lo<=hi){const m=(lo+hi)>>1;if(v[m]===t)return true;if(v[m]<t)lo=m+1;else hi=m-1;}return false;}function invariant(rs,map){for(const rid of rs){const x=map[rid];if(x<0||!hasSorted(rs,x))return false;}return true;}function autoEq(h,p0,p1,a,b,stats){stats.symmetryChecks++;if(h[a]!==h[b])return false;const map=swapMap[a][b];if(!invariant(p0,map)||!invariant(p1,map))return false;stats.symmetryHits++;return true;}
+
+function descriptor(p0,p1,h,moves,col,oi,stats){stats.scoredChildren++;const row=h[col],pl=moves&1,mine=pl?p1:p0,other=pl?p0:p1,cell=row*W+col,[nm,win]=ownMove(mine,cell),no=win?null:oppMove(other,cell),e1=win?1e9:density(nm)-density(no),pf=win?{cls:1,future:99}:parity(nm,h,moves+1),proof1=win?1e9:((other.length-no.length)*64+(density(nm)-density(no))-nm.length);return{col,oi,nm,no,win,e1,e2a:pf.cls,e2b:pf.future,p1:proof1};}
+const orderModes={
+ center:(a,b)=>a.oi-b.oi,
+ E1:(a,b)=>b.e1-a.e1||a.oi-b.oi,
+ E2E1:(a,b)=>b.e2a-a.e2a||b.e2b-a.e2b||b.e1-a.e1||a.oi-b.oi,
+ E1E2:(a,b)=>b.e1-a.e1||b.e2a-a.e2a||b.e2b-a.e2b||a.oi-b.oi,
+ P1:(a,b)=>b.p1-a.p1||a.oi-b.oi,
+ E1E2P1:(a,b)=>b.e1-a.e1||b.e2a-a.e2a||b.e2b-a.e2b||b.p1-a.p1||a.oi-b.oi,
+ E1P1E2:(a,b)=>b.e1-a.e1||b.p1-a.p1||b.e2a-a.e2a||b.e2b-a.e2b||a.oi-b.oi,
+ E2E1P1:(a,b)=>b.e2a-a.e2a||b.e2b-a.e2b||b.e1-a.e1||b.p1-a.p1||a.oi-b.oi,
+ P1E1E2:(a,b)=>b.p1-a.p1||b.e1-a.e1||b.e2a-a.e2a||b.e2b-a.e2b||a.oi-b.oi,
+};
+
+function solve(root,{cardinality=true,autoStage='pre',order='E1E2'}={}){const h=root.h.slice(),p0r=compile(root,0),p1r=compile(root,1),tt=new Map();let nodes=0,forcedTransitions=0;const stats={boundScans:0,symmetryChecks:0,symmetryHits:0,movesSkipped:0,scoredChildren:0};
+ function rec(p0in,p1in,movesIn,alpha,beta){let p0=p0in,p1=p1in,moves=movesIn;const forced=[];const cleanup=()=>{for(let i=forced.length-1;i>=0;i--)h[forced[i]]--;};while(true){const pl=moves&1,mine=pl?p1:p0,other=pl?p0:p1,own=playableSingletons(mine,h);if(own.length){const v=pl?-Math.trunc((CELLS+1-moves)/2):Math.trunc((CELLS+1-moves)/2);cleanup();return v;}const opp=[...new Set(playableSingletons(other,h))];if(opp.length>=2){const op=1-pl,v=op?-Math.trunc((CELLS-moves)/2):Math.trunc((CELLS-moves)/2);cleanup();return v;}if(opp.length!==1)break;const cell=opp[0],row=Math.trunc(cell/W),col=cell-row*W,[nm,win]=ownMove(mine,cell);assert(!win);const no=oppMove(other,cell);h[col]++;forced.push(col);forcedTransitions++;moves++;if(pl){p1=nm;p0=no;}else{p0=nm;p1=no;}}
+  nodes++;const a0=alpha,b0=beta,k=stateKey(h,p0,p1);let e=tt.get(k);if(e){if(e.lo===e.up){cleanup();return e.lo;}if(e.lo>=beta){cleanup();return e.lo;}if(e.up<=alpha){cleanup();return e.up;}if(alpha<e.lo)alpha=e.lo;if(beta>e.up)beta=e.up;}if((p0.length===0&&p1.length===0)||moves===CELLS){tt.set(k,{lo:0,up:0});cleanup();return 0;}if(cardinality){const lo=-optimistic(p1,1,moves,stats),hi=optimistic(p0,0,moves,stats);if(alpha<lo)alpha=lo;if(beta>hi)beta=hi;if(alpha>=beta){const v=alpha;cleanup();return v;}}
+  let cols=[];for(const col of ORDER)if(h[col]<H)cols.push(col);if(autoStage==='pre'){const reps=[];const keep=[];for(const col of cols){let eq=false;for(const rep of reps)if(autoEq(h,p0,p1,col,rep,stats)){eq=true;break;}if(eq){stats.movesSkipped++;continue;}reps.push(col);keep.push(col);}cols=keep;}
+  let children=cols.map((col,oi)=>descriptor(p0,p1,h,moves,col,oi,stats));children.sort(orderModes[order]);if(autoStage==='post'){const reps=[];const keep=[];for(const ch of children){let eq=false;for(const rep of reps)if(autoEq(h,p0,p1,ch.col,rep,stats)){eq=true;break;}if(eq){stats.movesSkipped++;continue;}reps.push(ch.col);keep.push(ch);}children=keep;}
+  const pl=moves&1;let best=pl?99:-99;for(const ch of children){h[ch.col]++;let v;if(ch.win)v=pl?-Math.trunc((CELLS+1-moves)/2):Math.trunc((CELLS+1-moves)/2);else v=pl?rec(ch.no,ch.nm,moves+1,alpha,beta):rec(ch.nm,ch.no,moves+1,alpha,beta);h[ch.col]--;if(!pl){if(v>best)best=v;if(best>alpha)alpha=best;}else{if(v<best)best=v;if(best<beta)beta=best;}if(alpha>=beta)break;}e=tt.get(k)??{lo:-99,up:99};if(best<=a0)e.up=Math.min(e.up,best);else if(best>=b0)e.lo=Math.max(e.lo,best);else e={lo:best,up:best};assert(e.lo<=e.up);tt.set(k,e);cleanup();return best;
+ }
+ const t=performance.now(),score=rec(p0r,p1r,root.moves,-99,99);return{score:Object.is(score,-0)?0:score,nodes,ms:performance.now()-t,forcedTransitions,...stats};}
+
+const frozen=[['764353221241721325116531',-2],['5563576621726752473477144213',7],['3253472274311154254412135',-9],['24763565123272565531172315',2],['544111352647536626717444135',-8],['3412761563244125763551573',-9],['1174534625627233274533652316',-6],['463141571213634656162165252',7]];
+const configs=[];for(const cardinality of[false,true])for(const autoStage of['off','pre','post'])for(const order of Object.keys(orderModes))configs.push({cardinality,autoStage,order,id:`C${+cardinality}-A${autoStage}-${order}`});
+const REPS=6,WARM=2,records=[],ledger=new Map();for(let rep=0;rep<REPS;rep++){const rotated=configs.slice(rep%configs.length).concat(configs.slice(0,rep%configs.length));for(const cfg of rotated){let nodes=0,ms=0,scoredChildren=0,movesSkipped=0;for(const[seq,oracle]of frozen){const r=solve(parse(seq),cfg);assert.equal(r.score,oracle,`${cfg.id} ${seq}`);nodes+=r.nodes;ms+=r.ms;scoredChildren+=r.scoredChildren;movesSkipped+=r.movesSkipped;}const prior=ledger.get(cfg.id);if(prior===undefined)ledger.set(cfg.id,nodes);else assert.equal(nodes,prior,`nondeterministic ${cfg.id}`);records.push({rep,id:cfg.id,nodes,ms,scoredChildren,movesSkipped});}}
+function med(v){const a=[...v].sort((x,y)=>x-y),n=a.length;return n&1?a[n>>1]:(a[(n>>1)-1]+a[n>>1])/2;}function pct(a,b){return 100*(1-a/b);}const summary={};for(const cfg of configs){const rows=records.filter(r=>r.id===cfg.id),timed=rows.filter(r=>r.rep>=WARM);summary[cfg.id]={...cfg,nodes:ledger.get(cfg.id),medianMs:med(timed.map(r=>r.ms)),scoredChildren:rows[0].scoredChildren,movesSkipped:rows[0].movesSkipped};}
+const autoOrder=[];for(const pre of configs.filter(c=>c.autoStage==='pre')){const post=configs.find(c=>c.autoStage==='post'&&c.cardinality===pre.cardinality&&c.order===pre.order),off=configs.find(c=>c.autoStage==='off'&&c.cardinality===pre.cardinality&&c.order===pre.order);const a=summary[pre.id],b=summary[post.id],z=summary[off.id];autoOrder.push({context:`C${+pre.cardinality}-${pre.order}`,preVsPostNodesPct:pct(a.nodes,b.nodes),preVsPostTimePct:pct(a.medianMs,b.medianMs),preScoringReductionPct:pct(a.scoredChildren,b.scoredChildren),autoPreVsOffNodesPct:pct(a.nodes,z.nodes),autoPostVsOffNodesPct:pct(b.nodes,z.nodes)});}
+const strong=Object.values(summary).filter(x=>x.cardinality&&x.autoStage==='pre').sort((a,b)=>a.nodes-b.nodes).map(x=>({order:x.order,nodes:x.nodes,medianMs:x.medianMs,scoredChildren:x.scoredChildren,movesSkipped:x.movesSkipped}));
+console.log(JSON.stringify({kind:'connect4-minimax-ordering-stage-controls-v2',status:'pass',pipeline:'IWIN->DTH->FBLK->FMAC->CARD(if enabled)->AUTO(pre/post/off)->E1/E2/P1 lexical move ordering',configCount:configs.length,reps:REPS,warmReps:WARM,autoOrder,strongStackOrdering:strong,best:Object.values(summary).sort((a,b)=>a.nodes-b.nodes).slice(0,20)},null,2));
