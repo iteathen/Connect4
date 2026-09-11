@@ -1,56 +1,35 @@
-# Slot64 Direct Lazy Mover Transition — Bounded Qualification Result
+# Slot64 Direct Lazy Mover Transition — Qualification and Rejection Result
 
 **Date:** 2026-09-11  
 **Branch:** `research/semantic-quotient`  
-**Status:** complete bounded exactness passed; standard-7x6 rank-8 promotion gate open  
+**Status:** exact but rejected for target-scale graph growth after same-run paired 7x6 regression  
 **Research direction / architecture:** Josh Oshiro  
 **Adversarial implementation / qualification:** OpenAI ChatGPT
 
 ## Question
 
-Can mover `ownTransition` exploit the measured residual-slot locality without changing exact residual-class identity, qID creation order, graph semantics, memory, or solver work?
+Can mover `ownTransition` exploit measured residual-slot locality by lazily materializing only dynamically affected 64-bit slots, while preserving exact residual-class identity, qID creation order, graph semantics, memory, and solver work?
 
 The qualified slot64-v2 mover path reconstructs the complete twenty-word residual bitset even though the exact standard-7x6 locality audit measured only 4.57 changed 64-bit slots on average, with 2.19 active source slots, 2.51 reduction-target slots, and 3.57 normalization slots.
 
 ## Candidate
 
-The source-generated direct mover candidate starts from the parent ten-chunk tuple and materializes slot words only when required by the exact transition:
+The source-generated candidate starts from the parent ten-chunk tuple and materializes slot words only when required by the exact transition. It lazily visits affected source slots, reduction-target slots, and sparse dominance-clear slots; interns only final dirty chunks; and maintains singleton metadata incrementally.
 
-1. preserve the existing prefix-transition cache and singleton-at-landing terminal fast path;
-2. inspect a source slot only when the landing-cell containment mask intersects that ontology slot;
-3. materialize a source slot only when the current class actually has affected terms there;
-4. collect reduced target terms into the existing exact target bitset and target-slot mask;
-5. materialize a target slot only when a reduced target changes the parent contents;
-6. apply the existing sparse strict-superset normalization rows, materializing an untouched slot only when the clear mask actually intersects its current parent word;
-7. intern only dirty slots whose final two-word value differs from the parent;
-8. exact-intern the final ten-chunk tuple using the existing class hash/identity;
-9. preserve singleton metadata incrementally as parent singleton cells OR newly reduced singleton targets.
-
-The incremental singleton rule is valid for the nonterminal mover path only if existing singleton requirements cannot disappear. The bounded exhaustive qualification below directly validates that rule against the complete baseline graphs rather than treating it as an unchecked assumption.
-
-## Qualification
+## Bounded exactness and positive local result
 
 Workflow run: `34657277213`  
 Job: `103452289559`  
 Conclusion: **success**
 
-The candidate passed complete exactness comparison against qualified slot64-v2 on:
+The candidate reproduced complete class/qID/edge identity against qualified slot64-v2 on:
 
 - 4x3 connect-3;
 - 4x4 connect-4;
 - 5x3 connect-4;
 - 4x5 connect-4.
 
-Checks included:
-
-- complete reachable q-state census;
-- exact residual-class count;
-- exact term-ID sequence for every residual class ID;
-- exact q-state tuple for every qID;
-- exact action-edge result for every reachable state/action;
-- independent BSFP root W/D/L;
-- every root-action W/D/L;
-- identical Negamax expansion and call counts.
+It also reproduced independent BSFP root/action W/D/L, identical Negamax expansion/call counts, identical chunk/class metrics, and identical typed-memory accounting.
 
 The complete 4x5 graph remained:
 
@@ -62,63 +41,117 @@ nonterminal edges:  814,300
 illegal edges:      288,014
 ```
 
-The full-graph operational and storage metrics also matched exactly between baseline and candidate, including:
-
-- class intern lookups/hits/misses;
-- mover/block transition hits/misses;
-- mover/block no-op counts;
-- terminal returns;
-- reduced-term count;
-- sparse superset-word probes/clears;
-- class/hash growth counts;
-- slot reference widening;
-- parent-chunk reuse;
-- chunk interning;
-- prefix-cache accounting;
-- all typed-memory byte counts.
-
-This is stronger than equal W/D/L alone: the candidate reproduced the same class construction, graph identity, and allocation shape.
-
-## 4x5 paired timing
-
-Twenty-one alternating baseline/candidate repeats on one GitHub Ubuntu/Node 26.7.0 runner:
+Twenty-one alternating 4x5 repeats showed a strong bounded/search-local improvement:
 
 ```text
-slot64-v2 baseline total median: 22.041730 ms
-direct mover total median:       20.339547 ms
-ratio:                             0.922775
+slot64-v2 total median: 22.041730 ms
+direct mover median:    20.339547 ms
+ratio:                    0.922775
 
-baseline solve median:            20.959764 ms
-direct mover solve median:        19.227405 ms
-solve ratio:                       0.917348
+baseline solve median:   20.959764 ms
+direct solve median:     19.227405 ms
+solve ratio:              0.917348
 ```
 
-This is approximately a **7.72% total-time improvement** and **8.27% solve-time improvement** on the largest complete bounded control.
+That is approximately **7.72% faster overall** and **8.27% faster in solve time** on the bounded proxy.
 
-Representative root-solve structural metrics stayed identical:
+## Standard-7x6 exact scale gate
+
+Workflow run: `34657441325`  
+Job: `103452774181`  
+Conclusion: **success for exactness, negative for performance**
+
+The candidate reproduced every standard rank-8 invariant:
 
 ```text
-own-transition misses: baseline 10,672 / candidate 10,672
-chunk interns:          baseline 28,027 / candidate 28,027
-typed bytes:            baseline 1,445,166 / candidate 1,445,166
-expanded states:        baseline 15,054 / candidate 15,054
-solver calls:           baseline 24,882 / candidate 24,882
+q states:                  797,388
+residual classes:        1,357,101
+rank-9 frontier:           538,774
+typed bytes:            118,099,719
+residual bytes:          86,493,624
+legal nonterminal edges:  1,772,397
+terminal-win edges:          33,274
+illegal edges:                4,627
 ```
 
-The speedup therefore comes from avoiding unnecessary full-class materialization and slot scanning, not from performing less semantic/search work or changing the representation.
+Operational class metrics were also unchanged, including:
+
+```text
+own-transition misses: 1,805,671
+block misses:          1,772,397
+reduced terms:         5,993,904
+superset probes:      13,518,601
+parent chunk reuses:  23,388,248
+chunk interns:        12,039,032
+```
+
+The separate candidate run took:
+
+```text
+campaign through rank 8: 17,201.083 ms
+rank-8 expansion:         12,258.661 ms
+```
+
+That was much slower than historical v2 runs, but hosted-run variance required a paired same-run test before rejection.
+
+## Decisive paired standard-7x6 benchmark
+
+Workflow run: `34657519609`  
+Job: `103453013177`  
+Conclusion: **success; candidate loses all three paired comparisons**
+
+Three complete baseline traversals and three complete candidate traversals were alternated on the same hosted runner. Every run was hard-gated on the exact graph and byte counts above.
+
+Raw campaign times:
+
+```text
+baseline:  12,801.143  13,447.295  13,294.516 ms
+candidate: 16,342.918  16,116.812  15,744.948 ms
+```
+
+Raw rank-8 times:
+
+```text
+baseline:   8,973.212   9,540.021   9,435.929 ms
+candidate: 11,887.682  11,453.898  11,097.291 ms
+```
+
+Medians:
+
+```text
+campaign baseline:  13,294.516 ms
+campaign candidate: 16,116.812 ms
+ratio:                1.212290
+
+rank-8 baseline:      9,435.929 ms
+rank-8 candidate:    11,453.898 ms
+ratio:                1.213860
+```
+
+The lazy mover is therefore approximately **21.2% slower for the full target-scale campaign** and **21.4% slower at rank 8**. This is far beyond measurement noise and reverses the bounded result.
+
+## Interpretation
+
+The locality measurement itself remains valid: most exact mover transitions touch fewer than half of the ten slots. What failed is the implementation strategy.
+
+At target scale, replacing a straight dense twenty-word transform with dynamic slot masks, per-slot branching, lazy parent-word fetches, and dirty-state control flow costs more than the skipped word work. The bounded/search-local benchmark favored the branchy path because it operates on a much smaller and different state distribution; that benefit does not survive exhaustive 7x6 graph growth.
+
+This is an important negative result:
+
+> **semantic locality does not imply that a branchy lazy execution representation is faster than dense fixed-width arithmetic.**
+
+The right follow-up is to preserve the dense transform and exploit locality only where it removes redundant work without adding irregular control flow.
 
 ## Disposition
 
-**Retain as a strong positive candidate; do not promote yet.**
+**Reject direct lazy mover for the standard-7x6 graph-growth path. Do not promote it into slot64-v3.**
 
-The next gate is the standard 7x6 exact rank-8 forward-growth boundary:
+Qualified slot64-v2 remains authoritative.
 
-```text
-q states:             797,388
-residual classes:   1,357,101
-rank-9 frontier:      538,774
-typed bytes:       118,099,719
-residual bytes:      86,493,624
-```
+The next candidate should retain the dense mover transformation but remove its redundant post-transform parent-chunk comparisons. During the existing dense pass, an exact changed-slot mask can be accumulated from:
 
-The candidate must reproduce those exact checkpoints and edge counts with no memory drift. Target-scale wall-clock performance is then compared against qualified slot64-v2. If the separate hosted-run result is not decisively larger than runner variance, a same-run alternating paired rank-8 benchmark is required before promotion.
+- source-word deletions;
+- target-bit insertions that actually change a word;
+- sparse dominance clears that actually change a word.
+
+That mask can drive final chunk interning directly, avoiding ten post-transform `equals` checks while keeping the regular dense transform that performs well at scale. This is a narrower, lower-control-flow optimization and should be tested against the same bounded and paired rank-8 ladder.
