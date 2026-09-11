@@ -149,6 +149,12 @@
     "SEWB-EVENT-NATIVE": [
       {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_micro.mjs"},
       {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_search.mjs"}
+    ],
+    "A123-GEOMETRY-U1U2-V4": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-typed-a123-joint.md","claim":"typed+A123 preserves the full 29.11% / 23.61% proof reduction but is 3.88% / 13.96% slower than typed-only on the frozen loss/win anchors in the tested decision-stage form"}
+    ],
+    "MQ5-TYPED-OPENADDR-V1": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-typed-a123-joint.md","claim":"typed exact containers retain 1.381x / 1.300x speedup versus Map+A123 on identical A123 proof trees with exact state/TT/transition parity"}
     ]
   },
   "observed_relations": [
@@ -161,6 +167,7 @@
     {"source":"MQ5-TYPED-EXACT-INTERN","target":"MQ5-TYPED-OPENADDR-V1","effect":"realized-positive-form","mechanism":"implementation","state":"observed","note":"active typed-interning hypothesis is realized by an exact open-address implementation with repeated timing evidence"},
     {"source":"U1-EVENT-RANK","target":"U1-ALLIS-COMPAT-V3","effect":"positive","mechanism":"compatibility-abstraction","state":"observed","note":"event-interval claim/inverse boundary sharing removes every sampled false negative against Allis-allowed compatibility without rule-type exceptions"},
     {"source":"RID","target":"IMPL-RID-SIG4","effect":"positive","mechanism":"cost-filter","state":"observed","note":"conservative RID signatures reject most impossible exact closure checks without changing proof authority"},
-    {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"}
+    {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"},
+    {"source":"MQ5-TYPED-OPENADDR-V1","target":"A123-GEOMETRY-U1U2-V4","effect":"proof-positive-runtime-negative","mechanism":"saturation-cost","state":"observed","note":"under typed MQ5, geometry A123 keeps the exact 29.11% / 23.61% node cuts but raises repeated median wall time by about 3.88% / 13.96%; typed containers remain 1.381x / 1.300x faster than Map+A123 on the identical reduced trees"}
   ]
 }
