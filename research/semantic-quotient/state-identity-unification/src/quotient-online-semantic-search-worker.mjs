@@ -24,6 +24,21 @@ function deltaMetrics(before) {
   return result;
 }
 
+function localResourceSnapshot() {
+  const memory = process.memoryUsage();
+  return Object.freeze({
+    localStates: kernel.states.count,
+    localClasses: kernel.classes.size,
+    localTypedBytes: kernel.memoryStats().totalTypedBytes,
+    descriptorCache: Object.freeze({ ...searcher.descriptorCache.metrics }),
+    isolateMemory: Object.freeze({
+      heapUsed: memory.heapUsed,
+      external: memory.external,
+      arrayBuffers: memory.arrayBuffers,
+    }),
+  });
+}
+
 parentPort.postMessage({ type: 'ready', workerId: workerData.workerId });
 parentPort.on('message', (message) => {
   if (message?.type !== 'solve-path' && message?.type !== 'search-path' && message?.type !== 'explore-path') return;
@@ -38,8 +53,7 @@ parentPort.on('message', (message) => {
         workerId: workerData.workerId,
         elapsedMs: performance.now() - started,
         fragment,
-        localStates: kernel.states.count,
-        localClasses: kernel.classes.size,
+        ...localResourceSnapshot(),
       });
       return;
     }
@@ -59,8 +73,7 @@ parentPort.on('message', (message) => {
       value: solved.value,
       elapsedMs: performance.now() - started,
       metrics: deltaMetrics(before),
-      localStates: kernel.states.count,
-      localClasses: kernel.classes.size,
+      ...localResourceSnapshot(),
     });
   } catch (error) {
     parentPort.postMessage({
