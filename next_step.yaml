@@ -1,235 +1,221 @@
-schema_version: 14
+schema_version: 15
 updated: 2026-09-11
-state: quotient_native_bounded_parallelism_and_standard_7x6_rank8_scaling_qualified
-repository_role: cross_solver_exact_semantic_research
+state: quotient_negamax_online_parallel_research
+repository_role: connect4_exact_solver_research
 canonical_branch: research/semantic-quotient
 
 mission:
-  objective: smallest_exact_efficiently_updatable_description_and_best_combined_exact_reasoning_architecture_for_connect4
-  acceptance: action_labeled_future_behavior_equivalence_for_consumer_scope
+  objective: solve_standard_7x6_connect4_exactly_using_the_smallest_future_relevant_state_and_the_fastest_sound_forward_reasoning_architecture
+  semantic_equivalence: action_labeled_future_behavior_equivalence
+  current_solver_form: quotient_native_wdl_negamax
 
 source_lanes:
+  protected_foundation: main
   preserved_minimax: solver/minimax-alpha-beta
   cuda_bsfp: solver/cuda-bsfp
   hybrid_confluence: solver/hybrid-confluence
   quotient_research: research/semantic-quotient
-  future_forward_solver: quotient_native_negamax_after_online_standard_7x6_gate
 
-qualified_chain:
-  mq1_to_mq4:
-    status: pass
+ownership:
+  quotient_domain:
+    owner: Connect4_quotient_state_space
+    owns:
+      - support_plus_residual_requirement_state_meaning
+      - legal_quotient_transition_semantics
+      - terminal_transition_meaning
+      - tactical_closure_meaning
+      - canonical_semantic_descriptor_content
+    source_contracts:
+      - research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs
+
+  negamax_engine:
+    owner: Connect4_forward_solver_research
+    owns:
+      - recursive_WDL_negamax_policy
+      - alpha_beta_dependency_semantics
+      - move_order_consumption
+    does_not_own:
+      - quotient_identity_definition
+      - proof_resource_lifecycle
+      - worker_resource_discovery
+      - cleanup_or_reclamation
+
+  proof_store:
+    owner: packed_proof_store_service
+    owns:
+      - lower_upper_proof_publication
+      - monotone_bound_merge
+      - packed_record_encoding
+      - best_move_hint_publication_surface
+    source:
+      - research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs
+
+  semantic_tt:
+    owner: exact_semantic_shared_table
+    owns:
+      - exact_descriptor_storage
+      - hash_addressing
+      - collision_checked_descriptor_lookup
+      - fixed_arena_capacity
+    does_not_own:
+      - quotient_identity_meaning
+      - proof_meaning
+    source: research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs
+
+  work_planner:
+    owner: quotient_work_plan_service
+    owns:
+      - shallow_dependency_structure
+      - plan_lifecycle
+      - work_estimation_and_task_order
+      - exact_plan_reduction_for_research_controls
+    source:
+      - research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs
+
+  proof_resources:
+    owner: quotient_proof_resource_service
+    owns:
+      - shared_proof_arena_allocation
+      - semantic_TT_arena_allocation
+      - reset_lifecycle
+    source: research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs
+
+  maintenance_worker:
+    role: execution_host
+    hosts:
+      - work_planner
+      - proof_resource_lifecycle
+      - future_dedup_reconciliation
+      - future_reclamation
+    does_not_define_child_semantics: true
+    source: research/semantic-quotient/state-identity-unification/src/quotient-shared-dedup-worker.mjs
+
+  search_workers:
+    role: execution_hosts
+    own_runtime_activity:
+      - synchronous_recursive_negamax
+      - local_fast_quotient_transition_state
+    consume:
+      - shared_proof_store
+      - prepared_coarse_work
+    rule: no_per_node_RPC_to_maintenance_worker
+
+qualified_evidence:
+  quotient_exactness:
     physical_states_checked: 1681808
-    exact_state_and_action_mismatches: 0
-  siu1:
-    status: pass
-    physical_states_checked: 1681808
-    exactness_mismatches: 0
-    bsfp_wdl_mismatches: 0
-    reverse_closure_mismatches: 0
-    exact_reachable_q_counts:
+    mismatches: 0
+    controls:
       4x3_c3: 3735
       4x4_c4: 34095
       5x3_c4: 11317
       4x5_c4: 294593
-  quotient_native_identity:
-    machine_state: supportIndex_plus_p0ResidualClass_plus_p1ResidualClass
-    side_to_move: derived_from_support_rank_parity
-    recursive_colored_board: false
-    exact_transition: direct_q_algebra
-  term_id_substrate:
-    status: qualified
-    standard_7x6_term_vocabulary: 625
-    term_id_bits_required: 10
-    representation: compact_term_ID_residual_antichains
+
+  term_id:
+    standard_7x6_vocabulary_terms: 625
+    standard_7x6_term_bits: 10
     result: research/semantic-quotient/state-identity-unification/QUOTIENT_TERM_ID_KERNEL_RESULT.md
-  packed_support:
-    status: qualified_scaling_candidate
-    standard_7x6_table_support_bytes_approx: 32100000
-    standard_7x6_packed_support_bytes_approx: 3290000
-    bounded_solver_effect: performance_neutral_to_positive
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_PACKED_SUPPORT_LAYOUT_RESULT.md
-  slot64_residual:
-    status: qualified_memory_scaling_architecture
-    layout: 10_slot_64bit_ontology_chunks_with_slot_local_dictionaries
-    standard_7x6_rank8:
-      q_states: 797388
-      residual_classes: 1357101
-      rank9_frontier: 538774
-      typed_bytes_after_sparse_direct_block: 118099719
-      residual_bytes: 86493624
+
+  slot64:
+    standard_7x6_rank8_q_states: 797388
+    standard_7x6_rank8_residual_classes: 1357101
+    standard_7x6_rank9_frontier: 538774
+    typed_bytes: 118099719
+    residual_bytes: 86493624
     result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_RESIDUAL_RESULT.md
-  direct_block_transition:
-    status: promoted_slot64_v2
-    paired_standard_7x6_effect:
-      campaign_speedup_percent_approx: 1.54
-      rank8_speedup_percent_approx: 1.72
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_DIRECT_BLOCK_RESULT.md
-  direct_lazy_mover:
-    status: rejected_at_standard_7x6_scale
-    bounded_4x5_speedup_percent_approx: 8.27
-    standard_7x6_rank8_regression_percent_approx: 21.4
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_DIRECT_OWN_RESULT.md
-  fair_physical_control_v5:
-    status: bounded_wall_clock_speedup_pass
-    control_4x5:
-      quotient_ms: 10.183
-      physical_ms: 13.400
-      quotient_expanded: 15054
-      physical_expanded: 36826
-      quotient_time_advantage_percent_approx: 24.0
-      expansion_reduction_percent_approx: 59.1
+
+  fair_physical_control:
+    control: 4x5_c4
+    quotient_ms: 10.183
+    physical_ms: 13.400
+    quotient_expanded: 15054
+    physical_expanded: 36826
     result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_V5_RESULT.md
+
   shared_tt_workers:
-    status: qualified_positive_bounded_control
-    workflow_run: 34658872365
-    workflow_job: 103457015792
-    complete_4x5_graph:
-      q_states: 294593
-      residual_classes: 69707
+    control: 4x5_c4
     sequential_root_split_ms: 6.7476
     two_worker_ms: 3.2893
     sequential_expanded: 31174
     two_worker_expanded: 25532
     result: research/semantic-quotient/state-identity-unification/QUOTIENT_SHARED_TT_WORKER_RESULT.md
-  lookahead_work_dag:
-    status: qualified_bounded_scheduler_architecture
-    workflow_run: 34659160200
-    workflow_job: 103457869443
+
+  lookahead_research:
     tested_depths: [2, 3, 4, 5]
-    bounded_4x5_best:
-      workers: 3
-      depth: 2
-      total_ms: 4.07045
-    note: depth_2_is_not_promoted_as_standard_7x6_constant
-    expected_standard_7x6_candidates: [3, 4]
+    bounded_best_workers: 3
+    bounded_best_depth: 2
+    note: bounded_optimum_is_not_standard_7x6_policy
     result: research/semantic-quotient/state-identity-unification/QUOTIENT_LOOKAHEAD_WORKER_RESULT.md
 
-worker_ownership:
-  search_workers:
-    owns:
-      - synchronous_recursive_negamax
-      - shared_exact_proof_reads_and_sound_writes
-    does_not_own:
-      - canonical_dedup_policy
-      - cleanup_or_reclamation
-      - work_dag_lifecycle
-      - hardware_role_selection
-  dedup_cleanup_worker:
-    owns:
-      - canonical_task_and_state_deduplication
-      - lookahead_work_dag
-      - descriptor_lifecycle
-      - shared_proof_arena_lifecycle
-      - proof_of_impossibility_cleanup_and_reuse
-    rule: no_per_node_dedup_RPC_from_recursive_search
-  coordinator:
-    owns:
-      - session_bootstrap
-      - coarse_task_dispatch
-      - result_publication
-    does_not_own: semantic_dedup_authority
+  online_semantic_tt:
+    exact_cross_worker_semantic_identity: pass
+    complete_global_graph_required_by_recursive_search: false
+    static_full_window_frontier_scheduler: rejected
+    result: research/semantic-quotient/state-identity-unification/QUOTIENT_ONLINE_SEMANTIC_TT_RESULT.md
 
-worker_initialization:
-  status: architecture_defined_calibrator_implemented
-  sequence:
-    - enumerate_CPUs_allowed_to_process
-    - pinned_repeated_CPU_microbench_where_supported
-    - confidence_gate_candidate_performance_efficiency_clusters
-    - concurrent_saturation_with_one_maintenance_worker_present
-    - choose_maxSearchWorkers
-    - start_dedup_cleanup_owner
-    - allocate_shared_proof_TT
-    - exact_shallow_depth_calibration_over_2_3_4_5
-    - keep_persistent_workers_for_real_solve
-  topology_rule:
-    accepted_only_if:
-      - material_median_throughput_gap
-      - stable_repeated_per_CPU_samples
-      - robust_cross_cluster_sample_separation
-    otherwise: do_not_claim_PE_topology_use_saturation_authority
-  node_worker_affinity:
-    status: missing_native_provider
-    standard_worker_threads_affinity: unavailable
-    measured_CPU_IDs_are_advisory_until_native_binding_exists
-  files:
-    - research/semantic-quotient/state-identity-unification/src/quotient-cpu-probe-worker.mjs
-    - research/semantic-quotient/state-identity-unification/src/quotient-cpu-role-calibration.mjs
-    - research/semantic-quotient/state-identity-unification/src/quotient-cpu-role-calibration.test.mjs
-  design_note: research/semantic-quotient/state-identity-unification/QUOTIENT_WORKER_INITIALIZATION_PROFILE.md
-
-current_native_components:
-  - quotient_hot_state_not_colored_board
-  - packed_support_descriptor
-  - exact_625_term_ontology
-  - slot64_v2_residual_memory_architecture
-  - direct_block_transition
-  - quotient_native_tactical_closure
-  - WDL_fail_soft_full_window_negamax
-  - shared_exact_proof_TT_for_parallel_search
-  - dedicated_dedup_cleanup_owner
-  - shallow_deduplicated_lookahead_work_DAG
-  - persistent_search_workers
-  - initialization_calibrated_worker_count_and_split_depth
+compliance_pass:
+  completed:
+    - centralized_quotient_transition_and_tactical_codes
+    - centralized_packed_search_record_semantics
+    - centralized_canonical_quotient_descriptor_hashing_and_shape
+    - separated_work_plan_lifecycle_from_worker_host
+    - separated_proof_resource_lifecycle_from_worker_host
+    - wrapped_shared_proof_publication_in_monotone_proof_store
+    - made_shared_graph_module_an_adapter_instead_of_proof_semantic_owner
+  retained_as_research_only:
+    - CPU_topology_and_affinity_experiments
+  remaining_boundary_debt:
+    - base_support_layout_kernel_still_contains_historical_local_copies_of_domain_codes
+    - packed_record_single_thread_kernel_still_contains_historical_local_search_record_helpers
+    - online_semantic_TT_find_or_create_is_still_executed_by_search_workers_and_does_not_yet_match_the_intended_maintenance_owned_dedup_model
+    - Node_worker_affinity_has_no_consumer_neutral_runtime_provider_yet
 
 current:
-  primary_action: build_online_standard_7x6_parallel_quotient_task_runtime
-  packet: research/semantic-quotient/state-identity-unification
-  owner: Connect4
-  mode: research
-  target:
-    - remove_complete_prebuilt_graph_requirement
-    - preserve_shared_TT_and_dedup_cleanup_ownership
-    - preserve_shallow_lookahead_work_DAG
-    - keep_recursive_search_free_of_dedup_RPC
-    - use_packed_quotient_identity_for_online_shared_TT_lookup
-    - qualify_against_existing_standard_7x6_growth_checkpoints_before_root_solve
+  primary_action: dependency_aware_parallel_negamax_work_tree
+  purpose: expose_parallel_work_only_after_parent_alpha_beta_dependencies_are_satisfied
+  intended_shape:
+    - preferred_child_first
+    - establish_parent_bound
+    - release_only_independent_sibling_proof_work
+    - shared_exact_semantic_TT
+    - coarse_task_synchronization
+    - ignore_or_cancel_obsolete_sibling_work_after_cutoff
+  expected_depth_candidates_for_standard_7x6: [3, 4]
+  actual_depth_and_worker_count: measured_at_initialization_or_presearch
 
-online_parallel_runtime_constraints:
-  - no_worker_local_primary_TT
-  - no_root_branch_blind_split_as_default
-  - no_per_node_message_passing_to_dedup_worker
-  - no_dynamic_TT_growth_during_search
-  - cleanup_recycles_fixed_shared_arena_only_when_exactly_safe
-  - canonical_state_owns_location_not_search_path
-  - duplicate_work_may_cause_recomputation_but_never_false_exact_hit
-  - search_waits_on_coarse_task_dependencies_not_cleanup_policy
-  - worker_count_not_equal_raw_logical_CPU_count_by_assumption
+hardware_profile:
+  Connect4_uses: measured_search_capacity
+  CPU_topology_implementation_in_this_branch: research_prototype_only
+  natural_future_owners:
+    runtime_resource_discovery: CUDA-JS_or_equivalent_runtime_provider
+    generic_search_session_capacity: CUDA-MCGS_or_equivalent_search_session_layer
+  rule: raw_logical_CPU_count_is_not_search_worker_policy
+
+evidence_requirements:
+  - exact_root_and_root_action_WDL_remain_unchanged
+  - representation_changes_preserve_complete_bounded_graph_identity
+  - standard_7x6_online_growth_matches_known_rank_checkpoints_before_claiming_scale_readiness
+  - shared_proof_publication_remains_sound_under_contention
+  - memory_and_wall_clock_claims_include_the_resources_being_compared
+  - standard_7x6_performance_claim_waits_for_an_actual_empty_root_solve
+  - hybrid_performance_claim_waits_for_actual_BSFP_boundary_cost
 
 closed_until_cost_model_changes:
   - private_worker_local_primary_TTs
   - blind_root_branch_parallelism
+  - static_exact_full_window_frontier_fanout
   - PVS_default
   - MTD_f_default
-  - WDL_threshold_default
-  - forcing_speculative_ETC
-  - full_state_edge_cache
   - generic_history_killer
   - branchy_lazy_mover_transition
+  - fixed_worker_count_from_logical_CPU_count
   - fixed_lookahead_depth_as_universal_constant
 
-later_after_online_parallel_runtime:
-  - native_thread_affinity_provider_for_measured_PE_roles
-  - exact_cleanup_chunk_geometry_and_safe_reuse_protocol
-  - standard_7x6_empty_root_WDL_wall_clock
-  - reflection_and_residual_automorphism
-  - quotient_native_proof_cost_or_NN_ordering
-  - actual_BSFP_boundary_build_publication_query_cost
-  - hybrid_confluence_wall_clock_comparison
-
-promotion_gates:
-  - exact_WDL_root_and_action_semantics
-  - complete_bounded_graph_equivalence_for_representation_changes
-  - standard_7x6_rank_growth_checkpoint_identity_for_online_runtime
-  - shared_TT_races_cannot_manufacture_false_bounds
-  - comparable_full_memory_accounting
-  - worker_and_depth_policy_selected_by_measurement_not_constants
-  - no_false_exact_TT_or_BSFP_hits
-  - actual_standard_7x6_solve_required_before_production_performance_claim
-  - actual_BSFP_cost_required_before_hybrid_performance_claim
-
 non_claims:
-  - no_standard_7x6_empty_root_solve_performance_yet
-  - no_production_native_PE_affinity_yet
-  - no_fixed_depth_2_or_3_or_4_claim_for_standard_7x6
-  - no_online_7x6_shared_TT_dedup_runtime_qualification_yet
+  - no_standard_7x6_empty_root_wall_clock_result_yet
+  - no_production_PE_core_affinity_provider_yet
+  - no_fixed_standard_7x6_worker_count_or_split_depth
+  - online_dedup_reconciliation_is_not_yet_maintenance_owned
   - no_end_to_end_hybrid_speedup_claim
