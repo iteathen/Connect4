@@ -1,11 +1,23 @@
-schema_version: 16
+schema_version: 17
 updated: 2026-09-11
 state: quotient_negamax_online_parallel_research
 canonical_branch: research/semantic-quotient
 
+authority:
+  domain: docs/specs/C4-0001-domain-v1.md
+  solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  repository_context: AGENT_LOCAL.md
+  current_state: STATUS.md
+
 mission:
   objective: solve_standard_7x6_connect4_exactly_with_quotient_native_WDL_negamax
   semantic_equivalence: action_labeled_future_behavior_equivalence
+
+pre_alpha:
+  released_compatibility_contract: false
+  evolution_rule: rename_replace_or_delete_unreleased_implementation_directly_and_update_current_consumers
+  preserve: research_findings_and_evidence_with_continuing_information_value
+  do_not_preserve: obsolete_executable_architecture_as_compatibility_baggage
 
 ownership:
   quotient_state_space:
