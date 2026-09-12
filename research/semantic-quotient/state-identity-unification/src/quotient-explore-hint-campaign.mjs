@@ -1,4 +1,4 @@
-import { createLiveLineMoveOrder, EMPTY_OCCUPANCY } from './quotient-live-line-move-order.mjs';
+import { createLiveLineMoveOrder } from './quotient-live-line-move-order.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
 import {
@@ -8,8 +8,8 @@ import {
 
 const SPEC = Object.freeze({ columns: 4, rows: 5, connect: 4 });
 const STANDARD_SPEC = Object.freeze({ columns: 7, rows: 6, connect: 4 });
-const STANDARD_CENTER_ORDER = Object.freeze([3, 2, 4, 1, 5, 0, 6]);
 const EXPECTED_STANDARD_ROOT_VALUES = Object.freeze([3, 4, 5, 7, 5, 4, 3]);
+const EXPECTED_STANDARD_ROOT_ORDER = Object.freeze([3, 2, 4, 1, 5, 0, 6]);
 const PREFIX_CLASSES = Number(process.env.PREFIX_CLASSES ?? 4096);
 const EXPLORE_DEPTH = Number(process.env.EXPLORE_DEPTH ?? 3);
 
@@ -18,18 +18,17 @@ function assert(condition, message) {
 }
 
 function qualifyLegacyRootIncidence() {
-  const ordering = createLiveLineMoveOrder(STANDARD_SPEC, STANDARD_CENTER_ORDER);
+  const ordering = createLiveLineMoveOrder(STANDARD_SPEC);
+  const root = ordering.createRootSeed();
   const values = [];
   for (let column = 0; column < STANDARD_SPEC.columns; column += 1) {
-    values[column] = ordering.valueAt(column, EMPTY_OCCUPANCY.p1Lo, EMPTY_OCCUPANCY.p1Hi);
+    values[column] = ordering.valueAtSeed(root, 0, column);
     assert(values[column] === EXPECTED_STANDARD_ROOT_VALUES[column],
       `7x6 root live-line value column ${column}: expected ${EXPECTED_STANDARD_ROOT_VALUES[column]}, got ${values[column]}`);
   }
-  const ordered = STANDARD_CENTER_ORDER
-    .map((column) => ({ column, value: values[column], tieRank: STANDARD_CENTER_ORDER.indexOf(column) }))
-    .sort((left, right) => right.value - left.value || left.tieRank - right.tieRank)
-    .map((entry) => entry.column);
-  assert(ordered.join(',') === STANDARD_CENTER_ORDER.join(','),
+  const ordered = Array.from({ length: STANDARD_SPEC.columns }, (_, column) => column)
+    .sort((left, right) => values[right] - values[left] || left - right);
+  assert(ordered.join(',') === EXPECTED_STANDARD_ROOT_ORDER.join(','),
     `7x6 root incidence order drifted: ${ordered.join(',')}`);
   return Object.freeze({ values: Object.freeze(values), order: Object.freeze(ordered) });
 }
@@ -57,7 +56,7 @@ const unsubscribeExplore = branchManager.subscribeExplore(executor.enqueueExplor
 function assertExploreFragment(fragment, label) {
   assert(fragment.requestedDepth === EXPLORE_DEPTH, `${label}: explore depth drifted`);
   assert(fragment.reachedDepth === EXPLORE_DEPTH, `${label}: explore did not reach requested depth`);
-  assert(fragment.ordering === 'legacy-live-winning-line-incidence', `${label}: wrong move-order authority ${fragment.ordering}`);
+  assert(fragment.ordering === 'dynamic-live-winning-line-frontier', `${label}: wrong move-order authority ${fragment.ordering}`);
   assert(fragment.uniqueStates > 1, `${label}: explore did not discover quotient states`);
   assert(fragment.frontierPaths.length > 0, `${label}: explore did not expose frontier paths`);
   assert(fragment.scoredMoves > 0, `${label}: explore did not score moves`);
@@ -130,11 +129,11 @@ try {
 }
 
 const result = Object.freeze({
-  kind: 'connect4-queued-live-line-explore-v3',
+  kind: 'connect4-queued-live-line-frontier-explore-v4',
   status: 'complete',
   spec: SPEC,
   exploreDepth: EXPLORE_DEPTH,
-  policy: 'Branch Manager queues ExploreHint(path, depth) ahead of demand; idle workers explore by legacy live-winning-line incidence; quotient residual closure remains terminal authority; authoritative work has dispatch priority',
+  policy: 'Branch Manager queues ExploreHint(path, depth) ahead of demand; idle workers carry dynamic live-winning-line frontiers; quotient residual closure remains proof authority; authoritative work has dispatch priority',
   standardRootIncidence,
   exploreOnly,
   mixed,
