@@ -1,43 +1,28 @@
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 
-export const SHARED_Q_ILLEGAL = -2;
-export const SHARED_Q_TERMINAL_WIN = -1;
+export {
+  QN_ILLEGAL as SHARED_Q_ILLEGAL,
+  QN_TERMINAL_WIN as SHARED_Q_TERMINAL_WIN,
+} from './quotient-negamax-domain-contract.mjs';
 
-export const SHARED_LOWER_MASK = 0b00000011;
-export const SHARED_UPPER_MASK = 0b00001100;
-export const SHARED_BEST_MASK = 0b01110000;
-export const SHARED_INITIAL_RECORD = ((1 + 1) << 2) | (7 << 4);
+export {
+  PROOF_LOWER_MASK as SHARED_LOWER_MASK,
+  PROOF_UPPER_MASK as SHARED_UPPER_MASK,
+  HINT_BEST_MOVE_MASK as SHARED_BEST_MASK,
+  INITIAL_SEARCH_RECORD as SHARED_INITIAL_RECORD,
+  proofLower as lowerOfSharedRecord,
+  proofUpper as upperOfSharedRecord,
+  bestMoveHint as bestOfSharedRecord,
+  withProofLower as withSharedLower,
+  withProofUpper as withSharedUpper,
+  withBestMoveHint as withSharedBest,
+  withProofBounds as withSharedBounds,
+} from './quotient-negamax-search-record.mjs';
 
-export function lowerOfSharedRecord(record) {
-  return (record & SHARED_LOWER_MASK) - 1;
-}
-
-export function upperOfSharedRecord(record) {
-  return ((record & SHARED_UPPER_MASK) >>> 2) - 1;
-}
-
-export function bestOfSharedRecord(record) {
-  const best = (record & SHARED_BEST_MASK) >>> 4;
-  return best === 7 ? -1 : best;
-}
-
-export function withSharedLower(record, value) {
-  return (record & ~SHARED_LOWER_MASK) | ((value + 1) & 3);
-}
-
-export function withSharedUpper(record, value) {
-  return (record & ~SHARED_UPPER_MASK) | (((value + 1) & 3) << 2);
-}
-
-export function withSharedBest(record, best) {
-  return (record & ~SHARED_BEST_MASK) | (((best < 0 ? 7 : best) & 7) << 4);
-}
-
-export function withSharedBounds(record, lower, upper) {
-  return (record & ~(SHARED_LOWER_MASK | SHARED_UPPER_MASK))
-    | ((lower + 1) & 3)
-    | (((upper + 1) & 3) << 2);
-}
+export {
+  createSharedProofArena,
+  resetSharedProofArena,
+} from './quotient-proof-resource-service.mjs';
 
 export function buildSharedQuotientGraph(spec, options = {}) {
   const { kernel } = createSlot64ResidualQuotientKernel(spec, {
@@ -76,19 +61,4 @@ export function buildSharedQuotientGraph(spec, options = {}) {
     tacticalBuffer,
     rankBuffer,
   });
-}
-
-export function createSharedProofArena(stateCount) {
-  const recordBuffer = new SharedArrayBuffer(Uint8Array.BYTES_PER_ELEMENT * stateCount);
-  const record = new Uint8Array(recordBuffer);
-  record.fill(SHARED_INITIAL_RECORD);
-  return Object.freeze({
-    kind: 'connect4-shared-packed-proof-arena-v2',
-    stateCount,
-    recordBuffer,
-  });
-}
-
-export function resetSharedProofArena(arena) {
-  new Uint8Array(arena.recordBuffer).fill(SHARED_INITIAL_RECORD);
 }
