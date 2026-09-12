@@ -25,8 +25,9 @@ function census(spec) {
     if (cell < 32) columnLo[c] |= 1 << cell; else columnHi[c] |= 1 << (cell - 32);
   }
   function deadColumns(id) {
-    const lo = classLo[s.p0Class[id]] | classLo[s.p1Class[id]];
-    const hi = classHi[s.p0Class[id]] | classHi[s.p1Class[id]];
+    const p0Class = s.p0At(id), p1Class = s.p1At(id);
+    const lo = classLo[p0Class] | classLo[p1Class];
+    const hi = classHi[p0Class] | classHi[p1Class];
     return Array.from({ length: spec.columns }, (_, c) => !(lo & columnLo[c]) && !(hi & columnHi[c]));
   }
   function path(id) {
@@ -40,7 +41,8 @@ function census(spec) {
   let witness = null;
   for (let id = s.count - 1; id >= 0; id--) {
     const dead = deadColumns(id), liveHeights = [], neutral = [], signature = [];
-    let rest = s.support[id], capacity = 0, best = -1, legal = 0;
+    const supportIndex = s.supportAt(id), p0Class = s.p0At(id), p1Class = s.p1At(id);
+    let rest = supportIndex, capacity = 0, best = -1, legal = 0;
     for (let c = 0; c < spec.columns; c++) {
       const height = rest % (spec.rows + 1); rest = Math.floor(rest / (spec.rows + 1));
       if (dead[c]) { capacity += spec.rows - height; liveHeights.push('-'); }
@@ -53,18 +55,18 @@ function census(spec) {
       if (!dead[c]) signature.push(`${c}:${child === QN_TERMINAL_WIN ? 'W' : keys[child]}`);
       if (dead[c]) {
         assert.ok(child >= 0);
-        assert.equal(s.p0Class[child], s.p0Class[id]);
-        assert.equal(s.p1Class[child], s.p1Class[id]);
+        assert.equal(s.p0At(child), p0Class);
+        assert.equal(s.p1At(child), p1Class);
         neutral.push({ column: c, child });
       }
     }
     values[id] = legal ? best : 0;
     if (neutral.length) signature.push(`N:${keys[neutral[0].child]}`);
     const transitionSignature = JSON.stringify(signature);
-    const key = `${s.p0Class[id]}/${s.p1Class[id]}|${capacity}|${liveHeights.join(',')}`;
+    const key = `${p0Class}/${p1Class}|${capacity}|${liveHeights.join(',')}`;
     keys[id] = key;
     const unresolved = k.tacticalCode(id) === TACTICAL_NONE && k.frontierBoundCode(id) !== FRONTIER_BOUND_DRAW;
-    if (k.classes.isEmpty(s.p0Class[id]) && k.classes.isEmpty(s.p1Class[id])) {
+    if (k.classes.isEmpty(p0Class) && k.classes.isEmpty(p1Class)) {
       bilateralExhausted++;
       assert.equal(values[id], 0);
     }
@@ -84,8 +86,8 @@ function census(spec) {
         equivalentNeutralEdges++;
       }
       if (unresolved && values[id] !== 0 && (!witness || path(id).length < witness.path.length)) {
-        witness = { path: path(id), stateId: id, supportIndex: s.support[id], p0Class: s.p0Class[id],
-          p1Class: s.p1Class[id], value: values[id], neutralCapacity: capacity,
+        witness = { path: path(id), stateId: id, supportIndex, p0Class, p1Class,
+          value: values[id], neutralCapacity: capacity,
           choices: neutral.map(({ column, child }) => ({ column, child, value: -values[child] || 0 })) };
       }
     }
@@ -97,9 +99,9 @@ function census(spec) {
   const solver = createQuotientNegamaxEngine({
     columns: k.columns, cellCount: k.cellCount, rootId: k.rootId, centerOrder: k.centerOrder,
     proofStore: k.proofStore,
-    rankAt: id => k.supportAccess.rankAt(s.support[id]),
-    isLegal: (id, c) => k.supportAccess.landingAt(s.support[id], c) !== 255,
-    landingCellAt: (id, c) => k.supportAccess.landingAt(s.support[id], c),
+    rankAt: id => k.supportAccess.rankAt(s.supportAt(id)),
+    isLegal: (id, c) => k.supportAccess.landingAt(s.supportAt(id), c) !== 255,
+    landingCellAt: (id, c) => k.supportAccess.landingAt(s.supportAt(id), c),
     tacticalCode: k.tacticalCode, frontierBoundCode: k.frontierBoundCode, frontierOrder: k.frontierOrder,
     transition(id, column) {
       transitionCalls++; visited.add(id);
@@ -107,7 +109,7 @@ function census(spec) {
       if (dead[column]) {
         neutralTransitionCalls++;
         neutralActionsVisited.set(id, (neutralActionsVisited.get(id) ?? 0) | (1 << column));
-        if (dead.filter((yes, c) => yes && k.supportAccess.landingAt(s.support[id], c) !== 255).length > 1) neutralCallsWithEquivalentSibling++;
+        if (dead.filter((yes, c) => yes && k.supportAccess.landingAt(s.supportAt(id), c) !== 255).length > 1) neutralCallsWithEquivalentSibling++;
       }
       return k.advance(id, column);
     },
