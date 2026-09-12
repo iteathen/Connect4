@@ -2,7 +2,7 @@ import { availableParallelism } from 'node:os';
 import { performance } from 'node:perf_hooks';
 import { createSharedTtGraphSearcher } from './quotient-shared-tt-search-lib.mjs';
 import {
-  startDedupOwner,
+  startMaintenanceHost,
   startSearchWorkers,
   runRootColumns,
 } from './quotient-shared-worker-pool.mjs';
@@ -45,14 +45,14 @@ function runSequential(shared) {
   });
 }
 
-const dedup = await startDedupOwner(SPEC, PREFIX_CLASSES);
-const shared = Object.freeze({ spec: SPEC, graph: dedup.published.graph, arena: dedup.published.arena });
+const maintenance = await startMaintenanceHost(SPEC, PREFIX_CLASSES);
+const shared = Object.freeze({ spec: SPEC, graph: maintenance.published.graph, arena: maintenance.published.arena });
 assert(shared.graph.stateCount === 294593, `canonical q-state mismatch: ${shared.graph.stateCount}`);
 assert(shared.graph.residualClassCount === 69707, `residual-class mismatch: ${shared.graph.residualClassCount}`);
 
 const sequentialRuns = [];
 for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-  await dedup.reset();
+  await maintenance.reset();
   const run = runSequential(shared);
   assertResult(run, 'sequential');
   sequentialRuns.push(run);
@@ -63,17 +63,17 @@ for (const requested of REQUESTED) {
   const count = Math.max(1, Math.min(requested, SPEC.columns, availableParallelism()));
   const workers = await startSearchWorkers(count, shared);
   try {
-    await dedup.reset();
+    await maintenance.reset();
     const warmup = await runRootColumns(workers, shared.graph.centerOrder);
     assertResult(warmup, `${count}-worker warmup`);
 
     const runs = [];
     for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-      await dedup.reset();
+      await maintenance.reset();
       const run = await runRootColumns(workers, shared.graph.centerOrder);
       assertResult(run, `${count}-worker`);
       runs.push(run);
-      await dedup.cleanup();
+      await maintenance.cleanup();
     }
     workerResults.push(Object.freeze({
       requested,
@@ -89,27 +89,27 @@ for (const requested of REQUESTED) {
   }
 }
 
-await dedup.cleanup();
-await dedup.worker.terminate();
+await maintenance.cleanup();
+await maintenance.worker.terminate();
 
 const summary = Object.freeze({
-  kind: 'connect4-shared-tt-dedup-worker-v1',
+  kind: 'connect4-shared-proof-workers-v2',
   status: 'complete',
   spec: SPEC,
   repeats: REPEATS,
   availableParallelism: availableParallelism(),
   ownership: Object.freeze({
-    canonicalStateDedup: 'dedup-cleanup-worker',
-    proofArenaLifecycle: 'dedup-cleanup-worker',
+    maintenanceHost: 'work-plan-and-proof-resource-services',
     recursiveSearch: 'search-workers',
-    hotLoopDedupBookkeeping: false,
+    proofPublication: 'shared-proof-store',
+    hotLoopMaintenanceRpc: false,
     sharedProofBytesPerState: 1,
   }),
   graph: Object.freeze({
     stateCount: shared.graph.stateCount,
     residualClassCount: shared.graph.residualClassCount,
     edgeCount: shared.graph.edgeCount,
-    buildMs: dedup.published.stats.buildMs,
+    buildMs: maintenance.published.stats.buildMs,
   }),
   sequential: Object.freeze({
     solveMsMedian: median(sequentialRuns.map((run) => run.solveMs)),
@@ -119,5 +119,5 @@ const summary = Object.freeze({
   workers: workerResults,
 });
 
-console.error(`SHARED_TT_DEDUP_SUMMARY=${JSON.stringify(summary)}`);
+console.error(`SHARED_PROOF_WORKER_SUMMARY=${JSON.stringify(summary)}`);
 console.log(JSON.stringify(summary, null, 2));
