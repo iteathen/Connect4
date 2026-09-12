@@ -92,3 +92,60 @@ jobs:
           node research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs "$RUNNER_TEMP/connect4-legacy-source"
       - name: Measure paired bounded response closure
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs
+
+  timing:
+    name: Observe six-second bounded timing
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run source-attributed six-second timing probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          result="$RUNNER_TEMP/connect4-six-second-result.json"
+          stderr="$RUNNER_TEMP/connect4-six-second-stderr.txt"
+          timing="$RUNNER_TEMP/connect4-six-second-time.txt"
+
+          set +e
+          /usr/bin/time -f 'elapsed_seconds=%e\nuser_seconds=%U\nsystem_seconds=%S\nmax_rss_kib=%M' -o "$timing" \
+            node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-bounded-search.mjs \
+              --columns 7 --rows 6 --connect 4 --depth 8 --timeout-ms 6000 --memory-mib 2048 \
+              > "$result" 2> "$stderr"
+          status=$?
+          set -e
+
+          printf 'source_sha=%s\n' "$GITHUB_SHA"
+          printf 'runner_image=ubuntu-24.04\n'
+          printf 'node_version=%s\n' "$(node --version)"
+          printf 'bounded_depth=8\nchild_budget_ms=6000\nexit_status=%s\n' "$status"
+          cat "$timing"
+          cat "$result"
+          if [[ -s "$stderr" ]]; then cat "$stderr" >&2; fi
+
+          {
+            echo '### Six-second bounded timing probe'
+            echo
+            echo "- Source SHA: \`$GITHUB_SHA\`"
+            echo '- Runner image: `ubuntu-24.04`'
+            echo "- Node: \`$(node --version)\`"
+            echo '- Domain: `7x6 connect-4`'
+            echo '- Bounded depth: `8`'
+            echo '- Child-process budget: `6000 ms`'
+            echo "- Exit status: \`$status\` (`124` means the six-second budget was reached)"
+            echo
+            echo '```text'
+            cat "$timing"
+            echo '```'
+            echo
+            echo '```json'
+            cat "$result"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$status" -ne 0 && "$status" -ne 124 ]]; then
+            exit "$status"
+          fi
