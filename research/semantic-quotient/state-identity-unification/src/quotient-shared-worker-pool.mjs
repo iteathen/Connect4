@@ -57,9 +57,6 @@ export async function startMaintenanceHost(spec, prefixClasses = 4096) {
   });
 }
 
-// Historical research alias. New code should use the execution-role name.
-export const startDedupOwner = startMaintenanceHost;
-
 export async function startSearchWorkers(count, shared) {
   const workers = [];
   const ready = [];
