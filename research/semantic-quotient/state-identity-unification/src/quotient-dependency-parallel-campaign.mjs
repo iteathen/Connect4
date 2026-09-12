@@ -102,6 +102,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
           { splitDepth, priorityAt },
         );
         const warmValue = await warmEngine.solveRoot();
+        await executor.drain();
         assert(warmValue === 0, `warmup workers=${workerCount} depth=${splitDepth}: expected draw, got ${warmValue}`);
       }
 
@@ -119,10 +120,11 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         );
         const started = performance.now();
         const value = await engine.solveRoot();
+        await executor.drain();
         const elapsedMs = performance.now() - started;
         assert(value === 0, `workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
         const executorStats = executor.stats();
-        assert(executorStats.active === 0 && executorStats.queued === 0, 'executor retained active work after solve');
+        assert(executorStats.active === 0 && executorStats.queued === 0 && executorStats.pending === 0, 'executor retained work after solve');
         runs.push(Object.freeze({
           elapsedMs,
           shallowExpanded: engine.metrics.shallowExpanded,
@@ -147,6 +149,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         { splitDepth, priorityAt },
       );
       const actions = await actionEngine.rootActionValues();
+      await executor.drain();
       assertActions(actions, `workers=${workerCount} depth=${splitDepth}`);
 
       results.push(Object.freeze({
@@ -166,6 +169,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
       }));
     }
   } finally {
+    await executor.drain();
     executor.close();
     await Promise.all(workers.map((worker) => worker.terminate()));
   }
