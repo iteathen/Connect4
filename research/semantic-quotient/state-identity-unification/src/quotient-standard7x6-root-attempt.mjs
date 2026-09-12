@@ -77,10 +77,11 @@ function processMemory() {
 
 function progressSnapshot() {
   return Object.freeze({
-    kind: 'connect4-standard7x6-frontier-root-progress-v3',
+    kind: 'connect4-standard7x6-frontier-root-progress-v4',
     status,
     elapsedMs: performance.now() - attemptStarted,
     rootWdl,
+    rootResolvedMs,
     tt: ttView?.stats() ?? null,
     executor: executor?.stats() ?? null,
     coordinator: coordinatorKernel
@@ -104,6 +105,14 @@ function progressSnapshot() {
 async function drainProofWork() {
   if (coordinator) await coordinator.engine.drainBackground();
   if (executor) await executor.drain();
+}
+
+function recordResolvedRoot(value) {
+  rootWdl = assertWdlValue(value, 'standard 7x6 root result');
+  rootResolvedMs = performance.now() - attemptStarted;
+  if (rootWdl !== EXPECTED_ROOT_WDL) {
+    throw new Error(`standard 7x6 root oracle mismatch: expected ${EXPECTED_ROOT_WDL}, got ${rootWdl}`);
+  }
 }
 
 try {
@@ -152,25 +161,21 @@ try {
     await coordinator.engine.search(coordinatorKernel.rootId, 0, 1),
     'standard 7x6 win-threshold result',
   );
-  await drainProofWork();
   if (first >= 1) {
-    rootWdl = 1;
+    recordResolvedRoot(1);
   } else {
     status = 'searching-draw-threshold';
     const second = assertWdlValue(
       await coordinator.engine.search(coordinatorKernel.rootId, -1, 0),
       'standard 7x6 draw-threshold result',
     );
-    await drainProofWork();
-    rootWdl = second >= 0 ? 0 : -1;
-  }
-  assertWdlValue(rootWdl, 'standard 7x6 root result');
-  rootResolvedMs = performance.now() - attemptStarted;
-  if (rootWdl !== EXPECTED_ROOT_WDL) {
-    throw new Error(`standard 7x6 root oracle mismatch: expected ${EXPECTED_ROOT_WDL}, got ${rootWdl}`);
+    recordResolvedRoot(second >= 0 ? 0 : -1);
   }
 
+  // Authoritative threshold completion above is the exact proof time. Detached scouts
+  // remain sound proof producers but are lifecycle cleanup, not a prerequisite for the result.
   status = 'quiescing';
+  console.error(`STANDARD7X6_ROOT_RESOLVED=${JSON.stringify({ rootWdl, rootResolvedMs })}`);
   await drainProofWork();
   quiescentMs = performance.now() - attemptStarted;
 } catch (error) {
@@ -209,7 +214,7 @@ try {
 }
 
 const summary = Object.freeze({
-  kind: 'connect4-standard7x6-frontier-dependency-root-attempt-v3',
+  kind: 'connect4-standard7x6-frontier-dependency-root-attempt-v4',
   status,
   spec: SPEC,
   expectedRootWdl: EXPECTED_ROOT_WDL,
@@ -232,6 +237,7 @@ const summary = Object.freeze({
     forcedTransit: 'macro_normalized_before_decision_depth',
     sharedProofAdmission: 'probe_without_allocation_then_generation_stable_read_or_rebind_on_publication',
     siblingCompletion: 'incremental_completion_order_with_noninterrupting_detach_after_cutoff',
+    rootProofTiming: 'authoritative_threshold_completion_before_detached_quiescence',
     autonomousExploration: false,
   }),
   tt: ttView?.stats() ?? null,
