@@ -24,17 +24,17 @@ function parsePositiveIntegerList(raw, label) {
   const parts = raw.split(',').map((value) => value.trim());
   if (parts.length === 0 || parts.some((value) => value.length === 0)) throw new Error(`${label} contains an empty entry`);
   const values = parts.map(Number);
-  if (values.some((value) => !Number.isInteger(value) || value < 1)) {
-    throw new Error(`${label} must contain only positive integers`);
+  if (values.some((value) => !Number.isSafeInteger(value) || value < 1)) {
+    throw new Error(`${label} must contain only positive safe integers`);
   }
   return Object.freeze(values);
 }
 
 const DEPTHS = parsePositiveIntegerList(process.env.SPLIT_DEPTHS ?? '2,3,4', 'SPLIT_DEPTHS');
 const REQUESTED_WORKERS = parsePositiveIntegerList(process.env.WORKER_COUNTS ?? '1,2,3,4', 'WORKER_COUNTS');
-assert(Number.isInteger(REPEATS) && REPEATS >= 1, 'REPEATS must be positive');
-assert(Number.isInteger(PREFIX_CLASSES) && PREFIX_CLASSES >= 1, 'PREFIX_CLASSES must be positive');
-assert(Number.isInteger(PRIORITY_PROBE_DEPTH) && PRIORITY_PROBE_DEPTH >= 0 && PRIORITY_PROBE_DEPTH <= SPEC.columns * SPEC.rows, 'PRIORITY_PROBE_DEPTH out of range');
+assert(Number.isSafeInteger(REPEATS) && REPEATS >= 1, 'REPEATS must be positive');
+assert(Number.isSafeInteger(PREFIX_CLASSES) && PREFIX_CLASSES >= 1, 'PREFIX_CLASSES must be positive');
+assert(Number.isSafeInteger(PRIORITY_PROBE_DEPTH) && PRIORITY_PROBE_DEPTH >= 0 && PRIORITY_PROBE_DEPTH <= SPEC.columns * SPEC.rows, 'PRIORITY_PROBE_DEPTH out of range');
 assert(DEPTHS.every((depth) => depth <= SPEC.columns * SPEC.rows), 'SPLIT_DEPTHS exceeds board cell count');
 
 function median(values) {
@@ -126,8 +126,11 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         const elapsedMs = performance.now() - started;
         assert(value === 0, `workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
         const executorStats = executor.stats();
+        const coordinatorStats = coordinator.stats();
         assert(executorStats.active === 0 && executorStats.queued === 0 && executorStats.pending === 0, 'executor retained work after solve');
         assert(executorStats.poisoned === false, 'executor became poisoned during successful solve');
+        assert(coordinatorStats.representativePaths === coordinator.metrics.pathsStored, 'coordinator path diagnostics drifted');
+        assert(coordinatorStats.priorityMemoEntries >= 0, 'coordinator priority memo diagnostics drifted');
         runs.push(Object.freeze({
           rootResolvedMs,
           elapsedMs,
@@ -145,8 +148,8 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
           proofAdmissions: coordinator.engine.metrics.proofAdmissions,
           coordinatorStates: coordinatorKernel.states.count,
           coordinatorClasses: coordinatorKernel.classes.size,
-          coordinatorPaths: coordinator.metrics.pathsStored,
-          priorityMemoEntries: coordinator.estimateMemo.size,
+          coordinatorPaths: coordinatorStats.representativePaths,
+          priorityMemoEntries: coordinatorStats.priorityMemoEntries,
           priorityMemoDrops: coordinator.metrics.priorityMemoDrops,
         }));
       }
@@ -195,7 +198,7 @@ const baseline = Object.freeze({
 });
 const ranked = [...results].sort((a, b) => a.rootResolvedMsMedian - b.rootResolvedMsMedian || a.elapsedMsMedian - b.elapsedMsMedian);
 const summary = Object.freeze({
-  kind: 'connect4-online-frontier-dependency-parallel-negamax-v4',
+  kind: 'connect4-online-frontier-dependency-parallel-negamax-v5',
   status: 'complete',
   spec: SPEC,
   repeats: REPEATS,
@@ -204,7 +207,8 @@ const summary = Object.freeze({
   completeGlobalGraphRequiredByRecursiveSearch: false,
   canonicalProofIdentity: 'exact_semantic_descriptor',
   coordinatorImplementation: 'createOnlineDependencyCoordinator',
-  ordering: 'dynamic_live_winning_line_frontier',
+  coordinatorDiagnostics: 'immutable_stats_snapshot',
+  ordering: 'dynamic_live_winning_line_frontier_with_proof_hint_equal_score_tiebreak',
   forcedTransit: 'macro_normalized_before_decision_depth',
   sharedProofAdmission: 'probe_without_allocation_then_generation_stable_read_or_rebind_on_publication',
   siblingCompletion: 'incremental_completion_order_with_noninterrupting_detach_after_cutoff',
