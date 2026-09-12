@@ -21,6 +21,33 @@ Start with:
 - `SEMANTIC_QUOTIENT_RESEARCH.md`
 - `docs/research/2026-09-10-minimum-description-semantic-quotient.md`
 
+## Frontier-native exact forward solver research
+
+**Branch:** `research/frontier-negamax-conformance`
+
+Owns the exact forward W/D/L solver/control lane that consumes the accepted support/residual quotient plus frontier/CPC/WSL/NDC facts and resolves remaining decisions with Negamax. This is not authority for redefining the underlying game or structural mathematics.
+
+Current work includes:
+
+- exact semantic shared-proof identity and generation-safe replacement;
+- dynamic live-line frontier ordering and exact local frontier bounds;
+- forced-response macro normalization;
+- dependency-aware sibling scouts with incremental completion and detached obsolete work;
+- Branch Manager autonomous bounded exploration;
+- standard-7x6 proof-entry, descriptor-term, worker-memory and resource-lifetime qualification.
+
+Start with:
+
+- `STATUS.md`
+- `next_step.yaml`
+- `docs/specs/C4-0010-quotient-native-negamax-v1.md`
+- `docs/research/2026-09-11-7x6-replacement-term-lifetime.md`
+- `docs/research/2026-09-11-7x6-worker-descriptor-retention.md`
+- `docs/research/2026-09-11-7x6-proof-term-lifetime.md`
+- `docs/research/2026-09-11-worker-residual-descriptor-ownership.md`
+
+The current standard-7x6 measurement is intentionally evidence-driven: do not duplicate an active root run or turn an observed capacity/lifetime symptom into a blind capacity increase.
+
 ## Minimax / alpha-beta research
 
 **Branch:** `solver/minimax-alpha-beta`  
@@ -120,6 +147,8 @@ Do not claim those original full packets are present merely because their conclu
 When a new experiment asks **what the exact game state is**, put the research on `research/semantic-quotient`.
 
 When it asks **how alpha-beta should search an already-defined state**, put it on `solver/minimax-alpha-beta`.
+
+When it asks **how the frontier-native exact forward solver should consume an already-defined state and exact structural facts**, put it on `research/frontier-negamax-conformance`.
 
 When it asks **how BSFP should compute/propagate an already-defined symbolic state**, put it on the BSFP/OQS lane.
 
