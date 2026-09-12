@@ -1,16 +1,17 @@
-name: Quotient standard 7x6 root attempt
+name: Quotient standard 7x6 frontier root attempt
 
 on:
   push:
     branches:
-      - research/semantic-quotient
+      - research/frontier-negamax-conformance
     paths:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-attempt.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-coordinator.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-*.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-maintenance-worker.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-*.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
       - '.github/workflows/semantic-quotient-standard7x6-root-attempt.yml'
   workflow_dispatch:
 
@@ -28,7 +29,7 @@ env:
 
 jobs:
   solve:
-    name: Attempt exact standard 7x6 root WDL
+    name: Attempt exact standard 7x6 frontier root WDL
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -36,7 +37,7 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Run online dependency-aware root attempt
+      - name: Run corrected frontier dependency root attempt
         run: >-
           node --expose-gc --max-old-space-size=6144
           research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-attempt.mjs
