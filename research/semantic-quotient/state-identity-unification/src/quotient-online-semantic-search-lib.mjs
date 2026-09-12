@@ -23,7 +23,7 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   let cachedHandle = -1;
 
   function descriptor(stateId) {
-    return descriptorCache.stateDescriptor(stateId);
+    return descriptorCache.hotStateDescriptor(stateId);
   }
 
   function rememberHandle(stateId, handle) {
