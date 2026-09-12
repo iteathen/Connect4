@@ -9,6 +9,7 @@ import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mj
 import {
   createSemanticSharedTtArena,
   createSemanticSharedTtView,
+  resetSemanticSharedTtArena,
 } from './quotient-semantic-shared-tt.mjs';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 
@@ -70,6 +71,48 @@ function runStaleHandleControl() {
   assert.ok(proofs.metrics.stalePublications >= 1, 'stale publication was not rejected');
 
   return Object.freeze({ staleHandle, replacementHandle, tt: stats, proofStore: Object.freeze({ ...proofs.metrics }) });
+}
+
+function runPoisonedInstallControl() {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 1, associativity: 1, termCapacity: 8 });
+  const tt = createSemanticSharedTtView(arena);
+  const proofs = createPackedProofStore(arena);
+  const initial = syntheticDescriptor(7000, 2);
+  const oversizedReplacement = syntheticDescriptor(7001, 6);
+  const oldHandle = tt.ensure(initial);
+  proofs.publishExact(oldHandle, 0, 1);
+
+  assert.throws(
+    () => tt.ensure(oversizedReplacement),
+    /semantic TT term arena exhausted/,
+    'oversized replacement did not fail at bounded term capacity',
+  );
+  const status = new Int32Array(arena.statusBuffer);
+  assert.equal(status[0], arena.slotStates.poisoned, 'failed replacement did not poison its physical slot');
+  assert.equal(tt.probe(initial), -1, 'poisoned slot exposed its previous descriptor');
+  assert.equal(tt.probe(oversizedReplacement), -1, 'poisoned slot exposed its failed replacement descriptor');
+  assert.equal(proofs.lower(oldHandle), -1, 'poisoned old handle did not degrade to default lower bound');
+  assert.equal(proofs.upper(oldHandle), 1, 'poisoned old handle did not degrade to default upper bound');
+  assert.throws(
+    () => tt.ensure(initial),
+    /poisoned slot/,
+    'poisoned bucket remained writable before quiescent reset',
+  );
+
+  const poisonedStats = tt.stats();
+  assert.equal(poisonedStats.poisonedInstalls, 1, 'failed replacement poison telemetry drifted');
+  resetSemanticSharedTtArena(arena);
+  assert.equal(status[0], arena.slotStates.empty, 'quiescent reset did not clear poisoned slot');
+  const reboundHandle = tt.ensure(initial);
+  assert.notEqual(reboundHandle, oldHandle, 'reset allowed stale generation handle aliasing');
+  assert.equal(tt.probe(initial), reboundHandle, 'descriptor was not re-admitted after poison reset');
+
+  return Object.freeze({
+    oldHandle,
+    reboundHandle,
+    poisonedStats,
+    recoveredStats: tt.stats(),
+  });
 }
 
 function runSlotChunkGrowthControl() {
@@ -206,14 +249,16 @@ async function runConstrainedGameControl() {
 }
 
 const staleHandleControl = runStaleHandleControl();
+const poisonedInstallControl = runPoisonedInstallControl();
 const slotChunkGrowthControl = runSlotChunkGrowthControl();
 const constrainedGameControl = await runConstrainedGameControl();
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-replacement-qualification-v6',
+  kind: 'connect4-semantic-proof-replacement-qualification-v7',
   status: 'complete',
-  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, slot-owned extension chunks, direct canonical residual materialization, transient hot descriptors, and separate semantic/proof state ownership',
+  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, poisoned failed installs, quiescent poison recovery, slot-owned extension chunks, direct canonical residual materialization, transient hot descriptors, and separate semantic/proof state ownership',
   staleHandleControl,
+  poisonedInstallControl,
   slotChunkGrowthControl,
   constrainedGameControl,
 });
