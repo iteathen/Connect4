@@ -1,5 +1,6 @@
 import { parentPort, workerData } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
+import { exploreQuotientPath } from './quotient-explore-path.mjs';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic-search-lib.mjs';
 
@@ -25,10 +26,25 @@ function deltaMetrics(before) {
 
 parentPort.postMessage({ type: 'ready', workerId: workerData.workerId });
 parentPort.on('message', (message) => {
-  if (message?.type !== 'solve-path' && message?.type !== 'search-path') return;
-  const before = snapshotMetrics();
+  if (message?.type !== 'solve-path' && message?.type !== 'search-path' && message?.type !== 'explore-path') return;
   const started = performance.now();
   try {
+    if (message.type === 'explore-path') {
+      const fragment = exploreQuotientPath(kernel, message.path, message.depth);
+      parentPort.postMessage({
+        type: 'explore-result',
+        taskId: message.taskId,
+        hintId: message.hintId,
+        workerId: workerData.workerId,
+        elapsedMs: performance.now() - started,
+        fragment,
+        localStates: kernel.states.count,
+        localClasses: kernel.classes.size,
+      });
+      return;
+    }
+
+    const before = snapshotMetrics();
     const solved = message.type === 'search-path'
       ? searcher.searchPath(message.path, message.alpha, message.beta)
       : searcher.solvePath(message.path);
@@ -50,6 +66,7 @@ parentPort.on('message', (message) => {
     parentPort.postMessage({
       type: 'error',
       taskId: message.taskId,
+      hintId: message.hintId ?? null,
       workerId: workerData.workerId,
       plannerStateId: message.plannerStateId ?? null,
       message: error instanceof Error ? error.stack ?? error.message : String(error),
