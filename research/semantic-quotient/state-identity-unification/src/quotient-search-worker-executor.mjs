@@ -27,6 +27,17 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     exploreFailed: 0,
     workerTasks: Array(workers.length).fill(0),
   };
+  const workerResources = Array.from({ length: workers.length }, () => ({
+    localStatesHighWater: 0,
+    localClassesHighWater: 0,
+    localTypedBytesHighWater: 0,
+    descriptorStateBuildsHighWater: 0,
+    descriptorClassBuildsHighWater: 0,
+    descriptorTermIdsCachedHighWater: 0,
+    isolateHeapUsedHighWater: 0,
+    isolateExternalHighWater: 0,
+    isolateArrayBuffersHighWater: 0,
+  }));
 
   function isDrained() {
     return queue.length === 0
@@ -55,6 +66,38 @@ export function createSearchWorkerExecutor(workers, options = {}) {
         notifyDrained();
       });
     sideEffects.add(tracked);
+  }
+
+  function observeWorkerResources(workerIndex, message) {
+    const resource = workerResources[workerIndex];
+    if (!resource || !message || message.type === 'error') return;
+    resource.localStatesHighWater = Math.max(resource.localStatesHighWater, message.localStates ?? 0);
+    resource.localClassesHighWater = Math.max(resource.localClassesHighWater, message.localClasses ?? 0);
+    resource.localTypedBytesHighWater = Math.max(resource.localTypedBytesHighWater, message.localTypedBytes ?? 0);
+    resource.descriptorStateBuildsHighWater = Math.max(
+      resource.descriptorStateBuildsHighWater,
+      message.descriptorCache?.stateBuilds ?? 0,
+    );
+    resource.descriptorClassBuildsHighWater = Math.max(
+      resource.descriptorClassBuildsHighWater,
+      message.descriptorCache?.classBuilds ?? 0,
+    );
+    resource.descriptorTermIdsCachedHighWater = Math.max(
+      resource.descriptorTermIdsCachedHighWater,
+      message.descriptorCache?.termIdsCached ?? 0,
+    );
+    resource.isolateHeapUsedHighWater = Math.max(
+      resource.isolateHeapUsedHighWater,
+      message.isolateMemory?.heapUsed ?? 0,
+    );
+    resource.isolateExternalHighWater = Math.max(
+      resource.isolateExternalHighWater,
+      message.isolateMemory?.external ?? 0,
+    );
+    resource.isolateArrayBuffersHighWater = Math.max(
+      resource.isolateArrayBuffersHighWater,
+      message.isolateMemory?.arrayBuffers ?? 0,
+    );
   }
 
   function reorderQueue() {
@@ -102,6 +145,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   function settleWorker(worker, workerIndex, message) {
     const active = busy.get(worker);
     if (!active || message?.taskId !== active.taskId) return;
+    observeWorkerResources(workerIndex, message);
     busy.delete(worker);
     const slot = { worker, workerIndex };
 
@@ -219,6 +263,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       pending: pending.size,
       backgroundSideEffects: sideEffects.size,
       workerTasks: Object.freeze([...metrics.workerTasks]),
+      workerResources: Object.freeze(workerResources.map((resource) => Object.freeze({ ...resource }))),
     });
   }
 
