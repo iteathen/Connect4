@@ -19,7 +19,10 @@ export function createPackedProofStore(recordBuffer) {
 
   function load(slot) {
     metrics.reads += 1;
-    return Atomics.load(records, slot);
+    // Same-width shared-byte reads are non-tearing. A stale sound proof only
+    // causes extra search work; publication uses CAS so stronger proof facts
+    // cannot be lost by a competing writer.
+    return records[slot];
   }
 
   function update(slot, transform) {
@@ -36,9 +39,12 @@ export function createPackedProofStore(recordBuffer) {
     }
   }
 
-  function bounds(slot) {
-    const record = load(slot);
-    return Object.freeze({ lower: proofLower(record), upper: proofUpper(record) });
+  function lower(slot) {
+    return proofLower(load(slot));
+  }
+
+  function upper(slot) {
+    return proofUpper(load(slot));
   }
 
   function bestMove(slot) {
@@ -49,10 +55,10 @@ export function createPackedProofStore(recordBuffer) {
     return update(slot, (record) => {
       const currentLower = proofLower(record);
       const currentUpper = proofUpper(record);
-      const lower = Math.max(currentLower, value);
-      const upper = Math.min(currentUpper, value);
-      if (lower > upper) throw new Error(`contradictory exact proof publication at slot ${slot}`);
-      let next = withProofBounds(record, lower, upper);
+      const nextLower = Math.max(currentLower, value);
+      const nextUpper = Math.min(currentUpper, value);
+      if (nextLower > nextUpper) throw new Error(`contradictory exact proof publication at slot ${slot}`);
+      let next = withProofBounds(record, nextLower, nextUpper);
       if (bestMoveValue >= 0) next = withBestMoveHint(next, bestMoveValue);
       return next;
     });
@@ -60,10 +66,10 @@ export function createPackedProofStore(recordBuffer) {
 
   function publishLower(slot, value, bestMoveValue = -1) {
     return update(slot, (record) => {
-      const lower = Math.max(proofLower(record), value);
-      const upper = proofUpper(record);
-      if (lower > upper) throw new Error(`contradictory lower proof publication at slot ${slot}`);
-      let next = withProofLower(record, lower);
+      const nextLower = Math.max(proofLower(record), value);
+      const currentUpper = proofUpper(record);
+      if (nextLower > currentUpper) throw new Error(`contradictory lower proof publication at slot ${slot}`);
+      let next = withProofLower(record, nextLower);
       if (bestMoveValue >= 0) next = withBestMoveHint(next, bestMoveValue);
       return next;
     });
@@ -71,10 +77,10 @@ export function createPackedProofStore(recordBuffer) {
 
   function publishUpper(slot, value, bestMoveValue = -1) {
     return update(slot, (record) => {
-      const lower = proofLower(record);
-      const upper = Math.min(proofUpper(record), value);
-      if (lower > upper) throw new Error(`contradictory upper proof publication at slot ${slot}`);
-      let next = withProofUpper(record, upper);
+      const currentLower = proofLower(record);
+      const nextUpper = Math.min(proofUpper(record), value);
+      if (currentLower > nextUpper) throw new Error(`contradictory upper proof publication at slot ${slot}`);
+      let next = withProofUpper(record, nextUpper);
       if (bestMoveValue >= 0) next = withBestMoveHint(next, bestMoveValue);
       return next;
     });
@@ -90,7 +96,8 @@ export function createPackedProofStore(recordBuffer) {
   }
 
   return Object.freeze({
-    bounds,
+    lower,
+    upper,
     bestMove,
     publishExact,
     publishLower,
