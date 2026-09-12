@@ -1,7 +1,7 @@
 import { availableParallelism } from 'node:os';
 import { performance } from 'node:perf_hooks';
 import {
-  startMaintenanceHost,
+  startBranchManager,
   startSearchWorkers,
   runLookaheadTasks,
 } from './quotient-shared-worker-pool.mjs';
@@ -32,14 +32,14 @@ function assertReduction(reduced, label) {
   }
 }
 
-const maintenance = await startMaintenanceHost(SPEC, PREFIX_CLASSES);
-const shared = Object.freeze({ spec: SPEC, graph: maintenance.published.graph, arena: maintenance.published.arena });
+const branchManager = await startBranchManager(SPEC, PREFIX_CLASSES);
+const shared = Object.freeze({ spec: SPEC, graph: branchManager.published.graph, arena: branchManager.published.arena });
 assert(shared.graph.stateCount === 294593, `q-state mismatch ${shared.graph.stateCount}`);
 assert(shared.graph.residualClassCount === 69707, `class mismatch ${shared.graph.residualClassCount}`);
 
 const plans = [];
 for (const depth of DEPTHS) {
-  const built = await maintenance.buildPlan(depth, PROBE_DEPTH);
+  const built = await branchManager.buildPlan(depth, PROBE_DEPTH);
   plans.push(Object.freeze({
     depth,
     planId: built.planId,
@@ -57,18 +57,18 @@ for (const requested of WORKER_COUNTS) {
   const workers = await startSearchWorkers(count, shared);
   try {
     for (const plan of plans) {
-      await maintenance.reset();
+      await branchManager.reset();
       const warmTasks = await runLookaheadTasks(workers, plan.tasks);
-      const warmReduced = await maintenance.reducePlan(plan.planId, warmTasks.frontierValues);
+      const warmReduced = await branchManager.reducePlan(plan.planId, warmTasks.frontierValues);
       assertReduction(warmReduced, `warmup depth=${plan.depth} workers=${count}`);
 
       const runs = [];
       for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-        await maintenance.reset();
+        await branchManager.reset();
         const started = performance.now();
         const taskRun = await runLookaheadTasks(workers, plan.tasks);
         const reduceStarted = performance.now();
-        const reduced = await maintenance.reducePlan(plan.planId, taskRun.frontierValues);
+        const reduced = await branchManager.reducePlan(plan.planId, taskRun.frontierValues);
         const reduceMs = performance.now() - reduceStarted;
         const totalMs = performance.now() - started;
         assertReduction(reduced, `depth=${plan.depth} workers=${count} repeat=${repeat}`);
@@ -82,7 +82,7 @@ for (const requested of WORKER_COUNTS) {
           ttBound: taskRun.metrics.ttBoundReturns ?? 0,
           workerTaskCounts: taskRun.workerTaskCounts,
         }));
-        await maintenance.cleanup();
+        await branchManager.cleanup();
       }
 
       workerResults.push(Object.freeze({
@@ -106,9 +106,9 @@ for (const requested of WORKER_COUNTS) {
   }
 }
 
-for (const plan of plans) await maintenance.releasePlan(plan.planId);
-await maintenance.cleanup();
-await maintenance.worker.terminate();
+for (const plan of plans) await branchManager.releasePlan(plan.planId);
+await branchManager.cleanup();
+await branchManager.worker.terminate();
 
 const ranked = [...workerResults].sort((a, b) => a.totalMsMedian - b.totalMsMedian);
 const summary = Object.freeze({

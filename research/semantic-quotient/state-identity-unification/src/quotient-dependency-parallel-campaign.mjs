@@ -9,7 +9,7 @@ import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mj
 import { estimateQuotientWork } from './quotient-lookahead-work-dag.mjs';
 import { createSharedTtGraphSearcher } from './quotient-shared-tt-search-lib.mjs';
 import {
-  startMaintenanceHost,
+  startBranchManager,
   startSearchWorkers,
 } from './quotient-shared-worker-pool.mjs';
 
@@ -56,18 +56,18 @@ function assertActions(actions, label) {
   }
 }
 
-const maintenance = await startMaintenanceHost(SPEC, PREFIX_CLASSES);
+const branchManager = await startBranchManager(SPEC, PREFIX_CLASSES);
 const shared = Object.freeze({
   spec: SPEC,
-  graph: maintenance.published.graph,
-  arena: maintenance.published.arena,
+  graph: branchManager.published.graph,
+  arena: branchManager.published.arena,
 });
 assert(shared.graph.stateCount === 294593, `q-state mismatch ${shared.graph.stateCount}`);
 assert(shared.graph.residualClassCount === 69707, `residual-class mismatch ${shared.graph.residualClassCount}`);
 
 const baselineRuns = [];
 for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-  await maintenance.reset();
+  await branchManager.reset();
   const searcher = createSharedTtGraphSearcher(shared, { etc: true, workerSalt: 0 });
   const started = performance.now();
   const value = searcher.solveRoot();
@@ -90,7 +90,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
       const estimateMemo = new Map();
       const priorityAt = (stateId) => estimateQuotientWork(shared.graph, stateId, PRIORITY_PROBE_DEPTH, estimateMemo);
 
-      await maintenance.reset();
+      await branchManager.reset();
       {
         const proofStore = createPackedProofStore(shared.arena.recordBuffer);
         const port = createGraphPort(shared, proofStore);
@@ -108,7 +108,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
 
       const runs = [];
       for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-        await maintenance.reset();
+        await branchManager.reset();
         const proofStore = createPackedProofStore(shared.arena.recordBuffer);
         const port = createGraphPort(shared, proofStore);
         const engine = createDependencyAwareQuotientNegamaxEngine(
@@ -138,7 +138,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         }));
       }
 
-      await maintenance.reset();
+      await branchManager.reset();
       const proofStore = createPackedProofStore(shared.arena.recordBuffer);
       const port = createGraphPort(shared, proofStore);
       const actionEngine = createDependencyAwareQuotientNegamaxEngine(
@@ -175,8 +175,8 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
   }
 }
 
-await maintenance.cleanup();
-await maintenance.worker.terminate();
+await branchManager.cleanup();
+await branchManager.worker.terminate();
 
 const baseline = Object.freeze({
   elapsedMsMedian: median(baselineRuns.map((run) => run.elapsedMs)),
