@@ -1,23 +1,13 @@
 # Connect4 Semantic-Quotient Research Status
 
 **Updated:** 2026-09-11  
-**Canonical branch:** `research/semantic-quotient`  
-**State:** quotient-native exactness, standard-7x6 rank-8 scaling, shared-proof worker value, and online semantic-TT identity are qualified research results; dependency-aware parallel Negamax remains the next implementation seam.
+**Canonical branch:** `research/semantic-quotient`
 
-## Repository role
+## Current objective
 
-This branch is a Connect4 exact-solver research lane. It owns Connect Four quotient semantics, comparative evidence, and candidate forward-solver behavior. It is not the production solver branch and it does not own generic runtime/CPU-topology mechanisms merely because the research prototype currently contains them.
-
-Product lanes remain separate:
-
-- historical `solver/minimax-alpha-beta`;
-- `solver/cuda-bsfp`;
-- `solver/hybrid-confluence`;
-- future quotient-native forward solver only after the standard-7x6 implementation is sufficiently established.
+Solve standard 7x6 Connect Four exactly with quotient-native W/D/L Negamax while preserving exact Connect Four semantics and minimizing proof work, memory traffic, and synchronization cost.
 
 ## Exact quotient state
-
-The future-relevant state is:
 
 ```text
 q = supportIndex
@@ -27,94 +17,100 @@ q = supportIndex
 sideToMove = rank(supportIndex) & 1
 ```
 
-The recursive solver does not require a colored physical board as its machine state.
-
 Complete bounded controls checked 1,681,808 physical states with zero projection, transition, terminal, strong-score, per-action-score, BSFP W/D/L, or reverse-closure mismatches.
 
-Reachable quotient-state counts remain:
-
-| Geometry | q states |
+| Geometry | reachable q states |
 | --- | ---: |
 | 4x3 c3 | 3,735 |
 | 4x4 c4 | 34,095 |
 | 5x3 c4 | 11,317 |
 | 4x5 c4 | 294,593 |
 
-## Current quotient representation
-
-The strongest scalable representation chain is:
+## Current representation
 
 ```text
-packed support descriptor
+packed support
 + exact term-ID residual ontology
-+ slot64 persistent residual classes
++ slot64 residual classes
 + direct opponent-block filtering
 ```
 
-Standard 7x6 has an exact residual vocabulary of 625 terms, requiring 10 bits per term ID.
-
-At the qualified rank-8 growth checkpoint:
+Standard 7x6:
 
 ```text
-q states:          797,388
-residual classes: 1,357,101
-rank-9 frontier:    538,774
-typed bytes:    118,099,719
-residual bytes:  86,493,624
+residual vocabulary:     625 terms
+term ID width:            10 bits
+rank-8 q states:         797,388
+rank-8 residual classes: 1,357,101
+rank-9 frontier:         538,774
+rank-8 typed bytes:      118,099,719
 ```
 
-The slot64 representation substantially reduced the target-scale memory pressure relative to the earlier term-list form while preserving exact state/class checkpoints.
-
-## Bounded forward performance
-
-The governing fair physical comparison remains the term-ID quotient versus exact physical-board W/D/L Negamax under conservative memory accounting.
-
-Largest complete bounded proxy, 4x5 c4:
+## Current ownership
 
 ```text
-quotient: 10.183 ms, 15,054 expansions
-physical: 13.400 ms, 36,826 expansions
-```
+quotient state space
+    transition semantics
+    tactical closure
+    canonical semantic identity
 
-Thus the quotient remains the preferred forward-state representation on current evidence.
+Negamax engine
+    recursive W/D/L alpha-beta policy
+    proof-window dependency semantics
+    move-order consumption
 
-## Parallel search result
-
-Private worker-local TTs were a negative result because proof work was duplicated.
-
-With one shared exact proof arena on the complete 4x5 quotient graph:
-
-```text
-sequential root split: 6.7476 ms, 31,174 expansions
-2 shared-TT workers:   3.2893 ms, 25,532 expansions
-```
-
-Parallelism therefore became useful only after workers shared exact proof knowledge.
-
-The worker architecture now distinguishes:
-
-```text
-search workers
-    recursive Negamax only
-    local fast quotient execution state
-
-maintenance execution host
-    work-planner service
-    proof-resource lifecycle service
-    future dedup/reclamation services
-
-shared exact proof store
-    monotone W/D/L bound publication
+proof store
+    packed proof record
+    monotone lower/upper publication
     advisory best-move hint
+
+semantic TT
+    exact descriptor storage
+    addressing and collision-checked lookup
+
+work planner
+    shallow work structure
+    task estimation/order
+    plan lifecycle
+
+proof resources
+    shared arena allocation/reset
+
+maintenance worker
+    execution host for maintenance-side services
+
+search workers
+    recursive Negamax
+    worker-local quotient transition state
 ```
 
-The maintenance worker is an execution location, not the semantic owner of every service it hosts.
+Current source owners:
 
-## Online semantic identity
+- `quotient-negamax-domain-contract.mjs`
+- `quotient-semantic-identity.mjs`
+- `quotient-negamax-engine.mjs`
+- `quotient-negamax-search-record.mjs`
+- `quotient-packed-proof-store.mjs`
+- `quotient-semantic-shared-tt.mjs`
+- `quotient-work-plan-service.mjs`
+- `quotient-proof-resource-service.mjs`
+- `quotient-maintenance-worker.mjs`
 
-Workers no longer need globally identical local qIDs or residual-class IDs.
+The current slot64 solver path consumes the separate Negamax engine instead of defining another active copy of search policy.
 
-The shared semantic identity is:
+## Shared proof semantics
+
+Shared proof publication is monotone. Concurrent writers merge stronger W/D/L bounds with atomic compare/exchange. Best-move information is advisory and cannot erase stronger proof facts.
+
+Reads remain allocation-free and may observe stale-but-sound proof information; that can cause extra work but cannot create a false proof.
+
+## Worker model
+
+Search workers do not perform per-node RPC to the maintenance worker.
+
+The maintenance host owns execution of planning/resource services. It does not become the semantic owner of the services it hosts.
+
+Workers may use different local qIDs and residual-class IDs. Shared semantic identity is:
 
 ```text
 supportIndex
@@ -122,71 +118,48 @@ supportIndex
 + exact sorted P1 residual term sequence
 ```
 
-Hash words are addressing aids only. Candidate TT matches are accepted only after exact descriptor comparison, so hash collisions cannot produce false proof hits.
+Hash equality alone is never semantic equality; descriptor content is compared exactly.
 
-The online semantic worker campaign reproduced exact root draw and all root-action draws while recursive search used local quotient kernels rather than the complete precompiled graph.
+## Performance evidence
 
-That campaign also produced an important scheduler rejection: solving every shallow frontier state as an independent full-window exact task roughly doubled proof work. The semantic-TT bridge is retained; static full-window frontier fanout is not.
+Fair 4x5 physical control:
 
-## Current Negamax alignment
+```text
+quotient: 10.183 ms, 15,054 expansions
+physical: 13.400 ms, 36,826 expansions
+```
 
-The 2026-09-11 compliance pass made the current research code better match the governing LEGO → SOLID → CUPID → KISS hierarchy without adding new process machinery.
+Shared-proof bounded worker control:
 
-Current explicit owners:
+```text
+sequential root split: 6.7476 ms, 31,174 expansions
+2 shared-proof workers: 3.2893 ms, 25,532 expansions
+```
 
-- `quotient-negamax-domain-contract.mjs` — quotient transition/tactical codes and meanings;
-- `quotient-semantic-identity.mjs` — canonical semantic descriptor shape and hashing;
-- `quotient-negamax-search-record.mjs` — packed proof/hint record meaning;
-- `quotient-packed-proof-store.mjs` — monotone shared proof publication;
-- `quotient-semantic-shared-tt.mjs` — exact descriptor storage/probing mechanics;
-- `quotient-work-plan-service.mjs` — work-plan lifecycle;
-- `quotient-proof-resource-service.mjs` — shared proof-resource lifecycle;
-- `quotient-shared-dedup-worker.mjs` — execution host/composition adapter for maintenance-side services;
-- Negamax search modules — recursive search policy.
+The online semantic-TT campaign also reproduced the exact root/action result with worker-local quotient IDs and no complete global qID graph inside recursive search.
 
-The shared proof store now uses atomic compare/exchange to merge stronger lower/upper proof facts without letting a concurrent hint publication erase stronger proof information.
+## Current scheduler direction
 
-## Known boundary debt
+Static full-window solving of every shallow frontier state is rejected because it destroys useful alpha-beta dependency information and substantially increases proof work.
 
-The compliance pass intentionally did not disguise unresolved boundaries:
-
-1. `quotient-native-negamax-support-layout-kernel.mjs` still carries historical local copies of quotient/tactical code constants. They agree with the new domain contract but have not yet been mechanically collapsed into it.
-2. The single-thread packed-record research kernel still carries historical local record helper functions instead of consuming the centralized record contract.
-3. The online semantic TT still performs exact `findOrCreate` insertion from search workers. This qualified the semantic identity bridge, but it does not yet match the intended model where the maintenance side owns dedup reconciliation while recursive search remains maintenance-blind.
-4. CPU topology/affinity calibration in this branch is research scaffolding. Consumer-neutral runtime/resource discovery belongs below Connect4; generic search-session capacity belongs in the generic search/session layer.
-
-These are implementation-alignment issues, not reasons to invalidate the already-qualified quotient mathematics or experiment results.
-
-## Current next seam
-
-Build the dependency-aware parallel Negamax work tree.
-
-The scheduler must preserve alpha-beta dependency semantics:
+The current target is dependency-aware parallel Negamax:
 
 ```text
 preferred child first
     -> establish parent bound
-    -> expose only dependency-satisfied sibling proof work
-    -> shared proof reuse
-    -> stop or ignore obsolete siblings after cutoff
+    -> release dependency-satisfied sibling work
+    -> share exact proof facts
+    -> stop or ignore obsolete sibling work after cutoff
 ```
 
-The lookahead depth and active search-worker count remain measured properties of the actual hardware and position. Earlier 3-4-ply results remain plausible standard-7x6 candidates, while the tiny 4x5 control preferred depth 2.
+Worker count and lookahead depth are measured at initialization/presearch rather than fixed constants. Depth 3-4 remains the expected standard-7x6 candidate range until measured otherwise.
 
-## Evidence limits
+## Open work
 
-Current evidence supports:
+- move online semantic dedup reconciliation to the maintenance side without per-node RPC;
+- provide consumer-neutral CPU/thread affinity and measured search-capacity services below Connect4;
+- implement dependency-aware parallel Negamax work scheduling;
+- solve the standard 7x6 empty root and measure wall clock;
+- include actual BSFP boundary cost before making a hybrid performance claim.
 
-- exact quotient semantics on complete bounded controls;
-- quotient-native bounded wall-clock advantage over the physical control;
-- standard-7x6 rank-8 representation scaling checkpoints;
-- useful shared-proof worker parallelism on bounded controls;
-- exact semantic-content TT sharing across worker-local quotient IDs.
-
-Current evidence does not yet establish:
-
-- standard-7x6 empty-root solve wall clock;
-- a universal worker count or lookahead depth;
-- production P-core/E-core affinity placement;
-- maintenance-owned online dedup reconciliation;
-- end-to-end hybrid speedup including real BSFP boundary costs.
+CPU-topology code currently present in this branch is research-only. Generic runtime/resource discovery belongs to CUDA-JS; generic search-session capacity belongs to CUDA-MCGS.
