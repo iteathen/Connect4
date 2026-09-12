@@ -1,17 +1,28 @@
-schema_version: 17
+schema_version: 18
 updated: 2026-09-11
-state: quotient_negamax_online_parallel_research
+state: quotient_negamax_frontier_conformance_repair
 canonical_branch: research/semantic-quotient
 
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
-  solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
+  strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
+  forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  owner_research_synthesis: docs/research/2026-09-09-owner-searchless-connect4-findings.md
   repository_context: AGENT_LOCAL.md
   current_state: STATUS.md
 
+required_research_for_frontier_changes:
+  - docs/research/2026-09-09-universal-strategic-algebra.md
+  - docs/research/2026-09-09-nested-strategic-dependency-closure.md
+  - docs/research/2026-09-09-searchless-solver-hypothesis.md
+  - docs/research/2026-09-09-backward-winline-fixed-point.md
+  - docs/research/2026-09-09-terminal-boundary-qualification.md
+
 mission:
-  objective: solve_standard_7x6_connect4_exactly_with_quotient_native_WDL_negamax
-  semantic_equivalence: action_labeled_future_behavior_equivalence
+  objective: solve_standard_7x6_connect4_exactly_with_frontier_native_forward_WDL_negamax
+  role_of_negamax: exact_forward_solver_and_control_consumer_of_shared_connect4_frontier_math
+  do_not_reframe_as: conventional_board_engine_with_frontier_heuristics
 
 pre_alpha:
   released_compatibility_contract: false
@@ -19,104 +30,132 @@ pre_alpha:
   preserve: research_findings_and_evidence_with_continuing_information_value
   do_not_preserve: obsolete_executable_architecture_as_compatibility_baggage
 
+structural_model:
+  stack:
+    - geometric_winning_line_axioms
+    - support_and_future_event_frontier
+    - CPC_control_parity_event_precedence_and_race
+    - WSL_625_requirements_and_blockers
+    - NDC_nested_dependency_closure
+    - solver_specific_exact_proof_procedure
+  forward_quotient_projection:
+    - supportIndex
+    - normalized_P0_residual_requirements
+    - normalized_P1_residual_requirements
+  rule: smaller_forward_projection_does_not_erase_context_required_by_CPC_or_NDC_certificate_validity
+
+CPC:
+  base_target_event_count: "N(t)=(r-h_c+1)+sum_{d!=c}(H-h_d)=(W-1)H-ply+r+1"
+  control: event_rank_parity_relative_to_side_to_move
+  composition: control_preserved_under_reservoir_change_only_when_relevant_Delta_is_even_and_response_resource_event_order_guards_hold
+  forbidden_shortcut: treat_CPC_as_static_row_parity_or_drop_frontier_events_without_parity_accounting
+
 ownership:
-  quotient_state_space:
+  structural_math:
     owns:
-      - support_and_residual_state_meaning
-      - legal_transition_semantics
-      - tactical_closure_semantics
-      - canonical_semantic_descriptor
-    contracts:
-      - research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs
-      - research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs
+      - residual_requirement_and_blocker_meaning
+      - minimal_antichain_semantics
+      - CPC_control_parity_and_event_reservoir_semantics
+      - exhaustion_meaning
+    authority: docs/specs/C4-0006-control-parity-and-winspace-v1.md
+
+  NDC:
+    owns:
+      - nested_certificate_dependency_meaning
+      - response_resource_and_race_premises
+      - blocker_certification_context
+      - fixed_point_fact_propagation
+    authority: docs/specs/C4-0007-nested-dependency-closure-v1.md
+
+  forward_state_space:
+    owns:
+      - exact_forward_projection_implementation
+      - legal_transition_realization
+      - cheap_local_tactical_projection
+      - canonical_forward_semantic_descriptor
+    rule: does_not_redefine_CPC_WSL_or_NDC
 
   negamax_engine:
     owns:
-      - recursive_WDL_negamax
+      - recursive_WDL_proof_policy_over_unresolved_decisions
       - alpha_beta_dependency_semantics
+      - consumption_of_exact_frontier_closure
       - move_order_consumption
     source: research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs
 
   proof_store:
     owns:
-      - packed_proof_record_semantics
-      - monotone_shared_bound_publication
-      - best_move_hint_publication
+      - monotone_WDL_bound_publication
+      - exact_value_publication
+      - advisory_move_hint_publication
     sources:
       - research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs
 
   semantic_tt:
     owns:
-      - exact_descriptor_storage
-      - hash_addressing
-      - exact_collision_checked_lookup
-      - fixed_arena_capacity
+      - exact_descriptor_storage_and_collision_checked_lookup
+      - fixed_arena_lifecycle
+    current_problem: allocate_on_read_and_admit_every_touched_state
     source: research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs
 
-  work_planner:
-    owns:
-      - shallow_work_structure
-      - task_estimation_and_order
-      - plan_lifecycle
-    sources:
-      - research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs
-      - research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs
-
-  proof_resources:
-    owns:
-      - shared_proof_arena_allocation
-      - semantic_TT_arena_allocation
-      - reset_lifecycle
-    source: research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs
-
-  maintenance_worker:
-    role: execution_host
-    hosts:
-      - work_planner
-      - proof_resources
-      - future_dedup_reconciliation
-      - future_reclamation
-    source: research/semantic-quotient/state-identity-unification/src/quotient-maintenance-worker.mjs
+  branch_manager:
+    role: execution_host_for_proactive_frontier_work_supply_and_background_services
+    rule: workers_do_not_request_and_wait
+    desired_ready_order:
+      - authoritative_dependency_qualified_work
+      - queued_frontier_exploration
+      - idle
+    current_source: research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs
 
   search_workers:
-    role: execution_hosts
+    role: non_interruptible_active_task_execution
     run:
-      - recursive_negamax
+      - exact_forward_negamax_tasks
+      - frontier_exploration_tasks
       - worker_local_quotient_transition_state
-    rule: no_per_node_RPC_to_maintenance_worker
+    rule: no_per_node_RPC_to_Branch_Manager
 
-current_representation:
-  support: packed
-  residuals: term_ID_plus_slot64
-  standard_7x6_term_vocabulary: 625
-  standard_7x6_rank8_q_states: 797388
-  standard_7x6_rank8_residual_classes: 1357101
-  standard_7x6_rank9_frontier: 538774
-  standard_7x6_rank8_typed_bytes: 118099719
+frontier_ordering:
+  legacy_live_line_value: count_original_geometric_win_lines_through_cell_with_no_opponent_stone
+  opponent_stone_effect: permanently_cancels_that_line_for_that_player
+  own_stone_effect: does_not_cancel_line_value
+  empty_7x6_vector_is_test_only: [3, 4, 5, 7, 5, 4, 3]
+  required_form: incremental_player_relative_live_line_frontier_or_proved_equivalent
+  not_semantic_identity: true
+  remove_as_defaults_unless_measured:
+    - static_center_order
+    - reverse_order_by_worker_salt
+    - generic_history_killer
 
 current_evidence:
   complete_bounded_physical_states_checked: 1681808
   quotient_exactness_mismatches: 0
-  fair_4x5_quotient_ms: 10.183
-  fair_4x5_physical_ms: 13.400
-  fair_4x5_quotient_expansions: 15054
-  fair_4x5_physical_expansions: 36826
-  shared_proof_two_worker_ms: 3.2893
-  shared_proof_sequential_root_split_ms: 6.7476
-  online_semantic_identity_exact: true
+  standard_7x6_rank8_q_states: 797388
+  standard_7x6_rank8_residual_classes: 1357101
+  standard_7x6_rank9_frontier: 538774
+  shared_semantic_identity_exact: true
+  root_attempt_2_TT_entries_before_failure: 8388608
+  root_attempt_2_interpretation: touched_and_interned_states_under_allocate_on_read_not_required_proof_retention
 
 current:
-  primary_action: dependency_aware_parallel_negamax_work_tree
-  shape:
-    - preferred_child_first
-    - establish_parent_bound
-    - release_only_dependency_satisfied_sibling_work
-    - shared_exact_semantic_TT
-    - coarse_task_synchronization
-    - stop_or_ignore_obsolete_sibling_work_after_cutoff
-  standard_7x6_depth_candidates: [3, 4]
-  worker_count_and_depth: measure_at_initialization_or_presearch
+  primary_action: make_forward_execution_conform_to_CPC_WSL_NDC_frontier_model_before_next_root_attempt
+  ordered_work:
+    - finish_Branch_Manager_rename_and_remove_obsolete_maintenance_worker_references
+    - replace_representative_board_reconstruction_with_incremental_live_line_frontier
+    - make_authoritative_Negamax_ordering_frontier_native
+    - preserve_CPC_event_reservoir_parity_under_frontier_compression_and_release
+    - consume_exact_one_sided_exhaustion_bounds
+    - collapse_forced_response_chains_and_apply_decision_state_proof_admission
+    - split_semantic_TT_probe_from_allocation_and_remeasure_retained_proof_pressure
+    - make_Branch_Manager_self_replenishing_with_bounded_semantic_seen_state
+    - consume_sibling_proof_completions_incrementally_without_interrupting_workers
+    - rerun_standard_7x6_root_only_after_above_execution_assumptions_are_removed
+
+known_open_mathematics:
+  - complete_cheap_U1_U2_NDC_forward_integration_is_not_established
+  - response_policy_alternative_resolution_may_require_more_than_GF2_monotone_closure
+  - strategic_certificate_reuse_requires_complete_context_identity_when_not_derivable_from_forward_q
 
 hardware_profile:
   connect4_consumes: measured_search_capacity
@@ -124,19 +163,12 @@ hardware_profile:
   generic_runtime_owner: CUDA-JS
   generic_search_session_owner: CUDA-MCGS
 
-known_open_work:
-  - move_online_semantic_dedup_reconciliation_to_maintenance_side_without_per_node_RPC
-  - provide_consumer_neutral_thread_affinity_resource_provider
-  - run_standard_7x6_empty_root_solve
-  - compare_real_BSFP_boundary_cost_before_hybrid_speed_claim
-
-rejected_for_current_cost_model:
+rejected_or_not_default:
   - private_worker_local_primary_TTs
   - blind_root_branch_parallelism
   - static_full_window_frontier_fanout
-  - PVS_default
-  - MTD_f_default
   - generic_history_killer
-  - branchy_lazy_mover_transition
   - fixed_worker_count_from_logical_CPU_count
-  - fixed_lookahead_depth
+  - fixed_split_depth_as_semantic_work_definition
+  - static_center_first_as_frontier_policy
+  - row_parity_as_substitute_for_CPC_control_invariant
