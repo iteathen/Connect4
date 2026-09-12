@@ -34,6 +34,19 @@ export async function startOnlineBranchManager(spec, options = {}) {
       },
     },
   });
+
+  const readyExplore = [];
+  const exploreListeners = new Set();
+  const onQueuedExplore = (message) => {
+    if (message?.type !== 'explore-hint-queued' || !message.hint) return;
+    if (exploreListeners.size === 0) {
+      readyExplore.push(message.hint);
+      return;
+    }
+    for (const listener of exploreListeners) listener(message.hint);
+  };
+  worker.on('message', onQueuedExplore);
+
   const published = await new Promise((resolve, reject) => {
     const onMessage = (message) => {
       if (message?.type !== 'published') return;
@@ -49,20 +62,29 @@ export async function startOnlineBranchManager(spec, options = {}) {
     worker.on('error', onError);
   });
   if (!published.semanticArena) throw new Error('Branch Manager did not publish semantic TT arena');
+
+  function subscribeExplore(listener) {
+    if (typeof listener !== 'function') throw new TypeError('explore listener must be a function');
+    exploreListeners.add(listener);
+    while (readyExplore.length > 0) listener(readyExplore.shift());
+    return () => exploreListeners.delete(listener);
+  }
+
   return Object.freeze({
     worker,
     published,
+    subscribeExplore,
+    queuedExploreCount: () => readyExplore.length,
     reset: () => oneReply(worker, 'reset-complete', { type: 'reset' }),
     cleanup: () => oneReply(worker, 'cleanup-complete', { type: 'cleanup' }),
     offerExplore: (path, depth) => oneReply(worker, 'explore-hint-offered', {
       type: 'offer-explore-hint', path, depth,
     }),
-    takeExplore: () => oneReply(worker, 'explore-hint', { type: 'take-explore-hint' }),
-    returnExplore: (hintId) => oneReply(worker, 'explore-hint-returned', {
-      type: 'return-explore-hint', hintId,
-    }),
     completeExplore: (hintId, fragment) => oneReply(worker, 'explore-hint-completed', {
       type: 'complete-explore-hint', hintId, fragment,
+    }),
+    abandonExplore: (hintId) => oneReply(worker, 'explore-hint-abandoned', {
+      type: 'abandon-explore-hint', hintId,
     }),
     takeExploreResult: () => oneReply(worker, 'explore-result', { type: 'take-explore-result' }),
     buildPlan: (splitDepth, probeDepth = 2) => oneReply(worker, 'plan-built', {
