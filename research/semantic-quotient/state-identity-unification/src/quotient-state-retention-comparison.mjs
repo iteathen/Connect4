@@ -8,6 +8,8 @@ import { spawnSync } from 'node:child_process';
 
 // Cold, matched proof obligations. Optional baseline is an extracted immutable
 // Git source packet; no old implementation is installed into the candidate.
+// Historical state-hash-removal attribution is frozen in its evidence packet;
+// this maintained harness validates the current state owner's selected layout.
 async function load(base) {
   const kernelUrl = new URL('quotient-native-negamax-slot64-residual-kernel.mjs', base);
   const [{ createSlot64ResidualQuotientKernel }, { createSemanticSharedTtArena }, { createOnlineSemanticQuotientSearcher }] = await Promise.all([
@@ -29,6 +31,33 @@ function run(api, spec) {
     stateMetrics: { ...kernel.states.metrics }, memory: kernel.memoryStats() } };
 }
 function median(xs) { return xs.slice().sort((a, b) => a - b)[Math.floor(xs.length / 2)]; }
+function assertStateStorage(row) {
+  const state = row.memory.state;
+  assert.ok(Number.isSafeInteger(state.identityWords) && (state.identityWords === 2 || state.identityWords === 3),
+    `invalid state identity word count ${state.identityWords}`);
+  assert.ok(Number.isSafeInteger(state.supportBits) && state.supportBits >= 0 && state.supportBits <= 32,
+    `invalid state support width ${state.supportBits}`);
+  assert.ok(Number.isSafeInteger(state.classBits) && state.classBits >= 0 && state.classBits <= 32,
+    `invalid state class width ${state.classBits}`);
+  const expectedWords = state.supportBits + 2 * state.classBits <= 64 ? 2 : 3;
+  assert.equal(state.identityWords, expectedWords, 'state identity layout does not match sealed dimensions');
+  assert.equal(state.stateArrayBytes, 4 * expectedWords * state.stateCapacity,
+    'state payload bytes do not match the selected exact identity layout');
+  return state;
+}
+function assertSameStateIds(before, after) {
+  assert.equal(after.states.count, before.states.count, 'state count drift');
+  if (typeof before.states.writeStateParts !== 'function' || typeof after.states.writeStateParts !== 'function') {
+    throw new TypeError('baseline comparison requires the stable state-owner read surface');
+  }
+  const a = { supportIndex: 0, p0ClassId: 0, p1ClassId: 0 };
+  const b = { supportIndex: 0, p0ClassId: 0, p1ClassId: 0 };
+  for (let id = 0; id < after.states.count; id++) {
+    before.states.writeStateParts(id, a);
+    after.states.writeStateParts(id, b);
+    assert.deepEqual(b, a, `state identity/placement drift at id ${id}`);
+  }
+}
 // A timed child loads exactly one implementation. Sharing timed call sites
 // between separately loaded module graphs can change V8 optimization behavior.
 if (process.argv[2] === '--sample') {
@@ -38,6 +67,7 @@ if (process.argv[2] === '--sample') {
   for (let i = 0; i < 6; i++) {
     const { row } = run(api, spec);
     assert.ok(row.value === 0);
+    assertStateStorage(row);
     if (i >= 3) observations.push(row);
   }
   console.log(JSON.stringify(observations));
@@ -55,12 +85,14 @@ function sample(path, spec) {
 const results = [], batches = baseline ? 3 : 1;
 for (const [columns, rows] of [[4, 5], [5, 4], [4, 6]]) {
   const spec = { columns, rows, connect: 4 }, observations = [];
-  // Untimed, complete backing comparisons include all growth/rehash results.
+  // Untimed complete identity comparisons use only the public state-owner read
+  // surface, so representation changes do not require exposing private arrays.
   if (baseline) {
     const before = run(baseline, spec), after = run(current, spec);
-    for (const field of ['support', 'p0Class', 'p1Class', 'hashSlots']) {
-      assert.deepEqual(after.kernel.states[field], before.kernel.states[field], `state identity/placement drift: ${field}`);
-    }
+    assert.equal(after.row.value, before.row.value);
+    assertStateStorage(after.row);
+    assertStateStorage(before.row);
+    assertSameStateIds(before.kernel, after.kernel);
   }
   for (let batch = 0; batch < batches; batch++) {
     let before, after;
@@ -72,28 +104,27 @@ for (const [columns, rows] of [[4, 5], [5, 4], [4, 6]]) {
   }
   for (const { baseline: before, candidate: after } of observations) {
     assert.ok(after.value === 0); // Negamax's internal draw may be signed zero.
-    const state = after.memory.state;
-    assert.equal(state.stateArrayBytes, 12 * state.stateCapacity);
+    assertStateStorage(after);
     if (before) {
+      assertStateStorage(before);
       assert.equal(after.value, before.value);
       assert.deepEqual(after.metrics, before.metrics);
       assert.deepEqual(after.stateMetrics, before.stateMetrics);
       assert.deepEqual(after.memory.residual, before.memory.residual);
-      assert.equal(before.memory.state.stateArrayBytes - state.stateArrayBytes, 4 * state.stateCapacity);
-      assert.equal(before.memory.totalTypedBytes - after.memory.totalTypedBytes, 4 * state.stateCapacity);
     }
   }
   const summarize = key => {
     const rows = observations.map(r => r[key]).filter(Boolean);
     return rows.length ? { medianSolveMs: median(rows.map(r => r.solveMs)), medianTotalMs: median(rows.map(r => r.totalMs)),
-      calls: rows[0].calls, expanded: rows[0].expanded, stateBytes: rows[0].memory.state.totalTypedBytes,
+      calls: rows[0].calls, expanded: rows[0].expanded, identityWords: rows[0].memory.state.identityWords,
+      stateArrayBytes: rows[0].memory.state.stateArrayBytes, stateBytes: rows[0].memory.state.totalTypedBytes,
       kernelBytes: rows[0].memory.totalTypedBytes } : null;
   };
   results.push({ spec, baseline: summarize('baseline'), candidate: summarize('candidate'), observations });
 }
-const result = { kind: 'derived-state-hash-retention-comparison', node: process.version,
+const result = { kind: 'state-retention-and-identity-comparison', node: process.version,
   baselineSourceSha256: baseline?.sourceSha256 ?? null, candidateSourceSha256: current.sourceSha256,
   processBatches: batches, warmupsPerProcess: 3, measurementsPerProcess: 3, fullStandardRootRun: false,
-  scope: 'one implementation per fresh Node process; cold kernel and semantic TT per observation; alternating process order; exact search metrics and untimed complete state placement compared', results };
+  scope: 'one implementation per fresh Node process; cold kernel and semantic TT per observation; alternating process order; sealed-layout storage contract, exact search metrics and optional complete state-ID identity compared through the state owner', results };
 if (process.argv[3]) await writeFile(process.argv[3], JSON.stringify(result, null, 2) + '\n');
 console.log(JSON.stringify({ ...result, results: results.map(({ observations, ...summary }) => summary) }, null, 2));
