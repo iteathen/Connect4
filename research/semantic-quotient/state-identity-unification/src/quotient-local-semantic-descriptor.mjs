@@ -5,7 +5,6 @@ import {
 
 export function createLocalSemanticDescriptorCache(kernel) {
   const classCache = [];
-  const stateCache = [];
   const metrics = {
     classBuilds: 0,
     classHits: 0,
@@ -29,18 +28,11 @@ export function createLocalSemanticDescriptorCache(kernel) {
   }
 
   function stateDescriptor(stateId) {
-    const prior = stateCache[stateId];
-    if (prior !== undefined) {
-      metrics.stateHits += 1;
-      return prior;
-    }
     const supportIndex = kernel.states.support[stateId];
     const p0 = classDescriptor(kernel.states.p0Class[stateId]);
     const p1 = classDescriptor(kernel.states.p1Class[stateId]);
-    const descriptor = createQuotientSemanticDescriptor(stateId, supportIndex, p0, p1);
-    stateCache[stateId] = descriptor;
     metrics.stateBuilds += 1;
-    return descriptor;
+    return createQuotientSemanticDescriptor(stateId, supportIndex, p0, p1);
   }
 
   return Object.freeze({
