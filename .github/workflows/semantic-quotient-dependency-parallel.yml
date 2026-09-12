@@ -1,0 +1,39 @@
+name: Quotient dependency-aware parallel Negamax
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-tt-search-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-search-worker.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-dependency-parallel-campaign.mjs'
+      - '.github/workflows/semantic-quotient-dependency-parallel.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  REPEATS: '5'
+  SPLIT_DEPTHS: '2,3,4'
+  WORKER_COUNTS: '1,2,3,4'
+  PRIORITY_PROBE_DEPTH: '2'
+  PREFIX_CLASSES: '4096'
+
+jobs:
+  benchmark:
+    name: Compare dependency-aware parallel Negamax
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run exact dependency-aware parallel campaign
+        run: >-
+          node --expose-gc --max-old-space-size=6144
+          research/semantic-quotient/state-identity-unification/src/quotient-dependency-parallel-campaign.mjs
