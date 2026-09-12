@@ -39,7 +39,7 @@ export function createSemanticSharedTtArena(options = {}) {
   new Uint8Array(recordBuffer).fill(INITIAL_SEARCH_RECORD);
 
   return Object.freeze({
-    kind: 'connect4-exact-semantic-shared-tt-v2',
+    kind: 'connect4-exact-semantic-shared-tt-v3',
     entryCapacity,
     termCapacity,
     metaBuffer,
@@ -76,7 +76,9 @@ export function createSemanticSharedTtView(arena) {
   const terms = new Uint16Array(arena.termBuffer);
   const mask = arena.entryCapacity - 1;
   const metrics = {
-    lookups: 0,
+    probes: 0,
+    probeMisses: 0,
+    ensures: 0,
     hits: 0,
     inserts: 0,
     descriptorCompares: 0,
@@ -129,25 +131,62 @@ export function createSemanticSharedTtView(arena) {
     Atomics.notify(status, slot);
   }
 
-  function findOrCreate(descriptor) {
-    metrics.lookups += 1;
+  function waitForPublication(slot) {
+    metrics.publishWaits += 1;
+    Atomics.wait(status, slot, SLOT_PUBLISHING, 1);
+  }
+
+  function probe(descriptor) {
+    metrics.probes += 1;
     let slot = descriptor.hash.lo & mask;
-    let probe = 0;
-    while (probe < arena.entryCapacity) {
+    let distance = 0;
+    while (distance < arena.entryCapacity) {
+      const state = Atomics.load(status, slot);
+      if (state === SLOT_EMPTY) {
+        metrics.probeMisses += 1;
+        if (distance > metrics.maxProbe) metrics.maxProbe = distance;
+        return -1;
+      }
+      if (state === SLOT_PUBLISHING) {
+        waitForPublication(slot);
+        continue;
+      }
+      if (state !== SLOT_READY) throw new Error(`invalid semantic TT slot state ${state}`);
+
+      if (hashLo[slot] === descriptor.hash.lo && hashHi[slot] === descriptor.hash.hi) {
+        if (descriptorEquals(slot, descriptor)) {
+          metrics.hits += 1;
+          if (distance > metrics.maxProbe) metrics.maxProbe = distance;
+          return slot;
+        }
+        metrics.hashCollisions += 1;
+      }
+      slot = (slot + 1) & mask;
+      distance += 1;
+    }
+    metrics.probeMisses += 1;
+    if (distance > metrics.maxProbe) metrics.maxProbe = distance;
+    return -1;
+  }
+
+  function ensure(descriptor) {
+    metrics.ensures += 1;
+    let slot = descriptor.hash.lo & mask;
+    let distance = 0;
+    while (distance < arena.entryCapacity) {
       let state = Atomics.load(status, slot);
       if (state === SLOT_EMPTY) {
         const prior = Atomics.compareExchange(status, slot, SLOT_EMPTY, SLOT_PUBLISHING);
         if (prior === SLOT_EMPTY) {
           publish(slot, descriptor);
-          if (probe > metrics.maxProbe) metrics.maxProbe = probe;
+          if (distance > metrics.maxProbe) metrics.maxProbe = distance;
           return slot;
         }
         state = prior;
       }
 
       if (state === SLOT_PUBLISHING) {
-        metrics.publishWaits += 1;
-        Atomics.wait(status, slot, SLOT_PUBLISHING, 1);
+        waitForPublication(slot);
         continue;
       }
 
@@ -155,13 +194,13 @@ export function createSemanticSharedTtView(arena) {
         if (hashLo[slot] === descriptor.hash.lo && hashHi[slot] === descriptor.hash.hi) {
           if (descriptorEquals(slot, descriptor)) {
             metrics.hits += 1;
-            if (probe > metrics.maxProbe) metrics.maxProbe = probe;
+            if (distance > metrics.maxProbe) metrics.maxProbe = distance;
             return slot;
           }
           metrics.hashCollisions += 1;
         }
         slot = (slot + 1) & mask;
-        probe += 1;
+        distance += 1;
         continue;
       }
 
@@ -180,5 +219,5 @@ export function createSemanticSharedTtView(arena) {
     });
   }
 
-  return Object.freeze({ findOrCreate, records, stats, metrics });
+  return Object.freeze({ probe, ensure, records, stats, metrics });
 }
