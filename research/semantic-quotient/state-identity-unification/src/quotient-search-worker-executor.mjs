@@ -59,6 +59,8 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     descriptorTermArrayObjectsCachedHighWater: 0,
     descriptorClassObjectsCachedHighWater: 0,
     descriptorClassMetadataBytesHighWater: 0,
+    descriptorStateMetadataBytesHighWater: 0,
+    descriptorStateHashCapacityHighWater: 0,
     descriptorScratchBytesHighWater: 0,
     descriptorScratchCapacityHighWater: 0,
     descriptorTermArenaBytesHighWater: 0,
@@ -177,6 +179,8 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     resource.descriptorTermArrayObjectsCachedHighWater = Math.max(resource.descriptorTermArrayObjectsCachedHighWater, counter(message.descriptorCache?.termArrayObjectsCached, 'descriptor term arrays'));
     resource.descriptorClassObjectsCachedHighWater = Math.max(resource.descriptorClassObjectsCachedHighWater, counter(message.descriptorCache?.classDescriptorObjectsCached, 'descriptor class objects'));
     resource.descriptorClassMetadataBytesHighWater = Math.max(resource.descriptorClassMetadataBytesHighWater, counter(message.descriptorCache?.classMetadataBytes, 'descriptor class metadata bytes'));
+    resource.descriptorStateMetadataBytesHighWater = Math.max(resource.descriptorStateMetadataBytesHighWater, counter(message.descriptorCache?.stateMetadataBytes, 'descriptor state metadata bytes'));
+    resource.descriptorStateHashCapacityHighWater = Math.max(resource.descriptorStateHashCapacityHighWater, counter(message.descriptorCache?.stateHashCapacity, 'descriptor state hash capacity'));
     resource.descriptorScratchBytesHighWater = Math.max(resource.descriptorScratchBytesHighWater, counter(message.descriptorCache?.scratchBytes, 'descriptor scratch bytes'));
     resource.descriptorScratchCapacityHighWater = Math.max(resource.descriptorScratchCapacityHighWater, counter(message.descriptorCache?.scratchCapacity, 'descriptor scratch capacity'));
     resource.descriptorTermArenaBytesHighWater = Math.max(resource.descriptorTermArenaBytesHighWater, counter(message.descriptorCache?.termArenaBytes, 'descriptor term arena bytes'));

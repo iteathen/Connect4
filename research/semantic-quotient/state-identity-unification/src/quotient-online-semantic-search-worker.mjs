@@ -8,8 +8,9 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
 if (!parentPort) throw new Error('online semantic search worker requires parentPort');
 
 const { kernel } = createSlot64ResidualQuotientKernel(workerData.spec, {
-  cacheEdges: false,
+  cacheEdges: true,
   prefixClasses: workerData.prefixClasses ?? 4096,
+  searchStorage: workerData.searchStorage,
 });
 const onlineStateStorage = installOnlineOnlyStateStorage(kernel.states);
 const searcher = createOnlineSemanticQuotientSearcher(kernel, workerData.semanticArena, {

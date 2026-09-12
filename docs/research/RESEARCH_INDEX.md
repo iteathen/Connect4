@@ -2,6 +2,50 @@
 
 This file is the routing map for the active Connect4 research corpus.
 
+Continuation context: [conversation summary](2026-09-12-frontier-conversation-summary.md)
+and [handoff prompt](2026-09-12-frontier-optimization-handoff.md).
+
+Latest integrated result: [native identity integration and corrected attribution](2026-09-12-native-key-integration.md),
+smaller state payload, flat depth-8 elapsed time, modestly lower measured CPU and
+74 controls plus six bounded campaigns passing. Earlier regressions are preserved.
+
+Latest representation experiment: [native two-word relational identity](2026-09-12-native-relational-key.md),
+exact local packing and 18.0% faster isolated native lookup; production integration remains.
+
+Latest external benchmark: [Pons protocol, one 60-second W/D/L batch](2026-09-12-pons-protocol-benchmark.md),
+137 correct completed positions, explicit partial-set coverage and fresh setup costs.
+
+Latest optimization: [ranked depth-21 hot-loop pass](2026-09-12-depth21-ranked-optimization.md),
+five qualified units, 52.3% more calls in the fixed profile window, and an
+identical-counter completed depth-8 comparison. Depth 21 remains incomplete.
+
+Latest bounded resource result: [board/depth reservations and timeout-safe profiling](2026-09-12-board-depth-reservation.md),
+with the resized depth-21 timeout and a preserved 55-second source-mapped window.
+
+Latest requested measurement: [depth-21 CPU profile](evidence/2026-09-12-depth21-line-cpu/line-cpu.md),
+stopped by reserved state capacity after 2.268 seconds; 60-second timeout retained.
+
+Latest local identity optimization: [changed-slot class fingerprint](2026-09-12-changed-slot-class-hash.md),
+removing the second tuple traversal with no additional storage, bounded qualification and source-mapped CPU evidence.
+
+Latest identity investigation: [relational positions and direct addressing](2026-09-12-relational-address-investigation.md),
+with actual depth-8 key witnesses, radix layout costs and the changed-slot identity-reuse candidate.
+
+Latest representation result: [compact chunk index](2026-09-12-compact-chunk-index.md),
+preserving full capacity while saving 5 MiB at the measured reservation, with final bounded qualification.
+
+Latest measurement: [chunk probe distribution and accessed footprint](2026-09-12-chunk-probe-distribution.md),
+using isolated counters on the normal depth-8 search, with production source unchanged.
+
+Latest lookup experiments: [chunk transformation reuse and cheaper addressing](2026-09-12-chunk-lookup-experiments.md),
+including two rejected cache layouts and the qualified three-multiplication hash.
+
+Latest descriptor optimization: [composed semantic hash reuse](2026-09-12-state-hash-reuse.md),
+with the rejected writer experiment, exact memory accounting and bounded timing evidence.
+
+Latest local forward-lane optimization: [ranked probe/frontier refinement](2026-09-12-ranked-probe-refinement.md),
+with exactness controls, alternating bounded timings and a frozen-source CPU report.
+
 ## Cross-solver semantic-state research
 
 **Branch:** `research/semantic-quotient`
@@ -22,6 +66,33 @@ Start with:
 - `docs/research/2026-09-10-minimum-description-semantic-quotient.md`
 
 ## Frontier-native exact forward solver research
+
+- [Direct semantic-edge reuse eliminates repeated hash work](2026-09-12-direct-semantic-edge-reuse.md):
+  enables the existing numeric transition table in active workers/harness;
+  91.18% repeated transitions bypass interning, 8.40 to 2.22 seconds in paired
+  depth-8 evidence, with unchanged search/proof work and 7 MiB reserved cost.
+
+- [Preallocated recursive search storage](2026-09-12-preallocated-search-storage.md):
+  initialization reservation/sealing, fixed descriptor scratch, capacity failure
+  controls and zero growth during depth-8 search; memory/timing tradeoff recorded.
+
+- [Ranked hot-loop operation removal](2026-09-12-ranked-hot-loop-optimization.md):
+  first four sampled locations, exact chunk key reuse, TT populated-prefix
+  termination and singleton-free terminal scan elimination; 18.6% observed
+  depth-8 time reduction in alternating cold runs with unchanged proof work.
+
+- [CPU timing mapped to frozen source lines](2026-09-12-line-cpu-profiling.md):
+  reusable bounded profiling runner; 537 mapped locations, raw sample counts,
+  explicit CPU estimates, source snapshots/hashes and exact counter agreement.
+
+- [Direct canonical residual reads](2026-09-12-direct-residual-read.md):
+  removes the mover input copy and duplicate private-cache checks; 23 controls
+  and four bounded campaigns passed, with unchanged depth-8 search counters.
+  The 10.06-second measurement establishes no speedup over 10.04 seconds.
+
+- [Depth-8 normal Negamax operation timings](evidence/2026-09-12-normal-negamax-depth8-profile/operations.md):
+  same-bound CPU sample with exact counter agreement, per-method self/inclusive
+  estimates and retained raw profile; 60-second timeout, no full-root solve.
 
 - [Current hot-path method CPU assessment](2026-09-12-hot-method-cpu-assessment.md):
   per-method optimization assessment, remaining transformations and local CPU samples.

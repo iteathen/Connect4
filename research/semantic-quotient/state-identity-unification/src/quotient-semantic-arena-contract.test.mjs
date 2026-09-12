@@ -6,6 +6,7 @@ import { setTimeout as delay } from 'node:timers/promises';
 import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
 import { createProofResourceService } from './quotient-proof-resource-service.mjs';
 import { createOnlineSemanticQuotientPort } from './quotient-online-semantic-search-lib.mjs';
+import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 import { createSemanticSharedTtArena, createSemanticSharedTtView, resetSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
 
@@ -14,6 +15,122 @@ const fixture = () => {
   const arena = createSemanticSharedTtArena({ entryCapacity: 1, associativity: 1, termCapacity: 64 });
   return { arena, tt: createSemanticSharedTtView(arena), proofs: createPackedProofStore(arena) };
 };
+
+test('semantic tactical forwarding keeps kernel state checks and policy result checks', () => {
+  const domain = { columns: 4, rows: 3, connect: 3 };
+  const k = createSlot64ResidualQuotientKernel(domain, { prefixClasses: 8 }).kernel;
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: domain });
+  const { port } = createOnlineSemanticQuotientPort(k, arena);
+  assert.equal(port.tacticalCode, k.tacticalCode);
+  for (const invalid of [-1, k.states.count, NaN, 0.5, '0']) assert.throws(() => port.tacticalCode(invalid));
+  for (const invalid of [NaN, 0.5, '0', -103, 128]) {
+    const engine = createQuotientNegamaxEngine({ ...port, tacticalCode: () => invalid });
+    assert.throws(() => engine.run(), /tactical/);
+  }
+});
+
+test('nonzero hash mismatch avoids slot acquisition without granting hash equality proof authority', () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 128 });
+  const tt = createSemanticSharedTtView(arena);
+  const first = { ...descriptor(1), hash: { lo: 1, hi: 7 } };
+  const second = { ...descriptor(2), hash: { lo: 2, hi: 7 } };
+  const zero = { ...descriptor(3), hash: { lo: 0, hi: 0 } };
+  const firstHandle = tt.ensure(first), secondHandle = tt.ensure(second);
+  const load = Atomics.load;
+  let firstSlotReads = 0;
+  Atomics.load = (array, index) => {
+    if (index === 0 && (array.buffer === arena.statusBuffer || array.buffer === arena.generationBuffer)) firstSlotReads++;
+    return load(array, index);
+  };
+  try { assert.equal(tt.probe(second), secondHandle); }
+  finally { Atomics.load = load; }
+  assert.equal(firstSlotReads, 0);
+  assert.equal(tt.probe(first), firstHandle);
+  assert.equal(tt.probe({ ...first, p0: { ids: new Uint16Array([2]) } }), -1);
+  const zeroHandle = tt.ensure(zero);
+  assert.equal(tt.probe(zero), zeroHandle);
+  resetSemanticSharedTtArena(arena);
+  // Reset preserves hash payload but retires every descriptor generation.
+  assert.equal(tt.probe(first), -1);
+  assert.equal(tt.probe(second), -1);
+  assert.equal(tt.probe(zero), -1);
+  const recovered = tt.ensure(second);
+  assert.notEqual(recovered, secondHandle);
+  assert.equal(tt.probe(second), recovered);
+});
+
+test('hash rejection skips generation loads; replacement across the filter still requires exact payload', () => {
+  const { arena, tt } = fixture();
+  const original = descriptor(1), other = descriptor(2);
+  tt.ensure(original);
+  const load = Atomics.load;
+  let generationReads = 0;
+  Atomics.load = (array, index) => {
+    if (array.buffer === arena.generationBuffer) generationReads++;
+    return load(array, index);
+  };
+  try { assert.equal(tt.probe(other), -1); }
+  finally { Atomics.load = load; }
+  assert.equal(generationReads, 0);
+  // Same hash, different exact content, installed just before generation read.
+  other.hash = original.hash;
+  let armed = true, replacement;
+  Atomics.load = (array, index) => {
+    if (armed && array.buffer === arena.generationBuffer) {
+      armed = false;
+      replacement = tt.ensure(other);
+    }
+    return load(array, index);
+  };
+  try { assert.equal(tt.probe(original), -1); }
+  finally { Atomics.load = load; }
+  assert.equal(tt.probe(other), replacement);
+});
+
+test('bucket prefix probes stop at first empty and preserve exact matches through collisions, writers, poison and reset', () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 1024 });
+  const tt = createSemanticSharedTtView(arena), proofs = createPackedProofStore(arena);
+  const records = Array.from({ length: 9 }, (_, id) => ({ ...descriptor(id, [id + 1]), hash: { lo: 0, hi: 1 } }));
+  const status = new Int32Array(arena.statusBuffer), handles = [];
+  for (let count = 0; count < 8; count++) {
+    const before = tt.stats().maxBucketScan;
+    assert.equal(tt.probe(records[8]), -1);
+    assert.equal(tt.stats().maxBucketScan, Math.max(before, count + 1));
+    handles.push(tt.ensure(records[count]));
+    assert.equal(status[count], arena.slotStates.ready);
+    for (let index = 0; index <= count; index++) assert.equal(tt.probe(records[index]), handles[index]);
+  }
+  // A writer/poisoned slot is occupied, never an empty-prefix terminator.
+  status[0] = arena.slotStates.proofWriting;
+  assert.equal(tt.probe(records[7]), handles[7]);
+  status[0] = arena.slotStates.poisoned;
+  assert.equal(tt.probe(records[0]), -1);
+  assert.equal(tt.probe(records[7]), handles[7]);
+  status[0] = arena.slotStates.ready;
+  const replacement = tt.ensure(records[8]);
+  assert.equal(proofs.isCurrent(handles[0]), false);
+  assert.equal(tt.probe(records[8]), replacement);
+  resetSemanticSharedTtArena(arena);
+  assert.equal(tt.probe(records[8]), -1);
+  assert.notEqual(tt.ensure(records[0]), handles[0]);
+});
+
+test('a first-empty observation during concurrent publication is only a miss and cannot hide the next probe', () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 128 });
+  const tt = createSemanticSharedTtView(arena), load = Atomics.load;
+  let armed = true, handle;
+  Atomics.load = (array, index) => {
+    const value = load(array, index);
+    if (armed && array.buffer === arena.statusBuffer && index === 0) {
+      armed = false;
+      handle = tt.ensure(descriptor(1));
+    }
+    return value;
+  };
+  try { assert.equal(tt.probe(descriptor(1)), -1); }
+  finally { Atomics.load = load; }
+  assert.equal(tt.probe(descriptor(1)), handle);
+});
 
 test('current-handle observation rechecks generation after observing slot status', () => {
   const { arena, tt, proofs } = fixture();

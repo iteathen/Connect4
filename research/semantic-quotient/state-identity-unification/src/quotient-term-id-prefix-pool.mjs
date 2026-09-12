@@ -338,6 +338,11 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
   pool.emptyClass = emptyClass;
   pool.initialClass = initialClass;
   pool.termVocabulary = vocabulary;
+  pool.singletonWord = (id, lane) => {
+    if (!Number.isInteger(id) || id < 0 || id >= classCount) throw new RangeError('invalid residual class');
+    if (lane !== 0 && lane !== 1) throw new RangeError('singleton lane must be 0 or 1');
+    return lane === 0 ? singletonLo[id] : singletonHi[id];
+  };
   pool.metrics = metrics;
   function assertClass(id) {
     if (!Number.isInteger(id) || id < 0 || id >= classCount) throw new RangeError(`invalid prefix class ${id}`);

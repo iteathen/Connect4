@@ -261,6 +261,7 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
           spec,
           semanticArena,
           prefixClasses,
+          searchStorage: options.searchStorage,
           etc: options.etc === true,
         },
       });

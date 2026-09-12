@@ -1,0 +1,50 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index 4bceed4..8d80275 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+@@ -30,10 +30,9 @@ function mix32(value) {
+ }
+ 
+ function hashWords2(word0, word1) {
+-  let hash = 0x811c9dc5;
+-  hash = Math.imul(hash ^ mix32(word0), 0x01000193) >>> 0;
+-  hash = Math.imul(hash ^ mix32(word1), 0x01000193) >>> 0;
+-  return mix32(hash ^ CHUNK_WORDS);
++  // Address filter only. Fold the two words once, then avalanche the result;
++  // exact two-word equality in intern remains the identity authority.
++  return mix32(word0 ^ Math.imul(word1, 0x9e3779b1));
+ }
+ 
+ function hashChunkTuple(ids) {
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 2152fbf..0fec84f 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -12,6 +12,27 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('cheap chunk address collisions preserve exact IDs through dictionary rehash', () => {
++  const chunk = make().classes.slotPools[0];
++  const keys = new Uint32Array(800), ids = new Uint32Array(400);
++  // Every pair folds to zero in the candidate address filter, including empty.
++  // Distinct complete keys must still receive distinct canonical IDs.
++  for (let index = 0; index < ids.length; index++) {
++    const high = (index + 0x80000000) >>> 0;
++    keys[index * 2] = Math.imul(high, 0x9e3779b1) >>> 0;
++    keys[index * 2 + 1] = high;
++    ids[index] = chunk.intern(keys, index * 2);
++  }
++  assert.equal(new Set(ids).size, ids.length);
++  assert.ok(chunk.metrics.hashGrows > 0);
++  const count = chunk.count;
++  for (let index = ids.length - 1; index >= 0; index--) {
++    assert.equal(chunk.intern(keys, index * 2), ids[index]);
++    assert.equal(chunk.equals(ids[index], keys, index * 2), true);
++  }
++  assert.equal(chunk.count, count);
++});
++
+ test('reserved composed hashes reuse immutable local IDs across traversal and shared arena reset', () => {
+   const k = createSlot64ResidualQuotientKernel(spec, {
+     searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } }).kernel;

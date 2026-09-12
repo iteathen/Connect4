@@ -120,7 +120,7 @@ try {
   executor = createSearchWorkerExecutor(workers);
 
   coordinatorKernel = createSlot64ResidualQuotientKernel(SPEC, {
-    cacheEdges: false,
+    cacheEdges: true,
     prefixClasses: PREFIX_CLASSES,
   }).kernel;
   coordinator = createOnlineDependencyCoordinator(

@@ -226,10 +226,15 @@ async function runConstrainedGameControl() {
         'worker semantic term scratch byte accounting drifted',
       );
       assert.equal(resource.descriptorTermArenaBytesHighWater, 0, 'worker retained a duplicate descriptor term arena');
+      assert.equal(resource.descriptorStateMetadataBytesHighWater,
+        resource.descriptorStateHashCapacityHighWater * 8 + Math.ceil(resource.descriptorStateHashCapacityHighWater / 32) * 4,
+        'worker composed hash metadata byte accounting drifted');
+      assert.equal(resource.descriptorStateHashCapacityHighWater, resource.onlineStateCapacityHighWater,
+        'worker hash metadata did not match initialized semantic capacity');
       assert.equal(
         resource.descriptorRetainedTypedBytesHighWater,
-        resource.descriptorClassMetadataBytesHighWater,
-        'worker descriptor ownership exceeded class metadata only',
+        resource.descriptorClassMetadataBytesHighWater + resource.descriptorStateMetadataBytesHighWater,
+        'worker descriptor ownership exceeded class and composed hash metadata',
       );
       assert.equal(resource.descriptorTermCapacityHighWater, 0, 'worker retained descriptor term capacity');
     }

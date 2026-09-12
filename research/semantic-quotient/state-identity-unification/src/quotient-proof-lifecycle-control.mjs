@@ -64,9 +64,11 @@ assert.equal(semantic.descriptorCache.metrics.termIdsCached, 0, 'semantic descri
 assert.equal(semantic.descriptorCache.metrics.termArenaBytes, 0, 'semantic descriptor cache retained a duplicate term arena');
 assert.equal(
   semantic.descriptorCache.metrics.retainedTypedBytes,
-  semantic.descriptorCache.metrics.classMetadataBytes,
-  'semantic descriptor cache retained storage beyond class metadata',
+  semantic.descriptorCache.metrics.classMetadataBytes + semantic.descriptorCache.metrics.stateMetadataBytes,
+  'semantic descriptor cache retained storage beyond class and composed hash metadata',
 );
+assert.equal(semantic.descriptorCache.metrics.stateMetadataBytes,
+  semantic.descriptorCache.metrics.stateHashCapacity * 8 + Math.ceil(semantic.descriptorCache.metrics.stateHashCapacity / 32) * 4);
 
 const rootDescriptor = semantic.descriptorCache.stateDescriptor(rootId);
 const originalHandle = rawTt.probe(rootDescriptor);

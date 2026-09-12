@@ -337,6 +337,19 @@ export function installChunkedTermIdPool(kernel, spec, options = {}) {
   pool.emptyClass = emptyClass;
   pool.initialClass = initialClass;
   pool.termVocabulary = vocabulary;
+  pool.singletonWord = (id, lane) => {
+    if (!Number.isInteger(id) || id < 0 || id >= classCount) throw new RangeError('invalid residual class');
+    if (lane !== 0 && lane !== 1) throw new RangeError('singleton lane must be 0 or 1');
+    // This experimental representation owns term membership, not retained
+    // singleton masks. Project directly from that canonical membership.
+    const start = lane * 32, end = Math.min(start + 32, singletonTermByCell.length);
+    let word = 0;
+    for (let cell = start; cell < end; cell++) {
+      const termId = singletonTermByCell[cell];
+      if (termId !== 0xffff && containsTerm(id, termId)) word |= 1 << (cell - start);
+    }
+    return word >>> 0;
+  };
   pool.metrics = metrics;
   pool.chunkSlots = chunkSlots;
   pool.chunkWords = CHUNK_WORDS;

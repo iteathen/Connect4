@@ -316,6 +316,11 @@ export function installDenseTermIdPool(kernel, spec) {
   pool.metrics = metrics;
   pool.isEmpty = (id) => lengths[id] === 0;
   pool.hasSingletonAt = (id, bitLo, bitHi) => (((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0);
+  pool.singletonWord = (id, lane) => {
+    if (!Number.isInteger(id) || id < 0 || id >= classCount) throw new RangeError('invalid residual class');
+    if (lane !== 0 && lane !== 1) throw new RangeError('singleton lane must be 0 or 1');
+    return lane === 0 ? singletonLo[id] : singletonHi[id];
+  };
   pool.terms = function termsForQualification(id) {
     const start = starts[id];
     const count = lengths[id];

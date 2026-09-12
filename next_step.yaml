@@ -1,5 +1,59 @@
-schema_version: 34
+schema_version: 53
 updated: 2026-09-12
+handoff: docs/research/2026-09-12-frontier-optimization-handoff.md
+native_identity_integration:
+  document: docs/research/2026-09-12-native-key-integration.md
+  state: integrated_locally_qualified_checkpoint
+  domain: { columns: 7, rows: 6, connect: 4 }
+  depth: 8
+  elapsed_ms: { baseline: 1786.36515, candidate: 1786.7224 }
+  cpu_ms: { baseline: 1969.5, candidate: 1929.5 }
+  state_bytes_saved: 2097152
+  counters_identical: true
+  controls_passed: 74
+  bounded_campaigns_passed: 6
+  provider_controls_passed: 10
+  all_children_exited: true
+  next_owner: remaining_candidate_construction_and_consumer_work_under_larger_working_sets
+native_relational_key:
+  document: docs/research/2026-09-12-native-relational-key.md
+  scope: isolated_local_state_lookup
+  width_controls: 26144
+  observed_states_verified: 221398
+  depth8_counters_identical: true
+  mean_lookup_ms: { triple: 98.2179, repacked_pair: 147.864, native_pair: 80.5536 }
+  engine_changed: false
+  next_owner: local_state_storage_and_field_consumer_integration_without_duplicate_arrays
+pons_protocol_batch:
+  document: docs/research/2026-09-12-pons-protocol-benchmark.md
+  interpretation: exact_weak_WDL
+  total_budget_ms: 60000
+  elapsed_with_shutdown_ms: 60036.9289
+  positions_completed: 137
+  positions_correct: 137
+  positions_incorrect: 0
+  all_sets_partial: true
+  begin_hard_completed: 0
+  all_children_exited: true
+  engine_implementation_changed: false
+  next_owner: benchmark_initialization_cost_with_independent_position_proofs
+ranked_depth21_optimization:
+  document: docs/research/2026-09-12-depth21-ranked-optimization.md
+  domain: { columns: 7, rows: 6, connect: 4 }
+  depth: 21
+  per_run_timeout_ms: 60000
+  sequential_profiles: 7
+  baseline_checkpoint_calls: 60560536
+  final_checkpoint_calls: 92254913
+  completed_depth8_search_ms: { baseline: 1814.51955, final: 1729.33075 }
+  completed_depth8_counters_identical: true
+  local_controls_passed: 69
+  bounded_campaigns_passed: 6
+  representation_controls_passed: 10
+  depth21_complete: false
+  all_children_exited: true
+  source_state: uncommitted_working_tree
+  next_owner: remaining_shared_tt_descriptor_work_and_support_extraction
 state: relational_neutral_capacity_and_repeated_proof_work_measured
 current_branch: research/frontier-negamax-conformance
 authority:
@@ -158,3 +212,253 @@ hot_method_cpu_assessment:
   production_changed: false
   full_root_run: false
   next_owner: eliminate_relational_conversion_and_repeated_proof_work
+
+bounded_normal_search_profile:
+  report: docs/research/evidence/2026-09-12-normal-negamax-depth8-profile/operations.md
+  geometry: {columns: 7, rows: 6, connect: 4}
+  maximum_depth: 8
+  timeout_ms: 60000
+  cold_runs: 1
+  unprofiled_search_ms: 10040.0977
+  profiled_search_ms: 10861.8871
+  samples: 6831
+  search_and_proof_counters_match: true
+  remaining_test_processes: 0
+  root_wdl: unresolved
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: residual_transition_and_interning_reuse
+
+direct_residual_read:
+  document: docs/research/2026-09-12-direct-residual-read.md
+  invariant: immutable_canonical_chunks_during_transition_read_phase
+  removed: [whole_class_input_copy, input_scratch, unused_copy_helpers, duplicate_private_cache_checks]
+  contract_controls_passed: 23
+  bounded_campaigns_passed: 4
+  depth8_search_ms: 10059.9007
+  baseline_search_ms: 10040.0977
+  search_and_proof_counters_match: true
+  speedup_established: false
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: established_class_event_transition_reuse
+
+line_cpu_profiling:
+  document: docs/research/2026-09-12-line-cpu-profiling.md
+  mapped_source_locations: 537
+  aggregate_hits: 6829
+  search_ms: 10763.457
+  process_cpu_ms: 10688
+  line_cpu_method: process_cpu_apportioned_by_aggregate_position_ticks
+  exact_line_timestamps: false
+  frozen_source_hashes: true
+  exact_counters_match: true
+  full_root_run: false
+  next_owner: matched_before_after_line_profile_and_class_event_reuse
+
+ranked_hot_loop:
+  document: docs/research/2026-09-12-ranked-hot-loop-optimization.md
+  handled_original_ranks: [1, 2, 3, 4]
+  complete_ranked_inventory: false
+  contract_controls_passed: 40
+  independent_terminal_positions: 1716141
+  terminal_mismatches: 0
+  run_order: [baseline, candidate, candidate, baseline]
+  baseline_mean_search_ms: 10159.8666
+  candidate_mean_search_ms: 8268.8739
+  baseline_mean_cpu_ms: 10047
+  candidate_mean_cpu_ms: 8180
+  search_and_proof_counters_match: true
+  retained_memory_matches: true
+  max_bucket_scan: {baseline: 8, candidate: 5}
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: repeated_chunk_class_and_state_interning_then_remaining_ranked_operations
+
+preallocated_search_storage:
+  document: docs/research/2026-09-12-preallocated-search-storage.md
+  contract_controls_passed: 53
+  bounded_campaigns_passed: 4
+  search_storage_grows: 0
+  capacity_exhaustion: explicit_error_no_resize
+  baseline_mean_search_ms: 8117.6739
+  candidate_mean_search_ms: 8280.96775
+  baseline_kernel_typed_bytes: 32685831
+  candidate_kernel_typed_bytes: 84483847
+  speedup_established: false
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: repeated_interner_work_and_reservation_locality_without_recursive_allocation
+
+direct_semantic_edge_reuse:
+  document: docs/research/2026-09-12-direct-semantic-edge-reuse.md
+  enabled_in: [bounded_runner, online_search_workers, standard_root_coordinator]
+  transition_requests: 4777114
+  direct_edge_hits: 4355811
+  computed_transitions: 421303
+  contract_controls_passed: 54
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 8396.88595
+  candidate_mean_search_ms: 2219.51305
+  elapsed_reduction_percent: 73.5674
+  cpu_reduction_percent: 71.1153
+  additional_reserved_bytes: 7340032
+  search_storage_grows: 0
+  search_and_proof_counters_match: true
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: remaining_semantic_tt_probes_and_first_time_transition_interning
+
+ranked_probe_refinement:
+  document: docs/research/2026-09-12-ranked-probe-refinement.md
+  contract_controls_passed: 57
+  bounded_campaigns_and_controls_passed: 8
+  baseline_mean_search_ms: 2155.39945
+  candidate_mean_search_ms: 2080.63725
+  robust_speedup_established: false
+  search_and_proof_counters_match: true
+  reserved_kernel_typed_bytes: 91823879
+  search_storage_grows: 0
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: initialization_bound_semantic_descriptor_hash_preparation_then_nonempty_chunk_lookups
+
+composed_semantic_hash_reuse:
+  document: docs/research/2026-09-12-state-hash-reuse.md
+  contract_controls_passed: 58
+  bounded_campaigns_and_controls_passed: 6
+  hash_computations: 221398
+  hash_reuses: 4560000
+  baseline_mean_search_ms: 2032.36945
+  candidate_mean_search_ms: 1838.4439
+  additional_descriptor_metadata_bytes: 2129920
+  search_and_proof_counters_match: true
+  search_storage_grows: 0
+  rejected_candidate: initialization_owned_hash_writer_with_borrowed_accessors
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: nonempty_chunk_exact_key_reuse_then_shared_tt_probing
+
+chunk_lookup_experiments:
+  document: docs/research/2026-09-12-chunk-lookup-experiments.md
+  rejected_candidates: [blocking_memo_including_identity, blocking_memo_after_identity_test]
+  retained_change: chunk_address_hash_eight_to_three_multiplications
+  contract_controls_passed: 59
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 1950.0365
+  candidate_mean_search_ms: 1929.0560
+  reliable_speedup_established: false
+  additional_retained_bytes: 0
+  search_and_proof_counters_match: true
+  search_storage_grows: 0
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: actual_chunk_probe_distribution_and_memory_access_cost
+
+chunk_probe_diagnostic:
+  document: docs/research/2026-09-12-chunk-probe-distribution.md
+  hashed_lookups: 2724741
+  average_slots_examined: 1.0602703156006388
+  one_slot_percent: 94.75436380925747
+  maximum_probe: 10
+  collision_rejections: 164221
+  chunk_dictionary_reserved_bytes: 41943040
+  touched_read_blocks_bytes: 4917632
+  hardware_cache_misses_measured: false
+  production_source_changed: false
+  search_and_proof_counters_match: true
+  full_root_run: false
+  next_owner: initial_index_and_dependent_exact_key_access_locality_with_explicit_capacity_contracts
+
+compact_chunk_index:
+  document: docs/research/2026-09-12-compact-chunk-index.md
+  layout: smaller_bucket_heads_with_private_preallocated_collision_links
+  canonical_keys_duplicated: false
+  chunk_capacity_preserved: true
+  bytes_saved_at_measured_reservation: 5242880
+  contract_controls_passed: 60
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 1918.67885
+  candidate_mean_search_ms: 1928.15615
+  reliable_speedup_established: false
+  search_and_proof_counters_match: true
+  search_storage_grows: 0
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: shared_tt_probe_overhead_and_compact_index_load_behavior
+
+relational_address_investigation:
+  document: docs/research/2026-09-12-relational-address-investigation.md
+  production_source_changed: false
+  inspection_outside_search: true
+  depth: 8
+  timeout_ms: 60000
+  exact_counters_and_memory_match_baseline: true
+  observed_chunks: 160743
+  largest_slot_chunks: 132068
+  largest_slot_distinct_folded_xors: 113380
+  observed_states: 221398
+  distinct_supports: 6379
+  radix_engine_implementation_tested: false
+  full_root_run: false
+  next_owner: local_class_changed_slot_hash_composition_without_second_tuple_traversal
+
+changed_slot_class_hash:
+  document: docs/research/2026-09-12-changed-slot-class-hash.md
+  second_tuple_hash_traversal_removed: true
+  additional_retained_bytes: 0
+  full_recomputation_checks: 842426
+  old_full_tuple_terms: 8424260
+  changed_slot_contributions: 5749172
+  contract_controls_passed: 61
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 1940.4546
+  candidate_mean_search_ms: 1865.14285
+  baseline_mean_cpu_ms: 2078
+  candidate_mean_cpu_ms: 2032
+  search_and_proof_counters_match: true
+  memory_unchanged: true
+  search_storage_grows: 0
+  timing_limitation: two_cold_runs_per_variant_with_baseline_variation
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: shared_tt_probe_and_chunk_bucket_access_then_first_descriptor_hash_construction
+
+requested_depth21_profile:
+  report: docs/research/evidence/2026-09-12-depth21-line-cpu/line-cpu.md
+  wrapper: docs/research/evidence/2026-09-12-depth21-profile/run.mjs
+  domain: { columns: 7, rows: 6, connect: 4 }
+  depth: 21
+  timeout_ms: 60000
+  outcome: reserved_quotient_state_capacity_exhausted
+  completed: false
+  search_ms_until_failure: 2268.0779
+  cpu_ms_until_failure: 2453
+  local_states_at_failure: 262144
+  search_calls_at_failure: 3684484
+  mapped_source_locations: 361
+  engine_source_or_resource_limits_changed: false
+  child_exited: true
+
+board_depth_reservation:
+  document: docs/research/2026-09-12-board-depth-reservation.md
+  owner: bounded_test_initialization
+  requested_depth: 21
+  timeout_ms: 60000
+  reservation_budget_bytes: 2147483648
+  accounted_reserved_bytes: 1301619717
+  states: 2097152
+  classes: 4194304
+  chunks_per_slot: 4194304
+  conservative_position_bound: '42252235497'
+  full_bound_covered: false
+  contract_controls_passed: 62
+  bounded_campaigns_passed: 4
+  resized_run_outcome: timed_out_and_killed
+  profile_window_ms: 55037.7932
+  profile_window_cpu_ms: 53375
+  mapped_source_locations: 810
+  report: docs/research/evidence/2026-09-12-depth21-budget-line-cpu/line-cpu.md
+  final_search_counters_available: false
+  full_root_run: false
+  all_children_exited: true

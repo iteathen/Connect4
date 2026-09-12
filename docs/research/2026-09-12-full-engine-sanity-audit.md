@@ -7,6 +7,37 @@
 
 ## Purpose
 
+### Continuation: native state-owner integration
+
+The [integration record](2026-09-12-native-key-integration.md) audits the new
+packed state owner, reader lifecycle, capacity selection and migrated field
+consumers against C4-0006/0010. The first integration regressed; attributing that
+to a mask was unsupported. Repeated validation and intermediate access work were
+reduced. A new stale-reader defect across reservation was found and fixed with
+stable reader methods, and invalid reservation values now fail before mutation.
+Final local qualification passed 74 controls, six bounded campaigns and ten
+provider controls. Final depth-8 counters match exactly, elapsed time is flat,
+measured CPU is about 2% lower and state storage saves two MiB. Performance
+attribution and larger-working-set measurement remain open; this does not complete
+the full-engine audit or establish full-root readiness. Attribution and exact
+source/evidence routing are in the linked record.
+
+### Continuation: native relational lookup identity
+
+The [two-word identity experiment](2026-09-12-native-relational-key.md) reviewed
+the support-layout state pool, reservation widths, local consumers and shared
+identity boundary under C4-0006/0010. It found no new exactness defect. An isolated
+native pair layout reduced successful-lookup elapsed time by 18.0%; constructing
+the pair on every query regressed. All 221,398 observed states preserved their
+exact IDs, 26,144 width controls passed, and the normal depth-8 result and all
+search/operation counters matched the qualified reference. Function timing,
+failed line-sampling attribution and exited-child evidence are preserved. This is a representation experiment,
+not a production speedup or completed owner audit. Duplicate packed/triple
+production storage is rejected. The next integration owner is local state
+storage plus its field consumers; shared TT identity remains exact content.
+Research direction / architecture: Josh Oshiro. Implementation / qualification:
+OpenAI ChatGPT.
+
 **Continuation status:** active-path audit complete for source revision
 `9c778bcaf010372ca2a3a91a7cdcec8debf5518f`; one integrated root measurement
 admitted. Earlier findings and intermediate readiness states below are historical.
@@ -836,3 +867,406 @@ canonical metadata ownership, repeated adapter binding/coordinate validation,
 contention/coalescing measurement and asynchronous reporting. Synchronous TT
 writer waits remain; timer-based JSON formatting is still synchronous on the
 coordinator. No full root or trigger change was made.
+
+## Requested depth-8 normal Negamax test
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The initial frontier census did not exercise Negamax pruning and was the wrong
+test for the owner's request. The normal synchronous policy lacked a bounded
+entry point. `searchBounded` now runs that same policy with an expansion horizon;
+unresolved leaves return no WDL and cannot create an exact/upper publication.
+Known lower proofs and valid cutoffs remain usable. Forced chains respect the
+horizon. Twelve decision-contract controls pass, including four new bounded
+controls. This is local working-tree work; full integration remains pending.
+
+One empty-board 7-column, 6-row, depth-8 run completed in 10040.0977 ms plus
+35.944 ms setup, under an external 60000 ms child-process kill timer. It made
+4,777,115 calls, expanded 672,690 decisions, performed 2,424 cutoffs, reused
+10,058 exact TT proofs and closed 1,859 tactical cases. There were 4,014,763
+unresolved horizon visits and 221,398 unique local states. Root WDL remains
+unknown. This was one cold run, not a paired speedup measurement. No test process
+remained. [Exact output and source record](evidence/2026-09-12-normal-negamax-depth8/result.json).
+
+### Same-bounds operation timing
+
+One cold run of that same bounded entry point was sampled with Node Inspector,
+after initialization and before reporting, with the same 60-second child timeout.
+The search took 10861.8871 ms (10797 ms process CPU) and produced 6,831 samples.
+The requested interval was 1000 microseconds; actual sample deltas were retained.
+Every result/search/proof/descriptor counter matches the prior unprofiled run.
+No engine or policy changes were made for profiling; the harness gained an
+optional `--cpu-profile` output. No task process remained after completion.
+
+The [154-row operation table](evidence/2026-09-12-normal-negamax-depth8-profile/operations.md)
+and raw `.cpuprofile` preserve self/inclusive aggregate estimates and sample
+counts. Residual own transitions took about 4143 ms inclusive, blocking 1809 ms,
+and class interning 2528 ms; these nested totals overlap. Eval sampled about
+54 ms inclusive. The observed profiled wall time exceeds the prior run by about
+8.2%, which is not a separately established profiler-overhead estimate. This is
+one run, with JIT/sampling/host effects; unsampled operations are not proven free.
+The profile measures the bounded search, not standard-root solve performance.
+
+The same raw profile also supplies V8 `positionTicks`. The report now links each
+function to its definition and adds a [line-level source map](evidence/2026-09-12-normal-negamax-depth8-profile/operations-lines.md)
+with code excerpts and aggregated position ticks inside each function. No search
+rerun was needed. These ticks identify sampled locations/call sites; no exact
+per-line elapsed time is inferred from them. JIT/inlining attribution remains
+explicit, and both distinct `intern` owners are identified by file and line.
+
+### Eliminate the mover input copy
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+Reviewed the mover/block transition and private-cache paths in
+`quotient-slot64-residual-pool-v2.mjs` against C4-0006 residual semantics and
+C4-0010 canonical identity. Both transitions can read immutable canonical
+chunks directly until the later normalization/intern phase. Removed the mover's
+whole-class input copy, scratch, unused copy helpers and repeated private-cache
+input checks. Public validation and exact transition/normalization semantics
+remain. This is an unnecessary-operation removal, not a new pruning rule.
+
+All 23 storage/decision controls and four bounded qualification campaigns passed.
+The isolated normal depth-8 run retained every search/proof counter and took
+10059.9007 ms versus 10040.0977 ms; no speedup is established. No full root was
+run. [Report and evidence](2026-09-12-direct-residual-read.md) record the cycle,
+rejected shortcuts and next owner: established class/event transition reuse.
+Broader working-tree integration remains pending.
+
+The earlier profile's source links use historical line coordinates. Subsequent
+edits can shift live lines; its retained code excerpts and source patch identify
+the profiled operations without rewriting the original measurement.
+
+### CPU estimates mapped to frozen source lines
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The new local `quotient-bounded-line-profile.mjs` diagnostic wrapper supplies
+per-line CPU estimates alongside raw V8 position ticks, function names, code
+excerpts and frozen source links/hashes. It corrects missing line-time presentation
+and mutable source references. The [measurement report](2026-09-12-line-cpu-profiling.md)
+records the estimator and its limits; exact per-line timestamps are not claimed.
+The unchanged normal depth-8 search took 10763.457 ms / 10688 ms process CPU,
+with 537 mapped locations and every search/proof counter matching baseline.
+Source stability and tick conservation checks passed; no test process remained.
+No engine authority or full-root trigger changed. The next owner is matched
+before/after attribution and class/event reuse.
+
+### First four ranked hot-loop locations
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [ranked optimization report](2026-09-12-ranked-hot-loop-optimization.md)
+records three reviewed invariants: exact Uint32 chunk-pair ownership, populated
+TT bucket prefixes, and absence of playable singletons when both canonical
+singleton masks are empty. The corresponding changes eliminate repeated checked
+comparison calls, empty-tail TT probes and unproductive terminal column scans.
+Full exact equality/generation checks, terminal meaning, eval and proof work remain.
+
+Forty controls and five bounded campaigns passed, including the independent
+1,716,141-position terminal oracle. Four alternating cold depth-8 runs measured
+10159.8666 ms baseline mean versus 8268.8739 ms candidate (18.61% elapsed reduction;
+18.58% CPU reduction). Search/proof counters and retained memory match; maximum
+bucket scan telemetry deliberately changes from 8 to 5. Raw profiles and source
+snapshots map estimates to every sampled source location. Moved comparison cost
+is explicitly distinguished from removed work. No full root was run; remaining
+ranked costs and broader integration are not declared complete.
+
+### Initialization-owned storage reservation
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [reservation report](2026-09-12-preallocated-search-storage.md) records changes
+to state/residual owners, slot64 composition, descriptor cache, shared TT scratch,
+online port/worker setup and the standalone local proof store. Storage is reserved
+before search and then sealed. Exhaustion fails explicitly; published IDs remain
+valid. Online workers retain no duplicate local proof arrays. Local proof reset
+preserves its reservation.
+
+53 controls and affected bounded campaigns passed, including allocation traps,
+three capacity-exhaustion boundaries and local reset/re-solve. Depth-8 reports
+prove unchanged growth counters and identical search/proof work. The four-run
+comparison measured 8117.6739 ms before versus 8280.96775 ms after; no speedup is
+claimed. The kernel reservation increased from 32,685,831 to 84,483,847 bytes.
+Full-root sizing remains unresolved and its trigger is unchanged. Remaining
+interner work and reservation locality are the next owners.
+
+### Direct semantic edges eliminate repeated interning
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [direct-edge report](2026-09-12-direct-semantic-edge-reuse.md) records enabling
+the existing exact `(local semantic state ID, column)` table in the bounded
+runner, online workers and standard-root coordinator. The table stores only
+transition results, not proof generations, WDL/window authority or advisory
+frontier state. It is preallocated and remains with its semantic state owner.
+
+4,355,811 of 4,777,114 transition requests reused direct entries, bypassing
+residual computation and its chunk/class/state lookups. The unchanged bounded
+search/proof work took 8396.88595 ms baseline mean versus 2219.51305 ms candidate
+over four alternating cold runs. Storage grew by a reserved 7 MiB before search;
+there was no in-search growth. 54 controls and four bounded campaigns passed,
+including cached/uncached transition and interner-bypass checks. Full-root trigger
+and proof semantics are unchanged. Remaining shared-TT probes and first-time
+transition interning remain on the ranked inventory.
+
+### Ranked probe/frontier operation refinement
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [ranked refinement](2026-09-12-ranked-probe-refinement.md) audits the shared TT
+candidate-read sequence, slot64 chunk interner/singleton query and live-line
+advance operation against C4-0006/C4-0010. Hash mismatches skip generation reads;
+exact matching stays protected by generation/status observations. Empty chunk
+IDs bypass hashing, singleton intersection drops redundant unsigned conversions,
+and disjoint frontier frames combine copy/cancellation into one write per word.
+Overlapping external views retain their tested semantics. No proof, terminal or
+eval policy changes, duplicate semantic payloads or hot-loop allocations added.
+
+57 contract controls and eight local campaigns/controls passed, including
+replacement between hash filtering and generation acquisition, empty-ID reuse
+after dictionary growth, multiple frontier geometries/view layouts, independent
+terminal detection and pruning. Four alternating cold depth-8 runs measured
+2155.39945 ms baseline versus 2080.63725 ms candidate. Variation prevents a robust
+speedup claim. Search/proof counters and reserved typed bytes match; growth is
+zero. The profile and complete unit hashes/patch are linked from the report.
+
+Retained deliberately: shared atomic publication observation, exact collision
+comparison, public hash-target validation and first-time nonempty interning.
+Remaining work includes an initialization-owned semantic hash target and bounded
+assessment of composed descriptor reuse; the entire hot loop is not claimed
+fully optimized. No full-root trigger or integration state was changed.
+
+### Composed semantic hash reuse
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [state-hash report](2026-09-12-state-hash-reuse.md) records the descriptor
+cache, executor resource telemetry, storage contract test, replacement campaign
+and lifecycle control changes. C4-0010 semantic/proof separation and append-only
+local state identity justify reusing composed hash words for a kernel lifetime.
+Two reserved Uint32 arrays plus one readiness bitmap remain descriptor metadata;
+no terms, descriptors or generation-bearing proof records are duplicated.
+Cached words do not replace exact shared descriptor comparison. Two redundant
+length writes were removed. No hot allocation or hash algorithm change is retained.
+
+The first owned-writer candidate passed controls but ran slower; it was removed
+and its exact patch/results retained. The selected direct hash reuse eliminated
+4,560,000 of 4,781,398 computations. Four alternating depth-8 runs measured
+2032.36945 ms baseline versus 1838.4439 ms candidate, with unchanged search/proof
+work. Metadata adds 2,129,920 bytes at capacity 262,144; no storage grows in search.
+
+58 controls and six campaigns/controls passed. Replacement initially failed the
+old class-only memory assertion; executor telemetry and exact byte-accounting
+assertions were updated to include state-hash metadata, retaining zero duplicate
+term/descriptor requirements. The nine worker controls passed again afterward.
+New controls exercise repeated visits, bitmap boundaries, invalid IDs and shared
+reset/new proof generations with unchanged local semantic hashes.
+
+Current source profile and provenance are linked in the report. Next owner is
+nonempty chunk interning. Per-worker metadata scales with reserved capacity;
+full-root sizing remains unqualified, and its trigger was untouched.
+
+### Chunk transformation memoization and cheaper address filtering
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [chunk lookup report](2026-09-12-chunk-lookup-experiments.md) records the
+C4-0006 blocking invariant: parent chunk plus exact blocking mask determines
+result chunk and removed count, independently of the surrounding residual class.
+Two cache layouts compiled equal masks and avoided 490,290 intern calls, but
+measured 3.50% and 1.53% slower while adding 6.19 MiB. Both were removed after
+controls and bounded measurement; exact patches remain evidence. Mover
+normalization was never given this reduced key.
+
+The retained source change is only the chunk address filter: three multiplications
+instead of eight, with unchanged exact two-word comparison. The adversarial
+storage test deliberately forces 400 different keys into the same hash, including
+high-bit words and dictionary rehash. All 59 controls and four affected local
+campaigns pass. Four-run depth-8 means were 1950.0365 ms before and 1929.0560 ms
+after; this is within observed variation, not a reliable speedup claim. Memory,
+search/proof counters and storage growth remain unchanged. The new line profile,
+unit provenance and candidate dispositions are linked from the report.
+
+Next owner: actual chunk probe distribution and memory-access cost. No active
+cache alternative, new proof authority or root trigger change remains.
+
+### Exact chunk probe distribution
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [probe diagnostic](2026-09-12-chunk-probe-distribution.md) instruments an
+isolated copy of the normal depth-8 search after initialization. It observes
+2,724,741 hashed lookups, 2,888,962 index reads and 164,221 rejected collisions:
+1.06027 slots per lookup, 94.754% one-slot lookups, maximum 10. Exact candidate
+reads remain 2,728,231. Long chains are not the primary lookup mechanism here.
+
+All result/search/proof/descriptor counters and engine memory/growth match the
+uninstrumented baseline. Diagnostic timing is not performance evidence. The
+40 MiB chunk reservation produced 4.690 MiB of distinct read-address blocks at
+64-byte granularity; this does not measure cache misses, latency or residency.
+No production engine edit follows solely from those footprint counts.
+
+Source hashes prove production files are unchanged. Isolated instrumentation,
+raw result, summarizer and per-dictionary evidence are retained until integration;
+all children exited. Next owner is initial index/dependent exact-key access
+locality, with explicit capacity contracts. No full-root trigger changed.
+
+### Compact chunk index with stable canonical IDs
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [compact index report](2026-09-12-compact-chunk-index.md) records review of
+`quotient-slot64-residual-pool-v2.mjs` and its storage contract controls against
+C4-0006/0010 exact identity and resource ownership. Smaller bucket heads plus
+private, preallocated collision links replace open addressing. Exact canonical
+word pairs remain stored once; IDs remain stable across rehash. No per-query
+allocation, reduced capacity or new proof authority was introduced.
+
+Allocation precedes publication of grown payload/link arrays. Rehash allocates
+heads before rebuilding links. The initial narrow control exposed exhaustion
+ordering and an obsolete index-size assertion; both were corrected before final
+qualification. Final source passed 60 controls and four campaigns, including
+forced collisions, full-capacity insertion, allocation failure and recovery.
+
+Four alternating normal empty 7-column by 6-row depth-8 runs, each with a hard
+60-second timeout, measured 1918.67885 ms baseline versus 1928.15615 ms candidate.
+CPU means were 2070 versus 2062.5 ms. Search/proof/descriptor counters match and
+storage does not grow during search. This is not a demonstrated speedup. The
+retained benefit is 5,242,880 fewer typed bytes per kernel/worker at the current
+reservation: chunk dictionaries use 35 MiB instead of 40 MiB at the same capacity.
+
+Final source hashes, patch, campaign logs, comparisons and frozen-source line CPU
+profile are linked from the report. Capacity reduction and duplicate key storage
+were rejected. Next owner is shared TT probe overhead and compact-index behavior
+at larger loads; full-root throughput and sizing remain unqualified. Status,
+next-step and research index are updated. The full-root trigger remains untouched.
+
+### Relational positions as lookup addresses
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [address investigation](2026-09-12-relational-address-investigation.md) traces
+vocabulary, slot64 chunk/class ownership, support/state identity, descriptor and
+shared-TT consumers against C4-0006/0010. Positions already encode exact term
+meaning; the remaining chunk lookup discovers a canonical ID for a new content
+mask. Known IDs, unchanged chunks and cached state edges already avoid hashing.
+
+Post-search analysis of a normal depth-8 run found exact counter/memory agreement
+and unchanged source hashes across 19 dependency files. Same-slot content and
+same-support state witnesses reject those incomplete keys. Folded-word XOR has
+actual collisions; aligned full-word equality remains exact. Two explicit radix
+layouts were costed, not installed or benchmarked. Their storage/read costs do
+not establish a benefit or rule out other structural indexing designs.
+
+No engine defect or correction is claimed in this unit. The next candidate is
+reusing the parent class fingerprint while processing changed slots, replacing
+the current second tuple traversal with a separately qualified XOR composition.
+This must preserve slot meaning and exact tuple confirmation, and must not turn
+worker-local IDs into shared proof identity. First-descriptor term traversal is
+a separate possible owner. No full-root, lifecycle, workflow or ref change occurred.
+
+### Changed-slot class fingerprint
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [changed-slot report](2026-09-12-changed-slot-class-hash.md) records removal of
+the second tuple-hashing pass in `quotient-slot64-residual-pool-v2.mjs`. Bootstrap
+composes slot-dependent contributions during construction; children update the
+existing parent hash only at changed slots. Exact tuple comparison, stable IDs,
+resource ownership and shared semantic identity remain unchanged under C4-0006/0010.
+No retained storage or hot allocation is added. The old tuple-hash helper is removed.
+
+The storage contract test adds different-order/idempotent blocker controls with
+independent term filtering and deliberately all-zero address filters. All 61
+controls and four affected local campaigns passed. An isolated owner assertion
+compared 842,426 delta hashes against full recomputation; all matched. Contribution
+evaluations fell from 8,424,260 to 5,749,172, without changing search/proof work.
+
+Four alternating cold depth-8 runs measured 1940.4546 ms baseline versus
+1865.14285 ms candidate, with identical counters/memory and no search storage
+growth. The observed 3.88% elapsed reduction is limited by the small batch and
+baseline variation. Final frozen-source profile, exact patch and source hashes
+are linked in the report. Next measured owners are shared-TT probing and chunk
+bucket reads. All children exited; docs are current. Full-root readiness and
+trigger remain unchanged.
+
+### Requested depth-21 bounded profile
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+Ran one normal empty 7-column by 6-row connect-4 search with depth 21 and a hard
+60-second child timeout. Existing state reservation was exhausted at 262,144
+local states after 2268.0779 ms, 2453 CPU ms and 3,684,484 search calls. Search did
+not complete; this is a resource-capacity failure, not a timeout or W/D/L result.
+There were 635,172 expanded nodes, 11,804 cutoffs and 46,693 tactical exact returns.
+
+The [frozen-source profile](evidence/2026-09-12-depth21-line-cpu/line-cpu.md)
+maps 361 locations. An evidence-only wrapper catches a search exception, ends
+profiling and records the error/counters after measured work. The report explicitly
+has no comparison baseline at this depth; no duplicate baseline solve was run.
+The normal search policy, resource reservation and engine source are unchanged.
+The existing parent timeout still kills its child at 60 seconds. This run failed
+earlier and exited normally through failure reporting; no child remains. Hard-kill
+profile recovery is not established by this exception-reporting wrapper. No full
+root or root trigger change occurred. Status and next-step preserve the failed run.
+
+### Board/depth reservation and hard-timeout profile capture
+
+Research direction / architecture: Josh Oshiro
+
+Implementation / qualification: OpenAI ChatGPT
+
+The [resource report](2026-09-12-board-depth-reservation.md) replaces fixed bounded
+test capacities with a conservative board/depth position bound and explicit typed
+reservation budget. State/residual/descriptor/TT owners estimate their own bytes;
+the harness checks actual allocations before search. Kernel preparation accepts
+one explicit initialization plan and rejects later replacement. Planning, BigInt
+and byte estimation remain outside the hot loop. Other production profiles are
+unchanged. The slot64 CI path includes the new planner and harness dependencies.
+
+62 controls and four bounded campaigns passed. The final reporting correction
+also checks class capacity when claiming complete conservative coverage; storage
+controls passed again and the measured plan is unchanged. Depth 21 receives
+2,097,152 states, 4,194,304 classes/chunks per slot and a domain-sized shared arena,
+accounting for 1,301,619,717 bytes within the explicit 2 GiB budget.
+
+The first resized run timed out at 60 seconds but lost its unflushed profile.
+A separate profiler worker was qualified on an isolated busy-main-thread control;
+one replacement run timed out at the same bound and saved 55,037.7932 ms mapped
+to 810 source locations. The final roughly five seconds and final node counters
+are unavailable after the kill. The saved window measures 53,375 process CPU ms,
+including reporting-worker CPU. Depth 21 did not complete. All processes exited;
+no simultaneous duplicate solve, full-root trigger or protected-ref change occurred.
+# 2026-09-12 ranked hot-loop continuation
+
+Research direction / architecture: Josh Oshiro. Implementation / qualification: OpenAI ChatGPT.
+
+See [ranked depth-21 optimization](2026-09-12-depth21-ranked-optimization.md) for the assess/research/reassess/execute/qualify/review record. Changed owners: semantic TT probe, support-layout tactical projection, residual singleton scalar readers and direct term writer, online tactical forwarding, and Negamax initialization-bound frontier access. Preserved exact identity and proof lifecycle checks, variable-board ownership, required frontier/descriptor payloads and the full-root trigger. Five optimization units plus one TT refinement were qualified. Final local result: 69 controls, six campaigns and ten representation controls passed; completed depth-8 counters identical. Seven separate depth-21 runs each timed out at 60 seconds. Final 55-second checkpoint 92.25M calls versus 60.56M baseline; depth 21 remains incomplete. No remaining solver processes. Further TT/descriptor/support optimization is unresolved; no claim of comprehensive performance completion.

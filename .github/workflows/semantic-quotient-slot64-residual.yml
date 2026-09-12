@@ -6,6 +6,15 @@ on:
       - research/semantic-quotient
       - research/frontier-negamax-conformance
     paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-residual-provider-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-chunked-residual-class-first-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-chunked-residual-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-chunked-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-term-id-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-term-id-bounded-cache-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-bounded-storage-plan.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-bounded-search.mjs'
       - '.github/workflows/semantic-quotient-slot64-residual.yml'
       - 'components/bsfp/geometry.mjs'
       - 'components/bsfp/ownership-antichain-solver.mjs'
@@ -20,6 +29,8 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-state-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-state-pool.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs'
@@ -59,7 +70,9 @@ jobs:
       - name: Run slot64 residual qualification campaign
         run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs
       - name: Exercise storage value and allocation boundaries
-        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs research/semantic-quotient/state-identity-unification/src/quotient-packed-state-pool.test.mjs
+      - name: Verify singleton projection across retained residual representations
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-residual-provider-control.mjs
       - name: Qualify bounded state retention and report isolated local timings
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs
       - name: Check neutral-capacity relation and observe equivalent physical choices
