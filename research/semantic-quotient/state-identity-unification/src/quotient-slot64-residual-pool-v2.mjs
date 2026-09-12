@@ -5,8 +5,13 @@ const CLASS_TERMINAL_WIN = -1;
 const WORDS_PER_CLASS = 20;
 const CHUNK_WORDS = 2;
 const CHUNKS_PER_CLASS = WORDS_PER_CLASS / CHUNK_WORDS;
+const UINT32_MAX = 0xffffffff;
+const MAX_ARRAY_INDEX_DOMAIN = 0x7fffffff;
 
 function nextPowerOfTwo(value) {
+  if (!Number.isInteger(value) || value < 1 || value > (1 << 30)) {
+    throw new RangeError(`power-of-two request must be an integer in 1..${1 << 30}, got ${value}`);
+  }
   let result = 1;
   while (result < value) result *= 2;
   return result;
@@ -38,7 +43,11 @@ function hashChunkTuple(ids) {
 }
 
 function bitIndex32(value) {
-  return 31 - Math.clz32(value >>> 0);
+  const normalized = value >>> 0;
+  if (normalized === 0 || (normalized & (normalized - 1)) !== 0) {
+    throw new Error(`bitIndex32 requires one set bit, got ${normalized}`);
+  }
+  return 31 - Math.clz32(normalized);
 }
 
 function popcount32(value) {
@@ -49,13 +58,24 @@ function popcount32(value) {
 }
 
 function referenceTypeFor(maxId) {
+  if (!Number.isInteger(maxId) || maxId < 0 || maxId > UINT32_MAX) {
+    throw new RangeError(`slot64 reference ID ${maxId} is outside Uint32 domain`);
+  }
   if (maxId <= 0xff) return Uint8Array;
   if (maxId <= 0xffff) return Uint16Array;
   return Uint32Array;
 }
 
+function assertWordSource(source, offset, label) {
+  if (!(source instanceof Uint32Array)) throw new TypeError(`${label} must be Uint32Array`);
+  if (!Number.isInteger(offset) || offset < 0 || offset + CHUNK_WORDS > source.length) {
+    throw new RangeError(`${label} offset ${offset} cannot provide ${CHUNK_WORDS} words`);
+  }
+}
+
 class SlotChunkPool64 {
   constructor(slot) {
+    if (!Number.isInteger(slot) || slot < 0 || slot >= CHUNKS_PER_CLASS) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
     this.slot = slot;
     this.count = 0;
     this.capacity = 256;
@@ -65,7 +85,14 @@ class SlotChunkPool64 {
     this.metrics = { lookups: 0, hits: 0, misses: 0, payloadGrows: 0, hashGrows: 0 };
   }
 
+  _assertId(id) {
+    if (!Number.isInteger(id) || id < 0 || id >= this.count) {
+      throw new RangeError(`slot64 chunk ID ${id} is outside 0..${this.count - 1}`);
+    }
+  }
+
   _ensureCapacity(required) {
+    if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 chunk capacity request ${required}`);
     if (required <= this.capacity) return;
     const next = nextPowerOfTwo(required);
     const target = new Uint32Array(next * CHUNK_WORDS);
@@ -76,12 +103,15 @@ class SlotChunkPool64 {
   }
 
   equals(id, source, offset) {
+    this._assertId(id);
+    assertWordSource(source, offset, 'slot64 chunk source');
     const base = id * CHUNK_WORDS;
     return this.words[base] === (source[offset] >>> 0)
       && this.words[base + 1] === (source[offset + 1] >>> 0);
   }
 
   _growHash() {
+    if (this.hashSlots.length >= (1 << 30)) throw new RangeError('slot64 chunk hash capacity exhausted');
     const next = new Int32Array(this.hashSlots.length * 2);
     next.fill(-1);
     const mask = next.length - 1;
@@ -96,6 +126,7 @@ class SlotChunkPool64 {
   }
 
   intern(source, offset) {
+    assertWordSource(source, offset, 'slot64 chunk source');
     this.metrics.lookups += 1;
     if ((this.count + 1) * 10 >= this.hashSlots.length * 7) this._growHash();
     const hash = hashWords2(source, offset);
@@ -110,6 +141,7 @@ class SlotChunkPool64 {
       }
       slot = (slot + 1) & mask;
     }
+    if (this.count >= UINT32_MAX) throw new RangeError('slot64 chunk ID domain exhausted');
     this._ensureCapacity(this.count + 1);
     const id = this.count;
     const base = id * CHUNK_WORDS;
@@ -122,6 +154,8 @@ class SlotChunkPool64 {
   }
 
   copyTo(id, target, offset) {
+    this._assertId(id);
+    assertWordSource(target, offset, 'slot64 chunk target');
     const base = id * CHUNK_WORDS;
     target[offset] = this.words[base];
     target[offset + 1] = this.words[base + 1];
@@ -140,16 +174,32 @@ class SlotChunkPool64 {
 }
 
 export function installSlot64ResidualPool(kernel, spec, options = {}) {
+  if (!kernel || typeof kernel !== 'object' || !kernel.classes) throw new TypeError('slot64 residual installation requires a quotient kernel');
+  if (!spec || typeof spec !== 'object') throw new TypeError('slot64 residual installation requires a domain spec');
+  for (const name of ['columns', 'rows', 'connect']) {
+    if (!Number.isInteger(spec[name]) || spec[name] < 1) throw new RangeError(`slot64 spec ${name} must be positive`);
+    if (kernel[name] !== undefined && kernel[name] !== spec[name]) {
+      throw new Error(`slot64 spec ${name} ${spec[name]} does not match kernel ${kernel[name]}`);
+    }
+  }
+  const cellCount = spec.columns * spec.rows;
+  if (!Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 64) throw new RangeError('slot64 residual pool supports 1..64 cells');
+
   const pool = kernel.classes;
   const vocabulary = createTermVocabulary(spec);
-  if (vocabulary.count > WORDS_PER_CLASS * 32) {
-    throw new RangeError(`slot64 residual pool currently supports at most ${WORDS_PER_CLASS * 32} ontology terms`);
+  if (!Number.isInteger(vocabulary.count) || vocabulary.count < 1 || vocabulary.count > WORDS_PER_CLASS * 32) {
+    throw new RangeError(`slot64 residual pool supports 1..${WORDS_PER_CLASS * 32} ontology terms`);
   }
+  if (vocabulary.cellCount !== cellCount) throw new Error('slot64 vocabulary cell count drifted');
   if (spec.columns === 7 && spec.rows === 6 && spec.connect === 4 && vocabulary.count !== 625) {
     throw new Error(`standard 7x6 vocabulary drifted: ${vocabulary.count}`);
   }
   const prefixClasses = options.prefixClasses ?? 4096;
   if (!Number.isInteger(prefixClasses) || prefixClasses < 1) throw new RangeError('prefixClasses must be positive');
+  const transitionEntries = prefixClasses * vocabulary.cellCount;
+  if (!Number.isSafeInteger(transitionEntries) || transitionEntries < 1 || transitionEntries > MAX_ARRAY_INDEX_DOMAIN) {
+    throw new RangeError(`slot64 transition cache entry count ${transitionEntries} is outside Int32 index domain`);
+  }
 
   const slotPools = Array.from({ length: CHUNKS_PER_CLASS }, (_, slot) => new SlotChunkPool64(slot));
   let classCount = 0;
@@ -161,8 +211,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   let classHashSlots = new Int32Array(2048);
   classHashSlots.fill(-1);
 
-  const ownTransitions = new Int32Array(prefixClasses * vocabulary.cellCount);
-  const blockTransitions = new Int32Array(prefixClasses * vocabulary.cellCount);
+  const ownTransitions = new Int32Array(transitionEntries);
+  const blockTransitions = new Int32Array(transitionEntries);
   ownTransitions.fill(CLASS_UNKNOWN);
   blockTransitions.fill(CLASS_UNKNOWN);
 
@@ -218,7 +268,10 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   const reducedBits = new Uint32Array(WORDS_PER_CLASS);
   const initialBits = new Uint32Array(WORDS_PER_CLASS);
   const chunkIds = new Uint32Array(CHUNKS_PER_CLASS);
-  for (const termId of vocabulary.initialIds) initialBits[termId >>> 5] |= 1 << (termId & 31);
+  for (const termId of vocabulary.initialIds) {
+    if (!Number.isInteger(termId) || termId < 0 || termId >= vocabulary.count) throw new Error(`invalid initial term ${termId}`);
+    initialBits[termId >>> 5] |= 1 << (termId & 31);
+  }
 
   const metrics = {
     internLookups: 0,
@@ -242,9 +295,48 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     outOfPrefixOwn: 0,
     outOfPrefixBlock: 0,
     cachedStores: 0,
+    termCountReads: 0,
+    termWrites: 0,
   };
 
+  function assertClassId(id) {
+    if (!Number.isInteger(id) || id < 0 || id >= classCount) {
+      throw new RangeError(`slot64 residual class ${id} is outside 0..${classCount - 1}`);
+    }
+    return id;
+  }
+
+  function assertCell(cell) {
+    if (!Number.isInteger(cell) || cell < 0 || cell >= vocabulary.cellCount) {
+      throw new RangeError(`slot64 cell ${cell} is outside 0..${vocabulary.cellCount - 1}`);
+    }
+    return cell;
+  }
+
+  function expectedCellBits(cell) {
+    assertCell(cell);
+    return cell < 32
+      ? [((2 ** cell) >>> 0), 0]
+      : [0, ((2 ** (cell - 32)) >>> 0)];
+  }
+
+  function assertCellBits(cell, bitLo, bitHi) {
+    if (!Number.isInteger(bitLo) || !Number.isInteger(bitHi)) throw new TypeError('slot64 cell masks must be integers');
+    const [expectedLo, expectedHi] = expectedCellBits(cell);
+    if ((bitLo >>> 0) !== expectedLo || (bitHi >>> 0) !== expectedHi) {
+      throw new Error(`slot64 cell-mask mismatch for cell ${cell}`);
+    }
+    return [expectedLo, expectedHi];
+  }
+
+  function assertBits(bits) {
+    if (!(bits instanceof Uint32Array) || bits.length !== WORDS_PER_CLASS) {
+      throw new TypeError(`slot64 residual bits must be Uint32Array(${WORDS_PER_CLASS})`);
+    }
+  }
+
   function ensureReferenceWidth(slot, requiredId) {
+    if (!Number.isInteger(slot) || slot < 0 || slot >= CHUNKS_PER_CLASS) throw new RangeError(`invalid slot64 reference slot ${slot}`);
     const current = classSlotIds[slot];
     const Type = referenceTypeFor(requiredId);
     if (current.BYTES_PER_ELEMENT >= Type.BYTES_PER_ELEMENT) return;
@@ -255,6 +347,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   }
 
   function ensureClassCapacity(required) {
+    if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 class capacity request ${required}`);
     if (required <= classCapacity) return;
     const next = nextPowerOfTwo(required);
     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
@@ -271,6 +364,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   }
 
   function classEquals(id, ids) {
+    assertClassId(id);
+    if (!(ids instanceof Uint32Array) || ids.length !== CHUNKS_PER_CLASS) throw new TypeError('slot64 class tuple must be Uint32Array(10)');
     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
       if (classSlotIds[slot][id] !== ids[slot]) return false;
     }
@@ -278,6 +373,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   }
 
   function growClassHash() {
+    if (classHashSlots.length >= (1 << 30)) throw new RangeError('slot64 class hash capacity exhausted');
     const next = new Int32Array(classHashSlots.length * 2);
     next.fill(-1);
     const mask = next.length - 1;
@@ -291,12 +387,16 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   }
 
   function loadClassBits(id, target) {
+    assertClassId(id);
+    assertBits(target);
     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
-      slotPools[slot].copyTo(classSlotIds[slot][id], target, slot * CHUNK_WORDS);
+      const chunkId = classSlotIds[slot][id];
+      slotPools[slot].copyTo(chunkId, target, slot * CHUNK_WORDS);
     }
   }
 
   function computeSingletonMasks(bits) {
+    assertBits(bits);
     let lo = 0;
     let hi = 0;
     for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
@@ -304,6 +404,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       while (active !== 0) {
         const lsb = (active & -active) >>> 0;
         const termId = (word << 5) + bitIndex32(lsb);
+        if (termId >= vocabulary.count) throw new Error(`slot64 singleton term ${termId} exceeds vocabulary`);
         lo = (lo | vocabulary.lo[termId]) >>> 0;
         hi = (hi | vocabulary.hi[termId]) >>> 0;
         active = (active & (active - 1)) >>> 0;
@@ -313,6 +414,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   }
 
   function internBits(bits, parentId = -1) {
+    assertBits(bits);
+    if (parentId !== -1) assertClassId(parentId);
     metrics.internLookups += 1;
     let sameAsParent = parentId >= 0;
     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
@@ -347,6 +450,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       slot = (slot + 1) & mask;
     }
 
+    if (classCount >= UINT32_MAX) throw new RangeError('slot64 residual class ID domain exhausted');
     for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) ensureReferenceWidth(chunk, chunkIds[chunk]);
     ensureClassCapacity(classCount + 1);
     const id = classCount;
@@ -368,15 +472,26 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   if (pool.emptyClass !== emptyClass || pool.initialClass !== initialClass) throw new Error('slot64 residual bootstrap does not match base q IDs');
 
   function cacheGet(cache, id, cell, own) {
+    assertClassId(id);
+    assertCell(cell);
     if (id >= prefixClasses) {
       if (own) metrics.outOfPrefixOwn += 1;
       else metrics.outOfPrefixBlock += 1;
       return CLASS_UNKNOWN;
     }
-    return cache[id * vocabulary.cellCount + cell];
+    const value = cache[id * vocabulary.cellCount + cell];
+    if (value !== CLASS_UNKNOWN && value !== CLASS_TERMINAL_WIN && (value < 0 || value >= classCount)) {
+      throw new Error(`slot64 transition cache contains invalid class ${value}`);
+    }
+    return value;
   }
 
   function cacheSet(cache, id, cell, value) {
+    assertClassId(id);
+    assertCell(cell);
+    if (value !== CLASS_TERMINAL_WIN && (!Number.isInteger(value) || value < 0 || value >= classCount)) {
+      throw new RangeError(`invalid slot64 transition cache value ${value}`);
+    }
     if (id >= prefixClasses) return;
     cache[id * vocabulary.cellCount + cell] = value;
     metrics.cachedStores += 1;
@@ -388,23 +503,60 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   pool.termVocabulary = vocabulary;
   pool.metrics = metrics;
   pool.slotPools = slotPools;
-  pool.isEmpty = (id) => id === emptyClass;
-  pool.hasSingletonAt = (id, bitLo, bitHi) => (((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0);
+  pool.isEmpty = (id) => assertClassId(id) === emptyClass;
+  pool.hasSingletonAt = (id, bitLo, bitHi) => {
+    assertClassId(id);
+    if (!Number.isInteger(bitLo) || !Number.isInteger(bitHi)) throw new TypeError('singleton masks must be integers');
+    return (((singletonLo[id] & (bitLo >>> 0)) >>> 0) !== 0) || (((singletonHi[id] & (bitHi >>> 0)) >>> 0) !== 0);
+  };
 
-  pool.termIds = function slot64TermIds(id) {
-    loadClassBits(id, inputBits);
+  pool.termCount = function slot64TermCount(id) {
+    assertClassId(id);
+    metrics.termCountReads += 1;
     let count = 0;
-    for (let word = 0; word < WORDS_PER_CLASS; word += 1) count += popcount32(inputBits[word]);
-    const ids = new Uint16Array(count);
-    let out = 0;
-    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
-      let active = inputBits[word] >>> 0;
-      while (active !== 0) {
-        const lsb = (active & -active) >>> 0;
-        ids[out++] = (word << 5) + bitIndex32(lsb);
-        active = (active & (active - 1)) >>> 0;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const chunkId = classSlotIds[slot][id];
+      const base = chunkId * CHUNK_WORDS;
+      count += popcount32(slotPools[slot].words[base]);
+      count += popcount32(slotPools[slot].words[base + 1]);
+    }
+    if (count > vocabulary.count) throw new Error(`slot64 class ${id} term count ${count} exceeds vocabulary ${vocabulary.count}`);
+    return count;
+  };
+
+  pool.writeTermIds = function slot64WriteTermIds(id, target, offset = 0) {
+    assertClassId(id);
+    if (!(target instanceof Uint16Array)) throw new TypeError('slot64 term target must be Uint16Array');
+    const count = pool.termCount(id);
+    if (!Number.isInteger(offset) || offset < 0 || offset + count > target.length) {
+      throw new RangeError(`slot64 term target cannot hold class ${id} length ${count} at offset ${offset}`);
+    }
+    let out = offset;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const chunkId = classSlotIds[slot][id];
+      const base = chunkId * CHUNK_WORDS;
+      for (let localWord = 0; localWord < CHUNK_WORDS; localWord += 1) {
+        const wordIndex = slot * CHUNK_WORDS + localWord;
+        let active = slotPools[slot].words[base + localWord] >>> 0;
+        while (active !== 0) {
+          const lsb = (active & -active) >>> 0;
+          const termId = (wordIndex << 5) + bitIndex32(lsb);
+          if (termId >= vocabulary.count) throw new Error(`slot64 class ${id} contains out-of-vocabulary term ${termId}`);
+          target[out++] = termId;
+          active = (active & (active - 1)) >>> 0;
+        }
       }
     }
+    if (out - offset !== count) throw new Error(`slot64 class ${id} term write drift: expected ${count}, wrote ${out - offset}`);
+    metrics.termWrites += 1;
+    return count;
+  };
+
+  pool.termIds = function slot64TermIds(id) {
+    const count = pool.termCount(id);
+    const ids = new Uint16Array(count);
+    const written = pool.writeTermIds(id, ids, 0);
+    if (written !== count) throw new Error(`slot64 class ${id} term materialization drift`);
     return ids;
   };
 
@@ -416,10 +568,12 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   };
 
   pool.ownTransition = function ownTransitionSlot64(id, cell, bitLo, bitHi) {
+    assertClassId(id);
+    const [cellBitLo, cellBitHi] = assertCellBits(cell, bitLo, bitHi);
     const cached = cacheGet(ownTransitions, id, cell, true);
     if (cached !== CLASS_UNKNOWN) { metrics.ownTransitionHits += 1; return cached; }
     metrics.ownTransitionMisses += 1;
-    if ((((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0)) {
+    if ((((singletonLo[id] & cellBitLo) >>> 0) !== 0) || (((singletonHi[id] & cellBitHi) >>> 0) !== 0)) {
       cacheSet(ownTransitions, id, cell, CLASS_TERMINAL_WIN);
       metrics.ownTerminal += 1;
       return CLASS_TERMINAL_WIN;
@@ -437,11 +591,15 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       while (active !== 0) {
         const lsb = (active & -active) >>> 0;
         const termId = (word << 5) + bitIndex32(lsb);
+        if (termId >= vocabulary.count) throw new Error(`slot64 own transition saw out-of-vocabulary term ${termId}`);
         const target = vocabulary.reduce[termId * vocabulary.cellCount + cell];
         if (target === vocabulary.terminal) {
           cacheSet(ownTransitions, id, cell, CLASS_TERMINAL_WIN);
           metrics.ownTerminal += 1;
           return CLASS_TERMINAL_WIN;
+        }
+        if (!Number.isInteger(target) || target < 0 || target >= vocabulary.count) {
+          throw new Error(`slot64 reduction ${termId}/${cell} returned invalid term ${target}`);
         }
         reducedBits[target >>> 5] |= 1 << (target & 31);
         metrics.reducedTerms += 1;
@@ -460,6 +618,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       while (active !== 0) {
         const lsb = (active & -active) >>> 0;
         const termId = (word << 5) + bitIndex32(lsb);
+        if (termId >= vocabulary.count) throw new Error(`slot64 normalization saw out-of-vocabulary term ${termId}`);
         const start = strictSupersetStarts[termId];
         const end = strictSupersetStarts[termId + 1];
         for (let entry = start; entry < end; entry += 1) {
@@ -479,6 +638,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   };
 
   pool.blockTransition = function blockTransitionSlot64Direct(id, cell) {
+    assertClassId(id);
+    assertCell(cell);
     const cached = cacheGet(blockTransitions, id, cell, false);
     if (cached !== CLASS_UNKNOWN) { metrics.blockTransitionHits += 1; return cached; }
     metrics.blockTransitionMisses += 1;
@@ -530,17 +691,13 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
       hashSlot = (hashSlot + 1) & hashMask;
     }
 
-    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) {
-      ensureReferenceWidth(slotIndex, chunkIds[slotIndex]);
-    }
+    if (classCount >= UINT32_MAX) throw new RangeError('slot64 residual class ID domain exhausted');
+    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) ensureReferenceWidth(slotIndex, chunkIds[slotIndex]);
     ensureClassCapacity(classCount + 1);
     const result = classCount;
-    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) {
-      classSlotIds[slotIndex][result] = chunkIds[slotIndex];
-    }
+    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) classSlotIds[slotIndex][result] = chunkIds[slotIndex];
     classHashes[result] = hash;
-    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
-    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+    const [bitLo, bitHi] = expectedCellBits(cell);
     singletonLo[result] = (singletonLo[id] & ~bitLo) >>> 0;
     singletonHi[result] = (singletonHi[id] & ~bitHi) >>> 0;
     classHashSlots[hashSlot] = result;
