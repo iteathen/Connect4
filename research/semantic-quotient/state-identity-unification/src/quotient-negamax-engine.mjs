@@ -414,6 +414,9 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     scoutTasks: 0,
     reSearches: 0,
     parallelBatches: 0,
+    incrementalScoutCompletions: 0,
+    detachedScoutTasks: 0,
+    detachedBatches: 0,
     workerCalls: 0,
     workerExpanded: 0,
     forcedNodes: 0,
@@ -426,6 +429,28 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
   };
   const proof = createProofAccess(port, metrics);
   const rootFrontierSeed = hasFrontierOrder ? frontierOrder.createRootSeed() : null;
+  const background = new Set();
+  let backgroundError = null;
+
+  function trackDetached(promises) {
+    if (promises.length === 0) return;
+    metrics.detachedBatches += 1;
+    metrics.detachedScoutTasks += promises.length;
+    let tracked;
+    tracked = Promise.allSettled(promises)
+      .then((results) => {
+        for (const result of results) {
+          if (result.status === 'rejected') backgroundError ??= result.reason;
+        }
+      })
+      .finally(() => background.delete(tracked));
+    background.add(tracked);
+  }
+
+  async function drainBackground() {
+    while (background.size > 0) await Promise.all([...background]);
+    if (backgroundError) throw backgroundError;
+  }
 
   function transition(stateId, column) {
     metrics.transitionsRequested += 1;
@@ -614,11 +639,27 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
           });
         }
         if (siblings.length > 0) metrics.parallelBatches += 1;
-        const scoutValues = await Promise.all(siblings.map((entry) => entry.promise));
 
+        const pending = new Map();
         for (let index = 0; index < siblings.length; index += 1) {
           const entry = siblings[index];
-          let score = entry.terminal ? 1 : -scoutValues[index];
+          pending.set(index, entry.promise.then(
+            (result) => ({ index, result, error: null }),
+            (error) => ({ index, result: null, error }),
+          ));
+        }
+
+        while (pending.size > 0) {
+          const settled = await Promise.race(pending.values());
+          pending.delete(settled.index);
+          if (settled.error) {
+            trackDetached([...pending.keys()].map((index) => siblings[index].promise));
+            throw settled.error;
+          }
+
+          metrics.incrementalScoutCompletions += 1;
+          const entry = siblings[settled.index];
+          let score = entry.terminal ? 1 : -settled.result;
           if (score > alpha && score < beta && !entry.terminal) {
             metrics.reSearches += 1;
             score = -await search(entry.child, -beta, -alpha, decisionDepth + 1, entry.seed);
@@ -630,6 +671,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
           if (value > alpha) alpha = value;
           if (alpha >= beta) {
             metrics.cutoffs += 1;
+            trackDetached([...pending.keys()].map((index) => siblings[index].promise));
             break;
           }
         }
@@ -654,8 +696,10 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
   }
 
   async function rootActionValues() {
+    await drainBackground();
     const values = Array(columns).fill(null);
     for (let column = 0; column < columns; column += 1) values[column] = await solveRootColumn(column);
+    await drainBackground();
     return values;
   }
 
@@ -664,6 +708,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     solveRoot,
     solveRootColumn,
     rootActionValues,
+    drainBackground,
     metrics,
   });
 }
