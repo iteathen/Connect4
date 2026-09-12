@@ -45,9 +45,14 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
     return edges[stateId * columns + column];
   }
 
-  function readBounds(stateId) {
+  function readLower(stateId) {
     metrics.sharedRecordReads += 1;
-    return proofStore.bounds(stateId);
+    return proofStore.lower(stateId);
+  }
+
+  function readUpper(stateId) {
+    metrics.sharedRecordReads += 1;
+    return proofStore.upper(stateId);
   }
 
   function readBestMove(stateId) {
@@ -104,9 +109,8 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
 
   function search(stateId, alpha, beta) {
     metrics.calls += 1;
-    const initialBounds = readBounds(stateId);
-    const lower = initialBounds.lower;
-    const upper = initialBounds.upper;
+    const lower = readLower(stateId);
+    const upper = readUpper(stateId);
     if (lower === upper) {
       metrics.ttExactReturns += 1;
       return lower;
@@ -160,8 +164,7 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
         }
         if (child < 0) continue;
         metrics.etcProbes += 1;
-        const childBounds = readBounds(child);
-        const parentLower = -childBounds.upper;
+        const parentLower = -readUpper(child);
         if (parentLower >= beta) {
           publishLower(stateId, parentLower, column);
           metrics.etcCutoffs += 1;
