@@ -8,6 +8,7 @@ import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
 
 export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
+  if (!kernel || !semanticArena) throw new TypeError('online semantic quotient port requires kernel and semantic arena');
   const { states, supportAccess, columns, cellCount, centerOrder } = kernel;
   const descriptorCache = createLocalSemanticDescriptorCache(kernel);
   const tt = createSemanticSharedTtView(semanticArena);
@@ -17,16 +18,25 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
     ttEnsures: 0,
     ttReprobes: 0,
     proofHandleRefreshes: 0,
+    proofReadRetries: 0,
     publicationRetries: 0,
   };
   let cachedStateId = -1;
   let cachedHandle = -1;
 
+  function assertStateId(stateId) {
+    if (!Number.isInteger(stateId) || stateId < 0 || stateId >= states.count) {
+      throw new RangeError(`online semantic state id ${stateId} is outside current state count ${states.count}`);
+    }
+  }
+
   function descriptor(stateId) {
+    assertStateId(stateId);
     return descriptorCache.hotStateDescriptor(stateId);
   }
 
   function rememberHandle(stateId, handle) {
+    if (!Number.isInteger(handle) || handle < -1) throw new Error(`semantic TT returned invalid handle ${handle}`);
     cachedStateId = stateId;
     cachedHandle = handle;
     return handle;
@@ -39,13 +49,19 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
 
   function ensureHandle(stateId) {
     identityMetrics.ttEnsures += 1;
-    return rememberHandle(stateId, tt.ensure(descriptor(stateId)));
+    const handle = tt.ensure(descriptor(stateId));
+    if (!Number.isInteger(handle) || handle < semanticArena.entryCapacity) {
+      throw new Error(`semantic TT ensure returned malformed generation handle ${handle}`);
+    }
+    return rememberHandle(stateId, handle);
   }
 
   function currentHandle(stateId, admit) {
+    assertStateId(stateId);
     if (cachedStateId === stateId && cachedHandle >= 0) {
       if (semanticProofStore.isCurrent(cachedHandle)) return cachedHandle;
       identityMetrics.proofHandleRefreshes += 1;
+      cachedHandle = -1;
     }
     if (admit) return ensureHandle(stateId);
     identityMetrics.ttReprobes += 1;
@@ -53,8 +69,14 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   }
 
   function readBound(stateId, fallback, read) {
-    const handle = currentHandle(stateId, false);
-    return handle < 0 ? fallback : read(handle);
+    while (true) {
+      const handle = currentHandle(stateId, false);
+      if (handle < 0) return fallback;
+      const value = read(handle);
+      if (semanticProofStore.isCurrent(handle)) return value;
+      identityMetrics.proofReadRetries += 1;
+      cachedHandle = -1;
+    }
   }
 
   function publishCurrent(stateId, publish) {
@@ -124,9 +146,20 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
       ensureHandle(stateId);
       return stateId;
     },
-    rankAt: (stateId) => supportAccess.rankAt(states.support[stateId]),
-    isLegal: (stateId, column) => supportAccess.landingAt(states.support[stateId], column) !== 0xff,
-    landingCellAt: (stateId, column) => supportAccess.landingAt(states.support[stateId], column),
+    rankAt(stateId) {
+      assertStateId(stateId);
+      return supportAccess.rankAt(states.support[stateId]);
+    },
+    isLegal(stateId, column) {
+      assertStateId(stateId);
+      if (!Number.isInteger(column) || column < 0 || column >= columns) return false;
+      return supportAccess.landingAt(states.support[stateId], column) !== 0xff;
+    },
+    landingCellAt(stateId, column) {
+      assertStateId(stateId);
+      if (!Number.isInteger(column) || column < 0 || column >= columns) return 0xff;
+      return supportAccess.landingAt(states.support[stateId], column);
+    },
     transition: kernel.advance,
     tacticalCode: kernel.tacticalCode,
     frontierBoundCode: kernel.frontierBoundCode ?? (() => 0),
@@ -143,17 +176,22 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
   });
 
   function replayPath(path) {
+    if (!Array.isArray(path)) throw new TypeError('planner path must be an array');
     let stateId = kernel.rootId;
     let frontierSeed = kernel.frontierOrder?.createRootSeed() ?? null;
     for (let index = 0; index < path.length; index += 1) {
       const column = path[index];
+      if (!Number.isInteger(column) || column < 0 || column >= kernel.columns) {
+        throw new RangeError(`planner path column ${column} at ply ${index} is outside 0..${kernel.columns - 1}`);
+      }
       const supportIndex = kernel.states.support[stateId];
       const landingCell = kernel.supportAccess.landingAt(supportIndex, column);
       if (landingCell === 0xff) throw new Error(`illegal planner path at ply ${index}: ${path.join(',')}`);
       const mover = kernel.supportAccess.rankAt(supportIndex) & 1;
       const child = kernel.advance(stateId, column);
-      if (child === QN_ILLEGAL) throw new Error(`illegal planner path at ply ${index}: ${path.join(',')}`);
+      if (child === QN_ILLEGAL) throw new Error(`legal planner path produced illegal transition at ply ${index}: ${path.join(',')}`);
       if (child === QN_TERMINAL_WIN) throw new Error(`planner path crosses terminal win at ply ${index}: ${path.join(',')}`);
+      if (!Number.isInteger(child) || child < 0) throw new Error(`planner path produced invalid child ${child} at ply ${index}`);
       if (frontierSeed) frontierSeed = kernel.frontierOrder.advanceSeed(frontierSeed, mover, landingCell);
       stateId = child;
     }
