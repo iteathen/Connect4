@@ -13,21 +13,23 @@ import {
   tacticalImmediateColumn,
 } from './quotient-negamax-domain-contract.mjs';
 
+const MAX_FRONTIER_SCORE = 0x7fff;
+
 function assertPort(port) {
   if (!port || typeof port !== 'object') throw new TypeError('quotient Negamax port must be an object');
-  if (!Number.isInteger(port.columns) || port.columns < 1 || port.columns > 7) {
+  if (!Number.isSafeInteger(port.columns) || port.columns < 1 || port.columns > 7) {
     throw new RangeError(`quotient Negamax columns must be in 1..7, got ${port.columns}`);
   }
-  if (!Number.isInteger(port.cellCount) || port.cellCount < 1 || port.cellCount > 64) {
+  if (!Number.isSafeInteger(port.cellCount) || port.cellCount < 1 || port.cellCount > 64) {
     throw new RangeError(`quotient Negamax cellCount must be in 1..64, got ${port.cellCount}`);
   }
-  if (!Number.isInteger(port.rootId) || port.rootId < 0) throw new RangeError('quotient Negamax rootId must be non-negative');
+  if (!Number.isSafeInteger(port.rootId) || port.rootId < 0) throw new RangeError('quotient Negamax rootId must be non-negative');
   if (!Array.isArray(port.centerOrder) || port.centerOrder.length !== port.columns) {
     throw new TypeError('quotient Negamax centerOrder must enumerate every column');
   }
   const seen = new Set();
   for (const column of port.centerOrder) {
-    if (!Number.isInteger(column) || column < 0 || column >= port.columns || seen.has(column)) {
+    if (!Number.isSafeInteger(column) || column < 0 || column >= port.columns || seen.has(column)) {
       throw new Error(`invalid center-order column ${column}`);
     }
     seen.add(column);
@@ -49,9 +51,7 @@ function createProofAccess(port, metrics, columns) {
 
   function assertKey(key, label, allowMiss = true) {
     const minimum = allowMiss ? -1 : 0;
-    if (!Number.isInteger(key) || key < minimum) {
-      throw new Error(`${label} returned invalid proof key ${key}`);
-    }
+    if (!Number.isSafeInteger(key) || key < minimum) throw new Error(`${label} returned invalid proof key ${key}`);
     return key;
   }
 
@@ -80,7 +80,7 @@ function createProofAccess(port, metrics, columns) {
   function bestMove(key) {
     if (key < 0) return -1;
     const move = proofStore.bestMove(key);
-    if (!Number.isInteger(move) || move < -1 || move >= columns) {
+    if (!Number.isSafeInteger(move) || move < -1 || move >= columns) {
       throw new Error(`proof best move for key ${key} is outside -1..${columns - 1}: ${move}`);
     }
     return move;
@@ -88,7 +88,7 @@ function createProofAccess(port, metrics, columns) {
 
   function assertPublication(value, bestMoveValue) {
     assertWdlValue(value, 'proof publication value');
-    if (!Number.isInteger(bestMoveValue) || bestMoveValue < -1 || bestMoveValue >= columns) {
+    if (!Number.isSafeInteger(bestMoveValue) || bestMoveValue < -1 || bestMoveValue >= columns) {
       throw new RangeError(`proof publication best move must be -1..${columns - 1}, got ${bestMoveValue}`);
     }
   }
@@ -125,7 +125,7 @@ function classifyBoundReturn(metrics, key, structuralNarrowed, proofCut) {
 }
 
 function assertTransitionResult(result, stateId, column) {
-  if (!Number.isInteger(result) || result < QN_ILLEGAL) {
+  if (!Number.isSafeInteger(result) || result < QN_ILLEGAL) {
     throw new Error(`transition ${stateId}/${column} returned invalid target ${result}`);
   }
   return result;
@@ -140,7 +140,7 @@ function requireLegalTransition(result, stateId, column) {
 }
 
 function assertRank(rank, cellCount, stateId) {
-  if (!Number.isInteger(rank) || rank < 0 || rank > cellCount) {
+  if (!Number.isSafeInteger(rank) || rank < 0 || rank > cellCount) {
     throw new Error(`rankAt(${stateId}) returned invalid rank ${rank}`);
   }
   return rank;
@@ -148,11 +148,60 @@ function assertRank(rank, cellCount, stateId) {
 
 function createLegalAccess(isLegal, columns) {
   return (stateId, column) => {
-    if (!Number.isInteger(column) || column < 0 || column >= columns) return false;
+    if (!Number.isSafeInteger(column) || column < 0 || column >= columns) return false;
     const legal = isLegal(stateId, column);
     if (typeof legal !== 'boolean') throw new TypeError(`isLegal(${stateId}, ${column}) must return boolean`);
     return legal;
   };
+}
+
+function assertFrontierOrder(frontierOrder, landingCellAt, mode) {
+  if (frontierOrder === null) return 0;
+  if (typeof landingCellAt !== 'function'
+      || typeof frontierOrder.createRootSeed !== 'function'
+      || !Number.isSafeInteger(frontierOrder.profile?.stateWords)
+      || frontierOrder.profile.stateWords < 1) {
+    throw new TypeError(`${mode} frontier order must expose a complete profile and landing access`);
+  }
+  if (mode === 'stack') {
+    if (typeof frontierOrder.advanceInto !== 'function' || typeof frontierOrder.valueAtStack !== 'function') {
+      throw new TypeError('stack frontier order must expose advanceInto/valueAtStack');
+    }
+  } else if (typeof frontierOrder.advanceSeed !== 'function' || typeof frontierOrder.valueAtSeed !== 'function') {
+    throw new TypeError('dependency frontier order must expose advanceSeed/valueAtSeed');
+  }
+  return frontierOrder.profile.stateWords;
+}
+
+function assertFrontierSeed(seed, words, label) {
+  if (!(seed instanceof Uint32Array) || seed.length !== words) {
+    throw new TypeError(`${label} must be Uint32Array(${words})`);
+  }
+  return seed;
+}
+
+function assertFrontierScore(score, label) {
+  if (!Number.isSafeInteger(score) || score < 0 || score > MAX_FRONTIER_SCORE) {
+    throw new RangeError(`${label} must be an integer in 0..${MAX_FRONTIER_SCORE}, got ${score}`);
+  }
+  return score;
+}
+
+function frontierComesBefore(leftScore, leftColumn, rightScore, rightColumn, proofBest) {
+  if (leftScore !== rightScore) return leftScore > rightScore;
+  const leftProof = leftColumn === proofBest;
+  const rightProof = rightColumn === proofBest;
+  if (leftProof !== rightProof) return leftProof;
+  return leftColumn < rightColumn;
+}
+
+function legalProofHint(proof, key, stateId, legalAt, metrics) {
+  const best = proof.bestMove(key);
+  if (best >= 0 && legalAt(stateId, best)) {
+    metrics.ttMoveOrderHits += 1;
+    return best;
+  }
+  return -1;
 }
 
 export function createQuotientNegamaxEngine(port, config = {}) {
@@ -170,30 +219,22 @@ export function createQuotientNegamaxEngine(port, config = {}) {
   const legalAt = createLegalAccess(isLegal, columns);
   const frontierOrder = port.frontierOrder ?? null;
   const landingCellAt = port.landingCellAt ?? null;
-  const hasFrontierOrder = frontierOrder !== null && typeof landingCellAt === 'function';
+  const frontierWords = assertFrontierOrder(frontierOrder, landingCellAt, 'stack');
+  const hasFrontierOrder = frontierOrder !== null;
   const etc = config.etc !== false;
   const etcMinRemaining = config.etcMinRemaining ?? 0;
   const wdlMode = config.wdlMode ?? 'full';
-  if (!Number.isInteger(etcMinRemaining) || etcMinRemaining < 0 || etcMinRemaining > cellCount) {
+  if (!Number.isSafeInteger(etcMinRemaining) || etcMinRemaining < 0 || etcMinRemaining > cellCount) {
     throw new RangeError(`etcMinRemaining must be an integer in 0..${cellCount}`);
   }
   if (wdlMode !== 'full' && wdlMode !== 'threshold') throw new RangeError('wdlMode must be full or threshold');
-  if (frontierOrder !== null) {
-    if (typeof landingCellAt !== 'function'
-        || typeof frontierOrder.createRootSeed !== 'function'
-        || typeof frontierOrder.advanceInto !== 'function'
-        || typeof frontierOrder.valueAtStack !== 'function'
-        || !Number.isInteger(frontierOrder.profile?.stateWords)
-        || frontierOrder.profile.stateWords < 1) {
-      throw new TypeError('frontier order must expose the complete live-line ordering contract');
-    }
-  }
 
   const moveStack = new Int8Array((cellCount + 1) * columns);
   const moveScores = hasFrontierOrder ? new Int16Array((cellCount + 1) * columns) : null;
-  const frontierWords = hasFrontierOrder ? frontierOrder.profile.stateWords : 0;
   const frontierStack = hasFrontierOrder ? new Uint32Array((cellCount + 1) * frontierWords) : null;
-  const rootFrontierSeed = hasFrontierOrder ? frontierOrder.createRootSeed() : null;
+  const rootFrontierSeed = hasFrontierOrder
+    ? assertFrontierSeed(frontierOrder.createRootSeed(), frontierWords, 'root live-line frontier seed')
+    : null;
   const metrics = {
     calls: 0,
     expanded: 0,
@@ -232,16 +273,14 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       frontierStack.set(rootFrontierSeed, offset);
       return rank;
     }
-    if (!(frontierSeed instanceof Uint32Array) || frontierSeed.length !== frontierWords) {
-      throw new TypeError(`live-line frontier seed must be Uint32Array(${frontierWords})`);
-    }
+    assertFrontierSeed(frontierSeed, frontierWords, 'live-line frontier seed');
     frontierStack.set(frontierSeed, offset);
     return rank;
   }
 
   function landingForLegalMove(stateId, column) {
     const landingCell = landingCellAt(stateId, column);
-    if (!Number.isInteger(landingCell) || landingCell < 0 || landingCell >= cellCount) {
+    if (!Number.isSafeInteger(landingCell) || landingCell < 0 || landingCell >= cellCount) {
       throw new Error(`landingCellAt(${stateId}, ${column}) returned invalid legal landing cell ${landingCell}`);
     }
     return landingCell;
@@ -272,17 +311,20 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     if (hasFrontierOrder) {
       const frontierOffset = rank * frontierWords;
       const mover = rank & 1;
+      const proofBest = legalProofHint(proof, key, stateId, legalAt, metrics);
       let count = 0;
       for (let column = 0; column < columns; column += 1) {
         if (!legalAt(stateId, column)) continue;
         const landingCell = landingForLegalMove(stateId, column);
-        const score = frontierOrder.valueAtStack(frontierStack, frontierOffset, mover, landingCell);
-        if (!Number.isFinite(score)) throw new Error(`frontier ordering returned non-finite score ${score}`);
+        const score = assertFrontierScore(
+          frontierOrder.valueAtStack(frontierStack, frontierOffset, mover, landingCell),
+          `frontier score for state ${stateId}/${column}`,
+        );
         let at = count;
         while (at > 0) {
           const previousScore = moveScores[base + at - 1];
           const previousColumn = moveStack[base + at - 1];
-          if (previousScore > score || (previousScore === score && previousColumn < column)) break;
+          if (frontierComesBefore(previousScore, previousColumn, score, column, proofBest)) break;
           moveScores[base + at] = previousScore;
           moveStack[base + at] = previousColumn;
           at -= 1;
@@ -296,11 +338,8 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     }
 
     let count = 0;
-    const best = proof.bestMove(key);
-    if (best >= 0 && legalAt(stateId, best)) {
-      moveStack[base + count++] = best;
-      metrics.ttMoveOrderHits += 1;
-    }
+    const best = legalProofHint(proof, key, stateId, legalAt, metrics);
+    if (best >= 0) moveStack[base + count++] = best;
     for (const column of centerOrder) {
       if (column === best || !legalAt(stateId, column)) continue;
       moveStack[base + count++] = column;
@@ -358,11 +397,10 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       const tactical = tacticalCode(stateId);
       assertTacticalCode(tactical, columns);
       if (tactical >= TACTICAL_IMMEDIATE_BASE) {
-        const value = 1;
-        proof.publishExact(stateId, key, value, tacticalImmediateColumn(tactical));
+        proof.publishExact(stateId, key, 1, tacticalImmediateColumn(tactical));
         metrics.tacticalExact += 1;
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
-        return sign * value;
+        return sign;
       }
       if (tactical === TACTICAL_LOSS) {
         proof.publishExact(stateId, key, -1);
@@ -382,7 +420,6 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       alpha = Math.max(alpha, lower);
       beta = Math.min(beta, upper);
       const forcedColumn = tacticalForcedColumn(tactical, columns);
-
       if (forcedColumn >= 0) {
         metrics.forcedNodes += 1;
         metrics.forcedMacroTransitions += 1;
@@ -439,9 +476,8 @@ export function createQuotientNegamaxEngine(port, config = {}) {
         const column = moveStack[base + index];
         const child = requireLegalTransition(transition(stateId, column), stateId, column);
         let score;
-        if (child === QN_TERMINAL_WIN) {
-          score = 1;
-        } else {
+        if (child === QN_TERMINAL_WIN) score = 1;
+        else {
           advanceFrontier(stateId, column, rank);
           score = -searchNode(child, -beta, -alpha, rank + 1);
         }
@@ -529,20 +565,15 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
   const legalAt = createLegalAccess(isLegal, columns);
   const frontierOrder = port.frontierOrder ?? null;
   const landingCellAt = port.landingCellAt ?? null;
-  const hasFrontierOrder = frontierOrder !== null && typeof landingCellAt === 'function';
+  const frontierWords = assertFrontierOrder(frontierOrder, landingCellAt, 'dependency');
+  const hasFrontierOrder = frontierOrder !== null;
   const splitDepth = config.splitDepth ?? 3;
   const priorityAt = config.priorityAt ?? (() => 0);
-  if (!Number.isInteger(splitDepth) || splitDepth < 1) throw new RangeError('splitDepth must be a positive integer');
+  if (!Number.isSafeInteger(splitDepth) || splitDepth < 1 || splitDepth > cellCount) {
+    throw new RangeError(`splitDepth must be an integer in 1..${cellCount}`);
+  }
   if (typeof leafSearch !== 'function') throw new TypeError('leafSearch must be a function');
   if (typeof priorityAt !== 'function') throw new TypeError('priorityAt must be a function');
-  if (frontierOrder !== null) {
-    if (typeof landingCellAt !== 'function'
-        || typeof frontierOrder.createRootSeed !== 'function'
-        || typeof frontierOrder.advanceSeed !== 'function'
-        || typeof frontierOrder.valueAtSeed !== 'function') {
-      throw new TypeError('dependency frontier order must expose the complete seed contract');
-    }
-  }
 
   const metrics = {
     calls: 0,
@@ -550,6 +581,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     ttExactReturns: 0,
     ttBoundReturns: 0,
     domainBoundCuts: 0,
+    ttMoveOrderHits: 0,
     tacticalExact: 0,
     cutoffs: 0,
     firstMoveCutoffs: 0,
@@ -572,22 +604,22 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     proofAdmissions: 0,
   };
   const proof = createProofAccess(port, metrics, columns);
-  const rootFrontierSeed = hasFrontierOrder ? frontierOrder.createRootSeed() : null;
+  const rootFrontierSeed = hasFrontierOrder
+    ? assertFrontierSeed(frontierOrder.createRootSeed(), frontierWords, 'dependency root frontier seed')
+    : null;
   const background = new Set();
   let backgroundError = null;
 
   function trackDetached(promises) {
-    if (promises.length === 0) return;
+    if (!Array.isArray(promises) || promises.length === 0) return;
     metrics.detachedBatches += 1;
     metrics.detachedScoutTasks += promises.length;
+    const observed = promises.map((promise) => Promise.resolve(promise).catch((error) => {
+      backgroundError ??= error;
+      throw error;
+    }));
     let tracked;
-    tracked = Promise.allSettled(promises)
-      .then((results) => {
-        for (const result of results) {
-          if (result.status === 'rejected') backgroundError ??= result.reason;
-        }
-      })
-      .finally(() => background.delete(tracked));
+    tracked = Promise.allSettled(observed).finally(() => background.delete(tracked));
     background.add(tracked);
   }
 
@@ -607,7 +639,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
 
   function landingForLegalMove(stateId, column) {
     const landingCell = landingCellAt(stateId, column);
-    if (!Number.isInteger(landingCell) || landingCell < 0 || landingCell >= cellCount) {
+    if (!Number.isSafeInteger(landingCell) || landingCell < 0 || landingCell >= cellCount) {
       throw new Error(`landingCellAt(${stateId}, ${column}) returned invalid legal landing cell ${landingCell}`);
     }
     return landingCell;
@@ -615,10 +647,13 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
 
   function nextFrontierSeed(stateId, column, rank, seed) {
     if (!hasFrontierOrder) return null;
+    assertFrontierSeed(seed, frontierWords, 'dependency frontier seed');
     const landingCell = landingForLegalMove(stateId, column);
-    const next = frontierOrder.advanceSeed(seed, rank & 1, landingCell);
-    if (!(next instanceof Uint32Array)) throw new TypeError('frontierOrder.advanceSeed must return Uint32Array');
-    return next;
+    return assertFrontierSeed(
+      frontierOrder.advanceSeed(seed, rank & 1, landingCell),
+      frontierWords,
+      'frontierOrder.advanceSeed result',
+    );
   }
 
   function orderedMoves(stateId, key, forcedColumn, rank, frontierSeed) {
@@ -627,22 +662,32 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
       return [forcedColumn];
     }
     if (hasFrontierOrder) {
+      assertFrontierSeed(frontierSeed, frontierWords, 'dependency frontier ordering seed');
+      const proofBest = legalProofHint(proof, key, stateId, legalAt, metrics);
       const scored = [];
       const mover = rank & 1;
       for (let column = 0; column < columns; column += 1) {
         if (!legalAt(stateId, column)) continue;
         const landingCell = landingForLegalMove(stateId, column);
-        const score = frontierOrder.valueAtSeed(frontierSeed, mover, landingCell);
-        if (!Number.isFinite(score)) throw new Error(`frontier ordering returned non-finite score ${score}`);
+        const score = assertFrontierScore(
+          frontierOrder.valueAtSeed(frontierSeed, mover, landingCell),
+          `dependency frontier score for state ${stateId}/${column}`,
+        );
         scored.push({ column, value: score });
       }
-      scored.sort((left, right) => right.value - left.value || left.column - right.column);
+      scored.sort((left, right) => {
+        if (left.value !== right.value) return right.value - left.value;
+        const leftProof = left.column === proofBest;
+        const rightProof = right.column === proofBest;
+        if (leftProof !== rightProof) return leftProof ? -1 : 1;
+        return left.column - right.column;
+      });
       metrics.frontierOrderedNodes += 1;
       return scored.map((entry) => entry.column);
     }
     const moves = [];
-    const best = proof.bestMove(key);
-    if (best >= 0 && legalAt(stateId, best)) moves.push(best);
+    const best = legalProofHint(proof, key, stateId, legalAt, metrics);
+    if (best >= 0) moves.push(best);
     for (const column of centerOrder) {
       if (column === best || !legalAt(stateId, column)) continue;
       moves.push(column);
@@ -666,21 +711,22 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     if (result && typeof result === 'object') {
       const calls = result.metrics?.calls ?? 0;
       const expanded = result.metrics?.expanded ?? 0;
-      if (!Number.isFinite(calls) || calls < 0 || !Number.isFinite(expanded) || expanded < 0) {
-        throw new Error('leaf telemetry must contain finite non-negative calls/expanded counters');
+      if (!Number.isSafeInteger(calls) || calls < 0 || !Number.isSafeInteger(expanded) || expanded < 0) {
+        throw new Error('leaf telemetry must contain non-negative safe-integer calls/expanded counters');
       }
       metrics.workerCalls += calls;
       metrics.workerExpanded += expanded;
       value = result.value;
-    } else {
-      value = result;
-    }
+    } else value = result;
     return assertWdlValue(value, `leaf result for state ${stateId}`);
   }
 
   async function search(startStateId, startAlpha, startBeta, decisionDepth = 0, frontierSeed = null) {
+    if (backgroundError) throw backgroundError;
     assertSearchWindow(startAlpha, startBeta, 'dependency search window');
-    if (!Number.isInteger(decisionDepth) || decisionDepth < 0) throw new RangeError('decisionDepth must be a non-negative integer');
+    if (!Number.isSafeInteger(decisionDepth) || decisionDepth < 0 || decisionDepth > cellCount) {
+      throw new RangeError(`decisionDepth must be an integer in 0..${cellCount}`);
+    }
     let stateId = startStateId;
     let alpha = startAlpha;
     let beta = startBeta;
@@ -690,7 +736,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
       if (rank !== 0) throw new Error('non-root dependency search requires live-line frontier seed');
       seed = rootFrontierSeed;
     }
-    if (hasFrontierOrder && !(seed instanceof Uint32Array)) throw new TypeError('dependency frontier seed must be Uint32Array');
+    if (hasFrontierOrder) assertFrontierSeed(seed, frontierWords, 'dependency frontier seed');
     let sign = 1;
     let forcedTransitions = 0;
 
