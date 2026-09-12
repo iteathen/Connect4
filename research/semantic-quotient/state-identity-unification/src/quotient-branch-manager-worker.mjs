@@ -42,7 +42,8 @@ const prebuildGraph = workerData.prebuildGraph !== false;
 const graph = prebuildGraph
   ? buildSharedQuotientGraph(workerData.spec, { prefixClasses })
   : null;
-const proofResources = createProofResourceService(graph?.stateCount ?? 0, workerData.semanticTt ?? null);
+const proofResources = createProofResourceService(graph?.stateCount ?? 0, workerData.semanticTt
+  ? { ...workerData.semanticTt, domainSpec: workerData.spec } : null);
 const planService = graph ? createQuotientWorkPlanService(graph) : null;
 const exploreHints = createExploreHintService({
   columns,

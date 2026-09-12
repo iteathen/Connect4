@@ -453,3 +453,30 @@ Worker packet `dbc6fcf05fb2e753078cc2e8dc445b1bdad73f0e` remote checks succeeded
 replacement `34692479054`, ExploreHint `34692479027`, dependency `34692479021`.
 Final review is checking explicit arena/domain binding, coverage inventory and
 failure paths around initialization before a root-readiness decision.
+
+## Final boundary review: arena domain and current generation
+
+Exact residual term IDs are vocabulary-relative. Previously the semantic
+adapter/worker attachment accepted an arena created for a different geometry,
+so support and term-ID equality lacked an enforced domain premise. Arena creation
+now captures a frozen `domainSpec`; Branch Manager supplies its owned geometry,
+and game adapters/worker startup require an exact match. Raw synthetic descriptor
+lifecycle controls may remain unbound, but an unbound arena cannot be attached to
+a game adapter. This adds explicit namespace ownership without changing slot
+layout, exact descriptor bytes or the v5 replacement policy. Cross-geometry and
+unbound attachment controls fail closed; the correctly bound lifecycle control
+still refreshes stable proof keys after replacement.
+
+`isCurrent` now rechecks generation after observing status. An interleaving
+control replaces the descriptor between those observations and verifies the old
+handle is rejected. Root rank zero is validated on policy construction, and
+ExploreHint campaign initialization is inside its teardown scope. The root
+workflow has one concurrency group with cancellation disabled; the explicit
+revision trigger is still untouched.
+
+All affected bounded campaigns pass locally again, including complete slot64,
+replacement, dependency-aware and ExploreHint. The final targeted suite covers
+33 controls. No production/qualification source remains unread in the selected
+active import closure; source/hash coverage reconciliation and exact-revision
+remote qualification are the remaining admission gates. This statement does not
+promote unused historical implementations or establish standard-root performance.

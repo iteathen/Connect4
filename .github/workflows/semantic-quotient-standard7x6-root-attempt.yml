@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: connect4-standard7x6-frontier-root
+  cancel-in-progress: false
+
 env:
   SEARCH_WORKERS: '3'
   SPLIT_DEPTH: '3'

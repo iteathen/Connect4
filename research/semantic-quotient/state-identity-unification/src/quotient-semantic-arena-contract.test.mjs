@@ -5,6 +5,8 @@ import { once } from 'node:events';
 import { setTimeout as delay } from 'node:timers/promises';
 import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
 import { createProofResourceService } from './quotient-proof-resource-service.mjs';
+import { createOnlineSemanticQuotientPort } from './quotient-online-semantic-search-lib.mjs';
+import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 import { createSemanticSharedTtArena, createSemanticSharedTtView, resetSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
 
 const descriptor = (id, terms = [1]) => ({ supportIndex: id, p0: { ids: new Uint16Array(terms) }, p1: { ids: new Uint16Array() }, hash: { lo: 0, hi: id } });
@@ -12,6 +14,34 @@ const fixture = () => {
   const arena = createSemanticSharedTtArena({ entryCapacity: 1, associativity: 1, termCapacity: 64 });
   return { arena, tt: createSemanticSharedTtView(arena), proofs: createPackedProofStore(arena) };
 };
+
+test('current-handle observation rechecks generation after observing slot status', () => {
+  const { arena, tt, proofs } = fixture();
+  const old = tt.ensure(descriptor(1));
+  const load = Atomics.load;
+  let armed = true;
+  Atomics.load = (array, index) => {
+    if (armed && array.buffer === arena.statusBuffer) {
+      armed = false;
+      tt.ensure(descriptor(2));
+    }
+    return load(array, index);
+  };
+  try { assert.equal(proofs.isCurrent(old), false); }
+  finally { Atomics.load = load; }
+});
+
+test('game adapters require an arena bound to their exact geometry and term vocabulary', () => {
+  const spec = { columns: 4, rows: 3, connect: 3 };
+  const kernel = createSlot64ResidualQuotientKernel(spec, { prefixClasses: 8 }).kernel;
+  const unbound = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128 });
+  assert.throws(() => createOnlineSemanticQuotientPort(kernel, unbound), /domain/);
+  const other = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: { ...spec, connect: 4 } });
+  assert.throws(() => createOnlineSemanticQuotientPort(kernel, other), /domain/);
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: spec });
+  const port = createOnlineSemanticQuotientPort(kernel, arena);
+  assert.equal(port.port.ensureProofKey(kernel.rootId), kernel.rootId);
+});
 
 test('resource reset rejects semantic nonquiescence before clearing static proofs', () => {
   const resource = createProofResourceService(1, { entryCapacity: 8, termCapacity: 128 });

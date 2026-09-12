@@ -36,6 +36,26 @@ const TERM_CHUNK_END = UINT32_MAX;
 const TERM_CHUNK_HEADER_WORDS = 3;
 const ARENA_KIND = 'connect4-exact-semantic-shared-tt-v5';
 
+function semanticDomainSpec(spec) {
+  if (spec === null) return null; // Raw descriptor-lifecycle controls have no game adapter.
+  const { columns, rows, connect } = spec ?? {};
+  if (!Number.isSafeInteger(columns) || columns < 1 || columns > 7
+      || !Number.isSafeInteger(rows) || rows < 1 || columns * rows > 64
+      || !Number.isSafeInteger(connect) || connect < 1 || connect >= 16
+      || connect > Math.max(columns, rows)) throw new RangeError('invalid semantic arena domain');
+  return Object.freeze({ columns, rows, connect });
+}
+
+export function assertSemanticTtDomain(arena, spec) {
+  arena = assertSemanticSharedTtArena(arena);
+  const expected = semanticDomainSpec(spec);
+  const actual = arena.domainSpec;
+  if (!actual || !expected || actual.columns !== expected.columns || actual.rows !== expected.rows || actual.connect !== expected.connect) {
+    throw new Error('semantic arena domain is unbound or does not match the kernel vocabulary');
+  }
+  return arena;
+}
+
 function nextPowerOfTwo(value) {
   if (!Number.isInteger(value) || value < 1 || value > MAX_ENTRY_CAPACITY) {
     throw new RangeError(`power-of-two request must be an integer in 1..${MAX_ENTRY_CAPACITY}, got ${value}`);
@@ -70,7 +90,7 @@ export function assertSemanticSharedTtArena(arena) {
   }
   // Worker structured clones are mutable objects. Capture the attached contract
   // once so later caller mutation cannot change handle arithmetic or buffers.
-  arena = { ...arena, slotStates: Object.freeze({ ...arena.slotStates }) };
+  arena = { ...arena, slotStates: Object.freeze({ ...arena.slotStates }), domainSpec: semanticDomainSpec(arena.domainSpec ?? null) };
   const { entryCapacity, associativity, bucketCount, generationLimit, termCapacity } = arena;
   if (!isPowerOfTwo(entryCapacity) || entryCapacity < 1 || entryCapacity > MAX_ENTRY_CAPACITY) {
     throw new RangeError(`semantic TT entryCapacity ${entryCapacity} is invalid`);
@@ -138,6 +158,7 @@ export function createSemanticSharedTtArena(options = {}) {
   if (!options || typeof options !== 'object' || Array.isArray(options)) {
     throw new TypeError('semantic TT options must be an object');
   }
+  const domainSpec = semanticDomainSpec(options.domainSpec ?? null);
   const associativity = options.associativity ?? DEFAULT_ASSOCIATIVITY;
   if (!isPowerOfTwo(associativity) || associativity > MAX_ASSOCIATIVITY) {
     throw new RangeError(`semantic TT associativity must be a power of two in 1..${MAX_ASSOCIATIVITY}`);
@@ -178,6 +199,7 @@ export function createSemanticSharedTtArena(options = {}) {
 
   return Object.freeze({
     kind: ARENA_KIND,
+    domainSpec,
     entryCapacity,
     associativity,
     bucketCount,

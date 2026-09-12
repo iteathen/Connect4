@@ -95,7 +95,7 @@ test('Branch Manager calls fail immediately after observed exit instead of await
 });
 
 test('semantic worker fails closed on unknown protocol and remains poisoned', { timeout: 5000 }, async () => {
-  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128 });
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: { columns: 4, rows: 3, connect: 3 } });
   const [worker] = await startOnlineSearchWorkers(1, { columns: 4, rows: 3, connect: 3 }, arena);
   try {
     let reply = once(worker, 'message');
@@ -118,7 +118,7 @@ test('bounded work plan rejects bad ordering/ranks and reduces actual worker val
   assert.throws(() => buildQuotientLookaheadWorkDag({ ...graph, edgeBuffer: edges }, 2), /rank/);
   const plan = buildQuotientLookaheadWorkDag(graph, 2);
   assert.equal(Object.isFrozen(plan.nodesByDepth), true);
-  const arena = createSemanticSharedTtArena({ entryCapacity: 4096, termCapacity: 100000 });
+  const arena = createSemanticSharedTtArena({ entryCapacity: 4096, termCapacity: 100000, domainSpec: spec });
   const workers = await startOnlineSearchWorkers(2, spec, arena);
   try {
     const result = await runOnlinePathTasks(workers, plan.tasks);

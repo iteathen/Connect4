@@ -79,114 +79,114 @@ const results = [];
 
 try {
 
-const baselineKernel = createLocalKernel();
-const baselineSemantic = createOnlineSemanticQuotientPort(baselineKernel, semanticArena);
-const baselineEngine = createQuotientNegamaxEngine(baselineSemantic.port, { etc: false });
-for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-  await branchManager.reset();
-  const started = performance.now();
-  const value = baselineEngine.search(baselineKernel.rootId, -2, 2);
-  const elapsedMs = performance.now() - started;
-  assert(value === 0, `baseline root expected draw, got ${value}`);
-  baselineRuns.push(Object.freeze({
-    elapsedMs,
-    expanded: baselineEngine.metrics.expanded,
-    calls: baselineEngine.metrics.calls,
-    forcedMacroTransitions: baselineEngine.metrics.forcedMacroTransitions,
-    proofAdmissions: baselineEngine.metrics.proofAdmissions,
-  }));
-  for (const key of Object.keys(baselineEngine.metrics)) baselineEngine.metrics[key] = 0;
-}
+  const baselineKernel = createLocalKernel();
+  const baselineSemantic = createOnlineSemanticQuotientPort(baselineKernel, semanticArena);
+  const baselineEngine = createQuotientNegamaxEngine(baselineSemantic.port, { etc: false });
+  for (let repeat = 0; repeat < REPEATS; repeat += 1) {
+    await branchManager.reset();
+    const started = performance.now();
+    const value = baselineEngine.search(baselineKernel.rootId, -2, 2);
+    const elapsedMs = performance.now() - started;
+    assert(value === 0, `baseline root expected draw, got ${value}`);
+    baselineRuns.push(Object.freeze({
+      elapsedMs,
+      expanded: baselineEngine.metrics.expanded,
+      calls: baselineEngine.metrics.calls,
+      forcedMacroTransitions: baselineEngine.metrics.forcedMacroTransitions,
+      proofAdmissions: baselineEngine.metrics.proofAdmissions,
+    }));
+    for (const key of Object.keys(baselineEngine.metrics)) baselineEngine.metrics[key] = 0;
+  }
 
-for (const requestedWorkers of REQUESTED_WORKERS) {
-  const workerCount = Math.max(1, Math.min(requestedWorkers, availableParallelism()));
-  const workers = await startOnlineSearchWorkers(workerCount, SPEC, semanticArena, {
-    prefixClasses: PREFIX_CLASSES,
-    etc: false,
-  });
-  const executor = createSearchWorkerExecutor(workers);
-  try {
-    const coordinatorKernel = createLocalKernel();
-    for (const splitDepth of DEPTHS) {
-      await branchManager.reset();
-      {
-        const warm = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
-        const value = await warm.engine.solveRoot();
-        await warm.engine.drainBackground();
-        await executor.drain();
-        assert(value === 0, `warmup workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
-      }
-
-      const runs = [];
-      for (let repeat = 0; repeat < REPEATS; repeat += 1) {
+  for (const requestedWorkers of REQUESTED_WORKERS) {
+    const workerCount = Math.max(1, Math.min(requestedWorkers, availableParallelism()));
+    const workers = await startOnlineSearchWorkers(workerCount, SPEC, semanticArena, {
+      prefixClasses: PREFIX_CLASSES,
+      etc: false,
+    });
+    const executor = createSearchWorkerExecutor(workers);
+    try {
+      const coordinatorKernel = createLocalKernel();
+      for (const splitDepth of DEPTHS) {
         await branchManager.reset();
-        const coordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
-        const started = performance.now();
-        const value = await coordinator.engine.solveRoot();
-        const rootResolvedMs = performance.now() - started;
-        await coordinator.engine.drainBackground();
+        {
+          const warm = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
+          const value = await warm.engine.solveRoot();
+          await warm.engine.drainBackground();
+          await executor.drain();
+          assert(value === 0, `warmup workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
+        }
+
+        const runs = [];
+        for (let repeat = 0; repeat < REPEATS; repeat += 1) {
+          await branchManager.reset();
+          const coordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
+          const started = performance.now();
+          const value = await coordinator.engine.solveRoot();
+          const rootResolvedMs = performance.now() - started;
+          await coordinator.engine.drainBackground();
+          await executor.drain();
+          const elapsedMs = performance.now() - started;
+          assert(value === 0, `workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
+          const executorStats = executor.stats();
+          const coordinatorStats = coordinator.stats();
+          assert(executorStats.active === 0 && executorStats.queued === 0 && executorStats.pending === 0, 'executor retained work after solve');
+          assert(executorStats.poisoned === false, 'executor became poisoned during successful solve');
+          assert(coordinatorStats.representativePaths === coordinator.metrics.pathsStored, 'coordinator path diagnostics drifted');
+          assert(coordinatorStats.priorityMemoEntries >= 0, 'coordinator priority memo diagnostics drifted');
+          runs.push(Object.freeze({
+            rootResolvedMs,
+            elapsedMs,
+            shallowExpanded: coordinator.engine.metrics.shallowExpanded,
+            workerExpanded: coordinator.engine.metrics.workerExpanded,
+            totalExpanded: coordinator.engine.metrics.shallowExpanded + coordinator.engine.metrics.workerExpanded,
+            leafTasks: coordinator.engine.metrics.leafTasks,
+            scoutTasks: coordinator.engine.metrics.scoutTasks,
+            incrementalScoutCompletions: coordinator.engine.metrics.incrementalScoutCompletions,
+            detachedScoutTasks: coordinator.engine.metrics.detachedScoutTasks,
+            detachedBatches: coordinator.engine.metrics.detachedBatches,
+            reSearches: coordinator.engine.metrics.reSearches,
+            parallelBatches: coordinator.engine.metrics.parallelBatches,
+            forcedMacroTransitions: coordinator.engine.metrics.forcedMacroTransitions,
+            proofAdmissions: coordinator.engine.metrics.proofAdmissions,
+            coordinatorStates: coordinatorKernel.states.count,
+            coordinatorClasses: coordinatorKernel.classes.size,
+            coordinatorPaths: coordinatorStats.representativePaths,
+            priorityMemoEntries: coordinatorStats.priorityMemoEntries,
+            priorityMemoDrops: coordinator.metrics.priorityMemoDrops,
+          }));
+        }
+
+        await branchManager.reset();
+        const actionCoordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
+        const actions = await actionCoordinator.engine.rootActionValues();
+        await actionCoordinator.engine.drainBackground();
         await executor.drain();
-        const elapsedMs = performance.now() - started;
-        assert(value === 0, `workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
-        const executorStats = executor.stats();
-        const coordinatorStats = coordinator.stats();
-        assert(executorStats.active === 0 && executorStats.queued === 0 && executorStats.pending === 0, 'executor retained work after solve');
-        assert(executorStats.poisoned === false, 'executor became poisoned during successful solve');
-        assert(coordinatorStats.representativePaths === coordinator.metrics.pathsStored, 'coordinator path diagnostics drifted');
-        assert(coordinatorStats.priorityMemoEntries >= 0, 'coordinator priority memo diagnostics drifted');
-        runs.push(Object.freeze({
-          rootResolvedMs,
-          elapsedMs,
-          shallowExpanded: coordinator.engine.metrics.shallowExpanded,
-          workerExpanded: coordinator.engine.metrics.workerExpanded,
-          totalExpanded: coordinator.engine.metrics.shallowExpanded + coordinator.engine.metrics.workerExpanded,
-          leafTasks: coordinator.engine.metrics.leafTasks,
-          scoutTasks: coordinator.engine.metrics.scoutTasks,
-          incrementalScoutCompletions: coordinator.engine.metrics.incrementalScoutCompletions,
-          detachedScoutTasks: coordinator.engine.metrics.detachedScoutTasks,
-          detachedBatches: coordinator.engine.metrics.detachedBatches,
-          reSearches: coordinator.engine.metrics.reSearches,
-          parallelBatches: coordinator.engine.metrics.parallelBatches,
-          forcedMacroTransitions: coordinator.engine.metrics.forcedMacroTransitions,
-          proofAdmissions: coordinator.engine.metrics.proofAdmissions,
-          coordinatorStates: coordinatorKernel.states.count,
-          coordinatorClasses: coordinatorKernel.classes.size,
-          coordinatorPaths: coordinatorStats.representativePaths,
-          priorityMemoEntries: coordinatorStats.priorityMemoEntries,
-          priorityMemoDrops: coordinator.metrics.priorityMemoDrops,
+        assertActions(actions, `workers=${workerCount} depth=${splitDepth}`);
+
+        results.push(Object.freeze({
+          requestedWorkers,
+          workers: workerCount,
+          splitDepth,
+          splitDepthMeaning: 'unresolved_decision_depth_after_forced_macro_normalization',
+          rootResolvedMsMedian: median(runs.map((run) => run.rootResolvedMs)),
+          elapsedMsMedian: median(runs.map((run) => run.elapsedMs)),
+          totalExpandedMedian: median(runs.map((run) => run.totalExpanded)),
+          shallowExpandedMedian: median(runs.map((run) => run.shallowExpanded)),
+          workerExpandedMedian: median(runs.map((run) => run.workerExpanded)),
+          leafTasksMedian: median(runs.map((run) => run.leafTasks)),
+          scoutTasksMedian: median(runs.map((run) => run.scoutTasks)),
+          detachedScoutTasksMedian: median(runs.map((run) => run.detachedScoutTasks)),
+          reSearchesMedian: median(runs.map((run) => run.reSearches)),
+          parallelBatchesMedian: median(runs.map((run) => run.parallelBatches)),
+          actions,
+          runs,
         }));
       }
-
-      await branchManager.reset();
-      const actionCoordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
-      const actions = await actionCoordinator.engine.rootActionValues();
-      await actionCoordinator.engine.drainBackground();
-      await executor.drain();
-      assertActions(actions, `workers=${workerCount} depth=${splitDepth}`);
-
-      results.push(Object.freeze({
-        requestedWorkers,
-        workers: workerCount,
-        splitDepth,
-        splitDepthMeaning: 'unresolved_decision_depth_after_forced_macro_normalization',
-        rootResolvedMsMedian: median(runs.map((run) => run.rootResolvedMs)),
-        elapsedMsMedian: median(runs.map((run) => run.elapsedMs)),
-        totalExpandedMedian: median(runs.map((run) => run.totalExpanded)),
-        shallowExpandedMedian: median(runs.map((run) => run.shallowExpanded)),
-        workerExpandedMedian: median(runs.map((run) => run.workerExpanded)),
-        leafTasksMedian: median(runs.map((run) => run.leafTasks)),
-        scoutTasksMedian: median(runs.map((run) => run.scoutTasks)),
-        detachedScoutTasksMedian: median(runs.map((run) => run.detachedScoutTasks)),
-        reSearchesMedian: median(runs.map((run) => run.reSearches)),
-        parallelBatchesMedian: median(runs.map((run) => run.parallelBatches)),
-        actions,
-        runs,
-      }));
+    } finally {
+      await cleanupOnlineSession({ executor, workers });
     }
-  } finally {
-    await cleanupOnlineSession({ executor, workers });
   }
-}
 
 } finally {
   await cleanupOnlineSession({ branchManager });

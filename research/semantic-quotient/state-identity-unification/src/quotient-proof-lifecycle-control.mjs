@@ -31,6 +31,7 @@ function createKernel() {
 }
 
 const arena = createSemanticSharedTtArena({
+  domainSpec: SPEC,
   entryCapacity: 8,
   associativity: 8,
   termCapacity: 4096,

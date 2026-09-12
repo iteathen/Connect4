@@ -23,6 +23,7 @@ test('structural draw intersects prior proof and rejects contradictory exact bou
 });
 
 test('both decision policies reject rank-preserving forced transitions', async () => {
+  assert.throws(() => createQuotientNegamaxEngine({ ...port(), rankAt: () => 1 }), /root.*rank/);
   const p = { ...port(), tacticalCode: () => 0, transition: () => 0 };
   // A malformed transition must fail at its boundary, before a forced-chain loop.
   let calls = 0;

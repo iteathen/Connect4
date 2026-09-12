@@ -37,6 +37,7 @@ function assertPort(port) {
   for (const name of ['rankAt', 'isLegal', 'transition', 'tacticalCode']) {
     if (typeof port[name] !== 'function') throw new TypeError(`quotient Negamax port.${name} must be a function`);
   }
+  if (port.rankAt(port.rootId) !== 0) throw new Error('quotient Negamax root must have rank zero');
   const proofStore = port.proofStore;
   if (!proofStore || typeof proofStore !== 'object') throw new TypeError('quotient Negamax proofStore is required');
   for (const name of ['lower', 'upper', 'bestMove', 'publishExact', 'publishLower', 'publishUpper']) {
@@ -865,60 +866,60 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
         const siblings = [];
         let pending = null;
         try {
-        for (let index = 1; index < moves.length; index += 1) {
-          const column = moves[index];
-          const child = requireLegalTransition(transition(stateId, column), stateId, column);
-          if (child === QN_TERMINAL_WIN) {
-            siblings.push({ column, child, terminal: true, seed: null, promise: Promise.resolve(-1) });
-            continue;
+          for (let index = 1; index < moves.length; index += 1) {
+            const column = moves[index];
+            const child = requireLegalTransition(transition(stateId, column), stateId, column);
+            if (child === QN_TERMINAL_WIN) {
+              siblings.push({ column, child, terminal: true, seed: null, promise: Promise.resolve(-1) });
+              continue;
+            }
+            const childSeed = hasFrontierOrder ? nextFrontierSeed(stateId, column, rank, seed) : null;
+            metrics.scoutTasks += 1;
+            siblings.push({
+              column,
+              child,
+              terminal: false,
+              seed: childSeed,
+              promise: search(child, -scoutAlpha - 1, -scoutAlpha, decisionDepth + 1, childSeed),
+            });
           }
-          const childSeed = hasFrontierOrder ? nextFrontierSeed(stateId, column, rank, seed) : null;
-          metrics.scoutTasks += 1;
-          siblings.push({
-            column,
-            child,
-            terminal: false,
-            seed: childSeed,
-            promise: search(child, -scoutAlpha - 1, -scoutAlpha, decisionDepth + 1, childSeed),
-          });
-        }
-        if (siblings.length > 0) metrics.parallelBatches += 1;
+          if (siblings.length > 0) metrics.parallelBatches += 1;
 
-        pending = new Map();
-        for (let index = 0; index < siblings.length; index += 1) {
-          const entry = siblings[index];
-          pending.set(index, entry.promise.then(
-            (result) => ({ index, result, ok: true }),
-            (error) => ({ index, error: failureError(error), ok: false }),
-          ));
-        }
-
-        while (pending.size > 0) {
-          const settled = await Promise.race(pending.values());
-          pending.delete(settled.index);
-          if (!settled.ok) {
-            throw settled.error;
+          pending = new Map();
+          for (let index = 0; index < siblings.length; index += 1) {
+            const entry = siblings[index];
+            pending.set(index, entry.promise.then(
+              (result) => ({ index, result, ok: true }),
+              (error) => ({ index, error: failureError(error), ok: false }),
+            ));
           }
 
-          metrics.incrementalScoutCompletions += 1;
-          const entry = siblings[settled.index];
-          let score = entry.terminal ? 1 : -settled.result;
-          assertWdlValue(score, `scout score for state ${stateId}/${entry.column}`);
-          if (score > alpha && score < beta && !entry.terminal) {
-            metrics.reSearches += 1;
-            score = -await search(entry.child, -beta, -alpha, decisionDepth + 1, entry.seed);
-            assertWdlValue(score, `re-search score for state ${stateId}/${entry.column}`);
+          while (pending.size > 0) {
+            const settled = await Promise.race(pending.values());
+            pending.delete(settled.index);
+            if (!settled.ok) {
+              throw settled.error;
+            }
+
+            metrics.incrementalScoutCompletions += 1;
+            const entry = siblings[settled.index];
+            let score = entry.terminal ? 1 : -settled.result;
+            assertWdlValue(score, `scout score for state ${stateId}/${entry.column}`);
+            if (score > alpha && score < beta && !entry.terminal) {
+              metrics.reSearches += 1;
+              score = -await search(entry.child, -beta, -alpha, decisionDepth + 1, entry.seed);
+              assertWdlValue(score, `re-search score for state ${stateId}/${entry.column}`);
+            }
+            if (score > value) {
+              value = score;
+              selected = entry.column;
+            }
+            if (value > alpha) alpha = value;
+            if (alpha >= beta) {
+              metrics.cutoffs += 1;
+              break;
+            }
           }
-          if (score > value) {
-            value = score;
-            selected = entry.column;
-          }
-          if (value > alpha) alpha = value;
-          if (alpha >= beta) {
-            metrics.cutoffs += 1;
-            break;
-          }
-        }
         } finally {
           // Every exit, including construction/validation/re-search failure, keeps
           // unfinished scouts owned until their lifecycle completion is observed.

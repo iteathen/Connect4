@@ -71,29 +71,28 @@ const branchManager = await startOnlineBranchManager(SPEC, {
   exploreReservoirTarget: 2,
   exploreBacklogCapacity: 32,
 });
-const semanticArena = branchManager.published.semanticArena;
-const semanticTt = createSemanticSharedTtView(semanticArena);
-const workers = await startOnlineSearchWorkers(2, SPEC, semanticArena, {
-  prefixClasses: PREFIX_CLASSES,
-  etc: false,
-});
+let workers = [];
+let executor = null;
+let unsubscribeExplore = null;
 
 let phase = 'autonomous';
 let phaseExploreCompletions = 0;
-const executor = createSearchWorkerExecutor(workers, {
-  completeExploreHint: async (hintId, fragment) => {
-    phaseExploreCompletions += 1;
-    const stopAt = phase === 'autonomous' ? 3 : 1;
-    if (phaseExploreCompletions >= stopAt) await branchManager.stopExplore();
-    return branchManager.completeExplore(hintId, fragment);
-  },
-  abandonExploreHint: (hintId) => branchManager.abandonExplore(hintId),
-});
-const unsubscribeExplore = branchManager.subscribeExplore(executor.enqueueExploreHint);
-
 let autonomous;
 let mixed;
 try {
+  const semanticArena = branchManager.published.semanticArena;
+  const semanticTt = createSemanticSharedTtView(semanticArena);
+  workers = await startOnlineSearchWorkers(2, SPEC, semanticArena, { prefixClasses: PREFIX_CLASSES, etc: false });
+  executor = createSearchWorkerExecutor(workers, {
+    completeExploreHint: async (hintId, fragment) => {
+      phaseExploreCompletions += 1;
+      const stopAt = phase === 'autonomous' ? 3 : 1;
+      if (phaseExploreCompletions >= stopAt) await branchManager.stopExplore();
+      return branchManager.completeExplore(hintId, fragment);
+    },
+    abandonExploreHint: (hintId) => branchManager.abandonExplore(hintId),
+  });
+  unsubscribeExplore = branchManager.subscribeExplore(executor.enqueueExploreHint);
   await executor.drain();
   const autonomousResults = await drainExploreResults(branchManager);
   assert(autonomousResults.results.length >= 3,

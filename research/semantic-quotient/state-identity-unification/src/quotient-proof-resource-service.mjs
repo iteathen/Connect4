@@ -52,6 +52,7 @@ export function createProofResourceService(stateCount, semanticOptions = null) {
         entryCapacity: semanticOptions.entryCapacity,
         termCapacity: semanticOptions.termCapacity,
         associativity: semanticOptions.associativity,
+        domainSpec: semanticOptions.domainSpec,
       })
     : null;
   let resets = 0;

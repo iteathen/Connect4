@@ -1,6 +1,7 @@
 import { Worker } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 import { assertWdlValue } from './quotient-negamax-domain-contract.mjs';
+import { assertSemanticTtDomain } from './quotient-semantic-shared-tt.mjs';
 
 let requestId = 1;
 const unavailablePathWorkers = new WeakSet();
@@ -243,6 +244,7 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
   positiveSafeInteger(count, 'search worker count', 256);
   if (!spec || typeof spec !== 'object') throw new TypeError('search workers require a domain spec');
   if (!semanticArena || typeof semanticArena !== 'object') throw new TypeError('search workers require a semantic arena');
+  semanticArena = assertSemanticTtDomain(semanticArena, spec);
   const prefixClasses = positiveSafeInteger(options.prefixClasses ?? 4096, 'search worker prefixClasses', 0x7fffffff);
 
   const workers = [];

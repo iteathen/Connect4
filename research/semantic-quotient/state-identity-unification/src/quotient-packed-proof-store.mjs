@@ -91,7 +91,8 @@ function createSemanticPackedProofStore(arena) {
     const { slot, generationValue } = decoded;
     if (Atomics.load(generation, slot) !== generationValue) return false;
     const state = Atomics.load(status, slot);
-    return state === ready || state === proofWriting;
+    return (state === ready || state === proofWriting)
+      && Atomics.load(generation, slot) === generationValue;
   }
 
   function staleRead() {
