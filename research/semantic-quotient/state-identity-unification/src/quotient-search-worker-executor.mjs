@@ -47,10 +47,19 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     onlineStateLocalProofBytesRetainedHighWater: 0,
     descriptorStateBuildsHighWater: 0,
     descriptorClassBuildsHighWater: 0,
+    descriptorTransientStateDescriptorUsesHighWater: 0,
+    descriptorStateDescriptorObjectsAllocatedHighWater: 0,
+    descriptorClassDescriptorObjectsAllocatedHighWater: 0,
+    descriptorTermArrayMaterializationsHighWater: 0,
+    descriptorTermIdsMaterializedHighWater: 0,
+    descriptorDirectTermWritesHighWater: 0,
+    descriptorDirectTermIdsWrittenHighWater: 0,
     descriptorTermIdsCachedHighWater: 0,
     descriptorTermArrayObjectsCachedHighWater: 0,
     descriptorClassObjectsCachedHighWater: 0,
     descriptorClassMetadataBytesHighWater: 0,
+    descriptorScratchBytesHighWater: 0,
+    descriptorScratchCapacityHighWater: 0,
     descriptorTermArenaBytesHighWater: 0,
     descriptorRetainedTypedBytesHighWater: 0,
     descriptorClassCapacityHighWater: 0,
@@ -66,9 +75,11 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     return new Error(String(error));
   }
 
-  function finiteCounter(value, label) {
+  function counter(value, label) {
     const actual = value ?? 0;
-    if (!Number.isFinite(actual) || actual < 0) throw new Error(`${label} must be finite and non-negative, got ${actual}`);
+    if (!Number.isSafeInteger(actual) || actual < 0) {
+      throw new Error(`${label} must be a non-negative safe integer, got ${actual}`);
+    }
     return actual;
   }
 
@@ -92,9 +103,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   function trackSideEffect(promise) {
     let tracked;
     tracked = Promise.resolve(promise)
-      .catch((error) => {
-        poison(error);
-      })
+      .catch((error) => poison(error))
       .finally(() => {
         sideEffects.delete(tracked);
         notifyDrained();
@@ -103,7 +112,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   }
 
   function abandonHintOnce(hintId) {
-    if (!Number.isInteger(hintId) || abandonedHints.has(hintId)) return;
+    if (!Number.isSafeInteger(hintId) || hintId < 1 || abandonedHints.has(hintId)) return;
     abandonedHints.add(hintId);
     if (abandonExploreHint) trackSideEffect(abandonExploreHint(hintId));
   }
@@ -132,10 +141,12 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     }
     while (exploreQueue.length > 0) abandonHintOnce(exploreQueue.shift().hintId);
 
-    for (const [worker, active] of busy) {
+    for (const [worker, active] of [...busy]) {
       if (active.kind === 'authoritative') rejectPendingTask(active.taskId, backgroundError, false);
       else abandonHintOnce(active.hintId);
-      if (worker === failedWorker) busy.delete(worker);
+      // Once poisoned, no active result remains authoritative. Detach every peer so drain
+      // can complete and the caller can terminate the worker set deterministically.
+      busy.delete(worker);
     }
     idle.length = 0;
     notifyDrained();
@@ -144,81 +155,46 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   function observeWorkerResources(workerIndex, message) {
     const resource = workerResources[workerIndex];
     if (!resource || !message || message.type === 'error') return;
-    resource.localStatesHighWater = Math.max(resource.localStatesHighWater, finiteCounter(message.localStates, 'worker localStates'));
-    resource.localClassesHighWater = Math.max(resource.localClassesHighWater, finiteCounter(message.localClasses, 'worker localClasses'));
-    resource.localTypedBytesHighWater = Math.max(resource.localTypedBytesHighWater, finiteCounter(message.localTypedBytes, 'worker localTypedBytes'));
-    resource.onlineStateCapacityHighWater = Math.max(
-      resource.onlineStateCapacityHighWater,
-      finiteCounter(message.onlineStateStorage?.stateCapacity, 'worker online state capacity'),
-    );
-    resource.onlineStateBytesPerStateAvoided = Math.max(
-      resource.onlineStateBytesPerStateAvoided,
-      finiteCounter(message.onlineStateStorage?.bytesPerStateAvoided, 'worker avoided state bytes'),
-    );
-    resource.onlineStateLocalProofBytesAvoidedHighWater = Math.max(
-      resource.onlineStateLocalProofBytesAvoidedHighWater,
-      finiteCounter(message.onlineStateStorage?.localProofBytesAvoided, 'worker avoided proof bytes'),
-    );
-    resource.onlineStateLocalProofBytesRetainedHighWater = Math.max(
-      resource.onlineStateLocalProofBytesRetainedHighWater,
-      finiteCounter(message.onlineStateStorage?.localProofBytesRetained, 'worker retained proof bytes'),
-    );
-    resource.descriptorStateBuildsHighWater = Math.max(
-      resource.descriptorStateBuildsHighWater,
-      finiteCounter(message.descriptorCache?.stateBuilds, 'descriptor state builds'),
-    );
-    resource.descriptorClassBuildsHighWater = Math.max(
-      resource.descriptorClassBuildsHighWater,
-      finiteCounter(message.descriptorCache?.classBuilds, 'descriptor class builds'),
-    );
-    resource.descriptorTermIdsCachedHighWater = Math.max(
-      resource.descriptorTermIdsCachedHighWater,
-      finiteCounter(message.descriptorCache?.termIdsCached, 'descriptor cached term IDs'),
-    );
-    resource.descriptorTermArrayObjectsCachedHighWater = Math.max(
-      resource.descriptorTermArrayObjectsCachedHighWater,
-      finiteCounter(message.descriptorCache?.termArrayObjectsCached, 'descriptor term arrays'),
-    );
-    resource.descriptorClassObjectsCachedHighWater = Math.max(
-      resource.descriptorClassObjectsCachedHighWater,
-      finiteCounter(message.descriptorCache?.classDescriptorObjectsCached, 'descriptor class objects'),
-    );
-    resource.descriptorClassMetadataBytesHighWater = Math.max(
-      resource.descriptorClassMetadataBytesHighWater,
-      finiteCounter(message.descriptorCache?.classMetadataBytes, 'descriptor class metadata bytes'),
-    );
-    resource.descriptorTermArenaBytesHighWater = Math.max(
-      resource.descriptorTermArenaBytesHighWater,
-      finiteCounter(message.descriptorCache?.termArenaBytes, 'descriptor term arena bytes'),
-    );
-    resource.descriptorRetainedTypedBytesHighWater = Math.max(
-      resource.descriptorRetainedTypedBytesHighWater,
-      finiteCounter(message.descriptorCache?.retainedTypedBytes, 'descriptor retained typed bytes'),
-    );
-    resource.descriptorClassCapacityHighWater = Math.max(
-      resource.descriptorClassCapacityHighWater,
-      finiteCounter(message.descriptorCache?.classCapacity, 'descriptor class capacity'),
-    );
-    resource.descriptorTermCapacityHighWater = Math.max(
-      resource.descriptorTermCapacityHighWater,
-      finiteCounter(message.descriptorCache?.termCapacity, 'descriptor term capacity'),
-    );
-    resource.isolateHeapUsedHighWater = Math.max(
-      resource.isolateHeapUsedHighWater,
-      finiteCounter(message.isolateMemory?.heapUsed, 'worker heap used'),
-    );
-    resource.isolateExternalHighWater = Math.max(
-      resource.isolateExternalHighWater,
-      finiteCounter(message.isolateMemory?.external, 'worker external bytes'),
-    );
-    resource.isolateArrayBuffersHighWater = Math.max(
-      resource.isolateArrayBuffersHighWater,
-      finiteCounter(message.isolateMemory?.arrayBuffers, 'worker ArrayBuffer bytes'),
-    );
+    resource.localStatesHighWater = Math.max(resource.localStatesHighWater, counter(message.localStates, 'worker localStates'));
+    resource.localClassesHighWater = Math.max(resource.localClassesHighWater, counter(message.localClasses, 'worker localClasses'));
+    resource.localTypedBytesHighWater = Math.max(resource.localTypedBytesHighWater, counter(message.localTypedBytes, 'worker localTypedBytes'));
+    resource.onlineStateCapacityHighWater = Math.max(resource.onlineStateCapacityHighWater, counter(message.onlineStateStorage?.stateCapacity, 'worker online state capacity'));
+    resource.onlineStateBytesPerStateAvoided = Math.max(resource.onlineStateBytesPerStateAvoided, counter(message.onlineStateStorage?.bytesPerStateAvoided, 'worker avoided state bytes'));
+    resource.onlineStateLocalProofBytesAvoidedHighWater = Math.max(resource.onlineStateLocalProofBytesAvoidedHighWater, counter(message.onlineStateStorage?.localProofBytesAvoided, 'worker avoided proof bytes'));
+    resource.onlineStateLocalProofBytesRetainedHighWater = Math.max(resource.onlineStateLocalProofBytesRetainedHighWater, counter(message.onlineStateStorage?.localProofBytesRetained, 'worker retained proof bytes'));
+    resource.descriptorStateBuildsHighWater = Math.max(resource.descriptorStateBuildsHighWater, counter(message.descriptorCache?.stateBuilds, 'descriptor state builds'));
+    resource.descriptorClassBuildsHighWater = Math.max(resource.descriptorClassBuildsHighWater, counter(message.descriptorCache?.classBuilds, 'descriptor class builds'));
+    resource.descriptorTransientStateDescriptorUsesHighWater = Math.max(resource.descriptorTransientStateDescriptorUsesHighWater, counter(message.descriptorCache?.transientStateDescriptorUses, 'descriptor transient state uses'));
+    resource.descriptorStateDescriptorObjectsAllocatedHighWater = Math.max(resource.descriptorStateDescriptorObjectsAllocatedHighWater, counter(message.descriptorCache?.stateDescriptorObjectsAllocated, 'descriptor state object allocations'));
+    resource.descriptorClassDescriptorObjectsAllocatedHighWater = Math.max(resource.descriptorClassDescriptorObjectsAllocatedHighWater, counter(message.descriptorCache?.classDescriptorObjectsAllocated, 'descriptor class object allocations'));
+    resource.descriptorTermArrayMaterializationsHighWater = Math.max(resource.descriptorTermArrayMaterializationsHighWater, counter(message.descriptorCache?.termArrayMaterializations, 'descriptor term array materializations'));
+    resource.descriptorTermIdsMaterializedHighWater = Math.max(resource.descriptorTermIdsMaterializedHighWater, counter(message.descriptorCache?.termIdsMaterialized, 'descriptor materialized term IDs'));
+    resource.descriptorDirectTermWritesHighWater = Math.max(resource.descriptorDirectTermWritesHighWater, counter(message.descriptorCache?.directTermWrites, 'descriptor direct term writes'));
+    resource.descriptorDirectTermIdsWrittenHighWater = Math.max(resource.descriptorDirectTermIdsWrittenHighWater, counter(message.descriptorCache?.directTermIdsWritten, 'descriptor direct term IDs'));
+    resource.descriptorTermIdsCachedHighWater = Math.max(resource.descriptorTermIdsCachedHighWater, counter(message.descriptorCache?.termIdsCached, 'descriptor cached term IDs'));
+    resource.descriptorTermArrayObjectsCachedHighWater = Math.max(resource.descriptorTermArrayObjectsCachedHighWater, counter(message.descriptorCache?.termArrayObjectsCached, 'descriptor term arrays'));
+    resource.descriptorClassObjectsCachedHighWater = Math.max(resource.descriptorClassObjectsCachedHighWater, counter(message.descriptorCache?.classDescriptorObjectsCached, 'descriptor class objects'));
+    resource.descriptorClassMetadataBytesHighWater = Math.max(resource.descriptorClassMetadataBytesHighWater, counter(message.descriptorCache?.classMetadataBytes, 'descriptor class metadata bytes'));
+    resource.descriptorScratchBytesHighWater = Math.max(resource.descriptorScratchBytesHighWater, counter(message.descriptorCache?.scratchBytes, 'descriptor scratch bytes'));
+    resource.descriptorScratchCapacityHighWater = Math.max(resource.descriptorScratchCapacityHighWater, counter(message.descriptorCache?.scratchCapacity, 'descriptor scratch capacity'));
+    resource.descriptorTermArenaBytesHighWater = Math.max(resource.descriptorTermArenaBytesHighWater, counter(message.descriptorCache?.termArenaBytes, 'descriptor term arena bytes'));
+    resource.descriptorRetainedTypedBytesHighWater = Math.max(resource.descriptorRetainedTypedBytesHighWater, counter(message.descriptorCache?.retainedTypedBytes, 'descriptor retained typed bytes'));
+    resource.descriptorClassCapacityHighWater = Math.max(resource.descriptorClassCapacityHighWater, counter(message.descriptorCache?.classCapacity, 'descriptor class capacity'));
+    resource.descriptorTermCapacityHighWater = Math.max(resource.descriptorTermCapacityHighWater, counter(message.descriptorCache?.termCapacity, 'descriptor term capacity'));
+    resource.isolateHeapUsedHighWater = Math.max(resource.isolateHeapUsedHighWater, counter(message.isolateMemory?.heapUsed, 'worker heap used'));
+    resource.isolateExternalHighWater = Math.max(resource.isolateExternalHighWater, counter(message.isolateMemory?.external, 'worker external bytes'));
+    resource.isolateArrayBuffersHighWater = Math.max(resource.isolateArrayBuffersHighWater, counter(message.isolateMemory?.arrayBuffers, 'worker ArrayBuffer bytes'));
   }
 
   function reorderQueue() {
     queue.sort((a, b) => b.priority - a.priority || a.sequence - b.sequence);
+  }
+
+  function nextId(label) {
+    if (!Number.isSafeInteger(nextTaskId) || nextTaskId < 1 || nextTaskId === Number.MAX_SAFE_INTEGER) {
+      throw new RangeError(`${label} task ID space exhausted`);
+    }
+    return nextTaskId++;
   }
 
   function dispatchAuthoritative(slot, task) {
@@ -228,7 +204,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   }
 
   function dispatchExplore(slot, hint) {
-    const taskId = nextTaskId++;
+    const taskId = nextId('explore');
     busy.set(slot.worker, Object.freeze({ taskId, kind: 'explore', hintId: hint.hintId }));
     metrics.exploreStarted += 1;
     metrics.workerTasks[slot.workerIndex] += 1;
@@ -374,7 +350,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     if (backgroundError) throw backgroundError;
     if (!message || typeof message !== 'object') throw new TypeError('search worker task message must be an object');
     if (!Number.isFinite(priority)) throw new RangeError(`search worker priority must be finite, got ${priority}`);
-    const taskId = nextTaskId++;
+    const taskId = nextId('authoritative');
     metrics.submitted += 1;
     return new Promise((resolve, reject) => {
       pending.set(taskId, { resolve, reject });
@@ -387,9 +363,14 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   function enqueueExploreHint(hint) {
     if (closed) return false;
     if (backgroundError) throw backgroundError;
-    if (!hint || !Number.isInteger(hint.hintId) || hint.hintId < 1
-        || !Array.isArray(hint.path) || !Number.isInteger(hint.depth) || hint.depth < 1) {
+    if (!hint || !Number.isSafeInteger(hint.hintId) || hint.hintId < 1
+        || !Array.isArray(hint.path) || !Number.isSafeInteger(hint.depth) || hint.depth < 1) {
       throw new TypeError('invalid Branch Manager explore hint');
+    }
+    for (let index = 0; index < hint.path.length; index += 1) {
+      if (!Number.isSafeInteger(hint.path[index]) || hint.path[index] < 0) {
+        throw new RangeError(`invalid Branch Manager explore path column ${hint.path[index]} at ply ${index}`);
+      }
     }
     exploreQueue.push(hint);
     metrics.exploreQueued += 1;
