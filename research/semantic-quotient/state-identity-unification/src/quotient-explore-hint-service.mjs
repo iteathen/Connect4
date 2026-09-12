@@ -17,32 +17,24 @@ function hintKey(path, depth) {
 }
 
 export function createExploreHintService() {
-  const queued = [];
-  const queuedKeys = new Set();
-  const leased = new Map();
+  const outstandingById = new Map();
+  const outstandingByKey = new Map();
   const completed = [];
   let nextHintId = 1;
   const metrics = {
     offered: 0,
     deduplicated: 0,
-    leased: 0,
-    returned: 0,
     completed: 0,
+    abandoned: 0,
   };
 
   function offer(path, depth) {
     const normalizedPath = normalizePath(path);
     const normalizedDepth = normalizeDepth(depth);
     const key = hintKey(normalizedPath, normalizedDepth);
-    if (queuedKeys.has(key)) {
+    if (outstandingByKey.has(key)) {
       metrics.deduplicated += 1;
       return null;
-    }
-    for (const hint of leased.values()) {
-      if (hint.key === key) {
-        metrics.deduplicated += 1;
-        return null;
-      }
     }
     const hint = Object.freeze({
       hintId: nextHintId++,
@@ -50,35 +42,17 @@ export function createExploreHintService() {
       depth: normalizedDepth,
       key,
     });
-    queued.push(hint);
-    queuedKeys.add(key);
+    outstandingById.set(hint.hintId, hint);
+    outstandingByKey.set(key, hint.hintId);
     metrics.offered += 1;
-    return hint;
-  }
-
-  function take() {
-    const hint = queued.shift() ?? null;
-    if (!hint) return null;
-    queuedKeys.delete(hint.key);
-    leased.set(hint.hintId, hint);
-    metrics.leased += 1;
-    return Object.freeze({ hintId: hint.hintId, path: hint.path, depth: hint.depth });
-  }
-
-  function returnHint(hintId) {
-    const hint = leased.get(hintId);
-    if (!hint) throw new Error(`unknown explore hint ${hintId}`);
-    leased.delete(hintId);
-    queued.unshift(hint);
-    queuedKeys.add(hint.key);
-    metrics.returned += 1;
     return Object.freeze({ hintId: hint.hintId, path: hint.path, depth: hint.depth });
   }
 
   function complete(hintId, fragment) {
-    const hint = leased.get(hintId);
+    const hint = outstandingById.get(hintId);
     if (!hint) throw new Error(`unknown explore hint ${hintId}`);
-    leased.delete(hintId);
+    outstandingById.delete(hintId);
+    outstandingByKey.delete(hint.key);
     const result = Object.freeze({
       hintId,
       path: hint.path,
@@ -90,25 +64,32 @@ export function createExploreHintService() {
     return result;
   }
 
+  function abandon(hintId) {
+    const hint = outstandingById.get(hintId);
+    if (!hint) return false;
+    outstandingById.delete(hintId);
+    outstandingByKey.delete(hint.key);
+    metrics.abandoned += 1;
+    return true;
+  }
+
   function takeCompleted() {
     return completed.shift() ?? null;
   }
 
   function clear() {
-    queued.length = 0;
-    queuedKeys.clear();
-    leased.clear();
+    outstandingById.clear();
+    outstandingByKey.clear();
     completed.length = 0;
   }
 
   function stats() {
     return Object.freeze({
       ...metrics,
-      queued: queued.length,
-      leasedNow: leased.size,
+      outstanding: outstandingById.size,
       completedQueued: completed.length,
     });
   }
 
-  return Object.freeze({ offer, take, returnHint, complete, takeCompleted, clear, stats });
+  return Object.freeze({ offer, complete, abandon, takeCompleted, clear, stats });
 }
