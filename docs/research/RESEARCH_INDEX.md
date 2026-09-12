@@ -23,6 +23,9 @@ Start with:
 
 ## Frontier-native exact forward solver research
 
+- [Current hot-path method CPU assessment](2026-09-12-hot-method-cpu-assessment.md):
+  per-method optimization assessment, remaining transformations and local CPU samples.
+
 - [Relational duplication and neutral capacity](2026-09-12-relational-duplication-review.md):
   actual residual-path audit, bounded equivalent-choice census and proof-reuse evidence.
 

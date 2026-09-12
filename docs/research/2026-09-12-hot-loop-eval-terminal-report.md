@@ -1,5 +1,10 @@
 # Active frontier solver: move evaluation, terminal detection and hot-loop report
 
+Historical source assessment. For the current optimized source, see the
+[per-method CPU assessment](2026-09-12-hot-method-cpu-assessment.md). Several
+temporary-allocation and repeated-proof-read observations below were subsequently
+corrected; they remain here as evidence for their original revision.
+
 Date: 2026-09-12
 Audited source: 9c778bcaf010372ca2a3a91a7cdcec8debf5518f
 Research direction / architecture: Josh Oshiro

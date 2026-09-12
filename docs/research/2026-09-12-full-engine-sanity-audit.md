@@ -809,3 +809,30 @@ adapter correction are recorded in the report. No production identity or root
 trigger changed. Next owners are incremental neutral-event equivalence and
 concurrent/eviction-driven repeated proof work, with physical addresses kept as
 input/output mapping rather than restored historical proof authority.
+
+## Current per-method CPU assessment
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The [method ledger](2026-09-12-hot-method-cpu-assessment.md) revisits the current
+deep policy, online adapter, descriptor/hash, semantic TT, packed record,
+support/state, residual, evaluator/response and shallow task/reporting methods.
+It separates compact primitives, remaining transformations, synchronization,
+setup and inactive historical code. The old allocation/read findings are not
+repeated as current defects. No production code changed in this assessment.
+
+Twenty-four local profiled bounded searches across three cases returned the
+expected WDL with stable call counts. The 4x6 profile has 3,395 samples; term
+writing/counting, residual misses and exact descriptor installation are material
+costs, while direct eval is about 0.53% inclusive in this bounded case. Metadata
+reuse removes allocation but still performs 241,118 direct term writes and
+283,768 term-count reads per 123,525-call solve. These counts and raw profiles
+are preserved. The single-thread samples contain no contention and do not rank
+full-root costs or prove JIT minimality.
+
+Remaining decisions prioritize eliminated relational distinctions/conversions,
+canonical metadata ownership, repeated adapter binding/coordinate validation,
+contention/coalescing measurement and asynchronous reporting. Synchronous TT
+writer waits remain; timer-based JSON formatting is still synchronous on the
+coordinator. No full root or trigger change was made.

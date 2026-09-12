@@ -63,6 +63,11 @@ physical distinctions between equivalent neutral-column capacities. A complete
 bounded census merges 4,431 of 294,593 current 4x5 states, including 1,727 unresolved
 states. No production identity change was made. Smaller TT capacity also causes
 measurable repeated work; implemented pruning continues to pass bounded checks.
+The [per-method CPU assessment](docs/research/2026-09-12-hot-method-cpu-assessment.md)
+records current optimization status and 24 local sampled bounded solves. Exact
+descriptor conversion, residual misses and repeated access are material costs;
+the measured eval arithmetic is comparatively small. Concurrent writer wait and
+full-root costs remain unmeasured by that single-thread profile.
 Existing singleton masks reproduce the original parity flags: 13,724 flag and
 65,328 slot-value comparisons passed across six board sizes. This is research
 evidence, not a production policy change or demonstrated speedup. Complete parity
