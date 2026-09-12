@@ -1,11 +1,14 @@
 # Connect4 Semantic-Quotient Research Status
 
 **Updated:** 2026-09-11  
-**Canonical branch:** `research/semantic-quotient`
+**Canonical branch:** `research/semantic-quotient`  
+**Solver authority:** `docs/specs/C4-0010-quotient-native-negamax-v1.md`
 
 ## Current objective
 
 Solve standard 7x6 Connect Four exactly with quotient-native W/D/L Negamax while preserving exact Connect Four semantics and minimizing proof work, memory traffic, and synchronization cost.
+
+This lane is pre-alpha. It has no released external compatibility contract. Current implementation names and shapes may be renamed, replaced, or deleted directly when the design changes; preserve useful evidence, not obsolete executable architecture.
 
 ## Exact quotient state
 
@@ -96,7 +99,9 @@ Current source owners:
 - `quotient-proof-resource-service.mjs`
 - `quotient-maintenance-worker.mjs`
 
-The current slot64 solver path consumes the separate Negamax engine instead of defining another active copy of search policy.
+The current slot64, shared-graph, and online semantic worker paths consume the separate Negamax engine rather than defining independent active copies of search policy.
+
+Execution locality is not semantic ownership: the maintenance worker may host planner/resource/dedup/reclamation services without becoming the semantic owner of those child responsibilities.
 
 ## Shared proof semantics
 
@@ -108,8 +113,6 @@ Reads remain allocation-free and may observe stale-but-sound proof information; 
 
 Search workers do not perform per-node RPC to the maintenance worker.
 
-The maintenance host owns execution of planning/resource services. It does not become the semantic owner of the services it hosts.
-
 Workers may use different local qIDs and residual-class IDs. Shared semantic identity is:
 
 ```text
@@ -119,6 +122,8 @@ supportIndex
 ```
 
 Hash equality alone is never semantic equality; descriptor content is compared exactly.
+
+Parallel work is exposed at logical alpha-beta dependency edges rather than arbitrary frontier depths. A shallow work DAG is useful only when it preserves those dependency semantics.
 
 ## Performance evidence
 
@@ -153,6 +158,8 @@ preferred child first
 ```
 
 Worker count and lookahead depth are measured at initialization/presearch rather than fixed constants. Depth 3-4 remains the expected standard-7x6 candidate range until measured otherwise.
+
+Useful presearch should contribute retained proof/search work where practical rather than exist only as disposable calibration.
 
 ## Open work
 
