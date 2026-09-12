@@ -1,0 +1,39 @@
+name: Quotient online semantic workers
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-*.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-dedup-worker.mjs'
+      - '.github/workflows/semantic-quotient-online-semantic-workers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  REPEATS: '5'
+  LOOKAHEAD_DEPTH: '2'
+  PROBE_DEPTH: '2'
+  WORKER_COUNTS: '1,2,3,4'
+  PREFIX_CLASSES: '4096'
+
+jobs:
+  benchmark:
+    name: Qualify online semantic shared TT
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run exact online semantic worker campaign
+        run: >-
+          node --expose-gc --max-old-space-size=6144
+          research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-campaign.mjs
