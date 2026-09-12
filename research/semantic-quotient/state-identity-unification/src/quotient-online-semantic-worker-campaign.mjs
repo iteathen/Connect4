@@ -1,7 +1,7 @@
 import { availableParallelism } from 'node:os';
 import { performance } from 'node:perf_hooks';
 import {
-  startOnlineDedupOwner,
+  startOnlineMaintenanceHost,
   startOnlineSearchWorkers,
   runOnlinePathTasks,
 } from './quotient-online-semantic-worker-pool.mjs';
@@ -34,39 +34,39 @@ function assertReduction(reduced, label) {
   }
 }
 
-const dedup = await startOnlineDedupOwner(SPEC, {
+const maintenance = await startOnlineMaintenanceHost(SPEC, {
   prefixClasses: PREFIX_CLASSES,
   entryCapacity: 1 << 19,
   termCapacity: 1 << 24,
 });
-const plan = await dedup.buildPlan(DEPTH, PROBE_DEPTH);
+const plan = await maintenance.buildPlan(DEPTH, PROBE_DEPTH);
 assert(plan.tasks.length > 0, 'lookahead plan produced no online tasks');
 for (const task of plan.tasks) {
   assert(Array.isArray(task.path), `planner task ${task.stateId} is missing representative path`);
   assert(task.path.length === DEPTH, `planner task ${task.stateId} path length ${task.path.length} != ${DEPTH}`);
 }
 
-const ttUsage = createSemanticSharedTtView(dedup.published.semanticArena);
+const ttUsage = createSemanticSharedTtView(maintenance.published.semanticArena);
 const results = [];
 for (const requested of WORKER_COUNTS) {
   const count = Math.max(1, Math.min(requested, availableParallelism()));
-  const workers = await startOnlineSearchWorkers(count, SPEC, dedup.published.semanticArena, {
+  const workers = await startOnlineSearchWorkers(count, SPEC, maintenance.published.semanticArena, {
     prefixClasses: PREFIX_CLASSES,
     etc: false,
   });
   try {
-    await dedup.reset();
+    await maintenance.reset();
     const warmup = await runOnlinePathTasks(workers, plan.tasks);
-    const warmReduced = await dedup.reducePlan(plan.planId, warmup.frontierValues);
+    const warmReduced = await maintenance.reducePlan(plan.planId, warmup.frontierValues);
     assertReduction(warmReduced, `${count}-worker warmup`);
 
     const runs = [];
     for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-      await dedup.reset();
+      await maintenance.reset();
       const started = performance.now();
       const taskRun = await runOnlinePathTasks(workers, plan.tasks);
       const reduceStarted = performance.now();
-      const reduced = await dedup.reducePlan(plan.planId, taskRun.frontierValues);
+      const reduced = await maintenance.reducePlan(plan.planId, taskRun.frontierValues);
       const reduceMs = performance.now() - reduceStarted;
       assertReduction(reduced, `${count}-worker repeat=${repeat}`);
       const usage = ttUsage.stats();
@@ -87,7 +87,7 @@ for (const requested of WORKER_COUNTS) {
         localClassHighWater: taskRun.localClassHighWater,
         workerTaskCounts: taskRun.workerTaskCounts,
       }));
-      await dedup.cleanup();
+      await maintenance.cleanup();
     }
 
     results.push(Object.freeze({
@@ -106,13 +106,13 @@ for (const requested of WORKER_COUNTS) {
   }
 }
 
-await dedup.releasePlan(plan.planId);
-await dedup.cleanup();
-await dedup.worker.terminate();
+await maintenance.releasePlan(plan.planId);
+await maintenance.cleanup();
+await maintenance.worker.terminate();
 
 const ranked = [...results].sort((a, b) => a.totalMsMedian - b.totalMsMedian);
 const summary = Object.freeze({
-  kind: 'connect4-online-semantic-shared-tt-worker-v1',
+  kind: 'connect4-online-semantic-shared-tt-worker-v2',
   status: 'complete',
   spec: SPEC,
   repeats: REPEATS,
