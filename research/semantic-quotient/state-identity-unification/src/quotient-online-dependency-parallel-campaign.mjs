@@ -148,6 +148,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
       {
         const warm = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
         const value = await warm.engine.solveRoot();
+        await warm.engine.drainBackground();
         await executor.drain();
         assert(value === 0, `warmup workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
       }
@@ -158,18 +159,24 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         const coordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
         const started = performance.now();
         const value = await coordinator.engine.solveRoot();
+        const rootResolvedMs = performance.now() - started;
+        await coordinator.engine.drainBackground();
         await executor.drain();
         const elapsedMs = performance.now() - started;
         assert(value === 0, `workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
         const executorStats = executor.stats();
         assert(executorStats.active === 0 && executorStats.queued === 0 && executorStats.pending === 0, 'executor retained work after solve');
         runs.push(Object.freeze({
+          rootResolvedMs,
           elapsedMs,
           shallowExpanded: coordinator.engine.metrics.shallowExpanded,
           workerExpanded: coordinator.engine.metrics.workerExpanded,
           totalExpanded: coordinator.engine.metrics.shallowExpanded + coordinator.engine.metrics.workerExpanded,
           leafTasks: coordinator.engine.metrics.leafTasks,
           scoutTasks: coordinator.engine.metrics.scoutTasks,
+          incrementalScoutCompletions: coordinator.engine.metrics.incrementalScoutCompletions,
+          detachedScoutTasks: coordinator.engine.metrics.detachedScoutTasks,
+          detachedBatches: coordinator.engine.metrics.detachedBatches,
           reSearches: coordinator.engine.metrics.reSearches,
           parallelBatches: coordinator.engine.metrics.parallelBatches,
           forcedMacroTransitions: coordinator.engine.metrics.forcedMacroTransitions,
@@ -182,6 +189,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
       await branchManager.reset();
       const actionCoordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
       const actions = await actionCoordinator.engine.rootActionValues();
+      await actionCoordinator.engine.drainBackground();
       await executor.drain();
       assertActions(actions, `workers=${workerCount} depth=${splitDepth}`);
 
@@ -190,12 +198,14 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         workers: workerCount,
         splitDepth,
         splitDepthMeaning: 'unresolved_decision_depth_after_forced_macro_normalization',
+        rootResolvedMsMedian: median(runs.map((run) => run.rootResolvedMs)),
         elapsedMsMedian: median(runs.map((run) => run.elapsedMs)),
         totalExpandedMedian: median(runs.map((run) => run.totalExpanded)),
         shallowExpandedMedian: median(runs.map((run) => run.shallowExpanded)),
         workerExpandedMedian: median(runs.map((run) => run.workerExpanded)),
         leafTasksMedian: median(runs.map((run) => run.leafTasks)),
         scoutTasksMedian: median(runs.map((run) => run.scoutTasks)),
+        detachedScoutTasksMedian: median(runs.map((run) => run.detachedScoutTasks)),
         reSearchesMedian: median(runs.map((run) => run.reSearches)),
         parallelBatchesMedian: median(runs.map((run) => run.parallelBatches)),
         actions,
@@ -218,9 +228,9 @@ const baseline = Object.freeze({
   callsMedian: median(baselineRuns.map((run) => run.calls)),
   runs: baselineRuns,
 });
-const ranked = [...results].sort((a, b) => a.elapsedMsMedian - b.elapsedMsMedian);
+const ranked = [...results].sort((a, b) => a.rootResolvedMsMedian - b.rootResolvedMsMedian || a.elapsedMsMedian - b.elapsedMsMedian);
 const summary = Object.freeze({
-  kind: 'connect4-online-frontier-dependency-parallel-negamax-v2',
+  kind: 'connect4-online-frontier-dependency-parallel-negamax-v3',
   status: 'complete',
   spec: SPEC,
   repeats: REPEATS,
@@ -231,6 +241,7 @@ const summary = Object.freeze({
   ordering: 'dynamic_live_winning_line_frontier',
   forcedTransit: 'macro_normalized_before_decision_depth',
   sharedProofAdmission: 'probe_without_allocation_then_ensure_on_publication',
+  siblingCompletion: 'incremental_completion_order_with_noninterrupting_detach_after_cutoff',
   baseline,
   results,
   best: ranked[0] ?? null,
