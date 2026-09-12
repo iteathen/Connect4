@@ -1,6 +1,6 @@
-schema_version: 20
+schema_version: 21
 updated: 2026-09-11
-state: frontier_negamax_worker_state_descriptor_lifetime_measurement
+state: frontier_negamax_v5_term_lifetime_qualified_ready_for_root
 current_branch: research/frontier-negamax-conformance
 
 authority:
@@ -10,6 +10,7 @@ authority:
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   owner_research_synthesis: docs/research/2026-09-09-owner-searchless-connect4-findings.md
   worker_memory_finding: docs/research/2026-09-11-7x6-worker-descriptor-retention.md
+  proof_term_lifetime_finding: docs/research/2026-09-11-7x6-proof-term-lifetime.md
   repository_context: AGENT_LOCAL.md
   current_state: STATUS.md
 
@@ -64,6 +65,7 @@ qualified_execution:
 
   semantic_proof_table:
     layout: 8_way_set_associative_exact_descriptor
+    version: v5_slot_owned_extension_chunks
     handles: generation_plus_physical_slot
     replacement_publication_exclusion: shared_slot_state
     stale_read: unknown_WDL_interval
@@ -72,10 +74,14 @@ qualified_execution:
 
   descriptor_storage:
     shared_proof_owner: physical_proof_slot
-    replacement_rule: overwrite_existing_span_if_new_descriptor_fits
-    growth_rule: allocate_new_span_only_when_descriptor_exceeds_slot_capacity
+    fit_rule: overwrite_existing_owned_chunk_capacity
+    growth_rule: append_only_missing_descriptor_data_capacity_as_slot_owned_chunk
+    equality: exact_descriptor_walk_across_slot_owned_chunk_chain
+    term_capacity_units: total_Uint16_arena_words_including_chunk_headers
+    term_data_metric: termIdsUsed
+    total_arena_metric: termArenaWordsUsed
     worker_state_descriptor_lifetime: ephemeral
-    worker_residual_class_descriptor_lifetime: cached_pending_measurement
+    worker_residual_class_descriptor_lifetime: cached_pending_next_measurement
     general_free_list: not_implemented_without_evidence
 
   parallel_proof:
@@ -115,63 +121,74 @@ current_evidence:
     best_median_ms_approx: 23.13
     drained_executor_work: true
 
-  corrected_7x6_proof_capacity:
-    run: 34670736675
-    entries: 8388608
-    term_ids_used: 99025439
-    elapsed_seconds: 238.54
-    result: entry_capacity_exhausted_before_root_proof
-    interpretation: retained_proof_count_is_real_limiter_after_nonallocating_probe
-
-  7x6_append_only_term_lifetime:
-    run: 34671380474
-    replacements: 30969854
-    term_ids_used: 459999997
-    elapsed_seconds: 149.46
-    result: descriptor_term_capacity_exhausted_before_root_proof
-    interpretation: semantic_incarnation_count_was_wrong_owner_for_descriptor_storage
-
-  7x6_slot_span_host_limit:
-    run: 34671597871
-    elapsed_seconds_approx: 225
-    rss_bytes_approx: 15417847808
-    term_ids_used: 269844141
+  completed_ephemeral_state_descriptor_7x6_run:
+    run: 34674060855
+    job: 103500612965
+    commit: 1b9bb83f72a318c188750b421f352504048fe314
+    elapsed_solver_ms: 855441.400302
+    root: unresolved
+    failure: semantic_TT_term_arena_exhausted
+    requested_term_word: 460000025
     term_capacity: 460000000
-    shared_replacements: 37595511
-    result: host_memory_kill_before_root_proof
-    interpretation: slot_owned_spans_removed_descriptor_arena_as_immediate_limiter
+    final_entries: 8388608
+    replacements: 153310210
+    term_span_reuses: 134966299
+    term_span_grows: 18343911
+    term_ids_used: 459999998
+    process_rss_bytes: 15600738304
+    worker_expanded: 114003282
+    worker_calls: 342254103
+    incremental_scout_completions: 121
+    detached_scout_tasks: 128
+    proof_admissions: 38
+    interpretation: ephemeral_state_descriptors_removed_previous_host_kill_as_immediate_boundary_and_exposed_v4_whole_span_growth_lifetime
 
-  7x6_worker_memory_telemetry:
-    run: 34673627048
-    process_rss_bytes_last_complete: 14938693632
-    per_worker_local_typed_bytes_approx: 1062450000
-    per_worker_v8_heap_used_high_water_range_bytes: [4128761840, 4311241592]
-    worker_state_counts_range: [16896772, 18026811]
-    worker_class_counts_range: [4362596, 4505097]
-    interpretation: unbounded_local_state_descriptor_object_retention_was_major_host_memory_owner
-
-  state_descriptor_lifetime_correction:
-    commit: 29c96d40dc766d5ceb2c107625db57d758599d44
-    retained_state_descriptor_cache: false
-    retained_exact_residual_class_descriptor_cache: true
+  v5_slot_chunk_correction:
+    implementation_commit: 29117851717a27eef5ee6b79beb56eb70f548e43
+    proof_binding_commit: e113a47fb8c896dea17e6c81211ff0f424a80840
+    qualification_commit: caf9a35ddea9695510207e4f7d1274652cd0bac9
+    bounded_replacement_run: 34675102224
+    bounded_dependency_run: 34675126023
+    bounded_idle_explore_run: 34675132451
+    all_runs_green: true
+    constrained_root: draw
+    constrained_actions: [0, 0, 0, 0]
+    adversarial_growth:
+      physical_slots: 8
+      replacements: 144
+      growth_events: 144
+      final_terms_per_slot: 20
+      term_ids_used: 160
+      chunk_count: 152
+      term_header_words: 456
+      term_arena_words_used: 616
+      term_arena_capacity: 640
     proof_identity_changed: false
     frontier_semantics_changed: false
+    worker_semantics_changed: false
 
 current:
-  primary_action: observe_active_standard_7x6_ephemeral_state_descriptor_run_to_completion_then_follow_measured_owner
-  active_root_run: 34674060855
-  active_root_job: 103500612965
-  active_root_commit: 1b9bb83f72a318c188750b421f352504048fe314
-  autonomous_exploration_in_active_run: false
-  do_not_duplicate_active_root_run: true
-  observation_at_status_update: solver_healthy_after_roughly_15_minutes_and_materially_beyond_prior_host_kill_horizon
+  primary_action: admit_exactly_one_standard_7x6_v5_slot_chunk_root_measurement_via_qualification_revision_trigger
+  active_root_run: null
+  active_root_job: null
+  active_root_commit: null
+  root_workflow_auto_trigger_on_implementation_changes: false
+  admission_trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
+  autonomous_exploration_for_next_run: false
+  comparison_configuration:
+    search_workers: 3
+    unresolved_decision_split_depth: 8
+    shared_proof_entries: 8388608
+    shared_term_arena_words: 460000000
+  do_not_launch_second_root_while_admitted_run_active: true
 
-next_after_active_run_closes:
+next_after_admitted_run_closes:
   - fetch_complete_root_job_logs_and_progress_high_water_series
   - record_exact_root_and_action_WDL_if_resolved
-  - compare_process_RSS_and_worker_V8_heap_to_prior_telemetry_at_similar_state_and_proof_counts
+  - compare_v5_termIdsUsed_termArenaWordsUsed_termHeaderWordsUsed_chunk_count_and_growth_to_old_v4_span_growth
+  - compare_process_RSS_and_worker_V8_heap_to_run_34674060855_at_similar_elapsed_and_work_counts
   - compare_local_q_states_residual_classes_typed_bytes_and_descriptor_term_ids_cached
-  - compare_proof_probes_misses_admissions_entries_replacements_and_descriptor_span_reuse_growth
+  - compare_proof_probes_misses_admissions_entries_replacements_and_storage_reuse_growth
   - compare_forced_macro_frontier_bound_ordering_queue_worker_and_detached_sibling_metrics
   - if_unresolved_choose_next_resource_lifecycle_change_only_from_measured_owner
   - if_residual_class_descriptor_payload_is_next_owner_investigate_exact_identity_preserving_view_or_compact_representation_before_reclamation
@@ -196,7 +213,6 @@ rejected_or_not_default:
   - fixed_split_depth_as_semantic_work_definition
   - static_center_first_as_frontier_policy
   - row_parity_as_substitute_for_CPC_control_invariant
-  - more_shared_TT_replacement_tuning_without_new_evidence
-  - larger_descriptor_term_capacity_as_response_to_worker_host_memory
+  - increasing_term_capacity_as_substitute_for_fixing_descriptor_lifetime
   - worker_cancellation_polling
-  - class_descriptor_reclamation_before_active_7x6_evidence
+  - residual_class_descriptor_reclamation_before_v5_standard_7x6_evidence
