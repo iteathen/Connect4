@@ -17,12 +17,12 @@ function oneReply(worker, expectedType, payload) {
       reject(error);
     };
     worker.on('message', onMessage);
-    worker.once('error', onError);
+    worker.on('error', onError);
     worker.postMessage({ ...payload, requestId: id });
   });
 }
 
-export async function startOnlineDedupOwner(spec, options = {}) {
+export async function startOnlineMaintenanceHost(spec, options = {}) {
   const worker = new Worker(new URL('./quotient-shared-dedup-worker.mjs', import.meta.url), {
     workerData: {
       spec,
@@ -45,9 +45,9 @@ export async function startOnlineDedupOwner(spec, options = {}) {
       reject(error);
     };
     worker.on('message', onMessage);
-    worker.once('error', onError);
+    worker.on('error', onError);
   });
-  if (!published.semanticArena) throw new Error('dedup owner did not publish semantic TT arena');
+  if (!published.semanticArena) throw new Error('maintenance host did not publish semantic TT arena');
   return Object.freeze({
     worker,
     published,
@@ -64,6 +64,9 @@ export async function startOnlineDedupOwner(spec, options = {}) {
     }),
   });
 }
+
+// Historical research alias. New code should use the execution-role name.
+export const startOnlineDedupOwner = startOnlineMaintenanceHost;
 
 export async function startOnlineSearchWorkers(count, spec, semanticArena, options = {}) {
   const workers = [];
@@ -91,7 +94,7 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
         reject(error);
       };
       worker.on('message', onMessage);
-      worker.once('error', onError);
+      worker.on('error', onError);
     }));
   }
   await Promise.all(ready);
@@ -121,6 +124,8 @@ export async function runOnlinePathTasks(workers, tasks) {
     const cleanup = () => {
       for (const [worker, listener] of listeners) worker.off('message', listener);
       for (const [worker, listener] of errors) worker.off('error', listener);
+      listeners.clear();
+      errors.clear();
     };
     const dispatch = (worker, workerIndex) => {
       const task = queue.shift();
