@@ -128,6 +128,9 @@ function createPackedSupportAccess(spec) {
   const rankMask = (2 ** rankBits) - 1;
   const columnShift = new Uint8Array(columns);
   for (let column = 0; column < columns; column += 1) columnShift[column] = column * heightBits;
+  let heightParityMask = 0;
+  for (let column = 0; column < columns; column += 1) heightParityMask |= 1 << columnShift[column];
+  const pairedHeightParity = (rows & 1) === 0 ? 0 : heightParityMask;
   const descriptors = new Uint32Array(itemCapacity);
   for (let supportIndex = 0; supportIndex < itemCapacity; supportIndex += 1) {
     let word = 0;
@@ -162,6 +165,10 @@ function createPackedSupportAccess(spec) {
   return Object.freeze({
     kind: 'packed',
     support,
+    hasEvenColumnRemainders(supportIndex) {
+      assertSupportIndex(supportIndex, itemCapacity);
+      return (descriptors[supportIndex] & heightParityMask) === pairedHeightParity;
+    },
     landingCells: null,
     childSupports: null,
     rankAt(supportIndex) {
@@ -204,6 +211,14 @@ function createTableSupportAccess(spec) {
   return Object.freeze({
     kind: 'table',
     support,
+    hasEvenColumnRemainders(supportIndex) {
+      assertSupportIndex(supportIndex, support.itemCapacity);
+      for (let column = 0; column < columns; column += 1) {
+        const landing = landingCells[supportIndex * columns + column];
+        if (landing !== 0xff && ((rows - Math.floor(landing / columns)) & 1) !== 0) return false;
+      }
+      return true;
+    },
     landingCells,
     childSupports,
     rankAt(supportIndex) {

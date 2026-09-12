@@ -1,4 +1,4 @@
-import { assertWdlValue } from './quotient-negamax-domain-contract.mjs';
+import { assertWdlValue, assertProofReadTarget } from './quotient-negamax-domain-contract.mjs';
 
 const INITIAL_CAPACITY = 1024;
 
@@ -70,6 +70,15 @@ export function createLocalQuotientProofStore(states) {
   function ensureState(stateId) {
     assertStateId(stateId);
     ensureCapacity(stateId + 1);
+  }
+
+  function readInto(stateId, target) {
+    assertProofReadTarget(target);
+    ensureState(stateId);
+    metrics.reads += 1;
+    target[0] = lowerBounds[stateId];
+    target[1] = upperBounds[stateId];
+    target[2] = bestMoves[stateId];
   }
 
   function lower(stateId) {
@@ -187,6 +196,7 @@ export function createLocalQuotientProofStore(states) {
   }
 
   return Object.freeze({
+    readInto,
     lower,
     upper,
     bestMove,

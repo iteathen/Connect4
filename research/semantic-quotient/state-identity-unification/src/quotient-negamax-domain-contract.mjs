@@ -27,19 +27,19 @@ export function assertWdlValue(value, label = 'WDL value') {
 }
 
 export function assertWdlInterval(lower, upper, label = 'WDL interval') {
-  assertWdlValue(lower, `${label} lower`);
-  assertWdlValue(upper, `${label} upper`);
+  if (!Number.isInteger(lower) || lower < WDL_MIN || lower > WDL_MAX) assertWdlValue(lower, `${label} lower`);
+  if (!Number.isInteger(upper) || upper < WDL_MIN || upper > WDL_MAX) assertWdlValue(upper, `${label} upper`);
   if (lower > upper) throw new Error(`${label} is contradictory: ${lower} > ${upper}`);
-  return [lower, upper];
+  return;
 }
 
 export function assertSearchWindow(alpha, beta, label = 'search window') {
-  assertInteger(alpha, `${label} alpha`);
-  assertInteger(beta, `${label} beta`);
+  if (!Number.isInteger(alpha)) assertInteger(alpha, `${label} alpha`);
+  if (!Number.isInteger(beta)) assertInteger(beta, `${label} beta`);
   if (alpha < -2 || alpha > 1 || beta < -1 || beta > 2 || alpha >= beta) {
     throw new RangeError(`${label} must satisfy -2 <= alpha < beta <= 2, got [${alpha}, ${beta})`);
   }
-  return [alpha, beta];
+  return;
 }
 
 function assertTacticalColumns(columns) {
@@ -80,12 +80,13 @@ export function assertTacticalCode(code, columns) {
   throw new Error(`unexpected tactical code ${code} for ${columns} columns`);
 }
 
-export function applyFrontierBoundCode(code, lower, upper) {
+export function applyFrontierBoundCode(code, lower, upper, target) {
+  assertProofReadTarget(target);
   assertInteger(code, 'frontier bound code');
   assertWdlInterval(lower, upper, 'stored proof interval');
   let nextLower = lower;
   let nextUpper = upper;
-  if (code === FRONTIER_BOUND_NONE) return [nextLower, nextUpper];
+  if (code === FRONTIER_BOUND_NONE) { target[0] = lower; target[1] = upper; return false; }
   if (code === FRONTIER_BOUND_MOVER_NO_WIN) nextUpper = Math.min(nextUpper, 0);
   else if (code === FRONTIER_BOUND_OPPONENT_NO_WIN) nextLower = Math.max(nextLower, 0);
   else if (code === FRONTIER_BOUND_DRAW) {
@@ -100,5 +101,13 @@ export function applyFrontierBoundCode(code, lower, upper) {
       + `[${nextLower}, ${nextUpper}]`,
     );
   }
-  return [nextLower, nextUpper];
+  target[0] = nextLower;
+  target[1] = nextUpper;
+  return nextLower !== lower || nextUpper !== upper;
+}
+
+export function assertProofReadTarget(target) {
+  if (!(target instanceof Float64Array) || target.length !== 3) {
+    throw new TypeError('proof read target must be Float64Array(3)');
+  }
 }

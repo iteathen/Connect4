@@ -143,11 +143,10 @@ function assertDescriptor(descriptor) {
   if (!Number.isInteger(descriptor.supportIndex) || descriptor.supportIndex < 0 || descriptor.supportIndex > UINT32_MAX) {
     throw new RangeError(`semantic TT descriptor supportIndex ${descriptor.supportIndex} is invalid`);
   }
-  for (const [label, value] of [['hash.lo', descriptor.hash.lo], ['hash.hi', descriptor.hash.hi]]) {
-    if (!Number.isInteger(value) || value < 0 || value > UINT32_MAX) {
-      throw new RangeError(`semantic TT descriptor ${label} ${value} is invalid`);
-    }
-  }
+  const lo = descriptor.hash.lo;
+  const hi = descriptor.hash.hi;
+  if (!Number.isInteger(lo) || lo < 0 || lo > UINT32_MAX) throw new RangeError('semantic TT descriptor hash.lo is invalid');
+  if (!Number.isInteger(hi) || hi < 0 || hi > UINT32_MAX) throw new RangeError('semantic TT descriptor hash.hi is invalid');
   const p0Count = semanticQuotientP0Length(descriptor);
   const p1Count = semanticQuotientP1Length(descriptor);
   if (p0Count + p1Count > UINT16_MAX) throw new RangeError('semantic TT combined descriptor exceeds Uint16 slot capacity');
@@ -472,30 +471,6 @@ export function createSemanticSharedTtView(arena) {
     return error;
   }
 
-  function descriptorStorage(slot, total, replacing) {
-    const capacity = replacing ? termSpanCapacity[slot] : 0;
-    const head = replacing ? termChunkHead[slot] : TERM_CHUNK_END;
-    if (replacing && total <= capacity) {
-      incrementSharedCounter(META_TERM_SPAN_REUSE_COUNT);
-      metrics.termSpanReuses += 1;
-      return { head, capacity };
-    }
-
-    const additional = total - capacity;
-    let nextHead = head;
-    let nextCapacity = capacity;
-    if (additional > 0) {
-      nextHead = allocateTermChunk(additional, head);
-      nextCapacity += additional;
-    }
-    if (nextCapacity > UINT16_MAX) throw new RangeError(`semantic TT slot capacity ${nextCapacity} exceeds Uint16`);
-    if (replacing) {
-      incrementSharedCounter(META_TERM_SPAN_GROW_COUNT);
-      metrics.termSpanGrows += 1;
-    }
-    return { head: nextHead, capacity: nextCapacity };
-  }
-
   function installDescriptor(slot, descriptor, replacing) {
     const p0Count = semanticQuotientP0Length(descriptor);
     const p1Count = semanticQuotientP1Length(descriptor);
@@ -504,19 +479,35 @@ export function createSemanticSharedTtView(arena) {
     const expected = materializeDescriptorTerms(descriptor, total);
     const newGeneration = nextGeneration(slot);
     const handle = encodeHandle(slot, newGeneration);
-    const storage = descriptorStorage(slot, total, replacing);
+    let storageCapacity = replacing ? termSpanCapacity[slot] : 0;
+    let storageHead = replacing ? termChunkHead[slot] : TERM_CHUNK_END;
+    if (replacing && total <= storageCapacity) {
+      incrementSharedCounter(META_TERM_SPAN_REUSE_COUNT);
+      metrics.termSpanReuses += 1;
+    } else {
+      const additional = total - storageCapacity;
+      if (additional > 0) {
+        storageHead = allocateTermChunk(additional, storageHead);
+        storageCapacity += additional;
+      }
+      if (storageCapacity > UINT16_MAX) throw new RangeError('semantic TT slot capacity exceeds Uint16');
+      if (replacing) {
+        incrementSharedCounter(META_TERM_SPAN_GROW_COUNT);
+        metrics.termSpanGrows += 1;
+      }
+    }
 
     // Once logical payload writing starts the previous descriptor storage may be
     // overwritten in-place. Any later failure therefore poisons the physical slot;
     // callers must never restore READY/EMPTY and expose ambiguous descriptor bytes.
-    if (total > 0) writeDescriptorTerms(storage.head, expected, total);
+    if (total > 0) writeDescriptorTerms(storageHead, expected, total);
     hashLo[slot] = descriptor.hash.lo;
     hashHi[slot] = descriptor.hash.hi;
     support[slot] = descriptor.supportIndex;
-    termChunkHead[slot] = storage.head;
+    termChunkHead[slot] = storageHead;
     p0Length[slot] = p0Count;
     p1Length[slot] = p1Count;
-    termSpanCapacity[slot] = storage.capacity;
+    termSpanCapacity[slot] = storageCapacity;
     Atomics.store(records, slot, INITIAL_SEARCH_RECORD);
     Atomics.store(generation, slot, newGeneration);
 
@@ -573,20 +564,17 @@ export function createSemanticSharedTtView(arena) {
   function chooseVictim(base, bucket) {
     const cursor = Atomics.load(victimCursor, bucket) % arena.associativity;
     let firstReady = -1;
-    let firstReadyLane = -1;
     for (let offset = 0; offset < arena.associativity; offset += 1) {
       const lane = (cursor + offset) % arena.associativity;
       const slot = base + lane;
       if (Atomics.load(status, slot) !== SLOT_READY) continue;
       if (firstReady < 0) {
         firstReady = slot;
-        firstReadyLane = lane;
       }
       const record = Atomics.load(records, slot);
-      if (proofLower(record) !== proofUpper(record)) return { slot, lane, exact: false };
+      if (proofLower(record) !== proofUpper(record)) return slot;
     }
-    if (firstReady >= 0) return { slot: firstReady, lane: firstReadyLane, exact: true };
-    return null;
+    return firstReady;
   }
 
   function ensure(inputDescriptor) {
@@ -633,7 +621,7 @@ export function createSemanticSharedTtView(arena) {
         }
 
         const victim = chooseVictim(base, bucket);
-        if (victim === null) {
+        if (victim < 0) {
           let waited = false;
           for (let lane = 0; lane < arena.associativity; lane += 1) {
             const slot = base + lane;
@@ -648,15 +636,16 @@ export function createSemanticSharedTtView(arena) {
           throw new Error(`semantic TT bucket ${bucket} has no replaceable slot`);
         }
 
-        const prior = Atomics.compareExchange(status, victim.slot, SLOT_READY, SLOT_DESCRIPTOR_WRITING);
+        const prior = Atomics.compareExchange(status, victim, SLOT_READY, SLOT_DESCRIPTOR_WRITING);
         if (prior !== SLOT_READY) continue;
         try {
-          Atomics.store(victimCursor, bucket, (victim.lane + 1) % arena.associativity);
-          if (victim.exact) metrics.exactVictims += 1;
+          Atomics.store(victimCursor, bucket, (victim - base + 1) % arena.associativity);
+          const victimRecord = Atomics.load(records, victim);
+          if (proofLower(victimRecord) === proofUpper(victimRecord)) metrics.exactVictims += 1;
           else metrics.nonExactVictims += 1;
-          return installDescriptor(victim.slot, descriptor, true);
+          return installDescriptor(victim, descriptor, true);
         } catch (error) {
-          throw poisonInstall(victim.slot, error);
+          throw poisonInstall(victim, error);
         }
       }
     } finally {

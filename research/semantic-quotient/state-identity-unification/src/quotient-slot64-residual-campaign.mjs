@@ -15,7 +15,9 @@ function assert(condition, message) { if (!condition) throw new Error(message); 
 function median(values) { const sorted = [...values].sort((a, b) => a - b); return sorted[Math.floor(sorted.length / 2)]; }
 function kernelOptions() { return { cacheEdges: false, supportLayout: 'packed', prefixClasses: 4096 }; }
 function createBaseline(spec) { return createScaledTermIdQuotientNativeNegamaxKernel(spec, kernelOptions()); }
-function createCandidate(spec) { return createSlot64ResidualQuotientKernel(spec, kernelOptions()); }
+// Representation-only comparison keeps closure identical to the term-ID control.
+// Production response closure is independently qualified by quotient-pruning-campaign.
+function createCandidate(spec) { return createSlot64ResidualQuotientKernel(spec, { ...kernelOptions(), responseClosure: false }); }
 
 function enumerate(kernel) {
   let terminalEdges = 0;

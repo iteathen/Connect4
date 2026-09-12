@@ -26,6 +26,7 @@ test('support access rejects malformed indices and columns without rank-zero ali
     const k = make(layout);
     for (const index of [-1, undefined, NaN, '0', 0.5, k.support.itemCapacity, 2 ** 32]) {
       assert.throws(() => k.supportAccess.rankAt(index), `${layout} rank ${index}`);
+      assert.throws(() => k.supportAccess.hasEvenColumnRemainders(index));
       assert.throws(() => k.supportAccess.landingAt(index, 0));
       assert.throws(() => k.supportAccess.childAt(index, 0));
     }
@@ -37,6 +38,37 @@ test('support access rejects malformed indices and columns without rank-zero ali
     assert.equal(k.supportAccess.rankAt(0), 0);
     assert.equal(k.supportAccess.rankAt(k.support.itemCapacity - 1), 12);
   }
+});
+
+test('paired response guard preserves every column reservoir in packed and table layouts', () => {
+  for (const domain of [spec, { columns: 4, rows: 4, connect: 4 }]) {
+    for (const layout of ['packed', 'table']) {
+      const { kernel: k } = createSlot64ResidualQuotientKernel(domain, { supportLayout: layout });
+      for (let index = 0; index < k.support.itemCapacity; index++) {
+        let rest = index, paired = true;
+        for (let c = 0; c < domain.columns; c++) {
+          const height = rest % (domain.rows + 1); rest = Math.floor(rest / (domain.rows + 1));
+          if ((domain.rows - height) % 2 !== 0) paired = false;
+        }
+        assert.equal(k.supportAccess.hasEvenColumnRemainders(index), paired);
+      }
+    }
+  }
+});
+
+test('compiled residual coverage rejects malformed inputs and reads canonical chunks after growth', () => {
+  const k = make();
+  assert.throws(() => k.classes.everyTermInMask(-1, new Uint32Array(20)));
+  assert.throws(() => k.classes.everyTermInMask(0, new Uint32Array(19)));
+  assert.throws(() => createSlot64ResidualQuotientKernel(spec, { responseClosure: 1 }));
+  for (let id = 0; id < k.states.count; id++) for (let c = 0; c < k.columns; c++) k.advance(id, c);
+  const mask = new Uint32Array(20);
+  for (let i = 0; i < mask.length; i++) mask[i] = i & 1 ? 0xaaaaaaaa : 0x55555555;
+  for (let id = 0; id < k.classes.size; id++) {
+    const expected = k.classes.termIds(id).every(term => (mask[term >>> 5] & (1 << (term & 31))) !== 0);
+    assert.equal(k.classes.everyTermInMask(id, mask), expected);
+  }
+  assert.equal(k.memoryStats().responseClosureBytes, 80);
 });
 
 test('state interning and cached edges reject values outside their owned domains', () => {

@@ -556,3 +556,46 @@ prefix-limited transition caching, tuple/object/closure/string constructions and
 interner growth as performance costs. Zero descriptor-allocation counters do not
 measure those other temporary constructions. This source-level report changes no
 qualified engine behavior and makes no unmeasured CPU cost ranking.
+
+## Follow-up: search volume and structural closure
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The [structural reassessment](2026-09-12-search-volume-structural-review.md)
+records primary published solve counts, the integrated root's 30-minute timeout,
+and the source-confirmed omission of active tasks from workerExpanded. Its
+171,561,248 completed-task expansions are not total Negamax invocations.
+The common WSL blocker coverage invariant is distinct from the complete CPC/NDC
+certificate construction needed to feed it. The active engine implements local
+closure, not that complete strategic construction. Physical terminal tests do
+not qualify completeness of future terminalization. Next owner is bounded
+structural coverage and repeated proof work, before further throughput tuning.
+No new root or semantic mutation accompanied this reassessment.
+
+## Follow-up implementation: guarded response closure
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The [response profile](2026-09-12-incremental-response-closure.md) records the
+assess/research/reassess/plan/execute/qualify/review cycle and exact proof premises.
+Reviewed owners: packed/table support guard, canonical chunk coverage query,
+compiled response profile, frontier-bound integration and memory accounting,
+Negamax public draw representation, independent physical oracle and standard
+hostile-response controls, proof-reuse observer and all affected CI import paths.
+Forty local contract controls pass alongside bounded worker/storage campaigns.
+
+The preserved hot-path packet changes the proof port to one coherent read into
+reusable non-narrowing scratch; removes temporary tuples, handle/victim objects
+and publication closures; and permits a sound nonblocking atomic byte read during
+same-generation proof writing. It preserves descriptor exclusion, generation
+checks and poisoned-slot recovery. Eval policy is unchanged. Tests separately
+exercise eval ordering, exact publications, side-dependent windows and physical
+terminal truth. The original 9c778b audit snapshot remains historical; it does
+not authorize a new root for this changed implementation.
+
+Remaining: richer conditional response/deadline closure, proof retention under
+measured useful-window demand, asynchronous reporting and write contention.
+The first response profile is not a complete NDC implementation. No new root
+was launched and the revision trigger remains unchanged.

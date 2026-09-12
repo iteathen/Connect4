@@ -23,6 +23,13 @@ Start with:
 
 ## Frontier-native exact forward solver research
 
+- [Guarded incremental response closure and proof reuse](2026-09-12-incremental-response-closure.md):
+  integrated bounded profile, full premises, independent qualification and measured limits.
+
+Current investigation: [search volume and structural closure reassessment](2026-09-12-search-volume-structural-review.md).
+The admitted root timed out. Structural closure coverage and repeated proof work
+take priority; completed-task expansion counts omit running workers.
+
 **Branch:** `research/frontier-negamax-conformance`
 
 Owns the exact forward W/D/L solver/control lane that consumes the accepted support/residual quotient plus frontier/CPC/WSL/NDC facts and resolves remaining decisions with Negamax. This is not authority for redefining the underlying game or structural mathematics.

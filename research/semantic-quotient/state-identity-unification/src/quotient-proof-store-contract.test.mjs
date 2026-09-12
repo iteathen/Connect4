@@ -87,3 +87,19 @@ test('contradictory publication leaves the current proof intact and releases the
   assert.equal(store.upper(handle), 0);
   assert.equal(store.bestMove(handle), 2);
 });
+
+
+test('coherent proof read observes sound writer-held record without blocking', () => {
+  const {arena,store,handle}=semanticFixture();
+  store.publishExact(handle,0,2);
+  const status=new Int32Array(arena.statusBuffer);
+  const target=new Float64Array(3);
+  const wait=Atomics.wait;
+  Atomics.store(status,0,arena.slotStates.proofWriting);
+  Atomics.wait=()=>{throw Error('reader attempted to block');};
+  try {
+    store.readInto(handle,target);
+    assert.deepEqual([...target],[0,0,2]);
+  } finally {Atomics.wait=wait;Atomics.store(status,0,arena.slotStates.ready);}
+  for(const bad of [new Int8Array(3),new Float64Array(2),[]]) assert.throws(()=>store.readInto(handle,bad));
+});

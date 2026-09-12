@@ -12,16 +12,28 @@ on:
       - 'components/bsfp/support-lattice.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-pruning-campaign.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs'
   workflow_dispatch:
 
 permissions:
@@ -41,3 +53,11 @@ jobs:
         run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs
       - name: Exercise storage value and allocation boundaries
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
+      - name: Independently verify physical terminals and standard-board eval
+        run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs
+      - name: Independently verify pruning bounds and move eval
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-pruning-campaign.mjs
+      - name: Verify standard-board guarded response certificates
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs
+      - name: Measure paired bounded response closure
+        run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs

@@ -8,7 +8,8 @@
 The active-path line-by-line correctness/compliance audit is complete for source
 revision 9c778bcaf010372ca2a3a91a7cdcec8debf5518f. The single standard 7x6 integrated
 measurement [34693275092](https://github.com/iteathen/Connect4/actions/runs/34693275092)
-is active at revision 9e93018f06ca8a3f1fd2c012fb7ea4aa39b07775. Readiness was
+ended at the 30-minute job limit without a root result at revision
+9e93018f06ca8a3f1fd2c012fb7ea4aa39b07775. Readiness was
 committed before admission; no other root was active. Performance and standard-root
 completion remain unproven.
 
@@ -30,8 +31,20 @@ All 33 targeted controls pass locally. Replacement (34692987151), dependency
 (34692987161), ExploreHint (34692987156) and slot64 (34692987155) CI succeeded
 on the exact audited source revision.
 
-Next: observe the admitted integrated root and record its outcome. Keep three workers, split depth 3, priority depth 0, ETC
-disabled and existing TT capacities. Do not dispatch a duplicate run.
+The first guarded response-coverage profile is now integrated and locally
+qualified. It compiles adjacent response resources into 80 bytes of requirement
+coverage masks, uses the existing packed support bits for its guard, and returns
+a side-to-move bound through the existing frontier interface. Eval policy remains
+unchanged. See the [profile and evidence](docs/research/2026-09-12-incremental-response-closure.md).
+All 40 contract controls and bounded replacement, dependency, ExploreHint and
+slot64 lanes pass locally. Remote qualification of this follow-up is pending.
+
+Next: extend qualified conditional response/deadline composition and measure
+whether evicted proofs would close revisited obligations. The failed run's
+completed-task expansion aggregate omits active work
+and is not a total node count. See the
+[search-volume reassessment](docs/research/2026-09-12-search-volume-structural-review.md).
+Do not dispatch another root while this investigation is unresolved.
 
 Global arena reset requires stopped submissions and quiescent workers. Finite
 capacity exhaustion is an explicit failing resource outcome, never a proof.
@@ -45,5 +58,8 @@ The [methods review](docs/research/2026-09-12-negamax-methods-local-review.md)
 reconciles research with active settings. Local shallow construction through
 depth 4 took 18.1714 ms. A bounded coordinator diagnostic shows only one initial
 authoritative task at split 3; exploration is disabled. Task granularity and
-dependency-aware work supply are the next performance owner. The complete
-strategic U1/U2/NDC closure remains unimplemented in this root.
+dependency-aware work supply remain measured limitations. Structural closure
+coverage and repeated proof work now take investigation priority. The complete
+strategic U1/U2/NDC closure remains incomplete; the guarded response profile is
+one qualified instance, not an empty-root solution. Asynchronous reporting and
+write-side contention remain unfinished follow-up work.

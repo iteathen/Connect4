@@ -317,21 +317,14 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     return cell;
   }
 
-  function expectedCellBits(cell) {
-    assertCell(cell);
-    return cell < 32
-      ? [((2 ** cell) >>> 0), 0]
-      : [0, ((2 ** (cell - 32)) >>> 0)];
-  }
-
   function assertCellBits(cell, bitLo, bitHi) {
+    assertCell(cell);
     assertMask(bitLo);
     assertMask(bitHi);
-    const [expectedLo, expectedHi] = expectedCellBits(cell);
-    if ((bitLo >>> 0) !== expectedLo || (bitHi >>> 0) !== expectedHi) {
-      throw new Error(`slot64 cell-mask mismatch for cell ${cell}`);
-    }
-    return [expectedLo, expectedHi];
+    const bit = (1 << (cell & 31)) >>> 0;
+    const expectedLo = cell < 32 ? bit : 0;
+    const expectedHi = cell < 32 ? 0 : bit;
+    if (bitLo !== expectedLo || bitHi !== expectedHi) throw new Error('slot64 cell-mask mismatch');
   }
 
   function assertBits(bits) {
@@ -405,7 +398,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     }
   }
 
-  function computeSingletonMasks(bits) {
+  function computeSingletonMasks(bits, classId) {
     assertBits(bits);
     let lo = 0;
     let hi = 0;
@@ -420,7 +413,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
         active = (active & (active - 1)) >>> 0;
       }
     }
-    return [lo, hi];
+    singletonLo[classId] = lo;
+    singletonHi[classId] = hi;
   }
 
   function internBits(bits, parentId = -1) {
@@ -466,9 +460,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     const id = classCount;
     for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) classSlotIds[chunk][id] = chunkIds[chunk];
     classHashes[id] = hash;
-    const [lo, hi] = computeSingletonMasks(bits);
-    singletonLo[id] = lo;
-    singletonHi[id] = hi;
+    computeSingletonMasks(bits, id);
     classHashSlots[slot] = id;
     classCount += 1;
     metrics.internMisses += 1;
@@ -580,11 +572,11 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
 
   pool.ownTransition = function ownTransitionSlot64(id, cell, bitLo, bitHi) {
     assertClassId(id);
-    const [cellBitLo, cellBitHi] = assertCellBits(cell, bitLo, bitHi);
+    assertCellBits(cell, bitLo, bitHi);
     const cached = cacheGet(ownTransitions, id, cell, true);
     if (cached !== CLASS_UNKNOWN) { metrics.ownTransitionHits += 1; return cached; }
     metrics.ownTransitionMisses += 1;
-    if ((((singletonLo[id] & cellBitLo) >>> 0) !== 0) || (((singletonHi[id] & cellBitHi) >>> 0) !== 0)) {
+    if ((((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0)) {
       cacheSet(ownTransitions, id, cell, CLASS_TERMINAL_WIN);
       metrics.ownTerminal += 1;
       return CLASS_TERMINAL_WIN;
@@ -708,7 +700,9 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     const result = classCount;
     for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) classSlotIds[slotIndex][result] = chunkIds[slotIndex];
     classHashes[result] = hash;
-    const [bitLo, bitHi] = expectedCellBits(cell);
+    const cellBit = (1 << (cell & 31)) >>> 0;
+    const bitLo = cell < 32 ? cellBit : 0;
+    const bitHi = cell < 32 ? 0 : cellBit;
     singletonLo[result] = (singletonLo[id] & ~bitLo) >>> 0;
     singletonHi[result] = (singletonHi[id] & ~bitHi) >>> 0;
     classHashSlots[hashSlot] = result;
@@ -716,6 +710,22 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     metrics.internMisses += 1;
     cacheSet(blockTransitions, id, cell, result);
     return result;
+  };
+
+  // Exact set inclusion over canonical chunks. The caller owns the compiled
+  // vocabulary predicate; no term materialization or retained class cache.
+  pool.everyTermInMask = function everyTermInMask(id, allowed) {
+    assertClassId(id);
+    if (!(allowed instanceof Uint32Array) || allowed.length !== WORDS_PER_CLASS) {
+      throw new TypeError(`slot64 term predicate requires Uint32Array(${WORDS_PER_CLASS})`);
+    }
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const chunk = classSlotIds[slot][id];
+      const words = slotPools[slot].words;
+      if ((words[chunk * 2] & ~allowed[slot * 2]) !== 0
+          || (words[chunk * 2 + 1] & ~allowed[slot * 2 + 1]) !== 0) return false;
+    }
+    return true;
   };
 
   pool.memoryStats = function slot64ResidualMemoryStats() {

@@ -4,12 +4,10 @@ import {
   proofLower,
   proofUpper,
   bestMoveHint,
-  withProofLower,
-  withProofUpper,
   withBestMoveHint,
   withProofBounds,
 } from './quotient-negamax-search-record.mjs';
-import { assertWdlValue } from './quotient-negamax-domain-contract.mjs';
+import { assertWdlValue, assertProofReadTarget } from './quotient-negamax-domain-contract.mjs';
 import { assertSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
 import { assertSharedProofArena, resetSharedProofArena } from './quotient-proof-resource-service.mjs';
 
@@ -39,11 +37,11 @@ function createStaticPackedProofStore(arena) {
     return assertSearchRecord(Atomics.load(records, slot));
   }
 
-  function update(slot, transform) {
+  function update(slot, mode, value, hint) {
     assertSlot(slot);
     while (true) {
       const current = assertSearchRecord(Atomics.load(records, slot));
-      const next = assertSearchRecord(transform(current));
+      const next = assertSearchRecord(transformRecord(current, mode, value, hint));
       if (next === current) return current;
       const observed = Atomics.compareExchange(records, slot, current, next);
       if (observed === current) {
@@ -78,17 +76,15 @@ function createSemanticPackedProofStore(arena) {
   };
 
   function decode(handle) {
-    if (!Number.isSafeInteger(handle) || handle < arena.entryCapacity) return null;
-    const slot = handle % arena.entryCapacity;
+    if (!Number.isSafeInteger(handle) || handle < arena.entryCapacity) return -1;
     const generationValue = Math.floor(handle / arena.entryCapacity);
-    if (generationValue < 1 || generationValue > arena.generationLimit) return null;
-    return { slot, generationValue };
+    return generationValue < 1 || generationValue > arena.generationLimit ? -1 : generationValue;
   }
 
   function isCurrent(handle) {
-    const decoded = decode(handle);
-    if (decoded === null) return false;
-    const { slot, generationValue } = decoded;
+    const generationValue = decode(handle);
+    if (generationValue < 0) return false;
+    const slot = handle % arena.entryCapacity;
     if (Atomics.load(generation, slot) !== generationValue) return false;
     const state = Atomics.load(status, slot);
     return (state === ready || state === proofWriting)
@@ -102,19 +98,16 @@ function createSemanticPackedProofStore(arena) {
 
   function load(handle) {
     metrics.reads += 1;
-    const decoded = decode(handle);
-    if (decoded === null) return staleRead();
-    const { slot, generationValue } = decoded;
+    const generationValue = decode(handle);
+    if (generationValue < 0) return staleRead();
+    const slot = handle % arena.entryCapacity;
 
     while (true) {
       if (Atomics.load(generation, slot) !== generationValue) return staleRead();
       const state = Atomics.load(status, slot);
-      if (state === proofWriting) {
-        metrics.waits += 1;
-        Atomics.wait(status, slot, proofWriting, 1);
-        continue;
-      }
-      if (state !== ready) return staleRead();
+      // The record is one atomic byte. A writer can only strengthen it while
+      // descriptor identity remains locked; either old or new byte is sound.
+      if (state !== ready && state !== proofWriting) return staleRead();
 
       const record = Atomics.load(records, slot);
       const generationAfter = Atomics.load(generation, slot);
@@ -130,10 +123,10 @@ function createSemanticPackedProofStore(arena) {
     return null;
   }
 
-  function update(handle, transform) {
-    const decoded = decode(handle);
-    if (decoded === null) return stalePublication();
-    const { slot, generationValue } = decoded;
+  function update(handle, mode, value, hint) {
+    const generationValue = decode(handle);
+    if (generationValue < 0) return stalePublication();
+    const slot = handle % arena.entryCapacity;
 
     while (true) {
       if (Atomics.load(generation, slot) !== generationValue) return stalePublication();
@@ -154,7 +147,7 @@ function createSemanticPackedProofStore(arena) {
       try {
         if (Atomics.load(generation, slot) !== generationValue) return stalePublication();
         const current = assertSearchRecord(Atomics.load(records, slot));
-        const next = assertSearchRecord(transform(current));
+        const next = assertSearchRecord(transformRecord(current, mode, value, hint));
         if (next !== current) {
           Atomics.store(records, slot, next);
           metrics.publications += 1;
@@ -210,55 +203,42 @@ export function createPackedProofStore(arena) {
     return bestMoveHint(storage.load(handle));
   }
 
+  function readInto(handle, target) {
+    assertProofReadTarget(target);
+    const record = storage.load(handle);
+    target[0] = proofLower(record);
+    target[1] = proofUpper(record);
+    target[2] = bestMoveHint(record);
+  }
+
   function publishExact(handle, value, bestMoveValue = -1) {
     assertWdlValue(value, 'packed exact proof');
     assertHint(bestMoveValue);
-    return storage.update(handle, (record) => {
-      const currentLower = proofLower(record);
-      const currentUpper = proofUpper(record);
-      const nextLower = Math.max(currentLower, value);
-      const nextUpper = Math.min(currentUpper, value);
-      if (nextLower > nextUpper) throw new Error(`contradictory exact proof publication at handle ${handle}`);
-      let next = withProofBounds(record, nextLower, nextUpper);
-      if (bestMoveValue >= 0) next = withBestMoveHint(next, bestMoveValue);
-      return next;
-    });
+    return storage.update(handle, 0, value, bestMoveValue);
   }
 
   function publishLower(handle, value, bestMoveValue = -1) {
     assertWdlValue(value, 'packed lower proof');
     assertHint(bestMoveValue);
-    return storage.update(handle, (record) => {
-      const nextLower = Math.max(proofLower(record), value);
-      const currentUpper = proofUpper(record);
-      if (nextLower > currentUpper) throw new Error(`contradictory lower proof publication at handle ${handle}`);
-      let next = withProofLower(record, nextLower);
-      if (bestMoveValue >= 0) next = withBestMoveHint(next, bestMoveValue);
-      return next;
-    });
+    return storage.update(handle, 1, value, bestMoveValue);
   }
 
   function publishUpper(handle, value, bestMoveValue = -1) {
     assertWdlValue(value, 'packed upper proof');
     assertHint(bestMoveValue);
-    return storage.update(handle, (record) => {
-      const currentLower = proofLower(record);
-      const nextUpper = Math.min(proofUpper(record), value);
-      if (currentLower > nextUpper) throw new Error(`contradictory upper proof publication at handle ${handle}`);
-      let next = withProofUpper(record, nextUpper);
-      if (bestMoveValue >= 0) next = withBestMoveHint(next, bestMoveValue);
-      return next;
-    });
+    return storage.update(handle, 2, value, bestMoveValue);
   }
 
   function publishHint(handle, bestMoveValue) {
     assertHint(bestMoveValue);
     if (bestMoveValue === -1) return storage.load(handle);
-    return storage.update(handle, (record) => withBestMoveHint(record, bestMoveValue));
+    return storage.update(handle, 3, 0, bestMoveValue);
   }
 
   return Object.freeze({
     isCurrent: storage.isCurrent,
+    readRecord: storage.load,
+    readInto,
     lower,
     upper,
     bestMove,
@@ -269,4 +249,15 @@ export function createPackedProofStore(arena) {
     reset: storage.reset,
     metrics: storage.metrics,
   });
+}
+
+function transformRecord(record, mode, value, hint) {
+  const lower = proofLower(record);
+  const upper = proofUpper(record);
+  const nextLower = mode === 0 || mode === 1 ? Math.max(lower, value) : lower;
+  const nextUpper = mode === 0 || mode === 2 ? Math.min(upper, value) : upper;
+  if (nextLower > nextUpper) throw new Error('contradictory packed proof publication');
+  let next = mode === 3 ? record : withProofBounds(record, nextLower, nextUpper);
+  if (hint >= 0) next = withBestMoveHint(next, hint);
+  return next;
 }

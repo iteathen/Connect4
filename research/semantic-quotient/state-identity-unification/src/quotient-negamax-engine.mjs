@@ -40,7 +40,7 @@ function assertPort(port) {
   if (port.rankAt(port.rootId) !== 0) throw new Error('quotient Negamax root must have rank zero');
   const proofStore = port.proofStore;
   if (!proofStore || typeof proofStore !== 'object') throw new TypeError('quotient Negamax proofStore is required');
-  for (const name of ['lower', 'upper', 'bestMove', 'publishExact', 'publishLower', 'publishUpper']) {
+  for (const name of ['readInto', 'lower', 'upper', 'bestMove', 'publishExact', 'publishLower', 'publishUpper']) {
     if (typeof proofStore[name] !== 'function') throw new TypeError(`quotient Negamax proofStore.${name} must be a function`);
   }
 }
@@ -49,6 +49,8 @@ function createProofAccess(port, metrics, columns) {
   const { proofStore } = port;
   const proofKey = port.proofKey ?? ((stateId) => stateId);
   const ensureProofKey = port.ensureProofKey ?? proofKey;
+  // Ephemeral read scratch; callers copy scalars before recursion or await.
+  const snapshot = new Float64Array(3);
 
   function assertKey(key, label, allowMiss = true) {
     const minimum = allowMiss ? -1 : 0;
@@ -68,23 +70,20 @@ function createProofAccess(port, metrics, columns) {
     return assertKey(ensureProofKey(stateId), 'proof ensure', false);
   }
 
-  function lower(key) {
-    if (key < 0) return -1;
-    return assertWdlValue(proofStore.lower(key), `proof lower for key ${key}`);
+  function read(key) {
+    if (key < 0) { snapshot[0] = -1; snapshot[1] = 1; snapshot[2] = -1; }
+    else proofStore.readInto(key, snapshot);
+    assertWdlInterval(snapshot[0], snapshot[1], 'proof read interval');
+    const hint = snapshot[2];
+    if (!Number.isSafeInteger(hint) || hint < -1 || hint >= columns) {
+      throw new Error('proof read move hint is outside the column domain');
+    }
+    return snapshot;
   }
 
   function upper(key) {
     if (key < 0) return 1;
-    return assertWdlValue(proofStore.upper(key), `proof upper for key ${key}`);
-  }
-
-  function bestMove(key) {
-    if (key < 0) return -1;
-    const move = proofStore.bestMove(key);
-    if (!Number.isSafeInteger(move) || move < -1 || move >= columns) {
-      throw new Error(`proof best move for key ${key} is outside -1..${columns - 1}: ${move}`);
-    }
-    return move;
+    return assertWdlValue(proofStore.upper(key), 'proof upper');
   }
 
   function assertPublication(value, bestMoveValue) {
@@ -109,14 +108,12 @@ function createProofAccess(port, metrics, columns) {
     proofStore.publishUpper(ensure(stateId, key), value, bestMoveValue);
   }
 
-  return Object.freeze({ probe, lower, upper, bestMove, publishExact, publishLower, publishUpper });
+  return Object.freeze({ probe, read, upper, publishExact, publishLower, publishUpper });
 }
 
-function frontierBoundsFor(port, stateId, lower, upper) {
-  assertWdlInterval(lower, upper, `proof interval for state ${stateId}`);
-  if (typeof port.frontierBoundCode !== 'function') return [lower, upper, false];
-  const [nextLower, nextUpper] = applyFrontierBoundCode(port.frontierBoundCode(stateId), lower, upper);
-  return [nextLower, nextUpper, nextLower !== lower || nextUpper !== upper];
+function frontierBoundsFor(port, stateId, lower, upper, target) {
+  if (typeof port.frontierBoundCode !== 'function') return false;
+  return applyFrontierBoundCode(port.frontierBoundCode(stateId), lower, upper, target);
 }
 
 function classifyBoundReturn(metrics, key, structuralNarrowed, proofCut) {
@@ -210,8 +207,7 @@ function frontierComesBefore(leftScore, leftColumn, rightScore, rightColumn, pro
   return leftColumn < rightColumn;
 }
 
-function legalProofHint(proof, key, stateId, legalAt, metrics) {
-  const best = proof.bestMove(key);
+function legalProofHint(best, stateId, legalAt, metrics) {
   if (best >= 0 && legalAt(stateId, best)) {
     metrics.ttMoveOrderHits += 1;
     return best;
@@ -313,7 +309,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     );
   }
 
-  function prepareMoves(stateId, key, forcedColumn, rank) {
+  function prepareMoves(stateId, proofHint, forcedColumn, rank) {
     const base = rank * columns;
     if (forcedColumn >= 0) {
       if (!legalAt(stateId, forcedColumn)) throw new Error(`forced tactical column ${forcedColumn} is not legal at state ${stateId}`);
@@ -325,14 +321,14 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     if (hasFrontierOrder) {
       const frontierOffset = rank * frontierWords;
       const mover = rank & 1;
-      const proofBest = legalProofHint(proof, key, stateId, legalAt, metrics);
+      const proofBest = legalProofHint(proofHint, stateId, legalAt, metrics);
       let count = 0;
       for (let column = 0; column < columns; column += 1) {
         if (!legalAt(stateId, column)) continue;
         const landingCell = landingForLegalMove(stateId, column);
         const score = assertFrontierScore(
           frontierOrder.valueAtStack(frontierStack, frontierOffset, mover, landingCell),
-          `frontier score for state ${stateId}/${column}`,
+          'frontier score',
         );
         let at = count;
         while (at > 0) {
@@ -352,7 +348,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     }
 
     let count = 0;
-    const best = legalProofHint(proof, key, stateId, legalAt, metrics);
+    const best = legalProofHint(proofHint, stateId, legalAt, metrics);
     if (best >= 0) moveStack[base + count++] = best;
     for (const column of centerOrder) {
       if (column === best || !legalAt(stateId, column)) continue;
@@ -362,7 +358,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
   }
 
   function publishResult(stateId, key, value, selected, originalAlpha, originalBeta) {
-    assertWdlValue(value, `search result for state ${stateId}`);
+    assertWdlValue(value, 'search result');
     if (value <= originalAlpha) proof.publishUpper(stateId, key, value, selected);
     else if (value >= originalBeta) proof.publishLower(stateId, key, value, selected);
     else proof.publishExact(stateId, key, value, selected);
@@ -379,15 +375,16 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     while (true) {
       metrics.calls += 1;
       const key = proof.probe(stateId);
-      const proofLower = proof.lower(key);
-      const proofUpper = proof.upper(key);
+      const proofSnapshot = proof.read(key);
+      const proofLower = proofSnapshot[0];
+      const proofUpper = proofSnapshot[1];
+      const proofHint = proofSnapshot[2];
       const proofExact = proofLower === proofUpper;
       const proofLowerCut = proofLower >= beta;
       const proofUpperCut = proofUpper <= alpha;
-      let lower;
-      let upper;
-      let structuralNarrowed;
-      [lower, upper, structuralNarrowed] = frontierBoundsFor(port, stateId, proofLower, proofUpper);
+      const structuralNarrowed = frontierBoundsFor(port, stateId, proofLower, proofUpper, proofSnapshot);
+      const lower = proofSnapshot[0];
+      const upper = proofSnapshot[1];
 
       if (lower === upper) {
         if (proofExact && key >= 0) metrics.ttExactReturns += 1;
@@ -457,7 +454,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       }
 
       if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
-      const moveCount = prepareMoves(stateId, key, -1, rank);
+      const moveCount = prepareMoves(stateId, proofHint, -1, rank);
       if (moveCount === 0) throw new Error(`non-tactical quotient state ${stateId} has no legal moves`);
       const base = rank * columns;
       const remaining = cellCount - rank;
@@ -474,7 +471,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
           metrics.etcProbes += 1;
           const childKey = proof.probe(child);
           const parentLower = -proof.upper(childKey);
-          assertWdlValue(parentLower, `ETC parent lower for state ${stateId}`);
+          assertWdlValue(parentLower, 'ETC parent lower');
           if (parentLower >= beta) {
             proof.publishLower(stateId, key, parentLower, column);
             metrics.etcCutoffs += 1;
@@ -495,7 +492,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
           advanceFrontier(stateId, column, rank);
           score = -searchNode(child, -beta, -alpha, rank + 1);
         }
-        assertWdlValue(score, `child score for state ${stateId}/${column}`);
+        assertWdlValue(score, 'child score');
         if (score > value) {
           value = score;
           selected = column;
@@ -544,7 +541,8 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     const childSeed = hasFrontierOrder
       ? frontierStack.slice(frontierWords, frontierWords * 2)
       : null;
-    return -search(child, -2, 2, childSeed);
+    const value = -search(child, -2, 2, childSeed);
+    return value === 0 ? 0 : value;
   }
 
   function rootActionValues() {
@@ -669,14 +667,14 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     );
   }
 
-  function orderedMoves(stateId, key, forcedColumn, rank, frontierSeed) {
+  function orderedMoves(stateId, proofHint, forcedColumn, rank, frontierSeed) {
     if (forcedColumn >= 0) {
       if (!legalAt(stateId, forcedColumn)) throw new Error(`forced tactical column ${forcedColumn} is not legal at state ${stateId}`);
       return [forcedColumn];
     }
     if (hasFrontierOrder) {
       assertFrontierSeed(frontierSeed, frontierWords, 'dependency frontier ordering seed');
-      const proofBest = legalProofHint(proof, key, stateId, legalAt, metrics);
+      const proofBest = legalProofHint(proofHint, stateId, legalAt, metrics);
       const scored = [];
       const mover = rank & 1;
       for (let column = 0; column < columns; column += 1) {
@@ -684,7 +682,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
         const landingCell = landingForLegalMove(stateId, column);
         const score = assertFrontierScore(
           frontierOrder.valueAtSeed(frontierSeed, mover, landingCell),
-          `dependency frontier score for state ${stateId}/${column}`,
+          'dependency frontier score',
         );
         scored.push({ column, value: score });
       }
@@ -699,7 +697,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
       return scored.map((entry) => entry.column);
     }
     const moves = [];
-    const best = legalProofHint(proof, key, stateId, legalAt, metrics);
+    const best = legalProofHint(proofHint, stateId, legalAt, metrics);
     if (best >= 0) moves.push(best);
     for (const column of centerOrder) {
       if (column === best || !legalAt(stateId, column)) continue;
@@ -709,7 +707,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
   }
 
   function publishResult(stateId, key, value, selected, originalAlpha, originalBeta) {
-    assertWdlValue(value, `dependency result for state ${stateId}`);
+    assertWdlValue(value, 'dependency result');
     if (value <= originalAlpha) proof.publishUpper(stateId, key, value, selected);
     else if (value >= originalBeta) proof.publishLower(stateId, key, value, selected);
     else proof.publishExact(stateId, key, value, selected);
@@ -756,15 +754,16 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     while (true) {
       metrics.calls += 1;
       const key = proof.probe(stateId);
-      const proofLower = proof.lower(key);
-      const proofUpper = proof.upper(key);
+      const proofSnapshot = proof.read(key);
+      const proofLower = proofSnapshot[0];
+      const proofUpper = proofSnapshot[1];
+      const proofHint = proofSnapshot[2];
       const proofExact = proofLower === proofUpper;
       const proofLowerCut = proofLower >= beta;
       const proofUpperCut = proofUpper <= alpha;
-      let lower;
-      let upper;
-      let structuralNarrowed;
-      [lower, upper, structuralNarrowed] = frontierBoundsFor(port, stateId, proofLower, proofUpper);
+      const structuralNarrowed = frontierBoundsFor(port, stateId, proofLower, proofUpper, proofSnapshot);
+      const lower = proofSnapshot[0];
+      const upper = proofSnapshot[1];
       if (lower === upper) {
         if (proofExact && key >= 0) metrics.ttExactReturns += 1;
         else if (structuralNarrowed && !proofExact) metrics.frontierBoundCuts += 1;
@@ -836,7 +835,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
       if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
       if (decisionDepth >= splitDepth) return sign * await runLeaf(stateId, alpha, beta);
 
-      const moves = orderedMoves(stateId, key, -1, rank, seed);
+      const moves = orderedMoves(stateId, proofHint, -1, rank, seed);
       if (moves.length === 0) throw new Error(`non-tactical quotient state ${stateId} has no legal moves`);
       metrics.shallowExpanded += 1;
 
@@ -943,7 +942,8 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     const child = requireLegalTransition(transition(rootId, column), rootId, column);
     if (child === QN_TERMINAL_WIN) return 1;
     const childSeed = hasFrontierOrder ? nextFrontierSeed(rootId, column, 0, rootFrontierSeed) : null;
-    return -(await search(child, -2, 2, 1, childSeed));
+    const value = -(await search(child, -2, 2, 1, childSeed));
+    return value === 0 ? 0 : value;
   }
 
   async function rootActionValues() {

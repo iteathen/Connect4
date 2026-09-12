@@ -1,7 +1,9 @@
+import { INITIAL_SEARCH_RECORD, proofLower, proofUpper, bestMoveHint } from './quotient-negamax-search-record.mjs';
 import {
   QN_ILLEGAL,
   QN_TERMINAL_WIN,
   assertTacticalCode,
+  assertProofReadTarget,
 } from './quotient-negamax-domain-contract.mjs';
 import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
 import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
@@ -108,10 +110,10 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
     }
   }
 
-  function publishCurrent(stateId, publish) {
+  function publishCurrent(stateId, publish, value, hint) {
     while (true) {
       const handle = currentHandle(stateId, true);
-      const result = publish(handle);
+      const result = publish(handle, value, hint);
       if (result !== null) return result;
       identityMetrics.publicationRetries += 1;
       cachedHandle = -1;
@@ -119,6 +121,13 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   }
 
   const proofStore = Object.freeze({
+    readInto(stateId, target) {
+      assertProofReadTarget(target);
+      const record = readBound(stateId, INITIAL_SEARCH_RECORD, semanticProofStore.readRecord);
+      target[0] = proofLower(record);
+      target[1] = proofUpper(record);
+      target[2] = bestMoveHint(record);
+    },
     isCurrent(stateId) {
       const handle = currentHandle(stateId, false);
       return handle >= 0 && semanticProofStore.isCurrent(handle);
@@ -127,16 +136,16 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
     upper(stateId) { return readBound(stateId, 1, semanticProofStore.upper); },
     bestMove(stateId) { return readBound(stateId, -1, semanticProofStore.bestMove); },
     publishExact(stateId, value, bestMoveValue = -1) {
-      return publishCurrent(stateId, (handle) => semanticProofStore.publishExact(handle, value, bestMoveValue));
+      return publishCurrent(stateId, semanticProofStore.publishExact, value, bestMoveValue);
     },
     publishLower(stateId, value, bestMoveValue = -1) {
-      return publishCurrent(stateId, (handle) => semanticProofStore.publishLower(handle, value, bestMoveValue));
+      return publishCurrent(stateId, semanticProofStore.publishLower, value, bestMoveValue);
     },
     publishUpper(stateId, value, bestMoveValue = -1) {
-      return publishCurrent(stateId, (handle) => semanticProofStore.publishUpper(handle, value, bestMoveValue));
+      return publishCurrent(stateId, semanticProofStore.publishUpper, value, bestMoveValue);
     },
     publishHint(stateId, bestMoveValue) {
-      return publishCurrent(stateId, (handle) => semanticProofStore.publishHint(handle, bestMoveValue));
+      return publishCurrent(stateId, semanticProofStore.publishHint, bestMoveValue, undefined);
     },
     metrics: semanticProofStore.metrics,
   });
