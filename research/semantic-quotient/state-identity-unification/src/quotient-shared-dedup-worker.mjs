@@ -6,6 +6,10 @@ import {
   resetSharedProofArena,
 } from './quotient-shared-graph-lib.mjs';
 import {
+  createSemanticSharedTtArena,
+  resetSemanticSharedTtArena,
+} from './quotient-semantic-shared-tt.mjs';
+import {
   buildQuotientLookaheadWorkDag,
   reduceQuotientLookaheadWorkDag,
 } from './quotient-lookahead-work-dag.mjs';
@@ -17,6 +21,12 @@ const graph = buildSharedQuotientGraph(workerData.spec, {
   prefixClasses: workerData.prefixClasses ?? 4096,
 });
 const arena = createSharedProofArena(graph.stateCount);
+const semanticArena = workerData.semanticTt
+  ? createSemanticSharedTtArena({
+      entryCapacity: workerData.semanticTt.entryCapacity,
+      termCapacity: workerData.semanticTt.termCapacity,
+    })
+  : null;
 const plans = new Map();
 let nextPlanId = 1;
 const stats = {
@@ -24,17 +34,19 @@ const stats = {
   canonicalStates: graph.stateCount,
   residualClasses: graph.residualClassCount,
   canonicalEdges: graph.edgeCount,
+  semanticTtEnabled: semanticArena !== null,
   resets: 0,
   cleanupPasses: 0,
   plansBuilt: 0,
   plansReduced: 0,
 };
 
-parentPort.postMessage({ type: 'published', graph, arena, stats: { ...stats } });
+parentPort.postMessage({ type: 'published', graph, arena, semanticArena, stats: { ...stats } });
 
 parentPort.on('message', (message) => {
   if (message?.type === 'reset') {
     resetSharedProofArena(arena);
+    if (semanticArena) resetSemanticSharedTtArena(semanticArena);
     stats.resets += 1;
     parentPort.postMessage({ type: 'reset-complete', requestId: message.requestId, stats: { ...stats } });
     return;
