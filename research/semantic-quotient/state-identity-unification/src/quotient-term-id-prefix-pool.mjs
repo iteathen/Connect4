@@ -4,6 +4,7 @@ const CLASS_UNKNOWN = -3;
 const CLASS_TERMINAL_WIN = -1;
 
 function nextPowerOfTwo(value) {
+  if (!Number.isSafeInteger(value) || value < 1 || value > 2 ** 30) throw new RangeError('prefix-pool capacity exceeds signed power-of-two index domain');
   let result = 1;
   while (result < value) result *= 2;
   return result;
@@ -85,6 +86,8 @@ function enumerateNonemptySubsets(line) {
 }
 
 function createTermVocabulary(spec) {
+  if (!spec || !Number.isSafeInteger(spec.columns * spec.rows) || spec.columns * spec.rows > 64) throw new RangeError('prefix vocabulary requires at most 64 cells');
+  if (!Number.isSafeInteger(spec.connect) || spec.connect < 1 || spec.connect >= 16) throw new RangeError('prefix vocabulary connect must be in 1..15');
   const lines = createConnectWinningLines(spec);
   const cellCount = spec.columns * spec.rows;
   const byKey = new Map();
@@ -166,7 +169,7 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
   const pool = kernel.classes;
   const vocabulary = createTermVocabulary(spec);
   const prefixClasses = options.prefixClasses ?? 4096;
-  if (!Number.isInteger(prefixClasses) || prefixClasses < 1) throw new RangeError('prefixClasses must be positive');
+  if (!Number.isSafeInteger(prefixClasses) || prefixClasses < 1 || prefixClasses * vocabulary.cellCount > 0x7fffffff) throw new RangeError('prefixClasses must fit the signed cache index domain');
 
   const maxTerms = vocabulary.lineCount;
   const scratchReduced = new Uint16Array(maxTerms);
@@ -216,11 +219,16 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
     if (required <= classCapacity) return;
     const next = nextPowerOfTwo(required);
     const grow = (Type, source) => { const target = new Type(next); target.set(source); return target; };
-    starts = grow(Uint32Array, starts);
-    lengths = grow(Uint16Array, lengths);
-    hashes = grow(Uint32Array, hashes);
-    singletonLo = grow(Uint32Array, singletonLo);
-    singletonHi = grow(Uint32Array, singletonHi);
+    const nextStarts = grow(Uint32Array, starts);
+    const nextLengths = grow(Uint16Array, lengths);
+    const nextHashes = grow(Uint32Array, hashes);
+    const nextLo = grow(Uint32Array, singletonLo);
+    const nextHi = grow(Uint32Array, singletonHi);
+    starts = nextStarts;
+    lengths = nextLengths;
+    hashes = nextHashes;
+    singletonLo = nextLo;
+    singletonHi = nextHi;
     classCapacity = next;
     metrics.classGrows += 1;
   }
@@ -243,6 +251,7 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
   }
 
   function growHash() {
+    if (hashSlots.length >= 2 ** 30) throw new RangeError('prefix-pool hash capacity exhausted');
     const next = new Int32Array(hashSlots.length * 2);
     next.fill(-1);
     const mask = next.length - 1;
@@ -256,6 +265,10 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
   }
 
   function internIds(ids, count) {
+    if (!(ids instanceof Uint16Array) || !Number.isInteger(count) || count < 0 || count > ids.length || count > maxTerms) throw new RangeError('invalid prefix term sequence');
+    for (let i = 0; i < count; i += 1) {
+      if (ids[i] >= vocabulary.count || (i > 0 && ids[i - 1] >= ids[i])) throw new Error('prefix term sequence must be strictly ordered vocabulary IDs');
+    }
     metrics.internLookups += 1;
     if ((classCount + 1) * 10 >= hashSlots.length * 7) growHash();
     const hash = hashIds(ids, count);
@@ -302,12 +315,17 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
   if (pool.emptyClass !== emptyClass || pool.initialClass !== initialClass) throw new Error('prefix term-ID bootstrap does not match base q IDs');
 
   function cacheGet(cache, id, cell, kind) {
+    assertClass(id);
+    if (!Number.isInteger(cell) || cell < 0 || cell >= vocabulary.cellCount) throw new RangeError('invalid prefix transition cell');
     if (id >= prefixClasses) {
       if (kind === 'own') metrics.outOfPrefixOwn += 1;
       else metrics.outOfPrefixBlock += 1;
       return CLASS_UNKNOWN;
     }
-    return cache[id * vocabulary.cellCount + cell];
+    const cached = cache[id * vocabulary.cellCount + cell];
+    if (cached !== CLASS_UNKNOWN && cached !== CLASS_TERMINAL_WIN) assertClass(cached);
+    if (kind === 'block' && cached === CLASS_TERMINAL_WIN) throw new Error('block transition cannot create a win');
+    return cached;
   }
 
   function cacheSet(cache, id, cell, value) {
@@ -321,9 +339,17 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
   pool.initialClass = initialClass;
   pool.termVocabulary = vocabulary;
   pool.metrics = metrics;
-  pool.isEmpty = (id) => lengths[id] === 0;
-  pool.hasSingletonAt = (id, bitLo, bitHi) => (((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0);
+  function assertClass(id) {
+    if (!Number.isInteger(id) || id < 0 || id >= classCount) throw new RangeError(`invalid prefix class ${id}`);
+  }
+  pool.isEmpty = (id) => { assertClass(id); return lengths[id] === 0; };
+  pool.hasSingletonAt = (id, bitLo, bitHi) => {
+    assertClass(id);
+    if (!Number.isInteger(bitLo) || bitLo < 0 || bitLo > 0xffffffff || !Number.isInteger(bitHi) || bitHi < 0 || bitHi > 0xffffffff) throw new RangeError('prefix singleton masks must be Uint32');
+    return (((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0);
+  };
   pool.terms = function termsForQualification(id) {
+    assertClass(id);
     const result = [];
     const start = starts[id];
     for (let index = 0; index < lengths[id]; index += 1) {
@@ -332,7 +358,7 @@ export function installPrefixTermIdPool(kernel, spec, options = {}) {
     }
     return result;
   };
-  pool.termIds = (id) => flatIds.slice(starts[id], starts[id] + lengths[id]);
+  pool.termIds = (id) => { assertClass(id); return flatIds.slice(starts[id], starts[id] + lengths[id]); };
   pool.researchStorageView = function researchStorageView() {
     return Object.freeze({
       classCount,

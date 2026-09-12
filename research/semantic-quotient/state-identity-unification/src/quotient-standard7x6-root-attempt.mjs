@@ -6,6 +6,7 @@ import { createOnlineDependencyCoordinator } from './quotient-online-dependency-
 import {
   startOnlineBranchManager,
   startOnlineSearchWorkers,
+  cleanupOnlineSession,
 } from './quotient-online-semantic-worker-pool.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
@@ -170,25 +171,8 @@ try {
     recordFailure(error);
   }
 
-  if (executor) {
-    try { await executor.drain(); } catch (error) { recordFailure(error); }
-    try { executor.close(); } catch (error) { recordFailure(error); }
-  }
-
-  const workerTerminations = await Promise.allSettled(workers.map((worker) => worker.terminate()));
-  for (const result of workerTerminations) {
-    if (result.status === 'rejected') recordFailure(result.reason);
-  }
-
-  if (branchManager) {
-    try {
-      const cleaned = await branchManager.cleanup();
-      branchManagerFinalStats = cleaned.stats ?? null;
-    } catch (error) {
-      recordFailure(error);
-    }
-    try { await branchManager.worker.terminate(); } catch (error) { recordFailure(error); }
-  }
+  try { branchManagerFinalStats = await cleanupOnlineSession({ executor, workers, branchManager }); }
+  catch (error) { recordFailure(error); }
 
   if (errorText === null && rootWdl !== null) status = 'complete';
   else status = 'failed';

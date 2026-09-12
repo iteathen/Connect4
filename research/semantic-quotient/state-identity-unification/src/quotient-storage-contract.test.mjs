@@ -1,9 +1,25 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
+import { createScaledTermIdQuotientNativeNegamaxKernel } from './quotient-native-negamax-scaled-term-id-kernel.mjs';
+import { createTermVocabulary } from './quotient-term-id-pool.mjs';
 
 const spec = { columns: 4, rows: 3, connect: 3 };
 const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+
+test('qualification baseline keeps one proof owner and rejects invalid residual inputs', () => {
+  const wrap = createScaledTermIdQuotientNativeNegamaxKernel(spec, { prefixClasses: 8 });
+  assert.equal(wrap.kernel.proofStore, wrap.proofStore);
+  const pool = wrap.kernel.classes;
+  for (const id of [-1, undefined, pool.size]) {
+    assert.throws(() => pool.termIds(id));
+    assert.throws(() => pool.isEmpty(id));
+    assert.throws(() => pool.ownTransition(id, 0));
+  }
+  assert.throws(() => pool.ownTransition(1, -1));
+  assert.throws(() => pool.hasSingletonAt(1, 2 ** 32, 0));
+  assert.throws(() => createTermVocabulary({ columns: 1, rows: 32, connect: 32 }), /connect/);
+});
 
 test('support access rejects malformed indices and columns without rank-zero aliases', () => {
   for (const layout of ['packed', 'table']) {

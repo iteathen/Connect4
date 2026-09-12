@@ -3,7 +3,7 @@ import { EventEmitter } from 'node:events';
 import test from 'node:test';
 import { once } from 'node:events';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
-import { runOnlinePathTasks, startOnlineBranchManager, startOnlineSearchWorkers } from './quotient-online-semantic-worker-pool.mjs';
+import { cleanupOnlineSession, runOnlinePathTasks, startOnlineBranchManager, startOnlineSearchWorkers } from './quotient-online-semantic-worker-pool.mjs';
 import { createSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
 import { buildSharedQuotientGraph } from './quotient-shared-graph-lib.mjs';
 import { buildQuotientLookaheadWorkDag, reduceQuotientLookaheadWorkDag } from './quotient-lookahead-work-dag.mjs';
@@ -15,6 +15,19 @@ class FakeWorker extends EventEmitter {
   postMessage(message) { this.sent.push(message); }
   async terminate() { this.terminated = true; }
 }
+
+test('cleanup attempts every owned termination after stop/drain/close failure', async () => {
+  const worker = new FakeWorker();
+  const managerWorker = new FakeWorker();
+  let cleaned = false;
+  let closed = false;
+  await assert.rejects(cleanupOnlineSession({
+    workers: [worker],
+    executor: { async drain() { throw Error('drain failed'); }, close() { closed = true; throw Error('close failed'); } },
+    branchManager: { worker: managerWorker, stopExplore() { throw Error('stop failed'); }, cleanup() { cleaned = true; return { stats: {} }; } },
+  }), AggregateError);
+  assert.equal(closed && cleaned && worker.terminated && managerWorker.terminated, true);
+});
 
 test('postMessage failure poisons executor and releases every pending task', async () => {
   const worker = new FakeWorker();

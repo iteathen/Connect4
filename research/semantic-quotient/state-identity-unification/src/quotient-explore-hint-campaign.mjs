@@ -4,6 +4,7 @@ import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
 import {
   startOnlineBranchManager,
   startOnlineSearchWorkers,
+  cleanupOnlineSession,
 } from './quotient-online-semantic-worker-pool.mjs';
 
 const SPEC = Object.freeze({ columns: 4, rows: 5, connect: 4 });
@@ -146,13 +147,7 @@ try {
     semanticTt: semanticTt.stats(),
   });
 } finally {
-  await branchManager.stopExplore();
-  await executor.drain();
-  unsubscribeExplore();
-  executor.close();
-  await Promise.all(workers.map((worker) => worker.terminate()));
-  await branchManager.cleanup();
-  await branchManager.worker.terminate();
+  await cleanupOnlineSession({ executor, workers, branchManager, unsubscribeExplore });
 }
 
 const result = Object.freeze({

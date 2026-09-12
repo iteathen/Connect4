@@ -5,7 +5,6 @@ import {
   FRONTIER_BOUND_OPPONENT_NO_WIN,
 } from './quotient-negamax-domain-contract.mjs';
 import { createLiveLineMoveOrder } from './quotient-live-line-move-order.mjs';
-import { createLocalQuotientProofStore } from './quotient-local-proof-store.mjs';
 import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
 import { createQuotientNativeNegamaxSupportLayoutKernel } from './quotient-native-negamax-support-layout-kernel.mjs';
 import { installPrefixTermIdPool } from './quotient-term-id-prefix-pool.mjs';
@@ -18,7 +17,7 @@ export function createScaledTermIdQuotientNativeNegamaxKernel(spec, options = {}
   const termId = installPrefixTermIdPool(substrate, spec, {
     prefixClasses: options.prefixClasses ?? 4096,
   });
-  const proofStore = createLocalQuotientProofStore(substrate.states);
+  const proofStore = substrate.proofStore;
   const frontierOrder = createLiveLineMoveOrder(spec);
 
   function frontierBoundCode(stateId) {

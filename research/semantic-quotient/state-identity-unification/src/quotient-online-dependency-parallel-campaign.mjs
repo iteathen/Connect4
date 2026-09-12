@@ -7,6 +7,7 @@ import { createOnlineSemanticQuotientPort } from './quotient-online-semantic-sea
 import {
   startOnlineBranchManager,
   startOnlineSearchWorkers,
+  cleanupOnlineSession,
 } from './quotient-online-semantic-worker-pool.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
 
@@ -73,11 +74,14 @@ const branchManager = await startOnlineBranchManager(SPEC, {
   termCapacity: 1 << 24,
 });
 const semanticArena = branchManager.published.semanticArena;
+const baselineRuns = [];
+const results = [];
+
+try {
 
 const baselineKernel = createLocalKernel();
 const baselineSemantic = createOnlineSemanticQuotientPort(baselineKernel, semanticArena);
 const baselineEngine = createQuotientNegamaxEngine(baselineSemantic.port, { etc: false });
-const baselineRuns = [];
 for (let repeat = 0; repeat < REPEATS; repeat += 1) {
   await branchManager.reset();
   const started = performance.now();
@@ -94,7 +98,6 @@ for (let repeat = 0; repeat < REPEATS; repeat += 1) {
   for (const key of Object.keys(baselineEngine.metrics)) baselineEngine.metrics[key] = 0;
 }
 
-const results = [];
 for (const requestedWorkers of REQUESTED_WORKERS) {
   const workerCount = Math.max(1, Math.min(requestedWorkers, availableParallelism()));
   const workers = await startOnlineSearchWorkers(workerCount, SPEC, semanticArena, {
@@ -102,8 +105,8 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
     etc: false,
   });
   const executor = createSearchWorkerExecutor(workers);
-  const coordinatorKernel = createLocalKernel();
   try {
+    const coordinatorKernel = createLocalKernel();
     for (const splitDepth of DEPTHS) {
       await branchManager.reset();
       {
@@ -181,14 +184,13 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
       }));
     }
   } finally {
-    await executor.drain();
-    executor.close();
-    await Promise.all(workers.map((worker) => worker.terminate()));
+    await cleanupOnlineSession({ executor, workers });
   }
 }
 
-await branchManager.cleanup();
-await branchManager.worker.terminate();
+} finally {
+  await cleanupOnlineSession({ branchManager });
+}
 
 const baseline = Object.freeze({
   elapsedMsMedian: median(baselineRuns.map((run) => run.elapsedMs)),

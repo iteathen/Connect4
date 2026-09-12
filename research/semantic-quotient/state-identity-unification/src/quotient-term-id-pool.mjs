@@ -85,6 +85,10 @@ function enumerateNonemptySubsets(line) {
 }
 
 export function createTermVocabulary(spec) {
+  if (!spec || !Number.isSafeInteger(spec.columns * spec.rows) || spec.columns * spec.rows > 64) throw new RangeError('residual vocabulary requires at most 64 cells');
+  // One length-16 line alone already needs 65535 nonempty subsets, which
+  // collides with the Uint16 terminal sentinel. Reject before bit shifts/enumeration.
+  if (!Number.isSafeInteger(spec.connect) || spec.connect < 1 || spec.connect >= 16) throw new RangeError('residual vocabulary connect must be in 1..15');
   const lines = createConnectWinningLines(spec);
   const cellCount = spec.columns * spec.rows;
   const byKey = new Map();

@@ -3,6 +3,7 @@ import { createOnlineDependencyCoordinator } from './quotient-online-dependency-
 import {
   startOnlineBranchManager,
   startOnlineSearchWorkers,
+  cleanupOnlineSession,
 } from './quotient-online-semantic-worker-pool.mjs';
 import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
@@ -165,11 +166,13 @@ async function runConstrainedGameControl() {
   });
   const semanticArena = branchManager.published.semanticArena;
   const tt = createSemanticSharedTtView(semanticArena);
-  const workers = await startOnlineSearchWorkers(WORKERS, SPEC, semanticArena, { prefixClasses: PREFIX_CLASSES, etc: false });
-  const executor = createSearchWorkerExecutor(workers);
-  const kernel = createKernel();
+  let workers = [];
+  let executor = null;
 
   try {
+    workers = await startOnlineSearchWorkers(WORKERS, SPEC, semanticArena, { prefixClasses: PREFIX_CLASSES, etc: false });
+    executor = createSearchWorkerExecutor(workers);
+    const kernel = createKernel();
     const coordinator = createOnlineDependencyCoordinator(kernel, semanticArena, executor, {
       splitDepth: SPLIT_DEPTH,
       priorityProbeDepth: 0,
@@ -240,11 +243,7 @@ async function runConstrainedGameControl() {
       coordinatorMetrics: Object.freeze({ ...actionCoordinator.engine.metrics }),
     });
   } finally {
-    await executor.drain();
-    executor.close();
-    await Promise.all(workers.map((worker) => worker.terminate()));
-    await branchManager.cleanup();
-    await branchManager.worker.terminate();
+    await cleanupOnlineSession({ executor, workers, branchManager });
   }
 }
 

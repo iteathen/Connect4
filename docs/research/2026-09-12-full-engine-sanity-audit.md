@@ -419,3 +419,37 @@ worker; checking current slot locks alone is not an admission barrier. Static
 plan code is not a second production proof authority: the standard root uses
 semantic-only Branch Manager mode and the generic dependency policy. No full
 root readiness decision has yet been made.
+
+## Qualification reference and teardown review
+
+Reviewed every line of the replacement, dependency-aware, ExploreHint, slot64
+and generation-lifecycle campaigns, the prefix-term comparison pool/kernel, and
+the independent ownership-antichain oracle. Oracle union/intersection and
+terminal subtraction remain P0-relative; exact Negamax signs remain mover-relative.
+The graph comparison validates every bounded class, state and edge; the oracle
+checks root and actions independently of residual normalization.
+
+Removed a duplicate local proof-store construction in the comparison kernel:
+the wrapper and kernel now expose the substrate's one proof owner. Prefix
+baseline boundaries reject invalid class/cell/mask/term domains, check capacity
+ceilings and prepare class arrays before committing growth. Both vocabulary
+builders reject a line length that would overflow Uint16 term/sentinel space
+before subset bit shifts. The independent comparison vocabulary algorithm is
+retained as a qualification reference, not production semantic authority.
+
+The slot64 campaign now imports sentinels from their domain owner, eliminating
+an incidental import of the unused legacy recursive kernel. That legacy engine
+is not an active qualification dependency and has not been promoted.
+
+Several campaign `finally` blocks stopped at the first drain failure, skipping
+worker and Branch Manager termination. A shared session teardown now attempts
+every owned cleanup/termination and reports aggregated failures. The standard
+root consumes that same lifecycle owner; authoritative proof time is unchanged.
+A control forces stop, drain and close failures and confirms all terminations
+still happen. All affected local campaigns pass again. Baseline adversarial
+controls and the complete slot64 graph/oracle campaign pass.
+
+Worker packet `dbc6fcf05fb2e753078cc2e8dc445b1bdad73f0e` remote checks succeeded:
+replacement `34692479054`, ExploreHint `34692479027`, dependency `34692479021`.
+Final review is checking explicit arena/domain binding, coverage inventory and
+failure paths around initialization before a root-readiness decision.

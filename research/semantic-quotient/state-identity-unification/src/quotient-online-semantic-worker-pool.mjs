@@ -299,6 +299,30 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
   }
 }
 
+export async function cleanupOnlineSession({ workers = [], executor = null, branchManager = null, unsubscribeExplore = null } = {}) {
+  const errors = [];
+  let managerStats = null;
+  const attempt = async (operation) => {
+    try { return await operation(); }
+    catch (error) { errors.push(asError(error, 'online session cleanup failed')); return null; }
+  };
+  if (branchManager) await attempt(() => branchManager.stopExplore());
+  if (unsubscribeExplore) await attempt(unsubscribeExplore);
+  if (executor) {
+    await attempt(() => executor.drain());
+    await attempt(() => executor.close());
+  }
+  // Drain/close failure must never skip termination of the contaminated set.
+  await attempt(() => terminateWorkers(workers));
+  if (branchManager) {
+    const reply = await attempt(() => branchManager.cleanup());
+    managerStats = reply?.stats ?? null;
+    await attempt(() => branchManager.worker.terminate());
+  }
+  if (errors.length) throw new AggregateError(errors, 'online session cleanup failed', { cause: errors[0] });
+  return managerStats;
+}
+
 function addMetrics(target, source) {
   for (const [key, value] of Object.entries(source ?? {})) {
     if (typeof value !== 'number') continue;
