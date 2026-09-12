@@ -101,25 +101,31 @@ The shared semantic proof table is 8-way set-associative with exact descriptor e
 
 A stale handle reads as unknown `[-1,+1]`, cannot publish into a replacement identity, and cannot carry a move hint into a replacement identity. Replacement and proof publication share the slot lifecycle lock. Generation wrap fails closed.
 
-A deliberately tiny 4x5 table remained exact through tens of thousands of replacements, including exact root actions `[0,0,0,0]`.
+A deliberately tiny 4x5 table remains exact through tens of thousands of replacements, including exact root/actions `[0,0,0,0]`.
 
-### Slot-owned descriptor spans
+### Slot-owned descriptor extension chunks
 
 Descriptor term storage is owned by the physical proof slot rather than by every semantic incarnation of that slot.
 
-On replacement, an existing term span is overwritten in place when large enough; only a larger descriptor grows the slot's span. Generation changes on every replacement, preserving stale-handle safety.
+The old `v4` implementation overwrote an existing slot span when the replacement fit, but a larger descriptor allocated a new whole contiguous span and abandoned the old one. Standard-7x6 run `34674060855` proved that historical whole-span growth remained cumulative at large scale.
 
-The constrained 4x5 control exercised 43,533 replacements with 36,709 span reuses and only 6,824 span grows while preserving exact root actions.
+The current `v5` store keeps a slot-owned chain of exact descriptor-term chunks. Replacements overwrite existing aggregate slot capacity when they fit. Growth appends only the missing descriptor-data capacity as a new chunk. Exact descriptor equality walks the chunk chain. Generation-bearing handles and proof identity are unchanged.
+
+In `v5`, `termIdsUsed` reports owned descriptor-data capacity while `termArenaWordsUsed` includes descriptor data plus three header words per chunk. The configured term capacity bounds total arena words.
+
+Adversarial eight-slot monotone growth qualification exercised 144 replacements/growth events while final descriptor data remained exactly `8 * 20 = 160` terms. Total arena usage was 616 / 640 words including 456 header words. The constrained exact 4x5 control remained root/actions `[0,0,0,0]` through 43,387 replacements.
+
+See `docs/research/2026-09-11-7x6-proof-term-lifetime.md`.
 
 ### Worker-local state descriptor lifetime
 
 Worker-local semantic state descriptors are no longer retained indefinitely.
 
-Telemetry on standard-7x6 run `34673627048` localized the host-memory owner: each worker held about 1.06 GB of typed quotient-kernel storage while V8 heap high-water reached about 4.1-4.3 GB with roughly 17-18 million retained state descriptor objects and 4.4-4.5 million retained residual class descriptors.
+Telemetry on standard-7x6 run `34673627048` localized the previous host-memory owner: each worker held about 1.06 GB of typed quotient-kernel storage while V8 heap high-water reached about 4.1-4.3 GB with roughly 17-18 million retained state descriptor objects and 4.4-4.5 million retained residual class descriptors.
 
-Commit `29c96d40dc766d5ceb2c107625db57d758599d44` removed only the unbounded local **state descriptor** cache. State descriptors are now rebuilt ephemerally from exact support plus exact residual class descriptors. Exact residual class descriptors remain cached. Shared proof identity and frontier/CPC/WSL/NDC semantics are unchanged.
+Commit `29c96d40dc766d5ceb2c107625db57d758599d44` removed only the unbounded local **state descriptor** cache. State descriptors are rebuilt ephemerally from exact support plus exact residual class descriptors. Exact residual class descriptors remain cached. Shared proof identity and frontier/CPC/WSL/NDC semantics are unchanged.
 
-Bounded qualification is green:
+Bounded qualification remained green:
 
 - idle ExploreHint run `34673985296` passed;
 - dependency-aware proof run `34673985304` passed;
@@ -163,7 +169,7 @@ authoritative dependency-qualified proof work
   > idle
 ```
 
-Autonomous exploration is qualified independently but remains disabled in the current standard-7x6 storage-isolation run.
+Autonomous exploration is independently qualified but remains disabled in the standard-7x6 storage-isolation measurement.
 
 ## Standard 7x6 storage evidence
 
@@ -180,7 +186,7 @@ root W/D/L:    unresolved
 
 This established retained proof-entry count as a real limiter and exposed a severe near-full probing cliff.
 
-### Generation-safe replacement with append-only descriptor terms
+### Generation-safe replacement with append-only descriptor incarnations
 
 Replacement removed the entry-count/open-addressing limiter but cumulative descriptor-incarnation storage became the next limiter:
 
@@ -192,19 +198,19 @@ elapsed:           149.46 s
 root W/D/L:        unresolved
 ```
 
-That motivated slot-owned reusable descriptor spans rather than a general concurrent free-list.
+That motivated physical-slot-owned descriptor storage rather than semantic-incarnation ownership.
 
 ### Slot-owned spans exposed worker-local host memory
 
-Run `34671597871` used slot-owned reusable proof descriptor spans and was killed around 225 s at about 15.4 GB RSS while the descriptor arena was only about 58.7% used. Proof replacement and span reuse were still active, so neither proof-entry capacity nor descriptor-term capacity explained the kill.
+Run `34671597871` used slot-owned reusable proof descriptor spans and was killed around 225 s at about 15.4 GB RSS while the descriptor arena was only about 58.7% used. Proof replacement and span reuse were still active, so neither proof-entry capacity nor descriptor-term capacity explained that kill.
 
 The follow-up telemetry run `34673627048` reproduced the host-memory failure and localized it to worker-local V8 retention rather than typed quotient-kernel storage. The exact high-water evidence is preserved in the worker descriptor-retention research note.
 
-### Current live measurement: ephemeral local state descriptors
+### Ephemeral state descriptors exposed v4 span-growth lifetime
 
-Standard-7x6 workflow run `34674060855` at commit `1b9bb83f72a318c188750b421f352504048fe314` is the first root attempt after the bounded-qualified removal of unbounded local state-descriptor retention.
+Standard-7x6 run `34674060855` at commit `1b9bb83f72a318c188750b421f352504048fe314` was the first root attempt after unbounded local state-descriptor retention was removed.
 
-Configuration remains intentionally isolated:
+Configuration:
 
 ```text
 search workers:                  3
@@ -212,16 +218,55 @@ unresolved decision split depth: 8
 autonomous Branch Manager explore: disabled
 shared proof entries:            8,388,608
 shared descriptor term capacity: 460,000,000
-slot-owned descriptor spans:     enabled
+old v4 slot-owned spans:         enabled
 ```
 
-As of this status update, the solver step remains healthy after roughly 15 minutes, materially beyond the previous approximately 225-second host-kill horizon. That validates unbounded state-descriptor retention as a major large-scale lifetime defect, but the root result and next limiter are not yet claimed.
+The solver ran for `855.44 s` before failing exactly on:
 
-**Do not launch a duplicate standard-7x6 root run while `34674060855` is active.**
+```text
+semantic TT term arena exhausted: 460000025 > 460000000
+```
 
-## Next evidence boundary
+Final evidence:
 
-When run `34674060855` closes, inspect its complete progress/high-water series before another memory mutation.
+```text
+root W/D/L:             unresolved
+entries:                8,388,608
+replacements:         153,310,210
+span reuses:          134,966,299
+span grows:            18,343,911
+term IDs used:        459,999,998 / 460,000,000
+process RSS:       15,600,738,304 bytes
+worker expansions:    114,003,282
+worker calls:         342,254,103
+```
+
+Per-worker high-water reached roughly 40.1-45.5 million local q states, 9.59-11.11 million residual classes, 2.12-2.14 GB typed local storage and 3.56-4.14 GB V8 heap. The run materially exceeded the earlier host-kill horizon and then hit the old whole-span descriptor-growth boundary exactly.
+
+### v5 slot-owned extension chunks qualified
+
+The `v5` proof-store correction is bounded-qualified before another full-root admission:
+
+- semantic replacement/stale-handle/growth run `34675102224` passed;
+- dependency-aware proof run `34675126023` passed;
+- idle ExploreHint run `34675132451` passed;
+- constrained exact 4x5 root/actions remained `[0,0,0,0]`.
+
+The standard-7x6 workflow is intentionally path-gated so implementation commits do not automatically launch expensive root attempts. A new full-root measurement is admitted only after bounded qualification through `standard7x6-root-qualification-revision.txt`.
+
+## Current evidence boundary
+
+The next admitted standard-7x6 measurement should change only the proof descriptor storage lifetime from old `v4` whole-span growth to current `v5` slot-owned extension chunks.
+
+Keep the prior comparison configuration:
+
+```text
+search workers:                  3
+unresolved decision split depth: 8
+autonomous Branch Manager explore: disabled
+shared proof entries:            8,388,608
+shared term arena words:       460,000,000
+```
 
 Capture and compare:
 
@@ -229,7 +274,7 @@ Capture and compare:
 - calls and expansions;
 - proof probes/misses/admissions;
 - shared proof entries/replacements;
-- descriptor term IDs and span reuse/growth;
+- descriptor data capacity, chunk count, header words and total arena words;
 - forced macro transitions/frontier bound cuts/frontier-ordered nodes;
 - authoritative/explore queue occupancy and worker utilization;
 - detached sibling work;
@@ -238,7 +283,7 @@ Capture and compare:
 - per-worker V8 heap/external/ArrayBuffer high-water;
 - residual class descriptor builds and cached term-ID count.
 
-A residual class descriptor currently retains a materialized `Uint16Array` of exact term IDs. That is a plausible next duplication boundary only if the completed run shows it owns the next memory slope. Do not remove or weaken exact class identity preemptively.
+A residual class descriptor still retains exact term-ID material. That is a plausible next duplication boundary only if the `v5` run shows it owns the next memory slope. Do not remove, reclaim or weaken exact class identity preemptively.
 
 ## Open mathematics
 
