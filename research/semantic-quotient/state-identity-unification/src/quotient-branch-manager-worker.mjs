@@ -6,6 +6,33 @@ import { createProofResourceService } from './quotient-proof-resource-service.mj
 import { createQuotientWorkPlanService } from './quotient-work-plan-service.mjs';
 
 if (!parentPort) throw new Error('branch manager worker requires parentPort');
+if (!workerData?.spec || typeof workerData.spec !== 'object') throw new TypeError('Branch Manager requires a domain spec');
+const { columns, rows, connect } = workerData.spec;
+if (!Number.isInteger(columns) || columns < 1) throw new RangeError('Branch Manager columns must be positive');
+if (!Number.isInteger(rows) || rows < 1) throw new RangeError('Branch Manager rows must be positive');
+if (!Number.isInteger(connect) || connect < 1) throw new RangeError('Branch Manager connect must be positive');
+const cellCount = columns * rows;
+if (!Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 64) {
+  throw new RangeError(`Branch Manager cell count ${cellCount} is outside 1..64`);
+}
+
+function positiveInteger(value, label) {
+  if (!Number.isInteger(value) || value < 1) throw new RangeError(`${label} must be positive`);
+  return value;
+}
+
+const exploreConfig = Object.freeze({
+  enabled: workerData.explore?.enabled === true,
+  depth: positiveInteger(workerData.explore?.depth ?? 3, 'Branch Manager explore depth'),
+  reservoirTarget: positiveInteger(workerData.explore?.reservoirTarget ?? 4, 'Branch Manager explore reservoirTarget'),
+  backlogCapacity: positiveInteger(workerData.explore?.backlogCapacity ?? 64, 'Branch Manager explore backlogCapacity'),
+  historyCapacity: positiveInteger(workerData.explore?.historyCapacity ?? 4096, 'Branch Manager explore historyCapacity'),
+  completedCapacity: positiveInteger(workerData.explore?.completedCapacity ?? 64, 'Branch Manager explore completedCapacity'),
+});
+if (exploreConfig.depth > cellCount) throw new RangeError(`Branch Manager explore depth exceeds ${cellCount} cells`);
+if (exploreConfig.backlogCapacity < exploreConfig.reservoirTarget) {
+  throw new RangeError('Branch Manager explore backlogCapacity must cover reservoirTarget');
+}
 
 const started = performance.now();
 const prebuildGraph = workerData.prebuildGraph !== false;
@@ -16,19 +43,13 @@ const graph = prebuildGraph
   : null;
 const proofResources = createProofResourceService(graph?.stateCount ?? 0, workerData.semanticTt ?? null);
 const planService = graph ? createQuotientWorkPlanService(graph) : null;
-const exploreHints = createExploreHintService();
-
-const exploreConfig = Object.freeze({
-  enabled: workerData.explore?.enabled === true,
-  depth: workerData.explore?.depth ?? 3,
-  reservoirTarget: workerData.explore?.reservoirTarget ?? 4,
-  backlogCapacity: workerData.explore?.backlogCapacity ?? 64,
+const exploreHints = createExploreHintService({
+  columns,
+  maxPathLength: cellCount,
+  maxDepth: cellCount,
+  historyCapacity: exploreConfig.historyCapacity,
+  completedCapacity: exploreConfig.completedCapacity,
 });
-if (!Number.isInteger(exploreConfig.depth) || exploreConfig.depth < 1) throw new RangeError('Branch Manager explore depth must be positive');
-if (!Number.isInteger(exploreConfig.reservoirTarget) || exploreConfig.reservoirTarget < 1) throw new RangeError('Branch Manager explore reservoirTarget must be positive');
-if (!Number.isInteger(exploreConfig.backlogCapacity) || exploreConfig.backlogCapacity < exploreConfig.reservoirTarget) {
-  throw new RangeError('Branch Manager explore backlogCapacity must cover reservoirTarget');
-}
 
 let exploreActive = exploreConfig.enabled;
 const candidateBacklog = [];
@@ -64,22 +85,35 @@ function postExploreHint(hint) {
   if (hint) parentPort.postMessage({ type: 'explore-hint-queued', hint });
 }
 
+function normalizeCandidate(candidate) {
+  if (!candidate || !Array.isArray(candidate.path)) throw new TypeError('explore candidate requires a path array');
+  if (candidate.path.length > cellCount) throw new RangeError(`explore candidate path exceeds ${cellCount} plies`);
+  const path = candidate.path.map((column, index) => {
+    if (!Number.isInteger(column) || column < 0 || column >= columns) {
+      throw new RangeError(`explore candidate column ${column} at ply ${index} is outside 0..${columns - 1}`);
+    }
+    return column;
+  });
+  const contextKey = candidate.contextKey ?? null;
+  if (contextKey !== null && (typeof contextKey !== 'string' || contextKey.length === 0 || contextKey.length > 1024)) {
+    throw new TypeError('explore candidate contextKey must be null or a non-empty string of at most 1024 characters');
+  }
+  return Object.freeze({ path: Object.freeze(path), contextKey });
+}
+
 function candidateBacklogKey(candidate) {
   return candidate.contextKey ?? `path:${candidate.path.join(',')}`;
 }
 
 function enqueueCandidate(candidate) {
-  if (!candidate || !Array.isArray(candidate.path)) return false;
-  const key = candidateBacklogKey(candidate);
+  const normalized = normalizeCandidate(candidate);
+  const key = candidateBacklogKey(normalized);
   if (candidateBacklogKeys.has(key)) return false;
   if (candidateBacklog.length >= exploreConfig.backlogCapacity) {
     stats.exploreCandidatesDropped += 1;
     return false;
   }
-  candidateBacklog.push(Object.freeze({
-    path: Object.freeze([...candidate.path]),
-    contextKey: candidate.contextKey ?? null,
-  }));
+  candidateBacklog.push(normalized);
   candidateBacklogKeys.add(key);
   stats.exploreCandidatesAccepted += 1;
   return true;
@@ -115,6 +149,15 @@ function stopExploreSession() {
   candidateBacklogKeys.clear();
 }
 
+function assertRequest(message) {
+  if (!message || typeof message.type !== 'string' || message.type.length === 0) {
+    throw new TypeError('Branch Manager message requires a type');
+  }
+  if (!Number.isInteger(message.requestId) || message.requestId < 1) {
+    throw new RangeError(`Branch Manager ${message.type} requires a positive requestId`);
+  }
+}
+
 parentPort.postMessage({
   type: 'published',
   graph,
@@ -125,7 +168,9 @@ parentPort.postMessage({
 queueMicrotask(seedExploreSession);
 
 parentPort.on('message', (message) => {
-  if (message?.type === 'reset') {
+  assertRequest(message);
+
+  if (message.type === 'reset') {
     proofResources.reset();
     clearExploreState();
     exploreActive = false;
@@ -135,7 +180,7 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'cleanup') {
+  if (message.type === 'cleanup') {
     stopExploreSession();
     clearExploreState();
     stats.cleanupPasses += 1;
@@ -143,16 +188,20 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'stop-explore-session') {
+  if (message.type === 'stop-explore-session') {
     stopExploreSession();
     parentPort.postMessage({ type: 'explore-session-stopped', requestId: message.requestId, stats: snapshotStats() });
     return;
   }
 
-  if (message?.type === 'complete-explore-hint') {
+  if (message.type === 'complete-explore-hint') {
+    if (!Number.isInteger(message.hintId) || message.hintId < 1) throw new RangeError('complete-explore-hint requires a positive hintId');
+    if (!message.fragment || typeof message.fragment !== 'object') throw new TypeError('complete-explore-hint requires a fragment');
+    const candidates = message.fragment.frontierCandidates ?? [];
+    if (!Array.isArray(candidates)) throw new TypeError('explore fragment frontierCandidates must be an array');
     const result = exploreHints.complete(message.hintId, message.fragment);
     if (exploreActive) {
-      for (const candidate of message.fragment?.frontierCandidates ?? []) enqueueCandidate(candidate);
+      for (const candidate of candidates) enqueueCandidate(candidate);
       refillExploreReservoir();
     }
     parentPort.postMessage({
@@ -164,7 +213,8 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'abandon-explore-hint') {
+  if (message.type === 'abandon-explore-hint') {
+    if (!Number.isInteger(message.hintId) || message.hintId < 1) throw new RangeError('abandon-explore-hint requires a positive hintId');
     const abandoned = exploreHints.abandon(message.hintId);
     refillExploreReservoir();
     parentPort.postMessage({
@@ -177,7 +227,7 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'take-explore-result') {
+  if (message.type === 'take-explore-result') {
     parentPort.postMessage({
       type: 'explore-result',
       requestId: message.requestId,
@@ -187,7 +237,7 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'build-plan') {
+  if (message.type === 'build-plan') {
     if (!planService) throw new Error('work-plan service unavailable in semantic-only Branch Manager mode');
     const planStarted = performance.now();
     const { planId, plan } = planService.build(message.splitDepth, message.probeDepth ?? 2);
@@ -208,8 +258,10 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'reduce-plan') {
+  if (message.type === 'reduce-plan') {
     if (!planService) throw new Error('work-plan service unavailable in semantic-only Branch Manager mode');
+    if (!Number.isInteger(message.planId) || message.planId < 1) throw new RangeError('reduce-plan requires a positive planId');
+    if (!Array.isArray(message.frontierValues)) throw new TypeError('reduce-plan requires frontierValues array');
     const reduction = planService.reduce(message.planId, message.frontierValues);
     stats.plansReduced += 1;
     parentPort.postMessage({
@@ -223,9 +275,13 @@ parentPort.on('message', (message) => {
     return;
   }
 
-  if (message?.type === 'release-plan') {
+  if (message.type === 'release-plan') {
     if (!planService) throw new Error('work-plan service unavailable in semantic-only Branch Manager mode');
+    if (!Number.isInteger(message.planId) || message.planId < 1) throw new RangeError('release-plan requires a positive planId');
     planService.release(message.planId);
     parentPort.postMessage({ type: 'plan-released', requestId: message.requestId, planId: message.planId });
+    return;
   }
+
+  throw new Error(`unsupported Branch Manager message type ${message.type}`);
 });
