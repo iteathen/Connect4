@@ -1,52 +1,40 @@
 import { parentPort, workerData } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
-import {
-  buildSharedQuotientGraph,
-  createSharedProofArena,
-  resetSharedProofArena,
-} from './quotient-shared-graph-lib.mjs';
-import {
-  createSemanticSharedTtArena,
-  resetSemanticSharedTtArena,
-} from './quotient-semantic-shared-tt.mjs';
-import {
-  buildQuotientLookaheadWorkDag,
-  reduceQuotientLookaheadWorkDag,
-} from './quotient-lookahead-work-dag.mjs';
+import { buildSharedQuotientGraph } from './quotient-shared-graph-lib.mjs';
+import { createProofResourceService } from './quotient-proof-resource-service.mjs';
+import { createQuotientWorkPlanService } from './quotient-work-plan-service.mjs';
 
-if (!parentPort) throw new Error('dedup worker requires parentPort');
+if (!parentPort) throw new Error('worker requires parentPort');
 
 const started = performance.now();
 const graph = buildSharedQuotientGraph(workerData.spec, {
   prefixClasses: workerData.prefixClasses ?? 4096,
 });
-const arena = createSharedProofArena(graph.stateCount);
-const semanticArena = workerData.semanticTt
-  ? createSemanticSharedTtArena({
-      entryCapacity: workerData.semanticTt.entryCapacity,
-      termCapacity: workerData.semanticTt.termCapacity,
-    })
-  : null;
-const plans = new Map();
-let nextPlanId = 1;
+const proofResources = createProofResourceService(graph.stateCount, workerData.semanticTt ?? null);
+const planService = createQuotientWorkPlanService(graph);
 const stats = {
   buildMs: performance.now() - started,
   canonicalStates: graph.stateCount,
   residualClasses: graph.residualClassCount,
   canonicalEdges: graph.edgeCount,
-  semanticTtEnabled: semanticArena !== null,
+  semanticTtEnabled: proofResources.semanticArena !== null,
   resets: 0,
   cleanupPasses: 0,
   plansBuilt: 0,
   plansReduced: 0,
 };
 
-parentPort.postMessage({ type: 'published', graph, arena, semanticArena, stats: { ...stats } });
+parentPort.postMessage({
+  type: 'published',
+  graph,
+  arena: proofResources.graphArena,
+  semanticArena: proofResources.semanticArena,
+  stats: { ...stats },
+});
 
 parentPort.on('message', (message) => {
   if (message?.type === 'reset') {
-    resetSharedProofArena(arena);
-    if (semanticArena) resetSemanticSharedTtArena(semanticArena);
+    proofResources.reset();
     stats.resets += 1;
     parentPort.postMessage({ type: 'reset-complete', requestId: message.requestId, stats: { ...stats } });
     return;
@@ -60,11 +48,7 @@ parentPort.on('message', (message) => {
 
   if (message?.type === 'build-plan') {
     const planStarted = performance.now();
-    const plan = buildQuotientLookaheadWorkDag(graph, message.splitDepth, {
-      probeDepth: message.probeDepth ?? 2,
-    });
-    const planId = nextPlanId++;
-    plans.set(planId, plan);
+    const { planId, plan } = planService.build(message.splitDepth, message.probeDepth ?? 2);
     stats.plansBuilt += 1;
     parentPort.postMessage({
       type: 'plan-built',
@@ -83,9 +67,7 @@ parentPort.on('message', (message) => {
   }
 
   if (message?.type === 'reduce-plan') {
-    const plan = plans.get(message.planId);
-    if (!plan) throw new Error(`unknown lookahead plan ${message.planId}`);
-    const reduction = reduceQuotientLookaheadWorkDag(plan, message.frontierValues, graph.spec.columns);
+    const reduction = planService.reduce(message.planId, message.frontierValues);
     stats.plansReduced += 1;
     parentPort.postMessage({
       type: 'plan-reduced',
@@ -99,7 +81,7 @@ parentPort.on('message', (message) => {
   }
 
   if (message?.type === 'release-plan') {
-    plans.delete(message.planId);
+    planService.release(message.planId);
     parentPort.postMessage({ type: 'plan-released', requestId: message.requestId, planId: message.planId });
   }
 });
