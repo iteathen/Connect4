@@ -20,7 +20,9 @@ export function resetSharedProofArena(arena) {
 }
 
 export function createProofResourceService(stateCount, semanticOptions = null) {
-  const graphArena = createSharedProofArena(stateCount);
+  const graphArena = Number.isInteger(stateCount) && stateCount > 0
+    ? createSharedProofArena(stateCount)
+    : null;
   const semanticArena = semanticOptions
     ? createSemanticSharedTtArena({
         entryCapacity: semanticOptions.entryCapacity,
@@ -30,7 +32,7 @@ export function createProofResourceService(stateCount, semanticOptions = null) {
   let resets = 0;
 
   function reset() {
-    resetSharedProofArena(graphArena);
+    if (graphArena) resetSharedProofArena(graphArena);
     if (semanticArena) resetSemanticSharedTtArena(semanticArena);
     resets += 1;
   }
@@ -39,6 +41,10 @@ export function createProofResourceService(stateCount, semanticOptions = null) {
     graphArena,
     semanticArena,
     reset,
-    stats: () => Object.freeze({ resets, semanticTtEnabled: semanticArena !== null }),
+    stats: () => Object.freeze({
+      resets,
+      graphArenaEnabled: graphArena !== null,
+      semanticTtEnabled: semanticArena !== null,
+    }),
   });
 }
