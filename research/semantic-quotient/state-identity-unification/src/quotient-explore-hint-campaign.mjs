@@ -26,17 +26,16 @@ const workers = await startOnlineSearchWorkers(2, SPEC, semanticArena, {
   etc: false,
 });
 const executor = createSearchWorkerExecutor(workers, {
-  takeExploreHint: () => branchManager.takeExplore(),
-  returnExploreHint: (hintId) => branchManager.returnExplore(hintId),
   completeExploreHint: (hintId, fragment) => branchManager.completeExplore(hintId, fragment),
+  abandonExploreHint: (hintId) => branchManager.abandonExplore(hintId),
 });
+const unsubscribeExplore = branchManager.subscribeExplore(executor.enqueueExploreHint);
 
 let exploreOnly;
 let mixed;
 try {
   const offered = await branchManager.offerExplore([], EXPLORE_DEPTH);
   assert(offered.hint !== null, 'root explore hint was not accepted');
-  executor.notifyExploreHintsAvailable();
   await executor.drain();
 
   const exploreReply = await branchManager.takeExploreResult();
@@ -64,7 +63,6 @@ try {
   }, 1000);
   const mixedOffer = await branchManager.offerExplore([], EXPLORE_DEPTH);
   assert(mixedOffer.hint !== null, 'mixed-phase explore hint was not accepted');
-  executor.notifyExploreHintsAvailable();
 
   const solved = await authoritative;
   assert(solved.value === 0, `4x5 authoritative root expected draw, got ${solved.value}`);
@@ -75,12 +73,12 @@ try {
   assert(mixedStats.submitted === 1, `expected one authoritative task, got ${mixedStats.submitted}`);
   assert(mixedStats.completed === 1, `expected one authoritative completion, got ${mixedStats.completed}`);
   assert(mixedStats.exploreCompleted >= 2, `expected two total explore completions, got ${mixedStats.exploreCompleted}`);
-  assert(mixedStats.active === 0 && mixedStats.queued === 0 && mixedStats.pending === 0, 'executor retained work');
+  assert(mixedStats.exploreReady === 0, 'executor retained queued explore work');
+  assert(mixedStats.active === 0 && mixedStats.queued === 0 && mixedStats.pending === 0, 'executor retained authoritative work');
 
   mixed = Object.freeze({
     authoritativeValue: solved.value,
     authoritativeWorker: solved.workerId,
-    exploreWorker: mixedExploreReply.result.fragment ? mixedExploreReply.result.hintId : null,
     fragment: mixedExploreReply.result.fragment,
     executor: mixedStats,
     branchManager: mixedExploreReply.stats,
@@ -88,6 +86,7 @@ try {
   });
 } finally {
   await executor.drain();
+  unsubscribeExplore();
   executor.close();
   await Promise.all(workers.map((worker) => worker.terminate()));
   await branchManager.cleanup();
@@ -95,11 +94,11 @@ try {
 }
 
 const result = Object.freeze({
-  kind: 'connect4-idle-explore-hint-v1',
+  kind: 'connect4-queued-explore-hint-v2',
   status: 'complete',
   spec: SPEC,
   exploreDepth: EXPLORE_DEPTH,
-  policy: 'authoritative work first; ExploreHint(path, depth) only when worker would otherwise wait',
+  policy: 'Branch Manager queues ExploreHint(path, depth) ahead of demand; idle workers dequeue immediately; authoritative work has dispatch priority',
   exploreOnly,
   mixed,
 });
