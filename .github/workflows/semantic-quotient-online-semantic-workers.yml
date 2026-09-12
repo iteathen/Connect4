@@ -7,9 +7,13 @@ on:
     paths:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-*.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-dedup-worker.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-maintenance-worker.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-*.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs'
       - '.github/workflows/semantic-quotient-online-semantic-workers.yml'
   workflow_dispatch:
 
