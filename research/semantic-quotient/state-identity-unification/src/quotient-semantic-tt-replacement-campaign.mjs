@@ -31,11 +31,7 @@ function syntheticDescriptor(id, total = 2) {
 }
 
 function runStaleHandleControl() {
-  const arena = createSemanticSharedTtArena({
-    entryCapacity: 8,
-    associativity: 8,
-    termCapacity: 1024,
-  });
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 1024 });
   const tt = createSemanticSharedTtView(arena);
   const proofs = createPackedProofStore(arena);
   const descriptors = Array.from({ length: 9 }, (_, id) => syntheticDescriptor(id));
@@ -73,26 +69,15 @@ function runStaleHandleControl() {
   assert.ok(proofs.metrics.staleReads >= 3, 'stale reads were not observed by proof store');
   assert.ok(proofs.metrics.stalePublications >= 1, 'stale publication was not rejected');
 
-  return Object.freeze({
-    staleHandle,
-    replacementHandle,
-    tt: stats,
-    proofStore: Object.freeze({ ...proofs.metrics }),
-  });
+  return Object.freeze({ staleHandle, replacementHandle, tt: stats, proofStore: Object.freeze({ ...proofs.metrics }) });
 }
 
 function runSlotChunkGrowthControl() {
-  const arena = createSemanticSharedTtArena({
-    entryCapacity: 8,
-    associativity: 8,
-    termCapacity: 640,
-  });
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 640 });
   const tt = createSemanticSharedTtView(arena);
   const firstHandles = [];
 
-  for (let lane = 0; lane < 8; lane += 1) {
-    firstHandles.push(tt.ensure(syntheticDescriptor(lane, 2)));
-  }
+  for (let lane = 0; lane < 8; lane += 1) firstHandles.push(tt.ensure(syntheticDescriptor(lane, 2)));
 
   let latest = [];
   for (let total = 3; total <= 20; total += 1) {
@@ -108,9 +93,7 @@ function runSlotChunkGrowthControl() {
     }
   }
 
-  for (const handle of firstHandles) {
-    assert.ok(handle >= arena.entryCapacity, 'initial semantic handle was malformed');
-  }
+  for (const handle of firstHandles) assert.ok(handle >= arena.entryCapacity, 'initial semantic handle was malformed');
 
   const stats = tt.stats();
   assert.equal(stats.entries, 8, 'chunk-growth control exceeded physical entry capacity');
@@ -122,17 +105,11 @@ function runSlotChunkGrowthControl() {
   assert.equal(stats.termArenaWordsUsed, 616, 'slot-owned chunks should remain within the deliberately tight arena');
   assert.ok(stats.termArenaWordsUsed <= arena.termCapacity, 'chunk-growth control exceeded its bounded arena');
 
-  return Object.freeze({
-    latestSupports: Object.freeze(latest.map((descriptor) => descriptor.supportIndex)),
-    tt: stats,
-  });
+  return Object.freeze({ latestSupports: Object.freeze(latest.map((descriptor) => descriptor.supportIndex)), tt: stats });
 }
 
 function createKernel() {
-  return createSlot64ResidualQuotientKernel(SPEC, {
-    cacheEdges: false,
-    prefixClasses: PREFIX_CLASSES,
-  }).kernel;
+  return createSlot64ResidualQuotientKernel(SPEC, { cacheEdges: false, prefixClasses: PREFIX_CLASSES }).kernel;
 }
 
 async function runConstrainedGameControl() {
@@ -145,10 +122,7 @@ async function runConstrainedGameControl() {
   });
   const semanticArena = branchManager.published.semanticArena;
   const tt = createSemanticSharedTtView(semanticArena);
-  const workers = await startOnlineSearchWorkers(WORKERS, SPEC, semanticArena, {
-    prefixClasses: PREFIX_CLASSES,
-    etc: false,
-  });
+  const workers = await startOnlineSearchWorkers(WORKERS, SPEC, semanticArena, { prefixClasses: PREFIX_CLASSES, etc: false });
   const executor = createSearchWorkerExecutor(workers);
   const kernel = createKernel();
 
@@ -185,12 +159,26 @@ async function runConstrainedGameControl() {
       assert.equal(resource.onlineStateBytesPerStateAvoided, 3, 'worker online-only state storage did not remove three local proof bytes per state');
       assert.ok(resource.onlineStateLocalProofBytesAvoidedHighWater > 0, 'worker did not avoid local proof-array storage');
       assert.equal(resource.onlineStateLocalProofBytesRetainedHighWater, 0, 'worker retained local proof-array storage');
+
       assert.ok(resource.descriptorStateBuildsHighWater > 0, 'worker did not exercise transient semantic state descriptors');
+      assert.ok(resource.descriptorTransientStateDescriptorUsesHighWater > 0, 'worker did not use transient state descriptor scratch');
+      assert.equal(resource.descriptorStateDescriptorObjectsAllocatedHighWater, 0, 'worker allocated state descriptor objects on the hot path');
+      assert.equal(resource.descriptorClassDescriptorObjectsAllocatedHighWater, 0, 'worker allocated class descriptor objects on the hot path');
       assert.ok(resource.descriptorClassBuildsHighWater > 0, 'worker did not construct residual semantic metadata');
+      assert.equal(resource.descriptorTermArrayMaterializationsHighWater, 0, 'worker materialized temporary semantic term arrays');
+      assert.equal(resource.descriptorTermIdsMaterializedHighWater, 0, 'worker materialized semantic term IDs through arrays');
+      assert.ok(resource.descriptorDirectTermWritesHighWater > 0, 'worker did not use canonical direct term writes');
+      assert.ok(resource.descriptorDirectTermIdsWrittenHighWater > 0, 'worker direct term writes contained no exact term IDs');
       assert.equal(resource.descriptorTermIdsCachedHighWater, 0, 'worker retained duplicate exact term IDs');
       assert.equal(resource.descriptorTermArrayObjectsCachedHighWater, 0, 'worker retained per-class term-array objects');
       assert.equal(resource.descriptorClassObjectsCachedHighWater, 0, 'worker retained per-class semantic descriptor objects');
       assert.ok(resource.descriptorClassMetadataBytesHighWater > 0, 'worker did not report class metadata storage');
+      assert.ok(resource.descriptorScratchCapacityHighWater > 0, 'worker did not report bounded semantic term scratch');
+      assert.equal(
+        resource.descriptorScratchBytesHighWater,
+        resource.descriptorScratchCapacityHighWater * Uint16Array.BYTES_PER_ELEMENT,
+        'worker semantic term scratch byte accounting drifted',
+      );
       assert.equal(resource.descriptorTermArenaBytesHighWater, 0, 'worker retained a duplicate descriptor term arena');
       assert.equal(
         resource.descriptorRetainedTypedBytesHighWater,
@@ -222,9 +210,9 @@ const slotChunkGrowthControl = runSlotChunkGrowthControl();
 const constrainedGameControl = await runConstrainedGameControl();
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-replacement-qualification-v5',
+  kind: 'connect4-semantic-proof-replacement-qualification-v6',
   status: 'complete',
-  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, slot-owned extension chunks, metadata-only worker descriptor ownership, transient hot descriptors, and online-only state proof storage removal',
+  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, slot-owned extension chunks, direct canonical residual materialization, transient hot descriptors, and separate semantic/proof state ownership',
   staleHandleControl,
   slotChunkGrowthControl,
   constrainedGameControl,
