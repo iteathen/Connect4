@@ -6,9 +6,11 @@ function cacheKey(spec) {
   return `${spec.columns}x${spec.rows}c${spec.connect}`;
 }
 
-function cellBit(cell) {
-  if (cell < 32) return [((2 ** cell) >>> 0), 0];
-  return [0, ((2 ** (cell - 32)) >>> 0)];
+function popcount32(value) {
+  let x = value >>> 0;
+  x -= (x >>> 1) & 0x55555555;
+  x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
+  return (((x + (x >>> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24;
 }
 
 function buildProfile(spec) {
@@ -18,107 +20,120 @@ function buildProfile(spec) {
 
   const cellCount = spec.columns * spec.rows;
   if (!Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 64) {
-    throw new RangeError('live-line move ordering currently supports 1..64 cells');
+    throw new RangeError('live-line frontier currently supports 1..64 cells');
   }
 
   const lines = createConnectWinningLines(spec);
-  const lineLo = new Uint32Array(lines.length);
-  const lineHi = new Uint32Array(lines.length);
-  const memberships = new Uint16Array(cellCount);
+  const wordCount = Math.max(1, Math.ceil(lines.length / 32));
+  const through = new Uint32Array(cellCount * wordCount);
+  const all = new Uint32Array(wordCount);
 
   for (let lineId = 0; lineId < lines.length; lineId += 1) {
-    let lo = 0;
-    let hi = 0;
+    const word = lineId >>> 5;
+    const bit = (1 << (lineId & 31)) >>> 0;
+    all[word] = (all[word] | bit) >>> 0;
     for (const cell of lines[lineId]) {
-      const [bitLo, bitHi] = cellBit(cell);
-      lo = (lo | bitLo) >>> 0;
-      hi = (hi | bitHi) >>> 0;
-      memberships[cell] += 1;
+      const at = cell * wordCount + word;
+      through[at] = (through[at] | bit) >>> 0;
     }
-    lineLo[lineId] = lo;
-    lineHi[lineId] = hi;
-  }
-
-  const offsets = new Uint32Array(cellCount + 1);
-  for (let cell = 0; cell < cellCount; cell += 1) offsets[cell + 1] = offsets[cell] + memberships[cell];
-  const lineIds = lines.length <= 0xffff ? new Uint16Array(offsets[cellCount]) : new Uint32Array(offsets[cellCount]);
-  const cursors = new Uint32Array(offsets);
-  for (let lineId = 0; lineId < lines.length; lineId += 1) {
-    for (const cell of lines[lineId]) lineIds[cursors[cell]++] = lineId;
   }
 
   const profile = Object.freeze({
-    kind: 'connect4-live-line-incidence-profile-v1',
+    kind: 'connect4-live-winning-line-frontier-profile-v2',
     ...spec,
     cellCount,
     lineCount: lines.length,
-    lineLo,
-    lineHi,
-    offsets,
-    lineIds,
+    wordCount,
+    stateWords: wordCount * 2,
+    through,
+    all,
   });
   profileCache.set(key, profile);
   return profile;
 }
 
-export function createLiveLineMoveOrder(spec, centerOrder) {
+export function createLiveLineMoveOrder(spec) {
   const profile = buildProfile(spec);
-  const centerRank = new Int16Array(spec.columns);
-  centerRank.fill(0x7fff);
-  for (let index = 0; index < centerOrder.length; index += 1) centerRank[centerOrder[index]] = index;
+  const rootSeed = new Uint32Array(profile.stateWords);
+  rootSeed.set(profile.all, 0);
+  rootSeed.set(profile.all, profile.wordCount);
 
-  function valueAt(cell, opponentLo, opponentHi) {
-    const start = profile.offsets[cell];
-    const end = profile.offsets[cell + 1];
+  function createRootSeed() {
+    return new Uint32Array(rootSeed);
+  }
+
+  function advanceInto(source, sourceOffset, mover, cell, target, targetOffset) {
+    if (mover !== 0 && mover !== 1) throw new RangeError('mover must be 0 or 1');
+    if (!Number.isInteger(cell) || cell < 0 || cell >= profile.cellCount) throw new RangeError('cell out of range');
+    const words = profile.wordCount;
+    const blockedPlayer = 1 - mover;
+    const blockedBase = blockedPlayer * words;
+    const throughBase = cell * words;
+    for (let index = 0; index < profile.stateWords; index += 1) {
+      target[targetOffset + index] = source[sourceOffset + index];
+    }
+    for (let word = 0; word < words; word += 1) {
+      const at = blockedBase + word;
+      target[targetOffset + at] = (target[targetOffset + at] & ~profile.through[throughBase + word]) >>> 0;
+    }
+  }
+
+  function advanceSeed(seed, mover, cell) {
+    if (!(seed instanceof Uint32Array) || seed.length !== profile.stateWords) {
+      throw new TypeError(`live-line seed must be Uint32Array(${profile.stateWords})`);
+    }
+    const next = new Uint32Array(profile.stateWords);
+    advanceInto(seed, 0, mover, cell, next, 0);
+    return next;
+  }
+
+  function valueAtSeed(seed, player, cell) {
+    if (player !== 0 && player !== 1) throw new RangeError('player must be 0 or 1');
+    const words = profile.wordCount;
+    const playerBase = player * words;
+    const throughBase = cell * words;
     let value = 0;
-    for (let at = start; at < end; at += 1) {
-      const lineId = profile.lineIds[at];
-      if ((((profile.lineLo[lineId] & opponentLo) >>> 0) !== 0)
-        || (((profile.lineHi[lineId] & opponentHi) >>> 0) !== 0)) continue;
-      value += 1;
+    for (let word = 0; word < words; word += 1) {
+      value += popcount32(seed[playerBase + word] & profile.through[throughBase + word]);
     }
     return value;
   }
 
-  function orderLegal(kernel, stateId, occupancy) {
+  function valueAtStack(stack, stateOffset, player, cell) {
+    const words = profile.wordCount;
+    const playerBase = stateOffset + player * words;
+    const throughBase = cell * words;
+    let value = 0;
+    for (let word = 0; word < words; word += 1) {
+      value += popcount32(stack[playerBase + word] & profile.through[throughBase + word]);
+    }
+    return value;
+  }
+
+  function orderLegal(kernel, stateId, seed) {
     const supportIndex = kernel.states.support[stateId];
     const mover = kernel.supportAccess.rankAt(supportIndex) & 1;
-    const opponentLo = mover === 0 ? occupancy.p1Lo : occupancy.p0Lo;
-    const opponentHi = mover === 0 ? occupancy.p1Hi : occupancy.p0Hi;
     const scored = [];
-    for (const column of centerOrder) {
+    for (let column = 0; column < kernel.columns; column += 1) {
       const landingCell = kernel.supportAccess.landingAt(supportIndex, column);
       if (landingCell === 0xff) continue;
-      scored.push({
+      scored.push(Object.freeze({
         column,
         landingCell,
-        value: valueAt(landingCell, opponentLo, opponentHi),
-        centerRank: centerRank[column],
-      });
+        value: valueAtSeed(seed, mover, landingCell),
+      }));
     }
-    scored.sort((left, right) => right.value - left.value || left.centerRank - right.centerRank || left.column - right.column);
+    scored.sort((left, right) => right.value - left.value || left.column - right.column);
     return scored;
   }
 
-  return Object.freeze({ profile, valueAt, orderLegal });
-}
-
-export function addOccupancyStone(occupancy, player, cell) {
-  const [bitLo, bitHi] = cellBit(cell);
-  if (player === 0) {
-    return Object.freeze({
-      p0Lo: (occupancy.p0Lo | bitLo) >>> 0,
-      p0Hi: (occupancy.p0Hi | bitHi) >>> 0,
-      p1Lo: occupancy.p1Lo >>> 0,
-      p1Hi: occupancy.p1Hi >>> 0,
-    });
-  }
   return Object.freeze({
-    p0Lo: occupancy.p0Lo >>> 0,
-    p0Hi: occupancy.p0Hi >>> 0,
-    p1Lo: (occupancy.p1Lo | bitLo) >>> 0,
-    p1Hi: (occupancy.p1Hi | bitHi) >>> 0,
+    profile,
+    createRootSeed,
+    advanceInto,
+    advanceSeed,
+    valueAtSeed,
+    valueAtStack,
+    orderLegal,
   });
 }
-
-export const EMPTY_OCCUPANCY = Object.freeze({ p0Lo: 0, p0Hi: 0, p1Lo: 0, p1Hi: 0 });
