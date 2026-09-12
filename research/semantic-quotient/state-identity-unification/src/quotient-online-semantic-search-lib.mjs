@@ -42,14 +42,6 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     return tt.findOrCreate(descriptorCache.stateDescriptor(stateId));
   }
 
-  function readBounds(slot) {
-    return proofStore.bounds(slot);
-  }
-
-  function readBestMove(slot) {
-    return proofStore.bestMove(slot);
-  }
-
   function publishExact(slot, value, bestMove = -1) {
     metrics.proofWrites += 1;
     proofStore.publishExact(slot, value, bestMove);
@@ -75,7 +67,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
       metrics.forcedNodes += 1;
       return 1;
     }
-    const best = readBestMove(slot);
+    const best = proofStore.bestMove(slot);
     if (best >= 0 && supportAccess.landingAt(supportIndex, best) !== 0xff) {
       moveStack[base + count++] = best;
       metrics.ttMoveOrderHits += 1;
@@ -96,9 +88,8 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
   function search(stateId, alpha, beta) {
     metrics.calls += 1;
     const slot = ttSlot(stateId);
-    const initialBounds = readBounds(slot);
-    const lower = initialBounds.lower;
-    const upper = initialBounds.upper;
+    const lower = proofStore.lower(slot);
+    const upper = proofStore.upper(slot);
     if (lower === upper) {
       metrics.ttExactReturns += 1;
       return lower;
@@ -153,8 +144,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
         if (child < 0) continue;
         metrics.etcProbes += 1;
         const childSlot = ttSlot(child);
-        const childBounds = readBounds(childSlot);
-        const parentLower = -childBounds.upper;
+        const parentLower = -proofStore.upper(childSlot);
         if (parentLower >= beta) {
           publishLower(slot, parentLower, column);
           metrics.etcCutoffs += 1;
