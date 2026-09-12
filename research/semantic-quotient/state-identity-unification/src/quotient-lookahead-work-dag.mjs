@@ -8,7 +8,7 @@ import {
 } from './quotient-negamax-domain-contract.mjs';
 
 function assertGraph(graph) {
-  if (!graph || typeof graph !== 'object' || !graph.spec) throw new TypeError('work DAG requires a quotient graph');
+  if (!graph || graph.kind !== 'connect4-shared-precompiled-quotient-graph-v1' || !graph.spec) throw new TypeError('work DAG requires a v1 quotient graph');
   const { columns, rows } = graph.spec;
   if (!Number.isInteger(columns) || columns < 1 || columns > 7) throw new RangeError('work DAG graph columns must be in 1..7');
   if (!Number.isInteger(rows) || rows < 1 || columns * rows > 64) throw new RangeError('work DAG graph rows/cell count are invalid');
@@ -25,19 +25,26 @@ function assertGraph(graph) {
   if (!Array.isArray(graph.centerOrder) || graph.centerOrder.length !== columns) {
     throw new TypeError('work DAG graph centerOrder must enumerate columns');
   }
+  if (new Set(graph.centerOrder).size !== columns
+      || graph.centerOrder.some(column => !Number.isInteger(column) || column < 0 || column >= columns)) {
+    throw new RangeError('work DAG centerOrder must be a permutation of all columns');
+  }
 }
 
 function graphViews(graph) {
   assertGraph(graph);
   const edges = new Int32Array(graph.edgeBuffer);
   const tactical = new Int16Array(graph.tacticalBuffer);
+  if (!(graph.rankBuffer instanceof SharedArrayBuffer) && !(graph.rankBuffer instanceof ArrayBuffer)) throw new TypeError('work DAG requires rankBuffer');
+  const ranks = new Uint8Array(graph.rankBuffer);
+  if (ranks.length !== graph.stateCount) throw new Error('work DAG rank buffer length mismatch');
   if (edges.length !== graph.stateCount * graph.spec.columns) {
     throw new Error(`work DAG edge buffer length ${edges.length} does not match ${graph.stateCount * graph.spec.columns}`);
   }
   if (tactical.length !== graph.stateCount) {
     throw new Error(`work DAG tactical buffer length ${tactical.length} does not match ${graph.stateCount}`);
   }
-  return Object.freeze({ edges, tactical });
+  return Object.freeze({ edges, tactical, ranks });
 }
 
 function assertStateId(graph, stateId) {
@@ -46,11 +53,14 @@ function assertStateId(graph, stateId) {
   }
 }
 
-function edgeAt(graph, edges, stateId, column) {
-  const child = edges[stateId * graph.spec.columns + column];
+function edgeAt(graph, views, stateId, column) {
+  const child = views.edges[stateId * graph.spec.columns + column];
   if (!Number.isInteger(child) || child < QN_ILLEGAL || child >= graph.stateCount) {
     throw new Error(`work DAG edge ${stateId}/${column} has invalid target ${child}`);
   }
+  const rank = views.ranks[stateId];
+  if (rank > graph.spec.columns * graph.spec.rows
+      || (child >= 0 && views.ranks[child] !== rank + 1)) throw new Error(`work DAG rank drift at ${stateId}/${column}`);
   return child;
 }
 
@@ -65,7 +75,7 @@ function legalColumns(graph, stateId, views) {
   const code = tacticalAt(graph, views.tactical, stateId);
   const forcedColumn = tacticalForcedColumn(code, graph.spec.columns);
   if (forcedColumn >= 0) {
-    if (edgeAt(graph, views.edges, stateId, forcedColumn) === QN_ILLEGAL) {
+    if (edgeAt(graph, views, stateId, forcedColumn) === QN_ILLEGAL) {
       throw new Error(`forced work-DAG column ${forcedColumn} is illegal at state ${stateId}`);
     }
     return [forcedColumn];
@@ -75,7 +85,7 @@ function legalColumns(graph, stateId, views) {
     if (!Number.isInteger(column) || column < 0 || column >= graph.spec.columns) {
       throw new Error(`invalid work-DAG center-order column ${column}`);
     }
-    if (edgeAt(graph, views.edges, stateId, column) !== QN_ILLEGAL) result.push(column);
+    if (edgeAt(graph, views, stateId, column) !== QN_ILLEGAL) result.push(column);
   }
   return result;
 }
@@ -106,10 +116,11 @@ function estimateQuotientWorkWithViews(graph, views, stateId, probeDepth, memo) 
 
   const forcedColumn = tacticalForcedColumn(code, graph.spec.columns);
   if (forcedColumn >= 0) {
-    const child = edgeAt(graph, views.edges, stateId, forcedColumn);
+    const child = edgeAt(graph, views, stateId, forcedColumn);
     const cost = child === QN_TERMINAL_WIN
       ? 2
       : 1 + estimateQuotientWorkWithViews(graph, views, child, probeDepth, memo);
+    if (!Number.isSafeInteger(cost) || cost < 1) throw new RangeError(`forced work estimate overflow at state ${stateId}`);
     memo.set(key, cost);
     return cost;
   }
@@ -121,7 +132,7 @@ function estimateQuotientWorkWithViews(graph, views, stateId, probeDepth, memo) 
 
   let cost = 1;
   for (const column of legalColumns(graph, stateId, views)) {
-    const child = edgeAt(graph, views.edges, stateId, column);
+    const child = edgeAt(graph, views, stateId, column);
     if (child >= 0) cost += estimateQuotientWorkWithViews(graph, views, child, probeDepth - 1, memo);
     else if (child === QN_TERMINAL_WIN) cost += 1;
   }
@@ -171,7 +182,7 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
       if (childDecisionDepth > splitDepth) continue;
 
       for (const column of legalColumns(graph, node.stateId, views)) {
-        const child = edgeAt(graph, views.edges, node.stateId, column);
+        const child = edgeAt(graph, views, node.stateId, column);
         if (child === QN_TERMINAL_WIN) {
           node.actions.push({ column, terminalValue: 1, childStateId: null, childKey: null });
           continue;
@@ -223,14 +234,14 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
     columns: graph.spec.columns,
     rootId: graph.rootId,
     rootKey: decisionNodeKey(graph.rootId, 0),
-    nodesByDepth: nodesByDepth.map((layer) => Object.freeze(layer.map((node) => Object.freeze({
+    nodesByDepth: Object.freeze(nodesByDepth.map((layer) => Object.freeze(layer.map((node) => Object.freeze({
       key: node.key,
       stateId: node.stateId,
       depth: node.decisionDepth,
       path: Object.freeze([...node.path]),
       exactValue: node.exactValue,
       actions: Object.freeze(node.actions.map((action) => Object.freeze({ ...action }))),
-    })))),
+    }))))),
     tasks: Object.freeze(tasks.map((task) => Object.freeze({ ...task }))),
     uniqueNodes: nodeByKey.size,
     frontierTasks: tasks.length,

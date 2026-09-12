@@ -3,6 +3,8 @@ import { performance } from 'node:perf_hooks';
 import { assertWdlValue } from './quotient-negamax-domain-contract.mjs';
 
 let requestId = 1;
+const unavailablePathWorkers = new WeakSet();
+const activePathWorkers = new WeakSet();
 
 function asError(error, fallback) {
   if (error instanceof Error) return error;
@@ -133,6 +135,10 @@ export async function startOnlineBranchManager(spec, options = {}) {
   const readyExplore = [];
   const exploreListeners = new Set();
   let listenerError = null;
+  const onManagerError = (error) => { listenerError ??= asError(error, 'Branch Manager failed'); };
+  const onManagerExit = (code) => { listenerError ??= new Error(`Branch Manager exited with code ${code}`); };
+  worker.on('error', onManagerError);
+  worker.on('exit', onManagerExit);
   const onQueuedExplore = (message) => {
     if (message?.type !== 'explore-hint-queued' || !message.hint) return;
     if (exploreListeners.size === 0) {
@@ -186,6 +192,7 @@ export async function startOnlineBranchManager(spec, options = {}) {
     let result;
     try {
       // Cleanup must remain callable even after a client-side listener failure.
+      if (worker.threadId === -1) throw listenerError ?? new Error('Branch Manager exited before cleanup');
       result = await oneReply(worker, 'cleanup-complete', { type: 'cleanup' });
     } finally {
       worker.off('message', onQueuedExplore);
@@ -240,6 +247,10 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
 
   const workers = [];
   const ready = [];
+  const startupGuards = new Map();
+  let rejectStartup;
+  const startupFailure = new Promise((_, reject) => { rejectStartup = reject; });
+  startupFailure.catch(() => {});
   try {
     for (let workerId = 0; workerId < count; workerId += 1) {
       const worker = new Worker(new URL('./quotient-online-semantic-search-worker.mjs', import.meta.url), {
@@ -252,6 +263,11 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
         },
       });
       workers.push(worker);
+      const onError = (error) => rejectStartup(asError(error, `search worker ${workerId} startup failed`));
+      const onExit = (code) => rejectStartup(new Error(`search worker ${workerId} exited during pool startup: ${code}`));
+      worker.on('error', onError);
+      worker.on('exit', onExit);
+      startupGuards.set(worker, { onError, onExit });
       ready.push(waitForWorkerMessage(
         worker,
         (message) => {
@@ -263,15 +279,23 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
         `search worker ${workerId} startup`,
       ));
     }
-    await Promise.all(ready);
+    await Promise.race([Promise.all(ready), startupFailure]);
     return workers;
   } catch (error) {
+    for (const pendingReady of ready) pendingReady.catch(() => {});
     try {
       await terminateWorkers(workers);
     } catch (terminationError) {
       throw new AggregateError([asError(error, 'search worker startup failed'), terminationError], 'search worker startup and cleanup failed');
     }
     throw error;
+  } finally {
+    // Observe any peers still completing startup on an early construction failure.
+    await Promise.allSettled(ready);
+    for (const [worker, guard] of startupGuards) {
+      worker.off('error', guard.onError);
+      worker.off('exit', guard.onExit);
+    }
   }
 }
 
@@ -301,6 +325,10 @@ export async function runOnlinePathTasks(workers, tasks) {
   for (let index = 0; index < workers.length; index += 1) assertWorkerLike(workers[index], `path worker ${index}`);
   if (!Array.isArray(tasks)) throw new TypeError('runOnlinePathTasks tasks must be an array');
   for (const task of tasks) assertPathTask(task);
+  for (const worker of workers) {
+    if (unavailablePathWorkers.has(worker) || worker.threadId === -1) throw new Error('path worker pool is unavailable after failure/exit');
+    if (activePathWorkers.has(worker)) throw new Error('path worker already belongs to an active batch');
+  }
   if (tasks.length === 0) {
     return Object.freeze({
       solveMs: 0,
@@ -312,7 +340,7 @@ export async function runOnlinePathTasks(workers, tasks) {
     });
   }
 
-  const queue = [...tasks];
+  const queue = structuredClone(tasks);
   const frontierValues = [];
   const metrics = {};
   const workerTaskCounts = Array(workers.length).fill(0);
@@ -323,6 +351,7 @@ export async function runOnlinePathTasks(workers, tasks) {
   let completed = 0;
   const started = performance.now();
 
+  for (const worker of workers) activePathWorkers.add(worker);
   await new Promise((resolve, reject) => {
     let settled = false;
     const listeners = new Map();
@@ -339,6 +368,7 @@ export async function runOnlinePathTasks(workers, tasks) {
       if (settled) return;
       settled = true;
       const fatal = asError(error, 'online path task failed');
+      for (const worker of workers) unavailablePathWorkers.add(worker);
       cleanup();
       // A worker may still be executing the failed batch. Terminate the whole pool so
       // stale replies can never contaminate a later runOnlinePathTasks invocation.
@@ -354,6 +384,7 @@ export async function runOnlinePathTasks(workers, tasks) {
       resolve();
     };
     const dispatch = (worker, workerIndex) => {
+      if (settled) return;
       const task = queue.shift();
       if (task === undefined) return;
       if (nextTaskId === Number.MAX_SAFE_INTEGER) {
@@ -361,7 +392,7 @@ export async function runOnlinePathTasks(workers, tasks) {
         return;
       }
       const taskId = nextTaskId++;
-      activeTaskByWorker.set(worker, taskId);
+      activeTaskByWorker.set(worker, { taskId, plannerStateId: task.stateId });
       workerTaskCounts[workerIndex] += 1;
       try {
         worker.postMessage({
@@ -376,14 +407,15 @@ export async function runOnlinePathTasks(workers, tasks) {
     };
 
     workers.forEach((worker, workerIndex) => {
+      if (settled) return;
       const onMessage = (message) => {
-        const activeTaskId = activeTaskByWorker.get(worker);
-        if (activeTaskId === undefined) {
+        const activeTask = activeTaskByWorker.get(worker);
+        if (activeTask === undefined) {
           finishReject(new Error(`worker ${workerIndex} replied without an active path task`));
           return;
         }
-        if (message?.taskId !== activeTaskId) {
-          finishReject(new Error(`worker ${workerIndex} replied for task ${message?.taskId}; expected ${activeTaskId}`));
+        if (message?.taskId !== activeTask.taskId) {
+          finishReject(new Error(`worker ${workerIndex} replied for task ${message?.taskId}; expected ${activeTask.taskId}`));
           return;
         }
         activeTaskByWorker.delete(worker);
@@ -397,7 +429,7 @@ export async function runOnlinePathTasks(workers, tasks) {
         }
         try {
           assertWdlValue(message.value, `worker ${workerIndex} path result`);
-          if (!Number.isSafeInteger(message.plannerStateId) || message.plannerStateId < 0) {
+          if (message.plannerStateId !== activeTask.plannerStateId) {
             throw new Error(`worker ${workerIndex} returned invalid planner state ${message.plannerStateId}`);
           }
           frontierValues.push([message.plannerStateId, message.value]);
@@ -425,7 +457,7 @@ export async function runOnlinePathTasks(workers, tasks) {
       worker.on('exit', onExit);
       dispatch(worker, workerIndex);
     });
-  });
+  }).finally(() => { for (const worker of workers) activePathWorkers.delete(worker); });
 
   return Object.freeze({
     solveMs: performance.now() - started,

@@ -1,4 +1,4 @@
-schema_version: 25
+schema_version: 26
 updated: 2026-09-12
 state: frontier_negamax_line_by_line_correctness_audit_in_progress
 current_branch: research/frontier-negamax-conformance
@@ -10,18 +10,16 @@ authority:
   audit_ledger: docs/research/2026-09-12-full-engine-sanity-audit.md
 audit:
   continuation_base: 83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2
-  completed_continuation_surface: packed_proof_store_and_record_value_contracts
-  local_controls: five_passed
-  local_campaigns: [replacement, stale_generation_lifecycle, dependency_aware, explore_hints]
-  remote_packet_qualification: pending
-  next_owner: semantic_tt_shape_reset_counters_chunks_and_probe_consistency
+  reviewed_surfaces: [packed_proofs, semantic_tt, semantic_identity, slot64_storage, support_states, exact_policy, frontier_ordering, coordinator, worker_lifecycle, branch_manager, root_harness]
+  local_controls: proof_arena_storage_decision_worker_and_root_configuration_passed
+  local_campaigns: [replacement, stale_generation_lifecycle, slot64, dependency_aware, explore_hints, bounded_work_plan]
+  last_remote_green_packet: 592bfe71faac790d87eac8a54dffb62326966720
+  remote_worker_packet_qualification: pending
+  next_owner: qualification_baseline_and_complete_import_graph_review
   remaining_owners:
-    - semantic_identity_and_descriptor_scratch
-    - slot64_residual_state_and_support_storage
-    - generic_exact_negamax
-    - coordinator_worker_executor_and_pool
-    - branch_manager_and_message_protocol
-    - standard_root_harness_and_bounded_workflow_import_graph
+    - qualification_reference_implementations_and_campaigns
+    - all_active_import_graph_coverage_reconciliation
+    - final_review_of_repaired_boundaries_and_exact_head_CI
 standard_root:
   admission: blocked_until_complete_audit_and_bounded_qualification
   trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt

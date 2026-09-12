@@ -9,37 +9,18 @@ import {
 } from './quotient-online-semantic-worker-pool.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
+import { standard7x6RootConfiguration } from './quotient-standard7x6-root-config.mjs';
 
 const SPEC = Object.freeze({ columns: 7, rows: 6, connect: 4 });
-const CELL_COUNT = SPEC.columns * SPEC.rows;
 const EXPECTED_ROOT_WDL = 1;
-const PREFIX_CLASSES = Number(process.env.PREFIX_CLASSES ?? 4096);
-const SPLIT_DEPTH = Number(process.env.SPLIT_DEPTH ?? 3);
-const PRIORITY_PROBE_DEPTH = Number(process.env.PRIORITY_PROBE_DEPTH ?? 0);
-const REQUESTED_WORKERS = Number(process.env.SEARCH_WORKERS ?? 3);
-const ENTRY_CAPACITY = Number(process.env.TT_ENTRY_CAPACITY ?? 8388608);
-const TERM_CAPACITY = Number(process.env.TT_TERM_CAPACITY ?? 460000000);
-const PROGRESS_MS = Number(process.env.PROGRESS_MS ?? 15000);
-const CPU_PARALLELISM = availableParallelism();
+const { PREFIX_CLASSES, SPLIT_DEPTH, PRIORITY_PROBE_DEPTH, REQUESTED_WORKERS,
+  ENTRY_CAPACITY, TERM_CAPACITY, PROGRESS_MS, CPU_PARALLELISM, searchWorkers,
+} = standard7x6RootConfiguration(process.env, availableParallelism());
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-function isPowerOfTwo(value) {
-  return Number.isInteger(value) && value > 0 && Number.isInteger(Math.log2(value));
-}
-
-assert(Number.isInteger(PREFIX_CLASSES) && PREFIX_CLASSES >= 1, 'PREFIX_CLASSES must be positive');
-assert(Number.isInteger(SPLIT_DEPTH) && SPLIT_DEPTH >= 1 && SPLIT_DEPTH <= CELL_COUNT, `SPLIT_DEPTH must be in 1..${CELL_COUNT}`);
-assert(Number.isInteger(PRIORITY_PROBE_DEPTH) && PRIORITY_PROBE_DEPTH >= 0 && PRIORITY_PROBE_DEPTH <= CELL_COUNT, `PRIORITY_PROBE_DEPTH must be in 0..${CELL_COUNT}`);
-assert(Number.isInteger(REQUESTED_WORKERS) && REQUESTED_WORKERS >= 1 && REQUESTED_WORKERS <= 256, 'SEARCH_WORKERS must be in 1..256');
-assert(isPowerOfTwo(ENTRY_CAPACITY) && ENTRY_CAPACITY >= 8 && ENTRY_CAPACITY <= 0x40000000, 'TT_ENTRY_CAPACITY must be a power of two in 8..2^30');
-assert(Number.isInteger(TERM_CAPACITY) && TERM_CAPACITY >= 1 && TERM_CAPACITY <= 0x7fffffff, 'TT_TERM_CAPACITY must be in 1..INT32_MAX');
-assert(Number.isInteger(PROGRESS_MS) && PROGRESS_MS >= 1000, 'PROGRESS_MS must be at least 1000');
-assert(Number.isInteger(CPU_PARALLELISM) && CPU_PARALLELISM >= 1, 'availableParallelism must be positive');
-
-const searchWorkers = Math.max(1, Math.min(REQUESTED_WORKERS, CPU_PARALLELISM));
 const attemptStarted = performance.now();
 let branchManager = null;
 let branchManagerFinalStats = null;
@@ -247,7 +228,7 @@ const summary = Object.freeze({
         states: coordinatorKernel.states.count,
         residualClasses: coordinatorKernel.classes.size,
         memory: coordinatorKernel.memoryStats(),
-        metrics: Object.freeze({ ...coordinator.engine.metrics }),
+        metrics: coordinator ? Object.freeze({ ...coordinator.engine.metrics }) : null,
       })
     : null,
   branchManager: branchManagerFinalStats ?? branchManager?.published.stats ?? null,

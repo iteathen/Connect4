@@ -4,6 +4,7 @@ import { Worker } from 'node:worker_threads';
 import { once } from 'node:events';
 import { setTimeout as delay } from 'node:timers/promises';
 import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
+import { createProofResourceService } from './quotient-proof-resource-service.mjs';
 import { createSemanticSharedTtArena, createSemanticSharedTtView, resetSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
 
 const descriptor = (id, terms = [1]) => ({ supportIndex: id, p0: { ids: new Uint16Array(terms) }, p1: { ids: new Uint16Array() }, hash: { lo: 0, hi: id } });
@@ -11,6 +12,19 @@ const fixture = () => {
   const arena = createSemanticSharedTtArena({ entryCapacity: 1, associativity: 1, termCapacity: 64 });
   return { arena, tt: createSemanticSharedTtView(arena), proofs: createPackedProofStore(arena) };
 };
+
+test('resource reset rejects semantic nonquiescence before clearing static proofs', () => {
+  const resource = createProofResourceService(1, { entryCapacity: 8, termCapacity: 128 });
+  const proofs = createPackedProofStore(resource.graphArena);
+  proofs.publishExact(0, 1);
+  const status = new Int32Array(resource.semanticArena.statusBuffer);
+  status[0] = resource.semanticArena.slotStates.proofWriting;
+  assert.throws(() => resource.reset(), /quiescence/);
+  assert.equal(proofs.lower(0), 1);
+  status[0] = resource.semanticArena.slotStates.empty;
+  resource.reset();
+  assert.equal(proofs.lower(0), -1);
+});
 
 test('arena views reject aliases/growth and snapshot mutable transport metadata', () => {
   const { arena } = fixture();

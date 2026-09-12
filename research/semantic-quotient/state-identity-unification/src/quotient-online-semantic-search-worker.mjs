@@ -43,10 +43,17 @@ function localResourceSnapshot() {
 }
 
 parentPort.postMessage({ type: 'ready', workerId: workerData.workerId });
+let poisoned = null;
 parentPort.on('message', (message) => {
-  if (message?.type !== 'solve-path' && message?.type !== 'search-path' && message?.type !== 'explore-path') return;
   const started = performance.now();
   try {
+    if (poisoned) throw poisoned;
+    if (message?.type !== 'solve-path' && message?.type !== 'search-path' && message?.type !== 'explore-path') {
+      throw new TypeError(`unsupported semantic worker message ${message?.type}`);
+    }
+    if (!Number.isSafeInteger(message.taskId) || message.taskId < 1) throw new RangeError('semantic worker requires a positive task ID');
+    if (message.type === 'explore-path' && (!Number.isSafeInteger(message.hintId) || message.hintId < 1)) throw new RangeError('semantic worker requires a positive hint ID');
+    if (message.type === 'solve-path' && (!Number.isSafeInteger(message.plannerStateId) || message.plannerStateId < 0)) throw new RangeError('semantic worker requires a non-negative planner state ID');
     if (message.type === 'explore-path') {
       const fragment = exploreQuotientPath(kernel, message.path, message.depth);
       parentPort.postMessage({
@@ -79,12 +86,13 @@ parentPort.on('message', (message) => {
       ...localResourceSnapshot(),
     });
   } catch (error) {
+    poisoned ??= error instanceof Error ? error : new Error(String(error));
     parentPort.postMessage({
       type: 'error',
-      taskId: message.taskId,
-      hintId: message.hintId ?? null,
+      taskId: message?.taskId ?? null,
+      hintId: message?.hintId ?? null,
       workerId: workerData.workerId,
-      plannerStateId: message.plannerStateId ?? null,
+      plannerStateId: message?.plannerStateId ?? null,
       message: error instanceof Error ? error.stack ?? error.message : String(error),
     });
   }

@@ -30,11 +30,14 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-root-config.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-graph-lib.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-attempt.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-config.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs'
   workflow_dispatch:
@@ -65,3 +68,5 @@ jobs:
           research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-parallel-campaign.mjs
       - name: Exercise decision and detached-work contracts
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs
+      - name: Validate root configuration without launching a root
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-root-config.test.mjs

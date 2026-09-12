@@ -57,8 +57,10 @@ export function createProofResourceService(stateCount, semanticOptions = null) {
   let resets = 0;
 
   function reset() {
-    if (graphArena) resetSharedProofArena(graphArena);
+    // The semantic arena performs the fallible quiescence gate before either
+    // proof format is cleared. Both resets still require owner-wide quiescence.
     if (semanticArena) resetSemanticSharedTtArena(semanticArena);
+    if (graphArena) resetSharedProofArena(graphArena);
     resets += 1;
   }
 

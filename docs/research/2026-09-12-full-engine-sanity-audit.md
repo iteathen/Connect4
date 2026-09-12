@@ -368,3 +368,54 @@ semantic replacement, dependency campaign (workers 1/2, split 2/3), ExploreHint,
 and complete slot64 campaign. The decision controls are executed in the
 dependency workflow. Next owner is worker executor/pool/Branch Manager failure
 handling; complete active graph qualification and root admission remain blocked.
+
+## Worker, Branch Manager and root harness continuation
+
+Reviewed the complete executor, online worker pool, semantic search worker,
+Branch Manager worker, ExploreHint service/path, work-plan service/DAG, shared
+graph builder, online-only storage observer and standard-root harness. C4-0010
+owns their exact-result, lifecycle and resource contracts. Corrected:
+
+- Dispatch exceptions now poison and release all pending tasks; synchronous
+  abandonment/completion callbacks are observed side effects and cannot interrupt
+  poisoning. Malformed authoritative W/D/L and mismatched explore IDs fail before
+  worker reuse. Queued payloads are captured at submission.
+- Path replies must match the dispatched planner state as well as task ID.
+  Failed/terminated path pools reject reuse, and simultaneous batches cannot own
+  the same workers. Early dispatch failure does not attach fresh peer listeners.
+- Branch Manager health persists after startup, so requests after observed exit
+  fail instead of waiting for a dead worker. Pool startup observes workers that
+  fail after their own ready reply but before all peers are ready.
+- Semantic workers reject unknown protocols and malformed task IDs, and retain
+  poison after any task failure. A subsequent request cannot revive them.
+- Reset tests now reject semantic nonquiescence before static proofs are cleared.
+  Branch Manager reset/cleanup also releases retained work plans. Work DAGs check
+  the graph kind, complete move permutation and rank-increasing edges; their
+  retained layer array is frozen. Forced work-estimate arithmetic is checked.
+- Root configuration has a pure bounded validation owner, rejecting timer
+  overflow, transition-cache index overflow and malformed decimal environment
+  values before allocation. The failure summary tolerates a coordinator that
+  failed construction. Default split 3, workers 3, priority 0, threshold windows,
+  expected win oracle and authoritative proof timing are unchanged.
+
+Eight worker/plan controls pass, including real poisoned-worker protocol,
+observed Branch Manager exit, and actual two-worker bounded plan reduction
+against the independent BSFP oracle. The reset regression and pure root-config
+control pass. Replacement, dependency-aware (workers 1/2, split 2/3), and
+ExploreHint campaigns pass locally. Worker controls run in ExploreHint CI;
+configuration controls run in dependency CI. No root was launched and the
+revision trigger is unchanged.
+
+Remote decision packet `592bfe71faac790d87eac8a54dffb62326966720` is green:
+replacement `34692138245`, slot64 `34692138267`, dependency `34692138270`,
+ExploreHint `34692138269`. Storage packet `508b33ae4274572aba9452d96b256a6f38fd25d7`
+was also green in all four lanes (`34691997720`, `34691997744`, `34691997709`,
+`34691997734`).
+
+Remaining: finish qualification reference/campaign line review, reconcile every
+active import against durable coverage, and re-review all repaired boundaries.
+Global reset still requires the owner to stop new submissions and quiesce every
+worker; checking current slot locks alone is not an admission barrier. Static
+plan code is not a second production proof authority: the standard root uses
+semantic-only Branch Manager mode and the generic dependency policy. No full
+root readiness decision has yet been made.

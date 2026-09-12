@@ -34,13 +34,18 @@ depth 8 are superseded. See the audit ledger for exact historical evidence.
 Started from verified head 83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2. Packed proof
 storage now rejects unknown/malformed arena contracts and invalid W/D/L records
 before coercion. A reproduced replacement-before-proof-lock race no longer
-strands the acquired generation in PROOF_WRITING. Five targeted controls and
-bounded replacement, stale-generation recovery, dependency-aware and ExploreHint
-campaigns pass locally on Node 26.7.0. Remote qualification is pending this packet.
+strands the acquired generation in PROOF_WRITING. Subsequent packets harden TT
+arena ownership, storage value/capacity contracts, contradictory structural draw
+bounds, detached-scout drain ownership, and worker dispatch/protocol failures.
+The ledger records every defect and its bounded controls. The decision packet
+592bfe7 is green in replacement, slot64, dependency-aware and ExploreHint CI.
+The current worker/harness packet passes its targeted controls and local
+replacement, dependency-aware and ExploreHint campaigns; remote checks are pending.
 
-Next: complete TT shape/reset/counter/chunk/probe audit, then semantic identity,
-slot64 residual and state/support storage, exact engine, coordinator, worker and
-Branch Manager lifecycle, root harness, and bounded workflow dependencies.
+Next: finish the qualification baseline/harness review, reconcile the complete
+active import graph against the audit coverage ledger, and perform final review
+of all repaired boundaries. Root configuration now has a bounded pure validation
+control; running that control does not launch a root solve.
 
 ## Readiness
 

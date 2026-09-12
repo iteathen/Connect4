@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/semantic-quotient-explore-hints.yml'
       - 'components/bsfp/geometry.mjs'
+      - 'components/bsfp/ownership-antichain-solver.mjs'
       - 'components/bsfp/support-lattice.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs'
@@ -35,6 +36,7 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs'
   workflow_dispatch:
 
 permissions:
@@ -55,3 +57,5 @@ jobs:
           node-version: 26.7.0
       - name: Run idle explore hint campaign
         run: node research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs
+      - name: Exercise worker lifecycle and bounded work plans
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs

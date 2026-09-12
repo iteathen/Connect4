@@ -1,3 +1,5 @@
+import { assertWdlValue } from './quotient-negamax-domain-contract.mjs';
+
 export function createSearchWorkerExecutor(workers, options = {}) {
   if (!Array.isArray(workers) || workers.length < 1) throw new RangeError('workers must be non-empty');
   if (new Set(workers).size !== workers.length) throw new Error('search worker executor requires unique workers');
@@ -21,7 +23,6 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   const failedWorkers = new Set();
   const abandonedHints = new Set();
   let nextTaskId = 1;
-  let nextSequence = 1;
   let closed = false;
   let backgroundError = null;
   const metrics = {
@@ -114,7 +115,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   function abandonHintOnce(hintId) {
     if (!Number.isSafeInteger(hintId) || hintId < 1 || abandonedHints.has(hintId)) return;
     abandonedHints.add(hintId);
-    if (abandonExploreHint) trackSideEffect(abandonExploreHint(hintId));
+    if (abandonExploreHint) trackSideEffect(Promise.resolve().then(() => abandonExploreHint(hintId)));
   }
 
   function rejectPendingTask(taskId, error, failed = false) {
@@ -149,6 +150,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       busy.delete(worker);
     }
     idle.length = 0;
+    for (const taskId of pending.keys()) rejectPendingTask(taskId, backgroundError, false);
     notifyDrained();
   }
 
@@ -225,11 +227,16 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
     while (idle.length > 0 && queue.length > 0) {
       reorderQueue();
-      dispatchAuthoritative(idle.shift(), queue.shift());
+      const slot = idle.shift();
+      try { dispatchAuthoritative(slot, queue.shift()); }
+      catch (error) { poison(error, slot.worker); return; }
     }
 
     while (idle.length > 0 && queue.length === 0 && exploreQueue.length > 0) {
-      dispatchExplore(idle.shift(), exploreQueue.shift());
+      const slot = idle.shift();
+      const hint = exploreQueue.shift();
+      try { dispatchExplore(slot, hint); }
+      catch (error) { abandonHintOnce(hint.hintId); poison(error, slot.worker); return; }
     }
 
     notifyDrained();
@@ -245,6 +252,12 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     if (message?.taskId !== active.taskId) {
       poison(new Error(`worker ${workerIndex} replied for task ${message?.taskId}; expected ${active.taskId}`), worker);
       return;
+    }
+    if (active.kind === 'authoritative' && message?.type === 'result') {
+      assertWdlValue(message.value, 'authoritative worker result');
+    }
+    if (active.kind === 'explore' && message?.type === 'explore-result' && message.hintId !== active.hintId) {
+      throw new Error(`explore response hint ${message.hintId} does not match ${active.hintId}`);
     }
     observeWorkerResources(workerIndex, message);
     busy.delete(worker);
@@ -273,7 +286,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
         poison(new Error('explore result has no Branch Manager completion handler'));
         return;
       }
-      trackSideEffect(completeExploreHint(active.hintId, message.fragment));
+      trackSideEffect(Promise.resolve().then(() => completeExploreHint(active.hintId, message.fragment)));
       idle.push(slot);
       pump();
       return;
@@ -350,11 +363,12 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     if (backgroundError) throw backgroundError;
     if (!message || typeof message !== 'object') throw new TypeError('search worker task message must be an object');
     if (!Number.isFinite(priority)) throw new RangeError(`search worker priority must be finite, got ${priority}`);
+    const capturedMessage = structuredClone(message);
     const taskId = nextId('authoritative');
     metrics.submitted += 1;
     return new Promise((resolve, reject) => {
       pending.set(taskId, { resolve, reject });
-      queue.push({ taskId, message, priority, sequence: nextSequence++ });
+      queue.push({ taskId, message: capturedMessage, priority, sequence: taskId });
       if (queue.length > metrics.maxQueued) metrics.maxQueued = queue.length;
       pump();
     });
@@ -372,7 +386,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
         throw new RangeError(`invalid Branch Manager explore path column ${hint.path[index]} at ply ${index}`);
       }
     }
-    exploreQueue.push(hint);
+    exploreQueue.push(Object.freeze({ ...hint, path: Object.freeze([...hint.path]) }));
     metrics.exploreQueued += 1;
     pump();
     return true;

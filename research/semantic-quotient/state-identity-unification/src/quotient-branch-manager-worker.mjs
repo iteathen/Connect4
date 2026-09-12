@@ -184,6 +184,7 @@ parentPort.on('message', (message) => {
 
   if (message.type === 'reset') {
     proofResources.reset();
+    planService?.clear();
     clearExploreState();
     exploreActive = false;
     stats.resets += 1;
@@ -194,6 +195,7 @@ parentPort.on('message', (message) => {
 
   if (message.type === 'cleanup') {
     stopExploreSession();
+    planService?.clear();
     clearExploreState();
     stats.cleanupPasses += 1;
     parentPort.postMessage({ type: 'cleanup-complete', requestId: message.requestId, stats: snapshotStats() });
