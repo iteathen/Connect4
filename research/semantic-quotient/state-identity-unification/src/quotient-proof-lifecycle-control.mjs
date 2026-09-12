@@ -45,6 +45,28 @@ const stableKey = semantic.port.ensureProofKey(rootId);
 assert.equal(stableKey, rootId, 'semantic adapter leaked a generation-bearing proof handle');
 semantic.proofStore.publishExact(stableKey, 0, 1);
 
+const objectAllocationsBeforeHotProbe = semantic.descriptorCache.metrics.stateDescriptorObjectsAllocated;
+const transientUsesBeforeHotProbe = semantic.descriptorCache.metrics.transientStateDescriptorUses;
+for (let index = 0; index < 128; index += 1) {
+  assert.equal(semantic.port.proofKey(rootId), rootId, 'hot semantic probe lost stable root identity');
+}
+assert.equal(
+  semantic.descriptorCache.metrics.stateDescriptorObjectsAllocated,
+  objectAllocationsBeforeHotProbe,
+  'hot semantic probes allocated durable state descriptor objects',
+);
+assert.ok(
+  semantic.descriptorCache.metrics.transientStateDescriptorUses >= transientUsesBeforeHotProbe + 128,
+  'hot semantic probes did not use the transient descriptor scratch',
+);
+assert.equal(semantic.descriptorCache.metrics.termIdsCached, 0, 'semantic descriptor cache retained duplicate term IDs');
+assert.equal(semantic.descriptorCache.metrics.termArenaBytes, 0, 'semantic descriptor cache retained a duplicate term arena');
+assert.equal(
+  semantic.descriptorCache.metrics.retainedTypedBytes,
+  semantic.descriptorCache.metrics.classMetadataBytes,
+  'semantic descriptor cache retained storage beyond class metadata',
+);
+
 const rootDescriptor = semantic.descriptorCache.stateDescriptor(rootId);
 const originalHandle = rawTt.probe(rootDescriptor);
 assert.ok(originalHandle >= arena.entryCapacity, 'root semantic identity was not admitted');
@@ -87,7 +109,7 @@ assert.equal(rawProofs.lower(reboundHandle), 1, 'raw rebound lower proof mismatc
 assert.equal(rawProofs.upper(reboundHandle), 1, 'raw rebound upper proof mismatch');
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-lifecycle-control-v1',
+  kind: 'connect4-semantic-proof-lifecycle-control-v2',
   status: 'complete',
   stableKey,
   originalHandle,
@@ -95,6 +117,7 @@ const result = Object.freeze({
   replacements,
   identity: Object.freeze({ ...semantic.identityMetrics }),
   proofStore: Object.freeze({ ...rawProofs.metrics }),
+  descriptorCache: Object.freeze({ ...semantic.descriptorCache.metrics }),
   tt: rawTt.stats(),
 });
 

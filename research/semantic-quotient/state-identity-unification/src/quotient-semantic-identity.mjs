@@ -17,14 +17,20 @@ function foldTermIds(ids, length, seed, multiplier) {
   return mix32(hash ^ length);
 }
 
-export function hashResidualTermIds(ids, length = ids.length) {
+function writeHash(target, lo, hi) {
+  if (target === null || target === undefined) return Object.freeze({ lo, hi });
+  target.lo = lo;
+  target.hi = hi;
+  return target;
+}
+
+export function hashResidualTermIds(ids, length = ids.length, target = null) {
   if (!Number.isInteger(length) || length < 0 || length > ids.length) {
     throw new RangeError(`residual term hash length ${length} is outside source length ${ids.length}`);
   }
-  return Object.freeze({
-    lo: foldTermIds(ids, length, 0x811c9dc5, 0x01000193),
-    hi: foldTermIds(ids, length, 0x9e3779b9, 0x85ebca6b),
-  });
+  const lo = foldTermIds(ids, length, 0x811c9dc5, 0x01000193);
+  const hi = foldTermIds(ids, length, 0x9e3779b9, 0x85ebca6b);
+  return writeHash(target, lo, hi);
 }
 
 export function hashSemanticQuotientDescriptorParts(
@@ -35,6 +41,7 @@ export function hashSemanticQuotientDescriptorParts(
   p1HashHi,
   p0Length,
   p1Length,
+  target = null,
 ) {
   let lo = mix32((supportIndex + 0x9e3779b9) >>> 0);
   lo = mix32(lo ^ p0HashLo ^ Math.imul((p0Length + 1) >>> 0, 0x85ebca6b));
@@ -42,7 +49,7 @@ export function hashSemanticQuotientDescriptorParts(
   let hi = mix32((supportIndex ^ 0xa5a5a5a5) >>> 0);
   hi = mix32(hi ^ p0HashHi ^ Math.imul((p0Length + 3) >>> 0, 0x27d4eb2d));
   hi = mix32(hi ^ p1HashHi ^ Math.imul((p1Length + 5) >>> 0, 0x165667b1));
-  return Object.freeze({ lo, hi });
+  return writeHash(target, lo, hi);
 }
 
 export function hashSemanticQuotientDescriptor(supportIndex, p0Hash, p1Hash, p0Length, p1Length) {

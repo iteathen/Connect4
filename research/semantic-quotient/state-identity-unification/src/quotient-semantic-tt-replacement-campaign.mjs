@@ -61,7 +61,8 @@ function runStaleHandleControl() {
   assert.equal(proofs.upper(staleHandle), 1, 'stale upper read did not degrade to default');
   assert.equal(proofs.bestMove(staleHandle), -1, 'stale best-move read did not degrade to default');
 
-  proofs.publishExact(staleHandle, 1, 3);
+  const staleResult = proofs.publishExact(staleHandle, 1, 3);
+  assert.equal(staleResult, null, 'stale publication did not report rejection');
   assert.equal(proofs.lower(replacementHandle), 0, 'stale publication changed replacement lower bound');
   assert.equal(proofs.upper(replacementHandle), 0, 'stale publication changed replacement upper bound');
   assert.equal(proofs.bestMove(replacementHandle), 2, 'stale publication changed replacement move hint');
@@ -180,17 +181,19 @@ async function runConstrainedGameControl() {
     const activeWorkerResources = executorStats.workerResources.filter((resource, index) => executorStats.workerTasks[index] > 0);
     assert.ok(activeWorkerResources.length > 0, 'constrained game did not exercise search-worker descriptor storage');
     for (const resource of activeWorkerResources) {
+      assert.ok(resource.descriptorStateBuildsHighWater > 0, 'worker did not exercise transient semantic state descriptors');
       assert.ok(resource.descriptorClassBuildsHighWater > 0, 'worker did not construct residual semantic metadata');
-      assert.ok(resource.descriptorTermIdsCachedHighWater > 0, 'worker did not populate flat exact term storage');
+      assert.equal(resource.descriptorTermIdsCachedHighWater, 0, 'worker retained duplicate exact term IDs');
       assert.equal(resource.descriptorTermArrayObjectsCachedHighWater, 0, 'worker retained per-class term-array objects');
       assert.equal(resource.descriptorClassObjectsCachedHighWater, 0, 'worker retained per-class semantic descriptor objects');
       assert.ok(resource.descriptorClassMetadataBytesHighWater > 0, 'worker did not report class metadata storage');
-      assert.ok(resource.descriptorTermArenaBytesHighWater > 0, 'worker did not report flat term-arena storage');
+      assert.equal(resource.descriptorTermArenaBytesHighWater, 0, 'worker retained a duplicate descriptor term arena');
       assert.equal(
         resource.descriptorRetainedTypedBytesHighWater,
-        resource.descriptorClassMetadataBytesHighWater + resource.descriptorTermArenaBytesHighWater,
-        'worker flat descriptor typed-byte ownership accounting drifted',
+        resource.descriptorClassMetadataBytesHighWater,
+        'worker descriptor ownership exceeded class metadata only',
       );
+      assert.equal(resource.descriptorTermCapacityHighWater, 0, 'worker retained descriptor term capacity');
     }
 
     return Object.freeze({
@@ -215,9 +218,9 @@ const slotChunkGrowthControl = runSlotChunkGrowthControl();
 const constrainedGameControl = await runConstrainedGameControl();
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-replacement-qualification-v3',
+  kind: 'connect4-semantic-proof-replacement-qualification-v4',
   status: 'complete',
-  replacement: '8-way exact-descriptor set-associative with generation-bearing proof handles, slot-owned extension chunks, and flat worker semantic descriptor ownership',
+  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, slot-owned extension chunks, metadata-only worker descriptor ownership, and transient hot descriptors',
   staleHandleControl,
   slotChunkGrowthControl,
   constrainedGameControl,

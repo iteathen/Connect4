@@ -1,11 +1,11 @@
 import {
   createQuotientSemanticClassReferenceDescriptor,
   hashResidualTermIds,
+  hashSemanticQuotientDescriptorParts,
 } from './quotient-semantic-identity.mjs';
 
 const CLASS_UNKNOWN_LENGTH = 0xffff;
 const INITIAL_CLASS_CAPACITY = 1024;
-const INITIAL_TERM_CAPACITY = 1 << 16;
 
 function nextPowerOfTwo(value) {
   let result = 1;
@@ -15,59 +15,64 @@ function nextPowerOfTwo(value) {
 
 export function createLocalSemanticDescriptorCache(kernel) {
   let classCapacity = INITIAL_CLASS_CAPACITY;
-  let classStarts = new Uint32Array(classCapacity);
   let classLengths = new Uint16Array(classCapacity);
   let classHashLo = new Uint32Array(classCapacity);
   let classHashHi = new Uint32Array(classCapacity);
   classLengths.fill(CLASS_UNKNOWN_LENGTH);
 
-  let termCapacity = INITIAL_TERM_CAPACITY;
-  let termIds = new Uint16Array(termCapacity);
-  let termCount = 0;
-
+  const classHashScratch = { lo: 0, hi: 0 };
+  const stateHashScratch = { lo: 0, hi: 0 };
   const metrics = {
     classBuilds: 0,
     classHits: 0,
     stateBuilds: 0,
     stateHits: 0,
+    transientStateDescriptorUses: 0,
+    stateDescriptorObjectsAllocated: 0,
+    classDescriptorObjectsAllocated: 0,
+    termArrayMaterializations: 0,
+    termIdsMaterialized: 0,
     termIdsCached: 0,
     termArrayObjectsCached: 0,
     classDescriptorObjectsCached: 0,
-    classMetadataBytes: classStarts.byteLength + classLengths.byteLength + classHashLo.byteLength + classHashHi.byteLength,
-    termArenaBytes: termIds.byteLength,
+    classMetadataBytes: classLengths.byteLength + classHashLo.byteLength + classHashHi.byteLength,
+    termArenaBytes: 0,
     retainedTypedBytes: 0,
     classCapacity,
-    termCapacity,
+    termCapacity: 0,
   };
 
   function refreshRetainedBytes() {
-    metrics.classMetadataBytes = classStarts.byteLength + classLengths.byteLength + classHashLo.byteLength + classHashHi.byteLength;
-    metrics.termArenaBytes = termIds.byteLength;
-    metrics.retainedTypedBytes = metrics.classMetadataBytes + metrics.termArenaBytes;
+    metrics.classMetadataBytes = classLengths.byteLength + classHashLo.byteLength + classHashHi.byteLength;
+    metrics.termArenaBytes = 0;
+    metrics.retainedTypedBytes = metrics.classMetadataBytes;
     metrics.classCapacity = classCapacity;
-    metrics.termCapacity = termCapacity;
+    metrics.termCapacity = 0;
   }
   refreshRetainedBytes();
 
   function ensureClassCapacity(required) {
     if (required <= classCapacity) return;
     const next = nextPowerOfTwo(required);
-    const starts = new Uint32Array(next); starts.set(classStarts); classStarts = starts;
-    const lengths = new Uint16Array(next); lengths.fill(CLASS_UNKNOWN_LENGTH); lengths.set(classLengths); classLengths = lengths;
-    const lo = new Uint32Array(next); lo.set(classHashLo); classHashLo = lo;
-    const hi = new Uint32Array(next); hi.set(classHashHi); classHashHi = hi;
+    const lengths = new Uint16Array(next);
+    lengths.fill(CLASS_UNKNOWN_LENGTH);
+    lengths.set(classLengths);
+    classLengths = lengths;
+    const lo = new Uint32Array(next);
+    lo.set(classHashLo);
+    classHashLo = lo;
+    const hi = new Uint32Array(next);
+    hi.set(classHashHi);
+    classHashHi = hi;
     classCapacity = next;
     refreshRetainedBytes();
   }
 
-  function ensureTermCapacity(required) {
-    if (required <= termCapacity) return;
-    const next = nextPowerOfTwo(required);
-    const target = new Uint16Array(next);
-    target.set(termIds.subarray(0, termCount));
-    termIds = target;
-    termCapacity = next;
-    refreshRetainedBytes();
+  function materializeClassTerms(classId) {
+    const ids = kernel.classes.termIds(classId);
+    metrics.termArrayMaterializations += 1;
+    metrics.termIdsMaterialized += ids.length;
+    return ids;
   }
 
   function ensureClassMetadata(classId) {
@@ -78,19 +83,13 @@ export function createLocalSemanticDescriptorCache(kernel) {
       return;
     }
 
-    const ids = kernel.classes.termIds(classId);
+    const ids = materializeClassTerms(classId);
     if (ids.length >= CLASS_UNKNOWN_LENGTH) throw new RangeError(`residual class ${classId} exceeds Uint16 semantic length domain`);
-    ensureTermCapacity(termCount + ids.length);
-    const start = termCount;
-    termIds.set(ids, start);
-    termCount += ids.length;
-    const hash = hashResidualTermIds(ids);
-    classStarts[classId] = start;
+    hashResidualTermIds(ids, ids.length, classHashScratch);
     classLengths[classId] = ids.length;
-    classHashLo[classId] = hash.lo;
-    classHashHi[classId] = hash.hi;
+    classHashLo[classId] = classHashScratch.lo;
+    classHashHi[classId] = classHashScratch.hi;
     metrics.classBuilds += 1;
-    metrics.termIdsCached += ids.length;
   }
 
   const termSource = Object.freeze({
@@ -100,20 +99,64 @@ export function createLocalSemanticDescriptorCache(kernel) {
       if (!Number.isInteger(offset) || offset < 0 || offset + length > target.length) {
         throw new RangeError(`semantic term target cannot hold class ${classId} length ${length} at offset ${offset}`);
       }
-      const start = classStarts[classId];
-      for (let index = 0; index < length; index += 1) target[offset + index] = termIds[start + index];
+      const ids = materializeClassTerms(classId);
+      if (ids.length !== length) {
+        throw new Error(`semantic class ${classId} length drift: expected ${length}, materialized ${ids.length}`);
+      }
+      target.set(ids, offset);
       return length;
     },
   });
 
   function classDescriptor(classId) {
     ensureClassMetadata(classId);
+    metrics.classDescriptorObjectsAllocated += 1;
     return Object.freeze({
       classId,
       length: classLengths[classId],
       hash: Object.freeze({ lo: classHashLo[classId], hi: classHashHi[classId] }),
       termSource,
     });
+  }
+
+  const transientStateDescriptor = {
+    stateId: 0,
+    supportIndex: 0,
+    p0ClassId: 0,
+    p1ClassId: 0,
+    p0Length: 0,
+    p1Length: 0,
+    termSource,
+    hash: stateHashScratch,
+  };
+
+  function hotStateDescriptor(stateId) {
+    const supportIndex = kernel.states.support[stateId];
+    const p0ClassId = kernel.states.p0Class[stateId];
+    const p1ClassId = kernel.states.p1Class[stateId];
+    ensureClassMetadata(p0ClassId);
+    ensureClassMetadata(p1ClassId);
+    const p0Length = classLengths[p0ClassId];
+    const p1Length = classLengths[p1ClassId];
+    hashSemanticQuotientDescriptorParts(
+      supportIndex,
+      classHashLo[p0ClassId],
+      classHashHi[p0ClassId],
+      classHashLo[p1ClassId],
+      classHashHi[p1ClassId],
+      p0Length,
+      p1Length,
+      stateHashScratch,
+    );
+    transientStateDescriptor.stateId = stateId;
+    transientStateDescriptor.supportIndex = supportIndex;
+    transientStateDescriptor.p0ClassId = p0ClassId;
+    transientStateDescriptor.p1ClassId = p1ClassId;
+    transientStateDescriptor.p0Length = p0Length;
+    transientStateDescriptor.p1Length = p1Length;
+    metrics.stateBuilds += 1;
+    metrics.transientStateDescriptorUses += 1;
+    return transientStateDescriptor;
   }
 
   function stateDescriptor(stateId) {
@@ -123,6 +166,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
     ensureClassMetadata(p0ClassId);
     ensureClassMetadata(p1ClassId);
     metrics.stateBuilds += 1;
+    metrics.stateDescriptorObjectsAllocated += 1;
     return createQuotientSemanticClassReferenceDescriptor(
       stateId,
       supportIndex,
@@ -140,6 +184,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
 
   return Object.freeze({
     classDescriptor,
+    hotStateDescriptor,
     stateDescriptor,
     metrics,
   });
