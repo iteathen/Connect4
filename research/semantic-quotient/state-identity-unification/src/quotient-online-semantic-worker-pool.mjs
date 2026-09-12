@@ -26,6 +26,7 @@ export async function startOnlineMaintenanceHost(spec, options = {}) {
   const worker = new Worker(new URL('./quotient-maintenance-worker.mjs', import.meta.url), {
     workerData: {
       spec,
+      prebuildGraph: options.prebuildGraph !== false,
       prefixClasses: options.prefixClasses ?? 4096,
       semanticTt: {
         entryCapacity: options.entryCapacity ?? (1 << 19),
