@@ -32,6 +32,12 @@ export async function startOnlineBranchManager(spec, options = {}) {
         entryCapacity: options.entryCapacity ?? (1 << 19),
         termCapacity: options.termCapacity ?? (1 << 24),
       },
+      explore: {
+        enabled: options.exploreEnabled === true,
+        depth: options.exploreDepth ?? 3,
+        reservoirTarget: options.exploreReservoirTarget ?? 4,
+        backlogCapacity: options.exploreBacklogCapacity ?? 64,
+      },
     },
   });
 
@@ -77,9 +83,7 @@ export async function startOnlineBranchManager(spec, options = {}) {
     queuedExploreCount: () => readyExplore.length,
     reset: () => oneReply(worker, 'reset-complete', { type: 'reset' }),
     cleanup: () => oneReply(worker, 'cleanup-complete', { type: 'cleanup' }),
-    offerExplore: (path, depth) => oneReply(worker, 'explore-hint-offered', {
-      type: 'offer-explore-hint', path, depth,
-    }),
+    stopExplore: () => oneReply(worker, 'explore-session-stopped', { type: 'stop-explore-session' }),
     completeExplore: (hintId, fragment) => oneReply(worker, 'explore-hint-completed', {
       type: 'complete-explore-hint', hintId, fragment,
     }),
