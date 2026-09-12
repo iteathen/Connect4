@@ -1,20 +1,17 @@
 export function createSearchWorkerExecutor(workers, options = {}) {
   if (!Array.isArray(workers) || workers.length < 1) throw new RangeError('workers must be non-empty');
 
-  const takeExploreHint = typeof options.takeExploreHint === 'function' ? options.takeExploreHint : null;
-  const returnExploreHint = typeof options.returnExploreHint === 'function' ? options.returnExploreHint : null;
   const completeExploreHint = typeof options.completeExploreHint === 'function' ? options.completeExploreHint : null;
+  const abandonExploreHint = typeof options.abandonExploreHint === 'function' ? options.abandonExploreHint : null;
 
   const queue = [];
+  const exploreQueue = [];
   const idle = workers.map((worker, workerIndex) => ({ worker, workerIndex }));
   const busy = new Map();
   const pending = new Map();
   const listeners = new Map();
   const drainWaiters = [];
-  const hintRequests = new Set();
   const sideEffects = new Set();
-  const hintMissEpoch = new Map();
-  let hintEpoch = 1;
   let nextTaskId = 1;
   let nextSequence = 1;
   let closed = false;
@@ -24,19 +21,18 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     completed: 0,
     failed: 0,
     maxQueued: 0,
-    exploreLeased: 0,
+    exploreQueued: 0,
+    exploreStarted: 0,
     exploreCompleted: 0,
     exploreFailed: 0,
-    exploreReturned: 0,
-    idleHintMisses: 0,
     workerTasks: Array(workers.length).fill(0),
   };
 
   function isDrained() {
     return queue.length === 0
+      && exploreQueue.length === 0
       && busy.size === 0
       && pending.size === 0
-      && hintRequests.size === 0
       && sideEffects.size === 0;
   }
 
@@ -59,7 +55,6 @@ export function createSearchWorkerExecutor(workers, options = {}) {
         notifyDrained();
       });
     sideEffects.add(tracked);
-    return tracked;
   }
 
   function reorderQueue() {
@@ -75,7 +70,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   function dispatchExplore(slot, hint) {
     const taskId = nextTaskId++;
     busy.set(slot.worker, Object.freeze({ taskId, kind: 'explore', hintId: hint.hintId }));
-    metrics.exploreLeased += 1;
+    metrics.exploreStarted += 1;
     metrics.workerTasks[slot.workerIndex] += 1;
     slot.worker.postMessage({
       type: 'explore-path',
@@ -86,55 +81,6 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     });
   }
 
-  function requestExploreHint(slot) {
-    if (!takeExploreHint) {
-      idle.push(slot);
-      return;
-    }
-    if (hintMissEpoch.get(slot.worker) === hintEpoch) {
-      idle.push(slot);
-      return;
-    }
-
-    hintRequests.add(slot.worker);
-    Promise.resolve()
-      .then(() => takeExploreHint())
-      .then((reply) => {
-        hintRequests.delete(slot.worker);
-        const hint = reply?.hint ?? null;
-        if (!hint) {
-          metrics.idleHintMisses += 1;
-          hintMissEpoch.set(slot.worker, hintEpoch);
-          idle.push(slot);
-          pump();
-          return;
-        }
-
-        if (closed || queue.length > 0) {
-          metrics.exploreReturned += 1;
-          if (!returnExploreHint) {
-            backgroundError ??= new Error('explore hint must be returned when authoritative work supersedes it');
-            idle.push(slot);
-            pump();
-            return;
-          }
-          trackSideEffect(returnExploreHint(hint.hintId)).finally(() => {
-            idle.push(slot);
-            pump();
-          });
-          return;
-        }
-
-        dispatchExplore(slot, hint);
-      })
-      .catch((error) => {
-        hintRequests.delete(slot.worker);
-        backgroundError ??= error;
-        idle.push(slot);
-        pump();
-      });
-  }
-
   function pump() {
     if (closed) {
       notifyDrained();
@@ -143,15 +89,13 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
     while (idle.length > 0 && queue.length > 0) {
       reorderQueue();
-      const slot = idle.shift();
-      const task = queue.shift();
-      dispatchAuthoritative(slot, task);
+      dispatchAuthoritative(idle.shift(), queue.shift());
     }
 
-    if (queue.length === 0 && takeExploreHint) {
-      const candidates = idle.splice(0, idle.length);
-      for (const slot of candidates) requestExploreHint(slot);
+    while (idle.length > 0 && queue.length === 0 && exploreQueue.length > 0) {
+      dispatchExplore(idle.shift(), exploreQueue.shift());
     }
+
     notifyDrained();
   }
 
@@ -165,7 +109,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       if (message?.type === 'error') {
         metrics.exploreFailed += 1;
         backgroundError ??= new Error(message.message ?? `explore hint ${active.hintId} failed`);
-        if (returnExploreHint) trackSideEffect(returnExploreHint(active.hintId));
+        if (abandonExploreHint) trackSideEffect(abandonExploreHint(active.hintId));
       } else if (message?.type === 'explore-result') {
         metrics.exploreCompleted += 1;
         if (!completeExploreHint) {
@@ -216,7 +160,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
           task?.reject(error);
         } else {
           metrics.exploreFailed += 1;
-          if (returnExploreHint) trackSideEffect(returnExploreHint(active.hintId));
+          if (abandonExploreHint) trackSideEffect(abandonExploreHint(active.hintId));
         }
       }
       backgroundError ??= error;
@@ -240,9 +184,15 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     });
   }
 
-  function notifyExploreHintsAvailable() {
-    hintEpoch += 1;
+  function enqueueExploreHint(hint) {
+    if (closed) return false;
+    if (!hint || !Number.isInteger(hint.hintId) || !Array.isArray(hint.path) || !Number.isInteger(hint.depth) || hint.depth < 1) {
+      throw new TypeError('invalid Branch Manager explore hint');
+    }
+    exploreQueue.push(hint);
+    metrics.exploreQueued += 1;
     pump();
+    return true;
   }
 
   function drain() {
@@ -259,15 +209,14 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       completed: metrics.completed,
       failed: metrics.failed,
       maxQueued: metrics.maxQueued,
-      exploreLeased: metrics.exploreLeased,
+      exploreQueued: metrics.exploreQueued,
+      exploreStarted: metrics.exploreStarted,
       exploreCompleted: metrics.exploreCompleted,
       exploreFailed: metrics.exploreFailed,
-      exploreReturned: metrics.exploreReturned,
-      idleHintMisses: metrics.idleHintMisses,
       queued: queue.length,
+      exploreReady: exploreQueue.length,
       active: busy.size,
       pending: pending.size,
-      hintRequests: hintRequests.size,
       backgroundSideEffects: sideEffects.size,
       workerTasks: Object.freeze([...metrics.workerTasks]),
     });
@@ -284,5 +233,5 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     listeners.clear();
   }
 
-  return Object.freeze({ submit, notifyExploreHintsAvailable, drain, stats, close });
+  return Object.freeze({ submit, enqueueExploreHint, drain, stats, close });
 }
