@@ -1,43 +1,51 @@
 # Connect4 frontier-native forward-solver research status
 
 **Updated:** 2026-09-11  
-**Canonical research line:** `research/semantic-quotient`  
-**Current repair branch:** `research/semantic-quotient-explore-hints`
+**Current branch:** `research/frontier-negamax-conformance`  
+**Forward solver authority:** `docs/specs/C4-0010-quotient-native-negamax-v1.md`
 
-## Governing structural chain
+## Structural authority
 
-The forward Negamax lane does not own the Connect Four structural mathematics it consumes.
-
-Read the current model as:
+The forward solver consumes, rather than redefines, the Connect Four structural chain:
 
 ```text
-C4-0001  domain/legal game
-  -> C4-0006  CPC + WSL-625 structural mathematics
-  -> C4-0007  NDC strategic dependency semantics when consumed
-  -> C4-0010  forward exact Negamax consumption/execution policy
+C4-0001  legal game/domain
+  -> C4-0006  CPC control parity + WSL-625 requirements/blockers
+  -> C4-0007  NDC certificate/timing semantics when strategic closure is used
+  -> C4-0010  exact forward W/D/L Negamax consumption/execution policy
 ```
 
-The broader research architecture is:
+The broader research model remains:
 
 ```text
 geometric winning-line axioms
+  -> support / future event frontier
   -> CPC control parity / event precedence / race
-  -> WSL-625 requirements and blockers
+  -> WSL-625 residual requirements and blockers
   -> NDC nested dependency closure
   -> solver-specific exact proof procedure
 ```
 
-BSFP is the backward fixed-point solver lane. Quotient Negamax is a separate exact forward solver/control that should consume the same structural facts where applicable rather than flatten them into conventional search heuristics.
+BSFP is the separate backward fixed-point solver lane. The forward Negamax lane is an exact forward solver/control over unresolved decisions after exact frontier facts are consumed.
 
-## Current objective
+## CPC invariant
 
-Bring the forward W/D/L Negamax implementation into conformance with the frontier mathematics **before another standard-7x6 root performance claim**.
+For target event `t=(c,r)` in the base event reservoir:
 
-The immediate objective is not another larger TT or deeper fixed split. It is to remove conventional-engine assumptions that distorted the previous root experiments.
+```text
+N(t)
+  = (r - h_c + 1)
+    + sum_{d != c}(H - h_d)
+  = (W - 1)H - ply + r + 1
+```
 
-## Exact forward quotient projection
+Future control is event-rank parity relative to side to move. If a strategy/frontier transformation changes the relevant reservoir by `Delta`, control is preserved only when the relevant parity change is even and the associated response/resource/event-order guards remain valid.
 
-The current ordinary forward projection remains:
+CPC is not static row parity. No current forward proof code claims general CPC/NDC strategic closure unless the complete premises are represented.
+
+## Exact forward projection
+
+The currently qualified ordinary forward quotient remains:
 
 ```text
 q = supportIndex
@@ -47,133 +55,163 @@ q = supportIndex
 sideToMove = rank(supportIndex) & 1
 ```
 
-Complete bounded controls checked 1,681,808 reachable physical states with zero quotient/exact W/D/L mismatches in the qualified campaigns.
+Complete bounded controls checked 1,681,808 reachable physical states with zero qualified quotient/WDL mismatches.
 
-This projection is not the whole NDC closure state. Strategic certificate facts that depend on parity reservoirs, response resources, blockers, event order, race horizon or deadlines require those premises to remain derivable or explicitly represented.
+This projection is not the complete NDC closure state. Strategic facts with additional parity/resource/race/horizon premises cannot be cached under `q` alone unless those premises are derivable from it.
 
-## CPC control invariant
+## Frontier-native execution now implemented
 
-For base target event `t=(c,r)`:
+The conformance branch has removed the conventional execution assumptions identified by the frontier audit.
 
-```text
-N(t)
-  = (r - h_c + 1)
-    + sum_{d != c}(H - h_d)
-  = (W - 1)H - ply + r + 1
-```
+### Dynamic live-line ordering
 
-Future control is determined by event-rank parity relative to side to move.
-
-If a strategy/frontier transformation changes the relevant reservoir by `Delta`, control is preserved only when the relevant parity change is even and the corresponding resource/response/event-order guards still hold.
-
-Therefore CPC must not be replaced by static row parity, and a compressed frontier may not silently discard the parity effect of omitted/released events.
-
-## Frontier move value
-
-The legacy player-relative live-line value is:
+Move value is derived from the player-relative live geometric-line frontier:
 
 ```text
 value_p(cell)
   = number of original geometric winning lines through cell
-    with no opponent stone in that line
+    containing no opponent stone
 ```
 
-One opponent stone cancels the line for player `p`; own stones do not.
+An opponent stone permanently removes every incident line from that player's live-line set. Own stones do not cancel it. The standard empty-root `[3,4,5,7,5,4,3]` vector is a derived regression result only.
 
-The standard empty-root vector:
+The frontier is carried incrementally; authoritative workers reconstruct the exact frontier seed while replaying representative paths. Static center-first/reverse-by-worker ordering is no longer the active frontier policy.
+
+### Exact local closure/bounds
+
+The forward engine consumes:
+
+- immediate playable singleton win;
+- forced single response;
+- multiple immediate opponent threats -> forced loss where applicable;
+- one-sided WSL exhaustion as an exact no-win bound;
+- bilateral exhaustion as exact draw where terminal convention permits.
+
+This is still only the already-qualified local subset of the broader CPC/WSL/NDC terminalization algebra.
+
+### Forced macro normalization
+
+Repeated forced responses are traversed as deterministic transit before unresolved decision depth is incremented. Split depth now means **unresolved decision depth after forced macro normalization**, not raw ply depth.
+
+### Shared proof admission
+
+Ordinary proof lookup is non-allocating. Shared semantic proof storage is admitted only when retained proof/hint state is published.
+
+This removed the ambiguity in the earlier 8,388,608-entry result: a corrected 7x6 run still filled all 8,388,608 entries from retained proof publication alone, proving bounded proof replacement was actually required.
+
+### Generation-safe bounded proof replacement
+
+The shared semantic proof table is now 8-way set-associative with exact descriptor equality and generation-bearing proof handles.
+
+A stale handle:
+
+- reads as unknown `[-1,+1]`;
+- cannot publish into a replacement identity;
+- cannot carry a move hint into a replacement identity.
+
+Replacement and proof publication share the slot lifecycle lock. Generation wrap fails closed.
+
+A deliberately tiny 4x5 table remained exact through tens of thousands of replacements, including exact root actions `[0,0,0,0]`.
+
+### Slot-owned descriptor spans
+
+Descriptor term storage is now owned by the physical proof slot rather than by every semantic incarnation of that slot.
+
+On replacement:
+
+- if the new descriptor fits the slot's existing term span, the span is overwritten in place;
+- only a larger descriptor grows that slot's span;
+- generation changes on every replacement, preserving stale-handle safety.
+
+The constrained 4x5 control exercised 43,533 replacements with 36,709 span reuses and only 6,824 span grows while preserving exact root actions.
+
+## Parallel proof semantics
+
+The dependency-aware engine:
 
 ```text
-[3, 4, 5, 7, 5, 4, 3]
+preferred frontier child first
+  -> establish/tighten parent bound
+  -> expose dependency-qualified sibling scouts
+  -> consume scout completions incrementally
+  -> detach obsolete siblings after cutoff
 ```
 
-is derived evidence only.
+Busy workers are never interrupted. Detached proof work may finish naturally and publish sound shared proof; the parent no longer waits on obsolete siblings. `drainBackground()` prevents reset/cleanup from racing detached work.
 
-The current explore prototype reconstructs occupancy from a representative path. That was useful to verify the old value but is not the desired frontier-native representation. The next form should maintain player-relative live geometric-line masks/provenance incrementally as advisory branch context. It must not become quotient proof identity.
+Bounded 4x5 qualification remains exact. The best measured configuration on the current four-lane hosted control is three workers / unresolved-decision depth 3.
 
-## Current implementation mismatch
+## Branch Manager
 
-The active recursive Negamax engine still uses proof hint followed by `centerOrder`, and one worker path can reverse that order by worker salt. The authoritative solver therefore has not yet adopted frontier-native ordering.
+The old Maintenance Worker execution role has been removed from active source.
 
-Current forced-move handling also advances one forced ply at a time even though earlier research established deterministic forced macro-edge/decision-state handling as an exact structural optimization.
+Branch Manager now:
 
-The shared semantic TT currently allocates identity on proof read (`findOrCreate`). Thus every touched state, including deterministic transit states, consumes a shared slot. The previous 8,388,608-entry saturation proves touched/interned-state pressure under that admission policy, not that 8.39M retained proofs are intrinsically necessary.
+- auto-seeds structural exploration when enabled;
+- maintains a bounded ready reservoir ahead of worker demand;
+- replenishes from completed frontier fragments;
+- deduplicates persistent exploration context using exact q semantic content plus exact live-line frontier context;
+- never requires workers to request work and wait.
 
-## Branch Manager model
-
-**Branch Manager** is the current execution-role name.
-
-Its intended role is proactive bounded frontier-work supply and hosted background services. Search workers do not request new work and wait. Busy workers are not interrupted.
-
-Ready-work precedence is:
+Ready-work order remains:
 
 ```text
 authoritative dependency-qualified proof work
-  > queued frontier exploration
+  > queued structural frontier exploration
   > idle
 ```
 
-Exploration discovers frontier structure and likely future branches; only the Negamax dependency state can turn a branch into a parent-advancing alpha/beta obligation.
+Autonomous exploration is qualified independently but is disabled in the current standard-7x6 storage-isolation run.
 
-The rename is not yet completely propagated through all older campaigns/root-attempt files; stale `startOnlineMaintenanceHost` references remain and must be removed directly rather than preserved by aliases.
+## Standard 7x6 storage evidence
 
-## Exact terminal/strategic closure
+### Corrected proof-admission run
 
-Current `tacticalCode()` correctly specializes cheap local residual cases:
-
-- immediate playable singleton win;
-- one forced opponent singleton response;
-- multiple distinct playable opponent singleton threats -> forced loss where applicable;
-- bilateral exhaustion/no-continuation draw.
-
-This is not the full common terminalization algebra.
-
-The research model permits:
+With dynamic frontier ordering, WSL bounds, forced macros and non-allocating probes:
 
 ```text
-parity/response fact
-  -> certified blocker
-  -> WSL upward-closure elimination
-  -> changed event obligations
-  -> stronger parity/response fact
-  -> ...
+entries:        8,388,608 / 8,388,608
+term IDs:      99,025,439 / 460,000,000
+elapsed:       238.54 s
+root W/D/L:    unresolved
 ```
 
-with timing/race premises first-class. One-sided exhaustion is already an exact no-win bound and should be consumed by the forward solver.
+This established retained proof-entry count as a real limiter and exposed a severe near-full linear-probing cliff.
 
-## Current evidence retained
+### Generation-safe replacement with append-only descriptor terms
 
-Standard 7x6 representation checkpoints:
+Replacement removed the entry-count/open-addressing limiter but cumulative descriptor incarnation storage became the next limiter:
 
 ```text
-WSL term vocabulary:      625
-rank-8 q states:          797,388
-rank-8 residual classes:  1,357,101
-rank-9 frontier:          538,774
+live entries:       8,388,606
+replacements:      30,969,854
+term IDs:         459,999,997 / 460,000,000
+elapsed:           149.46 s
+root W/D/L:        unresolved
 ```
 
-Bounded dependency-aware parallel Negamax and online semantic identity both produced exact qualified results. The 7x6 depth-8 root attempt activated all three hosted search workers but exhausted an append-only 8,388,608-entry shared semantic table before root proof.
+That result motivated slot-owned reusable descriptor spans rather than a general concurrent free-list.
 
-That storage result must now be reinterpreted in light of allocate-on-read and deterministic-transit admission.
+### Current live measurement
 
-## Current work order
+Workflow run `34671597871` is the standard-7x6 root experiment using the qualified generation-safe replacement table **plus slot-owned descriptor spans**. It was triggered by commit `ccbcc64c1eccc31a0acd73599a688a5b326975f3` and is intentionally running with autonomous exploration disabled so descriptor lifetime is isolated.
 
-1. finish Branch Manager rename and remove obsolete maintenance-worker references;
-2. replace representative-board live-line reconstruction with incremental live-line frontier context;
-3. make authoritative Negamax ordering frontier-native;
-4. preserve CPC parity when frontier events are compressed/reserved/released;
-5. consume one-sided exhaustion and other already-qualified exact frontier bounds;
-6. collapse forced chains and use decision-state-aware proof admission;
-7. separate TT probe from allocation and remeasure actual retained-proof pressure;
-8. make Branch Manager self-replenishing with bounded semantic seen/dedup state;
-9. consume sibling proof completions incrementally without interrupting workers;
-10. rerun standard-7x6 only after these execution assumptions are removed.
+Do not launch a duplicate root run while this measurement is active.
+
+## Known next resource question
+
+If the current root does not close, the next measurement must identify worker-local growth rather than infer it from process RSS.
+
+Workers already report local q-state and residual-class counts per completed task. The next telemetry extension, if needed, is worker high-water aggregation (and then descriptor-cache high-water only if that remains ambiguous).
+
+Do not optimize worker-local memory before the current slot-span root result establishes whether it is actually the next limiter.
 
 ## Open mathematics
 
-Complete cheap forward integration of U1/U2/NDC is not yet established. In particular, early-game response-policy alternatives may or may not collapse completely into GF(2), monotone closure, dominance, matching or another compact algebra without strategic branching.
+Complete cheap forward integration of U1/U2/NDC remains open. In particular, early response-policy alternatives may or may not collapse completely into GF(2), monotone closure, dominance, matching or another compact algebra without strategic branching.
 
-Do not claim that the forward Negamax lane has solved that open problem merely because it can search through unresolved decisions.
+The forward solver must not claim this open problem is solved merely because Negamax can search unresolved decisions.
 
 ## Pre-alpha
 
-There is no released compatibility contract. Rename/replace/delete obsolete implementation directly and update all current consumers. Preserve useful research evidence, not compatibility debris.
+There is no released compatibility contract. Rename/replace/delete obsolete implementation directly and update current consumers coherently. Preserve useful research/evidence, not compatibility debris.
