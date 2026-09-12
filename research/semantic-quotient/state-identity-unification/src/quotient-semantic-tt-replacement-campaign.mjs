@@ -19,11 +19,13 @@ const GAME_TERM_CAPACITY = Number(process.env.REPLACEMENT_TERMS ?? (1 << 24));
 const WORKERS = Number(process.env.REPLACEMENT_WORKERS ?? 2);
 const SPLIT_DEPTH = Number(process.env.REPLACEMENT_SPLIT_DEPTH ?? 3);
 
-function syntheticDescriptor(id) {
+function syntheticDescriptor(id, total = 2) {
+  const ids = new Uint16Array(total);
+  for (let index = 0; index < total; index += 1) ids[index] = (id * 31 + index) % 625;
   return Object.freeze({
     supportIndex: id,
-    p0: Object.freeze({ ids: Uint16Array.of(id % 625) }),
-    p1: Object.freeze({ ids: Uint16Array.of((id + 1) % 625) }),
+    p0: Object.freeze({ ids }),
+    p1: Object.freeze({ ids: new Uint16Array(0) }),
     hash: Object.freeze({ lo: 0, hi: id + 1 }),
   });
 }
@@ -75,6 +77,53 @@ function runStaleHandleControl() {
     replacementHandle,
     tt: stats,
     proofStore: Object.freeze({ ...proofs.metrics }),
+  });
+}
+
+function runSlotChunkGrowthControl() {
+  const arena = createSemanticSharedTtArena({
+    entryCapacity: 8,
+    associativity: 8,
+    termCapacity: 640,
+  });
+  const tt = createSemanticSharedTtView(arena);
+  const firstHandles = [];
+
+  for (let lane = 0; lane < 8; lane += 1) {
+    firstHandles.push(tt.ensure(syntheticDescriptor(lane, 2)));
+  }
+
+  let latest = [];
+  for (let total = 3; total <= 20; total += 1) {
+    latest = [];
+    for (let lane = 0; lane < 8; lane += 1) {
+      const descriptor = syntheticDescriptor(total * 100 + lane, total);
+      const handle = tt.ensure(descriptor);
+      assert.equal(tt.probe(descriptor), handle, `grown descriptor ${total}/${lane} was not probe-stable`);
+      latest.push(descriptor);
+    }
+    for (const descriptor of latest) {
+      assert.ok(tt.probe(descriptor) >= 0, `current growth-stage descriptor ${descriptor.supportIndex} was evicted early`);
+    }
+  }
+
+  for (const handle of firstHandles) {
+    assert.ok(handle >= arena.entryCapacity, 'initial semantic handle was malformed');
+  }
+
+  const stats = tt.stats();
+  assert.equal(stats.entries, 8, 'chunk-growth control exceeded physical entry capacity');
+  assert.equal(stats.replacementsShared, 144, 'chunk-growth control replacement count drifted');
+  assert.equal(stats.termSpanGrowsShared, 144, 'every monotone synthetic growth should extend its physical slot');
+  assert.equal(stats.termChunkCountShared, 152, 'chunk-growth control allocated an unexpected number of slot-owned chunks');
+  assert.equal(stats.termIdsUsed, 160, 'slot-owned descriptor data capacity should equal eight final 20-term maxima');
+  assert.equal(stats.termHeaderWordsUsed, 456, 'chunk header footprint drifted');
+  assert.equal(stats.termArenaWordsUsed, 616, 'slot-owned chunks should remain within the deliberately tight arena');
+  assert.ok(stats.termArenaWordsUsed <= arena.termCapacity, 'chunk-growth control exceeded its bounded arena');
+
+  return Object.freeze({
+    latestSupports: Object.freeze(latest.map((descriptor) => descriptor.supportIndex)),
+    tt: stats,
   });
 }
 
@@ -145,13 +194,15 @@ async function runConstrainedGameControl() {
 }
 
 const staleHandleControl = runStaleHandleControl();
+const slotChunkGrowthControl = runSlotChunkGrowthControl();
 const constrainedGameControl = await runConstrainedGameControl();
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-replacement-qualification-v1',
+  kind: 'connect4-semantic-proof-replacement-qualification-v2',
   status: 'complete',
-  replacement: '8-way exact-descriptor set-associative with generation-bearing proof handles',
+  replacement: '8-way exact-descriptor set-associative with generation-bearing proof handles and slot-owned extension chunks',
   staleHandleControl,
+  slotChunkGrowthControl,
   constrainedGameControl,
 });
 
