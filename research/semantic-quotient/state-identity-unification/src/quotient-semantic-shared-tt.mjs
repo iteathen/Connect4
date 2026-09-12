@@ -1,6 +1,10 @@
+import { INITIAL_SEARCH_RECORD } from './quotient-negamax-search-record.mjs';
 import {
-  SHARED_INITIAL_RECORD,
-} from './quotient-shared-graph-lib.mjs';
+  hashResidualTermIds,
+  hashSemanticQuotientDescriptor,
+} from './quotient-semantic-identity.mjs';
+
+export { hashResidualTermIds, hashSemanticQuotientDescriptor } from './quotient-semantic-identity.mjs';
 
 const SLOT_EMPTY = 0;
 const SLOT_PUBLISHING = 1;
@@ -13,42 +17,6 @@ function nextPowerOfTwo(value) {
   let result = 1;
   while (result < value) result *= 2;
   return result;
-}
-
-function mix32(value) {
-  let x = value >>> 0;
-  x ^= x >>> 16;
-  x = Math.imul(x, 0x7feb352d) >>> 0;
-  x ^= x >>> 15;
-  x = Math.imul(x, 0x846ca68b) >>> 0;
-  x ^= x >>> 16;
-  return x >>> 0;
-}
-
-function foldTermIds(ids, seed, multiplier) {
-  let hash = seed >>> 0;
-  for (let index = 0; index < ids.length; index += 1) {
-    hash = Math.imul(hash ^ ((ids[index] + 1) >>> 0), multiplier) >>> 0;
-    hash = mix32(hash ^ index);
-  }
-  return mix32(hash ^ ids.length);
-}
-
-export function hashResidualTermIds(ids) {
-  return Object.freeze({
-    lo: foldTermIds(ids, 0x811c9dc5, 0x01000193),
-    hi: foldTermIds(ids, 0x9e3779b9, 0x85ebca6b),
-  });
-}
-
-export function hashSemanticQuotientDescriptor(supportIndex, p0Hash, p1Hash, p0Length, p1Length) {
-  let lo = mix32((supportIndex + 0x9e3779b9) >>> 0);
-  lo = mix32(lo ^ p0Hash.lo ^ Math.imul((p0Length + 1) >>> 0, 0x85ebca6b));
-  lo = mix32(lo ^ p1Hash.lo ^ Math.imul((p1Length + 1) >>> 0, 0xc2b2ae35));
-  let hi = mix32((supportIndex ^ 0xa5a5a5a5) >>> 0);
-  hi = mix32(hi ^ p0Hash.hi ^ Math.imul((p0Length + 3) >>> 0, 0x27d4eb2d));
-  hi = mix32(hi ^ p1Hash.hi ^ Math.imul((p1Length + 5) >>> 0, 0x165667b1));
-  return Object.freeze({ lo, hi });
 }
 
 export function createSemanticSharedTtArena(options = {}) {
@@ -68,10 +36,10 @@ export function createSemanticSharedTtArena(options = {}) {
   const p1LengthBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
   const recordBuffer = new SharedArrayBuffer(Uint8Array.BYTES_PER_ELEMENT * entryCapacity);
   const termBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * termCapacity);
-  new Uint8Array(recordBuffer).fill(SHARED_INITIAL_RECORD);
+  new Uint8Array(recordBuffer).fill(INITIAL_SEARCH_RECORD);
 
   return Object.freeze({
-    kind: 'connect4-exact-semantic-shared-tt-v1',
+    kind: 'connect4-exact-semantic-shared-tt-v2',
     entryCapacity,
     termCapacity,
     metaBuffer,
@@ -91,7 +59,7 @@ export function createSemanticSharedTtArena(options = {}) {
 export function resetSemanticSharedTtArena(arena) {
   new Int32Array(arena.metaBuffer).fill(0);
   new Int32Array(arena.statusBuffer).fill(SLOT_EMPTY);
-  new Uint8Array(arena.recordBuffer).fill(SHARED_INITIAL_RECORD);
+  new Uint8Array(arena.recordBuffer).fill(INITIAL_SEARCH_RECORD);
 }
 
 export function createSemanticSharedTtView(arena) {
@@ -153,7 +121,7 @@ export function createSemanticSharedTtView(arena) {
     p1Start[slot] = p1Offset;
     p0Length[slot] = p0Count;
     p1Length[slot] = p1Count;
-    records[slot] = SHARED_INITIAL_RECORD;
+    records[slot] = INITIAL_SEARCH_RECORD;
     Atomics.add(meta, META_ENTRY_COUNT, 1);
     metrics.inserts += 1;
     metrics.termIdsPublished += total;
