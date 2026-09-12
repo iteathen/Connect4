@@ -157,7 +157,7 @@ export function createPackedProofStore(arena) {
   if (!arena || !(arena.recordBuffer instanceof SharedArrayBuffer)) {
     throw new TypeError('packed proof store requires a proof arena');
   }
-  const semantic = arena.kind === 'connect4-exact-semantic-shared-tt-v4';
+  const semantic = arena.kind === 'connect4-exact-semantic-shared-tt-v5';
   const storage = semantic
     ? createSemanticPackedProofStore(arena)
     : createStaticPackedProofStore(arena);
