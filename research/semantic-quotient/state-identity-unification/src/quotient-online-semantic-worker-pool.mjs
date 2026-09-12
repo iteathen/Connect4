@@ -23,7 +23,7 @@ function oneReply(worker, expectedType, payload) {
 }
 
 export async function startOnlineMaintenanceHost(spec, options = {}) {
-  const worker = new Worker(new URL('./quotient-shared-dedup-worker.mjs', import.meta.url), {
+  const worker = new Worker(new URL('./quotient-maintenance-worker.mjs', import.meta.url), {
     workerData: {
       spec,
       prefixClasses: options.prefixClasses ?? 4096,
@@ -64,9 +64,6 @@ export async function startOnlineMaintenanceHost(spec, options = {}) {
     }),
   });
 }
-
-// Historical research alias. New code should use the execution-role name.
-export const startOnlineDedupOwner = startOnlineMaintenanceHost;
 
 export async function startOnlineSearchWorkers(count, spec, semanticArena, options = {}) {
   const workers = [];
