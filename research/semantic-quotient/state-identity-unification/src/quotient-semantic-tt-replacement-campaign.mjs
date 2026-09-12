@@ -176,12 +176,29 @@ async function runConstrainedGameControl() {
     const actionStats = tt.stats();
     assert.ok(actionStats.replacementsShared > 0, 'constrained action solve did not exercise replacement');
 
+    const executorStats = executor.stats();
+    const activeWorkerResources = executorStats.workerResources.filter((resource, index) => executorStats.workerTasks[index] > 0);
+    assert.ok(activeWorkerResources.length > 0, 'constrained game did not exercise search-worker descriptor storage');
+    for (const resource of activeWorkerResources) {
+      assert.ok(resource.descriptorClassBuildsHighWater > 0, 'worker did not construct residual semantic metadata');
+      assert.ok(resource.descriptorTermIdsCachedHighWater > 0, 'worker did not populate flat exact term storage');
+      assert.equal(resource.descriptorTermArrayObjectsCachedHighWater, 0, 'worker retained per-class term-array objects');
+      assert.equal(resource.descriptorClassObjectsCachedHighWater, 0, 'worker retained per-class semantic descriptor objects');
+      assert.ok(resource.descriptorClassMetadataBytesHighWater > 0, 'worker did not report class metadata storage');
+      assert.ok(resource.descriptorTermArenaBytesHighWater > 0, 'worker did not report flat term-arena storage');
+      assert.equal(
+        resource.descriptorRetainedTypedBytesHighWater,
+        resource.descriptorClassMetadataBytesHighWater + resource.descriptorTermArenaBytesHighWater,
+        'worker flat descriptor typed-byte ownership accounting drifted',
+      );
+    }
+
     return Object.freeze({
       root,
       actions: Object.freeze(actions),
       rootStats,
       actionStats,
-      executor: executor.stats(),
+      executor: executorStats,
       coordinatorMetrics: Object.freeze({ ...actionCoordinator.engine.metrics }),
     });
   } finally {
@@ -198,9 +215,9 @@ const slotChunkGrowthControl = runSlotChunkGrowthControl();
 const constrainedGameControl = await runConstrainedGameControl();
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-replacement-qualification-v2',
+  kind: 'connect4-semantic-proof-replacement-qualification-v3',
   status: 'complete',
-  replacement: '8-way exact-descriptor set-associative with generation-bearing proof handles and slot-owned extension chunks',
+  replacement: '8-way exact-descriptor set-associative with generation-bearing proof handles, slot-owned extension chunks, and flat worker semantic descriptor ownership',
   staleHandleControl,
   slotChunkGrowthControl,
   constrainedGameControl,
