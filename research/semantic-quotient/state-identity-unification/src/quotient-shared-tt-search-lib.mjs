@@ -8,7 +8,7 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
   const edges = new Int32Array(graph.edgeBuffer);
   const tactical = new Int16Array(graph.tacticalBuffer);
   const ranks = new Uint8Array(graph.rankBuffer);
-  const proofStore = createPackedProofStore(arena.recordBuffer);
+  const proofStore = createPackedProofStore(arena);
 
   const engine = createQuotientNegamaxEngine(Object.freeze({
     columns,
@@ -23,7 +23,6 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
   }), {
     etc: options.etc !== false,
     etcMinRemaining: options.etcMinRemaining ?? 0,
-    workerSalt: options.workerSalt ?? 0,
   });
 
   return Object.freeze({
