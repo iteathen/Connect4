@@ -12,7 +12,7 @@ import {
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 import { createOnlineSemanticQuotientPort } from './quotient-online-semantic-search-lib.mjs';
 import {
-  startOnlineMaintenanceHost,
+  startOnlineBranchManager,
   startOnlineSearchWorkers,
 } from './quotient-online-semantic-worker-pool.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
@@ -24,7 +24,7 @@ const DEPTHS = (process.env.SPLIT_DEPTHS ?? '2,3,4')
 const REQUESTED_WORKERS = (process.env.WORKER_COUNTS ?? '1,2,3,4')
   .split(',').map((value) => Number(value.trim())).filter((value) => Number.isInteger(value) && value > 0);
 const PREFIX_CLASSES = Number(process.env.PREFIX_CLASSES ?? 4096);
-const PRIORITY_PROBE_DEPTH = Number(process.env.PRIORITY_PROBE_DEPTH ?? 2);
+const PRIORITY_PROBE_DEPTH = Number(process.env.PRIORITY_PROBE_DEPTH ?? 0);
 const EXPECTED_ACTIONS = Object.freeze([0, 0, 0, 0]);
 
 function assert(condition, message) {
@@ -60,22 +60,19 @@ function createCoordinator(kernel, semanticArena, executor, splitDepth) {
     return child;
   }
 
-  const port = Object.freeze({
-    ...basePort,
-    transition,
-  });
-
+  const port = Object.freeze({ ...basePort, transition });
   const estimateMemo = new Map();
   function estimate(stateId, depth = PRIORITY_PROBE_DEPTH) {
+    if (depth <= 0) return 1;
     const key = `${stateId}:${depth}`;
     const prior = estimateMemo.get(key);
     if (prior !== undefined) return prior;
-    if (tacticalExactValue(kernel.tacticalCode(stateId)) !== null || depth <= 0) {
+    if (tacticalExactValue(kernel.tacticalCode(stateId)) !== null) {
       estimateMemo.set(key, 1);
       return 1;
     }
     let cost = 1;
-    for (const column of kernel.centerOrder) {
+    for (let column = 0; column < kernel.columns; column += 1) {
       if (!basePort.isLegal(stateId, column)) continue;
       const child = transition(stateId, column);
       if (child === QN_TERMINAL_WIN) cost += 1;
@@ -90,12 +87,7 @@ function createCoordinator(kernel, semanticArena, executor, splitDepth) {
     (stateId, alpha, beta, priority) => {
       const path = paths[stateId];
       if (!path) throw new Error(`missing leaf path for state ${stateId}`);
-      return executor.submit({
-        type: 'search-path',
-        path,
-        alpha,
-        beta,
-      }, priority);
+      return executor.submit({ type: 'search-path', path, alpha, beta }, priority);
     },
     {
       splitDepth,
@@ -113,19 +105,20 @@ function assertActions(actions, label) {
   }
 }
 
-const maintenance = await startOnlineMaintenanceHost(SPEC, {
+const branchManager = await startOnlineBranchManager(SPEC, {
+  prebuildGraph: false,
   prefixClasses: PREFIX_CLASSES,
   entryCapacity: 1 << 19,
   termCapacity: 1 << 24,
 });
-const semanticArena = maintenance.published.semanticArena;
+const semanticArena = branchManager.published.semanticArena;
 
 const baselineKernel = createLocalKernel();
 const baselineSemantic = createOnlineSemanticQuotientPort(baselineKernel, semanticArena);
 const baselineEngine = createQuotientNegamaxEngine(baselineSemantic.port, { etc: false });
 const baselineRuns = [];
 for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-  await maintenance.reset();
+  await branchManager.reset();
   const started = performance.now();
   const value = baselineEngine.search(baselineKernel.rootId, -2, 2);
   const elapsedMs = performance.now() - started;
@@ -134,20 +127,10 @@ for (let repeat = 0; repeat < REPEATS; repeat += 1) {
     elapsedMs,
     expanded: baselineEngine.metrics.expanded,
     calls: baselineEngine.metrics.calls,
+    forcedMacroTransitions: baselineEngine.metrics.forcedMacroTransitions,
+    proofAdmissions: baselineEngine.metrics.proofAdmissions,
   }));
-  baselineEngine.metrics.calls = 0;
-  baselineEngine.metrics.expanded = 0;
-  baselineEngine.metrics.ttExactReturns = 0;
-  baselineEngine.metrics.ttBoundReturns = 0;
-  baselineEngine.metrics.ttMoveOrderHits = 0;
-  baselineEngine.metrics.cutoffs = 0;
-  baselineEngine.metrics.firstMoveCutoffs = 0;
-  baselineEngine.metrics.tacticalExact = 0;
-  baselineEngine.metrics.forcedNodes = 0;
-  baselineEngine.metrics.etcProbes = 0;
-  baselineEngine.metrics.etcCutoffs = 0;
-  baselineEngine.metrics.thresholdPasses = 0;
-  baselineEngine.metrics.transitionsRequested = 0;
+  for (const key of Object.keys(baselineEngine.metrics)) baselineEngine.metrics[key] = 0;
 }
 
 const results = [];
@@ -161,7 +144,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
   const coordinatorKernel = createLocalKernel();
   try {
     for (const splitDepth of DEPTHS) {
-      await maintenance.reset();
+      await branchManager.reset();
       {
         const warm = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
         const value = await warm.engine.solveRoot();
@@ -171,7 +154,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
 
       const runs = [];
       for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-        await maintenance.reset();
+        await branchManager.reset();
         const coordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
         const started = performance.now();
         const value = await coordinator.engine.solveRoot();
@@ -189,12 +172,14 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
           scoutTasks: coordinator.engine.metrics.scoutTasks,
           reSearches: coordinator.engine.metrics.reSearches,
           parallelBatches: coordinator.engine.metrics.parallelBatches,
+          forcedMacroTransitions: coordinator.engine.metrics.forcedMacroTransitions,
+          proofAdmissions: coordinator.engine.metrics.proofAdmissions,
           coordinatorStates: coordinatorKernel.states.count,
           coordinatorClasses: coordinatorKernel.classes.size,
         }));
       }
 
-      await maintenance.reset();
+      await branchManager.reset();
       const actionCoordinator = createCoordinator(coordinatorKernel, semanticArena, executor, splitDepth);
       const actions = await actionCoordinator.engine.rootActionValues();
       await executor.drain();
@@ -204,6 +189,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         requestedWorkers,
         workers: workerCount,
         splitDepth,
+        splitDepthMeaning: 'unresolved_decision_depth_after_forced_macro_normalization',
         elapsedMsMedian: median(runs.map((run) => run.elapsedMs)),
         totalExpandedMedian: median(runs.map((run) => run.totalExpanded)),
         shallowExpandedMedian: median(runs.map((run) => run.shallowExpanded)),
@@ -223,8 +209,8 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
   }
 }
 
-await maintenance.cleanup();
-await maintenance.worker.terminate();
+await branchManager.cleanup();
+await branchManager.worker.terminate();
 
 const baseline = Object.freeze({
   elapsedMsMedian: median(baselineRuns.map((run) => run.elapsedMs)),
@@ -234,7 +220,7 @@ const baseline = Object.freeze({
 });
 const ranked = [...results].sort((a, b) => a.elapsedMsMedian - b.elapsedMsMedian);
 const summary = Object.freeze({
-  kind: 'connect4-online-dependency-aware-parallel-negamax-v1',
+  kind: 'connect4-online-frontier-dependency-parallel-negamax-v2',
   status: 'complete',
   spec: SPEC,
   repeats: REPEATS,
@@ -242,6 +228,9 @@ const summary = Object.freeze({
   priorityProbeDepth: PRIORITY_PROBE_DEPTH,
   completeGlobalGraphRequiredByRecursiveSearch: false,
   canonicalProofIdentity: 'exact_semantic_descriptor',
+  ordering: 'dynamic_live_winning_line_frontier',
+  forcedTransit: 'macro_normalized_before_decision_depth',
+  sharedProofAdmission: 'probe_without_allocation_then_ensure_on_publication',
   baseline,
   results,
   best: ranked[0] ?? null,
