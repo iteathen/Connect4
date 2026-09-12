@@ -1,15 +1,8 @@
 import { availableParallelism } from 'node:os';
 import { performance } from 'node:perf_hooks';
-import {
-  QN_ILLEGAL,
-  QN_TERMINAL_WIN,
-  tacticalExactValue,
-} from './quotient-negamax-domain-contract.mjs';
-import {
-  createDependencyAwareQuotientNegamaxEngine,
-  createQuotientNegamaxEngine,
-} from './quotient-negamax-engine.mjs';
+import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
+import { createOnlineDependencyCoordinator } from './quotient-online-dependency-coordinator.mjs';
 import { createOnlineSemanticQuotientPort } from './quotient-online-semantic-search-lib.mjs';
 import {
   startOnlineBranchManager,
@@ -19,10 +12,6 @@ import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mj
 
 const SPEC = Object.freeze({ columns: 4, rows: 5, connect: 4 });
 const REPEATS = Number(process.env.REPEATS ?? 5);
-const DEPTHS = (process.env.SPLIT_DEPTHS ?? '2,3,4')
-  .split(',').map((value) => Number(value.trim())).filter((value) => Number.isInteger(value) && value > 0);
-const REQUESTED_WORKERS = (process.env.WORKER_COUNTS ?? '1,2,3,4')
-  .split(',').map((value) => Number(value.trim())).filter((value) => Number.isInteger(value) && value > 0);
 const PREFIX_CLASSES = Number(process.env.PREFIX_CLASSES ?? 4096);
 const PRIORITY_PROBE_DEPTH = Number(process.env.PRIORITY_PROBE_DEPTH ?? 0);
 const EXPECTED_ACTIONS = Object.freeze([0, 0, 0, 0]);
@@ -31,7 +20,26 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+function parsePositiveIntegerList(raw, label) {
+  const parts = raw.split(',').map((value) => value.trim());
+  if (parts.length === 0 || parts.some((value) => value.length === 0)) throw new Error(`${label} contains an empty entry`);
+  const values = parts.map(Number);
+  if (values.some((value) => !Number.isInteger(value) || value < 1)) {
+    throw new Error(`${label} must contain only positive integers`);
+  }
+  return Object.freeze(values);
+}
+
+const DEPTHS = parsePositiveIntegerList(process.env.SPLIT_DEPTHS ?? '2,3,4', 'SPLIT_DEPTHS');
+const REQUESTED_WORKERS = parsePositiveIntegerList(process.env.WORKER_COUNTS ?? '1,2,3,4', 'WORKER_COUNTS');
+assert(Number.isInteger(REPEATS) && REPEATS >= 1, 'REPEATS must be positive');
+assert(Number.isInteger(PREFIX_CLASSES) && PREFIX_CLASSES >= 1, 'PREFIX_CLASSES must be positive');
+assert(Number.isInteger(PRIORITY_PROBE_DEPTH) && PRIORITY_PROBE_DEPTH >= 0 && PRIORITY_PROBE_DEPTH <= SPEC.columns * SPEC.rows, 'PRIORITY_PROBE_DEPTH out of range');
+assert(DEPTHS.every((depth) => depth <= SPEC.columns * SPEC.rows), 'SPLIT_DEPTHS exceeds board cell count');
+
 function median(values) {
+  assert(Array.isArray(values) && values.length > 0, 'median requires values');
+  assert(values.every(Number.isFinite), 'median requires finite values');
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
   return (sorted.length & 1) === 1 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
@@ -45,61 +53,14 @@ function createLocalKernel() {
 }
 
 function createCoordinator(kernel, semanticArena, executor, splitDepth) {
-  const semantic = createOnlineSemanticQuotientPort(kernel, semanticArena);
-  const basePort = semantic.port;
-  const paths = [];
-  paths[kernel.rootId] = Object.freeze([]);
-
-  function transition(stateId, column) {
-    const child = basePort.transition(stateId, column);
-    if (child >= 0 && paths[child] === undefined) {
-      const parentPath = paths[stateId];
-      if (!parentPath) throw new Error(`missing representative path for state ${stateId}`);
-      paths[child] = Object.freeze([...parentPath, column]);
-    }
-    return child;
-  }
-
-  const port = Object.freeze({ ...basePort, transition });
-  const estimateMemo = new Map();
-  function estimate(stateId, depth = PRIORITY_PROBE_DEPTH) {
-    if (depth <= 0) return 1;
-    const key = `${stateId}:${depth}`;
-    const prior = estimateMemo.get(key);
-    if (prior !== undefined) return prior;
-    if (tacticalExactValue(kernel.tacticalCode(stateId)) !== null) {
-      estimateMemo.set(key, 1);
-      return 1;
-    }
-    let cost = 1;
-    for (let column = 0; column < kernel.columns; column += 1) {
-      if (!basePort.isLegal(stateId, column)) continue;
-      const child = transition(stateId, column);
-      if (child === QN_TERMINAL_WIN) cost += 1;
-      else if (child !== QN_ILLEGAL) cost += estimate(child, depth - 1);
-    }
-    estimateMemo.set(key, cost);
-    return cost;
-  }
-
-  const engine = createDependencyAwareQuotientNegamaxEngine(
-    port,
-    (stateId, alpha, beta, priority) => {
-      const path = paths[stateId];
-      if (!path) throw new Error(`missing leaf path for state ${stateId}`);
-      return executor.submit({ type: 'search-path', path, alpha, beta }, priority);
-    },
-    {
-      splitDepth,
-      priorityAt: (stateId) => estimate(stateId),
-    },
-  );
-
-  return Object.freeze({ engine, paths, semantic, estimateMemo });
+  return createOnlineDependencyCoordinator(kernel, semanticArena, executor, {
+    splitDepth,
+    priorityProbeDepth: PRIORITY_PROBE_DEPTH,
+  });
 }
 
 function assertActions(actions, label) {
-  assert(actions.length === EXPECTED_ACTIONS.length, `${label}: action length mismatch`);
+  assert(Array.isArray(actions) && actions.length === EXPECTED_ACTIONS.length, `${label}: action length mismatch`);
   for (let column = 0; column < EXPECTED_ACTIONS.length; column += 1) {
     assert(actions[column] === EXPECTED_ACTIONS[column], `${label}: column ${column} expected 0, got ${actions[column]}`);
   }
@@ -166,6 +127,7 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
         assert(value === 0, `workers=${workerCount} depth=${splitDepth}: expected draw, got ${value}`);
         const executorStats = executor.stats();
         assert(executorStats.active === 0 && executorStats.queued === 0 && executorStats.pending === 0, 'executor retained work after solve');
+        assert(executorStats.poisoned === false, 'executor became poisoned during successful solve');
         runs.push(Object.freeze({
           rootResolvedMs,
           elapsedMs,
@@ -183,6 +145,9 @@ for (const requestedWorkers of REQUESTED_WORKERS) {
           proofAdmissions: coordinator.engine.metrics.proofAdmissions,
           coordinatorStates: coordinatorKernel.states.count,
           coordinatorClasses: coordinatorKernel.classes.size,
+          coordinatorPaths: coordinator.metrics.pathsStored,
+          priorityMemoEntries: coordinator.estimateMemo.size,
+          priorityMemoDrops: coordinator.metrics.priorityMemoDrops,
         }));
       }
 
@@ -230,7 +195,7 @@ const baseline = Object.freeze({
 });
 const ranked = [...results].sort((a, b) => a.rootResolvedMsMedian - b.rootResolvedMsMedian || a.elapsedMsMedian - b.elapsedMsMedian);
 const summary = Object.freeze({
-  kind: 'connect4-online-frontier-dependency-parallel-negamax-v3',
+  kind: 'connect4-online-frontier-dependency-parallel-negamax-v4',
   status: 'complete',
   spec: SPEC,
   repeats: REPEATS,
@@ -238,9 +203,10 @@ const summary = Object.freeze({
   priorityProbeDepth: PRIORITY_PROBE_DEPTH,
   completeGlobalGraphRequiredByRecursiveSearch: false,
   canonicalProofIdentity: 'exact_semantic_descriptor',
+  coordinatorImplementation: 'createOnlineDependencyCoordinator',
   ordering: 'dynamic_live_winning_line_frontier',
   forcedTransit: 'macro_normalized_before_decision_depth',
-  sharedProofAdmission: 'probe_without_allocation_then_ensure_on_publication',
+  sharedProofAdmission: 'probe_without_allocation_then_generation_stable_read_or_rebind_on_publication',
   siblingCompletion: 'incremental_completion_order_with_noninterrupting_detach_after_cutoff',
   baseline,
   results,
