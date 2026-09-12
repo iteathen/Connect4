@@ -10,10 +10,34 @@ function asError(error, fallback) {
   return new Error(String(error));
 }
 
-function waitForWorkerMessage(worker, accept, payload = null, label = 'worker reply') {
-  if (!worker || typeof worker.on !== 'function' || typeof worker.off !== 'function' || typeof worker.postMessage !== 'function') {
-    return Promise.reject(new TypeError(`${label} requires a Worker-like object`));
+function positiveSafeInteger(value, label, maximum = Number.MAX_SAFE_INTEGER) {
+  if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
+    throw new RangeError(`${label} must be a safe integer in 1..${maximum}`);
   }
+  return value;
+}
+
+function nextRequestId() {
+  const id = positiveSafeInteger(requestId, 'Branch Manager requestId');
+  if (requestId === Number.MAX_SAFE_INTEGER) throw new RangeError('Branch Manager requestId space exhausted');
+  requestId += 1;
+  return id;
+}
+
+function assertWorkerLike(worker, label) {
+  if (!worker || typeof worker.on !== 'function' || typeof worker.off !== 'function'
+      || typeof worker.postMessage !== 'function' || typeof worker.terminate !== 'function') {
+    throw new TypeError(`${label} requires a Worker-like object`);
+  }
+}
+
+function waitForWorkerMessage(worker, accept, payload = null, label = 'worker reply') {
+  try {
+    assertWorkerLike(worker, label);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+  if (typeof accept !== 'function') return Promise.reject(new TypeError(`${label} requires an accept function`));
   return new Promise((resolve, reject) => {
     let settled = false;
     const cleanup = () => {
@@ -61,7 +85,9 @@ function waitForWorkerMessage(worker, accept, payload = null, label = 'worker re
 }
 
 function oneReply(worker, expectedType, payload) {
-  const id = requestId++;
+  if (typeof expectedType !== 'string' || expectedType.length === 0) throw new TypeError('expected reply type must be non-empty');
+  if (!payload || typeof payload !== 'object' || typeof payload.type !== 'string') throw new TypeError('Branch Manager payload must have a type');
+  const id = nextRequestId();
   return waitForWorkerMessage(
     worker,
     (message) => {
@@ -77,24 +103,29 @@ function oneReply(worker, expectedType, payload) {
 }
 
 async function terminateWorkers(workers) {
-  await Promise.allSettled(workers.map((worker) => worker.terminate()));
+  const results = await Promise.allSettled(workers.map((worker) => worker.terminate()));
+  const failures = results.filter((result) => result.status === 'rejected').map((result) => result.reason);
+  if (failures.length > 0) throw new AggregateError(failures, 'one or more worker terminations failed');
 }
 
 export async function startOnlineBranchManager(spec, options = {}) {
+  if (!spec || typeof spec !== 'object') throw new TypeError('Branch Manager requires a domain spec');
+  const prefixClasses = positiveSafeInteger(options.prefixClasses ?? 4096, 'Branch Manager prefixClasses', 0x7fffffff);
+  const entryCapacity = positiveSafeInteger(options.entryCapacity ?? (1 << 19), 'Branch Manager entryCapacity', 0x40000000);
+  const termCapacity = positiveSafeInteger(options.termCapacity ?? (1 << 24), 'Branch Manager termCapacity', 0x7fffffff);
   const worker = new Worker(new URL('./quotient-branch-manager-worker.mjs', import.meta.url), {
     workerData: {
       spec,
       prebuildGraph: options.prebuildGraph !== false,
-      prefixClasses: options.prefixClasses ?? 4096,
-      semanticTt: {
-        entryCapacity: options.entryCapacity ?? (1 << 19),
-        termCapacity: options.termCapacity ?? (1 << 24),
-      },
+      prefixClasses,
+      semanticTt: { entryCapacity, termCapacity },
       explore: {
         enabled: options.exploreEnabled === true,
         depth: options.exploreDepth ?? 3,
         reservoirTarget: options.exploreReservoirTarget ?? 4,
         backlogCapacity: options.exploreBacklogCapacity ?? 64,
+        historyCapacity: options.exploreHistoryCapacity ?? 4096,
+        completedCapacity: options.exploreCompletedCapacity ?? 64,
       },
     },
   });
@@ -141,16 +172,26 @@ export async function startOnlineBranchManager(spec, options = {}) {
     assertHealthy();
     if (typeof listener !== 'function') throw new TypeError('explore listener must be a function');
     exploreListeners.add(listener);
-    while (readyExplore.length > 0) listener(readyExplore.shift());
+    try {
+      while (readyExplore.length > 0) listener(readyExplore.shift());
+    } catch (error) {
+      exploreListeners.delete(listener);
+      listenerError ??= asError(error, 'explore listener failed while draining queued hints');
+      throw listenerError;
+    }
     return () => exploreListeners.delete(listener);
   }
 
   async function cleanup() {
-    assertHealthy();
-    const result = await oneReply(worker, 'cleanup-complete', { type: 'cleanup' });
-    worker.off('message', onQueuedExplore);
-    exploreListeners.clear();
-    readyExplore.length = 0;
+    let result;
+    try {
+      // Cleanup must remain callable even after a client-side listener failure.
+      result = await oneReply(worker, 'cleanup-complete', { type: 'cleanup' });
+    } finally {
+      worker.off('message', onQueuedExplore);
+      exploreListeners.clear();
+      readyExplore.length = 0;
+    }
     return result;
   }
 
@@ -164,10 +205,12 @@ export async function startOnlineBranchManager(spec, options = {}) {
     stopExplore: () => { assertHealthy(); return oneReply(worker, 'explore-session-stopped', { type: 'stop-explore-session' }); },
     completeExplore: (hintId, fragment) => {
       assertHealthy();
+      positiveSafeInteger(hintId, 'explore hintId');
       return oneReply(worker, 'explore-hint-completed', { type: 'complete-explore-hint', hintId, fragment });
     },
     abandonExplore: (hintId) => {
       assertHealthy();
+      positiveSafeInteger(hintId, 'explore hintId');
       return oneReply(worker, 'explore-hint-abandoned', { type: 'abandon-explore-hint', hintId });
     },
     takeExploreResult: () => { assertHealthy(); return oneReply(worker, 'explore-result', { type: 'take-explore-result' }); },
@@ -177,18 +220,23 @@ export async function startOnlineBranchManager(spec, options = {}) {
     },
     reducePlan: (planId, frontierValues) => {
       assertHealthy();
+      positiveSafeInteger(planId, 'planId');
+      if (!Array.isArray(frontierValues)) throw new TypeError('frontierValues must be an array');
       return oneReply(worker, 'plan-reduced', { type: 'reduce-plan', planId, frontierValues });
     },
     releasePlan: (planId) => {
       assertHealthy();
+      positiveSafeInteger(planId, 'planId');
       return oneReply(worker, 'plan-released', { type: 'release-plan', planId });
     },
   });
 }
 
 export async function startOnlineSearchWorkers(count, spec, semanticArena, options = {}) {
-  if (!Number.isInteger(count) || count < 1) throw new RangeError('search worker count must be a positive integer');
+  positiveSafeInteger(count, 'search worker count', 256);
+  if (!spec || typeof spec !== 'object') throw new TypeError('search workers require a domain spec');
   if (!semanticArena || typeof semanticArena !== 'object') throw new TypeError('search workers require a semantic arena');
+  const prefixClasses = positiveSafeInteger(options.prefixClasses ?? 4096, 'search worker prefixClasses', 0x7fffffff);
 
   const workers = [];
   const ready = [];
@@ -199,7 +247,7 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
           workerId,
           spec,
           semanticArena,
-          prefixClasses: options.prefixClasses ?? 4096,
+          prefixClasses,
           etc: options.etc === true,
         },
       });
@@ -218,7 +266,11 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
     await Promise.all(ready);
     return workers;
   } catch (error) {
-    await terminateWorkers(workers);
+    try {
+      await terminateWorkers(workers);
+    } catch (terminationError) {
+      throw new AggregateError([asError(error, 'search worker startup failed'), terminationError], 'search worker startup and cleanup failed');
+    }
     throw error;
   }
 }
@@ -226,14 +278,29 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
 function addMetrics(target, source) {
   for (const [key, value] of Object.entries(source ?? {})) {
     if (typeof value !== 'number') continue;
-    if (!Number.isFinite(value)) throw new Error(`worker metric ${key} is not finite`);
+    if (!Number.isFinite(value) || value < 0) throw new Error(`worker metric ${key} must be finite and non-negative`);
     target[key] = (target[key] ?? 0) + value;
+  }
+}
+
+function assertPathTask(task) {
+  if (!task || !Number.isSafeInteger(task.stateId) || task.stateId < 0 || !Array.isArray(task.path)) {
+    throw new TypeError('invalid online path task');
+  }
+  for (let index = 0; index < task.path.length; index += 1) {
+    const column = task.path[index];
+    if (!Number.isSafeInteger(column) || column < 0) {
+      throw new RangeError(`online path task column ${column} at ply ${index} must be non-negative`);
+    }
   }
 }
 
 export async function runOnlinePathTasks(workers, tasks) {
   if (!Array.isArray(workers) || workers.length < 1) throw new RangeError('runOnlinePathTasks requires workers');
+  if (new Set(workers).size !== workers.length) throw new Error('runOnlinePathTasks requires unique workers');
+  for (let index = 0; index < workers.length; index += 1) assertWorkerLike(workers[index], `path worker ${index}`);
   if (!Array.isArray(tasks)) throw new TypeError('runOnlinePathTasks tasks must be an array');
+  for (const task of tasks) assertPathTask(task);
   if (tasks.length === 0) {
     return Object.freeze({
       solveMs: 0,
@@ -271,8 +338,14 @@ export async function runOnlinePathTasks(workers, tasks) {
     const finishReject = (error) => {
       if (settled) return;
       settled = true;
+      const fatal = asError(error, 'online path task failed');
       cleanup();
-      reject(asError(error, 'online path task failed'));
+      // A worker may still be executing the failed batch. Terminate the whole pool so
+      // stale replies can never contaminate a later runOnlinePathTasks invocation.
+      terminateWorkers(workers).then(
+        () => reject(fatal),
+        (terminationError) => reject(new AggregateError([fatal, terminationError], 'online path task and worker cleanup failed')),
+      );
     };
     const finishResolve = () => {
       if (settled) return;
@@ -283,8 +356,8 @@ export async function runOnlinePathTasks(workers, tasks) {
     const dispatch = (worker, workerIndex) => {
       const task = queue.shift();
       if (task === undefined) return;
-      if (!task || !Number.isInteger(task.stateId) || task.stateId < 0 || !Array.isArray(task.path)) {
-        finishReject(new TypeError('invalid online path task'));
+      if (nextTaskId === Number.MAX_SAFE_INTEGER) {
+        finishReject(new RangeError('online path task ID space exhausted'));
         return;
       }
       const taskId = nextTaskId++;
@@ -324,14 +397,14 @@ export async function runOnlinePathTasks(workers, tasks) {
         }
         try {
           assertWdlValue(message.value, `worker ${workerIndex} path result`);
-          if (!Number.isInteger(message.plannerStateId) || message.plannerStateId < 0) {
+          if (!Number.isSafeInteger(message.plannerStateId) || message.plannerStateId < 0) {
             throw new Error(`worker ${workerIndex} returned invalid planner state ${message.plannerStateId}`);
           }
           frontierValues.push([message.plannerStateId, message.value]);
           addMetrics(metrics, message.metrics);
           const localStates = message.localStates ?? 0;
           const localClasses = message.localClasses ?? 0;
-          if (!Number.isFinite(localStates) || localStates < 0 || !Number.isFinite(localClasses) || localClasses < 0) {
+          if (!Number.isSafeInteger(localStates) || localStates < 0 || !Number.isSafeInteger(localClasses) || localClasses < 0) {
             throw new Error(`worker ${workerIndex} returned invalid local resource counters`);
           }
           localStateHighWater[workerIndex] = Math.max(localStateHighWater[workerIndex], localStates);
