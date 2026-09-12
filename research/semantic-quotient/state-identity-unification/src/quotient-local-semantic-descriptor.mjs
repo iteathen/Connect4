@@ -1,7 +1,7 @@
 import {
   createQuotientSemanticClassReferenceDescriptor,
   hashResidualTermIds,
-  hashSemanticQuotientDescriptorParts,
+  hashSemanticQuotientDescriptorPartsUnchecked,
 } from './quotient-semantic-identity.mjs';
 
 const CLASS_UNKNOWN_LENGTH = 0xffff;
@@ -14,6 +14,13 @@ function nextPowerOfTwo(value) {
 }
 
 export function createLocalSemanticDescriptorCache(kernel) {
+  if (!kernel || typeof kernel !== 'object' || !kernel.states || !kernel.classes) {
+    throw new TypeError('local semantic descriptor cache requires a quotient kernel');
+  }
+  if (typeof kernel.classes.termIds !== 'function') {
+    throw new TypeError('local semantic descriptor cache requires classes.termIds');
+  }
+
   let classCapacity = INITIAL_CLASS_CAPACITY;
   let classLengths = new Uint16Array(classCapacity);
   let classHashLo = new Uint32Array(classCapacity);
@@ -51,9 +58,27 @@ export function createLocalSemanticDescriptorCache(kernel) {
   }
   refreshRetainedBytes();
 
+  function assertClassId(classId) {
+    const size = kernel.classes.size;
+    if (!Number.isInteger(size) || size < 0) throw new Error(`residual class pool reported invalid size ${size}`);
+    if (!Number.isInteger(classId) || classId < 0 || classId >= size) {
+      throw new RangeError(`residual class id ${classId} is outside current class count ${size}`);
+    }
+  }
+
+  function assertStateId(stateId) {
+    const count = kernel.states.count;
+    if (!Number.isInteger(count) || count < 1) throw new Error(`quotient state pool reported invalid count ${count}`);
+    if (!Number.isInteger(stateId) || stateId < 0 || stateId >= count) {
+      throw new RangeError(`semantic state id ${stateId} is outside current state count ${count}`);
+    }
+  }
+
   function ensureClassCapacity(required) {
+    if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid semantic class capacity request ${required}`);
     if (required <= classCapacity) return;
     const next = nextPowerOfTwo(required);
+    if (!Number.isSafeInteger(next) || next <= classCapacity) throw new RangeError(`semantic class capacity overflow at ${required}`);
     const lengths = new Uint16Array(next);
     lengths.fill(CLASS_UNKNOWN_LENGTH);
     lengths.set(classLengths);
@@ -69,14 +94,21 @@ export function createLocalSemanticDescriptorCache(kernel) {
   }
 
   function materializeClassTerms(classId) {
+    assertClassId(classId);
     const ids = kernel.classes.termIds(classId);
+    if (!(ids instanceof Uint16Array)) {
+      throw new TypeError(`residual class ${classId} termIds must return Uint16Array`);
+    }
+    if (ids.length >= CLASS_UNKNOWN_LENGTH) {
+      throw new RangeError(`residual class ${classId} exceeds Uint16 semantic length domain`);
+    }
     metrics.termArrayMaterializations += 1;
     metrics.termIdsMaterialized += ids.length;
     return ids;
   }
 
   function ensureClassMetadata(classId) {
-    if (!Number.isInteger(classId) || classId < 0) throw new RangeError(`invalid residual class id ${classId}`);
+    assertClassId(classId);
     ensureClassCapacity(classId + 1);
     if (classLengths[classId] !== CLASS_UNKNOWN_LENGTH) {
       metrics.classHits += 1;
@@ -84,7 +116,6 @@ export function createLocalSemanticDescriptorCache(kernel) {
     }
 
     const ids = materializeClassTerms(classId);
-    if (ids.length >= CLASS_UNKNOWN_LENGTH) throw new RangeError(`residual class ${classId} exceeds Uint16 semantic length domain`);
     hashResidualTermIds(ids, ids.length, classHashScratch);
     classLengths[classId] = ids.length;
     classHashLo[classId] = classHashScratch.lo;
@@ -94,6 +125,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
 
   const termSource = Object.freeze({
     writeTermIds(classId, target, offset = 0) {
+      if (!(target instanceof Uint16Array)) throw new TypeError('semantic term target must be Uint16Array');
       ensureClassMetadata(classId);
       const length = classLengths[classId];
       if (!Number.isInteger(offset) || offset < 0 || offset + length > target.length) {
@@ -130,15 +162,29 @@ export function createLocalSemanticDescriptorCache(kernel) {
     hash: stateHashScratch,
   };
 
-  function hotStateDescriptor(stateId) {
+  function loadStateParts(stateId) {
+    assertStateId(stateId);
     const supportIndex = kernel.states.support[stateId];
     const p0ClassId = kernel.states.p0Class[stateId];
     const p1ClassId = kernel.states.p1Class[stateId];
+    if (!Number.isInteger(supportIndex) || supportIndex < 0 || supportIndex > 0xffffffff) {
+      throw new Error(`semantic state ${stateId} has invalid support index ${supportIndex}`);
+    }
+    assertClassId(p0ClassId);
+    assertClassId(p1ClassId);
     ensureClassMetadata(p0ClassId);
     ensureClassMetadata(p1ClassId);
+    return { supportIndex, p0ClassId, p1ClassId };
+  }
+
+  function hotStateDescriptor(stateId) {
+    const { supportIndex, p0ClassId, p1ClassId } = loadStateParts(stateId);
     const p0Length = classLengths[p0ClassId];
     const p1Length = classLengths[p1ClassId];
-    hashSemanticQuotientDescriptorParts(
+    if (p0Length + p1Length >= CLASS_UNKNOWN_LENGTH) {
+      throw new RangeError(`semantic state ${stateId} combined residual length exceeds Uint16 domain`);
+    }
+    hashSemanticQuotientDescriptorPartsUnchecked(
       supportIndex,
       classHashLo[p0ClassId],
       classHashHi[p0ClassId],
@@ -160,11 +206,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
   }
 
   function stateDescriptor(stateId) {
-    const supportIndex = kernel.states.support[stateId];
-    const p0ClassId = kernel.states.p0Class[stateId];
-    const p1ClassId = kernel.states.p1Class[stateId];
-    ensureClassMetadata(p0ClassId);
-    ensureClassMetadata(p1ClassId);
+    const { supportIndex, p0ClassId, p1ClassId } = loadStateParts(stateId);
     metrics.stateBuilds += 1;
     metrics.stateDescriptorObjectsAllocated += 1;
     return createQuotientSemanticClassReferenceDescriptor(
