@@ -17,6 +17,7 @@ const SLOT_EMPTY = 0;
 const SLOT_DESCRIPTOR_WRITING = 1;
 const SLOT_READY = 2;
 const SLOT_PROOF_WRITING = 3;
+const SLOT_POISONED = 4;
 const META_TERM_NEXT = 0;
 const META_ENTRY_COUNT = 1;
 const META_REPLACEMENT_COUNT = 2;
@@ -87,7 +88,8 @@ function assertArenaShape(arena) {
   }
   const states = arena.slotStates;
   if (!states || states.empty !== SLOT_EMPTY || states.descriptorWriting !== SLOT_DESCRIPTOR_WRITING
-      || states.ready !== SLOT_READY || states.proofWriting !== SLOT_PROOF_WRITING) {
+      || states.ready !== SLOT_READY || states.proofWriting !== SLOT_PROOF_WRITING
+      || states.poisoned !== SLOT_POISONED) {
     throw new Error('semantic TT slot-state contract drifted');
   }
 
@@ -180,6 +182,7 @@ export function createSemanticSharedTtArena(options = {}) {
       descriptorWriting: SLOT_DESCRIPTOR_WRITING,
       ready: SLOT_READY,
       proofWriting: SLOT_PROOF_WRITING,
+      poisoned: SLOT_POISONED,
     }),
     metaBuffer,
     statusBuffer,
@@ -206,7 +209,7 @@ export function resetSemanticSharedTtArena(arena) {
     if (state === SLOT_DESCRIPTOR_WRITING || state === SLOT_PROOF_WRITING) {
       throw new Error(`semantic TT reset requires quiescence; slot ${slot} is writing`);
     }
-    if (state !== SLOT_EMPTY && state !== SLOT_READY) {
+    if (state !== SLOT_EMPTY && state !== SLOT_READY && state !== SLOT_POISONED) {
       throw new Error(`semantic TT slot ${slot} has invalid state ${state}`);
     }
   }
@@ -254,6 +257,7 @@ export function createSemanticSharedTtView(arena) {
     hits: 0,
     inserts: 0,
     replacements: 0,
+    poisonedInstalls: 0,
     nonExactVictims: 0,
     exactVictims: 0,
     descriptorCompares: 0,
@@ -386,11 +390,11 @@ export function createSemanticSharedTtView(arena) {
     const start = allocateTerms(words);
     setChunkNext(start, nextHead);
     terms[start + 2] = dataCapacity;
+    addSharedCounter(META_TERM_DATA_CAPACITY, dataCapacity);
+    incrementSharedCounter(META_TERM_CHUNK_COUNT);
     metrics.termIdsAllocated += dataCapacity;
     metrics.termArenaWordsAllocated += words;
     metrics.termChunkAllocations += 1;
-    addSharedCounter(META_TERM_DATA_CAPACITY, dataCapacity);
-    incrementSharedCounter(META_TERM_CHUNK_COUNT);
     return start;
   }
 
@@ -431,12 +435,19 @@ export function createSemanticSharedTtView(arena) {
     return current + 1;
   }
 
+  function poisonInstall(slot, error) {
+    metrics.poisonedInstalls += 1;
+    Atomics.store(status, slot, SLOT_POISONED);
+    Atomics.notify(status, slot);
+    return error;
+  }
+
   function descriptorStorage(slot, total, replacing) {
     const capacity = replacing ? termSpanCapacity[slot] : 0;
     const head = replacing ? termChunkHead[slot] : TERM_CHUNK_END;
     if (replacing && total <= capacity) {
-      metrics.termSpanReuses += 1;
       incrementSharedCounter(META_TERM_SPAN_REUSE_COUNT);
+      metrics.termSpanReuses += 1;
       return { head, capacity };
     }
 
@@ -449,8 +460,8 @@ export function createSemanticSharedTtView(arena) {
     }
     if (nextCapacity > UINT16_MAX) throw new RangeError(`semantic TT slot capacity ${nextCapacity} exceeds Uint16`);
     if (replacing) {
-      metrics.termSpanGrows += 1;
       incrementSharedCounter(META_TERM_SPAN_GROW_COUNT);
+      metrics.termSpanGrows += 1;
     }
     return { head: nextHead, capacity: nextCapacity };
   }
@@ -462,8 +473,12 @@ export function createSemanticSharedTtView(arena) {
     if (total > UINT16_MAX) throw new RangeError('semantic TT combined descriptor exceeds Uint16 slot capacity');
     const expected = materializeDescriptorTerms(descriptor, total);
     const newGeneration = nextGeneration(slot);
+    const handle = encodeHandle(slot, newGeneration);
     const storage = descriptorStorage(slot, total, replacing);
 
+    // Once logical payload writing starts the previous descriptor storage may be
+    // overwritten in-place. Any later failure therefore poisons the physical slot;
+    // callers must never restore READY/EMPTY and expose ambiguous descriptor bytes.
     if (total > 0) writeDescriptorTerms(storage.head, expected, total);
     hashLo[slot] = descriptor.hash.lo;
     hashHi[slot] = descriptor.hash.hi;
@@ -477,16 +492,16 @@ export function createSemanticSharedTtView(arena) {
 
     metrics.termIdsPublished += total;
     if (replacing) {
-      metrics.replacements += 1;
       incrementSharedCounter(META_REPLACEMENT_COUNT);
+      metrics.replacements += 1;
     } else {
-      metrics.inserts += 1;
       incrementSharedCounter(META_ENTRY_COUNT);
+      metrics.inserts += 1;
     }
 
     Atomics.store(status, slot, SLOT_READY);
     Atomics.notify(status, slot);
-    return encodeHandle(slot, newGeneration);
+    return handle;
   }
 
   function stableDescriptorHandle(slot, descriptor) {
@@ -563,6 +578,9 @@ export function createSemanticSharedTtView(arena) {
           if (state === SLOT_DESCRIPTOR_WRITING) {
             throw new Error(`semantic TT descriptor-writing slot ${slot} observed while owning bucket ${bucket}`);
           }
+          if (state === SLOT_POISONED) {
+            throw new Error(`semantic TT poisoned slot ${slot} observed in bucket ${bucket}; quiescent reset required`);
+          }
           if (state === SLOT_READY || state === SLOT_PROOF_WRITING) {
             const handle = stableDescriptorHandle(slot, descriptor);
             if (handle >= 0) {
@@ -580,9 +598,7 @@ export function createSemanticSharedTtView(arena) {
           try {
             return installDescriptor(emptySlot, descriptor, false);
           } catch (error) {
-            Atomics.store(status, emptySlot, SLOT_EMPTY);
-            Atomics.notify(status, emptySlot);
-            throw error;
+            throw poisonInstall(emptySlot, error);
           }
         }
 
@@ -610,9 +626,7 @@ export function createSemanticSharedTtView(arena) {
           else metrics.nonExactVictims += 1;
           return installDescriptor(victim.slot, descriptor, true);
         } catch (error) {
-          Atomics.store(status, victim.slot, SLOT_READY);
-          Atomics.notify(status, victim.slot);
-          throw error;
+          throw poisonInstall(victim.slot, error);
         }
       }
     } finally {
