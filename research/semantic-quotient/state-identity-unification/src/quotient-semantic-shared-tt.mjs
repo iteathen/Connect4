@@ -19,10 +19,14 @@ const META_ENTRY_COUNT = 1;
 const META_REPLACEMENT_COUNT = 2;
 const META_TERM_SPAN_REUSE_COUNT = 3;
 const META_TERM_SPAN_GROW_COUNT = 4;
-const META_WORDS = 5;
+const META_TERM_DATA_CAPACITY = 5;
+const META_TERM_CHUNK_COUNT = 6;
+const META_WORDS = 7;
 const DEFAULT_ASSOCIATIVITY = 8;
 const INT32_MAX = 0x7fffffff;
 const UINT32_MAX = 0xffffffff;
+const TERM_CHUNK_END = UINT32_MAX;
+const TERM_CHUNK_HEADER_WORDS = 3;
 
 function nextPowerOfTwo(value) {
   let result = 1;
@@ -66,17 +70,17 @@ export function createSemanticSharedTtArena(options = {}) {
   const hashLoBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
   const hashHiBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
   const supportBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
-  const p0StartBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
-  const p1StartBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
+  const termChunkHeadBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
   const p0LengthBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
   const p1LengthBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
   const termSpanCapacityBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
   const recordBuffer = new SharedArrayBuffer(Uint8Array.BYTES_PER_ELEMENT * entryCapacity);
   const termBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * termCapacity);
+  new Uint32Array(termChunkHeadBuffer).fill(TERM_CHUNK_END);
   new Uint8Array(recordBuffer).fill(INITIAL_SEARCH_RECORD);
 
   return Object.freeze({
-    kind: 'connect4-exact-semantic-shared-tt-v4',
+    kind: 'connect4-exact-semantic-shared-tt-v5',
     entryCapacity,
     associativity,
     bucketCount,
@@ -96,8 +100,7 @@ export function createSemanticSharedTtArena(options = {}) {
     hashLoBuffer,
     hashHiBuffer,
     supportBuffer,
-    p0StartBuffer,
-    p1StartBuffer,
+    termChunkHeadBuffer,
     p0LengthBuffer,
     p1LengthBuffer,
     termSpanCapacityBuffer,
@@ -112,6 +115,7 @@ export function resetSemanticSharedTtArena(arena) {
   new Int32Array(arena.statusBuffer).fill(SLOT_EMPTY);
   new Int32Array(arena.bucketLockBuffer).fill(0);
   new Uint32Array(arena.victimCursorBuffer).fill(0);
+  new Uint32Array(arena.termChunkHeadBuffer).fill(TERM_CHUNK_END);
   new Uint16Array(arena.termSpanCapacityBuffer).fill(0);
   new Uint8Array(arena.recordBuffer).fill(INITIAL_SEARCH_RECORD);
   // Generations deliberately survive reset. A stale handle from an old epoch
@@ -127,8 +131,7 @@ export function createSemanticSharedTtView(arena) {
   const hashLo = new Uint32Array(arena.hashLoBuffer);
   const hashHi = new Uint32Array(arena.hashHiBuffer);
   const support = new Uint32Array(arena.supportBuffer);
-  const p0Start = new Uint32Array(arena.p0StartBuffer);
-  const p1Start = new Uint32Array(arena.p1StartBuffer);
+  const termChunkHead = new Uint32Array(arena.termChunkHeadBuffer);
   const p0Length = new Uint16Array(arena.p0LengthBuffer);
   const p1Length = new Uint16Array(arena.p1LengthBuffer);
   const termSpanCapacity = new Uint16Array(arena.termSpanCapacityBuffer);
@@ -150,6 +153,8 @@ export function createSemanticSharedTtView(arena) {
     proofWriterWaits: 0,
     termIdsPublished: 0,
     termIdsAllocated: 0,
+    termArenaWordsAllocated: 0,
+    termChunkAllocations: 0,
     termSpanReuses: 0,
     termSpanGrows: 0,
     maxBucketScan: 0,
@@ -168,9 +173,37 @@ export function createSemanticSharedTtView(arena) {
     return (descriptor.hash.lo & bucketMask) * arena.associativity;
   }
 
-  function termsEqual(start, ids) {
-    for (let index = 0; index < ids.length; index += 1) {
-      if (terms[start + index] !== ids[index]) return false;
+  function chunkNext(start) {
+    return (terms[start] | (terms[start + 1] << 16)) >>> 0;
+  }
+
+  function setChunkNext(start, next) {
+    terms[start] = next & 0xffff;
+    terms[start + 1] = (next >>> 16) & 0xffff;
+  }
+
+  function chunkCapacity(start) {
+    return terms[start + 2];
+  }
+
+  function termsEqual(head, p0Ids, p1Ids) {
+    const p0Count = p0Ids.length;
+    const total = p0Count + p1Ids.length;
+    let logical = 0;
+    let chunk = head;
+    while (logical < total) {
+      if (chunk === TERM_CHUNK_END) return false;
+      const capacity = chunkCapacity(chunk);
+      if (capacity < 1) return false;
+      const take = Math.min(capacity, total - logical);
+      const dataStart = chunk + TERM_CHUNK_HEADER_WORDS;
+      for (let offset = 0; offset < take; offset += 1) {
+        const index = logical + offset;
+        const expected = index < p0Count ? p0Ids[index] : p1Ids[index - p0Count];
+        if (terms[dataStart + offset] !== expected) return false;
+      }
+      logical += take;
+      chunk = chunkNext(chunk);
     }
     return true;
   }
@@ -179,8 +212,7 @@ export function createSemanticSharedTtView(arena) {
     metrics.descriptorCompares += 1;
     if (support[slot] !== descriptor.supportIndex) return false;
     if (p0Length[slot] !== descriptor.p0.ids.length || p1Length[slot] !== descriptor.p1.ids.length) return false;
-    return termsEqual(p0Start[slot], descriptor.p0.ids)
-      && termsEqual(p1Start[slot], descriptor.p1.ids);
+    return termsEqual(termChunkHead[slot], descriptor.p0.ids, descriptor.p1.ids);
   }
 
   function allocateTerms(total) {
@@ -194,11 +226,55 @@ export function createSemanticSharedTtView(arena) {
     }
   }
 
-  function incrementSharedCounter(index) {
+  function addSharedCounter(index, delta) {
+    if (!Number.isInteger(delta) || delta < 0) throw new RangeError(`invalid shared counter delta ${delta}`);
     while (true) {
       const current = Atomics.load(meta, index);
-      if (current >= INT32_MAX) return current;
-      if (Atomics.compareExchange(meta, index, current, current + 1) === current) return current + 1;
+      const next = current + delta;
+      if (next > INT32_MAX) throw new RangeError(`semantic TT shared counter ${index} exceeded Int32 domain`);
+      if (Atomics.compareExchange(meta, index, current, next) === current) return next;
+    }
+  }
+
+  function incrementSharedCounter(index) {
+    const current = Atomics.load(meta, index);
+    if (current >= INT32_MAX) return current;
+    return addSharedCounter(index, 1);
+  }
+
+  function allocateTermChunk(dataCapacity, nextHead) {
+    if (!Number.isInteger(dataCapacity) || dataCapacity < 1 || dataCapacity > 0xffff) {
+      throw new RangeError(`semantic TT chunk data capacity ${dataCapacity} is outside Uint16 domain`);
+    }
+    const words = TERM_CHUNK_HEADER_WORDS + dataCapacity;
+    const start = allocateTerms(words);
+    setChunkNext(start, nextHead);
+    terms[start + 2] = dataCapacity;
+    metrics.termIdsAllocated += dataCapacity;
+    metrics.termArenaWordsAllocated += words;
+    metrics.termChunkAllocations += 1;
+    addSharedCounter(META_TERM_DATA_CAPACITY, dataCapacity);
+    incrementSharedCounter(META_TERM_CHUNK_COUNT);
+    return start;
+  }
+
+  function writeDescriptorTerms(head, p0Ids, p1Ids) {
+    const p0Count = p0Ids.length;
+    const total = p0Count + p1Ids.length;
+    let logical = 0;
+    let chunk = head;
+    while (logical < total) {
+      if (chunk === TERM_CHUNK_END) throw new Error('semantic TT descriptor chunk chain ended before logical descriptor');
+      const capacity = chunkCapacity(chunk);
+      if (capacity < 1) throw new Error(`semantic TT descriptor chunk ${chunk} has zero data capacity`);
+      const take = Math.min(capacity, total - logical);
+      const dataStart = chunk + TERM_CHUNK_HEADER_WORDS;
+      for (let offset = 0; offset < take; offset += 1) {
+        const index = logical + offset;
+        terms[dataStart + offset] = index < p0Count ? p0Ids[index] : p1Ids[index - p0Count];
+      }
+      logical += take;
+      chunk = chunkNext(chunk);
     }
   }
 
@@ -222,21 +298,27 @@ export function createSemanticSharedTtView(arena) {
     return current + 1;
   }
 
-  function descriptorSpan(slot, total, replacing) {
-    const capacity = termSpanCapacity[slot];
+  function descriptorStorage(slot, total, replacing) {
+    const capacity = replacing ? termSpanCapacity[slot] : 0;
+    const head = replacing ? termChunkHead[slot] : TERM_CHUNK_END;
     if (replacing && total <= capacity) {
       metrics.termSpanReuses += 1;
       incrementSharedCounter(META_TERM_SPAN_REUSE_COUNT);
-      return p0Start[slot];
+      return Object.freeze({ head, capacity });
     }
-    const start = allocateTerms(total);
-    metrics.termIdsAllocated += total;
+
+    const additional = total - capacity;
+    let nextHead = head;
+    let nextCapacity = capacity;
+    if (additional > 0) {
+      nextHead = allocateTermChunk(additional, head);
+      nextCapacity += additional;
+    }
     if (replacing) {
       metrics.termSpanGrows += 1;
       incrementSharedCounter(META_TERM_SPAN_GROW_COUNT);
     }
-    termSpanCapacity[slot] = total;
-    return start;
+    return Object.freeze({ head: nextHead, capacity: nextCapacity });
   }
 
   function installDescriptor(slot, descriptor, replacing) {
@@ -244,20 +326,18 @@ export function createSemanticSharedTtView(arena) {
     const p1Count = descriptor.p1.ids.length;
     if (p0Count > 0xffff || p1Count > 0xffff) throw new RangeError('semantic TT residual descriptor exceeds Uint16 length');
     const total = p0Count + p1Count;
-    if (total > 0xffff) throw new RangeError('semantic TT combined descriptor exceeds Uint16 slot-span capacity');
+    if (total > 0xffff) throw new RangeError('semantic TT combined descriptor exceeds Uint16 slot capacity');
     const newGeneration = nextGeneration(slot);
-    const start = descriptorSpan(slot, total, replacing);
-    const p1Offset = start + p0Count;
+    const storage = descriptorStorage(slot, total, replacing);
 
-    terms.set(descriptor.p0.ids, start);
-    terms.set(descriptor.p1.ids, p1Offset);
+    writeDescriptorTerms(storage.head, descriptor.p0.ids, descriptor.p1.ids);
     hashLo[slot] = descriptor.hash.lo;
     hashHi[slot] = descriptor.hash.hi;
     support[slot] = descriptor.supportIndex;
-    p0Start[slot] = start;
-    p1Start[slot] = p1Offset;
+    termChunkHead[slot] = storage.head;
     p0Length[slot] = p0Count;
     p1Length[slot] = p1Count;
+    termSpanCapacity[slot] = storage.capacity;
     Atomics.store(records, slot, INITIAL_SEARCH_RECORD);
     Atomics.store(generation, slot, newGeneration);
 
@@ -405,13 +485,18 @@ export function createSemanticSharedTtView(arena) {
   }
 
   function stats() {
+    const termArenaWordsUsed = Atomics.load(meta, META_TERM_NEXT);
+    const termIdsUsed = Atomics.load(meta, META_TERM_DATA_CAPACITY);
     return Object.freeze({
       ...metrics,
       entries: Atomics.load(meta, META_ENTRY_COUNT),
       replacementsShared: Atomics.load(meta, META_REPLACEMENT_COUNT),
       termSpanReusesShared: Atomics.load(meta, META_TERM_SPAN_REUSE_COUNT),
       termSpanGrowsShared: Atomics.load(meta, META_TERM_SPAN_GROW_COUNT),
-      termIdsUsed: Atomics.load(meta, META_TERM_NEXT),
+      termChunkCountShared: Atomics.load(meta, META_TERM_CHUNK_COUNT),
+      termIdsUsed,
+      termArenaWordsUsed,
+      termHeaderWordsUsed: termArenaWordsUsed - termIdsUsed,
       entryCapacity: arena.entryCapacity,
       associativity: arena.associativity,
       bucketCount: arena.bucketCount,
