@@ -1,3 +1,4 @@
+import { createLiveLineMoveOrder, EMPTY_OCCUPANCY } from './quotient-live-line-move-order.mjs';
 import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
 import {
@@ -6,12 +7,34 @@ import {
 } from './quotient-online-semantic-worker-pool.mjs';
 
 const SPEC = Object.freeze({ columns: 4, rows: 5, connect: 4 });
+const STANDARD_SPEC = Object.freeze({ columns: 7, rows: 6, connect: 4 });
+const STANDARD_CENTER_ORDER = Object.freeze([3, 2, 4, 1, 5, 0, 6]);
+const EXPECTED_STANDARD_ROOT_VALUES = Object.freeze([3, 4, 5, 7, 5, 4, 3]);
 const PREFIX_CLASSES = Number(process.env.PREFIX_CLASSES ?? 4096);
 const EXPLORE_DEPTH = Number(process.env.EXPLORE_DEPTH ?? 3);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
+
+function qualifyLegacyRootIncidence() {
+  const ordering = createLiveLineMoveOrder(STANDARD_SPEC, STANDARD_CENTER_ORDER);
+  const values = [];
+  for (let column = 0; column < STANDARD_SPEC.columns; column += 1) {
+    values[column] = ordering.valueAt(column, EMPTY_OCCUPANCY.p1Lo, EMPTY_OCCUPANCY.p1Hi);
+    assert(values[column] === EXPECTED_STANDARD_ROOT_VALUES[column],
+      `7x6 root live-line value column ${column}: expected ${EXPECTED_STANDARD_ROOT_VALUES[column]}, got ${values[column]}`);
+  }
+  const ordered = STANDARD_CENTER_ORDER
+    .map((column) => ({ column, value: values[column], tieRank: STANDARD_CENTER_ORDER.indexOf(column) }))
+    .sort((left, right) => right.value - left.value || left.tieRank - right.tieRank)
+    .map((entry) => entry.column);
+  assert(ordered.join(',') === STANDARD_CENTER_ORDER.join(','),
+    `7x6 root incidence order drifted: ${ordered.join(',')}`);
+  return Object.freeze({ values: Object.freeze(values), order: Object.freeze(ordered) });
+}
+
+const standardRootIncidence = qualifyLegacyRootIncidence();
 
 const branchManager = await startOnlineBranchManager(SPEC, {
   prebuildGraph: false,
@@ -31,6 +54,21 @@ const executor = createSearchWorkerExecutor(workers, {
 });
 const unsubscribeExplore = branchManager.subscribeExplore(executor.enqueueExploreHint);
 
+function assertExploreFragment(fragment, label) {
+  assert(fragment.requestedDepth === EXPLORE_DEPTH, `${label}: explore depth drifted`);
+  assert(fragment.reachedDepth === EXPLORE_DEPTH, `${label}: explore did not reach requested depth`);
+  assert(fragment.ordering === 'legacy-live-winning-line-incidence', `${label}: wrong move-order authority ${fragment.ordering}`);
+  assert(fragment.uniqueStates > 1, `${label}: explore did not discover quotient states`);
+  assert(fragment.frontierPaths.length > 0, `${label}: explore did not expose frontier paths`);
+  assert(fragment.scoredMoves > 0, `${label}: explore did not score moves`);
+  if (EXPLORE_DEPTH === 3) {
+    assert(fragment.uniqueStates === 73, `${label}: expected 73 unique q states, got ${fragment.uniqueStates}`);
+    assert(fragment.expandedStates === 21, `${label}: expected 21 expanded q states, got ${fragment.expandedStates}`);
+    assert(fragment.traversedEdges === 84, `${label}: expected 84 traversed edges, got ${fragment.traversedEdges}`);
+    assert(fragment.transposedEdges === 12, `${label}: expected 12 transposed edges, got ${fragment.transposedEdges}`);
+  }
+}
+
 let exploreOnly;
 let mixed;
 try {
@@ -41,10 +79,7 @@ try {
   const exploreReply = await branchManager.takeExploreResult();
   assert(exploreReply.result !== null, 'Branch Manager did not retain explore result');
   const fragment = exploreReply.result.fragment;
-  assert(fragment.requestedDepth === EXPLORE_DEPTH, 'explore depth drifted');
-  assert(fragment.reachedDepth === EXPLORE_DEPTH, 'explore did not reach requested depth');
-  assert(fragment.uniqueStates > 1, 'explore did not discover quotient states');
-  assert(fragment.frontierPaths.length > 0, 'explore did not expose frontier paths');
+  assertExploreFragment(fragment, 'explore-only');
   const ttAfterExplore = semanticTt.stats();
   assert(ttAfterExplore.entries === 0, `structural explore published ${ttAfterExplore.entries} TT entries`);
   exploreOnly = Object.freeze({
@@ -69,6 +104,7 @@ try {
   await executor.drain();
   const mixedExploreReply = await branchManager.takeExploreResult();
   assert(mixedExploreReply.result !== null, 'mixed phase did not complete explore hint');
+  assertExploreFragment(mixedExploreReply.result.fragment, 'mixed');
   const mixedStats = executor.stats();
   assert(mixedStats.submitted === 1, `expected one authoritative task, got ${mixedStats.submitted}`);
   assert(mixedStats.completed === 1, `expected one authoritative completion, got ${mixedStats.completed}`);
@@ -94,11 +130,12 @@ try {
 }
 
 const result = Object.freeze({
-  kind: 'connect4-queued-explore-hint-v2',
+  kind: 'connect4-queued-live-line-explore-v3',
   status: 'complete',
   spec: SPEC,
   exploreDepth: EXPLORE_DEPTH,
-  policy: 'Branch Manager queues ExploreHint(path, depth) ahead of demand; idle workers dequeue immediately; authoritative work has dispatch priority',
+  policy: 'Branch Manager queues ExploreHint(path, depth) ahead of demand; idle workers explore by legacy live-winning-line incidence; quotient residual closure remains terminal authority; authoritative work has dispatch priority',
+  standardRootIncidence,
   exploreOnly,
   mixed,
 });
