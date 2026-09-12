@@ -4,8 +4,12 @@ on:
   push:
     branches:
       - research/semantic-quotient
+      - research/frontier-negamax-conformance
     paths:
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs'
       - '.github/workflows/semantic-quotient-slot64-residual.yml'
