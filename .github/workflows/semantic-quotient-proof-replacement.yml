@@ -1,0 +1,36 @@
+name: Quotient semantic proof replacement
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-tt-search-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs'
+      - '.github/workflows/semantic-quotient-proof-replacement.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replacement:
+    name: Qualify exact replacement and stale handles
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PREFIX_CLASSES: '4096'
+      REPLACEMENT_ENTRIES: '4096'
+      REPLACEMENT_TERMS: '16777216'
+      REPLACEMENT_WORKERS: '2'
+      REPLACEMENT_SPLIT_DEPTH: '3'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run semantic proof replacement qualification
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs
