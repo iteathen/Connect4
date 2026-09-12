@@ -1,23 +1,24 @@
 import {
   QN_ILLEGAL,
   QN_TERMINAL_WIN,
-} from './quotient-native-negamax-support-layout-kernel.mjs';
+  TACTICAL_DRAW,
+  TACTICAL_LOSS,
+  TACTICAL_IMMEDIATE_BASE,
+  assertTacticalCode,
+  tacticalForcedColumn,
+  tacticalImmediateColumn,
+} from './quotient-negamax-domain-contract.mjs';
 import {
-  lowerOfSharedRecord,
-  upperOfSharedRecord,
-  bestOfSharedRecord,
-  withSharedLower,
-  withSharedUpper,
-  withSharedBest,
-  withSharedBounds,
-} from './quotient-shared-graph-lib.mjs';
+  proofLower,
+  proofUpper,
+  bestMoveHint,
+  withProofLower,
+  withProofUpper,
+  withBestMoveHint,
+  withProofBounds,
+} from './quotient-negamax-search-record.mjs';
 import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
-
-const TACTICAL_NONE = -100;
-const TACTICAL_DRAW = -101;
-const TACTICAL_LOSS = -102;
-const TACTICAL_IMMEDIATE_BASE = 64;
 
 export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, options = {}) {
   const { states, supportAccess, columns, cellCount, centerOrder } = kernel;
@@ -56,8 +57,8 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
 
   function setExact(slot, value, bestMove = -1) {
     let record = records[slot];
-    record = withSharedBounds(record, value, value);
-    if (bestMove >= 0) record = withSharedBest(record, bestMove);
+    record = withProofBounds(record, value, value);
+    if (bestMove >= 0) record = withBestMoveHint(record, bestMove);
     writeRecord(slot, record);
   }
 
@@ -71,7 +72,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
       metrics.forcedNodes += 1;
       return 1;
     }
-    const best = bestOfSharedRecord(records[slot]);
+    const best = bestMoveHint(records[slot]);
     if (best >= 0 && supportAccess.landingAt(supportIndex, best) !== 0xff) {
       moveStack[base + count++] = best;
       metrics.ttMoveOrderHits += 1;
@@ -93,8 +94,8 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     metrics.calls += 1;
     const slot = ttSlot(stateId);
     let record = records[slot];
-    const lower = lowerOfSharedRecord(record);
-    const upper = upperOfSharedRecord(record);
+    const lower = proofLower(record);
+    const upper = proofUpper(record);
     if (lower === upper) {
       metrics.ttExactReturns += 1;
       return lower;
@@ -109,8 +110,9 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     }
 
     const tactical = kernel.tacticalCode(stateId);
+    assertTacticalCode(tactical, columns);
     if (tactical >= TACTICAL_IMMEDIATE_BASE) {
-      setExact(slot, 1, tactical - TACTICAL_IMMEDIATE_BASE);
+      setExact(slot, 1, tacticalImmediateColumn(tactical));
       metrics.tacticalExact += 1;
       return 1;
     }
@@ -124,15 +126,12 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
       metrics.tacticalExact += 1;
       return 0;
     }
-    if (tactical !== TACTICAL_NONE && (tactical < 0 || tactical >= columns)) {
-      throw new Error(`unexpected tactical code ${tactical}`);
-    }
 
     const originalAlpha = alpha;
     const originalBeta = beta;
     alpha = Math.max(alpha, lower);
     beta = Math.min(beta, upper);
-    const forcedColumn = tactical >= 0 ? tactical : -1;
+    const forcedColumn = tacticalForcedColumn(tactical, columns);
     const moveCount = prepareMoves(stateId, slot, forcedColumn);
     const supportIndex = states.support[stateId];
     const rank = supportAccess.rankAt(supportIndex);
@@ -151,11 +150,11 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
         if (child < 0) continue;
         metrics.etcProbes += 1;
         const childSlot = ttSlot(child);
-        const parentLower = -upperOfSharedRecord(records[childSlot]);
+        const parentLower = -proofUpper(records[childSlot]);
         if (parentLower >= beta) {
           record = records[slot];
-          record = withSharedLower(record, Math.max(lowerOfSharedRecord(record), parentLower));
-          record = withSharedBest(record, column);
+          record = withProofLower(record, Math.max(proofLower(record), parentLower));
+          record = withBestMoveHint(record, column);
           writeRecord(slot, record);
           metrics.etcCutoffs += 1;
           return parentLower;
@@ -183,13 +182,13 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     }
 
     record = records[slot];
-    if (selected >= 0) record = withSharedBest(record, selected);
+    if (selected >= 0) record = withBestMoveHint(record, selected);
     if (value <= originalAlpha) {
-      record = withSharedUpper(record, Math.min(upperOfSharedRecord(record), value));
+      record = withProofUpper(record, Math.min(proofUpper(record), value));
     } else if (value >= originalBeta) {
-      record = withSharedLower(record, Math.max(lowerOfSharedRecord(record), value));
+      record = withProofLower(record, Math.max(proofLower(record), value));
     } else {
-      record = withSharedBounds(record, value, value);
+      record = withProofBounds(record, value, value);
     }
     writeRecord(slot, record);
     return value;
