@@ -82,6 +82,17 @@ parentPort.on('message', (message) => {
     return;
   }
 
+  if (message?.type === 'return-explore-hint') {
+    const hint = exploreHints.returnHint(message.hintId);
+    parentPort.postMessage({
+      type: 'explore-hint-returned',
+      requestId: message.requestId,
+      hint,
+      stats: snapshotStats(),
+    });
+    return;
+  }
+
   if (message?.type === 'complete-explore-hint') {
     const result = exploreHints.complete(message.hintId, message.fragment);
     parentPort.postMessage({
