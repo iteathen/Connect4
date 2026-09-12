@@ -11,12 +11,103 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   const { states, supportAccess, columns, cellCount, centerOrder } = kernel;
   const descriptorCache = createLocalSemanticDescriptorCache(kernel);
   const tt = createSemanticSharedTtView(semanticArena);
-  const proofStore = createPackedProofStore(semanticArena);
-  const identityMetrics = { ttProbes: 0, ttEnsures: 0 };
+  const semanticProofStore = createPackedProofStore(semanticArena);
+  const identityMetrics = {
+    ttProbes: 0,
+    ttEnsures: 0,
+    ttReprobes: 0,
+    proofHandleRefreshes: 0,
+    publicationRetries: 0,
+  };
+  let cachedStateId = -1;
+  let cachedHandle = -1;
 
   function descriptor(stateId) {
     return descriptorCache.stateDescriptor(stateId);
   }
+
+  function rememberHandle(stateId, handle) {
+    cachedStateId = stateId;
+    cachedHandle = handle;
+    return handle;
+  }
+
+  function probeHandle(stateId) {
+    identityMetrics.ttProbes += 1;
+    return rememberHandle(stateId, tt.probe(descriptor(stateId)));
+  }
+
+  function ensureHandle(stateId) {
+    identityMetrics.ttEnsures += 1;
+    return rememberHandle(stateId, tt.ensure(descriptor(stateId)));
+  }
+
+  function currentHandle(stateId, admit) {
+    if (cachedStateId === stateId && cachedHandle >= 0) {
+      if (semanticProofStore.isCurrent(cachedHandle)) return cachedHandle;
+      identityMetrics.proofHandleRefreshes += 1;
+    }
+    if (admit) return ensureHandle(stateId);
+    identityMetrics.ttReprobes += 1;
+    return rememberHandle(stateId, tt.probe(descriptor(stateId)));
+  }
+
+  function readBound(stateId, fallback, read) {
+    const handle = currentHandle(stateId, false);
+    return handle < 0 ? fallback : read(handle);
+  }
+
+  function publishCurrent(stateId, publish) {
+    while (true) {
+      const handle = currentHandle(stateId, true);
+      const result = publish(handle);
+      if (result !== null) return result;
+      identityMetrics.publicationRetries += 1;
+      cachedHandle = -1;
+    }
+  }
+
+  const proofStore = Object.freeze({
+    isCurrent(stateId) {
+      const handle = currentHandle(stateId, false);
+      return handle >= 0 && semanticProofStore.isCurrent(handle);
+    },
+    lower(stateId) {
+      return readBound(stateId, -1, semanticProofStore.lower);
+    },
+    upper(stateId) {
+      return readBound(stateId, 1, semanticProofStore.upper);
+    },
+    bestMove(stateId) {
+      return readBound(stateId, -1, semanticProofStore.bestMove);
+    },
+    publishExact(stateId, value, bestMoveValue = -1) {
+      return publishCurrent(
+        stateId,
+        (handle) => semanticProofStore.publishExact(handle, value, bestMoveValue),
+      );
+    },
+    publishLower(stateId, value, bestMoveValue = -1) {
+      return publishCurrent(
+        stateId,
+        (handle) => semanticProofStore.publishLower(handle, value, bestMoveValue),
+      );
+    },
+    publishUpper(stateId, value, bestMoveValue = -1) {
+      return publishCurrent(
+        stateId,
+        (handle) => semanticProofStore.publishUpper(handle, value, bestMoveValue),
+      );
+    },
+    publishHint(stateId, bestMoveValue) {
+      return publishCurrent(
+        stateId,
+        (handle) => semanticProofStore.publishHint(handle, bestMoveValue),
+      );
+    },
+    reset: semanticProofStore.reset,
+    metrics: semanticProofStore.metrics,
+  });
 
   const port = Object.freeze({
     columns,
@@ -26,12 +117,12 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
     frontierOrder: kernel.frontierOrder ?? null,
     proofStore,
     proofKey(stateId) {
-      identityMetrics.ttProbes += 1;
-      return tt.probe(descriptor(stateId));
+      const handle = probeHandle(stateId);
+      return handle < 0 ? -1 : stateId;
     },
     ensureProofKey(stateId) {
-      identityMetrics.ttEnsures += 1;
-      return tt.ensure(descriptor(stateId));
+      ensureHandle(stateId);
+      return stateId;
     },
     rankAt: (stateId) => supportAccess.rankAt(states.support[stateId]),
     isLegal: (stateId, column) => supportAccess.landingAt(states.support[stateId], column) !== 0xff,
@@ -41,7 +132,7 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
     frontierBoundCode: kernel.frontierBoundCode ?? (() => 0),
   });
 
-  return Object.freeze({ port, tt, proofStore, descriptorCache, identityMetrics });
+  return Object.freeze({ port, tt, proofStore, semanticProofStore, descriptorCache, identityMetrics });
 }
 
 export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, options = {}) {
@@ -86,7 +177,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
       search: Object.freeze({ ...engine.metrics }),
       identity: Object.freeze({ ...semantic.identityMetrics }),
       semanticTt: semantic.tt.stats(),
-      proofStore: Object.freeze({ ...semantic.proofStore.metrics }),
+      proofStore: Object.freeze({ ...semantic.semanticProofStore.metrics }),
       descriptorCache: Object.freeze({ ...semantic.descriptorCache.metrics }),
       localStates: kernel.states.count,
       localClasses: kernel.classes.size,
@@ -103,6 +194,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     identityMetrics: semantic.identityMetrics,
     tt: semantic.tt,
     proofStore: semantic.proofStore,
+    semanticProofStore: semantic.semanticProofStore,
     descriptorCache: semantic.descriptorCache,
     port: semantic.port,
   });

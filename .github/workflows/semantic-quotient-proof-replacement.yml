@@ -10,6 +10,7 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-shared-tt-search-lib.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-lifecycle-control.mjs'
       - '.github/workflows/semantic-quotient-proof-replacement.yml'
   workflow_dispatch:
 
@@ -34,3 +35,5 @@ jobs:
           node-version: 26.7.0
       - name: Run semantic proof replacement qualification
         run: node research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs
+      - name: Run semantic proof lifecycle control
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-proof-lifecycle-control.mjs

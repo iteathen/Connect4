@@ -20,6 +20,10 @@ function createStaticPackedProofStore(arena) {
     waits: 0,
   };
 
+  function isCurrent(slot) {
+    return Number.isInteger(slot) && slot >= 0 && slot < records.length;
+  }
+
   function load(slot) {
     metrics.reads += 1;
     return Atomics.load(records, slot);
@@ -43,7 +47,7 @@ function createStaticPackedProofStore(arena) {
     records.fill(INITIAL_SEARCH_RECORD);
   }
 
-  return Object.freeze({ records, load, update, reset, metrics });
+  return Object.freeze({ records, isCurrent, load, update, reset, metrics });
 }
 
 function createSemanticPackedProofStore(arena) {
@@ -67,6 +71,15 @@ function createSemanticPackedProofStore(arena) {
     const generationValue = Math.floor(handle / arena.entryCapacity);
     if (generationValue < 1 || generationValue > arena.generationLimit) return null;
     return { slot, generationValue };
+  }
+
+  function isCurrent(handle) {
+    const decoded = decode(handle);
+    if (decoded === null) return false;
+    const { slot, generationValue } = decoded;
+    if (Atomics.load(generation, slot) !== generationValue) return false;
+    const state = Atomics.load(status, slot);
+    return state === ready || state === proofWriting;
   }
 
   function staleRead() {
@@ -101,7 +114,7 @@ function createSemanticPackedProofStore(arena) {
 
   function stalePublication() {
     metrics.stalePublications += 1;
-    return INITIAL_SEARCH_RECORD;
+    return null;
   }
 
   function update(handle, transform) {
@@ -150,7 +163,7 @@ function createSemanticPackedProofStore(arena) {
     throw new Error('semantic proof-store reset is owned by the semantic arena lifecycle');
   }
 
-  return Object.freeze({ records, load, update, reset, metrics });
+  return Object.freeze({ records, isCurrent, load, update, reset, metrics });
 }
 
 export function createPackedProofStore(arena) {
@@ -215,6 +228,7 @@ export function createPackedProofStore(arena) {
   }
 
   return Object.freeze({
+    isCurrent: storage.isCurrent,
     lower,
     upper,
     bestMove,
