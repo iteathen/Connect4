@@ -8,28 +8,31 @@ import { createQuotientWorkPlanService } from './quotient-work-plan-service.mjs'
 if (!parentPort) throw new Error('branch manager worker requires parentPort');
 if (!workerData?.spec || typeof workerData.spec !== 'object') throw new TypeError('Branch Manager requires a domain spec');
 const { columns, rows, connect } = workerData.spec;
-if (!Number.isInteger(columns) || columns < 1) throw new RangeError('Branch Manager columns must be positive');
-if (!Number.isInteger(rows) || rows < 1) throw new RangeError('Branch Manager rows must be positive');
-if (!Number.isInteger(connect) || connect < 1) throw new RangeError('Branch Manager connect must be positive');
+if (!Number.isSafeInteger(columns) || columns < 1) throw new RangeError('Branch Manager columns must be a positive safe integer');
+if (!Number.isSafeInteger(rows) || rows < 1) throw new RangeError('Branch Manager rows must be a positive safe integer');
+if (!Number.isSafeInteger(connect) || connect < 1) throw new RangeError('Branch Manager connect must be a positive safe integer');
 const cellCount = columns * rows;
 if (!Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 64) {
   throw new RangeError(`Branch Manager cell count ${cellCount} is outside 1..64`);
 }
+if (connect > Math.max(columns, rows)) throw new RangeError('Branch Manager connect exceeds both board dimensions');
 
-function positiveInteger(value, label) {
-  if (!Number.isInteger(value) || value < 1) throw new RangeError(`${label} must be positive`);
+function positiveSafeInteger(value, label, maximum = Number.MAX_SAFE_INTEGER) {
+  if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
+    throw new RangeError(`${label} must be a safe integer in 1..${maximum}`);
+  }
   return value;
 }
 
+const prefixClasses = positiveSafeInteger(workerData.prefixClasses ?? 4096, 'Branch Manager prefixClasses', 0x7fffffff);
 const exploreConfig = Object.freeze({
   enabled: workerData.explore?.enabled === true,
-  depth: positiveInteger(workerData.explore?.depth ?? 3, 'Branch Manager explore depth'),
-  reservoirTarget: positiveInteger(workerData.explore?.reservoirTarget ?? 4, 'Branch Manager explore reservoirTarget'),
-  backlogCapacity: positiveInteger(workerData.explore?.backlogCapacity ?? 64, 'Branch Manager explore backlogCapacity'),
-  historyCapacity: positiveInteger(workerData.explore?.historyCapacity ?? 4096, 'Branch Manager explore historyCapacity'),
-  completedCapacity: positiveInteger(workerData.explore?.completedCapacity ?? 64, 'Branch Manager explore completedCapacity'),
+  depth: positiveSafeInteger(workerData.explore?.depth ?? 3, 'Branch Manager explore depth', cellCount),
+  reservoirTarget: positiveSafeInteger(workerData.explore?.reservoirTarget ?? 4, 'Branch Manager explore reservoirTarget', 1 << 20),
+  backlogCapacity: positiveSafeInteger(workerData.explore?.backlogCapacity ?? 64, 'Branch Manager explore backlogCapacity', 1 << 20),
+  historyCapacity: positiveSafeInteger(workerData.explore?.historyCapacity ?? 4096, 'Branch Manager explore historyCapacity', 1 << 24),
+  completedCapacity: positiveSafeInteger(workerData.explore?.completedCapacity ?? 64, 'Branch Manager explore completedCapacity', 1 << 20),
 });
-if (exploreConfig.depth > cellCount) throw new RangeError(`Branch Manager explore depth exceeds ${cellCount} cells`);
 if (exploreConfig.backlogCapacity < exploreConfig.reservoirTarget) {
   throw new RangeError('Branch Manager explore backlogCapacity must cover reservoirTarget');
 }
@@ -37,9 +40,7 @@ if (exploreConfig.backlogCapacity < exploreConfig.reservoirTarget) {
 const started = performance.now();
 const prebuildGraph = workerData.prebuildGraph !== false;
 const graph = prebuildGraph
-  ? buildSharedQuotientGraph(workerData.spec, {
-      prefixClasses: workerData.prefixClasses ?? 4096,
-    })
+  ? buildSharedQuotientGraph(workerData.spec, { prefixClasses })
   : null;
 const proofResources = createProofResourceService(graph?.stateCount ?? 0, workerData.semanticTt ?? null);
 const planService = graph ? createQuotientWorkPlanService(graph) : null;
@@ -89,7 +90,7 @@ function normalizeCandidate(candidate) {
   if (!candidate || !Array.isArray(candidate.path)) throw new TypeError('explore candidate requires a path array');
   if (candidate.path.length > cellCount) throw new RangeError(`explore candidate path exceeds ${cellCount} plies`);
   const path = candidate.path.map((column, index) => {
-    if (!Number.isInteger(column) || column < 0 || column >= columns) {
+    if (!Number.isSafeInteger(column) || column < 0 || column >= columns) {
       throw new RangeError(`explore candidate column ${column} at ply ${index} is outside 0..${columns - 1}`);
     }
     return column;
@@ -101,22 +102,33 @@ function normalizeCandidate(candidate) {
   return Object.freeze({ path: Object.freeze(path), contextKey });
 }
 
+function normalizeExploreFragment(fragment) {
+  if (!fragment || typeof fragment !== 'object') throw new TypeError('complete-explore-hint requires a fragment');
+  const candidates = fragment.frontierCandidates ?? [];
+  if (!Array.isArray(candidates)) throw new TypeError('explore fragment frontierCandidates must be an array');
+  const normalizedCandidates = Object.freeze(candidates.map(normalizeCandidate));
+  return Object.freeze({ ...fragment, frontierCandidates: normalizedCandidates });
+}
+
 function candidateBacklogKey(candidate) {
   return candidate.contextKey ?? `path:${candidate.path.join(',')}`;
 }
 
-function enqueueCandidate(candidate) {
-  const normalized = normalizeCandidate(candidate);
-  const key = candidateBacklogKey(normalized);
+function enqueueNormalizedCandidate(candidate) {
+  const key = candidateBacklogKey(candidate);
   if (candidateBacklogKeys.has(key)) return false;
   if (candidateBacklog.length >= exploreConfig.backlogCapacity) {
     stats.exploreCandidatesDropped += 1;
     return false;
   }
-  candidateBacklog.push(normalized);
+  candidateBacklog.push(candidate);
   candidateBacklogKeys.add(key);
   stats.exploreCandidatesAccepted += 1;
   return true;
+}
+
+function enqueueCandidate(candidate) {
+  return enqueueNormalizedCandidate(normalizeCandidate(candidate));
 }
 
 function refillExploreReservoir() {
@@ -153,8 +165,8 @@ function assertRequest(message) {
   if (!message || typeof message.type !== 'string' || message.type.length === 0) {
     throw new TypeError('Branch Manager message requires a type');
   }
-  if (!Number.isInteger(message.requestId) || message.requestId < 1) {
-    throw new RangeError(`Branch Manager ${message.type} requires a positive requestId`);
+  if (!Number.isSafeInteger(message.requestId) || message.requestId < 1) {
+    throw new RangeError(`Branch Manager ${message.type} requires a positive safe requestId`);
   }
 }
 
@@ -195,13 +207,13 @@ parentPort.on('message', (message) => {
   }
 
   if (message.type === 'complete-explore-hint') {
-    if (!Number.isInteger(message.hintId) || message.hintId < 1) throw new RangeError('complete-explore-hint requires a positive hintId');
-    if (!message.fragment || typeof message.fragment !== 'object') throw new TypeError('complete-explore-hint requires a fragment');
-    const candidates = message.fragment.frontierCandidates ?? [];
-    if (!Array.isArray(candidates)) throw new TypeError('explore fragment frontierCandidates must be an array');
-    const result = exploreHints.complete(message.hintId, message.fragment);
+    if (!Number.isSafeInteger(message.hintId) || message.hintId < 1) throw new RangeError('complete-explore-hint requires a positive safe hintId');
+    // Validate and normalize the entire returned frontier before retiring the outstanding hint.
+    // A malformed worker fragment therefore cannot partially mutate Branch Manager state.
+    const fragment = normalizeExploreFragment(message.fragment);
+    const result = exploreHints.complete(message.hintId, fragment);
     if (exploreActive) {
-      for (const candidate of candidates) enqueueCandidate(candidate);
+      for (const candidate of fragment.frontierCandidates) enqueueNormalizedCandidate(candidate);
       refillExploreReservoir();
     }
     parentPort.postMessage({
@@ -214,7 +226,7 @@ parentPort.on('message', (message) => {
   }
 
   if (message.type === 'abandon-explore-hint') {
-    if (!Number.isInteger(message.hintId) || message.hintId < 1) throw new RangeError('abandon-explore-hint requires a positive hintId');
+    if (!Number.isSafeInteger(message.hintId) || message.hintId < 1) throw new RangeError('abandon-explore-hint requires a positive safe hintId');
     const abandoned = exploreHints.abandon(message.hintId);
     refillExploreReservoir();
     parentPort.postMessage({
@@ -239,8 +251,15 @@ parentPort.on('message', (message) => {
 
   if (message.type === 'build-plan') {
     if (!planService) throw new Error('work-plan service unavailable in semantic-only Branch Manager mode');
+    if (!Number.isSafeInteger(message.splitDepth) || message.splitDepth < 1 || message.splitDepth > cellCount) {
+      throw new RangeError(`build-plan splitDepth must be in 1..${cellCount}`);
+    }
+    const probeDepth = message.probeDepth ?? 2;
+    if (!Number.isSafeInteger(probeDepth) || probeDepth < 0 || probeDepth > cellCount) {
+      throw new RangeError(`build-plan probeDepth must be in 0..${cellCount}`);
+    }
     const planStarted = performance.now();
-    const { planId, plan } = planService.build(message.splitDepth, message.probeDepth ?? 2);
+    const { planId, plan } = planService.build(message.splitDepth, probeDepth);
     stats.plansBuilt += 1;
     parentPort.postMessage({
       type: 'plan-built',
@@ -260,7 +279,7 @@ parentPort.on('message', (message) => {
 
   if (message.type === 'reduce-plan') {
     if (!planService) throw new Error('work-plan service unavailable in semantic-only Branch Manager mode');
-    if (!Number.isInteger(message.planId) || message.planId < 1) throw new RangeError('reduce-plan requires a positive planId');
+    if (!Number.isSafeInteger(message.planId) || message.planId < 1) throw new RangeError('reduce-plan requires a positive safe planId');
     if (!Array.isArray(message.frontierValues)) throw new TypeError('reduce-plan requires frontierValues array');
     const reduction = planService.reduce(message.planId, message.frontierValues);
     stats.plansReduced += 1;
@@ -277,8 +296,8 @@ parentPort.on('message', (message) => {
 
   if (message.type === 'release-plan') {
     if (!planService) throw new Error('work-plan service unavailable in semantic-only Branch Manager mode');
-    if (!Number.isInteger(message.planId) || message.planId < 1) throw new RangeError('release-plan requires a positive planId');
-    planService.release(message.planId);
+    if (!Number.isSafeInteger(message.planId) || message.planId < 1) throw new RangeError('release-plan requires a positive safe planId');
+    if (!planService.release(message.planId)) throw new Error(`unknown lookahead plan ${message.planId}`);
     parentPort.postMessage({ type: 'plan-released', requestId: message.requestId, planId: message.planId });
     return;
   }
