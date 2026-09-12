@@ -7,9 +7,11 @@
 
 ## Purpose
 
-**Continuation status:** audit in progress; full-root admission is blocked. The
-sections below preserve earlier findings, not a claim that every active line is
-clean. Current continuation coverage and corrections are recorded at the end.
+**Continuation status:** active-path audit complete for source revision
+`9c778bcaf010372ca2a3a91a7cdcec8debf5518f`; one integrated root measurement
+admitted. Earlier findings and intermediate readiness states below are historical.
+Current completion coverage, qualification and measurement outcome are recorded
+at the end.
 
 Revision 2 of the standard 7x6 empty-root solve ran for about 26 minutes, approached the hosted runner memory ceiling, and never returned the first win-threshold root proof. The whole forward engine was therefore audited as suspect rather than treating the event as one more isolated allocation problem.
 
@@ -531,3 +533,26 @@ ETC and priority-probe cost are hypotheses for a later evidence-led pass. Defaul
 split 3, three workers, priority depth 0, ETC disabled and current TT capacities
 remain unchanged. A root resource failure must be recorded as such; this audit
 does not claim that previous 15.7 GB failures have been solved by assumption.
+
+## Follow-up: research methods and local execution
+
+The user requested a methods review while the single hosted root was active.
+The [methods review](2026-09-12-negamax-methods-local-review.md) reconciles the
+canonical research head, actual enabled methods, native versus precompiled
+evidence and missing complete strategic closure. A local shallow profile took
+18.1714 ms through depth 4. A bounded actual-coordinator diagnostic proved only
+one initial authoritative leaf task is ready at split 3; with exploration off,
+other workers initially idle. This is an established initial scheduling condition,
+not a wrong-result defect or proof of its eventual performance impact. It sharpens
+the next performance owner without changing the qualified source. No duplicate
+full root was launched.
+
+## Follow-up: evaluation, terminals and hot-loop operations
+
+The [hot-loop report](2026-09-12-hot-loop-eval-terminal-report.md) traces move
+value, exact residual terminalization and every active deep-loop transformation.
+It identifies repeated generation/packed-record reads, term scratch copying,
+prefix-limited transition caching, tuple/object/closure/string constructions and
+interner growth as performance costs. Zero descriptor-allocation counters do not
+measure those other temporary constructions. This source-level report changes no
+qualified engine behavior and makes no unmeasured CPU cost ranking.

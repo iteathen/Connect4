@@ -46,6 +46,10 @@ Start with:
   exact-source bounded qualification. Standard-root performance remains unproven.
 - `docs/research/2026-09-12-frontier-audit-coverage.json` — 44 reviewed source files,
   five workflows, exact blob identities and qualification evidence.
+- `docs/research/2026-09-12-hot-loop-eval-terminal-report.md` — move evaluation,
+  exact terminal rules and high-level operations across the active hot loop.
+- `docs/research/2026-09-12-negamax-methods-local-review.md` — actual enabled
+  Negamax methods, local shallow measurements and initial work-supply limitation.
 - `docs/research/2026-09-11-7x6-replacement-term-lifetime.md`
 - `docs/research/2026-09-11-7x6-worker-descriptor-retention.md`
 - `docs/research/2026-09-11-7x6-proof-term-lifetime.md`

@@ -1,6 +1,6 @@
 schema_version: 27
 updated: 2026-09-12
-state: frontier_correctness_audit_complete_single_integrated_root_admitted
+state: frontier_audit_complete_integrated_root_active_methods_review_recorded
 current_branch: research/frontier-negamax-conformance
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -19,15 +19,18 @@ audit:
   remote_green_runs: {replacement: 34692987151, dependency: 34692987161, explore_hints: 34692987156, slot64: 34692987155}
   unresolved_correctness_lifecycle_findings: []
 standard_root:
-  admission: one_integrated_measurement_after_readiness_commit
+  admission: consumed_by_single_active_measurement
+  run: 34693275092
+  revision: 9e93018f06ca8a3f1fd2c012fb7ea4aa39b07775
+  result: in_progress
   trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
-  trigger_changed_in_continuation: false
+  trigger_changed_in_continuation: true
   prior_revision_2_run: 34676507073
   prior_result: runner_shutdown_root_unresolved
   current_split_depth: 3
   current_priority_probe_depth: 0
   maximum_concurrent_full_roots: 1
-  next_action: commit_readiness_then_trigger_once_and_record_outcome
+  next_action: observe_active_run_record_result_then_bounded_work_supply_review
 performance_only_hypotheses:
   - ETC_and_priority_probe_configuration
   - stored_state_hash_cpu_memory_tradeoff
@@ -36,3 +39,16 @@ performance_only_hypotheses:
 research_attribution:
   direction_and_architecture: Josh Oshiro
   implementation_and_qualification: OpenAI ChatGPT
+
+methods_review:
+  document: docs/research/2026-09-12-negamax-methods-local-review.md
+  initial_authoritative_tasks: 1
+  initial_path: [3, 3, 3]
+  local_depth_4_build_ms: 18.1714
+  next_performance_owner: dependency_aware_work_supply_and_task_granularity
+
+hot_loop_report:
+  document: docs/research/2026-09-12-hot-loop-eval-terminal-report.md
+  stable_three_field_proof_atomic_loads: 33
+  source_change: false
+  next_measurement: CPU_and_allocation_profile_of_proof_access_and_transition_interning

@@ -6,9 +6,11 @@
 **Implementation / qualification:** OpenAI ChatGPT
 
 The active-path line-by-line correctness/compliance audit is complete for source
-revision 9c778bcaf010372ca2a3a91a7cdcec8debf5518f. One standard 7x6 integrated
-measurement is admitted after this readiness record is committed. No root run
-was active at admission. Performance and standard-root completion remain unproven.
+revision 9c778bcaf010372ca2a3a91a7cdcec8debf5518f. The single standard 7x6 integrated
+measurement [34693275092](https://github.com/iteathen/Connect4/actions/runs/34693275092)
+is active at revision 9e93018f06ca8a3f1fd2c012fb7ea4aa39b07775. Readiness was
+committed before admission; no other root was active. Performance and standard-root
+completion remain unproven.
 
 The [audit ledger](docs/research/2026-09-12-full-engine-sanity-audit.md) records
 findings, fixes, retained behavior and qualification. The
@@ -28,8 +30,7 @@ All 33 targeted controls pass locally. Replacement (34692987151), dependency
 (34692987161), ExploreHint (34692987156) and slot64 (34692987155) CI succeeded
 on the exact audited source revision.
 
-Next: change the sole revision trigger once, observe the integrated root and
-record its outcome. Keep three workers, split depth 3, priority depth 0, ETC
+Next: observe the admitted integrated root and record its outcome. Keep three workers, split depth 3, priority depth 0, ETC
 disabled and existing TT capacities. Do not dispatch a duplicate run.
 
 Global arena reset requires stopped submissions and quiescent workers. Finite
@@ -39,3 +40,10 @@ ETC and priority probing remain performance hypotheses. Historical revision-2
 run 34676507073 ended without a proof near 15.7 GB RSS; this audit does not imply
 that its performance problem has been solved. Complete cheap U1/U2/NDC forward
 integration remains unestablished.
+
+The [methods review](docs/research/2026-09-12-negamax-methods-local-review.md)
+reconciles research with active settings. Local shallow construction through
+depth 4 took 18.1714 ms. A bounded coordinator diagnostic shows only one initial
+authoritative task at split 3; exploration is disabled. Task granularity and
+dependency-aware work supply are the next performance owner. The complete
+strategic U1/U2/NDC closure remains unimplemented in this root.

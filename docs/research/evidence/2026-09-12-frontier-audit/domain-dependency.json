@@ -1,0 +1,261 @@
+{
+  "kind": "connect4-online-frontier-dependency-parallel-negamax-v5",
+  "status": "complete",
+  "spec": {
+    "columns": 4,
+    "rows": 5,
+    "connect": 4
+  },
+  "repeats": 1,
+  "availableParallelism": 16,
+  "priorityProbeDepth": 0,
+  "completeGlobalGraphRequiredByRecursiveSearch": false,
+  "canonicalProofIdentity": "exact_semantic_descriptor",
+  "coordinatorImplementation": "createOnlineDependencyCoordinator",
+  "coordinatorDiagnostics": "immutable_stats_snapshot",
+  "ordering": "dynamic_live_winning_line_frontier_with_proof_hint_equal_score_tiebreak",
+  "forcedTransit": "macro_normalized_before_decision_depth",
+  "sharedProofAdmission": "probe_without_allocation_then_generation_stable_read_or_rebind_on_publication",
+  "siblingCompletion": "incremental_completion_order_with_noninterrupting_detach_after_cutoff",
+  "baseline": {
+    "elapsedMsMedian": 192.25680000000003,
+    "expandedMedian": 11303,
+    "callsMedian": 24873,
+    "runs": [
+      {
+        "elapsedMs": 192.25680000000003,
+        "expanded": 11303,
+        "calls": 24873,
+        "forcedMacroTransitions": 4722,
+        "proofAdmissions": 13325
+      }
+    ]
+  },
+  "results": [
+    {
+      "requestedWorkers": 1,
+      "workers": 1,
+      "splitDepth": 2,
+      "splitDepthMeaning": "unresolved_decision_depth_after_forced_macro_normalization",
+      "rootResolvedMsMedian": 52.56309999999996,
+      "elapsedMsMedian": 52.56880000000001,
+      "totalExpandedMedian": 11303,
+      "shallowExpandedMedian": 5,
+      "workerExpandedMedian": 11298,
+      "leafTasksMedian": 7,
+      "scoutTasksMedian": 6,
+      "detachedScoutTasksMedian": 0,
+      "reSearchesMedian": 0,
+      "parallelBatchesMedian": 2,
+      "actions": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs": [
+        {
+          "rootResolvedMs": 52.56309999999996,
+          "elapsedMs": 52.56880000000001,
+          "shallowExpanded": 5,
+          "workerExpanded": 11298,
+          "totalExpanded": 11303,
+          "leafTasks": 7,
+          "scoutTasks": 6,
+          "incrementalScoutCompletions": 6,
+          "detachedScoutTasks": 0,
+          "detachedBatches": 0,
+          "reSearches": 0,
+          "parallelBatches": 2,
+          "forcedMacroTransitions": 0,
+          "proofAdmissions": 5,
+          "coordinatorStates": 12,
+          "coordinatorClasses": 24,
+          "coordinatorPaths": 12,
+          "priorityMemoEntries": 7,
+          "priorityMemoDrops": 0
+        }
+      ]
+    },
+    {
+      "requestedWorkers": 1,
+      "workers": 1,
+      "splitDepth": 3,
+      "splitDepthMeaning": "unresolved_decision_depth_after_forced_macro_normalization",
+      "rootResolvedMsMedian": 47.85760000000005,
+      "elapsedMsMedian": 47.863000000000056,
+      "totalExpandedMedian": 11334,
+      "shallowExpandedMedian": 12,
+      "workerExpandedMedian": 11322,
+      "leafTasksMedian": 20,
+      "scoutTasksMedian": 18,
+      "detachedScoutTasksMedian": 0,
+      "reSearchesMedian": 1,
+      "parallelBatchesMedian": 6,
+      "actions": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs": [
+        {
+          "rootResolvedMs": 47.85760000000005,
+          "elapsedMs": 47.863000000000056,
+          "shallowExpanded": 12,
+          "workerExpanded": 11322,
+          "totalExpanded": 11334,
+          "leafTasks": 20,
+          "scoutTasks": 18,
+          "incrementalScoutCompletions": 18,
+          "detachedScoutTasks": 0,
+          "detachedBatches": 0,
+          "reSearches": 1,
+          "parallelBatches": 6,
+          "forcedMacroTransitions": 0,
+          "proofAdmissions": 12,
+          "coordinatorStates": 40,
+          "coordinatorClasses": 68,
+          "coordinatorPaths": 31,
+          "priorityMemoEntries": 19,
+          "priorityMemoDrops": 0
+        }
+      ]
+    },
+    {
+      "requestedWorkers": 2,
+      "workers": 2,
+      "splitDepth": 2,
+      "splitDepthMeaning": "unresolved_decision_depth_after_forced_macro_normalization",
+      "rootResolvedMsMedian": 92.846,
+      "elapsedMsMedian": 92.85190000000011,
+      "totalExpandedMedian": 11318,
+      "shallowExpandedMedian": 5,
+      "workerExpandedMedian": 11313,
+      "leafTasksMedian": 7,
+      "scoutTasksMedian": 6,
+      "detachedScoutTasksMedian": 0,
+      "reSearchesMedian": 0,
+      "parallelBatchesMedian": 2,
+      "actions": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs": [
+        {
+          "rootResolvedMs": 92.846,
+          "elapsedMs": 92.85190000000011,
+          "shallowExpanded": 5,
+          "workerExpanded": 11313,
+          "totalExpanded": 11318,
+          "leafTasks": 7,
+          "scoutTasks": 6,
+          "incrementalScoutCompletions": 6,
+          "detachedScoutTasks": 0,
+          "detachedBatches": 0,
+          "reSearches": 0,
+          "parallelBatches": 2,
+          "forcedMacroTransitions": 0,
+          "proofAdmissions": 5,
+          "coordinatorStates": 12,
+          "coordinatorClasses": 24,
+          "coordinatorPaths": 12,
+          "priorityMemoEntries": 7,
+          "priorityMemoDrops": 0
+        }
+      ]
+    },
+    {
+      "requestedWorkers": 2,
+      "workers": 2,
+      "splitDepth": 3,
+      "splitDepthMeaning": "unresolved_decision_depth_after_forced_macro_normalization",
+      "rootResolvedMsMedian": 33.03449999999998,
+      "elapsedMsMedian": 33.044399999999996,
+      "totalExpandedMedian": 11334,
+      "shallowExpandedMedian": 12,
+      "workerExpandedMedian": 11322,
+      "leafTasksMedian": 20,
+      "scoutTasksMedian": 18,
+      "detachedScoutTasksMedian": 0,
+      "reSearchesMedian": 1,
+      "parallelBatchesMedian": 6,
+      "actions": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "runs": [
+        {
+          "rootResolvedMs": 33.03449999999998,
+          "elapsedMs": 33.044399999999996,
+          "shallowExpanded": 12,
+          "workerExpanded": 11322,
+          "totalExpanded": 11334,
+          "leafTasks": 20,
+          "scoutTasks": 18,
+          "incrementalScoutCompletions": 18,
+          "detachedScoutTasks": 0,
+          "detachedBatches": 0,
+          "reSearches": 1,
+          "parallelBatches": 6,
+          "forcedMacroTransitions": 0,
+          "proofAdmissions": 12,
+          "coordinatorStates": 40,
+          "coordinatorClasses": 68,
+          "coordinatorPaths": 31,
+          "priorityMemoEntries": 19,
+          "priorityMemoDrops": 0
+        }
+      ]
+    }
+  ],
+  "best": {
+    "requestedWorkers": 2,
+    "workers": 2,
+    "splitDepth": 3,
+    "splitDepthMeaning": "unresolved_decision_depth_after_forced_macro_normalization",
+    "rootResolvedMsMedian": 33.03449999999998,
+    "elapsedMsMedian": 33.044399999999996,
+    "totalExpandedMedian": 11334,
+    "shallowExpandedMedian": 12,
+    "workerExpandedMedian": 11322,
+    "leafTasksMedian": 20,
+    "scoutTasksMedian": 18,
+    "detachedScoutTasksMedian": 0,
+    "reSearchesMedian": 1,
+    "parallelBatchesMedian": 6,
+    "actions": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "runs": [
+      {
+        "rootResolvedMs": 33.03449999999998,
+        "elapsedMs": 33.044399999999996,
+        "shallowExpanded": 12,
+        "workerExpanded": 11322,
+        "totalExpanded": 11334,
+        "leafTasks": 20,
+        "scoutTasks": 18,
+        "incrementalScoutCompletions": 18,
+        "detachedScoutTasks": 0,
+        "detachedBatches": 0,
+        "reSearches": 1,
+        "parallelBatches": 6,
+        "forcedMacroTransitions": 0,
+        "proofAdmissions": 12,
+        "coordinatorStates": 40,
+        "coordinatorClasses": 68,
+        "coordinatorPaths": 31,
+        "priorityMemoEntries": 19,
+        "priorityMemoDrops": 0
+      }
+    ]
+  }
+}

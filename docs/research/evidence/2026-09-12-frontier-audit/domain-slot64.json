@@ -1,0 +1,3414 @@
+{
+  "kind": "connect4-slot-local-64bit-residual-v1",
+  "status": "complete",
+  "date": "2026-09-11",
+  "qualification": "complete class/qID/edge graph identity plus independent BSFP root/action WDL and identical Negamax work",
+  "architecture": "10 fixed ontology slots, 64-bit chunks, slot-local dictionaries, per-slot narrow IDs, parent-chunk reuse",
+  "caveat": "bounded controls have much smaller ontologies than standard 7x6; standard-7x6 bounded-growth is the promotion gate for memory economics",
+  "cases": [
+    {
+      "geometry": "4x3:c3",
+      "graph": {
+        "census": {
+          "states": 3735,
+          "terminalEdges": 2390,
+          "nonterminalEdges": 7842,
+          "illegalEdges": 4708
+        },
+        "classes": 1988,
+        "baselineMemory": {
+          "state": {
+            "stateCount": 3735,
+            "stateCapacity": 4096,
+            "stateArrayBytes": 65536,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 32768,
+            "totalTypedBytes": 98304
+          },
+          "residual": {
+            "classCount": 1988,
+            "residualTerms": 9032,
+            "termVocabularyCount": 65,
+            "vocabularyBytes": 2758,
+            "classMetadataBytes": 36864,
+            "classTermBytes": 32768,
+            "logicalClassTermBytes": 18064,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 393216,
+            "hashSlotBytes": 16384,
+            "scratchBytes": 112,
+            "totalTypedBytes": 482102
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 1044,
+          "bitBytes": 96,
+          "totalTypedBytes": 581546
+        },
+        "candidateMemory": {
+          "state": {
+            "stateCount": 3735,
+            "stateCapacity": 4096,
+            "stateArrayBytes": 65536,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 32768,
+            "totalTypedBytes": 98304
+          },
+          "residual": {
+            "classCount": 1988,
+            "termVocabularyCount": 65,
+            "residualTerms": null,
+            "vocabularyBytes": 2758,
+            "classTupleBytes": 22528,
+            "classReferenceWidths": [
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "classMetadataBytes": 47104,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 393216,
+            "classHashSlotBytes": 16384,
+            "chunkCounts": [
+              1884,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "chunkPayloadBytes": 34816,
+            "chunkHashSlotBytes": 34816,
+            "chunkDictionaryBytes": 69632,
+            "slotDictionaries": [
+              {
+                "slot": 0,
+                "chunkCount": 1884,
+                "chunkCapacity": 2048,
+                "payloadBytes": 16384,
+                "hashSlotBytes": 16384,
+                "totalTypedBytes": 32768
+              },
+              {
+                "slot": 1,
+                "chunkCount": 2,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 2,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 3,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 4,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 5,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 6,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 7,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 8,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 9,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              }
+            ],
+            "normalizationLayout": "sparse-superset-word-rows",
+            "strictSupersetEntries": 64,
+            "maskBytes": 1624,
+            "scratchBytes": 360,
+            "totalTypedBytes": 531078
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 1044,
+          "bitBytes": 96,
+          "totalTypedBytes": 630522
+        },
+        "candidateMetrics": {
+          "internLookups": 7434,
+          "internHits": 5446,
+          "internMisses": 1988,
+          "ownTransitionHits": 15212,
+          "ownTransitionMisses": 5252,
+          "blockTransitionHits": 11112,
+          "blockTransitionMisses": 4572,
+          "ownNoop": 844,
+          "blockNoop": 698,
+          "ownTerminal": 850,
+          "reducedTerms": 5862,
+          "supersetWordProbes": 9544,
+          "supersetWordClears": 9544,
+          "classGrows": 1,
+          "hashGrows": 1,
+          "slotReferenceWidens": 1,
+          "parentChunkReuses": 65901,
+          "chunkInterns": 8439,
+          "outOfPrefixOwn": 0,
+          "outOfPrefixBlock": 0,
+          "cachedStores": 9824,
+          "termCountReads": 3976,
+          "termWrites": 1988
+        },
+        "slotMetrics": [
+          {
+            "lookups": 7347,
+            "hits": 5463,
+            "misses": 1884,
+            "payloadGrows": 3,
+            "hashGrows": 3
+          },
+          {
+            "lookups": 1076,
+            "hits": 1074,
+            "misses": 2,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          }
+        ]
+      },
+      "baseline": {
+        "totalMs": 0.6725999999999885,
+        "solveMs": 0.18439999999998236,
+        "representative": {
+          "totalMs": 0.6725999999999885,
+          "setupMs": 0.5351999999999748,
+          "solveMs": 0.11889999999999645,
+          "result": 1,
+          "actions": null,
+          "expanded": 27,
+          "calls": 65,
+          "states": 60,
+          "classes": 75,
+          "memory": {
+            "state": {
+              "stateCount": 60,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 75,
+              "residualTerms": 399,
+              "termVocabularyCount": 65,
+              "vocabularyBytes": 2758,
+              "classMetadataBytes": 18432,
+              "classTermBytes": 8192,
+              "logicalClassTermBytes": 798,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 393216,
+              "hashSlotBytes": 8192,
+              "scratchBytes": 112,
+              "totalTypedBytes": 430902
+            },
+            "localProof": {
+              "capacity": 1024,
+              "retainedTypedBytes": 3072,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 1044,
+            "bitBytes": 96,
+            "totalTypedBytes": 533418
+          },
+          "classMetrics": {
+            "internLookups": 96,
+            "internHits": 21,
+            "internMisses": 75,
+            "ownTransitionHits": 3,
+            "ownTransitionMisses": 61,
+            "blockTransitionHits": 4,
+            "blockTransitionMisses": 60,
+            "ownNoop": 20,
+            "blockNoop": 7,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 347,
+            "classGrows": 0,
+            "termGrows": 0,
+            "hashGrows": 0,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 121
+          }
+        },
+        "qualification": {
+          "totalMs": 6.6229999999999905,
+          "setupMs": 0.6221999999999923,
+          "solveMs": 3.374299999999991,
+          "result": 1,
+          "actions": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "expanded": 168,
+          "calls": 424,
+          "states": 367,
+          "classes": 405,
+          "memory": {
+            "state": {
+              "stateCount": 367,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 405,
+              "residualTerms": 1940,
+              "termVocabularyCount": 65,
+              "vocabularyBytes": 2758,
+              "classMetadataBytes": 18432,
+              "classTermBytes": 8192,
+              "logicalClassTermBytes": 3880,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 393216,
+              "hashSlotBytes": 8192,
+              "scratchBytes": 112,
+              "totalTypedBytes": 430902
+            },
+            "localProof": {
+              "capacity": 1024,
+              "retainedTypedBytes": 3072,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 1044,
+            "bitBytes": 96,
+            "totalTypedBytes": 533418
+          },
+          "classMetrics": {
+            "internLookups": 609,
+            "internHits": 204,
+            "internMisses": 405,
+            "ownTransitionHits": 52,
+            "ownTransitionMisses": 371,
+            "blockTransitionHits": 41,
+            "blockTransitionMisses": 382,
+            "ownNoop": 87,
+            "blockNoop": 59,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 1864,
+            "classGrows": 0,
+            "termGrows": 0,
+            "hashGrows": 0,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 753
+          }
+        }
+      },
+      "slot64": {
+        "totalMs": 0.9725999999999999,
+        "solveMs": 0.3435000000000059,
+        "representative": {
+          "totalMs": 0.9725999999999999,
+          "setupMs": 0.6117000000000132,
+          "solveMs": 0.3435000000000059,
+          "result": 1,
+          "actions": null,
+          "expanded": 27,
+          "calls": 65,
+          "states": 60,
+          "classes": 75,
+          "memory": {
+            "state": {
+              "stateCount": 60,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 75,
+              "termVocabularyCount": 65,
+              "residualTerms": null,
+              "vocabularyBytes": 2758,
+              "classTupleBytes": 10240,
+              "classReferenceWidths": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 22528,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 393216,
+              "classHashSlotBytes": 8192,
+              "chunkCounts": [
+                75,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 20480,
+              "chunkHashSlotBytes": 20480,
+              "chunkDictionaryBytes": 40960,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 75,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 2,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 64,
+              "maskBytes": 1624,
+              "scratchBytes": 360,
+              "totalTypedBytes": 469638
+            },
+            "localProof": {
+              "capacity": 1024,
+              "retainedTypedBytes": 3072,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 1044,
+            "bitBytes": 96,
+            "totalTypedBytes": 572154
+          },
+          "classMetrics": {
+            "internLookups": 96,
+            "internHits": 21,
+            "internMisses": 75,
+            "ownTransitionHits": 3,
+            "ownTransitionMisses": 61,
+            "blockTransitionHits": 4,
+            "blockTransitionMisses": 60,
+            "ownNoop": 20,
+            "blockNoop": 7,
+            "ownTerminal": 0,
+            "reducedTerms": 93,
+            "supersetWordProbes": 137,
+            "supersetWordClears": 137,
+            "classGrows": 0,
+            "hashGrows": 0,
+            "slotReferenceWidens": 0,
+            "parentChunkReuses": 838,
+            "chunkInterns": 122,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 121,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        },
+        "qualification": {
+          "totalMs": 7.422700000000006,
+          "setupMs": 0.9558000000000106,
+          "solveMs": 1.1975999999999942,
+          "result": 1,
+          "actions": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "expanded": 168,
+          "calls": 424,
+          "states": 367,
+          "classes": 405,
+          "memory": {
+            "state": {
+              "stateCount": 367,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 405,
+              "termVocabularyCount": 65,
+              "residualTerms": null,
+              "vocabularyBytes": 2758,
+              "classTupleBytes": 11264,
+              "classReferenceWidths": [
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 23552,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 393216,
+              "classHashSlotBytes": 8192,
+              "chunkCounts": [
+                398,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 22528,
+              "chunkHashSlotBytes": 22528,
+              "chunkDictionaryBytes": 45056,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 398,
+                  "chunkCapacity": 512,
+                  "payloadBytes": 4096,
+                  "hashSlotBytes": 4096,
+                  "totalTypedBytes": 8192
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 2,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 64,
+              "maskBytes": 1624,
+              "scratchBytes": 360,
+              "totalTypedBytes": 474758
+            },
+            "localProof": {
+              "capacity": 1024,
+              "retainedTypedBytes": 3072,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 1044,
+            "bitBytes": 96,
+            "totalTypedBytes": 577274
+          },
+          "classMetrics": {
+            "internLookups": 609,
+            "internHits": 204,
+            "internMisses": 405,
+            "ownTransitionHits": 52,
+            "ownTransitionMisses": 371,
+            "blockTransitionHits": 41,
+            "blockTransitionMisses": 382,
+            "ownNoop": 87,
+            "blockNoop": 59,
+            "ownTerminal": 0,
+            "reducedTerms": 547,
+            "supersetWordProbes": 816,
+            "supersetWordClears": 816,
+            "classGrows": 0,
+            "hashGrows": 0,
+            "slotReferenceWidens": 1,
+            "parentChunkReuses": 5383,
+            "chunkInterns": 707,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 753,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        }
+      },
+      "ratioSlot64OverBaseline": 1.4460303300624688,
+      "rootBytesSaved": -38736,
+      "fullGraphBytesSaved": -48976
+    },
+    {
+      "geometry": "4x4:c4",
+      "graph": {
+        "census": {
+          "states": 34095,
+          "terminalEdges": 6256,
+          "nonterminalEdges": 94508,
+          "illegalEdges": 35616
+        },
+        "classes": 7507,
+        "baselineMemory": {
+          "state": {
+            "stateCount": 34095,
+            "stateCapacity": 65536,
+            "stateArrayBytes": 1048576,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 262144,
+            "totalTypedBytes": 1310720
+          },
+          "residual": {
+            "classCount": 7507,
+            "residualTerms": 28337,
+            "termVocabularyCount": 126,
+            "vocabularyBytes": 7202,
+            "classMetadataBytes": 147456,
+            "classTermBytes": 65536,
+            "logicalClassTermBytes": 56674,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 524288,
+            "hashSlotBytes": 65536,
+            "scratchBytes": 80,
+            "totalTypedBytes": 810098
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 2520,
+          "bitBytes": 128,
+          "totalTypedBytes": 2123466
+        },
+        "candidateMemory": {
+          "state": {
+            "stateCount": 34095,
+            "stateCapacity": 65536,
+            "stateArrayBytes": 1048576,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 262144,
+            "totalTypedBytes": 1310720
+          },
+          "residual": {
+            "classCount": 7507,
+            "termVocabularyCount": 126,
+            "residualTerms": null,
+            "vocabularyBytes": 7202,
+            "classTupleBytes": 98304,
+            "classReferenceWidths": [
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "classMetadataBytes": 196608,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 524288,
+            "classHashSlotBytes": 65536,
+            "chunkCounts": [
+              532,
+              2516,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "chunkPayloadBytes": 57344,
+            "chunkHashSlotBytes": 36864,
+            "chunkDictionaryBytes": 94208,
+            "slotDictionaries": [
+              {
+                "slot": 0,
+                "chunkCount": 532,
+                "chunkCapacity": 1024,
+                "payloadBytes": 8192,
+                "hashSlotBytes": 4096,
+                "totalTypedBytes": 12288
+              },
+              {
+                "slot": 1,
+                "chunkCount": 2516,
+                "chunkCapacity": 4096,
+                "payloadBytes": 32768,
+                "hashSlotBytes": 16384,
+                "totalTypedBytes": 49152
+              },
+              {
+                "slot": 2,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 3,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 4,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 5,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 6,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 7,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 8,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 9,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              }
+            ],
+            "normalizationLayout": "sparse-superset-word-rows",
+            "strictSupersetEntries": 195,
+            "maskBytes": 2843,
+            "scratchBytes": 360,
+            "totalTypedBytes": 891045
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 2520,
+          "bitBytes": 128,
+          "totalTypedBytes": 2204413
+        },
+        "candidateMetrics": {
+          "internLookups": 156035,
+          "internHits": 148528,
+          "internMisses": 7507,
+          "ownTransitionHits": 76820,
+          "ownTransitionMisses": 124708,
+          "blockTransitionHits": 60624,
+          "blockTransitionMisses": 128392,
+          "ownNoop": 45608,
+          "blockNoop": 40545,
+          "ownTerminal": 10914,
+          "reducedTerms": 79778,
+          "supersetWordProbes": 157374,
+          "supersetWordClears": 157374,
+          "classGrows": 3,
+          "hashGrows": 3,
+          "slotReferenceWidens": 2,
+          "parentChunkReuses": 1360923,
+          "chunkInterns": 199427,
+          "outOfPrefixOwn": 113600,
+          "outOfPrefixBlock": 114548,
+          "cachedStores": 24952,
+          "termCountReads": 15014,
+          "termWrites": 7507
+        },
+        "slotMetrics": [
+          {
+            "lookups": 85890,
+            "hits": 85358,
+            "misses": 532,
+            "payloadGrows": 2,
+            "hashGrows": 1
+          },
+          {
+            "lookups": 113521,
+            "hits": 111005,
+            "misses": 2516,
+            "payloadGrows": 4,
+            "hashGrows": 3
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          }
+        ]
+      },
+      "baseline": {
+        "totalMs": 4.079600000000028,
+        "solveMs": 3.629599999999982,
+        "representative": {
+          "totalMs": 4.079600000000028,
+          "setupMs": 0.42259999999998854,
+          "solveMs": 3.6433999999999287,
+          "result": 0,
+          "actions": null,
+          "expanded": 2064,
+          "calls": 4332,
+          "states": 2979,
+          "classes": 1453,
+          "memory": {
+            "state": {
+              "stateCount": 2979,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 1453,
+              "residualTerms": 4914,
+              "termVocabularyCount": 126,
+              "vocabularyBytes": 7202,
+              "classMetadataBytes": 36864,
+              "classTermBytes": 16384,
+              "logicalClassTermBytes": 9828,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 524288,
+              "hashSlotBytes": 16384,
+              "scratchBytes": 80,
+              "totalTypedBytes": 601202
+            },
+            "localProof": {
+              "capacity": 4096,
+              "retainedTypedBytes": 12288,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 2520,
+            "bitBytes": 128,
+            "totalTypedBytes": 714442
+          },
+          "classMetrics": {
+            "internLookups": 3227,
+            "internHits": 1774,
+            "internMisses": 1453,
+            "ownTransitionHits": 2348,
+            "ownTransitionMisses": 1983,
+            "blockTransitionHits": 2024,
+            "blockTransitionMisses": 2307,
+            "ownNoop": 452,
+            "blockNoop": 613,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 3634,
+            "classGrows": 1,
+            "termGrows": 1,
+            "hashGrows": 1,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 4290
+          }
+        },
+        "qualification": {
+          "totalMs": 19.661999999999978,
+          "setupMs": 0.5043999999999755,
+          "solveMs": 8.496499999999969,
+          "result": 0,
+          "actions": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "expanded": 5219,
+          "calls": 11369,
+          "states": 6837,
+          "classes": 2704,
+          "memory": {
+            "state": {
+              "stateCount": 6837,
+              "stateCapacity": 8192,
+              "stateArrayBytes": 131072,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 65536,
+              "totalTypedBytes": 196608
+            },
+            "residual": {
+              "classCount": 2704,
+              "residualTerms": 9437,
+              "termVocabularyCount": 126,
+              "vocabularyBytes": 7202,
+              "classMetadataBytes": 73728,
+              "classTermBytes": 32768,
+              "logicalClassTermBytes": 18874,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 524288,
+              "hashSlotBytes": 16384,
+              "scratchBytes": 80,
+              "totalTypedBytes": 654450
+            },
+            "localProof": {
+              "capacity": 8192,
+              "retainedTypedBytes": 24576,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 2520,
+            "bitBytes": 128,
+            "totalTypedBytes": 878282
+          },
+          "classMetrics": {
+            "internLookups": 6929,
+            "internHits": 4225,
+            "internMisses": 2704,
+            "ownTransitionHits": 7287,
+            "ownTransitionMisses": 4081,
+            "blockTransitionHits": 6399,
+            "blockTransitionMisses": 4969,
+            "ownNoop": 905,
+            "blockNoop": 1218,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 7909,
+            "classGrows": 2,
+            "termGrows": 2,
+            "hashGrows": 1,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 9050
+          }
+        }
+      },
+      "slot64": {
+        "totalMs": 5.54079999999999,
+        "solveMs": 4.993100000000027,
+        "representative": {
+          "totalMs": 5.54079999999999,
+          "setupMs": 0.6711999999999989,
+          "solveMs": 4.852800000000002,
+          "result": 0,
+          "actions": null,
+          "expanded": 2064,
+          "calls": 4332,
+          "states": 2979,
+          "classes": 1453,
+          "memory": {
+            "state": {
+              "stateCount": 2979,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 1453,
+              "termVocabularyCount": 126,
+              "residualTerms": null,
+              "vocabularyBytes": 7202,
+              "classTupleBytes": 22528,
+              "classReferenceWidths": [
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 47104,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 524288,
+              "classHashSlotBytes": 16384,
+              "chunkCounts": [
+                148,
+                707,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 26624,
+              "chunkHashSlotBytes": 22528,
+              "chunkDictionaryBytes": 49152,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 148,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 707,
+                  "chunkCapacity": 1024,
+                  "payloadBytes": 8192,
+                  "hashSlotBytes": 4096,
+                  "totalTypedBytes": 12288
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 195,
+              "maskBytes": 2843,
+              "scratchBytes": 360,
+              "totalTypedBytes": 647333
+            },
+            "localProof": {
+              "capacity": 4096,
+              "retainedTypedBytes": 12288,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 2520,
+            "bitBytes": 128,
+            "totalTypedBytes": 760573
+          },
+          "classMetrics": {
+            "internLookups": 3227,
+            "internHits": 1774,
+            "internMisses": 1453,
+            "ownTransitionHits": 2348,
+            "ownTransitionMisses": 1983,
+            "blockTransitionHits": 2024,
+            "blockTransitionMisses": 2307,
+            "ownNoop": 452,
+            "blockNoop": 613,
+            "ownTerminal": 0,
+            "reducedTerms": 1960,
+            "supersetWordProbes": 3561,
+            "supersetWordClears": 3561,
+            "classGrows": 1,
+            "hashGrows": 1,
+            "slotReferenceWidens": 1,
+            "parentChunkReuses": 28083,
+            "chunkInterns": 4187,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 4290,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        },
+        "qualification": {
+          "totalMs": 23.108300000000042,
+          "setupMs": 0.6089000000000055,
+          "solveMs": 9.114300000000014,
+          "result": 0,
+          "actions": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "expanded": 5219,
+          "calls": 11369,
+          "states": 6837,
+          "classes": 2704,
+          "memory": {
+            "state": {
+              "stateCount": 6837,
+              "stateCapacity": 8192,
+              "stateArrayBytes": 131072,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 65536,
+              "totalTypedBytes": 196608
+            },
+            "residual": {
+              "classCount": 2704,
+              "termVocabularyCount": 126,
+              "residualTerms": null,
+              "vocabularyBytes": 7202,
+              "classTupleBytes": 45056,
+              "classReferenceWidths": [
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 94208,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 524288,
+              "classHashSlotBytes": 16384,
+              "chunkCounts": [
+                226,
+                1186,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 34816,
+              "chunkHashSlotBytes": 26624,
+              "chunkDictionaryBytes": 61440,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 226,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 1186,
+                  "chunkCapacity": 2048,
+                  "payloadBytes": 16384,
+                  "hashSlotBytes": 8192,
+                  "totalTypedBytes": 24576
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 195,
+              "maskBytes": 2843,
+              "scratchBytes": 360,
+              "totalTypedBytes": 706725
+            },
+            "localProof": {
+              "capacity": 8192,
+              "retainedTypedBytes": 24576,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 2520,
+            "bitBytes": 128,
+            "totalTypedBytes": 930557
+          },
+          "classMetrics": {
+            "internLookups": 6929,
+            "internHits": 4225,
+            "internMisses": 2704,
+            "ownTransitionHits": 7287,
+            "ownTransitionMisses": 4081,
+            "blockTransitionHits": 6399,
+            "blockTransitionMisses": 4969,
+            "ownNoop": 905,
+            "blockNoop": 1218,
+            "ownTerminal": 0,
+            "reducedTerms": 4124,
+            "supersetWordProbes": 7443,
+            "supersetWordClears": 7443,
+            "classGrows": 2,
+            "hashGrows": 1,
+            "slotReferenceWidens": 1,
+            "parentChunkReuses": 60233,
+            "chunkInterns": 9057,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 9050,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        }
+      },
+      "ratioSlot64OverBaseline": 1.3581723698401689,
+      "rootBytesSaved": -46131,
+      "fullGraphBytesSaved": -80947
+    },
+    {
+      "geometry": "5x3:c4",
+      "graph": {
+        "census": {
+          "states": 11317,
+          "terminalEdges": 1786,
+          "nonterminalEdges": 35933,
+          "illegalEdges": 18866
+        },
+        "classes": 954,
+        "baselineMemory": {
+          "state": {
+            "stateCount": 11317,
+            "stateCapacity": 16384,
+            "stateArrayBytes": 262144,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 65536,
+            "totalTypedBytes": 327680
+          },
+          "residual": {
+            "classCount": 954,
+            "residualTerms": 2479,
+            "termVocabularyCount": 69,
+            "vocabularyBytes": 3324,
+            "classMetadataBytes": 18432,
+            "classTermBytes": 8192,
+            "logicalClassTermBytes": 4958,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 491520,
+            "hashSlotBytes": 8192,
+            "scratchBytes": 48,
+            "totalTypedBytes": 529708
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 4121,
+          "bitBytes": 120,
+          "totalTypedBytes": 861629
+        },
+        "candidateMemory": {
+          "state": {
+            "stateCount": 11317,
+            "stateCapacity": 16384,
+            "stateArrayBytes": 262144,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 65536,
+            "totalTypedBytes": 327680
+          },
+          "residual": {
+            "classCount": 954,
+            "termVocabularyCount": 69,
+            "residualTerms": null,
+            "vocabularyBytes": 3324,
+            "classTupleBytes": 11264,
+            "classReferenceWidths": [
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "classMetadataBytes": 23552,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 491520,
+            "classHashSlotBytes": 8192,
+            "chunkCounts": [
+              630,
+              14,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "chunkPayloadBytes": 26624,
+            "chunkHashSlotBytes": 22528,
+            "chunkDictionaryBytes": 49152,
+            "slotDictionaries": [
+              {
+                "slot": 0,
+                "chunkCount": 630,
+                "chunkCapacity": 1024,
+                "payloadBytes": 8192,
+                "hashSlotBytes": 4096,
+                "totalTypedBytes": 12288
+              },
+              {
+                "slot": 1,
+                "chunkCount": 14,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 2,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 3,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 4,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 5,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 6,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 7,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 8,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 9,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              }
+            ],
+            "normalizationLayout": "sparse-superset-word-rows",
+            "strictSupersetEntries": 112,
+            "maskBytes": 2120,
+            "scratchBytes": 360,
+            "totalTypedBytes": 578220
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 4121,
+          "bitBytes": 120,
+          "totalTypedBytes": 910141
+        },
+        "candidateMetrics": {
+          "internLookups": 5325,
+          "internHits": 4371,
+          "internMisses": 954,
+          "ownTransitionHits": 71636,
+          "ownTransitionMisses": 3802,
+          "blockTransitionHits": 66990,
+          "blockTransitionMisses": 4876,
+          "ownNoop": 1422,
+          "blockNoop": 1720,
+          "ownTerminal": 213,
+          "reducedTerms": 2395,
+          "supersetWordProbes": 4681,
+          "supersetWordClears": 4681,
+          "classGrows": 0,
+          "hashGrows": 0,
+          "slotReferenceWidens": 1,
+          "parentChunkReuses": 47425,
+          "chunkInterns": 5825,
+          "outOfPrefixOwn": 0,
+          "outOfPrefixBlock": 0,
+          "cachedStores": 8678,
+          "termCountReads": 1908,
+          "termWrites": 954
+        },
+        "slotMetrics": [
+          {
+            "lookups": 4697,
+            "hits": 4067,
+            "misses": 630,
+            "payloadGrows": 2,
+            "hashGrows": 1
+          },
+          {
+            "lookups": 1112,
+            "hits": 1098,
+            "misses": 14,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          }
+        ]
+      },
+      "baseline": {
+        "totalMs": 1.8519000000000005,
+        "solveMs": 1.5582000000000562,
+        "representative": {
+          "totalMs": 1.8519000000000005,
+          "setupMs": 0.2803000000000111,
+          "solveMs": 1.560699999999997,
+          "result": 0,
+          "actions": null,
+          "expanded": 981,
+          "calls": 2205,
+          "states": 1462,
+          "classes": 314,
+          "memory": {
+            "state": {
+              "stateCount": 1462,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 314,
+              "residualTerms": 790,
+              "termVocabularyCount": 69,
+              "vocabularyBytes": 3324,
+              "classMetadataBytes": 18432,
+              "classTermBytes": 8192,
+              "logicalClassTermBytes": 1580,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 491520,
+              "hashSlotBytes": 8192,
+              "scratchBytes": 48,
+              "totalTypedBytes": 529708
+            },
+            "localProof": {
+              "capacity": 2048,
+              "retainedTypedBytes": 6144,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 4121,
+            "bitBytes": 120,
+            "totalTypedBytes": 638397
+          },
+          "classMetrics": {
+            "internLookups": 819,
+            "internHits": 505,
+            "internMisses": 314,
+            "ownTransitionHits": 1396,
+            "ownTransitionMisses": 808,
+            "blockTransitionHits": 1371,
+            "blockTransitionMisses": 833,
+            "ownNoop": 398,
+            "blockNoop": 426,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 627,
+            "classGrows": 0,
+            "termGrows": 0,
+            "hashGrows": 0,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 1641
+          }
+        },
+        "qualification": {
+          "totalMs": 3.708099999999945,
+          "setupMs": 0.3590000000000373,
+          "solveMs": 1.6011000000000877,
+          "result": 0,
+          "actions": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "expanded": 1988,
+          "calls": 4439,
+          "states": 2771,
+          "classes": 461,
+          "memory": {
+            "state": {
+              "stateCount": 2771,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 461,
+              "residualTerms": 1179,
+              "termVocabularyCount": 69,
+              "vocabularyBytes": 3324,
+              "classMetadataBytes": 18432,
+              "classTermBytes": 8192,
+              "logicalClassTermBytes": 2358,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 491520,
+              "hashSlotBytes": 8192,
+              "scratchBytes": 48,
+              "totalTypedBytes": 529708
+            },
+            "localProof": {
+              "capacity": 4096,
+              "retainedTypedBytes": 12288,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 4121,
+            "bitBytes": 120,
+            "totalTypedBytes": 644541
+          },
+          "classMetrics": {
+            "internLookups": 1280,
+            "internHits": 819,
+            "internMisses": 461,
+            "ownTransitionHits": 3239,
+            "ownTransitionMisses": 1199,
+            "blockTransitionHits": 3174,
+            "blockTransitionMisses": 1264,
+            "ownNoop": 564,
+            "blockNoop": 621,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 1007,
+            "classGrows": 0,
+            "termGrows": 0,
+            "hashGrows": 0,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 2463
+          }
+        }
+      },
+      "slot64": {
+        "totalMs": 3.039199999999937,
+        "solveMs": 2.659599999999955,
+        "representative": {
+          "totalMs": 3.039199999999937,
+          "setupMs": 0.36849999999992633,
+          "solveMs": 2.659599999999955,
+          "result": 0,
+          "actions": null,
+          "expanded": 981,
+          "calls": 2205,
+          "states": 1462,
+          "classes": 314,
+          "memory": {
+            "state": {
+              "stateCount": 1462,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 314,
+              "termVocabularyCount": 69,
+              "residualTerms": null,
+              "vocabularyBytes": 3324,
+              "classTupleBytes": 10240,
+              "classReferenceWidths": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 22528,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 491520,
+              "classHashSlotBytes": 8192,
+              "chunkCounts": [
+                234,
+                12,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 20480,
+              "chunkHashSlotBytes": 20480,
+              "chunkDictionaryBytes": 40960,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 234,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 12,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 112,
+              "maskBytes": 2120,
+              "scratchBytes": 360,
+              "totalTypedBytes": 569004
+            },
+            "localProof": {
+              "capacity": 2048,
+              "retainedTypedBytes": 6144,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 4121,
+            "bitBytes": 120,
+            "totalTypedBytes": 677693
+          },
+          "classMetrics": {
+            "internLookups": 819,
+            "internHits": 505,
+            "internMisses": 314,
+            "ownTransitionHits": 1396,
+            "ownTransitionMisses": 808,
+            "blockTransitionHits": 1371,
+            "blockTransitionMisses": 833,
+            "ownNoop": 398,
+            "blockNoop": 426,
+            "ownTerminal": 0,
+            "reducedTerms": 491,
+            "supersetWordProbes": 998,
+            "supersetWordClears": 998,
+            "classGrows": 0,
+            "hashGrows": 0,
+            "slotReferenceWidens": 0,
+            "parentChunkReuses": 7274,
+            "chunkInterns": 916,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 1641,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        },
+        "qualification": {
+          "totalMs": 4.351400000000012,
+          "setupMs": 0.39790000000004966,
+          "solveMs": 2.0638000000000147,
+          "result": 0,
+          "actions": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "expanded": 1988,
+          "calls": 4439,
+          "states": 2771,
+          "classes": 461,
+          "memory": {
+            "state": {
+              "stateCount": 2771,
+              "stateCapacity": 4096,
+              "stateArrayBytes": 65536,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 32768,
+              "totalTypedBytes": 98304
+            },
+            "residual": {
+              "classCount": 461,
+              "termVocabularyCount": 69,
+              "residualTerms": null,
+              "vocabularyBytes": 3324,
+              "classTupleBytes": 11264,
+              "classReferenceWidths": [
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 23552,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 491520,
+              "classHashSlotBytes": 8192,
+              "chunkCounts": [
+                337,
+                13,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 22528,
+              "chunkHashSlotBytes": 20480,
+              "chunkDictionaryBytes": 43008,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 337,
+                  "chunkCapacity": 512,
+                  "payloadBytes": 4096,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 6144
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 13,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 112,
+              "maskBytes": 2120,
+              "scratchBytes": 360,
+              "totalTypedBytes": 572076
+            },
+            "localProof": {
+              "capacity": 4096,
+              "retainedTypedBytes": 12288,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 4121,
+            "bitBytes": 120,
+            "totalTypedBytes": 686909
+          },
+          "classMetrics": {
+            "internLookups": 1280,
+            "internHits": 819,
+            "internMisses": 461,
+            "ownTransitionHits": 3239,
+            "ownTransitionMisses": 1199,
+            "blockTransitionHits": 3174,
+            "blockTransitionMisses": 1264,
+            "ownNoop": 564,
+            "blockNoop": 621,
+            "ownTerminal": 0,
+            "reducedTerms": 755,
+            "supersetWordProbes": 1455,
+            "supersetWordClears": 1455,
+            "classGrows": 0,
+            "hashGrows": 0,
+            "slotReferenceWidens": 1,
+            "parentChunkReuses": 11366,
+            "chunkInterns": 1434,
+            "outOfPrefixOwn": 0,
+            "outOfPrefixBlock": 0,
+            "cachedStores": 2463,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        }
+      },
+      "ratioSlot64OverBaseline": 1.6411253307413662,
+      "rootBytesSaved": -39296,
+      "fullGraphBytesSaved": -48512
+    },
+    {
+      "geometry": "4x5:c4",
+      "graph": {
+        "census": {
+          "states": 294593,
+          "terminalEdges": 76058,
+          "nonterminalEdges": 814300,
+          "illegalEdges": 288014
+        },
+        "classes": 69707,
+        "baselineMemory": {
+          "state": {
+            "stateCount": 294593,
+            "stateCapacity": 524288,
+            "stateArrayBytes": 8388608,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 2097152,
+            "totalTypedBytes": 10485760
+          },
+          "residual": {
+            "classCount": 69707,
+            "residualTerms": 367080,
+            "termVocabularyCount": 191,
+            "vocabularyBytes": 13977,
+            "classMetadataBytes": 2359296,
+            "classTermBytes": 1048576,
+            "logicalClassTermBytes": 734160,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 655360,
+            "hashSlotBytes": 524288,
+            "scratchBytes": 136,
+            "totalTypedBytes": 4601633
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 5204,
+          "bitBytes": 160,
+          "totalTypedBytes": 15092757
+        },
+        "candidateMemory": {
+          "state": {
+            "stateCount": 294593,
+            "stateCapacity": 524288,
+            "stateArrayBytes": 8388608,
+            "edgeCacheBytes": 0,
+            "hashSlotBytes": 2097152,
+            "totalTypedBytes": 10485760
+          },
+          "residual": {
+            "classCount": 69707,
+            "termVocabularyCount": 191,
+            "residualTerms": null,
+            "vocabularyBytes": 13977,
+            "classTupleBytes": 1703936,
+            "classReferenceWidths": [
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "classMetadataBytes": 3276800,
+            "transitionCacheKind": "dense-prefix",
+            "transitionPrefixClasses": 4096,
+            "transitionCacheBytes": 655360,
+            "classHashSlotBytes": 524288,
+            "chunkCounts": [
+              1283,
+              809,
+              8781,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "chunkPayloadBytes": 169984,
+            "chunkHashSlotBytes": 96256,
+            "chunkDictionaryBytes": 266240,
+            "slotDictionaries": [
+              {
+                "slot": 0,
+                "chunkCount": 1283,
+                "chunkCapacity": 2048,
+                "payloadBytes": 16384,
+                "hashSlotBytes": 8192,
+                "totalTypedBytes": 24576
+              },
+              {
+                "slot": 1,
+                "chunkCount": 809,
+                "chunkCapacity": 1024,
+                "payloadBytes": 8192,
+                "hashSlotBytes": 8192,
+                "totalTypedBytes": 16384
+              },
+              {
+                "slot": 2,
+                "chunkCount": 8781,
+                "chunkCapacity": 16384,
+                "payloadBytes": 131072,
+                "hashSlotBytes": 65536,
+                "totalTypedBytes": 196608
+              },
+              {
+                "slot": 3,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 4,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 5,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 6,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 7,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 8,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              },
+              {
+                "slot": 9,
+                "chunkCount": 1,
+                "chunkCapacity": 256,
+                "payloadBytes": 2048,
+                "hashSlotBytes": 2048,
+                "totalTypedBytes": 4096
+              }
+            ],
+            "normalizationLayout": "sparse-superset-word-rows",
+            "strictSupersetEntries": 341,
+            "maskBytes": 4153,
+            "scratchBytes": 360,
+            "totalTypedBytes": 4741178
+          },
+          "localProof": {
+            "capacity": 0,
+            "retainedTypedBytes": 0,
+            "bytesPerAdmittedState": 0
+          },
+          "supportLayout": "packed",
+          "supportBytes": 5204,
+          "bitBytes": 160,
+          "totalTypedBytes": 15232302
+        },
+        "candidateMetrics": {
+          "internLookups": 2432195,
+          "internHits": 2362488,
+          "internMisses": 69707,
+          "ownTransitionHits": 29849,
+          "ownTransitionMisses": 1750867,
+          "blockTransitionHits": 20774,
+          "blockTransitionMisses": 1607826,
+          "ownNoop": 425466,
+          "blockNoop": 349087,
+          "ownTerminal": 151947,
+          "reducedTerms": 1456358,
+          "supersetWordProbes": 3248062,
+          "supersetWordClears": 3248062,
+          "classGrows": 7,
+          "hashGrows": 6,
+          "slotReferenceWidens": 3,
+          "parentChunkReuses": 20653789,
+          "chunkInterns": 3668161,
+          "outOfPrefixOwn": 1739686,
+          "outOfPrefixBlock": 1596230,
+          "cachedStores": 22777,
+          "termCountReads": 139414,
+          "termWrites": 69707
+        },
+        "slotMetrics": [
+          {
+            "lookups": 826967,
+            "hits": 825684,
+            "misses": 1283,
+            "payloadGrows": 3,
+            "hashGrows": 2
+          },
+          {
+            "lookups": 1048823,
+            "hits": 1048014,
+            "misses": 809,
+            "payloadGrows": 2,
+            "hashGrows": 2
+          },
+          {
+            "lookups": 1792357,
+            "hits": 1783576,
+            "misses": 8781,
+            "payloadGrows": 6,
+            "hashGrows": 5
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          },
+          {
+            "lookups": 2,
+            "hits": 1,
+            "misses": 1,
+            "payloadGrows": 0,
+            "hashGrows": 0
+          }
+        ]
+      },
+      "baseline": {
+        "totalMs": 36.11760000000049,
+        "solveMs": 35.32299999999941,
+        "representative": {
+          "totalMs": 36.11760000000049,
+          "setupMs": 0.7699000000002343,
+          "solveMs": 35.32299999999941,
+          "result": 0,
+          "actions": null,
+          "expanded": 11303,
+          "calls": 24873,
+          "states": 16915,
+          "classes": 9124,
+          "memory": {
+            "state": {
+              "stateCount": 16915,
+              "stateCapacity": 32768,
+              "stateArrayBytes": 524288,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 131072,
+              "totalTypedBytes": 655360
+            },
+            "residual": {
+              "classCount": 9124,
+              "residualTerms": 41873,
+              "termVocabularyCount": 191,
+              "vocabularyBytes": 13977,
+              "classMetadataBytes": 294912,
+              "classTermBytes": 131072,
+              "logicalClassTermBytes": 83746,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 655360,
+              "hashSlotBytes": 65536,
+              "scratchBytes": 136,
+              "totalTypedBytes": 1160993
+            },
+            "localProof": {
+              "capacity": 32768,
+              "retainedTypedBytes": 98304,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 5204,
+            "bitBytes": 160,
+            "totalTypedBytes": 1920021
+          },
+          "classMetrics": {
+            "internLookups": 20096,
+            "internHits": 10972,
+            "internMisses": 9124,
+            "ownTransitionHits": 12893,
+            "ownTransitionMisses": 11979,
+            "blockTransitionHits": 11383,
+            "blockTransitionMisses": 13489,
+            "ownNoop": 2214,
+            "blockNoop": 3160,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 37320,
+            "classGrows": 4,
+            "termGrows": 4,
+            "hashGrows": 3,
+            "outOfPrefixOwn": 5832,
+            "outOfPrefixBlock": 6420,
+            "cachedStores": 13216
+          }
+        },
+        "qualification": {
+          "totalMs": 155.0097999999998,
+          "setupMs": 0.882499999999709,
+          "solveMs": 83.6923999999999,
+          "result": 0,
+          "actions": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "expanded": 27143,
+          "calls": 61006,
+          "states": 38089,
+          "classes": 17813,
+          "memory": {
+            "state": {
+              "stateCount": 38089,
+              "stateCapacity": 65536,
+              "stateArrayBytes": 1048576,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 262144,
+              "totalTypedBytes": 1310720
+            },
+            "residual": {
+              "classCount": 17813,
+              "residualTerms": 85069,
+              "termVocabularyCount": 191,
+              "vocabularyBytes": 13977,
+              "classMetadataBytes": 589824,
+              "classTermBytes": 262144,
+              "logicalClassTermBytes": 170138,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 655360,
+              "hashSlotBytes": 131072,
+              "scratchBytes": 136,
+              "totalTypedBytes": 1652513
+            },
+            "localProof": {
+              "capacity": 65536,
+              "retainedTypedBytes": 196608,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 5204,
+            "bitBytes": 160,
+            "totalTypedBytes": 3165205
+          },
+          "classMetrics": {
+            "internLookups": 52298,
+            "internHits": 34485,
+            "internMisses": 17813,
+            "ownTransitionHits": 30799,
+            "ownTransitionMisses": 30206,
+            "blockTransitionHits": 27320,
+            "blockTransitionMisses": 33685,
+            "ownNoop": 4776,
+            "blockNoop": 6819,
+            "ownTerminal": 0,
+            "crossDominanceChecks": 94508,
+            "classGrows": 5,
+            "termGrows": 5,
+            "hashGrows": 4,
+            "outOfPrefixOwn": 22561,
+            "outOfPrefixBlock": 24643,
+            "cachedStores": 16687
+          }
+        }
+      },
+      "slot64": {
+        "totalMs": 55.6271999999999,
+        "solveMs": 54.424700000000485,
+        "representative": {
+          "totalMs": 55.6271999999999,
+          "setupMs": 1.3161000000000058,
+          "solveMs": 54.277500000000146,
+          "result": 0,
+          "actions": null,
+          "expanded": 11303,
+          "calls": 24873,
+          "states": 16915,
+          "classes": 9124,
+          "memory": {
+            "state": {
+              "stateCount": 16915,
+              "stateCapacity": 32768,
+              "stateArrayBytes": 524288,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 131072,
+              "totalTypedBytes": 655360
+            },
+            "residual": {
+              "classCount": 9124,
+              "termVocabularyCount": 191,
+              "residualTerms": null,
+              "vocabularyBytes": 13977,
+              "classTupleBytes": 212992,
+              "classReferenceWidths": [
+                2,
+                2,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 409600,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 655360,
+              "classHashSlotBytes": 65536,
+              "chunkCounts": [
+                370,
+                390,
+                2216,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 55296,
+              "chunkHashSlotBytes": 38912,
+              "chunkDictionaryBytes": 94208,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 370,
+                  "chunkCapacity": 512,
+                  "payloadBytes": 4096,
+                  "hashSlotBytes": 4096,
+                  "totalTypedBytes": 8192
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 390,
+                  "chunkCapacity": 512,
+                  "payloadBytes": 4096,
+                  "hashSlotBytes": 4096,
+                  "totalTypedBytes": 8192
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 2216,
+                  "chunkCapacity": 4096,
+                  "payloadBytes": 32768,
+                  "hashSlotBytes": 16384,
+                  "totalTypedBytes": 49152
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 341,
+              "maskBytes": 4153,
+              "scratchBytes": 360,
+              "totalTypedBytes": 1243194
+            },
+            "localProof": {
+              "capacity": 32768,
+              "retainedTypedBytes": 98304,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 5204,
+            "bitBytes": 160,
+            "totalTypedBytes": 2002222
+          },
+          "classMetrics": {
+            "internLookups": 20096,
+            "internHits": 10972,
+            "internMisses": 9124,
+            "ownTransitionHits": 12893,
+            "ownTransitionMisses": 11979,
+            "blockTransitionHits": 11383,
+            "blockTransitionMisses": 13489,
+            "ownNoop": 2214,
+            "blockNoop": 3160,
+            "ownTerminal": 0,
+            "reducedTerms": 13403,
+            "supersetWordProbes": 32131,
+            "supersetWordClears": 32131,
+            "classGrows": 4,
+            "hashGrows": 3,
+            "slotReferenceWidens": 3,
+            "parentChunkReuses": 168993,
+            "chunkInterns": 31967,
+            "outOfPrefixOwn": 5832,
+            "outOfPrefixBlock": 6420,
+            "cachedStores": 13216,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        },
+        "qualification": {
+          "totalMs": 138.3184000000001,
+          "setupMs": 1.1017000000001644,
+          "solveMs": 57.56389999999965,
+          "result": 0,
+          "actions": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "expanded": 27143,
+          "calls": 61006,
+          "states": 38089,
+          "classes": 17813,
+          "memory": {
+            "state": {
+              "stateCount": 38089,
+              "stateCapacity": 65536,
+              "stateArrayBytes": 1048576,
+              "edgeCacheBytes": 0,
+              "hashSlotBytes": 262144,
+              "totalTypedBytes": 1310720
+            },
+            "residual": {
+              "classCount": 17813,
+              "termVocabularyCount": 191,
+              "residualTerms": null,
+              "vocabularyBytes": 13977,
+              "classTupleBytes": 425984,
+              "classReferenceWidths": [
+                2,
+                2,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "classMetadataBytes": 819200,
+              "transitionCacheKind": "dense-prefix",
+              "transitionPrefixClasses": 4096,
+              "transitionCacheBytes": 655360,
+              "classHashSlotBytes": 131072,
+              "chunkCounts": [
+                499,
+                514,
+                3778,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "chunkPayloadBytes": 59392,
+              "chunkHashSlotBytes": 55296,
+              "chunkDictionaryBytes": 114688,
+              "slotDictionaries": [
+                {
+                  "slot": 0,
+                  "chunkCount": 499,
+                  "chunkCapacity": 512,
+                  "payloadBytes": 4096,
+                  "hashSlotBytes": 4096,
+                  "totalTypedBytes": 8192
+                },
+                {
+                  "slot": 1,
+                  "chunkCount": 514,
+                  "chunkCapacity": 1024,
+                  "payloadBytes": 8192,
+                  "hashSlotBytes": 4096,
+                  "totalTypedBytes": 12288
+                },
+                {
+                  "slot": 2,
+                  "chunkCount": 3778,
+                  "chunkCapacity": 4096,
+                  "payloadBytes": 32768,
+                  "hashSlotBytes": 32768,
+                  "totalTypedBytes": 65536
+                },
+                {
+                  "slot": 3,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 4,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 5,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 6,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 7,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 8,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                },
+                {
+                  "slot": 9,
+                  "chunkCount": 1,
+                  "chunkCapacity": 256,
+                  "payloadBytes": 2048,
+                  "hashSlotBytes": 2048,
+                  "totalTypedBytes": 4096
+                }
+              ],
+              "normalizationLayout": "sparse-superset-word-rows",
+              "strictSupersetEntries": 341,
+              "maskBytes": 4153,
+              "scratchBytes": 360,
+              "totalTypedBytes": 1738810
+            },
+            "localProof": {
+              "capacity": 65536,
+              "retainedTypedBytes": 196608,
+              "bytesPerAdmittedState": 3
+            },
+            "supportLayout": "packed",
+            "supportBytes": 5204,
+            "bitBytes": 160,
+            "totalTypedBytes": 3251502
+          },
+          "classMetrics": {
+            "internLookups": 52298,
+            "internHits": 34485,
+            "internMisses": 17813,
+            "ownTransitionHits": 30799,
+            "ownTransitionMisses": 30206,
+            "blockTransitionHits": 27320,
+            "blockTransitionMisses": 33685,
+            "ownNoop": 4776,
+            "blockNoop": 6819,
+            "ownTerminal": 0,
+            "reducedTerms": 34330,
+            "supersetWordProbes": 82178,
+            "supersetWordClears": 82178,
+            "classGrows": 5,
+            "hashGrows": 4,
+            "slotReferenceWidens": 3,
+            "parentChunkReuses": 440891,
+            "chunkInterns": 82089,
+            "outOfPrefixOwn": 22561,
+            "outOfPrefixBlock": 24643,
+            "cachedStores": 16687,
+            "termCountReads": 0,
+            "termWrites": 0
+          }
+        }
+      },
+      "ratioSlot64OverBaseline": 1.5401687819788452,
+      "rootBytesSaved": -82201,
+      "fullGraphBytesSaved": -139545
+    }
+  ],
+  "standard7x6": {
+    "baseline": {
+      "state": {
+        "stateCount": 1,
+        "stateCapacity": 4096,
+        "stateArrayBytes": 65536,
+        "edgeCacheBytes": 0,
+        "hashSlotBytes": 32768,
+        "totalTypedBytes": 98304
+      },
+      "residual": {
+        "classCount": 2,
+        "residualTerms": 69,
+        "termVocabularyCount": 625,
+        "vocabularyBytes": 107638,
+        "classMetadataBytes": 18432,
+        "classTermBytes": 8192,
+        "logicalClassTermBytes": 138,
+        "transitionCacheKind": "dense-prefix",
+        "transitionPrefixClasses": 4096,
+        "transitionCacheBytes": 1376256,
+        "hashSlotBytes": 8192,
+        "scratchBytes": 552,
+        "totalTypedBytes": 1519262
+      },
+      "localProof": {
+        "capacity": 0,
+        "retainedTypedBytes": 0,
+        "bytesPerAdmittedState": 0
+      },
+      "supportLayout": "packed",
+      "supportBytes": 3294207,
+      "bitBytes": 336,
+      "totalTypedBytes": 4912109
+    },
+    "slot64": {
+      "state": {
+        "stateCount": 1,
+        "stateCapacity": 4096,
+        "stateArrayBytes": 65536,
+        "edgeCacheBytes": 0,
+        "hashSlotBytes": 32768,
+        "totalTypedBytes": 98304
+      },
+      "residual": {
+        "classCount": 2,
+        "termVocabularyCount": 625,
+        "residualTerms": null,
+        "vocabularyBytes": 107638,
+        "classTupleBytes": 10240,
+        "classReferenceWidths": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "classMetadataBytes": 22528,
+        "transitionCacheKind": "dense-prefix",
+        "transitionPrefixClasses": 4096,
+        "transitionCacheBytes": 1376256,
+        "classHashSlotBytes": 8192,
+        "chunkCounts": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2
+        ],
+        "chunkPayloadBytes": 20480,
+        "chunkHashSlotBytes": 20480,
+        "chunkDictionaryBytes": 40960,
+        "slotDictionaries": [
+          {
+            "slot": 0,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 1,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 2,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 3,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 4,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 5,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 6,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 7,
+            "chunkCount": 1,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 8,
+            "chunkCount": 2,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          },
+          {
+            "slot": 9,
+            "chunkCount": 2,
+            "chunkCapacity": 256,
+            "payloadBytes": 2048,
+            "hashSlotBytes": 2048,
+            "totalTypedBytes": 4096
+          }
+        ],
+        "normalizationLayout": "sparse-superset-word-rows",
+        "strictSupersetEntries": 1466,
+        "maskBytes": 13274,
+        "scratchBytes": 360,
+        "totalTypedBytes": 1569208
+      },
+      "localProof": {
+        "capacity": 0,
+        "retainedTypedBytes": 0,
+        "bytesPerAdmittedState": 0
+      },
+      "supportLayout": "packed",
+      "supportBytes": 3294207,
+      "bitBytes": 336,
+      "totalTypedBytes": 4962055
+    },
+    "classReferenceWidths": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "slotChunkCounts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    "rootBytesSaved": -49946
+  }
+}

@@ -1,0 +1,1424 @@
+{
+  "kind": "connect4-standard7x6-negamax-presearch-profile-v1",
+  "status": "complete",
+  "spec": {
+    "columns": 7,
+    "rows": 6,
+    "connect": 4
+  },
+  "maxDepth": 4,
+  "probeDepth": 0,
+  "availableParallelism": 16,
+  "buildMs": 18.17139999999999,
+  "probeMs": 2.725200000000001,
+  "logicalCumulativeStates": [
+    1,
+    8,
+    57,
+    295,
+    1415
+  ],
+  "expansion": [
+    {
+      "depth": 0,
+      "layerStates": 1,
+      "layerClasses": 1,
+      "cumulativeClasses": 1,
+      "tacticalExact": 0,
+      "immediateWins": 0,
+      "forcedLosses": 0,
+      "draws": 0,
+      "forcedResponses": 0,
+      "openNodes": 1,
+      "edges": 7,
+      "terminalEdges": 0,
+      "nonterminalEdges": 7,
+      "nextUniqueStates": 7,
+      "duplicateEdges": 0,
+      "transposedChildren": 0,
+      "maxFanIn": 1,
+      "expandMs": 0.6571999999999889
+    },
+    {
+      "depth": 1,
+      "layerStates": 7,
+      "layerClasses": 14,
+      "cumulativeClasses": 15,
+      "tacticalExact": 0,
+      "immediateWins": 0,
+      "forcedLosses": 0,
+      "draws": 0,
+      "forcedResponses": 0,
+      "openNodes": 7,
+      "edges": 49,
+      "terminalEdges": 0,
+      "nonterminalEdges": 49,
+      "nextUniqueStates": 49,
+      "duplicateEdges": 0,
+      "transposedChildren": 0,
+      "maxFanIn": 1,
+      "expandMs": 1.0521999999999991
+    },
+    {
+      "depth": 2,
+      "layerStates": 49,
+      "layerClasses": 56,
+      "cumulativeClasses": 71,
+      "tacticalExact": 0,
+      "immediateWins": 0,
+      "forcedLosses": 0,
+      "draws": 0,
+      "forcedResponses": 0,
+      "openNodes": 49,
+      "edges": 343,
+      "terminalEdges": 0,
+      "nonterminalEdges": 343,
+      "nextUniqueStates": 238,
+      "duplicateEdges": 105,
+      "transposedChildren": 105,
+      "maxFanIn": 2,
+      "expandMs": 3.9372999999999934
+    },
+    {
+      "depth": 3,
+      "layerStates": 238,
+      "layerClasses": 476,
+      "cumulativeClasses": 547,
+      "tacticalExact": 0,
+      "immediateWins": 0,
+      "forcedLosses": 0,
+      "draws": 0,
+      "forcedResponses": 0,
+      "openNodes": 238,
+      "edges": 1666,
+      "terminalEdges": 0,
+      "nonterminalEdges": 1666,
+      "nextUniqueStates": 1120,
+      "duplicateEdges": 546,
+      "transposedChildren": 546,
+      "maxFanIn": 2,
+      "expandMs": 11.034599999999998
+    },
+    {
+      "depth": 4,
+      "layerStates": 1120,
+      "layerClasses": 1232,
+      "cumulativeClasses": 1779,
+      "tacticalExact": 0,
+      "immediateWins": 0,
+      "forcedLosses": 0,
+      "draws": 0,
+      "forcedResponses": 0,
+      "openNodes": 1120,
+      "edges": 0,
+      "terminalEdges": 0,
+      "nonterminalEdges": 0,
+      "nextUniqueStates": 0,
+      "duplicateEdges": 0,
+      "transposedChildren": 0,
+      "maxFanIn": 0,
+      "expandMs": 0
+    }
+  ],
+  "profiles": [
+    {
+      "depth": 1,
+      "frontierStates": 7,
+      "dependencyCandidates": 7,
+      "tacticalClosed": 0,
+      "forcedResponses": 0,
+      "cost": {
+        "count": 7,
+        "min": 1,
+        "p50": 1,
+        "p90": 1,
+        "p95": 1,
+        "max": 1,
+        "mean": 1,
+        "cv": 0
+      },
+      "schedules": [
+        {
+          "workers": 1,
+          "makespan": 7,
+          "ideal": 7,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            7
+          ]
+        },
+        {
+          "workers": 2,
+          "makespan": 4,
+          "ideal": 3.5,
+          "efficiency": 0.875,
+          "maxToMean": 1.1428571428571428,
+          "loads": [
+            4,
+            3
+          ]
+        },
+        {
+          "workers": 3,
+          "makespan": 3,
+          "ideal": 2.3333333333333335,
+          "efficiency": 0.7777777777777778,
+          "maxToMean": 1.2857142857142856,
+          "loads": [
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "workers": 4,
+          "makespan": 2,
+          "ideal": 1.75,
+          "efficiency": 0.875,
+          "maxToMean": 1.1428571428571428,
+          "loads": [
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "workers": 5,
+          "makespan": 2,
+          "ideal": 1.4,
+          "efficiency": 0.7,
+          "maxToMean": 1.4285714285714286,
+          "loads": [
+            2,
+            2,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "workers": 6,
+          "makespan": 2,
+          "ideal": 1.1666666666666667,
+          "efficiency": 0.5833333333333334,
+          "maxToMean": 1.7142857142857142,
+          "loads": [
+            2,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "workers": 7,
+          "makespan": 1,
+          "ideal": 1,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "frontierStates": 49,
+      "dependencyCandidates": 49,
+      "tacticalClosed": 0,
+      "forcedResponses": 0,
+      "cost": {
+        "count": 49,
+        "min": 1,
+        "p50": 1,
+        "p90": 1,
+        "p95": 1,
+        "max": 1,
+        "mean": 1,
+        "cv": 0
+      },
+      "schedules": [
+        {
+          "workers": 1,
+          "makespan": 49,
+          "ideal": 49,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            49
+          ]
+        },
+        {
+          "workers": 2,
+          "makespan": 25,
+          "ideal": 24.5,
+          "efficiency": 0.98,
+          "maxToMean": 1.0204081632653061,
+          "loads": [
+            25,
+            24
+          ]
+        },
+        {
+          "workers": 3,
+          "makespan": 17,
+          "ideal": 16.333333333333332,
+          "efficiency": 0.9607843137254901,
+          "maxToMean": 1.0408163265306123,
+          "loads": [
+            17,
+            16,
+            16
+          ]
+        },
+        {
+          "workers": 4,
+          "makespan": 13,
+          "ideal": 12.25,
+          "efficiency": 0.9423076923076923,
+          "maxToMean": 1.0612244897959184,
+          "loads": [
+            13,
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "workers": 5,
+          "makespan": 10,
+          "ideal": 9.8,
+          "efficiency": 0.9800000000000001,
+          "maxToMean": 1.0204081632653061,
+          "loads": [
+            10,
+            10,
+            10,
+            10,
+            9
+          ]
+        },
+        {
+          "workers": 6,
+          "makespan": 9,
+          "ideal": 8.166666666666666,
+          "efficiency": 0.9074074074074073,
+          "maxToMean": 1.1020408163265307,
+          "loads": [
+            9,
+            8,
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "workers": 7,
+          "makespan": 7,
+          "ideal": 7,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ]
+        },
+        {
+          "workers": 8,
+          "makespan": 7,
+          "ideal": 6.125,
+          "efficiency": 0.875,
+          "maxToMean": 1.1428571428571428,
+          "loads": [
+            7,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ]
+        },
+        {
+          "workers": 9,
+          "makespan": 6,
+          "ideal": 5.444444444444445,
+          "efficiency": 0.9074074074074074,
+          "maxToMean": 1.1020408163265305,
+          "loads": [
+            6,
+            6,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        {
+          "workers": 10,
+          "makespan": 5,
+          "ideal": 4.9,
+          "efficiency": 0.9800000000000001,
+          "maxToMean": 1.0204081632653061,
+          "loads": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            4
+          ]
+        },
+        {
+          "workers": 11,
+          "makespan": 5,
+          "ideal": 4.454545454545454,
+          "efficiency": 0.8909090909090909,
+          "maxToMean": 1.1224489795918369,
+          "loads": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "workers": 12,
+          "makespan": 5,
+          "ideal": 4.083333333333333,
+          "efficiency": 0.8166666666666667,
+          "maxToMean": 1.2244897959183674,
+          "loads": [
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "workers": 13,
+          "makespan": 4,
+          "ideal": 3.769230769230769,
+          "efficiency": 0.9423076923076923,
+          "maxToMean": 1.0612244897959184,
+          "loads": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "workers": 14,
+          "makespan": 4,
+          "ideal": 3.5,
+          "efficiency": 0.875,
+          "maxToMean": 1.1428571428571428,
+          "loads": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "workers": 15,
+          "makespan": 4,
+          "ideal": 3.2666666666666666,
+          "efficiency": 0.8166666666666667,
+          "maxToMean": 1.2244897959183674,
+          "loads": [
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "workers": 16,
+          "makespan": 4,
+          "ideal": 3.0625,
+          "efficiency": 0.765625,
+          "maxToMean": 1.3061224489795917,
+          "loads": [
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "frontierStates": 238,
+      "dependencyCandidates": 238,
+      "tacticalClosed": 0,
+      "forcedResponses": 0,
+      "cost": {
+        "count": 238,
+        "min": 1,
+        "p50": 1,
+        "p90": 1,
+        "p95": 1,
+        "max": 1,
+        "mean": 1,
+        "cv": 0
+      },
+      "schedules": [
+        {
+          "workers": 1,
+          "makespan": 238,
+          "ideal": 238,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            238
+          ]
+        },
+        {
+          "workers": 2,
+          "makespan": 119,
+          "ideal": 119,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            119,
+            119
+          ]
+        },
+        {
+          "workers": 3,
+          "makespan": 80,
+          "ideal": 79.33333333333333,
+          "efficiency": 0.9916666666666666,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            80,
+            79,
+            79
+          ]
+        },
+        {
+          "workers": 4,
+          "makespan": 60,
+          "ideal": 59.5,
+          "efficiency": 0.9916666666666667,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            60,
+            60,
+            59,
+            59
+          ]
+        },
+        {
+          "workers": 5,
+          "makespan": 48,
+          "ideal": 47.6,
+          "efficiency": 0.9916666666666667,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            48,
+            48,
+            48,
+            47,
+            47
+          ]
+        },
+        {
+          "workers": 6,
+          "makespan": 40,
+          "ideal": 39.666666666666664,
+          "efficiency": 0.9916666666666666,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            40,
+            40,
+            40,
+            40,
+            39,
+            39
+          ]
+        },
+        {
+          "workers": 7,
+          "makespan": 34,
+          "ideal": 34,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            34,
+            34,
+            34,
+            34,
+            34,
+            34,
+            34
+          ]
+        },
+        {
+          "workers": 8,
+          "makespan": 30,
+          "ideal": 29.75,
+          "efficiency": 0.9916666666666667,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            29,
+            29
+          ]
+        },
+        {
+          "workers": 9,
+          "makespan": 27,
+          "ideal": 26.444444444444443,
+          "efficiency": 0.9794238683127572,
+          "maxToMean": 1.0210084033613447,
+          "loads": [
+            27,
+            27,
+            27,
+            27,
+            26,
+            26,
+            26,
+            26,
+            26
+          ]
+        },
+        {
+          "workers": 10,
+          "makespan": 24,
+          "ideal": 23.8,
+          "efficiency": 0.9916666666666667,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            24,
+            24,
+            24,
+            24,
+            24,
+            24,
+            24,
+            24,
+            23,
+            23
+          ]
+        },
+        {
+          "workers": 11,
+          "makespan": 22,
+          "ideal": 21.636363636363637,
+          "efficiency": 0.9834710743801653,
+          "maxToMean": 1.0168067226890756,
+          "loads": [
+            22,
+            22,
+            22,
+            22,
+            22,
+            22,
+            22,
+            21,
+            21,
+            21,
+            21
+          ]
+        },
+        {
+          "workers": 12,
+          "makespan": 20,
+          "ideal": 19.833333333333332,
+          "efficiency": 0.9916666666666666,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+            19,
+            19
+          ]
+        },
+        {
+          "workers": 13,
+          "makespan": 19,
+          "ideal": 18.307692307692307,
+          "efficiency": 0.9635627530364372,
+          "maxToMean": 1.0378151260504203,
+          "loads": [
+            19,
+            19,
+            19,
+            19,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18
+          ]
+        },
+        {
+          "workers": 14,
+          "makespan": 17,
+          "ideal": 17,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17,
+            17
+          ]
+        },
+        {
+          "workers": 15,
+          "makespan": 16,
+          "ideal": 15.866666666666667,
+          "efficiency": 0.9916666666666667,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            15,
+            15
+          ]
+        },
+        {
+          "workers": 16,
+          "makespan": 15,
+          "ideal": 14.875,
+          "efficiency": 0.9916666666666667,
+          "maxToMean": 1.0084033613445378,
+          "loads": [
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            15,
+            14,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "depth": 4,
+      "frontierStates": 1120,
+      "dependencyCandidates": 1120,
+      "tacticalClosed": 0,
+      "forcedResponses": 0,
+      "cost": {
+        "count": 1120,
+        "min": 1,
+        "p50": 1,
+        "p90": 1,
+        "p95": 1,
+        "max": 1,
+        "mean": 1,
+        "cv": 0
+      },
+      "schedules": [
+        {
+          "workers": 1,
+          "makespan": 1120,
+          "ideal": 1120,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            1120
+          ]
+        },
+        {
+          "workers": 2,
+          "makespan": 560,
+          "ideal": 560,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            560,
+            560
+          ]
+        },
+        {
+          "workers": 3,
+          "makespan": 374,
+          "ideal": 373.3333333333333,
+          "efficiency": 0.9982174688057041,
+          "maxToMean": 1.0017857142857143,
+          "loads": [
+            374,
+            373,
+            373
+          ]
+        },
+        {
+          "workers": 4,
+          "makespan": 280,
+          "ideal": 280,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            280,
+            280,
+            280,
+            280
+          ]
+        },
+        {
+          "workers": 5,
+          "makespan": 224,
+          "ideal": 224,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            224,
+            224,
+            224,
+            224,
+            224
+          ]
+        },
+        {
+          "workers": 6,
+          "makespan": 187,
+          "ideal": 186.66666666666666,
+          "efficiency": 0.9982174688057041,
+          "maxToMean": 1.0017857142857143,
+          "loads": [
+            187,
+            187,
+            187,
+            187,
+            186,
+            186
+          ]
+        },
+        {
+          "workers": 7,
+          "makespan": 160,
+          "ideal": 160,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            160,
+            160,
+            160,
+            160,
+            160,
+            160,
+            160
+          ]
+        },
+        {
+          "workers": 8,
+          "makespan": 140,
+          "ideal": 140,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            140,
+            140,
+            140,
+            140,
+            140,
+            140,
+            140,
+            140
+          ]
+        },
+        {
+          "workers": 9,
+          "makespan": 125,
+          "ideal": 124.44444444444444,
+          "efficiency": 0.9955555555555555,
+          "maxToMean": 1.0044642857142858,
+          "loads": [
+            125,
+            125,
+            125,
+            125,
+            124,
+            124,
+            124,
+            124,
+            124
+          ]
+        },
+        {
+          "workers": 10,
+          "makespan": 112,
+          "ideal": 112,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            112,
+            112,
+            112,
+            112,
+            112,
+            112,
+            112,
+            112,
+            112,
+            112
+          ]
+        },
+        {
+          "workers": 11,
+          "makespan": 102,
+          "ideal": 101.81818181818181,
+          "efficiency": 0.9982174688057041,
+          "maxToMean": 1.0017857142857143,
+          "loads": [
+            102,
+            102,
+            102,
+            102,
+            102,
+            102,
+            102,
+            102,
+            102,
+            101,
+            101
+          ]
+        },
+        {
+          "workers": 12,
+          "makespan": 94,
+          "ideal": 93.33333333333333,
+          "efficiency": 0.9929078014184397,
+          "maxToMean": 1.0071428571428571,
+          "loads": [
+            94,
+            94,
+            94,
+            94,
+            93,
+            93,
+            93,
+            93,
+            93,
+            93,
+            93,
+            93
+          ]
+        },
+        {
+          "workers": 13,
+          "makespan": 87,
+          "ideal": 86.15384615384616,
+          "efficiency": 0.9902740937223696,
+          "maxToMean": 1.0098214285714284,
+          "loads": [
+            87,
+            87,
+            86,
+            86,
+            86,
+            86,
+            86,
+            86,
+            86,
+            86,
+            86,
+            86,
+            86
+          ]
+        },
+        {
+          "workers": 14,
+          "makespan": 80,
+          "ideal": 80,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80,
+            80
+          ]
+        },
+        {
+          "workers": 15,
+          "makespan": 75,
+          "ideal": 74.66666666666667,
+          "efficiency": 0.9955555555555556,
+          "maxToMean": 1.0044642857142856,
+          "loads": [
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            74,
+            74,
+            74,
+            74,
+            74
+          ]
+        },
+        {
+          "workers": 16,
+          "makespan": 70,
+          "ideal": 70,
+          "efficiency": 1,
+          "maxToMean": 1,
+          "loads": [
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70,
+            70
+          ]
+        }
+      ]
+    }
+  ],
+  "memoryBeforeProbe": {
+    "state": {
+      "stateCount": 1415,
+      "stateCapacity": 4096,
+      "stateArrayBytes": 65536,
+      "edgeCacheBytes": 0,
+      "hashSlotBytes": 32768,
+      "totalTypedBytes": 98304
+    },
+    "residual": {
+      "classCount": 1780,
+      "termVocabularyCount": 625,
+      "residualTerms": null,
+      "vocabularyBytes": 107638,
+      "classTupleBytes": 28672,
+      "classReferenceWidths": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        2,
+        2
+      ],
+      "classMetadataBytes": 53248,
+      "transitionCacheKind": "dense-prefix",
+      "transitionPrefixClasses": 4096,
+      "transitionCacheBytes": 1376256,
+      "classHashSlotBytes": 16384,
+      "chunkCounts": [
+        28,
+        14,
+        21,
+        10,
+        2,
+        282,
+        304,
+        58,
+        521,
+        1441
+      ],
+      "chunkPayloadBytes": 45056,
+      "chunkHashSlotBytes": 36864,
+      "chunkDictionaryBytes": 81920,
+      "slotDictionaries": [
+        {
+          "slot": 0,
+          "chunkCount": 28,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 1,
+          "chunkCount": 14,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 2,
+          "chunkCount": 21,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 3,
+          "chunkCount": 10,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 4,
+          "chunkCount": 2,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 5,
+          "chunkCount": 282,
+          "chunkCapacity": 512,
+          "payloadBytes": 4096,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 6144
+        },
+        {
+          "slot": 6,
+          "chunkCount": 304,
+          "chunkCapacity": 512,
+          "payloadBytes": 4096,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 6144
+        },
+        {
+          "slot": 7,
+          "chunkCount": 58,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 8,
+          "chunkCount": 521,
+          "chunkCapacity": 1024,
+          "payloadBytes": 8192,
+          "hashSlotBytes": 4096,
+          "totalTypedBytes": 12288
+        },
+        {
+          "slot": 9,
+          "chunkCount": 1441,
+          "chunkCapacity": 2048,
+          "payloadBytes": 16384,
+          "hashSlotBytes": 16384,
+          "totalTypedBytes": 32768
+        }
+      ],
+      "normalizationLayout": "sparse-superset-word-rows",
+      "strictSupersetEntries": 1466,
+      "maskBytes": 13274,
+      "scratchBytes": 360,
+      "totalTypedBytes": 1649080
+    },
+    "localProof": {
+      "capacity": 0,
+      "retainedTypedBytes": 0,
+      "bytesPerAdmittedState": 0
+    },
+    "supportLayout": "packed",
+    "supportBytes": 3294207,
+    "bitBytes": 336,
+    "totalTypedBytes": 5041927
+  },
+  "memoryAfterProbe": {
+    "state": {
+      "stateCount": 1415,
+      "stateCapacity": 4096,
+      "stateArrayBytes": 65536,
+      "edgeCacheBytes": 0,
+      "hashSlotBytes": 32768,
+      "totalTypedBytes": 98304
+    },
+    "residual": {
+      "classCount": 1780,
+      "termVocabularyCount": 625,
+      "residualTerms": null,
+      "vocabularyBytes": 107638,
+      "classTupleBytes": 28672,
+      "classReferenceWidths": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        2,
+        2
+      ],
+      "classMetadataBytes": 53248,
+      "transitionCacheKind": "dense-prefix",
+      "transitionPrefixClasses": 4096,
+      "transitionCacheBytes": 1376256,
+      "classHashSlotBytes": 16384,
+      "chunkCounts": [
+        28,
+        14,
+        21,
+        10,
+        2,
+        282,
+        304,
+        58,
+        521,
+        1441
+      ],
+      "chunkPayloadBytes": 45056,
+      "chunkHashSlotBytes": 36864,
+      "chunkDictionaryBytes": 81920,
+      "slotDictionaries": [
+        {
+          "slot": 0,
+          "chunkCount": 28,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 1,
+          "chunkCount": 14,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 2,
+          "chunkCount": 21,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 3,
+          "chunkCount": 10,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 4,
+          "chunkCount": 2,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 5,
+          "chunkCount": 282,
+          "chunkCapacity": 512,
+          "payloadBytes": 4096,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 6144
+        },
+        {
+          "slot": 6,
+          "chunkCount": 304,
+          "chunkCapacity": 512,
+          "payloadBytes": 4096,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 6144
+        },
+        {
+          "slot": 7,
+          "chunkCount": 58,
+          "chunkCapacity": 256,
+          "payloadBytes": 2048,
+          "hashSlotBytes": 2048,
+          "totalTypedBytes": 4096
+        },
+        {
+          "slot": 8,
+          "chunkCount": 521,
+          "chunkCapacity": 1024,
+          "payloadBytes": 8192,
+          "hashSlotBytes": 4096,
+          "totalTypedBytes": 12288
+        },
+        {
+          "slot": 9,
+          "chunkCount": 1441,
+          "chunkCapacity": 2048,
+          "payloadBytes": 16384,
+          "hashSlotBytes": 16384,
+          "totalTypedBytes": 32768
+        }
+      ],
+      "normalizationLayout": "sparse-superset-word-rows",
+      "strictSupersetEntries": 1466,
+      "maskBytes": 13274,
+      "scratchBytes": 360,
+      "totalTypedBytes": 1649080
+    },
+    "localProof": {
+      "capacity": 0,
+      "retainedTypedBytes": 0,
+      "bytesPerAdmittedState": 0
+    },
+    "supportLayout": "packed",
+    "supportBytes": 3294207,
+    "bitBytes": 336,
+    "totalTypedBytes": 5041927
+  },
+  "retainedKernelStatesAfterProbe": 1415,
+  "retainedResidualClassesAfterProbe": 1780
+}
