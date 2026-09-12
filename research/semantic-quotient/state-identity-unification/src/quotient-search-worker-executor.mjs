@@ -6,6 +6,7 @@ export function createSearchWorkerExecutor(workers) {
   const busy = new Map();
   const pending = new Map();
   const listeners = new Map();
+  const drainWaiters = [];
   let nextTaskId = 1;
   let nextSequence = 1;
   let closed = false;
@@ -16,6 +17,15 @@ export function createSearchWorkerExecutor(workers) {
     maxQueued: 0,
     workerTasks: Array(workers.length).fill(0),
   };
+
+  function isDrained() {
+    return queue.length === 0 && busy.size === 0 && pending.size === 0;
+  }
+
+  function notifyDrained() {
+    if (!isDrained()) return;
+    while (drainWaiters.length > 0) drainWaiters.shift()();
+  }
 
   function reorderQueue() {
     queue.sort((a, b) => b.priority - a.priority || a.sequence - b.sequence);
@@ -31,12 +41,12 @@ export function createSearchWorkerExecutor(workers) {
       metrics.workerTasks[slot.workerIndex] += 1;
       slot.worker.postMessage({ ...task.message, taskId: task.taskId });
     }
+    notifyDrained();
   }
 
   function settleWorker(worker, workerIndex, message) {
     const taskId = busy.get(worker);
-    if (taskId === undefined) return;
-    if (message?.taskId !== taskId) return;
+    if (taskId === undefined || message?.taskId !== taskId) return;
     const task = pending.get(taskId);
     if (!task) return;
     busy.delete(worker);
@@ -66,6 +76,7 @@ export function createSearchWorkerExecutor(workers) {
         metrics.failed += 1;
         task?.reject(error);
       }
+      notifyDrained();
     };
     worker.on('message', onMessage);
     worker.on('error', onError);
@@ -84,6 +95,11 @@ export function createSearchWorkerExecutor(workers) {
     });
   }
 
+  function drain() {
+    if (isDrained()) return Promise.resolve();
+    return new Promise((resolve) => drainWaiters.push(resolve));
+  }
+
   function stats() {
     return Object.freeze({
       submitted: metrics.submitted,
@@ -92,14 +108,13 @@ export function createSearchWorkerExecutor(workers) {
       maxQueued: metrics.maxQueued,
       queued: queue.length,
       active: busy.size,
+      pending: pending.size,
       workerTasks: Object.freeze([...metrics.workerTasks]),
     });
   }
 
   function close() {
-    if (queue.length !== 0 || busy.size !== 0 || pending.size !== 0) {
-      throw new Error('cannot close search worker executor with active tasks');
-    }
+    if (!isDrained()) throw new Error('cannot close search worker executor with active tasks');
     closed = true;
     for (const [worker, listener] of listeners) {
       worker.off('message', listener.onMessage);
@@ -108,5 +123,5 @@ export function createSearchWorkerExecutor(workers) {
     listeners.clear();
   }
 
-  return Object.freeze({ submit, stats, close });
+  return Object.freeze({ submit, drain, stats, close });
 }
