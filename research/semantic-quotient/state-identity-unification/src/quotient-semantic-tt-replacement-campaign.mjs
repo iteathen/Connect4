@@ -179,8 +179,12 @@ async function runConstrainedGameControl() {
 
     const executorStats = executor.stats();
     const activeWorkerResources = executorStats.workerResources.filter((resource, index) => executorStats.workerTasks[index] > 0);
-    assert.ok(activeWorkerResources.length > 0, 'constrained game did not exercise search-worker descriptor storage');
+    assert.ok(activeWorkerResources.length > 0, 'constrained game did not exercise search-worker storage');
     for (const resource of activeWorkerResources) {
+      assert.ok(resource.onlineStateCapacityHighWater > 0, 'worker did not report online-only state capacity');
+      assert.equal(resource.onlineStateBytesPerStateAvoided, 3, 'worker online-only state storage did not remove three local proof bytes per state');
+      assert.ok(resource.onlineStateLocalProofBytesAvoidedHighWater > 0, 'worker did not avoid local proof-array storage');
+      assert.equal(resource.onlineStateLocalProofBytesRetainedHighWater, 0, 'worker retained local proof-array storage');
       assert.ok(resource.descriptorStateBuildsHighWater > 0, 'worker did not exercise transient semantic state descriptors');
       assert.ok(resource.descriptorClassBuildsHighWater > 0, 'worker did not construct residual semantic metadata');
       assert.equal(resource.descriptorTermIdsCachedHighWater, 0, 'worker retained duplicate exact term IDs');
@@ -218,9 +222,9 @@ const slotChunkGrowthControl = runSlotChunkGrowthControl();
 const constrainedGameControl = await runConstrainedGameControl();
 
 const result = Object.freeze({
-  kind: 'connect4-semantic-proof-replacement-qualification-v4',
+  kind: 'connect4-semantic-proof-replacement-qualification-v5',
   status: 'complete',
-  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, slot-owned extension chunks, metadata-only worker descriptor ownership, and transient hot descriptors',
+  replacement: '8-way exact-descriptor set-associative with generation-safe proof rebinding, slot-owned extension chunks, metadata-only worker descriptor ownership, transient hot descriptors, and online-only state proof storage removal',
   staleHandleControl,
   slotChunkGrowthControl,
   constrainedGameControl,

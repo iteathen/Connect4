@@ -31,6 +31,10 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     localStatesHighWater: 0,
     localClassesHighWater: 0,
     localTypedBytesHighWater: 0,
+    onlineStateCapacityHighWater: 0,
+    onlineStateBytesPerStateAvoided: 0,
+    onlineStateLocalProofBytesAvoidedHighWater: 0,
+    onlineStateLocalProofBytesRetainedHighWater: 0,
     descriptorStateBuildsHighWater: 0,
     descriptorClassBuildsHighWater: 0,
     descriptorTermIdsCachedHighWater: 0,
@@ -81,6 +85,22 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     resource.localStatesHighWater = Math.max(resource.localStatesHighWater, message.localStates ?? 0);
     resource.localClassesHighWater = Math.max(resource.localClassesHighWater, message.localClasses ?? 0);
     resource.localTypedBytesHighWater = Math.max(resource.localTypedBytesHighWater, message.localTypedBytes ?? 0);
+    resource.onlineStateCapacityHighWater = Math.max(
+      resource.onlineStateCapacityHighWater,
+      message.onlineStateStorage?.stateCapacity ?? 0,
+    );
+    resource.onlineStateBytesPerStateAvoided = Math.max(
+      resource.onlineStateBytesPerStateAvoided,
+      message.onlineStateStorage?.bytesPerStateAvoided ?? 0,
+    );
+    resource.onlineStateLocalProofBytesAvoidedHighWater = Math.max(
+      resource.onlineStateLocalProofBytesAvoidedHighWater,
+      message.onlineStateStorage?.localProofBytesAvoided ?? 0,
+    );
+    resource.onlineStateLocalProofBytesRetainedHighWater = Math.max(
+      resource.onlineStateLocalProofBytesRetainedHighWater,
+      message.onlineStateStorage?.localProofBytesRetained ?? 0,
+    );
     resource.descriptorStateBuildsHighWater = Math.max(
       resource.descriptorStateBuildsHighWater,
       message.descriptorCache?.stateBuilds ?? 0,

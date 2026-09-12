@@ -2,6 +2,7 @@ import { parentPort, workerData } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 import { exploreQuotientPath } from './quotient-explore-path.mjs';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
+import { installOnlineOnlyStateStorage } from './quotient-online-only-state-storage.mjs';
 import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic-search-lib.mjs';
 
 if (!parentPort) throw new Error('online semantic search worker requires parentPort');
@@ -10,6 +11,7 @@ const { kernel } = createSlot64ResidualQuotientKernel(workerData.spec, {
   cacheEdges: false,
   prefixClasses: workerData.prefixClasses ?? 4096,
 });
+const onlineStateStorage = installOnlineOnlyStateStorage(kernel.states);
 const searcher = createOnlineSemanticQuotientSearcher(kernel, workerData.semanticArena, {
   etc: workerData.etc === true,
 });
@@ -30,6 +32,7 @@ function localResourceSnapshot() {
     localStates: kernel.states.count,
     localClasses: kernel.classes.size,
     localTypedBytes: kernel.memoryStats().totalTypedBytes,
+    onlineStateStorage: onlineStateStorage.stats(),
     descriptorCache: Object.freeze({ ...searcher.descriptorCache.metrics }),
     isolateMemory: Object.freeze({
       heapUsed: memory.heapUsed,
