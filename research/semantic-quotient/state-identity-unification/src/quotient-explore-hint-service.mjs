@@ -26,6 +26,7 @@ export function createExploreHintService() {
     offered: 0,
     deduplicated: 0,
     leased: 0,
+    returned: 0,
     completed: 0,
   };
 
@@ -64,6 +65,16 @@ export function createExploreHintService() {
     return Object.freeze({ hintId: hint.hintId, path: hint.path, depth: hint.depth });
   }
 
+  function returnHint(hintId) {
+    const hint = leased.get(hintId);
+    if (!hint) throw new Error(`unknown explore hint ${hintId}`);
+    leased.delete(hintId);
+    queued.unshift(hint);
+    queuedKeys.add(hint.key);
+    metrics.returned += 1;
+    return Object.freeze({ hintId: hint.hintId, path: hint.path, depth: hint.depth });
+  }
+
   function complete(hintId, fragment) {
     const hint = leased.get(hintId);
     if (!hint) throw new Error(`unknown explore hint ${hintId}`);
@@ -99,5 +110,5 @@ export function createExploreHintService() {
     });
   }
 
-  return Object.freeze({ offer, take, complete, takeCompleted, clear, stats });
+  return Object.freeze({ offer, take, returnHint, complete, takeCompleted, clear, stats });
 }
