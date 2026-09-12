@@ -1,5 +1,11 @@
 export function createSearchWorkerExecutor(workers, options = {}) {
   if (!Array.isArray(workers) || workers.length < 1) throw new RangeError('workers must be non-empty');
+  if (new Set(workers).size !== workers.length) throw new Error('search worker executor requires unique workers');
+  for (const worker of workers) {
+    if (!worker || typeof worker.postMessage !== 'function' || typeof worker.on !== 'function' || typeof worker.off !== 'function') {
+      throw new TypeError('search worker executor received an invalid worker');
+    }
+  }
 
   const completeExploreHint = typeof options.completeExploreHint === 'function' ? options.completeExploreHint : null;
   const abandonExploreHint = typeof options.abandonExploreHint === 'function' ? options.abandonExploreHint : null;
@@ -12,6 +18,8 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   const listeners = new Map();
   const drainWaiters = [];
   const sideEffects = new Set();
+  const failedWorkers = new Set();
+  const abandonedHints = new Set();
   let nextTaskId = 1;
   let nextSequence = 1;
   let closed = false;
@@ -20,11 +28,13 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     submitted: 0,
     completed: 0,
     failed: 0,
+    aborted: 0,
     maxQueued: 0,
     exploreQueued: 0,
     exploreStarted: 0,
     exploreCompleted: 0,
     exploreFailed: 0,
+    workerFaults: 0,
     workerTasks: Array(workers.length).fill(0),
   };
   const workerResources = Array.from({ length: workers.length }, () => ({
@@ -50,6 +60,18 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     isolateArrayBuffersHighWater: 0,
   }));
 
+  function asError(error, fallback) {
+    if (error instanceof Error) return error;
+    if (error === undefined || error === null) return new Error(fallback);
+    return new Error(String(error));
+  }
+
+  function finiteCounter(value, label) {
+    const actual = value ?? 0;
+    if (!Number.isFinite(actual) || actual < 0) throw new Error(`${label} must be finite and non-negative, got ${actual}`);
+    return actual;
+  }
+
   function isDrained() {
     return queue.length === 0
       && exploreQueue.length === 0
@@ -68,9 +90,10 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   }
 
   function trackSideEffect(promise) {
-    const tracked = Promise.resolve(promise)
+    let tracked;
+    tracked = Promise.resolve(promise)
       .catch((error) => {
-        backgroundError ??= error;
+        poison(error);
       })
       .finally(() => {
         sideEffects.delete(tracked);
@@ -79,79 +102,118 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     sideEffects.add(tracked);
   }
 
+  function abandonHintOnce(hintId) {
+    if (!Number.isInteger(hintId) || abandonedHints.has(hintId)) return;
+    abandonedHints.add(hintId);
+    if (abandonExploreHint) trackSideEffect(abandonExploreHint(hintId));
+  }
+
+  function rejectPendingTask(taskId, error, failed = false) {
+    const task = pending.get(taskId);
+    if (!task) return false;
+    pending.delete(taskId);
+    if (failed) metrics.failed += 1;
+    else metrics.aborted += 1;
+    task.reject(error);
+    return true;
+  }
+
+  function poison(error, failedWorker = null) {
+    const fatal = asError(error, 'search worker executor failed');
+    if (backgroundError === null) backgroundError = fatal;
+    if (failedWorker && !failedWorkers.has(failedWorker)) {
+      failedWorkers.add(failedWorker);
+      metrics.workerFaults += 1;
+    }
+
+    while (queue.length > 0) {
+      const task = queue.shift();
+      rejectPendingTask(task.taskId, backgroundError, false);
+    }
+    while (exploreQueue.length > 0) abandonHintOnce(exploreQueue.shift().hintId);
+
+    for (const [worker, active] of busy) {
+      if (active.kind === 'authoritative') rejectPendingTask(active.taskId, backgroundError, false);
+      else abandonHintOnce(active.hintId);
+      if (worker === failedWorker) busy.delete(worker);
+    }
+    idle.length = 0;
+    notifyDrained();
+  }
+
   function observeWorkerResources(workerIndex, message) {
     const resource = workerResources[workerIndex];
     if (!resource || !message || message.type === 'error') return;
-    resource.localStatesHighWater = Math.max(resource.localStatesHighWater, message.localStates ?? 0);
-    resource.localClassesHighWater = Math.max(resource.localClassesHighWater, message.localClasses ?? 0);
-    resource.localTypedBytesHighWater = Math.max(resource.localTypedBytesHighWater, message.localTypedBytes ?? 0);
+    resource.localStatesHighWater = Math.max(resource.localStatesHighWater, finiteCounter(message.localStates, 'worker localStates'));
+    resource.localClassesHighWater = Math.max(resource.localClassesHighWater, finiteCounter(message.localClasses, 'worker localClasses'));
+    resource.localTypedBytesHighWater = Math.max(resource.localTypedBytesHighWater, finiteCounter(message.localTypedBytes, 'worker localTypedBytes'));
     resource.onlineStateCapacityHighWater = Math.max(
       resource.onlineStateCapacityHighWater,
-      message.onlineStateStorage?.stateCapacity ?? 0,
+      finiteCounter(message.onlineStateStorage?.stateCapacity, 'worker online state capacity'),
     );
     resource.onlineStateBytesPerStateAvoided = Math.max(
       resource.onlineStateBytesPerStateAvoided,
-      message.onlineStateStorage?.bytesPerStateAvoided ?? 0,
+      finiteCounter(message.onlineStateStorage?.bytesPerStateAvoided, 'worker avoided state bytes'),
     );
     resource.onlineStateLocalProofBytesAvoidedHighWater = Math.max(
       resource.onlineStateLocalProofBytesAvoidedHighWater,
-      message.onlineStateStorage?.localProofBytesAvoided ?? 0,
+      finiteCounter(message.onlineStateStorage?.localProofBytesAvoided, 'worker avoided proof bytes'),
     );
     resource.onlineStateLocalProofBytesRetainedHighWater = Math.max(
       resource.onlineStateLocalProofBytesRetainedHighWater,
-      message.onlineStateStorage?.localProofBytesRetained ?? 0,
+      finiteCounter(message.onlineStateStorage?.localProofBytesRetained, 'worker retained proof bytes'),
     );
     resource.descriptorStateBuildsHighWater = Math.max(
       resource.descriptorStateBuildsHighWater,
-      message.descriptorCache?.stateBuilds ?? 0,
+      finiteCounter(message.descriptorCache?.stateBuilds, 'descriptor state builds'),
     );
     resource.descriptorClassBuildsHighWater = Math.max(
       resource.descriptorClassBuildsHighWater,
-      message.descriptorCache?.classBuilds ?? 0,
+      finiteCounter(message.descriptorCache?.classBuilds, 'descriptor class builds'),
     );
     resource.descriptorTermIdsCachedHighWater = Math.max(
       resource.descriptorTermIdsCachedHighWater,
-      message.descriptorCache?.termIdsCached ?? 0,
+      finiteCounter(message.descriptorCache?.termIdsCached, 'descriptor cached term IDs'),
     );
     resource.descriptorTermArrayObjectsCachedHighWater = Math.max(
       resource.descriptorTermArrayObjectsCachedHighWater,
-      message.descriptorCache?.termArrayObjectsCached ?? 0,
+      finiteCounter(message.descriptorCache?.termArrayObjectsCached, 'descriptor term arrays'),
     );
     resource.descriptorClassObjectsCachedHighWater = Math.max(
       resource.descriptorClassObjectsCachedHighWater,
-      message.descriptorCache?.classDescriptorObjectsCached ?? 0,
+      finiteCounter(message.descriptorCache?.classDescriptorObjectsCached, 'descriptor class objects'),
     );
     resource.descriptorClassMetadataBytesHighWater = Math.max(
       resource.descriptorClassMetadataBytesHighWater,
-      message.descriptorCache?.classMetadataBytes ?? 0,
+      finiteCounter(message.descriptorCache?.classMetadataBytes, 'descriptor class metadata bytes'),
     );
     resource.descriptorTermArenaBytesHighWater = Math.max(
       resource.descriptorTermArenaBytesHighWater,
-      message.descriptorCache?.termArenaBytes ?? 0,
+      finiteCounter(message.descriptorCache?.termArenaBytes, 'descriptor term arena bytes'),
     );
     resource.descriptorRetainedTypedBytesHighWater = Math.max(
       resource.descriptorRetainedTypedBytesHighWater,
-      message.descriptorCache?.retainedTypedBytes ?? 0,
+      finiteCounter(message.descriptorCache?.retainedTypedBytes, 'descriptor retained typed bytes'),
     );
     resource.descriptorClassCapacityHighWater = Math.max(
       resource.descriptorClassCapacityHighWater,
-      message.descriptorCache?.classCapacity ?? 0,
+      finiteCounter(message.descriptorCache?.classCapacity, 'descriptor class capacity'),
     );
     resource.descriptorTermCapacityHighWater = Math.max(
       resource.descriptorTermCapacityHighWater,
-      message.descriptorCache?.termCapacity ?? 0,
+      finiteCounter(message.descriptorCache?.termCapacity, 'descriptor term capacity'),
     );
     resource.isolateHeapUsedHighWater = Math.max(
       resource.isolateHeapUsedHighWater,
-      message.isolateMemory?.heapUsed ?? 0,
+      finiteCounter(message.isolateMemory?.heapUsed, 'worker heap used'),
     );
     resource.isolateExternalHighWater = Math.max(
       resource.isolateExternalHighWater,
-      message.isolateMemory?.external ?? 0,
+      finiteCounter(message.isolateMemory?.external, 'worker external bytes'),
     );
     resource.isolateArrayBuffersHighWater = Math.max(
       resource.isolateArrayBuffersHighWater,
-      message.isolateMemory?.arrayBuffers ?? 0,
+      finiteCounter(message.isolateMemory?.arrayBuffers, 'worker ArrayBuffer bytes'),
     );
   }
 
@@ -180,7 +242,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   }
 
   function pump() {
-    if (closed) {
+    if (closed || backgroundError) {
       notifyDrained();
       return;
     }
@@ -199,26 +261,43 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
   function settleWorker(worker, workerIndex, message) {
     const active = busy.get(worker);
-    if (!active || message?.taskId !== active.taskId) return;
+    if (!active) {
+      if (backgroundError || failedWorkers.has(worker)) return;
+      poison(new Error(`worker ${workerIndex} replied with no active task`), worker);
+      return;
+    }
+    if (message?.taskId !== active.taskId) {
+      poison(new Error(`worker ${workerIndex} replied for task ${message?.taskId}; expected ${active.taskId}`), worker);
+      return;
+    }
     observeWorkerResources(workerIndex, message);
     busy.delete(worker);
-    const slot = { worker, workerIndex };
 
+    if (backgroundError) {
+      notifyDrained();
+      return;
+    }
+
+    const slot = { worker, workerIndex };
     if (active.kind === 'explore') {
       if (message?.type === 'error') {
         metrics.exploreFailed += 1;
-        backgroundError ??= new Error(message.message ?? `explore hint ${active.hintId} failed`);
-        if (abandonExploreHint) trackSideEffect(abandonExploreHint(active.hintId));
-      } else if (message?.type === 'explore-result') {
-        metrics.exploreCompleted += 1;
-        if (!completeExploreHint) {
-          backgroundError ??= new Error('explore result has no Branch Manager completion handler');
-        } else {
-          trackSideEffect(completeExploreHint(active.hintId, message.fragment));
-        }
-      } else {
-        backgroundError ??= new Error(`unexpected explore worker response ${message?.type}`);
+        abandonHintOnce(active.hintId);
+        poison(new Error(message.message ?? `explore hint ${active.hintId} failed`), worker);
+        return;
       }
+      if (message?.type !== 'explore-result') {
+        metrics.exploreFailed += 1;
+        abandonHintOnce(active.hintId);
+        poison(new Error(`unexpected explore worker response ${message?.type}`), worker);
+        return;
+      }
+      metrics.exploreCompleted += 1;
+      if (!completeExploreHint) {
+        poison(new Error('explore result has no Branch Manager completion handler'));
+        return;
+      }
+      trackSideEffect(completeExploreHint(active.hintId, message.fragment));
       idle.push(slot);
       pump();
       return;
@@ -226,53 +305,75 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
     const task = pending.get(active.taskId);
     if (!task) {
-      backgroundError ??= new Error(`missing authoritative task ${active.taskId}`);
-      idle.push(slot);
-      pump();
+      poison(new Error(`missing authoritative task ${active.taskId}`), worker);
       return;
     }
-    pending.delete(active.taskId);
     if (message?.type === 'error') {
-      metrics.failed += 1;
-      task.reject(new Error(message.message ?? `worker task ${active.taskId} failed`));
-    } else if (message?.type === 'result') {
-      metrics.completed += 1;
-      task.resolve(message);
-    } else {
-      backgroundError ??= new Error(`unexpected authoritative worker response ${message?.type}`);
+      rejectPendingTask(active.taskId, new Error(message.message ?? `worker task ${active.taskId} failed`), true);
+      poison(new Error(message.message ?? `worker task ${active.taskId} failed`), worker);
+      return;
     }
+    if (message?.type !== 'result') {
+      rejectPendingTask(active.taskId, new Error(`unexpected authoritative worker response ${message?.type}`), true);
+      poison(new Error(`unexpected authoritative worker response ${message?.type}`), worker);
+      return;
+    }
+
+    pending.delete(active.taskId);
+    metrics.completed += 1;
+    task.resolve(message);
     idle.push(slot);
     pump();
   }
 
+  function failActiveWorker(worker, error) {
+    const active = busy.get(worker);
+    if (!active) return;
+    busy.delete(worker);
+    if (active.kind === 'authoritative') rejectPendingTask(active.taskId, error, true);
+    else {
+      metrics.exploreFailed += 1;
+      abandonHintOnce(active.hintId);
+    }
+  }
+
   for (let workerIndex = 0; workerIndex < workers.length; workerIndex += 1) {
     const worker = workers[workerIndex];
-    const onMessage = (message) => settleWorker(worker, workerIndex, message);
-    const onError = (error) => {
-      const active = busy.get(worker);
-      if (active) {
-        busy.delete(worker);
-        if (active.kind === 'authoritative') {
-          const task = pending.get(active.taskId);
-          pending.delete(active.taskId);
-          metrics.failed += 1;
-          task?.reject(error);
-        } else {
-          metrics.exploreFailed += 1;
-          if (abandonExploreHint) trackSideEffect(abandonExploreHint(active.hintId));
-        }
+    const onMessage = (message) => {
+      try {
+        settleWorker(worker, workerIndex, message);
+      } catch (error) {
+        failActiveWorker(worker, asError(error, `worker ${workerIndex} message handling failed`));
+        poison(error, worker);
       }
-      backgroundError ??= error;
-      notifyDrained();
+    };
+    const onError = (error) => {
+      const fatal = asError(error, `worker ${workerIndex} failed`);
+      failActiveWorker(worker, fatal);
+      poison(fatal, worker);
+    };
+    const onExit = (code) => {
+      if (closed) return;
+      if (failedWorkers.has(worker)) {
+        busy.delete(worker);
+        notifyDrained();
+        return;
+      }
+      const fatal = new Error(`worker ${workerIndex} exited before executor close with code ${code}`);
+      failActiveWorker(worker, fatal);
+      poison(fatal, worker);
     };
     worker.on('message', onMessage);
     worker.on('error', onError);
-    listeners.set(worker, { onMessage, onError });
+    worker.on('exit', onExit);
+    listeners.set(worker, { onMessage, onError, onExit });
   }
 
   function submit(message, priority = 0) {
     if (closed) throw new Error('search worker executor is closed');
     if (backgroundError) throw backgroundError;
+    if (!message || typeof message !== 'object') throw new TypeError('search worker task message must be an object');
+    if (!Number.isFinite(priority)) throw new RangeError(`search worker priority must be finite, got ${priority}`);
     const taskId = nextTaskId++;
     metrics.submitted += 1;
     return new Promise((resolve, reject) => {
@@ -285,7 +386,9 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
   function enqueueExploreHint(hint) {
     if (closed) return false;
-    if (!hint || !Number.isInteger(hint.hintId) || !Array.isArray(hint.path) || !Number.isInteger(hint.depth) || hint.depth < 1) {
+    if (backgroundError) throw backgroundError;
+    if (!hint || !Number.isInteger(hint.hintId) || hint.hintId < 1
+        || !Array.isArray(hint.path) || !Number.isInteger(hint.depth) || hint.depth < 1) {
       throw new TypeError('invalid Branch Manager explore hint');
     }
     exploreQueue.push(hint);
@@ -307,6 +410,8 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       submitted: metrics.submitted,
       completed: metrics.completed,
       failed: metrics.failed,
+      aborted: metrics.aborted,
+      workerFaults: metrics.workerFaults,
       maxQueued: metrics.maxQueued,
       exploreQueued: metrics.exploreQueued,
       exploreStarted: metrics.exploreStarted,
@@ -317,20 +422,26 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       active: busy.size,
       pending: pending.size,
       backgroundSideEffects: sideEffects.size,
+      poisoned: backgroundError !== null,
       workerTasks: Object.freeze([...metrics.workerTasks]),
       workerResources: Object.freeze(workerResources.map((resource) => Object.freeze({ ...resource }))),
     });
   }
 
-  function close() {
-    if (!isDrained()) throw new Error('cannot close search worker executor with active tasks');
-    if (backgroundError) throw backgroundError;
-    closed = true;
+  function detachListeners() {
     for (const [worker, listener] of listeners) {
       worker.off('message', listener.onMessage);
       worker.off('error', listener.onError);
+      worker.off('exit', listener.onExit);
     }
     listeners.clear();
+  }
+
+  function close() {
+    if (!isDrained()) throw new Error('cannot close search worker executor with active tasks');
+    closed = true;
+    detachListeners();
+    if (backgroundError) throw backgroundError;
   }
 
   return Object.freeze({ submit, enqueueExploreHint, drain, stats, close });
