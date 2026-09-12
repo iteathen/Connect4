@@ -41,9 +41,11 @@ Start with:
 - `STATUS.md`
 - `next_step.yaml`
 - `docs/specs/C4-0010-quotient-native-negamax-v1.md`
-- `docs/research/2026-09-12-full-engine-sanity-audit.md` — active line-by-line
-  correctness, ownership and lifecycle audit; full-root admission remains blocked
-  until the entire active production and qualification graph is reviewed.
+- `docs/research/2026-09-12-full-engine-sanity-audit.md` — completed active-path
+  correctness, ownership and lifecycle audit; one integrated root admitted after
+  exact-source bounded qualification. Standard-root performance remains unproven.
+- `docs/research/2026-09-12-frontier-audit-coverage.json` — 44 reviewed source files,
+  five workflows, exact blob identities and qualification evidence.
 - `docs/research/2026-09-11-7x6-replacement-term-lifetime.md`
 - `docs/research/2026-09-11-7x6-worker-descriptor-retention.md`
 - `docs/research/2026-09-11-7x6-proof-term-lifetime.md`

@@ -1,0 +1,696 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-12",
+  "branch": "research/frontier-negamax-conformance",
+  "auditedRevision": "9c778bcaf010372ca2a3a91a7cdcec8debf5518f",
+  "attribution": {
+    "researchDirectionAndArchitecture": "Josh Oshiro",
+    "implementationAndQualification": "OpenAI ChatGPT"
+  },
+  "contracts": [
+    "docs/specs/C4-0001-domain-v1.md",
+    "docs/specs/C4-0006-control-parity-and-winspace-v1.md",
+    "docs/specs/C4-0007-nested-dependency-closure-v1.md",
+    "docs/specs/C4-0010-quotient-native-negamax-v1.md"
+  ],
+  "roots": [
+    "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-attempt.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-parallel-campaign.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-proof-lifecycle-control.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-proof-store-contract.test.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-semantic-arena-contract.test.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs",
+    "research/semantic-quotient/state-identity-unification/src/quotient-root-config.test.mjs"
+  ],
+  "files": [
+    {
+      "file": "components/bsfp/geometry.mjs",
+      "reviewedLines": [
+        1,
+        55
+      ],
+      "gitBlob": "0af51aca503ce3004c6f7d5d18af04df682da260",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "components/bsfp/ownership-antichain-solver.mjs",
+      "reviewedLines": [
+        1,
+        320
+      ],
+      "gitBlob": "30d0ae3aae1fa5750d458076345115aced53dca0",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "components/bsfp/geometry.mjs",
+        "components/bsfp/support-lattice.mjs"
+      ]
+    },
+    {
+      "file": "components/bsfp/support-lattice.mjs",
+      "reviewedLines": [
+        1,
+        100
+      ],
+      "gitBlob": "29ea865e81ecfd996323fdf4fecfe81ab8742877",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs",
+      "reviewedLines": [
+        1,
+        309
+      ],
+      "gitBlob": "b30ad45fa006ee364d66557db4bfa276850d0376",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-shared-graph-lib.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-service.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs",
+      "reviewedLines": [
+        1,
+        73
+      ],
+      "gitBlob": "1ed3611192a7b4c87f6b9899e9234a5e313a2067",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs",
+      "reviewedLines": [
+        1,
+        164
+      ],
+      "gitBlob": "e33339389014ee8f4cf816b53c6781eec71324a9",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-service.mjs",
+      "reviewedLines": [
+        1,
+        165
+      ],
+      "gitBlob": "b00fddda08cd0985fb034e6d1b063ef5988becfb",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-explore-path.mjs",
+      "reviewedLines": [
+        1,
+        239
+      ],
+      "gitBlob": "4c658e97d14dc8bc46041c0d1273bd8cbcce78e8",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs",
+      "reviewedLines": [
+        1,
+        234
+      ],
+      "gitBlob": "bd0b795e1e224c577b7fee7d91163cca1d82d5c1",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "components/bsfp/geometry.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs",
+      "reviewedLines": [
+        1,
+        201
+      ],
+      "gitBlob": "986efe19bb3b5aedce5c0f863beb91bc57b4d0f9",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs",
+      "reviewedLines": [
+        1,
+        260
+      ],
+      "gitBlob": "50555a36a442cb2d2d259c6896e835b6233c7910",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs",
+      "reviewedLines": [
+        1,
+        322
+      ],
+      "gitBlob": "61379943258eafa2c93f7b98f86a085f12162b2b",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs",
+      "reviewedLines": [
+        1,
+        69
+      ],
+      "gitBlob": "1cd33b98bfc717047ac56666dc625e9bc2385e75",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+      "reviewedLines": [
+        1,
+        69
+      ],
+      "gitBlob": "b600b0efce1ea72e389cfb287903dda3a7b4804f",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs",
+      "reviewedLines": [
+        1,
+        782
+      ],
+      "gitBlob": "c5a361e4fc32fb38626164862d335307f98a3ca0",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "components/bsfp/geometry.mjs",
+        "components/bsfp/support-lattice.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+      "reviewedLines": [
+        1,
+        104
+      ],
+      "gitBlob": "fb7a3110724763cf23e52971474d09e48a287327",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+      "reviewedLines": [
+        1,
+        965
+      ],
+      "gitBlob": "e1fc3a5843b3a7c353bca2ba3c2cafb3a77299f3",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs",
+      "reviewedLines": [
+        1,
+        87
+      ],
+      "gitBlob": "b96c184b8cf0e4bcca179a02535c7ac0d7905d21",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-coordinator.mjs",
+      "reviewedLines": [
+        1,
+        163
+      ],
+      "gitBlob": "b76cb1fb9e71ed103e0c7734de2cfc9377b7aa18",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-parallel-campaign.mjs",
+      "reviewedLines": [
+        1,
+        223
+      ],
+      "gitBlob": "52a9b8b579abbca877ba26c5f221b79e01ff85c4",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-coordinator.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-online-only-state-storage.mjs",
+      "reviewedLines": [
+        1,
+        27
+      ],
+      "gitBlob": "759b27afb74d122635996958ee0647d469afbdbf",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs",
+      "reviewedLines": [
+        1,
+        304
+      ],
+      "gitBlob": "f673fbf043a80899de402f8ef696c5e990e344a2",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-worker.mjs",
+      "reviewedLines": [
+        1,
+        99
+      ],
+      "gitBlob": "d68ca83eb098dc830c1148550e4f0e51b40c779e",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-explore-path.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-only-state-storage.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs",
+      "reviewedLines": [
+        1,
+        496
+      ],
+      "gitBlob": "b97fa89cc3c41850172371d4844f6613fd59a90f",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-worker.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+      "reviewedLines": [
+        1,
+        272
+      ],
+      "gitBlob": "4f06a2545e0d3512e065b9da8496f666b70000ef",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-proof-lifecycle-control.mjs",
+      "reviewedLines": [
+        1,
+        126
+      ],
+      "gitBlob": "2960ffb52e3443d06500892ef8704ea1dd28ba50",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs",
+      "reviewedLines": [
+        1,
+        81
+      ],
+      "gitBlob": "578c69cc447db3391991edf5d2fb5ecf7e4090c7",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-proof-store-contract.test.mjs",
+      "reviewedLines": [
+        1,
+        89
+      ],
+      "gitBlob": "343dde514f8113a28b6ebba10148ec63db1be993",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-root-config.test.mjs",
+      "reviewedLines": [
+        1,
+        17
+      ],
+      "gitBlob": "06c2861244a9cee63e2f57d00706821c8a414fd2",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-config.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs",
+      "reviewedLines": [
+        1,
+        443
+      ],
+      "gitBlob": "97990ed5ff9b04afb4451056a5e12583961a1398",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-arena-contract.test.mjs",
+      "reviewedLines": [
+        1,
+        176
+      ],
+      "gitBlob": "68385dafba7e6faa9220c053a18000cab752c88e",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs",
+      "reviewedLines": [
+        1,
+        308
+      ],
+      "gitBlob": "7d4cc7fbdfdc3be610d1dac651c604eebf95375e",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+      "reviewedLines": [
+        1,
+        689
+      ],
+      "gitBlob": "f7fd43c7c5e8a6e5e7d1bed41a721c7e0b2fe28a",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs",
+      "reviewedLines": [
+        1,
+        266
+      ],
+      "gitBlob": "d2d6e96d5ad0889f8d19251203e41ecf47dfe606",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-coordinator.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-shared-graph-lib.mjs",
+      "reviewedLines": [
+        1,
+        66
+      ],
+      "gitBlob": "ac59b9bb4a169b69bb832011d1e9b89173ed864e",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs",
+      "reviewedLines": [
+        1,
+        203
+      ],
+      "gitBlob": "a691b7bdd1750884ec5f998e9950a07321514d3d",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "components/bsfp/ownership-antichain-solver.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs",
+      "reviewedLines": [
+        1,
+        778
+      ],
+      "gitBlob": "5666e5a3551ac1c00697987436a80fa1d0331126",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-attempt.mjs",
+      "reviewedLines": [
+        1,
+        225
+      ],
+      "gitBlob": "255e3bff8a9aaef736edf9521c34b82a4385862c",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-coordinator.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-config.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-config.mjs",
+      "reviewedLines": [
+        1,
+        22
+      ],
+      "gitBlob": "de9d9c3444d5c39303e4949b370112da814ef10f",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": []
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs",
+      "reviewedLines": [
+        1,
+        87
+      ],
+      "gitBlob": "6a04ba45abd8c906baaf25cbdf3fa09cfede40aa",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs",
+      "reviewedLines": [
+        1,
+        422
+      ],
+      "gitBlob": "2769621e34b3ecb59f9167e9fa54217918df740e",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "components/bsfp/geometry.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs",
+      "reviewedLines": [
+        1,
+        485
+      ],
+      "gitBlob": "f0994f070917adbe7d6bb26b38c4293e2013b996",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "components/bsfp/geometry.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs",
+      "reviewedLines": [
+        1,
+        67
+      ],
+      "gitBlob": "0afbc15fdb478c0886e7754c4e3653de4c497601",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs"
+      ]
+    },
+    {
+      "file": "research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs",
+      "reviewedLines": [
+        1,
+        128
+      ],
+      "gitBlob": "85a28aac1ca1a577a95d43b65d1a735c3b677fec",
+      "review": "all maintained lines in selected production/qualification import closure reviewed",
+      "localDependencies": [
+        "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-shared-graph-lib.mjs",
+        "research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs",
+        "components/bsfp/ownership-antichain-solver.mjs"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "file": ".github/workflows/semantic-quotient-proof-replacement.yml",
+      "reviewedLines": [
+        1,
+        67
+      ],
+      "gitBlob": "06e73d35b467a1d6292670ea74dd966c5714ce34",
+      "review": "trigger paths, branch filters, pinned runtime/actions, resource limits and executed commands reviewed"
+    },
+    {
+      "file": ".github/workflows/semantic-quotient-online-dependency-parallel.yml",
+      "reviewedLines": [
+        1,
+        72
+      ],
+      "gitBlob": "2593767a0d6fc5836b22f82db57d862ec2e4c232",
+      "review": "trigger paths, branch filters, pinned runtime/actions, resource limits and executed commands reviewed"
+    },
+    {
+      "file": ".github/workflows/semantic-quotient-explore-hints.yml",
+      "reviewedLines": [
+        1,
+        61
+      ],
+      "gitBlob": "294bdf23816a29cfd170d015f63adb4ad5abc38f",
+      "review": "trigger paths, branch filters, pinned runtime/actions, resource limits and executed commands reviewed"
+    },
+    {
+      "file": ".github/workflows/semantic-quotient-slot64-residual.yml",
+      "reviewedLines": [
+        1,
+        43
+      ],
+      "gitBlob": "a17f2411e66bc5b0d25b4f27355eaf468d261cec",
+      "review": "trigger paths, branch filters, pinned runtime/actions, resource limits and executed commands reviewed"
+    },
+    {
+      "file": ".github/workflows/semantic-quotient-standard7x6-root-attempt.yml",
+      "reviewedLines": [
+        1,
+        40
+      ],
+      "gitBlob": "863ff05adbf26ee5e13000ee6ff976cf1941fb17",
+      "review": "trigger paths, branch filters, pinned runtime/actions, resource limits and executed commands reviewed"
+    }
+  ],
+  "scopeNotes": [
+    "Imports include worker URLs and adversarial test worker dependencies.",
+    "The standard root selects semantic-only Branch Manager mode; static plan adapters are additionally reviewed/qualified on bounded graphs.",
+    "The legacy dense-pool installer in quotient-term-id-pool.mjs is not selected; vocabulary construction is active.",
+    "The support-layout base residual implementation is bootstrap/reference code; slot64 replaces its residual operations before production use.",
+    "Historical non-imported kernels and campaigns are not promoted or relabeled qualified by this coverage."
+  ],
+  "limitations": [
+    "This is a reviewed-line and bounded-qualification ledger, not an exhaustive formal proof over every standard-board state.",
+    "Standard-root time and memory adequacy remain to be measured; finite capacity exhaustion must fail explicitly.",
+    "Arena reset requires external global quiescence and no new submissions."
+  ],
+  "rootAdmission": "admitted_one_standard7x6_measurement_after_green_bounded_qualification",
+  "boundedQualification": {
+    "revision": "9c778bcaf010372ca2a3a91a7cdcec8debf5518f",
+    "localControls": {
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    },
+    "runs": {
+      "replacement": 34692987151,
+      "dependency": 34692987161,
+      "exploreHints": 34692987156,
+      "slot64": 34692987155
+    },
+    "allConclusions": "success"
+  }
+}

@@ -1,6 +1,6 @@
-schema_version: 26
+schema_version: 27
 updated: 2026-09-12
-state: frontier_negamax_line_by_line_correctness_audit_in_progress
+state: frontier_correctness_audit_complete_single_integrated_root_admitted
 current_branch: research/frontier-negamax-conformance
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -8,20 +8,18 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   audit_ledger: docs/research/2026-09-12-full-engine-sanity-audit.md
+  coverage: docs/research/2026-09-12-frontier-audit-coverage.json
 audit:
   continuation_base: 83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2
-  reviewed_surfaces: [packed_proofs, semantic_tt, semantic_identity, slot64_storage, support_states, exact_policy, frontier_ordering, coordinator, worker_lifecycle, branch_manager, root_harness]
-  local_controls: proof_arena_storage_decision_worker_and_root_configuration_passed
-  local_campaigns: [replacement, stale_generation_lifecycle, slot64, dependency_aware, explore_hints, bounded_work_plan]
-  last_remote_green_packet: 592bfe71faac790d87eac8a54dffb62326966720
-  remote_worker_packet_qualification: pending
-  next_owner: qualification_baseline_and_complete_import_graph_review
-  remaining_owners:
-    - qualification_reference_implementations_and_campaigns
-    - all_active_import_graph_coverage_reconciliation
-    - final_review_of_repaired_boundaries_and_exact_head_CI
+  completed_source_revision: 9c778bcaf010372ca2a3a91a7cdcec8debf5518f
+  source_files: 44
+  reviewed_source_lines: 10780
+  workflows: 5
+  local_controls: {passed: 33, failed: 0, skipped: 0}
+  remote_green_runs: {replacement: 34692987151, dependency: 34692987161, explore_hints: 34692987156, slot64: 34692987155}
+  unresolved_correctness_lifecycle_findings: []
 standard_root:
-  admission: blocked_until_complete_audit_and_bounded_qualification
+  admission: one_integrated_measurement_after_readiness_commit
   trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
   trigger_changed_in_continuation: false
   prior_revision_2_run: 34676507073
@@ -29,6 +27,7 @@ standard_root:
   current_split_depth: 3
   current_priority_probe_depth: 0
   maximum_concurrent_full_roots: 1
+  next_action: commit_readiness_then_trigger_once_and_record_outcome
 performance_only_hypotheses:
   - ETC_and_priority_probe_configuration
   - stored_state_hash_cpu_memory_tradeoff

@@ -480,3 +480,54 @@ replacement, dependency-aware and ExploreHint. The final targeted suite covers
 active import closure; source/hash coverage reconciliation and exact-revision
 remote qualification are the remaining admission gates. This statement does not
 promote unused historical implementations or establish standard-root performance.
+
+## Completion review and standard-root admission
+
+The active-path correctness/compliance pass is complete for source revision
+`9c778bcaf010372ca2a3a91a7cdcec8debf5518f`. The accompanying
+[`2026-09-12-frontier-audit-coverage.json`](2026-09-12-frontier-audit-coverage.json)
+enumerates **44 source files / 10,780 lines and five workflows**, their complete
+reviewed ranges, exact Git blob identities and recursive local dependencies.
+It includes worker URLs, all six adversarial control suites and the bounded
+reference implementations. All findings and fixes are classified in the
+continuation sections above; earlier dispositions are retained historical evidence.
+
+Exact-revision remote qualification is green:
+
+| Lane | Run | Result |
+| --- | --- | --- |
+| Semantic replacement, stale generations and arena lifecycle | [34692987151](https://github.com/iteathen/Connect4/actions/runs/34692987151) | success |
+| Dependency-aware exact policy, decision controls and root configuration | [34692987161](https://github.com/iteathen/Connect4/actions/runs/34692987161) | success |
+| ExploreHint, worker lifecycle/protocol and bounded work plans | [34692987156](https://github.com/iteathen/Connect4/actions/runs/34692987156) | success |
+| Complete bounded slot64 graph, residual storage controls and independent oracle | [34692987155](https://github.com/iteathen/Connect4/actions/runs/34692987155) | success |
+
+Local Node 26.7.0 targeted suite: **33 passed, zero failed/skipped**. Complete
+replacement, stale-generation lifecycle, dependency, exploration and slot64
+campaigns also pass. No correctness result is inferred from a workflow that did
+not execute. Final remote main remains `15b8e62de07f2b35a74ea2297fda79b72633bf64`;
+this audit has not mutated protected main or any other solver/research lane.
+
+The clean decision rests on explicit domain-bound exact semantic identity,
+checked monotone proof intervals, generation-safe publication and observation,
+transactional descriptor/state growth failure, one visible proof owner per
+adapter, rank-increasing exact transitions, advisory-only hints, owned detached
+work and fail-closed worker/protocol cleanup. Structural premises remain exactly
+those admitted by C4-0006/C4-0007; no new CPC/WSL/NDC implication is assumed.
+This is reviewed implementation plus bounded/adversarial evidence, not a formal
+enumeration of all standard-board states.
+
+**Readiness: admit one standard 7x6 integrated measurement.** No unresolved
+correctness/lifecycle violation was found in the final selected import-graph
+review. Global arena reset requires stopped submissions and quiescent workers;
+all maintained campaign reset sites satisfy that ordering. Explicit finite
+arena/counter exhaustion remains an allowed failing resource outcome, never a
+valid proof. The root workflow was checked to have no active run before admission
+and now enforces a single concurrency group. Documentation and coverage are
+committed before changing the sole revision trigger.
+
+Performance remains unproven: large worker-local state tiers, retained state
+hash versus recomputation, checked growth peak memory, TT replacement pressure,
+ETC and priority-probe cost are hypotheses for a later evidence-led pass. Default
+split 3, three workers, priority depth 0, ETC disabled and current TT capacities
+remain unchanged. A root resource failure must be recorded as such; this audit
+does not claim that previous 15.7 GB failures have been solved by assumption.
