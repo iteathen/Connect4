@@ -8,7 +8,7 @@
 
 This record follows the earlier `docs/research/2026-09-11-7x6-replacement-term-lifetime.md` append-only-incarnation finding and the later slot-span / worker-descriptor lifetime corrections. It records the next distinct failure boundary after those changes rather than replacing their evidence.
 
-## Result
+## v4 result
 
 Standard-7x6 run `34674060855` at commit `1b9bb83f72a318c188750b421f352504048fe314` established the next concrete large-scale limiter after worker-local semantic state descriptors were made ephemeral.
 
@@ -86,30 +86,52 @@ Composed qualification also passed:
 - dependency-aware proof run `34675126023` — success;
 - idle ExploreHint run `34675132451` — success.
 
-## Next evidence boundary
+## Standard-7x6 v5 result
 
-Admit exactly one standard-7x6 root measurement with the current `v5` store after the bounded qualification above.
-
-Keep the prior isolation configuration so the storage-lifetime comparison is interpretable:
+Exactly one standard-7x6 v5 measurement was admitted through qualification revision 1:
 
 ```text
-search workers:                  3
-unresolved decision split depth: 8
-autonomous Branch Manager explore: disabled
-shared proof entries:            8,388,608
-shared term arena words:       460,000,000
+workflow run:       34675467051
+job:                103504435817
+admission commit:   5049e3b25eaca8526e2559123b12ea3e6283b8da
+workers:            3
+split depth:        8 unresolved decisions
+explore:            disabled
+entry capacity:     8,388,608
+term arena words:   460,000,000
 ```
 
-Measure at minimum:
+The solver ran for roughly 780.56 seconds before the hosted runner delivered a shutdown signal. The solver step was cancelled by runner shutdown; it did **not** throw semantic-TT term-arena exhaustion.
 
-- root/action W/D/L if resolved;
-- shared entries and replacements;
-- slot reuses/grows, chunk count, descriptor-data capacity, header words and total arena words;
-- calls/expansions/proof admissions;
-- authoritative queue and detached sibling work;
-- process RSS;
-- per-worker local quotient states, residual classes and typed bytes;
-- per-worker V8 heap/external/ArrayBuffer high-water;
-- residual-class descriptor builds and cached term-ID count.
+Last shared-TT evidence before shutdown:
 
-If the root remains unresolved, change the next resource lifecycle only from the measured owner. In particular, residual-class descriptor payload remains a plausible worker-memory duplication boundary, but exact class identity must not be weakened or reclaimed preemptively without evidence from the `v5` standard-7x6 run.
+```text
+entries:                 8,388,608
+replacements:          168,397,037
+slot reuses:           149,546,655
+slot grows:             18,850,382
+chunk count:            27,238,990
+descriptor data:       210,231,525 words
+chunk headers:          81,716,970 words
+total term arena:      291,948,495 / 460,000,000 words
+```
+
+Thus the old v4 hard term-lifetime boundary was removed. After more replacements than the v4 failure run (`168.4M` vs `153.3M`), v5 had used only about 63.5% of its bounded arena and retained substantial headroom.
+
+The next failure signal moved back to host memory rather than the shared proof arena. Process RSS reached `15,751,729,152` bytes before runner shutdown. Per-worker high-water at the last complete snapshots was approximately:
+
+```text
+worker 0: 42.02M local states, 10.19M residual classes, 103.37M cached term IDs, 3.84 GB V8 heap
+worker 1: 46.70M local states, 11.27M residual classes, 116.17M cached term IDs, 4.22 GB V8 heap
+worker 2: 46.10M local states, 10.94M residual classes, 111.37M cached term IDs, 4.09 GB V8 heap
+```
+
+Each worker still retained the then-current residual semantic descriptor cache, which materialized one exact `Uint16Array` plus a JS descriptor object per observed residual class. With roughly 10-11 million classes per worker, that is now the measured next resource-lifetime owner.
+
+## Next evidence boundary
+
+The v5 shared proof term-lifetime correction is accepted for the current research lane. Do not increase the shared term arena in response to run `34675467051`.
+
+The next correction must target worker-local residual semantic descriptor ownership while preserving exact semantic identity and leaving the canonical slot64 residual kernel, CPC/WSL/NDC semantics, shared proof generation safety, task wire protocol and search/control logic unchanged.
+
+See `docs/research/2026-09-11-worker-residual-descriptor-ownership.md` for the admitted ownership seam and qualification requirements.
