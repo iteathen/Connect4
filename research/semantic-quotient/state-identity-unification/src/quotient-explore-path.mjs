@@ -4,21 +4,17 @@ import {
   tacticalExactValue,
   tacticalForcedColumn,
 } from './quotient-negamax-domain-contract.mjs';
-import {
-  addOccupancyStone,
-  createLiveLineMoveOrder,
-  EMPTY_OCCUPANCY,
-} from './quotient-live-line-move-order.mjs';
+import { createLiveLineMoveOrder } from './quotient-live-line-move-order.mjs';
 
 function normalizeDepth(depth) {
   if (!Number.isInteger(depth) || depth < 1) throw new RangeError('explore depth must be a positive integer');
   return depth;
 }
 
-function replayPath(kernel, path) {
+function replayPath(kernel, path, moveOrder) {
   if (!Array.isArray(path)) throw new TypeError('explore path must be an array');
   let stateId = kernel.rootId;
-  let occupancy = EMPTY_OCCUPANCY;
+  let liveLines = moveOrder.createRootSeed();
   for (let index = 0; index < path.length; index += 1) {
     const column = path[index];
     if (!Number.isInteger(column) || column < 0 || column >= kernel.columns) {
@@ -31,23 +27,23 @@ function replayPath(kernel, path) {
     const child = kernel.advance(stateId, column);
     if (child === QN_ILLEGAL) throw new Error(`illegal explore path at ply ${index}: ${path.join(',')}`);
     if (child === QN_TERMINAL_WIN) throw new Error(`explore path crosses terminal win at ply ${index}: ${path.join(',')}`);
-    occupancy = addOccupancyStone(occupancy, mover, landingCell);
+    liveLines = moveOrder.advanceSeed(liveLines, mover, landingCell);
     stateId = child;
   }
-  return Object.freeze({ stateId, occupancy });
+  return Object.freeze({ stateId, liveLines });
 }
 
 export function exploreQuotientPath(kernel, path, depth) {
   const maxDepth = normalizeDepth(depth);
   const startPath = Object.freeze([...path]);
-  const start = replayPath(kernel, startPath);
   const moveOrder = createLiveLineMoveOrder({
     columns: kernel.columns,
     rows: kernel.rows,
     connect: kernel.connect,
-  }, kernel.centerOrder);
+  });
+  const start = replayPath(kernel, startPath, moveOrder);
   const seen = new Set([start.stateId]);
-  let layer = [{ stateId: start.stateId, path: startPath, occupancy: start.occupancy }];
+  let layer = [{ stateId: start.stateId, path: startPath, liveLines: start.liveLines }];
   let reachedDepth = 0;
   let expandedStates = 0;
   let traversedEdges = 0;
@@ -72,26 +68,17 @@ export function exploreQuotientPath(kernel, path, depth) {
       const forcedColumn = tacticalForcedColumn(tactical, kernel.columns);
       const supportIndex = kernel.states.support[node.stateId];
       const mover = kernel.supportAccess.rankAt(supportIndex) & 1;
-      let ordered;
+      let ordered = moveOrder.orderLegal(kernel, node.stateId, node.liveLines);
       if (forcedColumn >= 0) {
-        const all = moveOrder.orderLegal(kernel, node.stateId, node.occupancy);
-        const forced = all.find((entry) => entry.column === forcedColumn);
+        const forced = ordered.find((entry) => entry.column === forcedColumn);
         if (!forced) throw new Error(`forced column ${forcedColumn} is not legal for quotient state ${node.stateId}`);
         ordered = [forced];
         forcedNodes += 1;
-      } else {
-        ordered = moveOrder.orderLegal(kernel, node.stateId, node.occupancy);
       }
       orderedNodes += 1;
       scoredMoves += ordered.length;
       for (const entry of ordered) if (entry.value > maxMoveValue) maxMoveValue = entry.value;
-      if (firstLayerOrder === null) {
-        firstLayerOrder = Object.freeze(ordered.map((entry) => Object.freeze({
-          column: entry.column,
-          landingCell: entry.landingCell,
-          value: entry.value,
-        })));
-      }
+      if (firstLayerOrder === null) firstLayerOrder = Object.freeze(ordered);
       expandedStates += 1;
 
       for (const entry of ordered) {
@@ -111,7 +98,7 @@ export function exploreQuotientPath(kernel, path, depth) {
         next.push(Object.freeze({
           stateId: child,
           path: Object.freeze([...node.path, column]),
-          occupancy: addOccupancyStone(node.occupancy, mover, landingCell),
+          liveLines: moveOrder.advanceSeed(node.liveLines, mover, landingCell),
         }));
       }
     }
@@ -120,11 +107,11 @@ export function exploreQuotientPath(kernel, path, depth) {
   }
 
   return Object.freeze({
-    kind: 'connect4-quotient-explore-fragment-v2',
+    kind: 'connect4-quotient-explore-fragment-v3',
     startPath,
     requestedDepth: maxDepth,
     reachedDepth,
-    ordering: 'legacy-live-winning-line-incidence',
+    ordering: 'dynamic-live-winning-line-frontier',
     firstLayerOrder: firstLayerOrder ?? Object.freeze([]),
     uniqueStates: seen.size,
     expandedStates,
