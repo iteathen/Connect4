@@ -1,6 +1,6 @@
-schema_version: 21
+schema_version: 22
 updated: 2026-09-11
-state: frontier_negamax_v5_term_lifetime_qualified_ready_for_root
+state: frontier_negamax_v5_standard_7x6_measurement_active
 current_branch: research/frontier-negamax-conformance
 
 authority:
@@ -81,7 +81,7 @@ qualified_execution:
     term_data_metric: termIdsUsed
     total_arena_metric: termArenaWordsUsed
     worker_state_descriptor_lifetime: ephemeral
-    worker_residual_class_descriptor_lifetime: cached_pending_next_measurement
+    worker_residual_class_descriptor_lifetime: cached_pending_measurement
     general_free_list: not_implemented_without_evidence
 
   parallel_proof:
@@ -107,19 +107,6 @@ qualified_execution:
 current_evidence:
   bounded_physical_states_checked: 1681808
   quotient_exactness_mismatches: 0
-
-  bounded_state_descriptor_lifetime_qualification:
-    idle_explore_run: 34673985296
-    dependency_proof_run: 34673985304
-    exact_root: draw
-    exact_actions: [0, 0, 0, 0]
-    baseline_expansions: 11303
-    baseline_calls: 24877
-    baseline_proof_admissions: 13325
-    best_workers: 3
-    best_unresolved_decision_depth: 3
-    best_median_ms_approx: 23.13
-    drained_executor_work: true
 
   completed_ephemeral_state_descriptor_7x6_run:
     run: 34674060855
@@ -168,21 +155,22 @@ current_evidence:
     worker_semantics_changed: false
 
 current:
-  primary_action: admit_exactly_one_standard_7x6_v5_slot_chunk_root_measurement_via_qualification_revision_trigger
-  active_root_run: null
-  active_root_job: null
-  active_root_commit: null
-  root_workflow_auto_trigger_on_implementation_changes: false
+  primary_action: observe_active_v5_standard_7x6_run_to_completion_then_follow_measured_owner
+  active_root_run: 34675467051
+  active_root_job: 103504435817
+  active_root_commit: 5049e3b25eaca8526e2559123b12ea3e6283b8da
+  admission_revision: 1
   admission_trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
-  autonomous_exploration_for_next_run: false
+  root_workflow_auto_trigger_on_implementation_changes: false
+  autonomous_exploration_in_active_run: false
   comparison_configuration:
     search_workers: 3
     unresolved_decision_split_depth: 8
     shared_proof_entries: 8388608
     shared_term_arena_words: 460000000
-  do_not_launch_second_root_while_admitted_run_active: true
+  do_not_duplicate_active_root_run: true
 
-next_after_admitted_run_closes:
+next_after_active_run_closes:
   - fetch_complete_root_job_logs_and_progress_high_water_series
   - record_exact_root_and_action_WDL_if_resolved
   - compare_v5_termIdsUsed_termArenaWordsUsed_termHeaderWordsUsed_chunk_count_and_growth_to_old_v4_span_growth
@@ -215,4 +203,4 @@ rejected_or_not_default:
   - row_parity_as_substitute_for_CPC_control_invariant
   - increasing_term_capacity_as_substitute_for_fixing_descriptor_lifetime
   - worker_cancellation_polling
-  - residual_class_descriptor_reclamation_before_v5_standard_7x6_evidence
+  - residual_class_descriptor_reclamation_before_active_v5_standard_7x6_evidence
