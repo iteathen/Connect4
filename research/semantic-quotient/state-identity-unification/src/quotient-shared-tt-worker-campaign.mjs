@@ -2,7 +2,7 @@ import { availableParallelism } from 'node:os';
 import { performance } from 'node:perf_hooks';
 import { createSharedTtGraphSearcher } from './quotient-shared-tt-search-lib.mjs';
 import {
-  startMaintenanceHost,
+  startBranchManager,
   startSearchWorkers,
   runRootColumns,
 } from './quotient-shared-worker-pool.mjs';
@@ -45,14 +45,14 @@ function runSequential(shared) {
   });
 }
 
-const maintenance = await startMaintenanceHost(SPEC, PREFIX_CLASSES);
-const shared = Object.freeze({ spec: SPEC, graph: maintenance.published.graph, arena: maintenance.published.arena });
+const branchManager = await startBranchManager(SPEC, PREFIX_CLASSES);
+const shared = Object.freeze({ spec: SPEC, graph: branchManager.published.graph, arena: branchManager.published.arena });
 assert(shared.graph.stateCount === 294593, `canonical q-state mismatch: ${shared.graph.stateCount}`);
 assert(shared.graph.residualClassCount === 69707, `residual-class mismatch: ${shared.graph.residualClassCount}`);
 
 const sequentialRuns = [];
 for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-  await maintenance.reset();
+  await branchManager.reset();
   const run = runSequential(shared);
   assertResult(run, 'sequential');
   sequentialRuns.push(run);
@@ -63,17 +63,17 @@ for (const requested of REQUESTED) {
   const count = Math.max(1, Math.min(requested, SPEC.columns, availableParallelism()));
   const workers = await startSearchWorkers(count, shared);
   try {
-    await maintenance.reset();
+    await branchManager.reset();
     const warmup = await runRootColumns(workers, shared.graph.centerOrder);
     assertResult(warmup, `${count}-worker warmup`);
 
     const runs = [];
     for (let repeat = 0; repeat < REPEATS; repeat += 1) {
-      await maintenance.reset();
+      await branchManager.reset();
       const run = await runRootColumns(workers, shared.graph.centerOrder);
       assertResult(run, `${count}-worker`);
       runs.push(run);
-      await maintenance.cleanup();
+      await branchManager.cleanup();
     }
     workerResults.push(Object.freeze({
       requested,
@@ -89,8 +89,8 @@ for (const requested of REQUESTED) {
   }
 }
 
-await maintenance.cleanup();
-await maintenance.worker.terminate();
+await branchManager.cleanup();
+await branchManager.worker.terminate();
 
 const summary = Object.freeze({
   kind: 'connect4-shared-proof-workers-v2',
@@ -99,17 +99,17 @@ const summary = Object.freeze({
   repeats: REPEATS,
   availableParallelism: availableParallelism(),
   ownership: Object.freeze({
-    maintenanceHost: 'work-plan-and-proof-resource-services',
+    branchManager: 'work-plan-and-proof-resource-services',
     recursiveSearch: 'search-workers',
     proofPublication: 'shared-proof-store',
-    hotLoopMaintenanceRpc: false,
+    hotLoopBranchManagerRpc: false,
     sharedProofBytesPerState: 1,
   }),
   graph: Object.freeze({
     stateCount: shared.graph.stateCount,
     residualClassCount: shared.graph.residualClassCount,
     edgeCount: shared.graph.edgeCount,
-    buildMs: maintenance.published.stats.buildMs,
+    buildMs: branchManager.published.stats.buildMs,
   }),
   sequential: Object.freeze({
     solveMsMedian: median(sequentialRuns.map((run) => run.solveMs)),
