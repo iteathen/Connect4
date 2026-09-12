@@ -24,15 +24,24 @@ function createStaticPackedProofStore(arena) {
     return Number.isInteger(slot) && slot >= 0 && slot < records.length;
   }
 
+  function assertSlot(slot) {
+    if (!isCurrent(slot)) throw new RangeError(`packed proof slot ${slot} is outside 0..${records.length - 1}`);
+  }
+
   function load(slot) {
+    assertSlot(slot);
     metrics.reads += 1;
     return Atomics.load(records, slot);
   }
 
   function update(slot, transform) {
+    assertSlot(slot);
     while (true) {
       const current = Atomics.load(records, slot);
       const next = transform(current);
+      if (!Number.isInteger(next) || next < 0 || next > 0xff) {
+        throw new Error(`packed proof transform returned invalid record ${next}`);
+      }
       if (next === current) return current;
       const observed = Atomics.compareExchange(records, slot, current, next);
       if (observed === current) {
@@ -47,7 +56,7 @@ function createStaticPackedProofStore(arena) {
     records.fill(INITIAL_SEARCH_RECORD);
   }
 
-  return Object.freeze({ records, isCurrent, load, update, reset, metrics });
+  return Object.freeze({ isCurrent, load, update, reset, metrics });
 }
 
 function createSemanticPackedProofStore(arena) {
@@ -126,7 +135,7 @@ function createSemanticPackedProofStore(arena) {
       if (Atomics.load(generation, slot) !== generationValue) return stalePublication();
       const state = Atomics.load(status, slot);
       if (state === proofWriting) {
-        metrics.waits += 1;
+        metrics.waits +=  1;
         Atomics.wait(status, slot, proofWriting, 1);
         continue;
       }
@@ -142,14 +151,15 @@ function createSemanticPackedProofStore(arena) {
         if (Atomics.load(generation, slot) !== generationValue) return stalePublication();
         const current = Atomics.load(records, slot);
         const next = transform(current);
+        if (!Number.isInteger(next) || next < 0 || next > 0xff) {
+          throw new Error(`packed semantic proof transform returned invalid record ${next}`);
+        }
         if (next !== current) {
           Atomics.store(records, slot, next);
           metrics.publications += 1;
         }
         return next;
       } finally {
-        // Replacement cannot acquire this slot while PROOF_WRITING is held.
-        // Restore READY only when this writer still owns the same generation.
         if (Atomics.load(status, slot) === proofWriting
           && Atomics.load(generation, slot) === generationValue) {
           Atomics.store(status, slot, ready);
@@ -163,7 +173,7 @@ function createSemanticPackedProofStore(arena) {
     throw new Error('semantic proof-store reset is owned by the semantic arena lifecycle');
   }
 
-  return Object.freeze({ records, isCurrent, load, update, reset, metrics });
+  return Object.freeze({ isCurrent, load, update, reset, metrics });
 }
 
 export function createPackedProofStore(arena) {
@@ -174,6 +184,12 @@ export function createPackedProofStore(arena) {
   const storage = semantic
     ? createSemanticPackedProofStore(arena)
     : createStaticPackedProofStore(arena);
+
+  function assertHint(bestMoveValue) {
+    if (!Number.isInteger(bestMoveValue) || bestMoveValue < -1 || bestMoveValue > 6) {
+      throw new RangeError(`packed proof best-move hint must be an integer in -1..6, got ${bestMoveValue}`);
+    }
+  }
 
   function lower(handle) {
     return proofLower(storage.load(handle));
@@ -188,6 +204,7 @@ export function createPackedProofStore(arena) {
   }
 
   function publishExact(handle, value, bestMoveValue = -1) {
+    assertHint(bestMoveValue);
     return storage.update(handle, (record) => {
       const currentLower = proofLower(record);
       const currentUpper = proofUpper(record);
@@ -201,6 +218,7 @@ export function createPackedProofStore(arena) {
   }
 
   function publishLower(handle, value, bestMoveValue = -1) {
+    assertHint(bestMoveValue);
     return storage.update(handle, (record) => {
       const nextLower = Math.max(proofLower(record), value);
       const currentUpper = proofUpper(record);
@@ -212,6 +230,7 @@ export function createPackedProofStore(arena) {
   }
 
   function publishUpper(handle, value, bestMoveValue = -1) {
+    assertHint(bestMoveValue);
     return storage.update(handle, (record) => {
       const currentLower = proofLower(record);
       const nextUpper = Math.min(proofUpper(record), value);
@@ -223,7 +242,8 @@ export function createPackedProofStore(arena) {
   }
 
   function publishHint(handle, bestMoveValue) {
-    if (bestMoveValue < 0) return storage.load(handle);
+    assertHint(bestMoveValue);
+    if (bestMoveValue === -1) return storage.load(handle);
     return storage.update(handle, (record) => withBestMoveHint(record, bestMoveValue));
   }
 
