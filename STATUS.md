@@ -37,7 +37,9 @@ coverage masks, uses the existing packed support bits for its guard, and returns
 a side-to-move bound through the existing frontier interface. Eval policy remains
 unchanged. See the [profile and evidence](docs/research/2026-09-12-incremental-response-closure.md).
 All 40 contract controls and bounded replacement, dependency, ExploreHint and
-slot64 lanes pass locally. Remote qualification of this follow-up is pending.
+slot64 lanes pass locally. All four remote bounded lanes passed on source commit
+14772b33383597a86212cd1c2dd636e8036aeca4: dependency 34697348137, ExploreHint
+34697348141, replacement 34697348155 and slot64 34697348163.
 
 Next: extend qualified conditional response/deadline composition and measure
 whether evicted proofs would close revisited obligations. The failed run's

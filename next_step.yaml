@@ -1,6 +1,6 @@
 schema_version: 28
 updated: 2026-09-12
-state: guarded_response_closure_locally_qualified_remote_checks_pending
+state: guarded_response_closure_qualified_broader_conditional_closure_pending
 current_branch: research/frontier-negamax-conformance
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -49,7 +49,7 @@ methods_review:
 
 hot_loop_report:
   document: docs/research/2026-09-12-hot-loop-eval-terminal-report.md
-  stable_three_field_proof_atomic_loads: 33
+  baseline_three_field_proof_atomic_loads: 33
   source_change: true
   next_measurement: coherent_read_cost_and_running_worker_async_telemetry
 
@@ -65,5 +65,7 @@ response_closure:
   eval_policy_changed: false
   side_dependent_terminal_propositions: authorized_when_sufficient_for_current_obligation
   full_ndc_complete: false
-  remote_qualification: pending
+  qualified_source_revision: 14772b33383597a86212cd1c2dd636e8036aeca4
+  remote_qualification: green
+  remote_runs: {dependency: 34697348137, explore_hints: 34697348141, replacement: 34697348155, slot64: 34697348163}
   next_owner: conditional_response_deadline_composition_and_useful_proof_retention

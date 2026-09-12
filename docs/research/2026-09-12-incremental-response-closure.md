@@ -169,6 +169,16 @@ Atomics.wait calls are removed.
 
 ## Cleanup and next owner
 
+Source commit `14772b33383597a86212cd1c2dd636e8036aeca4` passed all four bounded
+remote lanes, including successful individual qualification steps:
+[dependency](https://github.com/iteathen/Connect4/actions/runs/34697348137),
+[ExploreHint](https://github.com/iteathen/Connect4/actions/runs/34697348141),
+[replacement](https://github.com/iteathen/Connect4/actions/runs/34697348155), and
+[slot64, terminals and response closure](https://github.com/iteathen/Connect4/actions/runs/34697348163).
+The source inventory covers 50 source/test files and five workflows. Forty local
+contract controls pass. The original 9c source audit remains a separate historical
+checkpoint; source blobs and the new evidence identify this follow-up precisely.
+
 Evidence is in `evidence/2026-09-12-response-closure/`, with source fingerprints
 and immutable payload hashes. All affected bounded workflow import paths include
 the new closure source; tests and measurement steps are wired explicitly.
