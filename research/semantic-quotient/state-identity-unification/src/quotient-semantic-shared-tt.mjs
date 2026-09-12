@@ -17,7 +17,9 @@ const SLOT_PROOF_WRITING = 3;
 const META_TERM_NEXT = 0;
 const META_ENTRY_COUNT = 1;
 const META_REPLACEMENT_COUNT = 2;
-const META_WORDS = 3;
+const META_TERM_SPAN_REUSE_COUNT = 3;
+const META_TERM_SPAN_GROW_COUNT = 4;
+const META_WORDS = 5;
 const DEFAULT_ASSOCIATIVITY = 8;
 const INT32_MAX = 0x7fffffff;
 const UINT32_MAX = 0xffffffff;
@@ -68,6 +70,7 @@ export function createSemanticSharedTtArena(options = {}) {
   const p1StartBuffer = new SharedArrayBuffer(Uint32Array.BYTES_PER_ELEMENT * entryCapacity);
   const p0LengthBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
   const p1LengthBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
+  const termSpanCapacityBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * entryCapacity);
   const recordBuffer = new SharedArrayBuffer(Uint8Array.BYTES_PER_ELEMENT * entryCapacity);
   const termBuffer = new SharedArrayBuffer(Uint16Array.BYTES_PER_ELEMENT * termCapacity);
   new Uint8Array(recordBuffer).fill(INITIAL_SEARCH_RECORD);
@@ -97,6 +100,7 @@ export function createSemanticSharedTtArena(options = {}) {
     p1StartBuffer,
     p0LengthBuffer,
     p1LengthBuffer,
+    termSpanCapacityBuffer,
     recordBuffer,
     termBuffer,
   });
@@ -104,12 +108,11 @@ export function createSemanticSharedTtArena(options = {}) {
 
 export function resetSemanticSharedTtArena(arena) {
   const meta = new Int32Array(arena.metaBuffer);
-  Atomics.store(meta, META_TERM_NEXT, 0);
-  Atomics.store(meta, META_ENTRY_COUNT, 0);
-  Atomics.store(meta, META_REPLACEMENT_COUNT, 0);
+  for (let index = 0; index < META_WORDS; index += 1) Atomics.store(meta, index, 0);
   new Int32Array(arena.statusBuffer).fill(SLOT_EMPTY);
   new Int32Array(arena.bucketLockBuffer).fill(0);
   new Uint32Array(arena.victimCursorBuffer).fill(0);
+  new Uint16Array(arena.termSpanCapacityBuffer).fill(0);
   new Uint8Array(arena.recordBuffer).fill(INITIAL_SEARCH_RECORD);
   // Generations deliberately survive reset. A stale handle from an old epoch
   // cannot alias the first descriptor installed after reset.
@@ -128,6 +131,7 @@ export function createSemanticSharedTtView(arena) {
   const p1Start = new Uint32Array(arena.p1StartBuffer);
   const p0Length = new Uint16Array(arena.p0LengthBuffer);
   const p1Length = new Uint16Array(arena.p1LengthBuffer);
+  const termSpanCapacity = new Uint16Array(arena.termSpanCapacityBuffer);
   const records = new Uint8Array(arena.recordBuffer);
   const terms = new Uint16Array(arena.termBuffer);
   const bucketMask = arena.bucketCount - 1;
@@ -145,6 +149,9 @@ export function createSemanticSharedTtView(arena) {
     bucketLockWaits: 0,
     proofWriterWaits: 0,
     termIdsPublished: 0,
+    termIdsAllocated: 0,
+    termSpanReuses: 0,
+    termSpanGrows: 0,
     maxBucketScan: 0,
   };
 
@@ -215,13 +222,31 @@ export function createSemanticSharedTtView(arena) {
     return current + 1;
   }
 
+  function descriptorSpan(slot, total, replacing) {
+    const capacity = termSpanCapacity[slot];
+    if (replacing && total <= capacity) {
+      metrics.termSpanReuses += 1;
+      incrementSharedCounter(META_TERM_SPAN_REUSE_COUNT);
+      return p0Start[slot];
+    }
+    const start = allocateTerms(total);
+    metrics.termIdsAllocated += total;
+    if (replacing) {
+      metrics.termSpanGrows += 1;
+      incrementSharedCounter(META_TERM_SPAN_GROW_COUNT);
+    }
+    termSpanCapacity[slot] = total;
+    return start;
+  }
+
   function installDescriptor(slot, descriptor, replacing) {
     const p0Count = descriptor.p0.ids.length;
     const p1Count = descriptor.p1.ids.length;
     if (p0Count > 0xffff || p1Count > 0xffff) throw new RangeError('semantic TT residual descriptor exceeds Uint16 length');
-    const newGeneration = nextGeneration(slot);
     const total = p0Count + p1Count;
-    const start = allocateTerms(total);
+    if (total > 0xffff) throw new RangeError('semantic TT combined descriptor exceeds Uint16 slot-span capacity');
+    const newGeneration = nextGeneration(slot);
+    const start = descriptorSpan(slot, total, replacing);
     const p1Offset = start + p0Count;
 
     terms.set(descriptor.p0.ids, start);
@@ -384,6 +409,8 @@ export function createSemanticSharedTtView(arena) {
       ...metrics,
       entries: Atomics.load(meta, META_ENTRY_COUNT),
       replacementsShared: Atomics.load(meta, META_REPLACEMENT_COUNT),
+      termSpanReusesShared: Atomics.load(meta, META_TERM_SPAN_REUSE_COUNT),
+      termSpanGrowsShared: Atomics.load(meta, META_TERM_SPAN_GROW_COUNT),
       termIdsUsed: Atomics.load(meta, META_TERM_NEXT),
       entryCapacity: arena.entryCapacity,
       associativity: arena.associativity,
