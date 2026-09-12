@@ -1,0 +1,32 @@
+standard7x6_root_qualification_revision=1
+qualified_local_date=2026-09-11
+qualified_semantic_tt=connect4-exact-semantic-shared-tt-v5
+qualified_branch=research/frontier-negamax-conformance
+
+admission_reason=v4 whole-span descriptor growth exhausted the 460000000-word term arena after 855441.400302 ms; v5 changes storage ownership only by extending physical-slot-owned descriptor chunks with missing capacity
+
+prior_standard7x6_run=34674060855
+prior_standard7x6_job=103500612965
+prior_standard7x6_commit=1b9bb83f72a318c188750b421f352504048fe314
+prior_failure=semantic TT term arena exhausted: 460000025 > 460000000
+prior_term_ids_used=459999998
+prior_replacements=153310210
+prior_root=unresolved
+
+v5_implementation_commit=29117851717a27eef5ee6b79beb56eb70f548e43
+v5_proof_binding_commit=e113a47fb8c896dea17e6c81211ff0f424a80840
+v5_growth_qualification_commit=caf9a35ddea9695510207e4f7d1274652cd0bac9
+v5_replacement_qualification_run=34675102224
+v5_dependency_qualification_run=34675126023
+v5_idle_explore_qualification_run=34675132451
+v5_bounded_runs_green=true
+v5_constrained_root=0
+v5_constrained_actions=0,0,0,0
+
+comparison_search_workers=3
+comparison_unresolved_decision_split_depth=8
+comparison_autonomous_explore=false
+comparison_shared_proof_entries=8388608
+comparison_shared_term_arena_words=460000000
+
+rule=do not admit another standard 7x6 root while the run triggered by this revision is active
