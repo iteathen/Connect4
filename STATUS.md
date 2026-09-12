@@ -80,7 +80,11 @@ The [methods review](docs/research/2026-09-12-negamax-methods-local-review.md)
 reconciles research with active settings. Local shallow construction through
 depth 4 took 18.1714 ms. A bounded coordinator diagnostic shows only one initial
 authoritative task at split 3; exploration is disabled. Task granularity and
-dependency-aware work supply remain measured limitations. Structural closure
+dependency-aware work supply remain measured limitations.
+The current root disables Branch Manager exploration and omits its executor
+subscription/completion wiring. A fresh held-leaf diagnostic confirms one
+initial proof task and zero scouts. Component qualification passes, but effective
+proactive work supply in the root has not been demonstrated. Structural closure
 coverage and repeated proof work now take investigation priority. The complete
 strategic U1/U2/NDC closure remains incomplete; the guarded response profile is
 one qualified instance, not an empty-root solution. Asynchronous reporting and

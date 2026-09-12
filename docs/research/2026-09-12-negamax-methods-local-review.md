@@ -91,6 +91,32 @@ proof owner. Do not launch an unchanged local full root while the admitted hoste
 measurement is active. Strategic closure integration is a separate mathematical
 qualification task and cannot be filled with assumed parity implications.
 
+## Current Branch Manager reassessment
+
+Current Branch Manager reassessment at source
+`3ebceedd7ecfce9fdbfbc3c0988e636b83b44187`: the local ExploreHint and dependency
+campaigns pass. Autonomous seeding, candidate replenishment, mixed proof/explore
+dispatch and quiescent cleanup work in the bounded campaign. The production
+root explicitly sets `exploreEnabled: false`, constructs the executor without
+completion/abandonment callbacks, and never subscribes the manager's hints to
+the executor. In that configuration the manager hosts shared proof resources;
+the dependency coordinator supplies proof tasks. It is not running the proactive
+exploration work-supply role. The held-leaf diagnostic was rerun on this exact
+source: again one task `[3,3,3]`, zero scouts and zero parallel batches. No leaf
+proof or full solve ran. New evidence is
+[current initial supply](evidence/2026-09-12-frontier-audit/branch-manager-current-initial-supply.json),
+with its reproducer alongside it; historical evidence is unchanged.
+
+Classification: an integration/configuration limitation for intended proactive
+work supply, not demonstrated WDL corruption or deadlock. Idle capacity exists
+initially, but this diagnostic does not measure its duration over a full solve.
+Enabling exploration alone would not establish useful proof progress: the root
+also lacks the subscription/completion wiring, and exploration is deliberately
+non-authoritative. The existing campaign asserts zero semantic TT entries after
+pure exploration. Worker-local structural warming is possible, but its benefit
+must be measured. A green component campaign is insufficient to claim the root
+is using the complete intended Branch Manager model effectively.
+
 ## Source trail
 
 - [C4-0010](../specs/C4-0010-quotient-native-negamax-v1.md): exact consumer, work supply and evidence limits.

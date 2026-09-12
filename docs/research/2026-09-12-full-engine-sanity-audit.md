@@ -776,3 +776,11 @@ Workflow routing already covers this source; prior evidence remains associated
 with its original revisions. No full root was run or triggered. Next owner:
 structural closure coverage and repeated proof work, with the original source's
 relation reuse as evidence and no unproved parity terminalization substituted.
+
+Branch Manager follow-up: current component campaigns pass, but the root disables
+exploration and does not wire the executor's hint subscription/completion path.
+A fresh held-leaf diagnostic at `3ebceedd7ecfce9fdbfbc3c0988e636b83b44187`
+reconfirms one initially released proof task, zero scouts and zero parallel
+batches. The [methods review](2026-09-12-negamax-methods-local-review.md) records
+the integration/configuration limitation and distinguishes useful proof progress
+from structural exploration. No full solve was launched to answer this question.
