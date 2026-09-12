@@ -22,8 +22,8 @@ function oneReply(worker, expectedType, payload) {
   });
 }
 
-export async function startOnlineMaintenanceHost(spec, options = {}) {
-  const worker = new Worker(new URL('./quotient-maintenance-worker.mjs', import.meta.url), {
+export async function startOnlineBranchManager(spec, options = {}) {
+  const worker = new Worker(new URL('./quotient-branch-manager-worker.mjs', import.meta.url), {
     workerData: {
       spec,
       prebuildGraph: options.prebuildGraph !== false,
@@ -48,12 +48,20 @@ export async function startOnlineMaintenanceHost(spec, options = {}) {
     worker.on('message', onMessage);
     worker.on('error', onError);
   });
-  if (!published.semanticArena) throw new Error('maintenance host did not publish semantic TT arena');
+  if (!published.semanticArena) throw new Error('Branch Manager did not publish semantic TT arena');
   return Object.freeze({
     worker,
     published,
     reset: () => oneReply(worker, 'reset-complete', { type: 'reset' }),
     cleanup: () => oneReply(worker, 'cleanup-complete', { type: 'cleanup' }),
+    offerExplore: (path, depth) => oneReply(worker, 'explore-hint-offered', {
+      type: 'offer-explore-hint', path, depth,
+    }),
+    takeExplore: () => oneReply(worker, 'explore-hint', { type: 'take-explore-hint' }),
+    completeExplore: (hintId, fragment) => oneReply(worker, 'explore-hint-completed', {
+      type: 'complete-explore-hint', hintId, fragment,
+    }),
+    takeExploreResult: () => oneReply(worker, 'explore-result', { type: 'take-explore-result' }),
     buildPlan: (splitDepth, probeDepth = 2) => oneReply(worker, 'plan-built', {
       type: 'build-plan', splitDepth, probeDepth,
     }),
