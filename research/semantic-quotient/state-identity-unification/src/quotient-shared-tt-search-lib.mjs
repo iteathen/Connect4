@@ -27,6 +27,7 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
   });
 
   return Object.freeze({
+    search: engine.search,
     solveState: engine.solveState,
     solveRoot: engine.solveRoot,
     solveRootColumn: engine.solveRootColumn,
