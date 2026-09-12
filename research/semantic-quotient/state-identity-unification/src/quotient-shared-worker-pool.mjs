@@ -22,8 +22,8 @@ function oneReply(worker, type, payload) {
   });
 }
 
-export async function startMaintenanceHost(spec, prefixClasses = 4096) {
-  const worker = new Worker(new URL('./quotient-maintenance-worker.mjs', import.meta.url), {
+export async function startBranchManager(spec, prefixClasses = 4096) {
+  const worker = new Worker(new URL('./quotient-branch-manager-worker.mjs', import.meta.url), {
     workerData: { spec, prefixClasses },
   });
   const published = await new Promise((resolve, reject) => {
