@@ -4,7 +4,7 @@
 **Branch:** `research/frontier-negamax-conformance`  
 **Forward solver authority:** `docs/specs/C4-0010-quotient-native-negamax-v1.md`
 
-## Governing model
+## Governing contract
 
 ```text
 C4-0001 legal game/domain
@@ -13,9 +13,7 @@ C4-0001 legal game/domain
   -> C4-0010 exact forward W/D/L Negamax
 ```
 
-The forward lane consumes exact structural facts; it does not redefine them. BSFP remains the separate backward fixed-point solver lane.
-
-The qualified ordinary forward identity remains:
+The exact ordinary forward identity remains:
 
 ```text
 supportIndex
@@ -23,66 +21,29 @@ supportIndex
 + normalized P1 residual winning requirements
 ```
 
-A hash is only a filter. Shared proof identity is exact descriptor equality.
+A hash is only a filter; shared proof identity is exact descriptor equality. The forward lane consumes structural facts rather than redefining them. BSFP remains the separate backward fixed-point solver lane.
 
 ## Qualified execution
 
-The current forward engine includes:
+Current execution includes dynamic live-line frontier ordering, exact local frontier/WSL bounds, forced-response macro normalization, generation-safe 8-way semantic proof replacement, dependency-qualified incremental sibling completion with detached obsolete work, `drainBackground()` before reset, and Branch Manager bounded exploration when enabled. Busy workers are never interrupted.
 
-- incremental player-relative live-line frontier ordering;
-- exact immediate-win / forced-response / multiple-threat / WSL-exhaustion bounds;
-- forced-response macro normalization;
-- non-allocating ordinary shared-proof probes;
-- 8-way exact-descriptor shared TT with generation-safe proof handles;
-- v5 physical-slot-owned descriptor extension chunks;
-- dependency-qualified sibling scouts with incremental completion and detached obsolete work;
-- `drainBackground()` before reset/cleanup;
-- Branch Manager bounded autonomous exploration when enabled.
+Autonomous exploration remains disabled in standard-7x6 resource-isolation measurements.
 
-Busy workers are never interrupted. Autonomous exploration remains disabled in standard-7x6 resource-isolation runs.
+## Resource progression
 
-## Standard-7x6 resource progression
+The standard-7x6 forward solver has successively exposed and corrected distinct lifetime owners:
 
-### Shared proof entry count
+1. Shared proof entry count reached `8,388,608` and became a real limiter.
+2. Append-only descriptor-incarnation terms exhausted `460,000,000` words; ownership moved to physical proof slots.
+3. Reusable slot spans exposed millions of retained worker state descriptor objects; state descriptors became ephemeral.
+4. Run `34674060855` then exposed v4 whole-span growth, exhausting the term arena after `855441.400302 ms` and `153,310,210` replacements.
+5. v5 slot-owned extension chunks removed that hard term-lifetime boundary.
 
-A corrected proof-admission run filled all `8,388,608` entries before resolving the root. This established retained proof-entry count as a real limiter.
+See the dedicated research notes under `docs/research/` for historical evidence.
 
-### Append-only semantic-incarnation terms
+## v5 shared proof result
 
-Replacement removed the entry-count hard stop, but append-only descriptor incarnation storage exhausted `460,000,000` term words after about 149 s. This established semantic incarnation as the wrong descriptor-storage owner.
-
-### Physical slot spans and worker state objects
-
-Physical-slot-owned reusable spans removed the immediate append-only term failure, then a 7x6 run died around 225 s / 15.4 GB RSS. Telemetry localized the next major owner to millions of worker-local retained state descriptor JS objects. State descriptors were made ephemeral and bounded conformance stayed exact.
-
-See `docs/research/2026-09-11-7x6-worker-descriptor-retention.md`.
-
-### v4 whole-span growth
-
-Run `34674060855` survived for `855441.400302 ms` after the state-descriptor correction, then failed exactly at:
-
-```text
-semantic TT term arena exhausted: 460000025 > 460000000
-```
-
-At failure:
-
-```text
-entries:        8,388,608
-replacements: 153,310,210
-reuses:       134,966,299
-grows:         18,343,911
-term IDs:     459,999,998 / 460,000,000
-RSS:           15,600,738,304 bytes
-```
-
-### v5 slot-owned extension chunks
-
-The shared TT now appends only the missing descriptor capacity to a physical slot instead of abandoning a whole prior span. Generation-bearing handles and exact proof identity are unchanged.
-
-Bounded qualification passed replacement, dependency-aware, idle-explore, stale-handle, and adversarial slot-growth controls.
-
-Standard-7x6 v5 run `34675467051` then demonstrated that the old shared-term lifetime boundary was removed. The hosted runner shut down after roughly 780.56 s with the shared term arena still healthy:
+Revision-1 standard-7x6 run `34675467051` demonstrated that v5 fixed the old shared term-arena failure. The hosted runner shut down after roughly 780.56 s with:
 
 ```text
 entries:             8,388,608
@@ -94,47 +55,46 @@ total arena:       291,948,495 / 460,000,000 words
 RSS:                15,751,729,152 bytes
 ```
 
-The solver step was cancelled by runner shutdown; it did not throw term-arena exhaustion. Root remained unresolved.
+The solver step was cancelled by runner shutdown, not by semantic-TT term exhaustion. Root remained unresolved.
+
+This moved the measured failure boundary back to worker host memory. Each worker retained roughly 10-11 million residual semantic class descriptors and 103-116 million cached exact term IDs, with V8 heap high-water around 3.84-4.22 GB.
 
 See `docs/research/2026-09-11-7x6-proof-term-lifetime.md`.
 
-## Current measured owner: worker residual semantic descriptors
+## Flat worker residual semantic descriptor ownership
 
-At the end of run `34675467051`, each worker retained roughly 10-11 million residual semantic classes and 103-116 million cached exact term IDs. V8 heap high-water was about 3.84-4.22 GB per worker.
+The previous worker cache retained one JS descriptor plus one separately allocated `Uint16Array` per residual class. The active slot64 kernel already represented each class canonically by stable class ID plus compact chunk references, so the semantic layer was duplicating ownership millions of times.
 
-The previous cache represented every observed class with a retained JS descriptor object plus a separately allocated exact `Uint16Array`, duplicating payload already represented canonically by the slot64 residual kernel.
-
-The worker descriptor cache has now been changed to:
+The cache now uses:
 
 ```text
-flat typed class metadata:
-  start / length / hashLo / hashHi
+flat class metadata:
+  start Uint32
+  length Uint16
+  hashLo Uint32
+  hashHi Uint32
 
 + one growable worker-local Uint16 term arena
 + zero retained per-class descriptor objects
 + zero retained per-class term-array objects
 ```
 
-State descriptors remain ephemeral. The shared TT accepts class-reference descriptors and materializes exact terms into one reusable per-view scratch buffer only after a 64-bit hash match or on installation. Hash-mismatch bucket lanes do not reconstruct residual terms.
+State descriptors remain ephemeral class references. The shared TT materializes exact terms into one reusable scratch buffer only after a 64-bit hash match or during descriptor installation. Hash-mismatch lanes do not reconstruct terms.
 
-This is a resource-lifetime change only. CPC, WSL-625, NDC, move ordering, forced macros, Branch Manager, task wire format, proof identity, and Negamax control semantics are unchanged.
+This changes resource ownership only. CPC, WSL-625, NDC, forced macros, move ordering, Branch Manager, task wire format, proof identity and Negamax control semantics are unchanged.
 
-See `docs/research/2026-09-11-worker-residual-descriptor-ownership.md`.
+### Bounded qualification
 
-## Bounded qualification of flat worker descriptor ownership
+The correction has a complete bounded evidence chain:
 
-Coherent implementation head `33413500c2ff68f5e4c1c12e3ec430c86fc7e91f` passed:
+- coherent replacement `34676281224` — success;
+- coherent dependency-aware proof `34676281219` — success;
+- coherent idle ExploreHint `34676281229` — success;
+- telemetry dependency-aware proof `34676359852` — success;
+- telemetry idle ExploreHint `34676359849` — success;
+- targeted ownership/stale-handle/growth run `34676380760` — success.
 
-- replacement run `34676281224`;
-- dependency-aware run `34676281219`;
-- idle ExploreHint run `34676281229`.
-
-Executor telemetry commit `cec2e3e2e93649ed86034c93038484d594a02921` passed:
-
-- dependency-aware run `34676359852`;
-- idle ExploreHint run `34676359849`.
-
-Targeted replacement/ownership run `34676380760` at `7e4f88aba8f4d56ab598c284a8bd99cbac7623cd` passed with:
+The targeted control preserved:
 
 ```text
 exact root:     0
@@ -143,23 +103,30 @@ retained per-class descriptor objects: 0
 retained per-class term-array objects: 0
 ```
 
-The targeted run also requalified stale generation handles and v5 slot-owned growth.
+See `docs/research/2026-09-11-worker-residual-descriptor-ownership.md`.
 
-## Current seam
+## Active standard-7x6 revision 2 measurement
 
-The worker residual-descriptor ownership correction is bounded-qualified. No standard-7x6 run is currently active.
-
-The next action is to admit **exactly one** standard-7x6 qualification revision using the same comparison configuration:
+Exactly one full-root comparison run is active:
 
 ```text
+workflow run:                     34676507073
+job:                              103507205045
+admission revision:               2
+admission commit:                 8052b757002758494e9776b1f4c23224e6eeb44f
 search workers:                   3
 unresolved decision split depth:  8
 autonomous Branch Manager explore: disabled
 shared proof entries:             8,388,608
 shared term arena words:          460,000,000
+worker descriptor storage:        flat typed metadata + one flat term arena
 ```
 
-Measure process RSS, per-worker V8/external/ArrayBuffer high-water, kernel typed bytes, flat descriptor metadata/term-arena bytes, shared v5 arena growth, and exact root/action WDL if resolved. Follow only the next measured owner.
+The revision-2 gate commit launched only the standard-7x6 workflow.
+
+**Do not admit or launch another standard-7x6 root run while `34676507073` is active.**
+
+When this run closes, compare process RSS, worker V8/external/ArrayBuffer high-water, local state/class counts, kernel typed bytes, flat descriptor metadata/arena bytes, shared v5 term-arena growth, and exact root/action WDL if resolved. Change the next resource lifetime only from the measured owner.
 
 ## Open mathematics
 
