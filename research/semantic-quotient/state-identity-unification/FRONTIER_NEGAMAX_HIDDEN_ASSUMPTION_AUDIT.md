@@ -2,211 +2,287 @@
 
 Date: 2026-09-11
 Branch: `research/semantic-quotient-explore-hints`
-Status: read-only design audit recorded as research evidence; no solver behavior changed by this note.
+Status: research architecture audit; solver behavior is not changed by this note.
 
 Research direction / architecture: Josh Oshiro
-Adversarial architecture audit: OpenAI ChatGPT
+Adversarial audit / implementation review: OpenAI ChatGPT
 
-## Purpose
+## Audit basis
 
-Audit the current quotient-native parallel Negamax + Branch Manager method for assumptions inherited from conventional alpha-beta/TT engines, path/history leakage across quotient boundaries, incomplete use of already-derived frontier invariants, and resource/lifecycle assumptions that could distort the standard-7x6 root experiment.
+This audit starts from the project's actual structural research chain rather than from conventional alpha-beta assumptions:
 
-The intended engine is a **frontier engine**. Conventional search techniques are not rejected categorically, but they must fit the frontier representation rather than become defaults merely because they are common in ordinary board engines.
+```text
+geometric winning-line axioms
+  -> CPC control parity / event precedence / race
+  -> WSL-625 residual requirements and blockers
+  -> NDC nested dependency closure
+  -> BSFP backward fixed-point semantics
+```
 
-## High-priority findings
+The quotient-native Negamax lane is a separate exact forward solver. It may consume the same Connect4-owned structural mathematics, but it is not allowed to redefine CPC, WSL-625, NDC or BSFP semantics merely because it uses a recursive proof procedure.
 
-### 1. Authoritative search is still center-order based
+Primary references:
 
-The current `createQuotientNegamaxEngine()` and dependency-aware variant still order non-forced moves by `centerOrder` after a proof-store best-move hint. One path additionally reverses `centerOrder` according to `workerSalt`.
+- `docs/specs/C4-0001-domain-v1.md`
+- `docs/specs/C4-0006-control-parity-and-winspace-v1.md`
+- `docs/specs/C4-0007-nested-dependency-closure-v1.md`
+- `docs/specs/C4-0008-bsfp-exact-solver-v1.md`
+- `docs/specs/C4-0010-quotient-native-negamax-v1.md`
+- `docs/research/2026-09-09-owner-searchless-connect4-findings.md`
+- `docs/research/2026-09-09-universal-strategic-algebra.md`
+- `docs/research/2026-09-09-nested-strategic-dependency-closure.md`
+- `docs/research/2026-09-09-searchless-solver-hypothesis.md`
+- `docs/research/2026-09-09-backward-winline-fixed-point.md`
+- `docs/research/2026-09-09-terminal-boundary-qualification.md`
 
-The new dynamic live-winning-line incidence order currently applies only to `explore-path` work.
+## 1. C4-0010 currently creates a semantic fork
 
-Therefore the current root solver is not yet frontier-native in its main recursive ordering.
+C4-0010 currently names C4-0001 as its lower authority and then restates residual-state and tactical semantics itself. That is the wrong ownership direction.
 
-### 2. Live-line evaluation is path-context, not quotient identity
+CPC, WSL residual requirements, minimal-antichain semantics, blockers, exhaustion, and support/event control already have a Connect4 structural owner in C4-0006. NDC owns nested exact dependency/certificate semantics in C4-0007. C4-0010 should define how forward Negamax consumes those facts, not establish a second version of them.
 
-The exact quotient intentionally removes dominated/duplicate residual requirements. Two legal physical histories can therefore map to the same exact quotient while retaining different multiplicities of original still-live geometric winning lines.
+This authority split is the first thing to correct because it encourages future work to read `C4-0001 -> C4-0010` and skip the mathematics that produced the quotient in the first place.
 
-The legacy cell value
+## 2. The CPC invariant is event-reservoir control, not row parity
 
-`number of original winning lines through cell not blocked by the opponent`
+The zero-reservation CPC base case for target event `t=(c,r)` is:
 
-can consequently differ across physical representative paths even when exact quotient identity is the same.
+```text
+N(t)
+  = (r - h_c + 1)
+    + sum_{d != c}(H - h_d)
+  = (W - 1)H - ply + r + 1
 
-That is safe only while the value remains advisory. It must not become semantic equality, proof identity, or globally unique state metadata.
+owner(t) <- (N(t) - 1) mod 2
+```
 
-Current `exploreQuotientPath()` deduplicates by quotient state and keeps the first encountered representative path/occupancy. This creates a hidden **first-arrival-wins heuristic context**: later equivalent paths with different live-line values are discarded.
+The target-column height cancels. For standard 7x6 the constant `(W - 1)H` is even, but that simplification does not turn CPC into a generic row-parity heuristic.
 
-A frontier-native authoritative implementation should either:
+The stronger control invariant is composition over the relevant future event reservoir:
 
-- carry reversible live-line/occupancy ordering context on the recursion/search frame, separate from quotient semantic identity; or
-- deliberately use a quotient-invariant ordering signal instead.
+```text
+N'(t) = N(t) + Delta
+owner'(t) = owner(t) iff Delta mod 2 = 0
+```
 
-It should not attach one representative path's legacy line multiplicity to the quotient as if it were semantic truth.
+A response fragment therefore preserves Zugzwang/control only when its reservations/releases, resource obligations and event precedence preserve the relevant event-rank relation. An odd release can flip control. Eventual ownership without deadline/order is not enough.
 
-### 3. The common terminal/frontier invariant is only partially used
+### Hidden assumption found
 
-Current quotient tactical closure exactly handles the cheap residual cases:
+Any frontier compression that removes, reserves, releases or declares events irrelevant must preserve the parity contribution of those events. Dropping a strategically irrelevant event from the represented frontier is not automatically parity-neutral.
 
-- immediate mover singleton -> win;
-- one playable opponent singleton -> forced response;
-- multiple distinct playable opponent singleton cells -> forced loss;
-- bilateral residual exhaustion / no legal continuation -> draw.
+Therefore an event-frontier representation cannot merely retain the events that appear in residual winning requirements. It must also retain, or account algebraically for, the parity effect of omitted/released events whenever CPC facts depend on that reservoir.
 
-The broader research unification went further. It reduced future-target parity/Zugzwang and named Allis-style solution coverage to:
+This is a correctness condition, not an ordering preference.
 
-`future event/support frontier + residual requirements + parity/response constraints -> certified blocker IDs -> upward closure in the same requirement universe`.
+## 3. WSL-625 is more than a compressed TT key
 
-Nested Dependency Closure further records timing/race/horizon as first-class proof facts.
+The 625-element universe is shared structural algebra for:
 
-The current Negamax should therefore not be described as consuming the complete frontier-terminalization invariant. It consumes only the immediate residual/tactical subset.
+- residual winning requirements;
+- blocker identities;
+- subset/upward closure;
+- exhaustion;
+- implication/dominance;
+- strategic coverage;
+- certificate consequences.
 
-Useful missing exact frontier deductions include at least one-sided exhaustion as a no-win bound and, once formally accepted for this lane, qualified blocker/parity/response closure.
+Current forward code uses the residual side strongly but largely omits the blocker/certificate side. Treating `support + R0 + R1` as the whole frontier is therefore a forward-search projection, not the complete strategic closure state described by the research.
 
-If blocker/CPC/NDC facts are integrated, they may be reused under the current quotient key only when their validity is derivable from that quotient or their complete context is included in the proof identity. Path/history-dependent strategic certificates must not be attached to `support + R0 + R1` by assumption.
+The NDC closure state is closer to:
 
-### 4. Shared semantic TT allocates on read
+```text
+X = (R0, R1, B0, B1, P, T)
+```
 
-`createOnlineSemanticQuotientPort().proofKey()` calls `tt.findOrCreate()` before ordinary proof reads. Thus every state whose bounds are inspected is inserted into the global semantic table even if it never publishes a useful proof.
+where `P` carries parity/response/event-order facts and `T` carries derived terminal/result facts.
 
-This is a conventional TT/interning assumption, not a frontier requirement.
+Negamax may operate on a smaller Markov state for ordinary legal continuation, but it must not attach path/context-dependent strategic certificates to that smaller key unless their complete premises are derivable from the key or included in proof identity.
 
-The standard-7x6 attempt filling 8,388,608 entries therefore establishes that more than 8.3M semantic states were **touched/interned**, not that more than 8.3M proof records deserved retention.
+## 4. The common terminal method is nested frontier closure, not a catalog of tactical detectors
 
-Before optimizing replacement policy, test a split API such as:
+Immediate win, double immediate threat, forced block, one-sided exhaustion, bilateral exhaustion, parity/Zugzwang disposition and compatible blocker coverage are not best understood as unrelated special-case tricks.
 
-- `probe(descriptor)` -> existing proof slot or miss, no allocation;
-- `ensureForPublish(descriptor)` -> allocate only when publishing a non-default bound/exact result/hint worth retaining.
+The research reduced them toward one common shape:
 
-This could materially change entry pressure and should be measured before treating set-associative replacement as the inevitable next storage architecture.
+```text
+future support/event facts
+  + CPC parity/response/race constraints
+  + WSL residual requirements
+      -> certified blocker / ownership facts
+      -> upward-closure requirement elimination
+      -> changed event obligations
+      -> stronger parity/response facts
+      -> ... fixed point ...
+      -> terminal proposition or unresolved decision
+```
 
-### 5. Parallel scout handling waits for all siblings
+Current `tacticalCode()` implements only a cheap local projection of that closure: playable singleton win, single forced block, multiple playable opponent singletons and bilateral exhaustion/no-continuation draw.
 
-The dependency-aware engine correctly searches the preferred child first, but then launches all sibling scout searches and executes `await Promise.all(...)` before consuming any result.
+Those local cases are sound. The hidden assumption is treating them as though they exhaust the common frontier-terminalization method.
 
-Consequences:
+## 5. Temporal/race meaning cannot be collapsed into eventual ownership
 
-- an early cutoff cannot release the parent immediately;
-- a useful early scout result cannot tighten alpha for siblings already queued;
-- obsolete sibling work remains part of the parent's critical path;
-- the engine cannot exploit the user's desired non-interruption rule cleanly.
+A falsifier in the research already established:
 
-The frontier-native shape should consume sibling completions incrementally. When one completion makes remaining sibling obligations obsolete, the parent can stop awaiting them **without interrupting their workers**. Those workers may finish naturally and publish any sound shared proof, after which they return to the authoritative/explore queues.
+```text
+I eventually own the required event
+!=
+I own it before the opponent completes a winning requirement
+```
 
-This preserves non-interruption while removing obsolete work from the parent critical path.
+Therefore blocker certification for Aftereven/Before/Specialbefore-like structures requires deadline/event-order context. A generic blocker ID describes the consequence once certified; it does not by itself prove the strategy that certifies it.
 
-### 6. Static split depth is still the primary parallelism mechanism
+Any future shared proof cache for strategic certificates must preserve horizon/order/resource premises. Reusing a blocker certificate by WSL ID alone would be unsound.
 
-The current dependency-aware engine uses one `splitDepth` boundary. Depth 8 activated all three workers on the hosted standard-7x6 attempt, but the new Branch Manager design is intended to make work-frontier depth adaptive.
+## 6. Live-line move value is a frontier projection, not a piece-square heuristic
 
-A fixed split depth remains useful as a control/initialization parameter, but it should not silently remain the final source of parallel slack once proactive explore work is available.
+The legacy evaluator's position value is player-relative:
 
-### 7. Branch Manager is not yet autonomous
+```text
+value_p(cell)
+  = number of original geometric winning lines through cell
+    that contain no opponent stone
+```
 
-Workers no longer request work from Branch Manager, which is correct. However Branch Manager itself currently queues an explore hint only after the coordinator calls `offerExplore(path, depth)`.
+One opponent stone annihilates that line's value for player `p`. Own stones do not cancel it.
 
-So the present implementation is push-to-workers but not yet a self-replenishing Branch Manager.
+The empty-board vector `[3,4,5,7,5,4,3]` is only the derived root result. It must never become the implementation.
 
-The intended next shape is:
+### Hidden assumption found in the current explore prototype
 
-- Branch Manager maintains a bounded ready reservoir ahead of demand;
-- completed exploration supplies ordered frontier candidates;
-- Branch Manager queues further exploration proactively;
-- idle workers simply consume ready work locally;
-- authoritative proof work always outranks explore work.
+The first implementation reconstructed occupancy masks from a representative path and then used center order as a tie-break. Both are suspect for a frontier engine:
 
-Current hint dedup is `(path, depth)`, not semantic quotient identity, and completed keys are forgotten. Automatic replenishment without stronger seen/dedup semantics could therefore re-explore transposed or previously completed regions indefinitely.
+- reconstructing board occupancy is an implementation shortcut back toward historical state;
+- center tie-breaking imports a conventional search preference after the frontier metric has tied;
+- quotient-state dedup chooses the first representative path, even though original live-line multiplicity can differ between physical histories collapsed by residual antichain normalization.
 
-### 8. Explore result order is not yet proof-obligation order
+The correct frontier-native form is to maintain player-specific live geometric-line masks or equivalent line-provenance/multiplicity state incrementally for the branch where the advisory score is needed. That auxiliary ordering state is not quotient semantic identity and must not become proof authority.
 
-`ExploreHint(path, depth)` is structural discovery. The resulting frontier path is not automatically a valid authoritative alpha/beta task.
+## 7. Authoritative Negamax still uses conventional move ordering
 
-A discovered branch becomes authoritative proof work only when Negamax dependency state supplies a valid proof obligation/window. Otherwise it may remain exploration or explicitly speculative proof work whose results only enrich shared proof state.
+The active recursive engine currently uses:
 
-Do not convert ordered explore frontier paths directly into parent-advancing tasks merely because they look promising.
+```text
+proof-store best move
+  -> centerOrder
+```
 
-### 9. TT replacement is not the only storage issue
+and one worker path can reverse center order by `workerSalt`.
 
-Even after shared-TT entry pressure is reduced/replaced:
+That means the authoritative solve is still conventional even though explore work now has a frontier-derived score.
 
-- each search worker owns an independent mutable local quotient/class pool;
-- each worker owns an unbounded local semantic descriptor cache;
-- coordinator local state/class pools also grow;
-- JavaScript object/array overhead is not represented by typed-array byte counters.
+Before another root performance claim, authoritative move ordering should consume frontier-native information. Fixed center order and salt reversal should remain controls only if measured evidence justifies them.
 
-Attempt 2 reached about 3.60 GB RSS. Shared entry saturation was the observed first failure, but fixing it may expose per-worker local growth next.
+## 8. Forced transitions are still traversed as ordinary recursive states
 
-### 10. Shared-TT publication assumes publishers survive
+The research already established FBLK/FMAC:
 
-A TT slot can enter `SLOT_PUBLISHING`. If a worker/process fails after claiming a slot and before publishing `SLOT_READY`, other workers can repeatedly wait on that slot indefinitely. Current research runs implicitly assume publishers survive each insertion.
+- one immediate opponent threat yields an exact forced response;
+- repeated forced responses can be collapsed into a deterministic macro-edge;
+- deterministic transit states need not be treated as ordinary decision/search vertices or receive equal TT admission.
 
-Generation/ownership/recovery semantics should cover abandoned publication as well as stale handles if replacement is introduced.
+Current Negamax recognizes a forced move but recursively traverses one forced ply at a time.
 
-## Medium-priority findings
+That is a hidden conventional-tree assumption and is especially important because it combines badly with the current shared-TT policy: transit states consume global proof slots even when no decision exists there.
 
-### 11. Proof hints outrank frontier evaluation by default
+## 9. Shared semantic TT allocates on proof read and admits every visited state
 
-The proof-store `bestMove` hint is always tried before other ordering. This is sound because hints are advisory and exact quotient keyed, but the performance policy is implicit.
+`proofKey(stateId)` currently calls `findOrCreate()` before ordinary bound reads. Thus every touched semantic state allocates shared table identity, including states that publish no useful bound and deterministic transit states that research suggested keeping out of the main decision-state cache.
 
-A move that caused one bound cutoff is not necessarily the best first move for a different window. Decide empirically whether proof hints should outrank dynamic frontier incidence, be combined with it, or only outrank it when the proof strength warrants it.
+The 8,388,608-entry standard-7x6 saturation result therefore proves that more than 8.3M semantic states were touched/interned under this admission policy. It does not prove that 8.3M useful proof records must be retained.
 
-### 12. `workerSalt` reverse ordering is conventional diversification residue
+Before designing replacement, measure a frontier-oriented policy:
 
-Alternating center order by worker salt is not frontier-derived. It should not remain merely as generic search-worker diversity unless evidence shows it helps after frontier-native ordering exists.
+```text
+probe(descriptor)             // miss does not allocate
+ensureForPublication(...)     // allocate when retaining useful proof/hint state
+```
 
-### 13. Center order remains a tie-break inside live-line evaluation
+and combine it with decision-state/FMAC admission.
 
-Dynamic line incidence is correctly derived from current opponent occupancy, but equal-valued moves currently fall back to center order. Center is already naturally favored when its derived line count is larger; using center again for equal frontier values is a separate conventional assumption.
+## 10. Fixed split depth is a conventional approximation to frontier availability
 
-A deterministic canonical tie-break or a proof-derived tie-break would make the distinction clearer.
+Depth 8 activated all three workers in the previous root experiment, but a fixed ply depth is not the natural unit of this engine.
 
-### 14. Legacy live-line value is ordering evidence, not exact quotient content
+The natural unit is unresolved proof/frontier dependency. Branch Manager should expose more structure when authoritative work supply is thin, using the same event/residual frontier and without interrupting busy workers.
 
-The old web evaluator's positional value counts original still-winnable geometric lines. Minimal residual antichain terms are not a drop-in replacement because antichain normalization intentionally removes multiplicity/dominated lines.
+A fixed depth can remain a bounded exploration budget or control, but should not define semantic work partitions.
 
-Do not claim equivalence between those quantities without a separate proof or benchmark.
+## 11. Branch Manager should manage frontier supply, not worker requests
 
-### 15. One-sided exhaustion is currently underused
+The intended execution rule is:
 
-If one player's residual requirements are empty, that player cannot win. This does not always settle W/D/L, but it is an exact one-sided bound and can tighten a Negamax window. Current tactical code only turns bilateral exhaustion into exact draw.
+```text
+authoritative ready proof work
+  > queued frontier exploration
+  > idle
+```
 
-### 16. Open addressing degrades before 100% occupancy
+Busy workers are never interrupted. Branch Manager should keep a bounded ready reservoir ahead of demand. Workers should not request work and wait for a response.
 
-The current semantic table probes linearly until the entire table is exhausted. Even if a run has not yet thrown `entry table exhausted`, high load factor can materially increase lookup/probe work. Storage policy should be evaluated before saturation, not only at the terminal failure point.
+Completed exploration should feed future frontier candidates back to Branch Manager, but structural discovery alone must not turn a branch into an authoritative alpha/beta obligation. Negamax dependency state still owns the proof window required for parent advancement.
 
-### 17. Search-record move encoding assumes standard seven columns
+## 12. Bulk sibling synchronization remains a conventional barrier
 
-The packed proof record reserves three bits for move `0..6` and sentinel `7`. That is correct for standard 7x6, but it is an implicit domain bound in a file otherwise reusable by smaller/larger research geometries. Keep it explicitly standard-Connect4 scoped rather than accidentally universal.
+The dependency-aware engine searches the preferred child first but launches sibling scouts and waits on `Promise.all` before consuming their results.
 
-### 18. Geometry ownership is crossing solver lanes
+That creates an unnecessary synchronization barrier. A frontier-oriented parent should consume completed sibling proofs incrementally. If one completion closes the parent obligation, the parent stops depending on the remaining tasks. The workers themselves need not be interrupted; they may finish and publish sound proof before returning to the queue.
 
-The new Negamax live-line order imports winning-line geometry from `components/bsfp/geometry.mjs`. Winning-line geometry is Connect4 domain truth shared by both solvers, not naturally BSFP-owned. This is a LEGO ownership smell rather than a correctness error.
+## 13. The Negamax lane is not the conceptual center of the project mathematics
 
-## Things that are currently sound and should not be 'fixed' merely for novelty
+The project's strongest structural hypothesis is searchless:
 
-- Side to move from support-rank parity is exact under standard alternating Connect Four with no pass.
-- Minimal-antichain subset removal is structurally sound at identical support context: a smaller same-player requirement wins no later, and any blocker of the subset also blocks its superset.
-- Immediate/forced/double-threat tactical checks from playable singleton residual requirements are exact for the propositions they claim.
-- Bilateral requirement exhaustion is exact draw territory absent an earlier win.
-- Exact semantic TT equality uses support plus exact residual term sequences; hashes are only addressing aids.
-- Shared proof lower/upper publication is monotone; advisory hints are not proof authority.
-- Worker-local qIDs may differ because shared proof identity is semantic-content based.
-- W/D/L threshold root windows `[0,1]` then `[-1,0]` are exact for the discrete result domain.
-- Non-interruption of busy workers is a good constraint. Obsolete work should be detached/ignored by the parent rather than forcibly preempted.
+```text
+event-poset constraints
++ GF(2) ownership/response equations
++ blocker hyperedge closure
++ monotone terminal predicates
+-> fixed point
+```
 
-## Concrete next corrections before another standard-7x6 root claim
+BSFP already demonstrated direct backward symbolic W/D/L on complete small games with zero W/D/L disagreements against 1,681,808 reachable physical states, and the backward fixed-point control reconstructs results from geometric win-line axioms.
 
-1. Repair the incomplete pre-alpha Branch Manager rename. Current online dependency/root-attempt callers still import `startOnlineMaintenanceHost`, and the obsolete maintenance-worker file still exists.
-2. Make authoritative search ordering frontier-native; remove `workerSalt`/static-center defaults from the active path unless retained by measured evidence.
-3. Decide how path-local live-line context is carried through recursive authoritative search without pretending it is quotient identity.
-4. Replace shared-TT allocate-on-read with probe-without-allocation plus allocate-on-publication, then remeasure entry pressure before implementing replacement.
-5. Stream sibling scout completions instead of awaiting the complete sibling batch; detach obsolete non-interruptible work from the parent critical path.
-6. Make Branch Manager genuinely self-replenishing with bounded semantic dedup/seen state.
-7. Integrate cheap exact frontier bounds such as one-sided exhaustion; reassess U1/U2/NDC strategic closure separately before giving those certificates shared quotient proof authority.
-8. Re-run standard-7x6 resource/profile evidence only after the above changes, because current 8.39M-slot pressure and split-depth conclusions are partially properties of the conventional assumptions being removed.
+The forward Negamax lane remains valuable as:
+
+- an exact independent solver;
+- a qualification/control path;
+- a performance competitor;
+- a consumer of exact frontier closure before unresolved branching.
+
+It should not drag the shared mathematics back toward a normal board-search architecture.
+
+## 14. Correctness obligations that remain valid
+
+The following should be preserved:
+
+- side to move from support rank parity under alternating no-pass Connect Four;
+- residual transition algebra and opponent-line elimination;
+- minimal-antichain normalization at compatible support context;
+- exact semantic equality by descriptor content rather than hash alone;
+- monotone lower/upper W/D/L proof publication;
+- separation of proof authority from advisory ordering hints;
+- worker-local qID/classID freedom under exact shared semantic identity;
+- independent geometric terminal qualification;
+- non-interruption of busy workers.
+
+## 15. Correct next sequence for the forward lane
+
+Before another standard-7x6 root performance claim:
+
+1. repair the authority chain so quotient work reads C4-0006 and relevant C4-0007 research before C4-0010;
+2. make C4-0010 a consumer of CPC/WSL rather than a competing owner;
+3. replace representative-board reconstruction with an incremental live-line frontier for advisory move value;
+4. remove fixed center/salt ordering from the active authoritative path unless measurements retain it as an explicit tie/control policy;
+5. add exact one-sided exhaustion bounds and preserve CPC event-reservoir parity whenever frontier events are compressed/released;
+6. collapse forced chains / decision-state admission before spending shared-TT slots on deterministic transit;
+7. separate TT probe from allocation and remeasure actual retained-proof pressure;
+8. let Branch Manager proactively maintain bounded frontier work supply;
+9. consume sibling proof completions incrementally without interrupting busy workers;
+10. only then rerun the standard-7x6 root and decide whether replacement/reclamation is actually required.
 
 ## Bottom line
 
-The quotient mathematics is currently stronger than the execution method around it. The largest hidden assumptions are not in the residual transition algebra; they are conventional search-system defaults around that algebra: center-order recursion, first-representative-path heuristic context, allocate-every-visited-state TT semantics, bulk sibling synchronization, and static split-depth parallelism.
+The main risk is not that the quotient idea is too unusual. It is the opposite: conventional search machinery has repeatedly been allowed to reinterpret a stronger frontier algebra as if it were merely a better board representation.
 
-The next optimization pass should therefore make the **execution model conform to the frontier representation**, rather than optimizing the conventional execution shell around an already-frontier-native state model.
+The forward solver should conform to the CPC/WSL/NDC model. It should not make that model conform to conventional Negamax/TT habits.
