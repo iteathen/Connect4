@@ -58,6 +58,9 @@ export async function startOnlineBranchManager(spec, options = {}) {
       type: 'offer-explore-hint', path, depth,
     }),
     takeExplore: () => oneReply(worker, 'explore-hint', { type: 'take-explore-hint' }),
+    returnExplore: (hintId) => oneReply(worker, 'explore-hint-returned', {
+      type: 'return-explore-hint', hintId,
+    }),
     completeExplore: (hintId, fragment) => oneReply(worker, 'explore-hint-completed', {
       type: 'complete-explore-hint', hintId, fragment,
     }),
