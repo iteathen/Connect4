@@ -31,10 +31,7 @@ const stats = {
 };
 
 function snapshotStats() {
-  return Object.freeze({
-    ...stats,
-    exploreHints: exploreHints.stats(),
-  });
+  return Object.freeze({ ...stats, exploreHints: exploreHints.stats() });
 }
 
 parentPort.postMessage({
@@ -63,29 +60,9 @@ parentPort.on('message', (message) => {
 
   if (message?.type === 'offer-explore-hint') {
     const hint = exploreHints.offer(message.path, message.depth);
+    if (hint) parentPort.postMessage({ type: 'explore-hint-queued', hint });
     parentPort.postMessage({
       type: 'explore-hint-offered',
-      requestId: message.requestId,
-      hint,
-      stats: snapshotStats(),
-    });
-    return;
-  }
-
-  if (message?.type === 'take-explore-hint') {
-    parentPort.postMessage({
-      type: 'explore-hint',
-      requestId: message.requestId,
-      hint: exploreHints.take(),
-      stats: snapshotStats(),
-    });
-    return;
-  }
-
-  if (message?.type === 'return-explore-hint') {
-    const hint = exploreHints.returnHint(message.hintId);
-    parentPort.postMessage({
-      type: 'explore-hint-returned',
       requestId: message.requestId,
       hint,
       stats: snapshotStats(),
@@ -99,6 +76,18 @@ parentPort.on('message', (message) => {
       type: 'explore-hint-completed',
       requestId: message.requestId,
       result,
+      stats: snapshotStats(),
+    });
+    return;
+  }
+
+  if (message?.type === 'abandon-explore-hint') {
+    const abandoned = exploreHints.abandon(message.hintId);
+    parentPort.postMessage({
+      type: 'explore-hint-abandoned',
+      requestId: message.requestId,
+      hintId: message.hintId,
+      abandoned,
       stats: snapshotStats(),
     });
     return;
