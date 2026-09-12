@@ -1,6 +1,6 @@
-schema_version: 22
+schema_version: 23
 updated: 2026-09-11
-state: frontier_negamax_v5_standard_7x6_measurement_active
+state: frontier_negamax_flat_worker_descriptor_qualified_ready_for_7x6_revision_2
 current_branch: research/frontier-negamax-conformance
 
 authority:
@@ -8,199 +8,124 @@ authority:
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
-  owner_research_synthesis: docs/research/2026-09-09-owner-searchless-connect4-findings.md
-  worker_memory_finding: docs/research/2026-09-11-7x6-worker-descriptor-retention.md
-  proof_term_lifetime_finding: docs/research/2026-09-11-7x6-proof-term-lifetime.md
-  repository_context: AGENT_LOCAL.md
   current_state: STATUS.md
+  v5_term_lifetime: docs/research/2026-09-11-7x6-proof-term-lifetime.md
+  worker_residual_ownership: docs/research/2026-09-11-worker-residual-descriptor-ownership.md
 
 mission:
   objective: solve_standard_7x6_connect4_exactly_with_frontier_native_forward_WDL_negamax
-  role_of_negamax: exact_forward_solver_and_control_over_unresolved_decisions_after_exact_frontier_closure
   do_not_reframe_as: conventional_board_engine_with_frontier_heuristics
 
-structural_model:
-  stack:
-    - geometric_winning_line_axioms
-    - support_and_future_event_frontier
-    - CPC_control_parity_event_precedence_and_race
-    - WSL_625_requirements_and_blockers
-    - NDC_nested_dependency_closure
-    - solver_specific_exact_proof_procedure
-  forward_projection:
+semantic_contract:
+  forward_identity:
     - supportIndex
     - normalized_P0_residual_requirements
     - normalized_P1_residual_requirements
-  rule: smaller_forward_projection_does_not_erase_context_required_by_CPC_or_NDC_certificate_validity
-
-CPC:
-  base_target_event_count: "N(t)=(r-h_c+1)+sum_{d!=c}(H-h_d)=(W-1)H-ply+r+1"
-  control: event_rank_parity_relative_to_side_to_move
-  composition: relevant_reservoir_Delta_must_preserve_parity_and_response_resource_event_order_guards
-  forbidden_shortcut: static_row_parity_or_unaccounted_frontier_event_removal
+  hash_is_identity: false
+  exact_descriptor_equality_required: true
+  CPC_NDC_context_must_not_be_erased: true
 
 qualified_execution:
-  live_line_frontier:
-    form: incremental_player_relative_original_winning_line_masks
-    value: count_live_original_lines_through_candidate_cell
-    opponent_stone: cancels_every_incident_line_for_that_player
-    own_stone: does_not_cancel
-    empty_7x6_test_vector: [3, 4, 5, 7, 5, 4, 3]
-    proof_identity: false
+  semantic_proof_table: v5_8_way_generation_safe_slot_owned_extension_chunks
+  worker_state_descriptor_lifetime: ephemeral
+  worker_residual_descriptor_storage: flat_typed_metadata_plus_one_flat_term_arena
+  retained_per_class_descriptor_objects: 0
+  retained_per_class_term_array_objects: 0
+  ordinary_proof_probe_allocating: false
+  sibling_completion: incremental
+  obsolete_siblings: detach_without_worker_interruption
+  drain_background_before_reset_cleanup: true
+  autonomous_branch_manager_available: true
 
-  exact_frontier_bounds:
-    - immediate_singleton_win
-    - forced_single_response
-    - multiple_immediate_opponent_threat_loss_where_applicable
-    - one_sided_WSL_exhaustion_no_win_bound
-    - bilateral_exhaustion_draw
-
-  forced_transit:
-    form: deterministic_macro_normalization
-    split_depth_meaning: unresolved_decision_depth_after_forced_macro_normalization
-
-  proof_admission:
-    probe: non_allocating
-    ensure: retained_proof_publication_only
-
-  semantic_proof_table:
-    layout: 8_way_set_associative_exact_descriptor
-    version: v5_slot_owned_extension_chunks
-    handles: generation_plus_physical_slot
-    replacement_publication_exclusion: shared_slot_state
-    stale_read: unknown_WDL_interval
-    stale_publication: no_op
-    generation_wrap: fail_closed
-
-  descriptor_storage:
-    shared_proof_owner: physical_proof_slot
-    fit_rule: overwrite_existing_owned_chunk_capacity
-    growth_rule: append_only_missing_descriptor_data_capacity_as_slot_owned_chunk
-    equality: exact_descriptor_walk_across_slot_owned_chunk_chain
-    term_capacity_units: total_Uint16_arena_words_including_chunk_headers
-    term_data_metric: termIdsUsed
-    total_arena_metric: termArenaWordsUsed
-    worker_state_descriptor_lifetime: ephemeral
-    worker_residual_class_descriptor_lifetime: cached_pending_measurement
-    general_free_list: not_implemented_without_evidence
-
-  parallel_proof:
-    - preferred_frontier_child_first
-    - dependency_qualified_sibling_scouts
-    - incremental_completion_order
-    - detach_obsolete_siblings_after_cutoff
-    - no_worker_interruption
-    - drain_background_before_reset_cleanup
-
-  branch_manager:
-    old_maintenance_worker_source_present: false
-    auto_seed_when_enabled: true
-    bounded_ready_reservoir: true
-    refill_from_completed_frontier_fragments: true
-    worker_request_wait_path: false
-    exploration_identity: exact_q_semantic_content_plus_exact_live_line_frontier_context
-    ready_order:
-      - authoritative_dependency_qualified_proof
-      - structural_frontier_exploration
-      - idle
-
-current_evidence:
-  bounded_physical_states_checked: 1681808
-  quotient_exactness_mismatches: 0
-
-  completed_ephemeral_state_descriptor_7x6_run:
-    run: 34674060855
-    job: 103500612965
-    commit: 1b9bb83f72a318c188750b421f352504048fe314
-    elapsed_solver_ms: 855441.400302
-    root: unresolved
-    failure: semantic_TT_term_arena_exhausted
-    requested_term_word: 460000025
+completed_v5_7x6_measurement:
+  run: 34675467051
+  job: 103504435817
+  admission_commit: 5049e3b25eaca8526e2559123b12ea3e6283b8da
+  admission_revision: 1
+  result: hosted_runner_shutdown
+  root: unresolved
+  term_arena_exhausted: false
+  last_shared_tt:
+    entries: 8388608
+    replacements: 168397037
+    chunk_count: 27238990
+    term_ids_used: 210231525
+    term_header_words: 81716970
+    term_arena_words_used: 291948495
     term_capacity: 460000000
-    final_entries: 8388608
-    replacements: 153310210
-    term_span_reuses: 134966299
-    term_span_grows: 18343911
-    term_ids_used: 459999998
-    process_rss_bytes: 15600738304
-    worker_expanded: 114003282
-    worker_calls: 342254103
-    incremental_scout_completions: 121
-    detached_scout_tasks: 128
-    proof_admissions: 38
-    interpretation: ephemeral_state_descriptors_removed_previous_host_kill_as_immediate_boundary_and_exposed_v4_whole_span_growth_lifetime
+  last_process_rss_bytes: 15751729152
+  worker_residual_class_high_water_approx: [10193236, 11272694, 10940005]
+  worker_cached_term_ids_high_water_approx: [103369411, 116165693, 111369194]
+  worker_v8_heap_high_water_bytes_approx: [3835443744, 4218419392, 4093877336]
+  interpretation: v5_removed_shared_term_lifetime_as_immediate_boundary_and_worker_residual_semantic_descriptor_ownership_became_next_measured_host_memory_owner
 
-  v5_slot_chunk_correction:
-    implementation_commit: 29117851717a27eef5ee6b79beb56eb70f548e43
-    proof_binding_commit: e113a47fb8c896dea17e6c81211ff0f424a80840
-    qualification_commit: caf9a35ddea9695510207e4f7d1274652cd0bac9
-    bounded_replacement_run: 34675102224
-    bounded_dependency_run: 34675126023
-    bounded_idle_explore_run: 34675132451
-    all_runs_green: true
-    constrained_root: draw
-    constrained_actions: [0, 0, 0, 0]
-    adversarial_growth:
-      physical_slots: 8
-      replacements: 144
-      growth_events: 144
-      final_terms_per_slot: 20
-      term_ids_used: 160
-      chunk_count: 152
-      term_header_words: 456
-      term_arena_words_used: 616
-      term_arena_capacity: 640
-    proof_identity_changed: false
-    frontier_semantics_changed: false
-    worker_semantics_changed: false
+flat_worker_descriptor_correction:
+  identity_helper_commit: 5927d0a17590b4620254fac393332b9cb2099e2c
+  local_cache_commit: 6ec7088f2f0778b6c18bac6b0c2b98e1c075dcfa
+  coherent_implementation_head: 33413500c2ff68f5e4c1c12e3ec430c86fc7e91f
+  telemetry_commit: cec2e3e2e93649ed86034c93038484d594a02921
+  targeted_qualification_commit: 7e4f88aba8f4d56ab598c284a8bd99cbac7623cd
+  representation:
+    class_metadata:
+      - start_Uint32
+      - length_Uint16
+      - hashLo_Uint32
+      - hashHi_Uint32
+    term_storage: one_growable_worker_local_Uint16_arena
+    state_descriptors: ephemeral_class_references
+    shared_tt_term_materialization: reusable_per_view_scratch_after_hash_match_or_install
+  semantics_changed: false
+
+bounded_qualification:
+  coherent_replacement_run: 34676281224
+  coherent_dependency_run: 34676281219
+  coherent_idle_explore_run: 34676281229
+  telemetry_dependency_run: 34676359852
+  telemetry_idle_explore_run: 34676359849
+  targeted_ownership_run: 34676380760
+  all_green: true
+  exact_root: 0
+  exact_actions: [0, 0, 0, 0]
+  targeted_worker_invariant:
+    retained_class_objects: 0
+    retained_term_array_objects: 0
+    flat_typed_byte_accounting_exact: true
 
 current:
-  primary_action: observe_active_v5_standard_7x6_run_to_completion_then_follow_measured_owner
-  active_root_run: 34675467051
-  active_root_job: 103504435817
-  active_root_commit: 5049e3b25eaca8526e2559123b12ea3e6283b8da
-  admission_revision: 1
+  primary_action: admit_exactly_one_standard_7x6_revision_2_measurement
+  active_root_run: null
+  active_root_job: null
+  active_root_commit: null
+  next_admission_revision: 2
   admission_trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
   root_workflow_auto_trigger_on_implementation_changes: false
-  autonomous_exploration_in_active_run: false
   comparison_configuration:
     search_workers: 3
     unresolved_decision_split_depth: 8
+    autonomous_explore: false
     shared_proof_entries: 8388608
     shared_term_arena_words: 460000000
   do_not_duplicate_active_root_run: true
 
-next_after_active_run_closes:
-  - fetch_complete_root_job_logs_and_progress_high_water_series
+next_after_revision_2_closes:
   - record_exact_root_and_action_WDL_if_resolved
-  - compare_v5_termIdsUsed_termArenaWordsUsed_termHeaderWordsUsed_chunk_count_and_growth_to_old_v4_span_growth
-  - compare_process_RSS_and_worker_V8_heap_to_run_34674060855_at_similar_elapsed_and_work_counts
-  - compare_local_q_states_residual_classes_typed_bytes_and_descriptor_term_ids_cached
-  - compare_proof_probes_misses_admissions_entries_replacements_and_storage_reuse_growth
-  - compare_forced_macro_frontier_bound_ordering_queue_worker_and_detached_sibling_metrics
-  - if_unresolved_choose_next_resource_lifecycle_change_only_from_measured_owner
-  - if_residual_class_descriptor_payload_is_next_owner_investigate_exact_identity_preserving_view_or_compact_representation_before_reclamation
+  - compare_process_RSS_at_equivalent_elapsed_and_work_counts_to_run_34675467051
+  - compare_worker_V8_heap_external_and_ArrayBuffer_high_water
+  - compare_kernel_local_states_classes_and_typed_bytes
+  - compare_flat_descriptor_metadata_term_arena_bytes_and_capacities
+  - compare_shared_v5_term_arena_replacements_chunks_headers_and_data
+  - follow_only_the_next_measured_resource_owner
 
 known_open_mathematics:
   - complete_cheap_U1_U2_NDC_forward_integration_is_not_established
   - response_policy_alternative_resolution_may_require_more_than_GF2_monotone_closure
   - strategic_certificate_reuse_requires_complete_context_identity_when_not_derivable_from_forward_q
 
-pre_alpha:
-  released_compatibility_contract: false
-  evolution_rule: rename_replace_or_delete_unreleased_implementation_directly_and_update_current_consumers
-  preserve: research_findings_and_evidence_with_continuing_information_value
-  do_not_preserve: obsolete_executable_architecture_as_compatibility_baggage
-
 rejected_or_not_default:
+  - increase_shared_term_capacity_in_response_to_run_34675467051
+  - borrowed_subarray_views_over_growable_residual_storage
   - private_worker_local_primary_TTs
   - blind_root_branch_parallelism
   - static_full_window_frontier_fanout
-  - generic_history_killer
-  - fixed_worker_count_from_logical_CPU_count
-  - fixed_split_depth_as_semantic_work_definition
-  - static_center_first_as_frontier_policy
-  - row_parity_as_substitute_for_CPC_control_invariant
-  - increasing_term_capacity_as_substitute_for_fixing_descriptor_lifetime
   - worker_cancellation_polling
-  - residual_class_descriptor_reclamation_before_active_v5_standard_7x6_evidence
+  - weakening_exact_residual_identity
