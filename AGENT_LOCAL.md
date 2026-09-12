@@ -55,6 +55,14 @@ For the quotient-native lane, keep these local ownership facts explicit:
 
 Execution locality is not semantic ownership. A process/thread/worker may host several coherent child LEGOs without becoming their semantic owner.
 
+## Local application of the design hierarchy
+
+For Connect4 changes, apply the global hierarchy in order: **LEGO boundaries first, then SOLID inside each valid LEGO, then CUPID, then KISS**. Do not use a lower-level principle to justify crossing or blurring a higher-level ownership or semantic boundary.
+
+Prefer logical edges where semantic meaning, authority, lifecycle, resource/failure behavior, or independently replaceable context changes. File size, queue shape, worker placement, search depth, and implementation convenience are not sufficient reasons for a boundary by themselves.
+
+Reserve **gate** language for an actually blocking condition whose failure must stop or reject the affected path. Ordinary benchmarks, comparisons, checkpoints, experiments, confidence-building tests, and optimization decisions are not gates. Do not add process ceremony merely to make work look more rigorous.
+
 ## Pre-alpha evolution
 
 The quotient-native lane is pre-alpha and currently has no released external compatibility contract.
