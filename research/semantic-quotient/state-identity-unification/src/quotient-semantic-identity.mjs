@@ -26,14 +26,14 @@ function assertUint16Length(value, label) {
 }
 
 function assertStateId(value, label = 'semantic stateId') {
-  if (!Number.isInteger(value) || value < 0 || !Number.isSafeInteger(value)) {
+  if (!Number.isSafeInteger(value) || value < 0) {
     throw new RangeError(`${label} must be a non-negative safe integer, got ${value}`);
   }
   return value;
 }
 
 function assertClassId(value, label) {
-  if (!Number.isInteger(value) || value < 0 || !Number.isSafeInteger(value)) {
+  if (!Number.isSafeInteger(value) || value < 0) {
     throw new RangeError(`${label} must be a non-negative safe integer, got ${value}`);
   }
   return value;
@@ -45,6 +45,24 @@ function assertTermIds(ids, length = ids?.length) {
     throw new RangeError(`residual term hash length ${length} is outside source length ${ids.length}`);
   }
   return length;
+}
+
+function assertResidualIds(residual, label) {
+  if (!residual || typeof residual !== 'object' || !(residual.ids instanceof Uint16Array)) {
+    throw new TypeError(`${label} must expose exact Uint16Array term IDs`);
+  }
+  assertUint16Length(residual.ids.length, `${label} length`);
+  return residual;
+}
+
+function assertResidualDescriptor(residual, label) {
+  assertResidualIds(residual, label);
+  if (!residual.hash || typeof residual.hash !== 'object') {
+    throw new TypeError(`${label} must expose an exact residual hash`);
+  }
+  assertUint32(residual.hash.lo, `${label} hash lo`);
+  assertUint32(residual.hash.hi, `${label} hash hi`);
+  return residual;
 }
 
 function foldTermIds(ids, length, seed, multiplier) {
@@ -138,15 +156,6 @@ export function createResidualSemanticDescriptor(classId, ids) {
   });
 }
 
-function assertResidualDescriptor(residual, label) {
-  if (!residual || typeof residual !== 'object' || !(residual.ids instanceof Uint16Array) || !residual.hash) {
-    throw new TypeError(`${label} must be an exact residual semantic descriptor`);
-  }
-  assertUint32(residual.hash.lo, `${label} hash lo`);
-  assertUint32(residual.hash.hi, `${label} hash hi`);
-  return residual;
-}
-
 export function createQuotientSemanticDescriptor(stateId, supportIndex, p0, p1) {
   assertStateId(stateId);
   assertUint32(supportIndex, 'semantic supportIndex');
@@ -219,7 +228,7 @@ export function createQuotientSemanticClassReferenceDescriptor(
 export function semanticQuotientP0Length(descriptor) {
   if (!descriptor || typeof descriptor !== 'object') throw new TypeError('semantic descriptor is required');
   if (descriptor.p0 !== undefined) {
-    assertResidualDescriptor(descriptor.p0, 'semantic p0');
+    assertResidualIds(descriptor.p0, 'semantic p0');
     return assertUint16Length(descriptor.p0.ids.length, 'semantic p0 length');
   }
   return assertUint16Length(descriptor.p0Length, 'semantic p0 length');
@@ -228,7 +237,7 @@ export function semanticQuotientP0Length(descriptor) {
 export function semanticQuotientP1Length(descriptor) {
   if (!descriptor || typeof descriptor !== 'object') throw new TypeError('semantic descriptor is required');
   if (descriptor.p1 !== undefined) {
-    assertResidualDescriptor(descriptor.p1, 'semantic p1');
+    assertResidualIds(descriptor.p1, 'semantic p1');
     return assertUint16Length(descriptor.p1.ids.length, 'semantic p1 length');
   }
   return assertUint16Length(descriptor.p1Length, 'semantic p1 length');
@@ -245,8 +254,8 @@ export function writeSemanticQuotientTermIds(descriptor, target, offset = 0) {
   }
 
   if (descriptor.p0 !== undefined) {
-    assertResidualDescriptor(descriptor.p0, 'semantic p0');
-    assertResidualDescriptor(descriptor.p1, 'semantic p1');
+    assertResidualIds(descriptor.p0, 'semantic p0');
+    assertResidualIds(descriptor.p1, 'semantic p1');
     target.set(descriptor.p0.ids, offset);
     target.set(descriptor.p1.ids, offset + p0Length);
     return total;
