@@ -400,7 +400,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     const child = transition(rootId, column);
     if (child === QN_ILLEGAL) return null;
     if (child === QN_TERMINAL_WIN) return 1;
-    return -search(child, -2, 2, 1);
+    return -(await search(child, -2, 2, 1));
   }
 
   async function rootActionValues() {
