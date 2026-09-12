@@ -52,7 +52,7 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
   const nodeByState = new Map();
   const parentRefs = new Map();
 
-  const root = { stateId: graph.rootId, depth: 0, exactValue: null, actions: [] };
+  const root = { stateId: graph.rootId, depth: 0, path: [], exactValue: null, actions: [] };
   nodesByDepth[0].push(root);
   nodeByState.set(graph.rootId, root);
 
@@ -73,7 +73,13 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
         node.actions.push({ column, terminalValue: null, childStateId: child });
         parentRefs.set(child, (parentRefs.get(child) ?? 0) + 1);
         if (nodeByState.has(child)) continue;
-        const childNode = { stateId: child, depth: depth + 1, exactValue: null, actions: [] };
+        const childNode = {
+          stateId: child,
+          depth: depth + 1,
+          path: [...node.path, column],
+          exactValue: null,
+          actions: [],
+        };
         nodeByState.set(child, childNode);
         nodesByDepth[depth + 1].push(childNode);
       }
@@ -92,6 +98,7 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
     const fanIn = parentRefs.get(node.stateId) ?? 1;
     tasks.push({
       stateId: node.stateId,
+      path: Object.freeze([...node.path]),
       depth: splitDepth,
       estimate,
       fanIn,
@@ -101,13 +108,14 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
   tasks.sort((a, b) => b.priority - a.priority || b.estimate - a.estimate || a.stateId - b.stateId);
 
   return Object.freeze({
-    kind: 'connect4-quotient-lookahead-work-dag-v1',
+    kind: 'connect4-quotient-lookahead-work-dag-v2',
     splitDepth,
     probeDepth,
     rootId: graph.rootId,
     nodesByDepth: nodesByDepth.map((layer) => layer.map((node) => Object.freeze({
       stateId: node.stateId,
       depth: node.depth,
+      path: Object.freeze([...node.path]),
       exactValue: node.exactValue,
       actions: Object.freeze(node.actions.map((action) => Object.freeze({ ...action }))),
     }))),
