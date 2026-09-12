@@ -11,6 +11,7 @@ on:
       - 'components/bsfp/ownership-antichain-solver.mjs'
       - 'components/bsfp/support-lattice.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
@@ -59,5 +60,7 @@ jobs:
         run: node research/semantic-quotient/state-identity-unification/src/quotient-pruning-campaign.mjs
       - name: Verify standard-board guarded response certificates
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs
+      - name: Verify CPC address parity and terminal interpretation boundary
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs
       - name: Measure paired bounded response closure
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs

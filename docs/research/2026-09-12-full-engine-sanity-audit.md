@@ -599,3 +599,116 @@ Remaining: richer conditional response/deadline closure, proof retention under
 measured useful-window demand, asynchronous reporting and write contention.
 The first response profile is not a complete NDC implementation. No new root
 was launched and the revision trigger remains unchanged.
+
+## CPC address-parity reassessment
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The owner corrected the implementation direction: the relational structure is
+intended to eliminate work and reduce the control calculation to XOR and the low
+bit. Expanding a catalog of response policies before deriving this mapping is
+not an implementation of that instruction. Earlier conversational assurances
+that the complete intended fix was understood were premature.
+
+Assessment used research head `f6db7253c8898e6e870b027f42683de51197a57c` and
+verified protected main `15b8e62de07f2b35a74ea2297fda79b72633bf64`. Both remote
+heads matched the expected state. No production source or root trigger changed
+in this reassessment.
+
+Research and reviewed surfaces: C4-0001/0006/0007/0010; the owner searchless
+findings, universal strategic algebra and nested-dependency notes; original
+`Board.findZugzwang` and `virtualBoard._computeThreatFlags` in the preserved
+legacy ZIP; support-lattice radix/weights; packed support descriptor and rank
+access; slot64 residual coverage; paired-response profile and frontier-bound
+consumer. Original source compares outside-column parity with support-to-target
+parity. It also explicitly describes the condition of avoiding the threat column
+while blocking opposing threats. The current adjacent-pair profile uses a
+different, restricted response policy. Neither the old heuristic flags nor this
+restricted profile establish the complete requested terminal mapping.
+
+### Derived arithmetic
+
+The owner explicitly reaffirmed variable board dimensions during this unit.
+Every proposed runtime formula must derive from geometry. Standard 7x6 is one
+qualification profile, not a hardcoded product contract. Geometry-dependent
+reductions must be selected at profile construction, with their algebraic domain
+established; no added per-node geometry guard is needed to select a fixed profile.
+
+Let `s = sum(height[c] * (H+1)^c)` be the existing support index, and let
+`a = c*H+r` be a column-major target address. For even `H`, every support weight
+is odd, so `s & 1 = ply & 1`; also `a & 1 = r & 1`. Since `(W-1)*H` is even:
+
+```text
+baseRelativeControl = (s ^ a) & 1
+                    = (N(t)-1) mod 2
+```
+
+This is a derived representation identity, not a replacement state arena. The
+active cell ID is row-major (`r*W+c`), so its low bit must not silently be used
+as column-major address parity. For odd widths, `rowMajorCell ^ column` has row
+parity in its low bit. A compiled geometry-dependent target phase can avoid
+coordinate reconstruction without changing residual identity. No such unused
+production API or new per-state storage was added here.
+
+For general geometry the reduced phase is
+`(((W-1)*H) ^ ply ^ r) & 1`. For a *specified* reservoir adjustment `Delta`, XOR
+with `Delta` changes the low bit correctly. The qualification of this arithmetic
+does not certify any particular reservoir selection or strategic consequence.
+Odd-height geometries do not in general support the same `s ^ a` shortcut.
+
+### Qualification and remaining seam
+
+`quotient-control-parity-derivation.test.mjs` independently enumerates physical
+events through each target and compares their count with the XOR forms, using
+an odometer to enumerate support heights and the production support port to
+verify actual index/rank correspondence. It passed locally on Node 26.7.0:
+
+| Geometry | Support configurations | Remaining targets |
+|---|---:|---:|
+| 1x4 connect-3 | 5 | 10 |
+| 2x5 connect-4 | 36 | 180 |
+| 3x4 connect-3 | 125 | 750 |
+| 4x3 connect-3 | 256 | 1,536 |
+| 4x4 connect-4 | 625 | 5,000 |
+| 4x5 connect-4 | 1,296 | 12,960 |
+| 5x3 connect-3 | 1,024 | 7,680 |
+| 6x4 connect-4 | 15,625 | 187,500 |
+| 7x5 connect-4 | 279,936 | 4,898,880 |
+| 7x6 connect-4 | 823,543 | 17,294,403 |
+| Total | 1,122,471 | 22,408,899 |
+
+All base and bounded positive/negative Delta arithmetic comparisons passed.
+Odd-height controls detect the invalid address shortcut. These are support
+configurations, not an exhaustive census of legal colored standard positions.
+
+A second independent physical control locates the interpretation boundary:
+4x3 connect-3 paths `122442` and `124224` (one-based columns) both have heights
+`[1,3,0,2]`, P0 to move, and an unplayable P0 singleton target at column 3,
+zero-based row 1. Outside count is 3 and through-target count is 2 in both.
+Their base relative-control bit is 0, but exhaustive physical WDL is respectively
+loss and win. Their residual contexts differ. This is **not a falsifier of the
+owner's full relational mapping**; it demonstrates why replacing that mapping
+with the base bit alone would lose necessary information.
+
+Both controls pass (2 passed, 0 failed/skipped). The slot64 bounded workflow
+routes and executes the new test; existing imported production dependencies are
+already in that workflow's path coverage. Existing production qualification
+evidence remains attached to its original source, not relabeled as a completed
+CPC replacement.
+
+Reassessment: the address-level arithmetic is established. The exact mapping
+that makes the control relation sufficient for terminal publication has not yet
+been recovered from source/research. Clarification requested from the owner is
+the file or definition encoding that relation. Preserve qualified production
+behavior while resolving this seam. Do not add a general constraint engine,
+another response-policy guard, or unconditional low-bit pruning to fill the gap.
+Eval remains unchanged; no full root is admitted.
+
+Additional preservation check: the canonical minimax lane's incumbent-v8 packet,
+organic consolidation and winspace XOR/count-plane research were inspected as
+evidence without importing their solver. The historical single-threat ZPAR
+staging prototype is a fixed-7x6 classified differential experiment, explicitly
+without pruning authority; it is not the requested variable-board mapping and
+was not adopted. The recovered winspace XOR is an address reduction for the last
+missing event, not by itself a proof of that event's controller.
