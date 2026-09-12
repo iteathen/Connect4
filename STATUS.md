@@ -1,16 +1,43 @@
-# Connect4 Semantic-Quotient Research Status
+# Connect4 frontier-native forward-solver research status
 
 **Updated:** 2026-09-11  
-**Canonical branch:** `research/semantic-quotient`  
-**Solver authority:** `docs/specs/C4-0010-quotient-native-negamax-v1.md`
+**Canonical research line:** `research/semantic-quotient`  
+**Current repair branch:** `research/semantic-quotient-explore-hints`
+
+## Governing structural chain
+
+The forward Negamax lane does not own the Connect Four structural mathematics it consumes.
+
+Read the current model as:
+
+```text
+C4-0001  domain/legal game
+  -> C4-0006  CPC + WSL-625 structural mathematics
+  -> C4-0007  NDC strategic dependency semantics when consumed
+  -> C4-0010  forward exact Negamax consumption/execution policy
+```
+
+The broader research architecture is:
+
+```text
+geometric winning-line axioms
+  -> CPC control parity / event precedence / race
+  -> WSL-625 requirements and blockers
+  -> NDC nested dependency closure
+  -> solver-specific exact proof procedure
+```
+
+BSFP is the backward fixed-point solver lane. Quotient Negamax is a separate exact forward solver/control that should consume the same structural facts where applicable rather than flatten them into conventional search heuristics.
 
 ## Current objective
 
-Solve standard 7x6 Connect Four exactly with quotient-native W/D/L Negamax while preserving exact Connect Four semantics and minimizing proof work, memory traffic, and synchronization cost.
+Bring the forward W/D/L Negamax implementation into conformance with the frontier mathematics **before another standard-7x6 root performance claim**.
 
-This lane is pre-alpha. It has no released external compatibility contract. Current implementation names and shapes may be renamed, replaced, or deleted directly when the design changes; preserve useful evidence, not obsolete executable architecture.
+The immediate objective is not another larger TT or deeper fixed split. It is to remove conventional-engine assumptions that distorted the previous root experiments.
 
-## Exact quotient state
+## Exact forward quotient projection
+
+The current ordinary forward projection remains:
 
 ```text
 q = supportIndex
@@ -20,153 +47,133 @@ q = supportIndex
 sideToMove = rank(supportIndex) & 1
 ```
 
-Complete bounded controls checked 1,681,808 physical states with zero projection, transition, terminal, strong-score, per-action-score, BSFP W/D/L, or reverse-closure mismatches.
+Complete bounded controls checked 1,681,808 reachable physical states with zero quotient/exact W/D/L mismatches in the qualified campaigns.
 
-| Geometry | reachable q states |
-| --- | ---: |
-| 4x3 c3 | 3,735 |
-| 4x4 c4 | 34,095 |
-| 5x3 c4 | 11,317 |
-| 4x5 c4 | 294,593 |
+This projection is not the whole NDC closure state. Strategic certificate facts that depend on parity reservoirs, response resources, blockers, event order, race horizon or deadlines require those premises to remain derivable or explicitly represented.
 
-## Current representation
+## CPC control invariant
+
+For base target event `t=(c,r)`:
 
 ```text
-packed support
-+ exact term-ID residual ontology
-+ slot64 residual classes
-+ direct opponent-block filtering
+N(t)
+  = (r - h_c + 1)
+    + sum_{d != c}(H - h_d)
+  = (W - 1)H - ply + r + 1
 ```
 
-Standard 7x6:
+Future control is determined by event-rank parity relative to side to move.
+
+If a strategy/frontier transformation changes the relevant reservoir by `Delta`, control is preserved only when the relevant parity change is even and the corresponding resource/response/event-order guards still hold.
+
+Therefore CPC must not be replaced by static row parity, and a compressed frontier may not silently discard the parity effect of omitted/released events.
+
+## Frontier move value
+
+The legacy player-relative live-line value is:
 
 ```text
-residual vocabulary:     625 terms
-term ID width:            10 bits
-rank-8 q states:         797,388
-rank-8 residual classes: 1,357,101
-rank-9 frontier:         538,774
-rank-8 typed bytes:      118,099,719
+value_p(cell)
+  = number of original geometric winning lines through cell
+    with no opponent stone in that line
 ```
 
-## Current ownership
+One opponent stone cancels the line for player `p`; own stones do not.
+
+The standard empty-root vector:
 
 ```text
-quotient state space
-    transition semantics
-    tactical closure
-    canonical semantic identity
-
-Negamax engine
-    recursive W/D/L alpha-beta policy
-    proof-window dependency semantics
-    move-order consumption
-
-proof store
-    packed proof record
-    monotone lower/upper publication
-    advisory best-move hint
-
-semantic TT
-    exact descriptor storage
-    addressing and collision-checked lookup
-
-work planner
-    shallow work structure
-    task estimation/order
-    plan lifecycle
-
-proof resources
-    shared arena allocation/reset
-
-maintenance worker
-    execution host for maintenance-side services
-
-search workers
-    recursive Negamax
-    worker-local quotient transition state
+[3, 4, 5, 7, 5, 4, 3]
 ```
 
-Current source owners:
+is derived evidence only.
 
-- `quotient-negamax-domain-contract.mjs`
-- `quotient-semantic-identity.mjs`
-- `quotient-negamax-engine.mjs`
-- `quotient-negamax-search-record.mjs`
-- `quotient-packed-proof-store.mjs`
-- `quotient-semantic-shared-tt.mjs`
-- `quotient-work-plan-service.mjs`
-- `quotient-proof-resource-service.mjs`
-- `quotient-maintenance-worker.mjs`
+The current explore prototype reconstructs occupancy from a representative path. That was useful to verify the old value but is not the desired frontier-native representation. The next form should maintain player-relative live geometric-line masks/provenance incrementally as advisory branch context. It must not become quotient proof identity.
 
-The current slot64, shared-graph, and online semantic worker paths consume the separate Negamax engine rather than defining independent active copies of search policy.
+## Current implementation mismatch
 
-Execution locality is not semantic ownership: the maintenance worker may host planner/resource/dedup/reclamation services without becoming the semantic owner of those child responsibilities.
+The active recursive Negamax engine still uses proof hint followed by `centerOrder`, and one worker path can reverse that order by worker salt. The authoritative solver therefore has not yet adopted frontier-native ordering.
 
-## Shared proof semantics
+Current forced-move handling also advances one forced ply at a time even though earlier research established deterministic forced macro-edge/decision-state handling as an exact structural optimization.
 
-Shared proof publication is monotone. Concurrent writers merge stronger W/D/L bounds with atomic compare/exchange. Best-move information is advisory and cannot erase stronger proof facts.
+The shared semantic TT currently allocates identity on proof read (`findOrCreate`). Thus every touched state, including deterministic transit states, consumes a shared slot. The previous 8,388,608-entry saturation proves touched/interned-state pressure under that admission policy, not that 8.39M retained proofs are intrinsically necessary.
 
-Reads remain allocation-free and may observe stale-but-sound proof information; that can cause extra work but cannot create a false proof.
+## Branch Manager model
 
-## Worker model
+**Branch Manager** is the current execution-role name.
 
-Search workers do not perform per-node RPC to the maintenance worker.
+Its intended role is proactive bounded frontier-work supply and hosted background services. Search workers do not request new work and wait. Busy workers are not interrupted.
 
-Workers may use different local qIDs and residual-class IDs. Shared semantic identity is:
+Ready-work precedence is:
 
 ```text
-supportIndex
-+ exact sorted P0 residual term sequence
-+ exact sorted P1 residual term sequence
+authoritative dependency-qualified proof work
+  > queued frontier exploration
+  > idle
 ```
 
-Hash equality alone is never semantic equality; descriptor content is compared exactly.
+Exploration discovers frontier structure and likely future branches; only the Negamax dependency state can turn a branch into a parent-advancing alpha/beta obligation.
 
-Parallel work is exposed at logical alpha-beta dependency edges rather than arbitrary frontier depths. A shallow work DAG is useful only when it preserves those dependency semantics.
+The rename is not yet completely propagated through all older campaigns/root-attempt files; stale `startOnlineMaintenanceHost` references remain and must be removed directly rather than preserved by aliases.
 
-## Performance evidence
+## Exact terminal/strategic closure
 
-Fair 4x5 physical control:
+Current `tacticalCode()` correctly specializes cheap local residual cases:
+
+- immediate playable singleton win;
+- one forced opponent singleton response;
+- multiple distinct playable opponent singleton threats -> forced loss where applicable;
+- bilateral exhaustion/no-continuation draw.
+
+This is not the full common terminalization algebra.
+
+The research model permits:
 
 ```text
-quotient: 10.183 ms, 15,054 expansions
-physical: 13.400 ms, 36,826 expansions
+parity/response fact
+  -> certified blocker
+  -> WSL upward-closure elimination
+  -> changed event obligations
+  -> stronger parity/response fact
+  -> ...
 ```
 
-Shared-proof bounded worker control:
+with timing/race premises first-class. One-sided exhaustion is already an exact no-win bound and should be consumed by the forward solver.
+
+## Current evidence retained
+
+Standard 7x6 representation checkpoints:
 
 ```text
-sequential root split: 6.7476 ms, 31,174 expansions
-2 shared-proof workers: 3.2893 ms, 25,532 expansions
+WSL term vocabulary:      625
+rank-8 q states:          797,388
+rank-8 residual classes:  1,357,101
+rank-9 frontier:          538,774
 ```
 
-The online semantic-TT campaign also reproduced the exact root/action result with worker-local quotient IDs and no complete global qID graph inside recursive search.
+Bounded dependency-aware parallel Negamax and online semantic identity both produced exact qualified results. The 7x6 depth-8 root attempt activated all three hosted search workers but exhausted an append-only 8,388,608-entry shared semantic table before root proof.
 
-## Current scheduler direction
+That storage result must now be reinterpreted in light of allocate-on-read and deterministic-transit admission.
 
-Static full-window solving of every shallow frontier state is rejected because it destroys useful alpha-beta dependency information and substantially increases proof work.
+## Current work order
 
-The current target is dependency-aware parallel Negamax:
+1. finish Branch Manager rename and remove obsolete maintenance-worker references;
+2. replace representative-board live-line reconstruction with incremental live-line frontier context;
+3. make authoritative Negamax ordering frontier-native;
+4. preserve CPC parity when frontier events are compressed/reserved/released;
+5. consume one-sided exhaustion and other already-qualified exact frontier bounds;
+6. collapse forced chains and use decision-state-aware proof admission;
+7. separate TT probe from allocation and remeasure actual retained-proof pressure;
+8. make Branch Manager self-replenishing with bounded semantic seen/dedup state;
+9. consume sibling proof completions incrementally without interrupting workers;
+10. rerun standard-7x6 only after these execution assumptions are removed.
 
-```text
-preferred child first
-    -> establish parent bound
-    -> release dependency-satisfied sibling work
-    -> share exact proof facts
-    -> stop or ignore obsolete sibling work after cutoff
-```
+## Open mathematics
 
-Worker count and lookahead depth are measured at initialization/presearch rather than fixed constants. Depth 3-4 remains the expected standard-7x6 candidate range until measured otherwise.
+Complete cheap forward integration of U1/U2/NDC is not yet established. In particular, early-game response-policy alternatives may or may not collapse completely into GF(2), monotone closure, dominance, matching or another compact algebra without strategic branching.
 
-Useful presearch should contribute retained proof/search work where practical rather than exist only as disposable calibration.
+Do not claim that the forward Negamax lane has solved that open problem merely because it can search through unresolved decisions.
 
-## Open work
+## Pre-alpha
 
-- move online semantic dedup reconciliation to the maintenance side without per-node RPC;
-- provide consumer-neutral CPU/thread affinity and measured search-capacity services below Connect4;
-- implement dependency-aware parallel Negamax work scheduling;
-- solve the standard 7x6 empty root and measure wall clock;
-- include actual BSFP boundary cost before making a hybrid performance claim.
-
-CPU-topology code currently present in this branch is research-only. Generic runtime/resource discovery belongs to CUDA-JS; generic search-session capacity belongs to CUDA-MCGS.
+There is no released compatibility contract. Rename/replace/delete obsolete implementation directly and update all current consumers. Preserve useful research evidence, not compatibility debris.
