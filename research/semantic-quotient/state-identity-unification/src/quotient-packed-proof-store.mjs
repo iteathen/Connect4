@@ -14,7 +14,7 @@ import { assertSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
 import { assertSharedProofArena, resetSharedProofArena } from './quotient-proof-resource-service.mjs';
 
 function createStaticPackedProofStore(arena) {
-  assertSharedProofArena(arena);
+  arena = assertSharedProofArena(arena);
   const records = new Uint8Array(arena.recordBuffer);
   const metrics = {
     reads: 0,
@@ -62,7 +62,7 @@ function createStaticPackedProofStore(arena) {
 }
 
 function createSemanticPackedProofStore(arena) {
-  assertSemanticSharedTtArena(arena);
+  arena = assertSemanticSharedTtArena(arena);
   const records = new Uint8Array(arena.recordBuffer);
   const status = new Int32Array(arena.statusBuffer);
   const generation = new Uint32Array(arena.generationBuffer);

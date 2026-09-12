@@ -58,6 +58,7 @@ function generationLimitFor(entryCapacity) {
 
 function assertSharedBuffer(buffer, expectedBytes, label) {
   if (!(buffer instanceof SharedArrayBuffer)) throw new TypeError(`${label} must be SharedArrayBuffer`);
+  if (buffer.growable) throw new TypeError(`${label} must have fixed capacity`);
   if (buffer.byteLength !== expectedBytes) {
     throw new Error(`${label} byte length ${buffer.byteLength} does not match ${expectedBytes}`);
   }
@@ -67,6 +68,9 @@ export function assertSemanticSharedTtArena(arena) {
   if (!arena || typeof arena !== 'object' || arena.kind !== ARENA_KIND) {
     throw new TypeError(`semantic TT arena must have kind ${ARENA_KIND}`);
   }
+  // Worker structured clones are mutable objects. Capture the attached contract
+  // once so later caller mutation cannot change handle arithmetic or buffers.
+  arena = { ...arena, slotStates: Object.freeze({ ...arena.slotStates }) };
   const { entryCapacity, associativity, bucketCount, generationLimit, termCapacity } = arena;
   if (!isPowerOfTwo(entryCapacity) || entryCapacity < 1 || entryCapacity > MAX_ENTRY_CAPACITY) {
     throw new RangeError(`semantic TT entryCapacity ${entryCapacity} is invalid`);
@@ -107,7 +111,9 @@ export function assertSemanticSharedTtArena(arena) {
   assertSharedBuffer(arena.termSpanCapacityBuffer, Uint16Array.BYTES_PER_ELEMENT * entryCapacity, 'semantic TT termSpanCapacityBuffer');
   assertSharedBuffer(arena.recordBuffer, Uint8Array.BYTES_PER_ELEMENT * entryCapacity, 'semantic TT recordBuffer');
   assertSharedBuffer(arena.termBuffer, Uint16Array.BYTES_PER_ELEMENT * termCapacity, 'semantic TT termBuffer');
-  return arena;
+  const buffers = Object.entries(arena).filter(([name]) => name.endsWith('Buffer')).map(([, buffer]) => buffer);
+  if (new Set(buffers).size !== buffers.length) throw new Error('semantic TT owned buffers must not alias');
+  return Object.freeze(arena);
 }
 
 function assertDescriptor(descriptor) {
@@ -202,7 +208,7 @@ export function createSemanticSharedTtArena(options = {}) {
 }
 
 export function resetSemanticSharedTtArena(arena) {
-  assertSemanticSharedTtArena(arena);
+  arena = assertSemanticSharedTtArena(arena);
   const status = new Int32Array(arena.statusBuffer);
   for (let slot = 0; slot < status.length; slot += 1) {
     const state = Atomics.load(status, slot);
@@ -233,7 +239,7 @@ export function resetSemanticSharedTtArena(arena) {
 }
 
 export function createSemanticSharedTtView(arena) {
-  assertSemanticSharedTtArena(arena);
+  arena = assertSemanticSharedTtArena(arena);
   const meta = new Int32Array(arena.metaBuffer);
   const status = new Int32Array(arena.statusBuffer);
   const generation = new Uint32Array(arena.generationBuffer);
@@ -359,6 +365,7 @@ export function createSemanticSharedTtView(arena) {
     if (!Number.isInteger(total) || total < 1) throw new RangeError(`semantic TT allocation length ${total} is invalid`);
     while (true) {
       const current = Atomics.load(meta, META_TERM_NEXT);
+      if (current < 0 || current > arena.termCapacity) throw new Error(`semantic TT term allocation cursor ${current} is invalid`);
       const next = current + total;
       if (!Number.isSafeInteger(next) || next > arena.termCapacity) {
         throw new Error(`semantic TT term arena exhausted: ${next} > ${arena.termCapacity}`);
@@ -372,6 +379,7 @@ export function createSemanticSharedTtView(arena) {
     if (!Number.isInteger(delta) || delta < 0) throw new RangeError(`invalid shared counter delta ${delta}`);
     while (true) {
       const current = Atomics.load(meta, index);
+      if (current < 0) throw new Error(`semantic TT shared counter ${index} is negative`);
       const next = current + delta;
       if (next > INT32_MAX) throw new RangeError(`semantic TT shared counter ${index} exceeded Int32 domain`);
       if (Atomics.compareExchange(meta, index, current, next) === current) return next;

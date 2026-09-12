@@ -235,3 +235,47 @@ already implemented in the handed-off source; the older descriptions above are
 historical. ETC, priority probing, hash removal and large state tiers remain
 performance hypotheses, not permission to weaken correctness. The revision
 trigger remains untouched and no full root has been launched in this continuation.
+
+## Semantic arena lifecycle continuation
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+Reviewed all lines of `quotient-semantic-shared-tt.mjs` and
+`quotient-proof-resource-service.mjs`, and re-reviewed the semantic packed writer
+against C4-0010 and the EMPTY / DESCRIPTOR_WRITING / READY / PROOF_WRITING /
+POISONED lifecycle. Arena boundaries now reject aliased buffers and growable
+buffers and snapshot transport metadata before attachment. Negative allocation
+cursors/counters fail before they can alias already allocated storage. These are
+value-domain and ownership defects, not changes to exact identity or replacement
+policy.
+
+Retained after review: bucket serialization; exact support and separate ordered
+P0/P1 comparison after the hash filter; double generation/status checks around
+optimistic reads; slot-owned linked extension chunks; checked Int32 allocation
+and telemetry limits; Uint32 generations that never wrap; unpublished installs
+becoming POISONED on any exception. Reset preserves generations and requires
+global quiescence. Its slot/lock checks detect existing writers; the lifecycle
+owner must also prevent new work during reset. Worker shutdown and reset callers
+remain in the upcoming lifecycle review. Finite counters are explicit resource
+limits, not permission to wrap or silently saturate.
+
+Five additional adversarial controls cover malformed arena shape/metadata,
+negative counters, generation exhaustion, failure **after** payload overwrite,
+and a real two-worker proof-writer/replacement exclusion schedule. The last
+control also rejects reset while the writer owns the slot and checks that old
+proof does not leak into the replacement generation. Combined targeted controls:
+10/10 pass on Node 26.7.0. The full bounded semantic replacement campaign passes
+again with poisoned recovery, exact result, and zero hot descriptor-object or
+term-array materialization regressions. No full root was used.
+
+Remote qualification for packed-proof commit `0b4ec7024cd83cdbae09aeab63a3833e35a83870`:
+
+- semantic replacement: run `34691457029`, success;
+- dependency-aware exact Negamax: run `34691457027`, success;
+- idle ExploreHint: run `34691457011`, success.
+
+The new arena controls are wired into the semantic replacement workflow.
+Next owners: semantic identity/materialization and residual/support/state
+storage, then the remaining execution and qualification import graph. Root
+readiness remains **blocked: all-lines review incomplete**.

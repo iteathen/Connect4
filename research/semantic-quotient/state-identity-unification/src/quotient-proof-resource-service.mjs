@@ -21,18 +21,20 @@ export function createSharedProofArena(stateCount) {
 }
 
 export function assertSharedProofArena(arena) {
+  arena = arena && { ...arena };
   if (!arena || arena.kind !== 'connect4-shared-packed-proof-arena-v3'
       || !(arena.recordBuffer instanceof SharedArrayBuffer)
-      || !Number.isInteger(arena.stateCount) || arena.stateCount < 1) {
+      || arena.recordBuffer.growable
+      || !Number.isSafeInteger(arena.stateCount) || arena.stateCount < 1) {
     throw new TypeError('resetSharedProofArena requires a valid shared proof arena');
   }
   const records = new Uint8Array(arena.recordBuffer);
   if (records.length !== arena.stateCount) throw new Error('shared proof arena record length drifted');
-  return arena;
+  return Object.freeze(arena);
 }
 
 export function resetSharedProofArena(arena) {
-  assertSharedProofArena(arena);
+  arena = assertSharedProofArena(arena);
   const records = new Uint8Array(arena.recordBuffer);
   records.fill(INITIAL_SEARCH_RECORD);
 }

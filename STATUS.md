@@ -1,8 +1,8 @@
 # Connect4 frontier-native forward-solver audit status
 
-**Updated:** 2026-09-12  
-**Branch:** research/frontier-negamax-conformance  
-**Research direction / architecture:** Josh Oshiro  
+**Updated:** 2026-09-12
+**Branch:** research/frontier-negamax-conformance
+**Research direction / architecture:** Josh Oshiro
 **Implementation / qualification:** OpenAI ChatGPT
 
 The line-by-line correctness/compliance audit is in progress. **Standard 7x6
