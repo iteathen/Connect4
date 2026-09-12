@@ -11,6 +11,25 @@ function normalizeDepth(depth) {
   return depth;
 }
 
+function localContextKey(stateId, liveLines) {
+  let key = `${stateId}|`;
+  for (let index = 0; index < liveLines.length; index += 1) key += `${liveLines[index].toString(16)}.`;
+  return key;
+}
+
+function semanticContextKey(kernel, stateId, liveLines) {
+  const supportIndex = kernel.states.support[stateId];
+  const p0Ids = kernel.classes.termIds(kernel.states.p0Class[stateId]);
+  const p1Ids = kernel.classes.termIds(kernel.states.p1Class[stateId]);
+  let key = `${supportIndex}|`;
+  for (let index = 0; index < p0Ids.length; index += 1) key += `${p0Ids[index]}.`;
+  key += '/';
+  for (let index = 0; index < p1Ids.length; index += 1) key += `${p1Ids[index]}.`;
+  key += '|';
+  for (let index = 0; index < liveLines.length; index += 1) key += `${liveLines[index].toString(16)}.`;
+  return key;
+}
+
 function replayPath(kernel, path, moveOrder) {
   if (!Array.isArray(path)) throw new TypeError('explore path must be an array');
   let stateId = kernel.rootId;
@@ -42,12 +61,12 @@ export function exploreQuotientPath(kernel, path, depth) {
     connect: kernel.connect,
   });
   const start = replayPath(kernel, startPath, moveOrder);
-  const seen = new Set([start.stateId]);
+  const seen = new Set([localContextKey(start.stateId, start.liveLines)]);
   let layer = [{ stateId: start.stateId, path: startPath, liveLines: start.liveLines }];
   let reachedDepth = 0;
-  let expandedStates = 0;
+  let expandedContexts = 0;
   let traversedEdges = 0;
-  let transposedEdges = 0;
+  let duplicateContextEdges = 0;
   let terminalWins = 0;
   let tacticalClosed = 0;
   let forcedNodes = 0;
@@ -79,7 +98,7 @@ export function exploreQuotientPath(kernel, path, depth) {
       scoredMoves += ordered.length;
       for (const entry of ordered) if (entry.value > maxMoveValue) maxMoveValue = entry.value;
       if (firstLayerOrder === null) firstLayerOrder = Object.freeze(ordered);
-      expandedStates += 1;
+      expandedContexts += 1;
 
       for (const entry of ordered) {
         const { column, landingCell } = entry;
@@ -90,15 +109,17 @@ export function exploreQuotientPath(kernel, path, depth) {
           terminalWins += 1;
           continue;
         }
-        if (seen.has(child)) {
-          transposedEdges += 1;
+        const childLiveLines = moveOrder.advanceSeed(node.liveLines, mover, landingCell);
+        const contextKey = localContextKey(child, childLiveLines);
+        if (seen.has(contextKey)) {
+          duplicateContextEdges += 1;
           continue;
         }
-        seen.add(child);
+        seen.add(contextKey);
         next.push(Object.freeze({
           stateId: child,
           path: Object.freeze([...node.path, column]),
-          liveLines: moveOrder.advanceSeed(node.liveLines, mover, landingCell),
+          liveLines: childLiveLines,
         }));
       }
     }
@@ -106,23 +127,30 @@ export function exploreQuotientPath(kernel, path, depth) {
     reachedDepth = relativeDepth + 1;
   }
 
+  const frontierCandidates = Object.freeze(layer.map((node) => Object.freeze({
+    path: node.path,
+    contextKey: semanticContextKey(kernel, node.stateId, node.liveLines),
+  })));
+
   return Object.freeze({
-    kind: 'connect4-quotient-explore-fragment-v3',
+    kind: 'connect4-quotient-explore-fragment-v4',
     startPath,
+    startContextKey: semanticContextKey(kernel, start.stateId, start.liveLines),
     requestedDepth: maxDepth,
     reachedDepth,
     ordering: 'dynamic-live-winning-line-frontier',
+    contextIdentity: 'exact_q_semantic_content_plus_exact_live_line_frontier',
     firstLayerOrder: firstLayerOrder ?? Object.freeze([]),
-    uniqueStates: seen.size,
-    expandedStates,
+    uniqueContexts: seen.size,
+    expandedContexts,
     traversedEdges,
-    transposedEdges,
+    duplicateContextEdges,
     terminalWins,
     tacticalClosed,
     forcedNodes,
     orderedNodes,
     scoredMoves,
     maxMoveValue,
-    frontierPaths: Object.freeze(layer.map((node) => node.path)),
+    frontierCandidates,
   });
 }
