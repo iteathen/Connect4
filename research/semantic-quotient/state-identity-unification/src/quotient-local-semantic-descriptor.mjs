@@ -1,7 +1,7 @@
 import {
-  hashResidualTermIds,
-  hashSemanticQuotientDescriptor,
-} from './quotient-semantic-shared-tt.mjs';
+  createQuotientSemanticDescriptor,
+  createResidualSemanticDescriptor,
+} from './quotient-semantic-identity.mjs';
 
 export function createLocalSemanticDescriptorCache(kernel) {
   const classCache = [];
@@ -21,8 +21,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
       return prior;
     }
     const ids = kernel.classes.termIds(classId);
-    const hash = hashResidualTermIds(ids);
-    const descriptor = Object.freeze({ classId, ids, hash });
+    const descriptor = createResidualSemanticDescriptor(classId, ids);
     classCache[classId] = descriptor;
     metrics.classBuilds += 1;
     metrics.termIdsCached += ids.length;
@@ -38,14 +37,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
     const supportIndex = kernel.states.support[stateId];
     const p0 = classDescriptor(kernel.states.p0Class[stateId]);
     const p1 = classDescriptor(kernel.states.p1Class[stateId]);
-    const hash = hashSemanticQuotientDescriptor(
-      supportIndex,
-      p0.hash,
-      p1.hash,
-      p0.ids.length,
-      p1.ids.length,
-    );
-    const descriptor = Object.freeze({ stateId, supportIndex, p0, p1, hash });
+    const descriptor = createQuotientSemanticDescriptor(stateId, supportIndex, p0, p1);
     stateCache[stateId] = descriptor;
     metrics.stateBuilds += 1;
     return descriptor;
