@@ -17,20 +17,28 @@ function oneReply(worker, type, payload) {
       reject(error);
     };
     worker.on('message', onMessage);
-    worker.once('error', onError);
+    worker.on('error', onError);
     worker.postMessage({ ...payload, requestId: id });
   });
 }
 
-export async function startDedupOwner(spec, prefixClasses = 4096) {
+export async function startMaintenanceHost(spec, prefixClasses = 4096) {
   const worker = new Worker(new URL('./quotient-shared-dedup-worker.mjs', import.meta.url), {
     workerData: { spec, prefixClasses },
   });
   const published = await new Promise((resolve, reject) => {
-    worker.once('error', reject);
-    worker.on('message', (message) => {
-      if (message?.type === 'published') resolve(message);
-    });
+    const onMessage = (message) => {
+      if (message?.type !== 'published') return;
+      worker.off('message', onMessage);
+      worker.off('error', onError);
+      resolve(message);
+    };
+    const onError = (error) => {
+      worker.off('message', onMessage);
+      reject(error);
+    };
+    worker.on('message', onMessage);
+    worker.on('error', onError);
   });
   return Object.freeze({
     worker,
@@ -49,6 +57,9 @@ export async function startDedupOwner(spec, prefixClasses = 4096) {
   });
 }
 
+// Historical research alias. New code should use the execution-role name.
+export const startDedupOwner = startMaintenanceHost;
+
 export async function startSearchWorkers(count, shared) {
   const workers = [];
   const ready = [];
@@ -58,10 +69,18 @@ export async function startSearchWorkers(count, shared) {
     });
     workers.push(worker);
     ready.push(new Promise((resolve, reject) => {
-      worker.once('error', reject);
-      worker.on('message', (message) => {
-        if (message?.type === 'ready') resolve();
-      });
+      const onMessage = (message) => {
+        if (message?.type !== 'ready') return;
+        worker.off('message', onMessage);
+        worker.off('error', onError);
+        resolve();
+      };
+      const onError = (error) => {
+        worker.off('message', onMessage);
+        reject(error);
+      };
+      worker.on('message', onMessage);
+      worker.on('error', onError);
     }));
   }
   await Promise.all(ready);
@@ -84,9 +103,13 @@ async function runQueuedTasks(workers, tasks, makeMessage, consumeResult) {
   const started = performance.now();
 
   await new Promise((resolve, reject) => {
-    const listeners = new Map();
+    const messageListeners = new Map();
+    const errorListeners = new Map();
     const cleanupListeners = () => {
-      for (const [worker, listener] of listeners) worker.off('message', listener);
+      for (const [worker, listener] of messageListeners) worker.off('message', listener);
+      for (const [worker, listener] of errorListeners) worker.off('error', listener);
+      messageListeners.clear();
+      errorListeners.clear();
     };
     const dispatch = (worker, workerIndex) => {
       const task = queue.shift();
@@ -95,7 +118,7 @@ async function runQueuedTasks(workers, tasks, makeMessage, consumeResult) {
       worker.postMessage(makeMessage(task, taskId++));
     };
     workers.forEach((worker, workerIndex) => {
-      const listener = (message) => {
+      const onMessage = (message) => {
         if (message?.type !== 'result') return;
         consumeResult(message);
         addMetrics(metrics, message.metrics);
@@ -108,12 +131,14 @@ async function runQueuedTasks(workers, tasks, makeMessage, consumeResult) {
           dispatch(worker, workerIndex);
         }
       };
-      listeners.set(worker, listener);
-      worker.once('error', (error) => {
+      const onError = (error) => {
         cleanupListeners();
         reject(error);
-      });
-      worker.on('message', listener);
+      };
+      messageListeners.set(worker, onMessage);
+      errorListeners.set(worker, onError);
+      worker.on('message', onMessage);
+      worker.on('error', onError);
       dispatch(worker, workerIndex);
     });
     if (tasks.length === 0) {
