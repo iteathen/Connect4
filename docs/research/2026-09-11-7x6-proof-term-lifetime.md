@@ -2,7 +2,11 @@
 
 **Date:** 2026-09-11  
 **Branch:** `research/frontier-negamax-conformance`  
+**Research direction / architecture:** Josh Oshiro  
+**Implementation / qualification:** OpenAI ChatGPT  
 **Scope:** forward frontier-native exact Negamax resource lifetime; no domain, CPC, WSL-625, NDC, or proof-identity semantic change
+
+This record follows the earlier `docs/research/2026-09-11-7x6-replacement-term-lifetime.md` append-only-incarnation finding and the later slot-span / worker-descriptor lifetime corrections. It records the next distinct failure boundary after those changes rather than replacing their evidence.
 
 ## Result
 
