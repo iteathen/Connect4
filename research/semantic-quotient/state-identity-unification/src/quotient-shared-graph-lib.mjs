@@ -1,29 +1,5 @@
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 
-export {
-  QN_ILLEGAL as SHARED_Q_ILLEGAL,
-  QN_TERMINAL_WIN as SHARED_Q_TERMINAL_WIN,
-} from './quotient-negamax-domain-contract.mjs';
-
-export {
-  PROOF_LOWER_MASK as SHARED_LOWER_MASK,
-  PROOF_UPPER_MASK as SHARED_UPPER_MASK,
-  HINT_BEST_MOVE_MASK as SHARED_BEST_MASK,
-  INITIAL_SEARCH_RECORD as SHARED_INITIAL_RECORD,
-  proofLower as lowerOfSharedRecord,
-  proofUpper as upperOfSharedRecord,
-  bestMoveHint as bestOfSharedRecord,
-  withProofLower as withSharedLower,
-  withProofUpper as withSharedUpper,
-  withBestMoveHint as withSharedBest,
-  withProofBounds as withSharedBounds,
-} from './quotient-negamax-search-record.mjs';
-
-export {
-  createSharedProofArena,
-  resetSharedProofArena,
-} from './quotient-proof-resource-service.mjs';
-
 export function buildSharedQuotientGraph(spec, options = {}) {
   const { kernel } = createSlot64ResidualQuotientKernel(spec, {
     cacheEdges: true,
