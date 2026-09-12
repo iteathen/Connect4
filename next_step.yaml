@@ -1,7 +1,7 @@
-schema_version: 18
+schema_version: 19
 updated: 2026-09-11
-state: quotient_negamax_frontier_conformance_repair
-canonical_branch: research/semantic-quotient
+state: frontier_negamax_slot_owned_proof_lifetime_measurement
+current_branch: research/frontier-negamax-conformance
 
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -12,23 +12,10 @@ authority:
   repository_context: AGENT_LOCAL.md
   current_state: STATUS.md
 
-required_research_for_frontier_changes:
-  - docs/research/2026-09-09-universal-strategic-algebra.md
-  - docs/research/2026-09-09-nested-strategic-dependency-closure.md
-  - docs/research/2026-09-09-searchless-solver-hypothesis.md
-  - docs/research/2026-09-09-backward-winline-fixed-point.md
-  - docs/research/2026-09-09-terminal-boundary-qualification.md
-
 mission:
   objective: solve_standard_7x6_connect4_exactly_with_frontier_native_forward_WDL_negamax
-  role_of_negamax: exact_forward_solver_and_control_consumer_of_shared_connect4_frontier_math
+  role_of_negamax: exact_forward_solver_and_control_over_unresolved_decisions_after_exact_frontier_closure
   do_not_reframe_as: conventional_board_engine_with_frontier_heuristics
-
-pre_alpha:
-  released_compatibility_contract: false
-  evolution_rule: rename_replace_or_delete_unreleased_implementation_directly_and_update_current_consumers
-  preserve: research_findings_and_evidence_with_continuing_information_value
-  do_not_preserve: obsolete_executable_architecture_as_compatibility_baggage
 
 structural_model:
   stack:
@@ -38,7 +25,7 @@ structural_model:
     - WSL_625_requirements_and_blockers
     - NDC_nested_dependency_closure
     - solver_specific_exact_proof_procedure
-  forward_quotient_projection:
+  forward_projection:
     - supportIndex
     - normalized_P0_residual_requirements
     - normalized_P1_residual_requirements
@@ -47,121 +34,131 @@ structural_model:
 CPC:
   base_target_event_count: "N(t)=(r-h_c+1)+sum_{d!=c}(H-h_d)=(W-1)H-ply+r+1"
   control: event_rank_parity_relative_to_side_to_move
-  composition: control_preserved_under_reservoir_change_only_when_relevant_Delta_is_even_and_response_resource_event_order_guards_hold
-  forbidden_shortcut: treat_CPC_as_static_row_parity_or_drop_frontier_events_without_parity_accounting
+  composition: relevant_reservoir_Delta_must_preserve_parity_and_response_resource_event_order_guards
+  forbidden_shortcut: static_row_parity_or_unaccounted_frontier_event_removal
 
-ownership:
-  structural_math:
-    owns:
-      - residual_requirement_and_blocker_meaning
-      - minimal_antichain_semantics
-      - CPC_control_parity_and_event_reservoir_semantics
-      - exhaustion_meaning
-    authority: docs/specs/C4-0006-control-parity-and-winspace-v1.md
+qualified_execution:
+  live_line_frontier:
+    form: incremental_player_relative_original_winning_line_masks
+    value: count_live_original_lines_through_candidate_cell
+    opponent_stone: cancels_every_incident_line_for_that_player
+    own_stone: does_not_cancel
+    empty_7x6_test_vector: [3, 4, 5, 7, 5, 4, 3]
+    proof_identity: false
 
-  NDC:
-    owns:
-      - nested_certificate_dependency_meaning
-      - response_resource_and_race_premises
-      - blocker_certification_context
-      - fixed_point_fact_propagation
-    authority: docs/specs/C4-0007-nested-dependency-closure-v1.md
+  exact_frontier_bounds:
+    - immediate_singleton_win
+    - forced_single_response
+    - multiple_immediate_opponent_threat_loss_where_applicable
+    - one_sided_WSL_exhaustion_no_win_bound
+    - bilateral_exhaustion_draw
 
-  forward_state_space:
-    owns:
-      - exact_forward_projection_implementation
-      - legal_transition_realization
-      - cheap_local_tactical_projection
-      - canonical_forward_semantic_descriptor
-    rule: does_not_redefine_CPC_WSL_or_NDC
+  forced_transit:
+    form: deterministic_macro_normalization
+    split_depth_meaning: unresolved_decision_depth_after_forced_macro_normalization
 
-  negamax_engine:
-    owns:
-      - recursive_WDL_proof_policy_over_unresolved_decisions
-      - alpha_beta_dependency_semantics
-      - consumption_of_exact_frontier_closure
-      - move_order_consumption
-    source: research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs
+  proof_admission:
+    probe: non_allocating
+    ensure: retained_proof_publication_only
 
-  proof_store:
-    owns:
-      - monotone_WDL_bound_publication
-      - exact_value_publication
-      - advisory_move_hint_publication
-    sources:
-      - research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs
-      - research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs
+  semantic_proof_table:
+    layout: 8_way_set_associative_exact_descriptor
+    handles: generation_plus_physical_slot
+    replacement_publication_exclusion: shared_slot_state
+    stale_read: unknown_WDL_interval
+    stale_publication: no_op
+    generation_wrap: fail_closed
 
-  semantic_tt:
-    owns:
-      - exact_descriptor_storage_and_collision_checked_lookup
-      - fixed_arena_lifecycle
-    current_problem: allocate_on_read_and_admit_every_touched_state
-    source: research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs
+  descriptor_storage:
+    owner: physical_proof_slot
+    replacement_rule: overwrite_existing_span_if_new_descriptor_fits
+    growth_rule: allocate_new_span_only_when_descriptor_exceeds_slot_capacity
+    general_free_list: not_implemented_without_evidence
+
+  parallel_proof:
+    - preferred_frontier_child_first
+    - dependency_qualified_sibling_scouts
+    - incremental_completion_order
+    - detach_obsolete_siblings_after_cutoff
+    - no_worker_interruption
+    - drain_background_before_reset_cleanup
 
   branch_manager:
-    role: execution_host_for_proactive_frontier_work_supply_and_background_services
-    rule: workers_do_not_request_and_wait
-    desired_ready_order:
-      - authoritative_dependency_qualified_work
-      - queued_frontier_exploration
+    old_maintenance_worker_source_present: false
+    auto_seed_when_enabled: true
+    bounded_ready_reservoir: true
+    refill_from_completed_frontier_fragments: true
+    worker_request_wait_path: false
+    exploration_identity: exact_q_semantic_content_plus_exact_live_line_frontier_context
+    ready_order:
+      - authoritative_dependency_qualified_proof
+      - structural_frontier_exploration
       - idle
-    current_source: research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs
-
-  search_workers:
-    role: non_interruptible_active_task_execution
-    run:
-      - exact_forward_negamax_tasks
-      - frontier_exploration_tasks
-      - worker_local_quotient_transition_state
-    rule: no_per_node_RPC_to_Branch_Manager
-
-frontier_ordering:
-  legacy_live_line_value: count_original_geometric_win_lines_through_cell_with_no_opponent_stone
-  opponent_stone_effect: permanently_cancels_that_line_for_that_player
-  own_stone_effect: does_not_cancel_line_value
-  empty_7x6_vector_is_test_only: [3, 4, 5, 7, 5, 4, 3]
-  required_form: incremental_player_relative_live_line_frontier_or_proved_equivalent
-  not_semantic_identity: true
-  remove_as_defaults_unless_measured:
-    - static_center_order
-    - reverse_order_by_worker_salt
-    - generic_history_killer
 
 current_evidence:
-  complete_bounded_physical_states_checked: 1681808
+  bounded_physical_states_checked: 1681808
   quotient_exactness_mismatches: 0
-  standard_7x6_rank8_q_states: 797388
-  standard_7x6_rank8_residual_classes: 1357101
-  standard_7x6_rank9_frontier: 538774
-  shared_semantic_identity_exact: true
-  root_attempt_2_TT_entries_before_failure: 8388608
-  root_attempt_2_interpretation: touched_and_interned_states_under_allocate_on_read_not_required_proof_retention
+  bounded_best_parallel_control:
+    geometry: 4x5_connect4
+    workers: 3
+    unresolved_decision_depth: 3
+    exact_root: draw
+    exact_actions: [0, 0, 0, 0]
+
+  corrected_7x6_proof_capacity:
+    run: 34670736675
+    entries: 8388608
+    term_ids_used: 99025439
+    elapsed_seconds: 238.54
+    result: entry_capacity_exhausted_before_root_proof
+    interpretation: retained_proof_count_is_real_limiter_after_nonallocating_probe
+
+  replacement_qualification:
+    run: 34671322460
+    stale_handle_publication_rejected: true
+    constrained_4x5_root: draw
+    constrained_4x5_actions: [0, 0, 0, 0]
+    replacements_exercised: true
+
+  7x6_append_only_term_lifetime:
+    run: 34671380474
+    replacements: 30969854
+    term_ids_used: 459999997
+    elapsed_seconds: 149.46
+    result: descriptor_term_capacity_exhausted_before_root_proof
+    interpretation: semantic_incarnation_count_was_wrong_owner_for_descriptor_storage
+
+  slot_owned_descriptor_span_control:
+    replacement_run: 34671597850
+    exact: true
+    action_replacements: 43533
+    action_span_reuses: 36709
+    action_span_grows: 6824
+    action_term_ids_used: 85164
 
 current:
-  primary_action: make_forward_execution_conform_to_CPC_WSL_NDC_frontier_model_before_next_root_attempt
-  ordered_work:
-    - finish_Branch_Manager_rename_and_remove_obsolete_maintenance_worker_references
-    - replace_representative_board_reconstruction_with_incremental_live_line_frontier
-    - make_authoritative_Negamax_ordering_frontier_native
-    - preserve_CPC_event_reservoir_parity_under_frontier_compression_and_release
-    - consume_exact_one_sided_exhaustion_bounds
-    - collapse_forced_response_chains_and_apply_decision_state_proof_admission
-    - split_semantic_TT_probe_from_allocation_and_remeasure_retained_proof_pressure
-    - make_Branch_Manager_self_replenishing_with_bounded_semantic_seen_state
-    - consume_sibling_proof_completions_incrementally_without_interrupting_workers
-    - rerun_standard_7x6_root_only_after_above_execution_assumptions_are_removed
+  primary_action: finish_current_slot_owned_span_standard_7x6_measurement_then_follow_observed_limiter
+  active_root_run: 34671597871
+  active_root_commit: ccbcc64c1eccc31a0acd73599a688a5b326975f3
+  autonomous_exploration_in_active_run: false
+  do_not_duplicate_active_root_run: true
+
+next_if_root_unresolved:
+  - aggregate_worker_local_q_state_high_water_from_existing_worker_results
+  - aggregate_worker_local_residual_class_high_water_from_existing_worker_results
+  - only_add_descriptor_cache_or_memory_breakdown_if_worker_state_class_counts_do_not_explain_RSS
+  - choose_next_resource_lifecycle_change_from_measured_owner_not_from_generic_search_engine_habit
 
 known_open_mathematics:
   - complete_cheap_U1_U2_NDC_forward_integration_is_not_established
   - response_policy_alternative_resolution_may_require_more_than_GF2_monotone_closure
   - strategic_certificate_reuse_requires_complete_context_identity_when_not_derivable_from_forward_q
 
-hardware_profile:
-  connect4_consumes: measured_search_capacity
-  CPU_topology_code_here: research_prototype_only
-  generic_runtime_owner: CUDA-JS
-  generic_search_session_owner: CUDA-MCGS
+pre_alpha:
+  released_compatibility_contract: false
+  evolution_rule: rename_replace_or_delete_unreleased_implementation_directly_and_update_current_consumers
+  preserve: research_findings_and_evidence_with_continuing_information_value
+  do_not_preserve: obsolete_executable_architecture_as_compatibility_baggage
 
 rejected_or_not_default:
   - private_worker_local_primary_TTs
