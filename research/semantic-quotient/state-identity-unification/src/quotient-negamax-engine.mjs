@@ -1,33 +1,62 @@
 import {
-  FRONTIER_BOUND_DRAW,
-  FRONTIER_BOUND_MOVER_NO_WIN,
-  FRONTIER_BOUND_NONE,
-  FRONTIER_BOUND_OPPONENT_NO_WIN,
   QN_ILLEGAL,
   QN_TERMINAL_WIN,
   TACTICAL_DRAW,
   TACTICAL_LOSS,
   TACTICAL_IMMEDIATE_BASE,
+  applyFrontierBoundCode,
+  assertSearchWindow,
   assertTacticalCode,
+  assertWdlInterval,
+  assertWdlValue,
   tacticalForcedColumn,
   tacticalImmediateColumn,
 } from './quotient-negamax-domain-contract.mjs';
 
-function applyFrontierBound(code, lower, upper) {
-  if (code === FRONTIER_BOUND_NONE) return [lower, upper];
-  if (code === FRONTIER_BOUND_MOVER_NO_WIN) return [lower, Math.min(upper, 0)];
-  if (code === FRONTIER_BOUND_OPPONENT_NO_WIN) return [Math.max(lower, 0), upper];
-  if (code === FRONTIER_BOUND_DRAW) return [0, 0];
-  throw new Error(`unexpected frontier bound code ${code}`);
+function assertPort(port) {
+  if (!port || typeof port !== 'object') throw new TypeError('quotient Negamax port must be an object');
+  if (!Number.isInteger(port.columns) || port.columns < 1 || port.columns > 7) {
+    throw new RangeError(`quotient Negamax columns must be in 1..7, got ${port.columns}`);
+  }
+  if (!Number.isInteger(port.cellCount) || port.cellCount < 1 || port.cellCount > 64) {
+    throw new RangeError(`quotient Negamax cellCount must be in 1..64, got ${port.cellCount}`);
+  }
+  if (!Number.isInteger(port.rootId) || port.rootId < 0) throw new RangeError('quotient Negamax rootId must be non-negative');
+  if (!Array.isArray(port.centerOrder) || port.centerOrder.length !== port.columns) {
+    throw new TypeError('quotient Negamax centerOrder must enumerate every column');
+  }
+  const seen = new Set();
+  for (const column of port.centerOrder) {
+    if (!Number.isInteger(column) || column < 0 || column >= port.columns || seen.has(column)) {
+      throw new Error(`invalid center-order column ${column}`);
+    }
+    seen.add(column);
+  }
+  for (const name of ['rankAt', 'isLegal', 'transition', 'tacticalCode']) {
+    if (typeof port[name] !== 'function') throw new TypeError(`quotient Negamax port.${name} must be a function`);
+  }
+  const proofStore = port.proofStore;
+  if (!proofStore || typeof proofStore !== 'object') throw new TypeError('quotient Negamax proofStore is required');
+  for (const name of ['lower', 'upper', 'bestMove', 'publishExact', 'publishLower', 'publishUpper']) {
+    if (typeof proofStore[name] !== 'function') throw new TypeError(`quotient Negamax proofStore.${name} must be a function`);
+  }
 }
 
-function createProofAccess(port, metrics) {
+function createProofAccess(port, metrics, columns) {
   const { proofStore } = port;
   const proofKey = port.proofKey ?? ((stateId) => stateId);
   const ensureProofKey = port.ensureProofKey ?? proofKey;
 
+  function assertKey(key, label, allowMiss = true) {
+    const minimum = allowMiss ? -1 : 0;
+    if (!Number.isInteger(key) || key < minimum) {
+      throw new Error(`${label} returned invalid proof key ${key}`);
+    }
+    return key;
+  }
+
   function probe(stateId) {
-    const key = proofKey(stateId);
+    const key = assertKey(proofKey(stateId), 'proof probe');
     if (key < 0) metrics.proofProbeMisses += 1;
     return key;
   }
@@ -35,20 +64,47 @@ function createProofAccess(port, metrics) {
   function ensure(stateId, key) {
     if (key >= 0) return key;
     metrics.proofAdmissions += 1;
-    return ensureProofKey(stateId);
+    return assertKey(ensureProofKey(stateId), 'proof ensure', false);
   }
 
-  function lower(key) { return key < 0 ? -1 : proofStore.lower(key); }
-  function upper(key) { return key < 0 ? 1 : proofStore.upper(key); }
-  function bestMove(key) { return key < 0 ? -1 : proofStore.bestMove(key); }
+  function lower(key) {
+    if (key < 0) return -1;
+    return assertWdlValue(proofStore.lower(key), `proof lower for key ${key}`);
+  }
+
+  function upper(key) {
+    if (key < 0) return 1;
+    return assertWdlValue(proofStore.upper(key), `proof upper for key ${key}`);
+  }
+
+  function bestMove(key) {
+    if (key < 0) return -1;
+    const move = proofStore.bestMove(key);
+    if (!Number.isInteger(move) || move < -1 || move >= columns) {
+      throw new Error(`proof best move for key ${key} is outside -1..${columns - 1}: ${move}`);
+    }
+    return move;
+  }
+
+  function assertPublication(value, bestMoveValue) {
+    assertWdlValue(value, 'proof publication value');
+    if (!Number.isInteger(bestMoveValue) || bestMoveValue < -1 || bestMoveValue >= columns) {
+      throw new RangeError(`proof publication best move must be -1..${columns - 1}, got ${bestMoveValue}`);
+    }
+  }
 
   function publishExact(stateId, key, value, bestMoveValue = -1) {
+    assertPublication(value, bestMoveValue);
     proofStore.publishExact(ensure(stateId, key), value, bestMoveValue);
   }
+
   function publishLower(stateId, key, value, bestMoveValue = -1) {
+    assertPublication(value, bestMoveValue);
     proofStore.publishLower(ensure(stateId, key), value, bestMoveValue);
   }
+
   function publishUpper(stateId, key, value, bestMoveValue = -1) {
+    assertPublication(value, bestMoveValue);
     proofStore.publishUpper(ensure(stateId, key), value, bestMoveValue);
   }
 
@@ -56,11 +112,51 @@ function createProofAccess(port, metrics) {
 }
 
 function frontierBoundsFor(port, stateId, lower, upper) {
-  if (typeof port.frontierBoundCode !== 'function') return [lower, upper];
-  return applyFrontierBound(port.frontierBoundCode(stateId), lower, upper);
+  assertWdlInterval(lower, upper, `proof interval for state ${stateId}`);
+  if (typeof port.frontierBoundCode !== 'function') return [lower, upper, false];
+  const [nextLower, nextUpper] = applyFrontierBoundCode(port.frontierBoundCode(stateId), lower, upper);
+  return [nextLower, nextUpper, nextLower !== lower || nextUpper !== upper];
+}
+
+function classifyBoundReturn(metrics, key, structuralNarrowed, proofCut) {
+  if (structuralNarrowed && !proofCut) metrics.frontierBoundCuts += 1;
+  else if (key >= 0) metrics.ttBoundReturns += 1;
+  else metrics.domainBoundCuts += 1;
+}
+
+function assertTransitionResult(result, stateId, column) {
+  if (!Number.isInteger(result) || result < QN_ILLEGAL) {
+    throw new Error(`transition ${stateId}/${column} returned invalid target ${result}`);
+  }
+  return result;
+}
+
+function requireLegalTransition(result, stateId, column) {
+  assertTransitionResult(result, stateId, column);
+  if (result === QN_ILLEGAL) {
+    throw new Error(`column ${column} was reported legal at state ${stateId} but transition returned QN_ILLEGAL`);
+  }
+  return result;
+}
+
+function assertRank(rank, cellCount, stateId) {
+  if (!Number.isInteger(rank) || rank < 0 || rank > cellCount) {
+    throw new Error(`rankAt(${stateId}) returned invalid rank ${rank}`);
+  }
+  return rank;
+}
+
+function createLegalAccess(isLegal, columns) {
+  return (stateId, column) => {
+    if (!Number.isInteger(column) || column < 0 || column >= columns) return false;
+    const legal = isLegal(stateId, column);
+    if (typeof legal !== 'boolean') throw new TypeError(`isLegal(${stateId}, ${column}) must return boolean`);
+    return legal;
+  };
 }
 
 export function createQuotientNegamaxEngine(port, config = {}) {
+  assertPort(port);
   const {
     columns,
     cellCount,
@@ -71,13 +167,27 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     transition: transitionPort,
     tacticalCode,
   } = port;
+  const legalAt = createLegalAccess(isLegal, columns);
   const frontierOrder = port.frontierOrder ?? null;
   const landingCellAt = port.landingCellAt ?? null;
   const hasFrontierOrder = frontierOrder !== null && typeof landingCellAt === 'function';
   const etc = config.etc !== false;
   const etcMinRemaining = config.etcMinRemaining ?? 0;
   const wdlMode = config.wdlMode ?? 'full';
+  if (!Number.isInteger(etcMinRemaining) || etcMinRemaining < 0 || etcMinRemaining > cellCount) {
+    throw new RangeError(`etcMinRemaining must be an integer in 0..${cellCount}`);
+  }
   if (wdlMode !== 'full' && wdlMode !== 'threshold') throw new RangeError('wdlMode must be full or threshold');
+  if (frontierOrder !== null) {
+    if (typeof landingCellAt !== 'function'
+        || typeof frontierOrder.createRootSeed !== 'function'
+        || typeof frontierOrder.advanceInto !== 'function'
+        || typeof frontierOrder.valueAtStack !== 'function'
+        || !Number.isInteger(frontierOrder.profile?.stateWords)
+        || frontierOrder.profile.stateWords < 1) {
+      throw new TypeError('frontier order must expose the complete live-line ordering contract');
+    }
+  }
 
   const moveStack = new Int8Array((cellCount + 1) * columns);
   const moveScores = hasFrontierOrder ? new Int16Array((cellCount + 1) * columns) : null;
@@ -89,6 +199,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     expanded: 0,
     ttExactReturns: 0,
     ttBoundReturns: 0,
+    domainBoundCuts: 0,
     ttMoveOrderHits: 0,
     cutoffs: 0,
     firstMoveCutoffs: 0,
@@ -105,15 +216,15 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     proofProbeMisses: 0,
     proofAdmissions: 0,
   };
-  const proof = createProofAccess(port, metrics);
+  const proof = createProofAccess(port, metrics, columns);
 
   function transition(stateId, column) {
     metrics.transitionsRequested += 1;
-    return transitionPort(stateId, column);
+    return assertTransitionResult(transitionPort(stateId, column), stateId, column);
   }
 
   function initializeFrontier(stateId, frontierSeed) {
-    const rank = rankAt(stateId);
+    const rank = assertRank(rankAt(stateId), cellCount, stateId);
     if (!hasFrontierOrder) return rank;
     const offset = rank * frontierWords;
     if (frontierSeed === undefined || frontierSeed === null) {
@@ -128,10 +239,17 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     return rank;
   }
 
+  function landingForLegalMove(stateId, column) {
+    const landingCell = landingCellAt(stateId, column);
+    if (!Number.isInteger(landingCell) || landingCell < 0 || landingCell >= cellCount) {
+      throw new Error(`landingCellAt(${stateId}, ${column}) returned invalid legal landing cell ${landingCell}`);
+    }
+    return landingCell;
+  }
+
   function advanceFrontier(stateId, column, rank) {
     if (!hasFrontierOrder) return;
-    const landingCell = landingCellAt(stateId, column);
-    if (landingCell === 0xff) throw new Error(`cannot advance live-line frontier through illegal column ${column}`);
+    const landingCell = landingForLegalMove(stateId, column);
     frontierOrder.advanceInto(
       frontierStack,
       rank * frontierWords,
@@ -145,6 +263,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
   function prepareMoves(stateId, key, forcedColumn, rank) {
     const base = rank * columns;
     if (forcedColumn >= 0) {
+      if (!legalAt(stateId, forcedColumn)) throw new Error(`forced tactical column ${forcedColumn} is not legal at state ${stateId}`);
       moveStack[base] = forcedColumn;
       metrics.forcedNodes += 1;
       return 1;
@@ -155,9 +274,10 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       const mover = rank & 1;
       let count = 0;
       for (let column = 0; column < columns; column += 1) {
-        if (!isLegal(stateId, column)) continue;
-        const landingCell = landingCellAt(stateId, column);
+        if (!legalAt(stateId, column)) continue;
+        const landingCell = landingForLegalMove(stateId, column);
         const score = frontierOrder.valueAtStack(frontierStack, frontierOffset, mover, landingCell);
+        if (!Number.isFinite(score)) throw new Error(`frontier ordering returned non-finite score ${score}`);
         let at = count;
         while (at > 0) {
           const previousScore = moveScores[base + at - 1];
@@ -177,18 +297,19 @@ export function createQuotientNegamaxEngine(port, config = {}) {
 
     let count = 0;
     const best = proof.bestMove(key);
-    if (best >= 0 && isLegal(stateId, best)) {
+    if (best >= 0 && legalAt(stateId, best)) {
       moveStack[base + count++] = best;
       metrics.ttMoveOrderHits += 1;
     }
     for (const column of centerOrder) {
-      if (column === best || !isLegal(stateId, column)) continue;
+      if (column === best || !legalAt(stateId, column)) continue;
       moveStack[base + count++] = column;
     }
     return count;
   }
 
   function publishResult(stateId, key, value, selected, originalAlpha, originalBeta) {
+    assertWdlValue(value, `search result for state ${stateId}`);
     if (value <= originalAlpha) proof.publishUpper(stateId, key, value, selected);
     else if (value >= originalBeta) proof.publishLower(stateId, key, value, selected);
     else proof.publishExact(stateId, key, value, selected);
@@ -205,25 +326,31 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     while (true) {
       metrics.calls += 1;
       const key = proof.probe(stateId);
-      let lower = proof.lower(key);
-      let upper = proof.upper(key);
-      [lower, upper] = frontierBoundsFor(port, stateId, lower, upper);
+      const proofLower = proof.lower(key);
+      const proofUpper = proof.upper(key);
+      const proofExact = proofLower === proofUpper;
+      const proofLowerCut = proofLower >= beta;
+      const proofUpperCut = proofUpper <= alpha;
+      let lower;
+      let upper;
+      let structuralNarrowed;
+      [lower, upper, structuralNarrowed] = frontierBoundsFor(port, stateId, proofLower, proofUpper);
 
       if (lower === upper) {
-        if (key >= 0) metrics.ttExactReturns += 1;
-        else metrics.frontierBoundCuts += 1;
+        if (proofExact && key >= 0) metrics.ttExactReturns += 1;
+        else if (structuralNarrowed && !proofExact) metrics.frontierBoundCuts += 1;
+        else if (key < 0) metrics.domainBoundCuts += 1;
+        else metrics.ttExactReturns += 1;
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
         return sign * lower;
       }
       if (lower >= beta) {
-        if (key >= 0) metrics.ttBoundReturns += 1;
-        else metrics.frontierBoundCuts += 1;
+        classifyBoundReturn(metrics, key, structuralNarrowed, proofLowerCut);
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
         return sign * lower;
       }
       if (upper <= alpha) {
-        if (key >= 0) metrics.ttBoundReturns += 1;
-        else metrics.frontierBoundCuts += 1;
+        classifyBoundReturn(metrics, key, structuralNarrowed, proofUpperCut);
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
         return sign * upper;
       }
@@ -260,14 +387,13 @@ export function createQuotientNegamaxEngine(port, config = {}) {
         metrics.forcedNodes += 1;
         metrics.forcedMacroTransitions += 1;
         forcedTransitions += 1;
-        const child = transition(stateId, forcedColumn);
+        const child = requireLegalTransition(transition(stateId, forcedColumn), stateId, forcedColumn);
         if (child === QN_TERMINAL_WIN) {
           proof.publishExact(stateId, key, 1, forcedColumn);
           metrics.tacticalExact += 1;
           metrics.forcedMacroChains += 1;
           return sign;
         }
-        if (child < 0) throw new Error(`forced column ${forcedColumn} produced invalid child ${child}`);
         advanceFrontier(stateId, forcedColumn, rank);
         const nextAlpha = -beta;
         const nextBeta = -alpha;
@@ -288,16 +414,16 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       if (etcActive) {
         for (let index = 0; index < moveCount; index += 1) {
           const column = moveStack[base + index];
-          const child = transition(stateId, column);
+          const child = requireLegalTransition(transition(stateId, column), stateId, column);
           if (child === QN_TERMINAL_WIN) {
             proof.publishExact(stateId, key, 1, column);
             metrics.etcCutoffs += 1;
             return sign;
           }
-          if (child < 0) continue;
           metrics.etcProbes += 1;
           const childKey = proof.probe(child);
           const parentLower = -proof.upper(childKey);
+          assertWdlValue(parentLower, `ETC parent lower for state ${stateId}`);
           if (parentLower >= beta) {
             proof.publishLower(stateId, key, parentLower, column);
             metrics.etcCutoffs += 1;
@@ -311,7 +437,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
       let selected = -1;
       for (let index = 0; index < moveCount; index += 1) {
         const column = moveStack[base + index];
-        const child = transition(stateId, column);
+        const child = requireLegalTransition(transition(stateId, column), stateId, column);
         let score;
         if (child === QN_TERMINAL_WIN) {
           score = 1;
@@ -319,6 +445,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
           advanceFrontier(stateId, column, rank);
           score = -searchNode(child, -beta, -alpha, rank + 1);
         }
+        assertWdlValue(score, `child score for state ${stateId}/${column}`);
         if (score > value) {
           value = score;
           selected = column;
@@ -337,6 +464,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
   }
 
   function search(stateId, alpha, beta, frontierSeed = null) {
+    assertSearchWindow(alpha, beta);
     const rank = initializeFrontier(stateId, frontierSeed);
     return searchNode(stateId, alpha, beta, rank);
   }
@@ -347,17 +475,20 @@ export function createQuotientNegamaxEngine(port, config = {}) {
 
   function solveRoot() {
     if (wdlMode === 'threshold') {
-      let value = search(rootId, 0, 1); metrics.thresholdPasses += 1; if (value >= 1) return 1;
-      value = search(rootId, -1, 0); metrics.thresholdPasses += 1; return value >= 0 ? 0 : -1;
+      let value = search(rootId, 0, 1);
+      metrics.thresholdPasses += 1;
+      if (value >= 1) return 1;
+      value = search(rootId, -1, 0);
+      metrics.thresholdPasses += 1;
+      return value >= 0 ? 0 : -1;
     }
     return search(rootId, -2, 2);
   }
 
   function solveRootColumn(column) {
-    if (!isLegal(rootId, column)) return null;
+    if (!legalAt(rootId, column)) return null;
     const rank = initializeFrontier(rootId, null);
-    const child = transition(rootId, column);
-    if (child === QN_ILLEGAL) return null;
+    const child = requireLegalTransition(transition(rootId, column), rootId, column);
     if (child === QN_TERMINAL_WIN) return 1;
     advanceFrontier(rootId, column, rank);
     const childSeed = hasFrontierOrder
@@ -384,8 +515,10 @@ export function createQuotientNegamaxEngine(port, config = {}) {
 }
 
 export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, config = {}) {
+  assertPort(port);
   const {
     columns,
+    cellCount,
     rootId,
     centerOrder,
     rankAt,
@@ -393,6 +526,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     transition: transitionPort,
     tacticalCode,
   } = port;
+  const legalAt = createLegalAccess(isLegal, columns);
   const frontierOrder = port.frontierOrder ?? null;
   const landingCellAt = port.landingCellAt ?? null;
   const hasFrontierOrder = frontierOrder !== null && typeof landingCellAt === 'function';
@@ -400,12 +534,22 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
   const priorityAt = config.priorityAt ?? (() => 0);
   if (!Number.isInteger(splitDepth) || splitDepth < 1) throw new RangeError('splitDepth must be a positive integer');
   if (typeof leafSearch !== 'function') throw new TypeError('leafSearch must be a function');
+  if (typeof priorityAt !== 'function') throw new TypeError('priorityAt must be a function');
+  if (frontierOrder !== null) {
+    if (typeof landingCellAt !== 'function'
+        || typeof frontierOrder.createRootSeed !== 'function'
+        || typeof frontierOrder.advanceSeed !== 'function'
+        || typeof frontierOrder.valueAtSeed !== 'function') {
+      throw new TypeError('dependency frontier order must expose the complete seed contract');
+    }
+  }
 
   const metrics = {
     calls: 0,
     shallowExpanded: 0,
     ttExactReturns: 0,
     ttBoundReturns: 0,
+    domainBoundCuts: 0,
     tacticalExact: 0,
     cutoffs: 0,
     firstMoveCutoffs: 0,
@@ -427,7 +571,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     proofProbeMisses: 0,
     proofAdmissions: 0,
   };
-  const proof = createProofAccess(port, metrics);
+  const proof = createProofAccess(port, metrics, columns);
   const rootFrontierSeed = hasFrontierOrder ? frontierOrder.createRootSeed() : null;
   const background = new Set();
   let backgroundError = null;
@@ -454,25 +598,43 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
 
   function transition(stateId, column) {
     metrics.transitionsRequested += 1;
-    return transitionPort(stateId, column);
+    return assertTransitionResult(transitionPort(stateId, column), stateId, column);
+  }
+
+  function rankFor(stateId) {
+    return assertRank(rankAt(stateId), cellCount, stateId);
+  }
+
+  function landingForLegalMove(stateId, column) {
+    const landingCell = landingCellAt(stateId, column);
+    if (!Number.isInteger(landingCell) || landingCell < 0 || landingCell >= cellCount) {
+      throw new Error(`landingCellAt(${stateId}, ${column}) returned invalid legal landing cell ${landingCell}`);
+    }
+    return landingCell;
   }
 
   function nextFrontierSeed(stateId, column, rank, seed) {
     if (!hasFrontierOrder) return null;
-    const landingCell = landingCellAt(stateId, column);
-    if (landingCell === 0xff) throw new Error(`cannot advance live-line frontier through illegal column ${column}`);
-    return frontierOrder.advanceSeed(seed, rank & 1, landingCell);
+    const landingCell = landingForLegalMove(stateId, column);
+    const next = frontierOrder.advanceSeed(seed, rank & 1, landingCell);
+    if (!(next instanceof Uint32Array)) throw new TypeError('frontierOrder.advanceSeed must return Uint32Array');
+    return next;
   }
 
   function orderedMoves(stateId, key, forcedColumn, rank, frontierSeed) {
-    if (forcedColumn >= 0) return [forcedColumn];
+    if (forcedColumn >= 0) {
+      if (!legalAt(stateId, forcedColumn)) throw new Error(`forced tactical column ${forcedColumn} is not legal at state ${stateId}`);
+      return [forcedColumn];
+    }
     if (hasFrontierOrder) {
       const scored = [];
       const mover = rank & 1;
       for (let column = 0; column < columns; column += 1) {
-        if (!isLegal(stateId, column)) continue;
-        const landingCell = landingCellAt(stateId, column);
-        scored.push({ column, value: frontierOrder.valueAtSeed(frontierSeed, mover, landingCell) });
+        if (!legalAt(stateId, column)) continue;
+        const landingCell = landingForLegalMove(stateId, column);
+        const score = frontierOrder.valueAtSeed(frontierSeed, mover, landingCell);
+        if (!Number.isFinite(score)) throw new Error(`frontier ordering returned non-finite score ${score}`);
+        scored.push({ column, value: score });
       }
       scored.sort((left, right) => right.value - left.value || left.column - right.column);
       metrics.frontierOrderedNodes += 1;
@@ -480,15 +642,16 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     }
     const moves = [];
     const best = proof.bestMove(key);
-    if (best >= 0 && isLegal(stateId, best)) moves.push(best);
+    if (best >= 0 && legalAt(stateId, best)) moves.push(best);
     for (const column of centerOrder) {
-      if (column === best || !isLegal(stateId, column)) continue;
+      if (column === best || !legalAt(stateId, column)) continue;
       moves.push(column);
     }
     return moves;
   }
 
   function publishResult(stateId, key, value, selected, originalAlpha, originalBeta) {
+    assertWdlValue(value, `dependency result for state ${stateId}`);
     if (value <= originalAlpha) proof.publishUpper(stateId, key, value, selected);
     else if (value >= originalBeta) proof.publishLower(stateId, key, value, selected);
     else proof.publishExact(stateId, key, value, selected);
@@ -496,48 +659,68 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
 
   async function runLeaf(stateId, alpha, beta) {
     metrics.leafTasks += 1;
-    const result = await leafSearch(stateId, alpha, beta, priorityAt(stateId));
+    const priority = priorityAt(stateId);
+    if (!Number.isFinite(priority)) throw new Error(`priorityAt(${stateId}) returned non-finite priority ${priority}`);
+    const result = await leafSearch(stateId, alpha, beta, priority);
+    let value;
     if (result && typeof result === 'object') {
-      metrics.workerCalls += result.metrics?.calls ?? 0;
-      metrics.workerExpanded += result.metrics?.expanded ?? 0;
-      return result.value;
+      const calls = result.metrics?.calls ?? 0;
+      const expanded = result.metrics?.expanded ?? 0;
+      if (!Number.isFinite(calls) || calls < 0 || !Number.isFinite(expanded) || expanded < 0) {
+        throw new Error('leaf telemetry must contain finite non-negative calls/expanded counters');
+      }
+      metrics.workerCalls += calls;
+      metrics.workerExpanded += expanded;
+      value = result.value;
+    } else {
+      value = result;
     }
-    return result;
+    return assertWdlValue(value, `leaf result for state ${stateId}`);
   }
 
   async function search(startStateId, startAlpha, startBeta, decisionDepth = 0, frontierSeed = null) {
+    assertSearchWindow(startAlpha, startBeta, 'dependency search window');
+    if (!Number.isInteger(decisionDepth) || decisionDepth < 0) throw new RangeError('decisionDepth must be a non-negative integer');
     let stateId = startStateId;
     let alpha = startAlpha;
     let beta = startBeta;
-    let rank = rankAt(stateId);
+    let rank = rankFor(stateId);
     let seed = frontierSeed;
-    if (hasFrontierOrder) {
-      if (seed === null) {
-        if (rank !== 0) throw new Error('non-root dependency search requires live-line frontier seed');
-        seed = rootFrontierSeed;
-      }
+    if (hasFrontierOrder && seed === null) {
+      if (rank !== 0) throw new Error('non-root dependency search requires live-line frontier seed');
+      seed = rootFrontierSeed;
     }
+    if (hasFrontierOrder && !(seed instanceof Uint32Array)) throw new TypeError('dependency frontier seed must be Uint32Array');
     let sign = 1;
     let forcedTransitions = 0;
 
     while (true) {
       metrics.calls += 1;
       const key = proof.probe(stateId);
-      let lower = proof.lower(key);
-      let upper = proof.upper(key);
-      [lower, upper] = frontierBoundsFor(port, stateId, lower, upper);
+      const proofLower = proof.lower(key);
+      const proofUpper = proof.upper(key);
+      const proofExact = proofLower === proofUpper;
+      const proofLowerCut = proofLower >= beta;
+      const proofUpperCut = proofUpper <= alpha;
+      let lower;
+      let upper;
+      let structuralNarrowed;
+      [lower, upper, structuralNarrowed] = frontierBoundsFor(port, stateId, proofLower, proofUpper);
       if (lower === upper) {
-        if (key >= 0) metrics.ttExactReturns += 1; else metrics.frontierBoundCuts += 1;
+        if (proofExact && key >= 0) metrics.ttExactReturns += 1;
+        else if (structuralNarrowed && !proofExact) metrics.frontierBoundCuts += 1;
+        else if (key < 0) metrics.domainBoundCuts += 1;
+        else metrics.ttExactReturns += 1;
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
         return sign * lower;
       }
       if (lower >= beta) {
-        if (key >= 0) metrics.ttBoundReturns += 1; else metrics.frontierBoundCuts += 1;
+        classifyBoundReturn(metrics, key, structuralNarrowed, proofLowerCut);
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
         return sign * lower;
       }
       if (upper <= alpha) {
-        if (key >= 0) metrics.ttBoundReturns += 1; else metrics.frontierBoundCuts += 1;
+        classifyBoundReturn(metrics, key, structuralNarrowed, proofUpperCut);
         if (forcedTransitions > 0) metrics.forcedMacroChains += 1;
         return sign * upper;
       }
@@ -572,7 +755,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
         metrics.forcedNodes += 1;
         metrics.forcedMacroTransitions += 1;
         forcedTransitions += 1;
-        const child = transition(stateId, forcedColumn);
+        const child = requireLegalTransition(transition(stateId, forcedColumn), stateId, forcedColumn);
         if (child === QN_TERMINAL_WIN) {
           proof.publishExact(stateId, key, 1, forcedColumn);
           metrics.tacticalExact += 1;
@@ -601,13 +784,14 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
       let value = -2;
       let selected = -1;
       const firstColumn = moves[0];
-      const firstChild = transition(stateId, firstColumn);
+      const firstChild = requireLegalTransition(transition(stateId, firstColumn), stateId, firstColumn);
       const firstSeed = firstChild >= 0 && hasFrontierOrder
         ? nextFrontierSeed(stateId, firstColumn, rank, seed)
         : null;
       const firstScore = firstChild === QN_TERMINAL_WIN
         ? 1
         : -await search(firstChild, -beta, -alpha, decisionDepth + 1, firstSeed);
+      assertWdlValue(firstScore, `first child score for state ${stateId}/${firstColumn}`);
       value = firstScore;
       selected = firstColumn;
       if (value > alpha) alpha = value;
@@ -623,7 +807,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
         const siblings = [];
         for (let index = 1; index < moves.length; index += 1) {
           const column = moves[index];
-          const child = transition(stateId, column);
+          const child = requireLegalTransition(transition(stateId, column), stateId, column);
           if (child === QN_TERMINAL_WIN) {
             siblings.push({ column, child, terminal: true, seed: null, promise: Promise.resolve(-1) });
             continue;
@@ -660,9 +844,11 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
           metrics.incrementalScoutCompletions += 1;
           const entry = siblings[settled.index];
           let score = entry.terminal ? 1 : -settled.result;
+          assertWdlValue(score, `scout score for state ${stateId}/${entry.column}`);
           if (score > alpha && score < beta && !entry.terminal) {
             metrics.reSearches += 1;
             score = -await search(entry.child, -beta, -alpha, decisionDepth + 1, entry.seed);
+            assertWdlValue(score, `re-search score for state ${stateId}/${entry.column}`);
           }
           if (score > value) {
             value = score;
@@ -687,9 +873,8 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
   }
 
   async function solveRootColumn(column) {
-    if (!isLegal(rootId, column)) return null;
-    const child = transition(rootId, column);
-    if (child === QN_ILLEGAL) return null;
+    if (!legalAt(rootId, column)) return null;
+    const child = requireLegalTransition(transition(rootId, column), rootId, column);
     if (child === QN_TERMINAL_WIN) return 1;
     const childSeed = hasFrontierOrder ? nextFrontierSeed(rootId, column, 0, rootFrontierSeed) : null;
     return -(await search(child, -2, 2, 1, childSeed));
