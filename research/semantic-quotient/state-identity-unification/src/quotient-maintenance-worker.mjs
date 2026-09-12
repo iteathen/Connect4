@@ -7,16 +7,20 @@ import { createQuotientWorkPlanService } from './quotient-work-plan-service.mjs'
 if (!parentPort) throw new Error('maintenance worker requires parentPort');
 
 const started = performance.now();
-const graph = buildSharedQuotientGraph(workerData.spec, {
-  prefixClasses: workerData.prefixClasses ?? 4096,
-});
-const proofResources = createProofResourceService(graph.stateCount, workerData.semanticTt ?? null);
-const planService = createQuotientWorkPlanService(graph);
+const prebuildGraph = workerData.prebuildGraph !== false;
+const graph = prebuildGraph
+  ? buildSharedQuotientGraph(workerData.spec, {
+      prefixClasses: workerData.prefixClasses ?? 4096,
+    })
+  : null;
+const proofResources = createProofResourceService(graph?.stateCount ?? 0, workerData.semanticTt ?? null);
+const planService = graph ? createQuotientWorkPlanService(graph) : null;
 const stats = {
   buildMs: performance.now() - started,
-  canonicalStates: graph.stateCount,
-  residualClasses: graph.residualClassCount,
-  canonicalEdges: graph.edgeCount,
+  prebuildGraph,
+  canonicalStates: graph?.stateCount ?? 0,
+  residualClasses: graph?.residualClassCount ?? 0,
+  canonicalEdges: graph?.edgeCount ?? 0,
   semanticTtEnabled: proofResources.semanticArena !== null,
   resets: 0,
   cleanupPasses: 0,
@@ -47,6 +51,7 @@ parentPort.on('message', (message) => {
   }
 
   if (message?.type === 'build-plan') {
+    if (!planService) throw new Error('work-plan service unavailable in semantic-only maintenance mode');
     const planStarted = performance.now();
     const { planId, plan } = planService.build(message.splitDepth, message.probeDepth ?? 2);
     stats.plansBuilt += 1;
@@ -67,6 +72,7 @@ parentPort.on('message', (message) => {
   }
 
   if (message?.type === 'reduce-plan') {
+    if (!planService) throw new Error('work-plan service unavailable in semantic-only maintenance mode');
     const reduction = planService.reduce(message.planId, message.frontierValues);
     stats.plansReduced += 1;
     parentPort.postMessage({
@@ -81,6 +87,7 @@ parentPort.on('message', (message) => {
   }
 
   if (message?.type === 'release-plan') {
+    if (!planService) throw new Error('work-plan service unavailable in semantic-only maintenance mode');
     planService.release(message.planId);
     parentPort.postMessage({ type: 'plan-released', requestId: message.requestId, planId: message.planId });
   }
