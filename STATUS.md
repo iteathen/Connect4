@@ -1,302 +1,170 @@
 # Connect4 frontier-native forward-solver research status
 
 **Updated:** 2026-09-11  
-**Current branch:** `research/frontier-negamax-conformance`  
+**Branch:** `research/frontier-negamax-conformance`  
 **Forward solver authority:** `docs/specs/C4-0010-quotient-native-negamax-v1.md`
 
-## Structural authority
-
-The forward solver consumes, rather than redefines, the Connect Four structural chain:
+## Governing model
 
 ```text
-C4-0001  legal game/domain
-  -> C4-0006  CPC control parity + WSL-625 requirements/blockers
-  -> C4-0007  NDC certificate/timing semantics when strategic closure is used
-  -> C4-0010  exact forward W/D/L Negamax consumption/execution policy
+C4-0001 legal game/domain
+  -> C4-0006 CPC + WSL-625
+  -> C4-0007 NDC where strategic closure is used
+  -> C4-0010 exact forward W/D/L Negamax
 ```
 
-The broader research model remains:
+The forward lane consumes exact structural facts; it does not redefine them. BSFP remains the separate backward fixed-point solver lane.
+
+The qualified ordinary forward identity remains:
 
 ```text
-geometric winning-line axioms
-  -> support / future event frontier
-  -> CPC control parity / event precedence / race
-  -> WSL-625 residual requirements and blockers
-  -> NDC nested dependency closure
-  -> solver-specific exact proof procedure
+supportIndex
++ normalized P0 residual winning requirements
++ normalized P1 residual winning requirements
 ```
 
-BSFP is the separate backward fixed-point solver lane. The forward Negamax lane is an exact forward solver/control over unresolved decisions after exact frontier facts are consumed.
+A hash is only a filter. Shared proof identity is exact descriptor equality.
 
-## CPC invariant
+## Qualified execution
 
-For target event `t=(c,r)` in the base event reservoir:
+The current forward engine includes:
 
-```text
-N(t)
-  = (r - h_c + 1)
-    + sum_{d != c}(H - h_d)
-  = (W - 1)H - ply + r + 1
-```
+- incremental player-relative live-line frontier ordering;
+- exact immediate-win / forced-response / multiple-threat / WSL-exhaustion bounds;
+- forced-response macro normalization;
+- non-allocating ordinary shared-proof probes;
+- 8-way exact-descriptor shared TT with generation-safe proof handles;
+- v5 physical-slot-owned descriptor extension chunks;
+- dependency-qualified sibling scouts with incremental completion and detached obsolete work;
+- `drainBackground()` before reset/cleanup;
+- Branch Manager bounded autonomous exploration when enabled.
 
-Future control is event-rank parity relative to side to move. If a strategy/frontier transformation changes the relevant reservoir by `Delta`, control is preserved only when the relevant parity change is even and the associated response/resource/event-order guards remain valid.
+Busy workers are never interrupted. Autonomous exploration remains disabled in standard-7x6 resource-isolation runs.
 
-CPC is not static row parity. No current forward proof code claims general CPC/NDC strategic closure unless the complete premises are represented.
+## Standard-7x6 resource progression
 
-## Exact forward projection
+### Shared proof entry count
 
-The currently qualified ordinary forward quotient remains:
+A corrected proof-admission run filled all `8,388,608` entries before resolving the root. This established retained proof-entry count as a real limiter.
 
-```text
-q = supportIndex
-  + normalized P0 residual winning requirements
-  + normalized P1 residual winning requirements
+### Append-only semantic-incarnation terms
 
-sideToMove = rank(supportIndex) & 1
-```
+Replacement removed the entry-count hard stop, but append-only descriptor incarnation storage exhausted `460,000,000` term words after about 149 s. This established semantic incarnation as the wrong descriptor-storage owner.
 
-Complete bounded controls checked 1,681,808 reachable physical states with zero qualified quotient/WDL mismatches.
+### Physical slot spans and worker state objects
 
-This projection is not the complete NDC closure state. Strategic facts with additional parity/resource/race/horizon premises cannot be cached under `q` alone unless those premises are derivable from it.
-
-## Frontier-native execution now implemented
-
-### Dynamic live-line ordering
-
-Move value is derived from the player-relative live geometric-line frontier:
-
-```text
-value_p(cell)
-  = number of original geometric winning lines through cell
-    containing no opponent stone
-```
-
-An opponent stone permanently removes every incident line from that player's live-line set. Own stones do not cancel it. The standard empty-root `[3,4,5,7,5,4,3]` vector is a derived regression result only.
-
-The frontier is carried incrementally; authoritative workers reconstruct the exact frontier seed while replaying representative paths. Static center-first/reverse-by-worker ordering is no longer the active frontier policy.
-
-### Exact local closure/bounds
-
-The forward engine consumes:
-
-- immediate playable singleton win;
-- forced single response;
-- multiple immediate opponent threats -> forced loss where applicable;
-- one-sided WSL exhaustion as an exact no-win bound;
-- bilateral exhaustion as exact draw where terminal convention permits.
-
-This is still only the already-qualified local subset of the broader CPC/WSL/NDC terminalization algebra.
-
-### Forced macro normalization
-
-Repeated forced responses are traversed as deterministic transit before unresolved decision depth is incremented. Split depth means **unresolved decision depth after forced macro normalization**, not raw ply depth.
-
-### Shared proof admission
-
-Ordinary proof lookup is non-allocating. Shared semantic proof storage is admitted only when retained proof/hint state is published.
-
-### Generation-safe bounded proof replacement
-
-The shared semantic proof table is 8-way set-associative with exact descriptor equality and generation-bearing proof handles.
-
-A stale handle reads as unknown `[-1,+1]`, cannot publish into a replacement identity, and cannot carry a move hint into a replacement identity. Replacement and proof publication share the slot lifecycle lock. Generation wrap fails closed.
-
-A deliberately tiny 4x5 table remains exact through tens of thousands of replacements, including exact root/actions `[0,0,0,0]`.
-
-### Slot-owned descriptor extension chunks
-
-Descriptor term storage is owned by the physical proof slot rather than by every semantic incarnation of that slot.
-
-The old `v4` implementation overwrote an existing slot span when the replacement fit, but a larger descriptor allocated a new whole contiguous span and abandoned the old one. Standard-7x6 run `34674060855` proved that historical whole-span growth remained cumulative at large scale.
-
-The current `v5` store keeps a slot-owned chain of exact descriptor-term chunks. Replacements overwrite existing aggregate slot capacity when they fit. Growth appends only the missing descriptor-data capacity as a new chunk. Exact descriptor equality walks the chunk chain. Generation-bearing handles and proof identity are unchanged.
-
-In `v5`, `termIdsUsed` reports owned descriptor-data capacity while `termArenaWordsUsed` includes descriptor data plus three header words per chunk. The configured term capacity bounds total arena words.
-
-Adversarial eight-slot monotone growth qualification exercised 144 replacements/growth events while final descriptor data remained exactly `8 * 20 = 160` terms. Total arena usage was 616 / 640 words including 456 header words. The constrained exact 4x5 control remained root/actions `[0,0,0,0]` through 43,387 replacements.
-
-See `docs/research/2026-09-11-7x6-proof-term-lifetime.md`.
-
-### Worker-local state descriptor lifetime
-
-Worker-local semantic state descriptors are no longer retained indefinitely.
-
-Telemetry on standard-7x6 run `34673627048` localized the previous host-memory owner: each worker held about 1.06 GB of typed quotient-kernel storage while V8 heap high-water reached about 4.1-4.3 GB with roughly 17-18 million retained state descriptor objects and 4.4-4.5 million retained residual class descriptors.
-
-Commit `29c96d40dc766d5ceb2c107625db57d758599d44` removed only the unbounded local **state descriptor** cache. State descriptors are rebuilt ephemerally from exact support plus exact residual class descriptors. Exact residual class descriptors remain cached. Shared proof identity and frontier/CPC/WSL/NDC semantics are unchanged.
-
-Bounded qualification remained green:
-
-- idle ExploreHint run `34673985296` passed;
-- dependency-aware proof run `34673985304` passed;
-- exact root/action WDL remained `[0,0,0,0]`;
-- baseline work remained 11,303 expansions / 24,877 calls / 13,325 proof admissions;
-- best measured bounded point was three workers / unresolved decision depth 3 at about 23.13 ms median.
+Physical-slot-owned reusable spans removed the immediate append-only term failure, then a 7x6 run died around 225 s / 15.4 GB RSS. Telemetry localized the next major owner to millions of worker-local retained state descriptor JS objects. State descriptors were made ephemeral and bounded conformance stayed exact.
 
 See `docs/research/2026-09-11-7x6-worker-descriptor-retention.md`.
 
-## Parallel proof semantics
+### v4 whole-span growth
 
-The dependency-aware engine remains:
-
-```text
-preferred frontier child first
-  -> establish/tighten parent bound
-  -> expose dependency-qualified sibling scouts
-  -> consume scout completions incrementally
-  -> detach obsolete siblings after cutoff
-```
-
-Busy workers are never interrupted. Detached proof work may finish naturally and publish sound shared proof; the parent no longer waits on obsolete siblings. `drainBackground()` prevents reset/cleanup from racing detached work.
-
-## Branch Manager
-
-The old Maintenance Worker execution role has been removed from active source.
-
-Branch Manager now:
-
-- auto-seeds structural exploration when enabled;
-- maintains a bounded ready reservoir ahead of worker demand;
-- replenishes from completed frontier fragments;
-- deduplicates persistent exploration context using exact q semantic content plus exact live-line frontier context;
-- never requires workers to request work and wait.
-
-Ready-work order remains:
-
-```text
-authoritative dependency-qualified proof work
-  > queued structural frontier exploration
-  > idle
-```
-
-Autonomous exploration is independently qualified but remains disabled in the standard-7x6 storage-isolation measurement.
-
-## Standard 7x6 storage evidence
-
-### Corrected proof-admission run
-
-With dynamic frontier ordering, WSL bounds, forced macros and non-allocating probes:
-
-```text
-entries:        8,388,608 / 8,388,608
-term IDs:      99,025,439 / 460,000,000
-elapsed:       238.54 s
-root W/D/L:    unresolved
-```
-
-This established retained proof-entry count as a real limiter and exposed a severe near-full probing cliff.
-
-### Generation-safe replacement with append-only descriptor incarnations
-
-Replacement removed the entry-count/open-addressing limiter but cumulative descriptor-incarnation storage became the next limiter:
-
-```text
-live entries:       8,388,606
-replacements:      30,969,854
-term IDs:         459,999,997 / 460,000,000
-elapsed:           149.46 s
-root W/D/L:        unresolved
-```
-
-That motivated physical-slot-owned descriptor storage rather than semantic-incarnation ownership.
-
-### Slot-owned spans exposed worker-local host memory
-
-Run `34671597871` used slot-owned reusable proof descriptor spans and was killed around 225 s at about 15.4 GB RSS while the descriptor arena was only about 58.7% used. Proof replacement and span reuse were still active, so neither proof-entry capacity nor descriptor-term capacity explained that kill.
-
-The follow-up telemetry run `34673627048` reproduced the host-memory failure and localized it to worker-local V8 retention rather than typed quotient-kernel storage. The exact high-water evidence is preserved in the worker descriptor-retention research note.
-
-### Ephemeral state descriptors exposed v4 span-growth lifetime
-
-Standard-7x6 run `34674060855` at commit `1b9bb83f72a318c188750b421f352504048fe314` was the first root attempt after unbounded local state-descriptor retention was removed.
-
-Configuration:
-
-```text
-search workers:                  3
-unresolved decision split depth: 8
-autonomous Branch Manager explore: disabled
-shared proof entries:            8,388,608
-shared descriptor term capacity: 460,000,000
-old v4 slot-owned spans:         enabled
-```
-
-The solver ran for `855.44 s` before failing exactly on:
+Run `34674060855` survived for `855441.400302 ms` after the state-descriptor correction, then failed exactly at:
 
 ```text
 semantic TT term arena exhausted: 460000025 > 460000000
 ```
 
-Final evidence:
+At failure:
 
 ```text
-root W/D/L:             unresolved
-entries:                8,388,608
-replacements:         153,310,210
-span reuses:          134,966,299
-span grows:            18,343,911
-term IDs used:        459,999,998 / 460,000,000
-process RSS:       15,600,738,304 bytes
-worker expansions:    114,003,282
-worker calls:         342,254,103
+entries:        8,388,608
+replacements: 153,310,210
+reuses:       134,966,299
+grows:         18,343,911
+term IDs:     459,999,998 / 460,000,000
+RSS:           15,600,738,304 bytes
 ```
 
-Per-worker high-water reached roughly 40.1-45.5 million local q states, 9.59-11.11 million residual classes, 2.12-2.14 GB typed local storage and 3.56-4.14 GB V8 heap. The run materially exceeded the earlier host-kill horizon and then hit the old whole-span descriptor-growth boundary exactly.
+### v5 slot-owned extension chunks
 
-### v5 slot-owned extension chunks qualified
+The shared TT now appends only the missing descriptor capacity to a physical slot instead of abandoning a whole prior span. Generation-bearing handles and exact proof identity are unchanged.
 
-The `v5` proof-store correction was bounded-qualified before full-root admission:
+Bounded qualification passed replacement, dependency-aware, idle-explore, stale-handle, and adversarial slot-growth controls.
 
-- semantic replacement/stale-handle/growth run `34675102224` passed;
-- dependency-aware proof run `34675126023` passed;
-- idle ExploreHint run `34675132451` passed;
-- constrained exact 4x5 root/actions remained `[0,0,0,0]`.
-
-The standard-7x6 workflow is path-gated so implementation commits do not automatically launch expensive root attempts. Full-root measurement is admitted only through `standard7x6-root-qualification-revision.txt` after bounded qualification.
-
-## Active v5 standard-7x6 measurement
-
-Exactly one `v5` full-root measurement is active:
+Standard-7x6 v5 run `34675467051` then demonstrated that the old shared-term lifetime boundary was removed. The hosted runner shut down after roughly 780.56 s with the shared term arena still healthy:
 
 ```text
-workflow run:                     34675467051
-job:                              103504435817
-admission commit:                 5049e3b25eaca8526e2559123b12ea3e6283b8da
+entries:             8,388,608
+replacements:      168,397,037
+chunk count:        27,238,990
+descriptor data:   210,231,525 words
+chunk headers:      81,716,970 words
+total arena:       291,948,495 / 460,000,000 words
+RSS:                15,751,729,152 bytes
+```
+
+The solver step was cancelled by runner shutdown; it did not throw term-arena exhaustion. Root remained unresolved.
+
+See `docs/research/2026-09-11-7x6-proof-term-lifetime.md`.
+
+## Current measured owner: worker residual semantic descriptors
+
+At the end of run `34675467051`, each worker retained roughly 10-11 million residual semantic classes and 103-116 million cached exact term IDs. V8 heap high-water was about 3.84-4.22 GB per worker.
+
+The previous cache represented every observed class with a retained JS descriptor object plus a separately allocated exact `Uint16Array`, duplicating payload already represented canonically by the slot64 residual kernel.
+
+The worker descriptor cache has now been changed to:
+
+```text
+flat typed class metadata:
+  start / length / hashLo / hashHi
+
++ one growable worker-local Uint16 term arena
++ zero retained per-class descriptor objects
++ zero retained per-class term-array objects
+```
+
+State descriptors remain ephemeral. The shared TT accepts class-reference descriptors and materializes exact terms into one reusable per-view scratch buffer only after a 64-bit hash match or on installation. Hash-mismatch bucket lanes do not reconstruct residual terms.
+
+This is a resource-lifetime change only. CPC, WSL-625, NDC, move ordering, forced macros, Branch Manager, task wire format, proof identity, and Negamax control semantics are unchanged.
+
+See `docs/research/2026-09-11-worker-residual-descriptor-ownership.md`.
+
+## Bounded qualification of flat worker descriptor ownership
+
+Coherent implementation head `33413500c2ff68f5e4c1c12e3ec430c86fc7e91f` passed:
+
+- replacement run `34676281224`;
+- dependency-aware run `34676281219`;
+- idle ExploreHint run `34676281229`.
+
+Executor telemetry commit `cec2e3e2e93649ed86034c93038484d594a02921` passed:
+
+- dependency-aware run `34676359852`;
+- idle ExploreHint run `34676359849`.
+
+Targeted replacement/ownership run `34676380760` at `7e4f88aba8f4d56ab598c284a8bd99cbac7623cd` passed with:
+
+```text
+exact root:     0
+exact actions:  [0,0,0,0]
+retained per-class descriptor objects: 0
+retained per-class term-array objects: 0
+```
+
+The targeted run also requalified stale generation handles and v5 slot-owned growth.
+
+## Current seam
+
+The worker residual-descriptor ownership correction is bounded-qualified. No standard-7x6 run is currently active.
+
+The next action is to admit **exactly one** standard-7x6 qualification revision using the same comparison configuration:
+
+```text
 search workers:                   3
 unresolved decision split depth:  8
 autonomous Branch Manager explore: disabled
 shared proof entries:             8,388,608
 shared term arena words:          460,000,000
-proof descriptor storage:         v5 slot-owned extension chunks
 ```
 
-The qualification-trigger commit launched only this standard-7x6 workflow. The solver step is in progress. GitHub does not expose the in-progress job log blob through the current connector, so no live progress series is claimed before the job log is finalized.
-
-**Do not admit or launch a second standard-7x6 root run while `34675467051` is active.**
-
-When the run closes, capture and compare:
-
-- exact root/action W/D/L if resolved;
-- calls and expansions;
-- proof probes/misses/admissions;
-- shared proof entries/replacements;
-- descriptor data capacity, chunk count, header words and total arena words;
-- forced macro transitions/frontier bound cuts/frontier-ordered nodes;
-- authoritative/explore queue occupancy and worker utilization;
-- detached sibling work;
-- process RSS;
-- per-worker local q states/residual classes/typed bytes;
-- per-worker V8 heap/external/ArrayBuffer high-water;
-- residual class descriptor builds and cached term-ID count.
-
-A residual class descriptor still retains exact term-ID material. That is a plausible next duplication boundary only if the `v5` run shows it owns the next memory slope. Do not remove, reclaim or weaken exact class identity preemptively.
+Measure process RSS, per-worker V8/external/ArrayBuffer high-water, kernel typed bytes, flat descriptor metadata/term-arena bytes, shared v5 arena growth, and exact root/action WDL if resolved. Follow only the next measured owner.
 
 ## Open mathematics
 
-Complete cheap forward integration of U1/U2/NDC remains open. In particular, early response-policy alternatives may or may not collapse completely into GF(2), monotone closure, dominance, matching or another compact algebra without strategic branching.
-
-The forward solver must not claim this open problem is solved merely because Negamax can search unresolved decisions.
+Complete cheap U1/U2/NDC forward integration remains open. Do not claim it is solved merely because exact Negamax can search unresolved decisions.
 
 ## Pre-alpha
 
-There is no released compatibility contract. Rename/replace/delete obsolete implementation directly and update current consumers coherently. Preserve useful research/evidence, not compatibility debris.
+There is no released compatibility contract. Preserve useful evidence and current semantics; do not preserve obsolete executable architecture as compatibility baggage.
