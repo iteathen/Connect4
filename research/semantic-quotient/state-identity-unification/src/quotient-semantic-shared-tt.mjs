@@ -6,6 +6,9 @@ import {
 import {
   hashResidualTermIds,
   hashSemanticQuotientDescriptor,
+  semanticQuotientP0Length,
+  semanticQuotientP1Length,
+  writeSemanticQuotientTermIds,
 } from './quotient-semantic-identity.mjs';
 
 export { hashResidualTermIds, hashSemanticQuotientDescriptor } from './quotient-semantic-identity.mjs';
@@ -138,6 +141,7 @@ export function createSemanticSharedTtView(arena) {
   const records = new Uint8Array(arena.recordBuffer);
   const terms = new Uint16Array(arena.termBuffer);
   const bucketMask = arena.bucketCount - 1;
+  let descriptorTermScratch = new Uint16Array(1024);
   const metrics = {
     probes: 0,
     probeMisses: 0,
@@ -173,6 +177,19 @@ export function createSemanticSharedTtView(arena) {
     return (descriptor.hash.lo & bucketMask) * arena.associativity;
   }
 
+  function ensureDescriptorTermScratch(required) {
+    if (required <= descriptorTermScratch.length) return descriptorTermScratch;
+    descriptorTermScratch = new Uint16Array(nextPowerOfTwo(required));
+    return descriptorTermScratch;
+  }
+
+  function materializeDescriptorTerms(descriptor, total) {
+    const target = ensureDescriptorTermScratch(total);
+    const written = writeSemanticQuotientTermIds(descriptor, target, 0);
+    if (written !== total) throw new Error(`semantic descriptor materialization drift: expected ${total}, wrote ${written}`);
+    return target;
+  }
+
   function chunkNext(start) {
     return (terms[start] | (terms[start + 1] << 16)) >>> 0;
   }
@@ -186,9 +203,7 @@ export function createSemanticSharedTtView(arena) {
     return terms[start + 2];
   }
 
-  function termsEqual(head, p0Ids, p1Ids) {
-    const p0Count = p0Ids.length;
-    const total = p0Count + p1Ids.length;
+  function termsEqual(head, expected, total) {
     let logical = 0;
     let chunk = head;
     while (logical < total) {
@@ -198,9 +213,7 @@ export function createSemanticSharedTtView(arena) {
       const take = Math.min(capacity, total - logical);
       const dataStart = chunk + TERM_CHUNK_HEADER_WORDS;
       for (let offset = 0; offset < take; offset += 1) {
-        const index = logical + offset;
-        const expected = index < p0Count ? p0Ids[index] : p1Ids[index - p0Count];
-        if (terms[dataStart + offset] !== expected) return false;
+        if (terms[dataStart + offset] !== expected[logical + offset]) return false;
       }
       logical += take;
       chunk = chunkNext(chunk);
@@ -211,8 +224,12 @@ export function createSemanticSharedTtView(arena) {
   function descriptorEquals(slot, descriptor) {
     metrics.descriptorCompares += 1;
     if (support[slot] !== descriptor.supportIndex) return false;
-    if (p0Length[slot] !== descriptor.p0.ids.length || p1Length[slot] !== descriptor.p1.ids.length) return false;
-    return termsEqual(termChunkHead[slot], descriptor.p0.ids, descriptor.p1.ids);
+    const p0Count = semanticQuotientP0Length(descriptor);
+    const p1Count = semanticQuotientP1Length(descriptor);
+    if (p0Length[slot] !== p0Count || p1Length[slot] !== p1Count) return false;
+    const total = p0Count + p1Count;
+    const expected = materializeDescriptorTerms(descriptor, total);
+    return termsEqual(termChunkHead[slot], expected, total);
   }
 
   function allocateTerms(total) {
@@ -258,9 +275,7 @@ export function createSemanticSharedTtView(arena) {
     return start;
   }
 
-  function writeDescriptorTerms(head, p0Ids, p1Ids) {
-    const p0Count = p0Ids.length;
-    const total = p0Count + p1Ids.length;
+  function writeDescriptorTerms(head, expected, total) {
     let logical = 0;
     let chunk = head;
     while (logical < total) {
@@ -270,8 +285,7 @@ export function createSemanticSharedTtView(arena) {
       const take = Math.min(capacity, total - logical);
       const dataStart = chunk + TERM_CHUNK_HEADER_WORDS;
       for (let offset = 0; offset < take; offset += 1) {
-        const index = logical + offset;
-        terms[dataStart + offset] = index < p0Count ? p0Ids[index] : p1Ids[index - p0Count];
+        terms[dataStart + offset] = expected[logical + offset];
       }
       logical += take;
       chunk = chunkNext(chunk);
@@ -322,15 +336,16 @@ export function createSemanticSharedTtView(arena) {
   }
 
   function installDescriptor(slot, descriptor, replacing) {
-    const p0Count = descriptor.p0.ids.length;
-    const p1Count = descriptor.p1.ids.length;
+    const p0Count = semanticQuotientP0Length(descriptor);
+    const p1Count = semanticQuotientP1Length(descriptor);
     if (p0Count > 0xffff || p1Count > 0xffff) throw new RangeError('semantic TT residual descriptor exceeds Uint16 length');
     const total = p0Count + p1Count;
     if (total > 0xffff) throw new RangeError('semantic TT combined descriptor exceeds Uint16 slot capacity');
+    const expected = materializeDescriptorTerms(descriptor, total);
     const newGeneration = nextGeneration(slot);
     const storage = descriptorStorage(slot, total, replacing);
 
-    writeDescriptorTerms(storage.head, descriptor.p0.ids, descriptor.p1.ids);
+    writeDescriptorTerms(storage.head, expected, total);
     hashLo[slot] = descriptor.hash.lo;
     hashHi[slot] = descriptor.hash.hi;
     support[slot] = descriptor.supportIndex;
