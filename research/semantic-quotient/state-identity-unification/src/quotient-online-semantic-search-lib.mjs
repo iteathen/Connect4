@@ -8,23 +8,15 @@ import {
   tacticalForcedColumn,
   tacticalImmediateColumn,
 } from './quotient-negamax-domain-contract.mjs';
-import {
-  proofLower,
-  proofUpper,
-  bestMoveHint,
-  withProofLower,
-  withProofUpper,
-  withBestMoveHint,
-  withProofBounds,
-} from './quotient-negamax-search-record.mjs';
 import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
+import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
 import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
 
 export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, options = {}) {
   const { states, supportAccess, columns, cellCount, centerOrder } = kernel;
   const descriptorCache = createLocalSemanticDescriptorCache(kernel);
   const tt = createSemanticSharedTtView(semanticArena);
-  const records = tt.records;
+  const proofStore = createPackedProofStore(semanticArena.recordBuffer);
   const etc = options.etc === true;
   const etcMinRemaining = options.etcMinRemaining ?? 0;
   const moveStack = new Int8Array((cellCount + 1) * columns);
@@ -50,16 +42,27 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     return tt.findOrCreate(descriptorCache.stateDescriptor(stateId));
   }
 
-  function writeRecord(slot, record) {
-    records[slot] = record;
-    metrics.proofWrites += 1;
+  function readBounds(slot) {
+    return proofStore.bounds(slot);
   }
 
-  function setExact(slot, value, bestMove = -1) {
-    let record = records[slot];
-    record = withProofBounds(record, value, value);
-    if (bestMove >= 0) record = withBestMoveHint(record, bestMove);
-    writeRecord(slot, record);
+  function readBestMove(slot) {
+    return proofStore.bestMove(slot);
+  }
+
+  function publishExact(slot, value, bestMove = -1) {
+    metrics.proofWrites += 1;
+    proofStore.publishExact(slot, value, bestMove);
+  }
+
+  function publishLower(slot, value, bestMove = -1) {
+    metrics.proofWrites += 1;
+    proofStore.publishLower(slot, value, bestMove);
+  }
+
+  function publishUpper(slot, value, bestMove = -1) {
+    metrics.proofWrites += 1;
+    proofStore.publishUpper(slot, value, bestMove);
   }
 
   function prepareMoves(stateId, slot, forcedColumn) {
@@ -72,7 +75,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
       metrics.forcedNodes += 1;
       return 1;
     }
-    const best = bestMoveHint(records[slot]);
+    const best = readBestMove(slot);
     if (best >= 0 && supportAccess.landingAt(supportIndex, best) !== 0xff) {
       moveStack[base + count++] = best;
       metrics.ttMoveOrderHits += 1;
@@ -93,9 +96,9 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
   function search(stateId, alpha, beta) {
     metrics.calls += 1;
     const slot = ttSlot(stateId);
-    let record = records[slot];
-    const lower = proofLower(record);
-    const upper = proofUpper(record);
+    const initialBounds = readBounds(slot);
+    const lower = initialBounds.lower;
+    const upper = initialBounds.upper;
     if (lower === upper) {
       metrics.ttExactReturns += 1;
       return lower;
@@ -112,17 +115,17 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     const tactical = kernel.tacticalCode(stateId);
     assertTacticalCode(tactical, columns);
     if (tactical >= TACTICAL_IMMEDIATE_BASE) {
-      setExact(slot, 1, tacticalImmediateColumn(tactical));
+      publishExact(slot, 1, tacticalImmediateColumn(tactical));
       metrics.tacticalExact += 1;
       return 1;
     }
     if (tactical === TACTICAL_LOSS) {
-      setExact(slot, -1);
+      publishExact(slot, -1);
       metrics.tacticalExact += 1;
       return -1;
     }
     if (tactical === TACTICAL_DRAW) {
-      setExact(slot, 0);
+      publishExact(slot, 0);
       metrics.tacticalExact += 1;
       return 0;
     }
@@ -143,19 +146,17 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
         const column = moveStack[base + index];
         const child = transition(stateId, column);
         if (child === QN_TERMINAL_WIN) {
-          setExact(slot, 1, column);
+          publishExact(slot, 1, column);
           metrics.etcCutoffs += 1;
           return 1;
         }
         if (child < 0) continue;
         metrics.etcProbes += 1;
         const childSlot = ttSlot(child);
-        const parentLower = -proofUpper(records[childSlot]);
+        const childBounds = readBounds(childSlot);
+        const parentLower = -childBounds.upper;
         if (parentLower >= beta) {
-          record = records[slot];
-          record = withProofLower(record, Math.max(proofLower(record), parentLower));
-          record = withBestMoveHint(record, column);
-          writeRecord(slot, record);
+          publishLower(slot, parentLower, column);
           metrics.etcCutoffs += 1;
           return parentLower;
         }
@@ -181,16 +182,9 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
       }
     }
 
-    record = records[slot];
-    if (selected >= 0) record = withBestMoveHint(record, selected);
-    if (value <= originalAlpha) {
-      record = withProofUpper(record, Math.min(proofUpper(record), value));
-    } else if (value >= originalBeta) {
-      record = withProofLower(record, Math.max(proofLower(record), value));
-    } else {
-      record = withProofBounds(record, value, value);
-    }
-    writeRecord(slot, record);
+    if (value <= originalAlpha) publishUpper(slot, value, selected);
+    else if (value >= originalBeta) publishLower(slot, value, selected);
+    else publishExact(slot, value, selected);
     return value;
   }
 
@@ -214,11 +208,12 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
     return Object.freeze({
       search: Object.freeze({ ...metrics }),
       semanticTt: tt.stats(),
+      proofStore: Object.freeze({ ...proofStore.metrics }),
       descriptorCache: Object.freeze({ ...descriptorCache.metrics }),
       localStates: kernel.states.count,
       localClasses: kernel.classes.size,
     });
   }
 
-  return Object.freeze({ search, replayPath, solvePath, stats, metrics, tt, descriptorCache });
+  return Object.freeze({ search, replayPath, solvePath, stats, metrics, tt, proofStore, descriptorCache });
 }
