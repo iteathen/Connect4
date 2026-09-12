@@ -146,6 +146,20 @@ function assertRank(rank, cellCount, stateId) {
   return rank;
 }
 
+function checkedTransition(port, stateId, column) {
+  const child = assertTransitionResult(port.transition(stateId, column), stateId, column);
+  if (child >= 0) {
+    const parentRank = assertRank(port.rankAt(stateId), port.cellCount, stateId);
+    const childRank = assertRank(port.rankAt(child), port.cellCount, child);
+    if (childRank !== parentRank + 1) throw new Error(`transition ${stateId}/${column} rank drift: ${parentRank} -> ${childRank}`);
+  }
+  return child;
+}
+
+function failureError(reason) {
+  return reason instanceof Error ? reason : new Error('dependency work rejected without an Error', { cause: reason });
+}
+
 function createLegalAccess(isLegal, columns) {
   return (stateId, column) => {
     if (!Number.isSafeInteger(column) || column < 0 || column >= columns) return false;
@@ -213,7 +227,6 @@ export function createQuotientNegamaxEngine(port, config = {}) {
     centerOrder,
     rankAt,
     isLegal,
-    transition: transitionPort,
     tacticalCode,
   } = port;
   const legalAt = createLegalAccess(isLegal, columns);
@@ -261,7 +274,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
 
   function transition(stateId, column) {
     metrics.transitionsRequested += 1;
-    return assertTransitionResult(transitionPort(stateId, column), stateId, column);
+    return checkedTransition(port, stateId, column);
   }
 
   function initializeFrontier(stateId, frontierSeed) {
@@ -559,7 +572,6 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     centerOrder,
     rankAt,
     isLegal,
-    transition: transitionPort,
     tacticalCode,
   } = port;
   const legalAt = createLegalAccess(isLegal, columns);
@@ -615,8 +627,8 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
     metrics.detachedBatches += 1;
     metrics.detachedScoutTasks += promises.length;
     const observed = promises.map((promise) => Promise.resolve(promise).catch((error) => {
-      backgroundError ??= error;
-      throw error;
+      backgroundError ??= failureError(error);
+      throw backgroundError;
     }));
     let tracked;
     tracked = Promise.allSettled(observed).finally(() => background.delete(tracked));
@@ -630,7 +642,7 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
 
   function transition(stateId, column) {
     metrics.transitionsRequested += 1;
-    return assertTransitionResult(transitionPort(stateId, column), stateId, column);
+    return checkedTransition(port, stateId, column);
   }
 
   function rankFor(stateId) {
@@ -851,6 +863,8 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
       if (moves.length > 1) {
         const scoutAlpha = alpha;
         const siblings = [];
+        let pending = null;
+        try {
         for (let index = 1; index < moves.length; index += 1) {
           const column = moves[index];
           const child = requireLegalTransition(transition(stateId, column), stateId, column);
@@ -870,20 +884,19 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
         }
         if (siblings.length > 0) metrics.parallelBatches += 1;
 
-        const pending = new Map();
+        pending = new Map();
         for (let index = 0; index < siblings.length; index += 1) {
           const entry = siblings[index];
           pending.set(index, entry.promise.then(
-            (result) => ({ index, result, error: null }),
-            (error) => ({ index, result: null, error }),
+            (result) => ({ index, result, ok: true }),
+            (error) => ({ index, error: failureError(error), ok: false }),
           ));
         }
 
         while (pending.size > 0) {
           const settled = await Promise.race(pending.values());
           pending.delete(settled.index);
-          if (settled.error) {
-            trackDetached([...pending.keys()].map((index) => siblings[index].promise));
+          if (!settled.ok) {
             throw settled.error;
           }
 
@@ -903,9 +916,15 @@ export function createDependencyAwareQuotientNegamaxEngine(port, leafSearch, con
           if (value > alpha) alpha = value;
           if (alpha >= beta) {
             metrics.cutoffs += 1;
-            trackDetached([...pending.keys()].map((index) => siblings[index].promise));
             break;
           }
+        }
+        } finally {
+          // Every exit, including construction/validation/re-search failure, keeps
+          // unfinished scouts owned until their lifecycle completion is observed.
+          trackDetached(pending === null
+            ? siblings.map((entry) => entry.promise)
+            : [...pending.keys()].map((index) => siblings[index].promise));
         }
       }
 

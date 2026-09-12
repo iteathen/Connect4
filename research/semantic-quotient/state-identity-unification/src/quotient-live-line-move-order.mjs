@@ -121,10 +121,12 @@ export function createLiveLineMoveOrder(spec) {
     assertWordRange(source, sourceOffset, profile.stateWords, 'live-line source');
     assertWordRange(target, targetOffset, profile.stateWords, 'live-line target');
 
-    const sourceEnd = sourceOffset + profile.stateWords;
-    const targetEnd = targetOffset + profile.stateWords;
-    const overlapping = source === target && sourceOffset < targetEnd && targetOffset < sourceEnd;
-    if (overlapping && targetOffset > sourceOffset) {
+    const sourceStart = source.byteOffset / 4 + sourceOffset;
+    const targetStart = target.byteOffset / 4 + targetOffset;
+    const sourceEnd = sourceStart + profile.stateWords;
+    const targetEnd = targetStart + profile.stateWords;
+    const overlapping = source.buffer === target.buffer && sourceStart < targetEnd && targetStart < sourceEnd;
+    if (overlapping && targetStart > sourceStart) {
       for (let index = profile.stateWords - 1; index >= 0; index -= 1) {
         target[targetOffset + index] = source[sourceOffset + index];
       }
@@ -219,8 +221,9 @@ export function createLiveLineMoveOrder(spec) {
     return Object.freeze(scored);
   }
 
+  const { through: _through, all: _all, ...publicProfile } = profile;
   return Object.freeze({
-    profile,
+    profile: Object.freeze(publicProfile),
     createRootSeed,
     advanceInto,
     advanceSeed,

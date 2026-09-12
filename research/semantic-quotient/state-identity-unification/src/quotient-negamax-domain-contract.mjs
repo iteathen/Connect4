@@ -89,8 +89,8 @@ export function applyFrontierBoundCode(code, lower, upper) {
   if (code === FRONTIER_BOUND_MOVER_NO_WIN) nextUpper = Math.min(nextUpper, 0);
   else if (code === FRONTIER_BOUND_OPPONENT_NO_WIN) nextLower = Math.max(nextLower, 0);
   else if (code === FRONTIER_BOUND_DRAW) {
-    nextLower = 0;
-    nextUpper = 0;
+    nextLower = Math.max(nextLower, 0);
+    nextUpper = Math.min(nextUpper, 0);
   } else {
     throw new Error(`unexpected frontier bound code ${code}`);
   }

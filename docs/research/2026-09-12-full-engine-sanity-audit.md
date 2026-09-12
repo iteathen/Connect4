@@ -336,3 +336,35 @@ replacement `34691771486`, dependency-aware `34691771493`, ExploreHint
 `34691771479`. Next: exact engine, frontier ordering, coordinator, worker/
 Branch Manager lifecycle and complete harness controls. These remain open;
 there is no readiness claim for a full root.
+
+## Decision policy and live frontier continuation
+
+Reviewed all lines of `quotient-negamax-engine.mjs`,
+`quotient-negamax-domain-contract.mjs`, `quotient-live-line-move-order.mjs` and
+`quotient-online-dependency-coordinator.mjs` against C4-0010 exact threshold,
+proof interval, structural ordering and asynchronous ownership contracts.
+
+Five failing controls now pass. Structural draw must intersect existing bounds;
+it previously replaced a contradictory exact win/loss with zero. Both decision
+adapters now reject transitions whose child rank is not exactly parent rank + 1,
+preventing malformed forced cycles and frontier-stack drift. A rejected scout
+with a null reason is now an error, never a numeric draw. Every sibling-group
+exit retains unfinished scouts for drain, including failed re-search, validation
+or group construction. Distinct overlapping typed views now copy frontier words
+in the correct direction, and the shared cached profile's mutable masks no longer
+escape through the diagnostics profile. The latter is an ordering/resource
+ownership fix; these masks have no proof authority.
+
+Retained: exact sign/window transforms through forced macros without publishing
+unproved intermediate-chain records; ETC only from sound child upper bounds;
+full first-child windows and sibling scouts with re-search on interior
+improvement; classification against the original window; frontier score primary
+with proof hints only breaking equal scores; immutable representative paths and
+priority memo keys including decision-probe depth. Priority depth zero stays
+unchanged. No CPC or NDC theorem was invented.
+
+Local qualification passes: five decision/frontier adversarial controls,
+semantic replacement, dependency campaign (workers 1/2, split 2/3), ExploreHint,
+and complete slot64 campaign. The decision controls are executed in the
+dependency workflow. Next owner is worker executor/pool/Branch Manager failure
+handling; complete active graph qualification and root admission remain blocked.

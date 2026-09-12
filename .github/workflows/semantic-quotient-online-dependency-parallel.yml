@@ -10,6 +10,7 @@ on:
       - 'components/bsfp/geometry.mjs'
       - 'components/bsfp/support-lattice.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-service.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-explore-path.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
@@ -62,3 +63,5 @@ jobs:
         run: >-
           node --expose-gc --max-old-space-size=6144
           research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-parallel-campaign.mjs
+      - name: Exercise decision and detached-work contracts
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs
