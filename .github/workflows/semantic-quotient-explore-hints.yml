@@ -1,0 +1,32 @@
+name: Quotient idle explore hints
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient-explore-hints
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-explore-*.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-*.mjs'
+      - '.github/workflows/semantic-quotient-explore-hints.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  explore:
+    name: Exercise idle-only ExploreHint path
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      EXPLORE_DEPTH: '3'
+      PREFIX_CLASSES: '4096'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run idle explore hint campaign
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs
