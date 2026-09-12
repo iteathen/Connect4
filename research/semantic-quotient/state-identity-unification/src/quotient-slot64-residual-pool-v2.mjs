@@ -8,6 +8,10 @@ const CHUNKS_PER_CLASS = WORDS_PER_CLASS / CHUNK_WORDS;
 const UINT32_MAX = 0xffffffff;
 const MAX_ARRAY_INDEX_DOMAIN = 0x7fffffff;
 
+function assertMask(value) {
+  if (!Number.isInteger(value) || value < 0 || value > UINT32_MAX) throw new RangeError('slot64 masks must be Uint32 values');
+}
+
 function nextPowerOfTwo(value) {
   if (!Number.isInteger(value) || value < 1 || value > (1 << 30)) {
     throw new RangeError(`power-of-two request must be an integer in 1..${1 << 30}, got ${value}`);
@@ -321,7 +325,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   }
 
   function assertCellBits(cell, bitLo, bitHi) {
-    if (!Number.isInteger(bitLo) || !Number.isInteger(bitHi)) throw new TypeError('slot64 cell masks must be integers');
+    assertMask(bitLo);
+    assertMask(bitHi);
     const [expectedLo, expectedHi] = expectedCellBits(cell);
     if ((bitLo >>> 0) !== expectedLo || (bitHi >>> 0) !== expectedHi) {
       throw new Error(`slot64 cell-mask mismatch for cell ${cell}`);
@@ -350,15 +355,20 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 class capacity request ${required}`);
     if (required <= classCapacity) return;
     const next = nextPowerOfTwo(required);
+    const nextSlots = [];
     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
       const Type = classSlotIds[slot].constructor;
       const target = new Type(next);
       target.set(classSlotIds[slot]);
-      classSlotIds[slot] = target;
+      nextSlots.push(target);
     }
-    const hashes = new Uint32Array(next); hashes.set(classHashes); classHashes = hashes;
-    const lo = new Uint32Array(next); lo.set(singletonLo); singletonLo = lo;
-    const hi = new Uint32Array(next); hi.set(singletonHi); singletonHi = hi;
+    const hashes = new Uint32Array(next); hashes.set(classHashes);
+    const lo = new Uint32Array(next); lo.set(singletonLo);
+    const hi = new Uint32Array(next); hi.set(singletonHi);
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) classSlotIds[slot] = nextSlots[slot];
+    classHashes = hashes;
+    singletonLo = lo;
+    singletonHi = hi;
     classCapacity = next;
     metrics.classGrows += 1;
   }
@@ -506,7 +516,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
   pool.isEmpty = (id) => assertClassId(id) === emptyClass;
   pool.hasSingletonAt = (id, bitLo, bitHi) => {
     assertClassId(id);
-    if (!Number.isInteger(bitLo) || !Number.isInteger(bitHi)) throw new TypeError('singleton masks must be integers');
+    assertMask(bitLo);
+    assertMask(bitHi);
     return (((singletonLo[id] & (bitLo >>> 0)) >>> 0) !== 0) || (((singletonHi[id] & (bitHi >>> 0)) >>> 0) !== 0);
   };
 

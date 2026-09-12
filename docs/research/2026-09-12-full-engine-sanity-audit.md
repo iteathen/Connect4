@@ -279,3 +279,60 @@ The new arena controls are wired into the semantic replacement workflow.
 Next owners: semantic identity/materialization and residual/support/state
 storage, then the remaining execution and qualification import graph. Root
 readiness remains **blocked: all-lines review incomplete**.
+
+## Residual/support storage and semantic projection continuation
+
+Reviewed `quotient-slot64-residual-pool-v2.mjs`, the support/state pool and
+slot64 kernel, `quotient-local-semantic-descriptor.mjs`,
+`quotient-semantic-identity.mjs`, `quotient-local-proof-store.mjs`, and the
+geometry/support-lattice and term-vocabulary construction they consume. The
+legacy dense residual implementation in the vocabulary module is not selected
+by the active slot64 path; the bounded baseline selects its prefix-pool owner.
+The online adapter's arena attachment now uses the same sealed metadata contract
+as its TT and packed-proof views.
+
+C4-0001 geometry/gravity, C4-0006 exact residual requirements, and C4-0010
+semantic/proof separation govern these lines. Four adversarial controls first
+failed and now pass:
+
+- Invalid support indices no longer decode as rank zero, and invalid columns
+  fail before indexing. Packed and table access agree on the illegal child
+  sentinel for a full column.
+- State interning validates support and both class IDs before typed storage;
+  edge access/publication validates addresses and target/sentinel domains.
+  Hash growth has an explicit power-of-two ceiling before signed-index overflow.
+- Residual cell and singleton masks reject values outside Uint32, instead of
+  silently wrapping them into valid masks.
+- State growth prepares all arrays before committing any replacement. A
+  controlled second-allocation failure during real graph expansion preserves
+  existing array identities/capacity and previously interned states. Class
+  metadata and descriptor-cache growth follow the same prepare/commit rule.
+
+Retained deliberately: exact tuple comparison after hash filtering, increasing
+canonical term iteration, P0/P1 separation and lengths in identity, private
+bounded descriptor scratch, slot-owned chunks with widening references, prefix
+caches keyed by immutable class plus cell, subset normalization after ownership
+reduction, blocker deletion preserving antichains, and no independent proof
+arrays in the semantic state pool. Borrowed hot descriptors are synchronous
+scratch and must not escape across the next descriptor operation; persistent
+descriptor materialization remains explicit. Hash collisions cannot authorize
+proof reuse without exact comparison. No no-hash candidate was adopted.
+
+Local Node 26.7.0 qualification: four storage controls pass; complete slot64
+campaign passes all class/state/edge comparisons on 4x3, 4x4, 5x3 and 4x5, with
+independent BSFP root/action W/D/L; semantic replacement passes again with zero
+hot descriptor-object and temporary term-array materialization. The 67,108,864
+state tier still has real retained support/P0/P1/hash and hash-table costs;
+correctness checks do not establish that its memory budget is adequate.
+
+CI ownership review found missing transitive dependencies in all four bounded
+lanes. Their push paths now cover their actual recursive local imports,
+including worker URLs, geometry, support lattice, record/resource owners and
+qualification baselines. The storage control is executed by the slot64 lane.
+The standard-root revision trigger remains untouched.
+
+Arena packet `6e670eb6497257cd2142a0216b368896898542f9` remote checks succeeded:
+replacement `34691771486`, dependency-aware `34691771493`, ExploreHint
+`34691771479`. Next: exact engine, frontier ordering, coordinator, worker/
+Branch Manager lifecycle and complete harness controls. These remain open;
+there is no readiness claim for a full root.

@@ -6,12 +6,13 @@ import {
 import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
 import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
 import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
-import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
+import { assertSemanticSharedTtArena, createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
 
 export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   if (!kernel || typeof kernel !== 'object' || !semanticArena || typeof semanticArena !== 'object') {
     throw new TypeError('online semantic quotient port requires kernel and semantic arena');
   }
+  semanticArena = assertSemanticSharedTtArena(semanticArena);
   const { states, supportAccess, columns, cellCount, centerOrder } = kernel;
   if (!states || !supportAccess || !Number.isSafeInteger(columns) || columns < 1 || columns > 7
       || !Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 64) {

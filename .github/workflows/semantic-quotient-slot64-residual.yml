@@ -6,15 +6,23 @@ on:
       - research/semantic-quotient
       - research/frontier-negamax-conformance
     paths:
+      - '.github/workflows/semantic-quotient-slot64-residual.yml'
+      - 'components/bsfp/geometry.mjs'
+      - 'components/bsfp/ownership-antichain-solver.mjs'
+      - 'components/bsfp/support-lattice.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
-      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs'
-      - '.github/workflows/semantic-quotient-slot64-residual.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
   workflow_dispatch:
 
 permissions:
@@ -32,3 +40,5 @@ jobs:
           node-version: 26.7.0
       - name: Run slot64 residual qualification campaign
         run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs
+      - name: Exercise storage value and allocation boundaries
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs

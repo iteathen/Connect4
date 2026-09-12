@@ -18,6 +18,7 @@ const QN_CLASS_TRANSITION_UNKNOWN = -3;
 const QN_CLASS_TERMINAL_WIN = -1;
 
 function nextPowerOfTwo(value) {
+  if (!Number.isInteger(value) || value < 1 || value > 2 ** 30) throw new RangeError('capacity exceeds positive Int32-indexed power-of-two domain');
   let result = 1;
   while (result < value) result *= 2;
   return result;
@@ -164,13 +165,19 @@ function createPackedSupportAccess(spec) {
     landingCells: null,
     childSupports: null,
     rankAt(supportIndex) {
+      assertSupportIndex(supportIndex, itemCapacity);
       return (descriptors[supportIndex] >>> rankShift) & rankMask;
     },
     landingAt(supportIndex, column) {
+      assertSupportIndex(supportIndex, itemCapacity);
+      assertSupportColumn(column, columns);
       const height = (descriptors[supportIndex] >>> columnShift[column]) & heightMask;
       return height >= rows ? 0xff : height * columns + column;
     },
     childAt(supportIndex, column) {
+      assertSupportIndex(supportIndex, itemCapacity);
+      assertSupportColumn(column, columns);
+      if (((descriptors[supportIndex] >>> columnShift[column]) & heightMask) >= rows) return BSFP_INVALID_ITEM_U32;
       return supportIndex + weights[column];
     },
     memoryBytes: weights.byteLength + columnShift.byteLength + descriptors.byteLength,
@@ -199,9 +206,20 @@ function createTableSupportAccess(spec) {
     support,
     landingCells,
     childSupports,
-    rankAt: (supportIndex) => support.ranks[supportIndex],
-    landingAt: (supportIndex, column) => landingCells[supportIndex * columns + column],
-    childAt: (supportIndex, column) => childSupports[supportIndex * columns + column],
+    rankAt(supportIndex) {
+      assertSupportIndex(supportIndex, support.itemCapacity);
+      return support.ranks[supportIndex];
+    },
+    landingAt(supportIndex, column) {
+      assertSupportIndex(supportIndex, support.itemCapacity);
+      assertSupportColumn(column, columns);
+      return landingCells[supportIndex * columns + column];
+    },
+    childAt(supportIndex, column) {
+      assertSupportIndex(supportIndex, support.itemCapacity);
+      assertSupportColumn(column, columns);
+      return childSupports[supportIndex * columns + column];
+    },
     memoryBytes: support.weights.byteLength + support.ranks.byteLength + landingCells.byteLength + childSupports.byteLength,
   });
 }
@@ -210,6 +228,14 @@ function createSupportAccess(spec, kind) {
   if (kind === 'table') return createTableSupportAccess(spec);
   if (kind === 'packed') return createPackedSupportAccess(spec);
   throw new RangeError('supportLayout must be table or packed');
+}
+
+function assertSupportIndex(index, capacity) {
+  if (!Number.isInteger(index) || index < 0 || index >= capacity) throw new RangeError(`support index ${index} outside 0..${capacity - 1}`);
+}
+
+function assertSupportColumn(column, columns) {
+  if (!Number.isInteger(column) || column < 0 || column >= columns) throw new RangeError(`support column ${column} outside 0..${columns - 1}`);
 }
 
 class ResidualClassPool {
@@ -410,8 +436,13 @@ class ResidualClassPool {
 }
 
 class QuotientStatePool {
-  constructor(columns, cacheEdges) {
+  #supportCapacity;
+  #classes;
+
+  constructor(columns, cacheEdges, supportCapacity, classes) {
     this.columns = columns;
+    this.#supportCapacity = supportCapacity;
+    this.#classes = classes;
     this.cacheEdges = cacheEdges;
     this.count = 0;
     this.capacity = 4096;
@@ -434,21 +465,27 @@ class QuotientStatePool {
       target.set(source);
       return target;
     };
-    this.support = copy(Uint32Array, this.support);
-    this.p0Class = copy(Uint32Array, this.p0Class);
-    this.p1Class = copy(Uint32Array, this.p1Class);
-    this.hashes = copy(Uint32Array, this.hashes);
+    const support = copy(Uint32Array, this.support);
+    const p0Class = copy(Uint32Array, this.p0Class);
+    const p1Class = copy(Uint32Array, this.p1Class);
+    const hashes = copy(Uint32Array, this.hashes);
+    let edges = null;
     if (this.cacheEdges) {
-      const edges = new Int32Array(nextCapacity * this.columns);
+      edges = new Int32Array(nextCapacity * this.columns);
       edges.fill(QN_EDGE_UNKNOWN);
       edges.set(this.edges);
-      this.edges = edges;
     }
+    this.support = support;
+    this.p0Class = p0Class;
+    this.p1Class = p1Class;
+    this.hashes = hashes;
+    this.edges = edges;
     this.capacity = nextCapacity;
     this.metrics.stateGrows += 1;
   }
 
   _growHash() {
+    if (this.hashSlots.length >= 2 ** 30) throw new RangeError('quotient state hash capacity exhausted');
     const next = new Int32Array(this.hashSlots.length * 2);
     next.fill(-1);
     const mask = next.length - 1;
@@ -462,6 +499,9 @@ class QuotientStatePool {
   }
 
   intern(supportIndex, p0Class, p1Class) {
+    assertSupportIndex(supportIndex, this.#supportCapacity);
+    this.#assertClass(p0Class);
+    this.#assertClass(p1Class);
     this.metrics.internLookups += 1;
     if ((this.count + 1) * 10 >= this.hashSlots.length * 7) this._growHash();
     const hash = hashStateTriple(supportIndex, p0Class, p1Class);
@@ -496,11 +536,24 @@ class QuotientStatePool {
   }
 
   edgeAt(id, column) {
+    this.#assertEdgeAddress(id, column);
     return this.edges ? this.edges[id * this.columns + column] : QN_EDGE_UNKNOWN;
   }
 
   setEdge(id, column, target) {
+    this.#assertEdgeAddress(id, column);
+    if (target !== QN_ILLEGAL && target !== QN_TERMINAL_WIN
+        && (!Number.isInteger(target) || target < 0 || target >= this.count)) throw new RangeError(`invalid quotient edge target ${target}`);
     if (this.edges) this.edges[id * this.columns + column] = target;
+  }
+
+  #assertClass(id) {
+    if (!Number.isInteger(id) || id < 0 || id >= this.#classes.size || id > 0xffffffff) throw new RangeError(`invalid quotient residual class ${id}`);
+  }
+
+  #assertEdgeAddress(id, column) {
+    if (!Number.isInteger(id) || id < 0 || id >= this.count) throw new RangeError(`invalid quotient state ${id}`);
+    assertSupportColumn(column, this.columns);
   }
 
   memoryStats() {
@@ -533,7 +586,7 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
   const winningLines = createConnectWinningLines(spec);
   const initialPairs = winningLines.map(maskPairFromCells);
   const classes = new ResidualClassPool(cellCount, initialPairs);
-  const states = new QuotientStatePool(columns, cacheEdges);
+  const states = new QuotientStatePool(columns, cacheEdges, support.itemCapacity, classes);
   const bitLo = new Uint32Array(cellCount);
   const bitHi = new Uint32Array(cellCount);
   for (let cell = 0; cell < cellCount; cell += 1) {

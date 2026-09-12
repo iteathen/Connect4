@@ -112,12 +112,12 @@ export function createLocalSemanticDescriptorCache(kernel) {
     const lengths = new Uint16Array(next);
     lengths.fill(CLASS_UNKNOWN_LENGTH);
     lengths.set(classLengths);
-    classLengths = lengths;
     const lo = new Uint32Array(next);
     lo.set(classHashLo);
-    classHashLo = lo;
     const hi = new Uint32Array(next);
     hi.set(classHashHi);
+    classLengths = lengths;
+    classHashLo = lo;
     classHashHi = hi;
     classCapacity = next;
     refreshRetainedBytes();
@@ -190,7 +190,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
     const supportIndex = kernel.states.support[stateId];
     const p0ClassId = kernel.states.p0Class[stateId];
     const p1ClassId = kernel.states.p1Class[stateId];
-    if (!Number.isInteger(supportIndex) || supportIndex < 0 || supportIndex > 0xffffffff) {
+    if (!Number.isInteger(supportIndex) || supportIndex < 0 || supportIndex >= kernel.support.itemCapacity) {
       throw new Error(`semantic state ${stateId} has invalid support index ${supportIndex}`);
     }
     assertClassId(p0ClassId);
