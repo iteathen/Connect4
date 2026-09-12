@@ -34,6 +34,13 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     descriptorStateBuildsHighWater: 0,
     descriptorClassBuildsHighWater: 0,
     descriptorTermIdsCachedHighWater: 0,
+    descriptorTermArrayObjectsCachedHighWater: 0,
+    descriptorClassObjectsCachedHighWater: 0,
+    descriptorClassMetadataBytesHighWater: 0,
+    descriptorTermArenaBytesHighWater: 0,
+    descriptorRetainedTypedBytesHighWater: 0,
+    descriptorClassCapacityHighWater: 0,
+    descriptorTermCapacityHighWater: 0,
     isolateHeapUsedHighWater: 0,
     isolateExternalHighWater: 0,
     isolateArrayBuffersHighWater: 0,
@@ -85,6 +92,34 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     resource.descriptorTermIdsCachedHighWater = Math.max(
       resource.descriptorTermIdsCachedHighWater,
       message.descriptorCache?.termIdsCached ?? 0,
+    );
+    resource.descriptorTermArrayObjectsCachedHighWater = Math.max(
+      resource.descriptorTermArrayObjectsCachedHighWater,
+      message.descriptorCache?.termArrayObjectsCached ?? 0,
+    );
+    resource.descriptorClassObjectsCachedHighWater = Math.max(
+      resource.descriptorClassObjectsCachedHighWater,
+      message.descriptorCache?.classDescriptorObjectsCached ?? 0,
+    );
+    resource.descriptorClassMetadataBytesHighWater = Math.max(
+      resource.descriptorClassMetadataBytesHighWater,
+      message.descriptorCache?.classMetadataBytes ?? 0,
+    );
+    resource.descriptorTermArenaBytesHighWater = Math.max(
+      resource.descriptorTermArenaBytesHighWater,
+      message.descriptorCache?.termArenaBytes ?? 0,
+    );
+    resource.descriptorRetainedTypedBytesHighWater = Math.max(
+      resource.descriptorRetainedTypedBytesHighWater,
+      message.descriptorCache?.retainedTypedBytes ?? 0,
+    );
+    resource.descriptorClassCapacityHighWater = Math.max(
+      resource.descriptorClassCapacityHighWater,
+      message.descriptorCache?.classCapacity ?? 0,
+    );
+    resource.descriptorTermCapacityHighWater = Math.max(
+      resource.descriptorTermCapacityHighWater,
+      message.descriptorCache?.termCapacity ?? 0,
     );
     resource.isolateHeapUsedHighWater = Math.max(
       resource.isolateHeapUsedHighWater,
