@@ -1,6 +1,6 @@
-schema_version: 19
+schema_version: 20
 updated: 2026-09-11
-state: frontier_negamax_slot_owned_proof_lifetime_measurement
+state: frontier_negamax_worker_state_descriptor_lifetime_measurement
 current_branch: research/frontier-negamax-conformance
 
 authority:
@@ -9,6 +9,7 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   owner_research_synthesis: docs/research/2026-09-09-owner-searchless-connect4-findings.md
+  worker_memory_finding: docs/research/2026-09-11-7x6-worker-descriptor-retention.md
   repository_context: AGENT_LOCAL.md
   current_state: STATUS.md
 
@@ -70,9 +71,11 @@ qualified_execution:
     generation_wrap: fail_closed
 
   descriptor_storage:
-    owner: physical_proof_slot
+    shared_proof_owner: physical_proof_slot
     replacement_rule: overwrite_existing_span_if_new_descriptor_fits
     growth_rule: allocate_new_span_only_when_descriptor_exceeds_slot_capacity
+    worker_state_descriptor_lifetime: ephemeral
+    worker_residual_class_descriptor_lifetime: cached_pending_measurement
     general_free_list: not_implemented_without_evidence
 
   parallel_proof:
@@ -98,12 +101,19 @@ qualified_execution:
 current_evidence:
   bounded_physical_states_checked: 1681808
   quotient_exactness_mismatches: 0
-  bounded_best_parallel_control:
-    geometry: 4x5_connect4
-    workers: 3
-    unresolved_decision_depth: 3
+
+  bounded_state_descriptor_lifetime_qualification:
+    idle_explore_run: 34673985296
+    dependency_proof_run: 34673985304
     exact_root: draw
     exact_actions: [0, 0, 0, 0]
+    baseline_expansions: 11303
+    baseline_calls: 24877
+    baseline_proof_admissions: 13325
+    best_workers: 3
+    best_unresolved_decision_depth: 3
+    best_median_ms_approx: 23.13
+    drained_executor_work: true
 
   corrected_7x6_proof_capacity:
     run: 34670736675
@@ -113,13 +123,6 @@ current_evidence:
     result: entry_capacity_exhausted_before_root_proof
     interpretation: retained_proof_count_is_real_limiter_after_nonallocating_probe
 
-  replacement_qualification:
-    run: 34671322460
-    stale_handle_publication_rejected: true
-    constrained_4x5_root: draw
-    constrained_4x5_actions: [0, 0, 0, 0]
-    replacements_exercised: true
-
   7x6_append_only_term_lifetime:
     run: 34671380474
     replacements: 30969854
@@ -128,26 +131,50 @@ current_evidence:
     result: descriptor_term_capacity_exhausted_before_root_proof
     interpretation: semantic_incarnation_count_was_wrong_owner_for_descriptor_storage
 
-  slot_owned_descriptor_span_control:
-    replacement_run: 34671597850
-    exact: true
-    action_replacements: 43533
-    action_span_reuses: 36709
-    action_span_grows: 6824
-    action_term_ids_used: 85164
+  7x6_slot_span_host_limit:
+    run: 34671597871
+    elapsed_seconds_approx: 225
+    rss_bytes_approx: 15417847808
+    term_ids_used: 269844141
+    term_capacity: 460000000
+    shared_replacements: 37595511
+    result: host_memory_kill_before_root_proof
+    interpretation: slot_owned_spans_removed_descriptor_arena_as_immediate_limiter
+
+  7x6_worker_memory_telemetry:
+    run: 34673627048
+    process_rss_bytes_last_complete: 14938693632
+    per_worker_local_typed_bytes_approx: 1062450000
+    per_worker_v8_heap_used_high_water_range_bytes: [4128761840, 4311241592]
+    worker_state_counts_range: [16896772, 18026811]
+    worker_class_counts_range: [4362596, 4505097]
+    interpretation: unbounded_local_state_descriptor_object_retention_was_major_host_memory_owner
+
+  state_descriptor_lifetime_correction:
+    commit: 29c96d40dc766d5ceb2c107625db57d758599d44
+    retained_state_descriptor_cache: false
+    retained_exact_residual_class_descriptor_cache: true
+    proof_identity_changed: false
+    frontier_semantics_changed: false
 
 current:
-  primary_action: finish_current_slot_owned_span_standard_7x6_measurement_then_follow_observed_limiter
-  active_root_run: 34671597871
-  active_root_commit: ccbcc64c1eccc31a0acd73599a688a5b326975f3
+  primary_action: observe_active_standard_7x6_ephemeral_state_descriptor_run_to_completion_then_follow_measured_owner
+  active_root_run: 34674060855
+  active_root_job: 103500612965
+  active_root_commit: 1b9bb83f72a318c188750b421f352504048fe314
   autonomous_exploration_in_active_run: false
   do_not_duplicate_active_root_run: true
+  observation_at_status_update: solver_healthy_after_roughly_15_minutes_and_materially_beyond_prior_host_kill_horizon
 
-next_if_root_unresolved:
-  - aggregate_worker_local_q_state_high_water_from_existing_worker_results
-  - aggregate_worker_local_residual_class_high_water_from_existing_worker_results
-  - only_add_descriptor_cache_or_memory_breakdown_if_worker_state_class_counts_do_not_explain_RSS
-  - choose_next_resource_lifecycle_change_from_measured_owner_not_from_generic_search_engine_habit
+next_after_active_run_closes:
+  - fetch_complete_root_job_logs_and_progress_high_water_series
+  - record_exact_root_and_action_WDL_if_resolved
+  - compare_process_RSS_and_worker_V8_heap_to_prior_telemetry_at_similar_state_and_proof_counts
+  - compare_local_q_states_residual_classes_typed_bytes_and_descriptor_term_ids_cached
+  - compare_proof_probes_misses_admissions_entries_replacements_and_descriptor_span_reuse_growth
+  - compare_forced_macro_frontier_bound_ordering_queue_worker_and_detached_sibling_metrics
+  - if_unresolved_choose_next_resource_lifecycle_change_only_from_measured_owner
+  - if_residual_class_descriptor_payload_is_next_owner_investigate_exact_identity_preserving_view_or_compact_representation_before_reclamation
 
 known_open_mathematics:
   - complete_cheap_U1_U2_NDC_forward_integration_is_not_established
@@ -169,3 +196,7 @@ rejected_or_not_default:
   - fixed_split_depth_as_semantic_work_definition
   - static_center_first_as_frontier_policy
   - row_parity_as_substitute_for_CPC_control_invariant
+  - more_shared_TT_replacement_tuning_without_new_evidence
+  - larger_descriptor_term_capacity_as_response_to_worker_host_memory
+  - worker_cancellation_polling
+  - class_descriptor_reclamation_before_active_7x6_evidence
