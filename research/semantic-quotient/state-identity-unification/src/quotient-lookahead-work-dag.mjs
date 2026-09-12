@@ -1,24 +1,19 @@
-const TACTICAL_NONE = -100;
-const TACTICAL_DRAW = -101;
-const TACTICAL_LOSS = -102;
-const TACTICAL_IMMEDIATE_BASE = 64;
-
-function exactTacticalValue(code) {
-  if (code >= TACTICAL_IMMEDIATE_BASE) return 1;
-  if (code === TACTICAL_LOSS) return -1;
-  if (code === TACTICAL_DRAW) return 0;
-  return null;
-}
+import {
+  QN_ILLEGAL,
+  QN_TERMINAL_WIN,
+  tacticalExactValue,
+  tacticalForcedColumn,
+} from './quotient-negamax-domain-contract.mjs';
 
 function legalColumns(graph, stateId) {
   const { columns } = graph.spec;
   const edges = new Int32Array(graph.edgeBuffer);
   const tactical = new Int16Array(graph.tacticalBuffer);
-  const code = tactical[stateId];
-  if (code >= 0 && code < columns) return [code];
+  const forcedColumn = tacticalForcedColumn(tactical[stateId], columns);
+  if (forcedColumn >= 0) return [forcedColumn];
   const result = [];
   for (const column of graph.centerOrder) {
-    if (edges[stateId * columns + column] !== -2) result.push(column);
+    if (edges[stateId * columns + column] !== QN_ILLEGAL) result.push(column);
   }
   return result;
 }
@@ -28,7 +23,7 @@ export function estimateQuotientWork(graph, stateId, probeDepth = 2, memo = new 
   const prior = memo.get(key);
   if (prior !== undefined) return prior;
   const tactical = new Int16Array(graph.tacticalBuffer);
-  if (exactTacticalValue(tactical[stateId]) !== null || probeDepth <= 0) {
+  if (tacticalExactValue(tactical[stateId]) !== null || probeDepth <= 0) {
     memo.set(key, 1);
     return 1;
   }
@@ -37,7 +32,7 @@ export function estimateQuotientWork(graph, stateId, probeDepth = 2, memo = new 
   for (const column of legalColumns(graph, stateId)) {
     const child = edges[stateId * graph.spec.columns + column];
     if (child >= 0) cost += estimateQuotientWork(graph, child, probeDepth - 1, memo);
-    else if (child === -1) cost += 1;
+    else if (child === QN_TERMINAL_WIN) cost += 1;
   }
   memo.set(key, cost);
   return cost;
@@ -58,14 +53,14 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
 
   for (let depth = 0; depth < splitDepth; depth += 1) {
     for (const node of nodesByDepth[depth]) {
-      const exact = exactTacticalValue(tactical[node.stateId]);
+      const exact = tacticalExactValue(tactical[node.stateId]);
       if (exact !== null) {
         node.exactValue = exact;
         continue;
       }
       for (const column of legalColumns(graph, node.stateId)) {
         const child = edges[node.stateId * graph.spec.columns + column];
-        if (child === -1) {
+        if (child === QN_TERMINAL_WIN) {
           node.actions.push({ column, terminalValue: 1, childStateId: null });
           continue;
         }
@@ -89,7 +84,7 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
   const estimateMemo = new Map();
   const tasks = [];
   for (const node of nodesByDepth[splitDepth]) {
-    const exact = exactTacticalValue(tactical[node.stateId]);
+    const exact = tacticalExactValue(tactical[node.stateId]);
     if (exact !== null) {
       node.exactValue = exact;
       continue;
@@ -108,7 +103,7 @@ export function buildQuotientLookaheadWorkDag(graph, splitDepth, options = {}) {
   tasks.sort((a, b) => b.priority - a.priority || b.estimate - a.estimate || a.stateId - b.stateId);
 
   return Object.freeze({
-    kind: 'connect4-quotient-lookahead-work-dag-v2',
+    kind: 'connect4-quotient-lookahead-work-dag-v3',
     splitDepth,
     probeDepth,
     rootId: graph.rootId,
