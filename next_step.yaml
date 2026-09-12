@@ -1,6 +1,6 @@
-schema_version: 29
+schema_version: 30
 updated: 2026-09-12
-state: cpc_address_parity_qualified_terminal_mapping_unresolved
+state: original_source_structural_projection_qualified_production_value_unmeasured
 current_branch: research/frontier-negamax-conformance
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -85,5 +85,20 @@ cpc_mapping_reassessment:
   column_major_address: 'column * rows + row; this is not the current row-major cell ID'
   production_changed: false
   terminal_replacement_complete: false
-  clarification_needed: exact_relational_mapping_from_control_bit_and_residual_context_to_terminal_proposition
+  unresolved: exact_relational_mapping_from_control_bit_and_residual_context_to_terminal_proposition
+  blocks_smaller_structural_improvements: false
   full_root_admitted: false
+
+original_source_study:
+  document: docs/research/2026-09-12-original-engine-structural-lessons.md
+  source: reference/legacy-source/Connect4-engine-source.zip
+  script: research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs
+  evidence: docs/research/evidence/2026-09-12-legacy-frontier-study.json
+  board_dimension_profiles: 6
+  positions: 6862
+  flag_comparisons: 13724
+  slot_comparisons: 65328
+  mismatches: 0
+  production_changed: false
+  measured_speedup: false
+  next_owner: active_relation_reuse_and_transient_versus_retained_state_cost

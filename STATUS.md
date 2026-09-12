@@ -41,17 +41,15 @@ slot64 lanes pass locally. All four remote bounded lanes passed on source commit
 14772b33383597a86212cd1c2dd636e8036aeca4: dependency 34697348137, ExploreHint
 34697348141, replacement 34697348155 and slot64 34697348163.
 
-Next: resolve the intended CPC relational mapping before extending response
-machinery. The user clarified that the structure should reduce control math to
-XOR and its low bit. Board dimensions remain variable; 7x6 is a qualification
-profile, not permission to specialize the product. The address derivation is
-locally qualified on ten odd/even dimension profiles (1,122,471 support
-configurations and 22,408,899 remaining targets). The mapping from that bit and
-the residual relations to a terminal proposition is still unresolved. This is a correction
-to the implementation direction, not a completed replacement of the bounded
-adjacent-pair profile. See the latest section of the
-[audit ledger](docs/research/2026-09-12-full-engine-sanity-audit.md).
-Useful-proof retention remains subsequent work. The failed run's
+Next: identify useful active-path reductions using the
+[original 2025 engine study](docs/research/2026-09-12-original-engine-structural-lessons.md).
+Existing singleton masks reproduce the original parity flags: 13,724 flag and
+65,328 slot-value comparisons passed across six board sizes. This is research
+evidence, not a production policy change or demonstrated speedup. Complete parity
+terminalization remains unresolved but does not block smaller structural CPU
+and memory improvements. Dimensions remain variable. Investigate relation reuse
+and transient-versus-retained state cost on matching bounded obligations.
+The failed run's
 completed-task expansion aggregate omits active work
 and is not a total node count. See the
 [search-volume reassessment](docs/research/2026-09-12-search-volume-structural-review.md).

@@ -12,6 +12,9 @@ on:
       - 'components/bsfp/support-lattice.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs'
+      - 'reference/legacy-source/Connect4-engine-source.zip'
+      - 'reference/legacy-source-manifest.json'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
@@ -62,5 +65,10 @@ jobs:
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs
       - name: Verify CPC address parity and terminal interpretation boundary
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs
+      - name: Compare original evaluator relations with the canonical frontier
+        run: |
+          unzip -q reference/legacy-source/Connect4-engine-source.zip -d "$RUNNER_TEMP/connect4-legacy-source"
+          printf '%s\n' '{"type":"module"}' > "$RUNNER_TEMP/connect4-legacy-source/package.json"
+          node research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs "$RUNNER_TEMP/connect4-legacy-source"
       - name: Measure paired bounded response closure
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs

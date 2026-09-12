@@ -712,3 +712,21 @@ staging prototype is a fixed-7x6 classified differential experiment, explicitly
 without pruning authority; it is not the requested variable-board mapping and
 was not adopted. The recovered winspace XOR is an address reduction for the last
 missing event, not by itself a proof of that event's controller.
+
+## Original-source structural study
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The owner redirected the work toward useful structural reductions, including
+imperfect but working ideas in the original 2025 source. Full terminal mapping
+is no longer treated as a prerequisite for every smaller improvement.
+The [source study](2026-09-12-original-engine-structural-lessons.md) records the
+actual original call paths, reuse of incident-line relationships, apply/undo
+state lifetime, and a qualified projection of the original parity flags onto
+canonical singleton masks. All four archived files were hash-verified and read;
+the later evaluator was executed unchanged across six dimension profiles.
+13,724 flag and 65,328 slot comparisons passed. No production eval policy changed.
+The prototype is not yet a performance recommendation: the active solver does
+not compute these flags. Further work should measure relevant existing work
+eliminated by representation, including transient versus retained state cost.

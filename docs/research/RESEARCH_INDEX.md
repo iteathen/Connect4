@@ -23,6 +23,9 @@ Start with:
 
 ## Frontier-native exact forward solver research
 
+- [Original engine: structural lessons and bounded adaptation](2026-09-12-original-engine-structural-lessons.md):
+  actual source review and original-executable comparison with singleton masks.
+
 - [CPC mapping derivation and unresolved terminal interpretation](2026-09-12-full-engine-sanity-audit.md#cpc-address-parity-reassessment):
   exhaustive support/address arithmetic on ten variable-dimension profiles;
   no production terminal replacement yet.
