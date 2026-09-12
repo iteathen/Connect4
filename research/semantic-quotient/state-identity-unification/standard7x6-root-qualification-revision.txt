@@ -1,27 +1,38 @@
-standard7x6_root_qualification_revision=1
+standard7x6_root_qualification_revision=2
 qualified_local_date=2026-09-11
 qualified_semantic_tt=connect4-exact-semantic-shared-tt-v5
+qualified_worker_descriptor_storage=flat_typed_metadata_plus_one_flat_term_arena
 qualified_branch=research/frontier-negamax-conformance
 
-admission_reason=v4 whole-span descriptor growth exhausted the 460000000-word term arena after 855441.400302 ms; v5 changes storage ownership only by extending physical-slot-owned descriptor chunks with missing capacity
+admission_reason=revision 1 proved v5 removed shared term arena as the immediate limiter; hosted runner shut down at 15.75GB RSS while workers retained 10-11M residual semantic class objects and 103-116M per-class cached term IDs each; revision 2 removes retained per-class descriptor/term-array objects while preserving exact residual identity
 
-prior_standard7x6_run=34674060855
-prior_standard7x6_job=103500612965
-prior_standard7x6_commit=1b9bb83f72a318c188750b421f352504048fe314
-prior_failure=semantic TT term arena exhausted: 460000025 > 460000000
-prior_term_ids_used=459999998
-prior_replacements=153310210
+prior_standard7x6_run=34675467051
+prior_standard7x6_job=103504435817
+prior_standard7x6_commit=5049e3b25eaca8526e2559123b12ea3e6283b8da
+prior_result=hosted runner shutdown
 prior_root=unresolved
+prior_term_arena_exhausted=false
+prior_term_arena_words_used=291948495
+prior_term_arena_capacity=460000000
+prior_process_rss_bytes=15751729152
 
-v5_implementation_commit=29117851717a27eef5ee6b79beb56eb70f548e43
-v5_proof_binding_commit=e113a47fb8c896dea17e6c81211ff0f424a80840
-v5_growth_qualification_commit=caf9a35ddea9695510207e4f7d1274652cd0bac9
-v5_replacement_qualification_run=34675102224
-v5_dependency_qualification_run=34675126023
-v5_idle_explore_qualification_run=34675132451
-v5_bounded_runs_green=true
-v5_constrained_root=0
-v5_constrained_actions=0,0,0,0
+flat_identity_helper_commit=5927d0a17590b4620254fac393332b9cb2099e2c
+flat_local_cache_commit=6ec7088f2f0778b6c18bac6b0c2b98e1c075dcfa
+flat_coherent_implementation_head=33413500c2ff68f5e4c1c12e3ec430c86fc7e91f
+flat_telemetry_commit=cec2e3e2e93649ed86034c93038484d594a02921
+flat_targeted_qualification_commit=7e4f88aba8f4d56ab598c284a8bd99cbac7623cd
+
+coherent_replacement_run=34676281224
+coherent_dependency_run=34676281219
+coherent_idle_explore_run=34676281229
+telemetry_dependency_run=34676359852
+telemetry_idle_explore_run=34676359849
+targeted_ownership_run=34676380760
+bounded_runs_green=true
+bounded_exact_root=0
+bounded_exact_actions=0,0,0,0
+bounded_retained_class_objects=0
+bounded_retained_term_array_objects=0
 
 comparison_search_workers=3
 comparison_unresolved_decision_split_depth=8
