@@ -6,7 +6,6 @@ import {
 } from './quotient-negamax-domain-contract.mjs';
 import { createLiveLineMoveOrder } from './quotient-live-line-move-order.mjs';
 import { createQuotientNativeNegamaxSupportLayoutKernel } from './quotient-native-negamax-support-layout-kernel.mjs';
-import { createLocalQuotientProofStore } from './quotient-local-proof-store.mjs';
 import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
 import { installSlot64ResidualPool } from './quotient-slot64-residual-pool-v2.mjs';
 
@@ -18,7 +17,7 @@ export function createSlot64ResidualQuotientKernel(spec, options = {}) {
   const residual = installSlot64ResidualPool(substrate, spec, {
     prefixClasses: options.prefixClasses ?? 4096,
   });
-  const proofStore = createLocalQuotientProofStore(substrate.states);
+  const proofStore = substrate.proofStore;
   const frontierOrder = createLiveLineMoveOrder(spec);
 
   function frontierBoundCode(stateId) {
