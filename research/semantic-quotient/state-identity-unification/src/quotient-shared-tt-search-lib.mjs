@@ -8,15 +8,7 @@ import {
   tacticalForcedColumn,
   tacticalImmediateColumn,
 } from './quotient-negamax-domain-contract.mjs';
-import {
-  proofLower,
-  proofUpper,
-  bestMoveHint,
-  withProofLower,
-  withProofUpper,
-  withBestMoveHint,
-  withProofBounds,
-} from './quotient-negamax-search-record.mjs';
+import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
 
 export function createSharedTtGraphSearcher(shared, options = {}) {
   const { spec, graph, arena } = shared;
@@ -25,7 +17,7 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
   const edges = new Int32Array(graph.edgeBuffer);
   const tactical = new Int16Array(graph.tacticalBuffer);
   const ranks = new Uint8Array(graph.rankBuffer);
-  const records = new Uint8Array(arena.recordBuffer);
+  const proofStore = createPackedProofStore(arena.recordBuffer);
   const centerOrder = graph.centerOrder;
   const etc = options.etc !== false;
   const etcMinRemaining = options.etcMinRemaining ?? 0;
@@ -53,21 +45,29 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
     return edges[stateId * columns + column];
   }
 
-  function readRecord(stateId) {
+  function readBounds(stateId) {
     metrics.sharedRecordReads += 1;
-    return records[stateId];
+    return proofStore.bounds(stateId);
   }
 
-  function writeRecord(stateId, record) {
+  function readBestMove(stateId) {
+    metrics.sharedRecordReads += 1;
+    return proofStore.bestMove(stateId);
+  }
+
+  function publishExact(stateId, value, bestMove = -1) {
     metrics.sharedRecordWrites += 1;
-    records[stateId] = record;
+    proofStore.publishExact(stateId, value, bestMove);
   }
 
-  function setExact(stateId, value, bestMove = -1) {
-    let record = readRecord(stateId);
-    record = withProofBounds(record, value, value);
-    if (bestMove >= 0) record = withBestMoveHint(record, bestMove);
-    writeRecord(stateId, record);
+  function publishLower(stateId, value, bestMove = -1) {
+    metrics.sharedRecordWrites += 1;
+    proofStore.publishLower(stateId, value, bestMove);
+  }
+
+  function publishUpper(stateId, value, bestMove = -1) {
+    metrics.sharedRecordWrites += 1;
+    proofStore.publishUpper(stateId, value, bestMove);
   }
 
   function prepareMoves(stateId, forcedColumn) {
@@ -79,8 +79,7 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
       metrics.forcedNodes += 1;
       return 1;
     }
-    const record = readRecord(stateId);
-    const best = bestMoveHint(record);
+    const best = readBestMove(stateId);
     if (best >= 0 && edges[stateId * columns + best] !== QN_ILLEGAL) {
       moveStack[base + count++] = best;
       metrics.ttMoveOrderHits += 1;
@@ -105,9 +104,9 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
 
   function search(stateId, alpha, beta) {
     metrics.calls += 1;
-    let record = readRecord(stateId);
-    const lower = proofLower(record);
-    const upper = proofUpper(record);
+    const initialBounds = readBounds(stateId);
+    const lower = initialBounds.lower;
+    const upper = initialBounds.upper;
     if (lower === upper) {
       metrics.ttExactReturns += 1;
       return lower;
@@ -124,17 +123,17 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
     const tacticalCode = tactical[stateId];
     assertTacticalCode(tacticalCode, columns);
     if (tacticalCode >= TACTICAL_IMMEDIATE_BASE) {
-      setExact(stateId, 1, tacticalImmediateColumn(tacticalCode));
+      publishExact(stateId, 1, tacticalImmediateColumn(tacticalCode));
       metrics.tacticalExact += 1;
       return 1;
     }
     if (tacticalCode === TACTICAL_LOSS) {
-      setExact(stateId, -1);
+      publishExact(stateId, -1);
       metrics.tacticalExact += 1;
       return -1;
     }
     if (tacticalCode === TACTICAL_DRAW) {
-      setExact(stateId, 0);
+      publishExact(stateId, 0);
       metrics.tacticalExact += 1;
       return 0;
     }
@@ -155,19 +154,16 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
         const column = moveStack[base + index];
         const child = edgeAt(stateId, column);
         if (child === QN_TERMINAL_WIN) {
-          setExact(stateId, 1, column);
+          publishExact(stateId, 1, column);
           metrics.etcCutoffs += 1;
           return 1;
         }
         if (child < 0) continue;
         metrics.etcProbes += 1;
-        const childRecord = readRecord(child);
-        const parentLower = -proofUpper(childRecord);
+        const childBounds = readBounds(child);
+        const parentLower = -childBounds.upper;
         if (parentLower >= beta) {
-          record = readRecord(stateId);
-          record = withProofLower(record, Math.max(proofLower(record), parentLower));
-          record = withBestMoveHint(record, column);
-          writeRecord(stateId, record);
+          publishLower(stateId, parentLower, column);
           metrics.etcCutoffs += 1;
           return parentLower;
         }
@@ -193,16 +189,9 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
       }
     }
 
-    record = readRecord(stateId);
-    if (selected >= 0) record = withBestMoveHint(record, selected);
-    if (value <= originalAlpha) {
-      record = withProofUpper(record, Math.min(proofUpper(record), value));
-    } else if (value >= originalBeta) {
-      record = withProofLower(record, Math.max(proofLower(record), value));
-    } else {
-      record = withProofBounds(record, value, value);
-    }
-    writeRecord(stateId, record);
+    if (value <= originalAlpha) publishUpper(stateId, value, selected);
+    else if (value >= originalBeta) publishLower(stateId, value, selected);
+    else publishExact(stateId, value, selected);
     return value;
   }
 
@@ -221,5 +210,5 @@ export function createSharedTtGraphSearcher(shared, options = {}) {
     return -search(child, -2, 2);
   }
 
-  return Object.freeze({ solveState, solveRoot, solveRootColumn, metrics, records });
+  return Object.freeze({ solveState, solveRoot, solveRootColumn, metrics, proofStore });
 }
