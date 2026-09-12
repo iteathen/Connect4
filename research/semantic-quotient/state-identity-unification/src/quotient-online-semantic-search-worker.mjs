@@ -25,17 +25,21 @@ function deltaMetrics(before) {
 
 parentPort.postMessage({ type: 'ready', workerId: workerData.workerId });
 parentPort.on('message', (message) => {
-  if (message?.type !== 'solve-path') return;
+  if (message?.type !== 'solve-path' && message?.type !== 'search-path') return;
   const before = snapshotMetrics();
   const started = performance.now();
   try {
-    const solved = searcher.solvePath(message.path);
+    const solved = message.type === 'search-path'
+      ? searcher.searchPath(message.path, message.alpha, message.beta)
+      : searcher.solvePath(message.path);
     parentPort.postMessage({
       type: 'result',
       taskId: message.taskId,
       workerId: workerData.workerId,
-      plannerStateId: message.plannerStateId,
+      plannerStateId: message.plannerStateId ?? null,
       localStateId: solved.stateId,
+      alpha: message.alpha ?? null,
+      beta: message.beta ?? null,
       value: solved.value,
       elapsedMs: performance.now() - started,
       metrics: deltaMetrics(before),
@@ -47,7 +51,7 @@ parentPort.on('message', (message) => {
       type: 'error',
       taskId: message.taskId,
       workerId: workerData.workerId,
-      plannerStateId: message.plannerStateId,
+      plannerStateId: message.plannerStateId ?? null,
       message: error instanceof Error ? error.stack ?? error.message : String(error),
     });
   }
