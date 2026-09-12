@@ -55,7 +55,14 @@ cover 401,165 immediate-win positions with zero mismatches. No eval or strategic
 parity policy changed, and no throughput improvement is claimed from census counts.
 
 Next: identify further useful active-path reductions using the
+new [relational duplication review](docs/research/2026-09-12-relational-duplication-review.md)
+and the
 [original 2025 engine study](docs/research/2026-09-12-original-engine-structural-lessons.md).
+The active worker uses residual relations, not a coloured bitboard, but retains
+physical distinctions between equivalent neutral-column capacities. A complete
+bounded census merges 4,431 of 294,593 current 4x5 states, including 1,727 unresolved
+states. No production identity change was made. Smaller TT capacity also causes
+measurable repeated work; implemented pruning continues to pass bounded checks.
 Existing singleton masks reproduce the original parity flags: 13,724 flag and
 65,328 slot-value comparisons passed across six board sizes. This is research
 evidence, not a production policy change or demonstrated speedup. Complete parity

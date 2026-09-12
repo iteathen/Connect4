@@ -784,3 +784,28 @@ reconfirms one initially released proof task, zero scouts and zero parallel
 batches. The [methods review](2026-09-12-negamax-methods-local-review.md) records
 the integration/configuration limitation and distinguishes useful proof progress
 from structural exploration. No full solve was launched to answer this question.
+
+## Relational identity and duplicate-work reassessment
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The [relational review](2026-09-12-relational-duplication-review.md) traces the
+actual worker/kernel/descriptor path under C4-0006/C4-0010 and the DEAD/MQ2 research.
+There is no coloured-bitboard substitution in that active path. Bilateral
+exhaustion closes filler continuations, but the exact support coordinate still
+distinguishes distributions of wholly neutral capacity. A research-only census
+checks mapped-successor equality and unpruned WDL for pooled neutral columns
+across four complete bounded quotient graphs. It merges 4,431 additional 4x5
+states, including 1,727 unresolved states; the observed root visits additional
+equivalent physical choices. This is not yet a production compression or a claim
+that it explains full-root volume. Actual turn capacity remains in the relation.
+
+The existing proof-reuse observer also demonstrates extra calls/expansions under
+TT replacement pressure while preserving one-call warm exact-root reuse.
+Independent pruning controls remain green; missing stronger closure is a
+different finding from broken implemented pruning. Evidence and the diagnostic
+adapter correction are recorded in the report. No production identity or root
+trigger changed. Next owners are incremental neutral-event equivalence and
+concurrent/eviction-driven repeated proof work, with physical addresses kept as
+input/output mapping rather than restored historical proof authority.

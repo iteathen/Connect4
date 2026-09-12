@@ -37,6 +37,7 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-neutral-capacity-diagnostic.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs'
@@ -61,6 +62,8 @@ jobs:
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
       - name: Qualify bounded state retention and report isolated local timings
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs
+      - name: Check neutral-capacity relation and observe equivalent physical choices
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-neutral-capacity-diagnostic.mjs
       - name: Independently verify physical terminals and standard-board eval
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs
       - name: Independently verify pruning bounds and move eval

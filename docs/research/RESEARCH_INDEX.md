@@ -23,6 +23,9 @@ Start with:
 
 ## Frontier-native exact forward solver research
 
+- [Relational duplication and neutral capacity](2026-09-12-relational-duplication-review.md):
+  actual residual-path audit, bounded equivalent-choice census and proof-reuse evidence.
+
 - [Derived state-hash retention](2026-09-12-state-retention-review.md):
   qualified memory reduction and immediate-terminal scan short-circuit;
   isolated hash-retention timing tradeoff, unchanged exact search policy.
