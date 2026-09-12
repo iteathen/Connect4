@@ -1,110 +1,41 @@
-schema_version: 24
-updated: 2026-09-11
-state: frontier_negamax_flat_worker_descriptor_7x6_revision_2_active
+schema_version: 25
+updated: 2026-09-12
+state: frontier_negamax_line_by_line_correctness_audit_in_progress
 current_branch: research/frontier-negamax-conformance
-
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
-  current_state: STATUS.md
-  v5_term_lifetime: docs/research/2026-09-11-7x6-proof-term-lifetime.md
-  worker_residual_ownership: docs/research/2026-09-11-worker-residual-descriptor-ownership.md
-
-mission:
-  objective: solve_standard_7x6_connect4_exactly_with_frontier_native_forward_WDL_negamax
-  do_not_reframe_as: conventional_board_engine_with_frontier_heuristics
-
-semantic_contract:
-  forward_identity:
-    - supportIndex
-    - normalized_P0_residual_requirements
-    - normalized_P1_residual_requirements
-  hash_is_identity: false
-  exact_descriptor_equality_required: true
-  CPC_NDC_context_must_not_be_erased: true
-
-qualified_execution:
-  semantic_proof_table: v5_8_way_generation_safe_slot_owned_extension_chunks
-  worker_state_descriptor_lifetime: ephemeral
-  worker_residual_descriptor_storage: flat_typed_metadata_plus_one_flat_term_arena
-  retained_per_class_descriptor_objects: 0
-  retained_per_class_term_array_objects: 0
-  ordinary_proof_probe_allocating: false
-  sibling_completion: incremental
-  obsolete_siblings: detach_without_worker_interruption
-  drain_background_before_reset_cleanup: true
-  autonomous_branch_manager_available: true
-
-prior_v5_7x6_measurement:
-  run: 34675467051
-  job: 103504435817
-  admission_revision: 1
-  result: hosted_runner_shutdown
-  root: unresolved
-  term_arena_exhausted: false
-  term_arena_words_used: 291948495
-  term_capacity: 460000000
-  last_process_rss_bytes: 15751729152
-  interpretation: shared_term_lifetime_fixed_and_worker_residual_descriptor_ownership_became_next_measured_host_memory_owner
-
-flat_worker_descriptor_correction:
-  identity_helper_commit: 5927d0a17590b4620254fac393332b9cb2099e2c
-  local_cache_commit: 6ec7088f2f0778b6c18bac6b0c2b98e1c075dcfa
-  coherent_implementation_head: 33413500c2ff68f5e4c1c12e3ec430c86fc7e91f
-  telemetry_commit: cec2e3e2e93649ed86034c93038484d594a02921
-  targeted_qualification_commit: 7e4f88aba8f4d56ab598c284a8bd99cbac7623cd
-  semantics_changed: false
-
-bounded_qualification:
-  coherent_replacement_run: 34676281224
-  coherent_dependency_run: 34676281219
-  coherent_idle_explore_run: 34676281229
-  telemetry_dependency_run: 34676359852
-  telemetry_idle_explore_run: 34676359849
-  targeted_ownership_run: 34676380760
-  all_green: true
-  exact_root: 0
-  exact_actions: [0, 0, 0, 0]
-  retained_class_objects: 0
-  retained_term_array_objects: 0
-
-current:
-  primary_action: observe_active_revision_2_standard_7x6_measurement_then_follow_measured_owner
-  active_root_run: 34676507073
-  active_root_job: 103507205045
-  active_root_commit: 8052b757002758494e9776b1f4c23224e6eeb44f
-  admission_revision: 2
-  admission_trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
-  root_workflow_auto_trigger_on_implementation_changes: false
-  autonomous_exploration_in_active_run: false
-  comparison_configuration:
-    search_workers: 3
-    unresolved_decision_split_depth: 8
-    shared_proof_entries: 8388608
-    shared_term_arena_words: 460000000
-  do_not_duplicate_active_root_run: true
-
-next_after_active_run_closes:
-  - record_exact_root_and_action_WDL_if_resolved
-  - compare_process_RSS_at_equivalent_elapsed_and_work_counts_to_run_34675467051
-  - compare_worker_V8_heap_external_and_ArrayBuffer_high_water
-  - compare_kernel_local_states_classes_and_typed_bytes
-  - compare_flat_descriptor_metadata_term_arena_bytes_and_capacities
-  - compare_shared_v5_term_arena_replacements_chunks_headers_and_data
-  - follow_only_the_next_measured_resource_owner
-
-known_open_mathematics:
-  - complete_cheap_U1_U2_NDC_forward_integration_is_not_established
-  - response_policy_alternative_resolution_may_require_more_than_GF2_monotone_closure
-  - strategic_certificate_reuse_requires_complete_context_identity_when_not_derivable_from_forward_q
-
-rejected_or_not_default:
-  - duplicate_standard_7x6_run_while_revision_2_is_active
-  - increase_shared_term_capacity_in_response_to_run_34675467051
-  - borrowed_subarray_views_over_growable_residual_storage
-  - private_worker_local_primary_TTs
-  - blind_root_branch_parallelism
-  - worker_cancellation_polling
-  - weakening_exact_residual_identity
+  audit_ledger: docs/research/2026-09-12-full-engine-sanity-audit.md
+audit:
+  continuation_base: 83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2
+  completed_continuation_surface: packed_proof_store_and_record_value_contracts
+  local_controls: five_passed
+  local_campaigns: [replacement, stale_generation_lifecycle, dependency_aware, explore_hints]
+  remote_packet_qualification: pending
+  next_owner: semantic_tt_shape_reset_counters_chunks_and_probe_consistency
+  remaining_owners:
+    - semantic_identity_and_descriptor_scratch
+    - slot64_residual_state_and_support_storage
+    - generic_exact_negamax
+    - coordinator_worker_executor_and_pool
+    - branch_manager_and_message_protocol
+    - standard_root_harness_and_bounded_workflow_import_graph
+standard_root:
+  admission: blocked_until_complete_audit_and_bounded_qualification
+  trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
+  trigger_changed_in_continuation: false
+  prior_revision_2_run: 34676507073
+  prior_result: runner_shutdown_root_unresolved
+  current_split_depth: 3
+  current_priority_probe_depth: 0
+  maximum_concurrent_full_roots: 1
+performance_only_hypotheses:
+  - ETC_and_priority_probe_configuration
+  - stored_state_hash_cpu_memory_tradeoff
+  - state_capacity_tiers_and_worker_local_canonical_universe_cost
+  - proof_replacement_pressure_after_generation_rebinding
+research_attribution:
+  direction_and_architecture: Josh Oshiro
+  implementation_and_qualification: OpenAI ChatGPT

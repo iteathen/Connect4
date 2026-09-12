@@ -7,6 +7,10 @@
 
 ## Purpose
 
+**Continuation status:** audit in progress; full-root admission is blocked. The
+sections below preserve earlier findings, not a claim that every active line is
+clean. Current continuation coverage and corrections are recorded at the end.
+
 Revision 2 of the standard 7x6 empty-root solve ran for about 26 minutes, approached the hosted runner memory ceiling, and never returned the first win-threshold root proof. The whole forward engine was therefore audited as suspect rather than treating the event as one more isolated allocation problem.
 
 The governing ordinary proof identity remains:
@@ -165,3 +169,69 @@ Before the next root admission:
 6. only then admit one standard-root revision through the explicit qualification trigger.
 
 Rejected shortcuts: increasing the shared term arena, increasing TT capacity without remeasurement, weakening exact residual identity, replacing frontier ordering with generic heuristics, deep priority probing by assumption, inventing CPC/NDC closure, or launching repeated full roots while control faults remain unresolved.
+
+## Continuation from 83dfe6f — packed proof boundary
+
+Protected main was observed at `15b8e62de07f2b35a74ea2297fda79b72633bf64`;
+the active research branch was unchanged at
+`83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2`. Existing fixes are preserved.
+
+### Reviewed lines and governing contracts
+
+- All of `quotient-packed-proof-store.mjs`: C4-0010 proof monotonicity,
+  generation identity, hint separation, and the semantic arena's slot lifecycle.
+- All of `quotient-negamax-search-record.mjs`: exact W/D/L and packed-record
+  value domains; reserved bits are not proof state.
+- Arena validation/reset entry points in `quotient-proof-resource-service.mjs`
+  and `quotient-semantic-shared-tt.mjs`: each arena owner validates its format.
+  The remaining TT allocation/identity/reset/concurrency audit is still open.
+
+### Corrected defects
+
+1. **Contract dispatch:** an unknown arena kind fell through to static storage.
+   Only explicit static-v3 and semantic-v5 contracts are now accepted; semantic
+   shape validation is shared with the semantic owner.
+2. **Value-domain correctness:** publication could coerce strings/null or clip
+   invalid weaker bounds into valid W/D/L. Values are now validated before
+   arithmetic and even before rejecting stale handles. Hints retain -1..6.
+3. **Packed-record correctness:** readers/transforms silently decoded reserved
+   bits, malformed bound codes and contradictory intervals. Complete records
+   are validated before decoding or transformation, and single-bound transforms
+   cannot construct contradictory intervals.
+4. **Recoverability/concurrency:** replacement could finish after the writer's
+   generation check but before its READY→PROOF_WRITING CAS. The stale writer
+   correctly rejected its proof, but its old-generation guard prevented unlock
+   of the new generation. The successful CAS owns the lock regardless of which
+   generation won that race; `finally` now releases that acquired lock. No proof
+   from the stale generation is published.
+5. **CI routing:** record/domain/resource-owner changes did not consistently
+   trigger replacement/dependency/exploration qualification. The affected paths
+   and new contract controls are included in their bounded workflows.
+
+### Evidence and intentional behavior
+
+Five targeted controls on Node 26.7.0: four failed on the handed-off code,
+all five pass after correction. The deterministic race schedules replacement
+through public `tt.ensure()` at the pre-CAS boundary; production has no test hook.
+Contradictory publication preserves the existing record and releases its lock.
+The complete 4x5 replacement campaign and stale-generation adapter lifecycle
+control also pass locally, retaining poisoned-install recovery and zero duplicate
+descriptor-term ownership. CI evidence will be added after remote qualification.
+
+Retained: old handles read unknown bounds and reject publication; descriptor
+replacement cannot acquire PROOF_WRITING; poisoned descriptor slots stay
+unavailable until globally quiescent reset; hints never strengthen bounds.
+Rejected: silently coercing values, accepting look-alike unknown arenas,
+restoring an obsolete generation, or using a full root as a race test.
+
+### Remaining owners / root readiness
+
+Continue TT shape/lifetime/counters/chunks/probes, semantic identity and scratch,
+slot64 residual/state/support storage, exact engine, coordinator, worker and
+Branch Manager lifecycle, root harness, and the complete bounded workflow import
+graph. No all-lines-clean conclusion is made. Split depth 3, frontier-first hint
+tie-breaking, separate proof ownership and authoritative root-proof timing are
+already implemented in the handed-off source; the older descriptions above are
+historical. ETC, priority probing, hash removal and large state tiers remain
+performance hypotheses, not permission to weaken correctness. The revision
+trigger remains untouched and no full root has been launched in this continuation.

@@ -5,6 +5,10 @@ on:
     branches:
       - research/frontier-negamax-conformance
     paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-store-contract.test.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
@@ -41,5 +45,7 @@ jobs:
           node-version: 26.7.0
       - name: Run semantic proof replacement qualification
         run: node research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs
+      - name: Exercise packed proof contracts and replacement interleavings
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-proof-store-contract.test.mjs
       - name: Run semantic proof lifecycle control
         run: node research/semantic-quotient/state-identity-unification/src/quotient-proof-lifecycle-control.mjs

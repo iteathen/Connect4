@@ -20,7 +20,7 @@ export function createSharedProofArena(stateCount) {
   });
 }
 
-export function resetSharedProofArena(arena) {
+export function assertSharedProofArena(arena) {
   if (!arena || arena.kind !== 'connect4-shared-packed-proof-arena-v3'
       || !(arena.recordBuffer instanceof SharedArrayBuffer)
       || !Number.isInteger(arena.stateCount) || arena.stateCount < 1) {
@@ -28,6 +28,12 @@ export function resetSharedProofArena(arena) {
   }
   const records = new Uint8Array(arena.recordBuffer);
   if (records.length !== arena.stateCount) throw new Error('shared proof arena record length drifted');
+  return arena;
+}
+
+export function resetSharedProofArena(arena) {
+  assertSharedProofArena(arena);
+  const records = new Uint8Array(arena.recordBuffer);
   records.fill(INITIAL_SEARCH_RECORD);
 }
 

@@ -63,7 +63,7 @@ function assertSharedBuffer(buffer, expectedBytes, label) {
   }
 }
 
-function assertArenaShape(arena) {
+export function assertSemanticSharedTtArena(arena) {
   if (!arena || typeof arena !== 'object' || arena.kind !== ARENA_KIND) {
     throw new TypeError(`semantic TT arena must have kind ${ARENA_KIND}`);
   }
@@ -202,7 +202,7 @@ export function createSemanticSharedTtArena(options = {}) {
 }
 
 export function resetSemanticSharedTtArena(arena) {
-  assertArenaShape(arena);
+  assertSemanticSharedTtArena(arena);
   const status = new Int32Array(arena.statusBuffer);
   for (let slot = 0; slot < status.length; slot += 1) {
     const state = Atomics.load(status, slot);
@@ -233,7 +233,7 @@ export function resetSemanticSharedTtArena(arena) {
 }
 
 export function createSemanticSharedTtView(arena) {
-  assertArenaShape(arena);
+  assertSemanticSharedTtArena(arena);
   const meta = new Int32Array(arena.metaBuffer);
   const status = new Int32Array(arena.statusBuffer);
   const generation = new Uint32Array(arena.generationBuffer);
