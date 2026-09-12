@@ -11,7 +11,7 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   const { states, supportAccess, columns, cellCount, centerOrder } = kernel;
   const descriptorCache = createLocalSemanticDescriptorCache(kernel);
   const tt = createSemanticSharedTtView(semanticArena);
-  const proofStore = createPackedProofStore(semanticArena.recordBuffer);
+  const proofStore = createPackedProofStore(semanticArena);
   const identityMetrics = { ttProbes: 0, ttEnsures: 0 };
 
   function descriptor(stateId) {
