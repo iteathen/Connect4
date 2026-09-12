@@ -4,15 +4,40 @@
 
 ## Purpose
 
-Define the Connect4-owned exact forward solver that operates on the future-relevant quotient state rather than a recursive colored-board state.
+Define the Connect4-owned exact **forward** W/D/L Negamax solver over the future-relevant Connect Four frontier.
 
-This specification owns Connect Four quotient-state meaning, exact W/D/L Negamax behavior, proof-state interaction, and Connect4-specific parallel work semantics. It does not own generic worker/runtime topology discovery, generic thread affinity, generic shared-memory/runtime mechanisms, or consumer-neutral search-session infrastructure.
+This specification owns forward Negamax proof procedure, proof-state interaction, worker/Branch-Manager execution semantics, and forward-lane evidence requirements. It does **not** independently own the structural mathematics from which the frontier is derived.
 
-C4-0001 remains authoritative for standard Connect Four domain rules. C4-0010 defines the quotient-native forward solver built on those rules.
+## Structural dependencies
 
-## Exact quotient state
+Read and preserve these meanings before changing this lane:
 
-The solver state is
+- **C4-0001** — Connect Four domain/legal-game semantics;
+- **C4-0006** — CPC control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics;
+- **C4-0007** — NDC dependency/certificate/timing semantics whenever strategic closure facts are consumed by the forward solver.
+
+C4-0008 defines the separate BSFP solver architecture. Negamax is not BSFP and BSFP is not a specialization of Negamax, but both consume the same Connect4-owned structural facts where their scopes overlap.
+
+C4-0010 must not redefine CPC, WSL-625 or NDC with forward-search-specific substitutes.
+
+## Frontier layers
+
+Keep these layers distinct:
+
+```text
+support / future event accessibility
+residual winning requirements
+CPC parity / response / event-order facts where material
+certified blockers / NDC facts where material
+proof state (W/D/L bounds and exact values)
+advisory ordering state
+```
+
+A smaller projection may be sufficient for ordinary legal-transition identity, but auxiliary ordering context or strategic certificates do not become part of that identity merely because one implementation stores them nearby.
+
+## Exact forward quotient
+
+The currently qualified ordinary forward quotient projection is:
 
 ```text
 q = supportIndex
@@ -20,62 +45,109 @@ q = supportIndex
   + normalized P1 residual winning-requirement antichain
 ```
 
-`sideToMove` is derived from support rank parity and is not an independent semantic field.
+`sideToMove` is derived from support rank parity under standard alternating no-pass Connect Four.
 
-Two physical histories may map to one quotient state only when they have the same action-labeled future behavior for the solver consumer scope.
+This projection is a consumer of C4-0006 residual semantics. It is not the complete NDC closure state. If a strategic proof fact depends on blockers, response resources, event-order premises, parity reservoirs, deadlines or horizons that are not derivable from `q`, that fact may not be cached/reused under `q` alone.
 
-The recursive solver does not require a colored physical board as machine state. Physical-board state may remain an oracle, provenance source, or independent control.
+Worker-local qIDs, residual-class IDs, term IDs, packed support encodings and cache indices are implementation representations, not semantic identity.
 
 ## Quotient transition semantics
 
-For a legal landing cell:
+For a legal landing event, consume C4-0006 semantics:
 
-- the mover's residual requirements containing the cell shrink by that cell;
-- shrinking a singleton residual requirement produces an immediate terminal win;
-- the opponent's residual requirements containing the cell are removed;
-- residual requirements remain canonically normalized as the minimal antichain;
-- support advances by the legal column transition.
+- mover requirements containing the landing cell shrink by that cell;
+- shrinking a singleton requirement completes a geometric win;
+- opponent requirements containing the landing cell are permanently blocked and disappear;
+- same-player residual requirements remain canonically normalized as the minimal antichain;
+- support advances by the legal gravity transition.
 
-Illegal moves and terminal-win transitions have one Connect4-owned meaning across all quotient implementations.
+A removed blocked line never reappears.
 
-Representations such as term IDs, slot-local bit chunks, packed support descriptors, local class IDs, or cache indices are implementation choices and do not redefine quotient identity.
+## CPC control invariant
 
-## Tactical closure
+Do not reduce CPC to a row-parity heuristic.
 
-The quotient state space owns Connect4 tactical classification:
+For the zero-reservation/base event reservoir and target `t=(c,r)`:
 
-- immediate mover win;
-- forced response to one immediate opponent threat;
-- forced loss from multiple simultaneous opponent threats;
-- draw when no winning requirement remains for either side or no legal continuation can change the exact W/D/L result;
-- no tactical shortcut otherwise.
+```text
+N(t)
+  = (r - h_c + 1)
+    + sum_{d != c}(H - h_d)
+  = (W - 1)H - ply + r + 1
+```
 
-Search consumes this classification; it does not independently redefine tactical meanings.
+Control of the target depends on `(N(t) - 1) mod 2` relative to side to move.
+
+When a strategic fragment reserves/releases/removes events before a parity-dependent target:
+
+```text
+N'(t) = N(t) + Delta
+```
+
+and control is preserved only when `Delta` is even, subject also to the fragment's exact response/resource and event-order guards.
+
+Therefore any compressed frontier that omits or releases events must preserve their parity effect whenever CPC proof meaning depends on that reservoir. Eventual ownership is insufficient where a race/deadline matters.
+
+## Terminal and tactical closure
+
+Immediate tactical closure is a specialization of the structural frontier, not an independent board detector.
+
+Cheap exact cases include:
+
+- mover playable singleton requirement -> immediate win;
+- one distinct playable opponent singleton -> forced response;
+- multiple distinct playable opponent singleton cells -> forced loss if no immediate mover win supersedes them;
+- one-sided residual exhaustion -> exact no-win bound for that player;
+- bilateral residual exhaustion -> exact draw absent an earlier win;
+- no legal continuation under the same terminal convention -> exact draw where applicable.
+
+These are not the complete strategic closure language.
+
+When C4-0007/NDC facts are used, exact closure may additionally derive ownership, blockers, requirement elimination, one-sided no-win or stronger terminal propositions through parity/response/race dependencies. Such facts retain their complete premises and timing meaning.
+
+Search consumes exact closure. Search does not redefine it.
+
+## Forced transition normalization
+
+A single forced response is not an ordinary decision branch.
+
+Repeated forced responses may be collapsed into a deterministic macro-edge until the next decision or terminal proposition, provided exact semantics are preserved.
+
+Deterministic transit states need not receive the same shared-proof admission priority as decision states. This is an execution/cache policy derived from exact forced-transition structure, not a change in game semantics.
 
 ## Negamax semantics
 
-The solver returns exact side-to-move W/D/L values in `{-1, 0, +1}`.
+The forward solver returns exact side-to-move W/D/L values in `{-1, 0, +1}`.
 
-The recursive search is fail-soft alpha-beta Negamax over quotient transitions.
+Unresolved decision states may be solved with fail-soft alpha-beta Negamax over exact frontier transitions.
 
-A state may return from previously established exact or bound proof information only when that proof refers to the same exact quotient identity.
+The active Negamax policy is one logical component. Local, shared-graph and online worker forms adapt state/proof capabilities into the same policy rather than carrying independent recursive semantics.
 
-Move ordering is advisory. It may affect work and tie order but must not alter exact W/D/L semantics.
+Exact frontier closure should be consumed before branching so already-derived terminal/bound facts are not rediscovered through legal-move enumeration.
 
-The active Negamax policy is one logical component. Local, shared-graph, and online worker execution forms adapt their state-space and proof-store capabilities into that same policy rather than carrying independent search semantics.
+## Move ordering
+
+Move ordering is advisory only, but the default policy should be **frontier-derived**, not conventional merely by habit.
+
+The legacy live-line value for player `p` is:
+
+```text
+value_p(cell)
+  = count of original geometric winning lines through cell
+    that contain no opponent stone
+```
+
+An opponent stone cancels that line's value for `p`; own stones do not.
+
+The empty-board standard-7x6 vector `[3,4,5,7,5,4,3]` is a derived test result, never a static table.
+
+If original-line multiplicity/provenance is used for ordering, maintain a player-relative live-line frontier (or proved equivalent projection) incrementally. Do not reconstruct a conventional board merely to recover the score, and do not make that advisory multiplicity part of exact quotient identity.
+
+Proof-store move hints may be combined with frontier ordering only as measured advisory policy. Fixed center order, reverse-by-worker-salt, history/killer tables or similar conventional search techniques have no default authority in this frontier engine.
 
 ## Semantic state versus proof state
 
-Semantic state and proof state are separate responsibilities.
-
-Semantic state answers:
-
-```text
-what exact quotient state is this?
-what actions are legal?
-what exact quotient transition follows an action?
-what tactical closure applies?
-```
+Semantic/frontier state answers exact game questions such as legality, support progression, residual transformations and qualified closure facts.
 
 Proof state answers:
 
@@ -84,27 +156,25 @@ what exact W/D/L value or sound lower/upper bound is established?
 what advisory move hint is available?
 ```
 
-Semantic identity is stable. Proof state evolves during solving.
+Semantic identity is stable for its declared projection. Proof state evolves during solving.
 
-A proof store must not manufacture a stronger claim from races, stale hints, hash collisions, or partial publication.
+A proof store must not manufacture stronger claims from races, stale hints, hash collisions, incomplete certificate context or partial publication.
 
 ## Proof publication
 
 For W/D/L bounds:
 
-- lower bounds may only strengthen monotonically upward;
-- upper bounds may only strengthen monotonically downward;
-- an exact value is represented by equal lower and upper bounds;
-- contradictory publication is an error, not a replacement policy;
-- best-move hints are advisory and must not erase stronger proof facts.
+- lower bounds strengthen only upward;
+- upper bounds strengthen only downward;
+- equal lower/upper means exact;
+- contradictory publication is an error;
+- advisory move hints cannot erase stronger proof facts.
 
-The packed byte layout is an implementation detail of the current proof-store service, not solver semantic authority.
+Packed byte layout is implementation detail, not semantic authority.
 
 ## Canonical shared identity
 
-Worker-local qIDs and residual-class IDs are execution-local and need not agree between workers.
-
-The canonical semantic descriptor for shared proof identity is:
+For the ordinary forward quotient projection, shared proof identity is:
 
 ```text
 supportIndex
@@ -112,82 +182,100 @@ supportIndex
 + exact sorted P1 residual term sequence
 ```
 
-Hash values may select candidate storage locations but are not semantic equality. A hash match is accepted only after exact descriptor equality.
+Hash values may address candidate storage locations but never establish equality.
 
-No probabilistic hash-only hit may produce an exact or bound proof reuse.
+If shared proof facts later include CPC/NDC certificate state that is not derivable from this descriptor, the identity must be extended or those facts must remain separately/contextually owned. Never attach path-dependent strategic proof to the smaller key by assumption.
+
+## Shared proof admission
+
+Shared proof storage is not required to intern every visited state.
+
+A conforming implementation may separate:
+
+```text
+probe existing proof without allocation
+ensure storage when publishing retained proof/hint state
+```
+
+Decision-state or proof-value-aware admission is allowed and should be compared against allocate-on-read behavior. Forced deterministic transit states are especially important candidates for non-admission.
+
+Fixed-capacity arenas require explicit lifecycle/replacement semantics before a slot can be reused. Stale slot handles must never publish proof to a new identity.
 
 ## Parallel search ownership
 
-Search workers own synchronous recursive Negamax execution over local fast quotient state.
+Search workers own synchronous local execution of their current proof/explore task. They are not interrupted to accept new work.
 
-They may share exact proof information through the proof-store contract.
+Workers may share exact proof information through the proof-store contract.
 
-The maintenance execution host may physically host planning, proof-resource lifecycle, dedup reconciliation, and reclamation services. Execution locality does not make the worker process the semantic owner of those child responsibilities.
+**Branch Manager** is the execution role that hosts branch/work-supply, dedup/reconciliation and related background services. Hosting a service does not transfer that service's semantic ownership to the worker process.
 
-Recursive search must not require per-node RPC to the maintenance host.
+Recursive search must not require per-node RPC to Branch Manager.
 
-## Dependency-aware work planning
+## Branch Manager work supply
 
-Parallel work is exposed at logical alpha-beta dependency edges, not at arbitrary depth boundaries.
+Branch Manager should maintain a bounded ready reservoir ahead of worker demand.
 
-A work item becomes independently schedulable only after the parent information required to define its useful proof obligation is available.
-
-The intended parallel shape is:
+Workers do not request a new branch and wait for a reply. When a worker finishes its current task and would otherwise idle, the local executor chooses from already-ready work:
 
 ```text
-preferred child first
-  -> establish or tighten parent bound
-  -> expose dependency-satisfied sibling proof work
-  -> consume shared proof updates
-  -> stop, ignore, or cancel obsolete sibling work after cutoff
+authoritative dependency-qualified proof work
+  > queued frontier exploration
+  > idle
 ```
 
-Blind root-branch fanout and bulk full-window solving of every shallow frontier node are not the default solver semantics.
+An exploration hint may be represented as:
 
-A shallow quotient work DAG may be used to discover transpositions, forced responses, tactical closures, work estimates, and representative task paths, provided it preserves alpha-beta dependency meaning.
+```text
+ExploreHint(path-or-frontier-reference, depth)
+```
 
-## Dynamic search profile
+where `depth` bounds structural lookahead, not Negamax proof depth.
 
-Worker count, lookahead/split depth, and task granularity are measured properties of the hardware and current proof shape rather than universal constants.
+Exploration discovers frontier structure, transpositions, forced closure and future branch candidates. Discovery alone does not create a valid parent alpha/beta obligation.
 
-Initialization or useful presearch may measure:
+## Dependency-aware parallel proof
 
-- available effective search concurrency;
-- frontier width after quotient deduplication;
-- tactical/forced-response closure;
-- transposition rate;
-- task-cost skew;
-- dependency-qualified parallel slack;
-- shared-proof reuse and contention.
+Parallel authoritative work is exposed at logical proof dependencies, not arbitrary fixed-depth cuts.
 
-Useful presearch should contribute retained proof/search work where practical rather than exist only as disposable calibration.
+The intended shape is:
 
-Connect4 consumes a measured search-capacity/profile capability. Consumer-neutral CPU topology, affinity, runtime thread placement, and generic search-session capacity belong to their natural lower-layer owners.
+```text
+preferred frontier child / proof obligation first
+  -> establish or tighten parent bound
+  -> release dependency-satisfied sibling obligations
+  -> consume completions incrementally
+  -> detach obsolete sibling work from the parent after cutoff
+```
 
-## Deduplication and reclamation
+Busy workers are not forcibly cancelled. Detached work may finish naturally and publish any sound proof before returning to the ready queue.
 
-Canonical deduplication and storage reclamation each require one visible lifecycle owner.
+Do not insert a bulk barrier that requires every sibling scout to complete before an already-satisfied parent can return.
 
-Search workers may use local execution caches and local IDs, but those do not become global semantic authority.
+## Dynamic frontier profile
 
-Shared arenas are fixed-capacity resources unless a later accepted design explicitly changes that contract. Cleanup/reuse must preserve exact identity and proof validity.
+Worker count, exploration depth and task granularity are measured properties of hardware **and current proof/frontier shape**, not universal constants.
+
+A fixed depth may be used as a bounded initialization/control parameter. It must not be mistaken for the semantic definition of parallel work.
+
+Useful presearch/exploration should retain exact frontier/proof information where practical rather than exist only as disposable calibration.
 
 ## Representation freedom
 
-The solver may change support encoding, residual representation, interning layout, chunk geometry, cache policy, proof-record packing, or worker scheduling when exact solver semantics remain unchanged.
+The solver may change support encoding, residual representation, line-frontier representation, interning layout, cache admission, proof packing or worker scheduling when exact semantics remain unchanged.
 
-Representation-specific limits must come from the supported domain and resource model rather than the first bounded control.
+Representation-specific limits must come from the supported domain/resource model rather than bounded controls.
 
 ## Evidence and claims
 
-The currently accepted research evidence includes:
+Accepted evidence includes:
 
 - complete bounded quotient equivalence and exact W/D/L controls;
-- standard-7x6 rank-growth representation checkpoints;
+- standard-7x6 quotient/rank-growth checkpoints;
 - bounded quotient-versus-physical forward comparisons;
-- useful shared-proof worker parallelism;
-- exact semantic-content TT sharing across worker-local quotient IDs.
+- exact semantic-content proof sharing across worker-local quotient IDs;
+- dependency-aware bounded worker experiments;
+- independent geometric terminal qualification from the broader research line.
 
-Those results do not by themselves establish standard-7x6 empty-root wall clock, a universal worker count, a universal split depth, production CPU-affinity placement, or end-to-end hybrid performance.
+Those results do not establish universal worker count/split depth, standard-7x6 empty-root wall clock, complete U1/U2/NDC forward integration, or final shared-TT replacement policy.
 
-`STATUS.md` and `next_step.yaml` own current implementation/evidence state and the next research seam. Research notes preserve useful experimental provenance but do not override this specification.
+Current-state files own current implementation/evidence. Research notes preserve experiment provenance but do not override these ownership boundaries.
