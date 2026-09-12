@@ -245,32 +245,38 @@ Per-worker high-water reached roughly 40.1-45.5 million local q states, 9.59-11.
 
 ### v5 slot-owned extension chunks qualified
 
-The `v5` proof-store correction is bounded-qualified before another full-root admission:
+The `v5` proof-store correction was bounded-qualified before full-root admission:
 
 - semantic replacement/stale-handle/growth run `34675102224` passed;
 - dependency-aware proof run `34675126023` passed;
 - idle ExploreHint run `34675132451` passed;
 - constrained exact 4x5 root/actions remained `[0,0,0,0]`.
 
-The standard-7x6 workflow is intentionally path-gated so implementation commits do not automatically launch expensive root attempts. A new full-root measurement is admitted only after bounded qualification through `standard7x6-root-qualification-revision.txt`.
+The standard-7x6 workflow is path-gated so implementation commits do not automatically launch expensive root attempts. Full-root measurement is admitted only through `standard7x6-root-qualification-revision.txt` after bounded qualification.
 
-## Current evidence boundary
+## Active v5 standard-7x6 measurement
 
-The next admitted standard-7x6 measurement should change only the proof descriptor storage lifetime from old `v4` whole-span growth to current `v5` slot-owned extension chunks.
-
-Keep the prior comparison configuration:
+Exactly one `v5` full-root measurement is active:
 
 ```text
-search workers:                  3
-unresolved decision split depth: 8
+workflow run:                     34675467051
+job:                              103504435817
+admission commit:                 5049e3b25eaca8526e2559123b12ea3e6283b8da
+search workers:                   3
+unresolved decision split depth:  8
 autonomous Branch Manager explore: disabled
-shared proof entries:            8,388,608
-shared term arena words:       460,000,000
+shared proof entries:             8,388,608
+shared term arena words:          460,000,000
+proof descriptor storage:         v5 slot-owned extension chunks
 ```
 
-Capture and compare:
+The qualification-trigger commit launched only this standard-7x6 workflow. The solver step is in progress. GitHub does not expose the in-progress job log blob through the current connector, so no live progress series is claimed before the job log is finalized.
 
-- exact root/action WDL if resolved;
+**Do not admit or launch a second standard-7x6 root run while `34675467051` is active.**
+
+When the run closes, capture and compare:
+
+- exact root/action W/D/L if resolved;
 - calls and expansions;
 - proof probes/misses/admissions;
 - shared proof entries/replacements;
