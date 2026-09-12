@@ -33,6 +33,31 @@ function qualifyLegacyRootIncidence() {
   return Object.freeze({ values: Object.freeze(values), order: Object.freeze(ordered) });
 }
 
+async function drainExploreResults(branchManager) {
+  const results = [];
+  while (true) {
+    const reply = await branchManager.takeExploreResult();
+    if (reply.result === null) return Object.freeze({ results: Object.freeze(results), stats: reply.stats });
+    results.push(reply.result);
+  }
+}
+
+function assertRootFragment(fragment, label) {
+  assert(fragment.requestedDepth === EXPLORE_DEPTH, `${label}: explore depth drifted`);
+  assert(fragment.reachedDepth === EXPLORE_DEPTH, `${label}: explore did not reach requested depth`);
+  assert(fragment.ordering === 'dynamic-live-winning-line-frontier', `${label}: wrong move-order authority ${fragment.ordering}`);
+  assert(fragment.contextIdentity === 'exact_q_semantic_content_plus_exact_live_line_frontier', `${label}: wrong exploration identity`);
+  assert(fragment.uniqueContexts > 1, `${label}: explore did not discover frontier contexts`);
+  assert(fragment.frontierCandidates.length > 0, `${label}: explore did not expose frontier candidates`);
+  assert(fragment.scoredMoves > 0, `${label}: explore did not score moves`);
+  if (EXPLORE_DEPTH === 3) {
+    assert(fragment.uniqueContexts === 73, `${label}: expected 73 unique contexts, got ${fragment.uniqueContexts}`);
+    assert(fragment.expandedContexts === 21, `${label}: expected 21 expanded contexts, got ${fragment.expandedContexts}`);
+    assert(fragment.traversedEdges === 84, `${label}: expected 84 traversed edges, got ${fragment.traversedEdges}`);
+    assert(fragment.duplicateContextEdges === 12, `${label}: expected 12 duplicate context edges, got ${fragment.duplicateContextEdges}`);
+  }
+}
+
 const standardRootIncidence = qualifyLegacyRootIncidence();
 
 const branchManager = await startOnlineBranchManager(SPEC, {
@@ -40,6 +65,10 @@ const branchManager = await startOnlineBranchManager(SPEC, {
   prefixClasses: PREFIX_CLASSES,
   entryCapacity: 1 << 19,
   termCapacity: 1 << 24,
+  exploreEnabled: true,
+  exploreDepth: EXPLORE_DEPTH,
+  exploreReservoirTarget: 2,
+  exploreBacklogCapacity: 32,
 });
 const semanticArena = branchManager.published.semanticArena;
 const semanticTt = createSemanticSharedTtView(semanticArena);
@@ -47,47 +76,46 @@ const workers = await startOnlineSearchWorkers(2, SPEC, semanticArena, {
   prefixClasses: PREFIX_CLASSES,
   etc: false,
 });
+
+let phase = 'autonomous';
+let phaseExploreCompletions = 0;
 const executor = createSearchWorkerExecutor(workers, {
-  completeExploreHint: (hintId, fragment) => branchManager.completeExplore(hintId, fragment),
+  completeExploreHint: async (hintId, fragment) => {
+    phaseExploreCompletions += 1;
+    const stopAt = phase === 'autonomous' ? 3 : 1;
+    if (phaseExploreCompletions >= stopAt) await branchManager.stopExplore();
+    return branchManager.completeExplore(hintId, fragment);
+  },
   abandonExploreHint: (hintId) => branchManager.abandonExplore(hintId),
 });
 const unsubscribeExplore = branchManager.subscribeExplore(executor.enqueueExploreHint);
 
-function assertExploreFragment(fragment, label) {
-  assert(fragment.requestedDepth === EXPLORE_DEPTH, `${label}: explore depth drifted`);
-  assert(fragment.reachedDepth === EXPLORE_DEPTH, `${label}: explore did not reach requested depth`);
-  assert(fragment.ordering === 'dynamic-live-winning-line-frontier', `${label}: wrong move-order authority ${fragment.ordering}`);
-  assert(fragment.uniqueStates > 1, `${label}: explore did not discover quotient states`);
-  assert(fragment.frontierPaths.length > 0, `${label}: explore did not expose frontier paths`);
-  assert(fragment.scoredMoves > 0, `${label}: explore did not score moves`);
-  if (EXPLORE_DEPTH === 3) {
-    assert(fragment.uniqueStates === 73, `${label}: expected 73 unique q states, got ${fragment.uniqueStates}`);
-    assert(fragment.expandedStates === 21, `${label}: expected 21 expanded q states, got ${fragment.expandedStates}`);
-    assert(fragment.traversedEdges === 84, `${label}: expected 84 traversed edges, got ${fragment.traversedEdges}`);
-    assert(fragment.transposedEdges === 12, `${label}: expected 12 transposed edges, got ${fragment.transposedEdges}`);
-  }
-}
-
-let exploreOnly;
+let autonomous;
 let mixed;
 try {
-  const offered = await branchManager.offerExplore([], EXPLORE_DEPTH);
-  assert(offered.hint !== null, 'root explore hint was not accepted');
   await executor.drain();
-
-  const exploreReply = await branchManager.takeExploreResult();
-  assert(exploreReply.result !== null, 'Branch Manager did not retain explore result');
-  const fragment = exploreReply.result.fragment;
-  assertExploreFragment(fragment, 'explore-only');
+  const autonomousResults = await drainExploreResults(branchManager);
+  assert(autonomousResults.results.length >= 3,
+    `autonomous Branch Manager expected >=3 completed explores, got ${autonomousResults.results.length}`);
+  const rootResult = autonomousResults.results.find((entry) => entry.path.length === 0);
+  assert(rootResult !== undefined, 'autonomous Branch Manager did not seed the root exploration itself');
+  assertRootFragment(rootResult.fragment, 'autonomous-root');
+  assert(autonomousResults.stats.exploreHints.seen >= autonomousResults.results.length,
+    'persistent exploration seen-set did not retain completed contexts');
+  assert(autonomousResults.stats.exploreSessionStarts >= 1, 'autonomous exploration session did not start');
+  assert(autonomousResults.stats.exploreCandidatesAccepted > 1, 'Branch Manager did not replenish from completed frontier candidates');
   const ttAfterExplore = semanticTt.stats();
   assert(ttAfterExplore.entries === 0, `structural explore published ${ttAfterExplore.entries} TT entries`);
-  exploreOnly = Object.freeze({
-    fragment,
+  autonomous = Object.freeze({
+    completedExplores: autonomousResults.results.length,
+    rootFragment: rootResult.fragment,
     executor: executor.stats(),
-    branchManager: exploreReply.stats,
+    branchManager: autonomousResults.stats,
     semanticTt: ttAfterExplore,
   });
 
+  phase = 'mixed';
+  phaseExploreCompletions = 0;
   await branchManager.reset();
   const authoritative = executor.submit({
     type: 'search-path',
@@ -95,31 +123,30 @@ try {
     alpha: -2,
     beta: 2,
   }, 1000);
-  const mixedOffer = await branchManager.offerExplore([], EXPLORE_DEPTH);
-  assert(mixedOffer.hint !== null, 'mixed-phase explore hint was not accepted');
 
   const solved = await authoritative;
   assert(solved.value === 0, `4x5 authoritative root expected draw, got ${solved.value}`);
   await executor.drain();
-  const mixedExploreReply = await branchManager.takeExploreResult();
-  assert(mixedExploreReply.result !== null, 'mixed phase did not complete explore hint');
-  assertExploreFragment(mixedExploreReply.result.fragment, 'mixed');
+  const mixedExploreResults = await drainExploreResults(branchManager);
+  assert(mixedExploreResults.results.length >= 1, 'mixed phase did not consume autonomous explore work');
   const mixedStats = executor.stats();
   assert(mixedStats.submitted === 1, `expected one authoritative task, got ${mixedStats.submitted}`);
   assert(mixedStats.completed === 1, `expected one authoritative completion, got ${mixedStats.completed}`);
-  assert(mixedStats.exploreCompleted >= 2, `expected two total explore completions, got ${mixedStats.exploreCompleted}`);
-  assert(mixedStats.exploreReady === 0, 'executor retained queued explore work');
-  assert(mixedStats.active === 0 && mixedStats.queued === 0 && mixedStats.pending === 0, 'executor retained authoritative work');
+  assert(mixedStats.exploreCompleted >= autonomousResults.results.length + 1,
+    'expected exploration to continue only from idle capacity');
+  assert(mixedStats.active === 0 && mixedStats.queued === 0 && mixedStats.pending === 0 && mixedStats.exploreReady === 0,
+    'executor retained work after mixed phase');
 
   mixed = Object.freeze({
     authoritativeValue: solved.value,
     authoritativeWorker: solved.workerId,
-    fragment: mixedExploreReply.result.fragment,
+    completedExplores: mixedExploreResults.results.length,
     executor: mixedStats,
-    branchManager: mixedExploreReply.stats,
+    branchManager: mixedExploreResults.stats,
     semanticTt: semanticTt.stats(),
   });
 } finally {
+  await branchManager.stopExplore();
   await executor.drain();
   unsubscribeExplore();
   executor.close();
@@ -129,13 +156,13 @@ try {
 }
 
 const result = Object.freeze({
-  kind: 'connect4-queued-live-line-frontier-explore-v4',
+  kind: 'connect4-autonomous-branch-manager-frontier-explore-v5',
   status: 'complete',
   spec: SPEC,
   exploreDepth: EXPLORE_DEPTH,
-  policy: 'Branch Manager queues ExploreHint(path, depth) ahead of demand; idle workers carry dynamic live-winning-line frontiers; quotient residual closure remains proof authority; authoritative work has dispatch priority',
+  policy: 'Branch Manager auto-seeds and replenishes a bounded exact frontier-context reservoir; workers never request branches; authoritative proof work has idle-dispatch priority and running work is never interrupted',
   standardRootIncidence,
-  exploreOnly,
+  autonomous,
   mixed,
 });
 
