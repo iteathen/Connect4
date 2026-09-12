@@ -41,7 +41,14 @@ slot64 lanes pass locally. All four remote bounded lanes passed on source commit
 14772b33383597a86212cd1c2dd636e8036aeca4: dependency 34697348137, ExploreHint
 34697348141, replacement 34697348155 and slot64 34697348163.
 
-Next: identify useful active-path reductions using the
+The [state-retention review](docs/research/2026-09-12-state-retention-review.md)
+removed the derived per-state hash cache. Exact identity, node counts and state
+placement match; bounded kernels save 4.0–9.9% typed storage. Isolated local
+timings range from 1.9% faster to 2.4% slower: a memory reduction, not a proved
+speedup or solve-space reduction. Eight storage and 33 other contract controls,
+plus seven bounded campaigns, pass locally. No new full root was run.
+
+Next: identify further useful active-path reductions using the
 [original 2025 engine study](docs/research/2026-09-12-original-engine-structural-lessons.md).
 Existing singleton masks reproduce the original parity flags: 13,724 flag and
 65,328 slot-value comparisons passed across six board sizes. This is research
@@ -57,7 +64,7 @@ Do not dispatch another root while this investigation is unresolved.
 
 Global arena reset requires stopped submissions and quiescent workers. Finite
 capacity exhaustion is an explicit failing resource outcome, never a proof.
-State capacity tiers, retained hashes, growth peak memory, replacement pressure,
+State capacity tiers, growth peak memory, replacement pressure,
 ETC and priority probing remain performance hypotheses. Historical revision-2
 run 34676507073 ended without a proof near 15.7 GB RSS; this audit does not imply
 that its performance problem has been solved. Complete cheap U1/U2/NDC forward

@@ -3,6 +3,7 @@ import test from 'node:test';
 import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 import { createScaledTermIdQuotientNativeNegamaxKernel } from './quotient-native-negamax-scaled-term-id-kernel.mjs';
 import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+import { installOnlineOnlyStateStorage } from './quotient-online-only-state-storage.mjs';
 
 const spec = { columns: 4, rows: 3, connect: 3 };
 const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
@@ -97,7 +98,7 @@ test('slot64 cell masks reject integer wrapping and preserve the residual class'
 test('failed state growth leaves every existing backing array and capacity intact', () => {
   const k = createSlot64ResidualQuotientKernel({ columns: 4, rows: 5, connect: 4 }, { prefixClasses: 8 }).kernel;
   const s = k.states;
-  const before = [s.support, s.p0Class, s.p1Class, s.hashes, s.edges, s.capacity];
+  const before = [s.support, s.p0Class, s.p1Class, s.edges, s.capacity];
   const U32 = globalThis.Uint32Array;
   let allocations = 0;
   globalThis.Uint32Array = new Proxy(U32, { construct(target, args) {
@@ -113,7 +114,31 @@ test('failed state growth leaves every existing backing array and capacity intac
   } finally {
     globalThis.Uint32Array = U32;
   }
-  assert.equal(s.capacity, before[5]);
-  for (let i = 0; i < 5; i += 1) assert.equal([s.support, s.p0Class, s.p1Class, s.hashes, s.edges][i], before[i]);
+  assert.equal(s.capacity, before[4]);
+  for (let i = 0; i < 4; i += 1) assert.equal([s.support, s.p0Class, s.p1Class, s.edges][i], before[i]);
   assert.equal(s.intern(0, 1, 1), 0);
+});
+
+test('semantic IDs and cached edges survive repeated state growth and hash collisions', () => {
+  for (const cacheEdges of [false, true]) {
+    const k = createSlot64ResidualQuotientKernel({ columns: 4, rows: 5, connect: 4 }, { cacheEdges, prefixClasses: 8 }).kernel;
+    const s = k.states, online = installOnlineOnlyStateStorage(s);
+    const edges = [];
+    // Grow through three backing tiers using actual legal residual transitions.
+    for (let id = 0; s.count < 17000; id++) {
+      assert.ok(id < s.count);
+      for (let column = 0; column < k.columns; column++) edges.push([id, column, k.advance(id, column)]);
+    }
+    assert.ok(s.metrics.stateGrows >= 3);
+    assert.ok(s.metrics.hashGrows >= 2);
+    const count = s.count;
+    for (let id = 0; id < count; id++) {
+      assert.equal(s.intern(s.support[id], s.p0Class[id], s.p1Class[id]), id);
+    }
+    for (const [id, column, child] of edges) assert.equal(k.advance(id, column), child);
+    assert.equal(s.count, count);
+    assert.equal(s.memoryStats().stateArrayBytes, 12 * s.capacity);
+    assert.equal(online.stats().localProofBytesRetained, 0);
+    assert.equal(online.stats().stateCapacity, s.capacity);
+  }
 });

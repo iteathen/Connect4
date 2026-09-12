@@ -468,7 +468,6 @@ class QuotientStatePool {
     if (this.edges) this.edges.fill(QN_EDGE_UNKNOWN);
     this.hashSlots = new Int32Array(8192);
     this.hashSlots.fill(-1);
-    this.hashes = new Uint32Array(this.capacity);
     this.metrics = { internLookups: 0, internHits: 0, internMisses: 0, hashGrows: 0, stateGrows: 0 };
   }
 
@@ -483,7 +482,6 @@ class QuotientStatePool {
     const support = copy(Uint32Array, this.support);
     const p0Class = copy(Uint32Array, this.p0Class);
     const p1Class = copy(Uint32Array, this.p1Class);
-    const hashes = copy(Uint32Array, this.hashes);
     let edges = null;
     if (this.cacheEdges) {
       edges = new Int32Array(nextCapacity * this.columns);
@@ -493,7 +491,6 @@ class QuotientStatePool {
     this.support = support;
     this.p0Class = p0Class;
     this.p1Class = p1Class;
-    this.hashes = hashes;
     this.edges = edges;
     this.capacity = nextCapacity;
     this.metrics.stateGrows += 1;
@@ -505,7 +502,8 @@ class QuotientStatePool {
     next.fill(-1);
     const mask = next.length - 1;
     for (let id = 0; id < this.count; id += 1) {
-      let slot = this.hashes[id] & mask;
+      // The identity triple already owns every input to its bucket hash.
+      let slot = hashStateTriple(this.support[id], this.p0Class[id], this.p1Class[id]) & mask;
       while (next[slot] !== -1) slot = (slot + 1) & mask;
       next[slot] = id;
     }
@@ -525,8 +523,7 @@ class QuotientStatePool {
     while (true) {
       const id = this.hashSlots[slot];
       if (id === -1) break;
-      if (this.hashes[id] === hash
-          && this.support[id] === supportIndex
+      if (this.support[id] === supportIndex
           && this.p0Class[id] === p0Class
           && this.p1Class[id] === p1Class) {
         this.metrics.internHits += 1;
@@ -539,7 +536,6 @@ class QuotientStatePool {
     this.support[id] = supportIndex;
     this.p0Class[id] = p0Class;
     this.p1Class[id] = p1Class;
-    this.hashes[id] = hash;
     if (this.edges) {
       const start = id * this.columns;
       this.edges.fill(QN_EDGE_UNKNOWN, start, start + this.columns);
@@ -574,8 +570,7 @@ class QuotientStatePool {
   memoryStats() {
     const stateBytes = this.support.byteLength
       + this.p0Class.byteLength
-      + this.p1Class.byteLength
-      + this.hashes.byteLength;
+      + this.p1Class.byteLength;
     return Object.freeze({
       stateCount: this.count,
       stateCapacity: this.capacity,

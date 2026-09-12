@@ -24,6 +24,7 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-only-state-storage.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs'
@@ -35,6 +36,7 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs'
@@ -57,6 +59,8 @@ jobs:
         run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs
       - name: Exercise storage value and allocation boundaries
         run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
+      - name: Qualify bounded state retention and report isolated local timings
+        run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs
       - name: Independently verify physical terminals and standard-board eval
         run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs
       - name: Independently verify pruning bounds and move eval

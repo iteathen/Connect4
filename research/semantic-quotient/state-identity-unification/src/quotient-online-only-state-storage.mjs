@@ -1,8 +1,7 @@
 export function installOnlineOnlyStateStorage(states) {
   if (!states || !(states.support instanceof Uint32Array)
       || !(states.p0Class instanceof Uint32Array)
-      || !(states.p1Class instanceof Uint32Array)
-      || !(states.hashes instanceof Uint32Array)) {
+      || !(states.p1Class instanceof Uint32Array)) {
     throw new TypeError('online state storage requires the quotient semantic state pool');
   }
   if ('lower' in states || 'upper' in states || 'bestMove' in states) {

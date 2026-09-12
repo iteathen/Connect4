@@ -730,3 +730,27 @@ the later evaluator was executed unchanged across six dimension profiles.
 The prototype is not yet a performance recommendation: the active solver does
 not compute these flags. Further work should measure relevant existing work
 eliminated by representation, including transient versus retained state cost.
+
+## Derived state-hash retention review
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+The [retention review](2026-09-12-state-retention-review.md) audits the state
+pool's constructor, growth, rehash, exact interning and byte accounting against
+C4-0010, plus its online-storage consumer and storage qualification. Removing
+the derived hash cache saves four bytes per capacity slot. This is a resource
+representation change, not a correctness defect or duplicate proof authority.
+Exact IDs, full hash-table placement, WDL and search work match the immutable
+baseline. Allocation failure remains transactional; edge-cache and online modes
+both survive repeated growth. Eight storage controls, 33 other contract controls
+and seven local bounded campaigns pass. Workflow routing was checked and extended
+for the new harness and online-storage dependency.
+
+The old nohash monkey patch was rejected because it targets obsolete storage
+ownership. Isolated timing does not show a speedup (−1.9% to +2.4%); mixed-module
+timing is retained as a diagnostic. The bounded memory saving is accepted with
+this explicit CPU limitation. No eval/parity policy or standard-root trigger
+changed. Remaining owners are unnecessary terminal projection work and the
+unresolved structural-closure/repeated-proof cost, not a claim that fewer stored
+bytes has solved the search-volume problem.
