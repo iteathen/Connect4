@@ -1,6 +1,6 @@
-schema_version: 31
+schema_version: 32
 updated: 2026-09-12
-state: state_hash_retention_removed_bounded_memory_reduction_qualified
+state: state_retention_and_exact_terminal_shortcircuit_locally_qualified
 current_branch: research/frontier-negamax-conformance
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -115,3 +115,16 @@ state_retention:
   bounded_campaigns_passed: 7
   full_root_run: false
   next_owner: unnecessary_terminal_projection_work_and_structural_closure
+
+terminal_shortcircuit:
+  baseline: 76a792241b94b59abaf8ff10cdc1cf738d982613
+  changed: return_at_existing_playable_mover_singleton_test
+  exact_terminal_semantics_changed: false
+  ordering_policy_changed: false
+  bounded_campaigns_passed: 6
+  independent_terminal_positions: 1716141
+  immediate_win_positions: 401165
+  own_win_over_multiple_opponent_threats: 14634
+  mismatches: 0
+  full_root_run: false
+  next_owner: structural_closure_coverage_and_repeated_proof_work

@@ -48,6 +48,12 @@ timings range from 1.9% faster to 2.4% slower: a memory reduction, not a proved
 speedup or solve-space reduction. Eight storage and 33 other contract controls,
 plus seven bounded campaigns, pass locally. No new full root was run.
 
+The terminal projection now returns at the first playable mover singleton,
+eliminating the remaining threat scan after an exact immediate win. All six
+relevant local campaigns pass after this follow-up; independent terminal checks
+cover 401,165 immediate-win positions with zero mismatches. No eval or strategic
+parity policy changed, and no throughput improvement is claimed from census counts.
+
 Next: identify further useful active-path reductions using the
 [original 2025 engine study](docs/research/2026-09-12-original-engine-structural-lessons.md).
 Existing singleton masks reproduce the original parity flags: 13,724 flag and

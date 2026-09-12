@@ -754,3 +754,25 @@ this explicit CPU limitation. No eval/parity policy or standard-root trigger
 changed. Remaining owners are unnecessary terminal projection work and the
 unresolved structural-closure/repeated-proof cost, not a claim that fewer stored
 bytes has solved the search-volume problem.
+
+## Immediate-terminal projection short-circuit
+
+Research direction / architecture: Josh Oshiro
+Implementation / qualification: OpenAI ChatGPT
+
+Reviewed every line of the support-layout kernel's `tacticalCode` again under
+C4-0001/C4-0006/C4-0010. Once the mover's playable singleton is found, its result
+and first-winning-column tie are fixed. The function unnecessarily continued
+scanning opponent threats. Return at that existing exact test and remove the
+deferred immediate-result variable. Opponent double threats still require the
+complete scan because a later mover immediate win must override them.
+
+This is redundant hot-path work, not a discovered WDL or parity defect. The
+[follow-up report](2026-09-12-state-retention-review.md#follow-up-stop-work-at-an-exact-immediate-terminal)
+records six passing local campaigns after the change. Independent terminal
+coverage includes 401,165 immediate wins and 14,634 simultaneous multiple-threat
+cases, with zero mismatches. No throughput claim is inferred from those counts.
+Workflow routing already covers this source; prior evidence remains associated
+with its original revisions. No full root was run or triggered. Next owner:
+structural closure coverage and repeated proof work, with the original source's
+relation reuse as evidence and no unproved parity terminalization substituted.

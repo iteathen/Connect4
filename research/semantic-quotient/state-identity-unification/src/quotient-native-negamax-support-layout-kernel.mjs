@@ -690,7 +690,6 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
     const mover = supportAccess.rankAt(supportIndex) & 1;
     const ownClass = mover === 0 ? p0Class : p1Class;
     const opponentClass = mover === 0 ? p1Class : p0Class;
-    let immediate = -1;
     let forced = -1;
     let threats = 0;
     let legal = 0;
@@ -700,13 +699,14 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
       legal += 1;
       const lo = bitLo[landingCell];
       const hi = bitHi[landingCell];
-      if (immediate < 0 && classes.hasSingletonAt(ownClass, lo, hi)) immediate = column;
+      // A playable singleton completes an exact winning requirement now.
+      // Later opponent threats cannot change this result or its first-move tie.
+      if (classes.hasSingletonAt(ownClass, lo, hi)) return TACTICAL_IMMEDIATE_BASE + column;
       if (classes.hasSingletonAt(opponentClass, lo, hi)) {
         threats += 1;
         if (forced < 0) forced = column;
       }
     }
-    if (immediate >= 0) return TACTICAL_IMMEDIATE_BASE + immediate;
     if (threats > 1) return TACTICAL_LOSS;
     if (legal === 0) return TACTICAL_DRAW;
     if (threats === 1) return forced;

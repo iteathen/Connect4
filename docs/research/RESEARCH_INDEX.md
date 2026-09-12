@@ -24,7 +24,8 @@ Start with:
 ## Frontier-native exact forward solver research
 
 - [Derived state-hash retention](2026-09-12-state-retention-review.md):
-  qualified memory reduction; isolated timing tradeoff, unchanged exact search work.
+  qualified memory reduction and immediate-terminal scan short-circuit;
+  isolated hash-retention timing tradeoff, unchanged exact search policy.
 
 - [Original engine: structural lessons and bounded adaptation](2026-09-12-original-engine-structural-lessons.md):
   actual source review and original-executable comparison with singleton masks.

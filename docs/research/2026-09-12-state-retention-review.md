@@ -84,3 +84,36 @@ queues are unchanged. No full 7×6 root was run and its trigger is unchanged.
 The next owner is actual unnecessary work in the terminal projection, followed
 by unresolved structural closure/repeated proof work. Do not treat a smaller
 state representation as completion of that investigation.
+
+## Follow-up: stop work at an exact immediate terminal
+
+The next review found that `tacticalCode` remembered the first playable mover
+singleton, then continued scanning opponent threats and later columns before
+returning that same immediate-win code. A playable singleton is already a
+complete winning requirement under C4-0001/C4-0006; the mover acts now, so later
+opponent threats cannot change this result. Return immediately at that existing
+test. The same first winning column in the existing order wins ties. No new
+parity inference, pruning rule, board reconstruction or retained data is added.
+
+This removes the deferred `immediate` variable/check and the rest of that scan.
+It does not early-return on two opponent threats: a later mover immediate win
+still has precedence. Forced-response and unresolved-state scans are unchanged.
+This distinction is part of the exact terminal projection, not heuristic eval.
+
+After this separate change, all six relevant local campaigns passed again:
+terminal, pruning, slot64 graph/edge/WDL identity, semantic replacement,
+dependency (five repeats; split 2/3/4; workers 1/2/3/4), and ExploreHint.
+The independent physical terminal campaign covered 1,716,141 positions across
+four exhaustive small-board profiles and a bounded standard-board profile.
+It included 401,165 immediate-win positions, 14,634 with multiple opponent
+threats, and zero mismatches. The independent pruning oracle covered 1,529,805
+physical states. These census counts are qualification coverage, not a measured
+production speedup. Raw evidence is under
+`evidence/2026-09-12-terminal-shortcircuit/`.
+
+The earlier isolated timing table applies specifically to the hash-removal
+revision, before this short-circuit. It is not relabeled as timing of the combined
+change. Source routing already includes this kernel in all four bounded workflows.
+No full root was run. Complete strategic parity terminalization and the large
+solve-space problem remain unresolved; this change only avoids work after an
+already-authoritative exact result.
