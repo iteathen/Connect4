@@ -1,82 +1,57 @@
-schema_version: 15
+schema_version: 16
 updated: 2026-09-11
 state: quotient_negamax_online_parallel_research
-repository_role: connect4_exact_solver_research
 canonical_branch: research/semantic-quotient
 
 mission:
-  objective: solve_standard_7x6_connect4_exactly_using_the_smallest_future_relevant_state_and_the_fastest_sound_forward_reasoning_architecture
+  objective: solve_standard_7x6_connect4_exactly_with_quotient_native_WDL_negamax
   semantic_equivalence: action_labeled_future_behavior_equivalence
-  current_solver_form: quotient_native_wdl_negamax
-
-source_lanes:
-  protected_foundation: main
-  preserved_minimax: solver/minimax-alpha-beta
-  cuda_bsfp: solver/cuda-bsfp
-  hybrid_confluence: solver/hybrid-confluence
-  quotient_research: research/semantic-quotient
 
 ownership:
-  quotient_domain:
-    owner: Connect4_quotient_state_space
+  quotient_state_space:
     owns:
-      - support_plus_residual_requirement_state_meaning
-      - legal_quotient_transition_semantics
-      - terminal_transition_meaning
-      - tactical_closure_meaning
-      - canonical_semantic_descriptor_content
-    source_contracts:
+      - support_and_residual_state_meaning
+      - legal_transition_semantics
+      - tactical_closure_semantics
+      - canonical_semantic_descriptor
+    contracts:
       - research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs
 
   negamax_engine:
-    owner: Connect4_forward_solver_research
     owns:
-      - recursive_WDL_negamax_policy
+      - recursive_WDL_negamax
       - alpha_beta_dependency_semantics
       - move_order_consumption
-    does_not_own:
-      - quotient_identity_definition
-      - proof_resource_lifecycle
-      - worker_resource_discovery
-      - cleanup_or_reclamation
+    source: research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs
 
   proof_store:
-    owner: packed_proof_store_service
     owns:
-      - lower_upper_proof_publication
-      - monotone_bound_merge
-      - packed_record_encoding
-      - best_move_hint_publication_surface
-    source:
+      - packed_proof_record_semantics
+      - monotone_shared_bound_publication
+      - best_move_hint_publication
+    sources:
       - research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs
 
   semantic_tt:
-    owner: exact_semantic_shared_table
     owns:
       - exact_descriptor_storage
       - hash_addressing
-      - collision_checked_descriptor_lookup
+      - exact_collision_checked_lookup
       - fixed_arena_capacity
-    does_not_own:
-      - quotient_identity_meaning
-      - proof_meaning
     source: research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs
 
   work_planner:
-    owner: quotient_work_plan_service
     owns:
-      - shallow_dependency_structure
+      - shallow_work_structure
+      - task_estimation_and_order
       - plan_lifecycle
-      - work_estimation_and_task_order
-      - exact_plan_reduction_for_research_controls
-    source:
+    sources:
       - research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs
 
   proof_resources:
-    owner: quotient_proof_resource_service
     owns:
       - shared_proof_arena_allocation
       - semantic_TT_arena_allocation
@@ -87,135 +62,69 @@ ownership:
     role: execution_host
     hosts:
       - work_planner
-      - proof_resource_lifecycle
+      - proof_resources
       - future_dedup_reconciliation
       - future_reclamation
-    does_not_define_child_semantics: true
-    source: research/semantic-quotient/state-identity-unification/src/quotient-shared-dedup-worker.mjs
+    source: research/semantic-quotient/state-identity-unification/src/quotient-maintenance-worker.mjs
 
   search_workers:
     role: execution_hosts
-    own_runtime_activity:
-      - synchronous_recursive_negamax
-      - local_fast_quotient_transition_state
-    consume:
-      - shared_proof_store
-      - prepared_coarse_work
+    run:
+      - recursive_negamax
+      - worker_local_quotient_transition_state
     rule: no_per_node_RPC_to_maintenance_worker
 
-qualified_evidence:
-  quotient_exactness:
-    physical_states_checked: 1681808
-    mismatches: 0
-    controls:
-      4x3_c3: 3735
-      4x4_c4: 34095
-      5x3_c4: 11317
-      4x5_c4: 294593
+current_representation:
+  support: packed
+  residuals: term_ID_plus_slot64
+  standard_7x6_term_vocabulary: 625
+  standard_7x6_rank8_q_states: 797388
+  standard_7x6_rank8_residual_classes: 1357101
+  standard_7x6_rank9_frontier: 538774
+  standard_7x6_rank8_typed_bytes: 118099719
 
-  term_id:
-    standard_7x6_vocabulary_terms: 625
-    standard_7x6_term_bits: 10
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_TERM_ID_KERNEL_RESULT.md
-
-  slot64:
-    standard_7x6_rank8_q_states: 797388
-    standard_7x6_rank8_residual_classes: 1357101
-    standard_7x6_rank9_frontier: 538774
-    typed_bytes: 118099719
-    residual_bytes: 86493624
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SLOT64_RESIDUAL_RESULT.md
-
-  fair_physical_control:
-    control: 4x5_c4
-    quotient_ms: 10.183
-    physical_ms: 13.400
-    quotient_expanded: 15054
-    physical_expanded: 36826
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_VS_PHYSICAL_WDL_V5_RESULT.md
-
-  shared_tt_workers:
-    control: 4x5_c4
-    sequential_root_split_ms: 6.7476
-    two_worker_ms: 3.2893
-    sequential_expanded: 31174
-    two_worker_expanded: 25532
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_SHARED_TT_WORKER_RESULT.md
-
-  lookahead_research:
-    tested_depths: [2, 3, 4, 5]
-    bounded_best_workers: 3
-    bounded_best_depth: 2
-    note: bounded_optimum_is_not_standard_7x6_policy
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_LOOKAHEAD_WORKER_RESULT.md
-
-  online_semantic_tt:
-    exact_cross_worker_semantic_identity: pass
-    complete_global_graph_required_by_recursive_search: false
-    static_full_window_frontier_scheduler: rejected
-    result: research/semantic-quotient/state-identity-unification/QUOTIENT_ONLINE_SEMANTIC_TT_RESULT.md
-
-compliance_pass:
-  completed:
-    - centralized_quotient_transition_and_tactical_codes
-    - centralized_packed_search_record_semantics
-    - centralized_canonical_quotient_descriptor_hashing_and_shape
-    - separated_work_plan_lifecycle_from_worker_host
-    - separated_proof_resource_lifecycle_from_worker_host
-    - wrapped_shared_proof_publication_in_monotone_proof_store
-    - made_shared_graph_module_an_adapter_instead_of_proof_semantic_owner
-  retained_as_research_only:
-    - CPU_topology_and_affinity_experiments
-  remaining_boundary_debt:
-    - base_support_layout_kernel_still_contains_historical_local_copies_of_domain_codes
-    - packed_record_single_thread_kernel_still_contains_historical_local_search_record_helpers
-    - online_semantic_TT_find_or_create_is_still_executed_by_search_workers_and_does_not_yet_match_the_intended_maintenance_owned_dedup_model
-    - Node_worker_affinity_has_no_consumer_neutral_runtime_provider_yet
+current_evidence:
+  complete_bounded_physical_states_checked: 1681808
+  quotient_exactness_mismatches: 0
+  fair_4x5_quotient_ms: 10.183
+  fair_4x5_physical_ms: 13.400
+  fair_4x5_quotient_expansions: 15054
+  fair_4x5_physical_expansions: 36826
+  shared_proof_two_worker_ms: 3.2893
+  shared_proof_sequential_root_split_ms: 6.7476
+  online_semantic_identity_exact: true
 
 current:
   primary_action: dependency_aware_parallel_negamax_work_tree
-  purpose: expose_parallel_work_only_after_parent_alpha_beta_dependencies_are_satisfied
-  intended_shape:
+  shape:
     - preferred_child_first
     - establish_parent_bound
-    - release_only_independent_sibling_proof_work
+    - release_only_dependency_satisfied_sibling_work
     - shared_exact_semantic_TT
     - coarse_task_synchronization
-    - ignore_or_cancel_obsolete_sibling_work_after_cutoff
-  expected_depth_candidates_for_standard_7x6: [3, 4]
-  actual_depth_and_worker_count: measured_at_initialization_or_presearch
+    - stop_or_ignore_obsolete_sibling_work_after_cutoff
+  standard_7x6_depth_candidates: [3, 4]
+  worker_count_and_depth: measure_at_initialization_or_presearch
 
 hardware_profile:
-  Connect4_uses: measured_search_capacity
-  CPU_topology_implementation_in_this_branch: research_prototype_only
-  natural_future_owners:
-    runtime_resource_discovery: CUDA-JS_or_equivalent_runtime_provider
-    generic_search_session_capacity: CUDA-MCGS_or_equivalent_search_session_layer
-  rule: raw_logical_CPU_count_is_not_search_worker_policy
+  connect4_consumes: measured_search_capacity
+  CPU_topology_code_here: research_prototype_only
+  generic_runtime_owner: CUDA-JS
+  generic_search_session_owner: CUDA-MCGS
 
-evidence_requirements:
-  - exact_root_and_root_action_WDL_remain_unchanged
-  - representation_changes_preserve_complete_bounded_graph_identity
-  - standard_7x6_online_growth_matches_known_rank_checkpoints_before_claiming_scale_readiness
-  - shared_proof_publication_remains_sound_under_contention
-  - memory_and_wall_clock_claims_include_the_resources_being_compared
-  - standard_7x6_performance_claim_waits_for_an_actual_empty_root_solve
-  - hybrid_performance_claim_waits_for_actual_BSFP_boundary_cost
+known_open_work:
+  - move_online_semantic_dedup_reconciliation_to_maintenance_side_without_per_node_RPC
+  - provide_consumer_neutral_thread_affinity_resource_provider
+  - run_standard_7x6_empty_root_solve
+  - compare_real_BSFP_boundary_cost_before_hybrid_speed_claim
 
-closed_until_cost_model_changes:
+rejected_for_current_cost_model:
   - private_worker_local_primary_TTs
   - blind_root_branch_parallelism
-  - static_exact_full_window_frontier_fanout
+  - static_full_window_frontier_fanout
   - PVS_default
   - MTD_f_default
   - generic_history_killer
   - branchy_lazy_mover_transition
   - fixed_worker_count_from_logical_CPU_count
-  - fixed_lookahead_depth_as_universal_constant
-
-non_claims:
-  - no_standard_7x6_empty_root_wall_clock_result_yet
-  - no_production_PE_core_affinity_provider_yet
-  - no_fixed_standard_7x6_worker_count_or_split_depth
-  - online_dedup_reconciliation_is_not_yet_maintenance_owned
-  - no_end_to_end_hybrid_speedup_claim
+  - fixed_lookahead_depth
