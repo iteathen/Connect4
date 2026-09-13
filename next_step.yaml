@@ -1,6 +1,6 @@
-schema_version: 58
+schema_version: 59
 updated: 2026-09-13
-state: response_resource_graph_calculus
+state: guarded_certificate_switch_defect_transfer
 current_branch: research/frontier-negamax-conformance
 pre_cleanup_snapshot: 8bf24b6818b4e2775a3b41cd21e517b94e36271c
 
@@ -15,172 +15,166 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   research_router: docs/research/RESEARCH_INDEX.md
-  prototype_router: reference/research-prototypes/README.md
 
 objective: >
-  Derive the exact perfect-W/D/L P0 terminal winning-line set from Connect Four
-  rules and independently justified structural/value facts. The suspected final
-  cardinality is output-only and may not influence theorem construction.
+  Derive the exact perfect-W/D/L P0 terminal winning-line set without using the
+  suspected final cardinality or an external solved terminal-line classification.
 
 current_semantics:
   winning_region: "W = mu X . [ I union PreE(X) union PreA(X) ]"
   proof_currency: six_element_WDL_interval_lattice
   value_identity: c4_0010_q_exact_support_plus_p0_p1_residual_antichains
-  value_causal_isomorphism: global_support_winning_line_automorphism
   output_identity: q_plus_exact_p0_residual_origin_provenance_Pi0
-  output_causal_isomorphism: geometry_automorphism_plus_line_provenance_transport
-  quotient_warning: proof_refinement_is_not_state_equality
-  strategy_warning: static_capacity_or_coverage_is_not_joint_temporal_policy
+  certificate_reuse_is_not_state_equality: true
   strict_choice_rule:
     p0_max: "upper(a) < lower(b) => eliminate a"
     p1_min: "lower(a) > upper(b) => eliminate a"
     output_safe: true
-  weak_choice_warning: tied_value_elimination_requires_output_provenance_subsumption
+  weak_value_choice_rule:
+    p0_max: "upper(a) <= lower(b) with retained witness"
+    p1_min: "lower(a) >= upper(b) with retained witness"
+    output_safe: false
+    requires_Pi0_or_output_subsumption_for_output: true
 
-accepted_safety_primitive:
-  name: pooled_frontier_paired_response
-  research_record: docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
-  prototype: reference/research-prototypes/2026-09-13-perfect-play-winline/pooled_frontier_response_control.mjs
-  evidence: docs/research/evidence/2026-09-13-pooled-frontier-response-control.json
-  construction:
-    frontier_pool: current_playable_cell_from_each_odd_remaining_column
-    pool_guard: even_pool_cardinality
-    vertical_pairing: pair_remaining_suffix_bottom_up_after_omitting_pool_cell
-    response_cells: upper_member_of_each_vertical_pair
-    coverage_guard: every_attacker_residual_requirement_intersects_response_cells
-  policy:
-    vertical_trigger: defender_plays_upper_mate
-    pool_trigger: defender_plays_any_other_unconsumed_pool_cell
-  consequence:
-    side_p0: "[-1,0]"
-    side_p1: "[0,+1]"
-  relation_to_old_theorem: strict_generalization_of_all_even_paired_response
-
-latest_qualification:
-  complete_games: 7
-  reachable_states: 443170
-  nonterminal_states: 353378
-  legacy_all_even:
-    physical_states: 10912
-    genuine_decision_states: 9388
-    quotient_classes: 2386
-    genuine_decision_quotient_classes: 1981
-  pooled_frontier:
-    physical_states: 40804
-    genuine_decision_states: 31845
-    quotient_classes: 9841
-    genuine_decision_quotient_classes: 6960
+accepted_safety_primitives:
+  pooled_frontier_response:
+    record: docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
+    states: 40804
+    policy_failures: 0
+  synchronized_column_channel:
+    record: docs/research/2026-09-13-synchronized-column-channel-response-theorem.md
+    evidence: docs/research/evidence/2026-09-13-synchronized-channel-response-control.json
+    prototype: reference/research-prototypes/2026-09-13-perfect-play-winline/synchronized_channel_response_control.mjs
+    construction: >
+      Pair same-parity remaining columns for a synchronized same-depth prefix whose
+      length has that parity, then vertically pair both even tails. Every attacker
+      residual must contain a vertical response or both endpoints of a cross pair.
+    consequence: side_to_move_cannot_force_win
+    pooled_frontier_is_subset: true
+    complete_controls: 7
+    reachable_states: 443170
+    physical_certificates: 55488
+    incremental_over_pooled: 14684
+    genuine_decision_certificates: 44118
+    incremental_decision_over_pooled: 12273
+    quotient_classes: 13603
+    decision_quotient_classes: 9847
     exact_value_mismatches: 0
     explicit_policy_failures: 0
-    explicit_policy_states_explored: 279261
-  incremental:
-    physical_states: 29892
-    genuine_decision_states: 22457
-    strict_sibling_eliminations: 364
-  strict_sibling_elimination:
-    legacy_edges: 2440
-    pooled_edges: 2804
+    explicit_policy_states_explored: 417798
+
+choice_qualification:
+  strict_edges:
+    pooled: 2804
+    synchronized_channel: 2816
+    incremental: 12
     exact_parent_value_mismatches: 0
-  primary_4x3_connect3:
-    legacy_states: 122
-    pooled_states: 214
-    legacy_decision_states: 77
-    pooled_decision_states: 111
-    legacy_q_classes: 90
-    pooled_q_classes: 180
-    strict_edges: "36 -> 40"
-  negative_controls:
-    leave_top_unpaired_static_coverage:
-      qualifying_states: 562
-      false_no_win_claims: 106
-      smallest_counterexample_ply: 4
-    leave_bottom_unpaired_without_even_pool_guard:
-      qualifying_states: 562
-      false_no_win_claims: 96
-      smallest_counterexample_ply: 5
-  standard_7x6_ply2_boundary:
-    certifying_p1_replies_after_any_first_move: 0
-    minimum_uncovered_noncenter: 8
-    minimum_uncovered_center: 9
+  weak_value_edges:
+    pooled: 45430
+    synchronized_channel: 49711
+    incremental: 4281
+    note: value_only_when_equality_possible
+
+standard_7x6_boundary:
+  ply2_full_channel_certificates: 0
+  best_uncovered_by_first_move:
+    1: 8
+    2: 8
+    3: 6
+    4: 7
+    5: 6
+    6: 8
+    7: 8
+  opening3_reply4_vertical_cover:
+    p0_first_move: 3
+    p1_reply: 4
+    live_minimal_p0_residuals: 60
+    statically_uncovered: 0
+    unpaired_top_defects:
+      - [3, 6]
+      - [4, 6]
+    policy_states_before_first_defect: 9216
+    first_defect_states: 6144
+    p0_wins_before_first_defect: 0
+    one_step_repairable_first_defects: 6142
+    one_step_unrepaired_first_defects: 2
+    opening3_no_win_proven: false
+  recursive_fixed_response_control:
+    memo_states: 4331
+    proved_states: 3559
+    unproved_states: 772
+    channel_seeds: 1515
+    race_seeds: 33
+    defect_repairs: 892
+    root_closed: false
+  unconstrained_certificate_switch:
+    accepted: false
+    reason: >
+      The direct any-response search exceeded the bounded control window and risks
+      degenerating into ordinary game-tree solving. Compression/rank is required.
 
 active_research:
+  - docs/research/2026-09-13-synchronized-column-channel-response-theorem.md
   - docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
   - docs/research/2026-09-13-current-causal-certificate-differential.md
-  - docs/research/2026-09-13-winning-region-output-factorization.md
-  - docs/research/2026-09-13-alternating-fixed-point-calculus.md
   - docs/research/2026-09-13-temporal-response-capacity-calculus.md
-  - docs/research/2026-09-13-wdl-interval-predecessor-calculus.md
-  - docs/research/2026-09-13-output-provenance-quotient.md
-  - docs/research/2026-09-13-center-response-serialization-correction.md
-  - docs/research/2026-09-13-paired-response-interval-witness.md
   - docs/research/2026-09-13-choice-elimination-predecessor-calculus.md
-  - docs/research/2026-09-13-perfect-play-line-output-algebra.md
-
-active_controls:
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/pooled_frontier_response_control.mjs
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/causal_certificate_differential.mjs
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/c4_0010_cross_game_transition_controls.mjs
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/line_output_algebra.mjs
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/negamax_bsfp_proof_intersection_control.mjs
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/response_capacity_calculus.mjs
-  - reference/research-prototypes/2026-09-13-perfect-play-winline/center_response_serialization.mjs
+  - docs/research/2026-09-13-output-provenance-quotient.md
 
 constraints:
-  - final_terminal_line_cardinality_is_output_only
-  - no_external_solved_terminal_line_classification
+  - no_final_terminal_line_count_as_premise_or_tuning_target
   - exact_search_or_enumeration_is_control_not_theory_authority
-  - no_generic_residual_dominance_without_a_sound_context_preserving_theorem
-  - preserve_support_playability_resources_event_order_deadlines_guards_and_provenance_when_load_bearing
-  - do_not_attach_non_derivable_certificate_facts_to_c4_0010_q_identity
-  - strict_value_dominance_is_output_safe_but_tied_elimination_needs_Pi0_or_output_subsumption
+  - do_not_convert_certificate_reuse_into_state_equality
+  - preserve_support_resource_identity_event_order_deadlines_CPC_NDC_and_provenance_when_load_bearing
+  - static_coverage_without_response_resource_policy_is_insufficient
+  - weak_value_elimination_does_not_delete_tied_output_paths
   - positive_win_implication_requires_well_founded_progress
-  - retain_negative_controls
-  - retain_superseded_evidence_with_corrected_interpretation
-  - retain_unknown_usefulness_by_default
+  - unconstrained_certificate_switch_search_is_not_an_accepted_calculus
+  - retain_smallest_counterexamples_and_incomplete_controls
   - do_not_reset_or_discard_newer_valid_branch_work
 
 next_task:
-  name: derive_guarded_response_resource_graph
+  name: derive_defect_transfer_quotient_and_rank
   purpose: >
-    Generalize the exact pooled-frontier safety policy from a fully interchangeable
-    even waiting-resource pool to a guarded trigger/obligation -> timely response
-    resource graph, then use the resulting one-sided intervals for strict sibling
-    alternative elimination without redefining semantic state identity.
+    Compress the opening-3 top-defect response problem into a guarded certificate-switch
+    graph whose nodes retain exactly the support/phase/WSL/CPC/NDC/resource information
+    needed for sound transfer, and whose switch edges decrease a well-founded rank.
+  seed_state:
+    standard_board: 7x6_connect4
+    p0_first_move: 3
+    p1_structural_reply: 4
+    fact: bottom_up_vertical_response_covers_all_60_live_minimal_p0_residuals
+    defects: [[3,6],[4,6]]
   steps:
-    - preserve pooled-frontier paired response as the accepted seed theorem
-    - use C4-0010 q as the exact value-state substrate
-    - construct explicit attacker trigger and residual-obligation nodes
-    - construct timely playable defender response-resource nodes
-    - preserve response identity, support order, CPC control, NDC guards, deadlines, and resource consumption
-    - admit a relaxed resource relation only when compatibility/Hall/deadline reasoning proves a complete contingent policy
-    - compile accepted policies into "[-1,0]" or "[0,+1]" interval certificates
-    - apply strict max/min sibling elimination first
-    - carry Pi0 for any output-sensitive tied or non-strict reduction
-    - mechanically test every candidate rule on complete controls
-    - preserve the smallest WDL, transition, policy, or output counterexample for every rejected rule
-    - keep positive-win progress theorems separate
+    - model vertical-cover response phase and live defect tokens independently of move ordering
+    - quotient commuting paired trigger-response events before response-choice exploration
+    - define legal defect-transfer response edges with exact successor WSL coverage
+    - include CPC event ownership and NDC guard closure where a response releases or changes phase
+    - derive a monotone rank over remaining response resources / defect obligations
+    - require every attacker alternative to have at least one rank-decreasing certified defender response
+    - compare the compressed graph against the physical-state control only as a falsifier
+    - retain the smallest quotient collision or lost-response counterexample if compression is unsound
+    - use synchronized-channel certificates as terminal safety seeds
+    - keep small deterministic race lemmas explicit and separately proved if they remain necessary
+    - promote opening3_no_win only if the compressed certificate graph closes with no fallback to exact game value
+    - carry Pi0 separately for later output reachability; this task is value/safety only
   success_conditions:
-    - every accepted policy has explicit legal_resource_timing guards
-    - every accepted one-sided bound has zero exact-value mismatch on complete controls
-    - explicit policy execution has zero attacker-win counterexamples on bounded controls
-    - strict sibling elimination preserves exact max/min parent value
-    - output-sensitive non-strict rules preserve provenance-normalized G or remain forbidden
-    - rejected relations retain smallest counterexamples
-    - no result depends on suspected final 7x6 output cardinality or retired scratch counts
+    - response_switch_graph_is_strictly_smaller_than_physical_policy_graph
+    - every switch edge has a local legality_and_coverage proof
+    - rank_strictly_decreases_on_every_nonterminal_switch_cycle_candidate
+    - zero bounded policy failures
+    - no exact solved value is used as an acceptance premise
+    - opening3 is either structurally closed or left explicitly unproved with a smallest remaining obstruction
   forbidden_shortcuts:
-    - tune_toward_suspected_final_line_count
-    - tune_toward_2023_419_1604
-    - convert_interval_refinement_into_state_equality
-    - infer_strategy_from_static_blocker_or_capacity_counts
-    - erase_response_resource_identity_or_order
-    - erase_origin_line_provenance_for_output_semantics
-    - use_exact_enumeration_as_the_mathematical_explanation
+    - brute_force_any_response_until_a_draw_strategy_is_found
+    - use_known_opening_value_as_the_proof
+    - erase_response_phase_or_defect_resource_identity
+    - merge_states_only_because_they_share_a_certificate
+    - use_non_strict_value_elimination_to_delete_terminal_line_output_paths
 
 cleanup_policy:
   first_pass_deletions: none
-  unknown_usefulness: retain
   negative_controls: retain
-  superseded_interpretations: retain_with_status_annotation
-  exact_history:
-    git_snapshot: 8bf24b6818b4e2775a3b41cd21e517b94e36271c
-    ledger: docs/research/2026-09-13-research-organization-cleanup.md
+  incomplete_experiments: retain_with_status_annotation
+  unknown_usefulness: retain
+  historical_scratch_count_2023_419_1604: retired_unverified

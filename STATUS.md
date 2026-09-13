@@ -6,57 +6,35 @@
 **Research direction / architecture:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This file is a **current-state router**, not a historical journal. Historical results,
-negative controls, superseded interpretations, benchmark records, and prior optimization
-work remain under `docs/research/**` and in Git history. Start with
-[`docs/research/RESEARCH_INDEX.md`](docs/research/RESEARCH_INDEX.md).
+This is a current-state router, not a historical journal. Retained work is under
+`docs/research/**`; research prototypes are under `reference/research-prototypes/**`.
 
-## Current objective
+## Objective
 
 Derive the exact subset of the 69 geometric Connect Four winning lines that can occur
 as P0 terminal wins on at least one W/D/L-perfect trajectory, using structural proof
-rather than an externally supplied solved terminal-line classification.
+rather than an externally supplied terminal-line classification.
 
-The suspected final cardinality is **output only**. It must not be used as a premise,
-tuning target, acceptance criterion, or measure of whether a candidate theorem is
-"getting warmer."
-
-Exact enumeration/search is permitted as a bounded control or qualification oracle.
-It is not theory-construction authority.
+The suspected final cardinality is output only. It is not a premise, tuning target, or
+acceptance criterion. Exact enumeration/search is a bounded falsifier/qualification
+oracle, not theory-construction authority.
 
 ## Governing authority
 
-Read in this order before mutation:
+Read before mutation:
 
 1. account-global `iteathen/.github/AGENTS.md`;
 2. `AGENT_LOCAL.md`;
 3. `docs/specs/C4-0006-control-parity-and-winspace-v1.md`;
 4. `docs/specs/C4-0007-nested-dependency-closure-v1.md`;
 5. `docs/specs/C4-0010-quotient-native-negamax-v1.md`;
-6. current research routed by `docs/research/RESEARCH_INDEX.md`.
+6. current research routed by `docs/research/RESEARCH_INDEX.md` and this file.
 
-C4-0010 remains the forward-solver contract. The mathematical work does not silently
-redefine its exact game semantics.
+C4-0010 remains the forward semantic contract.
 
-## Accepted structural boundary
+## Exact semantic boundary
 
-The mechanically derived standard-board geometry contains:
-
-- 69 geometric winning lines;
-- 625 unique nonempty residual fragments;
-- CPC for parity/control/event-precedence facts;
-- WSL-625 for residual requirements and blocker closure;
-- NDC for monotone nested dependency closure.
-
-Support/playability, ownership, response resources, event order, race horizons,
-deadlines, guards, and output provenance remain load-bearing where the corresponding
-proof or observable depends on them.
-
-## Exact semantic decomposition
-
-### Value-state identity
-
-C4-0010 owns the qualified ordinary forward quotient:
+Value identity:
 
 ```text
 q = exact support
@@ -64,216 +42,227 @@ q = exact support
   + normalized P1 residual antichain
 ```
 
-The current causal-isomorphism boundary is extension-coherent support/winning-line
-geometry automorphism. Same-snapshot resemblance is not enough. Non-derivable
-CPC/NDC/path-dependent certificate facts must extend identity or remain contextual.
+Output identity:
 
-### Winning region
+```text
+q + exact P0 residual/origin provenance Pi0
+```
 
-The P0 winning region remains:
+Geometry automorphism may canonicalize value identity only with extension coherence;
+output additionally transports original-line provenance.
+
+Winning region:
 
 ```text
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
-where `PreE` is the P0 existential predecessor and `PreA` is the P1 universal
-predecessor.
+W/D/L proof currency is the six-element absolute-P0 interval lattice. Positive-win
+claims require well-founded progress; no-win/safety claims require a complete legal
+response policy.
 
-### W/D/L proof currency
+## Accepted response hierarchy
 
-Sound structural facts narrow the six possible absolute-P0 W/D/L intervals. Exact
-predecessor propagation is max/min over child interval endpoints.
+### 1. All-even paired response
 
-The old all-even paired-response theorem remains sound, but it is now a strict special
-case of the pooled-frontier theorem below.
+Historical accepted seed: every remaining column suffix even, vertically pair
+`(trigger,response)`, and require every attacker residual to contain a response cell.
 
-### Terminal-line output
+### 2. Pooled-frontier paired response
 
-Perfect-play terminal-line identity is richer than W/D/L:
+Accepted strict generalization:
 
-```text
-value layer:   q
-output layer:  q + exact P0 residual/origin provenance Pi0
-```
+- every odd-remainder column contributes its currently playable frontier cell to a
+  shared pool;
+- pool cardinality must be even;
+- omit those frontier cells and vertically pair all even suffixes;
+- attacker pool move -> defender consumes another live pool cell;
+- attacker vertical trigger -> defender takes the upper mate;
+- every attacker residual must intersect the vertical-response set.
 
-Geometry isomorphism transports line labels; it does not erase them. Strictly inferior
-W/D/L children can be eliminated from output reachability. Tied children cannot be
-discarded for output merely because value is preserved.
-
-## New exact safety theorem: pooled-frontier paired response
-
-For side-to-move attacker `A`, let every odd-remainder column contribute its currently
-playable frontier cell to pool `U`. Omit those cells, then pair every remaining column
-suffix bottom-up into vertical `(trigger,response)` pairs and let `D` be the set of
-upper response cells.
-
-If:
+Qualification across seven complete games:
 
 ```text
-|U| is even
-AND every surviving attacker residual requirement intersects D
+40,804 certificates
+31,845 genuine-decision certificates
+0 exact W/D/L contradictions
+0 explicit policy failures
+279,261 explicit policy states
 ```
 
-then the defender has a constructive no-win policy:
+Record:
+`docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md`
+
+### 3. Synchronized column-channel response
+
+Current strongest accepted static safety primitive.
+
+Pair same-parity remaining columns for a synchronized same-depth prefix of length `L`
+with matching parity, then vertically pair both even tails. A residual is blocked when
+it contains either a vertical upper response or both endpoints of a synchronized cross
+pair.
+
+The defender response is exact:
 
 ```text
-attacker plays vertical trigger -> defender plays its upper mate
-attacker plays pool cell        -> defender plays any other live pool cell
+vertical trigger -> upper mate
+cross-channel endpoint -> synchronized mate in the paired column
 ```
 
-Pool responses consume two odd-column frontiers and expose even suffixes already
-covered by vertical pairing. Every response cell in `D` is therefore unavailable to
-the attacker, so every surviving winning line is permanently blocked.
+Cross-channel responses advance both columns in lockstep, preserving response
+playability. Pooled-frontier response is the `L=1` odd-column special case.
 
-Absolute-P0 consequence:
+Seven complete controls:
 
 ```text
-side P0 -> [-1,0]
-side P1 -> [0,+1]
+reachable states:                       443,170
+pooled-frontier certificates:            40,804
+synchronized-channel certificates:       55,488
+incremental certificates:                 14,684
+
+channel genuine-decision certificates:    44,118
+incremental genuine-decision states:       12,273
+
+channel q classes:                        13,603
+channel decision q classes:                9,847
+
+exact W/D/L contradictions:                    0
+explicit policy failures:                       0
+explicit policy states explored:          417,798
 ```
 
-Research/evidence:
+Record:
+`docs/research/2026-09-13-synchronized-column-channel-response-theorem.md`
 
-- `docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md`
-- `docs/research/evidence/2026-09-13-pooled-frontier-response-control.json`
-- `reference/research-prototypes/2026-09-13-perfect-play-winline/pooled_frontier_response_control.mjs`
+Evidence:
+`docs/research/evidence/2026-09-13-synchronized-channel-response-control.json`
 
-## Latest qualification
+Prototype:
+`reference/research-prototypes/2026-09-13-perfect-play-winline/synchronized_channel_response_control.mjs`
 
-Across the same seven complete bounded games used by the current C4-0010 controls:
+## Choice elimination
+
+Sound distinct-sibling implication does not imply state equality.
+
+Strict, value + output safe:
 
 ```text
-reachable states:                    443,170
-nonterminal states:                  353,378
-
-old all-even certificates:            10,912
-pooled-frontier certificates:          40,804
-new certificates:                      29,892
-
-old genuine-decision certificates:      9,388
-pooled genuine-decision certificates:  31,845
-new genuine-decision certificates:     22,457
-
-old q classes covered:                  2,386
-pooled q classes covered:               9,841
-old decision q classes covered:         1,981
-pooled decision q classes covered:      6,960
-
-exact W/D/L mismatches:                     0
-explicit policy failures:                   0
-explicit policy states explored:      279,261
+P0/max: upper(a) < lower(b) -> eliminate a
+P1/min: lower(a) > upper(b) -> eliminate a
 ```
 
-The old theorem is a subset of the new theorem on every control.
-
-Two naive relaxations remain explicit negative controls on complete 4x3 connect-3:
+Current strict edge counts:
 
 ```text
-leave top unpaired, static coverage only:
-  562 qualifying / 106 false no-win claims
-
-leave bottom frontier unpaired but omit even-pool guard:
-  562 qualifying / 96 false no-win claims
+pooled:   2,804
+channel:  2,816
+increment:   12
 ```
 
-Thus the improvement comes from exact response-resource identity and consumption, not
-from looser static coverage.
-
-## Guarded sibling elimination now established
-
-With sound child intervals, distinct exact `q` alternatives may be ordered without
-being merged.
-
-For P0/max:
+Non-strict, Stage-1 value only with retained witness:
 
 ```text
-upper(a) < lower(b) -> eliminate a
+P0/max: upper(a) <= lower(b)
+P1/min: lower(a) >= upper(b)
 ```
 
-For P1/min:
-
-```text
-lower(a) > upper(b) -> eliminate a
-```
-
-These strict rules preserve both parent W/D/L and perfect-play line output because the
-eliminated child is provably not value-preserving.
-
-Using only direct tactical intervals plus response certificates, with no recursive
-interval propagation:
-
-```text
-strict sibling eliminations, old theorem:    2,440
-strict sibling eliminations, pooled theorem: 2,804
-incremental strict eliminations:                364
-exact parent-value mismatches:                    0
-```
-
-This is the first concrete theorem-backed reduction at the proof-obligation layer of
-the current alternative-implication seam.
+This grows from 45,430 to 49,711 eliminated value edges (+4,281). Equality is not
+terminal-line-output safe without separate `Pi0`/output subsumption.
 
 ## Standard 7x6 boundary
 
-The pooled-frontier theorem alone does not discharge the opening at ply 2. After each
-P0 first move and every legal P1 reply, uncovered P0 residual requirements remain:
+No ply-2 child after any first move is fully certified by synchronized channels alone.
+Best uncovered residual counts are:
 
 ```text
-openings 1,2,3,5,6,7: minimum uncovered residuals = 8
-opening 4:             minimum uncovered residuals = 9
+opening 1: 8
+opening 2: 8
+opening 3: 6
+opening 4: 7
+opening 5: 6
+opening 6: 8
+opening 7: 8
 ```
 
-No solved opening table was used. This is a structural boundary showing that richer
-blocker/NDC/resource interaction is still needed.
+A more informative opening-3 control is now isolated:
+
+```text
+P0 first move column 3
+P1 reply column 4
+P0 to move
+```
+
+Bottom-up vertical response pairing covers **all 60** live minimal P0 residuals. Its
+only unmanaged resources are the two eventual top cells `(3,6)` and `(4,6)`.
+
+Before the first top defect:
+
+```text
+policy states:                    9,216
+first-defect states:              6,144
+P0 wins before first defect:          0
+one-step re-enter-cover repairs:  6,142
+unrepaired first defects:             2
+```
+
+The two exceptional late states have tiny constructive P1 race continuations, but a
+recursive fixed-response proof-DAG still leaves 772 of 4,331 memoized structural states
+unproved. Therefore opening 3 is **not yet internally proved no-win** by the current
+certificate grammar.
+
+An unconstrained "choose any reply that re-establishes a certificate" search exceeded
+the bounded control window and is not accepted; it risks collapsing back into ordinary
+game-tree search.
 
 ## Current missing calculus
 
-The exact state differential is not the active gap. The next safety-side gap is a
-**guarded response-resource graph** that generalizes the fully interchangeable
-frontier pool:
+The active gap is now **guarded certificate switching / defect transfer**, not blocker
+coverage and not a smaller value quotient.
+
+Required form:
 
 ```text
-attacker trigger / obligation
-  -> timely playable response resources
-  -> compatibility / consumption relation
-  -> complete contingent safety policy
-  -> one-sided W/D/L interval
-  -> strict sibling elimination
+current covering certificate
++ attacker move cannot win immediately
++ candidate defender response
++ successor covering certificate
++ CPC / WSL / NDC / resource compatibility
++ well-founded resource-rank decrease
+------------------------------------------------
+candidate response is a legal certificate switch
 ```
 
-The pooled-frontier theorem is the complete-compatibility/even-cardinality seed case.
-Any relaxation must retain support, response identity, order, deadlines, CPC/NDC guards,
-and the smallest counterexample when falsified.
+For opening 3, the concrete question is how the two top-defect tokens can be transferred
+or annihilated without releasing any of the blockers that already cover all 60 live
+minimal requirements.
 
-Positive P0-win implication remains separate and still requires a well-founded
-progress theorem.
+The response-switch relation must compress many physical histories into a small exact
+proof graph. A relation that merely replays the game tree is rejected even if correct.
 
 ## Immediate execution seam
 
-Develop and qualify the **response-resource graph calculus** over exact C4-0010 `q`
-classes.
+Derive a bounded **defect-transfer quotient and rank** from the opening-3 control:
 
-The next unit should:
+1. retain synchronized channels as complete safety seeds;
+2. represent a vertical-cover certificate by support, response phase, and live defect
+   tokens rather than physical move order;
+3. define a certificate-switch edge only when WSL coverage survives the response and
+   CPC/NDC/resource guards remain legal;
+4. prove a monotone rank decreases across switch edges;
+5. quotient commuting paired moves before exploring switch choices;
+6. mechanically compare the compressed proof graph with the rejected unconstrained
+   switch search on bounded games;
+7. preserve the smallest state where the proposed switch quotient loses information;
+8. only after the switch graph closes may opening 3 be promoted to an internal no-win
+   premise;
+9. keep terminal-line provenance separate from value-only non-strict reductions.
 
-1. preserve pooled-frontier paired response as an accepted safety primitive;
-2. construct explicit trigger/obligation -> timely response-resource relations;
-3. relax full pool interchangeability only under proved compatibility/Hall/deadline
-   conditions;
-4. compile every accepted policy into the same W/D/L interval currency;
-5. apply strict sibling elimination before considering tied/value-only reductions;
-6. preserve `Pi0` whenever output-sensitive non-strict elimination is considered;
-7. mechanically falsify every relaxed rule on complete controls and retain the
-   smallest counterexample;
-8. keep positive-win progress obligations separate.
+Positive P0-win progress remains a separate later obligation.
 
-The obsolete remembered scratch count `2023 -> 419 + 1604` remains retired as
-unverified historical evidence.
+## Hygiene
 
-## Research hygiene
-
-- `STATUS.md` and `next_step.yaml` contain current state only.
-- `docs/research/RESEARCH_INDEX.md` routes retained research.
-- `reference/research-prototypes/README.md` routes non-production prototypes.
-- Negative controls are retained.
-- Corrected/superseded experiments are retained with downgraded interpretation.
+- `STATUS.md` / `next_step.yaml` are current-state files only.
+- Negative controls and incomplete experiments are retained with their status.
 - Unknown usefulness is retained by default.
-- Deletion requires demonstrated redundancy or obsolescence plus preserved provenance.
+- No state equality is inferred from certificate reuse.
+- The retired `2023 -> 419 + 1604` scratch count remains non-authoritative.
