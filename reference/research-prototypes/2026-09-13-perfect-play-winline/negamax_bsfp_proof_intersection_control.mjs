@@ -55,7 +55,6 @@ function stateKey(p0, p1) {
   return `${p0}/${p1}`;
 }
 
-// Complete legal graph; first terminal win truncates continuation.
 const statesByKey = new Map();
 const states = [];
 function internState(p0, p1, lastCell = -1) {
@@ -94,7 +93,6 @@ for (let index = 0; index < states.length; index += 1) {
   }
 }
 
-// Forward exact solver: root-to-terminal minimax/Negamax semantics.
 const forwardMemo = new Int8Array(states.length);
 forwardMemo.fill(2);
 function forwardValue(stateId) {
@@ -118,7 +116,6 @@ function forwardValue(stateId) {
 forwardValue(0);
 for (const state of states) forwardValue(state.id);
 
-// Backward exact solver: terminal seeds plus monotone controllable predecessors.
 const p0Win = new Set(states.filter(s => s.terminal === 1).map(s => s.id));
 const p1Win = new Set(states.filter(s => s.terminal === -1).map(s => s.id));
 let changed = true;
@@ -276,6 +273,60 @@ const tacticalExactStates = (tacticalCounts.terminal ?? 0)
   + (tacticalCounts['double-threat-loss'] ?? 0)
   + (tacticalCounts['exhaustion-draw'] ?? 0);
 
+const representativeByQuotient = new Map();
+for (const state of states) {
+  if (state.terminal !== null) continue;
+  const key = quotientKey(state);
+  if (!representativeByQuotient.has(key)) representativeByQuotient.set(key, state);
+}
+function mirrorBits(bits) {
+  let out = 0n;
+  for (let r = 0; r < R; r += 1) {
+    for (let c = 0; c < C; c += 1) {
+      if ((bits & bit(cell(c, r))) !== 0n) out |= bit(cell(C - 1 - c, r));
+    }
+  }
+  return out;
+}
+function mirroredQuotientKey(state) {
+  return quotientKey({ p0: mirrorBits(state.p0), p1: mirrorBits(state.p1) });
+}
+const decisionActionFactorization = {
+  classes: 0,
+  rawActionEdges: 0,
+  uniqueExactSuccessorClasses: 0,
+  classesWithExactDuplicateSuccessors: 0,
+  mirrorCanonicalSuccessorClasses: 0,
+  classesReducedByMirror: 0,
+};
+for (const [key, entry] of quotient) {
+  if (entry.tactical !== 'decision') continue;
+  const state = representativeByQuotient.get(key);
+  const exactSuccessors = [];
+  const mirrorSuccessors = [];
+  for (const edge of state.children) {
+    const childState = states[edge.child];
+    if (childState.terminal !== null) {
+      const terminalKey = `T:${childState.terminal}`;
+      exactSuccessors.push(terminalKey);
+      mirrorSuccessors.push(terminalKey);
+      continue;
+    }
+    const exact = quotientKey(childState);
+    const mirrored = mirroredQuotientKey(childState);
+    exactSuccessors.push(exact);
+    mirrorSuccessors.push(exact < mirrored ? exact : mirrored);
+  }
+  const exactUnique = new Set(exactSuccessors).size;
+  const mirrorUnique = new Set(mirrorSuccessors).size;
+  decisionActionFactorization.classes += 1;
+  decisionActionFactorization.rawActionEdges += exactSuccessors.length;
+  decisionActionFactorization.uniqueExactSuccessorClasses += exactUnique;
+  decisionActionFactorization.mirrorCanonicalSuccessorClasses += mirrorUnique;
+  if (exactUnique < exactSuccessors.length) decisionActionFactorization.classesWithExactDuplicateSuccessors += 1;
+  if (mirrorUnique < exactSuccessors.length) decisionActionFactorization.classesReducedByMirror += 1;
+}
+
 console.log(JSON.stringify({
   kind: 'negamax-bsfp-proof-intersection-control',
   domain: { columns: C, rows: R, connect: K, cells: CELL_COUNT, winningLines: winningLines.length },
@@ -307,9 +358,11 @@ console.log(JSON.stringify({
     mixedProofShapeClasses,
     tacticalClassCounts: quotientTacticalCounts,
   },
+  decisionActionFactorization,
   interpretation: {
     sharedOperators: ['terminal injection', 'structural transition/restriction', 'existential/universal choice', 'finite rank'],
     localClosureObservation: 'Immediate wins, double playable threats, bilateral exhaustion and forced responses are exact partial evaluations of the common predecessor recurrence.',
     remainingGap: 'The remaining genuine decision classes require exact choice-factorization/quantifier elimination rather than another game-value recurrence.',
+    actionEqualityFalsifier: 'Exact successor equality removes no action edge in the genuine decision quotient classes; reflection removes only a small handful. The missing calculus must relate distinct successors by stronger proof relations.',
   },
 }, null, 2));
