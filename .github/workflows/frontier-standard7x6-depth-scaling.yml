@@ -11,7 +11,7 @@ on:
       depths:
         description: 'Comma-separated bounded depths'
         required: false
-        default: '5,6,7,8,9'
+        default: '8,9,10'
       repeats:
         description: 'Fresh-process timing repeats per depth'
         required: false
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      DEPTHS: ${{ inputs.depths || '5,6,7,8,9' }}
+      DEPTHS: ${{ inputs.depths || '8,9,10' }}
       REPEATS: ${{ inputs.repeats || '3' }}
       MAX_CASE_MS: ${{ inputs.max_case_ms || '120000' }}
       BUDGET_MIB: '2048'
