@@ -126,6 +126,59 @@ function label(L){
   return L.map(([x,y])=>`${letters[x-1]}${y}`).join('-');
 }
 
+const bDefects=b.uncovered;
+const defectCells=[...new Map(bDefects.flat().map(x=>[key(x),x])).values()];
+function hitsAll(cellsToUse){
+  return bDefects.every(L=>cellsToUse.some(x=>has(L,x)));
+}
+function combinations(xs,k,start=0,prefix=[],out=[]){
+  if(prefix.length===k){out.push([...prefix]);return out;}
+  for(let i=start;i<xs.length;i++){
+    prefix.push(xs[i]);
+    combinations(xs,k,i+1,prefix,out);
+    prefix.pop();
+  }
+  return out;
+}
+let minimumSingletonCovers=[];
+for(let k=1;k<=defectCells.length;k++){
+  minimumSingletonCovers=combinations(defectCells,k).filter(hitsAll);
+  if(minimumSingletonCovers.length)break;
+}
+assert.equal(minimumSingletonCovers[0].length,2);
+assert.equal(minimumSingletonCovers.length,2);
+
+const existingBRepairSingletons=new Set();
+for(const [cs,p] of Object.entries(b.assignment)){
+  const col=Number(cs);
+  for(const x of parityCells(col,p))existingBRepairSingletons.add(key(x));
+}
+existingBRepairSingletons.add(key([5,1]));
+existingBRepairSingletons.add(key([2,1]));
+function adjacentToExistingP1([col,row]){
+  return existingBRepairSingletons.has(key([col,row-1]))||existingBRepairSingletons.has(key([col,row+1]));
+}
+const adjacencyCompatible=defectCells.filter(x=>!existingBRepairSingletons.has(key(x))&&!adjacentToExistingP1(x));
+let compatibleCovers=[];
+for(let k=1;k<=adjacencyCompatible.length;k++){
+  compatibleCovers=combinations(adjacencyCompatible,k).filter(hitsAll);
+  if(compatibleCovers.length)break;
+}
+assert.equal(compatibleCovers.length,1);
+assert.deepEqual(compatibleCovers[0].map(key).sort(),['4,2','4,4','4,6']);
+
+const currentHeights={1:1,2:1,3:0,4:1,5:1,6:0,7:0};
+const p0ToMove=true;
+function currentlyPlayable([col,row]){return currentHeights[col]+1===row;}
+assert(p0ToMove&&currentlyPlayable([4,2]));
+const temporallyCertifiable=adjacencyCompatible.filter(x=>!(p0ToMove&&currentlyPlayable(x)));
+let temporalCovers=[];
+for(let k=1;k<=temporallyCertifiable.length;k++){
+  temporalCovers=combinations(temporallyCertifiable,k).filter(hitsAll);
+  if(temporalCovers.length)break;
+}
+assert.equal(temporalCovers.length,0);
+
 const out={
   geometry:{W,H,K,winningLines:lines.length},
   originalCenterTemplate:{staticCovered:69-originalUncovered.length,uncovered:originalUncovered.map(label)},
@@ -143,6 +196,13 @@ const out={
     prefix:'D1 E1; P0 to move',
     move:'A1',
     consequence:'P0 can seize the unique edge odd-control repair anchor before P1 can use it.'
+  },
+  fiveDiagonalSingletonCapacity:{
+    minimumArbitrarySingletonCovers:minimumSingletonCovers.map(C=>C.map(key)),
+    adjacencyCompatibleCover:compatibleCovers[0].map(key),
+    deniedCurrentCell:key([4,2]),
+    completeTemporallyCertifiableSingletonCoverExists:temporalCovers.length>0,
+    interpretation:'The five B1-repair diagonals have no complete unconditional singleton blocker cover compatible with the inherited parity guarantees and current P0 move.'
   },
   feasibleParityFamilyAfterA1:{
     repairB1:{minimumUncovered:b.uncovered.length,assignment:b.assignment,uncovered:b.uncovered.map(label)},
