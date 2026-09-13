@@ -6,10 +6,10 @@ import process from 'node:process';
 
 const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
 const CELL_COUNT = DOMAIN.columns * DOMAIN.rows;
-const PONS_ENDPOINT = 'https://connect4.gamesolver.org/solve?pos=';
 const CENTER_ORDER = Object.freeze([3, 4, 2, 5, 1, 6, 0]);
 const SRC = new URL('./', import.meta.url);
 const SELF = fileURLToPath(import.meta.url);
+const ORACLE_URL = new URL('../../../../components/oracle/exact7x6.mjs', import.meta.url);
 
 function envInteger(name, fallback, minimum, maximum) {
   const raw = process.env[name];
@@ -26,49 +26,20 @@ function signWdl(score) {
   return score === 0 ? 0 : score > 0 ? 1 : -1;
 }
 
-function validateScores(value) {
-  if (!Array.isArray(value) || value.length !== DOMAIN.columns) {
-    throw new TypeError('Pons response must contain seven move scores');
-  }
-  return value.map((score, column) => {
-    if (!Number.isSafeInteger(score) || score < -64 || score > 100) {
-      throw new RangeError(`Pons score at column ${column + 1} is invalid: ${score}`);
-    }
-    return score;
-  });
-}
-
-async function fetchPonsScores(sequence) {
-  let failure = null;
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
-    try {
-      const response = await fetch(`${PONS_ENDPOINT}${sequence}`, {
-        headers: { accept: 'application/json', 'user-agent': 'iteathen-Connect4-research' },
-        signal: AbortSignal.timeout(15000),
-      });
-      if (!response.ok) throw new Error(`Pons HTTP ${response.status}`);
-      const body = await response.json();
-      return validateScores(body?.score);
-    } catch (error) {
-      failure = error;
-      if (attempt < 4) await new Promise(resolve => setTimeout(resolve, attempt * 500));
-    }
-  }
-  throw new Error(`Pons solver request failed for prefix ${sequence || '<root>'}`, { cause: failure });
-}
-
-function chooseOptimal(scores) {
+function chooseOptimal(scores, invalidMove) {
+  if (!scores || scores.length !== DOMAIN.columns) throw new TypeError('oracle action vector must contain seven scores');
   let bestScore = -Infinity;
   let bestColumn = -1;
   for (const column of CENTER_ORDER) {
-    const score = scores[column];
-    if (score === 100) continue;
+    const score = Number(scores[column]);
+    if (score === invalidMove) continue;
+    if (!Number.isSafeInteger(score)) throw new TypeError(`oracle score at column ${column + 1} is invalid`);
     if (score > bestScore) {
       bestScore = score;
       bestColumn = column;
     }
   }
-  if (bestColumn < 0 || !Number.isFinite(bestScore)) throw new Error('Pons solver returned no playable move');
+  if (bestColumn < 0) throw new Error('oracle returned no playable move');
   return Object.freeze({ bestColumn, bestScore });
 }
 
@@ -76,12 +47,10 @@ function createPhysicalBoard() {
   const board = new Int8Array(CELL_COUNT).fill(-1);
   const heights = new Uint8Array(DOMAIN.columns);
   let ply = 0;
-
   function owns(player, c, r) {
     return c >= 0 && c < DOMAIN.columns && r >= 0 && r < DOMAIN.rows
       && board[r * DOMAIN.columns + c] === player;
   }
-
   function wins(player, c, r) {
     for (const [dc, dr] of [[1, 0], [0, 1], [1, 1], [1, -1]]) {
       let length = 1;
@@ -98,7 +67,6 @@ function createPhysicalBoard() {
     }
     return false;
   }
-
   return Object.freeze({
     play(column) {
       if (!Number.isSafeInteger(column) || column < 0 || column >= DOMAIN.columns || heights[column] >= DOMAIN.rows) {
@@ -114,22 +82,30 @@ function createPhysicalBoard() {
   });
 }
 
-async function collectPerfectPlayLine() {
+async function runOraclePathCase() {
+  const { ExactConnect4Oracle, ORACLE_CONSTANTS } = await import(ORACLE_URL);
+  const oracle = new ExactConnect4Oracle();
   const board = createPhysicalBoard();
   const records = [];
   let sequence = '';
   let terminal = null;
+  const started = performance.now();
   while (board.ply < CELL_COUNT) {
-    const scores = await fetchPonsScores(sequence);
-    const { bestColumn, bestScore } = chooseOptimal(scores);
+    const nodesBefore = oracle.nodes;
+    const actionStart = performance.now();
+    const scores = oracle.analyzeSequence(sequence);
+    const actionMs = performance.now() - actionStart;
+    const { bestColumn, bestScore } = chooseOptimal(scores, ORACLE_CONSTANTS.INVALID_MOVE);
     records.push(Object.freeze({
       ply: board.ply,
       sequence,
-      scores,
+      scores: [...scores],
       bestColumn,
       bestColumnOneBased: bestColumn + 1,
       bestScore,
       expectedWdl: signWdl(bestScore),
+      oracleNodes: oracle.nodes - nodesBefore,
+      oracleActionMs: actionMs,
     }));
     const move = board.play(bestColumn);
     sequence += String(bestColumn + 1);
@@ -138,8 +114,29 @@ async function collectPerfectPlayLine() {
       break;
     }
   }
-  if (!terminal) throw new Error('perfect-play line did not reach a legal terminal');
-  return Object.freeze({ records, terminal });
+  if (!terminal) throw new Error('oracle optimal line did not reach a terminal');
+  console.log(`ORACLE_PATH=${JSON.stringify({
+    kind: 'checkpoint-qualified-independent-node-oracle-optimal-line-v1',
+    source: 'components/oracle/exact7x6.mjs',
+    selection: 'maximum strong score; center-order deterministic tie break',
+    elapsedMs: performance.now() - started,
+    totalOracleNodes: oracle.nodes,
+    terminal,
+    records,
+  })}`);
+}
+
+function collectOraclePath(timeoutMs) {
+  const child = spawnSync(process.execPath, [SELF], {
+    encoding: 'utf-8',
+    maxBuffer: 16 * 1048576,
+    timeout: timeoutMs,
+    env: { ...process.env, ORACLE_PATH_MODE: '1' },
+  });
+  if (child.error?.code === 'ETIMEDOUT') throw new Error(`independent oracle path generation exceeded ${timeoutMs} ms`);
+  const line = (child.stdout ?? '').split(/\r?\n/).find(entry => entry.startsWith('ORACLE_PATH='));
+  if (!line) throw new Error(`oracle path process failed: ${(child.stderr ?? child.stdout ?? '').slice(-4000)}`);
+  return Object.freeze(JSON.parse(line.slice('ORACLE_PATH='.length)));
 }
 
 async function staticClosureProfile(line) {
@@ -159,7 +156,7 @@ async function staticClosureProfile(line) {
   for (let index = 0; index < line.records.length; index += 1) {
     const external = line.records[index];
     const rank = kernel.supportAccess.rankAt(kernel.states.supportAt(stateId));
-    if (rank !== external.ply) throw new Error(`static replay rank drift at ${external.sequence}`);
+    if (rank !== external.ply) throw new Error(`static replay rank drift at ${external.sequence || '<root>'}`);
     const frontierBoundCode = kernel.frontierBoundCode(stateId);
     const tacticalCode = kernel.tacticalCode(stateId);
     let staticExact = null;
@@ -173,11 +170,10 @@ async function staticClosureProfile(line) {
       if (staticExact !== null && staticExact !== tactical) throw new Error('static closure sources contradict');
       staticExact = tactical;
       staticKind = tacticalCode >= domain.TACTICAL_IMMEDIATE_BASE ? 'immediate-win'
-        : tacticalCode === domain.TACTICAL_LOSS ? 'forced-loss'
-          : 'tactical-draw';
+        : tacticalCode === domain.TACTICAL_LOSS ? 'forced-loss' : 'tactical-draw';
     }
     if (staticExact !== null && staticExact !== external.expectedWdl) {
-      throw new Error(`static exact result disagrees with Pons at ply ${external.ply}: ${staticExact} != ${external.expectedWdl}`);
+      throw new Error(`static exact result disagrees with independent oracle at ply ${external.ply}: ${staticExact} != ${external.expectedWdl}`);
     }
     rows.push(Object.freeze({
       ply: external.ply,
@@ -239,7 +235,7 @@ async function runPrefixCase() {
     const searchMs = performance.now() - searchStart;
     const cpu = process.cpuUsage(cpuStart);
     if (solved.value !== expectedWdl) {
-      throw new Error(`exact quotient result disagrees with Pons WDL at ${sequence || '<root>'}: ${solved.value} != ${expectedWdl}`);
+      throw new Error(`exact quotient result disagrees with independent oracle at ${sequence || '<root>'}: ${solved.value} != ${expectedWdl}`);
     }
     const stats = searcher.stats();
     console.log(`PREFIX_CASE=${JSON.stringify({
@@ -305,18 +301,13 @@ function contiguousExactSuffixStart(probes, terminalPly) {
 
 async function runCampaign() {
   const maxPrefixMs = envInteger('MAX_PREFIX_MS', 15000, 1000, 120000);
+  const oraclePathMs = envInteger('ORACLE_PATH_MS', 180000, 10000, 600000);
   const reserveDepth = envInteger('RESERVE_DEPTH', 10, 1, 12);
   const budgetMiB = envInteger('BUDGET_MIB', 2048, 512, 6144);
   const minPrefixPly = envInteger('MIN_PREFIX_PLY', 0, 0, 41);
 
-  const line = await collectPerfectPlayLine();
-  console.log(`PERFECT_PLAY_PATH=${JSON.stringify({
-    source: 'Pascal Pons public solver API',
-    endpoint: PONS_ENDPOINT,
-    selection: 'maximum strong score; center-order deterministic tie break',
-    terminal: line.terminal,
-    records: line.records,
-  })}`);
+  const line = collectOraclePath(oraclePathMs);
+  console.log(`PERFECT_PLAY_PATH=${JSON.stringify(line)}`);
 
   const staticRows = await staticClosureProfile(line);
   for (const row of staticRows) console.log(`STATIC_PREFIX=${JSON.stringify(row)}`);
@@ -336,9 +327,12 @@ async function runCampaign() {
   const earliestExactPrefix = resolved.length ? resolved[0].prefixPly : null;
   const earliestStaticExactPrefix = staticExact.length ? staticExact[0].ply : null;
   const suffixStart = contiguousExactSuffixStart(probes, line.terminal.ply);
-  const summary = Object.freeze({
-    kind: 'connect4-standard7x6-perfect-play-closure-v1',
-    externalPathSource: 'Pascal Pons public exact solver API',
+  console.log(`PERFECT_PLAY_CLOSURE_SUMMARY=${JSON.stringify({
+    kind: 'connect4-standard7x6-perfect-play-closure-v2',
+    externalPathSource: 'checkpoint-qualified independent Node exact oracle',
+    oraclePathMs,
+    oraclePathElapsedMs: line.elapsedMs,
+    oraclePathNodes: line.totalOracleNodes,
     terminalPly: line.terminal.ply,
     terminalSequence: line.terminal.sequence,
     terminalWinner: line.terminal.winner,
@@ -357,16 +351,16 @@ async function runCampaign() {
     oneSidedFrontierBounds: staticRows.filter(row => row.frontierBoundCode === 1 || row.frontierBoundCode === 2).length,
     bilateralFrontierDraws: staticRows.filter(row => row.frontierBoundCode === 3).length,
     unresolved: probes.filter(probe => probe.status !== 'resolved'),
-    interpretation: Object.freeze({
-      externalScoresAreValidationOnly: true,
-      exactPrefixMeans: 'current quotient solver independently proved exact WDL from that selected perfect-play prefix',
+    interpretation: {
+      oracleScoresAreValidationOnly: true,
+      exactPrefixMeans: 'current quotient solver independently proved exact WDL from that selected oracle-optimal prefix',
       staticExactMeans: 'current executable structural/tactical classifier alone established exact WDL before recursion',
-      branchScope: 'one deterministic Pons-optimal line; not a whole-root worst-branch proof horizon',
+      branchScope: 'one deterministic strong-score-optimal line; not a whole-root worst-branch proof horizon',
       cpcCaution: 'simple parity arithmetic is never counted as exact closure without executable response/resource guards',
-    }),
-  });
-  console.log(`PERFECT_PLAY_CLOSURE_SUMMARY=${JSON.stringify(summary)}`);
+    },
+  })}`);
 }
 
-if (process.env.PREFIX_CASE_MODE === '1') await runPrefixCase();
+if (process.env.ORACLE_PATH_MODE === '1') await runOraclePathCase();
+else if (process.env.PREFIX_CASE_MODE === '1') await runPrefixCase();
 else await runCampaign();
