@@ -1,20 +1,28 @@
 # Center response-channel cut deficiency
 
 **Date:** 2026-09-13  
-**Status:** exact certificate-profile theorem / structural research result; no solver implementation change  
+**Status:** corrected exact certificate-profile theorem / structural research result; no solver implementation change  
 **Branch:** `research/frontier-negamax-conformance`  
 **Research direction / self-proving predicate program:** **Josh Oshiro**  
 **Formalization and qualification:** OpenAI ChatGPT
 
-## Purpose
+## Correction notice
 
-Replace the earlier informal “moving defect” picture with a compact, falsifiable capacity theorem.
+This note supersedes the earlier unconditioned `2 > 1` interpretation of the center response-channel experiment.
 
-The immediate question is not whether one particular Connect Four line is statically coverable. It is whether a family of blocker/response certificates can be selected **simultaneously**, while preserving the response resources that made each certificate valid.
+The underlying 511-candidate compatibility experiment, the seven-requirement inclusion-minimal core, and the raw three-channel projection remain valid observations. The earlier proof step was too strong in one place: it treated the residual problem as `U \ {T}` for every certificate solving the pivot requirement `T`.
 
-This note records a concrete center-position example in which a 511-candidate qualified certificate family reduces to a seven-requirement incompatibility core and then to a three-channel cut with a one-unit capacity deficiency.
+One Highinverse pivot solves **two** core requirements. Its proper residual is therefore smaller:
 
-The result is important because the final proof no longer depends on the names of the classical Connect Four rules. The named rules are used here as a rich regression profile from which generic response-resource predicates are extracted.
+```text
+S_A = U \ Solves(A),
+```
+
+not blindly `U \ {T}`.
+
+With that correction, the weak reusable-pair channel projection closes nine of the ten pivot alternatives. The tenth closes only after preserving the stronger resource contract actually carried by that Highinverse: an **exclusive guarded column interval**, including its no-Claimeven-below guard.
+
+The corrected result is stronger conceptually: response resources must be typed by their contract, not represented only by cell identity.
 
 ---
 
@@ -23,55 +31,40 @@ The result is important because the final proof no longer depends on the names o
 The experiment uses only:
 
 - standard 7x6 connect-4 geometry;
-- the legal positions named below;
+- the two legal positions below;
 - mechanically generated P0 winning requirements still live at those positions;
 - a qualified local certificate family compiled from Claimeven, Vertical, Baseinverse, Lowinverse, Highinverse, Baseclaim, Before, Aftereven, and Specialbefore consequences;
-- the published pairwise compatibility conditions for those certificate kinds, translated into resource predicates.
+- the published pairwise compatibility conditions for those certificate kinds, translated into resource predicates;
+- mechanical satisfiability checks over the resulting finite certificate system.
 
 It does **not** use:
 
 - a solved terminal-line classification;
-- a perfect-play witness sequence for any target line;
+- a perfect-play terminal-line witness;
 - the suspected final cardinality 28;
-- a solved-game database to choose the seven-line core;
+- a solved-game database to choose the core;
 - the quarantined perfect-play line oracle branch.
 
 `28` remains an output hypothesis only.
 
-A separate exact W/D/L control check labeled both six-ply positions below as P0 wins. That control result is useful only to establish experimental relevance. It is **not** a premise of the certificate theorem and is not used by the prototype.
+A separate exact W/D/L control check labeled both six-ply positions as P0 wins. That label establishes only that the experiment is not obviously on an irrelevant losing detour. It is not a premise of the structural theorem and is not used by the certificate generator or cut proof.
 
-Oddthreat and ThreatCombination are not part of the P1 safety-cover family tested here. In the referenced Victor formulation they are White/P0 win-condition guarantors, rather than Black/P1 defensive certificates. This exclusion therefore does not remove a P1 blocker family from the declared profile.
+Oddthreat and ThreatCombination are not part of the P1 safety-cover family tested here. In the referenced Victor formulation they are P0/White win-condition guarantors rather than P1/Black defensive certificates.
 
 ---
 
 ## 2. The two legal center branches
 
-The experiment is run independently on these legal six-ply positions:
+The experiment is run independently on:
 
 ```text
 451123 = D1 E1 A1 A2 B1 C1
 451132 = D1 E1 A1 A2 C1 B1
 ```
 
-In the first position:
-
-```text
-P0: D1 A1 B1
-P1: E1 A2 C1
-P0 to move
-```
-
-In the sibling position:
-
-```text
-P0: D1 A1 C1
-P1: E1 A2 B1
-P0 to move
-```
-
 Both positions have 57 surviving geometric P0 winning requirements.
 
-The candidate generator produces the same 511 certificates in both positions:
+The generated certificate profile is the same size in both states:
 
 ```text
 Claimeven       16
@@ -87,7 +80,7 @@ Specialbefore   11
 Total          511
 ```
 
-The large Before count is intentional. The prototype follows the reference recursive variation construction rather than choosing one deterministic component for each empty Before-group cell.
+The 380 Before instances are intentional. The generator follows the recursive variation construction, rather than selecting one deterministic component per empty Before-group cell.
 
 ---
 
@@ -95,34 +88,51 @@ The large Before count is intentional. The prototype follows the reference recur
 
 No pairwise-compatible certificate set covers all 57 surviving P0 requirements in either position.
 
-The maximum compatible coverage is:
+Maximum compatible coverage is:
 
 ```text
 451123: 53 / 57
 451132: 54 / 57
 ```
 
-Greedy deletion with full satisfiability rechecks produces the same inclusion-minimal unsatisfiable seven-requirement core in both positions:
+Greedy deletion with a full satisfiability recheck produces the same inclusion-minimal unsatisfiable seven-requirement core in both states:
 
 ```text
-1. A3-B3-C3-D3
-2. C4-D3-E2-F1
-3. A5-B4-C3-D2
-4. C5-D4-E3-F2
-5. D5-E5-F5-G5
-6. D5-E4-F3-G2
-7. A6-B5-C4-D3
+U = {
+  A3-B3-C3-D3,
+  C4-D3-E2-F1,
+  A5-B4-C3-D2,
+  C5-D4-E3-F2,
+  D5-E5-F5-G5,
+  D5-E4-F3-G2,
+  A6-B5-C4-D3
+}
 ```
 
-“Inclusion-minimal” means that removing any one of these seven makes the remaining six satisfiable in the declared certificate profile. It does not claim this is the globally minimum-cardinality unsatisfiable set among every possible subset of the 57 requirements.
+Removing any one of those seven makes the other six satisfiable in the declared certificate profile.
 
-The seven-line list is evidence. The more useful result is the quotient below.
+This is inclusion-minimality only; no claim is made that seven is the globally minimum unsatisfiable cardinality among every subset of the 57 surviving requirements.
 
 ---
 
-## 4. Three lower response channels
+## 4. Pivot requirement
 
-Define three response channels across the row-2/row-3 cut:
+Choose:
+
+```text
+T = A3-B3-C3-D3.
+```
+
+Exactly ten generated certificate instances solve `T`:
+
+```text
+3 Highinverse
+3 Lowinverse
+1 Before
+3 Specialbefore
+```
+
+The original projection used three lower response pairs:
 
 ```text
 R_B = B2 -> B3
@@ -130,280 +140,417 @@ R_C = C2 -> C3
 R_D = D2 -> D3
 ```
 
-The arrow means a reserved trigger/response relation, not merely ownership of two cells.
+For a certificate `C`, the weak predicate `PreservesLower(C,R_x)` means:
 
-For a certificate `C`, define `Preserves(C, R_x)` as follows.
+1. `C` does not use either endpoint of the pair; or
+2. in that column, `C` uses exactly the same two cells with the same lower-to-upper response relation.
 
-`C` preserves `R_x` if either:
-
-1. `C` does not consume either endpoint of that channel; or
-2. in column `x`, `C` uses exactly the two channel cells and carries the same lower-to-upper response edge.
-
-Thus exact reuse of the same response pair is allowed, while partial overlap, reversed use, or extension of that column resource into a different local certificate does not count as preservation in this projection.
-
-This predicate deliberately forgets the historical rule name. It retains only the response resource needed at the cut.
+This is a **reusable-pair contract**. It is deliberately weaker than full certificate compatibility.
 
 ---
 
-## 5. Lower-horizontal channel demand
+## 5. Raw lower-channel projection
 
-Consider the first core requirement:
+Projecting the ten pivot certificates onto `{R_B,R_C,R_D}` gives the minimal raw demand antichain:
 
 ```text
-H = A3-B3-C3-D3.
+{{R_B,R_C}, {R_B,R_D}, {R_C,R_D}}.
 ```
 
-There are exactly ten certificates in the declared profile that can cover `H` in either sibling position.
+Every pivot alternative uses at least two of those lower pairs.
 
-They consist of:
-
-- 3 Highinverse choices;
-- 3 Lowinverse choices;
-- 1 Before choice using all three lower Verticals;
-- 3 Specialbefore choices, each replacing one internal lower response with the external A3 Baseinverse relation.
-
-Project each such certificate onto `{R_B,R_C,R_D}`.
-
-Every one consumes at least two channels:
+If the residual is incorrectly fixed to `U \ {T}` for all pivots, then its maximal feasible weak-preservation antichain is:
 
 ```text
-Highinverse / Lowinverse:
-  {R_B,R_C}, {R_B,R_D}, or {R_C,R_D}
+{{R_B}, {R_C}, {R_D}}.
+```
 
-Before:
-  {R_B,R_C,R_D}
+Equivalently, that six-requirement residual can preserve any one lower pair, but no pair of lower pairs.
 
-Specialbefore:
-  exactly two of {R_B,R_C,R_D}
+The compatibility projection itself is valid:
+
+```text
+Compatible(A,C)
+  => PreservesLower(C,r)
+```
+
+for every weak lower pair `r` attributed to every pivot `A`.
+
+The exhaustive check found zero violations.
+
+What was wrong was **not** the projection relation. The error was using the same six-requirement residual for a pivot that itself solves another core requirement.
+
+---
+
+## 6. Proper residual audit
+
+For each pivot certificate `A`, the correct residual is:
+
+```text
+S_A = U \ Solves(A).
+```
+
+Nine of the ten pivot alternatives solve only `T` inside the seven-line core.
+
+For all nine:
+
+```text
+S_A = U \ {T},
+```
+
+and preserving the pivot's weak lower-pair demand makes `S_A` unsatisfiable.
+
+So the original reusable-pair cut is already sufficient for nine alternatives.
+
+Exactly one pivot is different:
+
+```text
+A* = Highinverse(B2:B4, D2:D4).
+```
+
+Within the seven-line core it solves:
+
+```text
+A3-B3-C3-D3
+A5-B4-C3-D2
 ```
 
 Therefore:
 
 ```text
-minimum_channel_demand(H) = 2.
+S_A* = {
+  C4-D3-E2-F1,
+  C5-D4-E3-F2,
+  D5-E5-F5-G5,
+  D5-E4-F3-G2,
+  A6-B5-C4-D3
+}.
 ```
 
-This is an exact enumeration fact for the qualified profile, not an inferred heuristic.
+The weak reusable-pair projection `{R_B,R_D}` does **not** refute that five-requirement residual. A relaxed residual cover exists while preserving those raw pairs.
+
+This falsifies the unconditioned three-channel antichain theorem as a complete proof of the seven-line core.
 
 ---
 
-## 6. Compatibility projection lemma
+## 7. Why the weak projection fails for the Highinverse pivot
 
-The prototype then checks every pair:
+The counterexample does not reveal a new geometric blocker. It reveals missing **resource type information**.
 
-```text
-A = a certificate covering H
-C = any other candidate certificate
-```
-
-For every channel `R` consumed by `A`, it verifies:
+A Lowinverse or Before may legitimately share an identical response pair such as:
 
 ```text
-Compatible(A,C)  =>  Preserves(C,R).
+D2 -> D3.
 ```
 
-Across both sibling positions the number of violations is:
+The exceptional Highinverse does not expose that same resource under the same sharing semantics.
+
+Its B and D columns are guarded three-cell structures:
 
 ```text
-0.
+B2-B3-B4
+D2-D3-D4
 ```
 
-This establishes the key projection property: once a particular blocker for `H` is selected, every other certificate in the same compatible proof family must preserve every lower response channel that blocker requires.
+and its qualified compatibility conditions require more than retaining `B2->B3` and `D2->D3` as abstract pairs.
 
-The full named-rule compatibility graph can therefore be soundly projected onto the three channel-preservation bits for this proof.
+The relevant generic contract for one such column is:
+
+```text
+HIColumn(c,2,4) = {
+  footprint: {c2,c3,c4},
+  sharing: exclusive,
+  guard: no Claimeven-bottom obligation in column c at or below row 4
+}.
+```
+
+The exact historical rule name is not part of the contract. The contract records the resource semantics that make the certificate valid.
 
 ---
 
-## 7. Residual preservation capacity
+## 8. Typed-contract projection
 
-Remove `H` and ask whether the other six core requirements can be covered while requiring selected certificates to preserve specified subsets of the three lower channels.
-
-For **both** sibling positions, the result is identical:
+Define:
 
 ```text
-Required preserved channels    residual six satisfiable?
----------------------------------------------------------
-{}                              yes
-{R_B}                           yes
-{R_C}                           yes
-{R_D}                           yes
-{R_B,R_C}                       no
-{R_B,R_D}                       no
-{R_C,R_D}                       no
-{R_B,R_C,R_D}                   no
+PreservesHIColumn(C,c,2,4)
 ```
 
-Hence the residual certificate system has preservation capacity:
+in the experiment by the following relaxed sufficient condition:
 
 ```text
-preservation_capacity(residual six) = 1.
-```
-
-The exact identity of the preserved singleton channel does not matter. Any one can survive; no pair can.
-
----
-
-## 8. Response-channel cut theorem
-
-The complete incompatibility now follows without inspecting 511 named certificates individually.
-
-Assume a complete compatible cover of the seven-requirement core exists.
-
-It must contain some certificate `A` that covers:
-
-```text
-A3-B3-C3-D3.
-```
-
-From Section 5:
-
-```text
-|Demand(A)| >= 2.
-```
-
-From the compatibility projection lemma, every other certificate in the cover must preserve every channel in `Demand(A)`.
-
-Therefore the residual six requirements would need a compatible cover preserving at least two lower channels.
-
-But Section 7 proves:
-
-```text
-preservation_capacity(residual six) = 1.
-```
-
-Contradiction.
-
-So no complete compatible cover exists.
-
-The deficiency is exactly one channel at this cut:
-
-```text
-demand = 2
-capacity = 1
-shortfall = 1
-```
-
-This is the first compact capacity certificate obtained from the corrected center-response investigation.
-
----
-
-## 9. Generic form
-
-The useful result is not specific to `A3-B3-C3-D3`.
-
-Let:
-
-- `U` be a set of unresolved requirements;
-- `T in U` be one distinguished requirement;
-- `R` be a finite response-channel set;
-- `Cert(T)` be the certificates capable of solving `T`;
-- `Demand(A) subseteq R` be the channels consumed by certificate `A`;
-- `Preserves(C,r)` mean certificate `C` can coexist with channel `r` unchanged;
-- `Cap(U\{T})` be the maximum number of channels that can be required preserved while the residual requirements still admit a compatible cover.
-
-If:
-
-```text
-for every A in Cert(T):
-    |Demand(A)| >= d
-
+C uses no resource cell c2,c3,c4
 and
-
-Compatible(A,C) =>
-    Preserves(C,r) for every r in Demand(A)
-
-and
-
-Cap(U\{T}) = p < d,
+C has no Claimeven bottom in column c at row <= 4.
 ```
 
-then `U` has no complete compatible certificate cover.
+This intentionally forbids reuse. It is a generic **exclusive guarded interval** contract.
 
-Equivalently:
+For the exceptional pivot:
 
 ```text
-minimum demand > residual preservation capacity
-    => incompatibility.
+A* = Highinverse(B2:B4, D2:D4),
 ```
 
-This is a generic response-capacity cut rule suitable for NDC.
+the experiment checks:
 
-It is structurally closer to Hall deficiency / cut capacity than to a Connect Four tactical pattern: one side of the cut requires a minimum number of response channels; the other side cannot preserve that many channels while satisfying its own obligations.
+```text
+Compatible(A*,C)
+  => PreservesHIColumn(C,B,2,4)
+     and PreservesHIColumn(C,D,2,4).
+```
+
+Across all 511 generated candidates, on both sibling positions:
+
+```text
+projection violations = 0.
+```
+
+Thus the typed contract is a sound relaxation of exact compatibility for this pivot profile.
 
 ---
 
-## 10. NDC interpretation
+## 9. Exceptional pivot residual
 
-This result clarifies the missing algebra identified by the earlier scheduling correction.
+Now discard the historical Highinverse compatibility predicate and retain only the generic typed contracts.
 
-Static blocker coverage alone is insufficient. A blocker certificate carries a resource footprint, and selecting it constrains the response channels available to all other certificates.
+Ask whether the five proper residual requirements `S_A*` admit a pairwise-compatible cover while every selected residual certificate preserves both exclusive guarded intervals:
 
-A useful NDC state therefore needs at least:
+```text
+HIColumn(B,2,4)
+HIColumn(D,2,4).
+```
+
+For both sibling states:
+
+```text
+residual satisfiable = false.
+```
+
+A stronger diagnostic is also reproducible:
+
+```text
+preserve neither HI interval: yes
+preserve B interval only:     yes
+preserve D interval only:     no
+preserve B and D intervals:   no
+```
+
+So the D-column typed contract alone is already sufficient to destroy residual feasibility. The pivot itself demands both columns, but the impossibility proof can project to the smaller sufficient contract `{HIColumn(D,2,4)}`.
+
+This gives a cleaner minimal proof interface for the exceptional pivot.
+
+---
+
+## 10. Corrected center theorem
+
+Let `Cert(T)` be the ten certificates solving the pivot requirement `T`.
+
+For each `A in Cert(T)` define:
+
+```text
+S_A = U \ Solves(A)
+```
+
+and choose a typed contract projection `D_A` satisfying:
+
+```text
+Compatible(A,C)
+  => every contract in D_A is preserved by C.
+```
+
+The experiment establishes:
+
+### Nine ordinary pivots
+
+For nine pivots, `D_A` can be expressed using reusable lower response-pair contracts drawn from:
+
+```text
+{R_B,R_C,R_D}.
+```
+
+Each proper residual is unsatisfiable under preservation of the pivot's projected lower-pair demand.
+
+### One exceptional Highinverse pivot
+
+For:
+
+```text
+A* = Highinverse(B2:B4,D2:D4),
+```
+
+raw lower pairs are insufficient because `A*` also solves another core requirement.
+
+A sound stronger projection is:
+
+```text
+D_A* = { HIColumn(D,2,4) }
+```
+
+or conservatively both B and D HI-column contracts.
+
+The proper five-requirement residual is unsatisfiable while preserving that typed contract, and exact compatibility implies preservation with zero observed violations.
+
+Therefore every possible pivot certificate is structurally incompatible with a complete cover of its own proper residual.
+
+Hence the seven-requirement core has no complete compatible cover in the declared 511-candidate profile.
+
+---
+
+## 11. Generic per-pivot cut rule
+
+The corrected reusable theorem is not a single global `2 > 1` inequality.
+
+For unresolved requirements `U`, pivot requirement `T`, and each pivot certificate `A` solving `T`:
+
+1. compute the **proper residual**
+
+```text
+S_A = U \ Solves(A);
+```
+
+2. extract a finite set of typed resource contracts `D_A`;
+3. prove the projection property
+
+```text
+Compatible(A,C) => Preserves(C,d)
+for every d in D_A;
+```
+
+4. test the relaxed residual system:
+
+```text
+exists a compatible cover of S_A
+whose certificates preserve every d in D_A?
+```
+
+If the answer is no for every pivot `A`, then no complete compatible cover of `U` exists.
+
+This is sound because any complete cover must select at least one pivot certificate. Every other certificate in that cover would have to preserve the pivot's projected contracts, yet those preserved contracts make the proper residual impossible.
+
+The residual test is deliberately **relaxed**: it does not require residual certificates to be exactly compatible with the pivot, only to preserve the pivot's generic projected contracts. Failure under the relaxation is therefore sufficient.
+
+---
+
+## 12. Contract shape
+
+The center falsifier shows that a response channel cannot generally be represented as a cell pair alone.
+
+A useful generic contract type is:
+
+```text
+ResourceContract {
+  footprint,
+  response_relation?,
+  sharing_policy,
+  forbidden_reservations?,
+  guards?,
+  deadline_or_horizon?,
+  parity_or_CPC_commitment?
+}
+```
+
+Examples from this experiment:
+
+### Reusable response pair
+
+```text
+footprint: {D2,D3}
+response: D2 -> D3
+sharing: exact-reuse allowed
+```
+
+### Exclusive guarded interval
+
+```text
+footprint: {D2,D3,D4}
+sharing: exclusive
+guard: no Claimeven bottom in D at row <= 4
+```
+
+They touch the same lower cells but are not interchangeable proof resources.
+
+---
+
+## 13. Relation to NDC
+
+The result now fits the intended NDC semantics more naturally than the raw scalar cut did.
+
+A compiled NDC proof state needs to preserve not only:
 
 ```text
 SolvedRequirements
-ReservedResponseChannels
-PreservedResponseChannels
-CertificateCompatibility
-Deadline / precedence guards
 ```
 
-A monotone inference rule can then be added in the form:
+but also the resource contracts that certified those solved requirements:
 
 ```text
-MinDemand(T,R) = d
-ResidualPreservationCapacity(U\{T},R) = p
-p < d
-----------------------------------------
+ReservedResources
+ResponseRelations
+SharingPolicies
+Guards
+Deadlines
+CPC / parity commitments
+```
+
+The center theorem is therefore a concrete demonstration of the C4-0007 principle that local blocker truth is insufficient if the reservations and response resources that produced it are discarded.
+
+The generic inference target becomes:
+
+```text
+For every pivot certificate A solving T:
+    ProperResidual(A) = U \ Solves(A)
+    ProjectionSafe(A,D_A)
+    NoCoverPreserving(ProperResidual(A),D_A)
+-------------------------------------------------
 NoCompatibleCover(U)
 ```
 
-The named classical rules can remain compiler inputs or regression tests. The closure theorem itself is stated over generic channel demand and capacity predicates.
+This is a candidate first-class NDC capacity rule.
 
 ---
 
-## 11. What this does not prove
+## 14. What remains unproved
 
-This note does **not** yet prove:
+This note does **not** prove:
 
-- that the 511-candidate Victor-derived profile is complete for arbitrary Connect Four defensive reasoning;
-- that no more general conditional/race certificate outside that profile can solve the same seven requirements;
-- that either six-ply position is itself a predecessor theorem for the complete perfect-play winning region;
-- that any particular geometric line belongs or does not belong to the final perfect-play terminal-line subset;
-- that the final subset has cardinality 28.
+- completeness of the 511-candidate historical certificate profile for arbitrary Connect Four defensive reasoning;
+- that no future generic NDC/race certificate can dissolve this profile-specific core;
+- that either six-ply position is itself a complete predecessor theorem for the root winning region;
+- any perfect-play terminal-line membership;
+- cardinality 28.
 
-Pairwise Victor compatibility is used here as a qualified reference profile. The generic NDC calculus may ultimately permit combinations that the historical profile does not express, or reject historical combinations for stronger deadline reasons.
+The exact result is profile-relative:
 
-The theorem therefore has two layers:
+1. the declared 511-candidate system is globally unsatisfiable on both sibling states;
+2. both produce the same seven-requirement inclusion-minimal core;
+3. nine pivot alternatives are refuted by weak reusable-pair projections on their proper residuals;
+4. the one multi-solve Highinverse alternative is refuted by a typed exclusive guarded interval projection;
+5. all tested compatibility-to-contract projection checks have zero violations.
 
-1. **Exact profile theorem:** the declared 511-candidate certificate system has the seven-line incompatibility and the `2 > 1` response-channel cut on both sibling branches.
-2. **Research hypothesis:** response-channel cut deficiency is a reusable rule-independent predicate that can replace a substantial fraction of named strategic-rule reasoning in the self-proving perfect-play calculus.
-
-Only layer 1 is established here.
+The research hypothesis is that this **typed per-pivot resource-cut calculus** can replace a substantial amount of named-rule reasoning once the contracts are derived directly from event/order/CPC semantics.
 
 ---
 
-## 12. Reproducer
+## 15. Reproducer state
 
-The exact experiment is preserved at:
+The base compatibility experiment remains in:
 
 ```text
 reference/research-prototypes/2026-09-13-perfect-play-winline/
   center_certificate_compatibility_core.mjs
 ```
 
-It asserts:
+That prototype reproduces the 511-candidate system, global CSP, seven-line core, and raw channel diagnostics.
 
-- 69 geometric lines;
-- both six-ply sibling states;
-- 57 surviving P0 requirements per state;
-- 511 generated candidate certificates per state;
-- no complete compatible cover;
-- the same seven-line inclusion-minimal core;
-- all ten blockers of `A3-B3-C3-D3` consume at least two lower response channels;
-- residual singleton-channel preservation is satisfiable;
-- residual pair-channel preservation is unsatisfiable for every pair;
-- compatibility-projection violations are zero;
-- therefore channel demand `2` exceeds residual preservation capacity `1` on both branches.
+A subsequent pivot audit detected the multi-solve exception described here. The durable corrected readout records, for each of the ten pivot alternatives:
 
-This is the durable checkpoint for the next step: derive the channel-demand/capacity predicates directly from generic response obligations, rather than from the names of the historical Connect Four rules.
+```text
+Solves(A) intersect U
+proper residual status under weak lower-pair projection
+whether a stricter typed contract was required
+projection-violation count
+proper residual status under the stricter projection
+```
+
+The next implementation step is to make typed `ResourceContract` values first-class in the prototype rather than treating the Highinverse contract as an exceptional audit predicate.
