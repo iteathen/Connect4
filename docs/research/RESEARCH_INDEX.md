@@ -60,11 +60,16 @@ terminal-line classifications are not admitted as theorem authority.
    Exact small-game counterexample showing W/D/L quotient equivalence does not
    imply terminal-line-output equivalence; introduces provenance-annotated residuals.
 
+7. [`2026-09-13-current-causal-certificate-differential.md`](2026-09-13-current-causal-certificate-differential.md)  
+   Reconstructed current differential: C4-0010 value identity, provenance-sensitive
+   output identity, extension-coherent geometry isomorphism, paired-response refinement,
+   and smallest counterexamples for rejected coarse relations. This record closes the
+   lost-scratch reconstruction seam and opens guarded alternative implication.
+
 ### ACTIVE CORE — Connect-Four-specific certificate calculus
 
 - [`2026-09-13-temporal-response-capacity-calculus.md`](2026-09-13-temporal-response-capacity-calculus.md)  
-  Current predecessor seam: temporally feasible response coverage, capacity,
-  deadlines, safety and progress.
+  Temporally feasible response coverage, capacity, deadlines, safety and progress.
 
 - [`2026-09-13-response-channel-antichain-calculus.md`](2026-09-13-response-channel-antichain-calculus.md)
 - [`2026-09-13-response-matroid-defect-transfer.md`](2026-09-13-response-matroid-defect-transfer.md)
@@ -98,9 +103,12 @@ defect-shape evidence.
 
 - [`2026-09-13-paired-response-interval-witness.md`](2026-09-13-paired-response-interval-witness.md)  
   Qualified exact one-sided bound witness on complete 4x3 connect-3: 122 physical
-  states / 90 quotient classes; 77 decision states / 57 decision classes; zero
-  exact-value mismatches.
+  states / 90 raw quotient classes; 77 decision states / 57 raw decision classes;
+  zero exact-value mismatches. The current differential further reduces these to 46
+  and 29 classes under exact geometry causal isomorphism without changing the theorem.
 
+- [`2026-09-13-current-causal-certificate-differential.md`](2026-09-13-current-causal-certificate-differential.md)  
+  Also owns the current machine-readable differential/counterexample routing.
 - [`2026-09-13-progress-grammar-4x3-closure.md`](2026-09-13-progress-grammar-4x3-closure.md)
 - [`2026-09-13-negamax-bsfp-bidirectional-control.md`](2026-09-13-negamax-bsfp-bidirectional-control.md)
 - [`2026-09-13-negamax-bsfp-proof-intersection.md`](2026-09-13-negamax-bsfp-proof-intersection.md)
@@ -117,25 +125,40 @@ Prototype controls are routed in `../../reference/research-prototypes/README.md`
 
 ## 2. Current open seam
 
-The lost scratch differential `/tmp/c4diff.mjs` was not preserved in Git.
-Remembered `2023 -> 419 + 1604` counts are unverified evidence and are not
-reconstruction targets.
+The current certificate differential has been reconstructed from present semantics.
+The obsolete `/tmp/c4diff.mjs` abstraction was **not** recreated, and the remembered
+`2023 -> 419 + 1604` count is retired as unverified historical evidence.
 
-Current reconstruction path:
+Current exact identity boundary:
 
 ```text
-current interval / response-capacity / provenance semantics
-  -> reconstructed differential
-  -> causal-isomorphism quotient
-  -> sound guarded refinement, if derivable
-  -> smallest unexplained counterexample
+value:
+  C4-0010 q
+  -> extension-coherent geometry causal isomorphism where available
+
+output:
+  q + exact P0 residual/origin provenance Pi0
+  -> geometry causal isomorphism + provenance transport
 ```
 
-Do not explain remembered merges by importing generic residual dominance. The current
-specs require any refinement/dominance relation to preserve the strategic context
-that matters: support/playability, CPC ownership, response resources, event order,
-deadlines/races, NDC guards, and output provenance when the objective includes line
-identity.
+The paired-response theorem remains a sound one-sided interval refinement across many
+distinct causal classes, proving that useful compression now belongs at the **proof
+obligation** layer rather than by inventing a coarser state equality.
+
+Current continuation path:
+
+```text
+exact q / q+Pi0 alternatives
+  -> explicit interval/CPC/WSL/NDC/temporal/progress certificates
+  -> guarded alternative implication / choice elimination
+  -> exact PreE / PreA max-min preservation
+  -> smallest falsifier for every rejected rule
+```
+
+Do not import generic residual dominance. Any implication/elimination rule must state
+and preserve the strategic context that matters: support/playability, CPC ownership,
+response resources, event order, deadlines/races, NDC guards, progress, and output
+provenance when line identity is observable.
 
 ---
 
@@ -168,15 +191,23 @@ attractive but unsound shortcuts.
 
 Examples include:
 
-- `2026-09-10-bsfp-incremental-dominance-rejected.md`
+- `2026-09-10-bsfp-incremental-dominance-rejected.md`;
 - flat blocker-union coverage as a complete strategic proof;
 - naive nested blocker resolution without timing/resource compatibility;
 - simple static response pairing;
 - mirror/vertical response policies treated as globally complete;
 - cardinality-only residual summaries;
-- legal reachability used as a proxy for perfect-play reachability.
+- legal reachability used as a proxy for perfect-play reachability;
+- residual antichains with support erased;
+- support-only semantic summaries;
+- static capacity counts with response identity/order erased;
+- local descriptor matching without a successor-extension map.
 
-The 2026-09-09 `low-confidence-survival` prototypes contain several of these
+The current differential preserves the smallest primary-control counterexamples for
+these newly retested relations in
+`evidence/2026-09-13-current-causal-certificate-differential.json`.
+
+The 2026-09-09 `low-confidence-survival` prototypes contain several earlier
 falsifiers and must not be cleaned merely because their candidate theorem failed.
 
 ---
@@ -200,8 +231,7 @@ Useful entry records include:
 - `2026-09-12-pre-alpha-cleanup-ledger.md`
 
 These are **HISTORICAL / RETAINED** for the current mathematical seam unless a
-specific implementation fact is needed. They are no longer the top-level “latest
-status.”
+specific implementation fact is needed. They are not top-level current status.
 
 ---
 

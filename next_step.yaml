@@ -1,6 +1,6 @@
-schema_version: 56
+schema_version: 57
 updated: 2026-09-13
-state: current_certificate_differential_reconstruction
+state: guarded_alternative_implication_calculus
 current_branch: research/frontier-negamax-conformance
 pre_cleanup_snapshot: 8bf24b6818b4e2775a3b41cd21e517b94e36271c
 
@@ -25,11 +25,41 @@ objective: >
 current_semantics:
   winning_region: "W = mu X . [ I union PreE(X) union PreA(X) ]"
   proof_currency: six_element_WDL_interval_lattice
-  output_stage: existential_terminal_line_provenance_inside_W
-  quotient_warning: WDL_equivalence_does_not_imply_output_equivalence
-  strategy_warning: static_coverage_does_not_imply_joint_temporal_policy
+  value_identity: c4_0010_q_exact_support_plus_p0_p1_residual_antichains
+  value_causal_isomorphism: global_support_winning_line_automorphism
+  output_identity: q_plus_exact_p0_residual_origin_provenance_Pi0
+  output_causal_isomorphism: geometry_automorphism_plus_line_provenance_transport
+  quotient_warning: proof_refinement_is_not_state_equality
+  strategy_warning: static_capacity_or_coverage_is_not_joint_temporal_policy
+
+latest_qualification:
+  research_record: docs/research/2026-09-13-current-causal-certificate-differential.md
+  primary_control:
+    domain: 4x3_connect3
+    reachable_states: 7157
+    nonterminal_states: 4631
+    forward_vs_alternating_fixed_point_mismatches: 0
+    c4_0010_raw_classes: 3734
+    c4_0010_successor_mismatches: 0
+    c4_0010_geometry_causal_classes: 1879
+    output_provenance_raw_classes: 4359
+    output_provenance_successor_mismatches: 0
+    output_provenance_geometry_causal_classes: 2188
+  paired_response_after_causal_quotient:
+    physical_states: 122
+    c4_0010_raw_classes: 90
+    geometry_causal_classes: 46
+    genuine_decision_physical_states: 77
+    genuine_decision_raw_classes: 57
+    genuine_decision_geometry_causal_classes: 29
+    exact_value_mismatches: 0
+    exact_bound: "[-1,0]"
+  historical_scratch_count:
+    remembered: "2023 -> 419 + 1604"
+    status: retired_unverified
 
 active_research:
+  - docs/research/2026-09-13-current-causal-certificate-differential.md
   - docs/research/2026-09-13-winning-region-output-factorization.md
   - docs/research/2026-09-13-alternating-fixed-point-calculus.md
   - docs/research/2026-09-13-temporal-response-capacity-calculus.md
@@ -41,6 +71,8 @@ active_research:
   - docs/research/2026-09-13-perfect-play-line-output-algebra.md
 
 active_controls:
+  - reference/research-prototypes/2026-09-13-perfect-play-winline/causal_certificate_differential.mjs
+  - reference/research-prototypes/2026-09-13-perfect-play-winline/c4_0010_cross_game_transition_controls.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/line_output_algebra.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/negamax_bsfp_proof_intersection_control.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/response_capacity_calculus.mjs
@@ -63,36 +95,42 @@ constraints:
   - exact_search_or_enumeration_is_control_not_theory_authority
   - no_generic_residual_dominance_without_a_sound_context_preserving_theorem
   - preserve_support_playability_resources_event_order_deadlines_guards_and_provenance_when_load_bearing
+  - do_not_attach_non_derivable_certificate_facts_to_c4_0010_q_identity
   - retain_negative_controls
   - retain_superseded_evidence_with_corrected_interpretation
   - retain_unknown_usefulness_by_default
   - do_not_reset_or_discard_newer_valid_branch_work
 
 next_task:
-  name: reconstruct_current_certificate_differential
+  name: derive_guarded_alternative_implication_and_choice_elimination
   purpose: >
-    Rebuild the lost differential experiment against the current interval,
-    temporal-response-capacity, and output-provenance semantics rather than
-    recreating the obsolete scratch abstraction.
+    Reduce the remaining PreE/PreA strategic predecessor differential by proving
+    implication or elimination relations between distinct exact quotient alternatives,
+    without redefining state identity or enumerating the full game tree as proof.
   steps:
-    - recover the older proof-shape and support-event controls as qualification inputs
-    - define a canonical current certificate signature with explicit causal dependencies
-    - compare exact control states/classes under that signature without using remembered counts as targets
-    - separate exact isomorphism merges from merely similar or dominance-like pairs
-    - attempt only context-preserving guarded refinements that have a proof obligation
-    - emit the smallest counterexample for every failed candidate relation
-    - persist reproducer, evidence, and conclusions under docs/research and reference/research-prototypes
+    - use C4-0010 q as the exact value-state substrate
+    - add Pi0 whenever original terminal-line identity is observable
+    - construct sibling-alternative certificate records with explicit interval, CPC, WSL, NDC, temporal-resource, deadline, and progress premises
+    - derive P0 max-side and P1 min-side elimination rules only when interval endpoints are provably preserved
+    - require well-founded structural progress for positive P0-win implications
+    - treat paired-response as a qualified one-sided refinement primitive, not an equality relation
+    - mechanically test every candidate rule on complete controls
+    - preserve the smallest WDL, transition, or output counterexample for every rejected rule
+    - persist any accepted theorem and its reproducer/evidence before broadening the candidate family
   success_conditions:
-    - no WDL mismatch on complete small-game controls
-    - no terminal-line-output mismatch where output provenance is in scope
-    - every accepted merge has an explicit semantic justification
-    - every rejected refinement has a preserved counterexample
-    - remembered scratch counts are either independently reproduced or explicitly retired
+    - every accepted implication has an explicit semantic proof obligation
+    - no accepted rule changes exact max/min predecessor value on complete controls
+    - no output-sensitive rule changes exact provenance-normalized G where Pi0 is in scope
+    - positive-win rules carry an explicit progress argument
+    - rejected relations retain smallest counterexamples
+    - no result depends on suspected final 7x6 output cardinality or retired scratch counts
   forbidden_shortcuts:
-    - tune_toward_28
+    - tune_toward_suspected_final_line_count
     - tune_toward_2023_419_1604
-    - infer_strategy_from_static_blocker_coverage
+    - convert_interval_refinement_into_state_equality
+    - infer_strategy_from_static_blocker_or_capacity_counts
     - erase_origin_line_provenance_for_output_semantics
+    - use_exact_enumeration_as_the_mathematical_explanation
 
 cleanup_policy:
   first_pass_deletions: none

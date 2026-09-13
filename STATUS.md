@@ -35,8 +35,8 @@ Read in this order before mutation:
 5. `docs/specs/C4-0010-quotient-native-negamax-v1.md`;
 6. current research routed by `docs/research/RESEARCH_INDEX.md`.
 
-C4-0010 remains the forward-solver contract. The current mathematical work does not
-silently redefine its exact game semantics.
+C4-0010 remains the forward-solver contract. The mathematical work does not silently
+redefine its exact game semantics.
 
 ## Accepted structural boundary
 
@@ -48,11 +48,34 @@ The mechanically derived standard-board geometry contains:
 - WSL-625 for residual requirements and blocker closure;
 - NDC for monotone nested dependency closure.
 
-Residual identity or residual-antichain inclusion alone is **not** strategic
-equivalence. Support/playability, ownership, response resources, event order, race
-horizons, deadlines, guards, and provenance can remain load-bearing.
+Support/playability, ownership, response resources, event order, race horizons,
+deadlines, guards, and output provenance remain load-bearing where the corresponding
+proof or observable depends on them.
 
 ## Current exact semantic decomposition
+
+### Value-state identity
+
+C4-0010 owns the qualified ordinary forward quotient:
+
+```text
+q = exact support
+  + normalized P0 residual antichain
+  + normalized P1 residual antichain
+```
+
+The reconstructed certificate differential independently requalified `q` on complete
+small games and established the current causal-isomorphism boundary:
+
+- raw `q` is successor-congruent on the primary 4x3 control;
+- global support/winning-line automorphisms are exact extension-coherent value
+  isomorphisms;
+- a same-snapshot descriptor is not an exact merge unless its renaming extends through
+  successors;
+- non-derivable CPC/NDC/path-dependent certificate state must still extend identity or
+  remain context-owned as required by C4-0010.
+
+See `docs/research/2026-09-13-current-causal-certificate-differential.md`.
 
 ### Winning region
 
@@ -69,82 +92,96 @@ predecessor. See
 
 ### W/D/L proof currency
 
-Sound structural facts may narrow the six possible W/D/L intervals rather than prove
-an exact value immediately. The exact predecessor action is max/min over child
-interval endpoints. See
-`docs/research/2026-09-13-wdl-interval-predecessor-calculus.md`.
+Sound structural facts narrow the six possible W/D/L intervals. Exact predecessor
+propagation is max/min over child interval endpoints.
 
-A qualified paired-response theorem already gives a nontrivial bounded witness:
-122 physical states / 90 quotient classes on complete 4x3 connect-3, including
-77 genuine decision states / 57 decision classes, with zero exact-value mismatches.
-It proves the one-sided interval `[-1,0]`; it does not overclaim draw versus loss.
-See `docs/research/2026-09-13-paired-response-interval-witness.md`.
+The paired-response theorem remains a nontrivial refinement **after** exact causal
+isomorphism. On complete 4x3 connect-3 it covers:
+
+```text
+122 physical states
+90 raw C4-0010 classes
+46 geometry-causal classes
+
+77 genuine decision states
+57 raw decision classes
+29 geometry-causal decision classes
+```
+
+with zero exact-value mismatches. The 77 decision states contain 23 draws and 54 P0
+losses, so the theorem proves exactly `[-1,0]`; it does not overclaim draw versus loss.
+
+See `docs/research/2026-09-13-paired-response-interval-witness.md` and the current
+certificate-differential record.
 
 ### Terminal-line output
 
-Perfect-play terminal-line identity is a richer objective than W/D/L and requires
-output provenance. The value quotient may discard information that output attribution
-must retain. See
-`docs/research/2026-09-13-output-provenance-quotient.md`.
+Perfect-play terminal-line identity is richer than W/D/L.
 
-Once `W` is known, perfect trajectories from a P0-winning state are the legal paths
-remaining inside `W`, so per-line output becomes existential reachability inside that
-region. This is the current two-stage value/output factorization.
+```text
+value layer:   q
+output layer:  q + exact P0 residual/origin provenance Pi0
+```
+
+Geometry isomorphism transports line labels; it does not erase them. The current 4x3
+control has zero output mismatches under the provenance quotient and many collisions
+when the value quotient is reused as an output quotient.
+
+Once `W` is known, perfect trajectories from a P0-winning state are legal paths
+remaining inside `W`, so per-line output is existential reachability inside that
+region. See `docs/research/2026-09-13-output-provenance-quotient.md`.
 
 ## Current corrective boundary
 
 `docs/research/2026-09-13-center-response-serialization-correction.md` supersedes the
-**strategic interpretation** of these earlier static repair experiments:
+**strategic interpretation** of the earlier static center-repair experiments while
+retaining their static geometry/counterfactual evidence.
 
-- `2026-09-13-center-defect-edge-denial-amplification.md`
-- `2026-09-13-five-diagonal-singleton-capacity.md`
-- `2026-09-13-center-defect-lift.md`
-
-Their enumerated static geometry/coverage facts remain retained evidence. They are not
-proofs of a realizable contingent policy after the conflicting response event.
-
-This is the cleanup rule generally: superseded interpretation lowers authority; it
-does not erase potentially useful evidence.
+Static blocker or capacity counts are not a realizable contingent strategy without
+response identity, compatibility, ordering, and deadline correctness. The current
+differential independently preserves a ply-3 W/D/L counterexample to a static
+capacity summary that erases resource identity/order.
 
 ## Current missing calculus
 
-The active Connect-Four-specific seam is symbolic discharge of strategic predecessors
-from CPC / WSL / support / response / deadline facts without enumerating all physical
-or quotient successors.
+The ordinary exact state differential is no longer the active gap.
 
-The current certificate vocabulary includes:
+The remaining Connect-Four-specific problem is **guarded implication among distinct
+exact quotient alternatives** inside `PreE` and `PreA`:
 
-- complete defender safety coverage;
-- temporal response capacity and response-slot conflicts;
-- CPC ownership/parity/event-order premises;
-- WSL blocker/residual coverage;
-- NDC guard and dependency closure;
-- well-founded progress for positive predecessor proofs;
-- W/D/L interval intersection;
-- output-sensitive provenance after value closure.
+```text
+exact q / q+Pi0 state identity
+  + sound interval / CPC / WSL / NDC / temporal certificate
+  -> theorem-backed alternative implication or elimination
+  -> exact max/min predecessor result
+```
 
-A complete policy proof must establish legality, totality over the represented
-attacker continuation classes, resource compatibility, timing/deadline safety, and
-coverage. Static blocker union is insufficient.
+A complete rule must retain every load-bearing premise and must not turn a proof
+refinement into quotient equality.
+
+For negative/no-win results, the safety side includes response resources, timing,
+deadlines, CPC control, WSL coverage and NDC guards. For positive winning results, a
+well-founded structural progress argument remains necessary.
 
 ## Immediate execution seam
 
-Reconstruct the lost proof differential using **current** certificate semantics:
+Develop and qualify a **guarded alternative-implication / choice-elimination calculus**
+over exact quotient classes.
 
-```text
-current interval / capacity / provenance certificates
-  -> reconstructed differential
-  -> causal-isomorphism quotient
-  -> sound guarded refinement, if derivable
-  -> smallest unexplained counterexample
-```
+The next unit should:
 
-The historical scratch `/tmp/c4diff.mjs` is not preserved in the repository. Remembered
-counts such as `2023 -> 419 + 1604` are unverified evidence, not targets.
+1. operate on C4-0010 `q`, adding exact `Pi0` whenever terminal-line identity is in scope;
+2. build explicit sibling-alternative certificate records for `PreE` / `PreA`;
+3. derive only context-preserving implication/elimination rules with stated proof
+   obligations;
+4. preserve max/min interval endpoints exactly;
+5. require a well-founded progress witness for positive-win elimination;
+6. mechanically falsify each candidate rule on complete controls and retain the
+   smallest counterexample;
+7. keep provenance transport through every output-sensitive rule.
 
-Do not import generic residual dominance to explain those counts. C4-0007 treats
-candidate dominance/refinement relations as proof obligations, not production
-authority.
+The obsolete remembered scratch count `2023 -> 419 + 1604` is now explicitly retired
+as unverified historical evidence. It is not a target for the new calculus.
 
 ## Research hygiene
 
@@ -156,5 +193,5 @@ authority.
 - Unknown usefulness is retained by default.
 - Deletion requires demonstrated redundancy or obsolescence plus preserved provenance.
 
-The cleanup that created this router is recorded in
+The organization policy is recorded in
 `docs/research/2026-09-13-research-organization-cleanup.md`.

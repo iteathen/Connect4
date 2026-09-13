@@ -22,6 +22,15 @@ program.
 
 Important scripts:
 
+- `causal_certificate_differential.mjs` — reconstructs the current certificate
+  differential on complete 4x3 connect-3; requalifies the accepted C4-0010 value
+  quotient, exact horizontal-reflection causal isomorphism, the output-provenance
+  quotient, the paired-response interval refinement after isomorphism quotienting,
+  and retained smallest counterexamples for rejected/coarser relations.
+- `c4_0010_cross_game_transition_controls.mjs` — complete-game qualification control
+  for the accepted C4-0010 support + P0/P1 residual-antichain quotient across seven
+  bounded games, including exact W/D/L and quotient-successor congruence checks. This
+  is qualification evidence, not a replacement for C4-0010 authority.
 - `line_output_algebra.mjs` — exact set-valued perfect-play line-output semantics on
   small complete games.
 - `opening_premise_projection.mjs` — bounded opening/third-ply premise projection;
@@ -104,5 +113,5 @@ Deletion requires evidence that the artifact is redundant for both positive and
 negative research value, has no unique witness/provenance, and is not referenced by
 a spec, report, evidence file, handoff, or active reproducer.
 
-The 2026-09-13 organization pass intentionally deletes no prototypes. See
+The first 2026-09-13 organization pass intentionally deletes no prototypes. See
 `../../docs/research/2026-09-13-research-organization-cleanup.md`.
