@@ -33,7 +33,7 @@ jobs:
             -o "$oracle/7x6.book"
           sha256sum "$oracle/7x6.book"
           cp research/perfect-play-winset-support.cpp "$oracle/winset-support.cpp"
-          g++ -std=c++11 -O3 -DNDEBUG -Wall -Wextra \
+          g++ -std=c++17 -O3 -DNDEBUG -Wall -Wextra \
             "$oracle/winset-support.cpp" "$oracle/Solver.cpp" \
             -I"$oracle" -o "$oracle/winset-support"
       - name: Count reachable geometric win sets
