@@ -9,24 +9,38 @@ const CUDA_ALGORITHMS_REPOSITORY = 'https://github.com/iteathen/CUDA-Algorithms.
 const CUDA_JS_REPOSITORY = 'https://github.com/iteathen/CUDA-JS.git';
 
 export const DEFAULT_REVISIONS = Object.freeze({
-  connect4: 'feature/cuda-bsfp',
+  connect4: 'solver/cuda-bsfp',
   cudaAlgorithms: '48ee0aec9acae7776950f03ab52ab1737e598b6e',
   cudaJs: '98e2ebc942c14d63acf4dd82e912dd548c363a05',
 });
 
-function exec(command, args, options = {}) {
-  return execFileSync(command, args, {
+function execGit(args, options = {}) {
+  return execFileSync('git', args, {
     stdio: 'inherit',
     windowsHide: true,
     ...options,
   });
 }
 
-function shell(command, cwd, env = process.env) {
+function execNode(args, options = {}) {
+  return execFileSync(process.execPath, args, {
+    stdio: 'inherit',
+    windowsHide: true,
+    ...options,
+  });
+}
+
+function installCudaJsDependencies(cwd, env) {
+  const options = {
+    cwd,
+    env,
+    stdio: 'inherit',
+    windowsHide: true,
+  };
   if (process.platform === 'win32') {
-    return exec(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', command], { cwd, env });
+    return execFileSync('cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund'], options);
   }
-  return exec('/bin/sh', ['-lc', command], { cwd, env });
+  return execFileSync('npm', ['ci', '--no-audit', '--no-fund'], options);
 }
 
 function linkDirectory(target, linkPath) {
@@ -102,8 +116,8 @@ function parseArgs(argv) {
 }
 
 function cloneAndCheckout(repository, destination, ref) {
-  exec('git', ['clone', repository, destination]);
-  exec('git', ['-C', destination, 'checkout', ref]);
+  execGit(['clone', repository, destination]);
+  execGit(['-C', destination, 'checkout', ref]);
 }
 
 function discoverGhToken() {
@@ -155,7 +169,7 @@ export async function main(argv = process.argv.slice(2)) {
   if (nodeOptions) env.NODE_OPTIONS = nodeOptions;
   else delete env.NODE_OPTIONS;
 
-  shell('npm ci --no-audit --no-fund', cudaJsRoot, env);
+  installCudaJsDependencies(cudaJsRoot, env);
   const topology = wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot });
 
   const resolvedCudaJsFromAlgorithms = resolvePackageFrom(path.join(cudaAlgorithmsRoot, 'src'), 'cuda-js');
@@ -173,17 +187,18 @@ export async function main(argv = process.argv.slice(2)) {
   }).trim();
   if (connect4Status.length > 0) throw new Error(`bootstrap dirtied the Connect4 checkout:\n${connect4Status}`);
 
+  const experimentalFfiEnabled = process.allowedNodeEnvironmentFlags?.has('--experimental-ffi') === true;
   console.error('[cuda-bsfp-q1-bootstrap] package topology verified');
   console.error(`[cuda-bsfp-q1-bootstrap] cuda-js -> ${resolvedCudaJsFromAlgorithms}`);
   console.error(`[cuda-bsfp-q1-bootstrap] cuda-algorithms -> ${resolvedCudaAlgorithmsFromConnect4}`);
-  console.error(`[cuda-bsfp-q1-bootstrap] experimental FFI flag ${process.allowedNodeEnvironmentFlags?.has('--experimental-ffi') ? 'enabled for Q1 children' : 'not available on this Node build'}`);
+  console.error(`[cuda-bsfp-q1-bootstrap] experimental FFI flag ${experimentalFfiEnabled ? 'enabled for Q1 children' : 'not available on this Node build'}`);
 
   if (config.prepareOnly) {
     console.log(JSON.stringify({
       outcome: 'prepared',
       nodeVersion: process.version,
-      nodeOptions: env.NODE_OPTIONS ?? '',
-      experimentalFfiEnabled: process.allowedNodeEnvironmentFlags?.has('--experimental-ffi') === true,
+      nodeOptions: experimentalFfiEnabled ? '--experimental-ffi' : '',
+      experimentalFfiEnabled,
       workspaceRoot,
       connect4Root,
       cudaAlgorithmsRoot,
@@ -204,7 +219,7 @@ export async function main(argv = process.argv.slice(2)) {
   const qualifierArgs = ['tools/cuda-bsfp-qualifier.mjs', '--qualify-benchmark'];
   if (config.q1Profile) qualifierArgs.push('--profile', config.q1Profile);
   if (config.q1Cases) qualifierArgs.push('--cases', config.q1Cases);
-  exec(process.execPath, qualifierArgs, {
+  execNode(qualifierArgs, {
     cwd: connect4Root,
     env,
   });
