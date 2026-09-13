@@ -1,276 +1,160 @@
-# Connect4 frontier-native exact solver audit status
+# Connect4 current research status
 
-**Updated:** 2026-09-12
-**Branch:** research/frontier-negamax-conformance
-**Research direction / architecture:** Josh Oshiro
-**Implementation / qualification:** OpenAI ChatGPT
+**Updated:** 2026-09-13  
+**Branch:** `research/frontier-negamax-conformance`  
+**Pre-cleanup snapshot:** `8bf24b6818b4e2775a3b41cd21e517b94e36271c`  
+**Research direction / architecture:** Josh Oshiro  
+**Formalization / implementation / qualification:** OpenAI ChatGPT
 
-Latest integrated identity checkpoint: [packed semantic ownership](docs/research/2026-09-12-integrated-identity-ownership.md).
-Proof-handle validation removal is cleared by paired run 34736592492. Direct semantic residual hashing now consumes canonical slot64 DWORDs without first materializing term IDs; paired run 34737153104 removed 305,714 descriptor term-materialization passes and 1,441,332 term-ID writes with 0.514% lower mean CPU and unchanged retained memory. Production commit 7e9dcf77057510a2df5221436c242a6f26dcb199 passed promotion run 34737270710 across storage, semantic arena, slot64, replacement, ExploreHint and dependency-parallel qualification. Next: fuse the same content-stable hash into canonical class creation and test it as both local class address filter and semantic fingerprint. Full-root trigger unchanged.
+This file is a **current-state router**, not a historical journal. Historical results,
+negative controls, superseded interpretations, benchmark records, and prior optimization
+work remain under `docs/research/**` and in Git history. Start with
+[`docs/research/RESEARCH_INDEX.md`](docs/research/RESEARCH_INDEX.md).
 
-Continuation checkpoint: [optimization handoff](docs/research/2026-09-12-frontier-optimization-handoff.md).
-Verify the remote head and hosted checks before further mutation; local evidence
-is recorded below. The push does not alter the full-root revision trigger.
+## Current objective
 
-Latest retained hot-path change: [transition-state read commit audit](docs/research/2026-09-12-transition-state-read-commit-audit.md).
-Source `5ec678f65595239af85f36de0942f571b3b730c3` replaces three separately
-validated packed-state field reads on first-time transition misses with one
-state-owner `writeStateParts` read into initialization-owned scratch. Exact local
-identity, proof semantics, CPC/WSL/NDC meaning and every recorded depth-8 counter
-remain unchanged. Hosted slot64 run 34729099344 succeeded; its 2657.891633 ms
-search sample versus 2667.062977 ms on the immediately preceding timing baseline
-is noise-scale and is not claimed as a speedup. A self-audit found no solver/spec
-violation in the last two source-history commits; it did find that current-state
-documentation had not been advanced with them. This status update, next-step update
-and research-index entry correct that process gap. The full-root trigger remains
-unchanged.
+Derive the exact subset of the 69 geometric Connect Four winning lines that can occur
+as P0 terminal wins on at least one W/D/L-perfect trajectory, using structural proof
+rather than an externally supplied solved terminal-line classification.
 
-Latest integration: [native local identity and attribution correction](docs/research/2026-09-12-native-key-integration.md).
-The packed state owner is integrated with field consumers and stable readers.
-Final paired depth-8 elapsed time is flat; measured CPU is 1969.5 → 1929.5 ms,
-with identical counters and two MiB less state payload. This is a modest measured
-CPU change, not a guaranteed speedup. 74 controls, six campaigns and ten provider
-controls passed locally. No children remain; see the continuation checkpoint and the full root
-remains unlaunched.
+The suspected final cardinality is **output only**. It must not be used as a premise,
+tuning target, acceptance criterion, or measure of whether a candidate theorem is
+"getting warmer."
 
-Latest representation experiment: [native two-word local identity](docs/research/2026-09-12-native-relational-key.md).
-Exact 60/64-bit layouts fit the current depth-8/depth-21 reservations. Native
-two-word lookup was 18.0% faster in an isolated corpus test; per-query repacking
-was slower. Production is unchanged pending field-consumer integration and
-end-to-end measurement. Width controls and all depth-8 counters matched.
+Exact enumeration/search is permitted as a bounded control or qualification oracle.
+It is not theory-construction authority.
 
-Latest external measurement: [Pons W/D/L protocol batch](docs/research/2026-09-12-pons-protocol-benchmark.md).
-One 60-second batch completed 137 positions across the six published sets;
-137/137 matched external score signs. All sets are partial, and Begin-Hard's first
-position remained unfinished. Fresh setup dominated easy-case batch cost.
-No benchmark processes remain; the engine implementation was unchanged.
+## Governing authority
 
-Latest [ranked hot-loop optimization](docs/research/2026-09-12-depth21-ranked-optimization.md):
-depth-21 checkpoint calls 60.56M → 92.25M under identical 60-second bounds;
-every run still timed out. Completed depth-8 mean 1.815 → 1.729 seconds with
-identical search/proof/operation counters. 69 controls, six campaigns and ten
-representation controls passed locally. No solver processes remain. Changes are
-uncommitted; further TT/descriptor and support work remains.
+Read in this order before mutation:
 
-Bounded-test [reservations now derive from board/depth and an explicit budget](docs/research/2026-09-12-board-depth-reservation.md).
-Depth 21 reserves 2,097,152 states and coupled class/chunk/proof storage (about
-1.21 GiB accounted within a 2 GiB budget). 62 controls and four campaigns passed.
-The resized test timed out and was killed at 60 seconds. A separate profiler
-worker preserved a 55.04-second window mapped to 810 source locations; the final
-roughly five seconds are unprofiled. Depth 21 remains incomplete. No test remains
-running; other production resource profiles and the full-root trigger are unchanged.
+1. account-global `iteathen/.github/AGENTS.md`;
+2. `AGENT_LOCAL.md`;
+3. `docs/specs/C4-0006-control-parity-and-winspace-v1.md`;
+4. `docs/specs/C4-0007-nested-dependency-closure-v1.md`;
+5. `docs/specs/C4-0010-quotient-native-negamax-v1.md`;
+6. current research routed by `docs/research/RESEARCH_INDEX.md`.
 
-The requested [depth-21 CPU profile](docs/research/evidence/2026-09-12-depth21-line-cpu/line-cpu.md)
-used the normal empty 7-column by 6-row board and a 60-second timeout. It stopped
-after 2268.0779 ms (2453 CPU ms) on the existing 262,144-state reservation limit;
-the depth-21 search did not complete. Source-mapped timing was preserved by an
-evidence-only failure-reporting wrapper. Engine source/resources are unchanged.
+C4-0010 remains the forward-solver contract. The current mathematical work does not
+silently redefine its exact game semantics.
 
-The [changed-slot class fingerprint](docs/research/2026-09-12-changed-slot-class-hash.md)
-now updates the parent's existing hash during residual construction, removing the
-second whole-tuple traversal without added storage. All 842,426 recomputation
-controls matched; 61 controls and four local campaigns passed, including forced
-hash collisions. Normal depth-8 means were 1.940 seconds before and 1.865 seconds
-after, with unchanged search/proof counters and memory. The observed 3.88% elapsed
-reduction is a small local batch with baseline variation. Shared-TT status reads
-and chunk bucket access lead the new CPU profile; full-root readiness is unchanged.
+## Accepted structural boundary
 
-The [relational address investigation](docs/research/2026-09-12-relational-address-investigation.md)
-confirms slot/bit positions already encode term identity; known IDs and unchanged
-chunks already bypass hashing. A normal depth-8 run with post-search inspection
-matched every search/proof counter and memory value, with production source unchanged.
-Observed content collisions rule out using a slot, low word or folded XOR alone
-as an exact address. Two assessed hash-free radix layouts add storage/dependent
-reads. Its changed-slot composition candidate is now qualified above; the original
-investigation remains evidence for the identity/address distinction.
+The mechanically derived standard-board geometry contains:
 
-The [compact chunk index](docs/research/2026-09-12-compact-chunk-index.md) saves
-5 MiB per worker at the current reservation while retaining stable IDs, exact
-single-copy keys and full chunk capacity. It uses smaller bucket-head arrays
-with private preallocated collision links. 60 controls and four campaigns passed.
-Final depth-8 means were 1.919 seconds baseline versus 1.928 seconds candidate;
-timing is effectively unchanged. This is a memory reduction, not a speedup claim.
-Search/proof counters match and no storage grows. Shared TT probing remains a
-performance target; full-root readiness is unchanged.
+- 69 geometric winning lines;
+- 625 unique nonempty residual fragments;
+- CPC for parity/control/event-precedence facts;
+- WSL-625 for residual requirements and blocker closure;
+- NDC for monotone nested dependency closure.
 
-The latest [chunk probe diagnostic](docs/research/2026-09-12-chunk-probe-distribution.md)
-found 94.75% one-slot lookups, average 1.060 slots and maximum 10 in normal depth-8
-search. Collision scanning is not the dominant lookup mechanism at these bounds.
-Engine dictionaries reserve 40 MiB; observed lookup reads touched 4.69 MiB of
-distinct 64-byte address blocks. This is not a hardware cache-miss measurement.
-An isolated instrumented copy matched all search/proof/descriptor counters;
-production source is unchanged. Next: initial index/key access locality, with
-capacity contracts preserved. Full-root readiness remains unchanged.
+Residual identity or residual-antichain inclusion alone is **not** strategic
+equivalence. Support/playability, ownership, response resources, event order, race
+horizons, deadlines, guards, and provenance can remain load-bearing.
 
-The latest [chunk lookup experiments](docs/research/2026-09-12-chunk-lookup-experiments.md)
-rejected two transformation caches: both reduced interning but ran slower and
-added 6.19 MiB. The retained chunk hash uses three multiplications instead of
-eight and keeps exact two-word comparison. 59 controls and four campaigns passed.
-Four-run elapsed means were 1.950 seconds baseline and 1.929 seconds candidate;
-the difference is within run variation, so no reliable speedup is claimed.
-Memory/search/proof counters match and no storage grows. Next: actual chunk probe
-distribution and memory-access cost. Full-root readiness remains unchanged.
+## Current exact semantic decomposition
 
-The latest [composed semantic hash reuse](docs/research/2026-09-12-state-hash-reuse.md)
-eliminated 95.37% of repeated hash computations in depth-8 search. Four alternating
-cold runs measured 2.032 seconds baseline versus 1.838 seconds candidate (9.54%
-elapsed reduction), with unchanged search/proof work and zero storage growth.
-It adds 2.03125 MiB of reserved metadata per worker at the measured capacity.
-58 controls and six local campaigns/controls passed; resource qualification now
-accounts for those arrays explicitly. A slower bound-writer candidate was removed.
-The next target is nonempty chunk interning. Full-root readiness remains unchanged.
+### Winning region
 
-The latest [ranked probe/frontier refinement](docs/research/2026-09-12-ranked-probe-refinement.md)
-removes hash-mismatch generation reads, empty-chunk hash probes, redundant
-singleton conversions and the second frontier masking pass for disjoint frames.
-57 controls and eight local campaigns/controls passed. Four alternating depth-8
-runs measured 2.155 seconds baseline versus 2.081 seconds candidate; run variation
-prevents a robust speedup claim. Search/proof counters and reserved typed memory
-match, with no storage growth. The new source profile still ranks TT and chunk
-lookups first. Descriptor/hash preparation is the next owner; full-root and
-integration readiness are unchanged.
+The P0 winning region is the finite least fixed point
 
-The active bounded runner, online workers and standard-root coordinator now enable
-[direct semantic-edge reuse](docs/research/2026-09-12-direct-semantic-edge-reuse.md).
-It bypassed residual/state hash lookups for 91.18% of depth-8 transitions. Four
-alternating cold runs measured 8.40 seconds baseline versus 2.22 seconds candidate
-(73.57% elapsed reduction), with identical search/proof work and zero storage
-growth. It adds 7 MiB for this reservation. 54 controls and four bounded campaigns
-pass. Full-root sizing/integration remain unresolved; its trigger is unchanged.
+```text
+W = mu X . [ I union PreE(X) union PreA(X) ]
+```
 
-Canonical recursive search now uses [reserved, sealed storage](docs/research/2026-09-12-preallocated-search-storage.md).
-Initialization allocates state/residual dictionaries, descriptor metadata and TT
-scratch; the selected standalone solver also reserves its local proofs. Capacity
-exhaustion fails explicitly instead of growing inside search. 53 controls and
-affected bounded campaigns pass. Depth-8 growth counters stay unchanged; the
-four-run comparison measured 8.28 seconds versus 8.12 seconds before reservation,
-with a larger reserved footprint. This is allocation removal, not a speedup claim.
+where `PreE` is the P0 existential predecessor and `PreA` is the P1 universal
+predecessor. See
+`docs/research/2026-09-13-winning-region-output-factorization.md` and
+`docs/research/2026-09-13-alternating-fixed-point-calculus.md`.
 
-Latest local [ranked hot-loop changes](docs/research/2026-09-12-ranked-hot-loop-optimization.md)
-remove repeated chunk-key checks, empty TT tail scans and singleton-free terminal
-column scans. Four alternating cold depth-8 runs measured 10.16 seconds baseline
-versus 8.27 seconds candidate (18.6% reduction), with unchanged search/proof work
-and retained memory. Forty controls and the bounded engine/terminal campaigns
-passed. The remaining ranked operations are still under review; full-root and
-repository integration claims remain unchanged.
+### W/D/L proof currency
 
-Local tests now have a [CPU-to-source-line profiling entry point](docs/research/2026-09-12-line-cpu-profiling.md).
-The depth-8 qualification produced 537 mapped locations with frozen source,
-explicit sampled CPU estimates and unchanged search/proof counters. Search was
-10.76 seconds, process CPU 10.69 seconds; this is a profiled measurement, not a
-speedup claim.
+Sound structural facts may narrow the six possible W/D/L intervals rather than prove
+an exact value immediately. The exact predecessor action is max/min over child
+interval endpoints. See
+`docs/research/2026-09-13-wdl-interval-predecessor-calculus.md`.
 
-Latest local cleanup removed the mover transition's whole-class input copy and
-redundant private-cache input checks. The immutable canonical chunks now feed
-both transition paths directly. [Qualification and evidence](docs/research/2026-09-12-direct-residual-read.md):
-23 controls and four bounded campaigns passed. The same depth-8 test took
-10.06 seconds with identical search/proof counters; no measurable speedup is
-established against the earlier 10.04-second run. No full root was launched.
+A qualified paired-response theorem already gives a nontrivial bounded witness:
+122 physical states / 90 quotient classes on complete 4x3 connect-3, including
+77 genuine decision states / 57 decision classes, with zero exact-value mismatches.
+It proves the one-sided interval `[-1,0]`; it does not overclaim draw versus loss.
+See `docs/research/2026-09-13-paired-response-interval-witness.md`.
 
-Earlier local working-tree measurement: normal Negamax with an explicit depth-8
-horizon on the empty 7-column by 6-row board completed in 10.04 seconds. Its
-[operation profile](docs/research/evidence/2026-09-12-normal-negamax-depth8-profile/operations.md)
-completed in 10.86 seconds with every search/proof counter unchanged. Both had
-a 60-second external timeout and left no test process. Pruning and live-line
-ordering were active; depth-boundary outcomes remain unknown. These local
-changes are uncommitted and full integration qualification remains pending.
+### Terminal-line output
 
-The active-path line-by-line correctness/compliance audit is complete for source
-revision 9c778bcaf010372ca2a3a91a7cdcec8debf5518f. The single standard 7x6 integrated
-measurement [34693275092](https://github.com/iteathen/Connect4/actions/runs/34693275092)
-ended at the 30-minute job limit without a root result at revision
-9e93018f06ca8a3f1fd2c012fb7ea4aa39b07775. Readiness was
-committed before admission; no other root was active. Performance and standard-root
-completion remain unproven.
+Perfect-play terminal-line identity is a richer objective than W/D/L and requires
+output provenance. The value quotient may discard information that output attribution
+must retain. See
+`docs/research/2026-09-13-output-provenance-quotient.md`.
 
-The [audit ledger](docs/research/2026-09-12-full-engine-sanity-audit.md) records
-findings, fixes, retained behavior and qualification. The
-[coverage inventory](docs/research/2026-09-12-frontier-audit-coverage.json) records
-44 source files / 10,780 lines and five workflows with exact Git blob identities.
-The [transition-state read audit addendum](docs/research/2026-09-12-transition-state-read-commit-audit.md)
-records the bounded compliance review of source commits `50aac925` and `5ec678f6`
-without retroactively changing the earlier audit snapshot.
+Once `W` is known, perfect trajectories from a P0-winning state are the legal paths
+remaining inside `W`, so per-line output becomes existential reachability inside that
+region. This is the current two-stage value/output factorization.
 
-C4-0001 owns domain truth, C4-0006 CPC/WSL meaning, C4-0007 strategic dependency
-premises and C4-0010 the exact forward proof procedure. No new CPC/WSL/NDC
-implication is claimed. Semantic/proof separation, adapter-owned generations,
-canonical residual materialization and advisory-only proof hints are retained.
+## Current corrective boundary
 
-The continuation corrected packed value contracts and proof-lock release,
-transactional TT/storage failure, arena domain binding, stale observations,
-structural-bound contradictions, detached work ownership, worker protocol and
-cleanup failures, qualification reference ownership and workflow dependency edges.
-All 33 targeted controls pass locally. Replacement (34692987151), dependency
-(34692987161), ExploreHint (34692987156) and slot64 (34692987155) CI succeeded
-on the exact audited source revision.
+`docs/research/2026-09-13-center-response-serialization-correction.md` supersedes the
+**strategic interpretation** of these earlier static repair experiments:
 
-The first guarded response-coverage profile is now integrated and locally
-qualified. It compiles adjacent response resources into 80 bytes of requirement
-coverage masks, uses the existing packed support bits for its guard, and returns
-a side-to-move bound through the existing frontier interface. Eval policy remains
-unchanged. See the [profile and evidence](docs/research/2026-09-12-incremental-response-closure.md).
-All 40 contract controls and bounded replacement, dependency, ExploreHint and
-slot64 lanes pass locally. All four remote bounded lanes passed on source commit
-14772b33383597a86212cd1c2dd636e8036aeca4: dependency 34697348137, ExploreHint
-34697348141, replacement 34697348155 and slot64 34697348163.
+- `2026-09-13-center-defect-edge-denial-amplification.md`
+- `2026-09-13-five-diagonal-singleton-capacity.md`
+- `2026-09-13-center-defect-lift.md`
 
-The [state-retention review](docs/research/2026-09-12-state-retention-review.md)
-removed the derived per-state hash cache. Exact identity, node counts and state
-placement match; bounded kernels save 4.0–9.9% typed storage. Isolated local
-timings range from 1.9% faster to 2.4% slower: a memory reduction, not a proved
-speedup or solve-space reduction. Eight storage and 33 other contract controls,
-plus seven bounded campaigns, pass locally. No new full root was run.
+Their enumerated static geometry/coverage facts remain retained evidence. They are not
+proofs of a realizable contingent policy after the conflicting response event.
 
-The terminal projection now returns at the first playable mover singleton,
-eliminating the remaining threat scan after an exact immediate win. All six
-relevant local campaigns pass after this follow-up; independent terminal checks
-cover 401,165 immediate-win positions with zero mismatches. No eval or strategic
-parity policy changed, and no throughput improvement is claimed from census counts.
+This is the cleanup rule generally: superseded interpretation lowers authority; it
+does not erase potentially useful evidence.
 
-Next: identify further useful active-path reductions using the
-new [relational duplication review](docs/research/2026-09-12-relational-duplication-review.md)
-and the
-[original 2025 engine study](docs/research/2026-09-12-original-engine-structural-lessons.md).
-The active worker uses residual relations, not a coloured bitboard, but retains
-physical distinctions between equivalent neutral-column capacities. A complete
-bounded census merges 4,431 of 294,593 current 4x5 states, including 1,727 unresolved
-states. No production identity change was made. Smaller TT capacity also causes
-measurable repeated work; implemented pruning continues to pass bounded checks.
-The [per-method CPU assessment](docs/research/2026-09-12-hot-method-cpu-assessment.md)
-records current optimization status and 24 local sampled bounded solves. Exact
-descriptor conversion, residual misses and repeated access are material costs;
-the measured eval arithmetic is comparatively small. Concurrent writer wait and
-full-root costs remain unmeasured by that single-thread profile.
-Existing singleton masks reproduce the original parity flags: 13,724 flag and
-65,328 slot-value comparisons passed across six board sizes. This is research
-evidence, not a production policy change or demonstrated speedup. Complete parity
-terminalization remains unresolved but does not block smaller structural CPU
-and memory improvements. Dimensions remain variable. Investigate relation reuse
-and transient-versus-retained state cost on matching bounded obligations.
-The failed run's
-completed-task expansion aggregate omits active work
-and is not a total node count. See the
-[search-volume reassessment](docs/research/2026-09-12-search-volume-structural-review.md).
-Do not dispatch another root while this investigation is unresolved.
+## Current missing calculus
 
-Global arena reset requires stopped submissions and quiescent workers. Finite
-capacity exhaustion is an explicit failing resource outcome, never a proof.
-State capacity tiers, growth peak memory, replacement pressure,
-ETC and priority probing remain performance hypotheses. Historical revision-2
-run 34676507073 ended without a proof near 15.7 GB RSS; this audit does not imply
-that its performance problem has been solved. Complete cheap U1/U2/NDC forward
-integration remains unestablished.
+The active Connect-Four-specific seam is symbolic discharge of strategic predecessors
+from CPC / WSL / support / response / deadline facts without enumerating all physical
+or quotient successors.
 
-The [methods review](docs/research/2026-09-12-negamax-methods-local-review.md)
-reconciles research with active settings. Local shallow construction through
-depth 4 took 18.1714 ms. A bounded coordinator diagnostic shows only one initial
-authoritative task at split 3; exploration is disabled. Task granularity and
-dependency-aware work supply remain measured limitations.
-The current root disables Branch Manager exploration and omits its executor
-subscription/completion wiring. A fresh held-leaf diagnostic confirms one
-initial proof task and zero scouts. Component qualification passes, but effective
-proactive work supply in the root has not been demonstrated. Structural closure
-coverage and repeated proof work now take investigation priority. The complete
-strategic U1/U2/NDC closure remains incomplete; the guarded response profile is
-one qualified instance, not an empty-root solution. Asynchronous reporting and
-write-side contention remain unfinished follow-up work.
+The current certificate vocabulary includes:
+
+- complete defender safety coverage;
+- temporal response capacity and response-slot conflicts;
+- CPC ownership/parity/event-order premises;
+- WSL blocker/residual coverage;
+- NDC guard and dependency closure;
+- well-founded progress for positive predecessor proofs;
+- W/D/L interval intersection;
+- output-sensitive provenance after value closure.
+
+A complete policy proof must establish legality, totality over the represented
+attacker continuation classes, resource compatibility, timing/deadline safety, and
+coverage. Static blocker union is insufficient.
+
+## Immediate execution seam
+
+Reconstruct the lost proof differential using **current** certificate semantics:
+
+```text
+current interval / capacity / provenance certificates
+  -> reconstructed differential
+  -> causal-isomorphism quotient
+  -> sound guarded refinement, if derivable
+  -> smallest unexplained counterexample
+```
+
+The historical scratch `/tmp/c4diff.mjs` is not preserved in the repository. Remembered
+counts such as `2023 -> 419 + 1604` are unverified evidence, not targets.
+
+Do not import generic residual dominance to explain those counts. C4-0007 treats
+candidate dominance/refinement relations as proof obligations, not production
+authority.
+
+## Research hygiene
+
+- `STATUS.md` and `next_step.yaml` contain current state only.
+- `docs/research/RESEARCH_INDEX.md` routes retained research.
+- `reference/research-prototypes/README.md` routes non-production prototypes.
+- Negative controls are retained.
+- Corrected/superseded experiments are retained with downgraded interpretation.
+- Unknown usefulness is retained by default.
+- Deletion requires demonstrated redundancy or obsolescence plus preserved provenance.
+
+The cleanup that created this router is recorded in
+`docs/research/2026-09-13-research-organization-cleanup.md`.
