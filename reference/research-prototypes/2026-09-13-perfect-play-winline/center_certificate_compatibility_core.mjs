@@ -282,6 +282,15 @@ assert.equal(monotonicityViolations.length,0);
 assert(a3Coverers.every(c=>lowerChannels(c).length>=2));
 for(const t of preserveTests.filter(t=>t.channels.length===1))assert.equal(t.satisfiable,true);
 for(const t of preserveTests.filter(t=>t.channels.length>=2))assert.equal(t.satisfiable,false);
+
+function subset(a,b){return a.every(x=>b.includes(x));}
+function uniqueSets(xs){const m=new Map();for(const x of xs){const q=[...x].sort((a,b)=>a-b);m.set(q.join(','),q);}return [...m.values()];}
+function minimalAntichain(xs){const u=uniqueSets(xs);return u.filter(a=>!u.some(b=>b!==a&&subset(b,a))).sort((a,b)=>a.join('').localeCompare(b.join('')));}
+function maximalAntichain(xs){const u=uniqueSets(xs);return u.filter(a=>!u.some(b=>b!==a&&subset(a,b))).sort((a,b)=>a.join('').localeCompare(b.join('')));}
+const minimalDemandAntichain=minimalAntichain(a3Coverers.map(lowerChannels));
+const maximalPreservationAntichain=maximalAntichain(preserveTests.filter(t=>t.satisfiable).map(t=>t.channels));
+assert.deepEqual(minimalDemandAntichain,[[2,3],[2,4],[3,4]]);
+for(const d of minimalDemandAntichain)assert(!maximalPreservationAntichain.some(p=>subset(d,p)));
 return {
   name,
   survivingP0Requirements:targets.length,
@@ -294,6 +303,8 @@ return {
   lowerHorizontalMinimumChannelDemand:Math.min(...a3Coverers.map(c=>lowerChannels(c).length)),
   residualPreservationTests:preserveTests,
   residualMaximumSimultaneouslyPreservableChannels:Math.max(...preserveTests.filter(t=>t.satisfiable).map(t=>t.channels.length)),
+  minimalDemandAntichain,
+  maximalPreservationAntichain,
   compatibilityProjectionViolations:monotonicityViolations.length,
 };
 }
