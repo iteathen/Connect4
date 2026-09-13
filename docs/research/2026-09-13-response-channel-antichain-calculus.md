@@ -1,23 +1,25 @@
-# Response-channel antichain calculus
+# Typed response-contract antichain calculus
 
 **Date:** 2026-09-13  
-**Status:** generic research formalization derived from the center response-channel experiment; not yet an accepted specification  
+**Status:** corrected generic research formalization; not yet an accepted specification  
 **Branch:** `research/frontier-negamax-conformance`  
 **Research direction / self-proving predicate program:** **Josh Oshiro**  
 **Formalization and synthesis:** OpenAI ChatGPT
 
-## Purpose
+## Correction notice
 
-Abstract the center response-channel cut result away from historical Connect Four rule names.
+The first version of this note compressed the center experiment too aggressively into three raw lower response-pair channels and one fixed residual set.
 
-The center experiment showed that a large certificate graph can collapse to two small set systems:
+A per-pivot audit found the exact failure:
 
-1. the response-channel sets that a certificate for one distinguished requirement may demand;
-2. the response-channel sets that a compatible cover of the residual requirements can preserve.
+- nine pivot certificates solve only the distinguished requirement and are refuted by the weak reusable-pair projection;
+- one Highinverse pivot also solves a second core requirement;
+- its proper residual is therefore smaller;
+- raw response-pair identity loses the stronger exclusivity/guard contract carried by the Highinverse columns.
 
-The important observation is that the second family is downward closed. Therefore its complete information can be represented by its maximal antichain. The first family can be reduced to its minimal antichain for an impossibility proof.
+The generic calculus must therefore be stated over **typed resource contracts** and **proper per-pivot residuals**, not over untyped cell pairs alone.
 
-This yields a generic NDC-compatible cut theorem that is strictly more informative than the scalar inequality `minimum demand > preservation capacity`.
+The falsifier strengthened the theory rather than weakening the underlying capacity idea.
 
 ---
 
@@ -29,37 +31,63 @@ A proof certificate `C` has, at minimum:
 
 ```text
 Solves(C)        subset of U
-Resources(C)     finite resource/reservation footprint
-Guards(C)        prerequisites under which the certificate is valid
-Responses(C)     response obligations / event relations
-Deadlines(C)     timing constraints when present
+Prerequisites(C)
+Resources(C)
+Responses(C)
+Guards(C)
+Deadlines(C)
+Consequence(C)
 ```
 
-`Compatible(C1,C2)` means the two certificates can coexist without invalidating either certificate's guards, response obligations, reservations, or deadlines.
+`Compatible(C1,C2)` means the two certificates can coexist without invalidating either certificate's prerequisites, reservations, response obligations, sharing semantics, guards, parity commitments, or deadlines.
 
-This relation must not be inferred from blocker coverage alone.
+Blocker coverage alone is not compatibility.
 
 ---
 
-## 2. Response channels
+## 2. Resource contracts
 
-A response channel is an abstract local interface:
+A resource contract is not just a set of cells.
 
-```text
-r = (Footprint(r), Contract(r)).
-```
-
-The footprint names the events/cells/reservoir slots reserved by the channel. The contract names the response relation or local guarantee that the reservation must retain.
-
-For the center example:
+Conceptually:
 
 ```text
-R_B = B2 -> B3
-R_C = C2 -> C3
-R_D = D2 -> D3
+ResourceContract r = {
+  footprint,
+  response_relation?,
+  sharing_policy,
+  forbidden_reservations?,
+  guards?,
+  deadline_or_horizon?,
+  parity_or_CPC_commitment?
+}
 ```
 
-but the calculus does not require a channel to be a two-cell vertical relation. A channel may represent any bounded response resource whose preservation can be certified.
+Examples include:
+
+### Reusable response pair
+
+```text
+footprint: {D2,D3}
+response: D2 -> D3
+sharing: exact reuse allowed
+```
+
+### Exclusive guarded interval
+
+```text
+footprint: {D2,D3,D4}
+sharing: exclusive
+guard: no Claimeven-bottom obligation in D at or below row 4
+```
+
+The two contracts touch the same lower cells but are not equivalent proof resources.
+
+A future calculus may discover still richer contract kinds. The theorem below does not depend on historical rule names.
+
+---
+
+## 3. Preservation
 
 Define:
 
@@ -67,89 +95,21 @@ Define:
 Preserves(C,r)
 ```
 
-iff `C` can coexist with the standalone contract of channel `r` without weakening that contract or adding an unstated prerequisite.
+iff certificate `C` can coexist with standalone resource contract `r` without weakening its response relation, sharing policy, guards, deadline, or parity meaning.
 
-This is the semantic definition. A concrete subsystem may implement it with a cheaper local test.
+This is semantic preservation.
 
-In the center prototype the local test is:
-
-```text
-C is disjoint from the channel endpoints
-OR
-C reuses exactly the same response pair in that column.
-```
-
-That implementation was separately checked against the qualified compatibility graph before being used as a projection.
+A concrete implementation may use a cheaper sufficient local predicate, provided it proves the projection property needed by the cut theorem.
 
 ---
 
-## 3. Channel demand
+## 4. Per-pivot demand projection
 
-For a certificate `A`, let:
-
-```text
-Demand(A,R) subseteq R
-```
-
-be the channels from a selected finite channel universe `R` that `A` consumes as part of its proof interface.
-
-`Demand` is not merely geometric overlap. It must be justified by the certificate's response/resource semantics.
-
-The crucial projection condition for a distinguished certificate `A` is:
+Choose a distinguished unresolved requirement:
 
 ```text
-r in Demand(A,R)
-and Compatible(A,C)
-    => Preserves(C,r).
+T in U.
 ```
-
-Call this the **compatibility projection property**.
-
-It says that once `A` reserves a channel as part of its proof, every other certificate admitted into the same proof family must leave that channel's contract intact.
-
-The center prototype checks this property exhaustively for the projected channels and reports zero violations.
-
----
-
-## 4. Residual feasible-preservation family
-
-Choose a distinguished requirement `T in U` and a finite channel universe `R`.
-
-Let the residual requirements be:
-
-```text
-S = U \ {T}.
-```
-
-Define the feasible-preservation family:
-
-```text
-F(S,R) = {
-    P subseteq R
-    |
-    there exists a pairwise-compatible certificate family Gamma
-    such that Gamma covers every requirement in S
-    and every C in Gamma preserves every r in P
-}.
-```
-
-### Downward-closure theorem
-
-`F(S,R)` is downward closed under set inclusion.
-
-Proof: if `P in F(S,R)`, there is a witness family `Gamma` preserving every channel in `P`. The same `Gamma` preserves every channel in every subset `P' subseteq P`. Therefore every subset of a feasible preservation set is also feasible. QED.
-
-Consequently, the entire preservation family can be represented by its inclusion-maximal elements:
-
-```text
-P_max(S,R) = MaxSubsetAntichain(F(S,R)).
-```
-
-Every feasible preservation set is a subset of at least one member of `P_max`.
-
----
-
-## 5. Demand antichain
 
 Let:
 
@@ -157,298 +117,396 @@ Let:
 Cert(T) = { A | T in Solves(A) }.
 ```
 
-The raw demand family is:
+For each pivot certificate `A`, select a finite contract set:
 
 ```text
-D(T,R) = { Demand(A,R) | A in Cert(T) }.
+Demand(A) = D_A.
 ```
 
-For an impossibility proof, supersets are redundant. If a demand set `D1` is already impossible to preserve, any `D2` with `D1 subset D2` is also impossible.
+`D_A` need not include every semantic detail of `A`. It is a projection chosen for the proof.
 
-Therefore normalize to the inclusion-minimal demand antichain:
+It must satisfy the **projection-safety condition**:
 
 ```text
-D_min(T,R) = MinSubsetAntichain(D(T,R)).
+Compatible(A,C)
+  => Preserves(C,r)
+for every r in D_A.
 ```
 
-Every raw certificate demand contains at least one member of `D_min`.
-
-This is the same antichain-normalization principle already used for residual requirements and blockers, now applied to response-resource demand.
+The projection may be weaker than exact compatibility. That is desirable: if the residual is impossible even under the weaker preservation condition, the contradiction is stronger.
 
 ---
 
-## 6. Antichain cut theorem
+## 5. Proper residual
 
-Assume:
+A pivot certificate may solve more than the distinguished requirement.
 
-1. every certificate `A` solving `T` has a certified demand set `Demand(A,R)`;
-2. the compatibility projection property holds for every such `A`;
-3. `P_max(S,R)` exactly represents the residual feasible-preservation family;
-4. for every `D in D_min(T,R)` and every `P in P_max(S,R)`:
+Therefore its residual obligation set is:
 
 ```text
-D is not a subset of P.
+S_A = U \ Solves(A).
 ```
 
-Then no compatible certificate family covers all of `U`.
+This is mandatory.
+
+Using a fixed residual `U \ {T}` for every pivot is sound only when every pivot solves no other obligation in `U`, or when the proof explicitly retains/account for the pivot's additional solved obligations.
+
+The center experiment contained one multi-solve Highinverse pivot and exposed this exact distinction.
+
+---
+
+## 6. Feasible preservation family
+
+For a fixed residual `S` and a finite set of typed resource contracts `R`, define:
+
+```text
+F(S,R) = {
+    P subseteq R
+    |
+    there exists a pairwise-compatible certificate family Gamma
+    covering every requirement in S
+    such that every C in Gamma preserves every r in P
+}.
+```
+
+### Downward-closure theorem
+
+`F(S,R)` is downward closed.
+
+If a witness family preserves all contracts in `P`, it also preserves every subset of `P`.
+
+Therefore the family can be represented exactly by its inclusion-maximal antichain:
+
+```text
+P_max(S,R) = MaxSubsetAntichain(F(S,R)).
+```
+
+This result is independent of Connect Four.
+
+---
+
+## 7. Per-pivot cut theorem
+
+Let `U` be unresolved requirements and `T in U` a pivot requirement.
+
+For every pivot certificate `A in Cert(T)`, suppose:
+
+1. its proper residual is
+
+```text
+S_A = U \ Solves(A);
+```
+
+2. a finite typed contract projection `D_A` is supplied;
+3. projection safety is proved:
+
+```text
+Compatible(A,C)
+  => Preserves(C,r)
+for every r in D_A;
+```
+
+4. there is **no** pairwise-compatible certificate family that covers `S_A` while preserving every contract in `D_A`.
+
+Then no pairwise-compatible certificate family covers all of `U`.
 
 ### Proof
 
-Assume a complete compatible cover `Gamma*` exists.
+Assume a complete compatible cover `Gamma` of `U` exists.
 
-Some certificate `A in Gamma*` solves the distinguished requirement `T`.
+Because `T` is covered, choose a pivot certificate:
+
+```text
+A in Gamma
+with T in Solves(A).
+```
+
+Every requirement in:
+
+```text
+S_A = U \ Solves(A)
+```
+
+must be solved by certificates compatible with `A`.
+
+By projection safety, every such certificate preserves every contract in `D_A`.
+
+Thus those residual certificates form a compatible cover of `S_A` preserving `D_A`, contradicting premise 4.
+
+Since the contradiction holds for every possible pivot `A`, no complete cover exists. QED.
+
+---
+
+## 8. Antichain optimization inside one contract profile
+
+When several pivots share the same residual set `S` and their resource contracts all belong to one finite contract universe `R`, their demands can be normalized.
 
 Let:
 
 ```text
-D_A = Demand(A,R).
+D = { D_A | A in some pivot class }.
 ```
 
-By the compatibility projection property, every other certificate in `Gamma*` preserves every channel in `D_A`.
-
-After removing `A`, the remaining certificates still cover the residual requirement set `S` (possibly with `A` also covering some residual requirements; retaining `A` as a passive compatible certificate only strengthens the preservation argument). Thus `D_A` must be a feasible preservation set for the residual proof context.
-
-Because `F(S,R)` is downward closed and represented by `P_max`, there exists some `P in P_max(S,R)` with:
+For impossibility, supersets are redundant. Define:
 
 ```text
-D_A subseteq P.
+D_min = MinSubsetAntichain(D).
 ```
 
-Every raw demand contains some minimal demand `D in D_min(T,R)`:
+Compute:
 
 ```text
-D subseteq D_A subseteq P.
-```
-
-This contradicts assumption 4.
-
-Therefore no complete compatible cover exists. QED.
-
-### Conservative formulation note
-
-If a selected certificate for `T` also solves residual requirements, the implementation may define `S_A = U \ Solves(A)` and compute preservation feasibility against `S_A` rather than `U \ {T}`. The fixed-residual form above is sound when the residual feasibility test permits the pivot certificate to remain selected or when its extra solved requirements are explicitly accounted for. Implementations should preserve this distinction rather than silently dropping pivot coverage.
-
----
-
-## 7. Scalar capacity as a corollary
-
-Define:
-
-```text
-MinDemandCardinality(T,R)
-    = min |D| over D in D_min(T,R)
-
-PreservationCapacity(S,R)
-    = max |P| over P in P_max(S,R).
+P_max(S,R).
 ```
 
 If:
 
 ```text
-MinDemandCardinality(T,R)
-    > PreservationCapacity(S,R),
+for every D in D_min
+for every P in P_max(S,R):
+    D not subseteq P,
 ```
 
-then the antichain cut condition follows immediately.
+then every pivot in that class is refuted at once.
 
-This is a useful cheap sufficient test, but it discards structure.
+This is the correct antichain form of the earlier capacity intuition.
 
-For example, equal cardinalities can still be incompatible when the actual channel identities differ. The antichain relation is therefore the primary theorem; the scalar capacity comparison is only a corollary.
+The scalar inequality:
+
+```text
+min |D| > max |P|
+```
+
+is only a sufficient corollary and may lose important contract identity.
 
 ---
 
-## 8. Center instance
+## 9. Center instance: ordinary pivot class
 
-For both legal center branches:
+For the two legal sibling states:
 
 ```text
 451123 = D1 E1 A1 A2 B1 C1
 451132 = D1 E1 A1 A2 C1 B1
 ```
 
-the distinguished requirement is:
+the qualified 511-candidate certificate profile yields the same seven-requirement inclusion-minimal unsatisfiable core.
+
+Take:
 
 ```text
 T = A3-B3-C3-D3.
 ```
 
-The channel universe is:
+Nine of the ten pivot certificates solve only `T` inside that core.
+
+For those nine, use reusable response-pair contracts:
 
 ```text
-R = {R_B,R_C,R_D}.
+R_B = B2 -> B3
+R_C = C2 -> C3
+R_D = D2 -> D3
 ```
 
-Ten historical certificate instances solve `T`, but after demand normalization they collapse to only three alternatives:
+Their minimal demand antichain is:
 
 ```text
-D_min(T,R) = {
-    {R_B,R_C},
-    {R_B,R_D},
-    {R_C,R_D}
+D_min = {
+  {R_B,R_C},
+  {R_B,R_D},
+  {R_C,R_D}
 }.
 ```
 
-The residual six requirements have maximal feasible preservation antichain:
+The common six-requirement residual has maximal feasible-preservation antichain:
 
 ```text
-P_max(S,R) = {
-    {R_B},
-    {R_C},
-    {R_D}
+P_max = {
+  {R_B},
+  {R_C},
+  {R_D}
 }.
 ```
 
-No demand pair is contained in any preservation singleton.
+The compatibility projection has zero violations in the generated profile.
 
-Therefore the seven-requirement core is incompatible.
+Therefore all nine ordinary pivot alternatives are refuted by the antichain cut.
 
-In bitmask form, with `R_B=001`, `R_C=010`, `R_D=100`:
-
-```text
-D_min = {011,101,110}
-P_max = {001,010,100}
-```
-
-The final proof check is only:
+The familiar scalar summary is:
 
 ```text
-for every D in D_min:
-    for every P in P_max:
-        assert((D & ~P) != 0)
+minimum reusable-pair demand = 2
+residual reusable-pair capacity = 1
 ```
 
-The 511-candidate graph is needed to qualify the antichains in this experiment, but it is not needed to carry the resulting proof certificate forward.
+but the antichain identity is the stronger statement.
 
 ---
 
-## 9. Monotonicity properties
+## 10. Center instance: exceptional multi-solve pivot
 
-The antichain formulation has useful monotonic behavior.
-
-### More residual requirements
-
-If `S subseteq S'`, any cover of `S'` is also a cover of `S`.
-
-Therefore:
+The tenth pivot is:
 
 ```text
-F(S',R) subseteq F(S,R).
+Highinverse(B2:B4,D2:D4).
 ```
 
-Adding residual obligations cannot increase preservation feasibility.
+It solves both:
 
-### Stronger compatibility/resource constraints
+```text
+A3-B3-C3-D3
+A5-B4-C3-D2.
+```
 
-If closure discovers additional valid conflicts, deadlines, or reservation requirements, feasible preservation sets can only disappear.
+Therefore its proper residual has only five requirements.
 
-Thus the preservation family again shrinks monotonically.
+The weak reusable-pair demand `{R_B,R_D}` is not sufficient to refute that smaller residual.
 
-### Additional residual certificate alternatives
+This is the falsifier that forced typed contracts.
 
-Adding a newly proved certificate may enlarge `F(S,R)`.
+The stronger generic resource projection is an exclusive guarded interval such as:
 
-This is intentionally falsification-friendly: a previously claimed capacity contradiction must be rechecked if the proof system learns a genuinely new compatible alternative.
+```text
+HI_D = {
+  footprint: {D2,D3,D4},
+  sharing: exclusive,
+  guard: no Claimeven bottom in D at or below row 4
+}.
+```
 
-### Additional pivot alternatives
+The profile audit establishes:
 
-Adding a new certificate for `T` may introduce a smaller demand set and move `D_min` downward.
+```text
+Compatible(Highinverse(B2:B4,D2:D4), C)
+    => Preserves(C,HI_D)
+```
 
-That can destroy a cut proof, which is also correct: an impossibility theorem must not survive the discovery of a cheaper valid way to solve the pivot requirement.
+with zero observed projection violations.
+
+The five-requirement proper residual has no compatible cover even under the relaxed condition that every selected residual certificate merely preserve `HI_D`.
+
+Thus the exceptional pivot is refuted without retaining the historical rule name in the resulting cut certificate.
 
 ---
 
-## 10. Suggested NDC predicates
+## 11. Solver-independent proof object
 
-The following are sufficient conceptual predicates; exact representation remains an implementation choice:
-
-```text
-Channel(r)
-ChannelFootprint(r,X)
-ChannelContract(r,Phi)
-
-Solves(C,T)
-CertificateResource(C,x)
-CertificateResponse(C,e1,e2)
-CertificateGuard(C,g)
-CertificateDeadline(C,h)
-
-Demands(C,r)
-Preserves(C,r)
-Compatible(C1,C2)
-ProjectionSafe(C,r)
-
-PreservationFeasible(S,P)
-MaxPreservationSet(S,P)
-MinDemandSet(T,D)
-NoCompatibleCover(U)
-```
-
-A compiled cut certificate can contain:
+A compiled cut certificate can be represented as:
 
 ```text
-ResponseCutCertificate {
-    requirements: U,
-    pivot: T,
-    channels: R,
-    minimalDemandAntichain: D_min,
-    maximalPreservationAntichain: P_max,
-    projectionWitnesses,
-    premiseGuards,
-    provenance
+ResourceCutCertificate {
+  requirements: U,
+  pivotRequirement: T,
+  alternatives: [
+    {
+      pivotCertificateIdentity,
+      solvedRequirements,
+      properResidual,
+      demandedContracts,
+      projectionProof,
+      residualNoCoverProof
+    }, ...
+  ],
+  rankOrHorizon,
+  provenance
 }
 ```
 
-The verifier does not need to know whether a demand set originally came from a Lowinverse, Highinverse, Before, Specialbefore, or a future rule family. It needs only the generic channel contracts and the witnesses establishing the two antichains.
+Once compiled, the verifier does not need to know whether a demanded contract originated from a Lowinverse, Highinverse, Before, Specialbefore, or a future rule family.
+
+It needs only:
+
+- what the pivot solves;
+- which generic contracts exact compatibility implies;
+- why the proper residual has no cover preserving those contracts.
 
 ---
 
-## 11. Relation to the larger algebra
+## 12. NDC integration
 
-This construction links three pieces of the developing framework:
-
-1. **order / response algebra** supplies the channel contracts and deadlines;
-2. **hypergraph / set algebra** supplies requirement coverage, demand sets, preservation families, and antichain normalization;
-3. **NDC monotone closure** propagates compatibility/resource facts until the cut becomes certifiable.
-
-GF(2) parity can enter by changing which channels exist or which certificates preserve them, but parity is not a separate primitive in the final cut theorem.
-
-This is evidence that some apparently game-specific strategic rules can be compiled into a smaller generic algebra of bounded response resources plus set closure.
-
----
-
-## 12. Remaining proof obligations
-
-The center antichain theorem is exact only for its declared certificate profile. Before promoting this calculus from research to accepted solver semantics, the following still need qualification:
-
-1. derive channel contracts directly from generic event/response semantics rather than historical named rules;
-2. prove `Demand` extraction sound for generic certificates;
-3. prove `Preserves` composition with deadlines and CPC reservoirs, not only local resource footprints;
-4. define how pivot certificates that solve multiple residual requirements are normalized in the preservation-family computation;
-5. test antichain cuts on unrelated positions and on deliberately adversarial certificate families;
-6. verify that introducing more general NDC/race certificates does not dissolve the center cut;
-7. establish how antichain certificates participate in predecessor closure without importing solved-game line classifications.
-
-No claim about the final perfect-play terminal-line subset follows yet.
-
----
-
-## 13. Durable result
-
-The center experiment has now compressed through three levels:
+Suggested conceptual predicates:
 
 ```text
-511 named certificate instances
-    -> 7-requirement incompatibility core
-    -> 3-channel demand/preservation antichain cut
+ResourceContract(r)
+ContractFootprint(r,X)
+ContractResponse(r,e1,e2)
+ContractSharing(r,policy)
+ContractGuard(r,g)
+ContractDeadline(r,h)
+
+Solves(C,T)
+Demands(C,r)
+Preserves(C,r)
+ProjectionSafe(C,r)
+Compatible(C1,C2)
+
+ProperResidual(U,C,S)
+PreservationFeasible(S,P)
+NoCoverPreserving(S,D)
+NoCompatibleCover(U)
 ```
 
-The final structural certificate is:
+The generic inference is:
 
 ```text
-D_min = {{B,C},{B,D},{C,D}}
-P_max = {{B},{C},{D}}
+for every A solving pivot T:
+    ProperResidual(U,A,S_A)
+    ProjectionSafe(A,D_A)
+    NoCoverPreserving(S_A,D_A)
+------------------------------------------------
+NoCompatibleCover(U)
 ```
 
-with a separately verified compatibility projection.
+This is a candidate first-class capacity rule for NDC.
 
-That is the current candidate primitive for the next NDC layer: **response-channel antichain cut deficiency**.
+---
+
+## 13. Why this matters for the missing calculus
+
+The central missing operation was previously described as strategic alternative resolution.
+
+The typed cut theorem gives one concrete algebraic alternative eliminator:
+
+```text
+many incompatible certificate choices
+    -> project each pivot to generic resource contracts
+    -> solve residual preservation feasibility
+    -> eliminate whole alternative classes without legal-move recursion
+```
+
+This is not yet completeness, but it is exactly the kind of operation the searchless hypothesis requires.
+
+---
+
+## 14. Monotonicity and falsification
+
+The formulation is intentionally easy to falsify.
+
+A cut proof must be recomputed or invalidated when:
+
+- a new pivot certificate solves `T`;
+- a known pivot is found to solve more requirements than recorded;
+- a weaker valid demand projection is found;
+- a new residual certificate makes `NoCoverPreserving` false;
+- a projection-safety counterexample is found;
+- a deadline/CPC distinction changes contract equivalence.
+
+Conversely, adding stronger exact conflicts or guards can only reduce preservation feasibility.
+
+This makes the calculus compatible with incremental NDC closure rather than requiring a once-for-all tactical taxonomy.
+
+---
+
+## 15. Remaining obligations
+
+Before specification promotion:
+
+1. make typed `ResourceContract` an explicit prototype object rather than an audit-side predicate;
+2. derive contracts directly from generic event/order/CPC semantics;
+3. qualify projection safety beyond the historical certificate profile;
+4. test cuts on unrelated positions and complete small games;
+5. map the same cut object into both forward Negamax discharge and backward BSFP predecessor closure;
+6. determine whether repeated cut closure can produce the positive/progress side of the root proof, rather than only no-cover facts;
+7. keep terminal-line provenance separate from W/D/L proof until the winning region is established.
+
+No claim about the final perfect-play terminal-line subset or its cardinality follows yet.
