@@ -1,0 +1,45 @@
+name: Perfect-play win-set support count
+
+on:
+  push:
+    branches: [research/perfect-play-winset-count]
+    paths:
+      - '.github/workflows/perfect-play-winset-support.yml'
+      - 'research/perfect-play-winset-support.cpp'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  count:
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [strong, wdl]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Build pinned Pons oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          oracle="$RUNNER_TEMP/pons-connect4"
+          git clone https://github.com/PascalPons/connect4.git "$oracle"
+          git -C "$oracle" checkout --detach d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          curl -L --fail --retry 3 \
+            https://github.com/PascalPons/connect4/releases/download/book/7x6.book \
+            -o "$oracle/7x6.book"
+          sha256sum "$oracle/7x6.book"
+          cp research/perfect-play-winset-support.cpp "$oracle/winset-support.cpp"
+          g++ -std=c++11 -O3 -DNDEBUG -Wall -Wextra \
+            "$oracle/winset-support.cpp" "$oracle/Solver.cpp" \
+            -I"$oracle" -o "$oracle/winset-support"
+      - name: Count reachable geometric win sets
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/pons-connect4/winset-support" \
+            "$RUNNER_TEMP/pons-connect4/7x6.book" \
+            '${{ matrix.mode }}'
