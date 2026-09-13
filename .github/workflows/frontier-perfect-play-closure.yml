@@ -1,0 +1,45 @@
+name: Frontier perfect-play closure horizon
+
+on:
+  push:
+    branches: [research/frontier-negamax-conformance]
+    paths:
+      - '.github/workflows/frontier-perfect-play-closure.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-perfect-play-closure-campaign.mjs'
+  workflow_dispatch:
+    inputs:
+      max_prefix_ms:
+        description: 'Maximum milliseconds for one exact prefix proof'
+        required: false
+        default: '15000'
+      reserve_depth:
+        description: 'Board-depth reservation used for each fresh prefix process'
+        required: false
+        default: '10'
+      min_prefix_ply:
+        description: 'Earliest Pons-optimal prefix to probe'
+        required: false
+        default: '0'
+
+permissions:
+  contents: read
+
+jobs:
+  closure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      MAX_PREFIX_MS: ${{ inputs.max_prefix_ms || '15000' }}
+      RESERVE_DEPTH: ${{ inputs.reserve_depth || '10' }}
+      MIN_PREFIX_PLY: ${{ inputs.min_prefix_ply || '0' }}
+      BUDGET_MIB: '2048'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Measure Pons-optimal exact closure horizon
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-perfect-play-closure-campaign.mjs
