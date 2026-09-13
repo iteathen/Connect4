@@ -1,6 +1,6 @@
-schema_version: 59
+schema_version: 60
 updated: 2026-09-13
-state: guarded_certificate_switch_defect_transfer
+state: internalize_remaining_noncenter_opening_safety
 current_branch: research/frontier-negamax-conformance
 pre_cleanup_snapshot: 8bf24b6818b4e2775a3b41cd21e517b94e36271c
 
@@ -17,8 +17,8 @@ authority:
   research_router: docs/research/RESEARCH_INDEX.md
 
 objective: >
-  Derive the exact perfect-W/D/L P0 terminal winning-line set without using the
-  suspected final cardinality or an external solved terminal-line classification.
+  Derive the exact perfect-W/D/L P0 terminal winning-line set without using a
+  suspected final cardinality or external solved terminal-line classification.
 
 current_semantics:
   winning_region: "W = mu X . [ I union PreE(X) union PreA(X) ]"
@@ -34,141 +34,105 @@ current_semantics:
     p0_max: "upper(a) <= lower(b) with retained witness"
     p1_min: "lower(a) >= upper(b) with retained witness"
     output_safe: false
-    requires_Pi0_or_output_subsumption_for_output: true
 
 accepted_safety_primitives:
   pooled_frontier_response:
     record: docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
-    states: 40804
+    qualified_states: 40804
     policy_failures: 0
   synchronized_column_channel:
     record: docs/research/2026-09-13-synchronized-column-channel-response-theorem.md
-    evidence: docs/research/evidence/2026-09-13-synchronized-channel-response-control.json
-    prototype: reference/research-prototypes/2026-09-13-perfect-play-winline/synchronized_channel_response_control.mjs
-    construction: >
-      Pair same-parity remaining columns for a synchronized same-depth prefix whose
-      length has that parity, then vertically pair both even tails. Every attacker
-      residual must contain a vertical response or both endpoints of a cross pair.
-    consequence: side_to_move_cannot_force_win
-    pooled_frontier_is_subset: true
-    complete_controls: 7
-    reachable_states: 443170
-    physical_certificates: 55488
-    incremental_over_pooled: 14684
-    genuine_decision_certificates: 44118
-    incremental_decision_over_pooled: 12273
-    quotient_classes: 13603
-    decision_quotient_classes: 9847
-    exact_value_mismatches: 0
-    explicit_policy_failures: 0
-    explicit_policy_states_explored: 417798
+    qualified_states: 55488
+    policy_failures: 0
+  support_shadow_race_preemption:
+    theorem: >
+      If a defender winning line consists of support cells each owned strictly before
+      the attacker can own the corresponding cells of an attacker winning line, the
+      defender line completes first and the attacker line cannot be terminal.
+    first_exact_use: opening3_structural_safety_certificate
 
-choice_qualification:
-  strict_edges:
-    pooled: 2804
-    synchronized_channel: 2816
-    incremental: 12
-    exact_parent_value_mismatches: 0
-  weak_value_edges:
-    pooled: 45430
-    synchronized_channel: 49711
-    incremental: 4281
-    note: value_only_when_equality_possible
+opening3_internal_proof:
+  record: docs/research/2026-09-13-opening3-structural-safety-certificate.md
+  prototype: reference/research-prototypes/2026-09-13-perfect-play-winline/opening3_structural_safety_certificate.mjs
+  evidence: docs/research/evidence/2026-09-13-opening3-structural-safety-certificate.json
+  p0_first_move_column: 3
+  p1_reply_column: 4
+  exact_values_used: false
+  full_game_tree_used: false
+  normal_columns: [1,2,5,6,7]
+  coupled_cd_automaton:
+    p0_turn_states: 21
+    macro_edges: 24
+    intermediate_p0_states: 24
+    invalid_responses: 0
+  singleton_blockers: 16
+  forbidden_pairs: 4
+  line_closure:
+    singleton: 56
+    pair: 11
+    support_shadow_race: 2
+    total: 69
+    unclassified: 0
+  consequence: NonWin0_opening3
+  reflection_consequence: NonWin0_opening5
+  independent_full_policy_control: reference/research-prototypes/2026-09-13-perfect-play-winline/c1_draw_policy_certificate.mjs
 
-standard_7x6_boundary:
-  ply2_full_channel_certificates: 0
-  best_uncovered_by_first_move:
-    1: 8
-    2: 8
-    3: 6
-    4: 7
-    5: 6
-    6: 8
-    7: 8
-  opening3_reply4_vertical_cover:
-    p0_first_move: 3
-    p1_reply: 4
-    live_minimal_p0_residuals: 60
-    statically_uncovered: 0
-    unpaired_top_defects:
-      - [3, 6]
-      - [4, 6]
-    policy_states_before_first_defect: 9216
-    first_defect_states: 6144
-    p0_wins_before_first_defect: 0
-    one_step_repairable_first_defects: 6142
-    one_step_unrepaired_first_defects: 2
-    opening3_no_win_proven: false
-  recursive_fixed_response_control:
-    memo_states: 4331
-    proved_states: 3559
-    unproved_states: 772
-    channel_seeds: 1515
-    race_seeds: 33
-    defect_repairs: 892
-    root_closed: false
-  unconstrained_certificate_switch:
-    accepted: false
-    reason: >
-      The direct any-response search exceeded the bounded control window and risks
-      degenerating into ordinary game-tree solving. Compression/rank is required.
-
-active_research:
-  - docs/research/2026-09-13-synchronized-column-channel-response-theorem.md
-  - docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
-  - docs/research/2026-09-13-current-causal-certificate-differential.md
-  - docs/research/2026-09-13-temporal-response-capacity-calculus.md
-  - docs/research/2026-09-13-choice-elimination-predecessor-calculus.md
-  - docs/research/2026-09-13-output-provenance-quotient.md
+remaining_first_move_value_gaps:
+  internally_unproved_noncenter:
+    - 1
+    - 2
+    - 6
+    - 7
+  reflection_pairs:
+    "1": 7
+    "2": 6
+  center_positive_progress: unproved
 
 constraints:
-  - no_final_terminal_line_count_as_premise_or_tuning_target
+  - final_terminal_line_cardinality_is_output_only
+  - no_external_solved_terminal_line_classification
   - exact_search_or_enumeration_is_control_not_theory_authority
-  - do_not_convert_certificate_reuse_into_state_equality
+  - historical_named_rules_may_seed_theorem_discovery_but_are_not_accepted_runtime_predicates
   - preserve_support_resource_identity_event_order_deadlines_CPC_NDC_and_provenance_when_load_bearing
   - static_coverage_without_response_resource_policy_is_insufficient
-  - weak_value_elimination_does_not_delete_tied_output_paths
   - positive_win_implication_requires_well_founded_progress
-  - unconstrained_certificate_switch_search_is_not_an_accepted_calculus
-  - retain_smallest_counterexamples_and_incomplete_controls
+  - tied_value_elimination_does_not_delete_output_paths_without_Pi0_subsumption
+  - retain_negative_controls_and_smallest_falsifiers
   - do_not_reset_or_discard_newer_valid_branch_work
 
 next_task:
-  name: derive_defect_transfer_quotient_and_rank
+  name: compile_opening1_opening2_structural_safety
   purpose: >
-    Compress the opening-3 top-defect response problem into a guarded certificate-switch
-    graph whose nodes retain exactly the support/phase/WSL/CPC/NDC/resource information
-    needed for sound transfer, and whose switch edges decrease a well-founded rank.
-  seed_state:
-    standard_board: 7x6_connect4
-    p0_first_move: 3
-    p1_structural_reply: 4
-    fact: bottom_up_vertical_response_covers_all_60_live_minimal_p0_residuals
-    defects: [[3,6],[4,6]]
+    Eliminate the remaining external non-center opening premises by compiling exact
+    constructive one-sided safety certificates for P0 openings 1 and 2. Reflection
+    will supply openings 7 and 6. Use the opening-3 proof language rather than named
+    historical rule authority.
   steps:
-    - model vertical-cover response phase and live defect tokens independently of move ordering
-    - quotient commuting paired trigger-response events before response-choice exploration
-    - define legal defect-transfer response edges with exact successor WSL coverage
-    - include CPC event ownership and NDC guard closure where a response releases or changes phase
-    - derive a monotone rank over remaining response resources / defect obligations
-    - require every attacker alternative to have at least one rank-decreasing certified defender response
-    - compare the compressed graph against the physical-state control only as a falsifier
-    - retain the smallest quotient collision or lost-response counterexample if compression is unsound
-    - use synchronized-channel certificates as terminal safety seeds
-    - keep small deterministic race lemmas explicit and separately proved if they remain necessary
-    - promote opening3_no_win only if the compressed certificate graph closes with no fallback to exact game value
-    - carry Pi0 separately for later output reachability; this task is value/safety only
+    - inspect retained opening1/opening2 policy controls and historical strategy evidence only as theorem-discovery inputs
+    - express each candidate P1 policy as bounded local response-resource automata
+    - prove policy totality without full game-tree value recursion
+    - derive permanent singleton ownership blockers
+    - derive forbidden pairs or higher forbidden subsets from local response automata
+    - generate support-shadow and generic race/preemption certificates from own winning requirements
+    - mechanically classify all 69 P0 geometric lines under the proved invariants
+    - retain every unclassified line as an explicit proof obligation rather than adding ad hoc rules
+    - use exact/full-policy execution only as independent falsifier and qualification control
+    - if opening1 closes, reflect to opening7
+    - if opening2 closes, reflect to opening6
+    - after all six non-center openings are internal, move the active seam to center-positive well-founded progress
   success_conditions:
-    - response_switch_graph_is_strictly_smaller_than_physical_policy_graph
-    - every switch edge has a local legality_and_coverage proof
-    - rank_strictly_decreases_on_every_nonterminal_switch_cycle_candidate
-    - zero bounded policy failures
-    - no exact solved value is used as an acceptance premise
-    - opening3 is either structurally closed or left explicitly unproved with a smallest remaining obstruction
+    - no solved WDL value is used as a proof premise
+    - no full game-tree recursion is required by the accepted certificate
+    - response policy is total under its local automata
+    - all 69 P0 winning lines are structurally excluded for each accepted opening certificate
+    - independent full-policy controls have zero P0 wins and zero invalid responses
+    - reflection transport is explicit
+    - smallest uncovered line/resource falsifier is retained for any opening that does not close
   forbidden_shortcuts:
-    - brute_force_any_response_until_a_draw_strategy_is_found
+    - import_allis_rule_names_as_authority
     - use_known_opening_value_as_the_proof
-    - erase_response_phase_or_defect_resource_identity
+    - treat_static_blocker_union_as_a_policy
+    - hide_response_switching_inside_physical_search
     - merge_states_only_because_they_share_a_certificate
     - use_non_strict_value_elimination_to_delete_terminal_line_output_paths
 

@@ -6,18 +6,16 @@
 **Research direction / architecture:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This is a current-state router, not a historical journal. Retained work is under
-`docs/research/**`; research prototypes are under `reference/research-prototypes/**`.
+This is a current-state router. Historical, negative, superseded, and qualification
+records remain under `docs/research/**` and `reference/research-prototypes/**`.
 
 ## Objective
 
-Derive the exact subset of the 69 geometric Connect Four winning lines that can occur
-as P0 terminal wins on at least one W/D/L-perfect trajectory, using structural proof
-rather than an externally supplied terminal-line classification.
+Derive the exact perfect-W/D/L P0 terminal winning-line set for standard 7x6 Connect
+Four from structural proof. The suspected final cardinality is output only and may not
+be used as a premise, tuning target, or acceptance criterion.
 
-The suspected final cardinality is output only. It is not a premise, tuning target, or
-acceptance criterion. Exact enumeration/search is a bounded falsifier/qualification
-oracle, not theory-construction authority.
+Exact enumeration/search is permitted only as a bounded falsifier/qualification oracle.
 
 ## Governing authority
 
@@ -28,13 +26,11 @@ Read before mutation:
 3. `docs/specs/C4-0006-control-parity-and-winspace-v1.md`;
 4. `docs/specs/C4-0007-nested-dependency-closure-v1.md`;
 5. `docs/specs/C4-0010-quotient-native-negamax-v1.md`;
-6. current research routed by `docs/research/RESEARCH_INDEX.md` and this file.
-
-C4-0010 remains the forward semantic contract.
+6. current research routed by `docs/research/RESEARCH_INDEX.md`.
 
 ## Exact semantic boundary
 
-Value identity:
+Value identity remains:
 
 ```text
 q = exact support
@@ -42,227 +38,187 @@ q = exact support
   + normalized P1 residual antichain
 ```
 
-Output identity:
-
-```text
-q + exact P0 residual/origin provenance Pi0
-```
-
-Geometry automorphism may canonicalize value identity only with extension coherence;
-output additionally transports original-line provenance.
-
 Winning region:
 
 ```text
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
-W/D/L proof currency is the six-element absolute-P0 interval lattice. Positive-win
-claims require well-founded progress; no-win/safety claims require a complete legal
-response policy.
+Output identity remains richer:
 
-## Accepted response hierarchy
+```text
+q + exact P0 residual/origin provenance Pi0
+```
 
-### 1. All-even paired response
+The six-element absolute-P0 W/D/L interval lattice remains the shared proof currency.
+Certificate reuse is not state equality. Positive wins require well-founded progress;
+safety/no-win requires a complete legal response policy.
 
-Historical accepted seed: every remaining column suffix even, vertically pair
-`(trigger,response)`, and require every attacker residual to contain a response cell.
+## Accepted response primitives
 
-### 2. Pooled-frontier paired response
+### Pooled-frontier paired response
 
-Accepted strict generalization:
+A shared even pool of currently playable odd-column frontier cells plus vertical paired
+tails gives a constructive no-win policy.
 
-- every odd-remainder column contributes its currently playable frontier cell to a
-  shared pool;
-- pool cardinality must be even;
-- omit those frontier cells and vertically pair all even suffixes;
-- attacker pool move -> defender consumes another live pool cell;
-- attacker vertical trigger -> defender takes the upper mate;
-- every attacker residual must intersect the vertical-response set.
-
-Qualification across seven complete games:
+Seven complete controls:
 
 ```text
 40,804 certificates
 31,845 genuine-decision certificates
 0 exact W/D/L contradictions
 0 explicit policy failures
-279,261 explicit policy states
 ```
 
-Record:
-`docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md`
+### Synchronized column channels
 
-### 3. Synchronized column-channel response
-
-Current strongest accepted static safety primitive.
-
-Pair same-parity remaining columns for a synchronized same-depth prefix of length `L`
-with matching parity, then vertically pair both even tails. A residual is blocked when
-it contains either a vertical upper response or both endpoints of a synchronized cross
-pair.
-
-The defender response is exact:
-
-```text
-vertical trigger -> upper mate
-cross-channel endpoint -> synchronized mate in the paired column
-```
-
-Cross-channel responses advance both columns in lockstep, preserving response
-playability. Pooled-frontier response is the `L=1` odd-column special case.
+Same-parity columns may be paired through a synchronized same-depth prefix, then return
+to vertical paired tails.
 
 Seven complete controls:
 
 ```text
-reachable states:                       443,170
-pooled-frontier certificates:            40,804
-synchronized-channel certificates:       55,488
-incremental certificates:                 14,684
-
-channel genuine-decision certificates:    44,118
-incremental genuine-decision states:       12,273
-
-channel q classes:                        13,603
-channel decision q classes:                9,847
-
-exact W/D/L contradictions:                    0
-explicit policy failures:                       0
-explicit policy states explored:          417,798
+55,488 certificates
+44,118 genuine-decision certificates
+13,603 q classes
+0 exact W/D/L contradictions
+0 explicit policy failures
+417,798 policy states explored
 ```
 
-Record:
-`docs/research/2026-09-13-synchronized-column-channel-response-theorem.md`
+These are proof-obligation refinements over exact C4-0010 states, not a coarser state
+identity.
+
+## New internally proved opening theorem
+
+The previously admitted standard-board fact for P0 opening column 3 is now derived
+internally.
+
+After:
+
+```text
+P0: column 3
+P1: column 4
+```
+
+P1 uses the constructive policy:
+
+```text
+ordinary P0 move below top -> reply directly above
+P0 C6 -> reply at lowest empty D cell
+P0 D6 -> reply at lowest empty C cell
+```
+
+The proof factors into:
+
+1. five independent normal-column response macros;
+2. a 21-state local C/D response automaton with 24 macro edges and zero invalid
+   responses;
+3. 16 permanent singleton blockers;
+4. four exact P0-forbidden pairs in the coupled C/D channel;
+5. two support-shadow race/preemption certificates.
+
+Mechanical geometry closure:
+
+```text
+singleton-blocked lines:      56
+forbidden-pair lines:         11
+support-shadow race lines:     2
+-------------------------------
+all P0 geometric lines:        69
+unclassified:                   0
+```
+
+No solved W/D/L value and no full game tree is used by this proof.
+
+Therefore:
+
+```text
+NonWin0(opening column 3)
+NonWin0(opening column 5)   // horizontal reflection
+```
+
+Authority:
+`docs/research/2026-09-13-opening3-structural-safety-certificate.md`
+
+Reproducer:
+`reference/research-prototypes/2026-09-13-perfect-play-winline/opening3_structural_safety_certificate.mjs`
 
 Evidence:
-`docs/research/evidence/2026-09-13-synchronized-channel-response-control.json`
+`docs/research/evidence/2026-09-13-opening3-structural-safety-certificate.json`
 
-Prototype:
-`reference/research-prototypes/2026-09-13-perfect-play-winline/synchronized_channel_response_control.mjs`
+The older full physical policy execution in `c1_draw_policy_certificate.mjs` is retained
+only as an independent falsifier/qualification control and independently obtains the
+same `56 + 11 + 2` decomposition.
 
-## Choice elimination
+## New generic race primitive made explicit
 
-Sound distinct-sibling implication does not imply state equality.
+Support-shadow race/preemption:
 
-Strict, value + output safe:
+```text
+attacker winning line R = {u_i}
+defender winning line Q = {q_i}
+q_i supports u_i
+policy proves defender owns each q_i before attacker can own u_i
+---------------------------------------------------------------
+Q completes before R; R cannot be an attacker terminal line
+```
+
+This is the missing progress/preemption information that the earlier P0-only safety
+projection erased. It is compatible with the existing generic race-blocker / NDC
+formalization and does not require historical named rules at runtime.
+
+## Choice elimination boundary
+
+Strict sibling elimination remains value + output safe:
 
 ```text
 P0/max: upper(a) < lower(b) -> eliminate a
 P1/min: lower(a) > upper(b) -> eliminate a
 ```
 
-Current strict edge counts:
+Non-strict equality elimination is Stage-1 value-only unless `Pi0`/output subsumption is
+proved separately.
+
+## Remaining first-move proof gaps
+
+Internally proved non-center openings:
 
 ```text
-pooled:   2,804
-channel:  2,816
-increment:   12
+column 3
+column 5 (reflection)
 ```
 
-Non-strict, Stage-1 value only with retained witness:
+Openings 1,2 and their reflections 7,6 still require the same level of internally
+generated structural safety proof if external opening premises are to be eliminated.
 
-```text
-P0/max: upper(a) <= lower(b)
-P1/min: lower(a) >= upper(b)
-```
-
-This grows from 45,430 to 49,711 eliminated value edges (+4,281). Equality is not
-terminal-line-output safe without separate `Pi0`/output subsumption.
-
-## Standard 7x6 boundary
-
-No ply-2 child after any first move is fully certified by synchronized channels alone.
-Best uncovered residual counts are:
-
-```text
-opening 1: 8
-opening 2: 8
-opening 3: 6
-opening 4: 7
-opening 5: 6
-opening 6: 8
-opening 7: 8
-```
-
-A more informative opening-3 control is now isolated:
-
-```text
-P0 first move column 3
-P1 reply column 4
-P0 to move
-```
-
-Bottom-up vertical response pairing covers **all 60** live minimal P0 residuals. Its
-only unmanaged resources are the two eventual top cells `(3,6)` and `(4,6)`.
-
-Before the first top defect:
-
-```text
-policy states:                    9,216
-first-defect states:              6,144
-P0 wins before first defect:          0
-one-step re-enter-cover repairs:  6,142
-unrepaired first defects:             2
-```
-
-The two exceptional late states have tiny constructive P1 race continuations, but a
-recursive fixed-response proof-DAG still leaves 772 of 4,331 memoized structural states
-unproved. Therefore opening 3 is **not yet internally proved no-win** by the current
-certificate grammar.
-
-An unconstrained "choose any reply that re-establishes a certificate" search exceeded
-the bounded control window and is not accepted; it risks collapsing back into ordinary
-game-tree search.
-
-## Current missing calculus
-
-The active gap is now **guarded certificate switching / defect transfer**, not blocker
-coverage and not a smaller value quotient.
-
-Required form:
-
-```text
-current covering certificate
-+ attacker move cannot win immediately
-+ candidate defender response
-+ successor covering certificate
-+ CPC / WSL / NDC / resource compatibility
-+ well-founded resource-rank decrease
-------------------------------------------------
-candidate response is a legal certificate switch
-```
-
-For opening 3, the concrete question is how the two top-defect tokens can be transferred
-or annihilated without releasing any of the blockers that already cover all 60 live
-minimal requirements.
-
-The response-switch relation must compress many physical histories into a small exact
-proof graph. A relation that merely replays the game tree is rejected even if correct.
+The center opening still requires a positive well-founded progress proof. That remains
+the decisive gap to a complete structural solve once the non-center safety side is
+internalized.
 
 ## Immediate execution seam
 
-Derive a bounded **defect-transfer quotient and rank** from the opening-3 control:
+Compile structural safety certificates for openings 1 and 2 using the same generic
+language:
 
-1. retain synchronized channels as complete safety seeds;
-2. represent a vertical-cover certificate by support, response phase, and live defect
-   tokens rather than physical move order;
-3. define a certificate-switch edge only when WSL coverage survives the response and
-   CPC/NDC/resource guards remain legal;
-4. prove a monotone rank decreases across switch edges;
-5. quotient commuting paired moves before exploring switch choices;
-6. mechanically compare the compressed proof graph with the rejected unconstrained
-   switch search on bounded games;
-7. preserve the smallest state where the proposed switch quotient loses information;
-8. only after the switch graph closes may opening 3 be promoted to an internal no-win
-   premise;
-9. keep terminal-line provenance separate from value-only non-strict reductions.
+```text
+local response-resource automata
++ singleton / forbidden-subset ownership invariants
++ support-shadow / generic race blockers
++ WSL/geometric closure
+=> one-sided [-1,0] certificates
+```
 
-Positive P0-win progress remains a separate later obligation.
+Do not import named Allis rules as theorem authority. Historical strategies may be used
+for theorem discovery only; the accepted proof object must be generated from support,
+response resources, ownership/exclusion, race precedence, and geometry.
+
+If both openings close, reflection closes 6 and 7 and all six non-center first moves are
+internal non-win theorems. The next seam then becomes center-positive progress.
 
 ## Hygiene
 
-- `STATUS.md` / `next_step.yaml` are current-state files only.
-- Negative controls and incomplete experiments are retained with their status.
+- `STATUS.md` / `next_step.yaml` contain current state only.
+- Negative controls and incomplete experiments remain retained.
 - Unknown usefulness is retained by default.
-- No state equality is inferred from certificate reuse.
 - The retired `2023 -> 419 + 1604` scratch count remains non-authoritative.
