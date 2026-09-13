@@ -65,10 +65,15 @@ export class PackedQuotientStatePool {
   #p0Read;
   #p1Read;
   #partsRead;
+  #lastValidatedState = -1;
   supportAt(id) { return this.#supportRead(id); }
   p0At(id) { return this.#p0Read(id); }
   p1At(id) { return this.#p1Read(id); }
-  writeStateParts(id, target) { this.#partsRead(id, target); }
+  writeStateParts(id, target) {
+    if (id !== this.#lastValidatedState) this.#assertState(id);
+    this.#lastValidatedState = -1;
+    this.#partsRead(id, target);
+  }
   #count = 0;
   #capacity = 4096;
   get count() { return this.#count; }
@@ -120,14 +125,14 @@ export class PackedQuotientStatePool {
       }
     }
     this.#partsRead = (id, target) => {
-      this.#assertState(id); const at = id * layout.words, lo = this.#words[at], hi = this.#words[at + 1];
+      const at = id * layout.words, lo = this.#words[at], hi = this.#words[at + 1];
       target.supportIndex = layout.support(lo);
       target.p0ClassId = layout.p0(lo, hi);
       target.p1ClassId = layout.p1(lo, hi, layout.words === 3 ? this.#words[at + 2] : 0);
     };
     if (layout.words === 2 && s > 0 && s < 32 && s + c > 32) {
       this.#partsRead = (id, target) => {
-        this.#assertState(id); const at = id * 2, lo = this.#words[at], hi = this.#words[at + 1];
+        const at = id * 2, lo = this.#words[at], hi = this.#words[at + 1];
         target.supportIndex = (lo & supportMask) >>> 0;
         target.p0ClassId = (((lo >>> s) | (hi << (32 - s))) & classMask) >>> 0;
         target.p1ClassId = hi >>> (s + c - 32);
@@ -212,7 +217,11 @@ export class PackedQuotientStatePool {
     this.#assertState(id);
     if (!Number.isInteger(column) || column < 0 || column >= this.columns) throw new RangeError('invalid quotient edge column');
   }
-  edgeAt(id, column) { this.#assertEdge(id, column); return this.edges ? this.edges[id * this.columns + column] : UNKNOWN; }
+  edgeAt(id, column) {
+    this.#assertEdge(id, column);
+    this.#lastValidatedState = id;
+    return this.edges ? this.edges[id * this.columns + column] : UNKNOWN;
+  }
   setEdge(id, column, target) {
     this.#assertEdge(id, column);
     if (target !== QN_ILLEGAL && target !== QN_TERMINAL_WIN
