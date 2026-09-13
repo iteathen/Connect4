@@ -5,6 +5,9 @@
 **Research direction / architecture:** Josh Oshiro
 **Implementation / qualification:** OpenAI ChatGPT
 
+Latest integrated identity checkpoint: [packed semantic ownership](docs/research/2026-09-12-integrated-identity-ownership.md).
+Proof-handle validation removal is cleared by paired run 34736592492. Direct semantic residual hashing now consumes canonical slot64 DWORDs without first materializing term IDs; paired run 34737153104 removed 305,714 descriptor term-materialization passes and 1,441,332 term-ID writes with 0.514% lower mean CPU and unchanged retained memory. Production commit 7e9dcf77057510a2df5221436c242a6f26dcb199 passed promotion run 34737270710 across storage, semantic arena, slot64, replacement, ExploreHint and dependency-parallel qualification. Next: fuse the same content-stable hash into canonical class creation and test it as both local class address filter and semantic fingerprint. Full-root trigger unchanged.
+
 Continuation checkpoint: [optimization handoff](docs/research/2026-09-12-frontier-optimization-handoff.md).
 Verify the remote head and hosted checks before further mutation; local evidence
 is recorded below. The push does not alter the full-root revision trigger.

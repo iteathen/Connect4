@@ -266,3 +266,5 @@ When it asks **how the frontier-native exact forward solver should consume an al
 When it asks **how BSFP should compute/propagate an already-defined symbolic state**, put it on the BSFP/OQS lane.
 
 When a result changes accepted Connect4 domain semantics, route it through the relevant C4 specification rather than allowing a research branch to become authority by accumulation.
+
+- [2026-09-12 integrated identity ownership](2026-09-12-integrated-identity-ownership.md) — clears proof-handle validation by paired A/B and promotes direct semantic hashing from canonical packed residual storage; records the compute/memory-synergy follow-up.
