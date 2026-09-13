@@ -166,6 +166,23 @@ Prefer logical edges where semantic meaning, authority, lifecycle, resource/fail
 
 Reserve **gate** language for an actually blocking condition. Ordinary benchmarks, comparisons, checkpoints, experiments and optimization decisions are not gates.
 
+## Frontier hot-path specialization
+
+Apply the account-global compute-synergy doctrine aggressively to the quotient-native solver hot path.
+
+- A measured ~0.5% reduction in total CPU is material when it survives deliberate paired/repeated evidence and exact work remains unchanged.
+- Prefer invariant-bearing packed structures that reduce work on both producer and consumer sides. Masks/shifts and fixed-width typed-array arithmetic are acceptable implementation detail when the owner preserves exact semantics and explicit width/domain contracts.
+- Preallocated/sealed memory is intentionally spendable to remove recursive growth/rehash, lower load factors, shorten probe chains, reduce dependent loads, keep backing stores stable, and improve V8/JIT visibility. Do not optimize bytes independently of total solve time and the supported memory budget.
+- The recursive search path should remain fixed-storage after preparation; a setup-time resize/rehash is categorically different from growth during recursion.
+- Hashes/fingerprints are addressing/rejection accelerators only. Exact quotient/residual content remains equality authority unless an injective encoding is proved over the supported domain.
+- A meaningful performance regression blocks additional stacking until the exact diff and expanded producer→boundary→consumer causal neighborhood are audited and paired retested. If it still loses and no higher-priority requirement justifies it, record and remove/supersede it before continuing.
+- Stay in Node/JavaScript for product/domain implementation whenever the result is practically achievable there. If a genuinely consumer-neutral primitive materially requires native/GPU/SIMD/runtime support, implement the universal primitive in the appropriate CUDA-* library and consume it through a public Node-facing contract; do not add a Connect4-specific native escape path.
+
+Current durable optimization checkpoint/handoff:
+
+- `docs/research/2026-09-12-universal-optimization-checkpoint.md`
+- `docs/research/2026-09-12-frontier-optimization-handoff-v2.md`
+
 ## Pre-alpha evolution
 
 The quotient-native lane is pre-alpha and has no released compatibility contract.
