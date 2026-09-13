@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { buildPublishBundle, createJournal, listRecoverableRuns, recoverInterruptedRun } from '../report.mjs';
+import { buildPublishBundle, buildSummary, createJournal, listRecoverableRuns, recoverInterruptedRun } from '../report.mjs';
+
 test('publish bundle sanitizes every absolute-path spelling and excludes log text from manifest', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bsfp-q1-report-'));
   const journal = createJournal({ spoolRoot: root, runId: 'test-run', initialState: { config: { publish: true } } });
@@ -29,5 +30,38 @@ test('publish bundle sanitizes every absolute-path spelling and excludes log tex
   assert.ok(!manifestEntry.content.includes('TRACEBACK-END'));
   for (const privateValue of [root, fileUrl, foreignWindowsPath, foreignWindowsFileUrl, foreignPosixPath]) assert.ok(!manifestEntry.content.includes(privateValue));
 });
+
+test('summary escapes backslashes before Markdown table delimiters and removes line breaks', () => {
+  const summary = buildSummary({
+    runId: 'escape-test',
+    system: {
+      gpu: { available: false, error: 'none' },
+      source: { revision: 'deadbeef' },
+      machineId: 'anonymous',
+      node: { version: 'v26.7.0' },
+    },
+    config: {
+      profile: 'test-profile',
+      limits: {
+        caseTimeoutMs: 1,
+        runTimeoutMs: 2,
+        vramSafeFraction: 0.8,
+        vramReserveMiB: 3,
+        vramAbsoluteMaxMiB: 4,
+        emergencyFreeMiB: 5,
+      },
+    },
+    cases: [{
+      geometry: { columns: 7, rows: 6, connect: 4, tier: 'test' },
+      status: 'failed',
+      durationMs: 1,
+      reason: 'path\\segment|other\nnext',
+    }],
+    outcome: 'failed',
+  });
+  assert.match(summary, /path\\\\segment\\\|other next/);
+  assert.ok(!summary.includes('path\\segment|other'));
+});
+
 test('interrupted runs are finalized for recovery and later publication', () => { const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bsfp-q1-recover-')); createJournal({ spoolRoot: root, runId: 'interrupted', initialState: { config: { publish: true } } }); const [entry] = listRecoverableRuns(root); const recovered = recoverInterruptedRun(entry); assert.equal(recovered.state.status, 'finalized'); assert.equal(recovered.state.outcome, 'aborted-prior-process-or-host'); assert.ok(fs.existsSync(path.join(recovered.runDir, 'failure.json'))); });
 test('deliberately local interrupted runs are recoverable but are not marked publication-pending', () => { const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bsfp-q1-local-recover-')); createJournal({ spoolRoot: root, runId: 'local-only', initialState: { config: { publish: false } } }); const [entry] = listRecoverableRuns(root); assert.equal(entry.state.config.publish, false); const recovered = recoverInterruptedRun(entry); assert.equal(recovered.state.status, 'finalized'); });
