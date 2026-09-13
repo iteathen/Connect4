@@ -1,6 +1,6 @@
-schema_version: 57
+schema_version: 58
 updated: 2026-09-13
-state: guarded_alternative_implication_calculus
+state: response_resource_graph_calculus
 current_branch: research/frontier-negamax-conformance
 pre_cleanup_snapshot: 8bf24b6818b4e2775a3b41cd21e517b94e36271c
 
@@ -31,34 +31,80 @@ current_semantics:
   output_causal_isomorphism: geometry_automorphism_plus_line_provenance_transport
   quotient_warning: proof_refinement_is_not_state_equality
   strategy_warning: static_capacity_or_coverage_is_not_joint_temporal_policy
+  strict_choice_rule:
+    p0_max: "upper(a) < lower(b) => eliminate a"
+    p1_min: "lower(a) > upper(b) => eliminate a"
+    output_safe: true
+  weak_choice_warning: tied_value_elimination_requires_output_provenance_subsumption
+
+accepted_safety_primitive:
+  name: pooled_frontier_paired_response
+  research_record: docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
+  prototype: reference/research-prototypes/2026-09-13-perfect-play-winline/pooled_frontier_response_control.mjs
+  evidence: docs/research/evidence/2026-09-13-pooled-frontier-response-control.json
+  construction:
+    frontier_pool: current_playable_cell_from_each_odd_remaining_column
+    pool_guard: even_pool_cardinality
+    vertical_pairing: pair_remaining_suffix_bottom_up_after_omitting_pool_cell
+    response_cells: upper_member_of_each_vertical_pair
+    coverage_guard: every_attacker_residual_requirement_intersects_response_cells
+  policy:
+    vertical_trigger: defender_plays_upper_mate
+    pool_trigger: defender_plays_any_other_unconsumed_pool_cell
+  consequence:
+    side_p0: "[-1,0]"
+    side_p1: "[0,+1]"
+  relation_to_old_theorem: strict_generalization_of_all_even_paired_response
 
 latest_qualification:
-  research_record: docs/research/2026-09-13-current-causal-certificate-differential.md
-  primary_control:
-    domain: 4x3_connect3
-    reachable_states: 7157
-    nonterminal_states: 4631
-    forward_vs_alternating_fixed_point_mismatches: 0
-    c4_0010_raw_classes: 3734
-    c4_0010_successor_mismatches: 0
-    c4_0010_geometry_causal_classes: 1879
-    output_provenance_raw_classes: 4359
-    output_provenance_successor_mismatches: 0
-    output_provenance_geometry_causal_classes: 2188
-  paired_response_after_causal_quotient:
-    physical_states: 122
-    c4_0010_raw_classes: 90
-    geometry_causal_classes: 46
-    genuine_decision_physical_states: 77
-    genuine_decision_raw_classes: 57
-    genuine_decision_geometry_causal_classes: 29
+  complete_games: 7
+  reachable_states: 443170
+  nonterminal_states: 353378
+  legacy_all_even:
+    physical_states: 10912
+    genuine_decision_states: 9388
+    quotient_classes: 2386
+    genuine_decision_quotient_classes: 1981
+  pooled_frontier:
+    physical_states: 40804
+    genuine_decision_states: 31845
+    quotient_classes: 9841
+    genuine_decision_quotient_classes: 6960
     exact_value_mismatches: 0
-    exact_bound: "[-1,0]"
-  historical_scratch_count:
-    remembered: "2023 -> 419 + 1604"
-    status: retired_unverified
+    explicit_policy_failures: 0
+    explicit_policy_states_explored: 279261
+  incremental:
+    physical_states: 29892
+    genuine_decision_states: 22457
+    strict_sibling_eliminations: 364
+  strict_sibling_elimination:
+    legacy_edges: 2440
+    pooled_edges: 2804
+    exact_parent_value_mismatches: 0
+  primary_4x3_connect3:
+    legacy_states: 122
+    pooled_states: 214
+    legacy_decision_states: 77
+    pooled_decision_states: 111
+    legacy_q_classes: 90
+    pooled_q_classes: 180
+    strict_edges: "36 -> 40"
+  negative_controls:
+    leave_top_unpaired_static_coverage:
+      qualifying_states: 562
+      false_no_win_claims: 106
+      smallest_counterexample_ply: 4
+    leave_bottom_unpaired_without_even_pool_guard:
+      qualifying_states: 562
+      false_no_win_claims: 96
+      smallest_counterexample_ply: 5
+  standard_7x6_ply2_boundary:
+    certifying_p1_replies_after_any_first_move: 0
+    minimum_uncovered_noncenter: 8
+    minimum_uncovered_center: 9
 
 active_research:
+  - docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md
   - docs/research/2026-09-13-current-causal-certificate-differential.md
   - docs/research/2026-09-13-winning-region-output-factorization.md
   - docs/research/2026-09-13-alternating-fixed-point-calculus.md
@@ -71,23 +117,13 @@ active_research:
   - docs/research/2026-09-13-perfect-play-line-output-algebra.md
 
 active_controls:
+  - reference/research-prototypes/2026-09-13-perfect-play-winline/pooled_frontier_response_control.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/causal_certificate_differential.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/c4_0010_cross_game_transition_controls.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/line_output_algebra.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/negamax_bsfp_proof_intersection_control.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/response_capacity_calculus.mjs
   - reference/research-prototypes/2026-09-13-perfect-play-winline/center_response_serialization.mjs
-  - reference/research-prototypes/2026-09-09-low-confidence-survival/searchless_dependency_shapes.mjs
-  - reference/research-prototypes/2026-09-09-low-confidence-survival/support_event_equivalence.mjs
-
-corrections:
-  center_response_serialization:
-    authority: docs/research/2026-09-13-center-response-serialization-correction.md
-    lowers_strategic_authority_of:
-      - docs/research/2026-09-13-center-defect-edge-denial-amplification.md
-      - docs/research/2026-09-13-five-diagonal-singleton-capacity.md
-      - docs/research/2026-09-13-center-defect-lift.md
-    retained_value: static_geometry_and_counterfactual_certificate_exchange
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -96,32 +132,39 @@ constraints:
   - no_generic_residual_dominance_without_a_sound_context_preserving_theorem
   - preserve_support_playability_resources_event_order_deadlines_guards_and_provenance_when_load_bearing
   - do_not_attach_non_derivable_certificate_facts_to_c4_0010_q_identity
+  - strict_value_dominance_is_output_safe_but_tied_elimination_needs_Pi0_or_output_subsumption
+  - positive_win_implication_requires_well_founded_progress
   - retain_negative_controls
   - retain_superseded_evidence_with_corrected_interpretation
   - retain_unknown_usefulness_by_default
   - do_not_reset_or_discard_newer_valid_branch_work
 
 next_task:
-  name: derive_guarded_alternative_implication_and_choice_elimination
+  name: derive_guarded_response_resource_graph
   purpose: >
-    Reduce the remaining PreE/PreA strategic predecessor differential by proving
-    implication or elimination relations between distinct exact quotient alternatives,
-    without redefining state identity or enumerating the full game tree as proof.
+    Generalize the exact pooled-frontier safety policy from a fully interchangeable
+    even waiting-resource pool to a guarded trigger/obligation -> timely response
+    resource graph, then use the resulting one-sided intervals for strict sibling
+    alternative elimination without redefining semantic state identity.
   steps:
+    - preserve pooled-frontier paired response as the accepted seed theorem
     - use C4-0010 q as the exact value-state substrate
-    - add Pi0 whenever original terminal-line identity is observable
-    - construct sibling-alternative certificate records with explicit interval, CPC, WSL, NDC, temporal-resource, deadline, and progress premises
-    - derive P0 max-side and P1 min-side elimination rules only when interval endpoints are provably preserved
-    - require well-founded structural progress for positive P0-win implications
-    - treat paired-response as a qualified one-sided refinement primitive, not an equality relation
+    - construct explicit attacker trigger and residual-obligation nodes
+    - construct timely playable defender response-resource nodes
+    - preserve response identity, support order, CPC control, NDC guards, deadlines, and resource consumption
+    - admit a relaxed resource relation only when compatibility/Hall/deadline reasoning proves a complete contingent policy
+    - compile accepted policies into "[-1,0]" or "[0,+1]" interval certificates
+    - apply strict max/min sibling elimination first
+    - carry Pi0 for any output-sensitive tied or non-strict reduction
     - mechanically test every candidate rule on complete controls
-    - preserve the smallest WDL, transition, or output counterexample for every rejected rule
-    - persist any accepted theorem and its reproducer/evidence before broadening the candidate family
+    - preserve the smallest WDL, transition, policy, or output counterexample for every rejected rule
+    - keep positive-win progress theorems separate
   success_conditions:
-    - every accepted implication has an explicit semantic proof obligation
-    - no accepted rule changes exact max/min predecessor value on complete controls
-    - no output-sensitive rule changes exact provenance-normalized G where Pi0 is in scope
-    - positive-win rules carry an explicit progress argument
+    - every accepted policy has explicit legal_resource_timing guards
+    - every accepted one-sided bound has zero exact-value mismatch on complete controls
+    - explicit policy execution has zero attacker-win counterexamples on bounded controls
+    - strict sibling elimination preserves exact max/min parent value
+    - output-sensitive non-strict rules preserve provenance-normalized G or remain forbidden
     - rejected relations retain smallest counterexamples
     - no result depends on suspected final 7x6 output cardinality or retired scratch counts
   forbidden_shortcuts:
@@ -129,6 +172,7 @@ next_task:
     - tune_toward_2023_419_1604
     - convert_interval_refinement_into_state_equality
     - infer_strategy_from_static_blocker_or_capacity_counts
+    - erase_response_resource_identity_or_order
     - erase_origin_line_provenance_for_output_semantics
     - use_exact_enumeration_as_the_mathematical_explanation
 

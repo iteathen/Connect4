@@ -52,7 +52,7 @@ Support/playability, ownership, response resources, event order, race horizons,
 deadlines, guards, and output provenance remain load-bearing where the corresponding
 proof or observable depends on them.
 
-## Current exact semantic decomposition
+## Exact semantic decomposition
 
 ### Value-state identity
 
@@ -64,124 +64,209 @@ q = exact support
   + normalized P1 residual antichain
 ```
 
-The reconstructed certificate differential independently requalified `q` on complete
-small games and established the current causal-isomorphism boundary:
-
-- raw `q` is successor-congruent on the primary 4x3 control;
-- global support/winning-line automorphisms are exact extension-coherent value
-  isomorphisms;
-- a same-snapshot descriptor is not an exact merge unless its renaming extends through
-  successors;
-- non-derivable CPC/NDC/path-dependent certificate state must still extend identity or
-  remain context-owned as required by C4-0010.
-
-See `docs/research/2026-09-13-current-causal-certificate-differential.md`.
+The current causal-isomorphism boundary is extension-coherent support/winning-line
+geometry automorphism. Same-snapshot resemblance is not enough. Non-derivable
+CPC/NDC/path-dependent certificate facts must extend identity or remain contextual.
 
 ### Winning region
 
-The P0 winning region is the finite least fixed point
+The P0 winning region remains:
 
 ```text
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
 where `PreE` is the P0 existential predecessor and `PreA` is the P1 universal
-predecessor. See
-`docs/research/2026-09-13-winning-region-output-factorization.md` and
-`docs/research/2026-09-13-alternating-fixed-point-calculus.md`.
+predecessor.
 
 ### W/D/L proof currency
 
-Sound structural facts narrow the six possible W/D/L intervals. Exact predecessor
-propagation is max/min over child interval endpoints.
+Sound structural facts narrow the six possible absolute-P0 W/D/L intervals. Exact
+predecessor propagation is max/min over child interval endpoints.
 
-The paired-response theorem remains a nontrivial refinement **after** exact causal
-isomorphism. On complete 4x3 connect-3 it covers:
-
-```text
-122 physical states
-90 raw C4-0010 classes
-46 geometry-causal classes
-
-77 genuine decision states
-57 raw decision classes
-29 geometry-causal decision classes
-```
-
-with zero exact-value mismatches. The 77 decision states contain 23 draws and 54 P0
-losses, so the theorem proves exactly `[-1,0]`; it does not overclaim draw versus loss.
-
-See `docs/research/2026-09-13-paired-response-interval-witness.md` and the current
-certificate-differential record.
+The old all-even paired-response theorem remains sound, but it is now a strict special
+case of the pooled-frontier theorem below.
 
 ### Terminal-line output
 
-Perfect-play terminal-line identity is richer than W/D/L.
+Perfect-play terminal-line identity is richer than W/D/L:
 
 ```text
 value layer:   q
 output layer:  q + exact P0 residual/origin provenance Pi0
 ```
 
-Geometry isomorphism transports line labels; it does not erase them. The current 4x3
-control has zero output mismatches under the provenance quotient and many collisions
-when the value quotient is reused as an output quotient.
+Geometry isomorphism transports line labels; it does not erase them. Strictly inferior
+W/D/L children can be eliminated from output reachability. Tied children cannot be
+discarded for output merely because value is preserved.
 
-Once `W` is known, perfect trajectories from a P0-winning state are legal paths
-remaining inside `W`, so per-line output is existential reachability inside that
-region. See `docs/research/2026-09-13-output-provenance-quotient.md`.
+## New exact safety theorem: pooled-frontier paired response
 
-## Current corrective boundary
+For side-to-move attacker `A`, let every odd-remainder column contribute its currently
+playable frontier cell to pool `U`. Omit those cells, then pair every remaining column
+suffix bottom-up into vertical `(trigger,response)` pairs and let `D` be the set of
+upper response cells.
 
-`docs/research/2026-09-13-center-response-serialization-correction.md` supersedes the
-**strategic interpretation** of the earlier static center-repair experiments while
-retaining their static geometry/counterfactual evidence.
+If:
 
-Static blocker or capacity counts are not a realizable contingent strategy without
-response identity, compatibility, ordering, and deadline correctness. The current
-differential independently preserves a ply-3 W/D/L counterexample to a static
-capacity summary that erases resource identity/order.
+```text
+|U| is even
+AND every surviving attacker residual requirement intersects D
+```
+
+then the defender has a constructive no-win policy:
+
+```text
+attacker plays vertical trigger -> defender plays its upper mate
+attacker plays pool cell        -> defender plays any other live pool cell
+```
+
+Pool responses consume two odd-column frontiers and expose even suffixes already
+covered by vertical pairing. Every response cell in `D` is therefore unavailable to
+the attacker, so every surviving winning line is permanently blocked.
+
+Absolute-P0 consequence:
+
+```text
+side P0 -> [-1,0]
+side P1 -> [0,+1]
+```
+
+Research/evidence:
+
+- `docs/research/2026-09-13-pooled-frontier-paired-response-theorem.md`
+- `docs/research/evidence/2026-09-13-pooled-frontier-response-control.json`
+- `reference/research-prototypes/2026-09-13-perfect-play-winline/pooled_frontier_response_control.mjs`
+
+## Latest qualification
+
+Across the same seven complete bounded games used by the current C4-0010 controls:
+
+```text
+reachable states:                    443,170
+nonterminal states:                  353,378
+
+old all-even certificates:            10,912
+pooled-frontier certificates:          40,804
+new certificates:                      29,892
+
+old genuine-decision certificates:      9,388
+pooled genuine-decision certificates:  31,845
+new genuine-decision certificates:     22,457
+
+old q classes covered:                  2,386
+pooled q classes covered:               9,841
+old decision q classes covered:         1,981
+pooled decision q classes covered:      6,960
+
+exact W/D/L mismatches:                     0
+explicit policy failures:                   0
+explicit policy states explored:      279,261
+```
+
+The old theorem is a subset of the new theorem on every control.
+
+Two naive relaxations remain explicit negative controls on complete 4x3 connect-3:
+
+```text
+leave top unpaired, static coverage only:
+  562 qualifying / 106 false no-win claims
+
+leave bottom frontier unpaired but omit even-pool guard:
+  562 qualifying / 96 false no-win claims
+```
+
+Thus the improvement comes from exact response-resource identity and consumption, not
+from looser static coverage.
+
+## Guarded sibling elimination now established
+
+With sound child intervals, distinct exact `q` alternatives may be ordered without
+being merged.
+
+For P0/max:
+
+```text
+upper(a) < lower(b) -> eliminate a
+```
+
+For P1/min:
+
+```text
+lower(a) > upper(b) -> eliminate a
+```
+
+These strict rules preserve both parent W/D/L and perfect-play line output because the
+eliminated child is provably not value-preserving.
+
+Using only direct tactical intervals plus response certificates, with no recursive
+interval propagation:
+
+```text
+strict sibling eliminations, old theorem:    2,440
+strict sibling eliminations, pooled theorem: 2,804
+incremental strict eliminations:                364
+exact parent-value mismatches:                    0
+```
+
+This is the first concrete theorem-backed reduction at the proof-obligation layer of
+the current alternative-implication seam.
+
+## Standard 7x6 boundary
+
+The pooled-frontier theorem alone does not discharge the opening at ply 2. After each
+P0 first move and every legal P1 reply, uncovered P0 residual requirements remain:
+
+```text
+openings 1,2,3,5,6,7: minimum uncovered residuals = 8
+opening 4:             minimum uncovered residuals = 9
+```
+
+No solved opening table was used. This is a structural boundary showing that richer
+blocker/NDC/resource interaction is still needed.
 
 ## Current missing calculus
 
-The ordinary exact state differential is no longer the active gap.
-
-The remaining Connect-Four-specific problem is **guarded implication among distinct
-exact quotient alternatives** inside `PreE` and `PreA`:
+The exact state differential is not the active gap. The next safety-side gap is a
+**guarded response-resource graph** that generalizes the fully interchangeable
+frontier pool:
 
 ```text
-exact q / q+Pi0 state identity
-  + sound interval / CPC / WSL / NDC / temporal certificate
-  -> theorem-backed alternative implication or elimination
-  -> exact max/min predecessor result
+attacker trigger / obligation
+  -> timely playable response resources
+  -> compatibility / consumption relation
+  -> complete contingent safety policy
+  -> one-sided W/D/L interval
+  -> strict sibling elimination
 ```
 
-A complete rule must retain every load-bearing premise and must not turn a proof
-refinement into quotient equality.
+The pooled-frontier theorem is the complete-compatibility/even-cardinality seed case.
+Any relaxation must retain support, response identity, order, deadlines, CPC/NDC guards,
+and the smallest counterexample when falsified.
 
-For negative/no-win results, the safety side includes response resources, timing,
-deadlines, CPC control, WSL coverage and NDC guards. For positive winning results, a
-well-founded structural progress argument remains necessary.
+Positive P0-win implication remains separate and still requires a well-founded
+progress theorem.
 
 ## Immediate execution seam
 
-Develop and qualify a **guarded alternative-implication / choice-elimination calculus**
-over exact quotient classes.
+Develop and qualify the **response-resource graph calculus** over exact C4-0010 `q`
+classes.
 
 The next unit should:
 
-1. operate on C4-0010 `q`, adding exact `Pi0` whenever terminal-line identity is in scope;
-2. build explicit sibling-alternative certificate records for `PreE` / `PreA`;
-3. derive only context-preserving implication/elimination rules with stated proof
-   obligations;
-4. preserve max/min interval endpoints exactly;
-5. require a well-founded progress witness for positive-win elimination;
-6. mechanically falsify each candidate rule on complete controls and retain the
+1. preserve pooled-frontier paired response as an accepted safety primitive;
+2. construct explicit trigger/obligation -> timely response-resource relations;
+3. relax full pool interchangeability only under proved compatibility/Hall/deadline
+   conditions;
+4. compile every accepted policy into the same W/D/L interval currency;
+5. apply strict sibling elimination before considering tied/value-only reductions;
+6. preserve `Pi0` whenever output-sensitive non-strict elimination is considered;
+7. mechanically falsify every relaxed rule on complete controls and retain the
    smallest counterexample;
-7. keep provenance transport through every output-sensitive rule.
+8. keep positive-win progress obligations separate.
 
-The obsolete remembered scratch count `2023 -> 419 + 1604` is now explicitly retired
-as unverified historical evidence. It is not a target for the new calculus.
+The obsolete remembered scratch count `2023 -> 419 + 1604` remains retired as
+unverified historical evidence.
 
 ## Research hygiene
 
@@ -192,6 +277,3 @@ as unverified historical evidence. It is not a target for the new calculus.
 - Corrected/superseded experiments are retained with downgraded interpretation.
 - Unknown usefulness is retained by default.
 - Deletion requires demonstrated redundancy or obsolescence plus preserved provenance.
-
-The organization policy is recorded in
-`docs/research/2026-09-13-research-organization-cleanup.md`.
