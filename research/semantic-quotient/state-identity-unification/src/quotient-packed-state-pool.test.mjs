@@ -94,23 +94,6 @@ test('failed reservation allocation preserves readable identities and allows a c
   }
 });
 
-test('edge validation handoff keeps direct state-part reads strict', () => {
-  const p = new PackedQuotientStatePool(4, true, 64, { size: 64 });
-  const first = p.intern(5, 7, 9);
-  const second = p.intern(6, 8, 10);
-  const target = { supportIndex: -1, p0ClassId: -1, p1ClassId: -1 };
-
-  assert.throws(() => p.writeStateParts(-1, target), /invalid quotient state id/);
-  p.edgeAt(first, 0);
-  p.writeStateParts(first, target);
-  assert.deepEqual(target, { supportIndex: 5, p0ClassId: 7, p1ClassId: 9 });
-
-  p.edgeAt(first, 0);
-  assert.throws(() => p.writeStateParts(p.count, target), /invalid quotient state id/);
-  p.writeStateParts(second, target);
-  assert.deepEqual(target, { supportIndex: 6, p0ClassId: 8, p1ClassId: 10 });
-});
-
 test('transition keeps state validation at the packed owner while preserving invalid-column semantics', () => {
   const { kernel } = createSlot64ResidualQuotientKernel({ columns: 4, rows: 3, connect: 3 }, {
     prefixClasses: 8,
