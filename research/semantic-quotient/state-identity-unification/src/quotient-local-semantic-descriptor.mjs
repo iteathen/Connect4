@@ -64,6 +64,8 @@ export function createLocalSemanticDescriptorCache(kernel) {
   // within a worker. Exact residual ownership remains in the canonical class pool.
   const termScratch = new Uint16Array(vocabularyCount);
   const classHashScratch = { lo: 0, hi: 0 };
+  const directClassMetadata = typeof kernel.classes.writeSemanticMetadata === 'function';
+  const directClassScratch = { length: 0, hashLo: 0, hashHi: 0 };
   const stateHashScratch = { lo: 0, hi: 0 };
   const transientStateDescriptor = {
     stateId: 0,
@@ -186,10 +188,19 @@ export function createLocalSemanticDescriptorCache(kernel) {
       return length;
     }
 
-    writeClassTerms(classId, termScratch, 0, length);
-    hashResidualTermIds(termScratch, length, classHashScratch);
-    classHashLo[classId] = classHashScratch.lo;
-    classHashHi[classId] = classHashScratch.hi;
+    if (directClassMetadata) {
+      kernel.classes.writeSemanticMetadata(classId, directClassScratch);
+      if (directClassScratch.length !== length) {
+        throw new Error(`semantic class ${classId} direct length drift: expected ${length}, got ${directClassScratch.length}`);
+      }
+      classHashLo[classId] = directClassScratch.hashLo;
+      classHashHi[classId] = directClassScratch.hashHi;
+    } else {
+      writeClassTerms(classId, termScratch, 0, length);
+      hashResidualTermIds(termScratch, length, classHashScratch);
+      classHashLo[classId] = classHashScratch.lo;
+      classHashHi[classId] = classHashScratch.hi;
+    }
     classHashReady[word] |= bit;
     metrics.classBuilds += 1;
     return length;

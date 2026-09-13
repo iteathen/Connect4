@@ -593,6 +593,56 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
     return classTermCounts[id];
   };
 
+  // Canonical packed chunks already contain the exact ordered residual terms.
+  // Hash directly from those DWORDs instead of materializing Uint16 term IDs
+  // and traversing them a second time. Hash is only an address filter.
+  pool.writeSemanticMetadata = function slot64WriteSemanticMetadata(id, target) {
+    assertClassId(id);
+    if (!target || typeof target !== 'object' || Array.isArray(target) || Object.isFrozen(target)) {
+      throw new TypeError('slot64 semantic metadata target must be mutable');
+    }
+    let hashLo = 0x811c9dc5;
+    let hashHi = 0x9e3779b9;
+    let index = 0;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const chunkId = classSlotIds[slot][id];
+      if (chunkId === 0) continue;
+      const words = slotPools[slot].words;
+      const base = chunkId * CHUNK_WORDS;
+      const termBase = slot << 6;
+      let active = words[base] | 0;
+      while (active !== 0) {
+        const termId = termBase + 31 - Math.clz32(active & -active);
+        if (termId >= vocabulary.count) throw new Error(`slot64 semantic term ${termId} exceeds vocabulary`);
+        const term = (termId + 1) >>> 0;
+        hashLo = Math.imul(hashLo ^ term, 0x01000193) >>> 0;
+        hashLo = mix32(hashLo ^ index);
+        hashHi = Math.imul(hashHi ^ term, 0x85ebca6b) >>> 0;
+        hashHi = mix32(hashHi ^ index);
+        index += 1;
+        active &= active - 1;
+      }
+      active = words[base + 1] | 0;
+      while (active !== 0) {
+        const termId = termBase + 63 - Math.clz32(active & -active);
+        if (termId >= vocabulary.count) throw new Error(`slot64 semantic term ${termId} exceeds vocabulary`);
+        const term = (termId + 1) >>> 0;
+        hashLo = Math.imul(hashLo ^ term, 0x01000193) >>> 0;
+        hashLo = mix32(hashLo ^ index);
+        hashHi = Math.imul(hashHi ^ term, 0x85ebca6b) >>> 0;
+        hashHi = mix32(hashHi ^ index);
+        index += 1;
+        active &= active - 1;
+      }
+    }
+    if (index !== classTermCounts[id]) {
+      throw new Error(`slot64 semantic term count drift: expected ${classTermCounts[id]}, hashed ${index}`);
+    }
+    target.length = index;
+    target.hashLo = mix32(hashLo ^ index);
+    target.hashHi = mix32(hashHi ^ index);
+    return target;
+  };
   pool.writeTermIds = function slot64WriteTermIds(id, target, offset = 0) {
     assertClassId(id);
     if (!(target instanceof Uint16Array)) throw new TypeError('slot64 term target must be Uint16Array');
