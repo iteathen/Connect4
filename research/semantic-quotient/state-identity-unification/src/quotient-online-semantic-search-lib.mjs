@@ -73,7 +73,6 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
   }
 
   function rememberHandle(stateId, handle) {
-    assertStateId(stateId);
     assertHandle(handle, 'semantic TT', true);
     cachedStateId = stateId;
     cachedHandle = handle;
