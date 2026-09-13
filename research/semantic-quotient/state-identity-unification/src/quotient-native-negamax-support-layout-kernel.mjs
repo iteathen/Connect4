@@ -677,6 +677,7 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
     return supportAccess.landingAt(supportIndexAt(stateId), column);
   }
 
+  const transitionParts = { supportIndex: 0, p0ClassId: 0, p1ClassId: 0 };
   function advance(stateId, column) {
     assertStateId(stateId);
     if (!Number.isInteger(column) || column < 0 || column >= columns) return QN_ILLEGAL;
@@ -686,7 +687,8 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
       return cached;
     }
     transitionMetrics.edgeCacheMisses += 1;
-    const supportIndex = states.supportAt(stateId);
+    states.writeStateParts(stateId, transitionParts);
+    const supportIndex = transitionParts.supportIndex;
     const landingCell = supportAccess.landingAt(supportIndex, column);
     if (landingCell === 0xff) {
       transitionMetrics.illegalEdges += 1;
@@ -694,8 +696,8 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
       return QN_ILLEGAL;
     }
     const mover = supportAccess.rankAt(supportIndex) & 1;
-    const p0Class = states.p0At(stateId);
-    const p1Class = states.p1At(stateId);
+    const p0Class = transitionParts.p0ClassId;
+    const p1Class = transitionParts.p1ClassId;
     const ownClass = mover === 0 ? p0Class : p1Class;
     const opponentClass = mover === 0 ? p1Class : p0Class;
     const ownNext = classes.ownTransition(ownClass, landingCell, bitLo[landingCell], bitHi[landingCell]);
