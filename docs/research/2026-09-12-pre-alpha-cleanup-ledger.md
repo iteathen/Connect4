@@ -95,3 +95,85 @@ Removed workflow scaffolding:
 - `zdd-transfer-one-shot.yml`
 
 Qualification intent: current `verify.yml` and the retained bounded frontier lanes remain the live executable qualification surface. No solver source, specification, status/next-step state, or standard full-root trigger is changed by this step.
+
+## Step 2 — retire orphaned campaign and audit executables
+
+Disposition: delete historical one-shot campaign/audit executables whose workflow entrypoints were retired in Step 1 and which are not referenced by package scripts or the retained live qualification workflows. These files are experiment drivers, not shared runtime owners. Shared libraries remain for the next import-graph cleanup pass.
+
+The benchmark/strength evidence workflows were checked before mutation: they use `benchmarks/incumbent.mjs`, `benchmarks/bsfp-performance.mjs`, and `npm run bench:strength`; they do not use the old semantic-quotient `search-method-evidence-campaign.mjs`. The retired SIU1 workflow was also checked and its sole executable entrypoint was `siu1-relational-dual-direction.mjs`.
+
+Removed executables:
+
+- `negamax-optimization-campaign-v2.mjs`
+- `negamax-optimization-campaign.mjs`
+- `quotient-7x6-chunked-forward-growth-campaign.mjs`
+- `quotient-7x6-forward-growth-campaign.mjs`
+- `quotient-7x6-residual-chunk-audit.mjs`
+- `quotient-7x6-residual-storage-census.mjs`
+- `quotient-chunked-class-first-campaign.mjs`
+- `quotient-chunked-residual-campaign.mjs`
+- `quotient-chunked-term-id-campaign.mjs`
+- `quotient-dependency-parallel-campaign.mjs`
+- `quotient-exhaustion-bounds-campaign.mjs`
+- `quotient-exhaustion-bounds-v2.mjs`
+- `quotient-fast-kernel-campaign.mjs`
+- `quotient-fast2-kernel-campaign.mjs`
+- `quotient-lookahead-worker-campaign.mjs`
+- `quotient-native-best-child-campaign.mjs`
+- `quotient-native-class-cache-campaign.mjs`
+- `quotient-native-driver-campaign.mjs`
+- `quotient-native-negamax-campaign.mjs`
+- `quotient-native-negamax-refinement.mjs`
+- `quotient-online-semantic-worker-campaign.mjs`
+- `quotient-packed-support-layout-campaign.mjs`
+- `quotient-packed-support-solver-campaign.mjs`
+- `quotient-scaled-7x6-memory-summary.mjs`
+- `quotient-scaled-hash-width-campaign.mjs`
+- `quotient-scaled-nohash-state-campaign.mjs`
+- `quotient-scaled-packed-record-campaign.mjs`
+- `quotient-scaled-term-id-campaign.mjs`
+- `quotient-shared-tt-worker-campaign.mjs`
+- `quotient-slot64-7x6-forward-growth.mjs`
+- `quotient-slot64-dense-dirty-own-campaign.mjs`
+- `quotient-slot64-direct-block-7x6-growth.mjs`
+- `quotient-slot64-direct-block-7x6-paired.mjs`
+- `quotient-slot64-direct-block-campaign.mjs`
+- `quotient-slot64-direct-own-7x6-growth.mjs`
+- `quotient-slot64-direct-own-7x6-paired.mjs`
+- `quotient-slot64-direct-own-campaign.mjs`
+- `quotient-slot64-own-locality-audit.mjs`
+- `quotient-slot64-worker-negamax-campaign.mjs`
+- `quotient-standard7x6-presearch-profile.mjs`
+- `quotient-standard7x6-semantic-tt-sample.mjs`
+- `quotient-term-id-cache-scaling-campaign.mjs`
+- `quotient-term-id-kernel-campaign.mjs`
+- `quotient-term-id-prefix-cache-campaign.mjs`
+- `quotient-term-id-support-layout-kernel-campaign.mjs`
+- `quotient-term-vocabulary-campaign.mjs`
+- `quotient-transition-specialization-campaign.mjs`
+- `quotient-vs-physical-wdl-campaign.mjs`
+- `quotient-vs-physical-wdl-campaign-v2.mjs`
+- `quotient-vs-physical-wdl-campaign-v3.mjs`
+- `quotient-vs-physical-wdl-campaign-v4.mjs`
+- `quotient-vs-physical-wdl-campaign-v5.mjs`
+- `siu1-relational-dual-direction.mjs`
+- `search-method-evidence-campaign.mjs`
+
+Explicitly retained for now because they remain wired into live qualification or current product/runtime work:
+
+- `quotient-slot64-residual-campaign.mjs`
+- `quotient-semantic-tt-replacement-campaign.mjs`
+- `quotient-explore-hint-campaign.mjs`
+- `quotient-online-dependency-parallel-campaign.mjs`
+- `quotient-standard7x6-root-attempt.mjs`
+- `quotient-residual-provider-control.mjs`
+- `quotient-state-retention-comparison.mjs`
+- `quotient-neutral-capacity-diagnostic.mjs`
+- `quotient-terminal-boundary-campaign.mjs`
+- `quotient-pruning-campaign.mjs`
+- `quotient-legacy-frontier-study.mjs`
+- `quotient-response-comparison.mjs`
+
+The retained legacy comparison controls are not granted permanent status. They are deferred to a later ownership-bounded cleanup step that will simplify their live workflow at the same time, rather than deleting a still-invoked executable in isolation.
+
+Qualification gate: run the general Node verification plus the retained slot64/proof/frontier bounded workflow lanes. Do not dispatch or modify the standard empty-board full-root workflow.
