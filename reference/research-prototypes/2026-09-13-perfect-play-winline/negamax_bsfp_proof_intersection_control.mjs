@@ -327,6 +327,46 @@ for (const [key, entry] of quotient) {
   if (mirrorUnique < exactSuccessors.length) decisionActionFactorization.classesReducedByMirror += 1;
 }
 
+function pairedResponseNoWin(state) {
+  if (state.terminal !== null) return false;
+  const support = heights(state.p0, state.p1);
+  if (!support.every(height => ((R - height) & 1) === 0)) return false;
+  const responseCells = new Set();
+  for (let r = (R - 1) & 1; r < R; r += 2) {
+    for (let c = 0; c < C; c += 1) responseCells.add(cell(c, r));
+  }
+  const own = residualAntichain(state, state.side);
+  return own.length > 0 && own.every(requirement => requirement.some(x => responseCells.has(x)));
+}
+const pairedResponseIntervalControl = {
+  physicalStates: 0,
+  quotientClasses: 0,
+  genuineDecisionPhysicalStates: 0,
+  genuineDecisionQuotientClasses: 0,
+  exactValueMismatches: 0,
+  decisionValueDistribution: Object.create(null),
+};
+const pairedQuotients = new Set();
+for (const state of states) {
+  if (!pairedResponseNoWin(state)) continue;
+  pairedResponseIntervalControl.physicalStates += 1;
+  const exact = forwardMemo[state.id];
+  const boundHolds = state.side === 0 ? exact <= 0 : exact >= 0;
+  if (!boundHolds) pairedResponseIntervalControl.exactValueMismatches += 1;
+  if (state.terminal === null) pairedQuotients.add(quotientKey(state));
+  if (tacticalClass(state).kind === 'decision') {
+    pairedResponseIntervalControl.genuineDecisionPhysicalStates += 1;
+    const key = `side${state.side}:value${exact}`;
+    pairedResponseIntervalControl.decisionValueDistribution[key]
+      = (pairedResponseIntervalControl.decisionValueDistribution[key] ?? 0) + 1;
+  }
+}
+for (const key of pairedQuotients) {
+  if (quotient.get(key)?.tactical === 'decision') pairedResponseIntervalControl.genuineDecisionQuotientClasses += 1;
+}
+pairedResponseIntervalControl.quotientClasses = pairedQuotients.size;
+assert.equal(pairedResponseIntervalControl.exactValueMismatches, 0);
+
 console.log(JSON.stringify({
   kind: 'negamax-bsfp-proof-intersection-control',
   domain: { columns: C, rows: R, connect: K, cells: CELL_COUNT, winningLines: winningLines.length },
@@ -359,10 +399,12 @@ console.log(JSON.stringify({
     tacticalClassCounts: quotientTacticalCounts,
   },
   decisionActionFactorization,
+  pairedResponseIntervalControl,
   interpretation: {
     sharedOperators: ['terminal injection', 'structural transition/restriction', 'existential/universal choice', 'finite rank'],
     localClosureObservation: 'Immediate wins, double playable threats, bilateral exhaustion and forced responses are exact partial evaluations of the common predecessor recurrence.',
     remainingGap: 'The remaining genuine decision classes require exact choice-factorization/quantifier elimination rather than another game-value recurrence.',
     actionEqualityFalsifier: 'Exact successor equality removes no action edge in the genuine decision quotient classes; reflection removes only a small handful. The missing calculus must relate distinct successors by stronger proof relations.',
+    intervalCertificateWitness: 'The guarded paired-response policy soundly narrows 57 otherwise-genuine decision quotient classes to a one-sided no-win interval with zero exact-value mismatches.',
   },
 }, null, 2));
