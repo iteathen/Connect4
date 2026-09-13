@@ -1,6 +1,40 @@
-schema_version: 53
+schema_version: 54
 updated: 2026-09-12
 handoff: docs/research/2026-09-12-frontier-optimization-handoff.md
+transition_state_read_audit:
+  document: docs/research/2026-09-12-transition-state-read-commit-audit.md
+  baseline_revision: 50aac9251de217f5124a9cf30d2a7b255094c865
+  source_revision: 5ec678f65595239af85f36de0942f571b3b730c3
+  change: fused_state_owner_read_on_semantic_edge_miss
+  semantic_identity_changed: false
+  proof_semantics_changed: false
+  cpc_wsl_ndc_semantics_changed: false
+  duplicate_semantic_storage_added: false
+  hot_allocation_added: false
+  state_validation_retained: true
+  stable_reader_lifecycle_retained: true
+  depth8:
+    baseline_search_ms: 2667.062977
+    candidate_search_ms: 2657.891633
+    baseline_user_cpu_s: 3.15
+    candidate_user_cpu_s: 3.11
+    calls: 4777115
+    expanded: 672690
+    local_states: 221398
+    local_classes: 305714
+    edge_hits: 4355811
+    edge_misses: 421303
+    cutoffs: 2424
+    horizon_leaves: 4014763
+    counters_identical: true
+  hosted_slot64_run: 34729099344
+  hosted_head_workflows_failed: 0
+  speedup_established: false
+  process_finding: current_state_docs_were_not_advanced_with_source_commit
+  process_finding_corrected_by: this_documentation_commit
+  full_root_run: false
+  full_root_trigger_changed: false
+  next_owner: prove_any_remaining_adapter_validation_is_duplicate_under_current_state_owner_before_mutation
 native_identity_integration:
   document: docs/research/2026-09-12-native-key-integration.md
   state: integrated_locally_qualified_checkpoint
@@ -54,7 +88,7 @@ ranked_depth21_optimization:
   all_children_exited: true
   source_state: uncommitted_working_tree
   next_owner: remaining_shared_tt_descriptor_work_and_support_extraction
-state: relational_neutral_capacity_and_repeated_proof_work_measured
+state: transition_state_read_retained_and_commit_audited
 current_branch: research/frontier-negamax-conformance
 authority:
   domain: docs/specs/C4-0001-domain-v1.md
@@ -62,6 +96,7 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   audit_ledger: docs/research/2026-09-12-full-engine-sanity-audit.md
+  audit_addendum: docs/research/2026-09-12-transition-state-read-commit-audit.md
   coverage: docs/research/2026-09-12-frontier-audit-coverage.json
 audit:
   continuation_base: 83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2
@@ -228,7 +263,6 @@ bounded_normal_search_profile:
   full_root_run: false
   source_state: uncommitted_working_tree
   next_owner: residual_transition_and_interning_reuse
-
 direct_residual_read:
   document: docs/research/2026-09-12-direct-residual-read.md
   invariant: immutable_canonical_chunks_during_transition_read_phase
@@ -289,7 +323,6 @@ preallocated_search_storage:
   full_root_run: false
   source_state: uncommitted_working_tree
   next_owner: repeated_interner_work_and_reservation_locality_without_recursive_allocation
-
 direct_semantic_edge_reuse:
   document: docs/research/2026-09-12-direct-semantic-edge-reuse.md
   enabled_in: [bounded_runner, online_search_workers, standard_root_coordinator]

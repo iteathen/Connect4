@@ -5,6 +5,13 @@ This file is the routing map for the active Connect4 research corpus.
 Continuation context: [conversation summary](2026-09-12-frontier-conversation-summary.md)
 and [handoff prompt](2026-09-12-frontier-optimization-handoff.md).
 
+Latest source-history audit and retained hot-path change: [transition-state read commit audit](2026-09-12-transition-state-read-commit-audit.md).
+The audit verifies `50aac925` and `5ec678f6` against the governing agent/spec set.
+The fused state-owner read preserves exact identity/proof semantics and all depth-8
+counters; the hosted timing difference is noise-scale, not a speedup claim. The
+audit also records and corrects the current-state documentation lag that followed
+the source commit.
+
 Latest integrated result: [native identity integration and corrected attribution](2026-09-12-native-key-integration.md),
 smaller state payload, flat depth-8 elapsed time, modestly lower measured CPU and
 74 controls plus six bounded campaigns passing. Earlier regressions are preserved.
@@ -136,6 +143,8 @@ Start with:
 - `STATUS.md`
 - `next_step.yaml`
 - `docs/specs/C4-0010-quotient-native-negamax-v1.md`
+- `docs/research/2026-09-12-transition-state-read-commit-audit.md` — bounded
+  compliance audit of the latest two source-history commits and current next seam.
 - `docs/research/2026-09-12-full-engine-sanity-audit.md` — completed active-path
   correctness, ownership and lifecycle audit; one integrated root admitted after
   exact-source bounded qualification. Standard-root performance remains unproven.

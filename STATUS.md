@@ -9,6 +9,19 @@ Continuation checkpoint: [optimization handoff](docs/research/2026-09-12-frontie
 Verify the remote head and hosted checks before further mutation; local evidence
 is recorded below. The push does not alter the full-root revision trigger.
 
+Latest retained hot-path change: [transition-state read commit audit](docs/research/2026-09-12-transition-state-read-commit-audit.md).
+Source `5ec678f65595239af85f36de0942f571b3b730c3` replaces three separately
+validated packed-state field reads on first-time transition misses with one
+state-owner `writeStateParts` read into initialization-owned scratch. Exact local
+identity, proof semantics, CPC/WSL/NDC meaning and every recorded depth-8 counter
+remain unchanged. Hosted slot64 run 34729099344 succeeded; its 2657.891633 ms
+search sample versus 2667.062977 ms on the immediately preceding timing baseline
+is noise-scale and is not claimed as a speedup. A self-audit found no solver/spec
+violation in the last two source-history commits; it did find that current-state
+documentation had not been advanced with them. This status update, next-step update
+and research-index entry correct that process gap. The full-root trigger remains
+unchanged.
+
 Latest integration: [native local identity and attribution correction](docs/research/2026-09-12-native-key-integration.md).
 The packed state owner is integrated with field consumers and stable readers.
 Final paired depth-8 elapsed time is flat; measured CPU is 1969.5 → 1929.5 ms,
@@ -171,6 +184,9 @@ The [audit ledger](docs/research/2026-09-12-full-engine-sanity-audit.md) records
 findings, fixes, retained behavior and qualification. The
 [coverage inventory](docs/research/2026-09-12-frontier-audit-coverage.json) records
 44 source files / 10,780 lines and five workflows with exact Git blob identities.
+The [transition-state read audit addendum](docs/research/2026-09-12-transition-state-read-commit-audit.md)
+records the bounded compliance review of source commits `50aac925` and `5ec678f6`
+without retroactively changing the earlier audit snapshot.
 
 C4-0001 owns domain truth, C4-0006 CPC/WSL meaning, C4-0007 strategic dependency
 premises and C4-0010 the exact forward proof procedure. No new CPC/WSL/NDC
