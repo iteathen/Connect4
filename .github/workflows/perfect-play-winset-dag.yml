@@ -1,0 +1,39 @@
+name: Strong-perfect DAG win-set support
+
+on:
+  push:
+    branches: [research/perfect-play-winset-count]
+    paths:
+      - '.github/workflows/perfect-play-winset-dag.yml'
+      - 'research/perfect-play-winset-dag.cpp'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  strong-dag:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Build pinned Pons oracle and DAG counter
+        shell: bash
+        run: |
+          set -euo pipefail
+          oracle="$RUNNER_TEMP/pons-connect4"
+          git clone https://github.com/PascalPons/connect4.git "$oracle"
+          git -C "$oracle" checkout --detach d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          curl -L --fail --retry 3 \
+            https://github.com/PascalPons/connect4/releases/download/book/7x6.book \
+            -o "$oracle/7x6.book"
+          sha256sum "$oracle/7x6.book"
+          cp research/perfect-play-winset-dag.cpp "$oracle/strong-dag.cpp"
+          g++ -std=c++17 -O3 -DNDEBUG -Wall -Wextra \
+            "$oracle/strong-dag.cpp" "$oracle/Solver.cpp" \
+            -I"$oracle" -o "$oracle/strong-dag"
+      - name: Traverse strong-optimal DAG
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/pons-connect4/strong-dag" "$RUNNER_TEMP/pons-connect4/7x6.book"
