@@ -28,8 +28,9 @@ jobs:
       MAX_PREFIX_MS: ${{ inputs.max_prefix_ms || '15000' }}
       MIN_PREFIX_PLY: ${{ inputs.min_prefix_ply || '8' }}
       PONS_CASE_MS: '60000'
-      PONS_SOURCE_COMMIT: '68a1da604101d811f37d490c92bf7e1e09922659'
+      PONS_SOURCE_COMMIT: 'd6ba50d8aaf2308c769d9bf2abd42d90f34baf41'
       PONS_BOOK_ASSET_ID: '10766475'
+      PONS_BOOK_EXPECTED_SHA256: 'f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -39,7 +40,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: PascalPons/connect4
-          ref: 68a1da604101d811f37d490c92bf7e1e09922659
+          ref: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
           path: .external/pons-connect4
           persist-credentials: false
       - name: Build and bind external oracle controls
@@ -53,6 +54,7 @@ jobs:
           size=$(stat -c '%s' .external/pons-connect4/7x6.book)
           test "$size" = '33554524'
           sha=$(sha256sum .external/pons-connect4/7x6.book | awk '{print $1}')
+          test "$sha" = "$PONS_BOOK_EXPECTED_SHA256"
           echo "PONS_BOOK_SHA256=$sha" >> "$GITHUB_ENV"
           echo "PONS_SOLVER_PATH=$GITHUB_WORKSPACE/.external/pons-connect4/c4solver" >> "$GITHUB_ENV"
           echo "PONS_BOOK_PATH=$GITHUB_WORKSPACE/.external/pons-connect4/7x6.book" >> "$GITHUB_ENV"
