@@ -679,7 +679,6 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
 
   const transitionParts = { supportIndex: 0, p0ClassId: 0, p1ClassId: 0 };
   function advance(stateId, column) {
-    assertStateId(stateId);
     if (!Number.isInteger(column) || column < 0 || column >= columns) return QN_ILLEGAL;
     const cached = states.edgeAt(stateId, column);
     if (cached !== QN_EDGE_UNKNOWN) {

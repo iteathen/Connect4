@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { QN_ILLEGAL } from './quotient-negamax-domain-contract.mjs';
+import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
 import { createPackedStateLayout, PackedQuotientStatePool } from './quotient-packed-state-pool.mjs';
 
 test('native identity layout round trips all width regimes against independent BigInt concatenation', () => {
@@ -90,4 +92,17 @@ test('failed reservation allocation preserves readable identities and allows a c
     assert.equal(p.intern(2114, 21, 20), 0); assert.equal(p.edgeAt(0, 1), 0);
     p.reserveForSearch(8192, 1024); assert.equal(p.p1At(0), 20);
   }
+});
+
+test('transition keeps state validation at the packed owner while preserving invalid-column semantics', () => {
+  const { kernel } = createSlot64ResidualQuotientKernel({ columns: 4, rows: 3, connect: 3 }, {
+    prefixClasses: 8,
+    cacheEdges: true,
+  });
+  assert.throws(() => kernel.advance(-1, 0), /invalid quotient state id/);
+  assert.equal(kernel.advance(kernel.rootId, -1), QN_ILLEGAL);
+  assert.equal(kernel.advance(kernel.rootId, kernel.columns), QN_ILLEGAL);
+  const child = kernel.advance(kernel.rootId, 0);
+  assert.ok(child >= 0);
+  assert.equal(kernel.advance(kernel.rootId, 0), child);
 });
