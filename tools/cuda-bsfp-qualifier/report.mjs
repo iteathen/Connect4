@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 function atomicWrite(filePath, content) { fs.mkdirSync(path.dirname(filePath), { recursive: true }); const temp = `${filePath}.tmp-${process.pid}`; fs.writeFileSync(temp, content, 'utf8'); fs.renameSync(temp, filePath); }
 export function writeJson(filePath, value) { atomicWrite(filePath, `${JSON.stringify(value, null, 2)}\n`); }
 export function readJson(filePath) { return JSON.parse(fs.readFileSync(filePath, 'utf8')); }
@@ -37,11 +38,39 @@ export function buildSummary({ runId, system, config, cases, outcome, publicatio
   lines.push('', 'Timeouts, memory-safety refusals, unsupported geometries, crashes, and correctness failures are evidence outcomes; they are not silently omitted.'); return `${lines.join('\n')}\n`;
 }
 export function finalizeRun({ journal, system, config, cases, outcome, failure = null }) { writeJson(path.join(journal.runDir, 'system.json'), system); writeJson(path.join(journal.runDir, 'results.json'), { schemaVersion: 1, runId: journal.runId, outcome, cases }); if (failure) writeJson(path.join(journal.runDir, 'failure.json'), failure); atomicWrite(path.join(journal.runDir, 'summary.md'), buildSummary({ runId: journal.runId, system, config, cases, outcome })); journal.appendEvent({ type: 'qualification-run-finalized', outcome }); journal.updateState({ status: 'finalized', outcome, finishedAt: new Date().toISOString(), publishStatus: 'pending' }); }
-function sanitizeText(text, repositoryRoot) { let sanitized = text; const replacements = new Set([os.homedir(), repositoryRoot, process.env.HOME, process.env.USERPROFILE].filter(Boolean).map((value) => path.resolve(value))); for (const value of replacements) sanitized = sanitized.split(value).join(value === path.resolve(repositoryRoot) ? '<REPO>' : '<HOME>'); sanitized = sanitized.replace(/github_pat_[A-Za-z0-9_]+/g, '<REDACTED_TOKEN>'); sanitized = sanitized.replace(/gh[pousr]_[A-Za-z0-9_]{20,}/g, '<REDACTED_TOKEN>'); sanitized = sanitized.replace(/(authorization\s*:\s*(?:bearer|token)\s+)[^\s]+/ig, '$1<REDACTED_TOKEN>'); return sanitized; }
+function sanitizeText(text, repositoryRoot) {
+  let sanitized = text;
+  const replacements = new Map();
+  for (const [raw, replacement] of [[repositoryRoot, '<REPO>'], [os.homedir(), '<HOME>'], [process.env.HOME, '<HOME>'], [process.env.USERPROFILE, '<HOME>']]) {
+    if (!raw) continue;
+    const absolute = path.resolve(raw);
+    replacements.set(absolute, replacement);
+    replacements.set(pathToFileURL(absolute).href.replace(/\/$/, ''), replacement);
+  }
+  for (const [value, replacement] of [...replacements].sort(([left], [right]) => right.length - left.length)) sanitized = sanitized.split(value).join(replacement);
+  sanitized = sanitized.replace(/file:\/\/\/(?:[A-Za-z]:\/|\/)[^\s"'`<>]*/g, '<LOCAL_PATH>');
+  sanitized = sanitized.replace(/(^|[\s"'`(=])(?:[A-Za-z]:[\\/])[^\s"'`<>]*/gm, '$1<LOCAL_PATH>');
+  sanitized = sanitized.replace(/(^|[\s"'`(=])\\\\[^\s"'`<>]*/gm, '$1<LOCAL_PATH>');
+  sanitized = sanitized.replace(/(^|[\s"'`(=:])\/(?!\/)[^\s"'`<>]*/gm, '$1<LOCAL_PATH>');
+  sanitized = sanitized.replace(/github_pat_[A-Za-z0-9_]+/g, '<REDACTED_TOKEN>');
+  sanitized = sanitized.replace(/gh[pousr]_[A-Za-z0-9_]{20,}/g, '<REDACTED_TOKEN>');
+  sanitized = sanitized.replace(/(authorization\s*:\s*(?:bearer|token)\s+)[^\s]+/ig, '$1<REDACTED_TOKEN>');
+  return sanitized;
+}
 function boundedLog(text, maximumBytes) { const bytes = Buffer.from(text, 'utf8'); if (bytes.length <= maximumBytes) return { text, sourceBytes: bytes.length, publishedBytes: bytes.length, truncated: false }; const headBytes = Math.floor(maximumBytes / 4); const tailBytes = maximumBytes - headBytes; const head = bytes.subarray(0, headBytes).toString('utf8'); const tail = bytes.subarray(bytes.length - tailBytes).toString('utf8'); const marker = `\n\n[... ${bytes.length - maximumBytes} bytes omitted by C4-0009-Q1 publication cap; local spool retains full log ...]\n\n`; const published = `${head}${marker}${tail}`; return { text: published, sourceBytes: bytes.length, publishedBytes: Buffer.byteLength(published), truncated: true }; }
 function walkFiles(root, current = root, out = []) { for (const entry of fs.readdirSync(current, { withFileTypes: true })) { const absolute = path.join(current, entry.name); if (entry.isDirectory()) walkFiles(root, absolute, out); else out.push({ absolute, relative: path.relative(root, absolute).split(path.sep).join('/') }); } return out; }
 export function buildPublishBundle({ runDir, repositoryRoot, maxLogBytes }) {
   const records = [];
-  for (const file of walkFiles(runDir)) { if (file.relative === 'state.json' || file.relative === 'manifest.json') continue; let text = fs.readFileSync(file.absolute, 'utf8'); text = sanitizeText(text, repositoryRoot); let truncation = { sourceBytes: Buffer.byteLength(text), publishedBytes: Buffer.byteLength(text), truncated: false }; if (file.relative.endsWith('.log')) { const bounded = boundedLog(text, maxLogBytes); text = bounded.text; truncation = bounded; } records.push({ relativePath: file.relative, content: text, sha256: crypto.createHash('sha256').update(text).digest('hex'), ...truncation }); }
+  for (const file of walkFiles(runDir)) {
+    if (file.relative === 'state.json' || file.relative === 'manifest.json') continue;
+    let text = sanitizeText(fs.readFileSync(file.absolute, 'utf8'), repositoryRoot);
+    let truncation = { sourceBytes: Buffer.byteLength(text), publishedBytes: Buffer.byteLength(text), truncated: false };
+    if (file.relative.endsWith('.log')) {
+      const bounded = boundedLog(text, maxLogBytes);
+      text = bounded.text;
+      truncation = { sourceBytes: bounded.sourceBytes, publishedBytes: bounded.publishedBytes, truncated: bounded.truncated };
+    }
+    records.push({ relativePath: file.relative, content: text, sha256: crypto.createHash('sha256').update(text).digest('hex'), ...truncation });
+  }
   records.sort((a, b) => a.relativePath.localeCompare(b.relativePath)); const manifest = { schemaVersion: 1, generatedAt: new Date().toISOString(), files: records.map(({ content, ...record }) => record) }; const manifestText = `${JSON.stringify(manifest, null, 2)}\n`; return Object.freeze([...records, Object.freeze({ relativePath: 'manifest.json', content: manifestText, sha256: crypto.createHash('sha256').update(manifestText).digest('hex'), sourceBytes: Buffer.byteLength(manifestText), publishedBytes: Buffer.byteLength(manifestText), truncated: false })]);
 }
