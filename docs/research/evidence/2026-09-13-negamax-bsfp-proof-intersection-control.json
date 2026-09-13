@@ -71,6 +71,14 @@
       "exhaustion-draw": 3
     }
   },
+  "decisionActionFactorization": {
+    "classes": 710,
+    "rawActionEdges": 1946,
+    "uniqueExactSuccessorClasses": 1946,
+    "classesWithExactDuplicateSuccessors": 0,
+    "mirrorCanonicalSuccessorClasses": 1934,
+    "classesReducedByMirror": 8
+  },
   "interpretation": {
     "sharedOperators": [
       "terminal injection",
@@ -79,6 +87,7 @@
       "finite rank"
     ],
     "localClosureObservation": "Immediate wins, double playable threats, bilateral exhaustion and forced responses are exact partial evaluations of the common predecessor recurrence.",
-    "remainingGap": "The remaining genuine decision classes require exact choice-factorization/quantifier elimination rather than another game-value recurrence."
+    "remainingGap": "The remaining genuine decision classes require exact choice-factorization/quantifier elimination rather than another game-value recurrence.",
+    "actionEqualityFalsifier": "Exact successor equality removes no action edge in the genuine decision quotient classes; reflection removes only a small handful. The missing calculus must relate distinct successors by stronger proof relations."
   }
 }
