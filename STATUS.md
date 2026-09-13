@@ -6,31 +6,18 @@
 **Research direction / architecture:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This is a current-state router. Historical, negative, superseded, and qualification
-records remain under `docs/research/**` and `reference/research-prototypes/**`.
+This is a current-state router. Retained history and controls remain under
+`docs/research/**` and `reference/research-prototypes/**`.
 
 ## Objective
 
 Derive the exact perfect-W/D/L P0 terminal winning-line set for standard 7x6 Connect
-Four from structural proof. The suspected final cardinality is output only and may not
-be used as a premise, tuning target, or acceptance criterion.
+Four from structural proof. The suspected final cardinality is output only and is not a
+premise, tuning target, or acceptance criterion.
 
-Exact enumeration/search is permitted only as a bounded falsifier/qualification oracle.
+## Governing semantic boundary
 
-## Governing authority
-
-Read before mutation:
-
-1. account-global `iteathen/.github/AGENTS.md`;
-2. `AGENT_LOCAL.md`;
-3. `docs/specs/C4-0006-control-parity-and-winspace-v1.md`;
-4. `docs/specs/C4-0007-nested-dependency-closure-v1.md`;
-5. `docs/specs/C4-0010-quotient-native-negamax-v1.md`;
-6. current research routed by `docs/research/RESEARCH_INDEX.md`.
-
-## Exact semantic boundary
-
-Value identity remains:
+Value identity remains the C4-0010 quotient:
 
 ```text
 q = exact support
@@ -44,181 +31,154 @@ Winning region:
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
-Output identity remains richer:
+Output identity remains:
 
 ```text
 q + exact P0 residual/origin provenance Pi0
 ```
 
-The six-element absolute-P0 W/D/L interval lattice remains the shared proof currency.
-Certificate reuse is not state equality. Positive wins require well-founded progress;
-safety/no-win requires a complete legal response policy.
+The six-element absolute-P0 interval lattice remains the shared proof currency.
+Certificate reuse is not state equality. Safety requires a complete legal response
+policy; positive wins require well-founded progress.
 
-## Accepted response primitives
+## Accepted response/proof primitives
 
-### Pooled-frontier paired response
+- pooled-frontier paired response;
+- synchronized column-channel response;
+- strict sibling interval elimination;
+- local response-resource automata;
+- singleton and forbidden-subset ownership closure;
+- support-shadow race/preemption;
+- exact output provenance `Pi0` when terminal-line identity is observable.
 
-A shared even pool of currently playable odd-column frontier cells plus vertical paired
-tails gives a constructive no-win policy.
+## Non-center first-move safety is now internally complete
 
-Seven complete controls:
+All six non-center first moves are proved P0-non-winning without a solved opening table,
+minimax recursion, or full physical game tree as proof authority.
 
-```text
-40,804 certificates
-31,845 genuine-decision certificates
-0 exact W/D/L contradictions
-0 explicit policy failures
-```
-
-### Synchronized column channels
-
-Same-parity columns may be paired through a synchronized same-depth prefix, then return
-to vertical paired tails.
-
-Seven complete controls:
+Representative constructive replies:
 
 ```text
-55,488 certificates
-44,118 genuine-decision certificates
-13,603 q classes
-0 exact W/D/L contradictions
-0 explicit policy failures
-417,798 policy states explored
+P0 1 -> P1 2
+P0 2 -> P1 3
+P0 3 -> P1 4
 ```
 
-These are proof-obligation refinements over exact C4-0010 states, not a coarser state
-identity.
-
-## New internally proved opening theorem
-
-The previously admitted standard-board fact for P0 opening column 3 is now derived
-internally.
-
-After:
+Reflection gives:
 
 ```text
-P0: column 3
-P1: column 4
+P0 7 -> P1 6
+P0 6 -> P1 5
+P0 5 -> P1 4
 ```
 
-P1 uses the constructive policy:
+Each proof is an asynchronous product of three tiny local response components:
 
 ```text
-ordinary P0 move below top -> reply directly above
-P0 C6 -> reply at lowest empty D cell
-P0 D6 -> reply at lowest empty C cell
+normal column:         4 P0-turn states / 3 edges / 0 invalid
+initial coupled pair: 21 P0-turn states / 24 edges / 0 invalid
+empty coupled pair:   43 P0-turn states / 50 edges / 0 invalid
 ```
 
-The proof factors into:
-
-1. five independent normal-column response macros;
-2. a 21-state local C/D response automaton with 24 macro edges and zero invalid
-   responses;
-3. 16 permanent singleton blockers;
-4. four exact P0-forbidden pairs in the coupled C/D channel;
-5. two support-shadow race/preemption certificates.
-
-Mechanical geometry closure:
+Generated 69-line closure:
 
 ```text
-singleton-blocked lines:      56
-forbidden-pair lines:         11
-support-shadow race lines:     2
--------------------------------
-all P0 geometric lines:        69
-unclassified:                   0
+opening 1 / reply 2: 48 singleton + 19 pair + 2 race = 69
+opening 2 / reply 3: 49 singleton + 18 pair + 2 race = 69
+opening 3 / reply 4: 56 singleton + 11 pair + 2 race = 69
 ```
 
-No solved W/D/L value and no full game tree is used by this proof.
+All have zero unclassified P0 winning lines.
 
 Therefore:
 
 ```text
-NonWin0(opening column 3)
-NonWin0(opening column 5)   // horizontal reflection
+V(opening c) <= 0 for c in {1,2,3,5,6,7}
 ```
 
-Authority:
-`docs/research/2026-09-13-opening3-structural-safety-certificate.md`
+or equivalently each receives interval `[-1,0]`.
 
-Reproducer:
-`reference/research-prototypes/2026-09-13-perfect-play-winline/opening3_structural_safety_certificate.mjs`
+Authority:
+`docs/research/2026-09-13-noncenter-opening-structural-safety-theorem.md`
+
+Structural compiler:
+`reference/research-prototypes/2026-09-13-perfect-play-winline/noncenter_local_policy_compiler.mjs`
+
+Independent physical falsifier:
+`reference/research-prototypes/2026-09-13-perfect-play-winline/noncenter_policy_full_control.mjs`
 
 Evidence:
-`docs/research/evidence/2026-09-13-opening3-structural-safety-certificate.json`
+`docs/research/evidence/2026-09-13-noncenter-structural-safety.json`
 
-The older full physical policy execution in `c1_draw_policy_certificate.mjs` is retained
-only as an independent falsifier/qualification control and independently obtains the
-same `56 + 11 + 2` decomposition.
+## Independent physical qualification
 
-## New generic race primitive made explicit
+The composed policies were separately executed over every reachable P0 choice:
+
+```text
+opening 1: 56,720 P0-turn states / 259,980 edges / 0 P0 wins / 0 invalid responses
+opening 2: 56,720 P0-turn states / 259,980 edges / 0 P0 wins / 0 invalid responses
+opening 3: 19,936 P0-turn states /  98,896 edges / 0 P0 wins / 0 invalid responses
+```
+
+These graphs are qualification only. The proof is the local-product induction plus the
+69-line closure.
+
+## Important new structural primitive
 
 Support-shadow race/preemption:
 
 ```text
-attacker winning line R = {u_i}
-defender winning line Q = {q_i}
-q_i supports u_i
-policy proves defender owns each q_i before attacker can own u_i
----------------------------------------------------------------
-Q completes before R; R cannot be an attacker terminal line
+P0 upper winning line R
+P1 one-row-lower winning line Q
+policy proves every Q cell is P1-owned before its corresponding R cell can be P0-owned
+---------------------------------------------------------------------------------------
+Q completes before R, so R cannot be a P0 terminal line
 ```
 
-This is the missing progress/preemption information that the earlier P0-only safety
-projection erased. It is compatible with the existing generic race-blocker / NDC
-formalization and does not require historical named rules at runtime.
+This explains why blocker-only projections were incomplete: some P0 lines disappear
+because P1 wins first, not because a P1 stone lies inside the P0 line.
 
-## Choice elimination boundary
+## First-move proof boundary is now sharp
 
-Strict sibling elimination remains value + output safe:
+The non-center safety side is closed. The remaining first-move value gap is:
 
 ```text
-P0/max: upper(a) < lower(b) -> eliminate a
-P1/min: lower(a) > upper(b) -> eliminate a
+P0 opening column 4 -> prove positive win by well-founded structural progress
 ```
 
-Non-strict equality elimination is Stage-1 value-only unless `Pi0`/output subsumption is
-proved separately.
-
-## Remaining first-move proof gaps
-
-Internally proved non-center openings:
-
-```text
-column 3
-column 5 (reflection)
-```
-
-Openings 1,2 and their reflections 7,6 still require the same level of internally
-generated structural safety proof if external opening premises are to be eliminated.
-
-The center opening still requires a positive well-founded progress proof. That remains
-the decisive gap to a complete structural solve once the non-center safety side is
-internalized.
+If root `P0Win` were admitted externally, the exact existential predecessor together
+with the six internal non-center `[-1,0]` bounds would force column 4 as the winning
+first move. A complete self-contained solve proof still needs the center/root positive
+proof itself.
 
 ## Immediate execution seam
 
-Compile structural safety certificates for openings 1 and 2 using the same generic
-language:
+Shift from safety to **center-positive progress**.
+
+The next theorem must establish a finite, well-founded P0 progress certificate after
+opening column 4, not merely show that P1 lacks a win. Candidate proof objects should
+be expressed over exact C4-0010 `q` plus contextual CPC/WSL/NDC/resource facts and
+should reduce every P1 alternative to a strictly smaller progress obligation.
+
+Target form:
 
 ```text
-local response-resource automata
-+ singleton / forbidden-subset ownership invariants
-+ support-shadow / generic race blockers
-+ WSL/geometric closure
-=> one-sided [-1,0] certificates
+center root certificate C
++ for every legal P1 reply b:
+    exists legal P0 continuation a
+    such that successor has certificate C'
+    and rank(C') < rank(C)
++ terminal base = P0 win
+------------------------------------------------
+P0 opening 4 is winning
 ```
 
-Do not import named Allis rules as theorem authority. Historical strategies may be used
-for theorem discovery only; the accepted proof object must be generated from support,
-response resources, ownership/exclusion, race precedence, and geometry.
-
-If both openings close, reflection closes 6 and 7 and all six non-center first moves are
-internal non-win theorems. The next seam then becomes center-positive progress.
+Do not import the known center win as proof authority. Exact search may discover/falsify
+candidate ranks and response classes only.
 
 ## Hygiene
 
 - `STATUS.md` / `next_step.yaml` contain current state only.
 - Negative controls and incomplete experiments remain retained.
-- Unknown usefulness is retained by default.
+- Tied value reductions do not erase output paths without `Pi0` proof.
 - The retired `2023 -> 419 + 1604` scratch count remains non-authoritative.
