@@ -1,0 +1,152 @@
+name: Frontier proof-handle validation A-B
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - '.github/workflows/frontier-proof-handle-validation-ab.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Pair parent and validation-removal source
+        shell: bash
+        run: |
+          set -euo pipefail
+          baseline="$RUNNER_TEMP/baseline"
+          candidate="$RUNNER_TEMP/candidate"
+          git worktree add --detach "$baseline" 58770f4171772c9326d7f6c0e1d5bc50d60540a5
+          git worktree add --detach "$candidate" 7d1d2caf4d556d6e4033e30d69a419936dcf7cb0
+
+          script="$RUNNER_TEMP/proof-handle-case.mjs"
+          cat > "$script" <<'NODE'
+          import { performance } from 'node:perf_hooks';
+          import { resolve } from 'node:path';
+          import { pathToFileURL } from 'node:url';
+
+          const tree = process.argv[2];
+          const variant = process.argv[3];
+          const src = resolve(tree, 'research/semantic-quotient/state-identity-unification/src');
+          const load = async name => import(pathToFileURL(resolve(src, name)).href);
+          const { createSlot64ResidualQuotientKernel } = await load('quotient-native-negamax-slot64-residual-kernel.mjs');
+          const { createSemanticSharedTtArena } = await load('quotient-semantic-shared-tt.mjs');
+          const { createOnlineSemanticQuotientSearcher } = await load('quotient-online-semantic-search-lib.mjs');
+          const { createBoundedStoragePlan } = await load('quotient-bounded-storage-plan.mjs');
+
+          const domain = { columns: 7, rows: 6, connect: 4 };
+          const { kernel } = createSlot64ResidualQuotientKernel(domain, { cacheEdges: true, prefixClasses: 4096 });
+          const plan = createBoundedStoragePlan(kernel, 8, 2048 * 1048576);
+          kernel.prepareSearchStorage(plan.searchStorage);
+          const arena = createSemanticSharedTtArena({ ...plan.arena, domainSpec: domain });
+          const searcher = createOnlineSemanticQuotientSearcher(kernel, arena, { etc: false });
+          const before = kernel.storageGrowthStats();
+          const cpuStart = process.cpuUsage();
+          const start = performance.now();
+          const result = searcher.searchBounded(kernel.rootId, -2, 2, 8);
+          const searchMs = performance.now() - start;
+          const cpu = process.cpuUsage(cpuStart);
+          const after = kernel.storageGrowthStats();
+          if (JSON.stringify(before) !== JSON.stringify(after)) throw new Error('storage grew during search');
+          const stats = searcher.stats();
+          const invariant = {
+            result,
+            search: stats.search,
+            identity: stats.identity,
+            semanticTt: stats.semanticTt,
+            proofStore: stats.proofStore,
+            descriptorCache: stats.descriptorCache,
+            localStates: stats.localStates,
+            localClasses: stats.localClasses,
+            transitionMetrics: kernel.transitionMetrics,
+            stateMetrics: kernel.states.metrics,
+            growth: after,
+          };
+          console.log(JSON.stringify({
+            variant,
+            searchMs,
+            cpuMs: (cpu.user + cpu.system) / 1000,
+            kernelBytes: kernel.memoryStats().totalTypedBytes,
+            rss: process.memoryUsage().rss,
+            invariant,
+          }));
+          NODE
+
+          run_case() {
+            label="$1"; tree="$2"; sequence="$3"; out="$RUNNER_TEMP/proof-handle-$sequence.json"
+            node --expose-gc "$script" "$tree" "$label" > "$out"
+            LABEL="$label" SEQUENCE="$sequence" OUT="$out" node - <<'NODE'
+          const fs = require('node:fs');
+          const d = JSON.parse(fs.readFileSync(process.env.OUT, 'utf8'));
+          console.log('PAIR_RESULT=' + JSON.stringify({
+            label: process.env.LABEL,
+            sequence: Number(process.env.SEQUENCE),
+            searchMs: d.searchMs,
+            cpuMs: d.cpuMs,
+            kernelBytes: d.kernelBytes,
+            rss: d.rss,
+            calls: d.invariant.search.calls,
+            expanded: d.invariant.search.expanded,
+            transitionsRequested: d.invariant.search.transitionsRequested,
+            proofProbeMisses: d.invariant.search.proofProbeMisses,
+            proofAdmissions: d.invariant.search.proofAdmissions,
+            localStates: d.invariant.localStates,
+            localClasses: d.invariant.localClasses,
+          }));
+          NODE
+          }
+
+          # Symmetric warm-up before measured samples.
+          node --expose-gc "$script" "$candidate" candidate > /dev/null
+          node --expose-gc "$script" "$baseline" baseline > /dev/null
+          node --expose-gc "$script" "$baseline" baseline > /dev/null
+          node --expose-gc "$script" "$candidate" candidate > /dev/null
+
+          # ABBA BAAB balances first-order runner drift.
+          run_case baseline "$baseline" 1
+          run_case candidate "$candidate" 2
+          run_case candidate "$candidate" 3
+          run_case baseline "$baseline" 4
+          run_case candidate "$candidate" 5
+          run_case baseline "$baseline" 6
+          run_case baseline "$baseline" 7
+          run_case candidate "$candidate" 8
+
+          RUNNER_TEMP="$RUNNER_TEMP" node - <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const rows = [];
+          for (let i = 1; i <= 8; i++) rows.push(JSON.parse(fs.readFileSync(path.join(process.env.RUNNER_TEMP, `proof-handle-${i}.json`), 'utf8')));
+          const baseline = rows.filter(x => x.variant === 'baseline');
+          const candidate = rows.filter(x => x.variant === 'candidate');
+          const stable = x => JSON.stringify(x.invariant);
+          const reference = stable(baseline[0]);
+          for (const row of rows) if (stable(row) !== reference) throw new Error(`semantic/work invariant mismatch in ${row.variant}`);
+          const mean = (xs, key) => xs.reduce((n, x) => n + x[key], 0) / xs.length;
+          const median = (xs, key) => { const a = xs.map(x => x[key]).sort((a,b) => a-b); return (a[1] + a[2]) / 2; };
+          const summary = {
+            baselineSearchMeanMs: mean(baseline, 'searchMs'),
+            candidateSearchMeanMs: mean(candidate, 'searchMs'),
+            searchMeanRatio: mean(candidate, 'searchMs') / mean(baseline, 'searchMs'),
+            baselineSearchMedianMs: median(baseline, 'searchMs'),
+            candidateSearchMedianMs: median(candidate, 'searchMs'),
+            searchMedianRatio: median(candidate, 'searchMs') / median(baseline, 'searchMs'),
+            baselineCpuMeanMs: mean(baseline, 'cpuMs'),
+            candidateCpuMeanMs: mean(candidate, 'cpuMs'),
+            cpuMeanRatio: mean(candidate, 'cpuMs') / mean(baseline, 'cpuMs'),
+            invariantMatch: true,
+          };
+          console.log('PAIR_SUMMARY=' + JSON.stringify(summary));
+          NODE
