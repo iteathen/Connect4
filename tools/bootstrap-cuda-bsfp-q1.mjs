@@ -45,33 +45,37 @@ function writeSanitized(stream, text) {
   if (text) stream.write(redactLocalPaths(text));
 }
 
-function runFile(command, args, options = {}) {
-  const result = spawnSync(command, args, {
+function spawnOptions(options = {}) {
+  return {
     encoding: 'utf8',
     windowsHide: true,
     stdio: ['ignore', 'pipe', 'pipe'],
     ...options,
-  });
+  };
+}
+
+function finishSpawn(label, result) {
   writeSanitized(process.stdout, result.stdout);
   writeSanitized(process.stderr, result.stderr);
-  if (result.error) throw new Error(`${path.basename(command)} launch failed: ${redactLocalPaths(result.error.message)}`);
-  if (result.status !== 0) throw new Error(`${path.basename(command)} exited with status ${result.status ?? 'unknown'}`);
+  if (result.error) throw new Error(`${label} launch failed: ${redactLocalPaths(result.error.message)}`);
+  if (result.status !== 0) throw new Error(`${label} exited with status ${result.status ?? 'unknown'}`);
   return result.stdout ?? '';
 }
 
 function execGit(args, options = {}) {
-  return runFile('git', args, options);
+  return finishSpawn('git', spawnSync('git', args, spawnOptions(options)));
 }
 
 function execNode(args, options = {}) {
-  return runFile(process.execPath, args, options);
+  return finishSpawn('node', spawnSync(process.execPath, args, spawnOptions(options)));
 }
 
 function installCudaJsDependencies(cwd, env) {
+  const options = spawnOptions({ cwd, env });
   if (process.platform === 'win32') {
-    return runFile('cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund'], { cwd, env });
+    return finishSpawn('npm', spawnSync('cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund'], options));
   }
-  return runFile('npm', ['ci', '--no-audit', '--no-fund'], { cwd, env });
+  return finishSpawn('npm', spawnSync('npm', ['ci', '--no-audit', '--no-fund'], options));
 }
 
 function linkDirectory(target, linkPath) {
