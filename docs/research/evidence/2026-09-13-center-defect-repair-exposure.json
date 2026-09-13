@@ -1,0 +1,79 @@
+{
+  "geometry": {
+    "W": 7,
+    "H": 6,
+    "K": 4,
+    "winningLines": 69
+  },
+  "originalCenterTemplate": {
+    "staticCovered": 66,
+    "uncovered": [
+      "A1-B1-C1-D1",
+      "A3-B3-C3-D3",
+      "A5-B5-C5-D5"
+    ]
+  },
+  "preSeizureParityRepair": {
+    "repairA1": {
+      "minimumUncovered": 0,
+      "assignment": {"1":"O","2":"E","3":"E","6":"E","7":"E"},
+      "uncovered": []
+    },
+    "repairB1": {
+      "minimumUncovered": 2,
+      "assignment": {"1":"O","2":"O","3":"E","6":"E","7":"E"},
+      "uncovered": [
+        "B2-C3-D4-E5",
+        "B6-C5-D4-E3"
+      ]
+    },
+    "repairC1": {
+      "minimumUncovered": 6,
+      "assignment": {"1":"E","2":"E","3":"O","6":"E","7":"E"},
+      "uncovered": [
+        "B1-C2-D3-E4",
+        "C2-D3-E4-F5",
+        "B3-C4-D5-E6",
+        "C4-D3-E2-F1",
+        "B5-C4-D3-E2",
+        "C6-D5-E4-F3"
+      ]
+    },
+    "conclusion": "A1 odd-control is the unique complete static repair in the entire per-column parity-control family."
+  },
+  "counterfactualEdgeRepair": {
+    "description": "The unique complete parity repair owns A1,A3,A5 while B,C,F,G remain even-controlled.",
+    "uncovered": []
+  },
+  "turnOrderDenial": {
+    "prefix": "D1 E1; P0 to move",
+    "move": "A1",
+    "consequence": "P0 can seize the unique edge odd-control repair anchor before P1 can use it."
+  },
+  "feasibleParityFamilyAfterA1": {
+    "repairB1": {
+      "minimumUncovered": 5,
+      "assignment": {"1":"E","2":"O","3":"E","6":"E","7":"E"},
+      "uncovered": [
+        "A1-B2-C3-D4",
+        "B2-C3-D4-E5",
+        "A3-B4-C5-D6",
+        "A5-B4-C3-D2",
+        "B6-C5-D4-E3"
+      ]
+    },
+    "repairC1": {
+      "minimumUncovered": 6,
+      "assignment": {"1":"E","2":"E","3":"O","6":"E","7":"E"},
+      "uncovered": [
+        "B1-C2-D3-E4",
+        "C2-D3-E4-F5",
+        "B3-C4-D5-E6",
+        "C4-D3-E2-F1",
+        "B5-C4-D3-E2",
+        "C6-D5-E4-F3"
+      ]
+    },
+    "interpretation": "Within the complete per-column odd/even control family plus the fixed D/E pair blockers, every temporally feasible B1/C1 repair amplifies the single bottom defect into diagonal defects."
+  }
+}
