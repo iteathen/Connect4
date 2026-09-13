@@ -79,6 +79,17 @@
     "mirrorCanonicalSuccessorClasses": 1934,
     "classesReducedByMirror": 8
   },
+  "pairedResponseIntervalControl": {
+    "physicalStates": 122,
+    "quotientClasses": 90,
+    "genuineDecisionPhysicalStates": 77,
+    "genuineDecisionQuotientClasses": 57,
+    "exactValueMismatches": 0,
+    "decisionValueDistribution": {
+      "side0:value0": 23,
+      "side0:value-1": 54
+    }
+  },
   "interpretation": {
     "sharedOperators": [
       "terminal injection",
@@ -88,6 +99,7 @@
     ],
     "localClosureObservation": "Immediate wins, double playable threats, bilateral exhaustion and forced responses are exact partial evaluations of the common predecessor recurrence.",
     "remainingGap": "The remaining genuine decision classes require exact choice-factorization/quantifier elimination rather than another game-value recurrence.",
-    "actionEqualityFalsifier": "Exact successor equality removes no action edge in the genuine decision quotient classes; reflection removes only a small handful. The missing calculus must relate distinct successors by stronger proof relations."
+    "actionEqualityFalsifier": "Exact successor equality removes no action edge in the genuine decision quotient classes; reflection removes only a small handful. The missing calculus must relate distinct successors by stronger proof relations.",
+    "intervalCertificateWitness": "The guarded paired-response policy soundly narrows 57 otherwise-genuine decision quotient classes to a one-sided no-win interval with zero exact-value mismatches."
   }
 }
