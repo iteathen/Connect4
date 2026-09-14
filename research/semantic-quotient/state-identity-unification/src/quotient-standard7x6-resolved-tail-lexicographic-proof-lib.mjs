@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import * as domain from './quotient-negamax-domain-contract.mjs';
 import { createRepairCapacityProofEngine, STANDARD7X6_REPAIR_COLUMNS } from './quotient-standard7x6-repair-capacity-proof-lib.mjs';
 
+// Research direction / structural architecture / invariant-first and self-proving-predicate program: Josh Oshiro
+// Formalization / implementation / qualification: OpenAI ChatGPT
+
 export const STANDARD7X6_RESOLVED_TAIL_REPAIR_COLUMNS = STANDARD7X6_REPAIR_COLUMNS;
 
 export function createResolvedTailLexicographicProofEngine(kernel, options = {}) {
@@ -18,6 +21,8 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
   let maxDepth = 0;
   let tailWitnesses = 0;
   let repairWitnesses = 0;
+  let forcedDefenseNodes = 0;
+  let forcedCapacityLossNodes = 0;
 
   function resolvedColumn(target) {
     // Standard 7x6 latent pair is C3/G3. If G3 remains, C is the resolved column; if C3 remains, G is resolved.
@@ -37,6 +42,9 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
   }
   function lexLe(a, b) {
     return a.delta < b.delta || (a.delta === b.delta && a.mu <= b.mu);
+  }
+  function p1Obligations(state) {
+    return [...new Set(repair.enabledSingletons(state, 1))].sort((a, b) => a - b);
   }
   function prove(state, target, depth = 0) {
     const memoKey = `${state}:${target}`;
@@ -65,18 +73,70 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
       return out;
     }
 
+    // Exact response-capacity boundary before ordinary rho reasoning.
+    // If P1 already owns two distinct enabled singleton obligations on P0's turn,
+    // and P0 has no immediate terminal move (checked above), one placement cannot
+    // occupy both obligation cells. This is an exact P0-loss boundary, not merely
+    // a failed rho predecessor. With one obligation, only its column is admissible
+    // as a nonterminal continuation; rho must not spend a move elsewhere first.
+    const obligations = p1Obligations(state);
+    if (obligations.length >= 2) {
+      forcedCapacityLossNodes++;
+      const out = {
+        proved: false,
+        kind: 'forced_obligation_capacity_loss',
+        exactLoss: true,
+        measure: current,
+        obligations: obligations.map(repair.coord),
+        responseSlots: 1,
+      };
+      memo.set(memoKey, out);
+      return out;
+    }
+
     const resolved = resolvedColumn(target);
     let allowed = [...STANDARD7X6_REPAIR_COLUMNS];
     if (current.delta > 0 && !allowed.includes(resolved)) allowed.push(resolved);
+    let forcedDefense = null;
+    if (obligations.length === 1) {
+      forcedDefenseNodes++;
+      const cell = obligations[0];
+      const column = cell % 7;
+      forcedDefense = { cell: repair.coord(cell), column: repair.col(column) };
+      if (!allowed.includes(column)) {
+        const out = {
+          proved: false,
+          kind: 'forced_defense_outside_rho_action_basis',
+          exactLoss: false,
+          measure: current,
+          forcedDefense,
+        };
+        memo.set(memoKey, out);
+        return out;
+      }
+      allowed = [column];
+    }
     if (depth === 0 && rootActions !== null) {
       const rootActionSet = new Set(rootActions);
       allowed = allowed.filter((action) => rootActionSet.has(action));
+      if (forcedDefense && allowed.length === 0) {
+        const out = {
+          proved: false,
+          kind: 'forced_defense_excluded_by_root_action',
+          exactLoss: false,
+          measure: current,
+          forcedDefense,
+        };
+        memo.set(memoKey, out);
+        return out;
+      }
     }
     const rejected = [];
 
     for (const action of allowed) {
       const actionCell = repair.landing(state, action);
       if (actionCell === 0xff) continue;
+      if (forcedDefense) assert.equal(actionCell, obligations[0], 'forced-defense column does not land on exact obligation cell');
       actionsChecked++;
       const afterP0 = kernel.advance(state, action);
       if (afterP0 === domain.QN_TERMINAL_WIN) {
@@ -86,6 +146,7 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
           measure: current,
           witness: repair.col(action),
           witnessKind: action === resolved ? 'resolved_tail_terminal' : 'repair_terminal',
+          forcedDefense,
         };
         memo.set(memoKey, out);
         return out;
@@ -135,6 +196,9 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
             replyCell: repair.coord(replyCell),
             reason: sub.kind,
             childMeasure,
+            exactLoss: sub.exactLoss === true,
+            obligations: sub.obligations ?? null,
+            forcedDefense: sub.forcedDefense ?? null,
           };
         }
       }
@@ -147,6 +211,7 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
           measure: current,
           witness: repair.col(action),
           witnessKind: action === resolved ? 'resolved_tail_descent' : 'repair_descent',
+          forcedDefense,
         };
         memo.set(memoKey, out);
         return out;
@@ -154,7 +219,7 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
       rejected.push({ action: repair.col(action), ...firstFailure });
     }
 
-    const out = { proved: false, kind: 'no_lex_predecessor', measure: current, rejected };
+    const out = { proved: false, kind: 'no_lex_predecessor', measure: current, rejected, forcedDefense };
     memo.set(memoKey, out);
     return out;
   }
@@ -164,6 +229,7 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
     resolvedColumn,
     tailDeficit,
     measure,
+    p1Obligations,
     prove,
     stats: () => Object.freeze({
       proofStates,
@@ -172,6 +238,8 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
       maxDepth,
       tailWitnesses,
       repairWitnesses,
+      forcedDefenseNodes,
+      forcedCapacityLossNodes,
       memoEntries: memo.size,
       maxProofStates,
     }),
