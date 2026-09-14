@@ -38,9 +38,9 @@ jobs:
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_RANK16_OUTCOME_COMPOSITION='));
           if(!line) throw new Error('rank16 composition summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
-          if(x.exactRank16Contexts!==12||x.exactRank18Children!==84||x.winningContexts!==11||x.losingContexts!==1) throw new Error('rank16 outcome drift');
-          if(x.losingContexts[0].sequence!=='4665655546443233') throw new Error('rank16 loss identity drift');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`wins=${x.winningContexts}`,`losses=${x.losingContexts}`,`enhanced=${x.childCounts.enhanced}`,`kappa=${x.childCounts.kappa}`].join('\n')+'\n');
+          if(x.exactRank16Contexts!==12||x.exactRank18Children!==84||x.winningContexts!==11||x.losingContextCount!==1) throw new Error('rank16 outcome drift');
+          if(!Array.isArray(x.losingContexts)||x.losingContexts.length!==1||x.losingContexts[0].sequence!=='4665655546443233') throw new Error('rank16 loss identity drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`wins=${x.winningContexts}`,`losses=${x.losingContextCount}`,`enhanced=${x.childCounts.enhanced}`,`kappa=${x.childCounts.kappa}`].join('\n')+'\n');
           NODE
 
   summary:
