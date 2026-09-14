@@ -8,12 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: transport_common_Y_through_P_R_and_boundary_splittings
+  id: history_aware_marked_residual_calculus
   objective: >-
-    Continue from the proved standard-7x6 natural isomorphism T:Y_line->Y_cell. Treat the 28-dimensional
-    middle object as identified through the explicit CPC/residual construction, then determine how it
-    interacts with the corrected boundary quotients, CPC phase transport P, and residual degree descent R.
-    Do not reopen the already-closed existence question for T unless a concrete falsifier is found.
+    Continue from the proved natural common Y, explicit boundary splittings, correctly typed P quotient,
+    and the qualified first formal residual core Y_3 of dimension 21. Build or falsify a marked sequential
+    cofactor calculus that preserves the support/CPC contribution of consumed events. Do not assume a
+    21->14->7 ladder; the two direct marked repetitions are already falsified.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -24,107 +24,82 @@ required_authority:
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
   - docs/research/2026-09-14-cpc-residual-middle-isomorph.md
-  - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs
+  - docs/research/2026-09-14-natural-boundary-splittings-and-P.md
+  - docs/research/2026-09-14-residual-degree3-core.md
+  - docs/research/2026-09-14-residual-sequential-ladder-falsifier.md
 
 qualified_premises:
-  - id: corrected_middle_cores
+  - id: natural_common_Y
     statement: >-
-      Y_cell=ker((row+column parity)|im(B)) and Y_line=ker(vertical-line parity|ker(B)) are explicit
-      28-dimensional GF(2) spaces derived from standard geometry. The original column-only and
-      horizontal-row-only projections have ranks 4 and 5 and remain falsified.
-  - id: residual_complex
+      Corrected Y_cell and Y_line are 28-dimensional and are naturally isomorphic by the explicit map
+      T defined through beta_flat o T = gamma_flat, where gamma is CPC-event-parity-weighted residual
+      cofactor pairing and beta combines that parity with residual connectedness.
+  - id: natural_splittings
     statement: >-
-      partial_4 is injective, partial_3*partial_4=0, and J_3*partial_4=B. Raw degree-3 residual incidence
-      has rank 42, so residual arity alone does not establish 28->21.
-  - id: cpc_residual_event_parity
+      im(B)=Y_cell direct-sum C_axis with an explicit bottom-horizontal/center-vertical section, and
+      ker(B)=Y_line direct-sum C_phase with six explicit center-star dependency-cycle lifts.
+  - id: typed_P
     statement: >-
-      For degree-3 residual S, q(S)=supportClosureSize(S)+maxRow(S) mod2 equals zero-reservation CPC
-      event-count parity N(t) mod2 at any highest residual event after the rest of the minimal support
-      closure. q is event-rank parity, not the owner bit N(t)-1.
-  - id: nondegenerate_line_self_pairing
+      The CPC two-ply displacement e_a+e_b lies exactly in Even(F2^7), the line-side 6D quotient.
+      Same-column stutter is zero; distinct-column transport changes only the lifted boundary coordinate
+      in the structural representation. Do not reinterpret phase vectors as arbitrary cell vectors.
+  - id: first_formal_residual_core
     statement: >-
-      gamma(y,z)=(partial_4 y)^T diag(q)(partial_4 z) has rank 28 on Y_line. Weighting by q XOR 1 has rank 16.
-  - id: nondegenerate_cross_pairing
+      In D(Y_line), pi_3(S)=topColumns(S) XOR q(S)*supportPhase(S) has rank 7, leaving a natural
+      21-dimensional first formal residual core. D itself remains injective on Y.
+  - id: sequential_ladder_falsifier
     statement: >-
-      beta(c,l) uses incident-cell weight q(l\\{c}) XOR connected(l\\{c}). On the corrected cores,
-      q alone has rank 20, connectedness alone rank 16, and the combined pairing rank 28.
-  - id: natural_direct_isomorphism
+      Repeating the same fragment-only frontier in marked form does not yield 21->14->7. Formal marked
+      ranks are 7,0,0 (cores 21,21,21). Support-ordered marked ranks are 6,7,0 (cores 22,15,15).
+      Therefore further descent requires additional history/support semantics.
+  - id: aggregate_boundary_boundary
     statement: >-
-      T is defined without a basis by beta(Ty,z)=gamma(y,z) for every z in Y_line, equivalently
-      beta_flat o T = gamma_flat. The exact control proves rank(T)=28, T(Y_line)=Y_cell,
-      left-right equivariance, and invariance under independent changes of the arbitrary execution bases.
-    qualification:
-      control: quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs
-      local_payload: proved:true
-      commit: 5a7ded1666cf55e701c5b22f828cf69f0e89f643
-      github_actions_run: 34908549249
-      github_actions_result: infrastructure_failure_before_checkout
-  - id: symmetry_scope
-    statement: >-
-      Left-right reflection is preserved. Top-bottom symmetry is intentionally not required because gravity/support
-      order is theorem data; the bare-incidence top-bottom fixed-space mismatch is not a Connect4-level falsifier.
-  - id: P_boundary
-    statement: >-
-      Same-column two-ply phase stutter is zero. A generic distinct-column phase delta e_a+e_b is not automatically
-      a cell-incidence vector or an action solely on the corrected boundary quotient. Keep CPC phase space typed.
+      partial_3*partial_4=0. The aggregate GF(2) residual boundary is homological and cannot by itself
+      represent ordered sequential cofactors.
   - id: family_falsification
     statement: >-
-      In finite W=2K-1,H=2K-2 tests K=2..8, only K=4 has equal image-over-width and kernel-over-height excess;
-      K=2 is the smallest counterexample.
+      The equal 28-style middle-dimension condition is special in finite W=2K-1,H=2K-2 tests; K=2 is
+      the smallest counterexample and only K=4 succeeds through K=8.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  order:
-    - id: natural_boundary_sections
-      question: >-
-        Do the corrected exact sequences admit Connect4-defined sections? Construct explicit sections only from
-        interval/support/incidence structure. If no natural section emerges, preserve the exact sequences without
-        rewriting ordinary vector-space splitting as canonical.
-      cell_sequence: 0 -> Y_cell -> im(B) -> Q_axis -> 0
-      line_sequence: 0 -> Y_line -> ker(B) -> Even(F2^W) -> 0
-    - id: typed_P_transport
-      question: >-
-        Define the actual typed relationship between CPC phase space and the corrected quotient/core decomposition.
-        Test same-column stutter and every distinct-column pair through an explicit map; do not add phase vectors
-        directly to arbitrary cell-incidence vectors.
-    - id: residual_degree_descent
-      question: >-
-        Push partial_4 through the identified common Y using the CPC/support quotient. Determine whether a genuine
-        degree-3 core of dimension W*(K-1)=21 appears only after the correct quotient, or preserve the smallest
-        counterexample if it does not.
-    - id: generalization
-      question: >-
-        Re-test the complete construction, not just dimensions, on nearby parameter values where typing permits it.
-        Preserve K=2 as the smallest current middle-dimension counterexample.
+  primary_question: >-
+    What is the smallest exact marked residual state that transports consumed-event support/CPC history
+    sufficiently for sequential cofactor descent without reconstructing a colored-board move tree?
+  candidate_order:
+    - >-
+      Carry an explicit history phase/reservoir vector equal to the GF(2) column contribution of consumed
+      events, typed through the already-qualified Even(F2^7) P quotient.
+    - >-
+      Carry the minimal support-height lower envelope required by consumed residual events, distinguishing
+      formal algebraic cofactor order from gravity-realizable event order.
+    - >-
+      Re-derive the CPC event-count parity of each later residual target from current marked support plus
+      history; do not reuse the empty/minimal-fragment q formula when prior events materially changed the reservoir.
+    - >-
+      Only after the marked state is exact, recompute quotient ranks at residual degrees 2 and 1. Treat 14
+      and 7 as hypotheses/falsifiers, never targets to force.
   required_checks:
-    - every claimed section has an explicit right-inverse identity
-    - every induced core action has an explicit domain/codomain and rank
-    - preserve beta_flat o T = gamma_flat as the commuting identity for the middle object
-    - verify left-right naturality for newly claimed structural maps
-    - do not require top-bottom reflection invariance
-    - keep event-rank parity distinct from eventual-owner parity
-    - do not infer 28->21 from residual arity alone
-    - do not use solved WDL labels as structural premises
-  proof_boundaries:
-    - unknown_is_not_loss
-    - theorem_failure_is_not_opposite_game_outcome
-    - resource_failure_is_not_logical_rejection
-    - vector_space_split_is_not_natural_split
-    - phase_space_is_not_cell_space_without_map
-    - no_predefined_28_in_target_free_middle_theorem
-    - no_predefined_69_in_strongest_target_free_control
-    - connect4_residual_cofactor_is_not_connect3_incidence_without_map
-    - candidate_specs_0006_0007_remain_candidate
+    - compare formal marked and support-legal marked categories explicitly
+    - preserve first formal Y_3 as evidence without calling it a legal-play state space
+    - prove any history compression preserves CPC parity/event order for all marked transitions in scope
+    - verify left-right reflection naturality
+    - preserve the typed P quotient and beta_flat o T = gamma_flat identities
+    - no solved WDL labels as premises
+    - no arbitrary basis matching or complement advertised as canonical
+  falsification:
+    - if two marked histories with the same proposed compressed state produce different next CPC/frontier facts, the compression fails
+    - if a claimed degree-r quotient rank depends on an illegal deletion order, do not promote it to legal sequential R
+    - if the next core is not 14 or 7, preserve the counterexample rather than widening/redefining the quotient to hit the arithmetic
 
 success_criteria:
-  - boundary section claims are either explicitly proved or explicitly left noncanonical
-  - P is transported through typed maps rather than analogy
-  - residual degree descent is tested in the CPC/support quotient category
-  - findings are persisted with Josh Oshiro attribution and exact theorem/falsifier boundaries
+  - exact marked state definition with explicit transition map
+  - exhaustive finite comparison over all marked line/cofactor sequences in scope
+  - honest rank/core result at degree 2, whether or not it equals 14
+  - durable theorem/falsifier note with Josh Oshiro attribution
 
 paused_solver_seam:
   state: "4665655"
   status: unfinished_but_preserved
   note: >-
-    The prior rank-7 P1 reply-horizon W/D/L seam remains valid unfinished work but is not active. Resume only by
-    explicit owner selection; do not route there from stale current-state text.
+    The prior rank-7 P1 reply-horizon W/D/L seam remains valid unfinished work but is not active. Resume only by explicit owner selection.

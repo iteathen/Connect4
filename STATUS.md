@@ -5,19 +5,19 @@
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This is a current-state router, not a historical ledger. Detailed evidence remains under `docs/research/**`; executable controls remain under `research/semantic-quotient/**`.
+This is a current-state router. Detailed evidence is under `docs/research/**`; executable controls are under `research/semantic-quotient/**`.
 
-## Authority / hard boundaries
+## Authority / proof boundaries
 
 - C4-0001 through C4-0005 remain protected baseline authority in their scopes.
 - C4-0006 and C4-0007 remain **Candidate** structural/proof specifications.
-- C4-0010 remains an accepted **research** consumer specification and does not promote Candidate dependencies.
-- Unknown != loss; theorem failure != opposite game outcome; resource failure != logical rejection.
+- C4-0010 remains an accepted **research** consumer specification; it does not promote Candidate dependencies.
+- Unknown != loss; theorem failure != opposite outcome; resource failure != logical rejection.
 - Same dimension != natural isomorphism; vector-space splitting != natural splitting.
-- Connect-4 residual cofactor != Connect-3 incidence without an explicit map.
-- No solved/external W/D/L labels are premises of the structural-logic controls.
+- Connect-4 residual cofactor != Connect-3 game incidence without an explicit map.
+- No solved/external W/D/L labels are structural premises here.
 
-## Active structural theorem
+## Standard-board GF(2) theorem state
 
 From only
 
@@ -25,7 +25,7 @@ From only
 GF(2), K=4, H=6, W=7
 ```
 
-the target-free incidence controls derive
+the target-free controls derive
 
 ```text
 L = 69
@@ -34,9 +34,9 @@ dim ker(B) = 34
 rank(B)-W = dim ker(B)-H = 28.
 ```
 
-Neither 28 nor 69 is a primitive input to the strongest theorem controls.
+Neither 28 nor 69 is a primitive input to the strongest controls.
 
-The original one-axis projections are exact falsifiers:
+The original one-axis projection proposals are falsified:
 
 ```text
 rank(column parity | im(B)) = 4, not 7
@@ -46,142 +46,212 @@ rank(horizontal-row line parity | ker(B)) = 5, not 6.
 Corrected cores are
 
 ```text
-Y_cell = ker((row+column parity) | im(B)), dim 28
-Y_line = ker(vertical-line parity | ker(B)), dim 28.
+Y_cell = ker((row+column parity)|im(B)), dim 28
+Y_line = ker(vertical-line parity|ker(B)), dim 28.
 ```
 
-Bare incidence alone does not identify them naturally: top-bottom fixed dimensions differ, while left-right fixed dimensions agree. This is correctly scoped because gravity breaks top-bottom symmetry.
+Top-bottom reflection mismatch only falsifies a bare-incidence identification; gravity/support order intentionally breaks that symmetry. Left-right reflection remains respected.
 
-## Residual / CPC bridge
+## Natural middle isomorphism
 
-Let `D = partial_4` be the exact residual boundary from 4-cell lines to unique 3-cell cofactors. The residual complex satisfies
-
-```text
-partial_4 injective
-partial_3 * partial_4 = 0
-J_3 * partial_4 = B.
-```
-
-The naive residual `28 -> 21 = W*(K-1)` claim is falsified: `rank(J_3)=42`.
-
-For a degree-3 residual fragment `S`, define
+Let `D=partial_4` be the formal residual boundary from winning lines to unique 3-cell cofactors. For degree-3 fragment `S`, define
 
 ```text
-C(S) = size of minimal gravity support closure
+C(S) = minimal gravity-support closure size
 r(S) = highest row
-q(S) = C(S) + r(S) mod 2.
+q(S) = C(S)+r(S) mod 2.
 ```
 
-If a highest residual cell is the final event after the rest of the minimal support closure, CPC gives
+For a highest residual event after the rest of the minimal support closure,
 
 ```text
-q(S) = N(t) mod 2.
+q(S) = CPC zero-reservation event-count parity N(t) mod 2.
 ```
 
-So `q` is native zero-reservation **event-rank parity**. It is not the eventual-owner bit `(N-1) mod 2`; that distinction is load-bearing.
+This is event-rank parity, not eventual-owner parity `(N-1) mod 2`.
 
-## Natural direct middle isomorphism — qualified locally
-
-Define on `Y_line`
+The line self-pairing
 
 ```text
-gamma(y,z) = (D y)^T Q (D z),
+gamma(y,z)=(D y)^T diag(q)(D z)
 ```
 
-where `Q=diag(q)`. The executable control derives
+has rank 28 on `Y_line`. Owner-parity weighting instead has rank 16.
+
+For incident cell `c` of line `l`, with `S=l\\{c}`, define
 
 ```text
-rank(gamma) = 28.
+w(c,l)=q(S) XOR connected(S),
 ```
 
-Using owner parity `q XOR 1` instead gives rank 16.
-
-For incident cell `c` of line `l`, let `S=l\\{c}` and let `connected(S)=1` exactly when the 3-cell residual remains contiguous along the original line. Define
+where `connected(S)=1` exactly when the 3-cell cofactor remains contiguous along the original line. The resulting cross pairing `beta:Y_cell x Y_line -> GF(2)` has
 
 ```text
-w(c,l) = q(S) XOR connected(S).
+q only              rank 20
+connectedness only  rank 16
+combined beta       rank 28.
 ```
 
-The induced cross pairing
+Define the direct map basis-independently by
 
 ```text
-beta : Y_cell x Y_line -> GF(2)
-```
-
-has
-
-```text
-q only                 rank 20
-connectedness only     rank 16
-q XOR connectedness    rank 28.
-```
-
-Therefore both CPC/event order and residual topology are load-bearing.
-
-Define `T` basis-independently by
-
-```text
-beta(T(y), z) = gamma(y, z)  for every z in Y_line,
+beta(Ty,z)=gamma(y,z) for every z in Y_line,
 ```
 
 equivalently
 
 ```text
-T = beta_flat^{-1} o gamma_flat.
+beta_flat o T = gamma_flat.
 ```
 
-The control proves
+The finite control proves
 
 ```text
-rank(T) = 28
-T(Y_line) = Y_cell
-beta_flat o T = gamma_flat
-T commutes with left-right reflection.
+rank(T)=28
+T(Y_line)=Y_cell
+left-right equivariance
+basis-change invariance.
 ```
 
-It also changes both arbitrary Gaussian execution bases independently and reconstructs the same ambient map. Gaussian elimination is therefore an execution representation, not the definition of `T`.
+Therefore the emergent 28-dimensional equality is **not merely a rank coincidence**. An explicit Connect4-defined natural isomorphism `Y_line ~= Y_cell` exists. Uniqueness among every conceivable natural construction is not claimed.
 
-**Strongest current statement:** the emergent 28-dimensional equality is **not merely a rank coincidence**. There is an explicit Connect4-defined natural isomorphism
+## Natural boundary splittings and P
+
+The corrected exact sequences also admit explicit geometric sections.
+
+Cell side:
 
 ```text
-Y_line ~= Y_cell.
+im(B)=Y_cell direct-sum C_axis
+35   =28     +7.
 ```
 
-This establishes existence and construction. It does **not** claim that this `T` is uniquely characterized among every conceivable natural isomorphism under every possible naturality axiom.
+`C_axis` is lifted by four bottom-row horizontal winning lines and three center-column vertical winning lines. Its quotient is structurally
 
-### Durable theorem evidence
+```text
+I_4(columns) direct-sum I_4(rows), dimensions 4+3.
+```
 
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-emergent-middle-dimension-isomorph.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-self-duality-audit.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs`
+Line side:
+
+```text
+ker(B)=Y_line direct-sum C_phase
+34    =28     +6.
+```
+
+`C_phase` is lifted by six explicit center-star geometric dependency cycles, and its quotient is exactly
+
+```text
+Even(F2^7), dim 6.
+```
+
+This is the correctly typed home of CPC two-ply displacement
+
+```text
+delta_phi=e_a+e_b.
+```
+
+All 7 same-column cases are zero. All 42 ordered distinct-column cases are nonzero even-weight quotient coordinates. Under the section lift, `P` changes only the line boundary factor and fixes the common `Y` coordinate. This is a representation statement, not a claim that adding a dependency vector is a legal game transition.
+
+Thus the structural content behind the dimension law is now
+
+```text
+im(B)  ~= Y + Q_axis       = 28+7
+ker(B) ~= Y + Even(F2^7)   = 28+6
+L      = (28+7)+(28+6)     = 69.
+```
+
+## Residual degree-3 core
+
+The naive claim that cofactor arity alone makes `28 -> 21` is false: `D|Y` is injective and ordinary degree-3 residual incidence has rank 42.
+
+However a natural first formal residual quotient does expose 21 dimensions. For degree-3 residual `S`, let
+
+```text
+phi(S) = minimal-support height parity by column
+u(S)   = columns containing a globally highest residual cell
+pi_3(S)=u(S) XOR q(S)*phi(S).
+```
+
+On `D(Y_line)`:
+
+```text
+ordinary residual incidence   rank 0
+raw support phase             rank 0
+u                             rank 5
+q*phi                         rank 5
+pi_3                          rank 7.
+```
+
+Therefore
+
+```text
+Y_3=ker(pi_3|D(Y_line))
+dim Y_3=28-7=21=7*(4-1).
+```
+
+This 21-space is left-right equivariant and basis-independent.
+
+## Sequential residual ladder falsifier
+
+Do **not** promote the first `28 -> 21` into an automatic
+
+```text
+28 -> 21 -> 14 -> 7 -> 0
+```
+
+ladder.
+
+Two marked sequentializations were tested with the same fragment frontier rule:
+
+```text
+formal marked:
+  28 --7--> 21
+  21 --0--> 21
+  21 --0--> 21
+
+support-ordered marked:
+  28 --6--> 22
+  22 --7--> 15
+  15 --0--> 15.
+```
+
+The aggregate boundary also satisfies `partial_3*partial_4=0`, so it cannot represent sequential cofactor descent by simple iteration.
+
+The 21-space is therefore a qualified **first formal residual-boundary core**, not yet a legal-play derivative ladder. Further descent must carry event/support history explicitly.
+
+## Nearby-family falsification
+
+For `W=2K-1, H=2K-2`, finite tests through `K=8` find equal image-over-width and kernel-over-height excess only at `K=4`; `K=2` is the smallest counterexample. No generic family theorem is claimed.
+
+## Durable controls / notes
+
+- `quotient-standard7x6-emergent-middle-dimension-isomorph.mjs`
+- `quotient-standard7x6-canonical-projection-audit.mjs`
+- `quotient-standard7x6-support-graded-middle-duality-control.mjs`
+- `quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs`
+- `quotient-standard7x6-natural-boundary-splittings-control.mjs`
+- `quotient-standard7x6-residual-degree3-core-control.mjs`
+- `quotient-standard7x6-residual-sequential-ladder-falsifier.mjs`
 - `docs/research/2026-09-14-cpc-residual-middle-isomorph.md`
+- `docs/research/2026-09-14-natural-boundary-splittings-and-P.md`
+- `docs/research/2026-09-14-residual-degree3-core.md`
+- `docs/research/2026-09-14-residual-sequential-ladder-falsifier.md`
 
-Current theorem checkpoint:
+Current structural checkpoint before this router update:
 
 ```text
-5a7ded1666cf55e701c5b22f828cf69f0e89f643
+ee950ece036f04cf917c53901bb54a4db7b03fc2
 ```
 
-The direct-isomorphism control executes locally with `proved:true`. GitHub Actions run `34908549249` failed at `Set up job` before checkout, so it supplies no payload evidence either way.
+Recent dedicated GitHub Actions jobs have repeatedly failed during `Set up job` before checkout; those runs provide no payload evidence. The new controls pass locally with `proved:true`.
 
-## Remaining structural seam
+## Active next seam
 
-The existence question for `T` is closed for the standard board. The next work is to determine how the identified common `Y` participates in the rest of the calculus:
+Construct a **history-aware marked cofactor calculus** that transports the CPC event reservoir/support contribution of consumed events instead of recomputing parity from the smaller residual fragment as though history vanished. The first target is to explain or falsify a sequential graded core after the qualified 21-space without presupposing dimensions 14 or 7.
 
-1. construct natural sections, or preserve exact non-splitting boundaries, for the corrected 7-dimensional cell quotient and 6-dimensional line quotient;
-2. type `P` correctly through the quotient/core decomposition instead of treating phase vectors as arbitrary cell vectors;
-3. transport residual degree descent through the identified `Y` and determine whether any genuine 21-dimensional next core emerges after the correct support/CPC quotient;
-4. test whether the direct theorem has a principled extension beyond K=4; current finite `W=2K-1,H=2K-2` tests have K=2 as the smallest counterexample and only K=4 succeeding through K=8.
+`AGENT_LOCAL.md` was audited and remains structurally correct; no theorem-history expansion is needed there.
 
 ## Preserved solver seam
 
-The earlier forward structural W/D/L work remains valid unfinished work. The rank-7 P1 horizon at exact state `4665655` is paused, not falsified or deleted. Resume only by explicit owner selection.
-
-## Resource / proof hygiene
-
-- Five-minute outer/inner execution wall remains 300 seconds where applicable.
-- Preserve proof-state and quotient/search-storage bounds.
-- Do not raise limits merely to obtain a passing theorem.
-- No deadline regeneration, implicit frame rule, silent player/column symmetry, or q-equality from claim-relative signatures.
+The earlier forward W/D/L rank-7 P1 horizon at exact state `4665655` remains valid unfinished work, paused rather than falsified. Resume only by explicit owner selection.
