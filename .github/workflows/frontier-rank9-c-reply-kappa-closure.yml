@@ -1,0 +1,41 @@
+name: Frontier rank9 C-reply kappa closure
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-kappa-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - .github/workflows/frontier-rank9-c-reply-kappa-closure.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify rank9 C reply through distance-two kappa
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank9-c-reply-kappa.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-kappa-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK9_C_REPLY_KAPPA_CLOSURE='));
+          if(!line) throw new Error('rank9 C-reply kappa summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.proved!==true) throw new Error(`rank9 C reply unproved: ${JSON.stringify({resourceFailure:x.resourceFailure,kappa:x.kappa})}`);
+          if(x.forcedD4BlockSequence!=='466565554344') throw new Error('D4 block sequence drift');
+          if(x.forcedC3BlockSequence!=='46656555434433') throw new Error('C3 block sequence drift');
+          if(x.survivingTarget!=='G3'||x.survivingTargetDistance!==2) throw new Error('G3 distance-two handoff drift');
+          NODE
