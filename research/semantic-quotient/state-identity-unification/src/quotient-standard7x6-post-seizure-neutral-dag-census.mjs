@@ -89,7 +89,6 @@ function census(refusalName){
   }
   rows.push({state,sequence:info.sequence,mu:contract.mu,phaseBits:contract.phaseBits,branches});
  }
- // Every neutral edge must descend, so sorting by mu gives a direct bottom-up qualification order.
  rows.sort((a,b)=>a.mu-b.mu||a.sequence.localeCompare(b.sequence));
  const exitRows=[...exits.entries()].map(([state,x])=>({state,...x})).sort((a,b)=>a.muAfterP1-b.muAfterP1||a.sequence.localeCompare(b.sequence));
  return {
@@ -106,10 +105,26 @@ const requested=process.argv[2];
 const names=requested?[requested]:Object.keys(REFUSALS);
 for(const name of names)if(!(name in REFUSALS))throw new Error('usage: neutral-dag-census [D|E|F]');
 const results=names.map(census);
-console.log(`POST_SEIZURE_NEUTRAL_DAG_CENSUS=${JSON.stringify({
- kind:'standard7x6-post-seizure-neutral-ranked-dag-census-v1',
+const summary={
+ kind:'standard7x6-post-seizure-neutral-ranked-dag-census-summary-v1',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
- results,
- theoremBoundary:'Exact reachable neutral-contract DAG only. Edges are P1/P0 repair pairs that re-enter the same deadline-free dual-target contract with strictly smaller mu. Dual exits are retained as unresolved certificate boundaries; this census does not infer W/L or treat candidate failure as loss.',
- authority:'Exact C4-0010 transitions/residuals and terminal surfaces under unchanged quotient bounds. No solved labels, external oracle, or unrestricted q recursion.'
-})}`);
+ results:results.map(r=>({
+  refusal:r.refusal,refusalSequence:r.refusalSequence,entrySequence:r.entrySequence,entryMu:r.entryMu,
+  neutralStates:r.neutralStates,edgeCount:r.edgeCount,uniqueDualExits:r.uniqueDualExits,
+  p1TerminalBranches:r.p1TerminalBranches,immediateP0TerminalBranches:r.immediateP0TerminalBranches,
+  repairP0TerminalCandidates:r.repairP0TerminalCandidates,maxRepairCandidates:r.maxRepairCandidates,
+  muHistogram:r.muHistogram,
+  exits:r.exits.map(x=>({sequence:x.sequence,muAfterP1:x.muAfterP1,phaseBits:x.phaseBits})),
+ })),
+ theoremBoundary:'Compact projection of the exact census. It preserves exact dual-exit sequences and rank/phase metadata but omits internal DAG rows. It does not infer W/L.',
+};
+console.log(`POST_SEIZURE_NEUTRAL_DAG_SUMMARY=${JSON.stringify(summary)}`);
+if(process.env.CENSUS_COMPACT!=='1'){
+ console.log(`POST_SEIZURE_NEUTRAL_DAG_CENSUS=${JSON.stringify({
+  kind:'standard7x6-post-seizure-neutral-ranked-dag-census-v1',
+  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
+  results,
+  theoremBoundary:'Exact reachable neutral-contract DAG only. Edges are P1/P0 repair pairs that re-enter the same deadline-free dual-target contract with strictly smaller mu. Dual exits are retained as unresolved certificate boundaries; this census does not infer W/L or treat candidate failure as loss.',
+  authority:'Exact C4-0010 transitions/residuals and terminal surfaces under unchanged quotient bounds. No solved labels, external oracle, or unrestricted q recursion.'
+ })}`);
+}

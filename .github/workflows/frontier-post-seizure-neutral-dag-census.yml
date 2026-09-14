@@ -28,6 +28,8 @@ jobs:
           node-version: 26.7.0
       - name: Census ranked neutral DAG
         shell: bash
+        env:
+          CENSUS_COMPACT: '1'
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-post-seizure-neutral-dag-census.mjs "${{ matrix.refusal }}"
