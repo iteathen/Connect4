@@ -1,0 +1,65 @@
+name: Frontier resolved-tail extended induction
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-extended-induction.mjs
+      - .github/workflows/frontier-resolved-tail-extended-induction.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extended-induction:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      negatives: ${{ steps.run.outputs.negatives }}
+      closed: ${{ steps.run.outputs.closed }}
+      failed: ${{ steps.run.outputs.failed }}
+      resolved_witness: ${{ steps.run.outputs.resolved_witness }}
+      resolved_any: ${{ steps.run.outputs.resolved_any }}
+      positives: ${{ steps.run.outputs.positives }}
+      positive_closed: ${{ steps.run.outputs.positive_closed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify resolved-tail extended predecessor induction
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/resolved-tail-extended.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-extended-induction.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RESOLVED_TAIL_EXTENDED_INDUCTION='));
+          if(!line) throw new Error('resolved-tail induction summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.oldUnprovedComparatorCount!==12) throw new Error('negative comparator inventory drift');
+          if(x.qualifiedPositiveStartCount!==16) throw new Error('positive start inventory drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `negatives=${x.oldUnprovedComparatorCount}`,
+            `closed=${x.negativeComparatorsClosedByExtendedInduction}`,
+            `failed=${x.negativeComparatorsStillUnproved}`,
+            `resolved_witness=${x.negativeRootsSelectingResolvedTail}`,
+            `resolved_any=${x.negativeRootsWithAnyResolvedTailWinningAction}`,
+            `positives=${x.qualifiedPositiveStartCount}`,
+            `positive_closed=${x.positiveStartsClosedByExtendedInduction}`,
+            `resource=${x.negativeComparatorResourceFailures+x.positiveStartResourceFailures}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: extended-induction
+    name: resolved-tail-n${{ needs.extended-induction.outputs.negatives }}-c${{ needs.extended-induction.outputs.closed }}-f${{ needs.extended-induction.outputs.failed }}-rw${{ needs.extended-induction.outputs.resolved_witness }}-ra${{ needs.extended-induction.outputs.resolved_any }}-p${{ needs.extended-induction.outputs.positive_closed }}of${{ needs.extended-induction.outputs.positives }}-r${{ needs.extended-induction.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "resolved-tail extended induction counts encoded in job name"
