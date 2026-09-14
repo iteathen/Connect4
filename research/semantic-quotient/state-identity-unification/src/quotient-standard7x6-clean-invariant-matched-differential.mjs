@@ -53,6 +53,9 @@ function mean(xs) { return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length
 function minOr(xs, fallback = 0) { return xs.length ? Math.min(...xs) : fallback; }
 function maxOr(xs, fallback = 0) { return xs.length ? Math.max(...xs) : fallback; }
 
+// Diagnostic kernel: exact candidate reconstruction and action-conditioned observations only.
+// It never runs the recursive repair proof, so diagnostic cone expansion cannot consume the
+// proof kernel's sealed state budget.
 const k = makeKernel();
 const e = createRepairCapacityProofEngine(k, { collectAllWinningActions: true, maxProofStates: MAX_PROOF_STATES });
 
@@ -283,13 +286,21 @@ for (const anchor of positiveAnchors) {
   }
 }
 
+// Proof kernel is isolated from diagnostic expansion. No storage or recursion limit is widened;
+// this merely prevents diagnostic transitions from contaminating the proof experiment's arena.
+const proofK = makeKernel();
+const proofE = createRepairCapacityProofEngine(proofK, { collectAllWinningActions: true, maxProofStates: MAX_PROOF_STATES });
+
 const evaluated = [];
 let resourceFailure = null;
 for (const row of selected) {
   if (resourceFailure) break;
   let result = null, error = null;
+  const proofState = replay(proofK, row.sequence);
+  assert.equal(proofE.rank(proofState), 20, `${row.name}: proof-kernel rank drift`);
+  assert(proofE.invariant(proofState, row.target), `${row.name}: proof-kernel invariant drift`);
   try {
-    result = e.prove(row.state, row.target);
+    result = proofE.prove(proofState, row.target);
   } catch (err) {
     error = String(err?.message ?? err);
     if (error.includes('proof-state cap exceeded') || error.includes('reserved quotient')) resourceFailure = error;
@@ -316,8 +327,8 @@ const proved = completed.filter((x) => x.proved), unproved = completed.filter((x
 
 function pairTier(tier) {
   const pg = new Map(), ug = new Map();
-  for (const x of proved) { const k = matchKey(x.descriptor, tier); const a = pg.get(k) ?? []; a.push(x); pg.set(k, a); }
-  for (const x of unproved) { const k = matchKey(x.descriptor, tier); const a = ug.get(k) ?? []; a.push(x); ug.set(k, a); }
+  for (const x of proved) { const key = matchKey(x.descriptor, tier); const a = pg.get(key) ?? []; a.push(x); pg.set(key, a); }
+  for (const x of unproved) { const key = matchKey(x.descriptor, tier); const a = ug.get(key) ?? []; a.push(x); ug.set(key, a); }
   const pairs = [];
   for (const [key, ps] of pg) {
     const us = ug.get(key); if (!us?.length) continue;
@@ -402,7 +413,7 @@ console.log(`MATCHED_CLEAN_INVARIANT_DIFFERENTIAL=${JSON.stringify({
   provedDirectProbes: proved.length,
   unprovedDirectProbes: unproved.length,
   resourceFailure,
-  proofStats: e.stats(),
+  proofStats: proofE.stats(),
   selectedMatchingTier: selectedTier,
   matchingTierMeaning: selectedTier===1
     ? 'same target, mu, exact root deadline set, GF2 phase location, and sorted five-column repair-capacity multiset'
