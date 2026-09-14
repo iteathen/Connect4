@@ -7,6 +7,7 @@ on:
     paths:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-predecessor-induction.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs
       - .github/workflows/frontier-repair-capacity-induction.yml
   workflow_dispatch:
 
@@ -23,6 +24,11 @@ jobs:
       proof_states: ${{ steps.induction.outputs.proof_states }}
       proof_classes: ${{ steps.induction.outputs.proof_classes }}
       start_classes: ${{ steps.induction.outputs.start_classes }}
+      rank16_proved: ${{ steps.latent_closure.outputs.rank16_proved }}
+      root_closed: ${{ steps.latent_closure.outputs.root_closed }}
+      c_unresolved: ${{ steps.latent_closure.outputs.c_unresolved }}
+      g_unresolved: ${{ steps.latent_closure.outputs.g_unresolved }}
+      p1_terminal: ${{ steps.latent_closure.outputs.p1_terminal }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -55,11 +61,36 @@ jobs:
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
+      - name: Qualify latent winning-contract closure when present
+        id: latent_closure
+        if: ${{ hashFiles('research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs') != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/latent-winning-contract.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('LATENT_WINNING_CONTRACT_CLOSURE='));
+          if(!line) throw new Error('latent winning-contract summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.rank16SchedulerExitCount!==4) throw new Error('rank-16 scheduler domain drift');
+          const c=x.targetMacros.find(m=>m.attack==='C');
+          const g=x.targetMacros.find(m=>m.attack==='G');
+          if(!c||!g) throw new Error('target macro inventory drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `rank16_proved=${x.rank16SchedulerExitsProvedByRepairInduction}`,
+            `root_closed=${x.rootClosedCandidateColumns.length}`,
+            `c_unresolved=${c.unresolvedCount}`,
+            `g_unresolved=${g.unresolvedCount}`,
+            `p1_terminal=${c.p1TerminalCount+g.p1TerminalCount}`,
+          ].join('\n')+'\n');
+          NODE
 
   summary:
     needs: repair-capacity-induction
-    name: repair-induction p${{ needs.repair-capacity-induction.outputs.starts_proved }}-f${{ needs.repair-capacity-induction.outputs.starts_failed }}-n${{ needs.repair-capacity-induction.outputs.proof_states }}-c${{ needs.repair-capacity-induction.outputs.proof_classes }}-s${{ needs.repair-capacity-induction.outputs.start_classes }}
+    name: repair p${{ needs.repair-capacity-induction.outputs.starts_proved }}-f${{ needs.repair-capacity-induction.outputs.starts_failed }}-n${{ needs.repair-capacity-induction.outputs.proof_states }}-c${{ needs.repair-capacity-induction.outputs.proof_classes }}-s${{ needs.repair-capacity-induction.outputs.start_classes }} latent-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }}-cu${{ needs.repair-capacity-induction.outputs.c_unresolved }}-gu${{ needs.repair-capacity-induction.outputs.g_unresolved }}-pt${{ needs.repair-capacity-induction.outputs.p1_terminal }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "qualified repair-capacity induction counts encoded in job name"
+      - run: echo "qualified repair-capacity and latent-contract counts encoded in job name"
