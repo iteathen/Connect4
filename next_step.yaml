@@ -8,14 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: close_d3_reply_horizon
+  id: close_rank9_p1_reply_horizon
   objective: >-
-    The fixed latent scheduler state 466565554644 is now structurally proved P0-winning via P0:C1,
-    with all seven P1 replies independently closed under the hardened obligation-first rho calculus.
-    Push that theorem backward through the earlier D3 hinge at 4665655546 by classifying every legal
-    P1 reply after P0:D3. P1:D4 reaches the qualified latent win but is not forced; the other six
-    replies must each close by exact terminal/obligation/structural contracts before the predecessor
-    can be promoted to W.
+    The exact state 4665655546 is now structurally proved P0-winning via P0:D3. Move exactly one ply
+    backward to the P1-turn predecessor 466565554. The known P1:F reply reaches 4665655546, but the
+    predecessor may be promoted to P0-winning only if every legal P1 reply reaches an exact P0-winning
+    child under independently qualified structural contracts.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -25,134 +23,99 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-14-guarded-braid-transport-reversed-stutter.md
-  - docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md
 
 qualified_premises:
   - id: authority_status
     statement: >-
       C4-0006 and C4-0007 remain Candidate research specifications. C4-0010 is an accepted research
-      consumer specification; importing candidate structural clauses does not silently elevate them.
-  - id: hardened_transport
-    statement: >-
-      Guarded transport uses exact ordered causal-clock accounting, event-certified obligation effects,
-      path-local interchange validation, and no implicit frame/player renaming/deadline reset.
+      consumer specification; using candidate structural clauses does not change their acceptance status.
   - id: obligation_first_rho
     statement: >-
-      At a P0 rho node, immediate P0 terminality is checked first. With two or more distinct enabled P1
-      singleton obligations and no immediate P0 terminal, the node is an exact one-move response-capacity
-      loss. With exactly one obligation, only the exact blocking column is admissible before ordinary rho.
-      With zero obligations, ordinary rho applies. This ordering is qualified by the logical-map audit.
+      Immediate P0 terminality precedes obligation classification. At a P0 node, two or more distinct
+      enabled P1 singleton obligations are an exact one-move response-capacity loss when P0 has no
+      immediate terminal; one obligation forces its exact blocking column; zero allows ordinary rho.
     qualification:
       logical_map_audit_run: 34881568472
       result: success
   - id: latent_c1_full_closure
     statement: >-
-      The exact latent state 466565554644 is structurally P0-winning via P0:C1. Every legal P1 reply
-      after C1 is independently closed without solved-WDL premises.
+      Exact state 466565554644 is P0-winning via P0:C1 with all seven P1 replies closed under the
+      hardened calculus.
     qualification:
       workflow: Frontier latent C1 full closure
       run: 34882743270
       result: success
       timeout_seconds: 300
-    witness: C1
-    replies:
-      C:
-        route: immediate_P0_C3_terminal
-      G:
-        route: P0_G2_forced_G3_block_then_obligation_first_rho_C3
-      A:
-        witness: G1
-        route: G1_seizure_then_G2_forced_G3_block_then_obligation_first_rho_C3
-      B:
-        witness: G1
-        route: G1_seizure_then_G2_forced_G3_block_then_obligation_first_rho_C3
+  - id: d3_reply_horizon_closure
+    statement: >-
+      Exact state 4665655546 is P0-winning via P0:D3. After D3, P1:D4 reaches exact qualified state
+      466565554644; every other legal P1 reply exposes immediate P0:D4 terminal. Unique zero phase is
+      not used as a forcing premise.
+    qualification:
+      workflow: Frontier D3 reply horizon closure
+      run: 34888051981
+      result: success
+      timeout_seconds: 300
+    witness: D3
+    predecessor: "4665655546"
+    branches:
       D:
-        witness: A1
-        route: A1_creates_B1_threat_forced_B1_block_then_obligation_first_rho_C3
-      E:
-        witness: A1
-        route: A1_creates_B1_threat_forced_B1_block_then_obligation_first_rho_C3
-      F:
-        witness: A1
-        route: A1_creates_B1_threat_forced_B1_block_then_obligation_first_rho_C3
-  - id: falsified_universal_refusal_witness
-    statement: >-
-      A universal P0:G1 witness for all A/B/D/E/F refusals is false. D/E/F require a different exact
-      side-threat witness. Do not restore the universal-G1 assumption or infer refusal-column symmetry.
-  - id: d3_hinge
-    statement: >-
-      At 4665655546, P0:D3 is legal and nonterminal. Across every legal P1 reply there is no immediate
-      P1 terminal reply and both C3/G3 singleton residuals survive. P1:D4 is the unique zero-phase reply
-      and reaches 466565554644, but D4 is not a forced reply.
-    exact_predecessor: "4665655546"
-    p0_witness_candidate: D3
-    after_p0: "46656555464"
-    closed_reply:
-      reply: D4
-      child: "466565554644"
-      consequence: P0_win
-    unresolved_reply_columns: [A, B, C, E, F, G]
+        route: exact_latent_child_466565554644
+      A: { route: immediate_P0_D4_terminal }
+      B: { route: immediate_P0_D4_terminal }
+      C: { route: immediate_P0_D4_terminal }
+      E: { route: immediate_P0_D4_terminal }
+      F: { route: immediate_P0_D4_terminal }
+      G: { route: immediate_P0_D4_terminal }
   - id: exact_postblock_tables
     statement: >-
-      The exact post-block rank18 boundary remains 83 P0-win / 1 P0-loss / 0 unknown and the exact
-      rank16 scheduler contexts remain 11 P0-win / 1 P0-loss under the hardened calculus.
+      The hardened exact post-block boundaries remain rank18 83W/1L/0unknown and rank16 11W/1L.
     unique_rank18_loss: "466565554644323332"
     unique_rank16_loss: "4665655546443233"
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   first_boundary:
-    predecessor: "4665655546"
-    p0_action: D3
-    after_p0: "46656555464"
-    p1_reply_columns: [A, B, C, D, E, F, G]
+    predecessor: "466565554"
+    side_to_move: P1
+    known_reply_column: F
+    known_child: "4665655546"
+    known_child_consequence: P0_win
   theorem_candidate:
-    name: exact_d3_reply_horizon_closure
+    name: exact_rank9_universal_predecessor_closure
     question: >-
-      Does P0:D3 at 4665655546 have an exact winning continuation against every legal P1 reply, using
-      the qualified latent-state theorem for D4 and independent exact contracts for A/B/C/E/F/G?
+      Does every legal P1 action from exact state 466565554 enter a P0-winning child, with the F child
+      discharged by the qualified 4665655546 theorem and every other child closed independently?
     required_guards:
-      - exact transition legality and terminal status for D3 and every P1 reply
-      - exact side to move at every child
-      - all enabled singleton obligations for both players before selecting a P0 continuation
-      - exact C3/G3 residual liveness and support distances where consumed
-      - CPC/GF2 phase only when used by a theorem contract
-      - explicit temporal obligation/deadline disposition when a contract depends on it
-      - response-capacity classification before rho/kappa at every P0 node
-      - strict finite-rank descent for recursive structural dependencies
-      - no implicit frame or player/ownership renaming
-  reply_policy:
-    D:
-      route: consume_exact_latent_c1_win
-      child: "466565554644"
-    A: { route: derive_exact_child_contract }
-    B: { route: derive_exact_child_contract }
-    C: { route: derive_exact_child_contract }
-    E: { route: derive_exact_child_contract }
-    F: { route: derive_exact_child_contract }
-    G: { route: derive_exact_child_contract }
+      - exact legal P1 reply set at 466565554
+      - exact landing cell and side to move for every child
+      - exact immediate terminal status
+      - enabled P0/P1 singleton surfaces at every P0 child
+      - support/target distances only where consumed by a theorem
+      - temporal obligations/deadlines explicitly preserved where relevant
+      - forced-obligation classification before rho/kappa
+      - no symmetry, phase-only forcing, implicit frame, or q-equality shortcut
+  execution_order:
+    - build an exact one-ply diagnostic for every P1 reply from 466565554
+    - tag P1:F only by exact sequence equality with qualified child 4665655546
+    - search for immediate P0 terminal or exact forced-threat circuits before invoking rho/kappa
+    - derive the smallest exact contract for each remaining child
+    - compose the universal predecessor only after every legal P1 child closes
   falsification:
-    - enumerate all legal P1 replies after D3; do not assume D4 because it is the unique zero-phase reply
-    - check immediate terminal and forced-obligation surfaces before invoking rho/kappa
-    - a failed candidate action remains unknown unless an exact loss theorem exhausts all legal P0 replies
-    - do not reuse the C1 refusal witness map by analogy without an exact typed bridge
-    - retain the smallest exact child that falsifies any proposed generalization
-  composition_after_qualification:
-    - if all seven P1 replies close, promote 4665655546 to W via P0:D3
-    - then move exactly one predecessor layer backward toward the center opening
-    - do not claim the center opening or empty-board root until their full adversarial reply horizons close
+    - a single unclosed legal P1 child blocks promotion of 466565554
+    - failed P0 candidate action remains unknown unless all legal P0 responses are exhausted by an exact loss theorem
+    - do not transfer the D3 tactical pattern to sibling replies by analogy
+    - preserve the smallest exact child that falsifies any proposed generalization
   resource_hygiene:
     - five-minute outer wall: 300 seconds
     - five-minute inner wall: 300 seconds
-    - preserve existing proof-state and quotient/search-storage bounds
-    - isolate roots/actions only as execution hygiene
-    - execution partition is never semantic identity
-    - no frontier or proof-cap increase merely to make a theorem pass
+    - preserve current proof-state and quotient/search-storage limits
+    - execution sharding is not semantic identity
+    - do not increase limits merely to obtain a passing theorem
   forbidden_shortcuts:
     - solved_WDL_or_external_solver_as_premise
     - unknown_as_loss
-    - zero_phase_reply_as_forced_reply
+    - phase_or_symmetry_as_forced_reply_without_theorem
     - deadline_reset_after_clock_tick
     - ownership_or_column_symmetry_without_proof
     - implicit_frame_rule
@@ -162,20 +125,18 @@ execution:
     - unproved_69_to_28_geometric_line_reduction
 
 success_criteria:
-  - all seven legal P1 replies after P0:D3 are explicitly represented
-  - the D4 reply consumes the exact qualified latent-state theorem rather than re-proving it implicitly
-  - each A/B/C/E/F/G child has an exact winning contract or a preserved minimal separator
-  - forced obligations are consumed before ordinary rho/kappa
-  - no branch closure is inferred from timeout, resource failure, or theorem-family failure
-  - STATUS.md and durable research evidence remain synchronized
+  - every legal P1 reply from 466565554 is explicitly represented
+  - the exact F child consumes the qualified 4665655546 theorem
+  - every other child has an exact P0-winning certificate
+  - no closure comes from timeout, resource failure, output cardinality, symmetry, or solved labels
+  - STATUS.md and next_step.yaml remain synchronized
 
 on_success:
   next: >-
-    Promote 4665655546 to W via P0:D3, then inspect its exact predecessor and continue the same
-    branch-complete backward composition toward the opening-column-4 position. Do not skip adversarial replies.
+    Promote 466565554 to P0-winning as a universal P1 predecessor, then move exactly one ply backward
+    and continue the branch-complete structural composition toward the center opening.
 
 on_failure:
   next: >-
-    Preserve the smallest exact D3-reply counterexample and identify the first missing E/R/P/C/N predicate
-    or theorem-routing rule. Refine only that child dependency cone; do not broaden the physical frontier,
-    restore symmetry assumptions, or increase fixed proof/resource limits.
+    Preserve the smallest exact unclosed P1 child and identify its first missing E/R/P/C/N predicate or
+    theorem-routing rule. Refine only that dependency cone; do not broaden the physical frontier or raise caps.
