@@ -1,6 +1,6 @@
-schema_version: 76
+schema_version: 77
 updated: 2026-09-13
-state: claim_relative_typed_event_signatures
+state: guarded_claim_theorem_composition
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -14,18 +14,22 @@ authority:
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  status: STATUS.md
   unified_logic: docs/research/2026-09-13-unified-structural-logic-statement.md
   temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
   temporal_stutter_tail_phase_debt: docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md
   event_dependency_cone: docs/research/2026-09-13-event-dependency-cone-product-calculus.md
   claim_relative_isomorphism: docs/research/2026-09-13-claim-relative-event-isomorphism.md
   response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
+  claim_relative_library: docs/research/2026-09-13-claim-relative-signature-library.md
   bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
 
 objective: >
-  Reuse exact structural theorems across physically different Connect4 contexts by
-  deriving only the dependency cone required by the claim being proved. Preserve full
-  C4-0010 q identity for state semantics; proof compression belongs at the theorem layer.
+  Compose already-qualified claim-relative structural theorems across exact event
+  boundaries without reconstructing the physical q-tree. A composition is admissible
+  only when the upstream theorem conclusion discharges the downstream theorem premises
+  under an explicit typed renaming and every load-bearing frame, temporal, phase,
+  resource, NDC, terminal, and provenance condition is proved preserved or updated.
 
 canonical_layers:
   E: causal_event_poset_and_support_ideals
@@ -43,6 +47,12 @@ unified_statement:
     Sigma_O(S,e) is the load-bearing typed dependency cone required to prove exact
     claim O about event e in context S. Isomorphic signatures license theorem reuse
     only for O; nonincident context remains live and q identity is unchanged.
+  theorem_composition: >
+    Theorem A may feed theorem B only when an explicit typed unification proves that
+    A's conclusion satisfies B's required premises and a frame proof accounts for every
+    load-bearing fact that B observes but A does not modify. Terminal alternatives and
+    temporal/resource transitions are part of the composition, not side conditions to
+    be assumed away.
   exact_value: "W = mu X . [ I union PreE(X) union PreA(X) ]"
   ordinary_value_identity: "q = support + normalized R0 + normalized R1"
   output_identity: "q + Pi0 when terminal-line provenance is observable"
@@ -54,29 +64,64 @@ unified_statement:
     structurally inside W; terminal-line provenance is the second-stage output.
 
 established_controls:
-  local_event_effect_signatures:
-    workflow_run: 34801815328
-    physical_transitions: 20
-    local_effect_classes: 12
-    nontrivial_reused_classes: 8
-  singleton_discharge_cross_family:
-    workflow_run: 34802078920
-    physical_contexts: 3
-    claim_relative_classes: 1
-    theorem: >
-      EnabledLiveP0Singleton(x) AND SideToMove=P1 implies that P1 claiming x on the
-      current turn discharges that singleton obligation unless the move itself is a
-      P1 terminal win.
-  response_capacity_cross_family:
-    theorem_class: size_two_transversal_matroid_circuit
-    normalized_claim: "two distinct mandatory actions compete for one sole defender slot"
-  latent_target_cross_pair:
-    workflow_run: 34801047093
-    result: exact_five_state_local_scheduler
-  phase_debt_and_stutter:
-    stutter_workflow: 34801299360
-    debt_workflow: 34801394490
-    law: "phi' = phi + e_a + e_b over GF(2)"
+  claim_relative_signature_library:
+    implementation_commit: 722d2f69a289bf40561f24aef9ae115a10f260d1
+    first_workflow_run: 34804665143
+    generic_tests: 9
+    result: pass
+  remaining_seed_claims:
+    implementation_commit: 27fe94853a8a6625b6a79c9ff80bf68374a381d7
+    workflow_run: 34805072309
+    seed_claims_qualified: 6
+    singleton_discharge:
+      physical_contexts: 3
+      canonical_classes: 1
+    same_column_stutter:
+      physical_contexts: 5
+      canonical_classes: 1
+    cross_support_pair:
+      physical_contexts: 2
+      canonical_classes: 1
+    phase_defect_transport:
+      physical_contexts: 92
+      canonical_classes: 1
+    size_two_response_capacity_circuit:
+      finite_models: 9
+      violating_models: 2
+      canonical_classes: 1
+      connect4_certificate_mapping: incomplete
+    universal_hinge:
+      legal_p1_replies_checked: 7
+      all_preserve_C3_G3_singletons: true
+      immediate_p1_terminal_replies: 0
+  primitive_factorization:
+    implementation_commit: 41acdedf735d2d0532ccaee1cc4fe6708b373dff
+    workflow_run: 34805220177
+    result: pass
+    R_monotone_residual_cofactor:
+      exact_instances: 4
+      downstream_claims:
+        - universal_hinge_generates_two_latent_singletons
+        - enabled_singleton_discharge
+    P_two_ply_GF2_column_operator:
+      exact_instances: 4
+      law: "phi' = phi + e_a + e_b over GF(2)"
+      downstream_claims:
+        - same_column_stutter_preserves_latent_contract
+        - phase_defect_transport
+    C_response_matching_capacity:
+      status: partial
+      blocker: general_connect4_certificate_to_obligation_response_slot_mapping_incomplete
+  exact_composition_bridge:
+    source_prefix: "4665655546"
+    events:
+      - "P0:D3"
+      - "P1:D4"
+    destination_prefix: "466565554644"
+    result: exact_C4_0010_state_identity_at_bridge
+    interpretation: >
+      The qualified hinge state reaches exactly the fixed latent-target temporal-contract
+      root after D3,D4. This is a composition seam only; it does not imply a win.
 
 bayesian_research_mask:
   role: research_priority_only
@@ -87,50 +132,75 @@ bayesian_research_mask:
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
+  - no_69_to_28_geometric_line_reduction_without_an_explicit_theorem
   - no_known_center_win_as_proof_premise
   - exact_search_oracles_are_discovery_and_falsification_controls_only
   - preserve_exact_c4_0010_q_identity
   - claim_relative_equivalence_is_not_state_equivalence
-  - every_claim_signature_must_include_all_load_bearing_CPC_NDC_resource_deadline_terminal_and_provenance_guards
-  - nonincident_context_remains_live_opaque_context
+  - theorem_composition_is_not_state_merging
+  - every_composition_must_prove_all_load_bearing_CPC_NDC_resource_deadline_terminal_and_provenance_guards
+  - opaque_nonincident_context_must_be_preserved_or_explicitly_updated_by_a_qualified_event
   - bayesian_mask_is_external_to_exact_logic
   - unresolved_frontiers_are_unknown_not_negative_values
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: build_claim_relative_signature_library
+  name: build_guarded_theorem_composition_calculus
   purpose: >
-    Construct a generic proof-theorem interface TypedEventSignature(claim,context,event)
-    over already-qualified evidence, derive claim dependency cones from explicit NDC-style
-    premises, and canonicalize them to discover hidden cross-family theorem classes.
-  seed_claims:
-    - enabled_singleton_discharge
-    - same_column_stutter_preserves_latent_contract
-    - cross_support_pair_establishes_two_chain_stage
-    - phase_defect_transport
-    - size_two_response_capacity_circuit
-    - universal_hinge_generates_two_latent_singletons
+    Define typed theorem pre/post contracts and exact composition checks so reusable
+    local theorem instances can be assembled only when premise discharge, frame
+    preservation, temporal/resource compatibility, terminal completeness, and any
+    observable provenance are proved. Use the exact D3->D4->latent-contract bridge as
+    the first bounded physical control.
   required_operations:
-    - DependencyCone_of_claim
-    - Canonicalize_typed_cone
-    - Verify_structure_preserving_renaming
-    - Instantiate_theorem_with_opaque_nonincident_context
+    - Export_typed_theorem_contract
+    - Unify_conclusion_with_premise
+    - Verify_opaque_frame_condition
+    - Verify_temporal_resource_compatibility
+    - Verify_terminal_complete_composition
+    - Compose_theorem_chain
+  first_control:
+    bridge: "4665655546 -- P0:D3 -- P1:D4 --> 466565554644"
+    source_claim: universal_hinge_generates_two_latent_singletons
+    destination_contract: latent_target_cross_pair_temporal_contract
+    required_check: >
+      Prove exactly which hinge conclusions survive D4 and which additional facts at
+      466565554644 are premises supplied by the exact transition rather than by the
+      hinge theorem itself.
+    forbidden_inference: >
+      Do not infer that reaching the latent-target contract proves P0 win; the qualified
+      target-only scheduler is locally defensible and off-subsystem moves remain live.
+  composition_candidates:
+    - hinge_to_latent_contract_activation
+    - stutter_then_latent_contract_reentry
+    - phase_transport_then_repair_effect_when_incident_R_signature_matches
+    - response_obligation_generation_then_capacity_circuit_when_mapping_is_exact
+  hostile_negative_controls:
+    - reject_phase_transport_to_stronger_local_repair_effect_when_incident_R_is_missing
+    - reject_capacity_circuit_connect4_application_without_exact_obligation_slot_mapping
+    - reject_composition_when_a_terminal_alternative_is_dropped
+    - reject_composition_when_opaque_nonincident_frame_changes_without_a_qualified_event
+    - reject_provenance_conclusion_from_value_only_or_provenance_free_contracts
+    - reject_temporal_composition_when_resource_or_deadline_state_is_missing
   bounded_steps:
-    - use only retained exact theorem premises and fixed bounded controls
-    - derive the smallest sufficient cone for each seed claim
-    - attempt cross-family canonical grouping
-    - for every rejected merge retain the smallest separating field
-    - treat full q or q_plus_Pi0 as observations only when the claim actually requires them
-    - stop if theorem signatures degenerate into one signature per physical state
+    - define_minimal_precondition_conclusion_and_frame_contract_schema
+    - derive_contracts_from_existing_qualified_typed_event_signatures_not_from_named_rules
+    - implement_exact_typed_unification_and_frame_checks
+    - bind_first_chain_to_exact_C4_0010_bridge
+    - retain_minimal_missing_or_contradictory_premise_for_every_rejected_composition
+    - identify_the_first_unproved_premise_blocking_extension_toward_center_opening_W_membership
+    - do_not_expand_the_physical_q_tree
   success_conditions:
-    - at least two independently qualified cross-family theorem classes
-    - a reusable schema whose soundness boundary explicitly states the observation or claim
-    - smaller proof vocabulary without weakening exact game semantics
+    - at_least_one_multi_theorem_chain_composes_and_replay_qualifies_without_q_tree_expansion
+    - composition_certificate_records_discharged_premises_and_preserved_or_updated_frame
+    - at_least_one_hostile_negative_composition_is_rejected_with_a_minimal_separator
+    - exact_missing_premises_toward_center_opening_W_are_narrower_than_before
   stop_conditions:
-    - physical q-tree reconstruction begins
-    - WDL labels become proof premises
-    - a claimed merge omits a load-bearing guard
+    - physical_q_tree_reconstruction_begins
+    - WDL_labels_become_proof_premises
+    - composition_omits_a_load_bearing_guard
+    - theorem_chain_silently_assumes_frame_preservation
     - wall_clock_reaches_5_minutes
 
 forbidden_shortcuts:
@@ -138,8 +208,11 @@ forbidden_shortcuts:
   - use_minimax_or_oracle_value_labels_as_certificate_facts
   - use_bayesian_credence_as_proof_authority
   - turn_claim_relative_isomorphism_into_q_state_equality
+  - turn_theorem_composition_into_implicit_q_state_merging
   - use_named_rule_identity_as_semantic_authority
   - erase_unrelated_global_facts_rather_than_parameterize_over_them
+  - assume_temporal_or_resource_state_survives_without_a_frame_proof
+  - apply_response_capacity_without_an_exact_obligation_response_mapping
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
