@@ -1,0 +1,41 @@
+name: Frontier refusal hard-leaf full rho
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - .github/workflows/frontier-refusal-hard-leaf-full-rho.yml
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-probe.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  full-rho:
+    strategy:
+      fail-fast: false
+      matrix:
+        sequence:
+          - '466565554644347477'
+          - '466565554644347577'
+          - '466565554644347677'
+          - '466565554644357477'
+          - '466565554644357677'
+          - '466565554644367477'
+          - '466565554644367577'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Full rho ${{ matrix.sequence }}
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-probe.mjs '${{ matrix.sequence }}' C3 2>&1 | tee rho-${{ matrix.sequence }}.log
