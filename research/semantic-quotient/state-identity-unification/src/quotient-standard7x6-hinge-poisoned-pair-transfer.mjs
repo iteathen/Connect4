@@ -13,7 +13,6 @@ function terms(kernel,id,p){const cid=p===0?kernel.states.p0At(id):kernel.states
 function coord(cell){return `${String.fromCharCode(65+(cell%7))}${Math.floor(cell/7)+1}`;}
 function tkey(t){return t.map(coord).join('-');}
 function intersects(term,mask){return term.some(c=>mask.has(c));}
-function coverage(ts,mask){return ts.filter(t=>intersects(t,mask));}
 function noCoverage(ts,mask){return ts.filter(t=>!intersects(t,mask));}
 function playableSingleton(ts,cell){return ts.some(t=>t.length===1&&t[0]===cell);}
 
@@ -23,7 +22,6 @@ const root=replay(kernel,SEQUENCE);
 if(rank(kernel,root)!==12)throw new Error('rank drift');
 const p0=terms(kernel,root,0);
 if(!playableSingleton(p0,C3)||!playableSingleton(p0,G3)){
-  // They are live singletons but not currently playable; name kept for compact helper use.
   if(!p0.some(t=>t.length===1&&t[0]===C3)||!p0.some(t=>t.length===1&&t[0]===G3))throw new Error('hinge singleton drift');
 }
 const fullMask=new Set();for(const r of [1,3,5])for(let c=0;c<7;c++)fullMask.add(r*7+c);
@@ -35,10 +33,11 @@ const transferred=reducedUncovered.filter(t=>!fullKeys.has(tkey(t)));
 function privateTo(cell){const without=new Set([...fullMask].filter(c=>c!==cell));return noCoverage(p0,without).filter(t=>!fullKeys.has(tkey(t)));}
 
 function verifyPoison(columnOneBased,target){
+  const triggerCell=columnOneBased===3?2:6;
   const lower=kernel.advance(root,columnOneBased-1);if(lower<0)throw new Error('lower illegal/terminal');
   const upper=kernel.advance(lower,columnOneBased-1);if(upper<0)throw new Error('upper response illegal/terminal');
   const targetMove=kernel.advance(upper,columnOneBased-1);
-  return {column:columnOneBased,triggerLanding:coord(columnOneBased===3?7+2:7+6),responseLanding:coord(columnOneBased===3?C2:G2),target:coord(target),targetMoveIsImmediateP0Terminal:targetMove===domain.QN_TERMINAL_WIN};
+  return {column:columnOneBased,triggerLanding:coord(triggerCell),responseLanding:coord(columnOneBased===3?C2:G2),target:coord(target),targetMoveIsImmediateP0Terminal:targetMove===domain.QN_TERMINAL_WIN};
 }
 
 console.log(`HINGE_POISON_TRANSFER=${JSON.stringify({
