@@ -1,0 +1,32 @@
+name: Frontier latent C1 full closure
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-full-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-remaining-replies.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-refusal-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rho-action-branch-composition.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-probe.mjs
+      - .github/workflows/frontier-latent-c1-full-closure.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  full-c1-closure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify all seven P1 replies after P0 C1
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-full-closure.mjs
