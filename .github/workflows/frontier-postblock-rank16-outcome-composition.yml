@@ -1,0 +1,52 @@
+name: Frontier post-block rank16 outcome composition
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-rank16-outcome-composition.mjs
+      - .github/workflows/frontier-postblock-rank16-outcome-composition.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  composition:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      wins: ${{ steps.run.outputs.wins }}
+      losses: ${{ steps.run.outputs.losses }}
+      enhanced: ${{ steps.run.outputs.enhanced }}
+      kappa: ${{ steps.run.outputs.kappa }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Compose exact rank16 outcomes
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank16-outcomes.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-rank16-outcome-composition.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_RANK16_OUTCOME_COMPOSITION='));
+          if(!line) throw new Error('rank16 composition summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactRank16Contexts!==12||x.exactRank18Children!==84||x.winningContexts!==11||x.losingContexts!==1) throw new Error('rank16 outcome drift');
+          if(x.losingContexts[0].sequence!=='4665655546443233') throw new Error('rank16 loss identity drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`wins=${x.winningContexts}`,`losses=${x.losingContexts}`,`enhanced=${x.childCounts.enhanced}`,`kappa=${x.childCounts.kappa}`].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: composition
+    name: rank16-w${{ needs.composition.outputs.wins }}-l${{ needs.composition.outputs.losses }}-enhanced${{ needs.composition.outputs.enhanced }}-kappa${{ needs.composition.outputs.kappa }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "rank16 outcome composition encoded in job name"
