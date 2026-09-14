@@ -31,7 +31,10 @@ function resolvedCol(target){return target===G3?C:G;}
 function shardKey(e,state,target){return `${target===C3?'C3':'G3'}|p${phase(e,state)}|c${sortedCaps(e,state)}|rh${e.heights(state)[resolvedCol(target)]}`;}
 function isResource(msg){return msg.includes('lex proof-state cap exceeded')||msg.includes('reserved quotient');}
 
-// Reconstruct the exact 84 rank18 states and retain only the ten resource-contaminated shards reported by the broad run.
+// Reconstruct the exact 84 rank18 states and retain all roots belonging to the ten
+// resource-contaminated shards reported by the broad run. Two of these seventeen roots
+// had already completed before their shared shard exhausted; re-evaluating the whole shard
+// population is cleaner than encoding prior execution order into theorem semantics.
 const dk=makeKernel(),de=createRepairCapacityProofEngine(dk,{collectAllWinningActions:false,maxProofStates:1});
 const roots=[];
 for(const fam of [
@@ -49,7 +52,7 @@ for(const fam of [
   if(RESOURCE_SHARDS.has(key))roots.push({family:fam.family,r1,r2,target:fam.target,sequence:s16seq+String(fam.resolved+1)+String(r2+1),shardKey:key});
  }
 }
-assert.equal(roots.length,15,'resource-root population drift');
+assert.equal(roots.length,17,'resource-shard root population drift');
 
 function buildKnown20(k,e){
  const known=new Map();
@@ -101,14 +104,14 @@ for(const root of roots){
 }
 const closed=rows.filter(x=>x.closed),failed=rows.filter(x=>!x.closed),witnessColumns={};for(const x of closed){witnessColumns[x.witness.column]=(witnessColumns[x.witness.column]??0)+1;}
 console.log(`POSTBLOCK_RESOURCE_ISOLATED_PREDECESSOR=${JSON.stringify({
- kind:'standard7x6-postblock-resource-shards-action-reply-isolated-predecessor-v1',
+ kind:'standard7x6-postblock-resource-shards-action-reply-isolated-predecessor-v2',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
  exactResourceShardRoots:roots.length,closedRoots:closed.length,failedRoots:failed.length,resourceReplyCount,witnessColumns,
  rows:rows.map(x=>({member:`${x.family}:${de.col(x.r1)}->${de.col(x.r2)}`,sequence:x.sequence,target:x.target===C3?'C3':'G3',shardKey:x.shardKey,closed:x.closed,witness:x.witness,attempts:x.closed?x.attempts.map(a=>({column:a.column,accepted:a.accepted,firstFailure:a.firstFailure?{route:a.firstFailure.route,reply:a.firstFailure.reply,replyCell:a.firstFailure.replyCell,targetDistance:a.firstFailure.targetDistance??null,error:a.firstFailure.error??null}:null})):x.attempts})),
  interpretation:resourceReplyCount
   ? 'At least one individual P1 branch still hits the unchanged proof/quotient resource boundary even after root/action/reply isolation. Preserve that exact branch; do not widen the cap.'
   : failed.length===0
-    ? 'All fifteen roots previously hidden by shard-level resource contamination have exact branch-complete P0 witnesses when action and reply proof work is isolated. Resource sharing, not theorem failure, caused the broad-run ambiguity.'
+    ? 'All seventeen roots in the previously resource-contaminated shards have exact branch-complete P0 witnesses when action and reply proof work is isolated. Resource sharing, not theorem failure, caused the broad-run ambiguity.'
     : 'Resource ambiguity is removed for all isolated branches, but some exact rank18 roots still have no branch-complete witness under the qualified leaves. Preserve those logical failures as the next seam.',
- theoremBoundary:'This re-evaluates only the fifteen roots from resource-contaminated broad-run shards. Each P0 action and, when needed, each P1 reply is qualified in a fresh unchanged 100000-state lexicographic proof arena. Isolation is execution hygiene only; no state/q equality, solved WDL, arbitrary frontier search, or cap increase is used.'
+ theoremBoundary:'This re-evaluates all seventeen roots belonging to the ten resource-contaminated broad-run shards. Each P0 action and, when needed, each P1 reply is qualified in a fresh unchanged 100000-state lexicographic proof arena. Isolation is execution hygiene only; no state/q equality, solved WDL, arbitrary frontier search, or cap increase is used.'
 })}`);
