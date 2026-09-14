@@ -1,0 +1,37 @@
+name: Frontier rank7 post-F5 residual dominance diagnostic
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-post-f5-residual-dominance-diagnostic.mjs
+      - .github/workflows/frontier-rank7-post-f5-residual-dominance-diagnostic.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Diagnose local residual dominance
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank7-residual-dominance.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-post-f5-residual-dominance-diagnostic.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK7_POST_F5_RESIDUAL_DOMINANCE_DIAGNOSTIC='));
+          if(!line) throw new Error('rank7 residual-dominance summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.cases.length!==3) throw new Error('rank7 residual-dominance case count drift');
+          if(JSON.stringify(x.cases.map(c=>c.rank7Reply))!==JSON.stringify(['A','B','G'])) throw new Error('rank7 residual-dominance case set drift');
+          NODE
