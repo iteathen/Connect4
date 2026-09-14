@@ -1,0 +1,42 @@
+name: Frontier rank9 full reply closure
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-full-reply-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-reply-family-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-composed-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-d3-reply-horizon-closure.mjs
+      - .github/workflows/frontier-rank9-full-reply-closure.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify full rank9 P1 reply horizon
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank9-full.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-full-reply-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK9_FULL_REPLY_CLOSURE='));
+          if(!line) throw new Error('rank9 full closure summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.proved!==true) throw new Error('rank9 full reply horizon unproved');
+          if(x.parent!=='466565554'||x.sideToMove!=='P1') throw new Error('rank9 theorem root drift');
+          if(JSON.stringify(x.coveredP1Replies)!==JSON.stringify(['A','B','C','D','E','F','G'])) throw new Error('rank9 reply coverage drift');
+          if(x.branches.length!==7) throw new Error('rank9 branch count drift');
+          NODE
