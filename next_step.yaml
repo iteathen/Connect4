@@ -8,12 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: construct_or_falsify_natural_middle_intertwiner
+  id: transport_common_Y_through_P_R_and_boundary_splittings
   objective: >-
-    Continue from the qualified support-graded perfect duality between the corrected 28-dimensional
-    line and cell cores. Determine whether Connect4 supplies a natural direct intertwiner
-    T:Y_line->Y_cell, or whether the strongest canonical statement is the perfect dual pairing
-    Y_line ~= Y_cell^*. Do not use arbitrary Gaussian basis matching or a noncanonical vector-space split.
+    Continue from the proved standard-7x6 natural isomorphism T:Y_line->Y_cell. Treat the 28-dimensional
+    middle object as identified through the explicit CPC/residual construction, then determine how it
+    interacts with the corrected boundary quotients, CPC phase transport P, and residual degree descent R.
+    Do not reopen the already-closed existence question for T unless a concrete falsifier is found.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -23,117 +23,108 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-14-support-graded-middle-duality.md
-  - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs
+  - docs/research/2026-09-14-cpc-residual-middle-isomorph.md
+  - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs
 
 qualified_premises:
-  - id: target_free_incidence_dimensions
-    statement: >-
-      From GF(2), K=4, H=6, W=7, the standard geometry derives L=69, rank(B)=35,
-      dim ker(B)=34, and the common excess 28 without 28 or 69 as primitive theorem inputs.
-  - id: original_projection_falsifiers
-    statement: >-
-      Column parity restricted to im(B) has rank 4, not 7. Pure-horizontal-line parity by row
-      restricted to ker(B) has rank 5, not 6.
   - id: corrected_middle_cores
     statement: >-
-      Row-plus-column axis parity on im(B) has rank 7; vertical-line parity by column on ker(B)
-      has rank 6. Their explicit kernels Y_cell and Y_line both have derived dimension 28.
-  - id: symmetry_scope
-    statement: >-
-      Bare-incidence top-bottom reflection fixed dimensions differ (Y_cell 16, Y_line 14), so a
-      B-only reflection-equivariant identification is falsified. This is not a Connect4-level
-      falsifier because gravity/support order breaks top-bottom symmetry. Left-right fixed dimensions
-      agree at 14 and remain a required naturality check.
+      Y_cell=ker((row+column parity)|im(B)) and Y_line=ker(vertical-line parity|ker(B)) are explicit
+      28-dimensional GF(2) spaces derived from standard geometry. The original column-only and
+      horizontal-row-only projections have ranks 4 and 5 and remain falsified.
   - id: residual_complex
     statement: >-
-      The residual boundary satisfies partial_3*partial_4=0, partial_4 is injective, and
-      J_3*partial_4=B. Degree-3 residual incidence has rank 42, falsifying naive W*(K-1)=21
-      as an automatic residual-core dimension.
-  - id: support_graded_perfect_pairing
+      partial_4 is injective, partial_3*partial_4=0, and J_3*partial_4=B. Raw degree-3 residual incidence
+      has rank 42, so residual arity alone does not establish 28->21.
+  - id: cpc_residual_event_parity
     statement: >-
-      g(S)=supportClosureSize(S)+componentCountAlongOriginalLine(S)+maxRow(S) mod 2 on
-      S=line\\{cell} induces a left-right-equivariant perfect pairing of rank 28 between
-      Y_cell and Y_line. Hence Y_line is naturally identified with Y_cell^* under this pairing.
+      For degree-3 residual S, q(S)=supportClosureSize(S)+maxRow(S) mod2 equals zero-reservation CPC
+      event-count parity N(t) mod2 at any highest residual event after the rest of the minimal support
+      closure. q is event-rank parity, not the owner bit N(t)-1.
+  - id: nondegenerate_line_self_pairing
+    statement: >-
+      gamma(y,z)=(partial_4 y)^T diag(q)(partial_4 z) has rank 28 on Y_line. Weighting by q XOR 1 has rank 16.
+  - id: nondegenerate_cross_pairing
+    statement: >-
+      beta(c,l) uses incident-cell weight q(l\\{c}) XOR connected(l\\{c}). On the corrected cores,
+      q alone has rank 20, connectedness alone rank 16, and the combined pairing rank 28.
+  - id: natural_direct_isomorphism
+    statement: >-
+      T is defined without a basis by beta(Ty,z)=gamma(y,z) for every z in Y_line, equivalently
+      beta_flat o T = gamma_flat. The exact control proves rank(T)=28, T(Y_line)=Y_cell,
+      left-right equivariance, and invariance under independent changes of the arbitrary execution bases.
     qualification:
-      control: quotient-standard7x6-support-graded-middle-duality-control.mjs
+      control: quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs
       local_payload: proved:true
-      commit: 6dd91db38392cef03e499b6e526eea9ba8dc4eaf
-      github_actions_run: 34907472035
+      commit: 5a7ded1666cf55e701c5b22f828cf69f0e89f643
+      github_actions_run: 34908549249
       github_actions_result: infrastructure_failure_before_checkout
-  - id: no_free_self_duality
+  - id: symmetry_scope
     statement: >-
-      Ambient dot products restricted to Y_cell and Y_line each have rank 24, so the perfect pairing
-      does not canonically identify either core with its own dual.
+      Left-right reflection is preserved. Top-bottom symmetry is intentionally not required because gravity/support
+      order is theorem data; the bare-incidence top-bottom fixed-space mismatch is not a Connect4-level falsifier.
   - id: P_boundary
     statement: >-
-      Same-column CPC two-ply stutter is zero displacement. Distinct-column phase deltas lie in the
-      corrected length-4 column-interval boundary only for one-based pairs (1,5), (2,6), (3,7).
-      Therefore generic P transport is not yet an action solely on the boundary quotient.
+      Same-column two-ply phase stutter is zero. A generic distinct-column phase delta e_a+e_b is not automatically
+      a cell-incidence vector or an action solely on the corrected boundary quotient. Keep CPC phase space typed.
   - id: family_falsification
     statement: >-
-      In the finite W=2K-1,H=2K-2 neighborhood K=2..8, only K=4 has equal image-over-width and
-      kernel-over-height excess. K=2 is the smallest tested counterexample.
+      In finite W=2K-1,H=2K-2 tests K=2..8, only K=4 has equal image-over-width and kernel-over-height excess;
+      K=2 is the smallest counterexample.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  primary_question: >-
-    Is there a Connect4-defined nondegenerate self-pairing or direct map on Y_cell that composes with
-    the qualified residual/support perfect pairing to produce a natural T:Y_line->Y_cell?
-  candidate_order:
-    - >-
-      CPC/event-order forms derived from the exact zero-reservation event reservoir. A candidate must
-      be defined on semantic cell/event structure before choosing any Y basis.
-    - >-
-      Residual-induced cell forms obtained from the qualified g(S) pairing and the graded residual
-      boundary, provided their type and commuting relations are explicit.
-    - >-
-      Support-filtration or cycle/cocycle constructions that preserve gravity order and left-right
-      reflection while making no top-bottom-symmetry assumption.
-    - >-
-      If all natural self-duality candidates remain degenerate, attempt an impossibility statement
-      under an explicit naturality class rather than inventing an arbitrary complement.
+  order:
+    - id: natural_boundary_sections
+      question: >-
+        Do the corrected exact sequences admit Connect4-defined sections? Construct explicit sections only from
+        interval/support/incidence structure. If no natural section emerges, preserve the exact sequences without
+        rewriting ordinary vector-space splitting as canonical.
+      cell_sequence: 0 -> Y_cell -> im(B) -> Q_axis -> 0
+      line_sequence: 0 -> Y_line -> ker(B) -> Even(F2^W) -> 0
+    - id: typed_P_transport
+      question: >-
+        Define the actual typed relationship between CPC phase space and the corrected quotient/core decomposition.
+        Test same-column stutter and every distinct-column pair through an explicit map; do not add phase vectors
+        directly to arbitrary cell-incidence vectors.
+    - id: residual_degree_descent
+      question: >-
+        Push partial_4 through the identified common Y using the CPC/support quotient. Determine whether a genuine
+        degree-3 core of dimension W*(K-1)=21 appears only after the correct quotient, or preserve the smallest
+        counterexample if it does not.
+    - id: generalization
+      question: >-
+        Re-test the complete construction, not just dimensions, on nearby parameter values where typing permits it.
+        Preserve K=2 as the smallest current middle-dimension counterexample.
   required_checks:
-    - compute the restricted rank before claiming nondegeneracy
-    - verify left-right reflection equivariance
+    - every claimed section has an explicit right-inverse identity
+    - every induced core action has an explicit domain/codomain and rank
+    - preserve beta_flat o T = gamma_flat as the commuting identity for the middle object
+    - verify left-right naturality for newly claimed structural maps
     - do not require top-bottom reflection invariance
-    - prove any claimed map lands in Y_cell and is injective/surjective there
-    - if using the perfect pairing, distinguish Y_cell from Y_cell^*
-    - test commutation with the residual boundary/cofactor construction where typed
-    - keep P/CPC support-height phase distinct from arbitrary cell-incidence vectors
-    - preserve the K=2..8 counterexamples when proposing a general theorem
-  falsification:
-    - a degenerate restricted form cannot define the desired self-duality
-    - a basis-dependent Gaussian match is not canonical evidence
-    - top-bottom reflection mismatch is not a valid Connect4-level rejection by itself
-    - residual arity reduction alone does not imply 28->21
-    - P acting on phase space does not imply an action on Y without an explicit intertwiner
+    - keep event-rank parity distinct from eventual-owner parity
+    - do not infer 28->21 from residual arity alone
+    - do not use solved WDL labels as structural premises
   proof_boundaries:
     - unknown_is_not_loss
     - theorem_failure_is_not_opposite_game_outcome
     - resource_failure_is_not_logical_rejection
-    - same_dimension_is_not_canonical_isomorphism
     - vector_space_split_is_not_natural_split
+    - phase_space_is_not_cell_space_without_map
     - no_predefined_28_in_target_free_middle_theorem
     - no_predefined_69_in_strongest_target_free_control
     - connect4_residual_cofactor_is_not_connect3_incidence_without_map
     - candidate_specs_0006_0007_remain_candidate
 
 success_criteria:
-  direct_isomorphism_success:
-    - define T from Connect4 incidence/support/residual/CPC structure before basis selection
-    - prove T maps Y_line into Y_cell
-    - prove rank(T|Y_line)=dim(Y_line)
-    - verify left-right naturality and required commuting diagrams
-    - persist a proved:true executable control and research note
-  duality_terminal_success:
-    - define an explicit naturality class for admissible direct intertwiners/self-pairings
-    - prove or finitely exhaust that class sufficiently to justify why no canonical direct T follows
-    - preserve Y_line ~= Y_cell^* as the strongest theorem rather than forcing self-identification
+  - boundary section claims are either explicitly proved or explicitly left noncanonical
+  - P is transported through typed maps rather than analogy
+  - residual degree descent is tested in the CPC/support quotient category
+  - findings are persisted with Josh Oshiro attribution and exact theorem/falsifier boundaries
 
 paused_solver_seam:
   state: "4665655"
   status: unfinished_but_preserved
   note: >-
-    The prior rank-7 P1 reply-horizon W/D/L seam remains valid unfinished work but is not the active
-    task. Resume only by explicit owner selection; do not route there from stale status text.
+    The prior rank-7 P1 reply-horizon W/D/L seam remains valid unfinished work but is not active. Resume only by
+    explicit owner selection; do not route there from stale current-state text.
