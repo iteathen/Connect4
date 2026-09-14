@@ -13,7 +13,9 @@ const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
 const ROOT = '466565554644';
 const C = 2, G = 6;
 const C3 = 2 * 7 + C, G3 = 2 * 7 + G;
+const MAX_PROOF_STATES = 100000;
 const PROBE = fileURLToPath(new URL('./quotient-standard7x6-expired-response-rho-probe.mjs', import.meta.url));
+const REPAIR_ACTIONS = Object.freeze(['A', 'B', 'D', 'E', 'F']);
 
 function replay(kernel, sequence) {
   let id = kernel.rootId;
@@ -27,6 +29,7 @@ function replay(kernel, sequence) {
 function col(c) { return String.fromCharCode(65 + c); }
 function coord(cell) { return `${col(cell % 7)}${Math.floor(cell / 7) + 1}`; }
 function targetName(target) { return target === C3 ? 'C3' : 'G3'; }
+function resolvedActionName(target) { return target === C3 ? 'G' : 'C'; }
 
 const { kernel } = createSlot64ResidualQuotientKernel(DOMAIN, {
   cacheEdges: true,
@@ -38,19 +41,64 @@ kernel.prepareSearchStorage();
 // Observation/terminal helper only. Recursive proof is delegated to fresh rho-probe processes.
 const e = createRepairCapacityProofEngine(kernel, { maxProofStates: 1 });
 
-function isolatedRhoProbe(sequence, target) {
-  const child = spawnSync(process.execPath, [PROBE, sequence, targetName(target)], {
+function runRhoProbe(sequence, target, rootAction) {
+  const child = spawnSync(process.execPath, [PROBE, sequence, targetName(target), rootAction], {
     encoding: 'utf-8',
     timeout: 270000,
     maxBuffer: 16 * 1024 * 1024,
   });
   if (child.error) throw child.error;
   if (child.status !== 0) {
-    throw new Error(`isolated rho probe failed for ${sequence}/${targetName(target)}: ${(child.stderr ?? '').slice(-8000)}`);
+    return {
+      sequence,
+      target: targetName(target),
+      rootAction,
+      proved: false,
+      kind: 'probe_process_error',
+      error: (child.stderr ?? '').slice(-8000),
+    };
   }
   const line = (child.stdout ?? '').split(/\r?\n/).find((x) => x.startsWith('EXPIRED_RESPONSE_RHO_PROBE='));
-  if (!line) throw new Error(`rho probe output missing for ${sequence}/${targetName(target)}`);
+  if (!line) {
+    return {
+      sequence,
+      target: targetName(target),
+      rootAction,
+      proved: false,
+      kind: 'probe_output_missing',
+      error: (child.stdout ?? '').slice(-8000),
+    };
+  }
   return JSON.parse(line.slice('EXPIRED_RESPONSE_RHO_PROBE='.length));
+}
+
+function isolatedRhoProof(sequence, target) {
+  const actionOrder = [resolvedActionName(target), ...REPAIR_ACTIONS.filter((x) => x !== resolvedActionName(target))];
+  const attempts = [];
+  for (const action of actionOrder) {
+    const result = runRhoProbe(sequence, target, action);
+    attempts.push(result);
+    if (result.proved) {
+      return {
+        proved: true,
+        kind: 'root_action_isolated_rho',
+        sequence,
+        target: targetName(target),
+        witness: result.witness ?? action,
+        witnessKind: result.witnessKind ?? result.kind,
+        selectedRootAction: action,
+        selected: result,
+        attempts,
+      };
+    }
+  }
+  return {
+    proved: false,
+    kind: 'no_isolated_rho_root_action',
+    sequence,
+    target: targetName(target),
+    attempts,
+  };
 }
 
 function forceOneTargetThenRho(state, stateSequence, attackCol, attackTarget, otherTarget) {
@@ -64,14 +112,14 @@ function forceOneTargetThenRho(state, stateSequence, attackCol, attackTarget, ot
   assert.equal(supportCell, attackTarget - 7, 'target support event not directly playable');
   const afterSupport = kernel.advance(state, attackCol);
   if (afterSupport === domain.QN_TERMINAL_WIN) {
-    return { closed: true, attack: coord(attackTarget), supportEvent: coord(supportCell), route: 'P0_terminal_on_support', replies: [], rhoProbe: null };
+    return { closed: true, attack: coord(attackTarget), supportEvent: coord(supportCell), route: 'P0_terminal_on_support', replies: [], rhoProof: null };
   }
   assert(afterSupport >= 0 && e.rank(afterSupport) === e.rank(state) + 1);
   assert.equal(e.landing(afterSupport, attackCol), attackTarget, 'target did not become directly playable');
 
   const replies = [];
   let closed = true;
-  let rhoProbe = null;
+  let rhoProof = null;
   for (const reply of e.legal(afterSupport)) {
     const replyCell = e.landing(afterSupport, reply);
     const child = kernel.advance(afterSupport, reply);
@@ -104,19 +152,19 @@ function forceOneTargetThenRho(state, stateSequence, attackCol, attackTarget, ot
 
     const digit = String(attackCol + 1);
     const probeSequence = stateSequence + digit + digit;
-    rhoProbe = isolatedRhoProbe(probeSequence, otherTarget);
-    if (!rhoProbe.proved) {
+    rhoProof = isolatedRhoProof(probeSequence, otherTarget);
+    if (!rhoProof.proved) {
       closed = false;
       replies.push({
         reply: col(reply), replyCell: coord(replyCell), route: 'rho_unproved_after_forced_block',
-        blockedTarget: coord(attackTarget), remainingTarget: coord(otherTarget), rhoProbe,
+        blockedTarget: coord(attackTarget), remainingTarget: coord(otherTarget), rhoProof,
       });
       continue;
     }
 
     replies.push({
       reply: col(reply), replyCell: coord(replyCell), route: 'forced_block_to_isolated_rho',
-      blockedTarget: coord(attackTarget), remainingTarget: coord(otherTarget), rhoProbe,
+      blockedTarget: coord(attackTarget), remainingTarget: coord(otherTarget), rhoProof,
     });
   }
 
@@ -126,7 +174,7 @@ function forceOneTargetThenRho(state, stateSequence, attackCol, attackTarget, ot
     supportEvent: coord(supportCell),
     route: closed ? 'dual_target_forced_block_rho_closed' : 'dual_target_forced_block_rho_open',
     replies,
-    rhoProbe,
+    rhoProof,
   };
 }
 
@@ -145,7 +193,7 @@ assert.equal(e.targetDistance(afterSeize, G3), 1);
 
 const branches = [];
 let allClosed = true;
-let isolatedProbeCount = 0;
+let isolatedProbeProcesses = 0;
 for (const reply of e.legal(afterSeize)) {
   const replyCell = e.landing(afterSeize, reply);
   const child = kernel.advance(afterSeize, reply);
@@ -170,12 +218,12 @@ for (const reply of e.legal(afterSeize)) {
 
   const attempts = [];
   const first = forceOneTargetThenRho(child, childSequence, C, C3, G3);
-  if (first.rhoProbe) isolatedProbeCount++;
+  if (first.rhoProof) isolatedProbeProcesses += first.rhoProof.attempts.length;
   attempts.push(first);
   let selected = first.closed ? first : null;
   if (!selected) {
     const second = forceOneTargetThenRho(child, childSequence, G, G3, C3);
-    if (second.rhoProbe) isolatedProbeCount++;
+    if (second.rhoProof) isolatedProbeProcesses += second.rhoProof.attempts.length;
     attempts.push(second);
     if (second.closed) selected = second;
   }
@@ -190,7 +238,7 @@ for (const reply of e.legal(afterSeize)) {
 }
 
 console.log(`EXPIRED_RESPONSE_RHO_HANDOFF=${JSON.stringify({
-  kind: 'standard7x6-expired-response-support-seizure-dual-target-rho-handoff-v2',
+  kind: 'standard7x6-expired-response-support-seizure-dual-target-rho-handoff-v3',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -205,14 +253,16 @@ console.log(`EXPIRED_RESPONSE_RHO_HANDOFF=${JSON.stringify({
   allClosed,
   promotedConsequence: allClosed ? `${ROOT}32 in W via P0:G1` : null,
   executionIsolation: {
-    isolatedRhoProbes: isolatedProbeCount,
-    reason: 'Each top-level rho handoff runs in a fresh kernel to avoid cross-candidate quotient-state-pool contamination.',
+    isolatedRhoProbeProcesses,
+    actionOrder: 'resolved-tail first, then A/B/D/E/F',
+    reason: 'Each top-level rho candidate action runs in a fresh kernel; recursive descendants retain the complete rho calculus.',
     semanticIdentityImplied: false,
-    proofStateCapPerProbe: 100000,
+    proofStateCapPerProbe: MAX_PROOF_STATES,
+    quotientStorage: { states: 262144, classes: 524288, chunksPerSlot: 131072 },
     quotientStorageBoundsChanged: false,
   },
   theoremBoundary: allClosed
-    ? 'Exact B1-refusal consequence only. P0 occupies the expired G1 response cell. C2/G2 replies expose immediate C3/G3 terminals; every remaining off-subsystem P1 reply enters a dual distance-one target state where P0 can force one target block and hand the other target to the qualified rho=(delta,mu) resolved-tail induction. This proves the exact refusal state is in W but does not generalize the refusal column, prove the latent root, imply q equality, or reset the expired deadline.'
-    : 'Exact B1-refusal consequence only. Unclosed branches are preserved as unknown separators; failure is not loss and the expired deadline is never reset.',
-  authority: 'Exact C4-0010 transitions/residuals and terminal certificates plus execution-isolated invocations of the already-qualified resolved-tail rho=(delta,mu) proof engine under unchanged 100000-state and quotient-storage bounds. No solved W/D/L label, external oracle premise, or unrestricted q-frontier recursion.',
+    ? 'Exact B1-refusal consequence only. P0 occupies the expired G1 response cell. C2/G2 replies expose immediate C3/G3 terminals; every remaining off-subsystem P1 reply enters a dual distance-one target state where P0 can force one target block and hand the other target to the qualified rho=(delta,mu) resolved-tail induction. Rho top-level actions are execution-isolated only. This proves the exact refusal state is in W but does not generalize the refusal column, prove the latent root, imply q equality, or reset the expired deadline.'
+    : 'Exact B1-refusal consequence only. Unclosed branches and all isolated rho action attempts are preserved as separators; failure/resource exhaustion is not loss and the expired deadline is never reset.',
+  authority: 'Exact C4-0010 transitions/residuals and terminal certificates plus root-action-isolated invocations of the already-qualified resolved-tail rho=(delta,mu) proof engine under unchanged proof-state and quotient-storage bounds. No solved W/D/L label, external oracle premise, or unrestricted q-frontier recursion.',
 })}`);
