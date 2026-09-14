@@ -84,7 +84,7 @@ assert.equal(childCounts.p1Terminal,0,'unexpected direct P1 terminal after force
 console.log(`POSTBLOCK_RANK16_OUTCOME_COMPOSITION=${JSON.stringify({
  kind:'standard7x6-postblock-rank16-outcome-composition-v1',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
- exactRank16Contexts:contexts.length,winningContexts:wins.length,losingContexts:losses.length,exactRank18Children:exactRank18.size,
+ exactRank16Contexts:contexts.length,winningContexts:wins.length,losingContextCount:losses.length,exactRank18Children:exactRank18.size,
  childCounts,
  winningSequences:wins.map(x=>x.sequence),
  losingContexts:losses.map(x=>({sequence:x.sequence,family:x.family,r1:x.r1,lossWitness:x.lossWitness})),
