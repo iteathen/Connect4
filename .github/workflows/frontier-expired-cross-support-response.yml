@@ -1,0 +1,28 @@
+name: Frontier expired cross-support response
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-cross-support-response-consequence.mjs
+      - .github/workflows/frontier-expired-cross-support-response.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  expired-cross-support-response:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Classify expired cross-support response consequence
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-cross-support-response-consequence.mjs
