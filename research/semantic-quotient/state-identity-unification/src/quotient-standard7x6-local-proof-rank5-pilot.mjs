@@ -276,7 +276,7 @@ console.log(`LOCAL_PROOF_RANK5=${JSON.stringify({
   expressionHistogram: [...expressionHistogram.entries()]
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([expression, states]) => ({ expression, states })),
-  newRankFiveExamples,
+  newRank5Examples,
   unresolvedExamples,
   proofAuthority: 'All reported proofs use only legal C4-0010 transitions and structural I/O/E/A closure. The pinned oracle is used only by the upstream source-frontier constructor and is not consulted by rank-1/rank-3/rank-5 proof selection.',
   theoremStatus: capHit
