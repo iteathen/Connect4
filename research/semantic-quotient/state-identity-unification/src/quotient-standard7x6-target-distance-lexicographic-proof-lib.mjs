@@ -7,6 +7,7 @@ import { createResolvedTailLexicographicProofEngine, STANDARD7X6_RESOLVED_TAIL_R
 
 export function createTargetDistanceLexicographicProofEngine(kernel, options = {}) {
   const maxProofStates = options.maxProofStates ?? 100000;
+  const rootActions = options.rootActions == null ? null : Object.freeze([...options.rootActions]);
   const lex = createResolvedTailLexicographicProofEngine(kernel, { maxProofStates });
   const e = lex.repair;
   const memo = new Map();
@@ -124,6 +125,11 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
       if (current.delta > 0 && !allowed.includes(resolved)) allowed.push(resolved);
     }
 
+    if (depth === 0 && rootActions !== null) {
+      const rootActionSet = new Set(rootActions);
+      allowed = allowed.filter((action) => rootActionSet.has(action));
+    }
+
     const rejected = [];
     for (const action of [...new Set(allowed)]) {
       const actionCell = e.landing(state, action);
@@ -222,6 +228,7 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
       capacityDefects,
       memoEntries: memo.size,
       maxProofStates,
+      rootActions,
     }),
   });
 }
