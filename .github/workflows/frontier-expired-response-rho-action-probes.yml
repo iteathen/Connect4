@@ -1,10 +1,11 @@
-name: Frontier expired-response rho action probes
+name: Frontier expired-response G4 separator
 
 on:
   push:
     branches:
       - research/frontier-negamax-conformance
     paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-g4-separator.mjs
       - .github/workflows/frontier-expired-response-rho-action-probes.yml
   workflow_dispatch:
 
@@ -12,31 +13,16 @@ permissions:
   contents: read
 
 jobs:
-  probe:
-    name: rho-G3-C-${{ matrix.case }}
+  separator:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - case: A
-            sequence: '466565554644327133'
-          - case: B
-            sequence: '466565554644327233'
-          - case: D
-            sequence: '466565554644327433'
-          - case: E
-            sequence: '466565554644327533'
-          - case: F
-            sequence: '466565554644327633'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Probe exact rho root action
+      - name: Expose exact G4 reply separators
         shell: bash
         run: |
           set -euo pipefail
-          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-probe.mjs "${{ matrix.sequence }}" G3 C
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-g4-separator.mjs
