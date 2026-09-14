@@ -54,8 +54,8 @@ function minOr(xs, fallback = 0) { return xs.length ? Math.min(...xs) : fallback
 function maxOr(xs, fallback = 0) { return xs.length ? Math.max(...xs) : fallback; }
 
 // Diagnostic kernel: exact candidate reconstruction and action-conditioned observations only.
-// It never runs the recursive repair proof, so diagnostic cone expansion cannot consume the
-// proof kernel's sealed state budget.
+// It never runs the recursive repair proof, so diagnostic cone expansion cannot consume an
+// isolated proof run's sealed state budget.
 const k = makeKernel();
 const e = createRepairCapacityProofEngine(k, { collectAllWinningActions: true, maxProofStates: MAX_PROOF_STATES });
 
@@ -286,34 +286,38 @@ for (const anchor of positiveAnchors) {
   }
 }
 
-// Proof kernel is isolated from diagnostic expansion. No storage or recursion limit is widened;
-// this merely prevents diagnostic transitions from contaminating the proof experiment's arena.
-const proofK = makeKernel();
-const proofE = createRepairCapacityProofEngine(proofK, { collectAllWinningActions: true, maxProofStates: MAX_PROOF_STATES });
-
-const evaluated = [];
-let resourceFailure = null;
-for (const row of selected) {
-  if (resourceFailure) break;
-  let result = null, error = null;
+function proveIsolated(row) {
+  const proofK = makeKernel();
+  const proofE = createRepairCapacityProofEngine(proofK, { collectAllWinningActions: true, maxProofStates: MAX_PROOF_STATES });
   const proofState = replay(proofK, row.sequence);
   assert.equal(proofE.rank(proofState), 20, `${row.name}: proof-kernel rank drift`);
   assert(proofE.invariant(proofState, row.target), `${row.name}: proof-kernel invariant drift`);
+  let result = null, error = null;
   try {
     result = proofE.prove(proofState, row.target);
   } catch (err) {
     error = String(err?.message ?? err);
-    if (error.includes('proof-state cap exceeded') || error.includes('reserved quotient')) resourceFailure = error;
-    else throw err;
+    if (!error.includes('proof-state cap exceeded') && !error.includes('reserved quotient')) throw err;
   }
+  return { result, error, stats: proofE.stats() };
+}
+
+const evaluated = [];
+const proofRunStats = [];
+const resourceFailures = [];
+for (const row of selected) {
+  const proof = proveIsolated(row);
+  if (proof.error) resourceFailures.push({ name: row.name, sequence: row.sequence, error: proof.error });
+  proofRunStats.push({ name: row.name, ...proof.stats });
   const features = stateFeatures(row.state, row.target);
   evaluated.push({
     name: row.name, origin: row.origin, sequence: row.sequence, target: row.descriptor.target,
-    descriptor: row.descriptor, completed: error === null, proved: result?.proved ?? false,
-    proofKind: result?.kind ?? null, witness: result?.witness ?? null,
-    winningActions: (result?.winningActions ?? []).map((x) => x.column),
-    rejected: result?.rejected ?? [], error, features,
+    descriptor: row.descriptor, completed: proof.error === null, proved: proof.result?.proved ?? false,
+    proofKind: proof.result?.kind ?? null, witness: proof.result?.witness ?? null,
+    winningActions: (proof.result?.winningActions ?? []).map((x) => x.column),
+    rejected: proof.result?.rejected ?? [], error: proof.error, features,
   });
+  if (typeof globalThis.gc === 'function') globalThis.gc();
 }
 
 for (const p of KNOWN) {
@@ -400,6 +404,15 @@ if (proved.length && unproved.length) {
 }
 thresholdCandidates.sort((a,b)=>b.balancedAccuracy-a.balancedAccuracy||a.field.localeCompare(b.field)||a.threshold-b.threshold);
 
+const aggregateProofStats = {
+  runs: proofRunStats.length,
+  totalProofStates: proofRunStats.reduce((s, x) => s + x.proofStates, 0),
+  maxProofStatesObserved: maxOr(proofRunStats.map((x) => x.proofStates)),
+  totalCandidateActionsChecked: proofRunStats.reduce((s, x) => s + x.candidateActionsChecked, 0),
+  totalP1BranchesChecked: proofRunStats.reduce((s, x) => s + x.p1BranchesChecked, 0),
+  maxDepthObserved: maxOr(proofRunStats.map((x) => x.maxDepth)),
+};
+
 console.log(`MATCHED_CLEAN_INVARIANT_DIFFERENTIAL=${JSON.stringify({
   kind: 'standard7x6-clean-invariant-action-conditioned-matched-differential-v1',
   attribution: {
@@ -412,8 +425,8 @@ console.log(`MATCHED_CLEAN_INVARIANT_DIFFERENTIAL=${JSON.stringify({
   completedDirectProbes: completed.length,
   provedDirectProbes: proved.length,
   unprovedDirectProbes: unproved.length,
-  resourceFailure,
-  proofStats: proofE.stats(),
+  resourceFailures,
+  proofStats: aggregateProofStats,
   selectedMatchingTier: selectedTier,
   matchingTierMeaning: selectedTier===1
     ? 'same target, mu, exact root deadline set, GF2 phase location, and sorted five-column repair-capacity multiset'
@@ -432,5 +445,5 @@ console.log(`MATCHED_CLEAN_INVARIANT_DIFFERENTIAL=${JSON.stringify({
   interpretation: matchedPairs.length
     ? 'At least one exact proved/unproved pair exists under the stated matched context. The reported differentials are candidate missing premises only; threshold scores are correlation diagnostics and require corpus-wide falsification before theorem promotion.'
     : 'No proved/unproved pair was found within the bounded direct-probe set under the three declared matching tiers. Preserve the evaluated outcomes and expand only the candidate sampling, not the proof-state cap or physical frontier.',
-  theoremBoundary: 'Direct proof outcomes use only the existing exact decreasing-mu repair predecessor engine. Differential features are action-conditioned diagnostics over exact support/residual/terminal/deadline transitions. No feature or threshold is promoted to q equality, WDL oracle authority, or a theorem by this control.',
+  theoremBoundary: 'Each direct proof outcome is isolated in a fresh 100k-state repair-proof arena, matching the qualified representative-probe evidence model. Differential features use a separate exact diagnostic kernel. No feature or threshold is promoted to q equality, WDL oracle authority, or a theorem by this control.',
 })}`);
