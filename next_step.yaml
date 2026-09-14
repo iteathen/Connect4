@@ -1,6 +1,6 @@
-schema_version: 63
+schema_version: 64
 updated: 2026-09-13
-state: hard_frontier_witness_and_base_theorem_extraction
+state: typed_compatible_cover_progress_tightening
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -14,14 +14,16 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   hard_frontier_calculus: docs/research/2026-09-13-hard-frontier-recursion-calculus.md
-  hard_frontier_evidence: docs/research/evidence/2026-09-13-hard-frontier-recursion-calculus.json
+  broad_frontier_stop: docs/research/2026-09-13-broad-frontier-search-stop-and-tightening.md
+  compatible_cover: docs/research/2026-09-13-compatible-cover-progress-calculus.md
+  typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
   research_router: docs/research/RESEARCH_INDEX.md
 
 objective: >
   Derive a complete structural solve proof and then the exact perfect-W/D/L P0
-  terminal-line set. Continue from the now-proved hard-frontier recursion calculus;
-  do not restart the center-positive investigation or replace the calculus with blind
-  deeper search.
+  terminal-line set. Preserve the theorem-backed hard-frontier recursion calculus,
+  but do not recurse further through broad exact-q frontiers until a stronger
+  set-level policy certificate is proved.
 
 current_semantics:
   winning_region: "W = mu X . [ I union PreE(X) union PreA(X) ]"
@@ -49,35 +51,38 @@ standard7x6_depth8_frontier:
     shallow_local: 99
     generalized_unique_hard: 62
     low_width_branching: 24
-  observed_widths:
-    unique_states: [1, 1, 7, 7, 47, 47, 277, 204, 1141]
-    proof_paths: [1, 1, 7, 7, 49, 49, 343, 231, 1616]
 
-low_width_controls:
-  seeds_width_2_to_4: 55
-  closed: 24
-  overflow_width16: 31
-  depth_capped: 0
-  by_initial_width:
-    width2: {total: 13, closed: 12, overflow: 1}
-    width3: {total: 19, closed: 3, overflow: 16}
-    width4: {total: 23, closed: 9, overflow: 14}
-  exact_q_duplicate_savings: 149
-  representative_closed_histories:
-    - [2, 12, 0]
-    - [2, 7, 2, 3, 0]
-    - [2, 7, 9, 3, 0]
-    - [4, 5, 2, 0]
+broad_frontier_stop_control:
+  target_sequence: "46656555"
+  oracle_used: false
+  base_certificates: [I, E(O)]
+  all_legal_p0_witnesses_tried: true
+  all_legal_p1_replies_required: true
+  exact_q_identity: true
+  q_state_cap: 100000
+  recursive_call_cap: 250000
+  cap_hit: q_state_cap
+  cumulative_q_states_at_stop: 100001
+  cumulative_recursive_calls_at_stop: 758
+  completed_depths:
+    depth1: {new_q_states: 2258, cumulative_q_states: 2267, cumulative_calls: 8}
+    depth2: {new_q_states: 11362, cumulative_q_states: 13629, cumulative_calls: 66}
+    depth3: {new_q_states: 42594, cumulative_q_states: 56223, cumulative_calls: 358}
+  inference: >
+    Exact-q consequence space grows too quickly under I/E(O). Do not increase state
+    caps or macro depth. The missing structure is mathematical compression, not runtime.
 
-broad_frontier_boundary:
-  canonical_binary_overflow_root: "46656555"
-  canonical_history: [2, 6, 26]
-  alternate_minimum_hard_witness_history: [1, 1, 1, 1, 1, 6, 28]
+negative_controls:
+  standalone_residual_hub_separator: rejected
+  successor_set_race_blocker_only_total_cover: rejected
+  race_blocker_screen:
+    "46656551": {opponent_requirements: 38, geometrically_uncoverable: 10}
+    "46656552": {opponent_requirements: 38, geometrically_uncoverable: 10}
+    "46656555": {opponent_requirements: 39, geometrically_uncoverable: 15}
+    "46656557": {opponent_requirements: 39, geometrically_uncoverable: 9}
   interpretation: >
-    Binary branching is not the fundamental failure: a different winning witness
-    removes the initial binary split, but a later 5..7-hard regime still re-expands.
-    The current missing structure is witness selection and/or new positive base
-    certificates for broad hard fronts.
+    Race blockers remain a valid fragment type, but cannot supply the entire policy
+    cover alone. The next certificate must compose heterogeneous typed fragments.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -88,50 +93,65 @@ constraints:
   - exact_q_normalization_is_value_only_and_does_not_erase_output_provenance
   - every_P1_reply_must_be_discharged_or_retained_in_the_next_hard_frontier
   - progress_is_remaining_plies_not_frontier_width
-  - do_not_raise_frontier_caps_or_run_generic_deeper_recursion_without_a_new_theorem
-  - do_not_promote_state_specific_scalar_separators_from_small_samples
-  - retain_failed_witness_policies_and_broad_reexpansion_examples
+  - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
+  - do_not_promote_state_specific_scalar_separators
+  - do_not_use_race_blockers_as_a_total_cover_without_other_fragment_types
   - unresolved_frontiers_are_unknown_not_negative_values
 
 next_task:
-  name: extract_structural_witness_or_broad_base_rule
+  name: compile_typed_policy_fragment_cover_on_4665655_siblings
   purpose: >
-    Use the closed expand/collapse certificates and nearest broad-reexpansion controls
-    to derive the smallest theorem-backed rule that either chooses a useful P0 witness
-    structurally or discharges a recurring 5..7-hard consequence family before it
-    expands.
-  primary_control_family:
-    root_prefix_family: "4665655*"
-    reason: >
-      Closely related depth-8 states in this family exhibit both successful finite
-      frontier closure and broad re-expansion, giving a tight causal differential.
-  steps:
-    - freeze the successful and failed hard-frontier certificates in the 4665655* family
-    - compare support-event order, CPC ownership/timing, WSL residual transformations, NDC guards, response-resource conflicts, and race/deadline structure at the first point their frontiers diverge
-    - identify relations that are preserved across the successful siblings but fail in the broad-reexpansion sibling; do not use state IDs or solved values as predicate inputs
-    - prefer transition/transport relations over parent-state scalar summaries
-    - formulate the smallest candidate implication for either witness admissibility or a new positive base certificate
-    - falsify the candidate on all retained closed and overflow low-width controls, then on complete smaller games where semantics apply
-    - if falsification succeeds, prove the implication from CPC/WSL/NDC/support/resource semantics before adding it to the base grammar
-    - rerun the 723-root boundary only after the new theorem is frozen
-    - measure added constructive closures and whether broad-frontier incidence shrinks
+    Determine whether the broad hard-frontier regime can be replaced by a finite
+    compatible policy certificate built from existing structural fragment families,
+    rather than proving each exact-q child independently.
+  control_family:
+    sequences: ["46656551", "46656552", "46656555", "46656557"]
+    expected_role:
+      closing_controls: ["46656551", "46656552", "46656557"]
+      broad_reexpansion_control: "46656555"
+  fragment_families_to_compile:
+    - playable_singleton_and_immediate_completion
+    - poisoned_support_restriction
+    - stacked_singleton_and_response_overload
+    - reusable_vertical_response_pair_with_guards
+    - exclusive_guarded_response_interval
+    - successor_set_race_blocker
+    - blocker_from_certified_CPC_ownership
+  required_fragment_fields:
+    - coverage
+    - resource_footprint
+    - response_relation
+    - sharing_policy
+    - CPC_or_parity_commitments
+    - event_order_and_deadlines
+    - guards
+    - progress_consequence
+  bounded_steps:
+    - compile fragments directly from WSL residuals, support and CPC/NDC facts; no legal-move tree recursion
+    - remove dominated fragments only under the proved semantic dominance order
+    - propagate forced-fragment and requirement-subsumption rules
+    - split independent coverage/conflict components
+    - apply parity/order/resource contradictions
+    - report residual uncovered core and feasible-preservation antichains
+    - compare the three closing siblings with 46656555 at the typed-contract level
+    - if a common finite policy skeleton emerges, freeze it and prove its safety plus controlled-completion progress theorem
+    - only after theorem qualification, add it as a positive base certificate and rerun the 723-root boundary
   success_conditions:
-    - candidate rule has no state IDs and no solved-value labels
-    - rule distinguishes successful transport/closure from at least the known broad-reexpansion control for a structural reason
-    - independent bounded falsification finds zero counterexamples
-    - theorem proof derives from accepted structural semantics
-    - adding the rule closes additional standard7x6 roots or reduces broad-frontier width without unsafe q merging
+    - fragment vocabulary remains small and semantic rather than state-ID-specific
+    - closing siblings obtain a materially smaller or fully discharged compatible-cover core
+    - broad control exposes a precise missing contract/resource/order fact rather than generic state explosion
+    - any promoted positive rule includes both safety and well-founded progress
   stop_conditions:
-    - candidate descriptor grows toward exact state identity
-    - only accidental scalar correlations remain after transition/context analysis
-    - proposed rule requires oracle scores as a proof premise
-    - experiment starts reconstructing a large physical game tree
+    - fragment inventory becomes effectively one fragment per exact state
+    - generic compatible-cover search reconstructs physical move-tree branching
+    - no structural difference remains after typed contracts and NDC/CPC context
+    - candidate requires oracle scores or solved values as proof premises
     - wall_clock_exceeds_10_minutes_without_a_bounded_local_bottleneck
 
 forbidden_shortcuts:
   - cite_known_connect4_solution_as_the_proof
   - use_minimax_or_oracle_value_labels_as_certificate_facts
-  - increase_frontier_width_cap_to_hide_missing_mathematics
+  - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
   - erase_CPC_NDC_resource_or_deadline_context_when_load_bearing
