@@ -1,8 +1,7 @@
-schema_version: 61
+schema_version: 63
 updated: 2026-09-13
-state: center_positive_progress_calculus
+state: hard_frontier_witness_and_base_theorem_extraction
 current_branch: research/frontier-negamax-conformance
-pre_cleanup_snapshot: 8bf24b6818b4e2775a3b41cd21e517b94e36271c
 
 attribution:
   research_direction_and_architecture: Josh Oshiro
@@ -14,115 +13,132 @@ authority:
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  hard_frontier_calculus: docs/research/2026-09-13-hard-frontier-recursion-calculus.md
+  hard_frontier_evidence: docs/research/evidence/2026-09-13-hard-frontier-recursion-calculus.json
   research_router: docs/research/RESEARCH_INDEX.md
 
 objective: >
   Derive a complete structural solve proof and then the exact perfect-W/D/L P0
-  terminal-line set, without using the suspected final cardinality or an external
-  solved opening table as proof authority.
+  terminal-line set. Continue from the now-proved hard-frontier recursion calculus;
+  do not restart the center-positive investigation or replace the calculus with blind
+  deeper search.
 
 current_semantics:
   winning_region: "W = mu X . [ I union PreE(X) union PreA(X) ]"
-  proof_currency: six_element_WDL_interval_lattice
   value_identity: c4_0010_q_exact_support_plus_p0_p1_residual_antichains
   output_identity: q_plus_exact_p0_residual_origin_provenance_Pi0
-  certificate_reuse_is_not_state_equality: true
-  positive_win_requires_well_founded_progress: true
-
-accepted_safety_primitives:
-  - pooled_frontier_response
-  - synchronized_column_channel
-  - local_response_resource_automata
-  - singleton_and_forbidden_subset_closure
-  - support_shadow_race_preemption
-
-noncenter_first_move_theorem:
-  record: docs/research/2026-09-13-noncenter-opening-structural-safety-theorem.md
-  compiler: reference/research-prototypes/2026-09-13-perfect-play-winline/noncenter_local_policy_compiler.mjs
-  physical_control: reference/research-prototypes/2026-09-13-perfect-play-winline/noncenter_policy_full_control.mjs
-  evidence: docs/research/evidence/2026-09-13-noncenter-structural-safety.json
-  exact_values_used_by_proof: false
-  full_game_tree_used_by_proof: false
-  local_components:
-    normal_column: {states: 4, edges: 3, invalid: 0}
-    initial_coupled_pair: {states: 21, edges: 24, invalid: 0}
-    empty_coupled_pair: {states: 43, edges: 50, invalid: 0}
-  representatives:
-    opening1_reply2: {singleton_lines: 48, pair_lines: 19, race_lines: 2, unclassified: 0}
-    opening2_reply3: {singleton_lines: 49, pair_lines: 18, race_lines: 2, unclassified: 0}
-    opening3_reply4: {singleton_lines: 56, pair_lines: 11, race_lines: 2, unclassified: 0}
-  reflection:
-    opening7_reply6: from_opening1
-    opening6_reply5: from_opening2
-    opening5_reply4: from_opening3
-  consequence: "V(opening c) <= 0 for c in {1,2,3,5,6,7}"
-  physical_qualification:
-    opening1: {states: 56720, edges: 259980, p0_wins: 0, invalid_responses: 0}
-    opening2: {states: 56720, edges: 259980, p0_wins: 0, invalid_responses: 0}
-    opening3: {states: 19936, edges: 98896, p0_wins: 0, invalid_responses: 0}
+  positive_macro_step: "P0 witness -> all P1 replies -> base discharge or next exact-q hard frontier"
+  hard_frontier_normalization: exact_q_only
+  progress_rank: "42 - supportRank"
+  progress_delta_per_retained_macro_step: -2
+  frontier_width_is_progress_rank: false
 
 first_move_boundary:
   noncenter_safety: internally_complete
   center_opening_column: 4
   center_positive_win: unproved
   complete_root_solve: unproved
-  note: >
-    If root P0Win were externally admitted, exact predecessor plus the six internal
-    noncenter bounds would force column 4. The active task is to remove that last
-    external positive premise.
+
+standard7x6_depth8_frontier:
+  physical_states: 1141
+  immediate_win_states: 319
+  recursive_obligations: 822
+  structurally_proved_recursive_obligations: 185
+  structurally_proved_total_frontier_states: 504
+  proof_groups:
+    shallow_local: 99
+    generalized_unique_hard: 62
+    low_width_branching: 24
+  observed_widths:
+    unique_states: [1, 1, 7, 7, 47, 47, 277, 204, 1141]
+    proof_paths: [1, 1, 7, 7, 49, 49, 343, 231, 1616]
+
+low_width_controls:
+  seeds_width_2_to_4: 55
+  closed: 24
+  overflow_width16: 31
+  depth_capped: 0
+  by_initial_width:
+    width2: {total: 13, closed: 12, overflow: 1}
+    width3: {total: 19, closed: 3, overflow: 16}
+    width4: {total: 23, closed: 9, overflow: 14}
+  exact_q_duplicate_savings: 149
+  representative_closed_histories:
+    - [2, 12, 0]
+    - [2, 7, 2, 3, 0]
+    - [2, 7, 9, 3, 0]
+    - [4, 5, 2, 0]
+
+broad_frontier_boundary:
+  canonical_binary_overflow_root: "46656555"
+  canonical_history: [2, 6, 26]
+  alternate_minimum_hard_witness_history: [1, 1, 1, 1, 1, 6, 28]
+  interpretation: >
+    Binary branching is not the fundamental failure: a different winning witness
+    removes the initial binary split, but a later 5..7-hard regime still re-expands.
+    The current missing structure is witness selection and/or new positive base
+    certificates for broad hard fronts.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
   - no_known_center_win_as_proof_premise
-  - exact_search_or_enumeration_is_control_not_theory_authority
-  - preserve_exact_q_identity_and_keep_non_derivable_certificate_context_contextual
-  - positive_progress_must_have_a_well_founded_rank
-  - every_P1_alternative_must_be_discharged
-  - progress_policy_must_be_legal_and_resource_compatible
-  - tied_value_elimination_does_not_delete_output_paths_without_Pi0_subsumption
-  - retain_smallest_counterexamples_and_failed_candidate_ranks
-  - do_not_reset_or_discard_newer_valid_branch_work
+  - exact_search_oracles_are_discovery_and_falsification_controls_only
+  - frozen_closed_certificates_must_verify_without_oracle_scores
+  - preserve_exact_c4_0010_q_identity
+  - exact_q_normalization_is_value_only_and_does_not_erase_output_provenance
+  - every_P1_reply_must_be_discharged_or_retained_in_the_next_hard_frontier
+  - progress_is_remaining_plies_not_frontier_width
+  - do_not_raise_frontier_caps_or_run_generic_deeper_recursion_without_a_new_theorem
+  - do_not_promote_state_specific_scalar_separators_from_small_samples
+  - retain_failed_witness_policies_and_broad_reexpansion_examples
+  - unresolved_frontiers_are_unknown_not_negative_values
 
 next_task:
-  name: derive_center_positive_progress_certificate
+  name: extract_structural_witness_or_broad_base_rule
   purpose: >
-    Prove that P0 opening column 4 is winning by constructing a finite structural
-    progress certificate whose rank decreases across every P1 alternative and whose
-    terminal bases are immediate P0 wins.
-  seed_state:
-    board: standard_7x6_connect4
-    p0_first_move: 4
-    side_to_move: P1
+    Use the closed expand/collapse certificates and nearest broad-reexpansion controls
+    to derive the smallest theorem-backed rule that either chooses a useful P0 witness
+    structurally or discharges a recurring 5..7-hard consequence family before it
+    expands.
+  primary_control_family:
+    root_prefix_family: "4665655*"
+    reason: >
+      Closely related depth-8 states in this family exhibit both successful finite
+      frontier closure and broad re-expansion, giving a tight causal differential.
   steps:
-    - partition the seven legal P1 replies by exact reflection and any stronger q/certificate isomorphism
-    - for each distinct P1 reply class, discover candidate P0 continuation certificates using exact search only as a falsifier/theorem-discovery oracle
-    - express candidate progress obligations in CPC/WSL/NDC/response-resource terms over exact q
-    - identify a well-founded rank such as unresolved obligation depth, event-frontier rank, or nested dependency measure
-    - require every P1 choice to admit at least one legal P0 response with strictly lower rank
-    - prove terminal base certificates as immediate P0 wins rather than exact-value lookups
-    - mechanically falsify candidate implication/rank rules on complete smaller games and retained 7x6 controls
-    - preserve smallest rank-cycle, missing-response, or resource-conflict counterexample
-    - avoid turning the progress proof into a replay of the physical game tree; require quotient/certificate compression
-    - once center win closes, combine it with noncenter safety to obtain a complete first-move/root solve proof
-    - only then propagate W and Pi0 to the perfect-play terminal-line output layer
+    - freeze the successful and failed hard-frontier certificates in the 4665655* family
+    - compare support-event order, CPC ownership/timing, WSL residual transformations, NDC guards, response-resource conflicts, and race/deadline structure at the first point their frontiers diverge
+    - identify relations that are preserved across the successful siblings but fail in the broad-reexpansion sibling; do not use state IDs or solved values as predicate inputs
+    - prefer transition/transport relations over parent-state scalar summaries
+    - formulate the smallest candidate implication for either witness admissibility or a new positive base certificate
+    - falsify the candidate on all retained closed and overflow low-width controls, then on complete smaller games where semantics apply
+    - if falsification succeeds, prove the implication from CPC/WSL/NDC/support/resource semantics before adding it to the base grammar
+    - rerun the 723-root boundary only after the new theorem is frozen
+    - measure added constructive closures and whether broad-frontier incidence shrinks
   success_conditions:
-    - center certificate is finite and substantially smaller than the physical policy graph
-    - every P1 reply class is covered
-    - every nonterminal certificate transition decreases a proven well-founded rank
-    - no exact solved center value is used as a proof premise
-    - bounded falsification finds zero counterexamples
-    - root P0Win follows from the certificate plus exact predecessor semantics
-  forbidden_shortcuts:
-    - cite_known_connect4_solution_as_the_proof
-    - use_minimax_value_labels_as_certificate_facts
-    - enumerate_physical_game_tree_and_call_it_structural_progress
-    - infer_positive_win_from_P1_nonwin
-    - erase_CPC_NDC_resource_or_deadline_context_when_load_bearing
-    - merge_states_only_because_they_share_a_progress_hint
+    - candidate rule has no state IDs and no solved-value labels
+    - rule distinguishes successful transport/closure from at least the known broad-reexpansion control for a structural reason
+    - independent bounded falsification finds zero counterexamples
+    - theorem proof derives from accepted structural semantics
+    - adding the rule closes additional standard7x6 roots or reduces broad-frontier width without unsafe q merging
+  stop_conditions:
+    - candidate descriptor grows toward exact state identity
+    - only accidental scalar correlations remain after transition/context analysis
+    - proposed rule requires oracle scores as a proof premise
+    - experiment starts reconstructing a large physical game tree
+    - wall_clock_exceeds_10_minutes_without_a_bounded_local_bottleneck
+
+forbidden_shortcuts:
+  - cite_known_connect4_solution_as_the_proof
+  - use_minimax_or_oracle_value_labels_as_certificate_facts
+  - increase_frontier_width_cap_to_hide_missing_mathematics
+  - enumerate_the_physical_game_tree_and_call_it_structural_progress
+  - infer_positive_win_from_P1_nonwin
+  - erase_CPC_NDC_resource_or_deadline_context_when_load_bearing
+  - merge_value_obligations_under_an_unproved_coarse_equivalence
 
 cleanup_policy:
-  first_pass_deletions: none
   negative_controls: retain
   incomplete_experiments: retain_with_status_annotation
   unknown_usefulness: retain
-  historical_scratch_count_2023_419_1604: retired_unverified
+  branch_newer_work: preserve_and_reconcile_before_mutation
