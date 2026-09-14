@@ -1,0 +1,54 @@
+name: Frontier rank7 stubborn lambda branch probes
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-lambda-root-branch-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-sequence-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-mu-proof-lib.mjs'
+      - '.github/workflows/frontier-rank7-stubborn-lambda-branch-probes.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: C_reply_D_G5_root_G
+            sequence: '466565536644'
+            target: G5
+            max_distance: '4'
+            action: G
+          - name: D_reply_D_C3_root_C
+            sequence: '466565546644'
+            target: C3
+            max_distance: '2'
+            action: C
+          - name: D_reply_D_G3_root_G
+            sequence: '466565546644'
+            target: G3
+            max_distance: '2'
+            action: G
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Probe branch-isolated lambda root
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+          TARGET: ${{ matrix.target }}
+          MAX_TARGET_DISTANCE: ${{ matrix.max_distance }}
+          ACTION: ${{ matrix.action }}
+        run: |
+          set -euo pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-lambda-root-branch-probe.mjs
