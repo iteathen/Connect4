@@ -7,10 +7,16 @@ import { createResolvedTailLexicographicProofEngine, STANDARD7X6_RESOLVED_TAIL_R
 
 export function createTargetDistanceLexicographicProofEngine(kernel, options = {}) {
   const maxProofStates = options.maxProofStates ?? 100000;
+  const maxTargetDistance = options.maxTargetDistance ?? 2;
   const rootActions = options.rootActions == null ? null : Object.freeze([...options.rootActions]);
+  if (!Number.isInteger(maxTargetDistance) || maxTargetDistance < 1 || maxTargetDistance > 5) {
+    throw new RangeError('maxTargetDistance must be an integer in the physical standard-7x6 range 1..5');
+  }
   const lex = createResolvedTailLexicographicProofEngine(kernel, { maxProofStates });
   const e = lex.repair;
   const memo = new Map();
+  // Kept under the historical name for result compatibility. With maxTargetDistance > 2 this
+  // counts all d>=2 target-distance proof nodes, not only distance-two nodes.
   let distance2ProofStates = 0;
   let actionsChecked = 0;
   let p1BranchesChecked = 0;
@@ -81,8 +87,8 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
 
     const live = e.singleton(state, 0, target);
     const distance = live ? e.targetDistance(state, target) : null;
-    if (!live || (distance !== 1 && distance !== 2)) {
-      return { proved: false, kind: 'outside_target_distance_invariant', measure: measure(state, target), targetLive: live, targetDistance: distance };
+    if (!live || distance < 1 || distance > maxTargetDistance) {
+      return { proved: false, kind: 'outside_target_distance_invariant', measure: measure(state, target), targetLive: live, targetDistance: distance, maxTargetDistance };
     }
     if (distance === 1) {
       const out = lex.prove(state, target, depth);
@@ -96,7 +102,7 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
     maxDepth = Math.max(maxDepth, depth);
     assertCombinedCap();
     const current = measure(state, target);
-    assert.equal(current.distance, 2);
+    assert(current.distance >= 2 && current.distance <= maxTargetDistance, 'target-distance recursive node outside enabled range');
 
     const obligations = [...new Set(e.enabledSingletons(state, 1))];
     let allowed;
@@ -169,9 +175,9 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
           continue;
         }
         assert(kappaLe(childMeasure, afterP0Measure), 'P1 reply increased target-distance lexicographic resource');
-        if (childMeasure.distance !== 1 && childMeasure.distance !== 2) {
+        if (childMeasure.distance < 1 || childMeasure.distance > maxTargetDistance) {
           accepted = false;
-          firstFailure ??= { reply: e.col(reply), replyCell: e.coord(replyCell), reason: 'outside_target_distance_invariant', childMeasure };
+          firstFailure ??= { reply: e.col(reply), replyCell: e.coord(replyCell), reason: 'outside_target_distance_invariant', childMeasure, maxTargetDistance };
           continue;
         }
         const sub = childMeasure.distance === 1 ? lex.prove(child, target, depth + 1) : prove(child, target, depth + 1);
@@ -216,6 +222,7 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
     prove,
     stats: () => Object.freeze({
       distance2ProofStates,
+      targetDistanceProofStates: distance2ProofStates,
       lexProofStates: lex.stats().proofStates,
       combinedProofStates: combinedProofStates(),
       actionsChecked,
@@ -228,6 +235,7 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
       capacityDefects,
       memoEntries: memo.size,
       maxProofStates,
+      maxTargetDistance,
       rootActions,
     }),
   });
