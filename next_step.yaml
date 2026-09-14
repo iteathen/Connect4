@@ -1,6 +1,6 @@
-schema_version: 72
+schema_version: 73
 updated: 2026-09-13
-state: temporal_contract_stutter_composition
+state: phase_debt_resource_transport
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -14,21 +14,17 @@ authority:
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
-  structural_isomorphism_resolution: docs/research/2026-09-13-structural-isomorphism-resolution.md
-  invariant_first_resolution: docs/research/2026-09-13-invariant-first-cross-layer-isomorphism.md
-  phase_defect_core: docs/research/2026-09-13-column-phase-defect-and-zero-phase-core.md
-  hinge_and_policy_fiber: docs/research/2026-09-13-d3-hinge-convergence-and-policy-coverage-fiber.md
   temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
+  temporal_stutter_tail_phase_debt: docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md
   response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
-  temporal_response_capacity: docs/research/2026-09-13-temporal-response-capacity-calculus.md
-  research_router: docs/research/RESEARCH_INDEX.md
+  invariant_first_resolution: docs/research/2026-09-13-invariant-first-cross-layer-isomorphism.md
+  bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
 
 objective: >
-  Derive a complete structural solve proof and then the exact perfect-W/D/L P0
-  terminal-line set. The active seam is composition of a proved finite latent-target
-  temporal contract with external stutter-safe response macros and post-target tail
-  release, not broad q recursion.
+  Continue the structural 7x6 proof by compiling temporal policy behavior into a small
+  exact C/P/N resource-state machine. Do not return to broad q recursion. The immediate
+  seam is how a one-slot phase debt transports through the shared external reservoir.
 
 canonical_layers:
   E: causal_event_poset_and_support_ideals
@@ -39,98 +35,79 @@ canonical_layers:
   G: alternating_predecessor_fixed_point
   Q: observation_sensitive_value_and_provenance_quotients
 
-exact_cross_layer_principle:
-  name: observation_sensitive_projection_congruence
-  statement: >
-    A projection may erase a degree of freedom only when the forgotten distinctions
-    are congruent for every downstream transition and observation being claimed.
-  confirmed_instances:
-    - q_is_value_safe_but_not_terminal_line_provenance_safe_without_Pi0
-    - blocker_coverage_is_not_temporal_policy_realizability
-    - direct_blocker_candidate_generation_can_miss_support_scheduling_fragments
-
-established_controls:
-  r_only_entailment:
-    result: "132 hard occurrences -> 132 atoms; 0 implication edges; 28 witness terms -> 28 prime terms"
-    status: retained_negative_control
-  phase_macro:
-    exact_law: "phi' = phi + e_a + e_b over GF(2)"
+exact_principles:
+  observation_sensitive_projection_congruence: >
+    Erase a distinction only when it is congruent for every downstream transition and
+    observation being claimed.
+  phase_macro: "phi' = phi + e_a + e_b over GF(2)"
+  phase_behaviors:
     collapse: "(1,1)->(0,0)"
     transport: "(1,0)->(0,1)"
     reexpansion: "(0,0)->(1,1)"
-    boundary: phase_is_not_WDL
-  zero_phase_core:
-    sequence: "4665655546"
-    support_rank: 10
-    p0_residuals_total: 37
-    vertical_pair_covered: 30
-    parity_pure_defects: 7
-    static_factorization: "D3 AND D5 AND (A1 OR B1 OR C1)"
-  d3_hinge:
-    sequence: "4665655546"
-    action: "P0:D3"
-    universal_consequence: "every immediate P1 reply leaves LiveSingleton(C3) AND LiveSingleton(G3)"
-  poisoned_old_pairs:
-    state: "466565554644"
-    exact:
-      - "P0:C1, P1:C2 -> P0:C3 terminal"
-      - "P0:G1, P1:G2 -> P0:G3 terminal"
-    static_coverage_change_when_removed: 0
+
+established_temporal_controls:
   latent_target_cross_pair:
     workflow_run: 34801047093
     fixed_state: "466565554644"
-    abstract_decision_states: ["0,0", "1,1", "1,3", "3,1", "3,3"]
-    complete_target_only_attacker_schedules: 4
+    targets: [C3,G3]
     support_pair:
       - "P0:C1 -> P1:G1"
       - "P0:G1 -> P1:C1"
     target_responses:
       - "P0:C2 -> P1:C3"
       - "P0:G2 -> P1:G3"
-    concrete_result: >
-      All four target-only attacker schedules embed legally through exact C4-0010
-      transitions and discharge both singleton targets without solved W/D/L premises.
+    abstract_decision_states: ["0,0","1,1","1,3","3,1","3,3"]
+    complete_target_only_attacker_schedules: 4
+    result: exact_local_scheduler
+  initial_stutter_macros:
+    workflow_run: 34801299360
+    pairs:
+      - [A1,A2]
+      - [B1,B2]
+      - [D5,D6]
+      - [E5,E6]
+      - [F5,F6]
+    common_effect:
+      support_rank_delta: 2
+      phase_displacement_mod2: 0
+      C3_live: true
+      G3_live: true
+      P0_terminal: false
+  post_target_tail:
+    workflow_run: 34801299360
+    checked_cases: 4
+    normal_form: "Tail3 = StutterPair2 + OddEvent1"
+    pair_effect: zero_phase_displacement
+    odd_event_owner: P0
+    odd_event_terminal: false
+    remaining_singleton_survives: true
+  phase_debt_interface:
+    workflow_run: 34801394490
+    checked_cases: 4
+    phase_debt_after_odd_tail: 1
+    poisoned_remaining_middle: true
+    common_local_repair_neighborhood: [A,B,D,E,F]
+    local_repair_count: 5
     interpretation: >
-      The hinge is locally jointly defensible. A Baseinverse-shaped support pair was
-      hidden from direct WSL-blocker candidate generation because its consequence is
-      temporal support control, not blocker-subset coverage.
-    theorem_boundary: >
-      Off-target P0 moves and post-target upper-tail release are not covered by the
-      local scheduler theorem.
+      A P1 repair move restores P0-to-move for the remaining latent target but toggles
+      the chosen external column's phase/resource state. Under the exact phase law this
+      is defect transport, not defect destruction.
 
-temporal_contract_model:
-  schema_fields:
-    - states
-    - initial_state
-    - event_guards
-    - required_actions
-    - forbidden_actions
-    - resource_claims
-    - phase_effects
-    - deadlines
-    - consequences
-    - NDC_guards
-  relationship_to_response_matroid: >
-    Temporal contracts own activation/deactivation and contingent deadlines. At any
-    automaton state, active obligations project to the existing response-matroid
-    matching/rank/circuit calculus. The matroid is a snapshot view, not a competing
-    temporal semantics.
-  compiled_shapes:
-    - immediate_response_pair
-    - Baseinverse_shaped_cross_support_pair
-    - latent_singleton_watcher
-    - Before_like_disjunctive_contract_candidate
+resolved_isomorphisms:
+  - "Baseinverse-shaped pair can act on support scheduling even when it contributes no direct WSL blocker subset"
+  - "response matroid is a snapshot feasibility view of active TemporalContract obligations"
+  - "pre-target stutter reservoir {A,B,D,E,F} equals post-tail local phase-debt repair reservoir"
+  - "tail phase-debt repair is the same GF2 transport operation previously observed as hard-frontier transport"
 
 bayesian_research_mask:
   role: research_priority_only
   visibility_to_exact_logic: none
   update: >
-    Lower belief that the simultaneous C3/G3 targets themselves form the obstruction.
-    Raise test priority for temporal-contract composition, stutter congruence and
-    post-discharge tail effects. Do not expose these credences to exact logic.
+    Lower probability that the hinge itself is the obstruction. Raise priority for
+    external resource-state evolution and repeated phase-defect transport/collapse.
   promotion_membrane: >
-    Only exactly proved deterministic rules with explicit guards enter proof logic;
-    probability and utility annotations are discarded on promotion.
+    Exact proof logic receives only deterministic guarded rules after qualification;
+    Bayesian scores and utilities are discarded.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -139,48 +116,56 @@ constraints:
   - preserve_exact_c4_0010_q_identity
   - output_provenance_must_not_be_erased_by_value_only_equivalence
   - preserve_terminal_stopping_CPC_NDC_deadline_resource_and_provenance_boundaries
-  - static_coverage_is_not_policy_realizability
   - temporal_contract_state_may_not_be_erased_without_congruence_proof
-  - nonplayable_singleton_is_not_immediate_threat_without_support_timing
+  - local_phase_debt_repair_candidate_is_not_global_policy_compatibility
   - bayesian_mask_is_external_to_exact_logic
   - unresolved_frontiers_are_unknown_not_negative_values
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: prove_temporal_contract_stutter_and_tail_composition
+  name: classify_external_phase_debt_transport_resources
   purpose: >
-    Extend the exact C3/G3 latent-target cross-pair contract only by proving which
-    external response macros are true stutters and by representing the resource/parity
-    effect released when one target is consumed. Do not solve the surrounding q tree.
-  fixed_state: "466565554644"
-  latent_contract:
-    support_pair: [C1,G1]
-    targets: [C3,G3]
+    For the five common repair columns A/B/D/E/F, derive the exact typed resource-state
+    transition caused by spending one P1 phase-debt repair move. Determine whether the
+    five transitions collapse into a small number of isomorphic C/P/N resource classes.
+  fixed_interface:
+    obligation: PhaseDebt1
+    response_neighborhood: [A,B,D,E,F]
+    remaining_target: one_of_[C3,G3]
+  required_transition_fields:
+    - pre_support_phase
+    - repair_event
+    - post_support_phase
+    - GF2_defect_location_or_class
+    - newly_playable_event
+    - response_relation_created_or_destroyed
+    - private_WSL_coverage_changed
+    - active_deadlines_changed
+    - NDC_guards_changed
+    - terminal_or_race_effect
   bounded_steps:
-    - derive candidate off-target two-ply response macros from existing exact vertical/typed response contracts
-    - classify a macro as stutter only if it preserves C/G support state live-target facts terminal safety CPC reservoir effect active deadlines and NDC guards
-    - quotient macros only by the full temporal-contract observation, never by blocker coverage alone
-    - after P1 consumes C3 or G3, explicitly account for the newly exposed upper tail C4-C6 or G4-G6
-    - determine whether tail effects normalize to a small contract state, GF2/resource token, or response circuit
-    - compose response-matroid checks only over obligations active at each automaton state
-    - stop if the representation starts carrying one state per physical continuation
+    - inspect exactly one repair event per A/B/D/E/F class from the qualified tail states
+    - compare the resulting transitions under the complete temporal-contract observation
+    - merge classes only when support parity resource deadline coverage and NDC effects are equivalent
+    - test whether repair is pure defect transport and identify the destination contract class
+    - if two odd resources meet, test the exact collapse condition instead of branching histories
+    - stop if representation expands into arbitrary physical continuations
   success_conditions:
-    - exact stutter/product theorem extending the latent scheduler across a nontrivial class of external P0 moves
-    - and a compact exact representation of post-target tail release
-    - or a smallest exact counterexample identifying which C/P/N invariant is still missing
+    - finite typed transition table for A/B/D/E/F with at least one nontrivial isomorphic class merge
+    - or exact counterexample showing which additional invariant prevents such merging
+    - result composes with response-matroid snapshot feasibility and NDC closure
   stop_conditions:
     - physical q-tree reconstruction begins
-    - candidate requires solved W/D/L labels as proof premises
-    - off-target context cannot be quotiented under the complete temporal observation
+    - solved W/D/L labels become proof premises
+    - no quotient smaller than exact physical continuation survives the full temporal observation
     - wall_clock_reaches_5_minutes
 
 research_candidates_after_this_control:
-  - temporal_contract_product_and_stutter_congruence
-  - post_target_tail_as_GF2_resource_token
-  - generic_compiler_for_Allis_rules_to_temporal_contracts
-  - P_and_C_shared_circuit_kernel
-  - finite_paving_restriction_as_typed_scheduler_defect
+  - phase_defect_token_machine
+  - generic_temporal_contract_compiler_for_Allis_and_paving_fragments
+  - collapse_when_two_odd_resource_contracts_meet
+  - finite_paving_restriction_as_resource_transport_network
   - product_fixed_point_for_N_closure_and_G_interval_bounds
 
 forbidden_shortcuts:
@@ -188,8 +173,8 @@ forbidden_shortcuts:
   - use_minimax_or_oracle_value_labels_as_certificate_facts
   - use_bayesian_credence_as_proof_authority
   - treat_phase_weight_as_WDL_classifier
-  - treat_static_hitting_set_or_coverage_equivalence_as_realizable_policy
-  - treat_named_Allis_rule_identity_as_runtime_semantic_authority
+  - treat_static_coverage_as_policy_realizability
+  - treat_named_rule_identity_as_runtime_semantic_authority
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
