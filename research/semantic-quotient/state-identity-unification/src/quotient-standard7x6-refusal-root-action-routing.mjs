@@ -9,10 +9,10 @@ import * as domain from './quotient-negamax-domain-contract.mjs';
 
 const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
 const ROOT = '466565554644';
-const C = 2, G = 6, C3 = 16, G3 = 20;
-const REFUSALS = Object.freeze({ D: 3, E: 4, F: 5 });
+const C3 = 16, G3 = 20;
+const REFUSALS = Object.freeze({ A: 0, B: 1, D: 3, E: 4, F: 5 });
 const refusalName = process.argv[2] ?? null;
-if (refusalName !== null && !(refusalName in REFUSALS)) throw new Error('usage: refusal-root-action-routing [D|E|F]');
+if (refusalName !== null && !(refusalName in REFUSALS)) throw new Error('usage: refusal-root-action-routing [A|B|D|E|F]');
 
 function col(c) { return String.fromCharCode(65 + c); }
 function coord(cell) { return `${col(cell % 7)}${Math.floor(cell / 7) + 1}`; }
@@ -137,7 +137,7 @@ function classifyAction(rootState, action) {
   };
 }
 
-const names = refusalName ? [refusalName] : ['D', 'E', 'F'];
+const names = refusalName ? [refusalName] : ['A', 'B', 'D', 'E', 'F'];
 const rows = [];
 for (const name of names) {
   const sequence = ROOT + '3' + String(REFUSALS[name] + 1);
@@ -158,12 +158,12 @@ for (const name of names) {
 }
 
 console.log(`REFUSAL_ROOT_ACTION_ROUTING=${JSON.stringify({
-  kind: 'standard7x6-refusal-root-action-routing-v1',
+  kind: 'standard7x6-refusal-root-action-routing-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
   },
   rows,
-  theoremBoundary: 'Exact one-action routing at the D/E/F refusal roots after P0:C1. An action is promoted only when every immediate P1 reply closes by an exact terminal/response-capacity certificate or a qualified obligation-first rho child. Open actions remain unknown; a losing G1 continuation does not classify the refusal root.',
+  theoremBoundary: 'Exact one-action routing at each offsystem refusal root after P0:C1. An action is promoted only when every immediate P1 reply closes by an exact terminal/response-capacity certificate or a qualified obligation-first rho child. Open actions remain unknown; no universal witness is assumed across refusal columns.',
   authority: 'Exact C4-0010 transitions/terminal facts plus the obligation-first rho research calculus. No solved labels, symmetry assumption, deadline reset, q equality, or cap increase.',
 })}`);
