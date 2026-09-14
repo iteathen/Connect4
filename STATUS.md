@@ -11,43 +11,15 @@ This is a current-state router, not a historical ledger. Detailed evidence remai
 
 Derive a complete internal structural proof of standard 7x6 Connect Four perfect-play W/D/L, then exact P0 terminal winning-line provenance. External solved W/D/L is discovery/falsification evidence only, never a proof premise.
 
-## Authority status
-
-Acceptance status is part of authority.
+## Authority and proof boundary
 
 - C4-0001 through C4-0005 are protected baseline authority in their scopes.
-- C4-0006 is a **Candidate** structural research specification for CPC/WSL mathematics.
-- C4-0007 is a **Candidate** proof/certificate research specification for NDC semantics.
-- C4-0010 is an accepted **research** specification for the quotient-native forward lane; importing C4-0006/C4-0007 clauses does not silently promote those upstream specs.
+- C4-0006 and C4-0007 remain **Candidate** structural/proof research specifications.
+- C4-0010 is an accepted **research** consumer specification for the quotient-native forward lane; consuming candidate clauses does not silently promote those upstream specs.
 - Qualified executable controls establish theorem instances inside the research calculus; they do not change specification acceptance status.
-
-## Semantic and proof boundary
-
-The working structural stack is:
-
-```text
-E  causal support / enabled events
-R  residual winning-requirement antichains
-P  CPC / GF(2) phase / precedence
-C  temporal contracts / response resources / deadlines
-N  guarded dependency closure
-G  alternating predecessor fixed point
-Q  observation-sensitive value / provenance quotients
-```
-
-Ordinary quotient identity remains exact support plus normalized residual requirements. Temporal obligations, deadlines, proof terms, claim-relative theorem identity, execution-shard identity, and provenance are not silently collapsed into q.
-
-The logical-map audit remains in force:
-
-- exact ordered causal-clock accounting;
-- event-certified obligation creation/discharge;
-- path-local interchange validation;
-- no deadline regeneration;
-- generic target-row support-distance arithmetic;
-- non-vacuous dual-target closure;
-- no latent-policy/live-deadline conflation;
-- no implicit frame/player/ownership symmetry;
-- unknown, theorem failure, and resource failure are not loss.
+- Ordinary quotient identity remains exact support plus normalized residual requirements. Temporal obligations, deadlines, proof terms, claim-relative theorem identity, execution-shard identity, and provenance are not silently collapsed into q.
+- Unknown, theorem failure, candidate-action failure, and execution/resource failure are not loss.
+- No implicit frame rule, player/ownership/column symmetry, q equality from claim-relative signatures, deadline regeneration, or unproved 69 -> 28 geometric-line reduction is accepted.
 
 ## Root boundary
 
@@ -57,11 +29,9 @@ All six non-center first moves remain internally structurally proved P0-nonwinni
 V(opening c) <= 0 for c in {1,2,3,5,6,7}.
 ```
 
-The positive proof through opening column 4 remains unfinished. The repository does **not** yet claim a complete standard-7x6 solve.
+The positive proof through opening column 4 remains unfinished. The repository does **not** yet claim a complete standard-7x6 solve. There are exactly 69 geometric winning lines.
 
-There are exactly 69 geometric winning lines. No 69 -> 28 reduction is accepted.
-
-## Obligation-first rho calculus
+## Obligation-first rho / kappa calculus
 
 Distance-one induction remains
 
@@ -69,7 +39,13 @@ Distance-one induction remains
 rho(S) = (delta(S), mu(S))
 ```
 
-with `mu` = remaining A/B/D/E/F capacity and `delta` = remaining capacity in the previously resolved C/G column.
+with `mu` = remaining A/B/D/E/F capacity and `delta` = remaining capacity in the previously resolved C/G column. Distance-two induction uses
+
+```text
+kappa(S) = (d(S), delta(S), mu(S))
+```
+
+and delegates d=1 to rho.
 
 Before ordinary rho at every P0 node:
 
@@ -80,11 +56,16 @@ Before ordinary rho at every P0 node:
                                       after immediate P0 terminality is excluded
 ```
 
-The clean rho corpus, kappa distance-two results, rank-18 partition `83W/1L`, and rank-16 partition `11W/1L` remain intact under this hardened ordering.
+The clean rho corpus, kappa distance-two results, rank-18 partition `83W/1L`, and rank-16 partition `11W/1L` remain intact under this hardened ordering. Unique exact losses remain:
+
+```text
+rank18: 466565554644323332
+rank16: 4665655546443233
+```
 
 ## Qualified latent C1 state
 
-The exact state
+Exact state
 
 ```text
 466565554644
@@ -101,90 +82,139 @@ D5/E5/F5 refusal -> P0:A1 -> exact B1 threat -> forced B1 block -> obligation-fi
 
 The earlier universal G1 refusal witness was falsified and is not reused.
 
-Focused qualification: `Frontier latent C1 full closure`, run `34882743270`, success under the 300-second wall.
+```text
+workflow: Frontier latent C1 full closure
+run:      34882743270
+result:   success
+```
 
 ## Qualified D3 predecessor
 
-The earlier exact state
+Exact state
 
 ```text
 4665655546
 ```
 
-is now structurally P0-winning via
+is structurally P0-winning via `P0:D3`:
 
 ```text
-P0:D3
-```
-
-The complete P1 reply horizon after D3 has a two-case exact proof:
-
-```text
-P1:D4     -> exact child 466565554644 -> consume qualified latent-C1 win
+P1:D4     -> exact child 466565554644 -> qualified latent-C1 win
 P1:not D4 -> immediate P0:D4 terminal win
 ```
 
-Thus D4 is tactically forced if P1 wants to avoid immediate loss. The proof does **not** use “unique zero phase” as a forcing premise; phase observation only helped expose the hinge earlier.
-
-Focused qualification:
+D4 is therefore tactically forced if P1 avoids immediate loss; unique-zero-phase was not used as the forcing premise.
 
 ```text
 workflow: Frontier D3 reply horizon closure
 run:      34888051981
 result:   success
-wall:     timeout 300s
 ```
 
-Promoted consequence:
+## Qualified rank-9 universal predecessor
 
-```text
-4665655546 in W via P0:D3
-```
-
-This proves only that exact predecessor. It does not prove the rank-9 parent, the center opening, or the empty-board root.
-
-## Current active seam
-
-Move exactly one ply backward to the P1-turn predecessor:
+Exact P1-turn state
 
 ```text
 466565554
 ```
 
-The known P1 reply
+is now structurally P0-winning because every legal P1 reply has an independently executable exact certificate:
 
 ```text
-466565554 -- P1:F --> 4665655546
+P1:A -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
+P1:B -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
+P1:C -> D3 -> forced D4 -> C2 -> forced C3 -> G1 -> distance-two/rho closure
+P1:D -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
+P1:E -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
+P1:F -> exact child 4665655546 -> qualified D3 theorem
+P1:G -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
 ```
 
-reaches the newly qualified P0-winning child. To promote `466565554` as P0-winning, **every** legal P1 reply from that exact state must be closed by an exact P0-winning child theorem.
+The C branch originally exhausted the shared quotient pool after the exact tactical chain reached `46656555434433`; this was execution pressure, not a logical falsifier. Fresh-kernel post-G1 reply isolation proved A/B/C/E/F plus immediate G3 terminal, while D5 required top-level rho action `C`, which proved by `resolved_tail_descent`. No proof-state or quotient-storage limit was raised.
 
-Next work:
+```text
+workflow: Frontier rank9 full reply closure
+run:      34890470315
+result:   success
+```
 
-1. enumerate every legal P1 reply from `466565554`;
-2. record exact terminal, enabled-singleton, support, phase, and obligation surfaces at each P0 child;
-3. consume the new `4665655546` theorem only for the exact F child;
-4. derive independent contracts for the other replies; no symmetry or phase-only inference;
-5. promote the rank-9 state only if the full adversarial reply horizon closes.
+Promoted consequence:
+
+```text
+466565554 in W
+```
+
+## Qualified rank-8 predecessor
+
+Exact P0-turn state
+
+```text
+46656555
+```
+
+is structurally P0-winning via the exact D-column landing
+
+```text
+P0:D2 -> 466565554
+```
+
+The child is discharged by re-executing the complete seven-reply rank-9 theorem; no claim about alternative P0 moves is needed.
+
+```text
+workflow: Frontier rank8 D predecessor closure
+run:      34890858920
+result:   success
+```
+
+Promoted consequence:
+
+```text
+46656555 in W via P0:D2
+```
+
+## Current active seam: rank-7 P1 horizon
+
+Move exactly one ply backward to
+
+```text
+4665655
+```
+
+which is P1 to move. The exact E reply reaches the newly qualified rank-8 state:
+
+```text
+4665655 -- P1:E4 --> 46656555
+```
+
+Focused diagnostic `Frontier rank7 reply horizon diagnostic`, run `34891083467`, succeeded and establishes the following boundary:
+
+- all seven P1 replies A-G are legal nonterminal children;
+- only E is presently a qualified winning child, by exact state identity with `46656555`;
+- A/B/C/D/F/G have no immediate P0 terminal action, no enabled P0 singleton at the child, and no enabled P1 singleton obligation at the child;
+- every immediate P0 action from those six children is nonterminal and gives P1 no immediate terminal override;
+- `P0:F4` after A/B/C/D/E/G creates only the single P0 singleton `F5`, not the earlier `{C1,F5}` double threat;
+- the rank-9 F4 double-threat circuit therefore cannot be transferred backward by analogy.
+
+Next work is to classify the smallest exact structural continuation for A/B/C/D/F/G, beginning with candidate actions that create genuine support/temporal progress. E is consumed only by exact equality with the rank-8 theorem. Promotion of `4665655` requires all seven P1 children to close.
 
 ## Resource and proof hygiene
 
-- Five-minute outer and inner execution wall: **300 seconds**.
-- Preserve existing proof-state and quotient/search-storage bounds.
+- Five-minute outer/inner execution wall: **300 seconds**.
+- Preserve current proof-state and quotient/search-storage bounds.
 - Execution sharding is hygiene only, never semantic identity.
+- Do not raise limits merely to obtain a passing theorem.
 - Unknown is not loss; candidate-action failure is not state loss.
 - No deadline reset after clock advancement.
-- No implicit frame rule, player/ownership symmetry, or q equality from claim-relative signatures.
-- No arbitrary physical-frontier broadening, unrestricted q recursion, or cap increase merely to make a theorem pass.
+- No arbitrary physical-frontier broadening or unrestricted q recursion.
 
 ## Current evidence pointers
 
 - `docs/research/2026-09-14-guarded-braid-transport-reversed-stutter.md`
 - `docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-refusal-closure.mjs`
 - `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-full-closure.mjs`
 - `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-d3-reply-horizon-closure.mjs`
-- `.github/workflows/frontier-logical-map-audit.yml`
-- `.github/workflows/frontier-latent-c1-full-closure.yml`
-- `.github/workflows/frontier-d3-reply-horizon-closure.yml`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-composed-closure.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-full-reply-closure.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank8-d-predecessor-closure.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-reply-horizon-diagnostic.mjs`
