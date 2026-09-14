@@ -8,15 +8,14 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: qualify_reversed_ownership_same_column_stutter_and_compose_scheduler
+  id: derive_expired_cross_support_response_consequence
   objective: >-
-    Prove or falsify the exact P1-then-P0 same-column stutter macro needed by the C3/G3 cross-pair
-    scheduler after the newly-qualified rank18/rank16 outcome composition. Do not assume that the
-    already-qualified P0-then-P1 stutter theorem is symmetric under ownership reversal. Derive the
-    load-bearing support/residual/CPC/deadline/response-resource premises from exact scheduler states,
-    qualify the smallest reusable reversed-orientation theorem if one exists, then compose it into the
-    affected rank14 scheduler decisions and re-evaluate the exact latent state 466565554644 under every
-    arbitrary P1 deviation.
+    The reversed-ownership B1->B2 candidate is now exactly falsified as a same-contract stutter even
+    though it restores the board-facing C3/G3/phase/support interface and decreases mu. P1:B1 consumes
+    the accepted P0:C1 -> P1:G1 next-P1-turn deadline, so re-entering the old latent contract after
+    P0:B2 would regenerate an expired obligation. Derive the exact structural consequence of P1 declining
+    G1 at 46656555464432, using the new guarded braid transport laws and existing E/R/P/C/N predicates.
+    Do not infer W/L from the failed stutter theorem and do not reset the expired deadline.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -27,25 +26,14 @@ required_authority:
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
   - docs/research/2026-09-13-guarded-theorem-composition-calculus.md
-  - docs/research/2026-09-13-repair-capacity-predecessor-induction.md
-  - docs/research/2026-09-14-resolved-tail-distance2-postblock-composition.md
   - docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md
+  - docs/research/2026-09-14-guarded-braid-transport-reversed-stutter.md
 
 qualified_premises:
   - id: latent_scheduler_root
     statement: >-
-      466565554644 is the exact latent C3/G3 cross-pair scheduler state reached by the already-qualified
-      D3/D4 bridge. It is not yet proved in W.
-  - id: repair_and_resolved_tail_induction
-    statement: >-
-      mu over A/B/D/E/F is a valid repair rank but not a value classifier. The support-distance-one
-      theorem uses rho=(delta,mu), where delta is the already-resolved C/G tail. The full clean mu15
-      corpus closes 160/160 under unchanged limits.
-  - id: target_distance_kappa
-    statement: >-
-      The qualified distance-two theorem uses kappa=(d,delta,mu) lexicographically. Distance-one leaves
-      delegate to rho; accepted P0 actions strictly decrease kappa and exact P1 replies must not increase
-      it under terminal/live-target/deadline/response-capacity guards.
+      466565554644 is the exact latent C3/G3 scheduler state reached by the already-qualified D3/D4
+      bridge. It is not yet proved in W.
   - id: exact_rank18_partition
     statement: >-
       The exact 84-state post-forced-block rank18 boundary is completely classified by qualified local
@@ -56,86 +44,120 @@ qualified_premises:
       P0_loss: 1
       unknown: 0
     unique_loss: "466565554644323332"
-    loss_mechanism: >-
-      Exact simultaneous enabled P1 singleton obligations A1 and E5 form a one-move response-capacity
-      defect; every legal P0 action leaves an immediate P1 terminal.
   - id: exact_rank16_partition
     statement: >-
-      Backward composition through the unique forced resolved-column defense classifies all twelve exact
-      rank16 scheduler contexts: eleven P0-win and one P0-loss.
+      Backward composition through the forced resolved-column defense classifies all twelve exact rank16
+      scheduler contexts: eleven P0-win and one P0-loss.
     qualification:
       exact_contexts: 12
       P0_win: 11
       P0_loss: 1
     unique_loss: "4665655546443233"
-    child_contract_counts:
-      enhanced_predecessor_wins: 62
-      target_distance_kappa_wins: 21
-      forced_obligation_losses: 1
-      direct_P1_terminal_after_forced_block: 0
   - id: eliminated_scheduler_action
     statement: >-
-      At exact scheduler state 46656555464432, P0:C2 is adversarially eliminated because P1:C3 enters
-      the proved losing context 4665655546443233. This eliminates one action only; the state itself is
-      not classified as loss.
-  - id: existing_forward_orientation_stutter
+      At 46656555464432, P0:C2 is adversarially eliminated because P1:C3 enters the proved losing context
+      4665655546443233. This eliminates one action only and does not classify the state as loss.
+  - id: accepted_cross_support_deadline
     statement: >-
-      Existing same-column stutter evidence/theorems cover a P0 action followed by a P1 same-column
-      response in the qualified contexts. They are evidence for structure but not authority for the
-      reversed P1-then-P0 ownership orientation required here.
+      The latent scheduler contract contains P0:C1 -> P1:G1 and P0:G1 -> P1:C1 support-pair response
+      relations with responseDeadline=next_P1_turn.
+  - id: guarded_braid_transport
+    statement: >-
+      Qualified transport now requires exact claim-interface preservation, obligation conservation,
+      causal deadline-clock accounting, explicit response resources, legal/nonterminal event guards, and
+      strict well-founded progress for a neutral-pair re-entry certificate. It denies implicit player
+      renaming, implicit frame, q equality, and later-strategy equivalence.
+    qualification:
+      focused_workflow_run: 34863749014
+      generic_tests_passed: 8
+      generic_tests_failed: 0
+      pre_alpha_cleanup_run: 34863749016
+      pre_alpha_cleanup_result: success
+  - id: reversed_B1_B2_same_contract_falsifier
+    statement: >-
+      At 4665655546443, exact P1:B1 followed by P0:B2 is legal and nonterminal and restores the observed
+      board-facing latent interface, but it cannot re-enter the same temporal contract because P1:B1 has
+      consumed the next-P1-turn G1 response deadline.
+    exact_sequences:
+      before: "4665655546443"
+      after_P1_B1: "46656555464432"
+      after_P0_B2: "466565554644322"
+    preserved_observations:
+      C3_live: true
+      C3_support_distance: 1
+      G3_live: true
+      G3_support_distance: 2
+      GF2_phase_bits: "0010000"
+      P1_enabled_singletons: []
+      P1_terminal_actions: []
+      next_C_support: C2
+      next_G_support: G1
+    progress:
+      mu_before: 18
+      mu_after: 16
+    falsifier:
+      reason: obligation_deadline_regenerated
+      obligation: "support-pair:P0:C1->P1:G1"
+      remaining_before: 1
+      elapsed_P1_turns: 1
+      maximum_remaining_after: 0
+      attempted_remaining_after: 1
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   first_boundary:
-    exact_scheduler_state: "46656555464432"
-    adversarial_history: >-
-      The preceding off-subsystem P1:B1 event is followed by the now-eliminated P0:C2 path. Test P0:B2
-      as the minimal same-column recovery candidate, but do not assume it is valid merely because the
-      physical column pair is balanced.
-    mirrored_columns:
-      - A
-      - B
-      - D
-      - E
-      - F
+    exact_state_before_refusal: "4665655546443"
+    exact_refusal_event: P1:B1
+    exact_state_after_refusal: "46656555464432"
+    expired_obligation: "P0:C1->P1:G1 by next_P1_turn"
   theorem_candidate:
-    name: reversed_ownership_same_column_stutter
-    shape: >-
-      P1 off-subsystem action in a non-target column, followed by P0 in that same column, preserves the
-      exact live-target scheduler claim and returns to an equivalent guarded scheduler boundary.
-    required_premises:
-      - exact P1 action is legal and nonterminal
-      - exact P0 same-column reply is legal and nonterminal unless a P0 terminal certificate discharges it
-      - target C3/G3 live-singleton claim is preserved
-      - support/event dependencies required by the scheduler are unchanged or explicitly transported
-      - normalized residual requirements touching the stutter column are claim-equivalent after the pair
-      - CPC/GF2 phase and event precedence required by the claim are preserved under the reversed ownership pair
-      - no enabled P1 singleton deadline or response-resource obligation is hidden across the macro
-      - no implicit frame rule; opaque context may be erased only after congruence is proved for this claim
+    name: expired_cross_support_response_consequence
+    question: >-
+      Once P1 spends the required next turn on B1 rather than G1, what exact consequence replaces the
+      expired support-pair response contract?
+    allowed_consequence_shapes:
+      - exact immediate P0 terminal certificate
+      - strengthened P0 residual or ownership requirement
+      - forced target-support action under exact terminal/deadline guards
+      - exact P1 response-capacity defect with explicit obligation-to-response-slot mapping
+      - smaller guarded contract in which the old support-pair obligation is explicitly discharged or replaced
+      - preserved exact counterexample showing another E/R/P/C/N predicate is missing
+    required_guards:
+      - exact transition legality and terminal status
+      - residual C3/G3 requirements before and after the refusal
+      - exact support distances and landing-event order
+      - CPC/GF2 phase observed by the candidate consequence
+      - all enabled terminal singleton obligations for both players
+      - response resources and deadline clocks
+      - explicit disposition of the expired support-pair obligation
+      - strict finite-rank descent for every recursive structural dependency
+      - no implicit frame or player renaming
   falsification:
-    - start with exact B1->B2 recovery at 46656555464432
-    - enumerate terminal alternatives before, between, and after the pair
-    - compare the resulting scheduler claim with the exact intended boundary using claim-relative typed signatures
-    - repeat on mirrored A/D/E/F scheduler instances to determine whether one theorem family survives renaming
-    - if any orientation-specific R/P/C fact differs, retain the smallest exact counterexample and add only that premise
-  composition:
-    - consume the exact 11W/1L rank16 outcome table as opaque qualified child contracts
-    - recompute affected rank14 scheduler decisions after any reversed-stutter theorem qualifies
-    - never route through the eliminated C2 action at 46656555464432 as a winning witness
-    - enumerate every arbitrary P1 deviation from the actual cross-pair scheduler root 466565554644
-    - accept latent-root W membership only if one P0 scheduler strategy sends every legal P1 reply to P0 terminality or an already-qualified winning contract
+    - start with the concrete B1 refusal only; do not generalize A/D/E/F before its consequence is known
+    - reject any candidate theorem that silently restores remaining=1 on the expired G1 obligation
+    - retain any exact action that exposes a P1 immediate terminal or destroys a required target residual
+    - if P0:B2 remains useful, justify it only through the new consequence contract, not through stutter/re-entry
+    - candidate failure remains unknown and never implies P0 loss
+  composition_after_qualification:
+    - compose the exact refusal consequence into the scheduler at 46656555464432
+    - consume the qualified 11W/1L rank16 table only through its explicit contracts
+    - do not use the eliminated P0:C2 -> P1:C3 losing route as a winning witness
+    - only after the B refusal branch closes, identify whether A/D/E/F share a typed renaming theorem
+    - only after every legal P1 reply at 466565554644 closes may the latent root be promoted to W
+    - only after latent-root closure enumerate every P1 response to P0:D3 from 4665655546
   resource_hygiene:
-    - preserve the 100000 proof-state cap where recursive proof engines are used
-    - preserve configured quotient/search-storage bounds
-    - isolate roots/actions only for execution hygiene when needed
+    - preserve existing proof-state and quotient/search-storage bounds
+    - isolate roots/actions only as execution hygiene where required
     - execution partition membership is never semantic identity
+    - no frontier or proof-cap increase merely to make a theorem pass
   forbidden_shortcuts:
     - solved_WDL_or_external_solver_as_premise
     - unknown_as_loss
-    - action_failure_as_state_loss
+    - failed_stutter_as_state_loss
+    - deadline_reset_after_clock_tick
     - ownership_reversal_by_symmetry_without_proof
     - implicit_frame_rule
-    - physical_sequence_as_semantic_separator
+    - physical_or_phase_reentry_as_temporal_contract_reentry
     - q_equality_from_claim_relative_signature
     - arbitrary_q_frontier_recursion
     - proof_or_quotient_cap_increase_without_structural_reason
@@ -144,23 +166,23 @@ execution:
   inner_timeout_seconds: 270
 
 success_criteria:
-  - reversed P1-then-P0 same-column stutter is either exactly qualified with explicit R/P/C/N guards or falsified by a preserved exact counterexample
-  - no theorem relies on ownership symmetry alone
-  - every terminal/deadline alternative across a macro is explicit
-  - any qualified macro is composed into the affected rank14 scheduler decisions
-  - the latent scheduler root 466565554644 is re-evaluated with exhaustive legal P1 branch coverage
-  - no resource ambiguity is interpreted as a logical result
-  - STATUS.md and the durable research note are synchronized with the qualified outcome
+  - the P1:B1 refusal branch has an exact qualified consequence or a preserved minimal structural separator
+  - the expired G1 obligation is explicitly discharged, replaced, or used to derive a consequence; it is never reset
+  - all terminal and enabled-singleton alternatives are explicit
+  - any recursive structural dependency uses a stated finite rank and strictly decreases in the declared direction
+  - no outcome is inferred from theorem-family failure
+  - if a reusable refusal theorem emerges, its claim-relative renaming boundary is explicitly qualified before A/D/E/F reuse
+  - STATUS.md and the durable research note remain synchronized
 
 on_success:
   next: >-
-    If the complete C3/G3 scheduler closes, export a guarded exact P0-winning contract for 466565554644
-    and compose it backward through the full P1 reply horizon after P0:D3 from 4665655546. Do not assume
-    P1:D4 is the only relevant reply merely because it is the already-qualified bridge child. Promote a
-    center-opening theorem only after the complete hinge predecessor closes.
+    Compose the qualified refusal consequence into the exact C3/G3 scheduler. Close every legal P1 response
+    from 466565554644 using terminal certificates, already-qualified winning child contracts, or new exact
+    finite-resource consequences. Promote 466565554644 to W only after branch-complete closure, then push
+    backward through every legal P1 reply after P0:D3 from 4665655546.
 
 on_failure:
   next: >-
-    Preserve the smallest reversed-stutter counterexample and identify the first load-bearing ownership,
-    CPC phase, residual-incidence, terminal deadline, or response-resource distinction. Refine only that
-    claim-relative dependency cone; do not broaden the physical frontier or increase limits.
+    Preserve the smallest exact refusal counterexample and identify the first missing residual, ownership,
+    deadline, response-capacity, or event-order predicate. Refine only that claim-relative dependency cone;
+    do not broaden the physical frontier, reset temporal history, or increase fixed limits.

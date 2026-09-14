@@ -43,7 +43,7 @@ Winning region remains:
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
-Claim-relative theorem reuse, action-relative proof cones, proof-term equality, and execution-shard identity are not q equality.
+Claim-relative theorem reuse, action-relative proof cones, proof-term equality, execution-shard identity, and guarded braid transport are not q equality.
 
 ## Root boundary
 
@@ -204,31 +204,121 @@ At scheduler state
 46656555464432
 ```
 
-the old P0:C2 continuation is now adversarially eliminated because P1:C3 reaches the proved losing rank-16 context `4665655546443233`.
+the old P0:C2 continuation is adversarially eliminated because P1:C3 reaches the proved losing rank-16 context `4665655546443233`.
 
 This eliminates that action; it does **not** prove `46656555464432` losing.
 
-The natural recovery candidate is a same-column reply to the preceding off-subsystem P1 event, e.g. P1:B1 followed by P0:B2, before resuming the target scheduler.
+The previously proposed recovery was P0:B2, consuming the same B-column pair after the preceding off-subsystem P1:B1. That candidate has now been exactly tested and is **not** a same-contract scheduler stutter.
 
-## Current theorem gap: reversed-ownership stutter
+## Guarded braid transport law
 
-The repository already qualifies same-column stutter in the opposite move orientation: P0 action followed by P1 same-column response.
+The braid view exposed a missing composition law rather than a missing geometric game axiom.
 
-The scheduler now needs an exact theorem of the form
+The accepted specifications already govern terminal boundaries, CPC/GF(2) validity, NDC temporal correctness, response obligations, event order, and well-founded dependency ranks. The missing integration was an explicit transport law connecting those facts across a short event macro.
+
+The new guarded transport substrate requires:
 
 ```text
-P1 off-subsystem action
--> P0 same-column response
--> live C3/G3 scheduler claim preserved
+exact claim-interface preservation
+exact side-to-move preservation where observed
+obligation conservation
+causal deadline-clock accounting
+response-resource preservation
+support/event-order preservation
+legal and nonterminal transported events
+strict well-founded resource descent for neutral-pair re-entry
 ```
 
-for the relevant A/B/D/E/F columns.
+It explicitly denies player renaming, implicit frame preservation, q equality, and later-strategy equivalence.
 
-Do **not** infer this by symmetry. Ownership/turn orientation may change CPC phase, residual incidence, deadlines, terminal alternatives, or response-resource meaning.
+Focused generic qualification passed **8/8** adversarial controls. The broader pre-alpha cleanup qualification also passed.
 
-The next proof obligation is to prove or falsify reversed-ownership same-column stutter under exact terminal/support/R/P/C/N guards, then compose any qualified macro into the rank-14 scheduler decisions and re-evaluate `466565554644` under every arbitrary P1 deviation.
+Detailed evidence:
 
-If it closes, promote only the exact latent state after branch-complete composition. If it falsifies, preserve the smallest exact counterexample and derive the missing ownership/phase/deadline premise rather than broadening the frontier.
+`docs/research/2026-09-14-guarded-braid-transport-reversed-stutter.md`
+
+## Reversed-ownership B1 -> B2 falsifier
+
+The exact candidate is:
+
+```text
+4665655546443 -- P1:B1 --> 46656555464432 -- P0:B2 --> 466565554644322
+```
+
+Both events are legal and nonterminal.
+
+Before P1:B1 and after P0:B2, the board-facing downstream interface is exactly restored:
+
+```text
+C3 live = true, support distance = 1
+G3 live = true, support distance = 2
+full GF(2) column phase = 0010000
+P1 enabled singleton surface = empty
+P1 immediate terminal surface = empty
+next C support = C2
+next G support = G1
+mu = 18 -> 16
+```
+
+Thus the candidate looks like a valid stutter under support, target, phase, terminal-surface, and finite-resource observations.
+
+It nevertheless fails the temporal contract exactly.
+
+After P0:C1, the accepted latent support-pair relation is:
+
+```text
+P0:C1 -> P1:G1
+response deadline: next_P1_turn
+```
+
+P1:B1 consumes that next P1 turn. The old obligation therefore has zero remaining temporal slack. Re-entering the same latent contract after P0:B2 would restore its remaining deadline to one turn.
+
+The guarded transport control rejects this as:
+
+```text
+obligation_deadline_regenerated
+```
+
+with certificate:
+
+```text
+obligation = support-pair:P0:C1->P1:G1
+remaining before = 1
+elapsed P1 turns = 1
+maximum remaining after = 0
+attempted remaining after = 1
+```
+
+Therefore the reversed `B1 -> B2` pair is **not** an exact same-contract stutter. This is a theorem falsifier only; it does not classify either state as W/L and does not prove P0:B2 is a bad game move.
+
+No A/D/E/F generalization is warranted from the B case alone.
+
+## Current theorem gap: expired-response consequence
+
+The correct next seam is no longer reversed-stutter re-entry.
+
+At
+
+```text
+4665655546443 -- P1:B1 --> 46656555464432
+```
+
+P1 has declined the support-pair response `G1` on its accepted next-P1-turn deadline. The latent scheduler automaton specifies the response relation and deadline, but it does not yet export the consequence of **refusal/expiry**.
+
+The next theorem must derive what exact structural fact replaces the expired obligation. Candidate consequence shapes include:
+
+```text
+immediate P0 terminality
+strengthened P0 residual/ownership requirement
+forced target-support action
+exact P1 response-capacity defect
+smaller guarded contract with the old obligation explicitly discharged/replaced
+or a preserved exact separator showing another E/R/P/C/N predicate is missing
+```
+
+Do not reset the old deadline. If P0:B2 remains useful, it must be justified by this new consequence theorem rather than by same-contract stutter.
+
+Only after the B refusal branch is understood should typed renaming/generalization to A/D/E/F be attempted. Only after every legal P1 response from `466565554644` closes may that latent root be promoted to W.
 
 ## Hygiene
 
@@ -236,9 +326,10 @@ If it closes, promote only the exact latent state after branch-complete composit
 - Unknown is not loss.
 - Candidate-action or theorem-family failure is not state loss.
 - Response-capacity loss requires exact obligation-to-response-slot evidence and exhaustive legal-action coverage.
-- No implicit frame rule or ownership reversal.
+- No implicit frame rule, deadline reset, or ownership reversal.
+- Physical/phase re-entry is not temporal-contract re-entry when a causal clock advanced.
 - `mu`, phase, deadline counts, physical sequence, and execution partition are not value classifiers.
-- Claim/proof/action isomorphism is not q equality.
+- Claim/proof/action isomorphism and guarded transport are not q equality.
 - No physical-frontier broadening or arbitrary q recursion.
 - No proof/state/quotient cap increase without theorem justification.
 - Every focused research qualifier retains the five-minute outer wall and 270-second inner timeout.
