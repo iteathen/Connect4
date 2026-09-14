@@ -20,20 +20,22 @@ Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thre
 
 ## Structural authority and local routing
 
+Acceptance status is part of authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
+
 - `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
-- `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — **shared Connect4 structural mathematics**: CPC event/control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics. It is not BSFP-only merely because BSFP consumes it deeply.
-- `docs/specs/C4-0007-nested-dependency-closure-v1.md` — NDC dependency/certificate/timing/fixed-point proof semantics. Any lane consuming strategic certificates must preserve these meanings.
-- `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — BSFP-specific exact W/D/L solver architecture and backward fixed-point meaning.
-- `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA-BSFP execution/consumer profile.
-- `docs/specs/C4-0010-quotient-native-negamax-v1.md` — forward exact W/D/L Negamax **consumer** of C4-0006 structural semantics, plus proof-store/parallel/Branch-Manager execution policy.
-- `docs/research/2026-09-09-owner-searchless-connect4-findings.md` — owner-authored synthesis of CPC → WSL-625 → NDC → BSFP and attribution.
-- `docs/research/2026-09-09-universal-strategic-algebra.md` — U1 parity/response + U2 blocker-lattice unification, including even-release control preservation.
-- `docs/research/2026-09-09-nested-strategic-dependency-closure.md` — nested conditional event reservoirs and proof closure.
+- `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — **Candidate structural research specification** for shared Connect4 mathematics: CPC event/control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics. Its definitions and qualified theorem instances may be used explicitly in research controls, but it is not Accepted authority until its own status changes.
+- `docs/specs/C4-0007-nested-dependency-closure-v1.md` — **Candidate proof/certificate research specification** for NDC dependency/certificate/timing/fixed-point semantics. Research consuming these clauses must identify the dependency and qualification evidence; using the file does not change its Candidate status.
+- `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — BSFP-specific exact W/D/L solver architecture and backward fixed-point meaning, subject to the status declared in that specification.
+- `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA-BSFP execution/consumer profile, subject to its declared status.
+- `docs/specs/C4-0010-quotient-native-negamax-v1.md` — accepted **research** specification for the forward exact W/D/L Negamax consumer/execution lane. Where it imports CPC/WSL/NDC semantics from C4-0006/C4-0007, those imported structural/proof clauses retain the upstream Candidate status unless independently restated and accepted here.
+- `docs/research/2026-09-09-owner-searchless-connect4-findings.md` — owner-authored synthesis of CPC → WSL-625 → NDC → BSFP and attribution; research evidence, not a status override.
+- `docs/research/2026-09-09-universal-strategic-algebra.md` — U1 parity/response + U2 blocker-lattice unification, including even-release control preservation; research evidence.
+- `docs/research/2026-09-09-nested-strategic-dependency-closure.md` — nested conditional event reservoirs and proof closure; research evidence.
 - `docs/research/2026-09-09-searchless-solver-hypothesis.md` — explicit searchless criterion and unresolved algebraic-choice question.
 - `docs/research/2026-09-09-backward-winline-fixed-point.md` — backward W/L attractor and draw-safety fixed-point evidence.
 - `docs/research/2026-09-09-terminal-boundary-qualification.md` — independently qualified geometric terminal boundary.
-- `research/semantic-quotient/state-identity-unification/` — forward quotient research implementation/evidence; research files do not redefine the structural specs.
+- `research/semantic-quotient/state-identity-unification/` — forward quotient research implementation/evidence; qualified controls may establish theorem instances inside the research calculus but do not redefine specification status.
 - `reference/legacy-source/` — provenance/source evidence only, not specification authority.
 
 ### Required reading by lane
@@ -47,6 +49,8 @@ For quotient-native Negamax work, read:
 **C4-0001 → C4-0006 → C4-0010 → STATUS.md → next_step.yaml**.
 
 If the forward lane touches parity/Zugzwang control, blockers, strategic terminalization, event-frontier compression, race/deadline facts, or nested certificates, also read **C4-0007** and the relevant 2026-09-09 research notes above before changing semantics.
+
+These arrows are reading/dependency order, not an acceptance-status ladder. Always inspect the status declared inside each specification.
 
 Do not substitute generic alpha-beta literature for this repository's frontier mathematics.
 
@@ -120,8 +124,9 @@ Timing/race premises are first-class. A blocker ID represents a consequence afte
 
 For the quotient-native forward lane:
 
-- C4-0006 owns residual/CPC structural meaning;
-- C4-0007 owns strategic certificate/dependency meaning when consumed;
+- C4-0006 supplies Candidate residual/CPC structural meaning when explicitly imported by research controls;
+- C4-0007 supplies Candidate strategic certificate/dependency meaning when explicitly consumed;
+- C4-0010 owns the accepted research-lane transition/execution contract, but does not silently upgrade imported Candidate clauses;
 - the quotient state-space implementation owns the chosen exact forward projection and transition realization, not the underlying structural theory;
 - proof state is separate from semantic/frontier state;
 - the Negamax engine owns recursive W/D/L proof policy over unresolved decisions;
@@ -153,6 +158,15 @@ Fixed center order, reversed worker order, history/killer tables and similar con
 ## Forced work and Branch Manager
 
 One exact forced response is not a decision branch. Repeated forced responses may be collapsed into a deterministic macro-edge when semantics remain exact.
+
+When the side to move faces enabled opponent singleton obligations, **response-capacity classification precedes ordinary progress induction**:
+
+- an immediate terminal move for the side to move closes first;
+- two or more distinct enabled opponent singleton cells with only one placement response slot are an exact loss boundary;
+- exactly one enabled opponent singleton cell forces that exact defense before any ordinary `mu`/`rho`/`kappa` action choice;
+- only a zero-obligation state may enter the ordinary progress-action vocabulary unrestricted.
+
+A failed progress theorem remains unknown unless a separate exact loss certificate applies.
 
 Branch Manager should proactively maintain a bounded ready reservoir. Workers do not request work and wait. An idle worker consumes already-ready work with authoritative dependency-qualified proof work ahead of structural exploration.
 
