@@ -32,7 +32,6 @@ function repairInvariant(k,id,t){return rank(k,id)%2===0&&singleton(k,id,0,t)&&t
 const {kernel:k}=createSlot64ResidualQuotientKernel(DOMAIN,{cacheEdges:true,prefixClasses:4096,responseClosure:true,searchStorage:Object.freeze({states:262144,classes:524288,chunksPerSlot:131072})});
 k.prepareSearchStorage();
 
-// Qualified rank-20 contract: retain 20 logical members and exact 16-state transposition set.
 const known20=new Map(); let known20Logical=0;
 for(const c of [
   {name:'C_resolved_P0_owned_C1',prefix:'3733',resolved:C,target:G3},
@@ -45,7 +44,6 @@ for(const c of [
 }
 assert.equal(known20Logical,20); assert.equal(known20.size,16);
 
-// Reconstruct all 84 exact states after the proven forced C4/G4 block and one P1 reply.
 const rows=[];
 for(const x of [
   {family:'C_first',resolved:C,target:G3,targetCol:G,replies1:[0,1,3,4,5,6]},
@@ -59,8 +57,13 @@ for(const x of [
       const r2cell=landing(k,s17,r2),s18=k.advance(s17,r2);
       if(s18===domain.QN_TERMINAL_WIN){assert(new Set(enabledSingletons(k,s17,1)).has(r2cell)); rows.push({family:x.family,r1,r2,status:'P1_terminal'}); continue;}
       assert(s18>=0&&rank(k,s18)===18);
-      const handoff = r2===x.resolved ? 'resolved_tail_completion' : r2===x.targetCol ? 'remaining_target_support' : 'same_channel_compensation';
-      if(handoff==='same_channel_compensation') assert(REPAIRS.includes(r2),`unexpected off-channel ${col(r2)}`);
+      let handoff;
+      if(r2===x.resolved) handoff='resolved_tail_completion';
+      else if(r2===x.targetCol) handoff='remaining_target_support';
+      else {
+        assert(REPAIRS.includes(r2),`unexpected off-channel ${col(r2)}`);
+        handoff=landing(k,s18,r2)===0xff?'opponent_exhausted_channel_target_support':'same_channel_compensation';
+      }
       rows.push({family:x.family,r1,r2,status:'nonterminal',state:s18,resolved:x.resolved,target:x.target,targetCol:x.targetCol,handoff});
     }
   }
@@ -78,8 +81,12 @@ function classifyLeaf(s20,target){
 }
 
 function testTypedHandoff(row){
-  const action=row.handoff==='resolved_tail_completion'?row.resolved:row.handoff==='remaining_target_support'?row.targetCol:row.r2;
-  const cell=landing(k,row.state,action); assert.notEqual(cell,0xff,`${row.family}:${col(row.r1)}:${col(row.r2)} typed action full`);
+  const action = row.handoff==='resolved_tail_completion'
+    ? row.resolved
+    : (row.handoff==='remaining_target_support'||row.handoff==='opponent_exhausted_channel_target_support')
+      ? row.targetCol
+      : row.r2;
+  const cell=landing(k,row.state,action); assert.notEqual(cell,0xff,`${row.family}:${col(row.r1)}:${col(row.r2)} ${row.handoff} action full`);
   const s19=k.advance(row.state,action);
   if(s19===domain.QN_TERMINAL_WIN)return {...row,action,actionCell:cell,closed:true,route:'P0_terminal_on_typed_action',leaves:[]};
   assert(s19>=0&&rank(k,s19)===19);
@@ -95,15 +102,16 @@ function testTypedHandoff(row){
 }
 
 const tested=rows.filter(r=>r.status==='nonterminal').map(testTypedHandoff);
+const kinds=['resolved_tail_completion','remaining_target_support','same_channel_compensation','opponent_exhausted_channel_target_support'];
 const byKind={};
-for(const kind of ['resolved_tail_completion','remaining_target_support','same_channel_compensation']){
+for(const kind of kinds){
   const xs=tested.filter(x=>x.handoff===kind); const leafCounts={}; for(const x of xs)for(const l of x.leaves)leafCounts[l.route]=(leafCounts[l.route]??0)+1;
   byKind[kind]={states:xs.length,closedStates:xs.filter(x=>x.closed).length,failedStates:xs.filter(x=>!x.closed).length,leafRouteCounts:leafCounts,actionColumns:[...new Set(xs.map(x=>col(x.action)))].sort()};
 }
 const failed=tested.filter(x=>!x.closed);
 
 console.log(`POSTBLOCK_TYPED_HANDOFFS=${JSON.stringify({
-  kind:'standard7x6-postblock-typed-handoffs-v1',
+  kind:'standard7x6-postblock-typed-handoffs-v2',
   attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
   exactRank18States:tested.length,
   knownRank20LogicalMembers:known20Logical,
@@ -113,7 +121,7 @@ console.log(`POSTBLOCK_TYPED_HANDOFFS=${JSON.stringify({
   failedStates:failed.length,
   failureSamples:failed.slice(0,16).map(x=>({member:`${x.family}:${col(x.r1)}->${col(x.r2)}`,handoff:x.handoff,action:col(x.action),target:coord(x.target),mu:mu(k,x.state),targetDistance:targetDistance(k,x.state,x.target),firstFailure:x.firstFailure})),
   interpretation:failed.length===0
-    ? 'Each post-block state is absorbed by its theorem-shaped typed handoff: resolved-column tail completion, remaining-target support, or same-channel compensation. Every P1 reply then reaches an immediate P0 terminal certificate, an exact qualified rank-20 contract, or the exact repair-invariant boundary. This is a finite contract transition, not physical-tree reconstruction.'
+    ? 'Each post-block state is absorbed by a theorem-shaped typed handoff: resolved-column tail completion, remaining-target support, same-channel compensation, or target support after P1 itself exhausted a repair channel. Every P1 reply then reaches an immediate P0 terminal certificate, an exact qualified rank-20 contract, or the exact repair-invariant boundary.'
     : 'At least one theorem-shaped typed handoff does not yet reach a qualified boundary. Preserve only the reported failing handoff class(es) for the next theorem; do not widen action enumeration or storage.',
   theoremBoundary:'This classifies one structurally selected P0 action per exact nonterminal rank-18 post-block state. A leaf marked repair_invariant_reestablished is only an exact premise match for the existing repair calculus; this control does not itself recursively re-prove that leaf. It uses no solved W/D/L labels, arbitrary action search, q equality, or state-quotient claim.',
   authority:'Exact C4-0010 support/residual transitions, enabled-singleton terminal certificates, the exact qualified rank-20 member set, and the explicit repair-invariant predicate only.',
