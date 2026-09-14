@@ -8,14 +8,14 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: derive_expired_cross_support_response_consequence
+  id: close_d3_reply_horizon
   objective: >-
-    The reversed-ownership B1->B2 candidate is now exactly falsified as a same-contract stutter even
-    though it restores the board-facing C3/G3/phase/support interface and decreases mu. P1:B1 consumes
-    the accepted P0:C1 -> P1:G1 next-P1-turn deadline, so re-entering the old latent contract after
-    P0:B2 would regenerate an expired obligation. Derive the exact structural consequence of P1 declining
-    G1 at 46656555464432, using the new guarded braid transport laws and existing E/R/P/C/N predicates.
-    Do not infer W/L from the failed stutter theorem and do not reset the expired deadline.
+    The fixed latent scheduler state 466565554644 is now structurally proved P0-winning via P0:C1,
+    with all seven P1 replies independently closed under the hardened obligation-first rho calculus.
+    Push that theorem backward through the earlier D3 hinge at 4665655546 by classifying every legal
+    P1 reply after P0:D3. P1:D4 reaches the qualified latent win but is not forced; the other six
+    replies must each close by exact terminal/obligation/structural contracts before the predecessor
+    can be promoted to W.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -25,164 +25,157 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-13-guarded-theorem-composition-calculus.md
-  - docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md
   - docs/research/2026-09-14-guarded-braid-transport-reversed-stutter.md
+  - docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md
 
 qualified_premises:
-  - id: latent_scheduler_root
+  - id: authority_status
     statement: >-
-      466565554644 is the exact latent C3/G3 scheduler state reached by the already-qualified D3/D4
-      bridge. It is not yet proved in W.
-  - id: exact_rank18_partition
+      C4-0006 and C4-0007 remain Candidate research specifications. C4-0010 is an accepted research
+      consumer specification; importing candidate structural clauses does not silently elevate them.
+  - id: hardened_transport
     statement: >-
-      The exact 84-state post-forced-block rank18 boundary is completely classified by qualified local
-      contracts: 83 P0-win, 1 P0-loss, 0 unknown.
+      Guarded transport uses exact ordered causal-clock accounting, event-certified obligation effects,
+      path-local interchange validation, and no implicit frame/player renaming/deadline reset.
+  - id: obligation_first_rho
+    statement: >-
+      At a P0 rho node, immediate P0 terminality is checked first. With two or more distinct enabled P1
+      singleton obligations and no immediate P0 terminal, the node is an exact one-move response-capacity
+      loss. With exactly one obligation, only the exact blocking column is admissible before ordinary rho.
+      With zero obligations, ordinary rho applies. This ordering is qualified by the logical-map audit.
     qualification:
-      exact_roots: 84
-      P0_win: 83
-      P0_loss: 1
-      unknown: 0
-    unique_loss: "466565554644323332"
-  - id: exact_rank16_partition
+      logical_map_audit_run: 34881568472
+      result: success
+  - id: latent_c1_full_closure
     statement: >-
-      Backward composition through the forced resolved-column defense classifies all twelve exact rank16
-      scheduler contexts: eleven P0-win and one P0-loss.
+      The exact latent state 466565554644 is structurally P0-winning via P0:C1. Every legal P1 reply
+      after C1 is independently closed without solved-WDL premises.
     qualification:
-      exact_contexts: 12
-      P0_win: 11
-      P0_loss: 1
-    unique_loss: "4665655546443233"
-  - id: eliminated_scheduler_action
+      workflow: Frontier latent C1 full closure
+      run: 34882743270
+      result: success
+      timeout_seconds: 300
+    witness: C1
+    replies:
+      C:
+        route: immediate_P0_C3_terminal
+      G:
+        route: P0_G2_forced_G3_block_then_obligation_first_rho_C3
+      A:
+        witness: G1
+        route: G1_seizure_then_G2_forced_G3_block_then_obligation_first_rho_C3
+      B:
+        witness: G1
+        route: G1_seizure_then_G2_forced_G3_block_then_obligation_first_rho_C3
+      D:
+        witness: A1
+        route: A1_creates_B1_threat_forced_B1_block_then_obligation_first_rho_C3
+      E:
+        witness: A1
+        route: A1_creates_B1_threat_forced_B1_block_then_obligation_first_rho_C3
+      F:
+        witness: A1
+        route: A1_creates_B1_threat_forced_B1_block_then_obligation_first_rho_C3
+  - id: falsified_universal_refusal_witness
     statement: >-
-      At 46656555464432, P0:C2 is adversarially eliminated because P1:C3 enters the proved losing context
-      4665655546443233. This eliminates one action only and does not classify the state as loss.
-  - id: accepted_cross_support_deadline
+      A universal P0:G1 witness for all A/B/D/E/F refusals is false. D/E/F require a different exact
+      side-threat witness. Do not restore the universal-G1 assumption or infer refusal-column symmetry.
+  - id: d3_hinge
     statement: >-
-      The latent scheduler contract contains P0:C1 -> P1:G1 and P0:G1 -> P1:C1 support-pair response
-      relations with responseDeadline=next_P1_turn.
-  - id: guarded_braid_transport
+      At 4665655546, P0:D3 is legal and nonterminal. Across every legal P1 reply there is no immediate
+      P1 terminal reply and both C3/G3 singleton residuals survive. P1:D4 is the unique zero-phase reply
+      and reaches 466565554644, but D4 is not a forced reply.
+    exact_predecessor: "4665655546"
+    p0_witness_candidate: D3
+    after_p0: "46656555464"
+    closed_reply:
+      reply: D4
+      child: "466565554644"
+      consequence: P0_win
+    unresolved_reply_columns: [A, B, C, E, F, G]
+  - id: exact_postblock_tables
     statement: >-
-      Qualified transport now requires exact claim-interface preservation, obligation conservation,
-      causal deadline-clock accounting, explicit response resources, legal/nonterminal event guards, and
-      strict well-founded progress for a neutral-pair re-entry certificate. It denies implicit player
-      renaming, implicit frame, q equality, and later-strategy equivalence.
-    qualification:
-      focused_workflow_run: 34863749014
-      generic_tests_passed: 8
-      generic_tests_failed: 0
-      pre_alpha_cleanup_run: 34863749016
-      pre_alpha_cleanup_result: success
-  - id: reversed_B1_B2_same_contract_falsifier
-    statement: >-
-      At 4665655546443, exact P1:B1 followed by P0:B2 is legal and nonterminal and restores the observed
-      board-facing latent interface, but it cannot re-enter the same temporal contract because P1:B1 has
-      consumed the next-P1-turn G1 response deadline.
-    exact_sequences:
-      before: "4665655546443"
-      after_P1_B1: "46656555464432"
-      after_P0_B2: "466565554644322"
-    preserved_observations:
-      C3_live: true
-      C3_support_distance: 1
-      G3_live: true
-      G3_support_distance: 2
-      GF2_phase_bits: "0010000"
-      P1_enabled_singletons: []
-      P1_terminal_actions: []
-      next_C_support: C2
-      next_G_support: G1
-    progress:
-      mu_before: 18
-      mu_after: 16
-    falsifier:
-      reason: obligation_deadline_regenerated
-      obligation: "support-pair:P0:C1->P1:G1"
-      remaining_before: 1
-      elapsed_P1_turns: 1
-      maximum_remaining_after: 0
-      attempted_remaining_after: 1
+      The exact post-block rank18 boundary remains 83 P0-win / 1 P0-loss / 0 unknown and the exact
+      rank16 scheduler contexts remain 11 P0-win / 1 P0-loss under the hardened calculus.
+    unique_rank18_loss: "466565554644323332"
+    unique_rank16_loss: "4665655546443233"
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   first_boundary:
-    exact_state_before_refusal: "4665655546443"
-    exact_refusal_event: P1:B1
-    exact_state_after_refusal: "46656555464432"
-    expired_obligation: "P0:C1->P1:G1 by next_P1_turn"
+    predecessor: "4665655546"
+    p0_action: D3
+    after_p0: "46656555464"
+    p1_reply_columns: [A, B, C, D, E, F, G]
   theorem_candidate:
-    name: expired_cross_support_response_consequence
+    name: exact_d3_reply_horizon_closure
     question: >-
-      Once P1 spends the required next turn on B1 rather than G1, what exact consequence replaces the
-      expired support-pair response contract?
-    allowed_consequence_shapes:
-      - exact immediate P0 terminal certificate
-      - strengthened P0 residual or ownership requirement
-      - forced target-support action under exact terminal/deadline guards
-      - exact P1 response-capacity defect with explicit obligation-to-response-slot mapping
-      - smaller guarded contract in which the old support-pair obligation is explicitly discharged or replaced
-      - preserved exact counterexample showing another E/R/P/C/N predicate is missing
+      Does P0:D3 at 4665655546 have an exact winning continuation against every legal P1 reply, using
+      the qualified latent-state theorem for D4 and independent exact contracts for A/B/C/E/F/G?
     required_guards:
-      - exact transition legality and terminal status
-      - residual C3/G3 requirements before and after the refusal
-      - exact support distances and landing-event order
-      - CPC/GF2 phase observed by the candidate consequence
-      - all enabled terminal singleton obligations for both players
-      - response resources and deadline clocks
-      - explicit disposition of the expired support-pair obligation
-      - strict finite-rank descent for every recursive structural dependency
-      - no implicit frame or player renaming
+      - exact transition legality and terminal status for D3 and every P1 reply
+      - exact side to move at every child
+      - all enabled singleton obligations for both players before selecting a P0 continuation
+      - exact C3/G3 residual liveness and support distances where consumed
+      - CPC/GF2 phase only when used by a theorem contract
+      - explicit temporal obligation/deadline disposition when a contract depends on it
+      - response-capacity classification before rho/kappa at every P0 node
+      - strict finite-rank descent for recursive structural dependencies
+      - no implicit frame or player/ownership renaming
+  reply_policy:
+    D:
+      route: consume_exact_latent_c1_win
+      child: "466565554644"
+    A: { route: derive_exact_child_contract }
+    B: { route: derive_exact_child_contract }
+    C: { route: derive_exact_child_contract }
+    E: { route: derive_exact_child_contract }
+    F: { route: derive_exact_child_contract }
+    G: { route: derive_exact_child_contract }
   falsification:
-    - start with the concrete B1 refusal only; do not generalize A/D/E/F before its consequence is known
-    - reject any candidate theorem that silently restores remaining=1 on the expired G1 obligation
-    - retain any exact action that exposes a P1 immediate terminal or destroys a required target residual
-    - if P0:B2 remains useful, justify it only through the new consequence contract, not through stutter/re-entry
-    - candidate failure remains unknown and never implies P0 loss
+    - enumerate all legal P1 replies after D3; do not assume D4 because it is the unique zero-phase reply
+    - check immediate terminal and forced-obligation surfaces before invoking rho/kappa
+    - a failed candidate action remains unknown unless an exact loss theorem exhausts all legal P0 replies
+    - do not reuse the C1 refusal witness map by analogy without an exact typed bridge
+    - retain the smallest exact child that falsifies any proposed generalization
   composition_after_qualification:
-    - compose the exact refusal consequence into the scheduler at 46656555464432
-    - consume the qualified 11W/1L rank16 table only through its explicit contracts
-    - do not use the eliminated P0:C2 -> P1:C3 losing route as a winning witness
-    - only after the B refusal branch closes, identify whether A/D/E/F share a typed renaming theorem
-    - only after every legal P1 reply at 466565554644 closes may the latent root be promoted to W
-    - only after latent-root closure enumerate every P1 response to P0:D3 from 4665655546
+    - if all seven P1 replies close, promote 4665655546 to W via P0:D3
+    - then move exactly one predecessor layer backward toward the center opening
+    - do not claim the center opening or empty-board root until their full adversarial reply horizons close
   resource_hygiene:
+    - five-minute outer wall: 300 seconds
+    - five-minute inner wall: 300 seconds
     - preserve existing proof-state and quotient/search-storage bounds
-    - isolate roots/actions only as execution hygiene where required
-    - execution partition membership is never semantic identity
+    - isolate roots/actions only as execution hygiene
+    - execution partition is never semantic identity
     - no frontier or proof-cap increase merely to make a theorem pass
   forbidden_shortcuts:
     - solved_WDL_or_external_solver_as_premise
     - unknown_as_loss
-    - failed_stutter_as_state_loss
+    - zero_phase_reply_as_forced_reply
     - deadline_reset_after_clock_tick
-    - ownership_reversal_by_symmetry_without_proof
+    - ownership_or_column_symmetry_without_proof
     - implicit_frame_rule
-    - physical_or_phase_reentry_as_temporal_contract_reentry
     - q_equality_from_claim_relative_signature
     - arbitrary_q_frontier_recursion
     - proof_or_quotient_cap_increase_without_structural_reason
     - unproved_69_to_28_geometric_line_reduction
-  wall_clock_limit_seconds: 300
-  inner_timeout_seconds: 270
 
 success_criteria:
-  - the P1:B1 refusal branch has an exact qualified consequence or a preserved minimal structural separator
-  - the expired G1 obligation is explicitly discharged, replaced, or used to derive a consequence; it is never reset
-  - all terminal and enabled-singleton alternatives are explicit
-  - any recursive structural dependency uses a stated finite rank and strictly decreases in the declared direction
-  - no outcome is inferred from theorem-family failure
-  - if a reusable refusal theorem emerges, its claim-relative renaming boundary is explicitly qualified before A/D/E/F reuse
-  - STATUS.md and the durable research note remain synchronized
+  - all seven legal P1 replies after P0:D3 are explicitly represented
+  - the D4 reply consumes the exact qualified latent-state theorem rather than re-proving it implicitly
+  - each A/B/C/E/F/G child has an exact winning contract or a preserved minimal separator
+  - forced obligations are consumed before ordinary rho/kappa
+  - no branch closure is inferred from timeout, resource failure, or theorem-family failure
+  - STATUS.md and durable research evidence remain synchronized
 
 on_success:
   next: >-
-    Compose the qualified refusal consequence into the exact C3/G3 scheduler. Close every legal P1 response
-    from 466565554644 using terminal certificates, already-qualified winning child contracts, or new exact
-    finite-resource consequences. Promote 466565554644 to W only after branch-complete closure, then push
-    backward through every legal P1 reply after P0:D3 from 4665655546.
+    Promote 4665655546 to W via P0:D3, then inspect its exact predecessor and continue the same
+    branch-complete backward composition toward the opening-column-4 position. Do not skip adversarial replies.
 
 on_failure:
   next: >-
-    Preserve the smallest exact refusal counterexample and identify the first missing residual, ownership,
-    deadline, response-capacity, or event-order predicate. Refine only that claim-relative dependency cone;
-    do not broaden the physical frontier, reset temporal history, or increase fixed limits.
+    Preserve the smallest exact D3-reply counterexample and identify the first missing E/R/P/C/N predicate
+    or theorem-routing rule. Refine only that child dependency cone; do not broaden the physical frontier,
+    restore symmetry assumptions, or increase fixed proof/resource limits.
