@@ -1,0 +1,61 @@
+name: Frontier resolved-tail clean corpus
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-clean-corpus-closure.mjs
+      - .github/workflows/frontier-resolved-tail-clean-corpus.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  clean-corpus:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      states: ${{ steps.run.outputs.states }}
+      attempted: ${{ steps.run.outputs.attempted }}
+      closed: ${{ steps.run.outputs.closed }}
+      failed: ${{ steps.run.outputs.failed }}
+      unattempted: ${{ steps.run.outputs.unattempted }}
+      resource_groups: ${{ steps.run.outputs.resource_groups }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify resolved-tail clean-corpus closure
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/resolved-tail-clean-corpus.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-clean-corpus-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RESOLVED_TAIL_CLEAN_CORPUS_CLOSURE='));
+          if(!line) throw new Error('resolved-tail clean-corpus summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactCleanCandidateStates!==287) throw new Error(`clean corpus drift ${x.exactCleanCandidateStates}`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `states=${x.exactCleanCandidateStates}`,
+            `attempted=${x.attemptedStates}`,
+            `closed=${x.closedStates}`,
+            `failed=${x.logicalFailures}`,
+            `unattempted=${x.unattemptedStates}`,
+            `resource_groups=${x.resourceFailureGroups}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: clean-corpus
+    name: resolved-corpus-n${{ needs.clean-corpus.outputs.states }}-a${{ needs.clean-corpus.outputs.attempted }}-c${{ needs.clean-corpus.outputs.closed }}-f${{ needs.clean-corpus.outputs.failed }}-u${{ needs.clean-corpus.outputs.unattempted }}-r${{ needs.clean-corpus.outputs.resource_groups }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "resolved-tail clean-corpus counts encoded in job name"
