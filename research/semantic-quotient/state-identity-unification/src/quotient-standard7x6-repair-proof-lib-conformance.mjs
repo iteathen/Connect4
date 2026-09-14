@@ -70,11 +70,11 @@ function qualifyRank20AndExport(){
         let accepted=true;
         for(const reply of e.legal(afterP0)){
           const replyCell=e.landing(afterP0,reply),afterP1=k.advance(afterP0,reply);
-          if(afterP1===domain.QN_TERMINAL_WIN){assert(new Set(e.enabledSingletons(afterP0,1)).has(replyCell));accepted=false;break;}
+          if(afterP1===domain.QN_TERMINAL_WIN){assert(new Set(e.enabledSingletons(afterP0,1)).has(replyCell));accepted=false;continue;}
           assert(afterP1>=0&&e.rank(afterP1)===22);
           if(e.terminalActions(afterP1,0).length)continue;
           const child=e.prove(afterP1,c.target);
-          if(!child.proved){accepted=false;break;}
+          if(!child.proved)accepted=false;
         }
         if(accepted)witnesses.push(e.col(action));
       }
