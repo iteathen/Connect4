@@ -1,6 +1,6 @@
-schema_version: 77
+schema_version: 78
 updated: 2026-09-13
-state: guarded_claim_theorem_composition
+state: off_subsystem_progress_or_reentry
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -19,17 +19,19 @@ authority:
   temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
   temporal_stutter_tail_phase_debt: docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md
   event_dependency_cone: docs/research/2026-09-13-event-dependency-cone-product-calculus.md
-  claim_relative_isomorphism: docs/research/2026-09-13-claim-relative-event-isomorphism.md
-  response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   claim_relative_library: docs/research/2026-09-13-claim-relative-signature-library.md
+  guarded_composition: docs/research/2026-09-13-guarded-theorem-composition-calculus.md
+  response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
 
 objective: >
-  Compose already-qualified claim-relative structural theorems across exact event
-  boundaries without reconstructing the physical q-tree. A composition is admissible
-  only when the upstream theorem conclusion discharges the downstream theorem premises
-  under an explicit typed renaming and every load-bearing frame, temporal, phase,
-  resource, NDC, terminal, and provenance condition is proved preserved or updated.
+  Close or precisely falsify the remaining off-subsystem progress premise at the fixed
+  latent C3/G3 contract state. Work over already-qualified local semantic-effect theorem
+  classes, not a physical q move tree. Every admissible off-target event class must either
+  compose to exact latent-contract re-entry, terminal closure, a response-capacity circuit
+  with a proved Connect4 obligation/slot map, or a strict decrease in a well-founded exact
+  E/R/P/C/N progress rank. If this is impossible, retain the smallest exact theorem-class
+  cycle/SCC that demonstrates the missing structural invariant.
 
 canonical_layers:
   E: causal_event_poset_and_support_ideals
@@ -40,95 +42,31 @@ canonical_layers:
   G: alternating_predecessor_fixed_point
   Q: observation_sensitive_value_and_provenance_quotients
 
-unified_statement:
-  event_product: >
-    Every legal placement is one typed event with simultaneous E/R/P/C/N projections.
-  claim_relative_signature: >
-    Sigma_O(S,e) is the load-bearing typed dependency cone required to prove exact
-    claim O about event e in context S. Isomorphic signatures license theorem reuse
-    only for O; nonincident context remains live and q identity is unchanged.
-  theorem_composition: >
-    Theorem A may feed theorem B only when an explicit typed unification proves that
-    A's conclusion satisfies B's required premises and a frame proof accounts for every
-    load-bearing fact that B observes but A does not modify. Terminal alternatives and
-    temporal/resource transitions are part of the composition, not side conditions to
-    be assumed away.
-  exact_value: "W = mu X . [ I union PreE(X) union PreA(X) ]"
-  ordinary_value_identity: "q = support + normalized R0 + normalized R1"
-  output_identity: "q + Pi0 when terminal-line provenance is observable"
-  governing_projection_rule: >
-    Erase a distinction only when it is a congruence for every downstream transition
-    and the exact claim or observation being proved.
-  completion_boundary: >
-    This is not yet the solve. The center-opening positive proof still must close
-    structurally inside W; terminal-line provenance is the second-stage output.
-
 established_controls:
-  claim_relative_signature_library:
-    implementation_commit: 722d2f69a289bf40561f24aef9ae115a10f260d1
-    first_workflow_run: 34804665143
-    generic_tests: 9
+  guarded_theorem_composition:
+    qualifying_commit: 28a9990b9a8c539ee8e890e9d6d115d77ec31d4a
+    workflow_run: 34806311358
+    generic_composition_tests: 8
     result: pass
-  remaining_seed_claims:
-    implementation_commit: 27fe94853a8a6625b6a79c9ff80bf68374a381d7
-    workflow_run: 34805072309
-    seed_claims_qualified: 6
-    singleton_discharge:
-      physical_contexts: 3
-      canonical_classes: 1
-    same_column_stutter:
-      physical_contexts: 5
-      canonical_classes: 1
-    cross_support_pair:
-      physical_contexts: 2
-      canonical_classes: 1
-    phase_defect_transport:
-      physical_contexts: 92
-      canonical_classes: 1
-    size_two_response_capacity_circuit:
-      finite_models: 9
-      violating_models: 2
-      canonical_classes: 1
-      connect4_certificate_mapping: incomplete
-    universal_hinge:
-      legal_p1_replies_checked: 7
-      all_preserve_C3_G3_singletons: true
-      immediate_p1_terminal_replies: 0
-  primitive_factorization:
-    implementation_commit: 41acdedf735d2d0532ccaee1cc4fe6708b373dff
-    workflow_run: 34805220177
-    result: pass
-    R_monotone_residual_cofactor:
-      exact_instances: 4
-      downstream_claims:
-        - universal_hinge_generates_two_latent_singletons
-        - enabled_singleton_discharge
-    P_two_ply_GF2_column_operator:
-      exact_instances: 4
-      law: "phi' = phi + e_a + e_b over GF(2)"
-      downstream_claims:
-        - same_column_stutter_preserves_latent_contract
-        - phase_defect_transport
-    C_response_matching_capacity:
-      status: partial
-      blocker: general_connect4_certificate_to_obligation_response_slot_mapping_incomplete
-  exact_composition_bridge:
-    source_prefix: "4665655546"
-    events:
-      - "P0:D3"
-      - "P1:D4"
-    destination_prefix: "466565554644"
-    result: exact_C4_0010_state_identity_at_bridge
-    interpretation: >
-      The qualified hinge state reaches exactly the fixed latent-target temporal-contract
-      root after D3,D4. This is a composition seam only; it does not imply a win.
-
-bayesian_research_mask:
-  role: research_priority_only
-  visibility_to_exact_logic: none
-  promotion_membrane: >
-    Only exact guarded theorem schemas and qualified signatures cross into proof logic;
-    confidence and utility annotations are discarded.
+    exact_bridge_chain:
+      - hinge_D3_instantiation
+      - exact_D4_bridge
+      - latent_target_contract_activation
+    same_column_stutter_reentries: 5
+    first_unproved_premise: well_founded_off_subsystem_progress_or_reentry
+  local_event_effect_domain:
+    physical_transitions: 20
+    exact_local_semantic_effect_classes: 12
+    nontrivial_reused_classes: 8
+    singleton_classes: 4
+  exact_phase_law: "phi' = phi + e_a + e_b over GF(2)"
+  phase_boundary: >
+    Phase defects may be transported rather than removed. Phase weight alone is therefore
+    not a proved progress rank and must not be used as one.
+  tail_normal_form: "Tail3 = StutterPair2 + OddEvent1"
+  capacity_boundary: >
+    A size-two response circuit is exact only after an exact obligation-to-response-slot
+    map has been established. The general Connect4 mapping remains incomplete.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -136,71 +74,71 @@ constraints:
   - no_known_center_win_as_proof_premise
   - exact_search_oracles_are_discovery_and_falsification_controls_only
   - preserve_exact_c4_0010_q_identity
+  - theorem_class_graph_is_not_a_q_state_graph
   - claim_relative_equivalence_is_not_state_equivalence
   - theorem_composition_is_not_state_merging
-  - every_composition_must_prove_all_load_bearing_CPC_NDC_resource_deadline_terminal_and_provenance_guards
-  - opaque_nonincident_context_must_be_preserved_or_explicitly_updated_by_a_qualified_event
+  - every_edge_must_be_justified_by_retained_exact_transition_or_qualified_theorem_evidence
+  - every_rank_component_must_be_exact_and_load_bearing_for_the_progress_claim
+  - phase_weight_alone_is_not_a_progress_rank
+  - response_capacity_requires_exact_connect4_obligation_slot_mapping
+  - opaque_frame_terminal_temporal_resource_and_incident_R_conditions_remain_explicit
   - bayesian_mask_is_external_to_exact_logic
   - unresolved_frontiers_are_unknown_not_negative_values
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: build_guarded_theorem_composition_calculus
+  name: derive_off_subsystem_progress_or_reentry_calculus
   purpose: >
-    Define typed theorem pre/post contracts and exact composition checks so reusable
-    local theorem instances can be assembled only when premise discharge, frame
-    preservation, temporal/resource compatibility, terminal completeness, and any
-    observable provenance are proved. Use the exact D3->D4->latent-contract bridge as
-    the first bounded physical control.
+    Convert the retained 20-transition / 12-class local-effect evidence into guarded
+    theorem contracts and determine whether the remaining off-subsystem behavior admits
+    exact re-entry/terminal/circuit closure or a genuinely well-founded structural rank.
+    A minimal exact cycle is an acceptable and preferred result over a false rank.
   required_operations:
-    - Export_typed_theorem_contract
-    - Unify_conclusion_with_premise
-    - Verify_opaque_frame_condition
-    - Verify_temporal_resource_compatibility
-    - Verify_terminal_complete_composition
-    - Compose_theorem_chain
-  first_control:
-    bridge: "4665655546 -- P0:D3 -- P1:D4 --> 466565554644"
-    source_claim: universal_hinge_generates_two_latent_singletons
-    destination_contract: latent_target_cross_pair_temporal_contract
-    required_check: >
-      Prove exactly which hinge conclusions survive D4 and which additional facts at
-      466565554644 are premises supplied by the exact transition rather than by the
-      hinge theorem itself.
-    forbidden_inference: >
-      Do not infer that reaching the latent-target contract proves P0 win; the qualified
-      target-only scheduler is locally defensible and off-subsystem moves remain live.
-  composition_candidates:
-    - hinge_to_latent_contract_activation
-    - stutter_then_latent_contract_reentry
-    - phase_transport_then_repair_effect_when_incident_R_signature_matches
-    - response_obligation_generation_then_capacity_circuit_when_mapping_is_exact
-  hostile_negative_controls:
-    - reject_phase_transport_to_stronger_local_repair_effect_when_incident_R_is_missing
-    - reject_capacity_circuit_connect4_application_without_exact_obligation_slot_mapping
-    - reject_composition_when_a_terminal_alternative_is_dropped
-    - reject_composition_when_opaque_nonincident_frame_changes_without_a_qualified_event
-    - reject_provenance_conclusion_from_value_only_or_provenance_free_contracts
-    - reject_temporal_composition_when_resource_or_deadline_state_is_missing
+    - Export_local_effect_class_contracts
+    - Build_exact_theorem_class_transition_relation
+    - Compose_known_stutter_reentries
+    - Test_candidate_structural_rank
+    - Find_minimal_exact_cycle_or_SCC
+    - Report_first_missing_guard_or_progress_component
+  source_controls:
+    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-phase-debt-local-effect-signatures.mjs
+    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-phase-debt-resource-classes.mjs
+    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-temporal-stutter.mjs
+    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
+  candidate_rank_inputs:
+    - live_latent_target_count
+    - exact_support_tail_type
+    - target_middle_support_status
+    - incident_R_cofactor_signature
+    - GF2_phase_defect_location_not_just_weight
+    - exact_temporal_resource_obligation_state
+    - response_capacity_deficiency_only_when_mapping_is_proved
   bounded_steps:
-    - define_minimal_precondition_conclusion_and_frame_contract_schema
-    - derive_contracts_from_existing_qualified_typed_event_signatures_not_from_named_rules
-    - implement_exact_typed_unification_and_frame_checks
-    - bind_first_chain_to_exact_C4_0010_bridge
-    - retain_minimal_missing_or_contradictory_premise_for_every_rejected_composition
-    - identify_the_first_unproved_premise_blocking_extension_toward_center_opening_W_membership
-    - do_not_expand_the_physical_q_tree
+    - read_actual_retained_20_transition_evidence_and_reconstruct_no_more_than_its_exact_local_domain
+    - export_contracts_for_the_12_exact_semantic_effect_classes
+    - mark_the_5_known_same_column_stutters_as_exact_reentry_edges
+    - add_only_edges_licensed_by_existing_exact_controls_or_one_new_bounded_local_replay
+    - test_lexicographic_or_partial_order_rank_candidates_without_using_WDL_labels
+    - if_a_cycle_exists_reduce_it_to_the_smallest_exact_SCC_and_identify_the_missing_load_bearing_field
+    - if_rank_exists_prove_strict_descent_on_every_nonterminal_nonreentry_edge
+    - do_not_enumerate_the_physical_game_tree
   success_conditions:
-    - at_least_one_multi_theorem_chain_composes_and_replay_qualifies_without_q_tree_expansion
-    - composition_certificate_records_discharged_premises_and_preserved_or_updated_frame
-    - at_least_one_hostile_negative_composition_is_rejected_with_a_minimal_separator
-    - exact_missing_premises_toward_center_opening_W_are_narrower_than_before
+    - every_retained_local_class_is_explicitly_classified_as_reentry_terminal_mapped_circuit_rank_descent_or_unresolved
+    - any_claimed_rank_is_strict_on_every_covered_nonterminal_nonreentry_edge
+    - otherwise_a_minimal_exact_cycle_or_SCC_is_retained_as_a_falsifier
+    - the_next_missing_premise_toward_center_opening_W_is_strictly_narrower_than_well_founded_off_subsystem_progress_or_reentry
+  hostile_negative_controls:
+    - reject_rank_based_only_on_phase_weight
+    - reject_merging_A_or_B_repairs_with_D_E_F_when_incident_R_or_support_tail_type_differs_for_the_claim
+    - reject_capacity_closure_without_exact_obligation_slot_mapping
+    - reject_an_edge_if_terminal_or_temporal_resource_alternatives_are_not_preserved
+    - reject_global_q_equality_inference_from_local_class_equality
   stop_conditions:
     - physical_q_tree_reconstruction_begins
     - WDL_labels_become_proof_premises
-    - composition_omits_a_load_bearing_guard
-    - theorem_chain_silently_assumes_frame_preservation
+    - an_unproved_edge_is_inserted_to_make_the_rank_work
+    - a_cycle_is_hidden_by_coarsening_a_load_bearing_signature
     - wall_clock_reaches_5_minutes
 
 forbidden_shortcuts:
@@ -208,17 +146,16 @@ forbidden_shortcuts:
   - use_minimax_or_oracle_value_labels_as_certificate_facts
   - use_bayesian_credence_as_proof_authority
   - turn_claim_relative_isomorphism_into_q_state_equality
-  - turn_theorem_composition_into_implicit_q_state_merging
-  - use_named_rule_identity_as_semantic_authority
-  - erase_unrelated_global_facts_rather_than_parameterize_over_them
-  - assume_temporal_or_resource_state_survives_without_a_frame_proof
+  - turn_theorem_class_graph_into_a_disguised_physical_move_tree
+  - use_phase_weight_as_value_or_progress_without_a_strict_descent_theorem
   - apply_response_capacity_without_an_exact_obligation_response_mapping
+  - erase_incident_R_support_tail_temporal_or_terminal_separators_to_force_a_cycle_break
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
-  - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
 
 cleanup_policy:
   negative_controls: retain
+  exact_cycles_and_failed_ranks: retain
   incomplete_experiments: retain_with_status_annotation
   unknown_usefulness: retain
   branch_newer_work: preserve_and_reconcile_before_mutation
