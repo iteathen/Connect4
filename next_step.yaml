@@ -8,12 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: close_rank9_p1_reply_horizon
+  id: close_rank7_p1_reply_horizon
   objective: >-
-    The exact state 4665655546 is now structurally proved P0-winning via P0:D3. Move exactly one ply
-    backward to the P1-turn predecessor 466565554. The known P1:F reply reaches 4665655546, but the
-    predecessor may be promoted to P0-winning only if every legal P1 reply reaches an exact P0-winning
-    child under independently qualified structural contracts.
+    Exact states 466565554 and 46656555 are now structurally proved P0-winning. Move exactly one ply
+    backward to P1-turn state 4665655. The exact P1:E child is 46656555 and may consume the qualified
+    rank8 theorem. Promote 4665655 only if every other legal P1 child A/B/C/D/F/G is independently
+    closed by an exact P0-winning structural contract.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -45,28 +45,44 @@ qualified_premises:
       workflow: Frontier latent C1 full closure
       run: 34882743270
       result: success
-      timeout_seconds: 300
   - id: d3_reply_horizon_closure
     statement: >-
-      Exact state 4665655546 is P0-winning via P0:D3. After D3, P1:D4 reaches exact qualified state
-      466565554644; every other legal P1 reply exposes immediate P0:D4 terminal. Unique zero phase is
-      not used as a forcing premise.
+      Exact state 4665655546 is P0-winning via P0:D3. P1:D4 enters 466565554644 and every other reply
+      exposes immediate P0:D4 terminal.
     qualification:
       workflow: Frontier D3 reply horizon closure
       run: 34888051981
       result: success
-      timeout_seconds: 300
-    witness: D3
-    predecessor: "4665655546"
-    branches:
-      D:
-        route: exact_latent_child_466565554644
-      A: { route: immediate_P0_D4_terminal }
-      B: { route: immediate_P0_D4_terminal }
-      C: { route: immediate_P0_D4_terminal }
-      E: { route: immediate_P0_D4_terminal }
-      F: { route: immediate_P0_D4_terminal }
-      G: { route: immediate_P0_D4_terminal }
+  - id: rank9_full_reply_closure
+    statement: >-
+      Exact P1-turn state 466565554 is P0-winning. A/B/D/E/G close by exhaustive P0:F4->{C1,F5}
+      double-threat response-capacity certificates; C closes through D3 -> forced D4 -> C2 -> forced C3
+      -> G1 followed by fresh-kernel distance-two/rho certificates; F enters qualified state 4665655546.
+      The C-branch shared-kernel capacity failure was execution pressure only; no limit was widened.
+    qualification:
+      workflow: Frontier rank9 full reply closure
+      run: 34890470315
+      result: success
+    predecessor: "466565554"
+  - id: rank8_d_predecessor_closure
+    statement: >-
+      Exact P0-turn state 46656555 is P0-winning via P0:D2 into exact qualified child 466565554.
+    qualification:
+      workflow: Frontier rank8 D predecessor closure
+      run: 34890858920
+      result: success
+    predecessor: "46656555"
+    witness: D2
+  - id: rank7_reply_diagnostic
+    statement: >-
+      Exact P1-turn state 4665655 has seven legal nonterminal replies A-G. E is exactly 46656555.
+      A/B/C/D/F/G have no immediate P0 terminal, no P0 singleton, and no P1 obligation at the P0 child.
+      Every immediate P0 action is nonterminal and gives P1 no immediate terminal override. P0:F4 after
+      A/B/C/D/E/G creates only singleton F5, not the earlier C1/F5 double threat.
+    qualification:
+      workflow: Frontier rank7 reply horizon diagnostic
+      run: 34891083467
+      result: success
   - id: exact_postblock_tables
     statement: >-
       The hardened exact post-block boundaries remain rank18 83W/1L/0unknown and rank16 11W/1L.
@@ -76,35 +92,48 @@ qualified_premises:
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   first_boundary:
-    predecessor: "466565554"
+    predecessor: "4665655"
     side_to_move: P1
-    known_reply_column: F
-    known_child: "4665655546"
+    known_reply_column: E
+    known_reply_cell: E4
+    known_child: "46656555"
     known_child_consequence: P0_win
-  theorem_candidate:
-    name: exact_rank9_universal_predecessor_closure
+  first_candidate:
+    name: exact_forced_f5_handoff_family
+    scope:
+      replies: [A, B, C, D, G]
+      p0_action: F4
     question: >-
-      Does every legal P1 action from exact state 466565554 enter a P0-winning child, with the F child
-      discharged by the qualified 4665655546 theorem and every other child closed independently?
+      For each exact A/B/C/D/G child, does P0:F4 create an exact F5 terminal threat such that every
+      P1 non-F5 response loses immediately and the exact F5 block enters a smaller reusable structural
+      contract? Classify each post-F5-block child independently; do not infer sibling equivalence.
     required_guards:
-      - exact legal P1 reply set at 466565554
-      - exact landing cell and side to move for every child
-      - exact immediate terminal status
-      - enabled P0/P1 singleton surfaces at every P0 child
-      - support/target distances only where consumed by a theorem
-      - temporal obligations/deadlines explicitly preserved where relevant
-      - forced-obligation classification before rho/kappa
+      - exact child sequence and P0:F4 landing
+      - no P1 terminal override after F4
+      - enabled P0 singleton F5 after F4
+      - exhaustive legal P1 replies after F4
+      - every non-F5 reply must expose exact immediate P0:F5 terminal
+      - exact F5 block child identity
+      - forced-obligation classification before any rho/kappa handoff
       - no symmetry, phase-only forcing, implicit frame, or q-equality shortcut
+  separate_hard_child:
+    reply: F
+    sequence: "46656556"
+    reason: >-
+      P0:F lands on F5 at this child and does not create the singleton-F5 handoff seen in A/B/C/D/G.
+      Keep F independent until an exact continuation is derived.
   execution_order:
-    - build an exact one-ply diagnostic for every P1 reply from 466565554
-    - tag P1:F only by exact sequence equality with qualified child 4665655546
-    - search for immediate P0 terminal or exact forced-threat circuits before invoking rho/kappa
-    - derive the smallest exact contract for each remaining child
-    - compose the universal predecessor only after every legal P1 child closes
+    - qualify the A/B/C/D/G P0:F4 -> forced P1:F5 handoff as five exact cases
+    - inspect the five exact post-F5-block children for immediate terminal, obligations, target support, and rho/kappa entry
+    - preserve piecewise witnesses if the children diverge; do not require a universal action
+    - investigate exact F child 46656556 separately
+    - consume P1:E only by exact state equality with qualified 46656555
+    - compose the rank7 universal predecessor only after A/B/C/D/E/F/G all close
   falsification:
-    - a single unclosed legal P1 child blocks promotion of 466565554
-    - failed P0 candidate action remains unknown unless all legal P0 responses are exhausted by an exact loss theorem
-    - do not transfer the D3 tactical pattern to sibling replies by analogy
+    - a single unclosed legal P1 child blocks promotion of 4665655
+    - if any non-F5 P1 reply after F4 does not expose immediate F5 terminal, reject the forced-handoff candidate for that child
+    - failed P0 candidate action remains unknown unless all legal P0 actions are exhausted by exact loss theorems
+    - do not transfer the rank9 F4 double-threat theorem backward; rank7 diagnostic already falsifies that shape
     - preserve the smallest exact child that falsifies any proposed generalization
   resource_hygiene:
     - five-minute outer wall: 300 seconds
@@ -125,18 +154,18 @@ execution:
     - unproved_69_to_28_geometric_line_reduction
 
 success_criteria:
-  - every legal P1 reply from 466565554 is explicitly represented
-  - the exact F child consumes the qualified 4665655546 theorem
+  - every legal P1 reply from 4665655 is explicitly represented
+  - exact E child consumes qualified 46656555 theorem
   - every other child has an exact P0-winning certificate
-  - no closure comes from timeout, resource failure, output cardinality, symmetry, or solved labels
+  - no closure comes from timeout, resource failure, output cardinality, symmetry, phase analogy, or solved labels
   - STATUS.md and next_step.yaml remain synchronized
 
 on_success:
   next: >-
-    Promote 466565554 to P0-winning as a universal P1 predecessor, then move exactly one ply backward
-    and continue the branch-complete structural composition toward the center opening.
+    Promote 4665655 to P0-winning as a universal P1 predecessor, then move exactly one ply backward and
+    continue branch-complete structural composition toward the center opening.
 
 on_failure:
   next: >-
-    Preserve the smallest exact unclosed P1 child and identify its first missing E/R/P/C/N predicate or
-    theorem-routing rule. Refine only that dependency cone; do not broaden the physical frontier or raise caps.
+    Preserve the smallest exact unclosed child and identify its first missing E/R/P/C/N predicate or theorem
+    routing rule. Refine only that dependency cone; do not broaden the physical frontier or raise caps.
