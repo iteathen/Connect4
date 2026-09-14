@@ -23,6 +23,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-safe-chain-witness.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-blocking-tail-all-action-terminal-census.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-action-adversarial-elimination.mjs
       - .github/workflows/frontier-claim-relative-signature-library.yml
   workflow_dispatch:
 
@@ -45,6 +46,8 @@ jobs:
       blocking_overrides: ${{ steps.tail_summary.outputs.blocking_overrides }}
       universal_terminal: ${{ steps.action_census.outputs.universal_terminal }}
       escape_states: ${{ steps.action_census.outputs.escape_states }}
+      tail_eliminated: ${{ steps.tail_elimination.outputs.tail_eliminated }}
+      tail_surviving: ${{ steps.tail_elimination.outputs.tail_surviving }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -161,12 +164,30 @@ jobs:
             `universal_terminal=${x.universalP1TerminalResponseStates}\n` +
             `escape_states=${x.statesWithEscapeOrImmediateP0Win}\n`);
           NODE
+      - name: Push universal terminal-response certificates back to tail actions
+        id: tail_elimination
+        shell: bash
+        run: |
+          set -euo pipefail
+          elimination_file="$RUNNER_TEMP/tail-action-elimination.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-action-adversarial-elimination.mjs | tee "$elimination_file"
+          ELIMINATION_FILE="$elimination_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.ELIMINATION_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('TAIL_ACTION_ADVERSARIAL_ELIMINATION='));
+          if (!line) throw new Error('tail-action elimination line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            `tail_eliminated=${x.adversariallyEliminatedTailActions}\n` +
+            `tail_surviving=${x.survivingTailActions}\n`);
+          NODE
 
   tail-routing-summary:
     needs: claim-relative-library
-    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }}
+    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }} tails-x${{ needs.claim-relative-library.outputs.tail_eliminated }}-s${{ needs.claim-relative-library.outputs.tail_surviving }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Publish compact routing counts
-        run: echo "qualified target-support and all-action routing counts are encoded in this job name"
+        run: echo "qualified target-support, all-action, and tail-elimination counts are encoded in this job name"
