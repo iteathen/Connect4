@@ -6,6 +6,7 @@ import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-sl
 import * as domain from './quotient-negamax-domain-contract.mjs';
 
 const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
+const CENTER_ORDER = Object.freeze([3, 4, 2, 5, 1, 6, 0]);
 const CENSUS = fileURLToPath(new URL('./quotient-standard7x6-proof-frontier-census.mjs', import.meta.url));
 const PONS_INVALID_MOVE = -1000;
 
@@ -55,6 +56,23 @@ function analyzeBatch(sequences) {
   const lines = (child.stdout ?? '').split(/\r?\n/).filter(line => line.trim().length > 0);
   if (lines.length !== sequences.length) throw new Error(`Pons returned ${lines.length} lines for ${sequences.length} inputs`);
   return sequences.map((sequence, index) => parsePonsLine(sequence, lines[index]));
+}
+
+function chooseWinningWitness(scores, sequence) {
+  let bestScore = -Infinity;
+  let bestColumn = -1;
+  for (const column of CENTER_ORDER) {
+    const score = scores[column];
+    if (score === PONS_INVALID_MOVE) continue;
+    if (score > bestScore) {
+      bestScore = score;
+      bestColumn = column;
+    }
+  }
+  if (bestColumn < 0 || bestScore <= 0) {
+    throw new Error(`no exact-winning discovery witness at ${sequence}, best=${bestScore}`);
+  }
+  return Object.freeze({ column: bestColumn, score: bestScore });
 }
 
 function replay(kernel, sequence) {
@@ -179,14 +197,14 @@ for (const representative of census.representativeQuotientStates) {
 if (unresolvedRoots.length !== 723) throw new Error(`expected 723 unresolved roots, got ${unresolvedRoots.length}`);
 
 const scoreRows = analyzeBatch(unresolvedRoots.map(root => root.sequence));
-const minHardHistogram = new Map();
+const hardReplyHistogram = new Map();
 const positiveMoveCountHistogram = new Map();
-const bestHardColumnHistogram = new Map();
+const selectedMoveColumnHistogram = new Map();
 const hardReplyColumnHistogram = new Map();
 const hardKindStateIds = new Set();
 const boundaryRows = [];
 let totalPositiveMoves = 0;
-let totalBestHardReplies = 0;
+let totalHardReplies = 0;
 let rootsWithOneHardReply = 0;
 let rootsWithTwoOrFewerHardReplies = 0;
 let rootsWithThreeOrFewerHardReplies = 0;
@@ -194,88 +212,79 @@ let rootsWithThreeOrFewerHardReplies = 0;
 for (let index = 0; index < unresolvedRoots.length; index += 1) {
   const root = unresolvedRoots[index];
   const scores = scoreRows[index];
-  const positiveMoves = [];
-  for (const column of legalColumns(kernel, root.stateId)) {
-    if (scores[column] <= 0 || scores[column] === PONS_INVALID_MOVE) continue;
-    const defender = kernel.advance(root.stateId, column);
-    if (defender < 0) throw new Error(`positive discovery move terminal/illegal at ${root.sequence}/${column + 1}`);
-    const replyKinds = [];
-    const hardReplies = [];
-    for (const defenderColumn of legalColumns(kernel, defender)) {
-      const attacker = kernel.advance(defender, defenderColumn);
-      if (attacker === domain.QN_TERMINAL_WIN || attacker < 0) {
-        throw new Error(`positive discovery move permits terminal/illegal defender edge at ${root.sequence}/${column + 1}/${defenderColumn + 1}`);
-      }
-      const kind = shallowP0Kind(kernel, attacker);
-      replyKinds.push(kind);
-      if (kind === 'H') {
-        hardReplies.push(defenderColumn);
-        hardKindStateIds.add(attacker);
-      }
+  const legal = legalColumns(kernel, root.stateId);
+  const positiveMoves = legal.filter(column => scores[column] > 0 && scores[column] !== PONS_INVALID_MOVE).length;
+  if (positiveMoves === 0) throw new Error(`unresolved winning source root has no positive exact move: ${root.sequence}`);
+  totalPositiveMoves += positiveMoves;
+  histogramIncrement(positiveMoveCountHistogram, positiveMoves);
+
+  const witness = chooseWinningWitness(scores, root.sequence);
+  const defender = kernel.advance(root.stateId, witness.column);
+  if (defender < 0) throw new Error(`selected discovery move terminal/illegal at ${root.sequence}/${witness.column + 1}`);
+
+  const replyKinds = [];
+  const hardReplies = [];
+  for (const defenderColumn of legalColumns(kernel, defender)) {
+    const attacker = kernel.advance(defender, defenderColumn);
+    if (attacker === domain.QN_TERMINAL_WIN || attacker < 0) {
+      throw new Error(`selected winning move permits terminal/illegal defender edge at ${root.sequence}/${witness.column + 1}/${defenderColumn + 1}`);
     }
-    positiveMoves.push({
-      column,
-      score: scores[column],
-      hardCount: hardReplies.length,
-      hardReplies,
-      replyKinds,
-    });
+    const kind = shallowP0Kind(kernel, attacker);
+    replyKinds.push(Object.freeze({ column: defenderColumn + 1, kind }));
+    if (kind === 'H') {
+      hardReplies.push(defenderColumn);
+      hardKindStateIds.add(attacker);
+    }
   }
-  if (positiveMoves.length === 0) throw new Error(`unresolved winning source root has no positive exact move: ${root.sequence}`);
-  totalPositiveMoves += positiveMoves.length;
-  histogramIncrement(positiveMoveCountHistogram, positiveMoves.length);
-  positiveMoves.sort((left, right) =>
-    left.hardCount - right.hardCount
-    || right.score - left.score
-    || Math.abs(left.column - 3) - Math.abs(right.column - 3)
-    || left.column - right.column);
-  const best = positiveMoves[0];
-  histogramIncrement(minHardHistogram, best.hardCount);
-  histogramIncrement(bestHardColumnHistogram, best.column + 1);
-  totalBestHardReplies += best.hardCount;
-  for (const reply of best.hardReplies) histogramIncrement(hardReplyColumnHistogram, reply + 1);
-  if (best.hardCount === 1) rootsWithOneHardReply += 1;
-  if (best.hardCount <= 2) rootsWithTwoOrFewerHardReplies += 1;
-  if (best.hardCount <= 3) rootsWithThreeOrFewerHardReplies += 1;
-  boundaryRows.push({
+
+  histogramIncrement(hardReplyHistogram, hardReplies.length);
+  histogramIncrement(selectedMoveColumnHistogram, witness.column + 1);
+  totalHardReplies += hardReplies.length;
+  for (const reply of hardReplies) histogramIncrement(hardReplyColumnHistogram, reply + 1);
+  if (hardReplies.length === 1) rootsWithOneHardReply += 1;
+  if (hardReplies.length <= 2) rootsWithTwoOrFewerHardReplies += 1;
+  if (hardReplies.length <= 3) rootsWithThreeOrFewerHardReplies += 1;
+
+  boundaryRows.push(Object.freeze({
     sequence: root.sequence,
-    positiveMoves: positiveMoves.length,
-    bestMove: best.column + 1,
-    bestScore: best.score,
-    minimumHardReplies: best.hardCount,
-    hardReplyColumns: best.hardReplies.map(column => column + 1),
-    replyKinds: best.replyKinds,
-  });
+    positiveMoves,
+    selectedMove: witness.column + 1,
+    selectedScore: witness.score,
+    hardReplies: hardReplies.length,
+    hardReplyColumns: hardReplies.map(column => column + 1),
+    replyKinds: Object.freeze(replyKinds),
+  }));
 }
 
 boundaryRows.sort((left, right) =>
-  left.minimumHardReplies - right.minimumHardReplies
+  left.hardReplies - right.hardReplies
   || left.positiveMoves - right.positiveMoves
   || left.sequence.localeCompare(right.sequence));
 
 const toObject = map => Object.fromEntries([...map.entries()].sort((a, b) => Number(a[0]) - Number(b[0])));
 
 console.log(`UNRESOLVED_BOUNDARY=${JSON.stringify({
-  kind: 'standard7x6-depth8-unresolved-boundary-census-v1',
+  kind: 'standard7x6-depth8-selected-witness-unresolved-boundary-v2',
   attribution: {
     researchDirectionAndStructuralTarget: 'Josh Oshiro',
     formalizationImplementationAndQualification: 'OpenAI ChatGPT',
   },
   unresolvedRoots: unresolvedRoots.length,
-  discoveryAuthority: 'Pons action scores are used only to restrict the diagnostic to value-preserving P0 candidate moves. Hard-reply classification itself uses only legal C4-0010 transitions and structural I/E(O) predicates.',
-  totalPositiveCandidateMoves: totalPositiveMoves,
+  materializedQStates: kernel.states.count,
+  discoveryAuthority: 'Pons action scores select exactly one canonical exact-winning P0 witness per unresolved root using the proof-frontier max-score/center-priority rule. Defender-consequence classification uses only legal C4-0010 transitions and structural I/E(O) predicates. Scores are not proof premises.',
+  totalPositiveCandidateMovesWithoutExpansion: totalPositiveMoves,
   averagePositiveMovesPerRoot: totalPositiveMoves / unresolvedRoots.length,
   positiveMoveCountHistogram: toObject(positiveMoveCountHistogram),
-  minimumHardReplyHistogram: toObject(minHardHistogram),
+  selectedWitnessHardReplyHistogram: toObject(hardReplyHistogram),
   rootsWithExactlyOneHardReply: rootsWithOneHardReply,
   rootsWithAtMostTwoHardReplies: rootsWithTwoOrFewerHardReplies,
   rootsWithAtMostThreeHardReplies: rootsWithThreeOrFewerHardReplies,
-  averageMinimumHardReplies: totalBestHardReplies / unresolvedRoots.length,
-  uniqueHardP0QStatesAcrossAllPositiveMoves: hardKindStateIds.size,
-  bestMoveColumnHistogram: toObject(bestHardColumnHistogram),
-  hardReplyColumnHistogramUnderBestMoves: toObject(hardReplyColumnHistogram),
+  averageHardRepliesUnderSelectedWitness: totalHardReplies / unresolvedRoots.length,
+  uniqueHardP0QStatesUnderSelectedWitnesses: hardKindStateIds.size,
+  selectedMoveColumnHistogram: toObject(selectedMoveColumnHistogram),
+  hardReplyColumnHistogram: toObject(hardReplyColumnHistogram),
   easiestBoundaryExamples: boundaryRows.slice(0, 60),
   hardestBoundaryExamples: boundaryRows.slice(-40).reverse(),
-  interpretation: 'minimumHardReplies is the smallest number of defender consequences still outside I or E(O) after a value-preserving P0 move. A small histogram mass at 1 or 2 identifies the narrowest missing theorem targets without claiming those hard consequences are equivalent.',
+  interpretation: 'hardReplies counts defender consequences still outside I or E(O) under the canonical exact-winning proof witness. Small counts identify narrow missing structural-leaf targets without asserting equality between hard states.',
   theoremStatus: 'diagnostic/discovery control only; exact scores are not proof premises',
 })}`);
