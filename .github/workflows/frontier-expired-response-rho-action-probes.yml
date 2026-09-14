@@ -1,4 +1,4 @@
-name: Frontier expired-response rho child probes
+name: Frontier expired-response refusal corpus
 
 on:
   push:
@@ -12,57 +12,21 @@ permissions:
   contents: read
 
 jobs:
-  probe:
-    name: rho-${{ matrix.case }}-${{ matrix.reply }}
+  refusal:
+    name: refusal-${{ matrix.column }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - case: E
-            reply: A
-            sequence: '46656555464432757771'
-          - case: E
-            reply: B
-            sequence: '46656555464432757772'
-          - case: E
-            reply: D
-            sequence: '46656555464432757774'
-          - case: E
-            reply: E
-            sequence: '46656555464432757775'
-          - case: E
-            reply: F
-            sequence: '46656555464432757776'
-          - case: E
-            reply: G
-            sequence: '46656555464432757777'
-          - case: F
-            reply: A
-            sequence: '46656555464432767771'
-          - case: F
-            reply: B
-            sequence: '46656555464432767772'
-          - case: F
-            reply: D
-            sequence: '46656555464432767774'
-          - case: F
-            reply: E
-            sequence: '46656555464432767775'
-          - case: F
-            reply: F
-            sequence: '46656555464432767776'
-          - case: F
-            reply: G
-            sequence: '46656555464432767777'
+        column: [A, B, D, E, F]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Probe exact rho child
+      - name: Qualify exact offsystem refusal
         shell: bash
         run: |
           set -euo pipefail
-          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-probe.mjs "${{ matrix.sequence }}" C3
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-refusal-closure.mjs "${{ matrix.column }}"
