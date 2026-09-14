@@ -1,0 +1,42 @@
+name: Frontier rank9 C-reply composed closure
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-composed-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-kappa-child-probe.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - .github/workflows/frontier-rank9-c-reply-composed-closure.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify composed C-reply theorem
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank9-c-composed.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-composed-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK9_C_REPLY_COMPOSED_CLOSURE='));
+          if(!line) throw new Error('rank9 C composed summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.proved!==true) throw new Error('rank9 C composed theorem unproved');
+          if(x.forcedD4BlockSequence!=='466565554344') throw new Error('D4 block drift');
+          if(x.forcedC3BlockSequence!=='46656555434433') throw new Error('C3 block drift');
+          for(const r of ['A','B','C','D','E','F','G']) if(!x.postG1Routes?.[r]) throw new Error(`missing post-G1 route ${r}`);
+          if(x.postG1Routes.D.rootAction!=='C'||x.postG1Routes.D.witness!=='C') throw new Error('D5 resolved-tail witness drift');
+          NODE
