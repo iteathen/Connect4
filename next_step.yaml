@@ -8,13 +8,15 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: derive_action_conditioned_clean_invariant_separator
+  id: close_postblock_predecessor_with_distance2_reentry
   objective: >-
-    Derive and qualify the smallest tested action-conditioned structural predicate that
-    separates directly proved from directly unproved clean live-target repair states. Use
-    matched positive/negative examples under the same target, repair-capacity rank and as much
-    shared support/phase/deadline context as the exact corpus permits. Treat candidate
-    separators as hypotheses until falsified against the retained exact corpus.
+    Close the exact 84-state post-forced-block rank-18 alternating-predecessor boundary by
+    composing three already-separated structural layers: immediate terminal predecessors,
+    the qualified support-distance-one resolved-tail/repair lexicographic induction, and a
+    guarded support-distance-two target-support re-entry macro. Complete resource-ambiguous
+    execution shards by structural or action/reply isolation only; do not raise proof or
+    quotient limits. Preserve any exact rank-18 state/action/reply that remains logically
+    unclosed.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -32,91 +34,120 @@ qualified_premises:
     statement: >-
       The original retained 20 rank-20 latent-contract states close 20/20 by exact
       branch-complete predecessor witnesses and the well-founded repair-capacity induction.
-  - id: repair_capacity_rank
-    statement: >-
-      mu=sum remaining capacities in A,B,D,E,F is a valid well-founded rank inside the
-      qualified repair subsystem: selected P0 repair actions decrease mu by one and P1 replies
-      never increase it. Mu is not by itself a winning classifier.
   - id: resolved_column_forced_defense
     statement: >-
-      In the exact twelve target-block survivor states, the enabled P1 singleton at C4/G4 is a
-      one-turn deadline: every nonblocking nonterminal P0 action permits an immediate P1 win.
-  - id: rank20_gap_census
+      In the exact twelve target-block survivor states, C4/G4 is a true one-turn P1 singleton
+      deadline. Every nonblocking nonterminal P0 action permits an immediate P1 terminal reply.
+  - id: repair_capacity_rank
     statement: >-
-      The exact post-block/rank-20 diagnostic census contains 362 unique unclosed states and 55
-      coarse obstruction classes. The dominant obstruction is an uncertified child that remains
-      inside the live-target/support-distance-one invariant rather than target loss.
-    qualification:
-      unique_gap_states: 362
-      coarse_obstruction_classes: 55
-      states_with_clean_invariant_uncertified_child: 342
-      states_with_deadline_bearing_uncertified_child: 233
-      states_with_P1_terminal_exposure: 29
-      states_with_target_killed_child: 0
-      no_root_deadline_states: 275
-      no_root_deadline_with_clean_invariant_child: 275
-  - id: representative_direct_probes
+      mu=sum remaining capacities in A,B,D,E,F is a valid well-founded rank inside the original
+      repair subsystem, but matched positive/negative controls prove that mu, root deadlines,
+      GF2 phase location and sorted repair-capacity shape are not sufficient value classifiers.
+  - id: resolved_tail_lexicographic_induction
     statement: >-
-      Five dominant clean-gap representatives were run directly through the existing recursive
-      repair induction in isolated bounded controls: all five completed, two proved and three
-      failed logically, with zero resource failures. Therefore certificate coverage alone is
-      not the whole gap and a missing structural premise remains.
+      The missing support-distance-one calculus is a lexicographic predecessor induction on
+      rho=(delta,mu), where delta is the remaining capacity of the previously resolved C/G
+      column and mu is repair capacity over A/B/D/E/F. A resolved-tail P0 action decreases
+      delta; a repair action decreases mu; legal P1 replies are nonincreasing in the ordered
+      resource pair. Exact terminal and live-target/support-distance-one guards remain mandatory.
     qualification:
-      attempted: 5
-      completed: 5
-      proved: 2
-      logical_failures: 3
-      resource_failures: 0
+      previously_unproved_mu15_representatives_proved: 12
+      previously_unproved_mu15_representatives_failed: 0
+      full_clean_mu15_corpus: 160
+      full_clean_mu15_proved: 160
+      full_clean_mu15_failed: 0
+      execution_only_structural_shards: 42
+      maximum_proof_states_in_one_mu15_shard: 41893
+  - id: mu16_boundary
+    statement: >-
+      On the exact clean deadline-free G3/mu16 rank-20 corpus, both the additive resolved-tail
+      rank and the lexicographic rank prove 35/37 states and fail on the same two exact roots.
+      Thus resource ordering is necessary evidence at mu15 but is not by itself the complete
+      post-block calculus.
+    exact_shared_falsifiers:
+      - "46656555464431333374"
+      - "46656555464432333374"
+  - id: target_support_forcing_macro_on_mu16_falsifiers
+    statement: >-
+      At each exact shared G3/mu16 falsifier, P0:G2 is the only structural action family not
+      already eliminated. Across its fourteen legal P1 replies, twelve deviations yield an
+      immediate P0 terminal on G3, zero are P1 terminal, and exactly two branches are forced
+      P1:G3 target responses.
+  - id: forced_G4_after_target_consumption
+    statement: >-
+      After those forced P1:G3 responses, P1 has an enabled G4 singleton. P0:G4 is a true forced
+      defense; every nonblocking nonterminal P0 action permits immediate P1:G4 terminality.
+      The fourteen P1 replies after the G4 block are nonterminal and currently outside the
+      live-target induction because the G3 target has been consumed.
+  - id: broad_rank18_predecessor_control
+    statement: >-
+      A first exact predecessor composition over the 84 post-forced-block rank-18 states closed
+      40 states, retained 29 logical failures, and encountered ten resource-contaminated
+      execution shards. The dominant logical separator is a live remaining target at support
+      distance two, which the distance-one lexicographic theorem intentionally rejects.
+    qualification:
+      exact_rank18_states: 84
+      evaluated_before_resource_shard_stop: 69
+      closed_before_resource_shard_stop: 40
+      logical_failures_before_resource_shard_stop: 29
+      resource_contaminated_shards: 10
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  matched_pair_test:
-    - reconstruct exact candidate states from replayable sequences
-    - directly evaluate proof outcome with the existing repair-capacity proof engine
-    - prefer pairs equal on target, mu, root deadline set, phase and coarse support shape
-    - relax matching dimensions only explicitly and report the relaxed tier
-  action_conditioned_observations:
-    - selected landing/support-tail facts
-    - exact P0/P1 residual incidence and cofactors at the selected action cell
-    - immediate P1 terminal-response alternatives
-    - enabled P1 singleton/deadline topology after the selected action and replies
-    - child repair-action availability under exact terminal and live-target guards
-    - CPC/GF2 phase location where it is load-bearing
-  candidate_rule:
-    - derive candidate predicates from positive/negative differences
-    - rank candidates by discrimination over directly evaluated examples
-    - do not promote a candidate that merely memorizes physical state, sequence or q identity
-    - falsify surviving candidates against the retained exact corpus before theorem promotion
+  distance_two_reentry:
+    preconditions:
+      - P0 to move
+      - remaining P0 target singleton live
+      - target support distance exactly two
+    candidate_macro:
+      - P0 advances row1 of the live target column
+      - reject on any exact P1 terminal response
+      - discharge any immediate P0 terminal successor
+      - otherwise require exact entry into the support-distance-one lexicographic theorem
+    boundary: >-
+      The macro is claim-relative and action-conditioned. Do not generalize it beyond the exact
+      post-block distance-two corpus until its complete P1 horizon is qualified.
+  rank18_predecessor:
+    - reconstruct exactly the 84 post-forced-block rank-18 states
+    - enumerate every legal P0 action until one branch-complete witness is found
+    - for every P1 reply discharge through terminal, exact retained rank20 contract,
+      distance-one lexicographic induction, or qualified distance-two target-support re-entry
+    - a bad rank20 child rejects only that P0 action; it does not imply the rank18 state is lost
+  resource_hygiene:
+    - preserve the 100000 proof-state cap
+    - preserve the configured quotient/search-storage bounds
+    - split only by existing structural ownership boundaries or isolate action/reply proof work
+    - treat execution-shard membership as qualification hygiene, never semantic equality
   forbidden_shortcuts:
     - solved_WDL_or_external_solver_as_premise
     - unknown_as_loss
-    - proof_failure_as_loss
-    - physical_state_or_sequence_as_separator
-    - q_equality_from_claim_relative_signature
-    - mu_as_value_classifier
-    - phase_weight_as_value_classifier
+    - proof_failure_or_candidate_family_failure_as_loss
+    - physical_state_or_sequence_as_semantic_separator
+    - q_equality_from_claim_relative_signature_or_execution_shard
+    - mu_or_phase_weight_as_value_classifier
+    - arbitrary_q_frontier_recursion
+    - proof_or_quotient_cap_increase_without_structural_reason
     - unproved_69_to_28_geometric_line_reduction
-    - storage_or_recursion_cap_increase_without_structural_reason
   wall_clock_limit_seconds: 300
   inner_timeout_seconds: 270
 
 success_criteria:
-  - at least one exact matched proved/unproved pair is obtained under a stated matching tier
-  - action-conditioned differences are emitted without erasing terminal/deadline/residual facts
-  - candidate predicates are scored on more than the pair that generated them
-  - every surviving candidate has explicit counterexample accounting or exact corpus coverage
-  - no candidate is promoted to theorem solely from correlation
-  - focused CI is bounded and reproducible
-  - STATUS.md and research evidence are updated with the result and remaining seam
+  - distance-two re-entry is either branch-complete on its exact generated corpus or preserves exact falsifiers
+  - all roots hidden by resource-contaminated broad-run shards receive an exact logical or per-branch resource classification under unchanged limits
+  - the 84-state predecessor is rerun with every accepted action branch explicitly discharged
+  - no accepted action drops terminal, residual, deadline, resource, or provenance-observed obligations
+  - exact remaining failures, if any, are smaller than the current support-distance-two class
+  - STATUS.md and a research note record the qualified theorem boundary and negative controls
 
 on_success:
   next: >-
-    Turn the smallest surviving separator into an explicit guarded predecessor theorem candidate
-    and test whether adding that premise closes the dominant clean-invariant obstruction classes
-    and then the latent target scheduler composition.
+    Compose the closed post-block predecessor theorem into the actual C/G cross-pair temporal
+    scheduler at 466565554644. If every arbitrary P1 deviation is terminal-for-P0 or absorbed
+    by the closed post-block contract, promote only that exact latent state into W and then push
+    the theorem backward through the universal D3 hinge reply horizon.
 
 on_failure:
   next: >-
-    Preserve the closest matched positive/negative states and the first action-conditioned field
-    still insufficient to separate them. Expand only the exact dependency cone implicated by
-    that falsifier, not the physical frontier or proof-state cap.
+    Preserve the smallest exact distance-two re-entry or rank-18 action/reply falsifier. Derive
+    only the missing temporal/dependency premise exposed by that falsifier; do not broaden the
+    physical frontier or proof/state limits.
