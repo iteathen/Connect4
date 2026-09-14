@@ -5,25 +5,25 @@
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This is a current-state router. Retained history and controls remain under `docs/research/**` and executable controls under `research/semantic-quotient/**`.
+This is the current-state router. Detailed evidence remains under `docs/research/**`; executable controls remain under `research/semantic-quotient/**`.
 
 ## Objective
 
-Derive a complete structural proof of standard 7x6 Connect Four perfect-play W/D/L, then derive the exact P0 perfect-play terminal winning-line set with provenance. Suspected output cardinalities are outputs only, never premises or tuning targets.
+Derive a complete internal structural proof of standard 7x6 Connect Four perfect-play W/D/L, then derive exact P0 perfect-play terminal winning-line provenance. Suspected output cardinalities are outputs only, never proof premises.
 
-## Canonical exact stack
+## Exact semantic boundary
+
+Canonical stack:
 
 ```text
-E  causal event poset / support ideals
+E  causal support / enabled events
 R  residual winning-requirement antichains
-P  CPC / GF(2) phase / precedence / deadlines
-C  typed temporal policy contracts / resources / compatibility
-N  guarded monotone dependency closure
+P  CPC / GF(2) phase / precedence
+C  temporal contracts / response resources / deadlines
+N  guarded dependency closure
 G  alternating predecessor fixed point
 Q  observation-sensitive value / provenance quotients
 ```
-
-One legal placement is one typed event with simultaneous E/R/P/C/N projections.
 
 Ordinary value identity remains C4-0010:
 
@@ -34,7 +34,7 @@ q = exact support + normalized R0 + normalized R1
 Output identity remains stricter:
 
 ```text
-q + exact P0 residual/original-line provenance Pi0
+q + exact P0 provenance Pi0
 ```
 
 Winning region remains:
@@ -43,13 +43,7 @@ Winning region remains:
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
-The governing compression rule is:
-
-```text
-Erase a distinction only when it is a congruence for the exact downstream claim being proved.
-```
-
-Claim-relative theorem reuse and theorem composition are not q equality.
+Claim-relative theorem reuse, action-relative proof cones, and proof-term equality are not q equality.
 
 ## Root boundary
 
@@ -59,67 +53,19 @@ All six non-center first moves are internally structurally proved P0-nonwinning:
 V(opening c) <= 0 for c in {1,2,3,5,6,7}.
 ```
 
-The unresolved root-value obligation remains the positive structural proof after opening column 4. This repository therefore does **not** yet claim a complete internal standard-7x6 solve.
+The unresolved root obligation is still the positive structural proof after opening column 4. The repository does **not** yet claim a complete standard-7x6 solve.
 
-There are exactly 69 geometric winning lines. The retained `28` result is a fixed-seam proof-term/witness count, not a proved 69 -> 28 reduction of the geometric line universe.
+There are exactly 69 geometric winning lines. The retained historical `28` count is a fixed-seam witness count, not a proved 69 -> 28 reduction.
 
-## Claim-relative typed-event library
+## Claim-relative theorem substrate
 
-The generic theorem layer implements:
+Qualified generic operations:
 
 ```text
-TypedEventSignature(claim, context, event)
 DependencyCone_of_claim
 Canonicalize_typed_cone
 Verify_structure_preserving_renaming
 Instantiate_theorem_with_opaque_nonincident_context
-```
-
-Canonicalization is exact within a hard bounded permutation budget. Nonincident context remains live but opaque. Successful reuse explicitly does not imply q equality, full-successor equivalence, provenance equivalence, or later-strategy equivalence.
-
-The generic hostile/positive suite passes 9/9 controls.
-
-### Replay-qualified seed claims
-
-- `enabled_singleton_discharge`: 3 physical contexts -> 1 theorem class.
-- `same_column_stutter_preserves_latent_contract`: 5 physical macros -> 1 theorem class.
-- `cross_support_pair_establishes_two_chain_stage`: 2 mirrored macros -> 1 theorem class.
-- `phase_defect_transport`: 92 exact legal nonterminal transport macros -> 1 pure-phase theorem class.
-- `size_two_response_capacity_circuit`: 9 finite matching models, exactly 2 Hall/rank violations -> 1 abstract circuit class; general Connect4 certificate-to-obligation mapping remains incomplete.
-- `universal_hinge_generates_two_latent_singletons`: exact D3 hinge with all 7 legal P1 replies checked; both C3/G3 singleton consequences survive the one-reply horizon and no P1 reply is immediately terminal.
-
-Authority and detailed boundaries:
-
-`docs/research/2026-09-13-claim-relative-signature-library.md`
-
-## Primitive factorization
-
-Two cross-claim factors are exact executable controls:
-
-```text
-R_monotone_residual_cofactor
-  -> hinge pair-to-singleton generation
-  -> opponent singleton discharge
-
-P_two_ply_GF2_column_operator
-  phi' = phi + e_a + e_b
-  -> a=b: same-column zero-displacement stutter
-  -> a!=b: distinct-column toggle / phase-defect transport
-```
-
-A third factor is structurally indicated but remains partial:
-
-```text
-C_response_matching_capacity
-```
-
-because the general strategic-certificate -> obligation/response-slot mapping has not yet been proved.
-
-## Guarded theorem composition
-
-The missing theorem-composition operation is now implemented and qualified:
-
-```text
 Export_typed_theorem_contract
 Unify_conclusion_with_premise
 Verify_opaque_frame_condition
@@ -128,112 +74,210 @@ Verify_terminal_complete_composition
 Compose_theorem_chain
 ```
 
-Each theorem contract explicitly carries ordinary structural facts, opaque/load-bearing frame facts, temporal/resource facts, terminal alternatives, and provenance mode/facts when observable.
+Qualified seed families include enabled-singleton discharge, same-column stutter preservation, cross-support pair staging, GF(2) phase transport, the D3 hinge, and the exact finite response-capacity theorem. The general rule remains: erase a distinction only when it is a congruence for the exact downstream claim.
 
-There is deliberately **no implicit frame rule**. If the downstream theorem observes a fact, the upstream theorem or an intervening exact event contract must explicitly provide it.
-
-The new hostile/positive suite passes 8/8 controls, including rejection of:
-
-- phase-only -> stronger repair-effect composition when incident `R` is missing;
-- response-capacity application without exact obligation/slot mapping;
-- a dropped live terminal alternative;
-- opaque-frame mutation without a qualified event;
-- provenance-sensitive composition after a value-only contract;
-- missing temporal/resource/deadline state.
-
-Detailed authority and semantics:
-
-`docs/research/2026-09-13-guarded-theorem-composition-calculus.md`
-
-Focused qualification run:
+The exact bridge
 
 ```text
-34806311358
-head 28a9990b9a8c539ee8e890e9d6d115d77ec31d4a
-result success
+4665655546 -- P0:D3 -- P1:D4 --> 466565554644
 ```
 
-The run re-qualified every earlier claim-relative stage before executing the two new composition stages.
+is guarded-composition qualified. It activates the latent C3/G3 contract but does not itself prove a win.
 
-## Exact multi-theorem bridge
+## Action-relative correction
 
-The qualified hinge and latent-contract controls are now composed through an exact event bridge:
+The attempted 12-class local progress graph and its 14-class continuation refinement both fail as action-complete state quotients. Cross-action controls split them.
+
+The replacement abstraction is:
 
 ```text
-4665655546
-  -- P0:D3 -->
-  -- P1:D4 -->
-466565554644
+ActionProgressCone(S, a)
 ```
 
-The three-contract chain is:
+which retains only the E/R/P/C/N facts load-bearing for the selected action claim. It licenses local theorem reuse without promoting physical states to q identity.
+
+Qualified one-round facts:
+
+- A/B chain actions strictly consume one selected support resource;
+- D/E/F tail actions strictly consume the final selected tail resource;
+- immediate P1 replies never increase the selected-column capacity;
+- exact incident R remains available to stronger continuation claims.
+
+## Exact reply routing and tail handoffs
+
+The 108-reply action-progress control partitions exactly into:
+
+- 32 chain off-channel continuations;
+- 8 chain same-column deeper continuations;
+- 20 enabled target-singleton immediate P0 terminal certificates;
+- 48 exhausted-tail handoffs.
+
+The 40 non-target chain branches admit another same-column P0 action with strict capacity descent or terminal closure.
+
+For the 48 exhausted-tail handoffs:
+
+- A/B both safe: 16;
+- exactly one A/B safe: 8;
+- no A/B safe: 24;
+- after broadening to A/B/D/E/F, 12 still have no safe off-target action.
+
+The original universal A/B handoff conjecture is therefore retained as a falsified candidate theorem.
+
+## Twelve exact local P0-loss states
+
+All seven P0 columns were exhausted in the 12 no-safe-off-target rank-22 states.
+
+Result:
+
+- 12/12 have a universal immediate P1 terminal-response certificate;
+- 0 escape actions.
+
+This is an exact local P0-loss certificate for those 12 states only. It is not a general state classifier.
+
+## Tail-action elimination and structural survivors
+
+Pushing those 12 local-loss certificates one predecessor step backward over the 12 D/E/F tail actions gives:
+
+- 8 adversarially eliminated tail actions;
+- 4 surviving tail actions.
+
+The survivor is structural and independent of resolved-singleton owner:
 
 ```text
-hinge_D3_instantiation
--> exact_D4_bridge
--> latent_target_contract_activation
+remaining target G3 -> survivor F
+remaining target C3 -> survivor D
 ```
 
-Fact provenance is explicit:
+Within the retained D/E/F family, the only surviving tail action is the column immediately adjacent to the remaining target.
 
-- the hinge theorem supplies live P0 singletons C3 and G3;
-- the exact D3 transition supplies the after-D3 frame, P1 turn, and current reply deadline;
-- the exact D4 transition supplies the destination frame, C1/G1 enablement, P0 turn, response deadline, and one defender slot per attack;
-- the qualified temporal theorem then activates the latent C3/G3 cross-pair contract.
+## Adjacent-tail continuation seam
 
-The destination state is checked by exact C4-0010 state identity, not inferred from sequence notation.
+Across the 20 exact P1 replies after the four adjacent-tail survivors:
 
-This bridge does **not** prove a win. The target-only subsystem remains locally defensible.
+- 4 are immediate P0 target-terminal certificates;
+- 6 leave both A/B safe;
+- 2 leave exactly one A/B safe;
+- 8 leave neither A nor B safe.
 
-## Exact stutter re-entry
+Thus the stronger universal A/B re-entry conjecture is also retained as falsified.
 
-The active latent contract composes through all five previously qualified fixed-state same-column stutters:
+All seven P0 actions were then classified in the eight no-A/B states:
+
+- 0 immediate P0-certificate states;
+- 8 states with a qualified continuation;
+- 0 unresolved states.
+
+Each of the eight has exactly one qualified continuation:
+
+> After the target-adjacent tail survives, if P1 consumes one of the two remaining D/E/F tails, P0 consumes the other remaining tail.
+
+The eight complementary-tail continuations were replayed over all 40 immediate P1 replies:
+
+- 8 replies yield a P0 predecessor certificate;
+- 32 yield another qualified continuation;
+- 0 unresolved replies.
+
+## Well-founded five-column repair measure
+
+The channel-switching continuations expose the correct structural rank:
 
 ```text
-A1 -> A2
-B1 -> B2
-D5 -> D6
-E5 -> E6
-F5 -> F6
+mu(S) = sum remainingCapacity_c(S), c in {A,B,D,E,F}
 ```
 
-Each exact two-ply macro is legal/nonterminal, returns P0 to move at rank 14, and preserves both C3 and G3 singleton obligations. The theorem-composition layer therefore has a proved re-entry path for these external macro events without asserting q equality.
+For every selected repair action in the qualified subsystem:
+
+- P0 decreases `mu` by exactly one;
+- every P1 reply is nonincreasing in `mu`.
+
+Observed nonterminal P0 induction levels are the odd sequence:
+
+```text
+15, 13, 11, 9, 7, 5, 3, 1
+```
+
+## Restricted alternating-predecessor induction
+
+A bounded structural proof DAG was run over the 16 nonterminal successors of the four adjacent-tail survivor actions. Four sibling replies are already immediate P0 target-terminal certificates.
+
+Recursive P0 invariant:
+
+- P0 to move;
+- remaining target singleton live;
+- target support distance exactly one.
+
+Allowed P0 witness actions are restricted to `A,B,D,E,F`.
+
+A witness action is accepted only if every legal P1 reply is nonterminal for P1 and routes to either immediate P0 terminality or another invariant state with strictly smaller `mu`.
+
+Qualified result:
+
+- start states: 16;
+- proved: 16;
+- failed: 0;
+- memoized physical proof states: 9,635;
+- candidate P0 actions checked: 25,424;
+- P1 branches checked: 80,384;
+- maximum induction depth: 7;
+- hard proof-state cap: 100,000.
+
+This closes the four adjacent-tail survivor actions inside the restricted repair-policy subsystem.
+
+Detailed evidence:
+
+`docs/research/2026-09-13-repair-capacity-predecessor-induction.md`
+
+## Proof-term review
+
+The finite proof DAG was canonicalized claim-relatively after exact branch coverage.
+
+Retained in a proof term:
+
+- current `mu`;
+- complete P1 branch multiplicity;
+- terminal alternatives;
+- child proof-class multiset.
+
+Physical action/reply labels are erased only at this proof-claim boundary.
+
+Result:
+
+- 1,022 total canonical proof classes including terminal base;
+- 1,021 nonterminal classes;
+- 9 proof classes across the 16 required start states;
+- exactly one `mu=1` base class: `M1[T]`.
+
+**Do not call 1,022 classes a small universal theorem library.** This is a valid finite restricted proof certificate with a useful well-founded induction schema, but substantial branch diversity remains.
 
 ## Immediate execution seam
 
-The first remaining unproved premise toward center-opening membership in `W` is now:
+The old `build_local_effect_class_transition_graph` task is retired.
+
+The next proof obligation is:
 
 ```text
-well_founded_off_subsystem_progress_or_reentry
+compose_repair_capacity_induction_back_to_latent_contract
 ```
 
-Required form:
+For each exact rank-20 latent-contract state, prove that P0 has at least one legal action whose exhaustive P1 replies are discharged by one of:
 
-> For every legal off-target P0 event not covered by a qualified same-column stutter, prove a guarded composition that either re-enters the latent contract, enters an exact response-capacity circuit with a proved obligation/slot map, or strictly advances a well-founded structural progress rank toward a terminal or alternating-predecessor certificate.
+- immediate P0 terminal certificate;
+- qualified chain descent;
+- the proven target-adjacent-tail / repair-capacity induction subsystem;
+- another already-qualified guarded contract.
 
-The current exact finite domain for attacking this premise is already available:
-
-```text
-20 exact repair transitions
--> 12 exact local semantic-effect classes
-   8 nontrivial reused classes
-   4 singleton classes
-```
-
-The next task is to export guarded contracts for those local semantic classes and build only the theorem-class transition relation justified by retained exact evidence. For each non-stutter class, prove re-entry, terminality, a fully mapped capacity circuit, or strict decrease in a well-founded E/R/P/C/N rank.
-
-Phase weight alone is not an admissible progress rank because qualified controls already show phase-defect transport rather than guaranteed elimination. If the current structural vocabulary contains a cycle instead of a rank, retain the smallest exact strongly connected class set as the falsifier.
+If all exact rank-20 latent-contract states close, promote that finite domain to a guarded structural P0-winning contract and compose it backward through the qualified D3/D4 hinge. Do not claim center-opening membership in `W` until those compositions are actually closed.
 
 Current router: `next_step.yaml`.
 
 ## Hygiene
 
-- Exact search/minimax/oracle values are discovery/falsification controls only.
-- Bayesian confidence is external research-priority metadata only and never enters proof semantics.
-- Static blocker coverage is not policy realizability.
-- Phase is not a W/D/L classifier and phase weight is not automatically a progress rank.
-- Local theorem isomorphism and theorem composition are not q equality.
-- Response-capacity circuits require an exact obligation/slot mapping before Connect4 application.
-- Unresolved frontiers remain unknown, not losses.
+- Exact search/minimax/oracle WDL is discovery/falsification only.
+- Bayesian confidence never enters proof semantics.
+- Unknown is not loss.
+- Failure of a candidate P0 action family is not P0 loss.
+- Phase is not a W/D/L classifier.
+- Claim/proof/action isomorphism is not q equality.
+- Response-capacity application requires exact obligation/slot mapping.
 - No q/frontier cap or recursion-depth increase without a new theorem.
-- Every experiment has a hard five-minute wall-clock limit.
+- Every research qualifier has a hard five-minute wall-clock limit.
