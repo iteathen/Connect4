@@ -10,6 +10,9 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-signature-library.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-seed-claims.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theorem-factorization-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
       - .github/workflows/frontier-claim-relative-signature-library.yml
   workflow_dispatch:
 
@@ -45,3 +48,13 @@ jobs:
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theorem-factorization-control.mjs
+      - name: Qualify guarded theorem composition substrate
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node --test research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs
+      - name: Bind guarded composition to exact C4-0010 bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
