@@ -1,4 +1,4 @@
-const VERSION = 2;
+const VERSION = 3;
 
 // Research direction / structural architecture / invariant-first and self-proving-predicate program: Josh Oshiro
 // Formalization / implementation / qualification: OpenAI ChatGPT
@@ -56,7 +56,7 @@ function normalizeEventTrace(events = []) {
   const ids = new Set();
   const discharges = new Map();
   const creates = new Map();
-  const eventById = new Map();
+  const eventTicks = [];
   for (const [index, event] of events.entries()) {
     if (!event || typeof event !== 'object') throw new TypeError(`events[${index}] must be an object`);
     const eventId = requireString(event.id, `events[${index}].id`);
@@ -66,35 +66,42 @@ function normalizeEventTrace(events = []) {
     if (event.terminal === true) throw new Error(`transport event ${eventId} crosses a terminal boundary`);
     const ticks = event.clockTicks ?? {};
     if (!ticks || typeof ticks !== 'object' || Array.isArray(ticks)) throw new TypeError(`events[${index}].clockTicks must be an object`);
+    const tickMap = new Map();
     for (const [clock, amount] of Object.entries(ticks)) {
       requireString(clock, 'clock name');
       if (!Number.isSafeInteger(amount) || amount < 0) throw new TypeError(`clock tick ${clock} must be a nonnegative safe integer`);
+      tickMap.set(clock, amount);
       totals.set(clock, (totals.get(clock) ?? 0) + amount);
     }
+    eventTicks.push(tickMap);
     const eventDischarges = event.discharges ?? [];
     if (!Array.isArray(eventDischarges)) throw new TypeError(`events[${index}].discharges must be an array`);
     for (const obligationId of eventDischarges) {
       requireString(obligationId, `events[${index}].discharges[]`);
       if (discharges.has(obligationId)) throw new Error(`obligation ${obligationId} discharged by multiple transport events`);
-      discharges.set(obligationId, eventId);
+      discharges.set(obligationId, { eventId, index });
     }
     const eventCreates = event.creates ?? [];
     if (!Array.isArray(eventCreates)) throw new TypeError(`events[${index}].creates must be an array`);
     for (const [createIndex, created] of eventCreates.entries()) {
       const obligation = normalizeCreatedObligation(created, `events[${index}].creates[${createIndex}]`);
       if (creates.has(obligation.id)) throw new Error(`obligation ${obligation.id} created by multiple transport events`);
-      creates.set(obligation.id, { eventId, obligation });
+      creates.set(obligation.id, { eventId, index, obligation });
     }
-    eventById.set(eventId, event);
   }
-  return { totals, discharges, creates, eventById };
+  return { totals, discharges, creates, eventTicks, length: events.length };
+}
+function ticksBetween(trace, clock, startInclusive, endExclusive) {
+  let total = 0;
+  for (let i = startInclusive; i < endExclusive; i++) total += trace.eventTicks[i]?.get(clock) ?? 0;
+  return total;
 }
 function normalizeClockTicks(events = []) { return normalizeEventTrace(events).totals; }
 
 export function Export_transport_snapshot(descriptor) {
   if (!descriptor || typeof descriptor !== 'object') throw new TypeError('transport snapshot descriptor required');
   return Object.freeze({
-    kind: 'guarded-braid-transport-snapshot-v2',
+    kind: 'guarded-braid-transport-snapshot-v3',
     version: VERSION,
     claimId: requireString(descriptor.claimId, 'claimId'),
     sideToMove: requireString(descriptor.sideToMove, 'sideToMove'),
@@ -130,6 +137,7 @@ export function Verify_obligation_conservation(before, after, events, options = 
   const next = new Map(after.obligations.map((x) => [x.id, x]));
   const consumedDischarges = new Set();
   const consumedCreates = new Set();
+  const consumedDispositions = new Set();
 
   for (const [id, obligation] of prior) {
     const carried = next.get(id);
@@ -142,22 +150,32 @@ export function Verify_obligation_conservation(before, after, events, options = 
         return fail('terminal_supersession_not_allowed_inside_nonterminal_transport', { id });
       }
       const eventId = typeof disposition.eventId === 'string' ? disposition.eventId : null;
-      if (!eventId || trace.discharges.get(id) !== eventId) {
-        return fail('obligation_discharge_not_event_certified', { id, eventId, certifiedEventId: trace.discharges.get(id) ?? null });
+      const certified = trace.discharges.get(id);
+      if (!eventId || !certified || certified.eventId !== eventId) {
+        return fail('obligation_discharge_not_event_certified', { id, eventId, certifiedEventId: certified?.eventId ?? null });
+      }
+      const elapsedBeforeDischarge = ticksBetween(trace, obligation.deadlineClock, 0, certified.index);
+      const remainingAtDischargeEvent = obligation.remaining - elapsedBeforeDischarge;
+      if (remainingAtDischargeEvent <= 0) {
+        return fail('obligation_discharge_after_expiry', { id, eventId, before: obligation.remaining, elapsedBeforeDischarge });
       }
       consumedDischarges.add(id);
+      consumedDispositions.add(id);
       continue;
     }
     if (dispositions.has(id)) return fail('carried_obligation_has_disposition', { id, disposition: dispositions.get(id) });
     if (carried.deadlineClock !== obligation.deadlineClock) return fail('obligation_deadline_clock_changed', { id });
     if (carried.responseKey !== obligation.responseKey) return fail('obligation_response_resource_changed', { id });
-    const elapsed = trace.totals.get(obligation.deadlineClock) ?? 0;
-    const maximumRemaining = obligation.remaining - elapsed;
-    if (carried.remaining > maximumRemaining) {
-      return fail('obligation_deadline_regenerated', { id, before: obligation.remaining, after: carried.remaining, elapsed, maximumRemaining: Math.max(0, maximumRemaining) });
+    const elapsed = ticksBetween(trace, obligation.deadlineClock, 0, trace.length);
+    const expectedRemaining = obligation.remaining - elapsed;
+    if (carried.remaining > expectedRemaining) {
+      return fail('obligation_deadline_regenerated', { id, before: obligation.remaining, after: carried.remaining, elapsed, maximumRemaining: Math.max(0, expectedRemaining) });
     }
-    if (maximumRemaining <= 0) {
-      return fail('obligation_deadline_expired', { id, before: obligation.remaining, elapsed, maximumRemaining: Math.max(0, maximumRemaining) });
+    if (expectedRemaining <= 0) {
+      return fail('obligation_deadline_expired', { id, before: obligation.remaining, elapsed, maximumRemaining: Math.max(0, expectedRemaining) });
+    }
+    if (carried.remaining < expectedRemaining) {
+      return fail('obligation_unaccounted_extra_aging', { id, before: obligation.remaining, after: carried.remaining, elapsed, expectedRemaining });
     }
   }
 
@@ -167,20 +185,35 @@ export function Verify_obligation_conservation(before, after, events, options = 
     if (!disposition || disposition.kind !== 'created') return fail('obligation_created_without_derivation', { id });
     const eventId = typeof disposition.eventId === 'string' ? disposition.eventId : null;
     const certified = trace.creates.get(id);
-    if (!eventId || !certified || certified.eventId !== eventId || canonical(certified.obligation) !== canonical(obligation)) {
-      return fail('obligation_creation_not_event_certified', {
-        id, eventId, certifiedEventId: certified?.eventId ?? null,
-        certifiedObligation: certified?.obligation ?? null, afterObligation: obligation,
-      });
+    if (!eventId || !certified || certified.eventId !== eventId) {
+      return fail('obligation_creation_not_event_certified', { id, eventId, certifiedEventId: certified?.eventId ?? null });
+    }
+    if (certified.obligation.deadlineClock !== obligation.deadlineClock || certified.obligation.responseKey !== obligation.responseKey) {
+      return fail('obligation_creation_contract_changed', { id, certifiedObligation: certified.obligation, afterObligation: obligation });
+    }
+    const elapsedAfterCreation = ticksBetween(trace, obligation.deadlineClock, certified.index + 1, trace.length);
+    const expectedRemaining = certified.obligation.remaining - elapsedAfterCreation;
+    if (obligation.remaining > expectedRemaining) {
+      return fail('created_obligation_deadline_regenerated', { id, createdRemaining: certified.obligation.remaining, after: obligation.remaining, elapsedAfterCreation, expectedRemaining: Math.max(0, expectedRemaining) });
+    }
+    if (expectedRemaining <= 0) {
+      return fail('created_obligation_deadline_expired', { id, createdRemaining: certified.obligation.remaining, elapsedAfterCreation });
+    }
+    if (obligation.remaining < expectedRemaining) {
+      return fail('created_obligation_unaccounted_extra_aging', { id, createdRemaining: certified.obligation.remaining, after: obligation.remaining, elapsedAfterCreation, expectedRemaining });
     }
     consumedCreates.add(id);
+    consumedDispositions.add(id);
   }
 
-  for (const [id, eventId] of trace.discharges) {
-    if (!consumedDischarges.has(id)) return fail('unaccounted_discharge_effect', { id, eventId });
+  for (const [id, certified] of trace.discharges) {
+    if (!consumedDischarges.has(id)) return fail('unaccounted_discharge_effect', { id, eventId: certified.eventId });
   }
   for (const [id, certified] of trace.creates) {
     if (!consumedCreates.has(id)) return fail('unaccounted_creation_effect', { id, eventId: certified.eventId });
+  }
+  for (const [id, disposition] of dispositions) {
+    if (!consumedDispositions.has(id)) return fail('unaccounted_obligation_disposition', { id, disposition });
   }
   return pass({ ticks: Object.fromEntries([...trace.totals.entries()].sort()) });
 }
@@ -206,7 +239,7 @@ export function Verify_neutral_pair_transport({ before, after, events, dispositi
     return fail('well_founded_resource_did_not_strictly_decrease', { before: before.progressRank, after: after.progressRank });
   }
   return pass({
-    kind: 'guarded-neutral-pair-transport-certificate-v2',
+    kind: 'guarded-neutral-pair-transport-certificate-v3',
     claimId: before.claimId,
     clockTicks: Object.fromEntries([...ticks.entries()].sort()),
     progress: { before: before.progressRank, after: after.progressRank },
@@ -217,6 +250,7 @@ export function Verify_neutral_pair_transport({ before, after, events, dispositi
       'no_player_renaming',
       'no_implicit_frame_rule',
       'no_later_strategy_equivalence',
+      'no_unaccounted_deadline_aging',
     ]),
   });
 }
@@ -237,5 +271,5 @@ export function Verify_guarded_interchange({ start, left, right }) {
   if (!finish.ok) return fail('interchange_finish_contract_mismatch', { detail: finish });
   if (canonical(left.finish.obligations) !== canonical(right.finish.obligations)) return fail('interchange_finish_obligation_mismatch');
   if (canonical(left.finish.progressRank) !== canonical(right.finish.progressRank)) return fail('interchange_finish_resource_mismatch');
-  return pass({ kind: 'guarded-interchange-certificate-v2' });
+  return pass({ kind: 'guarded-interchange-certificate-v3' });
 }
