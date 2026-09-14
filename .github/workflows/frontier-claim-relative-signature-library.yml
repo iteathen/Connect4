@@ -1,0 +1,35 @@
+name: Frontier claim-relative signature library
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-claim-relative-typed-event-signature.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-claim-relative-typed-event-signature.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-signature-library.mjs
+      - .github/workflows/frontier-claim-relative-signature-library.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  claim-relative-library:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify generic claim-relative typed-cone substrate
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node --test research/semantic-quotient/state-identity-unification/src/quotient-claim-relative-typed-event-signature.test.mjs
+      - name: Bind library to exact C4-0010 replay controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-signature-library.mjs
