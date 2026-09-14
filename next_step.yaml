@@ -1,6 +1,6 @@
-schema_version: 68
+schema_version: 69
 updated: 2026-09-13
-state: canonical_structural_bridge_resolution
+state: invariant_first_entailment_normalization
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -14,203 +14,158 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   structural_isomorphism_resolution: docs/research/2026-09-13-structural-isomorphism-resolution.md
+  invariant_first_resolution: docs/research/2026-09-13-invariant-first-cross-layer-isomorphism.md
   bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
-  colored_event_structure: docs/research/2026-09-13-colored-event-structure-and-proof-antichain-control.md
-  compatible_cover: docs/research/2026-09-13-compatible-cover-progress-calculus.md
+  response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
-  broad_frontier_stop: docs/research/2026-09-13-broad-frontier-search-stop-and-tightening.md
+  compatible_cover: docs/research/2026-09-13-compatible-cover-progress-calculus.md
   research_router: docs/research/RESEARCH_INDEX.md
 
 objective: >
   Derive a complete structural solve proof and then the exact perfect-W/D/L P0
-  terminal-line set. The ontology search is now narrowed: use the resolved canonical
-  structures rather than treating each literature formalism as a separate logic.
+  terminal-line set. Use invariants of the canonical E/R/P/C/N/G/Q layers to expose
+  hidden equivalences before introducing any new semantic layer or expanding deeper
+  exact-q frontiers.
 
-canonical_exact_layers:
-  E_causal_event_substrate: >
-    Future gravity events form seven disjoint vertical chains. Legal supports are
-    order ideals in their finite distributive ideal lattice; legal histories are
-    parity-colored linearizations, with only proved-independent interleavings quotiented.
-  R_residual_obligations: >
-    WSL minimal residual requirement antichains are the canonical winning-obligation
-    object. Sperner-hypergraph and monotone-DNF views are representation-equivalent;
-    blocker/transversal families are derived duals whose strategic realizability still
-    requires P/C/N guards.
-  P_parity_temporal_constraints: >
-    CPC owns event-rank parity, GF(2) ownership/split facts, response precedence and
-    deadline-sensitive control. Allis even-release Zugzwang parity is the same mod-2 invariant.
-  C_typed_policy_resources: >
-    One typed fragment/contract object owns coverage, prerequisites, resource footprint,
-    response relation, sharing, parity commitments, event order, guards, deadlines and
-    progress consequence. Named rules, gain-cost-rest, matching/Hall, dangers/forks,
-    paving and compatible-cover SAT are generators, projections, special cases or
-    implementations rather than separate semantic owners.
-  N_guarded_dependency_closure: >
-    NDC is a guarded monotone directed-hypergraph implication system. Multiple premise
-    hyperedges with one consequence are disjunctive/alternative enabling and share the
-    same consequent rather than requiring a branch matrix.
-  G_alternating_strategic_proof: >
-    W = mu X.[I union PreE(X) union PreA(X)]. E/A grammars, AND/OR proof DAGs and
-    alternating monotone circuits are presentations of the same predecessor semantics.
-    Safety plus well-founded progress are certificate obligations, not separate game semantics.
-  Q_observation_quotient: >
-    q is the accepted ordinary-transition/value quotient. q+Pi0 is the required output
-    refinement when terminal winning-line provenance is observable. Proof compression
-    does not automatically imply a coarser state quotient.
+canonical_layers:
+  E: causal_event_poset_and_support_ideals
+  R: residual_winning_obligation_antichains
+  P: CPC_GF2_parity_precedence_deadlines
+  C: typed_policy_resources_and_compatibility
+  N: guarded_monotone_dependency_closure
+  G: alternating_predecessor_fixed_point
+  Q: observation_sensitive_value_and_provenance_quotients
 
-resolved_isomorphism_classes:
-  gravity_support:
-    canonical: E
-    equivalent_views: [column_height_vector, order_ideal, distributive_ideal_lattice, poset_antimatroid]
-    derived_views: [trace_commutation, local_event_confluence, poset_positional_game_class]
-  winning_obligation:
-    canonical: R
-    equivalent_views: [WSL_minimal_antichain, Sperner_hypergraph, monotone_DNF_minimal_terms]
-    derived_views: [blocker_dual, typed_danger, fork_projection]
-  antichain_boundary_normal_form:
-    status: generic_representation_lemma_not_shared_semantic_state
-    minimal_examples: [WSL_requirements, proof_obligation_terms, pivot_demands]
-    maximal_dual_examples: [feasible_preservation_families]
-  parity_control:
-    canonical: P
-    equivalent_views: [CPC_event_rank_parity, Allis_even_release_Zugzwang, affine_GF2_constraints]
-  policy_resource:
-    canonical: C
-    projections_or_generators: [vertical_follow_up, Baseinverse, named_Allis_fragments, gain_cost_rest, matching_Hall, danger_intersection, compatible_cover_CSP, paving]
-  dependency_causality:
-    canonical: N
-    equivalent_or_internal_views: [proof_DAG, guarded_implication_hypergraph, disjunctive_enabling, alternative_convergence]
-  strategic_predecessor:
-    canonical: G
-    equivalent_views: [E_A_grammar, AND_OR_DAG, alternating_monotone_circuit, least_fixed_point_unfolding]
-    derived_normalizations: [collapse, unique_hard_transport, reexpansion]
-  proof_language_candidates:
-    canonical_owner: none
-    outside_exact_core: [linear_logic, pomset_logic, focusing, proof_nets]
-    rule: >
-      May be used by the Bayesian mask to discover normalization, but may enter exact
-      logic only after a semantics-preserving translation is proved and material value shown.
+cross_layer_invariants:
+  master_rank:
+    source: "rho(I)=|I|"
+    E_view: graded_support_lattice_rank
+    P_view: "rho mod 2 plus target-dependent affine offset"
+    G_view: "remaining progress rank = 42-rho"
+    status: exact
+  fixed_point_shell:
+    N_view: "mu X.[X0 union Consequences(X)]"
+    G_view: "mu X.[I union PreE(X) union PreA(X)]"
+    status: exact_shared_skeleton_different_domains
+  monotone_term_shell:
+    R_view: OR_of_ANDs_of_event_ownership_atoms
+    G_view: OR_of_ANDs_of_recursive_win_obligations
+    status: exact_shape
+    current_gap: G_terms_need_typed_entailment_not_exact_q_identity
+  circuit_shell:
+    P_view: GF2_linear_dependency_circuits_with_affine_syndrome
+    C_view: transversal_response_matroid_circuits_and_fundamental_circuits
+    status: shared_matroid_interface_not_same_matroid
+  closure_boundary_shell:
+    R: minimal_requirement_or_blocker_antichains
+    C: maximal_feasible_preservation_antichains
+    N: minimal_generators_or_implication_basis
+    G: minimal_sufficient_proof_terms_under_exact_entailment
+    status: generic_order_theoretic_representation
+  quotient_hierarchy:
+    E: parity_preserving_trace_congruence
+    Q_value: q_future_value_behavior
+    Q_output: q_plus_Pi0_output_sensitive_refinement
+    status: exact_distinct_observation_levels
 
 bayesian_research_mask:
   role: research_priority_only
   visibility_to_exact_logic: none
   anti_double_counting_rule: >
-    Isomorphic, dual or specialization views inside one canonical class are correlated
-    evidence. Do not multiply or sum their support as if they were independent hypotheses.
-  evidence_clusters: [E, R, P, C, N, G, Q]
-  uncertainty_is_concentrated_on_bridges:
-    - "R + P + C -> compact exact safety certificate"
-    - "C + N -> reusable typed implication/composition"
-    - "N + G -> complete positive progress proof without exact-q state explosion"
-    - "E trace normalization -> material pre-enumeration proof compression"
-    - "finite restriction of paving -> exact boundary-defect theorem"
+    Different views of one invariant cluster are correlated evidence and must not be
+    counted as independent support.
+  highest_information_gain_candidate: N_entailment_prime_proof_normalization
   promotion_membrane: >
-    A candidate enters exact logic only after exact proof with explicit guards. Bayesian
-    probability, confidence, utility and test rank are discarded on promotion.
+    Only an exactly proved deterministic rule with explicit guards crosses into the
+    logic. Probability/confidence/utility metadata is discarded on promotion.
 
-first_move_boundary:
-  noncenter_safety: internally_complete
-  center_opening_column: 4
-  center_positive_win: unproved
-  complete_root_solve: unproved
-
-standard7x6_depth8_frontier:
-  physical_states: 1141
-  immediate_win_states: 319
-  recursive_obligations: 822
-  structurally_proved_recursive_obligations: 185
-  structurally_proved_total_frontier_states: 504
-
-proof_antichain_control:
-  controls: ["46656551", "46656552", "46656555", "46656557"]
-  workflow_run: 34796681345
-  recursive_descent: false
+known_control_boundary:
+  sequences: ["46656551", "46656552", "46656555", "46656557"]
+  closing_controls: ["46656551", "46656552", "46656557"]
+  broad_reexpansion_control: "46656555"
+  one_step_census_complete: true
+  recursive_descent_allowed: false
   legal_p0_witnesses: 28
-  admissible_p0_witnesses: 28
   distinct_exact_q_terms: 28
-  minimal_subset_antichain_terms: 28
-  duplicate_terms: 0
+  minimal_exact_q_subset_terms: 28
   strict_superset_absorptions: 0
-  per_control_arity_signature: {col1: 7, col2: 7, col3: 2, col4: 2, col5: 7, col6: 1, col7: 7}
-  cross_control_exact_q_confluence_points: 12
+  common_arity_signature: {col1: 7, col2: 7, col3: 2, col4: 2, col5: 7, col6: 1, col7: 7}
+  exact_q_confluence_points: 12
   inference: >
-    Identity-only subset order is sound but non-compressive here. All four controls
-    share the same one-step arity signature, so the discriminator must occur inside
-    typed R/P/C/N structure rather than child counts.
+    The monotone proof shape is not falsified; literal exact-q subset inclusion was the
+    wrong candidate order. The next control must use exact typed entailment from N.
 
 negative_controls:
   vertical_follow_up_as_complete_global_calculus: rejected
-  standalone_residual_hub_separator: rejected
-  successor_set_race_blocker_only_total_cover: rejected
-  exact_q_proof_term_subset_as_material_local_compressor: rejected_on_4665655_siblings
+  raw_blocker_union_as_policy: rejected
+  exact_q_proof_term_subset_as_material_compressor: rejected_on_fixed_siblings
   deeper_raw_exact_q_recursion_as_next_step: rejected
+  cardinality_only_child_signature: rejected_as_discriminator
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
   - no_known_center_win_as_proof_premise
   - exact_search_oracles_are_discovery_and_falsification_controls_only
-  - frozen_closed_certificates_must_verify_without_oracle_scores
   - preserve_exact_c4_0010_q_identity
   - output_provenance_must_not_be_erased_by_value_only_equivalence
-  - event_confluence_may_remove_only_interleaving_order_proved_irrelevant
+  - event_confluence_may_remove_only_proved_irrelevant_interleavings
   - preserve_terminal_stopping_CPC_NDC_deadline_resource_and_provenance_boundaries
   - bayesian_mask_is_external_to_exact_logic
   - isomorphic_views_are_not_independent_bayesian_evidence
-  - no_probability_confidence_expected_utility_or_research_rank_may_be_consumed_as_a_certificate_fact
   - unresolved_frontiers_are_unknown_not_negative_values
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
   - do_not_create_parallel_semantic_owners_for_resolved_isomorphic_views
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: compile_canonical_R_P_C_N_bridge_on_4665655_siblings
+  name: test_N_entailment_prime_proof_normalization_on_4665655_siblings
   purpose: >
-    Determine whether the fixed sibling differential can be explained by one compact
-    canonical typed certificate instead of exact-q recursion. Build R residual
-    obligations, P parity/time facts, C resource/response contracts and N implication
-    edges; then test whether those structures separate the three closing controls from
-    broad-reexpansion control 46656555.
-  control_family:
-    closing_controls: ["46656551", "46656552", "46656557"]
-    broad_reexpansion_control: "46656555"
-  allowed_derived_views:
-    - blocker_duals_and_minimal_transversals
-    - danger_response_intersections_and_forks
-    - gain_cost_rest_projection
-    - Hall_or_capacity_deficiency_where_unit_resource_assumptions_hold
-    - Allis_fragment_generators_compiled_to_typed_contracts
-    - event_trace_confluence_for_proved_independent_interleavings
+    Determine whether the failed exact-q proof-term antichain becomes compressive when
+    the same G monotone-DNF terms are normalized under exact NDC entailment over typed
+    R/P/C facts rather than literal child identity.
+  fixed_input:
+    - completed_one_step_sibling_census
+    - existing_C4_0010_residual_transitions
+    - existing_CPC_parity_and_deadline_facts
+    - existing_typed_response_contracts
+    - existing_NDC_implications
   bounded_steps:
-    - use completed one-step sibling census as fixed boundary; no deeper recursive hard-frontier descent
-    - generate only the finite R/P/C/N relation needed by the four controls
-    - normalize isomorphic representations to canonical owners before comparison
-    - compare the three closing controls against 46656555 for the smallest structural differential
-    - when a derived view separates the controls, translate it back into canonical R/P/C/N predicates before claiming progress
-    - prove any promoted implication exactly; otherwise keep it in the Bayesian mask
-    - if the finite relation becomes one descriptor per exact q state, stop and record failure
+    - do not descend beyond the already generated one-step hard children
+    - compile each hard child into a finite typed fact set over R/P/C/N
+    - compute only the finite exact N-closure needed by those fact sets
+    - define "A entails_N B" only when B is contained in the exact guarded closure of A under identical parent observation/horizon
+    - normalize each parent G term family to prime terms under exact entailment
+    - compare prime-boundary size and invariant signatures between the three closing controls and 46656555
+    - record which invariant first creates separation: master-rank/deadline, parity circuit, response circuit, closure generator, or progress consequence
+    - use the twelve exact-q confluence points as positive checks that irrelevant interleavings do not alter closure
+    - stop if closure requires one opaque fact per q state or reconstructs physical move-tree recursion
   success_conditions:
-    - one finite semantic R/P/C/N invariant separates closing from broad behavior
-    - the invariant is not merely cardinality or opaque q identity
-    - all load-bearing timing/resource/CPC/NDC context is preserved
-    - the resulting rule has a clear G consequence: safety, progress, or exact predecessor implication
-    - no new semantic layer is introduced when an existing canonical owner suffices
+    - at least one G term is removed or merged by a proved typed entailment unavailable to literal q-ID subset order
+    - or a precise falsifier shows N-entailment remains non-compressive at this boundary
+    - any separation is stated in canonical R/P/C/N invariants, not rule names or q IDs
+    - all guards/resources/deadlines/horizons remain explicit
   stop_conditions:
     - representation degenerates to exact-q identity
     - analysis reconstructs physical move-tree branching
-    - candidate requires oracle scores or solved values as proof premises
+    - candidate requires solved W/D/L labels as proof premises
     - wall_clock_reaches_5_minutes
+
+research_candidates_after_this_control:
+  - canonical_or_direct_implication_basis_for_finite_N_closure
+  - generic_circuit_defect_interface_shared_by_P_and_C
+  - product_fixed_point_view_for_N_facts_and_G_bounds
+  - exact_provenance_annotation_of_existing_fixed_point_proofs
 
 forbidden_shortcuts:
   - cite_known_connect4_solution_as_the_proof
   - use_minimax_or_oracle_value_labels_as_certificate_facts
   - use_bayesian_credence_as_proof_authority
   - feed_probabilistic_or_confidence_weighted_facts_into_exact_logic
-  - double_count_isomorphic_literature_formalisms_as_independent_evidence
+  - double_count_isomorphic_formalisms_as_independent_evidence
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
   - erase_CPC_NDC_resource_or_deadline_context_when_load_bearing
-  - import_Maker_Breaker_theorems_without_matching_standard_strong_game_semantics
 
 cleanup_policy:
   negative_controls: retain
