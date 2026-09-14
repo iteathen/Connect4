@@ -1,0 +1,22 @@
+name: Frontier canonical projection audit
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs'
+      - '.github/workflows/frontier-canonical-projection-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  canonical-projection-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Qualify corrected target-free projections
+        run: timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs
