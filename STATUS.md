@@ -14,9 +14,9 @@ Derive a complete structural proof of standard 7x6 Connect Four perfect-play W/D
 then derive the exact P0 perfect-play terminal winning-line set with provenance.
 Suspected output cardinalities are not premises or tuning targets.
 
-## Governing semantics
+## Governing exact semantics
 
-Value identity remains exact C4-0010:
+Value identity remains C4-0010:
 
 ```text
 q = exact support
@@ -24,176 +24,246 @@ q = exact support
   + normalized P1 residual antichain
 ```
 
-Winning region:
+Winning region remains:
 
 ```text
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
 Output identity remains `q + exact P0 residual/origin provenance Pi0`.
-Certificate reuse is not state equality. Output-safe merging is stricter than value
-merging.
+Certificate/action reuse is not state equality.
 
-## First-move boundary
-
-Non-center safety is internally complete:
+Current canonical proof layers are:
 
 ```text
-V(opening c) <= 0 for c in {1,2,3,5,6,7}
+E  causal event poset / support ideals
+R  residual winning-requirement antichains
+P  CPC / GF(2) phase / precedence / deadlines
+C  typed temporal policy contracts and resources
+N  guarded monotone dependency closure
+G  alternating predecessor fixed point
+Q  observation-sensitive value/provenance quotients
 ```
 
-Authority:
-`docs/research/2026-09-13-noncenter-opening-structural-safety-theorem.md`
+## Root boundary
+
+All six non-center first moves are internally structurally proved P0-nonwinning:
+
+```text
+V(opening c) <= 0 for c in {1,2,3,5,6,7}.
+```
 
 The remaining root-value task is the positive proof after opening column 4.
 
-## Standard-7x6 positive proof frontier
+Broad exact-q recursion is not the active method. The retained depth/frontier controls
+showed genuine expand/collapse behavior but also showed that increasing depth/caps
+without a new theorem grows state count without supplying the missing proof class.
 
-The exact depth-8 discovery frontier exhibits genuine expand/collapse behavior:
+## Current structural seam
 
-```text
-ply:             0   1   2   3   4    5    6    7     8
-unique states:   1   1   7   7  47   47  277  204  1141
-proof paths:     1   1   7   7  49   49  343  231  1616
-```
-
-At depth 8:
+The current work has isolated a standard-7x6 temporal-contract boundary around the
+fixed prefix:
 
 ```text
-1,141 frontier states
-  319 immediate structural P0 wins
-  822 recursive obligations
+466565554644
 ```
 
-Frontier width is therefore not a progress rank.
-
-## Hard-frontier recursion calculus
-
-The current positive calculus is now explicit and theorem-backed.
-
-For each unresolved P0 `q` obligation:
-
-1. choose one concrete legal P0 witness move;
-2. enumerate **every** legal P1 reply;
-3. discharge replies already covered by a proved positive base certificate;
-4. retain every other P0 child as a hard recursive obligation;
-5. exact-`q` normalize duplicate value obligations;
-6. repeat.
-
-A finite hard-frontier chain ending in the empty set is a constructive positive proof.
-Each retained macro successor is exactly two plies deeper, so
+where P0 has two live latent singleton targets:
 
 ```text
-rho(s) = 42 - supportRank(s)
+C3
+G3.
 ```
 
-decreases by two even when frontier width expands.
+The ordinary same-column lower responses are poisoned:
+
+```text
+P0:C1, P1:C2 -> P0:C3 terminal
+P0:G1, P1:G2 -> P0:G3 terminal.
+```
+
+Nevertheless the pair is locally jointly defensible through a support-level
+cross-pair:
+
+```text
+P0:C1 -> P1:G1
+P0:G1 -> P1:C1
+
+P0:C2 -> P1:C3
+P0:G2 -> P1:G3.
+```
+
+The resulting target-only scheduler has only five P0-decision states and all four
+complete target-only attacker orders embed exactly under C4-0010 transitions.
 
 Authority:
-`docs/research/2026-09-13-hard-frontier-recursion-calculus.md`
+`docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md`.
 
-Evidence:
-`docs/research/evidence/2026-09-13-hard-frontier-recursion-calculus.json`
+## Temporal contract model
 
-## Current constructive depth-8 coverage
-
-With the current base grammar `I / O / E / A`:
+The C-layer is now represented as guarded finite temporal contracts rather than only
+static blockers or one-step response pairs:
 
 ```text
-319 immediate-win leaves
- 99 shallow recursive closures
- 62 additional generalized unique-hard closures
- 24 additional low-width branching-frontier closures
----
-504 / 1141 depth-8 frontier states structurally proved
+TemporalContract {
+  states,
+  eventGuards,
+  requiredActions,
+  forbiddenActions,
+  resourceClaims,
+  phaseEffects,
+  deadlines,
+  consequences,
+  ndcGuards
+}
 ```
 
-Equivalently:
+The existing response-matroid calculus is a snapshot view of currently active
+obligations emitted by those automata. It owns simultaneous response feasibility;
+the automata own activation, contingent deadlines, resource evolution and forbidden
+responses.
+
+## Phase / stutter / tail normal forms
+
+Use the exact column phase vector:
 
 ```text
-185 / 822 recursive depth-8 obligations proved
+phi_c = h_c mod 2
+phi' = phi + e_a + e_b  over GF(2)
 ```
 
-The three recursive groups are disjoint by construction.
+for a two-ply P0/P1 macro.
 
-## Direct expand/collapse proofs
-
-The low-width branching pilot found **55** first hard frontiers of width 2..4:
+The qualitative cases are:
 
 ```text
-24 closed structurally
-31 exceeded the width-16 research cap
-0 depth-capped
+(1,1)->(0,0) collapse
+(1,0)->(0,1) transport
+(0,0)->(1,1) re-expansion.
 ```
 
-By initial width:
+At the latent-target state, the five external vertical pairs:
 
 ```text
-width 2: 12 / 13 closed
-width 3:  3 / 19 closed
-width 4:  9 / 23 closed
+A1->A2
+B1->B2
+D5->D6
+E5->E6
+F5->F6
 ```
 
-Representative successful hard-frontier histories include:
+are exact two-ply stutters for the C3/G3 contract.
+
+After either target is consumed, its three-event upper tail has the qualified local
+normal form:
 
 ```text
-2 -> 0
-2 -> 2 -> 0
-2 -> 12 -> 0
-2 -> 7 -> 2 -> 3 -> 0
-2 -> 7 -> 9 -> 3 -> 0
-4 -> 5 -> 2 -> 0
+Tail3 = StutterPair2 + OddEvent1.
 ```
 
-This is direct standard-7x6 evidence that real proof branching can expand, converge,
-merge under exact `q`, and later collapse while remaining well-founded.
+The odd P0 event leaves one turn/phase debt. The remaining target-column middle move
+is poisoned for P1, while the same five columns `{A,B,D,E,F}` form the local one-slot
+repair neighborhood. Spending such a repair transports the phase defect into the
+chosen external resource rather than deleting it.
 
-## Current boundary
+Authority:
+`docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md`.
 
-Blindly increasing recursive depth is rejected. A rank-5 pilot materialized 100,001
-`q` states after only 60 source roots and produced **zero** new rank-5 closures.
+## New dependency-cone result
 
-The single canonical binary overflow (`46656555`) had:
+Pure E/P support geometry initially predicts two repair classes:
 
 ```text
-2 -> 6 -> 26
+A,B   -> odd remaining chain length 5
+D,E,F -> odd remaining tail length 1.
 ```
 
-Changing to a different exact-winning discovery witness converts the start into a
-long unique-hard chain:
+This is too coarse once residual incidence is observed.
+
+A bounded exact control over four post-tail contexts and five repair events produced:
 
 ```text
-1 -> 1 -> 1 -> 1 -> 1 -> 6 -> 28
+20 physical/local repair transitions
+-> 12 exact local semantic-effect signatures
+   8 nontrivial reused classes
+   4 singleton classes.
 ```
 
-so binary branching itself is not the missing theorem. The present hard boundary is
-the broad **5..7-hard consequence regime** and the lack of a standalone structural
-rule for choosing useful P0 witnesses.
+The signature included:
+
+```text
+support-tail type
+phase effect
+remaining-target effect
+same-column follow mode
+exact P0 incident residuals
+exact P1 incident residuals
+exact mover cofactors.
+```
+
+This establishes useful **local theorem reuse across distinct global contexts** without
+coarsening q. In particular, ownership differences outside a repair event's residual
+incidence/dependency cone can be irrelevant to that local event transformer, while the
+same difference becomes load-bearing as soon as a live incident residual depends on it.
+
+Authority:
+`docs/research/2026-09-13-event-dependency-cone-product-calculus.md`.
+
+## Typed event product
+
+One legal move is now treated as one typed event with simultaneous projections:
+
+```text
+E: add enabled support event
+P: toggle rank/column phase and update CPC context
+R: apply monotone Boolean cofactor/kill and antichain normalization
+C: advance active temporal-contract state/resources/deadlines
+N: close newly enabled guarded consequences.
+```
+
+The candidate reusable proof object is therefore a `TypedEventSignature` describing
+only the load-bearing dependency cone. Nonincident global facts remain opaque context
+parameters; they are not erased.
+
+This gives a precise mechanism for proof-level compression where q-state compression
+is absent.
 
 ## Immediate execution seam
 
-Do **not** raise frontier caps or run generic deeper recursion.
+Do **not** raise q/frontier caps or run generic deeper recursion.
 
-Use the already-closed certificates to extract theorem-backed structural rules for:
+Build one generic `TypedEventSignature` prototype and compile already-qualified event
+families into it:
 
-1. P0 witness selection / transport from CPC, WSL, NDC, support and resource/race facts;
-2. new positive base certificates that discharge the broad 5..7-hard regimes before
-   they generate large frontiers.
+```text
+same-column stutter pair
+latent cross-support pair
+latent target response
+phase-debt repair
+center response-serialization collision.
+```
 
-Start with paired controls:
+For each event preserve:
 
-- closed expand/collapse certificates;
-- their nearest broad-reexpansion siblings;
-- the `4665655*` family, where nearly identical prefixes show both closure and broad
-  re-expansion.
+```text
+support/tail effect
+phase/CPC effect
+R incidence/cofactor effect
+C automaton/resource/deadline effect
+N guards/consequences
+terminal guard
+provenance guard when observable.
+```
 
-A candidate rule must be independently derived and falsified before recursive reuse.
+The immediate success criterion is at least one exact cross-family operator
+isomorphism plus explicit smallest counterexamples for tempting false merges.
 
 ## Hygiene
 
-- Exact solvers/oracles are discovery and falsification controls only.
-- Frozen closed certificates are verified from legal transitions and structural proof
-  rules; oracle scores are not proof premises.
-- Exact `q` duplicate removal is value-safe; terminal-line provenance remains separate.
-- Unresolved frontiers are unknown, not losses or counterexamples.
-- Negative controls and incomplete experiments remain retained.
+- Bayesian confidence is a research-priority mask only and is invisible to exact logic.
+- Exact solvers/oracles are discovery/falsification controls only.
+- Local event-effect equivalence is not q equality.
+- Static blocker coverage is not policy realizability.
+- Nonplayable singleton residuals are future obligations, not immediate threats.
+- Unresolved frontiers remain unknown, not losses.
+- Every experiment has a hard five-minute wall-clock limit.
