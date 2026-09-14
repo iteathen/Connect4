@@ -8,6 +8,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-predecessor-induction.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-column-obligation-handoff.mjs
       - .github/workflows/frontier-repair-capacity-induction.yml
   workflow_dispatch:
 
@@ -29,6 +30,10 @@ jobs:
       c_unresolved: ${{ steps.latent_closure.outputs.c_unresolved }}
       g_unresolved: ${{ steps.latent_closure.outputs.g_unresolved }}
       p1_terminal: ${{ steps.latent_closure.outputs.p1_terminal }}
+      forced_defense: ${{ steps.obligation.outputs.forced_defense }}
+      obligation_unresolved: ${{ steps.obligation.outputs.obligation_unresolved }}
+      obligation_p1_terminal: ${{ steps.obligation.outputs.obligation_p1_terminal }}
+      obligation_repair: ${{ steps.obligation.outputs.obligation_repair }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -86,11 +91,33 @@ jobs:
             `p1_terminal=${c.p1TerminalCount+g.p1TerminalCount}`,
           ].join('\n')+'\n');
           NODE
+      - name: Qualify resolved-column obligation handoff when present
+        id: obligation
+        if: ${{ hashFiles('research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-column-obligation-handoff.mjs') != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/resolved-column-obligation.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-column-obligation-handoff.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RESOLVED_COLUMN_OBLIGATION_HANDOFF='));
+          if(!line) throw new Error('resolved-column obligation summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactSurvivorStates!==12) throw new Error('resolved-column survivor domain drift');
+          const c=x.postForcedBlockRouteCounts||{};
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `forced_defense=${x.forcedDefenseRows}`,
+            `obligation_unresolved=${x.unresolvedCount}`,
+            `obligation_p1_terminal=${c.P1_terminal||0}`,
+            `obligation_repair=${c.repair_capacity_induction||0}`,
+          ].join('\n')+'\n');
+          NODE
 
   summary:
     needs: repair-capacity-induction
-    name: repair p${{ needs.repair-capacity-induction.outputs.starts_proved }}-f${{ needs.repair-capacity-induction.outputs.starts_failed }}-n${{ needs.repair-capacity-induction.outputs.proof_states }}-c${{ needs.repair-capacity-induction.outputs.proof_classes }}-s${{ needs.repair-capacity-induction.outputs.start_classes }} latent-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }}-cu${{ needs.repair-capacity-induction.outputs.c_unresolved }}-gu${{ needs.repair-capacity-induction.outputs.g_unresolved }}-pt${{ needs.repair-capacity-induction.outputs.p1_terminal }}
+    name: repair p${{ needs.repair-capacity-induction.outputs.starts_proved }}-f${{ needs.repair-capacity-induction.outputs.starts_failed }} latent-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }}-cu${{ needs.repair-capacity-induction.outputs.c_unresolved }}-gu${{ needs.repair-capacity-induction.outputs.g_unresolved }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }}-u${{ needs.repair-capacity-induction.outputs.obligation_unresolved }}-pt${{ needs.repair-capacity-induction.outputs.obligation_p1_terminal }}-r${{ needs.repair-capacity-induction.outputs.obligation_repair }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "qualified repair-capacity and latent-contract counts encoded in job name"
+      - run: echo "qualified repair-capacity, latent-contract, and resolved-column obligation counts encoded in job name"
