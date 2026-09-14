@@ -1,6 +1,6 @@
-schema_version: 69
+schema_version: 70
 updated: 2026-09-13
-state: invariant_first_entailment_normalization
+state: zero_phase_typed_defect_core_repair
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -15,6 +15,7 @@ authority:
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   structural_isomorphism_resolution: docs/research/2026-09-13-structural-isomorphism-resolution.md
   invariant_first_resolution: docs/research/2026-09-13-invariant-first-cross-layer-isomorphism.md
+  phase_defect_core: docs/research/2026-09-13-column-phase-defect-and-zero-phase-core.md
   bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
   response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
@@ -23,9 +24,8 @@ authority:
 
 objective: >
   Derive a complete structural solve proof and then the exact perfect-W/D/L P0
-  terminal-line set. Use invariants of the canonical E/R/P/C/N/G/Q layers to expose
-  hidden equivalences before introducing any new semantic layer or expanding deeper
-  exact-q frontiers.
+  terminal-line set. Work from canonical E/R/P/C/N/G/Q invariants and compact defect
+  cores rather than deeper exact-q recursion.
 
 canonical_layers:
   E: causal_event_poset_and_support_ideals
@@ -36,71 +36,85 @@ canonical_layers:
   G: alternating_predecessor_fixed_point
   Q: observation_sensitive_value_and_provenance_quotients
 
-cross_layer_invariants:
-  master_rank:
-    source: "rho(I)=|I|"
-    E_view: graded_support_lattice_rank
-    P_view: "rho mod 2 plus target-dependent affine offset"
-    G_view: "remaining progress rank = 42-rho"
-    status: exact
-  fixed_point_shell:
-    N_view: "mu X.[X0 union Consequences(X)]"
-    G_view: "mu X.[I union PreE(X) union PreA(X)]"
-    status: exact_shared_skeleton_different_domains
-  monotone_term_shell:
-    R_view: OR_of_ANDs_of_event_ownership_atoms
-    G_view: OR_of_ANDs_of_recursive_win_obligations
-    status: exact_shape
-    current_gap: G_terms_need_typed_entailment_not_exact_q_identity
-  circuit_shell:
-    P_view: GF2_linear_dependency_circuits_with_affine_syndrome
-    C_view: transversal_response_matroid_circuits_and_fundamental_circuits
-    status: shared_matroid_interface_not_same_matroid
-  closure_boundary_shell:
-    R: minimal_requirement_or_blocker_antichains
-    C: maximal_feasible_preservation_antichains
-    N: minimal_generators_or_implication_basis
-    G: minimal_sufficient_proof_terms_under_exact_entailment
-    status: generic_order_theoretic_representation
-  quotient_hierarchy:
-    E: parity_preserving_trace_congruence
-    Q_value: q_future_value_behavior
-    Q_output: q_plus_Pi0_output_sensitive_refinement
-    status: exact_distinct_observation_levels
+new_exact_invariant:
+  column_phase:
+    definition: "phi_c = (6-h_c) mod 2 = h_c mod 2"
+    global_coset: "XOR_c phi_c = supportRank mod 2"
+    two_ply_macro: "phi' = phi + e_a + e_b over GF(2)"
+    same_column_pair: zero_phase_displacement
+    distinct_columns:
+      both_odd: collapse_weight_minus_2
+      one_odd_one_even: transport_weight_unchanged
+      both_even: reexpansion_weight_plus_2
+    even_rank_defect_distance_lower_bound: "weight(phi)/2 macro-steps to phi=0"
+    boundary: phase_is_support_resource_invariant_not_WDL_classifier
+
+semantic_entailment_negative_control:
+  workflow_run: 34799005735
+  hard_state_occurrences: 132
+  canonical_atoms: 132
+  reflection_savings: 0
+  direct_same_support_residual_implications: 0
+  transitive_implication_edges: 0
+  new_interval_discharges: 0
+  witness_terms_before: 28
+  prime_terms_after: 28
+  inference: >
+    R-only residual-objective entailment is exact but non-compressive on the fixed
+    sibling boundary. The missing relation must use P/C/N structure or a richer exact
+    invariant.
+
+phase_defect_control:
+  workflow_run: 34799269752
+  controls:
+    "46656551": {phase: "1001110", weight: 4, defect_rank: 2, zero_phase_hard_pairs: []}
+    "46656552": {phase: "0101110", weight: 4, defect_rank: 2, zero_phase_hard_pairs: []}
+    "46656555": {phase: "0001010", weight: 2, defect_rank: 1, zero_phase_hard_pairs: [[4,6]]}
+    "46656557": {phase: "0001111", weight: 4, defect_rank: 2, zero_phase_hard_pairs: []}
+  inference: >
+    The broad control is uniquely one phase-defect macro-step from the fully even
+    support and uniquely has a hard transition to phi=0. This is a structural
+    discriminator on the fixed controls, not yet a general outcome theorem.
+
+zero_phase_core:
+  sequence: "4665655546"
+  workflow_run: 34799371776
+  support_rank: 10
+  heights: [0,0,0,2,4,4,0]
+  phase: "0000000"
+  p0_residuals_total: 37
+  vertical_pair_covered: 30
+  uncovered_parity_pure: 7
+  uncovered_requirements:
+    - [C3,D3]
+    - [D3,G3]
+    - [A1,B1,C1]
+    - [A5,B5,C5,D5]
+    - [B5,C5,D5,E5]
+    - [C5,D5,E5,F5]
+    - [D5,E5,F5,G5]
+  minimum_static_transversal_size: 3
+  minimum_static_transversals:
+    - [A1,D3,D5]
+    - [B1,D3,D5]
+    - [C1,D3,D5]
+  factorization: "D3 AND D5 AND (A1 OR B1 OR C1) for minimum-cardinality static blockers"
+  boundary: >
+    Static transversals are target obligations only, not certified P1 strategies.
+    Every uncovered residual consists entirely of base-CPC P0 parity cells, so a
+    complete P1 safety policy must add typed non-vertical C/N certificates or alter
+    the parity/resource schedule.
 
 bayesian_research_mask:
   role: research_priority_only
   visibility_to_exact_logic: none
-  anti_double_counting_rule: >
-    Different views of one invariant cluster are correlated evidence and must not be
-    counted as independent support.
-  highest_information_gain_candidate: N_entailment_prime_proof_normalization
+  update: >
+    Lower utility for R-only semantic dominance at this seam. Raise test priority for
+    the exact P/C phase-defect bridge and the seven-term typed repair problem. Do not
+    treat the fixed-control separation as value authority.
   promotion_membrane: >
-    Only an exactly proved deterministic rule with explicit guards crosses into the
-    logic. Probability/confidence/utility metadata is discarded on promotion.
-
-known_control_boundary:
-  sequences: ["46656551", "46656552", "46656555", "46656557"]
-  closing_controls: ["46656551", "46656552", "46656557"]
-  broad_reexpansion_control: "46656555"
-  one_step_census_complete: true
-  recursive_descent_allowed: false
-  legal_p0_witnesses: 28
-  distinct_exact_q_terms: 28
-  minimal_exact_q_subset_terms: 28
-  strict_superset_absorptions: 0
-  common_arity_signature: {col1: 7, col2: 7, col3: 2, col4: 2, col5: 7, col6: 1, col7: 7}
-  exact_q_confluence_points: 12
-  inference: >
-    The monotone proof shape is not falsified; literal exact-q subset inclusion was the
-    wrong candidate order. The next control must use exact typed entailment from N.
-
-negative_controls:
-  vertical_follow_up_as_complete_global_calculus: rejected
-  raw_blocker_union_as_policy: rejected
-  exact_q_proof_term_subset_as_material_compressor: rejected_on_fixed_siblings
-  deeper_raw_exact_q_recursion_as_next_step: rejected
-  cardinality_only_child_signature: rejected_as_discriminator
+    Only exactly proved deterministic rules with explicit guards enter the logic;
+    Bayesian metadata is discarded on promotion.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -108,60 +122,68 @@ constraints:
   - exact_search_oracles_are_discovery_and_falsification_controls_only
   - preserve_exact_c4_0010_q_identity
   - output_provenance_must_not_be_erased_by_value_only_equivalence
-  - event_confluence_may_remove_only_proved_irrelevant_interleavings
   - preserve_terminal_stopping_CPC_NDC_deadline_resource_and_provenance_boundaries
+  - phase_defect_rank_is_not_game_value_or_distance_to_win
+  - static_transversal_is_not_strategic_blocker_without_CPC_resource_timing_proof
   - bayesian_mask_is_external_to_exact_logic
-  - isomorphic_views_are_not_independent_bayesian_evidence
   - unresolved_frontiers_are_unknown_not_negative_values
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
-  - do_not_create_parallel_semantic_owners_for_resolved_isomorphic_views
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: test_N_entailment_prime_proof_normalization_on_4665655_siblings
+  name: compile_typed_repairs_for_zero_phase_seven_term_core
   purpose: >
-    Determine whether the failed exact-q proof-term antichain becomes compressive when
-    the same G monotone-DNF terms are normalized under exact NDC entailment over typed
-    R/P/C facts rather than literal child identity.
-  fixed_input:
-    - completed_one_step_sibling_census
-    - existing_C4_0010_residual_transitions
-    - existing_CPC_parity_and_deadline_facts
-    - existing_typed_response_contracts
-    - existing_NDC_implications
+    Determine whether P1 can augment the 30-requirement vertical paired-response
+    certificate with a compatible typed cover of the seven parity-pure residual
+    requirements at 4665655546, or whether every attempted repair creates a proved
+    phase/resource/deadline defect that transfers into P0 progress.
+  fixed_state: "4665655546"
+  fixed_requirements:
+    - [C3,D3]
+    - [D3,G3]
+    - [A1,B1,C1]
+    - [A5,B5,C5,D5]
+    - [B5,C5,D5,E5]
+    - [C5,D5,E5,F5]
+    - [D5,E5,F5,G5]
+  allowed_fragment_sources:
+    - CPC_ownership_and_parity_shift_facts
+    - generic_vertical_or_cross_column_response_contracts
+    - Baseinverse_style_playable_pair_fragments_compiled_without_named_rule_authority
+    - successor_or_race_blockers
+    - response_matroid_rank_circuits_and_defect_transfer
+    - NDC_prerequisite_guard_closure
   bounded_steps:
-    - do not descend beyond the already generated one-step hard children
-    - compile each hard child into a finite typed fact set over R/P/C/N
-    - compute only the finite exact N-closure needed by those fact sets
-    - define "A entails_N B" only when B is contained in the exact guarded closure of A under identical parent observation/horizon
-    - normalize each parent G term family to prime terms under exact entailment
-    - compare prime-boundary size and invariant signatures between the three closing controls and 46656555
-    - record which invariant first creates separation: master-rank/deadline, parity circuit, response circuit, closure generator, or progress consequence
-    - use the twelve exact-q confluence points as positive checks that irrelevant interleavings do not alter closure
-    - stop if closure requires one opaque fact per q state or reconstructs physical move-tree recursion
+    - do not recurse exact-q children beyond this fixed state
+    - generate only fragments that can cover at least one of the seven fixed requirements
+    - retain coverage resource response sharing parity order deadline and progress fields
+    - compute compatibility and response-rank/circuit facts exactly
+    - use static minimum transversals only as targets for certificate generation, never as proof facts
+    - test whether a complete compatible typed safety cover exists while preserving the 30-requirement vertical cover
+    - if every repair fails, classify the smallest exact obstruction and test whether its defect transfer is well-founded
+    - stop if the fragment set degenerates to one object per physical continuation
   success_conditions:
-    - at least one G term is removed or merged by a proved typed entailment unavailable to literal q-ID subset order
-    - or a precise falsifier shows N-entailment remains non-compressive at this boundary
-    - any separation is stated in canonical R/P/C/N invariants, not rule names or q IDs
-    - all guards/resources/deadlines/horizons remain explicit
+    - either one exact compatible P1 repair certificate closes all seven residuals
+    - or one exact finite obstruction proves every admissible repair loses coverage, parity, resource feasibility, or deadline safety
+    - result translates into canonical R/P/C/N predicates and has a clear G interval/predecessor consequence
   stop_conditions:
-    - representation degenerates to exact-q identity
-    - analysis reconstructs physical move-tree branching
+    - physical move-tree reconstruction begins
     - candidate requires solved W/D/L labels as proof premises
+    - no semantic compression beyond exact q identity remains
     - wall_clock_reaches_5_minutes
 
 research_candidates_after_this_control:
-  - canonical_or_direct_implication_basis_for_finite_N_closure
-  - generic_circuit_defect_interface_shared_by_P_and_C
-  - product_fixed_point_view_for_N_facts_and_G_bounds
-  - exact_provenance_annotation_of_existing_fixed_point_proofs
+  - phase_defect_circuit_interface_shared_by_P_and_C
+  - factorized_blocker_dual_for_parity_pure_residual_cores
+  - finite_paving_restriction_as_typed_defect_theorem
+  - product_fixed_point_for_N_closure_and_G_interval_bounds
 
 forbidden_shortcuts:
   - cite_known_connect4_solution_as_the_proof
   - use_minimax_or_oracle_value_labels_as_certificate_facts
   - use_bayesian_credence_as_proof_authority
-  - feed_probabilistic_or_confidence_weighted_facts_into_exact_logic
-  - double_count_isomorphic_formalisms_as_independent_evidence
+  - treat_phase_weight_as_WDL_classifier
+  - treat_static_hitting_set_as_realizable_policy
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
