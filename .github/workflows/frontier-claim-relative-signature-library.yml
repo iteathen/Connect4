@@ -48,6 +48,7 @@ jobs:
       escape_states: ${{ steps.action_census.outputs.escape_states }}
       tail_eliminated: ${{ steps.tail_elimination.outputs.tail_eliminated }}
       tail_surviving: ${{ steps.tail_elimination.outputs.tail_surviving }}
+      tail_survivor_key: ${{ steps.tail_elimination.outputs.tail_survivor_key }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -178,14 +179,21 @@ jobs:
             .find((x) => x.startsWith('TAIL_ACTION_ADVERSARIAL_ELIMINATION='));
           if (!line) throw new Error('tail-action elimination line missing');
           const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          const shorten = (m) => m
+            .replace('C_resolved_P0_owned_C1:', 'CP0-')
+            .replace('C_resolved_P1_owned_C1:', 'CP1-')
+            .replace('G_resolved_P1_owned_G1:', 'GP1-')
+            .replace('G_resolved_P0_owned_G1:', 'GP0-');
+          const survivorKey = x.survivingRows.map((r) => shorten(r.member)).join(',');
           fs.appendFileSync(process.env.GITHUB_OUTPUT,
             `tail_eliminated=${x.adversariallyEliminatedTailActions}\n` +
-            `tail_surviving=${x.survivingTailActions}\n`);
+            `tail_surviving=${x.survivingTailActions}\n` +
+            `tail_survivor_key=${survivorKey}\n`);
           NODE
 
   tail-routing-summary:
     needs: claim-relative-library
-    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }} tails-x${{ needs.claim-relative-library.outputs.tail_eliminated }}-s${{ needs.claim-relative-library.outputs.tail_surviving }}
+    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }} tails-x${{ needs.claim-relative-library.outputs.tail_eliminated }}-s${{ needs.claim-relative-library.outputs.tail_surviving }}-${{ needs.claim-relative-library.outputs.tail_survivor_key }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
