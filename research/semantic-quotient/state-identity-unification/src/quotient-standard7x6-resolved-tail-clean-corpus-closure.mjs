@@ -157,6 +157,7 @@ for (const [groupKey, rows] of [...groups.entries()].sort(([a], [b]) => a.locale
     logicalFailures: attempted - closed,
     unattempted: rows.length - attempted,
     resourceFailure,
+    failureSamples: failures,
     stats,
   });
   if (typeof globalThis.gc === 'function') globalThis.gc();
