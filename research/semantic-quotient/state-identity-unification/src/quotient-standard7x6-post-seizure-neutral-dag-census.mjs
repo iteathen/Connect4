@@ -18,6 +18,7 @@ function replay(k,s){let id=k.rootId;for(const d of s){const n=k.advance(id,Numb
 function col(c){return String.fromCharCode(65+c);}
 function coord(x){return `${col(x%7)}${Math.floor(x/7)+1}`;}
 function phase(e,id){return e.heights(id).map(h=>h&1).join('');}
+function actionIndex(name){return name==null?null:name.charCodeAt(0)-65;}
 
 function makeKernel(){
  const {kernel}=createSlot64ResidualQuotientKernel(DOMAIN,{cacheEdges:true,prefixClasses:4096,responseClosure:true,searchStorage:{states:262144,classes:524288,chunksPerSlot:131072}});
@@ -25,8 +26,9 @@ function makeKernel(){
  return kernel;
 }
 
-function census(refusalName){
+function census(refusalName,firstActionName=null){
  const refusalCol=REFUSALS[refusalName];
+ const firstAction=actionIndex(firstActionName);
  const k=makeKernel();
  const e=createRepairCapacityProofEngine(k,{maxProofStates:1});
  function neutral(id){
@@ -45,6 +47,7 @@ function census(refusalName){
  const entry=k.advance(refusal,G);assert(entry>=0&&entry!==domain.QN_TERMINAL_WIN);
  const entrySequence=refusalSequence+'7';
  const entryContract=neutral(entry);assert.equal(entryContract.ok,true,`${refusalName}: neutral entry failed`);
+ if(firstAction!==null){assert(firstAction>=0&&firstAction<7,`bad first P1 action ${firstActionName}`);assert(e.legal(entry).includes(firstAction),`${firstActionName} not legal at shard entry`);}
 
  const seen=new Map([[entry,{sequence:entrySequence,mu:entryContract.mu}]]);
  const queue=[entry];
@@ -58,7 +61,8 @@ function census(refusalName){
   const contract=neutral(state);assert.equal(contract.ok,true);
   muHistogram[contract.mu]=(muHistogram[contract.mu]??0)+1;
   const branches=[];
-  for(const action of e.legal(state)){
+  const actions=state===entry&&firstAction!==null?[firstAction]:e.legal(state);
+  for(const action of actions){
    const eventCell=e.landing(state,action);
    const afterP1=k.advance(state,action);
    const afterP1Sequence=info.sequence+String(action+1);
@@ -92,7 +96,7 @@ function census(refusalName){
  rows.sort((a,b)=>a.mu-b.mu||a.sequence.localeCompare(b.sequence));
  const exitRows=[...exits.entries()].map(([state,x])=>({state,...x})).sort((a,b)=>a.muAfterP1-b.muAfterP1||a.sequence.localeCompare(b.sequence));
  return {
-  refusal:refusalName,refusalSequence,entrySequence,entryMu:entryContract.mu,
+  refusal:refusalName,firstP1Action:firstActionName,refusalSequence,entrySequence,entryMu:entryContract.mu,
   neutralStates:rows.length,edgeCount,uniqueDualExits:exitRows.length,
   p1TerminalBranches:terminalClosures,immediateP0TerminalBranches:immediateClosures,
   repairP0TerminalCandidates:repairTerminalClosures,maxRepairCandidates,muHistogram,
@@ -102,26 +106,31 @@ function census(refusalName){
 }
 
 const requested=process.argv[2];
+const requestedAction=process.argv[3]||null;
 const names=requested?[requested]:Object.keys(REFUSALS);
-for(const name of names)if(!(name in REFUSALS))throw new Error('usage: neutral-dag-census [D|E|F]');
-const results=names.map(census);
+for(const name of names)if(!(name in REFUSALS))throw new Error('usage: neutral-dag-census [D|E|F] [A|B|C|D|E|F|G]');
+if(requestedAction&&!/^[A-G]$/.test(requestedAction))throw new Error('first P1 action must be A-G');
+if(requestedAction&&names.length!==1)throw new Error('first-action shard requires one refusal');
+const results=names.map(name=>census(name,requestedAction));
 const summary={
- kind:'standard7x6-post-seizure-neutral-ranked-dag-census-summary-v1',
+ kind:requestedAction?'standard7x6-post-seizure-neutral-ranked-dag-census-shard-summary-v1':'standard7x6-post-seizure-neutral-ranked-dag-census-summary-v1',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
  results:results.map(r=>({
-  refusal:r.refusal,refusalSequence:r.refusalSequence,entrySequence:r.entrySequence,entryMu:r.entryMu,
+  refusal:r.refusal,firstP1Action:r.firstP1Action,refusalSequence:r.refusalSequence,entrySequence:r.entrySequence,entryMu:r.entryMu,
   neutralStates:r.neutralStates,edgeCount:r.edgeCount,uniqueDualExits:r.uniqueDualExits,
   p1TerminalBranches:r.p1TerminalBranches,immediateP0TerminalBranches:r.immediateP0TerminalBranches,
   repairP0TerminalCandidates:r.repairP0TerminalCandidates,maxRepairCandidates:r.maxRepairCandidates,
   muHistogram:r.muHistogram,
   exits:r.exits.map(x=>({sequence:x.sequence,muAfterP1:x.muAfterP1,phaseBits:x.phaseBits})),
  })),
- theoremBoundary:'Compact projection of the exact census. It preserves exact dual-exit sequences and rank/phase metadata but omits internal DAG rows. It does not infer W/L.',
+ theoremBoundary:requestedAction
+  ?'Exact first-P1-action execution shard of the neutral DAG. Only the entry adversarial action is restricted; every descendant retains all legal P1 actions and all smaller-neutral P0 repair candidates. Sharding is execution hygiene, not semantic identity, and does not infer W/L.'
+  :'Compact projection of the exact census. It preserves exact dual-exit sequences and rank/phase metadata but omits internal DAG rows. It does not infer W/L.',
 };
 console.log(`POST_SEIZURE_NEUTRAL_DAG_SUMMARY=${JSON.stringify(summary)}`);
 if(process.env.CENSUS_COMPACT!=='1'){
  console.log(`POST_SEIZURE_NEUTRAL_DAG_CENSUS=${JSON.stringify({
-  kind:'standard7x6-post-seizure-neutral-ranked-dag-census-v1',
+  kind:requestedAction?'standard7x6-post-seizure-neutral-ranked-dag-census-shard-v1':'standard7x6-post-seizure-neutral-ranked-dag-census-v1',
   attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
   results,
   theoremBoundary:'Exact reachable neutral-contract DAG only. Edges are P1/P0 repair pairs that re-enter the same deadline-free dual-target contract with strictly smaller mu. Dual exits are retained as unresolved certificate boundaries; this census does not infer W/L or treat candidate failure as loss.',
