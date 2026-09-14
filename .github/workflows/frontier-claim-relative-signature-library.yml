@@ -16,6 +16,9 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-continuation-congruence.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-continuation-refinement.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-cross-action-congruence.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
       - .github/workflows/frontier-claim-relative-signature-library.yml
   workflow_dispatch:
 
@@ -76,3 +79,13 @@ jobs:
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-cross-action-congruence.mjs
+      - name: Qualify action-conditioned progress-cone substrate
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node --test research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.test.mjs
+      - name: Bind action-progress cones to exact C4-0010 reply horizon
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
