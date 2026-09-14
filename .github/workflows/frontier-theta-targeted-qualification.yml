@@ -1,0 +1,53 @@
+name: Frontier theta targeted qualification
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-aux-lex-proof-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-sequence-probe.mjs'
+      - '.github/workflows/frontier-theta-targeted-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: C_forced_C2, sequence: '4665655366447475', target: G5, max_distance: '4', action: '' }
+          - { name: C_exception_G, sequence: '46656553664474', target: G5, max_distance: '4', action: G }
+          - { name: C_parent_G, sequence: '466565536644', target: G5, max_distance: '4', action: G }
+          - { name: D_parent_C3_C, sequence: '466565546644', target: C3, max_distance: '2', action: C }
+          - { name: D_parent_G3_G, sequence: '466565546644', target: G3, max_distance: '2', action: G }
+          - { name: F_A_E, sequence: '4665655671', target: D4, max_distance: '2', action: E }
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify theta candidate
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+          TARGET: ${{ matrix.target }}
+          MAX_TARGET_DISTANCE: ${{ matrix.max_distance }}
+          ACTION: ${{ matrix.action }}
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/theta.txt"
+          if [ -z "$ACTION" ]; then unset ACTION; fi
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-sequence-probe.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('THETA_SEQUENCE_PROBE='));
+          if(!line) throw new Error('theta output missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.proved!==true) throw new Error(`theta unproved: ${x.sequence}/${x.target}/${x.rootAction ?? '*'} -> ${x.proofKind}`);
+          NODE
