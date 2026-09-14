@@ -1,0 +1,67 @@
+name: Frontier clean-invariant threshold falsifier
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-clean-invariant-threshold-falsifier.mjs
+      - .github/workflows/frontier-clean-invariant-threshold-falsifier.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  falsifier:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      corpus: ${{ steps.run.outputs.corpus }}
+      selected: ${{ steps.run.outputs.selected }}
+      completed: ${{ steps.run.outputs.completed }}
+      proved: ${{ steps.run.outputs.proved }}
+      unproved: ${{ steps.run.outputs.unproved }}
+      matched: ${{ steps.run.outputs.matched }}
+      mu_falsifiers: ${{ steps.run.outputs.mu_falsifiers }}
+      incidence_falsifiers: ${{ steps.run.outputs.incidence_falsifiers }}
+      resource_failures: ${{ steps.run.outputs.resource_failures }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run falsification-directed clean-invariant probes
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/clean-invariant-threshold-falsifier.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-clean-invariant-threshold-falsifier.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('CLEAN_INVARIANT_THRESHOLD_FALSIFIER='));
+          if(!line) throw new Error('threshold falsifier summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactCleanCandidateStates!==287) throw new Error(`clean corpus drift ${x.exactCleanCandidateStates}`);
+          if(x.completedProbes<5) throw new Error('known calibration probes did not complete');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `corpus=${x.exactCleanCandidateStates}`,
+            `selected=${x.selectedProbes}`,
+            `completed=${x.completedProbes}`,
+            `proved=${x.provedProbes}`,
+            `unproved=${x.unprovedProbes}`,
+            `matched=${x.matchedOutcomePairCount}`,
+            `mu_falsifiers=${x.muThresholdFalsifierCount}`,
+            `incidence_falsifiers=${x.incidenceThresholdFalsifierCount}`,
+            `resource_failures=${x.resourceFailureCount}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: falsifier
+    name: falsify-c${{ needs.falsifier.outputs.corpus }}-s${{ needs.falsifier.outputs.selected }}-e${{ needs.falsifier.outputs.completed }}-p${{ needs.falsifier.outputs.proved }}-u${{ needs.falsifier.outputs.unproved }}-m${{ needs.falsifier.outputs.matched }}-mf${{ needs.falsifier.outputs.mu_falsifiers }}-if${{ needs.falsifier.outputs.incidence_falsifiers }}-r${{ needs.falsifier.outputs.resource_failures }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "clean-invariant threshold falsification counts encoded in job name"
