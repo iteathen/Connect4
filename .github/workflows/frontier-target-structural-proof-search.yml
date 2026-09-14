@@ -1,0 +1,32 @@
+name: Frontier target structural proof search
+
+on:
+  push:
+    branches: [research/frontier-negamax-conformance]
+    paths:
+      - '.github/workflows/frontier-target-structural-proof-search.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-structural-proof-search.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  target-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      STRUCTURAL_TARGET_SEQUENCE: '46656555'
+      STRUCTURAL_MAX_PAIRS: '8'
+      STRUCTURAL_STATE_CAP: '100000'
+      STRUCTURAL_CALL_CAP: '250000'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Search bounded structural certificate space
+        shell: bash
+        run: |
+          set -euo pipefail
+          node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-structural-proof-search.mjs
