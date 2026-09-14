@@ -180,7 +180,7 @@ for (const reply of e.legal(afterG1)) {
   });
 }
 
-console.log(`EXPIRED_RESPONSE_B1_CLOSURE=${JSON.stringify({
+const result = {
   kind: 'standard7x6-expired-response-b1-closure-v1',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
@@ -200,4 +200,6 @@ console.log(`EXPIRED_RESPONSE_B1_CLOSURE=${JSON.stringify({
     ? 'Exact only for B1 refusal after P0:C1 at 466565554644. It proves the exact refusal state is a P0-winning predecessor through G1 seizure and branch-composed rho child contracts. The expired P1:G1 deadline is never reset. This does not generalize other refusal events, prove the latent root, or imply q equality.'
     : 'Exact only for B1 refusal after P0:C1. Every unclosed alternative remains explicit unknown; no failure/resource condition is interpreted as loss.',
   authority: 'Exact C4-0010 transitions/terminal certificates plus independently qualified rho=(delta,mu) branch-composition certificates under unchanged bounds. No solved W/D/L labels, external oracle premise, or unrestricted q-frontier recursion.',
-})}`);
+};
+console.log(`EXPIRED_RESPONSE_B1_CLOSURE=${JSON.stringify(result)}`);
+assert.equal(allClosed, true, 'B1 expired-response closure theorem failed');
