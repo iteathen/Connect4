@@ -1,0 +1,58 @@
+name: Frontier post-block forced-defense role differential
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-forced-defense-role-differential.mjs
+      - .github/workflows/frontier-postblock-forced-defense-role-differential.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  differential:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      positive_target: ${{ steps.run.outputs.positive_target }}
+      residual_target: ${{ steps.run.outputs.residual_target }}
+      positive_nonrho: ${{ steps.run.outputs.positive_nonrho }}
+      residual_nonrho: ${{ steps.run.outputs.residual_nonrho }}
+      matched: ${{ steps.run.outputs.matched }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify forced-defense role differential
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/forced-defense-role.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-forced-defense-role-differential.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_FORCED_DEFENSE_ROLE_DIFFERENTIAL='));
+          if(!line) throw new Error('forced-defense role summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactRoots!==84||x.positive.roots!==62||x.residual.roots!==22) throw new Error('rank18 inventory drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `positive_target=${x.positive.rootsWithTargetForced}`,
+            `residual_target=${x.residual.rootsWithTargetForced}`,
+            `positive_nonrho=${x.positive.rootsWithNonRho}`,
+            `residual_nonrho=${x.residual.rootsWithNonRho}`,
+            `matched=${x.matchedOppositeRoleSignatures}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: differential
+    name: role-target-p${{ needs.differential.outputs.positive_target }}-r${{ needs.differential.outputs.residual_target }}-nonrho-p${{ needs.differential.outputs.positive_nonrho }}-r${{ needs.differential.outputs.residual_nonrho }}-matched-${{ needs.differential.outputs.matched }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "forced-defense role differential encoded in job name"
