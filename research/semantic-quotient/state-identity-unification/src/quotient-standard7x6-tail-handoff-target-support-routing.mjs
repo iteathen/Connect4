@@ -8,7 +8,7 @@ import * as domain from './quotient-negamax-domain-contract.mjs';
 
 const DOMAIN={columns:7,rows:6,connect:4};
 const ROOT='466565554644';
-const C=2,G=6,C3=16,G3=20,TAILS=[3,4,5];
+const C=2,G=6,C3=16,G3=20,TAILS=[3,4,5],OFF_TARGETS=[0,1,3,4,5];
 
 function replay(k,s){let id=k.rootId;for(const d of s){id=k.advance(id,Number(d)-1);assert(id>=0);}return id;}
 function landing(k,id,c){return k.supportAccess.landingAt(k.states.supportAt(id),c);}
@@ -22,6 +22,22 @@ function terms(k,id,p){const q=p===0?k.states.p0At(id):k.states.p1At(id);return 
 function singleton(k,id,p,x){return terms(k,id,p).some(t=>t.length===1&&t[0]===x);}
 function enabledSingletons(k,id,p){return terms(k,id,p).filter(t=>t.length===1).map(t=>t[0]).filter(x=>landing(k,id,x%7)===x).sort((a,b)=>a-b);}
 function targetDistance(k,id,t){return Math.max(0,2-heights(k,id)[t%7]);}
+function hasImmediateTerminal(k,id){
+ for(let c=0;c<7;c++){
+  if(landing(k,id,c)===0xff)continue;
+  if(k.advance(id,c)===domain.QN_TERMINAL_WIN)return true;
+ }
+ return false;
+}
+function offTargetSafe(k,state,c,target){
+ const cell=landing(k,state,c);if(cell===0xff)return false;
+ const afterP0=k.advance(state,c);
+ if(afterP0===domain.QN_TERMINAL_WIN)return true;
+ assert(afterP0>=0);
+ if(!singleton(k,afterP0,0,target))return false;
+ if(targetDistance(k,afterP0,target)===0)return false;
+ return !hasImmediateTerminal(k,afterP0);
+}
 
 const {kernel:k}=createSlot64ResidualQuotientKernel(DOMAIN,{cacheEdges:true,prefixClasses:4096,responseClosure:true,searchStorage:{states:262144,classes:524288,chunksPerSlot:131072}});
 k.prepareSearchStorage();
@@ -44,6 +60,7 @@ for(const c of cases){
    if(targetDistance(k,r22,c.target)===0)continue;
    assert(singleton(k,r22,0,c.target));
    assert.equal(targetDistance(k,r22,c.target),1);
+   const safeOffTargetColumns=OFF_TARGETS.filter(x=>offTargetSafe(k,r22,x,c.target)).map(col);
 
    const supportCol=c.target%7;
    const supportCell=landing(k,r22,supportCol);
@@ -98,7 +115,7 @@ for(const c of cases){
          : 'forced_target_block_continuation';
    rows.push({
      member:`${c.name}:${col(tail)}->P1:${col(p1c)}`,
-     target:coord(c.target),supportAction:coord(supportCell),status,
+     target:coord(c.target),supportAction:coord(supportCell),status,safeOffTargetColumns,
      enabledP0Singletons:p0Enabled.map(coord),enabledP1Singletons:p1Enabled.map(coord),
      responseCapacity:{demand,responseRank,defect,temporalSlot:'current_P1_turn',obligations:p0Enabled.map(x=>({singleton:coord(x),soleBlockingAction:coord(x)}))},
      p1TerminalOverrides,nonBlockTargetWins,blockState,replies,
@@ -112,24 +129,25 @@ const exactCircuits=rows.filter(r=>r.status==='P0_response_capacity_circuit').le
 const forcedContinuations=rows.filter(r=>r.status==='forced_target_block_continuation').length;
 const forcedThenTerminal=rows.filter(r=>r.status==='P0_forced_block_then_immediate_terminal').length;
 const terminalOverrides=rows.filter(r=>r.status==='P1_terminal_override_exists').length;
-const unresolvedRows=rows
- .filter(r=>r.status==='forced_target_block_continuation'||r.status==='P1_terminal_override_exists')
- .map(r=>({
-   member:r.member,target:r.target,supportAction:r.supportAction,status:r.status,
-   enabledP0Singletons:r.enabledP0Singletons,enabledP1Singletons:r.enabledP1Singletons,
-   responseCapacity:r.responseCapacity,p1TerminalOverrides:r.p1TerminalOverrides,
-   blockState:r.blockState,
-   terminalOverrideReplies:r.replies.filter(x=>x.outcome==='P1_terminal_override'),
- }));
+const blockingRows=rows.filter(r=>r.safeOffTargetColumns.length===0);
+assert.equal(blockingRows.length,12,'intersection must reproduce the qualified 12 no-safe-off-target handoffs');
+const blockingCounts={};for(const r of blockingRows)blockingCounts[r.status]=(blockingCounts[r.status]??0)+1;
+const unresolvedRows=blockingRows.map(r=>({
+ member:r.member,target:r.target,supportAction:r.supportAction,status:r.status,
+ enabledP0Singletons:r.enabledP0Singletons,enabledP1Singletons:r.enabledP1Singletons,
+ responseCapacity:r.responseCapacity,p1TerminalOverrides:r.p1TerminalOverrides,
+ blockState:r.blockState,terminalOverrideReplies:r.replies.filter(x=>x.outcome==='P1_terminal_override'),
+}));
 console.log(`TAIL_HANDOFF_TARGET_SUPPORT_SUMMARY=${JSON.stringify({
- kind:'standard7x6-tail-handoff-target-support-routing-summary-v1',
+ kind:'standard7x6-tail-handoff-target-support-routing-summary-v2',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
  exactTailHandoffs:rows.length,statusCounts:counts,exactCapacityCircuits:exactCircuits,
  forcedBlockThenImmediateTerminal:forcedThenTerminal,forcedBlockContinuations:forcedContinuations,
- statesWithP1TerminalOverride:terminalOverrides,unresolvedRowCount:unresolvedRows.length,
+ statesWithP1TerminalOverride:terminalOverrides,
+ blockingNoSafeOffTargetHandoffs:blockingRows.length,blockingStatusCounts:blockingCounts,unresolvedRowCount:unresolvedRows.length,
  connect4ObligationSlotMap:{obligation:'enabled live P0 singleton must be blocked before next P0 turn',soleBlockingAction:'P1 claims that singleton cell',temporalResponseSlot:'current single P1 move',capacityCircuit:'demand >= 2 with response rank 1 and no P1 terminal override'},
  unresolvedRows,
- interpretation:'Target-support is an exact response-serialization contract on every retained exhausted-tail handoff. Capacity circuits and forced-block-then-terminal rows are closed local predecessor certificates; only forced-block continuations or P1 terminal overrides remain as next-seam evidence.',
- theoremBoundary:'Bounded one-P0-action plus exhaustive immediate-P1-reply control on the retained 48 exhausted-tail handoffs only. Forced blocking is not later-strategy closure, and P1 terminal override is a counterexample rather than a loss inference for unrelated actions.',
+ interpretation:'The 48-handoff target-support routing is intersected with the exact 12 states that have no safe A/B/D/E/F action. Only this 12-state intersection is the blocking seam; handoffs with a safe off-target action remain discharged by that separate action contract.',
+ theoremBoundary:'Bounded one-P0-action plus exhaustive immediate-P1-reply control. Forced blocking is not later-strategy closure, and P1 terminal override is a counterexample rather than a loss inference for unrelated actions.',
  authority:'Exact C4-0010 support/residual transitions only; no W/D/L labels, recursive q search, Bayesian confidence, or output-cardinality premise.'
 })}`);
