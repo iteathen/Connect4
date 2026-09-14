@@ -1,0 +1,56 @@
+name: Frontier G3 mu16 resolved-tail falsifiers
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-g3-mu16-resolved-tail-falsifiers.mjs
+      - .github/workflows/frontier-g3-mu16-resolved-tail-falsifiers.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  falsifiers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      states: ${{ steps.run.outputs.states }}
+      additive_failed: ${{ steps.run.outputs.additive_failed }}
+      lex_failed: ${{ steps.run.outputs.lex_failed }}
+      shared: ${{ steps.run.outputs.shared }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Compare additive and lexicographic resolved-tail failures
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/g3-mu16-falsifiers.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-g3-mu16-resolved-tail-falsifiers.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('G3_MU16_RESOLVED_TAIL_FALSIFIERS='));
+          if(!line) throw new Error('G3 mu16 falsifier summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactCleanStates!==37) throw new Error(`G3 mu16 corpus drift ${x.exactCleanStates}`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `states=${x.exactCleanStates}`,
+            `additive_failed=${x.additive.failed}`,
+            `lex_failed=${x.lexicographic.failed}`,
+            `shared=${x.sharedFailureCount}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: falsifiers
+    name: g3mu16-n${{ needs.falsifiers.outputs.states }}-af${{ needs.falsifiers.outputs.additive_failed }}-lf${{ needs.falsifiers.outputs.lex_failed }}-s${{ needs.falsifiers.outputs.shared }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "G3 mu16 resolved-tail falsifier counts encoded in job name"
