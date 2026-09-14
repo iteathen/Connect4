@@ -13,6 +13,7 @@ const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
 const ROOT = '466565554644';
 const C = 2, G = 6;
 const C3 = 16, G3 = 20;
+const CHILD_TIMEOUT_MS = 300000;
 const BRANCH_COMPOSER = fileURLToPath(new URL('./quotient-standard7x6-rho-action-branch-composition.mjs', import.meta.url));
 
 function replay(kernel, sequence) {
@@ -28,7 +29,7 @@ function col(c) { return String.fromCharCode(65 + c); }
 function coord(cell) { return `${col(cell % 7)}${Math.floor(cell / 7) + 1}`; }
 function runBranchComposition(sequence) {
   const child = spawnSync(process.execPath, [BRANCH_COMPOSER, sequence, 'C3', 'G'], {
-    encoding: 'utf-8', timeout: 270000, maxBuffer: 32 * 1024 * 1024,
+    encoding: 'utf-8', timeout: CHILD_TIMEOUT_MS, maxBuffer: 32 * 1024 * 1024,
   });
   if (child.error) throw child.error;
   if (child.status !== 0) return { proved: false, kind: 'branch_composer_process_error', error: (child.stderr ?? '').slice(-8000) };
@@ -54,7 +55,6 @@ assert(afterC1 >= 0 && e.rank(afterC1) === 13);
 assert.equal(coord(e.landing(afterC1, C)), 'C2');
 assert.equal(coord(e.landing(afterC1, G)), 'G1');
 
-// P1:C2 is a refusal of the G1 response obligation but also physically exposes C3.
 const afterC2 = kernel.advance(afterC1, C);
 assert.notEqual(afterC2, domain.QN_TERMINAL_WIN, 'P1:C2 unexpectedly terminal');
 assert(afterC2 >= 0 && e.rank(afterC2) === 14);
@@ -62,7 +62,6 @@ const c2Terminals = e.terminalActions(afterC2, 0);
 const c3Terminal = c2Terminals.find((x) => x.cell === C3) ?? null;
 assert(c3Terminal, 'P1:C2 did not expose immediate P0:C3 terminal');
 
-// P1:G1 is the on-contract response. P0:G2 makes G3 directly playable.
 const afterG1 = kernel.advance(afterC1, G);
 assert.notEqual(afterG1, domain.QN_TERMINAL_WIN, 'P1:G1 unexpectedly terminal');
 assert(afterG1 >= 0 && e.rank(afterG1) === 14);
@@ -123,7 +122,7 @@ for (const response of e.legal(afterG2)) {
 }
 
 const result = {
-  kind: 'standard7x6-latent-c1-target-column-replies-v1',
+  kind: 'standard7x6-latent-c1-target-column-replies-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -152,8 +151,9 @@ const result = {
     closed: onContractClosed,
   },
   proved: Boolean(c3Terminal) && onContractClosed,
+  childTimeoutMs: CHILD_TIMEOUT_MS,
   theoremBoundary: 'Exact only for P1:C2 and P1:G1 after P0:C1 at the fixed latent root. Offsystem A/B/D/E/F replies are intentionally excluded and require their own exact refusal contracts. No symmetry or solved-value premise is used.',
-  authority: 'Exact C4-0010 transitions/terminal certificates plus branch-composed rho=(delta,mu) at the exact P1:G3 block leaf under unchanged limits.',
+  authority: 'Exact C4-0010 transitions/terminal certificates plus branch-composed obligation-first rho=(delta,mu) at the exact P1:G3 block leaf under unchanged limits.',
 };
 console.log(`LATENT_C1_REMAINING_REPLIES=${JSON.stringify(result)}`);
 assert.equal(result.proved, true, 'C1 target-column reply closure failed');
