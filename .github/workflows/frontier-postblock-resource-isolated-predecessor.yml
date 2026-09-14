@@ -39,7 +39,7 @@ jobs:
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_RESOURCE_ISOLATED_PREDECESSOR='));
           if(!line) throw new Error('resource-isolated predecessor summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
-          if(x.exactResourceShardRoots!==15) throw new Error(`resource root drift ${x.exactResourceShardRoots}`);
+          if(x.exactResourceShardRoots!==17) throw new Error(`resource root drift ${x.exactResourceShardRoots}`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT,[
             `roots=${x.exactResourceShardRoots}`,
             `closed=${x.closedRoots}`,
@@ -54,4 +54,4 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "isolated post-block resource-root counts encoded in job name"
+      - run: echo "isolated post-block resource-shard root counts encoded in job name"
