@@ -10,7 +10,8 @@ const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
 const ROOT = '466565554644';
 const C = 2, G = 6, C3 = 2 * 7 + C, G3 = 2 * 7 + G;
 const TAIL_COLUMNS = Object.freeze([3, 4, 5]); // D,E,F
-const CHAIN_COLUMNS = Object.freeze([0, 1]); // A,B
+const AB_COLUMNS = Object.freeze([0, 1]); // A,B
+const OFF_TARGET_COLUMNS = Object.freeze([0, 1, 3, 4, 5]); // never C/G target columns
 
 function replay(kernel, seq) {
   let id = kernel.rootId;
@@ -47,74 +48,104 @@ function localIncidence(kernel,id,cell){
   const p0=terms(kernel,id,0).filter((term)=>contains(term,cell));
   const p1=terms(kernel,id,1).filter((term)=>contains(term,cell));
   return {
-    cell: coord(cell),
-    p0Incident:p0.map(termKey).sort(), p1Incident:p1.map(termKey).sort(),
+    cell:coord(cell),
+    p0Incident:p0.map(termKey).sort(),p1Incident:p1.map(termKey).sort(),
     p0Cofactors:p0.map((term)=>cofactorKey(term,cell)).sort(),
     p1Cofactors:p1.map((term)=>cofactorKey(term,cell)).sort(),
   };
 }
-function stable(value){ if(Array.isArray(value)) return value.map(stable); if(value===null||typeof value!=='object') return value; const out={}; for(const k of Object.keys(value).sort()) out[k]=stable(value[k]); return out; }
-function key(value){ return JSON.stringify(stable(value)); }
+function enabledSingletons(kernel,id,player){
+  return terms(kernel,id,player)
+    .filter((term)=>term.length===1)
+    .map((term)=>term[0])
+    .filter((cell)=>landing(kernel,id,cell%7)===cell)
+    .map(coord)
+    .sort();
+}
+function supportClass(cap){
+  if(cap===0) return 'EXHAUSTED';
+  if(cap===1) return 'ODD_TAIL_1';
+  return `${cap&1?'ODD':'EVEN'}_CHAIN_${cap}`;
+}
 
-function classifyChainCandidate(kernel, state, col, target) {
-  const actionCell = landing(kernel, state, col);
-  assert.notEqual(actionCell, 0xff);
-  const beforeCapacity = capacity(kernel, state, col);
-  const incidence = localIncidence(kernel, state, actionCell);
-  const next = kernel.advance(state, col);
-  if (next === domain.QN_TERMINAL_WIN) {
+function classifyCandidate(kernel,state,col,target){
+  const actionCell=landing(kernel,state,col);
+  const column=colName(col);
+  if(actionCell===0xff){
+    return {column,status:'unavailable_full',safe:false};
+  }
+  const beforeCapacity=capacity(kernel,state,col);
+  const inputIncidence=localIncidence(kernel,state,actionCell);
+  const next=kernel.advance(state,col);
+  if(next===domain.QN_TERMINAL_WIN){
     return {
-      column: colName(col), actionCell: coord(actionCell), beforeCapacity,
-      inputIncidence: incidence, p0Outcome: 'P0_terminal', safe: true,
-      replyCount: 0, terminalP1Replies: 0, targetSupportReplies: 0,
+      column,actionCell:coord(actionCell),beforeCapacity,inputIncidence,
+      status:'P0_terminal',safe:true,afterCapacity:null,
+      p1TerminalReplies:[],targetSupportReplies:[],enabledP1SingletonsAfterP0:[],
     };
   }
-  assert(next >= 0);
-  assert.equal(rank(kernel, next), 23);
-  const afterCapacity = capacity(kernel, next, col);
-  assert.equal(afterCapacity, beforeCapacity - 1);
-  const targetLive = hasSingleton(kernel, next, target);
-  const supportDistance = targetSupportDistance(kernel, next, target);
-  assert.equal(targetLive, true, 'off-target chain action killed live target singleton');
-  assert.equal(supportDistance, 1, 'off-target chain action exposed target on P1 turn');
+  assert(Number.isSafeInteger(next)&&next>=0,`${column} candidate invalid`);
+  assert.equal(rank(kernel,next),23);
+  const afterCapacity=capacity(kernel,next,col);
+  assert.equal(afterCapacity,beforeCapacity-1,`${column} did not consume one support event`);
 
-  const replies=[];
+  const targetLive=hasSingleton(kernel,next,target);
+  const targetDistance=targetSupportDistance(kernel,next,target);
+  if(!targetLive){
+    return {
+      column,actionCell:coord(actionCell),beforeCapacity,afterCapacity,inputIncidence,
+      status:'unsafe_target_singleton_destroyed',safe:false,targetLive,targetSupportDistanceAfterP0:targetDistance,
+      p1TerminalReplies:[],targetSupportReplies:[],enabledP1SingletonsAfterP0:enabledSingletons(kernel,next,1),
+    };
+  }
+  if(targetDistance===0){
+    return {
+      column,actionCell:coord(actionCell),beforeCapacity,afterCapacity,inputIncidence,
+      status:'unsafe_target_exposed_on_P1_turn',safe:false,targetLive,targetSupportDistanceAfterP0:targetDistance,
+      p1TerminalReplies:[],targetSupportReplies:[],enabledP1SingletonsAfterP0:enabledSingletons(kernel,next,1),
+    };
+  }
+  assert.equal(targetDistance,1,'unexpected target support distance after off-target P0 action');
+
+  const enabledP1=enabledSingletons(kernel,next,1);
+  const p1TerminalReplies=[];
+  const targetSupportReplies=[];
+  let replyCount=0;
   for(let p1Col=0;p1Col<7;p1Col++){
     const replyCell=landing(kernel,next,p1Col);
     if(replyCell===0xff) continue;
+    replyCount++;
     const p1next=kernel.advance(next,p1Col);
     if(p1next===domain.QN_TERMINAL_WIN){
-      replies.push({column:colName(p1Col),cell:coord(replyCell),status:'P1_terminal'});
+      const replyCoord=coord(replyCell);
+      // Exact C4-0010 terminal cofactor boundary: the played cell must be an enabled P1 singleton.
+      assert(enabledP1.includes(replyCoord),`${column}: terminal P1 reply ${replyCoord} lacks enabled P1 singleton premise`);
+      p1TerminalReplies.push({column:colName(p1Col),cell:replyCoord});
       continue;
     }
-    assert(p1next>=0);
-    const dist=targetSupportDistance(kernel,p1next,target);
+    assert(Number.isSafeInteger(p1next)&&p1next>=0);
     const live=hasSingleton(kernel,p1next,target);
-    assert.equal(live,true,'nonterminal P1 reply killed target singleton without claiming target');
+    const dist=targetSupportDistance(kernel,p1next,target);
+    assert.equal(live,true,'nonterminal P1 reply killed target singleton unexpectedly');
     assert([0,1].includes(dist));
-    let route='continue';
-    let p0TargetTerminal=false;
     if(dist===0){
       const targetWin=kernel.advance(p1next,target%7);
-      assert.equal(targetWin,domain.QN_TERMINAL_WIN,'enabled singleton after P1 support reply did not terminate');
-      route='target_enabled_P0_terminal';
-      p0TargetTerminal=true;
+      assert.equal(targetWin,domain.QN_TERMINAL_WIN,'enabled P0 target singleton did not terminate');
+      targetSupportReplies.push({column:colName(p1Col),cell:coord(replyCell)});
     }
-    replies.push({column:colName(p1Col),cell:coord(replyCell),status:'nonterminal',targetSupportDistance:dist,route,p0TargetTerminal});
   }
-  const terminalP1Replies=replies.filter((r)=>r.status==='P1_terminal').length;
+
+  const safe=p1TerminalReplies.length===0;
   return {
-    column: colName(col), actionCell: coord(actionCell), beforeCapacity, afterCapacity,
-    inputIncidence: incidence, p0Outcome:'nonterminal_strict_chain_descent',
-    targetSingletonPreserved:true,targetSupportDistanceAfterP0:supportDistance,
-    replyCount:replies.length,terminalP1Replies,
-    targetSupportReplies:replies.filter((r)=>r.route==='target_enabled_P0_terminal').length,
-    safe: terminalP1Replies===0,
-    replies,
+    column,actionCell:coord(actionCell),beforeCapacity,afterCapacity,
+    beforeSupportClass:supportClass(beforeCapacity),afterSupportClass:supportClass(afterCapacity),
+    inputIncidence,status:safe?'safe_strict_capacity_descent':'unsafe_immediate_P1_terminal',safe,
+    targetLive,targetSupportDistanceAfterP0:targetDistance,replyCount,
+    enabledP1SingletonsAfterP0:enabledP1,p1TerminalReplies,targetSupportReplies,
   };
 }
 
-const { kernel } = createSlot64ResidualQuotientKernel(DOMAIN, {
+const {kernel}=createSlot64ResidualQuotientKernel(DOMAIN,{
   cacheEdges:true,prefixClasses:4096,responseClosure:true,
   searchStorage:Object.freeze({states:262144,classes:524288,chunksPerSlot:131072}),
 });
@@ -139,56 +170,90 @@ for(const c of cases){
       const p1Cell=landing(kernel,afterP0,p1Col); if(p1Cell===0xff) continue;
       const afterP1=kernel.advance(afterP0,p1Col); assert(afterP1>=0&&afterP1!==domain.QN_TERMINAL_WIN);
       assert.equal(rank(kernel,afterP1),22);
-      if(targetSupportDistance(kernel,afterP1,c.target)===0) continue; // routed already to immediate P0 terminal certificate
+      if(targetSupportDistance(kernel,afterP1,c.target)===0) continue; // already routed to immediate P0 terminal certificate
       assert.equal(hasSingleton(kernel,afterP1,c.target),true);
       assert.equal(targetSupportDistance(kernel,afterP1,c.target),1);
       assert.equal(capacity(kernel,afterP1,selectedTail),0);
 
-      const candidates=CHAIN_COLUMNS.map((col)=>classifyChainCandidate(kernel,afterP1,col,c.target));
-      const safe=candidates.filter((candidate)=>candidate.safe);
-      assert(safe.length>0,`${c.name}:${colName(selectedTail)}->${colName(p1Col)} has no safe A/B chain witness`);
-      const deterministic=safe.slice().sort((a,b)=>{
-        if(b.beforeCapacity!==a.beforeCapacity) return b.beforeCapacity-a.beforeCapacity;
+      const candidates=OFF_TARGET_COLUMNS.map((col)=>classifyCandidate(kernel,afterP1,col,c.target));
+      const ab=candidates.filter((candidate)=>AB_COLUMNS.map(colName).includes(candidate.column));
+      const abSafe=ab.filter((candidate)=>candidate.safe);
+      const allSafe=candidates.filter((candidate)=>candidate.safe);
+      const deterministic=allSafe.slice().sort((a,b)=>{
+        const aCap=a.beforeCapacity??-1,bCap=b.beforeCapacity??-1;
+        if(bCap!==aCap) return bCap-aCap;
         return a.column.localeCompare(b.column);
-      })[0];
+      })[0]??null;
       handoffs.push({
         member:`${c.name}:${colName(selectedTail)}->P1:${colName(p1Col)}`,
-        target:coord(c.target),selectedExhaustedTail:colName(selectedTail),p1ReplyColumn:colName(p1Col),p1ReplyCell:coord(p1Cell),
-        chainCapacities:Object.fromEntries(CHAIN_COLUMNS.map((col)=>[colName(col),capacity(kernel,afterP1,col)])),
-        candidateCount:candidates.length,safeCandidateCount:safe.length,candidates,
-        selectedWitness:{column:deterministic.column,beforeCapacity:deterministic.beforeCapacity,p0Outcome:deterministic.p0Outcome,terminalP1Replies:deterministic.terminalP1Replies,targetSupportReplies:deterministic.targetSupportReplies},
+        target:coord(c.target),selectedExhaustedTail:colName(selectedTail),
+        p1ReplyColumn:colName(p1Col),p1ReplyCell:coord(p1Cell),
+        abSafeCount:abSafe.length,allOffTargetSafeCount:allSafe.length,
+        selectedWitness:deterministic?{column:deterministic.column,status:deterministic.status,beforeCapacity:deterministic.beforeCapacity??null,afterCapacity:deterministic.afterCapacity??null}:null,
+        candidates,
       });
     }
   }
 }
 assert.equal(handoffs.length,48);
 
-const bothSafe=handoffs.filter((row)=>row.safeCandidateCount===2).length;
-const exactlyOneSafe=handoffs.filter((row)=>row.safeCandidateCount===1).length;
-const witnessColumns=Object.fromEntries(CHAIN_COLUMNS.map((col)=>[colName(col),handoffs.filter((row)=>row.selectedWitness.column===colName(col)).length]));
-const witnessCapacityTransitions=[...new Set(handoffs.map((row)=>{
-  const c=row.candidates.find((candidate)=>candidate.column===row.selectedWitness.column);
-  return c.p0Outcome==='P0_terminal'?`${c.beforeCapacity}->terminal`:`${c.beforeCapacity}->${c.afterCapacity}`;
-}))].sort();
-const candidateIncidenceClasses=Object.fromEntries(CHAIN_COLUMNS.map((col)=>[colName(col),new Set(handoffs.map((row)=>key(row.candidates.find((candidate)=>candidate.column===colName(col)).inputIncidence))).size]));
-const anyP0TerminalWitness=handoffs.some((row)=>row.selectedWitness.p0Outcome==='P0_terminal');
-const anyUnsafeCandidate=handoffs.some((row)=>row.safeCandidateCount<2);
+const abBothSafe=handoffs.filter((row)=>row.abSafeCount===2).length;
+const abExactlyOneSafe=handoffs.filter((row)=>row.abSafeCount===1).length;
+const abNoSafe=handoffs.filter((row)=>row.abSafeCount===0);
+const allNoSafe=handoffs.filter((row)=>row.allOffTargetSafeCount===0);
+assert(abNoSafe.length>0,'negative control failed: universal A/B witness unexpectedly became true');
 
-console.log(`TAIL_HANDOFF_SAFE_CHAIN_WITNESS=${JSON.stringify({
-  kind:'standard7x6-tail-handoff-safe-chain-witness-v1',
+const candidateStatusCounts={};
+for(const row of handoffs){
+  for(const candidate of row.candidates){
+    const k=`${candidate.column}:${candidate.status}`;
+    candidateStatusCounts[k]=(candidateStatusCounts[k]??0)+1;
+  }
+}
+const unsafeTerminalCandidateCount=handoffs.flatMap((row)=>row.candidates).filter((c)=>c.status==='unsafe_immediate_P1_terminal').length;
+const terminalReplyCells={};
+for(const candidate of handoffs.flatMap((row)=>row.candidates)){
+  for(const reply of candidate.p1TerminalReplies??[]){
+    terminalReplyCells[reply.cell]=(terminalReplyCells[reply.cell]??0)+1;
+  }
+}
+const selectedWitnessColumns={};
+for(const row of handoffs){
+  const column=row.selectedWitness?.column??'NONE';
+  selectedWitnessColumns[column]=(selectedWitnessColumns[column]??0)+1;
+}
+
+const summarizeCandidate=(c)=>({
+  column:c.column,status:c.status,safe:c.safe,actionCell:c.actionCell??null,
+  beforeCapacity:c.beforeCapacity??null,afterCapacity:c.afterCapacity??null,
+  enabledP1SingletonsAfterP0:c.enabledP1SingletonsAfterP0??[],
+  p1TerminalReplies:c.p1TerminalReplies??[],targetSupportReplies:c.targetSupportReplies??[],
+});
+const summarizeHandoff=(row)=>({
+  member:row.member,target:row.target,selectedExhaustedTail:row.selectedExhaustedTail,
+  p1ReplyColumn:row.p1ReplyColumn,p1ReplyCell:row.p1ReplyCell,
+  abSafeCount:row.abSafeCount,allOffTargetSafeCount:row.allOffTargetSafeCount,
+  selectedWitness:row.selectedWitness,
+  candidates:row.candidates.map(summarizeCandidate),
+});
+
+console.log(`TAIL_HANDOFF_ACTION_SAFETY_CLASSIFICATION=${JSON.stringify({
+  kind:'standard7x6-tail-handoff-action-safety-classification-v1',
   attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
   exactTailHandoffs:handoffs.length,
-  witnessTheorem:{
-    statement:'Every retained exhausted D/E/F tail handoff with target support distance one has at least one A/B off-target P0 chain action that either wins immediately or strictly consumes one chain support unit, preserves the live target singleton without enabling it on the intervening P1 turn, and admits no immediate P1 terminal reply.',
-    witnessSelectionRule:'maximize remaining A/B capacity; break ties A before B, after exact safety guard',
-    supportMeasure:'selected A/B remaining capacity',
+  falsifiedCandidateTheorem:{
+    statement:'Every exhausted D/E/F tail handoff has a safe A/B witness.',
+    falsified:true,
+    counterexampleCount:abNoSafe.length,
+    minimalCounterexamples:abNoSafe.slice(0,6).map(summarizeHandoff),
   },
-  bothABSafe:bothSafe,exactlyOneABSafe:exactlyOneSafe,anyUnsafeCandidate,anyP0TerminalWitness,
-  selectedWitnessColumns:witnessColumns,
-  witnessCapacityTransitions,
-  candidateIncidenceClasses,
-  handoffs,
-  interpretation:'The exhausted-tail handoff does not require a state-like progress class. A fresh action-conditioned A/B cone supplies the next witness. Exact A/B R incidence remains load-bearing for the safety guard, while the selected chain capacity gives the strict well-founded support component once a witness is chosen.',
-  theoremBoundary:'This proves existence of a safe next A/B action and exhaustively checks only its immediate P1 reply horizon on the 48 retained tail-handoff states. It does not prove repeated chain-policy closure, center-opening W, q equality, provenance equality, or arbitrary later strategy.',
+  abCoverage:{bothSafe:abBothSafe,exactlyOneSafe:abExactlyOneSafe,noneSafe:abNoSafe.length},
+  broaderOffTargetCoverage:{candidateColumns:['A','B','D','E','F'],statesWithNoSafeAction:allNoSafe.length,minimalNoSafeCounterexamples:allNoSafe.slice(0,6).map(summarizeHandoff)},
+  candidateStatusCounts,unsafeTerminalCandidateCount,terminalReplyCells,selectedWitnessColumns,
+  exactTerminalSeparator:'Every observed immediate P1 terminal reply is witnessed by an enabled live P1 singleton at the reply cell after the candidate P0 action.',
+  interpretation: allNoSafe.length===0
+    ? 'A/B alone is not universally sufficient, but the broader action-conditioned off-target family supplies at least one immediately safe witness in every retained tail handoff. This is an existence theorem with exact per-action R/terminal guards, not a state quotient.'
+    : 'Some retained tail handoffs have no immediately safe off-target witness even after broadening to A/B/D/E/F. Those states must be routed through the exact enabled-P1-singleton obligations/capacity calculus rather than interpreted as losses.',
+  theoremBoundary:'Safety is one-P0-action plus exhaustive immediate-P1-reply safety only. Failure of this family is not P0 loss. Success does not prove repeated-policy closure, center-opening W, q equality, provenance equality, or arbitrary later strategy.',
   authority:'Exact C4-0010 support/residual transitions only. No solved W/D/L labels, recursive q search, Bayesian confidence, or output-cardinality premise.'
 })}`);
