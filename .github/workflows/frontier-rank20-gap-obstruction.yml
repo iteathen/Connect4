@@ -1,0 +1,67 @@
+name: Frontier rank20 gap obstruction census
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank20-gap-obstruction-census.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs
+      - .github/workflows/frontier-rank20-gap-obstruction.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      unique: ${{ steps.run.outputs.unique }}
+      classes: ${{ steps.run.outputs.classes }}
+      clean: ${{ steps.run.outputs.clean }}
+      deadline_child: ${{ steps.run.outputs.deadline_child }}
+      terminal: ${{ steps.run.outputs.terminal }}
+      killed: ${{ steps.run.outputs.killed }}
+      noroot: ${{ steps.run.outputs.noroot }}
+      noroot_clean: ${{ steps.run.outputs.noroot_clean }}
+      recurse: ${{ steps.run.outputs.recurse }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank20-gap-obstruction.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank20-gap-obstruction-census.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK20_GAP_OBSTRUCTION_CENSUS='));
+          if(!line) throw new Error('obstruction census summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.uniqueGapStates!==362) throw new Error(`gap population drift ${x.uniqueGapStates}`);
+          if(x.consumerRecursiveProofCalls!==0) throw new Error('obstruction census illegally invoked recursive proof');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `unique=${x.uniqueGapStates}`,
+            `classes=${x.coarseObstructionClassCount}`,
+            `clean=${x.statesWithCleanInvariantUncertifiedChild}`,
+            `deadline_child=${x.statesWithDeadlineBearingUncertifiedChild}`,
+            `terminal=${x.statesWithP1TerminalExposure}`,
+            `killed=${x.statesWithTargetKilledChild}`,
+            `noroot=${x.noRootDeadlineStates}`,
+            `noroot_clean=${x.noRootDeadlineWithCleanInvariantChild}`,
+            `recurse=${x.consumerRecursiveProofCalls}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: census
+    name: gap-u${{ needs.census.outputs.unique }}-c${{ needs.census.outputs.classes }}-clean${{ needs.census.outputs.clean }}-dead${{ needs.census.outputs.deadline_child }}-term${{ needs.census.outputs.terminal }}-kill${{ needs.census.outputs.killed }}-noroot${{ needs.census.outputs.noroot }}-nrclean${{ needs.census.outputs.noroot_clean }}-r${{ needs.census.outputs.recurse }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "qualified rank20 obstruction counts encoded in job name"
