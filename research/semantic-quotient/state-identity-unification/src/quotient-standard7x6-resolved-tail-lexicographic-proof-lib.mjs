@@ -6,6 +6,7 @@ export const STANDARD7X6_RESOLVED_TAIL_REPAIR_COLUMNS = STANDARD7X6_REPAIR_COLUM
 
 export function createResolvedTailLexicographicProofEngine(kernel, options = {}) {
   const maxProofStates = options.maxProofStates ?? 100000;
+  const rootActions = options.rootActions == null ? null : Object.freeze([...options.rootActions]);
   const repair = createRepairCapacityProofEngine(kernel, {
     collectAllWinningActions: false,
     maxProofStates,
@@ -65,8 +66,12 @@ export function createResolvedTailLexicographicProofEngine(kernel, options = {})
     }
 
     const resolved = resolvedColumn(target);
-    const allowed = [...STANDARD7X6_REPAIR_COLUMNS];
+    let allowed = [...STANDARD7X6_REPAIR_COLUMNS];
     if (current.delta > 0 && !allowed.includes(resolved)) allowed.push(resolved);
+    if (depth === 0 && rootActions !== null) {
+      const rootActionSet = new Set(rootActions);
+      allowed = allowed.filter((action) => rootActionSet.has(action));
+    }
     const rejected = [];
 
     for (const action of allowed) {
