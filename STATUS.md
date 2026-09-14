@@ -2,7 +2,6 @@
 
 **Updated:** 2026-09-13  
 **Branch:** `research/frontier-negamax-conformance`  
-**Pre-cleanup snapshot:** `8bf24b6818b4e2775a3b41cd21e517b94e36271c`  
 **Research direction / architecture:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
@@ -11,13 +10,13 @@ This is a current-state router. Retained history and controls remain under
 
 ## Objective
 
-Derive the exact perfect-W/D/L P0 terminal winning-line set for standard 7x6 Connect
-Four from structural proof. The suspected final cardinality is output only and is not a
-premise, tuning target, or acceptance criterion.
+Derive a complete structural proof of standard 7x6 Connect Four perfect-play W/D/L,
+then derive the exact P0 perfect-play terminal winning-line set with provenance.
+Suspected output cardinalities are not premises or tuning targets.
 
-## Governing semantic boundary
+## Governing semantics
 
-Value identity remains the C4-0010 quotient:
+Value identity remains exact C4-0010:
 
 ```text
 q = exact support
@@ -31,154 +30,170 @@ Winning region:
 W = mu X . [ I union PreE(X) union PreA(X) ]
 ```
 
-Output identity remains:
+Output identity remains `q + exact P0 residual/origin provenance Pi0`.
+Certificate reuse is not state equality. Output-safe merging is stricter than value
+merging.
 
-```text
-q + exact P0 residual/origin provenance Pi0
-```
+## First-move boundary
 
-The six-element absolute-P0 interval lattice remains the shared proof currency.
-Certificate reuse is not state equality. Safety requires a complete legal response
-policy; positive wins require well-founded progress.
-
-## Accepted response/proof primitives
-
-- pooled-frontier paired response;
-- synchronized column-channel response;
-- strict sibling interval elimination;
-- local response-resource automata;
-- singleton and forbidden-subset ownership closure;
-- support-shadow race/preemption;
-- exact output provenance `Pi0` when terminal-line identity is observable.
-
-## Non-center first-move safety is now internally complete
-
-All six non-center first moves are proved P0-non-winning without a solved opening table,
-minimax recursion, or full physical game tree as proof authority.
-
-Representative constructive replies:
-
-```text
-P0 1 -> P1 2
-P0 2 -> P1 3
-P0 3 -> P1 4
-```
-
-Reflection gives:
-
-```text
-P0 7 -> P1 6
-P0 6 -> P1 5
-P0 5 -> P1 4
-```
-
-Each proof is an asynchronous product of three tiny local response components:
-
-```text
-normal column:         4 P0-turn states / 3 edges / 0 invalid
-initial coupled pair: 21 P0-turn states / 24 edges / 0 invalid
-empty coupled pair:   43 P0-turn states / 50 edges / 0 invalid
-```
-
-Generated 69-line closure:
-
-```text
-opening 1 / reply 2: 48 singleton + 19 pair + 2 race = 69
-opening 2 / reply 3: 49 singleton + 18 pair + 2 race = 69
-opening 3 / reply 4: 56 singleton + 11 pair + 2 race = 69
-```
-
-All have zero unclassified P0 winning lines.
-
-Therefore:
+Non-center safety is internally complete:
 
 ```text
 V(opening c) <= 0 for c in {1,2,3,5,6,7}
 ```
 
-or equivalently each receives interval `[-1,0]`.
-
 Authority:
 `docs/research/2026-09-13-noncenter-opening-structural-safety-theorem.md`
 
-Structural compiler:
-`reference/research-prototypes/2026-09-13-perfect-play-winline/noncenter_local_policy_compiler.mjs`
+The remaining root-value task is the positive proof after opening column 4.
 
-Independent physical falsifier:
-`reference/research-prototypes/2026-09-13-perfect-play-winline/noncenter_policy_full_control.mjs`
+## Standard-7x6 positive proof frontier
+
+The exact depth-8 discovery frontier exhibits genuine expand/collapse behavior:
+
+```text
+ply:             0   1   2   3   4    5    6    7     8
+unique states:   1   1   7   7  47   47  277  204  1141
+proof paths:     1   1   7   7  49   49  343  231  1616
+```
+
+At depth 8:
+
+```text
+1,141 frontier states
+  319 immediate structural P0 wins
+  822 recursive obligations
+```
+
+Frontier width is therefore not a progress rank.
+
+## Hard-frontier recursion calculus
+
+The current positive calculus is now explicit and theorem-backed.
+
+For each unresolved P0 `q` obligation:
+
+1. choose one concrete legal P0 witness move;
+2. enumerate **every** legal P1 reply;
+3. discharge replies already covered by a proved positive base certificate;
+4. retain every other P0 child as a hard recursive obligation;
+5. exact-`q` normalize duplicate value obligations;
+6. repeat.
+
+A finite hard-frontier chain ending in the empty set is a constructive positive proof.
+Each retained macro successor is exactly two plies deeper, so
+
+```text
+rho(s) = 42 - supportRank(s)
+```
+
+decreases by two even when frontier width expands.
+
+Authority:
+`docs/research/2026-09-13-hard-frontier-recursion-calculus.md`
 
 Evidence:
-`docs/research/evidence/2026-09-13-noncenter-structural-safety.json`
+`docs/research/evidence/2026-09-13-hard-frontier-recursion-calculus.json`
 
-## Independent physical qualification
+## Current constructive depth-8 coverage
 
-The composed policies were separately executed over every reachable P0 choice:
-
-```text
-opening 1: 56,720 P0-turn states / 259,980 edges / 0 P0 wins / 0 invalid responses
-opening 2: 56,720 P0-turn states / 259,980 edges / 0 P0 wins / 0 invalid responses
-opening 3: 19,936 P0-turn states /  98,896 edges / 0 P0 wins / 0 invalid responses
-```
-
-These graphs are qualification only. The proof is the local-product induction plus the
-69-line closure.
-
-## Important new structural primitive
-
-Support-shadow race/preemption:
+With the current base grammar `I / O / E / A`:
 
 ```text
-P0 upper winning line R
-P1 one-row-lower winning line Q
-policy proves every Q cell is P1-owned before its corresponding R cell can be P0-owned
----------------------------------------------------------------------------------------
-Q completes before R, so R cannot be a P0 terminal line
+319 immediate-win leaves
+ 99 shallow recursive closures
+ 62 additional generalized unique-hard closures
+ 24 additional low-width branching-frontier closures
+---
+504 / 1141 depth-8 frontier states structurally proved
 ```
 
-This explains why blocker-only projections were incomplete: some P0 lines disappear
-because P1 wins first, not because a P1 stone lies inside the P0 line.
-
-## First-move proof boundary is now sharp
-
-The non-center safety side is closed. The remaining first-move value gap is:
+Equivalently:
 
 ```text
-P0 opening column 4 -> prove positive win by well-founded structural progress
+185 / 822 recursive depth-8 obligations proved
 ```
 
-If root `P0Win` were admitted externally, the exact existential predecessor together
-with the six internal non-center `[-1,0]` bounds would force column 4 as the winning
-first move. A complete self-contained solve proof still needs the center/root positive
-proof itself.
+The three recursive groups are disjoint by construction.
+
+## Direct expand/collapse proofs
+
+The low-width branching pilot found **55** first hard frontiers of width 2..4:
+
+```text
+24 closed structurally
+31 exceeded the width-16 research cap
+0 depth-capped
+```
+
+By initial width:
+
+```text
+width 2: 12 / 13 closed
+width 3:  3 / 19 closed
+width 4:  9 / 23 closed
+```
+
+Representative successful hard-frontier histories include:
+
+```text
+2 -> 0
+2 -> 2 -> 0
+2 -> 12 -> 0
+2 -> 7 -> 2 -> 3 -> 0
+2 -> 7 -> 9 -> 3 -> 0
+4 -> 5 -> 2 -> 0
+```
+
+This is direct standard-7x6 evidence that real proof branching can expand, converge,
+merge under exact `q`, and later collapse while remaining well-founded.
+
+## Current boundary
+
+Blindly increasing recursive depth is rejected. A rank-5 pilot materialized 100,001
+`q` states after only 60 source roots and produced **zero** new rank-5 closures.
+
+The single canonical binary overflow (`46656555`) had:
+
+```text
+2 -> 6 -> 26
+```
+
+Changing to a different exact-winning discovery witness converts the start into a
+long unique-hard chain:
+
+```text
+1 -> 1 -> 1 -> 1 -> 1 -> 6 -> 28
+```
+
+so binary branching itself is not the missing theorem. The present hard boundary is
+the broad **5..7-hard consequence regime** and the lack of a standalone structural
+rule for choosing useful P0 witnesses.
 
 ## Immediate execution seam
 
-Shift from safety to **center-positive progress**.
+Do **not** raise frontier caps or run generic deeper recursion.
 
-The next theorem must establish a finite, well-founded P0 progress certificate after
-opening column 4, not merely show that P1 lacks a win. Candidate proof objects should
-be expressed over exact C4-0010 `q` plus contextual CPC/WSL/NDC/resource facts and
-should reduce every P1 alternative to a strictly smaller progress obligation.
+Use the already-closed certificates to extract theorem-backed structural rules for:
 
-Target form:
+1. P0 witness selection / transport from CPC, WSL, NDC, support and resource/race facts;
+2. new positive base certificates that discharge the broad 5..7-hard regimes before
+   they generate large frontiers.
 
-```text
-center root certificate C
-+ for every legal P1 reply b:
-    exists legal P0 continuation a
-    such that successor has certificate C'
-    and rank(C') < rank(C)
-+ terminal base = P0 win
-------------------------------------------------
-P0 opening 4 is winning
-```
+Start with paired controls:
 
-Do not import the known center win as proof authority. Exact search may discover/falsify
-candidate ranks and response classes only.
+- closed expand/collapse certificates;
+- their nearest broad-reexpansion siblings;
+- the `4665655*` family, where nearly identical prefixes show both closure and broad
+  re-expansion.
+
+A candidate rule must be independently derived and falsified before recursive reuse.
 
 ## Hygiene
 
-- `STATUS.md` / `next_step.yaml` contain current state only.
+- Exact solvers/oracles are discovery and falsification controls only.
+- Frozen closed certificates are verified from legal transitions and structural proof
+  rules; oracle scores are not proof premises.
+- Exact `q` duplicate removal is value-safe; terminal-line provenance remains separate.
+- Unresolved frontiers are unknown, not losses or counterexamples.
 - Negative controls and incomplete experiments remain retained.
-- Tied value reductions do not erase output paths without `Pi0` proof.
-- The retired `2023 -> 419 + 1604` scratch count remains non-authoritative.
