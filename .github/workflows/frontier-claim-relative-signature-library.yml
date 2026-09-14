@@ -32,6 +32,12 @@ jobs:
   claim-relative-library:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    outputs:
+      circuits: ${{ steps.tail_summary.outputs.circuits }}
+      forced_terminal: ${{ steps.tail_summary.outputs.forced_terminal }}
+      forced_continue: ${{ steps.tail_summary.outputs.forced_continue }}
+      overrides: ${{ steps.tail_summary.outputs.overrides }}
+      unresolved: ${{ steps.tail_summary.outputs.unresolved }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -103,7 +109,34 @@ jobs:
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-safe-chain-witness.mjs
       - name: Map tail target-support response obligations
+        id: tail_summary
         shell: bash
         run: |
           set -euo pipefail
-          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs
+          summary_file="$RUNNER_TEMP/tail-target-support-summary.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs | tee "$summary_file"
+          SUMMARY_FILE="$summary_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.SUMMARY_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('TAIL_HANDOFF_TARGET_SUPPORT_SUMMARY='));
+          if (!line) throw new Error('target-support summary line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          const out = [
+            `circuits=${x.exactCapacityCircuits}`,
+            `forced_terminal=${x.forcedBlockThenImmediateTerminal}`,
+            `forced_continue=${x.forcedBlockContinuations}`,
+            `overrides=${x.statesWithP1TerminalOverride}`,
+            `unresolved=${x.unresolvedRowCount}`,
+          ].join('\n') + '\n';
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, out);
+          NODE
+
+  tail-routing-summary:
+    needs: claim-relative-library
+    name: tail-routing c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }}-u${{ needs.claim-relative-library.outputs.unresolved }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Publish compact routing counts
+        run: echo "qualified target-support routing counts are encoded in this job name"
