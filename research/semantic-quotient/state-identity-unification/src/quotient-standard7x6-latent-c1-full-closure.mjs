@@ -38,20 +38,22 @@ for (const [name, digit] of Object.entries(REFUSALS)) {
   assert.equal(result.refusalColumn, name);
   assert.equal(result.refusalSequence, ROOT + '3' + digit);
   assert.equal(result.obligationDisposition, 'expired_unsatisfied; never reset');
-  assert.equal(result.P0Witness, 'G1');
+  assert.equal(typeof result.P0Witness, 'string', `${name}: refusal witness missing`);
+  assert(result.P0Witness.length > 0, `${name}: refusal witness empty`);
   assert.equal(result.proved, true, `${name}: refusal theorem not proved`);
   refusalResults.push({
     reply: name,
     sequence: result.refusalSequence,
     witness: result.P0Witness,
-    branchCount: result.branchCount,
+    witnessRoute: result.witnessRoute ?? null,
+    branchCount: result.branchCount ?? result.branches?.length ?? null,
     proved: result.proved,
   });
 }
 
 const coveredReplies = Object.freeze(['A', 'B', 'C', 'D', 'E', 'F', 'G']);
 const result = {
-  kind: 'standard7x6-latent-c1-full-closure-v1',
+  kind: 'standard7x6-latent-c1-full-closure-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -68,8 +70,8 @@ const result = {
   proved: true,
   promotedConsequence: `${ROOT} has a qualified structural P0-winning predecessor certificate via P0:C1`,
   qualificationTimeoutMs: CHILD_TIMEOUT_MS,
-  theoremBoundary: 'Exact only for the fixed latent state 466565554644. It composes the independently qualified C2/G1 target-column replies with independent A/B/D/E/F refusal certificates. It does not prove the earlier D3 hinge predecessor, the center opening, the empty-board root, q equality, symmetry between refusal columns, or any solved-table W/D/L fact.',
-  authority: 'Exact C4-0010 transitions and terminal facts plus the qualified branch-composed rho=(delta,mu) certificates. C4-0006/C4-0007 remain candidate structural/proof specifications; this is a qualified research theorem inside that calculus, not a silent acceptance-status change.',
+  theoremBoundary: 'Exact only for the fixed latent state 466565554644. It composes the independently qualified C2/G1 target-column replies with independently qualified, potentially different A/B/D/E/F refusal witnesses. It does not prove the earlier D3 hinge predecessor, the center opening, the empty-board root, q equality, symmetry between refusal columns, or any solved-table W/D/L fact.',
+  authority: 'Exact C4-0010 transitions and terminal facts plus the qualified obligation-first rho=(delta,mu) certificates. C4-0006/C4-0007 remain candidate structural/proof specifications; this is a qualified research theorem inside that calculus, not a silent acceptance-status change.',
 };
 
 console.log(`LATENT_C1_FULL_CLOSURE=${JSON.stringify(result)}`);
