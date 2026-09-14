@@ -39,6 +39,7 @@ for(const fam of [
     if(!candidates.has(key))candidates.set(key,{sequence,target:fam.target,phase:phase(de,s20),sortedCaps:sortedCaps(de,s20)});
    }
   }
+ }
 }
 assert.equal(candidates.size,160,'mu15 clean corpus drift');
 
