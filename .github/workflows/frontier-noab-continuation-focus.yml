@@ -19,6 +19,10 @@ jobs:
     timeout-minutes: 5
     outputs:
       key: ${{ steps.inventory.outputs.key }}
+      forward_cert: ${{ steps.forward.outputs.cert }}
+      forward_continue: ${{ steps.forward.outputs.continue }}
+      forward_unresolved: ${{ steps.forward.outputs.unresolved }}
+      forward_key: ${{ steps.forward.outputs.key }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -39,11 +43,29 @@ jobs:
           const key=x.continuationRows.map(r=>`${short(r.member)}>${r.continuationActions.map(a=>a.column+(a.status==='forced_block_continuation'?'f':'s')).join('')}`).join('__');
           fs.appendFileSync(process.env.GITHUB_OUTPUT,`key=${key}\n`);
           NODE
+      - id: forward
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/forward.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-noab-continuation-forward-routing.mjs | tee "$f"
+          ROUTING_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.ROUTING_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('NOAB_COMPLEMENTARY_TAIL_FORWARD_ROUTING='));
+          if(!line) throw new Error('forward routing summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `cert=${x.repliesWithP0Certificate}`,
+            `continue=${x.repliesWithQualifiedContinuation}`,
+            `unresolved=${x.unresolvedReplies}`,
+            `key=${x.continuationKey}`,
+          ].join('\n')+'\n');
+          NODE
 
   summary:
     needs: inventory
-    name: noab-continuations ${{ needs.inventory.outputs.key }}
+    name: noab ${{ needs.inventory.outputs.key }} forward-c${{ needs.inventory.outputs.forward_cert }}-k${{ needs.inventory.outputs.forward_continue }}-u${{ needs.inventory.outputs.forward_unresolved }} ${{ needs.inventory.outputs.forward_key }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "continuation inventory encoded in job name"
+      - run: echo "continuation inventory and forward routing encoded in job name"
