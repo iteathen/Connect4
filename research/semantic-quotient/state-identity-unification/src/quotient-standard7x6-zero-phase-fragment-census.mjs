@@ -44,28 +44,23 @@ function add(type, blockers, footprint, detail={}){
   instances.push({type,name:TYPE_NAME[type],blockers,footprint,solved,detail});
 }
 
-// A1 Claimeven
 for(let col=0;col<W;col++)for(let lower=0;lower<H-1;lower++){
   const upper=lower+1;if(((upper+1)&1)!==0)continue;const a=lower*W+col,b=upper*W+col;if(!empty(h,a)||!empty(h,b))continue;
   add('A1',[1n<<BigInt(b)],(1n<<BigInt(a))|(1n<<BigInt(b)),{column:col+1});
 }
-// A3 Vertical
 for(let col=0;col<W;col++)for(let lower=0;lower<H-1;lower++){
   const upper=lower+1;if(((upper+1)&1)!==1)continue;const a=lower*W+col,b=upper*W+col;if(!empty(h,a)||!empty(h,b))continue;
   const pair=(1n<<BigInt(a))|(1n<<BigInt(b));add('A3',[pair],pair,{column:col+1});
 }
 const play=[];for(let c=0;c<W;c++)if(h[c]<H)play.push(h[c]*W+c);
-// A2 Baseinverse
 for(let i=0;i<play.length;i++)for(let j=i+1;j<play.length;j++){
   const a=play[i],b=play[j],pair=(1n<<BigInt(a))|(1n<<BigInt(b));add('A2',[pair],pair,{playablePair:[coord(a),coord(b)],phaseWeightAfterTriggerResponse:2});
 }
-// A5 Lowinverse
 for(let c1=0;c1<W;c1++)for(let c2=c1+1;c2<W;c2++)for(let l1=0;l1<H-1;l1++)for(let l2=0;l2<H-1;l2++){
   const u1=l1+1,u2=l2+1;if(((u1+1)&1)!==1||((u2+1)&1)!==1)continue;const a=l1*W+c1,b=u1*W+c1,c=l2*W+c2,d=u2*W+c2;if(!empty(h,a)||!empty(h,b)||!empty(h,c)||!empty(h,d))continue;
   const bs=[(1n<<BigInt(a))|(1n<<BigInt(b)),(1n<<BigInt(c))|(1n<<BigInt(d)),(1n<<BigInt(b))|(1n<<BigInt(d))];
   add('A5',bs,(1n<<BigInt(a))|(1n<<BigInt(b))|(1n<<BigInt(c))|(1n<<BigInt(d)),{columns:[c1+1,c2+1]});
 }
-// A6 Highinverse
 for(let c1=0;c1<W;c1++)for(let c2=c1+1;c2<W;c2++)for(let l1=0;l1<H-2;l1++)for(let l2=0;l2<H-2;l2++){
   const m1=l1+1,u1=l1+2,m2=l2+1,u2=l2+2;if(((u1+1)&1)!==0||((u2+1)&1)!==0)continue;
   const a=l1*W+c1,b=m1*W+c1,c=u1*W+c1,d=l2*W+c2,e=m2*W+c2,f=u2*W+c2;if(![a,b,c,d,e,f].every(x=>empty(h,x)))continue;
@@ -73,12 +68,10 @@ for(let c1=0;c1<W;c1++)for(let c2=c1+1;c2<W;c2++)for(let l1=0;l1<H-2;l1++)for(le
   if(playable(h,a))bs.push((1n<<BigInt(a))|(1n<<BigInt(f)));if(playable(h,d))bs.push((1n<<BigInt(d))|(1n<<BigInt(c)));
   add('A6',bs,[a,b,c,d,e,f].reduce((m,x)=>m|(1n<<BigInt(x)),0n),{columns:[c1+1,c2+1]});
 }
-// A7 Baseclaim
 for(let j=0;j<play.length;j++){
   const p2=play[j],r2=Math.trunc(p2/W),c2=p2-r2*W;if(r2+1>=H)continue;const q2=(r2+1)*W+c2;if(((r2+2)&1)!==0||!empty(h,q2))continue;
   for(let i=0;i<play.length;i++)if(i!==j)for(let z=i+1;z<play.length;z++)if(z!==j){const p1=play[i],p3=play[z];const bs=[(1n<<BigInt(p1))|(1n<<BigInt(q2)),(1n<<BigInt(p2))|(1n<<BigInt(p3))];add('A7',bs,(1n<<BigInt(p1))|(1n<<BigInt(p2))|(1n<<BigInt(q2))|(1n<<BigInt(p3)),{playable:[coord(p1),coord(p2),coord(p3)],upper:coord(q2)});}
 }
-// A4/A8/A9 from live P1 completion groups (candidate generation only).
 for(const g of liveOwnGroups(root.p0,root.p1,1)){
   const empt=cells(g.rem);if(!empt.length||empt.some(q=>Math.trunc(q/W)===H-1))continue;
   const succ=empt.map(q=>q+W);let sb=0n;for(const x of succ)sb|=1n<<BigInt(x);
@@ -88,7 +81,10 @@ for(const g of liveOwnGroups(root.p0,root.p1,1)){
   let ae=true;const cols=[],starts=[],cl=[];for(const q of empt){const r=Math.trunc(q/W),c=q-r*W;if(((r+1)&1)!==0||r===0||!empty(h,q-W)){ae=false;break;}cols.push(c);starts.push(r);cl.push(1n<<BigInt(q));}
   if(ae){const uniq=[],st=[];for(let i=0;i<cols.length;i++){const j=uniq.indexOf(cols[i]);if(j<0){uniq.push(cols[i]);st.push(starts[i]);}else st[j]=Math.min(st[j],starts[i]);}const tail=enumerateTailBlockers(uniq,st),bs4=[...cl,...tail];let footprint=g.rem;for(const b of bs4)footprint|=b;add('A4',bs4,footprint,{ownResidual:key(g.rem)});}
 
-  for(const q of empt){if(!playable(h,q))continue;const qr=Math.trunc(q/W),qc=q-qr*W;for(const x of play){const xr=Math.trunc(x/W),xc=x-xr*W;if(xc===qc||x===q)continue;let sblock=1n<<BigInt(x);for(const si of succ)sblock|=1n<<BigInt(si);const pair=(1n<<BigInt(q))|(1n<<BigInt(x));const bs9=[sblock,pair];for(let i=0;i<empt.length;i++)bs9.push(componentBlocker(empt[i],succ[i]));let footprint=g.rem|sblock|pair;add('A9',bs9,footprint,{ownResidual:key(g.rem),specialPlayable:coord(x),trigger:coord(q)});}
+  for(const q of empt){
+    if(!playable(h,q))continue;const qr=Math.trunc(q/W),qc=q-qr*W;
+    for(const x of play){const xr=Math.trunc(x/W),xc=x-xr*W;if(xc===qc||x===q)continue;let sblock=1n<<BigInt(x);for(const si of succ)sblock|=1n<<BigInt(si);const pair=(1n<<BigInt(q))|(1n<<BigInt(x));const bs9=[sblock,pair];for(let i=0;i<empt.length;i++)bs9.push(componentBlocker(empt[i],succ[i]));let footprint=g.rem|sblock|pair;add('A9',bs9,footprint,{ownResidual:key(g.rem),specialPlayable:coord(x),trigger:coord(q)});}
+  }
 }
 
 function bitsIndices(bits){const out=[];for(let i=0;i<coreMasks.length;i++)if(bits&(1<<i))out.push(i);return out;}
@@ -99,7 +95,6 @@ for(const type of Object.keys(TYPE_NAME)){
   summaries[type]={name:TYPE_NAME[type],instanceCount:xs.length,coverageProfiles:[...profiles.values()]};
 }
 const byRequirement=coreLabels.map((label,i)=>({requirement:label,candidateTypes:[...new Set(instances.filter(x=>x.solved&(1<<i)).map(x=>x.type))].sort(),candidateInstances:instances.filter(x=>x.solved&(1<<i)).length}));
-
 const directBaseinverse=instances.filter(x=>x.type==='A2').map(x=>({blockers:x.blockers.map(key),covers:bitsIndices(x.solved).map(i=>coreLabels[i]),detail:x.detail}));
 
 console.log(`ZERO_PHASE_FRAGMENT_CENSUS=${JSON.stringify({
