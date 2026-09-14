@@ -110,14 +110,26 @@ assert.equal(rows.length,48);
 const counts={};for(const r of rows)counts[r.status]=(counts[r.status]??0)+1;
 const exactCircuits=rows.filter(r=>r.status==='P0_response_capacity_circuit').length;
 const forcedContinuations=rows.filter(r=>r.status==='forced_target_block_continuation').length;
+const forcedThenTerminal=rows.filter(r=>r.status==='P0_forced_block_then_immediate_terminal').length;
 const terminalOverrides=rows.filter(r=>r.status==='P1_terminal_override_exists').length;
-console.log(`TAIL_HANDOFF_TARGET_SUPPORT_ROUTING=${JSON.stringify({
- kind:'standard7x6-tail-handoff-target-support-routing-v1',
+const unresolvedRows=rows
+ .filter(r=>r.status==='forced_target_block_continuation'||r.status==='P1_terminal_override_exists')
+ .map(r=>({
+   member:r.member,target:r.target,supportAction:r.supportAction,status:r.status,
+   enabledP0Singletons:r.enabledP0Singletons,enabledP1Singletons:r.enabledP1Singletons,
+   responseCapacity:r.responseCapacity,p1TerminalOverrides:r.p1TerminalOverrides,
+   blockState:r.blockState,
+   terminalOverrideReplies:r.replies.filter(x=>x.outcome==='P1_terminal_override'),
+ }));
+console.log(`TAIL_HANDOFF_TARGET_SUPPORT_SUMMARY=${JSON.stringify({
+ kind:'standard7x6-tail-handoff-target-support-routing-summary-v1',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
- exactTailHandoffs:rows.length,statusCounts:counts,exactCapacityCircuits:exactCircuits,forcedBlockContinuations:forcedContinuations,statesWithP1TerminalOverride:terminalOverrides,
+ exactTailHandoffs:rows.length,statusCounts:counts,exactCapacityCircuits:exactCircuits,
+ forcedBlockThenImmediateTerminal:forcedThenTerminal,forcedBlockContinuations:forcedContinuations,
+ statesWithP1TerminalOverride:terminalOverrides,unresolvedRowCount:unresolvedRows.length,
  connect4ObligationSlotMap:{obligation:'enabled live P0 singleton must be blocked before next P0 turn',soleBlockingAction:'P1 claims that singleton cell',temporalResponseSlot:'current single P1 move',capacityCircuit:'demand >= 2 with response rank 1 and no P1 terminal override'},
- rows,
- interpretation:'Target-support is now an exact response-serialization contract on every retained exhausted-tail handoff. A size-two circuit is promoted only when multiple enabled P0 singleton obligations share the one P1 temporal response slot and no P1 terminal override exists; otherwise the unique target block or terminal override remains explicit.',
+ unresolvedRows,
+ interpretation:'Target-support is an exact response-serialization contract on every retained exhausted-tail handoff. Capacity circuits and forced-block-then-terminal rows are closed local predecessor certificates; only forced-block continuations or P1 terminal overrides remain as next-seam evidence.',
  theoremBoundary:'Bounded one-P0-action plus exhaustive immediate-P1-reply control on the retained 48 exhausted-tail handoffs only. Forced blocking is not later-strategy closure, and P1 terminal override is a counterexample rather than a loss inference for unrelated actions.',
  authority:'Exact C4-0010 support/residual transitions only; no W/D/L labels, recursive q search, Bayesian confidence, or output-cardinality premise.'
 })}`);
