@@ -1,0 +1,85 @@
+name: Frontier target-distance residual probes
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-lexicographic-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-residual-probe.mjs
+      - .github/workflows/frontier-target-distance-residual-probe.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  g3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      roots: ${{ steps.run.outputs.roots }}
+      proved: ${{ steps.run.outputs.proved }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Probe G3 residuals
+        id: run
+        shell: bash
+        env:
+          FILTER_TARGET: G3
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/g3-target-distance.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-residual-probe.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('TARGET_DISTANCE_RESIDUAL_PROBE='));
+          if(!line) throw new Error('target-distance summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.filterTarget!=='G3'||x.roots!==17||x.executionFailures!==0) throw new Error('G3 probe drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`roots=${x.roots}`,`proved=${x.proved}`,`failed=${x.failed}`,`resource=${x.resourceFailures}`].join('\n')+'\n');
+          NODE
+
+  c3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      roots: ${{ steps.run.outputs.roots }}
+      proved: ${{ steps.run.outputs.proved }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Probe C3 residuals
+        id: run
+        shell: bash
+        env:
+          FILTER_TARGET: C3
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/c3-target-distance.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-residual-probe.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('TARGET_DISTANCE_RESIDUAL_PROBE='));
+          if(!line) throw new Error('target-distance summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.filterTarget!=='C3'||x.roots!==5||x.executionFailures!==0) throw new Error('C3 probe drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`roots=${x.roots}`,`proved=${x.proved}`,`failed=${x.failed}`,`resource=${x.resourceFailures}`].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: [g3,c3]
+    name: target-distance-g3-${{ needs.g3.outputs.proved }}of${{ needs.g3.outputs.roots }}-f${{ needs.g3.outputs.failed }}-r${{ needs.g3.outputs.resource }}-c3-${{ needs.c3.outputs.proved }}of${{ needs.c3.outputs.roots }}-f${{ needs.c3.outputs.failed }}-r${{ needs.c3.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "target-distance residual counts encoded in job name"
