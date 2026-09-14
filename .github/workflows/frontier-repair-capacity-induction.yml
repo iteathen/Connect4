@@ -13,6 +13,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-proof-lib-conformance.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-certified-repair-predecessor-consumer.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank20-distance1-gap-census.mjs
       - .github/workflows/frontier-repair-capacity-induction.yml
   workflow_dispatch:
 
@@ -40,6 +41,11 @@ jobs:
       consumer16_failed: ${{ steps.consumer.outputs.consumer16_failed }}
       consumer_root: ${{ steps.consumer.outputs.consumer_root }}
       consumer_recursive: ${{ steps.consumer.outputs.consumer_recursive }}
+      gap_unique: ${{ steps.gap.outputs.gap_unique }}
+      gap_classes: ${{ steps.gap.outputs.gap_classes }}
+      gap_deadline: ${{ steps.gap.outputs.gap_deadline }}
+      gap_nondeadline: ${{ steps.gap.outputs.gap_nondeadline }}
+      gap_recursive: ${{ steps.gap.outputs.gap_recursive }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -134,20 +140,29 @@ jobs:
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
           if(x.rank18.states!==84||x.rank16.states!==12) throw new Error('certificate consumer domain drift');
           if(x.consumer.recursiveProofCalls!==0) throw new Error('consumer illegally invoked recursive repair proof');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
-            `consumer18_closed=${x.rank18.closed}`,
-            `consumer18_failed=${x.rank18.failed}`,
-            `consumer16_closed=${x.rank16.closed}`,
-            `consumer16_failed=${x.rank16.failed}`,
-            `consumer_root=${x.latentRoot.closedCandidateColumns.length}`,
-            `consumer_recursive=${x.consumer.recursiveProofCalls}`,
-          ].join('\n')+'\n');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`consumer18_closed=${x.rank18.closed}`,`consumer18_failed=${x.rank18.failed}`,`consumer16_closed=${x.rank16.closed}`,`consumer16_failed=${x.rank16.failed}`,`consumer_root=${x.latentRoot.closedCandidateColumns.length}`,`consumer_recursive=${x.consumer.recursiveProofCalls}`].join('\n')+'\n');
+          NODE
+      - name: Qualify rank20 distance-one frozen-certificate gap census
+        id: gap
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank20-gap-census.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank20-distance1-gap-census.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK20_DISTANCE1_GAP_CENSUS='));
+          if(!line) throw new Error('rank20 distance-one gap census summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.uniqueExactGapStates!==362) throw new Error(`rank20 gap population drift ${x.uniqueExactGapStates}`);
+          if(x.consumerRecursiveProofCalls!==0) throw new Error('gap census illegally invoked recursive repair proof');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`gap_unique=${x.uniqueExactGapStates}`,`gap_classes=${x.diagnosticClassCount}`,`gap_deadline=${x.deadlineBearingStates}`,`gap_nondeadline=${x.noEnabledP1DeadlineStates}`,`gap_recursive=${x.consumerRecursiveProofCalls}`].join('\n')+'\n');
           NODE
 
   summary:
     needs: repair-capacity-induction
-    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} old-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }} typed-c${{ needs.repair-capacity-induction.outputs.typed_closed }}-f${{ needs.repair-capacity-induction.outputs.typed_failed }} lib20-${{ needs.repair-capacity-induction.outputs.lib20 }}-cert${{ needs.repair-capacity-induction.outputs.lib_certified }} consumer18-c${{ needs.repair-capacity-induction.outputs.consumer18_closed }}-f${{ needs.repair-capacity-induction.outputs.consumer18_failed }} consumer16-c${{ needs.repair-capacity-induction.outputs.consumer16_closed }}-f${{ needs.repair-capacity-induction.outputs.consumer16_failed }} root${{ needs.repair-capacity-induction.outputs.consumer_root }} recur${{ needs.repair-capacity-induction.outputs.consumer_recursive }}
+    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} old-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }} typed-c${{ needs.repair-capacity-induction.outputs.typed_closed }}-f${{ needs.repair-capacity-induction.outputs.typed_failed }} lib20-${{ needs.repair-capacity-induction.outputs.lib20 }}-cert${{ needs.repair-capacity-induction.outputs.lib_certified }} consumer18-c${{ needs.repair-capacity-induction.outputs.consumer18_closed }}-f${{ needs.repair-capacity-induction.outputs.consumer18_failed }} root${{ needs.repair-capacity-induction.outputs.consumer_root }} gap-u${{ needs.repair-capacity-induction.outputs.gap_unique }}-c${{ needs.repair-capacity-induction.outputs.gap_classes }}-d${{ needs.repair-capacity-induction.outputs.gap_deadline }}-n${{ needs.repair-capacity-induction.outputs.gap_nondeadline }}-r${{ needs.repair-capacity-induction.outputs.gap_recursive }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "qualified reusable certificate and bounded predecessor counts encoded in job name"
+      - run: echo "qualified reusable certificate, predecessor, and rank20-gap census counts encoded in job name"
