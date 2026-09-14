@@ -24,6 +24,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-blocking-tail-all-action-terminal-census.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-action-adversarial-elimination.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-adjacent-tail-ab-reentry.mjs
       - .github/workflows/frontier-claim-relative-signature-library.yml
   workflow_dispatch:
 
@@ -49,6 +50,10 @@ jobs:
       tail_eliminated: ${{ steps.tail_elimination.outputs.tail_eliminated }}
       tail_surviving: ${{ steps.tail_elimination.outputs.tail_surviving }}
       tail_survivor_key: ${{ steps.tail_elimination.outputs.tail_survivor_key }}
+      ab_terminal: ${{ steps.ab_reentry.outputs.ab_terminal }}
+      ab_both: ${{ steps.ab_reentry.outputs.ab_both }}
+      ab_one: ${{ steps.ab_reentry.outputs.ab_one }}
+      ab_none: ${{ steps.ab_reentry.outputs.ab_none }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -190,12 +195,32 @@ jobs:
             `tail_surviving=${x.survivingTailActions}\n` +
             `tail_survivor_key=${survivorKey}\n`);
           NODE
+      - name: Prove adjacent-tail handoff re-enters A/B chain subsystem
+        id: ab_reentry
+        shell: bash
+        run: |
+          set -euo pipefail
+          reentry_file="$RUNNER_TEMP/adjacent-tail-ab-reentry.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-adjacent-tail-ab-reentry.mjs | tee "$reentry_file"
+          REENTRY_FILE="$reentry_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.REENTRY_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('ADJACENT_TAIL_AB_REENTRY='));
+          if (!line) throw new Error('adjacent-tail A/B reentry line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            `ab_terminal=${x.immediateTargetTerminalReplies}\n` +
+            `ab_both=${x.bothABSafe}\n` +
+            `ab_one=${x.exactlyOneABSafe}\n` +
+            `ab_none=${x.noABSafe}\n`);
+          NODE
 
   tail-routing-summary:
     needs: claim-relative-library
-    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }} tails-x${{ needs.claim-relative-library.outputs.tail_eliminated }}-s${{ needs.claim-relative-library.outputs.tail_surviving }}-${{ needs.claim-relative-library.outputs.tail_survivor_key }}
+    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }} tails-x${{ needs.claim-relative-library.outputs.tail_eliminated }}-s${{ needs.claim-relative-library.outputs.tail_surviving }}-${{ needs.claim-relative-library.outputs.tail_survivor_key }} ab-t${{ needs.claim-relative-library.outputs.ab_terminal }}-both${{ needs.claim-relative-library.outputs.ab_both }}-one${{ needs.claim-relative-library.outputs.ab_one }}-none${{ needs.claim-relative-library.outputs.ab_none }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Publish compact routing counts
-        run: echo "qualified target-support, all-action, and tail-elimination counts are encoded in this job name"
+        run: echo "qualified target-support, all-action, tail-elimination, and A/B reentry counts are encoded in this job name"
