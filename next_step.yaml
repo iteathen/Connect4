@@ -1,161 +1,120 @@
-schema_version: 78
+version: 1
+status: active
+branch: research/frontier-negamax-conformance
 updated: 2026-09-13
-state: off_subsystem_progress_or_reentry
-current_branch: research/frontier-negamax-conformance
 
 attribution:
-  research_direction_and_architecture: Josh Oshiro
+  research_direction_structural_architecture_invariant_first_program: Josh Oshiro
   formalization_implementation_qualification: OpenAI ChatGPT
 
-authority:
-  account_agents: iteathen/.github/AGENTS.md
-  local_agents: AGENT_LOCAL.md
-  domain: docs/specs/C4-0001-domain-v1.md
-  structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
-  strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
-  forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
-  status: STATUS.md
-  unified_logic: docs/research/2026-09-13-unified-structural-logic-statement.md
-  temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
-  temporal_stutter_tail_phase_debt: docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md
-  event_dependency_cone: docs/research/2026-09-13-event-dependency-cone-product-calculus.md
-  claim_relative_library: docs/research/2026-09-13-claim-relative-signature-library.md
-  guarded_composition: docs/research/2026-09-13-guarded-theorem-composition-calculus.md
-  response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
-  bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
+task:
+  id: compose_repair_capacity_induction_back_to_latent_contract
+  objective: >-
+    Compose the qualified five-repair-column predecessor induction backward into the exact
+    rank-20 latent C3/G3 contract domain. For every retained rank-20 P0 state, prove the
+    existence of at least one legal P0 action whose complete legal P1 reply set is discharged
+    by an already-qualified terminal, chain-descent, adjacent-tail/repair-induction, or guarded
+    re-entry contract. Preserve any nonclosing state/action/reply as the exact falsifier.
 
-objective: >
-  Close or precisely falsify the remaining off-subsystem progress premise at the fixed
-  latent C3/G3 contract state. Work over already-qualified local semantic-effect theorem
-  classes, not a physical q move tree. Every admissible off-target event class must either
-  compose to exact latent-contract re-entry, terminal closure, a response-capacity circuit
-  with a proved Connect4 obligation/slot map, or a strict decrease in a well-founded exact
-  E/R/P/C/N progress rank. If this is impossible, retain the smallest exact theorem-class
-  cycle/SCC that demonstrates the missing structural invariant.
+required_authority:
+  - account-global iteathen/.github/AGENTS.md
+  - AGENT_LOCAL.md
+  - docs/specs/C4-0001-domain-v1.md
+  - docs/specs/C4-0006-control-parity-and-winspace-v1.md
+  - docs/specs/C4-0007-nested-dependency-closure-v1.md
+  - docs/specs/C4-0010-quotient-native-negamax-v1.md
+  - STATUS.md
+  - docs/research/2026-09-13-unified-structural-logic-statement.md
+  - docs/research/2026-09-13-guarded-theorem-composition-calculus.md
+  - docs/research/2026-09-13-repair-capacity-predecessor-induction.md
 
-canonical_layers:
-  E: causal_event_poset_and_support_ideals
-  R: residual_winning_obligation_antichains
-  P: CPC_GF2_parity_precedence_deadlines
-  C: typed_temporal_policy_contracts_resources_and_compatibility
-  N: guarded_monotone_dependency_closure
-  G: alternating_predecessor_fixed_point
-  Q: observation_sensitive_value_and_provenance_quotients
+qualified_premises:
+  - id: enabled_singleton_terminal_predecessor
+    statement: >-
+      An enabled live P0 singleton on a P0 turn is an exact immediate terminal predecessor
+      unless an already-terminal boundary has been reached.
+  - id: chain_reselection_descent
+    statement: >-
+      The retained non-target A/B chain branches admit another same-column P0 action with
+      strict selected-column capacity descent and preserved target singleton, subject to exact
+      terminal guards.
+  - id: universal_terminal_response_states
+    statement: >-
+      The exact twelve blocking rank-22 states are locally P0-losing: every legal P0 action has
+      an immediate exact P1 terminal response.
+  - id: adversarial_tail_elimination
+    statement: >-
+      Eight of twelve D/E/F tail actions are eliminated because P1 has a reply into one of the
+      exact universal terminal-response states.
+  - id: adjacent_tail_survivor_rule
+    statement: >-
+      In the retained D/E/F family, the only tail survivor is the column adjacent to the
+      remaining target: F for G3, D for C3, independent of resolved-singleton ownership.
+  - id: complementary_tail_rule
+    statement: >-
+      In each exact no-A/B survivor state, after P1 consumes one of the two remaining D/E/F
+      tails, P0 consuming the other is the unique currently-qualified immediate continuation.
+  - id: repair_capacity_induction
+    statement: >-
+      On the sixteen nonterminal successors of the four adjacent-tail survivor actions, a
+      restricted alternating-predecessor proof over A/B/D/E/F closes 16/16 starts under the
+      well-founded measure mu=sum remaining capacities in A,B,D,E,F. P0 decreases mu by one;
+      P1 replies never increase it. Physical memo states are witnesses, not semantic identity.
+    qualification:
+      physical_proof_states: 9635
+      start_states: 16
+      proved_start_states: 16
+      failed_start_states: 0
+      max_induction_depth: 7
+      canonical_proof_classes_including_terminal: 1022
+      distinct_start_proof_classes: 9
+      boundary: >-
+        1022 classes is not a small universal calculus and is not q/state equality.
 
-established_controls:
-  guarded_theorem_composition:
-    qualifying_commit: 28a9990b9a8c539ee8e890e9d6d115d77ec31d4a
-    workflow_run: 34806311358
-    generic_composition_tests: 8
-    result: pass
-    exact_bridge_chain:
-      - hinge_D3_instantiation
-      - exact_D4_bridge
-      - latent_target_contract_activation
-    same_column_stutter_reentries: 5
-    first_unproved_premise: well_founded_off_subsystem_progress_or_reentry
-  local_event_effect_domain:
-    physical_transitions: 20
-    exact_local_semantic_effect_classes: 12
-    nontrivial_reused_classes: 8
-    singleton_classes: 4
-  exact_phase_law: "phi' = phi + e_a + e_b over GF(2)"
-  phase_boundary: >
-    Phase defects may be transported rather than removed. Phase weight alone is therefore
-    not a proved progress rank and must not be used as one.
-  tail_normal_form: "Tail3 = StutterPair2 + OddEvent1"
-  capacity_boundary: >
-    A size-two response circuit is exact only after an exact obligation-to-response-slot
-    map has been established. The general Connect4 mapping remains incomplete.
+execution:
+  cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
+  domain: >-
+    Start from the exact retained rank-20 latent-contract states used by the action-progress
+    controls. Do not expand to an arbitrary q frontier.
+  predecessor_test:
+    for_each_rank20_state:
+      - enumerate every legal P0 action through exact C4-0010 transitions
+      - reject an action if any legal P1 reply is terminal for P1
+      - accept an action only when every legal P1 reply has an explicit qualified discharge
+      - record the exact theorem/contract discharging each reply
+      - if no action closes, preserve the smallest exact state/action/reply falsifier
+  accepted_reply_routes:
+    - immediate_P0_terminal_predecessor
+    - qualified_A_or_B_chain_descent
+    - qualified_adjacent_tail_repair_capacity_induction
+    - exact_guarded_reentry_contract
+  forbidden_shortcuts:
+    - solved_WDL_or_external_solver_as_premise
+    - recursive_q_frontier_search_as_proof
+    - unknown_as_loss
+    - candidate_family_failure_as_loss
+    - physical_state_or_proof_class_equality_as_q_equality
+    - phase_weight_as_value_classifier
+    - terminal_line_cardinality_as_premise
+    - unproved_69_to_28_geometric_line_reduction
+  wall_clock_limit_seconds: 300
+  inner_timeout_seconds: 270
 
-constraints:
-  - final_terminal_line_cardinality_is_output_only
-  - no_69_to_28_geometric_line_reduction_without_an_explicit_theorem
-  - no_known_center_win_as_proof_premise
-  - exact_search_oracles_are_discovery_and_falsification_controls_only
-  - preserve_exact_c4_0010_q_identity
-  - theorem_class_graph_is_not_a_q_state_graph
-  - claim_relative_equivalence_is_not_state_equivalence
-  - theorem_composition_is_not_state_merging
-  - every_edge_must_be_justified_by_retained_exact_transition_or_qualified_theorem_evidence
-  - every_rank_component_must_be_exact_and_load_bearing_for_the_progress_claim
-  - phase_weight_alone_is_not_a_progress_rank
-  - response_capacity_requires_exact_connect4_obligation_slot_mapping
-  - opaque_frame_terminal_temporal_resource_and_incident_R_conditions_remain_explicit
-  - bayesian_mask_is_external_to_exact_logic
-  - unresolved_frontiers_are_unknown_not_negative_values
-  - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
-  - every_experiment_has_a_hard_five_minute_wall_clock_cap
+success_criteria:
+  - every retained exact rank-20 latent-contract state has at least one branch-complete P0 predecessor witness
+  - every P1 reply of every accepted witness has a named qualified discharge contract
+  - no accepted action drops terminal, R, C, N, resource, deadline, or observed provenance obligations
+  - result is rerun under bounded CI
+  - exact theorem boundary and any remaining composition gap are documented
 
-next_task:
-  name: derive_off_subsystem_progress_or_reentry_calculus
-  purpose: >
-    Convert the retained 20-transition / 12-class local-effect evidence into guarded
-    theorem contracts and determine whether the remaining off-subsystem behavior admits
-    exact re-entry/terminal/circuit closure or a genuinely well-founded structural rank.
-    A minimal exact cycle is an acceptable and preferred result over a false rank.
-  required_operations:
-    - Export_local_effect_class_contracts
-    - Build_exact_theorem_class_transition_relation
-    - Compose_known_stutter_reentries
-    - Test_candidate_structural_rank
-    - Find_minimal_exact_cycle_or_SCC
-    - Report_first_missing_guard_or_progress_component
-  source_controls:
-    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-phase-debt-local-effect-signatures.mjs
-    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-phase-debt-resource-classes.mjs
-    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-temporal-stutter.mjs
-    - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
-  candidate_rank_inputs:
-    - live_latent_target_count
-    - exact_support_tail_type
-    - target_middle_support_status
-    - incident_R_cofactor_signature
-    - GF2_phase_defect_location_not_just_weight
-    - exact_temporal_resource_obligation_state
-    - response_capacity_deficiency_only_when_mapping_is_proved
-  bounded_steps:
-    - read_actual_retained_20_transition_evidence_and_reconstruct_no_more_than_its_exact_local_domain
-    - export_contracts_for_the_12_exact_semantic_effect_classes
-    - mark_the_5_known_same_column_stutters_as_exact_reentry_edges
-    - add_only_edges_licensed_by_existing_exact_controls_or_one_new_bounded_local_replay
-    - test_lexicographic_or_partial_order_rank_candidates_without_using_WDL_labels
-    - if_a_cycle_exists_reduce_it_to_the_smallest_exact_SCC_and_identify_the_missing_load_bearing_field
-    - if_rank_exists_prove_strict_descent_on_every_nonterminal_nonreentry_edge
-    - do_not_enumerate_the_physical_game_tree
-  success_conditions:
-    - every_retained_local_class_is_explicitly_classified_as_reentry_terminal_mapped_circuit_rank_descent_or_unresolved
-    - any_claimed_rank_is_strict_on_every_covered_nonterminal_nonreentry_edge
-    - otherwise_a_minimal_exact_cycle_or_SCC_is_retained_as_a_falsifier
-    - the_next_missing_premise_toward_center_opening_W_is_strictly_narrower_than_well_founded_off_subsystem_progress_or_reentry
-  hostile_negative_controls:
-    - reject_rank_based_only_on_phase_weight
-    - reject_merging_A_or_B_repairs_with_D_E_F_when_incident_R_or_support_tail_type_differs_for_the_claim
-    - reject_capacity_closure_without_exact_obligation_slot_mapping
-    - reject_an_edge_if_terminal_or_temporal_resource_alternatives_are_not_preserved
-    - reject_global_q_equality_inference_from_local_class_equality
-  stop_conditions:
-    - physical_q_tree_reconstruction_begins
-    - WDL_labels_become_proof_premises
-    - an_unproved_edge_is_inserted_to_make_the_rank_work
-    - a_cycle_is_hidden_by_coarsening_a_load_bearing_signature
-    - wall_clock_reaches_5_minutes
+on_success:
+  next: >-
+    Export the closed latent-contract subsystem as a guarded P0-winning theorem contract and
+    compose it backward through the exact D3/D4 hinge. Only after that succeeds should the
+    center-opening W-membership seam be reassessed.
 
-forbidden_shortcuts:
-  - cite_known_connect4_solution_as_the_proof
-  - use_minimax_or_oracle_value_labels_as_certificate_facts
-  - use_bayesian_credence_as_proof_authority
-  - turn_claim_relative_isomorphism_into_q_state_equality
-  - turn_theorem_class_graph_into_a_disguised_physical_move_tree
-  - use_phase_weight_as_value_or_progress_without_a_strict_descent_theorem
-  - apply_response_capacity_without_an_exact_obligation_response_mapping
-  - erase_incident_R_support_tail_temporal_or_terminal_separators_to_force_a_cycle_break
-  - increase_frontier_or_q_caps_to_hide_missing_mathematics
-  - infer_positive_win_from_P1_nonwin
-
-cleanup_policy:
-  negative_controls: retain
-  exact_cycles_and_failed_ranks: retain
-  incomplete_experiments: retain_with_status_annotation
-  unknown_usefulness: retain
-  branch_newer_work: preserve_and_reconcile_before_mutation
+on_failure:
+  next: >-
+    Preserve the smallest exact nonclosing rank-20 state/action/reply set. Derive the missing
+    dependency-cone or temporal/resource premise from that falsifier rather than broadening the
+    physical search domain.
