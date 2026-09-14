@@ -1,6 +1,6 @@
-schema_version: 73
+schema_version: 74
 updated: 2026-09-13
-state: phase_debt_resource_transport
+state: typed_event_dependency_cone
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -16,15 +16,15 @@ authority:
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
   temporal_stutter_tail_phase_debt: docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md
+  event_dependency_cone: docs/research/2026-09-13-event-dependency-cone-product-calculus.md
   response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
-  invariant_first_resolution: docs/research/2026-09-13-invariant-first-cross-layer-isomorphism.md
   bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
 
 objective: >
-  Continue the structural 7x6 proof by compiling temporal policy behavior into a small
-  exact C/P/N resource-state machine. Do not return to broad q recursion. The immediate
-  seam is how a one-slot phase debt transports through the shared external reservoir.
+  Continue the structural 7x6 proof by reusing local typed event transformers across
+  distinct global contexts without weakening exact C4-0010 state identity. Build proof
+  compression at the dependency-cone/action layer, not by inventing a coarser q state.
 
 canonical_layers:
   E: causal_event_poset_and_support_ideals
@@ -39,75 +39,75 @@ exact_principles:
   observation_sensitive_projection_congruence: >
     Erase a distinction only when it is congruent for every downstream transition and
     observation being claimed.
-  phase_macro: "phi' = phi + e_a + e_b over GF(2)"
-  phase_behaviors:
-    collapse: "(1,1)->(0,0)"
-    transport: "(1,0)->(0,1)"
-    reexpansion: "(0,0)->(1,1)"
+  typed_event_product: >
+    One legal event simultaneously advances E support, toggles P phase/rank, applies
+    the R monotone Boolean cofactor, advances active C temporal contracts, then emits
+    consequences into guarded N closure.
+  local_reuse_not_state_equality: >
+    Matching dependency-cone event signatures license reuse of the local transformer
+    under checked C/N guards; nonincident global context remains live and q identity is
+    unchanged.
 
-established_temporal_controls:
+established_controls:
   latent_target_cross_pair:
     workflow_run: 34801047093
-    fixed_state: "466565554644"
-    targets: [C3,G3]
-    support_pair:
-      - "P0:C1 -> P1:G1"
-      - "P0:G1 -> P1:C1"
-    target_responses:
-      - "P0:C2 -> P1:C3"
-      - "P0:G2 -> P1:G3"
-    abstract_decision_states: ["0,0","1,1","1,3","3,1","3,3"]
-    complete_target_only_attacker_schedules: 4
-    result: exact_local_scheduler
-  initial_stutter_macros:
+    result: exact_five_state_local_scheduler
+  stutter_and_tail:
     workflow_run: 34801299360
-    pairs:
-      - [A1,A2]
-      - [B1,B2]
-      - [D5,D6]
-      - [E5,E6]
-      - [F5,F6]
-    common_effect:
-      support_rank_delta: 2
-      phase_displacement_mod2: 0
-      C3_live: true
-      G3_live: true
-      P0_terminal: false
-  post_target_tail:
-    workflow_run: 34801299360
-    checked_cases: 4
-    normal_form: "Tail3 = StutterPair2 + OddEvent1"
-    pair_effect: zero_phase_displacement
-    odd_event_owner: P0
-    odd_event_terminal: false
-    remaining_singleton_survives: true
-  phase_debt_interface:
+    initial_stutter_reservoir: [A,B,D,E,F]
+    tail_normal_form: "Tail3 = StutterPair2 + OddEvent1"
+  phase_debt:
     workflow_run: 34801394490
-    checked_cases: 4
-    phase_debt_after_odd_tail: 1
-    poisoned_remaining_middle: true
-    common_local_repair_neighborhood: [A,B,D,E,F]
-    local_repair_count: 5
-    interpretation: >
-      A P1 repair move restores P0-to-move for the remaining latent target but toggles
-      the chosen external column's phase/resource state. Under the exact phase law this
-      is defect transport, not defect destruction.
+    repair_neighborhood: [A,B,D,E,F]
+    repair_semantics: GF2_defect_transport
+  resource_support_classification:
+    workflow_run: 34801666965
+    transition_count: 20
+    exact_EP_support_classes:
+      ODD_CHAIN_5: [A,B]
+      ODD_TAIL_1: [D,E,F]
+    result: >
+      E/P support classes are exact but R incidence refines them; A/B and D/E/F are
+      not globally interchangeable resource classes.
+  local_event_effect_signatures:
+    workflow_run: 34801815328
+    transition_count: 20
+    semantic_signature_classes: 12
+    nontrivial_reused_classes: 8
+    singleton_classes: 4
+    signature_fields:
+      - support_tail_type
+      - phase_effect
+      - latent_target_effect
+      - follow_mode
+      - exact_P0_incident_residuals
+      - exact_P1_incident_residuals
+      - exact_P1_local_cofactors
+    inference: >
+      Event-level theorem reuse exists across distinct global contexts. Lower ownership
+      of an already-resolved target chain can be forgotten for D/E/F local effects when
+      it lies outside their residual incidence cones, but A/B split whenever a bottom
+      residual makes that ownership fact load-bearing.
 
 resolved_isomorphisms:
-  - "Baseinverse-shaped pair can act on support scheduling even when it contributes no direct WSL blocker subset"
-  - "response matroid is a snapshot feasibility view of active TemporalContract obligations"
-  - "pre-target stutter reservoir {A,B,D,E,F} equals post-tail local phase-debt repair reservoir"
-  - "tail phase-debt repair is the same GF2 transport operation previously observed as hard-frontier transport"
+  - "gravity event = enabled poset extension at E"
+  - "same event = one-coordinate GF2 toggle at P"
+  - "same event = monotone Boolean cofactor at R"
+  - "same event = guarded automaton transition at C"
+  - "same event = implication-enabling fact at N"
+  - "Baseinverse-shaped pairing can operate on future support scheduling rather than direct blocker coverage"
+  - "response matroid is a snapshot feasibility view of active temporal-contract obligations"
+  - "phase-debt repair is the GF2 transport operation seen previously as collapse/transport/re-expansion"
 
 bayesian_research_mask:
   role: research_priority_only
   visibility_to_exact_logic: none
   update: >
-    Lower probability that the hinge itself is the obstruction. Raise priority for
-    external resource-state evolution and repeated phase-defect transport/collapse.
+    Raise usefulness of contextual event-effect reuse and local dependency cones. Lower
+    priority for fixed column-name resource taxonomies and support-only equivalence.
   promotion_membrane: >
-    Exact proof logic receives only deterministic guarded rules after qualification;
-    Bayesian scores and utilities are discarded.
+    Exact logic receives only qualified deterministic signatures/rules; Bayesian
+    confidence and expected utility are discarded.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -115,70 +115,74 @@ constraints:
   - exact_search_oracles_are_discovery_and_falsification_controls_only
   - preserve_exact_c4_0010_q_identity
   - output_provenance_must_not_be_erased_by_value_only_equivalence
-  - preserve_terminal_stopping_CPC_NDC_deadline_resource_and_provenance_boundaries
+  - nonincident_context_is_not_deleted_by_local_event_reuse
+  - active_CPC_NDC_resource_deadline_and_terminal_guards_are_load_bearing
   - temporal_contract_state_may_not_be_erased_without_congruence_proof
-  - local_phase_debt_repair_candidate_is_not_global_policy_compatibility
   - bayesian_mask_is_external_to_exact_logic
   - unresolved_frontiers_are_unknown_not_negative_values
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: classify_external_phase_debt_transport_resources
+  name: build_generic_typed_event_signature
   purpose: >
-    For the five common repair columns A/B/D/E/F, derive the exact typed resource-state
-    transition caused by spending one P1 phase-debt repair move. Determine whether the
-    five transitions collapse into a small number of isomorphic C/P/N resource classes.
-  fixed_interface:
-    obligation: PhaseDebt1
-    response_neighborhood: [A,B,D,E,F]
-    remaining_target: one_of_[C3,G3]
-  required_transition_fields:
-    - pre_support_phase
-    - repair_event
-    - post_support_phase
-    - GF2_defect_location_or_class
-    - newly_playable_event
-    - response_relation_created_or_destroyed
-    - private_WSL_coverage_changed
-    - active_deadlines_changed
-    - NDC_guards_changed
-    - terminal_or_race_effect
+    Implement one generic local proof object for legal events that derives their
+    E/P/R/C/N dependency-cone signature, then use it to identify repeated operator
+    classes across already-qualified certificate families. Do not use it as a q-state
+    quotient.
+  initial_families:
+    - same_column_stutter_pair
+    - latent_cross_support_pair
+    - latent_target_response
+    - phase_debt_repair
+    - center_response_serialization_collision
+  required_fields:
+    - enabled_support_event_and_tail_type
+    - support_rank_and_phase_delta
+    - mover_and_opponent_residual_incidence
+    - residual_cofactor_or_kill_effect
+    - active_temporal_contract_prestate
+    - triggered_required_or_forbidden_actions
+    - resource_claims_and_sharing
+    - active_deadlines_and_races
+    - relevant_NDC_prerequisites_and_consequences
+    - terminal_guard
+    - provenance_guard_when_observable
   bounded_steps:
-    - inspect exactly one repair event per A/B/D/E/F class from the qualified tail states
-    - compare the resulting transitions under the complete temporal-contract observation
-    - merge classes only when support parity resource deadline coverage and NDC effects are equivalent
-    - test whether repair is pure defect transport and identify the destination contract class
-    - if two odd resources meet, test the exact collapse condition instead of branching histories
-    - stop if representation expands into arbitrary physical continuations
+    - compile signatures only from existing exact facts and already-qualified controls
+    - group events only under explicit structure-preserving renaming of every signature field
+    - retain nonincident global facts as opaque context parameters
+    - test theorem reuse on at least two formerly separate rule families
+    - reject any candidate grouping that needs WDL labels or full physical-history identity
+    - stop if signature derivation degenerates into one object per q state
   success_conditions:
-    - finite typed transition table for A/B/D/E/F with at least one nontrivial isomorphic class merge
-    - or exact counterexample showing which additional invariant prevents such merging
-    - result composes with response-matroid snapshot feasibility and NDC closure
+    - one reusable TypedEventSignature schema covering multiple existing certificate families
+    - at least one exact cross-family local-operator isomorphism
+    - explicit counterexamples identifying which field separates any tempting false merges
   stop_conditions:
     - physical q-tree reconstruction begins
-    - solved W/D/L labels become proof premises
-    - no quotient smaller than exact physical continuation survives the full temporal observation
+    - solved WDL labels become proof premises
+    - no local signature smaller than full q context survives
     - wall_clock_reaches_5_minutes
 
 research_candidates_after_this_control:
-  - phase_defect_token_machine
+  - contextual_bisimulation_of_typed_event_operators
+  - commuting_independent_event_macros
+  - phase_defect_token_machine_over_event_signatures
   - generic_temporal_contract_compiler_for_Allis_and_paving_fragments
-  - collapse_when_two_odd_resource_contracts_meet
-  - finite_paving_restriction_as_resource_transport_network
   - product_fixed_point_for_N_closure_and_G_interval_bounds
 
 forbidden_shortcuts:
   - cite_known_connect4_solution_as_the_proof
   - use_minimax_or_oracle_value_labels_as_certificate_facts
   - use_bayesian_credence_as_proof_authority
-  - treat_phase_weight_as_WDL_classifier
+  - treat_support_shape_or_phase_weight_as_WDL_classifier
   - treat_static_coverage_as_policy_realizability
   - treat_named_rule_identity_as_runtime_semantic_authority
+  - turn_local_event_signature_into_state_equality
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
-  - erase_CPC_NDC_resource_or_deadline_context_when_load_bearing
 
 cleanup_policy:
   negative_controls: retain
