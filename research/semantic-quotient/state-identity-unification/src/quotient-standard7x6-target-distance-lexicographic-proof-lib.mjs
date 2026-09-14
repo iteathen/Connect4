@@ -12,7 +12,7 @@ export function createTargetDistanceLexicographicProofEngine(kernel, options = {
   if (!Number.isInteger(maxTargetDistance) || maxTargetDistance < 1 || maxTargetDistance > 5) {
     throw new RangeError('maxTargetDistance must be an integer in the physical standard-7x6 range 1..5');
   }
-  const lex = createResolvedTailLexicographicProofEngine(kernel, { maxProofStates });
+  const lex = createResolvedTailLexicographicProofEngine(kernel, { maxProofStates, rootActions });
   const e = lex.repair;
   const memo = new Map();
   // Kept under the historical name for result compatibility. With maxTargetDistance > 2 this
