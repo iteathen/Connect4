@@ -52,8 +52,12 @@ function localIncidence(kernel, engine, state) {
 }
 function snapshot(kernel, engine, state) {
   const heights = engine.heights(state);
+  const rank = engine.rank(state);
+  const mover = rank & 1;
+  const moverTerminal = engine.terminalActions(state, mover).map((x) => coord(x.cell));
   return {
-    rank: engine.rank(state),
+    rank,
+    sideToMove: mover === 0 ? 'P0' : 'P1',
     heights,
     phaseBits: heights.map((h) => h & 1).join(''),
     delta: 6 - heights[G],
@@ -62,8 +66,9 @@ function snapshot(kernel, engine, state) {
     C3Distance: engine.singleton(state, 0, C3) ? engine.targetDistance(state, C3) : null,
     p0EnabledSingletons: engine.enabledSingletons(state, 0).map(coord),
     p1EnabledSingletons: engine.enabledSingletons(state, 1).map(coord),
-    p0Terminal: engine.terminalActions(state, 0).map((x) => coord(x.cell)),
-    p1Terminal: engine.terminalActions(state, 1).map((x) => coord(x.cell)),
+    moverTerminal,
+    p0Terminal: mover === 0 ? moverTerminal : [],
+    p1Terminal: mover === 1 ? moverTerminal : [],
     p0Terms: canonicalTerms(kernel, state, 0),
     p1Terms: canonicalTerms(kernel, state, 1),
     nextRepairIncidence: localIncidence(kernel, engine, state),
@@ -134,7 +139,7 @@ for (const column of ['A','B','C','D','E','F','G']) {
 }
 
 console.log(`EXPIRED_RESPONSE_G4_SEPARATOR=${JSON.stringify({
-  kind: 'standard7x6-expired-response-resolved-tail-g4-separator-v1',
+  kind: 'standard7x6-expired-response-resolved-tail-g4-separator-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -143,6 +148,6 @@ console.log(`EXPIRED_RESPONSE_G4_SEPARATOR=${JSON.stringify({
   resolvedTailAction: 'P0:G4',
   rows,
   comparison,
-  theoremBoundary: 'One exact resolved-tail action plus one complete P1 reply horizon for the A/B/D qualified-rho controls and E/F unresolved leaves. No recursive proof is run here. priorStatus is experimental grouping only and never a W/L premise.',
+  theoremBoundary: 'One exact resolved-tail action plus one complete P1 reply horizon for the A/B/D qualified-rho controls and E/F unresolved leaves. Terminal actions are queried only for the actual side to move. No recursive proof is run here. priorStatus is experimental grouping only and never a W/L premise.',
   authority: 'Exact C4-0010 transitions/residuals, enabled-singleton terminal certificates, and exact support/phase observations only. No solved labels, recursive q search, or cap increase.',
 })}`);
