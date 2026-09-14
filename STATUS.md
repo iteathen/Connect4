@@ -7,214 +7,183 @@
 
 This is a current-state router, not a historical ledger. Detailed evidence remains under `docs/research/**`; executable theorem controls remain under `research/semantic-quotient/**`.
 
-## Objective
-
-Derive a complete internal structural proof of standard 7x6 Connect Four perfect-play W/D/L, then exact P0 terminal winning-line provenance. External solved W/D/L is discovery/falsification evidence only, never a proof premise.
-
 ## Authority and proof boundary
 
-- C4-0001 through C4-0005 are protected baseline authority in their scopes.
+- C4-0001 through C4-0005 remain protected baseline authority in their scopes.
 - C4-0006 and C4-0007 remain **Candidate** structural/proof research specifications.
-- C4-0010 is an accepted **research** consumer specification for the quotient-native forward lane; consuming candidate clauses does not silently promote those upstream specs.
-- Qualified executable controls establish theorem instances inside the research calculus; they do not change specification acceptance status.
-- Ordinary quotient identity remains exact support plus normalized residual requirements. Temporal obligations, deadlines, proof terms, claim-relative theorem identity, execution-shard identity, and provenance are not silently collapsed into q.
-- Unknown, theorem failure, candidate-action failure, and execution/resource failure are not loss.
-- No implicit frame rule, player/ownership/column symmetry, q equality from claim-relative signatures, deadline regeneration, or unproved 69 -> 28 geometric-line reduction is accepted.
+- C4-0010 remains an accepted **research** consumer specification; it does not silently promote imported Candidate clauses.
+- Qualified executable controls establish finite theorem instances inside the research calculus; they do not change specification acceptance status.
+- Unknown != loss; theorem failure != opposite game outcome; resource failure != logical rejection.
+- Same dimension != canonical isomorphism; vector-space splitting != natural splitting.
+- Connect-4 residual cofactor != Connect-3 incidence unless an explicit map proves it.
+- No solved/external W/D/L labels are proof premises in the structural-logic controls.
 
-## Root boundary
+## Active seam: GF(2) incidence / support-graded middle duality
 
-All six non-center first moves remain internally structurally proved P0-nonwinning:
-
-```text
-V(opening c) <= 0 for c in {1,2,3,5,6,7}.
-```
-
-The positive proof through opening column 4 remains unfinished. The repository does **not** yet claim a complete standard-7x6 solve. There are exactly 69 geometric winning lines.
-
-## Obligation-first rho / kappa calculus
-
-Distance-one induction remains
+From primitives
 
 ```text
-rho(S) = (delta(S), mu(S))
+field = GF(2)
+K = 4
+H = 6
+W = 7
 ```
 
-with `mu` = remaining A/B/D/E/F capacity and `delta` = remaining capacity in the previously resolved C/G column. Distance-two induction uses
+the target-free incidence controls derive the standard winning-line geometry and
 
 ```text
-kappa(S) = (d(S), delta(S), mu(S))
+L = 69
+rank(B) = 35
+dim ker(B) = 34
 ```
 
-and delegates d=1 to rho.
-
-Before ordinary rho at every P0 node:
+with the emergent equality
 
 ```text
-0 enabled P1 singleton obligations -> ordinary rho action basis
-1 enabled P1 singleton obligation  -> exact blocking column only
-2+ distinct enabled P1 obligations -> exact one-move response-capacity loss,
-                                      after immediate P0 terminality is excluded
+rank(B) - W = dim ker(B) - H = 28.
 ```
 
-The clean rho corpus, kappa distance-two results, rank-18 partition `83W/1L`, and rank-16 partition `11W/1L` remain intact under this hardened ordering. Unique exact losses remain:
+Neither 28 nor 69 is a primitive input to the strongest controls.
+
+### Projection audit
+
+The originally proposed one-axis projections are exact falsifiers:
 
 ```text
-rank18: 466565554644323332
-rank16: 4665655546443233
+column parity on im(B):            rank 4, not 7
+horizontal-line row parity on ker: rank 5, not 6
 ```
 
-## Qualified latent C1 state
-
-Exact state
+Corrected natural quotients are:
 
 ```text
-466565554644
+cell side: row + column parity on im(B), rank 7
+line side: vertical-line parity per column on ker(B), rank 6
 ```
 
-is structurally P0-winning via `P0:C1` with all seven P1 replies closed. The witness family is piecewise:
+Their explicit kernels both have derived dimension 28:
 
 ```text
-C2 -> immediate P0:C3 terminal
-G1 -> P0:G2 -> forced G3 block -> obligation-first rho(C3)
-A1/B1 refusal -> P0:G1 seizure route -> forced G3 block -> obligation-first rho(C3)
-D5/E5/F5 refusal -> P0:A1 -> exact B1 threat -> forced B1 block -> obligation-first rho(C3)
+Y_cell = ker(axis parity | im(B))
+Y_line = ker(vertical-line parity | ker(B)).
 ```
 
-The earlier universal G1 refusal witness was falsified and is not reused.
+### Symmetry correction
+
+Bare geometric incidence has top-bottom reflection symmetry, but Connect4 gravity/support order does not. The corrected cores have equal left-right fixed dimensions (14 and 14) but unequal top-bottom fixed dimensions (16 and 14).
+
+Therefore the top-bottom mismatch falsifies a **B-only** equivariant identification. It does **not** falsify a Connect4-natural identification that uses support/event order. Early low winning structure and later high spatial redundancy are intentionally not treated as vertically symmetric.
+
+### Residual complex
+
+The residual cofactor operator is now represented as a genuine GF(2) graded boundary over unique residual subsets. For the standard board the residual-level cardinalities are:
 
 ```text
-workflow: Frontier latent C1 full closure
-run:      34882743270
-result:   success
+arity 1: 42
+arity 2: 282
+arity 3: 232
+arity 4: 69
 ```
 
-## Qualified D3 predecessor
-
-Exact state
+The executable control proves:
 
 ```text
-4665655546
+partial_4 is injective
+partial_3 * partial_4 = 0
+J_3 * partial_4 = B
 ```
 
-is structurally P0-winning via `P0:D3`:
+where `J_3` is ordinary cell incidence of degree-3 residual fragments.
+
+The naive `28 -> 21 = W*(K-1)` residual contraction is falsified in this category:
 
 ```text
-P1:D4     -> exact child 466565554644 -> qualified latent-C1 win
-P1:not D4 -> immediate P0:D4 terminal win
+rank(J_3) = 42, not 21.
 ```
 
-D4 is therefore tactically forced if P1 avoids immediate loss; unique-zero-phase was not used as the forcing premise.
+### Strongest current result: natural perfect dual pairing
+
+For a residual fragment `S = line \\ {cell}`, define
 
 ```text
-workflow: Frontier D3 reply horizon closure
-run:      34888051981
-result:   success
+g(S) = supportClosureSize(S)
+     + componentCountAlongOriginalLine(S)
+     + maxRow(S)
+     mod 2.
 ```
 
-## Qualified rank-9 universal predecessor
+This gravity/residual-defined functional induces a basis-independent bilinear pairing between the corrected cores. Its restricted matrix has full rank 28 and is left-right reflection equivariant while intentionally breaking top-bottom reflection.
 
-Exact P1-turn state
+Current strongest theorem:
 
 ```text
-466565554
+Y_line ~= Y_cell^*
 ```
 
-is now structurally P0-winning because every legal P1 reply has an independently executable exact certificate:
+as a natural perfect dual pair under the explicit residual/support functional.
+
+A canonical direct map
 
 ```text
-P1:A -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
-P1:B -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
-P1:C -> D3 -> forced D4 -> C2 -> forced C3 -> G1 -> distance-two/rho closure
-P1:D -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
-P1:E -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
-P1:F -> exact child 4665655546 -> qualified D3 theorem
-P1:G -> P0:F4 -> exact {C1,F5} double-threat response-capacity win
+T : Y_line -> Y_cell
 ```
 
-The C branch originally exhausted the shared quotient pool after the exact tactical chain reached `46656555434433`; this was execution pressure, not a logical falsifier. Fresh-kernel post-G1 reply isolation proved A/B/C/E/F plus immediate G3 terminal, while D5 required top-level rho action `C`, which proved by `resolved_tail_descent`. No proof-state or quotient-storage limit was raised.
+is **not yet proved**. The ambient dot products restrict with rank 24 on both cores, so perfect duality does not create a canonical self-duality for free.
+
+### P / CPC compatibility boundary
+
+Same-column two-ply stutter remains exact zero phase displacement over GF(2).
+
+For distinct columns, `e_a + e_b` lies in the corrected cell quotient's length-4 column-interval sector only for one-based pairs
 
 ```text
-workflow: Frontier rank9 full reply closure
-run:      34890470315
-result:   success
+(1,5), (2,6), (3,7).
 ```
 
-Promoted consequence:
+Therefore generic CPC phase transport cannot yet be described as acting only on the boundary factor while fixing the 28-core.
+
+### Nearby-family falsification
+
+For the finite neighborhood `W=2K-1, H=2K-2`, `K=2..8`, only `K=4` satisfies
 
 ```text
-466565554 in W
+rank(B_K) - W = dim ker(B_K) - H.
 ```
 
-## Qualified rank-8 predecessor
+The smallest tested counterexample is `K=2`. No all-K formula is claimed from this finite computation.
 
-Exact P0-turn state
+### Durable evidence
+
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-emergent-middle-dimension-isomorph.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-axis-interval-quotient-control.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs`
+- `docs/research/2026-09-14-support-graded-middle-duality.md`
+
+Current structural checkpoint commit:
 
 ```text
-46656555
+6dd91db38392cef03e499b6e526eea9ba8dc4eaf
 ```
 
-is structurally P0-winning via the exact D-column landing
+The new support-graded control executes locally with `proved:true`. GitHub Actions run `34907472035` failed during `Set up job` before checkout or Node execution; that run is infrastructure failure and provides no theorem evidence either way.
 
-```text
-P0:D2 -> 466565554
-```
+## Current next question
 
-The child is discharged by re-executing the complete seven-reply rank-9 theorem; no claim about alternative P0 moves is needed.
+Determine whether the natural perfect duality can be upgraded to a natural direct intertwiner, or whether the correct Connect4 theorem is fundamentally a dual pair rather than a self-identification.
 
-```text
-workflow: Frontier rank8 D predecessor closure
-run:      34890858920
-result:   success
-```
+The next admissible candidates must be defined from Connect4 structure before basis selection, preserve left-right symmetry, respect gravity/support/event order, and commute with the proven residual structure. CPC/event-order self-pairings and residual-induced forms should be tested before any arbitrary complement or Gaussian basis matching.
 
-Promoted consequence:
+## Preserved solver seam
 
-```text
-46656555 in W via P0:D2
-```
+The earlier forward structural W/D/L work is not invalidated. In particular the qualified rank-9 and rank-8 predecessor closures remain evidence, and the prior rank-7 P1 horizon at exact state `4665655` remains an unfinished solver seam.
 
-## Current active seam: rank-7 P1 horizon
-
-Move exactly one ply backward to
-
-```text
-4665655
-```
-
-which is P1 to move. The exact E reply reaches the newly qualified rank-8 state:
-
-```text
-4665655 -- P1:E4 --> 46656555
-```
-
-Focused diagnostic `Frontier rank7 reply horizon diagnostic`, run `34891083467`, succeeded and establishes the following boundary:
-
-- all seven P1 replies A-G are legal nonterminal children;
-- only E is presently a qualified winning child, by exact state identity with `46656555`;
-- A/B/C/D/F/G have no immediate P0 terminal action, no enabled P0 singleton at the child, and no enabled P1 singleton obligation at the child;
-- every immediate P0 action from those six children is nonterminal and gives P1 no immediate terminal override;
-- `P0:F4` after A/B/C/D/E/G creates only the single P0 singleton `F5`, not the earlier `{C1,F5}` double threat;
-- the rank-9 F4 double-threat circuit therefore cannot be transferred backward by analogy.
-
-Next work is to classify the smallest exact structural continuation for A/B/C/D/F/G, beginning with candidate actions that create genuine support/temporal progress. E is consumed only by exact equality with the rank-8 theorem. Promotion of `4665655` requires all seven P1 children to close.
+That solver seam is currently **paused**, not superseded as false. Resume it only when explicitly selected; do not let stale router text silently pull an agent away from the active structural-logic investigation.
 
 ## Resource and proof hygiene
 
-- Five-minute outer/inner execution wall: **300 seconds**.
+- Five-minute outer/inner execution wall remains 300 seconds where applicable.
 - Preserve current proof-state and quotient/search-storage bounds.
 - Execution sharding is hygiene only, never semantic identity.
 - Do not raise limits merely to obtain a passing theorem.
-- Unknown is not loss; candidate-action failure is not state loss.
-- No deadline reset after clock advancement.
-- No arbitrary physical-frontier broadening or unrestricted q recursion.
-
-## Current evidence pointers
-
-- `docs/research/2026-09-14-guarded-braid-transport-reversed-stutter.md`
-- `docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-c1-full-closure.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-d3-reply-horizon-closure.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-c-reply-composed-closure.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank9-full-reply-closure.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank8-d-predecessor-closure.mjs`
-- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-reply-horizon-diagnostic.mjs`
+- No deadline regeneration, implicit frame rule, silent player/column symmetry, or q-equality from claim-relative signatures.

@@ -8,12 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: close_rank7_p1_reply_horizon
+  id: construct_or_falsify_natural_middle_intertwiner
   objective: >-
-    Exact states 466565554 and 46656555 are now structurally proved P0-winning. Move exactly one ply
-    backward to P1-turn state 4665655. The exact P1:E child is 46656555 and may consume the qualified
-    rank8 theorem. Promote 4665655 only if every other legal P1 child A/B/C/D/F/G is independently
-    closed by an exact P0-winning structural contract.
+    Continue from the qualified support-graded perfect duality between the corrected 28-dimensional
+    line and cell cores. Determine whether Connect4 supplies a natural direct intertwiner
+    T:Y_line->Y_cell, or whether the strongest canonical statement is the perfect dual pairing
+    Y_line ~= Y_cell^*. Do not use arbitrary Gaussian basis matching or a noncanonical vector-space split.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -23,149 +23,117 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
+  - docs/research/2026-09-14-support-graded-middle-duality.md
+  - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs
 
 qualified_premises:
-  - id: authority_status
+  - id: target_free_incidence_dimensions
     statement: >-
-      C4-0006 and C4-0007 remain Candidate research specifications. C4-0010 is an accepted research
-      consumer specification; using candidate structural clauses does not change their acceptance status.
-  - id: obligation_first_rho
+      From GF(2), K=4, H=6, W=7, the standard geometry derives L=69, rank(B)=35,
+      dim ker(B)=34, and the common excess 28 without 28 or 69 as primitive theorem inputs.
+  - id: original_projection_falsifiers
     statement: >-
-      Immediate P0 terminality precedes obligation classification. At a P0 node, two or more distinct
-      enabled P1 singleton obligations are an exact one-move response-capacity loss when P0 has no
-      immediate terminal; one obligation forces its exact blocking column; zero allows ordinary rho.
+      Column parity restricted to im(B) has rank 4, not 7. Pure-horizontal-line parity by row
+      restricted to ker(B) has rank 5, not 6.
+  - id: corrected_middle_cores
+    statement: >-
+      Row-plus-column axis parity on im(B) has rank 7; vertical-line parity by column on ker(B)
+      has rank 6. Their explicit kernels Y_cell and Y_line both have derived dimension 28.
+  - id: symmetry_scope
+    statement: >-
+      Bare-incidence top-bottom reflection fixed dimensions differ (Y_cell 16, Y_line 14), so a
+      B-only reflection-equivariant identification is falsified. This is not a Connect4-level
+      falsifier because gravity/support order breaks top-bottom symmetry. Left-right fixed dimensions
+      agree at 14 and remain a required naturality check.
+  - id: residual_complex
+    statement: >-
+      The residual boundary satisfies partial_3*partial_4=0, partial_4 is injective, and
+      J_3*partial_4=B. Degree-3 residual incidence has rank 42, falsifying naive W*(K-1)=21
+      as an automatic residual-core dimension.
+  - id: support_graded_perfect_pairing
+    statement: >-
+      g(S)=supportClosureSize(S)+componentCountAlongOriginalLine(S)+maxRow(S) mod 2 on
+      S=line\\{cell} induces a left-right-equivariant perfect pairing of rank 28 between
+      Y_cell and Y_line. Hence Y_line is naturally identified with Y_cell^* under this pairing.
     qualification:
-      logical_map_audit_run: 34881568472
-      result: success
-  - id: latent_c1_full_closure
+      control: quotient-standard7x6-support-graded-middle-duality-control.mjs
+      local_payload: proved:true
+      commit: 6dd91db38392cef03e499b6e526eea9ba8dc4eaf
+      github_actions_run: 34907472035
+      github_actions_result: infrastructure_failure_before_checkout
+  - id: no_free_self_duality
     statement: >-
-      Exact state 466565554644 is P0-winning via P0:C1 with all seven P1 replies closed under the
-      hardened calculus.
-    qualification:
-      workflow: Frontier latent C1 full closure
-      run: 34882743270
-      result: success
-  - id: d3_reply_horizon_closure
+      Ambient dot products restricted to Y_cell and Y_line each have rank 24, so the perfect pairing
+      does not canonically identify either core with its own dual.
+  - id: P_boundary
     statement: >-
-      Exact state 4665655546 is P0-winning via P0:D3. P1:D4 enters 466565554644 and every other reply
-      exposes immediate P0:D4 terminal.
-    qualification:
-      workflow: Frontier D3 reply horizon closure
-      run: 34888051981
-      result: success
-  - id: rank9_full_reply_closure
+      Same-column CPC two-ply stutter is zero displacement. Distinct-column phase deltas lie in the
+      corrected length-4 column-interval boundary only for one-based pairs (1,5), (2,6), (3,7).
+      Therefore generic P transport is not yet an action solely on the boundary quotient.
+  - id: family_falsification
     statement: >-
-      Exact P1-turn state 466565554 is P0-winning. A/B/D/E/G close by exhaustive P0:F4->{C1,F5}
-      double-threat response-capacity certificates; C closes through D3 -> forced D4 -> C2 -> forced C3
-      -> G1 followed by fresh-kernel distance-two/rho certificates; F enters qualified state 4665655546.
-      The C-branch shared-kernel capacity failure was execution pressure only; no limit was widened.
-    qualification:
-      workflow: Frontier rank9 full reply closure
-      run: 34890470315
-      result: success
-    predecessor: "466565554"
-  - id: rank8_d_predecessor_closure
-    statement: >-
-      Exact P0-turn state 46656555 is P0-winning via P0:D2 into exact qualified child 466565554.
-    qualification:
-      workflow: Frontier rank8 D predecessor closure
-      run: 34890858920
-      result: success
-    predecessor: "46656555"
-    witness: D2
-  - id: rank7_reply_diagnostic
-    statement: >-
-      Exact P1-turn state 4665655 has seven legal nonterminal replies A-G. E is exactly 46656555.
-      A/B/C/D/F/G have no immediate P0 terminal, no P0 singleton, and no P1 obligation at the P0 child.
-      Every immediate P0 action is nonterminal and gives P1 no immediate terminal override. P0:F4 after
-      A/B/C/D/E/G creates only singleton F5, not the earlier C1/F5 double threat.
-    qualification:
-      workflow: Frontier rank7 reply horizon diagnostic
-      run: 34891083467
-      result: success
-  - id: exact_postblock_tables
-    statement: >-
-      The hardened exact post-block boundaries remain rank18 83W/1L/0unknown and rank16 11W/1L.
-    unique_rank18_loss: "466565554644323332"
-    unique_rank16_loss: "4665655546443233"
+      In the finite W=2K-1,H=2K-2 neighborhood K=2..8, only K=4 has equal image-over-width and
+      kernel-over-height excess. K=2 is the smallest tested counterexample.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  first_boundary:
-    predecessor: "4665655"
-    side_to_move: P1
-    known_reply_column: E
-    known_reply_cell: E4
-    known_child: "46656555"
-    known_child_consequence: P0_win
-  first_candidate:
-    name: exact_forced_f5_handoff_family
-    scope:
-      replies: [A, B, C, D, G]
-      p0_action: F4
-    question: >-
-      For each exact A/B/C/D/G child, does P0:F4 create an exact F5 terminal threat such that every
-      P1 non-F5 response loses immediately and the exact F5 block enters a smaller reusable structural
-      contract? Classify each post-F5-block child independently; do not infer sibling equivalence.
-    required_guards:
-      - exact child sequence and P0:F4 landing
-      - no P1 terminal override after F4
-      - enabled P0 singleton F5 after F4
-      - exhaustive legal P1 replies after F4
-      - every non-F5 reply must expose exact immediate P0:F5 terminal
-      - exact F5 block child identity
-      - forced-obligation classification before any rho/kappa handoff
-      - no symmetry, phase-only forcing, implicit frame, or q-equality shortcut
-  separate_hard_child:
-    reply: F
-    sequence: "46656556"
-    reason: >-
-      P0:F lands on F5 at this child and does not create the singleton-F5 handoff seen in A/B/C/D/G.
-      Keep F independent until an exact continuation is derived.
-  execution_order:
-    - qualify the A/B/C/D/G P0:F4 -> forced P1:F5 handoff as five exact cases
-    - inspect the five exact post-F5-block children for immediate terminal, obligations, target support, and rho/kappa entry
-    - preserve piecewise witnesses if the children diverge; do not require a universal action
-    - investigate exact F child 46656556 separately
-    - consume P1:E only by exact state equality with qualified 46656555
-    - compose the rank7 universal predecessor only after A/B/C/D/E/F/G all close
+  primary_question: >-
+    Is there a Connect4-defined nondegenerate self-pairing or direct map on Y_cell that composes with
+    the qualified residual/support perfect pairing to produce a natural T:Y_line->Y_cell?
+  candidate_order:
+    - >-
+      CPC/event-order forms derived from the exact zero-reservation event reservoir. A candidate must
+      be defined on semantic cell/event structure before choosing any Y basis.
+    - >-
+      Residual-induced cell forms obtained from the qualified g(S) pairing and the graded residual
+      boundary, provided their type and commuting relations are explicit.
+    - >-
+      Support-filtration or cycle/cocycle constructions that preserve gravity order and left-right
+      reflection while making no top-bottom-symmetry assumption.
+    - >-
+      If all natural self-duality candidates remain degenerate, attempt an impossibility statement
+      under an explicit naturality class rather than inventing an arbitrary complement.
+  required_checks:
+    - compute the restricted rank before claiming nondegeneracy
+    - verify left-right reflection equivariance
+    - do not require top-bottom reflection invariance
+    - prove any claimed map lands in Y_cell and is injective/surjective there
+    - if using the perfect pairing, distinguish Y_cell from Y_cell^*
+    - test commutation with the residual boundary/cofactor construction where typed
+    - keep P/CPC support-height phase distinct from arbitrary cell-incidence vectors
+    - preserve the K=2..8 counterexamples when proposing a general theorem
   falsification:
-    - a single unclosed legal P1 child blocks promotion of 4665655
-    - if any non-F5 P1 reply after F4 does not expose immediate F5 terminal, reject the forced-handoff candidate for that child
-    - failed P0 candidate action remains unknown unless all legal P0 actions are exhausted by exact loss theorems
-    - do not transfer the rank9 F4 double-threat theorem backward; rank7 diagnostic already falsifies that shape
-    - preserve the smallest exact child that falsifies any proposed generalization
-  resource_hygiene:
-    - five-minute outer wall: 300 seconds
-    - five-minute inner wall: 300 seconds
-    - preserve current proof-state and quotient/search-storage limits
-    - execution sharding is not semantic identity
-    - do not increase limits merely to obtain a passing theorem
-  forbidden_shortcuts:
-    - solved_WDL_or_external_solver_as_premise
-    - unknown_as_loss
-    - phase_or_symmetry_as_forced_reply_without_theorem
-    - deadline_reset_after_clock_tick
-    - ownership_or_column_symmetry_without_proof
-    - implicit_frame_rule
-    - q_equality_from_claim_relative_signature
-    - arbitrary_q_frontier_recursion
-    - proof_or_quotient_cap_increase_without_structural_reason
-    - unproved_69_to_28_geometric_line_reduction
+    - a degenerate restricted form cannot define the desired self-duality
+    - a basis-dependent Gaussian match is not canonical evidence
+    - top-bottom reflection mismatch is not a valid Connect4-level rejection by itself
+    - residual arity reduction alone does not imply 28->21
+    - P acting on phase space does not imply an action on Y without an explicit intertwiner
+  proof_boundaries:
+    - unknown_is_not_loss
+    - theorem_failure_is_not_opposite_game_outcome
+    - resource_failure_is_not_logical_rejection
+    - same_dimension_is_not_canonical_isomorphism
+    - vector_space_split_is_not_natural_split
+    - no_predefined_28_in_target_free_middle_theorem
+    - no_predefined_69_in_strongest_target_free_control
+    - connect4_residual_cofactor_is_not_connect3_incidence_without_map
+    - candidate_specs_0006_0007_remain_candidate
 
 success_criteria:
-  - every legal P1 reply from 4665655 is explicitly represented
-  - exact E child consumes qualified 46656555 theorem
-  - every other child has an exact P0-winning certificate
-  - no closure comes from timeout, resource failure, output cardinality, symmetry, phase analogy, or solved labels
-  - STATUS.md and next_step.yaml remain synchronized
+  direct_isomorphism_success:
+    - define T from Connect4 incidence/support/residual/CPC structure before basis selection
+    - prove T maps Y_line into Y_cell
+    - prove rank(T|Y_line)=dim(Y_line)
+    - verify left-right naturality and required commuting diagrams
+    - persist a proved:true executable control and research note
+  duality_terminal_success:
+    - define an explicit naturality class for admissible direct intertwiners/self-pairings
+    - prove or finitely exhaust that class sufficiently to justify why no canonical direct T follows
+    - preserve Y_line ~= Y_cell^* as the strongest theorem rather than forcing self-identification
 
-on_success:
-  next: >-
-    Promote 4665655 to P0-winning as a universal P1 predecessor, then move exactly one ply backward and
-    continue branch-complete structural composition toward the center opening.
-
-on_failure:
-  next: >-
-    Preserve the smallest exact unclosed child and identify its first missing E/R/P/C/N predicate or theorem
-    routing rule. Refine only that dependency cone; do not broaden the physical frontier or raise caps.
+paused_solver_seam:
+  state: "4665655"
+  status: unfinished_but_preserved
+  note: >-
+    The prior rank-7 P1 reply-horizon W/D/L seam remains valid unfinished work but is not the active
+    task. Resume only by explicit owner selection; do not route there from stale status text.
