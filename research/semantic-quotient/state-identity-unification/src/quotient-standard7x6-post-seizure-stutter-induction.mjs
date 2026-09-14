@@ -48,11 +48,17 @@ function neutralContract(id){
 }
 
 const memo=new Map();
-let schedulerStates=0,maxDepth=0,neutralPairs=0,dualExits=0,immediateP0Terminals=0,targetSupportTerminals=0;
+let schedulerStates=0,maxDepth=0,repairProgressWitnesses=0,sameColumnWitnesses=0,alternateRepairWitnesses=0,repairCandidatesRejected=0,dualExits=0,immediateP0Terminals=0,targetSupportTerminals=0;
 const dualMemo=new Map();
 function dualCertificate(sequence){
  if(dualMemo.has(sequence))return dualMemo.get(sequence);
  const result=runDual(sequence);dualMemo.set(sequence,result);return result;
+}
+function candidateOrder(preferred){
+ const out=[];
+ if(REPAIR.includes(preferred))out.push(preferred);
+ for(const c of REPAIR)if(c!==preferred)out.push(c);
+ return out;
 }
 function prove(state,sequence,depth=0){
  const key=state;
@@ -72,41 +78,72 @@ function prove(state,sequence,depth=0){
   const afterP1Sequence=sequence+String(action+1);
   const immediate=e.terminalActions(afterP1,0);
   if(immediate.length){immediateP0Terminals++;if(action===C||action===G)targetSupportTerminals++;branches.push({P1:col(action),cell:coord(eventCell),route:'immediate_P0_terminal',terminalCells:immediate.map(x=>coord(x.cell))});continue;}
-  if(!REPAIR.includes(action)){
-    const dual=dualCertificate(afterP1Sequence);
-    if(!dual.proved){proved=false;branches.push({P1:col(action),cell:coord(eventCell),route:'target_column_without_terminal_or_dual_certificate',dual});}
-    else{dualExits++;branches.push({P1:col(action),cell:coord(eventCell),route:'dual_target_exit',dual:{proved:true,selectedTarget:dual.selectedTarget}});}
-    continue;
-  }
 
-  const sameCell=e.landing(afterP1,action);
-  if(sameCell!==0xff){
-    const afterP0=k.advance(afterP1,action);
-    if(afterP0===domain.QN_TERMINAL_WIN){immediateP0Terminals++;branches.push({P1:col(action),cell:coord(eventCell),route:'same_column_P0_terminal',P0:col(action),P0cell:coord(sameCell)});continue;}
+  // Structural witness search, not an unranked strategy search: every recursive candidate below
+  // is a repair action whose accepted successor re-enters the same neutral contract with strictly
+  // smaller mu. Candidate failure is retained locally and never interpreted as loss.
+  const repairAttempts=[];
+  let selected=null;
+  for(const response of candidateOrder(action)){
+    const responseCell=e.landing(afterP1,response);
+    if(responseCell===0xff){repairAttempts.push({P0:col(response),route:'unavailable'});continue;}
+    const afterP0=k.advance(afterP1,response);
+    if(afterP0===domain.QN_TERMINAL_WIN){
+      selected={kind:'P0_terminal',response,responseCell};
+      repairAttempts.push({P0:col(response),P0cell:coord(responseCell),route:'P0_terminal'});
+      break;
+    }
     assert(afterP0>=0&&e.rank(afterP0)===e.rank(state)+2);
     const restored=neutralContract(afterP0);
-    const exactPairProgress=restored.ok&&restored.mu===beforeMu-2&&restored.phaseBits===beforePhase;
-    if(exactPairProgress){
-      neutralPairs++;
-      const child=prove(afterP0,afterP1Sequence+String(action+1),depth+1);
-      if(child.proved){branches.push({P1:col(action),cell:coord(eventCell),route:'deadline_free_same_column_stutter',P0:col(action),P0cell:coord(sameCell),beforeMu,afterMu:restored.mu,childKey:afterP0});continue;}
+    const strictProgress=restored.ok&&restored.mu<beforeMu;
+    if(!strictProgress){
+      repairCandidatesRejected++;
+      repairAttempts.push({P0:col(response),P0cell:coord(responseCell),route:'does_not_reenter_smaller_neutral_contract',restored});
+      continue;
     }
-    // Same-column response either failed the neutral contract or its recursive exact successor did not close.
-    // Exit from the P0-turn state immediately after the P1 event into the independent dual-target theorem.
-    const dual=dualCertificate(afterP1Sequence);
-    if(!dual.proved){proved=false;branches.push({P1:col(action),cell:coord(eventCell),route:'stutter_and_dual_exit_unproved',sameColumnRestored:restored,exactPairProgress,dual});}
-    else{dualExits++;branches.push({P1:col(action),cell:coord(eventCell),route:'pair_not_used_dual_target_exit',sameColumnRestored:restored,exactPairProgress,dual:{proved:true,selectedTarget:dual.selectedTarget}});}
+    const child=prove(afterP0,afterP1Sequence+String(response+1),depth+1);
+    if(!child.proved){
+      repairCandidatesRejected++;
+      repairAttempts.push({P0:col(response),P0cell:coord(responseCell),route:'smaller_neutral_child_unproved',beforeMu,afterMu:restored.mu,childKey:afterP0});
+      continue;
+    }
+    selected={kind:'repair_progress',response,responseCell,afterP0,restored,child};
+    repairAttempts.push({P0:col(response),P0cell:coord(responseCell),route:'smaller_neutral_child_proved',beforeMu,afterMu:restored.mu,childKey:afterP0});
+    break;
+  }
+
+  if(selected?.kind==='P0_terminal'){
+    immediateP0Terminals++;
+    branches.push({P1:col(action),cell:coord(eventCell),route:'repair_witness_P0_terminal',selectedP0:col(selected.response),selectedP0Cell:coord(selected.responseCell),repairAttempts});
+    continue;
+  }
+  if(selected?.kind==='repair_progress'){
+    repairProgressWitnesses++;
+    const isSame=selected.response===action;
+    if(isSame)sameColumnWitnesses++;else alternateRepairWitnesses++;
+    const pairPhasePreserved=isSame&&selected.restored.phaseBits===beforePhase;
+    branches.push({
+      P1:col(action),cell:coord(eventCell),
+      route:isSame&&pairPhasePreserved?'deadline_free_same_column_stutter':'deadline_free_repair_progress',
+      selectedP0:col(selected.response),selectedP0Cell:coord(selected.responseCell),beforeMu,afterMu:selected.restored.mu,
+      phaseBefore:beforePhase,phaseAfter:selected.restored.phaseBits,pairPhasePreserved,
+      childKey:selected.afterP0,repairAttempts,
+    });
     continue;
   }
 
-  // Final odd tail: P1 consumed the last event in this repair column, so no pair response exists.
-  // The strict resource consumption is already physical; hand the P0-turn state to the dual-target theorem.
-  assert(e.mu(afterP1)<=beforeMu-1,'final offsystem tail increased repair capacity');
+  // No repair action produced a proved smaller neutral child. Only now may this exact P0-turn
+  // boundary leave the repair induction and attempt an independently qualified target/obligation exit.
   const dual=dualCertificate(afterP1Sequence);
-  if(!dual.proved){proved=false;branches.push({P1:col(action),cell:coord(eventCell),route:'final_tail_dual_exit_unproved',beforeMu,afterMu:e.mu(afterP1),dual});}
-  else{dualExits++;branches.push({P1:col(action),cell:coord(eventCell),route:'final_tail_dual_target_exit',beforeMu,afterMu:e.mu(afterP1),dual:{proved:true,selectedTarget:dual.selectedTarget}});}
+  if(!dual.proved){
+    proved=false;
+    branches.push({P1:col(action),cell:coord(eventCell),route:'no_repair_witness_or_dual_exit',repairAttempts,dual});
+  }else{
+    dualExits++;
+    branches.push({P1:col(action),cell:coord(eventCell),route:'dual_target_exit_after_repair_witness_exhaustion',repairAttempts,dual:{proved:true,selectedTarget:dual.selectedTarget}});
+  }
  }
- const out={proved,kind:proved?'post_seizure_stutter_induction':'post_seizure_branch_unproved',sequence,mu:beforeMu,phaseBits:beforePhase,branches};
+ const out={proved,kind:proved?'post_seizure_repair_progress_induction':'post_seizure_branch_unproved',sequence,mu:beforeMu,phaseBits:beforePhase,branches};
  memo.set(key,out);return out;
 }
 
@@ -120,17 +157,17 @@ const entrySequence=refusalSequence+'7';
 const entryContract=neutralContract(afterG1);assert.equal(entryContract.ok,true,`${refusalName}: post-G1 neutral contract not established`);
 const proof=prove(afterG1,entrySequence,0);
 const result={
- kind:'standard7x6-deadline-free-post-seizure-stutter-induction-v1',
+ kind:'standard7x6-deadline-free-post-seizure-repair-progress-induction-v2',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
  refusalColumn:refusalName,refusalCell:coord(refusalCell),refusalSequence,entrySequence,
  expiredObligation:'P0:C1 -> P1:G1 by next_P1_turn',obligationDisposition:'expired before G1 seizure; never reset',
  P0Seizure:'G1',entryContract,proved:proof.proved,proof,
- stats:{schedulerStates,maxDepth,neutralPairs,dualExits,immediateP0Terminals,targetSupportTerminals,dualCertificates:dualMemo.size,schedulerStateCap:MAX_SCHEDULER_STATES},
+ stats:{schedulerStates,maxDepth,repairProgressWitnesses,sameColumnWitnesses,alternateRepairWitnesses,repairCandidatesRejected,dualExits,immediateP0Terminals,targetSupportTerminals,dualCertificates:dualMemo.size,schedulerStateCap:MAX_SCHEDULER_STATES},
  promotedConsequence:proof.proved?`${refusalSequence} in W via P0:G1`:null,
  theoremBoundary:proof.proved
-  ?'Exact refusal-specific post-G1 scheduler induction. Recursion occurs only after a P1/P0 same-column offsystem pair restores the exact deadline-free dual-target contract, preserves phase, and strictly decreases mu by two. Non-restoring pairs and final odd tails exit to independent dual-target certificates. This is not a generic ownership symmetry theorem and does not reset any expired deadline.'
-  :'Exact refusal-specific post-G1 scheduler only. Unproved exits/terminal branches remain explicit; no failure is interpreted as loss.',
- authority:'Exact C4-0010 transitions/residuals and enabled-singleton terminal facts, strict finite mu descent for recursive stutters, and independently qualified dual-target/rho exit certificates under unchanged bounds. No solved labels, external oracle premise, or unrestricted q-frontier recursion.'
+  ?'Exact refusal-specific post-G1 structural induction. After each legal P1 event, P0 first seeks a repair action whose exact successor re-enters the deadline-free dual-target neutral contract with strictly smaller mu; same-column recovery is preferred but not privileged. Recursion exists only across that strict mu descent. Only boundaries with no proved repair witness may exit to an independently qualified dual-target certificate. This is not ownership symmetry and no expired deadline is reset.'
+  :'Exact refusal-specific post-G1 scheduler only. Unproved repair candidates and exits remain explicit; no candidate failure is interpreted as state loss.',
+ authority:'Exact C4-0010 transitions/residuals and enabled-singleton terminal facts, well-founded strict mu descent for every recursive repair witness, and independently qualified dual-target/rho exits under unchanged bounds. No solved labels, external oracle premise, or unrestricted q-frontier recursion.'
 };
 console.log(`POST_SEIZURE_STUTTER_INDUCTION=${JSON.stringify(result)}`);
-assert.equal(proof.proved,true,`${refusalName}: post-seizure stutter induction failed`);
+assert.equal(proof.proved,true,`${refusalName}: post-seizure repair-progress induction failed`);
