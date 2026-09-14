@@ -67,234 +67,178 @@ The guarded bridge
 
 is qualified. It activates the latent C3/G3 temporal contract but does not itself prove `466565554644 in W`.
 
-The current program is to close every arbitrary P1 deviation inside the post-block C3/G3 contract, promote only the exact latent state when branch-complete, then push the theorem backward through the full D3-hinge reply horizon.
+The active program is now to complete the cross-pair scheduler around `466565554644`, then push any exact latent-state theorem backward through the full D3-hinge reply horizon.
 
-## Action-relative repair correction
+## Repair and resolved-tail induction
 
-Global state-like progress quotients failed cross-action congruence. The retained abstraction is:
+Global state-like progress quotients failed cross-action congruence. The retained abstraction is claim/action-relative.
 
-```text
-ActionProgressCone(S, a)
-```
-
-which keeps only E/R/P/C/N facts load-bearing for the selected action claim.
-
-Qualified local routing includes:
-
-- 108 exact action-progress replies;
-- 20 immediate enabled-target terminal certificates;
-- 40 chain continuations with another strict selected-column descent or terminal closure;
-- 48 exhausted-tail handoffs;
-- 12 exact bounded states where every legal P0 move permits an immediate P1 terminal response;
-- backward elimination of 8/12 D/E/F tail actions;
-- target-adjacent survivor rule:
-  - remaining G3 target -> F tail;
-  - remaining C3 target -> D tail;
-- complementary-tail continuation after the adjacent-tail survivor.
-
-## Five-column repair induction
-
-The first well-founded repair measure is
+The first repair measure is
 
 ```text
 mu(S) = sum remainingCapacity_c(S), c in {A,B,D,E,F}.
 ```
 
-Inside the qualified repair subsystem:
+It is a valid well-founded repair coordinate, but exact matched controls prove that `mu`, GF(2) phase, root deadline set, and sorted repair-capacity shape are not sufficient proof-success or value classifiers.
 
-- selected P0 repair actions decrease `mu` by one;
-- P1 replies do not increase it;
-- the original restricted 16-start predecessor control closes 16/16;
-- the retained finite proof certificate contains 9,635 physical proof states and 1,022 conservative canonical proof classes.
-
-This is a valid induction schema, not evidence that `mu` is a value classifier or that the game has only 1,022 semantic states.
-
-Detailed earlier evidence:
-
-`docs/research/2026-09-13-repair-capacity-predecessor-induction.md`
-
-## `mu` is not a sufficient classifier
-
-Matched positive/negative controls produced ten proved/unproved `mu=15` pairs matched at the strongest tested tier:
-
-- same remaining target;
-- same `mu`;
-- same root P1 deadline set;
-- same GF(2) phase location;
-- same sorted five-column repair-capacity multiset.
-
-Therefore `mu`, phase, root deadlines, and repair-capacity shape are not sufficient W/D/L or proof-success classifiers.
-
-## Resolved-tail lexicographic induction
-
-The missing resource coordinate is the remaining tail of the already-resolved C/G column.
-
-Define
+The missing resource for the support-distance-one clean gap is the already-resolved C/G tail:
 
 ```text
 delta(S) = remaining capacity in the previously resolved C/G column
 rho(S)   = (delta(S), mu(S))
 ```
 
-with lexicographic descent under exact terminal/live-target/deadline guards.
+The qualified `rho` induction closes the full clean `mu=15` corpus 160/160 under unchanged limits.
 
-Qualified roles:
+Detailed evidence:
 
-- resolved-tail P0 action decreases `delta`;
-- A/B/D/E/F repair action decreases `mu`;
-- P1 replies are nonincreasing in the ordered resource pair.
+- `docs/research/2026-09-13-repair-capacity-predecessor-induction.md`
+- `docs/research/2026-09-14-resolved-tail-distance2-postblock-composition.md`
 
-Qualified clean `mu=15` result:
+## Target-distance induction
 
-- previously unproved representatives: 12/12 proved;
-- exact clean corpus: 160/160 proved;
-- failed: 0;
-- execution-only structural shards: 42;
-- maximum proof states in one shard: 41,893;
-- no proof/state cap increase.
+The 22-root post-block residual exposed one further well-founded coordinate: support distance to the still-live C3/G3 target.
 
-## `mu=16` exact boundary
-
-On the exact clean deadline-free G3/`mu=16` rank-20 corpus, both the additive resolved-tail rank and lexicographic `rho` theorem prove 35/37 and fail on the same exact roots:
+The retained induction is
 
 ```text
-46656555464431333374
-46656555464432333374
+kappa(S) = (d(S), delta(S), mu(S))
 ```
 
-These are structural falsifiers for any claim that resolved-tail ordering alone completes the post-block calculus.
+lexicographically, under exact terminal/live-target/deadline/response-capacity guards.
 
-## Forced target-support / forced-defense sequence
+At distance two, accepted P0 progress actions strictly decrease `kappa`, legal P1 replies are required not to increase it, and distance-one leaves delegate to the qualified `rho=(delta,mu)` theorem.
 
-At both exact `mu=16` falsifiers, P0:G2 is the only retained structural action family not already eliminated.
+No proof/state/quotient cap was increased and no wider q frontier was generated.
 
-Across fourteen legal P1 replies:
+## Exact forced-obligation loss theorem
 
-- 12 deviations yield immediate P0 terminality on G3;
-- 0 are immediate P1 terminal;
-- exactly 2 are forced P1:G3 target consumptions.
+The 22 residual roots should not all be forced into a winning predecessor theorem.
 
-After forced P1:G3, P1 has an enabled G4 singleton. P0:G4 is a true forced defense: every nonblocking nonterminal P0 action permits immediate P1:G4 terminality.
+A loss-only forced-obligation calculus was qualified. It certifies loss only through exact enabled-P1-singleton response obligations:
 
-The post-G4-block continuation requires a new contract transition because G3 has been consumed.
+- zero obligations -> unknown to this calculus;
+- one obligation -> all nonblocking P0 actions must be shown P1-terminal, then the unique block propagates loss only through an immediate or recursively qualified losing P1 reply;
+- two or more obligations -> every legal P0 action must be shown to leave an immediate P1 terminal before one-move response-capacity loss is certified.
 
-## Support-distance-two re-entry
+It contradicts none of the already-qualified positive rank-18 roots.
 
-A guarded support-distance-two target-support macro is now qualified and composed into the post-block predecessor control.
-
-Exact preconditions:
-
-- P0 to move;
-- remaining P0 target singleton live;
-- target support distance exactly two.
-
-The macro advances the first support cell in the target column, rejects any exact P1 terminal reply, discharges immediate P0 terminal successors, and otherwise requires entry into the support-distance-one resolved-tail lexicographic theorem.
-
-This is action-conditioned and exact-domain qualified, not a global state theorem.
-
-## Enhanced 84-state rank-18 post-block predecessor
-
-The exact post-forced-block boundary contains 84 rank-18 roots: 42 with remaining target C3 and 42 with remaining target G3.
-
-The enhanced predecessor composes:
-
-- immediate P0 terminal certificates;
-- support-distance-one resolved-tail lexicographic induction;
-- guarded support-distance-two target-support re-entry.
-
-### G3 half
-
-All 42 G3 roots are evaluated:
-
-- closed: 25;
-- logical failures: 17;
-- resource failures: 0.
-
-Across attempted actions in those 17 failed roots, the compact first-failure census is:
-
-- immediate `P1_terminal`: 8;
-- `distance1_lexicographic_unproved`: 14;
-- `distance2_target_support_rejected`: 97;
-- `outside_supported_contract`: 0;
-- coarse signatures: 8.
-
-These are action-attempt mechanism counts, not mutually exclusive state labels.
-
-The zero `outside_supported_contract` count is important: the G3 residual remains inside known temporal/repair contract types.
-
-### C3 half after execution isolation
-
-The shared C3 arena mixed logical outcomes with allocator/resource contamination, so all 42 exact C3 roots were rerun as fourteen independent three-root partitions with unchanged limits.
-
-Exact aggregate:
-
-- evaluated: 42/42;
-- closed: 37;
-- logical failures: 5;
-- resource branches: 0.
-
-Exact remaining C3 roots:
+The unique exact rank-18 loss is:
 
 ```text
-466565554644757774
-466565554644757776
-466565554644757777
-466565554644747775
-466565554644767775
+466565554644323332
 ```
 
-Their residual mechanisms reduce to combinations of:
+with simultaneous P1 singleton obligations at `A1` and `E5`.
 
-- immediate enabled-P1-singleton terminality;
-- distance-two target-support re-entry rejected by an adversarial P1 terminal reply;
-- distance-two re-entry whose distance-one child has `no_lex_predecessor`;
-- direct support-distance-one lexicographic failure.
-
-`466565554644757774` is a clean example: the nonclosing branches expose exact P1:D6 terminality. These are genuine logical residuals, not resource artifacts.
-
-## Current theorem gap
-
-The remaining post-block problem is no longer a broad frontier problem and no longer a pure rank problem.
-
-Current exact residual domain:
+Backward propagation proves exactly one rank-16 scheduler context losing:
 
 ```text
-17 G3 rank-18 logical failures
- 5 C3 rank-18 logical failures
-22 total residual roots
+4665655546443233
 ```
 
-The smallest plausible next calculus is a guarded deadline/response-capacity predecessor contract that keeps, for each selected P0 action and adversarial reply:
+through the forced C4 defense and adversarial P1:B2 reply.
 
-- the live target claim;
-- exact enabled P1 singleton terminal obligations;
-- P0 immediate terminal alternatives;
-- available defensive/response slots;
-- the exact `rho=(delta,mu)` child;
-- terminal-complete branch coverage.
+## Complete rank-18 post-block classification
 
-Do not promote a scalar incidence/deadline count to theorem authority. Derive the dependency cone from the exact residual branches and falsify it across mirrored C3/G3 instances.
+The exact post-forced-block boundary contains 84 rank-18 states.
 
-Detailed current evidence:
+Combining the previously qualified enhanced predecessor, the target-distance `kappa` theorem, isolated C3 action qualification, and the forced-obligation loss theorem gives:
 
-`docs/research/2026-09-14-resolved-tail-distance2-postblock-composition.md`
+```text
+83 P0-win
+ 1 P0-loss
+ 0 unknown
+```
 
-## Immediate execution seam
+The unique loss is `466565554644323332`.
 
-Current router: `next_step.yaml`.
+For the formerly residual G3 half, `kappa` proves 16/17 with zero resource failures; the one failure is exactly the independently loss-certified root.
 
-The next proof obligation is to close or further separate the exact 22 residual rank-18 roots under unchanged proof/state limits. When both C3 and G3 halves close 42/42, compose the resulting post-block theorem into the actual C/G scheduler at `466565554644`.
+For the five formerly residual C3 roots, all five are now proved. Three roots required top-level action isolation under unchanged limits and each has exactly one qualified witness:
 
-Only after the exact latent state is branch-complete may it be promoted into `W`; only then push backward through the D3 hinge. Do not claim center-opening or root membership in `W` earlier.
+```text
+466565554644757776 -> G
+466565554644757777 -> F
+466565554644767775 -> G
+```
+
+Execution isolation is hygiene only and is not semantic identity.
+
+Detailed evidence:
+
+`docs/research/2026-09-14-forced-obligation-kappa-rank16-composition.md`
+
+## Exact rank-16 composition
+
+The twelve rank-16 scheduler contexts each carry one resolved-column P1 singleton deadline. Exact composition first proves the corresponding P0 block is forced, then enumerates every P1 reply and consumes only qualified rank-18 child contracts.
+
+Qualified result:
+
+```text
+12 exact rank-16 contexts
+11 P0-win
+ 1 P0-loss
+```
+
+The unique loss is:
+
+```text
+4665655546443233
+```
+
+The composition consumes:
+
+- 62 previously qualified enhanced-predecessor wins;
+- 21 target-distance `kappa` wins;
+- 1 forced-obligation loss;
+- 0 direct P1-terminal children after the forced block.
+
+The permanent qualifier is `.github/workflows/frontier-postblock-rank16-outcome-composition.yml`.
+
+## Scheduler consequence
+
+At scheduler state
+
+```text
+46656555464432
+```
+
+the old P0:C2 continuation is now adversarially eliminated because P1:C3 reaches the proved losing rank-16 context `4665655546443233`.
+
+This eliminates that action; it does **not** prove `46656555464432` losing.
+
+The natural recovery candidate is a same-column reply to the preceding off-subsystem P1 event, e.g. P1:B1 followed by P0:B2, before resuming the target scheduler.
+
+## Current theorem gap: reversed-ownership stutter
+
+The repository already qualifies same-column stutter in the opposite move orientation: P0 action followed by P1 same-column response.
+
+The scheduler now needs an exact theorem of the form
+
+```text
+P1 off-subsystem action
+-> P0 same-column response
+-> live C3/G3 scheduler claim preserved
+```
+
+for the relevant A/B/D/E/F columns.
+
+Do **not** infer this by symmetry. Ownership/turn orientation may change CPC phase, residual incidence, deadlines, terminal alternatives, or response-resource meaning.
+
+The next proof obligation is to prove or falsify reversed-ownership same-column stutter under exact terminal/support/R/P/C/N guards, then compose any qualified macro into the rank-14 scheduler decisions and re-evaluate `466565554644` under every arbitrary P1 deviation.
+
+If it closes, promote only the exact latent state after branch-complete composition. If it falsifies, preserve the smallest exact counterexample and derive the missing ownership/phase/deadline premise rather than broadening the frontier.
 
 ## Hygiene
 
 - Exact search/minimax/oracle WDL is discovery/falsification only.
 - Unknown is not loss.
-- Failure of a candidate action/theorem family is not state loss.
-- `mu`, phase, and simple deadline counts are not value classifiers.
+- Candidate-action or theorem-family failure is not state loss.
+- Response-capacity loss requires exact obligation-to-response-slot evidence and exhaustive legal-action coverage.
+- No implicit frame rule or ownership reversal.
+- `mu`, phase, deadline counts, physical sequence, and execution partition are not value classifiers.
 - Claim/proof/action isomorphism is not q equality.
-- Response-capacity use requires exact obligation/slot mapping.
 - No physical-frontier broadening or arbitrary q recursion.
-- No proof/state cap increase without theorem justification.
-- Every research qualifier retains the five-minute outer wall and 270-second inner timeout.
+- No proof/state/quotient cap increase without theorem justification.
+- Every focused research qualifier retains the five-minute outer wall and 270-second inner timeout.
