@@ -10,6 +10,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-column-obligation-handoff.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-typed-handoffs.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-certified-dag-predecessor-closure.mjs
       - .github/workflows/frontier-repair-capacity-induction.yml
   workflow_dispatch:
 
@@ -24,15 +25,15 @@ jobs:
       starts_proved: ${{ steps.induction.outputs.starts_proved }}
       rank16_proved: ${{ steps.latent_closure.outputs.rank16_proved }}
       root_closed: ${{ steps.latent_closure.outputs.root_closed }}
-      c_unresolved: ${{ steps.latent_closure.outputs.c_unresolved }}
-      g_unresolved: ${{ steps.latent_closure.outputs.g_unresolved }}
       forced_defense: ${{ steps.obligation.outputs.forced_defense }}
-      obligation_unresolved: ${{ steps.obligation.outputs.obligation_unresolved }}
       typed_closed: ${{ steps.typed.outputs.typed_closed }}
       typed_failed: ${{ steps.typed.outputs.typed_failed }}
-      tail_closed: ${{ steps.typed.outputs.tail_closed }}
-      target_closed: ${{ steps.typed.outputs.target_closed }}
-      compensate_closed: ${{ steps.typed.outputs.compensate_closed }}
+      dag18_closed: ${{ steps.dag.outputs.dag18_closed }}
+      dag18_failed: ${{ steps.dag.outputs.dag18_failed }}
+      dag16_closed: ${{ steps.dag.outputs.dag16_closed }}
+      dag16_failed: ${{ steps.dag.outputs.dag16_failed }}
+      dagroot_closed: ${{ steps.dag.outputs.dagroot_closed }}
+      frozen_pairs: ${{ steps.dag.outputs.frozen_pairs }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -67,9 +68,8 @@ jobs:
           const fs=require('node:fs');
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('LATENT_WINNING_CONTRACT_CLOSURE='));
           if(!line) throw new Error('latent winning-contract summary missing');
-          const x=JSON.parse(line.slice(line.indexOf('=')+1)); const c=x.targetMacros.find(m=>m.attack==='C'),g=x.targetMacros.find(m=>m.attack==='G');
-          if(x.rank16SchedulerExitCount!==4||!c||!g) throw new Error('latent closure domain drift');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`rank16_proved=${x.rank16SchedulerExitsProvedByRepairInduction}`,`root_closed=${x.rootClosedCandidateColumns.length}`,`c_unresolved=${c.unresolvedCount}`,`g_unresolved=${g.unresolvedCount}`].join('\n')+'\n');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1)); if(x.rank16SchedulerExitCount!==4) throw new Error('latent closure domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`rank16_proved=${x.rank16SchedulerExitsProvedByRepairInduction}`,`root_closed=${x.rootClosedCandidateColumns.length}`].join('\n')+'\n');
           NODE
       - name: Qualify resolved-column obligation handoff
         id: obligation
@@ -83,9 +83,9 @@ jobs:
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RESOLVED_COLUMN_OBLIGATION_HANDOFF='));
           if(!line) throw new Error('resolved-column obligation summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1)); if(x.exactSurvivorStates!==12) throw new Error('obligation domain drift');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`forced_defense=${x.forcedDefenseRows}`,`obligation_unresolved=${x.unresolvedCount}`].join('\n')+'\n');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,`forced_defense=${x.forcedDefenseRows}\n`);
           NODE
-      - name: Qualify typed post-block handoffs
+      - name: Qualify typed post-block handoff classifier
         id: typed
         shell: bash
         run: |
@@ -96,16 +96,36 @@ jobs:
           const fs=require('node:fs');
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_TYPED_HANDOFFS='));
           if(!line) throw new Error('typed post-block summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1)); if(x.exactRank18States!==84) throw new Error('typed post-block domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`typed_closed=${x.closedStates}`,`typed_failed=${x.failedStates}`].join('\n')+'\n');
+          NODE
+      - name: Qualify frozen repair-DAG predecessor closure
+        id: dag
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/certified-dag.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-certified-dag-predecessor-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('CERTIFIED_DAG_PREDECESSOR_CLOSURE='));
+          if(!line) throw new Error('certified DAG predecessor summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
-          if(x.exactRank18States!==84) throw new Error(`typed post-block domain drift ${x.exactRank18States}`);
-          const t=x.byKind.resolved_tail_completion, g=x.byKind.remaining_target_support, c=x.byKind.same_channel_compensation;
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`typed_closed=${x.closedStates}`,`typed_failed=${x.failedStates}`,`tail_closed=${t.closedStates}/${t.states}`,`target_closed=${g.closedStates}/${g.states}`,`compensate_closed=${c.closedStates}/${c.states}`].join('\n')+'\n');
+          if(x.postBlockRank18.states!==84||x.rank16ForcedBlock.states!==12) throw new Error('certified DAG predecessor domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `dag18_closed=${x.postBlockRank18.closed}`,
+            `dag18_failed=${x.postBlockRank18.failed}`,
+            `dag16_closed=${x.rank16ForcedBlock.closed}`,
+            `dag16_failed=${x.rank16ForcedBlock.failed}`,
+            `dagroot_closed=${x.latentRoot.closedCandidateColumns.length}`,
+            `frozen_pairs=${x.frozenRepairProof.certifiedStateTargetPairs}`,
+          ].join('\n')+'\n');
           NODE
 
   summary:
     needs: repair-capacity-induction
-    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} latent-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }}-cu${{ needs.repair-capacity-induction.outputs.c_unresolved }}-gu${{ needs.repair-capacity-induction.outputs.g_unresolved }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }}-u${{ needs.repair-capacity-induction.outputs.obligation_unresolved }} typed-c${{ needs.repair-capacity-induction.outputs.typed_closed }}-f${{ needs.repair-capacity-induction.outputs.typed_failed }}-tail${{ needs.repair-capacity-induction.outputs.tail_closed }}-target${{ needs.repair-capacity-induction.outputs.target_closed }}-comp${{ needs.repair-capacity-induction.outputs.compensate_closed }}
+    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} old-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }} typed-c${{ needs.repair-capacity-induction.outputs.typed_closed }}-f${{ needs.repair-capacity-induction.outputs.typed_failed }} dag18-c${{ needs.repair-capacity-induction.outputs.dag18_closed }}-f${{ needs.repair-capacity-induction.outputs.dag18_failed }} dag16-c${{ needs.repair-capacity-induction.outputs.dag16_closed }}-f${{ needs.repair-capacity-induction.outputs.dag16_failed }} root${{ needs.repair-capacity-induction.outputs.dagroot_closed }} frozen${{ needs.repair-capacity-induction.outputs.frozen_pairs }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "qualified structural composition counts encoded in job name"
+      - run: echo "qualified structural fixed-point composition counts encoded in job name"
