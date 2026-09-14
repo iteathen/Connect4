@@ -40,9 +40,10 @@ function le(a, b) {
   return a.distance < b.distance || (a.distance === b.distance && a.mu <= b.mu);
 }
 function runChild(childSequence) {
+  const env = { ...process.env, SEQUENCE: childSequence, TARGET: targetName, MAX_TARGET_DISTANCE: String(maxTargetDistance) };
+  delete env.ACTION;
   const child = spawnSync(process.execPath, [CHILD_PROBE], {
-    encoding: 'utf-8', timeout: 300000, maxBuffer: 32 * 1024 * 1024,
-    env: { ...process.env, SEQUENCE: childSequence, TARGET: targetName, MAX_TARGET_DISTANCE: String(maxTargetDistance), ACTION: '' },
+    encoding: 'utf-8', timeout: 300000, maxBuffer: 32 * 1024 * 1024, env,
   });
   if (child.error) return { proved: false, proofKind: 'execution_error', error: { kind: 'execution_error', message: child.error.message } };
   if (child.status !== 0) return { proved: false, proofKind: 'process_failure', error: { kind: 'process_failure', message: (child.stderr ?? '').slice(-4000) } };
@@ -100,6 +101,7 @@ if (immediate.length) {
           const child = kernel.advance(afterP0, reply);
           const childSequence = sequence + String(action + 1) + String(reply + 1);
           if (child === domain.QN_TERMINAL_WIN) {
+            assert(new Set(e.enabledSingletons(afterP0, 1)).has(replyCell), `P1 terminal ${e.coord(replyCell)} lacks enabled singleton premise`);
             proved = false;
             branches.push({ reply: e.col(reply), replyCell: e.coord(replyCell), childSequence, route: 'P1_terminal' });
             continue;
