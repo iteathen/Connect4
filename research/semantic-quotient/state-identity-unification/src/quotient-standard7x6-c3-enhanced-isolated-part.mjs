@@ -72,4 +72,23 @@ for(const root of selected){
 }
 const closed=rows.filter(x=>x.closed),failed=rows.filter(x=>!x.closed),mechanisms={};
 for(const r of failed)for(const a of r.attempts){const f=a.firstFailure;if(!f)continue;const nested=f.firstFailure?.reason??null,key=nested?`${f.route}>${nested}`:f.route;mechanisms[key]=(mechanisms[key]??0)+1;}
-console.log(`C3_ENHANCED_ISOLATED_PART=${JSON.stringify({kind:'standard7x6-c3-enhanced-isolated-part-v1',part:PART,parts:PARTS,roots:selected.length,closed:closed.length,failed:failed.length,resourceBranches,mechanisms,rows:rows.map(r=>({member:`G_first:${de.col(r.r1)}->${de.col(r.r2)}`,sequence:r.sequence,closed:r.closed,witness:r.witness,attempts:r.closed?r.attempts.map(a=>({column:a.column,accepted:a.accepted,firstFailure:a.firstFailure?{route:a.firstFailure.route,reply:a.firstFailure.reply,replyCell:a.firstFailure.replyCell,targetDistance:a.firstFailure.targetDistance??a.firstFailure.firstFailure?.targetDistance??null,nested:a.firstFailure.firstFailure?.reason??null,error:a.firstFailure.error??null}:null})):r.attempts}))}));
+const summaryRows=rows.map((r)=>({
+ member:`G_first:${de.col(r.r1)}->${de.col(r.r2)}`,
+ sequence:r.sequence,
+ closed:r.closed,
+ witness:r.witness,
+ attempts:r.closed?r.attempts.map((a)=>({
+  column:a.column,
+  accepted:a.accepted,
+  firstFailure:a.firstFailure?{
+   route:a.firstFailure.route,
+   reply:a.firstFailure.reply,
+   replyCell:a.firstFailure.replyCell,
+   targetDistance:a.firstFailure.targetDistance??a.firstFailure.firstFailure?.targetDistance??null,
+   nested:a.firstFailure.firstFailure?.reason??null,
+   error:a.firstFailure.error??null,
+  }:null,
+ })):r.attempts,
+}));
+const summary={kind:'standard7x6-c3-enhanced-isolated-part-v1',part:PART,parts:PARTS,roots:selected.length,closed:closed.length,failed:failed.length,resourceBranches,mechanisms,rows:summaryRows};
+console.log(`C3_ENHANCED_ISOLATED_PART=${JSON.stringify(summary)}`);
