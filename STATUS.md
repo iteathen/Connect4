@@ -49,7 +49,7 @@ The governing compression rule is:
 Erase a distinction only when it is a congruence for the exact downstream claim being proved.
 ```
 
-Claim-relative theorem reuse is not q equality.
+Claim-relative theorem reuse and theorem composition are not q equality.
 
 ## Root boundary
 
@@ -65,7 +65,7 @@ There are exactly 69 geometric winning lines. The retained `28` result is a fixe
 
 ## Claim-relative typed-event library
 
-The generic theorem layer now implements:
+The generic theorem layer implements:
 
 ```text
 TypedEventSignature(claim, context, event)
@@ -92,17 +92,9 @@ Authority and detailed boundaries:
 
 `docs/research/2026-09-13-claim-relative-signature-library.md`
 
-Focused qualification runs:
+## Primitive factorization
 
-- `34804665143` on `722d2f69a289bf40561f24aef9ae115a10f260d1`;
-- `34805072309` on `27fe94853a8a6625b6a79c9ff80bf68374a381d7`;
-- `34805220177` on `41acdedf735d2d0532ccaee1cc4fe6708b373dff`.
-
-All focused jobs obey the five-minute wall with 270-second inner process bounds.
-
-## First primitive factorization
-
-Two cross-claim factors are now exact executable controls:
+Two cross-claim factors are exact executable controls:
 
 ```text
 R_monotone_residual_cofactor
@@ -123,34 +115,114 @@ C_response_matching_capacity
 
 because the general strategic-certificate -> obligation/response-slot mapping has not yet been proved.
 
-## Exact composition seam
+## Guarded theorem composition
 
-The qualified hinge and latent-contract controls touch at an exact state boundary:
+The missing theorem-composition operation is now implemented and qualified:
 
 ```text
-4665655546 -- P0:D3 -- P1:D4 --> 466565554644
+Export_typed_theorem_contract
+Unify_conclusion_with_premise
+Verify_opaque_frame_condition
+Verify_temporal_resource_compatibility
+Verify_terminal_complete_composition
+Compose_theorem_chain
 ```
 
-The destination is exactly the fixed C3/G3 latent-target contract root.
+Each theorem contract explicitly carries ordinary structural facts, opaque/load-bearing frame facts, temporal/resource facts, terminal alternatives, and provenance mode/facts when observable.
 
-This bridge does **not** prove a win. The target-only subsystem is locally defensible by the qualified cross-pair scheduler. Its importance is that it gives a real bounded seam for testing theorem composition without reconstructing the physical q-tree.
+There is deliberately **no implicit frame rule**. If the downstream theorem observes a fact, the upstream theorem or an intervening exact event contract must explicitly provide it.
 
-## Missing calculus / immediate execution seam
+The new hostile/positive suite passes 8/8 controls, including rejection of:
 
-Theorem reuse is now executable. The missing operation is **guarded theorem composition**.
+- phase-only -> stronger repair-effect composition when incident `R` is missing;
+- response-capacity application without exact obligation/slot mapping;
+- a dropped live terminal alternative;
+- opaque-frame mutation without a qualified event;
+- provenance-sensitive composition after a value-only contract;
+- missing temporal/resource/deadline state.
 
-A sound composer must prove that theorem A's exact conclusion discharges theorem B's exact premises while threading:
+Detailed authority and semantics:
 
-- event order / side-to-move;
-- temporal-contract state;
-- CPC/GF(2) phase;
-- resources and deadlines;
-- NDC guards;
-- terminal alternatives;
-- opaque nonincident frame conditions;
-- provenance when observable.
+`docs/research/2026-09-13-guarded-theorem-composition-calculus.md`
 
-The next task is to build and falsify this composition calculus on the exact D3->D4->latent-contract bridge, then use it to identify which premise still blocks promotion of local structural theorems into center-opening membership in `W`.
+Focused qualification run:
+
+```text
+34806311358
+head 28a9990b9a8c539ee8e890e9d6d115d77ec31d4a
+result success
+```
+
+The run re-qualified every earlier claim-relative stage before executing the two new composition stages.
+
+## Exact multi-theorem bridge
+
+The qualified hinge and latent-contract controls are now composed through an exact event bridge:
+
+```text
+4665655546
+  -- P0:D3 -->
+  -- P1:D4 -->
+466565554644
+```
+
+The three-contract chain is:
+
+```text
+hinge_D3_instantiation
+-> exact_D4_bridge
+-> latent_target_contract_activation
+```
+
+Fact provenance is explicit:
+
+- the hinge theorem supplies live P0 singletons C3 and G3;
+- the exact D3 transition supplies the after-D3 frame, P1 turn, and current reply deadline;
+- the exact D4 transition supplies the destination frame, C1/G1 enablement, P0 turn, response deadline, and one defender slot per attack;
+- the qualified temporal theorem then activates the latent C3/G3 cross-pair contract.
+
+The destination state is checked by exact C4-0010 state identity, not inferred from sequence notation.
+
+This bridge does **not** prove a win. The target-only subsystem remains locally defensible.
+
+## Exact stutter re-entry
+
+The active latent contract composes through all five previously qualified fixed-state same-column stutters:
+
+```text
+A1 -> A2
+B1 -> B2
+D5 -> D6
+E5 -> E6
+F5 -> F6
+```
+
+Each exact two-ply macro is legal/nonterminal, returns P0 to move at rank 14, and preserves both C3 and G3 singleton obligations. The theorem-composition layer therefore has a proved re-entry path for these external macro events without asserting q equality.
+
+## Immediate execution seam
+
+The first remaining unproved premise toward center-opening membership in `W` is now:
+
+```text
+well_founded_off_subsystem_progress_or_reentry
+```
+
+Required form:
+
+> For every legal off-target P0 event not covered by a qualified same-column stutter, prove a guarded composition that either re-enters the latent contract, enters an exact response-capacity circuit with a proved obligation/slot map, or strictly advances a well-founded structural progress rank toward a terminal or alternating-predecessor certificate.
+
+The current exact finite domain for attacking this premise is already available:
+
+```text
+20 exact repair transitions
+-> 12 exact local semantic-effect classes
+   8 nontrivial reused classes
+   4 singleton classes
+```
+
+The next task is to export guarded contracts for those local semantic classes and build only the theorem-class transition relation justified by retained exact evidence. For each non-stutter class, prove re-entry, terminality, a fully mapped capacity circuit, or strict decrease in a well-founded E/R/P/C/N rank.
+
+Phase weight alone is not an admissible progress rank because qualified controls already show phase-defect transport rather than guaranteed elimination. If the current structural vocabulary contains a cycle instead of a rank, retain the smallest exact strongly connected class set as the falsifier.
 
 Current router: `next_step.yaml`.
 
@@ -159,8 +231,8 @@ Current router: `next_step.yaml`.
 - Exact search/minimax/oracle values are discovery/falsification controls only.
 - Bayesian confidence is external research-priority metadata only and never enters proof semantics.
 - Static blocker coverage is not policy realizability.
-- Phase is not a W/D/L classifier.
-- Local theorem isomorphism is not q equality.
+- Phase is not a W/D/L classifier and phase weight is not automatically a progress rank.
+- Local theorem isomorphism and theorem composition are not q equality.
 - Response-capacity circuits require an exact obligation/slot mapping before Connect4 application.
 - Unresolved frontiers remain unknown, not losses.
 - No q/frontier cap or recursion-depth increase without a new theorem.
