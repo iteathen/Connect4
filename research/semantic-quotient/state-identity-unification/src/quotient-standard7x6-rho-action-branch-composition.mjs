@@ -12,6 +12,7 @@ import * as domain from './quotient-negamax-domain-contract.mjs';
 const DOMAIN = Object.freeze({ columns: 7, rows: 6, connect: 4 });
 const C3 = 16, G3 = 20;
 const MAX_PROOF_STATES = 100000;
+const CHILD_TIMEOUT_MS = 300000;
 const PROBE = fileURLToPath(new URL('./quotient-standard7x6-expired-response-rho-probe.mjs', import.meta.url));
 
 const sequence = process.argv[2];
@@ -43,7 +44,7 @@ function replay(kernel, seq) {
 function childRhoProof(childSequence) {
   const child = spawnSync(process.execPath, [PROBE, childSequence, targetName], {
     encoding: 'utf-8',
-    timeout: 270000,
+    timeout: CHILD_TIMEOUT_MS,
     maxBuffer: 16 * 1024 * 1024,
   });
   if (child.error) throw child.error;
@@ -62,7 +63,6 @@ const { kernel } = createSlot64ResidualQuotientKernel(DOMAIN, {
   searchStorage: Object.freeze({ states: 262144, classes: 524288, chunksPerSlot: 131072 }),
 });
 kernel.prepareSearchStorage();
-// This instance is observation-only. Recursive child theorem work is execution-isolated in PROBE.
 const rho = createResolvedTailLexicographicProofEngine(kernel, { maxProofStates: 1 });
 const e = rho.repair;
 const root = replay(kernel, sequence);
@@ -129,7 +129,7 @@ if (afterP0 === domain.QN_TERMINAL_WIN) {
 }
 
 console.log(`RHO_ACTION_BRANCH_COMPOSITION=${JSON.stringify({
-  kind: 'standard7x6-rho-action-branch-composition-v1',
+  kind: 'standard7x6-rho-action-branch-composition-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -153,9 +153,10 @@ console.log(`RHO_ACTION_BRANCH_COMPOSITION=${JSON.stringify({
     oneFreshKernelPerNonterminalChild: true,
     semanticIdentityImplied: false,
     proofStateCapPerChild: MAX_PROOF_STATES,
+    childTimeoutMs: CHILD_TIMEOUT_MS,
     quotientStorage: { states: 262144, classes: 524288, chunksPerSlot: 131072 },
     quotientStorageBoundsChanged: false,
   },
-  theoremBoundary: 'Composes exactly one declared P0 action at one exact rho-invariant root. Every legal P1 reply must be terminally closed or carry its own exact rho certificate. Child execution sharding is not semantic identity and no result is inferred from resource failure. This is a bounded alternating-predecessor composition, not unrestricted q-frontier search.',
+  theoremBoundary: 'Composes exactly one declared P0 action at one exact rho-invariant root. Every legal P1 reply must be terminally closed or carry its own exact obligation-first rho certificate. Child execution sharding is not semantic identity and no result is inferred from resource failure. This is a bounded alternating-predecessor composition, not unrestricted q-frontier search.',
   authority: 'Exact C4-0010 transitions/terminal certificates plus independently execution-isolated rho=(delta,mu) child certificates under unchanged limits. No solved W/D/L label or external oracle premise.',
 })}`);
