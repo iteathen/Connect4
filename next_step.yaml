@@ -1,20 +1,20 @@
 version: 1
 status: active
 branch: research/frontier-negamax-conformance
-updated: 2026-09-13
+updated: 2026-09-14
 
 attribution:
   research_direction_structural_architecture_invariant_first_program: Josh Oshiro
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: compose_repair_capacity_induction_back_to_latent_contract
+  id: derive_action_conditioned_clean_invariant_separator
   objective: >-
-    Compose the qualified five-repair-column predecessor induction backward into the exact
-    rank-20 latent C3/G3 contract domain. For every retained rank-20 P0 state, prove the
-    existence of at least one legal P0 action whose complete legal P1 reply set is discharged
-    by an already-qualified terminal, chain-descent, adjacent-tail/repair-induction, or guarded
-    re-entry contract. Preserve any nonclosing state/action/reply as the exact falsifier.
+    Derive and qualify the smallest tested action-conditioned structural predicate that
+    separates directly proved from directly unproved clean live-target repair states. Use
+    matched positive/negative examples under the same target, repair-capacity rank and as much
+    shared support/phase/deadline context as the exact corpus permits. Treat candidate
+    separators as hypotheses until falsified against the retained exact corpus.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -24,97 +24,99 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-13-unified-structural-logic-statement.md
   - docs/research/2026-09-13-guarded-theorem-composition-calculus.md
   - docs/research/2026-09-13-repair-capacity-predecessor-induction.md
 
 qualified_premises:
-  - id: enabled_singleton_terminal_predecessor
+  - id: retained_rank20_closure
     statement: >-
-      An enabled live P0 singleton on a P0 turn is an exact immediate terminal predecessor
-      unless an already-terminal boundary has been reached.
-  - id: chain_reselection_descent
+      The original retained 20 rank-20 latent-contract states close 20/20 by exact
+      branch-complete predecessor witnesses and the well-founded repair-capacity induction.
+  - id: repair_capacity_rank
     statement: >-
-      The retained non-target A/B chain branches admit another same-column P0 action with
-      strict selected-column capacity descent and preserved target singleton, subject to exact
-      terminal guards.
-  - id: universal_terminal_response_states
+      mu=sum remaining capacities in A,B,D,E,F is a valid well-founded rank inside the
+      qualified repair subsystem: selected P0 repair actions decrease mu by one and P1 replies
+      never increase it. Mu is not by itself a winning classifier.
+  - id: resolved_column_forced_defense
     statement: >-
-      The exact twelve blocking rank-22 states are locally P0-losing: every legal P0 action has
-      an immediate exact P1 terminal response.
-  - id: adversarial_tail_elimination
+      In the exact twelve target-block survivor states, the enabled P1 singleton at C4/G4 is a
+      one-turn deadline: every nonblocking nonterminal P0 action permits an immediate P1 win.
+  - id: rank20_gap_census
     statement: >-
-      Eight of twelve D/E/F tail actions are eliminated because P1 has a reply into one of the
-      exact universal terminal-response states.
-  - id: adjacent_tail_survivor_rule
-    statement: >-
-      In the retained D/E/F family, the only tail survivor is the column adjacent to the
-      remaining target: F for G3, D for C3, independent of resolved-singleton ownership.
-  - id: complementary_tail_rule
-    statement: >-
-      In each exact no-A/B survivor state, after P1 consumes one of the two remaining D/E/F
-      tails, P0 consuming the other is the unique currently-qualified immediate continuation.
-  - id: repair_capacity_induction
-    statement: >-
-      On the sixteen nonterminal successors of the four adjacent-tail survivor actions, a
-      restricted alternating-predecessor proof over A/B/D/E/F closes 16/16 starts under the
-      well-founded measure mu=sum remaining capacities in A,B,D,E,F. P0 decreases mu by one;
-      P1 replies never increase it. Physical memo states are witnesses, not semantic identity.
+      The exact post-block/rank-20 diagnostic census contains 362 unique unclosed states and 55
+      coarse obstruction classes. The dominant obstruction is an uncertified child that remains
+      inside the live-target/support-distance-one invariant rather than target loss.
     qualification:
-      physical_proof_states: 9635
-      start_states: 16
-      proved_start_states: 16
-      failed_start_states: 0
-      max_induction_depth: 7
-      canonical_proof_classes_including_terminal: 1022
-      distinct_start_proof_classes: 9
-      boundary: >-
-        1022 classes is not a small universal calculus and is not q/state equality.
+      unique_gap_states: 362
+      coarse_obstruction_classes: 55
+      states_with_clean_invariant_uncertified_child: 342
+      states_with_deadline_bearing_uncertified_child: 233
+      states_with_P1_terminal_exposure: 29
+      states_with_target_killed_child: 0
+      no_root_deadline_states: 275
+      no_root_deadline_with_clean_invariant_child: 275
+  - id: representative_direct_probes
+    statement: >-
+      Five dominant clean-gap representatives were run directly through the existing recursive
+      repair induction in isolated bounded controls: all five completed, two proved and three
+      failed logically, with zero resource failures. Therefore certificate coverage alone is
+      not the whole gap and a missing structural premise remains.
+    qualification:
+      attempted: 5
+      completed: 5
+      proved: 2
+      logical_failures: 3
+      resource_failures: 0
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  domain: >-
-    Start from the exact retained rank-20 latent-contract states used by the action-progress
-    controls. Do not expand to an arbitrary q frontier.
-  predecessor_test:
-    for_each_rank20_state:
-      - enumerate every legal P0 action through exact C4-0010 transitions
-      - reject an action if any legal P1 reply is terminal for P1
-      - accept an action only when every legal P1 reply has an explicit qualified discharge
-      - record the exact theorem/contract discharging each reply
-      - if no action closes, preserve the smallest exact state/action/reply falsifier
-  accepted_reply_routes:
-    - immediate_P0_terminal_predecessor
-    - qualified_A_or_B_chain_descent
-    - qualified_adjacent_tail_repair_capacity_induction
-    - exact_guarded_reentry_contract
+  matched_pair_test:
+    - reconstruct exact candidate states from replayable sequences
+    - directly evaluate proof outcome with the existing repair-capacity proof engine
+    - prefer pairs equal on target, mu, root deadline set, phase and coarse support shape
+    - relax matching dimensions only explicitly and report the relaxed tier
+  action_conditioned_observations:
+    - selected landing/support-tail facts
+    - exact P0/P1 residual incidence and cofactors at the selected action cell
+    - immediate P1 terminal-response alternatives
+    - enabled P1 singleton/deadline topology after the selected action and replies
+    - child repair-action availability under exact terminal and live-target guards
+    - CPC/GF2 phase location where it is load-bearing
+  candidate_rule:
+    - derive candidate predicates from positive/negative differences
+    - rank candidates by discrimination over directly evaluated examples
+    - do not promote a candidate that merely memorizes physical state, sequence or q identity
+    - falsify surviving candidates against the retained exact corpus before theorem promotion
   forbidden_shortcuts:
     - solved_WDL_or_external_solver_as_premise
-    - recursive_q_frontier_search_as_proof
     - unknown_as_loss
-    - candidate_family_failure_as_loss
-    - physical_state_or_proof_class_equality_as_q_equality
+    - proof_failure_as_loss
+    - physical_state_or_sequence_as_separator
+    - q_equality_from_claim_relative_signature
+    - mu_as_value_classifier
     - phase_weight_as_value_classifier
-    - terminal_line_cardinality_as_premise
     - unproved_69_to_28_geometric_line_reduction
+    - storage_or_recursion_cap_increase_without_structural_reason
   wall_clock_limit_seconds: 300
   inner_timeout_seconds: 270
 
 success_criteria:
-  - every retained exact rank-20 latent-contract state has at least one branch-complete P0 predecessor witness
-  - every P1 reply of every accepted witness has a named qualified discharge contract
-  - no accepted action drops terminal, R, C, N, resource, deadline, or observed provenance obligations
-  - result is rerun under bounded CI
-  - exact theorem boundary and any remaining composition gap are documented
+  - at least one exact matched proved/unproved pair is obtained under a stated matching tier
+  - action-conditioned differences are emitted without erasing terminal/deadline/residual facts
+  - candidate predicates are scored on more than the pair that generated them
+  - every surviving candidate has explicit counterexample accounting or exact corpus coverage
+  - no candidate is promoted to theorem solely from correlation
+  - focused CI is bounded and reproducible
+  - STATUS.md and research evidence are updated with the result and remaining seam
 
 on_success:
   next: >-
-    Export the closed latent-contract subsystem as a guarded P0-winning theorem contract and
-    compose it backward through the exact D3/D4 hinge. Only after that succeeds should the
-    center-opening W-membership seam be reassessed.
+    Turn the smallest surviving separator into an explicit guarded predecessor theorem candidate
+    and test whether adding that premise closes the dominant clean-invariant obstruction classes
+    and then the latent target scheduler composition.
 
 on_failure:
   next: >-
-    Preserve the smallest exact nonclosing rank-20 state/action/reply set. Derive the missing
-    dependency-cone or temporal/resource premise from that falsifier rather than broadening the
-    physical search domain.
+    Preserve the closest matched positive/negative states and the first action-conditioned field
+    still insufficient to separate them. Expand only the exact dependency cone implicated by
+    that falsifier, not the physical frontier or proof-state cap.
