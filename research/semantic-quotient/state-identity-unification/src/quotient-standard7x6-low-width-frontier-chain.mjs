@@ -165,7 +165,7 @@ for (let i = 0; i < roots.length; i += 1) {
   }
 }
 if (oneHardCount !== 290) throw new Error(`expected 290 initial one-hard roots, got ${oneHardCount}`);
-if (lowWidthSeeds.length !== 20) throw new Error(`expected 20 low-width re-expansion seeds, got ${lowWidthSeeds.length}`);
+if (lowWidthSeeds.length !== 55) throw new Error(`expected 55 low-width branch seeds, got ${lowWidthSeeds.length}`);
 
 let active = lowWidthSeeds.map((seed, index) => ({ id: index, ...seed, initialWidth: seed.frontier.length, maxWidth: seed.frontier.length, widthHistory: [seed.frontier.length], layers: 0 }));
 const closed = [], overflow = [], depthCapped = [];
@@ -214,7 +214,7 @@ console.log(`LOW_WIDTH_FRONTIER_CHAIN=${JSON.stringify({
   attribution: { researchDirectionAndStructuralTarget: 'Josh Oshiro', formalizationImplementationAndQualification: 'OpenAI ChatGPT' },
   sourceUnresolvedRoots: roots.length,
   initialOneHardRoots: oneHardCount,
-  lowWidthReexpansionSeeds: lowWidthSeeds.length,
+  lowWidthBranchSeeds: lowWidthSeeds.length,
   seedWidthHistogram: numObj(lowWidthSeeds.reduce((m,s)=>(inc(m,s.frontier.length),m),new Map())),
   maxFrontierWidth: MAX_FRONTIER_WIDTH,
   maxFrontierLayers: MAX_FRONTIER_LAYERS,
