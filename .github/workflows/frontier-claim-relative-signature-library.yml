@@ -19,6 +19,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.test.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-reply-routing.mjs
       - .github/workflows/frontier-claim-relative-signature-library.yml
   workflow_dispatch:
 
@@ -89,3 +90,8 @@ jobs:
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
+      - name: Route action-progress replies to terminal, descent, or handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-reply-routing.mjs
