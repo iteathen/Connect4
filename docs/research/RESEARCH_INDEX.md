@@ -6,71 +6,108 @@
 Research direction and architecture: **Josh Oshiro**.  
 Formalization, implementation, and qualification: **OpenAI ChatGPT**.
 
-## How to use this index
+Current state lives in repository-root `STATUS.md` and `next_step.yaml`. Prototype
+routing lives in `reference/research-prototypes/README.md`.
 
-Use status labels conservatively:
+Status meanings:
 
-- **ACTIVE CORE** — current theory or exact semantics used by the active research seam.
-- **CONTROL / QUALIFICATION** — exact or bounded evidence used to falsify or qualify theory; not theory-construction authority by itself.
-- **CORRECTIVE / SUPERSEDING** — newer work that changes the interpretation or authority of earlier work.
-- **NEGATIVE CONTROL** — falsified candidate or known-incomplete method retained because it constrains future work.
-- **HISTORICAL / RETAINED** — useful provenance, earlier optimization/solver work, or a superseded line that may still contain reusable facts/code.
-- **UNKNOWN / RETAIN** — not yet classified well enough to remove. This is the default for uncertain usefulness.
-
-Deletion is not implied by any label. Unknown usefulness is retained.
-
-Current state lives in repository-root `STATUS.md` and `next_step.yaml`. Non-production
-prototype routing lives in `reference/research-prototypes/README.md`.
+- **ACTIVE CORE** — current exact theory or active structural research.
+- **CONTROL / QUALIFICATION** — bounded/exact evidence; not theorem authority by itself.
+- **CORRECTIVE / SUPERSEDING** — changes the interpretation of earlier work.
+- **NEGATIVE CONTROL** — rejected/incomplete method retained as a falsifier.
+- **HISTORICAL / RETAINED** — useful provenance or prior solver/representation work.
+- **UNKNOWN / RETAIN** — usefulness not yet resolved; retain by default.
 
 ---
 
-## 1. Active perfect-play winning-line proof program
+## 1. Canonical current synthesis
 
-### Objective
+### ACTIVE CORE
 
-Derive the exact subset of the 69 geometric standard-board winning lines that can
-occur as P0 terminal wins on at least one W/D/L-perfect trajectory.
+[`2026-09-13-unified-structural-logic-statement.md`](2026-09-13-unified-structural-logic-statement.md)
 
-The suspected final cardinality is **output only**. It is not a premise, tuning
-target, or acceptance criterion.
+Top-level one-statement synthesis of the current exact research architecture:
 
-Exact search/enumeration is permitted as a control. Externally solved perfect-play
-terminal-line classifications are not admitted as theorem authority.
+```text
+E  causal event/support
+R  residual winning obligations
+P  CPC / GF(2) parity / precedence / deadlines
+C  typed temporal policy/resources
+N  guarded dependency closure
+G  alternating predecessor fixed point
+Q  observation-sensitive value/provenance quotients
+```
 
-### ACTIVE CORE — semantic shell
+One legal placement is treated as a typed E/R/P/C/N product event. Local proof reuse is
+**claim-relative** through the smallest load-bearing dependency cone. This synthesis is
+not itself a completed standard-7x6 root proof.
 
-1. [`2026-09-13-perfect-play-line-output-algebra.md`](2026-09-13-perfect-play-line-output-algebra.md)  
-   Set-valued perfect-play terminal-line semantics.
+Governing rule:
 
-2. [`2026-09-13-choice-elimination-predecessor-calculus.md`](2026-09-13-choice-elimination-predecessor-calculus.md)  
-   Existential P0 choice elimination and universal P1 winning predecessor logic.
+```text
+Erase a distinction only when it is a congruence for every downstream transition and
+the exact claim/observation being proved.
+```
 
-3. [`2026-09-13-winning-region-output-factorization.md`](2026-09-13-winning-region-output-factorization.md)  
-   Exact two-stage factorization: first derive the P0 winning region `W`, then
-   derive line provenance by existential reachability inside `W`.
+---
 
-4. [`2026-09-13-alternating-fixed-point-calculus.md`](2026-09-13-alternating-fixed-point-calculus.md)  
-   Exact least/greatest fixed-point view of strategic predecessor and safety proof.
+## 2. Perfect-play W/D/L and terminal-line semantic shell
 
-5. [`2026-09-13-wdl-interval-predecessor-calculus.md`](2026-09-13-wdl-interval-predecessor-calculus.md)  
-   Six-element W/D/L interval lattice as shared proof currency for exact and
-   one-sided structural certificates.
+### ACTIVE CORE
 
-6. [`2026-09-13-output-provenance-quotient.md`](2026-09-13-output-provenance-quotient.md)  
-   Exact small-game counterexample showing W/D/L quotient equivalence does not
-   imply terminal-line-output equivalence; introduces provenance-annotated residuals.
+- [`2026-09-13-perfect-play-line-output-algebra.md`](2026-09-13-perfect-play-line-output-algebra.md)
+- [`2026-09-13-choice-elimination-predecessor-calculus.md`](2026-09-13-choice-elimination-predecessor-calculus.md)
+- [`2026-09-13-winning-region-output-factorization.md`](2026-09-13-winning-region-output-factorization.md)
+- [`2026-09-13-alternating-fixed-point-calculus.md`](2026-09-13-alternating-fixed-point-calculus.md)
+- [`2026-09-13-wdl-interval-predecessor-calculus.md`](2026-09-13-wdl-interval-predecessor-calculus.md)
+- [`2026-09-13-output-provenance-quotient.md`](2026-09-13-output-provenance-quotient.md)
+- [`2026-09-13-current-causal-certificate-differential.md`](2026-09-13-current-causal-certificate-differential.md)
 
-7. [`2026-09-13-current-causal-certificate-differential.md`](2026-09-13-current-causal-certificate-differential.md)  
-   Reconstructed current differential: C4-0010 value identity, provenance-sensitive
-   output identity, extension-coherent geometry isomorphism, paired-response refinement,
-   and smallest counterexamples for rejected coarse relations. This record closes the
-   lost-scratch reconstruction seam and opens guarded alternative implication.
+Value target:
 
-### ACTIVE CORE — Connect-Four-specific certificate calculus
+```text
+W = mu X . [ I union PreE(X) union PreA(X) ]
+```
 
-- [`2026-09-13-temporal-response-capacity-calculus.md`](2026-09-13-temporal-response-capacity-calculus.md)  
-  Temporally feasible response coverage, capacity, deadlines, safety and progress.
+Value identity remains exact C4-0010 `q`. Terminal-line output is a richer observation
+and retains exact P0 residual/origin provenance `Pi0`.
 
+---
+
+## 3. Claim-relative typed-event and temporal-contract calculus
+
+### ACTIVE CORE
+
+- [`2026-09-13-claim-relative-event-isomorphism.md`](2026-09-13-claim-relative-event-isomorphism.md)  
+  Exact theorem reuse relative to a declared claim/observation; center C1 and latent
+  C3/G3 singleton discharge collapse to one theorem class without merging q states.
+
+- [`2026-09-13-event-dependency-cone-product-calculus.md`](2026-09-13-event-dependency-cone-product-calculus.md)  
+  One event as simultaneous E/R/P/C/N transformer; 20 repair transitions reduce to
+  12 local semantic signatures with eight nontrivial reused classes.
+
+- [`2026-09-13-temporal-contract-automata-and-latent-cross-pair.md`](2026-09-13-temporal-contract-automata-and-latent-cross-pair.md)  
+  Guarded temporal-contract automata and the exact five-state C3/G3 support scheduler.
+
+- [`2026-09-13-temporal-stutter-tail-phase-debt.md`](2026-09-13-temporal-stutter-tail-phase-debt.md)  
+  Exact external stutters, `Tail3 = StutterPair2 + OddEvent1`, and one-slot phase-debt
+  transport interface.
+
+The active theorem-library target is:
+
+```text
+TypedEventSignature(claim, context, event)
+```
+
+with nonincident global context retained as opaque parameters.
+
+---
+
+## 4. Response/resource/compatibility calculus
+
+### ACTIVE CORE
+
+- [`2026-09-13-temporal-response-capacity-calculus.md`](2026-09-13-temporal-response-capacity-calculus.md)
 - [`2026-09-13-response-channel-antichain-calculus.md`](2026-09-13-response-channel-antichain-calculus.md)
 - [`2026-09-13-response-matroid-defect-transfer.md`](2026-09-13-response-matroid-defect-transfer.md)
 - [`2026-09-13-compatible-cover-progress-calculus.md`](2026-09-13-compatible-cover-progress-calculus.md)
@@ -79,98 +116,114 @@ terminal-line classifications are not admitted as theorem authority.
 - [`2026-09-13-center-response-channel-cut-deficiency.md`](2026-09-13-center-response-channel-cut-deficiency.md)
 - [`2026-09-13-center-phase-response-fork.md`](2026-09-13-center-phase-response-fork.md)
 
-These files develop candidate/sound certificate families around CPC, WSL, NDC,
-response resources, cut/rank deficiency, and temporal ordering. Read later corrective
-documents before treating an early center-repair construction as a realizable policy.
+These own coverage-versus-realizability, typed resource contracts, response-slot rank and
+circuits, defect transfer, deadlines/races, and compatible-cover reasoning.
 
 ### CORRECTIVE / SUPERSEDING
 
 [`2026-09-13-center-response-serialization-correction.md`](2026-09-13-center-response-serialization-correction.md)
-is the current authority on the scheduling conflict exposed after the center-opening
-repair experiments.
 
-It **supersedes the strategic interpretation**, but not the enumerated static
+This supersedes the **strategic interpretation**, but not enumerated static
 geometry/coverage facts, of:
 
 - `2026-09-13-center-defect-edge-denial-amplification.md`
 - `2026-09-13-five-diagonal-singleton-capacity.md`
 - `2026-09-13-center-defect-lift.md`
 
-Those earlier documents are retained as counterfactual certificate-exchange and
-defect-shape evidence.
+---
+
+## 5. Structural isomorphism and invariant-first consolidation
+
+### ACTIVE CORE / SYNTHESIS
+
+- `2026-09-13-structural-isomorphism-resolution.md`
+- `2026-09-13-invariant-first-cross-layer-isomorphism.md`
+- `2026-09-13-bayesian-research-mask.md`
+
+Important resolved relationships include:
+
+```text
+gravity support <-> order ideals / poset accessibility
+WSL antichain <-> monotone DNF residual objective
+blockers <-> transversal dual view
+E/A recursion <-> alternating AND/OR proof structure
+response overload <-> transversal-matroid circuits
+q vs q+Pi0 <-> observation-sensitive equivalence
+phase collapse/transport/re-expansion <-> GF(2) event displacement
+```
+
+The Bayesian mask is external research prioritization only and is invisible to exact
+proof semantics.
+
+---
+
+## 6. Current standard-7x6 controls
 
 ### CONTROL / QUALIFICATION
 
-- [`2026-09-13-paired-response-interval-witness.md`](2026-09-13-paired-response-interval-witness.md)  
-  Qualified exact one-sided bound witness on complete 4x3 connect-3: 122 physical
-  states / 90 raw quotient classes; 77 decision states / 57 raw decision classes;
-  zero exact-value mismatches. The current differential further reduces these to 46
-  and 29 classes under exact geometry causal isomorphism without changing the theorem.
+Important current controls include:
 
-- [`2026-09-13-current-causal-certificate-differential.md`](2026-09-13-current-causal-certificate-differential.md)  
-  Also owns the current machine-readable differential/counterexample routing.
+- exact depth/frontier expand-collapse evidence;
+- `4665655*` sibling controls;
+- zero-phase seven-term defect core;
+- D3 hinge convergence;
+- latent C3/G3 temporal scheduler;
+- stutter/tail/phase-debt controls;
+- local event-effect signature classification;
+- claim-relative singleton-discharge cross-family qualification.
+
+Current workflow/evidence IDs are routed through `STATUS.md`, `next_step.yaml`, and the
+owning research notes rather than duplicated here.
+
+Also retained:
+
+- [`2026-09-13-paired-response-interval-witness.md`](2026-09-13-paired-response-interval-witness.md)
 - [`2026-09-13-progress-grammar-4x3-closure.md`](2026-09-13-progress-grammar-4x3-closure.md)
 - [`2026-09-13-negamax-bsfp-bidirectional-control.md`](2026-09-13-negamax-bsfp-bidirectional-control.md)
 - [`2026-09-13-negamax-bsfp-proof-intersection.md`](2026-09-13-negamax-bsfp-proof-intersection.md)
 - [`2026-09-13-negamax-bsfp-bidirectional-proof-intersection.md`](2026-09-13-negamax-bsfp-bidirectional-proof-intersection.md)
-- [`2026-09-13-opening-value-premise-closure.md`](2026-09-13-opening-value-premise-closure.md)  
-  Bounded external opening-value premise/control. Do not promote its solved table
-  into terminal-line theorem authority.
-- [`2026-09-09-searchless-closure-test-results.md`](2026-09-09-searchless-closure-test-results.md)  
-  Complete small-game proof-DAG controls and negative results.
+- [`2026-09-13-opening-value-premise-closure.md`](2026-09-13-opening-value-premise-closure.md)
+- [`2026-09-09-searchless-closure-test-results.md`](2026-09-09-searchless-closure-test-results.md)
 
-Prototype controls are routed in `../../reference/research-prototypes/README.md`.
+Solved-game/oracle evidence remains discovery/falsification control and is not promoted
+into theorem premises.
 
 ---
 
-## 2. Current open seam
+## 7. Current open seam
 
-The current certificate differential has been reconstructed from present semantics.
-The obsolete `/tmp/c4diff.mjs` abstraction was **not** recreated, and the remembered
-`2023 -> 419 + 1604` count is retired as unverified historical evidence.
+The active continuation is **not** generic deeper q recursion.
 
-Current exact identity boundary:
+Current path:
 
 ```text
-value:
-  C4-0010 q
-  -> extension-coherent geometry causal isomorphism where available
-
-output:
-  q + exact P0 residual/origin provenance Pi0
-  -> geometry causal isomorphism + provenance transport
+exact claim
+-> derive smallest sufficient E/R/P/C/N dependency cone
+-> canonicalize TypedEventSignature
+-> reuse an existing theorem class when isomorphic
+-> otherwise retain the smallest separating invariant
+-> emit exact consequence into NDC
+-> discharge I / PreE / PreA obligations in G
 ```
 
-The paired-response theorem remains a sound one-sided interval refinement across many
-distinct causal classes, proving that useful compression now belongs at the **proof
-obligation** layer rather than by inventing a coarser state equality.
+The immediate unresolved first-stage target remains the structural positive proof for
+the center opening. After `W(root)` is internally established, terminal-line provenance
+closure is the second-stage output task.
 
-Current continuation path:
-
-```text
-exact q / q+Pi0 alternatives
-  -> explicit interval/CPC/WSL/NDC/temporal/progress certificates
-  -> guarded alternative implication / choice elimination
-  -> exact PreE / PreA max-min preservation
-  -> smallest falsifier for every rejected rule
-```
-
-Do not import generic residual dominance. Any implication/elimination rule must state
-and preserve the strategic context that matters: support/playability, CPC ownership,
-response resources, event order, deadlines/races, NDC guards, progress, and output
-provenance when line identity is observable.
+Do not import generic residual dominance or erase support/CPC/resource/order/deadline
+context when it is load-bearing.
 
 ---
 
-## 3. Structural authority and reusable substrate
+## 8. Structural specifications and quotient substrate
 
-Primary accepted specifications:
+Primary specifications:
 
-- `../specs/C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL-625.
-- `../specs/C4-0007-nested-dependency-closure-v1.md` — NDC proof closure.
-- `../specs/C4-0010-quotient-native-negamax-v1.md` — exact forward solver contract.
+- `../specs/C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL.
+- `../specs/C4-0007-nested-dependency-closure-v1.md` — NDC.
+- `../specs/C4-0010-quotient-native-negamax-v1.md` — exact forward q/search consumer.
 
-Important reusable research:
+Reusable semantic-quotient research:
 
 - `2026-09-10-minimum-description-semantic-quotient.md`
 - `2026-09-11-semantic-quotient-mq1-strong-score.md`
@@ -179,48 +232,42 @@ Important reusable research:
 - `2026-09-11-semantic-quotient-mq4-flat-replay.md`
 - `2026-09-11-semantic-quotient-mq4-residual-automaton.md`
 
-These remain relevant to quotient construction, but a value-preserving quotient must
-not automatically be reused for the richer terminal-line-output objective.
+A value-safe quotient is not automatically safe for provenance or strategic-certificate
+reuse.
 
 ---
 
-## 4. Negative controls that must remain visible
+## 9. Negative controls that must remain visible
 
-The research corpus intentionally keeps failed approaches because they rule out
-attractive but unsound shortcuts.
+### NEGATIVE CONTROL
 
-Examples include:
+Retain at least the following rejected shortcuts:
 
 - `2026-09-10-bsfp-incremental-dominance-rejected.md`;
-- flat blocker-union coverage as a complete strategic proof;
-- naive nested blocker resolution without timing/resource compatibility;
-- simple static response pairing;
-- mirror/vertical response policies treated as globally complete;
-- cardinality-only residual summaries;
-- legal reachability used as a proxy for perfect-play reachability;
+- raw blocker union treated as a complete policy;
+- static blocker coverage treated as temporal realizability;
+- naive nested blockers without timing/resource compatibility;
+- globally complete mirror/vertical response policies;
+- vertical-only transport closure;
+- exact-q subset antichain compression as the missing strategic mechanism;
+- residual cardinality/histogram summaries;
+- support-only summaries;
+- legal reachability as perfect-play reachability;
 - residual antichains with support erased;
-- support-only semantic summaries;
-- static capacity counts with response identity/order erased;
-- local descriptor matching without a successor-extension map.
+- local descriptors without extension/claim guards;
+- deeper raw recursion without a new theorem.
 
-The current differential preserves the smallest primary-control counterexamples for
-these newly retested relations in
-`evidence/2026-09-13-current-causal-certificate-differential.json`.
-
-The 2026-09-09 `low-confidence-survival` prototypes contain several earlier
-falsifiers and must not be cleaned merely because their candidate theorem failed.
+The 2026-09-09 `low-confidence-survival` prototypes remain retained because several own
+useful falsifiers and candidate generators.
 
 ---
 
-## 5. Frontier-native exact forward solver history
+## 10. Historical solver/repository lanes
 
-**Branch:** `research/frontier-negamax-conformance`
+### HISTORICAL / RETAINED — frontier-native exact forward solver
 
-September 12 work remains retained as implementation/performance provenance:
-semantic identity, storage ownership, frontier bounds, shared proofs, Branch Manager,
-resource qualification, CPU profiles, depth-bounded campaigns, and root-run controls.
-
-Useful entry records include:
+September 12 records retain semantic identity, storage, Branch Manager, parallel search,
+performance and qualification provenance. Useful entry records include:
 
 - `2026-09-12-full-engine-sanity-audit.md`
 - `2026-09-12-transition-state-read-commit-audit.md`
@@ -230,51 +277,18 @@ Useful entry records include:
 - `2026-09-12-frontier-optimization-handoff.md`
 - `2026-09-12-pre-alpha-cleanup-ledger.md`
 
-These are **HISTORICAL / RETAINED** for the current mathematical seam unless a
-specific implementation fact is needed. They are not top-level current status.
+### HISTORICAL / RETAINED — cross-solver semantic quotient
 
----
+Primary branch: `research/semantic-quotient`.
 
-## 6. Cross-solver semantic quotient research
+### HISTORICAL / RETAINED — minimax / alpha-beta
 
-**Primary branch:** `research/semantic-quotient`
+Primary branch: `solver/minimax-alpha-beta`.
 
-Owns solver-neutral work on the smallest exact future-behavior state, including
-behavioral equivalence, support/event sufficiency, residual-class synthesis, flat
-transition automata, and cross-solver falsifiers.
+### HISTORICAL / RETAINED — CUDA-BSFP / OQS
 
-Start with:
-
-- repository-root `SEMANTIC_QUOTIENT_RESEARCH.md` where present on that branch;
-- `2026-09-10-minimum-description-semantic-quotient.md`;
-- the September 11 MQ1–MQ4 records listed above.
-
-The active perfect-play output program may reuse proved quotient facts, but must add
-output provenance when line identity is observable.
-
----
-
-## 7. Minimax / alpha-beta research
-
-**Primary branch:** `solver/minimax-alpha-beta`
-
-Retain this line for exact search controls and earlier experiments involving TT
-geometry, decision-state admission, compact keys, residual automorphisms, win-space
-search, evaluator/proof ordering, forced macros, implication work, and negative
-controls.
-
-Do not copy BSFP recurrence or current perfect-play output semantics into this lane
-merely because state mathematics overlaps.
-
----
-
-## 8. CUDA-BSFP / OQS research
-
-Production-adjacent BSFP work is associated with `feature/cuda-bsfp`; later
-representation/OQS research descends through `research/zdd-transfer-20260910` and
-related branches.
-
-Retained records include:
+Relevant branches include `feature/cuda-bsfp`, `research/zdd-transfer-20260910`, and
+related OQS branches. Important retained records include:
 
 - `2026-09-10-cuda-bsfp-research-synthesis.md`
 - `2026-09-10-identified-winline-quotient-exact-results.md`
@@ -283,41 +297,13 @@ Retained records include:
 - `2026-09-10-r6-incremental-oqs-results.md`
 - `2026-09-11-oqs-cuda-cofactor-qualification.md`
 
-These are not deleted when the current line changes solver strategy; they contain
-representation and quotient evidence that may transfer.
-
 ---
 
-## 9. Historical branch refs and local-packet caveat
+## 11. Retention rule
 
-Historical refs remain provenance/evidence, not active authority merely because they
-still exist. Examples include:
+When usefulness is unclear, retain and classify later.
 
-- `research/exact-solver-perf-checkpoint-2026-09-08`
-- `research/exact-solver-rethink-controls-2026-09-09`
-- `research/forced-macro-implication-2026-09-09`
-- `research/residual-automorphisms-2026-09-09`
-- `research/low-confidence-survival-2026-09-09`
-- `research/identified-winline-quotient-*`
-- `research/winline-*`
-
-Some historical large local packets were never fully transported into Git. A retained
-report or hash proves the report/evidence that exists; it does not imply the original
-full packet is present. Recovered copies should be imported as historical evidence
-without rewriting their original reports.
-
----
-
-## 10. Retention rule
-
-When usefulness is unclear, retain the artifact and classify it later.
-
-Delete only when all of the following are established:
-
-1. the artifact is redundant or obsolete for every known authority/evidence role;
-2. any unique evidence/provenance has been preserved elsewhere;
-3. no active spec, research note, reproducer, or handoff depends on it;
-4. the deletion is documented in a cleanup ledger.
-
-The first 2026-09-13 organization pass intentionally deletes **nothing**. See
-[`2026-09-13-research-organization-cleanup.md`](2026-09-13-research-organization-cleanup.md).
+Delete only when unique evidence/provenance has been preserved, no active authority or
+reproducer depends on the artifact, and cleanup is explicitly documented. Historical
+branch refs and local-packet reports remain evidence, not current authority merely
+because they still exist.
