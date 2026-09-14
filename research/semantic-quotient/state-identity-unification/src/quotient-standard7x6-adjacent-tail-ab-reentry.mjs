@@ -89,18 +89,24 @@ const nonterminal=rows.filter(r=>r.route!=='P0_immediate_target_terminal');
 const noAB=nonterminal.filter(r=>r.route==='no_AB_safe');
 const bothAB=nonterminal.filter(r=>r.route==='both_AB_safe');
 const oneAB=nonterminal.filter(r=>r.route==='one_AB_safe');
-assert.equal(noAB.length,0,'adjacent-tail survivor produced a nonterminal reply with no safe A/B re-entry');
+const compactAction=(x)=>({status:x.status,cell:x.cell??null,p1TerminalCells:(x.p1Terminal??[]).map(r=>r.cell)});
+const noABRows=noAB.map(r=>({
+ member:r.member,target:r.target,adjacentTail:r.adjacentTail,
+ A:compactAction(r.A),B:compactAction(r.B),
+}));
 console.log(`ADJACENT_TAIL_AB_REENTRY=${JSON.stringify({
- kind:'standard7x6-adjacent-tail-ab-reentry-v1',
+ kind:'standard7x6-adjacent-tail-ab-reentry-classification-v1',
  attribution:{researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',formalizationImplementationQualification:'OpenAI ChatGPT'},
  exactAdjacentTailActions:cases.length,exactP1Replies:rows.length,routeCounts,
  immediateTargetTerminalReplies:rows.filter(r=>r.route==='P0_immediate_target_terminal').length,
  nonterminalReplies:nonterminal.length,bothABSafe:bothAB.length,exactlyOneABSafe:oneAB.length,noABSafe:noAB.length,
+ falsifiedCandidateTheorem:{statement:'Every non-winning P1 reply to an adjacent-tail survivor re-enters through at least one immediately safe A/B strict-capacity-descent action.',falsified:noAB.length>0,counterexampleCount:noAB.length},
  oneABRows:oneAB.map(r=>({member:r.member,safeAB:r.safeAB,A:r.A.status,B:r.B.status})),
+ noABRows,
  structuralSeparator:'Within the retained D/E/F family, the only tail action not adversarially eliminated is the column at distance 1 from the remaining target: F for G3 and D for C3. This is independent of resolved-singleton owner.',
  interpretation:noAB.length===0
-  ? 'Every non-winning P1 reply to an adjacent-tail survivor re-enters through at least one safe A/B strict-capacity-descent action. Thus the four surviving tail actions have a guarded handoff into the previously qualified A/B chain-progress subsystem.'
-  : 'At least one adjacent-tail reply lacks A/B re-entry and remains a separate continuation case.',
- theoremBoundary:'This proves only one adjacent-tail action, one P1 reply, and existence of an immediate safe A/B handoff on the retained four contexts. It does not yet prove repeated A/B induction to terminal/re-entry, center-opening W membership, q equality, or provenance equality.',
+  ? 'Every non-winning P1 reply to an adjacent-tail survivor re-enters through at least one safe A/B strict-capacity-descent action.'
+  : 'The universal A/B re-entry conjecture is falsified. Preserve the exact no-A/B rows as the next action-conditioned counterexample set; do not infer loss until all legal P0 actions in those rows are exhausted.',
+ theoremBoundary:'This classifies one adjacent-tail action and one P1 reply on the retained four contexts. A no-A/B row means only that neither A nor B satisfies the current immediate safety predicate; it does not classify the state as losing or imply anything about other P0 actions.',
  authority:'Exact C4-0010 support/residual transitions and qualified terminal/safety predicates only; no solved W/D/L labels, recursive q search, Bayesian confidence, or output-cardinality premise.'
 })}`);
