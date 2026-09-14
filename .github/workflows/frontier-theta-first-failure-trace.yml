@@ -1,0 +1,42 @@
+name: Frontier theta first-failure trace
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-sequence-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-aux-lex-proof-lib.mjs'
+      - '.github/workflows/frontier-theta-first-failure-trace.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trace:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: forced_C4, sequence: '466565536644747533', target: G5, max_distance: '4' }
+          - { name: forced_D6, sequence: '466565536644747534', target: G5, max_distance: '4' }
+          - { name: after_C4_D5, sequence: '46656553664474753334', target: G5, max_distance: '4' }
+          - { name: after_D6_C3, sequence: '46656553664474753443', target: G5, max_distance: '4' }
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Trace exact theta failure
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+          TARGET: ${{ matrix.target }}
+          MAX_TARGET_DISTANCE: ${{ matrix.max_distance }}
+        run: |
+          set -euo pipefail
+          unset ACTION || true
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-sequence-probe.mjs
