@@ -253,7 +253,7 @@ console.log(`EXPIRED_RESPONSE_RHO_HANDOFF=${JSON.stringify({
   allClosed,
   promotedConsequence: allClosed ? `${ROOT}32 in W via P0:G1` : null,
   executionIsolation: {
-    isolatedRhoProbeProcesses,
+    isolatedRhoProbeProcesses: isolatedProbeProcesses,
     actionOrder: 'resolved-tail first, then A/B/D/E/F',
     reason: 'Each top-level rho candidate action runs in a fresh kernel; recursive descendants retain the complete rho calculus.',
     semanticIdentityImplied: false,
