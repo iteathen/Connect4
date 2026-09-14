@@ -1,6 +1,6 @@
-schema_version: 71
+schema_version: 72
 updated: 2026-09-13
-state: latent_singleton_temporal_scheduler
+state: temporal_contract_stutter_composition
 current_branch: research/frontier-negamax-conformance
 
 attribution:
@@ -10,6 +10,7 @@ attribution:
 authority:
   account_agents: iteathen/.github/AGENTS.md
   local_agents: AGENT_LOCAL.md
+  domain: docs/specs/C4-0001-domain-v1.md
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
@@ -17,136 +18,116 @@ authority:
   invariant_first_resolution: docs/research/2026-09-13-invariant-first-cross-layer-isomorphism.md
   phase_defect_core: docs/research/2026-09-13-column-phase-defect-and-zero-phase-core.md
   hinge_and_policy_fiber: docs/research/2026-09-13-d3-hinge-convergence-and-policy-coverage-fiber.md
-  bayesian_research_mask: docs/research/2026-09-13-bayesian-research-mask.md
+  temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
   response_matroid: docs/research/2026-09-13-response-matroid-defect-transfer.md
   typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
-  compatible_cover: docs/research/2026-09-13-compatible-cover-progress-calculus.md
+  temporal_response_capacity: docs/research/2026-09-13-temporal-response-capacity-calculus.md
   research_router: docs/research/RESEARCH_INDEX.md
 
 objective: >
   Derive a complete structural solve proof and then the exact perfect-W/D/L P0
-  terminal-line set. The active seam is now a finite temporal scheduling problem for
-  two latent singleton targets, not a broad exact-q or static blocker-cover problem.
+  terminal-line set. The active seam is composition of a proved finite latent-target
+  temporal contract with external stutter-safe response macros and post-target tail
+  release, not broad q recursion.
 
 canonical_layers:
   E: causal_event_poset_and_support_ideals
   R: residual_winning_obligation_antichains
   P: CPC_GF2_parity_precedence_deadlines
-  C: typed_policy_resources_and_compatibility
+  C: typed_temporal_policy_contracts_resources_and_compatibility
   N: guarded_monotone_dependency_closure
   G: alternating_predecessor_fixed_point
   Q: observation_sensitive_value_and_provenance_quotients
 
-established_controls:
-  r_only_semantic_entailment:
-    workflow_run: 34799005735
-    result: "132 hard occurrences -> 132 atoms; 0 implication edges; 28 witness terms -> 28 prime terms"
-    status: retained_negative_control
-  phase_defect:
-    workflow_run: 34799269752
-    exact_macro_law: "phi' = phi + e_a + e_b over GF(2)"
-    qualitative_isomorphism:
-      collapse: "(1,1)->(0,0), weight -2"
-      transport: "(1,0)->(0,1), weight unchanged"
-      reexpansion: "(0,0)->(1,1), weight +2"
-    fixed_control_discriminator:
-      "46656551": {weight: 4, defect_rank: 2}
-      "46656552": {weight: 4, defect_rank: 2}
-      "46656555": {weight: 2, defect_rank: 1}
-      "46656557": {weight: 4, defect_rank: 2}
-    unique_zero_phase_hard_macro: "46656555 -> P0:4 -> P1:6"
-    boundary: phase_is_not_WDL
-  zero_phase_core:
-    sequence: "4665655546"
-    workflow_run: 34799371776
-    support_rank: 10
-    heights: [0,0,0,2,4,4,0]
-    phase: "0000000"
-    p0_residuals_total: 37
-    vertical_pair_covered: 30
-    uncovered_requirements:
-      - [C3,D3]
-      - [D3,G3]
-      - [A1,B1,C1]
-      - [A5,B5,C5,D5]
-      - [B5,C5,D5,E5]
-      - [C5,D5,E5,F5]
-      - [D5,E5,F5,G5]
-    minimum_static_transversal_size: 3
-    static_factorization: "D3 AND D5 AND (A1 OR B1 OR C1)"
-    boundary: static_transversals_are_not_strategic_blockers
-  fragment_census:
-    workflow_run: 34800004789
-    candidate_instances_touching_core: 54
-    hinge_requirements_with_zero_A1_A9_candidates:
-      - [C3,D3]
-      - [D3,G3]
-    bottom_and_row5_requirements: many_candidate_fragments
-    inference: >
-      The seven-term core factors into a D3 hinge subsystem plus a comparatively rich
-      bottom/row5 repair subsystem. Historical A1-A9 vocabulary has a precise blind
-      spot at the hinge.
-  d3_hinge:
-    workflow_run: 34800109267
-    root: "4665655546"
-    p0_move: D3
-    immediate_terminal: false
-    universal_consequence: "for every legal immediate P1 reply, LiveSingleton(C3) AND LiveSingleton(G3)"
-    p1_terminal_replies: 0
-    phase_split:
-      P1_D4: zero_phase
-      every_other_reply: phase_weight_2
-    boundary: nonplayable_singleton_is_future_obligation_not_immediate_win
-  poisoned_pair_control:
-    initial_workflow_run: 34800232540
-    corrected_workflow_run: 34800352635
-    state: "466565554644"
-    exact_local_poison:
-      - "P0:C1, P1:C2 -> P0:C3 terminal"
-      - "P0:G1, P1:G2 -> P0:G3 terminal"
-    removed_old_vertical_contracts: ["C1->C2", "G1->G2"]
-    static_coverage_change_after_removal: 0
-    private_coverage_C2: []
-    private_coverage_G2: []
-    inference: >
-      Temporal invalidation of a policy contract can be invisible in R coverage. The
-      C->R coverage projection has nontrivial fibers; equal blocker coverage is not a
-      congruence for policy realizability.
-
-new_cross_layer_principle:
+exact_cross_layer_principle:
   name: observation_sensitive_projection_congruence
   statement: >
     A projection may erase a degree of freedom only when the forgotten distinctions
     are congruent for every downstream transition and observation being claimed.
-  instances:
-    - "q value identity is too coarse for terminal-line provenance; use q+Pi0"
-    - "policy blocker coverage is too coarse for temporal/resource realizability"
-    - "event/interleaving quotienting is valid only under proved terminal/order guards"
+  confirmed_instances:
+    - q_is_value_safe_but_not_terminal_line_provenance_safe_without_Pi0
+    - blocker_coverage_is_not_temporal_policy_realizability
+    - direct_blocker_candidate_generation_can_miss_support_scheduling_fragments
 
-latent_target_candidate:
-  state: "466565554644"
-  targets: [C3,G3]
-  local_support_chains:
-    C: "C1 < C2 < C3"
-    G: "G1 < G2 < G3"
-  forbidden_old_responses:
-    - "P0:C1 -> P1:C2"
-    - "P0:G1 -> P1:G2"
-  candidate_safe_shape:
-    - "P0:C1 -> P1:off-column skip -> P0:C2 -> P1:C3"
-    - "P0:G1 -> P1:off-column skip -> P0:G2 -> P1:G3"
-  interpretation: >
-    These are candidate temporal contract shapes, not proved complete policies. The
-    defender may leave an inaccessible singleton pending; target defense matters when
-    support advancement makes the terminal cell reachable.
+established_controls:
+  r_only_entailment:
+    result: "132 hard occurrences -> 132 atoms; 0 implication edges; 28 witness terms -> 28 prime terms"
+    status: retained_negative_control
+  phase_macro:
+    exact_law: "phi' = phi + e_a + e_b over GF(2)"
+    collapse: "(1,1)->(0,0)"
+    transport: "(1,0)->(0,1)"
+    reexpansion: "(0,0)->(1,1)"
+    boundary: phase_is_not_WDL
+  zero_phase_core:
+    sequence: "4665655546"
+    support_rank: 10
+    p0_residuals_total: 37
+    vertical_pair_covered: 30
+    parity_pure_defects: 7
+    static_factorization: "D3 AND D5 AND (A1 OR B1 OR C1)"
+  d3_hinge:
+    sequence: "4665655546"
+    action: "P0:D3"
+    universal_consequence: "every immediate P1 reply leaves LiveSingleton(C3) AND LiveSingleton(G3)"
+  poisoned_old_pairs:
+    state: "466565554644"
+    exact:
+      - "P0:C1, P1:C2 -> P0:C3 terminal"
+      - "P0:G1, P1:G2 -> P0:G3 terminal"
+    static_coverage_change_when_removed: 0
+  latent_target_cross_pair:
+    workflow_run: 34801047093
+    fixed_state: "466565554644"
+    abstract_decision_states: ["0,0", "1,1", "1,3", "3,1", "3,3"]
+    complete_target_only_attacker_schedules: 4
+    support_pair:
+      - "P0:C1 -> P1:G1"
+      - "P0:G1 -> P1:C1"
+    target_responses:
+      - "P0:C2 -> P1:C3"
+      - "P0:G2 -> P1:G3"
+    concrete_result: >
+      All four target-only attacker schedules embed legally through exact C4-0010
+      transitions and discharge both singleton targets without solved W/D/L premises.
+    interpretation: >
+      The hinge is locally jointly defensible. A Baseinverse-shaped support pair was
+      hidden from direct WSL-blocker candidate generation because its consequence is
+      temporal support control, not blocker-subset coverage.
+    theorem_boundary: >
+      Off-target P0 moves and post-target upper-tail release are not covered by the
+      local scheduler theorem.
+
+temporal_contract_model:
+  schema_fields:
+    - states
+    - initial_state
+    - event_guards
+    - required_actions
+    - forbidden_actions
+    - resource_claims
+    - phase_effects
+    - deadlines
+    - consequences
+    - NDC_guards
+  relationship_to_response_matroid: >
+    Temporal contracts own activation/deactivation and contingent deadlines. At any
+    automaton state, active obligations project to the existing response-matroid
+    matching/rank/circuit calculus. The matroid is a snapshot view, not a competing
+    temporal semantics.
+  compiled_shapes:
+    - immediate_response_pair
+    - Baseinverse_shaped_cross_support_pair
+    - latent_singleton_watcher
+    - Before_like_disjunctive_contract_candidate
 
 bayesian_research_mask:
   role: research_priority_only
   visibility_to_exact_logic: none
   update: >
-    Lower priority for additional R/static-coverage refinements at the hinge. Raise
-    priority for P/C/N temporal policy fibers, latent-target scheduling and exact
-    response-resource circuits. Do not infer value from the hinge or phase pattern.
+    Lower belief that the simultaneous C3/G3 targets themselves form the obstruction.
+    Raise test priority for temporal-contract composition, stutter congruence and
+    post-discharge tail effects. Do not expose these credences to exact logic.
   promotion_membrane: >
     Only exactly proved deterministic rules with explicit guards enter proof logic;
     probability and utility annotations are discarded on promotion.
@@ -158,8 +139,8 @@ constraints:
   - preserve_exact_c4_0010_q_identity
   - output_provenance_must_not_be_erased_by_value_only_equivalence
   - preserve_terminal_stopping_CPC_NDC_deadline_resource_and_provenance_boundaries
-  - phase_defect_rank_is_not_game_value_or_distance_to_win
   - static_coverage_is_not_policy_realizability
+  - temporal_contract_state_may_not_be_erased_without_congruence_proof
   - nonplayable_singleton_is_not_immediate_threat_without_support_timing
   - bayesian_mask_is_external_to_exact_logic
   - unresolved_frontiers_are_unknown_not_negative_values
@@ -167,54 +148,38 @@ constraints:
   - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
-  name: formalize_two_latent_singleton_temporal_scheduler
+  name: prove_temporal_contract_stutter_and_tail_composition
   purpose: >
-    Determine whether the simultaneous latent targets C3 and G3 can be defended by one
-    finite exact P1 schedule over their support chains and a bounded class of off-column
-    phase-shift resources, or whether every admissible schedule contains a finite
-    parity/resource/deadline obstruction. Do not solve the surrounding q state tree.
+    Extend the exact C3/G3 latent-target cross-pair contract only by proving which
+    external response macros are true stutters and by representing the resource/parity
+    effect released when one target is consumed. Do not solve the surrounding q tree.
   fixed_state: "466565554644"
-  target_contracts:
-    C3:
-      chain: [C1,C2,C3]
-      old_poisoned_response: "C1->C2"
-    G3:
-      chain: [G1,G2,G3]
-      old_poisoned_response: "G1->G2"
-  required_contract_fields:
-    - support_prerequisite
-    - global_rank_or_turn_parity
-    - trigger_event
-    - forbidden_immediate_response
-    - allowed_skip_or_phase_shift_resource_class
-    - target_response
-    - resource_sharing_or_exclusivity
-    - phase_displacement
-    - deadline
-    - terminal_consequence
-    - NDC_guards
+  latent_contract:
+    support_pair: [C1,G1]
+    targets: [C3,G3]
   bounded_steps:
-    - represent only the two target support chains and the smallest equivalence classes of off-column events needed to shift parity
-    - quotient off-column events only when their C/P/N effects are proved identical for both target contracts
-    - derive exact scheduler transitions symbolically; do not recurse the physical q frontier
-    - check whether one schedule can satisfy both target contracts for every P0 support-advancement choice
-    - if infeasible, extract the smallest response-capacity, GF2, order or deadline circuit
-    - if feasible, compile the schedule as a typed C/N certificate and determine which bottom/row5 fragments remain compatible
-    - stop immediately if the scheduler starts reconstructing arbitrary board histories
+    - derive candidate off-target two-ply response macros from existing exact vertical/typed response contracts
+    - classify a macro as stutter only if it preserves C/G support state live-target facts terminal safety CPC reservoir effect active deadlines and NDC guards
+    - quotient macros only by the full temporal-contract observation, never by blocker coverage alone
+    - after P1 consumes C3 or G3, explicitly account for the newly exposed upper tail C4-C6 or G4-G6
+    - determine whether tail effects normalize to a small contract state, GF2/resource token, or response circuit
+    - compose response-matroid checks only over obligations active at each automaton state
+    - stop if the representation starts carrying one state per physical continuation
   success_conditions:
-    - exact finite scheduler certificate for both latent targets
-    - or exact finite obstruction covering every admissible target-defense schedule
-    - result is expressed in canonical E/P/C/N predicates and yields a sound G bound or predecessor implication
+    - exact stutter/product theorem extending the latent scheduler across a nontrivial class of external P0 moves
+    - and a compact exact representation of post-target tail release
+    - or a smallest exact counterexample identifying which C/P/N invariant is still missing
   stop_conditions:
-    - representation degenerates to one state per physical continuation
-    - proof requires solved W/D/L labels as premises
-    - off-column context cannot be quotiented without carrying the full board state
+    - physical q-tree reconstruction begins
+    - candidate requires solved W/D/L labels as proof premises
+    - off-target context cannot be quotiented under the complete temporal observation
     - wall_clock_reaches_5_minutes
 
 research_candidates_after_this_control:
-  - generic_latent_target_defense_contract
+  - temporal_contract_product_and_stutter_congruence
+  - post_target_tail_as_GF2_resource_token
+  - generic_compiler_for_Allis_rules_to_temporal_contracts
   - P_and_C_shared_circuit_kernel
-  - policy_realization_fiber_refinement_over_R_coverage
   - finite_paving_restriction_as_typed_scheduler_defect
   - product_fixed_point_for_N_closure_and_G_interval_bounds
 
@@ -224,6 +189,7 @@ forbidden_shortcuts:
   - use_bayesian_credence_as_proof_authority
   - treat_phase_weight_as_WDL_classifier
   - treat_static_hitting_set_or_coverage_equivalence_as_realizable_policy
+  - treat_named_Allis_rule_identity_as_runtime_semantic_authority
   - increase_frontier_or_q_caps_to_hide_missing_mathematics
   - enumerate_the_physical_game_tree_and_call_it_structural_progress
   - infer_positive_win_from_P1_nonwin
