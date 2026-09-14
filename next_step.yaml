@@ -1,4 +1,4 @@
-schema_version: 75
+schema_version: 76
 updated: 2026-09-13
 state: claim_relative_typed_event_signatures
 current_branch: research/frontier-negamax-conformance
@@ -14,6 +14,7 @@ authority:
   structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  unified_logic: docs/research/2026-09-13-unified-structural-logic-statement.md
   temporal_contract_automata: docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md
   temporal_stutter_tail_phase_debt: docs/research/2026-09-13-temporal-stutter-tail-phase-debt.md
   event_dependency_cone: docs/research/2026-09-13-event-dependency-cone-product-calculus.md
@@ -35,17 +36,22 @@ canonical_layers:
   G: alternating_predecessor_fixed_point
   Q: observation_sensitive_value_and_provenance_quotients
 
-exact_principles:
-  observation_sensitive_projection_congruence: >
-    A distinction may be forgotten only for an observation whose complete load-bearing
-    dependency cone does not depend on that distinction.
+unified_statement:
+  event_product: >
+    Every legal placement is one typed event with simultaneous E/R/P/C/N projections.
   claim_relative_signature: >
-    Sigma_O(X,x) is the typed E/P/R/C/N/terminal/provenance dependency cone needed to
-    prove exact claim O about event x in context X. Isomorphic cones license reuse of
-    the theorem for O only.
-  state_boundary: >
-    Claim-relative theorem equivalence never implies q equality, full successor
-    equivalence, later strategy equivalence, or provenance equivalence.
+    Sigma_O(S,e) is the load-bearing typed dependency cone required to prove exact
+    claim O about event e in context S. Isomorphic signatures license theorem reuse
+    only for O; nonincident context remains live and q identity is unchanged.
+  exact_value: "W = mu X . [ I union PreE(X) union PreA(X) ]"
+  ordinary_value_identity: "q = support + normalized R0 + normalized R1"
+  output_identity: "q + Pi0 when terminal-line provenance is observable"
+  governing_projection_rule: >
+    Erase a distinction only when it is a congruence for every downstream transition
+    and the exact claim or observation being proved.
+  completion_boundary: >
+    This is not yet the solve. The center-opening positive proof still must close
+    structurally inside W; terminal-line provenance is the second-stage output.
 
 established_controls:
   local_event_effect_signatures:
@@ -53,46 +59,31 @@ established_controls:
     physical_transitions: 20
     local_effect_classes: 12
     nontrivial_reused_classes: 8
-    inference: >
-      Exact event theorem reuse exists across global contexts when differences lie
-      outside the measured event dependency cone.
   singleton_discharge_cross_family:
     workflow_run: 34802078920
     physical_contexts: 3
     claim_relative_classes: 1
-    contexts:
-      - "center response serialization: prefix 45112, target C1"
-      - "latent target response: prefix 466565554644373, target C3"
-      - "latent target response: prefix 466565554644377, target G3"
     theorem: >
       EnabledLiveP0Singleton(x) AND SideToMove=P1 implies that P1 claiming x on the
-      current turn discharges that singleton obligation, unless the move itself is
-      already a P1 terminal win.
-    result: >
-      The historical center forced terminal block and the latent-target responses are
-      one exact theorem class even though their complete successor states differ.
+      current turn discharges that singleton obligation unless the move itself is a
+      P1 terminal win.
   response_capacity_cross_family:
     theorem_class: size_two_transversal_matroid_circuit
-    instances:
-      - center_phase_response_fork
-      - center_response_serialization_collision
     normalized_claim: "two distinct mandatory actions compete for one sole defender slot"
-
-observation_examples:
-  singleton_discharge: small_dependency_cone
-  latent_contract_stutter: medium_dependency_cone
-  exact_q_successor: complete_C4_0010_value_identity
-  terminal_line_provenance: q_plus_Pi0_and_provenance_transport
+  latent_target_cross_pair:
+    workflow_run: 34801047093
+    result: exact_five_state_local_scheduler
+  phase_debt_and_stutter:
+    stutter_workflow: 34801299360
+    debt_workflow: 34801394490
+    law: "phi' = phi + e_a + e_b over GF(2)"
 
 bayesian_research_mask:
   role: research_priority_only
   visibility_to_exact_logic: none
-  update: >
-    Raise priority for claim-relative canonicalization and theorem-library reuse across
-    historically separate rule families. Do not expose research credence to the logic.
   promotion_membrane: >
     Only exact guarded theorem schemas and qualified signatures cross into proof logic;
-    Bayesian scores are discarded.
+    confidence and utility annotations are discarded.
 
 constraints:
   - final_terminal_line_cardinality_is_output_only
@@ -110,7 +101,7 @@ constraints:
 next_task:
   name: build_claim_relative_signature_library
   purpose: >
-    Construct a small generic proof-theorem interface TypedEventSignature(claim,context,event)
+    Construct a generic proof-theorem interface TypedEventSignature(claim,context,event)
     over already-qualified evidence, derive claim dependency cones from explicit NDC-style
     premises, and canonicalize them to discover hidden cross-family theorem classes.
   seed_claims:
@@ -134,21 +125,13 @@ next_task:
     - stop if theorem signatures degenerate into one signature per physical state
   success_conditions:
     - at least two independently qualified cross-family theorem classes
-    - a reusable schema whose soundness boundary explicitly states the observation/claim
-    - smaller proof vocabulary without any weakening of exact game semantics
+    - a reusable schema whose soundness boundary explicitly states the observation or claim
+    - smaller proof vocabulary without weakening exact game semantics
   stop_conditions:
     - physical q-tree reconstruction begins
     - WDL labels become proof premises
     - a claimed merge omits a load-bearing guard
     - wall_clock_reaches_5_minutes
-
-research_candidates_after_this_control:
-  - NDC_backwards_slice_as_automatic_dependency_cone
-  - contextual_bisimulation_of_claim_relative_event_operators
-  - commuting_independent_event_macros
-  - phase_defect_token_machine_over_claim_signatures
-  - generic_temporal_contract_compiler_for_Allis_and_paving_fragments
-  - product_fixed_point_for_N_closure_and_G_interval_bounds
 
 forbidden_shortcuts:
   - cite_known_connect4_solution_as_the_proof
