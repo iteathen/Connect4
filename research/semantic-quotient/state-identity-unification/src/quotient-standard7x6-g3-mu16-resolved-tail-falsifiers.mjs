@@ -36,6 +36,7 @@ for(const r1 of [0,1,3,4,5,6]){
     if(!candidates.has(key))candidates.set(key,{sequence,phase:phase(de,s20),sortedCaps:sortedCaps(de,s20)});
    }
   }
+ }
 }
 assert.equal(candidates.size,37,'G3 mu16 clean corpus drift');
 const rows=[...candidates.values()].sort((a,b)=>a.sequence.localeCompare(b.sequence));
