@@ -12,6 +12,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-typed-handoffs.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-proof-lib-conformance.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-certified-repair-predecessor-consumer.mjs
       - .github/workflows/frontier-repair-capacity-induction.yml
   workflow_dispatch:
 
@@ -33,6 +34,12 @@ jobs:
       lib20: ${{ steps.lib.outputs.lib20 }}
       lib20_unique: ${{ steps.lib.outputs.lib20_unique }}
       lib_certified: ${{ steps.lib.outputs.lib_certified }}
+      consumer18_closed: ${{ steps.consumer.outputs.consumer18_closed }}
+      consumer18_failed: ${{ steps.consumer.outputs.consumer18_failed }}
+      consumer16_closed: ${{ steps.consumer.outputs.consumer16_closed }}
+      consumer16_failed: ${{ steps.consumer.outputs.consumer16_failed }}
+      consumer_root: ${{ steps.consumer.outputs.consumer_root }}
+      consumer_recursive: ${{ steps.consumer.outputs.consumer_recursive }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -111,18 +118,36 @@ jobs:
           if(!line) throw new Error('repair proof lib conformance summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
           if(x.original16.proved!==16||x.original16.failed!==0||x.rank20.closed!==20||x.rank20.failed!==0) throw new Error('reusable repair proof engine closure regressed');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`lib16=${x.original16.proved}`,`lib20=${x.rank20.closed}`,`lib20_unique=${x.rank20.uniqueRank20Keys}`,`lib_certified=${x.rank20.certifiedPairs}`].join('\n')+'\n');
+          NODE
+      - name: Qualify two-kernel frozen-certificate predecessor consumer
+        id: consumer
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/repair-certificate-consumer.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-certified-repair-predecessor-consumer.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('CERTIFIED_REPAIR_PREDECESSOR_CONSUMER='));
+          if(!line) throw new Error('repair certificate consumer summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.rank18.states!==84||x.rank16.states!==12) throw new Error('certificate consumer domain drift');
+          if(x.consumer.recursiveProofCalls!==0) throw new Error('consumer illegally invoked recursive repair proof');
           fs.appendFileSync(process.env.GITHUB_OUTPUT,[
-            `lib16=${x.original16.proved}`,
-            `lib20=${x.rank20.closed}`,
-            `lib20_unique=${x.rank20.uniqueRank20Keys}`,
-            `lib_certified=${x.rank20.certifiedPairs}`,
+            `consumer18_closed=${x.rank18.closed}`,
+            `consumer18_failed=${x.rank18.failed}`,
+            `consumer16_closed=${x.rank16.closed}`,
+            `consumer16_failed=${x.rank16.failed}`,
+            `consumer_root=${x.latentRoot.closedCandidateColumns.length}`,
+            `consumer_recursive=${x.consumer.recursiveProofCalls}`,
           ].join('\n')+'\n');
           NODE
 
   summary:
     needs: repair-capacity-induction
-    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} old-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }} typed-c${{ needs.repair-capacity-induction.outputs.typed_closed }}-f${{ needs.repair-capacity-induction.outputs.typed_failed }} lib16-${{ needs.repair-capacity-induction.outputs.lib16 }}-lib20-${{ needs.repair-capacity-induction.outputs.lib20 }}-u${{ needs.repair-capacity-induction.outputs.lib20_unique }}-cert${{ needs.repair-capacity-induction.outputs.lib_certified }}
+    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} old-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }} typed-c${{ needs.repair-capacity-induction.outputs.typed_closed }}-f${{ needs.repair-capacity-induction.outputs.typed_failed }} lib20-${{ needs.repair-capacity-induction.outputs.lib20 }}-cert${{ needs.repair-capacity-induction.outputs.lib_certified }} consumer18-c${{ needs.repair-capacity-induction.outputs.consumer18_closed }}-f${{ needs.repair-capacity-induction.outputs.consumer18_failed }} consumer16-c${{ needs.repair-capacity-induction.outputs.consumer16_closed }}-f${{ needs.repair-capacity-induction.outputs.consumer16_failed }} root${{ needs.repair-capacity-induction.outputs.consumer_root }} recur${{ needs.repair-capacity-induction.outputs.consumer_recursive }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "qualified reusable structural proof certificate counts encoded in job name"
+      - run: echo "qualified reusable certificate and bounded predecessor counts encoded in job name"
