@@ -60,7 +60,6 @@ for (const reply of e.legal(afterD3)) {
     enabledP0Singletons: cells(e.enabledSingletons(child, 0)),
     enabledP1Singletons: cells(e.enabledSingletons(child, 1)),
     P0TerminalActions: e.terminalActions(child, 0).map((x) => e.coord(x.cell)),
-    P1TerminalActionsAtRoot: e.terminalActions(child, 1).map((x) => e.coord(x.cell)),
     C3: {
       live: e.singleton(child, 0, C3),
       supportDistance: e.singleton(child, 0, C3) ? e.targetDistance(child, C3) : null,
@@ -115,6 +114,6 @@ console.log(`D3_REPLY_HORIZON_DIAGNOSTIC=${JSON.stringify({
   afterP0Sequence: PREDECESSOR + '4',
   replyCount: replies.length,
   replies,
-  theoremBoundary: 'Diagnostic only. Enumerates the exact one-reply D3 horizon and one P0 action ply. D4 is tagged only because the exact child 466565554644 already has an independently qualified winning theorem. Other replies are not classified by analogy, phase, threat count, or action resemblance.',
+  theoremBoundary: 'Diagnostic only. Enumerates the exact one-reply D3 horizon and one P0 action ply. At P0 nodes the opponent surface is represented by enabled P1 singleton obligations; P1 terminal actions are queried only after a P0 move makes P1 the side to move. D4 is tagged only because the exact child 466565554644 already has an independently qualified winning theorem. Other replies are not classified by analogy, phase, threat count, or action resemblance.',
   authority: 'Exact C4-0010 transitions, residual singleton predicates, support distances, phase observation, and terminal certificates. No solved-WDL premise, no symmetry, no unrestricted recursion.',
 })}`);
