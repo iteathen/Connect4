@@ -44,16 +44,28 @@ test('rejects a discharge disposition not certified by a concrete event', () => 
   assert.equal(result.reason, 'obligation_discharge_not_event_certified');
 });
 
-test('accepts a discharge only when the named event certifies the exact obligation effect', () => {
+test('accepts discharge on the deadline event before that event ages an undisclosed obligation', () => {
   const events = [
-    { id: 'P1:B1', legal: true, terminal: false, clockTicks: {}, discharges: ['cross:C1->G1'] },
-    pair[1],
+    { id: 'P1:G1', legal: true, terminal: false, clockTicks: { P1_turn: 1 }, discharges: ['cross:C1->G1'] },
+    { id: 'P0:G2', legal: true, terminal: false, clockTicks: {} },
   ];
   const result = Verify_neutral_pair_transport({
     before: snapshot(), after: snapshot({ obligations: [], progressRank: [18] }), events,
-    dispositions: [{ id: 'cross:C1->G1', kind: 'discharged', eventId: 'P1:B1' }],
+    dispositions: [{ id: 'cross:C1->G1', kind: 'discharged', eventId: 'P1:G1' }],
   });
   assert.equal(result.ok, true);
+});
+
+test('rejects discharge after a prior event already expired the obligation', () => {
+  const events = [
+    { id: 'P1:B1', legal: true, terminal: false, clockTicks: { P1_turn: 1 } },
+    { id: 'P0:B2', legal: true, terminal: false, clockTicks: {}, discharges: ['cross:C1->G1'] },
+  ];
+  const result = Verify_neutral_pair_transport({
+    before: snapshot(), after: snapshot({ obligations: [], progressRank: [18] }), events,
+    dispositions: [{ id: 'cross:C1->G1', kind: 'discharged', eventId: 'P0:B2' }],
+  });
+  assert.equal(result.reason, 'obligation_discharge_after_expiry');
 });
 
 test('rejects created obligation without derivation', () => {
@@ -75,6 +87,54 @@ test('rejects a creation disposition not certified by the named event', () => {
     dispositions: [{ id: 'new', kind: 'created', eventId: 'P0:B2' }],
   });
   assert.equal(result.reason, 'obligation_creation_not_event_certified');
+});
+
+test('created obligation is aged only by later causal-clock events', () => {
+  const events = [
+    {
+      id: 'P0:C1', legal: true, terminal: false, clockTicks: {},
+      creates: [{ id: 'new', deadlineClock: 'P1_turn', remaining: 2, response: ['G1'] }],
+    },
+    { id: 'P1:B1', legal: true, terminal: false, clockTicks: { P1_turn: 1 } },
+  ];
+  const before = snapshot({ obligations: [] });
+  const after = snapshot({
+    obligations: [{ id: 'new', deadlineClock: 'P1_turn', remaining: 1, response: ['G1'] }],
+    progressRank: [18],
+  });
+  const result = Verify_neutral_pair_transport({
+    before, after, events,
+    dispositions: [{ id: 'new', kind: 'created', eventId: 'P0:C1' }],
+  });
+  assert.equal(result.ok, true);
+});
+
+test('rejects unaccounted extra aging of a carried deadline', () => {
+  const before = snapshot({ obligations: [{ id: 'x', deadlineClock: 'P1_turn', remaining: 3, response: ['G1'] }] });
+  const after = snapshot({ obligations: [{ id: 'x', deadlineClock: 'P1_turn', remaining: 1, response: ['G1'] }], progressRank: [18] });
+  const events = [
+    { id: 'P1:B1', legal: true, terminal: false, clockTicks: { P1_turn: 1 } },
+    { id: 'P0:B2', legal: true, terminal: false, clockTicks: {} },
+  ];
+  const result = Verify_neutral_pair_transport({ before, after, events });
+  assert.equal(result.reason, 'obligation_unaccounted_extra_aging');
+});
+
+test('rejects regeneration of a newly created deadline after later clock ticks', () => {
+  const events = [
+    {
+      id: 'P0:C1', legal: true, terminal: false, clockTicks: {},
+      creates: [{ id: 'new', deadlineClock: 'P1_turn', remaining: 2, response: ['G1'] }],
+    },
+    { id: 'P1:B1', legal: true, terminal: false, clockTicks: { P1_turn: 1 } },
+  ];
+  const before = snapshot({ obligations: [] });
+  const after = snapshot({ obligations: [{ id: 'new', deadlineClock: 'P1_turn', remaining: 2, response: ['G1'] }], progressRank: [18] });
+  const result = Verify_neutral_pair_transport({
+    before, after, events,
+    dispositions: [{ id: 'new', kind: 'created', eventId: 'P0:C1' }],
+  });
+  assert.equal(result.reason, 'created_obligation_deadline_regenerated');
 });
 
 test('rejects deadline regeneration when its causal clock ticked', () => {
