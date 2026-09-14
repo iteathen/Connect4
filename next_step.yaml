@@ -1,4 +1,4 @@
-schema_version: 64
+schema_version: 65
 updated: 2026-09-13
 state: typed_compatible_cover_progress_tightening
 current_branch: research/frontier-negamax-conformance
@@ -14,6 +14,7 @@ authority:
   strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
   forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
   hard_frontier_calculus: docs/research/2026-09-13-hard-frontier-recursion-calculus.md
+  proof_frontier_antichain: docs/research/2026-09-13-recursive-proof-frontier-antichain-isomorphism.md
   broad_frontier_stop: docs/research/2026-09-13-broad-frontier-search-stop-and-tightening.md
   compatible_cover: docs/research/2026-09-13-compatible-cover-progress-calculus.md
   typed_response_contracts: docs/research/2026-09-13-response-channel-antichain-calculus.md
@@ -31,6 +32,11 @@ current_semantics:
   output_identity: q_plus_exact_p0_residual_origin_provenance_Pi0
   positive_macro_step: "P0 witness -> all P1 replies -> base discharge or next exact-q hard frontier"
   hard_frontier_normalization: exact_q_only
+  candidate_proof_plan_normalization: >
+    At one parent/context, alternative pure value-proof hard-obligation sets form a
+    monotone DNF over exact-q Win atoms. Strict supersets are absorption-redundant;
+    retain the inclusion-minimal antichain. Typed CPC/NDC/resource/deadline context
+    must participate in dominance whenever it remains load-bearing.
   progress_rank: "42 - supportRank"
   progress_delta_per_retained_macro_step: -2
   frontier_width_is_progress_rank: false
@@ -91,12 +97,14 @@ constraints:
   - frozen_closed_certificates_must_verify_without_oracle_scores
   - preserve_exact_c4_0010_q_identity
   - exact_q_normalization_is_value_only_and_does_not_erase_output_provenance
+  - proof_plan_subset_absorption_is_value_only_unless_output_provenance_is_explicitly_preserved
   - every_P1_reply_must_be_discharged_or_retained_in_the_next_hard_frontier
   - progress_is_remaining_plies_not_frontier_width
   - do_not_raise_q_state_caps_or_recursive_depth_without_a_new_theorem
   - do_not_promote_state_specific_scalar_separators
   - do_not_use_race_blockers_as_a_total_cover_without_other_fragment_types
   - unresolved_frontiers_are_unknown_not_negative_values
+  - every_experiment_has_a_hard_five_minute_wall_clock_cap
 
 next_task:
   name: compile_typed_policy_fragment_cover_on_4665655_siblings
@@ -127,6 +135,9 @@ next_task:
     - guards
     - progress_consequence
   bounded_steps:
+    - before richer cover compilation, enumerate only one hard-frontier macro step for each legal P0 witness in the four retained sibling controls and normalize the resulting pure exact-q obligation sets to their inclusion-minimal antichain
+    - record raw witness count, distinct hard-obligation sets, duplicate sets, strict-superset absorptions, and empty/unary/multi-hard terms; absence of compression is a retained negative result
+    - do not recurse this proof-plan census beyond the one macro step and stop immediately if it begins reconstructing broad physical search
     - compile fragments directly from WSL residuals, support and CPC/NDC facts; no legal-move tree recursion
     - remove dominated fragments only under the proved semantic dominance order
     - propagate forced-fragment and requirement-subsumption rules
@@ -137,6 +148,7 @@ next_task:
     - if a common finite policy skeleton emerges, freeze it and prove its safety plus controlled-completion progress theorem
     - only after theorem qualification, add it as a positive base certificate and rerun the 723-root boundary
   success_conditions:
+    - proof-plan antichain normalization is exact and does not erase typed context or output provenance
     - fragment vocabulary remains small and semantic rather than state-ID-specific
     - closing siblings obtain a materially smaller or fully discharged compatible-cover core
     - broad control exposes a precise missing contract/resource/order fact rather than generic state explosion
@@ -146,7 +158,7 @@ next_task:
     - generic compatible-cover search reconstructs physical move-tree branching
     - no structural difference remains after typed contracts and NDC/CPC context
     - candidate requires oracle scores or solved values as proof premises
-    - wall_clock_exceeds_10_minutes_without_a_bounded_local_bottleneck
+    - wall_clock_reaches_5_minutes
 
 forbidden_shortcuts:
   - cite_known_connect4_solution_as_the_proof
