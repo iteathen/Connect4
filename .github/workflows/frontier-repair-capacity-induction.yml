@@ -1,0 +1,65 @@
+name: Frontier repair-capacity induction
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-predecessor-induction.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
+      - .github/workflows/frontier-repair-capacity-induction.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repair-capacity-induction:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      starts_proved: ${{ steps.induction.outputs.starts_proved }}
+      starts_failed: ${{ steps.induction.outputs.starts_failed }}
+      proof_states: ${{ steps.induction.outputs.proof_states }}
+      proof_classes: ${{ steps.induction.outputs.proof_classes }}
+      start_classes: ${{ steps.induction.outputs.start_classes }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify restricted repair-capacity predecessor induction
+        id: induction
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/repair-induction.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-predecessor-induction.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('REPAIR_CAPACITY_PREDECESSOR_INDUCTION='));
+          if(!line) throw new Error('repair induction summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.failedStartStates!==0||x.provedStartStates!==16) throw new Error('repair induction start closure regressed');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `starts_proved=${x.provedStartStates}`,
+            `starts_failed=${x.failedStartStates}`,
+            `proof_states=${x.proofStates}`,
+            `proof_classes=${x.canonicalProofClasses}`,
+            `start_classes=${x.startProofClasses.length}`,
+          ].join('\n')+'\n');
+          NODE
+      - name: Qualify latent-contract backward composition when present
+        if: ${{ hashFiles('research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs') != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
+
+  summary:
+    needs: repair-capacity-induction
+    name: repair-induction p${{ needs.repair-capacity-induction.outputs.starts_proved }}-f${{ needs.repair-capacity-induction.outputs.starts_failed }}-n${{ needs.repair-capacity-induction.outputs.proof_states }}-c${{ needs.repair-capacity-induction.outputs.proof_classes }}-s${{ needs.repair-capacity-induction.outputs.start_classes }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "qualified repair-capacity induction counts encoded in job name"
