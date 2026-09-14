@@ -38,6 +38,10 @@ jobs:
       forced_continue: ${{ steps.tail_summary.outputs.forced_continue }}
       overrides: ${{ steps.tail_summary.outputs.overrides }}
       unresolved: ${{ steps.tail_summary.outputs.unresolved }}
+      blocking_circuits: ${{ steps.tail_summary.outputs.blocking_circuits }}
+      blocking_forced_terminal: ${{ steps.tail_summary.outputs.blocking_forced_terminal }}
+      blocking_forced_continue: ${{ steps.tail_summary.outputs.blocking_forced_continue }}
+      blocking_overrides: ${{ steps.tail_summary.outputs.blocking_overrides }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -122,19 +126,24 @@ jobs:
             .find((x) => x.startsWith('TAIL_HANDOFF_TARGET_SUPPORT_SUMMARY='));
           if (!line) throw new Error('target-support summary line missing');
           const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          const b = x.blockingStatusCounts ?? {};
           const out = [
             `circuits=${x.exactCapacityCircuits}`,
             `forced_terminal=${x.forcedBlockThenImmediateTerminal}`,
             `forced_continue=${x.forcedBlockContinuations}`,
             `overrides=${x.statesWithP1TerminalOverride}`,
             `unresolved=${x.unresolvedRowCount}`,
+            `blocking_circuits=${b.P0_response_capacity_circuit ?? 0}`,
+            `blocking_forced_terminal=${b.P0_forced_block_then_immediate_terminal ?? 0}`,
+            `blocking_forced_continue=${b.forced_target_block_continuation ?? 0}`,
+            `blocking_overrides=${b.P1_terminal_override_exists ?? 0}`,
           ].join('\n') + '\n';
           fs.appendFileSync(process.env.GITHUB_OUTPUT, out);
           NODE
 
   tail-routing-summary:
     needs: claim-relative-library
-    name: tail-routing c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }}-u${{ needs.claim-relative-library.outputs.unresolved }}
+    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
