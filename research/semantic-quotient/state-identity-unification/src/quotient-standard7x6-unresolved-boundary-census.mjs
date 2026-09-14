@@ -164,7 +164,7 @@ const { kernel } = createSlot64ResidualQuotientKernel(DOMAIN, {
   cacheEdges: true,
   prefixClasses: 4096,
   responseClosure: true,
-  searchStorage: Object.freeze({ states: 262144, classes: 524288, chunksPerSlot: 262144 }),
+  searchStorage: Object.freeze({ states: 1048576, classes: 1048576, chunksPerSlot: 262144 }),
 });
 kernel.prepareSearchStorage();
 
