@@ -8,9 +8,11 @@ on:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-self-duality-audit.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-natural-boundary-splittings-control.mjs'
       - 'docs/research/2026-09-14-support-graded-middle-duality.md'
       - 'docs/research/2026-09-14-cpc-self-duality-audit.md'
       - 'docs/research/2026-09-14-cpc-residual-middle-isomorph.md'
+      - 'docs/research/2026-09-14-natural-boundary-splittings-and-P.md'
       - '.github/workflows/frontier-support-graded-middle-duality.yml'
   workflow_dispatch:
 
@@ -39,5 +41,11 @@ jobs:
         run: |
           set -euo pipefail
           output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
+      - name: Qualify natural boundary splittings and typed P
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-natural-boundary-splittings-control.mjs)"
           printf '%s\n' "$output"
           grep -F '"proved":true' <<<"$output"
