@@ -21,33 +21,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - case: D-all
-            refusal: D
-            first: ''
-          - case: E-all
-            refusal: E
-            first: ''
-          - case: F-A
-            refusal: F
-            first: A
-          - case: F-B
-            refusal: F
-            first: B
-          - case: F-C
-            refusal: F
-            first: C
-          - case: F-D
-            refusal: F
-            first: D
-          - case: F-E
-            refusal: F
-            first: E
-          - case: F-F
-            refusal: F
-            first: F
-          - case: F-G
-            refusal: F
-            first: G
+          - { case: D-A, refusal: D, first: A }
+          - { case: D-B, refusal: D, first: B }
+          - { case: D-C, refusal: D, first: C }
+          - { case: D-D, refusal: D, first: D }
+          - { case: D-E, refusal: D, first: E }
+          - { case: D-F, refusal: D, first: F }
+          - { case: D-G, refusal: D, first: G }
+          - { case: E-A, refusal: E, first: A }
+          - { case: E-B, refusal: E, first: B }
+          - { case: E-C, refusal: E, first: C }
+          - { case: E-D, refusal: E, first: D }
+          - { case: E-E, refusal: E, first: E }
+          - { case: E-F, refusal: E, first: F }
+          - { case: E-G, refusal: E, first: G }
+          - { case: F-A, refusal: F, first: A }
+          - { case: F-B, refusal: F, first: B }
+          - { case: F-C, refusal: F, first: C }
+          - { case: F-D, refusal: F, first: D }
+          - { case: F-E, refusal: F, first: E }
+          - { case: F-F, refusal: F, first: F }
+          - { case: F-G, refusal: F, first: G }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
