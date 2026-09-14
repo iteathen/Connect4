@@ -6,6 +6,7 @@ on:
       - research/frontier-negamax-conformance
     paths:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-cross-support-response-consequence.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-handoff.mjs
       - .github/workflows/frontier-expired-cross-support-response.yml
   workflow_dispatch:
 
@@ -26,3 +27,8 @@ jobs:
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-cross-support-response-consequence.mjs
+      - name: Qualify dual-target rho handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-expired-response-rho-handoff.mjs
