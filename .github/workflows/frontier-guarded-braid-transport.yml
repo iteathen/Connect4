@@ -1,0 +1,29 @@
+name: Frontier guarded braid transport
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-braid-transport.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-braid-transport.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-reversed-ownership-stutter-control.mjs
+      - .github/workflows/frontier-guarded-braid-transport.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guarded-braid-transport:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify guarded transport axioms
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-guarded-braid-transport.test.mjs
+      - name: Falsify or qualify reversed-ownership B1-B2 stutter
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-reversed-ownership-stutter-control.mjs
