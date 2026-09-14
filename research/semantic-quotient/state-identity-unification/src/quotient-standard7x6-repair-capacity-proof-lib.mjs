@@ -62,7 +62,11 @@ export function createRepairCapacityProofEngine(kernel, options = {}) {
       .filter((cell) => landing(state, cell % 7) === cell)
       .sort((a, b) => a - b);
   }
-  function targetDistance(state, target) { return Math.max(0, 2 - heights(state)[target % 7]); }
+  function targetDistance(state, target) {
+    if (!Number.isInteger(target) || target < 0 || target >= 42) throw new RangeError('target cell outside standard 7x6 domain');
+    const targetRow = Math.floor(target / 7);
+    return Math.max(0, targetRow - heights(state)[target % 7]);
+  }
   function invariant(state, target) {
     return rank(state) % 2 === 0 && singleton(state, 0, target) && targetDistance(state, target) === 1;
   }

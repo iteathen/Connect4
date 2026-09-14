@@ -72,28 +72,32 @@ assert.equal(coord(landing(kernel, afterD4, G)), 'G1');
 assert.equal(hasSingleton(kernel, afterD4, C3), true);
 assert.equal(hasSingleton(kernel, afterD4, G3), true);
 
+// Important temporal boundary: D3/D4 create no live response obligation.  The exact transitions
+// supply physical/residual/turn facts only.  The latent scheduler theorem below owns the policy
+// saying that a future C/G support attack, once it occurs, activates a next-P1-turn response.
 const hinge = contract({
   id: 'hinge_D3_instantiation', claimId: 'universal_hinge_generates_two_latent_singletons',
   variables: [{ id: 'c3', type: 'cell', concrete: 'C3' }, { id: 'g3', type: 'cell', concrete: 'G3' }],
-  conclusions: [fact('R', 'p0_live_singleton', [ref('c3')]), fact('R', 'p0_live_singleton', [ref('g3')])],
+  conclusions: [
+    fact('R', 'p0_live_singleton', [ref('c3')]), fact('R', 'p0_live_singleton', [ref('g3')]),
+    fact('E', 'side_to_move', ['P1']),
+  ],
   frame: { preconditions: [], conclusions: [fact('N', 'exact_bridge_state', ['after_D3'])] },
-  temporalResource: { preconditions: [], conclusions: [fact('E', 'side_to_move', ['P1']), fact('C', 'reply_deadline', ['current_P1_turn'])] },
-  authority: { residualFacts: 'qualified hinge theorem', frameAndTurnFacts: 'exact C4-0010 D3 transition' },
+  authority: { residualFacts: 'qualified hinge theorem', frameAndTurnFacts: 'exact C4-0010 D3 transition', liveTemporalObligation: 'none' },
 });
 const d4Bridge = contract({
   id: 'exact_D4_bridge', claimId: 'exact_event_bridge',
   variables: [{ id: 'c3', type: 'cell', concrete: 'C3' }, { id: 'g3', type: 'cell', concrete: 'G3' }],
-  preconditions: [fact('R', 'p0_live_singleton', [ref('c3')]), fact('R', 'p0_live_singleton', [ref('g3')])],
+  preconditions: [
+    fact('R', 'p0_live_singleton', [ref('c3')]), fact('R', 'p0_live_singleton', [ref('g3')]),
+    fact('E', 'side_to_move', ['P1']),
+  ],
   conclusions: [
     fact('R', 'p0_live_singleton', [ref('c3')]), fact('R', 'p0_live_singleton', [ref('g3')]),
     fact('E', 'support_event_enabled', ['C1']), fact('E', 'support_event_enabled', ['G1']), fact('E', 'side_to_move', ['P0']),
   ],
   frame: { preconditions: [fact('N', 'exact_bridge_state', ['after_D3'])], conclusions: [fact('N', 'exact_bridge_state', ['466565554644'])] },
-  temporalResource: {
-    preconditions: [fact('E', 'side_to_move', ['P1']), fact('C', 'reply_deadline', ['current_P1_turn'])],
-    conclusions: [fact('C', 'attack_turn', ['P0']), fact('C', 'defender_response_deadline', ['next_P1_turn']), fact('C', 'defender_slots_per_attack', [1])],
-  },
-  authority: { allFacts: 'exact C4-0010 D4 transition from after_D3' },
+  authority: { allFacts: 'exact C4-0010 D4 transition from after_D3', liveTemporalObligation: 'none' },
 });
 const latentActivation = contract({
   id: 'latent_target_contract_activation', claimId: 'latent_target_cross_pair_temporal_contract',
@@ -108,10 +112,15 @@ const latentActivation = contract({
   ],
   frame: { preconditions: [fact('N', 'exact_bridge_state', ['466565554644'])], conclusions: [fact('N', 'exact_bridge_state', ['466565554644'])] },
   temporalResource: {
-    preconditions: [fact('C', 'attack_turn', ['P0']), fact('C', 'defender_response_deadline', ['next_P1_turn']), fact('C', 'defender_slots_per_attack', [1])],
-    conclusions: [fact('C', 'attack_turn', ['P0']), fact('C', 'defender_response_deadline', ['next_P1_turn']), fact('C', 'defender_slots_per_attack', [1])],
+    preconditions: [],
+    conclusions: [
+      fact('C', 'attack_turn', ['P0']),
+      fact('C', 'response_deadline_policy', ['next_P1_turn']),
+      fact('C', 'defender_slots_per_attack', [1]),
+      fact('C', 'live_response_obligations', [0]),
+    ],
   },
-  authority: { allFacts: 'qualified five-state latent-target scheduler contract at fixed root' },
+  authority: { structuralFacts: 'qualified five-state latent-target scheduler contract at fixed root', temporalPolicyFacts: 'latent-target contract theorem; no live deadline exists before a C/G support trigger' },
 });
 
 const bridgeComposition = Compose_theorem_chain([hinge, d4Bridge, latentActivation]);
@@ -151,10 +160,16 @@ for (const { col, label } of STUTTERS) {
     ],
     frame: { preconditions: [fact('N', 'exact_bridge_state', ['466565554644'])], conclusions: [fact('N', 'stutter_reentry_state', [label])] },
     temporalResource: {
-      preconditions: [fact('C', 'attack_turn', ['P0']), fact('C', 'defender_response_deadline', ['next_P1_turn']), fact('C', 'defender_slots_per_attack', [1])],
-      conclusions: [fact('C', 'attack_turn', ['P0']), fact('C', 'defender_response_deadline', ['next_P1_turn']), fact('C', 'defender_slots_per_attack', [1])],
+      preconditions: [
+        fact('C', 'attack_turn', ['P0']), fact('C', 'response_deadline_policy', ['next_P1_turn']),
+        fact('C', 'defender_slots_per_attack', [1]), fact('C', 'live_response_obligations', [0]),
+      ],
+      conclusions: [
+        fact('C', 'attack_turn', ['P0']), fact('C', 'response_deadline_policy', ['next_P1_turn']),
+        fact('C', 'defender_slots_per_attack', [1]), fact('C', 'live_response_obligations', [0]),
+      ],
     },
-    authority: { allFacts: `exact C4-0010 ${label} macro plus qualified stutter theorem` },
+    authority: { allFacts: `exact C4-0010 ${label} macro plus qualified stutter theorem`, temporalBoundary: 'off-target macro occurs before any C/G support-triggered live response obligation' },
   });
   const composed = Compose_theorem_chain([latentActivation, stutter]);
   assert.equal(composed.ok, true, `${label}: ${JSON.stringify(composed)}`);
@@ -162,7 +177,7 @@ for (const { col, label } of STUTTERS) {
 }
 
 console.log(`GUARDED_THEOREM_COMPOSITION_CONTROL=${JSON.stringify({
-  kind: 'standard7x6-guarded-claim-theorem-composition-v1',
+  kind: 'standard7x6-guarded-claim-theorem-composition-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -174,9 +189,9 @@ console.log(`GUARDED_THEOREM_COMPOSITION_CONTROL=${JSON.stringify({
     composed: bridgeComposition.ok,
     theoremChain: bridgeComposition.theoremIds,
     hingeClaimSupplies: ['P0 live singleton C3', 'P0 live singleton G3'],
-    exactD3InstantiationSupplies: ['after-D3 exact frame token', 'P1 to move', 'current P1 reply deadline'],
-    exactD4TransitionSupplies: ['destination exact frame token', 'C1 enabled', 'G1 enabled', 'P0 to move', 'next-P1-turn response deadline', 'one defender slot per attack'],
-    destinationContractSupplies: ['latent target cross-pair temporal contract active'],
+    exactD3InstantiationSupplies: ['after-D3 exact frame token', 'P1 to move'],
+    exactD4TransitionSupplies: ['destination exact frame token', 'C1 enabled', 'G1 enabled', 'P0 to move'],
+    destinationContractSupplies: ['latent target cross-pair temporal contract active', 'next-P1-turn response policy', 'one defender slot per activated attack', 'zero live response obligations before a C/G trigger'],
   },
   stutterReentry: stutterCompositions,
   firstUnprovedPremiseTowardCenterW: {
@@ -184,6 +199,7 @@ console.log(`GUARDED_THEOREM_COMPOSITION_CONTROL=${JSON.stringify({
     statement: 'For every legal off-target P0 event not covered by the qualified same-column stutter, prove a guarded composition that either re-enters the latent contract, enters an exact response-capacity circuit with a proved obligation-slot map, or advances a well-founded structural progress rank toward a terminal/predecessor certificate.',
     whyItBlocks: 'The target-only scheduler and same-column stutters are composable, but the remaining odd/mixed-column off-subsystem events can transport phase/resource defects without yet proving monotone progress or eventual re-entry. Without that universal composition step, center-opening membership in W is not closed.',
   },
-  theoremBoundary: 'This proves theorem-contract composition for the exact D3/D4 bridge and the five qualified fixed-state stutter re-entry macros. It does not prove center-opening W membership, later strategy outside these controls, q equality, provenance equality, or a 69-to-28 winning-line reduction.',
-  authority: 'Exact C4-0010 transitions/residuals plus previously qualified hinge, latent-contract, and stutter theorems. No solved W/D/L labels or recursive q-tree search.',
+  temporalCorrection: 'D3/D4 do not create a live deadline. The bridge now distinguishes the latent next-P1-turn response policy from a live obligation, which is created only by a qualified C/G support trigger.',
+  theoremBoundary: 'This proves theorem-contract composition for the exact D3/D4 bridge and the five qualified fixed-state stutter re-entry macros. It does not prove center-opening W membership, later strategy outside these controls, q equality, provenance equality, or a 69-to-28 winning-line reduction. No live temporal obligation is claimed at the latent root before a C/G support trigger.',
+  authority: 'Exact C4-0010 transitions/residuals plus previously qualified hinge, latent-contract, and stutter research theorems. Candidate C4-0006/C4-0007 structural semantics remain upstream research dependencies; no solved W/D/L labels or recursive q-tree search are used.',
 })}`);
