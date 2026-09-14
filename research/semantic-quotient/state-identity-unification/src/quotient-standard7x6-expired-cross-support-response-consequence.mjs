@@ -50,6 +50,98 @@ const { kernel } = createSlot64ResidualQuotientKernel(DOMAIN, {
 kernel.prepareSearchStorage();
 const engine = createRepairCapacityProofEngine(kernel, { maxProofStates: MAX_PROOF_STATES });
 
+function dualTargetForcedHandoff(state, attackCol, attackTarget, otherTarget) {
+  assert.equal(rank(kernel, state) & 1, 0, 'dual-target handoff must start on P0 turn');
+  assert.equal(engine.singleton(state, 0, attackTarget), true, 'attack target not live');
+  assert.equal(engine.singleton(state, 0, otherTarget), true, 'other target not live');
+  assert.equal(engine.targetDistance(state, attackTarget), 1, 'attack target not distance one');
+  assert.equal(engine.targetDistance(state, otherTarget), 1, 'other target not distance one');
+
+  const supportCell = landing(kernel, state, attackCol);
+  const expectedSupportCell = attackTarget - 7;
+  if (supportCell !== expectedSupportCell) {
+    return {
+      attack: coord(attackTarget), closed: false, reason: 'attack_support_not_direct',
+      supportCell: supportCell === 0xff ? null : coord(supportCell), expectedSupportCell: coord(expectedSupportCell),
+    };
+  }
+
+  const afterSupport = kernel.advance(state, attackCol);
+  if (afterSupport === domain.QN_TERMINAL_WIN) {
+    return { attack: coord(attackTarget), supportEvent: coord(supportCell), closed: true, route: 'P0_terminal_on_support' };
+  }
+  assert(Number.isSafeInteger(afterSupport) && afterSupport >= 0);
+  assert.equal(rank(kernel, afterSupport), rank(kernel, state) + 1);
+  assert.equal(landing(kernel, afterSupport, attackCol), attackTarget, 'attack target did not become directly playable');
+
+  const replies = [];
+  let closed = true;
+  for (const reply of legal(engine, afterSupport)) {
+    const replyCell = landing(kernel, afterSupport, reply);
+    const afterP1 = kernel.advance(afterSupport, reply);
+    if (afterP1 === domain.QN_TERMINAL_WIN) {
+      closed = false;
+      replies.push({
+        reply: colName(reply), replyCell: coord(replyCell), route: 'P1_terminal_override',
+        enabledP1Singletons: engine.enabledSingletons(afterSupport, 1).map(coord),
+      });
+      continue;
+    }
+    assert(Number.isSafeInteger(afterP1) && afterP1 >= 0);
+    assert.equal(rank(kernel, afterP1), rank(kernel, state) + 2);
+
+    if (replyCell !== attackTarget) {
+      const immediate = engine.terminalActions(afterP1, 0);
+      const targetWin = immediate.find((x) => x.cell === attackTarget);
+      if (targetWin) {
+        replies.push({ reply: colName(reply), replyCell: coord(replyCell), route: 'nonblock_exposes_P0_target_terminal', terminalCell: coord(targetWin.cell) });
+        continue;
+      }
+      closed = false;
+      replies.push({
+        reply: colName(reply), replyCell: coord(replyCell), route: 'nonblock_without_expected_terminal',
+        p0TerminalSurface: terminalSurface(engine, afterP1, 0),
+      });
+      continue;
+    }
+
+    const otherLive = engine.singleton(afterP1, 0, otherTarget);
+    const otherDistance = otherLive ? engine.targetDistance(afterP1, otherTarget) : null;
+    if (!otherLive || otherDistance !== 1) {
+      closed = false;
+      replies.push({
+        reply: colName(reply), replyCell: coord(replyCell), route: 'forced_block_destroyed_other_target_handoff',
+        otherTarget: coord(otherTarget), otherLive, otherDistance,
+      });
+      continue;
+    }
+
+    const proof = engine.prove(afterP1, otherTarget);
+    if (proof.proved) {
+      replies.push({
+        reply: colName(reply), replyCell: coord(replyCell), route: 'forced_target_block_to_repair_induction',
+        blockedTarget: coord(attackTarget), remainingTarget: coord(otherTarget),
+        repairMu: proof.mu, repairWitness: proof.witness ?? null, repairKind: proof.kind,
+      });
+      continue;
+    }
+
+    closed = false;
+    replies.push({
+      reply: colName(reply), replyCell: coord(replyCell), route: 'forced_target_block_repair_unproved',
+      blockedTarget: coord(attackTarget), remainingTarget: coord(otherTarget),
+      repairMu: proof.mu, repairKind: proof.kind,
+      targetSnapshot: targetSnapshot(engine, afterP1), phaseBits: phaseBits(engine, afterP1),
+    });
+  }
+
+  return {
+    attack: coord(attackTarget), supportEvent: coord(supportCell), closed,
+    route: closed ? 'dual_target_forced_block_handoff_closed' : 'dual_target_forced_block_handoff_open',
+    replies,
+  };
+}
+
 // Exact accepted scheduler activation: P0:C1 creates a P1:G1 response obligation
 // whose causal deadline is the next P1 turn.
 const afterC1 = replay(kernel, ROOT + '3');
@@ -137,27 +229,42 @@ if (!seizeIsTerminal) {
         witness: proved.proof.witness ?? null, witnessKind: proved.proof.witnessKind ?? proved.proof.kind,
         targetAttempts,
       });
-    } else {
-      allRepliesClosed = false;
-      branches.push({
-        reply: colName(reply), replyCell: coord(replyCell), route: 'unresolved_after_support_seizure',
-        targetSnapshot: targetSnapshot(engine, child),
-        p0TerminalSurface: terminalSurface(engine, child, 0),
-        p1TerminalSurface: terminalSurface(engine, child, 1),
-        mu: engine.mu(child), phaseBits: phaseBits(engine, child), targetAttempts,
-      });
+      continue;
     }
+
+    const handoffs = [
+      dualTargetForcedHandoff(child, C, C3, G3),
+      dualTargetForcedHandoff(child, G, G3, C3),
+    ];
+    const handoff = handoffs.find((x) => x.closed) ?? null;
+    if (handoff) {
+      branches.push({
+        reply: colName(reply), replyCell: coord(replyCell), route: 'dual_target_forced_handoff',
+        selectedAttack: handoff.attack, handoff, alternativeHandoff: handoffs.find((x) => x !== handoff) ?? null,
+        targetAttempts,
+      });
+      continue;
+    }
+
+    allRepliesClosed = false;
+    branches.push({
+      reply: colName(reply), replyCell: coord(replyCell), route: 'unresolved_after_support_seizure',
+      targetSnapshot: targetSnapshot(engine, child),
+      p0TerminalSurface: terminalSurface(engine, child, 0),
+      p1TerminalSurface: terminalSurface(engine, child, 1),
+      mu: engine.mu(child), phaseBits: phaseBits(engine, child), targetAttempts, handoffs,
+    });
   }
 }
 
 const consequenceKind = seizeIsTerminal
   ? 'immediate_P0_terminal_on_expired_response_cell'
   : allRepliesClosed
-    ? 'expired_response_support_seizure_predecessor'
+    ? 'expired_response_support_seizure_and_dual_target_handoff_predecessor'
     : 'support_seizure_not_yet_branch_complete';
 
 console.log(`EXPIRED_CROSS_SUPPORT_RESPONSE_CONSEQUENCE=${JSON.stringify({
-  kind: 'standard7x6-expired-cross-support-response-consequence-v1',
+  kind: 'standard7x6-expired-cross-support-response-consequence-v2',
   attribution: {
     researchDirectionStructuralArchitectureInvariantFirstProgram: 'Josh Oshiro',
     formalizationImplementationQualification: 'OpenAI ChatGPT',
@@ -178,6 +285,7 @@ console.log(`EXPIRED_CROSS_SUPPORT_RESPONSE_CONSEQUENCE=${JSON.stringify({
     phaseBitsAfterSeizure: seizeIsTerminal ? null : phaseBits(engine, afterSeize),
     p1TerminalSurfaceAfterSeizure: seizeIsTerminal ? null : terminalSurface(engine, afterSeize, 1),
   },
+  dualTargetHandoffRule: 'When both P0 target singletons are live at support-distance one, P0 advances one target support. Any P1 nonblock is checked to expose that target as an immediate P0 terminal; the exact target block must leave the other target live at distance one and hand off to the qualified repair-capacity induction.',
   branchCount: branches.length,
   branches,
   allRepliesClosed,
@@ -185,7 +293,7 @@ console.log(`EXPIRED_CROSS_SUPPORT_RESPONSE_CONSEQUENCE=${JSON.stringify({
   repairProofStats: engine.stats(),
   repairProofStateCap: MAX_PROOF_STATES,
   theoremBoundary: allRepliesClosed
-    ? 'Exact only for the B1 refusal after P0:C1 at the fixed latent state. P0:G1 occupies the expired response cell and every legal P1 reply is discharged by exact P0 terminality or the already-qualified repair-capacity induction. This does not reset the expired deadline, imply q equality, generalize to other refusal columns, or solve the latent/root position.'
-    : 'Exact only for the B1 refusal after P0:C1 at the fixed latent state. The control preserves every unresolved post-seizure branch explicitly; failure to close is unknown, not loss. The expired deadline is never reset.',
-  authority: 'Exact C4-0010 transitions/residuals, enabled-singleton terminal certificates, and the existing bounded repair-capacity proof engine under its unchanged 100000-state cap. No solved W/D/L labels, external oracle premise, or unrestricted q-frontier recursion.',
+    ? 'Exact only for the B1 refusal after P0:C1 at the fixed latent state. The expired P1:G1 obligation remains expired. P0:G1 creates a new support-ownership consequence; every legal P1 reply is discharged by immediate P0 terminality, the existing repair-capacity induction, or a bounded dual-target forced-block handoff into that induction. This does not imply q equality, generalize to other refusal columns, or solve the latent/root position.'
+    : 'Exact only for the B1 refusal after P0:C1 at the fixed latent state. The control preserves every unresolved post-seizure/dual-target branch explicitly; failure to close is unknown, not loss. The expired deadline is never reset.',
+  authority: 'Exact C4-0010 transitions/residuals, enabled-singleton terminal certificates, the bounded dual-target forced-block macro, and the existing repair-capacity proof engine under its unchanged 100000-state cap. No solved W/D/L labels, external oracle premise, or unrestricted q-frontier recursion.',
 })}`);
