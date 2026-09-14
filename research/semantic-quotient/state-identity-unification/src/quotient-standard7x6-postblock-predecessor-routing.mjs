@@ -46,8 +46,10 @@ function proveRepairInvariant(state,target,depth=0){
   const o={proved:false,kind:'no_repair_predecessor',mu:m,rejected}; proofMemo.set(key,o); return o;
 }
 
-// Exact 20-state contract already qualified by latent-contract backward composition.
+// The qualified rank-20 contract has 20 logical members but four exact transpositions,
+// hence only 16 unique physical state ids. Preserve both multiplicities explicitly.
 const known20=new Map();
+let known20LogicalMembers=0;
 for(const c of [
   {name:'C_resolved_P0_owned_C1',prefix:'3733',resolved:C,target:G3},
   {name:'C_resolved_P1_owned_C1',prefix:'7333',resolved:C,target:G3},
@@ -55,11 +57,17 @@ for(const c of [
   {name:'G_resolved_P0_owned_G1',prefix:'7377',resolved:G,target:C3},
 ]){
   const rank19=replay(k,ROOT+c.prefix+String(c.resolved+1).repeat(3)); assert.equal(rank(k,rank19),19);
-  for(const r of REPAIRS){const s=k.advance(rank19,r); assert(s>=0&&rank(k,s)===20); known20.set(s,{member:`${c.name}:${col(r)}`,target:c.target});}
+  for(const r of REPAIRS){
+    const s=k.advance(rank19,r); assert(s>=0&&rank(k,s)===20); known20LogicalMembers++;
+    const member=`${c.name}:${col(r)}`;
+    const prior=known20.get(s);
+    if(prior){assert.equal(prior.target,c.target,'rank20 transposition changed target claim'); prior.members.push(member);}
+    else known20.set(s,{members:[member],target:c.target});
+  }
 }
-assert.equal(known20.size,20,'known rank-20 state identity collision/drift');
+assert.equal(known20LogicalMembers,20,'rank20 logical contract domain drift');
+assert.equal(known20.size,16,'rank20 unique physical transposition count drift');
 
-// Reconstruct the 12 exact target-block survivors and their forced row-4 block.
 const survivorSpecs=[];
 for(const x of [
   {name:'C_first',attack:C,target:G3,replies:[0,1,3,4,5,6]},
@@ -90,7 +98,7 @@ function classifyP0Action(row,a){
     if(s20===domain.QN_TERMINAL_WIN){assert(new Set(enabledSingletons(k,s19,1)).has(rc),`P1 terminal ${coord(rc)} lacks premise`); accepted=false; firstFailure??={reply:col(r),replyCell:coord(rc),reason:'P1_terminal'}; routes.push({reply:col(r),route:'P1_terminal'}); continue;}
     assert(s20>=0&&rank(k,s20)===20);
     const immediate=terminalActions(k,s20,0); if(immediate.length){routes.push({reply:col(r),route:'immediate_P0_terminal'}); continue;}
-    if(known20.has(s20)){routes.push({reply:col(r),route:'qualified_exact_rank20_contract',member:known20.get(s20).member}); continue;}
+    if(known20.has(s20)){routes.push({reply:col(r),route:'qualified_exact_rank20_contract',members:known20.get(s20).members}); continue;}
     const proof=proveRepairInvariant(s20,row.target);
     if(proof.proved){routes.push({reply:col(r),route:'repair_capacity_induction',mu:proof.mu,witness:proof.witness??null}); continue;}
     accepted=false; firstFailure??={reply:col(r),replyCell:coord(rc),reason:proof.kind,targetLive:singleton(k,s20,0,row.target),targetDistance:targetDistance(k,s20,row.target),mu:proof.mu,enabledP1Singletons:enabledSingletons(k,s20,1).map(coord)}; routes.push({reply:col(r),route:'unproved',reason:proof.kind});
@@ -122,7 +130,8 @@ console.log(`POSTBLOCK_PREDECESSOR_ROUTING=${JSON.stringify({
   failedRank18Rows:failed.length,
   witnessColumnCounts:witnessCounts,
   failureReasonCounts:failureReasons,
-  knownQualifiedRank20States:known20.size,
+  knownQualifiedRank20LogicalMembers:known20LogicalMembers,
+  knownQualifiedRank20UniquePhysicalStates:known20.size,
   repairProofStates:proofStates,
   repairProofActionsChecked:proofActionsChecked,
   repairProofP1BranchesChecked:proofP1BranchesChecked,
@@ -132,6 +141,6 @@ console.log(`POSTBLOCK_PREDECESSOR_ROUTING=${JSON.stringify({
   interpretation:failed.length===0
     ? 'Every nonterminal rank-18 state after the forced resolved-column block has at least one P0 action whose complete P1 reply set lands in an immediate P0 terminal certificate, an exact already-qualified rank-20 latent contract, or the well-founded repair-capacity induction. This closes the post-block predecessor seam without arbitrary frontier search.'
     : 'Some post-block rank-18 states still fail one-step composition into qualified contracts. Preserve their exact action/reply separators; do not infer loss or widen to arbitrary search.',
-  theoremBoundary:'Exact only for rank-18 states generated from the 12 fixed target-block survivors after the proven forced C4/G4 defensive event. Candidate P0 actions are exhausted over legal columns, but leaves are accepted only if already-qualified terminal/rank20/repair contracts discharge every P1 reply. Physical state identity is used only for exact membership in the previously-qualified 20-state contract.',
-  authority:'Exact C4-0010 transitions/residuals, enabled-singleton terminal certificates, the exact 20-state latent-contract closure, and the well-founded repair-capacity induction; no solved W/D/L labels or recursive q-state values.',
+  theoremBoundary:'Exact only for rank-18 states generated from the 12 fixed target-block survivors after the proven forced C4/G4 defensive event. Candidate P0 actions are exhausted over legal columns, but leaves are accepted only if already-qualified terminal/rank20/repair contracts discharge every P1 reply. Physical state identity is used only for exact membership in the previously-qualified rank-20 contract; logical-member multiplicity is retained separately.',
+  authority:'Exact C4-0010 transitions/residuals, enabled-singleton terminal certificates, the exact rank-20 latent-contract closure, and the well-founded repair-capacity induction; no solved W/D/L labels or recursive q-state values.',
 })}`);
