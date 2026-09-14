@@ -9,6 +9,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-column-obligation-handoff.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-predecessor-routing.mjs
       - .github/workflows/frontier-repair-capacity-induction.yml
   workflow_dispatch:
 
@@ -22,18 +23,15 @@ jobs:
     outputs:
       starts_proved: ${{ steps.induction.outputs.starts_proved }}
       starts_failed: ${{ steps.induction.outputs.starts_failed }}
-      proof_states: ${{ steps.induction.outputs.proof_states }}
-      proof_classes: ${{ steps.induction.outputs.proof_classes }}
-      start_classes: ${{ steps.induction.outputs.start_classes }}
       rank16_proved: ${{ steps.latent_closure.outputs.rank16_proved }}
       root_closed: ${{ steps.latent_closure.outputs.root_closed }}
       c_unresolved: ${{ steps.latent_closure.outputs.c_unresolved }}
       g_unresolved: ${{ steps.latent_closure.outputs.g_unresolved }}
-      p1_terminal: ${{ steps.latent_closure.outputs.p1_terminal }}
       forced_defense: ${{ steps.obligation.outputs.forced_defense }}
       obligation_unresolved: ${{ steps.obligation.outputs.obligation_unresolved }}
-      obligation_p1_terminal: ${{ steps.obligation.outputs.obligation_p1_terminal }}
-      obligation_repair: ${{ steps.obligation.outputs.obligation_repair }}
+      post_closed: ${{ steps.postblock.outputs.post_closed }}
+      post_failed: ${{ steps.postblock.outputs.post_failed }}
+      post_p1_terminal: ${{ steps.postblock.outputs.post_p1_terminal }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -52,23 +50,13 @@ jobs:
           if(!line) throw new Error('repair induction summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
           if(x.failedStartStates!==0||x.provedStartStates!==16) throw new Error('repair induction start closure regressed');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
-            `starts_proved=${x.provedStartStates}`,
-            `starts_failed=${x.failedStartStates}`,
-            `proof_states=${x.proofStates}`,
-            `proof_classes=${x.canonicalProofClasses}`,
-            `start_classes=${x.startProofClasses.length}`,
-          ].join('\n')+'\n');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`starts_proved=${x.provedStartStates}`,`starts_failed=${x.failedStartStates}`].join('\n')+'\n');
           NODE
-      - name: Qualify latent-contract backward composition when present
-        if: ${{ hashFiles('research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs') != '' }}
+      - name: Qualify latent-contract backward composition
         shell: bash
-        run: |
-          set -euo pipefail
-          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
-      - name: Qualify latent winning-contract closure when present
+        run: timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-contract-backward-composition.mjs
+      - name: Qualify latent winning-contract closure
         id: latent_closure
-        if: ${{ hashFiles('research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-latent-winning-contract-closure.mjs') != '' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -78,22 +66,12 @@ jobs:
           const fs=require('node:fs');
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('LATENT_WINNING_CONTRACT_CLOSURE='));
           if(!line) throw new Error('latent winning-contract summary missing');
-          const x=JSON.parse(line.slice(line.indexOf('=')+1));
-          if(x.rank16SchedulerExitCount!==4) throw new Error('rank-16 scheduler domain drift');
-          const c=x.targetMacros.find(m=>m.attack==='C');
-          const g=x.targetMacros.find(m=>m.attack==='G');
-          if(!c||!g) throw new Error('target macro inventory drift');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
-            `rank16_proved=${x.rank16SchedulerExitsProvedByRepairInduction}`,
-            `root_closed=${x.rootClosedCandidateColumns.length}`,
-            `c_unresolved=${c.unresolvedCount}`,
-            `g_unresolved=${g.unresolvedCount}`,
-            `p1_terminal=${c.p1TerminalCount+g.p1TerminalCount}`,
-          ].join('\n')+'\n');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1)); const c=x.targetMacros.find(m=>m.attack==='C'),g=x.targetMacros.find(m=>m.attack==='G');
+          if(x.rank16SchedulerExitCount!==4||!c||!g) throw new Error('latent closure domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`rank16_proved=${x.rank16SchedulerExitsProvedByRepairInduction}`,`root_closed=${x.rootClosedCandidateColumns.length}`,`c_unresolved=${c.unresolvedCount}`,`g_unresolved=${g.unresolvedCount}`].join('\n')+'\n');
           NODE
-      - name: Qualify resolved-column obligation handoff when present
+      - name: Qualify resolved-column obligation handoff
         id: obligation
-        if: ${{ hashFiles('research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-column-obligation-handoff.mjs') != '' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -103,21 +81,29 @@ jobs:
           const fs=require('node:fs');
           const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RESOLVED_COLUMN_OBLIGATION_HANDOFF='));
           if(!line) throw new Error('resolved-column obligation summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1)); if(x.exactSurvivorStates!==12) throw new Error('obligation domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`forced_defense=${x.forcedDefenseRows}`,`obligation_unresolved=${x.unresolvedCount}`].join('\n')+'\n');
+          NODE
+      - name: Qualify post-block predecessor routing
+        id: postblock
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/postblock-routing.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-predecessor-routing.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_PREDECESSOR_ROUTING='));
+          if(!line) throw new Error('post-block routing summary missing');
           const x=JSON.parse(line.slice(line.indexOf('=')+1));
-          if(x.exactSurvivorStates!==12) throw new Error('resolved-column survivor domain drift');
-          const c=x.postForcedBlockRouteCounts||{};
-          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
-            `forced_defense=${x.forcedDefenseRows}`,
-            `obligation_unresolved=${x.unresolvedCount}`,
-            `obligation_p1_terminal=${c.P1_terminal||0}`,
-            `obligation_repair=${c.repair_capacity_induction||0}`,
-          ].join('\n')+'\n');
+          if(x.exactRank18Rows!==84) throw new Error(`post-block domain drift ${x.exactRank18Rows}`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`post_closed=${x.closedRank18Rows}`,`post_failed=${x.failedRank18Rows}`,`post_p1_terminal=${x.p1TerminalBeforeP0}`].join('\n')+'\n');
           NODE
 
   summary:
     needs: repair-capacity-induction
-    name: repair p${{ needs.repair-capacity-induction.outputs.starts_proved }}-f${{ needs.repair-capacity-induction.outputs.starts_failed }} latent-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }}-cu${{ needs.repair-capacity-induction.outputs.c_unresolved }}-gu${{ needs.repair-capacity-induction.outputs.g_unresolved }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }}-u${{ needs.repair-capacity-induction.outputs.obligation_unresolved }}-pt${{ needs.repair-capacity-induction.outputs.obligation_p1_terminal }}-r${{ needs.repair-capacity-induction.outputs.obligation_repair }}
+    name: repair-p${{ needs.repair-capacity-induction.outputs.starts_proved }} latent-r16${{ needs.repair-capacity-induction.outputs.rank16_proved }}-root${{ needs.repair-capacity-induction.outputs.root_closed }}-cu${{ needs.repair-capacity-induction.outputs.c_unresolved }}-gu${{ needs.repair-capacity-induction.outputs.g_unresolved }} obligation-f${{ needs.repair-capacity-induction.outputs.forced_defense }}-u${{ needs.repair-capacity-induction.outputs.obligation_unresolved }} post-c${{ needs.repair-capacity-induction.outputs.post_closed }}-f${{ needs.repair-capacity-induction.outputs.post_failed }}-pt${{ needs.repair-capacity-induction.outputs.post_p1_terminal }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - run: echo "qualified repair-capacity, latent-contract, and resolved-column obligation counts encoded in job name"
+      - run: echo "qualified structural composition counts encoded in job name"
