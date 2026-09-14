@@ -29,13 +29,13 @@ function replay(kernel, sequence) {
 test('two enabled P1 singleton obligations are an exact one-move response-capacity loss boundary', () => {
   const { kernel, rho } = setup();
   const state = replay(kernel, '46656555464434757776');
-  assert.deepEqual(rho.p1Obligations(state).map(rho.repair.coord), ['G5', 'D6'].sort((a,b)=>a.localeCompare(b)));
+  assert.deepEqual(rho.p1Obligations(state).map(rho.repair.coord), ['G5', 'D6']);
   const result = rho.prove(state, C3);
   assert.equal(result.proved, false);
   assert.equal(result.kind, 'forced_obligation_capacity_loss');
   assert.equal(result.exactLoss, true);
   assert.equal(result.responseSlots, 1);
-  assert.equal(result.obligations.length, 2);
+  assert.deepEqual(result.obligations, ['G5', 'D6']);
 });
 
 test('one enabled P1 singleton obligation forces the exact defense column before ordinary rho', () => {
