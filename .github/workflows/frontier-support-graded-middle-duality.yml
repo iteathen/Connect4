@@ -1,0 +1,27 @@
+name: Frontier support-graded middle duality
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs'
+      - 'docs/research/2026-09-14-support-graded-middle-duality.md'
+      - '.github/workflows/frontier-support-graded-middle-duality.yml'
+  workflow_dispatch:
+
+jobs:
+  support-graded-middle-duality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Qualify support-graded middle duality
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
