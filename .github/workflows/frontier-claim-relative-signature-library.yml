@@ -21,6 +21,7 @@ on:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-reply-routing.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-safe-chain-witness.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs
       - .github/workflows/frontier-claim-relative-signature-library.yml
   workflow_dispatch:
 
@@ -96,8 +97,13 @@ jobs:
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-reply-routing.mjs
-      - name: Qualify safe A/B witness after exhausted-tail handoff
+      - name: Classify exhausted-tail off-target handoff safety
         shell: bash
         run: |
           set -euo pipefail
           timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-safe-chain-witness.mjs
+      - name: Map tail target-support response obligations
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs
