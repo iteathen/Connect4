@@ -6,6 +6,7 @@ on:
       - research/frontier-negamax-conformance
     paths:
       - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-axis-interval-quotient-control.mjs'
       - '.github/workflows/frontier-canonical-projection-audit.yml'
   workflow_dispatch:
 
@@ -19,4 +20,6 @@ jobs:
         with:
           node-version: '24'
       - name: Qualify corrected target-free projections
-        run: timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs
+        run: |
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-canonical-projection-audit.mjs
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-axis-interval-quotient-control.mjs
