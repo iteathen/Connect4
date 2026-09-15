@@ -1,0 +1,26 @@
+name: bsfp-support-local-clause-coverage
+
+on:
+  pull_request:
+    branches:
+      - research/bsfp-isometric-invariant-transfer
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    name: support-local coverage recurrence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Connect4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Select Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Qualify support-local coverage and cofactor maps
+        run: node research/experiments/bsfp-support-local-clause-coverage/reference-coverage-cofactor.mjs
