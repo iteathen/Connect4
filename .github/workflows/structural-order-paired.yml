@@ -36,6 +36,51 @@ jobs:
       - name: Assert exact Node runtime
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
 
+      - name: Apply degree-2-only suppression candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          function replaceOnce(path, before, after, label) {
+            const source = readFileSync(path, 'utf8');
+            const first = source.indexOf(before);
+            if (first < 0 || source.indexOf(before, first + 1) >= 0) {
+              throw new Error(`${label}: expected exactly one patch seam`);
+            }
+            writeFileSync(path, source.slice(0, first) + after + source.slice(first + before.length));
+          }
+
+          const searchPath = 'candidate/components/incumbent/search.mjs';
+          replaceOnce(
+            searchPath,
+            `    if (ownCount === 0 && opponentCount > opponentSuppressionClass && opponentCount < 3) {\n      opponentSuppressionClass = opponentCount;\n    }`,
+            `    if (ownCount === 0 && opponentCount === 2) opponentSuppressionClass = 2;`,
+            'search degree-2 suppression',
+          );
+
+          const testPath = 'candidate/components/incumbent/test/structural-order-effects.test.mjs';
+          replaceOnce(
+            testPath,
+            `    if (ownCount === 0 && opponentCount > opponentSuppressionClass && opponentCount < 3) {\n      opponentSuppressionClass = opponentCount;\n    }`,
+            `    if (ownCount === 0 && opponentCount === 2) opponentSuppressionClass = 2;`,
+            'test predicted degree-2 suppression',
+          );
+          replaceOnce(
+            testPath,
+            `    if (ownCount === 0 && opponentCount > suppressionClass && opponentCount < 3) {\n      suppressionClass = opponentCount;\n    }`,
+            `    if (ownCount === 0 && opponentCount === 2) suppressionClass = 2;`,
+            'test oracle degree-2 suppression',
+          );
+          NODE
+
+      - name: Qualify ephemeral degree-2-only candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd candidate && node --test)
+
       - name: Capture ABBA paired incumbent evidence
         shell: bash
         env:
@@ -44,18 +89,25 @@ jobs:
         run: |
           set -euo pipefail
           (cd control && C4_SOURCE_REVISION="b45a6350fbc026b7a3429c5b49816c7d3a248f9e" node --expose-gc benchmarks/incumbent.mjs) > control-a.json
-          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}" node --expose-gc benchmarks/incumbent.mjs) > candidate-a.json
-          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}" node --expose-gc benchmarks/incumbent.mjs) > candidate-b.json
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}-degree2-ephemeral" node --expose-gc benchmarks/incumbent.mjs) > candidate-a.json
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}-degree2-ephemeral" node --expose-gc benchmarks/incumbent.mjs) > candidate-b.json
           (cd control && C4_SOURCE_REVISION="b45a6350fbc026b7a3429c5b49816c7d3a248f9e" node --expose-gc benchmarks/incumbent.mjs) > control-b.json
+
+      - name: Capture degree-2-only solved strength evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}-degree2-ephemeral" npm run bench:strength) > degree2-strength.json
 
       - name: Upload paired evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: structural-order-paired-${{ github.event.pull_request.head.sha || github.sha }}
+          name: structural-order-degree2-${{ github.event.pull_request.head.sha || github.sha }}
           path: |
             control-a.json
             candidate-a.json
             candidate-b.json
             control-b.json
+            degree2-strength.json
           if-no-files-found: error
           retention-days: 3
