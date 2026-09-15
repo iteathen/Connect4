@@ -8,13 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: derive_post_center_strong_distance_selector
+  id: derive_total_domain_connect4_calculus
   objective: >-
-    Continue from the searchless theorem that any P0 forced win on 7 x even-H must open center.
-    Starting from P0 center, derive or falsify a nonrecursive deadline-valued CPC/NDC certificate showing
-    why the longest-resistance P1 response is the same-column zero-phase response, and whether the same
-    selection mechanism repeats through the natural preterminal rank 2K-3=5. Issue #41's best-move scores,
-    five-center prefix and ply-41 result are validation only and forbidden as premises.
+    Derive the Connect4 structural/response calculus over arbitrary positive integer board dimensions W,H.
+    Small and large boards must be consequences of the same generated geometry/support/response definitions.
+    Finite board sweeps, solved tables and varying-board censuses are falsification/implementation checks only;
+    they are forbidden as evidence for any all-board theorem.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -24,109 +23,94 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-14-empty-board-canonical-28-bridge.md
+  - docs/research/2026-09-14-total-domain-logical-foundation.md
   - docs/research/2026-09-14-k4-board-invariant-family.md
-  - docs/research/2026-09-14-k4-selection-invariant-frontier.md
-  - docs/research/2026-09-14-searchless-seven-wide-opening-selection.md
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-phase-path-transport-control.mjs
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-elementary-response-cover-control.mjs
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-seven-wide-noncenter-draw-certificate.mjs
+  - docs/research/2026-09-14-empty-board-canonical-28-bridge.md
 
 qualified_premises:
+  - id: total_domain_geometric_count
+    statement: >-
+      For every positive W,H with K=4, let a=(W-3)_+ and b=(H-3)_+.
+      The generated geometric winspace has exactly L(W,H)=H*a+W*b+2*a*b requirements.
+      This is a counting proof over arbitrary integers, not an empirical fit.
+  - id: universal_mate_response_lemma
+    statement: >-
+      If a legal disjoint mate-response matching hits every generated opponent winning requirement,
+      the opponent cannot complete a requirement. If the same construction is available to either player,
+      both players have no-loss strategies and the finite empty-board value is draw.
+  - id: width_below_connect_draw
+    statement: >-
+      For every positive H and every 1<=W<4, generated requirements are vertical only (or empty),
+      and every vertical length-4 interval contains an even-depth support-successor pair.
+      Therefore every W<4 board is draw, by logic proof over arbitrary H.
+  - id: one_row_draw
+    statement: >-
+      For every positive W with H=1, generated requirements are horizontal only (or empty),
+      and every horizontal length-4 interval contains an adjacent initial-frontier response pair.
+      Therefore every one-row board is draw, by logic proof over arbitrary W.
   - id: standard_common_Y
     statement: >-
       Standard 7x6 generated incidence has Y_cell=Y_line=28 and the qualified beta/gamma forms are perfect,
       defining a natural T:Y_line->Y_cell. No solved label or predefined 28 is used.
-  - id: board_family_invariants
-    statement: >-
-      In regular K=4 geometry, Y_cell=WH-W-H-1, Y_line=3WH-10W-9H+26 and
-      Delta=(W-4)(2H-9)-9, with generated-rank definitions authoritative on narrow degeneracies.
-      Cross-board CPC residual parity is q_(W,H)(S)=(W-1)H+C(S)+r_max(S) mod2.
-  - id: phase_path_transport
-    statement: >-
-      C_phase is canonically the edge space of the width-W path. Each e_a+e_b has the unique interval lift
-      between a,b and structural phase transport |a-b|. Same-column two-ply response has zero phase transport.
-      No monotonic relation to game-theoretic strong distance is assumed yet.
-  - id: canonical_28_bridge
-    statement: >-
-      On 7x6 the target-free symmetry/P/maximal-delay construction gives the oracle-matching 28-line envelope;
-      natural preterminal rank is 5 and the five-high center stack uniquely maximizes maximal-delay exclusion 38-10=28.
-      The remaining issue is semantic strong-distance selection.
-  - id: elementary_response_frontier
-    statement: >-
-      For empty K=4 W x H, generic compatible Claimeven/Baseinverse programs certify all geometric P0 requirements
-      except horizontal length-4 requirements on one-based odd rows >=3. Exact unresolved count is
-      (W-3)*floor((H-1)/2). Standard 7x6 gives 61 certified / 8 unresolved.
-  - id: center_opening_necessary
-    statement: >-
-      For every even H>=4 on width 7, every non-center P0 opening has an explicit P1 draw certificate built
-      from Before, Baseinverse and Claimeven response programs. Therefore any P0 forced win must open center.
-      This is constructive and searchless; it does not assume that the empty board is a P0 win.
-  - id: compatibility_provenance
-    statement: >-
-      PR #39's base U1/Test-B file is a preserved v1 harness whose descriptor omitted claims. The v3 runner
-      patches that seam and restores zero false negatives against the conservative Allis compatibility table.
-      Do not use the v1 generic compatibility implementation as proof authority.
-  - id: selector_shortcuts_falsified
-    statement: >-
-      Terminal-envelope cardinality, preterminal exclusion capacity, cooperative completion horizons,
-      minimum blocker hitting sets, raw release unions, and simple same-support residual dominance are
-      insufficient as universal strong-distance selectors.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
+  proof_standard: >-
+    Every claim quantified over unbounded W or H requires a symbolic derivation valid for arbitrary positive integers.
+    A program may instantiate examples to catch mistakes, but no finite set of executions may be cited as proof of the quantified claim.
   primary_question: >-
-    After P0 opens center, what exact static/ranked response-support invariant makes P1's same-column response
-    uniquely maximize certified survival horizon without comparing recursive child game values?
+    What generated algebraic/response objects extend the standard structural calculus to every positive W,H so that
+    narrow boards collapse naturally and regular-board formulas emerge as the nondegenerate case?
   first_construction:
     - >-
-      Define a deadline-bearing response certificate with prerequisites, response resources, blocker consequence,
-      support events discharged by the response, and earliest/latest rank horizon.
+      Replace regular-only counts by positive-part total-domain expressions wherever possible.
+      In particular derive the elementary unresolved response frontier symbolically as a generated-set theorem,
+      using (W-3)_+ rather than assuming W>=4.
     - >-
-      Compile elementary and Before-style response programs into that common certificate form. A response event
-      must update both blocker coverage and gravity support prerequisites before the next closure step.
+      Derive exact degeneracy conditions from the definitions (empty direction classes, zero-rank quotients,
+      collapsed residual spaces) instead of dimension-specific branches.
     - >-
-      Compare the seven P1 replies after P0 center using only generated residual requirements, support precedence,
-      corrected CPC parity, phase-path transport and exact response certificates. Derive a certified P0 completion
-      upper bound or P1 survival lower bound; do not use child W/D/L or oracle distance.
+      Lift the incidence/core definitions Y_cell and Y_line to arbitrary W,H by exact generated ranks.
+      Seek symbolic rank formulas or logically proved regime decompositions; do not infer them from a board census.
     - >-
-      If the zero-phase center reply is uniquely best under the exact bound, repeat the same proof at plies 2,3,4
-      along the selected chain. If not, preserve the smallest reply/prefix counterexample and identify the missing
-      certificate relation.
+      Re-express CPC/phase/residual operators so constants are board-derived and every operator remains defined
+      when a direction class or quotient collapses to zero.
     - >-
-      Only after the five-event chain is derived should the maximal-delay terminal boundary and canonical 28
-      envelope be composed into the game-semantic theorem.
+      Only after the total-domain structural objects are proved should the 7x6 equality Y_cell=Y_line=28 be recovered
+      as a corollary and connected to the canonical terminal envelope.
   required_checks:
-    - no issue #41 best-move scores, forced prefix or terminal ply as premises
-    - no solved WDL label required to prove center-opening necessity or post-center ranking
+    - finite board sweeps are validation/falsification only
+    - no interpolation from sampled board sizes
+    - no solved WDL or distance labels as premises
     - no recursive minimax, Negamax, MCTS or PNS proof mechanism
-    - preserve board constant in CPC parity
-    - preserve response/resource guards and deadlines
-    - model response-support transfer explicitly
-    - distinguish phase-path transport length from strong distance until proved
-    - use conservative rule compatibility where generic extra combinations lack proof authority
-    - complete small-board/state-tree data may be independent falsification oracle only
+    - no special-case small-board mode in production definitions
+    - all zero/empty cases must arise from generated sets, positive parts, kernels, images or quotients
+    - distinguish an exact quantified proof from an executable sanity control
   falsification:
-    - if two response certificates with equal compressed state yield different next deadline/support consequences, compression fails
-    - if a blocker horizon does not beat the opponent completion horizon, it cannot eliminate that requirement
-    - if a defender response helps the attacker by releasing support and the model ignores it, the model fails
-    - if an off-center reply ties or beats center under the proposed exact static horizon, center selection is not proved by that invariant
-    - if closure outcome depends on scheduling order, the profile is unsound
-    - if proving reply ranking requires recursive child-value comparison, it fails the searchless objective
+    - any formula producing negative counts or dimensions on a valid board is not total-domain
+    - any theorem whose proof says 'verified for W,H up to N' fails the all-board standard
+    - any operator requiring a hand-written W<4/H<4 branch fails unless the branch is merely notation for an already-proved empty generated set
+    - equal sampled values do not identify structures or prove a natural isomorphism
+    - if a regular formula disagrees with the exact generated rank on a degeneracy, the generated rank is authoritative
 
 success_criteria:
-  - exact deadline-valued response/support certificate semantics
-  - searchless unique selection of P1 center after P0 center, or a durable minimal falsifier
-  - if selected, repeated derivation through the natural five-event prefix without oracle premises
-  - explicit statement whether resulting theorem establishes only prefix selection or also maximal delay / 28 terminal geometry
-  - executable Node control and durable research note
+  - symbolic all-positive-W,H geometry theorem
+  - logically proved degeneracy/collapse lemmas for narrow boards
+  - total-domain definitions for the structural quotients/operators
+  - exact proof of each claimed rank/count regime, not finite extrapolation
+  - standard 7x6 28-core recovered as a corollary of the same definitions
+  - durable research note and implementation controls clearly labeled validation-only
   - synchronized STATUS.md / next_step.yaml
 
 secondary_validation_lane:
   status: validation_only
   note: >-
-    Issue #41's strong-distance scores and incoming varying-board censuses may be used only after a candidate
-    selector is fixed, to validate or falsify it.
+    Exact small-board solvers, issue data, varying-board censuses and finite sweeps may be used to find counterexamples
+    or implementation errors after a symbolic candidate theorem is stated. They cannot prove the candidate theorem.
+
+paused_selection_seam:
+  id: derive_post_center_strong_distance_selector
+  status: valid_but_paused
 
 paused_structural_seam:
   id: history_aware_marked_residual_calculus
