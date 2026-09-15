@@ -48,7 +48,6 @@ function quietSuccessorStructuralEffects(position, column, player) {
   const opponentRefs = player === 0 ? position.singletonRefs1 : position.singletonRefs0;
   let effects = 0;
   let firstOwnCompletion = -1;
-  let ownPlayableSingletonClass = 0;
   let opponentSuppressionClass = 0;
 
   if (row + 1 < p.rows) {
@@ -88,14 +87,14 @@ function quietSuccessorStructuralEffects(position, column, player) {
     if (firstOwnCompletion < 0) {
       firstOwnCompletion = remaining;
     } else if (remaining !== firstOwnCompletion) {
-      ownPlayableSingletonClass = 2;
+      // Preserve the accepted singleton tier's early exit exactly. Suppression is
+      // intentionally not consulted inside this stronger advisory class.
+      return effects | 2;
     }
   }
 
-  if (ownPlayableSingletonClass === 0 && firstOwnCompletion >= 0) ownPlayableSingletonClass = 1;
-  return effects
-    | ownPlayableSingletonClass
-    | (opponentSuppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
+  if (firstOwnCompletion >= 0) return effects | 1;
+  return effects | (opponentSuppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
 }
 
 export class IncumbentSearchEngine {
@@ -398,22 +397,29 @@ export class IncumbentSearchEngine {
       if (ply > 0 && alpha < beta) {
         let singletonClass = 0;
         let suppressionClass = 0;
+        let suppressionMove = -1;
         for (let i = 0; i < p.moveOrder.length; i++) {
           const column = p.moveOrder[i];
           if (column === ttMove || heights[column] >= p.rows) continue;
           const effects = quietSuccessorStructuralEffects(position, column, currentPlayer);
           if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;
           const candidateSingletonClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
-          const candidateSuppressionClass = (effects & EFFECT_OPPONENT_SUPPRESSION_MASK)
-            >>> EFFECT_OPPONENT_SUPPRESSION_SHIFT;
-          if (candidateSingletonClass > singletonClass
-              || (candidateSingletonClass === singletonClass && candidateSuppressionClass > suppressionClass)) {
+          if (candidateSingletonClass > singletonClass) {
             singletonClass = candidateSingletonClass;
-            suppressionClass = candidateSuppressionClass;
             structuralMove = column;
-            if (singletonClass === 2 && suppressionClass === 2) break;
+            if (singletonClass === 2) break;
+            continue;
+          }
+          if (singletonClass === 0 && candidateSingletonClass === 0) {
+            const candidateSuppressionClass = (effects & EFFECT_OPPONENT_SUPPRESSION_MASK)
+              >>> EFFECT_OPPONENT_SUPPRESSION_SHIFT;
+            if (candidateSuppressionClass > suppressionClass) {
+              suppressionClass = candidateSuppressionClass;
+              suppressionMove = column;
+            }
           }
         }
+        if (structuralMove < 0) structuralMove = suppressionMove;
       }
 
       if (structuralMove >= 0) {
