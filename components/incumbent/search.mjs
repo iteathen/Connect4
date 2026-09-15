@@ -228,14 +228,29 @@ export class IncumbentSearchEngine {
     const p = this.profile;
     const heights = position.heights;
     const currentPlayer = position.sideToMove;
+    const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
+    const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
     let immediateWinMove = -1;
+    let opponentThreatCount = 0;
+    let forcedBlock = -1;
+
+    // One center-ordered pass classifies both exact singleton frontiers. Current-player
+    // immediate wins retain precedence; opponent threats remain distinct completion cells.
     for (let i = 0; i < p.moveOrder.length; i++) {
       const column = p.moveOrder[i];
-      if (heights[column] < p.rows && position.isWinningMove(column, currentPlayer)) {
+      const row = heights[column];
+      if (row >= p.rows) continue;
+      const index = row * p.columns + column;
+      if (currentRefs[index] !== 0) {
         immediateWinMove = column;
         break;
       }
+      if (opponentThreatCount < 2 && opponentRefs[index] !== 0) {
+        if (forcedBlock < 0) forcedBlock = column;
+        opponentThreatCount++;
+      }
     }
+
     if (immediateWinMove >= 0) {
       metrics.tacticalImmediateWins++;
       const value = rootTerminalScore(currentPlayer, this.rootPlayer, ply + 1);
@@ -246,17 +261,7 @@ export class IncumbentSearchEngine {
       return value;
     }
 
-    let opponentThreatCount = 0;
-    let forcedBlock = -1;
     const opponent = 1 - currentPlayer;
-    for (let i = 0; i < p.moveOrder.length; i++) {
-      const column = p.moveOrder[i];
-      if (heights[column] < p.rows && position.isWinningMove(column, opponent)) {
-        if (forcedBlock < 0) forcedBlock = column;
-        opponentThreatCount++;
-        if (opponentThreatCount > 1) break;
-      }
-    }
     if (opponentThreatCount > 1) {
       metrics.tacticalDoubleThreatLosses++;
       const value = rootTerminalScore(opponent, this.rootPlayer, ply + 1);

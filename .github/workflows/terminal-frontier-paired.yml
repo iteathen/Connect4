@@ -1,0 +1,89 @@
+name: terminal-frontier-paired
+
+on:
+  pull_request:
+    branches:
+      - research/frontier-negamax-conformance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired-incumbent:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+
+      - name: Checkout exact PR base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || 'research/frontier-negamax-conformance' }}
+          path: baseline
+          persist-credentials: false
+
+      - name: Set up exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+          check-latest: false
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+
+      - name: Capture paired incumbent evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== BASE_A ==='
+          (cd baseline && C4_SOURCE_REVISION="${{ github.event.pull_request.base.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CANDIDATE_A ==='
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CANDIDATE_B ==='
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== BASE_B ==='
+          (cd baseline && C4_SOURCE_REVISION="${{ github.event.pull_request.base.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+
+  paired-optimized-control:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+
+      - name: Checkout accepted frontier control
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 6da8d00e607e860cce7a32628c07d4e98de91e0c
+          path: control
+          persist-credentials: false
+
+      - name: Set up exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+          check-latest: false
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+
+      - name: Capture paired optimized-control evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== CONTROL_A ==='
+          (cd control && C4_SOURCE_REVISION="6da8d00e607e860cce7a32628c07d4e98de91e0c" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CANDIDATE_A ==='
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CANDIDATE_B ==='
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CONTROL_B ==='
+          (cd control && C4_SOURCE_REVISION="6da8d00e607e860cce7a32628c07d4e98de91e0c" node --expose-gc benchmarks/incumbent.mjs)
