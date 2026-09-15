@@ -13,6 +13,9 @@ import { PrimitivePosition } from './position.mjs';
 import { createProfile } from './profile.mjs';
 import { PersistentTranspositionTable, fromTTScore, toTTScore } from './tt.mjs';
 
+const EFFECT_OWN_PLAYABLE_SINGLETON_MASK = 0x03;
+const EFFECT_EXPOSES_OPPONENT_SINGLETON = 0x04;
+
 function rootTerminalScore(winner, rootPlayer, ply) {
   if (winner === 2) return 0;
   return winner === rootPlayer ? MAX_SAFE - ply : MIN_SAFE + ply;
@@ -32,6 +35,51 @@ function toExternalScore(normalizedScore, maxDepth) {
     return MIN_SAFE / getDepthScale(distance);
   }
   return normalizedScore / getDepthScale(maxDepth);
+}
+
+function quietSuccessorSingletonEffects(position, column, player) {
+  const p = position.profile;
+  const heights = position.heights;
+  const row = heights[column];
+  const index = row * p.columns + column;
+  const ownRefs = player === 0 ? position.singletonRefs0 : position.singletonRefs1;
+  const opponentRefs = player === 0 ? position.singletonRefs1 : position.singletonRefs0;
+  let effects = 0;
+  let firstOwnCompletion = -1;
+
+  if (row + 1 < p.rows) {
+    const above = index + p.columns;
+    if (opponentRefs[above] !== 0) effects |= EFFECT_EXPOSES_OPPONENT_SINGLETON;
+    if (ownRefs[above] !== 0) firstOwnCompletion = above;
+  }
+
+  const start = p.positionLineOffsets[index];
+  const end = p.positionLineOffsets[index + 1];
+  for (let at = start; at < end; at++) {
+    const line = p.positionLineIndices[at];
+    const state = position.lineState[line];
+    const p0Count = state & 7;
+    const p1Count = state >>> 3;
+    const ownCount = player === 0 ? p0Count : p1Count;
+    const opponentCount = player === 0 ? p1Count : p0Count;
+    if (ownCount !== 2 || opponentCount !== 0) continue;
+
+    const remaining = position.lineEmptyXor[line] ^ index;
+    const remainingColumn = remaining % p.columns;
+    const remainingRow = (remaining / p.columns) | 0;
+    const playableAfterMove = remainingColumn === column
+      ? remainingRow === row + 1
+      : heights[remainingColumn] === remainingRow;
+    if (!playableAfterMove) continue;
+
+    if (firstOwnCompletion < 0) {
+      firstOwnCompletion = remaining;
+    } else if (remaining !== firstOwnCompletion) {
+      return effects | 2;
+    }
+  }
+
+  return effects | (firstOwnCompletion >= 0 ? 1 : 0);
 }
 
 export class IncumbentSearchEngine {
@@ -329,10 +377,42 @@ export class IncumbentSearchEngine {
         bestMove = ttMove;
         if (isMax) alpha = Math.max(alpha, value); else beta = Math.min(beta, value);
       }
-      if (alpha < beta) {
+
+      let structuralMove = -1;
+      if (ply > 0 && alpha < beta) {
+        let structuralClass = 0;
         for (let i = 0; i < p.moveOrder.length; i++) {
           const column = p.moveOrder[i];
           if (column === ttMove || heights[column] >= p.rows) continue;
+          const effects = quietSuccessorSingletonEffects(position, column, currentPlayer);
+          if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;
+          const candidateClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
+          if (candidateClass > structuralClass) {
+            structuralClass = candidateClass;
+            structuralMove = column;
+            if (candidateClass === 2) break;
+          }
+        }
+      }
+
+      if (structuralMove >= 0) {
+        position.applyUnchecked(structuralMove);
+        const score = this.searchNode(position, ply + 1, alpha, beta);
+        position.undoUnchecked();
+        if (bestMove < 0 || (isMax ? score > value : score < value)) {
+          value = score;
+          bestMove = structuralMove;
+        }
+        if (isMax) {
+          if (value > alpha) alpha = value;
+        } else if (value < beta) beta = value;
+        if (alpha >= beta) metrics.alphaBetaCutoffs++;
+      }
+
+      if (alpha < beta) {
+        for (let i = 0; i < p.moveOrder.length; i++) {
+          const column = p.moveOrder[i];
+          if (column === ttMove || column === structuralMove || heights[column] >= p.rows) continue;
           position.applyUnchecked(column);
           const score = this.searchNode(position, ply + 1, alpha, beta);
           position.undoUnchecked();
