@@ -57,6 +57,25 @@ function invariants(W,H){
   return {W,H,L,rankB,kernel,axisRank,phaseRank,Ycell:rankB-axisRank,Yline:kernel-phaseRank,delta:(kernel-phaseRank)-(rankB-axisRank)};
 }
 
+function verifyPhaseTemplate(descriptors,expectedColumns){
+  const W=5,H=5,lines=generateLines(W,H);
+  const chosen=descriptors.map(([dx,dy,x,y])=>{
+    const hit=lines.find(l=>l.dx===dx&&l.dy===dy&&l.x===x&&l.y===y);
+    assert(hit,`missing template line ${dx},${dy},${x},${y}`);return hit;
+  });
+  const cells=Array(W*H).fill(0),phase=Array(W).fill(0);
+  for(const l of chosen){for(const c of l.cells)cells[c]^=1;if(l.dx===0&&l.dy===1)phase[l.x]^=1;}
+  assert(cells.every(v=>v===0));
+  assert.deepEqual(phase,Array.from({length:W},(_,c)=>expectedColumns.includes(c)?1:0));
+}
+const phaseLeft=[
+  [0,1,0,0],[1,1,0,0],[0,1,1,0],[1,1,1,0],[0,1,3,0],
+  [1,1,0,1],[0,1,3,1],[1,0,0,2],[1,-1,0,3],[1,0,1,3],
+];
+const phaseMiddle=[[1,0,0,0],[1,1,0,0],[0,1,1,0],[0,1,2,0],[1,0,0,3],[1,-1,0,3]];
+verifyPhaseTemplate(phaseLeft,[0,1]);
+verifyPhaseTemplate(phaseMiddle,[1,2]);
+
 const checked=[];
 for(let W=4;W<=13;W++)for(let H=4;H<=13;H++){
   const d=invariants(W,H);checked.push(d);
