@@ -374,6 +374,24 @@ export function createRealCoverage64Fixture() {
     };
   });
 
+  const anchor = segments.find((segment) => (
+    segment.geometry.columns === 5
+    && segment.geometry.rows === 4
+    && segment.geometry.connect === 4
+    && segment.rank === 11
+    && segment.beneficiary === 0
+    && segment.supportHeights.join(',') === '3,1,1,3,3'
+  ));
+  if (!anchor
+    || anchor.dictionary.clauses.length !== 22
+    || anchor.left.length !== 32
+    || anchor.right.length !== 19
+    || anchor.rawPairs !== 608
+    || anchor.authority.rejected !== 486
+    || anchor.authority.frontier.length !== 32) {
+    throw new Error('qualified 5x4 c4 real-workload provenance anchor changed');
+  }
+
   return {
     fixtureKind: 'real-clause-bsfp-hot-jobs',
     segments,
