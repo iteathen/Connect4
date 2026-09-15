@@ -22,7 +22,7 @@ function getDepthScale(depth) {
   return Math.max(depth * DEPTH_DEPENDENT_WEIGHT, 1);
 }
 
-function toLegacyExternalScore(normalizedScore, maxDepth) {
+function toExternalScore(normalizedScore, maxDepth) {
   if (normalizedScore > MATE_THRESHOLD) {
     const distance = Math.round(MAX_SAFE - normalizedScore);
     return MAX_SAFE / getDepthScale(distance);
@@ -36,7 +36,7 @@ function toLegacyExternalScore(normalizedScore, maxDepth) {
 
 export class IncumbentSearchEngine {
   constructor({ columns = 7, rows = 6, ttCapacity = 262144, orderingPolicy = 'persistent-best-move' } = {}) {
-    if (orderingPolicy !== 'persistent-best-move' && orderingPolicy !== 'legacy-qualified') throw new RangeError('unknown orderingPolicy');
+    if (orderingPolicy !== 'persistent-best-move' && orderingPolicy !== 'depth-qualified') throw new RangeError('unknown orderingPolicy');
     this.orderingPolicy = orderingPolicy;
     this.profile = createProfile(columns, rows);
     this.tt = new PersistentTranspositionTable(ttCapacity);
@@ -105,7 +105,7 @@ export class IncumbentSearchEngine {
     this.metrics.reachedDepth = depth;
     return {
       move: this.rootBestMove < 0 ? null : this.rootBestMove,
-      score: toLegacyExternalScore(normalizedScore, depth),
+      score: toExternalScore(normalizedScore, depth),
       normalizedScore,
       depth,
       metrics: { ...this.metrics },
@@ -136,7 +136,7 @@ export class IncumbentSearchEngine {
     }
     return {
       move: bestMove < 0 ? null : bestMove,
-      score: toLegacyExternalScore(normalizedScore, maxDepth),
+      score: toExternalScore(normalizedScore, maxDepth),
       normalizedScore,
       depth: maxDepth,
       metrics: { ...this.metrics },
@@ -149,9 +149,6 @@ export class IncumbentSearchEngine {
     const winner = position.winner();
     if (winner !== -1) return rootTerminalScore(winner, this.rootPlayer, ply);
     if (ply >= this.targetDepth) {
-      // Exact decisive frontier before heuristic evaluation. This first experiment only
-      // promotes already-certified WDL consequences: current immediate win and an
-      // opponent double playable-singleton threat. Unique forced blocks remain heuristic.
       const hp = this.profile;
       const heights = position.heights;
       const currentPlayer = position.sideToMove;
@@ -178,9 +175,7 @@ export class IncumbentSearchEngine {
       }
       if (opponentThreatCount > 1) {
         metrics.horizonExactDoubleThreatLosses++;
-        // Preserve the incumbent shortcut's legacy distance convention in this experiment.
-        // WDL is exact; physical terminal distance is a separate semantic correction.
-        return rootTerminalScore(1 - currentPlayer, this.rootPlayer, ply + 1);
+        return rootTerminalScore(1 - currentPlayer, this.rootPlayer, ply + 2);
       }
 
       metrics.evaluatorCalls++;
@@ -270,8 +265,6 @@ export class IncumbentSearchEngine {
     let opponentThreatCount = 0;
     let forcedBlock = -1;
 
-    // One center-ordered pass classifies both exact singleton frontiers. Current-player
-    // immediate wins retain precedence; opponent threats remain distinct completion cells.
     for (let i = 0; i < p.moveOrder.length; i++) {
       const column = p.moveOrder[i];
       const row = heights[column];
@@ -300,7 +293,7 @@ export class IncumbentSearchEngine {
     const opponent = 1 - currentPlayer;
     if (opponentThreatCount > 1) {
       metrics.tacticalDoubleThreatLosses++;
-      const value = rootTerminalScore(opponent, this.rootPlayer, ply + 1);
+      const value = rootTerminalScore(opponent, this.rootPlayer, ply + 2);
       if (slot < 0) { slot = tt.allocate(position.hashLo, position.hashHi, position.sideToMove); if (tt.lastAllocationReplaced) metrics.ttReplacements++; }
       tt.store(slot, this.rootPlayer, remainingDepth, TT_EXACT, toTTScore(value, ply), forcedBlock);
       metrics.ttStores++;
@@ -315,7 +308,7 @@ export class IncumbentSearchEngine {
     if (opponentThreatCount === 1) {
       metrics.tacticalForcedBlocks++;
       position.applyUnchecked(forcedBlock);
-      let score = this.searchNode(position, ply + 1, alpha, beta);
+      const score = this.searchNode(position, ply + 1, alpha, beta);
       position.undoUnchecked();
       value = score;
       bestMove = forcedBlock;
