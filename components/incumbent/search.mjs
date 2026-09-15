@@ -15,6 +15,8 @@ import { PersistentTranspositionTable, fromTTScore, toTTScore } from './tt.mjs';
 
 const EFFECT_OWN_PLAYABLE_SINGLETON_MASK = 0x03;
 const EFFECT_EXPOSES_OPPONENT_SINGLETON = 0x04;
+const EFFECT_OPPONENT_SUPPRESSION_SHIFT = 3;
+const EFFECT_OPPONENT_SUPPRESSION_MASK = 0x18;
 
 function rootTerminalScore(winner, rootPlayer, ply) {
   if (winner === 2) return 0;
@@ -37,7 +39,7 @@ function toExternalScore(normalizedScore, maxDepth) {
   return normalizedScore / getDepthScale(maxDepth);
 }
 
-function quietSuccessorSingletonEffects(position, column, player) {
+function quietSuccessorStructuralEffects(position, column, player) {
   const p = position.profile;
   const heights = position.heights;
   const row = heights[column];
@@ -46,6 +48,8 @@ function quietSuccessorSingletonEffects(position, column, player) {
   const opponentRefs = player === 0 ? position.singletonRefs1 : position.singletonRefs0;
   let effects = 0;
   let firstOwnCompletion = -1;
+  let ownPlayableSingletonClass = 0;
+  let opponentSuppressionClass = 0;
 
   if (row + 1 < p.rows) {
     const above = index + p.columns;
@@ -62,6 +66,15 @@ function quietSuccessorSingletonEffects(position, column, player) {
     const p1Count = state >>> 3;
     const ownCount = player === 0 ? p0Count : p1Count;
     const opponentCount = player === 0 ? p1Count : p0Count;
+
+    // A mover placement at x kills every opponent-only residual incident to x.
+    // Degree-2 (two opponent stones remaining) outranks degree-3 (one stone),
+    // but this remains an unsigned advisory fact. Opponent count 3 is consumed by
+    // the exact forced-block tactical layer before ordinary ordering is reached.
+    if (ownCount === 0 && opponentCount > opponentSuppressionClass && opponentCount < 3) {
+      opponentSuppressionClass = opponentCount;
+    }
+
     if (ownCount !== 2 || opponentCount !== 0) continue;
 
     const remaining = position.lineEmptyXor[line] ^ index;
@@ -75,11 +88,14 @@ function quietSuccessorSingletonEffects(position, column, player) {
     if (firstOwnCompletion < 0) {
       firstOwnCompletion = remaining;
     } else if (remaining !== firstOwnCompletion) {
-      return effects | 2;
+      ownPlayableSingletonClass = 2;
     }
   }
 
-  return effects | (firstOwnCompletion >= 0 ? 1 : 0);
+  if (ownPlayableSingletonClass === 0 && firstOwnCompletion >= 0) ownPlayableSingletonClass = 1;
+  return effects
+    | ownPlayableSingletonClass
+    | (opponentSuppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
 }
 
 export class IncumbentSearchEngine {
@@ -380,17 +396,22 @@ export class IncumbentSearchEngine {
 
       let structuralMove = -1;
       if (ply > 0 && alpha < beta) {
-        let structuralClass = 0;
+        let singletonClass = 0;
+        let suppressionClass = 0;
         for (let i = 0; i < p.moveOrder.length; i++) {
           const column = p.moveOrder[i];
           if (column === ttMove || heights[column] >= p.rows) continue;
-          const effects = quietSuccessorSingletonEffects(position, column, currentPlayer);
+          const effects = quietSuccessorStructuralEffects(position, column, currentPlayer);
           if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;
-          const candidateClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
-          if (candidateClass > structuralClass) {
-            structuralClass = candidateClass;
+          const candidateSingletonClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
+          const candidateSuppressionClass = (effects & EFFECT_OPPONENT_SUPPRESSION_MASK)
+            >>> EFFECT_OPPONENT_SUPPRESSION_SHIFT;
+          if (candidateSingletonClass > singletonClass
+              || (candidateSingletonClass === singletonClass && candidateSuppressionClass > suppressionClass)) {
+            singletonClass = candidateSingletonClass;
+            suppressionClass = candidateSuppressionClass;
             structuralMove = column;
-            if (candidateClass === 2) break;
+            if (singletonClass === 2 && suppressionClass === 2) break;
           }
         }
       }
