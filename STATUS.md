@@ -15,9 +15,10 @@ This is a current-state router. Detailed evidence is under `docs/research/**`; e
 - Unknown != loss; theorem failure != opposite outcome; resource failure != logical rejection.
 - Same dimension != natural isomorphism; vector-space splitting != natural splitting.
 - Connect-4 residual cofactor != Connect-3 game incidence without an explicit map.
-- No solved/external W/D/L labels are structural premises here.
+- External solved W/D/L, terminal-distance, and witness data are validation/falsification evidence only; they are not premises of the target-free structural theorem.
+- An upper bound is not an exact optimal-play census.
 
-## Standard-board GF(2) theorem state
+## Target-free standard-board GF(2) theorem
 
 From only
 
@@ -25,7 +26,7 @@ From only
 GF(2), K=4, H=6, W=7
 ```
 
-the target-free controls derive
+the strongest controls derive
 
 ```text
 L = 69
@@ -34,14 +35,7 @@ dim ker(B) = 34
 rank(B)-W = dim ker(B)-H = 28.
 ```
 
-Neither 28 nor 69 is a primitive input to the strongest controls.
-
-The original one-axis projection proposals are falsified:
-
-```text
-rank(column parity | im(B)) = 4, not 7
-rank(horizontal-row line parity | ker(B)) = 5, not 6.
-```
+Neither 28 nor 69 is a primitive input.
 
 Corrected cores are
 
@@ -50,208 +44,200 @@ Y_cell = ker((row+column parity)|im(B)), dim 28
 Y_line = ker(vertical-line parity|ker(B)), dim 28.
 ```
 
-Top-bottom reflection mismatch only falsifies a bare-incidence identification; gravity/support order intentionally breaks that symmetry. Left-right reflection remains respected.
-
-## Natural middle isomorphism
-
-Let `D=partial_4` be the formal residual boundary from winning lines to unique 3-cell cofactors. For degree-3 fragment `S`, define
+A Connect4-defined natural isomorphism exists:
 
 ```text
-C(S) = minimal gravity-support closure size
-r(S) = highest row
-q(S) = C(S)+r(S) mod 2.
+T : Y_line -> Y_cell
+beta(Ty,z) = gamma(y,z)
 ```
 
-For a highest residual event after the rest of the minimal support closure,
+where `gamma` is the CPC-event-rank-parity-weighted residual cofactor pairing and `beta` combines that parity with residual connectedness. The control proves rank 28, left-right equivariance, and basis-change invariance.
+
+Natural splittings are also qualified:
 
 ```text
-q(S) = CPC zero-reservation event-count parity N(t) mod 2.
+im(B)  = Y_cell direct-sum C_axis   = 28+7
+ker(B) = Y_line direct-sum C_phase  = 28+6
+C_phase ~= Even(F2^7).
 ```
 
-This is event-rank parity, not eventual-owner parity `(N-1) mod 2`.
+CPC two-ply displacement `e_a+e_b` is correctly typed in the six-dimensional line-side phase quotient; same-column stutter is zero.
 
-The line self-pairing
+## Residual calculus checkpoint
+
+The first formal residual boundary exposes a natural 21-dimensional core after a rank-7 support/CPC frontier quotient:
 
 ```text
-gamma(y,z)=(D y)^T diag(q)(D z)
+28 -> 21
 ```
 
-has rank 28 on `Y_line`. Owner-parity weighting instead has rank 16.
+but repeated fragment-only descent is falsified. Formal marked repetition gives ranks `7,0,0`; a support-ordered marked version gives `6,7,0`. Further sequential descent requires consumed-event history. This seam remains valid but is currently paused by explicit owner direction to stay on the 28 / varying-board investigation.
 
-For incident cell `c` of line `l`, with `S=l\\{c}`, define
+## External optimal-play 28 evidence
+
+Issue #41 supplies a qualified external solved-oracle result for distance-sensitive optimal play on standard 7x6:
 
 ```text
-w(c,l)=q(S) XOR connected(S),
+28 distinct terminal winning lines
+terminal move 41
+first five moves forced to the center
+orientation count: 12 vertical + 8 horizontal + 8 diagonal.
 ```
 
-where `connected(S)=1` exactly when the 3-cell cofactor remains contiguous along the original line. The resulting cross pairing `beta:Y_cell x Y_line -> GF(2)` has
+The independent branch audit proves that these 28 line coordinates are **not** a basis of the common `Y`:
 
 ```text
-q only              rank 20
-connectedness only  rank 16
-combined beta       rank 28.
+dim coordinate space               = 28
+rank of its cell incidence image    = 26
+line dependencies inside Y_line     = 2
+cell-image intersection with Y_cell = 20
+axis-boundary image rank             = 6.
 ```
 
-Define the direct map basis-independently by
+Thus the exact optimal set has the structural fingerprint
 
 ```text
-beta(Ty,z)=gamma(y,z) for every z in Y_line,
+28 = 2 line-core + 20 cell-core + 6 axis.
 ```
 
-equivalently
+Equal cardinality remains insufficient to identify the oracle line set with `Y`.
+
+## Cross-board terminal-support audit
+
+Issue #42 was re-audited rather than trusted directly. Its pinned source revision is Christophe Steininger's `c4` commit `fa27f186d2f1bf8e8fd61bfad63454c6e4b0431c`. The source has strong solves enabled and scores earlier wins higher; by negamax the losing side prefers longer resistance. The published `Last Move` table is therefore compatible with the distance-sensitive convention used by #41/#42.
+
+For Connect-4 geometry define
 
 ```text
-beta_flat o T = gamma_flat.
+a=max(W-3,0)
+b=max(H-3,0)
+G(W,H)=H*a + W*b + 2*a*b.
 ```
 
-The finite control proves
+For externally supplied decisive terminal move `T`, let
 
 ```text
-rank(T)=28
-T(Y_line)=Y_cell
-left-right equivariance
-basis-change invariance.
+q = W*H-T+1
+t = max(0,H-q).
 ```
 
-Therefore the emergent 28-dimensional equality is **not merely a rank coincidence**. An explicit Connect4-defined natural isomorphism `Y_line ~= Y_cell` exists. Uniqueness among every conceivable natural construction is not claimed.
-
-## Natural boundary splittings and P
-
-The corrected exact sequences also admit explicit geometric sections.
-
-Cell side:
+Gravity gives the sound terminal-support upper bound
 
 ```text
-im(B)=Y_cell direct-sum C_axis
-35   =28     +7.
+U_support(W,H,T)=G(W,H)-G(W,t).
 ```
 
-`C_axis` is lifted by four bottom-row horizontal winning lines and three center-column vertical winning lines. Its quotient is structurally
+The compact form `q*(4W-9)` is valid only in the unclipped regime used by the eight decisive source boards (`W>=4`, retained lower height `t>=3`); do not use it globally.
+
+Independent coordinate enumeration and deficit-distribution enumeration reproduce the eight decisive support caps exactly:
 
 ```text
-I_4(columns) direct-sum I_4(rows), dimensions 4+3.
+6x4  -> 15
+6x6  -> 15
+6x7  -> 30
+7x6  -> 38 before forced-prefix refinement
+8x4  -> 23
+8x5  -> 46
+9x4  -> 27
+10x4 -> 31.
 ```
 
-Line side:
+No arithmetic inconsistency was found in those support caps under the stated source premises. Only 7x6 currently has a qualified exact nonzero census. In particular, **6x7=30 is still an upper bound until the announced matching proof/witness evidence is qualified.**
+
+## Standard 7x6 support/prefix filtration
+
+The generic move-41 support envelope is
 
 ```text
-ker(B)=Y_line direct-sum C_phase
-34    =28     +6.
+38 = 8 horizontal + 14 vertical + 16 diagonal.
 ```
 
-`C_phase` is lifted by six explicit center-star geometric dependency cycles, and its quotient is exactly
+Applying the issue-#41 five-center prefix as an external validation premise gives
 
 ```text
-Even(F2^7), dim 6.
+38 -> 30
 ```
 
-This is the correctly typed home of CPC two-ply displacement
+because the two fixed P1 center cells eliminate two vertical and six diagonal candidates. The already occupied P0 center row-5 cell cannot be the final landing, eliminating two further diagonal candidates:
 
 ```text
-delta_phi=e_a+e_b.
+30 -> 28 exact.
 ```
 
-All 7 same-column cases are zero. All 42 ordered distinct-column cases are nonzero even-weight quotient coordinates. Under the section lift, `P` changes only the line boundary factor and fixes the common `Y` coordinate. This is a representation statement, not a claim that adding a dependency vector is a legal game transition.
-
-Thus the structural content behind the dimension law is now
+The more informative GF(2) sector filtration is
 
 ```text
-im(B)  ~= Y + Q_axis       = 28+7
-ker(B) ~= Y + Even(F2^7)   = 28+6
-L      = (28+7)+(28+6)     = 69.
+support envelope:
+  38 = 6 line-core + 4 phase + 22 cell-core + 6 axis
+
+fixed P1 center prefix:
+  30 = 4 line-core + 0 phase + 20 cell-core + 6 axis
+
+exact 28 candidates:
+  28 = 2 line-core + 0 phase + 20 cell-core + 6 axis.
 ```
 
-## Residual degree-3 core
+Therefore the `38 -> 28` coordinate reduction removes ten line coordinates but only two cell-incidence image dimensions. Most of the reduction removes dependency freedom. Notably, the fixed opponent center prefix annihilates the entire rank-4 phase-boundary dependency sector of the move-41 support envelope while the six-dimensional cell-axis sector survives unchanged.
 
-The naive claim that cofactor arity alone makes `28 -> 21` is false: `D|Y` is injective and ordinary degree-3 residual incidence has rank 42.
+## q=2 width-family control
 
-However a natural first formal residual quotient does expose 21 dimensions. For degree-3 residual `S`, let
+A finite control over `W=4..30`, `H=5`, with two empty cells immediately before terminal (`q=2`) finds the stable support-envelope sector pattern
 
 ```text
-phi(S) = minimal-support height parity by column
-u(S)   = columns containing a globally highest residual cell
-pi_3(S)=u(S) XOR q(S)*phi(S).
+coordinate count        = 8W-18
+line-core dependencies  = 2W-8
+phase-boundary rank     = W-3
+cell-core image         = 4W-6
+axis-boundary image     = W-1
+incidence image rank    = 5W-7.
 ```
 
-On `D(Y_line)`:
+The phase sector equals the even-weight subspace on the `W-2` interior columns in every tested width. This is finite family evidence, not an unbounded symbolic theorem.
+
+Consequently the raw 7x6 support-envelope incidence rank `28` is the width-7 value `5W-7`; it must not be treated as an independent identification with the common `Y`.
+
+## Transpose control
+
+Bare 7x6 and 6x7 incidence geometry is isomorphic:
 
 ```text
-ordinary residual incidence   rank 0
-raw support phase             rank 0
-u                             rank 5
-q*phi                         rank 5
-pi_3                          rank 7.
+L=69, rank(B)=35, dim ker(B)=34
 ```
 
-Therefore
+but gravity/support orientation changes the relevant structures:
 
 ```text
-Y_3=ker(pi_3|D(Y_line))
-dim Y_3=28-7=21=7*(4-1).
+7x6: support upper 38, Y_cell 28, Y_line 28
+6x7: support upper 30, Y_cell 28, Y_line 29.
 ```
 
-This 21-space is left-right equivariant and basis-independent.
-
-## Sequential residual ladder falsifier
-
-Do **not** promote the first `28 -> 21` into an automatic
-
-```text
-28 -> 21 -> 14 -> 7 -> 0
-```
-
-ladder.
-
-Two marked sequentializations were tested with the same fragment frontier rule:
-
-```text
-formal marked:
-  28 --7--> 21
-  21 --0--> 21
-  21 --0--> 21
-
-support-ordered marked:
-  28 --6--> 22
-  22 --7--> 15
-  15 --0--> 15.
-```
-
-The aggregate boundary also satisfies `partial_3*partial_4=0`, so it cannot represent sequential cofactor descent by simple iteration.
-
-The 21-space is therefore a qualified **first formal residual-boundary core**, not yet a legal-play derivative ladder. Further descent must carry event/support history explicitly.
-
-## Nearby-family falsification
-
-For `W=2K-1, H=2K-2`, finite tests through `K=8` find equal image-over-width and kernel-over-height excess only at `K=4`; `K=2` is the smallest counterexample. No generic family theorem is claimed.
-
-## Durable controls / notes
-
-- `quotient-standard7x6-emergent-middle-dimension-isomorph.mjs`
-- `quotient-standard7x6-canonical-projection-audit.mjs`
-- `quotient-standard7x6-support-graded-middle-duality-control.mjs`
-- `quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs`
-- `quotient-standard7x6-natural-boundary-splittings-control.mjs`
-- `quotient-standard7x6-residual-degree3-core-control.mjs`
-- `quotient-standard7x6-residual-sequential-ladder-falsifier.mjs`
-- `docs/research/2026-09-14-cpc-residual-middle-isomorph.md`
-- `docs/research/2026-09-14-natural-boundary-splittings-and-P.md`
-- `docs/research/2026-09-14-residual-degree3-core.md`
-- `docs/research/2026-09-14-residual-sequential-ladder-falsifier.md`
-
-Current structural checkpoint before this router update:
-
-```text
-ee950ece036f04cf917c53901bb54a4db7b03fc2
-```
-
-Recent dedicated GitHub Actions jobs have repeatedly failed during `Set up job` before checkout; those runs provide no payload evidence. The new controls pass locally with `proved:true`.
+If incoming evidence proves all 30 support candidates attainable on 6x7 under the same distance-optimal convention, that will strongly falsify any cross-orientation claim that the optimal terminal-line count is simply the common-`Y` dimension.
 
 ## Active next seam
 
-Construct a **history-aware marked cofactor calculus** that transports the CPC event reservoir/support contribution of consumed events instead of recomputing parity from the smaller residual fragment as though history vanished. The first target is to explain or falsify a sequential graded core after the qualified 21-space without presupposing dimensions 14 or 7.
+Stay on the 28 / varying-board evidence.
 
-`AGENT_LOCAL.md` was audited and remains structurally correct; no theorem-history expansion is needed there.
+For each new board proof submitted in issues:
 
-## Preserved solver seam
+1. inspect source/witness premises directly rather than trusting the issue conclusion;
+2. regenerate `G`, terminal-support envelope, and any fixed-prefix/color refinement independently;
+3. distinguish upper bound from exact witnessed census;
+4. compute the seven-part fingerprint needed for comparison: coordinate count, incidence image rank, dependency dimension, axis rank, cell-core image, phase rank, line-core dependency dimension;
+5. compare transpose/orientation controls before proposing a general law;
+6. preserve the target-free common-`Y` theorem independently.
 
-The earlier forward W/D/L rank-7 P1 horizon at exact state `4665655` remains valid unfinished work, paused rather than falsified. Resume only by explicit owner selection.
+The immediate high-value case is the announced 6x7 proof for 30.
+
+## Durable evidence
+
+- `research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-optimal-28-incidence-oracle-audit.mjs`
+- `docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md`
+- `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-terminal-support-bound-audit.mjs`
+- `docs/research/2026-09-14-cross-board-terminal-support-upper-bound-audit.md`
+
+The prior structural/residual controls remain valid and are preserved in their existing notes.
+
+## Paused seams
+
+- history-aware marked residual calculus after the qualified 21-space: valid, paused by owner direction;
+- forward W/D/L rank-7 P1 horizon at exact state `4665655`: valid unfinished work, paused.
