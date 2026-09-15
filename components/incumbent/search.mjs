@@ -61,6 +61,8 @@ export class IncumbentSearchEngine {
       tacticalImmediateWins: 0,
       tacticalForcedBlocks: 0,
       tacticalDoubleThreatLosses: 0,
+      horizonExactImmediateWins: 0,
+      horizonExactDoubleThreatLosses: 0,
       ttProbes: 0,
       ttPositionHits: 0,
       ttScoreHits: 0,
@@ -147,6 +149,40 @@ export class IncumbentSearchEngine {
     const winner = position.winner();
     if (winner !== -1) return rootTerminalScore(winner, this.rootPlayer, ply);
     if (ply >= this.targetDepth) {
+      // Exact decisive frontier before heuristic evaluation. This first experiment only
+      // promotes already-certified WDL consequences: current immediate win and an
+      // opponent double playable-singleton threat. Unique forced blocks remain heuristic.
+      const hp = this.profile;
+      const heights = position.heights;
+      const currentPlayer = position.sideToMove;
+      const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
+      const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
+      let immediateWin = false;
+      let opponentThreatCount = 0;
+
+      for (let i = 0; i < hp.moveOrder.length; i++) {
+        const column = hp.moveOrder[i];
+        const row = heights[column];
+        if (row >= hp.rows) continue;
+        const index = row * hp.columns + column;
+        if (currentRefs[index] !== 0) {
+          immediateWin = true;
+          break;
+        }
+        if (opponentThreatCount < 2 && opponentRefs[index] !== 0) opponentThreatCount++;
+      }
+
+      if (immediateWin) {
+        metrics.horizonExactImmediateWins++;
+        return rootTerminalScore(currentPlayer, this.rootPlayer, ply + 1);
+      }
+      if (opponentThreatCount > 1) {
+        metrics.horizonExactDoubleThreatLosses++;
+        // Preserve the incumbent shortcut's legacy distance convention in this experiment.
+        // WDL is exact; physical terminal distance is a separate semantic correction.
+        return rootTerminalScore(1 - currentPlayer, this.rootPlayer, ply + 1);
+      }
+
       metrics.evaluatorCalls++;
       return evaluateRootRaw(position, this.rootPlayer);
     }
