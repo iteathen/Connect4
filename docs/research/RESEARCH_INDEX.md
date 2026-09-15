@@ -1,6 +1,6 @@
 # Connect4 research index
 
-**Updated:** 2026-09-14  
+**Updated:** 2026-09-15  
 **Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
 Research direction / structural architecture / invariant-first program: **Josh Oshiro**.  
@@ -12,15 +12,16 @@ Status classes:
 
 - **ACTIVE FOUNDATION** — current exact or qualified structural result used by the active seam.
 - **ACTIVE SEAM / CONTROL** — current unresolved mechanism and its bounded falsifiers.
-- **NEGATIVE CONTROL / CORRECTION** — rejected shortcut or note that corrects an earlier interpretation.
+- **ACCEPTED OPTIMIZATION RESULT** — qualified solver/runtime result retained in the active implementation.
+- **NEGATIVE CONTROL / CORRECTION** — rejected shortcut, consumer placement, or note that corrects an earlier interpretation.
 - **HISTORICAL EVIDENCE** — implementation/performance/provenance record with continuing value but no current routing authority.
 - **RETAINED SPECIALIZED LANE** — BSFP/OQS/minimax/other work kept for its owning lane.
 
-Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
+Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history and explicitly named evidence branches are the archive for superseded handoffs, chat summaries, temporary publication checkpoints, rejected implementation states, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
 
 ---
 
-## 1. Current active seam
+## 1. Current active theorem seam
 
 ### ACTIVE SEAM / CONTROL
 
@@ -145,9 +146,19 @@ Ordinary forward identity remains exact support plus normalized P0/P1 residual c
 
 ## 6. Frontier-native solver implementation / performance history
 
+### ACCEPTED OPTIMIZATION RESULT
+
+- [`2026-09-15-native-singleton-effect-ordering.md`](2026-09-15-native-singleton-effect-ordering.md)  
+  Accepted cross-layer structural-ordering result. Exact landing-cell incident-line effects identify one/two distinct playable own singleton completions without speculative child materialization. This is advisory ordering only; it substantially reduces search work while preserving independent solved-strength aggregates.
+
+### NEGATIVE CONTROL / PERFORMANCE
+
+- [`2026-09-15-opponent-residual-suppression-ordering.md`](2026-09-15-opponent-residual-suppression-ordering.md)  
+  Exact opponent-residual deletion is retained as an unsigned cofactor fact, but broad, tier-isolated and degree-2-only suppression ordering are rejected at the tested first-child placement. The variants reduced the original paired fixture while materially increasing independent calibration search work. Exact experiment state is preserved on `research/terminal-frontier-horizon-exact-suppression-evidence`.
+
 ### HISTORICAL EVIDENCE
 
-Keep exact implementation/benchmark provenance, but do not use it as current research routing:
+Keep exact implementation/benchmark provenance, but do not use it as current theorem routing:
 
 - [`2026-09-12-full-engine-sanity-audit.md`](2026-09-12-full-engine-sanity-audit.md)
 - [`2026-09-12-transition-state-read-commit-audit.md`](2026-09-12-transition-state-read-commit-audit.md)
@@ -159,9 +170,7 @@ Keep exact implementation/benchmark provenance, but do not use it as current res
 
 The checkpoint is retained because it contains exact benchmark/run provenance and durable optimization findings.
 
-`2026-09-12-frontier-optimization-handoff-v2.md` is also retained **only because the untouched current `AGENT_LOCAL.md` still routes it explicitly**. It is historical continuity evidence, not current task authority. Remove or reroute it only in a separate agent-file maintenance task.
-
-Other superseded handoff/chat-summary documents are not retained as separate current-tree artifacts.
+`2026-09-12-frontier-optimization-handoff-v2.md` is also retained only for historical continuity where older repository routing still references it; it is not current task authority.
 
 ---
 
@@ -190,24 +199,26 @@ Retain evidence against at least these shortcuts:
 
 - [`2026-09-10-bsfp-incremental-dominance-rejected.md`](2026-09-10-bsfp-incremental-dominance-rejected.md);
 - [`2026-09-14-residual-sequential-ladder-falsifier.md`](2026-09-14-residual-sequential-ladder-falsifier.md);
+- [`2026-09-15-opponent-residual-suppression-ordering.md`](2026-09-15-opponent-residual-suppression-ordering.md);
 - static blocker coverage treated as temporal realizability;
 - pair blocker silently promoted to XOR;
 - raw GF(2) span substituted for positive monotone residual incidence;
 - residual degree/cardinality used as a value selector;
+- exact structural effect assumed to be a robust first-child ordering relation without cross-corpus qualification;
 - support-only or low-order current-owner summaries treated as complete value state;
 - no Hall deficiency treated as draw/no-force evidence;
 - legal reachability treated as perfect-play reachability;
 - recursive depth used to hide a missing theorem;
 - finite solved-data agreement promoted to universal proof.
 
-Failed implementations with a durable causal lesson should remain in their owning evidence note; obsolete harness/scaffolding need not remain live merely to preserve history.
+Failed implementations with a durable causal lesson should remain in their owning evidence note or evidence branch; obsolete harness/scaffolding need not remain live merely to preserve history.
 
 ---
 
-## 9. Current side research and design-only work
+## 9. Current side research and structural-order design
 
 - `research/connect-k-derivative-classification` remains isolated. Its predicate/axiom ledger is compatible with the current “derive connections before primitives” classification but has not solved the guarded temporal seam.
-- GitHub issue **#43 — `Design-only: theorem-tiered packed structural key for frontier-native Negamax ordering`** owns the structural ordering/evaluation design. It is design-only and must not be treated as implementation, pruning, or exact-value authority.
+- GitHub issue **#43 — `Design-only: theorem-tiered packed structural key for frontier-native Negamax ordering`** remains the design record for theorem-tiered structural ordering. The issue itself is not implementation or semantic authority. A subset of that design has now been implemented and independently qualified in PR #45 through the accepted native singleton-effect ordering result; the subsequent opponent-suppression tier was rejected by cross-corpus evidence.
 
 ---
 
@@ -220,13 +231,14 @@ Keep a file in the live tree when it owns at least one of:
 - a useful falsifier/correction likely to prevent repeated mistakes;
 - specialized-lane knowledge not represented elsewhere;
 - an active reproducer or current executable dependency;
-- an explicit route from an authority/current-context file that is out of scope for the present cleanup.
+- an explicit route from a current context file that remains in scope.
 
-Prefer Git history instead when a file is only:
+Prefer Git history or a named evidence branch instead when a file is only:
 
 - a superseded handoff with no surviving current route;
 - a chat/conversation summary whose durable facts are already recorded;
 - a temporary publication/access checkpoint;
+- a rejected implementation state whose evidence is already durably summarized;
 - an obsolete branch-description document;
 - a completed cleanup narration with no unique surviving evidence.
 
