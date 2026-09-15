@@ -4,7 +4,8 @@ This file maps normalized research concepts into the logical roles an implementa
 
 | Logical role | Canonical claims | Meaning |
 |---|---|---|
-| geometry | C4-R0002 | exact winning-line and derivative structure |
+| geometry | C4-R0002, C4-R0057, C4-R0058, C4-R0059 | exact winning-line incidence, derivative hierarchy, mixed-diagonal reduction and periodic annihilator structure |
+| derivative semantic lift | C4-R0012, C4-R0011, C4-R0018, C4-R0043, C4-R0052 | exact geometry is available, but legality/realizability/composition/selection remain separate semantic obligations |
 | residual basis | C4-R0001, C4-R0015 | surviving winning structures as first-class objects |
 | accessibility | C4-R0025 | support/gravity information required for exact residual semantics |
 | timing/ownership | C4-R0014 | event-rank parity/control relation |
@@ -17,6 +18,10 @@ This file maps normalized research concepts into the logical roles an implementa
 | semantic quotient | C4-R0008, C4-R0023..C4-R0028 | behavior-preserving state reduction and representations |
 | evaluation boundary | C4-R0006, C4-R0007 | exact-before-heuristic; unresolved residue stays unresolved |
 | research discipline | C4-R0035 | evidence scope and anti-bias contract |
+
+## Derivative consumption rule
+
+C4-R0057..R0059 may be consumed as exact geometry/representation facts. They do **not** by themselves authorize terminalization, W/D/L, perfect-play move choice, player ownership, legal response, or deadline claims. Such uses require a separate exact guarded claim carrying the missing semantics. C4-R0012 remains the hypothesis that some of this structure may admit a useful semantic lift.
 
 ## Implementation rule
 

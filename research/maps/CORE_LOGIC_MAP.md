@@ -5,9 +5,18 @@ This is the agent-facing connective tissue for the Connect4 research program. Hi
 ```text
 GEOMETRIC WINNING-LINE AXIOMS
         |
-        +--> exact line counts / finite derivatives ---------------- C4-R0002
+        +--> general Connect-K derivative factorization -------------- C4-R0057
+        |       |
+        |       +--> K=4 mixed/diagonal derivative reduction -------- C4-R0058
+        |               |
+        |               +--> seven-mode periodic annihilator -------- C4-R0059
+        |
+        +--> exact line counts / finite derivatives ----------------- C4-R0002
         |                         |
-        |                         +--> derivative semantic candidates - C4-R0012
+        |                         +--> derivative semantic candidate -- C4-R0012
+        |                                      |
+        |                                      +--> guarded closure --- C4-R0011,R0018,R0043
+        |                                      +--> optimal selection - C4-R0052
         |
         v
 RESIDUAL WINNING STRUCTURES / WINSPACE ------------------------------- C4-R0001
@@ -23,13 +32,13 @@ LOCAL EXACT CONSTRAINTS / CERTIFICATES
         |
         +--> playable own singleton ---------------------------------- C4-R0003
         +--> >=2 distinct opponent completions ----------------------- C4-R0004
-        +--> unique forced block -------------------------------------- C4-R0005
-        +--> dead residual draw --------------------------------------- C4-R0009
-        +--> exact terminal-subtraction frontier algebra ------------- C4-R0046
-        +--> role-general A123 ---------------------------------------- C4-R0029,R0030
-        +--> narrow ZPAR ---------------------------------------------- C4-R0033
-        +--> A4/A8 compatible-cover extension ------------------------ C4-R0038
-        +--> scoped A9-orientation counterexample -------------------- C4-R0037
+        +--> unique forced block ------------------------------------- C4-R0005
+        +--> dead residual draw -------------------------------------- C4-R0009
+        +--> exact terminal-subtraction frontier algebra ------------ C4-R0046
+        +--> role-general A123 --------------------------------------- C4-R0029,R0030
+        +--> narrow ZPAR --------------------------------------------- C4-R0033
+        +--> A4/A8 compatible-cover extension ----------------------- C4-R0038
+        +--> scoped A9-orientation counterexample ------------------- C4-R0037
         |
         v
 GUARDED COMPOSITION / NESTED DEPENDENCY CLOSURE --------------------- C4-R0018
@@ -50,7 +59,7 @@ SEMANTIC EQUIVALENCE / QUOTIENT -------------------------------------- C4-R0008
         +--> typed MQ5 + A123 composition ---------------------------- C4-R0036
         +--> line-hit product antichain ------------------------------ C4-R0042
         |       |
-        |       +--> realizability-preserving recurrence missing ----- C4-R0043
+        |       +--> realizability-preserving recurrence missing ---- C4-R0043
         +--> residual-pair crossing reuse ---------------------------- C4-R0044
         |
         v
@@ -72,6 +81,10 @@ calculus                                      |
                                               +--> measured compute wall C4-R0045
 ```
 
+## Derivative boundary
+
+C4-R0057..R0059 close important parts of the **linear geometric representation**. They do not close the game. The semantic lift must still carry gravity/accessibility, ownership, blocker form, resource conflicts, deadlines, first-win stopping and realizability. That is why C4-R0012 remains a candidate and flows into the existing C4-R0011/R0018/R0043 composition problem rather than bypassing it. C4-R0052 is the corresponding optimal-selection bridge for the structural/terminal `28` coincidence.
+
 ## Cross-direction interpretation
 
 The three solver families are different computational consumers of the same structural knowledge.
@@ -80,7 +93,7 @@ The three solver families are different computational consumers of the same stru
 - **Negamax/Minimax** is a recursive residual consumer and a strong exact oracle for qualifying structural certificates, quotient identities and interactions.
 - **BSFP** consumes terminal, win-space, timing and quotient structure in the reverse direction through backward symbolic fixed-point propagation.
 
-The new line-product result is deliberately cross-linked rather than labeled BSFP-only: it is evidence about the structural sufficiency/compression of win-line relations themselves. Its missing realizability law is therefore part of the same composition problem Isometric is trying to solve.
+The line-product result is deliberately cross-linked rather than labeled BSFP-only: it is evidence about the structural sufficiency/compression of win-line relations themselves. Its missing realizability law is therefore part of the same composition problem Isometric is trying to solve.
 
 A result in one solver can support a shared claim, but solver success does not automatically change the claim's epistemic status.
 

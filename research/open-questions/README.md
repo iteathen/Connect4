@@ -12,7 +12,7 @@ Current questions include:
 - How do timing, move ownership, response capacity and parity alter otherwise identical win-space relations?
 - Which distinctions may be quotiented without changing future game-theoretic behavior?
 - What certificate is sufficient to prove that a residual structural state is complete for the target semantics?
-- Can exact derivative/geometry families generate invariant classes that close under legal play?
+- Can the exact derivative families C4-R0057..R0059 be lifted into invariant game-semantic classes that close under legal play without losing support, ownership, resource, deadline or stopping information? See `DERIVATIVE_SEMANTIC_LIFT.md`.
 - Which perfect-play win-space counts can be derived from the initial board without recursive game search, and which require game-semantic reachability information?
 - What exact role/orientation/temporal guard repairs the falsified legacy/even-ply A9 responder construction in C4-R0037?
 - Can the safe additional A4/A8 cover measured in C4-R0038 be derived from solver-neutral relation primitives rather than named rule-specific code?
