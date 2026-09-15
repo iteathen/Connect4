@@ -18,6 +18,7 @@ const METRIC_NAMES = Object.freeze([
   'terminalIntersectionNormalizationInputRecords',
   'terminalUnionNormalizationInputRecords',
   'aggregateNormalizationInputRecords',
+  'cardinalityPhaseCandidateVisits',
 ]);
 
 function jsonMetric(value) {
@@ -41,7 +42,7 @@ function summarizeMetrics(metrics, support, executedMetadata) {
       totals[metric] += value;
       byRank[support.ranks[item]][metric] += value;
     }
-    const score = values[1] + values[2] + 43n * values[4];
+    const score = values[1] + values[2] + values[12];
     if (score !== 0n) hot.push({ item, rank: support.ranks[item], score, values });
   }
   hot.sort((left, right) => left.score === right.score ? left.item - right.item : left.score > right.score ? -1 : 1);
@@ -55,7 +56,7 @@ function summarizeMetrics(metrics, support, executedMetadata) {
   }
   return Object.freeze({
     totals: Object.freeze(metricObject(totals)),
-    derived: Object.freeze({ cardinalityPhaseCandidateVisits: jsonMetric(43n * totals[4]) }),
+    derived: Object.freeze({ cardinalityPhaseCandidateVisits: jsonMetric(totals[12]) }),
     scheduledSupportsByRank: Object.freeze([...scheduled.values()].sort((a, b) => b.rank - a.rank).map(Object.freeze)),
     rankSummaries: Object.freeze(byRank.map((values, rank) => Object.freeze({ rank, ...metricObject(values) })).filter((entry) => {
       for (const name of METRIC_NAMES) if (entry[name] !== 0 && entry[name] !== '0') return true;
