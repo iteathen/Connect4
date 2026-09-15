@@ -374,7 +374,7 @@ Named Allis-style rules are certificate generators into these relation types. No
 
 Pure-followup/domain-wall work is a strong defensive/no-loss substrate. It is **not** promoted to a signed value theorem by itself.
 
-## Active seam: guarded affine-clause value closure
+## Active seam: owner-labelled residual enabling and guarded value closure
 
 The next objective is to derive the exact monotone closure that combines:
 
@@ -384,13 +384,30 @@ The next objective is to derive the exact monotone closure that combines:
 4. support/accessibility and response resources;
 5. completion-before-deadline / first-win timing.
 
-Immediate questions:
+The solved-database discovery pass supplies a concrete unresolved discriminator:
 
-- Which existing rule/certificate families emit affine facts, clauses, or guarded compositions of both?
-- When does affine substitution reduce a blocker clause to a unit ownership fact or tautology?
-- How does requirement elimination update the relevant CPC/control potential without losing deadline meaning?
-- Can this guarded closure expose a board-family signed selector without move-tree search?
-- Can standard `7x6` produce decisive first-player code `01` and structural magnitude `28` from the same calculus, while thin boards collapse to `00`?
+```text
+A = [6,6,6,6,2,2] -> database 00
+B = [2,6,6,2,6,6] -> database 01
+```
+
+These zero-based paths have identical support, boundary potential, all residuals of size <=2,
+and every legal current-player event's effect on that low-order observation. Their positive
+cubic residuals differ. The first new low-order distinction can appear on the opposite owner's
+turn, after an intervening event. Both-owner conditional cofactors expose that distinction;
+they are not unconditional move permissions or a completed value proof.
+
+Immediate target: derive the shared d-column action's draw/win distinction through
+owner-labelled enabling records with intervening-choice, support, response and first-win guards.
+Retain the complete residual antichains. Do not replace positive incidence by its F2 span or
+infer draw from absence of current Hall/fork pressure.
+
+Finite evidence: 30,254 source queries; exact support/residual identity has no observed value
+collision. Low-order, current-owner derivative and F2-span projections are falsified. Both-owner
+derivatives separate this entire sample but give no compression, so they are not a compact
+outcome selector. This is validation/falsification evidence, not a new unbounded theorem.
+
+Primary note: `docs/research/2026-09-14-solved-db-structural-discovery.md`.
 
 Do not infer the signed outcome from static rank/core data or pure-followup defect charge alone.
 

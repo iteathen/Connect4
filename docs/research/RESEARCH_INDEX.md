@@ -1,6 +1,6 @@
 # Connect4 research index
 
-**Updated:** 2026-09-13  
+**Updated:** 2026-09-14
 **Purpose:** route the retained research corpus without turning historical artifacts into current authority.
 
 Research direction and architecture: **Josh Oshiro**.  
@@ -21,6 +21,15 @@ Status meanings:
 ---
 
 ## 1. Canonical current synthesis
+
+### ACTIVE DISCOVERY / NEGATIVE CONTROL
+
+[`2026-09-14-solved-db-structural-discovery.md`](2026-09-14-solved-db-structural-discovery.md)
+
+Local solved-BDD collision audit over 30,254 states. Exact support/residual identity is preserved;
+F2-span and low-order current-owner event observations lose value. The minimal remaining seam
+is owner-labelled cubic enabling across an intervening move, with explicit support/response/first-win
+guards. Contains source provenance, executable controls and separate proof boundaries.
 
 ### ACTIVE CORE
 
