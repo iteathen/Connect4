@@ -17,6 +17,12 @@ export class PrimitivePosition {
     this.lineEmptyXor = new Uint32Array(p.lineCount);
     this.singletonRefs0 = new Uint8Array(p.cellCount);
     this.singletonRefs1 = new Uint8Array(p.cellCount);
+    // A line remains live for a player while it contains no opponent stone.
+    this.liveResidualLineCount0 = p.lineCount;
+    this.liveResidualLineCount1 = p.lineCount;
+    // Telemetry only: monotonic count of transitions that first enter an early exact dead draw.
+    // Undo intentionally does not decrement this counter.
+    this.earlyDeadDrawTransitionHits = 0;
     // 0 ongoing, 1 P0, 2 P1, 3 draw.
     this.winnerByPly = new Uint8Array(p.cellCount + 1);
     for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
@@ -47,6 +53,7 @@ export class PrimitivePosition {
     const index = row * p.columns + column;
     const player = this.sideToMove;
     const encoded = player + 1;
+    const wasDeadDraw = this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0;
     let won = false;
 
     const start = p.positionLineOffsets[index];
@@ -61,7 +68,14 @@ export class PrimitivePosition {
       if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
       else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
 
-      if (player === 0) count0++; else count1++;
+      // The mover's first stone on a line blocks that line for the opponent until undo.
+      if (player === 0) {
+        if (count0 === 0) this.liveResidualLineCount1--;
+        count0++;
+      } else {
+        if (count1 === 0) this.liveResidualLineCount0--;
+        count1++;
+      }
       empty ^= index;
       state = count0 | (count1 << 3);
       this.lineState[line] = state;
@@ -78,6 +92,9 @@ export class PrimitivePosition {
     this.ply++;
     this.sideToMove = 1 - player;
     this.winnerByPly[this.ply] = won ? encoded : (this.ply === p.cellCount ? 3 : 0);
+    if (!wasDeadDraw && this.ply < p.cellCount && this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0) {
+      this.earlyDeadDrawTransitionHits++;
+    }
     const z = player * p.cellCount + index;
     this.hashLo = (this.hashLo ^ p.zobristLo[z]) >>> 0;
     this.hashHi = (this.hashHi ^ p.zobristHi[z]) >>> 0;
@@ -103,7 +120,13 @@ export class PrimitivePosition {
       if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
       else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
 
-      if (player === 0) count0--; else count1--;
+      if (player === 0) {
+        if (count0 === 1) this.liveResidualLineCount1++;
+        count0--;
+      } else {
+        if (count1 === 1) this.liveResidualLineCount0++;
+        count1--;
+      }
       empty ^= index;
       state = count0 | (count1 << 3);
       this.lineState[line] = state;
@@ -132,6 +155,10 @@ export class PrimitivePosition {
   winner() {
     const code = this.winnerByPly[this.ply];
     return code === 0 ? -1 : code - 1;
+  }
+
+  isDeadDraw() {
+    return this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0;
   }
 
   isWinningMove(column, player = this.sideToMove) {
