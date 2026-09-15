@@ -1,11 +1,22 @@
 version: 1
 status: active
-branch: research/terminal-frontier-horizon-exact
+branch: isometric
 updated: 2026-09-15
 
 attribution:
   research_direction_structural_architecture_invariant_first_program: Josh Oshiro
   formalization_implementation_qualification: OpenAI ChatGPT
+
+solver_family:
+  name: Isometric
+  branch: isometric
+  specification: docs/specs/C4-0011-isometric-structural-solver-v1.md
+  lineage_split_commit: 6b7f19ce4d15423f6f2537dd7b18bcba2a7348ea
+  former_experiment_branch: research/terminal-frontier-horizon-exact
+  former_pr: 45
+  ownership: >-
+    Isometric is a sibling of BSFP, Research, and Negamax. The former branch and PR are historical provenance only;
+    new Isometric semantics, implementation, experiments and qualification work land on this branch.
 
 task:
   id: derive_guarded_mixed_cofactor_obligation_birth
@@ -17,8 +28,9 @@ task:
 
 solver_optimization_lane:
   status: active_secondary
-  branch: research/terminal-frontier-horizon-exact
-  pr: 45
+  branch: isometric
+  specification: docs/specs/C4-0011-isometric-structural-solver-v1.md
+  former_pr: 45
   accepted_checkpoint: b45a6350fbc026b7a3429c5b49816c7d3a248f9e
   accepted:
     - >-
@@ -60,10 +72,11 @@ solver_optimization_lane:
 required_authority:
   - account-global iteathen/.github/AGENTS.md
   - AGENT_LOCAL.md
+  - ISOMETRIC_BRANCH.md
   - docs/specs/C4-0001-domain-v1.md
   - docs/specs/C4-0006-control-parity-and-winspace-v1.md
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
-  - docs/specs/C4-0010-quotient-native-negamax-v1.md
+  - docs/specs/C4-0011-isometric-structural-solver-v1.md
   - STATUS.md
   - docs/research/2026-09-14-total-domain-incidence-decomposition.md
   - docs/research/2026-09-14-connect4-derived-difference-axioms.md
@@ -76,6 +89,12 @@ required_authority:
   - docs/research/2026-09-14-solved-db-structural-assessment.md
   - docs/research/2026-09-09-universal-strategic-algebra.md
   - docs/research/2026-09-09-nested-strategic-dependency-closure.md
+
+lineage_and_control_evidence:
+  - docs/specs/C4-0010-quotient-native-negamax-v1.md
+  - research/frontier-negamax-conformance
+  - research/terminal-frontier-horizon-exact
+  - pull_request_45
 
 qualified_premises:
   - id: total_domain_static_core
