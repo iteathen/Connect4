@@ -71,10 +71,29 @@ function assertFrontierMatchesBoard(position, label) {
 
   assert.deepEqual(position.singletonRefs0, refs0, `${label}: P0 singleton refs`);
   assert.deepEqual(position.singletonRefs1, refs1, `${label}: P1 singleton refs`);
+
+  let playableWinCount0 = 0;
+  let playableWinCount1 = 0;
+  let playableWinColumnSum0 = 0;
+  let playableWinColumnSum1 = 0;
   for (let column = 0; column < p.columns; column++) {
-    assert.equal(position.isWinningMove(column, 0), bruteWinningMove(position, column, 0), `${label}: P0 winning column ${column}`);
-    assert.equal(position.isWinningMove(column, 1), bruteWinningMove(position, column, 1), `${label}: P1 winning column ${column}`);
+    const win0 = bruteWinningMove(position, column, 0);
+    const win1 = bruteWinningMove(position, column, 1);
+    assert.equal(position.isWinningMove(column, 0), win0, `${label}: P0 winning column ${column}`);
+    assert.equal(position.isWinningMove(column, 1), win1, `${label}: P1 winning column ${column}`);
+    if (win0) {
+      playableWinCount0++;
+      playableWinColumnSum0 += column;
+    }
+    if (win1) {
+      playableWinCount1++;
+      playableWinColumnSum1 += column;
+    }
   }
+  assert.equal(position.playableWinCount0, playableWinCount0, `${label}: P0 playable singleton count`);
+  assert.equal(position.playableWinCount1, playableWinCount1, `${label}: P1 playable singleton count`);
+  assert.equal(position.playableWinColumnSum0, playableWinColumnSum0, `${label}: P0 playable singleton column sum`);
+  assert.equal(position.playableWinColumnSum1, playableWinColumnSum1, `${label}: P1 playable singleton column sum`);
 }
 
 function createRandom(seed) {
