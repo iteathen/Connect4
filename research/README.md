@@ -13,7 +13,7 @@ Agents should normally read in this order:
 1. `canonical/CORE_MODEL.md` — the common conceptual model.
 2. `canonical/CLAIMS.md` — the complete human-readable claim ledger.
 3. `canonical/CLAIM_INDEX.json` — the authoritative machine-readable entrypoint. Read **every registry shard listed there**; no individual shard is complete by itself.
-4. `canonical/CROSS_LINEAGE_SYNTHESIS.md` and `maps/CORE_LOGIC_MAP.md` — how the historical campaigns connect into one research program.
+4. `canonical/CROSS_LINEAGE_SYNTHESIS.md`, `maps/INVARIANT_CROSS_SYNTHESIS_METHOD.md`, and `maps/CORE_LOGIC_MAP.md` — how to connect historical campaigns, extract representation-independent invariants, and perform guarded cross-project synthesis.
 5. `maps/SOLVER_CONSUMPTION.md` — how solver families consume the shared research.
 6. `open-questions/README.md` and `hypotheses/README.md` — what is not yet established.
 7. `confidence/README.md` — evidence/confidence policy.
