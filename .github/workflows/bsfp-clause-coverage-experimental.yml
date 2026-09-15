@@ -3,7 +3,7 @@ name: bsfp-clause-coverage-experimental
 on:
   pull_request:
     paths:
-      - 'experiments/cuda-bsfp-clause-coverage/**'
+      - 'research/experiments/cuda-bsfp-clause-coverage/**'
       - '.github/workflows/bsfp-clause-coverage-experimental.yml'
   workflow_dispatch:
 
@@ -42,4 +42,4 @@ jobs:
           node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});const link=p.resolve('node_modules','cuda-js'),target=p.resolve('cuda-js');fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,'dir')"
 
       - name: Compile, submit, and compare exact coverage frontiers
-        run: node experiments/cuda-bsfp-clause-coverage/run.mjs portable
+        run: node research/experiments/cuda-bsfp-clause-coverage/run.mjs portable
