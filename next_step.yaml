@@ -33,6 +33,11 @@ qualified_premises:
       For every positive W,H with K=4, let a=(W-3)_+ and b=(H-3)_+.
       The generated geometric winspace has exactly L(W,H)=H*a+W*b+2*a*b requirements.
       This is a counting proof over arbitrary integers, not an empirical fit.
+  - id: total_domain_elementary_frontier
+    statement: >-
+      For every positive W,H, the qualified elementary Baseinverse/Claimeven construction leaves unresolved
+      exactly the horizontal length-4 requirements on zero-based even rows y>=2. Their exact count is
+      R1(W,H)=(W-3)_+*floor((H-1)/2). This is proved by residue/parity arguments over arbitrary integers.
   - id: universal_mate_response_lemma
     statement: >-
       If a legal disjoint mate-response matching hits every generated opponent winning requirement,
@@ -62,10 +67,6 @@ execution:
     What generated algebraic/response objects extend the standard structural calculus to every positive W,H so that
     narrow boards collapse naturally and regular-board formulas emerge as the nondegenerate case?
   first_construction:
-    - >-
-      Replace regular-only counts by positive-part total-domain expressions wherever possible.
-      In particular derive the elementary unresolved response frontier symbolically as a generated-set theorem,
-      using (W-3)_+ rather than assuming W>=4.
     - >-
       Derive exact degeneracy conditions from the definitions (empty direction classes, zero-rank quotients,
       collapsed residual spaces) instead of dimension-specific branches.
