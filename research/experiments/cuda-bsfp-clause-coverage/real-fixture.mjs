@@ -1,6 +1,7 @@
 // Deterministic real-workload fixture generator for the experimental
-// clause-coverage device profile. The fixtures are captured from complete
-// beneficiary-relative clause-BSFP solves; they are not random masks.
+// clause-coverage device profile. The recurrence evolves the exact unfiltered
+// beneficiary-relative clause-BSFP frontier; the exact legal-slice filter is
+// applied only to each captured Cartesian merge sent to the device qualifier.
 
 function popcount(mask) {
   let value = mask >>> 0;
@@ -234,27 +235,30 @@ function captureGeometry(columns, rows, connect, keepTop) {
   function intersect(left, right, context) {
     if (left.length === 0 || right.length === 0) return [];
     const rawPairs = left.length * right.length;
-    const candidates = [];
+    const exactCandidates = [];
+    const filteredCandidates = [];
     let rejected = 0;
     for (const a of left) for (const b of right) {
       const candidate = normalizeRecord([...a, ...b]);
       if (candidate === null) continue;
-      if (boundedCapacityKeep(candidate, context.support.universe, context.exactCount)) candidates.push(candidate);
+      exactCandidates.push(candidate);
+      if (boundedCapacityKeep(candidate, context.support.universe, context.exactCount)) filteredCandidates.push(candidate);
       else rejected += 1;
     }
-    const frontier = normalizeFrontier(candidates);
+    const exactFrontier = normalizeFrontier(exactCandidates);
+    const filteredFrontier = normalizeFrontier(filteredCandidates);
     remember({
       ...context,
       leftRecords: left.map((record) => record.slice()),
       rightRecords: right.map((record) => record.slice()),
-      authorityRecords: frontier.map((record) => record.slice()),
+      authorityRecords: filteredFrontier.map((record) => record.slice()),
       rawPairs,
       rejected,
-      materialized: rawPairs - rejected,
-      survivors: frontier.length,
+      materialized: filteredCandidates.length,
+      survivors: filteredFrontier.length,
       dictionary: localDictionary(profile, context.support),
     });
-    return frontier;
+    return exactFrontier;
   }
 
   for (let rank = columns * rows; rank >= 0; rank -= 1) {
