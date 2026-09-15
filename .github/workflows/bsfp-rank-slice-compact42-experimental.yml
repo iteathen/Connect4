@@ -43,3 +43,6 @@ jobs:
 
       - name: Qualify exact slice semantics and portable device surface
         run: node research/experiments/cuda-bsfp-rank-slice-compact42/run.mjs portable
+
+      - name: Qualify rank-bounded phase-window semantics and portable surface
+        run: node research/experiments/cuda-bsfp-rank-slice-compact42/run-phase-window.mjs portable
