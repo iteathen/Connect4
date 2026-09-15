@@ -149,24 +149,28 @@ export class IncumbentSearchEngine {
     const winner = position.winner();
     if (winner !== -1) return rootTerminalScore(winner, this.rootPlayer, ply);
     if (ply >= this.targetDepth) {
-      const hp = this.profile;
-      const heights = position.heights;
       const currentPlayer = position.sideToMove;
-      const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
-      const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
+      const currentSingletonLines = currentPlayer === 0 ? position.singletonLineCount0 : position.singletonLineCount1;
+      const opponentSingletonLines = currentPlayer === 0 ? position.singletonLineCount1 : position.singletonLineCount0;
       let immediateWin = false;
       let opponentThreatCount = 0;
 
-      for (let i = 0; i < hp.moveOrder.length; i++) {
-        const column = hp.moveOrder[i];
-        const row = heights[column];
-        if (row >= hp.rows) continue;
-        const index = row * hp.columns + column;
-        if (currentRefs[index] !== 0) {
-          immediateWin = true;
-          break;
+      if ((currentSingletonLines | opponentSingletonLines) !== 0) {
+        const hp = this.profile;
+        const heights = position.heights;
+        const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
+        const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
+        for (let i = 0; i < hp.moveOrder.length; i++) {
+          const column = hp.moveOrder[i];
+          const row = heights[column];
+          if (row >= hp.rows) continue;
+          const index = row * hp.columns + column;
+          if (currentSingletonLines !== 0 && currentRefs[index] !== 0) {
+            immediateWin = true;
+            break;
+          }
+          if (opponentSingletonLines !== 0 && opponentThreatCount < 2 && opponentRefs[index] !== 0) opponentThreatCount++;
         }
-        if (opponentThreatCount < 2 && opponentRefs[index] !== 0) opponentThreatCount++;
       }
 
       if (immediateWin) {
@@ -259,24 +263,28 @@ export class IncumbentSearchEngine {
     const p = this.profile;
     const heights = position.heights;
     const currentPlayer = position.sideToMove;
-    const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
-    const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
+    const currentSingletonLines = currentPlayer === 0 ? position.singletonLineCount0 : position.singletonLineCount1;
+    const opponentSingletonLines = currentPlayer === 0 ? position.singletonLineCount1 : position.singletonLineCount0;
     let immediateWinMove = -1;
     let opponentThreatCount = 0;
     let forcedBlock = -1;
 
-    for (let i = 0; i < p.moveOrder.length; i++) {
-      const column = p.moveOrder[i];
-      const row = heights[column];
-      if (row >= p.rows) continue;
-      const index = row * p.columns + column;
-      if (currentRefs[index] !== 0) {
-        immediateWinMove = column;
-        break;
-      }
-      if (opponentThreatCount < 2 && opponentRefs[index] !== 0) {
-        if (forcedBlock < 0) forcedBlock = column;
-        opponentThreatCount++;
+    if ((currentSingletonLines | opponentSingletonLines) !== 0) {
+      const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
+      const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
+      for (let i = 0; i < p.moveOrder.length; i++) {
+        const column = p.moveOrder[i];
+        const row = heights[column];
+        if (row >= p.rows) continue;
+        const index = row * p.columns + column;
+        if (currentSingletonLines !== 0 && currentRefs[index] !== 0) {
+          immediateWinMove = column;
+          break;
+        }
+        if (opponentSingletonLines !== 0 && opponentThreatCount < 2 && opponentRefs[index] !== 0) {
+          if (forcedBlock < 0) forcedBlock = column;
+          opponentThreatCount++;
+        }
       }
     }
 
