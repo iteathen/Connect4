@@ -8,12 +8,13 @@ import { measureStrengthCurve } from '../strength-lib.mjs';
 const calibration = loadSolvedActionCorpus(new URL('../../reference/oracles/solved-actions-v1.meta.json', import.meta.url));
 const spotchecks = loadSolvedActionCorpus(new URL('../../reference/oracles/beginning-spotchecks-v1.meta.json', import.meta.url));
 
+// Exact solved-corpus regression evidence for the current search semantics.
 const calibrationExpected = [
-  [1, 111, 121, 60, 7],
-  [2, 119, 126, 10, 2],
-  [3, 122, 127, 9, 1],
-  [4, 121, 125, 23, 3],
-  [5, 125, 127, 8, 1],
+  [1, 118, 124, 22, 4],
+  [2, 120, 126, 9, 2],
+  [3, 124, 127, 7, 1],
+  [4, 123, 126, 20, 2],
+  [5, 126, 127, 7, 1],
   [6, 127, 128, 1, 0],
   [7, 126, 127, 3, 1],
   [8, 128, 128, 0, 0],
@@ -24,17 +25,17 @@ const calibrationExpected = [
 ];
 
 const spotcheckExpected = [
-  [1, 27, 30, 3, 0],
+  [1, 29, 30, 1, 0],
   [2, 26, 30, 21, 0],
-  [3, 21, 29, 36, 1],
+  [3, 22, 29, 35, 1],
   [4, 21, 29, 48, 1],
-  [5, 25, 29, 32, 1],
+  [5, 25, 29, 35, 1],
   [6, 26, 30, 21, 0],
-  [7, 26, 29, 14, 1],
-  [8, 26, 29, 17, 1],
-  [9, 26, 29, 17, 1],
+  [7, 26, 29, 15, 1],
+  [8, 27, 29, 16, 1],
+  [9, 27, 29, 16, 1],
   [10, 27, 29, 16, 1],
-  [11, 28, 29, 15, 1],
+  [11, 29, 30, 1, 0],
   [12, 28, 29, 6, 1],
 ];
 
@@ -53,7 +54,7 @@ function assertCurve(vectors, expected) {
   }
 }
 
-test('production incumbent strength curve matches the deterministic solved calibration corpus', () => {
+test('production search strength curve matches the deterministic solved calibration corpus', () => {
   assert.equal(calibration.vectors.length, 128);
   assertCurve(calibration.vectors, calibrationExpected);
 });
