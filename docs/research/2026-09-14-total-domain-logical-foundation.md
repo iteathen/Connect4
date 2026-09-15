@@ -114,7 +114,91 @@ For `H=1`, `b=0` and the only possible generated winning requirements are horizo
 
 Again this is not a board-size exception. It is the same generated requirement/response calculus specialized by the event structure: the support DAG has only its initial frontier.
 
-## 7. What has and has not been proved
+## 7. Total-domain elementary response frontier
+
+The earlier elementary Claimeven/Baseinverse construction can also be stated without a regular-board assumption.
+
+Use zero-based coordinates. On the bottom frontier, reserve disjoint Baseinverse pairs
+
+`(3j+1,0)-(3j+2,0)`
+
+whenever both columns exist. On every column, reserve vertical support pairs
+
+`(x,2k)-(x,2k+1)`.
+
+At `k=0`, omit a vertical pair when its bottom endpoint is already consumed by a Baseinverse pair. For `k>=1`, no such conflict exists. Thus the response resources remain disjoint.
+
+Under the qualified elementary response semantics:
+
+- a Baseinverse pair blocks any opponent requirement containing both bottom endpoints;
+- a vertical pair contributes its upper endpoint as the guaranteed Claimeven blocker.
+
+### Theorem
+
+For every positive integer `W,H`, the only geometric requirements not certified by this elementary construction are horizontal length-4 requirements on zero-based even rows `y>=2` (equivalently one-based odd rows `3,5,7,...`). Therefore the exact unresolved count is
+
+`R1(W,H) = (W-3)_+ * floor((H-1)/2)`.
+
+### Proof
+
+Let `a=(W-3)_+`.
+
+#### Bottom horizontals
+
+Consider four consecutive columns `{s,s+1,s+2,s+3}` on row `y=0`.
+
+According to `s mod 3`:
+
+- if `s=0 mod 3`, the interval contains the Baseinverse pair `{s+1,s+2}`;
+- if `s=1 mod 3`, it contains `{s,s+1}`;
+- if `s=2 mod 3`, it contains `{s+2,s+3}`.
+
+Hence every generated bottom horizontal is certified.
+
+#### Row `y=1`
+
+The bottom vertical Claimeven pair is omitted exactly in columns consumed by the Baseinverse pairs, i.e. columns congruent to `1` or `2 mod 3`. It remains in columns congruent to `0 mod 3`, where row `y=1` is its guaranteed upper blocker.
+
+Every four consecutive columns contain at least one column congruent to `0 mod 3`. Therefore every generated horizontal on `y=1` is certified.
+
+#### Higher odd rows
+
+For every odd `y>=3`, the pair `(x,y-1)-(x,y)` is disjoint from the bottom Baseinverse resources for every column `x`. Hence every cell on such a row is a guaranteed upper blocker, so every horizontal on an odd row is certified.
+
+#### Even rows `y>=2`
+
+These cells are lower endpoints of the vertical response pairs, not guaranteed upper blockers, and Baseinverse resources live only on `y=0`. Thus a horizontal lying wholly in zero-based even row `y>=2` contains no elementary blocker from this construction. These are precisely the unresolved horizontals.
+
+#### Verticals
+
+Any generated vertical length-4 requirement spans four consecutive rows. Such an interval always contains an odd row at least `3`:
+
+- the lowest possible interval `{0,1,2,3}` contains `3`;
+- any interval beginning at `s>=1` contains an odd member `>=3` among its four consecutive integers.
+
+Every cell on odd row `>=3` is a guaranteed Claimeven upper blocker, so every vertical requirement is certified.
+
+#### Diagonals
+
+Any generated diagonal length-4 requirement also spans four consecutive row indices, in increasing or decreasing order. Therefore it contains an odd row `>=3`, and the corresponding cell is a guaranteed Claimeven upper blocker. Every diagonal is certified.
+
+#### Count
+
+The number of unresolved row indices is the number of even integers
+
+`2,4,6,... < H`,
+
+which is `floor((H-1)/2)`.
+
+Each such row has exactly `a=(W-3)_+` horizontal length-4 windows. Multiplying gives
+
+`R1(W,H)=a floor((H-1)/2)`.
+
+No finite board enumeration enters the proof.
+
+This theorem is a statement about exact elementary response coverage. When `R1=0`, that response program completely certifies the designated opponent's geometric winspace. A bilateral draw conclusion requires either the symmetric mate-response lemma above or a separate proof that the full directed response program is available to both player roles; that extra conclusion is not assumed here.
+
+## 8. What has and has not been proved
 
 Proved for all positive integer dimensions, without finite enumeration:
 
@@ -123,12 +207,14 @@ Proved for all positive integer dimensions, without finite enumeration:
 3. the gravity-chain interval lemma;
 4. every `W<4` board is a draw as a structural corollary;
 5. the initial-frontier interval lemma;
-6. every `H=1` board is a draw as a structural corollary.
+6. every `H=1` board is a draw as a structural corollary;
+7. the exact total-domain elementary unresolved frontier `R1(W,H)=(W-3)_+ floor((H-1)/2)`.
 
 Not yet proved:
 
 - a complete closed-form value theorem for every positive `W,H`;
-- that the primitive pair matchings alone settle every thin height (`H=2` or `H=3`);
-- that the current 7x6 middle-space / residual / CPC construction has already been lifted to a single quantified all-board theorem.
+- that the directed elementary response program is bilaterally available on every board where `R1=0`;
+- that the current 7x6 middle-space / residual / CPC construction has already been lifted to a single quantified all-board theorem;
+- total-domain symbolic formulas for every incidence/core rank currently known only in the regular regime.
 
-Those remain the next calculus work. The correct standard is now explicit: new all-board claims require symbolic derivation over arbitrary `W,H`; finite board sweeps are permitted only to falsify an implementation or catch algebra mistakes.
+Those remain the next calculus work. The standard is explicit: new all-board claims require symbolic derivation over arbitrary `W,H`; finite board sweeps are permitted only to falsify an implementation or catch algebra mistakes.
