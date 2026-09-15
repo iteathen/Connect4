@@ -8,12 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: history_aware_marked_residual_calculus
+  id: cross_board_optimal_terminal_28_audit
   objective: >-
-    Continue from the proved natural common Y, explicit boundary splittings, correctly typed P quotient,
-    and the qualified first formal residual core Y_3 of dimension 21. Build or falsify a marked sequential
-    cofactor calculus that preserves the support/CPC contribution of consumed events. Do not assume a
-    21->14->7 ladder; the two direct marked repetitions are already falsified.
+    Stay on the standard-board 28 and use incoming varying-board optimal-play evidence to prove,
+    refine, or falsify its structural interpretation. Treat issue text and solved-data labels as
+    external evidence, not authority. In particular, qualify the announced 6x7 = 30 proof before
+    calling 30 exact.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -23,83 +23,104 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-14-cpc-residual-middle-isomorph.md
-  - docs/research/2026-09-14-natural-boundary-splittings-and-P.md
-  - docs/research/2026-09-14-residual-degree3-core.md
-  - docs/research/2026-09-14-residual-sequential-ladder-falsifier.md
+  - docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md
+  - docs/research/2026-09-14-cross-board-terminal-support-upper-bound-audit.md
+  - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-optimal-28-incidence-oracle-audit.mjs
+  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-terminal-support-bound-audit.mjs
 
 qualified_premises:
-  - id: natural_common_Y
+  - id: target_free_common_Y
     statement: >-
-      Corrected Y_cell and Y_line are 28-dimensional and are naturally isomorphic by the explicit map
-      T defined through beta_flat o T = gamma_flat, where gamma is CPC-event-parity-weighted residual
-      cofactor pairing and beta combines that parity with residual connectedness.
-  - id: natural_splittings
+      Standard 7x6 derives a natural 28-dimensional common Y from GF(2), K=4, H=6, W=7 without
+      predefined 28 or 69. The direct T:Y_line->Y_cell and the 28+7 / 28+6 splittings remain qualified.
+  - id: exact_standard_oracle_28
     statement: >-
-      im(B)=Y_cell direct-sum C_axis with an explicit bottom-horizontal/center-vertical section, and
-      ker(B)=Y_line direct-sum C_phase with six explicit center-star dependency-cycle lifts.
-  - id: typed_P
+      Issue #41 supplies external validation evidence for exactly 28 distance-optimal terminal lines
+      on 7x6, terminal move 41, with the first five moves forced to center. This is not a premise of
+      the target-free Y theorem.
+  - id: optimal_28_not_Y_basis
     statement: >-
-      The CPC two-ply displacement e_a+e_b lies exactly in Even(F2^7), the line-side 6D quotient.
-      Same-column stutter is zero; distinct-column transport changes only the lifted boundary coordinate
-      in the structural representation. Do not reinterpret phase vectors as arbitrary cell vectors.
-  - id: first_formal_residual_core
+      The 28 optimal line coordinates have incidence rank 26, two dependencies inside Y_line,
+      a 20-dimensional cell-image intersection with Y_cell, and axis-boundary rank 6. Therefore the
+      oracle line set is not a basis of common Y.
+  - id: terminal_support_bound
     statement: >-
-      In D(Y_line), pi_3(S)=topColumns(S) XOR q(S)*supportPhase(S) has rank 7, leaving a natural
-      21-dimensional first formal residual core. D itself remains injective on Y.
-  - id: sequential_ladder_falsifier
+      For externally supplied decisive terminal move T, q=W*H-T+1 and t=max(0,H-q) give the sound
+      geometry/gravity upper bound U=G(W,H)-G(W,t). The compact q*(4W-9) form is conditional on the
+      unclipped K=4 regime; use G-difference globally.
+  - id: issue42_decisive_caps_reproduced
     statement: >-
-      Repeating the same fragment-only frontier in marked form does not yield 21->14->7. Formal marked
-      ranks are 7,0,0 (cores 21,21,21). Support-ordered marked ranks are 6,7,0 (cores 22,15,15).
-      Therefore further descent requires additional history/support semantics.
-  - id: aggregate_boundary_boundary
+      Independent geometry and gravity-deficit enumeration reproduces issue #42's decisive support caps:
+      6x4=15, 6x6=15, 6x7=30, 7x6=38 before prefix, 8x4=23, 8x5=46, 9x4=27, 10x4=31.
+      No arithmetic inconsistency was found in these caps under the pinned source premises.
+  - id: standard_prefix_filtration
     statement: >-
-      partial_3*partial_4=0. The aggregate GF(2) residual boundary is homological and cannot by itself
-      represent ordered sequential cofactors.
-  - id: family_falsification
+      On 7x6 the externally proved five-center prefix refines 38->30->28. GF(2) sectors change
+      38=(6 line-core +4 phase +22 cell-core +6 axis) ->
+      30=(4+0+20+6) -> 28=(2+0+20+6). The ten-coordinate reduction lowers the incidence image
+      only from 28 to 26 and annihilates the support-envelope phase sector.
+  - id: q2_finite_width_pattern
     statement: >-
-      The equal 28-style middle-dimension condition is special in finite W=2K-1,H=2K-2 tests; K=2 is
-      the smallest counterexample and only K=4 succeeds through K=8.
+      Finite W=4..30, H=5, q=2 controls find support sectors
+      (2W-8) line-core +(W-3) phase +(4W-6) cell-core +(W-1) axis = 8W-18,
+      with incidence image rank 5W-7 and phase equal to the even-weight interior-column subspace.
+      This is finite family evidence, not an unbounded theorem.
+  - id: transpose_warning
+    statement: >-
+      Bare 6x7 and 7x6 both have L=69, rankB=35, ker=34, while 6x7 has Y_cell=28, gravity-oriented
+      Y_line=29 and support upper 30. Therefore neither bare incidence nor cell-side 28 predicts the
+      external optimal terminal-line count across orientation.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  primary_question: >-
-    What is the smallest exact marked residual state that transports consumed-event support/CPC history
-    sufficiently for sequential cofactor descent without reconstructing a colored-board move tree?
-  candidate_order:
-    - >-
-      Carry an explicit history phase/reservoir vector equal to the GF(2) column contribution of consumed
-      events, typed through the already-qualified Even(F2^7) P quotient.
-    - >-
-      Carry the minimal support-height lower envelope required by consumed residual events, distinguishing
-      formal algebraic cofactor order from gravity-realizable event order.
-    - >-
-      Re-derive the CPC event-count parity of each later residual target from current marked support plus
-      history; do not reuse the empty/minimal-fragment q formula when prior events materially changed the reservoir.
-    - >-
-      Only after the marked state is exact, recompute quotient ranks at residual degrees 2 and 1. Treat 14
-      and 7 as hypotheses/falsifiers, never targets to force.
-  required_checks:
-    - compare formal marked and support-legal marked categories explicitly
-    - preserve first formal Y_3 as evidence without calling it a legal-play state space
-    - prove any history compression preserves CPC parity/event order for all marked transitions in scope
-    - verify left-right reflection naturality
-    - preserve the typed P quotient and beta_flat o T = gamma_flat identities
-    - no solved WDL labels as premises
-    - no arbitrary basis matching or complement advertised as canonical
-  falsification:
-    - if two marked histories with the same proposed compressed state produce different next CPC/frontier facts, the compression fails
-    - if a claimed degree-r quotient rank depends on an illegal deletion order, do not promote it to legal sequential R
-    - if the next core is not 14 or 7, preserve the counterexample rather than widening/redefining the quotient to hit the arithmetic
+  first_target:
+    board: 6x7
+    claimed_value: 30
+    current_status: terminal_support_upper_bound_only
+    required_before_promotion:
+      - inspect the new issue/source proof directly
+      - independently regenerate all 69 geometric lines and the 30-line terminal-support envelope
+      - verify the claimed optimal convention is distance-sensitive, not WDL-only tie wandering
+      - validate every lower-bound witness or an equivalent complete lower-bound argument
+      - confirm no earlier terminal on witnesses
+      - compare exact witnessed set with the full 30-line support envelope
+  per_board_fingerprint:
+    - coordinate_count
+    - incidence_image_rank
+    - incidence_dependency_dimension
+    - axis_boundary_rank
+    - cell_core_image_dimension
+    - phase_boundary_rank_inside_dependencies
+    - line_core_dependency_dimension
+  comparison_questions:
+    - does the exact set saturate its terminal-support envelope?
+    - what additional fixed-prefix/color/control facts tighten the support bound?
+    - does a transpose pair preserve bare incidence but change the exact terminal census?
+    - does any repeated number track cardinality, rank, a quotient dimension, or only one board-specific refinement?
+    - does the standard 28 remain exceptional after exact neighboring-board censuses arrive?
+  forbidden_shortcuts:
+    - promote_issue_claim_without_reproduction
+    - treat_upper_bound_as_exact_count
+    - identify_equal_cardinality_with_common_Y
+    - use_external_solved_label_as_target_free_structural_premise
+    - reuse_q_times_4W_minus_9_outside_its_unclipped_regime
+    - assume_width_height_transpose_symmetry_under_gravity
+    - revive_61_unless_it_reappears_as_a_cross_board_structural_quantity
 
 success_criteria:
-  - exact marked state definition with explicit transition map
-  - exhaustive finite comparison over all marked line/cofactor sequences in scope
-  - honest rank/core result at degree 2, whether or not it equals 14
-  - durable theorem/falsifier note with Josh Oshiro attribution
+  - each promoted varying-board count has matching upper and lower evidence
+  - exact line set is machine-comparable to its independently generated support envelope
+  - GF(2) fingerprint is recorded before any structural identification claim
+  - smallest counterexample is preserved for every proposed cross-board formula
+  - STATUS.md and next_step.yaml remain synchronized
+
+paused_structural_seam:
+  id: history_aware_marked_residual_calculus
+  status: valid_but_paused
+  note: >-
+    The natural 28->21 first formal residual core and sequential-ladder falsifiers remain valid.
+    Resume only by explicit owner selection after the current 28/varying-board investigation.
 
 paused_solver_seam:
   state: "4665655"
   status: unfinished_but_preserved
-  note: >-
-    The prior rank-7 P1 reply-horizon W/D/L seam remains valid unfinished work but is not active. Resume only by explicit owner selection.
