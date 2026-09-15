@@ -20,6 +20,9 @@ export class PrimitivePosition {
     // A line remains live for a player while it contains no opponent stone.
     this.liveResidualLineCount0 = p.lineCount;
     this.liveResidualLineCount1 = p.lineCount;
+    // Telemetry only: monotonic count of transitions that reach an early exact dead draw.
+    // Undo intentionally does not decrement this counter.
+    this.earlyDeadDrawTransitionHits = 0;
     // 0 ongoing, 1 P0, 2 P1, 3 draw.
     this.winnerByPly = new Uint8Array(p.cellCount + 1);
     for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
@@ -64,8 +67,7 @@ export class PrimitivePosition {
       if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
       else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
 
-      // The mover's first stone on a line permanently blocks that line for the opponent
-      // until this transition is undone.
+      // The mover's first stone on a line blocks that line for the opponent until undo.
       if (player === 0) {
         if (count0 === 0) this.liveResidualLineCount1--;
         count0++;
@@ -89,6 +91,9 @@ export class PrimitivePosition {
     this.ply++;
     this.sideToMove = 1 - player;
     this.winnerByPly[this.ply] = won ? encoded : (this.ply === p.cellCount ? 3 : 0);
+    if (this.ply < p.cellCount && this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0) {
+      this.earlyDeadDrawTransitionHits++;
+    }
     const z = player * p.cellCount + index;
     this.hashLo = (this.hashLo ^ p.zobristLo[z]) >>> 0;
     this.hashHi = (this.hashHi ^ p.zobristHi[z]) >>> 0;
