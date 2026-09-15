@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "evidence_id": "C4-E0048-0056-WINSET-INVARIANTS",
+  "claims": ["C4-R0048","C4-R0049","C4-R0050","C4-R0051","C4-R0053","C4-R0054","C4-R0055","C4-R0056"],
+  "research_direction": "Josh Oshiro",
+  "standard_7x6": {
+    "geometric_line_count": 69,
+    "wdl_only_reported_terminal_support": {
+      "count": 61,
+      "status": "historical empirical summary; raw normalized run artifact not retained in this packet",
+      "preserved_source": "research/provenance/source-archive/perfect-play-winset/research/perfect-play-winset-support.cpp"
+    },
+    "distance_sensitive_terminal_support": {
+      "count": 28,
+      "terminal_ply": 41,
+      "orientation": {"vertical":12,"horizontal":8,"diagonal":8},
+      "forced_prefix_zero_based": "33333",
+      "qualification": {"witness_lines":28,"witness_positions_rechecked":1148,"independent_endgame_score_checks":504},
+      "source": "https://github.com/iteathen/Connect4/issues/41"
+    },
+    "structural_core": {
+      "rank_B": 35,
+      "kernel_dimension": 34,
+      "axis_rank": 7,
+      "phase_rank": 6,
+      "Y_cell": 28,
+      "Y_line": 28,
+      "source": "docs/research/2026-09-14-total-domain-incidence-decomposition.md"
+    },
+    "maximal_delay_extremal": {
+      "latest_P0_capacity_ply": 41,
+      "support_envelope": 38,
+      "rank5_max_exclusions": 10,
+      "minimum_survivors": 28,
+      "unique_maximizer": "five-event center-column stack",
+      "semantic_selection_proved": false,
+      "source": "docs/research/2026-09-14-empty-board-canonical-28-bridge.md"
+    },
+    "oracle_28_incidence": {
+      "coordinate_dimension": 28,
+      "incidence_image_dimension": 26,
+      "line_core_overlap_dimension": 2,
+      "cell_core_overlap_dimension": 20,
+      "axis_boundary_rank": 6,
+      "filtration": "28=2+20+6",
+      "source": "docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md"
+    }
+  },
+  "cross_board": {
+    "support_upper_formula": "U_support(W,H,T)=G(W,H)-G(W,max(0,H-(WH-T+1)))",
+    "six_by_seven": {"geometric":69,"external_terminal_ply":41,"support_upper":30,"exact_terminal_census":"pending"},
+    "seven_by_six": {"geometric":69,"external_terminal_ply":41,"support_upper_before_prefix":38,"exact_terminal_census":28},
+    "eight_by_seven_static_selector_counterexample": {"support_envelope":46,"rank5_max_exclusions":6,"minimum_survivors":40,"Y_cell":40},
+    "source": "docs/research/2026-09-14-cross-board-terminal-support-upper-bound-audit.md"
+  },
+  "bayesian_note": "Do not count the structural derivations and the issue-41 oracle as independent replications of one proposition: they prove/measure different objects. The missing semantic-selection edge between them remains open."
+}
