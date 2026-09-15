@@ -7,18 +7,16 @@
 
 This is the current-state router. Detailed evidence is under `docs/research/**`; executable controls are under `research/semantic-quotient/**`.
 
-## Authority / proof boundaries
+## Proof boundary
 
-- C4-0001 through C4-0005 remain protected baseline authority in their scopes.
-- C4-0006 and C4-0007 remain **Candidate** structural/proof specifications.
-- C4-0010 remains an accepted **research** consumer specification and does not promote Candidate dependencies.
-- External solved W/D/L, terminal distance, opening-book, witness and varying-board census data are validation/falsification evidence only.
+- External solved W/D/L, strong-distance, opening-book, witness and varying-board data are validation/falsification evidence only.
+- C4-0006/C4-0007 remain Candidate structural/proof specifications; C4-0010 remains an accepted research consumer and does not promote them.
 - Unknown != loss; theorem failure != opposite outcome; upper bound != exact census; equal dimension != natural isomorphism.
-- No solved label, predefined 28 or predefined 69 is a premise of the strongest structural controls.
+- Strongest controls contain no predefined 28 or 69 and no recursive minimax/Negamax/MCTS/PNS proof step.
 
-## Standard 7x6 theorem state
+## Standard structural theorem
 
-Generated GF(2) incidence from only `K=4,H=6,W=7` gives
+From generated `K=4,H=6,W=7` GF(2) incidence:
 
 ```text
 L=69
@@ -28,26 +26,21 @@ Y_cell=28
 Y_line=28.
 ```
 
-The qualified CPC/residual beta/gamma forms are perfect rank 28 and define the natural isomorphism `T:Y_line->Y_cell`. Natural splittings remain `im(B)=28+7`, `ker(B)=28+6`, with `C_phase ~= Even(F2^7)`.
-
-The target-free empty-board canonical bridge also derives the oracle-matching 28-line geometry without reading solved data: odd-width symmetry gives one center column, preterminal rank is `2K-3=5`, same-column two-ply pairs are phase stutters, the P0 parity-capacity horizon is ply 41, and the unique five-event center stack maximizes maximal-delay candidate exclusion `38-10=28`.
-
-The remaining gap is **semantic selection**: prove why exact distance-optimal CPC/NDC closure selects the corresponding control/deadline structure.
-
-## Board-parameterized K=4 invariant family
-
-Universal generated definitions:
+The qualified CPC/residual beta/gamma forms are perfect rank 28 and define the natural isomorphism `T:Y_line->Y_cell`. Natural splittings remain
 
 ```text
-B       : line-to-cell incidence
-Q_axis  : row+column parity on im(B)
-Q_phase : vertical-line parity on ker(B)
-Y_cell  = ker(Q_axis|im(B))
-Y_line  = ker(Q_phase|ker(B))
-Delta   = dim(Y_line)-dim(Y_cell).
+im(B)=Y_cell direct-sum C_axis=28+7
+ker(B)=Y_line direct-sum C_phase=28+6
+C_phase ~= Even(F2^7).
 ```
 
-Regular closed forms, with explicit narrow degeneracies handled separately:
+The phase quotient is canonically the edge space of the width path, with `partial(edge_i)=e_i+e_(i+1)`. Every two-ply displacement `e_a+e_b` has a unique interval lift and structural phase transport length `|a-b|`; same-column response has zero phase transport.
+
+The target-free canonical bridge independently derives the same 28-line geometry later observed by the solved oracle: natural preterminal rank `2K-3=5`, parity-capacity horizon 41, and the five-high center stack uniquely maximizes maximal-delay candidate exclusion `38-10=28`. This remains a structural envelope theorem until semantic strong-distance selection is closed.
+
+## K=4 board-family invariants
+
+Regular formulas:
 
 ```text
 L                    = 4WH-9W-9H+18
@@ -60,173 +53,140 @@ Delta                = (W-4)(2H-9)-9
 Delta(W,H)-Delta(H,W)=H-W.
 ```
 
-`4x4` is an incidence degeneracy; `4x5` is an additional phase degeneracy. Generated-rank definitions remain authoritative there and on thin boards.
+Generated-rank definitions remain authoritative on narrow degeneracies (`4x4` incidence; `4x5` phase).
 
-Balanced regular shapes satisfy
+Balanced regular boards satisfy `(W-4)(2H-9)=9`, giving exactly `5x9/core30`, `7x6/core28`, `13x5/core46`. Standard 7x6 is the only balanced one with <=42 cells and the only current balanced board on which the qualified beta/gamma pairings are both perfect.
 
-```text
-(W-4)(2H-9)=9
-```
-
-and are exactly
-
-```text
-5x9  -> common core 30
-7x6  -> common core 28
-13x5 -> common core 46.
-```
-
-7x6 is the only balanced K=4 shape with at most 42 cells.
-
-## Correct cross-board CPC parity
-
-The standard shorthand `q(S)=C(S)+r_max(S)` silently used an even board constant. The board-family invariant is
+Cross-board CPC residual parity is
 
 ```text
 q_(W,H)(S)=(W-1)H+C(S)+r_max(S) mod 2.
 ```
 
-This correction is mandatory off standard 7x6; for example the omitted constant is odd on 6x7.
+The old `q=C+r` shorthand is standard-board-specific because `(W-1)H=36` is even.
 
-## Balance is not enough
+Width 7 is also the unique K=4 width with one unique maximum-impact initially playable event. Combining that width fact with `Delta=0` forces `H=6`, hence `Y=WH-W-H-1=28`. This is a structural classification, not an optimal-move theorem.
 
-Using the corrected CPC parity, the existing natural pairings on the three balanced boards have ranks
+## Searchless response layer 1: elementary frontier
 
-```text
-board   Y_cell  Y_line  beta  gamma
-5x9       30      30     28    26
-7x6       28      28     28    28
-13x5      46      46     42    34.
-```
+A board-family response theorem now uses only generic Claimeven/Baseinverse response programs.
 
-Thus equal core dimensions do not generically imply a perfect natural pairing. Standard 7x6 is the unique perfect-pairing member of this balanced family for the current beta/gamma construction. No impossibility claim is made for alternative pairings.
+For empty `W x H`, K=4, an explicit compatible construction certifies every P0 geometric winning requirement except the horizontal length-4 requirements on one-based odd rows `3,5,7,...`.
 
-Transpose control:
+Exact unresolved frontier:
 
 ```text
-7x6: Y_cell=28,Y_line=28,beta=28,gamma=28
-6x7: Y_cell=28,Y_line=29,beta=23,gamma=14.
+R1(W,H)=(W-3)*floor((H-1)/2).
 ```
 
-## Canonical phase-path transport
-
-`C_phase` has a board-family realization as the edge space of the width-`W` column path:
+Standard 7x6:
 
 ```text
-0--1--2--...--W-1
-partial(edge_i)=e_i+e_(i+1).
+69 geometric requirements
+61 certified by elementary responses
+8 unresolved = four row-3 horizontals + four row-5 horizontals.
 ```
 
-The path boundary is an isomorphism onto `Even(F2^W)`. Every two-ply displacement `e_a+e_b` has a unique interval lift and exact structural transport length
+This `61 certified / 8 unresolved` theorem is unrelated to the earlier W/D/L-only experiment that happened to observe 61 terminal lines.
+
+Control:
+`research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-elementary-response-cover-control.mjs`
+
+## Searchless selection theorem 1: center opening is necessary
+
+A stronger constructive theorem closes the first game-semantic selection step.
+
+For every even `H>=4` on width 7, every non-center first move by P0 has an explicit P1 draw certificate built only from generic Before, Baseinverse and Claimeven response programs.
+
+For a left-side opening `x in {0,1,2}`:
 
 ```text
-lambda(a,b)=|a-b|.
+P1 reply: x+1
+vertical-response columns: {x,x+1} plus {x+4,x+5} when x<=1
+Claimeven columns: complement
+Before source rows: every even one-based row 2,4,...,H-2 across all four horizontal windows
+top Claimeven: every Claimeven column
+secondary Baseinverse: bottom {x+4,x+5} when x<=1.
 ```
 
-Same-column play has zero lift. The path center(s) minimize worst-case transport; for odd width the center is unique. This is structural phase distance, not yet a game-theoretic strong-distance metric.
+Reflection covers openings `4,5,6`.
 
-## Initial-event requirement-impact centrality
+The executable control verifies rule validity, conservative resource compatibility and complete coverage of every still-live P0 group for all six non-center openings and every even height 4..24; the construction/proof is height-parametric and uses no legal continuation tree.
 
-For an empty K=4 board, the bottom event in column `c` touches
+Therefore:
 
 ```text
-d_W(c)=1+h4_W(c)+I(c<=W-4)+I(c>=3)
+P0 forced win on 7 x even-H => P0 opens center.
 ```
 
-winning predicates. A first move advances that many mover requirements and blocks that many opponent requirements.
+On 7x6 this proves the **first center event of the canonical five-event chain searchlessly**. It does not assume or prove the external root-win label; it is a necessary-condition theorem.
 
-The maximum-impact columns are
+Control:
+`research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-seven-wide-noncenter-draw-certificate.mjs`
 
-```text
-W=4:  {0,3}
-W=5:  {1,3}
-W=6:  {2,3}
-W=7:  {3}
-W>=8: {3,...,W-4}.
-```
+Note:
+`docs/research/2026-09-14-searchless-seven-wide-opening-selection.md`
 
-Therefore **W=7 is the unique Connect-4 width with one unique maximum-impact initially legal event**. Its exact profile is `[3,4,5,7,5,4,3]`. At W=7 the unique impact maximum is also the unique phase-path center.
+## Compatibility provenance warning
 
-Combining this with `Delta=0` forces
+PR #39 intentionally preserves the original U1/Test-B compatibility harness and repairs it in the v3 runner. The base descriptor omitted `claims`; the v3 runner patches that seam and generalizes claim/inverse boundary sharing. The conservative Allis §7.4 compatibility table remains proof authority where the generic v3 predicate admits additional cases.
 
-```text
-W=7
-(W-4)(2H-9)=9
-=> H=6
-=> Y=WH-W-H-1=28.
-```
+Do not treat the base/v1 file as the qualified compatibility implementation merely because it is the file patched by the runner.
 
-So 7x6 and its 28-dimensional common core are uniquely characterized inside the regular K=4 family by **core balance + unique maximum initial-event impact**. This is a structural classification, not yet an optimal-move theorem.
+## Falsified shortcuts
 
-## Preterminal exclusion capacity and falsifier
+The following are insufficient as strong-distance selectors and remain preserved as falsifiers:
 
-At P0's natural preterminal rank 5, define `X5(W,H)` as the maximum number of P0 maximal-delay support-envelope predicates that any legal five-ply prefix has already excluded.
+- terminal-envelope cardinality alone;
+- preterminal exclusion capacity alone (`8x7` supplies a direct scalar counterexample);
+- cooperative earliest-completion horizons;
+- minimum blocker hitting sets;
+- raw response-release unions;
+- simple residual dominance across different support skeletons;
+- pairwise rule compatibility without the complete rule/control premises;
+- elementary response cover alone (the canonical five-center prefix still leaves the same eight odd-horizontal channels).
 
-Exact finite controls:
+The recurring missing mechanism is **deadline-valued response/support transfer**: a defensive response can block one requirement while simultaneously discharging gravity support for a dependent opponent event. Eventual ownership therefore cannot replace completion-before-deadline semantics.
 
-```text
-board  envelope  X5  min survivors  Y_cell
-5x9       11      0       11           30
-6x7       30      5       25           28
-7x5       19      7       12           22
-7x6       38     10       28           28
-8x5       46     14       32           26
-8x7       46      6       40           40
-13x5      43      7       36           46.
-```
+## Active seam: post-center strong-distance selection
 
-On 7x6 the maximum is uniquely realized by the five-high center stack. But 8x7 also satisfies `min survivors=Y_cell`; therefore that scalar equality is **not** the universal selector. Terminal-envelope cardinality and exclusion capacity are inputs, not the early-game objective.
+The first move is no longer the open problem. Starting from P0 center, derive searchlessly why the longest-resistance P1 response is the same-column zero-phase response, and why the same deadline/control selection repeats through the natural preterminal rank 5.
 
-## Active next seam: deadline-valued NDC selection
-
-The missing invariant is temporal. CPC/NDC distinguishes
-
-```text
-eventual ownership
-```
-
-from
-
-```text
-ownership/blocker completion before an opponent requirement deadline.
-```
-
-The next target is a board-parameterized exact **deadline-valued NDC closure** carrying:
+The required NDC state must carry at least:
 
 ```text
 residual requirements
-support/event precedence
-CPC board parity
+support/event prerequisites
+board-correct CPC parity
 phase-path transport
 response resources
-blocker certification
-completion horizons.
+blocker certificates
+support released by responses
+completion/blocker horizons.
 ```
 
-A certificate should carry prerequisites/guards plus an exact rank or horizon. Conjunctive prerequisites combine by latest prerequisite; alternative exact witnesses combine by earliest certified witness; blocker coverage is valid only when the blocker horizon beats the opponent completion horizon. Opponent universality must remain explicit in response/resource certificates rather than being hidden in recursive child-value comparison.
+A certificate must keep prerequisites/guards and exact horizon/rank. A blocker eliminates an opponent requirement only if its certified timing beats that requirement's completion deadline. Any response event must update both blocker state and support prerequisites before closure continues.
 
-Success means deriving a selector/quotient law from the board invariant vector that:
+The preferred next experiment is to compare the seven P1 responses after P0 center with a **static deadline-valued proof-program bound**, not recursive child values. It should either prove zero-phase center uniquely maximizes the certified survival horizon or preserve the smallest counterexample and identify the missing certificate relation.
 
-1. reproduces standard 7x6's canonical 28 envelope without special-casing 28;
-2. remains meaningful for nonzero `Delta` and beta/gamma radicals;
-3. uses no recursive legal-move-tree solving;
-4. can be falsified by incoming exact varying-board evidence without changing its definition.
+External issue #41's post-center distance scores are validation only and are forbidden as premises.
 
 ## Durable evidence
 
 - `docs/research/2026-09-14-empty-board-canonical-28-bridge.md`
 - `docs/research/2026-09-14-k4-board-invariant-family.md`
 - `docs/research/2026-09-14-k4-selection-invariant-frontier.md`
+- `docs/research/2026-09-14-searchless-seven-wide-opening-selection.md`
 - `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-board-invariant-family-control.mjs`
 - `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-balanced-pairing-family-audit.mjs`
 - `research/semantic-quotient/state-identity-unification/src/quotient-connect4-phase-path-transport-control.mjs`
 - `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-initial-event-centrality-control.mjs`
 - `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-preterminal-exclusion-capacity-audit.mjs`
-
-Prior common-Y, natural splitting, residual-21, sequential-ladder, oracle-incidence and cross-board support controls remain valid.
+- `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-elementary-response-cover-control.mjs`
+- `research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-seven-wide-noncenter-draw-certificate.mjs`
 
 ## Paused / secondary seams
 
 - history-aware marked residual calculus after the qualified 21-space: valid, paused;
-- exact varying-board censuses: validation/falsification lane only;
+- exact varying-board censuses: validation/falsification only;
 - forward W/D/L rank-7 P1 horizon at exact state `4665655`: valid unfinished work, paused.
