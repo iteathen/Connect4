@@ -6,6 +6,12 @@
 
 **Target:** `BSFP_REFLECTION_ORBIT_SCHEDULE.md` (unregistered hypothesis; no canonical claim ID yet).
 
+## Scope
+
+This is a variable-geometry result. The engine is parameterized by board width `W`, height `H`, and connect target `K`; 7x6 connect-4 is only one profile used for concrete census examples.
+
+Horizontal reflection is an automorphism of every rectangular `W x H` Connect-K geometry. Nothing in the semantic theorem depends on 42 cells, 69 lines, or Connect-4 specifically.
+
 ## Question
 
 Can an empty-root BSFP solve store and evaluate only one support from each horizontal-reflection orbit, lifting canonical child frontiers through an orientation bit when needed, without changing any exact frontier semantics?
@@ -26,7 +32,7 @@ childCanonical, reflected = canonicalize(childRaw)
 
 The quotient solver loads the canonical child frontier and reflects every ownership mask back to `childRaw` coordinates when `reflected` is true before applying the ordinary cofactor / terminal / aggregation recurrence.
 
-After the solve, every raw support frontier is reconstructed from its canonical representative and compared exactly with the unquotiented frontier set.
+After the solve, every raw-support frontier is reconstructed from its canonical representative and compared exactly with the unquotiented frontier set.
 
 Reflection-fixed supports are separately checked for frontier-set invariance.
 
@@ -38,75 +44,114 @@ No solved database, minimax/Negamax result, or opening knowledge is consumed.
 
 ## Results
 
+The pair-product counters below were independently rechecked after the first draft of this note; the original draft understated them. The semantic result was unchanged.
+
 | Board | Raw supports | Reflection-orbit supports | Support reduction | Full pair candidates | Quotient pair candidates | Pair reduction | Frontier mismatches | Fixed-support invariance failures |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 4x3 c3 | 256 | 136 | 46.88% | 10,147 | 5,550 | 45.30% | 0 | 0 |
-| 4x4 c4 | 625 | 325 | 48.00% | 20,251 | 11,202 | 44.68% | 0 | 0 |
-| 5x3 c4 | 1,024 | 544 | 46.88% | 15,744 | 8,313 | 47.20% | 0 | 0 |
+| 4x3 c3 | 256 | 136 | 46.88% | 11,697 | 6,284 | 46.28% | 0 | 0 |
+| 4x4 c4 | 625 | 325 | 48.00% | 33,427 | 17,884 | 46.50% | 0 | 0 |
+| 5x3 c4 | 1,024 | 544 | 46.88% | 21,014 | 11,187 | 46.76% | 0 | 0 |
 
 Reflection-fixed support counts in the controls were 16, 25, and 64 respectively; every one had a frontier set closed under reflection.
 
-## Standard 7x6 exact census
+## Generic support-orbit formula
 
-A support is a seven-column height vector with each height in `0..6`:
-
-```text
-raw supports = 7^7 = 823,543
-```
-
-A support is reflection-fixed iff:
+A support is a width-`W` vector of column heights in `0..H`, so:
 
 ```text
-h0=h6
-h1=h5
-h2=h4
+raw supports N = (H + 1)^W
 ```
 
-with `h3` free, so:
+A support is reflection-fixed exactly when mirrored column heights agree. Therefore the number of free height coordinates is `ceil(W/2)`:
 
 ```text
-fixed supports = 7^4 = 2,401
+fixed supports F = (H + 1)^ceil(W/2)
 ```
 
-Burnside gives:
+Burnside for the two-element reflection group gives:
 
 ```text
-support orbits
-= (823,543 + 2,401) / 2
-= 412,972
+support orbits O = (N + F) / 2
 ```
 
-This removes 410,571 duplicated support occurrences, a 49.854% exact schedule reduction.
+This formula applies to both odd and even widths.
 
-The raw directed support graph has:
+## Generic directed-edge formula
 
-```text
-7 columns * 6 non-full heights * 7^6 other-height choices
-= 4,941,258 directed legal support transitions.
-```
+A directed support edge chooses:
 
-A directed support edge is reflection-fixed only when the support is fixed and the action is in the center column. There are:
-
-```text
-6 center heights below full * 7^3 mirrored-pair choices
-= 2,058 fixed directed edges.
-```
+- one action column;
+- a non-full height `0..H-1` for that column;
+- arbitrary heights for the remaining columns.
 
 Therefore:
 
 ```text
-directed edge orbits
-= (4,941,258 + 2,058) / 2
-= 2,471,658.
+raw directed support edges E = W * H * (H + 1)^(W - 1)
+```
+
+A directed edge can be reflection-fixed only when the action column itself is fixed by reflection.
+
+Thus:
+
+```text
+if W is even:
+    fixed directed edges = 0
+
+if W is odd:
+    fixed directed edges = H * (H + 1)^floor(W/2)
+```
+
+and:
+
+```text
+directed edge orbits = (raw edges + fixed edges) / 2
+```
+
+This is an exact schedule reduction independent of game value.
+
+## Standard 7x6 example
+
+For `W=7`, `H=6`:
+
+```text
+raw supports = 7^7 = 823,543
+fixed supports = 7^4 = 2,401
+support orbits = 412,972
+```
+
+This removes 410,571 duplicated support occurrences, a 49.854% exact schedule reduction.
+
+For directed support transitions:
+
+```text
+raw edges = 7 * 6 * 7^6 = 4,941,258
+fixed edges = 6 * 7^3 = 2,058
+edge orbits = 2,471,658
 ```
 
 That is a 49.980% exact reduction in support-transition occurrences before any frontier compression.
 
-At the static geometric line level, 7x6 has 69 winning lines and only the three center-column vertical lines are reflection-fixed, giving 36 geometric line orbits. This does **not** mean every asymmetric representative support may process only 36 lines internally; line equivalence is generally between a support occurrence and its mirrored support occurrence. Internal line-pair reuse is automatically valid only where the support/context itself is reflection-fixed or the selected operation is explicitly canonicalized across the orbit.
+The static 69-line / 36-line-orbit count is specific to this geometry and must not be treated as a universal engine constant.
+
+## Line and residual symmetry
+
+Winning lines and support-local residual terms should be transformed by the geometry's precomputed reflection permutation, not by hardcoded standard-board IDs.
+
+For a variable-size engine, derive per geometry:
+
+```text
+cell reflection map
+winning-line reflection map
+support-local residual reflection map
+optional global residual/WSL reflection map
+```
+
+A reflected support has a bijectively reflected residual vocabulary.
+
+For a reflection-fixed support, an additional internal quotient of line/residual/frontier record orbits may be possible, but that is a separate reduction. One must not infer that every asymmetric representative support can simply process half of its lines internally.
 
 ## Reassessment
-
-The symmetry candidate has moved beyond a generic "halve the board" observation.
 
 The exact object to quotient is:
 
@@ -133,13 +178,13 @@ Horizontal reflection preserves:
 ```text
 support rank
 side to move
-P0 stone count
+player stone counts
 ownership cardinality
 subset order
 terminal incidence
 ```
 
-so it commutes with the exact rank-slice reduction qualified separately in `../bsfp-feasible-slice-recurrence/RESULT.md`.
+so it commutes with the exact rank-slice reduction qualified separately in `../bsfp-feasible-slice-recurrence/RESULT.md` for any rectangular geometry.
 
 These reductions attack different multiplicities:
 
@@ -155,7 +200,9 @@ They should therefore be tested together rather than treated as competing repres
 
 ## CUDA relevance
 
-A CUDA schedule needs, per canonical support/action edge, only enough orientation information to locate and lift the canonical child:
+The current `packed42` CUDA path is one representation profile, not the semantic engine boundary.
+
+A geometry-generic CUDA schedule needs, per canonical support/action edge, only enough orientation information to locate and lift the canonical child:
 
 ```text
 canonical child ID
@@ -163,7 +210,7 @@ reflection flag
 physical/canonical landing-column mapping
 ```
 
-The mask reflection itself is a fixed bit permutation and can be precomputed/mapped by cell, line, and residual IDs.
+The ownership mask representation may use one, two, or more machine words depending on `W*H`; reflection remains a fixed bit permutation for the selected geometry.
 
 Do not duplicate the reflected support as a second solved item merely to avoid the transformation.
 
@@ -173,6 +220,7 @@ Do not duplicate the reflected support as a second solved item merely to avoid t
 - a reflection-fixed support's exact frontier is not setwise reflection-invariant;
 - action/terminal provenance required by the output contract cannot be reconstructed from representative + orientation;
 - an asymmetric root constraint is quotient-canonicalized without including its transformed constraint context;
+- a geometry-specific packed representation is accidentally promoted to universal solver semantics;
 - CUDA orientation overhead erases the workload saving (performance-only falsifier).
 
 ## Reproduction
@@ -187,4 +235,4 @@ A semantic mismatch sets a failing exit code.
 
 ## Disposition
 
-**Supports** horizontal-reflection support-orbit quotienting strongly enough to advance to a combined reflection + rank-slice BSFP qualification and then a CUDA schedule experiment.
+**Supports** horizontal-reflection support-orbit quotienting strongly enough to advance to a combined reflection + rank-slice BSFP qualification and then a geometry-generic CUDA schedule experiment.
