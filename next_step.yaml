@@ -1,7 +1,7 @@
 version: 1
 status: active
-branch: research/frontier-negamax-conformance
-updated: 2026-09-14
+branch: research/terminal-frontier-horizon-exact
+updated: 2026-09-15
 
 attribution:
   research_direction_structural_architecture_invariant_first_program: Josh Oshiro
@@ -14,6 +14,48 @@ task:
     into certified NDC obligations before a deadline. Preserve exact support and full residual identity. Treat
     owner-labelled enabling as a derived certificate relation, not a new board-state coordinate, unless the first
     unresolved support/resource/deadline guard proves otherwise.
+
+solver_optimization_lane:
+  status: active_secondary
+  branch: research/terminal-frontier-horizon-exact
+  pr: 45
+  accepted_checkpoint: b45a6350fbc026b7a3429c5b49816c7d3a248f9e
+  accepted:
+    - >-
+      Exact terminal/frontier first-order line and residual facts are transition-owned and consumed by terminal,
+      tactical and evaluator logic; maintain stable first-order facts once and derive cheap second-order consumer
+      consequences unless aggregate maintenance clearly pays.
+    - >-
+      Native playable-singleton move ordering is accepted as advisory ordering only. After exact tactical and TT
+      authority, a non-TT move may be promoted when its native landing-cell transition creates one or two distinct
+      playable own singleton completion cells without exposing an opponent singleton. No child materialization or
+      new maintained metadata is required.
+  rejected:
+    - id: opponent_residual_suppression_ordering
+      evidence: docs/research/2026-09-15-opponent-residual-suppression-ordering.md
+      statement: >-
+        Opponent-only residual destruction by the landing event is an exact unsigned cofactor fact, but broad,
+        tier-isolated and degree-2-only suppression ordering variants are rejected at the tested first-child
+        placement. They saved substantial work on the paired fixture while materially increasing depth-12 work on
+        the independent calibration corpus. Preserve the descriptor for other consumers; do not restore the tested
+        ordering tier without materially new evidence.
+  evidence_branch: research/terminal-frontier-horizon-exact-suppression-evidence
+  next_assessment:
+    - >-
+      Reassess own residual contraction/live-line incidence only as a small explicit structural class, not a weighted
+      count, and require the same independent cross-corpus qualification before retention.
+    - >-
+      Evaluate whether exact transition-effect descriptors are more naturally consumed by TT retention/replacement
+      or Branch Manager scheduling than by first-child ordering.
+    - >-
+      Keep TT aliasing, bucket/probe cost, capacity/replacement eviction and cross-worker contention distinct.
+      Reduced TT traffic caused by a smaller tree is not a TT-policy result.
+    - >-
+      Consider a compiled structural consequence/effect plane only after multiple consumers demonstrate reuse value.
+  proof_boundary: >-
+    Ordering descriptors remain advisory unless a separately qualified theorem supplies an exact WDL interval/value
+    consequence. Residual degree/cardinality and cofactor deletion remain unsigned. The guarded mixed-cofactor to
+    obligation theorem below is still unresolved.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
