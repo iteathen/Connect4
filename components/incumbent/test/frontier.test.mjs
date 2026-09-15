@@ -52,8 +52,6 @@ function assertFrontierMatchesBoard(position, label) {
 
   const refs0 = new Uint8Array(p.cellCount);
   const refs1 = new Uint8Array(p.cellCount);
-  let liveResidualLineCount0 = 0;
-  let liveResidualLineCount1 = 0;
   for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
     let count0 = 0;
     let count1 = 0;
@@ -67,17 +65,12 @@ function assertFrontierMatchesBoard(position, label) {
     }
     assert.equal(position.lineState[line], count0 | (count1 << 3), `${label}: line ${line} state`);
     assert.equal(position.lineEmptyXor[line], emptyXor, `${label}: line ${line} empty xor`);
-    if (count1 === 0) liveResidualLineCount0++;
-    if (count0 === 0) liveResidualLineCount1++;
     if (count0 === 3 && count1 === 0) refs0[emptyXor]++;
     else if (count1 === 3 && count0 === 0) refs1[emptyXor]++;
   }
 
   assert.deepEqual(position.singletonRefs0, refs0, `${label}: P0 singleton refs`);
   assert.deepEqual(position.singletonRefs1, refs1, `${label}: P1 singleton refs`);
-  assert.equal(position.liveResidualLineCount0, liveResidualLineCount0, `${label}: P0 live residual line count`);
-  assert.equal(position.liveResidualLineCount1, liveResidualLineCount1, `${label}: P1 live residual line count`);
-  assert.equal(position.isDeadDraw(), liveResidualLineCount0 === 0 && liveResidualLineCount1 === 0, `${label}: dead draw predicate`);
   for (let column = 0; column < p.columns; column++) {
     assert.equal(position.isWinningMove(column, 0), bruteWinningMove(position, column, 0), `${label}: P0 winning column ${column}`);
     assert.equal(position.isWinningMove(column, 1), bruteWinningMove(position, column, 1), `${label}: P1 winning column ${column}`);
@@ -102,9 +95,7 @@ test('incremental terminal frontier remains exactly equivalent through apply/und
   for (const [columns, rows] of geometries) {
     for (let trial = 0; trial < 80; trial++) {
       const position = new PrimitivePosition(columns, rows);
-      let expectedEarlyDeadDrawTransitionHits = 0;
       assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} root`);
-      assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: root telemetry`);
 
       const transitions = position.profile.cellCount * 2;
       for (let step = 0; step < transitions; step++) {
@@ -112,7 +103,6 @@ test('incremental terminal frontier remains exactly equivalent through apply/und
         if (position.ply > 0 && (winner !== -1 || random(5) === 0)) {
           position.undoUnchecked();
           assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} undo ${step}`);
-          assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: undo telemetry ${step}`);
           continue;
         }
 
@@ -121,19 +111,13 @@ test('incremental terminal frontier remains exactly equivalent through apply/und
           if (position.heights[column] < rows) legal.push(column);
         }
         if (legal.length === 0) break;
-        const wasDeadDraw = position.isDeadDraw();
         position.applyUnchecked(legal[random(legal.length)]);
-        if (!wasDeadDraw && position.ply < position.profile.cellCount && position.isDeadDraw()) {
-          expectedEarlyDeadDrawTransitionHits++;
-        }
         assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} apply ${step}`);
-        assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: apply telemetry ${step}`);
       }
 
       while (position.ply > 0) {
         position.undoUnchecked();
         assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} unwind ${position.ply}`);
-        assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: unwind telemetry ${position.ply}`);
       }
     }
   }

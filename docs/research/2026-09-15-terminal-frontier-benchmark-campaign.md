@@ -98,19 +98,55 @@ The successful correction was to retain the first-order exact residual frontier 
 
 Maintain stable first-order structural facts once when they have multiple consumers. Do not automatically materialize every exact derived consequence as transition state. A derived relation belongs in the hot state only when its read savings exceed its apply/undo maintenance cost under the actual search workload.
 
-## Dead-residual exact-draw instrumentation
+## Dead-residual exact-draw experiment
 
-The next behavior-preserving experiment measures the exact draw condition before granting it pruning authority.
+### Exact theorem
 
 Define a P0 live residual line as a four-line containing no P1 stone, and a P1 live residual line as a four-line containing no P0 stone. If both live-line counts are zero, every possible Connect Four line contains stones from both players. Since stones are never removed during forward play, no future move sequence can complete a four-line for either player. The position is therefore an exact draw independently of the remaining legal move count.
 
-Instrumentation rules:
+The theorem does not depend on a solved database, minimax result, heuristic score, or search depth.
 
-- maintain `liveResidualLineCount0` and `liveResidualLineCount1` incrementally from the existing per-line owner counts;
-- validate both counts independently against raw board reconstruction across multiple board sizes and repeated apply/undo;
-- count only transitions that reach the exact dead-draw predicate **before the board is full**;
-- exclude ordinary full-board draws, which the incumbent already terminates exactly;
-- do not change search return values, TT semantics, node counts, tactical classification, or evaluator semantics in the instrumentation phase;
-- pair the instrumented candidate directly against accepted checkpoint `6da8d00e607e860cce7a32628c07d4e98de91e0c` on the same Node 26.7.0 runner.
+### Instrumentation qualification
 
-Only if the predicate occurs with useful incidence and its maintenance cost is acceptable should a separate commit enable exact early-draw termination. Horizon tactical reordering remains a separate semantic experiment.
+Commit `4df1a8da51c79cea5e0c14dacd63e18c51a8c096` instrumented the predicate without giving it pruning authority. It maintained both live-line counts incrementally, independently reconstructed them from raw board state in the randomized apply/undo frontier test, and counted only transitions that **first entered** the exact dead-draw region before the board was full. Descendants already inside the dead-draw region were not counted.
+
+The full Node 26 verification suite passed. Search results and work remained unchanged: checksum `2804412475`, node counts, evaluator calls, tactical counts, TT behavior, cutoffs, moves, and normalized scores were identical.
+
+### Incidence result
+
+On the benchmark search region the exact predicate had **zero observed pruning incidence**:
+
+- persistent fixed workload: `501,027` nodes, `0` early dead-draw root requests, `0` first-entry dead-draw transitions;
+- reset-each-root fixed workload: `624,351` nodes, `0` early dead-draw root requests, `0` first-entry dead-draw transitions;
+- wall-clock sweep: every measured depth from 1 through 14 had `0` early dead-draw root requests and `0` first-entry dead-draw transitions.
+
+This is an empirical statement about the exercised branch region, not a negation of the theorem and not evidence that such positions cannot occur elsewhere.
+
+### Maintenance cost
+
+The same-runner A-B-B-A job compared the instrumented candidate directly with accepted checkpoint `6da8d00e607e860cce7a32628c07d4e98de91e0c` on Node 26.7.0 / AMD EPYC 7763.
+
+Means of the two control and two candidate observations:
+
+- persistent workload: `319.146 ms control -> 317.947 ms instrumented`, about **0.38% faster** for the instrumented candidate, treated as noise;
+- reset-each-root workload: `337.596 ms -> 353.580 ms`, **4.73% slower**;
+- depth-12 median: `118.004 ms -> 124.062 ms`, **5.13% slower**;
+- depth-13 median: `214.725 ms -> 228.123 ms`, **6.24% slower**;
+- depth-14 median: `379.851 ms -> 400.955 ms`, **5.56% slower**.
+
+The deeper-search measurements show a real transition-maintenance tax while the measured opportunity count is zero.
+
+### Disposition
+
+**Exact theorem; runtime mechanism deferred.**
+
+Do not promote live-residual-line counters into the incumbent hot position state at this checkpoint. The predicate remains valid and available for future use, but maintaining it on every apply/undo is not justified by the current workload. The production/research runtime should return to the accepted `6da8d00...` first-order frontier shape while retaining this result as evidence.
+
+A future revisit should be triggered by one of the following rather than by theorem validity alone:
+
+- a deeper or different workload exposes meaningful dead-draw incidence;
+- another consumer already needs live-residual-line counts, reducing marginal maintenance cost;
+- the counts become available essentially for free from a different representation;
+- a broader certified terminal frontier uses the same state for multiple exact consequences.
+
+The next separate experiment is the horizon seam: exact tactical classification currently occurs after the heuristic horizon cutoff. Moving certified immediate-win / forced-response consequences ahead of heuristic evaluation may intentionally change horizon semantics, so it must be qualified as a semantic improvement experiment rather than folded into this behavior-preserving benchmark result.

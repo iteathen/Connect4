@@ -51,8 +51,6 @@ function createTotals() {
     tacticalImmediateWins: 0,
     tacticalForcedBlocks: 0,
     tacticalDoubleThreatLosses: 0,
-    earlyDeadDrawRootRequests: 0,
-    earlyDeadDrawTransitions: 0,
     alphaBetaCutoffs: 0,
     ttProbes: 0,
     ttPositionHits: 0,
@@ -91,12 +89,9 @@ function runFixedRequestScenario(resetEachRoot, scenarioDepth = depth, scenarioR
     const position = engine.createPosition();
     for (let ply = 0; ply < rerootMoves.length; ply++) {
       if (resetEachRoot) engine.resetSearchMemory();
-      if (position.ply < position.profile.cellCount && position.isDeadDraw()) totals.earlyDeadDrawRootRequests++;
-      const deadDrawBefore = position.earlyDeadDrawTransitionHits;
       const start = performance.now();
       const result = engine.search(position, scenarioDepth);
       elapsedMs += performance.now() - start;
-      totals.earlyDeadDrawTransitions += position.earlyDeadDrawTransitionHits - deadDrawBefore;
       accumulate(totals, result.metrics);
       decisionChecksum = (Math.imul(decisionChecksum ^ ((result.move ?? 31) + 1), 0x9e3779b1)
         ^ (Math.trunc(result.normalizedScore) >>> 0)) >>> 0;
@@ -149,12 +144,9 @@ function runWallClockDepthSweep() {
       maybeGc();
       const engine = new IncumbentSearchEngine({ ttCapacity, orderingPolicy: 'persistent-best-move' });
       const position = engine.createPosition(wallClockMoves);
-      const earlyDeadDrawRootRequest = position.ply < position.profile.cellCount && position.isDeadDraw() ? 1 : 0;
-      const deadDrawBefore = position.earlyDeadDrawTransitionHits;
       const start = performance.now();
       const result = engine.search(position, candidateDepth);
       elapsed[repetition] = performance.now() - start;
-      const earlyDeadDrawTransitions = position.earlyDeadDrawTransitionHits - deadDrawBefore;
       if (reference === null) {
         reference = {
           move: result.move,
@@ -164,8 +156,6 @@ function runWallClockDepthSweep() {
           ttPositionHits: result.metrics.ttPositionHits,
           ttScoreHits: result.metrics.ttScoreHits,
           alphaBetaCutoffs: result.metrics.alphaBetaCutoffs,
-          earlyDeadDrawRootRequest,
-          earlyDeadDrawTransitions,
         };
       } else if (reference.move !== result.move || reference.normalizedScore !== result.normalizedScore) {
         throw new Error(`wall-clock sweep became nondeterministic at depth ${candidateDepth}`);
