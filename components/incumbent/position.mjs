@@ -20,7 +20,7 @@ export class PrimitivePosition {
     // A line remains live for a player while it contains no opponent stone.
     this.liveResidualLineCount0 = p.lineCount;
     this.liveResidualLineCount1 = p.lineCount;
-    // Telemetry only: monotonic count of transitions that reach an early exact dead draw.
+    // Telemetry only: monotonic count of transitions that first enter an early exact dead draw.
     // Undo intentionally does not decrement this counter.
     this.earlyDeadDrawTransitionHits = 0;
     // 0 ongoing, 1 P0, 2 P1, 3 draw.
@@ -53,6 +53,7 @@ export class PrimitivePosition {
     const index = row * p.columns + column;
     const player = this.sideToMove;
     const encoded = player + 1;
+    const wasDeadDraw = this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0;
     let won = false;
 
     const start = p.positionLineOffsets[index];
@@ -91,7 +92,7 @@ export class PrimitivePosition {
     this.ply++;
     this.sideToMove = 1 - player;
     this.winnerByPly[this.ply] = won ? encoded : (this.ply === p.cellCount ? 3 : 0);
-    if (this.ply < p.cellCount && this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0) {
+    if (!wasDeadDraw && this.ply < p.cellCount && this.liveResidualLineCount0 === 0 && this.liveResidualLineCount1 === 0) {
       this.earlyDeadDrawTransitionHits++;
     }
     const z = player * p.cellCount + index;
