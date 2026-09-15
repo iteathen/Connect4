@@ -8,11 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: decompose_response_control_before_isomorphism
+  id: derive_guarded_affine_clause_value_closure
   objective: >-
-    Decompose the Connect-4 strategic response/control system into the same total-domain derivative,
-    support, parity and deadline primitives now proved for geometry. Only after those components and
-    coupling maps are isolated should cross-board invariant-isomorphism search be attempted.
+    Derive the exact Connect-4 proof/value closure over the reduced binary control-potential representation:
+    affine ownership/parity facts + monotone blocker clauses + anchored zero-edge residual targets +
+    support/resource/deadline guards. The target is a signed all-board value selector without recursive move-tree
+    search, while preserving the already-proved total-domain static and response invariants.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -22,92 +23,130 @@ required_authority:
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
   - docs/specs/C4-0010-quotient-native-negamax-v1.md
   - STATUS.md
-  - docs/research/2026-09-14-total-domain-logical-foundation.md
   - docs/research/2026-09-14-total-domain-incidence-decomposition.md
   - docs/research/2026-09-14-connect4-derived-difference-axioms.md
+  - docs/research/2026-09-14-cpc-control-potential-unification.md
+  - docs/research/2026-09-14-z2-domain-wall-causal-field.md
+  - docs/research/2026-09-14-gravity-adapted-domain-wall-normal-form.md
+  - docs/research/2026-09-14-anchored-zero-edge-residuals.md
+  - docs/research/2026-09-14-affine-clause-blocker-decomposition.md
   - docs/research/2026-09-09-universal-strategic-algebra.md
   - docs/research/2026-09-09-nested-strategic-dependency-closure.md
 
 qualified_premises:
-  - id: total_domain_incidence_rank
+  - id: total_domain_static_core
     statement: >-
-      For a=(W-3)_+, b=(H-3)_+, p=min(W,3), q=min(H,3), d=min(2,ab),
-      rank(B)=WH-pq+d and dim ker(B)=3ab-d for every positive W,H.
-  - id: total_domain_axis_core
+      For a=(W-3)_+, b=(H-3)_+, p=min(W,3), q=min(H,3), d=min(2,ab):
+      L=Ha+Wb+2ab; rank(B)=WH-pq+d; ker(B)=3ab-d; rank(Q_axis)=a+b;
+      rank(Q_phase)=min(a,ab)+min(2,ab,a+floor((b-1)_+/2));
+      Y_cell=rank(B)-rank(Q_axis); Y_line=ker(B)-rank(Q_phase).
+  - id: thin_board_draw
     statement: >-
-      rank(Q_axis)=a+b and Y_cell=WH-pq+d-a-b for every positive W,H.
-  - id: total_domain_phase_core
+      For every positive W,H, min(W,H)<4 implies empty-board draw by quantified legal mate-response proof.
+  - id: absolute_cpc_owner
     statement: >-
-      rank(Q_phase)=min(a,ab)+min(2,ab,a+floor((b-1)_+/2)); Y_line is ker(B) minus that rank.
-  - id: derivative_geometry
+      With owner bit 0=first player and 1=second player, the zero-reservation absolute owner of target (c,r)
+      is q0=((W-1)H+r) mod2. A certified prior-event parity correction rho gives q=kappa+r+rho.
+  - id: control_potential_derivatives
     statement: >-
-      Every Connect-4 line is a translated third derivative partial_d^3 over F2.
-      Diagonal third derivatives are derived from X=partial_x,Y=partial_y:
-      partial_+^3=XY^2+X^2Y and partial_-^3=XY^2+X^2Y+X^2Y^2.
-  - id: response_pair_shape
+      Horizontal disagreement is delta_x rho; vertical disagreement is 1+delta_y rho; seam transport is
+      mixed-difference commutation. Every geometric Connect-4 terminal line is three consecutive zero
+      disagreement edges in its direction.
+  - id: gravity_normal_form
     statement: >-
-      A two-cell mate-response pair is a first-derivative incidence partial_d; legality and timing remain
-      governed by support/resource/deadline semantics.
-  - id: total_domain_geometry_and_response_basics
+      One ownership anchor + bottom horizontal disagreement word + one vertical seam mask per row boundary is
+      a lossless WH-bit coordinate system. Pure-followup neutral pairs only decrement integer pair-depth counters.
+  - id: anchored_zero_edge_target
     statement: >-
-      L(W,H)=H(W-3)_+ + W(H-3)_+ + 2(W-3)_+(H-3)_+;
-      W<4 boards are draws by support response; H=1 boards are draws by frontier response;
-      R1(W,H)=(W-3)_+ floor((H-1)/2).
-  - id: standard_corollary
+      A four-line path is invertibly represented by one owner anchor and three path disagreement edges.
+      Player-p terminal target is anchor=p and edge word 000.
+  - id: blocker_clause_form
     statement: >-
-      Standard 7x6 gives L=69, rankB=35, kerB=34, Q_axis=7, Q_phase=6,
-      Y_cell=Y_line=28 from the same total-domain formulas.
+      Against player p, x_v=q(v)+p. A certified blocker B is the positive clause OR_(v in B)x_v=1.
+      It blocks residual R exactly when B subset_of R. Pair blocker is not XOR unless split ownership is
+      independently certified.
+  - id: safe_affine_seam_cube
+    statement: >-
+      Around any one-move safe setup column c, e_c + span{e_j : parity(j)!=parity(c)} is entirely
+      pure-followup-safe. At most one seam in each free coordinate may occur at arbitrary heights without
+      introducing a geometric Connect-4.
+  - id: standard_static_corollary
+    statement: >-
+      Standard 7x6 has L=69, rankB=35, kerB=34, Q_axis=7, Q_phase=6, Y_cell=Y_line=28.
+
+outcome_encoding:
+  bits: "[sign_player, win]"
+  canonical:
+    "00": draw
+    "01": first_player_win_plus_one
+    "11": second_player_win_minus_one
+    "10": reserved_noncanonical
+  note: >-
+    This is a projection of the ownership-lift/domain-wall representation, not an independent proof primitive.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   proof_standard: >-
-    Any unbounded board-family claim requires symbolic proof. Finite runs and solved outcome tables may
-    falsify or guide discovery only; they are not theorem evidence.
+    Any unbounded board-family claim requires symbolic proof. Finite solved tables, constrained strategy solves,
+    board sweeps and oracle data may falsify or guide discovery only.
   primary_question: >-
-    Can every load-bearing strategic response/control relation be expressed as a composition of
-    first/mixed derivative boundaries plus gravity support, GF(2) event-rank parity, resource guards and deadlines?
+    Can exact W/D/L be obtained as the least fixed point of guarded affine ownership facts and monotone blocker
+    clauses over anchored zero-edge win targets, with support and completion-before-deadline semantics carried
+    explicitly, so that the decisive player bit is an ownership lift rather than a separately fitted sign?
   first_construction:
     - >-
-      Re-express Claimeven, Baseinverse, Vertical, Lowinverse, Highinverse and Baseclaim consequences
-      as path-boundary / first-derivative response resources where exact.
+      Classify every currently consumed strategic certificate consequence as one of:
+      exact affine fact; monotone blocker clause; guarded composition of affine/clause with deadline;
+      or genuinely missing relation.
     - >-
-      Re-express Before, Aftereven and Specialbefore as compositions of the same response resources
-      with support precedence and completion-before-deadline guards.
+      Define the canonical closure state with one owner/control-potential system, blocker-clause antichains,
+      residual zero-edge targets, support/accessibility, resource reservations and temporal ranks.
     - >-
-      If a valid known rule cannot be represented without adding a new primitive, isolate the smallest
-      missing relation and test whether it is a derived axiom of the existing event/support algebra.
+      Derive exact propagation rules: affine closure; affine substitution into clauses; unit forcing;
+      clause discharge; blocker upward closure; residual elimination; CPC potential updates; deadline validation.
     - >-
-      Decompose published infinite/semi-infinite Connect-Four non-losing paving strategies into the same
-      primitives. Separate periodic bulk invariants from finite top/side boundary defects.
+      Prove monotonicity/well-foundedness of the selected information order and identify which feedback cycles
+      require a least fixed point rather than an acyclic DAG.
     - >-
-      Only after decomposition, build a neighborhood-preserving canonical form. Preserve derivative module,
-      mixed coupling, start-grid adjacency/checkerboard class, gravity direction, response resources,
-      parity and deadline labels.
+      Apply the closure first to already-proved infinite families (thin boards, width-7 noncenter draw certificates)
+      and then to the standard 7x6 center seam without using solved W/D/L as a premise.
+    - >-
+      Only after the closure is exact, seek a board-family closed selector for the win bit and player/sign lift.
+  required_checks:
+    - pair blocker must not be silently promoted to XOR
+    - eventual ownership must not replace ownership-before-deadline
+    - pure-followup/domain-wall safety is defensive substrate, not a signed value theorem
+    - finite outcome interpolation is never proof
+    - outcome player/sign bit is derived from an exact terminal ownership lift
+    - draw is canonical 00 and does not require an arbitrary player bit
+    - preserve first-win stopping semantics
   falsification:
-    - whole-board isomorphism before decomposition
-    - equal scalar ranks treated as structural identity
-    - named strategic rules retained as primitives when their consequences decompose to generic relations
-    - a proposed response abstraction that drops support/resource/deadline premises
-    - finite outcome interpolation treated as proof
-    - special small-board mode or hand-written dimensional exceptions
+    - a rule instance needs a consequence not expressible as affine fact, monotone clause or guarded temporal composition
+    - affine/clause propagation derives a stronger fact after its deadline rather than before it
+    - two merged states with equal parity/clause sets have different support/resource obligations relevant to future proof
+    - a candidate signed selector disagrees with an independently solved board (validation only)
+    - standard 7x6 requires inserting the known +1 label or 28 as a premise
 
 success_criteria:
-  - exact derivative/support representation for the elementary response families
-  - explicit statement of any irreducible missing strategic axiom
-  - decomposed invariant description of the infinite-board paving strategies if source detail is available
-  - a bulk-vs-boundary hypothesis stated in the decomposed vocabulary
-  - neighborhood-preserving isomorphism search only over the decomposed structures
-  - synchronized durable research notes and controls
+  - complete consequence-shape classification of currently used strategic rules
+  - exact guarded affine-clause NDC closure with explicit information order and deadline semantics
+  - no duplicated CPC/phase/player-color representation where one potential suffices
+  - standard 7x6 terminal proof returns canonical 01 without solved-label premise
+  - thin-board theorem returns canonical 00 from the same value semantics
+  - second-player-winning controls, when used, are validation only until independently derived
+  - structural magnitude remains distinct from win/draw sign until a natural coupling is proved
+  - synchronized STATUS.md / next_step.yaml and durable theorem notes
 
 validation_only:
-  - finite generated-rank controls
   - published finite W/D/L tables
-  - standard 7x6 strong-distance oracle
+  - standard 7x6 strong-distance/oracle data
+  - constrained pure-followup solves
+  - finite generated-rank/barcode controls
   - varying-board censuses
 
 paused_selection_seam:
   id: derive_post_center_strong_distance_selector
-  status: valid_but_paused
+  status: subsumed_but_preserved_under_guarded_value_closure
 
 paused_solver_seam:
   state: "4665655"
