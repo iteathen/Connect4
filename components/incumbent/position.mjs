@@ -17,12 +17,6 @@ export class PrimitivePosition {
     this.lineEmptyXor = new Uint32Array(p.lineCount);
     this.singletonRefs0 = new Uint8Array(p.cellCount);
     this.singletonRefs1 = new Uint8Array(p.cellCount);
-    // Distinct currently playable singleton-completion cells, not winning-line count.
-    // When the count is exactly one, the corresponding column sum is its identity.
-    this.playableWinCount0 = 0;
-    this.playableWinCount1 = 0;
-    this.playableWinColumnSum0 = 0;
-    this.playableWinColumnSum1 = 0;
     // 0 ongoing, 1 P0, 2 P1, 3 draw.
     this.winnerByPly = new Uint8Array(p.cellCount + 1);
     for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
@@ -49,26 +43,11 @@ export class PrimitivePosition {
 
   applyUnchecked(column) {
     const p = this.profile;
-    const columns = p.columns;
     const row = this.heights[column];
-    const index = row * columns + column;
+    const index = row * p.columns + column;
     const player = this.sideToMove;
     const encoded = player + 1;
     let won = false;
-    let playableWinCount0 = this.playableWinCount0;
-    let playableWinCount1 = this.playableWinCount1;
-    let playableWinColumnSum0 = this.playableWinColumnSum0;
-    let playableWinColumnSum1 = this.playableWinColumnSum1;
-
-    // The occupied cell stops being the playable top before residual updates.
-    if (this.singletonRefs0[index] !== 0) {
-      playableWinCount0--;
-      playableWinColumnSum0 -= column;
-    }
-    if (this.singletonRefs1[index] !== 0) {
-      playableWinCount1--;
-      playableWinColumnSum1 -= column;
-    }
 
     const start = p.positionLineOffsets[index];
     const end = p.positionLineOffsets[index + 1];
@@ -79,27 +58,8 @@ export class PrimitivePosition {
       let count1 = state >>> 3;
       let empty = this.lineEmptyXor[line];
 
-      if (count0 === 3 && count1 === 0) {
-        const before = this.singletonRefs0[empty];
-        this.singletonRefs0[empty] = before - 1;
-        if (before === 1 && empty !== index) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount0--;
-            playableWinColumnSum0 -= emptyColumn;
-          }
-        }
-      } else if (count1 === 3 && count0 === 0) {
-        const before = this.singletonRefs1[empty];
-        this.singletonRefs1[empty] = before - 1;
-        if (before === 1 && empty !== index) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount1--;
-            playableWinColumnSum1 -= emptyColumn;
-          }
-        }
-      }
+      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
+      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
 
       if (player === 0) count0++; else count1++;
       empty ^= index;
@@ -107,47 +67,13 @@ export class PrimitivePosition {
       this.lineState[line] = state;
       this.lineEmptyXor[line] = empty;
 
-      if (count0 === 3 && count1 === 0) {
-        const before = this.singletonRefs0[empty];
-        this.singletonRefs0[empty] = before + 1;
-        if (before === 0 && empty !== index) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount0++;
-            playableWinColumnSum0 += emptyColumn;
-          }
-        }
-      } else if (count1 === 3 && count0 === 0) {
-        const before = this.singletonRefs1[empty];
-        this.singletonRefs1[empty] = before + 1;
-        if (before === 0 && empty !== index) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount1++;
-            playableWinColumnSum1 += emptyColumn;
-          }
-        }
-      }
+      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]++;
+      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]++;
       if ((player === 0 ? count0 : count1) === 4) won = true;
     }
 
     this.cells[index] = encoded;
     this.heights[column] = row + 1;
-    const nextTop = index + columns;
-    if (row + 1 < p.rows) {
-      if (this.singletonRefs0[nextTop] !== 0) {
-        playableWinCount0++;
-        playableWinColumnSum0 += column;
-      }
-      if (this.singletonRefs1[nextTop] !== 0) {
-        playableWinCount1++;
-        playableWinColumnSum1 += column;
-      }
-    }
-    this.playableWinCount0 = playableWinCount0;
-    this.playableWinCount1 = playableWinCount1;
-    this.playableWinColumnSum0 = playableWinColumnSum0;
-    this.playableWinColumnSum1 = playableWinColumnSum1;
     this.moveStack[this.ply] = index;
     this.ply++;
     this.sideToMove = 1 - player;
@@ -160,28 +86,10 @@ export class PrimitivePosition {
 
   undoUnchecked() {
     const p = this.profile;
-    const columns = p.columns;
     const index = this.moveStack[--this.ply];
-    const row = Math.floor(index / columns);
-    const column = index - row * columns;
+    const row = Math.floor(index / p.columns);
+    const column = index - row * p.columns;
     const player = 1 - this.sideToMove;
-    let playableWinCount0 = this.playableWinCount0;
-    let playableWinCount1 = this.playableWinCount1;
-    let playableWinColumnSum0 = this.playableWinColumnSum0;
-    let playableWinColumnSum1 = this.playableWinColumnSum1;
-
-    // Remove the post-move playable top. The undone cell becomes the top later.
-    const currentTop = row + 1 < p.rows ? index + columns : -1;
-    if (currentTop >= 0) {
-      if (this.singletonRefs0[currentTop] !== 0) {
-        playableWinCount0--;
-        playableWinColumnSum0 -= column;
-      }
-      if (this.singletonRefs1[currentTop] !== 0) {
-        playableWinCount1--;
-        playableWinColumnSum1 -= column;
-      }
-    }
 
     const start = p.positionLineOffsets[index];
     const end = p.positionLineOffsets[index + 1];
@@ -192,27 +100,8 @@ export class PrimitivePosition {
       let count1 = state >>> 3;
       let empty = this.lineEmptyXor[line];
 
-      if (count0 === 3 && count1 === 0) {
-        const before = this.singletonRefs0[empty];
-        this.singletonRefs0[empty] = before - 1;
-        if (before === 1 && empty !== currentTop) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount0--;
-            playableWinColumnSum0 -= emptyColumn;
-          }
-        }
-      } else if (count1 === 3 && count0 === 0) {
-        const before = this.singletonRefs1[empty];
-        this.singletonRefs1[empty] = before - 1;
-        if (before === 1 && empty !== currentTop) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount1--;
-            playableWinColumnSum1 -= emptyColumn;
-          }
-        }
-      }
+      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
+      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
 
       if (player === 0) count0--; else count1--;
       empty ^= index;
@@ -220,44 +109,13 @@ export class PrimitivePosition {
       this.lineState[line] = state;
       this.lineEmptyXor[line] = empty;
 
-      if (count0 === 3 && count1 === 0) {
-        const before = this.singletonRefs0[empty];
-        this.singletonRefs0[empty] = before + 1;
-        if (before === 0 && empty !== currentTop) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount0++;
-            playableWinColumnSum0 += emptyColumn;
-          }
-        }
-      } else if (count1 === 3 && count0 === 0) {
-        const before = this.singletonRefs1[empty];
-        this.singletonRefs1[empty] = before + 1;
-        if (before === 0 && empty !== currentTop) {
-          const emptyColumn = empty % columns;
-          if (this.heights[emptyColumn] * columns + emptyColumn === empty) {
-            playableWinCount1++;
-            playableWinColumnSum1 += emptyColumn;
-          }
-        }
-      }
+      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]++;
+      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]++;
     }
 
     this.sideToMove = player;
     this.heights[column]--;
     this.cells[index] = 0;
-    if (this.singletonRefs0[index] !== 0) {
-      playableWinCount0++;
-      playableWinColumnSum0 += column;
-    }
-    if (this.singletonRefs1[index] !== 0) {
-      playableWinCount1++;
-      playableWinColumnSum1 += column;
-    }
-    this.playableWinCount0 = playableWinCount0;
-    this.playableWinCount1 = playableWinCount1;
-    this.playableWinColumnSum0 = playableWinColumnSum0;
-    this.playableWinColumnSum1 = playableWinColumnSum1;
     const z = player * p.cellCount + index;
     this.hashLo = (this.hashLo ^ p.zobristLo[z]) >>> 0;
     this.hashHi = (this.hashHi ^ p.zobristHi[z]) >>> 0;

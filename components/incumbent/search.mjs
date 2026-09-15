@@ -228,20 +228,29 @@ export class IncumbentSearchEngine {
     const p = this.profile;
     const heights = position.heights;
     const currentPlayer = position.sideToMove;
-    const currentThreatCount = currentPlayer === 0 ? position.playableWinCount0 : position.playableWinCount1;
+    const currentRefs = currentPlayer === 0 ? position.singletonRefs0 : position.singletonRefs1;
+    const opponentRefs = currentPlayer === 0 ? position.singletonRefs1 : position.singletonRefs0;
     let immediateWinMove = -1;
-    if (currentThreatCount === 1) {
-      immediateWinMove = currentPlayer === 0 ? position.playableWinColumnSum0 : position.playableWinColumnSum1;
-    } else if (currentThreatCount > 1) {
-      // Preserve incumbent center-first choice when more than one immediate win exists.
-      for (let i = 0; i < p.moveOrder.length; i++) {
-        const column = p.moveOrder[i];
-        if (position.isWinningMove(column, currentPlayer)) {
-          immediateWinMove = column;
-          break;
-        }
+    let opponentThreatCount = 0;
+    let forcedBlock = -1;
+
+    // One center-ordered pass classifies both exact singleton frontiers. Current-player
+    // immediate wins retain precedence; opponent threats remain distinct completion cells.
+    for (let i = 0; i < p.moveOrder.length; i++) {
+      const column = p.moveOrder[i];
+      const row = heights[column];
+      if (row >= p.rows) continue;
+      const index = row * p.columns + column;
+      if (currentRefs[index] !== 0) {
+        immediateWinMove = column;
+        break;
+      }
+      if (opponentThreatCount < 2 && opponentRefs[index] !== 0) {
+        if (forcedBlock < 0) forcedBlock = column;
+        opponentThreatCount++;
       }
     }
+
     if (immediateWinMove >= 0) {
       metrics.tacticalImmediateWins++;
       const value = rootTerminalScore(currentPlayer, this.rootPlayer, ply + 1);
@@ -253,20 +262,6 @@ export class IncumbentSearchEngine {
     }
 
     const opponent = 1 - currentPlayer;
-    const opponentThreatCount = opponent === 0 ? position.playableWinCount0 : position.playableWinCount1;
-    let forcedBlock = -1;
-    if (opponentThreatCount === 1) {
-      forcedBlock = opponent === 0 ? position.playableWinColumnSum0 : position.playableWinColumnSum1;
-    } else if (opponentThreatCount > 1) {
-      // The legacy double-threat shortcut stores the first center-ordered block candidate.
-      for (let i = 0; i < p.moveOrder.length; i++) {
-        const column = p.moveOrder[i];
-        if (position.isWinningMove(column, opponent)) {
-          forcedBlock = column;
-          break;
-        }
-      }
-    }
     if (opponentThreatCount > 1) {
       metrics.tacticalDoubleThreatLosses++;
       const value = rootTerminalScore(opponent, this.rootPlayer, ply + 1);
