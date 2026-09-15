@@ -1,0 +1,61 @@
+name: structural-order-paired
+
+on:
+  pull_request:
+    branches:
+      - research/frontier-negamax-conformance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired-structural-order:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+
+      - name: Checkout pre-ordering control
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: 1863961eb6fadb5fca172e08581fe9b19a4824cd
+          path: control
+          persist-credentials: false
+
+      - name: Set up exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+          check-latest: false
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+
+      - name: Capture ABBA paired incumbent evidence
+        shell: bash
+        env:
+          C4_BENCH_REPETITIONS: "5"
+          C4_BENCH_WALL_REPETITIONS: "5"
+        run: |
+          set -euo pipefail
+          (cd control && C4_SOURCE_REVISION="1863961eb6fadb5fca172e08581fe9b19a4824cd" node --expose-gc benchmarks/incumbent.mjs) > control-a.json
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}" node --expose-gc benchmarks/incumbent.mjs) > candidate-a.json
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}" node --expose-gc benchmarks/incumbent.mjs) > candidate-b.json
+          (cd control && C4_SOURCE_REVISION="1863961eb6fadb5fca172e08581fe9b19a4824cd" node --expose-gc benchmarks/incumbent.mjs) > control-b.json
+
+      - name: Upload paired evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: structural-order-paired-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            control-a.json
+            candidate-a.json
+            candidate-b.json
+            control-b.json
+          if-no-files-found: error
+          retention-days: 3
