@@ -46,3 +46,6 @@ jobs:
 
       - name: Derive, pack, compile and submit real BSFP hot workloads
         run: node research/experiments/cuda-bsfp-clause-coverage/run-real.mjs portable
+
+      - name: Derive, map, compile and submit real support-edge cofactors
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-cofactor.mjs portable
