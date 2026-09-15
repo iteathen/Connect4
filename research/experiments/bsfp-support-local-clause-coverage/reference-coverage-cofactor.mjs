@@ -82,7 +82,7 @@ function createWinningLineMasks(columns, rows, connect) {
     for (let row = 0; row <= rows - connect; row += 1) {
       let mask = 0;
       for (let step = 0; step < connect; step += 1) mask |= 1 << index(column + step, row + step);
-      result.push(mask >>> 0;
+      result.push(mask >>> 0);
     }
   }
   for (let column = 0; column <= columns - connect; column += 1) {
