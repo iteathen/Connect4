@@ -1,0 +1,248 @@
+name: structural-order-latent-degree2
+
+on:
+  pull_request:
+    branches:
+      - research/frontier-negamax-conformance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired-latent-degree2:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+
+      - name: Checkout accepted singleton-order control
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: b45a6350fbc026b7a3429c5b49816c7d3a248f9e
+          path: control
+          persist-credentials: false
+
+      - name: Set up exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+          check-latest: false
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+
+      - name: Apply latent degree-2 candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          function replaceOnce(path, before, after, label) {
+            const source = readFileSync(path, 'utf8');
+            const first = source.indexOf(before);
+            if (first < 0 || source.indexOf(before, first + 1) >= 0) {
+              throw new Error(`${label}: expected exactly one patch seam`);
+            }
+            writeFileSync(path, source.slice(0, first) + after + source.slice(first + before.length));
+          }
+
+          const path = 'candidate/components/incumbent/search.mjs';
+          replaceOnce(
+            path,
+            `const EFFECT_OWN_PLAYABLE_SINGLETON_MASK = 0x03;\nconst EFFECT_EXPOSES_OPPONENT_SINGLETON = 0x04;`,
+            `const EFFECT_OWN_PLAYABLE_SINGLETON_MASK = 0x03;\nconst EFFECT_EXPOSES_OPPONENT_SINGLETON = 0x04;\nconst EFFECT_LATENT_DEGREE2 = 0x08;`,
+            'effect constant',
+          );
+          replaceOnce(
+            path,
+            `function quietSuccessorSingletonEffects(position, column, player) {`,
+            `export function quietSuccessorSingletonEffects(position, column, player) {`,
+            'experiment helper export',
+          );
+          replaceOnce(
+            path,
+            `  let effects = 0;\n  let firstOwnCompletion = -1;`,
+            `  let effects = 0;\n  let firstOwnCompletion = -1;\n  let latentDegree2 = false;`,
+            'latent local',
+          );
+          replaceOnce(
+            path,
+            `    if (!playableAfterMove) continue;`,
+            `    if (!playableAfterMove) {\n      latentDegree2 = true;\n      continue;\n    }`,
+            'latent classification',
+          );
+          replaceOnce(
+            path,
+            `  return effects | (firstOwnCompletion >= 0 ? 1 : 0);`,
+            `  if (firstOwnCompletion >= 0) return effects | 1;\n  return effects | (latentDegree2 ? EFFECT_LATENT_DEGREE2 : 0);`,
+            'tiered effect return',
+          );
+          replaceOnce(
+            path,
+            `      let structuralMove = -1;\n      if (ply > 0 && alpha < beta) {\n        let structuralClass = 0;\n        for (let i = 0; i < p.moveOrder.length; i++) {\n          const column = p.moveOrder[i];\n          if (column === ttMove || heights[column] >= p.rows) continue;\n          const effects = quietSuccessorSingletonEffects(position, column, currentPlayer);\n          if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;\n          const candidateClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;\n          if (candidateClass > structuralClass) {\n            structuralClass = candidateClass;\n            structuralMove = column;\n            if (candidateClass === 2) break;\n          }\n        }\n      }`,
+            `      let structuralMove = -1;\n      if (ply > 0 && alpha < beta) {\n        let singletonClass = 0;\n        let latentMove = -1;\n        for (let i = 0; i < p.moveOrder.length; i++) {\n          const column = p.moveOrder[i];\n          if (column === ttMove || heights[column] >= p.rows) continue;\n          const effects = quietSuccessorSingletonEffects(position, column, currentPlayer);\n          if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;\n          const candidateSingletonClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;\n          if (candidateSingletonClass > singletonClass) {\n            singletonClass = candidateSingletonClass;\n            structuralMove = column;\n            if (singletonClass === 2) break;\n            continue;\n          }\n          if (singletonClass === 0 && candidateSingletonClass === 0\n              && latentMove < 0 && (effects & EFFECT_LATENT_DEGREE2) !== 0) {\n            latentMove = column;\n          }\n        }\n        if (structuralMove < 0) structuralMove = latentMove;\n      }`,
+            'tiered structural selection',
+          );
+          NODE
+
+      - name: Qualify latent degree-2 effect algebra
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { PrimitivePosition } from './candidate/components/incumbent/index.mjs';
+          import { quietSuccessorSingletonEffects } from './candidate/components/incumbent/search.mjs';
+
+          const SINGLETON_MASK = 0x03;
+          const OPPONENT_EXPOSURE = 0x04;
+          const LATENT_DEGREE2 = 0x08;
+
+          function playableSingletonCells(position, player) {
+            const p = position.profile;
+            const refs = player === 0 ? position.singletonRefs0 : position.singletonRefs1;
+            const result = [];
+            for (let column = 0; column < p.columns; column++) {
+              const row = position.heights[column];
+              if (row >= p.rows) continue;
+              const index = row * p.columns + column;
+              if (refs[index] !== 0) result.push(index);
+            }
+            return result;
+          }
+
+          function rawLatentDegree2(position, column, player) {
+            const p = position.profile;
+            const row = position.heights[column];
+            const index = row * p.columns + column;
+            const ownEncoded = player + 1;
+            const opponentEncoded = 2 - player;
+            const start = p.positionLineOffsets[index];
+            const end = p.positionLineOffsets[index + 1];
+            for (let at = start; at < end; at++) {
+              const base = p.positionLineIndices[at] << 2;
+              let ownCount = 0;
+              let opponentCount = 0;
+              let otherEmpty = -1;
+              for (let j = 0; j < 4; j++) {
+                const cellIndex = p.lineCells[base + j];
+                const cell = position.cells[cellIndex];
+                if (cell === ownEncoded) ownCount++;
+                else if (cell === opponentEncoded) opponentCount++;
+                else if (cellIndex !== index) otherEmpty = cellIndex;
+              }
+              if (ownCount !== 2 || opponentCount !== 0) continue;
+              const remainingColumn = otherEmpty % p.columns;
+              const remainingRow = (otherEmpty / p.columns) | 0;
+              const playableAfterMove = remainingColumn === column
+                ? remainingRow === row + 1
+                : position.heights[remainingColumn] === remainingRow;
+              if (!playableAfterMove) return true;
+            }
+            return false;
+          }
+
+          function isQuiet(position) {
+            return position.winner() === -1
+              && playableSingletonCells(position, 0).length === 0
+              && playableSingletonCells(position, 1).length === 0;
+          }
+
+          function createRandom(seed) {
+            let state = seed >>> 0;
+            return (limit) => {
+              state ^= state << 13;
+              state ^= state >>> 17;
+              state ^= state << 5;
+              state >>>= 0;
+              return state % limit;
+            };
+          }
+
+          const geometries = [[4, 4], [5, 4], [7, 6], [8, 6], [6, 7]];
+          const random = createRandom(0xd2d1cafe);
+          let checked = 0;
+          let latent = 0;
+
+          for (const [columns, rows] of geometries) {
+            for (let trial = 0; trial < 240; trial++) {
+              const position = new PrimitivePosition(columns, rows);
+              const limit = random(position.profile.cellCount + 1);
+              for (let step = 0; step <= limit; step++) {
+                if (isQuiet(position)) {
+                  const player = position.sideToMove;
+                  for (let column = 0; column < columns; column++) {
+                    if (position.heights[column] >= rows) continue;
+                    const predicted = quietSuccessorSingletonEffects(position, column, player);
+                    const rawLatent = rawLatentDegree2(position, column, player);
+                    position.applyUnchecked(column);
+                    const ownPlayable = Math.min(playableSingletonCells(position, player).length, 2);
+                    const opponentPlayable = playableSingletonCells(position, 1 - player).length !== 0;
+                    position.undoUnchecked();
+
+                    assert.equal(predicted & SINGLETON_MASK, ownPlayable);
+                    assert.equal((predicted & OPPONENT_EXPOSURE) !== 0, opponentPlayable);
+                    const expectedLatent = ownPlayable === 0 && rawLatent;
+                    assert.equal((predicted & LATENT_DEGREE2) !== 0, expectedLatent);
+                    if (expectedLatent) latent++;
+                    checked++;
+                  }
+                }
+                if (step === limit || position.winner() !== -1) break;
+                const legal = [];
+                for (let column = 0; column < columns; column++) {
+                  if (position.heights[column] < rows) legal.push(column);
+                }
+                if (legal.length === 0) break;
+                position.applyUnchecked(legal[random(legal.length)]);
+              }
+            }
+          }
+
+          assert.ok(checked > 10_000, `expected broad qualification coverage, got ${checked}`);
+          assert.ok(latent > 100, `expected latent degree-2 contractions, got ${latent}`);
+          console.log(JSON.stringify({ checked, latent }));
+          NODE
+
+      - name: Qualify ephemeral latent degree-2 candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd candidate && node --test)
+
+      - name: Capture ABBA paired incumbent evidence
+        shell: bash
+        env:
+          C4_BENCH_REPETITIONS: "5"
+          C4_BENCH_WALL_REPETITIONS: "5"
+        run: |
+          set -euo pipefail
+          (cd control && C4_SOURCE_REVISION="b45a6350fbc026b7a3429c5b49816c7d3a248f9e" node --expose-gc benchmarks/incumbent.mjs) > control-a.json
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}-latent-degree2-ephemeral" node --expose-gc benchmarks/incumbent.mjs) > candidate-a.json
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}-latent-degree2-ephemeral" node --expose-gc benchmarks/incumbent.mjs) > candidate-b.json
+          (cd control && C4_SOURCE_REVISION="b45a6350fbc026b7a3429c5b49816c7d3a248f9e" node --expose-gc benchmarks/incumbent.mjs) > control-b.json
+
+      - name: Capture latent degree-2 solved strength evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}-latent-degree2-ephemeral" npm run bench:strength) > latent-degree2-strength.json
+
+      - name: Upload paired evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: structural-order-latent-degree2-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            control-a.json
+            candidate-a.json
+            candidate-b.json
+            control-b.json
+            latent-degree2-strength.json
+          if-no-files-found: error
+          retention-days: 3
