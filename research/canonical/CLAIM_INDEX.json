@@ -1,10 +1,12 @@
 {
   "schema": 1,
   "research_direction": "Josh Oshiro",
-  "purpose": "Machine-readable entrypoint for the normalized Connect4 claim graph.",
+  "purpose": "Authoritative machine-readable entrypoint for the normalized Connect4 claim graph.",
+  "coverage": "seeded-and-expanding",
   "registries": [
     "CLAIM_REGISTRY.json",
-    "CLAIM_REGISTRY_EXTENSIONS.json"
+    "CLAIM_REGISTRY_EXTENSIONS.json",
+    "CLAIM_REGISTRY_RECOVERED.json"
   ],
-  "rule": "A claim ID is unique across all listed registries. Epistemic status is claim-specific; solver adoption does not change it."
+  "rule": "A claim ID is unique across all listed registries. The listed shards form one logical registry; no shard is complete alone. Epistemic status is claim-specific and solver adoption does not change it."
 }
