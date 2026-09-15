@@ -283,6 +283,16 @@ async function qualify(runtime, native, fixture) {
   const outputCapacityPerSegment = fixture.segments.reduce((maximum, segment) => Math.max(maximum, segment.authority.frontier.length + 16), 1);
   const allocations = [];
 
+  // Build the independent CPU authority in both modes. In portable mode it is
+  // fixture/contract evidence only; openCudaRuntimeForTesting validates the
+  // Device-JS compile/prepare/submit surface and does not execute arbitrary
+  // device kernel semantics. Native mode is the semantic device authority.
+  const authoritySummary = {
+    rawPairs: fixture.totalCandidates,
+    rejected: fixture.segments.reduce((sum, segment) => sum + segment.authority.rejected, 0),
+    survivingRecords: fixture.segments.reduce((sum, segment) => sum + segment.authority.frontier.length, 0),
+  };
+
   const planStart = performance.now();
   const plan = await createCoverage64ExperimentalPlan(runtime, {
     leftCapacity: fixture.totalLeft,
@@ -400,37 +410,12 @@ async function qualify(runtime, native, fixture) {
     const executionSamples = [];
     for (let index = 0; index < repetitions; index += 1) executionSamples.push(await runOperation(plan, bindings));
 
-    const generationValues = await readU32(generationStatus);
-    const rejectedValues = await readU32(rejectedCounts);
-    const outputCountValues = await readU32(outputCounts);
-    const outputStatusValues = await readU32(outputStatus);
-    const outputLoValues = await readU32(outputLo);
-    const outputHiValues = await readU32(outputHi);
-
-    let totalRejected = 0;
-    let totalSurviving = 0;
-    for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex += 1) {
-      assert.equal(generationValues[segmentIndex], 0, `segment ${segmentIndex} generation metadata failed`);
-      assert.equal(outputStatusValues[segmentIndex], 0, `segment ${segmentIndex} output overflow/metadata failure`);
-      assert.equal(rejectedValues[segmentIndex], fixture.segments[segmentIndex].authority.rejected, `segment ${segmentIndex} rejected-count mismatch`);
-      totalRejected += rejectedValues[segmentIndex];
-
-      const observed = [];
-      const count = outputCountValues[segmentIndex];
-      const base = segmentIndex * outputCapacityPerSegment;
-      for (let i = 0; i < count; i += 1) observed.push({ lo: outputLoValues[base + i], hi: outputHiValues[base + i] });
-      const expected = fixture.segments[segmentIndex].authority.frontier;
-      const observedKeys = observed.map(key64).sort();
-      const expectedKeys = expected.map(key64).sort();
-      assert.deepEqual(observedKeys, expectedKeys, `segment ${segmentIndex} exact frontier mismatch`);
-      totalSurviving += count;
-    }
-
     const timing = summarize(executionSamples);
-    return {
+    const result = {
       schemaVersion: 1,
       kind: 'connect4-cuda-bsfp-clause-coverage64-experimental-qualification',
       mode: native ? 'native' : 'portable',
+      outcome: native ? 'native-exact-frontier-pass' : 'portable-compile-prepare-submit-pass',
       planContract: plan.contract,
       semanticScope: 'fixed-two-u32 coverage qualification only; production coverage width is geometry-selected',
       fixture: {
@@ -439,8 +424,8 @@ async function qualify(runtime, native, fixture) {
         dictionarySize: fixture.dictionarySize,
         recordsPerSidePerSegment: fixture.segments[0].left.length,
         rawPairCandidates: fixture.totalCandidates,
-        rejectedBeforeNormalization: totalRejected,
-        normalizedSurvivingRecords: totalSurviving,
+        cpuAuthorityRejectedBeforeNormalization: authoritySummary.rejected,
+        cpuAuthorityNormalizedSurvivingRecords: authoritySummary.survivingRecords,
       },
       timingsMs: {
         compileLoadPrepare: compileLoadPrepareMs,
@@ -450,9 +435,42 @@ async function qualify(runtime, native, fixture) {
       throughput: {
         rawPairsPerSecondMedian: fixture.totalCandidates * 1000 / timing.median,
       },
-      exactFrontierMismatches: 0,
-      rejectedCountMismatches: 0,
+      deviceSemanticValidation: native ? 'exact' : 'not-executed-by-testing-runtime',
     };
+
+    if (native) {
+      const generationValues = await readU32(generationStatus);
+      const rejectedValues = await readU32(rejectedCounts);
+      const outputCountValues = await readU32(outputCounts);
+      const outputStatusValues = await readU32(outputStatus);
+      const outputLoValues = await readU32(outputLo);
+      const outputHiValues = await readU32(outputHi);
+
+      let totalRejected = 0;
+      let totalSurviving = 0;
+      for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex += 1) {
+        assert.equal(generationValues[segmentIndex], 0, `segment ${segmentIndex} generation metadata failed`);
+        assert.equal(outputStatusValues[segmentIndex], 0, `segment ${segmentIndex} output overflow/metadata failure`);
+        assert.equal(rejectedValues[segmentIndex], fixture.segments[segmentIndex].authority.rejected, `segment ${segmentIndex} rejected-count mismatch`);
+        totalRejected += rejectedValues[segmentIndex];
+
+        const observed = [];
+        const count = outputCountValues[segmentIndex];
+        const base = segmentIndex * outputCapacityPerSegment;
+        for (let i = 0; i < count; i += 1) observed.push({ lo: outputLoValues[base + i], hi: outputHiValues[base + i] });
+        const expected = fixture.segments[segmentIndex].authority.frontier;
+        const observedKeys = observed.map(key64).sort();
+        const expectedKeys = expected.map(key64).sort();
+        assert.deepEqual(observedKeys, expectedKeys, `segment ${segmentIndex} exact frontier mismatch`);
+        totalSurviving += count;
+      }
+      result.fixture.deviceRejectedBeforeNormalization = totalRejected;
+      result.fixture.deviceNormalizedSurvivingRecords = totalSurviving;
+      result.exactFrontierMismatches = 0;
+      result.rejectedCountMismatches = 0;
+    }
+
+    return result;
   } finally {
     await plan.close();
     for (let index = allocations.length - 1; index >= 0; index -= 1) await closeAllocation(allocations[index]);
@@ -466,22 +484,15 @@ const segmentCount = positiveIntegerEnv('BSFP_COVERAGE_SEGMENTS', DEFAULT_SEGMEN
 const cellCount = positiveIntegerEnv('BSFP_COVERAGE_CELLS', DEFAULT_CELLS);
 const dictionarySize = positiveIntegerEnv('BSFP_COVERAGE_DICTIONARY', DEFAULT_DICTIONARY);
 const side = positiveIntegerEnv('BSFP_COVERAGE_SIDE', native ? NATIVE_SIDE : PORTABLE_SIDE);
-
-const fixtureStart = performance.now();
 const fixture = createFixture(segmentCount, side, cellCount, dictionarySize);
-const fixtureMs = performance.now() - fixtureStart;
 
 let runtime;
-const processStart = performance.now();
 try {
-  const runtimeStart = performance.now();
-  runtime = native ? await openCudaRuntime({ compiler: true }) : await openCudaRuntimeForTesting({ compiler: true });
-  const runtimeOpenMs = performance.now() - runtimeStart;
+  runtime = native
+    ? await openCudaRuntime({ compiler: true })
+    : await openCudaRuntimeForTesting({ compiler: true });
   const result = await qualify(runtime, native, fixture);
-  result.timingsMs.fixture = fixtureMs;
-  result.timingsMs.runtimeOpen = runtimeOpenMs;
-  result.timingsMs.processToResult = performance.now() - processStart;
-  console.log(JSON.stringify(result, null, 2));
+  process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
 } finally {
   if (runtime) {
     const closed = await runtime.close();
