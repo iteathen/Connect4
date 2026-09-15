@@ -21,3 +21,10 @@ jobs:
         env:
           C4_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
         run: npm run bench:strength | tee strength-evidence.json
+      - name: Upload solved strength evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: strength-evidence-${{ github.event.pull_request.head.sha || github.sha }}
+          path: strength-evidence.json
+          if-no-files-found: error
+          retention-days: 3
