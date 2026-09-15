@@ -8,13 +8,13 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: derive_deadline_valued_ndc_selector
+  id: derive_post_center_strong_distance_selector
   objective: >-
-    Continue from the board-parameterized K=4 invariant family. Derive or falsify an exact deadline-valued
-    CPC/NDC closure that selects/characterizes the relevant terminal/control envelope from W,H,K=4,
-    turn parity and generated structural facts without recursive legal-move child-value solving. Standard
-    7x6 must emerge as the core-balanced, perfect-pairing, unique-initial-centrality case and produce its
-    canonical 28 envelope without predefined 28 or oracle prefix/distance premises.
+    Continue from the searchless theorem that any P0 forced win on 7 x even-H must open center.
+    Starting from P0 center, derive or falsify a nonrecursive deadline-valued CPC/NDC certificate showing
+    why the longest-resistance P1 response is the same-column zero-phase response, and whether the same
+    selection mechanism repeats through the natural preterminal rank 2K-3=5. Issue #41's best-move scores,
+    five-center prefix and ply-41 result are validation only and forbidden as premises.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -27,105 +27,106 @@ required_authority:
   - docs/research/2026-09-14-empty-board-canonical-28-bridge.md
   - docs/research/2026-09-14-k4-board-invariant-family.md
   - docs/research/2026-09-14-k4-selection-invariant-frontier.md
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-board-invariant-family-control.mjs
+  - docs/research/2026-09-14-searchless-seven-wide-opening-selection.md
   - research/semantic-quotient/state-identity-unification/src/quotient-connect4-phase-path-transport-control.mjs
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-initial-event-centrality-control.mjs
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-preterminal-exclusion-capacity-audit.mjs
+  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-elementary-response-cover-control.mjs
+  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-seven-wide-noncenter-draw-certificate.mjs
 
 qualified_premises:
-  - id: regular_k4_invariant_family
+  - id: standard_common_Y
     statement: >-
-      Generated K=4 geometry defines B,Q_axis,Q_phase,Y_cell,Y_line and Delta on every board. In the
-      regular regime: L=4WH-9W-9H+18, rankB=WH-7, axis rank=W+H-6, phase rank=W-1,
-      Y_cell=WH-W-H-1, Y_line=3WH-10W-9H+26, Delta=(W-4)(2H-9)-9, with explicit narrow degeneracies.
-  - id: balanced_shapes
+      Standard 7x6 generated incidence has Y_cell=Y_line=28 and the qualified beta/gamma forms are perfect,
+      defining a natural T:Y_line->Y_cell. No solved label or predefined 28 is used.
+  - id: board_family_invariants
     statement: >-
-      Delta=0 iff (W-4)(2H-9)=9 in the regular positive-integer regime, giving 5x9/core30,
-      7x6/core28, and 13x5/core46. Standard 7x6 is the only balanced shape with <=42 cells.
-  - id: board_family_cpc_parity
-    statement: >-
-      q_(W,H)(S)=(W-1)H+C(S)+r_max(S) mod2. The standard q=C+r shorthand is not cross-board valid.
+      In regular K=4 geometry, Y_cell=WH-W-H-1, Y_line=3WH-10W-9H+26 and
+      Delta=(W-4)(2H-9)-9, with generated-rank definitions authoritative on narrow degeneracies.
+      Cross-board CPC residual parity is q_(W,H)(S)=(W-1)H+C(S)+r_max(S) mod2.
   - id: phase_path_transport
     statement: >-
-      C_phase is canonically the edge space of the width-W path graph. Boundary(edge_i)=e_i+e_(i+1),
-      each displacement e_a+e_b has the unique interval lift between a,b, and structural phase transport
-      length is |a-b|. Same-column two-ply play is zero transport. Game-theoretic distance monotonicity is not assumed.
-  - id: initial_event_centrality
+      C_phase is canonically the edge space of the width-W path. Each e_a+e_b has the unique interval lift
+      between a,b and structural phase transport |a-b|. Same-column two-ply response has zero phase transport.
+      No monotonic relation to game-theoretic strong distance is assumed yet.
+  - id: canonical_28_bridge
     statement: >-
-      Empty-board bottom-event impact is d_W(c)=1+h4_W(c)+I(c<=W-4)+I(c>=3). W=7 is the unique
-      K=4 width with one unique maximum-impact initially legal event; profile [3,4,5,7,5,4,3], maximum center.
-  - id: combined_standard_classification
+      On 7x6 the target-free symmetry/P/maximal-delay construction gives the oracle-matching 28-line envelope;
+      natural preterminal rank is 5 and the five-high center stack uniquely maximizes maximal-delay exclusion 38-10=28.
+      The remaining issue is semantic strong-distance selection.
+  - id: elementary_response_frontier
     statement: >-
-      Core balance plus unique maximum initial-event impact forces W=7,H=6 and then common core
-      Y=WH-W-H-1=28. This is structural classification, not yet an optimal-move theorem.
-  - id: balance_not_pairing
+      For empty K=4 W x H, generic compatible Claimeven/Baseinverse programs certify all geometric P0 requirements
+      except horizontal length-4 requirements on one-based odd rows >=3. Exact unresolved count is
+      (W-3)*floor((H-1)/2). Standard 7x6 gives 61 certified / 8 unresolved.
+  - id: center_opening_necessary
     statement: >-
-      Existing corrected beta/gamma forms are perfect only on 7x6 among the three balanced shapes:
-      ranks 28/26 on 5x9, 28/28 on 7x6, 42/34 on 13x5. Equal core dimension is insufficient.
-  - id: preterminal_capacity
+      For every even H>=4 on width 7, every non-center P0 opening has an explicit P1 draw certificate built
+      from Before, Baseinverse and Claimeven response programs. Therefore any P0 forced win must open center.
+      This is constructive and searchless; it does not assume that the empty board is a P0 win.
+  - id: compatibility_provenance
     statement: >-
-      X5(W,H) measures static five-ply exclusion of P0 maximal-delay support predicates. Standard 7x6
-      has envelope38,X5=10,min28 uniquely at the center stack. But 8x7 also has min survivors=Y_cell=40,
-      so this scalar equality is not a universal selector.
-  - id: canonical_standard_bridge
+      PR #39's base U1/Test-B file is a preserved v1 harness whose descriptor omitted claims. The v3 runner
+      patches that seam and restores zero false negatives against the conservative Allis compatibility table.
+      Do not use the v1 generic compatibility implementation as proof authority.
+  - id: selector_shortcuts_falsified
     statement: >-
-      Searchlessly on 7x6, symmetry/P/maximal-delay geometry produces the same 28-line envelope later
-      observed externally. The unresolved fact is semantic deadline/control selection, not discovery of 28.
+      Terminal-envelope cardinality, preterminal exclusion capacity, cooperative completion horizons,
+      minimum blocker hitting sets, raw release unions, and simple same-support residual dominance are
+      insufficient as universal strong-distance selectors.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   primary_question: >-
-    Can exact strong-distance/control selection be represented as a finite ranked NDC closure over residual
-    requirements and deadlines, using phase-path transport and response resources, rather than recursive moves?
+    After P0 opens center, what exact static/ranked response-support invariant makes P1's same-column response
+    uniquely maximize certified survival horizon without comparing recursive child game values?
   first_construction:
     - >-
-      Define a horizon-bearing certificate type: prerequisites, response/resource guards, consequence,
-      and exact earliest/latest rank. Keep proof polarity and universal response obligations explicit.
+      Define a deadline-bearing response certificate with prerequisites, response resources, blocker consequence,
+      support events discharged by the response, and earliest/latest rank horizon.
     - >-
-      For conjunctive prerequisites derive horizon from the latest prerequisite. For alternative exact
-      witnesses use the earliest certified witness only where logical polarity permits. Do not hide opponent
-      universality inside an informal min/max shortcut.
+      Compile elementary and Before-style response programs into that common certificate form. A response event
+      must update both blocker coverage and gravity support prerequisites before the next closure step.
     - >-
-      Define requirement-completion horizon from support/event precedence plus CPC ownership/phase facts.
-      Define blocker horizon separately. A blocker solves a requirement only when certification plus timing
-      proves the opponent cannot complete before the blocker/response event.
+      Compare the seven P1 replies after P0 center using only generated residual requirements, support precedence,
+      corrected CPC parity, phase-path transport and exact response certificates. Derive a certified P0 completion
+      upper bound or P1 survival lower bound; do not use child W/D/L or oracle distance.
     - >-
-      Lift e_a+e_b through the canonical phase path so reservation/release/response changes carry explicit
-      transport support, not merely an anonymous even-weight vector.
+      If the zero-phase center reply is uniquely best under the exact bound, repeat the same proof at plies 2,3,4
+      along the selected chain. If not, preserve the smallest reply/prefix counterexample and identify the missing
+      certificate relation.
     - >-
-      Test the smallest complete Connect-4 controls first (4x4,5x3/4x5 where applicable), then standard
-      structural anchors. Full legal-state enumeration may be used only as an independent oracle/falsifier,
-      never as the production closure mechanism.
+      Only after the five-event chain is derived should the maximal-delay terminal boundary and canonical 28
+      envelope be composed into the game-semantic theorem.
   required_checks:
-    - no solved WDL, best move, forced prefix or terminal-distance premise in production derivation
-    - no predefined 28,30,69 or fitted terminal census scalar
-    - no recursive minimax, Negamax, MCTS or PNS as proof mechanism
-    - preserve response/resource/deadline conditions whenever CPC facts depend on them
-    - preserve q_(W,H) board constant in residual parity
-    - preserve thin-board and narrow-degeneracy handling
-    - preserve Delta and beta/gamma radicals/cokernels instead of forcing square common-Y semantics
-    - distinguish phase transport length from game-theoretic strong distance until proved
-    - incoming exact board data is validation/falsification only
+    - no issue #41 best-move scores, forced prefix or terminal ply as premises
+    - no solved WDL label required to prove center-opening necessity or post-center ranking
+    - no recursive minimax, Negamax, MCTS or PNS proof mechanism
+    - preserve board constant in CPC parity
+    - preserve response/resource guards and deadlines
+    - model response-support transfer explicitly
+    - distinguish phase-path transport length from strong distance until proved
+    - use conservative rule compatibility where generic extra combinations lack proof authority
+    - complete small-board/state-tree data may be independent falsification oracle only
   falsification:
-    - if two certificates merged by the proposed state have different next deadline consequences, compression fails
-    - if schedule/order changes the closure result, the NDC profile is unsound
-    - if a certified blocker arrives after the requirement can complete, it cannot be used for elimination
-    - if a scalar count predicts selection but a qualified board/control contradicts it, preserve the counterexample
-    - if the closure reconstructs the full legal move tree with no meaningful dependency sharing, it fails the searchless objective
+    - if two response certificates with equal compressed state yield different next deadline/support consequences, compression fails
+    - if a blocker horizon does not beat the opponent completion horizon, it cannot eliminate that requirement
+    - if a defender response helps the attacker by releasing support and the model ignores it, the model fails
+    - if an off-center reply ties or beats center under the proposed exact static horizon, center selection is not proved by that invariant
+    - if closure outcome depends on scheduling order, the profile is unsound
+    - if proving reply ranking requires recursive child-value comparison, it fails the searchless objective
 
 success_criteria:
-  - exact horizon-bearing certificate semantics with monotone/ranked closure
-  - direct geometry-to-closure construction on at least one complete small-game control without state-tree generation
-  - independent oracle agreement for outcome and, where claimed, distance horizon
-  - standard 7x6 structural path remains compatible and no 28 special case is inserted
-  - board-family invariant vector remains the input contract
-  - durable theorem/falsifier note and synchronized routers
+  - exact deadline-valued response/support certificate semantics
+  - searchless unique selection of P1 center after P0 center, or a durable minimal falsifier
+  - if selected, repeated derivation through the natural five-event prefix without oracle premises
+  - explicit statement whether resulting theorem establishes only prefix selection or also maximal delay / 28 terminal geometry
+  - executable Node control and durable research note
+  - synchronized STATUS.md / next_step.yaml
 
 secondary_validation_lane:
-  status: active_when_new_evidence_arrives
+  status: validation_only
   note: >-
-    Qualify varying-board exact censuses only after matching upper/lower evidence. Use them to falsify or validate
-    the closure after its definition is fixed.
+    Issue #41's strong-distance scores and incoming varying-board censuses may be used only after a candidate
+    selector is fixed, to validate or falsify it.
 
 paused_structural_seam:
   id: history_aware_marked_residual_calculus
