@@ -82,7 +82,7 @@ function createWinningLineMasks(columns, rows, connect) {
     for (let row = 0; row <= rows - connect; row += 1) {
       let mask = 0;
       for (let step = 0; step < connect; step += 1) mask |= 1 << index(column + step, row + step);
-      result.push(mask >>> 0);
+      result.push(mask >>> 0;
     }
   }
   for (let column = 0; column <= columns - connect; column += 1) {
@@ -298,7 +298,7 @@ function buildCofactorMap(parentDictionary, childDictionary, landingCell, ownerT
   for (let childId = 0; childId < childDictionary.masks.length; childId += 1) {
     const childClause = childDictionary.masks[childId];
     if (ownerTrue) {
-      if ((childClause & landingBit) !== 0) continue; // satisfied
+      if ((childClause & landingBit) !== 0) continue;
       const parentId = parentDictionary.idByMask.get(childClause);
       if (parentId === undefined) throw new Error('beneficiary cofactor escaped parent dictionary');
       contributions[childId] = parentDictionary.upwardCoverage[parentId];
@@ -345,6 +345,90 @@ function equalCoverageFrontiers(left, right) {
   return a.every((value, index) => value === b[index]);
 }
 
+function exactStoneCount(rank, beneficiary) {
+  return beneficiary === 0 ? Math.ceil(rank / 2) : Math.floor(rank / 2);
+}
+
+function capacityKeepCoverage(candidate, dictionaryMasks, supportUniverse, exactCount) {
+  let forcedCells = 0;
+  let forcedCount = 0;
+
+  for (let id = 0; id < dictionaryMasks.length; id += 1) {
+    const clause = dictionaryMasks[id];
+    if (popcount32(clause) !== 1) continue;
+    if ((candidate & (1n << BigInt(id))) !== 0n) {
+      forcedCells |= clause;
+      forcedCount += 1;
+    }
+  }
+
+  if (forcedCount > exactCount) return false;
+
+  let satisfiedCoverage = 0n;
+  for (let id = 0; id < dictionaryMasks.length; id += 1) {
+    if ((dictionaryMasks[id] & forcedCells) !== 0) satisfiedCoverage |= 1n << BigInt(id);
+  }
+
+  const extra = candidate & ~satisfiedCoverage;
+  if (extra === 0n) return true;
+  if (forcedCount === exactCount) return false;
+  if (forcedCount + 1 !== exactCount) return true;
+
+  let witness = false;
+  forEachSetBit32(supportUniverse, (cell) => {
+    if (witness) return;
+    const cellBit = (1 << cell) >>> 0;
+    if ((forcedCells & cellBit) !== 0) return;
+    let contains = 0n;
+    for (let id = 0; id < dictionaryMasks.length; id += 1) {
+      if ((dictionaryMasks[id] & cellBit) !== 0) contains |= 1n << BigInt(id);
+    }
+    if ((extra & ~contains) === 0n) witness = true;
+  });
+  return witness;
+}
+
+function analyzeUniversalJob(job) {
+  if (job === null) return null;
+  const accepted = [];
+  const uniqueRaw = new Set();
+  const uniqueAccepted = new Set();
+  let rejected = 0;
+
+  for (const left of job.left) {
+    for (const right of job.right) {
+      const candidate = left | right;
+      uniqueRaw.add(candidate.toString());
+      if (capacityKeepCoverage(candidate, job.dictionaryMasks, job.supportUniverse, job.exactCount)) {
+        accepted.push(candidate);
+        uniqueAccepted.add(candidate.toString());
+      } else {
+        rejected += 1;
+      }
+    }
+  }
+
+  const normalized = normalizeCoverageFrontier(accepted);
+  return {
+    supportKey: job.supportKey,
+    rank: job.rank,
+    mover: job.mover,
+    beneficiary: job.beneficiary,
+    moveColumn: job.moveColumn,
+    dictionarySize: job.dictionaryMasks.length,
+    exactCount: job.exactCount,
+    leftRecords: job.left.length,
+    rightRecords: job.right.length,
+    rawPairCandidates: job.left.length * job.right.length,
+    uniqueRawOrCandidates: uniqueRaw.size,
+    exactDuplicateOrCandidates: job.left.length * job.right.length - uniqueRaw.size,
+    rejectedBeforeNormalization: rejected,
+    acceptedPairCandidates: accepted.length,
+    uniqueAcceptedCandidates: uniqueAccepted.size,
+    normalizedSurvivingRecords: normalized.length,
+  };
+}
+
 function solveGeometry(columns, rows, connect) {
   if (columns * rows >= 31) throw new RangeError('reference cell-mask backend requires fewer than 31 cells');
 
@@ -363,6 +447,7 @@ function solveGeometry(columns, rows, connect) {
   let cofactorMapsBuilt = 0;
   let maximumDictionary = 0;
   let totalDictionary = 0;
+  let largestUniversalJob = null;
   const dictionaryByRank = {};
 
   for (let index = 0; index < dictionaries.length; index += 1) {
@@ -387,6 +472,24 @@ function solveGeometry(columns, rows, connect) {
       let aggregateClause1 = null;
       let aggregateCoverage0 = null;
       let aggregateCoverage1 = null;
+
+      const considerUniversalJob = (beneficiary, left, right, moveColumn) => {
+        if (left === null || right === null || left.length === 0 || right.length === 0) return;
+        const pairCount = left.length * right.length;
+        if (largestUniversalJob !== null && pairCount <= largestUniversalJob.left.length * largestUniversalJob.right.length) return;
+        largestUniversalJob = {
+          supportKey: support.key,
+          supportUniverse: support.universe,
+          rank,
+          mover,
+          beneficiary,
+          moveColumn,
+          exactCount: exactStoneCount(rank, beneficiary),
+          dictionaryMasks: parentDictionary.masks.slice(),
+          left: left.slice(),
+          right: right.slice(),
+        };
+      };
 
       for (let column = 0; column < columns; column += 1) {
         const row = support.heights[column];
@@ -453,11 +556,13 @@ function solveGeometry(columns, rows, connect) {
           aggregateCoverage0 = moveCoverage0;
           aggregateCoverage1 = moveCoverage1;
         } else if (mover === 0) {
+          considerUniversalJob(1, aggregateCoverage1, moveCoverage1, column);
           aggregateClause0 = unionClauseFrontiers(aggregateClause0, moveClause0);
           aggregateClause1 = intersectClauseFrontiers(aggregateClause1, moveClause1);
           aggregateCoverage0 = unionCoverageFrontiers(aggregateCoverage0, moveCoverage0);
           aggregateCoverage1 = intersectCoverageFrontiers(aggregateCoverage1, moveCoverage1);
         } else {
+          considerUniversalJob(0, aggregateCoverage0, moveCoverage0, column);
           aggregateClause0 = intersectClauseFrontiers(aggregateClause0, moveClause0);
           aggregateClause1 = unionClauseFrontiers(aggregateClause1, moveClause1);
           aggregateCoverage0 = intersectCoverageFrontiers(aggregateCoverage0, moveCoverage0);
@@ -496,6 +601,7 @@ function solveGeometry(columns, rows, connect) {
     supports: supports.length,
     supportMismatches,
     cofactorMapsBuilt,
+    largestUniversalIntersection: analyzeUniversalJob(largestUniversalJob),
     dictionary: {
       maximum: maximumDictionary,
       mean: totalDictionary / dictionaries.length,
@@ -559,7 +665,7 @@ for (const geometry of controls) {
 
 const targetCensus = dictionaryCensus(6, 5, 4);
 const output = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   kind: 'connect4-bsfp-support-local-clause-coverage-cofactor-qualification',
   authority: 'beneficiary-relative OR-of-monotone-CNF clause frontier',
   candidate: 'support-local upward-coverage records with precomputed child-parent cofactor maps',
