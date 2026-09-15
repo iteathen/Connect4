@@ -104,6 +104,9 @@ jobs:
       - name: Run exact rank-slice compact42 portable qualifier
         run: node research/experiments/cuda-bsfp-rank-slice-compact42/run.mjs portable
 
+      - name: Run rank-bounded compact42 phase-window qualifier
+        run: node research/experiments/cuda-bsfp-rank-slice-compact42/run-phase-window.mjs portable
+
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 
