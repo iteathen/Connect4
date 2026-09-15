@@ -1,25 +1,35 @@
-# Connect4 current research status
+# Connect4 current Isometric status
 
 **Updated:** 2026-09-15  
-**Branch:** `research/terminal-frontier-horizon-exact`  
+**Branch:** `isometric`  
+**Solver family:** Isometric  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This file is the current-state router, not a theorem ledger. Exact derivations and qualification evidence live in `docs/research/**`; the executable theorem continuation lives in `next_step.yaml`; forward-lane controls live under `research/semantic-quotient/**`.
+This file is the current-state router for the Isometric line, not a theorem ledger. Exact derivations and qualification evidence live in `docs/research/**`; the executable continuation lives in `next_step.yaml`; the branch ownership boundary is in `ISOMETRIC_BRANCH.md`.
+
+## Solver-family boundary
+
+Isometric is now a first-class sibling of the BSFP, Research, and Negamax lineages. The complete live terminal-frontier experiment was split from `research/terminal-frontier-horizon-exact` at `6b7f19ce4d15423f6f2537dd7b18bcba2a7348ea` without semantic rewriting.
+
+The historical source branch and closed draft PR #45 are provenance only. New Isometric semantics, implementation, experiments and qualification work belong on `isometric`. Do not route the line back into Negamax merely because its implementation ancestry came from the Negamax experiment.
+
+C4-0011 is the Candidate Isometric solver specification. C4-0010 remains the accepted quotient-native Negamax research specification and may be used as lineage/control evidence or explicitly imported where independently justified, but it does not own Isometric semantics.
 
 ## Authority and proof boundary
 
 - Domain target: every positive finite rectangle `W x H`, Connect-4 (`K=4`).
-- C4-0006 and C4-0007 remain Candidate structural/proof specifications. C4-0010 is an accepted research consumer and does not promote imported Candidate clauses.
+- C4-0006 and C4-0007 remain Candidate structural/proof specifications. C4-0011 is the Candidate Isometric solver consumer.
 - Finite sweeps, solved W/D/L tables, strong-distance data, and varying-board censuses are discovery/validation/falsification evidence only.
 - Unknown is not loss; theorem failure is not theorem negation; equal dimension is not a natural isomorphism; absence of a forcing certificate is not a draw certificate.
 - No recursive minimax/Negamax/MCTS/PNS result or solved database label is a premise of an asserted structural theorem.
 - First-win stopping remains authoritative over partial structural observations.
 - Structural move-order descriptors are advisory only unless a separately qualified theorem upgrades them to an exact interval/value consequence.
+- Current recursive alpha-beta/minimax machinery is an execution backend for unresolved residue; it is not the Isometric solver-family identity.
 
 ## Closed structural foundation currently in use
 
-The current research stack is:
+The current Isometric research stack is:
 
 ```text
 geometric winning-line axioms
@@ -28,7 +38,8 @@ geometric winning-line axioms
   -> positive residual antichains and blocker clauses
   -> guarded response/resource/deadline consequences
   -> NDC certificate closure
-  -> solver-specific exact proof procedure.
+  -> Isometric structural consequence procedure
+  -> recursive residual backend only where structure remains unresolved.
 ```
 
 The following September 14 results are retained as the active foundation rather than repeated here in full:
@@ -110,9 +121,9 @@ Primary notes:
 
 Finite database results currently falsify value-completeness of boundary-capacity, degree-2, GF(2)-span, and current-owner degree-2-jet projections. Exact residual identity and the ownerJet signature have no sampled value collision, but this is finite validation only and gives no theorem or compact-selector proof.
 
-## Active solver / terminal-frontier optimization lane
+## Active Isometric solver / terminal-frontier lane
 
-Draft PR #45 owns the current incumbent structural-search experiment.
+The former draft PR #45 contained the pre-split terminal-frontier experiment. It is now closed and retained only as historical provenance. The live solver lane is `isometric`.
 
 Accepted semantics remain:
 
@@ -124,6 +135,8 @@ otherwise                                    -> heuristic horizon evaluation
 ```
 
 The behavior-preserving terminal/frontier representation remains accepted: stable first-order line/residual facts are maintained once in transition state and consumed by terminal, tactical and evaluator logic.
+
+The current recursive search implementation is fixed-root-perspective alpha-beta minimax, not canonical Negamax: unresolved child values are combined by explicit max/min according to the root player rather than by sign-flipped Negamax recurrence. That backend remains permitted while unresolved residue still requires recursive value composition.
 
 ### Accepted native singleton-effect ordering
 
@@ -158,7 +171,7 @@ opponent residual destruction structural fact   retain exact/unsigned
 opponent residual destruction as move-order tier reject at tested placement
 ```
 
-The exact experiment state is preserved on `research/terminal-frontier-horizon-exact-suppression-evidence`; active production source is restored to the accepted singleton-order implementation.
+The exact experiment state is preserved on `research/terminal-frontier-horizon-exact-suppression-evidence`; active Isometric source remains restored to the accepted singleton-order implementation.
 
 Detailed record:
 
@@ -176,7 +189,7 @@ This negative result sharpens the optimization rule: theorem/runtime corresponde
 
 The first construction must preserve exact support/full residual identity, separate commuting cofactor algebra from legal time, quantify opponent intervention over consequences rather than one named residual, and preserve first-win stopping.
 
-### Solver optimization lane
+### Isometric solver optimization lane
 
 Do **not** immediately replace the rejected suppression tier with another raw residual-count heuristic.
 
@@ -195,10 +208,12 @@ TT investigations must distinguish key aliasing, probe/bucket cost, capacity/rep
 - history-aware marked residual calculus after the qualified 21-space — preserved;
 - forward W/D/L rank-7 P1 horizon at exact state `4665655` — unfinished but preserved;
 - varying-board census — validation/falsification only;
-- isolated `research/connect-k-derivative-classification` branch — not merged; its predicate/axiom ledger is compatible with the current classification but does not solve the temporal guard seam.
+- isolated `research/connect-k-derivative-classification` branch — not merged; its predicate/axiom ledger is compatible with the current classification but does not solve the temporal guard seam;
+- `research/terminal-frontier-horizon-exact` — frozen historical split source for Isometric after commit `6b7f19ce4d15423f6f2537dd7b18bcba2a7348ea`;
+- closed PR #45 — historical discussion/evidence only, not a merge path into Negamax.
 
 ## Retention and cleanup rule
 
 Keep durable theorem derivations, exact qualification evidence, useful falsifiers, and historically important performance/provenance records. Git history and explicitly named evidence branches are the archive for superseded candidates, handoffs, chat summaries, temporary publication checkpoints, and obsolete executable/scaffolding state.
 
-Do not create another chronological status ledger. Update this file only when the current proof boundary, accepted solver seam, rejected optimization boundary, or routing materially changes.
+Do not create another chronological status ledger. Update this file only when the current proof boundary, accepted Isometric solver seam, rejected optimization boundary, or routing materially changes.
