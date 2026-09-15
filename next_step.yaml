@@ -8,12 +8,12 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: derive_owner_labelled_enabling_guard_closure
+  id: derive_guarded_mixed_cofactor_obligation_birth
   objective: >-
-    Derive the guarded owner-labelled cubic-residual enabling relation that distinguishes the documented
-    six-ply draw/win collision under the current-owner low-order event projection. Preserve exact support and
-    full residual identity; compose positive cofactors with intervening-choice, response, support and first-win
-    guards. This is the next bounded proof seam toward the all-board affine/clause value closure.
+    Derive the smallest exact guarded quantifier-lift rule that converts mixed owner-labelled positive cofactors
+    into certified NDC obligations before a deadline. Preserve exact support and full residual identity. Treat
+    owner-labelled enabling as a derived certificate relation, not a new board-state coordinate, unless the first
+    unresolved support/resource/deadline guard proves otherwise.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -31,6 +31,7 @@ required_authority:
   - docs/research/2026-09-14-anchored-zero-edge-residuals.md
   - docs/research/2026-09-14-affine-clause-blocker-decomposition.md
   - docs/research/2026-09-14-solved-db-structural-discovery.md
+  - docs/research/2026-09-14-solved-db-structural-assessment.md
   - docs/research/2026-09-09-universal-strategic-algebra.md
   - docs/research/2026-09-09-nested-strategic-dependency-closure.md
 
@@ -66,6 +67,16 @@ qualified_premises:
       Against player p, x_v=q(v)+p. A certified blocker B is the positive clause OR_(v in B)x_v=1.
       It blocks residual R exactly when B subset_of R. Pair blocker is not XOR unless split ownership is
       independently certified.
+  - id: positive_cofactor_transition
+    statement: >-
+      Positive residual antichains implement exact monotone Boolean substitution. If player p acquires x,
+      p-residuals containing x contract by removing x and opponent residuals containing x are deleted, followed
+      by minimal-antichain canonicalization.
+  - id: mixed_owner_cofactor_commutation
+    statement: >-
+      For distinct cells x and y, owner-p substitution at x and owner-(1-p) substitution at y commute as Boolean
+      cofactors. Any noncommuting game content therefore enters through admissibility, support, resources,
+      deadlines or first-win stopping, not through the positive residual algebra itself.
   - id: safe_affine_seam_cube
     statement: >-
       Around any one-move safe setup column c, e_c + span{e_j : parity(j)!=parity(c)} is entirely
@@ -91,41 +102,56 @@ execution:
     Any unbounded board-family claim requires symbolic proof. Finite solved tables, constrained strategy solves,
     board sweeps and oracle data may falsify or guide discovery only.
   primary_question: >-
-    Can owner-labelled positive residual enabling, with explicit guards across the intervening player's turn,
-    derive the d-column action's draw versus P0-win consequence in the minimal database collision without
-    using its solved label as a premise or reconstructing a recursive move-tree proof?
+    Can the exact mixed owner-cofactor consequences already present in the full positive residual antichains be
+    lifted, with explicit opponent-universal intervention, support/resource, deadline and first-win guards, into
+    an NDC obligation that distinguishes the documented shared d-column continuation without using its solved
+    label as a premise or reconstructing a recursive move-tree proof?
   first_construction:
     - >-
       Start from zero-based A=[6,6,6,6,2,2] and B=[2,6,6,2,6,6]. Both have support [0,0,2,0,0,0,4]
       and equal current-owner low-order jets; keep their distinct full positive residual antichains.
     - >-
-      Compile owner-labelled cubic enabling records. A nonmoving-owner derivative is conditional on
-      intervening choices preserving the event/residual and on first-win stopping; never publish it unguarded.
+      Use exact owner-labelled cofactor substitution, including mixed-owner compositions. Do not add a new
+      enabling coordinate merely to cache a relation already derivable from residual incidence plus an event owner.
     - >-
-      Compose the cofactor consequences into the existing affine/clause and response-capacity kernel,
-      retaining shared response discharge, support order and deadlines. Determine the first unresolved guard.
+      Separate algebra from time: cofactor substitutions on distinct cells commute, while legal/admissible event
+      order is carried by support, side-to-move, reserved responses, deadlines and first-win stopping.
     - >-
-      Use the existing solved BDDs to falsify each proposed strengthening; derive its symbolic proof separately.
-      Absence of sampled collisions is not proof, and a nearly injective signature is not a compact value selector.
+      Define obligation birth only when a contracted residual is certified active before its deadline. Degree drop
+      alone is not an obligation. Reuse existing singleton/fork, blocker-clause and response-capacity consequence
+      forms rather than inventing a fourth Boolean consequence type.
     - >-
-      Reuse equal guarded consequences across variants, applying min/max only with their declared controller
-      or opponent quantifiers. Preserve the broader all-board closure objective and paused seams.
+      Quantify intervening opponent choices over the post-cofactor consequence, not over survival of one named
+      residual. An opponent may kill one residual while an alternative residual/certificate survives.
+    - >-
+      Merge equal consequences in the NDC certificate DAG. Apply min/max only with explicit controller-existential
+      or opponent-universal semantics. Stop at the first guard not derivable from support, blocker, control-potential,
+      response-resource, deadline or first-win coordinates; only that residue is a candidate new predicate.
+    - >-
+      Use solved BDD evidence only to falsify proposed strengthenings. Absence of sampled collisions is not proof,
+      and a nearly injective signature is not a compact value selector.
   required_checks:
     - pair blocker must not be silently promoted to XOR
     - eventual ownership must not replace ownership-before-deadline
+    - a lower-degree residual must not be promoted to a defensive obligation without support/deadline/resource proof
     - pure-followup/domain-wall safety is defensive substrate, not a signed value theorem
     - finite outcome interpolation is never proof
     - outcome player/sign bit is derived from an exact terminal ownership lift
     - draw is canonical 00 and does not require an arbitrary player bit
     - preserve first-win stopping semantics
+    - no Hall deficiency is a forcing certificate only where its guards are proved; absence is not draw evidence
   falsification:
     - a rule instance needs a consequence not expressible as affine fact, monotone clause or guarded temporal composition
+    - two different substitution orders on distinct cells produce different canonical positive cofactors
     - affine/clause propagation derives a stronger fact after its deadline rather than before it
     - two merged states with equal parity/clause sets have different support/resource obligations relevant to future proof
+    - universal intervention closure silently ignores an admissible opponent event that destroys the claimed consequence
     - a candidate signed selector disagrees with an independently solved board (validation only)
     - standard 7x6 requires inserting the known +1 label or 28 as a premise
 
 success_criteria:
+  - exact guarded mixed-cofactor-to-obligation composition with explicit quantifier and deadline semantics
+  - owner-labelled enabling remains derived unless a concrete non-derivable guard residue is exhibited
   - complete consequence-shape classification of currently used strategic rules
   - exact guarded affine-clause NDC closure with explicit information order and deadline semantics
   - no duplicated CPC/phase/player-color representation where one potential suffices
@@ -143,8 +169,12 @@ validation_only:
   - varying-board censuses
   - >-
     2026-09-14 solved-db structural discovery: 30254 standard-board states; finite source collisions falsify
-    boundary-capacity, degree2, F2-span and current-owner degree2-jet value completeness. The full exact
-    residual identity has no observed collisions. This supplies counterexamples, not theorem premises.
+    boundary-capacity, degree2, F2-span and current-owner degree2-jet value completeness. Full exact residual
+    identity and ownerJet have no observed sampled collision, which is validation only and not completeness proof.
+  - >-
+    2026-09-14 independent assessment: the A/B collision's 13/49 two-event low-order divergence was reproduced
+    without solved labels. The distinction is already present in full positive residual incidence and is exposed
+    by a derived mixed owner cofactor; the unresolved seam is guarded quantifier closure into obligations.
 
 paused_selection_seam:
   id: derive_post_center_strong_distance_selector
