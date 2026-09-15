@@ -52,40 +52,48 @@ export class PrimitivePosition {
     const index = row * p.columns + column;
     const player = this.sideToMove;
     const encoded = player + 1;
+    const lineState = this.lineState;
+    const lineEmptyXor = this.lineEmptyXor;
+    const singletonRefs0 = this.singletonRefs0;
+    const singletonRefs1 = this.singletonRefs1;
+    let singletonLineCount0 = this.singletonLineCount0;
+    let singletonLineCount1 = this.singletonLineCount1;
     let won = false;
 
     const start = p.positionLineOffsets[index];
     const end = p.positionLineOffsets[index + 1];
     for (let at = start; at < end; at++) {
       const line = p.positionLineIndices[at];
-      let state = this.lineState[line];
+      let state = lineState[line];
       let count0 = state & 7;
       let count1 = state >>> 3;
-      let empty = this.lineEmptyXor[line];
+      let empty = lineEmptyXor[line];
 
       if (count0 === 3 && count1 === 0) {
-        this.singletonRefs0[empty]--;
-        this.singletonLineCount0--;
+        singletonRefs0[empty]--;
+        singletonLineCount0--;
       } else if (count1 === 3 && count0 === 0) {
-        this.singletonRefs1[empty]--;
-        this.singletonLineCount1--;
+        singletonRefs1[empty]--;
+        singletonLineCount1--;
       }
 
       if (player === 0) count0++; else count1++;
       empty ^= index;
       state = count0 | (count1 << 3);
-      this.lineState[line] = state;
-      this.lineEmptyXor[line] = empty;
+      lineState[line] = state;
+      lineEmptyXor[line] = empty;
 
       if (count0 === 3 && count1 === 0) {
-        this.singletonRefs0[empty]++;
-        this.singletonLineCount0++;
+        singletonRefs0[empty]++;
+        singletonLineCount0++;
       } else if (count1 === 3 && count0 === 0) {
-        this.singletonRefs1[empty]++;
-        this.singletonLineCount1++;
+        singletonRefs1[empty]++;
+        singletonLineCount1++;
       }
       if ((player === 0 ? count0 : count1) === 4) won = true;
     }
+    this.singletonLineCount0 = singletonLineCount0;
+    this.singletonLineCount1 = singletonLineCount1;
 
     this.cells[index] = encoded;
     this.heights[column] = row + 1;
@@ -105,38 +113,46 @@ export class PrimitivePosition {
     const row = Math.floor(index / p.columns);
     const column = index - row * p.columns;
     const player = 1 - this.sideToMove;
+    const lineState = this.lineState;
+    const lineEmptyXor = this.lineEmptyXor;
+    const singletonRefs0 = this.singletonRefs0;
+    const singletonRefs1 = this.singletonRefs1;
+    let singletonLineCount0 = this.singletonLineCount0;
+    let singletonLineCount1 = this.singletonLineCount1;
 
     const start = p.positionLineOffsets[index];
     const end = p.positionLineOffsets[index + 1];
     for (let at = start; at < end; at++) {
       const line = p.positionLineIndices[at];
-      let state = this.lineState[line];
+      let state = lineState[line];
       let count0 = state & 7;
       let count1 = state >>> 3;
-      let empty = this.lineEmptyXor[line];
+      let empty = lineEmptyXor[line];
 
       if (count0 === 3 && count1 === 0) {
-        this.singletonRefs0[empty]--;
-        this.singletonLineCount0--;
+        singletonRefs0[empty]--;
+        singletonLineCount0--;
       } else if (count1 === 3 && count0 === 0) {
-        this.singletonRefs1[empty]--;
-        this.singletonLineCount1--;
+        singletonRefs1[empty]--;
+        singletonLineCount1--;
       }
 
       if (player === 0) count0--; else count1--;
       empty ^= index;
       state = count0 | (count1 << 3);
-      this.lineState[line] = state;
-      this.lineEmptyXor[line] = empty;
+      lineState[line] = state;
+      lineEmptyXor[line] = empty;
 
       if (count0 === 3 && count1 === 0) {
-        this.singletonRefs0[empty]++;
-        this.singletonLineCount0++;
+        singletonRefs0[empty]++;
+        singletonLineCount0++;
       } else if (count1 === 3 && count0 === 0) {
-        this.singletonRefs1[empty]++;
-        this.singletonLineCount1++;
+        singletonRefs1[empty]++;
+        singletonLineCount1++;
       }
     }
+    this.singletonLineCount0 = singletonLineCount0;
+    this.singletonLineCount1 = singletonLineCount1;
 
     this.sideToMove = player;
     this.heights[column]--;
