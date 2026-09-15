@@ -102,7 +102,9 @@ test('incremental terminal frontier remains exactly equivalent through apply/und
   for (const [columns, rows] of geometries) {
     for (let trial = 0; trial < 80; trial++) {
       const position = new PrimitivePosition(columns, rows);
+      let expectedEarlyDeadDrawTransitionHits = 0;
       assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} root`);
+      assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: root telemetry`);
 
       const transitions = position.profile.cellCount * 2;
       for (let step = 0; step < transitions; step++) {
@@ -110,6 +112,7 @@ test('incremental terminal frontier remains exactly equivalent through apply/und
         if (position.ply > 0 && (winner !== -1 || random(5) === 0)) {
           position.undoUnchecked();
           assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} undo ${step}`);
+          assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: undo telemetry ${step}`);
           continue;
         }
 
@@ -118,13 +121,19 @@ test('incremental terminal frontier remains exactly equivalent through apply/und
           if (position.heights[column] < rows) legal.push(column);
         }
         if (legal.length === 0) break;
+        const wasDeadDraw = position.isDeadDraw();
         position.applyUnchecked(legal[random(legal.length)]);
+        if (!wasDeadDraw && position.ply < position.profile.cellCount && position.isDeadDraw()) {
+          expectedEarlyDeadDrawTransitionHits++;
+        }
         assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} apply ${step}`);
+        assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: apply telemetry ${step}`);
       }
 
       while (position.ply > 0) {
         position.undoUnchecked();
         assertFrontierMatchesBoard(position, `${columns}x${rows} trial ${trial} unwind ${position.ply}`);
+        assert.equal(position.earlyDeadDrawTransitionHits, expectedEarlyDeadDrawTransitionHits, `${columns}x${rows} trial ${trial}: unwind telemetry ${position.ply}`);
       }
     }
   }
