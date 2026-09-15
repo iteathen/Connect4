@@ -17,7 +17,6 @@ function predictedQuietSuccessorEffects(position, column, player) {
   const opponentRefs = player === 0 ? position.singletonRefs1 : position.singletonRefs0;
   let effects = 0;
   let firstOwnCompletion = -1;
-  let ownPlayableSingletonClass = 0;
   let opponentSuppressionClass = 0;
 
   if (row + 1 < p.rows) {
@@ -51,13 +50,11 @@ function predictedQuietSuccessorEffects(position, column, player) {
     if (!playableAfterMove) continue;
 
     if (firstOwnCompletion < 0) firstOwnCompletion = remaining;
-    else if (remaining !== firstOwnCompletion) ownPlayableSingletonClass = 2;
+    else if (remaining !== firstOwnCompletion) return effects | 2;
   }
 
-  if (ownPlayableSingletonClass === 0 && firstOwnCompletion >= 0) ownPlayableSingletonClass = 1;
-  return effects
-    | ownPlayableSingletonClass
-    | (opponentSuppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
+  if (firstOwnCompletion >= 0) return effects | 1;
+  return effects | (opponentSuppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
 }
 
 function countPlayableSingletonCells(position, player) {
@@ -111,9 +108,9 @@ function realizedQuietSuccessorEffects(position, column, player) {
   const ownPlayable = Math.min(countPlayableSingletonCells(position, player), 2);
   const opponentPlayable = countPlayableSingletonCells(position, 1 - player) !== 0;
   position.undoUnchecked();
-  return ownPlayable
-    | (opponentPlayable ? EFFECT_EXPOSES_OPPONENT_SINGLETON : 0)
-    | (suppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
+  const frontierEffects = ownPlayable | (opponentPlayable ? EFFECT_EXPOSES_OPPONENT_SINGLETON : 0);
+  if (ownPlayable !== 0) return frontierEffects;
+  return frontierEffects | (suppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
 }
 
 function createRandom(seed) {
@@ -127,10 +124,11 @@ function createRandom(seed) {
   };
 }
 
-test('quiet native structural-effect descriptor matches child frontier and opponent residual destruction', () => {
+test('quiet native structural-effect descriptor matches tiered child effects', () => {
   const geometries = [[4, 4], [5, 4], [7, 6], [8, 6], [6, 7]];
   const random = createRandom(0x51a6e770);
   let qualifiedMoves = 0;
+  let qualifiedSuppressionMoves = 0;
 
   for (const [columns, rows] of geometries) {
     for (let trial = 0; trial < 240; trial++) {
@@ -149,8 +147,13 @@ test('quiet native structural-effect descriptor matches child frontier and oppon
               realized,
               `${columns}x${rows} trial ${trial} ply ${position.ply} column ${column}`,
             );
-            assert.ok((predicted & EFFECT_OWN_PLAYABLE_SINGLETON_MASK) <= 2);
-            assert.ok(((predicted & EFFECT_OPPONENT_SUPPRESSION_MASK) >>> EFFECT_OPPONENT_SUPPRESSION_SHIFT) <= 2);
+            const singletonClass = predicted & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
+            const suppressionClass = (predicted & EFFECT_OPPONENT_SUPPRESSION_MASK)
+              >>> EFFECT_OPPONENT_SUPPRESSION_SHIFT;
+            assert.ok(singletonClass <= 2);
+            assert.ok(suppressionClass <= 2);
+            if (singletonClass !== 0) assert.equal(suppressionClass, 0, 'suppression must be absent inside stronger singleton tier');
+            if (suppressionClass !== 0) qualifiedSuppressionMoves++;
             qualifiedMoves++;
           }
         }
@@ -167,4 +170,5 @@ test('quiet native structural-effect descriptor matches child frontier and oppon
   }
 
   assert.ok(qualifiedMoves > 10_000, `expected broad qualification coverage, got ${qualifiedMoves}`);
+  assert.ok(qualifiedSuppressionMoves > 1_000, `expected broad suppression coverage, got ${qualifiedSuppressionMoves}`);
 });
