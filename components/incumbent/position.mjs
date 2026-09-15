@@ -130,24 +130,8 @@ export class PrimitivePosition {
   }
 
   winner() {
-    if (this.ply >= 7) {
-      const index = this.moveStack[this.ply - 1];
-      const encoded = this.cells[index];
-      const p = this.profile;
-      const start = p.positionLineOffsets[index];
-      const end = p.positionLineOffsets[index + 1];
-      for (let at = start; at < end; at++) {
-        const base = p.positionLineIndices[at] << 2;
-        if (this.cells[p.lineCells[base]] === encoded
-          && this.cells[p.lineCells[base + 1]] === encoded
-          && this.cells[p.lineCells[base + 2]] === encoded
-          && this.cells[p.lineCells[base + 3]] === encoded) {
-          return encoded - 1;
-        }
-      }
-    }
-    if (this.ply === this.profile.cellCount) return 2;
-    return -1;
+    const code = this.winnerByPly[this.ply];
+    return code === 0 ? -1 : code - 1;
   }
 
   isWinningMove(column, player = this.sideToMove) {
@@ -156,33 +140,6 @@ export class PrimitivePosition {
     const row = this.heights[column];
     if (row >= p.rows) return false;
     const index = row * p.columns + column;
-    const encoded = player + 1;
-    const start = p.positionLineOffsets[index];
-    const end = p.positionLineOffsets[index + 1];
-    for (let at = start; at < end; at++) {
-      const base = p.positionLineIndices[at] << 2;
-      let matches = 0;
-      for (let j = 0; j < 4; j++) {
-        const cellIndex = p.lineCells[base + j];
-        if (cellIndex === index || this.cells[cellIndex] === encoded) matches++;
-        else break;
-      }
-      if (matches === 4) return true;
-    }
-    return false;
-  }
-
-  cachedIsWinningMove(column, player = this.sideToMove) {
-    const p = this.profile;
-    if (column < 0 || column >= p.columns) return false;
-    const row = this.heights[column];
-    if (row >= p.rows) return false;
-    const index = row * p.columns + column;
     return (player === 0 ? this.singletonRefs0[index] : this.singletonRefs1[index]) !== 0;
-  }
-
-  cachedWinner() {
-    const code = this.winnerByPly[this.ply];
-    return code === 0 ? -1 : code - 1;
   }
 }
