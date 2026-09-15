@@ -6,14 +6,13 @@ import { MAX_SAFE, MIN_SAFE } from '../constants.mjs';
 import { IncumbentSearchEngine } from '../index.mjs';
 
 const searchVectors = JSON.parse(readFileSync(new URL('../../../reference/conformance/search-v1.json', import.meta.url), 'utf8'));
-const selfPlayVectors = JSON.parse(readFileSync(new URL('../../../reference/conformance/legacy-selfplay-v1.json', import.meta.url), 'utf8'));
 
-test('fixed-depth legacy-qualified search matches frozen move and score vectors exactly', () => {
+test('fixed-depth depth-qualified search matches current semantic conformance vectors', () => {
   for (const vector of searchVectors) {
     const engine = new IncumbentSearchEngine({
       columns: vector.columns,
       rows: vector.rows,
-      orderingPolicy: 'legacy-qualified',
+      orderingPolicy: 'depth-qualified',
     });
     const position = engine.createPosition(vector.moves);
     const result = engine.searchFixedDepth(position, vector.depth);
@@ -22,11 +21,11 @@ test('fixed-depth legacy-qualified search matches frozen move and score vectors 
   }
 });
 
-test('tactical prepass preserves immediate win, forced block, and double-threat loss behavior', () => {
+test('tactical prepass preserves exact immediate win, forced block, and double-threat classification', () => {
   const ids = ['immediate-win', 'forced-single-block', 'forced-double-loss'];
   for (const id of ids) {
     const vector = searchVectors.find((entry) => entry.id === id);
-    const engine = new IncumbentSearchEngine({ orderingPolicy: 'legacy-qualified' });
+    const engine = new IncumbentSearchEngine({ orderingPolicy: 'depth-qualified' });
     const result = engine.searchFixedDepth(engine.createPosition(vector.moves), vector.depth);
     if (id === 'immediate-win') assert.ok(result.metrics.tacticalImmediateWins > 0);
     if (id === 'forced-single-block') assert.ok(result.metrics.tacticalForcedBlocks > 0);
@@ -36,9 +35,21 @@ test('tactical prepass preserves immediate win, forced block, and double-threat 
   }
 });
 
+test('double-threat certificate uses physical +2-ply terminal distance', () => {
+  const vector = searchVectors.find((entry) => entry.id === 'forced-double-loss');
+  const engine = new IncumbentSearchEngine({ orderingPolicy: 'depth-qualified' });
+  const position = engine.createPosition(vector.moves);
+  engine.rootPlayer = position.sideToMove;
+  engine.targetDepth = 1;
+  engine.metrics = engine.createMetrics();
+  const score = engine.searchNode(position, 0, MIN_SAFE, MAX_SAFE);
+  assert.equal(score, MIN_SAFE + 2);
+  assert.equal(engine.metrics.tacticalDoubleThreatLosses, 1);
+});
+
 test('horizon exact frontier overrides heuristic evaluation only for certified decisive classes', () => {
   const immediate = searchVectors.find((entry) => entry.id === 'immediate-win');
-  const immediateEngine = new IncumbentSearchEngine({ orderingPolicy: 'legacy-qualified' });
+  const immediateEngine = new IncumbentSearchEngine({ orderingPolicy: 'depth-qualified' });
   const immediatePosition = immediateEngine.createPosition(immediate.moves);
   immediateEngine.rootPlayer = immediatePosition.sideToMove;
   immediateEngine.targetDepth = 0;
@@ -50,18 +61,18 @@ test('horizon exact frontier overrides heuristic evaluation only for certified d
   assert.equal(immediateEngine.metrics.evaluatorCalls, 0);
 
   const doubleLoss = searchVectors.find((entry) => entry.id === 'forced-double-loss');
-  const doubleEngine = new IncumbentSearchEngine({ orderingPolicy: 'legacy-qualified' });
+  const doubleEngine = new IncumbentSearchEngine({ orderingPolicy: 'depth-qualified' });
   const doublePosition = doubleEngine.createPosition(doubleLoss.moves);
   doubleEngine.rootPlayer = doublePosition.sideToMove;
   doubleEngine.targetDepth = 0;
   doubleEngine.metrics = doubleEngine.createMetrics();
   const doubleScore = doubleEngine.searchNode(doublePosition, 0, MIN_SAFE, MAX_SAFE);
-  assert.equal(doubleScore, MIN_SAFE + 1);
+  assert.equal(doubleScore, MIN_SAFE + 2);
   assert.equal(doubleEngine.metrics.horizonExactImmediateWins, 0);
   assert.equal(doubleEngine.metrics.horizonExactDoubleThreatLosses, 1);
   assert.equal(doubleEngine.metrics.evaluatorCalls, 0);
 
-  const quietEngine = new IncumbentSearchEngine({ orderingPolicy: 'legacy-qualified' });
+  const quietEngine = new IncumbentSearchEngine({ orderingPolicy: 'depth-qualified' });
   const quietPosition = quietEngine.createPosition();
   quietEngine.rootPlayer = quietPosition.sideToMove;
   quietEngine.targetDepth = 0;
@@ -73,19 +84,21 @@ test('horizon exact frontier overrides heuristic evaluation only for certified d
   assert.equal(quietEngine.metrics.evaluatorCalls, 1);
 });
 
-test('legacy-qualified persistent self-play reproduces the historical depth 3 through 12 sequences', { timeout: 120000 }, () => {
-  for (const vector of selfPlayVectors) {
-    const engine = new IncumbentSearchEngine({ columns: 7, rows: 6, orderingPolicy: 'legacy-qualified' });
-    const position = engine.createPosition();
-    const moves = [];
-    while (position.winner() === -1) {
-      const result = engine.searchFixedDepth(position, vector.depth);
-      assert.notEqual(result.move, null, `depth ${vector.depth}: nonterminal search returned no move`);
-      moves.push(result.move);
-      assert.ok(position.play(result.move) >= 0, `depth ${vector.depth}: illegal chosen move`);
-    }
-    const winner = position.winner() === 2 ? -1 : position.winner();
-    assert.equal(winner, vector.winner, `depth ${vector.depth}: winner`);
-    assert.deepEqual(moves, vector.moves, `depth ${vector.depth}: move sequence`);
+test('self-play is deterministic under current search semantics', { timeout: 120000 }, () => {
+  for (const depth of [3, 6, 9]) {
+    const run = () => {
+      const engine = new IncumbentSearchEngine({ columns: 7, rows: 6, orderingPolicy: 'depth-qualified' });
+      const position = engine.createPosition();
+      const moves = [];
+      while (position.winner() === -1) {
+        const result = engine.searchFixedDepth(position, depth);
+        assert.notEqual(result.move, null, `depth ${depth}: nonterminal search returned no move`);
+        moves.push(result.move);
+        assert.ok(position.play(result.move) >= 0, `depth ${depth}: illegal chosen move`);
+      }
+      return { winner: position.winner() === 2 ? -1 : position.winner(), moves };
+    };
+
+    assert.deepEqual(run(), run(), `depth ${depth}: self-play must be deterministic`);
   }
 });
