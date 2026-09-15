@@ -8,13 +8,13 @@ attribution:
   formalization_implementation_qualification: OpenAI ChatGPT
 
 task:
-  id: derive_k4_board_parameterized_selection_law
+  id: derive_deadline_valued_ndc_selector
   objective: >-
-    Generalize the searchless standard 7x6 derivation into a board-parameterized K=4 selection law.
-    Treat 28 as an output, never a reusable primitive. Starting only from W,H,K=4, turn parity,
-    generated geometry and Candidate CPC/NDC/support semantics, derive the invariant that selects or
-    characterizes the relevant terminal/control envelope on each board without recursive child-value
-    solving. The law must reproduce standard 7x6 as the zero-core-imbalance, perfect-pairing case.
+    Continue from the board-parameterized K=4 invariant family. Derive or falsify an exact deadline-valued
+    CPC/NDC closure that selects/characterizes the relevant terminal/control envelope from W,H,K=4,
+    turn parity and generated structural facts without recursive legal-move child-value solving. Standard
+    7x6 must emerge as the core-balanced, perfect-pairing, unique-initial-centrality case and produce its
+    canonical 28 envelope without predefined 28 or oracle prefix/distance premises.
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -26,99 +26,106 @@ required_authority:
   - STATUS.md
   - docs/research/2026-09-14-empty-board-canonical-28-bridge.md
   - docs/research/2026-09-14-k4-board-invariant-family.md
+  - docs/research/2026-09-14-k4-selection-invariant-frontier.md
   - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-board-invariant-family-control.mjs
-  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-balanced-pairing-family-audit.mjs
+  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-phase-path-transport-control.mjs
+  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-initial-event-centrality-control.mjs
+  - research/semantic-quotient/state-identity-unification/src/quotient-connect4-k4-preterminal-exclusion-capacity-audit.mjs
 
 qualified_premises:
-  - id: universal_structural_definitions
+  - id: regular_k4_invariant_family
     statement: >-
-      For generated Connect-4 geometry define B, the row+column axis quotient on im(B), the
-      vertical-line phase quotient on ker(B), Y_cell, Y_line and Delta=dim(Y_line)-dim(Y_cell).
-      These definitions remain valid on thin and degenerate boards even when closed forms do not.
-  - id: regular_k4_closed_forms
+      Generated K=4 geometry defines B,Q_axis,Q_phase,Y_cell,Y_line and Delta on every board. In the
+      regular regime: L=4WH-9W-9H+18, rankB=WH-7, axis rank=W+H-6, phase rank=W-1,
+      Y_cell=WH-W-H-1, Y_line=3WH-10W-9H+26, Delta=(W-4)(2H-9)-9, with explicit narrow degeneracies.
+  - id: balanced_shapes
     statement: >-
-      In the regular K=4 regime the derived dimensions are L=4WH-9W-9H+18, rank(B)=WH-7,
-      rank(Q_axis)=W+H-6, rank(Q_phase)=W-1, Y_cell=WH-W-H-1 and
-      Y_line=3WH-10W-9H+26, with explicit 4x4 incidence and 4x5 phase degeneracies.
-  - id: oriented_core_imbalance
-    statement: >-
-      Delta=(W-4)(2H-9)-9 and Delta(W,H)-Delta(H,W)=H-W. The cell core is transpose
-      symmetric while the line core retains gravity orientation.
-  - id: balanced_shape_classification
-    statement: >-
-      Delta=0 iff (W-4)(2H-9)=9 in the regular positive-integer regime, giving exactly
-      5x9 with core 30, 7x6 with core 28, and 13x5 with core 46. Standard 7x6 is the only
-      balanced shape with at most 42 cells.
+      Delta=0 iff (W-4)(2H-9)=9 in the regular positive-integer regime, giving 5x9/core30,
+      7x6/core28, and 13x5/core46. Standard 7x6 is the only balanced shape with <=42 cells.
   - id: board_family_cpc_parity
     statement: >-
-      The residual event-rank parity is q_(W,H)(S)=(W-1)H+C(S)+r_max(S) mod 2. The standard
-      shorthand C+r is valid only when the omitted board constant is even.
-  - id: balance_not_sufficient
+      q_(W,H)(S)=(W-1)H+C(S)+r_max(S) mod2. The standard q=C+r shorthand is not cross-board valid.
+  - id: phase_path_transport
     statement: >-
-      Reusing the existing CPC/residual forms on the three balanced boards gives beta/gamma ranks
-      28/26 on 5x9, 28/28 on 7x6, and 42/34 on 13x5. Equal core dimensions do not generically
-      imply a perfect natural pairing. No impossibility claim is made for alternative pairings.
-  - id: standard_canonical_envelope
+      C_phase is canonically the edge space of the width-W path graph. Boundary(edge_i)=e_i+e_(i+1),
+      each displacement e_a+e_b has the unique interval lift between a,b, and structural phase transport
+      length is |a-b|. Same-column two-ply play is zero transport. Game-theoretic distance monotonicity is not assumed.
+  - id: initial_event_centrality
     statement: >-
-      On 7x6 the target-free symmetry/P/maximal-delay construction generates the same 28-line
-      geometry later observed externally. The missing semantic fact is still selection, not discovery
-      of the number or line set.
-  - id: player_specific_support_capacity
+      Empty-board bottom-event impact is d_W(c)=1+h4_W(c)+I(c<=W-4)+I(c>=3). W=7 is the unique
+      K=4 width with one unique maximum-impact initially legal event; profile [3,4,5,7,5,4,3], maximum center.
+  - id: combined_standard_classification
     statement: >-
-      Board capacity and turn parity define a latest possible terminal horizon for each player and a
-      gravity support envelope E_max=G(W,H)-G(W,H-q). This is capacity only, not an optimal-distance theorem.
+      Core balance plus unique maximum initial-event impact forces W=7,H=6 and then common core
+      Y=WH-W-H-1=28. This is structural classification, not yet an optimal-move theorem.
+  - id: balance_not_pairing
+    statement: >-
+      Existing corrected beta/gamma forms are perfect only on 7x6 among the three balanced shapes:
+      ranks 28/26 on 5x9, 28/28 on 7x6, 42/34 on 13x5. Equal core dimension is insufficient.
+  - id: preterminal_capacity
+    statement: >-
+      X5(W,H) measures static five-ply exclusion of P0 maximal-delay support predicates. Standard 7x6
+      has envelope38,X5=10,min28 uniquely at the center stack. But 8x7 also has min survivors=Y_cell=40,
+      so this scalar equality is not a universal selector.
+  - id: canonical_standard_bridge
+    statement: >-
+      Searchlessly on 7x6, symmetry/P/maximal-delay geometry produces the same 28-line envelope later
+      observed externally. The unresolved fact is semantic deadline/control selection, not discovery of 28.
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
   primary_question: >-
-    What additional exact CPC/NDC/support invariant maps the board invariant vector to the selected
-    terminal/control envelope without recursive child-value comparison?
-  candidate_order:
+    Can exact strong-distance/control selection be represented as a finite ranked NDC closure over residual
+    requirements and deadlines, using phase-path transport and response resources, rather than recursive moves?
+  first_construction:
     - >-
-      Derive a player-relative control-capacity functional from residual requirements, blocker reach,
-      CPC event rank and deadline order. It must be defined for Delta<0, Delta=0 and Delta>0.
+      Define a horizon-bearing certificate type: prerequisites, response/resource guards, consequence,
+      and exact earliest/latest rank. Keep proof polarity and universal response obligations explicit.
     - >-
-      Determine whether beta/gamma degeneracy identifies missing control degrees. Track radicals and
-      cokernels rather than forcing a square isomorphism on unbalanced boards.
+      For conjunctive prerequisites derive horizon from the latest prerequisite. For alternative exact
+      witnesses use the earliest certified witness only where logical polarity permits. Do not hide opponent
+      universality inside an informal min/max shortcut.
     - >-
-      Generalize the standard nonrecursive extremal lemma: derive, from preterminal event counts and
-      support depth, the maximum blocker/final-landing exclusion available to each player on arbitrary W,H.
+      Define requirement-completion horizon from support/event precedence plus CPC ownership/phase facts.
+      Define blocker horizon separately. A blocker solves a requirement only when certification plus timing
+      proves the opponent cannot complete before the blocker/response event.
     - >-
-      Combine the support-capacity and pairing-defect invariants only after each is independently exact.
-      Prefer a vector/quotient law over a fitted scalar count.
+      Lift e_a+e_b through the canonical phase path so reservation/release/response changes carry explicit
+      transport support, not merely an anonymous even-weight vector.
     - >-
-      Use incoming varying-board exact censuses only to falsify or validate the derived law after the fact.
-
-required_checks:
-  - no solved WDL, optimal prefix, or terminal-distance premise in the strongest derivation
-  - no predefined 28, 30, 69 or other target census count
-  - no recursive minimax, Negamax, MCTS, PNS or hidden child-value enumeration
-  - preserve thin-board and explicit degeneracy handling instead of extrapolating regular formulas
-  - preserve gravity orientation; never assume W,H transpose equivalence
-  - use q_(W,H) with the board constant in every cross-board residual calculation
-  - distinguish dimension balance from perfect pairing
-  - preserve smallest counterexample to every proposed scalar reduction
-  - standard 7x6 must emerge as a consequence, not a special-case branch
-
-falsification:
-  - if two boards share the proposed invariant but require different structurally qualified envelopes, the invariant is insufficient
-  - if two structural states share the compressed selector state but disagree on a required CPC/NDC deadline fact, the compression fails
-  - if a proposed universal pairing becomes rank-deficient on any qualified board, retain the radical/cokernel rather than redefining it away
-  - if the law needs an externally solved winner or terminal ply, it has not met the searchless target
+      Test the smallest complete Connect-4 controls first (4x4,5x3/4x5 where applicable), then standard
+      structural anchors. Full legal-state enumeration may be used only as an independent oracle/falsifier,
+      never as the production closure mechanism.
+  required_checks:
+    - no solved WDL, best move, forced prefix or terminal-distance premise in production derivation
+    - no predefined 28,30,69 or fitted terminal census scalar
+    - no recursive minimax, Negamax, MCTS or PNS as proof mechanism
+    - preserve response/resource/deadline conditions whenever CPC facts depend on them
+    - preserve q_(W,H) board constant in residual parity
+    - preserve thin-board and narrow-degeneracy handling
+    - preserve Delta and beta/gamma radicals/cokernels instead of forcing square common-Y semantics
+    - distinguish phase transport length from game-theoretic strong distance until proved
+    - incoming exact board data is validation/falsification only
+  falsification:
+    - if two certificates merged by the proposed state have different next deadline consequences, compression fails
+    - if schedule/order changes the closure result, the NDC profile is unsound
+    - if a certified blocker arrives after the requirement can complete, it cannot be used for elimination
+    - if a scalar count predicts selection but a qualified board/control contradicts it, preserve the counterexample
+    - if the closure reconstructs the full legal move tree with no meaningful dependency sharing, it fails the searchless objective
 
 success_criteria:
-  - board-parameterized exact selector or quotient law with explicit assumptions
-  - standard 7x6 produces the canonical 28 envelope without special-casing 28
-  - unbalanced boards receive explicit residual/radical/defect semantics rather than a fake common-Y scalar
-  - executable Node control covering representative regular, transpose, balanced and degenerate boards
-  - incoming exact board evidence can be checked against the law without changing its definition
-  - durable note plus synchronized STATUS.md and next_step.yaml
+  - exact horizon-bearing certificate semantics with monotone/ranked closure
+  - direct geometry-to-closure construction on at least one complete small-game control without state-tree generation
+  - independent oracle agreement for outcome and, where claimed, distance horizon
+  - standard 7x6 structural path remains compatible and no 28 special case is inserted
+  - board-family invariant vector remains the input contract
+  - durable theorem/falsifier note and synchronized routers
 
 secondary_validation_lane:
   status: active_when_new_evidence_arrives
   note: >-
-    Qualify exact varying-board censuses as independent validation/falsification evidence. Upper bounds
-    remain upper bounds until matching lower evidence exists.
+    Qualify varying-board exact censuses only after matching upper/lower evidence. Use them to falsify or validate
+    the closure after its definition is fixed.
 
 paused_structural_seam:
   id: history_aware_marked_residual_calculus
