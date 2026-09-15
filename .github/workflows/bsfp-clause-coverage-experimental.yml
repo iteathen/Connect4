@@ -41,5 +41,8 @@ jobs:
         run: |
           node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});const link=p.resolve('node_modules','cuda-js'),target=p.resolve('cuda-js');fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,'dir')"
 
-      - name: Compile, submit, and compare exact coverage frontiers
+      - name: Compile and submit synthetic coverage contract fixture
         run: node research/experiments/cuda-bsfp-clause-coverage/run.mjs portable
+
+      - name: Derive, pack, compile and submit real BSFP hot workloads
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-real.mjs portable
