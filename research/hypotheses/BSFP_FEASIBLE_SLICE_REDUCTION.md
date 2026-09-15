@@ -1,0 +1,188 @@
+# BSFP feasible-slice reduction
+
+**Status:** live hypothesis / exact reduction candidate. No production solver change.
+
+**Research direction:** Josh Oshiro.
+
+## Motivation
+
+Current ownership-antichain BSFP deliberately represents a larger symbolic Boolean domain than the legal nonterminal states needed by an empty-root solve. That larger domain is useful for qualification and monotone-boundary reasoning, but it is not obviously necessary for root-only production execution.
+
+This note isolates searchless constraints that define a smaller exact feasible slice and can potentially reject frontier records before Cartesian materialization.
+
+## 1. Exact legal color count
+
+At support rank `r`, P0 has made exactly
+
+```text
+k0(r) = ceil(r/2)
+```
+
+placements and P1 has made `floor(r/2)`.
+
+For occupied support universe `U`:
+
+```text
+FeasibleCount_r = { P subseteq U : |P| = k0(r) }
+```
+
+where `P` is the P0 ownership subset.
+
+Therefore:
+
+```text
+upward generator g is slice-disjoint if |g| > k0;
+downward cap c is slice-disjoint if |c| < k0.
+```
+
+The restriction is closed under the current predecessor algebra. A P0 cofactor removes at most the landing bit while `k0` decreases by one; a P1 cofactor leaves the P0 count unchanged. OR-products cannot make an overlarge upward generator relevant; AND-products cannot make an undersized downward cap relevant. Terminal subtraction moves generators/caps further in the same irrelevant direction.
+
+This suggests an exact **root-only legal-slice BSFP profile** that keeps the full symbolic C1 implementation as oracle/qualification authority.
+
+The raw assignment-volume reduction is substantial even before stronger constraints. Examples:
+
+```text
+rank 23: 2^23 / C(23,12) ~= 6.204x
+rank 30: 2^30 / C(30,15) ~= 6.922x
+rank 40: 2^40 / C(40,20) ~= 7.976x
+```
+
+These ratios are state-space facts, not frontier or runtime speedup claims.
+
+## 2. Exact nonterminal first-win constraint
+
+BSFP injects terminal outcomes on the move that completes a line. A symbolic child consumed by a later predecessor must therefore represent a **nonterminal** state.
+
+For every geometric winning line `lambda` fully occupied by support `S`:
+
+```text
+lambda subseteq S.
+```
+
+A nonterminal ownership assignment cannot give all four cells to P0 and cannot give all four to P1. Equivalently it must satisfy both player-relative blocker clauses:
+
+```text
+at least one P1 cell in lambda;
+at least one P0 cell in lambda.
+```
+
+In line-hit notation this fixes
+
+```text
+H0(lambda)=1
+H1(lambda)=1
+```
+
+for every fully occupied winning line in a nonterminal support state.
+
+For a line with no occupied cell, both hit bits are fixed to zero. Only partially occupied lines carry variable hit information.
+
+This is an exact consequence of support plus first-win stopping; it uses no solved-game data.
+
+## 3. Late-rank geometry at the measured 6×5 wall
+
+Pure support enumeration for 6×5 Connect-4 gives 39 geometric lines.
+
+At rank 23 (the region reached by the cited early CUDA scaling epoch):
+
+```text
+support states:                    756
+max partially occupied lines:       29
+mean partially occupied lines:      21.56
+mean fully occupied lines:          16.71
+mean completely empty lines:         0.73
+```
+
+Thus in a typical rank-23 support, roughly 16.7/39 line-hit coordinates are already fixed to `(1,1)` by nonterminality and another ~0.7 are fixed `(0,0)`. The dynamic line-hit content is concentrated in ~21.6 crossing/partial lines.
+
+This does not prove a corresponding runtime reduction, but it aligns directly with the observed fact that the 6×5 wall appears late/high-rank rather than at the support-count peak.
+
+At later 6×5 ranks the partial-line mean falls further:
+
+```text
+rank 24: mean partial 19.37, mean full 19.16
+rank 25: mean partial 16.86, mean full 21.90
+rank 26: mean partial 14.00, mean full 24.93
+rank 27: mean partial 10.82, mean full 28.18
+rank 28: mean partial  7.43, mean full 31.57
+rank 29: mean partial  4.00, mean full 35.00
+rank 30: mean partial  0.00, mean full 39.00
+```
+
+## 4. Unified feasible ownership formula
+
+At fixed support `S`, the root-only production domain can be described by constraints over P0 ownership bits:
+
+```text
+exact cardinality |P| = k0(rank)
+AND
+for every fully occupied winning line:
+  not all P0
+  AND not all P1
+```
+
+Runtime-earned exact facts may strengthen this with:
+
+```text
+fixed P0/P1 cells;
+pairwise affine ownership relations;
+certified blocker clauses;
+response/resource/deadline guards where relevant.
+```
+
+The first two layers are unconditional searchless invariants.
+
+## 5. Constraint-aware cone rejection
+
+With fixed-owner sets `F0,F1` and legal P0 count `k`, an upward generator `g` is feasible only if
+
+```text
+g intersection F1 = empty
+and
+|F0 union g| <= k.
+```
+
+A downward cap `c` is feasible only if
+
+```text
+F0 subseteq c
+and
+|c \ F1| >= k.
+```
+
+The next generalization is to test whether a generator/cap cone intersects the full feasible cardinality + nonterminal-clause family. Because the nonterminal constraints are ordinary player-relative blocker clauses, this lands in the same affine/clause language already developed by Isometric.
+
+## 6. Relationship to line-hit realizability
+
+For fixed support, each requested `(H0,H1)` pair on a partially occupied line is exactly one of:
+
+```text
+10 -> all occupied cells P0
+01 -> all occupied cells P1
+11 -> at least one of each player
+00 -> impossible when the line has any occupied cell.
+```
+
+For a fully occupied nonterminal line only `11` is allowed.
+
+Therefore legal-cardinality filtering, first-win nonterminal filtering and line-hit realizability are not separate ad hoc optimizations. They are one **feasible-assignment constraint system** at increasing strength.
+
+## 7. First experiment
+
+Implement an observer/prototype against complete small-game controls, without mutating production C1:
+
+1. compute the full authoritative C1 frontier;
+2. trim generators/caps using legal cardinality only;
+3. verify root W/D/L and every legal-state classification remain exact;
+4. add fully-occupied-line nonterminal clauses and measure additional eliminated frontier/candidate work;
+5. compare pre-product versus post-product filtering;
+6. record frontier widths, generated pair candidates, terminal-subtraction candidates and normalization work;
+7. only after exact controls pass, probe the 6×5 high-rank region.
+
+## Falsifiers
+
+- any complete-control legal state changes W/D/L;
+- a trimmed child record becomes relevant under a legal predecessor cofactor;
+- first-win filtering removes a state that the authoritative recurrence can legally consume as nonterminal;
+- constraint solving costs more work than it removes without another semantic benefit;
+- the optimization is justified only by precomputed solved outcomes rather than support/rule invariants.
