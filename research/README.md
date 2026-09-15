@@ -11,13 +11,14 @@ Research direction: Josh Oshiro.
 Agents should normally read in this order:
 
 1. `canonical/CORE_MODEL.md` — the common conceptual model.
-2. `canonical/CLAIMS.md` — human-readable claim ledger.
-3. `canonical/CLAIM_REGISTRY.json` — machine-readable claim identities, status, relations, sources, and consumers.
-4. `maps/CORE_LOGIC_MAP.md` — how the ideas connect into one logic engine.
+2. `canonical/CLAIMS.md` — the complete human-readable claim ledger.
+3. `canonical/CLAIM_INDEX.json` — the authoritative machine-readable entrypoint. Read **every registry shard listed there**; no individual shard is complete by itself.
+4. `canonical/CROSS_LINEAGE_SYNTHESIS.md` and `maps/CORE_LOGIC_MAP.md` — how the historical campaigns connect into one research program.
 5. `maps/SOLVER_CONSUMPTION.md` — how solver families consume the shared research.
 6. `open-questions/README.md` and `hypotheses/README.md` — what is not yet established.
 7. `confidence/README.md` — evidence/confidence policy.
-8. `provenance/` — exact historical source packets when an audit is needed.
+8. `evidence/` — normalized claim-level evidence records.
+9. `provenance/` — exact historical source packets when an audit is needed.
 
 Do not begin by reading provenance branch dumps unless auditing a claim. The canonical layer exists so an agent can absorb the related idea as a coherent whole rather than reconstruct it from branch history.
 
@@ -46,8 +47,8 @@ A statement must be classified before it is used as authority:
 - `maps/` — relationships among claims and solver consumers.
 - `hypotheses/` — live unproved ideas worth testing.
 - `open-questions/` — missing laws and unresolved seams.
-- `evidence/` — evidence policy and normalized evidence records; raw historical evidence remains preserved under provenance until migrated.
-- `experiments/` — experiment design/result normalization; raw historical experiments remain preserved under provenance until migrated.
+- `evidence/` — normalized evidence records keyed to stable claim IDs.
+- `experiments/` — experiment design/result normalization.
 - `confidence/` — confidence/Bayesian update model.
 - `history/` — disproven, rejected, deferred/superseded, and historical-only knowledge.
 - `untriaged/` — explicit queue of source material still awaiting semantic normalization.
@@ -58,6 +59,10 @@ A statement must be classified before it is used as authority:
 The previous branch-first research ownership model is retired. Shared research claims are normalized here first. Solver-family branches may keep implementation notes, but a semantic claim used across families must point back to a stable research claim ID.
 
 Code should reference stable claim IDs such as `C4-R0004` where practical. A solver-specific optimization can consume a claim without changing its epistemic status.
+
+## Claim-registry rule
+
+`CLAIM_INDEX.json` is the registry root. Registry shards exist only to keep files bounded and reviewable. Claim identity is global across all shards, and agents must not treat `CLAIM_REGISTRY.json` or any extension shard as a complete database in isolation.
 
 ## Cleanup rule
 

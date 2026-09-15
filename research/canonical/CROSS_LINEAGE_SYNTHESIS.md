@@ -21,78 +21,51 @@ RESIDUAL WINNING STRUCTURES / WSL-625 ------------------------ C4-R0001, C4-R001
 LOCAL CERTIFICATES / STRATEGIC PREDICATES
         |
         +--> immediate singleton / double completion ---------- C4-R0003..R0005
-        +--> role-general A1-A3 / A123 ------------------------ C4-R0029, C4-R0030
+        +--> role-general A1-A3 / A123 ------------------------ C4-R0029,R0030
+        +--> typed-MQ5+A123 composed qualification ------------ C4-R0036
         +--> narrow ZPAR -------------------------------------- C4-R0033
+        +--> A4/A8 sampled compatible-cover extension --------- C4-R0038
+        +--> scoped A9 orientation falsifier ------------------ C4-R0037
         |
         v
 NESTED COMPOSITION / CLOSURE --------------------------------- C4-R0018
         ^                         |
         |                         +--> missing laws ----------- C4-R0011
         |
-        +--> generic compatibility candidates ---------------- C4-R0031, C4-R0032
+        +--> generic compatibility candidates ---------------- C4-R0031,R0032
         +--> implication / proof transfer --------------------- C4-R0034
         |
         v
-SEMANTIC EQUIVALENCE / QUOTIENT ------------------------------ C4-R0008, C4-R0023..R0028
+SEMANTIC EQUIVALENCE / QUOTIENT ------------------------------ C4-R0008,R0023..R0028
         |
         v
-EXACT CONSEQUENCE + RESIDUAL BOUNDARY ------------------------ C4-R0006, C4-R0007, C4-R0009
+EXACT CONSEQUENCE + RESIDUAL BOUNDARY ------------------------ C4-R0006,R0007,R0009
         |
        /|\
       / | \
-     /  |  \
 ISOMETRIC   NEGAMAX/MINIMAX   BSFP
-forward     recursive residual backward symbolic
-relational  exact-search       fixed-point
-calculus    consumer/control   consumer
 ```
 
-## What the historical names mean now
+## Shared interpretation
 
-### CPC — Control Parity Calculus
+**CPC** is the timing/ownership relation layer. **WSL-625** is a residual requirement basis. **U1/U2** are primitive ownership/response/blocker relation families. **NDC** is the hypothesis that these relations can be recursively composed into long-horizon proof obligations. **Semantic quotient** asks which physical distinctions can be removed without changing target behavior.
 
-CPC is the timing/ownership relation layer. The algebraic cancellation in the event-count formula is a structural fact; stronger strategic claims must still state their reachability/race guards.
+Named strategic rules are treated as certificate families and evidence about this common calculus, not as a separate ontology. The new A1-A9 packet reinforces that rule: A4/A8 provide useful exact cover in the tested regime, while one legacy/even-ply A9 responder orientation is specifically falsified. The negative result is attached to that orientation, not to the whole strategic-rule family.
 
-### WSL-625
-
-WSL-625 is a fixed residual winning-requirement basis for standard 7x6. It is a representation domain, not by itself a proof of semantic sufficiency. Support/accessibility cannot simply be dropped.
-
-### U1/U2
-
-U1 collects ownership/response/race relations. U2 expresses blocker semantics through upward closure over residual winning requirements. These are primitive relation families from which named strategic certificates may sometimes be reconstructed.
-
-### NDC — Nested Dependency Closure
-
-NDC is the composition hypothesis: recursively combine structural facts into long-horizon proof obligations instead of enumerating every intervening state. The race-free version is disproven; temporal/event precedence is mandatory. The general complete closure law remains open.
-
-### Semantic quotient MQ1-MQ5
-
-The quotient campaign asks which distinctions in physical state are semantically irrelevant. Exact bounded-control results show substantial collapse and support direct residual automata, but a quotient must preserve target behavior and support/accessibility constraints. Representation overhead and semantic validity are separate questions.
-
-### A1-A9 / A123
-
-These are not a separate game theory for purposes of this repository. They are certificate families and compatibility/composition evidence that inform the common calculus. Earlier published Allis rule names and theory must retain proper prior-art attribution. Josh Oshiro's CPC/WSL/NDC/BSFP route was recorded as independently developed, with overlap recognized later.
-
-### Isometric
-
-Isometric is the solver family most directly intended to consume and extend the forward relational structural calculus. It does not own the underlying research claims.
-
-### Negamax/Minimax
-
-The recursive solver is a control and residual consumer. It provides a strong environment for qualifying certificates, quotient representations, ordering, saturation and proof-transfer interactions. Successful Minimax integration is implementation evidence, not a change in theorem status.
-
-### BSFP
-
-BSFP consumes the same terminal, timing, residual-winspace and relation structure in the opposite computational direction: backward symbolic fixed-point propagation. Its exhaustive small-game qualifications are strong evidence for the tested recurrence, while empty-board 7x6 scalability remains an open representation problem.
+Isometric is the solver family most directly intended to consume and extend the forward relational calculus. Negamax/Minimax is a recursive residual consumer and exact qualification environment. BSFP consumes much of the same structure backward through symbolic fixed-point propagation.
 
 ## Research-method invariant
 
-The composition campaign established an important methodological rule now elevated to C4-R0035:
+C4-R0035 is binding:
 
-**mechanism != implementation form != workload regime != stage order != synergy != promotion status**.
+**mechanism != implementation form != workload regime != stage order != synergy != promotion status**
 
-This rule prevents three recurring errors: rejecting sound structure because one implementation is slow, promoting a hypothesis because it was adopted, and treating an unmeasured interaction as neutral.
+Examples:
+- the exact dead-residual theorem survives a runtime-negative live detector (R0009 vs R0010);
+- typed MQ5 and A123 compose proof-volume benefits, but runtime changes sign across two anchors (R0036);
+- the tested A9 orientation is falsified without globally rejecting A9 (R0037);
+- A6 has zero marginal value in one A9-disabled regime without being globally rejected (R0038).
 
 ## Current central gap
 
-The research has many exact local facts and several exact/strongly qualified representations. The missing piece is still the same: a sufficiently complete, guarded composition calculus that turns those relations into global game-theoretic consequences without smuggling recursive enumeration back in. That is C4-R0011, and it is the main bridge between the current evidence and the strongest Isometric/NDC aspiration.
+The research has many exact local facts and several exact/strongly qualified representations. The missing piece remains C4-R0011: a sufficiently complete, guarded composition calculus that turns those relations into global game-theoretic consequences without smuggling recursive enumeration back in.
