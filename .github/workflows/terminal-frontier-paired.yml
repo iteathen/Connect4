@@ -59,10 +59,10 @@ jobs:
           path: candidate
           persist-credentials: false
 
-      - name: Checkout pre-aggregate optimized control
+      - name: Checkout accepted frontier control
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: 2623f64f3b292420454b44747f4dbd073c8e98a1
+          ref: 6da8d00e607e860cce7a32628c07d4e98de91e0c
           path: control
           persist-credentials: false
 
@@ -80,10 +80,10 @@ jobs:
         run: |
           set -euo pipefail
           echo '=== CONTROL_A ==='
-          (cd control && C4_SOURCE_REVISION="2623f64f3b292420454b44747f4dbd073c8e98a1" node --expose-gc benchmarks/incumbent.mjs)
+          (cd control && C4_SOURCE_REVISION="6da8d00e607e860cce7a32628c07d4e98de91e0c" node --expose-gc benchmarks/incumbent.mjs)
           echo '=== CANDIDATE_A ==='
           (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
           echo '=== CANDIDATE_B ==='
           (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
           echo '=== CONTROL_B ==='
-          (cd control && C4_SOURCE_REVISION="2623f64f3b292420454b44747f4dbd073c8e98a1" node --expose-gc benchmarks/incumbent.mjs)
+          (cd control && C4_SOURCE_REVISION="6da8d00e607e860cce7a32628c07d4e98de91e0c" node --expose-gc benchmarks/incumbent.mjs)
