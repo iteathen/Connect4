@@ -17,6 +17,11 @@ export class PrimitivePosition {
     this.lineEmptyXor = new Uint32Array(p.lineCount);
     this.singletonRefs0 = new Uint8Array(p.cellCount);
     this.singletonRefs1 = new Uint8Array(p.cellCount);
+    // Number of live residual lines with exactly one cell remaining. These counts are
+    // deliberately not playable-cell counts and do not deduplicate shared completions;
+    // zero is only a cheap proof that the corresponding singleton frontier is empty.
+    this.singletonLineCount0 = 0;
+    this.singletonLineCount1 = 0;
     // 0 ongoing, 1 P0, 2 P1, 3 draw.
     this.winnerByPly = new Uint8Array(p.cellCount + 1);
     for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
@@ -58,8 +63,13 @@ export class PrimitivePosition {
       let count1 = state >>> 3;
       let empty = this.lineEmptyXor[line];
 
-      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
-      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
+      if (count0 === 3 && count1 === 0) {
+        this.singletonRefs0[empty]--;
+        this.singletonLineCount0--;
+      } else if (count1 === 3 && count0 === 0) {
+        this.singletonRefs1[empty]--;
+        this.singletonLineCount1--;
+      }
 
       if (player === 0) count0++; else count1++;
       empty ^= index;
@@ -67,8 +77,13 @@ export class PrimitivePosition {
       this.lineState[line] = state;
       this.lineEmptyXor[line] = empty;
 
-      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]++;
-      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]++;
+      if (count0 === 3 && count1 === 0) {
+        this.singletonRefs0[empty]++;
+        this.singletonLineCount0++;
+      } else if (count1 === 3 && count0 === 0) {
+        this.singletonRefs1[empty]++;
+        this.singletonLineCount1++;
+      }
       if ((player === 0 ? count0 : count1) === 4) won = true;
     }
 
@@ -100,8 +115,13 @@ export class PrimitivePosition {
       let count1 = state >>> 3;
       let empty = this.lineEmptyXor[line];
 
-      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]--;
-      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]--;
+      if (count0 === 3 && count1 === 0) {
+        this.singletonRefs0[empty]--;
+        this.singletonLineCount0--;
+      } else if (count1 === 3 && count0 === 0) {
+        this.singletonRefs1[empty]--;
+        this.singletonLineCount1--;
+      }
 
       if (player === 0) count0--; else count1--;
       empty ^= index;
@@ -109,8 +129,13 @@ export class PrimitivePosition {
       this.lineState[line] = state;
       this.lineEmptyXor[line] = empty;
 
-      if (count0 === 3 && count1 === 0) this.singletonRefs0[empty]++;
-      else if (count1 === 3 && count0 === 0) this.singletonRefs1[empty]++;
+      if (count0 === 3 && count1 === 0) {
+        this.singletonRefs0[empty]++;
+        this.singletonLineCount0++;
+      } else if (count1 === 3 && count0 === 0) {
+        this.singletonRefs1[empty]++;
+        this.singletonLineCount1++;
+      }
     }
 
     this.sideToMove = player;
