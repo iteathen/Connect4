@@ -7,38 +7,29 @@ import {
 
 export function evaluatePlayerNonTerminal(position, player) {
   const p = position.profile;
-  const cells = position.cells;
-  const lines = p.lineCells;
+  const lineState = position.lineState;
+  const lineEmptyXor = position.lineEmptyXor;
   const heights = position.heights;
-  const encoded = player + 1;
   let positionalScore = 0;
   let immediateThreatCount = 0;
   let hasSingleParityThreat = false;
   let parityMask = 0;
 
-  for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
-    let ownCount = 0;
-    let opponentCount = 0;
-    let emptyCount = 0;
-    let emptyIndex = -1;
-
-    let cellIndex = lines[base];
-    let cell = cells[cellIndex];
-    if (cell === encoded) ownCount++; else if (cell === 0) { emptyCount++; emptyIndex = cellIndex; } else opponentCount++;
-    cellIndex = lines[base + 1];
-    cell = cells[cellIndex];
-    if (cell === encoded) ownCount++; else if (cell === 0) { emptyCount++; emptyIndex = cellIndex; } else opponentCount++;
-    cellIndex = lines[base + 2];
-    cell = cells[cellIndex];
-    if (cell === encoded) ownCount++; else if (cell === 0) { emptyCount++; emptyIndex = cellIndex; } else opponentCount++;
-    cellIndex = lines[base + 3];
-    cell = cells[cellIndex];
-    if (cell === encoded) ownCount++; else if (cell === 0) { emptyCount++; emptyIndex = cellIndex; } else opponentCount++;
-
+  for (let line = 0; line < p.lineCount; line++) {
+    const state = lineState[line];
+    const count0 = state & 7;
+    const count1 = state >>> 3;
+    const ownCount = player === 0 ? count0 : count1;
+    const opponentCount = player === 0 ? count1 : count0;
     if (opponentCount !== 0) continue;
-    positionalScore += ownCount * POSITIONAL_INCREMENT;
-    if (ownCount !== 3 || emptyCount !== 1) continue;
 
+    positionalScore += ownCount * POSITIONAL_INCREMENT;
+    if (ownCount !== 3) continue;
+
+    const emptyCount = 4 - count0 - count1;
+    if (emptyCount !== 1) continue;
+    // With exactly one empty cell, the maintained XOR is that cell's exact identity.
+    const emptyIndex = lineEmptyXor[line];
     const emptyRow = Math.floor(emptyIndex / p.columns);
     const emptyColumn = emptyIndex - emptyRow * p.columns;
     const emptyAtOrBelow = emptyRow - heights[emptyColumn] + 1;
@@ -72,8 +63,8 @@ export function evaluatePlayer(position, player) {
 
 export function evaluateRootRaw(position, rootPlayer) {
   const p = position.profile;
-  const cells = position.cells;
-  const lines = p.lineCells;
+  const lineState = position.lineState;
+  const lineEmptyXor = position.lineEmptyXor;
   const heights = position.heights;
   let positional0 = 0;
   let positional1 = 0;
@@ -84,29 +75,17 @@ export function evaluateRootRaw(position, rootPlayer) {
   let parityMask0 = 0;
   let parityMask1 = 0;
 
-  for (let line = 0, base = 0; line < p.lineCount; line++, base += 4) {
-    let count0 = 0;
-    let count1 = 0;
-    let emptyCount = 0;
-    let emptyIndex = -1;
-
-    let cellIndex = lines[base];
-    let cell = cells[cellIndex];
-    if (cell === 1) count0++; else if (cell === 2) count1++; else { emptyCount++; emptyIndex = cellIndex; }
-    cellIndex = lines[base + 1];
-    cell = cells[cellIndex];
-    if (cell === 1) count0++; else if (cell === 2) count1++; else { emptyCount++; emptyIndex = cellIndex; }
-    cellIndex = lines[base + 2];
-    cell = cells[cellIndex];
-    if (cell === 1) count0++; else if (cell === 2) count1++; else { emptyCount++; emptyIndex = cellIndex; }
-    cellIndex = lines[base + 3];
-    cell = cells[cellIndex];
-    if (cell === 1) count0++; else if (cell === 2) count1++; else { emptyCount++; emptyIndex = cellIndex; }
+  for (let line = 0; line < p.lineCount; line++) {
+    const state = lineState[line];
+    const count0 = state & 7;
+    const count1 = state >>> 3;
 
     if (count1 === 0) positional0 += count0 * POSITIONAL_INCREMENT;
     if (count0 === 0) positional1 += count1 * POSITIONAL_INCREMENT;
-    if (emptyCount !== 1) continue;
+    if (count0 + count1 !== 3) continue;
 
+    // Exactly one cell is empty here, so XOR of the remaining empties is its identity.
+    const emptyIndex = lineEmptyXor[line];
     const emptyRow = Math.floor(emptyIndex / p.columns);
     const emptyColumn = emptyIndex - emptyRow * p.columns;
     const emptyAtOrBelow = emptyRow - heights[emptyColumn] + 1;
