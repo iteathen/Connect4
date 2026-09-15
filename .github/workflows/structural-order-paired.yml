@@ -61,6 +61,12 @@ jobs:
           );
           replaceOnce(
             searchPath,
+            `function quietSuccessorSingletonEffects(position, column, player) {`,
+            `export function quietSuccessorSingletonEffects(position, column, player) {`,
+            'experiment helper export',
+          );
+          replaceOnce(
+            searchPath,
             `  let effects = 0;\n  let firstOwnCompletion = -1;`,
             `  let effects = 0;\n  let firstOwnCompletion = -1;\n  let ownCofactorClass = 0;`,
             'cofactor local',
@@ -89,126 +95,135 @@ jobs:
             `      let structuralMove = -1;\n      if (ply > 0 && alpha < beta) {\n        let singletonClass = 0;\n        let cofactorClass = 0;\n        let cofactorMove = -1;\n        for (let i = 0; i < p.moveOrder.length; i++) {\n          const column = p.moveOrder[i];\n          if (column === ttMove || heights[column] >= p.rows) continue;\n          const effects = quietSuccessorSingletonEffects(position, column, currentPlayer);\n          if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;\n          const candidateSingletonClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;\n          if (candidateSingletonClass > singletonClass) {\n            singletonClass = candidateSingletonClass;\n            structuralMove = column;\n            if (singletonClass === 2) break;\n            continue;\n          }\n          if (singletonClass === 0 && candidateSingletonClass === 0) {\n            const candidateCofactorClass = (effects & EFFECT_OWN_COFACTOR_MASK) >>> EFFECT_OWN_COFACTOR_SHIFT;\n            if (candidateCofactorClass > cofactorClass) {\n              cofactorClass = candidateCofactorClass;\n              cofactorMove = column;\n            }\n          }\n        }\n        if (structuralMove < 0) structuralMove = cofactorMove;\n      }`,
             'tiered structural selection',
           );
+          NODE
 
-          const testPath = 'candidate/components/incumbent/test/structural-own-cofactor-experiment.test.mjs';
-          writeFileSync(testPath, String.raw`import assert from 'node:assert/strict';
-import test from 'node:test';
+      - name: Qualify own-cofactor effect algebra
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { PrimitivePosition } from './candidate/components/incumbent/index.mjs';
+          import { quietSuccessorSingletonEffects } from './candidate/components/incumbent/search.mjs';
 
-import { PrimitivePosition } from '../index.mjs';
+          const SINGLETON_MASK = 0x03;
+          const OPPONENT_EXPOSURE = 0x04;
+          const COFACTOR_SHIFT = 3;
+          const COFACTOR_MASK = 0x18;
 
-function playableSingletonCells(position, player) {
-  const p = position.profile;
-  const refs = player === 0 ? position.singletonRefs0 : position.singletonRefs1;
-  const result = [];
-  for (let column = 0; column < p.columns; column++) {
-    const row = position.heights[column];
-    if (row >= p.rows) continue;
-    const index = row * p.columns + column;
-    if (refs[index] !== 0) result.push(index);
-  }
-  return result;
-}
-
-function rawOwnCofactorClass(position, column, player) {
-  const p = position.profile;
-  const row = position.heights[column];
-  const index = row * p.columns + column;
-  const ownEncoded = player + 1;
-  const opponentEncoded = 2 - player;
-  let result = 0;
-  const start = p.positionLineOffsets[index];
-  const end = p.positionLineOffsets[index + 1];
-  for (let at = start; at < end; at++) {
-    const base = p.positionLineIndices[at] << 2;
-    let ownCount = 0;
-    let opponentCount = 0;
-    let otherEmpty = -1;
-    for (let j = 0; j < 4; j++) {
-      const cellIndex = p.lineCells[base + j];
-      const cell = position.cells[cellIndex];
-      if (cell === ownEncoded) ownCount++;
-      else if (cell === opponentEncoded) opponentCount++;
-      else if (cellIndex !== index) otherEmpty = cellIndex;
-    }
-    if (opponentCount !== 0) continue;
-    if (ownCount === 2) {
-      const remainingColumn = otherEmpty % p.columns;
-      const remainingRow = (otherEmpty / p.columns) | 0;
-      const playableAfterMove = remainingColumn === column
-        ? remainingRow === row + 1
-        : position.heights[remainingColumn] === remainingRow;
-      if (!playableAfterMove) result = 2;
-    } else if (ownCount === 1 && result < 1) {
-      result = 1;
-    }
-  }
-  return result;
-}
-
-function isQuiet(position) {
-  return position.winner() === -1
-    && playableSingletonCells(position, 0).length === 0
-    && playableSingletonCells(position, 1).length === 0;
-}
-
-function createRandom(seed) {
-  let state = seed >>> 0;
-  return (limit) => {
-    state ^= state << 13;
-    state ^= state >>> 17;
-    state ^= state << 5;
-    state >>>= 0;
-    return state % limit;
-  };
-}
-
-test('own cofactor proximity is emitted only below the playable-singleton tier', () => {
-  const geometries = [[4, 4], [5, 4], [7, 6], [8, 6], [6, 7]];
-  const random = createRandom(0xc0fac701);
-  let checked = 0;
-  let latentDegree2 = 0;
-  let degree3 = 0;
-
-  for (const [columns, rows] of geometries) {
-    for (let trial = 0; trial < 240; trial++) {
-      const position = new PrimitivePosition(columns, rows);
-      const limit = random(position.profile.cellCount + 1);
-      for (let step = 0; step <= limit; step++) {
-        if (isQuiet(position)) {
-          const player = position.sideToMove;
-          for (let column = 0; column < columns; column++) {
-            if (position.heights[column] >= rows) continue;
-            const rawClass = rawOwnCofactorClass(position, column, player);
-            position.applyUnchecked(column);
-            const ownPlayable = Math.min(playableSingletonCells(position, player).length, 2);
-            const opponentPlayable = playableSingletonCells(position, 1 - player).length !== 0;
-            position.undoUnchecked();
-
-            const effectiveClass = ownPlayable === 0 ? rawClass : 0;
-            if (effectiveClass === 2) latentDegree2++;
-            else if (effectiveClass === 1) degree3++;
-            assert.ok(effectiveClass >= 0 && effectiveClass <= 2);
-            if (opponentPlayable) {
-              // Search vetoes these candidates entirely; the cofactor fact remains exact.
-              assert.ok(rawClass >= 0);
+          function playableSingletonCells(position, player) {
+            const p = position.profile;
+            const refs = player === 0 ? position.singletonRefs0 : position.singletonRefs1;
+            const result = [];
+            for (let column = 0; column < p.columns; column++) {
+              const row = position.heights[column];
+              if (row >= p.rows) continue;
+              const index = row * p.columns + column;
+              if (refs[index] !== 0) result.push(index);
             }
-            checked++;
+            return result;
           }
-        }
-        if (step === limit || position.winner() !== -1) break;
-        const legal = [];
-        for (let column = 0; column < columns; column++) if (position.heights[column] < rows) legal.push(column);
-        if (legal.length === 0) break;
-        position.applyUnchecked(legal[random(legal.length)]);
-      }
-    }
-  }
 
-  assert.ok(checked > 10_000, `expected broad qualification coverage, got ${checked}`);
-  assert.ok(latentDegree2 > 100, `expected latent degree-2 contractions, got ${latentDegree2}`);
-  assert.ok(degree3 > 1_000, `expected degree-3 contractions, got ${degree3}`);
-});
-`);
+          function rawOwnCofactorClass(position, column, player) {
+            const p = position.profile;
+            const row = position.heights[column];
+            const index = row * p.columns + column;
+            const ownEncoded = player + 1;
+            const opponentEncoded = 2 - player;
+            let result = 0;
+            const start = p.positionLineOffsets[index];
+            const end = p.positionLineOffsets[index + 1];
+            for (let at = start; at < end; at++) {
+              const base = p.positionLineIndices[at] << 2;
+              let ownCount = 0;
+              let opponentCount = 0;
+              let otherEmpty = -1;
+              for (let j = 0; j < 4; j++) {
+                const cellIndex = p.lineCells[base + j];
+                const cell = position.cells[cellIndex];
+                if (cell === ownEncoded) ownCount++;
+                else if (cell === opponentEncoded) opponentCount++;
+                else if (cellIndex !== index) otherEmpty = cellIndex;
+              }
+              if (opponentCount !== 0) continue;
+              if (ownCount === 2) {
+                const remainingColumn = otherEmpty % p.columns;
+                const remainingRow = (otherEmpty / p.columns) | 0;
+                const playableAfterMove = remainingColumn === column
+                  ? remainingRow === row + 1
+                  : position.heights[remainingColumn] === remainingRow;
+                if (!playableAfterMove) result = 2;
+              } else if (ownCount === 1 && result < 1) {
+                result = 1;
+              }
+            }
+            return result;
+          }
+
+          function isQuiet(position) {
+            return position.winner() === -1
+              && playableSingletonCells(position, 0).length === 0
+              && playableSingletonCells(position, 1).length === 0;
+          }
+
+          function createRandom(seed) {
+            let state = seed >>> 0;
+            return (limit) => {
+              state ^= state << 13;
+              state ^= state >>> 17;
+              state ^= state << 5;
+              state >>>= 0;
+              return state % limit;
+            };
+          }
+
+          const geometries = [[4, 4], [5, 4], [7, 6], [8, 6], [6, 7]];
+          const random = createRandom(0xc0fac701);
+          let checked = 0;
+          let latentDegree2 = 0;
+          let degree3 = 0;
+
+          for (const [columns, rows] of geometries) {
+            for (let trial = 0; trial < 240; trial++) {
+              const position = new PrimitivePosition(columns, rows);
+              const limit = random(position.profile.cellCount + 1);
+              for (let step = 0; step <= limit; step++) {
+                if (isQuiet(position)) {
+                  const player = position.sideToMove;
+                  for (let column = 0; column < columns; column++) {
+                    if (position.heights[column] >= rows) continue;
+                    const predicted = quietSuccessorSingletonEffects(position, column, player);
+                    const rawClass = rawOwnCofactorClass(position, column, player);
+                    position.applyUnchecked(column);
+                    const ownPlayable = Math.min(playableSingletonCells(position, player).length, 2);
+                    const opponentPlayable = playableSingletonCells(position, 1 - player).length !== 0;
+                    position.undoUnchecked();
+
+                    assert.equal(predicted & SINGLETON_MASK, ownPlayable);
+                    assert.equal((predicted & OPPONENT_EXPOSURE) !== 0, opponentPlayable);
+                    const expectedCofactor = ownPlayable === 0 ? rawClass : 0;
+                    const actualCofactor = (predicted & COFACTOR_MASK) >>> COFACTOR_SHIFT;
+                    assert.equal(actualCofactor, expectedCofactor);
+                    if (actualCofactor === 2) latentDegree2++;
+                    else if (actualCofactor === 1) degree3++;
+                    checked++;
+                  }
+                }
+                if (step === limit || position.winner() !== -1) break;
+                const legal = [];
+                for (let column = 0; column < columns; column++) {
+                  if (position.heights[column] < rows) legal.push(column);
+                }
+                if (legal.length === 0) break;
+                position.applyUnchecked(legal[random(legal.length)]);
+              }
+            }
+          }
+
+          assert.ok(checked > 10_000, `expected broad qualification coverage, got ${checked}`);
+          assert.ok(latentDegree2 > 100, `expected latent degree-2 contractions, got ${latentDegree2}`);
+          assert.ok(degree3 > 1_000, `expected degree-3 contractions, got ${degree3}`);
+          console.log(JSON.stringify({ checked, latentDegree2, degree3 }));
           NODE
 
       - name: Qualify ephemeral own-cofactor candidate
