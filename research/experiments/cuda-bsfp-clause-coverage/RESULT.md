@@ -1,6 +1,6 @@
 # CUDA-BSFP clause-coverage device qualification
 
-**Status:** synthetic and real-workload portable Device-JS compile/prepare/submit qualified; native semantic device execution not yet qualified.
+**Status:** synthetic, real-workload pair-reduction, and real support-edge cofactor portable Device-JS compile/prepare/submit qualified; native semantic device execution not yet qualified.
 
 **Research direction:** Josh Oshiro.
 
@@ -16,9 +16,9 @@ coverageWords(S) = ceil(|D(S)| / backendWordBits).
 
 The current 64-bit profile is only the first device qualifier. It is not a 42-cell, 69-line, WSL-625, or universal one-u64 solver contract.
 
-## Device primitive
+## Device primitives
 
-The current experimental plan implements:
+The pair-reduction plan implements:
 
 ```text
 record conjunction:
@@ -32,6 +32,18 @@ cheap exact legal-slice rejection:
 frontier normalization:
     fixed-width subset antichain reduction
 ```
+
+The cofactor plan is deliberately separate:
+
+```text
+child coverage record
+    + child-valid mask
+    + opponent singleton-kill mask
+    + per-child-ID parent coverage contribution
+    -> KILL | one mapped parent coverage record
+```
+
+The cofactor stage performs no compaction, deduplication, or subset normalization. Those remain separate algorithm stages.
 
 ## Exact structural substrate
 
@@ -67,6 +79,14 @@ opponent singleton {x}
 ```
 
 No minimal-clause reconstruction is required in the persistent cofactor path.
+
+After the kill guard, the coverage transform is a finite join-homomorphism:
+
+```text
+F(A OR B) = F(A) OR F(B)
+```
+
+because every set child dictionary bit contributes a fixed parent upward-coverage image. The kill relation remains a separate exact guard.
 
 ### Independent semantic recurrence qualification
 
@@ -144,6 +164,8 @@ captured device job:
 ```
 
 This restores the independently qualified 5x4 hot job from `30 x 19 = 570` to `32 x 19 = 608`. The earlier 570-pair figure must not be interpreted as a semantic improvement; it was a benchmark-generation artifact.
+
+A construction-time provenance anchor now fails if the qualified 5x4 support `3,1,1,3,3` stops producing the 22-bit / 32x19 / 608 / 486-rejected / 32-survivor workload without an explicit semantic change.
 
 ## Synthetic portable qualification
 
@@ -223,6 +245,68 @@ subset-minimal survivors:     32
 
 This is the same workload shape independently observed by the semantic recurrence qualification in PR #47.
 
+## Real support-edge cofactor portable qualification
+
+The coverage cofactor was then isolated as a one-to-one transform stage rather than folded into pair generation or normalization.
+
+Workflow:
+
+```text
+bsfp-clause-coverage-experimental
+run 35037124447
+job 104608620196
+head 31b6f84f906542299e3e48396b18b36fa828dd64
+result: success
+```
+
+The fixture independently recomputes complete unfiltered exact clause-CNF solves and selects real support edges for both relations:
+
+```text
+mover == beneficiary:
+    landing ownership can satisfy child clauses
+
+mover != beneficiary:
+    landing ownership deletes x from child clauses;
+    singleton {x} kills the whole record
+```
+
+Every selected child record is mapped twice before submission:
+
+1. variable-array clause cofactor authority;
+2. precomputed packed coverage map.
+
+Any disagreement aborts fixture construction.
+
+Portable result:
+
+```text
+real support-edge segments:    12
+input child records:           434
+packed CPU authority mismatches: 0
+maximum child dictionary:       32 bits
+records killed:                 88
+records retained:              346
+portable compile/load:         pass
+prepared DAG / view checks:    pass
+bind/submit/wait:              pass
+native mapped output authority: not claimed
+```
+
+The hottest selected opponent-owned edge had:
+
+```text
+34 input records
+25-bit child dictionary
+21-bit parent dictionary
+24 records killed
+```
+
+Thus the kill path is materially exercised rather than merely present in the fixture. Beneficiary-owned edges also exercise the satisfaction/image path and correctly produce no record kills.
+
+The first cofactor execution shape scans a bounded padded contribution table for correctness qualification. It is not yet a claim that a 64-entry scan is the best native layout. Sparse set-bit iteration or byte/nibble lookup tables remain implementation candidates only if native timing shows cofactor mapping is material.
+
+No new CUDA-JS runtime/compiler method is required by this result. The cofactor remains Connect4-owned for now: it is small, exact, support-edge-specific, and not yet shown to justify a generic CUDA-Algorithms primitive.
+
 ## Normalization diagnosis
 
 The real workload exposes two large exact reductions before the final subset frontier:
@@ -283,12 +367,14 @@ Qualified now:
 - deterministic real hot-workload fixture derivation from the unfiltered authority recurrence;
 - exact clause -> coverage packing on those real workloads;
 - exact packed CPU OR/filter/normalize parity with the clause authority;
-- public CUDA-JS compile/load/prepare/bind/submit for synthetic and real fixtures.
+- exact packed CPU support-edge mapping parity with the clause-array cofactor authority on selected real edges;
+- public CUDA-JS compile/load/prepare/bind/submit for synthetic pair-reduction, real pair-reduction, and real cofactor fixtures.
 
 Not yet qualified:
 
-- native GPU output equality;
-- native rejection-count equality;
+- native GPU pair-reduction output equality;
+- native GPU rejection-count equality;
+- native GPU cofactor mapped-record equality;
 - native timing versus equally optimized rank-slice ownership;
 - multiword device coverage kernels;
 - scalable generic antichain normalization implementation;
@@ -299,8 +385,8 @@ Not yet qualified:
 1. Keep rank-slice packed ownership as the production reference/fallback.
 2. Preserve the 32x19/608 5x4 hot job as a regression anchor for real-fixture provenance.
 3. Replace the experiment's quadratic prior-candidate duplicate/subset scans with a qualified exact normalization composition if CUDA-Algorithms #11 produces one; keep any Connect4-local alternative experimental only.
-4. Add the already-qualified coverage cofactor transform to the CUDA profile and qualify it independently from the pair-reduction stage.
-5. Run native exact output qualification on a CUDA-capable host at the exact pinned CUDA-JS revision.
+4. Run native exact pair-reduction and cofactor output qualification on a CUDA-capable host at the exact pinned CUDA-JS revision.
+5. Only after native timing, decide whether cofactor mapping needs a different table layout or merits a consumer-neutral upstream primitive.
 6. A/B packed clause coverage against equally optimized rank-slice packed ownership on identical real support/rank workloads.
 7. Measure independently: pair rejection, unique candidates, subset work, retained/scratch bytes, cofactor work, kernel time and whole-slice time.
 
