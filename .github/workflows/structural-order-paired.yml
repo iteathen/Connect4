@@ -20,10 +20,10 @@ jobs:
           path: candidate
           persist-credentials: false
 
-      - name: Checkout pre-ordering control
+      - name: Checkout accepted singleton-order control
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: 1863961eb6fadb5fca172e08581fe9b19a4824cd
+          ref: b45a6350fbc026b7a3429c5b49816c7d3a248f9e
           path: control
           persist-credentials: false
 
@@ -43,10 +43,10 @@ jobs:
           C4_BENCH_WALL_REPETITIONS: "5"
         run: |
           set -euo pipefail
-          (cd control && C4_SOURCE_REVISION="1863961eb6fadb5fca172e08581fe9b19a4824cd" node --expose-gc benchmarks/incumbent.mjs) > control-a.json
+          (cd control && C4_SOURCE_REVISION="b45a6350fbc026b7a3429c5b49816c7d3a248f9e" node --expose-gc benchmarks/incumbent.mjs) > control-a.json
           (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}" node --expose-gc benchmarks/incumbent.mjs) > candidate-a.json
           (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha || github.sha }}" node --expose-gc benchmarks/incumbent.mjs) > candidate-b.json
-          (cd control && C4_SOURCE_REVISION="1863961eb6fadb5fca172e08581fe9b19a4824cd" node --expose-gc benchmarks/incumbent.mjs) > control-b.json
+          (cd control && C4_SOURCE_REVISION="b45a6350fbc026b7a3429c5b49816c7d3a248f9e" node --expose-gc benchmarks/incumbent.mjs) > control-b.json
 
       - name: Upload paired evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
