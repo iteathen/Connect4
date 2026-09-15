@@ -1,0 +1,293 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { Worker } from 'node:worker_threads';
+import { once } from 'node:events';
+import { setTimeout as delay } from 'node:timers/promises';
+import { createPackedProofStore } from './quotient-packed-proof-store.mjs';
+import { createProofResourceService } from './quotient-proof-resource-service.mjs';
+import { createOnlineSemanticQuotientPort } from './quotient-online-semantic-search-lib.mjs';
+import { createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
+import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
+import { createSemanticSharedTtArena, createSemanticSharedTtView, resetSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
+
+const descriptor = (id, terms = [1]) => ({ supportIndex: id, p0: { ids: new Uint16Array(terms) }, p1: { ids: new Uint16Array() }, hash: { lo: 0, hi: id } });
+const fixture = () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 1, associativity: 1, termCapacity: 64 });
+  return { arena, tt: createSemanticSharedTtView(arena), proofs: createPackedProofStore(arena) };
+};
+
+test('semantic tactical forwarding keeps kernel state checks and policy result checks', () => {
+  const domain = { columns: 4, rows: 3, connect: 3 };
+  const k = createSlot64ResidualQuotientKernel(domain, { prefixClasses: 8 }).kernel;
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: domain });
+  const { port } = createOnlineSemanticQuotientPort(k, arena);
+  assert.equal(port.tacticalCode, k.tacticalCode);
+  for (const invalid of [-1, k.states.count, NaN, 0.5, '0']) assert.throws(() => port.tacticalCode(invalid));
+  for (const invalid of [NaN, 0.5, '0', -103, 128]) {
+    const engine = createQuotientNegamaxEngine({ ...port, tacticalCode: () => invalid });
+    assert.throws(() => engine.run(), /tactical/);
+  }
+});
+
+test('nonzero hash mismatch avoids slot acquisition without granting hash equality proof authority', () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 128 });
+  const tt = createSemanticSharedTtView(arena);
+  const first = { ...descriptor(1), hash: { lo: 1, hi: 7 } };
+  const second = { ...descriptor(2), hash: { lo: 2, hi: 7 } };
+  const zero = { ...descriptor(3), hash: { lo: 0, hi: 0 } };
+  const firstHandle = tt.ensure(first), secondHandle = tt.ensure(second);
+  const load = Atomics.load;
+  let firstSlotReads = 0;
+  Atomics.load = (array, index) => {
+    if (index === 0 && (array.buffer === arena.statusBuffer || array.buffer === arena.generationBuffer)) firstSlotReads++;
+    return load(array, index);
+  };
+  try { assert.equal(tt.probe(second), secondHandle); }
+  finally { Atomics.load = load; }
+  assert.equal(firstSlotReads, 0);
+  assert.equal(tt.probe(first), firstHandle);
+  assert.equal(tt.probe({ ...first, p0: { ids: new Uint16Array([2]) } }), -1);
+  const zeroHandle = tt.ensure(zero);
+  assert.equal(tt.probe(zero), zeroHandle);
+  resetSemanticSharedTtArena(arena);
+  // Reset preserves hash payload but retires every descriptor generation.
+  assert.equal(tt.probe(first), -1);
+  assert.equal(tt.probe(second), -1);
+  assert.equal(tt.probe(zero), -1);
+  const recovered = tt.ensure(second);
+  assert.notEqual(recovered, secondHandle);
+  assert.equal(tt.probe(second), recovered);
+});
+
+test('hash rejection skips generation loads; replacement across the filter still requires exact payload', () => {
+  const { arena, tt } = fixture();
+  const original = descriptor(1), other = descriptor(2);
+  tt.ensure(original);
+  const load = Atomics.load;
+  let generationReads = 0;
+  Atomics.load = (array, index) => {
+    if (array.buffer === arena.generationBuffer) generationReads++;
+    return load(array, index);
+  };
+  try { assert.equal(tt.probe(other), -1); }
+  finally { Atomics.load = load; }
+  assert.equal(generationReads, 0);
+  // Same hash, different exact content, installed just before generation read.
+  other.hash = original.hash;
+  let armed = true, replacement;
+  Atomics.load = (array, index) => {
+    if (armed && array.buffer === arena.generationBuffer) {
+      armed = false;
+      replacement = tt.ensure(other);
+    }
+    return load(array, index);
+  };
+  try { assert.equal(tt.probe(original), -1); }
+  finally { Atomics.load = load; }
+  assert.equal(tt.probe(other), replacement);
+});
+
+test('bucket prefix probes stop at first empty and preserve exact matches through collisions, writers, poison and reset', () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 1024 });
+  const tt = createSemanticSharedTtView(arena), proofs = createPackedProofStore(arena);
+  const records = Array.from({ length: 9 }, (_, id) => ({ ...descriptor(id, [id + 1]), hash: { lo: 0, hi: 1 } }));
+  const status = new Int32Array(arena.statusBuffer), handles = [];
+  for (let count = 0; count < 8; count++) {
+    const before = tt.stats().maxBucketScan;
+    assert.equal(tt.probe(records[8]), -1);
+    assert.equal(tt.stats().maxBucketScan, Math.max(before, count + 1));
+    handles.push(tt.ensure(records[count]));
+    assert.equal(status[count], arena.slotStates.ready);
+    for (let index = 0; index <= count; index++) assert.equal(tt.probe(records[index]), handles[index]);
+  }
+  // A writer/poisoned slot is occupied, never an empty-prefix terminator.
+  status[0] = arena.slotStates.proofWriting;
+  assert.equal(tt.probe(records[7]), handles[7]);
+  status[0] = arena.slotStates.poisoned;
+  assert.equal(tt.probe(records[0]), -1);
+  assert.equal(tt.probe(records[7]), handles[7]);
+  status[0] = arena.slotStates.ready;
+  const replacement = tt.ensure(records[8]);
+  assert.equal(proofs.isCurrent(handles[0]), false);
+  assert.equal(tt.probe(records[8]), replacement);
+  resetSemanticSharedTtArena(arena);
+  assert.equal(tt.probe(records[8]), -1);
+  assert.notEqual(tt.ensure(records[0]), handles[0]);
+});
+
+test('a first-empty observation during concurrent publication is only a miss and cannot hide the next probe', () => {
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 128 });
+  const tt = createSemanticSharedTtView(arena), load = Atomics.load;
+  let armed = true, handle;
+  Atomics.load = (array, index) => {
+    const value = load(array, index);
+    if (armed && array.buffer === arena.statusBuffer && index === 0) {
+      armed = false;
+      handle = tt.ensure(descriptor(1));
+    }
+    return value;
+  };
+  try { assert.equal(tt.probe(descriptor(1)), -1); }
+  finally { Atomics.load = load; }
+  assert.equal(tt.probe(descriptor(1)), handle);
+});
+
+test('current-handle observation rechecks generation after observing slot status', () => {
+  const { arena, tt, proofs } = fixture();
+  const old = tt.ensure(descriptor(1));
+  const load = Atomics.load;
+  let armed = true;
+  Atomics.load = (array, index) => {
+    if (armed && array.buffer === arena.statusBuffer) {
+      armed = false;
+      tt.ensure(descriptor(2));
+    }
+    return load(array, index);
+  };
+  try { assert.equal(proofs.isCurrent(old), false); }
+  finally { Atomics.load = load; }
+});
+
+test('game adapters require an arena bound to their exact geometry and term vocabulary', () => {
+  const spec = { columns: 4, rows: 3, connect: 3 };
+  const kernel = createSlot64ResidualQuotientKernel(spec, { prefixClasses: 8 }).kernel;
+  const unbound = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128 });
+  assert.throws(() => createOnlineSemanticQuotientPort(kernel, unbound), /domain/);
+  const other = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: { ...spec, connect: 4 } });
+  assert.throws(() => createOnlineSemanticQuotientPort(kernel, other), /domain/);
+  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 128, domainSpec: spec });
+  const port = createOnlineSemanticQuotientPort(kernel, arena);
+  assert.equal(port.port.ensureProofKey(kernel.rootId), kernel.rootId);
+});
+
+test('resource reset rejects semantic nonquiescence before clearing static proofs', () => {
+  const resource = createProofResourceService(1, { entryCapacity: 8, termCapacity: 128 });
+  const proofs = createPackedProofStore(resource.graphArena);
+  proofs.publishExact(0, 1);
+  const status = new Int32Array(resource.semanticArena.statusBuffer);
+  status[0] = resource.semanticArena.slotStates.proofWriting;
+  assert.throws(() => resource.reset(), /quiescence/);
+  assert.equal(proofs.lower(0), 1);
+  status[0] = resource.semanticArena.slotStates.empty;
+  resource.reset();
+  assert.equal(proofs.lower(0), -1);
+});
+
+test('arena views reject aliases/growth and snapshot mutable transport metadata', () => {
+  const { arena } = fixture();
+  for (const invalid of [
+    { ...arena, generationBuffer: arena.statusBuffer },
+    { ...arena, recordBuffer: new SharedArrayBuffer(1, { maxByteLength: 2 }) },
+  ]) {
+    assert.throws(() => createSemanticSharedTtView(invalid));
+    assert.throws(() => createPackedProofStore(invalid));
+  }
+  const transport = { ...arena, slotStates: { ...arena.slotStates } };
+  const tt = createSemanticSharedTtView(transport);
+  const proofs = createPackedProofStore(transport);
+  const handle = tt.ensure(descriptor(1));
+  transport.entryCapacity = 99;
+  transport.generationLimit = 0;
+  transport.slotStates.ready = 0;
+  proofs.publishExact(handle, 0);
+  assert.equal(proofs.upper(handle), 0);
+  assert.equal(tt.probe(descriptor(1)), handle);
+});
+
+test('a failure after payload overwrite poisons the new generation until quiescent reset', () => {
+  const { arena, tt, proofs } = fixture();
+  const old = tt.ensure(descriptor(1, [1, 2]));
+  proofs.publishExact(old, 1);
+  // Force the checked replacement telemetry boundary after descriptor bytes
+  // and generation have changed, unlike pre-write allocation exhaustion.
+  Atomics.store(new Int32Array(arena.metaBuffer), 2, 0x7fffffff);
+  assert.throws(() => tt.ensure(descriptor(2, [3, 4])), /counter.*Int32/);
+  assert.equal(new Int32Array(arena.statusBuffer)[0], arena.slotStates.poisoned);
+  assert.equal(tt.probe(descriptor(1, [1, 2])), -1);
+  assert.equal(tt.probe(descriptor(2, [3, 4])), -1);
+  assert.equal(proofs.isCurrent(old), false);
+  assert.equal(proofs.publishExact(old, 0), null);
+  resetSemanticSharedTtArena(arena);
+  const recovered = tt.ensure(descriptor(1, [1, 2]));
+  assert.notEqual(recovered, old);
+  proofs.publishExact(recovered, 1);
+  assert.equal(proofs.lower(recovered), 1);
+});
+
+test('generation exhaustion never wraps into a prior handle', () => {
+  const { arena, tt, proofs } = fixture();
+  const old = tt.ensure(descriptor(1));
+  Atomics.store(new Uint32Array(arena.generationBuffer), 0, arena.generationLimit);
+  assert.throws(() => tt.ensure(descriptor(2)), /generation exhausted/);
+  assert.equal(proofs.isCurrent(old), false);
+  assert.equal(new Uint32Array(arena.generationBuffer)[0], arena.generationLimit);
+  resetSemanticSharedTtArena(arena);
+  assert.throws(() => tt.ensure(descriptor(1)), /generation exhausted/);
+});
+
+test('negative allocation and counters cannot alias existing term storage', () => {
+  for (const counter of [0, 5]) {
+    const { arena, tt } = fixture();
+    Atomics.store(new Int32Array(arena.metaBuffer), counter, -1);
+    assert.throws(() => tt.ensure(descriptor(1)), /invalid|negative/);
+    assert.equal(tt.probe(descriptor(1)), -1);
+  }
+});
+
+test('proof writer excludes replacement and reset, then wakes replacement on release', { timeout: 10000 }, async () => {
+  const { arena, tt, proofs } = fixture();
+  const old = tt.ensure(descriptor(1));
+  const gate = new SharedArrayBuffer(4);
+  const workerSource = `
+    const {parentPort,workerData:d}=require('node:worker_threads');
+    (async()=>{
+      const {createPackedProofStore}=await import(d.proofs);
+      const {createSemanticSharedTtView}=await import(d.tt);
+      if(d.role==='proof'){
+        const store=Atomics.store; let armed=true;
+        Atomics.store=(a,i,v)=>{
+          if(armed&&a.buffer===d.arena.recordBuffer){
+            armed=false;parentPort.postMessage('locked');
+            if(Atomics.wait(new Int32Array(d.gate),0,0,5000)==='timed-out')throw Error('proof test gate timeout');
+          }
+          return store(a,i,v);
+        };
+        createPackedProofStore(d.arena).publishExact(d.handle,1);
+        parentPort.postMessage('published');
+      } else {
+        const tt=createSemanticSharedTtView(d.arena);
+        const handle=tt.ensure({supportIndex:2,p0:{ids:new Uint16Array([2])},p1:{ids:new Uint16Array()},hash:{lo:0,hi:2}});
+        parentPort.postMessage(handle);
+      }
+    })().catch(e=>{parentPort.postMessage({error:e.stack});process.exitCode=1;});
+  `;
+  const data = { arena, gate, handle: old, proofs: new URL('./quotient-packed-proof-store.mjs', import.meta.url).href, tt: new URL('./quotient-semantic-shared-tt.mjs', import.meta.url).href };
+  const writer = new Worker(workerSource, { eval: true, workerData: { ...data, role: 'proof' } });
+  let replacement;
+  try {
+    assert.deepEqual(await once(writer, 'message'), ['locked']);
+    const beforeReset = new Uint8Array(arena.metaBuffer).slice();
+    assert.throws(() => resetSemanticSharedTtArena(arena), /quiescence/);
+    assert.deepEqual(new Uint8Array(arena.metaBuffer), beforeReset);
+    replacement = new Worker(workerSource, { eval: true, workerData: { ...data, role: 'replace' } });
+    const result = once(replacement, 'message');
+    const deadline = Date.now() + 5000;
+    while (Atomics.load(new Int32Array(arena.bucketLockBuffer), 0) !== 1) {
+      if (Date.now() > deadline) throw Error('replacement did not acquire its bucket');
+      await delay(1);
+    }
+    assert.equal(new Int32Array(arena.statusBuffer)[0], arena.slotStates.proofWriting);
+    assert.equal(new Uint32Array(arena.generationBuffer)[0], 1);
+    Atomics.store(new Int32Array(gate), 0, 1);
+    Atomics.notify(new Int32Array(gate), 0);
+    const [handle] = await result;
+    assert.equal(typeof handle, 'number', JSON.stringify(handle));
+    assert.notEqual(handle, old);
+    assert.equal(proofs.lower(handle), -1, 'old proof leaked into replacement');
+    assert.equal(proofs.isCurrent(old), false);
+  } finally {
+    Atomics.store(new Int32Array(gate), 0, 1);
+    Atomics.notify(new Int32Array(gate), 0);
+    await Promise.all([writer.terminate(), replacement?.terminate()]);
+  }
+});

@@ -1,0 +1,145 @@
+{
+  "kind": "standard7x6-hard-frontier-recursion-evidence-v1",
+  "date": "2026-09-13",
+  "attribution": {
+    "researchDirectionAndStructuralTarget": "Josh Oshiro",
+    "formalizationImplementationAndQualification": "OpenAI ChatGPT"
+  },
+  "sourceDepth8Frontier": {
+    "physicalStates": 1141,
+    "immediateWinStates": 319,
+    "recursiveObligations": 822,
+    "widthsByPly": [1, 1, 7, 7, 47, 47, 277, 204, 1141],
+    "proofPathMultiplicitiesByPly": [1, 1, 7, 7, 49, 49, 343, 231, 1616]
+  },
+  "shallowGrammar": {
+    "structurallyProvenRecursiveRoots": 99,
+    "unresolvedRecursiveRoots": 723,
+    "classes": {
+      "E(O)": 84,
+      "E(A(E(O)|I))": 15
+    },
+    "workflowRun": 34791694587,
+    "workflowJob": 103817006993
+  },
+  "uniqueHardTransport": {
+    "initialOneHardRoots": 290,
+    "structurallyClosedRoots": 62,
+    "reexpandedOrUnresolvedRoots": 228,
+    "closureFraction": 0.21379310344827587,
+    "chainLengthPairs": {
+      "2": 16,
+      "3": 33,
+      "4": 13
+    },
+    "breakHistogram": {
+      "multiple-hard-2": 4,
+      "multiple-hard-3": 1,
+      "multiple-hard-4": 15,
+      "multiple-hard-5": 34,
+      "multiple-hard-6": 127,
+      "multiple-hard-7": 47
+    },
+    "transportDisplacementHistogram": {
+      "0": 259,
+      "1": 22,
+      "2": 104,
+      "3": 18,
+      "4": 8,
+      "5": 4
+    },
+    "workflowHead": "3145be67894f647c9b653050045d69b713901e44",
+    "workflowRun": 34792603941,
+    "workflowJob": 103819518855,
+    "proofBoundary": "Pons chooses discovery witnesses only; every closed chain is independently replayable from legal C4-0010 transitions and I/O/E/A base rules."
+  },
+  "lowWidthBranchingFrontier": {
+    "seeds": 55,
+    "seedWidthHistogram": {
+      "2": 13,
+      "3": 19,
+      "4": 23
+    },
+    "structurallyClosedSeeds": 24,
+    "overflowSeedsAtWidth16": 31,
+    "depthCappedSeeds": 0,
+    "closedByInitialWidth": {
+      "2": 12,
+      "3": 3,
+      "4": 9
+    },
+    "totalExactQNormalizationSavings": 149,
+    "representativeClosedWidthHistories": [
+      [2, 0],
+      [2, 2, 0],
+      [2, 12, 0],
+      [2, 7, 2, 3, 0],
+      [2, 7, 9, 3, 0],
+      [4, 5, 2, 0]
+    ],
+    "representativeOverflowHistories": [
+      [4, 22],
+      [3, 18],
+      [3, 11, 22],
+      [4, 12, 28],
+      [4, 16, 64],
+      [3, 9, 37]
+    ],
+    "workflowHead": "8c123014c96e93b857ffb5cc1c4be884e5e79f36",
+    "workflowRun": 34792811585,
+    "workflowJob": 103820117036,
+    "limits": {
+      "maximumHardFrontierWidth": 16,
+      "maximumTwoPlyFrontierLayers": 8,
+      "workflowTimeoutMinutes": 10
+    }
+  },
+  "binaryDifferential": {
+    "binarySeeds": 13,
+    "closed": 12,
+    "overflow": 1,
+    "closureFraction": 0.9230769230769231,
+    "canonicalOverflowRootSequence": "46656555",
+    "canonicalOverflowWidthHistory": [2, 6, 26],
+    "overflowInitialPair": {
+      "witnessColumnOneBased": 4,
+      "hardReplyColumnsOneBased": [3, 6],
+      "sharedP0ResidualTerms": 35,
+      "firstNormalizedHardWidth": 6
+    },
+    "noAcceptedStaticSeparator": true,
+    "workflowHead": "c9bdce55b19978a4bd0c1c38cef5c15df095fd62",
+    "workflowRun": 34793030553,
+    "workflowJob": 103820737884
+  },
+  "overflowWitnessChoice": {
+    "targetRootSequence": "46656555",
+    "policy": "among exact value-preserving P0 discovery moves choose the move with minimum structural hard-successor count",
+    "status": "unresolved",
+    "widthHistory": [1, 1, 1, 1, 1, 6, 28],
+    "interpretation": "the initial binary frontier is avoidable, but a later broad hard-frontier regime remains under the greedy minimum-hard policy",
+    "workflowHead": "6e86174af3f42dfe60728dc2dbe127f234d5d889",
+    "workflowRun": 34793140082,
+    "workflowJob": 103821043246
+  },
+  "currentConstructiveCoverage": {
+    "immediateDepth8States": 319,
+    "shallowRecursiveRoots": 99,
+    "additionalUniqueHardRoots": 62,
+    "additionalLowWidthBranchingRoots": 24,
+    "provedRecursiveRoots": 185,
+    "totalProvedDepth8FrontierStates": 504,
+    "recursiveRootFraction": 0.22506082725060828,
+    "depth8FrontierFraction": 0.441717791411043
+  },
+  "calculus": {
+    "base": "currently I or E(O), extensible only with independently proved positive certificates",
+    "macroStep": "P0 existential witness followed by all legal P1 replies; base-certified replies discharge and remaining exact-q children form next hard frontier",
+    "normalization": "exact C4-0010 q duplicate removal only",
+    "progressMeasure": "42 - supportRank; decreases by exactly 2 for every retained nonterminal macro successor",
+    "widthMonotone": false,
+    "outputProvenanceIncluded": false
+  },
+  "status": "PARTIAL_CONSTRUCTIVE_VALUE_PROOF_CALCULUS",
+  "remainingBoundary": "Broad 5..7-hard regimes and structural P0 witness-selection/base-certificate laws remain unresolved. Do not increase frontier caps blindly."
+}

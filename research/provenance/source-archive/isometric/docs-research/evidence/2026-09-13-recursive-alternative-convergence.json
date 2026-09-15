@@ -1,0 +1,147 @@
+{
+  "kind": "recursive-alternative-convergence-control",
+  "date": "2026-09-13",
+  "attribution": {
+    "research_direction_recursive_matrix_free_hypothesis": "Josh Oshiro",
+    "formalization_implementation_qualification": "OpenAI ChatGPT"
+  },
+  "claim_boundary": {
+    "exact_values": "discovery_and_falsification_control_only",
+    "terminal_win_states": "represented_as_terminal_edges_not_materialized_states",
+    "full_7x6_solve": false
+  },
+  "grammar": {
+    "p0": "D0 ::= I | E(D1)",
+    "p1": "D1 ::= O | R(S, immediate)",
+    "R": "A({E(C): C in S} union ({I} if immediate))"
+  },
+  "profiles": {
+    "4x3c3": {
+      "materialized_states": 4659,
+      "winning_states": 2627,
+      "max_rank": 8,
+      "max_rank_states": 2,
+      "root": {
+        "value": 1,
+        "rank": 7,
+        "expression": "E(A(E(A(E(A(E(O)|I))|I))|E(O)))"
+      },
+      "root_cone": {
+        "states": 39,
+        "edges": 38,
+        "recursive_rules": 9,
+        "alternative_rules": 3,
+        "raw_universal_branches": 27,
+        "normalized_consequence_branches": 14,
+        "max_normalized_arity": 2
+      },
+      "all_max_rank_cones": {
+        "states": 171,
+        "edges": 179,
+        "recursive_rules": 20,
+        "alternative_rules": 9,
+        "universal_nodes": 36,
+        "raw_universal_branches": 120,
+        "normalized_consequence_branches": 76,
+        "branch_reduction": 0.3666666666666667,
+        "unary_A": 2,
+        "binary_A": 28,
+        "wide_A": 6,
+        "max_normalized_arity": 3
+      }
+    },
+    "4x4c3": {
+      "materialized_states": 23948,
+      "winning_states": 13797,
+      "max_rank": 12,
+      "max_rank_states": 2,
+      "root": {
+        "value": 1,
+        "rank": 7,
+        "expression": "E(A(E(A(E(A(E(O)|I))|I))|E(O)))"
+      },
+      "root_cone": {
+        "states": 41,
+        "edges": 40,
+        "recursive_rules": 9,
+        "alternative_rules": 3,
+        "raw_universal_branches": 28,
+        "normalized_consequence_branches": 14,
+        "max_normalized_arity": 2
+      },
+      "all_max_rank_cones": {
+        "states": 238,
+        "edges": 240,
+        "recursive_rules": 18,
+        "alternative_rules": 8,
+        "universal_nodes": 44,
+        "raw_universal_branches": 162,
+        "normalized_consequence_branches": 98,
+        "branch_reduction": 0.3950617283950617,
+        "unary_A": 0,
+        "binary_A": 36,
+        "wide_A": 8,
+        "max_normalized_arity": 4
+      }
+    },
+    "5x3c4": {
+      "materialized_states": 152003,
+      "winning_states": 21766,
+      "max_rank": 9,
+      "max_rank_states": 84,
+      "root_value": 0,
+      "all_max_rank_cones": {
+        "states": 4926,
+        "edges": 6639,
+        "recursive_rules": 29,
+        "effect_rules": 78,
+        "coarse_effect_types": 25,
+        "alternative_rules": 13,
+        "universal_nodes": 1212,
+        "raw_universal_branches": 3528,
+        "normalized_consequence_branches": 1434,
+        "branch_reduction": 0.5935374149659864,
+        "unary_A": 990,
+        "binary_A": 222,
+        "wide_A": 0,
+        "max_normalized_arity": 2
+      }
+    },
+    "4x4c4": {
+      "materialized_states": 139625,
+      "winning_states": 23493,
+      "max_rank": 7,
+      "max_rank_states": 56,
+      "root_value": 0,
+      "all_max_rank_cones": {
+        "states": 1230,
+        "edges": 1360,
+        "recursive_rules": 55,
+        "effect_rules": 205,
+        "coarse_effect_types": 124,
+        "alternative_rules": 26,
+        "universal_nodes": 293,
+        "raw_universal_branches": 800,
+        "normalized_consequence_branches": 513,
+        "branch_reduction": 0.35875,
+        "unary_A": 99,
+        "binary_A": 170,
+        "wide_A": 24,
+        "max_normalized_arity": 4
+      }
+    }
+  },
+  "cross_connect4": {
+    "5x3_recursive_rules": 29,
+    "4x4_recursive_rules": 55,
+    "shared_recursive_rules": 17,
+    "5x3_rule_coverage": 0.5862068965517241,
+    "4x4_rule_coverage": 0.3090909090909091,
+    "5x3_effect_types": 25,
+    "4x4_effect_types": 124,
+    "shared_effect_types": 19,
+    "5x3_effect_coverage": 0.76,
+    "4x4_effect_coverage": 0.1532258064516129
+  },
+  "principal_result": "Physical defender branching remains exact under universal recursion while duplicate branches collapse to a small set of recursively distinct consequence classes. The surviving missing theorem is structural action-effect transport into those lower classes, not another scalar state classifier."
+}

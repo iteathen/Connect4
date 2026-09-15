@@ -1,0 +1,9 @@
+// One post-freeze seed; no tuning or speed-based case selection follows this run.
+import assert from'node:assert/strict';import{writeFileSync,appendFileSync}from'node:fs';import{DenseLineSolver}from'./dense_solver.mjs';import{Solver}from'../2026-09-08-exact-solver/twoword_solver_sharedtt.mjs';import{rng,rollout,stateArgs}from'./support.mjs';
+const out=new URL('../../../docs/research/evidence/winspace-native/',import.meta.url),rnd=rng(0x197cdf42),states=[];for(const n of[14,18,22,26,30,34]){let got=0;for(let i=0;i<10000&&got<4;i++){const s=rollout(n,rnd);if(s){states.push(s);got++;}}assert.equal(got,4);}
+const file=new URL('holdout.jsonl',out);writeFileSync(file,JSON.stringify({kind:'frozen',seed:'197cdf42',states:states.map(s=>s.seq),selection:'first four successful nonterminal survivor rollouts per rank; no performance selection',ranks:[14,18,22,26,30,34]})+'\n');
+const emit=x=>appendFileSync(file,JSON.stringify(x)+'\n'),budget=14*131072,base=new Solver(17,false),dense=new DenseLineSolver(budget),truth=[];
+function batch(mode){let nodes=0,hits=0;for(let i=0;i<states.length;i++){const s=states[i];let score;if(mode==='baseline'){base.keyLo.fill(0);base.keyHi.fill(0);base.val.fill(0);base.ctrl.fill(0);base.owner.fill(0);base.resetMetrics();score=base.solveBits(...stateArgs(s));nodes+=base.nodes;hits+=base.ttHits;}else{dense.compile(s);score=dense.solve();nodes+=dense.nodes;hits+=dense.ttHits;}if(truth[i]===undefined)truth[i]=score;assert.equal(score,truth[i],s.seq);}return{nodes,hits};}
+for(let r=0;r<2;r++){batch('baseline');batch('dense');}
+for(let r=0;r<7;r++)for(let order=0;order<2;order++){const mode=(r+order)%2?'baseline':'dense',start=performance.now(),m=batch(mode);emit({kind:'trial',repeat:r,order,mode,TTBytes:budget,totalMs:performance.now()-start,...m});}
+emit({kind:'complete',expected:truth,rootValuesBaselineAgreementOnly:true});console.log('complete');

@@ -1,0 +1,35 @@
+✔ frontier provider is selected at initialization and malformed providers fail closed (2.1126ms)
+✔ bounded normal search keeps horizon leaves unknown and can resume exact search (0.5111ms)
+✔ an unresolved sibling cannot turn a known draw into an exact root draw (0.193ms)
+✔ a proved winning child still cuts off after an unresolved sibling (0.563ms)
+✔ bounded forced chains respect the horizon and restore unrestricted search after failure (0.217ms)
+✔ structural draw intersects prior proof and rejects contradictory exact bounds (0.5647ms)
+✔ both decision policies reject rank-preserving forced transitions (0.6323ms)
+✔ a scout rejected with null cannot become a draw through numeric coercion (0.4376ms)
+✔ a failed re-search retains ownership of its outstanding peer scouts (2.9309ms)
+✔ frontier copying handles overlapping distinct views and keeps cached masks private (0.8134ms)
+✔ fused frontier advancement matches independent masks for disjoint and overlapping views (3.5834ms)
+✔ coherent read boundary rejects malformed scalars before typed narrowing (0.2381ms)
+✔ actual search visits moves in descending eval order; hints only break equal scores (1.1219ms)
+✔ root action results expose one canonical draw value after perspective reversal (0.286ms)
+✔ semantic tactical forwarding keeps kernel state checks and policy result checks (10.5726ms)
+✔ nonzero hash mismatch avoids slot acquisition without granting hash equality proof authority (1.0007ms)
+✔ hash rejection skips generation loads; replacement across the filter still requires exact payload (0.4462ms)
+✔ bucket prefix probes stop at first empty and preserve exact matches through collisions, writers, poison and reset (0.6708ms)
+✔ a first-empty observation during concurrent publication is only a miss and cannot hide the next probe (0.2474ms)
+✔ current-handle observation rechecks generation after observing slot status (0.2138ms)
+✔ game adapters require an arena bound to their exact geometry and term vocabulary (6.2629ms)
+✔ resource reset rejects semantic nonquiescence before clearing static proofs (0.5853ms)
+✔ arena views reject aliases/growth and snapshot mutable transport metadata (0.5082ms)
+✔ a failure after payload overwrite poisons the new generation until quiescent reset (0.4083ms)
+✔ generation exhaustion never wraps into a prior handle (0.2422ms)
+✔ negative allocation and counters cannot alias existing term storage (0.3175ms)
+✔ proof writer excludes replacement and reset, then wakes replacement on release (73.4909ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 201.9114

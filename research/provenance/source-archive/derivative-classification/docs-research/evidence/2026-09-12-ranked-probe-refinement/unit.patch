@@ -1,0 +1,220 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"
+index e96921c..a243b30 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"
+@@ -527,9 +527,12 @@ export function createSemanticSharedTtView(arena) {
+ 
+   function stableDescriptorHandle(slot, descriptor, stateBefore) {
+     if (stateBefore !== SLOT_READY && stateBefore !== SLOT_PROOF_WRITING) return -1;
++    if (hashLo[slot] !== descriptor.hash.lo || hashHi[slot] !== descriptor.hash.hi) return -1;
++    // Hash rejection carries no proof authority. Acquire the generation only
++    // for a candidate; exact payload comparison remains inside the generation
++    // and status checks, including when replacement raced with this filter.
+     const generationBefore = Atomics.load(generation, slot);
+     if (generationBefore < 1) return -1;
+-    if (hashLo[slot] !== descriptor.hash.lo || hashHi[slot] !== descriptor.hash.hi) return -1;
+     if (!descriptorEquals(slot, descriptor)) {
+       metrics.hashCollisions += 1;
+       return -1;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index 478cea3..4bceed4 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+@@ -69,6 +69,7 @@ function assertWordSource(source, offset) {
+ 
+ class SlotChunkPool64 {
+   #sealed = false;
++  #emptyId = -1;
+   constructor(slot, slotCount) {
+     if (!Number.isInteger(slot) || slot < 0 || slot >= slotCount) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
+     this.slot = slot;
+@@ -139,6 +140,12 @@ class SlotChunkPool64 {
+     // The validated Uint32 pair is the complete exact key. Read it once;
+     // dictionary-owned IDs need no repeated public equality validation.
+     const word0 = source[offset], word1 = source[offset + 1];
++    // The empty pair has one immutable canonical ID in this dictionary.
++    // Reuse it directly: no hash, probe or payload comparison is necessary.
++    if ((word0 | word1) === 0 && this.#emptyId >= 0) {
++      this.metrics.hits += 1;
++      return this.#emptyId;
++    }
+     const hash = hashWords2(word0, word1);
+     let mask = this.hashSlots.length - 1;
+     let slot = hash & mask;
+@@ -168,6 +175,7 @@ class SlotChunkPool64 {
+     this.words[base + 1] = word1;
+     this.hashSlots[slot] = id;
+     this.count += 1;
++    if ((word0 | word1) === 0) this.#emptyId = id;
+     this.metrics.misses += 1;
+     return id;
+   }
+@@ -536,7 +544,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     assertClassId(id);
+     assertMask(bitLo);
+     assertMask(bitHi);
+-    return (((singletonLo[id] & (bitLo >>> 0)) >>> 0) !== 0) || (((singletonHi[id] & (bitHi >>> 0)) >>> 0) !== 0);
++    return ((singletonLo[id] & bitLo) | (singletonHi[id] & bitHi)) !== 0;
+   };
+ 
+   pool.termCount = function slot64TermCount(id) {
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-live-line-move-order.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-live-line-move-order.mjs"
+index bd0b795..080eacd 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-live-line-move-order.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-live-line-move-order.mjs"
+@@ -121,11 +121,31 @@ export function createLiveLineMoveOrder(spec) {
+     assertWordRange(source, sourceOffset, profile.stateWords, 'live-line source');
+     assertWordRange(target, targetOffset, profile.stateWords, 'live-line target');
+ 
+-    const sourceStart = source.byteOffset / 4 + sourceOffset;
+-    const targetStart = target.byteOffset / 4 + targetOffset;
+-    const sourceEnd = sourceStart + profile.stateWords;
+-    const targetEnd = targetStart + profile.stateWords;
+-    const overlapping = source.buffer === target.buffer && sourceStart < targetEnd && targetStart < sourceEnd;
++    const words = profile.wordCount;
++    const stateWords = profile.stateWords;
++    const throughBase = cell * words;
++    // Recursive frames use disjoint ranges of the same preallocated array.
++    // Establish this from numeric offsets without inspecting backing buffers.
++    let overlapping = source === target
++      && sourceOffset < targetOffset + stateWords && targetOffset < sourceOffset + stateWords;
++    let sourceStart = sourceOffset, targetStart = targetOffset;
++    if (source !== target) {
++      sourceStart += source.byteOffset / 4;
++      targetStart += target.byteOffset / 4;
++      overlapping = source.buffer === target.buffer
++        && sourceStart < targetStart + stateWords && targetStart < sourceStart + stateWords;
++    }
++    if (!overlapping) {
++      const ownBase = mover * words, blockedBase = (1 - mover) * words;
++      for (let word = 0; word < words; word += 1) {
++        target[targetOffset + ownBase + word] = source[sourceOffset + ownBase + word];
++        target[targetOffset + blockedBase + word] = source[sourceOffset + blockedBase + word]
++          & ~profile.through[throughBase + word];
++      }
++      return target;
++    }
++
++    // Overlapping external views retain memmove semantics before masking.
+     if (overlapping && targetStart > sourceStart) {
+       for (let index = profile.stateWords - 1; index >= 0; index -= 1) {
+         target[targetOffset + index] = source[sourceOffset + index];
+@@ -136,10 +156,8 @@ export function createLiveLineMoveOrder(spec) {
+       }
+     }
+ 
+-    const words = profile.wordCount;
+     const blockedPlayer = 1 - mover;
+     const blockedBase = blockedPlayer * words;
+-    const throughBase = cell * words;
+     for (let word = 0; word < words; word += 1) {
+       const at = blockedBase + word;
+       target[targetOffset + at] = (target[targetOffset + at] & ~profile.through[throughBase + word]) >>> 0;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs"
+index 7c0ecdc..afd3a78 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs"
+@@ -15,6 +15,34 @@ const fixture = () => {
+   return { arena, tt: createSemanticSharedTtView(arena), proofs: createPackedProofStore(arena) };
+ };
+ 
++test('hash rejection skips generation loads; replacement across the filter still requires exact payload', () => {
++  const { arena, tt } = fixture();
++  const original = descriptor(1), other = descriptor(2);
++  tt.ensure(original);
++  const load = Atomics.load;
++  let generationReads = 0;
++  Atomics.load = (array, index) => {
++    if (array.buffer === arena.generationBuffer) generationReads++;
++    return load(array, index);
++  };
++  try { assert.equal(tt.probe(other), -1); }
++  finally { Atomics.load = load; }
++  assert.equal(generationReads, 0);
++  // Same hash, different exact content, installed just before generation read.
++  other.hash = original.hash;
++  let armed = true, replacement;
++  Atomics.load = (array, index) => {
++    if (armed && array.buffer === arena.generationBuffer) {
++      armed = false;
++      replacement = tt.ensure(other);
++    }
++    return load(array, index);
++  };
++  try { assert.equal(tt.probe(original), -1); }
++  finally { Atomics.load = load; }
++  assert.equal(tt.probe(other), replacement);
++});
++
+ test('bucket prefix probes stop at first empty and preserve exact matches through collisions, writers, poison and reset', () => {
+   const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 1024 });
+   const tt = createSemanticSharedTtView(arena), proofs = createPackedProofStore(arena);
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index f0c8ee0..79fbb7d 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -12,6 +12,22 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('empty chunk identity survives dictionary growth and validates input before reuse', () => {
++  const chunk = make().classes.slotPools[0], pair = new Uint32Array(2);
++  const empty = chunk.intern(pair, 0);
++  for (let value = 1; value < 1100; value++) {
++    pair[0] = value; pair[1] = 0x80000000;
++    assert.notEqual(chunk.intern(pair, 0), empty);
++  }
++  pair.fill(0);
++  const count = chunk.count, grows = chunk.metrics.hashGrows;
++  assert.equal(chunk.intern(pair, 0), empty);
++  assert.equal(chunk.count, count);
++  assert.equal(chunk.metrics.hashGrows, grows);
++  assert.throws(() => chunk.intern([0, 0], 0));
++  assert.throws(() => chunk.intern(pair, 1));
++});
++
+ test('direct semantic edges agree with recomputation and repeated edges bypass every interner', () => {
+   const config = { prefixClasses: 8, searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } };
+   const cached = createSlot64ResidualQuotientKernel(spec, { ...config, cacheEdges: true }).kernel;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-decision-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-decision-contract.test.mjs"
+index 51c0d4b..047322e 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\ranked-probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-decision-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-decision-contract.test.mjs"
+@@ -121,6 +121,37 @@ test('frontier copying handles overlapping distinct views and keeps cached masks
+   assert.equal(order.profile.all, undefined);
+ });
+ 
++test('fused frontier advancement matches independent masks for disjoint and overlapping views', () => {
++  for (const spec of [{ columns: 7, rows: 6, connect: 4 }, { columns: 4, rows: 3, connect: 3 },
++    { columns: 2, rows: 2, connect: 3 }]) {
++    const order = createLiveLineMoveOrder(spec), n = order.profile.stateWords, words = n / 2;
++    for (let mover = 0; mover < 2; mover++) for (let cell = 0; cell < spec.columns * spec.rows; cell++) {
++      const seed = order.createRootSeed();
++      for (let i = 0; i < n; i++) seed[i] &= (0xa5a5a5a5 ^ Math.imul(i + cell + 1, 0x9e3779b9));
++      // Query line membership one bit at a time through the public evaluator.
++      const expected = new Uint32Array(seed), one = new Uint32Array(n);
++      for (let w = 0; w < words; w++) for (let b = 0; b < 32; b++) {
++        const at = (1 - mover) * words + w;
++        one[at] = 1 << b;
++        if (order.valueAtSeed(one, 1 - mover, cell)) expected[at] &= ~(1 << b);
++        one[at] = 0;
++      }
++      for (const [from, to] of [[0, n], [n, 0], [0, 1], [1, 0], [0, 0]]) {
++        for (const views of [false, true]) {
++          const data = new Uint32Array(n * 2);
++          data.set(seed, from);
++          if (views) order.advanceInto(data.subarray(from, from + n), 0, mover, cell, data.subarray(to, to + n), 0);
++          else order.advanceInto(data, from, mover, cell, data, to);
++          assert.deepEqual(data.subarray(to, to + n), expected);
++        }
++      }
++      const target = new Uint32Array(n);
++      order.advanceInto(seed, 0, mover, cell, target, 0);
++      assert.deepEqual(target, expected);
++    }
++  }
++});
++
+ 
+ test('coherent read boundary rejects malformed scalars before typed narrowing', () => {
+   for(const values of [[0.5,1,-1],[-1,2,-1],[-1,1,256],[-1,1,NaN]]) {

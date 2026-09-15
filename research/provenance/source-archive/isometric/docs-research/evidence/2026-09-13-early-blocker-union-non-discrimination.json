@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "prototype": "reference/research-prototypes/2026-09-13-perfect-play-winline/early_blocker_union_non_discrimination.mjs",
+  "prototype_blob_sha": "e63a8c530bc7df8a6eedf5a1a47759b6aa7aa25b",
+  "states": 49,
+  "byValue": {
+    "loss": {"states":20,"fullRawBlockerUnion":20},
+    "draw": {"states":10,"fullRawBlockerUnion":10},
+    "win": {"states":19,"fullRawBlockerUnion":19}
+  },
+  "generatedSolutionShapeCounts": {
+    "A1":901,
+    "A2":1029,
+    "A3":667,
+    "A4":4912,
+    "A5":11664,
+    "A6":16842,
+    "A7":7020,
+    "A8":9554,
+    "A9":42840
+  },
+  "interpretation": [
+    "For every exact third-ply label after the forced center opening, the raw union of generated A1-A9 solution-shape blockers covers every surviving P0 residual requirement.",
+    "This holds for all 20 P0-loss labels, all 10 draws, and all 19 P0-win labels.",
+    "Therefore blocker enumeration plus WSL upward coverage carries no W/D/L discrimination on this early corpus unless simultaneous rule/certificate compatibility, response resources, and timing are retained.",
+    "The result is a falsifier for any proposed proof calculus that treats the union of individually generated blocker consequences as one jointly realizable strategy."
+  ],
+  "anti_leakage": "The W/D/L labels are used only as a bounded control corpus; no perfect-play terminal-line subset or terminal-line witness classification is consulted."
+}

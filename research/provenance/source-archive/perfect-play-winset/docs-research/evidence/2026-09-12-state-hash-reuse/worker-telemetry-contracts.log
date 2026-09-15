@@ -1,0 +1,17 @@
+✔ cleanup attempts every owned termination after stop/drain/close failure (1.0304ms)
+✔ postMessage failure poisons executor and releases every pending task (0.7238ms)
+✔ malformed worker values poison before the worker can run queued work (0.7772ms)
+✔ synchronous abandonment failure cannot interrupt executor poisoning (0.379ms)
+✔ queued payloads are captured at submission instead of borrowing caller state (0.3489ms)
+✔ path replies must match the dispatched planner state and failed pools cannot be reused (0.6676ms)
+✔ Branch Manager calls fail immediately after observed exit instead of awaiting a dead worker (47.0084ms)
+✔ semantic worker fails closed on unknown protocol and remains poisoned (56.6713ms)
+✔ bounded work plan rejects bad ordering/ranks and reduces actual worker values exactly (108.2139ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 313.4898

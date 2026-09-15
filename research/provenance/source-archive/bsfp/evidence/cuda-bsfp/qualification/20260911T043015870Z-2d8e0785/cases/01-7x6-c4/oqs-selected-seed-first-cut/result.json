@@ -1,0 +1,105 @@
+{
+  "stepId": "oqs-selected-seed-first-cut",
+  "exitCode": 0,
+  "signal": null,
+  "durationMs": 4935,
+  "timedOut": false,
+  "memorySafetyAbort": false,
+  "launchError": null,
+  "gpuTelemetry": {
+    "sampleCount": 9,
+    "peakUsedMiB": 968,
+    "minimumFreeMiB": 4999
+  },
+  "status": "passed",
+  "solverResult": {
+    "kind": "connect4-bsfp-oqs-7x6-seed-slice",
+    "mode": "native",
+    "geometry": "7x6:c4",
+    "outcome": "native-oqs-seed-slice-pass",
+    "supportIndex": 470594,
+    "cut": 0,
+    "transitionsChecked": 1,
+    "candidatesPerPass": 16,
+    "nativePasses": 8,
+    "independentLayers": 2,
+    "seedSourceSha256": "55518a308a6bbaa9a4e9c0ebade1b93c42bd1c5c31e9e3652b241539a2aab03a",
+    "mismatches": 0,
+    "targetCoverage": 1,
+    "evidenceGrade": "selected-seed-first-cut-only",
+    "fullDeviceQuotientSynthesis": false,
+    "rootWdl": null,
+    "samples": [
+      {
+        "pass": 0,
+        "warmup": true,
+        "preserveAntichains": false,
+        "uploadMs": 2.5698999999995067,
+        "submitWaitMs": 20.94749999999931,
+        "readbackMs": 4.221700000000055
+      },
+      {
+        "pass": 0,
+        "warmup": true,
+        "preserveAntichains": true,
+        "uploadMs": 2.0181000000002314,
+        "submitWaitMs": 19.40639999999985,
+        "readbackMs": 3.3523000000004686
+      },
+      {
+        "pass": 1,
+        "warmup": false,
+        "preserveAntichains": true,
+        "uploadMs": 1.9574000000002343,
+        "submitWaitMs": 21.27220000000034,
+        "readbackMs": 7.316600000000108
+      },
+      {
+        "pass": 1,
+        "warmup": false,
+        "preserveAntichains": false,
+        "uploadMs": 1.772399999999834,
+        "submitWaitMs": 18.86529999999948,
+        "readbackMs": 3.8774999999996
+      },
+      {
+        "pass": 2,
+        "warmup": false,
+        "preserveAntichains": false,
+        "uploadMs": 1.6181000000005952,
+        "submitWaitMs": 21.03610000000026,
+        "readbackMs": 3.6513999999997395
+      },
+      {
+        "pass": 2,
+        "warmup": false,
+        "preserveAntichains": true,
+        "uploadMs": 2.3652000000001863,
+        "submitWaitMs": 21.113800000000083,
+        "readbackMs": 4.068500000000313
+      },
+      {
+        "pass": 3,
+        "warmup": false,
+        "preserveAntichains": true,
+        "uploadMs": 1.9919999999992797,
+        "submitWaitMs": 21.447699999999713,
+        "readbackMs": 5.331500000000233
+      },
+      {
+        "pass": 3,
+        "warmup": false,
+        "preserveAntichains": false,
+        "uploadMs": 2.235700000000179,
+        "submitWaitMs": 17.484200000000783,
+        "readbackMs": 5.613900000000285
+      }
+    ],
+    "seedWins": 240,
+    "seedLosses": 3792,
+    "deviceBytes": 2163384,
+    "upperBoundBytes": 270598840,
+    "setupMs": 864.6783,
+    "cleanup": "graceful"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "control": {
+    "geometry": {"W":4,"H":3,"K":3,"winning_lines":14},
+    "reachable_states": 4659,
+    "legal_edges": 11818,
+    "exact_wdl": {"p0_win":2627,"draw":327,"p0_loss":1705}
+  },
+  "structural_closure": {
+    "base_predicates": ["I: P0 playable-singleton immediate completion", "O: P1-to-move one-turn response overload"],
+    "predecessors": ["E: P0 existential winning child", "A: P1 universal winning children"],
+    "proved_p0_wins": 2627,
+    "false_positives": 0,
+    "false_negative_wins": 0,
+    "root_proof_rank": 7,
+    "maximum_proof_rank": 8
+  },
+  "root_proof": {
+    "selected_physical_states": 38,
+    "unique_structural_shapes": 9,
+    "root_shape": "E(A(E(A(E(A(E(O)|I))|I))|E(O)))",
+    "independent_prior_wdl_root_dag_shapes": 9,
+    "overload_leaf_count": 5,
+    "all_overload_leaves_classified_as": "two distinct playable singleton completions and/or a stacked playable-plus-latent singleton pair"
+  },
+  "interpretation": [
+    "The structural closure reconstructs exactly the complete P0-winning attractor on 4x3 connect-3; exact W/D/L labels are used only afterward for qualification.",
+    "The selected root proof has exactly nine unique structural shapes, matching the independently measured nine-node W/D/L dependency DAG.",
+    "The local positive base cases are explained by WSL singleton requirements plus support/playability and response-capacity overload.",
+    "The remaining searchless gap is not the W/D/L recurrence or the local terminal/progress leaves; it is generating the E/A proof-obligation DAG directly from CPC/WSL/support/NDC relations without enumerating physical child states."
+  ],
+  "anti_leakage": "No standard-7x6 perfect-play terminal-line subset, witness sequence, or solved-state table was used."
+}

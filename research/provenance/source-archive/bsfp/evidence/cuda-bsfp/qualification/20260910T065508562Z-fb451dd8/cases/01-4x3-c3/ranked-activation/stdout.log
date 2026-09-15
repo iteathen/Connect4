@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "connect4-cuda-bsfp-ranked-activation-vertical-slice",
+  "mode": "native",
+  "connect4Profile": "4x3-connect3-support-lattice",
+  "supportItemCapacity": 256,
+  "supportMaxRank": 12,
+  "maxEmissionsPerItem": 4,
+  "expectedFullSkeletonPredecessors": [
+    191,
+    239,
+    251,
+    254
+  ],
+  "dependencyPair": {
+    "cudaAlgorithms": "48ee0aec9acae7776950f03ab52ab1737e598b6e",
+    "cudaJs": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+  },
+  "duplicateSourceFixture": {
+    "operationStatus": "completed",
+    "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+    "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+    "preparedNodeCount": 4,
+    "semanticStatus": 0,
+    "requiredCount": 4,
+    "outputIndices": [
+      191,
+      239,
+      251,
+      254
+    ]
+  },
+  "capacityFixture": {
+    "operationStatus": "completed",
+    "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+    "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+    "preparedNodeCount": 4,
+    "semanticStatus": 5,
+    "requiredCount": 4
+  },
+  "rankViolationFixture": {
+    "operationStatus": "completed",
+    "planContract": "CUDA-Algorithms-ranked-derived-activation-u32-working-v0",
+    "derivationLibrarySha256": "458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531",
+    "preparedNodeCount": 4,
+    "semanticStatus": 4,
+    "requiredCount": 0
+  },
+  "outcome": "native-numerical-pass"
+}

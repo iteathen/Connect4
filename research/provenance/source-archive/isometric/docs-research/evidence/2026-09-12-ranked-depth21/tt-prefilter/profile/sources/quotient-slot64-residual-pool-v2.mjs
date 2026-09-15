@@ -1,0 +1,862 @@
+import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+
+const CLASS_UNKNOWN = -3;
+const CLASS_TERMINAL_WIN = -1;
+const CHUNK_WORDS = 2;
+const UINT32_MAX = 0xffffffff;
+const MAX_ARRAY_INDEX_DOMAIN = 0x7fffffff;
+
+function assertMask(value) {
+  if (!Number.isInteger(value) || value < 0 || value > UINT32_MAX) throw new RangeError('slot64 masks must be Uint32 values');
+}
+
+function nextPowerOfTwo(value) {
+  if (!Number.isInteger(value) || value < 1 || value > (1 << 30)) {
+    throw new RangeError(`power-of-two request must be an integer in 1..${1 << 30}, got ${value}`);
+  }
+  let result = 1;
+  while (result < value) result *= 2;
+  return result;
+}
+
+function mix32(value) {
+  let x = value >>> 0;
+  x ^= x >>> 16;
+  x = Math.imul(x, 0x7feb352d) >>> 0;
+  x ^= x >>> 15;
+  x = Math.imul(x, 0x846ca68b) >>> 0;
+  x ^= x >>> 16;
+  return x >>> 0;
+}
+
+function hashWords2(word0, word1) {
+  // Address filter only. Fold the two words once, then avalanche the result;
+  // exact two-word equality in intern remains the identity authority.
+  return mix32(word0 ^ Math.imul(word1, 0x9e3779b1));
+}
+
+function popcount32(value) {
+  let x = value >>> 0;
+  x -= (x >>> 1) & 0x55555555;
+  x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
+  return (((x + (x >>> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24;
+}
+
+function referenceTypeFor(maxId) {
+  if (!Number.isInteger(maxId) || maxId < 0 || maxId > UINT32_MAX) {
+    throw new RangeError(`slot64 reference ID ${maxId} is outside Uint32 domain`);
+  }
+  if (maxId <= 0xff) return Uint8Array;
+  if (maxId <= 0xffff) return Uint16Array;
+  return Uint32Array;
+}
+
+function assertWordSource(source, offset) {
+  if (!(source instanceof Uint32Array)) throw new TypeError('slot64 chunk source must be Uint32Array');
+  if (!Number.isInteger(offset) || offset < 0 || offset + CHUNK_WORDS > source.length) {
+    throw new RangeError('slot64 chunk source offset cannot provide two words');
+  }
+}
+
+class SlotChunkPool64 {
+  #sealed = false;
+  #emptyId = -1;
+  #nextIds;
+  constructor(slot, slotCount) {
+    if (!Number.isInteger(slot) || slot < 0 || slot >= slotCount) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
+    this.slot = slot;
+    this.count = 0;
+    this.capacity = 256;
+    this.words = new Uint32Array(this.capacity * CHUNK_WORDS);
+    this.hashSlots = new Int32Array(128);
+    this.hashSlots.fill(-1);
+    this.#nextIds = new Int32Array(this.capacity).fill(-1);
+    this.metrics = { lookups: 0, hits: 0, misses: 0, payloadGrows: 0, hashGrows: 0 };
+  }
+
+  _assertId(id) {
+    if (!Number.isInteger(id) || id < 0 || id >= this.count) {
+      throw new RangeError(`slot64 chunk ID ${id} is outside 0..${this.count - 1}`);
+    }
+  }
+
+  _ensureCapacity(required) {
+    if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 chunk capacity request ${required}`);
+    if (required <= this.capacity) return;
+    if (this.#sealed) throw new RangeError('reserved chunk payload capacity exhausted');
+    const next = nextPowerOfTwo(required);
+    const target = new Uint32Array(next * CHUNK_WORDS);
+    target.set(this.words);
+    const links = new Int32Array(next).fill(-1);
+    links.set(this.#nextIds);
+    this.words = target;
+    this.#nextIds = links;
+    this.capacity = next;
+    this.metrics.payloadGrows += 1;
+  }
+
+  equals(id, source, offset) {
+    this._assertId(id);
+    assertWordSource(source, offset);
+    const base = id * CHUNK_WORDS;
+    return this.words[base] === (source[offset] >>> 0)
+      && this.words[base + 1] === (source[offset + 1] >>> 0);
+  }
+
+  _growHash(capacity = this.hashSlots.length * 2) {
+    if (this.#sealed) throw new RangeError('reserved chunk hash capacity exhausted');
+    if (this.hashSlots.length >= (1 << 30)) throw new RangeError('slot64 chunk hash capacity exhausted');
+    const next = new Int32Array(capacity);
+    next.fill(-1);
+    const mask = next.length - 1;
+    for (let id = 0; id < this.count; id += 1) {
+      const base = id * CHUNK_WORDS;
+      const hash = hashWords2(this.words[base], this.words[base + 1]);
+      const slot = hash & mask;
+      this.#nextIds[id] = next[slot];
+      next[slot] = id;
+    }
+    this.hashSlots = next;
+    this.metrics.hashGrows += 1;
+  }
+
+  estimateReservedBytes(required) {
+    if (!Number.isInteger(required) || required < 1 || required > 2 ** 29) throw new RangeError('invalid chunk reservation');
+    const capacity = nextPowerOfTwo(Math.max(required, this.capacity));
+    if (capacity > 2 ** 29) throw new RangeError('invalid chunk reservation');
+    return capacity * 12 + Math.max(this.hashSlots.length, capacity / 2) * 4;
+  }
+
+  reserveForSearch(required) {
+    if (this.#sealed) return this.capacity;
+    const capacity = nextPowerOfTwo(Math.max(required, this.capacity));
+    if (capacity > (1 << 29)) throw new RangeError('chunk reservation exceeds hash index domain');
+    this._ensureCapacity(capacity);
+    if (this.hashSlots.length < capacity / 2) this._growHash(capacity / 2);
+    this.#sealed = true;
+    return this.capacity;
+  }
+
+  intern(source, offset) {
+    assertWordSource(source, offset);
+    this.metrics.lookups += 1;
+    // The validated Uint32 pair is the complete exact key. Read it once;
+    // dictionary-owned IDs need no repeated public equality validation.
+    const word0 = source[offset], word1 = source[offset + 1];
+    // The empty pair has one immutable canonical ID in this dictionary.
+    // Reuse it directly: no hash, probe or payload comparison is necessary.
+    if ((word0 | word1) === 0 && this.#emptyId >= 0) {
+      this.metrics.hits += 1;
+      return this.#emptyId;
+    }
+    const hash = hashWords2(word0, word1);
+    let mask = this.hashSlots.length - 1;
+    let slot = hash & mask;
+    // Bucket heads address chains of stable canonical IDs. The key payload is
+    // still stored once; links consume one preallocated numeric word per ID.
+    let candidate = this.hashSlots[slot];
+    while (candidate !== -1) {
+      const id = candidate;
+      const base = id * CHUNK_WORDS;
+      if (this.words[base] === word0 && this.words[base + 1] === word1) {
+        this.metrics.hits += 1;
+        return id;
+      }
+      candidate = this.#nextIds[id];
+    }
+    if (this.count >= UINT32_MAX) throw new RangeError('slot64 chunk ID domain exhausted');
+    this._ensureCapacity(this.count + 1);
+    // A hit must not grow or rehash the dictionary. Only a proven new key
+    // needs capacity; after growth, locate its new insertion position.
+    if (this.count + 1 > this.hashSlots.length * 2) {
+      this._growHash();
+      mask = this.hashSlots.length - 1;
+      slot = hash & mask;
+    }
+    const id = this.count;
+    const base = id * CHUNK_WORDS;
+    this.words[base] = word0;
+    this.words[base + 1] = word1;
+    this.#nextIds[id] = this.hashSlots[slot];
+    this.hashSlots[slot] = id;
+    this.count += 1;
+    if ((word0 | word1) === 0) this.#emptyId = id;
+    this.metrics.misses += 1;
+    return id;
+  }
+
+  memoryStats() {
+    return Object.freeze({
+      slot: this.slot,
+      chunkCount: this.count,
+      chunkCapacity: this.capacity,
+      payloadBytes: this.words.byteLength,
+      hashSlotBytes: this.hashSlots.byteLength,
+      collisionLinkBytes: this.#nextIds.byteLength,
+      totalTypedBytes: this.words.byteLength + this.hashSlots.byteLength + this.#nextIds.byteLength,
+    });
+  }
+}
+
+export function installSlot64ResidualPool(kernel, spec, options = {}) {
+  if (!kernel || typeof kernel !== 'object' || !kernel.classes) throw new TypeError('slot64 residual installation requires a quotient kernel');
+  if (!spec || typeof spec !== 'object') throw new TypeError('slot64 residual installation requires a domain spec');
+  for (const name of ['columns', 'rows', 'connect']) {
+    if (!Number.isInteger(spec[name]) || spec[name] < 1) throw new RangeError(`slot64 spec ${name} must be positive`);
+    if (kernel[name] !== undefined && kernel[name] !== spec[name]) {
+      throw new Error(`slot64 spec ${name} ${spec[name]} does not match kernel ${kernel[name]}`);
+    }
+  }
+  const cellCount = spec.columns * spec.rows;
+  if (!Number.isSafeInteger(cellCount) || cellCount < 1 || cellCount > 64) throw new RangeError('slot64 residual pool supports 1..64 cells');
+
+  const pool = kernel.classes;
+  const vocabulary = createTermVocabulary(spec);
+  if (!Number.isInteger(vocabulary.count) || vocabulary.count < 1 || vocabulary.count > 640) {
+    throw new RangeError('slot64 residual profile supports 1..640 ontology terms');
+  }
+  // Chunk width is a storage contract; chunk count is derived at initialization.
+  const CHUNKS_PER_CLASS = (vocabulary.count + 63) >>> 6;
+  const WORDS_PER_CLASS = CHUNKS_PER_CLASS << 1;
+  if (vocabulary.cellCount !== cellCount) throw new Error('slot64 vocabulary cell count drifted');
+  if (spec.columns === 7 && spec.rows === 6 && spec.connect === 4 && vocabulary.count !== 625) {
+    throw new Error(`standard 7x6 vocabulary drifted: ${vocabulary.count}`);
+  }
+  const prefixClasses = options.prefixClasses ?? 4096;
+  if (!Number.isInteger(prefixClasses) || prefixClasses < 1) throw new RangeError('prefixClasses must be positive');
+  const transitionEntries = prefixClasses * vocabulary.cellCount;
+  if (!Number.isSafeInteger(transitionEntries) || transitionEntries < 1 || transitionEntries > MAX_ARRAY_INDEX_DOMAIN) {
+    throw new RangeError(`slot64 transition cache entry count ${transitionEntries} is outside Int32 index domain`);
+  }
+
+  const slotPools = Array.from({ length: CHUNKS_PER_CLASS }, (_, slot) => new SlotChunkPool64(slot, CHUNKS_PER_CLASS));
+  let classCount = 0;
+  let searchSealed = false;
+  let classCapacity = 1024;
+  let classSlotIds = Array.from({ length: CHUNKS_PER_CLASS }, () => new Uint8Array(classCapacity));
+  let classHashes = new Uint32Array(classCapacity);
+  // Immutable cardinality belongs to the canonical class, alongside its chunks.
+  // The installed vocabulary is bounded by 640 terms, so Uint16 is sufficient.
+  let classTermCounts = new Uint16Array(classCapacity);
+  let singletonLo = new Uint32Array(classCapacity);
+  let singletonHi = new Uint32Array(classCapacity);
+  let classHashSlots = new Int32Array(2048);
+  classHashSlots.fill(-1);
+
+  const ownTransitions = new Int32Array(transitionEntries);
+  const blockTransitions = new Int32Array(transitionEntries);
+  ownTransitions.fill(CLASS_UNKNOWN);
+  blockTransitions.fill(CLASS_UNKNOWN);
+
+  const containsMasks = new Uint32Array(vocabulary.cellCount * WORDS_PER_CLASS);
+  let strictSupersetDense = new Uint32Array(vocabulary.count * WORDS_PER_CLASS);
+  const singletonTermMasks = new Uint32Array(WORDS_PER_CLASS);
+  for (let termId = 0; termId < vocabulary.count; termId += 1) {
+    const word = termId >>> 5;
+    const bit = 1 << (termId & 31);
+    if (vocabulary.cardinality[termId] === 1) singletonTermMasks[word] |= bit;
+    for (let cell = 0; cell < vocabulary.cellCount; cell += 1) {
+      const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
+      const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+      if ((((vocabulary.lo[termId] & bitLo) >>> 0) !== 0) || (((vocabulary.hi[termId] & bitHi) >>> 0) !== 0)) {
+        containsMasks[cell * WORDS_PER_CLASS + word] |= bit;
+      }
+    }
+    for (let candidate = 0; candidate < vocabulary.count; candidate += 1) {
+      if (candidate === termId) continue;
+      if (!vocabulary.subset(termId, candidate)) continue;
+      strictSupersetDense[termId * WORDS_PER_CLASS + (candidate >>> 5)] |= 1 << (candidate & 31);
+    }
+  }
+
+  const strictSupersetStarts = new Uint32Array(vocabulary.count + 1);
+  let strictSupersetEntryCount = 0;
+  for (let termId = 0; termId < vocabulary.count; termId += 1) {
+    strictSupersetStarts[termId] = strictSupersetEntryCount;
+    const base = termId * WORDS_PER_CLASS;
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+      if (strictSupersetDense[base + word] !== 0) strictSupersetEntryCount += 1;
+    }
+  }
+  strictSupersetStarts[vocabulary.count] = strictSupersetEntryCount;
+  const strictSupersetWordIndex = new Uint8Array(strictSupersetEntryCount);
+  const strictSupersetWordMask = new Uint32Array(strictSupersetEntryCount);
+  let strictSupersetWrite = 0;
+  for (let termId = 0; termId < vocabulary.count; termId += 1) {
+    const base = termId * WORDS_PER_CLASS;
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+      const mask = strictSupersetDense[base + word] >>> 0;
+      if (mask === 0) continue;
+      strictSupersetWordIndex[strictSupersetWrite] = word;
+      strictSupersetWordMask[strictSupersetWrite] = mask;
+      strictSupersetWrite += 1;
+    }
+  }
+  if (strictSupersetWrite !== strictSupersetEntryCount) throw new Error('sparse superset row build drifted');
+  strictSupersetDense = null;
+
+  const resultBits = new Uint32Array(WORDS_PER_CLASS);
+  const reducedBits = new Uint32Array(WORDS_PER_CLASS);
+  const initialBits = new Uint32Array(WORDS_PER_CLASS);
+  const chunkIds = new Uint32Array(CHUNKS_PER_CLASS);
+  for (const termId of vocabulary.initialIds) {
+    if (!Number.isInteger(termId) || termId < 0 || termId >= vocabulary.count) throw new Error(`invalid initial term ${termId}`);
+    initialBits[termId >>> 5] |= 1 << (termId & 31);
+  }
+
+  const metrics = {
+    internLookups: 0,
+    internHits: 0,
+    internMisses: 0,
+    ownTransitionHits: 0,
+    ownTransitionMisses: 0,
+    blockTransitionHits: 0,
+    blockTransitionMisses: 0,
+    ownNoop: 0,
+    blockNoop: 0,
+    ownTerminal: 0,
+    reducedTerms: 0,
+    supersetWordProbes: 0,
+    supersetWordClears: 0,
+    classGrows: 0,
+    hashGrows: 0,
+    slotReferenceWidens: 0,
+    parentChunkReuses: 0,
+    chunkInterns: 0,
+    outOfPrefixOwn: 0,
+    outOfPrefixBlock: 0,
+    cachedStores: 0,
+    termCountReads: 0,
+    termWrites: 0,
+  };
+
+  function assertClassId(id) {
+    if (!Number.isInteger(id) || id < 0 || id >= classCount) {
+      throw new RangeError(`slot64 residual class ${id} is outside 0..${classCount - 1}`);
+    }
+    return id;
+  }
+
+  function assertCell(cell) {
+    if (!Number.isInteger(cell) || cell < 0 || cell >= vocabulary.cellCount) {
+      throw new RangeError(`slot64 cell ${cell} is outside 0..${vocabulary.cellCount - 1}`);
+    }
+    return cell;
+  }
+
+  function assertCellBits(cell, bitLo, bitHi) {
+    assertCell(cell);
+    assertMask(bitLo);
+    assertMask(bitHi);
+    const bit = (1 << (cell & 31)) >>> 0;
+    const expectedLo = cell < 32 ? bit : 0;
+    const expectedHi = cell < 32 ? 0 : bit;
+    if (bitLo !== expectedLo || bitHi !== expectedHi) throw new Error('slot64 cell-mask mismatch');
+  }
+
+  function assertBits(bits) {
+    if (!(bits instanceof Uint32Array) || bits.length !== WORDS_PER_CLASS) {
+      throw new TypeError(`slot64 residual bits must be Uint32Array(${WORDS_PER_CLASS})`);
+    }
+  }
+
+  function ensureReferenceWidth(slot, requiredId) {
+    if (!Number.isInteger(slot) || slot < 0 || slot >= CHUNKS_PER_CLASS) throw new RangeError(`invalid slot64 reference slot ${slot}`);
+    const current = classSlotIds[slot];
+    const Type = referenceTypeFor(requiredId);
+    if (current.BYTES_PER_ELEMENT >= Type.BYTES_PER_ELEMENT) return;
+    if (searchSealed) throw new RangeError('reserved chunk reference width exhausted');
+    const widened = new Type(classCapacity);
+    widened.set(current);
+    classSlotIds[slot] = widened;
+    metrics.slotReferenceWidens += 1;
+  }
+
+  function ensureClassCapacity(required) {
+    if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 class capacity request ${required}`);
+    if (required <= classCapacity) return;
+    if (searchSealed) throw new RangeError('reserved residual class capacity exhausted');
+    const next = nextPowerOfTwo(required);
+    const nextSlots = [];
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const Type = classSlotIds[slot].constructor;
+      const target = new Type(next);
+      target.set(classSlotIds[slot]);
+      nextSlots.push(target);
+    }
+    const hashes = new Uint32Array(next); hashes.set(classHashes);
+    const counts = new Uint16Array(next); counts.set(classTermCounts);
+    const lo = new Uint32Array(next); lo.set(singletonLo);
+    const hi = new Uint32Array(next); hi.set(singletonHi);
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) classSlotIds[slot] = nextSlots[slot];
+    classHashes = hashes;
+    classTermCounts = counts;
+    singletonLo = lo;
+    singletonHi = hi;
+    classCapacity = next;
+    metrics.classGrows += 1;
+  }
+
+  function classEquals(id, ids) {
+    assertClassId(id);
+    if (!(ids instanceof Uint32Array) || ids.length !== CHUNKS_PER_CLASS) throw new TypeError(`slot64 class tuple must be Uint32Array(${CHUNKS_PER_CLASS})`);
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      if (classSlotIds[slot][id] !== ids[slot]) return false;
+    }
+    return true;
+  }
+
+  function growClassHash(capacity = classHashSlots.length * 2) {
+    if (searchSealed) throw new RangeError('reserved residual hash capacity exhausted');
+    if (classHashSlots.length >= (1 << 30)) throw new RangeError('slot64 class hash capacity exhausted');
+    const next = new Int32Array(capacity);
+    next.fill(-1);
+    const mask = next.length - 1;
+    for (let id = 0; id < classCount; id += 1) {
+      let slot = classHashes[id] & mask;
+      while (next[slot] !== -1) slot = (slot + 1) & mask;
+      next[slot] = id;
+    }
+    classHashSlots = next;
+    metrics.hashGrows += 1;
+  }
+
+  function reserveForSearch(requiredClasses, requiredChunks) {
+    if (searchSealed) return classCapacity;
+    const capacity = nextPowerOfTwo(Math.max(requiredClasses, classCapacity));
+    if (capacity > (1 << 29)) throw new RangeError('class reservation exceeds hash index domain');
+    ensureClassCapacity(capacity);
+    if (classHashSlots.length < capacity * 2) growClassHash(capacity * 2);
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot++) {
+      const chunkCapacity = slotPools[slot].reserveForSearch(requiredChunks);
+      ensureReferenceWidth(slot, chunkCapacity - 1);
+    }
+    searchSealed = true;
+    return classCapacity;
+  }
+
+  function estimateReservedBytes(requiredClasses, requiredChunks) {
+    for (const value of [requiredClasses, requiredChunks]) {
+      if (!Number.isInteger(value) || value < 1 || value > 2 ** 29) throw new RangeError('invalid residual reservation');
+    }
+    const capacity = nextPowerOfTwo(Math.max(requiredClasses, classCapacity));
+    if (capacity > 2 ** 29) throw new RangeError('invalid residual reservation');
+    const current = pool.memoryStats();
+    let tuples = 0, chunks = 0;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot++) {
+      const chunkCapacity = nextPowerOfTwo(Math.max(requiredChunks, slotPools[slot].capacity));
+      tuples += capacity * Math.max(classSlotIds[slot].BYTES_PER_ELEMENT, referenceTypeFor(chunkCapacity - 1).BYTES_PER_ELEMENT);
+      chunks += slotPools[slot].estimateReservedBytes(requiredChunks);
+    }
+    return current.totalTypedBytes - current.classMetadataBytes - current.classHashSlotBytes - current.chunkDictionaryBytes
+      + tuples + capacity * 14 + Math.max(classHashSlots.length, capacity * 2) * 4 + chunks;
+  }
+
+  function computeClassMetadata(bits, classId) {
+    assertBits(bits);
+    let lo = 0;
+    let hi = 0;
+    let count = 0;
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+      count += popcount32(bits[word]);
+      let active = (bits[word] & singletonTermMasks[word]) >>> 0;
+      while (active !== 0) {
+        const termId = (word << 5) + 31 - Math.clz32(active & -active);
+        if (termId >= vocabulary.count) throw new Error(`slot64 singleton term ${termId} exceeds vocabulary`);
+        lo = (lo | vocabulary.lo[termId]) >>> 0;
+        hi = (hi | vocabulary.hi[termId]) >>> 0;
+        active = (active & (active - 1)) >>> 0;
+      }
+    }
+    if (count > vocabulary.count) throw new Error(`slot64 class term count ${count} exceeds vocabulary ${vocabulary.count}`);
+    classTermCounts[classId] = count;
+    singletonLo[classId] = lo;
+    singletonHi[classId] = hi;
+  }
+
+  function internBits(bits, parentId = -1) {
+    assertBits(bits);
+    if (parentId !== -1) assertClassId(parentId);
+    metrics.internLookups += 1;
+    let sameAsParent = parentId >= 0;
+    // Local class address filter: XOR slot-specific contributions. The parent
+    // already owns unchanged contributions; exact tuple comparison owns identity.
+    let hash = parentId >= 0 ? classHashes[parentId] : 0;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const offset = slot * CHUNK_WORDS;
+      let parentChunk = -1;
+      if (parentId >= 0) {
+        parentChunk = classSlotIds[slot][parentId];
+        const words = slotPools[slot].words, base = parentChunk * CHUNK_WORDS;
+        if (words[base] === bits[offset] && words[base + 1] === bits[offset + 1]) {
+          chunkIds[slot] = parentChunk;
+          metrics.parentChunkReuses += 1;
+          continue;
+        }
+        sameAsParent = false;
+      }
+      chunkIds[slot] = slotPools[slot].intern(bits, offset);
+      const salt = Math.imul(slot + 1, 0x9e3779b1);
+      hash ^= mix32(chunkIds[slot] ^ salt);
+      if (parentChunk >= 0) hash ^= mix32(parentChunk ^ salt);
+      metrics.chunkInterns += 1;
+    }
+    if (sameAsParent) {
+      metrics.internHits += 1;
+      return parentId;
+    }
+    if ((classCount + 1) * 10 >= classHashSlots.length * 7) growClassHash();
+    hash >>>= 0;
+    const mask = classHashSlots.length - 1;
+    let slot = hash & mask;
+    while (true) {
+      const id = classHashSlots[slot];
+      if (id === -1) break;
+      if (classHashes[id] === hash && classEquals(id, chunkIds)) {
+        metrics.internHits += 1;
+        return id;
+      }
+      slot = (slot + 1) & mask;
+    }
+
+    if (classCount >= UINT32_MAX) throw new RangeError('slot64 residual class ID domain exhausted');
+    for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) ensureReferenceWidth(chunk, chunkIds[chunk]);
+    ensureClassCapacity(classCount + 1);
+    const id = classCount;
+    for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) classSlotIds[chunk][id] = chunkIds[chunk];
+    classHashes[id] = hash;
+    computeClassMetadata(bits, id);
+    classHashSlots[slot] = id;
+    classCount += 1;
+    metrics.internMisses += 1;
+    return id;
+  }
+
+  const emptyBits = new Uint32Array(WORDS_PER_CLASS);
+  const emptyClass = internBits(emptyBits);
+  const initialClass = internBits(initialBits);
+  if (emptyClass !== 0 || initialClass !== 1) throw new Error('slot64 residual bootstrap IDs drifted');
+  if (pool.emptyClass !== emptyClass || pool.initialClass !== initialClass) throw new Error('slot64 residual bootstrap does not match base q IDs');
+
+  function cacheGet(cache, id, cell, own) {
+    // Private to the two transition entry points, which already validate id/cell.
+    if (id >= prefixClasses) {
+      if (own) metrics.outOfPrefixOwn += 1;
+      else metrics.outOfPrefixBlock += 1;
+      return CLASS_UNKNOWN;
+    }
+    const value = cache[id * vocabulary.cellCount + cell];
+    if (value !== CLASS_UNKNOWN && value !== CLASS_TERMINAL_WIN && (value < 0 || value >= classCount)) {
+      throw new Error(`slot64 transition cache contains invalid class ${value}`);
+    }
+    return value;
+  }
+
+  function cacheSet(cache, id, cell, value) {
+    if (value !== CLASS_TERMINAL_WIN && (!Number.isInteger(value) || value < 0 || value >= classCount)) {
+      throw new RangeError(`invalid slot64 transition cache value ${value}`);
+    }
+    if (id >= prefixClasses) return;
+    cache[id * vocabulary.cellCount + cell] = value;
+    metrics.cachedStores += 1;
+  }
+
+  Object.defineProperty(pool, 'size', { configurable: true, get: () => classCount });
+  Object.defineProperty(pool, 'termWordCount', { value: WORDS_PER_CLASS });
+  pool.emptyClass = emptyClass;
+  pool.initialClass = initialClass;
+  pool.termVocabulary = vocabulary;
+  pool.metrics = metrics;
+  Object.defineProperty(pool, 'reservedClassCapacity', { get: () => searchSealed ? classCapacity : 0 });
+  pool.slotPools = slotPools;
+  pool.isEmpty = (id) => assertClassId(id) === emptyClass;
+  pool.hasSingletonAt = (id, bitLo, bitHi) => {
+    assertClassId(id);
+    assertMask(bitLo);
+    assertMask(bitHi);
+    return ((singletonLo[id] & bitLo) | (singletonHi[id] & bitHi)) !== 0;
+  };
+
+  pool.termCount = function slot64TermCount(id) {
+    assertClassId(id);
+    metrics.termCountReads += 1;
+    return classTermCounts[id];
+  };
+
+  pool.writeTermIds = function slot64WriteTermIds(id, target, offset = 0) {
+    assertClassId(id);
+    if (!(target instanceof Uint16Array)) throw new TypeError('slot64 term target must be Uint16Array');
+    const count = classTermCounts[id];
+    if (!Number.isInteger(offset) || offset < 0 || offset + count > target.length) {
+      throw new RangeError(`slot64 term target cannot hold class ${id} length ${count} at offset ${offset}`);
+    }
+    let out = offset;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const chunkId = classSlotIds[slot][id];
+      const base = chunkId * CHUNK_WORDS;
+      for (let localWord = 0; localWord < CHUNK_WORDS; localWord += 1) {
+        const wordIndex = slot * CHUNK_WORDS + localWord;
+        let active = slotPools[slot].words[base + localWord] >>> 0;
+        while (active !== 0) {
+          // active != 0 establishes a single low bit. Keep its signed Int32
+          // representation, including bit 31; no unsigned boxing/revalidation.
+          const termId = (wordIndex << 5) + 31 - Math.clz32(active & -active);
+          if (termId >= vocabulary.count) throw new Error(`slot64 class ${id} contains out-of-vocabulary term ${termId}`);
+          target[out++] = termId;
+          active = (active & (active - 1)) >>> 0;
+        }
+      }
+    }
+    if (out - offset !== count) throw new Error(`slot64 class ${id} term write drift: expected ${count}, wrote ${out - offset}`);
+    metrics.termWrites += 1;
+    return count;
+  };
+
+  pool.termIds = function slot64TermIds(id) {
+    const count = pool.termCount(id);
+    const ids = new Uint16Array(count);
+    const written = pool.writeTermIds(id, ids, 0);
+    if (written !== count) throw new Error(`slot64 class ${id} term materialization drift`);
+    return ids;
+  };
+
+  pool.terms = function slot64Terms(id) {
+    const ids = pool.termIds(id);
+    const result = [];
+    for (const termId of ids) result.push([vocabulary.lo[termId] >>> 0, vocabulary.hi[termId] >>> 0]);
+    return result;
+  };
+
+  pool.ownTransition = function ownTransitionSlot64(id, cell, bitLo, bitHi) {
+    assertClassId(id);
+    assertCellBits(cell, bitLo, bitHi);
+    const cached = cacheGet(ownTransitions, id, cell, true);
+    if (cached !== CLASS_UNKNOWN) { metrics.ownTransitionHits += 1; return cached; }
+    metrics.ownTransitionMisses += 1;
+    if ((((singletonLo[id] & bitLo) >>> 0) !== 0) || (((singletonHi[id] & bitHi) >>> 0) !== 0)) {
+      cacheSet(ownTransitions, id, cell, CLASS_TERMINAL_WIN);
+      metrics.ownTerminal += 1;
+      return CLASS_TERMINAL_WIN;
+    }
+
+    reducedBits.fill(0);
+    let affected = false;
+    const containsBase = cell * WORDS_PER_CLASS;
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      // No interning/growth occurs during this scan. These canonical chunks
+      // remain immutable until the result is normalized and interned below.
+      const words = slotPools[slot].words;
+      const parentBase = classSlotIds[slot][id] * CHUNK_WORDS;
+      const wordBase = slot * CHUNK_WORDS;
+      for (let localWord = 0; localWord < CHUNK_WORDS; localWord += 1) {
+        const word = wordBase + localWord;
+        const input = words[parentBase + localWord] >>> 0;
+        let active = (input & containsMasks[containsBase + word]) >>> 0;
+        resultBits[word] = (input & ~containsMasks[containsBase + word]) >>> 0;
+        if (active !== 0) affected = true;
+        while (active !== 0) {
+          const termId = (word << 5) + 31 - Math.clz32(active & -active);
+          if (termId >= vocabulary.count) throw new Error(`slot64 own transition saw out-of-vocabulary term ${termId}`);
+          const target = vocabulary.reduce[termId * vocabulary.cellCount + cell];
+          if (target === vocabulary.terminal) {
+            cacheSet(ownTransitions, id, cell, CLASS_TERMINAL_WIN);
+            metrics.ownTerminal += 1;
+            return CLASS_TERMINAL_WIN;
+          }
+          if (!Number.isInteger(target) || target < 0 || target >= vocabulary.count) {
+            throw new Error(`slot64 reduction ${termId}/${cell} returned invalid term ${target}`);
+          }
+          reducedBits[target >>> 5] |= 1 << (target & 31);
+          metrics.reducedTerms += 1;
+          active = (active & (active - 1)) >>> 0;
+        }
+      }
+    }
+    if (!affected) {
+      cacheSet(ownTransitions, id, cell, id);
+      metrics.ownNoop += 1;
+      return id;
+    }
+
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) resultBits[word] = (resultBits[word] | reducedBits[word]) >>> 0;
+    for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+      let active = reducedBits[word] >>> 0;
+      while (active !== 0) {
+        const termId = (word << 5) + 31 - Math.clz32(active & -active);
+        if (termId >= vocabulary.count) throw new Error(`slot64 normalization saw out-of-vocabulary term ${termId}`);
+        const start = strictSupersetStarts[termId];
+        const end = strictSupersetStarts[termId + 1];
+        for (let entry = start; entry < end; entry += 1) {
+          const targetWord = strictSupersetWordIndex[entry];
+          const mask = strictSupersetWordMask[entry];
+          resultBits[targetWord] = (resultBits[targetWord] & ~mask) >>> 0;
+          metrics.supersetWordProbes += 1;
+          metrics.supersetWordClears += 1;
+        }
+        active = (active & (active - 1)) >>> 0;
+      }
+    }
+
+    const result = internBits(resultBits, id);
+    cacheSet(ownTransitions, id, cell, result);
+    return result;
+  };
+
+  pool.blockTransition = function blockTransitionSlot64Direct(id, cell) {
+    assertClassId(id);
+    assertCell(cell);
+    const cached = cacheGet(blockTransitions, id, cell, false);
+    if (cached !== CLASS_UNKNOWN) { metrics.blockTransitionHits += 1; return cached; }
+    metrics.blockTransitionMisses += 1;
+
+    const containsBase = cell * WORDS_PER_CLASS;
+    let changedSlots = 0;
+    let removedTerms = 0;
+    let hash = classHashes[id];
+    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) {
+      const parentChunk = classSlotIds[slotIndex][id];
+      chunkIds[slotIndex] = parentChunk;
+      const word = slotIndex * CHUNK_WORDS;
+      const mask0 = containsMasks[containsBase + word] >>> 0;
+      const mask1 = containsMasks[containsBase + word + 1] >>> 0;
+      if ((mask0 | mask1) === 0) continue;
+
+      const parentBase = parentChunk * CHUNK_WORDS;
+      const input0 = slotPools[slotIndex].words[parentBase] >>> 0;
+      const input1 = slotPools[slotIndex].words[parentBase + 1] >>> 0;
+      const next0 = (input0 & ~mask0) >>> 0;
+      const next1 = (input1 & ~mask1) >>> 0;
+      if (next0 === input0 && next1 === input1) continue;
+
+      removedTerms += popcount32(input0 ^ next0) + popcount32(input1 ^ next1);
+      resultBits[word] = next0;
+      resultBits[word + 1] = next1;
+      chunkIds[slotIndex] = slotPools[slotIndex].intern(resultBits, word);
+      const salt = Math.imul(slotIndex + 1, 0x9e3779b1);
+      hash ^= mix32(parentChunk ^ salt) ^ mix32(chunkIds[slotIndex] ^ salt);
+      metrics.chunkInterns += 1;
+      changedSlots += 1;
+    }
+
+    if (changedSlots === 0) {
+      cacheSet(blockTransitions, id, cell, id);
+      metrics.blockNoop += 1;
+      return id;
+    }
+
+    metrics.internLookups += 1;
+    metrics.parentChunkReuses += CHUNKS_PER_CLASS - changedSlots;
+    if ((classCount + 1) * 10 >= classHashSlots.length * 7) growClassHash();
+    hash >>>= 0;
+    const hashMask = classHashSlots.length - 1;
+    let hashSlot = hash & hashMask;
+    while (true) {
+      const existingId = classHashSlots[hashSlot];
+      if (existingId === -1) break;
+      if (classHashes[existingId] === hash && classEquals(existingId, chunkIds)) {
+        metrics.internHits += 1;
+        cacheSet(blockTransitions, id, cell, existingId);
+        return existingId;
+      }
+      hashSlot = (hashSlot + 1) & hashMask;
+    }
+
+    if (classCount >= UINT32_MAX) throw new RangeError('slot64 residual class ID domain exhausted');
+    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) ensureReferenceWidth(slotIndex, chunkIds[slotIndex]);
+    ensureClassCapacity(classCount + 1);
+    const result = classCount;
+    const count = classTermCounts[id] - removedTerms;
+    if (count < 0 || count > vocabulary.count) throw new Error(`slot64 blocked class term count ${count} is invalid`);
+    for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) classSlotIds[slotIndex][result] = chunkIds[slotIndex];
+    classHashes[result] = hash;
+    classTermCounts[result] = count;
+    const cellBit = (1 << (cell & 31)) >>> 0;
+    const bitLo = cell < 32 ? cellBit : 0;
+    const bitHi = cell < 32 ? 0 : cellBit;
+    singletonLo[result] = (singletonLo[id] & ~bitLo) >>> 0;
+    singletonHi[result] = (singletonHi[id] & ~bitHi) >>> 0;
+    classHashSlots[hashSlot] = result;
+    classCount += 1;
+    metrics.internMisses += 1;
+    cacheSet(blockTransitions, id, cell, result);
+    return result;
+  };
+
+  // Exact set inclusion over canonical chunks. The caller owns the compiled
+  // vocabulary predicate; no term materialization or retained class cache.
+  pool.everyTermInMask = function everyTermInMask(id, allowed) {
+    assertClassId(id);
+    if (!(allowed instanceof Uint32Array) || allowed.length !== WORDS_PER_CLASS) {
+      throw new TypeError(`slot64 term predicate requires Uint32Array(${WORDS_PER_CLASS})`);
+    }
+    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+      const chunk = classSlotIds[slot][id];
+      const words = slotPools[slot].words;
+      if ((words[chunk * 2] & ~allowed[slot * 2]) !== 0
+          || (words[chunk * 2 + 1] & ~allowed[slot * 2 + 1]) !== 0) return false;
+    }
+    return true;
+  };
+
+  pool.memoryStats = function slot64ResidualMemoryStats() {
+    const classTupleBytes = classSlotIds.reduce((sum, ids) => sum + ids.byteLength, 0);
+    const classMetadataBytes = classTupleBytes + classHashes.byteLength + classTermCounts.byteLength + singletonLo.byteLength + singletonHi.byteLength;
+    const transitionCacheBytes = ownTransitions.byteLength + blockTransitions.byteLength;
+    const maskBytes = containsMasks.byteLength
+      + strictSupersetStarts.byteLength
+      + strictSupersetWordIndex.byteLength
+      + strictSupersetWordMask.byteLength
+      + singletonTermMasks.byteLength;
+    const scratchBytes = resultBits.byteLength + reducedBits.byteLength + initialBits.byteLength + chunkIds.byteLength;
+    const slots = slotPools.map((entry) => entry.memoryStats());
+    const chunkPayloadBytes = slots.reduce((sum, entry) => sum + entry.payloadBytes, 0);
+    const chunkHashSlotBytes = slots.reduce((sum, entry) => sum + entry.hashSlotBytes, 0);
+    const chunkCollisionLinkBytes = slots.reduce((sum, entry) => sum + entry.collisionLinkBytes, 0);
+    const chunkDictionaryBytes = slots.reduce((sum, entry) => sum + entry.totalTypedBytes, 0);
+    return Object.freeze({
+      classCount,
+      termVocabularyCount: vocabulary.count,
+      termWordCount: WORDS_PER_CLASS,
+      residualTerms: null,
+      vocabularyBytes: vocabulary.bytes,
+      classTupleBytes,
+      classTermCountBytes: classTermCounts.byteLength,
+      classReferenceWidths: classSlotIds.map((ids) => ids.BYTES_PER_ELEMENT),
+      classMetadataBytes,
+      transitionCacheKind: 'dense-prefix',
+      transitionPrefixClasses: prefixClasses,
+      transitionCacheBytes,
+      classHashSlotBytes: classHashSlots.byteLength,
+      chunkCounts: slots.map((entry) => entry.chunkCount),
+      chunkPayloadBytes,
+      chunkHashSlotBytes,
+      chunkCollisionLinkBytes,
+      chunkDictionaryBytes,
+      slotDictionaries: slots,
+      normalizationLayout: 'sparse-superset-word-rows',
+      strictSupersetEntries: strictSupersetEntryCount,
+      maskBytes,
+      scratchBytes,
+      totalTypedBytes: vocabulary.bytes
+        + classMetadataBytes
+        + transitionCacheBytes
+        + classHashSlots.byteLength
+        + chunkDictionaryBytes
+        + maskBytes
+        + scratchBytes,
+    });
+  };
+
+  pool.flatLo = null;
+  pool.flatHi = null;
+  pool.starts = null;
+  pool.lengths = null;
+  pool.hashes = null;
+  pool.singletonLo = null;
+  pool.singletonHi = null;
+  pool.hashSlots = null;
+  pool.ownTransitions = null;
+  pool.blockTransitions = null;
+
+  return Object.freeze({ vocabulary, prefixClasses, slotPools, metrics, reserveForSearch, estimateReservedBytes, memoryStats: pool.memoryStats });
+}
