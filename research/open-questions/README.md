@@ -18,6 +18,18 @@ Current questions include:
 - Can the safe additional A4/A8 cover measured in C4-R0038 be derived from solver-neutral relation primitives rather than named rule-specific code?
 - Under what structural conditions does A6 regain independent marginal value rather than being saturated by the remaining certificate families?
 
-Source material includes the preserved missing-axiom/predicate-ledger packet and the newly normalized A1-A9/A10 counterexample/ablation evidence.
+## C4-R0043 — line-hit product realizability
+
+C4-R0042 shows that tested symbolic Win/Loss regions collapse cleanly into monotone `(support,H0,H1)` product boundaries. What remains unknown is how to evolve those boundaries directly without reconstructing ownership space.
+
+A successful law must answer:
+
+- Which `(H0,H1)` pairs are realizable by an ownership partition of a fixed support?
+- Is the realizability image closed under a compact representation that supports move preimages?
+- How do terminal/first-win subtraction and existential/universal move composition act on that image?
+- Can the recurrence remain in line-hit/product space throughout, or must it retain an additional correlation invariant?
+- If a complete direct recurrence is impossible or too wide, which part of the product signature is still an exact filter/index for another authoritative representation?
+
+This is not merely a BSFP implementation issue. It is a concrete instance of the shared Isometric question: **when does a structural quotient contain enough relational information to replace the hidden physical state?**
 
 New experiments should target a named missing law whenever possible rather than adding disconnected observations.

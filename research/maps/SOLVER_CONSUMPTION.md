@@ -13,9 +13,12 @@ Core inputs:
 - composition target and missing law: C4-R0011, R0018;
 - quotient preservation and residual automata: C4-R0008, R0023..R0026;
 - strategic certificate evidence: C4-R0029..R0034, R0036..R0038;
+- line-hit product structural evidence and its missing realizability law: C4-R0042, R0043;
+- residual-pair occurrence reuse as evidence for structural factorization: C4-R0044;
+- exact subset-family terminal-subtraction algebra: C4-R0046;
 - derivative and perfect-play discovery programs: C4-R0012, R0013.
 
-R0037 is a negative constraint: Isometric must not inherit the falsified legacy/even-ply A9 responder orientation as though it were a general certificate.
+R0037 is a negative constraint: Isometric must not inherit the falsified legacy/even-ply A9 responder orientation as though it were a general certificate. R0043 is a positive design constraint: line-hit state cannot silently erase support-local realizability.
 
 ## Negamax / Minimax lineage
 
@@ -27,6 +30,7 @@ It consumes:
 - certificate and composition work: C4-R0029..R0034;
 - joint typed-MQ5+A123 qualification: C4-R0036;
 - scoped A9 falsifier and A4/A8/A6 ablation: C4-R0037, R0038;
+- line-hit product result as structural/quotient evidence when mapped to the same target semantics: C4-R0042;
 - research-method contract for optimization evidence: C4-R0035.
 
 Its exact-search results are especially useful as oracles for candidate structural claims, but an optimization win or loss is not itself a theorem.
@@ -37,11 +41,17 @@ Primary role: backward symbolic fixed-point solving.
 
 Shared inputs:
 - win-space and line geometry: C4-R0001, R0002, R0015;
-- terminal boundary: C4-R0003, R0004, R0009, R0021;
+- terminal boundary: C4-R0003, R0004, R0009, R0021, R0046;
 - CPC timing and mandatory race ordering: C4-R0014, R0017;
 - blocker semantics and NDC target: C4-R0016, R0018;
 - quotient preservation/support requirements: C4-R0008, R0023..R0026;
-- exhaustive recurrence evidence and representation limitation: C4-R0019..R0022.
+- exhaustive recurrence evidence and representation limitation: C4-R0019..R0022;
+- ownership-antichain representation evidence: C4-R0039;
+- exact rolling-rank execution: C4-R0040;
+- rejected streaming dominance form: C4-R0041;
+- line-hit product boundary and missing direct-recurrence law: C4-R0042, R0043;
+- residual-pair cofactor reuse: C4-R0044;
+- measured compute/frontier scaling wall: C4-R0045.
 
 MQ5/A123 runtime measurements are primarily recursive-solver evidence; BSFP should consume their shared semantic conclusions only when the relevant representation/guard equivalence is explicit.
 
