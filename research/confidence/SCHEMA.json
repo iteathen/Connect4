@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "record": {
+    "claim_id": "C4-Rxxxx",
+    "confidence_mode": "deductive|empirical|mixed|contract|program_model|research_gap",
+    "epistemic_status": "see canonical/CLAIM_REGISTRY.json",
+    "deductive": {
+      "proof_status": "unchecked|derived|independently_checked|formally_verified|null",
+      "guards": [],
+      "proof_sources": [],
+      "stronger_variants_with_counterexamples": []
+    },
+    "empirical": {
+      "prior_probability": null,
+      "prior_rationale": null,
+      "prior_version": null,
+      "evidence_events": [
+        {
+          "evidence_id": "C4-E####",
+          "direction": "supports|contradicts|constrains|qualifies|inconclusive",
+          "independence_group": null,
+          "bayes_factor": null,
+          "likelihood_model": null,
+          "source": null,
+          "notes": null
+        }
+      ],
+      "posterior_probability": null,
+      "posterior_log_odds": null,
+      "computed_from": []
+    },
+    "coverage": {
+      "tested_domain": null,
+      "known_exclusions": [],
+      "reproduction_status": null
+    },
+    "updated": null
+  },
+  "rules": [
+    "Do not invent a numeric prior merely to populate the table.",
+    "Do not multiply correlated evidence as independent evidence.",
+    "A deductive theorem is represented by proof/guard state rather than a synthetic probability.",
+    "Posterior values must be reproducible from an explicit prior and recorded evidence events.",
+    "Implementation usefulness is separate from proposition truth."
+  ]
+}

@@ -1,47 +1,66 @@
-# Connect4 research namespace
+# Connect4 research knowledge base
 
-`research/` is the canonical home for **new** experiment packets and cross-solver research records.
+Research lives here.
 
-Historical experiments remain in their original committed paths for reproducibility. In particular, `reference/research-prototypes/` is grandfathered historical material and should not receive new experiments.
+This directory is the canonical knowledge home for Connect4 research across solver families. Isometric, Negamax/Minimax, BSFP, hybrid solvers, benchmarks, and future implementations consume this knowledge; they do not independently own the truth of shared claims.
 
-## Ownership
+Research direction: Josh Oshiro.
 
-- search/minimax-specific experiments live on `solver/minimax-alpha-beta`;
-- CUDA-BSFP-specific experiments live on `solver/cuda-bsfp`;
-- shared state/equivalence/quotient research lives on `research/semantic-quotient`.
+## Read this first
 
-The branch owns the research first; the directory organizes the packet. Do not copy every experiment into every branch.
+Agents should normally read in this order:
 
-## Packet shape
+1. `canonical/CORE_MODEL.md` — the common conceptual model.
+2. `canonical/CLAIMS.md` — human-readable claim ledger.
+3. `canonical/CLAIM_REGISTRY.json` — machine-readable claim identities, status, relations, sources, and consumers.
+4. `maps/CORE_LOGIC_MAP.md` — how the ideas connect into one logic engine.
+5. `maps/SOLVER_CONSUMPTION.md` — how solver families consume the shared research.
+6. `open-questions/README.md` and `hypotheses/README.md` — what is not yet established.
+7. `confidence/README.md` — evidence/confidence policy.
+8. `provenance/` — exact historical source packets when an audit is needed.
 
-Prefer:
+Do not begin by reading provenance branch dumps unless auditing a claim. The canonical layer exists so an agent can absorb the related idea as a coherent whole rather than reconstruct it from branch history.
 
-```text
-research/<topic>/<experiment>/
-  README.md
-  manifest.json
-  src/
-  evidence/
-```
+## Epistemic categories
 
-`README.md` should state the question, falsifier, result and disposition. `manifest.json` should capture exact source/base identities, environment, commands, evidence hashes and whether artifacts are authoritative, derivative, or missing.
+A statement must be classified before it is used as authority:
 
-## Required disposition vocabulary
+- `deductive_exact` — established by derivation/proof within stated premises.
+- `guarded_exact` — exact only when explicit guard conditions hold.
+- `accepted_contract` — accepted semantic/engineering rule for consuming exact research.
+- `empirically_supported` — supported by measured evidence but not deductively established.
+- `hypothesis` — plausible claim awaiting adequate evidence or proof.
+- `candidate_rule` — proposed calculus/composition rule not yet accepted.
+- `open_question` — unresolved question.
+- `missing_law` — a specifically identified law/closure condition needed for the calculus.
+- `disproven` — contradicted by decisive counterexample or proof.
+- `rejected` — investigated approach intentionally not pursued under current evidence/constraints; this does not imply every proposition inside it is false.
+- `deferred` — valid or plausible work whose implementation/qualification is postponed.
+- `superseded` — replaced by a later formulation/evidence packet.
+- `historical_only` — retained to explain lineage, not current reasoning.
+- `untriaged` — preserved but not yet normalized into the claim graph.
 
-Use one of:
+## Directory roles
 
-- `promote_candidate`
-- `retain_research_candidate`
-- `reject_tested_form`
-- `superseded`
-- `historical_only`
-- `incomplete_or_missing_artifact`
+- `canonical/` — current normalized model and claim registry.
+- `maps/` — relationships among claims and solver consumers.
+- `hypotheses/` — live unproved ideas worth testing.
+- `open-questions/` — missing laws and unresolved seams.
+- `evidence/` — evidence policy and normalized evidence records; raw historical evidence remains preserved under provenance until migrated.
+- `experiments/` — experiment design/result normalization; raw historical experiments remain preserved under provenance until migrated.
+- `confidence/` — confidence/Bayesian update model.
+- `history/` — disproven, rejected, deferred/superseded, and historical-only knowledge.
+- `untriaged/` — explicit queue of source material still awaiting semantic normalization.
+- `provenance/` — lossless historical source archive. Evidence, not current authority.
 
-Do not delete adverse results simply because a later candidate wins.
+## Ownership rule
 
-## Current migration records
+The previous branch-first research ownership model is retired. Shared research claims are normalized here first. Solver-family branches may keep implementation notes, but a semantic claim used across families must point back to a stable research claim ID.
 
-- `MIGRATION_MANIFEST.json` — exact pre-restructure branch census and disposition
-- `BRANCH_RETIREMENT.md` — human-readable cleanup ledger
+Code should reference stable claim IDs such as `C4-R0004` where practical. A solver-specific optimization can consume a claim without changing its epistemic status.
 
-These records preserve topology/provenance; they are not solver-semantic authority.
+## Cleanup rule
+
+Never delete or merge away a research statement merely because it looks duplicated. First establish semantic equivalence, choose the canonical claim, record `supersedes`/`derived_from`/provenance relations, and only then move duplicate prose to history or leave it solely in the provenance archive.
+
+The source archive was created before cleanup specifically so classification can be aggressive without losing the original record.
