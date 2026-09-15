@@ -3,112 +3,135 @@ import assert from 'node:assert/strict';
 // Research direction / structural architecture / invariant-first and self-proving-predicate program: Josh Oshiro
 // Formalization / implementation / qualification: OpenAI ChatGPT
 //
-// Total-domain K=4 response-matching theorem unit.
-// The production certificate does not branch on board size. It generates the
-// winning requirements and one canonical response matching from the gravity
-// support DAG, then asks whether every requirement contains a matched pair.
+// Total-domain K=4 primitive response-matching theorem unit.
+// The certificate predicate never asks whether a board is "small". It generates
+// winning requirements plus canonical response programs from the event/support
+// structure, then asks whether one compatible mate-response matching hits every
+// winning requirement.
 
-const K = 4;
-const DIRS = [[1,0],[0,1],[1,1],[1,-1]];
-const key = ([x,y]) => `${x},${y}`;
+const K=4;
+const DIRS=[[1,0],[0,1],[1,1],[1,-1]];
+const key=([x,y])=>`${x},${y}`;
 
 function generateLines(W,H){
   const out=[];
-  for(let y=0;y<H;y++) for(let x=0;x<W;x++) for(const [dx,dy] of DIRS){
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++)for(const[dx,dy]of DIRS){
     const cells=Array.from({length:K},(_,i)=>[x+i*dx,y+i*dy]);
-    if(cells.every(([a,b])=>a>=0&&a<W&&b>=0&&b<H)) out.push(cells);
+    if(cells.every(([a,b])=>a>=0&&a<W&&b>=0&&b<H))out.push(cells);
   }
   return out;
 }
 
-// Pair consecutive events along every gravity chain at even support depth.
-// These are ordinary mate-response pairs: if the opponent ever obtains the
-// lower cell while the pair is still unresolved, the upper cell is the legal
-// immediate response; if the opponent reaches the upper cell first, the lower
-// cell was necessarily occupied already, so the pair is already resolved.
-function supportResponseMatching(W,H){
-  const pairs=[];
-  for(let x=0;x<W;x++) for(let y=0;y+1<H;y+=2){
-    pairs.push([[x,y],[x,y+1]]);
+// Same generic response-program schema, instantiated from two native pieces of
+// the event structure:
+//  1. support successors on gravity chains;
+//  2. co-playable neighbours on the initial frontier.
+// Each returned set is a disjoint matching, so a mate-response policy can
+// maintain "opponent never owns both endpoints" independently of move history.
+function supportMatching(W,H){
+  const out=[];
+  for(let x=0;x<W;x++)for(let y=0;y+1<H;y+=2){
+    out.push({kind:'support-successor',cells:[[x,y],[x,y+1]]});
   }
-  return pairs;
+  return out;
+}
+function frontierMatching(W,H){
+  const out=[];
+  for(let x=0;x+1<W;x+=2){
+    out.push({kind:'co-playable-frontier',cells:[[x,0],[x+1,0]]});
+  }
+  return out;
+}
+function generatedMatchings(W,H){
+  return [supportMatching(W,H),frontierMatching(W,H)];
 }
 
-function pairInLine(pair,line){
+function pairInLine(program,line){
   const s=new Set(line.map(key));
-  return pair.every(q=>s.has(key(q)));
+  return program.cells.every(q=>s.has(key(q)));
 }
-function cover(lines,pairs){
-  return lines.every(line=>pairs.some(pair=>pairInLine(pair,line)));
+function covers(lines,matching){
+  return lines.every(line=>matching.some(program=>pairInLine(program,line)));
 }
 function lineDirection(line){
-  if(line.length<2) return 'point';
-  const [a,b]=line;
-  const dx=b[0]-a[0],dy=b[1]-a[1];
-  if(dx===0) return 'vertical';
-  if(dy===0) return 'horizontal';
-  return 'diagonal';
+  if(line.length<2)return'point';
+  const[a,b]=line,dx=b[0]-a[0],dy=b[1]-a[1];
+  if(dx===0)return'vertical';
+  if(dy===0)return'horizontal';
+  return'diagonal';
 }
 
-// Structural certificate predicate. No W/H cases occur here.
 function certificate(W,H){
   assert(Number.isInteger(W)&&W>0&&Number.isInteger(H)&&H>0);
   const lines=generateLines(W,H);
-  const pairs=supportResponseMatching(W,H);
-  return {
+  const matchings=generatedMatchings(W,H);
+  const reports=matchings.map(m=>({programCount:m.length,covers:covers(lines,m)}));
+  return{
     W,H,
     lineCount:lines.length,
-    pairCount:pairs.length,
-    covered:cover(lines,pairs),
-    directions:[...new Set(lines.map(lineDirection))].sort()
+    directions:[...new Set(lines.map(lineDirection))].sort(),
+    matchings:reports,
+    bilateralDrawCertificate:reports.some(r=>r.covers)
   };
 }
 
-const expectedExamples = new Map([
-  ['1x1',0],['1x4',1],['2x4',2],['3x4',3],['7x6',69]
+const expectedLineCounts=new Map([
+  ['1x1',0],['1x4',1],['2x4',2],['3x4',3],['4x1',1],['7x1',4],['7x6',69]
 ]);
-for(const [wh,L] of expectedExamples){
-  const [W,H]=wh.split('x').map(Number);
+for(const[wh,L]of expectedLineCounts){
+  const[W,H]=wh.split('x').map(Number);
   assert.equal(generateLines(W,H).length,L,wh);
 }
 
-// Finite implementation qualification only. The family theorem below is
-// analytic and does not infer unbounded validity from this sweep.
+// Implementation qualification only; unbounded family claims below have
+// separate interval proofs and do not infer universality from this sweep.
 const reports=[];
-for(let W=1;W<=8;W++) for(let H=1;H<=16;H++) reports.push(certificate(W,H));
-for(const r of reports.filter(r=>r.W<4)) assert.equal(r.covered,true,JSON.stringify(r));
+for(let W=1;W<=16;W++)for(let H=1;H<=16;H++)reports.push(certificate(W,H));
+for(const r of reports.filter(r=>r.W<4))assert.equal(r.bilateralDrawCertificate,true,JSON.stringify(r));
+for(const r of reports.filter(r=>r.H===1))assert.equal(r.bilateralDrawCertificate,true,JSON.stringify(r));
 
-// Ensure the certificate is selective rather than an accidental all-board draw test.
-for(const [W,H] of [[4,4],[5,4],[7,6],[8,7]]){
+// Selectivity controls: the primitive layer must not silently call ordinary
+// multidimensional boards draws.
+for(const[W,H]of[[4,4],[5,4],[7,6],[8,7]]){
   const r=certificate(W,H);
-  assert.equal(r.covered,false,JSON.stringify(r));
+  assert.equal(r.bilateralDrawCertificate,false,JSON.stringify(r));
 }
 
-// Analytic family lemma encoded as arithmetic assertions: every interval of
-// four consecutive support ranks contains one canonical even-depth pair.
+// Analytic interval lemmas.
+// Any four consecutive ranks on a gravity chain contain one even-depth pair.
 for(let s=0;s<128;s++){
   const pair=(s&1)?[s+1,s+2]:[s,s+1];
-  assert(pair[0]>=s && pair[1]<=s+3);
+  assert(pair[0]>=s&&pair[1]<=s+3);
   assert.equal(pair[0]&1,0);
   assert.equal(pair[1],pair[0]+1);
 }
+// Any four consecutive cells on the initial frontier contain one canonical
+// adjacent frontier pair (2j,2j+1).
+for(let s=0;s<128;s++){
+  const left=(s&1)?s+1:s;
+  assert(left>=s&&left+1<=s+3);
+  assert.equal(left&1,0);
+}
 
 console.log(JSON.stringify({
-  kind:'connect4-total-domain-support-response-matching',
+  kind:'connect4-total-domain-primitive-response-matching',
   status:'qualified',
-  productionDefinition:'Generate K=4 winning requirements and the even-depth support-chain response matching; if every requirement contains a response pair, the same mate-response invariant gives either player a no-loss strategy, hence the empty-board value is draw.',
-  examples:Object.fromEntries([...expectedExamples].map(([wh])=>{
-    const [W,H]=wh.split('x').map(Number);
-    return [wh,certificate(W,H)];
+  productionDefinition:'Generate winning requirements and native disjoint mate-response matchings from support successors and the co-playable initial frontier. If one generated matching hits every winning requirement, either player can apply its mate response policy and prevent the opponent from completing any requirement; therefore the finite empty-board value is draw.',
+  examples:Object.fromEntries([...expectedLineCounts].map(([wh])=>{
+    const[W,H]=wh.split('x').map(Number);
+    return[wh,certificate(W,H)];
   })),
-  thinSweep:{
-    tested:reports.filter(r=>r.W<4).length,
-    allCovered:reports.filter(r=>r.W<4).every(r=>r.covered)
+  familyTheorems:[
+    'Every K=4 board whose generated requirements are confined to gravity chains is draw-certified: every four-event vertical interval contains an even-depth support-successor response pair. In particular every positive W<4 board is covered, including empty-winspace boards.',
+    'Every one-row K=4 board is draw-certified by the same response-program schema instantiated on the co-playable frontier: every four-cell horizontal interval contains an adjacent frontier response pair.'
+  ],
+  implementationQualification:{
+    grid:'1<=W,H<=16',
+    verticalThinAllCertified:reports.filter(r=>r.W<4).every(r=>r.bilateralDrawCertificate),
+    oneRowAllCertified:reports.filter(r=>r.H===1).every(r=>r.bilateralDrawCertificate)
   },
   nontrivialFalsifiers:[[4,4],[5,4],[7,6],[8,7]].map(([W,H])=>certificate(W,H)),
-  theorem:'If every generated winning requirement contains one pair from the canonical support response matching, either player can maintain the invariant that the opponent never owns both endpoints of any pair. Therefore the opponent cannot complete a requirement. The same certificate is available to both players, so the finite empty-board game is a draw.',
-  familyCorollary:'For K=4, every W<4 board satisfies the theorem: horizontal and diagonal requirements cannot be generated, and every generated vertical length-4 interval contains an even-depth support pair. Empty winspace is covered vacuously.',
-  proofBoundary:'The finite sweep is implementation qualification only. No board-size branch appears in the production certificate predicate, and recursive game-tree solving is not used.',
+  proofBoundary:'The grid sweep validates the implementation only. The family proofs are analytic interval/mate-response arguments. No recursive game-tree solver, solved label, predefined board class, or terminal count is used by the certificate predicate.',
   attribution:{
     researchDirectionStructuralArchitectureInvariantFirstProgram:'Josh Oshiro',
     formalizationImplementationQualification:'OpenAI ChatGPT'
