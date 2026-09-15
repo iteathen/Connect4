@@ -1,318 +1,233 @@
 # Connect4 research index
 
-**Updated:** 2026-09-14
-**Purpose:** route the retained research corpus without turning historical artifacts into current authority.
+**Updated:** 2026-09-14  
+**Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
-Research direction and architecture: **Josh Oshiro**.  
-Formalization, implementation, and qualification: **OpenAI ChatGPT**.
+Research direction / structural architecture / invariant-first program: **Josh Oshiro**.  
+Formalization / implementation / qualification: **OpenAI ChatGPT**.
 
-Current state lives in repository-root `STATUS.md` and `next_step.yaml`. Prototype
-routing lives in `reference/research-prototypes/README.md`.
+Current state lives only in repository-root `STATUS.md` and `next_step.yaml`. This index answers **where the durable derivation/evidence lives**, not **what to do next**.
 
-Status meanings:
+Status classes:
 
-- **ACTIVE CORE** — current exact theory or active structural research.
-- **CONTROL / QUALIFICATION** — bounded/exact evidence; not theorem authority by itself.
-- **CORRECTIVE / SUPERSEDING** — changes the interpretation of earlier work.
-- **NEGATIVE CONTROL** — rejected/incomplete method retained as a falsifier.
-- **HISTORICAL / RETAINED** — useful provenance or prior solver/representation work.
-- **UNKNOWN / RETAIN** — usefulness not yet resolved; retain by default.
+- **ACTIVE FOUNDATION** — current exact or qualified structural result used by the active seam.
+- **ACTIVE SEAM / CONTROL** — current unresolved mechanism and its bounded falsifiers.
+- **NEGATIVE CONTROL / CORRECTION** — rejected shortcut or note that corrects an earlier interpretation.
+- **HISTORICAL EVIDENCE** — implementation/performance/provenance record with continuing value but no current routing authority.
+- **RETAINED SPECIALIZED LANE** — BSFP/OQS/minimax/other work kept for its owning lane.
 
----
-
-## 1. Canonical current synthesis
-
-### ACTIVE DISCOVERY / NEGATIVE CONTROL
-
-[`2026-09-14-solved-db-structural-discovery.md`](2026-09-14-solved-db-structural-discovery.md)
-
-Local solved-BDD collision audit over 30,254 states. Exact support/residual identity is preserved;
-F2-span and low-order current-owner event observations lose value. The minimal remaining seam
-is owner-labelled cubic enabling across an intervening move, with explicit support/response/first-win
-guards. Contains source provenance, executable controls and separate proof boundaries.
-
-### ACTIVE CORE
-
-[`2026-09-13-unified-structural-logic-statement.md`](2026-09-13-unified-structural-logic-statement.md)
-
-Top-level one-statement synthesis of the current exact research architecture:
-
-```text
-E  causal event/support
-R  residual winning obligations
-P  CPC / GF(2) parity / precedence / deadlines
-C  typed temporal policy/resources
-N  guarded dependency closure
-G  alternating predecessor fixed point
-Q  observation-sensitive value/provenance quotients
-```
-
-One legal placement is treated as a typed E/R/P/C/N product event. Local proof reuse is
-**claim-relative** through the smallest load-bearing dependency cone. This synthesis is
-not itself a completed standard-7x6 root proof.
-
-Governing rule:
-
-```text
-Erase a distinction only when it is a congruence for every downstream transition and
-the exact claim/observation being proved.
-```
+Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
 
 ---
 
-## 2. Perfect-play W/D/L and terminal-line semantic shell
+## 1. Current active seam
 
-### ACTIVE CORE
+### ACTIVE SEAM / CONTROL
 
-- [`2026-09-13-perfect-play-line-output-algebra.md`](2026-09-13-perfect-play-line-output-algebra.md)
-- [`2026-09-13-choice-elimination-predecessor-calculus.md`](2026-09-13-choice-elimination-predecessor-calculus.md)
-- [`2026-09-13-winning-region-output-factorization.md`](2026-09-13-winning-region-output-factorization.md)
-- [`2026-09-13-alternating-fixed-point-calculus.md`](2026-09-13-alternating-fixed-point-calculus.md)
-- [`2026-09-13-wdl-interval-predecessor-calculus.md`](2026-09-13-wdl-interval-predecessor-calculus.md)
-- [`2026-09-13-output-provenance-quotient.md`](2026-09-13-output-provenance-quotient.md)
-- [`2026-09-13-current-causal-certificate-differential.md`](2026-09-13-current-causal-certificate-differential.md)
+- [`2026-09-14-solved-db-structural-discovery.md`](2026-09-14-solved-db-structural-discovery.md)  
+  Solved-BDD structural collision audit over 30,254 sampled source positions. Falsifies several low-order/value-completeness projections and exposes the minimal A/B temporal collision.
 
-Value target:
+- [`2026-09-14-solved-db-structural-assessment.md`](2026-09-14-solved-db-structural-assessment.md)  
+  Independent provenance/selection audit and structural replay. Establishes the current classification: mixed owner cofactors are derived from full positive residual incidence; the missing mechanism is the guarded quantifier lift from cofactor consequence to certified NDC obligation.
+
+Current rule target:
 
 ```text
-W = mu X . [ I union PreE(X) union PreA(X) ]
+MixedCofactorConsequence
++ AdmissibleSupport
++ UniversalInterventionStability
++ SharedResourceAccounting
++ FirstWinBeforeDeadline
+-> CertifiedObligation.
 ```
 
-Value identity remains exact C4-0010 `q`. Terminal-line output is a richer observation
-and retains exact P0 residual/origin provenance `Pi0`.
+The A/B database labels are falsification controls only, never theorem premises.
 
 ---
 
-## 3. Claim-relative typed-event and temporal-contract calculus
+## 2. September 14 structural foundation
 
-### ACTIVE CORE
+### ACTIVE FOUNDATION — total-domain geometry / static classification
 
-- [`2026-09-13-claim-relative-event-isomorphism.md`](2026-09-13-claim-relative-event-isomorphism.md)  
-  Exact theorem reuse relative to a declared claim/observation; center C1 and latent
-  C3/G3 singleton discharge collapse to one theorem class without merging q states.
+- [`2026-09-14-total-domain-incidence-decomposition.md`](2026-09-14-total-domain-incidence-decomposition.md)
+- [`2026-09-14-connect4-derived-difference-axioms.md`](2026-09-14-connect4-derived-difference-axioms.md)
+- [`2026-09-14-a4-quiver-structural-decomposition.md`](2026-09-14-a4-quiver-structural-decomposition.md)
+- [`2026-09-14-external-structural-isomorph-audit.md`](2026-09-14-external-structural-isomorph-audit.md)
+- [`2026-09-14-thin-board-draw-theorem.md`](2026-09-14-thin-board-draw-theorem.md)
 
-- [`2026-09-13-event-dependency-cone-product-calculus.md`](2026-09-13-event-dependency-cone-product-calculus.md)  
-  One event as simultaneous E/R/P/C/N transformer; 20 repair transitions reduce to
-  12 local semantic signatures with eight nontrivial reused classes.
+These own the board-family symbolic geometry, third finite-difference structure, A4/quiver decomposition, exact/analogical isomorphism boundary, standard `7x6` `69 = 28 + 6 + 28 + 7` corollary, and quantified thin-board draw theorem.
 
-- [`2026-09-13-temporal-contract-automata-and-latent-cross-pair.md`](2026-09-13-temporal-contract-automata-and-latent-cross-pair.md)  
-  Guarded temporal-contract automata and the exact five-state C3/G3 support scheduler.
+### ACTIVE FOUNDATION — control potential / domain walls
 
-- [`2026-09-13-temporal-stutter-tail-phase-debt.md`](2026-09-13-temporal-stutter-tail-phase-debt.md)  
-  Exact external stutters, `Tail3 = StutterPair2 + OddEvent1`, and one-slot phase-debt
-  transport interface.
+- [`2026-09-14-cpc-control-potential-unification.md`](2026-09-14-cpc-control-potential-unification.md)
+- [`2026-09-14-z2-domain-wall-causal-field.md`](2026-09-14-z2-domain-wall-causal-field.md)
+- [`2026-09-14-gravity-adapted-domain-wall-normal-form.md`](2026-09-14-gravity-adapted-domain-wall-normal-form.md)
+- [`2026-09-14-safe-phase-transfer-automaton.md`](2026-09-14-safe-phase-transfer-automaton.md)
+- [`2026-09-14-safe-bulk-boundary-entry.md`](2026-09-14-safe-bulk-boundary-entry.md)
+- [`2026-09-14-single-seam-safety.md`](2026-09-14-single-seam-safety.md)
+- [`2026-09-14-safe-affine-seam-cube.md`](2026-09-14-safe-affine-seam-cube.md)
+- [`2026-09-14-top-defect-transport-module.md`](2026-09-14-top-defect-transport-module.md)
 
-The active theorem-library target is:
+These own the binary control-potential unification, ownership-lift/domain-wall representation, gravity normal form, pure-followup safe language, finite top-boundary behavior, and safe seam reservoir. This is powerful defensive structure but is not by itself a signed W/D/L theorem.
 
-```text
-TypedEventSignature(claim, context, event)
-```
+### ACTIVE FOUNDATION — residual/blocker logic
 
-with nonincident global context retained as opaque parameters.
+- [`2026-09-14-anchored-zero-edge-residuals.md`](2026-09-14-anchored-zero-edge-residuals.md)
+- [`2026-09-14-affine-clause-blocker-decomposition.md`](2026-09-14-affine-clause-blocker-decomposition.md)
+- [`2026-09-14-response-capacity-hall-closure.md`](2026-09-14-response-capacity-hall-closure.md)
+- [`2026-09-14-response-control-decomposition.md`](2026-09-14-response-control-decomposition.md)
+- [`2026-09-14-guarded-affine-clause-closure-kernel.md`](2026-09-14-guarded-affine-clause-closure-kernel.md)
+
+These own the shared zero-edge residual target, separation between affine ownership facts and monotone blocker clauses, response/resource capacity, and guarded closure machinery. Pair blockers are not XOR unless split ownership is independently certified. Hall deficiency is only a sufficient stopping/forcing certificate where its exact guards hold.
 
 ---
 
-## 4. Response/resource/compatibility calculus
+## 3. September 13 temporal / certificate calculus retained by the active seam
 
-### ACTIVE CORE
+### ACTIVE FOUNDATION
 
+- [`2026-09-13-unified-structural-logic-statement.md`](2026-09-13-unified-structural-logic-statement.md)
+- [`2026-09-13-claim-relative-event-isomorphism.md`](2026-09-13-claim-relative-event-isomorphism.md)
+- [`2026-09-13-event-dependency-cone-product-calculus.md`](2026-09-13-event-dependency-cone-product-calculus.md)
+- [`2026-09-13-temporal-contract-automata-and-latent-cross-pair.md`](2026-09-13-temporal-contract-automata-and-latent-cross-pair.md)
 - [`2026-09-13-temporal-response-capacity-calculus.md`](2026-09-13-temporal-response-capacity-calculus.md)
 - [`2026-09-13-response-channel-antichain-calculus.md`](2026-09-13-response-channel-antichain-calculus.md)
 - [`2026-09-13-response-matroid-defect-transfer.md`](2026-09-13-response-matroid-defect-transfer.md)
 - [`2026-09-13-compatible-cover-progress-calculus.md`](2026-09-13-compatible-cover-progress-calculus.md)
-- [`2026-09-13-poisoned-support-progress-calculus.md`](2026-09-13-poisoned-support-progress-calculus.md)
-- [`2026-09-13-response-capacity-and-center-repair.md`](2026-09-13-response-capacity-and-center-repair.md)
-- [`2026-09-13-center-response-channel-cut-deficiency.md`](2026-09-13-center-response-channel-cut-deficiency.md)
-- [`2026-09-13-center-phase-response-fork.md`](2026-09-13-center-phase-response-fork.md)
+- [`2026-09-13-guarded-theorem-composition-calculus.md`](2026-09-13-guarded-theorem-composition-calculus.md)
+- [`2026-09-13-alternating-fixed-point-calculus.md`](2026-09-13-alternating-fixed-point-calculus.md)
+- [`2026-09-13-wdl-interval-predecessor-calculus.md`](2026-09-13-wdl-interval-predecessor-calculus.md)
 
-These own coverage-versus-realizability, typed resource contracts, response-slot rank and
-circuits, defect transfer, deadlines/races, and compatible-cover reasoning.
+These provide the claim-relative event/dependency language, response-resource algebra, guarded theorem composition, and exact alternating predecessor shell consumed by the current cofactor-obligation investigation.
 
-### CORRECTIVE / SUPERSEDING
+### CORRECTION
 
-[`2026-09-13-center-response-serialization-correction.md`](2026-09-13-center-response-serialization-correction.md)
+- [`2026-09-13-center-response-serialization-correction.md`](2026-09-13-center-response-serialization-correction.md)
 
-This supersedes the **strategic interpretation**, but not enumerated static
-geometry/coverage facts, of:
-
-- `2026-09-13-center-defect-edge-denial-amplification.md`
-- `2026-09-13-five-diagonal-singleton-capacity.md`
-- `2026-09-13-center-defect-lift.md`
+This supersedes the strategic interpretation, but not useful static geometry/coverage facts, of earlier center-defect notes that consumed the same response turn twice.
 
 ---
 
-## 5. Structural isomorphism and invariant-first consolidation
+## 4. Earlier CPC / WSL / NDC synthesis
 
-### ACTIVE CORE / SYNTHESIS
+### ACTIVE FOUNDATION / HISTORICAL ROOTS
 
-- `2026-09-13-structural-isomorphism-resolution.md`
-- `2026-09-13-invariant-first-cross-layer-isomorphism.md`
-- `2026-09-13-bayesian-research-mask.md`
+- [`2026-09-09-owner-searchless-connect4-findings.md`](2026-09-09-owner-searchless-connect4-findings.md)
+- [`2026-09-09-universal-strategic-algebra.md`](2026-09-09-universal-strategic-algebra.md)
+- [`2026-09-09-nested-strategic-dependency-closure.md`](2026-09-09-nested-strategic-dependency-closure.md)
+- [`2026-09-09-searchless-solver-hypothesis.md`](2026-09-09-searchless-solver-hypothesis.md)
+- [`2026-09-09-backward-winline-fixed-point.md`](2026-09-09-backward-winline-fixed-point.md)
+- [`2026-09-09-terminal-boundary-qualification.md`](2026-09-09-terminal-boundary-qualification.md)
 
-Important resolved relationships include:
-
-```text
-gravity support <-> order ideals / poset accessibility
-WSL antichain <-> monotone DNF residual objective
-blockers <-> transversal dual view
-E/A recursion <-> alternating AND/OR proof structure
-response overload <-> transversal-matroid circuits
-q vs q+Pi0 <-> observation-sensitive equivalence
-phase collapse/transport/re-expansion <-> GF(2) event displacement
-```
-
-The Bayesian mask is external research prioritization only and is invisible to exact
-proof semantics.
+These preserve the original CPC → WSL → NDC research synthesis and exact terminal-boundary work. They remain evidence/specification inputs, not status overrides.
 
 ---
 
-## 6. Current standard-7x6 controls
+## 5. Semantic quotient / forward solver substrate
 
-### CONTROL / QUALIFICATION
+### RETAINED SPECIALIZED LANE
 
-Important current controls include:
+Primary implementation/evidence owner:
 
-- exact depth/frontier expand-collapse evidence;
-- `4665655*` sibling controls;
-- zero-phase seven-term defect core;
-- D3 hinge convergence;
-- latent C3/G3 temporal scheduler;
-- stutter/tail/phase-debt controls;
-- local event-effect signature classification;
-- claim-relative singleton-discharge cross-family qualification.
+`research/semantic-quotient/state-identity-unification/`
 
-Current workflow/evidence IDs are routed through `STATUS.md`, `next_step.yaml`, and the
-owning research notes rather than duplicated here.
+Durable research entry points:
 
-Also retained:
+- [`2026-09-10-minimum-description-semantic-quotient.md`](2026-09-10-minimum-description-semantic-quotient.md)
+- [`2026-09-11-semantic-quotient-mq1-strong-score.md`](2026-09-11-semantic-quotient-mq1-strong-score.md)
+- [`2026-09-11-semantic-quotient-mq2-behavioral-partition.md`](2026-09-11-semantic-quotient-mq2-behavioral-partition.md)
+- [`2026-09-11-semantic-quotient-mq3-residual-sufficiency.md`](2026-09-11-semantic-quotient-mq3-residual-sufficiency.md)
+- [`2026-09-11-semantic-quotient-mq4-residual-automaton.md`](2026-09-11-semantic-quotient-mq4-residual-automaton.md)
 
-- [`2026-09-13-paired-response-interval-witness.md`](2026-09-13-paired-response-interval-witness.md)
-- [`2026-09-13-progress-grammar-4x3-closure.md`](2026-09-13-progress-grammar-4x3-closure.md)
-- [`2026-09-13-negamax-bsfp-bidirectional-control.md`](2026-09-13-negamax-bsfp-bidirectional-control.md)
-- [`2026-09-13-negamax-bsfp-proof-intersection.md`](2026-09-13-negamax-bsfp-proof-intersection.md)
-- [`2026-09-13-negamax-bsfp-bidirectional-proof-intersection.md`](2026-09-13-negamax-bsfp-bidirectional-proof-intersection.md)
-- [`2026-09-13-opening-value-premise-closure.md`](2026-09-13-opening-value-premise-closure.md)
-- [`2026-09-09-searchless-closure-test-results.md`](2026-09-09-searchless-closure-test-results.md)
-
-Solved-game/oracle evidence remains discovery/falsification control and is not promoted
-into theorem premises.
+Ordinary forward identity remains exact support plus normalized P0/P1 residual content. Value-safe equivalence is not automatically safe for provenance or strategic-certificate reuse.
 
 ---
 
-## 7. Current open seam
+## 6. Frontier-native solver implementation / performance history
 
-The active continuation is **not** generic deeper q recursion.
+### HISTORICAL EVIDENCE
 
-Current path:
+Keep exact implementation/benchmark provenance, but do not use it as current research routing:
 
-```text
-exact claim
--> derive smallest sufficient E/R/P/C/N dependency cone
--> canonicalize TypedEventSignature
--> reuse an existing theorem class when isomorphic
--> otherwise retain the smallest separating invariant
--> emit exact consequence into NDC
--> discharge I / PreE / PreA obligations in G
-```
+- [`2026-09-12-full-engine-sanity-audit.md`](2026-09-12-full-engine-sanity-audit.md)
+- [`2026-09-12-transition-state-read-commit-audit.md`](2026-09-12-transition-state-read-commit-audit.md)
+- [`2026-09-12-integrated-identity-ownership.md`](2026-09-12-integrated-identity-ownership.md)
+- [`2026-09-12-native-key-integration.md`](2026-09-12-native-key-integration.md)
+- [`2026-09-12-universal-optimization-checkpoint.md`](2026-09-12-universal-optimization-checkpoint.md)
+- [`2026-09-12-pre-alpha-cleanup-ledger.md`](2026-09-12-pre-alpha-cleanup-ledger.md)
+- [`2026-09-12-pons-protocol-benchmark.md`](2026-09-12-pons-protocol-benchmark.md)
 
-The immediate unresolved first-stage target remains the structural positive proof for
-the center opening. After `W(root)` is internally established, terminal-line provenance
-closure is the second-stage output task.
+The checkpoint is retained because it contains exact benchmark/run provenance and durable optimization findings.
 
-Do not import generic residual dominance or erase support/CPC/resource/order/deadline
-context when it is load-bearing.
+`2026-09-12-frontier-optimization-handoff-v2.md` is also retained **only because the untouched current `AGENT_LOCAL.md` still routes it explicitly**. It is historical continuity evidence, not current task authority. Remove or reroute it only in a separate agent-file maintenance task.
+
+Other superseded handoff/chat-summary documents are not retained as separate current-tree artifacts.
 
 ---
 
-## 8. Structural specifications and quotient substrate
+## 7. BSFP / OQS specialized lane
 
-Primary specifications:
+### RETAINED SPECIALIZED LANE
 
-- `../specs/C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL.
-- `../specs/C4-0007-nested-dependency-closure-v1.md` — NDC.
-- `../specs/C4-0010-quotient-native-negamax-v1.md` — exact forward q/search consumer.
+Useful entry records include:
 
-Reusable semantic-quotient research:
+- [`2026-09-10-cuda-bsfp-research-synthesis.md`](2026-09-10-cuda-bsfp-research-synthesis.md)
+- [`2026-09-10-identified-winline-quotient-exact-results.md`](2026-09-10-identified-winline-quotient-exact-results.md)
+- [`2026-09-10-separator-history-census.md`](2026-09-10-separator-history-census.md)
+- [`2026-09-10-cuda-bsfp-flat-transfer-r4.md`](2026-09-10-cuda-bsfp-flat-transfer-r4.md)
+- [`2026-09-10-r6-incremental-oqs-results.md`](2026-09-10-r6-incremental-oqs-results.md)
+- [`2026-09-11-oqs-cuda-cofactor-qualification.md`](2026-09-11-oqs-cuda-cofactor-qualification.md)
 
-- `2026-09-10-minimum-description-semantic-quotient.md`
-- `2026-09-11-semantic-quotient-mq1-strong-score.md`
-- `2026-09-11-semantic-quotient-mq2-behavioral-partition.md`
-- `2026-09-11-semantic-quotient-mq3-residual-sufficiency.md`
-- `2026-09-11-semantic-quotient-mq4-flat-replay.md`
-- `2026-09-11-semantic-quotient-mq4-residual-automaton.md`
-
-A value-safe quotient is not automatically safe for provenance or strategic-certificate
-reuse.
+BSFP and forward Negamax remain separate solver semantics even when they share Connect4 structural mathematics.
 
 ---
 
-## 9. Negative controls that must remain visible
+## 8. Negative controls that must remain easy to find
 
-### NEGATIVE CONTROL
+### NEGATIVE CONTROL / CORRECTION
 
-Retain at least the following rejected shortcuts:
+Retain evidence against at least these shortcuts:
 
-- `2026-09-10-bsfp-incremental-dominance-rejected.md`;
-- raw blocker union treated as a complete policy;
+- [`2026-09-10-bsfp-incremental-dominance-rejected.md`](2026-09-10-bsfp-incremental-dominance-rejected.md);
+- [`2026-09-14-residual-sequential-ladder-falsifier.md`](2026-09-14-residual-sequential-ladder-falsifier.md);
 - static blocker coverage treated as temporal realizability;
-- naive nested blockers without timing/resource compatibility;
-- globally complete mirror/vertical response policies;
-- vertical-only transport closure;
-- exact-q subset antichain compression as the missing strategic mechanism;
-- residual cardinality/histogram summaries;
-- support-only summaries;
-- legal reachability as perfect-play reachability;
-- residual antichains with support erased;
-- local descriptors without extension/claim guards;
-- deeper raw recursion without a new theorem.
+- pair blocker silently promoted to XOR;
+- raw GF(2) span substituted for positive monotone residual incidence;
+- residual degree/cardinality used as a value selector;
+- support-only or low-order current-owner summaries treated as complete value state;
+- no Hall deficiency treated as draw/no-force evidence;
+- legal reachability treated as perfect-play reachability;
+- recursive depth used to hide a missing theorem;
+- finite solved-data agreement promoted to universal proof.
 
-The 2026-09-09 `low-confidence-survival` prototypes remain retained because several own
-useful falsifiers and candidate generators.
+Failed implementations with a durable causal lesson should remain in their owning evidence note; obsolete harness/scaffolding need not remain live merely to preserve history.
 
 ---
 
-## 10. Historical solver/repository lanes
+## 9. Current side research and design-only work
 
-### HISTORICAL / RETAINED — frontier-native exact forward solver
-
-September 12 records retain semantic identity, storage, Branch Manager, parallel search,
-performance and qualification provenance. Useful entry records include:
-
-- `2026-09-12-full-engine-sanity-audit.md`
-- `2026-09-12-transition-state-read-commit-audit.md`
-- `2026-09-12-integrated-identity-ownership.md`
-- `2026-09-12-native-key-integration.md`
-- `2026-09-12-search-volume-structural-review.md`
-- `2026-09-12-frontier-optimization-handoff.md`
-- `2026-09-12-pre-alpha-cleanup-ledger.md`
-
-### HISTORICAL / RETAINED — cross-solver semantic quotient
-
-Primary branch: `research/semantic-quotient`.
-
-### HISTORICAL / RETAINED — minimax / alpha-beta
-
-Primary branch: `solver/minimax-alpha-beta`.
-
-### HISTORICAL / RETAINED — CUDA-BSFP / OQS
-
-Relevant branches include `feature/cuda-bsfp`, `research/zdd-transfer-20260910`, and
-related OQS branches. Important retained records include:
-
-- `2026-09-10-cuda-bsfp-research-synthesis.md`
-- `2026-09-10-identified-winline-quotient-exact-results.md`
-- `2026-09-10-separator-history-census.md`
-- `2026-09-10-cuda-bsfp-flat-transfer-r4.md`
-- `2026-09-10-r6-incremental-oqs-results.md`
-- `2026-09-11-oqs-cuda-cofactor-qualification.md`
+- `research/connect-k-derivative-classification` remains isolated. Its predicate/axiom ledger is compatible with the current “derive connections before primitives” classification but has not solved the guarded temporal seam.
+- GitHub issue **#43 — `Design-only: theorem-tiered packed structural key for frontier-native Negamax ordering`** owns the structural ordering/evaluation design. It is design-only and must not be treated as implementation, pruning, or exact-value authority.
 
 ---
 
-## 11. Retention rule
+## 10. Retention rule
 
-When usefulness is unclear, retain and classify later.
+Keep a file in the live tree when it owns at least one of:
 
-Delete only when unique evidence/provenance has been preserved, no active authority or
-reproducer depends on the artifact, and cleanup is explicitly documented. Historical
-branch refs and local-packet reports remain evidence, not current authority merely
-because they still exist.
+- a durable theorem/derivation;
+- exact qualification/provenance evidence;
+- a useful falsifier/correction likely to prevent repeated mistakes;
+- specialized-lane knowledge not represented elsewhere;
+- an active reproducer or current executable dependency;
+- an explicit route from an authority/current-context file that is out of scope for the present cleanup.
+
+Prefer Git history instead when a file is only:
+
+- a superseded handoff with no surviving current route;
+- a chat/conversation summary whose durable facts are already recorded;
+- a temporary publication/access checkpoint;
+- an obsolete branch-description document;
+- a completed cleanup narration with no unique surviving evidence.
+
+When usefulness is uncertain, retain until dependency/provenance review resolves it. Do not delete merely because a note is old.

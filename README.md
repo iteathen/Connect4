@@ -2,26 +2,32 @@
 
 Independent Connect Four exact-solver laboratory and benchmark/validation product.
 
-The repository deliberately preserves separate solver lanes:
+The repository deliberately keeps solver lanes separate while sharing Connect4-owned structural mathematics:
 
-- `components/incumbent/` — the incumbent Node minimax/alpha-beta search baseline;
-- `components/bsfp/` — CUDA-BSFP (Backward Symbolic Fixed-Point), whose proof/solver semantics are not search semantics.
+- `components/incumbent/` — incumbent Node minimax/alpha-beta baseline;
+- `components/bsfp/` — backward symbolic fixed-point solver and CUDA-BSFP composition;
+- `research/semantic-quotient/` — quotient-native forward/Negamax research and conformance evidence.
 
-Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, BSFP structural/proof semantics, and qualification evidence belong here. Reusable CUDA algorithms/runtime mechanisms remain owned by their respective CUDA repositories.
+Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, CPC/WSL/NDC structural semantics, solver-specific proof meaning, and qualification evidence belong here. Reusable CUDA algorithms/runtime/search mechanisms remain owned by their respective CUDA repositories.
+
+## Start here
+
+- `AGENT_LOCAL.md` — repository ownership, authority, lane boundaries, and local constraints.
+- `STATUS.md` — current research state and proof boundary.
+- `next_step.yaml` — current executable research seam.
+- `docs/research/RESEARCH_INDEX.md` — compact map of durable research notes, controls, negative results, and historical evidence.
+
+Dated research notes are evidence, not current-state authority. Solved databases and finite oracle/census results may validate or falsify structural candidates but do not prove unbounded theorems.
 
 ## CUDA-BSFP qualification
 
 The maintained benchmark qualifier is governed by `docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md`.
 
-Official native qualification is explicitly armed and publishes an immutable evidence branch/PR back to this repository:
+Official native qualification is explicitly armed and publishes immutable evidence back to this repository:
 
 ```text
 npm run bench:bsfp:qualify
 ```
-
-The default ladder includes geometries through 9x7. Every GPU case is admitted only after a conservative profile-owned memory bound is compared with current free VRAM under the configured safety policy. Cases have bounded timeouts, logs/stack traces are captured by an outer process, and interrupted runs are recovered on the next qualifier invocation.
-
-Publication requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN` with suitable repository contents/pull-request permission. Tokens are not forwarded to solver children or evidence.
 
 For a non-publishing plan check:
 
@@ -29,4 +35,8 @@ For a non-publishing plan check:
 node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run
 ```
 
-Current C4-0009-P1 native execution is intentionally frozen to 4x3 connect-3; larger default-ladder cases therefore remain visible as unsupported until a later compact CUDA-BSFP profile registers executable semantics and a safe memory bound.
+GPU cases are admitted only after the profile-owned memory bound is checked against current free VRAM under the configured safety policy. Cases use bounded timeouts, and interrupted qualification is recoverable on the next invocation.
+
+Publication requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN` with suitable repository permissions. Tokens are not forwarded to solver children or evidence.
+
+Current C4-0009-P1 native execution is intentionally frozen to 4x3 connect-3; larger default-ladder cases remain visibly unsupported until a later compact CUDA-BSFP profile supplies executable semantics and a safe memory bound.
