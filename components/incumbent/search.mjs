@@ -228,12 +228,18 @@ export class IncumbentSearchEngine {
     const p = this.profile;
     const heights = position.heights;
     const currentPlayer = position.sideToMove;
+    const currentThreatCount = currentPlayer === 0 ? position.playableWinCount0 : position.playableWinCount1;
     let immediateWinMove = -1;
-    for (let i = 0; i < p.moveOrder.length; i++) {
-      const column = p.moveOrder[i];
-      if (heights[column] < p.rows && position.isWinningMove(column, currentPlayer)) {
-        immediateWinMove = column;
-        break;
+    if (currentThreatCount === 1) {
+      immediateWinMove = currentPlayer === 0 ? position.playableWinColumnSum0 : position.playableWinColumnSum1;
+    } else if (currentThreatCount > 1) {
+      // Preserve incumbent center-first choice when more than one immediate win exists.
+      for (let i = 0; i < p.moveOrder.length; i++) {
+        const column = p.moveOrder[i];
+        if (position.isWinningMove(column, currentPlayer)) {
+          immediateWinMove = column;
+          break;
+        }
       }
     }
     if (immediateWinMove >= 0) {
@@ -246,15 +252,19 @@ export class IncumbentSearchEngine {
       return value;
     }
 
-    let opponentThreatCount = 0;
-    let forcedBlock = -1;
     const opponent = 1 - currentPlayer;
-    for (let i = 0; i < p.moveOrder.length; i++) {
-      const column = p.moveOrder[i];
-      if (heights[column] < p.rows && position.isWinningMove(column, opponent)) {
-        if (forcedBlock < 0) forcedBlock = column;
-        opponentThreatCount++;
-        if (opponentThreatCount > 1) break;
+    const opponentThreatCount = opponent === 0 ? position.playableWinCount0 : position.playableWinCount1;
+    let forcedBlock = -1;
+    if (opponentThreatCount === 1) {
+      forcedBlock = opponent === 0 ? position.playableWinColumnSum0 : position.playableWinColumnSum1;
+    } else if (opponentThreatCount > 1) {
+      // The legacy double-threat shortcut stores the first center-ordered block candidate.
+      for (let i = 0; i < p.moveOrder.length; i++) {
+        const column = p.moveOrder[i];
+        if (position.isWinningMove(column, opponent)) {
+          forcedBlock = column;
+          break;
+        }
       }
     }
     if (opponentThreatCount > 1) {
