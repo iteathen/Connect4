@@ -15,8 +15,6 @@ import { PersistentTranspositionTable, fromTTScore, toTTScore } from './tt.mjs';
 
 const EFFECT_OWN_PLAYABLE_SINGLETON_MASK = 0x03;
 const EFFECT_EXPOSES_OPPONENT_SINGLETON = 0x04;
-const EFFECT_OPPONENT_SUPPRESSION_SHIFT = 3;
-const EFFECT_OPPONENT_SUPPRESSION_MASK = 0x18;
 
 function rootTerminalScore(winner, rootPlayer, ply) {
   if (winner === 2) return 0;
@@ -39,7 +37,7 @@ function toExternalScore(normalizedScore, maxDepth) {
   return normalizedScore / getDepthScale(maxDepth);
 }
 
-function quietSuccessorStructuralEffects(position, column, player) {
+function quietSuccessorSingletonEffects(position, column, player) {
   const p = position.profile;
   const heights = position.heights;
   const row = heights[column];
@@ -48,7 +46,6 @@ function quietSuccessorStructuralEffects(position, column, player) {
   const opponentRefs = player === 0 ? position.singletonRefs1 : position.singletonRefs0;
   let effects = 0;
   let firstOwnCompletion = -1;
-  let opponentSuppressionClass = 0;
 
   if (row + 1 < p.rows) {
     const above = index + p.columns;
@@ -65,15 +62,6 @@ function quietSuccessorStructuralEffects(position, column, player) {
     const p1Count = state >>> 3;
     const ownCount = player === 0 ? p0Count : p1Count;
     const opponentCount = player === 0 ? p1Count : p0Count;
-
-    // A mover placement at x kills every opponent-only residual incident to x.
-    // Degree-2 (two opponent stones remaining) outranks degree-3 (one stone),
-    // but this remains an unsigned advisory fact. Opponent count 3 is consumed by
-    // the exact forced-block tactical layer before ordinary ordering is reached.
-    if (ownCount === 0 && opponentCount > opponentSuppressionClass && opponentCount < 3) {
-      opponentSuppressionClass = opponentCount;
-    }
-
     if (ownCount !== 2 || opponentCount !== 0) continue;
 
     const remaining = position.lineEmptyXor[line] ^ index;
@@ -87,14 +75,11 @@ function quietSuccessorStructuralEffects(position, column, player) {
     if (firstOwnCompletion < 0) {
       firstOwnCompletion = remaining;
     } else if (remaining !== firstOwnCompletion) {
-      // Preserve the accepted singleton tier's early exit exactly. Suppression is
-      // intentionally not consulted inside this stronger advisory class.
       return effects | 2;
     }
   }
 
-  if (firstOwnCompletion >= 0) return effects | 1;
-  return effects | (opponentSuppressionClass << EFFECT_OPPONENT_SUPPRESSION_SHIFT);
+  return effects | (firstOwnCompletion >= 0 ? 1 : 0);
 }
 
 export class IncumbentSearchEngine {
@@ -395,31 +380,19 @@ export class IncumbentSearchEngine {
 
       let structuralMove = -1;
       if (ply > 0 && alpha < beta) {
-        let singletonClass = 0;
-        let suppressionClass = 0;
-        let suppressionMove = -1;
+        let structuralClass = 0;
         for (let i = 0; i < p.moveOrder.length; i++) {
           const column = p.moveOrder[i];
           if (column === ttMove || heights[column] >= p.rows) continue;
-          const effects = quietSuccessorStructuralEffects(position, column, currentPlayer);
+          const effects = quietSuccessorSingletonEffects(position, column, currentPlayer);
           if ((effects & EFFECT_EXPOSES_OPPONENT_SINGLETON) !== 0) continue;
-          const candidateSingletonClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
-          if (candidateSingletonClass > singletonClass) {
-            singletonClass = candidateSingletonClass;
+          const candidateClass = effects & EFFECT_OWN_PLAYABLE_SINGLETON_MASK;
+          if (candidateClass > structuralClass) {
+            structuralClass = candidateClass;
             structuralMove = column;
-            if (singletonClass === 2) break;
-            continue;
-          }
-          if (singletonClass === 0 && candidateSingletonClass === 0) {
-            const candidateSuppressionClass = (effects & EFFECT_OPPONENT_SUPPRESSION_MASK)
-              >>> EFFECT_OPPONENT_SUPPRESSION_SHIFT;
-            if (candidateSuppressionClass > suppressionClass) {
-              suppressionClass = candidateSuppressionClass;
-              suppressionMove = column;
-            }
+            if (candidateClass === 2) break;
           }
         }
-        if (structuralMove < 0) structuralMove = suppressionMove;
       }
 
       if (structuralMove >= 0) {
