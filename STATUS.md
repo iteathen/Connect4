@@ -374,42 +374,59 @@ Named Allis-style rules are certificate generators into these relation types. No
 
 Pure-followup/domain-wall work is a strong defensive/no-loss substrate. It is **not** promoted to a signed value theorem by itself.
 
-## Active seam: owner-labelled residual enabling and guarded value closure
+## Active seam: guarded mixed-owner cofactor closure and obligation birth
 
-The next objective is to derive the exact monotone closure that combines:
+The solved-database work has been independently assessed. The minimal six-ply collision does not currently justify adding a new primitive board-state predicate.
 
-1. affine owner/potential facts;
-2. monotone blocker clauses;
-3. anchored zero-edge residual targets;
-4. support/accessibility and response resources;
-5. completion-before-deadline / first-win timing.
+For player `p`, the positive residual antichain is a monotone Boolean completion formula. Owner-labelled events are exact cofactors. For distinct cells, an owner-`p` cofactor and an owner-`1-p` cofactor commute algebraically: they are ordinary Boolean substitutions followed by canonical minimal-antichain reduction.
 
-The solved-database discovery pass supplies a concrete unresolved discriminator:
+This identifies the missing connection more sharply:
+
+```text
+full positive residual incidence
++ mixed owner-labelled cofactor
++ support / side-to-move admissibility
++ opponent-universal intervention stability
++ shared response/resource accounting
++ completion-before-deadline / first-win stopping
+-> certified NDC obligation
+-> response-capacity / terminal consequence.
+```
+
+Classification:
+
+```text
+new primitive enabling predicate       not warranted
+owner-labelled enabling               derived certificate relation
+cofactor degree drop                  exact algebra, not yet an obligation
+intervening-choice stability          missing guard
+cofactor -> obligation quantifier lift primary missing composition rule
+Hall deficiency                       sufficient stopping certificate only where guarded/proved
+winner/sign lift                      downstream of a decisive terminal certificate
+```
+
+The documented collision remains the bounded falsifier/control:
 
 ```text
 A = [6,6,6,6,2,2] -> database 00
 B = [2,6,6,2,6,6] -> database 01
 ```
 
-These zero-based paths have identical support, boundary potential, all residuals of size <=2,
-and every legal current-player event's effect on that low-order observation. Their positive
-cubic residuals differ. The first new low-order distinction can appear on the opposite owner's
-turn, after an intervening event. Both-owner conditional cofactors expose that distinction;
-they are not unconditional move permissions or a completed value proof.
+Both have support `[0,0,2,0,0,0,4]`, equal degree-2 structural signatures, and equal one-event current-owner degree-2 jets. An independent structural replay reproduced equality after every first P0 event and exactly 13 differing degree-2 signatures among the 49 common two-event column pairs. For `P0 a1, P1 d1`, B exposes the P1 residual `{e1,f1}` and A does not.
 
-Immediate target: derive the shared d-column action's draw/win distinction through
-owner-labelled enabling records with intervening-choice, support, response and first-win guards.
-Retain the complete residual antichains. Do not replace positive incidence by its F2 span or
-infer draw from absence of current Hall/fork pressure.
+That pair is a discriminator, not a value proof. A contracted pair is not automatically a defensive obligation; support, response capacity, competing residuals, deadlines and first-win stopping still decide whether it becomes forcing.
 
-Finite evidence: 30,254 source queries; exact support/residual identity has no observed value
-collision. Low-order, current-owner derivative and F2-span projections are falsified. Both-owner
-derivatives separate this entire sample but give no compression, so they are not a compact
-outcome selector. This is validation/falsification evidence, not a new unbounded theorem.
+Immediate target: derive the smallest guarded quantifier-lift rule that turns an exact mixed-cofactor consequence into an NDC obligation before a deadline, then apply it to the shared d-column continuation. Quantify intervening opponent choices over the resulting antichain/certificate consequence, not survival of one named residual. Stop at the first guard not derivable from existing support, blocker, control-potential, response-resource, deadline or first-win coordinates; only that residue is a candidate new predicate.
 
-Primary note: `docs/research/2026-09-14-solved-db-structural-discovery.md`.
+Finite evidence remains validation/falsification only: 30,254 source queries falsify boundary-capacity, degree-2, GF(2)-span and current-owner degree-2-jet value completeness. Exact identity and ownerJet have no sampled value collision but this is not theorem evidence and gives no compression proof.
 
-Do not infer the signed outcome from static rank/core data or pure-followup defect charge alone.
+Primary notes:
+- `docs/research/2026-09-14-solved-db-structural-discovery.md`
+- `docs/research/2026-09-14-solved-db-structural-assessment.md`
+
+The isolated `research/connect-k-derivative-classification` branch was inspected and remains isolated. Its predicate/axiom ledger is consistent with this classification; its newer binary-selector file is only a small research placeholder and does not solve this temporal seam. No merge/cherry-pick is currently warranted.
+
+Do not infer draw from absence of Hall/fork pressure. Do not infer the signed outcome from static rank/core data, residual degree, or pure-followup defect charge alone.
 
 ## Validation-only lanes
 
