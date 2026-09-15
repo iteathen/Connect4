@@ -2,17 +2,21 @@
 
 Independent Connect Four exact-solver laboratory and benchmark/validation product.
 
-The repository deliberately keeps solver lanes separate while sharing Connect4-owned structural mathematics:
+The repository deliberately keeps solver/research lineages separate while sharing Connect4-owned structural mathematics:
 
-- `components/incumbent/` — incumbent Node minimax/alpha-beta baseline;
-- `components/bsfp/` — backward symbolic fixed-point solver and CUDA-BSFP composition;
-- `research/semantic-quotient/` — quotient-native forward/Negamax research and conformance evidence.
+- **BSFP** — backward symbolic fixed-point solving and CUDA-BSFP composition (`components/bsfp/`);
+- **Research** — theorem discovery, structural mathematics, falsification, and qualification evidence (`research/`, `docs/research/`);
+- **Negamax** — the quotient-native forward recursive-search lineage governed by C4-0010;
+- **Isometric** — the structural-calculus / frontier-exact solver family on the root branch `isometric`, governed by C4-0011.
+
+Isometric descended historically from the terminal-frontier Negamax experiment, but it is now a sibling solver family rather than a Negamax sub-experiment. Its current recursive alpha-beta/minimax machinery is an execution backend for unresolved residue, not its solver-family identity.
 
 Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, CPC/WSL/NDC structural semantics, solver-specific proof meaning, and qualification evidence belong here. Reusable CUDA algorithms/runtime/search mechanisms remain owned by their respective CUDA repositories.
 
 ## Start here
 
 - `AGENT_LOCAL.md` — repository ownership, authority, lane boundaries, and local constraints.
+- `ISOMETRIC_BRANCH.md` — Isometric ownership, split point, and migration boundary.
 - `STATUS.md` — current research state and proof boundary.
 - `next_step.yaml` — current executable research seam.
 - `docs/research/RESEARCH_INDEX.md` — compact map of durable research notes, controls, negative results, and historical evidence.
