@@ -87,3 +87,42 @@ jobs:
           (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
           echo '=== CONTROL_B ==='
           (cd control && C4_SOURCE_REVISION="6da8d00e607e860cce7a32628c07d4e98de91e0c" node --expose-gc benchmarks/incumbent.mjs)
+
+  paired-semantic-control:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+
+      - name: Checkout exact-horizon semantic control
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: d12ab2fb32fb43aa4b65926d37bee8dfe70cbf4f
+          path: control
+          persist-credentials: false
+
+      - name: Set up exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+          check-latest: false
+
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+
+      - name: Capture paired semantic-control evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== CONTROL_A ==='
+          (cd control && C4_SOURCE_REVISION="d12ab2fb32fb43aa4b65926d37bee8dfe70cbf4f" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CANDIDATE_A ==='
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CANDIDATE_B ==='
+          (cd candidate && C4_SOURCE_REVISION="${{ github.event.pull_request.head.sha }}" node --expose-gc benchmarks/incumbent.mjs)
+          echo '=== CONTROL_B ==='
+          (cd control && C4_SOURCE_REVISION="d12ab2fb32fb43aa4b65926d37bee8dfe70cbf4f" node --expose-gc benchmarks/incumbent.mjs)
