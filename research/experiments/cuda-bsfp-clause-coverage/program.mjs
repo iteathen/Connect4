@@ -17,7 +17,9 @@ function coveragePopcount64(low, high) {
 }
 
 function coverageSubset64(leftLo, leftHi, rightLo, rightHi) {
-  return ((leftLo & ~rightLo) === gpu.u32(0) && (leftHi & ~rightHi) === gpu.u32(0)) ? gpu.u32(1) : gpu.u32(0);
+  let result = gpu.u32(0);
+  if ((leftLo & ~rightLo) === gpu.u32(0) && (leftHi & ~rightHi) === gpu.u32(0)) result = gpu.u32(1);
+  return result;
 }
 
 function generateFilterCoveragePairs64(
@@ -102,7 +104,8 @@ function generateFilterCoveragePairs64(
 
       const extraLo = low & ~satisfiedLo;
       const extraHi = high & ~satisfiedHi;
-      const hasExtra = (extraLo !== gpu.u32(0) || extraHi !== gpu.u32(0)) ? gpu.u32(1) : gpu.u32(0);
+      let hasExtra = gpu.u32(0);
+      if (extraLo !== gpu.u32(0) || extraHi !== gpu.u32(0)) hasExtra = gpu.u32(1);
 
       if (hasExtra !== gpu.u32(0) && forcedCount === k) {
         keep = gpu.u32(0);
@@ -115,7 +118,8 @@ function generateFilterCoveragePairs64(
           const index = cellBase + cell;
           const bitLo = singletonBitsLo[index];
           const bitHi = singletonBitsHi[index];
-          const alreadyForced = ((forcedLo & bitLo) !== gpu.u32(0) || (forcedHi & bitHi) !== gpu.u32(0)) ? gpu.u32(1) : gpu.u32(0);
+          let alreadyForced = gpu.u32(0);
+          if ((forcedLo & bitLo) !== gpu.u32(0) || (forcedHi & bitHi) !== gpu.u32(0)) alreadyForced = gpu.u32(1);
           if (alreadyForced === gpu.u32(0) && coverageSubset64(extraLo, extraHi, containsLo[index], containsHi[index]) !== gpu.u32(0)) {
             found = gpu.u32(1);
           }
