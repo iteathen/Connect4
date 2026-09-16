@@ -5,6 +5,7 @@ import {
   SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION,
   createSegmentedPackedPairAntichain42Plan,
 } from '../../components/bsfp/cuda/index.mjs';
+import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-service.mjs';
 
 const U32_BYTES = 4;
 const SEGMENTS = 4;
@@ -39,6 +40,7 @@ const runtime = await openCudaRuntimeForTesting({ compiler: true });
 const allocations = [];
 let plan;
 let operation;
+let reducerService;
 try {
   plan = await createSegmentedPackedPairAntichain42Plan(runtime, {
     leftCapacity: LEFT_CAPACITY,
@@ -107,15 +109,33 @@ try {
   });
   const terminal = await operation.wait();
   assert.equal(terminal.status, 'completed');
+
+  reducerService = await createPacked42PairReducerService(runtime, {
+    segmentCapacity: 4,
+    leftCapacity: 16,
+    rightCapacity: 16,
+    candidateCapacity: 64,
+    outputCapacityPerSegment: 2,
+    blockSize: 64,
+  });
+  assert.equal(reducerService.limits.outputCapacityPerSegment, 2);
+  assert.equal(reducerService.limits.overflowOutputCapacityPerSegment, 8);
+  assert.equal(reducerService.snapshotStats().overflowRetries, 0);
+  await reducerService.close();
+  reducerService = null;
+
   console.log(JSON.stringify({
     schemaVersion: 1,
     kind: 'connect4-cuda-bsfp-segmented-pair-antichain-42-portable',
     planContract: plan.contract,
     segments: SEGMENTS,
     candidateCapacity: CANDIDATE_CAPACITY,
+    reducerFastCapacity: 2,
+    reducerOverflowCapacity: 8,
     outcome: 'portable-pair-generate-normalize-submit-pass',
   }, null, 2));
 } finally {
+  if (reducerService) await reducerService.close();
   if (operation) await operation.close();
   if (plan) await plan.close();
   for (let i = allocations.length - 1; i >= 0; i -= 1) await close(allocations[i]);

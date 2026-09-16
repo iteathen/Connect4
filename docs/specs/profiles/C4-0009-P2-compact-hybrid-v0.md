@@ -67,6 +67,26 @@ No overflow may truncate a frontier. Capacity exhaustion is a failed profile bou
 
 Generator offsets are bounds-checked on-device before indexed reads/writes. Invalid segment metadata is a failure, not undefined execution.
 
+### Reused-slab overflow specialization
+
+The ordinary batched path retains the small per-segment survivor stride below. When a segment exceeds that stride, P2 does not widen all segments and does not regenerate the Cartesian product.
+
+After the ordinary pair DAG has completed, the generated candidate masks and popcounts remain authoritative in the persistent candidate workspace. The service retries only the overflowing segment through the existing exact segmented-antichain normalizer using a distinct one-segment prepared-plan specialization. The specialization reuses the already allocated batched output slab as one contiguous frontier instead of interpreting it as many fixed-stride segments.
+
+With the v0 defaults this gives:
+
+```text
+ordinary per-segment survivor capacity: 1,024 records
+ordinary segment capacity:              256 segments
+reused output-slab capacity:            262,144 records for one retry
+```
+
+The reusable retry capacity is derived from the profile workspace as `min(segmentCapacity * outputCapacityPerSegment, candidateCapacity)`; it is not a 7x6 constant and is not inferred from an observed overflow count. Candidate data are not mutated by normalization other than the dedicated checks workspace, which is reset by each normalizer invocation. Multiple overflowing segments are therefore retried sequentially before the next batch upload overwrites the shared candidate workspace.
+
+The retry allocates no second frontier slab, so the Q1 device-memory admission formula is unchanged. If the one-segment reused slab also overflows, P2 fails explicitly at that wider profile boundary. Such a result is evidence that frontier width itself has become the scaling wall and must not be hidden by silent clipping or unbounded allocation growth.
+
+Every native result records overflow retry count, recovered-job count, initial overflow lower bound, maximum recovered frontier, failures, and separated retry upload/execution/readback time.
+
 ## Current fixed GPU workspace
 
 The v0 service defaults are:
@@ -75,14 +95,15 @@ The v0 service defaults are:
 - left records: 262,144;
 - right records: 262,144;
 - generated candidates: 4,194,304;
-- survivor capacity: 1,024 records per segment;
+- ordinary survivor capacity: 1,024 records per segment;
+- reused-slab overflow capacity: 262,144 records for one segment;
 - block size: 256 threads.
 
 The candidate workspace uses four u32 arrays when checks are included: low mask, high mask, popcount, and comparison count. Output frontiers use two u32 arrays. Metadata and status arrays are bounded by segment capacity.
 
-Including a 256 MiB runtime allowance, Q1 admits P2 with a conservative device upper bound below 384 MiB. The Q1 95%-of-current-free policy and 256 MiB emergency floor remain authoritative for hardware admission.
+Including a 256 MiB runtime allowance, Q1 admits P2 with a conservative device upper bound below 384 MiB. The Q1 95%-of-current-free policy and 256 MiB emergency floor remain authoritative for hardware admission. The overflow specialization reuses these allocations and therefore does not increase this bound.
 
-These fixed capacities are qualification parameters, not claims that 1,024 is sufficient for every 7x6 support. If an exact frontier exceeds capacity, the result is an explicit scaling datum and the profile is widened or sharded; it is never clipped.
+These fixed capacities are qualification parameters, not claims that 1,024 is sufficient for every 7x6 support. If an exact frontier exceeds the ordinary stride, the reused-slab specialization is attempted; if it exceeds that bounded specialization too, the result is an explicit scaling datum and the profile is compressed or sharded. It is never clipped.
 
 ## Host/device boundary in P2
 
@@ -123,7 +144,8 @@ Every native result must report at least:
 - finalization/terminal-subtraction time;
 - GPU reducer batch/call/job counts;
 - generated pair candidates;
-- GPU upload/execution/readback time;
+- ordinary/reused-slab overflow counts and maximum recovered frontier;
+- GPU upload/execution/readback time, with overflow-retry time identified;
 - total and maximum frontier sizes;
 - per-rank wall time and frontier width.
 
