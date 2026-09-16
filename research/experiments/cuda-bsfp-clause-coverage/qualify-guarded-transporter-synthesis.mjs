@@ -2,6 +2,7 @@
 
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import {
@@ -15,10 +16,19 @@ import {
 
 const WALL_CLOCK_LIMIT_MS = 30_000;
 const LOGICAL_CANDIDATE_BUDGET = 12_000;
-const TRANSITION_BUDGET = 11;
+const EXECUTABLE_TRANSITION_BUDGET = 10;
+const RETAINED_TRANSITION_BUDGET = 11;
 const REFLECTION_CHILD_LIMIT_MS = 8_000;
 const OQS_4X4_CHILD_LIMIT_MS = 8_000;
-const OQS_7X6_CHILD_LIMIT_MS = 14_000;
+
+const OQS_NATIVE_4X4_RESULT = new URL(
+  '../../../docs/evidence/cuda-bsfp/qualification/20260911T050640911Z-b3554293/cases/01-4x4-c4/oqs-residual-transform-and-mapping/result.json',
+  import.meta.url,
+);
+const OQS_NATIVE_7X6_RESULT = new URL(
+  '../../../docs/evidence/cuda-bsfp/qualification/20260911T050640911Z-b3554293/cases/02-7x6-c4/oqs-residual-transform-and-mapping/result.json',
+  import.meta.url,
+);
 
 function pairKey(pair) {
   return r3.pairKey(pair);
@@ -34,11 +44,35 @@ function addSet(map, key, value) {
   return values;
 }
 
-function runOqsWorker(spec) {
+function loadNativeOqsEvidence(url, geometry) {
+  const retained = JSON.parse(readFileSync(url, 'utf8'));
+  assert.equal(retained.status, 'passed', `${geometry} retained native O3 result is not passing evidence`);
+  const result = retained.solverResult;
+  assert.equal(result.mode, 'native', `${geometry} retained O3 result is not native`);
+  assert.equal(result.geometry, geometry, `${geometry} retained O3 geometry changed`);
+  assert.equal(result.mismatches, 0, `${geometry} retained O3 result has mismatches`);
+  assert.equal(result.targetCoverage, 1, `${geometry} retained O3 target coverage changed`);
+  assert.equal(result.fullDeviceQuotientSynthesis, false, `${geometry} retained O3 scope changed`);
+  return Object.freeze({
+    geometry: result.geometry,
+    transitionsChecked: result.transitionsChecked,
+    logicalCandidates: result.logicalCandidates,
+    residualTransformCandidates: result.residualCandidates,
+    transformElimination: result.logicalCandidates - result.residualCandidates,
+    transformEliminationRatio: 1 - result.residualCandidates / result.logicalCandidates,
+    nativePassesPerTransition: result.nativePassesPerTransition,
+    mismatches: result.mismatches,
+    targetCoverage: result.targetCoverage,
+    controls: result.controls,
+    evidenceGrade: result.evidenceGrade,
+  });
+}
+
+function runOqs4x4Worker() {
   const startedAt = Date.now();
+  const spec = { columns: 4, rows: 4, connect: 4 };
   const fixtures = buildFactoredFixtures(spec);
-  const expectedTransitions = spec.columns === 4 ? 10 : 1;
-  assert.equal(fixtures.length, expectedTransitions, 'unexpected O3 fixture count');
+  assert.equal(fixtures.length, EXECUTABLE_TRANSITION_BUDGET, 'unexpected O3 4x4 fixture count');
 
   let logicalCandidates = 0;
   let residualTransformCandidates = 0;
@@ -133,7 +167,7 @@ function runOqsWorker(spec) {
   assert(logicalCandidates <= LOGICAL_CANDIDATE_BUDGET, 'O3 logical candidate budget exceeded');
 
   return Object.freeze({
-    geometry: `${spec.columns}x${spec.rows}:c${spec.connect}`,
+    geometry: '4x4:c4',
     transitions: fixtures.length,
     logicalCandidates,
     residualTransformCandidates,
@@ -170,15 +204,8 @@ function runChild(args, preferredLimitMs, startedAt, label) {
   }), label);
 }
 
-if (process.argv[2] === '--oqs-worker') {
-  const geometry = process.argv[3];
-  const spec = geometry === '4x4'
-    ? { columns: 4, rows: 4, connect: 4 }
-    : geometry === '7x6'
-      ? { columns: 7, rows: 6, connect: 4 }
-      : null;
-  assert(spec, `unknown O3 worker geometry ${geometry}`);
-  process.stdout.write(`${JSON.stringify(runOqsWorker(spec))}\n`);
+if (process.argv[2] === '--oqs-4x4-worker') {
+  process.stdout.write(`${JSON.stringify(runOqs4x4Worker())}\n`);
   process.exit(0);
 }
 
@@ -202,29 +229,41 @@ assert(
   'reflection orientation sidecar negative control has no asymmetric supports',
 );
 
-const oqs4x4 = runChild(['--oqs-worker', '4x4'], OQS_4X4_CHILD_LIMIT_MS, startedAt, 'O3 4x4 transporter control');
-const oqs7x6 = runChild(['--oqs-worker', '7x6'], OQS_7X6_CHILD_LIMIT_MS, startedAt, 'O3 7x6 transporter control');
-const oqs = [oqs4x4, oqs7x6];
-const transitions = oqs.reduce((sum, item) => sum + item.transitions, 0);
-const logicalCandidates = oqs.reduce((sum, item) => sum + item.logicalCandidates, 0);
-const residualTransformCandidates = oqs.reduce((sum, item) => sum + item.residualTransformCandidates, 0);
-const exactPayloadMismatches = oqs.reduce((sum, item) => sum + item.exactPayloadMismatches, 0);
-const transporterMismatches = oqs.reduce((sum, item) => sum + item.transporterMismatches, 0);
-const occurrenceSidecarCollisionClasses = oqs.reduce((sum, item) => sum + item.occurrenceSidecarCollisionClasses, 0);
-const droppedInputCollisionClasses = oqs.reduce((sum, item) => sum + item.droppedInputCollisionClasses, 0);
-const contextScopedIdCollisionIds = oqs.reduce((sum, item) => sum + item.contextScopedIdCollisionIds, 0);
+const oqs4x4 = runChild(
+  ['--oqs-4x4-worker'],
+  OQS_4X4_CHILD_LIMIT_MS,
+  startedAt,
+  'O3 4x4 executable transporter control',
+);
+const retained4x4 = loadNativeOqsEvidence(OQS_NATIVE_4X4_RESULT, '4x4:c4');
+const retained7x6 = loadNativeOqsEvidence(OQS_NATIVE_7X6_RESULT, '7x6:c4');
 
-assert.equal(transitions, TRANSITION_BUDGET, 'O3 transition fixture set changed');
-assert(logicalCandidates <= LOGICAL_CANDIDATE_BUDGET, 'combined O3 logical candidate budget exceeded');
-assert.equal(exactPayloadMismatches, 0, 'guarded O3 signature was not functionally exact');
-assert.equal(transporterMismatches, 0, 'O3 transporter did not commute with the declared transform');
-assert(occurrenceSidecarCollisionClasses > 0, 'negative control failed: occurrence sidecar was not observed to be load-bearing');
-assert(droppedInputCollisionClasses > 0, 'negative control failed: input ordinal/context was not observed to be load-bearing');
-assert(contextScopedIdCollisionIds > 0, 'negative control failed: fixture-local residual IDs did not demonstrate context scoping');
+assert.equal(oqs4x4.transitions, EXECUTABLE_TRANSITION_BUDGET, 'O3 executable transition fixture set changed');
+assert.equal(retained4x4.transitionsChecked, EXECUTABLE_TRANSITION_BUDGET, 'retained native 4x4 transition count changed');
+assert.equal(retained7x6.transitionsChecked, 1, 'retained native 7x6 transition count changed');
+assert.equal(retained4x4.logicalCandidates, oqs4x4.logicalCandidates, '4x4 executable/native logical candidate count diverged');
+assert.equal(retained4x4.residualTransformCandidates, oqs4x4.residualTransformCandidates, '4x4 executable/native residual candidate count diverged');
+assert.equal(retained4x4.logicalCandidates, 1409, 'retained 4x4 logical candidate authority changed');
+assert.equal(retained4x4.residualTransformCandidates, 326, 'retained 4x4 residual candidate authority changed');
+assert.equal(retained7x6.logicalCandidates, 8192, 'retained 7x6 logical candidate authority changed');
+assert.equal(retained7x6.residualTransformCandidates, 128, 'retained 7x6 residual candidate authority changed');
+assert(
+  retained4x4.controls.includes('shared-pair-distinct-crossing-bits-31-32-40-41'),
+  'retained native O3 sidecar control is absent',
+);
+
+const combinedLogicalCandidates = retained4x4.logicalCandidates + retained7x6.logicalCandidates;
+const combinedResidualTransformCandidates = retained4x4.residualTransformCandidates + retained7x6.residualTransformCandidates;
+assert(combinedLogicalCandidates <= LOGICAL_CANDIDATE_BUDGET, 'combined captured O3 logical candidate budget exceeded');
+assert.equal(oqs4x4.exactPayloadMismatches, 0, 'guarded O3 signature was not functionally exact');
+assert.equal(oqs4x4.transporterMismatches, 0, 'O3 transporter did not commute with the declared transform');
+assert(oqs4x4.occurrenceSidecarCollisionClasses > 0, 'negative control failed: occurrence sidecar was not observed to be load-bearing');
+assert(oqs4x4.droppedInputCollisionClasses > 0, 'negative control failed: input ordinal/context was not observed to be load-bearing');
+assert(oqs4x4.contextScopedIdCollisionIds > 0, 'negative control failed: fixture-local residual IDs did not demonstrate context scoping');
 assert(Date.now() - startedAt <= WALL_CLOCK_LIMIT_MS, 'guarded transporter synthesis wall-clock leash exceeded');
 
 const output = Object.freeze({
-  schemaVersion: 1,
+  schemaVersion: 2,
   kind: 'connect4-bsfp-guarded-commuting-transporter-synthesis',
   attribution: 'Josh Oshiro',
   candidateLaw: 'reuse one representative computation only when exact operation identity, explicit transport, and guard/context preservation make the operation commute; retain occurrence sidecars whenever concrete output is occurrence-sensitive',
@@ -242,18 +281,22 @@ const output = Object.freeze({
       reflection.standard7x6OrbitCounts.supports - reflection.standard7x6OrbitCounts.fixedSupports,
   }),
   oqs: Object.freeze({
-    controls: oqs,
-    transitions,
-    logicalCandidates,
-    residualTransformCandidates,
-    transformElimination: logicalCandidates - residualTransformCandidates,
-    transformEliminationRatio: logicalCandidates === 0 ? 0 : 1 - residualTransformCandidates / logicalCandidates,
-    exactPayloadMismatches,
-    transporterMismatches,
+    executable4x4: oqs4x4,
+    retainedNativeEvidence: Object.freeze({
+      fourByFour: retained4x4,
+      sevenBySix: retained7x6,
+    }),
+    capturedTransitions: RETAINED_TRANSITION_BUDGET,
+    logicalCandidates: combinedLogicalCandidates,
+    residualTransformCandidates: combinedResidualTransformCandidates,
+    transformElimination: combinedLogicalCandidates - combinedResidualTransformCandidates,
+    transformEliminationRatio:
+      1 - combinedResidualTransformCandidates / combinedLogicalCandidates,
     negativeControls: Object.freeze({
-      occurrenceSidecarCollisionClasses,
-      droppedInputCollisionClasses,
-      contextScopedIdCollisionIds,
+      occurrenceSidecarCollisionClasses: oqs4x4.occurrenceSidecarCollisionClasses,
+      droppedInputCollisionClasses: oqs4x4.droppedInputCollisionClasses,
+      contextScopedIdCollisionIds: oqs4x4.contextScopedIdCollisionIds,
+      retainedNativeSharedPairDistinctCrossingControl: true,
     }),
   }),
   preservationStrength: Object.freeze({
@@ -261,9 +304,15 @@ const output = Object.freeze({
     oqs: 'operation-specific semantic transform identity with occurrence lift',
     isometric: 'structural signature alone remains candidate discovery only; transition/proof reuse still requires stronger guarded identity',
   }),
+  evidenceBoundary: Object.freeze({
+    executable7x6Reconstruction: false,
+    reason: 'historical six-layer digest JSON was never committed; use retained native qualification rather than fabricate or regenerate that dependency',
+    retained7x6NativeMappingEvidence: true,
+  }),
   leashes: Object.freeze({
     wallClockMs: WALL_CLOCK_LIMIT_MS,
-    transitions: TRANSITION_BUDGET,
+    executableTransitions: EXECUTABLE_TRANSITION_BUDGET,
+    capturedTransitions: RETAINED_TRANSITION_BUDGET,
     logicalCandidates: LOGICAL_CANDIDATE_BUDGET,
   }),
   wallMs: Date.now() - startedAt,
