@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 26.7.0
       - name: Apply prepared binding correction
-        run: node tools/fix-bsfp-tensor-prepared-bindings.mjs
+        run: python3 tools/fix-bsfp-tensor-prepared-bindings.py
       - name: Verify repository
         run: node --test
       - name: Checkout exact CUDA-JS pair
@@ -48,6 +48,6 @@ jobs:
           git config user.name iteathen
           git config user.email josh.oshiro@gmail.com
           git add research/experiments/cuda-bsfp-tensor-dominance/run.mjs .github/workflows/bsfp-tensor-overflow-portable.yml
-          git rm tools/fix-bsfp-tensor-prepared-bindings.mjs .github/workflows/fix-bsfp-tensor-prepared-bindings.yml
+          git rm tools/fix-bsfp-tensor-prepared-bindings.mjs tools/fix-bsfp-tensor-prepared-bindings.py .github/workflows/fix-bsfp-tensor-prepared-bindings.yml
           git commit -m 'research: bind prepared Tensor resources'
           git push origin HEAD:research/bsfp-tensor-overflow-dominance
