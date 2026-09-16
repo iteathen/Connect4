@@ -72,6 +72,9 @@ jobs:
       - name: Qualify multiword core-relative absorption
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-core-absorption.mjs
 
+      - name: Qualify ownership absorption exact result quotient
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-ownership-result-quotient.mjs
+
       - name: Compile and submit real multiword core-relative absorption marks
         run: node research/experiments/cuda-bsfp-clause-coverage/run-multiword-absorption.mjs portable
 
