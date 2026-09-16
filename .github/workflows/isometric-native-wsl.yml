@@ -30,4 +30,4 @@ jobs:
       - name: Assert exact Node runtime
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
       - name: Domain and native WSL qualification
-        run: node --test components/domain/test/domain.test.mjs components/isometric/test/state.test.mjs
+        run: node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs
