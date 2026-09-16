@@ -35,3 +35,4 @@ export {
 } from './certificate.mjs';
 export { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
 export { deriveNativeFrontierConsequence } from './frontier.mjs';
+export { IsoMaxSolver } from './solver.mjs';
