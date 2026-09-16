@@ -65,5 +65,8 @@ jobs:
       - name: Qualify horizontal reflection on variable-width coverage
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-reflection-coverage.mjs
 
+      - name: Qualify reflection-quotiented coverage recurrence
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-reflection-quotient-recurrence.mjs
+
       - name: Compile and submit warp-native real support-edge cofactors
         run: node research/experiments/cuda-bsfp-clause-coverage/run-cofactor-warp.mjs portable
