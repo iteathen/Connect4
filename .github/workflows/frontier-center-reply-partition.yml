@@ -5,9 +5,7 @@ on:
     branches:
       - research/center-reply-partition
     paths:
-      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-reply-partition.mjs
-      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs
-      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-rho-leaf.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-root-action.mjs
       - .github/workflows/frontier-center-reply-partition.yml
   workflow_dispatch:
 
@@ -15,13 +13,18 @@ permissions:
   contents: read
 
 jobs:
-  high-rho-leaf:
-    name: rho-${{ matrix.refusal }}-${{ matrix.response }}
+  same-column-repair:
+    name: same-${{ matrix.refusal }}-${{ matrix.action }}
     strategy:
       fail-fast: false
       matrix:
-        refusal: [D, E, F]
-        response: [A, B, D, E, F]
+        include:
+          - refusal: D
+            action: D
+          - refusal: E
+            action: E
+          - refusal: F
+            action: F
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
@@ -29,5 +32,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Qualify rho leaf
-        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-rho-leaf.mjs "${{ matrix.refusal }}" "${{ matrix.response }}"
+      - name: Qualify same-column structural repair
+        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-root-action.mjs "${{ matrix.refusal }}" "${{ matrix.action }}"
