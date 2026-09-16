@@ -95,9 +95,7 @@ Exact ownership assignments checked:
 | 5x3 c4 | 1,024 | 174,683 |
 | 4x4 c3 | 625 | 201,755 |
 | 4x5 c4 | 1,296 | 3,039,959 |
-| **Total** | **3,826?** | **3,631,085** |
-
-Support total is `256 + 625 + 1024 + 625 + 1296 = 3,826`.
+| **Total** | **3,826** | **3,631,085** |
 
 Both candidates:
 
