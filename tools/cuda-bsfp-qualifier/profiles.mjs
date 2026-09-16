@@ -78,9 +78,15 @@ function p2Estimate(spec) {
   const outputBytes = P2_SEGMENT_CAPACITY * P2_OUTPUT_CAPACITY * 4n * 2n;
   const offsetBytes = (P2_SEGMENT_CAPACITY + 1n) * 4n * 3n;
   const statusBytes = P2_SEGMENT_CAPACITY * 4n * 4n;
-  const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
-  const upperBoundBytes = devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + P2_TENSOR_ALLOWANCE_BYTES;
-  return Object.freeze({ kind: 'proved-hybrid-tensor-overflow-workspace-upper-bound', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), tensorOverflowAllowanceBytes: String(TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES), tensorDeviceProgramWorkspaceLimitBytes: P2_TENSOR_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });
+  const baseDevicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
+  const packedOverflowBucketBytes = P2_CANDIDATE_CAPACITY * 4n + 43n * 4n * 3n;
+  const devicePayloadBytes = baseDevicePayloadBytes + packedOverflowBucketBytes;
+  // Preserve the existing conservative admission ceiling. The new packed
+  // scratch is covered by its headroom, not by increasing a safety limit.
+  const upperBoundBytes = baseDevicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + P2_TENSOR_ALLOWANCE_BYTES;
+  const replayUpperBoundBytes = 2n * devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + BigInt(TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
+  if (replayUpperBoundBytes > upperBoundBytes) throw new RangeError('P2 replay exceeds the unchanged admission bound');
+  return Object.freeze({ kind: 'proved-hybrid-tensor-overflow-workspace-upper-bound', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), baseDevicePayloadBytes: Number(baseDevicePayloadBytes), packedOverflowBucketBytes: Number(packedOverflowBucketBytes), replayUpperBoundBytes: Number(replayUpperBoundBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), tensorOverflowAllowanceBytes: String(TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES), tensorDeviceProgramWorkspaceLimitBytes: P2_TENSOR_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });
 }
 
 export function nativeNodeArgs(scriptPath, mode = 'native') {

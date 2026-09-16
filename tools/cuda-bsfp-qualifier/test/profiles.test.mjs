@@ -26,6 +26,26 @@ test('O3 requires every exact mapped output and native repetition without claimi
 });
 import { denseShapeBytes, getQualificationProfile, listQualificationProfiles } from '../profiles.mjs';
 
+test('real overflow replays distinguish executors and stay inside the unchanged admission ceiling', () => {
+  for (const [id, methods] of [['c4-0009-p2-overflow-replay', ['packed', 'tensor']], ['c4-0009-p2-overflow-bucketed-replay', ['packed', 'bucketed']]]) {
+    const profile = getQualificationProfile(id);
+    const spec = { columns: 7, rows: 6, connect: 4 };
+    const estimate = profile.estimate(spec);
+    assert.equal(estimate.upperBoundBytes, 543169548);
+    assert.equal(estimate.devicePayloadBytes, 90185232);
+    assert.equal(estimate.replayUpperBoundBytes, 515914784);
+    assert(estimate.replayUpperBoundBytes <= estimate.upperBoundBytes);
+    const accepts = profile.steps(spec, '/repo')[0].expected;
+    const result = { outcome: 'native-overflow-replay-pass', geometry: '7x6:c4', methods, rootWdl: null,
+      mismatches: 0, cleanup: 'graceful', survivors: 1055,
+      ...Object.fromEntries(methods.map(mode => [mode, { samples: [1, 2, 3] }])),
+      stats: Object.fromEntries(methods.map(mode => [mode, { overflowRecoveredJobs: 4, overflowFailures: 0 }])) };
+    assert(accepts(result));
+    for (const change of [{ rootWdl: 1 }, { mismatches: 1 }, { survivors: 1024 }, { methods: ['wrong'] }, { cleanup: 'failed' }]) assert.equal(accepts({ ...result, ...change }), false);
+    assert.equal(accepts(null), false);
+  }
+});
+
 test('O2 admits only a bounded 7x6 seed cut and rejects any root/full-quotient promotion', () => {
   const p = getQualificationProfile('c4-0009-o2-oqs-7x6-seed-slice');
   const spec = { columns: 7, rows: 6, connect: 4 };
