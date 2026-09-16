@@ -53,7 +53,7 @@ function createSegment(rank, direction) {
   for (const ownership of exactAssignments(rank, legal)) {
     assert.equal(classify(full, ownership, direction), classify(expected, ownership, direction), `predicate mismatch rank=${rank} direction=${direction}`);
   }
-  const phaseCount = Math.floor(rank / 2) + 1;
+  const phaseCount = direction === 0 ? Math.ceil(rank / 2) + 1 : Math.floor(rank / 2) + 1;
   return { rank, legal, direction, candidates: source, expected, phaseCount };
 }
 
