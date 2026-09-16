@@ -72,6 +72,9 @@ jobs:
       - name: Qualify multiword core-relative absorption
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-core-absorption.mjs
 
+      - name: Compile and submit real multiword core-relative absorption marks
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-multiword-absorption.mjs portable
+
       - name: Qualify multiword cell and coverage legal-slice guards
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-capacity.mjs
 
