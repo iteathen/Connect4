@@ -4,7 +4,7 @@ Research attribution: **Josh Oshiro**
 
 Date: 2026-09-15
 
-Status: **qualified candidate law; bounded continuation required before broad promotion**
+Status: **qualified exact quotient law in clause coverage; independent ownership-representation falsifier still required before broad cross-representation promotion**
 
 This experiment applies the solution↔solution synthesis method to three independently successful mechanisms:
 
@@ -132,7 +132,7 @@ This is new work elimination beyond core-relative absorption itself.
 
 The move is explicitly invalid across unrelated support dictionaries or guard metadata without a proved transporter. A hash is not sufficient identity authority.
 
-## Bounded falsifier
+## First bounded falsifier: three-word rank-27 merges
 
 Implementation checkpoint on `experiment/bsfp-clause-coverage`:
 
@@ -148,9 +148,7 @@ For each of the existing 66 real universal merges:
 4. partition those signatures by exact full `wordsKey` identity inside the segment;
 5. run the exact capacity guard once per identity class;
 6. normalize the retained classes;
-7. compare against both:
-   - the occurrence-by-occurrence factored path; and
-   - the independent variable-array clause authority.
+7. compare against both the occurrence-by-occurrence factored path and the independent variable-array clause authority.
 
 Any quotient-frontier mismatch, authority mismatch, or occurrence-accounting drift is failure.
 
@@ -164,9 +162,7 @@ Leash:
 - no descent below rank 27;
 - no timeout extension or scaling run.
 
-## Qualification result
-
-The bounded falsifier passed.
+### Result
 
 Across all 66 real merges:
 
@@ -197,19 +193,91 @@ The hottest captured merge remained:
 
 Thus the additional equality quotient is distributed across the workload; it is not an artifact of the single hottest merge.
 
-The terminal-band fixture had zero legal-slice rejections. Consequently this experiment proves:
+The terminal-band fixture had zero legal-slice rejections. This first experiment therefore established exact commutation and real work elimination, but did not establish usefulness on a rejection-heavy absorbed workload.
 
-- exact commutation of the equality quotient with the guard on the tested support segments;
-- exact final-frontier preservation;
-- real elimination of 43 redundant guard invocations after absorption.
+## Second bounded falsifier: rejection-heavy real hot workloads
 
-It does **not** yet measure how much pre-guard quotienting saves on an absorption-qualified workload in which many candidates are actually rejected by the guard. That is the next required falsifier.
+Implementation checkpoint on `experiment/bsfp-clause-coverage`:
+
+`984656eb68e41f9cf07b4f1a602e992a07761590` — `research: qualify rejection-heavy result quotient`
+
+The existing fixed-two-u32 real hot-workload qualifier was instrumented without changing the captured authority jobs or device absorption marker.
+
+For each segment the CPU qualifier now:
+
+1. performs the already-qualified core-relative row/column absorption;
+2. emits absorber representatives plus only remaining pair products;
+3. records every generated candidate **before** the support-local capacity guard;
+4. partitions generated candidates by exact full 64-bit coverage equality inside the segment;
+5. evaluates the exact capacity guard once per class;
+6. separately accounts duplicate accepted and duplicate rejected occurrences;
+7. requires equality between:
+   - occurrence-by-occurrence guarded normalization;
+   - class-quotiented guarded normalization;
+   - the previously captured independent authority frontier.
+
+The device marker remains a portable compile/prepare/submit qualification in this CI environment. These figures are CPU semantic work-shape measurements, not native CUDA runtime measurements.
+
+### Result across all nine real segments
+
+| Metric | Result |
+| --- | ---: |
+| Raw Cartesian pairs | 4,176 |
+| Remaining pair products after absorption | 330 |
+| Pair-product elimination | 92.0977% |
+| Absorbed record emits | 251 |
+| Post-absorption generated occurrences | **581** |
+| Exact generated-result classes | **514** |
+| Duplicate generated occurrences | **67** |
+| Occurrence guard evaluations | 581 |
+| Quotiented guard evaluations | 514 |
+| Guard evaluations eliminated | **67 (11.5318%)** |
+| Accepted occurrences | 316 |
+| Rejected occurrences | 265 |
+| Accepted exact classes | 285 |
+| Rejected exact classes | 229 |
+| Duplicate accepted occurrences | 31 |
+| Duplicate rejected occurrences | **36** |
+| Fraction of quotient savings caused by repeated rejected candidates | **53.7313%** |
+| Result-identity quotient mismatches | **0** |
+| Authority-frontier mismatches | **0** |
+
+This closes the main weakness of the first falsifier: the quotient eliminates repeated calls to a guard that is actively rejecting candidates. More than half of the saved guard evaluations in this suite correspond to repeated signatures that would have been rejected.
+
+### Authoritative 32x19=608 merge
+
+For `5x4c4-job0`, support `[3,1,1,3,3]`, rank 11, P0 beneficiary, exact count 6, dictionary 22:
+
+| Metric | Result |
+| --- | ---: |
+| Raw pairs | 608 |
+| Remaining pair products after absorption | 33 |
+| Absorbed record emits | 37 |
+| Post-absorption generated occurrences | **70** |
+| Exact result classes | **61** |
+| Guard evaluations eliminated | **9 (12.8571%)** |
+| Accepted occurrences / classes | 47 / 40 |
+| Rejected occurrences / classes | 23 / 21 |
+| Duplicate accepted occurrences | 7 |
+| Duplicate rejected occurrences | 2 |
+| Quotient/frontier mismatches | **0** |
+
+These numbers are deliberately not compared by subtraction against the older `486` raw-pair legal rejections, because core-relative absorption changes which concrete product occurrences are materialized and emits constructive absorber representatives. The authority criterion is the unchanged final frontier, which matched exactly.
+
+### Strongest rejection-heavy controls in the suite
+
+Two 4x5 c4 jobs show why the quotient belongs before the guard:
+
+- `4x5c4-job0`: 74 generated occurrences -> 58 exact classes, saving 16 guard evaluations; 15 of the 16 saved evaluations were duplicate rejected signatures.
+- `4x5c4-job1`: 88 generated occurrences -> 71 exact classes, saving 17 guard evaluations; 16 of the 17 saved evaluations were duplicate rejected signatures.
+
+This is direct evidence that "guard then deduplicate" performs unnecessary exact rejection work that "exact quotient then guard" avoids.
 
 ## Existing evidence aligned with the prediction
 
-The earlier rank-22 normalization sample independently showed that substantial equality multiplicity survives generation and legal-slice filtering before subset dominance. Its core-relative absorption census also retained duplicate post-absorption accepted results. This is consistent with, but not a substitute for, the direct pre-guard falsifier above.
+The earlier rank-22 normalization sample independently showed that substantial equality multiplicity survives generation and legal-slice filtering before subset dominance. Its core-relative absorption census also retained duplicate post-absorption accepted results. Those observations are now backed by direct pre-guard quotient falsifiers in both multiword and rejection-heavy fixed-width clause-coverage workloads.
 
-The authoritative 5x4 Connect-4 hot merge remains the most useful rejection-heavy control:
+The historical authoritative 5x4 hot merge numbers remain useful as the unabsorbed reference:
 
 - support `3,1,1,3,3`;
 - rank 11;
@@ -223,46 +291,50 @@ The authoritative 5x4 Connect-4 hot merge remains the most useful rejection-heav
 - unique accepted 83;
 - final subset-minimal 32.
 
-Those numbers precede the new composed absorption-plus-pre-guard-quotient measurement and therefore define a falsifier target rather than a claimed composed gain.
-
 ## Disposition
 
-**Supports / qualifies the candidate parent law.**
+**Qualified in support-local clause coverage.**
 
-A useful common law exists at least at the level of exact semantic quotienting:
+The solution-to-solution synthesis produced a new exact reduction, not merely a shared name:
 
-> When a downstream operation is extensional in an authoritative exact identity under fixed context, concrete occurrences may be factored through that identity; restore occurrence information only if the target semantics require it.
+> **Extensional exact quotient law.** Under fixed semantic context, if a downstream operation is extensional in an authoritative exact identity, evaluate that operation once per exact identity class. Restore occurrence information only when the target semantics require it.
 
-The solution-to-solution synthesis produced something new: **exact generated-result grouping may move left of the support-local capacity guard after core-relative absorption**, eliminating repeated guard evaluation without changing the final antichain.
+For the current clause-coverage product pipeline this implies the exact ordering:
 
-The stronger synthesis claim — that core-relative absorption, normalization, and O3 should become one implementation kernel — is **not supported**. They share a quotient calculus but require different lifting/ordering machinery:
+`core-relative absorption -> exact result-identity collapse -> legal/realizability guard once per class -> subset-antichain normalization`
+
+rather than delaying exact duplicate collapse until after the guard.
+
+The second falsifier establishes that this placement saves work even when the guard rejects heavily: 67 of 581 post-absorption guard evaluations were redundant across the suite, including 36 repeated rejected candidates, while all final authority frontiers were unchanged.
+
+The stronger synthesis claim — that core-relative absorption, normalization, and O3 should become one implementation kernel — remains **not supported**. They share an exact quotient calculus but require different lifting/ordering machinery:
 
 - O3 requires occurrence sidecars;
 - duplicate collapse can erase multiplicity;
 - core absorption requires constructive subset-dominance witnesses and can act before materialized result identity.
 
-The appropriate supersession relationship is therefore:
+The current supersession/family relationship is:
 
-`exact semantic quotient factoring`
+`extensional exact quotient factoring`
 
 specialized by
 
 - `occurrence-sensitive quotient + transporter` (O3),
-- `idempotent equality quotient + order normalization` (#11 boundary),
+- `idempotent exact-result quotient + order normalization` (#11 boundary),
 - `constructive order-fiber quotient before generation` (core-relative absorption).
 
-This is a theorem-family / shared identity-contract candidate, not yet a single shared CUDA kernel.
+This is now a qualified theorem-family / shared identity-contract candidate and yields a stronger composed clause-coverage pipeline. It is **not yet** authority for broad cross-representation reuse or a single shared CUDA kernel.
 
 ## Next bounded falsifier
 
-Use the existing fixed-width real hot-workload suite, specifically including the authoritative 32x19=608 rejection-heavy 5x4 merge, and measure the composed pipeline:
+Reproduce the exact result-identity quotient in the older ownership-antichain representation that independently qualified core-relative absorption.
 
-`core-relative absorption -> exact result-class collapse -> legal-slice guard -> subset normalization`
+Required test:
 
-against:
+1. reuse the existing ownership-antichain controls rather than constructing a clause-derived substitute;
+2. perform the already-qualified ownership core-relative absorption;
+3. quotient its generated results by authoritative exact ownership-record identity before downstream subset normalization or any extensional per-result work;
+4. compare the quotiented path with the existing occurrence path and full-product authority;
+5. report eliminated generated-result/normalization work and exact frontier equality across the existing variable geometries.
 
-`core-relative absorption -> occurrence guard -> exact duplicate collapse -> subset normalization`.
-
-Require exact equality of guard decisions by class and final frontiers. Report additional guard evaluations eliminated after absorption. Do not broaden the run or descend the solver.
-
-After that, reproduce the exact quotient law in the older ownership-antichain representation before considering broad promotion across representations.
+Do not promote the law as representation-independent merely because the set-lattice equations look the same. The independent ownership representation must survive the falsifier first.
