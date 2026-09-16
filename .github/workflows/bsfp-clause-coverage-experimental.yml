@@ -55,3 +55,6 @@ jobs:
 
       - name: Derive and submit real three-word 6x5 support-edge cofactors
         run: node research/experiments/cuda-bsfp-clause-coverage/run-multiword-cofactor.mjs portable
+
+      - name: Qualify real three-word 6x5 universal merges
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-universal.mjs
