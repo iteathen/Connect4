@@ -22,3 +22,16 @@ export {
   evaluateGuard,
   reflectGuard,
 } from './guards.mjs';
+export {
+  CONCLUSION_EXACT_VALUE,
+  CONCLUSION_FORCED_MOVE,
+  CONCLUSION_NO_WIN,
+  CONCLUSION_CELL_SET,
+  exactValueConclusion,
+  forcedMoveConclusion,
+  noWinConclusion,
+  cellSetConclusion,
+  reflectConclusion,
+} from './certificate.mjs';
+export { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
+export { deriveNativeFrontierConsequence } from './frontier.mjs';
