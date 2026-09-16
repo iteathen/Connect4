@@ -1,0 +1,107 @@
+name: finalize-bsfp-tensor-p2-gate
+
+on:
+  push:
+    branches:
+      - research/bsfp-tensor-overflow-dominance
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: ${{ !contains(github.event.head_commit.message, 'finalize Tensor P2 native gate') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: research/bsfp-tensor-overflow-dominance
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Finalize native A/B gate and exact Tensor identity
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          function patch(path, transform) {
+            const before = readFileSync(path, 'utf8');
+            const after = transform(before);
+            if (after === before) throw new Error(`no change produced for ${path}`);
+            writeFileSync(path, after);
+          }
+          function replaceOne(text, from, to, label) {
+            const count = text.split(from).length - 1;
+            if (count !== 1) throw new Error(`${label}: expected one anchor, found ${count}`);
+            return text.replace(from, to);
+          }
+
+          patch('tools/cuda-bsfp-qualifier/profiles.mjs', (source) => {
+            let text = source;
+            text = replaceOne(text,
+              'const P2_TENSOR_ALLOWANCE_BYTES = 128n * MIB;',
+              'const P2_TENSOR_ALLOWANCE_BYTES = 192n * MIB;',
+              'P2 Tensor allowance');
+            text = replaceOne(text,
+              "const REQUIRED_DEPENDENCIES = Object.freeze({ cudaAlgorithmsRevision: '48ee0aec9acae7776950f03ab52ab1737e598b6e', cudaJsRevision: '98e2ebc942c14d63acf4dd82e912dd548c363a05' });",
+              "const REQUIRED_DEPENDENCIES = Object.freeze({ cudaAlgorithmsRevision: '48ee0aec9acae7776950f03ab52ab1737e598b6e', cudaJsRevision: '98e2ebc942c14d63acf4dd82e912dd548c363a05', cudaJsTensorRevision: '9df9324b0ca7606f9dd2af2e89aed118839896a5' });",
+              'required dependency identity');
+            const oldStep = "Object.freeze({ id: 'tensor-overflow-native-parity', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'research/experiments/cuda-bsfp-clause-coverage/qualify-tensor-packed42-overflow-native.mjs')), expected(result) { return result?.outcome === 'native-tensor-packed42-overflow-pass' && result?.cases?.length === 2 && Number.isFinite(result?.tensor?.tensorRuns) && result.tensor.tensorRuns > 0 && Number.isFinite(result?.tensor?.comparisonPairs) && result.tensor.comparisonPairs > 0; } })";
+            const newStep = "Object.freeze({ id: 'tensor-dominance-full-shape-ab', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'research/experiments/cuda-bsfp-tensor-dominance/run.mjs'), 'native'), expected(result) { return result?.kind === 'connect4-bsfp-tensor-dominance-overflow-ab' && result?.mode === 'native' && result?.geometry === '7x6-c4-packed42-workshape' && result?.fixture?.frontierCount === 1487 && result?.fixture?.candidateCount === 4096 && result?.authority?.outcome === 'native-authority-frontier-match' && result?.authority?.frontierCount === result?.fixture?.expectedFinalFrontierCount && result?.execution?.outcome === 'native-tensor-dominance-exact-match' && result?.execution?.tensorLogicalSubsetPairs === 6090752 && Number.isFinite(result?.execution?.baselineSubsetChecks) && result.execution.baselineSubsetChecks > 0 && Number.isFinite(result?.execution?.baselineTiming?.median) && result.execution.baselineTiming.median >= 0 && Number.isFinite(result?.execution?.tensorOnlyTiming?.median) && result.execution.tensorOnlyTiming.median >= 0 && Number.isFinite(result?.execution?.tensorFullTiming?.median) && result.execution.tensorFullTiming.median >= 0 && result?.tensor?.itemCapacity === 4096 && Number.isFinite(result?.tensor?.totalWorkspaceBytes) && result.tensor.totalWorkspaceBytes > 0 && result.tensor.totalWorkspaceBytes <= 192 * 1024 * 1024; } })";
+            text = replaceOne(text, oldStep, newStep, 'P2 full-shape native step');
+            return text;
+          });
+
+          patch('tools/cuda-bsfp-qualifier/system.mjs', (source) => {
+            let text = source;
+            text = replaceOne(text,
+              "const cpus = os.cpus(); const [source, gpu, cudaAlgorithms, cudaJs] = await Promise.all([collectGitIdentity(repositoryRoot), queryNvidiaGpu(gpuIndex), dependencyIdentity(repositoryRoot, 'node_modules/cuda-algorithms', 'cuda-algorithms'), dependencyIdentity(repositoryRoot, 'node_modules/cuda-js', 'cuda-js')]);",
+              "const cpus = os.cpus(); const [source, gpu, cudaAlgorithms, cudaJs, cudaJsTensor] = await Promise.all([collectGitIdentity(repositoryRoot), queryNvidiaGpu(gpuIndex), dependencyIdentity(repositoryRoot, 'node_modules/cuda-algorithms', 'cuda-algorithms'), dependencyIdentity(repositoryRoot, 'node_modules/cuda-js', 'cuda-js'), dependencyIdentity(repositoryRoot, 'node_modules/cuda-js-tensor', 'cuda-js-tensor')]);",
+              'system Tensor dependency collection');
+            text = replaceOne(text,
+              'dependencies: Object.freeze({ cudaAlgorithms, cudaJs })',
+              'dependencies: Object.freeze({ cudaAlgorithms, cudaJs, cudaJsTensor })',
+              'system Tensor dependency record');
+            return text;
+          });
+
+          patch('tools/cuda-bsfp-qualifier.mjs', (source) => {
+            const anchor = "      if (required?.cudaJsRevision && system.dependencies?.cudaJs?.revision !== required.cudaJsRevision) {\n        environmentProblems.push(`CUDA-JS revision must be ${required.cudaJsRevision}, got ${system.dependencies?.cudaJs?.revision ?? 'unknown'}`);\n      }";
+            const addition = `${anchor}\n      if (required?.cudaJsTensorRevision && system.dependencies?.cudaJsTensor?.revision !== required.cudaJsTensorRevision) {\n        environmentProblems.push(\`CUDA-JS-Tensor revision must be \${required.cudaJsTensorRevision}, got \${system.dependencies?.cudaJsTensor?.revision ?? 'unknown'}\`);\n      }`;
+            return replaceOne(source, anchor, addition, 'qualifier Tensor revision check');
+          });
+
+          patch('tools/cuda-bsfp-qualifier/test/profiles.test.mjs', (source) => {
+            let text = source;
+            text = replaceOne(text,
+              "  assert.equal(estimate.tensorOverflowAllowanceBytes, String(128 * 1024 * 1024));\n  assert.ok(estimate.upperBoundBytes > 400 * 1024 * 1024);\n  assert.ok(estimate.upperBoundBytes < 512 * 1024 * 1024);",
+              "  assert.equal(estimate.tensorOverflowAllowanceBytes, String(192 * 1024 * 1024));\n  assert.ok(estimate.upperBoundBytes > 500 * 1024 * 1024);\n  assert.ok(estimate.upperBoundBytes < 576 * 1024 * 1024);",
+              'P2 192 MiB test bound');
+            text = replaceOne(text,
+              "  assert.equal(steps[0].id, 'tensor-overflow-native-parity');",
+              "  assert.equal(steps[0].id, 'tensor-dominance-full-shape-ab');",
+              'P2 full-shape step id');
+            text = replaceOne(text,
+              "  assert.equal(steps[0].expected({ outcome: 'native-tensor-packed42-overflow-pass', cases: [{}, {}], tensor: { tensorRuns: 2, comparisonPairs: 10 } }), true);\n  assert.equal(steps[0].expected({ outcome: 'native-tensor-packed42-overflow-pass', cases: [{}], tensor: { tensorRuns: 2, comparisonPairs: 10 } }), false);",
+              "  const tensorAb = { kind: 'connect4-bsfp-tensor-dominance-overflow-ab', mode: 'native', geometry: '7x6-c4-packed42-workshape', fixture: { frontierCount: 1487, candidateCount: 4096, expectedFinalFrontierCount: 123 }, authority: { outcome: 'native-authority-frontier-match', frontierCount: 123 }, execution: { outcome: 'native-tensor-dominance-exact-match', tensorLogicalSubsetPairs: 6090752, baselineSubsetChecks: 10, baselineTiming: { median: 1 }, tensorOnlyTiming: { median: 1 }, tensorFullTiming: { median: 1 } }, tensor: { itemCapacity: 4096, totalWorkspaceBytes: 1024 } };\n  assert.equal(steps[0].expected(tensorAb), true);\n  assert.equal(steps[0].expected({ ...tensorAb, execution: { ...tensorAb.execution, outcome: 'portable-tensor-dominance-compile-pass' } }), false);",
+              'P2 full-shape expected test');
+            text = replaceOne(text,
+              "  assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);",
+              "  assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);\n  assert.equal(profile.requiredDependencies.cudaJsTensorRevision, '9df9324b0ca7606f9dd2af2e89aed118839896a5');",
+              'P2 Tensor dependency test');
+            return text;
+          });
+          NODE
+      - name: Verify repository
+        run: node --test
+      - name: Commit qualified native gate
+        shell: bash
+        run: |
+          git config user.name iteathen
+          git config user.email josh.oshiro@gmail.com
+          git add tools/cuda-bsfp-qualifier.mjs tools/cuda-bsfp-qualifier/profiles.mjs tools/cuda-bsfp-qualifier/system.mjs tools/cuda-bsfp-qualifier/test/profiles.test.mjs
+          git commit -m 'research: finalize Tensor P2 native gate'
+          git push origin HEAD:research/bsfp-tensor-overflow-dominance
