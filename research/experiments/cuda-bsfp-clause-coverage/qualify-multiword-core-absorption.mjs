@@ -3,6 +3,12 @@
 // Bounded >64-bit falsifier for core-relative antichain-product absorption.
 // Reuses the existing rank-27 6x5 clause authority implementation rather than
 // duplicating its recurrence. No descent below rank 27 is performed.
+//
+// The qualifier also tests a solution-to-solution synthesis candidate:
+// exact generated-result identity may be quotiented after absorption and before
+// the support-local capacity guard. This is deliberately segment-local because
+// coverage IDs and guard metadata are support-local. Equality is authoritative
+// full word-vector equality through wordsKey, never a hash surrogate.
 
 import { readFile, writeFile, unlink } from 'node:fs/promises';
 import { pathToFileURL, fileURLToPath } from 'node:url';
@@ -67,6 +73,14 @@ function absorbedResiduals(left, right) {
   }
   return { leftAbsorbed, rightAbsorbed };
 }
+function exactUniqueWords(candidates) {
+  const byIdentity = new Map();
+  for (const candidate of candidates) {
+    const key = wordsKey(candidate);
+    if (!byIdentity.has(key)) byIdentity.set(key, candidate);
+  }
+  return [...byIdentity.values()];
+}
 
 function qualifyMerge(leftClause, rightClause, support, winningLines, exactCount) {
   const dictionary = localDictionary(winningLines, support);
@@ -93,12 +107,14 @@ function qualifyMerge(leftClause, rightClause, support, winningLines, exactCount
   const residualRight = normalizeCoverage(right.map((value) => andNotWords(value, commonCore)));
   const { leftAbsorbed, rightAbsorbed } = absorbedResiduals(residualLeft, residualRight);
 
+  const generatedCandidates = [];
   const factoredCandidates = [];
   let factoredRejected = 0;
   let absorbedRecordEmits = 0;
   let residualPairProducts = 0;
   function emit(residual) {
     const candidate = orWords(residual, commonCore);
+    generatedCandidates.push(candidate);
     if (capacityKeepCoverage(candidate, metadata, exactCount)) factoredCandidates.push(candidate);
     else factoredRejected += 1;
   }
@@ -122,14 +138,34 @@ function qualifyMerge(leftClause, rightClause, support, winningLines, exactCount
   }
   const factoredFrontier = normalizeCoverage(factoredCandidates);
 
+  // Synthesis falsifier: quotient exact generated-result identity before the
+  // guard, evaluate the guard once per exact class, then normalize. The guard
+  // is support-local but extensional in the candidate coverage signature, so
+  // an equality class must have one outcome within this segment.
+  const uniqueGeneratedCandidates = exactUniqueWords(generatedCandidates);
+  const quotientCandidates = [];
+  let quotientRejected = 0;
+  for (const candidate of uniqueGeneratedCandidates) {
+    if (capacityKeepCoverage(candidate, metadata, exactCount)) quotientCandidates.push(candidate);
+    else quotientRejected += 1;
+  }
+  const quotientFrontier = normalizeCoverage(quotientCandidates);
+
   // Independent clause-array authority is retained as an additional falsifier.
   const clauseAuthority = filteredIntersectAuthority(leftClause, rightClause, support, exactCount);
   const expected = normalizeCoverage(clauseAuthority.frontier.map((record) => coverageOf(record, dictionary, wordCount)));
 
-  const frontierMismatch = !equalFrontiers(fullFrontier, factoredFrontier) || !equalFrontiers(expected, factoredFrontier);
+  const quotientMismatch = !equalFrontiers(factoredFrontier, quotientFrontier)
+    || !equalFrontiers(expected, quotientFrontier);
+  const frontierMismatch = !equalFrontiers(fullFrontier, factoredFrontier)
+    || !equalFrontiers(expected, factoredFrontier)
+    || quotientMismatch;
   const rawPairs = left.length * right.length;
   const residualCartesianPairs = residualLeft.length * residualRight.length;
   const generatedOperations = absorbedRecordEmits + residualPairProducts;
+  if (generatedCandidates.length !== generatedOperations) throw new Error('generated-operation accounting drift');
+  const exactResultClasses = uniqueGeneratedCandidates.length;
+  const duplicateGeneratedOccurrences = generatedOperations - exactResultClasses;
   return {
     dictionarySize: dictionary.length,
     wordCount,
@@ -151,10 +187,19 @@ function qualifyMerge(leftClause, rightClause, support, winningLines, exactCount
     residualPairProducts,
     absorbedRecordEmits,
     generatedOperations,
+    exactResultClasses,
+    duplicateGeneratedOccurrences,
+    occurrenceGuardEvaluations: generatedOperations,
+    quotientGuardEvaluations: exactResultClasses,
+    guardEvaluationsSaved: duplicateGeneratedOccurrences,
     factoredRejected,
+    quotientRejected,
     factoredSurvivors: factoredFrontier.length,
+    quotientSurvivors: quotientFrontier.length,
+    quotientMismatch,
     frontierMismatch,
     generatedOverRaw: rawPairs === 0 ? 0 : generatedOperations / rawPairs,
+    exactClassesOverGenerated: generatedOperations === 0 ? 0 : exactResultClasses / generatedOperations,
   };
 }
 
@@ -237,36 +282,61 @@ function run() {
 
   if (merges.length === 0) throw new Error('no >64-ID real rank-27 universal merges captured');
   const mismatchTotal = merges.filter((merge) => merge.frontierMismatch).length;
+  const quotientMismatchTotal = merges.filter((merge) => merge.quotientMismatch).length;
   const totals = merges.reduce((sum, merge) => ({
     rawPairs: sum.rawPairs + merge.rawPairs,
     residualCartesianPairs: sum.residualCartesianPairs + merge.residualCartesianPairs,
     residualPairProducts: sum.residualPairProducts + merge.residualPairProducts,
     absorbedRecordEmits: sum.absorbedRecordEmits + merge.absorbedRecordEmits,
     generatedOperations: sum.generatedOperations + merge.generatedOperations,
+    exactResultClasses: sum.exactResultClasses + merge.exactResultClasses,
+    duplicateGeneratedOccurrences: sum.duplicateGeneratedOccurrences + merge.duplicateGeneratedOccurrences,
+    occurrenceGuardEvaluations: sum.occurrenceGuardEvaluations + merge.occurrenceGuardEvaluations,
+    quotientGuardEvaluations: sum.quotientGuardEvaluations + merge.quotientGuardEvaluations,
+    guardEvaluationsSaved: sum.guardEvaluationsSaved + merge.guardEvaluationsSaved,
     fullRejected: sum.fullRejected + merge.fullRejected,
     factoredRejected: sum.factoredRejected + merge.factoredRejected,
-  }), { rawPairs: 0, residualCartesianPairs: 0, residualPairProducts: 0, absorbedRecordEmits: 0, generatedOperations: 0, fullRejected: 0, factoredRejected: 0 });
+    quotientRejected: sum.quotientRejected + merge.quotientRejected,
+  }), {
+    rawPairs: 0,
+    residualCartesianPairs: 0,
+    residualPairProducts: 0,
+    absorbedRecordEmits: 0,
+    generatedOperations: 0,
+    exactResultClasses: 0,
+    duplicateGeneratedOccurrences: 0,
+    occurrenceGuardEvaluations: 0,
+    quotientGuardEvaluations: 0,
+    guardEvaluationsSaved: 0,
+    fullRejected: 0,
+    factoredRejected: 0,
+    quotientRejected: 0,
+  });
   const hottest = [...merges].sort((a, b) => b.rawPairs - a.rawPairs)[0];
   const output = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     kind: 'connect4-bsfp-multiword-core-relative-absorption-qualification',
     geometry: { columns, rows, connect },
     authority: 'existing variable-array clause recurrence plus full three-u32 coverage product',
-    candidate: 'three-u32 common-core factor + residual normalization + cross-frontier absorption + residual product + core reattachment',
+    absorptionCandidate: 'three-u32 common-core factor + residual normalization + cross-frontier absorption + residual product + core reattachment',
+    synthesisCandidate: 'segment-local exact generated-result quotient before the exact capacity guard and subset-minimal normalization',
     solvedRanks: [30, 29, 28, 27],
     mergeCount: merges.length,
     mismatchTotal,
+    quotientMismatchTotal,
     maximumDictionary: Math.max(...merges.map((merge) => merge.dictionarySize)),
     maximumWordCount: Math.max(...merges.map((merge) => merge.wordCount)),
     totals: {
       ...totals,
       generatedOverRaw: totals.rawPairs === 0 ? 0 : totals.generatedOperations / totals.rawPairs,
       pairProductOverRaw: totals.rawPairs === 0 ? 0 : totals.residualPairProducts / totals.rawPairs,
+      exactClassesOverGenerated: totals.generatedOperations === 0 ? 0 : totals.exactResultClasses / totals.generatedOperations,
+      guardReduction: totals.occurrenceGuardEvaluations === 0 ? 0 : totals.guardEvaluationsSaved / totals.occurrenceGuardEvaluations,
     },
     hottest,
   };
   process.stdout.write(`${JSON.stringify(output, null, 2)}\n`);
-  if (mismatchTotal !== 0) process.exitCode = 1;
+  if (mismatchTotal !== 0 || quotientMismatchTotal !== 0) process.exitCode = 1;
 }
 
 run();
