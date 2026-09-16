@@ -111,3 +111,47 @@ Retain support, first-win stopping, typed guard uncertainty and proof identity.
 No stronger structural quotient has been accepted in this pass. Historical
 native win-space evidence already shows fewer nodes can still mean slower
 execution, so these candidates require paired timing and equal-work checks.
+
+## Research continuation: transition identity and structural closure
+
+The inventory now also traverses `reference/research-prototypes/` on every
+inventoried branch. Git-blob deduplication adds 52 distinct blobs (487,571 bytes)
+and records 3,979 additional occurrences; renamed identical material is not
+silently treated as new evidence. Reading remains incomplete.
+
+The actual chronological performance and structural notes expose the following
+constraints and candidates for subsequent implementation qualification:
+
+- [Incremental response closure](2026-09-12-incremental-response-closure.md)
+  proves a no-win bound from **both** even remaining capacity in every column
+  and coverage of every attacking residual by the paired response mask. This
+  is a candidate structural addition to native IsoMax, not permission to erase
+  support or treat a one-sided bound as an exact draw.
+- [Poisoned-support progress](2026-09-13-poisoned-support-progress-calculus.md)
+  supplies a smaller candidate: a forced block immediately below another
+  opponent singleton loses when the mover has no immediate counterwin. The
+  current native frontier reports the forced block and discovers the result
+  recursively. A direct packed consequence could remove that transition;
+  independent first-win and boundary controls must precede adoption.
+- [Response serialization correction](2026-09-13-center-response-serialization-correction.md)
+  downgrades earlier five-diagonal/row-lift arguments to counterfactual static
+  coverage because their response reservations cannot coexist in legal time.
+  Those earlier conclusions must not become pruning rules.
+- [Current causal differential](2026-09-13-current-causal-certificate-differential.md)
+  distinguishes an exact support/residual transition quotient from a local
+  descriptor that happens to preserve WDL but fails successor congruence.
+  The reproduced cache bug is likewise an identity-contract failure, not an
+  excuse to accept keys based on coincident observed values.
+- [Output provenance](2026-09-13-output-provenance-quotient.md) shows why ordinary
+  WDL residual antichains cannot identify original terminal-line outputs.
+  IsoMax value memoization need not carry that richer output, but a future
+  certificate/output consumer must retain its own required provenance.
+- The historical [direct-edge](2026-09-12-direct-semantic-edge-reuse.md) and
+  [hash reuse](2026-09-12-state-hash-reuse.md) results favor removing repeated
+  transformations. The [chunk lookup experiments](2026-09-12-chunk-lookup-experiments.md)
+  reject two caches despite fewer interning calls. These are evidence for
+  mechanism-specific measurement, not transferable speedup guarantees.
+
+No runtime code or tests changed in this continuation. The namespace repair,
+exception-restoration reproducer, domain proof, targeted tests and paired native
+benchmarks remain pending after the mandated complete research reading.
