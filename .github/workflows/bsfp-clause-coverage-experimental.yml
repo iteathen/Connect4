@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805da76410c181273ba90b1
         with:
           repository: iteathen/CUDA-JS
-          ref: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+          ref: 077bd527d3468932b4710a59849e07c3da5fe3c5
           path: cuda-js
           persist-credentials: false
 
@@ -64,3 +64,6 @@ jobs:
 
       - name: Qualify horizontal reflection on variable-width coverage
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-reflection-coverage.mjs
+
+      - name: Compile and submit warp-native real support-edge cofactors
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-cofactor-warp.mjs portable
