@@ -7,6 +7,7 @@ on:
     paths:
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-reply-partition.mjs
       - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-rho-leaf.mjs
       - .github/workflows/frontier-center-reply-partition.yml
   workflow_dispatch:
 
@@ -14,12 +15,13 @@ permissions:
   contents: read
 
 jobs:
-  classify-reply:
-    name: reply-${{ matrix.reply }}
+  high-rho-leaf:
+    name: rho-${{ matrix.refusal }}-${{ matrix.response }}
     strategy:
       fail-fast: false
       matrix:
-        reply: [A, B, C, D, E, F, G]
+        refusal: [D, E, F]
+        response: [A, B, D, E, F]
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
@@ -27,41 +29,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Qualify reply ${{ matrix.reply }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-reply-partition.mjs "${{ matrix.reply }}"
-
-  diagnose-high-refusal:
-    name: diagnose-${{ matrix.reply }}
-    strategy:
-      fail-fast: false
-      matrix:
-        reply: [D, E, F]
-    runs-on: ubuntu-24.04
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
-        with:
-          node-version: 26.7.0
-      - name: Snapshot
-        continue-on-error: true
-        run: node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs "${{ matrix.reply }}" snapshot
-      - name: Seized G1
-        if: always()
-        continue-on-error: true
-        run: node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs "${{ matrix.reply }}" seized
-      - name: Top response layer
-        if: always()
-        continue-on-error: true
-        run: node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs "${{ matrix.reply }}" top
-      - name: Forced G3 layer
-        if: always()
-        continue-on-error: true
-        run: node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs "${{ matrix.reply }}" force
-      - name: Rho leaf layer
-        if: always()
-        continue-on-error: true
-        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-diagnostic.mjs "${{ matrix.reply }}" rho
+      - name: Qualify rho leaf
+        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-rho-leaf.mjs "${{ matrix.refusal }}" "${{ matrix.response }}"
