@@ -13,18 +13,13 @@ permissions:
   contents: read
 
 jobs:
-  same-column-repair:
-    name: same-${{ matrix.refusal }}-${{ matrix.action }}
+  structural-root-action:
+    name: action-${{ matrix.refusal }}-${{ matrix.action }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - refusal: D
-            action: D
-          - refusal: E
-            action: E
-          - refusal: F
-            action: F
+        refusal: [E, F]
+        action: [A, B, D, E, F, G]
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
@@ -32,5 +27,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Qualify same-column structural repair
+      - name: Qualify declared structural action
         run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-root-action.mjs "${{ matrix.refusal }}" "${{ matrix.action }}"
