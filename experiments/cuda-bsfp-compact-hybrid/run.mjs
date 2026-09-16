@@ -1,15 +1,13 @@
 import assert from 'node:assert/strict';
 import { performance } from 'node:perf_hooks';
 
-import { openCudaRuntime } from 'cuda-js';
 import {
   createBsfpSupportLatticeProfile,
   normalizeMaximalPacked42Antichain,
   normalizeMinimalPacked42Antichain,
 } from '../../components/bsfp/index.mjs';
 import { createConnectWinningLines } from '../../components/bsfp/geometry.mjs';
-import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs';
-import { SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION } from '../../components/bsfp/cuda/index.mjs';
+import { SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION } from '../../components/bsfp/cuda/packed42-direction.mjs';
 import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../../components/bsfp/cuda/tensor-overflow-contract.mjs';
 
 const TWO32 = 0x1_0000_0000;
@@ -67,17 +65,20 @@ function forEachSetCell(mask, callback) {
 function normalizeMinimal(values) { return normalizeMinimalPacked42Antichain(values); }
 function normalizeMaximal(values) { return normalizeMaximalPacked42Antichain(values); }
 
-function cofactorUpward(frontier, landingCell, mover) {
+export function cofactorUpward(frontier, landingCell, mover) {
   const result = [];
   if (mover === 0) for (const mask of frontier) result.push(clearCell(mask, landingCell));
   else for (const mask of frontier) if (!hasCell(mask, landingCell)) result.push(mask);
   return normalizeMinimal(result);
 }
 
-function cofactorDownward(frontier, landingCell, mover) {
+export function cofactorDownward(frontier, landingCell, mover) {
   const result = [];
-  if (mover === 0) for (const mask of frontier) if (hasCell(mask, landingCell)) result.push(clearCell(mask, landingCell));
-  else for (const mask of frontier) result.push(clearCell(mask, landingCell));
+  if (mover === 0) {
+    for (const mask of frontier) if (hasCell(mask, landingCell)) result.push(clearCell(mask, landingCell));
+  } else {
+    for (const mask of frontier) result.push(clearCell(mask, landingCell));
+  }
   return normalizeMaximal(result);
 }
 
@@ -246,12 +247,13 @@ function classifyRoot(frontier) {
   return win ? 1 : loss ? -1 : 0;
 }
 
-async function solve(runtime, geometry, options) {
+// The reducer is injected for independent qualification; native main always
+// supplies the CUDA service. Observers cannot select or change recurrence work.
+export async function solveCompactHybrid(geometry, options, reducer, { onFrontier = null, progress = true } = {}) {
   const support = createBsfpSupportLatticeProfile(geometry);
   const masks = lineMasks(geometry);
   const incidence = lineIncidence(masks, geometry.columns * geometry.rows);
   const ranks = rankItems(support);
-  const reducer = await createPacked42PairReducerService(runtime, options.reducer);
   const metrics = {
     structuralPrepareMs: 0,
     gpuPairReduceWallMs: 0,
@@ -264,9 +266,9 @@ async function solve(runtime, geometry, options) {
     rankSummaries: [],
   };
   const solveStarted = performance.now();
-  const reportProgress = () => console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, gpuReducer: reducer.snapshotStats() }));
-  const progressTimer = setInterval(reportProgress, 5000);
-  progressTimer.unref();
+  const reportProgress = () => { if (progress) console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, gpuReducer: reducer.snapshotStats() })); };
+  const progressTimer = progress ? setInterval(reportProgress, 5000) : null;
+  progressTimer?.unref();
   let childRank = new Map();
   let childBoundaryRecords = 0;
   try {
@@ -280,7 +282,12 @@ async function solve(runtime, geometry, options) {
       for (let shardStart = 0; shardStart < items.length; shardStart += options.supportShardSize) {
         const shard = items.slice(shardStart, Math.min(items.length, shardStart + options.supportShardSize));
         if (rank === support.maxRank) {
-          for (const supportIndex of shard) currentRank.set(supportIndex, Object.freeze({ wins: Object.freeze([]), losses: Object.freeze([]) }));
+          for (const supportIndex of shard) {
+            const frontier = Object.freeze({ wins: Object.freeze([]), losses: Object.freeze([]) });
+            currentRank.set(supportIndex, frontier);
+            onFrontier?.(supportIndex, frontier);
+            metrics.processedSupports += 1;
+          }
           continue;
         }
         const prepareStarted = performance.now();
@@ -291,6 +298,7 @@ async function solve(runtime, geometry, options) {
         for (const item of pending) {
           const frontier = finalizeSupport(item);
           currentRank.set(item.supportIndex, frontier);
+          onFrontier?.(item.supportIndex, frontier);
           const records = frontier.wins.length + frontier.losses.length;
           rankBoundaryRecords += records;
           rankMaxWin = Math.max(rankMaxWin, frontier.wins.length);
@@ -368,14 +376,24 @@ async function main() {
   const geometry = parseGeometry(process.argv[3] ?? '4x4:c4');
   const options = readCompactHybridOptions();
   console.error(JSON.stringify({ kind: 'compact-hybrid-configuration', options, cudaMemoryPolicy: CUDA_MEMORY_POLICY }));
+  let observer = null;
+  if (process.env.BSFP_HYBRID_VERIFY_FRONTIERS === '1') {
+    if (geometry.columns * geometry.rows > 25) throw new RangeError('all-frontier qualification is bounded to at most 25 cells');
+    const { createFrontierObserver } = await import('./qualification.mjs');
+    observer = createFrontierObserver(geometry);
+  }
 
   let runtime;
   const started = performance.now();
   try {
+    const { openCudaRuntime } = await import('cuda-js');
+    const { createPacked42PairReducerService } = await import('../../components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs');
     runtime = await openCudaRuntime({ compiler: true, driver: { memory: CUDA_MEMORY_POLICY } });
     const runtimeOpenMs = performance.now() - started;
     const solveStarted = performance.now();
-    const solved = await solve(runtime, geometry, options);
+    const reducer = await createPacked42PairReducerService(runtime, options.reducer);
+    const solved = await solveCompactHybrid(geometry, options, reducer, { onFrontier: observer?.onFrontier });
+    const qualification = observer?.finish() ?? null;
     const solveWallMs = performance.now() - solveStarted;
     const expected = geometry.columns === 4 && geometry.rows === 3 && geometry.connect === 3 ? 1
       : geometry.columns === 4 && geometry.rows === 4 && geometry.connect === 4 ? 0
@@ -390,6 +408,7 @@ async function main() {
       geometry: `${geometry.columns}x${geometry.rows}-c${geometry.connect}`,
       outcome: 'native-compact-hybrid-root-wdl-pass',
       rootWdl: solved.rootWdl,
+      qualification,
       expectedRootWdl: expected,
       supportSkeletons: solved.supportSkeletons,
       winningLines: solved.winningLines,
