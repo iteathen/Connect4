@@ -302,7 +302,13 @@ const PAIR_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-pair-bucketed-rep
       expected: r => replayPass(r, ['bucketed', 'allbucketed']) }));
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [BUCKET_REPLAY.id, BUCKET_REPLAY], [PAIR_REPLAY.id, PAIR_REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
+const BUCKET_REGRESSION = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-bucket-regression',
+  steps(spec, repositoryRoot) { return this.supports(spec) ? [{ id: 'bucket-reuse-regression', command: process.execPath,
+    args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/bucket-regression.mjs')),
+    expected: r => r?.outcome === 'native-bucket-reuse-regression-pass' && r?.geometry === '7x6:c4' && r?.rootWdl === null
+      && r?.passes === 20 && r?.frontierChecks === 5120 && r?.mismatches === 0 && r?.cleanup === 'graceful' }] : []; },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [BUCKET_REPLAY.id, BUCKET_REPLAY], [PAIR_REPLAY.id, PAIR_REPLAY], [BUCKET_REGRESSION.id, BUCKET_REGRESSION], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };
