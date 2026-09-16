@@ -79,17 +79,24 @@ function cpuAbsorption(segment) {
     }
   }
 
-  const candidates = [];
+  const generated = [];
+  const occurrenceCandidates = [];
+  function emit(candidate) {
+    generated.push(candidate);
+    if (packedCapacityKeep(candidate, segment)) occurrenceCandidates.push(candidate);
+  }
+
+  let absorbedRecordEmits = 0;
   for (let left = 0; left < segment.left.length; left += 1) {
     if (leftAbsorbed[left] !== 0) {
-      const candidate = or64(segment.left[left], coreB);
-      if (packedCapacityKeep(candidate, segment)) candidates.push(candidate);
+      absorbedRecordEmits += 1;
+      emit(or64(segment.left[left], coreB));
     }
   }
   for (let right = 0; right < segment.right.length; right += 1) {
     if (rightAbsorbed[right] !== 0) {
-      const candidate = or64(segment.right[right], coreA);
-      if (packedCapacityKeep(candidate, segment)) candidates.push(candidate);
+      absorbedRecordEmits += 1;
+      emit(or64(segment.right[right], coreA));
     }
   }
 
@@ -99,14 +106,85 @@ function cpuAbsorption(segment) {
     for (let right = 0; right < segment.right.length; right += 1) {
       if (rightAbsorbed[right] !== 0) continue;
       remainingPairs += 1;
-      const candidate = or64(segment.left[left], segment.right[right]);
-      if (packedCapacityKeep(candidate, segment)) candidates.push(candidate);
+      emit(or64(segment.left[left], segment.right[right]));
     }
   }
 
-  const frontier = normalizeMinimal64(candidates);
+  const generatedOperations = absorbedRecordEmits + remainingPairs;
+  assert.equal(generated.length, generatedOperations, `${segment.id} generated-operation accounting drift`);
+
+  const classes = new Map();
+  for (const candidate of generated) {
+    const key = key64(candidate);
+    const current = classes.get(key);
+    if (current) current.count += 1;
+    else classes.set(key, { candidate, count: 1 });
+  }
+
+  const quotientCandidates = [];
+  let acceptedClasses = 0;
+  let rejectedClasses = 0;
+  let acceptedOccurrencesByClass = 0;
+  let rejectedOccurrencesByClass = 0;
+  let duplicateAcceptedOccurrences = 0;
+  let duplicateRejectedOccurrences = 0;
+  for (const { candidate, count } of classes.values()) {
+    if (packedCapacityKeep(candidate, segment)) {
+      quotientCandidates.push(candidate);
+      acceptedClasses += 1;
+      acceptedOccurrencesByClass += count;
+      duplicateAcceptedOccurrences += count - 1;
+    } else {
+      rejectedClasses += 1;
+      rejectedOccurrencesByClass += count;
+      duplicateRejectedOccurrences += count - 1;
+    }
+  }
+  assert.equal(
+    occurrenceCandidates.length,
+    acceptedOccurrencesByClass,
+    `${segment.id} exact-class guard outcome disagrees with occurrence evaluation`,
+  );
+  assert.equal(
+    generated.length - occurrenceCandidates.length,
+    rejectedOccurrencesByClass,
+    `${segment.id} rejected occurrence accounting drift`,
+  );
+
+  const frontier = normalizeMinimal64(occurrenceCandidates);
+  const quotientFrontier = normalizeMinimal64(quotientCandidates);
+  assert.deepEqual(frontier.map(key64).sort(), quotientFrontier.map(key64).sort(), `${segment.id} quotient frontier mismatch`);
   assert.deepEqual(frontier.map(key64).sort(), segment.authority.frontier.map(key64).sort(), `${segment.id} absorption frontier mismatch`);
-  return { coreA, coreB, leftAbsorbed, rightAbsorbed, remainingPairs, frontier };
+
+  const exactResultClasses = classes.size;
+  const duplicateGeneratedOccurrences = generated.length - exactResultClasses;
+  assert.equal(
+    duplicateGeneratedOccurrences,
+    duplicateAcceptedOccurrences + duplicateRejectedOccurrences,
+    `${segment.id} duplicate class accounting drift`,
+  );
+
+  return {
+    coreA,
+    coreB,
+    leftAbsorbed,
+    rightAbsorbed,
+    remainingPairs,
+    absorbedRecordEmits,
+    generatedOperations,
+    exactResultClasses,
+    duplicateGeneratedOccurrences,
+    occurrenceGuardEvaluations: generatedOperations,
+    quotientGuardEvaluations: exactResultClasses,
+    guardEvaluationsSaved: duplicateGeneratedOccurrences,
+    acceptedOccurrences: occurrenceCandidates.length,
+    rejectedOccurrences: generated.length - occurrenceCandidates.length,
+    acceptedClasses,
+    rejectedClasses,
+    duplicateAcceptedOccurrences,
+    duplicateRejectedOccurrences,
+    frontier,
+  };
 }
 
 function encodeU32(values) { return new Uint8Array(values.buffer, values.byteOffset, values.byteLength); }
@@ -142,6 +220,22 @@ let leftCursor = 0;
 let rightCursor = 0;
 let rawPairs = 0;
 let remainingPairs = 0;
+const quotientTotals = {
+  absorbedRecordEmits: 0,
+  generatedOperations: 0,
+  exactResultClasses: 0,
+  duplicateGeneratedOccurrences: 0,
+  occurrenceGuardEvaluations: 0,
+  quotientGuardEvaluations: 0,
+  guardEvaluationsSaved: 0,
+  acceptedOccurrences: 0,
+  rejectedOccurrences: 0,
+  acceptedClasses: 0,
+  rejectedClasses: 0,
+  duplicateAcceptedOccurrences: 0,
+  duplicateRejectedOccurrences: 0,
+};
+const segmentMetrics = [];
 for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex += 1) {
   const segment = fixture.segments[segmentIndex];
   const expected = expectations[segmentIndex];
@@ -163,8 +257,36 @@ for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex += 1) {
     expectedRight[rightCursor] = expected.rightAbsorbed[index];
     rightCursor += 1;
   }
-  rawPairs += segment.left.length * segment.right.length;
+  const segmentRawPairs = segment.left.length * segment.right.length;
+  rawPairs += segmentRawPairs;
   remainingPairs += expected.remainingPairs;
+  for (const key of Object.keys(quotientTotals)) quotientTotals[key] += expected[key];
+  segmentMetrics.push({
+    id: segment.id,
+    geometry: segment.geometry,
+    rank: segment.rank,
+    supportHeights: segment.supportHeights,
+    beneficiary: segment.beneficiary,
+    exactCount: segment.exactCount,
+    dictionarySize: segment.dictionarySize,
+    leftRecords: segment.left.length,
+    rightRecords: segment.right.length,
+    rawPairs: segmentRawPairs,
+    remainingPairs: expected.remainingPairs,
+    absorbedRecordEmits: expected.absorbedRecordEmits,
+    generatedOperations: expected.generatedOperations,
+    exactResultClasses: expected.exactResultClasses,
+    duplicateGeneratedOccurrences: expected.duplicateGeneratedOccurrences,
+    occurrenceGuardEvaluations: expected.occurrenceGuardEvaluations,
+    quotientGuardEvaluations: expected.quotientGuardEvaluations,
+    guardEvaluationsSaved: expected.guardEvaluationsSaved,
+    acceptedOccurrences: expected.acceptedOccurrences,
+    rejectedOccurrences: expected.rejectedOccurrences,
+    acceptedClasses: expected.acceptedClasses,
+    rejectedClasses: expected.rejectedClasses,
+    duplicateAcceptedOccurrences: expected.duplicateAcceptedOccurrences,
+    duplicateRejectedOccurrences: expected.duplicateRejectedOccurrences,
+  });
 }
 leftOffsetsHost[segmentCount] = leftCursor;
 rightOffsetsHost[segmentCount] = rightCursor;
@@ -243,7 +365,7 @@ try {
   }
 
   console.log(JSON.stringify({
-    schemaVersion: 1,
+    schemaVersion: 2,
     kind: 'connect4-bsfp-core-relative-absorption-device-qualification',
     mode: native ? 'native' : 'portable',
     outcome: native ? 'native-exact-mark-pass' : 'portable-compile-prepare-submit-pass',
@@ -254,7 +376,18 @@ try {
     pairEliminationRate: rawPairs === 0 ? 0 : 1 - remainingPairs / rawPairs,
     leftRecords: fixture.totalLeft,
     rightRecords: fixture.totalRight,
+    resultIdentityQuotient: {
+      ...quotientTotals,
+      guardReduction: quotientTotals.occurrenceGuardEvaluations === 0
+        ? 0
+        : quotientTotals.guardEvaluationsSaved / quotientTotals.occurrenceGuardEvaluations,
+      duplicateRejectedFractionOfSavings: quotientTotals.guardEvaluationsSaved === 0
+        ? 0
+        : quotientTotals.duplicateRejectedOccurrences / quotientTotals.guardEvaluationsSaved,
+    },
+    segmentMetrics,
     cpuAuthorityFrontierMismatches: 0,
+    resultIdentityQuotientMismatches: 0,
     nativeDeviceEqualityChecked: native,
   }, null, 2));
 } finally {
