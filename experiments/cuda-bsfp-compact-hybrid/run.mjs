@@ -8,7 +8,7 @@ import {
   normalizeMinimalPacked42Antichain,
 } from '../../components/bsfp/index.mjs';
 import { createConnectWinningLines } from '../../components/bsfp/geometry.mjs';
-import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-service.mjs';
+import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs';
 import { SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION } from '../../components/bsfp/cuda/index.mjs';
 
 const TWO32 = 0x1_0000_0000;
@@ -329,6 +329,11 @@ const outputCapacityPerSegment = envPositive('BSFP_HYBRID_FRONTIER_CAPACITY', 10
 const candidateCapacity = envPositive('BSFP_HYBRID_CANDIDATE_CAPACITY', 4194304);
 const segmentCapacity = envPositive('BSFP_HYBRID_SEGMENT_CAPACITY', 256);
 const sideCapacity = envPositive('BSFP_HYBRID_SIDE_CAPACITY', 262144);
+const tensorCandidateTile = envPositive('BSFP_HYBRID_TENSOR_CANDIDATE_TILE', 256);
+const tensorReferenceTile = envPositive('BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
+const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 128 * 1024 * 1024);
+const tensorBackend = process.env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
+if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
 
 let runtime;
 const started = performance.now();
@@ -345,6 +350,10 @@ try {
       leftCapacity: sideCapacity,
       rightCapacity: sideCapacity,
       blockSize: 256,
+      tensorCandidateTile,
+      tensorReferenceTile,
+      tensorMaxWorkspaceBytes,
+      tensorBackend,
     },
   });
   const solveWallMs = performance.now() - solveStarted;
