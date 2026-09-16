@@ -42,12 +42,12 @@ jobs:
           ln -sfn "$(realpath ../CUDA-JS)" ../CUDA-JS-Tensor/node_modules/cuda-js
       - name: Qualify corrected prepared DAG on portable runtime
         run: node research/experiments/cuda-bsfp-tensor-dominance/run.mjs portable
-      - name: Commit correction and remove one-shot files
+      - name: Publish qualified source change only
         shell: bash
         run: |
+          git restore .github/workflows/bsfp-tensor-overflow-portable.yml
           git config user.name iteathen
           git config user.email josh.oshiro@gmail.com
-          git add research/experiments/cuda-bsfp-tensor-dominance/run.mjs .github/workflows/bsfp-tensor-overflow-portable.yml
-          git rm tools/fix-bsfp-tensor-prepared-bindings.mjs tools/fix-bsfp-tensor-prepared-bindings.py .github/workflows/fix-bsfp-tensor-prepared-bindings.yml
+          git add research/experiments/cuda-bsfp-tensor-dominance/run.mjs
           git commit -m 'research: bind prepared Tensor resources'
           git push origin HEAD:research/bsfp-tensor-overflow-dominance
