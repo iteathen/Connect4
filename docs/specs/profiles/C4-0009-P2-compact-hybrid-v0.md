@@ -99,6 +99,10 @@ The ordinary batched path retains a 1,024-record per-segment survivor capacity. 
 
 Host deduplication removes equal masks within a cardinality phase. Tensor compares against earlier accepted cardinalities. Recovery counts, maximum recovered frontier and Tensor run timings are observations, not an independent correctness proof.
 
+Packed recovery now selects the existing B2 `bucketed-cardinality-v0` strategy after matched real-input qualification. `BSFP_HYBRID_PACKED_STRATEGY=legacy-43-phase-scan` retains the baseline. B3's quadratic duplicate-first scan is not promoted. Ordinary batched generation/normalization remains unchanged. Bucketed recovery adds one 4,194,304-element u32 index lane and three 43-element metadata lanes: 16,777,732 bytes. No candidate/frontier capacity or memory-policy limit increases. P2's existing 543,169,548-byte conservative admission bound still covers the sequential callable gate and solver: the solver packed payload is 90,185,232 bytes; even two resident replay services plus one 64 MiB resolved workspace and the 256 MiB runtime allowance total at most 515,914,784 bytes.
+
+Q1 `c4-0009-p2-overflow-bucketed-replay` reuses the captured-input/independent-oracle gate to compare legacy packed against bucketed packed with the same warmup, repetition, output-capacity and cleanup requirements. This selects an existing experimental P2 mechanism; it does not implement or adopt the proposed scalable CUDA-Algorithms #11 API.
+
 ### Crash-safe measurements and real-overflow replay
 
 `generatedPairCandidates` now counts generation-completed batches even while their recovery is active. `completedBatchPairCandidates` retains the former completed-batch meaning; `submittedPairCandidates`, `activeBatch`, and `activeOverflow` distinguish submissions and in-flight work. Solver progress includes active rank/shard and process CPU microseconds. Counts are observations, not completed proof state.

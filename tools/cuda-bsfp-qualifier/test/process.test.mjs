@@ -27,3 +27,16 @@ test('telemetry survives timeout and unavailable performance does not disable VR
     assert(samples.every(sample => sample.elapsedMs >= sample.requestedElapsedMs));
   } finally { fs.rmSync(root, { recursive: true }); }
 });
+
+test('a telemetry journal write failure cannot suppress the emergency VRAM kill', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bsfp-q1-disk-'));
+  try {
+    fs.mkdirSync(path.join(root, 'gpu-telemetry.jsonl')); // deterministically unwritable as a file
+    const result = await runLoggedChild({ command: process.execPath, args: [fixture, 'hang'], cwd: root,
+      stdoutPath: path.join(root, 'stdout.log'), stderrPath: path.join(root, 'stderr.log'),
+      timeoutMs: 3000, gpuIndex: 0, emergencyFreeMiB: 256, sampleIntervalMs: 30,
+      sampleGpu: async () => ({ available: true, freeMiB: 100, usedMiB: 1000 }) });
+    assert.equal(result.memorySafetyAbort, true);
+    assert.equal(result.timedOut, false);
+  } finally { fs.rmSync(root, { recursive: true }); }
+});

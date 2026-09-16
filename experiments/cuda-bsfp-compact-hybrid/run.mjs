@@ -411,6 +411,8 @@ export function readCompactHybridOptions(env = process.env) {
   const tensorBackend = env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
   const overflowExecutor = env.BSFP_HYBRID_OVERFLOW_EXECUTOR ?? 'packed';
   if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('BSFP_HYBRID_OVERFLOW_EXECUTOR must be tensor or packed');
+  const packedStrategy = env.BSFP_HYBRID_PACKED_STRATEGY ?? 'bucketed-cardinality-v0';
+  if (!['legacy-43-phase-scan', 'bucketed-cardinality-v0'].includes(packedStrategy)) throw new RangeError('Unsupported BSFP_HYBRID_PACKED_STRATEGY');
   if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
   if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
     throw new RangeError(`BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES must not exceed ${TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES} for the resolved-plan profile`);
@@ -432,6 +434,7 @@ export function readCompactHybridOptions(env = process.env) {
       tensorMaxWorkspaceBytes,
       tensorBackend,
       overflowExecutor,
+      packedStrategy,
     },
   };
 }

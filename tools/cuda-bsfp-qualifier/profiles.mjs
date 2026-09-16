@@ -262,6 +262,14 @@ const O3 = Object.freeze({
     }];
   },
 });
+function replayPass(r, methods) {
+  return r?.outcome === 'native-overflow-replay-pass' && r?.geometry === '7x6:c4'
+    && r?.methods?.join(',') === methods.join(',')
+    && r?.rootWdl === null && r?.mismatches === 0 && r?.cleanup === 'graceful'
+    && r?.survivors > 1024 && methods.every(mode =>
+      r?.[mode]?.samples?.length === 3 && r[mode].samples.every(v => Number.isFinite(v) && v >= 0)
+      && r?.stats?.[mode]?.overflowRecoveredJobs === 4 && r.stats[mode].overflowFailures === 0);
+}
 const REPLAY = Object.freeze({
   id: 'c4-0009-p2-overflow-replay',
   specification: P2.specification, gpuRequired: true, requiredDependencies: P2_REQUIRED_DEPENDENCIES,
@@ -273,14 +281,16 @@ const REPLAY = Object.freeze({
     if (!this.supports(spec)) return [];
     const nodeArgs = nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/replay.mjs'));
     return [{ id: 'overflow-replay', command: process.execPath, args: nodeArgs,
-      expected: r => r?.outcome === 'native-overflow-replay-pass' && r?.geometry === '7x6:c4'
-        && r?.rootWdl === null && r?.mismatches === 0 && r?.cleanup === 'graceful'
-        && r?.survivors > 1024 && ['packed', 'tensor'].every(mode =>
-          r?.[mode]?.samples?.length === 3 && r[mode].samples.every(v => Number.isFinite(v) && v >= 0)
-          && r?.stats?.[mode]?.overflowRecoveredJobs === 4 && r.stats[mode].overflowFailures === 0) }];
+      expected: r => replayPass(r, ['packed', 'tensor']) }];
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
+const BUCKET_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-overflow-bucketed-replay',
+  steps(spec, repositoryRoot) {
+    return REPLAY.steps(spec, repositoryRoot).map(step => ({ ...step, args: [...step.args, 'bucketed'],
+      expected: r => replayPass(r, ['packed', 'bucketed']) }));
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [BUCKET_REPLAY.id, BUCKET_REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

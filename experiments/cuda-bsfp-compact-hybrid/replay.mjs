@@ -39,20 +39,23 @@ async function main() {
     maxDeviceBytes: 268435456, maxAllocationBytes: 134217728, maxTransferBytes: 16777216,
   } } });
   const services = {};
-  const samples = { packed: [], tensor: [] };
-  const stages = { packed: [], tensor: [] };
+  const methods = process.argv.includes('bucketed') ? ['packed', 'bucketed'] : ['packed', 'tensor'];
+  const samples = Object.fromEntries(methods.map(mode => [mode, []]));
+  const stages = Object.fromEntries(methods.map(mode => [mode, []]));
   const setupMs = {};
   let output;
   try {
-    for (const mode of ['packed', 'tensor']) {
+    for (const mode of methods) {
       const started = performance.now();
-      services[mode] = await createPacked42PairReducerService(runtime, { ...readCompactHybridOptions({}).reducer, overflowExecutor: mode });
+      services[mode] = await createPacked42PairReducerService(runtime, { ...readCompactHybridOptions({}).reducer,
+        overflowExecutor: mode === 'tensor' ? 'tensor' : 'packed',
+        packedStrategy: mode === 'bucketed' ? 'bucketed-cardinality-v0' : 'legacy-43-phase-scan' });
       setupMs[mode] = performance.now() - started;
     }
     // One warmup and three measured passes per method; reverse order every pass.
     // This measures the entire pair/recovery path, including generation and I/O.
     for (let pass = 0; pass < 4; pass++) {
-      for (const mode of (pass % 2 ? ['tensor', 'packed'] : ['packed', 'tensor'])) {
+      for (const mode of (pass % 2 ? [...methods].reverse() : methods)) {
         const before = services[mode].snapshotStats();
         const started = performance.now();
         const [actual] = await services[mode].reduce([job]);
@@ -72,7 +75,7 @@ async function main() {
         left: job.left.length, right: job.right.length, candidates: job.left.length * job.right.length },
       oracle: 'independent BigInt full Cartesian product + exact antichain normalization', oracleMs,
       survivors: expected.length, setupMs, timingScope: 'whole pair generation plus overflow recovery; host wall time, excludes oracle/verification',
-      packed: distribution(samples.packed), tensor: distribution(samples.tensor), stages,
+      methods, ...Object.fromEntries(methods.map(mode => [mode, distribution(samples[mode])])), stages,
       stats: Object.fromEntries(Object.entries(services).map(([mode, service]) => [mode, service.snapshotStats()])),
       mismatches: 0 };
   } finally {

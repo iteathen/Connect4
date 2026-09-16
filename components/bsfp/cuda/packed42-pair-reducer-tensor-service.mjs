@@ -3,6 +3,7 @@ import { performance } from 'node:perf_hooks';
 import {
   SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION,
   SEGMENTED_PACKED_ANTICHAIN_42_STATUS,
+  SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY,
   createSegmentedPackedAntichain42Plan,
   createSegmentedPackedPairAntichain42Plan,
 } from './index.mjs';
@@ -136,6 +137,8 @@ export function tensorOverflowOptions(options = {}) {
 export async function createPacked42PairReducerService(runtime, options = {}) {
   const overflowExecutor = options.overflowExecutor ?? 'packed';
   if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('overflowExecutor must be tensor or packed');
+  const packedStrategy = options.packedStrategy ?? SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED;
+  if (![SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.LEGACY, SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED].includes(packedStrategy)) throw new RangeError('Unsupported packed recovery strategy');
   const primaryLimits = Object.freeze({
     segmentCapacity: positiveSafeInteger(options.segmentCapacity ?? 256, 'segmentCapacity'),
     leftCapacity: positiveSafeInteger(options.leftCapacity ?? 262144, 'leftCapacity'),
@@ -156,6 +159,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
         segmentCapacity: 1,
         outputCapacityPerSegment: overflowOutputCapacityPerSegment,
         blockSize: primaryLimits.blockSize,
+        strategy: packedStrategy,
       });
     } catch (error) {
       await plan.close();
@@ -182,6 +186,15 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
   const outputStatus = await allocateU32(runtime, limits.segmentCapacity, 'read-write');
   const checks = await allocateU32(runtime, limits.candidateCapacity, 'write');
   allocations.push(leftLo, leftHi, rightLo, rightHi, leftOffsets, rightOffsets, candidateOffsets, segmentDirections, candidateLo, candidateHi, candidatePopcount, generationStatus, outputLo, outputHi, outputCounts, outputStatus, checks);
+  const bucketBindings = {};
+  if (overflowPlan?.bucketMetaElements) {
+    for (const [key, count] of Object.entries({ bucketIndices: limits.candidateCapacity,
+      bucketCounts: overflowPlan.bucketMetaElements, bucketOffsets: overflowPlan.bucketMetaElements, bucketCursors: overflowPlan.bucketMetaElements })) {
+      const allocation = await allocateU32(runtime, count);
+      allocations.push(allocation);
+      bucketBindings[key] = allocation.view;
+    }
+  }
 
   let closed = false;
   let tensorNormalizer = null;
@@ -233,6 +246,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
           segmentOffsets: candidateOffsets.view, segmentDirections: segmentDirections.view,
           outputLo: outputLo.view, outputHi: outputHi.view, outputCounts: outputCounts.view,
           outputStatus: outputStatus.view, checks: checks.view,
+          ...bucketBindings,
         });
         try {
           const terminal = await operation.wait();
@@ -411,7 +425,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
       for (const batch of batches) await executeBatch(batch, results);
       return Object.freeze(results);
     },
-    snapshotStats() { return Object.freeze({ ...stats, overflowExecutor, activeBatch: stats.activeBatch ? { ...stats.activeBatch } : null, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },
+    snapshotStats() { return Object.freeze({ ...stats, overflowExecutor, packedStrategy, activeBatch: stats.activeBatch ? { ...stats.activeBatch } : null, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },
     async close() {
       if (closed) return;
       closed = true;

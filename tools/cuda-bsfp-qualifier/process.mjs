@@ -35,6 +35,12 @@ export async function runLoggedChild({ command, args, cwd, stdoutPath, stderrPat
         const sample = await sampleGpu(gpuIndex);
         // A probe that finishes after exit is not a solver utilization sample.
         if (childClosed) return;
+        // Safety must not depend on a writable telemetry journal.
+        if (sample.available && sample.freeMiB < emergencyFreeMiB && !memorySafetyAbort && child.exitCode === null) {
+          memorySafetyAbort = true;
+          terminateProcessTree(child);
+          onEvent({ type: 'emergency-vram-abort', freeMiB: sample.freeMiB, emergencyFreeMiB });
+        }
         fs.appendFileSync(telemetryPath, JSON.stringify({ requestedElapsedMs, elapsedMs: Date.now() - startedAt, ...sample }) + '\n', { flush: true });
         if (!sample.available) { onEvent({ type: 'gpu-telemetry-sample-failed', error: sample.error }); return; }
         sampleCount += 1;
@@ -45,9 +51,6 @@ export async function runLoggedChild({ command, args, cwd, stdoutPath, stderrPat
           if (typeof value !== 'number' || !Number.isFinite(value)) continue;
           const entry = performanceSamples[key] ??= { count: 0, sum: 0, min: value, max: value };
           entry.count++; entry.sum += value; entry.min = Math.min(entry.min, value); entry.max = Math.max(entry.max, value);
-        }
-        if (sample.freeMiB < emergencyFreeMiB && !memorySafetyAbort && child.exitCode === null) {
-          memorySafetyAbort = true; onEvent({ type: 'emergency-vram-abort', freeMiB: sample.freeMiB, emergencyFreeMiB }); terminateProcessTree(child);
         }
       } catch (error) { onEvent({ type: 'gpu-telemetry-sample-failed', error: error.message }); }
       finally { sampling = false; }
