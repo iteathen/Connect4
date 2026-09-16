@@ -52,3 +52,6 @@ jobs:
 
       - name: Census scalar versus preimage cofactor work shape
         run: node research/experiments/cuda-bsfp-clause-coverage/analyze-cofactor-work.mjs
+
+      - name: Derive and submit real three-word 6x5 support-edge cofactors
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-multiword-cofactor.mjs portable
