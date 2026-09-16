@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "kind": "connect4-negamax-optimization-campaign",
+  "date": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "state_contract": "BSFP-aligned relational q",
+  "board_state_in_search": false,
+  "formulation": "side-to-move-relative negamax",
+  "production_driver_selected": false,
+  "campaign_v1": {
+    "workflow_run": 34637521061,
+    "workflow_job": 103388937756,
+    "purpose": "broad negamax-specific optimization screen",
+    "qualified_findings": {
+      "fail_soft": "advance",
+      "fail_hard": "reject_as_default_more_expansions_on_all_controls",
+      "enhanced_transposition_cutoff": "advance",
+      "history_killer_ordering": "reject_current_realization",
+      "child_bound_ordering": "do_not_advance_as_default",
+      "rank_distance_envelope": "retain_conditional",
+      "blind_all_on_composition": "reject",
+      "wdl_native_negamax": "advance"
+    },
+    "control_4x5": {
+      "strong_fail_soft_baseline_expanded": 16488,
+      "strong_fail_hard_expanded": 17440,
+      "strong_etc_expanded": 11761,
+      "strong_child_bound_order_expanded": 15403,
+      "strong_history_killer_expanded": 29674,
+      "strong_all_on_expanded": 18866,
+      "wdl_native_expanded": 15096,
+      "ideal_bsfp_strong_expanded": 1738,
+      "ideal_bsfp_wdl_expanded": 1558
+    }
+  },
+  "campaign_v2": {
+    "workflow_run": 34637786848,
+    "workflow_job": 103389801743,
+    "source_commit": "1f5d2ad1c65640bad6bf7070d2945336ea12e1a5",
+    "purpose": "refine ETC, WDL-native negamax, WDL threshold classification, and ideal BSFP composition",
+    "controls": [
+      {
+        "geometry": "4x3:c3",
+        "root_strong": 2,
+        "root_wdl": 1,
+        "expanded": {
+          "strong_baseline": 212,
+          "strong_etc_all": 189,
+          "strong_etc_interior": 195,
+          "strong_envelope_etc": 136,
+          "wdl_full": 39,
+          "wdl_etc_all": 37,
+          "wdl_etc_interior": 37,
+          "wdl_threshold": 39,
+          "wdl_threshold_etc_all": 37,
+          "wdl_threshold_etc_interior": 37,
+          "ideal_bsfp_strong_etc": 80,
+          "ideal_bsfp_wdl_threshold_etc": 20
+        }
+      },
+      {
+        "geometry": "4x4:c4",
+        "root_strong": 0,
+        "root_wdl": 0,
+        "expanded": {
+          "strong_baseline": 4478,
+          "strong_etc_all": 3074,
+          "strong_etc_interior": 3133,
+          "strong_envelope_etc": 3142,
+          "wdl_full": 4291,
+          "wdl_etc_all": 2912,
+          "wdl_etc_interior": 2967,
+          "wdl_threshold": 4330,
+          "wdl_threshold_etc_all": 2958,
+          "wdl_threshold_etc_interior": 3013,
+          "ideal_bsfp_strong_etc": 528,
+          "ideal_bsfp_wdl_threshold_etc": 520
+        }
+      },
+      {
+        "geometry": "5x3:c4",
+        "root_strong": 0,
+        "root_wdl": 0,
+        "expanded": {
+          "strong_baseline": 996,
+          "strong_etc_all": 820,
+          "strong_etc_interior": 840,
+          "strong_envelope_etc": 820,
+          "wdl_full": 971,
+          "wdl_etc_all": 800,
+          "wdl_etc_interior": 816,
+          "wdl_threshold": 998,
+          "wdl_threshold_etc_all": 812,
+          "wdl_threshold_etc_interior": 830,
+          "ideal_bsfp_strong_etc": 325,
+          "ideal_bsfp_wdl_threshold_etc": 326
+        }
+      },
+      {
+        "geometry": "4x5:c4",
+        "root_strong": 0,
+        "root_wdl": 0,
+        "expanded": {
+          "strong_baseline": 16488,
+          "strong_etc_all": 11761,
+          "strong_etc_interior": 11811,
+          "strong_envelope_etc": 11899,
+          "wdl_full": 15096,
+          "wdl_etc_all": 10562,
+          "wdl_etc_interior": 10606,
+          "wdl_threshold": 15203,
+          "wdl_threshold_etc_all": 10612,
+          "wdl_threshold_etc_interior": 10656,
+          "ideal_bsfp_strong_etc": 1315,
+          "ideal_bsfp_wdl_threshold_etc": 1229
+        },
+        "median_search_only_ms": {
+          "strong_baseline": 11.14644,
+          "strong_etc_all": 8.11288,
+          "strong_etc_interior": 6.126682,
+          "strong_envelope_etc": 6.219014,
+          "wdl_full": 5.442169,
+          "wdl_etc_all": 5.311115,
+          "wdl_etc_interior": 4.887962,
+          "wdl_threshold": 4.668721,
+          "wdl_threshold_etc_all": 4.504565,
+          "wdl_threshold_etc_interior": 4.404076,
+          "ideal_bsfp_strong_etc": 0.867013,
+          "ideal_bsfp_wdl_threshold_etc": 0.424855
+        }
+      }
+    ],
+    "qualified_findings": {
+      "single_perspective_tt": "structural_baseline",
+      "fail_soft": "default",
+      "wdl_native_negamax": "advance_as_default_product_value_contract_candidate",
+      "enhanced_transposition_cutoff": "advance",
+      "etc_gating": "advance_as_physical_economics_candidate; slightly_more_work_but_lower_measured_cost_on_largest_control",
+      "distance_envelope": "retain_for_decisive_or_strong_distance_mode_not_universal_default",
+      "two_threshold_wdl": "retain_as_driver_candidate_not_work_reduction_winner",
+      "history_killer": "reject_current_realization",
+      "child_bound_ordering": "do_not_advance_as_default",
+      "wdl_then_strong_refinement": "retain_only_when_strong_distance_requested",
+      "ideal_bsfp_wdl_confluence": "strong_forward_work_elimination_ceiling; no_end_to_end_speed_claim"
+    }
+  },
+  "non_claims": [
+    "standard_7x6_production_performance",
+    "packed_on_the_fly_transition_performance",
+    "actual_bsfp_end_to_end_hybrid_speedup",
+    "final_PVS_vs_MTDf_driver_selection",
+    "safe_selective_pruning_beyond_exact_tested_mechanisms"
+  ]
+}

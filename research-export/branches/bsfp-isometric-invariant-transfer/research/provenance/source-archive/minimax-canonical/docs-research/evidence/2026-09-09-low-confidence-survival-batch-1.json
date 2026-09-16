@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "language": "Node.js/JavaScript only",
+  "experiments": {
+    "residual_evaluator_ordering": {
+      "cohort": "frozen 8-position 7x6 oracle cohort",
+      "stack": "625-ID residual state + cardinality bound + exact tactical/forced normalization",
+      "timing_protocol": "13 rotating-order repetitions; first 5 excluded as warm-up; medians over remaining 8",
+      "results": {
+        "center": {"nodes": 2039, "median_ms": 3.571570999999963},
+        "expCached": {"nodes": 1600, "median_ms": 4.228140499999995, "node_reduction_pct": 21.530161844041196, "time_change_pct": -18.383212877471532},
+        "expFirstCached": {"nodes": 1626, "median_ms": 3.9593504999999993, "node_reduction_pct": 20.255026974006864, "time_change_pct": -10.857393007167992}
+      },
+      "interpretation": "Exponential residual requirement-maturity ordering materially improves proof order after forced normalization, but the high-level prototype still pays more elapsed time. Caching the already-built child transition reduces the earlier timing loss substantially. Node-effect confidence rises; production time-effect confidence remains unresolved pending fixed-width/incremental scoring."
+    },
+    "allis_a1_a3": {
+      "candidate_rules": ["Claimeven", "Baseinverse", "Vertical"],
+      "controller": "P1/Black; sampled only P0/White-to-move roots",
+      "compatibility": "conservative: rule instances in a selected cover must have disjoint required-square masks",
+      "cohort": "deterministic random nonterminal 7x6 roots, ply 22..32, exact decision-state solve cost 40..10000 nodes; target 5 roots/ply; 29 roots qualified",
+      "results": {
+        "roots": 29,
+        "white_wins": 11,
+        "white_draw_or_losses": 18,
+        "exact_solver_nodes": 39087,
+        "average_union_coverage_fraction": 0.8455159979754301,
+        "raw_union_full_coverage": 5,
+        "compatible_full_covers": 3,
+        "false_claims": 0,
+        "rule_instances": {"Claimeven": 160, "Baseinverse": 45, "Vertical": 63},
+        "roots_with_rule_type": {"Claimeven": 29, "Baseinverse": 21, "Vertical": 27},
+        "by_ply_average_union_coverage": {"22": 0.9054487179487178, "24": 0.8975816993464052, "26": 0.8201687201687202, "28": 0.8276190476190475, "30": 0.8365079365079365, "32": 0.7708333333333333},
+        "certified_examples": [
+          {"sequence": "3314666541511341134226244557", "ply": 28, "exact_score_p0": 0, "exact_nodes": 340, "opponent_requirements": 7, "instances": 9, "cover_size": 4},
+          {"sequence": "555415323577434125373434421772", "ply": 30, "exact_score_p0": -3, "exact_nodes": 50, "opponent_requirements": 4, "instances": 4, "cover_size": 2},
+          {"sequence": "52654167547624557675236336471373", "ply": 32, "exact_score_p0": -1, "exact_nodes": 94, "opponent_requirements": 3, "instances": 6, "cover_size": 3}
+        ]
+      },
+      "interpretation": "The three cheapest Allis rule families have high partial coverage in nontrivial mid/late residual states and can sometimes form complete conservative hold certificates. No false hold was observed. Full-cover frequency is modest, supporting them as strong certificate primitives rather than a standalone complete evaluator."
+    }
+  }
+}

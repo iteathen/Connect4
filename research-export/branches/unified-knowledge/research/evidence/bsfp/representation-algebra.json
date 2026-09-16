@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "evidence_id": "C4-E0039-0046-BSFP-REPRESENTATION",
+  "claims": ["C4-R0039", "C4-R0042", "C4-R0044", "C4-R0045"],
+  "direction": "supports-or-constrains",
+  "date_range": ["2026-09-10", "2026-09-11"],
+  "antichain_vs_mtbdd": {
+    "source_revision": "1dcd0dd4b3d504e83b3421d5671d9979fa428d21",
+    "workflow_run": 34449586657,
+    "controls": [
+      {"geometry":"4x3-c3","mtbddMedianMs":29.214,"antichainMedianMs":15.498,"speedup":1.885,"mtbddRecords":7691,"antichainRecords":3004,"recordReductionPct":60.9},
+      {"geometry":"4x4-c4","mtbddMedianMs":97.144,"antichainMedianMs":31.942,"speedup":3.041,"mtbddRecords":38412,"antichainRecords":6591,"recordReductionPct":82.8},
+      {"geometry":"5x3-c4","mtbddMedianMs":24.911,"antichainMedianMs":20.421,"speedup":1.220,"mtbddRecords":9071,"antichainRecords":5442,"recordReductionPct":40.0},
+      {"geometry":"4x5-c4","mtbddMedianMs":899.330,"antichainMedianMs":378.139,"speedup":2.378,"mtbddRecords":302723,"antichainRecords":40707,"recordReductionPct":86.6}
+    ],
+    "note": "Performance only; exact correctness qualification is separate. Geometry-dependent benefit."
+  },
+  "rolling_scaling": {
+    "source_revision": "309c4ad52a1cca89564c069f86b5ca902b536116",
+    "workflow_run": 34450288860,
+    "completed": [
+      {"geometry":"5x4-c4","wallSec":1.531,"totalBoundaryRecords":108266,"maxWinFrontier":284,"maxLossFrontier":194,"peakRssMiBApprox":100},
+      {"geometry":"5x5-c4","wallSec":58.326,"totalBoundaryRecords":1044159,"maxWinFrontier":562,"maxLossFrontier":568,"peakRssMiBApprox":243}
+    ],
+    "timeouts": [
+      {"geometry":"6x5-c4","timeoutSec":600,"peakRssMiBApprox":887},
+      {"geometry":"7x5-c4","timeoutSec":600,"peakRssMiBApprox":875},
+      {"geometry":"7x6-c4","timeoutSec":600,"peakRssMiBApprox":573}
+    ],
+    "interpretation": "The measured JavaScript scaling wall occurred well below the 4 GiB heap/memory limit; candidate/frontier manipulation was the first observed wall."
+  },
+  "line_hit_product_antichain": {
+    "source_revision": "36a95ce955b76ce95d34c7cf8ea5b3ee4c3b927d",
+    "workflow_run": 34505707527,
+    "order": "a<=b iff a.H0 subset b.H0 and b.H1 subset a.H1",
+    "complete_controls": [
+      {"geometry":"4x3-c3","supports":256,"c1Boundary":3004,"productBoundary":2862,"boundaryRatio":0.9527,"reductionPct":4.73,"assignmentCollapse":1.174},
+      {"geometry":"4x4-c4","supports":625,"c1Boundary":6591,"productBoundary":4879,"boundaryRatio":0.7403,"reductionPct":25.97,"assignmentCollapse":4.931},
+      {"geometry":"5x3-c4","supports":1024,"c1Boundary":5442,"productBoundary":3062,"boundaryRatio":0.5627,"reductionPct":43.73,"assignmentCollapse":9.234}
+    ],
+    "hot_support_controls": [
+      {"geometry":"4x5-c4","supportsExamined":21,"assignments":2097151,"c1Boundary":878,"productBoundary":429,"boundaryRatio":0.4886,"reductionPct":51.14,"assignmentCollapse":19.713},
+      {"geometry":"5x4-c4","supportsExamined":21,"assignments":2097151,"c1Boundary":1517,"productBoundary":547,"boundaryRatio":0.3606,"reductionPct":63.94,"assignmentCollapse":21.427}
+    ],
+    "falsifiers": {"quotientWdlConflicts":0,"falseWinCoverage":0,"falseLossCoverage":0,"missingWinCoverage":0,"missingLossCoverage":0},
+    "not_proved": "A direct recurrence that generates only realizable line-hit pairs without reconstructing ownership space."
+  },
+  "compact_cuda_scaling": {
+    "qualified_controls": [
+      {"geometry":"4x4-c4","supports":625,"records":6591,"root":"Draw","frontierDifferences":0,"warmSolveMs":261.375},
+      {"geometry":"5x5-c4","supports":7776,"records":1044159,"root":"Draw","frontierDifferences":0,"warmSolveMs":3590.926}
+    ],
+    "same_machine_packed42_5x5_referenceMs":11778.537,
+    "gpu_pairs_5x5":85934909,
+    "cpu_move_intersection_pairs_5x5":81515570,
+    "subsetChecksApprox":2155000000,
+    "six_by_five": {"probeTimeoutSec":180,"first32NodeEpochSec":75.118,"note":"wall encountered in high ranks before the rank-15 support-count peak"},
+    "scope": "Warm GPU/control evidence; not a whole-7x6 forecast or proof that one specific phase dominates."
+  },
+  "residual_pair_reuse": {
+    "native_source": "5dfe1312a357c48eee53168e82fd6eba27814a06",
+    "q1_run": "20260911T050640911Z-b3554293",
+    "evidence_commit": "e99680503aae6e3d56e168437e4b1ffc5708b6c3",
+    "controls": {"four_by_four_cuts":10,"four_by_four_logical":1409,"four_by_four_residualCandidates":326,"seven_by_six_cut":5,"seven_by_six_logical":8192,"seven_by_six_residualCandidates":128,"nativeRepetitionsEach":8,"mismatches":0,"completeTargetCoverage":true},
+    "seven_by_six_cut5": {
+      "unfactored":{"medianUploadMs":15.6443,"medianSubmitWaitMs":9.9435,"medianReadbackMs":76.5544,"allocatedDeviceBytes":151290024},
+      "factored":{"medianUploadMs":3.4860,"medianSubmitWaitMs":1.2580,"medianReadbackMs":4.2034,"allocatedDeviceBytes":2781876},
+      "medianSubmitWaitSpeedup":7.904,"allocatedArrayReductionX":54.384,"totalSubmitWaitRatioX":3.232
+    },
+    "tiny_control": "4x4 summed submit/wait increased; factored form is not universally faster.",
+    "open": "Exact output-pair grouping, variable-length compaction, dense next IDs, and device chaining."
+  },
+  "bayesian_note": "Rows within each campaign share implementations, oracles and workloads and must not be treated as independent Bayesian trials merely because multiple geometries or repetitions were measured."
+}

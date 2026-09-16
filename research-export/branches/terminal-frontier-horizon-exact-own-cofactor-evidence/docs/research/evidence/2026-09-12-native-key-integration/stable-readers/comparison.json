@@ -1,0 +1,46 @@
+{
+  "label": "stable-readers",
+  "runs": [
+    {
+      "stage": "baseline",
+      "searchMs": 1817.8028000000002,
+      "cpuMs": 2032,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1801.1463,
+      "cpuMs": 1968,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1772.2984999999999,
+      "cpuMs": 1891,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "baseline",
+      "searchMs": 1754.9275,
+      "cpuMs": 1907,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    }
+  ],
+  "means": {
+    "baseline": {
+      "searchMs": 1786.36515,
+      "cpuMs": 1969.5
+    },
+    "candidate": {
+      "searchMs": 1786.7224,
+      "cpuMs": 1929.5
+    }
+  },
+  "exactCountersMatch": true,
+  "elapsedMs": 8131.3815,
+  "totalBudgetMs": 60000
+}

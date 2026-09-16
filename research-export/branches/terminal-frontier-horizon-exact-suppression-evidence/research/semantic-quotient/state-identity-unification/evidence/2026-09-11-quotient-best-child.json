@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "kind": "connect4-quotient-native-best-child-witness-evidence",
+  "date": "2026-09-11",
+  "workflow_run": 34646887500,
+  "workflow_job": 103419703662,
+  "status": "pass",
+  "contract": "qID -> moveTag + exact already-materialized child qID or terminal; mismatch is miss-only",
+  "qualification": {
+    "root_and_all_legal_root_action_wdl_match_bsfp_oracle": true
+  },
+  "controls": {
+    "4x4_c4": {
+      "baseline": {"median_total_ms": 9.106459, "expanded": 4250},
+      "reuse": {"median_total_ms": 7.438997, "expanded": 4250, "transition_reuses": 155},
+      "reuse_etc": {"median_total_ms": 6.019018, "expanded": 4199, "etc_probes": 155, "etc_cutoffs": 51},
+      "threshold_reuse_etc": {"median_total_ms": 4.555763, "expanded": 4231, "etc_probes": 191, "etc_cutoffs": 57},
+      "witness_bytes": 40960
+    },
+    "5x3_c4": {
+      "baseline": {"median_total_ms": 0.747366, "expanded": 852},
+      "reuse_etc": {"median_total_ms": 0.702990, "expanded": 824, "etc_probes": 71, "etc_cutoffs": 28},
+      "threshold_reuse_etc": {"median_total_ms": 0.690550, "expanded": 857, "etc_probes": 88, "etc_cutoffs": 13},
+      "witness_bytes": 20480
+    },
+    "4x5_c4": {
+      "baseline": {"median_total_ms": 19.139744, "expanded": 15054, "typed_bytes_lower_bound": 1844704},
+      "reuse": {"median_total_ms": 19.505105, "expanded": 15054, "transition_reuses": 823, "witness_bytes": 81920},
+      "reuse_etc": {"median_total_ms": 19.358393, "expanded": 14800, "etc_probes": 823, "etc_cutoffs": 254, "transition_reuses": 569, "witness_bytes": 81920},
+      "threshold_reuse_etc": {"median_total_ms": 19.501159, "expanded": 14890, "etc_probes": 928, "etc_cutoffs": 269, "transition_reuses": 659, "witness_bytes": 81920}
+    }
+  },
+  "disposition": {
+    "4x5_default": "no-best-child-witness-no-ETC",
+    "best_child_witness": "qualified-conditional",
+    "retest_inside_driver_tournament": true,
+    "next": "native-driver-tournament"
+  },
+  "non_claims": [
+    "no-general-witness-speedup",
+    "4x3-timing-not-authoritative-because-zero-witness-activity",
+    "no-production-driver-selection-yet"
+  ]
+}

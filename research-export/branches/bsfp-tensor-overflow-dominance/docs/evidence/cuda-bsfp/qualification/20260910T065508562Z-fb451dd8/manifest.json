@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T06:55:22.170Z",
+  "files": [
+    {
+      "relativePath": "cases/01-4x3-c3/admission.json",
+      "sha256": "6ad200c22624771b17c7ba53a0b0acafa9f1cb8acee78eba712e1467c72baa79",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/case.json",
+      "sha256": "2347189002ef0539d45d30d7db073ff7934a880b92e08b0b7ee667aed34dee27",
+      "sourceBytes": 446,
+      "publishedBytes": 446,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/dense-wdl/result.json",
+      "sha256": "70ec0f0cba6ed35ef13fd46a7bdb62808d42e1fc17cd5f3e0bafba6d769474ff",
+      "sourceBytes": 829,
+      "publishedBytes": 829,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/dense-wdl/stderr.log",
+      "sha256": "18b2453c17498054d790e029cddbd267e88dae39562f9c95e1c1706f39c451c6",
+      "text": "(node:9916) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:9916) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "sourceBytes": 330,
+      "publishedBytes": 330,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/dense-wdl/stdout.log",
+      "sha256": "e72a66df296a282386e8c6ad00c0a8ce3fb59255638cb761f5c7915c1e352eed",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"kind\": \"connect4-cuda-bsfp-dense-4x3-wdl-qualification\",\n  \"mode\": \"native\",\n  \"cudaJsRevision\": \"98e2ebc942c14d63acf4dd82e912dd548c363a05\",\n  \"planContract\": \"Connect4-CUDA-BSFP-dense-symbolic-4x3-wdl-v0\",\n  \"tableElements\": 1048576,\n  \"tableBytes\": 4194304,\n  \"supportSkeletons\": 256,\n  \"assignmentCount\": 4096,\n  \"winningLines\": 14,\n  \"preparedNodeCount\": 13,\n  \"checkedStates\": 4631,\n  \"legalEdges\": 11818,\n  \"rootWdl\": 1,\n  \"outcome\": \"native-exhaustive-wdl-pass\"\n}\n",
+      "sourceBytes": 498,
+      "publishedBytes": 498,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/ranked-activation/result.json",
+      "sha256": "996b244374dd15c805f50944149f4a02e426c6d2a6d093ef9349e9550fe5c406",
+      "sourceBytes": 1962,
+      "publishedBytes": 1962,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/ranked-activation/stderr.log",
+      "sha256": "df9d09c265fc3ecbb60e2e15ae63d281b8e72522e1214be37715db6e4edd6ed8",
+      "text": "(node:4320) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:4320) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "sourceBytes": 330,
+      "publishedBytes": 330,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/ranked-activation/stdout.log",
+      "sha256": "4bcf5c041225a13e44343ebc4ab1bdc287bccd4d44a154d7ae47be5f95236b06",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"kind\": \"connect4-cuda-bsfp-ranked-activation-vertical-slice\",\n  \"mode\": \"native\",\n  \"connect4Profile\": \"4x3-connect3-support-lattice\",\n  \"supportItemCapacity\": 256,\n  \"supportMaxRank\": 12,\n  \"maxEmissionsPerItem\": 4,\n  \"expectedFullSkeletonPredecessors\": [\n    191,\n    239,\n    251,\n    254\n  ],\n  \"dependencyPair\": {\n    \"cudaAlgorithms\": \"48ee0aec9acae7776950f03ab52ab1737e598b6e\",\n    \"cudaJs\": \"98e2ebc942c14d63acf4dd82e912dd548c363a05\"\n  },\n  \"duplicateSourceFixture\": {\n    \"operationStatus\": \"completed\",\n    \"planContract\": \"CUDA-Algorithms-ranked-derived-activation-u32-working-v0\",\n    \"derivationLibrarySha256\": \"458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531\",\n    \"preparedNodeCount\": 4,\n    \"semanticStatus\": 0,\n    \"requiredCount\": 4,\n    \"outputIndices\": [\n      191,\n      239,\n      251,\n      254\n    ]\n  },\n  \"capacityFixture\": {\n    \"operationStatus\": \"completed\",\n    \"planContract\": \"CUDA-Algorithms-ranked-derived-activation-u32-working-v0\",\n    \"derivationLibrarySha256\": \"458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531\",\n    \"preparedNodeCount\": 4,\n    \"semanticStatus\": 5,\n    \"requiredCount\": 4\n  },\n  \"rankViolationFixture\": {\n    \"operationStatus\": \"completed\",\n    \"planContract\": \"CUDA-Algorithms-ranked-derived-activation-u32-working-v0\",\n    \"derivationLibrarySha256\": \"458aaa8e4f6519d0c7d81571477b0b6bc6e372486feb81a7fb519e6dcddd1531\",\n    \"preparedNodeCount\": 4,\n    \"semanticStatus\": 4,\n    \"requiredCount\": 0\n  },\n  \"outcome\": \"native-numerical-pass\"\n}\n",
+      "sourceBytes": 1555,
+      "publishedBytes": 1555,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/result.json",
+      "sha256": "b98426c48697b0d41b754e792713e5424ecaf3f9dfb2289d4a043d102f1a0551",
+      "sourceBytes": 4199,
+      "publishedBytes": 4199,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/case.json",
+      "sha256": "4c5de1ab83b67bbec6cc34feae9928fb4d2a8b5516c99095d8855f7310b1c777",
+      "sourceBytes": 480,
+      "publishedBytes": 480,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/result.json",
+      "sha256": "d95f90517fe2201821d4f7a2f4c627567e938a88d3001609b07bc71603657727",
+      "sourceBytes": 544,
+      "publishedBytes": 544,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x4-c4/case.json",
+      "sha256": "4bd350b7a98bc092b5ac7b770e74bb34dd10975648f7b09fa86cb086ea38eb61",
+      "sourceBytes": 482,
+      "publishedBytes": 482,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x4-c4/result.json",
+      "sha256": "b92467b6bf74d223d59ab12615f8248510ab21b0d6011d9dc6bab49cbe73459e",
+      "sourceBytes": 546,
+      "publishedBytes": 546,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/04-5x5-c4/case.json",
+      "sha256": "31a26bbc90f53688d067e0071e9b0474e7d6e09d8faec32c3c6234b2c025e4df",
+      "sourceBytes": 479,
+      "publishedBytes": 479,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/04-5x5-c4/result.json",
+      "sha256": "74253a3b6d061edbfd6f9960056b2659b0e76439cf5f7cb0de029894b949376b",
+      "sourceBytes": 543,
+      "publishedBytes": 543,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/05-6x5-c4/case.json",
+      "sha256": "867f47d7f12fcdf83576797ccccaa5d8b4800c7b6e6f0c2e04465cec404a1d77",
+      "sourceBytes": 481,
+      "publishedBytes": 481,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/05-6x5-c4/result.json",
+      "sha256": "9d42dddfe5a613a4f6d253e3222ccfd4ac76ad43e29f25e5ab0f30f67b4ac5d8",
+      "sourceBytes": 545,
+      "publishedBytes": 545,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/06-7x5-c4/case.json",
+      "sha256": "58309ec1ee387e98ad9a94dbf42fd6bfcac39defa80a719eac393608e3b4d2b7",
+      "sourceBytes": 483,
+      "publishedBytes": 483,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/06-7x5-c4/result.json",
+      "sha256": "7f7d3efb5a4725d98cc7262d6024091bdab4afa87662995981cebb9e57224b03",
+      "sourceBytes": 547,
+      "publishedBytes": 547,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/07-7x6-c4/case.json",
+      "sha256": "88112496e7476e3d1bf3f1bfdd61892c7c1cee5428fe9ff4de4652e59ebec7dc",
+      "sourceBytes": 491,
+      "publishedBytes": 491,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/07-7x6-c4/result.json",
+      "sha256": "66dcdeba5dae0c0896956a8a0a6845d84990009f859fb49f6f3bb2ef4911e8bd",
+      "sourceBytes": 555,
+      "publishedBytes": 555,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/08-8x6-c4/case.json",
+      "sha256": "bc8323488b0bebf452c77e2d2be51c1c93de9e9a47f48d398186fd299e630724",
+      "sourceBytes": 488,
+      "publishedBytes": 488,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/08-8x6-c4/result.json",
+      "sha256": "809cb2526ddd185579ef5cc00e6dfec57d2e84fdac212d3abe99febecb307d7d",
+      "sourceBytes": 552,
+      "publishedBytes": 552,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/09-8x7-c4/case.json",
+      "sha256": "7a969929788135bfbdcfd2bd35d324cb0f81896b0386818c463654353f4fbd09",
+      "sourceBytes": 491,
+      "publishedBytes": 491,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/09-8x7-c4/result.json",
+      "sha256": "9a96d248f761cfb65fde3316834351c17b37eaee2b1ad585be2a0ea028631c5c",
+      "sourceBytes": 555,
+      "publishedBytes": 555,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/10-9x7-c4/case.json",
+      "sha256": "5964dac462984f0e77ebdb28ea5815b870773863cf9c9f51d503d959aac3943c",
+      "sourceBytes": 494,
+      "publishedBytes": 494,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/10-9x7-c4/result.json",
+      "sha256": "9ae1ab28d8ab7bc41e5a4abdf8c6b7b24e8c7bcefb434d3ac96765d62a06c1ed",
+      "sourceBytes": 558,
+      "publishedBytes": 558,
+      "truncated": false
+    },
+    {
+      "relativePath": "events.jsonl",
+      "sha256": "0fc10be63715b13fd99cd526576a832c1fab8c5a036099e948ee4d3ee4c7af01",
+      "sourceBytes": 5170,
+      "publishedBytes": 5170,
+      "truncated": false
+    },
+    {
+      "relativePath": "results.json",
+      "sha256": "e56e7b5d7d476a04b9a51b77ac94c29181c49d1906d488dc38747d9012121c93",
+      "sourceBytes": 10584,
+      "publishedBytes": 10584,
+      "truncated": false
+    },
+    {
+      "relativePath": "summary.md",
+      "sha256": "cc0e10a1d1a91867dd20278ba21ca7edf118c305f9dcf319a1dd91e51e3882df",
+      "sourceBytes": 1866,
+      "publishedBytes": 1866,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.json",
+      "sha256": "48806c87839b6af3f340433501c7745801090d5d2c9121d6dff3582548ef20f3",
+      "sourceBytes": 2189,
+      "publishedBytes": 2189,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.preflight.json",
+      "sha256": "48806c87839b6af3f340433501c7745801090d5d2c9121d6dff3582548ef20f3",
+      "sourceBytes": 2189,
+      "publishedBytes": 2189,
+      "truncated": false
+    }
+  ]
+}

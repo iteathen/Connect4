@@ -1,0 +1,128 @@
+updated: 2026-09-11
+branch: research/zdd-transfer-20260910
+objective: exact_fast_empty_7x6_connect4_wdl_via_cuda_bsfp_no_search
+active_boundary: exact_output_pair_grouping_and_compaction_contract
+reference_base: 0b1d67e97e74ae9014621e18ff109bda50997352
+profile: c4-0009-o1-oqs-cofactor-42
+native_source: 6e30e3829ddede96c7a9dce3fdad71df467e4ebe
+native_run: 20260911T032754503Z-b0df94a3
+evidence_pr: https://github.com/iteathen/Connect4/pull/21
+evidence_commit: d2e31abb6f4da79f4b4d006e166e4b39d1960dd3
+research_record: docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md
+scaling_record: docs/research/2026-09-11-oqs-seed-scaling.md
+scaling_evidence: docs/research/evidence/2026-09-11-oqs-seed-scaling.json
+selected_7x6_profile: c4-0009-o2-oqs-7x6-seed-slice
+selected_7x6_native_source: 5c298c7e1dfdf1cfd93116884585144e33fb9dd7
+selected_7x6_native_run: 20260911T043015870Z-2d8e0785
+selected_7x6_evidence_pr: https://github.com/iteathen/Connect4/pull/28
+r6_evidence: docs/research/evidence/2026-09-11-oqs-r6-original-job-summary.json
+
+dependencies:
+  cuda_algorithms: 48ee0aec9acae7776950f03ab52ab1737e598b6e
+  cuda_js: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+  cuda_js_package: 0.1.0-alpha.20
+
+completed:
+  - recovered_original_r6_job_and_distinguished_later_compact_run
+  - reused_existing_device_cofactor_and_exact_packed42_normalization
+  - proved_and_exhaustively_checked_antichain_preservation_shortcut
+  - local_native_parity_all_220744_candidates_112_transitions_four_5x5_supports
+  - independent_layer_rebuilds_on_selected_small_supports_and_4426
+  - explicit_capacity_offset_input_extent_errors_and_graceful_cleanup
+  - integrated_90_tests_and_wide_portable_composition_pass
+  - official_Q1_4x3_4x4_5x5_pass_and_23_published_payload_hashes_verified
+  - CUDA_portable_34558523310_and_incremental_regression_34558523311_pass
+  - concrete_generic_requirements_attached_to_cuda_algorithms_issue_3
+
+next_actions:
+  - qualify_checked_scan_select_public_contract_under_CUDA_Algorithms_issue_9
+  - qualify_device_exact_residual_ordering_and_group_boundary_generation
+  - reduce_seed_pair_and_frontier_growth_before_whole_7x6_timing_forecast
+  - accept_bounded_generic_order_scan_compaction_contract_before_lower_implementation
+  - compose_exact_grouping_dense_IDs_and_flat_transitions_then_qualify_against_JS
+  - widen_7x6_quotient_cuts_only_under_measured_frontier_and_active_record_bounds
+
+timeout_policy:
+  correctness: short_first
+  seed_probes: 10_to_60_seconds_soft_with_5_second_outer_margin
+  quotient_probes: 20_seconds_between_cuts_25_seconds_outer
+  extend_when: changed_capacity_or_timing_question_has_information_value
+  global_Q1_defaults_changed: false
+
+new_evidence:
+  O3_profile: c4-0009-o3-oqs-residual-reuse
+  O3_record: docs/research/2026-09-11-oqs-cuda-residual-reuse.md
+  O3_portable: pass_4x4_controls_and_7x6_cut_five
+  O3_native: pass_4x4_ten_cuts_nine_controls_and_7x6_cut_five_eight_passes_each
+  O3_source: 5dfe1312a357c48eee53168e82fd6eba27814a06
+  O3_run: 20260911T050640911Z-b3554293
+  O3_evidence_pr: https://github.com/iteathen/Connect4/pull/30
+  O3_evidence_commit: e99680503aae6e3d56e168437e4b1ffc5708b6c3
+  O3_published_payloads_verified: 17
+  O3_portable_CI: 34564683731_pass
+  O3_7x6_submit_wait_median_ms: 9.9435_unfactored_1.2580_factored
+  O3_7x6_submit_wait_three_sample_sum_ms: 29.6341_unfactored_9.1684_factored
+  O3_7x6_device_bytes: 151290024_unfactored_2781876_factored
+  integrated_tests_pass: 96
+  final_code_checkpoint: 5dfe1312a357c48eee53168e82fd6eba27814a06
+  final_portable_and_reuse_CI: 34564683731_pass
+  unchanged_recurrence_incremental_regression_CI: 34562943609_pass_at_dda06aa
+  residual_pair_factorization_routed: CUDA_Algorithms_issue_3
+  O2_portable: pass
+  O2_native: pass_16_candidates_eight_passes_two_independent_layers_11_payloads_verified
+  residual_reuse_all_625_4x4_support_layers: exact
+  residual_reuse_7x6_common_layer_digests: 6_matches
+  residual_reuse_7x6_same_prefix_seconds: 3.28369_vs_22.51794_baseline
+  residual_reuse_7x6_after_ten_cuts: 65536_states_180_pairs_17748_distinct_records
+  residual_reuse_7x6_next_candidate_boundary: 131072
+  seven_by_six_seed_completed_supports: 184
+  seven_by_six_seed_max_loss_records: 5205
+  seven_by_six_seed_next_rejected_product: 2446901
+  seven_by_six_seed_probe_seconds: 30.689
+  six_by_five_selected_quotient_states: 43776
+  seven_by_six_selected_quotient_states_after_six_cuts: 8192
+  total_solve_timing_forecast: uncalibrated_prior_16_40_hours_are_conditional_scenarios
+
+open_boundaries:
+  grouping:
+    owner: CUDA-Algorithms_for_generic_primitives_Connect4_for_exact_residual_equality
+    upstream_issue: https://github.com/iteathen/CUDA-Algorithms/issues/3
+    checked_scan_issue: https://github.com/iteathen/CUDA-Algorithms/issues/9
+    producer_experiment_source: 7d923eb5e4bf4664feab0d0d7c3dded2f81e15b3
+    producer_experiment_branch: codex/oqs-segment-scan
+    producer_experiment_native: 72_fixtures_pass_262144_entries_11_6_MB
+    producer_experiment_CI: 34565710334_pass_at_7d923eb
+    producer_experiment_API: not_adopted_dependency_unchanged
+    requirements: scalable_order_and_scan_device_active_extents_explicit_overflow
+    collision_rule: hash_match_is_not_exact_equality_or_sufficient_group_order
+  initial_residual_seed:
+    owner: Connect4
+    observation: official_5x5_C1_seed_38_63_seconds
+    status: exact_reference_prerequisite_not_eliminated
+
+claims:
+  full_device_oqs: false
+  empty_7x6_wdl: null
+  native_scope: all_candidates_of_selected_supports
+  other_three_5x5_independent_scope: R5_count_check_not_full_layer_rebuild
+  performance_scope: selected_slice_repeated_submit_wait_not_end_to_end_speedup
+
+cleanup:
+  retained: OQS_worktree_package_junctions_ignored_R6_raw_logs_Q1_spools
+  protected_unchanged: older_feature_lane_and_exact_lower_repository_sources
+  runtime_requirement: success_only_after_graceful_cleanup
+  historical_replays: ZDD_one_shot_and_R6_compact_manual_only_duplicate_runs_cancelled
+  evidence_pr_21: retained_open_no_main_merge
+  evidence_pr_28: retained_open_no_main_merge
+  evidence_pr_30: retained_open_no_main_merge
+  CPU_probe_logs_and_completed_seed_samples: retained_for_continuation
+  native_and_probe_processes: exited
+
+constraints:
+  - no_search_or_colored_state_tree_substitution
+  - no_private_generic_sort_scan_unique_stack
+  - no_direct_CUDA_CPP_PTX_FFI_Python_or_native_escape
+  - no_silent_truncation_or_hash_only_quotient_identity
+  - no_portable_numerical_or_performance_claim
+  - no_full_7x6_claim_from_bounded_controls
+  - no_generalized_10x10_artifact_format_work

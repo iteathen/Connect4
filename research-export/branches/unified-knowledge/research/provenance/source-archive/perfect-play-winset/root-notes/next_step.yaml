@@ -1,0 +1,514 @@
+schema_version: 55
+updated: 2026-09-12
+integrated_identity_ownership:
+  document: docs/research/2026-09-12-integrated-identity-ownership.md
+  production_revision: 7e9dcf77057510a2df5221436c242a6f26dcb199
+  proof_handle_ab: {run: 34736592492, job: 103669004238, cpu_ratio: 0.993318, elapsed_mean_ratio: 0.993951}
+  direct_packed_semantic_hash_ab: {run: 34737153104, job: 103670495564, cpu_ratio: 0.994862, elapsed_mean_ratio: 0.991708}
+  promotion: {run: 34737270710, job: 103670781953}
+  removed_descriptor_term_writes: 305714
+  removed_descriptor_term_ids_written: 1441332
+  kernel_bytes_changed: false
+  descriptor_retained_bytes_changed: false
+  semantic_hash_values_changed: false
+  exact_identity_changed: false
+  proof_semantics_changed: false
+  recursive_storage_growth: 0
+  full_root_run: false
+  full_root_trigger_changed: false
+  next_owner: canonical_class_creation_semantic_hash_fusion_then_shared_local_address_filter
+handoff: docs/research/2026-09-12-frontier-optimization-handoff.md
+transition_state_read_audit:
+  document: docs/research/2026-09-12-transition-state-read-commit-audit.md
+  baseline_revision: 50aac9251de217f5124a9cf30d2a7b255094c865
+  source_revision: 5ec678f65595239af85f36de0942f571b3b730c3
+  change: fused_state_owner_read_on_semantic_edge_miss
+  semantic_identity_changed: false
+  proof_semantics_changed: false
+  cpc_wsl_ndc_semantics_changed: false
+  duplicate_semantic_storage_added: false
+  hot_allocation_added: false
+  state_validation_retained: true
+  stable_reader_lifecycle_retained: true
+  depth8:
+    baseline_search_ms: 2667.062977
+    candidate_search_ms: 2657.891633
+    baseline_user_cpu_s: 3.15
+    candidate_user_cpu_s: 3.11
+    calls: 4777115
+    expanded: 672690
+    local_states: 221398
+    local_classes: 305714
+    edge_hits: 4355811
+    edge_misses: 421303
+    cutoffs: 2424
+    horizon_leaves: 4014763
+    counters_identical: true
+  hosted_slot64_run: 34729099344
+  hosted_head_workflows_failed: 0
+  speedup_established: false
+  process_finding: current_state_docs_were_not_advanced_with_source_commit
+  process_finding_corrected_by: this_documentation_commit
+  full_root_run: false
+  full_root_trigger_changed: false
+  next_owner: prove_any_remaining_adapter_validation_is_duplicate_under_current_state_owner_before_mutation
+native_identity_integration:
+  document: docs/research/2026-09-12-native-key-integration.md
+  state: integrated_locally_qualified_checkpoint
+  domain: { columns: 7, rows: 6, connect: 4 }
+  depth: 8
+  elapsed_ms: { baseline: 1786.36515, candidate: 1786.7224 }
+  cpu_ms: { baseline: 1969.5, candidate: 1929.5 }
+  state_bytes_saved: 2097152
+  counters_identical: true
+  controls_passed: 74
+  bounded_campaigns_passed: 6
+  provider_controls_passed: 10
+  all_children_exited: true
+  next_owner: remaining_candidate_construction_and_consumer_work_under_larger_working_sets
+native_relational_key:
+  document: docs/research/2026-09-12-native-relational-key.md
+  scope: isolated_local_state_lookup
+  width_controls: 26144
+  observed_states_verified: 221398
+  depth8_counters_identical: true
+  mean_lookup_ms: { triple: 98.2179, repacked_pair: 147.864, native_pair: 80.5536 }
+  engine_changed: false
+  next_owner: local_state_storage_and_field_consumer_integration_without_duplicate_arrays
+pons_protocol_batch:
+  document: docs/research/2026-09-12-pons-protocol-benchmark.md
+  interpretation: exact_weak_WDL
+  total_budget_ms: 60000
+  elapsed_with_shutdown_ms: 60036.9289
+  positions_completed: 137
+  positions_correct: 137
+  positions_incorrect: 0
+  all_sets_partial: true
+  begin_hard_completed: 0
+  all_children_exited: true
+  engine_implementation_changed: false
+  next_owner: benchmark_initialization_cost_with_independent_position_proofs
+ranked_depth21_optimization:
+  document: docs/research/2026-09-12-depth21-ranked-optimization.md
+  domain: { columns: 7, rows: 6, connect: 4 }
+  depth: 21
+  per_run_timeout_ms: 60000
+  sequential_profiles: 7
+  baseline_checkpoint_calls: 60560536
+  final_checkpoint_calls: 92254913
+  completed_depth8_search_ms: { baseline: 1814.51955, final: 1729.33075 }
+  completed_depth8_counters_identical: true
+  local_controls_passed: 69
+  bounded_campaigns_passed: 6
+  representation_controls_passed: 10
+  depth21_complete: false
+  all_children_exited: true
+  source_state: uncommitted_working_tree
+  next_owner: remaining_shared_tt_descriptor_work_and_support_extraction
+state: transition_state_read_retained_and_commit_audited
+current_branch: research/frontier-negamax-conformance
+authority:
+  domain: docs/specs/C4-0001-domain-v1.md
+  structural_math: docs/specs/C4-0006-control-parity-and-winspace-v1.md
+  strategic_dependencies: docs/specs/C4-0007-nested-dependency-closure-v1.md
+  forward_solver: docs/specs/C4-0010-quotient-native-negamax-v1.md
+  audit_ledger: docs/research/2026-09-12-full-engine-sanity-audit.md
+  audit_addendum: docs/research/2026-09-12-transition-state-read-commit-audit.md
+  coverage: docs/research/2026-09-12-frontier-audit-coverage.json
+audit:
+  continuation_base: 83dfe6f32c0cb6dcafa8bdfaee8f7dcc276030e2
+  completed_source_revision: 9c778bcaf010372ca2a3a91a7cdcec8debf5518f
+  source_files: 44
+  reviewed_source_lines: 10780
+  workflows: 5
+  local_controls: {passed: 33, failed: 0, skipped: 0}
+  remote_green_runs: {replacement: 34692987151, dependency: 34692987161, explore_hints: 34692987156, slot64: 34692987155}
+  unresolved_correctness_lifecycle_findings: []
+standard_root:
+  admission: consumed_by_single_completed_measurement
+  run: 34693275092
+  revision: 9e93018f06ca8a3f1fd2c012fb7ea4aa39b07775
+  result: job_timeout_root_unresolved
+  trigger: research/semantic-quotient/state-identity-unification/standard7x6-root-qualification-revision.txt
+  trigger_changed_in_continuation: true
+  prior_revision_2_run: 34676507073
+  prior_result: runner_shutdown_root_unresolved
+  current_split_depth: 3
+  current_priority_probe_depth: 0
+  maximum_concurrent_full_roots: 1
+  next_action: bounded_structural_closure_coverage_and_repeated_proof_work_audit
+performance_only_hypotheses:
+  - ETC_and_priority_probe_configuration
+  - removed_state_hash_full_scale_cpu_memory_tradeoff
+  - state_capacity_tiers_and_worker_local_canonical_universe_cost
+  - proof_replacement_pressure_after_generation_rebinding
+research_attribution:
+  direction_and_architecture: Josh Oshiro
+  implementation_and_qualification: OpenAI ChatGPT
+
+methods_review:
+  document: docs/research/2026-09-12-negamax-methods-local-review.md
+  initial_authoritative_tasks: 1
+  initial_path: [3, 3, 3]
+  local_depth_4_build_ms: 18.1714
+  next_performance_owner: structural_closure_coverage_and_repeated_proof_work
+  branch_manager_rechecked_source: 3ebceedd7ecfce9fdbfbc3c0988e636b83b44187
+  root_exploration_enabled: false
+  root_explore_executor_wired: false
+  current_initial_authoritative_tasks: 1
+  current_initial_scouts: 0
+  branch_manager_component_qualification: bounded_local_pass
+  root_proactive_work_supply: inactive_in_current_configuration
+
+hot_loop_report:
+  document: docs/research/2026-09-12-hot-loop-eval-terminal-report.md
+  baseline_three_field_proof_atomic_loads: 33
+  source_change: true
+  next_measurement: coherent_read_cost_and_running_worker_async_telemetry
+
+response_closure:
+  document: docs/research/2026-09-12-incremental-response-closure.md
+  profile: guarded-adjacent-response-coverage-v1
+  enabled: true
+  retained_typed_bytes_per_kernel: 80
+  per_state_bytes: 0
+  per_class_bytes: 0
+  independent_physical_states: 1529805
+  local_contract_controls: {passed: 40, failed: 0, skipped: 0}
+  eval_policy_changed: false
+  side_dependent_terminal_propositions: authorized_when_sufficient_for_current_obligation
+  full_ndc_complete: false
+  qualified_source_revision: 14772b33383597a86212cd1c2dd636e8036aeca4
+  remote_qualification: green
+  remote_runs: {dependency: 34697348137, explore_hints: 34697348141, replacement: 34697348155, slot64: 34697348163}
+  next_owner: intended_CPC_relational_mapping_before_further_response_mechanisms
+
+cpc_mapping_reassessment:
+  inspected_source_revision: f6db7253c8898e6e870b027f42683de51197a57c
+  domain: variable_board_dimensions
+  qualification: research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs
+  dimension_profiles: 10
+  total_supports: 1122471
+  total_remaining_targets: 22408899
+  standard_supports: 823543
+  standard_remaining_targets: 17294403
+  local_controls: {passed: 2, failed: 0, skipped: 0}
+  general_base_relative_parity: '(((columns - 1) * rows) ^ ply ^ targetRow) & 1'
+  even_height_address_reduction: '(supportIndex ^ columnMajorTargetAddress) & 1'
+  column_major_address: 'column * rows + row; this is not the current row-major cell ID'
+  production_changed: false
+  terminal_replacement_complete: false
+  unresolved: exact_relational_mapping_from_control_bit_and_residual_context_to_terminal_proposition
+  blocks_smaller_structural_improvements: false
+  full_root_admitted: false
+
+original_source_study:
+  document: docs/research/2026-09-12-original-engine-structural-lessons.md
+  source: reference/legacy-source/Connect4-engine-source.zip
+  script: research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs
+  evidence: docs/research/evidence/2026-09-12-legacy-frontier-study.json
+  board_dimension_profiles: 6
+  positions: 6862
+  flag_comparisons: 13724
+  slot_comparisons: 65328
+  mismatches: 0
+  production_changed: false
+  measured_speedup: false
+  next_owner: active_relation_reuse_and_transient_versus_retained_state_cost
+
+state_retention:
+  document: docs/research/2026-09-12-state-retention-review.md
+  baseline: b4c2524c5f272070d3491ad9d25772ff0468cda9
+  production_changed: true
+  bytes_removed_per_capacity_slot: 4
+  exact_search_and_state_placement_unchanged: true
+  measured_speedup: false
+  local_storage_controls: 8
+  local_other_contract_controls: 33
+  bounded_campaigns_passed: 7
+  full_root_run: false
+  next_owner: unnecessary_terminal_projection_work_and_structural_closure
+
+terminal_shortcircuit:
+  baseline: 76a792241b94b59abaf8ff10cdc1cf738d982613
+  changed: return_at_existing_playable_mover_singleton_test
+  exact_terminal_semantics_changed: false
+  ordering_policy_changed: false
+  bounded_campaigns_passed: 6
+  independent_terminal_positions: 1716141
+  immediate_win_positions: 401165
+  own_win_over_multiple_opponent_threats: 14634
+  mismatches: 0
+  full_root_run: false
+  next_owner: structural_closure_coverage_and_repeated_proof_work
+
+relational_duplication:
+  document: docs/research/2026-09-12-relational-duplication-review.md
+  baseline: 85c36c4b1dc404ece30e537b0d98e2d789c455a2
+  production_identity_changed: false
+  active_state_is_coloured_bitboard: false
+  complete_bounded_profiles: 4
+  four_by_five_states: 294593
+  four_by_five_neutral_capacity_merges: 4431
+  four_by_five_unresolved_merges: 1727
+  full_root_run: false
+  next_owner: incremental_neutral_event_equivalence_and_inflight_proof_overlap
+
+hot_method_cpu_assessment:
+  document: docs/research/2026-09-12-hot-method-cpu-assessment.md
+  source: 3e56d8cb62028be0f232ec4d31d8b22cdb387ab3
+  profiled_bounded_solves: 24
+  four_by_six_samples: 3395
+  concurrent_contention_measured: false
+  jit_machine_code_minimality_established: false
+  production_changed: false
+  full_root_run: false
+  next_owner: eliminate_relational_conversion_and_repeated_proof_work
+
+bounded_normal_search_profile:
+  report: docs/research/evidence/2026-09-12-normal-negamax-depth8-profile/operations.md
+  geometry: {columns: 7, rows: 6, connect: 4}
+  maximum_depth: 8
+  timeout_ms: 60000
+  cold_runs: 1
+  unprofiled_search_ms: 10040.0977
+  profiled_search_ms: 10861.8871
+  samples: 6831
+  search_and_proof_counters_match: true
+  remaining_test_processes: 0
+  root_wdl: unresolved
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: residual_transition_and_interning_reuse
+direct_residual_read:
+  document: docs/research/2026-09-12-direct-residual-read.md
+  invariant: immutable_canonical_chunks_during_transition_read_phase
+  removed: [whole_class_input_copy, input_scratch, unused_copy_helpers, duplicate_private_cache_checks]
+  contract_controls_passed: 23
+  bounded_campaigns_passed: 4
+  depth8_search_ms: 10059.9007
+  baseline_search_ms: 10040.0977
+  search_and_proof_counters_match: true
+  speedup_established: false
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: established_class_event_transition_reuse
+
+line_cpu_profiling:
+  document: docs/research/2026-09-12-line-cpu-profiling.md
+  mapped_source_locations: 537
+  aggregate_hits: 6829
+  search_ms: 10763.457
+  process_cpu_ms: 10688
+  line_cpu_method: process_cpu_apportioned_by_aggregate_position_ticks
+  exact_line_timestamps: false
+  frozen_source_hashes: true
+  exact_counters_match: true
+  full_root_run: false
+  next_owner: matched_before_after_line_profile_and_class_event_reuse
+
+ranked_hot_loop:
+  document: docs/research/2026-09-12-ranked-hot-loop-optimization.md
+  handled_original_ranks: [1, 2, 3, 4]
+  complete_ranked_inventory: false
+  contract_controls_passed: 40
+  independent_terminal_positions: 1716141
+  terminal_mismatches: 0
+  run_order: [baseline, candidate, candidate, baseline]
+  baseline_mean_search_ms: 10159.8666
+  candidate_mean_search_ms: 8268.8739
+  baseline_mean_cpu_ms: 10047
+  candidate_mean_cpu_ms: 8180
+  search_and_proof_counters_match: true
+  retained_memory_matches: true
+  max_bucket_scan: {baseline: 8, candidate: 5}
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: repeated_chunk_class_and_state_interning_then_remaining_ranked_operations
+
+preallocated_search_storage:
+  document: docs/research/2026-09-12-preallocated-search-storage.md
+  contract_controls_passed: 53
+  bounded_campaigns_passed: 4
+  search_storage_grows: 0
+  capacity_exhaustion: explicit_error_no_resize
+  baseline_mean_search_ms: 8117.6739
+  candidate_mean_search_ms: 8280.96775
+  baseline_kernel_typed_bytes: 32685831
+  candidate_kernel_typed_bytes: 84483847
+  speedup_established: false
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: repeated_interner_work_and_reservation_locality_without_recursive_allocation
+direct_semantic_edge_reuse:
+  document: docs/research/2026-09-12-direct-semantic-edge-reuse.md
+  enabled_in: [bounded_runner, online_search_workers, standard_root_coordinator]
+  transition_requests: 4777114
+  direct_edge_hits: 4355811
+  computed_transitions: 421303
+  contract_controls_passed: 54
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 8396.88595
+  candidate_mean_search_ms: 2219.51305
+  elapsed_reduction_percent: 73.5674
+  cpu_reduction_percent: 71.1153
+  additional_reserved_bytes: 7340032
+  search_storage_grows: 0
+  search_and_proof_counters_match: true
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: remaining_semantic_tt_probes_and_first_time_transition_interning
+
+ranked_probe_refinement:
+  document: docs/research/2026-09-12-ranked-probe-refinement.md
+  contract_controls_passed: 57
+  bounded_campaigns_and_controls_passed: 8
+  baseline_mean_search_ms: 2155.39945
+  candidate_mean_search_ms: 2080.63725
+  robust_speedup_established: false
+  search_and_proof_counters_match: true
+  reserved_kernel_typed_bytes: 91823879
+  search_storage_grows: 0
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: initialization_bound_semantic_descriptor_hash_preparation_then_nonempty_chunk_lookups
+
+composed_semantic_hash_reuse:
+  document: docs/research/2026-09-12-state-hash-reuse.md
+  contract_controls_passed: 58
+  bounded_campaigns_and_controls_passed: 6
+  hash_computations: 221398
+  hash_reuses: 4560000
+  baseline_mean_search_ms: 2032.36945
+  candidate_mean_search_ms: 1838.4439
+  additional_descriptor_metadata_bytes: 2129920
+  search_and_proof_counters_match: true
+  search_storage_grows: 0
+  rejected_candidate: initialization_owned_hash_writer_with_borrowed_accessors
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: nonempty_chunk_exact_key_reuse_then_shared_tt_probing
+
+chunk_lookup_experiments:
+  document: docs/research/2026-09-12-chunk-lookup-experiments.md
+  rejected_candidates: [blocking_memo_including_identity, blocking_memo_after_identity_test]
+  retained_change: chunk_address_hash_eight_to_three_multiplications
+  contract_controls_passed: 59
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 1950.0365
+  candidate_mean_search_ms: 1929.0560
+  reliable_speedup_established: false
+  additional_retained_bytes: 0
+  search_and_proof_counters_match: true
+  search_storage_grows: 0
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: actual_chunk_probe_distribution_and_memory_access_cost
+
+chunk_probe_diagnostic:
+  document: docs/research/2026-09-12-chunk-probe-distribution.md
+  hashed_lookups: 2724741
+  average_slots_examined: 1.0602703156006388
+  one_slot_percent: 94.75436380925747
+  maximum_probe: 10
+  collision_rejections: 164221
+  chunk_dictionary_reserved_bytes: 41943040
+  touched_read_blocks_bytes: 4917632
+  hardware_cache_misses_measured: false
+  production_source_changed: false
+  search_and_proof_counters_match: true
+  full_root_run: false
+  next_owner: initial_index_and_dependent_exact_key_access_locality_with_explicit_capacity_contracts
+
+compact_chunk_index:
+  document: docs/research/2026-09-12-compact-chunk-index.md
+  layout: smaller_bucket_heads_with_private_preallocated_collision_links
+  canonical_keys_duplicated: false
+  chunk_capacity_preserved: true
+  bytes_saved_at_measured_reservation: 5242880
+  contract_controls_passed: 60
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 1918.67885
+  candidate_mean_search_ms: 1928.15615
+  reliable_speedup_established: false
+  search_and_proof_counters_match: true
+  search_storage_grows: 0
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: shared_tt_probe_overhead_and_compact_index_load_behavior
+
+relational_address_investigation:
+  document: docs/research/2026-09-12-relational-address-investigation.md
+  production_source_changed: false
+  inspection_outside_search: true
+  depth: 8
+  timeout_ms: 60000
+  exact_counters_and_memory_match_baseline: true
+  observed_chunks: 160743
+  largest_slot_chunks: 132068
+  largest_slot_distinct_folded_xors: 113380
+  observed_states: 221398
+  distinct_supports: 6379
+  radix_engine_implementation_tested: false
+  full_root_run: false
+  next_owner: local_class_changed_slot_hash_composition_without_second_tuple_traversal
+
+changed_slot_class_hash:
+  document: docs/research/2026-09-12-changed-slot-class-hash.md
+  second_tuple_hash_traversal_removed: true
+  additional_retained_bytes: 0
+  full_recomputation_checks: 842426
+  old_full_tuple_terms: 8424260
+  changed_slot_contributions: 5749172
+  contract_controls_passed: 61
+  bounded_campaigns_passed: 4
+  baseline_mean_search_ms: 1940.4546
+  candidate_mean_search_ms: 1865.14285
+  baseline_mean_cpu_ms: 2078
+  candidate_mean_cpu_ms: 2032
+  search_and_proof_counters_match: true
+  memory_unchanged: true
+  search_storage_grows: 0
+  timing_limitation: two_cold_runs_per_variant_with_baseline_variation
+  full_root_run: false
+  source_state: uncommitted_working_tree
+  next_owner: shared_tt_probe_and_chunk_bucket_access_then_first_descriptor_hash_construction
+
+requested_depth21_profile:
+  report: docs/research/evidence/2026-09-12-depth21-line-cpu/line-cpu.md
+  wrapper: docs/research/evidence/2026-09-12-depth21-profile/run.mjs
+  domain: { columns: 7, rows: 6, connect: 4 }
+  depth: 21
+  timeout_ms: 60000
+  outcome: reserved_quotient_state_capacity_exhausted
+  completed: false
+  search_ms_until_failure: 2268.0779
+  cpu_ms_until_failure: 2453
+  local_states_at_failure: 262144
+  search_calls_at_failure: 3684484
+  mapped_source_locations: 361
+  engine_source_or_resource_limits_changed: false
+  child_exited: true
+
+board_depth_reservation:
+  document: docs/research/2026-09-12-board-depth-reservation.md
+  owner: bounded_test_initialization
+  requested_depth: 21
+  timeout_ms: 60000
+  reservation_budget_bytes: 2147483648
+  accounted_reserved_bytes: 1301619717
+  states: 2097152
+  classes: 4194304
+  chunks_per_slot: 4194304
+  conservative_position_bound: '42252235497'
+  full_bound_covered: false
+  contract_controls_passed: 62
+  bounded_campaigns_passed: 4
+  resized_run_outcome: timed_out_and_killed
+  profile_window_ms: 55037.7932
+  profile_window_cpu_ms: 53375
+  mapped_source_locations: 810
+  report: docs/research/evidence/2026-09-12-depth21-budget-line-cpu/line-cpu.md
+  final_search_counters_available: false
+  full_root_run: false
+  all_children_exited: true

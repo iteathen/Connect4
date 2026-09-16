@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "connect4-quotient-vs-bounded-physical-wdl-evidence",
+  "date": "2026-09-11",
+  "governing_run": 34647777241,
+  "governing_job": 103422562204,
+  "status": "complete",
+  "fairness": {
+    "contract": "exact-WDL-fail-soft-full-window-negamax",
+    "tactical_closure": "same-immediate-win-forced-response-double-threat-semantics",
+    "move_order": "TT-best-then-center-first",
+    "physical_identity": "supportIndex-plus-exact-P0-ownership-P1-derived",
+    "physical_tt": "bounded-4-way-exact-key-safe-replacement",
+    "memory_budget": "isolated-root-only-quotient-typed-array-footprint",
+    "oracle": "independent-BSFP-root-and-root-action-WDL"
+  },
+  "controls": {
+    "4x4_c4": {
+      "budget_bytes": 479572,
+      "quotient": {"median_total_ms": 7.435924, "expanded": 4250, "calls": 7014, "typed_bytes": 479572},
+      "physical": {"median_total_ms": 4.368062, "expanded": 9403, "calls": 13316, "typed_bytes": 446196, "tt_slots": 32768, "tt_load": 0.33001708984375, "tt_replacements": 129},
+      "quotient_over_physical_time": 1.7023393898712942,
+      "quotient_over_physical_expansions": 0.45198340955014354
+    },
+    "5x3_c4": {
+      "budget_bytes": 171128,
+      "quotient": {"median_total_ms": 0.838161, "expanded": 852, "calls": 1592, "typed_bytes": 171128},
+      "physical": {"median_total_ms": 2.040708, "expanded": 4315, "calls": 6176, "typed_bytes": 144604, "tt_slots": 8192, "tt_load": 0.591552734375, "tt_replacements": 352},
+      "quotient_over_physical_time": 0.410720691054261,
+      "quotient_over_physical_expansions": 0.19745075318655853
+    },
+    "4x5_c4": {
+      "budget_bytes": 1844704,
+      "quotient": {"median_total_ms": 16.697357, "expanded": 15054, "calls": 24882, "typed_bytes": 1844704},
+      "physical": {"median_total_ms": 15.804122, "expanded": 36826, "calls": 51924, "typed_bytes": 1745668, "tt_slots": 131072, "tt_load": 0.33316802978515625, "tt_replacements": 519},
+      "quotient_over_physical_time": 1.0565191157091804,
+      "quotient_over_physical_expansions": 0.40878726986368324
+    }
+  },
+  "disposition": {
+    "proof_work_compression": "qualified",
+    "wall_clock_speedup": "not-yet-qualified",
+    "current_native_driver": "WDL-native-fail-soft-full-window-negamax",
+    "next": "reduce-hot-quotient-transition-and-interner-cost"
+  },
+  "non_claims": [
+    "no-standard-7x6-performance-claim",
+    "no-full-JS-heap-equal-memory-claim",
+    "no-production-speedup-claim",
+    "no-hybrid-speedup-claim"
+  ]
+}

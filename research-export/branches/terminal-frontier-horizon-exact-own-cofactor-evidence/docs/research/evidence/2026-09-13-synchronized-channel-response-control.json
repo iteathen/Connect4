@@ -1,0 +1,259 @@
+{
+  "kind": "synchronized-column-channel-response-control",
+  "date": "2026-09-13",
+  "attribution": {
+    "research_direction": "Josh Oshiro",
+    "formalization_implementation_qualification": "OpenAI ChatGPT"
+  },
+  "theorem": {
+    "name": "synchronized column-channel response",
+    "construction": "pair same-parity remaining columns for a same-depth cross-channel prefix whose length has that parity; vertically pair even tails; unmatched even columns pair vertically",
+    "coverage": "every attacker residual contains a vertical response cell or both endpoints of a cross-channel pair",
+    "consequence": "side-to-move attacker cannot force a win"
+  },
+  "totals": {
+    "reachable_states": 443170,
+    "pooled_frontier_states": 40804,
+    "channel_states": 55488,
+    "incremental_states": 14684,
+    "channel_decision_states": 44118,
+    "incremental_decision_states": 12273,
+    "channel_q_classes": 13603,
+    "channel_decision_q_classes": 9847,
+    "policy_failures": 0,
+    "policy_states_explored": 417798,
+    "pooled_strict_sibling_edges": 2804,
+    "channel_strict_sibling_edges": 2816,
+    "incremental_strict_sibling_edges": 12,
+    "pooled_weak_value_edges": 45430,
+    "channel_weak_value_edges": 49711,
+    "incremental_weak_value_edges": 4281
+  },
+  "controls": [
+    {
+      "domain": [
+        3,
+        3,
+        3
+      ],
+      "reachable_states": 694,
+      "pooled_states": 79,
+      "channel_states": 103,
+      "incremental_states": 24,
+      "channel_decision_states": 45,
+      "incremental_decision_states": 6,
+      "channel_q_classes": 92,
+      "channel_decision_q_classes": 39,
+      "policy_failures": 0,
+      "policy_states_explored": 238,
+      "strict_edges": [
+        8,
+        8
+      ],
+      "weak_value_edges": [
+        41,
+        41
+      ]
+    },
+    {
+      "domain": [
+        3,
+        4,
+        3
+      ],
+      "reachable_states": 2715,
+      "pooled_states": 92,
+      "channel_states": 115,
+      "incremental_states": 23,
+      "channel_decision_states": 49,
+      "incremental_decision_states": 7,
+      "channel_q_classes": 83,
+      "channel_decision_q_classes": 35,
+      "policy_failures": 0,
+      "policy_states_explored": 249,
+      "strict_edges": [
+        14,
+        14
+      ],
+      "weak_value_edges": [
+        150,
+        150
+      ]
+    },
+    {
+      "domain": [
+        4,
+        3,
+        3
+      ],
+      "reachable_states": 7157,
+      "pooled_states": 214,
+      "channel_states": 317,
+      "incremental_states": 103,
+      "channel_decision_states": 137,
+      "incremental_decision_states": 26,
+      "channel_q_classes": 267,
+      "channel_decision_q_classes": 116,
+      "policy_failures": 0,
+      "policy_states_explored": 887,
+      "strict_edges": [
+        40,
+        42
+      ],
+      "weak_value_edges": [
+        471,
+        471
+      ]
+    },
+    {
+      "domain": [
+        4,
+        4,
+        3
+      ],
+      "reachable_states": 41750,
+      "pooled_states": 174,
+      "channel_states": 251,
+      "incremental_states": 77,
+      "channel_decision_states": 46,
+      "incremental_decision_states": 8,
+      "channel_q_classes": 201,
+      "channel_decision_q_classes": 31,
+      "policy_failures": 0,
+      "policy_states_explored": 665,
+      "strict_edges": [
+        114,
+        116
+      ],
+      "weak_value_edges": [
+        1807,
+        1807
+      ]
+    },
+    {
+      "domain": [
+        4,
+        4,
+        4
+      ],
+      "reachable_states": 161029,
+      "pooled_states": 23932,
+      "channel_states": 29391,
+      "incremental_states": 5459,
+      "channel_decision_states": 23261,
+      "incremental_decision_states": 3989,
+      "channel_q_classes": 8717,
+      "channel_decision_q_classes": 6982,
+      "policy_failures": 0,
+      "policy_states_explored": 165545,
+      "strict_edges": [
+        1956,
+        1956
+      ],
+      "weak_value_edges": [
+        12543,
+        13545
+      ]
+    },
+    {
+      "domain": [
+        5,
+        3,
+        3
+      ],
+      "reachable_states": 70914,
+      "pooled_states": 1052,
+      "channel_states": 1508,
+      "incremental_states": 456,
+      "channel_decision_states": 290,
+      "incremental_decision_states": 80,
+      "channel_q_classes": 1232,
+      "channel_decision_q_classes": 257,
+      "policy_failures": 0,
+      "policy_states_explored": 5665,
+      "strict_edges": [
+        372,
+        380
+      ],
+      "weak_value_edges": [
+        3485,
+        3485
+      ]
+    },
+    {
+      "domain": [
+        5,
+        3,
+        4
+      ],
+      "reachable_states": 158911,
+      "pooled_states": 15261,
+      "channel_states": 23803,
+      "incremental_states": 8542,
+      "channel_decision_states": 20290,
+      "incremental_decision_states": 8157,
+      "channel_q_classes": 3011,
+      "channel_decision_q_classes": 2387,
+      "policy_failures": 0,
+      "policy_states_explored": 244549,
+      "strict_edges": [
+        300,
+        300
+      ],
+      "weak_value_edges": [
+        26933,
+        30212
+      ]
+    }
+  ],
+  "standard_7x6": {
+    "ply2_full_channel_certificates": 0,
+    "best_uncovered_after_opening": {
+      "1": 8,
+      "2": 8,
+      "3": 6,
+      "4": 7,
+      "5": 6,
+      "6": 8,
+      "7": 8
+    },
+    "opening3_reply4_top_vertical": {
+      "live_minimal_residuals": 60,
+      "statically_uncovered": 0,
+      "unpaired_top_cells": [
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "pre_first_defect_policy_states": 9216,
+      "first_defect_states": 6144,
+      "p0_wins_before_first_defect": 0,
+      "one_step_repairable_first_defects": 6142,
+      "unrepaired_first_defects": 2
+    },
+    "recursive_fixed_response_library": {
+      "memo_states": 4331,
+      "successful_states": 3559,
+      "failed_states": 772,
+      "channel_seeds": 1515,
+      "race_seeds": 33,
+      "defect_repairs": 892,
+      "closed": false
+    },
+    "unconstrained_certificate_switch": {
+      "status": "not_accepted",
+      "reason": "control run exceeded bounded execution window; rule is mathematically sound but unqualified and may degenerate into game-tree search"
+    }
+  },
+  "claim_boundary": {
+    "standard_7x6_solved": false,
+    "opening3_no_win_proven": false,
+    "exact_enumeration_role": "bounded qualification/falsification only",
+    "final_terminal_line_cardinality_used": false
+  }
+}

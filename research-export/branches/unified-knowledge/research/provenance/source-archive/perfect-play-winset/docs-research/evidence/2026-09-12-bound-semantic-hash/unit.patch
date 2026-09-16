@@ -1,0 +1,191 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"
+index e24fecd..2be0b5e 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"
+@@ -1,7 +1,7 @@
+ import {
+   createQuotientSemanticClassReferenceDescriptor,
+   hashResidualTermIds,
+-  hashSemanticQuotientDescriptorPartsUnchecked,
++  createSemanticQuotientHasher,
+ } from './quotient-semantic-identity.mjs';
+ 
+ const MAX_DESCRIPTOR_LENGTH = 0xfffe;
+@@ -44,7 +44,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+   // within a worker. Exact residual ownership remains in the canonical class pool.
+   const termScratch = new Uint16Array(vocabularyCount);
+   const classHashScratch = { lo: 0, hi: 0 };
+-  const stateHashScratch = { lo: 0, hi: 0 };
++  const hashStateParts = createSemanticQuotientHasher();
+   const transientStateDescriptor = {
+     stateId: 0,
+     supportIndex: 0,
+@@ -53,7 +53,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     p0Length: 0,
+     p1Length: 0,
+     termSource: null,
+-    hash: stateHashScratch,
++    hash: null,
+   };
+ 
+   const metrics = {
+@@ -217,7 +217,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     if (p0Length + p1Length > MAX_DESCRIPTOR_LENGTH) {
+       throw new RangeError(`semantic state ${stateId} combined residual length exceeds Uint16 domain`);
+     }
+-    hashSemanticQuotientDescriptorPartsUnchecked(
++    transientStateDescriptor.hash = hashStateParts(
+       transientStateDescriptor.supportIndex,
+       classHashLo[p0ClassId],
+       classHashHi[p0ClassId],
+@@ -225,10 +225,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+       classHashHi[p1ClassId],
+       p0Length,
+       p1Length,
+-      stateHashScratch,
+     );
+-    transientStateDescriptor.p0Length = p0Length;
+-    transientStateDescriptor.p1Length = p1Length;
+     metrics.stateBuilds += 1;
+     metrics.transientStateDescriptorUses += 1;
+     return transientStateDescriptor;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-identity.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-identity.mjs"
+index 7d4cc7f..51d169f 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-identity.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-identity.mjs"
+@@ -92,23 +92,32 @@ export function hashResidualTermIds(ids, length = ids?.length, target = null) {
+   return writeHash(target, lo, hi);
+ }
+ 
+-export function hashSemanticQuotientDescriptorPartsUnchecked(
+-  supportIndex,
+-  p0HashLo,
+-  p0HashHi,
+-  p1HashLo,
+-  p1HashHi,
+-  p0Length,
+-  p1Length,
+-  target = null,
+-) {
++function semanticHashLo(supportIndex, p0HashLo, p1HashLo, p0Length, p1Length) {
+   let lo = mix32((supportIndex + 0x9e3779b9) >>> 0);
+   lo = mix32(lo ^ p0HashLo ^ Math.imul((p0Length + 1) >>> 0, 0x85ebca6b));
+-  lo = mix32(lo ^ p1HashLo ^ Math.imul((p1Length + 1) >>> 0, 0xc2b2ae35));
++  return mix32(lo ^ p1HashLo ^ Math.imul((p1Length + 1) >>> 0, 0xc2b2ae35));
++}
++
++function semanticHashHi(supportIndex, p0HashHi, p1HashHi, p0Length, p1Length) {
+   let hi = mix32((supportIndex ^ 0xa5a5a5a5) >>> 0);
+   hi = mix32(hi ^ p0HashHi ^ Math.imul((p0Length + 3) >>> 0, 0x27d4eb2d));
+-  hi = mix32(hi ^ p1HashHi ^ Math.imul((p1Length + 5) >>> 0, 0x165667b1));
+-  return writeHash(target, lo, hi);
++  return mix32(hi ^ p1HashHi ^ Math.imul((p1Length + 5) >>> 0, 0x165667b1));
++}
++
++// Initialization-owned output for synchronous descriptor preparation. Inputs
++// must already satisfy the Uint32 hash/support and Uint16 length contracts.
++// The borrowed result changes on the next call. Its frozen view cannot acquire
++// setters or partially writable fields; only this writer owns the two scalars.
++export function createSemanticQuotientHasher() {
++  let currentLo = 0, currentHi = 0;
++  const target = Object.freeze({ get lo() { return currentLo; }, get hi() { return currentHi; } });
++  return function hashPartsUnchecked(supportIndex, p0HashLo, p0HashHi, p1HashLo, p1HashHi, p0Length, p1Length) {
++    const lo = semanticHashLo(supportIndex, p0HashLo, p1HashLo, p0Length, p1Length);
++    const hi = semanticHashHi(supportIndex, p0HashHi, p1HashHi, p0Length, p1Length);
++    currentLo = lo;
++    currentHi = hi;
++    return target;
++  };
+ }
+ 
+ export function hashSemanticQuotientDescriptorParts(
+@@ -121,16 +130,16 @@ export function hashSemanticQuotientDescriptorParts(
+   p1Length,
+   target = null,
+ ) {
+-  return hashSemanticQuotientDescriptorPartsUnchecked(
+-    assertUint32(supportIndex, 'semantic supportIndex'),
+-    assertUint32(p0HashLo, 'semantic p0 hash lo'),
+-    assertUint32(p0HashHi, 'semantic p0 hash hi'),
+-    assertUint32(p1HashLo, 'semantic p1 hash lo'),
+-    assertUint32(p1HashHi, 'semantic p1 hash hi'),
+-    assertUint16Length(p0Length, 'semantic p0 length'),
+-    assertUint16Length(p1Length, 'semantic p1 length'),
+-    target,
+-  );
++  assertUint32(supportIndex, 'semantic supportIndex');
++  assertUint32(p0HashLo, 'semantic p0 hash lo');
++  assertUint32(p0HashHi, 'semantic p0 hash hi');
++  assertUint32(p1HashLo, 'semantic p1 hash lo');
++  assertUint32(p1HashHi, 'semantic p1 hash hi');
++  assertUint16Length(p0Length, 'semantic p0 length');
++  assertUint16Length(p1Length, 'semantic p1 length');
++  return writeHash(target,
++    semanticHashLo(supportIndex, p0HashLo, p1HashLo, p0Length, p1Length),
++    semanticHashHi(supportIndex, p0HashHi, p1HashHi, p0Length, p1Length));
+ }
+ 
+ export function hashSemanticQuotientDescriptor(supportIndex, p0Hash, p1Hash, p0Length, p1Length) {
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 79fbb7d..0a234aa 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -5,13 +5,57 @@ import { createScaledTermIdQuotientNativeNegamaxKernel } from './quotient-native
+ import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+ import { installOnlineOnlyStateStorage } from './quotient-online-only-state-storage.mjs';
+ import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
+-import { hashResidualTermIds } from './quotient-semantic-identity.mjs';
++import { hashResidualTermIds, hashSemanticQuotientDescriptorParts, createSemanticQuotientHasher } from './quotient-semantic-identity.mjs';
+ import { createSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
+ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic-search-lib.mjs';
+ 
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('owned semantic hasher preserves pre-change vectors and cannot be poisoned through its borrowed view', () => {
++  // Captured from the isolated pre-unit implementation, not computed by the new helper.
++  const vectors = [
++    [[0, 0, 0, 0, 0, 0, 0], { lo: 3052817714, hi: 565448096 }],
++    [[4294967295, 2147483648, 1, 4294967295, 2147483647, 65535, 0], { lo: 3918354802, hi: 2369107078 }],
++    [[12345, 123, 456, 789, 321, 42, 69], { lo: 1774926813, hi: 3397789655 }],
++  ];
++  const hash = createSemanticQuotientHasher(), other = createSemanticQuotientHasher();
++  const view = hash(...vectors[0][0]), otherView = other(...vectors[0][0]);
++  for (const [args, expected] of vectors) {
++    assert.equal(hash(...args), view);
++    assert.deepEqual(view, expected);
++    assert.deepEqual(hashSemanticQuotientDescriptorParts(...args), expected);
++  }
++  assert.deepEqual(otherView, vectors[0][1]);
++  assert.throws(() => { view.lo = 7; }, TypeError);
++  assert.throws(() => Object.defineProperty(view, 'hi', { value: 7 }), TypeError);
++  Object.freeze(view);
++  assert.deepEqual(hash(...vectors[0][0]), vectors[0][1]);
++  for (const bad of [-1, NaN, 0.5, '1', 2 ** 32]) {
++    assert.throws(() => hashSemanticQuotientDescriptorParts(bad, 0, 0, 0, 0, 0, 0));
++  }
++  for (const target of [[], Object.freeze({ lo: 0, hi: 0 }), 7]) {
++    assert.throws(() => hashSemanticQuotientDescriptorParts(...vectors[0][0], target));
++  }
++});
++
++test('hot descriptors match independent retained descriptors across growth and repeated visits', () => {
++  const k = make(), cache = createLocalSemanticDescriptorCache(k);
++  for (let state = 0; state < k.states.count; state++) {
++    for (let column = 0; column < k.columns; column++) k.advance(state, column);
++  }
++  for (let state = k.states.count - 1; state >= 0; state--) {
++    const expected = cache.stateDescriptor(state), actual = cache.hotStateDescriptor(state);
++    for (const key of ['stateId', 'supportIndex', 'p0ClassId', 'p1ClassId', 'p0Length', 'p1Length']) {
++      assert.equal(actual[key], expected[key]);
++    }
++    assert.deepEqual(actual.hash, expected.hash);
++    cache.hotStateDescriptor(k.rootId);
++    assert.deepEqual(cache.hotStateDescriptor(state).hash, expected.hash);
++  }
++  for (const invalid of [-1, NaN, 0.5, '0', k.states.count]) assert.throws(() => cache.hotStateDescriptor(invalid));
++});
++
+ test('empty chunk identity survives dictionary growth and validates input before reuse', () => {
+   const chunk = make().classes.slotPools[0], pair = new Uint32Array(2);
+   const empty = chunk.intern(pair, 0);

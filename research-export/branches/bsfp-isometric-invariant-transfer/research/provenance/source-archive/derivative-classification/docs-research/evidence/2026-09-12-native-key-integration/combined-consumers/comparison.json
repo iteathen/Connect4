@@ -1,0 +1,46 @@
+{
+  "label": "combined-consumers",
+  "runs": [
+    {
+      "stage": "baseline",
+      "searchMs": 1762.906,
+      "cpuMs": 1828,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1786.7236,
+      "cpuMs": 1937,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1794.2879,
+      "cpuMs": 1876,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "baseline",
+      "searchMs": 1763.9326,
+      "cpuMs": 1828,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    }
+  ],
+  "means": {
+    "baseline": {
+      "searchMs": 1763.4193,
+      "cpuMs": 1828
+    },
+    "candidate": {
+      "searchMs": 1790.50575,
+      "cpuMs": 1906.5
+    }
+  },
+  "exactCountersMatch": true,
+  "elapsedMs": 8047.8817,
+  "totalBudgetMs": 60000
+}

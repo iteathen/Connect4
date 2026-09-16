@@ -1,0 +1,11 @@
+{
+  "geometry":{"W":7,"H":6,"K":4,"winningLines":69},
+  "preservedAResponse":{"prefix":"D1 E1 A1","requiredResponse":"A2","reason":"A2 is the unique response that preserves the A-even Claimeven certificate."},
+  "forcedInteriorCollision":[
+    {"p0InteriorMove":"B1","forcedP1BottomBlock":"C1","missedEvenResponse":"B2","selfExposedEvenCell":"C2","consequence":"Neither B-even nor C-even remains an unconditional universal ownership certificate."},
+    {"p0InteriorMove":"C1","forcedP1BottomBlock":"B1","missedEvenResponse":"C2","selfExposedEvenCell":"B2","consequence":"Neither C-even nor B-even remains an unconditional universal ownership certificate."}
+  ],
+  "theorem":"After preserving A-even with A2, P0 can choose B1 or C1. P1 must occupy the other base cell to stop the bottom-row terminal line, so the triggering column misses its row-2 even response and the self-played blocking column exposes its row-2 cell to P0. Both B-even and C-even certificates are therefore lost.",
+  "conservativeSurvivingStaticField":{"afterB1C1":{"uncoveredCount":21},"afterC1B1":{"uncoveredCount":20}},
+  "correction":"Earlier counterfactual controls that retained A-even while playing B1 immediately after A1 double-spent the same P1 response turn. Their static set-cover transformations remain mathematically valid as counterfactual certificate exchanges, but they are not legal strategy states and must not be used as predecessor proofs."
+}

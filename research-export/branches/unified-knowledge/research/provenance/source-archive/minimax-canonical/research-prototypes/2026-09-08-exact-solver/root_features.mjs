@@ -1,0 +1,6 @@
+const W=7,H=6,S=7,CELLS=42; let bottom=0n;const bot=[],col=[],top=[];for(let c=0;c<W;c++){const sh=BigInt(c*S);bot[c]=1n<<sh;top[c]=1n<<BigInt(H-1+c*S);col[c]=((1n<<6n)-1n)<<sh;bottom|=bot[c];}const board=bottom*((1n<<6n)-1n);
+function winpos(p,m){let r=(p<<1n)&(p<<2n)&(p<<3n);let x=(p<<7n)&(p<<14n);r|=x&(p<<21n);r|=x&(p>>7n);x=(p>>7n)&(p>>14n);r|=x&(p<<7n);r|=x&(p>>21n);x=(p<<6n)&(p<<12n);r|=x&(p<<18n);r|=x&(p>>6n);x=(p>>6n)&(p>>12n);r|=x&(p<<6n);r|=x&(p>>18n);x=(p<<8n)&(p<<16n);r|=x&(p<<24n);r|=x&(p>>8n);x=(p>>8n)&(p>>16n);r|=x&(p<<8n);r|=x&(p>>24n);return r&(board^m)}
+const possible=m=>(m+bottom)&board;const can=(m,c)=>(m&top[c])===0n;const winm=(p,m,c)=>(winpos(p,m)&possible(m)&col[c])!==0n;
+function parse(seq){let p=0n,m=0n;for(const ch of seq){const c=+ch-1;const mv=(m+bot[c])&col[c];p^=m;m|=mv;}return {p,m};}
+function pop(x){let n=0;while(x){x&=x-1n;n++;}return n;}
+for(const seq of process.argv.slice(2)){const {p,m}=parse(seq);let cand=possible(m);const ow=winpos(p^m,m);const forced=cand&ow;const dbl=forced!==0n&&(forced&(forced-1n))!==0n;if(forced!==0n&&!dbl)cand=forced;cand&=~(ow>>1n);console.log(JSON.stringify({seq,moves:seq.length,remaining:42-seq.length,legal:[0,1,2,3,4,5,6].filter(c=>can(m,c)).length,opponentWins:pop(ow),forced:pop(forced),doubleThreat:dbl,candidates:pop(cand)}));}

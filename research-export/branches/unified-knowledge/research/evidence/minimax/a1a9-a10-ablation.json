@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "evidence_id": "C4-E0037-0038-A1A9-A10",
+  "claims": ["C4-R0037", "C4-R0038"],
+  "date": "2026-09-11",
+  "source_branch": "work/minimax-a1a9-a10-exact-20260911",
+  "exact_source_commit": "615ea8b0c195afe8254b8651387e314e2a1e240a",
+  "ablation_source_commit": "e39c52eaecebaf0f7e67004dd2900a041588e90b",
+  "reproduction_sources": [
+    "research/provenance/source-archive/minimax-work-a1a9-a10/research/minimax/composition-campaign/allis_a1a9_a10_exact.mjs",
+    "research/provenance/source-archive/minimax-work-a1a9-a10/research/minimax/composition-campaign/allis_a1a9_a10_ablation_runner.mjs"
+  ],
+  "authority_scope": "sampled falsification of legacy/even-ply responder orientation only; proof combinations use conservative Allis section 7.4 table, never generic U1-extra compatibility",
+  "search_policy": {"perTypeInstanceCap":64,"coverStepLimit":80000,"note":"caps/limits can miss certificates but cannot create a certificate"},
+  "exact_full_composition": {
+    "status": "falsified",
+    "scanned": 1201,
+    "eligible": 182,
+    "a123Claims": 49,
+    "allClaims": 95,
+    "newClaims": 46,
+    "falseClaims": 3,
+    "oracleNodes": 4641,
+    "byPly": {
+      "28": {"scanned":260,"eligible":52,"a123Claims":3,"allClaims":18,"newClaims":15},
+      "30": {"scanned":260,"eligible":39,"a123Claims":4,"allClaims":10,"newClaims":6},
+      "32": {"scanned":255,"eligible":32,"a123Claims":10,"allClaims":22,"newClaims":12},
+      "34": {"scanned":233,"eligible":31,"a123Claims":14,"allClaims":24,"newClaims":10},
+      "36": {"scanned":193,"eligible":28,"a123Claims":18,"allClaims":21,"newClaims":3}
+    },
+    "failures": [
+      {"seq":"7134251241772116567767256313","ply":28,"score":4,"reqs":11,"a123":false,"selected":["A4","A9","A8"]},
+      {"seq":"2315247111213571574277746346","ply":28,"score":1,"reqs":10,"a123":false,"selected":["A9","A6","A1"]},
+      {"seq":"4221254436322741452453116633753116","ply":34,"score":1,"reqs":3,"a123":false,"selected":["A9"]}
+    ],
+    "artifact": {"run_id":34598616430,"artifact_id":10263191507,"digest":"sha256:ea9e4fc57ccad39ff931115dd3eb91afce4b828be511bf49690e8b0c0b23f7e0"}
+  },
+  "ablations": [
+    {"disabled":["A9"],"status":"pass","scanned":1201,"eligible":182,"a123Claims":49,"allClaims":84,"newClaims":35,"falseClaims":0,"oracleNodes":3050,"artifact":{"run_id":34598807320,"artifact_id":10263182883,"digest":"sha256:c3772f4268ca7d99aae4752dbd248ed36e95136ef79e26bebc03d79bd8384265"}},
+    {"disabled":["A8","A9"],"status":"pass","scanned":1201,"eligible":182,"a123Claims":49,"allClaims":71,"newClaims":22,"falseClaims":0,"oracleNodes":2504,"artifact":{"run_id":34598807320,"artifact_id":10263796560,"digest":"sha256:d1b8f5faae80d673d40bfde05eb04258a5deb3497d6ba12a7555733185cf42e0"}},
+    {"disabled":["A4","A9"],"status":"pass","scanned":1201,"eligible":182,"a123Claims":49,"allClaims":77,"newClaims":28,"falseClaims":0,"oracleNodes":2901,"artifact":{"run_id":34598807320,"artifact_id":10263836481,"digest":"sha256:5658727af0df1ea6489521c2cef8ed4d40f635e4cec738b2c8a5e0a5a399e14f"}},
+    {"disabled":["A6","A9"],"status":"pass","scanned":1201,"eligible":182,"a123Claims":49,"allClaims":84,"newClaims":35,"falseClaims":0,"oracleNodes":3050,"artifact":{"run_id":34598807320,"artifact_id":10263596545,"digest":"sha256:2c7ecc1152f654f860e6e22c2ea8070bcf40472706d829867426db62fce29312"}},
+    {"disabled":["A4","A8","A9"],"status":"pass","scanned":1201,"eligible":182,"a123Claims":49,"allClaims":59,"newClaims":10,"falseClaims":0,"oracleNodes":2235,"artifact":{"run_id":34598807320,"artifact_id":10263022818,"digest":"sha256:088c33cc6dd109ce6334f37ec5ff7138dce88bc8986f1a49586f0e51961819b6"}},
+    {"disabled":["A4","A6","A8","A9"],"status":"pass","scanned":1201,"eligible":182,"a123Claims":49,"allClaims":59,"newClaims":10,"falseClaims":0,"oracleNodes":2235,"artifact":{"run_id":34598807320,"artifact_id":10262718097,"digest":"sha256:7f8b0c159e36336c39e8cdd8dffeb03025595865dd5d42e21bbdf09f7a346005"}}
+  ],
+  "interpretation": {
+    "C4-R0037": "The tested legacy/even-ply A9 responder orientation is falsified in this sampled composition: all three false claims contained A9. This does not falsify Allis's published A9 rule family in general.",
+    "C4-R0038": "With A9 disabled, 84 claims remained versus 49 A123 claims, yielding 35 additional oracle-confirmed claims and zero false claims in the sampled corpus. Removing A8 reduced the additional count from 35 to 22; removing A4 reduced it to 28; removing A6 changed neither count. Removing both A4 and A8 reduced additional claims to 10, showing interaction/non-additivity.",
+    "scope": "Sampled roots at plies 28,30,32,34,36 with the documented per-type instance cap and cover-step limit. Caps may miss certificates but cannot create one."
+  },
+  "bayesian_note": "Ablations use the same deterministic sampled corpus/oracle and are correlated evidence, not independent Bayesian trials."
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-09-10",
+  "purpose": "Freeze the pre-restructure live branch topology and intended canonical/retirement disposition.",
+  "canonicalLanes": {
+    "product": "main",
+    "minimax": "solver/minimax-alpha-beta",
+    "cudaBsfp": "solver/cuda-bsfp",
+    "semanticQuotient": "research/semantic-quotient"
+  },
+  "canonicalHeadsAtRoutingCutover": {
+    "solver/minimax-alpha-beta": "66fe2fc8dd15f954a37f328950f352d06bbe8f89",
+    "solver/cuda-bsfp": "0d8b4d5633e0485ac1bb96ed4f77509bc1217d80",
+    "research/semantic-quotient": "16a4ca51ed39a93451414bfa9dc4b5aee8091837"
+  },
+  "branches": [
+    {"name":"main","observedHead":"de47d43f4f4133a68973d0876a402531ef5735da","class":"canonical_product","disposition":"keep"},
+    {"name":"solver/minimax-alpha-beta","observedHead":"87f537f425c03b12c6bff0141ff0b0c6b3810b5e","class":"canonical_solver","disposition":"keep","note":"Status/next-step and research namespace subsequently advanced on this branch."},
+    {"name":"feature/cuda-bsfp","observedHead":"093218ca55b37f9179d0ede8255ac1621f2e96f5","class":"superseded_solver_name","disposition":"retire_after_ref_cleanup","canonical":"solver/cuda-bsfp"},
+    {"name":"research/semantic-quotient","observedHead":"44397e20bb268891a63a9b996e5fe23b21ba00ec","class":"canonical_shared_research","disposition":"keep","note":"Status/next-step and research namespace subsequently advanced on this branch."},
+    {"name":"research/zdd-transfer-20260910","observedHead":"42e1a1ca90905bb3edec8ad4a2e49c99ef635651","class":"superseded_shared_research","disposition":"retire_confirmed_ancestor","canonical":"research/semantic-quotient","verification":"confirmed ancestor; semantic-quotient was four commits ahead at audit before later routing commits"},
+
+    {"name":"research/exact-solver-perf-checkpoint-2026-09-08","observedHead":"912359dc9bfd8570bb74651802ce05290d60c0aa","class":"historical_minimax_research","disposition":"retire_confirmed_ancestor","canonical":"solver/minimax-alpha-beta","verification":"confirmed ancestor"},
+    {"name":"research/exact-solver-rethink-controls-2026-09-09","observedHead":"f585ca9a6b67a74363ea239185adbb449b0c9bc2","class":"historical_minimax_research","disposition":"retire_confirmed_ancestor","canonical":"solver/minimax-alpha-beta","verification":"confirmed ancestor"},
+    {"name":"research/forced-macro-implication-2026-09-09","observedHead":"b01f5d58fa4c1159acdd5cb58e1628e23844306e","class":"historical_minimax_research","disposition":"retire_confirmed_ancestor","canonical":"solver/minimax-alpha-beta","verification":"confirmed ancestor"},
+    {"name":"research/minimax-structural-cut-20260909","observedHead":"0d2648c83a88c8c3dd2a4836cb19296d1930b35a","class":"historical_minimax_research","disposition":"retire_confirmed_ancestor","canonical":"solver/minimax-alpha-beta","verification":"confirmed ancestor"},
+    {"name":"research/low-confidence-survival-2026-09-09","observedHead":"f28e79098c0c62fff752eca4aecbf8fd6f4a2073","class":"historical_minimax_research","disposition":"retirement_pending_ancestry_verification","canonical":"solver/minimax-alpha-beta"},
+    {"name":"research/residual-automorphisms-2026-09-09","observedHead":"5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d","class":"historical_minimax_research","disposition":"retirement_pending_ancestry_verification","canonical":"solver/minimax-alpha-beta"},
+
+    {"name":"research/identified-winline-quotient-test","observedHead":"b95ad87c3e904156a72bc64f148165d69f4dabcf","class":"historical_bsfp_semantic_research","disposition":"retire_after_content_verification","canonical":"research/semantic-quotient"},
+    {"name":"research/identified-winline-quotient-test-2","observedHead":"900cfa804fb0b06e524d2642c4feb845a9993077","class":"duplicate_research_ref","disposition":"delete_candidate","note":"Same SHA as test-3 and test-4."},
+    {"name":"research/identified-winline-quotient-test-3","observedHead":"900cfa804fb0b06e524d2642c4feb845a9993077","class":"duplicate_research_ref","disposition":"delete_candidate","note":"Same SHA as test-2 and test-4."},
+    {"name":"research/identified-winline-quotient-test-4","observedHead":"900cfa804fb0b06e524d2642c4feb845a9993077","class":"duplicate_research_ref","disposition":"delete_candidate","note":"Same SHA as test-2 and test-3."},
+    {"name":"research/winline-cone-image","observedHead":"b95ad87c3e904156a72bc64f148165d69f4dabcf","class":"duplicate_research_ref","disposition":"delete_candidate","note":"Same SHA as several winline product/dominance refs."},
+    {"name":"research/winline-product-antichain","observedHead":"b95ad87c3e904156a72bc64f148165d69f4dabcf","class":"duplicate_research_ref","disposition":"delete_candidate"},
+    {"name":"research/winline-product-antichain-run","observedHead":"b95ad87c3e904156a72bc64f148165d69f4dabcf","class":"duplicate_research_ref","disposition":"delete_candidate"},
+    {"name":"research/winline-product-dominance","observedHead":"b95ad87c3e904156a72bc64f148165d69f4dabcf","class":"duplicate_research_ref","disposition":"delete_candidate"},
+    {"name":"research/winline-product-dominance-v2","observedHead":"b95ad87c3e904156a72bc64f148165d69f4dabcf","class":"duplicate_research_ref","disposition":"delete_candidate"},
+    {"name":"research/winline-product-antichain-final","observedHead":"093218ca55b37f9179d0ede8255ac1621f2e96f5","class":"duplicate_of_old_bsfp_head","disposition":"delete_candidate","canonical":"solver/cuda-bsfp"},
+    {"name":"research/direct-line-product-bsfp-20260910","observedHead":"028d508547ac86859cb65f8933b24d219176dc56","class":"historical_bsfp_semantic_research","disposition":"retirement_pending_ancestry_verification","canonical":"research/semantic-quotient"},
+    {"name":"research/live-q1-5min-20260910","observedHead":"b8e15aa72c92fb58515a80340876e7df45b5316c","class":"bounded_research_run_ref","disposition":"retire_after_evidence_verification"},
+
+    {"name":"evidence/cuda-bsfp-q1/20260910T054132880Z-b043b1eb","observedHead":"b413d4ae3c9303abb5f0aee11162fd67149de7a1","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+    {"name":"evidence/cuda-bsfp-q1/20260910T055412412Z-59fbc872","observedHead":"81ab62b2b4101d37a501b5b4e3e230259203ddc6","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+    {"name":"evidence/cuda-bsfp-q1/20260910T064427961Z-92f8a76d","observedHead":"b86c046cd85bcce7f277a2df21c093cab7109e2a","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+    {"name":"evidence/cuda-bsfp-q1/20260910T065508562Z-fb451dd8","observedHead":"936fe9f76fb665aaea47a6d2cfef032d3abc9e1d","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+    {"name":"evidence/cuda-bsfp-q1/20260910T083225135Z-2245e20a","observedHead":"8315a6093041d24d9c742a04eb5b29cf3d50de62","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+    {"name":"evidence/cuda-bsfp-q1/20260910T100734116Z-e8de3c61","observedHead":"1b07441ed9de113191e715275461d7a901706d8b","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+    {"name":"evidence/cuda-bsfp-q1/20260911T032754503Z-b0df94a3","observedHead":"d2e31abb6f4da79f4b4d006e166e4b39d1960dd3","class":"evidence_snapshot","disposition":"archive_or_retire_after_payload_verification"},
+
+    {"name":"feature/incumbent-node-search","observedHead":"c42d8c7060d0cd6d3a5802c5f8b3f5da13089a26","class":"legacy_feature","disposition":"retirement_pending_main_content_verification"},
+    {"name":"feature/shared-evaluator-v1","observedHead":"77c5c0da57ddb65cd7aff9ce131481a19414931a","class":"legacy_feature","disposition":"retirement_pending_main_content_verification"},
+    {"name":"feature/solved-strength-oracle","observedHead":"0da0c4c692e648b26b0565a6bc6e75c8eb79ac8e","class":"legacy_feature","disposition":"retirement_pending_main_content_verification"},
+    {"name":"feature/cuda-mcgs-composition-assessment","observedHead":"e79922c726b5d6d8baa9783c804996d47eef89a4","class":"legacy_assessment","disposition":"retirement_pending_main_content_verification"},
+    {"name":"agent/benchmark-bootstrap","observedHead":"dcaed03b03410d8b6f46f1ff5ef53e9bde732a6b","class":"legacy_agent_work","disposition":"retirement_pending_main_content_verification"},
+    {"name":"docs/execution-efficiency-mutation-hygiene","observedHead":"84677fa856d695da760278144f454c4e71106fc7","class":"historical_docs_work","disposition":"retirement_pending_global_docs_verification"},
+    {"name":"docs/global-agent-local-migration","observedHead":"e51efbd5b3746fd1b61dac1cd35baa6ffcda5f20","class":"historical_docs_work","disposition":"retirement_pending_global_docs_verification"},
+    {"name":"noop","observedHead":"de47d43f4f4133a68973d0876a402531ef5735da","class":"exact_main_duplicate","disposition":"delete_candidate","canonical":"main"},
+    {"name":"tmp-do-not-use-c4diag","observedHead":"878b31840d4863ad941970c502a77995c8a0070b","class":"temporary_quarantine","disposition":"delete_after_unique_content_check"}
+  ],
+  "toolingLimit": "The connector used for this restructure exposes branch creation/update but not branch deletion or tag creation. No physical deletion is claimed by this manifest."
+}

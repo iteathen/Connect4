@@ -1,0 +1,128 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\changed-slot-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index db0acf6..259b9f5 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\changed-slot-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
+@@ -35,14 +35,6 @@ function hashWords2(word0, word1) {
+   return mix32(word0 ^ Math.imul(word1, 0x9e3779b1));
+ }
+ 
+-function hashChunkTuple(ids) {
+-  let hash = 0x811c9dc5;
+-  for (let index = 0; index < ids.length; index += 1) {
+-    hash = Math.imul(hash ^ mix32((ids[index] + 1) >>> 0), 0x01000193) >>> 0;
+-  }
+-  return mix32(hash ^ ids.length);
+-}
+-
+ function popcount32(value) {
+   let x = value >>> 0;
+   x -= (x >>> 1) & 0x55555555;
+@@ -463,10 +455,14 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     if (parentId !== -1) assertClassId(parentId);
+     metrics.internLookups += 1;
+     let sameAsParent = parentId >= 0;
++    // Local class address filter: XOR slot-specific contributions. The parent
++    // already owns unchanged contributions; exact tuple comparison owns identity.
++    let hash = parentId >= 0 ? classHashes[parentId] : 0;
+     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+       const offset = slot * CHUNK_WORDS;
++      let parentChunk = -1;
+       if (parentId >= 0) {
+-        const parentChunk = classSlotIds[slot][parentId];
++        parentChunk = classSlotIds[slot][parentId];
+         const words = slotPools[slot].words, base = parentChunk * CHUNK_WORDS;
+         if (words[base] === bits[offset] && words[base + 1] === bits[offset + 1]) {
+           chunkIds[slot] = parentChunk;
+@@ -476,6 +472,9 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+         sameAsParent = false;
+       }
+       chunkIds[slot] = slotPools[slot].intern(bits, offset);
++      const salt = Math.imul(slot + 1, 0x9e3779b1);
++      hash ^= mix32(chunkIds[slot] ^ salt);
++      if (parentChunk >= 0) hash ^= mix32(parentChunk ^ salt);
+       metrics.chunkInterns += 1;
+     }
+     if (sameAsParent) {
+@@ -483,7 +482,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       return parentId;
+     }
+     if ((classCount + 1) * 10 >= classHashSlots.length * 7) growClassHash();
+-    const hash = hashChunkTuple(chunkIds);
++    hash >>>= 0;
+     const mask = classHashSlots.length - 1;
+     let slot = hash & mask;
+     while (true) {
+@@ -689,6 +688,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     const containsBase = cell * WORDS_PER_CLASS;
+     let changedSlots = 0;
+     let removedTerms = 0;
++    let hash = classHashes[id];
+     for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) {
+       const parentChunk = classSlotIds[slotIndex][id];
+       chunkIds[slotIndex] = parentChunk;
+@@ -708,6 +708,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       resultBits[word] = next0;
+       resultBits[word + 1] = next1;
+       chunkIds[slotIndex] = slotPools[slotIndex].intern(resultBits, word);
++      const salt = Math.imul(slotIndex + 1, 0x9e3779b1);
++      hash ^= mix32(parentChunk ^ salt) ^ mix32(chunkIds[slotIndex] ^ salt);
+       metrics.chunkInterns += 1;
+       changedSlots += 1;
+     }
+@@ -721,7 +723,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     metrics.internLookups += 1;
+     metrics.parentChunkReuses += CHUNKS_PER_CLASS - changedSlots;
+     if ((classCount + 1) * 10 >= classHashSlots.length * 7) growClassHash();
+-    const hash = hashChunkTuple(chunkIds);
++    hash >>>= 0;
+     const hashMask = classHashSlots.length - 1;
+     let hashSlot = hash & hashMask;
+     while (true) {
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\changed-slot-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 8b1aaf8..464617e 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\changed-slot-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
+@@ -12,6 +12,43 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('changed-slot identity converges across blocking order, including all-zero address filters', () => {
++  const imul = Math.imul;
++  for (const collide of [false, true]) {
++    // Adversarial address filter only: collapse avalanche outputs, preserving
++    // exact words and transition arithmetic. Install before bootstrap so every
++    // existing class has the same hash convention. Restore even after failure.
++    if (collide) Math.imul = (a, b) => b === 0x7feb352d || b === 0x846ca68b ? 0 : imul(a, b);
++    try {
++      for (const domain of [{ columns: 4, rows: 4, connect: 4 }, { columns: 5, rows: 3, connect: 4 }]) {
++        const k = createSlot64ResidualQuotientKernel(domain, { prefixClasses: 1 }).kernel;
++        const pool = k.classes, vocabulary = pool.termVocabulary;
++        assert.ok(pool.slotPools.length > 1);
++        // Distinct mover seeds change the residual masks before the commuting
++        // blocker operations. Same final exact content must get the same ID.
++        for (let seed = 0; seed < 3; seed++) {
++          const cellBit = (1 << seed) >>> 0;
++          const parent = pool.ownTransition(pool.initialClass, seed, cellBit, 0);
++          assert.ok(parent >= 0);
++          const terms = pool.termIds(parent);
++          for (let a = 0; a < vocabulary.cellCount; a++) {
++            for (let b = a + 1; b < vocabulary.cellCount; b++) {
++              const first = pool.blockTransition(parent, a);
++              const ab = pool.blockTransition(first, b);
++              const ba = pool.blockTransition(pool.blockTransition(parent, b), a);
++              assert.equal(ab, ba, 'equal final content got different canonical class IDs');
++              assert.equal(pool.blockTransition(ab, a), ab, 'idempotent blocker lost identity');
++              const blocked = (1 << a) | (1 << b);
++              const expected = terms.filter(term => (vocabulary.lo[term] & blocked) === 0);
++              assert.deepEqual(pool.termIds(ab), expected);
++            }
++          }
++        }
++      }
++    } finally { Math.imul = imul; }
++  }
++});
++
+ test('compact index preserves capacity and published keys when link or bucket allocation fails', () => {
+   for (const failedLength of [512, 256]) {
+     const chunk = make().classes.slotPools[0], pair = new Uint32Array(2), keys = [];

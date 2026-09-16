@@ -1,0 +1,40 @@
+{
+  "caseId": "01-4x3-c3",
+  "geometry": {
+    "columns": 4,
+    "rows": 3,
+    "connect": 3,
+    "tier": "exhaustive-known"
+  },
+  "profile": "c4-0009-p1",
+  "estimate": {
+    "kind": "proved-profile-upper-bound",
+    "executable": true,
+    "denseTableBytes": "4194304",
+    "ancillaryBytes": "6200",
+    "fixedRuntimeAllowanceBytes": "268435456",
+    "upperBoundBytes": 272635960
+  },
+  "status": "runtime-failure",
+  "durationMs": 672,
+  "steps": [
+    {
+      "stepId": "ranked-activation",
+      "exitCode": 1,
+      "signal": null,
+      "durationMs": 660,
+      "timedOut": false,
+      "memorySafetyAbort": false,
+      "launchError": null,
+      "gpuTelemetry": {
+        "sampleCount": 1,
+        "peakUsedMiB": 1187,
+        "minimumFreeMiB": 4780
+      },
+      "status": "runtime-failure",
+      "reason": "child exited 1 signal none"
+    }
+  ],
+  "reason": "child exited 1 signal none",
+  "solverResult": null
+}

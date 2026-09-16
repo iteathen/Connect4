@@ -1,0 +1,241 @@
+{
+  "schema": "connect4-minimax-post-ledger-candidate-forms-v1",
+  "date": "2026-09-11",
+  "bias_policy": {
+    "rule": "Adoption or promotion state is metadata only and MUST NOT alter evidence, confidence, test priority, or synergy classification.",
+    "negative_result_scope": "A negative result attaches to the tested implementation form and regime, not automatically to its parent mechanism.",
+    "missing_relation": "Unassessed is not neutral.",
+    "promotion_blinding": "Candidate assessment is computed/read without adoption metadata; adoption is joined only after assessment output is formed."
+  },
+  "forms": [
+    {
+      "id": "SQ-LINEHIT-Q",
+      "mechanism": "RWS",
+      "label": "Identified line-hit quotient (support,H0,H1)",
+      "kind": "semantic-state-form",
+      "first_seen": "2026-09-10",
+      "test_state": "qualified-bounded",
+      "evidence": [{"ref":"research/semantic-quotient","path":"docs/research/2026-09-10-identified-winline-quotient-exact-results.md","claim":"complete bounded controls preserve terminal predicate, successor signature, reachable quotient classes and exact W/D/L"}]
+    },
+    {
+      "id": "SQ-BEHAVIORAL-MIN",
+      "mechanism": "RWS",
+      "label": "Coarsest exact action-labeled behavioral quotient",
+      "kind": "semantic-state-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-bounded",
+      "evidence": [{"ref":"research/semantic-quotient","claim":"MQ2 reduced identified-line classes further and found exact behavior classes that can cross support/rank boundaries"}]
+    },
+    {
+      "id": "SQ-RESIDUAL-SUPPORT",
+      "mechanism": "RWS",
+      "label": "Minimal residual requirement antichains plus support",
+      "kind": "semantic-state-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-bounded-not-minimal",
+      "evidence": [{"ref":"research/semantic-quotient","claim":"MQ3 found residual antichains plus support exact on bounded controls but still coarser behavior exists"}]
+    },
+    {
+      "id": "SQ-RESIDUAL-AUTOMATON",
+      "mechanism": "RWS",
+      "label": "Direct residual automaton generated from semantic state law",
+      "kind": "semantic-transition-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-bounded",
+      "evidence": [{"ref":"research/semantic-quotient","claim":"MQ4 generated exact residual automata without colored ownership history"}]
+    },
+    {
+      "id": "SQ-FLAT-SERIALIZED",
+      "mechanism": "INC",
+      "label": "Serialized flat dense semantic transition table",
+      "kind": "transition-runtime-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-bounded",
+      "evidence": [{"ref":"research/semantic-quotient","claim":"materialized table was serialized, decoded, traversed, rank-checked and solved bottom-up with zero transition/action/state mismatches"}]
+    },
+    {
+      "id": "MQ5-SEMANTIC-AB",
+      "mechanism": "RWS",
+      "label": "Semantic-residual exact alpha-beta identity",
+      "kind": "search-state-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-two-anchor",
+      "evidence": [{"ref":"solver/minimax-alpha-beta","path":"docs/research/2026-09-11-minimax-mq5-semantic-residual-anchor-results.md","claim":"exact score parity with about 21-22.5% fewer proof nodes on one win and one loss anchor"}]
+    },
+    {
+      "id": "MQ5-FACTORED-SIDES",
+      "mechanism": "RWS",
+      "label": "Factored current/opponent residual side-state interning",
+      "kind": "representation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-two-anchor",
+      "evidence": [{"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/residual_solver_factored.mjs","claim":"preserved semantic proof-node counts while reducing whole-state materialization overhead"}]
+    },
+    {
+      "id": "MQ5-WSL625-U16",
+      "mechanism": "RID",
+      "label": "WSL-625 u16 residual requirement encoding",
+      "kind": "representation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-two-anchor-after-boundary-fix",
+      "evidence": [{"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/residual_solver_wsl625.mjs","claim":"preserved exact semantic node counts and materially reduced payload/time overhead"}],
+      "retained_failure": "Initial 42-index transition table was invalid for native 49-bit 7-stride coordinates; corrected form is separate evidence."
+    },
+    {
+      "id": "MQ5-TYPED-EXACT-INTERN",
+      "mechanism": "FW",
+      "label": "Typed exact side/whole-state interning without JS Map/BigInt authority",
+      "kind": "representation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "active-unfinished",
+      "evidence": [{"ref":"solver/minimax-alpha-beta","claim":"identified as current representation bottleneck; full-record equality required after hash collision"}]
+    },
+    {
+      "id": "SEWB-SCAN",
+      "mechanism": "SEWB",
+      "label": "Scan-heavy support-aware earliest-win bound",
+      "kind": "bound-form",
+      "first_seen": "2026-09-09",
+      "test_state": "qualified-positive-nodes-expensive-form",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_bound_controls.mjs"}]
+    },
+    {
+      "id": "SEWB-EVENT-NATIVE",
+      "mechanism": "SEWB",
+      "label": "Event-native WSL-625 support-aware earliest-win bound",
+      "kind": "bound-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-crossed",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-support-event-wave.md","claim":"zero differential mismatches, 7.82x bound micro speedup, identical search nodes/cuts and about 15-18% search wall improvement vs scan form"}]
+    },
+    {
+      "id": "DEAD-POOLED-EXACT",
+      "mechanism": "DEAD",
+      "label": "Exact neutral/dead-column pooled tempo capacity",
+      "kind": "action-equivalence-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-crossed",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/dead_neutral_exact_v2.mjs","claim":"positive node effect across tested crossed contexts after correcting first TT-authority draft"}]
+    },
+    {
+      "id": "DEAD-NEUTRAL-ABS-LAST",
+      "mechanism": "DEAD",
+      "label": "Absolute-last neutral action ordering",
+      "kind": "ordering-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-crossed",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/dead_sewb_event_composition.mjs","claim":"neutral-first was consistently adverse; absolute-last improved strong stack"}]
+    },
+    {
+      "id": "AUTO-PRE-SCORE",
+      "mechanism": "AUTO",
+      "label": "Residual equivalence pruning before child scoring",
+      "kind": "stage-order-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-crossed",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/ordering_stage_controls_v2.mjs","claim":"same nodes as AUTO-after while avoiding scoring approximately 5.4-8.7% of children"}]
+    },
+    {
+      "id": "ORDER-E1-E2",
+      "mechanism": "E1",
+      "label": "Residual maturity primary then parity/future-threat secondary",
+      "kind": "ordering-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-crossed",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/ordering_stage_controls_v2.mjs","claim":"best tested ordering under strong FMAC/CARD/AUTO context"}]
+    },
+    {
+      "id": "ORDER-P1-DOMINANT",
+      "mechanism": "P1",
+      "label": "Proof-cost proxy as dominant move-order key",
+      "kind": "ordering-form",
+      "first_seen": "2026-09-11",
+      "test_state": "crossed-regime-dependent",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/composition_crossed.mjs","claim":"positive in some contexts and materially adverse in others; not rejected as a mechanism"}]
+    },
+    {
+      "id": "U1-EVENT-RANK",
+      "mechanism": "SUP",
+      "label": "U1 event-rank parity / future-owner algebra",
+      "kind": "strategic-algebra-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_event_parity.mjs","claim":"2750 states, 61416 targets and 798408 delta checks with zero rank/owner/delta mismatches"}]
+    },
+    {
+      "id": "A123-U1-ROLE-DYNAMIC",
+      "mechanism": "A10",
+      "label": "Role-generalized A1-A3 compatible cover using U1 event ownership",
+      "kind": "certificate-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-expensive-form",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/allis_a123_u1_role.mjs","claim":"96 exact roots across both move parities, 11 covers, zero false claims and zero legacy even-ply classification mismatches"}]
+    },
+    {
+      "id": "A123-DYNAMIC-STRONG-STACK",
+      "mechanism": "A10",
+      "label": "Dynamic A1-A3 certificate in SEWB/AUTO/E1-E2 stack",
+      "kind": "certificate-search-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-node-positive-time-negative-form",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/allis_a123_stage_order.mjs","claim":"about 25-26% node reduction in tested strong contexts with dynamic construction/cover overhead"}]
+    },
+    {
+      "id": "A123-DEAD-PHYSICAL-RESTORE",
+      "mechanism": "A10",
+      "label": "A1-A3 proof on restored physical support with DEAD-owned search identity",
+      "kind": "certificate-composition-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-node-positive-time-negative-form",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-dead-wave.md","claim":"strong stack reached 823 nodes while preserving physical certificate semantics"}]
+    },
+    {
+      "id": "A123-COMPILED-U1U2",
+      "mechanism": "A10",
+      "label": "Compiled fixed-width U1/U2 A1-A3 certificate",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "active-latest-campaign",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-compiled-lifecycle.md"}]
+    },
+    {
+      "id": "ALLIS-A1-A9-MARGINAL",
+      "mechanism": "A10",
+      "label": "A1-A9 raw blocker coverage marginal census",
+      "kind": "diagnostic-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-coverage-not-proof-authority",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/allis_marginal_coverage.mjs","claim":"A1-A9 raw blocker coverage materially exceeds A1-A3, but A4-A9 compatibility remains unresolved"}]
+    },
+    {
+      "id": "IMPL-RID-NATIVE",
+      "mechanism": "IMPL",
+      "label": "RID-native support-compatible implication frontier",
+      "kind": "proof-reuse-form",
+      "first_seen": "2026-09-11",
+      "test_state": "active-latest-campaign",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/impl_rid_closure_retest.mjs"}]
+    },
+    {
+      "id": "COMPOSITION-STRONG-SERIAL",
+      "mechanism": "COMPOSITION",
+      "label": "Current strong serial composition scaffold",
+      "kind": "composition-control",
+      "first_seen": "2026-09-11",
+      "test_state": "research-control-not-candidate-score",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/ORDERING.md","claim":"dependency/saturation order for crossed candidate tests"}]
+    }
+  ],
+  "observed_relations": [
+    {"source":"SUP","target":"SEWB-EVENT-NATIVE","effect":"positive","mechanism":"cost","state":"observed","note":"event metadata removes repeated support scans"},
+    {"source":"SEWB-EVENT-NATIVE","target":"DEAD-POOLED-EXACT","effect":"positive","mechanism":"composition","state":"observed","note":"both remain positive in crossed strong-stack contexts"},
+    {"source":"DEAD-POOLED-EXACT","target":"A123-DEAD-PHYSICAL-RESTORE","effect":"positive","mechanism":"proof-volume","state":"observed","note":"DEAD remains additive when A123 proves on restored physical support"},
+    {"source":"U1-EVENT-RANK","target":"A123-U1-ROLE-DYNAMIC","effect":"positive","mechanism":"correctness","state":"observed","note":"role-generalizes Claimeven/Vertical across move parity"},
+    {"source":"AUTO-PRE-SCORE","target":"ORDER-E1-E2","effect":"positive","mechanism":"cost","state":"observed","note":"equivalent actions are removed before paying child scoring"},
+    {"source":"ORDER-E1-E2","target":"DEAD-NEUTRAL-ABS-LAST","effect":"positive","mechanism":"proof-order","state":"observed","note":"neutral tempo benefits from explicit absolute-last placement under E1/E2"},
+    {"source":"MQ5-SEMANTIC-AB","target":"MQ5-FACTORED-SIDES","effect":"positive","mechanism":"cost","state":"observed","note":"same proof tree, cheaper representation"},
+    {"source":"MQ5-FACTORED-SIDES","target":"MQ5-WSL625-U16","effect":"positive","mechanism":"cost-memory","state":"observed","note":"same proof tree with compact fixed IDs"},
+    {"source":"RID","target":"IMPL-RID-NATIVE","effect":"positive","mechanism":"cost-substrate","state":"under-current-test"},
+    {"source":"A123-U1-ROLE-DYNAMIC","target":"A123-COMPILED-U1U2","effect":"substitutive-positive","mechanism":"implementation-form","state":"under-current-test"}
+  ]
+}

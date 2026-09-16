@@ -1,0 +1,798 @@
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs
+index b653fee..51c0d4b 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs
+@@ -1,7 +1,7 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+ import { setImmediate as nextTurn } from 'node:timers/promises';
+-import { applyFrontierBoundCode, FRONTIER_BOUND_DRAW, TACTICAL_NONE, TACTICAL_DRAW } from './quotient-negamax-domain-contract.mjs';
++import { applyFrontierBoundCode, FRONTIER_BOUND_DRAW, TACTICAL_NONE, TACTICAL_DRAW, TACTICAL_LOSS } from './quotient-negamax-domain-contract.mjs';
+ import { createDependencyAwareQuotientNegamaxEngine, createQuotientNegamaxEngine } from './quotient-negamax-engine.mjs';
+ import { createLocalQuotientProofStore } from './quotient-local-proof-store.mjs';
+ import { createLiveLineMoveOrder } from './quotient-live-line-move-order.mjs';
+@@ -17,6 +17,53 @@ function port() {
+   };
+ }
+ 
++function boundedTree(tacticalAt) {
++  const p = { columns: 2, cellCount: 3, rootId: 0, centerOrder: [0, 1],
++    rankAt: id => id === 0 ? 0 : id < 3 ? 1 : 2,
++    isLegal: id => id < 3,
++    tacticalCode: tacticalAt,
++    transition: (id, column) => id * 2 + column + 1,
++    proofStore: createLocalQuotientProofStore({ columns: 2, count: 7 }) };
++  return { p, engine: createQuotientNegamaxEngine(p, { etc: false }) };
++}
++
++test('bounded normal search keeps horizon leaves unknown and can resume exact search', () => {
++  const { p, engine } = boundedTree(id => id < 3 ? TACTICAL_NONE : TACTICAL_DRAW);
++  const result = engine.searchBounded(0, -2, 2, 1);
++  assert.equal(result.value, null);
++  assert.equal(result.maxReachedDepth, 1);
++  assert.equal(result.horizonLeaves, 2);
++  assert.equal(engine.metrics.transitionsRequested, 2);
++  assert.equal(p.proofStore.lower(0), -1);
++  assert.equal(p.proofStore.upper(0), 1);
++  assert.ok(engine.run() === 0);
++});
++
++test('an unresolved sibling cannot turn a known draw into an exact root draw', () => {
++  const { p, engine } = boundedTree(id => id === 1 || id >= 3 ? TACTICAL_DRAW : TACTICAL_NONE);
++  assert.equal(engine.searchBounded(0, -2, 2, 1).value, null);
++  assert.equal(p.proofStore.lower(0), 0);
++  assert.equal(p.proofStore.upper(0), 1);
++  assert.ok(engine.run() === 0);
++});
++
++test('a proved winning child still cuts off after an unresolved sibling', () => {
++  const { p, engine } = boundedTree(id => id === 2 ? TACTICAL_LOSS : id >= 3 ? TACTICAL_DRAW : TACTICAL_NONE);
++  assert.equal(engine.searchBounded(0, -2, 2, 1).value, 1);
++  assert.equal(engine.metrics.cutoffs, 1);
++  assert.equal(p.proofStore.lower(0), 1);
++  assert.equal(p.proofStore.upper(0), 1);
++});
++
++test('bounded forced chains respect the horizon and restore unrestricted search after failure', () => {
++  const { p, engine } = boundedTree(id => id < 3 ? 0 : TACTICAL_DRAW);
++  assert.equal(engine.searchBounded(0, -2, 2, 1).value, null);
++  assert.equal(engine.metrics.forcedMacroTransitions, 1);
++  assert.equal(p.proofStore.lower(0), -1);
++  assert.ok(engine.run() === 0);
++  assert.throws(() => engine.searchBounded(0, -2, 2, -1));
++});
++
+ test('structural draw intersects prior proof and rejects contradictory exact bounds', () => {
+   const target = new Float64Array(3);
+   for (const value of [-1, 1]) assert.throws(() => applyFrontierBoundCode(FRONTIER_BOUND_DRAW, value, value, target), /contradict/);
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs
+index 50555a3..1441fe7 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs
+@@ -4,7 +4,7 @@ import {
+   hashSemanticQuotientDescriptorPartsUnchecked,
+ } from './quotient-semantic-identity.mjs';
+ 
+-const CLASS_UNKNOWN_LENGTH = 0xffff;
++const MAX_DESCRIPTOR_LENGTH = 0xfffe;
+ const INITIAL_CLASS_CAPACITY = 1024;
+ const MAX_POWER_OF_TWO = 1 << 30;
+ 
+@@ -26,15 +26,15 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     throw new TypeError('local semantic descriptor cache requires classes.termCount/writeTermIds');
+   }
+   const vocabularyCount = kernel.classes.termVocabulary?.count;
+-  if (!Number.isInteger(vocabularyCount) || vocabularyCount < 1 || vocabularyCount >= CLASS_UNKNOWN_LENGTH) {
+-    throw new RangeError(`semantic term vocabulary count must be in 1..${CLASS_UNKNOWN_LENGTH - 1}, got ${vocabularyCount}`);
++  if (!Number.isInteger(vocabularyCount) || vocabularyCount < 1 || vocabularyCount > MAX_DESCRIPTOR_LENGTH) {
++    throw new RangeError(`semantic term vocabulary count must be in 1..${MAX_DESCRIPTOR_LENGTH}, got ${vocabularyCount}`);
+   }
+ 
+   let classCapacity = INITIAL_CLASS_CAPACITY;
+-  let classLengths = new Uint16Array(classCapacity);
++  // Only hash readiness is cached here. Exact lengths belong to the residual pool.
++  let classHashReady = new Uint32Array(classCapacity / 32);
+   let classHashLo = new Uint32Array(classCapacity);
+   let classHashHi = new Uint32Array(classCapacity);
+-  classLengths.fill(CLASS_UNKNOWN_LENGTH);
+ 
+   // One bounded scratch buffer is sufficient because descriptor/TT operations are synchronous
+   // within a worker. Exact residual ownership remains in the canonical class pool.
+@@ -66,7 +66,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     termIdsCached: 0,
+     termArrayObjectsCached: 0,
+     classDescriptorObjectsCached: 0,
+-    classMetadataBytes: classLengths.byteLength + classHashLo.byteLength + classHashHi.byteLength,
++    classMetadataBytes: classHashReady.byteLength + classHashLo.byteLength + classHashHi.byteLength,
+     scratchBytes: termScratch.byteLength,
+     scratchCapacity: termScratch.length,
+     termArenaBytes: 0,
+@@ -76,7 +76,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+   };
+ 
+   function refreshRetainedBytes() {
+-    metrics.classMetadataBytes = classLengths.byteLength + classHashLo.byteLength + classHashHi.byteLength;
++    metrics.classMetadataBytes = classHashReady.byteLength + classHashLo.byteLength + classHashHi.byteLength;
+     metrics.termArenaBytes = 0;
+     // retainedTypedBytes intentionally describes retained semantic cache ownership;
+     // the bounded reusable working scratch is reported separately as scratchBytes.
+@@ -109,14 +109,13 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     if (required <= classCapacity) return;
+     const next = nextPowerOfTwo(required);
+     if (!Number.isSafeInteger(next) || next <= classCapacity) throw new RangeError(`semantic class capacity overflow at ${required}`);
+-    const lengths = new Uint16Array(next);
+-    lengths.fill(CLASS_UNKNOWN_LENGTH);
+-    lengths.set(classLengths);
++    const ready = new Uint32Array(next / 32);
++    ready.set(classHashReady);
+     const lo = new Uint32Array(next);
+     lo.set(classHashLo);
+     const hi = new Uint32Array(next);
+     hi.set(classHashHi);
+-    classLengths = lengths;
++    classHashReady = ready;
+     classHashLo = lo;
+     classHashHi = hi;
+     classCapacity = next;
+@@ -126,7 +125,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+   function termCount(classId) {
+     assertClassId(classId);
+     const count = kernel.classes.termCount(classId);
+-    if (!Number.isInteger(count) || count < 0 || count >= CLASS_UNKNOWN_LENGTH || count > vocabularyCount) {
++    if (!Number.isInteger(count) || count < 0 || count > MAX_DESCRIPTOR_LENGTH || count > vocabularyCount) {
+       throw new RangeError(`residual class ${classId} reported invalid term count ${count}`);
+     }
+     return count;
+@@ -149,37 +148,38 @@ export function createLocalSemanticDescriptorCache(kernel) {
+   }
+ 
+   function ensureClassMetadata(classId) {
+-    assertClassId(classId);
++    const length = termCount(classId);
+     ensureClassCapacity(classId + 1);
+-    if (classLengths[classId] !== CLASS_UNKNOWN_LENGTH) {
++    const word = classId >>> 5;
++    const bit = 1 << (classId & 31);
++    if ((classHashReady[word] & bit) !== 0) {
+       metrics.classHits += 1;
+-      return;
++      return length;
+     }
+ 
+-    const length = termCount(classId);
+     writeClassTerms(classId, termScratch, 0, length);
+     hashResidualTermIds(termScratch, length, classHashScratch);
+-    classLengths[classId] = length;
+     classHashLo[classId] = classHashScratch.lo;
+     classHashHi[classId] = classHashScratch.hi;
++    classHashReady[word] |= bit;
+     metrics.classBuilds += 1;
++    return length;
+   }
+ 
+   const termSource = Object.freeze({
+     writeTermIds(classId, target, offset = 0) {
+-      ensureClassMetadata(classId);
+-      const length = classLengths[classId];
++      const length = termCount(classId);
+       return writeClassTerms(classId, target, offset, length);
+     },
+   });
+   transientStateDescriptor.termSource = termSource;
+ 
+   function classDescriptor(classId) {
+-    ensureClassMetadata(classId);
++    const length = ensureClassMetadata(classId);
+     metrics.classDescriptorObjectsAllocated += 1;
+     return Object.freeze({
+       classId,
+-      length: classLengths[classId],
++      length,
+       hash: Object.freeze({ lo: classHashLo[classId], hi: classHashHi[classId] }),
+       termSource,
+     });
+@@ -193,23 +193,23 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     if (!Number.isInteger(supportIndex) || supportIndex < 0 || supportIndex >= kernel.support.itemCapacity) {
+       throw new Error(`semantic state ${stateId} has invalid support index ${supportIndex}`);
+     }
+-    assertClassId(p0ClassId);
+-    assertClassId(p1ClassId);
+-    ensureClassMetadata(p0ClassId);
+-    ensureClassMetadata(p1ClassId);
++    const p0Length = ensureClassMetadata(p0ClassId);
++    const p1Length = ensureClassMetadata(p1ClassId);
+     transientStateDescriptor.stateId = stateId;
+     transientStateDescriptor.supportIndex = supportIndex;
+     transientStateDescriptor.p0ClassId = p0ClassId;
+     transientStateDescriptor.p1ClassId = p1ClassId;
++    transientStateDescriptor.p0Length = p0Length;
++    transientStateDescriptor.p1Length = p1Length;
+   }
+ 
+   function hotStateDescriptor(stateId) {
+     readStateParts(stateId);
+     const p0ClassId = transientStateDescriptor.p0ClassId;
+     const p1ClassId = transientStateDescriptor.p1ClassId;
+-    const p0Length = classLengths[p0ClassId];
+-    const p1Length = classLengths[p1ClassId];
+-    if (p0Length + p1Length >= CLASS_UNKNOWN_LENGTH) {
++    const p0Length = transientStateDescriptor.p0Length;
++    const p1Length = transientStateDescriptor.p1Length;
++    if (p0Length + p1Length > MAX_DESCRIPTOR_LENGTH) {
+       throw new RangeError(`semantic state ${stateId} combined residual length exceeds Uint16 domain`);
+     }
+     hashSemanticQuotientDescriptorPartsUnchecked(
+@@ -241,8 +241,8 @@ export function createLocalSemanticDescriptorCache(kernel) {
+       supportIndex,
+       p0ClassId,
+       p1ClassId,
+-      classLengths[p0ClassId],
+-      classLengths[p1ClassId],
++      transientStateDescriptor.p0Length,
++      transientStateDescriptor.p1Length,
+       classHashLo[p0ClassId],
+       classHashHi[p0ClassId],
+       classHashLo[p1ClassId],
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs
+index 445e538..688f309 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs
+@@ -18,13 +18,13 @@ export function createSlot64ResidualQuotientKernel(spec, options = {}) {
+     ...options,
+     supportLayout: options.supportLayout ?? 'packed',
+   });
+-  const residual = installSlot64ResidualPool(substrate, spec, {
++  const residual = installSlot64ResidualPool(substrate, substrate.domain, {
+     prefixClasses: options.prefixClasses ?? 4096,
+   });
+   const proofStore = substrate.proofStore;
+-  const frontierOrder = createLiveLineMoveOrder(spec);
++  const frontierOrder = createLiveLineMoveOrder(substrate.domain);
+   const responseClosure = options.responseClosure === false ? null
+-    : createPairedResponseClosure(spec, substrate.supportAccess, substrate.classes, residual.vocabulary);
++    : createPairedResponseClosure(substrate.domain, substrate.supportAccess, substrate.classes, residual.vocabulary);
+ 
+   function frontierBoundCode(stateId) {
+     const supportIndex = substrate.states.support[stateId];
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs
+index 7b6dc62..494e57c 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs
+@@ -589,11 +589,14 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
+   if (!Number.isInteger(rows) || rows < 1) throw new RangeError('rows must be positive');
+   if (!Number.isInteger(connect) || connect < 1) throw new RangeError('connect must be positive');
+   if (cellCount > 64) throw new RangeError('quotient-native two-lane mask kernel currently supports at most 64 cells');
++  // Capture the input once. Every composed geometry is derived from this owner,
++  // never from a later read of caller-owned configuration.
++  const domain = Object.freeze({ columns, rows, connect });
+ 
+   const cacheEdges = options.cacheEdges !== false;
+-  const supportAccess = createSupportAccess(spec, options.supportLayout ?? 'table');
++  const supportAccess = createSupportAccess(domain, options.supportLayout ?? 'table');
+   const support = supportAccess.support;
+-  const winningLines = createConnectWinningLines(spec);
++  const winningLines = createConnectWinningLines(domain);
+   const initialPairs = winningLines.map(maskPairFromCells);
+   const classes = new ResidualClassPool(cellCount, initialPairs);
+   const states = new QuotientStatePool(columns, cacheEdges, support.itemCapacity, classes);
+@@ -768,7 +771,8 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
+ 
+   return Object.freeze({
+     kind: 'connect4-quotient-native-negamax-support-layout-kernel',
+-    ...spec,
++    ...domain,
++    domain,
+     cellCount,
+     support,
+     supportAccess,
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs
+index 0b3e977..df26513 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs
+@@ -268,6 +268,9 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+     proofAdmissions: 0,
+   };
+   const proof = createProofAccess(port, metrics, columns);
++  // Only the bounded entry point installs a horizon. An unresolved horizon is
++  // never a WDL value and never becomes an exact or upper proof publication.
++  let horizon = null;
+ 
+   function transition(stateId, column) {
+     metrics.transitionsRequested += 1;
+@@ -374,6 +377,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+ 
+     while (true) {
+       metrics.calls += 1;
++      if (horizon !== null && rank > horizon.maxReachedRank) horizon.maxReachedRank = rank;
+       const key = proof.probe(stateId);
+       const proofSnapshot = proof.read(key);
+       const proofLower = proofSnapshot[0];
+@@ -426,6 +430,11 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+         return 0;
+       }
+ 
++      if (horizon !== null && rank >= horizon.rankLimit) {
++        horizon.leaves += 1;
++        return null;
++      }
++
+       const originalAlpha = alpha;
+       const originalBeta = beta;
+       alpha = Math.max(alpha, lower);
+@@ -483,6 +492,8 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+       metrics.expanded += 1;
+       let value = -2;
+       let selected = -1;
++      let unresolved = false;
++      let learnedLower = lower;
+       for (let index = 0; index < moveCount; index += 1) {
+         const column = moveStack[base + index];
+         const child = requireLegalTransition(transition(stateId, column), stateId, column);
+@@ -490,9 +501,17 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+         if (child === QN_TERMINAL_WIN) score = 1;
+         else {
+           advanceFrontier(stateId, column, rank);
+-          score = -searchNode(child, -beta, -alpha, rank + 1);
++          const childScore = searchNode(child, -beta, -alpha, rank + 1);
++          if (childScore === null) {
++            unresolved = true;
++            continue;
++          }
++          score = -childScore;
+         }
+         assertWdlValue(score, 'child score');
++        // A return that beats alpha establishes a lower proof; a fail-low
++        // return may only be an upper bound and must not be promoted here.
++        if (score > alpha) learnedLower = Math.max(learnedLower, score);
+         if (score > value) {
+           value = score;
+           selected = column;
+@@ -505,6 +524,10 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+         }
+       }
+ 
++      if (unresolved && alpha < beta) {
++        if (learnedLower > lower) proof.publishLower(stateId, key, learnedLower, selected);
++        return null;
++      }
+       publishResult(stateId, key, value, selected, originalAlpha, originalBeta);
+       return sign * value;
+     }
+@@ -516,6 +539,23 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+     return searchNode(stateId, alpha, beta, rank);
+   }
+ 
++  function searchBounded(stateId, alpha, beta, maxDepth, frontierSeed = null) {
++    assertSearchWindow(alpha, beta);
++    if (!Number.isSafeInteger(maxDepth) || maxDepth < 0 || maxDepth > cellCount) {
++      throw new RangeError(`bounded search depth must be in 0..${cellCount}`);
++    }
++    if (horizon !== null) throw new Error('bounded search is not reentrant');
++    const rank = initializeFrontier(stateId, frontierSeed);
++    const boundary = { rankLimit: Math.min(cellCount, rank + maxDepth), maxReachedRank: rank, leaves: 0 };
++    horizon = boundary;
++    try {
++      const value = searchNode(stateId, alpha, beta, rank);
++      return Object.freeze({ status: value === null ? 'depth-limited' : 'resolved',
++        value: value === 0 ? 0 : value, requestedDepth: maxDepth,
++        maxReachedDepth: boundary.maxReachedRank - rank, horizonLeaves: boundary.leaves });
++    } finally { horizon = null; }
++  }
++
+   function solveState(stateId, frontierSeed = null) {
+     return search(stateId, -2, 2, frontierSeed);
+   }
+@@ -553,6 +593,7 @@ export function createQuotientNegamaxEngine(port, config = {}) {
+ 
+   return Object.freeze({
+     search,
++    searchBounded,
+     solveState,
+     solveRoot,
+     solveRootColumn,
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs
+index 547183f..cd0552e 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs
+@@ -298,6 +298,7 @@ export function createOnlineSemanticQuotientSearcher(kernel, semanticArena, opti
+ 
+   return Object.freeze({
+     search: engine.search,
++    searchBounded: engine.searchBounded,
+     replayPath,
+     searchPath,
+     solvePath,
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs
+index 58725a9..f4a746f 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs
+@@ -16,6 +16,10 @@ export function createPairedResponseClosure(spec, supportAccess, classes, vocabu
+       || vocabulary.lo.length !== vocabulary.count || vocabulary.hi.length !== vocabulary.count) {
+     throw new RangeError('paired response vocabulary does not match the domain');
+   }
++  const termWordCount = classes.termWordCount;
++  if (!Number.isInteger(termWordCount) || termWordCount !== Math.ceil(vocabulary.count / 64) * 2) {
++    throw new RangeError('paired response term layout does not match the canonical residual owner');
++  }
+   let responseLo = 0, responseHi = 0;
+   // With even remaining height in every column, the second event of each pair
+   // has the same row parity as the top cell. The guard is essential.
+@@ -24,7 +28,7 @@ export function createPairedResponseClosure(spec, supportAccess, classes, vocabu
+     if (cell < 32) responseLo = (responseLo | bit) >>> 0;
+     else responseHi = (responseHi | bit) >>> 0;
+   }
+-  const covered = new Uint32Array(20);
++  const covered = new Uint32Array(termWordCount);
+   for (let id = 0; id < vocabulary.count; id += 1) {
+     if ((vocabulary.lo[id] & responseLo) !== 0 || (vocabulary.hi[id] & responseHi) !== 0) {
+       covered[id >>> 5] |= 1 << (id & 31);
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs
+index 58b0900..68b41b8 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs
+@@ -2,9 +2,7 @@ import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+ 
+ const CLASS_UNKNOWN = -3;
+ const CLASS_TERMINAL_WIN = -1;
+-const WORDS_PER_CLASS = 20;
+ const CHUNK_WORDS = 2;
+-const CHUNKS_PER_CLASS = WORDS_PER_CLASS / CHUNK_WORDS;
+ const UINT32_MAX = 0xffffffff;
+ const MAX_ARRAY_INDEX_DOMAIN = 0x7fffffff;
+ 
+@@ -40,18 +38,10 @@ function hashWords2(words, offset) {
+ 
+ function hashChunkTuple(ids) {
+   let hash = 0x811c9dc5;
+-  for (let index = 0; index < CHUNKS_PER_CLASS; index += 1) {
++  for (let index = 0; index < ids.length; index += 1) {
+     hash = Math.imul(hash ^ mix32((ids[index] + 1) >>> 0), 0x01000193) >>> 0;
+   }
+-  return mix32(hash ^ CHUNKS_PER_CLASS);
+-}
+-
+-function bitIndex32(value) {
+-  const normalized = value >>> 0;
+-  if (normalized === 0 || (normalized & (normalized - 1)) !== 0) {
+-    throw new Error(`bitIndex32 requires one set bit, got ${normalized}`);
+-  }
+-  return 31 - Math.clz32(normalized);
++  return mix32(hash ^ ids.length);
+ }
+ 
+ function popcount32(value) {
+@@ -78,8 +68,8 @@ function assertWordSource(source, offset, label) {
+ }
+ 
+ class SlotChunkPool64 {
+-  constructor(slot) {
+-    if (!Number.isInteger(slot) || slot < 0 || slot >= CHUNKS_PER_CLASS) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
++  constructor(slot, slotCount) {
++    if (!Number.isInteger(slot) || slot < 0 || slot >= slotCount) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
+     this.slot = slot;
+     this.count = 0;
+     this.capacity = 256;
+@@ -191,9 +181,12 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+ 
+   const pool = kernel.classes;
+   const vocabulary = createTermVocabulary(spec);
+-  if (!Number.isInteger(vocabulary.count) || vocabulary.count < 1 || vocabulary.count > WORDS_PER_CLASS * 32) {
+-    throw new RangeError(`slot64 residual pool supports 1..${WORDS_PER_CLASS * 32} ontology terms`);
++  if (!Number.isInteger(vocabulary.count) || vocabulary.count < 1 || vocabulary.count > 640) {
++    throw new RangeError('slot64 residual profile supports 1..640 ontology terms');
+   }
++  // Chunk width is a storage contract; chunk count is derived at initialization.
++  const CHUNKS_PER_CLASS = (vocabulary.count + 63) >>> 6;
++  const WORDS_PER_CLASS = CHUNKS_PER_CLASS << 1;
+   if (vocabulary.cellCount !== cellCount) throw new Error('slot64 vocabulary cell count drifted');
+   if (spec.columns === 7 && spec.rows === 6 && spec.connect === 4 && vocabulary.count !== 625) {
+     throw new Error(`standard 7x6 vocabulary drifted: ${vocabulary.count}`);
+@@ -205,11 +198,14 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     throw new RangeError(`slot64 transition cache entry count ${transitionEntries} is outside Int32 index domain`);
+   }
+ 
+-  const slotPools = Array.from({ length: CHUNKS_PER_CLASS }, (_, slot) => new SlotChunkPool64(slot));
++  const slotPools = Array.from({ length: CHUNKS_PER_CLASS }, (_, slot) => new SlotChunkPool64(slot, CHUNKS_PER_CLASS));
+   let classCount = 0;
+   let classCapacity = 1024;
+   let classSlotIds = Array.from({ length: CHUNKS_PER_CLASS }, () => new Uint8Array(classCapacity));
+   let classHashes = new Uint32Array(classCapacity);
++  // Immutable cardinality belongs to the canonical class, alongside its chunks.
++  // The installed vocabulary is bounded by 640 terms, so Uint16 is sufficient.
++  let classTermCounts = new Uint16Array(classCapacity);
+   let singletonLo = new Uint32Array(classCapacity);
+   let singletonHi = new Uint32Array(classCapacity);
+   let classHashSlots = new Int32Array(2048);
+@@ -356,10 +352,12 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       nextSlots.push(target);
+     }
+     const hashes = new Uint32Array(next); hashes.set(classHashes);
++    const counts = new Uint16Array(next); counts.set(classTermCounts);
+     const lo = new Uint32Array(next); lo.set(singletonLo);
+     const hi = new Uint32Array(next); hi.set(singletonHi);
+     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) classSlotIds[slot] = nextSlots[slot];
+     classHashes = hashes;
++    classTermCounts = counts;
+     singletonLo = lo;
+     singletonHi = hi;
+     classCapacity = next;
+@@ -368,7 +366,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+ 
+   function classEquals(id, ids) {
+     assertClassId(id);
+-    if (!(ids instanceof Uint32Array) || ids.length !== CHUNKS_PER_CLASS) throw new TypeError('slot64 class tuple must be Uint32Array(10)');
++    if (!(ids instanceof Uint32Array) || ids.length !== CHUNKS_PER_CLASS) throw new TypeError(`slot64 class tuple must be Uint32Array(${CHUNKS_PER_CLASS})`);
+     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+       if (classSlotIds[slot][id] !== ids[slot]) return false;
+     }
+@@ -398,21 +396,24 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     }
+   }
+ 
+-  function computeSingletonMasks(bits, classId) {
++  function computeClassMetadata(bits, classId) {
+     assertBits(bits);
+     let lo = 0;
+     let hi = 0;
++    let count = 0;
+     for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
++      count += popcount32(bits[word]);
+       let active = (bits[word] & singletonTermMasks[word]) >>> 0;
+       while (active !== 0) {
+-        const lsb = (active & -active) >>> 0;
+-        const termId = (word << 5) + bitIndex32(lsb);
++        const termId = (word << 5) + 31 - Math.clz32(active & -active);
+         if (termId >= vocabulary.count) throw new Error(`slot64 singleton term ${termId} exceeds vocabulary`);
+         lo = (lo | vocabulary.lo[termId]) >>> 0;
+         hi = (hi | vocabulary.hi[termId]) >>> 0;
+         active = (active & (active - 1)) >>> 0;
+       }
+     }
++    if (count > vocabulary.count) throw new Error(`slot64 class term count ${count} exceeds vocabulary ${vocabulary.count}`);
++    classTermCounts[classId] = count;
+     singletonLo[classId] = lo;
+     singletonHi[classId] = hi;
+   }
+@@ -460,7 +461,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     const id = classCount;
+     for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) classSlotIds[chunk][id] = chunkIds[chunk];
+     classHashes[id] = hash;
+-    computeSingletonMasks(bits, id);
++    computeClassMetadata(bits, id);
+     classHashSlots[slot] = id;
+     classCount += 1;
+     metrics.internMisses += 1;
+@@ -500,6 +501,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+   }
+ 
+   Object.defineProperty(pool, 'size', { configurable: true, get: () => classCount });
++  Object.defineProperty(pool, 'termWordCount', { value: WORDS_PER_CLASS });
+   pool.emptyClass = emptyClass;
+   pool.initialClass = initialClass;
+   pool.termVocabulary = vocabulary;
+@@ -516,21 +518,13 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+   pool.termCount = function slot64TermCount(id) {
+     assertClassId(id);
+     metrics.termCountReads += 1;
+-    let count = 0;
+-    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+-      const chunkId = classSlotIds[slot][id];
+-      const base = chunkId * CHUNK_WORDS;
+-      count += popcount32(slotPools[slot].words[base]);
+-      count += popcount32(slotPools[slot].words[base + 1]);
+-    }
+-    if (count > vocabulary.count) throw new Error(`slot64 class ${id} term count ${count} exceeds vocabulary ${vocabulary.count}`);
+-    return count;
++    return classTermCounts[id];
+   };
+ 
+   pool.writeTermIds = function slot64WriteTermIds(id, target, offset = 0) {
+     assertClassId(id);
+     if (!(target instanceof Uint16Array)) throw new TypeError('slot64 term target must be Uint16Array');
+-    const count = pool.termCount(id);
++    const count = classTermCounts[id];
+     if (!Number.isInteger(offset) || offset < 0 || offset + count > target.length) {
+       throw new RangeError(`slot64 term target cannot hold class ${id} length ${count} at offset ${offset}`);
+     }
+@@ -542,8 +536,9 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+         const wordIndex = slot * CHUNK_WORDS + localWord;
+         let active = slotPools[slot].words[base + localWord] >>> 0;
+         while (active !== 0) {
+-          const lsb = (active & -active) >>> 0;
+-          const termId = (wordIndex << 5) + bitIndex32(lsb);
++          // active != 0 establishes a single low bit. Keep its signed Int32
++          // representation, including bit 31; no unsigned boxing/revalidation.
++          const termId = (wordIndex << 5) + 31 - Math.clz32(active & -active);
+           if (termId >= vocabulary.count) throw new Error(`slot64 class ${id} contains out-of-vocabulary term ${termId}`);
+           target[out++] = termId;
+           active = (active & (active - 1)) >>> 0;
+@@ -592,8 +587,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       resultBits[word] = (input & ~containsMasks[containsBase + word]) >>> 0;
+       if (active !== 0) affected = true;
+       while (active !== 0) {
+-        const lsb = (active & -active) >>> 0;
+-        const termId = (word << 5) + bitIndex32(lsb);
++        const termId = (word << 5) + 31 - Math.clz32(active & -active);
+         if (termId >= vocabulary.count) throw new Error(`slot64 own transition saw out-of-vocabulary term ${termId}`);
+         const target = vocabulary.reduce[termId * vocabulary.cellCount + cell];
+         if (target === vocabulary.terminal) {
+@@ -619,8 +613,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+       let active = reducedBits[word] >>> 0;
+       while (active !== 0) {
+-        const lsb = (active & -active) >>> 0;
+-        const termId = (word << 5) + bitIndex32(lsb);
++        const termId = (word << 5) + 31 - Math.clz32(active & -active);
+         if (termId >= vocabulary.count) throw new Error(`slot64 normalization saw out-of-vocabulary term ${termId}`);
+         const start = strictSupersetStarts[termId];
+         const end = strictSupersetStarts[termId + 1];
+@@ -649,6 +642,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+ 
+     const containsBase = cell * WORDS_PER_CLASS;
+     let changedSlots = 0;
++    let removedTerms = 0;
+     for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) {
+       const parentChunk = classSlotIds[slotIndex][id];
+       chunkIds[slotIndex] = parentChunk;
+@@ -664,6 +658,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       const next1 = (input1 & ~mask1) >>> 0;
+       if (next0 === input0 && next1 === input1) continue;
+ 
++      removedTerms += popcount32(input0 ^ next0) + popcount32(input1 ^ next1);
+       resultBits[word] = next0;
+       resultBits[word + 1] = next1;
+       chunkIds[slotIndex] = slotPools[slotIndex].intern(resultBits, word);
+@@ -698,8 +693,11 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) ensureReferenceWidth(slotIndex, chunkIds[slotIndex]);
+     ensureClassCapacity(classCount + 1);
+     const result = classCount;
++    const count = classTermCounts[id] - removedTerms;
++    if (count < 0 || count > vocabulary.count) throw new Error(`slot64 blocked class term count ${count} is invalid`);
+     for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) classSlotIds[slotIndex][result] = chunkIds[slotIndex];
+     classHashes[result] = hash;
++    classTermCounts[result] = count;
+     const cellBit = (1 << (cell & 31)) >>> 0;
+     const bitLo = cell < 32 ? cellBit : 0;
+     const bitHi = cell < 32 ? 0 : cellBit;
+@@ -730,7 +728,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+ 
+   pool.memoryStats = function slot64ResidualMemoryStats() {
+     const classTupleBytes = classSlotIds.reduce((sum, ids) => sum + ids.byteLength, 0);
+-    const classMetadataBytes = classTupleBytes + classHashes.byteLength + singletonLo.byteLength + singletonHi.byteLength;
++    const classMetadataBytes = classTupleBytes + classHashes.byteLength + classTermCounts.byteLength + singletonLo.byteLength + singletonHi.byteLength;
+     const transitionCacheBytes = ownTransitions.byteLength + blockTransitions.byteLength;
+     const maskBytes = containsMasks.byteLength
+       + strictSupersetStarts.byteLength
+@@ -745,9 +743,11 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     return Object.freeze({
+       classCount,
+       termVocabularyCount: vocabulary.count,
++      termWordCount: WORDS_PER_CLASS,
+       residualTerms: null,
+       vocabularyBytes: vocabulary.bytes,
+       classTupleBytes,
++      classTermCountBytes: classTermCounts.byteLength,
+       classReferenceWidths: classSlotIds.map((ids) => ids.BYTES_PER_ELEMENT),
+       classMetadataBytes,
+       transitionCacheKind: 'dense-prefix',
+diff --git a/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs b/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
+index 9303197..c92698a 100644
+--- a/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
++++ b/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs
+@@ -4,10 +4,72 @@ import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-sl
+ import { createScaledTermIdQuotientNativeNegamaxKernel } from './quotient-native-negamax-scaled-term-id-kernel.mjs';
+ import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+ import { installOnlineOnlyStateStorage } from './quotient-online-only-state-storage.mjs';
++import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
++import { hashResidualTermIds } from './quotient-semantic-identity.mjs';
+ 
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('canonical cardinality and descriptor hashes match independent term sequences across growth and geometries', () => {
++  for (const domain of [spec, { columns: 4, rows: 4, connect: 4 }, { columns: 4, rows: 5, connect: 4 }, { columns: 7, rows: 6, connect: 4 }]) {
++    const options = { prefixClasses: 8, cacheEdges: false, responseClosure: false };
++    const k = createSlot64ResidualQuotientKernel(domain, options).kernel;
++    const reference = createScaledTermIdQuotientNativeNegamaxKernel(domain, options).kernel;
++    const cache = createLocalSemanticDescriptorCache(k);
++    const first = cache.classDescriptor(1);
++    for (let state = 0; state < k.states.count && state < 5000; state++) {
++      for (let column = 0; column < domain.columns; column++) {
++        assert.equal(k.advance(state, column), reference.advance(state, column));
++      }
++    }
++    assert.equal(k.classes.size, reference.classes.size);
++    for (let id = 0; id < k.classes.size; id++) {
++      const expected = reference.classes.termIds(id);
++      const target = new Uint16Array(expected.length + 4).fill(0xffff);
++      assert.equal(k.classes.termCount(id), expected.length);
++      assert.equal(k.classes.writeTermIds(id, target, 2), expected.length);
++      assert.deepEqual(target.subarray(2, 2 + expected.length), expected);
++      assert.deepEqual([...target.subarray(0, 2), ...target.subarray(2 + expected.length)], [65535, 65535, 65535, 65535]);
++      const descriptor = cache.classDescriptor(id);
++      assert.equal(descriptor.length, expected.length);
++      assert.deepEqual(descriptor.hash, hashResidualTermIds(expected));
++    }
++    const builds = cache.metrics.classBuilds;
++    for (let id = k.classes.size - 1; id >= 0; id--) cache.classDescriptor(id);
++    assert.equal(cache.metrics.classBuilds, builds, 'hash-ready bits survive growth, including bit 31');
++    assert.deepEqual(cache.classDescriptor(1), first);
++    assert.ok(k.classes.metrics.ownTransitionMisses > 0 && k.classes.metrics.blockTransitionMisses > 0);
++    if (domain.rows === 5) assert.ok(k.classes.metrics.classGrows > 0);
++  }
++});
++
++test('term writer rejects malformed capacity before mutation and class-count allocation failure preserves published classes', () => {
++  const k = createSlot64ResidualQuotientKernel({ columns: 4, rows: 5, connect: 4 }, { prefixClasses: 8 }).kernel;
++  const pool = k.classes, count = pool.termCount(1);
++  const target = new Uint16Array(count).fill(0xffff);
++  for (const offset of [-1, 0.5, NaN, 1, 2 ** 32]) {
++    assert.throws(() => pool.writeTermIds(1, target, offset));
++    assert.ok(target.every(value => value === 0xffff));
++  }
++  for (const id of [-1, pool.size, 0.5, NaN]) assert.throws(() => pool.termCount(id));
++  const U16 = globalThis.Uint16Array;
++  globalThis.Uint16Array = new Proxy(U16, { construct(Type, args) {
++    if (pool.size === 1024 && args[0] === 2048) throw new RangeError('controlled class-count allocation failure');
++    return Reflect.construct(Type, args);
++  } });
++  try {
++    assert.throws(() => {
++      for (let state = 0; state < k.states.count; state++) for (let column = 0; column < k.columns; column++) k.advance(state, column);
++    }, /controlled class-count allocation/);
++  } finally { globalThis.Uint16Array = U16; }
++  assert.equal(pool.size, 1024);
++  for (let id = 0; id < pool.size; id++) assert.equal(pool.termCount(id), pool.termIds(id).length);
++  assert.equal(pool.termCount(1), count);
++  for (let state = 0; state < k.states.count && pool.size === 1024; state++) for (let column = 0; column < k.columns; column++) k.advance(state, column);
++  assert.ok(pool.size > 1024, 'growth resumes after allocation recovery');
++  assert.equal(pool.termCount(1), count);
++});
++
+ test('qualification baseline keeps one proof owner and rejects invalid residual inputs', () => {
+   const wrap = createScaledTermIdQuotientNativeNegamaxKernel(spec, { prefixClasses: 8 });
+   assert.equal(wrap.kernel.proofStore, wrap.proofStore);
+@@ -59,17 +121,39 @@ test('paired response guard preserves every column reservoir in packed and table
+ 
+ test('compiled residual coverage rejects malformed inputs and reads canonical chunks after growth', () => {
+   const k = make();
+-  assert.throws(() => k.classes.everyTermInMask(-1, new Uint32Array(20)));
+-  assert.throws(() => k.classes.everyTermInMask(0, new Uint32Array(19)));
++  const words = k.classes.termWordCount;
++  assert.throws(() => k.classes.everyTermInMask(-1, new Uint32Array(words)));
++  assert.throws(() => k.classes.everyTermInMask(0, new Uint32Array(words - 1)));
+   assert.throws(() => createSlot64ResidualQuotientKernel(spec, { responseClosure: 1 }));
+   for (let id = 0; id < k.states.count; id++) for (let c = 0; c < k.columns; c++) k.advance(id, c);
+-  const mask = new Uint32Array(20);
++  const mask = new Uint32Array(words);
+   for (let i = 0; i < mask.length; i++) mask[i] = i & 1 ? 0xaaaaaaaa : 0x55555555;
+   for (let id = 0; id < k.classes.size; id++) {
+     const expected = k.classes.termIds(id).every(term => (mask[term >>> 5] & (1 << (term & 31))) !== 0);
+     assert.equal(k.classes.everyTermInMask(id, mask), expected);
+   }
+-  assert.equal(k.memoryStats().responseClosureBytes, 80);
++  assert.equal(k.memoryStats().responseClosureBytes, words * Uint32Array.BYTES_PER_ELEMENT);
++});
++
++test('board input is captured once at initialization and residual widths derive from that domain', () => {
++  for (const expected of [spec, { columns: 4, rows: 5, connect: 4 }, { columns: 7, rows: 6, connect: 4 }]) {
++    const reads = { columns: 0, rows: 0, connect: 0 };
++    const input = Object.fromEntries(Object.keys(reads).map(key => [key, expected[key]]));
++    for (const key of Object.keys(reads)) Object.defineProperty(input, key, { get() {
++      assert.equal(++reads[key], 1, `${key} must only be captured once`);
++      return expected[key];
++    } });
++    const k = createSlot64ResidualQuotientKernel(input, { prefixClasses: 8 }).kernel;
++    assert.deepEqual(k.domain, expected);
++    assert.ok(Object.isFrozen(k.domain));
++    const expectedWords = Math.ceil(k.classes.termVocabulary.count / 64) * 2;
++    assert.equal(k.classes.termWordCount, expectedWords);
++    assert.equal(k.classes.slotPools.length, expectedWords / 2);
++    assert.equal(k.memoryStats().responseClosureBytes, expectedWords * 4);
++    assert.throws(() => { k.classes.termWordCount = expectedWords + 2; }, TypeError);
++    const child = k.advance(k.rootId, 0);
++    assert.equal(k.supportAccess.rankAt(k.states.support[child]), 1);
++  }
+ });
+ 
+ test('state interning and cached edges reject values outside their owned domains', () => {

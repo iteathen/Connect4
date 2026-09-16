@@ -1,0 +1,83 @@
+{
+  "kind": "constrained-algebraic-synthesis-space-pilot",
+  "date": "2026-09-13",
+  "status": "negative-control-discovery-space-assessment",
+  "attribution": {
+    "research_direction": "Josh Oshiro",
+    "formalization_implementation_assessment": "OpenAI ChatGPT"
+  },
+  "domain": {
+    "columns": 4,
+    "rows": 3,
+    "connect": 3,
+    "winningLines": 14
+  },
+  "graph": {
+    "reachableStates": 7157,
+    "nonterminalStates": 4631,
+    "legalEdges": 11818
+  },
+  "proofClosure": {
+    "leafGrammar": ["I", "O"],
+    "predecessorGrammar": ["E", "A"],
+    "falsePositives": 0,
+    "falseNegativeNonterminalWins": 0,
+    "rootRank": 7,
+    "rootDagStates": 38,
+    "rootShape": "E(A(E(A(E(A(E(O)|I))|I))|E(O)))"
+  },
+  "synthesisSet": {
+    "nonBaseDerivedPositiveStates": 647,
+    "distinctCanonicalProofShapes": 34,
+    "deterministicTrain": 519,
+    "deterministicHoldout": 128
+  },
+  "scalarSnapshotGrammar": {
+    "features": 28,
+    "booleanAtomsAfterTruthVectorDedup": 166,
+    "featureSignatures": 304,
+    "ambiguousSignatures": 18,
+    "statesInAmbiguousSignatures": 42,
+    "maxShapesPerSignature": 3,
+    "twoPredicateSearch": [
+      {"target":"E(O)","examples":207,"formulasTested":13861,"trainPerfect":470,"holdoutPerfect":230,"distinctCoverageSets":106},
+      {"target":"A(E(O)|I)","examples":188,"formulasTested":13861,"trainPerfect":120,"holdoutPerfect":94,"distinctCoverageSets":71},
+      {"target":"E(A(E(O)|I))","examples":115,"formulasTested":13861,"trainPerfect":96,"holdoutPerfect":96,"distinctCoverageSets":3,"maxObservedCoverageAmongSurvivors":8},
+      {"target":"A(E(A(E(O)|I))|I)","examples":51,"formulasTested":13861,"trainPerfect":4,"holdoutPerfect":0,"distinctCoverageSets":0}
+    ],
+    "threePredicateDisposition": "stopped_after_bounded_execution_timeout; grammar already underconstrained"
+  },
+  "localRelationalGrammar": {
+    "addedRelations": [
+      "one-support-away latent singleton",
+      "stacked singleton",
+      "unsafe support-release move",
+      "overload-creating move",
+      "poisoned-support-creating move"
+    ],
+    "features": 35,
+    "booleanAtomsAfterTruthVectorDedup": 192,
+    "featureSignatures": 308,
+    "ambiguousSignatures": 17,
+    "statesInAmbiguousSignatures": 38,
+    "twoPredicateSearch": [
+      {"target":"E(O)","formulasTested":18528,"trainPerfect":658,"holdoutPerfect":368,"distinctCoverageSets":209},
+      {"target":"A(E(O)|I)","formulasTested":18528,"trainPerfect":219,"holdoutPerfect":179,"distinctCoverageSets":125},
+      {"target":"E(A(E(O)|I))","formulasTested":18528,"trainPerfect":109,"holdoutPerfect":109,"distinctCoverageSets":5,"maxObservedCoverageAmongSurvivors":8},
+      {"target":"A(E(A(E(O)|I))|I)","formulasTested":18528,"trainPerfect":6,"holdoutPerfect":0,"distinctCoverageSets":0}
+    ]
+  },
+  "assessment": {
+    "naiveScalarGuessSpace": "too-unconstrained",
+    "proofShapeSpace": "small-enough-to-remain-promising",
+    "mainMissingDimension": "typed quantified parent-to-action effect relations and alternative convergence",
+    "recommendedNextGrammar": "action-effect/alternative-convergence",
+    "doNotWiden": "arbitrary scalar threshold conjunctions"
+  },
+  "claimBoundary": {
+    "usesExactValuesAs": "synthesis/falsification control only",
+    "proves7x6CenterWin": false,
+    "provesTerminalLineMembership": false,
+    "usesSuspectedTerminalLineCardinality": false
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "evidence_id": "C4-E0036-TYPED-A123-COMPOSITION",
+  "claims": [
+    "C4-R0036"
+  ],
+  "direction": "supports",
+  "kind": [
+    "exact-oracle qualification",
+    "benchmark",
+    "repeated measurement"
+  ],
+  "date": "2026-09-11",
+  "source_branch": "work/minimax-typed-a123-20260911",
+  "source_commit": "d2b3f98918ed42ad2e8a1314ae6173dcae8bd997",
+  "reproduction": "research/provenance/source-archive/minimax-work-typed-a123/research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_gate_repeated.mjs",
+  "policy": "5 rotated-order runs, first 1 warmup; safe gate only skips certificate checks",
+  "identity_authority": "Typed MQ5 hashing selects candidate slots only; exact full-record equality remains semantic identity authority.",
+  "anchors": {
+    "loss": {
+      "sequence": "663152175",
+      "expected_score": -4,
+      "base": {
+        "nodes": 786581,
+        "medianMs": 1632.6947089999976,
+        "checks": 0,
+        "cuts": 0,
+        "skips": 0
+      },
+      "full_a123": {
+        "nodes": 557605,
+        "medianMs": 1533.127490500001,
+        "checks": 245171,
+        "cuts": 6394,
+        "skips": 0,
+        "nodeRatio": 0.7088971129483168,
+        "timeRatio": 0.9390166343094355
+      },
+      "gate_sweep": {
+        "2": {"nodes": 751979, "medianMs": 1641.661172, "checks": 19653, "cuts": 6013, "skips": 298698, "nodeRatio": 0.9560096163014362, "timeRatio": 1.005491818495262},
+        "12": {"nodes": 561315, "medianMs": 1535.8765844999998, "checks": 236581, "cuts": 6772, "skips": 10500, "nodeRatio": 0.7136137282746469, "timeRatio": 0.9407004114325221},
+        "16": {"nodes": 556915, "medianMs": 1528.570366, "checks": 241733, "cuts": 6450, "skips": 3133, "nodeRatio": 0.7080198987771126, "timeRatio": 0.9362254667538107},
+        "255": {"nodes": 557605, "medianMs": 1533.127490500001, "checks": 245171, "cuts": 6394, "skips": 0, "nodeRatio": 0.7088971129483168, "timeRatio": 0.9390166343094355}
+      },
+      "rotated_runs": [
+        {"rep":0,"base":{"nodes":786581,"ms":1693.464958},"2":{"nodes":751979,"ms":1660.6244170000002},"12":{"nodes":561315,"ms":1589.537612},"16":{"nodes":556915,"ms":1553.56214},"255":{"nodes":557605,"ms":1553.6555610000005}},
+        {"rep":1,"base":{"nodes":786581,"ms":1557.1644450000003},"2":{"nodes":751979,"ms":1670.4057269999994},"12":{"nodes":561315,"ms":1545.4960780000001},"16":{"nodes":556915,"ms":1548.8842640000003},"255":{"nodes":557605,"ms":1527.4194500000012}},
+        {"rep":2,"base":{"nodes":786581,"ms":1646.4334759999983},"2":{"nodes":751979,"ms":1603.7143240000005},"12":{"nodes":561315,"ms":1492.4720110000017},"16":{"nodes":556915,"ms":1528.8583319999998},"255":{"nodes":557605,"ms":1505.1354500000016}},
+        {"rep":3,"base":{"nodes":786581,"ms":1618.9559419999969},"2":{"nodes":751979,"ms":1635.4867569999988},"12":{"nodes":561315,"ms":1540.0150919999978},"16":{"nodes":556915,"ms":1528.2824},"255":{"nodes":557605,"ms":1538.8355310000006}},
+        {"rep":4,"base":{"nodes":786581,"ms":1664.9329449999932},"2":{"nodes":751979,"ms":1647.8355870000014},"12":{"nodes":561315,"ms":1531.7380770000018},"16":{"nodes":556915,"ms":1510.2266720000043},"255":{"nodes":557605,"ms":1544.520249000001}}
+      ],
+      "artifact": {"run_id":34597167365,"artifact_id":10262579800,"digest":"sha256:089592eaf330d7ceb320502fe4eb956b5b47175f8cadf1cb6b1b7abacdecb415"}
+    },
+    "win": {
+      "sequence": "41267575",
+      "expected_score": 3,
+      "base": {"nodes":4138812,"medianMs":7893.976355999992,"checks":0,"cuts":0,"skips":0},
+      "full_a123": {"nodes":3161623,"medianMs":8384.4129215,"checks":1282020,"cuts":39150,"skips":0,"nodeRatio":0.7638962581533059,"timeRatio":1.0621279496393778},
+      "gate_sweep": {
+        "2": {"nodes":4031814,"medianMs":7794.894894999998,"checks":81400,"cuts":20051,"skips":1508859,"nodeRatio":0.974147653964471,"timeRatio":0.9874484725401178},
+        "12": {"nodes":3351194,"medianMs":8598.218305999999,"checks":1288969,"cuts":44138,"skips":73245,"nodeRatio":0.8096994983101431,"timeRatio":1.0892125740235759},
+        "16": {"nodes":3240349,"medianMs":8505.825215999994,"checks":1296281,"cuts":40569,"skips":19041,"nodeRatio":0.7829176584971727,"timeRatio":1.0775083218402286},
+        "255": {"nodes":3161623,"medianMs":8384.4129215,"checks":1282020,"cuts":39150,"skips":0,"nodeRatio":0.7638962581533059,"timeRatio":1.0621279496393778}
+      },
+      "rotated_runs": [
+        {"rep":0,"base":{"nodes":4138812,"ms":8711.095534},"2":{"nodes":4031814,"ms":8637.339643000001},"12":{"nodes":3351194,"ms":8980.425542999998},"16":{"nodes":3240349,"ms":8641.191453000003},"255":{"nodes":3161623,"ms":8518.785006999999}},
+        {"rep":1,"base":{"nodes":4138812,"ms":8214.208310000002},"2":{"nodes":4031814,"ms":7871.903649},"12":{"nodes":3351194,"ms":8682.372609999999},"16":{"nodes":3240349,"ms":8517.070818999993},"255":{"nodes":3161623,"ms":8381.591631000003}},
+        {"rep":2,"base":{"nodes":4138812,"ms":7898.199720999997},"2":{"nodes":4031814,"ms":7800.364109000002},"12":{"nodes":3351194,"ms":8827.561018000008},"16":{"nodes":3240349,"ms":8545.862776000009},"255":{"nodes":3161623,"ms":8387.234211999996}},
+        {"rep":3,"base":{"nodes":4138812,"ms":7889.752990999987},"2":{"nodes":4031814,"ms":7789.425680999993},"12":{"nodes":3351194,"ms":8453.981534999999},"16":{"nodes":3240349,"ms":8494.579612999994},"255":{"nodes":3161623,"ms":8442.113195999991}},
+        {"rep":4,"base":{"nodes":4138812,"ms":7687.654345000017},"2":{"nodes":4031814,"ms":7769.854349000001},"12":{"nodes":3351194,"ms":8514.064002},"16":{"nodes":3240349,"ms":8328.762516999996},"255":{"nodes":3161623,"ms":8363.152567000012}}
+      ],
+      "artifact": {"run_id":34597167365,"artifact_id":10261539836,"digest":"sha256:67bd39ef17291ce5e28d9004cf99495d5fd70cf0c04f4d87223fe71"}
+    }
+  },
+  "interpretation": {
+    "proof_volume": "Full geometry A123 preserves the earlier A123 node counts inside the typed-MQ5 composition: 557605 on the loss anchor and 3161623 on the win anchor.",
+    "runtime": "Full A123 is about 6.10% faster than typed base on the loss anchor and about 6.21% slower on the win anchor in this repeated run. Runtime benefit is workload-dependent.",
+    "scope": "Two frozen exact-distance anchors and the documented safe residual-count gate policy. This is not a universal runtime or proof-volume claim."
+  },
+  "bayesian_note": "The rotated timing repetitions share the same implementation, anchors, runner and oracle; do not treat them as independent evidence events."
+}

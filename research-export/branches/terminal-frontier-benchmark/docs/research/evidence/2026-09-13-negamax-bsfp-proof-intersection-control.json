@@ -1,0 +1,105 @@
+{
+  "kind": "negamax-bsfp-proof-intersection-control",
+  "domain": {
+    "columns": 4,
+    "rows": 3,
+    "connect": 3,
+    "cells": 12,
+    "winningLines": 14
+  },
+  "graph": {
+    "legalStates": 7157,
+    "terminalStates": 2526,
+    "nonterminalStates": 4631
+  },
+  "forwardNegamax": {
+    "rootWdlP0": 1,
+    "wdlCounts": {
+      "0": 327,
+      "1": 4199,
+      "-1": 2631
+    }
+  },
+  "backwardFixedPoint": {
+    "rootWdlP0": 1,
+    "closurePasses": 11,
+    "p0WinStates": 4199,
+    "p1WinStates": 2631,
+    "drawResidueStates": 327
+  },
+  "agreement": {
+    "solverDisagreements": 0
+  },
+  "normalizedProofShapeCounts": {
+    "exists(P0Win)": 1917,
+    "forall(P0Win)": 710,
+    "exists(Draw) & forall(not P1Win)": 166,
+    "exists(P1Win)": 1332,
+    "exists(Draw) & forall(not P0Win)": 133,
+    "forall(P1Win)": 373,
+    "terminal:1": 1572,
+    "terminal:-1": 926,
+    "terminal:0": 28
+  },
+  "localStructuralClosure": {
+    "physicalStateCounts": {
+      "decision": 756,
+      "forced": 906,
+      "double-threat-loss": 391,
+      "immediate": 2570,
+      "terminal": 2526,
+      "exhaustion-draw": 8
+    },
+    "exactPhysicalStates": 5495,
+    "forcedResponsePhysicalStates": 906,
+    "genuineDecisionPhysicalStates": 756,
+    "tacticalExactMismatches": 0
+  },
+  "commonStructuralQuotient": {
+    "identity": "support + normalized P0 residual antichain + normalized P1 residual antichain",
+    "nonterminalPhysicalStates": 4631,
+    "quotientClasses": 3734,
+    "mergedPhysicalStates": 897,
+    "mixedValueClasses": 0,
+    "mixedTacticalClasses": 0,
+    "mixedProofShapeClasses": 0,
+    "tacticalClassCounts": {
+      "decision": 710,
+      "forced": 764,
+      "double-threat-loss": 350,
+      "immediate": 1907,
+      "exhaustion-draw": 3
+    }
+  },
+  "decisionActionFactorization": {
+    "classes": 710,
+    "rawActionEdges": 1946,
+    "uniqueExactSuccessorClasses": 1946,
+    "classesWithExactDuplicateSuccessors": 0,
+    "mirrorCanonicalSuccessorClasses": 1934,
+    "classesReducedByMirror": 8
+  },
+  "pairedResponseIntervalControl": {
+    "physicalStates": 122,
+    "quotientClasses": 90,
+    "genuineDecisionPhysicalStates": 77,
+    "genuineDecisionQuotientClasses": 57,
+    "exactValueMismatches": 0,
+    "decisionValueDistribution": {
+      "side0:value0": 23,
+      "side0:value-1": 54
+    }
+  },
+  "interpretation": {
+    "sharedOperators": [
+      "terminal injection",
+      "structural transition/restriction",
+      "existential/universal choice",
+      "finite rank"
+    ],
+    "localClosureObservation": "Immediate wins, double playable threats, bilateral exhaustion and forced responses are exact partial evaluations of the common predecessor recurrence.",
+    "remainingGap": "The remaining genuine decision classes require exact choice-factorization/quantifier elimination rather than another game-value recurrence.",
+    "actionEqualityFalsifier": "Exact successor equality removes no action edge in the genuine decision quotient classes; reflection removes only a small handful. The missing calculus must relate distinct successors by stronger proof relations.",
+    "intervalCertificateWitness": "The guarded paired-response policy soundly narrows 57 otherwise-genuine decision quotient classes to a one-sided no-win interval with zero exact-value mismatches."
+  }
+}

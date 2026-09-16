@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0036..C4-R0038",
+  "claims": [
+    {
+      "id": "C4-R0036",
+      "title": "Typed MQ5 and geometry-native A123 compose without losing the qualified proof-volume reduction",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "On the two frozen exact-distance anchors, composing MQ5-TYPED-OPENADDR-V1 with the geometry-native A123 certificate preserved exact root scores and reproduced the previously measured full-A123 proof node counts: 557,605 nodes on the -4 loss anchor and 3,161,623 nodes on the +3 win anchor. Repeated timing was workload-dependent: about 6.1% faster than typed MQ5 alone on the loss anchor and about 6.2% slower on the win anchor.",
+      "scope": "Frozen roots 663152175 and 41267575; five rotated-order runs with first run excluded from median; safe residual-count gate implementation. Not a universal runtime claim.",
+      "sources": [
+        "research/evidence/minimax/typed-mq5-a123-composition.json",
+        "research/provenance/source-archive/minimax-work-typed-a123/research/minimax/semantic-residual-mq5"
+      ],
+      "consumed_by": [
+        "negamax-minimax",
+        "isometric"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0028"
+        },
+        {
+          "type": "derived_from",
+          "target": "C4-R0030"
+        },
+        {
+          "type": "qualifies",
+          "target": "typed-mq5-plus-a123-composition"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0037",
+      "title": "Tested legacy/even-ply A9 responder orientation is unsound",
+      "status": "disproven",
+      "confidence_mode": "counterexample",
+      "statement": "The tested legacy/even-ply A9 responder generator/orientation produced three false no-win claims in the sampled conservative A1-A9/A10 composition. Every observed false claim depended on A9, and disabling A9 removed all false claims in the same sampled corpus.",
+      "scope": "This falsifies the tested generator/orientation only. It does not falsify Victor Allis's published A9 rule family or every possible role-general A9 formulation.",
+      "sources": [
+        "research/evidence/minimax/a1a9-a10-ablation.json",
+        "research/history/disproven/legacy-a9-responder-orientation.md",
+        "research/provenance/source-archive/minimax-work-a1a9-a10/research/minimax/composition-campaign/allis_a1a9_a10_exact.mjs"
+      ],
+      "consumed_by": [
+        "isometric",
+        "negamax-minimax"
+      ],
+      "relations": [
+        {
+          "type": "constrains",
+          "target": "A9-role-generalization"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0011"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0038",
+      "title": "A4 and A8 add sampled exact cover beyond A123 while A6 is saturated in the A9-disabled regime",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "On the sampled A1-A9/A10 corpus with the falsified A9 orientation disabled, conservative composition produced 84 oracle-confirmed claims versus 49 A123 claims, for 35 additional claims with zero false positives. Removing A8 reduced the additional count to 22; removing A4 reduced it to 28; removing A6 changed neither total nor additional claims. Removing both A4 and A8 reduced the additional count to 10, so their effects are not simply additive.",
+      "scope": "Same sampled roots, conservative Allis compatibility table, per-type instance cap and cover-step limit as C4-E0037-0038. A6 zero marginal value is a regime-specific saturation observation, not a global rejection.",
+      "sources": [
+        "research/evidence/minimax/a1a9-a10-ablation.json",
+        "research/provenance/source-archive/minimax-work-a1a9-a10/research/minimax/composition-campaign/allis_a1a9_a10_ablation_runner.mjs"
+      ],
+      "consumed_by": [
+        "isometric",
+        "negamax-minimax"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0029"
+        },
+        {
+          "type": "constrains",
+          "target": "C4-R0018"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        },
+        {
+          "type": "qualifies",
+          "target": "A1-A9-compatible-cover"
+        }
+      ]
+    }
+  ]
+}

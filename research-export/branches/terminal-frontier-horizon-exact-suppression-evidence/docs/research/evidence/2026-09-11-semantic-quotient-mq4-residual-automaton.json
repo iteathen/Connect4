@@ -1,0 +1,27 @@
+{
+  "kind": "connect4-semantic-quotient-mq4-residual-automaton",
+  "status": "pass",
+  "dateUtc": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "sourceCommit": "34afdc346ebbf805dd760da1eed3158fe625cce1",
+  "sourceFile": "research/semantic-quotient/mq4-residual-automaton.mjs",
+  "workflowRun": 34570662573,
+  "workflowJob": 103171852729,
+  "transitionLaw": "support + minimal residual antichain pair + labeled column -> terminal score or next residual state",
+  "cases": [
+    {"geometry":"4x3:c3","residualStates":3735,"residualTransitionEdges":10232,"residualTerminalEdges":2390,"comparedPhysicalStates":4659,"reachableSetMismatches":0,"stateScoreMismatches":0,"actionScoreMismatches":0,"flatTransitionEntries":14940,"flatTargetBytes":2,"flatTransitionBytes":29880,"flatReplayMismatches":0,"elapsedMs":123.625256},
+    {"geometry":"4x4:c4","residualStates":34095,"residualTransitionEdges":100764,"residualTerminalEdges":6256,"comparedPhysicalStates":139625,"reachableSetMismatches":0,"stateScoreMismatches":0,"actionScoreMismatches":0,"flatTransitionEntries":136380,"flatTargetBytes":2,"flatTransitionBytes":272760,"flatReplayMismatches":0,"elapsedMs":956.292138},
+    {"geometry":"5x3:c4","residualStates":11317,"residualTransitionEdges":37719,"residualTerminalEdges":1786,"comparedPhysicalStates":152003,"reachableSetMismatches":0,"stateScoreMismatches":0,"actionScoreMismatches":0,"flatTransitionEntries":56585,"flatTargetBytes":2,"flatTransitionBytes":113170,"flatReplayMismatches":0,"elapsedMs":622.5023450000001},
+    {"geometry":"4x5:c4","residualStates":294593,"residualTransitionEdges":890358,"residualTerminalEdges":76058,"comparedPhysicalStates":1385521,"reachableSetMismatches":0,"stateScoreMismatches":0,"actionScoreMismatches":0,"flatTransitionEntries":1178372,"flatTargetBytes":4,"flatTransitionBytes":4713488,"flatReplayMismatches":0,"elapsedMs":11770.354893,"rankStateCounts":[1,4,16,52,160,440,1197,2916,6780,13738,26427,42328,59045,60650,47501,23646,7882,1584,209,16,1]}
+  ],
+  "claims": {
+    "directResidualReachabilityEqualsPhysicalProjection": true,
+    "exactStrongStateScoreEquivalent": true,
+    "exactPerColumnActionScoreEquivalent": true,
+    "flatDenseTransitionReplayComplete": true,
+    "coloredBoardHistoryRequiredForTransition": false,
+    "identifiedLineHitHistoryRequiredForTransition": false,
+    "productionSolverClaim": false,
+    "standard7x6Claim": false
+  }
+}

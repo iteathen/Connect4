@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-11T03:29:00.820Z",
+  "files": [
+    {
+      "relativePath": "cases/01-4x3-c3/admission.json",
+      "sha256": "2e8916ef6e3b87f2f18365cfb7c700c856613bfb6bf57e94048a5a5c890d8406",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/case.json",
+      "sha256": "16ba2ce16bd4a43ab6df52c7e0141c8dbbc0baf865bc2d06940ff7269411ff14",
+      "sourceBytes": 379,
+      "publishedBytes": 379,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/oqs-cofactor-exact/result.json",
+      "sha256": "02440ec2175c2a309b094910e14f9388d22492086756850c03e698e52915b769",
+      "sourceBytes": 2353,
+      "publishedBytes": 2353,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/oqs-cofactor-exact/stderr.log",
+      "sha256": "dfea75692ec7182e06c3a25fad7f9b62ab13340198bf9903419c51ce55776a18",
+      "text": "[oqs] building exact reference fixtures for 4x3\n[oqs] 14 transitions ready; C1 seed 18.4 ms\n(node:16112) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:16112) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n[oqs] support 190, cut 0: both modes exact\n[oqs] support 190, cut 13: both modes exact\n",
+      "sourceBytes": 511,
+      "publishedBytes": 511,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/oqs-cofactor-exact/stdout.log",
+      "sha256": "d23922e18bfb8372e4436956dded258f68ae0c94e372475e8280d6bed9d41889",
+      "text": "{\n  \"kind\": \"connect4-bsfp-oqs-cofactor-42\",\n  \"mode\": \"native\",\n  \"geometry\": \"4x3:c3\",\n  \"outcome\": \"native-oqs-cofactor-pass\",\n  \"evidenceGrade\": \"all-candidates-of-selected-supports\",\n  \"fullDeviceQuotientSynthesis\": false,\n  \"rootWdl\": null,\n  \"transitionsChecked\": 14,\n  \"candidatesChecked\": 1120,\n  \"mismatches\": 0,\n  \"targetCoverage\": 1,\n  \"controls\": [],\n  \"timings\": {\n    \"baseline\": {\n      \"uploadMs\": 25.562399999999798,\n      \"submitWaitMs\": 13.260200000000623,\n      \"readbackMs\": 28.924400000000787\n    },\n    \"preserved\": {\n      \"uploadMs\": 23.834999999999127,\n      \"submitWaitMs\": 10.78650000000016,\n      \"readbackMs\": 28.145000000000437\n    }\n  },\n  \"compileLoadMs\": 4496.3558,\n  \"setupMs\": 4512.3733,\n  \"deviceBytes\": 4309160,\n  \"upperBoundBytes\": 272744616,\n  \"seedConstructionMs\": 18.40010000000001,\n  \"lineOrderMs\": 3.6620999999999952,\n  \"referenceSupports\": [\n    {\n      \"supportIndex\": 190,\n      \"rank\": 10,\n      \"heights\": [\n        2,\n        3,\n        3,\n        2\n      ],\n      \"oracleMode\": true,\n      \"validateDirect\": true,\n      \"oracleChecks\": 15,\n      \"directChecks\": 1120,\n      \"totalDenseStates\": 803,\n      \"maxDenseStates\": 116,\n      \"transitionEntries\": 1120,\n      \"totalCandidates\": 1120,\n      \"maxLayerCandidateCount\": 206,\n      \"maxActiveLayerPairRecords\": 145,\n      \"maxWinRecordsPerState\": 5,\n      \"maxLossRecordsPerState\": 48,\n      \"maxPairRecordsPerState\": 53,\n      \"generationMs\": 3.3749000000000535,\n      \"dedupMs\": 0.6435000000000457,\n      \"oracleBuildMs\": 19.814499999999896,\n      \"synthesisMs\": 4.018400000000099,\n      \"elapsedMs\": 25.27029999999999\n    }\n  ],\n  \"interpretation\": \"CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.\",\n  \"cleanup\": \"graceful\"\n}\n",
+      "sourceBytes": 1919,
+      "publishedBytes": 1919,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-4x3-c3/result.json",
+      "sha256": "3ab5e720882af44864eedb8ed5c8dd0dfebadb3a7bcef87a075c336067998650",
+      "sourceBytes": 5135,
+      "publishedBytes": 5135,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/admission.json",
+      "sha256": "9d4598f55e2edc15bf58c88a8f6e76f5fdb99a714f955c08b26b054f967e964d",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/case.json",
+      "sha256": "4e7d054b9f689934d367780c6d35b3458040163d318334dc9446464b16122394",
+      "sourceBytes": 379,
+      "publishedBytes": 379,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/oqs-cofactor-exact/result.json",
+      "sha256": "9625b45da2dc1d9b4a855a11ab2d38e934ef4a40a3cf5d95f5ba61ee1ec125f2",
+      "sourceBytes": 2714,
+      "publishedBytes": 2714,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/oqs-cofactor-exact/stderr.log",
+      "sha256": "82c50b67eec85cb3eb5db78b01f75728c73281e5e1f107baa59b5203a8a96d86",
+      "text": "[oqs] building exact reference fixtures for 4x4\n[oqs] 10 transitions ready; C1 seed 35.2 ms\n(node:17640) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:17640) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n[oqs] support 468, cut 0: both modes exact\n[oqs] support 468, cut 9: both modes exact\n",
+      "sourceBytes": 510,
+      "publishedBytes": 510,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/oqs-cofactor-exact/stdout.log",
+      "sha256": "9cbd1eb6df5e8133038ab0654d515396eaaa7826f72c30e4399062d69c6a4ed9",
+      "text": "{\n  \"kind\": \"connect4-bsfp-oqs-cofactor-42\",\n  \"mode\": \"native\",\n  \"geometry\": \"4x4:c4\",\n  \"outcome\": \"native-oqs-cofactor-pass\",\n  \"evidenceGrade\": \"all-candidates-of-selected-supports\",\n  \"fullDeviceQuotientSynthesis\": false,\n  \"rootWdl\": null,\n  \"transitionsChecked\": 10,\n  \"candidatesChecked\": 1409,\n  \"mismatches\": 0,\n  \"targetCoverage\": 1,\n  \"controls\": [\n    \"bits-31-32-41-and-cofactor-collapse\",\n    \"empty-active-extent\",\n    \"invalid-extent\",\n    \"candidate-overflow\",\n    \"invalid-offset\",\n    \"frontier-overflow\",\n    \"invalid-input-mask\",\n    \"invalid-fanout\",\n    \"invalid-high-lane\",\n    \"state-shards-17-match-full-candidate-set\",\n    \"block-64-128-and-success-after-failure\"\n  ],\n  \"timings\": {\n    \"baseline\": {\n      \"uploadMs\": 19.86339999999973,\n      \"submitWaitMs\": 10.524500000000216,\n      \"readbackMs\": 24.11989999999946\n    },\n    \"preserved\": {\n      \"uploadMs\": 18.00589999999943,\n      \"submitWaitMs\": 8.166799999999967,\n      \"readbackMs\": 20.151400000000194\n    }\n  },\n  \"compileLoadMs\": 804.3293000000001,\n  \"setupMs\": 819.3759,\n  \"deviceBytes\": 4309160,\n  \"upperBoundBytes\": 272744616,\n  \"seedConstructionMs\": 35.217600000000004,\n  \"lineOrderMs\": 1.9715999999999951,\n  \"referenceSupports\": [\n    {\n      \"supportIndex\": 468,\n      \"rank\": 12,\n      \"heights\": [\n        3,\n        3,\n        3,\n        3\n      ],\n      \"oracleMode\": true,\n      \"validateDirect\": true,\n      \"oracleChecks\": 11,\n      \"directChecks\": 1409,\n      \"totalDenseStates\": 645,\n      \"maxDenseStates\": 168,\n      \"transitionEntries\": 1409,\n      \"totalCandidates\": 1409,\n      \"maxLayerCandidateCount\": 408,\n      \"maxActiveLayerPairRecords\": 160,\n      \"maxWinRecordsPerState\": 6,\n      \"maxLossRecordsPerState\": 54,\n      \"maxPairRecordsPerState\": 60,\n      \"generationMs\": 4.7885000000000275,\n      \"dedupMs\": 0.5795999999999708,\n      \"oracleBuildMs\": 21.60880000000003,\n      \"synthesisMs\": 5.368099999999998,\n      \"elapsedMs\": 28.29650000000001\n    }\n  ],\n  \"interpretation\": \"CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.\",\n  \"cleanup\": \"graceful\"\n}\n",
+      "sourceBytes": 2257,
+      "publishedBytes": 2257,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/02-4x4-c4/result.json",
+      "sha256": "42fa109b377031ef8c1ebc7139fd8fe534e823d9b7497a7329ce9c626e02152c",
+      "sourceBytes": 5906,
+      "publishedBytes": 5906,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/admission.json",
+      "sha256": "234de7023b4d491efcf810039cc5fc93997cc962f9024edd87ef31d1f39f96b4",
+      "sourceBytes": 503,
+      "publishedBytes": 503,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/case.json",
+      "sha256": "abe9976682ac4ff68ee066e44cfd4a6ec39b4d1c0a56beb8ed98f9812437c4d6",
+      "sourceBytes": 381,
+      "publishedBytes": 381,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/oqs-cofactor-exact/result.json",
+      "sha256": "787e6ae60ca65a5f48735fb34c6e915e5ba6e3fd1afa4aefcc27ddaf792a2b0c",
+      "sourceBytes": 4827,
+      "publishedBytes": 4827,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/oqs-cofactor-exact/stderr.log",
+      "sha256": "f20283caec367c6cb114d019422f82dc3d9cb5eeda4fb2952032b401132bffc0",
+      "text": "[oqs] building exact reference fixtures for 5x5\n[oqs] 112 transitions ready; C1 seed 38630.3 ms\n(node:9552) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:9552) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n[oqs] support 4426, cut 0: both modes exact\n[oqs] support 4743, cut 0: both modes exact\n[oqs] support 6351, cut 0: both modes exact\n[oqs] support 6465, cut 0: both modes exact\n[oqs] support 6465, cut 27: both modes exact\n",
+      "sourceBytes": 647,
+      "publishedBytes": 647,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/oqs-cofactor-exact/stdout.log",
+      "sha256": "a1847d55de9690ecdfdf394b69a26ea99de95d0be9dae1d7b5bac0630fb379e3",
+      "text": "{\n  \"kind\": \"connect4-bsfp-oqs-cofactor-42\",\n  \"mode\": \"native\",\n  \"geometry\": \"5x5:c4\",\n  \"outcome\": \"native-oqs-cofactor-pass\",\n  \"evidenceGrade\": \"all-candidates-of-selected-supports\",\n  \"fullDeviceQuotientSynthesis\": false,\n  \"rootWdl\": null,\n  \"transitionsChecked\": 112,\n  \"candidatesChecked\": 220744,\n  \"mismatches\": 0,\n  \"targetCoverage\": 1,\n  \"controls\": [],\n  \"timings\": {\n    \"baseline\": {\n      \"uploadMs\": 370.79260000003705,\n      \"submitWaitMs\": 428.3844000000099,\n      \"readbackMs\": 2217.5389999999898\n    },\n    \"preserved\": {\n      \"uploadMs\": 345.4212000000116,\n      \"submitWaitMs\": 280.9927000000098,\n      \"readbackMs\": 2217.2941999999966\n    }\n  },\n  \"compileLoadMs\": 822.5118000000002,\n  \"setupMs\": 839.3260000000009,\n  \"deviceBytes\": 269746344,\n  \"upperBoundBytes\": 538181800,\n  \"seedConstructionMs\": 38630.2681,\n  \"lineOrderMs\": 28.919900000000013,\n  \"referenceSupports\": [\n    {\n      \"supportIndex\": 4426,\n      \"rank\": 16,\n      \"heights\": [\n        4,\n        5,\n        2,\n        2,\n        3\n      ],\n      \"oracleMode\": true,\n      \"validateDirect\": true,\n      \"oracleChecks\": 29,\n      \"directChecks\": 22598,\n      \"totalDenseStates\": 16736,\n      \"maxDenseStates\": 1603,\n      \"transitionEntries\": 22598,\n      \"totalCandidates\": 22598,\n      \"maxLayerCandidateCount\": 2770,\n      \"maxActiveLayerPairRecords\": 7943,\n      \"maxWinRecordsPerState\": 344,\n      \"maxLossRecordsPerState\": 304,\n      \"maxPairRecordsPerState\": 648,\n      \"generationMs\": 137.50510000002396,\n      \"dedupMs\": 17.39129999998113,\n      \"oracleBuildMs\": 9456.19250000002,\n      \"synthesisMs\": 154.8964000000051,\n      \"elapsedMs\": 9629.392699999997\n    },\n    {\n      \"supportIndex\": 4743,\n      \"rank\": 18,\n      \"heights\": [\n        3,\n        4,\n        5,\n        3,\n        3\n      ],\n      \"oracleMode\": false,\n      \"validateDirect\": true,\n      \"oracleChecks\": 0,\n      \"directChecks\": 52129,\n      \"totalDenseStates\": 40035,\n      \"maxDenseStates\": 3985,\n      \"transitionEntries\": 52129,\n      \"totalCandidates\": 52129,\n      \"maxLayerCandidateCount\": 6260,\n      \"maxActiveLayerPairRecords\": 8769,\n      \"maxWinRecordsPerState\": 364,\n      \"maxLossRecordsPerState\": 376,\n      \"maxPairRecordsPerState\": 740,\n      \"generationMs\": 202.38529999999446,\n      \"dedupMs\": 32.623300000028394,\n      \"oracleBuildMs\": 0,\n      \"synthesisMs\": 235.00860000002285,\n      \"elapsedMs\": 236.92559999999503\n    },\n    {\n      \"supportIndex\": 6351,\n      \"rank\": 16,\n      \"heights\": [\n        3,\n        2,\n        2,\n        5,\n        4\n      ],\n      \"oracleMode\": false,\n      \"validateDirect\": true,\n      \"oracleChecks\": 0,\n      \"directChecks\": 28444,\n      \"totalDenseStates\": 21872,\n      \"maxDenseStates\": 2107,\n      \"transitionEntries\": 28444,\n      \"totalCandidates\": 28444,\n      \"maxLayerCandidateCount\": 2850,\n      \"maxActiveLayerPairRecords\": 7129,\n      \"maxWinRecordsPerState\": 344,\n      \"maxLossRecordsPerState\": 304,\n      \"maxPairRecordsPerState\": 648,\n      \"generationMs\": 132.126700000008,\n      \"dedupMs\": 15.925100000000384,\n      \"oracleBuildMs\": 0,\n      \"synthesisMs\": 148.05180000000837,\n      \"elapsedMs\": 148.7372000000032\n    },\n    {\n      \"supportIndex\": 6465,\n      \"rank\": 20,\n      \"heights\": [\n        3,\n        3,\n        5,\n        5,\n        4\n      ],\n      \"oracleMode\": false,\n      \"validateDirect\": true,\n      \"oracleChecks\": 0,\n      \"directChecks\": 117573,\n      \"totalDenseStates\": 86965,\n      \"maxDenseStates\": 9170,\n      \"transitionEntries\": 117573,\n      \"totalCandidates\": 117573,\n      \"maxLayerCandidateCount\": 11132,\n      \"maxActiveLayerPairRecords\": 17448,\n      \"maxWinRecordsPerState\": 236,\n      \"maxLossRecordsPerState\": 456,\n      \"maxPairRecordsPerState\": 692,\n      \"generationMs\": 317.9352000000363,\n      \"dedupMs\": 61.00909999998839,\n      \"oracleBuildMs\": 0,\n      \"synthesisMs\": 378.94430000002467,\n      \"elapsedMs\": 380.62539999999717\n    }\n  ],\n  \"interpretation\": \"CPU oracle layers are qualification inputs. GPU candidate generation and exact cofactor normalization are exercised; grouping, dense IDs and chained OQS remain unimplemented. Submit/wait includes orchestration, not pure kernel time.\",\n  \"cleanup\": \"graceful\"\n}\n",
+      "sourceBytes": 4214,
+      "publishedBytes": 4214,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/03-5x5-c4/result.json",
+      "sha256": "ce49e13da80450bcd5291752c834bf2ecbdf2a75d7fc63dd702e321128147a67",
+      "sourceBytes": 10435,
+      "publishedBytes": 10435,
+      "truncated": false
+    },
+    {
+      "relativePath": "events.jsonl",
+      "sha256": "4f02899867000e8092e8af1025313a58a93faada8c41dac9d3f08dfaf29e90ff",
+      "sourceBytes": 3596,
+      "publishedBytes": 3596,
+      "truncated": false
+    },
+    {
+      "relativePath": "results.json",
+      "sha256": "586d1f7e6de40b920293e6ba5c512f5c5fa9411c31c28c006bcc740eed491dba",
+      "sourceBytes": 24358,
+      "publishedBytes": 24358,
+      "truncated": false
+    },
+    {
+      "relativePath": "summary.md",
+      "sha256": "ed9a8528a443cca29bcb2706107d2b67f329de199c0f7afa8ca1ffaa50c15892",
+      "sourceBytes": 1017,
+      "publishedBytes": 1017,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.json",
+      "sha256": "7430cd071169f696e142079780b41befc31b62a515f413bc35c32cb32c4e012e",
+      "sourceBytes": 2217,
+      "publishedBytes": 2217,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.preflight.json",
+      "sha256": "7430cd071169f696e142079780b41befc31b62a515f413bc35c32cb32c4e012e",
+      "sourceBytes": 2217,
+      "publishedBytes": 2217,
+      "truncated": false
+    }
+  ]
+}

@@ -1,0 +1,692 @@
+{
+  "kind": "post-search-relational-address-analysis",
+  "domain": {
+    "columns": 7,
+    "rows": 6,
+    "connect": 4
+  },
+  "limitations": [
+    "Observed depth-8 keys do not bound all reachable keys.",
+    "Radix estimates are layouts and positive distinct-key step counts, not measured implementations or CPU/cache timings.",
+    "Dense combination counts describe direct bitmask address space, not a claim that every combination is legal.",
+    "XOR folding differs from aligned full-word XOR/OR equality."
+  ],
+  "slots": [
+    {
+      "slot": 0,
+      "chunkCount": 227,
+      "reservedCapacity": 262144,
+      "activeBitCount": 59,
+      "lowWordDistinct": 39,
+      "xorFoldDistinct": 174,
+      "lowWitness": {
+        "ids": [
+          0,
+          1
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            133120
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          17,
+          18
+        ],
+        "keys": [
+          [
+            65536,
+            0
+          ],
+          [
+            0,
+            65536
+          ]
+        ],
+        "folded": 65536
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "2305843009213693952",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          10,
+          33,
+          64,
+          73,
+          131,
+          184,
+          205
+        ],
+        "indexBytesForObservedKeys": 717824,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 226,
+        "uniformDistinctKeyMeanBitSteps": 19.748898678414097,
+        "maxBitSteps": 59,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 1,
+      "chunkCount": 199,
+      "reservedCapacity": 262144,
+      "activeBitCount": 46,
+      "lowWordDistinct": 61,
+      "xorFoldDistinct": 178,
+      "lowWitness": {
+        "ids": [
+          0,
+          2
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          17,
+          31
+        ],
+        "keys": [
+          [
+            262144,
+            2097152
+          ],
+          [
+            2097152,
+            262144
+          ]
+        ],
+        "folded": 2359296
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "281474976710656",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          7,
+          16,
+          28,
+          42,
+          51,
+          100,
+          137
+        ],
+        "indexBytesForObservedKeys": 391168,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 198,
+        "uniformDistinctKeyMeanBitSteps": 18.959798994974875,
+        "maxBitSteps": 43,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 2,
+      "chunkCount": 432,
+      "reservedCapacity": 262144,
+      "activeBitCount": 48,
+      "lowWordDistinct": 105,
+      "xorFoldDistinct": 332,
+      "lowWitness": {
+        "ids": [
+          0,
+          1
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            4096
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          2,
+          6
+        ],
+        "keys": [
+          [
+            0,
+            33554432
+          ],
+          [
+            33554432,
+            0
+          ]
+        ],
+        "folded": 33554432
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "1125899906842624",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          9,
+          24,
+          45,
+          102,
+          169,
+          236,
+          352
+        ],
+        "indexBytesForObservedKeys": 960512,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 431,
+        "uniformDistinctKeyMeanBitSteps": 23.15972222222222,
+        "maxBitSteps": 44,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 3,
+      "chunkCount": 158,
+      "reservedCapacity": 262144,
+      "activeBitCount": 34,
+      "lowWordDistinct": 57,
+      "xorFoldDistinct": 129,
+      "lowWitness": {
+        "ids": [
+          0,
+          1
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            8192
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          4,
+          9
+        ],
+        "keys": [
+          [
+            8192,
+            2048
+          ],
+          [
+            2048,
+            8192
+          ]
+        ],
+        "folded": 10240
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "68719476736",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          5,
+          10,
+          13,
+          27,
+          42,
+          64,
+          93
+        ],
+        "indexBytesForObservedKeys": 261120,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 157,
+        "uniformDistinctKeyMeanBitSteps": 15.683544303797468,
+        "maxBitSteps": 34,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 4,
+      "chunkCount": 52,
+      "reservedCapacity": 262144,
+      "activeBitCount": 25,
+      "lowWordDistinct": 18,
+      "xorFoldDistinct": 46,
+      "lowWitness": {
+        "ids": [
+          0,
+          1
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            4194304
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          5,
+          6
+        ],
+        "keys": [
+          [
+            16,
+            0
+          ],
+          [
+            0,
+            16
+          ]
+        ],
+        "folded": 16
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "134217728",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          3,
+          6,
+          10,
+          18,
+          25,
+          32,
+          38
+        ],
+        "indexBytesForObservedKeys": 136192,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 51,
+        "uniformDistinctKeyMeanBitSteps": 12.288461538461538,
+        "maxBitSteps": 25,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 5,
+      "chunkCount": 4442,
+      "reservedCapacity": 262144,
+      "activeBitCount": 52,
+      "lowWordDistinct": 416,
+      "xorFoldDistinct": 3646,
+      "lowWitness": {
+        "ids": [
+          1,
+          3
+        ],
+        "keys": [
+          [
+            69904,
+            2147483648
+          ],
+          [
+            69904,
+            2182103056
+          ]
+        ],
+        "low": 69904
+      },
+      "foldedWitness": {
+        "ids": [
+          6,
+          27
+        ],
+        "keys": [
+          [
+            536870912,
+            8192
+          ],
+          [
+            0,
+            536879104
+          ]
+        ],
+        "folded": 536879104
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "18014398509481984",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          20,
+          76,
+          158,
+          253,
+          603,
+          1415,
+          3352
+        ],
+        "indexBytesForObservedKeys": 6019072,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 4441,
+        "uniformDistinctKeyMeanBitSteps": 20.783881134624043,
+        "maxBitSteps": 52,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 6,
+      "chunkCount": 12239,
+      "reservedCapacity": 262144,
+      "activeBitCount": 48,
+      "lowWordDistinct": 1666,
+      "xorFoldDistinct": 9513,
+      "lowWitness": {
+        "ids": [
+          0,
+          3
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            65536
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          11,
+          44
+        ],
+        "keys": [
+          [
+            2147491840,
+            2099266
+          ],
+          [
+            8192,
+            2149582914
+          ]
+        ],
+        "folded": 2149591106
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "1125899906842624",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          19,
+          126,
+          322,
+          715,
+          1573,
+          4170,
+          7521
+        ],
+        "indexBytesForObservedKeys": 14793728,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 12238,
+        "uniformDistinctKeyMeanBitSteps": 23.45305989051393,
+        "maxBitSteps": 47,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 7,
+      "chunkCount": 2503,
+      "reservedCapacity": 262144,
+      "activeBitCount": 49,
+      "lowWordDistinct": 594,
+      "xorFoldDistinct": 2212,
+      "lowWitness": {
+        "ids": [
+          0,
+          3
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            4096
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          20,
+          46
+        ],
+        "keys": [
+          [
+            134217736,
+            268439552
+          ],
+          [
+            8,
+            402657280
+          ]
+        ],
+        "folded": 402657288
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "2251799813685248",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          11,
+          50,
+          144,
+          292,
+          525,
+          916,
+          1622
+        ],
+        "indexBytesForObservedKeys": 3646464,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 2502,
+        "uniformDistinctKeyMeanBitSteps": 21.552137435077906,
+        "maxBitSteps": 38,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 8,
+      "chunkCount": 8423,
+      "reservedCapacity": 262144,
+      "activeBitCount": 55,
+      "lowWordDistinct": 201,
+      "xorFoldDistinct": 7683,
+      "lowWitness": {
+        "ids": [
+          0,
+          1
+        ],
+        "keys": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            4294963200
+          ]
+        ],
+        "low": 0
+      },
+      "foldedWitness": {
+        "ids": [
+          12,
+          15
+        ],
+        "keys": [
+          [
+            8388624,
+            285214722
+          ],
+          [
+            276824080,
+            16779266
+          ]
+        ],
+        "folded": 293603346
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "144115188075855872",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          130,
+          2766,
+          3974,
+          4607,
+          5160,
+          5832,
+          7564
+        ],
+        "indexBytesForObservedKeys": 30754816,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 8422,
+        "uniformDistinctKeyMeanBitSteps": 15.665677312121572,
+        "maxBitSteps": 33,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    },
+    {
+      "slot": 9,
+      "chunkCount": 132068,
+      "reservedCapacity": 262144,
+      "activeBitCount": 49,
+      "lowWordDistinct": 51364,
+      "xorFoldDistinct": 113380,
+      "lowWitness": {
+        "ids": [
+          4,
+          5
+        ],
+        "keys": [
+          [
+            4160483039,
+            131039
+          ],
+          [
+            4160483039,
+            131071
+          ]
+        ],
+        "low": 4160483039
+      },
+      "foldedWitness": {
+        "ids": [
+          25,
+          28
+        ],
+        "keys": [
+          [
+            1375775296,
+            36869
+          ],
+          [
+            1375774784,
+            37381
+          ]
+        ],
+        "folded": 1375746629
+      },
+      "denseAllObservedBitCombinationsIndexBytes": "2251799813685248",
+      "byteRadixHighFirst": {
+        "prefixCounts": [
+          1,
+          2,
+          118,
+          972,
+          4388,
+          17832,
+          60413
+        ],
+        "indexBytesForObservedKeys": 85736448,
+        "positiveLookupByteSteps": 8
+      },
+      "compressedBinaryRadix": {
+        "internalNodes": 132067,
+        "uniformDistinctKeyMeanBitSteps": 24.585773995214588,
+        "maxBitSteps": 34,
+        "indexBytesAtCurrentFullCapacity": 2359287,
+        "layout": "two Int32 child references plus one Uint8 branching-bit index per internal node; leaf references encode existing stable chunk IDs"
+      },
+      "currentIndexBytes": 1572864,
+      "exactKeysUnique": true
+    }
+  ],
+  "states": {
+    "count": 221398,
+    "distinctSupports": 6379,
+    "maxStatesPerSupport": 69,
+    "sameSupportWitness": {
+      "support": 2114,
+      "states": [
+        {
+          "stateId": 10,
+          "p0Class": 21,
+          "p1Class": 20
+        },
+        {
+          "stateId": 19,
+          "p0Class": 39,
+          "p1Class": 38
+        }
+      ]
+    }
+  },
+  "totals": {
+    "chunkCount": 160743,
+    "currentIndexBytes": 15728640,
+    "byteRadixObservedIndexBytes": 143417344,
+    "compressedBinaryRadixFullCapacityIndexBytes": 23592870
+  }
+}

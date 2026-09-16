@@ -1,0 +1,66 @@
+{
+  "date": "2026-09-09",
+  "status": "research evidence only",
+  "candidate": "exact residual column-transposition move orbits",
+  "authority_base_commit": "6fc9c8f3522abc45cdfdd21226591269c59eed12",
+  "correctness": {
+    "independent_7x6_oracle_scores_p0_perspective": [-2, 7, -9, 2, -8, -9, -6, 7],
+    "all_four_modes_match_oracle": true,
+    "tt_regression_falsifier_sequence": "24763565123272565531172315",
+    "buggy_interval_tt_orbit_score": 6,
+    "oracle_score": 2,
+    "tt_disabled_base_score": 2,
+    "tt_disabled_orbit_score": 2,
+    "tt_disabled_base_nodes": 43455,
+    "tt_disabled_orbit_nodes": 18997,
+    "tt_defect": "An exact cached interval (lo == up) was allowed to narrow alpha and beta to the same value and search continued. This could create contradictory intervals and order-dependent wrong results. Returning exact entries immediately removes the falsifier."
+  },
+  "complete_small_game_checks_after_tt_repair": [
+    {"geometry":"4x3-connect3","score":2,"base_nodes":812,"orbit_nodes":808,"card_nodes":513,"both_nodes":511},
+    {"geometry":"4x4-connect4","score":0,"base_nodes":12935,"orbit_nodes":11796,"card_nodes":11670,"both_nodes":10728},
+    {"geometry":"5x3-connect4","score":0,"base_nodes":2628,"orbit_nodes":978,"card_nodes":1477,"both_nodes":504},
+    {"geometry":"4x5-connect4","score":0,"base_nodes":57944,"orbit_nodes":53658,"card_nodes":53698,"both_nodes":49931}
+  ],
+  "frozen_7x6_cohort": [
+    {"sequence":"764353221241721325116531","oracle":-2,"base_nodes":28731,"orbit_nodes":26753,"card_nodes":23443,"both_nodes":21992,"orbit_reduction_pct":6.884549789426053,"both_vs_card_pct":6.189480868489527},
+    {"sequence":"5563576621726752473477144213","oracle":7,"base_nodes":804,"orbit_nodes":786,"card_nodes":264,"both_nodes":260,"orbit_reduction_pct":2.238805970149249,"both_vs_card_pct":1.5151515151515138},
+    {"sequence":"3253472274311154254412135","oracle":-9,"base_nodes":2115,"orbit_nodes":1344,"card_nodes":1398,"both_nodes":786,"orbit_reduction_pct":36.45390070921985,"both_vs_card_pct":43.77682403433476},
+    {"sequence":"24763565123272565531172315","oracle":2,"base_nodes":2687,"orbit_nodes":2233,"card_nodes":1744,"both_nodes":1480,"orbit_reduction_pct":16.896166728693707,"both_vs_card_pct":15.13761467889908},
+    {"sequence":"544111352647536626717444135","oracle":-8,"base_nodes":809,"orbit_nodes":796,"card_nodes":320,"both_nodes":320,"orbit_reduction_pct":1.606922126081578,"both_vs_card_pct":0.0},
+    {"sequence":"3412761563244125763551573","oracle":-9,"base_nodes":1932,"orbit_nodes":1910,"card_nodes":6,"both_nodes":6,"orbit_reduction_pct":1.1387163561076608,"both_vs_card_pct":0.0},
+    {"sequence":"1174534625627233274533652316","oracle":-6,"base_nodes":5179,"orbit_nodes":4201,"card_nodes":3772,"both_nodes":3084,"orbit_reduction_pct":18.88395443135741,"both_vs_card_pct":18.239660657476144},
+    {"sequence":"463141571213634656162165252","oracle":7,"base_nodes":1012,"orbit_nodes":950,"card_nodes":724,"both_nodes":678,"orbit_reduction_pct":6.126482213438733,"both_vs_card_pct":6.353591160220995}
+  ],
+  "aggregate_nodes": {
+    "base": 43269,
+    "orbit": 38973,
+    "cardinality": 31671,
+    "cardinality_plus_orbit": 28606,
+    "orbit_reduction_pct": 9.928586285793529,
+    "cardinality_reduction_pct": 26.804409623517987,
+    "combined_reduction_pct": 33.888002958238,
+    "orbit_increment_over_cardinality_pct": 9.677623062107287
+  },
+  "runtime_repeats_ms": {
+    "method": "11 rotating-order cohort repetitions; repetition 0-2 treated as warm-up for reported median",
+    "base": [90.83121200000001,61.63354600000025,69.24273700000015,73.73906299999999,65.45940300000007,63.263183000000026,61.73608399999989,57.12801599999989,79.29609600000003,58.35835800000132,63.67100699999992],
+    "orbit": [71.84645000000003,59.76865900000007,64.91010399999993,65.04908900000021,56.90371900000059,76.70398300000056,64.81539900000007,62.65709199999969,68.97711700000036,61.27292299999954,56.70311599999968],
+    "cardinality": [94.27785600000004,45.658117999999945,47.729074999999966,54.24653000000012,45.37062600000013,47.2206920000001,57.81021700000042,53.61669700000016,46.795045000000755,57.266917000000376,45.7527070000001],
+    "cardinality_plus_orbit": [60.98887499999995,60.09563700000007,47.611887999999794,43.89090799999997,50.163870999999745,45.03267200000005,44.85656300000028,53.34201199999961,44.35806800000046,55.35909099999935,57.041926000000785],
+    "reported_median_after_warmup": {
+      "base": 63.46709499999997,
+      "orbit": 63.73624549999988,
+      "cardinality": 50.41869450000013,
+      "cardinality_plus_orbit": 47.598271499999896,
+      "orbit_vs_base_runtime_change_pct": 0.4240788080814406,
+      "combined_vs_cardinality_speedup_pct": 5.594002438917222,
+      "combined_vs_base_speedup_pct": 25.003229626312784
+    }
+  },
+  "local_artifact_sha256": {
+    "prototype": "8a489d13908a2bbcc695522d7f05556892ae53665b4c406b7e2272cd986316a4",
+    "first_run_jsonl": "27a00f87ee22ce383022a29989024665168df894423d59a99eef08b1323b43ab",
+    "runtime_repeats_jsonl": "cde65fac1efa0f0dcd7044ded27cd4e0f254413a9f10bd6719b67fe8ff78fb71",
+    "tt_disabled_falsifier_harness": "b3e7e4ab4a7d853176c6047d68ffd1abedd0387924baa6ea55c39af9588f59fa"
+  }
+}

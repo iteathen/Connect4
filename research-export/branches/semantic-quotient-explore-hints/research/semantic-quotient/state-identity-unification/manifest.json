@@ -1,0 +1,229 @@
+{
+  "schema_version": 8,
+  "name": "state-identity-unification",
+  "status": "quotient-native-bounded-wall-clock-speedup-qualified-term-id-campaign-next",
+  "owner_branch": "research/semantic-quotient",
+  "date": "2026-09-11",
+  "question": "Can one exact relational game algebra provide common logical identity across forward exact search, CUDA-BSFP, and hybrid confluence while enabling the best combined time-to-proof architecture?",
+  "common_state_contract": [
+    "supportIndex",
+    "sideToMove-semantically-explicit-hot-storage-derivable",
+    "normalized-p0-residual-requirements",
+    "normalized-p1-residual-requirements"
+  ],
+  "consumers": [
+    "future-quotient-native-negamax-forward-solver-after-standard-7x6-gates",
+    "solver/cuda-bsfp",
+    "solver/hybrid-confluence"
+  ],
+  "siu1": {
+    "status": "pass",
+    "workflow_run": 34632643724,
+    "workflow_job": 103372941221,
+    "physical_states_checked": 1681808,
+    "exactness_mismatches": 0,
+    "bsfp_wdl_mismatches": 0,
+    "reverse_closure_mismatches": 0,
+    "forward_transition_functional": true,
+    "state_level_inverse_functional": false,
+    "result": "SIU1_RESULT.md"
+  },
+  "quotient_native_kernel": {
+    "status": "exact-on-complete-controls",
+    "machine_state": "qID=(supportIndex,p0ResidualClassId,p1ResidualClassId)",
+    "side_to_move": "derived-from-support-rank-parity",
+    "recursive_colored_board": false,
+    "precompiled_game_dag": false,
+    "reachable_q_counts": {
+      "4x3:c3": 3735,
+      "4x4:c4": 34095,
+      "5x3:c4": 11317,
+      "4x5:c4": 294593
+    },
+    "qualification_workflow_run": 34646025717,
+    "qualification_workflow_job": 103416896894
+  },
+  "flat_specialized_transition_kernel": {
+    "status": "qualified-complete-graph-identity",
+    "workflow_run": 34648796525,
+    "workflow_job": 103425854486,
+    "result": "QUOTIENT_FAST_KERNEL_RESULT.md",
+    "implementation": [
+      "flat-two-u32-residual-slabs",
+      "block-transition-is-filter",
+      "own-transition-is-reduced-vs-unchanged-dominance-plus-two-stream-merge",
+      "exact-noop-class-return",
+      "no-general-sort-or-minimization-on-transition-miss"
+    ],
+    "control_4x5": {
+      "generic_ms": 20.06286,
+      "specialized_ms": 13.26911,
+      "specialized_over_generic": 0.6613767927404146
+    }
+  },
+  "equal_byte_physical_control_v4": {
+    "status": "bounded-wall-clock-speedup-pass",
+    "workflow_run": 34648899005,
+    "workflow_job": 103426178175,
+    "result": "QUOTIENT_VS_PHYSICAL_WDL_V4_RESULT.md",
+    "fairness": [
+      "exact-WDL-fail-soft-full-window-negamax",
+      "same-immediate-win-forced-response-double-threat-closure",
+      "same-TT-best-then-center-first-order",
+      "exact-key-equality",
+      "physical-typed-arrays-fit-under-frozen-quotient-typed-lower-bound-budget",
+      "independent-BSFP-root-and-root-action-oracle"
+    ],
+    "controls": {
+      "4x4:c4": {
+        "quotient_ms": 3.182388,
+        "physical_ms": 4.269585,
+        "time_ratio_q_over_p": 0.7453623712843281,
+        "quotient_expanded": 4250,
+        "physical_expanded": 9403
+      },
+      "5x3:c4": {
+        "quotient_ms": 0.708385,
+        "physical_ms": 2.086072,
+        "time_ratio_q_over_p": 0.3395784038134656,
+        "quotient_expanded": 852,
+        "physical_expanded": 4315
+      },
+      "4x5:c4": {
+        "typed_memory_budget": 1845248,
+        "quotient_ms": 12.651015,
+        "physical_ms": 17.715305,
+        "time_ratio_q_over_p": 0.7141291103935244,
+        "quotient_expanded": 15054,
+        "physical_expanded": 36826,
+        "expansion_ratio_q_over_p": 0.40878726986368324,
+        "physical_tt_slots": 131072,
+        "physical_tt_load": 0.33316802978515625,
+        "physical_tt_replacements": 519
+      }
+    },
+    "caveat": "quotient ordinary-JS residual metadata is not yet included in full heap accounting"
+  },
+  "search_control_disposition": {
+    "selected_current_driver": "WDL-native-fail-soft-full-window-negamax",
+    "current_speed_default_class_transition_cache": "dense",
+    "reject_current_default": [
+      "forcing-ETC",
+      "full-state-edge-cache",
+      "best-child-witness",
+      "PVS",
+      "MTD-f",
+      "WDL-two-threshold",
+      "generic-history-killer",
+      "child-bound-ordering-without-cutoff"
+    ]
+  },
+  "one_sided_exhaustion": {
+    "status": "exact-conditional-not-current-4x5-default",
+    "combined_workflow_run": 34649100614,
+    "combined_workflow_job": 103426816347,
+    "split_workflow_run": 34649184442,
+    "split_workflow_job": 103427078530,
+    "result": "QUOTIENT_EXHAUSTION_BOUNDS_RESULT.md",
+    "rules": {
+      "opponent_residual_empty": "side-to-move lower bound >= 0",
+      "own_residual_empty": "side-to-move upper bound <= 0"
+    },
+    "control_4x5": {
+      "baseline_ms": 11.969934,
+      "nonloss_ms": 12.067418,
+      "nonwin_ms": 12.343507,
+      "both_ms": 11.923855,
+      "disposition": "effectively-neutral-do-not-default"
+    }
+  },
+  "current_native_baseline": [
+    "qID-hot-state",
+    "support-rank-derived-side-to-move",
+    "exact-P0-and-P1-residual-class-IDs",
+    "dense-residual-class-transition-cache-for-speed",
+    "flat-specialized-two-u32-residual-transition-algebra",
+    "exact-noop-class-return-when-landing-cell-absent",
+    "quotient-native-tactical-closure",
+    "WDL-native-fail-soft-full-window-negamax",
+    "exact-qID-lower-upper-best-move",
+    "no-full-state-edge-cache",
+    "no-speculative-ETC",
+    "no-one-sided-exhaustion-default-on-4x5"
+  ],
+  "term_id_campaign": {
+    "status": "next",
+    "premise": "every live residual requirement is a non-empty subset of at least one Connect winning line",
+    "authority_rule": "discover vocabulary from geometry; do not hard-code remembered WSL-625 count",
+    "questions": [
+      "exact unique term vocabulary size for every control and standard 7x6",
+      "minimum exact term-ID width",
+      "term transition table shape and bytes",
+      "subset/dominance representation bytes",
+      "class hash/equality speed using compact term IDs",
+      "full memory accounting with typed slabs",
+      "solver wall-clock against current flat two-u32 baseline"
+    ],
+    "candidate_layout": [
+      "termId-to-mask-and-cardinality",
+      "termId-by-cell-contains",
+      "termId-by-cell-reducedTermId-or-terminal",
+      "termId-pair-subset-or-dominance",
+      "residual-classes-as-sorted-compact-term-ID-sequences"
+    ],
+    "qualification": [
+      "exact mask roundtrip for every term ID",
+      "transition equivalence against flat two-u32 kernel",
+      "complete bounded q-graph identity",
+      "independent BSFP root and action WDL"
+    ]
+  },
+  "bsfp_compatibility_contract": {
+    "common_logical_identity_required": true,
+    "colored_board_translation_required": false,
+    "forward_operator": "T(q,action)",
+    "backward_operator": "Pre_action(Q)",
+    "default_shared_value_domain": "WDL",
+    "strong_distance": "optional-forward-refinement",
+    "shared_physical_layout_required": false,
+    "shared_control_flow_required": false
+  },
+  "cross_domain_chess_research": {
+    "status": "conceptual-model-closed-empirical-falsification-open",
+    "authority": "research-only-no-connect4-promotion-effect",
+    "note": "CHESS_RELATIONAL_QUOTIENT_RESEARCH_NOTES.md"
+  },
+  "quotient_native_neural_research": {
+    "status": "hypothesis-documented-empirical-campaign-open",
+    "note": "QUOTIENT_NATIVE_NEURAL_REPRESENTATION.md",
+    "authority_boundary": [
+      "NN-never-defines-exact-quotient-equivalence",
+      "NN-never-publishes-exact-WDL-or-search-bounds",
+      "NN-may-order-schedule-rank-and-propose-candidates"
+    ]
+  },
+  "later_after_term_id": [
+    "Connect4-specific-quotient-proof-cost-ordering",
+    "reflection-and-residual-automorphism",
+    "compiled-local-proof-masks",
+    "complete-memory-accounting",
+    "standard-7x6-reachable-scale-and-transition-economics",
+    "actual-BSFP-build-publication-query-cost",
+    "coarse-parallelism"
+  ],
+  "promotion_policy": {
+    "exactness_required": true,
+    "complete_bounded_graph_equivalence_required_for_representation_changes": true,
+    "comparable_full_memory_required": true,
+    "standard_7x6_or_independently_justified_scale_evidence_required_before_forward_solver_promotion": true,
+    "actual_bsfp_cost_required_for_hybrid_speed_claim": true
+  },
+  "non_claims": [
+    "no-standard-7x6-production-performance-yet",
+    "no-complete-equal-total-JS-heap-memory-claim-yet",
+    "no-global-dense-transition-cache-optimality-claim-at-7x6",
+    "no-default-ETC-claim-on-native-kernel",
+    "no-default-one-sided-exhaustion-claim-on-4x5",
+    "no-end-to-end-hybrid-speedup-claim"
+  ]
+}
