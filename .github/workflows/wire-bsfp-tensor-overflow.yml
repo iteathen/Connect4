@@ -1,0 +1,154 @@
+name: wire-bsfp-tensor-overflow
+
+on:
+  push:
+    branches:
+      - research/bsfp-tensor-overflow-dominance
+
+permissions:
+  contents: write
+
+jobs:
+  wire:
+    if: ${{ !contains(github.event.head_commit.message, 'wire Tensor overflow integration') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: research/bsfp-tensor-overflow-dominance
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Generate Tensor overflow integration
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          function requireReplace(text, pattern, replacement, label) {
+            const next = text.replace(pattern, replacement);
+            if (next === text) throw new Error(`patch anchor missing: ${label}`);
+            return next;
+          }
+
+          const packedPath = 'components/bsfp/cuda/packed42-pair-reducer-service.mjs';
+          const tensorPath = 'components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs';
+          let service = readFileSync(packedPath, 'utf8');
+          service = requireReplace(service,
+            /async function readU32Prefix\(allocation, count\) \{[\s\S]*?\n\}\n\nasync function readU32\(allocation\)/,
+            (match) => match.replace('\n\nasync function readU32(allocation)', `\n\nasync function readU32Range(allocation, start, count) {\n  if (!Number.isSafeInteger(start) || start < 0 || !Number.isSafeInteger(count) || count < 0 || start + count > allocation.count) {\n    throw new RangeError('GPU pair reducer range read exceeds allocation capacity');\n  }\n  if (count === 0) return new Uint32Array(0);\n  const result = await allocation.memory.read({ deviceOffset: start * U32_BYTES, byteLength: count * U32_BYTES });\n  return new Uint32Array(result.bytes.buffer, result.bytes.byteOffset, count);\n}\n\nasync function readU32(allocation)`),
+            'range reader');
+          service = requireReplace(service, '  let closed = false;\n  const stats = {', '  let closed = false;\n  let tensorNormalizer = null;\n  const stats = {', 'tensor normalizer state');
+          service = requireReplace(service, '    overflowReadbackMs: 0,\n  };', `    overflowReadbackMs: 0,\n    tensorOverflowCalls: 0,\n    tensorOverflowCandidates: 0,\n  };`, 'tensor stats');
+
+          const recover = `  async function recoverOverflow({ job, candidateStart, candidateEnd, initialRequiredAtLeast }, results) {\n    stats.overflowRetries += 1;\n    stats.overflowInitialRequiredAtLeastMax = Math.max(stats.overflowInitialRequiredAtLeastMax, initialRequiredAtLeast);\n    const candidateCount = candidateEnd - candidateStart;\n    const readStarted = performance.now();\n    const lows = await readU32Range(candidateLo, candidateStart, candidateCount);\n    const highs = await readU32Range(candidateHi, candidateStart, candidateCount);\n    const popcounts = await readU32Range(candidatePopcount, candidateStart, candidateCount);\n    const readElapsed = performance.now() - readStarted;\n    stats.readbackMs += readElapsed;\n    stats.overflowReadbackMs += readElapsed;\n\n    try {\n      if (!tensorNormalizer) {\n        const { createTensorPacked42OverflowNormalizer } = await import('./tensor-packed42-overflow-normalizer.mjs');\n        tensorNormalizer = await createTensorPacked42OverflowNormalizer(runtime, {\n          candidateTile: options.tensorCandidateTile ?? 256,\n          referenceTile: options.tensorReferenceTile ?? 1024,\n          maxWorkspaceBytes: options.tensorMaxWorkspaceBytes ?? 128 * 1024 * 1024,\n          backend: options.tensorBackend ?? 'simt',\n        });\n      }\n      const operationStarted = performance.now();\n      const normalized = await tensorNormalizer.normalize({ lows, highs, popcounts, direction: job.direction });\n      const operationElapsed = performance.now() - operationStarted;\n      stats.executionMs += operationElapsed;\n      stats.overflowExecutionMs += operationElapsed;\n      stats.tensorOverflowCalls += 1;\n      stats.tensorOverflowCandidates += candidateCount;\n      if (normalized.frontier.length > job.product) throw new Error(\`Tensor overflow returned impossible frontier count \${normalized.frontier.length} for job \${job.originalIndex}\`);\n      results[job.originalIndex] = normalized.frontier;\n      stats.survivingRecords += normalized.frontier.length;\n      stats.overflowRecoveredJobs += 1;\n      stats.overflowMaxSurvivingRecords = Math.max(stats.overflowMaxSurvivingRecords, normalized.frontier.length);\n    } catch (error) {\n      stats.overflowFailures += 1;\n      throw error;\n    }\n  }`;
+          service = requireReplace(service,
+            /  async function recoverOverflow\([\s\S]*?\n  \}\n\n  async function executeBatch/,
+            `${recover}\n\n  async function executeBatch`,
+            'overflow recovery');
+          service = requireReplace(service,
+            "    kind: 'connect4-bsfp-packed42-gpu-pair-reducer-service',",
+            "    kind: 'connect4-bsfp-packed42-gpu-pair-reducer-tensor-overflow-service',",
+            'service kind');
+          service = requireReplace(service,
+            '    snapshotStats() { return Object.freeze({ ...stats }); },',
+            '    snapshotStats() { return Object.freeze({ ...stats, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },',
+            'stats snapshot');
+          service = requireReplace(service,
+            '      if (overflowPlan) await overflowPlan.close();\n      await plan.close();',
+            '      if (tensorNormalizer) await tensorNormalizer.close();\n      if (overflowPlan) await overflowPlan.close();\n      await plan.close();',
+            'service cleanup');
+          writeFileSync(tensorPath, service);
+
+          const runPath = 'experiments/cuda-bsfp-compact-hybrid/run.mjs';
+          let run = readFileSync(runPath, 'utf8');
+          run = requireReplace(run,
+            "import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-service.mjs';",
+            "import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs';",
+            'runner reducer import');
+          run = requireReplace(run,
+            "const sideCapacity = envPositive('BSFP_HYBRID_SIDE_CAPACITY', 262144);",
+            `const sideCapacity = envPositive('BSFP_HYBRID_SIDE_CAPACITY', 262144);\nconst tensorCandidateTile = envPositive('BSFP_HYBRID_TENSOR_CANDIDATE_TILE', 256);\nconst tensorReferenceTile = envPositive('BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);\nconst tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 128 * 1024 * 1024);\nconst tensorBackend = process.env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';\nif (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');`,
+            'runner Tensor options');
+          run = requireReplace(run,
+            '      blockSize: 256,\n    },',
+            `      blockSize: 256,\n      tensorCandidateTile,\n      tensorReferenceTile,\n      tensorMaxWorkspaceBytes,\n      tensorBackend,\n    },`,
+            'runner reducer Tensor options');
+          writeFileSync(runPath, run);
+
+          const bootstrapPath = 'tools/bootstrap-cuda-bsfp-q1.mjs';
+          let bootstrap = readFileSync(bootstrapPath, 'utf8');
+          bootstrap = requireReplace(bootstrap,
+            "const CUDA_JS_REPOSITORY = 'https://github.com/iteathen/CUDA-JS.git';",
+            "const CUDA_JS_REPOSITORY = 'https://github.com/iteathen/CUDA-JS.git';\nconst CUDA_JS_TENSOR_REPOSITORY = 'https://github.com/iteathen/CUDA-JS-Tensor.git';",
+            'Tensor repository');
+          bootstrap = requireReplace(bootstrap,
+            "  cudaJs: '98e2ebc942c14d63acf4dd82e912dd548c363a05',\n});",
+            "  cudaJs: '98e2ebc942c14d63acf4dd82e912dd548c363a05',\n  cudaJsTensor: '9df9324b0ca7606f9dd2af2e89aed118839896a5',\n});",
+            'Tensor default revision');
+          bootstrap = requireReplace(bootstrap,
+            'export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot }) {',
+            'export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot, cudaJsTensorRoot }) {',
+            'wire signature');
+          bootstrap = requireReplace(bootstrap,
+            "  linkDirectory(cudaAlgorithmsRoot, path.join(connect4NodeModules, 'cuda-algorithms'));\n\n  return Object.freeze({",
+            `  linkDirectory(cudaAlgorithmsRoot, path.join(connect4NodeModules, 'cuda-algorithms'));\n  linkDirectory(cudaJsTensorRoot, path.join(sharedNodeModules, 'cuda-js-tensor'));\n  linkDirectory(cudaJsTensorRoot, path.join(connect4NodeModules, 'cuda-js-tensor'));\n  const tensorNodeModules = path.join(cudaJsTensorRoot, 'node_modules');\n  fs.mkdirSync(tensorNodeModules, { recursive: true });\n  linkDirectory(cudaJsRoot, path.join(tensorNodeModules, 'cuda-js'));\n\n  return Object.freeze({`,
+            'wire Tensor links');
+          bootstrap = requireReplace(bootstrap,
+            "    cudaAlgorithmsPackage: path.join(connect4NodeModules, 'cuda-algorithms'),\n  });",
+            "    cudaAlgorithmsPackage: path.join(connect4NodeModules, 'cuda-algorithms'),\n    cudaJsTensorPackage: path.join(connect4NodeModules, 'cuda-js-tensor'),\n  });",
+            'wire return');
+          bootstrap = requireReplace(bootstrap,
+            '    cudaJsRef: DEFAULT_REVISIONS.cudaJs,\n    q1Profile: null,',
+            '    cudaJsRef: DEFAULT_REVISIONS.cudaJs,\n    cudaJsTensorRef: DEFAULT_REVISIONS.cudaJsTensor,\n    q1Profile: null,',
+            'parse defaults');
+          bootstrap = requireReplace(bootstrap,
+            "    else if (arg === '--cuda-js-ref') config.cudaJsRef = argv[++index];\n    else if (arg === '--q1-profile')",
+            "    else if (arg === '--cuda-js-ref') config.cudaJsRef = argv[++index];\n    else if (arg === '--cuda-js-tensor-ref') config.cudaJsTensorRef = argv[++index];\n    else if (arg === '--q1-profile')",
+            'parse Tensor arg');
+          bootstrap = requireReplace(bootstrap,
+            "  const cudaJsRoot = path.join(workspaceRoot, 'CUDA-JS');\n  registerLocalPath(connect4Root);",
+            "  const cudaJsRoot = path.join(workspaceRoot, 'CUDA-JS');\n  const cudaJsTensorRoot = path.join(workspaceRoot, 'CUDA-JS-Tensor');\n  registerLocalPath(connect4Root);",
+            'Tensor root');
+          bootstrap = requireReplace(bootstrap,
+            '  registerLocalPath(cudaJsRoot);\n\n  console.error',
+            '  registerLocalPath(cudaJsRoot);\n  registerLocalPath(cudaJsTensorRoot);\n\n  console.error',
+            'register Tensor root');
+          bootstrap = requireReplace(bootstrap,
+            '  cloneAndCheckout(CUDA_JS_REPOSITORY, cudaJsRoot, config.cudaJsRef);\n\n  const env',
+            '  cloneAndCheckout(CUDA_JS_REPOSITORY, cudaJsRoot, config.cudaJsRef);\n  cloneAndCheckout(CUDA_JS_TENSOR_REPOSITORY, cudaJsTensorRoot, config.cudaJsTensorRef);\n\n  const env',
+            'clone Tensor');
+          bootstrap = requireReplace(bootstrap,
+            '  wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot });',
+            '  wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot, cudaJsTensorRoot });',
+            'wire call');
+          bootstrap = requireReplace(bootstrap,
+            "  const resolvedCudaAlgorithmsFromConnect4 = resolvePackageFrom(connect4Root, 'cuda-algorithms');",
+            "  const resolvedCudaAlgorithmsFromConnect4 = resolvePackageFrom(connect4Root, 'cuda-algorithms');\n  const resolvedTensorFromConnect4 = resolvePackageFrom(connect4Root, 'cuda-js-tensor');\n  const resolvedCudaJsFromTensor = resolvePackageFrom(cudaJsTensorRoot, 'cuda-js');",
+            'Tensor resolutions');
+          bootstrap = requireReplace(bootstrap,
+            "  if (!resolvedCudaAlgorithmsFromConnect4.includes('CUDA-Algorithms')) {\n    throw new Error('Connect4 did not resolve the sibling CUDA-Algorithms checkout');\n  }",
+            `  if (!resolvedCudaAlgorithmsFromConnect4.includes('CUDA-Algorithms')) {\n    throw new Error('Connect4 did not resolve the sibling CUDA-Algorithms checkout');\n  }\n  if (!resolvedTensorFromConnect4.includes('CUDA-JS-Tensor')) {\n    throw new Error('Connect4 did not resolve the sibling CUDA-JS-Tensor checkout');\n  }\n  if (!resolvedCudaJsFromTensor.includes('CUDA-JS')) {\n    throw new Error('CUDA-JS-Tensor did not resolve the sibling CUDA-JS checkout');\n  }`,
+            'Tensor resolution checks');
+          bootstrap = requireReplace(bootstrap,
+            "  console.error('[cuda-bsfp-q1-bootstrap] cuda-algorithms sibling resolution verified');",
+            "  console.error('[cuda-bsfp-q1-bootstrap] cuda-algorithms sibling resolution verified');\n  console.error('[cuda-bsfp-q1-bootstrap] cuda-js-tensor sibling resolution verified');",
+            'Tensor log');
+          bootstrap = requireReplace(bootstrap,
+            '        cudaJs: config.cudaJsRef,\n      },',
+            '        cudaJs: config.cudaJsRef,\n        cudaJsTensor: config.cudaJsTensorRef,\n      },',
+            'Tensor prepared revision');
+          writeFileSync(bootstrapPath, bootstrap);
+          NODE
+      - name: Verify repository after wiring
+        run: node --test
+      - name: Commit generated integration
+        shell: bash
+        run: |
+          git config user.name iteathen
+          git config user.email josh.oshiro@gmail.com
+          git add components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs experiments/cuda-bsfp-compact-hybrid/run.mjs tools/bootstrap-cuda-bsfp-q1.mjs
+          git commit -m 'research: wire Tensor overflow integration'
+          git push origin HEAD:research/bsfp-tensor-overflow-dominance
