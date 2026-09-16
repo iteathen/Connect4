@@ -93,9 +93,21 @@ Generator offsets are bounds-checked on-device before indexed reads/writes. Inva
 
 ### Tensor overflow recovery on this branch
 
-The ordinary batched path retains a 1,024-record per-segment survivor capacity. On overflow, the Tensor reducer reads the already generated packed candidates and popcounts, then normalizes them exactly in cardinality order with 256-candidate by 1,024-reference resolved-SIMT tiles. It does not truncate the frontier or regenerate the Cartesian product. The older reused-output-slab specialization remains allocated for compatibility but is not the recovery executor on this Tensor branch; its 262,144-record capacity is not a Tensor survivor limit.
+The ordinary batched path retains a 1,024-record per-segment survivor capacity. On overflow, the Tensor reducer reads the already generated packed candidates and popcounts, then normalizes them exactly in cardinality order with 256-candidate by 1,024-reference resolved-SIMT tiles. It does not truncate the frontier or regenerate the Cartesian product. Tensor mode no longer prepares an unused packed recovery plan.
+
+`BSFP_HYBRID_OVERFLOW_EXECUTOR=tensor|packed` selects the recovery executor (initial qualification default: Tensor). Packed reuses the existing bounded single-segment normalizer and output slab, with a 262,144-record frontier ceiling; it fails visibly above that capacity. Neither method changes the batch, CUDA-JS, Q1 admission or timeout limits. This is an A/B of existing P2 mechanisms, not adoption of a generic CUDA-Algorithms normalizer API.
 
 Host deduplication removes equal masks within a cardinality phase. Tensor compares against earlier accepted cardinalities. Recovery counts, maximum recovered frontier and Tensor run timings are observations, not an independent correctness proof.
+
+### Crash-safe measurements and real-overflow replay
+
+`generatedPairCandidates` now counts generation-completed batches even while their recovery is active. `completedBatchPairCandidates` retains the former completed-batch meaning; `submittedPairCandidates`, `activeBatch`, and `activeOverflow` distinguish submissions and in-flight work. Solver progress includes active rank/shard and process CPU microseconds. Counts are observations, not completed proof state.
+
+`BSFP_HYBRID_CAPTURE_OVERFLOW_DIR` enables a bounded evidence observer (first two overflows per direction) that persists original operands, geometry, rank/support/stage, source revision/dirty state and SHA-256 before recovery. No recovered output is used as oracle authority.
+
+Q1 profile `c4-0009-p2-overflow-replay` accepts an explicit `BSFP_OVERFLOW_REPLAY_FIXTURE` captured 7x6 input. It checks the content hash and ordinary batch bounds, independently computes the full Cartesian product and exact BigInt normalization, then replays both existing executors with one warmup and three measured passes in alternating order. Every result must match the oracle and cross the 1,024 frontier boundary. Timing includes pair generation, host/device transfers and recovery, but excludes oracle/verification. Setup is separate. It claims no root WDL. Both resident packed slabs plus one resolved workspace fit inside the existing conservative P2 admission bound and unchanged 256 MiB runtime policy.
+
+The separate callable Tensor A/B rotates method order and uses two warmups plus seven measured samples, reporting each sample and min/median/max. Its executor/workspace remains independent of resolved-SIMT recovery.
 
 ## Current fixed GPU workspace
 

@@ -262,7 +262,25 @@ const O3 = Object.freeze({
     }];
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
+const REPLAY = Object.freeze({
+  id: 'c4-0009-p2-overflow-replay',
+  specification: P2.specification, gpuRequired: true, requiredDependencies: P2_REQUIRED_DEPENDENCIES,
+  supports: spec => spec.columns === 7 && spec.rows === 6 && spec.connect === 4,
+  // Two 73,407,500-byte packed slabs plus one resolved workspace remain
+  // below the existing conservative P2 bound; runtime policy is unchanged.
+  estimate: spec => P2.estimate(spec),
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    return [{ id: 'overflow-replay', command: process.execPath,
+      args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/replay.mjs')),
+      expected: r => r?.outcome === 'native-overflow-replay-pass' && r?.geometry === '7x6:c4'
+        && r?.rootWdl === null && r?.mismatches === 0 && r?.cleanup === 'graceful'
+        && r?.survivors > 1024 && ['packed', 'tensor'].every(mode =>
+          r?.[mode]?.samples?.length === 3 && r[mode].samples.every(v => Number.isFinite(v) && v >= 0)
+          && r?.stats?.[mode]?.overflowRecoveredJobs === 4 && r.stats[mode].overflowFailures === 0) }];
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

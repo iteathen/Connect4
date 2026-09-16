@@ -19,8 +19,8 @@ const BOARD_CELLS = 42;
 const FRONTIER_COUNT = 1_487;
 const CANDIDATE_COUNT = 4_096;
 const BLOCK_SIZE = 256;
-const WARMUPS = 1;
-const REPETITIONS = 3;
+const WARMUPS = 2;
+const REPETITIONS = 7;
 const TENSOR_WORKSPACE_LIMIT = 192 * 1024 * 1024;
 // CUDA-JS SPEC-0004 allocation policy, independently sized for the 164,544,512-byte arena.
 const CUDA_MEMORY_POLICY = Object.freeze({ maxDeviceBytes: 256 * 1024 * 1024, maxAllocationBytes: 192 * 1024 * 1024, maxTransferBytes: 16 * 1024 * 1024 });
@@ -498,13 +498,25 @@ async function executionExperiment(runtime, fixture, tensorDeviceProgram, compil
       });
     }
 
-    const baselineTiming = await timePrepared(prepared.baselinePrepared, prepared.baselineBindings);
-
     // Populate Tensor inputs once, validate the complete path, then measure both the
     // Tensor leaf alone and the complete packed->Tensor unpack+dominance path.
     const fullPrime = await timePrepared(prepared.tensorFullPrepared, prepared.tensorFullBindings, 0, 1);
-    const tensorOnlyTiming = await timePrepared(prepared.tensorOnlyPrepared, prepared.tensorBindings);
-    const tensorFullTiming = await timePrepared(prepared.tensorFullPrepared, prepared.tensorFullBindings);
+    const methods = [
+      [prepared.baselinePrepared, prepared.baselineBindings],
+      [prepared.tensorOnlyPrepared, prepared.tensorBindings],
+      [prepared.tensorFullPrepared, prepared.tensorFullBindings],
+    ];
+    const measurements = methods.map(() => []);
+    for (let pass = 0; pass < WARMUPS + REPETITIONS; pass++) {
+      const order = [0, 1, 2].map(index => (index + pass) % 3);
+      if (pass % 2) order.reverse();
+      for (const index of order) {
+        const timing = await timePrepared(...methods[index], 0, 1);
+        if (pass >= WARMUPS) measurements[index].push(timing.samples[0]);
+      }
+    }
+    const [baselineTiming, tensorOnlyTiming, tensorFullTiming] = measurements.map(samples =>
+      Object.freeze({ samples: Object.freeze(samples), min: Math.min(...samples), median: median(samples), max: Math.max(...samples) }));
 
     const baseline = await readU32(allocations.baselineDominated);
     const checks = await readU32(allocations.baselineChecks);
