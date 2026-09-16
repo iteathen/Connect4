@@ -17,10 +17,10 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout Connect4
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        uses: actions/checkout@3d3c42e5aac5ba805da76410c181273ba90b1
 
       - name: Checkout exact CUDA-JS authority
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        uses: actions/checkout@3d3c42e5aac5ba805da76410c181273ba90b1
         with:
           repository: iteathen/CUDA-JS
           ref: 98e2ebc942c14d63acf4dd82e912dd548c363a05
@@ -58,3 +58,6 @@ jobs:
 
       - name: Qualify real three-word 6x5 universal merges
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-universal.mjs
+
+      - name: Qualify multiword cell and coverage legal-slice guards
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-capacity.mjs
