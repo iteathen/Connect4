@@ -26,26 +26,45 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           import { readFileSync, writeFileSync } from 'node:fs';
-          const path = 'tools/cuda-bsfp-qualifier/profiles.mjs';
-          let text = readFileSync(path, 'utf8');
-          function replaceExact(from, to, label) {
-            if (!text.includes(from)) throw new Error(`missing P2 qualifier anchor: ${label}`);
-            text = text.replace(from, to);
+
+          const profilePath = 'tools/cuda-bsfp-qualifier/profiles.mjs';
+          let profile = readFileSync(profilePath, 'utf8');
+          function replaceProfile(from, to, label) {
+            if (!profile.includes(from)) throw new Error(`missing P2 qualifier anchor: ${label}`);
+            profile = profile.replace(from, to);
           }
-          replaceExact(
+          replaceProfile(
             'const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;\n',
             'const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;\nconst P2_TENSOR_ALLOWANCE_BYTES = 128n * MIB;\n',
             'Tensor allowance constant',
           );
-          replaceExact(
+          replaceProfile(
             '  const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;\n  return Object.freeze({ kind: \'proved-hybrid-workspace-upper-bound\', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES) });',
             '  const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;\n  const upperBoundBytes = devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + P2_TENSOR_ALLOWANCE_BYTES;\n  return Object.freeze({ kind: \'proved-hybrid-tensor-overflow-workspace-upper-bound\', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), tensorOverflowAllowanceBytes: P2_TENSOR_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });',
             'P2 estimate',
           );
           const oldP2 = "  steps(spec, repositoryRoot) { if (!this.supports(spec)) return Object.freeze([]); const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`; const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`; const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry); return Object.freeze([Object.freeze({ id: 'compact-hybrid-root-wdl', command: process.execPath, args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]), expected(result) { return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl) && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0 && Number.isFinite(result?.gpuReducer?.generatedPairCandidates); } })]); },";
           const newP2 = "  steps(spec, repositoryRoot) { if (!this.supports(spec)) return Object.freeze([]); const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`; const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`; const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry); return Object.freeze([Object.freeze({ id: 'tensor-overflow-native-parity', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'research/experiments/cuda-bsfp-clause-coverage/qualify-tensor-packed42-overflow-native.mjs')), expected(result) { return result?.outcome === 'native-tensor-packed42-overflow-pass' && result?.cases?.length === 2 && Number.isFinite(result?.tensor?.tensorRuns) && result.tensor.tensorRuns > 0 && Number.isFinite(result?.tensor?.comparisonPairs) && result.tensor.comparisonPairs > 0; } }), Object.freeze({ id: 'compact-hybrid-root-wdl', command: process.execPath, args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]), expected(result) { return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl) && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0 && Number.isFinite(result?.gpuReducer?.generatedPairCandidates) && Number.isFinite(result?.gpuReducer?.tensorOverflowCalls); } })]); },";
-          replaceExact(oldP2, newP2, 'P2 steps');
-          writeFileSync(path, text);
+          replaceProfile(oldP2, newP2, 'P2 steps');
+          writeFileSync(profilePath, profile);
+
+          const testPath = 'tools/cuda-bsfp-qualifier/test/profiles.test.mjs';
+          let tests = readFileSync(testPath, 'utf8');
+          function replaceTest(from, to, label) {
+            if (!tests.includes(from)) throw new Error(`missing P2 test anchor: ${label}`);
+            tests = tests.replace(from, to);
+          }
+          replaceTest(
+            "  assert.ok(estimate.upperBoundBytes > 300 * 1024 * 1024);\n  assert.ok(estimate.upperBoundBytes < 400 * 1024 * 1024);",
+            "  assert.equal(estimate.kind, 'proved-hybrid-tensor-overflow-workspace-upper-bound');\n  assert.equal(estimate.tensorOverflowAllowanceBytes, String(128 * 1024 * 1024));\n  assert.ok(estimate.upperBoundBytes > 400 * 1024 * 1024);\n  assert.ok(estimate.upperBoundBytes < 512 * 1024 * 1024);",
+            'P2 memory assertions',
+          );
+          replaceTest(
+            "  assert.equal(steps.length, 1);\n  assert.equal(steps[0].id, 'compact-hybrid-root-wdl');\n  assert.equal(steps[0].args.at(-1), '7x6:c4');\n  assert.equal(steps[0].expected({ outcome: 'native-compact-hybrid-root-wdl-pass', geometry: '7x6-c4', rootWdl: 1, timingsMs: { solve: 12.5 }, gpuReducer: { generatedPairCandidates: 123 } }), true);\n  assert.equal(steps[0].expected({ outcome: 'native-compact-hybrid-root-wdl-pass', geometry: '7x6-c4', rootWdl: 0, timingsMs: { solve: 12.5 }, gpuReducer: { generatedPairCandidates: 123 } }), false);",
+            "  assert.equal(steps.length, 2);\n  assert.equal(steps[0].id, 'tensor-overflow-native-parity');\n  assert.equal(steps[1].id, 'compact-hybrid-root-wdl');\n  assert.equal(steps[1].args.at(-1), '7x6:c4');\n  assert.equal(steps[0].expected({ outcome: 'native-tensor-packed42-overflow-pass', cases: [{}, {}], tensor: { tensorRuns: 2, comparisonPairs: 10 } }), true);\n  assert.equal(steps[0].expected({ outcome: 'native-tensor-packed42-overflow-pass', cases: [{}], tensor: { tensorRuns: 2, comparisonPairs: 10 } }), false);\n  const valid = { outcome: 'native-compact-hybrid-root-wdl-pass', geometry: '7x6-c4', rootWdl: 1, timingsMs: { solve: 12.5 }, gpuReducer: { generatedPairCandidates: 123, tensorOverflowCalls: 1 } };\n  assert.equal(steps[1].expected(valid), true);\n  assert.equal(steps[1].expected({ ...valid, rootWdl: 0 }), false);\n  assert.equal(steps[1].expected({ ...valid, gpuReducer: { generatedPairCandidates: 123 } }), false);",
+            'P2 step assertions',
+          );
+          writeFileSync(testPath, tests);
           NODE
       - name: Verify repository
         run: node --test
@@ -54,6 +73,6 @@ jobs:
         run: |
           git config user.name iteathen
           git config user.email josh.oshiro@gmail.com
-          git add tools/cuda-bsfp-qualifier/profiles.mjs
+          git add tools/cuda-bsfp-qualifier/profiles.mjs tools/cuda-bsfp-qualifier/test/profiles.test.mjs
           git commit -m 'research: wire Tensor P2 qualifier'
           git push origin HEAD:research/bsfp-tensor-overflow-dominance
