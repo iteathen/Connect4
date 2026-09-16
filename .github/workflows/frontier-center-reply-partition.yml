@@ -2,10 +2,9 @@ name: Frontier center reply partition
 
 on:
   push:
-    branches:
-      - research/center-reply-partition
+    branches: [research/center-reply-partition]
     paths:
-      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-root-action.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-oncontract-target.mjs
       - .github/workflows/frontier-center-reply-partition.yml
   workflow_dispatch:
 
@@ -13,12 +12,12 @@ permissions:
   contents: read
 
 jobs:
-  uniform-high-refusal-action:
-    name: uniform-D-${{ matrix.action }}
+  oncontract-target:
+    name: target-${{ matrix.target }}
     strategy:
       fail-fast: false
       matrix:
-        action: [A, B]
+        target: [C3, G3]
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
@@ -26,5 +25,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Qualify uniform high-refusal action
-        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-high-refusal-root-action.mjs D "${{ matrix.action }}"
+      - name: Qualify on-contract target
+        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-oncontract-target.mjs "${{ matrix.target }}"
