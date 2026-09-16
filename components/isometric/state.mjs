@@ -12,12 +12,6 @@ import { ResidualPool, RESIDUAL_TERMINAL_WIN } from './residual-pool.mjs';
 
 const RANK_SHIFT = 21;
 
-function bitPair(cell) {
-  return cell < 32
-    ? [((2 ** cell) >>> 0), 0]
-    : [0, ((2 ** (cell - 32)) >>> 0)];
-}
-
 function packSupport(heights, ply) {
   let packed = (ply << RANK_SHIFT) >>> 0;
   for (let column = 0; column < COLUMNS; column += 1) packed = (packed | (heights[column] << (column * 3))) >>> 0;
@@ -88,13 +82,16 @@ export class IsometricState {
     const nextOwn = this.pool.ownTransition(ownClass, cell);
     const nextOpponent = this.pool.blockTransition(opponentClass, cell);
 
-    const [bitLo, bitHi] = bitPair(cell);
+    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
+    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
     this.supportLo = (this.supportLo | bitLo) >>> 0;
     this.supportHi = (this.supportHi | bitHi) >>> 0;
     this.playableLo = (this.playableLo & ~bitLo) >>> 0;
     this.playableHi = (this.playableHi & ~bitHi) >>> 0;
     if (row + 1 < ROWS) {
-      const [aboveLo, aboveHi] = bitPair(cell + COLUMNS);
+      const above = cell + COLUMNS;
+      const aboveLo = above < 32 ? ((2 ** above) >>> 0) : 0;
+      const aboveHi = above >= 32 ? ((2 ** (above - 32)) >>> 0) : 0;
       this.playableLo = (this.playableLo | aboveLo) >>> 0;
       this.playableHi = (this.playableHi | aboveHi) >>> 0;
     }
@@ -136,12 +133,15 @@ export class IsometricState {
     this.sideToMove = player;
     this.heights[column] = row;
     this.supportCode = (this.supportCode - (1 << (column * 3)) - (1 << RANK_SHIFT)) >>> 0;
-    const [bitLo, bitHi] = bitPair(cell);
+    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
+    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
     this.supportLo = (this.supportLo & ~bitLo) >>> 0;
     this.supportHi = (this.supportHi & ~bitHi) >>> 0;
 
     if (row + 1 < ROWS) {
-      const [aboveLo, aboveHi] = bitPair(cell + COLUMNS);
+      const above = cell + COLUMNS;
+      const aboveLo = above < 32 ? ((2 ** above) >>> 0) : 0;
+      const aboveHi = above >= 32 ? ((2 ** (above - 32)) >>> 0) : 0;
       this.playableLo = (this.playableLo & ~aboveLo) >>> 0;
       this.playableHi = (this.playableHi & ~aboveHi) >>> 0;
     }
