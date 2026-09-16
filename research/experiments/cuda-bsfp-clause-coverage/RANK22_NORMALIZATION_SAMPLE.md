@@ -1,6 +1,6 @@
 # Leashed 6x5 rank-22 normalization sample
 
-**Status:** bounded work-shape sample completed; no semantic mismatch in the compared normalization orders. This is a mechanism diagnosis, not native GPU timing.
+**Status:** bounded work-shape sample completed; no semantic mismatch in the compared normalization formulations. This is a mechanism diagnosis, not native GPU timing.
 
 **Research direction:** Josh Oshiro.
 
@@ -35,28 +35,28 @@ rank-22 segments:    64
 accepted candidates: 120,000
 ```
 
-The segment budget fired first; total wall time was about 32 s.
+The segment budget fired first; total wall time remained about 32-33 s on repeated runs.
 
 ## Prelude ranks
 
 The combined recurrence completed the terminal band before sampling rank 22:
 
-| Rank | Reflection reps | Rank time |
+| Rank | Reflection reps | Typical rank time |
 |---:|---:|---:|
-| 30 | 1 | 1 ms |
-| 29 | 3 | 2 ms |
-| 28 | 12 | 24 ms |
-| 27 | 28 | 71 ms |
-| 26 | 66 | 278 ms |
-| 25 | 126 | 1.254 s |
-| 24 | 233 | 7.377 s |
-| 23 | 378 | 20.623 s |
+| 30 | 1 | ~1 ms |
+| 29 | 3 | ~1-2 ms |
+| 28 | 12 | ~7-24 ms |
+| 27 | 28 | ~40-71 ms |
+| 26 | 66 | ~270-278 ms |
+| 25 | 126 | ~1.25-1.31 s |
+| 24 | 233 | ~7.4-7.6 s |
+| 23 | 378 | ~20.6-20.8 s |
 
 This is consistent with the previously recorded complete rank-by-rank probe.
 
 ## Rank-22 sample
 
-The sample stopped after 64 real universal/intersection segments:
+The deterministic sample stopped after 64 real universal/intersection segments:
 
 ```text
 rank-22 support reps:          588 total
@@ -118,33 +118,128 @@ total comparisons:
   dedup-first / legacy:        1.8187
 ```
 
-## Diagnosis
+Moving duplicate elimination before subset dominance is structurally correct and reduces subset comparisons by about **26.7%**. However, implementing duplicate elimination as a linear prior-equality scan is the wrong execution form: its quadratic equality work more than erases the gain.
 
-Moving duplicate elimination before subset dominance is structurally correct and reduces subset comparisons by about **26.7%** on this real rank-22 sample.
-
-However, implementing that duplicate elimination as a linear prior-equality scan is the wrong execution form. Its quadratic equality work more than erases the subset-scan reduction.
-
-The result therefore rejects this local optimization:
+The local optimization
 
 ```text
 bucketed prior-linear-scan dedup
 ```
 
-and strengthens the reusable algorithm boundary already routed to CUDA-Algorithms #11:
+is therefore rejected.
+
+## Exact duplicate-collapse projection
+
+The same accepted signatures were then deduplicated exactly before any subset work, modeling the semantic effect of a real key-grouping / sort-RLE stage without pretending a GPU implementation already exists.
 
 ```text
-exact key grouping / lexicographic sort
--> run-length encode / unique
--> subset-minimal or subset-maximal dominance
--> compact
+legacy subset checks:          153,920
+exact-dedup subset checks:     110,617
+exact-dedup / legacy:           0.7187
 ```
 
-Same-cardinality strict subset dominance is impossible; within one cardinality bucket the only dominance relation is equality. Therefore exact duplicate collapse may precede cross-cardinality subset work without semantic loss.
+So perfect duplicate collapse removes about **28.1%** of the subsequent subset predicates on this sample.
+
+This is useful but not sufficient by itself to explain away the full rank-22 wall. The subset-dominance stage still matters after dedup.
+
+## Independent-dominance formulation
+
+After exact duplicate collapse, incremental frontier construction is not semantically required.
+
+For unique candidates:
+
+```text
+candidate C is non-minimal
+iff
+there exists any candidate R with |R| < |C| and R subset C
+```
+
+`R` need not itself be minimal. If some still smaller `Q` dominates `R`, transitivity gives `Q subset R subset C`, so the existence of any strict-subset candidate is enough to reject `C`.
+
+Therefore exact normalization may be expressed as:
+
+```text
+exact duplicate collapse
+-> cardinality bucket/index
+-> independently mark each candidate dominated if any lower-cardinality candidate is a subset
+-> compact unmarked candidates
+```
+
+The formulation produced the identical exact frontier on all 64 sampled segments.
+
+Work shape:
+
+```text
+eligible lower-cardinality pair predicates: 1,274,270
+CPU early-exit predicates:                    542,924
+```
+
+This is intentionally **not** a CPU optimization: it evaluates more raw subset predicates than the incremental retained-frontier algorithm. Its value is execution shape. Every pair predicate is independent and can be tiled/batched on GPU without a sequential frontier-build dependency.
+
+Scaling the sampled eligible-pair density against the independently recorded complete rank-22 universal-pair count gives an order-of-magnitude projection of a few hundred million fixed-width subset predicates for the whole rank. Treat that as a workload projection only, not native timing evidence.
+
+This formulation has been routed to CUDA-Algorithms #11 as a candidate generic realization:
+
+```text
+lexicographic sort / equivalent grouping
+-> RLE / unique
+-> cardinality offsets
+-> tiled segmented strict-subset mark
+-> stable compact
+```
+
+## Slack-2 guard falsifier
+
+The sample also tested whether the bounded legal-slice filter was simply one exact slack level too weak.
+
+Accepted candidate slack distribution:
+
+```text
+slack 0:    33
+slack 1:   454
+slack 2: 1,852
+slack 3: 3,209
+slack 4: 2,490
+slack 5: 4,585
+slack 6: 3,942
+slack 7:   348
+slack 8:   775
+slack 9:    24
+```
+
+Among slack-2 candidates with unsatisfied residual clauses:
+
+```text
+candidates tested:          1,696
+additional exact rejects:     141
+```
+
+That removes only about **0.8%** of all candidates already accepted by the current cheap guard.
+
+Conclusion: a hot-path exact two-stone witness extension is not justified by this rank-22 sample. Do not escalate automatically to slack-3 or generic minimum-hitting-set solving; the previously observed τ cost remains a warning.
+
+## Diagnosis
+
+The rank-22 evidence now rejects two tempting local fixes:
+
+```text
+1. prior-linear-scan dedup
+2. stronger slack-2 feasibility filtering
+```
+
+The remaining high-value execution seam is:
+
+```text
+real duplicate collapse
++ GPU-native subset dominance
+```
+
+The reusable algorithm boundary remains CUDA-Algorithms #11. Connect4 should not grow a second private production normalizer.
 
 ## Consequence
 
 Do not spend more long CPU runs trying to make the current private O(n^2) normalizer cross rank 21.
 
-The next discriminating test should change the normalization algorithm itself. A useful bounded experimental qualifier may compose existing generic sort/RLE/compact machinery, but any reusable production primitive remains owned by CUDA-Algorithms #11.
+Further large recurrence probes must remain leashed and should only run after the normalization algorithm changes materially. A useful bounded experiment may compose existing generic ordering/select machinery with an experimental adjacent-unique and dominance stage, but reusable production ownership stays upstream.
 
 No new CUDA-JS runtime/compiler method is implied by this result.
