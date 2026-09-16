@@ -1,8 +1,16 @@
 # Source normalization queue
 
-The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, and the derivative/predicate packet through C4-R0059.
+The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, and the realizability/composition split through C4-R0063.
 
 Remaining work is classification of **meaning**, not file movement.
+
+## Active realizability follow-up
+
+- C4-R0060 gives the exact pinned-NAE characterization of fixed-support line-hit image membership.
+- C4-R0061 records the odd-cycle counterexample showing that line-local and pairwise compatibility do not compose globally.
+- C4-R0062 separates legal alternating-history realizability from symbolic ownership-partition realizability.
+- C4-R0063 identifies lossless join/join dependency as the standard static composition requirement and keeps dynamic legality/proof identity separate.
+- `research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md` owns the next bounded questions: owner-free compiled image relation, special-scope width/cycle structure, compact shuffle criterion, first-win lift, guarded cofactor obligation birth, and the strong-play-28 selection bridge.
 
 ## High priority remaining
 
