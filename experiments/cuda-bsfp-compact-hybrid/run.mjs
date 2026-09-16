@@ -409,7 +409,7 @@ export function readCompactHybridOptions(env = process.env) {
   const tensorReferenceTile = envPositive(env, 'BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
   const tensorMaxWorkspaceBytes = envPositive(env, 'BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
   const tensorBackend = env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
-  const overflowExecutor = env.BSFP_HYBRID_OVERFLOW_EXECUTOR ?? 'tensor';
+  const overflowExecutor = env.BSFP_HYBRID_OVERFLOW_EXECUTOR ?? 'packed';
   if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('BSFP_HYBRID_OVERFLOW_EXECUTOR must be tensor or packed');
   if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
   if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {

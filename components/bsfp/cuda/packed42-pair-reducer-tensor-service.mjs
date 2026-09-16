@@ -134,7 +134,7 @@ export function tensorOverflowOptions(options = {}) {
 }
 
 export async function createPacked42PairReducerService(runtime, options = {}) {
-  const overflowExecutor = options.overflowExecutor ?? 'tensor';
+  const overflowExecutor = options.overflowExecutor ?? 'packed';
   if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('overflowExecutor must be tensor or packed');
   const primaryLimits = Object.freeze({
     segmentCapacity: positiveSafeInteger(options.segmentCapacity ?? 256, 'segmentCapacity'),
