@@ -39,7 +39,8 @@ async function main() {
     maxDeviceBytes: 268435456, maxAllocationBytes: 134217728, maxTransferBytes: 16777216,
   } } });
   const services = {};
-  const methods = process.argv.includes('pair-bucketed') ? ['bucketed', 'allbucketed']
+  const methods = process.argv.includes('final') ? ['tensor', 'allbucketed']
+    : process.argv.includes('pair-bucketed') ? ['bucketed', 'allbucketed']
     : process.argv.includes('bucketed') ? ['packed', 'bucketed'] : ['packed', 'tensor'];
   const samples = Object.fromEntries(methods.map(mode => [mode, []]));
   const stages = Object.fromEntries(methods.map(mode => [mode, []]));

@@ -105,6 +105,10 @@ Q1 `c4-0009-p2-overflow-bucketed-replay` reuses the captured-input/independent-o
 
 Q1 `c4-0009-p2-pair-bucketed-replay` holds bucketed recovery fixed and compares ordinary legacy vs ordinary bucketed batch normalization on the same operands.
 
+Q1 `c4-0009-p2-overflow-final-replay` compares legacy ordinary/Tensor recovery against the final bucketed ordinary/packed recovery stack directly, after the synchronization repair. All comparisons retain the same independent BigInt frontier oracle and bounds.
+
+Native 5x5 all-frontier qualification exposed a cross-warp histogram initialization race in the existing B2/B3 kernels. Both now place a block barrier between counter resets and atomic histogram increments (CUDA-JS SPEC-0013). Q1 `c4-0009-p2-bucket-regression` exercises 256 mixed-direction short/partial-warp high-cardinality segments in 20 differently ordered submissions, checking 5,120 exact frontiers. Portable runtime success alone cannot qualify this race fix; full native frontier controls remain required.
+
 ### Intersections larger than a batch
 
 A support's universal intersection may exceed a physical input or candidate arena. P2 partitions its complete Cartesian domain into disjoint rectangles that each satisfy the unchanged input and candidate bounds. CUDA computes each tile's exact antichain. The P2 host combines those results by its existing exact minimal/maximal union normalization; this is valid because normalization of a union of normalized subsets equals normalization of the full union. A parent is not finalized or published until all tiles have completed. No rectangle is omitted and no oversized allocation is attempted.
