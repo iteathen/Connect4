@@ -1,6 +1,6 @@
 # Open questions: realizability compression and dynamic lift
 
-The exact static correlation object and projection-relative strategy condition are now identified. The A/B collision is additionally localized to certificate generation rather than exact full-residual state identity. Compact Connect-4-specific representations and the guarded controllable-predecessor law remain open.
+The exact static correlation object and projection-relative strategy condition are now identified. The A/B collision is localized to certificate generation, and the structural side of the center/28 selection bridge is strengthened by the Connect-K interval-transversal theorem. Compact Connect-4-specific representations and the guarded controllable-predecessor law remain open.
 
 ## Closed inputs
 
@@ -14,21 +14,12 @@ The exact static correlation object and projection-relative strategy condition a
 - `C4-R0067`: per-event parity windows plus matching are not a complete substitute for column precedence.
 - `C4-R0068`: the A/B six-ply witness is a low-order certificate-observation collision, not a collision of complete support plus full positive residual identity.
 - `C4-R0069`: the active guarded cofactor seam is an observation-relative controllable/alternating consequence-predecessor problem.
+- `C4-R0070`: for `K>=4`, one-move pure-followup safe entry is exactly singleton transversality of the consecutive K-window interval hypergraph.
+- `C4-R0071`: unique safe entry and unique maximum initial requirement impact coincide exactly at `W=2K-1`; K=4 plus core balance yields `7x6` and structural `28` without game search.
 
 ## Q1 — owner-free line-hit factorization
 
-Can the hidden owner variables in C4-R0060 be eliminated into a compact relation over line-hit coordinates that is incrementally closed under the BSFP/quotient move preimage?
-
-Required properties:
-
-```text
-exact image membership
-move-preimage closure
-terminal subtraction compatibility
-existential/universal composition
-no reconstruction of every ownership assignment
-no loss of odd-cycle or higher-arity NAE consequences.
-```
+Can the hidden owner variables in C4-R0060 be eliminated into a compact relation over line-hit coordinates that is incrementally closed under the BSFP/quotient move preimage while retaining higher-order NAE correlation?
 
 ## Q2 — special-scope structure
 
@@ -36,61 +27,42 @@ What is the exact primal/incidence/hypergraph structure of the pinned NAE instan
 
 ## Q3 — fixed-width history factorization
 
-The all-width history problem is NP-hard, so the next useful target is deliberately narrower:
-
-> for fixed standard width 7, can C4-R0062 be compiled into a bounded transfer/separator object whose state does not grow with height except through explicit integer counters?
-
-The representation must preserve within-column precedence. Global owner counts are insufficient, and C4-R0067 shows that independent event windows plus matching are also insufficient. Do not hide physical-history enumeration behind a renamed dynamic program.
+The all-width history problem is NP-hard. For fixed width 7, can C4-R0062 be compiled into a bounded transfer/separator object whose state does not grow with height except through explicit integer counters? It must preserve within-column precedence and must not hide physical-history enumeration behind renamed dynamic programming.
 
 ## Q4 — first-win lift
 
-For terminal colored supports, characterize exactly when there exists an alternating linear extension whose first terminal prefix is the full state. Determine whether this can be expressed as a local last-event/deadline condition plus the nonterminal history relation, or whether additional historical correlation is unavoidable.
+For terminal colored supports, characterize exactly when there exists an alternating linear extension whose first terminal prefix is the full state.
 
 ## Q5 — dependency-minimal guarded cofactor obligation birth
 
-C4-R0069 gives the target form. For the A/B shared d continuation, retain the complete post-d residual antichains and derive consequence-relative intervention classes. For each class, identify the minimum retained observation/dependency, support/precedence fact, typed resource contract and deadline/first-win guard needed for a uniform controller certificate.
-
-Stop at the first missing item among:
-
-```text
-observation/dependency edge
-support/precedence fact
-shared resource contract
-deadline/first-win fact
-existing consequence shape
-new consequence type.
-```
-
-Only the last case justifies a new logical primitive.
+For the A/B shared d continuation, retain complete post-d residual antichains and derive consequence-relative intervention classes. For each class, identify the minimum observation/dependency, support/precedence fact, typed resource contract and deadline/first-win guard required for a uniform controller certificate. Only invent a new consequence type after those existing layers fail.
 
 ## Q6 — quotient strength ladder
 
-For each proposed compression, state which level is actually proved:
-
-```text
-lossless static join
-history realizability
-existence of an objective-relative uniform strategy
-controllable consequence predecessor
-action-labelled transition congruence
-full game/alternating bisimulation
-proof/certificate commutation.
-```
-
-Use alternating/game bisimulation as a strong control for full strategic equivalence, not as an automatic requirement for claim-relative proof reuse.
+For each proposed compression, state which level is actually proved: lossless static join, history realizability, objective-relative uniform strategy, controllable consequence predecessor, action-labelled transition congruence, full alternating/game bisimulation, or proof/certificate commutation.
 
 ## Q7 — strong-play 28 selector
 
-The empty-board structural 28 is already derived; the strong-distance 28 is separately observed/qualified. Test whether the missing selection theorem factors through:
+The structural half is now sharper:
 
 ```text
-lossless static correlation
-+ legal alternating history
-+ uniform strategy over a compact observation
-+ controllable consequence predecessors
-+ CPC/control potential
-+ response-resource deficiency
-+ deadline/first-win ordering.
+K=4
++ unique interval-hypergraph singleton transversal / purefollowup safe entry
++ unique maximum initial requirement impact
++ exact K=4 core balance
+-> W=7,H=6,Y=28.
 ```
 
-A successful theorem must prove that the optimal strategy needs only the retained observation/dependencies; it may not import `28` as a target count. It must generalize or explain failure on nearby boards, especially the existing `6x7` and `8x7` controls.
+The remaining semantic bridge should be attacked in two parts:
+
+### Q7a opening selection
+
+Can a value-/distance-correct P0 strategy be proved to factor through the unique center observation using C4-R0064/C4-R0069, without using solved root value or optimal-move labels?
+
+Useful premises may include the existing structural non-center no-win certificates, but only after their exact opening coverage is verified; absence of a non-center certificate is not proof that center wins.
+
+### Q7b delay preservation
+
+Conditional on the selected center phase, can every optimal P1 delaying alternative be shown to preserve a structural invariant that reaches the unique rank-5 five-high center-stack maximal-delay extremum? This requires finite top/resource/deadline closure, not just phase-path distance.
+
+Only after Q7a and Q7b are proved should the resulting surviving envelope be coupled to the independently measured strong-distance terminal-line support. The number `28` must never be a premise.
