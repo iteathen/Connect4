@@ -1,0 +1,67 @@
+name: fix-bsfp-tensor-memory-policy
+
+on:
+  push:
+    branches:
+      - research/bsfp-tensor-overflow-dominance
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message, 'bind Tensor memory policy') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: research/bsfp-tensor-overflow-dominance
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Bind Tensor workspace and CUDA-JS allocation policy
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          function replaceOne(path, from, to, label) {
+            const before = readFileSync(path, 'utf8');
+            const count = before.split(from).length - 1;
+            if (count !== 1) throw new Error(`${label}: expected one anchor, found ${count}`);
+            writeFileSync(path, before.replace(from, to));
+          }
+
+          replaceOne(
+            'research/experiments/cuda-bsfp-tensor-dominance/run.mjs',
+            "const runtime = native ? await openCudaRuntime({ compiler: true }) : await openCudaRuntimeForTesting({ compiler: true });",
+            "const runtime = native ? await openCudaRuntime({ compiler: true, driver: { memory: { maxAllocationBytes: TENSOR_WORKSPACE_LIMIT } } }) : await openCudaRuntimeForTesting({ compiler: true, driver: { memory: { maxAllocationBytes: TENSOR_WORKSPACE_LIMIT } } });",
+            'full-shape Tensor runtime memory policy',
+          );
+
+          replaceOne(
+            'experiments/cuda-bsfp-compact-hybrid/run.mjs',
+            "const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 128 * 1024 * 1024);",
+            "const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 192 * 1024 * 1024);",
+            'compact-hybrid Tensor workspace default',
+          );
+
+          replaceOne(
+            'experiments/cuda-bsfp-compact-hybrid/run.mjs',
+            "runtime = await openCudaRuntime({ compiler: true });",
+            "runtime = await openCudaRuntime({ compiler: true, driver: { memory: { maxAllocationBytes: tensorMaxWorkspaceBytes } } });",
+            'compact-hybrid CUDA-JS memory policy',
+          );
+          NODE
+      - name: Verify repository
+        run: node --test
+      - name: Commit correction
+        shell: bash
+        run: |
+          git config user.name iteathen
+          git config user.email josh.oshiro@gmail.com
+          git add research/experiments/cuda-bsfp-tensor-dominance/run.mjs experiments/cuda-bsfp-compact-hybrid/run.mjs
+          git commit -m 'research: bind Tensor memory policy'
+          git push origin HEAD:research/bsfp-tensor-overflow-dominance
