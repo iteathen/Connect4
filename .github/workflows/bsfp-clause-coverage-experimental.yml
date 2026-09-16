@@ -69,6 +69,9 @@ jobs:
       - name: Qualify real three-word 6x5 universal merges
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-universal.mjs
 
+      - name: Qualify multiword core-relative absorption
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-core-absorption.mjs
+
       - name: Qualify multiword cell and coverage legal-slice guards
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-capacity.mjs
 
