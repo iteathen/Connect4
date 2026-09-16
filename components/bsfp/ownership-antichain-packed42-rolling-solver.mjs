@@ -96,12 +96,12 @@ function orderedUnique42(masks, descending) {
   if (descending) {
     for (let count = 42; count >= 0; count -= 1) {
       buckets[count].sort((a, b) => a - b);
-      result.push(...buckets[count]);
+      for (const mask of buckets[count]) result.push(mask);
     }
   } else {
     for (let count = 0; count <= 42; count += 1) {
       buckets[count].sort((a, b) => a - b);
-      result.push(...buckets[count]);
+      for (const mask of buckets[count]) result.push(mask);
     }
   }
   return result;
@@ -217,7 +217,7 @@ function subtractUpwardFromDownward(downward, forbiddenUpward, stats) {
       candidates = normalizeMaximal(next, stats);
       if (candidates.length === 0) break;
     }
-    result.push(...candidates);
+    for (const mask of candidates) result.push(mask);
   }
   return normalizeMaximal(result, stats);
 }
@@ -240,7 +240,7 @@ function subtractDownwardFromUpward(upward, forbiddenDownward, universeMask, sta
       candidates = normalizeMinimal(next, stats);
       if (candidates.length === 0) break;
     }
-    result.push(...candidates);
+    for (const mask of candidates) result.push(mask);
   }
   return normalizeMinimal(result, stats);
 }

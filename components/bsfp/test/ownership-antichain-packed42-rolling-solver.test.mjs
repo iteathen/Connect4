@@ -79,3 +79,17 @@ test('packed42 reference rejects geometries wider than its exact 42-bit contract
     /at most 42 cells/,
   );
 });
+
+test('valid large cardinality buckets do not overflow the JavaScript argument stack', () => {
+  const values = [0];
+  let mask = (1 << 11) - 1;
+  for (let i = 0; i < 150000; i++) {
+    values.push(mask);
+    const bit = mask & -mask;
+    const next = mask + bit;
+    mask = next | (((mask ^ next) >>> 2) / bit);
+  }
+  assert.deepEqual(normalizeMinimalPacked42Antichain(values), [0]);
+  const universe = 2 ** 42 - 1;
+  assert.deepEqual(normalizeMaximalPacked42Antichain(values.map(mask => universe - mask)), [universe]);
+});

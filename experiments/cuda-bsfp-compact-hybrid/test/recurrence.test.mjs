@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { cofactorUpward, cofactorDownward, readCompactHybridOptions, solveCompactHybrid } from '../run.mjs';
+import { cofactorUpward, cofactorDownward, readCompactHybridOptions, solveCompactHybrid, reflectPacked42, reflectSupportIndex } from '../run.mjs';
+import { createBsfpSupportLatticeProfile } from '../../../components/bsfp/support-lattice.mjs';
 import { createReferenceReducer, createFrontierObserver } from '../qualification.mjs';
 import { normalizeMinimalOwnershipAntichain, normalizeMaximalOwnershipAntichain } from '../../../components/bsfp/ownership-antichain-solver.mjs';
 
@@ -33,15 +34,16 @@ for (const geometry of [
   { columns: 4, rows: 5, connect: 4 },
 ]) {
   test(`actual P2 recurrence matches every reference frontier: ${JSON.stringify(geometry)}`, async () => {
-    for (const supportShardSize of [1, 17, 256]) {
+    for (const supportShardSize of [1, 17, 256]) for (const reflection of [false, true]) for (const cofactorPreservation of [false, true]) {
       const observer = createFrontierObserver(geometry);
       const reducer = createReferenceReducer();
-      const result = await solveCompactHybrid(geometry, { ...readCompactHybridOptions({}), supportShardSize }, reducer, {
+      const result = await solveCompactHybrid(geometry, { ...readCompactHybridOptions({}), supportShardSize, reflection, cofactorPreservation }, reducer, {
         onFrontier: observer.onFrontier, progress: false,
       });
       assert.equal(result.rootWdl, observer.reference.rootWdl);
       assert.equal(observer.finish().comparedSupports, result.supportSkeletons);
-      assert.equal(result.metrics.processedSupports, result.supportSkeletons);
+      const fixed = (geometry.rows + 1) ** Math.ceil(geometry.columns / 2);
+      assert.equal(result.metrics.processedSupports, reflection ? (result.supportSkeletons + fixed) / 2 : result.supportSkeletons);
       assert.equal(reducer.snapshotStats().closed, true);
     }
   });
@@ -52,4 +54,20 @@ test('P2 closes its reducer on failure without publishing partial frontiers', as
   reducer.reduce = async () => { throw new Error('qualification failure'); };
   await assert.rejects(solveCompactHybrid({ columns: 4, rows: 3, connect: 3 }, readCompactHybridOptions({}), reducer, { progress: false }), /qualification failure/);
   assert.equal(reducer.snapshotStats().closed, true);
+});
+
+test('packed reflection is an involution across the u32 seam and support orientation', () => {
+  const geometry = { columns: 7, rows: 6, connect: 4 };
+  const support = createBsfpSupportLatticeProfile(geometry);
+  for (let cell = 0; cell < 42; cell++) {
+    const reflected = reflectPacked42(2 ** cell, 7);
+    const target = Math.floor(cell / 7) * 7 + 6 - cell % 7;
+    assert.equal(reflected, 2 ** target);
+    assert.equal(reflectPacked42(reflected, 7), 2 ** cell);
+  }
+  for (let index = 0; index < support.itemCapacity; index += 101) {
+    const mirrored = reflectSupportIndex(index, support);
+    assert.deepEqual([...support.decodeHeights(mirrored)], [...support.decodeHeights(index)].reverse());
+    assert.equal(reflectSupportIndex(mirrored, support), index);
+  }
 });

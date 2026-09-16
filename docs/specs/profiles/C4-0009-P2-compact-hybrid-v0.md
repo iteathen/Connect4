@@ -32,6 +32,30 @@ P2 supports Connect Four geometries with at most 42 cells. Ownership masks are e
 
 The solver retains only two logical support ranks at a time. Current-rank supports are processed in bounded host shards. Child frontiers are immutable during production of a parent rank.
 
+P2 now evaluates one representative per horizontal-reflection support orbit,
+selected by the smaller support index. A reflected child is transported back
+into the physical parent's coordinates before cofactor application. This is an
+exact geometric permutation of both u32 lanes and preserves the entire Boolean
+ownership domain; no legal-slice pruning is implied. The reported
+`supportSkeletons` remains the full lattice, while `evaluatedSupports`,
+rank support counts, retained-record counts and supports/second describe the
+representative schedule.
+
+P2 also skips redundant normalization for upward cofactors fixed to P1
+(antichain filtering), and downward cofactors fixed to P0 (filtering followed by
+removing the common landing bit). The other cofactors still normalize.
+`BSFP_HYBRID_REFLECTION=0` and
+`BSFP_HYBRID_COFACTOR_PRESERVATION=0` independently select the corrected
+baseline for measurement; both optimizations default to enabled.
+
+Independent qualification can set `BSFP_HYBRID_VERIFY_FRONTIERS=1` on boards
+with at most 25 cells. It compares every physical support, including reflected
+occurrences, to the unchanged full-lattice reference recurrence. This observer
+does not drive native progression. Its preparation occurs before runtime open;
+its comparisons are included in solve wall time. Ordinary runs do not load
+the reference observer. Qualification tests additionally exercise all four
+optimization combinations and shard widths 1, 17 and 256.
+
 ## Algebraic terminal simplification
 
 P2 does not apply terminal override subtraction separately to every move frontier.

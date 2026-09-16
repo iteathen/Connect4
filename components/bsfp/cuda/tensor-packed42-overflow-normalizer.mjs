@@ -326,7 +326,7 @@ export async function createTensorPacked42OverflowNormalizer(runtime, options = 
         uniqueCandidates += unique.length;
         if (unique.length === 0) continue;
         if (frontier.length === 0) {
-          frontier.push(...unique);
+          for (const entry of unique) frontier.push(entry);
           totals.maximumFrontier = Math.max(totals.maximumFrontier, frontier.length);
           continue;
         }
@@ -336,7 +336,7 @@ export async function createTensorPacked42OverflowNormalizer(runtime, options = 
           const dominated = await compareCandidateTile(ctx, tileEntries, frontier);
           for (let i = 0; i < tileEntries.length; i += 1) if (dominated[i] === 0) accepted.push(tileEntries[i]);
         }
-        frontier.push(...accepted);
+        for (const entry of accepted) frontier.push(entry);
         totals.maximumFrontier = Math.max(totals.maximumFrontier, frontier.length);
       }
       totals.uniqueCandidates += uniqueCandidates;

@@ -258,8 +258,8 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
       rightOffsetsHost[segment] = rightTotal;
       candidateOffsetsHost[segment] = candidateTotal;
       directionsHost[segment] = job.direction;
-      leftValues.push(...job.left);
-      rightValues.push(...job.right);
+      for (const mask of job.left) leftValues.push(mask);
+      for (const mask of job.right) rightValues.push(mask);
       leftTotal += job.left.length;
       rightTotal += job.right.length;
       candidateTotal += job.product;

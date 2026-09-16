@@ -7,13 +7,13 @@ import {
 } from '../../index.mjs';
 import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../tensor-overflow-contract.mjs';
 import { readCompactHybridOptions } from '../../../../experiments/cuda-bsfp-compact-hybrid/run.mjs';
-import { tensorOverflowOptions } from '../packed42-pair-reducer-tensor-service.mjs';
 
 const TWO32 = 0x1_0000_0000;
 
 test('actual P2 runner and reducer configure the pinned resolved-SIMT profile', { timeout: 20_000 }, async (t) => {
   const loaded = await loadPortableTensor(t);
   if (!loaded) return;
+  const { tensorOverflowOptions } = await import('../packed42-pair-reducer-tensor-service.mjs');
   const options = tensorOverflowOptions(readCompactHybridOptions({}).reducer);
   assert.deepEqual(options, { candidateTile: 256, referenceTile: 1024, maxWorkspaceBytes: 67108864, backend: 'simt' });
   assert.deepEqual(tensorOverflowOptions(), options);
@@ -38,6 +38,33 @@ test('actual P2 runner and reducer configure the pinned resolved-SIMT profile', 
 });
 
 function low32(value) { return value >>> 0; }
+
+test('Tensor recovery retains a 150,000-record equal-cardinality frontier without argument-stack overflow', async (t) => {
+  const loaded = await loadPortableTensor(t);
+  if (!loaded) return;
+  const values = [];
+  let mask = (1 << 11) - 1;
+  for (let i = 0; i < 150000; i++) {
+    values.push(mask);
+    const bit = mask & -mask;
+    const next = mask + bit;
+    mask = next | (((mask ^ next) >>> 2) / bit);
+  }
+  const runtime = await loaded.openCudaRuntimeForTesting({ compiler: true });
+  const normalizer = await loaded.createTensorPacked42OverflowNormalizer(runtime);
+  try {
+    for (const direction of ['minimal', 'maximal']) {
+      const result = await normalizer.normalize({ ...packedFixture(values), direction });
+      assert.deepEqual(result.frontier, values);
+    }
+    // One cardinality contains no strict dominance: this exercises host
+    // publication capacity, not fake-runtime numerical kernel semantics.
+    assert.equal(normalizer.snapshotStats().tensorRuns, 0);
+  } finally {
+    await normalizer.close();
+    assert.equal((await runtime.close()).graceful, true);
+  }
+});
 function high10(value) { return Math.floor(value / TWO32) >>> 0; }
 function popcount32(value) {
   let v = value >>> 0;

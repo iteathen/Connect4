@@ -32,6 +32,13 @@ function envPositive(env, name, fallback) {
   return value;
 }
 
+function envBoolean(env, name, fallback) {
+  if (env[name] === undefined) return fallback;
+  if (env[name] === '1') return true;
+  if (env[name] === '0') return false;
+  throw new RangeError(`${name} must be 0 or 1`);
+}
+
 function low32(value) { return value >>> 0; }
 function high10(value) { return Math.floor(value / TWO32) >>> 0; }
 function pack42(low, high) { return (low >>> 0) + (high >>> 0) * TWO32; }
@@ -65,21 +72,24 @@ function forEachSetCell(mask, callback) {
 function normalizeMinimal(values) { return normalizeMinimalPacked42Antichain(values); }
 function normalizeMaximal(values) { return normalizeMaximalPacked42Antichain(values); }
 
-export function cofactorUpward(frontier, landingCell, mover) {
+export function cofactorUpward(frontier, landingCell, mover, preserve = true) {
   const result = [];
   if (mover === 0) for (const mask of frontier) result.push(clearCell(mask, landingCell));
   else for (const mask of frontier) if (!hasCell(mask, landingCell)) result.push(mask);
-  return normalizeMinimal(result);
+  // Filtering an antichain preserves incomparability (O1 preservation law).
+  return preserve && mover === 1 ? Object.freeze(result) : normalizeMinimal(result);
 }
 
-export function cofactorDownward(frontier, landingCell, mover) {
+export function cofactorDownward(frontier, landingCell, mover, preserve = true) {
   const result = [];
   if (mover === 0) {
     for (const mask of frontier) if (hasCell(mask, landingCell)) result.push(clearCell(mask, landingCell));
   } else {
     for (const mask of frontier) result.push(clearCell(mask, landingCell));
   }
-  return normalizeMaximal(result);
+  // Every retained cap contained the fixed bit. Removing the common bit is
+  // injective and preserves subset order, so normalization is redundant.
+  return preserve && mover === 0 ? Object.freeze(result) : normalizeMaximal(result);
 }
 
 function subtractUpwardFromDownward(downward, forbiddenUpward) {
@@ -96,7 +106,7 @@ function subtractUpwardFromDownward(downward, forbiddenUpward) {
       candidates = normalizeMaximal(next);
       if (candidates.length === 0) break;
     }
-    result.push(...candidates);
+    for (const mask of candidates) result.push(mask);
   }
   return normalizeMaximal(result);
 }
@@ -118,7 +128,7 @@ function subtractDownwardFromUpward(upward, forbiddenDownward, universeMask) {
       candidates = normalizeMinimal(next);
       if (candidates.length === 0) break;
     }
-    result.push(...candidates);
+    for (const mask of candidates) result.push(mask);
   }
   return normalizeMinimal(result);
 }
@@ -143,9 +153,38 @@ function lineIncidence(masks, cellCount) {
   return Object.freeze(result.map((entry) => Object.freeze(entry)));
 }
 
-function rankItems(support) {
+export function reflectSupportIndex(index, support) {
+  let remaining = index;
+  let reflected = 0;
+  for (let column = 0; column < support.columns; column += 1) {
+    reflected = reflected * support.radix + remaining % support.radix;
+    remaining = Math.floor(remaining / support.radix);
+  }
+  return reflected;
+}
+
+export function reflectPacked42(mask, columns) {
+  let reflected = 0;
+  forEachSetCell(mask, (cell) => {
+    const row = Math.floor(cell / columns);
+    reflected += 2 ** (row * columns + columns - 1 - cell % columns);
+  });
+  return reflected;
+}
+
+function reflectFrontier(frontier, columns) {
+  // A geometric permutation preserves both subset order and exact identity.
+  return Object.freeze({
+    wins: Object.freeze(frontier.wins.map(mask => reflectPacked42(mask, columns))),
+    losses: Object.freeze(frontier.losses.map(mask => reflectPacked42(mask, columns))),
+  });
+}
+
+function rankItems(support, reflection) {
   const result = Array.from({ length: support.maxRank + 1 }, () => []);
-  for (let index = 0; index < support.itemCapacity; index += 1) result[support.ranks[index]].push(index);
+  for (let index = 0; index < support.itemCapacity; index += 1) {
+    if (!reflection || index <= reflectSupportIndex(index, support)) result[support.ranks[index]].push(index);
+  }
   return Object.freeze(result.map((entry) => Object.freeze(entry)));
 }
 
@@ -166,7 +205,7 @@ function terminalBoundary(heights, rank, geometry, support, incidence) {
   return mover === 0 ? normalizeMinimal(terminal) : normalizeMaximal(terminal);
 }
 
-function prepareSupport(supportIndex, rank, support, childRank, geometry, incidence) {
+function prepareSupport(supportIndex, rank, support, childRank, geometry, incidence, options, metrics) {
   const heights = support.decodeHeights(supportIndex);
   const mover = rank & 1;
   const universeMask = supportUniverseMask(heights, geometry.columns);
@@ -176,16 +215,24 @@ function prepareSupport(supportIndex, rank, support, childRank, geometry, incide
     const row = heights[column];
     if (row >= geometry.rows) continue;
     const landingCell = row * geometry.columns + column;
-    const child = childRank.get(supportIndex + support.weights[column]);
+    const childIndex = supportIndex + support.weights[column];
+    const reflectedIndex = options.reflection ? reflectSupportIndex(childIndex, support) : childIndex;
+    const canonicalIndex = Math.min(childIndex, reflectedIndex);
+    let child = childRank.get(canonicalIndex);
     if (!child) throw new Error(`missing child frontier for support ${supportIndex}`);
-    const moveWins = cofactorUpward(child.wins, landingCell, mover);
-    const moveLosses = cofactorDownward(child.losses, landingCell, mover);
+    if (canonicalIndex !== childIndex) {
+      metrics.reflectedChildLookups += 1;
+      metrics.reflectedChildRecords += child.wins.length + child.losses.length;
+      child = reflectFrontier(child, geometry.columns);
+    }
+    const moveWins = cofactorUpward(child.wins, landingCell, mover, options.cofactorPreservation);
+    const moveLosses = cofactorDownward(child.losses, landingCell, mover, options.cofactorPreservation);
     if (mover === 0) {
-      unionValues.push(...moveWins);
+      for (const mask of moveWins) unionValues.push(mask);
       intersectionSets.push(moveLosses);
     } else {
       intersectionSets.push(moveWins);
-      unionValues.push(...moveLosses);
+      for (const mask of moveLosses) unionValues.push(mask);
     }
   }
   const terminal = terminalBoundary(heights, rank, geometry, support, incidence);
@@ -253,7 +300,7 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
   const support = createBsfpSupportLatticeProfile(geometry);
   const masks = lineMasks(geometry);
   const incidence = lineIncidence(masks, geometry.columns * geometry.rows);
-  const ranks = rankItems(support);
+  const ranks = rankItems(support, options.reflection);
   const metrics = {
     structuralPrepareMs: 0,
     gpuPairReduceWallMs: 0,
@@ -263,6 +310,8 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
     maximumLossFrontier: 0,
     peakResidentBoundaryRecords: 0,
     processedSupports: 0,
+    reflectedChildLookups: 0,
+    reflectedChildRecords: 0,
     rankSummaries: [],
   };
   const solveStarted = performance.now();
@@ -291,7 +340,7 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
           continue;
         }
         const prepareStarted = performance.now();
-        const pending = shard.map((supportIndex) => prepareSupport(supportIndex, rank, support, childRank, geometry, incidence));
+        const pending = shard.map((supportIndex) => prepareSupport(supportIndex, rank, support, childRank, geometry, incidence, options, metrics));
         metrics.structuralPrepareMs += performance.now() - prepareStarted;
         await reduceIntersectionStages(pending, reducer, metrics);
         const finalizeStarted = performance.now();
@@ -299,6 +348,10 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
           const frontier = finalizeSupport(item);
           currentRank.set(item.supportIndex, frontier);
           onFrontier?.(item.supportIndex, frontier);
+          if (onFrontier && options.reflection) {
+            const mirroredIndex = reflectSupportIndex(item.supportIndex, support);
+            if (mirroredIndex !== item.supportIndex) onFrontier(mirroredIndex, reflectFrontier(frontier, geometry.columns));
+          }
           const records = frontier.wins.length + frontier.losses.length;
           rankBoundaryRecords += records;
           rankMaxWin = Math.max(rankMaxWin, frontier.wins.length);
@@ -327,6 +380,8 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
     return Object.freeze({
       rootWdl: classifyRoot(root),
       supportSkeletons: support.itemCapacity,
+      evaluatedSupports: metrics.processedSupports,
+      optimizations: { reflection: options.reflection, cofactorPreservation: options.cofactorPreservation },
       winningLines: masks.length,
       rootFrontier: root,
       metrics: Object.freeze({ ...metrics, reducer: reducer.snapshotStats() }),
@@ -355,6 +410,8 @@ export function readCompactHybridOptions(env = process.env) {
 
   return {
     supportShardSize,
+    reflection: envBoolean(env, 'BSFP_HYBRID_REFLECTION', true),
+    cofactorPreservation: envBoolean(env, 'BSFP_HYBRID_COFACTOR_PRESERVATION', true),
     reducer: {
       outputCapacityPerSegment,
       candidateCapacity,
@@ -411,10 +468,14 @@ async function main() {
       qualification,
       expectedRootWdl: expected,
       supportSkeletons: solved.supportSkeletons,
+      evaluatedSupports: solved.evaluatedSupports,
+      optimizations: solved.optimizations,
       winningLines: solved.winningLines,
       timingsMs: { runtimeOpen: runtimeOpenMs, solve: solveWallMs, processToResult: performance.now() - started },
       performance: {
-        supportsPerSecond: solved.supportSkeletons * 1000 / solveWallMs,
+        supportsPerSecond: solved.evaluatedSupports * 1000 / solveWallMs,
+        reflectedChildLookups: solved.metrics.reflectedChildLookups,
+        reflectedChildRecords: solved.metrics.reflectedChildRecords,
         structuralPrepareMs: solved.metrics.structuralPrepareMs,
         gpuPairReduceWallMs: solved.metrics.gpuPairReduceWallMs,
         finalizeMs: solved.metrics.finalizeMs,
