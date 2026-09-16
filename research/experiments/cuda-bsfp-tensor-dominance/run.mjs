@@ -247,6 +247,23 @@ function access(argumentIndex, allocation, mode) {
   return Object.freeze({ argumentIndex, byteOffset: 0, byteLength: allocation.count * allocation.width, mode });
 }
 
+function tensorBindingName(parameter) {
+  if (parameter.role === 'input') {
+    if (parameter.name === 'candidates') return 'candidateBits';
+    if (parameter.name === 'frontierTransposed') return 'frontierBits';
+    if (parameter.name === 'frontierPopcounts') return 'frontierPopcounts';
+    if (parameter.name === 'ones') return 'ones';
+  } else if (parameter.role === 'output') return 'tensorDominated';
+  else if (parameter.role === 'workspace') return 'tensorWorkspace';
+  throw new Error(`unsupported Tensor dominance binding role/name ${parameter.role}/${parameter.name}`);
+}
+
+function assertPreparedBindings(prepared, bindings, label) {
+  const expected = Object.keys(bindings).sort();
+  const actual = prepared.bindings.map((entry) => entry.name).sort();
+  assert.deepEqual(actual, expected, `${label} prepared binding schema mismatch`);
+}
+
 async function prepareNativeTensorPath(runtime, compiled, pointerParameters, allocations) {
   const artifact = compiled.linker?.artifact ?? compiled.compiler?.artifact;
   if (!artifact) throw new Error('Tensor dominance composition produced no executable artifact');
@@ -282,8 +299,7 @@ async function prepareNativeTensorPath(runtime, compiled, pointerParameters, all
     ]),
   })] });
 
-  const tensorParameterBinding = new Map();
-  for (const parameter of pointerParameters) {
+  const tensorParameterBindings = pointerParameters.map((parameter) => {
     let allocation;
     if (parameter.role === 'input') {
       if (parameter.name === 'candidates') allocation = allocations.candidateBits;
@@ -296,18 +312,21 @@ async function prepareNativeTensorPath(runtime, compiled, pointerParameters, all
     else throw new Error(`unsupported Tensor dominance parameter role ${parameter.role}`);
     assert.equal(allocation.dtype, parameter.dtype);
     assert(allocation.count >= parameter.elementCount);
-    tensorParameterBinding.set(parameter.parameterName, allocation);
-  }
+    return Object.freeze({ parameter, allocation, bindingName: tensorBindingName(parameter) });
+  });
 
   const tensorBindings = {};
-  for (const [name, allocation] of tensorParameterBinding) tensorBindings[name] = allocation.view;
+  for (const entry of tensorParameterBindings) {
+    if (Object.hasOwn(tensorBindings, entry.bindingName)) throw new Error(`duplicate Tensor logical binding ${entry.bindingName}`);
+    tensorBindings[entry.bindingName] = entry.allocation.view;
+  }
   tensorBindings.tensorStatus = allocations.tensorStatus.view;
+  const frozenTensorBindings = Object.freeze(tensorBindings);
 
-  const tensorArguments = [...pointerParameters.map((entry) => binding(entry.parameterName)), binding('tensorStatus')];
-  const tensorAccesses = pointerParameters.map((entry, index) => {
-    const allocation = tensorParameterBinding.get(entry.parameterName);
-    const mode = entry.access === 'read' ? 'read' : entry.access === 'write' ? 'write' : 'read-write';
-    return access(index, allocation, mode);
+  const tensorArguments = [...tensorParameterBindings.map((entry) => binding(entry.bindingName)), binding('tensorStatus')];
+  const tensorAccesses = tensorParameterBindings.map((entry, index) => {
+    const mode = entry.parameter.access === 'read' ? 'read' : entry.parameter.access === 'write' ? 'write' : 'read-write';
+    return access(index, entry.allocation, mode);
   });
   tensorAccesses.push(access(pointerParameters.length, allocations.tensorStatus, 'write'));
 
@@ -345,6 +364,15 @@ async function prepareNativeTensorPath(runtime, compiled, pointerParameters, all
     unpackFrontierNode,
     Object.freeze({ ...runTensorNode, after: Object.freeze(['unpack-candidates', 'unpack-frontier']) }),
   ] });
+  const tensorFullBindings = Object.freeze({
+    ...frozenTensorBindings,
+    candidateLo: allocations.candidateLo.view,
+    candidateHi: allocations.candidateHi.view,
+    frontierLo: allocations.frontierLo.view,
+    frontierHi: allocations.frontierHi.view,
+  });
+  assertPreparedBindings(tensorOnlyPrepared, frozenTensorBindings, 'Tensor-only');
+  assertPreparedBindings(tensorFullPrepared, tensorFullBindings, 'packed-to-Tensor');
 
   return Object.freeze({
     module,
@@ -353,7 +381,8 @@ async function prepareNativeTensorPath(runtime, compiled, pointerParameters, all
     baselineBindings,
     tensorOnlyPrepared,
     tensorFullPrepared,
-    tensorBindings: Object.freeze(tensorBindings),
+    tensorBindings: frozenTensorBindings,
+    tensorFullBindings,
   });
 }
 
@@ -423,7 +452,7 @@ async function runAuthority(runtime, fixture, native) {
   }
 }
 
-async function nativeExperiment(runtime, fixture, tensorDeviceProgram, compiled, pointerParameters) {
+async function executionExperiment(runtime, fixture, tensorDeviceProgram, compiled, pointerParameters, native) {
   const allocations = {};
   const allocationOrder = [];
   function remember(name, value) { allocations[name] = value; allocationOrder.push(value); return value; }
@@ -452,13 +481,28 @@ async function nativeExperiment(runtime, fixture, tensorDeviceProgram, compiled,
     await write(frontierHi, fixture.frontierHi);
 
     prepared = await prepareNativeTensorPath(runtime, compiled, pointerParameters, allocations);
+    if (!native) {
+      const operation = await prepared.tensorFullPrepared.submit({ bindings: prepared.tensorFullBindings });
+      try {
+        const terminal = await operation.wait();
+        assert.equal(terminal.status, 'completed');
+      } finally {
+        await operation.close();
+      }
+      return Object.freeze({
+        outcome: 'portable-tensor-dominance-prepared-submit-pass',
+        tensorOnlyBindingCount: prepared.tensorOnlyPrepared.bindings.length,
+        tensorFullBindingCount: prepared.tensorFullPrepared.bindings.length,
+      });
+    }
+
     const baselineTiming = await timePrepared(prepared.baselinePrepared, prepared.baselineBindings);
 
     // Populate Tensor inputs once, validate the complete path, then measure both the
     // Tensor leaf alone and the complete packed->Tensor unpack+dominance path.
-    const fullPrime = await timePrepared(prepared.tensorFullPrepared, prepared.tensorBindings, 0, 1);
+    const fullPrime = await timePrepared(prepared.tensorFullPrepared, prepared.tensorFullBindings, 0, 1);
     const tensorOnlyTiming = await timePrepared(prepared.tensorOnlyPrepared, prepared.tensorBindings);
-    const tensorFullTiming = await timePrepared(prepared.tensorFullPrepared, prepared.tensorBindings);
+    const tensorFullTiming = await timePrepared(prepared.tensorFullPrepared, prepared.tensorFullBindings);
 
     const baseline = await readU32(allocations.baselineDominated);
     const checks = await readU32(allocations.baselineChecks);
@@ -521,7 +565,7 @@ async function main() {
     const composedCompileMs = performance.now() - composedStarted;
 
     const authority = await runAuthority(runtime, fixture, native);
-    const execution = native ? await nativeExperiment(runtime, fixture, tensorDeviceProgram, compiled, pointerParameters) : Object.freeze({ outcome: 'portable-tensor-dominance-compile-pass' });
+    const execution = await executionExperiment(runtime, fixture, tensorDeviceProgram, compiled, pointerParameters, native);
     console.log(JSON.stringify({
       schemaVersion: 1,
       kind: 'connect4-bsfp-tensor-dominance-overflow-ab',
