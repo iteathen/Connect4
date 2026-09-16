@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   fix:
-    if: ${{ !contains(github.event.head_commit.message, 'fix: separate Tensor workspace profiles') }}
+    if: "${{ github.event.head_commit.message != 'fix: separate Tensor workspace profiles' }}"
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -40,7 +40,7 @@ jobs:
           ln -sfn "$(realpath ../CUDA-JS)" ../CUDA-JS-Tensor/node_modules/cuda-js
       - name: Verify repository
         run: node --test
-      - name: Verify full-shape device-callable A/B remains valid
+      - name: Verify full-shape device-callable A-B remains valid
         run: node research/experiments/cuda-bsfp-tensor-dominance/run.mjs portable
       - name: Verify invalid resolved-plan override rejects before CUDA open
         shell: bash
