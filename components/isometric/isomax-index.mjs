@@ -100,7 +100,7 @@ function mix32(value) {
 
 function hashSignature(signature) {
   let hash = 0x811c9dc5;
-  for (let index = 0; index < 5; index += 1) hash = Math.imul(hash ^ mix32(signature[index]), 0x01000193) >>> 0;
+  for (let index = 0; index < 3; index += 1) hash = Math.imul(hash ^ mix32(signature[index]), 0x01000193) >>> 0;
   return mix32(hash);
 }
 
@@ -115,19 +115,15 @@ export class IsoMaxTransitionCache {
     this.p0 = new Int32Array(capacity);
     this.p1 = new Int32Array(capacity);
     this.support = new Uint32Array(capacity);
-    this.side = new Uint8Array(capacity);
-    this.status = new Uint8Array(capacity);
     this.values = new Array(capacity);
     this.scratch = new Int32Array(6);
-    this.rehashScratch = new Int32Array(5);
+    this.rehashScratch = new Int32Array(3);
   }
 
   matches(slot, signature) {
     return this.p0[slot] === signature[0]
       && this.p1[slot] === signature[1]
-      && this.support[slot] === (signature[2] >>> 0)
-      && this.side[slot] === signature[3]
-      && this.status[slot] === signature[4];
+      && this.support[slot] === (signature[2] >>> 0);
   }
 
   findSlot(signature) {
@@ -144,8 +140,6 @@ export class IsoMaxTransitionCache {
       p0: this.p0,
       p1: this.p1,
       support: this.support,
-      side: this.side,
-      status: this.status,
       values: this.values,
     };
     this.capacity <<= 1;
@@ -154,8 +148,6 @@ export class IsoMaxTransitionCache {
     this.p0 = new Int32Array(this.capacity);
     this.p1 = new Int32Array(this.capacity);
     this.support = new Uint32Array(this.capacity);
-    this.side = new Uint8Array(this.capacity);
-    this.status = new Uint8Array(this.capacity);
     this.values = new Array(this.capacity);
     const signature = this.rehashScratch;
     for (let slot = 0; slot < old.capacity; slot += 1) {
@@ -163,8 +155,6 @@ export class IsoMaxTransitionCache {
       signature[0] = old.p0[slot];
       signature[1] = old.p1[slot];
       signature[2] = old.support[slot];
-      signature[3] = old.side[slot];
-      signature[4] = old.status[slot];
       this.setSignature(signature, old.values[slot]);
     }
   }
@@ -189,8 +179,6 @@ export class IsoMaxTransitionCache {
       this.p0[slot] = signature[0];
       this.p1[slot] = signature[1];
       this.support[slot] = signature[2] >>> 0;
-      this.side[slot] = signature[3];
-      this.status[slot] = signature[4];
       this.count += 1;
     }
     this.values[slot] = value;
