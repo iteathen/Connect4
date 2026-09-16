@@ -14,6 +14,8 @@ import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../../compone
 
 const TWO32 = 0x1_0000_0000;
 const MAX_MASK_42 = 2 ** 42 - 1;
+// CUDA-JS SPEC-0004 policy; independent of both Tensor workspace profiles.
+const CUDA_MEMORY_POLICY = Object.freeze({ maxDeviceBytes: 268435456, maxAllocationBytes: 134217728, maxTransferBytes: 16777216 });
 
 function parseGeometry(text) {
   const match = /^(\d+)x(\d+):c(\d+)$/.exec(text ?? '');
@@ -26,8 +28,8 @@ function parseGeometry(text) {
   return Object.freeze({ columns, rows, connect });
 }
 
-function envPositive(name, fallback) {
-  const value = process.env[name] === undefined ? fallback : Number(process.env[name]);
+function envPositive(env, name, fallback) {
+  const value = env[name] === undefined ? fallback : Number(env[name]);
   if (!Number.isSafeInteger(value) || value < 1) throw new RangeError(`${name} must be a positive safe integer`);
   return value;
 }
@@ -261,6 +263,10 @@ async function solve(runtime, geometry, options) {
     processedSupports: 0,
     rankSummaries: [],
   };
+  const solveStarted = performance.now();
+  const reportProgress = () => console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, gpuReducer: reducer.snapshotStats() }));
+  const progressTimer = setInterval(reportProgress, 5000);
+  progressTimer.unref();
   let childRank = new Map();
   let childBoundaryRecords = 0;
   try {
@@ -318,34 +324,28 @@ async function solve(runtime, geometry, options) {
       metrics: Object.freeze({ ...metrics, reducer: reducer.snapshotStats() }),
     });
   } finally {
+    clearInterval(progressTimer);
+    reportProgress();
     await reducer.close();
   }
 }
 
-const mode = process.argv[2] ?? 'native';
-if (mode !== 'native') throw new RangeError('compact hybrid BSFP currently requires native CUDA');
-const geometry = parseGeometry(process.argv[3] ?? '4x4:c4');
-const supportShardSize = envPositive('BSFP_HYBRID_SUPPORT_SHARD_SIZE', 256);
-const outputCapacityPerSegment = envPositive('BSFP_HYBRID_FRONTIER_CAPACITY', 1024);
-const candidateCapacity = envPositive('BSFP_HYBRID_CANDIDATE_CAPACITY', 4194304);
-const segmentCapacity = envPositive('BSFP_HYBRID_SEGMENT_CAPACITY', 256);
-const sideCapacity = envPositive('BSFP_HYBRID_SIDE_CAPACITY', 262144);
-const tensorCandidateTile = envPositive('BSFP_HYBRID_TENSOR_CANDIDATE_TILE', 256);
-const tensorReferenceTile = envPositive('BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
-const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
-const tensorBackend = process.env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
-if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
-if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
-  throw new RangeError(`BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES must not exceed ${TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES} for the resolved-plan profile`);
-}
+export function readCompactHybridOptions(env = process.env) {
+  const supportShardSize = envPositive(env, 'BSFP_HYBRID_SUPPORT_SHARD_SIZE', 256);
+  const outputCapacityPerSegment = envPositive(env, 'BSFP_HYBRID_FRONTIER_CAPACITY', 1024);
+  const candidateCapacity = envPositive(env, 'BSFP_HYBRID_CANDIDATE_CAPACITY', 4194304);
+  const segmentCapacity = envPositive(env, 'BSFP_HYBRID_SEGMENT_CAPACITY', 256);
+  const sideCapacity = envPositive(env, 'BSFP_HYBRID_SIDE_CAPACITY', 262144);
+  const tensorCandidateTile = envPositive(env, 'BSFP_HYBRID_TENSOR_CANDIDATE_TILE', 256);
+  const tensorReferenceTile = envPositive(env, 'BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
+  const tensorMaxWorkspaceBytes = envPositive(env, 'BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
+  const tensorBackend = env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
+  if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
+  if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
+    throw new RangeError(`BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES must not exceed ${TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES} for the resolved-plan profile`);
+  }
 
-let runtime;
-const started = performance.now();
-try {
-  runtime = await openCudaRuntime({ compiler: true });
-  const runtimeOpenMs = performance.now() - started;
-  const solveStarted = performance.now();
-  const solved = await solve(runtime, geometry, {
+  return {
     supportShardSize,
     reducer: {
       outputCapacityPerSegment,
@@ -359,45 +359,65 @@ try {
       tensorMaxWorkspaceBytes,
       tensorBackend,
     },
-  });
-  const solveWallMs = performance.now() - solveStarted;
-  const expected = geometry.columns === 4 && geometry.rows === 3 && geometry.connect === 3 ? 1
-    : geometry.columns === 4 && geometry.rows === 4 && geometry.connect === 4 ? 0
-      : geometry.columns === 5 && geometry.rows === 5 && geometry.connect === 4 ? 0
-        : geometry.columns === 7 && geometry.rows === 6 && geometry.connect === 4 ? 1
-          : null;
-  if (expected !== null) assert.equal(solved.rootWdl, expected, 'hybrid root W/D/L disagrees with established result');
-  console.log(JSON.stringify({
-    schemaVersion: 1,
-    kind: 'connect4-cuda-bsfp-compact-hybrid-root-wdl',
-    mode: 'native',
-    geometry: `${geometry.columns}x${geometry.rows}-c${geometry.connect}`,
-    outcome: 'native-compact-hybrid-root-wdl-pass',
-    rootWdl: solved.rootWdl,
-    expectedRootWdl: expected,
-    supportSkeletons: solved.supportSkeletons,
-    winningLines: solved.winningLines,
-    timingsMs: { runtimeOpen: runtimeOpenMs, solve: solveWallMs, processToResult: performance.now() - started },
-    performance: {
-      supportsPerSecond: solved.supportSkeletons * 1000 / solveWallMs,
-      structuralPrepareMs: solved.metrics.structuralPrepareMs,
-      gpuPairReduceWallMs: solved.metrics.gpuPairReduceWallMs,
-      finalizeMs: solved.metrics.finalizeMs,
-    },
-    frontiers: {
-      totalBoundaryRecords: solved.metrics.totalBoundaryRecords,
-      maximumWinFrontier: solved.metrics.maximumWinFrontier,
-      maximumLossFrontier: solved.metrics.maximumLossFrontier,
-      peakResidentBoundaryRecords: solved.metrics.peakResidentBoundaryRecords,
-      rootWinRecords: solved.rootFrontier.wins.length,
-      rootLossRecords: solved.rootFrontier.losses.length,
-    },
-    gpuReducer: solved.metrics.reducer,
-    rankSummaries: solved.metrics.rankSummaries,
-  }, null, 2));
-} finally {
-  if (runtime) {
-    const closed = await runtime.close();
-    assert.equal(closed.graceful, true);
-  }
+  };
 }
+
+async function main() {
+  const mode = process.argv[2] ?? 'native';
+  if (mode !== 'native') throw new RangeError('compact hybrid BSFP currently requires native CUDA');
+  const geometry = parseGeometry(process.argv[3] ?? '4x4:c4');
+  const options = readCompactHybridOptions();
+  console.error(JSON.stringify({ kind: 'compact-hybrid-configuration', options, cudaMemoryPolicy: CUDA_MEMORY_POLICY }));
+
+  let runtime;
+  const started = performance.now();
+  try {
+    runtime = await openCudaRuntime({ compiler: true, driver: { memory: CUDA_MEMORY_POLICY } });
+    const runtimeOpenMs = performance.now() - started;
+    const solveStarted = performance.now();
+    const solved = await solve(runtime, geometry, options);
+    const solveWallMs = performance.now() - solveStarted;
+    const expected = geometry.columns === 4 && geometry.rows === 3 && geometry.connect === 3 ? 1
+      : geometry.columns === 4 && geometry.rows === 4 && geometry.connect === 4 ? 0
+        : geometry.columns === 5 && geometry.rows === 5 && geometry.connect === 4 ? 0
+          : geometry.columns === 7 && geometry.rows === 6 && geometry.connect === 4 ? 1
+            : null;
+    if (expected !== null) assert.equal(solved.rootWdl, expected, 'hybrid root W/D/L disagrees with established result');
+    console.log(JSON.stringify({
+      schemaVersion: 1,
+      kind: 'connect4-cuda-bsfp-compact-hybrid-root-wdl',
+      mode: 'native',
+      geometry: `${geometry.columns}x${geometry.rows}-c${geometry.connect}`,
+      outcome: 'native-compact-hybrid-root-wdl-pass',
+      rootWdl: solved.rootWdl,
+      expectedRootWdl: expected,
+      supportSkeletons: solved.supportSkeletons,
+      winningLines: solved.winningLines,
+      timingsMs: { runtimeOpen: runtimeOpenMs, solve: solveWallMs, processToResult: performance.now() - started },
+      performance: {
+        supportsPerSecond: solved.supportSkeletons * 1000 / solveWallMs,
+        structuralPrepareMs: solved.metrics.structuralPrepareMs,
+        gpuPairReduceWallMs: solved.metrics.gpuPairReduceWallMs,
+        finalizeMs: solved.metrics.finalizeMs,
+      },
+      frontiers: {
+        totalBoundaryRecords: solved.metrics.totalBoundaryRecords,
+        maximumWinFrontier: solved.metrics.maximumWinFrontier,
+        maximumLossFrontier: solved.metrics.maximumLossFrontier,
+        peakResidentBoundaryRecords: solved.metrics.peakResidentBoundaryRecords,
+        rootWinRecords: solved.rootFrontier.wins.length,
+        rootLossRecords: solved.rootFrontier.losses.length,
+      },
+      gpuReducer: solved.metrics.reducer,
+      rankSummaries: solved.metrics.rankSummaries,
+    }, null, 2));
+  } finally {
+    if (runtime) {
+      const closed = await runtime.close();
+      assert.equal(closed.graceful, true);
+    }
+  }
+
+}
+
+if (import.meta.main) await main();

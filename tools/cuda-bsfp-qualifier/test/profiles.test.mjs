@@ -163,7 +163,8 @@ test('P2 admits the <=42-cell compact ladder with a finite reusable GPU workspac
   assert.equal(estimate.candidateCapacity, 4_194_304);
   assert.equal(estimate.frontierCapacityPerSegment, 1_024);
   assert.equal(estimate.kind, 'proved-hybrid-tensor-overflow-workspace-upper-bound');
-  assert.equal(estimate.tensorOverflowAllowanceBytes, String(192 * 1024 * 1024));
+  assert.equal(estimate.tensorOverflowAllowanceBytes, String(64 * 1024 * 1024));
+  assert.equal(estimate.tensorDeviceProgramWorkspaceLimitBytes, String(192 * 1024 * 1024));
   assert.ok(estimate.upperBoundBytes > 500 * 1024 * 1024);
   assert.ok(estimate.upperBoundBytes < 576 * 1024 * 1024);
   assert.equal(profile.estimate({ columns: 8, rows: 6, connect: 4 }).upperBoundBytes, null);

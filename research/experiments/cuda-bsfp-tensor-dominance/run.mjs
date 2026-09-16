@@ -22,6 +22,8 @@ const BLOCK_SIZE = 256;
 const WARMUPS = 1;
 const REPETITIONS = 3;
 const TENSOR_WORKSPACE_LIMIT = 192 * 1024 * 1024;
+// CUDA-JS SPEC-0004 allocation policy, independently sized for the 164,544,512-byte arena.
+const CUDA_MEMORY_POLICY = Object.freeze({ maxDeviceBytes: 256 * 1024 * 1024, maxAllocationBytes: 192 * 1024 * 1024, maxTransferBytes: 16 * 1024 * 1024 });
 
 function encode(values) {
   return new Uint8Array(values.buffer, values.byteOffset, values.byteLength);
@@ -544,7 +546,7 @@ async function main() {
   if (!['portable', 'native'].includes(mode)) throw new RangeError('mode must be portable or native');
   const native = mode === 'native';
   const fixture = createMinimalDominanceFixture({ frontierCount: FRONTIER_COUNT, candidateCount: CANDIDATE_COUNT });
-  const runtime = native ? await openCudaRuntime({ compiler: true, driver: { memory: { maxAllocationBytes: TENSOR_WORKSPACE_LIMIT } } }) : await openCudaRuntimeForTesting({ compiler: true, driver: { memory: { maxAllocationBytes: TENSOR_WORKSPACE_LIMIT } } });
+  const runtime = native ? await openCudaRuntime({ compiler: true, driver: { memory: CUDA_MEMORY_POLICY } }) : await openCudaRuntimeForTesting({ compiler: true, driver: { memory: CUDA_MEMORY_POLICY } });
   const tensorSession = await TensorSession.open(runtime);
   let tensorDeviceProgram;
   try {

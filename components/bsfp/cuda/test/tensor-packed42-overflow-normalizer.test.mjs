@@ -6,8 +6,36 @@ import {
   normalizeMinimalPacked42Antichain,
 } from '../../index.mjs';
 import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../tensor-overflow-contract.mjs';
+import { readCompactHybridOptions } from '../../../../experiments/cuda-bsfp-compact-hybrid/run.mjs';
+import { tensorOverflowOptions } from '../packed42-pair-reducer-tensor-service.mjs';
 
 const TWO32 = 0x1_0000_0000;
+
+test('actual P2 runner and reducer configure the pinned resolved-SIMT profile', { timeout: 20_000 }, async (t) => {
+  const loaded = await loadPortableTensor(t);
+  if (!loaded) return;
+  const options = tensorOverflowOptions(readCompactHybridOptions({}).reducer);
+  assert.deepEqual(options, { candidateTile: 256, referenceTile: 1024, maxWorkspaceBytes: 67108864, backend: 'simt' });
+  assert.deepEqual(tensorOverflowOptions(), options);
+  for (const bytes of [128 * 1024 ** 2, 192 * 1024 ** 2]) {
+    assert.throws(() => readCompactHybridOptions({ BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES: String(bytes) }), /must not exceed/);
+  }
+  const runtime = await loaded.openCudaRuntimeForTesting({ compiler: true });
+  const normalizer = await loaded.createTensorPacked42OverflowNormalizer(runtime, options);
+  try {
+    await assert.rejects(loaded.createTensorPacked42OverflowNormalizer(runtime, { maxWorkspaceBytes: 67108865 }), /must not exceed/);
+    for (const direction of ['minimal', 'maximal']) {
+      // Full production tile sizes and policy, not the reduced 4x4 fixture.
+      const values = [1, 2, 12];
+      const result = await normalizer.normalize({ ...packedFixture(values), direction });
+      assert.deepEqual([...result.frontier].sort((a, b) => a - b), values);
+    }
+    assert(normalizer.snapshotStats().tensorRuns >= 2);
+  } finally {
+    await normalizer.close();
+    assert.equal((await runtime.close()).graceful, true);
+  }
+});
 
 function low32(value) { return value >>> 0; }
 function high10(value) { return Math.floor(value / TWO32) >>> 0; }

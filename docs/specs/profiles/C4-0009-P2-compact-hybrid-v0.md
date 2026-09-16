@@ -67,25 +67,11 @@ No overflow may truncate a frontier. Capacity exhaustion is a failed profile bou
 
 Generator offsets are bounds-checked on-device before indexed reads/writes. Invalid segment metadata is a failure, not undefined execution.
 
-### Reused-slab overflow specialization
+### Tensor overflow recovery on this branch
 
-The ordinary batched path retains the small per-segment survivor stride below. When a segment exceeds that stride, P2 does not widen all segments and does not regenerate the Cartesian product.
+The ordinary batched path retains a 1,024-record per-segment survivor capacity. On overflow, the Tensor reducer reads the already generated packed candidates and popcounts, then normalizes them exactly in cardinality order with 256-candidate by 1,024-reference resolved-SIMT tiles. It does not truncate the frontier or regenerate the Cartesian product. The older reused-output-slab specialization remains allocated for compatibility but is not the recovery executor on this Tensor branch; its 262,144-record capacity is not a Tensor survivor limit.
 
-After the ordinary pair DAG has completed, the generated candidate masks and popcounts remain authoritative in the persistent candidate workspace. The service retries only the overflowing segment through the existing exact segmented-antichain normalizer using a distinct one-segment prepared-plan specialization. The specialization reuses the already allocated batched output slab as one contiguous frontier instead of interpreting it as many fixed-stride segments.
-
-With the v0 defaults this gives:
-
-```text
-ordinary per-segment survivor capacity: 1,024 records
-ordinary segment capacity:              256 segments
-reused output-slab capacity:            262,144 records for one retry
-```
-
-The reusable retry capacity is derived from the profile workspace as `min(segmentCapacity * outputCapacityPerSegment, candidateCapacity)`; it is not a 7x6 constant and is not inferred from an observed overflow count. Candidate data are not mutated by normalization other than the dedicated checks workspace, which is reset by each normalizer invocation. Multiple overflowing segments are therefore retried sequentially before the next batch upload overwrites the shared candidate workspace.
-
-The retry allocates no second frontier slab, so the Q1 device-memory admission formula is unchanged. If the one-segment reused slab also overflows, P2 fails explicitly at that wider profile boundary. Such a result is evidence that frontier width itself has become the scaling wall and must not be hidden by silent clipping or unbounded allocation growth.
-
-Every native result records overflow retry count, recovered-job count, initial overflow lower bound, maximum recovered frontier, failures, and separated retry upload/execution/readback time.
+Host deduplication removes equal masks within a cardinality phase. Tensor compares against earlier accepted cardinalities. Recovery counts, maximum recovered frontier and Tensor run timings are observations, not an independent correctness proof.
 
 ## Current fixed GPU workspace
 
@@ -105,9 +91,11 @@ The candidate workspace uses four u32 arrays when checks are included: low mask,
 
 The integrated overflow normalizer uses CUDA-JS-Tensor `ResolvedTensorPlan`. Under accepted Tensor SPEC-0005 its resolved-plan workspace ceiling is **64 MiB**, and P2 uses that value as the shared default and maximum for `BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES`. The separate full-shape Tensor A/B gate uses the SPEC-0009 device-callable program profile and retains its independently qualified larger workspace allowance; that allowance must not be forwarded into the resolved-plan solver path. CUDA-JS device-allocation policy is a third, independent contract and P2 no longer derives `maxAllocationBytes` from the Tensor workspace option.
 
-Including a 256 MiB runtime allowance, Q1 admits P2 with a conservative device upper bound below 384 MiB. The Q1 95%-of-current-free policy and 256 MiB emergency floor remain authoritative for hardware admission. The overflow specialization reuses these allocations and therefore does not increase this bound.
+Admission reports the 64 MiB resolved-SIMT ceiling and the independent 192 MiB callable A/B ceiling separately. It retains the conservative 543,169,548-byte bound (73,407,500-byte packed payload + 256 MiB runtime allowance + the larger 192 MiB Tensor allowance) for the sequential qualification steps. The 95%-of-current-free policy and 256 MiB emergency floor are unchanged. This admission allowance is not a CUDA-JS allocation policy.
 
-These fixed capacities are qualification parameters, not claims that 1,024 is sufficient for every 7x6 support. If an exact frontier exceeds the ordinary stride, the reused-slab specialization is attempted; if it exceeds that bounded specialization too, the result is an explicit scaling datum and the profile is compressed or sharded. It is never clipped.
+The solver uses an independent CUDA-JS policy of 256 MiB total device bytes, 128 MiB per allocation, and 16 MiB per transfer. The A/B uses 256 MiB total, 192 MiB per allocation, and 16 MiB per transfer to admit its 164,544,512-byte callable arena. Neither policy is inferred from a Tensor workspace option. The normalizer Tensor session admits at most 512 MiB total, 128 MiB per tensor and 2,048 live tensors; the borrowed CUDA runtime remains the stricter final allocation authority.
+
+The regression test imports the actual P2 runner configuration, passes it through the reducer option mapping, and resolves/runs both directions at full 256x1,024 tile size using the portable runtime. This checks contracts and lifecycle only, not native arithmetic. The runner emits configuration and five-second progress snapshots to the qualifier stderr log so timeout evidence retains counters. The qualifier timeout stays at 120 seconds.
 
 ## Host/device boundary in P2
 

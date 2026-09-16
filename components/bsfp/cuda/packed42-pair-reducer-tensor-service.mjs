@@ -124,6 +124,15 @@ function packJobs(jobs, limits) {
   return Object.freeze(batches);
 }
 
+export function tensorOverflowOptions(options = {}) {
+  return {
+    candidateTile: options.tensorCandidateTile ?? 256,
+    referenceTile: options.tensorReferenceTile ?? 1024,
+    maxWorkspaceBytes: options.tensorMaxWorkspaceBytes ?? TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES,
+    backend: options.tensorBackend ?? 'simt',
+  };
+}
+
 export async function createPacked42PairReducerService(runtime, options = {}) {
   const primaryLimits = Object.freeze({
     segmentCapacity: positiveSafeInteger(options.segmentCapacity ?? 256, 'segmentCapacity'),
@@ -212,12 +221,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     try {
       if (!tensorNormalizer) {
         const { createTensorPacked42OverflowNormalizer } = await import('./tensor-packed42-overflow-normalizer.mjs');
-        tensorNormalizer = await createTensorPacked42OverflowNormalizer(runtime, {
-          candidateTile: options.tensorCandidateTile ?? 256,
-          referenceTile: options.tensorReferenceTile ?? 1024,
-          maxWorkspaceBytes: options.tensorMaxWorkspaceBytes ?? TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES,
-          backend: options.tensorBackend ?? 'simt',
-        });
+        tensorNormalizer = await createTensorPacked42OverflowNormalizer(runtime, tensorOverflowOptions(options));
       }
       const operationStarted = performance.now();
       const normalized = await tensorNormalizer.normalize({ lows, highs, popcounts, direction: job.direction });

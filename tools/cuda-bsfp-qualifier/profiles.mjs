@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../../components/bsfp/cuda/tensor-overflow-contract.mjs';
 import { oqsCofactor42Shape } from '../../components/bsfp/cuda/oqs-cofactor-42-layout.mjs';
 import { compactOwnership42Shape } from '../../components/bsfp/cuda/compact-ownership-42-layout.mjs';
 const MIB = 1024n * 1024n;
@@ -79,7 +80,7 @@ function p2Estimate(spec) {
   const statusBytes = P2_SEGMENT_CAPACITY * 4n * 4n;
   const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
   const upperBoundBytes = devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + P2_TENSOR_ALLOWANCE_BYTES;
-  return Object.freeze({ kind: 'proved-hybrid-tensor-overflow-workspace-upper-bound', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), tensorOverflowAllowanceBytes: P2_TENSOR_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });
+  return Object.freeze({ kind: 'proved-hybrid-tensor-overflow-workspace-upper-bound', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), tensorOverflowAllowanceBytes: String(TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES), tensorDeviceProgramWorkspaceLimitBytes: P2_TENSOR_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });
 }
 
 export function nativeNodeArgs(scriptPath, mode = 'native') {
