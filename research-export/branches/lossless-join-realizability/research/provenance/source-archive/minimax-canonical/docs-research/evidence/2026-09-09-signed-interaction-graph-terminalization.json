@@ -1,0 +1,472 @@
+{
+  "schema": "signed-interaction-graph-terminalization-v1",
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "notes": [
+    "Sparse graph: absent edge means unassessed, never zero.",
+    "Negative values from terminal detectors usually mean subtree-erasure saturation in hit states, not incompatibility.",
+    "Confidence is confidence in the stated interaction assessment, not candidate quality."
+  ],
+  "nodes": [
+    {
+      "id": "IWIN",
+      "label": "Exact immediate-win closure",
+      "terminalization_role": "immediate-terminal",
+      "semantic_reach": "one-ply",
+      "terminal_output": "exact win with distance-sensitive value",
+      "confidence": 0.99
+    },
+    {
+      "id": "DTH",
+      "label": "Exact double-immediate-threat loss closure",
+      "terminalization_role": "bounded-forced-terminal",
+      "semantic_reach": "bounded forced horizon",
+      "terminal_output": "exact forced loss",
+      "confidence": 0.99
+    },
+    {
+      "id": "FBLK",
+      "label": "Forced single-block restriction",
+      "terminalization_role": "none",
+      "semantic_reach": "one-ply transition restriction",
+      "confidence": 0.99
+    },
+    {
+      "id": "FMAC",
+      "label": "Forced macro-edges / decision-state exposure",
+      "terminalization_role": "none",
+      "semantic_reach": "forced-chain",
+      "confidence": 0.95
+    },
+    {
+      "id": "CARD",
+      "label": "Cardinality earliest-win bound",
+      "terminalization_role": "none",
+      "semantic_reach": "future admissible bound",
+      "confidence": 0.93
+    },
+    {
+      "id": "SEWB",
+      "label": "Support-aware earliest-win bound",
+      "terminalization_role": "none",
+      "semantic_reach": "future admissible bound",
+      "confidence": 0.68
+    },
+    {
+      "id": "EXH",
+      "label": "One-sided win-space exhaustion",
+      "terminalization_role": "partial-terminal-certificate",
+      "semantic_reach": "strategic/unbounded",
+      "terminal_output": "one-sided no-win bound; exact draw when both sides exhausted",
+      "confidence": 0.88
+    },
+    {
+      "id": "A10",
+      "label": "Compatible Allis rule-cover certificate",
+      "terminalization_role": "strategic-future-terminal",
+      "semantic_reach": "strategic/unbounded",
+      "terminal_output": "exact strategic terminal proposition when controller, compatibility and coverage conditions close",
+      "confidence": 0.62
+    },
+    {
+      "id": "E2",
+      "label": "Residual parity / future-threat metadata",
+      "terminalization_role": "certificate-component",
+      "semantic_reach": "state-dependent",
+      "terminal_output": "none by itself; ordering/proof-cost/rule metadata",
+      "confidence": 0.78
+    },
+    {
+      "id": "ZPAR",
+      "label": "Exact parity/Zugzwang future-terminal detector",
+      "terminalization_role": "strategic-future-terminal",
+      "semantic_reach": "strategic/unbounded",
+      "terminal_output": "projected exact eventual outcome/class from parity and Zugzwang structure",
+      "confidence": 0.5,
+      "evidence_state": "projected high-value survival candidate; not yet independently qualified"
+    },
+    {
+      "id": "SUP",
+      "label": "Exact support/event frontier",
+      "terminalization_role": "none",
+      "semantic_reach": "future event accessibility state",
+      "confidence": 0.86
+    },
+    {
+      "id": "RWS",
+      "label": "Residual win-space semantic state",
+      "terminalization_role": "none",
+      "semantic_reach": "whole remaining game semantics",
+      "confidence": 0.95
+    },
+    {
+      "id": "RID",
+      "label": "Fixed residual-requirement universe",
+      "terminalization_role": "none",
+      "semantic_reach": "static substrate",
+      "confidence": 0.96
+    },
+    {
+      "id": "INC",
+      "label": "Incremental/precomputed residual metadata",
+      "terminalization_role": "none",
+      "semantic_reach": "transition-local substrate",
+      "confidence": 0.94
+    },
+    {
+      "id": "AUTO",
+      "label": "Residual automorphism collapse",
+      "terminalization_role": "none",
+      "semantic_reach": "same-state equivalence",
+      "confidence": 0.88
+    },
+    {
+      "id": "IMPL",
+      "label": "Support-compatible implication proof reuse",
+      "terminalization_role": "none",
+      "semantic_reach": "cross-state bound transfer",
+      "confidence": 0.86
+    },
+    {
+      "id": "E1",
+      "label": "Residual maturity/live-requirement ordering",
+      "terminalization_role": "none",
+      "semantic_reach": "ordering-only",
+      "confidence": 0.88
+    },
+    {
+      "id": "P1",
+      "label": "Proof-cost / conspiracy-inspired ordering",
+      "terminalization_role": "none",
+      "semantic_reach": "proof-order hint",
+      "confidence": 0.62
+    },
+    {
+      "id": "RANK",
+      "label": "Intrinsic rank TT banking",
+      "terminalization_role": "none",
+      "semantic_reach": "cache placement",
+      "confidence": 0.87
+    },
+    {
+      "id": "CTT",
+      "label": "Compact exact TT identity",
+      "terminalization_role": "none",
+      "semantic_reach": "cache identity",
+      "confidence": 0.9
+    },
+    {
+      "id": "STT",
+      "label": "Shared TT across workers",
+      "terminalization_role": "none",
+      "semantic_reach": "parallel proof memory",
+      "confidence": 0.9
+    },
+    {
+      "id": "YBWC",
+      "label": "Bounded YBWC/Jamboree parallelism",
+      "terminalization_role": "none",
+      "semantic_reach": "parallel search structure",
+      "confidence": 0.72
+    },
+    {
+      "id": "MHINT",
+      "label": "TT/cutoff move hint",
+      "terminalization_role": "none",
+      "semantic_reach": "ordering hint",
+      "confidence": 0.7
+    }
+  ],
+  "edges": [
+    {
+      "source": "SUP",
+      "target": "ZPAR",
+      "projected_value": 4,
+      "projected_confidence": 0.72,
+      "observed_value": null,
+      "scope": "strategic-midlate",
+      "regime": "event-aware residual exact search",
+      "relation_kind": ["terminalization-enabling", "validity-enabling", "shared-metadata"],
+      "mechanism": "exact support/event parity and future accessibility become native state rather than reconstructed board facts",
+      "evidence_basis": "support-event semantic equivalence is exhaustive on four complete small games; ZPAR itself is not yet qualified"
+    },
+    {
+      "source": "RWS",
+      "target": "ZPAR",
+      "projected_value": 3,
+      "projected_confidence": 0.7,
+      "observed_value": null,
+      "scope": "strategic-midlate",
+      "regime": "residual win-space",
+      "relation_kind": ["terminalization-enabling", "state-simplification"],
+      "mechanism": "surviving win obligations expose which future ownership events matter to a Zugzwang proof",
+      "evidence_basis": "strong residual-state evidence; no direct ZPAR test"
+    },
+    {
+      "source": "RID",
+      "target": "ZPAR",
+      "projected_value": 2,
+      "projected_confidence": 0.65,
+      "observed_value": null,
+      "scope": "global",
+      "regime": "fixed-ID residual search",
+      "relation_kind": ["shared-metadata", "cost-sharing"],
+      "mechanism": "precomputed requirement parity/provenance and fixed masks can make terminal-certificate predicates bounded",
+      "evidence_basis": "RID already makes transitions, symmetry and implication predicates fixed; parity terminalization untested"
+    },
+    {
+      "source": "INC",
+      "target": "ZPAR",
+      "projected_value": 3,
+      "projected_confidence": 0.68,
+      "observed_value": null,
+      "scope": "global",
+      "regime": "incremental residual kernel",
+      "relation_kind": ["cost-sharing", "terminalization-enabling"],
+      "mechanism": "maintain parity/event counts during transitions so the certificate does not rescan future structure",
+      "evidence_basis": "incrementalization has repeatedly rescued semantic candidates; ZPAR not yet implemented"
+    },
+    {
+      "source": "E2",
+      "target": "ZPAR",
+      "projected_value": 2,
+      "projected_confidence": 0.62,
+      "observed_value": null,
+      "scope": "strategic-midlate",
+      "regime": "parity-structured residual states",
+      "relation_kind": ["certificate-supply", "shared-metadata"],
+      "mechanism": "future target/support parity metadata is a natural component of exact Zugzwang ownership reasoning",
+      "evidence_basis": "maintained evaluator and Allis theory independently treat parity as structurally meaningful; parity-primary ordering was negative"
+    },
+    {
+      "source": "ZPAR",
+      "target": "A10",
+      "projected_value": 3,
+      "projected_confidence": 0.58,
+      "observed_value": null,
+      "scope": "strategic-midlate",
+      "regime": "Zugzwang-sensitive Allis cover",
+      "relation_kind": ["terminalization-enabling", "validity-enabling", "semantic-horizon-extension"],
+      "mechanism": "an exact Zugzwang controller/outcome fact can close or simplify the terminal proposition that a compatible rule cover is trying to prove",
+      "evidence_basis": "theoretical synthesis; A1-A3 coverage is measured, direct ZPAR x A10 composition is not"
+    },
+    {
+      "source": "ZPAR",
+      "target": "E2",
+      "projected_value": -2,
+      "projected_confidence": 0.55,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "states terminalized by exact Zugzwang proof",
+      "relation_kind": ["subtree-erasure-saturation", "subsumption"],
+      "mechanism": "once the exact parity/Zugzwang result is known, parity no longer needs to act as an ordering heuristic below that state",
+      "evidence_basis": "structural consequence of exact terminalization; ZPAR hit rate unknown"
+    },
+    {
+      "source": "ZPAR",
+      "target": "CARD",
+      "projected_value": -2,
+      "projected_confidence": 0.6,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["bound-subsumption", "subtree-erasure-saturation"],
+      "mechanism": "an exact terminal result makes a weaker earliest-win bound unnecessary at that state",
+      "evidence_basis": "proof-authority hierarchy; no ZPAR implementation yet"
+    },
+    {
+      "source": "ZPAR",
+      "target": "SEWB",
+      "projected_value": -2,
+      "projected_confidence": 0.6,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["bound-subsumption", "subtree-erasure-saturation"],
+      "mechanism": "exact terminalization dominates a support-aware admissible bound when the certificate closes",
+      "evidence_basis": "proof-authority hierarchy"
+    },
+    {
+      "source": "ZPAR",
+      "target": "FMAC",
+      "projected_value": -1,
+      "projected_confidence": 0.55,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["search-structure-saturation"],
+      "mechanism": "a terminal certificate stops before deterministic forced chains need to be traversed",
+      "evidence_basis": "structural consequence; global net interaction unknown"
+    },
+    {
+      "source": "ZPAR",
+      "target": "AUTO",
+      "projected_value": -1,
+      "projected_confidence": 0.55,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["subtree-erasure-saturation"],
+      "mechanism": "no descendant equivalence search is needed after the state is terminalized",
+      "evidence_basis": "structural consequence; AUTO remains compatible and valuable elsewhere"
+    },
+    {
+      "source": "ZPAR",
+      "target": "IMPL",
+      "projected_value": -2,
+      "projected_confidence": 0.58,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["subtree-erasure-saturation", "bound-subsumption"],
+      "mechanism": "exact outcome proof removes the need to seek weaker cross-state transferred bounds below the hit",
+      "evidence_basis": "proof-authority hierarchy; IMPL remains useful on unresolved states"
+    },
+    {
+      "source": "ZPAR",
+      "target": "E1",
+      "projected_value": -2,
+      "projected_confidence": 0.58,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["subtree-erasure-saturation", "search-structure-saturation"],
+      "mechanism": "there is no child ordering problem once the eventual result is certified",
+      "evidence_basis": "structural consequence; E1 is measured useful on unresolved decision states"
+    },
+    {
+      "source": "ZPAR",
+      "target": "P1",
+      "projected_value": -2,
+      "projected_confidence": 0.55,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["subtree-erasure-saturation", "search-structure-saturation"],
+      "mechanism": "proof-cost ordering is unnecessary when no proof search remains",
+      "evidence_basis": "structural consequence; P1 itself remains under-tested"
+    },
+    {
+      "source": "ZPAR",
+      "target": "RANK",
+      "projected_value": -1,
+      "projected_confidence": 0.5,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["cache-opportunity-saturation", "subtree-erasure-saturation"],
+      "mechanism": "terminalized subtrees generate no downstream TT placement workload",
+      "evidence_basis": "structural consequence; global net depends on hit rate"
+    },
+    {
+      "source": "ZPAR",
+      "target": "CTT",
+      "projected_value": -1,
+      "projected_confidence": 0.5,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["cache-opportunity-saturation", "subtree-erasure-saturation"],
+      "mechanism": "fewer descendant TT entries exist to benefit from compact identity",
+      "evidence_basis": "structural consequence"
+    },
+    {
+      "source": "ZPAR",
+      "target": "STT",
+      "projected_value": -1,
+      "projected_confidence": 0.5,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "parallel terminalized states",
+      "relation_kind": ["parallel-work-saturation", "subtree-erasure-saturation"],
+      "mechanism": "no descendant proof work remains to share across workers",
+      "evidence_basis": "structural consequence"
+    },
+    {
+      "source": "ZPAR",
+      "target": "YBWC",
+      "projected_value": -2,
+      "projected_confidence": 0.55,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "parallel terminalized states",
+      "relation_kind": ["parallel-work-saturation", "subtree-erasure-saturation"],
+      "mechanism": "terminalization removes both the serial critical path and speculative child work below the state",
+      "evidence_basis": "structural consequence; global net depends on check cost and hit rate"
+    },
+    {
+      "source": "ZPAR",
+      "target": "MHINT",
+      "projected_value": -2,
+      "projected_confidence": 0.55,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "terminalized strategic states",
+      "relation_kind": ["subtree-erasure-saturation", "search-structure-saturation"],
+      "mechanism": "move hints have no role once no move search is required",
+      "evidence_basis": "structural consequence"
+    },
+    {
+      "source": "IWIN",
+      "target": "E1",
+      "projected_value": -3,
+      "projected_confidence": 0.95,
+      "observed_value": -3,
+      "observed_confidence": 0.98,
+      "scope": "immediate-win states",
+      "regime": "tactical",
+      "relation_kind": ["subtree-erasure-saturation", "proof-authority-subsumption"],
+      "mechanism": "exact immediate terminal proof removes the need for heuristic ordering at that node",
+      "evidence_basis": "maintained search and residual tactical experiments"
+    },
+    {
+      "source": "DTH",
+      "target": "FMAC",
+      "projected_value": -2,
+      "projected_confidence": 0.9,
+      "observed_value": -2,
+      "observed_confidence": 0.92,
+      "scope": "double-threat states",
+      "regime": "tactical",
+      "relation_kind": ["subtree-erasure-saturation"],
+      "mechanism": "exact forced-loss terminalization stops before a forced macro continuation is needed",
+      "evidence_basis": "tactical-control versus forced-macro experiments"
+    },
+    {
+      "source": "EXH",
+      "target": "FMAC",
+      "projected_value": -1,
+      "projected_confidence": 0.65,
+      "observed_value": null,
+      "scope": "exhaustion-hit-states",
+      "regime": "late residual search",
+      "relation_kind": ["subtree-erasure-saturation", "bound-subsumption"],
+      "mechanism": "strategic exhaustion can stop filler continuations before deterministic transit compression matters",
+      "evidence_basis": "one-sided/both-side exhaustion semantics and mixed search evidence"
+    },
+    {
+      "source": "A10",
+      "target": "E1",
+      "projected_value": -2,
+      "projected_confidence": 0.7,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "strategic rule-cover states",
+      "relation_kind": ["subtree-erasure-saturation"],
+      "mechanism": "complete strategic certificate removes the need to order descendants",
+      "evidence_basis": "A1-A3 compatible full covers found with zero false hold claims; full A10 hit rate remains unknown"
+    },
+    {
+      "source": "A10",
+      "target": "YBWC",
+      "projected_value": -2,
+      "projected_confidence": 0.65,
+      "observed_value": null,
+      "scope": "certificate-hit-states",
+      "regime": "strategic rule-cover states",
+      "relation_kind": ["subtree-erasure-saturation", "parallel-work-saturation"],
+      "mechanism": "a successful strategic terminal certificate erases the parallel search subtree",
+      "evidence_basis": "structural consequence; richer compatible rule-cover performance unmeasured"
+    }
+  ]
+}

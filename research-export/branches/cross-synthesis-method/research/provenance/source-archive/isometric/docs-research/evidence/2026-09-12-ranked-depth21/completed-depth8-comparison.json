@@ -1,0 +1,173 @@
+{
+  "runs": [
+    {
+      "stage": "baseline",
+      "searchMs": 1940.2314,
+      "cpuMs": 2047
+    },
+    {
+      "stage": "tt",
+      "searchMs": 2167.0186,
+      "cpuMs": 2297
+    },
+    {
+      "stage": "singleton",
+      "searchMs": 2103.9233,
+      "cpuMs": 2219
+    },
+    {
+      "stage": "final",
+      "searchMs": 2064.2603,
+      "cpuMs": 2236
+    },
+    {
+      "stage": "final",
+      "searchMs": 2023.4787999999999,
+      "cpuMs": 2203
+    },
+    {
+      "stage": "singleton",
+      "searchMs": 2004.4651,
+      "cpuMs": 2187
+    },
+    {
+      "stage": "tt",
+      "searchMs": 2164.3833999999997,
+      "cpuMs": 2406
+    },
+    {
+      "stage": "baseline",
+      "searchMs": 1963.3131,
+      "cpuMs": 2093
+    }
+  ],
+  "means": {
+    "baseline": {
+      "searchMs": 1951.77225,
+      "cpuMs": 2070
+    },
+    "final": {
+      "searchMs": 2043.86955,
+      "cpuMs": 2219.5
+    },
+    "tt": {
+      "searchMs": 2165.701,
+      "cpuMs": 2351.5
+    },
+    "singleton": {
+      "searchMs": 2054.1942,
+      "cpuMs": 2203
+    }
+  },
+  "exactCountersMatch": true,
+  "counters": {
+    "search": {
+      "calls": 4777115,
+      "expanded": 672690,
+      "ttExactReturns": 10058,
+      "ttBoundReturns": 0,
+      "domainBoundCuts": 0,
+      "ttMoveOrderHits": 0,
+      "cutoffs": 2424,
+      "firstMoveCutoffs": 62,
+      "tacticalExact": 1859,
+      "forcedNodes": 77745,
+      "forcedMacroChains": 6054,
+      "forcedMacroTransitions": 77745,
+      "frontierBoundCuts": 0,
+      "frontierOrderedNodes": 672690,
+      "etcProbes": 0,
+      "etcCutoffs": 0,
+      "thresholdPasses": 0,
+      "transitionsRequested": 4777114,
+      "proofProbeMisses": 4767057,
+      "proofAdmissions": 4283
+    },
+    "identity": {
+      "ttProbes": 4777115,
+      "ttEnsures": 4283,
+      "ttReprobes": 0,
+      "proofHandleRefreshes": 0,
+      "proofReadRetries": 0,
+      "publicationRetries": 0
+    },
+    "semanticTt": {
+      "probes": 4777115,
+      "probeMisses": 4767057,
+      "ensures": 4283,
+      "hits": 10058,
+      "inserts": 4283,
+      "replacements": 0,
+      "poisonedInstalls": 0,
+      "nonExactVictims": 0,
+      "exactVictims": 0,
+      "descriptorCompares": 10058,
+      "hashCollisions": 0,
+      "bucketLockWaits": 0,
+      "proofWriterWaits": 0,
+      "termIdsPublished": 397049,
+      "termIdsAllocated": 397049,
+      "termArenaWordsAllocated": 409898,
+      "termChunkAllocations": 4283,
+      "termSpanReuses": 0,
+      "termSpanGrows": 0,
+      "maxBucketScan": 5,
+      "entries": 4283,
+      "replacementsShared": 0,
+      "termSpanReusesShared": 0,
+      "termSpanGrowsShared": 0,
+      "termChunkCountShared": 4283,
+      "termIdsUsed": 397049,
+      "termArenaWordsUsed": 409898,
+      "termHeaderWordsUsed": 12849,
+      "entryCapacity": 262144,
+      "associativity": 8,
+      "bucketCount": 32768,
+      "generationLimit": 4294967295,
+      "termCapacity": 144703488
+    },
+    "proofStore": {
+      "reads": 10058,
+      "publications": 4283,
+      "retries": 0,
+      "staleReads": 0,
+      "stalePublications": 0,
+      "waits": 0
+    },
+    "descriptorCache": {
+      "classBuilds": 305713,
+      "classHits": 9257083,
+      "stateBuilds": 4781398,
+      "stateHashBuilds": 221398,
+      "stateHashReuses": 4560000,
+      "stateHashCapacity": 524288,
+      "stateMetadataBytes": 4259840,
+      "transientStateDescriptorUses": 4781398,
+      "stateDescriptorObjectsAllocated": 0,
+      "classDescriptorObjectsAllocated": 0,
+      "termArrayMaterializations": 0,
+      "termIdsMaterialized": 0,
+      "directTermWrites": 334395,
+      "directTermIdsWritten": 15212407,
+      "termIdsCached": 0,
+      "termArrayObjectsCached": 0,
+      "classDescriptorObjectsCached": 0,
+      "classMetadataBytes": 8519680,
+      "scratchBytes": 1250,
+      "scratchCapacity": 625,
+      "termArenaBytes": 0,
+      "retainedTypedBytes": 12779520,
+      "classCapacity": 1048576,
+      "termCapacity": 0
+    },
+    "localStates": 221398,
+    "localClasses": 305714
+  },
+  "result": {
+    "status": "depth-limited",
+    "value": null,
+    "requestedDepth": 8,
+    "maxReachedDepth": 8,
+    "horizonLeaves": 4014763
+  }
+}

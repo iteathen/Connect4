@@ -1,0 +1,78 @@
+{
+  "geometry": {
+    "winningLines": 69
+  },
+  "opening": {
+    "firstMoveValues": [-1, -1, 0, 1, 0, -1, -1],
+    "perfectFirstMoves": [4]
+  },
+  "thirdPly": {
+    "winningEdges": 19,
+    "drawEdges": 10,
+    "lossEdges": 20,
+    "winningThirdMoves": {
+      "1": [3, 4, 5, 6, 7],
+      "2": [2, 6],
+      "3": [6, 7],
+      "4": [4],
+      "5": [1, 2],
+      "6": [2, 6],
+      "7": [1, 2, 3, 4, 5]
+    },
+    "perfectPrefixCount": 19
+  },
+  "predicateCollision": {
+    "rawResidualHistogram": {
+      "classes": 18,
+      "mixedClasses": [
+        {
+          "signature": [[0, 1, 7, 58], [0, 0, 2, 58]],
+          "states": [[1, 2, -1], [1, 7, 1], [7, 1, 1], [7, 6, -1]]
+        },
+        {
+          "signature": [[0, 2, 5, 58], [0, 0, 2, 58]],
+          "states": [[2, 5, 0], [2, 6, 1], [6, 2, 1], [6, 3, 0]]
+        },
+        {
+          "signature": [[0, 1, 5, 58], [0, 0, 2, 58]],
+          "states": [[3, 5, -1], [3, 6, 1], [3, 7, 1], [5, 1, 1], [5, 2, 1], [5, 3, -1]]
+        }
+      ]
+    },
+    "minimalResidualHistogram": {
+      "classes": 16,
+      "mixedClasses": [
+        {
+          "signature": [[0, 1, 6, 55], [0, 0, 2, 56]],
+          "states": [[1, 2, -1], [1, 7, 1], [7, 1, 1], [7, 6, -1]]
+        },
+        {
+          "signature": [[0, 2, 5, 55], [0, 0, 2, 56]],
+          "states": [[1, 3, 1], [1, 6, 1], [2, 5, 0], [2, 6, 1], [6, 2, 1], [6, 3, 0], [7, 2, 1], [7, 5, 1]]
+        },
+        {
+          "signature": [[0, 1, 5, 55], [0, 0, 2, 56]],
+          "states": [[2, 3, -1], [2, 7, -1], [3, 5, -1], [3, 6, 1], [3, 7, 1], [5, 1, 1], [5, 2, 1], [5, 3, -1], [6, 1, -1], [6, 5, -1]]
+        }
+      ]
+    },
+    "heightPlusMinimalHistogram": {
+      "classes": 46,
+      "mixedClassCount": 0
+    }
+  },
+  "lineCompatibilityWithPerfectThreePlyPrefix": {
+    "minimumCompatiblePrefixes": 10,
+    "maximumCompatiblePrefixes": 19,
+    "histogram": {
+      "10": 2,
+      "13": 2,
+      "14": 4,
+      "16": 2,
+      "17": 6,
+      "18": 8,
+      "19": 45
+    },
+    "linesEliminatedByDirectP1BlockAtPly2": 0
+  }
+}

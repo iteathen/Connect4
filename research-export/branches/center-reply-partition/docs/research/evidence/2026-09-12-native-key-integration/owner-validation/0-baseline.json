@@ -1,0 +1,459 @@
+{
+  "kind": "normal-frontier-negamax-bounded-search",
+  "node": "v26.7.0",
+  "domain": {
+    "columns": 7,
+    "rows": 6,
+    "connect": 4
+  },
+  "config": {
+    "domain": {
+      "columns": 7,
+      "rows": 6,
+      "connect": 4
+    },
+    "depth": 8,
+    "timeoutMs": 59999,
+    "reservationBudgetBytes": 2147483648
+  },
+  "reservation": {
+    "kind": "board-depth-bounded-reservation-v1",
+    "domain": {
+      "columns": 7,
+      "rows": 6,
+      "connect": 4
+    },
+    "depth": 8,
+    "budgetBytes": 2147483648,
+    "positionUpperBound": "291271",
+    "fullBoundCovered": true,
+    "limitingResource": "board-depth-bound",
+    "searchStorage": {
+      "states": 524288,
+      "classes": 1048576,
+      "chunksPerSlot": 1048576
+    },
+    "arena": {
+      "entryCapacity": 262144,
+      "termCapacity": 144703488
+    },
+    "kernelBytes": 241770247,
+    "descriptorBytes": 12780770,
+    "arenaBytes": 297795612,
+    "estimatedBytes": 552346629,
+    "budgetScope": "retained kernel, descriptor metadata/scratch and shared arena; excludes V8 heap, transient growth copies and shared-view scratch"
+  },
+  "result": {
+    "status": "depth-limited",
+    "value": null,
+    "requestedDepth": 8,
+    "maxReachedDepth": 8,
+    "horizonLeaves": 4014763
+  },
+  "setupMs": 62.717600000000004,
+  "searchMs": 1774.5145000000002,
+  "cpuMs": 1969,
+  "search": {
+    "search": {
+      "calls": 4777115,
+      "expanded": 672690,
+      "ttExactReturns": 10058,
+      "ttBoundReturns": 0,
+      "domainBoundCuts": 0,
+      "ttMoveOrderHits": 0,
+      "cutoffs": 2424,
+      "firstMoveCutoffs": 62,
+      "tacticalExact": 1859,
+      "forcedNodes": 77745,
+      "forcedMacroChains": 6054,
+      "forcedMacroTransitions": 77745,
+      "frontierBoundCuts": 0,
+      "frontierOrderedNodes": 672690,
+      "etcProbes": 0,
+      "etcCutoffs": 0,
+      "thresholdPasses": 0,
+      "transitionsRequested": 4777114,
+      "proofProbeMisses": 4767057,
+      "proofAdmissions": 4283
+    },
+    "identity": {
+      "ttProbes": 4777115,
+      "ttEnsures": 4283,
+      "ttReprobes": 0,
+      "proofHandleRefreshes": 0,
+      "proofReadRetries": 0,
+      "publicationRetries": 0
+    },
+    "semanticTt": {
+      "probes": 4777115,
+      "probeMisses": 4767057,
+      "ensures": 4283,
+      "hits": 10058,
+      "inserts": 4283,
+      "replacements": 0,
+      "poisonedInstalls": 0,
+      "nonExactVictims": 0,
+      "exactVictims": 0,
+      "descriptorCompares": 10058,
+      "hashCollisions": 0,
+      "bucketLockWaits": 0,
+      "proofWriterWaits": 0,
+      "termIdsPublished": 397049,
+      "termIdsAllocated": 397049,
+      "termArenaWordsAllocated": 409898,
+      "termChunkAllocations": 4283,
+      "termSpanReuses": 0,
+      "termSpanGrows": 0,
+      "maxBucketScan": 5,
+      "entries": 4283,
+      "replacementsShared": 0,
+      "termSpanReusesShared": 0,
+      "termSpanGrowsShared": 0,
+      "termChunkCountShared": 4283,
+      "termIdsUsed": 397049,
+      "termArenaWordsUsed": 409898,
+      "termHeaderWordsUsed": 12849,
+      "entryCapacity": 262144,
+      "associativity": 8,
+      "bucketCount": 32768,
+      "generationLimit": 4294967295,
+      "termCapacity": 144703488
+    },
+    "proofStore": {
+      "reads": 10058,
+      "publications": 4283,
+      "retries": 0,
+      "staleReads": 0,
+      "stalePublications": 0,
+      "waits": 0
+    },
+    "descriptorCache": {
+      "classBuilds": 305713,
+      "classHits": 9257083,
+      "stateBuilds": 4781398,
+      "stateHashBuilds": 221398,
+      "stateHashReuses": 4560000,
+      "stateHashCapacity": 524288,
+      "stateMetadataBytes": 4259840,
+      "transientStateDescriptorUses": 4781398,
+      "stateDescriptorObjectsAllocated": 0,
+      "classDescriptorObjectsAllocated": 0,
+      "termArrayMaterializations": 0,
+      "termIdsMaterialized": 0,
+      "directTermWrites": 334395,
+      "directTermIdsWritten": 15212407,
+      "termIdsCached": 0,
+      "termArrayObjectsCached": 0,
+      "classDescriptorObjectsCached": 0,
+      "classMetadataBytes": 8519680,
+      "scratchBytes": 1250,
+      "scratchCapacity": 625,
+      "termArenaBytes": 0,
+      "retainedTypedBytes": 12779520,
+      "classCapacity": 1048576,
+      "termCapacity": 0
+    },
+    "localStates": 221398,
+    "localClasses": 305714
+  },
+  "memory": {
+    "state": {
+      "stateCount": 221398,
+      "stateCapacity": 524288,
+      "stateArrayBytes": 6291456,
+      "edgeCacheBytes": 14680064,
+      "hashSlotBytes": 4194304,
+      "totalTypedBytes": 25165824
+    },
+    "residual": {
+      "classCount": 305714,
+      "termVocabularyCount": 625,
+      "termWordCount": 20,
+      "residualTerms": null,
+      "vocabularyBytes": 107638,
+      "classTupleBytes": 41943040,
+      "classTermCountBytes": 2097152,
+      "classReferenceWidths": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "classMetadataBytes": 56623104,
+      "transitionCacheKind": "dense-prefix",
+      "transitionPrefixClasses": 4096,
+      "transitionCacheBytes": 1376256,
+      "classHashSlotBytes": 8388608,
+      "chunkCounts": [
+        227,
+        199,
+        432,
+        158,
+        52,
+        4442,
+        12239,
+        2503,
+        8423,
+        132068
+      ],
+      "chunkPayloadBytes": 83886080,
+      "chunkHashSlotBytes": 20971520,
+      "chunkCollisionLinkBytes": 41943040,
+      "chunkDictionaryBytes": 146800640,
+      "slotDictionaries": [
+        {
+          "slot": 0,
+          "chunkCount": 227,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 1,
+          "chunkCount": 199,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 2,
+          "chunkCount": 432,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 3,
+          "chunkCount": 158,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 4,
+          "chunkCount": 52,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 5,
+          "chunkCount": 4442,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 6,
+          "chunkCount": 12239,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 7,
+          "chunkCount": 2503,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 8,
+          "chunkCount": 8423,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        },
+        {
+          "slot": 9,
+          "chunkCount": 132068,
+          "chunkCapacity": 1048576,
+          "payloadBytes": 8388608,
+          "hashSlotBytes": 2097152,
+          "collisionLinkBytes": 4194304,
+          "totalTypedBytes": 14680064
+        }
+      ],
+      "normalizationLayout": "sparse-superset-word-rows",
+      "strictSupersetEntries": 1466,
+      "maskBytes": 13274,
+      "scratchBytes": 280,
+      "totalTypedBytes": 213309800
+    },
+    "localProof": {
+      "capacity": 0,
+      "retainedTypedBytes": 0,
+      "bytesPerAdmittedState": 0
+    },
+    "supportLayout": "packed",
+    "supportBytes": 3294207,
+    "bitBytes": 336,
+    "totalTypedBytes": 241770247,
+    "responseClosureBytes": 80
+  },
+  "storageDuringSearch": {
+    "before": {
+      "prepared": true,
+      "statePayloadGrows": 1,
+      "stateHashGrows": 1,
+      "residualPayloadGrows": 1,
+      "residualHashGrows": 1,
+      "referenceWidens": 10,
+      "chunkPayloadGrows": 10,
+      "chunkHashGrows": 10
+    },
+    "after": {
+      "prepared": true,
+      "statePayloadGrows": 1,
+      "stateHashGrows": 1,
+      "residualPayloadGrows": 1,
+      "residualHashGrows": 1,
+      "referenceWidens": 10,
+      "chunkPayloadGrows": 10,
+      "chunkHashGrows": 10
+    }
+  },
+  "operations": {
+    "transitions": {
+      "edgeCacheHits": 4355811,
+      "edgeCacheMisses": 421303,
+      "terminalEdges": 0,
+      "illegalEdges": 0
+    },
+    "states": {
+      "internLookups": 421304,
+      "internHits": 199906,
+      "internMisses": 221398,
+      "hashGrows": 1,
+      "stateGrows": 1
+    },
+    "residual": {
+      "internLookups": 842426,
+      "internHits": 536712,
+      "internMisses": 305714,
+      "ownTransitionHits": 0,
+      "ownTransitionMisses": 421303,
+      "blockTransitionHits": 0,
+      "blockTransitionMisses": 421303,
+      "ownNoop": 50,
+      "blockNoop": 132,
+      "ownTerminal": 0,
+      "reducedTerms": 1459869,
+      "supersetWordProbes": 2884380,
+      "supersetWordClears": 2884380,
+      "classGrows": 1,
+      "hashGrows": 1,
+      "slotReferenceWidens": 10,
+      "parentChunkReuses": 5549664,
+      "chunkInterns": 2874596,
+      "outOfPrefixOwn": 417793,
+      "outOfPrefixBlock": 417666,
+      "cachedStores": 7147,
+      "termCountReads": 9591478,
+      "termWrites": 334395
+    },
+    "chunks": [
+      {
+        "lookups": 136742,
+        "hits": 136515,
+        "misses": 227,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 68822,
+        "hits": 68623,
+        "misses": 199,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 143467,
+        "hits": 143035,
+        "misses": 432,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 55127,
+        "hits": 54969,
+        "misses": 158,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 17859,
+        "hits": 17807,
+        "misses": 52,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 375571,
+        "hits": 371129,
+        "misses": 4442,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 502892,
+        "hits": 490653,
+        "misses": 12239,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 244867,
+        "hits": 242364,
+        "misses": 2503,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 578370,
+        "hits": 569947,
+        "misses": 8423,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 750879,
+        "hits": 618811,
+        "misses": 132068,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      }
+    ]
+  },
+  "processMemory": {
+    "rss": 214949888,
+    "heapTotal": 13242368,
+    "heapUsed": 8548608,
+    "external": 257183255,
+    "arrayBuffers": 552618574
+  }
+}

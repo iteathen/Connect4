@@ -1,0 +1,300 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index d733c52..bfd65a2 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+@@ -29,10 +29,10 @@ function mix32(value) {
+   return x >>> 0;
+ }
+ 
+-function hashWords2(words, offset) {
++function hashWords2(word0, word1) {
+   let hash = 0x811c9dc5;
+-  hash = Math.imul(hash ^ mix32(words[offset]), 0x01000193) >>> 0;
+-  hash = Math.imul(hash ^ mix32(words[offset + 1]), 0x01000193) >>> 0;
++  hash = Math.imul(hash ^ mix32(word0), 0x01000193) >>> 0;
++  hash = Math.imul(hash ^ mix32(word1), 0x01000193) >>> 0;
+   return mix32(hash ^ CHUNK_WORDS);
+ }
+ 
+@@ -60,10 +60,10 @@ function referenceTypeFor(maxId) {
+   return Uint32Array;
+ }
+ 
+-function assertWordSource(source, offset, label) {
+-  if (!(source instanceof Uint32Array)) throw new TypeError(`${label} must be Uint32Array`);
++function assertWordSource(source, offset) {
++  if (!(source instanceof Uint32Array)) throw new TypeError('slot64 chunk source must be Uint32Array');
+   if (!Number.isInteger(offset) || offset < 0 || offset + CHUNK_WORDS > source.length) {
+-    throw new RangeError(`${label} offset ${offset} cannot provide ${CHUNK_WORDS} words`);
++    throw new RangeError('slot64 chunk source offset cannot provide two words');
+   }
+ }
+ 
+@@ -98,7 +98,7 @@ class SlotChunkPool64 {
+ 
+   equals(id, source, offset) {
+     this._assertId(id);
+-    assertWordSource(source, offset, 'slot64 chunk source');
++    assertWordSource(source, offset);
+     const base = id * CHUNK_WORDS;
+     return this.words[base] === (source[offset] >>> 0)
+       && this.words[base + 1] === (source[offset + 1] >>> 0);
+@@ -110,7 +110,8 @@ class SlotChunkPool64 {
+     next.fill(-1);
+     const mask = next.length - 1;
+     for (let id = 0; id < this.count; id += 1) {
+-      const hash = hashWords2(this.words, id * CHUNK_WORDS);
++      const base = id * CHUNK_WORDS;
++      const hash = hashWords2(this.words[base], this.words[base + 1]);
+       let slot = hash & mask;
+       while (next[slot] !== -1) slot = (slot + 1) & mask;
+       next[slot] = id;
+@@ -120,27 +121,38 @@ class SlotChunkPool64 {
+   }
+ 
+   intern(source, offset) {
+-    assertWordSource(source, offset, 'slot64 chunk source');
++    assertWordSource(source, offset);
+     this.metrics.lookups += 1;
+-    if ((this.count + 1) * 10 >= this.hashSlots.length * 7) this._growHash();
+-    const hash = hashWords2(source, offset);
+-    const mask = this.hashSlots.length - 1;
++    // The validated Uint32 pair is the complete exact key. Read it once;
++    // dictionary-owned IDs need no repeated public equality validation.
++    const word0 = source[offset], word1 = source[offset + 1];
++    const hash = hashWords2(word0, word1);
++    let mask = this.hashSlots.length - 1;
+     let slot = hash & mask;
+     while (true) {
+       const id = this.hashSlots[slot];
+       if (id === -1) break;
+-      if (this.equals(id, source, offset)) {
++      const base = id * CHUNK_WORDS;
++      if (this.words[base] === word0 && this.words[base + 1] === word1) {
+         this.metrics.hits += 1;
+         return id;
+       }
+       slot = (slot + 1) & mask;
+     }
+     if (this.count >= UINT32_MAX) throw new RangeError('slot64 chunk ID domain exhausted');
++    // A hit must not grow or rehash the dictionary. Only a proven new key
++    // needs capacity; after growth, locate its new insertion position.
++    if ((this.count + 1) * 10 >= this.hashSlots.length * 7) {
++      this._growHash();
++      mask = this.hashSlots.length - 1;
++      slot = hash & mask;
++      while (this.hashSlots[slot] !== -1) slot = (slot + 1) & mask;
++    }
+     this._ensureCapacity(this.count + 1);
+     const id = this.count;
+     const base = id * CHUNK_WORDS;
+-    this.words[base] = source[offset] >>> 0;
+-    this.words[base + 1] = source[offset + 1] >>> 0;
++    this.words[base] = word0;
++    this.words[base + 1] = word1;
+     this.hashSlots[slot] = id;
+     this.count += 1;
+     this.metrics.misses += 1;
+@@ -409,7 +421,8 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       const offset = slot * CHUNK_WORDS;
+       if (parentId >= 0) {
+         const parentChunk = classSlotIds[slot][parentId];
+-        if (slotPools[slot].equals(parentChunk, bits, offset)) {
++        const words = slotPools[slot].words, base = parentChunk * CHUNK_WORDS;
++        if (words[base] === bits[offset] && words[base + 1] === bits[offset + 1]) {
+           chunkIds[slot] = parentChunk;
+           metrics.parentChunkReuses += 1;
+           continue;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"
+index 067c911..84eff57 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"
+@@ -525,8 +525,7 @@ export function createSemanticSharedTtView(arena) {
+     return handle;
+   }
+ 
+-  function stableDescriptorHandle(slot, descriptor) {
+-    const stateBefore = Atomics.load(status, slot);
++  function stableDescriptorHandle(slot, descriptor, stateBefore) {
+     if (stateBefore !== SLOT_READY && stateBefore !== SLOT_PROOF_WRITING) return -1;
+     const generationBefore = Atomics.load(generation, slot);
+     if (generationBefore < 1) return -1;
+@@ -549,7 +548,14 @@ export function createSemanticSharedTtView(arena) {
+     let scanned = 0;
+     for (let lane = 0; lane < arena.associativity; lane += 1) {
+       scanned += 1;
+-      const handle = stableDescriptorHandle(base + lane, descriptor);
++      const slot = base + lane;
++      const state = Atomics.load(status, slot);
++      // Bucket-locked insertion always consumes the first EMPTY slot.
++      // Replacement and poisoning never create holes; only globally quiescent
++      // reset clears slots. Thus EMPTY ends the populated prefix. A racing
++      // later insertion may yield a cache miss, never a mismatched proof.
++      if (state === SLOT_EMPTY) break;
++      const handle = stableDescriptorHandle(slot, descriptor, state);
+       if (handle >= 0) {
+         metrics.hits += 1;
+         if (scanned > metrics.maxBucketScan) metrics.maxBucketScan = scanned;
+@@ -600,7 +606,7 @@ export function createSemanticSharedTtView(arena) {
+             throw new Error(`semantic TT poisoned slot ${slot} observed in bucket ${bucket}; quiescent reset required`);
+           }
+           if (state === SLOT_READY || state === SLOT_PROOF_WRITING) {
+-            const handle = stableDescriptorHandle(slot, descriptor);
++            const handle = stableDescriptorHandle(slot, descriptor, state);
+             if (handle >= 0) {
+               metrics.hits += 1;
+               return handle;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs"
+index 494e57c..b38e2fe 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs"
+@@ -690,7 +690,15 @@ export function createQuotientNativeNegamaxSupportLayoutKernel(spec, options = {
+     const p0Class = states.p0Class[stateId];
+     const p1Class = states.p1Class[stateId];
+     if (classes.isEmpty(p0Class) && classes.isEmpty(p1Class)) return TACTICAL_DRAW;
+-    const mover = supportAccess.rankAt(supportIndex) & 1;
++    const rank = supportAccess.rankAt(supportIndex);
++    if (rank === cellCount) return TACTICAL_DRAW;
++    // Every immediate win/forced-response test below is a playable singleton
++    // projection. If neither canonical class has any singleton, none can be
++    // playable. A non-full gravity support has at least one legal continuation.
++    // Query the existing mask owner; no board reconstruction or new cache.
++    if (!classes.hasSingletonAt(p0Class, 0xffffffff, 0xffffffff)
++      && !classes.hasSingletonAt(p1Class, 0xffffffff, 0xffffffff)) return TACTICAL_NONE;
++    const mover = rank & 1;
+     const ownClass = mover === 0 ? p0Class : p1Class;
+     const opponentClass = mover === 0 ? p1Class : p0Class;
+     let forced = -1;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index c92698a..e3b8717 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -10,6 +10,34 @@ import { hashResidualTermIds } from './quotient-semantic-identity.mjs';
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('chunk exact keys survive collisions and growth; a hit never requests insertion capacity', () => {
++  const chunk = make().classes.slotPools[0];
++  const source = new Uint32Array(2), pairs = [];
++  for (let word = 1; chunk.count < 358; word++) {
++    source[0] = word; source[1] = (word ^ 0x80000000) >>> 0;
++    pairs.push([source[0], source[1], chunk.intern(source, 0)]);
++  }
++  assert.equal(chunk.hashSlots.length, 512);
++  const before = chunk.metrics.hashGrows;
++  for (const [lo, hi, id] of pairs) {
++    source[0] = lo; source[1] = hi;
++    assert.equal(chunk.intern(source, 0), id);
++  }
++  assert.equal(chunk.metrics.hashGrows, before, 'existing keys grew insertion capacity');
++  source[0] = 0xffffffff; source[1] = 0xffffffff;
++  const newId = chunk.intern(source, 0);
++  assert.equal(chunk.hashSlots.length, 1024);
++  assert.equal(chunk.intern(source, 0), newId);
++  for (const [lo, hi, id] of pairs) {
++    source[0] = lo; source[1] = hi;
++    assert.equal(chunk.intern(source, 0), id);
++  }
++  const count = chunk.count;
++  for (const offset of [-1, 0.5, NaN, 1, '0']) assert.throws(() => chunk.intern(source, offset));
++  assert.throws(() => chunk.intern([1, 2], 0));
++  assert.equal(chunk.count, count);
++});
++
+ test('canonical cardinality and descriptor hashes match independent term sequences across growth and geometries', () => {
+   for (const domain of [spec, { columns: 4, rows: 4, connect: 4 }, { columns: 4, rows: 5, connect: 4 }, { columns: 7, rows: 6, connect: 4 }]) {
+     const options = { prefixClasses: 8, cacheEdges: false, responseClosure: false };
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs"
+index 68385da..7c0ecdc 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-arena-contract.test.mjs"
+@@ -15,6 +15,51 @@ const fixture = () => {
+   return { arena, tt: createSemanticSharedTtView(arena), proofs: createPackedProofStore(arena) };
+ };
+ 
++test('bucket prefix probes stop at first empty and preserve exact matches through collisions, writers, poison and reset', () => {
++  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 1024 });
++  const tt = createSemanticSharedTtView(arena), proofs = createPackedProofStore(arena);
++  const records = Array.from({ length: 9 }, (_, id) => ({ ...descriptor(id, [id + 1]), hash: { lo: 0, hi: 1 } }));
++  const status = new Int32Array(arena.statusBuffer), handles = [];
++  for (let count = 0; count < 8; count++) {
++    const before = tt.stats().maxBucketScan;
++    assert.equal(tt.probe(records[8]), -1);
++    assert.equal(tt.stats().maxBucketScan, Math.max(before, count + 1));
++    handles.push(tt.ensure(records[count]));
++    assert.equal(status[count], arena.slotStates.ready);
++    for (let index = 0; index <= count; index++) assert.equal(tt.probe(records[index]), handles[index]);
++  }
++  // A writer/poisoned slot is occupied, never an empty-prefix terminator.
++  status[0] = arena.slotStates.proofWriting;
++  assert.equal(tt.probe(records[7]), handles[7]);
++  status[0] = arena.slotStates.poisoned;
++  assert.equal(tt.probe(records[0]), -1);
++  assert.equal(tt.probe(records[7]), handles[7]);
++  status[0] = arena.slotStates.ready;
++  const replacement = tt.ensure(records[8]);
++  assert.equal(proofs.isCurrent(handles[0]), false);
++  assert.equal(tt.probe(records[8]), replacement);
++  resetSemanticSharedTtArena(arena);
++  assert.equal(tt.probe(records[8]), -1);
++  assert.notEqual(tt.ensure(records[0]), handles[0]);
++});
++
++test('a first-empty observation during concurrent publication is only a miss and cannot hide the next probe', () => {
++  const arena = createSemanticSharedTtArena({ entryCapacity: 8, associativity: 8, termCapacity: 128 });
++  const tt = createSemanticSharedTtView(arena), load = Atomics.load;
++  let armed = true, handle;
++  Atomics.load = (array, index) => {
++    const value = load(array, index);
++    if (armed && array.buffer === arena.statusBuffer && index === 0) {
++      armed = false;
++      handle = tt.ensure(descriptor(1));
++    }
++    return value;
++  };
++  try { assert.equal(tt.probe(descriptor(1)), -1); }
++  finally { Atomics.load = load; }
++  assert.equal(tt.probe(descriptor(1)), handle);
++});
++
+ test('current-handle observation rechecks generation after observing slot status', () => {
+   const { arena, tt, proofs } = fixture();
+   const old = tt.ensure(descriptor(1));
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-line-profile.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-line-profile.mjs"
+index f9641d5..66c518c 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\hot-loop-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-line-profile.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-line-profile.mjs"
+@@ -30,7 +30,15 @@ assert.deepEqual(result.domain, baseline.domain, 'domain drift');
+ assert.equal(result.config.depth, baseline.config.depth, 'depth drift');
+ assert.equal(result.config.timeoutMs, baseline.config.timeoutMs, 'timeout drift');
+ assert.deepEqual(result.result, baseline.result, 'bounded result drift');
+-assert.deepEqual(result.search, baseline.search, 'search/proof/descriptor counter drift');
++// Probe length is execution telemetry, deliberately changed by prefix scans.
++// Preserve and disclose it; every other search/proof/descriptor counter matches.
++const comparisonSearch = search => {
++  const { maxBucketScan, ...semanticTt } = search.semanticTt;
++  return { ...search, semanticTt };
++};
++assert.deepEqual(comparisonSearch(result.search), comparisonSearch(baseline.search), 'search/proof/descriptor counter drift');
++const probeScanComparison = { baseline: baseline.search.semanticTt.maxBucketScan,
++  candidate: result.search.semanticTt.maxBucketScan };
+ for (const [path, bytes] of captured) assert.ok(bytes.equals(await readFile(path)), `source changed during run: ${path}`);
+ const profile = JSON.parse(await readFile(profilePath, 'utf8'));
+ assert.equal(profile.samples.length, profile.timeDeltas.length);
+@@ -84,14 +92,14 @@ const report = { kind: 'bounded-negamax-line-cpu-estimates', interpretation,
+   searchMs: result.searchMs, processCpuMs: result.cpuMs, totalHits,
+   timestampedSamples: profile.samples.length, attributedTicks,
+   unmappedCpuMsEstimate: (totalHits - attributedTicks) * cpuPerHit,
+-  exactCountersMatchBaseline: true, baseline: resolve(baselineArg),
++  searchAndProofCountersMatchBaseline: true, probeScanComparison, baseline: resolve(baselineArg),
+   command: [process.execPath, ...commandArgs], config: result.config,
+   sources: [...sources.values()].map(({ text, ...info }) => info), methods: methodRows, lines: lineRows };
+ await writeFile(join(output, 'line-cpu.json'), JSON.stringify(report, null, 2) + '\n');
+ const escape = value => String(value).replaceAll('|', '\\|').replaceAll('`', '\\`');
+ const link = row => `[${basename(row.snapshot)}:${row.line}](<${row.snapshot.replaceAll('\\', '/')}:${row.line}>)`;
+ let md = '# Bounded Negamax CPU mapped to source lines\n\nResearch direction / architecture: Josh Oshiro  \nImplementation / qualification: OpenAI ChatGPT\n\n';
+-md += `${result.domain.columns} columns × ${result.domain.rows} rows, connect ${result.domain.connect}, depth ${result.config.depth}, timeout ${result.config.timeoutMs} ms. Search ${result.searchMs.toFixed(2)} ms; process CPU ${result.cpuMs.toFixed(2)} ms. Every search/proof counter matches baseline.\n\n`;
++md += `${result.domain.columns} columns × ${result.domain.rows} rows, connect ${result.domain.connect}, depth ${result.config.depth}, timeout ${result.config.timeoutMs} ms. Search ${result.searchMs.toFixed(2)} ms; process CPU ${result.cpuMs.toFixed(2)} ms. Search/proof counters match baseline. Maximum bucket scan (execution telemetry): ${probeScanComparison.baseline} → ${probeScanComparison.candidate}.\n\n`;
+ md += `${interpretation}\n\n[Profiler line-sample contract](${report.protocol}). Saved source hashes are in [JSON](line-cpu.json); links point to frozen source snapshots. ${totalHits} aggregate hits; ${attributedTicks} mapped line ticks; ${report.unmappedCpuMsEstimate.toFixed(2)} estimated CPU ms remain unmapped.\n\n`;
+ md += '| Function | Frozen source line | Estimated CPU ms | Line samples | Code |\n|---|---|---:|---:|---|\n';
+ for (const row of lineRows) md += `| ${escape(row.function)} | ${link(row)} | ${row.estimatedCpuMs.toFixed(2)} | ${row.ticks} | ${escape(row.code)} |\n`;

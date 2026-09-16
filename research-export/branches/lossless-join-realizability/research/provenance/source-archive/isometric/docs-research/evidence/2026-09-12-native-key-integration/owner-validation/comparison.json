@@ -1,0 +1,46 @@
+{
+  "label": "owner-validation",
+  "runs": [
+    {
+      "stage": "baseline",
+      "searchMs": 1774.5145000000002,
+      "cpuMs": 1969,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1791.521,
+      "cpuMs": 1953,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1789.1909,
+      "cpuMs": 1938,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "baseline",
+      "searchMs": 1743.7217,
+      "cpuMs": 1875,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    }
+  ],
+  "means": {
+    "baseline": {
+      "searchMs": 1759.1181000000001,
+      "cpuMs": 1922
+    },
+    "candidate": {
+      "searchMs": 1790.3559500000001,
+      "cpuMs": 1945.5
+    }
+  },
+  "exactCountersMatch": true,
+  "elapsedMs": 8043.5267,
+  "totalBudgetMs": 60000
+}

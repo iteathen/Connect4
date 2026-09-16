@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0060..C4-R0063",
+  "research_direction": "Josh Oshiro",
+  "claims": [
+    {
+      "id": "C4-R0060",
+      "title": "Fixed-support line-hit realizability is a pinned NAE hypergraph CSP",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "Fix a support ideal I and let x_v in {0,1} denote the owner of each occupied cell v (1=P0, 0=P1). For every geometric winning line lambda with occupied intersection A_lambda=I intersect lambda, the line-hit bits satisfy h0_lambda=OR_{v in A_lambda} x_v and h1_lambda=OR_{v in A_lambda}(1-x_v). Therefore a candidate pair (H0,H1) is induced by some ownership partition of I iff: A_lambda empty exactly permits status 00; nonempty status 10 pins every v in A_lambda to P0; status 01 pins every v in A_lambda to P1; status 11 requires both colors on A_lambda, i.e. a not-all-equal constraint. Fixed-support line-hit image membership is exactly satisfiability of this pinned NAE/hypergraph 2-coloring CSP.",
+      "scope": "Exact symbolic ownership-partition realizability at fixed support. It does not require alternating turn counts, a legal move history, first-win stopping, game value, or a compact owner-free recurrence. It characterizes the correlation demanded by C4-R0043 but does not yet eliminate the hidden cell-owner variables.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-line-hit-and-history-realizability.md",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "refines", "target": "C4-R0043"},
+        {"type": "constrains", "target": "C4-R0042"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0061",
+      "title": "Line-local and pairwise compatibility do not imply global line-hit realizability",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For Connect-4 on every board W>=5,H>=4, take support heights 2 in adjacent columns 1 and 2 and zero elsewhere (zero-based columns). Three geometric lines can have occupied intersections {c,a}, {a,b}, and {c,b}. Requiring line-hit status 11 on all three gives NAE constraints c!=a, a!=b, c!=b, an odd inequality cycle with no binary coloring. Every one-constraint and every two-constraint subfamily is satisfiable. Thus line-local validity and pairwise satisfiability are insufficient; higher-order correlation is genuinely required before any temporal/game semantics enter.",
+      "scope": "Exact counterexample for K=4 and W>=5,H>=4, including standard 7x6 and nearby 6x7. It is a partial line-status obstruction: no full line-hit pair extending the three requested statuses can be realizable.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-line-hit-and-history-realizability.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0060"},
+        {"type": "supports", "target": "C4-R0043"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0062",
+      "title": "Legal pre-terminal ownership history is alternating linear-extension/shuffle realizability",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "Fix support heights h and an owner label q on every occupied cell. Gravity makes the occupied support poset a disjoint union of bottom-to-top column chains. Ignoring terminal stopping, (h,q) is reachable by alternating play from P0 exactly when the labeled poset has a linear extension whose j-th event has owner (j-1) mod 2. Equivalently, if w_c is the bottom-to-top owner word of column c and A_n=0101... is the length-n global turn word, then A_n lies in the shuffle of the column words. If the final colored position is nonterminal, this condition is also sufficient under ordinary first-win stopping because a winning line is monotone under later placements, so no earlier prefix could have been terminal. Terminal final states require the additional condition that an admissible extension first becomes terminal on its final event.",
+      "scope": "Exact legal-history realizability for a fixed colored support, separated from C4-R0060 symbolic ownership-partition realizability. It is not a game-value theorem and does not assert a constant-size characterization of the shuffle relation.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-line-hit-and-history-realizability.md",
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-13-colored-event-structure-and-proof-antichain-control.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "supports", "target": "C4-R0017"},
+        {"type": "constrains", "target": "C4-R0023"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0063",
+      "title": "Exact projection recombination is a lossless-join requirement, distinct from dynamic legality",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "Let R be a feasible relation over a complete structural state and let R_i be projections onto selected invariant scopes. Their natural join J contains R; the decomposition is exact exactly when J=R (lossless join / satisfaction of the corresponding join dependency). Otherwise J\\R consists of spurious Cartesian recombinations of individually valid projections. C4-R0060 supplies an exact hidden-variable factorization of one such Connect-4 compatibility relation, and C4-R0061 exhibits a cyclic higher-order obstruction. Restoring a lossless static join still does not establish transition equivalence or game value: legal history, opponent quantification, shared response resources, deadlines, first-win stopping, and proof identity remain separate dynamic/proof relations.",
+      "scope": "Exact relational characterization and Connect-4 application. It does not claim a unique minimal sidecar, bounded-width factorization, compact variable-elimination result, or that lossless static decomposition alone is a game quotient.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-line-hit-and-history-realizability.md",
+        "research/maps/INVARIANT_CROSS_SYNTHESIS_METHOD.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0060"},
+        {"type": "derived_from", "target": "C4-R0061"},
+        {"type": "refines", "target": "C4-R0043"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    }
+  ]
+}

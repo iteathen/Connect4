@@ -1,0 +1,155 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0039..C4-R0046",
+  "claims": [
+    {
+      "id": "C4-R0039",
+      "title": "Ownership-antichain BSFP is smaller and faster than raw-ownership MTBDD on measured complete controls",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "On four measured complete small-game BSFP controls, the exact ownership-antichain realization used fewer symbolic boundary records and lower median wall time than the maintained raw-ownership MTBDD realization. Representation reduction ranged from 40.0% to 86.6% and measured speedup from 1.220x to 3.041x.",
+      "scope": "4x3 c3, 4x4 c4, 5x3 c4, and 4x5 c4 on the cited CPU runner; performance is geometry- and implementation-dependent and is not a universal antichain speed theorem.",
+      "sources": [
+        "research/evidence/bsfp/representation-algebra.json",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-antichain-performance.md"
+      ],
+      "consumed_by": ["bsfp"],
+      "relations": [
+        {"type":"supports","target":"C4-R0019"},
+        {"type":"constrains","target":"C4-R0022"},
+        {"type":"depends_on","target":"C4-R0035"}
+      ]
+    },
+    {
+      "id": "C4-R0040",
+      "title": "Root-only WDL BSFP admits exact rolling two-rank execution",
+      "status": "guarded_exact",
+      "confidence_mode": "deductive",
+      "statement": "For the qualified one-move BSFP WDL recurrence, every rank-r support depends semantically only on completed rank r+1. When only the root result is required, older completed ranks may therefore be discarded after rank r is complete without changing the root semantics.",
+      "guards": [
+        "the recurrence advances exactly one occupied cell per move",
+        "rank r+1 is complete before rank r consumes it",
+        "the requested output is the root result rather than arbitrary post-solve state lookup",
+        "no auxiliary semantic rule depends on discarded older-rank state"
+      ],
+      "sources": [
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-rolling-rank-sharding.md"
+      ],
+      "consumed_by": ["bsfp"],
+      "relations": [
+        {"type":"derived_from","target":"C4-R0020"},
+        {"type":"constrains","target":"bsfp-retained-memory"}
+      ]
+    },
+    {
+      "id": "C4-R0041",
+      "title": "Streaming no-sort BigInt dominance reducer is rejected in its tested form",
+      "status": "rejected",
+      "confidence_mode": "empirical",
+      "statement": "The tested online incremental dominance reducer preserved exact BSFP semantics but regressed the 5x5 workload to 73.806 s versus 62.486 s for the first rolling ordered form and 58.326 s for the retained ordered reference. The parent antichain/dominance mechanism is not rejected; this implementation form is.",
+      "scope": "JavaScript BigInt streaming/no-sort reducer at the cited workload and source revision.",
+      "sources": [
+        "research/history/rejected/bsfp-streaming-incremental-dominance.md",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-incremental-dominance-rejected.md"
+      ],
+      "consumed_by": ["bsfp"],
+      "relations": [
+        {"type":"depends_on","target":"C4-R0035"},
+        {"type":"constrains","target":"bsfp-dominance-implementation"}
+      ]
+    },
+    {
+      "id": "C4-R0042",
+      "title": "Line-hit product antichains exactly represent tested BSFP symbolic Win/Loss boundaries",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "Using Q=(support,H0,H1) with the P0-favorable order a<=b iff a.H0 is a subset of b.H0 and b.H1 is a subset of a.H1, minimal Win pairs and maximal Loss pairs reproduced every tested C1 symbolic Win/Loss classification with zero quotient conflicts, false coverage, or missing coverage. Compression increased on several later/hot supports.",
+      "scope": "Complete symbolic domains for all supports of 4x3 c3, 4x4 c4, and 5x3 c4, plus the selected hottest support per rank for bounded 4x5 c4 and 5x4 c4 controls. It does not establish a direct line-product recurrence.",
+      "sources": [
+        "research/evidence/bsfp/representation-algebra.json",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type":"derived_from","target":"C4-R0023"},
+        {"type":"supports","target":"C4-R0008"},
+        {"type":"supports","target":"C4-R0018"},
+        {"type":"depends_on","target":"C4-R0043"}
+      ]
+    },
+    {
+      "id": "C4-R0043",
+      "title": "Direct line-product recurrence requires a realizability-preserving closure law",
+      "status": "missing_law",
+      "confidence_mode": "open",
+      "statement": "A direct solver over line-hit pairs cannot treat arbitrary (H0,H1) pairs as legal symbolic states because support-local realizability correlates the two masks. The missing law is a compact predecessor/composition representation that preserves this realizability while supporting move preimages, terminal subtraction, and existential/universal move composition without reconstructing ownership assignments.",
+      "sources": [
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md"
+      ],
+      "consumed_by": ["bsfp", "isometric"],
+      "relations": [
+        {"type":"derived_from","target":"C4-R0042"},
+        {"type":"refines","target":"C4-R0011"},
+        {"type":"constrains","target":"C4-R0008"}
+      ]
+    },
+    {
+      "id": "C4-R0044",
+      "title": "Residual-pair cofactor work can be exactly reused across crossing occurrences on tested OQS fixtures",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "The qualified OQS residual-reuse slice computed each residual-pair/input cofactor once and mapped all crossing occurrences to that exact result with zero mismatches and complete target coverage on all ten 4x4 cuts and the selected 7x6 cut-five fixture. On the 7x6 fixture, factored device arrays were 54.384x smaller and median submit/wait was 7.904x lower than the unfactored control, while the tiny 4x4 workload did not show a speed benefit.",
+      "scope": "The cited O3 fixtures and prepared CUDA DAG. Output slots were not canonical dense next-quotient IDs; grouping/compaction/device chaining remained open. Timing is bounded A/B evidence, not a general throughput claim.",
+      "sources": [
+        "research/evidence/bsfp/representation-algebra.json",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-11-oqs-cuda-residual-reuse.md"
+      ],
+      "consumed_by": ["bsfp", "isometric"],
+      "relations": [
+        {"type":"supports","target":"C4-R0008"},
+        {"type":"supports","target":"C4-R0026"},
+        {"type":"depends_on","target":"C4-R0035"}
+      ]
+    },
+    {
+      "id": "C4-R0045",
+      "title": "Measured BSFP scaling wall is compute/frontier manipulation before retained-memory exhaustion",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "In the cited ownership-antichain/rolling and compact-CUDA experiments, larger geometries timed out while retained host/device memory stayed well below the relevant capacity limits. The 6x5 CUDA wall also appeared in high-rank work before the support-count peak. Current evidence therefore points to candidate/frontier/normalization work as the first measured scaling wall for these implementations rather than retained-memory capacity.",
+      "scope": "The cited JavaScript BigInt and packed CUDA BSFP implementations; this is not a complexity-theoretic statement and does not prove which individual kernel or algebraic phase dominates.",
+      "sources": [
+        "research/evidence/bsfp/representation-algebra.json",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-rolling-rank-sharding.md",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-compact-cuda-vertical-slice.md",
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-cuda-bsfp-saturation-winspace-inference-review.md"
+      ],
+      "consumed_by": ["bsfp"],
+      "relations": [
+        {"type":"constrains","target":"C4-R0022"},
+        {"type":"supports","target":"C4-R0042"},
+        {"type":"depends_on","target":"C4-R0035"}
+      ]
+    },
+    {
+      "id": "C4-R0046",
+      "title": "Terminal subtraction has an exact antichain frontier form",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "Over a finite ownership universe U, removing the upward-closed family generated by requirement q from a downward-closed family is exactly intersection with the complement of up(q), whose maximal generators are U\\{x} for x in q. Dually, removing a downward cap F from an upward-closed family uses singleton generators {x} for x in U\\F. Normalized antichain intersection therefore implements exact terminal subtraction without enumerating every represented state.",
+      "guards": [
+        "finite subset universe U",
+        "frontiers denote downward-closed or upward-closed subset families with the stated orientation",
+        "normalization preserves exact set-family union/intersection semantics"
+      ],
+      "sources": [
+        "research/provenance/source-archive/bsfp/docs-research/2026-09-10-compact-cuda-vertical-slice.md"
+      ],
+      "consumed_by": ["bsfp", "isometric"],
+      "relations": [
+        {"type":"supports","target":"C4-R0018"},
+        {"type":"supports","target":"C4-R0043"}
+      ]
+    }
+  ]
+}

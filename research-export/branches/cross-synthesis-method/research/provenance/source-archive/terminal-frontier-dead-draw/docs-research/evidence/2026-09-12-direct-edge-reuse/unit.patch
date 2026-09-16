@@ -1,0 +1,86 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs"
+index 51b5dfa..d6f9e45 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs"
+@@ -14,7 +14,7 @@ if (process.argv[2] === '--child') {
+   const { createSemanticSharedTtArena } = await import('./quotient-semantic-shared-tt.mjs');
+   const { createOnlineSemanticQuotientSearcher } = await import('./quotient-online-semantic-search-lib.mjs');
+   const setupStarted = performance.now();
+-  const { kernel } = createSlot64ResidualQuotientKernel(config.domain, { cacheEdges: false, prefixClasses: 4096 });
++  const { kernel } = createSlot64ResidualQuotientKernel(config.domain, { cacheEdges: true, prefixClasses: 4096 });
+   const arena = createSemanticSharedTtArena({ entryCapacity: 262144, termCapacity: 1 << 24, domainSpec: kernel.domain });
+   const searcher = createOnlineSemanticQuotientSearcher(kernel, arena, { etc: false });
+   const setupMs = performance.now() - setupStarted;
+@@ -47,6 +47,8 @@ if (process.argv[2] === '--child') {
+   console.log(JSON.stringify({ kind: 'normal-frontier-negamax-bounded-search', node: process.version,
+     domain: kernel.domain, config, result, setupMs, searchMs, cpuMs: (cpu.user + cpu.system) / 1000,
+     search: searcher.stats(), memory: kernel.memoryStats(), storageDuringSearch: { before: storageBefore, after: storageAfter },
++    operations: { transitions: { ...kernel.transitionMetrics }, states: { ...kernel.states.metrics },
++      residual: { ...kernel.classes.metrics }, chunks: kernel.classes.slotPools.map(pool => ({ ...pool.metrics })) },
+     processMemory: process.memoryUsage() }));
+ } else {
+   const { values } = parseArgs({ options: {
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs"
+index e3e0e04..ebe9578 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs"
+@@ -8,7 +8,7 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ if (!parentPort) throw new Error('online semantic search worker requires parentPort');
+ 
+ const { kernel } = createSlot64ResidualQuotientKernel(workerData.spec, {
+-  cacheEdges: false,
++  cacheEdges: true,
+   prefixClasses: workerData.prefixClasses ?? 4096,
+   searchStorage: workerData.searchStorage,
+ });
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-standard7x6-root-attempt.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-standard7x6-root-attempt.mjs"
+index 255e3bf..1844b77 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-standard7x6-root-attempt.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-standard7x6-root-attempt.mjs"
+@@ -120,7 +120,7 @@ try {
+   executor = createSearchWorkerExecutor(workers);
+ 
+   coordinatorKernel = createSlot64ResidualQuotientKernel(SPEC, {
+-    cacheEdges: false,
++    cacheEdges: true,
+     prefixClasses: PREFIX_CLASSES,
+   }).kernel;
+   coordinator = createOnlineDependencyCoordinator(
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 1535617..f0c8ee0 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -12,6 +12,33 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('direct semantic edges agree with recomputation and repeated edges bypass every interner', () => {
++  const config = { prefixClasses: 8, searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } };
++  const cached = createSlot64ResidualQuotientKernel(spec, { ...config, cacheEdges: true }).kernel;
++  const direct = createSlot64ResidualQuotientKernel(spec, { ...config, cacheEdges: false }).kernel;
++  cached.prepareSearchStorage(); direct.prepareSearchStorage();
++  let terminals = 0, illegal = 0;
++  for (let state = 0; state < cached.states.count; state++) {
++    for (let column = 0; column < spec.columns; column++) {
++      const expected = direct.advance(state, column), actual = cached.advance(state, column);
++      assert.equal(actual, expected);
++      if (actual === -1) terminals++;
++      if (actual === -2) illegal++;
++      const stateLookups = cached.states.metrics.internLookups;
++      const residualLookups = cached.classes.metrics.internLookups;
++      const chunkLookups = cached.classes.slotPools.reduce((sum, pool) => sum + pool.metrics.lookups, 0);
++      assert.equal(cached.advance(state, column), actual);
++      assert.equal(cached.states.metrics.internLookups, stateLookups);
++      assert.equal(cached.classes.metrics.internLookups, residualLookups);
++      assert.equal(cached.classes.slotPools.reduce((sum, pool) => sum + pool.metrics.lookups, 0), chunkLookups);
++    }
++  }
++  assert.ok(terminals > 0 && illegal > 0);
++  assert.equal(cached.states.count, direct.states.count);
++  assert.equal(cached.classes.size, direct.classes.size);
++  assert.ok(cached.transitionMetrics.edgeCacheHits > 0);
++});
++
+ test('prepared exact search performs no typed allocation or backing-array growth', () => {
+   const k = createSlot64ResidualQuotientKernel(spec, { prefixClasses: 8, cacheEdges: false,
+     searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } }).kernel;

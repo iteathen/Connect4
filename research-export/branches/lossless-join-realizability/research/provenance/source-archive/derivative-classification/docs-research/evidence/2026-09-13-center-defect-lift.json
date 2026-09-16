@@ -1,0 +1,19 @@
+{
+  "geometry": {"W":7,"H":6,"K":4,"winningLines":69},
+  "transformedSafetyField": {
+    "reservedSingletons": ["5,1","2,1","2,4","4,4","1,2","1,4","1,6","3,2","3,4","3,6","6,2","6,4","6,6","7,2","7,4","7,6"],
+    "uncoveredBeforeShadow": ["A3-B3-C3-D3","A5-B5-C5-D5"]
+  },
+  "supportShadow": {
+    "row5": {"line":"A5-B5-C5-D5","lower":["1,4","2,4","3,4","4,4"],"preemptible":true},
+    "row3": {"line":"A3-B3-C3-D3","lower":[{"cell":"1,2","reserved":true},{"cell":"2,2","reserved":false},{"cell":"3,2","reserved":true},{"cell":"4,2","reserved":false}],"preemptible":false}
+  },
+  "exactDefectAfterClosure": ["A3-B3-C3-D3"],
+  "row3SingletonRepair": [
+    {"cell":"1,3","adjacentReserved":true},
+    {"cell":"2,3","adjacentReserved":true},
+    {"cell":"3,3","adjacentReserved":true},
+    {"cell":"4,3","adjacentReserved":true}
+  ],
+  "interpretation": "Replacing B-odd control with B4/D4 singleton blockers closes the five diagonals but releases row-3 and row-5 horizontals. Row 5 is support-shadow preempted, leaving exactly A3-D3. Every unconditional singleton repair cell of A3-D3 conflicts locally with the inherited singleton reservations."
+}

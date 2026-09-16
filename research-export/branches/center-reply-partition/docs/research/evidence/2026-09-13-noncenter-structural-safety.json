@@ -1,0 +1,57 @@
+{
+  "kind": "noncenter-structural-safety",
+  "date": "2026-09-13",
+  "attribution": {
+    "research_direction": "Josh Oshiro",
+    "formalization_implementation_qualification": "OpenAI ChatGPT"
+  },
+  "proofAuthority": {
+    "exactGameValuesUsed": false,
+    "minimaxUsed": false,
+    "fullPhysicalPolicyGraphUsedByProof": false
+  },
+  "localComponents": {
+    "normalColumn": {"p0TurnStates":4,"macroEdges":3,"invalidResponses":0},
+    "initialCoupledPair": {"p0TurnStates":21,"macroEdges":24,"invalidResponses":0},
+    "emptyCoupledPair": {"p0TurnStates":43,"macroEdges":50,"invalidResponses":0}
+  },
+  "representatives": [
+    {
+      "opening":[1,2],
+      "components":{"normal":[3,4,7],"initialCoupled":[1,2],"emptyCoupled":[5,6]},
+      "coverage":{"singleton":48,"forbiddenPair":19,"supportShadowRace":2,"total":69,"unclassified":0},
+      "races":[
+        {"attacker":[[2,3],[3,3],[4,3],[5,3]],"defender":[[2,2],[3,2],[4,2],[5,2]]},
+        {"attacker":[[2,5],[3,5],[4,5],[5,5]],"defender":[[2,4],[3,4],[4,4],[5,4]]}
+      ],
+      "physicalQualification":{"p0TurnStates":56720,"p0MoveEdges":259980,"p0ImmediateWins":0,"p1TerminalWins":1792,"invalidResponses":0,"drawTerminalStates":54}
+    },
+    {
+      "opening":[2,3],
+      "components":{"normal":[1,4,5],"initialCoupled":[2,3],"emptyCoupled":[6,7]},
+      "coverage":{"singleton":49,"forbiddenPair":18,"supportShadowRace":2,"total":69,"unclassified":0},
+      "races":[
+        {"attacker":[[3,3],[4,3],[5,3],[6,3]],"defender":[[3,2],[4,2],[5,2],[6,2]]},
+        {"attacker":[[3,5],[4,5],[5,5],[6,5]],"defender":[[3,4],[4,4],[5,4],[6,4]]}
+      ],
+      "physicalQualification":{"p0TurnStates":56720,"p0MoveEdges":259980,"p0ImmediateWins":0,"p1TerminalWins":1792,"invalidResponses":0,"drawTerminalStates":54}
+    },
+    {
+      "opening":[3,4],
+      "components":{"normal":[1,2,5,6,7],"initialCoupled":[3,4],"emptyCoupled":null},
+      "coverage":{"singleton":56,"forbiddenPair":11,"supportShadowRace":2,"total":69,"unclassified":0},
+      "races":[
+        {"attacker":[[4,3],[5,3],[6,3],[7,3]],"defender":[[4,2],[5,2],[6,2],[7,2]]},
+        {"attacker":[[4,5],[5,5],[6,5],[7,5]],"defender":[[4,4],[5,4],[6,4],[7,4]]}
+      ],
+      "physicalQualification":{"p0TurnStates":19936,"p0MoveEdges":98896,"p0ImmediateWins":0,"p1TerminalWins":2304,"invalidResponses":0,"drawTerminalStates":3}
+    }
+  ],
+  "reflection": {
+    "1_to_7": [7,6],
+    "2_to_6": [6,5],
+    "3_to_5": [5,4]
+  },
+  "consequence": "All six non-center first moves have internally proved absolute-P0 upper bound 0.",
+  "remainingFirstMoveGap": "Positive P0-win progress for center opening column 4/root."
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "prototype": "reference/research-prototypes/2026-09-13-perfect-play-winline/response_capacity_calculus.mjs",
+  "prototype_blob_sha": "4bf65ae1dde07e125c3932a654e2d2d5249c42ae",
+  "result": {
+    "kind": "response-capacity-calculus",
+    "maxSlots": 4,
+    "families": 112709,
+    "feasible": 7046,
+    "infeasible": 105663,
+    "mismatches": 0,
+    "controls": {
+      "doubleThreat": true,
+      "saturatedPrefixPlusRepair": true
+    }
+  },
+  "interpretation": [
+    "For unit response obligations whose legal response turns form contiguous intervals, the interval-Hall inequalities matched explicit injective response-slot matching on every exhaustively generated family through four slots and up to n+1 obligations.",
+    "The ordinary Connect Four double-threat shape is the smallest capacity defect: two mandatory responses constrained to one defender turn.",
+    "If an interval of defender turns is already tight, adding any additional repair obligation whose complete admissible window lies inside that interval makes the response schedule impossible.",
+    "This qualifies temporal response-slot compatibility only. It does not establish which obligations a Connect Four attacker can force, nor does it replace cell/resource/order guards owned by CPC/NDC."
+  ],
+  "anti_leakage": "No perfect-play terminal-line classification, solved-state table, or opening-book witness was used."
+}

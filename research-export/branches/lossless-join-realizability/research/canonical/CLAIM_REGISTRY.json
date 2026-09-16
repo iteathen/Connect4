@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "research_direction": "Josh Oshiro",
+  "coverage": "seeded-not-complete",
+  "status_vocabulary": ["research_model","deductive_exact","guarded_exact","accepted_contract","empirically_supported","hypothesis","candidate_rule","open_question","missing_law","disproven","rejected","deferred","superseded","historical_only","untriaged"],
+  "relation_vocabulary": ["defines","supports","contradicts","constrains","depends_on","supersedes","implemented_by","consumed_by","derived_from","qualifies"],
+  "claims": [
+    {
+      "id":"C4-R0001","title":"Winning structures are first-class research objects","status":"research_model","confidence_mode":"program_model","statement":"Reason about Connect4 through possible winning structures and their relations in addition to ordinary board-state/game-tree representation.","sources":["research/provenance/source-archive/isometric/research/semantic-quotient/README.md"],"consumed_by":["isometric","negamax-minimax","bsfp"],"relations":[{"type":"defines","target":"core-model"}]
+    },
+    {
+      "id":"C4-R0002","title":"Exact derivative structure of Connect-k line geometry","status":"deductive_exact","confidence_mode":"deductive","statement":"Directional winning-line counts and finite differences admit exactly derivable interior and boundary structure.","sources":["research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-connect-k-derivative-classification.md"],"consumed_by":["isometric","negamax-minimax","bsfp"],"relations":[{"type":"supports","target":"C4-R0012"}]
+    },
+    {
+      "id":"C4-R0003","title":"Playable own singleton is immediate terminal win","status":"guarded_exact","confidence_mode":"deductive","statement":"A legal playable cell completing the current player's unblocked singleton-residual winning line yields a terminal win one physical ply later.","guards":["completion cell is legal/playable","line is an unblocked winning line for current player","position is not already terminal"],"sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax"],"relations":[{"type":"defines","target":"terminal-calculus"}]
+    },
+    {
+      "id":"C4-R0004","title":"Distinct multiple opponent immediate completions force loss","status":"guarded_exact","confidence_mode":"deductive","statement":"At least two distinct legal playable opponent completion cells force loss when the current player has no earlier terminal win.","guards":["completion cells are distinct","each completion is legal/playable","current player has no immediate terminal win that ends the game first"],"sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax"],"relations":[{"type":"defines","target":"terminal-calculus"}]
+    },
+    {
+      "id":"C4-R0005","title":"Unique opponent immediate completion forces reply but not terminal value","status":"guarded_exact","confidence_mode":"deductive","statement":"Exactly one legal immediate opponent completion forces a blocking reply, but does not by itself determine the final game value.","sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax"],"relations":[{"type":"constrains","target":"residual-search"}]
+    },
+    {
+      "id":"C4-R0006","title":"Exact structural certificates precede heuristic horizon evaluation","status":"accepted_contract","confidence_mode":"contract","statement":"Apply accepted exact structural certificates before heuristic evaluation at the horizon.","sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax"],"relations":[{"type":"depends_on","target":"C4-R0003"},{"type":"depends_on","target":"C4-R0004"}]
+    },
+    {
+      "id":"C4-R0007","title":"Unresolved structural residue remains delegated solver work","status":"accepted_contract","confidence_mode":"contract","statement":"States not decided by accepted exact certificates or valid reductions remain unresolved and must be delegated to solver/evaluation mechanisms.","sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax","bsfp"],"relations":[{"type":"constrains","target":"solver-consumption"}]
+    },
+    {
+      "id":"C4-R0008","title":"Semantic quotient requires behavior preservation","status":"accepted_contract","confidence_mode":"contract","statement":"A quotient may collapse distinctions only under an explicit equivalence preserving behavior relevant to the target semantics.","sources":["research/provenance/source-archive/isometric/research/semantic-quotient/README.md"],"consumed_by":["isometric","negamax-minimax","bsfp"],"relations":[{"type":"constrains","target":"quotient-reduction"}]
+    },
+    {
+      "id":"C4-R0009","title":"Dead residual win-space implies exact draw","status":"guarded_exact","confidence_mode":"deductive","statement":"If neither player has any residual unblocked winning line in a legal nonterminal state, neither can later win and the game-theoretic value is draw.","guards":["legal state","not already terminal","no residual unblocked winning line for either player"],"sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax","bsfp"],"relations":[{"type":"defines","target":"terminal-calculus"},{"type":"constrains","target":"C4-R0010"}]
+    },
+    {
+      "id":"C4-R0010","title":"Dead-residual hot-state maintenance is not justified on measured workload","status":"empirically_supported","disposition":"deferred","confidence_mode":"empirical","statement":"The investigated incremental live-counter detector incurred transition/runtime cost while the measured campaign found effectively no useful pruning incidence, so it is not justified in the current hot path.","sources":["research/provenance/source-archive/isometric/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md","research/provenance/source-archive/terminal-frontier-dead-draw/docs-research/2026-09-15-terminal-frontier-benchmark-campaign.md"],"consumed_by":["isometric","negamax-minimax"],"relations":[{"type":"qualifies","target":"C4-R0009"},{"type":"constrains","target":"implementation-hot-path"}]
+    },
+    {
+      "id":"C4-R0011","title":"Complete structural calculus lacks composition and closure laws","status":"missing_law","confidence_mode":"research_gap","statement":"Current local exact predicates are insufficient for a complete derivation system; explicit composition/closure laws over structural relations remain missing.","sources":["research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-missing-axiom-register.md","research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-predicate-axiom-ledger.md"],"consumed_by":["isometric"],"relations":[{"type":"depends_on","target":"C4-R0003"},{"type":"depends_on","target":"C4-R0004"},{"type":"depends_on","target":"C4-R0005"}]
+    },
+    {
+      "id":"C4-R0012","title":"Higher derivative and periodic-annihilator structure may yield semantic predicates","status":"candidate_rule","confidence_mode":"mixed","statement":"Exact geometric derivative structure may support higher-order semantic predicates, but game-theoretic closure/sufficiency is not yet established.","sources":["research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-seven-mode-periodic-annihilator.md","research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-connect-k-derivative-classification.md"],"consumed_by":["isometric"],"relations":[{"type":"derived_from","target":"C4-R0002"},{"type":"depends_on","target":"C4-R0011"}]
+    },
+    {
+      "id":"C4-R0013","title":"Perfect-play win-set support/DAG structural experiment family","status":"hypothesis","confidence_mode":"empirical","statement":"Support/DAG experiments investigate initial-board and support-structure invariants that may characterize reachable winning-space quantities without ordinary recursive search; individual numerical generalizations remain to be normalized.","sources":["research/provenance/source-archive/perfect-play-winset/research/perfect-play-winset-dag.cpp","research/provenance/source-archive/perfect-play-winset/research/perfect-play-winset-support.cpp","research/provenance/source-archive/perfect-play-winset/root-notes/SEMANTIC_QUOTIENT_RESEARCH.md"],"consumed_by":["isometric"],"relations":[{"type":"supports","target":"C4-R0001"},{"type":"depends_on","target":"C4-R0011"}]
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0047..C4-R0056",
+  "claims": [
+    {
+      "id": "C4-R0047",
+      "title": "Perfect W/D/L terminal-line support has an exact set-valued game algebra",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For a fixed geometric winning-line universe Lambda, define G(s) as the set of first-player terminal winning lines reachable on at least one W/D/L-perfect continuation from s, with G(s)=empty when the first player cannot force a win. At first-player nodes G is the union of child sets. At second-player nodes G is empty if any legal child is empty; otherwise it is the union of all child sets. Thus G(s)!=empty exactly encodes first-player W/D/L winning value while membership encodes possible perfect-play terminal-line identity.",
+      "guards": [
+        "finite deterministic alternating zero-sum game with first-win termination",
+        "perfect means W/D/L optimality only; tied equal-valued actions remain equally perfect",
+        "the projection records first-player terminal winning-line labels only"
+      ],
+      "sources": [
+        "docs/research/2026-09-13-perfect-play-line-output-algebra.md",
+        "docs/research/2026-09-13-perfect-play-winline-self-proving-closure.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type":"refines","target":"C4-R0001"},
+        {"type":"supports","target":"C4-R0018"},
+        {"type":"constrains","target":"C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0048",
+      "title": "The preserved coarse W/D/L-only 7x6 oracle experiment reports 61 terminal line identities",
+      "status": "empirically_supported",
+      "confidence_mode": "historical_empirical",
+      "statement": "A preserved oracle-guided traversal using only W/D/L score class as the optimality criterion reported a union of 61 geometric P0 terminal winning-line identities from the empty standard 7x6 root. Because all losing replies at a P1 node tie under W/D/L-only semantics, this support includes faster strategically inferior losses that distance-sensitive best-move semantics later exclude.",
+      "scope": "Standard 7x6 empty root; W/D/L-only tie relation. The preserved source can run strong or WDL modes, but the normalized packet currently retains the 61 result through the later issue/research synthesis rather than a raw run artifact. Do not treat 61 as distance-optimal.",
+      "sources": [
+        "research/provenance/source-archive/perfect-play-winset/research/perfect-play-winset-support.cpp",
+        "https://github.com/iteathen/Connect4/issues/41",
+        "docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax"],
+      "relations": [
+        {"type":"instance_of","target":"C4-R0047"},
+        {"type":"contrasts_with","target":"C4-R0049"}
+      ]
+    },
+    {
+      "id": "C4-R0049",
+      "title": "Distance-sensitive optimal play on empty 7x6 has exactly 28 P0 terminal winning-line identities",
+      "status": "empirically_supported",
+      "confidence_mode": "external_oracle_plus_witness",
+      "statement": "Under the supplied strong best-move convention (W/D/L first, fastest forced win for P0 and longest resistance to loss for P1), exactly 28 distinct geometric P0 winning lines occur from the empty standard 7x6 root. Every optimal terminal witness ends on ply 41; the set has 12 vertical, 8 horizontal and 8 diagonal lines. A structural upper bound of 28 and one legal optimal witness for each candidate provide matching upper/lower bounds.",
+      "scope": "Standard 7x6 empty root under the cited distance-sensitive best-move ordering. This does not replace the 69-line geometric universe for arbitrary/imperfect play and is not by itself a searchless derivation of the optimal selection premises.",
+      "sources": [
+        "https://github.com/iteathen/Connect4/issues/41",
+        "docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md",
+        "docs/research/2026-09-14-cross-board-terminal-support-upper-bound-audit.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax"],
+      "relations": [
+        {"type":"contrasts_with","target":"C4-R0048"},
+        {"type":"validated_by","target":"C4-R0051"},
+        {"type":"constrains","target":"C4-R0052"},
+        {"type":"not_identical_to","target":"C4-R0050"}
+      ]
+    },
+    {
+      "id": "C4-R0050",
+      "title": "Total-domain incidence decomposition derives the standard structural common core dimension 28 without solved play",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For any positive W,H at K=4, generated Connect-4 line incidence over GF(2) has exact total-domain rank rank(B)=WH-pq+d and kernel dimension 3ab-d, with a=(W-3)+, b=(H-3)+, p=min(W,3), q=min(H,3), d=min(2,ab). The exact axis and gravity-oriented phase quotients then define Y_cell and Y_line. On 7x6 this derives rank(B)=35, dim ker(B)=34, rank axis=7, rank phase=6, and Y_cell=Y_line=28 without any W/D/L, optimal-move, terminal-distance or predefined-28 premise.",
+      "sources": [
+        "docs/research/2026-09-14-total-domain-incidence-decomposition.md",
+        "docs/research/2026-09-14-k4-board-invariant-family.md"
+      ],
+      "consumed_by": ["isometric", "bsfp", "negamax-minimax"],
+      "relations": [
+        {"type":"derived_from","target":"C4-R0002"},
+        {"type":"supports","target":"C4-R0012"},
+        {"type":"not_identical_to","target":"C4-R0049"},
+        {"type":"supports","target":"C4-R0053"}
+      ]
+    },
+    {
+      "id": "C4-R0051",
+      "title": "The standard maximal-delay rank-5 envelope has a searchless 38-to-28 extremal refinement",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive_finite_geometry",
+      "statement": "On standard 7x6, P0's latest parity-compatible terminal capacity is ply 41, giving a 38-line maximal-delay support envelope. At P0's natural preterminal rank 5, every legal five-ply prefix excludes at most ten of those candidates. The exclusion maximum ten is uniquely realized by the five-high reflection-fixed center stack, leaving 38-10=28 candidates. This is a finite geometry/gravity/support theorem and does not assume that optimal play attains the maximal-delay horizon or selects that prefix.",
+      "sources": [
+        "docs/research/2026-09-14-empty-board-canonical-28-bridge.md",
+        "docs/research/2026-09-14-k4-selection-invariant-frontier.md"
+      ],
+      "consumed_by": ["isometric", "bsfp"],
+      "relations": [
+        {"type":"supports","target":"C4-R0049"},
+        {"type":"depends_on","target":"C4-R0014"},
+        {"type":"constrains","target":"C4-R0052"}
+      ]
+    },
+    {
+      "id": "C4-R0052",
+      "title": "Distance-optimal center/deadline selection remains the missing bridge from structural 28 to optimal terminal 28",
+      "status": "missing_law",
+      "confidence_mode": "open",
+      "statement": "The current searchless theory does not yet prove that distance-optimal play selects the unique phase-center/maximum-impact center event, preserves that center through the canonical rank-5 stack, and forces longest resistance to attain the maximal-delay boundary. A deadline-valued CPC/NDC closure over support, response resources, phase transport, blockers and completion horizons is the leading candidate mechanism for this selection theorem.",
+      "sources": [
+        "docs/research/2026-09-14-empty-board-canonical-28-bridge.md",
+        "docs/research/2026-09-14-k4-selection-invariant-frontier.md",
+        "research/open-questions/WINSET_SELECTION.md"
+      ],
+      "consumed_by": ["isometric", "bsfp"],
+      "relations": [
+        {"type":"refines","target":"C4-R0011"},
+        {"type":"depends_on","target":"C4-R0014"},
+        {"type":"depends_on","target":"C4-R0018"},
+        {"type":"bridges","target":"C4-R0049"},
+        {"type":"bridges","target":"C4-R0050"},
+        {"type":"bridges","target":"C4-R0051"}
+      ]
+    },
+    {
+      "id": "C4-R0053",
+      "title": "Core balance plus unique initial requirement impact isolates 7x6 in the regular K=4 family",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For regular K=4 boards, gravity-oriented core balance is Delta(W,H)=(W-4)(2H-9)-9=0. Independently, the empty-board initially legal event has a unique maximum winning-requirement incidence exactly at width W=7. Combining those structural conditions forces H=6, so 7x6 is the unique regular K=4 board with both properties; its common cell/line core dimension then evaluates to 28.",
+      "sources": [
+        "docs/research/2026-09-14-k4-selection-invariant-frontier.md",
+        "docs/research/2026-09-14-k4-board-invariant-family.md"
+      ],
+      "consumed_by": ["isometric"],
+      "relations": [
+        {"type":"derived_from","target":"C4-R0050"},
+        {"type":"supports","target":"C4-R0052"}
+      ]
+    },
+    {
+      "id": "C4-R0054",
+      "title": "Terminal ply yields a sound board-specific gravity support upper bound; 6x7 equals 30 only at this upper-bound layer",
+      "status": "guarded_exact",
+      "confidence_mode": "deductive_given_terminal_ply",
+      "statement": "For a decisive W x H Connect-4 root with distance-optimal terminal move T, let N=WH, q=N-T+1 and t=max(0,H-q). Every newly completed terminal line must touch a gravity-legal final landing at row >=t, so U_support(W,H,T)=G(W,H)-G(W,t) is a sound line-count upper bound. Using the cited external terminal move T=41 for 6x7 gives U_support=30. The current packet does not prove that all 30 are attainable, so 30 is not yet an exact 6x7 terminal census.",
+      "sources": [
+        "https://github.com/iteathen/Connect4/issues/42",
+        "docs/research/2026-09-14-cross-board-terminal-support-upper-bound-audit.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax"],
+      "relations": [
+        {"type":"constrains","target":"C4-R0013"},
+        {"type":"contrasts_with","target":"C4-R0050"},
+        {"type":"supports","target":"C4-R0052"}
+      ]
+    },
+    {
+      "id": "C4-R0055",
+      "title": "Static equality between minimum surviving maximal-delay envelope and Y_cell is not a sufficient optimal-play selector",
+      "status": "disproven",
+      "confidence_mode": "finite_counterexample",
+      "statement": "The candidate characterization 'minimum surviving maximal-delay support envelope equals Y_cell, therefore this identifies the standard optimal terminal structure' is insufficient. The exact finite audit gives the same scalar equality on 8x7: 46-6=40=Y_cell, even though this does not characterize the standard 7x6 optimal terminal geometry. Static cardinality equality therefore cannot serve as the missing semantic selector.",
+      "sources": [
+        "docs/research/2026-09-14-k4-selection-invariant-frontier.md",
+        "research/history/disproven/static-envelope-equals-core-selector.md"
+      ],
+      "consumed_by": ["isometric"],
+      "relations": [
+        {"type":"constrains","target":"C4-R0052"},
+        {"type":"supports","target":"C4-R0035"}
+      ]
+    },
+    {
+      "id": "C4-R0056",
+      "title": "The oracle 28-line coordinate set is not the standard common structural Y object",
+      "status": "empirically_supported",
+      "confidence_mode": "exact_linear_audit_on_external_set",
+      "statement": "For the externally qualified distance-optimal 28-line coordinate set E_opt, dim(E_opt)=28 but its incidence image has dimension 26; E_opt intersects the qualified line core in dimension 2 and its cell image intersects Y_cell in dimension 20, with six axis-boundary image dimensions. The exact filtration is 28=2+20+6. Equal cardinality between the optimal terminal set and the structural common-core dimension therefore does not establish identity or basis equivalence.",
+      "sources": [
+        "docs/research/2026-09-14-optimal-28-oracle-incidence-audit.md",
+        "https://github.com/iteathen/Connect4/issues/41"
+      ],
+      "consumed_by": ["isometric", "bsfp", "negamax-minimax"],
+      "relations": [
+        {"type":"constrains","target":"C4-R0049"},
+        {"type":"constrains","target":"C4-R0050"},
+        {"type":"supports","target":"C4-R0035"}
+      ]
+    }
+  ]
+}

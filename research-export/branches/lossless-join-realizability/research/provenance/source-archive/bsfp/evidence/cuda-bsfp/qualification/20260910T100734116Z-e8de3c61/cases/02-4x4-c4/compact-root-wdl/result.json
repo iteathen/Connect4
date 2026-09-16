@@ -1,0 +1,127 @@
+{
+  "stepId": "compact-root-wdl",
+  "exitCode": 0,
+  "signal": null,
+  "durationMs": 2695,
+  "timedOut": false,
+  "memorySafetyAbort": false,
+  "launchError": null,
+  "gpuTelemetry": {
+    "sampleCount": 5,
+    "peakUsedMiB": 912,
+    "minimumFreeMiB": 5055
+  },
+  "status": "passed",
+  "solverResult": {
+    "schemaVersion": 1,
+    "kind": "connect4-cuda-bsfp-compact-root-solve",
+    "mode": "native",
+    "columns": 4,
+    "rows": 4,
+    "connect": 4,
+    "caseRole": "full-root-solve",
+    "outcome": "native-compact-frontier-pass",
+    "rootWdl": 0,
+    "closure": "full-root",
+    "comparedSupports": 625,
+    "frontierMismatches": 0,
+    "evidenceGrade": "all-support-frontier-differential",
+    "boundaryControls": [
+      {
+        "id": "shard-tile-block-invariance",
+        "outcome": "native-pass"
+      },
+      {
+        "id": "high-lane-42-bit-recurrence",
+        "outcome": "native-pass"
+      },
+      {
+        "id": "capacity-is-not-convergence",
+        "outcome": "native-pass"
+      }
+    ],
+    "options": {
+      "columns": 4,
+      "rows": 4,
+      "connect": 4,
+      "frontierCapacity": 1024,
+      "candidateTileSize": 2048,
+      "shardCapacity": 64,
+      "blockSize": 128,
+      "qualificationOracle": true
+    },
+    "cpuReferenceMs": 60.3506,
+    "cpuPairCandidates": 33427,
+    "runtimeOpenMs": 416.3262,
+    "runs": [
+      {
+        "audit": true,
+        "rootWdl": 0,
+        "closure": "full-root",
+        "completedRank": 0,
+        "comparedSupports": 625,
+        "frontierMismatches": 0,
+        "pairCandidatesGenerated": 48801,
+        "subsetChecksPerformed": 203873,
+        "totalFrontierRecords": 6591,
+        "maxFrontierWidth": 54,
+        "readbackMs": 2.3134999999999764,
+        "hostResultValidationMs": 0.17450000000008004,
+        "rankSetupMs": 2.9804000000000315,
+        "compileLoadMs": 918.4595999999999,
+        "allocationMs": 10.494199999999864,
+        "uploadMs": 3.7674999999999272,
+        "prepareMs": 10.855999999999995,
+        "submitWaitMs": 34.90300000000002,
+        "epochSubmitWaitMs": [
+          20.355800000000045,
+          13.54099999999994
+        ],
+        "epochCount": 2,
+        "devicePayloadBytes": 9214348,
+        "admissionUpperBoundBytes": 288029076,
+        "launchCount": 39,
+        "rankBatches": 17,
+        "solveWallMs": 985.9372
+      },
+      {
+        "audit": false,
+        "rootWdl": 0,
+        "closure": "full-root",
+        "completedRank": 0,
+        "comparedSupports": 0,
+        "frontierMismatches": null,
+        "pairCandidatesGenerated": 48801,
+        "subsetChecksPerformed": 203873,
+        "totalFrontierRecords": 6591,
+        "maxFrontierWidth": 54,
+        "readbackMs": 2.8782999999998538,
+        "hostResultValidationMs": 0.06640000000015789,
+        "rankSetupMs": 2.224899999999934,
+        "compileLoadMs": 201.52929999999992,
+        "allocationMs": 7.225799999999936,
+        "uploadMs": 1.9003000000000156,
+        "prepareMs": 5.314599999999928,
+        "submitWaitMs": 42.0954999999999,
+        "epochSubmitWaitMs": [
+          22.172000000000025,
+          17.98829999999998
+        ],
+        "epochCount": 2,
+        "devicePayloadBytes": 9156616,
+        "admissionUpperBoundBytes": 288029076,
+        "launchCount": 39,
+        "rankBatches": 17,
+        "solveWallMs": 263.2999
+      }
+    ],
+    "phaseTiming": {
+      "candidateGenerationMs": null,
+      "normalizationMs": null,
+      "compactionMs": null,
+      "reason": "Fused block collectives; submitWaitMs measures the complete prepared DAG including orchestration. No device clock profiler is installed."
+    },
+    "totalWallMs": 2536.5245,
+    "cleanup": "graceful"
+  }
+}

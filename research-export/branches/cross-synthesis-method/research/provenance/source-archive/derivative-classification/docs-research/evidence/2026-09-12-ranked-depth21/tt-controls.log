@@ -1,0 +1,26 @@
+✔ proof arenas dispatch only explicit complete contracts (1.7329ms)
+✔ publication rejects invalid values and hints before either live or stale access (1.3836ms)
+✔ packed records reject reserved bits, invalid bounds and implicit number coercion (0.4338ms)
+✔ replacement before proof lock acquisition rejects old publication and releases the acquired generation (0.4139ms)
+✔ contradictory publication leaves the current proof intact and releases the writer (0.274ms)
+✔ coherent proof read observes sound writer-held record without blocking (0.7493ms)
+✔ nonzero hash mismatch avoids slot acquisition without granting hash equality proof authority (1.8748ms)
+✔ hash rejection skips generation loads; replacement across the filter still requires exact payload (0.441ms)
+✔ bucket prefix probes stop at first empty and preserve exact matches through collisions, writers, poison and reset (0.6303ms)
+✔ a first-empty observation during concurrent publication is only a miss and cannot hide the next probe (0.226ms)
+✔ current-handle observation rechecks generation after observing slot status (0.2406ms)
+✔ game adapters require an arena bound to their exact geometry and term vocabulary (7.7221ms)
+✔ resource reset rejects semantic nonquiescence before clearing static proofs (0.4503ms)
+✔ arena views reject aliases/growth and snapshot mutable transport metadata (0.4933ms)
+✔ a failure after payload overwrite poisons the new generation until quiescent reset (0.4303ms)
+✔ generation exhaustion never wraps into a prior handle (0.2968ms)
+✔ negative allocation and counters cannot alias existing term storage (0.3524ms)
+✔ proof writer excludes replacement and reset, then wakes replacement on release (64.8107ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.8037

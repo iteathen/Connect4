@@ -1,0 +1,74 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "question": "What extra structural information is required beyond the exact W/D/L support-event quotient to preserve the set G(s) of perfect-play P0 terminal winning-line labels?",
+  "controls": [
+    {
+      "profile": "4x3 connect-3",
+      "physical_states": 4659,
+      "wdl_support_event_classes": 3670,
+      "wdl_classes_with_mixed_G": 181,
+      "p0_exact_line_residual_provenance_classes": 4353,
+      "p0_exact_line_residual_provenance_mixed_G": 0,
+      "root_G_line_count": 14
+    },
+    {
+      "profile": "4x4 connect-4",
+      "physical_states": 139625,
+      "wdl_support_event_classes": 32921,
+      "wdl_classes_with_mixed_G": 280,
+      "p0_exact_line_residual_provenance_classes": 35485,
+      "p0_exact_line_residual_provenance_mixed_G": 0,
+      "count_only_provenance_classes": 34906,
+      "count_only_provenance_mixed_G": 18
+    },
+    {
+      "profile": "5x3 connect-4",
+      "physical_states": 152003,
+      "wdl_support_event_classes": 10336,
+      "wdl_classes_with_mixed_G": 646,
+      "p0_exact_line_residual_provenance_classes": 13702,
+      "p0_exact_line_residual_provenance_mixed_G": 0,
+      "count_only_provenance_classes": 11204,
+      "count_only_provenance_mixed_G": 78
+    },
+    {
+      "profile": "4x5 connect-4",
+      "physical_states": 1385521,
+      "wdl_support_event_classes": 290162,
+      "wdl_classes_with_mixed_G": 7765,
+      "p0_exact_line_residual_provenance_classes": 332463,
+      "p0_exact_line_residual_provenance_mixed_G": 0,
+      "count_only_provenance_classes": 330302,
+      "count_only_provenance_mixed_G": 50
+    }
+  ],
+  "4x3_witness": {
+    "sequence_A_1_based": [1,1,3,3,4,3],
+    "sequence_B_1_based": [3,1,1,3,4,3],
+    "same_wdl_support_event_key": true,
+    "both_absolute_P0_value": "Win",
+    "G_A_line_indices": [0,3,7,11],
+    "G_B_line_indices": [3,7,11],
+    "distinguishing_line_index": 0,
+    "distinguishing_line_cells_1_based": ["A1","B1","C1"],
+    "reason": "In A the bottom line remains live for P0; in B P1 owns A1 and kills that original line. Minimal residual antichain identity merges the histories because another line supplies the same existential residual requirement."
+  },
+  "candidate_exact_overlay": {
+    "definition": "Pi0(r) is the set of original P0 geometric-line labels whose current live residual is exactly residual ID r.",
+    "value_projection": "The ordinary P0 W/D/L residual antichain is obtained by forgetting provenance and minimizing the residual-ID domain.",
+    "P0_move": "For every provenance group whose residual contains x, move its origin labels to residual r\\{x}; if the residual becomes empty, those origin labels are the terminal output labels. Other groups remain.",
+    "P1_move": "Delete every P0 provenance group whose residual contains x; those original lines are permanently killed.",
+    "duplicate_residual_merge": "Groups with the same exact residual ID may merge by union of origin-label sets.",
+    "antichain_guard": "Strict-superset provenance groups may not be discarded merely because a smaller residual suffices for W/D/L existential completion; terminal-line identity is a richer objective."
+  },
+  "interpretation": [
+    "The support-event/minimal-antichain quotient is exact for W/D/L but not for perfect-play terminal-line identity G.",
+    "The failure is provenance loss, not a failure of the underlying W/D/L equivalence theorem.",
+    "Exact P0 line-to-residual provenance removes every observed G collision across all four complete small-game controls.",
+    "A count-only per-line overlay is not generally sufficient; complete 4x4, 5x3, and 4x5 controls retain mixed-G classes.",
+    "For the standard-7x6 28-line output objective, value proof and output attribution should remain separate layers: WSL antichains for W/D/L, plus a P0 provenance overlay for which original geometric lines survive/complete."
+  ],
+  "anti_leakage": "No standard-7x6 perfect-play terminal-line subset, witness sequence, or solved-state table was used."
+}

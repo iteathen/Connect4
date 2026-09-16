@@ -1,0 +1,46 @@
+{
+  "label": "fused-readers",
+  "runs": [
+    {
+      "stage": "baseline",
+      "searchMs": 1734.6916,
+      "cpuMs": 1890,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1876.5393,
+      "cpuMs": 2047,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "candidate",
+      "searchMs": 1884.7462,
+      "cpuMs": 2078,
+      "stateBytes": 4194304,
+      "kernelBytes": 239673095
+    },
+    {
+      "stage": "baseline",
+      "searchMs": 1740.2004,
+      "cpuMs": 1891,
+      "stateBytes": 6291456,
+      "kernelBytes": 241770247
+    }
+  ],
+  "means": {
+    "baseline": {
+      "searchMs": 1737.446,
+      "cpuMs": 1890.5
+    },
+    "candidate": {
+      "searchMs": 1880.64275,
+      "cpuMs": 2062.5
+    }
+  },
+  "exactCountersMatch": true,
+  "elapsedMs": 8184.070699999999,
+  "totalBudgetMs": 60000
+}

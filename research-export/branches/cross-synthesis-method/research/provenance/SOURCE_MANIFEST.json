@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "created": "2026-09-15",
+  "research_direction": "Josh Oshiro",
+  "purpose": "Lossless source inventory for consolidation of Connect4 research into root research/.",
+  "policy": {
+    "research_owns_knowledge": true,
+    "solver_branches_consume_research": true,
+    "archive_is_current_authority": false,
+    "preserve_exact_source_before_cleanup": true,
+    "confidence_values_deferred_until_claim_normalization": true
+  },
+  "sources": [
+    {"id":"minimax-canonical","ref":"solver/minimax-alpha-beta","trees":{"research":"b7ed9b4a57128f20caa348733c53d6c5953ad024","docs_research":"4b258ff83b2b1073748233fb335f1fb2dc84ec38","research_prototypes":"4757117fb4c54983e662e0f27c438c72503ebf7d"}},
+    {"id":"minimax-work-a1a9-a10","ref":"work/minimax-a1a9-a10-exact-20260911","trees":{"research":"d37d8c0918339cfe9b3074a8efb87d06b1fed008"}},
+    {"id":"minimax-work-candidate-composition","ref":"work/minimax-candidate-composition-20260911","trees":{"research":"e2eed781cf684069bfe61cc2303b2ec79d0b8f89"}},
+    {"id":"minimax-work-typed-a123","ref":"work/minimax-typed-a123-20260911","trees":{"research":"b74b777853d7a6c4063ff4ae12aef639ba9dd5ec"}},
+    {"id":"bsfp","ref":"solver/cuda-bsfp","trees":{"research":"89ee75ecf2e78c3f36f2cff0de813ae3f1e696a9","docs_research":"2f05f756e8d48530fb11072451ca2954d8bd1b3d","evidence":"2641fadb48e4ff7dd4ab658031cb4f9915886a5c","experiments":"615dba39fb51725c53583ad2d4b98335c87b59eb"}},
+    {"id":"isometric","ref":"isometric","trees":{"research":"b7fd74bab3950b996079e4da805b531624aabbc6","docs_research":"1caa1f6035e11dc2314608e1d72efbe6b24ace21","evidence":"7e32758e0f587f67aa1c6fbfabdcfb0fb3bd30b8","experiments":"4f5b607dab4ffe5bf02256dd969e166b64c6dd4f"}},
+    {"id":"derivative-classification","ref":"research/connect-k-derivative-classification","trees":{"docs_research":"f6311f4416256437e6b9435c5e34a42738c425a9"}},
+    {"id":"perfect-play-winset","ref":"research/perfect-play-winset-count","trees":{"research":"0c973e08548fef509c7c3fdafc42f850f89fc369","docs_research":"71d5fe80e76b28595c72526b1212bee75240894b"},"root_blobs":{"SEMANTIC_QUOTIENT_RESEARCH.md":"3f7dd8c493154bae0e2768f587e0cd338ac0da73","STATUS.md":"5c78f84e4727ec8e3cd2e4380b6276c5c858fcd6","next_step.yaml":"f293df818a389f0928935d2d0e21ded53302b39c"}},
+    {"id":"terminal-frontier-dead-draw","ref":"research/terminal-frontier-dead-draw-staging","trees":{"docs_research":"c27d0de76585d719cdd3658355241c4830e2d24d"}}
+  ],
+  "subsumed_or_alias_refs": [
+    "research/semantic-quotient","research/frontier-negamax-conformance","research/live-q1-5min-20260910","research/semantic-quotient-explore-hints","research/terminal-frontier-benchmark","research/terminal-frontier-horizon-exact","research/terminal-frontier-horizon-exact-own-cofactor-evidence","research/terminal-frontier-horizon-exact-suppression-evidence","research/zdd-transfer-20260910","research/frontier-negamax-conformance-test-do-not-use","work/semantic-quotient-mq4-flat-replay-20260911","work/minimax-a123-direct-20260911","work/minimax-a123-mq5-anchors-20260911","work/minimax-a123-mq5-evidence-20260911","work/minimax-a123-mq5-evidence-copy-20260911","work/minimax-a123-mq5-final-20260911","work/minimax-a123-mq5-integrate-20260911","work/minimax-a123-mq5-pr-20260911","work/minimax-impl-mq5-a123-20260911","work/minimax-impl-prefilter-20260911","work/minimax-impl-prefilter-20260911-copy","work/minimax-proof-hierarchy-saturation-20260911","work/minimax-typed-intern-20260911","work/minimax-u1-testb-compat-20260911","work/minimax-zpar-single-threat-20260911"
+  ],
+  "legacy_main_research_base_commit": "15b8e62de07f2b35a74ea2297fda79b72633bf64",
+  "notes": [
+    "Subsumed/alias means branch comparison found no independent source packet beyond a preserved maximal lineage; Git history is not erased.",
+    "No source branch is deleted by this preservation commit.",
+    "Experimental solver implementation is not promoted merely because its research source is preserved."
+  ]
+}

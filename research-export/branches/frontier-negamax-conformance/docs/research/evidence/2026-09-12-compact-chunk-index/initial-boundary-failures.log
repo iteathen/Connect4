@@ -1,0 +1,82 @@
+✔ cheap chunk address collisions preserve exact IDs through dictionary rehash (5.8347ms)
+✔ reserved composed hashes reuse immutable local IDs across traversal and shared arena reset (22.2181ms)
+✔ empty chunk identity survives dictionary growth and validates input before reuse (1.2249ms)
+✔ direct semantic edges agree with recomputation and repeated edges bypass every interner (17.8405ms)
+✔ prepared exact search performs no typed allocation or backing-array growth (7.1085ms)
+✖ reserved state/chunk exhaustion preserves published identities instead of allocating (6.1315ms)
+✔ standalone local solver reserves its proof arrays without adding them to online workers (2.368ms)
+✔ reserved residual exhaustion preserves existing classes and reports the resource boundary (3.0898ms)
+✖ chunk exact keys survive collisions and growth; a hit never requests insertion capacity (0.8957ms)
+✔ canonical cardinality and descriptor hashes match independent term sequences across growth and geometries (443.9289ms)
+✔ term writer rejects malformed capacity before mutation and class-count allocation failure preserves published classes (6.5676ms)
+✔ qualification baseline keeps one proof owner and rejects invalid residual inputs (1.2934ms)
+✔ support access rejects malformed indices and columns without rank-zero aliases (2.3884ms)
+✔ paired response guard preserves every column reservoir in packed and table layouts (5.2873ms)
+✔ compiled residual coverage rejects malformed inputs and reads canonical chunks after growth (6.8526ms)
+✔ board input is captured once at initialization and residual widths derive from that domain (57.1178ms)
+✔ state interning and cached edges reject values outside their owned domains (0.6215ms)
+✔ slot64 cell masks reject integer wrapping and preserve the residual class (0.4895ms)
+✔ failed state growth leaves every existing backing array and capacity intact (11.6298ms)
+✔ semantic IDs and cached edges survive repeated state growth and hash collisions (82.0328ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 18
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 794.437
+
+✖ failing tests:
+
+test at research\semantic-quotient\state-identity-unification\src\quotient-storage-contract.test.mjs:138:1
+✖ reserved state/chunk exhaustion preserves published identities instead of allocating (6.1315ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /reserved chunk payload capacity/. Input:
+  
+  'RangeError: reserved chunk hash capacity exhausted'
+  
+      at TestContext.<anonymous> (file:///C:/Users/josho/OneDrive/Documents/ChatGPT/GENERAL%20OPERATIONS/connect4-frontier-audit/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs:151:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: RangeError: reserved chunk hash capacity exhausted
+        at SlotChunkPool64._growHash (file:///C:/Users/josho/OneDrive/Documents/ChatGPT/GENERAL%20OPERATIONS/connect4-frontier-audit/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs:114:29)
+        at SlotChunkPool64.intern (file:///C:/Users/josho/OneDrive/Documents/ChatGPT/GENERAL%20OPERATIONS/connect4-frontier-audit/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs:171:12)
+        at file:///C:/Users/josho/OneDrive/Documents/ChatGPT/GENERAL%20OPERATIONS/connect4-frontier-audit/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs:152:90
+        at getActual (node:assert:580:5)
+        at strict.throws (node:assert:728:24)
+        at TestContext.<anonymous> (file:///C:/Users/josho/OneDrive/Documents/ChatGPT/GENERAL%20OPERATIONS/connect4-frontier-audit/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs:151:10)
+        at Test.runInAsyncScope (node:async_hooks:226:14)
+        at Test.run (node:internal/test_runner/test:1397:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+        at Test.postRun (node:internal/test_runner/test:1537:19),
+    expected: /reserved chunk payload capacity/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at research\semantic-quotient\state-identity-unification\src\quotient-storage-contract.test.mjs:190:1
+✖ chunk exact keys survive collisions and growth; a hit never requests insertion capacity (0.8957ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  256 !== 512
+  
+      at TestContext.<anonymous> (file:///C:/Users/josho/OneDrive/Documents/ChatGPT/GENERAL%20OPERATIONS/connect4-frontier-audit/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs:197:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 256,
+    expected: 512,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

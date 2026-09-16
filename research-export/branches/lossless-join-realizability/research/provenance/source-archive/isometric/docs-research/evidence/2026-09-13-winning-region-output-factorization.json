@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "profile": "complete 4x3 connect-3",
+  "boolean_winning_region": {
+    "fixed_point": "W = mu X . (ImmediateP0Win OR (P0Turn AND exists-successor X) OR (P1Turn AND forall-successors X))",
+    "seed": "ImmediateP0Win only",
+    "derived_p0_win_states": 2627,
+    "exact_p0_win_states": 2627,
+    "false_positives": 0,
+    "false_negative_wins": 0,
+    "root_rank": 8,
+    "maximum_rank": 9,
+    "selected_root_unique_shapes": 9,
+    "selected_root_shapes": [
+      "I",
+      "A(I)",
+      "E(A(I))",
+      "A(E(A(I))|I)",
+      "E(A(E(A(I))|I))",
+      "A(E(A(E(A(I))|I))|I)",
+      "E(A(E(A(E(A(I))|I))|I))",
+      "A(E(A(E(A(E(A(I))|I))|I))|E(A(I)))",
+      "E(A(E(A(E(A(E(A(I))|I))|I))|E(A(I))))"
+    ]
+  },
+  "terminal_line_factorization": {
+    "theorem": "After W is known, a geometric P0 line L is possible under W/D/L-perfect play from s iff L is reachable by an ordinary existential path entirely inside W from s to a P0 terminal completion of L.",
+    "per_line_fixed_point": "P_L = mu Y . (TerminalP0Line_L OR (W AND exists-successor Y))",
+    "simultaneous_form": "Q(s) is the union of terminal P0 line labels reachable through W-preserving successors; no universal output quantifier remains after W is fixed.",
+    "physical_state_G_mismatches": 0,
+    "root_line_count": 14,
+    "expected_root_line_count": 14
+  },
+  "interpretation": [
+    "The response-overload predicate O is a derived macro equal to the first universal predecessor A(I); it is not required as a primitive fixed-point seed.",
+    "The complete 4x3 winning proof is an alternation-free least-fixed-point reachability calculation from one terminal predicate.",
+    "Perfect-play terminal-line classification factorizes into two stages: first solve the Boolean winning region W, then perform existential line-label reachability inside W.",
+    "At a P0-turn W state only W-successors are perfect; at a P1-turn W state every legal successor is in W and is equally perfect under W/D/L-only tie semantics. Therefore perfect trajectories from a winning root are exactly paths that remain in W.",
+    "This factorization permits the value quotient to remain aggressively minimized while a provenance overlay is used only for the second-stage line-output reachability."
+  ],
+  "anti_leakage": "No standard-7x6 perfect-play terminal-line subset, witness sequence, or solved-state table was used."
+}

@@ -1,0 +1,54 @@
+{
+  "kind": "connect4-minimax-mq5-lazy-residual-alpha-beta",
+  "status": "pass-structural-runtime-negative",
+  "dateUtc": "2026-09-11",
+  "workflowRun": 34571374414,
+  "workflowJob": 103174001569,
+  "root": "663152175",
+  "expectedScore": -4,
+  "baseline": {
+    "kind": "compact-decision-rank",
+    "ttSlots": 524288,
+    "ttTypedBytes": 5242880,
+    "score": -4,
+    "nodes": 1014754,
+    "ttHits": 167269,
+    "writes": 427015,
+    "forcedTransitions": 163149,
+    "elapsedMs": 208.48511499999998
+  },
+  "residual": {
+    "kind": "lazy-whole-state-map-string-arena",
+    "ttSlots": 524288,
+    "ttTypedBytes": 2621440,
+    "score": -4,
+    "nodes": 787100,
+    "ttHits": 176974,
+    "writes": 324567,
+    "forcedTransitions": 129579,
+    "drawStops": 11,
+    "elapsedMs": 7585.812728999999,
+    "compileMs": 1.208172999999988,
+    "searchMs": 7583.070643,
+    "semanticStatesCreated": 1208079,
+    "transitionComputations": 1569084,
+    "normalizeCalls": 1569084,
+    "internHits": 361006,
+    "goalPairs": 12999132,
+    "typedDataBytesLowerBound": 155940453,
+    "canonicalKeyBytesApprox": 238530704
+  },
+  "ratios": {
+    "nodes": 0.7756559717921782,
+    "writes": 0.7600833694366709,
+    "hits": 1.0580203145830966,
+    "elapsed": 36.38539244876067
+  },
+  "interpretation": {
+    "semanticProofWorkImproved": true,
+    "naiveCompilerDominatesRuntime": true,
+    "candidateShouldNotBeRejectedForCurrentWallTime": true,
+    "nextOptimizationOwner": "residual-state compiler/interning representation",
+    "nextMechanism": "factor single-side residual antichain identity and cache mover/blocker side transitions before whole-state interning"
+  }
+}

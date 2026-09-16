@@ -1,0 +1,194 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\compact-index-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index 8d80275..db0acf6 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\compact-index-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+@@ -69,14 +69,16 @@ function assertWordSource(source, offset) {
+ class SlotChunkPool64 {
+   #sealed = false;
+   #emptyId = -1;
++  #nextIds;
+   constructor(slot, slotCount) {
+     if (!Number.isInteger(slot) || slot < 0 || slot >= slotCount) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
+     this.slot = slot;
+     this.count = 0;
+     this.capacity = 256;
+     this.words = new Uint32Array(this.capacity * CHUNK_WORDS);
+-    this.hashSlots = new Int32Array(512);
++    this.hashSlots = new Int32Array(128);
+     this.hashSlots.fill(-1);
++    this.#nextIds = new Int32Array(this.capacity).fill(-1);
+     this.metrics = { lookups: 0, hits: 0, misses: 0, payloadGrows: 0, hashGrows: 0 };
+   }
+ 
+@@ -93,7 +95,10 @@ class SlotChunkPool64 {
+     const next = nextPowerOfTwo(required);
+     const target = new Uint32Array(next * CHUNK_WORDS);
+     target.set(this.words);
++    const links = new Int32Array(next).fill(-1);
++    links.set(this.#nextIds);
+     this.words = target;
++    this.#nextIds = links;
+     this.capacity = next;
+     this.metrics.payloadGrows += 1;
+   }
+@@ -115,8 +120,8 @@ class SlotChunkPool64 {
+     for (let id = 0; id < this.count; id += 1) {
+       const base = id * CHUNK_WORDS;
+       const hash = hashWords2(this.words[base], this.words[base + 1]);
+-      let slot = hash & mask;
+-      while (next[slot] !== -1) slot = (slot + 1) & mask;
++      const slot = hash & mask;
++      this.#nextIds[id] = next[slot];
+       next[slot] = id;
+     }
+     this.hashSlots = next;
+@@ -128,7 +133,7 @@ class SlotChunkPool64 {
+     const capacity = nextPowerOfTwo(Math.max(required, this.capacity));
+     if (capacity > (1 << 29)) throw new RangeError('chunk reservation exceeds hash index domain');
+     this._ensureCapacity(capacity);
+-    if (this.hashSlots.length < capacity * 2) this._growHash(capacity * 2);
++    if (this.hashSlots.length < capacity / 2) this._growHash(capacity / 2);
+     this.#sealed = true;
+     return this.capacity;
+   }
+@@ -148,30 +153,32 @@ class SlotChunkPool64 {
+     const hash = hashWords2(word0, word1);
+     let mask = this.hashSlots.length - 1;
+     let slot = hash & mask;
+-    while (true) {
+-      const id = this.hashSlots[slot];
+-      if (id === -1) break;
++    // Bucket heads address chains of stable canonical IDs. The key payload is
++    // still stored once; links consume one preallocated numeric word per ID.
++    let candidate = this.hashSlots[slot];
++    while (candidate !== -1) {
++      const id = candidate;
+       const base = id * CHUNK_WORDS;
+       if (this.words[base] === word0 && this.words[base + 1] === word1) {
+         this.metrics.hits += 1;
+         return id;
+       }
+-      slot = (slot + 1) & mask;
++      candidate = this.#nextIds[id];
+     }
+     if (this.count >= UINT32_MAX) throw new RangeError('slot64 chunk ID domain exhausted');
++    this._ensureCapacity(this.count + 1);
+     // A hit must not grow or rehash the dictionary. Only a proven new key
+     // needs capacity; after growth, locate its new insertion position.
+-    if ((this.count + 1) * 10 >= this.hashSlots.length * 7) {
++    if (this.count + 1 > this.hashSlots.length * 2) {
+       this._growHash();
+       mask = this.hashSlots.length - 1;
+       slot = hash & mask;
+-      while (this.hashSlots[slot] !== -1) slot = (slot + 1) & mask;
+     }
+-    this._ensureCapacity(this.count + 1);
+     const id = this.count;
+     const base = id * CHUNK_WORDS;
+     this.words[base] = word0;
+     this.words[base + 1] = word1;
++    this.#nextIds[id] = this.hashSlots[slot];
+     this.hashSlots[slot] = id;
+     this.count += 1;
+     if ((word0 | word1) === 0) this.#emptyId = id;
+@@ -186,7 +193,8 @@ class SlotChunkPool64 {
+       chunkCapacity: this.capacity,
+       payloadBytes: this.words.byteLength,
+       hashSlotBytes: this.hashSlots.byteLength,
+-      totalTypedBytes: this.words.byteLength + this.hashSlots.byteLength,
++      collisionLinkBytes: this.#nextIds.byteLength,
++      totalTypedBytes: this.words.byteLength + this.hashSlots.byteLength + this.#nextIds.byteLength,
+     });
+   }
+ }
+@@ -777,6 +785,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     const slots = slotPools.map((entry) => entry.memoryStats());
+     const chunkPayloadBytes = slots.reduce((sum, entry) => sum + entry.payloadBytes, 0);
+     const chunkHashSlotBytes = slots.reduce((sum, entry) => sum + entry.hashSlotBytes, 0);
++    const chunkCollisionLinkBytes = slots.reduce((sum, entry) => sum + entry.collisionLinkBytes, 0);
+     const chunkDictionaryBytes = slots.reduce((sum, entry) => sum + entry.totalTypedBytes, 0);
+     return Object.freeze({
+       classCount,
+@@ -795,6 +804,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       chunkCounts: slots.map((entry) => entry.chunkCount),
+       chunkPayloadBytes,
+       chunkHashSlotBytes,
++      chunkCollisionLinkBytes,
+       chunkDictionaryBytes,
+       slotDictionaries: slots,
+       normalizationLayout: 'sparse-superset-word-rows',
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\compact-index-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 0fec84f..8b1aaf8 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\compact-index-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -12,6 +12,47 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('compact index preserves capacity and published keys when link or bucket allocation fails', () => {
++  for (const failedLength of [512, 256]) {
++    const chunk = make().classes.slotPools[0], pair = new Uint32Array(2), keys = [];
++    for (let value = 1; chunk.count < 256; value++) {
++      pair[0] = value; pair[1] = value ^ 0x40000000;
++      keys.push([pair[0], pair[1], chunk.intern(pair, 0)]);
++    }
++    const count = chunk.count, words = chunk.words;
++    const I32 = globalThis.Int32Array;
++    globalThis.Int32Array = new Proxy(I32, { construct(Type, args) {
++      if (args[0] === failedLength) throw Error('controlled compact index allocation');
++      return Reflect.construct(Type, args);
++    } });
++    pair[0] = 0xffffffff; pair[1] = 0xffffffff;
++    try { assert.throws(() => chunk.intern(pair, 0), /controlled compact index allocation/); }
++    finally { globalThis.Int32Array = I32; }
++    assert.equal(chunk.count, count);
++    if (failedLength === 512) {
++      assert.equal(chunk.words, words, 'payload committed before matching links existed');
++    }
++    for (const [lo, hi, id] of keys) {
++      pair[0] = lo; pair[1] = hi;
++      assert.equal(chunk.intern(pair, 0), id);
++    }
++    pair[0] = 0xffffffff; pair[1] = 0xffffffff;
++    assert.equal(chunk.intern(pair, 0), count);
++    const stats = chunk.memoryStats();
++    assert.equal(stats.totalTypedBytes, stats.chunkCapacity * 14);
++    assert.equal(stats.hashSlotBytes, stats.chunkCapacity * 2);
++    assert.equal(stats.collisionLinkBytes, stats.chunkCapacity * 4);
++    chunk.reserveForSearch(512);
++    for (let value = 10000; chunk.count < 512; value++) {
++      pair[0] = value; pair[1] = value;
++      chunk.intern(pair, 0);
++    }
++    pair[0] = 0xfffffffe; pair[1] = 0xfffffffe;
++    assert.throws(() => chunk.intern(pair, 0), /reserved chunk payload capacity/);
++    assert.equal(chunk.count, 512);
++  }
++});
++
+ test('cheap chunk address collisions preserve exact IDs through dictionary rehash', () => {
+   const chunk = make().classes.slotPools[0];
+   const keys = new Uint32Array(800), ids = new Uint32Array(400);
+@@ -190,11 +231,11 @@ test('reserved residual exhaustion preserves existing classes and reports the re
+ test('chunk exact keys survive collisions and growth; a hit never requests insertion capacity', () => {
+   const chunk = make().classes.slotPools[0];
+   const source = new Uint32Array(2), pairs = [];
+-  for (let word = 1; chunk.count < 358; word++) {
++  for (let word = 1; chunk.count < 256; word++) {
+     source[0] = word; source[1] = (word ^ 0x80000000) >>> 0;
+     pairs.push([source[0], source[1], chunk.intern(source, 0)]);
+   }
+-  assert.equal(chunk.hashSlots.length, 512);
++  assert.equal(chunk.hashSlots.length, 128);
+   const before = chunk.metrics.hashGrows;
+   for (const [lo, hi, id] of pairs) {
+     source[0] = lo; source[1] = hi;
+@@ -203,7 +244,7 @@ test('chunk exact keys survive collisions and growth; a hit never requests inser
+   assert.equal(chunk.metrics.hashGrows, before, 'existing keys grew insertion capacity');
+   source[0] = 0xffffffff; source[1] = 0xffffffff;
+   const newId = chunk.intern(source, 0);
+-  assert.equal(chunk.hashSlots.length, 1024);
++  assert.equal(chunk.hashSlots.length, 256);
+   assert.equal(chunk.intern(source, 0), newId);
+   for (const [lo, hi, id] of pairs) {
+     source[0] = lo; source[1] = hi;

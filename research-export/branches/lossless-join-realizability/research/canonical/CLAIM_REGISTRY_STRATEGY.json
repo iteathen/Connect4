@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0064..C4-R0067",
+  "research_direction": "Josh Oshiro",
+  "claims": [
+    {
+      "id": "C4-R0064",
+      "title": "A history projection preserves a strategy exactly through observation-based uniformity",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "Fix a turn-based game and a history projection alpha with unchanged action labels. A strategy sigma factors through alpha iff, on every pair of sigma-consistent histories h,h' ending at the same controller turn, alpha(h)=alpha(h') implies sigma(h)=sigma(h'). Equivalently, sigma is observation-based/uniform for the equivalence induced by alpha. Therefore a structural projection is sufficient for a requested controller objective whenever there exists a winning strategy uniform for that projection. If every winning strategy must choose different actions on two alpha-equivalent histories, the projection is too coarse for that objective even when both histories and both projected states are individually realizable.",
+      "scope": "Exact strategy-factorization statement for fixed action labels. Symmetry quotients with action relabeling require the corresponding equivariant action transport. Existence of an alpha-uniform winning strategy is objective-relative and does not imply transition equivalence, proof identity, or that alpha is a minimal quotient.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-strategy-dependency-and-history-complexity.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "extends", "target": "C4-R0062"},
+        {"type": "constrains", "target": "C4-R0063"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0065",
+      "title": "Finite-horizon strategy dependencies have an exact DQBF/Skolem-function representation",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For any bounded Connect-4 proof/game horizon, encode opponent choices as universal variables, controller choices as existential variables, and legal/support/terminal/certificate semantics in the Boolean matrix. Standard QBF permits each existential response to depend on preceding universal choices; DQBF can state an explicit dependency set for each response. Hiding an opponent distinction in a proposed structural observation is therefore exactly a restriction on the admissible Skolem dependencies. The restriction preserves the bounded objective iff a satisfying/winning Skolem family exists with those dependencies. This represents dependency legality; it does not make the quantified synthesis problem cheap.",
+      "scope": "Exact bounded-horizon semantic encoding. It does not claim a preferred runtime solver, polynomial complexity, a complete empty-root certificate family, or that DQBF is the minimum implementation representation. First-win and legal-move constraints must be encoded in the matrix rather than assumed.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-strategy-dependency-and-history-complexity.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0064"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0066",
+      "title": "Unbounded-width alternating history realizability contains an NP-hard constrained-shuffle problem",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "On even occupied rank, C4-R0062 asks whether the disjoint union of bottom-to-top column owner words has a topological ordering in the fixed regular language (01)*. This is exactly the constrained-shuffle problem CSh[(ab)*] after relabeling 0=a,1=b. Amarilli and Paperman prove CSh[(ab)*] NP-hard. Hence the generalized pre-terminal ownership-history realizability problem is NP-hard when the number of columns/chains is part of the input, before Connect-K winning-line geometry or first-win stopping is added.",
+      "scope": "Complexity boundary for generalized variable-width history realizability and even total rank. It does not prove NP-hardness for fixed width 7, for already-certified strategic subfamilies, or for the full K=4 legal-state reachability problem with terminal stopping. Fixed-width and structurally restricted cases may admit much smaller exact calculi.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-strategy-dependency-and-history-complexity.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0062"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0067",
+      "title": "Per-event parity windows plus unit-capacity matching do not characterize alternating history realizability",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "Take two column owner words w0=01 and w1=0011 with target global turn word 010101. No legal shuffle exists: choosing w1 at rank 1 leaves no rank-2 owner-1 event, while choosing w0 at rank 1 forces w0's owner-1 event at rank 2 and then w1's second owner-0 event blocks rank 4. Nevertheless each event has a nonempty parity-compatible earliest/latest rank interval and the resulting event-to-slot interval graph has a perfect matching (for example b1->1,b2->3,b3->4,b4->6,a2->2,a1->5). The matching violates the within-column precedence a1<a2. Therefore release/deadline intervals and Hall/matching capacity alone are insufficient for C4-R0062; precedence correlation must remain explicit.",
+      "scope": "Exact negative control for the history-realizability layer. It does not weaken guarded Hall matching where obligations have already been normalized to independent unit jobs with exact legal slot sets; it shows only that such a slot model cannot replace the column precedence relation when reconstructing a colored history.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-strategy-dependency-and-history-complexity.md"
+      ],
+      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0062"},
+        {"type": "constrains", "target": "C4-R0066"}
+      ]
+    }
+  ]
+}

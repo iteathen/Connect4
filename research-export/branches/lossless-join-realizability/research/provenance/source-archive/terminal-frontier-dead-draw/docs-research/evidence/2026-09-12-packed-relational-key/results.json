@@ -1,0 +1,300 @@
+{
+  "kind": "exact-two-word-local-key-lookup-experiment",
+  "node": "v26.7.0",
+  "domain": {
+    "columns": 7,
+    "rows": 6,
+    "connect": 4
+  },
+  "depth": 8,
+  "searchMs": 1641.1166,
+  "result": {
+    "status": "depth-limited",
+    "value": null,
+    "requestedDepth": 8,
+    "maxReachedDepth": 8,
+    "horizonLeaves": 4014763
+  },
+  "search": {
+    "search": {
+      "calls": 4777115,
+      "expanded": 672690,
+      "ttExactReturns": 10058,
+      "ttBoundReturns": 0,
+      "domainBoundCuts": 0,
+      "ttMoveOrderHits": 0,
+      "cutoffs": 2424,
+      "firstMoveCutoffs": 62,
+      "tacticalExact": 1859,
+      "forcedNodes": 77745,
+      "forcedMacroChains": 6054,
+      "forcedMacroTransitions": 77745,
+      "frontierBoundCuts": 0,
+      "frontierOrderedNodes": 672690,
+      "etcProbes": 0,
+      "etcCutoffs": 0,
+      "thresholdPasses": 0,
+      "transitionsRequested": 4777114,
+      "proofProbeMisses": 4767057,
+      "proofAdmissions": 4283
+    },
+    "identity": {
+      "ttProbes": 4777115,
+      "ttEnsures": 4283,
+      "ttReprobes": 0,
+      "proofHandleRefreshes": 0,
+      "proofReadRetries": 0,
+      "publicationRetries": 0
+    },
+    "semanticTt": {
+      "probes": 4777115,
+      "probeMisses": 4767057,
+      "ensures": 4283,
+      "hits": 10058,
+      "inserts": 4283,
+      "replacements": 0,
+      "poisonedInstalls": 0,
+      "nonExactVictims": 0,
+      "exactVictims": 0,
+      "descriptorCompares": 10058,
+      "hashCollisions": 0,
+      "bucketLockWaits": 0,
+      "proofWriterWaits": 0,
+      "termIdsPublished": 397049,
+      "termIdsAllocated": 397049,
+      "termArenaWordsAllocated": 409898,
+      "termChunkAllocations": 4283,
+      "termSpanReuses": 0,
+      "termSpanGrows": 0,
+      "maxBucketScan": 5,
+      "entries": 4283,
+      "replacementsShared": 0,
+      "termSpanReusesShared": 0,
+      "termSpanGrowsShared": 0,
+      "termChunkCountShared": 4283,
+      "termIdsUsed": 397049,
+      "termArenaWordsUsed": 409898,
+      "termHeaderWordsUsed": 12849,
+      "entryCapacity": 262144,
+      "associativity": 8,
+      "bucketCount": 32768,
+      "generationLimit": 4294967295,
+      "termCapacity": 144703488
+    },
+    "proofStore": {
+      "reads": 10058,
+      "publications": 4283,
+      "retries": 0,
+      "staleReads": 0,
+      "stalePublications": 0,
+      "waits": 0
+    },
+    "descriptorCache": {
+      "classBuilds": 305713,
+      "classHits": 9257083,
+      "stateBuilds": 4781398,
+      "stateHashBuilds": 221398,
+      "stateHashReuses": 4560000,
+      "stateHashCapacity": 524288,
+      "stateMetadataBytes": 4259840,
+      "transientStateDescriptorUses": 4781398,
+      "stateDescriptorObjectsAllocated": 0,
+      "classDescriptorObjectsAllocated": 0,
+      "termArrayMaterializations": 0,
+      "termIdsMaterialized": 0,
+      "directTermWrites": 334395,
+      "directTermIdsWritten": 15212407,
+      "termIdsCached": 0,
+      "termArrayObjectsCached": 0,
+      "classDescriptorObjectsCached": 0,
+      "classMetadataBytes": 8519680,
+      "scratchBytes": 1250,
+      "scratchCapacity": 625,
+      "termArenaBytes": 0,
+      "retainedTypedBytes": 12779520,
+      "classCapacity": 1048576,
+      "termCapacity": 0
+    },
+    "localStates": 221398,
+    "localClasses": 305714
+  },
+  "operations": {
+    "transitions": {
+      "edgeCacheHits": 4355811,
+      "edgeCacheMisses": 421303,
+      "terminalEdges": 0,
+      "illegalEdges": 0
+    },
+    "states": {
+      "internLookups": 421304,
+      "internHits": 199906,
+      "internMisses": 221398,
+      "hashGrows": 1,
+      "stateGrows": 1
+    },
+    "residual": {
+      "internLookups": 842426,
+      "internHits": 536712,
+      "internMisses": 305714,
+      "ownTransitionHits": 0,
+      "ownTransitionMisses": 421303,
+      "blockTransitionHits": 0,
+      "blockTransitionMisses": 421303,
+      "ownNoop": 50,
+      "blockNoop": 132,
+      "ownTerminal": 0,
+      "reducedTerms": 1459869,
+      "supersetWordProbes": 2884380,
+      "supersetWordClears": 2884380,
+      "classGrows": 1,
+      "hashGrows": 1,
+      "slotReferenceWidens": 10,
+      "parentChunkReuses": 5549664,
+      "chunkInterns": 2874596,
+      "outOfPrefixOwn": 417793,
+      "outOfPrefixBlock": 417666,
+      "cachedStores": 7147,
+      "termCountReads": 9591478,
+      "termWrites": 334395
+    },
+    "chunks": [
+      {
+        "lookups": 136742,
+        "hits": 136515,
+        "misses": 227,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 68822,
+        "hits": 68623,
+        "misses": 199,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 143467,
+        "hits": 143035,
+        "misses": 432,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 55127,
+        "hits": 54969,
+        "misses": 158,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 17859,
+        "hits": 17807,
+        "misses": 52,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 375571,
+        "hits": 371129,
+        "misses": 4442,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 502892,
+        "hits": 490653,
+        "misses": 12239,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 244867,
+        "hits": 242364,
+        "misses": 2503,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 578370,
+        "hits": 569947,
+        "misses": 8423,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      },
+      {
+        "lookups": 750879,
+        "hits": 618811,
+        "misses": 132068,
+        "payloadGrows": 1,
+        "hashGrows": 1
+      }
+    ]
+  },
+  "exactSearchCountersMatch": true,
+  "widthControls": 26144,
+  "states": 221398,
+  "layout": {
+    "supportCapacity": 823543,
+    "classCapacity": 1048576,
+    "supportBits": 20,
+    "classBits": 20,
+    "totalBits": 60
+  },
+  "comparedKeyBytes": {
+    "triple": 2656776,
+    "pair": 1771184
+  },
+  "tableSlots": 1048576,
+  "insertProbes": 29766,
+  "runs": [
+    {
+      "kind": "triple",
+      "ms": 117.51099999999997,
+      "cpuMs": 125,
+      "queries": 3542368,
+      "sum": 392134824048,
+      "probes": 4018592
+    },
+    {
+      "kind": "pair",
+      "ms": 143.81499999999983,
+      "cpuMs": 140,
+      "queries": 3542368,
+      "sum": 392134824048,
+      "probes": 4018624
+    },
+    {
+      "kind": "pair",
+      "ms": 131.5666000000001,
+      "cpuMs": 125,
+      "queries": 3542368,
+      "sum": 392134824048,
+      "probes": 4018624
+    },
+    {
+      "kind": "triple",
+      "ms": 84.32349999999997,
+      "cpuMs": 94,
+      "queries": 3542368,
+      "sum": 392134824048,
+      "probes": 4018592
+    }
+  ],
+  "means": {
+    "triple": {
+      "ms": 100.91724999999997,
+      "cpuMs": 109.5
+    },
+    "pair": {
+      "ms": 137.69079999999997,
+      "cpuMs": 132.5
+    }
+  },
+  "productionRepresentationChanged": false,
+  "limitations": [
+    "uniform successful local-state lookups; not search-weighted trace or insertion timing",
+    "packed layout and bucket mixer changed together",
+    "shared semantic TT is unchanged; IDs are worker-local",
+    "removing production triple arrays also requires measuring field decoding at their consumers"
+  ]
+}

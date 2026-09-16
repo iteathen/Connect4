@@ -1,0 +1,55 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "profile": "complete 4x3 connect-3",
+  "wdl_quotient": {
+    "state": "(ply, deadEventPool, per-column next-relevant-event gaps, P0 minimal residual antichain, P1 minimal residual antichain)",
+    "physical_states": 4659,
+    "structural_states": 3670,
+    "value_mismatches_within_class": 0,
+    "successor_set_mismatches_within_class": 0,
+    "direct_generation_from_empty_structural_root": {
+      "generated_states": 3670,
+      "missing_observed_states": 0,
+      "extra_states": 0,
+      "successor_set_mismatches": 0
+    },
+    "winning_structural_states": 2096,
+    "I_O_E_A_closure_winning_states": 2096,
+    "I_O_E_A_false_positives": 0,
+    "I_O_E_A_false_negative_wins": 0,
+    "root_proof_rank": 7,
+    "root_unique_proof_shapes": 9
+  },
+  "output_sensitive_quotient": {
+    "state": "(ply, output-relevant deadEventPool, per-column output-relevant next-event gaps, Pi0 exact P0 residual provenance, P1 minimal residual antichain)",
+    "Pi0": "mapping/grouping from exact nonempty residual subset to the set of original live P0 geometric-line labels having that residual",
+    "structural_states": 4353,
+    "G_mismatches_within_class": 0,
+    "G_successor_set_mismatches_within_class": 0,
+    "direct_generation_from_empty_structural_root": {
+      "generated_states": 4353,
+      "missing_observed_states": 0,
+      "extra_states": 0
+    },
+    "direct_set_valued_G_recurrence": {
+      "root_line_count": 14,
+      "expected_complete_control_line_count": 14,
+      "match": true
+    }
+  },
+  "transition_semantics": [
+    "A neutral dead event decrements only the aggregate dead-event pool and advances ply.",
+    "A filler event before the next relevant event decrements that column's support gap and advances ply.",
+    "At a relevant P0 event, Pi0 origin labels follow exact residual subtraction; an empty result emits exactly those terminal line labels. P1 minimal requirements containing the P0 event are killed.",
+    "At a relevant P1 event, Pi0 groups containing the event are killed; P1's own residuals shrink and are antichain-normalized for value semantics.",
+    "After a relevant event, gaps and the aggregate dead-event pool are recomputed from the remaining output-relevant residual/event universe. Residuals never grow, so a column that becomes output-irrelevant cannot later regain relevance."
+  ],
+  "interpretation": [
+    "The complete small-game control no longer requires colored-board state even for transitions: the structural quotient is generative from its own root.",
+    "The W/D/L quotient and the terminal-line-output quotient are different exact quotients of the same game.",
+    "The output-sensitive quotient is obtained by adding exact P0 line provenance and expanding event relevance accordingly, not by abandoning the residual/event ontology."
+  ],
+  "anti_leakage": "No standard-7x6 perfect-play terminal-line subset, witness sequence, or solved-state table was used."
+}

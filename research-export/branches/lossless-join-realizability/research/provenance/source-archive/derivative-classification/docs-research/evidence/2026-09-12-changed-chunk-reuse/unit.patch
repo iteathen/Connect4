@@ -1,0 +1,197 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index 4bceed4..d9ea0cc 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+@@ -217,6 +217,10 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     throw new Error(`standard 7x6 vocabulary drifted: ${vocabulary.count}`);
+   }
+   const prefixClasses = options.prefixClasses ?? 4096;
++  const blockChunkPrefix = options.blockChunkPrefix ?? 4096;
++  if (!Number.isSafeInteger(blockChunkPrefix) || blockChunkPrefix < 0 || blockChunkPrefix > MAX_ARRAY_INDEX_DOMAIN) {
++    throw new RangeError('block chunk prefix must be a nonnegative supported integer');
++  }
+   if (!Number.isInteger(prefixClasses) || prefixClasses < 1) throw new RangeError('prefixClasses must be positive');
+   const transitionEntries = prefixClasses * vocabulary.cellCount;
+   if (!Number.isSafeInteger(transitionEntries) || transitionEntries < 1 || transitionEntries > MAX_ARRAY_INDEX_DOMAIN) {
+@@ -263,6 +267,38 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     }
+   }
+ 
++  // Compile equivalent per-chunk blocking masks into one operation ID.
++  // Zero masks are identity operations and need no memo entry.
++  const blockOperationIds = new Int8Array(vocabulary.cellCount * CHUNKS_PER_CLASS).fill(-1);
++  const blockOperationCounts = new Uint8Array(CHUNKS_PER_CLASS);
++  const blockCacheBases = new Uint32Array(CHUNKS_PER_CLASS);
++  let blockCacheEntries = 0;
++  for (let slot = 0; slot < CHUNKS_PER_CLASS; slot++) {
++    const representatives = [];
++    for (let cell = 0; cell < vocabulary.cellCount; cell++) {
++      const at = cell * WORDS_PER_CLASS + slot * CHUNK_WORDS;
++      const lo = containsMasks[at], hi = containsMasks[at + 1];
++      if ((lo | hi) === 0) continue;
++      let operation = 0;
++      while (operation < representatives.length) {
++        const prior = representatives[operation];
++        if (containsMasks[prior] === lo && containsMasks[prior + 1] === hi) break;
++        operation++;
++      }
++      if (operation === representatives.length) representatives.push(at);
++      blockOperationIds[cell * CHUNKS_PER_CLASS + slot] = operation;
++    }
++    blockOperationCounts[slot] = representatives.length;
++    blockCacheBases[slot] = blockCacheEntries;
++    blockCacheEntries += blockChunkPrefix * representatives.length;
++    if (!Number.isSafeInteger(blockCacheEntries) || blockCacheEntries > MAX_ARRAY_INDEX_DOMAIN) {
++      throw new RangeError('block chunk cache exceeds array index domain');
++    }
++  }
++  const blockChunkResults = new Uint32Array(blockCacheEntries);
++  // 0 = unknown; 1..65 = removed term count + 1. This is also the commit marker.
++  const blockChunkRemoved = new Uint8Array(blockCacheEntries);
++
+   const strictSupersetStarts = new Uint32Array(vocabulary.count + 1);
+   let strictSupersetEntryCount = 0;
+   for (let termId = 0; termId < vocabulary.count; termId += 1) {
+@@ -317,6 +353,9 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     slotReferenceWidens: 0,
+     parentChunkReuses: 0,
+     chunkInterns: 0,
++    blockChunkCacheHits: 0,
++    blockChunkCacheMisses: 0,
++    blockChunkOutOfPrefix: 0,
+     outOfPrefixOwn: 0,
+     outOfPrefixBlock: 0,
+     cachedStores: 0,
+@@ -689,18 +728,40 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       const mask0 = containsMasks[containsBase + word] >>> 0;
+       const mask1 = containsMasks[containsBase + word + 1] >>> 0;
+       if ((mask0 | mask1) === 0) continue;
+-
+       const parentBase = parentChunk * CHUNK_WORDS;
+       const input0 = slotPools[slotIndex].words[parentBase] >>> 0;
+       const input1 = slotPools[slotIndex].words[parentBase + 1] >>> 0;
+       const next0 = (input0 & ~mask0) >>> 0;
+       const next1 = (input1 & ~mask1) >>> 0;
++      // Identity is cheaper to recognize directly than to look up in a cache.
+       if (next0 === input0 && next1 === input1) continue;
+-
+-      removedTerms += popcount32(input0 ^ next0) + popcount32(input1 ^ next1);
++      const operation = blockOperationIds[cell * CHUNKS_PER_CLASS + slotIndex];
++      let cacheAt = -1;
++      if (parentChunk < blockChunkPrefix) {
++        cacheAt = blockCacheBases[slotIndex] + parentChunk * blockOperationCounts[slotIndex] + operation;
++        const removed = blockChunkRemoved[cacheAt];
++        if (removed !== 0) {
++          metrics.blockChunkCacheHits += 1;
++          if (removed > 1) {
++            chunkIds[slotIndex] = blockChunkResults[cacheAt];
++            removedTerms += removed - 1;
++            changedSlots += 1;
++          }
++          continue;
++        }
++        metrics.blockChunkCacheMisses += 1;
++      } else {
++        metrics.blockChunkOutOfPrefix += 1;
++      }
++      const removed = popcount32(input0 ^ next0) + popcount32(input1 ^ next1);
++      removedTerms += removed;
+       resultBits[word] = next0;
+       resultBits[word + 1] = next1;
+       chunkIds[slotIndex] = slotPools[slotIndex].intern(resultBits, word);
++      if (cacheAt >= 0) {
++        blockChunkResults[cacheAt] = chunkIds[slotIndex];
++        blockChunkRemoved[cacheAt] = removed + 1;
++      }
+       metrics.chunkInterns += 1;
+       changedSlots += 1;
+     }
+@@ -768,7 +829,9 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+   pool.memoryStats = function slot64ResidualMemoryStats() {
+     const classTupleBytes = classSlotIds.reduce((sum, ids) => sum + ids.byteLength, 0);
+     const classMetadataBytes = classTupleBytes + classHashes.byteLength + classTermCounts.byteLength + singletonLo.byteLength + singletonHi.byteLength;
+-    const transitionCacheBytes = ownTransitions.byteLength + blockTransitions.byteLength;
++    const blockChunkCacheBytes = blockChunkResults.byteLength + blockChunkRemoved.byteLength
++      + blockOperationIds.byteLength + blockOperationCounts.byteLength + blockCacheBases.byteLength;
++    const transitionCacheBytes = ownTransitions.byteLength + blockTransitions.byteLength + blockChunkCacheBytes;
+     const maskBytes = containsMasks.byteLength
+       + strictSupersetStarts.byteLength
+       + strictSupersetWordIndex.byteLength
+@@ -792,6 +855,9 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+       transitionCacheKind: 'dense-prefix',
+       transitionPrefixClasses: prefixClasses,
+       transitionCacheBytes,
++      blockChunkPrefix,
++      blockChunkCacheBytes,
++      blockOperationCounts: Array.from(blockOperationCounts),
+       classHashSlotBytes: classHashSlots.byteLength,
+       chunkCounts: slots.map((entry) => entry.chunkCount),
+       chunkPayloadBytes,
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs"
+index 6579bc9..221c275 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs"
+@@ -36,6 +36,7 @@ export function createSlot64ResidualQuotientKernel(spec, options = {}) {
+   });
+   const residual = installSlot64ResidualPool(substrate, substrate.domain, {
+     prefixClasses: options.prefixClasses ?? 4096,
++    blockChunkPrefix: options.blockChunkPrefix ?? 4096,
+   });
+   const proofStore = substrate.proofStore;
+   const frontierOrder = createLiveLineMoveOrder(substrate.domain);
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 2152fbf..f18665b 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\chunk-block-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -12,6 +12,51 @@ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('compiled chunk blocking agrees with uncached residuals across prefix boundaries and geometries', () => {
++  for (const domain of [spec, { columns: 4, rows: 5, connect: 4 }]) {
++    const reference = createSlot64ResidualQuotientKernel(domain, { prefixClasses: 1, blockChunkPrefix: 0 }).kernel;
++    const cached = createSlot64ResidualQuotientKernel(domain, { prefixClasses: 1, blockChunkPrefix: 128 }).kernel;
++    for (let state = 0; state < cached.states.count && state < 6000; state++) {
++      for (let column = 0; column < domain.columns; column++) {
++        assert.equal(cached.advance(state, column), reference.advance(state, column));
++      }
++    }
++    assert.equal(cached.states.count, reference.states.count);
++    assert.equal(cached.classes.size, reference.classes.size);
++    for (let id = 0; id < cached.classes.size; id++) {
++      assert.deepEqual(cached.classes.termIds(id), reference.classes.termIds(id));
++      assert.equal(cached.classes.termCount(id), reference.classes.termCount(id));
++    }
++    assert.ok(cached.classes.metrics.blockChunkCacheHits > 0);
++    assert.ok(cached.classes.metrics.chunkInterns < reference.classes.metrics.chunkInterns);
++    if (domain.rows === 5) assert.ok(cached.classes.metrics.blockChunkOutOfPrefix > 0);
++    const stats = cached.classes.memoryStats();
++    const operations = stats.blockOperationCounts.reduce((sum, n) => sum + n, 0);
++    assert.equal(stats.blockChunkCacheBytes, 128 * operations * 5
++      + cached.classes.slotPools.length * (domain.columns * domain.rows + 5));
++  }
++  for (const invalid of [-1, NaN, 0.5, '1', 2 ** 32]) {
++    assert.throws(() => createSlot64ResidualQuotientKernel(spec, { blockChunkPrefix: invalid }));
++  }
++});
++
++test('failed chunk interning cannot publish an unfinished blocking memo entry', () => {
++  const cached = createSlot64ResidualQuotientKernel(spec, { prefixClasses: 1, blockChunkPrefix: 128 }).kernel;
++  const reference = createSlot64ResidualQuotientKernel(spec, { prefixClasses: 1, blockChunkPrefix: 0 }).kernel;
++  const pool = cached.classes;
++  const before = pool.termIds(1);
++  const original = pool.slotPools.map(chunk => chunk.intern);
++  for (const chunk of pool.slotPools) chunk.intern = () => { throw Error('controlled chunk failure'); };
++  try { assert.throws(() => pool.blockTransition(1, 0), /controlled chunk failure/); }
++  finally { pool.slotPools.forEach((chunk, index) => { chunk.intern = original[index]; }); }
++  assert.deepEqual(pool.termIds(1), before);
++  const expected = reference.classes.blockTransition(1, 0), actual = pool.blockTransition(1, 0);
++  assert.deepEqual(pool.termIds(actual), reference.classes.termIds(expected));
++  const hits = pool.metrics.blockChunkCacheHits;
++  assert.equal(pool.blockTransition(1, 0), actual);
++  assert.ok(pool.metrics.blockChunkCacheHits > hits);
++});
++
+ test('reserved composed hashes reuse immutable local IDs across traversal and shared arena reset', () => {
+   const k = createSlot64ResidualQuotientKernel(spec, {
+     searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } }).kernel;

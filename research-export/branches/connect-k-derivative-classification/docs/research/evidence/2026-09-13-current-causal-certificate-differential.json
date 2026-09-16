@@ -1,0 +1,136 @@
+{
+  "kind": "current-causal-certificate-differential",
+  "generatedAt": "2026-09-13",
+  "attribution": {
+    "direction": "Josh Oshiro",
+    "formalization": "OpenAI ChatGPT"
+  },
+  "domain": {
+    "columns": 4,
+    "rows": 3,
+    "connect": 3,
+    "cells": 12,
+    "winningLines": 14
+  },
+  "graph": {
+    "states": 7157,
+    "terminalStates": 2526,
+    "nonterminalStates": 4631,
+    "rootValue": 1,
+    "rootPerfectP0TerminalLines": 14,
+    "wdlOracleAgreement": {
+      "forwardVsAlternatingFixedPointMismatches": 0,
+      "alternatingFixedPointPasses": 11
+    }
+  },
+  "geometryAutomorphisms": [
+    {"id": 0, "columnMap1Based": [1,2,3,4]},
+    {"id": 1, "columnMap1Based": [4,3,2,1]}
+  ],
+  "canonicalSignature": {
+    "valueSchema": "current-causal-certificate-value-v1",
+    "outputSchema": "current-causal-certificate-output-v1",
+    "semanticBase": "C4-0010 q = exact support + normalized P0/P1 residual antichains",
+    "includes": [
+      "W/D/L structural interval facts",
+      "CPC zero-reservation event count/controller on residual targets",
+      "WSL minimal residual antichains",
+      "NDC support guards for residual targets",
+      "temporal singleton obligations/response resources/slot collisions",
+      "paired-response one-sided bound premise"
+    ],
+    "outputProvenance": "output mode adds exact P0 residual -> original-line provenance; geometry isomorphism carries an original-line -> canonical-line transport map",
+    "extensionCoherence": "raw C4-0010 q and output-provenance q are checked for exact successor congruence; geometry merges are restricted to global support/winning-line automorphisms, whose renaming extends to every successor",
+    "valueCertificatePartitionMatchesC40010PlusGeometry": true,
+    "outputCertificatePartitionMatchesProvenanceQPlusGeometry": true,
+    "provenanceTieAmbiguities": 0,
+    "claimBoundary": "Only certificate premises derivable from q are folded into this canonical key. Non-derivable CPC/NDC/path-dependent certificates must extend identity or remain context-owned, as required by C4-0010."
+  },
+  "transitionControls": [
+    {"name":"c4-0010-value-q-transition-congruence","classes":3734,"mismatchClasses":0},
+    {"name":"output-provenance-q-transition-congruence","classes":4359,"mismatchClasses":0}
+  ],
+  "similarityControls": [
+    {
+      "name":"local-causal-descriptor-extension-coherence",
+      "classes":2151,
+      "mismatchClasses":4,
+      "smallestCounterexample":{
+        "metric":[5,10,277,306],
+        "a":{"id":277,"ply":5,"sideToMove":"P1","boardTopDown":["....","01..","01.0"],"exactValue":-1,"perfectP0TerminalLineIds":[]},
+        "b":{"id":306,"ply":5,"sideToMove":"P1","boardTopDown":["....",".1.0","01.0"],"exactValue":-1,"perfectP0TerminalLineIds":[]},
+        "aSuccessorSetSha256":"00ad31e02636671df30d980efa3bace7e7cfa3a0115f5c06c3e426aeb7497752",
+        "bSuccessorSetSha256":"6fac84c12cff516e2f356fe36f94b58156a8da015065643f9e633ff30d451944"
+      }
+    }
+  ],
+  "relations": [
+    {"name":"current-value-certificate-causal-isomorphism","classes":1879,"wdlMismatchClasses":0,"outputMismatchClasses":89},
+    {
+      "name":"c4-0010-value-quotient-raw","classes":3734,"wdlMismatchClasses":0,"outputMismatchClasses":172,
+      "smallestOutputCounterexample":{
+        "metric":[6,12,677,1131],
+        "a":{"id":677,"ply":6,"sideToMove":"P0","boardTopDown":["..1.","1.1.","0.00"],"exactValue":1,"perfectP0TerminalLineIds":[1,4,8,12]},
+        "b":{"id":1131,"ply":6,"sideToMove":"P0","boardTopDown":["..1.","0.1.","1.00"],"exactValue":1,"perfectP0TerminalLineIds":[4,8,12]}
+      }
+    },
+    {"name":"c4-0010-value-quotient-plus-geometry-isomorphism","classes":1879,"wdlMismatchClasses":0,"outputMismatchClasses":89},
+    {"name":"output-provenance-quotient-raw","classes":4359,"wdlMismatchClasses":0,"outputMismatchClasses":0},
+    {"name":"output-provenance-quotient-plus-geometry-isomorphism","classes":2188,"wdlMismatchClasses":0,"outputMismatchClasses":0},
+    {"name":"current-output-certificate-causal-isomorphism","classes":2188,"wdlMismatchClasses":0,"outputMismatchClasses":0},
+    {
+      "name":"wsl-antichain-without-support","classes":1804,"wdlMismatchClasses":9,"outputMismatchClasses":98,
+      "smallestWdlCounterexample":{
+        "metric":[7,14,1507,1656],
+        "a":{"id":1507,"ply":7,"sideToMove":"P1","boardTopDown":["1...","1.00","0.10"],"exactValue":1,"perfectP0TerminalLineIds":[3,8,10]},
+        "b":{"id":1656,"ply":7,"sideToMove":"P1","boardTopDown":["...1",".0.0","0101"],"exactValue":-1,"perfectP0TerminalLineIds":[]}
+      }
+    },
+    {
+      "name":"residual-cardinality-only","classes":812,"wdlMismatchClasses":94,"outputMismatchClasses":505,
+      "smallestWdlCounterexample":{
+        "metric":[3,6,21,37],
+        "a":{"id":21,"ply":3,"sideToMove":"P1","boardTopDown":["0...","1...","0..."],"exactValue":0,"perfectP0TerminalLineIds":[]},
+        "b":{"id":37,"ply":3,"sideToMove":"P1","boardTopDown":["....","0...","10.."],"exactValue":-1,"perfectP0TerminalLineIds":[]}
+      }
+    },
+    {
+      "name":"support-only","classes":135,"wdlMismatchClasses":112,"outputMismatchClasses":125,
+      "smallestWdlCounterexample":{
+        "metric":[3,6,22,37],
+        "a":{"id":22,"ply":3,"sideToMove":"P1","boardTopDown":["....","1...","00.."],"exactValue":1,"perfectP0TerminalLineIds":[1,3,4,5,6,8,10,12,14]},
+        "b":{"id":37,"ply":3,"sideToMove":"P1","boardTopDown":["....","0...","10.."],"exactValue":-1,"perfectP0TerminalLineIds":[]}
+      }
+    },
+    {
+      "name":"static-capacity-summary-without-resource-identity-or-order","classes":1474,"wdlMismatchClasses":40,"outputMismatchClasses":816,
+      "smallestWdlCounterexample":{
+        "metric":[3,6,27,28],
+        "a":{"id":27,"ply":3,"sideToMove":"P1","boardTopDown":["....","....","010."],"exactValue":-1,"perfectP0TerminalLineIds":[]},
+        "b":{"id":28,"ply":3,"sideToMove":"P1","boardTopDown":["....","....","01.0"],"exactValue":1,"perfectP0TerminalLineIds":[2,3,7,8,9,10,11,12,13,14]}
+      }
+    },
+    {"name":"local-causal-descriptor-multiset-without-extension-map","classes":2151,"wdlMismatchClasses":0,"outputMismatchClasses":1172}
+  ],
+  "structuralIntervalStats":{
+    "facts":3084,"exactFacts":2969,"oneSidedFacts":115,"mismatches":0,
+    "byInterval":{"[-1,1]":1547,"[1,1]":1814,"[-1,-1]":1147,"[-1,0]":115,"[0,0]":8}
+  },
+  "guardedRefinementAfterExactCausalQuotient":{
+    "theorem":"paired-response one-sided interval witness",
+    "physicalStates":122,
+    "c40010RawClasses":90,
+    "exactCausalClasses":46,
+    "genuineDecisionPhysicalStates":77,
+    "genuineDecisionC40010RawClasses":57,
+    "genuineDecisionExactCausalClasses":29,
+    "exactValueMismatches":0,
+    "decisionValueDistribution":{"side0:value0":23,"side0:value-1":54},
+    "conclusion":"The theorem remains a genuine context-preserving interval refinement after exact causal-isomorphism quotienting; it is not a state merge."
+  },
+  "historicalScratchCount":{
+    "remembered":"2023 -> 419 + 1604",
+    "status":"retired-unverified",
+    "reason":"The obsolete /tmp/c4diff.mjs abstraction is unavailable and the current differential uses different, explicit causal semantics. No current count was tuned toward or interpreted through the remembered numbers."
+  }
+}

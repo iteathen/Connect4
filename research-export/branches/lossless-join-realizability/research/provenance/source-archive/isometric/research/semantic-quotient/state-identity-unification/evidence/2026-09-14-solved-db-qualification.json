@@ -1,0 +1,72 @@
+{
+  "claim": "Qualification of this finite discovery implementation and reproducible counterexamples. No universal value theorem or production performance claim.",
+  "baseCommit": "10123b6fc41ef92d331b22b4d27a71a9887571ea",
+  "node": "v26.7.0",
+  "sourceFiles": [
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-solved-bdd-source.mjs",
+      "bytes": 4075,
+      "sha256": "ffc20c6c5230753df9c6703e2b7894447e7024017fefe8b35d004c78ca3fec7a"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery-signature.mjs",
+      "bytes": 6168,
+      "sha256": "4dd7951630d2413575b46ff32c8dbf520427b0a9738e46613cd4288f36e0d4b5"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-connect4-solved-db-structural-collision-audit.mjs",
+      "bytes": 10299,
+      "sha256": "493009cd55d43ebd95f66eded1af81ea5927faddb00c00fa43d486d689a0cd6d"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-solved-db-independent-control.mjs",
+      "bytes": 4567,
+      "sha256": "b24c966f3e34ce11b98dc5954be56ab6de1b57366810bf9655d4a6759b3557ce"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery.test.mjs",
+      "bytes": 4924,
+      "sha256": "c25301dee7119c7b55a0ff85ac54da65eabacd1c6955c7eb4174edee9c9fa175"
+    }
+  ],
+  "controls": {
+    "fullRepositoryTests": {
+      "command": "node --test",
+      "passed": 219,
+      "failed": 0
+    },
+    "finalFocusedTests": {
+      "command": "node --test research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery.test.mjs",
+      "passed": 9,
+      "failed": 0
+    },
+    "affineClause": {
+      "command": "node research/semantic-quotient/state-identity-unification/src/quotient-connect4-guarded-affine-clause-control.mjs",
+      "result": "PASS"
+    },
+    "discovery": {
+      "command": "node research/semantic-quotient/state-identity-unification/src/quotient-connect4-solved-db-structural-collision-audit.mjs <solution-directory> <output.json> 8192",
+      "positions": 30254,
+      "seconds": 87.1556223,
+      "budgetSeconds": 300
+    },
+    "independent": {
+      "command": "node research/semantic-quotient/state-identity-unification/src/quotient-solved-db-independent-control.mjs <solution-directory> <output.json> <independent.json>",
+      "representatives": 12,
+      "bookChecks": 10218
+    },
+    "repeat": {
+      "equalExceptElapsedTime": true,
+      "meaning": "Final fail-closed adapter/deadline checks preserve every previous result, signature, representative and source hash."
+    },
+    "serialization": {
+      "meaning": "Compact JSON round-trip preserves complete evidence object; independent checker rerun on final serialized bytes.",
+      "passed": true
+    }
+  },
+  "cleanup": {
+    "database": "retained externally; never committed",
+    "temporaryAnalysis": "superseded pilot/result copies and temporary test log removed after durable evidence validation",
+    "productionRootLaunched": false
+  }
+}

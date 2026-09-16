@@ -1,0 +1,56 @@
+{
+  "runs": [
+    {
+      "stage": "baseline",
+      "searchMs": 1940.0007,
+      "cpuMs": 2141,
+      "stateBytes": 6291456
+    },
+    {
+      "stage": "wide",
+      "searchMs": 1950.7498000000003,
+      "cpuMs": 2109,
+      "stateBytes": 6291456
+    },
+    {
+      "stage": "packed",
+      "searchMs": 1968.7154,
+      "cpuMs": 2172,
+      "stateBytes": 4194304
+    },
+    {
+      "stage": "packed",
+      "searchMs": 1861.431,
+      "cpuMs": 2000,
+      "stateBytes": 4194304
+    },
+    {
+      "stage": "wide",
+      "searchMs": 1864.9019,
+      "cpuMs": 2125,
+      "stateBytes": 6291456
+    },
+    {
+      "stage": "baseline",
+      "searchMs": 1830.6761000000001,
+      "cpuMs": 1984,
+      "stateBytes": 6291456
+    }
+  ],
+  "means": {
+    "packed": {
+      "searchMs": 1915.0732,
+      "cpuMs": 2086
+    },
+    "wide": {
+      "searchMs": 1907.8258500000002,
+      "cpuMs": 2117
+    },
+    "baseline": {
+      "searchMs": 1885.3384,
+      "cpuMs": 2062.5
+    }
+  },
+  "exactCountersMatch": true,
+  "elapsedMs": 13141.873300000001
+}

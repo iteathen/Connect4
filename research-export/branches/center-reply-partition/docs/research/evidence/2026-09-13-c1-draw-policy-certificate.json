@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "prototype": "reference/research-prototypes/2026-09-13-perfect-play-winline/c1_draw_policy_certificate.mjs",
+  "prototype_blob_sha": "a9eb87c3a479442db60c23f92070f1a7d3b1346c",
+  "purpose": "Qualify the structural decomposition of the known deterministic at-least-draw response policy after 1.C1 ...d1 using only Connect Four rules and that policy, without any perfect-play terminal-line classification.",
+  "geometry": {
+    "winning_lines": 69
+  },
+  "policy": {
+    "opening_one_based": [3, 4],
+    "p0_turn_states": 19936,
+    "p0_move_edges": 98896,
+    "p0_immediate_wins": 0,
+    "p1_terminal_wins": 2304,
+    "draw_terminal_states": 3,
+    "invalid_responses": 0
+  },
+  "certificate": {
+    "singleton_blocker_cells_one_based": [
+      [4,1],
+      [1,2],[2,2],[5,2],[6,2],[7,2],
+      [1,4],[2,4],[5,4],[6,4],[7,4],
+      [1,6],[2,6],[5,6],[6,6],[7,6]
+    ],
+    "singleton_covered_lines": 56,
+    "pair_blockers_one_based": [
+      [[3,3],[3,4]],
+      [[4,3],[4,4]],
+      [[3,3],[4,3]],
+      [[3,5],[4,5]]
+    ],
+    "pair_covered_additional_lines": 11,
+    "race_preempted_lines_one_based": [
+      [[4,3],[5,3],[6,3],[7,3]],
+      [[4,5],[5,5],[6,5],[7,5]]
+    ],
+    "race_preempted_count": 2,
+    "total_covered": 69
+  },
+  "race_lemmas": [
+    "If P0 owns D3 under the policy, P1 already owns D2. If P0 also owns E3,F3,G3, the above-response policy has already given P1 E2,F2,G2. Therefore a purported P0 D3-G3 completion is preempted by the earlier P1 D2-G2 completion.",
+    "If P0 owns D5 under the policy, P1 already owns D4. If P0 also owns E5,F5,G5, the above-response policy has already given P1 E4,F4,G4. Therefore a purported P0 D5-G5 completion is preempted by the earlier P1 D4-G4 completion."
+  ],
+  "interpretation": [
+    "The deterministic policy is total on every qualified nonterminal policy state and permits no P0 terminal win.",
+    "Static blocker coverage alone accounts for 67 of 69 geometric lines.",
+    "Exactly two remaining line obligations require temporal first-win/race reasoning rather than static ownership blockers.",
+    "This supplies a concrete witness that race-generated blockers/preemption are the missing ingredient beyond ordinary WSL subset coverage in this policy family."
+  ],
+  "non_claims": [
+    "This is not a perfect-play terminal-line classification.",
+    "This does not prove that the same compact certificate family is complete for the standard center-opening P0 win.",
+    "The exhaustive policy-state traversal is qualification evidence for the compact certificate, not the desired production proof mechanism."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "order": [
+    "baseline",
+    "candidate",
+    "candidate",
+    "baseline"
+  ],
+  "coldProcessPerRun": true,
+  "bounds": {
+    "columns": 7,
+    "rows": 6,
+    "connect": 4,
+    "depth": 8,
+    "timeoutMs": 60000
+  },
+  "baselineMs": 8396.88595,
+  "candidateMs": 2219.51305,
+  "wallReductionPercent": 73.56742650529866,
+  "baselineCpuMs": 8141,
+  "candidateCpuMs": 2351.5,
+  "cpuReductionPercent": 71.11534209556565,
+  "searchAndProofCountersMatch": true,
+  "candidateSearchStorageGrows": 0,
+  "baselineMeanSetupMs": 46.254599999999996,
+  "candidateMeanSetupMs": 47.24185000000001,
+  "baselineKernelTypedBytes": 84483847,
+  "candidateKernelTypedBytes": 91823879,
+  "maxBucketScan": [
+    5,
+    5,
+    5,
+    5
+  ],
+  "limitation": "Two cold runs per variant, alternating order; bounded local evidence, not a full-root performance claim.",
+  "runs": [
+    {
+      "variant": "baseline",
+      "root": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912",
+      "evidence": "1-baseline.json",
+      "searchMs": 8331.5267,
+      "cpuMs": 8078
+    },
+    {
+      "variant": "candidate",
+      "root": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit",
+      "evidence": "2-candidate.json",
+      "searchMs": 2243.0263,
+      "cpuMs": 2391
+    },
+    {
+      "variant": "candidate",
+      "root": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit",
+      "evidence": "3-candidate.json",
+      "searchMs": 2195.9998,
+      "cpuMs": 2312
+    },
+    {
+      "variant": "baseline",
+      "root": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\probe-baseline-20260912",
+      "evidence": "4-baseline.json",
+      "searchMs": 8462.245200000001,
+      "cpuMs": 8204
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "schema": "connect4-minimax-campaign-form-extensions-v1",
+  "forms": [
+    {
+      "id": "A123-COMPILED-U1U2-V1-REVERSE-INDEX",
+      "mechanism": "A10",
+      "label": "Compiled U1/U2 A1-A3 v1 with 625-way support-local reverse index",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-hot-positive-lifecycle-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_compiled_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; compiled hot median about 3.025x faster than dynamic"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_compiled_strong_stack.mjs","claim":"identical strong-stack nodes/checks/hits/cuts but catastrophic lifecycle cost from mostly-unique support programs and 625 reverse arrays"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-compiled-lifecycle.md"}
+      ]
+    },
+    {
+      "id": "A123-COMPILED-U1U2-V2-LIGHT",
+      "mechanism": "A10",
+      "label": "Compiled U1/U2 A1-A3 v2 lightweight useful-fragment program",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-warm-positive-cold-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_compiled_u1u2_light_micro.mjs","claim":"1800-state differential with zero mismatches; warm about 2.765x faster, cold about 19.5% slower than dynamic"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-compiled-lifecycle.md"}
+      ]
+    },
+    {
+      "id": "A123-DIRECT-U1U2-V3-NOCACHE",
+      "mechanism": "A10",
+      "label": "Direct no-cache U1/U2 A1-A3 fragment generation",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-cold-improved-still-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_direct_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; 12.446 ms direct median vs 9.350 ms dynamic and 16.037 ms cached-cold; removes per-support program cache but per-check fragment construction remains costly"}
+      ]
+    },
+    {
+      "id": "A123-GEOMETRY-U1U2-V4",
+      "mechanism": "A10",
+      "label": "Geometry-native fixed-scratch U1/U2 A1-A3 certificate",
+      "kind": "certificate-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-strong-distance-two-anchor",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_geometry_u1u2_micro.mjs","claim":"1800-state differential with zero mismatches; geometry-native 2.913 ms median vs 7.027 ms dynamic, 2.413x speedup"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/run_a123_geometry_strong_stack.mjs","claim":"preserves exact 823/825-node trees and certificate checks/hits/cuts; 823-node before-bound form is 15.1% faster than dynamic and only 2.17% slower than A123-off while reducing nodes 26.45%"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/a123_mq5_anchor.mjs","claim":"exact-distance cross preserves both frozen scores; A123-only cuts semantic-MQ5 nodes 29.11% on loss anchor and 23.61% on win anchor"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-a123-mq5-anchor-results.md","claim":"semantic MQ5 plus A123 reaches about 45.05% / 39.91% fewer nodes than the older compact board baseline on loss/win anchors"}
+      ]
+    },
+    {
+      "id": "MQ5-TYPED-OPENADDR-V1",
+      "mechanism": "FW",
+      "label": "Typed open-address exact semantic interning and transition caches",
+      "kind": "representation-runtime-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-repeated-two-anchor",
+      "evidence": [
+        {"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/residual_solver_wsl625_typed.mjs","claim":"full-record exact equality after open-address hash collisions for side and whole-state identity; typed mover/blocker cache containers"},
+        {"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/run_wsl625_typed.mjs","claim":"strict first-run parity for score, nodes, TT hits/writes, forced transitions, state counts, side counts and transition-cache cardinalities on both MQ5 anchors"},
+        {"ref":"solver/minimax-alpha-beta","path":"research/minimax/semantic-residual-mq5/run_wsl625_typed_repeated.mjs","claim":"7 alternating-order runs per anchor with first 2 warmups: 1.493x median speedup on loss anchor and 1.571x on win anchor with exact proof-tree parity every repetition"}
+      ],
+      "retained_failure": "First branch draft omitted full antichain normalization and singleton winning-count metadata; corrected before any benchmark result was accepted."
+    },
+    {
+      "id": "ZPAR-SINGLETON-PAIR-V1",
+      "mechanism": "ZPAR",
+      "label": "Conservative singleton-only odd/even threat parity classifier",
+      "kind": "strategic-terminalization-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-sampled-partial-one-class-unresolved",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/zpar_single_threat_exact.mjs","claim":"112 qualified exact 7x6 states across four observed singleton-threat classes and mirrors with zero mismatches; no pruning authority granted by harness"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/zpar_black_odd_census.mjs","claim":"2.16M-state targeted census found five WE_BO_diff classifiable cases; all were exact draws as predicted"},
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/zpar_black_odd_structure.mjs","claim":"1.44M-state structural census found 7,928 both-singleton Black-odd states and 3,441 White-odd/Black-odd pairs, but zero full different-column WO_BO_diff cases"}
+      ],
+      "retained_limitation": "Authority remains restricted to sampled classes under the strict predicate that each player has exactly one nonplayable singleton residual and no other surviving winning requirement. WO_BO_diff remains unresolved and non-authoritative; absence in census is not an impossibility proof."
+    },
+    {
+      "id": "U1-ALLIS-COMPAT-V1-INVALID",
+      "mechanism": "A10",
+      "label": "First U1 Test B generic Allis compatibility harness with missing claim descriptor plumbing",
+      "kind": "retained-invalid-construction",
+      "first_seen": "2026-09-11",
+      "test_state": "invalid-harness-form-not-candidate-verdict",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_testb_allis_compatibility.mjs","claim":"failed before candidate evidence because descriptor computed claims but omitted them from returned structure"}]
+    },
+    {
+      "id": "U1-ALLIS-COMPAT-V2-STRICT",
+      "mechanism": "A10",
+      "label": "U1 Test B type-blind compatibility with strict overlap exclusion",
+      "kind": "strategic-compatibility-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-incomplete-form",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_testb_allis_compatibility_v2_runner.mjs","claim":"695,232 pair differential; 10,938 false negatives, all isolated to A5/A6 with A1 claim-inverse boundary sharing"}]
+    },
+    {
+      "id": "U1-ALLIS-COMPAT-V3",
+      "mechanism": "A10",
+      "label": "U1 Test B type-blind compatibility with event-interval claim/inverse boundary sharing",
+      "kind": "strategic-compatibility-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-sampled-complete-over-allis-allowed-extras-unresolved",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/u1_testb_allis_compatibility_v3_runner.mjs","claim":"695,232 rule-pair comparisons; all 359,512 Allis-table-allowed pairs accepted with zero false negatives; 82,367 additional generic overlap pairs remain diagnostic-only"}],
+      "retained_limitation": "Generic-extra compatibility has not been proven sound and cannot authorize A10 proof composition. Conservative Allis section 7.4 compatibility remains proof authority."
+    },
+    {
+      "id": "IMPL-RID-SIG4",
+      "mechanism": "IMPL",
+      "label": "RID implication frontier with four conservative 32-bit rejection signatures",
+      "kind": "proof-reuse-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-cost-improved-still-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/impl_rid_signature_prefilter.mjs","claim":"preserves score, expanded states, dominance hits and frontier; on 4x5 rejects 84.64% of full RID closure checks and is about 1.23x faster than unfiltered closure, but remains slower than no-IMPL baseline"}
+      ]
+    },
+    {
+      "id": "IMPL-RID-INDEX8",
+      "mechanism": "IMPL",
+      "label": "RID implication frontier with conservative 8-bit support-local signature index",
+      "kind": "proof-reuse-implementation-form",
+      "first_seen": "2026-09-11",
+      "test_state": "qualified-exact-index-improved-still-negative-form",
+      "evidence": [
+        {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/impl_rid_index8.mjs","claim":"preserves exact frontier and proof work; on 4x5 cuts candidate visits 24.2% and improves wall about 1.07x vs raw closure / 1.09x vs signature-only run, but remains far slower than no-IMPL baseline"}
+      ]
+    },
+    {
+      "id": "DEAD-POOLED-V1-INVALID-TT",
+      "mechanism": "DEAD",
+      "label": "First pooled-neutral DEAD construction with invalid exact TT authority after cutoffs",
+      "kind": "retained-invalid-construction",
+      "first_seen": "2026-09-11",
+      "test_state": "invalid-harness-form-not-candidate-verdict",
+      "evidence": [{"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/dead_neutral_exact.mjs","claim":"retained failed construction; replaced by interval-TT v2 before any DEAD result was accepted"}]
+    }
+  ],
+  "evidence_augmentations": {
+    "A123-DEAD-PHYSICAL-RESTORE": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/allis_dead_strong_stack.mjs"}
+    ],
+    "COMPOSITION-STRONG-SERIAL": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/composition_semantic_edges.mjs","claim":"crossed semantic-edge harness for interaction/saturation effects"}
+    ],
+    "SEWB-EVENT-NATIVE": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_micro.mjs"},
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/sewb_event_native_search.mjs"}
+    ],
+    "A123-GEOMETRY-U1U2-V4": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-typed-a123-joint.md","claim":"typed+A123 preserves the full 29.11% / 23.61% proof reduction but is 3.88% / 13.96% slower than typed-only on the frozen loss/win anchors in the tested decision-stage form"}
+    ],
+    "MQ5-TYPED-OPENADDR-V1": [
+      {"ref":"work/minimax-candidate-composition-20260911","path":"research/minimax/composition-campaign/2026-09-11-typed-a123-joint.md","claim":"typed exact containers retain 1.381x / 1.300x speedup versus Map+A123 on identical A123 proof trees with exact state/TT/transition parity"}
+    ]
+  },
+  "observed_relations": [
+    {"source":"A123-U1-ROLE-DYNAMIC","target":"A123-DIRECT-U1U2-V3-NOCACHE","effect":"substitutive-mixed","mechanism":"lifecycle-cost","state":"observed","note":"removes cold support-cache cost but remains slower than dynamic due per-check fragment construction"},
+    {"source":"U1-EVENT-RANK","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"representation-simplification","state":"observed","note":"standard 7x6 row-parity ownership permits static singleton/pair blocker geometry and removes runtime owner arithmetic/ID lookup"},
+    {"source":"A123-DIRECT-U1U2-V3-NOCACHE","target":"A123-GEOMETRY-U1U2-V4","effect":"positive","mechanism":"cost","state":"observed","note":"fixed geometry and scratch arrays change direct generation from slower than dynamic to 2.41x faster in the differential micro and near-break-even in full strong stack"},
+    {"source":"MQ5-WSL625-U16","target":"A123-GEOMETRY-U1U2-V4","effect":"strong-positive","mechanism":"proof-volume-composition","state":"observed","note":"A123 removes 29.11% / 23.61% of remaining semantic-MQ5 nodes on frozen loss/win exact-distance anchors while preserving exact scores"},
+    {"source":"EXH","target":"A123-GEOMETRY-U1U2-V4","effect":"saturated-near-zero","mechanism":"proof-overlap","state":"observed","note":"EXH alone is slightly adverse on both MQ5 anchors and adds negligible node reduction when A123 is active"},
+    {"source":"MQ5-WSL625-U16","target":"MQ5-TYPED-OPENADDR-V1","effect":"strong-positive","mechanism":"runtime-container-cost","state":"observed","note":"typed exact interning/caches preserve the identical MQ5 proof tree and deliver 1.493x / 1.571x repeated median speedup on frozen loss/win anchors"},
+    {"source":"MQ5-TYPED-EXACT-INTERN","target":"MQ5-TYPED-OPENADDR-V1","effect":"realized-positive-form","mechanism":"implementation","state":"observed","note":"active typed-interning hypothesis is realized by an exact open-address implementation with repeated timing evidence"},
+    {"source":"U1-EVENT-RANK","target":"U1-ALLIS-COMPAT-V3","effect":"positive","mechanism":"compatibility-abstraction","state":"observed","note":"event-interval claim/inverse boundary sharing removes every sampled false negative against Allis-allowed compatibility without rule-type exceptions"},
+    {"source":"RID","target":"IMPL-RID-SIG4","effect":"positive","mechanism":"cost-filter","state":"observed","note":"conservative RID signatures reject most impossible exact closure checks without changing proof authority"},
+    {"source":"IMPL-RID-SIG4","target":"IMPL-RID-INDEX8","effect":"regime-dependent-positive","mechanism":"candidate-indexing","state":"observed","note":"8-bit grouping reduces candidate visits and helps 4x5, but group traversal overhead loses or ties on smaller controls"},
+    {"source":"MQ5-TYPED-OPENADDR-V1","target":"A123-GEOMETRY-U1U2-V4","effect":"proof-positive-runtime-negative","mechanism":"saturation-cost","state":"observed","note":"under typed MQ5, geometry A123 keeps the exact 29.11% / 23.61% node cuts but raises repeated median wall time by about 3.88% / 13.96%; typed containers remain 1.381x / 1.300x faster than Map+A123 on the identical reduced trees"}
+  ]
+}

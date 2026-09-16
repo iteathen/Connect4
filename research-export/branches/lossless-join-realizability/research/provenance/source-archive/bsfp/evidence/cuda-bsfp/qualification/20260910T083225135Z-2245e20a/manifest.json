@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T08:32:27.526Z",
+  "files": [
+    {
+      "relativePath": "cases/01-7x6-c4/admission.json",
+      "sha256": "80b38f83b077b550f60dc188de7f03f2b5eb9285b83bac9a44590deca5b484cf",
+      "sourceBytes": 504,
+      "publishedBytes": 504,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-7x6-c4/case.json",
+      "sha256": "663525484170e138b1923ba5d312804eea5f7bfcc92bf806cb09c9634273553b",
+      "sourceBytes": 495,
+      "publishedBytes": 495,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-7x6-c4/packed-dominance-throughput/result.json",
+      "sha256": "63170a07a78fb730ccc9163f84aeeab73a3c4f83c49ae1de859463a6462dc1c3",
+      "sourceBytes": 1755,
+      "publishedBytes": 1755,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-7x6-c4/packed-dominance-throughput/stderr.log",
+      "sha256": "84d0717da6f2d666ba775293e31ba30cf9968472db5806de75c1a824002c601e",
+      "text": "(node:10368) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:10368) ExperimentalWarning: FFI is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "sourceBytes": 332,
+      "publishedBytes": 332,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-7x6-c4/packed-dominance-throughput/stdout.log",
+      "sha256": "eae1911654bc034a56a8b338035e6942bb4b0ed0ebb905fae82be9cb670053f6",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"kind\": \"connect4-cuda-bsfp-packed-ownership-dominance-42-benchmark\",\n  \"mode\": \"native\",\n  \"outcome\": \"native-packed-dominance-pass\",\n  \"planContract\": \"Connect4-CUDA-BSFP-packed-ownership-dominance-42-benchmark-v0\",\n  \"fixture\": \"full-scan-no-hit-bit41\",\n  \"candidateCount\": 1048576,\n  \"frontierCount\": 568,\n  \"totalSubsetChecksPerMeasuredPass\": 595591168,\n  \"warmups\": 1,\n  \"repetitions\": 5,\n  \"timingsMs\": {\n    \"compileLoadPrepare\": 731.296,\n    \"allocation\": 3.788400000000138,\n    \"upload\": 8.089500000000044,\n    \"submissionWait\": {\n      \"min\": 14.605699999999842,\n      \"median\": 16.84880000000021,\n      \"mean\": 16.188760000000048,\n      \"max\": 17.221500000000106\n    },\n    \"rawSubmissionWaitSamples\": [\n      15.389799999999923,\n      16.84880000000021,\n      16.878000000000156,\n      14.605699999999842,\n      17.221500000000106\n    ],\n    \"readback\": 9.369599999999991,\n    \"verification\": 20.454299999999876,\n    \"fixture\": 6.315300000000093,\n    \"runtimeOpen\": 634.4244000000001,\n    \"processToResult\": 1515.6748000000002\n  },\n  \"throughput\": {\n    \"candidatesPerSecondMedian\": 62234461.80143315,\n    \"subsetChecksPerSecondMedian\": 35349174303.21403,\n    \"u32LaneSubsetOpsPerSecondMedian\": 70698348606.42805\n  },\n  \"devicePayloadBytes\": 16781760,\n  \"observedSubsetChecks\": 595591168,\n  \"dominatedCount\": 0\n}\n",
+      "sourceBytes": 1352,
+      "publishedBytes": 1352,
+      "truncated": false
+    },
+    {
+      "relativePath": "cases/01-7x6-c4/result.json",
+      "sha256": "977243019c71f115ffa5504892d2616378cdfcd7f85c837409cd0590ca04c7ec",
+      "sourceBytes": 3966,
+      "publishedBytes": 3966,
+      "truncated": false
+    },
+    {
+      "relativePath": "events.jsonl",
+      "sha256": "04f1215675176fac4142f28fd6488b972d4e84a0ee04fcb5eda16338b8b20e77",
+      "sourceBytes": 1503,
+      "publishedBytes": 1503,
+      "truncated": false
+    },
+    {
+      "relativePath": "results.json",
+      "sha256": "80d857d93776e31e5bc1f05cbe4315b6f83da4ef7e499441706ec8b1f66fcdea",
+      "sourceBytes": 4586,
+      "publishedBytes": 4586,
+      "truncated": false
+    },
+    {
+      "relativePath": "summary.md",
+      "sha256": "4225e5d4661270ca914a628d275c56f6ada4fe216c989a5aa90d11df1233c6d0",
+      "sourceBytes": 856,
+      "publishedBytes": 856,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.json",
+      "sha256": "1df0b0b4e5a8221e01019861534c2908343b2ccc1faefe276c006db2d4360542",
+      "sourceBytes": 2190,
+      "publishedBytes": 2190,
+      "truncated": false
+    },
+    {
+      "relativePath": "system.preflight.json",
+      "sha256": "1df0b0b4e5a8221e01019861534c2908343b2ccc1faefe276c006db2d4360542",
+      "sourceBytes": 2190,
+      "publishedBytes": 2190,
+      "truncated": false
+    }
+  ]
+}
