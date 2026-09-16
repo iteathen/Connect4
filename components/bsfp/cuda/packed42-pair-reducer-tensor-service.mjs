@@ -138,6 +138,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
   const overflowExecutor = options.overflowExecutor ?? 'packed';
   if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('overflowExecutor must be tensor or packed');
   const packedStrategy = options.packedStrategy ?? SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED;
+  const pairStrategy = options.pairStrategy ?? SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED;
   if (![SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.LEGACY, SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY.BUCKETED].includes(packedStrategy)) throw new RangeError('Unsupported packed recovery strategy');
   const primaryLimits = Object.freeze({
     segmentCapacity: positiveSafeInteger(options.segmentCapacity ?? 256, 'segmentCapacity'),
@@ -150,7 +151,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
   const outputElements = safeProduct(primaryLimits.segmentCapacity, primaryLimits.outputCapacityPerSegment, 'GPU pair reducer output slab');
   const overflowOutputCapacityPerSegment = Math.min(outputElements, primaryLimits.candidateCapacity);
   const limits = Object.freeze({ ...primaryLimits, overflowOutputCapacityPerSegment });
-  const plan = await createSegmentedPackedPairAntichain42Plan(runtime, primaryLimits);
+  const plan = await createSegmentedPackedPairAntichain42Plan(runtime, { ...primaryLimits, strategy: pairStrategy });
   let overflowPlan = null;
   if (overflowExecutor === 'packed' && overflowOutputCapacityPerSegment > primaryLimits.outputCapacityPerSegment) {
     try {
@@ -187,9 +188,10 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
   const checks = await allocateU32(runtime, limits.candidateCapacity, 'write');
   allocations.push(leftLo, leftHi, rightLo, rightHi, leftOffsets, rightOffsets, candidateOffsets, segmentDirections, candidateLo, candidateHi, candidatePopcount, generationStatus, outputLo, outputHi, outputCounts, outputStatus, checks);
   const bucketBindings = {};
-  if (overflowPlan?.bucketMetaElements) {
+  const bucketMetaElements = Math.max(plan.bucketMetaElements, overflowPlan?.bucketMetaElements ?? 0);
+  if (bucketMetaElements) {
     for (const [key, count] of Object.entries({ bucketIndices: limits.candidateCapacity,
-      bucketCounts: overflowPlan.bucketMetaElements, bucketOffsets: overflowPlan.bucketMetaElements, bucketCursors: overflowPlan.bucketMetaElements })) {
+      bucketCounts: bucketMetaElements, bucketOffsets: bucketMetaElements, bucketCursors: bucketMetaElements })) {
       const allocation = await allocateU32(runtime, count);
       allocations.push(allocation);
       bucketBindings[key] = allocation.view;
@@ -359,6 +361,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
       candidatePopcount: candidatePopcount.view, generationStatus: generationStatus.view,
       outputLo: outputLo.view, outputHi: outputHi.view, outputCounts: outputCounts.view,
       outputStatus: outputStatus.view, checks: checks.view,
+      ...(plan.bucketMetaElements ? bucketBindings : {}),
     });
     try {
       const terminal = await operation.wait();
@@ -425,7 +428,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
       for (const batch of batches) await executeBatch(batch, results);
       return Object.freeze(results);
     },
-    snapshotStats() { return Object.freeze({ ...stats, overflowExecutor, packedStrategy, activeBatch: stats.activeBatch ? { ...stats.activeBatch } : null, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },
+    snapshotStats() { return Object.freeze({ ...stats, overflowExecutor, packedStrategy, pairStrategy, activeBatch: stats.activeBatch ? { ...stats.activeBatch } : null, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },
     async close() {
       if (closed) return;
       closed = true;

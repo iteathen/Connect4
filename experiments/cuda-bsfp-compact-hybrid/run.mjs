@@ -256,6 +256,30 @@ async function reduceIntersectionStages(pending, reducer, metrics) {
         item.intersection = Object.freeze([]);
         continue;
       }
+      const direction = item.mover === 0 ? SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MAXIMAL : SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL;
+      const limits = reducer.limits;
+      if (limits && (item.intersection.length > limits.leftCapacity || right.length > limits.rightCapacity
+        || item.intersection.length * right.length > limits.candidateCapacity)) {
+        // Intersection is a union of disjoint Cartesian rectangles. Normalize
+        // each rectangle on CUDA, then take the exact minimal/maximal union.
+        // Keep the parent private until ALL rectangles have completed.
+        const left = item.intersection;
+        let combined = Object.freeze([]);
+        metrics.tiledIntersections++;
+        for (const tile of partitionIntersection(left, right, limits)) {
+          const started = performance.now();
+          const [frontier] = await reducer.reduce([{ ...tile, direction,
+            context: { supportIndex: item.supportIndex, stage, rank: metrics.activeRank, tile: metrics.intersectionTiles } }]);
+          metrics.gpuPairReduceWallMs += performance.now() - started;
+          const mergeStarted = performance.now();
+          combined = direction === SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL
+            ? normalizeMinimal([...combined, ...frontier]) : normalizeMaximal([...combined, ...frontier]);
+          metrics.tiledMergeMs += performance.now() - mergeStarted;
+          metrics.intersectionTiles++;
+        }
+        item.intersection = combined;
+        continue;
+      }
       jobs.push({
         left: item.intersection,
         right,
@@ -272,6 +296,21 @@ async function reduceIntersectionStages(pending, reducer, metrics) {
       for (let i = 0; i < results.length; i += 1) owners[i].intersection = results[i];
     }
     stage += 1;
+  }
+}
+
+export function* partitionIntersection(left, right, limits) {
+  for (const key of ['leftCapacity', 'rightCapacity', 'candidateCapacity']) {
+    if (!Number.isSafeInteger(limits[key]) || limits[key] < 1) throw new RangeError('Invalid intersection tile capacity');
+  }
+  if (!left.length || !right.length) return;
+  if (!Number.isSafeInteger(left.length * right.length)) throw new RangeError('Intersection pair count exceeds exact integer range');
+  const rightWidth = Math.min(right.length, limits.rightCapacity, Math.max(1, Math.floor(Math.sqrt(limits.candidateCapacity))));
+  const leftWidth = Math.min(left.length, limits.leftCapacity, Math.floor(limits.candidateCapacity / rightWidth));
+  for (let a = 0; a < left.length; a += leftWidth) {
+    for (let b = 0; b < right.length; b += rightWidth) {
+      yield { left: left.slice(a, a + leftWidth), right: right.slice(b, b + rightWidth) };
+    }
   }
 }
 
@@ -313,13 +352,16 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
     processedSupports: 0,
     reflectedChildLookups: 0,
     reflectedChildRecords: 0,
+    tiledIntersections: 0,
+    intersectionTiles: 0,
+    tiledMergeMs: 0,
     rankSummaries: [],
     activeRank: null,
     activeShardStart: null,
   };
   const solveStarted = performance.now();
   const cpuStarted = process.cpuUsage();
-  const reportProgress = () => { if (progress) console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, cpuMicroseconds: process.cpuUsage(cpuStarted), activeRank: metrics.activeRank, activeShardStart: metrics.activeShardStart, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, gpuReducer: reducer.snapshotStats() })); };
+  const reportProgress = () => { if (progress) console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, cpuMicroseconds: process.cpuUsage(cpuStarted), activeRank: metrics.activeRank, activeShardStart: metrics.activeShardStart, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, tiledIntersections: metrics.tiledIntersections, intersectionTiles: metrics.intersectionTiles, tiledMergeMs: metrics.tiledMergeMs, gpuReducer: reducer.snapshotStats() })); };
   const progressTimer = progress ? setInterval(reportProgress, 5000) : null;
   progressTimer?.unref();
   let childRank = new Map();
@@ -412,6 +454,8 @@ export function readCompactHybridOptions(env = process.env) {
   const overflowExecutor = env.BSFP_HYBRID_OVERFLOW_EXECUTOR ?? 'packed';
   if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('BSFP_HYBRID_OVERFLOW_EXECUTOR must be tensor or packed');
   const packedStrategy = env.BSFP_HYBRID_PACKED_STRATEGY ?? 'bucketed-cardinality-v0';
+  const pairStrategy = env.BSFP_HYBRID_PAIR_STRATEGY ?? 'bucketed-cardinality-v0';
+  if (!['legacy-43-phase-scan', 'bucketed-cardinality-v0'].includes(pairStrategy)) throw new RangeError('Unsupported BSFP_HYBRID_PAIR_STRATEGY');
   if (!['legacy-43-phase-scan', 'bucketed-cardinality-v0'].includes(packedStrategy)) throw new RangeError('Unsupported BSFP_HYBRID_PACKED_STRATEGY');
   if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
   if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
@@ -435,6 +479,7 @@ export function readCompactHybridOptions(env = process.env) {
       tensorBackend,
       overflowExecutor,
       packedStrategy,
+      pairStrategy,
     },
   };
 }
@@ -495,6 +540,9 @@ async function main() {
         structuralPrepareMs: solved.metrics.structuralPrepareMs,
         gpuPairReduceWallMs: solved.metrics.gpuPairReduceWallMs,
         finalizeMs: solved.metrics.finalizeMs,
+        tiledIntersections: solved.metrics.tiledIntersections,
+        intersectionTiles: solved.metrics.intersectionTiles,
+        tiledMergeMs: solved.metrics.tiledMergeMs,
       },
       frontiers: {
         totalBoundaryRecords: solved.metrics.totalBoundaryRecords,

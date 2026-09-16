@@ -79,7 +79,7 @@ function p2Estimate(spec) {
   const offsetBytes = (P2_SEGMENT_CAPACITY + 1n) * 4n * 3n;
   const statusBytes = P2_SEGMENT_CAPACITY * 4n * 4n;
   const baseDevicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
-  const packedOverflowBucketBytes = P2_CANDIDATE_CAPACITY * 4n + 43n * 4n * 3n;
+  const packedOverflowBucketBytes = P2_CANDIDATE_CAPACITY * 4n + 43n * P2_SEGMENT_CAPACITY * 4n * 3n;
   const devicePayloadBytes = baseDevicePayloadBytes + packedOverflowBucketBytes;
   // Preserve the existing conservative admission ceiling. The new packed
   // scratch is covered by its headroom, not by increasing a safety limit.
@@ -296,7 +296,13 @@ const BUCKET_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-overflow-bucket
       expected: r => replayPass(r, ['packed', 'bucketed']) }));
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [BUCKET_REPLAY.id, BUCKET_REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
+const PAIR_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-pair-bucketed-replay',
+  steps(spec, repositoryRoot) {
+    return REPLAY.steps(spec, repositoryRoot).map(step => ({ ...step, args: [...step.args, 'pair-bucketed'],
+      expected: r => replayPass(r, ['bucketed', 'allbucketed']) }));
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [BUCKET_REPLAY.id, BUCKET_REPLAY], [PAIR_REPLAY.id, PAIR_REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

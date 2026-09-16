@@ -99,9 +99,17 @@ The ordinary batched path retains a 1,024-record per-segment survivor capacity. 
 
 Host deduplication removes equal masks within a cardinality phase. Tensor compares against earlier accepted cardinalities. Recovery counts, maximum recovered frontier and Tensor run timings are observations, not an independent correctness proof.
 
-Packed recovery now selects the existing B2 `bucketed-cardinality-v0` strategy after matched real-input qualification. `BSFP_HYBRID_PACKED_STRATEGY=legacy-43-phase-scan` retains the baseline. B3's quadratic duplicate-first scan is not promoted. Ordinary batched generation/normalization remains unchanged. Bucketed recovery adds one 4,194,304-element u32 index lane and three 43-element metadata lanes: 16,777,732 bytes. No candidate/frontier capacity or memory-policy limit increases. P2's existing 543,169,548-byte conservative admission bound still covers the sequential callable gate and solver: the solver packed payload is 90,185,232 bytes; even two resident replay services plus one 64 MiB resolved workspace and the 256 MiB runtime allowance total at most 515,914,784 bytes.
+Packed recovery and ordinary batch normalization now select the existing B2 `bucketed-cardinality-v0` strategy after separate matched real-input qualification. `BSFP_HYBRID_PACKED_STRATEGY=legacy-43-phase-scan` and `BSFP_HYBRID_PAIR_STRATEGY=legacy-43-phase-scan` independently retain the baselines. B3's quadratic duplicate-first scan is not promoted. Candidate generation remains unchanged. The two sequential normalization plans reuse one 4,194,304-element u32 index lane and three 43×256-element metadata lanes: 16,909,312 bytes. No candidate/frontier capacity or memory-policy limit increases. P2's existing 543,169,548-byte conservative admission bound still covers the sequential callable gate and solver: the solver packed payload is 90,316,812 bytes; even two resident replay services plus one 64 MiB resolved workspace and the 256 MiB runtime allowance total at most 516,177,944 bytes.
 
 Q1 `c4-0009-p2-overflow-bucketed-replay` reuses the captured-input/independent-oracle gate to compare legacy packed against bucketed packed with the same warmup, repetition, output-capacity and cleanup requirements. This selects an existing experimental P2 mechanism; it does not implement or adopt the proposed scalable CUDA-Algorithms #11 API.
+
+Q1 `c4-0009-p2-pair-bucketed-replay` holds bucketed recovery fixed and compares ordinary legacy vs ordinary bucketed batch normalization on the same operands.
+
+### Intersections larger than a batch
+
+A support's universal intersection may exceed a physical input or candidate arena. P2 partitions its complete Cartesian domain into disjoint rectangles that each satisfy the unchanged input and candidate bounds. CUDA computes each tile's exact antichain. The P2 host combines those results by its existing exact minimal/maximal union normalization; this is valid because normalization of a union of normalized subsets equals normalization of the full union. A parent is not finalized or published until all tiles have completed. No rectangle is omitted and no oversized allocation is attempted.
+
+This extends the existing transitional P2 host boundary; it is not a device-resident production claim. Progress reports tiled intersection/tile counts and host merge wall time separately. Tests enforce tiny arenas on the actual recurrence and compare every frontier in both polarities against the full-domain reference.
 
 ### Crash-safe measurements and real-overflow replay
 

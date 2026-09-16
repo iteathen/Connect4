@@ -1,6 +1,7 @@
 import { compileDeviceProgram, inspectDeviceViewRelation } from 'cuda-js';
 
 import { segmentedPackedAntichain42DeviceProgram } from './segmented-packed-antichain-42-program.mjs';
+import { SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY as STRATEGY } from './segmented-packed-antichain-42-plan.mjs';
 
 const U32_BYTES = 4;
 const U32_MAX = 0xffff_ffff;
@@ -66,13 +67,17 @@ export async function createSegmentedPackedPairAntichain42Plan(runtime, options 
   const blockSize = boundedPositive(options.blockSize ?? 256, 'blockSize');
   if (blockSize > CUDA_THREAD_BLOCK_CEILING) throw new RangeError('blockSize exceeds CUDA architectural thread-block ceiling');
   const outputElements = safeProduct(segmentCapacity, outputCapacityPerSegment, 'segmented output');
+  const strategy = options.strategy ?? STRATEGY.LEGACY;
+  if (![STRATEGY.LEGACY, STRATEGY.BUCKETED].includes(strategy)) throw new RangeError('Unsupported pair normalization strategy');
+  const bucketed = strategy === STRATEGY.BUCKETED;
+  const bucketMetaElements = bucketed ? safeProduct(segmentCapacity, 43, 'bucket metadata') : 0;
 
   const compiled = await compileDeviceProgram(runtime, segmentedPackedAntichain42DeviceProgram);
   const artifact = compiled.linker?.artifact ?? compiled.compiler?.artifact;
   if (!artifact || (artifact.format !== 'ptx' && artifact.format !== 'cubin')) throw new Error(`unexpected executable artifact format: ${artifact?.format ?? 'missing'}`);
   const module = await runtime.loadModule({ format: artifact.format, bytes: artifact.bytes });
   const generateKernel = kernelByName(compiled, 'generateSegmentPairCandidatesPacked42');
-  const normalizeKernel = kernelByName(compiled, 'normalizeSegmentPacked42');
+  const normalizeKernel = kernelByName(compiled, bucketed ? 'normalizeSegmentPacked42Bucketed' : 'normalizeSegmentPacked42');
   const generate = await module.getFunction({ name: generateKernel.functionName, parameters: generateKernel.parameters });
   const normalize = await module.getFunction({ name: normalizeKernel.functionName, parameters: normalizeKernel.parameters });
 
@@ -111,6 +116,7 @@ export async function createSegmentedPackedPairAntichain42Plan(runtime, options 
       arguments: [
         binding('candidateLo'), binding('candidateHi'), binding('candidatePopcount'), binding('candidateOffsets'), binding('segmentDirections'),
         binding('outputLo'), binding('outputHi'), binding('outputCounts'), binding('outputStatus'), binding('checks'),
+        ...(bucketed ? ['bucketIndices', 'bucketCounts', 'bucketOffsets', 'bucketCursors'].map(binding) : []),
         candidateCapacity, segmentCapacity, outputCapacityPerSegment,
       ],
       accesses: [
@@ -124,6 +130,10 @@ export async function createSegmentedPackedPairAntichain42Plan(runtime, options 
         { argumentIndex: 7, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
         { argumentIndex: 8, byteOffset: 0, byteLength: segmentCapacity * U32_BYTES, mode: 'read-write' },
         { argumentIndex: 9, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'write' },
+        ...(bucketed ? [
+          { argumentIndex: 10, byteOffset: 0, byteLength: candidateCapacity * U32_BYTES, mode: 'read-write' },
+          ...[11, 12, 13].map(argumentIndex => ({ argumentIndex, byteOffset: 0, byteLength: bucketMetaElements * U32_BYTES, mode: 'read-write' })),
+        ] : []),
       ],
     },
   ] });
@@ -140,6 +150,8 @@ export async function createSegmentedPackedPairAntichain42Plan(runtime, options 
     segmentCapacity,
     outputCapacityPerSegment,
     outputElements,
+    strategy,
+    bucketMetaElements,
     blockSize,
     async submit(bindings) {
       if (closed) throw new Error('segmented packed pair antichain plan is closed');
@@ -162,6 +174,10 @@ export async function createSegmentedPackedPairAntichain42Plan(runtime, options 
         outputStatus: requireU32View(bindings?.outputStatus, segmentCapacity, 'outputStatus', 'read-write'),
         checks: requireU32View(bindings?.checks, candidateCapacity, 'checks', 'write'),
       };
+      if (bucketed) {
+        normalized.bucketIndices = requireU32View(bindings?.bucketIndices, candidateCapacity, 'bucketIndices', 'read-write');
+        for (const key of ['bucketCounts', 'bucketOffsets', 'bucketCursors']) normalized[key] = requireU32View(bindings?.[key], bucketMetaElements, key, 'read-write');
+      }
       rejectWriteConflicts([
         { label: 'leftLo', view: normalized.leftLo, access: 'read' }, { label: 'leftHi', view: normalized.leftHi, access: 'read' },
         { label: 'rightLo', view: normalized.rightLo, access: 'read' }, { label: 'rightHi', view: normalized.rightHi, access: 'read' },
@@ -172,6 +188,7 @@ export async function createSegmentedPackedPairAntichain42Plan(runtime, options 
         { label: 'outputLo', view: normalized.outputLo, access: 'write' }, { label: 'outputHi', view: normalized.outputHi, access: 'write' },
         { label: 'outputCounts', view: normalized.outputCounts, access: 'write' }, { label: 'outputStatus', view: normalized.outputStatus, access: 'write' },
         { label: 'checks', view: normalized.checks, access: 'write' },
+        ...(bucketed ? ['bucketIndices', 'bucketCounts', 'bucketOffsets', 'bucketCursors'].map(label => ({ label, view: normalized[label], access: 'write' })) : []),
       ]);
       return prepared.submit({ bindings: normalized });
     },

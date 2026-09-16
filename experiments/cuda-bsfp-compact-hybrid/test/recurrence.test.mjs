@@ -1,9 +1,46 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { cofactorUpward, cofactorDownward, readCompactHybridOptions, solveCompactHybrid, reflectPacked42, reflectSupportIndex } from '../run.mjs';
+import { cofactorUpward, cofactorDownward, readCompactHybridOptions, solveCompactHybrid, reflectPacked42, reflectSupportIndex, partitionIntersection } from '../run.mjs';
 import { createBsfpSupportLatticeProfile } from '../../../components/bsfp/support-lattice.mjs';
 import { createReferenceReducer, createFrontierObserver } from '../qualification.mjs';
 import { normalizeMinimalOwnershipAntichain, normalizeMaximalOwnershipAntichain } from '../../../components/bsfp/ownership-antichain-solver.mjs';
+
+test('oversized intersections tile the complete Cartesian domain exactly once', () => {
+  const left = Array.from({ length: 31 }, (_, i) => i);
+  const right = Array.from({ length: 17 }, (_, i) => i + 100);
+  for (const limits of [{ leftCapacity: 3, rightCapacity: 5, candidateCapacity: 7 }, { leftCapacity: 9, rightCapacity: 2, candidateCapacity: 19 }]) {
+    const pairs = new Set();
+    for (const tile of partitionIntersection(left, right, limits)) {
+      assert(tile.left.length <= limits.leftCapacity);
+      assert(tile.right.length <= limits.rightCapacity);
+      assert(tile.left.length * tile.right.length <= limits.candidateCapacity);
+      for (const a of tile.left) for (const b of tile.right) { const key = a + ':' + b; assert(!pairs.has(key)); pairs.add(key); }
+    }
+    assert.equal(pairs.size, left.length * right.length);
+  }
+});
+
+test('actual P2 bounded-tile merges match every frontier for both polarities', async () => {
+  for (const geometry of [{ columns: 4, rows: 3, connect: 3 }, { columns: 4, rows: 4, connect: 3 }]) {
+    const observer = createFrontierObserver(geometry);
+    const reducer = createReferenceReducer();
+    const reduce = reducer.reduce;
+    reducer.limits = { leftCapacity: 3, rightCapacity: 5, candidateCapacity: 7 };
+    const directions = new Set();
+    reducer.reduce = async jobs => {
+      for (const job of jobs) {
+        assert(job.left.length <= 3 && job.right.length <= 5 && job.left.length * job.right.length <= 7);
+        directions.add(job.direction);
+      }
+      return reduce(jobs);
+    };
+    const result = await solveCompactHybrid(geometry, readCompactHybridOptions({}), reducer, { onFrontier: observer.onFrontier, progress: false });
+    assert(result.metrics.tiledIntersections > 0);
+    assert(result.metrics.intersectionTiles > result.metrics.tiledIntersections);
+    assert.equal(observer.finish().comparedSupports, result.supportSkeletons);
+    assert.deepEqual([...directions].sort(), [0, 1]);
+  }
+});
 
 test('P2 cofactors agree with valuation substitution, including bits 31, 32 and 41', () => {
   const cells = [0, 3, 31, 32, 41];

@@ -26,6 +26,7 @@ test('real overflow fixtures preserve provenance and enforce content/capacity va
 test('P2 explicitly selects the measured overflow executor, with Tensor retained', () => {
   assert.equal(readCompactHybridOptions({}).reducer.overflowExecutor, 'packed');
   assert.equal(readCompactHybridOptions({}).reducer.packedStrategy, 'bucketed-cardinality-v0');
+  assert.equal(readCompactHybridOptions({}).reducer.pairStrategy, 'bucketed-cardinality-v0');
   assert.throws(() => readCompactHybridOptions({ BSFP_HYBRID_PACKED_STRATEGY: 'bucketed-dedup-first-v0' }), /Unsupported/);
   assert.equal(readCompactHybridOptions({ BSFP_HYBRID_OVERFLOW_EXECUTOR: 'tensor' }).reducer.overflowExecutor, 'tensor');
   assert.throws(() => readCompactHybridOptions({ BSFP_HYBRID_OVERFLOW_EXECUTOR: 'auto' }), /must be tensor or packed/);

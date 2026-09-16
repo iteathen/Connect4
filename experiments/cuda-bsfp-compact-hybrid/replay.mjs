@@ -39,7 +39,8 @@ async function main() {
     maxDeviceBytes: 268435456, maxAllocationBytes: 134217728, maxTransferBytes: 16777216,
   } } });
   const services = {};
-  const methods = process.argv.includes('bucketed') ? ['packed', 'bucketed'] : ['packed', 'tensor'];
+  const methods = process.argv.includes('pair-bucketed') ? ['bucketed', 'allbucketed']
+    : process.argv.includes('bucketed') ? ['packed', 'bucketed'] : ['packed', 'tensor'];
   const samples = Object.fromEntries(methods.map(mode => [mode, []]));
   const stages = Object.fromEntries(methods.map(mode => [mode, []]));
   const setupMs = {};
@@ -49,7 +50,8 @@ async function main() {
       const started = performance.now();
       services[mode] = await createPacked42PairReducerService(runtime, { ...readCompactHybridOptions({}).reducer,
         overflowExecutor: mode === 'tensor' ? 'tensor' : 'packed',
-        packedStrategy: mode === 'bucketed' ? 'bucketed-cardinality-v0' : 'legacy-43-phase-scan' });
+        packedStrategy: ['bucketed', 'allbucketed'].includes(mode) ? 'bucketed-cardinality-v0' : 'legacy-43-phase-scan',
+        pairStrategy: mode === 'allbucketed' ? 'bucketed-cardinality-v0' : 'legacy-43-phase-scan' });
       setupMs[mode] = performance.now() - started;
     }
     // One warmup and three measured passes per method; reverse order every pass.

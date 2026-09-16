@@ -32,8 +32,8 @@ test('real overflow replays distinguish executors and stay inside the unchanged 
     const spec = { columns: 7, rows: 6, connect: 4 };
     const estimate = profile.estimate(spec);
     assert.equal(estimate.upperBoundBytes, 543169548);
-    assert.equal(estimate.devicePayloadBytes, 90185232);
-    assert.equal(estimate.replayUpperBoundBytes, 515914784);
+    assert.equal(estimate.devicePayloadBytes, 90316812);
+    assert.equal(estimate.replayUpperBoundBytes, 516177944);
     assert(estimate.replayUpperBoundBytes <= estimate.upperBoundBytes);
     const accepts = profile.steps(spec, '/repo')[0].expected;
     const result = { outcome: 'native-overflow-replay-pass', geometry: '7x6:c4', methods, rootWdl: null,
