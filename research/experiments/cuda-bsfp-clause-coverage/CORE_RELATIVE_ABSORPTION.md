@@ -1,6 +1,6 @@
 # Core-relative cross-frontier absorption
 
-**Status:** exact generalization of cross-frontier absorption with bounded real rank-22 evidence. Awaiting complete-control recurrence qualification before production consideration.
+**Status:** exact generalization of cross-frontier absorption; bounded rank-22 evidence and complete-control recurrence differential qualification both passed. Native GPU performance and variable-word recurrence execution remain open.
 
 **Research direction:** Josh Oshiro.
 
@@ -126,6 +126,48 @@ post-dedup subset checks:      49,290   (44.56% of baseline)
 
 The exact normalized frontier was required to equal the full-product authority on every sampled segment; mismatches were zero.
 
+## Complete-control recurrence qualification
+
+Authority:
+
+```text
+unfiltered support-local coverage recurrence
+```
+
+Candidate:
+
+```text
+horizontal-reflection support-orbit recurrence
++ eager exact bounded legal-slice pruning
++ core-relative cross-frontier absorption
+```
+
+Every legal exact-cardinality ownership assignment was evaluated against the authority value semantics.
+
+| Geometry | Supports | Reflection orbits | Exact assignments | Value mismatches | Authority product pairs | Candidate generated pairs | Candidate raw pre-absorption pairs | Absorbed pairs | Generated/authority ratio |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 4x3 c3 | 256 | 136 | 12,933 | 0 | 11,222 | 724 | 4,944 | 4,220 | 6.45% |
+| 4x4 c4 | 625 | 325 | 201,755 | 0 | 14,163 | 780 | 5,929 | 5,149 | 5.51% |
+| 5x3 c4 | 1,024 | 544 | 174,683 | 0 | 6,364 | 148 | 2,612 | 2,464 | 2.33% |
+| 4x4 c3 | 625 | 325 | 201,755 | 0 | 103,589 | 6,614 | 44,367 | 37,753 | 6.38% |
+| 4x5 c4 | 1,296 | 666 | 3,039,959 | 0 | 129,420 | 8,869 | 56,741 | 47,872 | 6.85% |
+
+Total exact assignments checked:
+
+```text
+3,631,085
+```
+
+Total value mismatches:
+
+```text
+0
+```
+
+The candidate persistent-record and cofactor-input ratios remain about 38-43% and 40-44% respectively because those are mainly driven by reflection and recursive legal-slice pruning. Core-relative absorption specifically attacks the universal product generation stage much more strongly.
+
+The dense-overlap 4x4 Connect-3 control also remained exact, which is important because that geometry has repeatedly been an adverse performance profile for the clause representation.
+
 ## Why this matters
 
 This generalization does not merely make the normalizer faster. It removes most of the Cartesian product before:
@@ -165,15 +207,31 @@ generate OR candidates only for unabsorbed row/column pairs
 
 This needs no new CUDA-JS semantic primitive. It is fixed-width bitwise subset testing plus row/column marking and later compaction.
 
-## Qualification boundary
+## Interaction with other reductions
 
-The bounded rank-22 differential is strong evidence but not the final recurrence qualification.
+Recommended order for the universal/intersection path:
 
-Before production adoption:
+```text
+already-normalized input frontiers
+-> core-relative cross-frontier absorption
+-> generate remaining OR product
+-> exact legal-slice feasibility rejection
+-> exact duplicate collapse
+-> subset-minimal dominance
+-> compact persistent frontier
+```
 
-1. run complete-control recurrence differential checks across multiple small Connect-K geometries;
-2. require exact legal-state W/D/L equality against the full unabsorbed recurrence;
-3. test the variable-word form beyond one u64 profile;
-4. measure native GPU benefit independently of the correctness proof.
+Horizontal reflection acts outside this support-local operation and is already qualified in the combined recurrence.
 
-Do not infer 7x6 stopping rank directly from this sample.
+The legal-slice filter remains useful even though it is weak in the sampled rank-22 terminal band; absorption does not rely on it.
+
+## Remaining qualification boundary
+
+The recurrence law is now strongly qualified on complete controls, but production adoption still requires:
+
+1. variable-word recurrence execution beyond one-u64 profile;
+2. native GPU implementation/equality of the absorption stage;
+3. native performance measurement independent of correctness;
+4. integration with a scalable duplicate-collapse/subset-normalization path from CUDA-Algorithms #11 or an equivalent qualified generic mechanism.
+
+Do not infer 7x6 stopping rank directly from the 6x5 sample.
