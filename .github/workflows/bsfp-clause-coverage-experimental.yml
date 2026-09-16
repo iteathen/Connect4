@@ -84,6 +84,9 @@ jobs:
       - name: Qualify admissibility completion synthesis
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-admissibility-completion-synthesis.mjs
 
+      - name: Qualify positive-certificate algebra synthesis
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-positive-certificate-algebra.mjs
+
       - name: Qualify guarded commuting transporters on reflection and O3
         run: node research/experiments/cuda-bsfp-clause-coverage/qualify-guarded-transporter-synthesis.mjs
 
