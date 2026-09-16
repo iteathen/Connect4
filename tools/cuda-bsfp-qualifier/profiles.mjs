@@ -19,7 +19,7 @@ const B3_BUCKETED_STRATEGY = 'bucketed-cardinality-v0';
 const B3_DEDUP_FIRST_STRATEGY = 'bucketed-dedup-first-v0';
 const B3_FIXTURE = 'cartesian-or-and-duplicate-stress';
 const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
-const P2_TENSOR_ALLOWANCE_BYTES = 128n * MIB;
+const P2_TENSOR_ALLOWANCE_BYTES = 192n * MIB;
 const P2_CANDIDATE_CAPACITY = 4_194_304n;
 const P2_SEGMENT_CAPACITY = 256n;
 const P2_SIDE_CAPACITY = 262_144n;
@@ -90,6 +90,7 @@ export function nativeNodeArgs(scriptPath, mode = 'native') {
 }
 
 const REQUIRED_DEPENDENCIES = Object.freeze({ cudaAlgorithmsRevision: '48ee0aec9acae7776950f03ab52ab1737e598b6e', cudaJsRevision: '98e2ebc942c14d63acf4dd82e912dd548c363a05' });
+const P2_REQUIRED_DEPENDENCIES = Object.freeze({ ...REQUIRED_DEPENDENCIES, cudaJsTensorRevision: '9df9324b0ca7606f9dd2af2e89aed118839896a5' });
 
 const P1 = Object.freeze({
   id: 'c4-0009-p1', specification: 'docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
@@ -148,9 +149,9 @@ const B3 = Object.freeze({
 
 const KNOWN_P2_ROOTS = Object.freeze(new Map([['4x3-c3', 1], ['4x4-c4', 0], ['5x4-c4', 0], ['5x5-c4', 0], ['7x6-c4', 1]]));
 const P2 = Object.freeze({
-  id: 'c4-0009-p2-compact-hybrid', specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  id: 'c4-0009-p2-compact-hybrid', specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md', gpuRequired: true, requiredDependencies: P2_REQUIRED_DEPENDENCIES,
   supports(spec) { const cells = spec.columns * spec.rows; return Number.isSafeInteger(cells) && cells >= 1 && cells <= 42; }, estimate: p2Estimate,
-  steps(spec, repositoryRoot) { if (!this.supports(spec)) return Object.freeze([]); const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`; const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`; const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry); return Object.freeze([Object.freeze({ id: 'tensor-overflow-native-parity', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'research/experiments/cuda-bsfp-clause-coverage/qualify-tensor-packed42-overflow-native.mjs')), expected(result) { return result?.outcome === 'native-tensor-packed42-overflow-pass' && result?.cases?.length === 2 && Number.isFinite(result?.tensor?.tensorRuns) && result.tensor.tensorRuns > 0 && Number.isFinite(result?.tensor?.comparisonPairs) && result.tensor.comparisonPairs > 0; } }), Object.freeze({ id: 'compact-hybrid-root-wdl', command: process.execPath, args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]), expected(result) { return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl) && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0 && Number.isFinite(result?.gpuReducer?.generatedPairCandidates) && Number.isFinite(result?.gpuReducer?.tensorOverflowCalls); } })]); },
+  steps(spec, repositoryRoot) { if (!this.supports(spec)) return Object.freeze([]); const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`; const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`; const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry); return Object.freeze([Object.freeze({ id: 'tensor-dominance-full-shape-ab', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'research/experiments/cuda-bsfp-tensor-dominance/run.mjs'), 'native'), expected(result) { return result?.kind === 'connect4-bsfp-tensor-dominance-overflow-ab' && result?.mode === 'native' && result?.geometry === '7x6-c4-packed42-workshape' && result?.fixture?.frontierCount === 1487 && result?.fixture?.candidateCount === 4096 && result?.authority?.outcome === 'native-authority-frontier-match' && result?.authority?.frontierCount === result?.fixture?.expectedFinalFrontierCount && result?.execution?.outcome === 'native-tensor-dominance-exact-match' && result?.execution?.tensorLogicalSubsetPairs === 6090752 && Number.isFinite(result?.execution?.baselineSubsetChecks) && result.execution.baselineSubsetChecks > 0 && Number.isFinite(result?.execution?.baselineTiming?.median) && result.execution.baselineTiming.median >= 0 && Number.isFinite(result?.execution?.tensorOnlyTiming?.median) && result.execution.tensorOnlyTiming.median >= 0 && Number.isFinite(result?.execution?.tensorFullTiming?.median) && result.execution.tensorFullTiming.median >= 0 && result?.tensor?.itemCapacity === 4096 && Number.isFinite(result?.tensor?.totalWorkspaceBytes) && result.tensor.totalWorkspaceBytes > 0 && result.tensor.totalWorkspaceBytes <= 192 * 1024 * 1024; } }), Object.freeze({ id: 'compact-hybrid-root-wdl', command: process.execPath, args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]), expected(result) { return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl) && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0 && Number.isFinite(result?.gpuReducer?.generatedPairCandidates) && Number.isFinite(result?.gpuReducer?.tensorOverflowCalls); } })]); },
 });
 
 const C1 = Object.freeze({

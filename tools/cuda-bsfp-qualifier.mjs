@@ -120,6 +120,9 @@ async function main() {
       if (required?.cudaJsRevision && system.dependencies?.cudaJs?.revision !== required.cudaJsRevision) {
         environmentProblems.push(`CUDA-JS revision must be ${required.cudaJsRevision}, got ${system.dependencies?.cudaJs?.revision ?? 'unknown'}`);
       }
+      if (required?.cudaJsTensorRevision && system.dependencies?.cudaJsTensor?.revision !== required.cudaJsTensorRevision) {
+        environmentProblems.push(`CUDA-JS-Tensor revision must be ${required.cudaJsTensorRevision}, got ${system.dependencies?.cudaJsTensor?.revision ?? 'unknown'}`);
+      }
       if (environmentProblems.length > 0) {
         throw new Error(`official qualification environment refused: ${environmentProblems.join('; ')}`);
       }
