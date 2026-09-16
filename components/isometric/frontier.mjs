@@ -8,13 +8,6 @@ function popcount32(value) {
   return (((x + (x >>> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24;
 }
 
-function singletonPlayableMask(state, classId) {
-  return [
-    (state.pool.singletonLo[classId] & state.playableLo) >>> 0,
-    (state.pool.singletonHi[classId] & state.playableHi) >>> 0,
-  ];
-}
-
 function countMask(lo, hi) {
   return popcount32(lo) + popcount32(hi);
 }
@@ -34,12 +27,14 @@ export function deriveNativeFrontierConsequence(state) {
 
   const ownClass = state.sideToMove === 0 ? state.p0Class : state.p1Class;
   const opponentClass = state.sideToMove === 0 ? state.p1Class : state.p0Class;
-  const [ownLo, ownHi] = singletonPlayableMask(state, ownClass);
+  const ownLo = (state.pool.singletonLo[ownClass] & state.playableLo) >>> 0;
+  const ownHi = (state.pool.singletonHi[ownClass] & state.playableHi) >>> 0;
   if ((ownLo | ownHi) !== 0) {
     return exactValueConclusion(state.sideToMove === 0 ? 1 : -1, 1);
   }
 
-  const [opponentLo, opponentHi] = singletonPlayableMask(state, opponentClass);
+  const opponentLo = (state.pool.singletonLo[opponentClass] & state.playableLo) >>> 0;
+  const opponentHi = (state.pool.singletonHi[opponentClass] & state.playableHi) >>> 0;
   const opponentThreats = countMask(opponentLo, opponentHi);
   if (opponentThreats >= 2) return exactValueConclusion(state.sideToMove === 0 ? -1 : 1, 2);
   if (opponentThreats === 1) return forcedMoveConclusion(firstCell(opponentLo, opponentHi));
