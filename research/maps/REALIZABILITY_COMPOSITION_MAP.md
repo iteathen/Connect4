@@ -50,8 +50,16 @@ Skolem / bounded DQBF semantics
 C4-R0065
                     |
                     v
+exact residual/cofactor consequence
+                    |
+                    v
+CONTROLLABLE / ALTERNATING CONSEQUENCE PREDECESSOR
+C4-R0069 (missing law)
+                    |
+                    v
 opponent-universal intervention
 + shared response resources
++ precedence
 + deadlines / races
                     |
                     v
@@ -84,11 +92,15 @@ A legal history can still be strategically indistinguishable only if the require
 
 The response-serialization theorem is the minimal Connect-4 witness: after `D1 E1 A1 A2`, the correct P1 action depends on whether P0 played `B1` or `C1`. Forgetting that trigger does not create an unrealizable tuple; it destroys a realizable strategy dependency.
 
+### Certificate-generation boundary
+
+`C4-R0068` reclassifies the six-ply A/B control. Complete residual information already distinguishes the states; the collision is in the tested low-order observation/certificate generator, not in exact full-residual state identity. Mixed cofactors expose an existing distinction rather than adding a temporal algebra operator.
+
+`C4-R0069` states the active missing law as an observation-relative controllable predecessor: an obligation is born only when a uniform controller certificate survives every admissible opponent intervention under support, shared-resource, precedence, deadline and first-win guards, or reaches a stronger certified terminal consequence.
+
 ### Dynamic/proof boundary
 
-Even an observation supporting one local uniform response does not settle the whole game. Existing research places the remaining noncommuting content in admissibility, opponent quantification, response-resource sharing, deadlines and first-win stopping. The mixed-cofactor algebra itself commutes on distinct variables; the guarded quantifier lift into obligations remains the active theorem target.
-
-A full game/alternating bisimulation is a strong sufficient strategic-equivalence control, but it is not assumed to be the minimum quotient for W/D/L or a claim-relative theorem.
+A full game/alternating bisimulation is a strong sufficient strategic-equivalence control, but it is not assumed to be the minimum quotient for W/D/L or a claim-relative theorem. The desired Connect-4 calculus is smaller: derive consequence-relative controllable predecessors and share them through NDC without reconstructing the physical game tree.
 
 ## What this map prevents
 
@@ -98,6 +110,7 @@ Do not silently substitute any of these for another:
 line-hit image membership
 != legal history
 != strategy uniformity
+!= controllable consequence predecessor
 != transition equivalence
 != proof/certificate identity
 != game value.

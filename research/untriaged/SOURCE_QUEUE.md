@@ -1,6 +1,6 @@
 # Source normalization queue
 
-The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, the static/history realizability split through C4-R0063, and the strategy-dependency/history-complexity layer through C4-R0067.
+The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, the static/history realizability split through C4-R0063, the strategy-dependency/history-complexity layer through C4-R0067, and the A/B guarded-lift localization through C4-R0069.
 
 Remaining work is classification of **meaning**, not file movement.
 
@@ -14,14 +14,16 @@ Remaining work is classification of **meaning**, not file movement.
 - C4-R0065 maps retained/discarded opponent distinctions to explicit Skolem dependency sets in bounded DQBF semantics.
 - C4-R0066 establishes the NP-hard all-width constrained-shuffle boundary for the unrestricted history layer.
 - C4-R0067 rejects per-event parity windows plus matching as a complete history reconstruction law.
-- `research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md` now owns the fixed-width history factorization, dependency-minimal guarded cofactor lift, quotient-strength ladder, and strong-play-28 strategy-factorization questions.
+- C4-R0068 localizes the six-ply A/B witness to low-order certificate generation: complete residual identity already separates the states.
+- C4-R0069 states the active missing law as a uniform controllable consequence predecessor under support/resource/precedence/deadline/first-win guards.
+- `research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md` owns the next bounded A/B intervention-class derivation, fixed-width history factorization, quotient-strength ladder and strong-play-28 strategy-factorization questions.
 
 ## High priority remaining
 
-1. **Guarded cofactor strategy lift** — determine the minimum observation/dependency/resource/deadline facts needed to convert exact mixed-owner cofactors into obligations under opponent-universal intervention.
-2. **Fixed-width history factorization** — exploit width-7 structure rather than searching for an all-width scalar formula ruled out by the constrained-shuffle boundary.
-3. **Minimax candidate-map long tail** — normalize remaining historical mechanisms and signed interaction edges without collapsing mechanism/form/workload/order distinctions. C4-R0035 governs this pass.
-4. **A9 repair / role-generalization** — derive the missing guard/orientation law for the falsified legacy/even-ply responder form.
+1. **A/B consequence-relative intervention classes** — derive the first bounded controllable-predecessor slice after the shared d continuation and stop at the first missing observation/dependency/resource/deadline fact.
+2. **Strong-play 28 strategy-factorization bridge** — test whether center-entry/phase/deadline structure supports an objective-relative uniform strategy theorem without importing the number 28.
+3. **Fixed-width history factorization** — exploit width-7 structure rather than searching for an all-width scalar formula ruled out by the constrained-shuffle boundary.
+4. **Minimax candidate-map long tail** — normalize remaining historical mechanisms and signed interaction edges without collapsing mechanism/form/workload/order distinctions. C4-R0035 governs this pass.
 5. **BSFP remaining engineering long tail** — normalize dense-ID/grouping/device-chaining results while keeping kernel-only diagnostics solver-scoped.
 
 ## Derivative / predicate packet now normalized
