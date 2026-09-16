@@ -271,8 +271,8 @@ const REPLAY = Object.freeze({
   estimate: spec => P2.estimate(spec),
   steps(spec, repositoryRoot) {
     if (!this.supports(spec)) return [];
-    return [{ id: 'overflow-replay', command: process.execPath,
-      args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/replay.mjs')),
+    const nodeArgs = nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/replay.mjs'));
+    return [{ id: 'overflow-replay', command: process.execPath, args: nodeArgs,
       expected: r => r?.outcome === 'native-overflow-replay-pass' && r?.geometry === '7x6:c4'
         && r?.rootWdl === null && r?.mismatches === 0 && r?.cleanup === 'graceful'
         && r?.survivors > 1024 && ['packed', 'tensor'].every(mode =>
