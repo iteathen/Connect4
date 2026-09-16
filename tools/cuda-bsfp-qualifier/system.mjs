@@ -20,21 +20,27 @@ export async function collectGitIdentity(repositoryRoot) {
   } catch { return Object.freeze(fallback); }
 }
 function normalizeGitHubRepository(remote) { if (!remote) return null; const https = remote.match(/github\.com[/:]([^/]+\/[^/.]+?)(?:\.git)?$/i); return https ? https[1] : null; }
+export function parseNvidiaGpu(output, gpuIndex = 0, includesComputeCapability = true, includesPerformance = false) {
+  const line = output.split(/\r?\n/).find(Boolean);
+  const parts = line?.split(',').map(value => value.trim()) ?? [];
+  const numeric = value => value !== undefined && value !== '' && Number.isFinite(Number(value)) ? Number(value) : null;
+  const [name, driverVersion, total, free, used] = parts;
+  const [totalMiB, freeMiB, usedMiB] = [total, free, used].map(numeric);
+  if (parts.length < 5 || [totalMiB, freeMiB, usedMiB].some(v => v === null || v < 0)) return Object.freeze({ available: false, gpuIndex, error: 'nvidia-smi memory telemetry was not numeric' });
+  const perf = includesPerformance ? parts.slice(6).map(numeric) : [];
+  return Object.freeze({ available: true, gpuIndex, name, driverVersion, computeCapability: includesComputeCapability ? parts[5] : null, totalMiB, freeMiB, usedMiB,
+    utilizationGpuPercent: perf[0] ?? null, utilizationMemoryPercent: perf[1] ?? null,
+    powerDrawWatts: perf[2] ?? null, smClockMHz: perf[3] ?? null, memoryClockMHz: perf[4] ?? null });
+}
 export async function queryNvidiaGpu(gpuIndex = 0) {
   const commonFields = 'name,driver_version,memory.total,memory.free,memory.used';
-  let output; let includesComputeCapability = true;
-  try { output = await execText('nvidia-smi', [`--id=${gpuIndex}`, `--query-gpu=${commonFields},compute_cap`, '--format=csv,noheader,nounits']); }
-  catch (firstError) {
-    includesComputeCapability = false;
-    try { output = await execText('nvidia-smi', [`--id=${gpuIndex}`, `--query-gpu=${commonFields}`, '--format=csv,noheader,nounits']); }
-    catch (error) { return Object.freeze({ available: false, gpuIndex, error: error?.message ?? firstError?.message ?? String(error) }); }
+  const performanceFields = 'utilization.gpu,utilization.memory,power.draw,clocks.sm,clocks.mem';
+  let lastError;
+  for (const [suffix, compute, perf] of [[`,compute_cap,${performanceFields}`, true, true], [',compute_cap', true, false], ['', false, false]]) {
+    try { return parseNvidiaGpu(await execText('nvidia-smi', [`--id=${gpuIndex}`, `--query-gpu=${commonFields}${suffix}`, '--format=csv,noheader,nounits']), gpuIndex, compute, perf); }
+    catch (error) { lastError = error; }
   }
-  const line = output.split(/\r?\n/).find(Boolean); const parts = line?.split(',').map((value) => value.trim()) ?? [];
-  if (parts.length < 5) return Object.freeze({ available: false, gpuIndex, error: 'unexpected nvidia-smi output shape' });
-  const [name, driverVersion, total, free, used, computeCapabilityRaw] = parts; const computeCapability = includesComputeCapability ? computeCapabilityRaw : null;
-  const totalMiB = Number(total); const freeMiB = Number(free); const usedMiB = Number(used);
-  if (![totalMiB, freeMiB, usedMiB].every(Number.isFinite)) return Object.freeze({ available: false, gpuIndex, error: 'nvidia-smi memory telemetry was not numeric' });
-  return Object.freeze({ available: true, gpuIndex, name, driverVersion, computeCapability, totalMiB, freeMiB, usedMiB });
+  return Object.freeze({ available: false, gpuIndex, error: lastError?.message ?? String(lastError) });
 }
 async function dependencyIdentity(repositoryRoot, relativePath, packageName) {
   const root = path.join(repositoryRoot, relativePath); const git = await collectGitIdentity(root); let version = null;

@@ -115,7 +115,7 @@ function packJobs(jobs, limits) {
       || leftCount + left.length > limits.leftCapacity
       || rightCount + right.length > limits.rightCapacity
       || candidateCount + product > limits.candidateCapacity) flush();
-    current.push(Object.freeze({ originalIndex: index, left, right, direction, product }));
+    current.push(Object.freeze({ originalIndex: index, left, right, direction, product, context: source.context ?? null }));
     leftCount += left.length;
     rightCount += right.length;
     candidateCount += product;
@@ -134,6 +134,8 @@ export function tensorOverflowOptions(options = {}) {
 }
 
 export async function createPacked42PairReducerService(runtime, options = {}) {
+  const overflowExecutor = options.overflowExecutor ?? 'tensor';
+  if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('overflowExecutor must be tensor or packed');
   const primaryLimits = Object.freeze({
     segmentCapacity: positiveSafeInteger(options.segmentCapacity ?? 256, 'segmentCapacity'),
     leftCapacity: positiveSafeInteger(options.leftCapacity ?? 262144, 'leftCapacity'),
@@ -147,7 +149,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
   const limits = Object.freeze({ ...primaryLimits, overflowOutputCapacityPerSegment });
   const plan = await createSegmentedPackedPairAntichain42Plan(runtime, primaryLimits);
   let overflowPlan = null;
-  if (overflowOutputCapacityPerSegment > primaryLimits.outputCapacityPerSegment) {
+  if (overflowExecutor === 'packed' && overflowOutputCapacityPerSegment > primaryLimits.outputCapacityPerSegment) {
     try {
       overflowPlan = await createSegmentedPackedAntichain42Plan(runtime, {
         candidateCapacity: primaryLimits.candidateCapacity,
@@ -190,6 +192,11 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     inputLeftRecords: 0,
     inputRightRecords: 0,
     generatedPairCandidates: 0,
+    submittedPairCandidates: 0,
+    completedBatchPairCandidates: 0,
+    activeBatch: null,
+    activeOverflow: null,
+    packedOverflowCalls: 0,
     survivingRecords: 0,
     overflowRetries: 0,
     overflowRecoveredJobs: 0,
@@ -210,6 +217,46 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     stats.overflowRetries += 1;
     stats.overflowInitialRequiredAtLeastMax = Math.max(stats.overflowInitialRequiredAtLeastMax, initialRequiredAtLeast);
     const candidateCount = candidateEnd - candidateStart;
+    stats.activeOverflow = { job: job.originalIndex, candidateCount, direction: job.direction, context: job.context, executor: overflowExecutor };
+    try {
+      await options.onOverflow?.({ job, initialRequiredAtLeast });
+      if (overflowExecutor === 'packed') {
+        if (!overflowPlan) throw new RangeError('No wider reused-slab specialization is available');
+        const uploadStart = performance.now();
+        await writePrefix(candidateOffsets, Uint32Array.of(candidateStart, candidateEnd));
+        await writePrefix(segmentDirections, Uint32Array.of(job.direction));
+        const uploadMs = performance.now() - uploadStart;
+        stats.uploadMs += uploadMs; stats.overflowUploadMs += uploadMs;
+        const operationStart = performance.now();
+        const operation = await overflowPlan.submit({
+          candidateLo: candidateLo.view, candidateHi: candidateHi.view, candidatePopcount: candidatePopcount.view,
+          segmentOffsets: candidateOffsets.view, segmentDirections: segmentDirections.view,
+          outputLo: outputLo.view, outputHi: outputHi.view, outputCounts: outputCounts.view,
+          outputStatus: outputStatus.view, checks: checks.view,
+        });
+        try {
+          const terminal = await operation.wait();
+          if (terminal.status !== 'completed') throw new Error(`GPU pair reducer overflow recovery ended ${terminal.status}`);
+        } finally { await operation.close(); }
+        const executionMs = performance.now() - operationStart;
+        stats.executionMs += executionMs; stats.overflowExecutionMs += executionMs;
+        const readStart = performance.now();
+        const status = (await readU32Prefix(outputStatus, 1))[0];
+        const count = (await readU32Prefix(outputCounts, 1))[0];
+        if (status !== SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OK) throw new RangeError(`Packed recovery status ${status}; capacity ${limits.overflowOutputCapacityPerSegment}; required at least ${count}`);
+        if (count > limits.overflowOutputCapacityPerSegment || count > job.product) throw new Error('Packed recovery returned impossible count');
+        const lows = await readU32Prefix(outputLo, count);
+        const highs = await readU32Prefix(outputHi, count);
+        const frontier = Object.freeze(Array.from(lows, (low, i) => pack42(low, highs[i])));
+        const readMs = performance.now() - readStart;
+        stats.readbackMs += readMs; stats.overflowReadbackMs += readMs;
+        results[job.originalIndex] = frontier;
+        stats.packedOverflowCalls++;
+        stats.survivingRecords += count;
+        stats.overflowRecoveredJobs++;
+        stats.overflowMaxSurvivingRecords = Math.max(stats.overflowMaxSurvivingRecords, count);
+        return;
+      }
     const readStarted = performance.now();
     const lows = await readU32Range(candidateLo, candidateStart, candidateCount);
     const highs = await readU32Range(candidateHi, candidateStart, candidateCount);
@@ -218,7 +265,6 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     stats.readbackMs += readElapsed;
     stats.overflowReadbackMs += readElapsed;
 
-    try {
       if (!tensorNormalizer) {
         const { createTensorPacked42OverflowNormalizer } = await import('./tensor-packed42-overflow-normalizer.mjs');
         tensorNormalizer = await createTensorPacked42OverflowNormalizer(runtime, tensorOverflowOptions(options));
@@ -238,7 +284,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     } catch (error) {
       stats.overflowFailures += 1;
       throw error;
-    }
+    } finally { stats.activeOverflow = null; }
   }
 
   async function executeBatch(batch, results) {
@@ -290,6 +336,8 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     stats.uploadMs += performance.now() - uploadStart;
 
     const operationStart = performance.now();
+    stats.submittedPairCandidates += candidateTotal;
+    stats.activeBatch = { jobs: batch.length, candidateCount: candidateTotal, stage: 'submitted' };
     const operation = await plan.submit({
       leftLo: leftLo.view, leftHi: leftHi.view, rightLo: rightLo.view, rightHi: rightHi.view,
       leftOffsets: leftOffsets.view, rightOffsets: rightOffsets.view, candidateOffsets: candidateOffsets.view,
@@ -305,13 +353,16 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
       await operation.close();
     }
     stats.executionMs += performance.now() - operationStart;
+    stats.generatedPairCandidates += candidateTotal;
+    stats.activeBatch.stage = 'readback-and-recovery';
 
     const readStart = performance.now();
     const generation = await readU32(generationStatus);
     const statuses = await readU32(outputStatus);
     const counts = await readU32(outputCounts);
-    const lows = await readU32(outputLo);
-    const highs = await readU32(outputHi);
+    const activeOutputElements = batch.length * limits.outputCapacityPerSegment;
+    const lows = await readU32Prefix(outputLo, activeOutputElements);
+    const highs = await readU32Prefix(outputHi, activeOutputElements);
     stats.readbackMs += performance.now() - readStart;
 
     const overflows = [];
@@ -342,7 +393,8 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     stats.batches += 1;
     stats.inputLeftRecords += leftTotal;
     stats.inputRightRecords += rightTotal;
-    stats.generatedPairCandidates += candidateTotal;
+    stats.completedBatchPairCandidates += candidateTotal;
+    stats.activeBatch = null;
   }
 
   return Object.freeze({
@@ -359,7 +411,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
       for (const batch of batches) await executeBatch(batch, results);
       return Object.freeze(results);
     },
-    snapshotStats() { return Object.freeze({ ...stats, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },
+    snapshotStats() { return Object.freeze({ ...stats, overflowExecutor, activeBatch: stats.activeBatch ? { ...stats.activeBatch } : null, tensorOverflow: tensorNormalizer?.snapshotStats() ?? null }); },
     async close() {
       if (closed) return;
       closed = true;

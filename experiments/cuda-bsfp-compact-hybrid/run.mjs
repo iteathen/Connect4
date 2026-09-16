@@ -260,6 +260,7 @@ async function reduceIntersectionStages(pending, reducer, metrics) {
         left: item.intersection,
         right,
         direction: item.mover === 0 ? SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MAXIMAL : SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION.MINIMAL,
+        context: { supportIndex: item.supportIndex, stage, rank: metrics.activeRank },
       });
       owners.push(item);
     }
@@ -313,15 +314,19 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
     reflectedChildLookups: 0,
     reflectedChildRecords: 0,
     rankSummaries: [],
+    activeRank: null,
+    activeShardStart: null,
   };
   const solveStarted = performance.now();
-  const reportProgress = () => { if (progress) console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, gpuReducer: reducer.snapshotStats() })); };
+  const cpuStarted = process.cpuUsage();
+  const reportProgress = () => { if (progress) console.error(JSON.stringify({ kind: 'compact-hybrid-progress', elapsedMs: performance.now() - solveStarted, cpuMicroseconds: process.cpuUsage(cpuStarted), activeRank: metrics.activeRank, activeShardStart: metrics.activeShardStart, processedSupports: metrics.processedSupports, completedRanks: metrics.rankSummaries.length, gpuReducer: reducer.snapshotStats() })); };
   const progressTimer = progress ? setInterval(reportProgress, 5000) : null;
   progressTimer?.unref();
   let childRank = new Map();
   let childBoundaryRecords = 0;
   try {
     for (let rank = support.maxRank; rank >= 0; rank -= 1) {
+      metrics.activeRank = rank;
       const items = ranks[rank];
       const currentRank = new Map();
       let rankBoundaryRecords = 0;
@@ -329,6 +334,7 @@ export async function solveCompactHybrid(geometry, options, reducer, { onFrontie
       let rankMaxLoss = 0;
       const rankStarted = performance.now();
       for (let shardStart = 0; shardStart < items.length; shardStart += options.supportShardSize) {
+        metrics.activeShardStart = shardStart;
         const shard = items.slice(shardStart, Math.min(items.length, shardStart + options.supportShardSize));
         if (rank === support.maxRank) {
           for (const supportIndex of shard) {
@@ -403,6 +409,8 @@ export function readCompactHybridOptions(env = process.env) {
   const tensorReferenceTile = envPositive(env, 'BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
   const tensorMaxWorkspaceBytes = envPositive(env, 'BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
   const tensorBackend = env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
+  const overflowExecutor = env.BSFP_HYBRID_OVERFLOW_EXECUTOR ?? 'tensor';
+  if (!['tensor', 'packed'].includes(overflowExecutor)) throw new RangeError('BSFP_HYBRID_OVERFLOW_EXECUTOR must be tensor or packed');
   if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
   if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
     throw new RangeError(`BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES must not exceed ${TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES} for the resolved-plan profile`);
@@ -423,6 +431,7 @@ export function readCompactHybridOptions(env = process.env) {
       tensorReferenceTile,
       tensorMaxWorkspaceBytes,
       tensorBackend,
+      overflowExecutor,
     },
   };
 }
@@ -433,6 +442,10 @@ async function main() {
   const geometry = parseGeometry(process.argv[3] ?? '4x4:c4');
   const options = readCompactHybridOptions();
   console.error(JSON.stringify({ kind: 'compact-hybrid-configuration', options, cudaMemoryPolicy: CUDA_MEMORY_POLICY }));
+  if (process.env.BSFP_HYBRID_CAPTURE_OVERFLOW_DIR) {
+    const { createOverflowCapture } = await import('./overflow-capture.mjs');
+    options.reducer.onOverflow = createOverflowCapture(process.env.BSFP_HYBRID_CAPTURE_OVERFLOW_DIR, geometry);
+  }
   let observer = null;
   if (process.env.BSFP_HYBRID_VERIFY_FRONTIERS === '1') {
     if (geometry.columns * geometry.rows > 25) throw new RangeError('all-frontier qualification is bounded to at most 25 cells');
