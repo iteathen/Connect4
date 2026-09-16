@@ -1,0 +1,28 @@
+name: Isometric native WSL
+
+on:
+  push:
+    branches: [isometric]
+    paths:
+      - 'components/isometric/**'
+      - 'components/domain/**'
+      - 'package.json'
+      - '.github/workflows/isometric-native-wsl.yml'
+  pull_request:
+    paths:
+      - 'components/isometric/**'
+      - 'components/domain/**'
+      - 'package.json'
+      - '.github/workflows/isometric-native-wsl.yml'
+  workflow_dispatch:
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+      - name: Domain and native WSL qualification
+        run: node --test components/domain/test/domain.test.mjs components/isometric/test/state.test.mjs
