@@ -91,7 +91,7 @@ No overflow may truncate a frontier. Capacity exhaustion is a failed profile bou
 
 Generator offsets are bounds-checked on-device before indexed reads/writes. Invalid segment metadata is a failure, not undefined execution.
 
-### Tensor overflow recovery on this branch
+### Packed and Tensor overflow recovery on this branch
 
 The ordinary batched path retains a 1,024-record per-segment survivor capacity. On overflow, the Tensor reducer reads the already generated packed candidates and popcounts, then normalizes them exactly in cardinality order with 256-candidate by 1,024-reference resolved-SIMT tiles. It does not truncate the frontier or regenerate the Cartesian product. Tensor mode no longer prepares an unused packed recovery plan.
 
@@ -141,9 +141,9 @@ The candidate workspace uses four u32 arrays when checks are included: low mask,
 
 ### Tensor overflow workspace contracts
 
-The integrated overflow normalizer uses CUDA-JS-Tensor `ResolvedTensorPlan`. Under accepted Tensor SPEC-0005 its resolved-plan workspace ceiling is **64 MiB**, and P2 uses that value as the shared default and maximum for `BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES`. The separate full-shape Tensor A/B gate uses the SPEC-0009 device-callable program profile and retains its independently qualified larger workspace allowance; that allowance must not be forwarded into the resolved-plan solver path. CUDA-JS device-allocation policy is a third, independent contract and P2 no longer derives `maxAllocationBytes` from the Tensor workspace option.
+The optional Tensor overflow normalizer uses CUDA-JS-Tensor `ResolvedTensorPlan`. Under accepted Tensor SPEC-0005 its resolved-plan workspace ceiling is **64 MiB**, and P2 uses that value as the shared default and maximum for `BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES`. The separate full-shape Tensor A/B gate uses the SPEC-0009 device-callable program profile and retains its independently qualified larger workspace allowance; that allowance must not be forwarded into the resolved-plan solver path. CUDA-JS device-allocation policy is a third, independent contract and P2 no longer derives `maxAllocationBytes` from the Tensor workspace option.
 
-Admission reports the 64 MiB resolved-SIMT ceiling and the independent 192 MiB callable A/B ceiling separately. It retains the conservative 543,169,548-byte bound (73,407,500-byte packed payload + 256 MiB runtime allowance + the larger 192 MiB Tensor allowance) for the sequential qualification steps. The 95%-of-current-free policy and 256 MiB emergency floor are unchanged. This admission allowance is not a CUDA-JS allocation policy.
+Admission reports the 64 MiB resolved-SIMT ceiling and the independent 192 MiB callable A/B ceiling separately. It retains the conservative 543,169,548-byte bound for the sequential qualification steps. The current 90,316,812-byte packed payload and the two-service replay bound are accounted for above; the callable A/B and solver do not coexist. The 95%-of-current-free policy and 256 MiB emergency floor are unchanged. This admission allowance is not a CUDA-JS allocation policy.
 
 The solver uses an independent CUDA-JS policy of 256 MiB total device bytes, 128 MiB per allocation, and 16 MiB per transfer. The A/B uses 256 MiB total, 192 MiB per allocation, and 16 MiB per transfer to admit its 164,544,512-byte callable arena. Neither policy is inferred from a Tensor workspace option. The normalizer Tensor session admits at most 512 MiB total, 128 MiB per tensor and 2,048 live tensors; the borrowed CUDA runtime remains the stricter final allocation authority.
 
