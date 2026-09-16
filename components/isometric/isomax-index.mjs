@@ -119,6 +119,7 @@ export class IsoMaxTransitionCache {
     this.status = new Uint8Array(capacity);
     this.values = new Array(capacity);
     this.scratch = new Int32Array(6);
+    this.rehashScratch = new Int32Array(5);
   }
 
   matches(slot, signature) {
@@ -156,9 +157,14 @@ export class IsoMaxTransitionCache {
     this.side = new Uint8Array(this.capacity);
     this.status = new Uint8Array(this.capacity);
     this.values = new Array(this.capacity);
+    const signature = this.rehashScratch;
     for (let slot = 0; slot < old.capacity; slot += 1) {
       if (old.used[slot] === 0) continue;
-      const signature = [old.p0[slot], old.p1[slot], old.support[slot], old.side[slot], old.status[slot]];
+      signature[0] = old.p0[slot];
+      signature[1] = old.p1[slot];
+      signature[2] = old.support[slot];
+      signature[3] = old.side[slot];
+      signature[4] = old.status[slot];
       this.setSignature(signature, old.values[slot]);
     }
   }
