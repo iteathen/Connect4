@@ -14,6 +14,7 @@ import {
   IsoMaxSolver,
   ResidualPool,
   allGuards,
+  exactValueConclusion,
   maskGuard,
   noWinConclusion,
   rankGuard,
@@ -23,6 +24,11 @@ import {
 const DRAW_GAME = Object.freeze([
   1, 5, 2, 3, 6, 3, 2, 5, 4, 4, 1, 3, 0, 2, 5, 0, 6, 1, 6, 1, 2,
   2, 0, 1, 5, 0, 2, 5, 0, 5, 0, 6, 4, 4, 4, 6, 1, 4, 3, 3, 6, 3,
+]);
+
+const CERTIFICATE_DRAW_GAME = Object.freeze([
+  3, 4, 3, 0, 3, 3, 2, 0, 5, 2, 1, 4, 3, 3, 4, 5, 6, 4, 4, 0, 5, 6, 0, 6, 4,
+  2, 6, 5, 2, 5, 1, 1, 0, 2, 6, 5, 2, 0, 1, 6, 1, 1,
 ]);
 
 function reflectMoves(moves) {
@@ -107,28 +113,20 @@ test('native IsoMax exact residue solver agrees with independent physical minima
 });
 
 test('guarded no-win certificates can close exact draw residue without changing W/D/L', () => {
-  let selected = null;
-  for (const length of [34, 33, 32]) {
-    const moves = DRAW_GAME.slice(0, length);
-    const physical = new Connect4Position(moves);
-    const expected = solvePhysical(physical);
-    assert.equal(expected, 0);
+  const moves = CERTIFICATE_DRAW_GAME.slice(0, 34);
+  const physical = new Connect4Position(moves);
+  assert.equal(physical.status, STATUS_ONGOING);
+  assert.equal(solvePhysical(physical), 0);
 
-    const baselinePool = new ResidualPool();
-    const baselineSolver = new IsoMaxSolver({ pool: baselinePool });
-    const baselineState = baselineSolver.createState(moves);
-    const baseline = baselineSolver.solveValue(baselineState);
-    assert.equal(baseline.value, 0);
-    if (baseline.metrics.nodes > 1) {
-      selected = { moves, baselineNodes: baseline.metrics.nodes };
-      break;
-    }
-  }
-  assert.ok(selected, 'expected at least one late draw prefix requiring unresolved residue search');
+  const baselinePool = new ResidualPool();
+  const baselineSolver = new IsoMaxSolver({ pool: baselinePool });
+  const baseline = baselineSolver.solveValue(baselineSolver.createState(moves));
+  assert.equal(baseline.value, 0);
+  assert.ok(baseline.metrics.nodes > 1, 'fixture must exercise unresolved residue without certificates');
 
   const pool = new ResidualPool();
   const certificates = new IsoMaxCertificateIndex(pool);
-  const state = new IsoMaxSolver({ pool, certificates }).createState(selected.moves);
+  const state = new IsoMaxSolver({ pool, certificates }).createState(moves);
   const guard = exactSupportGuard(state);
   certificates.add(state, { guard, conclusion: noWinConclusion(0), proofIdentity: 'late-draw-p0-no-win' });
   certificates.add(state, { guard, conclusion: noWinConclusion(1), proofIdentity: 'late-draw-p1-no-win' });
@@ -137,7 +135,7 @@ test('guarded no-win certificates can close exact draw residue without changing 
   const result = solver.solveValue(state);
   assert.equal(result.value, 0);
   assert.equal(result.metrics.nodes, 1);
-  assert.ok(result.metrics.nodes < selected.baselineNodes);
+  assert.ok(result.metrics.nodes < baseline.metrics.nodes);
   assert.equal(result.metrics.certificateNoWinHits, 2);
 });
 
@@ -145,12 +143,12 @@ test('contradictory exact and no-win certificates fail closed', () => {
   const pool = new ResidualPool();
   const certificates = new IsoMaxCertificateIndex(pool);
   const solver = new IsoMaxSolver({ pool, certificates });
-  const state = solver.createState(DRAW_GAME.slice(0, 36));
+  const state = solver.createState(CERTIFICATE_DRAW_GAME.slice(0, 34));
   const guard = exactSupportGuard(state);
 
   certificates.add(state, {
     guard,
-    conclusion: { kind: 1, value: 1, distance: null },
+    conclusion: exactValueConclusion(1),
     proofIdentity: 'contradictory-p0-win',
   });
   certificates.add(state, {
