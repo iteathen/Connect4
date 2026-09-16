@@ -155,3 +155,50 @@ constraints and candidates for subsequent implementation qualification:
 No runtime code or tests changed in this continuation. The namespace repair,
 exception-restoration reproducer, domain proof, targeted tests and paired native
 benchmarks remain pending after the mandated complete research reading.
+
+## Further research: guarded response and context-relative reuse
+
+The [pooled-frontier theorem](2026-09-13-pooled-frontier-paired-response-theorem.md)
+strictly extends the even-column response candidate above. Remove the currently
+playable bottom cell from each odd-length remaining column into a pool, then pair
+the even suffix vertically. The exact safety guard requires an even pool and a
+response endpoint in every attacking residual. Pool moves consume two pool
+cells; ordinary lower-endpoint moves receive their paired upper response.
+The retained seven-game control reports 40,804 certificates versus 10,912 for
+the earlier form, with zero WDL mismatches. The invalid omit-top and odd-pool
+variants have counterexamples. This is a candidate one-sided no-win bound,
+not a draw oracle or permission to remove gravity/time information.
+
+The [synchronized-column theorem](2026-09-13-synchronized-column-channel-response-theorem.md)
+adds guarded cross-column response channels. Its larger coverage is not yet
+evidence that template selection repays its cost in IsoMax. Qualify the cheap
+pooled form before layering a more expensive channel finder.
+
+Branch-specific evidence adds independently useful constraints:
+
+- [Guarded commuting transporters](https://github.com/iteathen/Connect4/blob/a70d457f79c9e4e60d60b0ae9a4c6670662983ad/research/experiments/cuda-bsfp-clause-coverage/GUARDED_TRANSPORTER_SYNTHESIS.md)
+  explicitly falsify global interpretation of local residual IDs (15 observed
+  cross-context collisions), input-context omission (63 classes), and occurrence
+  sidecar omission (124 classes). This corroborates the namespace repair above;
+  it does not imply one universal key or sidecar for all observations.
+- [Support-local residual dictionaries](https://github.com/iteathen/Connect4/blob/e8e3bb5266a39a92549248f2a586b45de4f2709e/research/experiments/bsfp-support-local-residual/RESULT.md)
+  are exact vocabularies of all unique nonempty line-minus-support masks, with
+  at most one entry per original winning line. They cannot themselves be
+  antichain-pruned: a smaller geometric term may belong to a blocked line while
+  the larger term remains live. Their construction/transport costs and lost
+  cross-support sharing require measurement before replacing global WSL IDs.
+- [Single-CNF negative control](https://github.com/iteathen/Connect4/blob/fd7a8df05eadfbf47f5a3569423c552284542d15/research/experiments/bsfp-clause-frontier/CANONICAL_CNF_NEGATIVE.md)
+  demonstrates that canonical form need not minimize computation: full
+  distribution moves Cartesian work to the other move quantifier and can
+  destroy useful factorization. This is a constraint on structural redesign,
+  not a reason to transplant backward clause records into forward state.
+- [Positive-certificate composition](https://github.com/iteathen/Connect4/blob/a70d457f79c9e4e60d60b0ae9a4c6670662983ad/research/experiments/cuda-bsfp-clause-coverage/POSITIVE_CERTIFICATE_ALGEBRA_SYNTHESIS.md)
+  preserves conjunction through minimal admissible completions only with its
+  context and cardinality guard. The controls expose 2,368 uncapped failures
+  and 23 cross-context key collisions. Completion identity is specific to the
+  declared legal-slice observation; transition/proof equivalence does not
+  follow. Its extra certificate products also prevent a speed claim from
+  algebraic equivalence alone.
+
+These are reviewed research findings and candidates, not new implementation
+claims. The complete corpus and external-authority reading is still underway.
