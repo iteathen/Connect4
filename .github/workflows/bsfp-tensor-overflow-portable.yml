@@ -35,6 +35,8 @@ jobs:
           ln -sfn "$(realpath ../CUDA-JS)" ../CUDA-JS-Tensor/node_modules/cuda-js
       - name: Qualify Tensor packed42 overflow semantics
         run: node --test components/bsfp/cuda/test/tensor-packed42-overflow-normalizer.test.mjs
+      - name: Qualify full-shape prepared Tensor A/B contract
+        run: node research/experiments/cuda-bsfp-tensor-dominance/run.mjs portable
       - name: Verify exact pair identities
         shell: bash
         run: |
