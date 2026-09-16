@@ -500,7 +500,7 @@ async function main() {
   if (!['portable', 'native'].includes(mode)) throw new RangeError('mode must be portable or native');
   const native = mode === 'native';
   const fixture = createMinimalDominanceFixture({ frontierCount: FRONTIER_COUNT, candidateCount: CANDIDATE_COUNT });
-  const runtime = native ? await openCudaRuntime() : await openCudaRuntimeForTesting({ compiler: true });
+  const runtime = native ? await openCudaRuntime({ compiler: true }) : await openCudaRuntimeForTesting({ compiler: true });
   const tensorSession = await TensorSession.open(runtime);
   let tensorDeviceProgram;
   try {
