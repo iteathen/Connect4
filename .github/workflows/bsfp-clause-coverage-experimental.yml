@@ -49,3 +49,6 @@ jobs:
 
       - name: Derive, map, compile and submit real support-edge cofactors
         run: node research/experiments/cuda-bsfp-clause-coverage/run-cofactor.mjs portable
+
+      - name: Census scalar versus preimage cofactor work shape
+        run: node research/experiments/cuda-bsfp-clause-coverage/analyze-cofactor-work.mjs
