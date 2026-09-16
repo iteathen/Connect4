@@ -192,7 +192,7 @@ export class IsometricState {
   }
 
   transitionSignature(target = new Int32Array(6)) {
-    const structural = this.structuralSignature();
+    const structural = this.structuralSignature(target);
     let orientation = structural[2];
     let support = orientation === 0 ? this.supportCode : this.reflectedSupportCode();
     if (structural[3] === 1) {
