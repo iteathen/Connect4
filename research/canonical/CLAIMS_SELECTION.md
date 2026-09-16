@@ -63,6 +63,40 @@ and the event is the same center column.
 
 For Connect-4 this gives `W=7,c=3` zero-based. With the independent regular K=4 core-balance law, `W=7` forces `H=6`, and the already-derived core dimension is `28`.
 
+## C4-R0072 — non-center openings are structurally non-winning on width 7
+
+**Status:** deductive exact.
+
+For `K=4`, `W=7`, and every even `H>=4`, each non-center first move has an explicit P1 response-certificate construction that blocks or preempts every P0 winning group. Therefore:
+
+```text
+P0 forced win on 7 x even-H
+=> P0 opens center.
+```
+
+This is a game-semantic necessity theorem, not a centrality heuristic and not an imported opening table.
+
+Standard `7x6` also has an independent constructive proof that avoids treating named historical rules as final ontology. Three finite local response components compose asynchronously into total P1 policies for the three reflection classes. Their generated invariants cover all 69 P0 lines:
+
+```text
+opening 1 / reply 2: 48 singleton + 19 forbidden-pair + 2 support-shadow
+opening 2 / reply 3: 49 singleton + 18 forbidden-pair + 2 support-shadow
+opening 3 / reply 4: 56 singleton + 11 forbidden-pair + 2 support-shadow
+```
+
+with zero unclassified lines; reflection supplies openings `7/6`, `6/5`, and `5/4`.
+
+The theorem establishes only `P0 <= draw` for the non-center openings. It does not prove the center opening is winning.
+
 ## What remains open
 
-This closes a structural coincidence, not semantic selection. To bridge to strong distance one still needs a theorem that the value-/distance-optimal strategy can be chosen uniformly from this center/phase observation and that opponent delay preserves the relevant phase/deadline structure through the rank-5 center-stack extremum. The number `28` cannot be used as a premise in that proof.
+The opening-selection bridge is now split cleanly:
+
+```text
+structural center uniqueness             [C4-R0070/R0071]
++ non-center forced-win exclusion        [C4-R0072]
+------------------------------------
+center is necessary for any P0 forced win
+```
+
+What remains is **positive center progress**: derive a center-opening winning/value-preserving strategy from structural consequence predecessors without importing the root value. After that, strong-distance selection still requires a separate **delay-preservation** theorem carrying the relevant phase/deadline structure to the rank-5 center-stack extremum. Only then can the static 28 be coupled honestly to the strong-play terminal-provenance 28.

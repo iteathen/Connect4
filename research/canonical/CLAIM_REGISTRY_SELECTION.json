@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "id_range": "C4-R0070..C4-R0071",
+  "id_range": "C4-R0070..C4-R0072",
   "research_direction": "Josh Oshiro",
   "claims": [
     {
@@ -37,6 +37,23 @@
         {"type": "supports", "target": "C4-R0050"},
         {"type": "supports", "target": "C4-R0053"},
         {"type": "constrains", "target": "C4-R0052"}
+      ]
+    },
+    {
+      "id": "C4-R0072",
+      "title": "Every non-center opening on seven-wide even-height Connect-4 admits an exact defender safety certificate",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For K=4, width W=7 and every even height H>=4, each non-center P0 first move admits an explicit P1 response-certificate construction that blocks or preempts every P0 geometric winning group; by reflection the three left-side opening classes cover all six non-center columns. Hence any P0 forced-win proof on 7xH must begin in the center column. On standard 7x6 this implication is independently strengthened by a local-product proof: three finite response-component types compose asynchronously into total P1 policies for openings 1/7, 2/6 and 3/5, and the generated invariant closure classifies all 69 P0 winning lines by singleton blockers, same-component forbidden pairs, or support-shadow preemption with zero unclassified lines.",
+      "scope": "Exact one-sided non-win theorem. The generalized parameterized certificate is for K=4,W=7, even H>=4; the independent local-product/69-line closure is qualified on standard 7x6. The theorem does not distinguish draw from P1 win, does not prove that the center opening wins for P0, does not establish strong distance, and does not identify the strong-play terminal-line support with structural 28.",
+      "sources": [
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-searchless-seven-wide-opening-selection.md",
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-13-noncenter-opening-structural-safety-theorem.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "constrains", "target": "C4-R0052"},
+        {"type": "supports", "target": "structural-selection-bridge"}
       ]
     }
   ]
