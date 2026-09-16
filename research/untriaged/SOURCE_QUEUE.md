@@ -1,24 +1,28 @@
 # Source normalization queue
 
-The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, and the realizability/composition split through C4-R0063.
+The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, the static/history realizability split through C4-R0063, and the strategy-dependency/history-complexity layer through C4-R0067.
 
 Remaining work is classification of **meaning**, not file movement.
 
-## Active realizability follow-up
+## Active realizability / strategy follow-up
 
 - C4-R0060 gives the exact pinned-NAE characterization of fixed-support line-hit image membership.
 - C4-R0061 records the odd-cycle counterexample showing that line-local and pairwise compatibility do not compose globally.
 - C4-R0062 separates legal alternating-history realizability from symbolic ownership-partition realizability.
-- C4-R0063 identifies lossless join/join dependency as the standard static composition requirement and keeps dynamic legality/proof identity separate.
-- `research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md` owns the next bounded questions: owner-free compiled image relation, special-scope width/cycle structure, compact shuffle criterion, first-win lift, guarded cofactor obligation birth, and the strong-play-28 selection bridge.
+- C4-R0063 identifies lossless join/join dependency as the standard static composition requirement.
+- C4-R0064 identifies projection-relative strategy sufficiency with observation-based/uniform strategy existence.
+- C4-R0065 maps retained/discarded opponent distinctions to explicit Skolem dependency sets in bounded DQBF semantics.
+- C4-R0066 establishes the NP-hard all-width constrained-shuffle boundary for the unrestricted history layer.
+- C4-R0067 rejects per-event parity windows plus matching as a complete history reconstruction law.
+- `research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md` now owns the fixed-width history factorization, dependency-minimal guarded cofactor lift, quotient-strength ladder, and strong-play-28 strategy-factorization questions.
 
 ## High priority remaining
 
-1. **Minimax candidate-map long tail** — normalize remaining historical mechanisms and signed interaction edges without collapsing mechanism/form/workload/order distinctions. C4-R0035 governs this pass.
-2. **A9 repair / role-generalization** — derive the missing guard/orientation law for the falsified legacy/even-ply responder form.
-3. **A4/A8 structural extraction** — express their safe sampled extra cover in solver-neutral relation primitives where possible.
-4. **BSFP remaining engineering long tail** — normalize dense-ID/grouping/device-chaining results while keeping kernel-only diagnostics solver-scoped.
-5. **Historical candidate/evaluator cleanup** — move obsolete implementation-specific findings to history only after surviving semantic content has stable claim IDs.
+1. **Guarded cofactor strategy lift** — determine the minimum observation/dependency/resource/deadline facts needed to convert exact mixed-owner cofactors into obligations under opponent-universal intervention.
+2. **Fixed-width history factorization** — exploit width-7 structure rather than searching for an all-width scalar formula ruled out by the constrained-shuffle boundary.
+3. **Minimax candidate-map long tail** — normalize remaining historical mechanisms and signed interaction edges without collapsing mechanism/form/workload/order distinctions. C4-R0035 governs this pass.
+4. **A9 repair / role-generalization** — derive the missing guard/orientation law for the falsified legacy/even-ply responder form.
+5. **BSFP remaining engineering long tail** — normalize dense-ID/grouping/device-chaining results while keeping kernel-only diagnostics solver-scoped.
 
 ## Derivative / predicate packet now normalized
 

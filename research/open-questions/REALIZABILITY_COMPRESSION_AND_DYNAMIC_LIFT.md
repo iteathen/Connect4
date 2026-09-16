@@ -1,6 +1,6 @@
 # Open questions: realizability compression and dynamic lift
 
-The exact static correlation object is now identified, but its compact owner-free representation and its composition with causal game proof remain open.
+The exact static correlation object and the exact projection-relative strategy condition are now identified. Compact Connect-4-specific representations of them, and their composition with guarded causal proof, remain open.
 
 ## Closed inputs
 
@@ -8,6 +8,10 @@ The exact static correlation object is now identified, but its compact owner-fre
 - `C4-R0061`: local and pairwise line-status compatibility are insufficient because a three-line odd NAE cycle is globally impossible.
 - `C4-R0062`: a fixed colored support is history-realizable before stopping exactly when its column words shuffle to the alternating turn word.
 - `C4-R0063`: projection recombination is exact only under a lossless-join condition.
+- `C4-R0064`: strategic sufficiency of a history projection is existence of an observation-based/uniform strategy over that projection.
+- `C4-R0065`: bounded response dependencies can be represented exactly as Skolem dependency sets in a quantified Boolean encoding.
+- `C4-R0066`: unrestricted variable-width alternating history realizability contains NP-hard `CSh[(01)*]`.
+- `C4-R0067`: per-event parity windows plus matching are not a complete substitute for column precedence.
 
 ## Q1 — owner-free line-hit factorization
 
@@ -39,41 +43,83 @@ In particular:
 
 Do not infer a favorable width theorem merely from K=4 locality.
 
-## Q3 — compact history-realizability criterion
+## Q3 — fixed-width history factorization
 
-Can C4-R0062's shuffle/alternating-linear-extension condition be reduced to a smaller exact set of prefix, matching or flow constraints for the special case of disjoint gravity chains and a fixed alternating target word?
+The all-width history problem is NP-hard, so the next useful target is deliberately narrower:
 
-Global owner counts are not sufficient. Any proposed criterion must reject the `2x2,K=4` two-column `10,10` witness and must preserve terminal stopping separately.
+> for fixed standard width 7, can C4-R0062 be compiled into a bounded transfer/separator object whose state does not grow with height except through explicit integer counters?
+
+The representation must preserve within-column precedence. Global owner counts are insufficient, and C4-R0067 shows that independent event windows plus matching are also insufficient.
+
+Useful search directions include:
+
+```text
+finite automata over column run types
+bounded-width path/separator decompositions
+trace/partial-order quotients
+counter automata with exact phase state
+fixed-parameter dynamic programming whose semantic state can be minimized symbolically.
+```
+
+Do not hide physical-history enumeration behind a renamed dynamic program.
 
 ## Q4 — first-win lift
 
 For terminal colored supports, characterize exactly when there exists an alternating linear extension whose **first** terminal prefix is the full state. Determine whether this can be expressed as a local last-event/deadline condition plus the nonterminal history relation, or whether additional historical correlation is unavoidable.
 
-## Q5 — guarded cofactor obligation birth
+## Q5 — dependency-minimal guarded cofactor obligation birth
 
-The frontier branch currently narrows the dynamic seam to:
+Recast the active frontier rule as a strategy-synthesis statement:
 
 ```text
-MixedCofactorConsequence
-+ AdmissibleSupport
-+ UniversalInterventionStability
-+ SharedResourceAccounting
-+ FirstWinBeforeDeadline
+exists controller certificate/response
+  as a function only of retained observation/dependencies
+for all admissible opponent interventions
+  consequence survives or a stronger terminal result occurs
+before the deadline
 -> CertifiedObligation.
 ```
 
-Determine which guards are functions of the exact realizability relations above and which introduce genuinely new dynamic coordinates. Do not promote a new primitive until a concrete residue remains after the static/history relations are supplied.
+Determine the minimum opponent/event distinctions the response function must depend on. The response-serialization theorem proves at least one such dependency can be load-bearing.
 
-## Q6 — strong-play 28 selector
+For the A/B mixed-cofactor collision, stop at the first missing item among:
+
+```text
+observation/dependency edge
+shared resource contract
+precedence relation
+deadline/first-win fact
+new consequence type.
+```
+
+Only the last case justifies a new logical primitive.
+
+## Q6 — quotient strength ladder
+
+For each proposed compression, state which level is actually proved:
+
+```text
+lossless static join
+history realizability
+existence of an objective-relative uniform strategy
+action-labelled transition congruence
+full game/alternating bisimulation
+proof/certificate commutation.
+```
+
+Use alternating/game bisimulation as a strong control for full strategic equivalence, not as an automatic requirement for claim-relative proof reuse.
+
+## Q7 — strong-play 28 selector
 
 The empty-board structural 28 is already derived; the strong-distance 28 is separately observed/qualified. Test whether the missing selection theorem factors through:
 
 ```text
 lossless static correlation
 + legal alternating history
++ uniform strategy over a compact observation
 + CPC/control potential
 + response-resource deficiency
 + deadline/first-win ordering.
 ```
 
-The result must generalize or explain its failure on nearby boards, especially the existing `6x7` and `8x7` controls. The number 28 itself must not be a premise.
+A successful theorem must prove that the optimal strategy needs only the retained observation/dependencies; it may not import `28` as a target count. It must generalize or explain failure on nearby boards, especially the existing `6x7` and `8x7` controls.
