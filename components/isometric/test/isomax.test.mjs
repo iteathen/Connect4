@@ -77,6 +77,23 @@ test('transition cache uses stronger support-aware identity while mirrors share 
   assert.equal(cache.get(different), undefined);
 });
 
+test('transition cache resize preserves the incoming signature and arbitrary cached values', () => {
+  const pool = new ResidualPool();
+  const cache = new IsoMaxTransitionCache({ initialCapacity: 8 });
+  const prefixes = [
+    [],
+    [0],
+    [0, 1],
+    [0, 1, 0],
+    [0, 1, 0, 1],
+    [0, 1, 0, 1, 0],
+  ];
+  const states = prefixes.map((moves) => new IsometricState({ pool, moves }));
+  for (let index = 0; index < states.length; index += 1) cache.set(states[index], 10000 + index);
+  assert.ok(cache.capacity > 8);
+  for (let index = 0; index < states.length; index += 1) assert.equal(cache.get(states[index]), 10000 + index);
+});
+
 test('native WSL frontier derives exact immediate win', () => {
   const state = new IsometricState({ moves: [3, 0, 3, 0, 3, 1] });
   const consequence = deriveNativeFrontierConsequence(state);
