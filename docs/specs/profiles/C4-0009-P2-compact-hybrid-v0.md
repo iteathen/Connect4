@@ -101,6 +101,10 @@ The v0 service defaults are:
 
 The candidate workspace uses four u32 arrays when checks are included: low mask, high mask, popcount, and comparison count. Output frontiers use two u32 arrays. Metadata and status arrays are bounded by segment capacity.
 
+### Tensor overflow workspace contracts
+
+The integrated overflow normalizer uses CUDA-JS-Tensor `ResolvedTensorPlan`. Under accepted Tensor SPEC-0005 its resolved-plan workspace ceiling is **64 MiB**, and P2 uses that value as the shared default and maximum for `BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES`. The separate full-shape Tensor A/B gate uses the SPEC-0009 device-callable program profile and retains its independently qualified larger workspace allowance; that allowance must not be forwarded into the resolved-plan solver path. CUDA-JS device-allocation policy is a third, independent contract and P2 no longer derives `maxAllocationBytes` from the Tensor workspace option.
+
 Including a 256 MiB runtime allowance, Q1 admits P2 with a conservative device upper bound below 384 MiB. The Q1 95%-of-current-free policy and 256 MiB emergency floor remain authoritative for hardware admission. The overflow specialization reuses these allocations and therefore does not increase this bound.
 
 These fixed capacities are qualification parameters, not claims that 1,024 is sufficient for every 7x6 support. If an exact frontier exceeds the ordinary stride, the reused-slab specialization is attempted; if it exceeds that bounded specialization too, the result is an explicit scaling datum and the profile is compressed or sharded. It is never clipped.

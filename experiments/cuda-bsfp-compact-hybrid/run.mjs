@@ -10,6 +10,7 @@ import {
 import { createConnectWinningLines } from '../../components/bsfp/geometry.mjs';
 import { createPacked42PairReducerService } from '../../components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs';
 import { SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION } from '../../components/bsfp/cuda/index.mjs';
+import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../../components/bsfp/cuda/tensor-overflow-contract.mjs';
 
 const TWO32 = 0x1_0000_0000;
 const MAX_MASK_42 = 2 ** 42 - 1;
@@ -331,14 +332,17 @@ const segmentCapacity = envPositive('BSFP_HYBRID_SEGMENT_CAPACITY', 256);
 const sideCapacity = envPositive('BSFP_HYBRID_SIDE_CAPACITY', 262144);
 const tensorCandidateTile = envPositive('BSFP_HYBRID_TENSOR_CANDIDATE_TILE', 256);
 const tensorReferenceTile = envPositive('BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
-const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 192 * 1024 * 1024);
+const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
 const tensorBackend = process.env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
 if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
+if (tensorMaxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
+  throw new RangeError(`BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES must not exceed ${TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES} for the resolved-plan profile`);
+}
 
 let runtime;
 const started = performance.now();
 try {
-  runtime = await openCudaRuntime({ compiler: true, driver: { memory: { maxAllocationBytes: tensorMaxWorkspaceBytes } } });
+  runtime = await openCudaRuntime({ compiler: true });
   const runtimeOpenMs = performance.now() - started;
   const solveStarted = performance.now();
   const solved = await solve(runtime, geometry, {

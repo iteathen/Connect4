@@ -7,11 +7,13 @@ import {
   resolveTensorPlan,
 } from 'cuda-js-tensor';
 
+import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from './tensor-overflow-contract.mjs';
+
 const BOARD_CELLS = 42;
 const TWO32 = 0x1_0000_0000;
 const DEFAULT_CANDIDATE_TILE = 256;
 const DEFAULT_REFERENCE_TILE = 1024;
-const DEFAULT_MAX_WORKSPACE_BYTES = 128 * 1024 * 1024;
+const DEFAULT_MAX_WORKSPACE_BYTES = TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES;
 
 function positiveSafeInteger(value, label) {
   if (!Number.isSafeInteger(value) || value < 1) throw new RangeError(`${label} must be a positive safe integer`);
@@ -156,6 +158,9 @@ export async function createTensorPacked42OverflowNormalizer(runtime, options = 
     backend: options.backend ?? 'simt',
   });
   if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(normalized.backend)) throw new RangeError('Tensor overflow backend must be simt, prefer-cublaslt, or cublaslt');
+  if (normalized.maxWorkspaceBytes > TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES) {
+    throw new RangeError(`Tensor overflow resolved-plan workspace must not exceed ${TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES} bytes`);
+  }
 
   const session = await TensorSession.open({
     runtime,

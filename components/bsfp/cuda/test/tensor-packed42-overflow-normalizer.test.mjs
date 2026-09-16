@@ -5,6 +5,7 @@ import {
   normalizeMaximalPacked42Antichain,
   normalizeMinimalPacked42Antichain,
 } from '../../index.mjs';
+import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../tensor-overflow-contract.mjs';
 
 const TWO32 = 0x1_0000_0000;
 
@@ -72,10 +73,10 @@ for (const entry of [
     const normalizer = await loaded.createTensorPacked42OverflowNormalizer(runtime, {
       candidateTile: 4,
       referenceTile: 4,
-      maxWorkspaceBytes: 8 * 1024 * 1024,
       backend: 'simt',
     });
     try {
+      assert.equal(normalizer.options.maxWorkspaceBytes, TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
       const packed = packedFixture(entry.values);
       const result = await normalizer.normalize({ ...packed, direction: entry.direction });
       const expected = [...entry.authority(entry.values)].sort((a, b) => a - b);

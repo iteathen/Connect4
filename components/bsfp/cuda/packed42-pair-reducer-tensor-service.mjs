@@ -6,6 +6,7 @@ import {
   createSegmentedPackedAntichain42Plan,
   createSegmentedPackedPairAntichain42Plan,
 } from './index.mjs';
+import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from './tensor-overflow-contract.mjs';
 
 const U32_BYTES = 4;
 const TWO32 = 0x1_0000_0000;
@@ -214,7 +215,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
         tensorNormalizer = await createTensorPacked42OverflowNormalizer(runtime, {
           candidateTile: options.tensorCandidateTile ?? 256,
           referenceTile: options.tensorReferenceTile ?? 1024,
-          maxWorkspaceBytes: options.tensorMaxWorkspaceBytes ?? 128 * 1024 * 1024,
+          maxWorkspaceBytes: options.tensorMaxWorkspaceBytes ?? TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES,
           backend: options.tensorBackend ?? 'simt',
         });
       }
