@@ -98,8 +98,22 @@ function dominanceProgram(direction, candidateTile, referenceTile) {
   });
 }
 
-async function allocateF32(session, shape) {
-  return session.allocate({ dtype: 'f32', capacityShape: shape, access: 'read-write' });
+async function allocateInputF32(session, shape) {
+  const writable = await session.allocate({ dtype: 'f32', capacityShape: shape, access: 'read-write' });
+  try {
+    const input = await writable.view({ dtype: 'f32', capacityShape: shape, access: 'read' });
+    return Object.freeze({
+      writable,
+      input,
+      async close() {
+        await input.close();
+        await writable.close();
+      },
+    });
+  } catch (error) {
+    await writable.close();
+    throw error;
+  }
 }
 
 async function createDirectionContext(session, direction, options) {
@@ -110,11 +124,11 @@ async function createDirectionContext(session, direction, options) {
     fusion: 'exact-elementwise',
     maxWorkspaceBytes: options.maxWorkspaceBytes,
   });
-  const candidates = await allocateF32(session, [options.candidateTile, BOARD_CELLS]);
-  const referencesTransposed = await allocateF32(session, [BOARD_CELLS, options.referenceTile]);
-  const referenceActive = await allocateF32(session, [options.referenceTile]);
-  const referencePopcounts = direction === 'minimal' ? await allocateF32(session, [options.referenceTile]) : null;
-  const candidatePopcounts = direction === 'maximal' ? await allocateF32(session, [options.candidateTile, 1]) : null;
+  const candidates = await allocateInputF32(session, [options.candidateTile, BOARD_CELLS]);
+  const referencesTransposed = await allocateInputF32(session, [BOARD_CELLS, options.referenceTile]);
+  const referenceActive = await allocateInputF32(session, [options.referenceTile]);
+  const referencePopcounts = direction === 'minimal' ? await allocateInputF32(session, [options.referenceTile]) : null;
+  const candidatePopcounts = direction === 'maximal' ? await allocateInputF32(session, [options.candidateTile, 1]) : null;
   return {
     direction,
     resolved,
@@ -178,7 +192,7 @@ export async function createTensorPacked42OverflowNormalizer(runtime, options = 
     return result;
   }
 
-  async function runReferenceTile(ctx, candidateRows, candidatePops, activeCandidateCount, frontier, referenceStart) {
+  async function runReferenceTile(ctx, activeCandidateCount, frontier, referenceStart) {
     const referenceCount = Math.min(normalized.referenceTile, frontier.length - referenceStart);
     const referencesTransposed = new Float32Array(BOARD_CELLS * normalized.referenceTile);
     const referenceActive = new Float32Array(normalized.referenceTile);
@@ -193,18 +207,18 @@ export async function createTensorPacked42OverflowNormalizer(runtime, options = 
     }
 
     const uploadStarted = performance.now();
-    await ctx.referencesTransposed.write(f32Bytes(referencesTransposed));
-    await ctx.referenceActive.write(f32Bytes(referenceActive));
-    if (referencePopcounts) await ctx.referencePopcounts.write(f32Bytes(referencePopcounts));
+    await ctx.referencesTransposed.writable.write(f32Bytes(referencesTransposed));
+    await ctx.referenceActive.writable.write(f32Bytes(referenceActive));
+    if (referencePopcounts) await ctx.referencePopcounts.writable.write(f32Bytes(referencePopcounts));
     totals.tensorUploadMs += performance.now() - uploadStarted;
 
     const bindings = {
-      candidates: ctx.candidates,
-      referencesTransposed: ctx.referencesTransposed,
-      referenceActive: ctx.referenceActive,
+      candidates: ctx.candidates.input,
+      referencesTransposed: ctx.referencesTransposed.input,
+      referenceActive: ctx.referenceActive.input,
       ...(ctx.direction === 'minimal'
-        ? { referencePopcounts: ctx.referencePopcounts }
-        : { candidatePopcounts: ctx.candidatePopcounts }),
+        ? { referencePopcounts: ctx.referencePopcounts.input }
+        : { candidatePopcounts: ctx.candidatePopcounts.input }),
     };
     const executeStarted = performance.now();
     const result = await ctx.resolved.run(bindings);
@@ -240,15 +254,15 @@ export async function createTensorPacked42OverflowNormalizer(runtime, options = 
       }
     }
     const uploadStarted = performance.now();
-    await ctx.candidates.write(f32Bytes(candidateRows));
-    if (candidatePops) await ctx.candidatePopcounts.write(f32Bytes(candidatePops));
+    await ctx.candidates.writable.write(f32Bytes(candidateRows));
+    if (candidatePops) await ctx.candidatePopcounts.writable.write(f32Bytes(candidatePops));
     totals.tensorUploadMs += performance.now() - uploadStarted;
     totals.candidateTiles += 1;
 
     const dominated = new Uint8Array(entries.length);
     let remaining = entries.length;
     for (let referenceStart = 0; referenceStart < frontier.length && remaining > 0; referenceStart += normalized.referenceTile) {
-      const tile = await runReferenceTile(ctx, candidateRows, candidatePops, entries.length, frontier, referenceStart);
+      const tile = await runReferenceTile(ctx, entries.length, frontier, referenceStart);
       for (let i = 0; i < entries.length; i += 1) {
         if (dominated[i] === 0 && tile[i] !== 0) {
           dominated[i] = 1;
