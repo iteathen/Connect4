@@ -331,14 +331,14 @@ const segmentCapacity = envPositive('BSFP_HYBRID_SEGMENT_CAPACITY', 256);
 const sideCapacity = envPositive('BSFP_HYBRID_SIDE_CAPACITY', 262144);
 const tensorCandidateTile = envPositive('BSFP_HYBRID_TENSOR_CANDIDATE_TILE', 256);
 const tensorReferenceTile = envPositive('BSFP_HYBRID_TENSOR_REFERENCE_TILE', 1024);
-const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 128 * 1024 * 1024);
+const tensorMaxWorkspaceBytes = envPositive('BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES', 192 * 1024 * 1024);
 const tensorBackend = process.env.BSFP_HYBRID_TENSOR_BACKEND ?? 'simt';
 if (!['simt', 'prefer-cublaslt', 'cublaslt'].includes(tensorBackend)) throw new RangeError('BSFP_HYBRID_TENSOR_BACKEND must be simt, prefer-cublaslt, or cublaslt');
 
 let runtime;
 const started = performance.now();
 try {
-  runtime = await openCudaRuntime({ compiler: true });
+  runtime = await openCudaRuntime({ compiler: true, driver: { memory: { maxAllocationBytes: tensorMaxWorkspaceBytes } } });
   const runtimeOpenMs = performance.now() - started;
   const solveStarted = performance.now();
   const solved = await solve(runtime, geometry, {
