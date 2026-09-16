@@ -1,0 +1,67 @@
+name: fix-tensor-resolved-workspace-contract
+
+on:
+  push:
+    branches:
+      - research/bsfp-tensor-overflow-dominance
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message, 'fix: separate Tensor workspace profiles') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: research/bsfp-tensor-overflow-dominance
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Apply resolved-plan workspace correction
+        run: node tools/fix-tensor-resolved-workspace-contract.mjs
+      - name: Checkout exact CUDA-JS pair
+        shell: bash
+        run: |
+          git clone https://github.com/iteathen/CUDA-JS.git ../CUDA-JS
+          git -C ../CUDA-JS checkout 98e2ebc942c14d63acf4dd82e912dd548c363a05
+          npm --prefix ../CUDA-JS ci --no-audit --no-fund
+          git clone https://github.com/iteathen/CUDA-JS-Tensor.git ../CUDA-JS-Tensor
+          git -C ../CUDA-JS-Tensor checkout 9df9324b0ca7606f9dd2af2e89aed118839896a5
+      - name: Wire exact sibling packages
+        shell: bash
+        run: |
+          mkdir -p node_modules ../CUDA-JS-Tensor/node_modules
+          ln -sfn "$(realpath ../CUDA-JS)" node_modules/cuda-js
+          ln -sfn "$(realpath ../CUDA-JS-Tensor)" node_modules/cuda-js-tensor
+          ln -sfn "$(realpath ../CUDA-JS)" ../CUDA-JS-Tensor/node_modules/cuda-js
+      - name: Verify repository
+        run: node --test
+      - name: Verify full-shape device-callable A/B remains valid
+        run: node research/experiments/cuda-bsfp-tensor-dominance/run.mjs portable
+      - name: Verify invalid resolved-plan override rejects before CUDA open
+        shell: bash
+        run: |
+          set +e
+          BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES=67108865 node experiments/cuda-bsfp-compact-hybrid/run.mjs native 4x4:c4 > /tmp/resolved-limit.log 2>&1
+          status=$?
+          set -e
+          test "$status" -ne 0
+          grep -F "BSFP_HYBRID_TENSOR_MAX_WORKSPACE_BYTES must not exceed 67108864" /tmp/resolved-limit.log
+      - name: Publish qualified source correction
+        shell: bash
+        run: |
+          git config user.name iteathen
+          git config user.email josh.oshiro@gmail.com
+          git add \
+            components/bsfp/cuda/tensor-overflow-contract.mjs \
+            components/bsfp/cuda/tensor-packed42-overflow-normalizer.mjs \
+            components/bsfp/cuda/packed42-pair-reducer-tensor-service.mjs \
+            components/bsfp/cuda/test/tensor-packed42-overflow-normalizer.test.mjs \
+            experiments/cuda-bsfp-compact-hybrid/run.mjs \
+            docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md
+          git commit -m 'fix: separate Tensor workspace profiles'
+          git push origin HEAD:research/bsfp-tensor-overflow-dominance
