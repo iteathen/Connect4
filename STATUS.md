@@ -32,7 +32,7 @@ It does not own:
 - CUDA-BSFP private symbolic recurrence/storage;
 - Isometric structural calculus;
 - SUT semantics;
-- canonical solver-neutral research.
+- all canonical Connect4 research.
 
 ## Immediate seam
 
