@@ -326,7 +326,8 @@
           "result": "SUPPORTED_NOT_PROVED",
           "breaker": null
         }
-      ]
+      ],
+      "residual": "The represented 4/4/3/2 hierarchy is established, but the decoder's internal reason for producing 3 is unobservable; layer substitution remains a supported explanation rather than a proved causal account."
     },
     {
       "lead": "D_deductive_independence_owner_layer",
@@ -418,7 +419,14 @@
       },
       "result": "No missing semantic layer. Existing authority already represents event and lineage separately.",
       "final_discovery_disposition": "NO_STRUCTURAL_LEAD",
-      "hypotheses": [],
+      "hypotheses": [
+        {
+          "id": "E1",
+          "statement": "The 13-vs-10 prose slip reveals an additional unmodeled evidence identity layer.",
+          "result": "FALSIFIED",
+          "breaker": "Authority 1.1 already represents event and lineage as distinct first-class layers, and the structured decoder output reconstructs those distinctions elsewhere."
+        }
+      ],
       "qualification_disposition": "DECODER_PROSE_SLIPPAGE",
       "discovery_disposition": "NO_STRUCTURAL_LEAD",
       "lifecycle": "REJECTED",
@@ -443,7 +451,14 @@
         "closure": "complete represented lineage/event counts"
       },
       "immediate_neighborhood_checked": true,
-      "falsifiers": []
+      "falsifiers": [
+        {
+          "id": "E1",
+          "result": "FALSIFIED",
+          "breaker": "Authority 1.1 already represents event and lineage as distinct first-class layers, and the structured decoder output reconstructs those distinctions elsewhere."
+        }
+      ],
+      "residual": "None under the current claim; ordinary summarization substitution is sufficient."
     }
   ],
   "synthesis": [
