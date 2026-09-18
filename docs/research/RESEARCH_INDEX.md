@@ -42,11 +42,7 @@ bounded future-behavior identity:
 
 on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
 
-### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE
-
-### IsoGraph Discovery Protocol campaign
-
-### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE
+### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE — IsoGraph Discovery Protocol campaign
 
 - `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md`  
   First full execution of the IsoGraph Discovery Protocols against live Connect4 authority discrepancies. Establishes explicit-scope-metadata vs semantic-validity-scope as distinct predicates; establishes the R0045 4-artifact / 3-event / 2-lineage hierarchy; establishes lineage-level ownership of evidence-independence applicability; falsifies the shared minimal-relation-basis hypothesis for the repeated relation-count deficits; and closes the 10-lineage/13-event prose slip as ordinary error.
