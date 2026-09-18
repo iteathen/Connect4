@@ -2,6 +2,8 @@
 
 **Date:** 2026-09-11  
 **Status:** owner-authorized repository organization decision  
+
+> **Current research-routing authority:** `2026-09-17-single-research-owner.md` supersedes any wording in this historical decision that could be read as permitting solver-specific research ownership, multiple research authorities, or durable focused research branches. All durable research belongs on `research/semantic-quotient`.
 **Amends:** `2026-09-10-repository-lane-restructure.md`
 
 ## Trigger

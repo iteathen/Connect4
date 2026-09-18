@@ -3,6 +3,8 @@
 **Date:** 2026-09-10  
 **Status:** owner-authorized repository organization decision
 
+> **Current research-routing authority:** `2026-09-17-single-research-owner.md` supersedes any wording in this historical decision that could be read as permitting solver-specific research ownership, multiple research authorities, or durable focused research branches. All durable research belongs on `research/semantic-quotient`.
+
 ## Decision
 
 Connect4 uses four durable ownership lanes:

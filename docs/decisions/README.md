@@ -8,6 +8,7 @@ Current repository-organization decisions:
 - [`2026-09-11-main-shared-foundation-three-solver-heads.md`](2026-09-11-main-shared-foundation-three-solver-heads.md) — reopens the topology after hybrid confluence emerged, defines `main` as the shared accepted foundation, and defines minimax, CUDA-BSFP and hybrid confluence as peer long-lived solver heads.
 - [`2026-09-17-closed-durable-lane-topology.md`](2026-09-17-closed-durable-lane-topology.md) — recognizes Isometric and SUT as additional peer solver families, closes the durable lane set, and makes temporary branch ownership/retirement explicit.
 - [`2026-09-17-solver-namespace-normalization.md`](2026-09-17-solver-namespace-normalization.md) — normalizes every durable solver-family head under `solver/*` while preserving Isometric and SUT ownership/history.
+- [`2026-09-17-single-research-owner.md`](2026-09-17-single-research-owner.md) — establishes `research/semantic-quotient` as the single owner of all Connect4 research and supersedes any solver-specific or multi-branch research routing.
 
 A decision record should state:
 
