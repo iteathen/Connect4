@@ -6,6 +6,16 @@ The branch `research/semantic-quotient` is the single canonical research owner f
 
 Research direction: Josh Oshiro.
 
+## Gameplay strategy and implementation proposals
+
+The living bridge from IsoGraph research into gameplay description, solver strategy, and implementation ideas is:
+
+- `GAMEPLAY_STRATEGY_INDEX.md`
+
+New durable gameplay-facing strategies must be registered there rather than left only in dated notes, issues, experiments, or solver branches. Proposal documents live under `gameplay-strategy/`.
+
+The strategy index is not semantic authority. It tracks what to try, how it could be implemented, what exact research it consumes, and what must be proved or measured before adoption.
+
 ## Read this first
 
 The qualified logic authority is IsoGraph. Read in this order:
@@ -62,6 +72,7 @@ A statement must be classified before it is used as authority:
 
 ## Directory roles
 
+- `GAMEPLAY_STRATEGY_INDEX.md` / `gameplay-strategy/` — living gameplay/implementation proposal surface where IsoGraph findings are translated into candidate runtime and solver strategies.
 - `isograph/` — qualified current logic representation, authority manifests, native corpus, and qualification evidence.
 - `canonical/` — legacy normalized model/claim-registry bridge retained for readability and reconstruction.
 - `maps/` — relationships among claims and solver consumers.
