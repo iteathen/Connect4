@@ -6,18 +6,20 @@ canonical_branch: solver/minimax-alpha-beta
 
 current:
   owner: Connect4
-  mode: research_execution
+  mode: implementation_execution
   action: replace_JS_Map_BigInt_semantic_identity_and_transition_caches_with_exact_typed_structures_without_changing_search_semantics
 
 source_of_truth:
   branch_guide: MINIMAX_BRANCH.md
   prototype_index: reference/research-prototypes/MINIMAX_INDEX.md
   lineage_audit: docs/research/2026-09-10-minimax-branch-lineage-audit.md
-  mq5_packet: research/minimax/semantic-residual-mq5
-  mq5_report: docs/research/2026-09-11-minimax-mq5-semantic-residual-anchor-results.md
-  mq5_evidence: docs/research/evidence/2026-09-11-minimax-mq5-semantic-residual-anchors.json
+  implementation_prototype_packet: research/minimax/semantic-residual-mq5
+  historical_implementation_report: docs/research/2026-09-11-minimax-mq5-semantic-residual-anchor-results.md
+  implementation_qualification_evidence: docs/research/evidence/2026-09-11-minimax-mq5-semantic-residual-anchors.json
 
-shared_research_dependency:
+research_ownership_rule: all_durable_research_owned_by_research_semantic_quotient
+
+canonical_research_dependency:
   branch: research/semantic-quotient
   status: mq1_to_mq4_passed_with_materialized_flat_replay
   qualified_candidate: support_plus_minimal_residual_antichain_pair
