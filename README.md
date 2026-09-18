@@ -12,7 +12,7 @@ The repository has one shared foundation, one canonical research lane, and **thr
 `solver/minimax-alpha-beta` and `solver/hybrid-confluence` are historical solver lineages, not active implementation owners. Their useful knowledge is preserved in canonical research history. The qualified incumbent implementation on `main` remains a reference/baseline/conformance comparator.
 `main` is **not another solver line**. It is the shared accepted substrate and repository router. It owns domain rules, benchmark/fairness semantics, oracle/reference behavior, accepted cross-lane contracts and repository-level ownership decisions.
 
-The qualified incumbent implementation on `main` is retained as a reference/baseline and oracle comparator. It is not the repository's singular "current solver" and does not make `main` the minimax implementation head.
+The qualified incumbent implementation on `main` is retained as a reference/baseline and oracle comparator. It is not an active solver-family implementation.
 
 ## Durable branch model
 
@@ -28,7 +28,7 @@ The qualified incumbent implementation on `main` is retained as a reference/base
              canonical research + history
 ```
 
-The diagram is ownership-orientedThe diagram is ownership-oriented, not a Git ancestry claim. Solver heads are peers and may have different historical origins.
+The diagram is ownership-oriented, not a Git ancestry claim. Solver heads are peers and may have different historical origins.
 
 The current durable set is closed by `docs/decisions/2026-09-18-three-active-solver-topology.md`. Agents may create bounded temporary work/experiment branches, but may not invent another durable lane or let a temporary branch become a continuity owner without explicit owner instruction.
 
