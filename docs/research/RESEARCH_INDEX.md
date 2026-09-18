@@ -42,6 +42,26 @@ bounded future-behavior identity:
 
 on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
 
+### ACTIVE FOUNDATION / DISCOVERY SYNTHESIS — high-value lead investigation
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/CAMPAIGN.md`  
+  Resolves/refines the six highest-value surviving DP/NEI leads: semantic-scope normalization, deductive lineage mode, contextual identity spans, and standard-7x6 q future-behavior congruence.
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/SEMANTIC_SCOPE_NORMALIZATION.md`  
+  Whole-corpus audit showing current structured claim fields cannot recover complete semantic scope; proposes typed claim-domain/guards/evidence-coverage/exclusion normalization.
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/DEDUCTIVE_LINEAGE_MODE.md`  
+  Current-corpus evidence that `not_applicable_deductive` belongs to deductive-only evidence topology, with a typed `evidence_mode` successor candidate.
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/CONTEXTUAL_IDENTITY_SPANS.md`  
+  Establishes artifact identity vs artifact-lineage occurrence and refines profile-mediated collapse into an anchored contextual correspondence span.
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md`  
+  Deductive candidate proving ordinary future-behavior congruence of equal q on standard 7x6, with a dimension-independent generalization candidate.
+
+- `research/isograph/identity/CONNECT4_NEI_7X6_REASSESSMENT_0_1.md`  
+  Preserves historical NEI-C4-0007 while recording candidate SAME under the new proof evidence, pending independent qualification.
+
 ### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE — NEI-enabled Discovery Protocol rerun
 
 - `research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md`  
