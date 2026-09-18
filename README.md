@@ -7,7 +7,7 @@ The repository deliberately keeps solver/research lineages separate while sharin
 - **BSFP** — backward symbolic fixed-point solving and CUDA-BSFP composition (`components/bsfp/`);
 - **Research** — theorem discovery, structural mathematics, falsification, and qualification evidence (`research/`, `docs/research/`);
 - **Negamax** — the quotient-native forward recursive-search lineage governed by C4-0010;
-- **Isometric** — the structural-calculus / frontier-exact solver family on the root branch `isometric`, governed by C4-0011.
+- **Isometric** — the structural-calculus / frontier-exact solver family on the root branch `solver/isometric`, governed by C4-0011.
 
 Isometric descended historically from the terminal-frontier Negamax experiment, but it is now a sibling solver family rather than a Negamax sub-experiment. Its current recursive alpha-beta/minimax machinery is an execution backend for unresolved residue, not its solver-family identity.
 
