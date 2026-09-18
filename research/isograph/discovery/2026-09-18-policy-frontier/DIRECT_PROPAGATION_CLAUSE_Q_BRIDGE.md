@@ -62,23 +62,23 @@ The next universal step did not complete inside the bounded research window.
 
 ## q projection proves the wall is representation-induced
 
-The exact ownership boundary was projected to ordinary q identity and then to the P0-favorable q Pareto boundary:
+The exact ownership boundary was projected to ordinary q identity and then to the P0-favorable abstract residual-Pareto bounds boundary:
 
 ~~~text
 rank 40:
-    ownership 174 -> distinct q 54 -> q Pareto 46
+    ownership 174 -> distinct q-shaped residual signatures 54 -> abstract residual-Pareto bounds 46
     max/support 9 -> 3 -> 2
 
 rank 39:
-    ownership 64,808 -> distinct q 626 -> q Pareto 192
+    ownership 64,808 -> distinct q-shaped residual signatures 626 -> abstract residual-Pareto bounds 192
     max/support 3,618 -> 12 -> 4
 
 rank 38:
-    ownership 38,336 -> distinct q 2,740 -> q Pareto 1,039
+    ownership 38,336 -> distinct q-shaped residual signatures 2,740 -> abstract residual-Pareto bounds 1,039
     max/support 2,162 -> 42 -> 10
 ~~~
 
-At rank 39 this is a 103.53x ownership-to-q collapse and a 337.54x ownership-to-q-Pareto collapse.
+At rank 39 this is a 103.53x ownership-to-q collapse and a 337.54x ownership-to-abstract-residual-Pareto collapse.
 
 Therefore the semantic value boundary is small even where the fine ownership representation explodes.
 
