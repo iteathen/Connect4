@@ -1,0 +1,104 @@
+name: Retire solver namespace cleanup branch
+
+on:
+  push:
+    branches:
+      - cleanup/solver-namespace-normalization-20260917
+    paths:
+      - .github/workflows/retire-solver-namespace-cleanup.yml
+
+permissions:
+  contents: write
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out cleanup branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: cleanup/solver-namespace-normalization-20260917
+          persist-credentials: false
+
+      - name: Verify normalization and retire cleanup branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const [owner,repo]=process.env.REPOSITORY.split('/');
+          if(process.env.REPOSITORY!=='iteathen/Connect4') throw new Error('repository mismatch');
+          if(process.env.BRANCH!=='cleanup/solver-namespace-normalization-20260917') throw new Error('unexpected cleanup branch');
+
+          const api='https://api.github.com';
+          const headers={
+            Authorization:`Bearer ${process.env.GH_TOKEN}`,
+            Accept:'application/vnd.github+json',
+            'X-GitHub-Api-Version':'2022-11-28',
+            'Content-Type':'application/json'
+          };
+          const enc=s=>s.split('/').map(encodeURIComponent).join('/');
+          async function gh(path,{method='GET',body,ok=[200]}={}){
+            const r=await fetch(api+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});
+            const text=await r.text();
+            if(!ok.includes(r.status)) throw new Error(`${method} ${path} -> ${r.status}: ${text.slice(0,800)}`);
+            return text?JSON.parse(text):null;
+          }
+          async function refMaybe(branch){
+            try{
+              return (await gh(`/repos/${owner}/${repo}/git/ref/heads/${enc(branch)}`)).object.sha;
+            }catch(e){
+              if(String(e).includes('-> 404:')) return null;
+              throw e;
+            }
+          }
+          async function tagTarget(tag){
+            try{
+              const r=await gh(`/repos/${owner}/${repo}/git/ref/tags/${enc(tag)}`);
+              if(r.object.type==='commit') return r.object.sha;
+              return (await gh(`/repos/${owner}/${repo}/git/tags/${r.object.sha}`)).object.sha;
+            }catch(e){
+              if(String(e).includes('-> 404:')) return null;
+              throw e;
+            }
+          }
+
+          const pr=await gh(`/repos/${owner}/${repo}/pulls/54`);
+          if(!pr.merged||pr.merge_commit_sha!=='36108993a528af01d4a9514fecc112aaf5127b55') throw new Error('PR54 merge mismatch');
+
+          if(await refMaybe('isometric')!==null) throw new Error('old isometric ref still exists');
+          if(await refMaybe('sut')!==null) throw new Error('old sut ref still exists');
+          if(await refMaybe('solver/isometric')===null) throw new Error('solver/isometric missing');
+          if(await refMaybe('solver/sut')===null) throw new Error('solver/sut missing');
+
+          for(const path of ['AGENT_LOCAL.md','README.md','STATUS.md','next_step.yaml','REPOSITORY_STRUCTURE.md']){
+            const text=fs.readFileSync(path,'utf8');
+            if(text.includes('`isometric`')||text.includes('`sut`')||text.includes('branch: isometric')||text.includes('branch: sut')){
+              throw new Error(`superseded root branch literal remains in ${path}`);
+            }
+          }
+
+          const tag='archive/solver-namespace-normalization-2026-09/cleanup--solver-namespace-normalization-20260917';
+          const head=process.env.HEAD_SHA;
+          const existing=await tagTarget(tag);
+          if(existing!==null&&existing!==head) throw new Error('cleanup archive tag target mismatch');
+          if(existing===null){
+            const t=await gh(`/repos/${owner}/${repo}/git/tags`,{
+              method:'POST',ok:[201],
+              body:{tag,message:'Archive solver namespace normalization cleanup branch before retirement',object:head,type:'commit'}
+            });
+            await gh(`/repos/${owner}/${repo}/git/refs`,{
+              method:'POST',ok:[201],
+              body:{ref:`refs/tags/${tag}`,sha:t.sha}
+            });
+            if(await tagTarget(tag)!==head) throw new Error('cleanup archive tag verification failed');
+          }
+
+          await gh(`/repos/${owner}/${repo}/git/refs/heads/${enc(process.env.BRANCH)}`,{method:'DELETE',ok:[204]});
+          console.log(`archived+deleted ${process.env.BRANCH} @ ${head}`);
+          NODE
