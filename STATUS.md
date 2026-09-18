@@ -1,7 +1,7 @@
 # Connect4 current Isometric status
 
 **Updated:** 2026-09-15  
-**Branch:** `isometric`  
+**Branch:** `solver/isometric`  
 **Solver family:** Isometric  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
@@ -12,7 +12,7 @@ This file is the current-state router for the Isometric line, not a theorem ledg
 
 Isometric is now a first-class sibling of the BSFP, Research, and Negamax lineages. The complete live terminal-frontier experiment was split from `research/terminal-frontier-horizon-exact` at `6b7f19ce4d15423f6f2537dd7b18bcba2a7348ea` without semantic rewriting.
 
-The historical source branch and closed draft PR #45 are provenance only. New Isometric semantics, implementation, experiments and qualification work belong on `isometric`. Do not route the line back into Negamax merely because its implementation ancestry came from the Negamax experiment.
+The historical source branch and closed draft PR #45 are provenance only. New Isometric semantics, implementation, experiments and qualification work belong on `solver/isometric`. Do not route the line back into Negamax merely because its implementation ancestry came from the Negamax experiment.
 
 C4-0011 is the Candidate Isometric solver specification. C4-0010 remains the accepted quotient-native Negamax research specification and may be used as lineage/control evidence or explicitly imported where independently justified, but it does not own Isometric semantics.
 
@@ -123,7 +123,7 @@ Finite database results currently falsify value-completeness of boundary-capacit
 
 ## Active Isometric solver / terminal-frontier lane
 
-The former draft PR #45 contained the pre-split terminal-frontier experiment. It is now closed and retained only as historical provenance. The live solver lane is `isometric`.
+The former draft PR #45 contained the pre-split terminal-frontier experiment. It is now closed and retained only as historical provenance. The live solver lane is `solver/isometric`.
 
 Accepted semantics remain:
 
