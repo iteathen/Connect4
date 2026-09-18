@@ -7,7 +7,7 @@ Universal engineering and design guidance comes from the account-global `AGENTS.
 
 All durable Connect4 research is owned by `research/semantic-quotient`, regardless of which solver exposed it. This includes derivations, hypotheses, research experiments/results, falsifiers, negative results, research evidence, open questions, synthesis, maps, and provenance.
 
-This branch owns the research corpus itself. Solver-local or historical paths named `research/` or `docs/research/` are source/provenance or implementation-experiment material unless and until their durable research meaning is integrated into canonical research. Do not add new durable research here.
+This branch owns the research corpus itself. Solver-local or historical paths named `research/` or `docs/research/` are source/provenance or implementation-experiment material unless and until their durable research meaning is integrated into canonical research. Do not add new durable research to those noncanonical paths; integrate it into canonical research on this branch.
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
