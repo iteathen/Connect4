@@ -98,6 +98,10 @@ This companion documents the stable-label roles used by the native `.isg` corpus
 | ^97086 | fixed source authority within document QU |
 | ^97087 | open research region within document QU |
 | ^97088 | source-native unresolved document |
+| ^97089 | native source-document image |
+| ^97090 | exact source content as ordered UTF-8 byte literals |
+| ^97091 | exact source-image inclusion relation |
+| ^97092 | exact source-content reconstruction obligation/witness |
 
 Text-bearing fields are encoded as ordered incidences of exact UTF-8 byte literals. They are source-faithful payloads, not alpha-renamable labels.
 
