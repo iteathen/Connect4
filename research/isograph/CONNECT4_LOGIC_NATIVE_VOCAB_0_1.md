@@ -117,6 +117,24 @@ This companion documents the stable-label roles used by the native `.isg` corpus
 | ^97105 | isolated cold-reconstruction obligation |
 | ^97106 | adversarial semantic differential obligation |
 | ^97107 | QU dependency/bridge qualification obligation |
+| ^97108 | source semantic item occurrence |
+| ^97109 | source item ordinal |
+| ^97110 | source item UTF-8 byte span |
+| ^97111 | source item owning document |
+| ^97112 | source item canonical-claim link |
+| ^97113 | source item source-native QU link |
+| ^97114 | source item lexical class |
+| ^97115 | heading item |
+| ^97116 | code item |
+| ^97117 | list item |
+| ^97118 | table item |
+| ^97119 | prose/data item |
+| ^97120 | section node |
+| ^97121 | section heading/member relation |
+| ^97122 | section nesting relation |
+| ^97123 | semantic item-accounting universe |
+| ^97124 | semantic item count |
+| ^97125 | all non-empty source occurrences accounted |
 
 Text-bearing fields are encoded as ordered incidences of exact UTF-8 byte literals. They are source-faithful payloads, not alpha-renamable labels.
 
