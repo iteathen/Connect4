@@ -10,7 +10,7 @@ canonical_lanes:
     solver_head: false
   shared_research:
     branch: research/semantic-quotient
-    purpose: solver_neutral_research_claims_evidence_provenance_and_cross_solver_synthesis
+    purpose: all_connect4_research_claims_derivations_hypotheses_experiments_results_evidence_negative_results_open_questions_synthesis_and_provenance
     solver_head: false
   minimax:
     branch: solver/minimax-alpha-beta
@@ -35,7 +35,9 @@ routing_rules:
   - temporary_branches_must_name_an_owner_lane_and_retirement_condition
   - temporary_branch_commit_volume_never_promotes_it_to_authority
   - shared_domain_oracle_benchmark_and_cross_lane_contract_changes_route_to_main
-  - solver_neutral_research_routes_to_research_semantic_quotient
+  - all_research_routes_to_research_semantic_quotient
+  - solver_branches_do_not_own_research
+  - no_new_durable_focused_research_branches
   - minimax_search_policy_tt_scheduler_and_search_kernel_work_routes_to_minimax
   - bsfp_recurrence_cuda_profiles_symbolic_storage_and_bsfp_qualification_routes_to_cuda_bsfp
   - hybrid_confluence_transport_proof_exchange_and_hybrid_qualification_route_to_hybrid_confluence
@@ -50,7 +52,6 @@ temporary_branch_policy:
     - work/
     - experiment/
     - feature/
-    - noncanonical_research/
     - handoff_or_staging_refs
     - evidence_refs
   before_creation:
@@ -60,7 +61,7 @@ temporary_branch_policy:
     - define_retirement_condition
   before_retirement:
     - preserve_useful_code_or_result_in_owner
-    - preserve_evidence_negative_results_and_notes
+    - preserve_all_research_results_negative_results_hypotheses_evidence_and_open_questions_in_research_semantic_quotient
     - archive_exact_head_when_history_has_continuing_value
   prohibition:
     - no_new_durable_lane_without_owner_authorization_and_decision_record
@@ -84,6 +85,7 @@ restructure:
   original_lane_decision: docs/decisions/2026-09-10-repository-lane-restructure.md
   three_solver_extension: docs/decisions/2026-09-11-main-shared-foundation-three-solver-heads.md
   closed_five_solver_topology: docs/decisions/2026-09-17-solver-namespace-normalization.md
+  single_research_owner: docs/decisions/2026-09-17-single-research-owner.md
   historical_manifest: research/MIGRATION_MANIFEST.json
   historical_branch_retirement: research/BRANCH_RETIREMENT.md
   repository_structure: REPOSITORY_STRUCTURE.md
@@ -94,5 +96,6 @@ next_actions:
   - give_hybrid_confluence_branch_local_status_and_next_step_before_substantive_new_work
   - keep_sut_branch_local_state_explicitly_early_stage_until_architecture_is_qualified
   - selectively_flow_shared_main_changes_into_solver_heads_when_needed
-  - preserve_active_experiment_results_then_retire_temporary_refs
+  - preserve_active_experiment_research_in_research_semantic_quotient_then_retire_temporary_refs
+  - retire_remaining_solver_specific_research_branches_after_consolidation
   - prevent_new_agent_created_continuity_branches
