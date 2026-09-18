@@ -20,4 +20,4 @@ Negative results are retained. A failed implementation strategy belongs in histo
 
 ## Active normalized experiment records
 
-- `bsfp-support-local-clause-coverage/` — target claim **C4-R0073**. Complete differential recurrence controls plus 6x5 support-local dictionary census. Canonical requalification run 35332181198 passed. Result is correctness/representation evidence only; no CUDA speedup or production adoption is claimed.
+- `bsfp-support-local-clause-coverage/` — target claims **C4-R0073** (deductive dictionary/predecessor closure) and **C4-R0074** (bounded empirical qualification). Complete differential recurrence controls plus 6x5 support-local dictionary census. Canonical requalification run 35332181198 passed. Result is correctness/representation evidence only; no CUDA speedup or production adoption is claimed.
