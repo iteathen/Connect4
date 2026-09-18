@@ -131,6 +131,23 @@ Conceptually:
 itemIndex -> consumer-owned BSFP fact/state/certificate record
 ```
 
+Every item kind must declare its **identity profile**. At minimum distinguish:
+
+```text
+Q_ITEM
+    ordinary gameplay identity q
+
+REPRESENTATION_ITEM
+    exact profile-specific symbolic/packed record
+
+PROOF_ITEM
+    q + proof profile + all required non-q premises
+```
+
+A physical ownership mask/frontier entry may be a valid `REPRESENTATION_ITEM` even when several such records correspond to one q. CUDA execution may preserve those finer distinctions conservatively; it must not describe them as a stronger natural gameplay identity.
+
+Conversely, a q-level grouping must not merge proof items whose blockers, response resources, deadlines, race premises, certificate identity, or other non-q proof context differs.
+
 The physical record may be structure-of-arrays or another exact bounded layout. CUDA-Algorithms may carry/reorder the index sequence while the wide BSFP record stays in Connect4-owned storage.
 
 No generic CUDA-Algorithms record ABI is implied.
@@ -189,7 +206,7 @@ Stable multiword ordering can establish a deterministic candidate neighborhood f
 
 ## 9. Exact equality boundary
 
-BSFP owns exact equality/canonicalization.
+BSFP owns exact equality/canonicalization **and the identity profile under which equality is claimed**.
 
 The existing CUDA-Algorithms canonicalization design establishes the preferred boundary:
 
@@ -199,6 +216,18 @@ ordered candidate indices
   -> device change/boundary flags or equivalent exact primitive facts
   -> CUDA-Algorithms generic select/scan/segment mechanics where maintained
 ```
+
+For an ordinary gameplay-state equality operation, the target semantic key is q:
+
+```text
+support
++ normalized P0 residual antichain
++ normalized P1 residual antichain
+```
+
+For a proof/certificate equality operation, the key must additionally include every non-q premise required by the fact.
+
+A profile may deliberately retain finer ownership/frontier equality than q. That is conservative. It must remain labeled as representation equality so downstream code does not infer that the extra distinction is part of ordinary gameplay semantics.
 
 Do not add a generic CUDA-Algorithms proof-record equality callback merely because BSFP is the first consumer unless evidence proves the primitive-fact boundary cannot support an efficient exact path.
 
