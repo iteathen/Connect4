@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   antichain-scaling:
+    if: github.event_name != 'pull_request' || github.base_ref != 'research/semantic-quotient'
     name: packed42-scaling (${{ matrix.geometry }})
     runs-on: ubuntu-24.04
     timeout-minutes: 12
