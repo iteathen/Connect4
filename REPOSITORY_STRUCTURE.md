@@ -20,7 +20,7 @@ The three `solver/*` branches are intentionally long-lived peer product heads:
 - `solver/cuda-bsfp` owns CUDA-BSFP implementation and evidence;
 - `solver/hybrid-confluence` owns the hybrid exact-confluence implementation and evidence.
 
-`research/semantic-quotient` owns solver-neutral mathematical/representational research that can feed any solver line.
+`research/semantic-quotient` owns all Connect4 research, including solver-specific hypotheses, experiment results, falsifiers, research evidence, open questions, maps, synthesis, and provenance.
 
 Long-lived branch names represent ongoing owners/product lines. One-off experiments should use short-lived work branches and land durable findings/evidence into the owning lane before the temporary ref is retired.
 
