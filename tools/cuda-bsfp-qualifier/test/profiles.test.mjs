@@ -26,6 +26,26 @@ test('O3 requires every exact mapped output and native repetition without claimi
 });
 import { denseShapeBytes, getQualificationProfile, listQualificationProfiles } from '../profiles.mjs';
 
+test('real overflow replays distinguish executors and stay inside the unchanged admission ceiling', () => {
+  for (const [id, methods] of [['c4-0009-p2-overflow-replay', ['packed', 'tensor']], ['c4-0009-p2-overflow-bucketed-replay', ['packed', 'bucketed']]]) {
+    const profile = getQualificationProfile(id);
+    const spec = { columns: 7, rows: 6, connect: 4 };
+    const estimate = profile.estimate(spec);
+    assert.equal(estimate.upperBoundBytes, 543169548);
+    assert.equal(estimate.devicePayloadBytes, 90316812);
+    assert.equal(estimate.replayUpperBoundBytes, 516177944);
+    assert(estimate.replayUpperBoundBytes <= estimate.upperBoundBytes);
+    const accepts = profile.steps(spec, '/repo')[0].expected;
+    const result = { outcome: 'native-overflow-replay-pass', geometry: '7x6:c4', methods, rootWdl: null,
+      mismatches: 0, cleanup: 'graceful', survivors: 1055,
+      ...Object.fromEntries(methods.map(mode => [mode, { samples: [1, 2, 3] }])),
+      stats: Object.fromEntries(methods.map(mode => [mode, { overflowRecoveredJobs: 4, overflowFailures: 0 }])) };
+    assert(accepts(result));
+    for (const change of [{ rootWdl: 1 }, { mismatches: 1 }, { survivors: 1024 }, { methods: ['wrong'] }, { cleanup: 'failed' }]) assert.equal(accepts({ ...result, ...change }), false);
+    assert.equal(accepts(null), false);
+  }
+});
+
 test('O2 admits only a bounded 7x6 seed cut and rejects any root/full-quotient promotion', () => {
   const p = getQualificationProfile('c4-0009-o2-oqs-7x6-seed-slice');
   const spec = { columns: 7, rows: 6, connect: 4 };
@@ -162,21 +182,32 @@ test('P2 admits the <=42-cell compact ladder with a finite reusable GPU workspac
   assert.equal(estimate.cellCount, 42);
   assert.equal(estimate.candidateCapacity, 4_194_304);
   assert.equal(estimate.frontierCapacityPerSegment, 1_024);
-  assert.ok(estimate.upperBoundBytes > 300 * 1024 * 1024);
-  assert.ok(estimate.upperBoundBytes < 400 * 1024 * 1024);
+  assert.equal(estimate.kind, 'proved-hybrid-tensor-overflow-workspace-upper-bound');
+  assert.equal(estimate.tensorOverflowAllowanceBytes, String(64 * 1024 * 1024));
+  assert.equal(estimate.tensorDeviceProgramWorkspaceLimitBytes, String(192 * 1024 * 1024));
+  assert.ok(estimate.upperBoundBytes > 500 * 1024 * 1024);
+  assert.ok(estimate.upperBoundBytes < 576 * 1024 * 1024);
   assert.equal(profile.estimate({ columns: 8, rows: 6, connect: 4 }).upperBoundBytes, null);
-  assert.deepEqual(profile.requiredDependencies, getQualificationProfile('c4-0009-p1').requiredDependencies);
+  assert.equal(profile.requiredDependencies.cudaAlgorithmsRevision, getQualificationProfile('c4-0009-p1').requiredDependencies.cudaAlgorithmsRevision);
+  assert.equal(profile.requiredDependencies.cudaJsRevision, getQualificationProfile('c4-0009-p1').requiredDependencies.cudaJsRevision);
+  assert.equal(profile.requiredDependencies.cudaJsTensorRevision, '9df9324b0ca7606f9dd2af2e89aed118839896a5');
   assert.ok(listQualificationProfiles().includes(profile.id));
 });
 
 test('P2 passes geometry through the native child and retains known-root checks in the profile', () => {
   const profile = getQualificationProfile('c4-0009-p2-compact-hybrid');
   const steps = profile.steps({ columns: 7, rows: 6, connect: 4 }, '/repo');
-  assert.equal(steps.length, 1);
-  assert.equal(steps[0].id, 'compact-hybrid-root-wdl');
-  assert.equal(steps[0].args.at(-1), '7x6:c4');
-  assert.equal(steps[0].expected({ outcome: 'native-compact-hybrid-root-wdl-pass', geometry: '7x6-c4', rootWdl: 1, timingsMs: { solve: 12.5 }, gpuReducer: { generatedPairCandidates: 123 } }), true);
-  assert.equal(steps[0].expected({ outcome: 'native-compact-hybrid-root-wdl-pass', geometry: '7x6-c4', rootWdl: 0, timingsMs: { solve: 12.5 }, gpuReducer: { generatedPairCandidates: 123 } }), false);
+  assert.equal(steps.length, 2);
+  assert.equal(steps[0].id, 'tensor-dominance-full-shape-ab');
+  assert.equal(steps[1].id, 'compact-hybrid-root-wdl');
+  assert.equal(steps[1].args.at(-1), '7x6:c4');
+  const tensorAb = { kind: 'connect4-bsfp-tensor-dominance-overflow-ab', mode: 'native', geometry: '7x6-c4-packed42-workshape', fixture: { frontierCount: 1487, candidateCount: 4096, expectedFinalFrontierCount: 123 }, authority: { outcome: 'native-authority-frontier-match', frontierCount: 123 }, execution: { outcome: 'native-tensor-dominance-exact-match', tensorLogicalSubsetPairs: 6090752, baselineSubsetChecks: 10, baselineTiming: { median: 1 }, tensorOnlyTiming: { median: 1 }, tensorFullTiming: { median: 1 } }, tensor: { itemCapacity: 4096, totalWorkspaceBytes: 1024 } };
+  assert.equal(steps[0].expected(tensorAb), true);
+  assert.equal(steps[0].expected({ ...tensorAb, execution: { ...tensorAb.execution, outcome: 'portable-tensor-dominance-compile-pass' } }), false);
+  const valid = { outcome: 'native-compact-hybrid-root-wdl-pass', geometry: '7x6-c4', rootWdl: 1, timingsMs: { solve: 12.5 }, gpuReducer: { generatedPairCandidates: 123, tensorOverflowCalls: 1 } };
+  assert.equal(steps[1].expected(valid), true);
+  assert.equal(steps[1].expected({ ...valid, rootWdl: 0 }), false);
+  assert.equal(steps[1].expected({ ...valid, gpuReducer: { generatedPairCandidates: 123 } }), false);
 });
 
 test('compact qualification cannot confuse partial/scaling/portable evidence with all-frontier success', () => {

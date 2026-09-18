@@ -8,6 +8,7 @@ import { pathToFileURL } from 'node:url';
 const CONNECT4_REPOSITORY = 'https://github.com/iteathen/Connect4.git';
 const CUDA_ALGORITHMS_REPOSITORY = 'https://github.com/iteathen/CUDA-Algorithms.git';
 const CUDA_JS_REPOSITORY = 'https://github.com/iteathen/CUDA-JS.git';
+const CUDA_JS_TENSOR_REPOSITORY = 'https://github.com/iteathen/CUDA-JS-Tensor.git';
 const LOCAL_PATH_PLACEHOLDER = '[local-path]';
 const localPathRoots = new Set();
 
@@ -15,6 +16,7 @@ export const DEFAULT_REVISIONS = Object.freeze({
   connect4: 'solver/cuda-bsfp',
   cudaAlgorithms: '48ee0aec9acae7776950f03ab52ab1737e598b6e',
   cudaJs: '98e2ebc942c14d63acf4dd82e912dd548c363a05',
+  cudaJsTensor: '9df9324b0ca7606f9dd2af2e89aed118839896a5',
 });
 
 function registerLocalPath(value) {
@@ -86,7 +88,7 @@ function linkDirectory(target, linkPath) {
   fs.symlinkSync(target, linkPath, process.platform === 'win32' ? 'junction' : 'dir');
 }
 
-export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot }) {
+export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot, cudaJsTensorRoot }) {
   const sharedNodeModules = path.join(workspaceRoot, 'node_modules');
   const connect4NodeModules = path.join(connect4Root, 'node_modules');
   fs.mkdirSync(sharedNodeModules, { recursive: true });
@@ -97,12 +99,18 @@ export function wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAl
 
   linkDirectory(cudaJsRoot, path.join(connect4NodeModules, 'cuda-js'));
   linkDirectory(cudaAlgorithmsRoot, path.join(connect4NodeModules, 'cuda-algorithms'));
+  linkDirectory(cudaJsTensorRoot, path.join(sharedNodeModules, 'cuda-js-tensor'));
+  linkDirectory(cudaJsTensorRoot, path.join(connect4NodeModules, 'cuda-js-tensor'));
+  const tensorNodeModules = path.join(cudaJsTensorRoot, 'node_modules');
+  fs.mkdirSync(tensorNodeModules, { recursive: true });
+  linkDirectory(cudaJsRoot, path.join(tensorNodeModules, 'cuda-js'));
 
   return Object.freeze({
     sharedNodeModules,
     connect4NodeModules,
     cudaJsPackage: path.join(connect4NodeModules, 'cuda-js'),
     cudaAlgorithmsPackage: path.join(connect4NodeModules, 'cuda-algorithms'),
+    cudaJsTensorPackage: path.join(connect4NodeModules, 'cuda-js-tensor'),
   });
 }
 
@@ -131,6 +139,7 @@ function parseArgs(argv) {
     connect4Ref: DEFAULT_REVISIONS.connect4,
     cudaAlgorithmsRef: DEFAULT_REVISIONS.cudaAlgorithms,
     cudaJsRef: DEFAULT_REVISIONS.cudaJs,
+    cudaJsTensorRef: DEFAULT_REVISIONS.cudaJsTensor,
     q1Profile: null,
     q1Cases: null,
   };
@@ -142,6 +151,7 @@ function parseArgs(argv) {
     else if (arg === '--connect4-ref') config.connect4Ref = argv[++index];
     else if (arg === '--cuda-algorithms-ref') config.cudaAlgorithmsRef = argv[++index];
     else if (arg === '--cuda-js-ref') config.cudaJsRef = argv[++index];
+    else if (arg === '--cuda-js-tensor-ref') config.cudaJsTensorRef = argv[++index];
     else if (arg === '--q1-profile') config.q1Profile = argv[++index];
     else if (arg === '--q1-cases') config.q1Cases = argv[++index];
     else throw new RangeError(`unknown bootstrap argument: ${arg}`);
@@ -192,15 +202,18 @@ export async function main(argv = process.argv.slice(2)) {
   const connect4Root = path.join(workspaceRoot, 'Connect4');
   const cudaAlgorithmsRoot = path.join(workspaceRoot, 'CUDA-Algorithms');
   const cudaJsRoot = path.join(workspaceRoot, 'CUDA-JS');
+  const cudaJsTensorRoot = path.join(workspaceRoot, 'CUDA-JS-Tensor');
   registerLocalPath(connect4Root);
   registerLocalPath(cudaAlgorithmsRoot);
   registerLocalPath(cudaJsRoot);
+  registerLocalPath(cudaJsTensorRoot);
 
   console.error(`[cuda-bsfp-q1-bootstrap] Node ${process.version}`);
 
   cloneAndCheckout(CONNECT4_REPOSITORY, connect4Root, config.connect4Ref);
   cloneAndCheckout(CUDA_ALGORITHMS_REPOSITORY, cudaAlgorithmsRoot, config.cudaAlgorithmsRef);
   cloneAndCheckout(CUDA_JS_REPOSITORY, cudaJsRoot, config.cudaJsRef);
+  cloneAndCheckout(CUDA_JS_TENSOR_REPOSITORY, cudaJsTensorRoot, config.cudaJsTensorRef);
 
   const env = { ...process.env, npm_config_engine_strict: 'false' };
   const nodeOptions = qualificationNodeOptions(env.NODE_OPTIONS);
@@ -208,15 +221,23 @@ export async function main(argv = process.argv.slice(2)) {
   else delete env.NODE_OPTIONS;
 
   installCudaJsDependencies(cudaJsRoot, env);
-  wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot });
+  wireQualificationWorkspace({ workspaceRoot, connect4Root, cudaAlgorithmsRoot, cudaJsRoot, cudaJsTensorRoot });
 
   const resolvedCudaJsFromAlgorithms = resolvePackageFrom(path.join(cudaAlgorithmsRoot, 'src'), 'cuda-js');
   const resolvedCudaAlgorithmsFromConnect4 = resolvePackageFrom(connect4Root, 'cuda-algorithms');
+  const resolvedTensorFromConnect4 = resolvePackageFrom(connect4Root, 'cuda-js-tensor');
+  const resolvedCudaJsFromTensor = resolvePackageFrom(cudaJsTensorRoot, 'cuda-js');
   if (!resolvedCudaJsFromAlgorithms.includes('CUDA-JS')) {
     throw new Error('CUDA-Algorithms did not resolve the sibling CUDA-JS checkout');
   }
   if (!resolvedCudaAlgorithmsFromConnect4.includes('CUDA-Algorithms')) {
     throw new Error('Connect4 did not resolve the sibling CUDA-Algorithms checkout');
+  }
+  if (!resolvedTensorFromConnect4.includes('CUDA-JS-Tensor')) {
+    throw new Error('Connect4 did not resolve the sibling CUDA-JS-Tensor checkout');
+  }
+  if (!resolvedCudaJsFromTensor.includes('CUDA-JS')) {
+    throw new Error('CUDA-JS-Tensor did not resolve the sibling CUDA-JS checkout');
   }
 
   const connect4Status = execFileSync('git', ['-C', connect4Root, 'status', '--porcelain'], {
@@ -229,6 +250,7 @@ export async function main(argv = process.argv.slice(2)) {
   console.error('[cuda-bsfp-q1-bootstrap] package topology verified');
   console.error('[cuda-bsfp-q1-bootstrap] cuda-js sibling resolution verified');
   console.error('[cuda-bsfp-q1-bootstrap] cuda-algorithms sibling resolution verified');
+  console.error('[cuda-bsfp-q1-bootstrap] cuda-js-tensor sibling resolution verified');
   console.error(`[cuda-bsfp-q1-bootstrap] experimental FFI flag ${experimentalFfiEnabled ? 'enabled for Q1 children' : 'not available on this Node build'}`);
 
   if (config.prepareOnly) {
@@ -241,6 +263,7 @@ export async function main(argv = process.argv.slice(2)) {
         connect4: config.connect4Ref,
         cudaAlgorithms: config.cudaAlgorithmsRef,
         cudaJs: config.cudaJsRef,
+        cudaJsTensor: config.cudaJsTensorRef,
       },
       q1Profile: config.q1Profile,
       q1Cases: config.q1Cases,

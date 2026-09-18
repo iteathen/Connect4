@@ -79,6 +79,8 @@ The 95% value is a capacity ceiling for bounded arenas/shards, not permission fo
 
 Default emergency runtime floor is 256 MiB free VRAM. While a child is active, Q1 samples selected-device memory; crossing the emergency floor terminates the child and records `memory-safety-abort`. Device-wide telemetry may include unrelated processes and is a safety signal, not exact per-process accounting.
 
+When supported, the same bounded probe also records GPU/memory utilization, power draw and SM/memory clocks. Unsupported optional values remain null and do not disable mandatory memory admission/abort. Each step appends and flushes `gpu-telemetry.jsonl` while running; result summaries report sample counts and arithmetic min/mean/max, not time-weighted utilization. Samples completing after child exit are excluded. Device-wide utilization is not per-kernel occupancy, bandwidth or efficiency.
+
 ## Time bounds
 
 Defaults are 120000 ms per case and 900000 ms per run. Each solver step receives the smaller remaining budget. Timeout terminates the child process tree. Timeout is evidence, not convergence and not automatically a correctness failure.

@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES } from '../../components/bsfp/cuda/tensor-overflow-contract.mjs';
 import { oqsCofactor42Shape } from '../../components/bsfp/cuda/oqs-cofactor-42-layout.mjs';
 import { compactOwnership42Shape } from '../../components/bsfp/cuda/compact-ownership-42-layout.mjs';
 const MIB = 1024n * 1024n;
@@ -19,6 +20,7 @@ const B3_BUCKETED_STRATEGY = 'bucketed-cardinality-v0';
 const B3_DEDUP_FIRST_STRATEGY = 'bucketed-dedup-first-v0';
 const B3_FIXTURE = 'cartesian-or-and-duplicate-stress';
 const P2_RUNTIME_ALLOWANCE_BYTES = 256n * MIB;
+const P2_TENSOR_ALLOWANCE_BYTES = 192n * MIB;
 const P2_CANDIDATE_CAPACITY = 4_194_304n;
 const P2_SEGMENT_CAPACITY = 256n;
 const P2_SIDE_CAPACITY = 262_144n;
@@ -76,8 +78,15 @@ function p2Estimate(spec) {
   const outputBytes = P2_SEGMENT_CAPACITY * P2_OUTPUT_CAPACITY * 4n * 2n;
   const offsetBytes = (P2_SEGMENT_CAPACITY + 1n) * 4n * 3n;
   const statusBytes = P2_SEGMENT_CAPACITY * 4n * 4n;
-  const devicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
-  return Object.freeze({ kind: 'proved-hybrid-workspace-upper-bound', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES) });
+  const baseDevicePayloadBytes = candidateWorkspaceBytes + sideInputBytes + outputBytes + offsetBytes + statusBytes;
+  const packedOverflowBucketBytes = P2_CANDIDATE_CAPACITY * 4n + 43n * P2_SEGMENT_CAPACITY * 4n * 3n;
+  const devicePayloadBytes = baseDevicePayloadBytes + packedOverflowBucketBytes;
+  // Preserve the existing conservative admission ceiling. The new packed
+  // scratch is covered by its headroom, not by increasing a safety limit.
+  const upperBoundBytes = baseDevicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + P2_TENSOR_ALLOWANCE_BYTES;
+  const replayUpperBoundBytes = 2n * devicePayloadBytes + P2_RUNTIME_ALLOWANCE_BYTES + BigInt(TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES);
+  if (replayUpperBoundBytes > upperBoundBytes) throw new RangeError('P2 replay exceeds the unchanged admission bound');
+  return Object.freeze({ kind: 'proved-hybrid-tensor-overflow-workspace-upper-bound', executable: true, cellCount, candidateCapacity: Number(P2_CANDIDATE_CAPACITY), segmentCapacity: Number(P2_SEGMENT_CAPACITY), sideCapacity: Number(P2_SIDE_CAPACITY), frontierCapacityPerSegment: Number(P2_OUTPUT_CAPACITY), devicePayloadBytes: Number(devicePayloadBytes), baseDevicePayloadBytes: Number(baseDevicePayloadBytes), packedOverflowBucketBytes: Number(packedOverflowBucketBytes), replayUpperBoundBytes: Number(replayUpperBoundBytes), fixedRuntimeAllowanceBytes: P2_RUNTIME_ALLOWANCE_BYTES.toString(), tensorOverflowAllowanceBytes: String(TENSOR_OVERFLOW_RESOLVED_PLAN_MAX_WORKSPACE_BYTES), tensorDeviceProgramWorkspaceLimitBytes: P2_TENSOR_ALLOWANCE_BYTES.toString(), upperBoundBytes: Number(upperBoundBytes) });
 }
 
 export function nativeNodeArgs(scriptPath, mode = 'native') {
@@ -88,6 +97,7 @@ export function nativeNodeArgs(scriptPath, mode = 'native') {
 }
 
 const REQUIRED_DEPENDENCIES = Object.freeze({ cudaAlgorithmsRevision: '48ee0aec9acae7776950f03ab52ab1737e598b6e', cudaJsRevision: '98e2ebc942c14d63acf4dd82e912dd548c363a05' });
+const P2_REQUIRED_DEPENDENCIES = Object.freeze({ ...REQUIRED_DEPENDENCIES, cudaJsTensorRevision: '9df9324b0ca7606f9dd2af2e89aed118839896a5' });
 
 const P1 = Object.freeze({
   id: 'c4-0009-p1', specification: 'docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
@@ -146,9 +156,9 @@ const B3 = Object.freeze({
 
 const KNOWN_P2_ROOTS = Object.freeze(new Map([['4x3-c3', 1], ['4x4-c4', 0], ['5x4-c4', 0], ['5x5-c4', 0], ['7x6-c4', 1]]));
 const P2 = Object.freeze({
-  id: 'c4-0009-p2-compact-hybrid', specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md', gpuRequired: true, requiredDependencies: REQUIRED_DEPENDENCIES,
+  id: 'c4-0009-p2-compact-hybrid', specification: 'docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md', gpuRequired: true, requiredDependencies: P2_REQUIRED_DEPENDENCIES,
   supports(spec) { const cells = spec.columns * spec.rows; return Number.isSafeInteger(cells) && cells >= 1 && cells <= 42; }, estimate: p2Estimate,
-  steps(spec, repositoryRoot) { if (!this.supports(spec)) return Object.freeze([]); const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`; const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`; const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry); return Object.freeze([Object.freeze({ id: 'compact-hybrid-root-wdl', command: process.execPath, args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]), expected(result) { return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl) && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0 && Number.isFinite(result?.gpuReducer?.generatedPairCandidates); } })]); },
+  steps(spec, repositoryRoot) { if (!this.supports(spec)) return Object.freeze([]); const geometry = `${spec.columns}x${spec.rows}:c${spec.connect}`; const resultGeometry = `${spec.columns}x${spec.rows}-c${spec.connect}`; const expectedRoot = KNOWN_P2_ROOTS.get(resultGeometry); return Object.freeze([Object.freeze({ id: 'tensor-dominance-full-shape-ab', command: process.execPath, args: nativeNodeArgs(path.join(repositoryRoot, 'research/experiments/cuda-bsfp-tensor-dominance/run.mjs'), 'native'), expected(result) { return result?.kind === 'connect4-bsfp-tensor-dominance-overflow-ab' && result?.mode === 'native' && result?.geometry === '7x6-c4-packed42-workshape' && result?.fixture?.frontierCount === 1487 && result?.fixture?.candidateCount === 4096 && result?.authority?.outcome === 'native-authority-frontier-match' && result?.authority?.frontierCount === result?.fixture?.expectedFinalFrontierCount && result?.execution?.outcome === 'native-tensor-dominance-exact-match' && result?.execution?.tensorLogicalSubsetPairs === 6090752 && Number.isFinite(result?.execution?.baselineSubsetChecks) && result.execution.baselineSubsetChecks > 0 && Number.isFinite(result?.execution?.baselineTiming?.median) && result.execution.baselineTiming.median >= 0 && Number.isFinite(result?.execution?.tensorOnlyTiming?.median) && result.execution.tensorOnlyTiming.median >= 0 && Number.isFinite(result?.execution?.tensorFullTiming?.median) && result.execution.tensorFullTiming.median >= 0 && result?.tensor?.itemCapacity === 4096 && Number.isFinite(result?.tensor?.totalWorkspaceBytes) && result.tensor.totalWorkspaceBytes > 0 && result.tensor.totalWorkspaceBytes <= 192 * 1024 * 1024; } }), Object.freeze({ id: 'compact-hybrid-root-wdl', command: process.execPath, args: Object.freeze([...nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/run.mjs')), geometry]), expected(result) { return result?.outcome === 'native-compact-hybrid-root-wdl-pass' && result?.geometry === resultGeometry && [-1, 0, 1].includes(result?.rootWdl) && (expectedRoot === undefined || result.rootWdl === expectedRoot) && Number.isFinite(result?.timingsMs?.solve) && result.timingsMs.solve >= 0 && Number.isFinite(result?.gpuReducer?.generatedPairCandidates) && Number.isFinite(result?.gpuReducer?.tensorOverflowCalls); } })]); },
 });
 
 const C1 = Object.freeze({
@@ -258,7 +268,53 @@ const O3 = Object.freeze({
     }];
   },
 });
-const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
+function replayPass(r, methods) {
+  return r?.outcome === 'native-overflow-replay-pass' && r?.geometry === '7x6:c4'
+    && r?.methods?.join(',') === methods.join(',')
+    && r?.rootWdl === null && r?.mismatches === 0 && r?.cleanup === 'graceful'
+    && r?.survivors > 1024 && methods.every(mode =>
+      r?.[mode]?.samples?.length === 3 && r[mode].samples.every(v => Number.isFinite(v) && v >= 0)
+      && r?.stats?.[mode]?.overflowRecoveredJobs === 4 && r.stats[mode].overflowFailures === 0);
+}
+const REPLAY = Object.freeze({
+  id: 'c4-0009-p2-overflow-replay',
+  specification: P2.specification, gpuRequired: true, requiredDependencies: P2_REQUIRED_DEPENDENCIES,
+  supports: spec => spec.columns === 7 && spec.rows === 6 && spec.connect === 4,
+  // Two 73,407,500-byte packed slabs plus one resolved workspace remain
+  // below the existing conservative P2 bound; runtime policy is unchanged.
+  estimate: spec => P2.estimate(spec),
+  steps(spec, repositoryRoot) {
+    if (!this.supports(spec)) return [];
+    const nodeArgs = nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/replay.mjs'));
+    return [{ id: 'overflow-replay', command: process.execPath, args: nodeArgs,
+      expected: r => replayPass(r, ['packed', 'tensor']) }];
+  },
+});
+const BUCKET_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-overflow-bucketed-replay',
+  steps(spec, repositoryRoot) {
+    return REPLAY.steps(spec, repositoryRoot).map(step => ({ ...step, args: [...step.args, 'bucketed'],
+      expected: r => replayPass(r, ['packed', 'bucketed']) }));
+  },
+});
+const PAIR_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-pair-bucketed-replay',
+  steps(spec, repositoryRoot) {
+    return REPLAY.steps(spec, repositoryRoot).map(step => ({ ...step, args: [...step.args, 'pair-bucketed'],
+      expected: r => replayPass(r, ['bucketed', 'allbucketed']) }));
+  },
+});
+const BUCKET_REGRESSION = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-bucket-regression',
+  steps(spec, repositoryRoot) { return this.supports(spec) ? [{ id: 'bucket-reuse-regression', command: process.execPath,
+    args: nativeNodeArgs(path.join(repositoryRoot, 'experiments/cuda-bsfp-compact-hybrid/bucket-regression.mjs')),
+    expected: r => r?.outcome === 'native-bucket-reuse-regression-pass' && r?.geometry === '7x6:c4' && r?.rootWdl === null
+      && r?.passes === 20 && r?.frontierChecks === 5120 && r?.mismatches === 0 && r?.cleanup === 'graceful' }] : []; },
+});
+const FINAL_REPLAY = Object.freeze({ ...REPLAY, id: 'c4-0009-p2-overflow-final-replay',
+  steps(spec, repositoryRoot) {
+    return REPLAY.steps(spec, repositoryRoot).map(step => ({ ...step, args: [...step.args, 'final'],
+      expected: r => replayPass(r, ['tensor', 'allbucketed']) }));
+  },
+});
+const PROFILES = new Map([[P1.id, P1], [B1.id, B1], [B2.id, B2], [B3.id, B3], [P2.id, P2], [REPLAY.id, REPLAY], [BUCKET_REPLAY.id, BUCKET_REPLAY], [PAIR_REPLAY.id, PAIR_REPLAY], [BUCKET_REGRESSION.id, BUCKET_REGRESSION], [FINAL_REPLAY.id, FINAL_REPLAY], [C1.id, C1], [C2.id, C2], [C3.id, C3], [O1.id, O1], [O2.id, O2], [O3.id, O3]]);
 export function getQualificationProfile(id) { const profile = PROFILES.get(id); if (!profile) throw new RangeError(`unknown CUDA-BSFP qualification profile: ${id}`); return profile; }
 export function listQualificationProfiles() { return Object.freeze([...PROFILES.keys()]); }
 export { denseShapeBytes };

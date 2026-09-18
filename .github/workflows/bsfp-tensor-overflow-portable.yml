@@ -1,0 +1,50 @@
+name: bsfp-tensor-overflow-portable
+
+on:
+  pull_request:
+  push:
+    branches:
+      - research/bsfp-tensor-overflow-dominance
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Checkout exact CUDA-JS pair
+        shell: bash
+        run: |
+          git clone https://github.com/iteathen/CUDA-JS.git ../CUDA-JS
+          git -C ../CUDA-JS checkout 98e2ebc942c14d63acf4dd82e912dd548c363a05
+          npm --prefix ../CUDA-JS ci --no-audit --no-fund
+          git clone https://github.com/iteathen/CUDA-JS-Tensor.git ../CUDA-JS-Tensor
+          git -C ../CUDA-JS-Tensor checkout 9df9324b0ca7606f9dd2af2e89aed118839896a5
+      - name: Wire exact sibling packages
+        shell: bash
+        run: |
+          mkdir -p node_modules ../CUDA-JS-Tensor/node_modules
+          ln -sfn "$(realpath ../CUDA-JS)" node_modules/cuda-js
+          ln -sfn "$(realpath ../CUDA-JS-Tensor)" node_modules/cuda-js-tensor
+          ln -sfn "$(realpath ../CUDA-JS)" ../CUDA-JS-Tensor/node_modules/cuda-js
+      - name: Qualify Tensor packed42 overflow semantics
+        run: node --test components/bsfp/cuda/test/tensor-packed42-overflow-normalizer.test.mjs
+      - name: Qualify full-shape prepared Tensor A/B contract
+        run: node research/experiments/cuda-bsfp-tensor-dominance/run.mjs portable
+      - name: Verify exact pair identities
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { CUDA_JS_COMPATIBILITY } from 'cuda-js';
+          import { CUDA_JS_TENSOR_COMPATIBILITY } from 'cuda-js-tensor';
+          if (CUDA_JS_COMPATIBILITY.package?.version !== '0.1.0-alpha.20') throw new Error('unexpected CUDA-JS version');
+          if (CUDA_JS_TENSOR_COMPATIBILITY.cudaJs.version !== '0.1.0-alpha.20') throw new Error('unexpected Tensor CUDA-JS version');
+          if (CUDA_JS_TENSOR_COMPATIBILITY.cudaJs.protectedMainRevision !== '98e2ebc942c14d63acf4dd82e912dd548c363a05') throw new Error('unexpected Tensor CUDA-JS revision');
+          console.log(JSON.stringify({ cudaJs: CUDA_JS_COMPATIBILITY.package.version, tensorPair: CUDA_JS_TENSOR_COMPATIBILITY.cudaJs }));
+          NODE

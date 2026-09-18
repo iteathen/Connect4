@@ -3,6 +3,7 @@ import { performance } from 'node:perf_hooks';
 import {
   SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION,
   SEGMENTED_PACKED_ANTICHAIN_42_STATUS,
+  createSegmentedPackedAntichain42Plan,
   createSegmentedPackedPairAntichain42Plan,
 } from './index.mjs';
 
@@ -12,6 +13,12 @@ const MAX_MASK_42 = 2 ** 42 - 1;
 
 function positiveSafeInteger(value, label) {
   if (!Number.isSafeInteger(value) || value < 1) throw new RangeError(`${label} must be a positive safe integer`);
+  return value;
+}
+
+function safeProduct(left, right, label) {
+  const value = left * right;
+  if (!Number.isSafeInteger(value)) throw new RangeError(`${label} exceeds safe integer capacity`);
   return value;
 }
 
@@ -41,9 +48,15 @@ async function writePrefix(allocation, values) {
   await allocation.memory.write(encodeU32(values));
 }
 
+async function readU32Prefix(allocation, count) {
+  if (!Number.isSafeInteger(count) || count < 0 || count > allocation.count) throw new RangeError('GPU pair reducer read exceeds allocation capacity');
+  if (count === 0) return new Uint32Array(0);
+  const result = await allocation.memory.read({ byteLength: count * U32_BYTES });
+  return new Uint32Array(result.bytes.buffer, result.bytes.byteOffset, count);
+}
+
 async function readU32(allocation) {
-  const result = await allocation.memory.read({ byteLength: allocation.count * U32_BYTES });
-  return new Uint32Array(result.bytes.buffer, result.bytes.byteOffset, allocation.count);
+  return readU32Prefix(allocation, allocation.count);
 }
 
 async function closeAllocation(allocation) {
@@ -102,7 +115,7 @@ function packJobs(jobs, limits) {
 }
 
 export async function createPacked42PairReducerService(runtime, options = {}) {
-  const limits = Object.freeze({
+  const primaryLimits = Object.freeze({
     segmentCapacity: positiveSafeInteger(options.segmentCapacity ?? 256, 'segmentCapacity'),
     leftCapacity: positiveSafeInteger(options.leftCapacity ?? 262144, 'leftCapacity'),
     rightCapacity: positiveSafeInteger(options.rightCapacity ?? 262144, 'rightCapacity'),
@@ -110,7 +123,25 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     outputCapacityPerSegment: positiveSafeInteger(options.outputCapacityPerSegment ?? 1024, 'outputCapacityPerSegment'),
     blockSize: positiveSafeInteger(options.blockSize ?? 256, 'blockSize'),
   });
-  const plan = await createSegmentedPackedPairAntichain42Plan(runtime, limits);
+  const outputElements = safeProduct(primaryLimits.segmentCapacity, primaryLimits.outputCapacityPerSegment, 'GPU pair reducer output slab');
+  const overflowOutputCapacityPerSegment = Math.min(outputElements, primaryLimits.candidateCapacity);
+  const limits = Object.freeze({ ...primaryLimits, overflowOutputCapacityPerSegment });
+  const plan = await createSegmentedPackedPairAntichain42Plan(runtime, primaryLimits);
+  let overflowPlan = null;
+  if (overflowOutputCapacityPerSegment > primaryLimits.outputCapacityPerSegment) {
+    try {
+      overflowPlan = await createSegmentedPackedAntichain42Plan(runtime, {
+        candidateCapacity: primaryLimits.candidateCapacity,
+        segmentCapacity: 1,
+        outputCapacityPerSegment: overflowOutputCapacityPerSegment,
+        blockSize: primaryLimits.blockSize,
+      });
+    } catch (error) {
+      await plan.close();
+      throw error;
+    }
+  }
+
   const allocations = [];
   const leftLo = await allocateU32(runtime, limits.leftCapacity, 'read');
   const leftHi = await allocateU32(runtime, limits.leftCapacity, 'read');
@@ -124,7 +155,6 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
   const candidateHi = await allocateU32(runtime, limits.candidateCapacity, 'read-write');
   const candidatePopcount = await allocateU32(runtime, limits.candidateCapacity, 'read-write');
   const generationStatus = await allocateU32(runtime, limits.segmentCapacity, 'write');
-  const outputElements = limits.segmentCapacity * limits.outputCapacityPerSegment;
   const outputLo = await allocateU32(runtime, outputElements, 'read-write');
   const outputHi = await allocateU32(runtime, outputElements, 'read-write');
   const outputCounts = await allocateU32(runtime, limits.segmentCapacity, 'read-write');
@@ -141,10 +171,87 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     inputRightRecords: 0,
     generatedPairCandidates: 0,
     survivingRecords: 0,
+    overflowRetries: 0,
+    overflowRecoveredJobs: 0,
+    overflowFailures: 0,
+    overflowInitialRequiredAtLeastMax: 0,
+    overflowMaxSurvivingRecords: 0,
     uploadMs: 0,
     executionMs: 0,
     readbackMs: 0,
+    overflowUploadMs: 0,
+    overflowExecutionMs: 0,
+    overflowReadbackMs: 0,
   };
+
+  async function recoverOverflow({ job, candidateStart, candidateEnd, initialRequiredAtLeast }, results) {
+    stats.overflowRetries += 1;
+    stats.overflowInitialRequiredAtLeastMax = Math.max(stats.overflowInitialRequiredAtLeastMax, initialRequiredAtLeast);
+    if (!overflowPlan) {
+      stats.overflowFailures += 1;
+      throw new RangeError(`GPU pair reducer frontier capacity ${limits.outputCapacityPerSegment} exceeded by job ${job.originalIndex}; required at least ${initialRequiredAtLeast}; no wider reused-slab specialization is available`);
+    }
+
+    const uploadStart = performance.now();
+    await writePrefix(candidateOffsets, Uint32Array.of(candidateStart, candidateEnd));
+    await writePrefix(segmentDirections, Uint32Array.of(job.direction));
+    const uploadElapsed = performance.now() - uploadStart;
+    stats.uploadMs += uploadElapsed;
+    stats.overflowUploadMs += uploadElapsed;
+
+    const operationStart = performance.now();
+    const operation = await overflowPlan.submit({
+      candidateLo: candidateLo.view,
+      candidateHi: candidateHi.view,
+      candidatePopcount: candidatePopcount.view,
+      segmentOffsets: candidateOffsets.view,
+      segmentDirections: segmentDirections.view,
+      outputLo: outputLo.view,
+      outputHi: outputHi.view,
+      outputCounts: outputCounts.view,
+      outputStatus: outputStatus.view,
+      checks: checks.view,
+    });
+    try {
+      const terminal = await operation.wait();
+      if (terminal.status !== 'completed') throw new Error(`GPU pair reducer overflow recovery ended ${terminal.status}`);
+    } finally {
+      await operation.close();
+    }
+    const operationElapsed = performance.now() - operationStart;
+    stats.executionMs += operationElapsed;
+    stats.overflowExecutionMs += operationElapsed;
+
+    const readStart = performance.now();
+    const status = (await readU32Prefix(outputStatus, 1))[0];
+    const count = (await readU32Prefix(outputCounts, 1))[0];
+    if (status === SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OUTPUT_CAPACITY_EXCEEDED) {
+      stats.readbackMs += performance.now() - readStart;
+      stats.overflowReadbackMs += performance.now() - readStart;
+      stats.overflowFailures += 1;
+      throw new RangeError(`GPU pair reducer reused-slab frontier capacity ${limits.overflowOutputCapacityPerSegment} exceeded by job ${job.originalIndex}; required at least ${count}`);
+    }
+    if (status !== SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OK) {
+      stats.overflowFailures += 1;
+      throw new Error(`GPU pair reducer overflow recovery returned unknown status ${status}`);
+    }
+    if (count > limits.overflowOutputCapacityPerSegment || count > job.product) {
+      stats.overflowFailures += 1;
+      throw new Error(`GPU pair reducer overflow recovery returned impossible frontier count ${count} for job ${job.originalIndex}`);
+    }
+    const lows = await readU32Prefix(outputLo, count);
+    const highs = await readU32Prefix(outputHi, count);
+    const readElapsed = performance.now() - readStart;
+    stats.readbackMs += readElapsed;
+    stats.overflowReadbackMs += readElapsed;
+
+    const frontier = new Array(count);
+    for (let i = 0; i < count; i += 1) frontier[i] = pack42(lows[i], highs[i]);
+    results[job.originalIndex] = Object.freeze(frontier);
+    stats.survivingRecords += count;
+    stats.overflowRecoveredJobs += 1;
+    stats.overflowMaxSurvivingRecords = Math.max(stats.overflowMaxSurvivingRecords, count);
+  }
 
   async function executeBatch(batch, results) {
     const leftValues = [];
@@ -219,20 +326,31 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     const highs = await readU32(outputHi);
     stats.readbackMs += performance.now() - readStart;
 
+    const overflows = [];
     for (let segment = 0; segment < batch.length; segment += 1) {
       const job = batch[segment];
       if (generation[segment] !== 0) throw new Error(`GPU pair reducer rejected segment metadata for job ${job.originalIndex}`);
       if (statuses[segment] === SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OUTPUT_CAPACITY_EXCEEDED) {
-        throw new RangeError(`GPU pair reducer frontier capacity ${limits.outputCapacityPerSegment} exceeded by job ${job.originalIndex}; required at least ${counts[segment]}`);
+        overflows.push(Object.freeze({
+          job,
+          candidateStart: candidateOffsetsHost[segment],
+          candidateEnd: candidateOffsetsHost[segment + 1],
+          initialRequiredAtLeast: counts[segment],
+        }));
+        continue;
       }
       if (statuses[segment] !== SEGMENTED_PACKED_ANTICHAIN_42_STATUS.OK) throw new Error(`GPU pair reducer returned unknown status ${statuses[segment]}`);
       const count = counts[segment];
+      if (count > limits.outputCapacityPerSegment || count > job.product) throw new Error(`GPU pair reducer returned impossible frontier count ${count} for job ${job.originalIndex}`);
       const base = segment * limits.outputCapacityPerSegment;
       const frontier = new Array(count);
       for (let i = 0; i < count; i += 1) frontier[i] = pack42(lows[base + i], highs[base + i]);
       results[job.originalIndex] = Object.freeze(frontier);
       stats.survivingRecords += count;
     }
+
+    for (const overflow of overflows) await recoverOverflow(overflow, results);
+
     stats.batches += 1;
     stats.inputLeftRecords += leftTotal;
     stats.inputRightRecords += rightTotal;
@@ -257,6 +375,7 @@ export async function createPacked42PairReducerService(runtime, options = {}) {
     async close() {
       if (closed) return;
       closed = true;
+      if (overflowPlan) await overflowPlan.close();
       await plan.close();
       for (let index = allocations.length - 1; index >= 0; index -= 1) await closeAllocation(allocations[index]);
     },

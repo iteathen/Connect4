@@ -1,0 +1,4000 @@
+{
+  "schemaVersion": 1,
+  "tests": {
+    "command": "node --test",
+    "passed": 110,
+    "failed": 0,
+    "skipped": 0
+  },
+  "runs": [
+    {
+      "runId": "20260916T081153148Z-8c752914",
+      "source": {
+        "revision": "816e416e5949372ae799597e3ccbbe1c98eb03d5",
+        "branch": "research/bsfp-tensor-overflow-dominance",
+        "dirty": false,
+        "repository": "iteathen/Connect4"
+      },
+      "node": "v26.7.0",
+      "gpu": {
+        "available": true,
+        "gpuIndex": 0,
+        "name": "NVIDIA GeForce GTX 1660 Ti",
+        "driverVersion": "610.74",
+        "computeCapability": "7.5",
+        "totalMiB": 6144,
+        "freeMiB": 5197,
+        "usedMiB": 770
+      },
+      "dependencies": {
+        "cudaAlgorithms": {
+          "packageName": "cuda-algorithms",
+          "version": "0.1.0-alpha.0",
+          "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+        },
+        "cudaJs": {
+          "packageName": "cuda-js",
+          "version": "0.1.0-alpha.20",
+          "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "cudaJsTensor": {
+          "packageName": "cuda-js-tensor",
+          "version": "0.1.0-alpha.6",
+          "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+        }
+      },
+      "outcome": "qualified",
+      "publication": "local-only --no-publish",
+      "cases": [
+        {
+          "caseId": "01-4x3-c3",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 3823,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 12,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2119,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 4,
+                "peakUsedMiB": 834,
+                "minimumFreeMiB": 5133
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 179.33720000000005,
+                  "compositionCompileMs": 65.61789999999996
+                },
+                "authority": {
+                  "submissionWaitMs": 57.149799999999914,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      18.87630000000013,
+                      15.182399999999916,
+                      15.744500000000016
+                    ],
+                    "min": 15.182399999999916,
+                    "median": 15.744500000000016,
+                    "max": 18.87630000000013
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      23.25940000000014,
+                      36.30479999999989,
+                      32.96329999999989
+                    ],
+                    "min": 23.25940000000014,
+                    "median": 32.96329999999989,
+                    "max": 36.30479999999989
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      32.7826,
+                      17.07899999999995,
+                      41.88170000000014
+                    ],
+                    "min": 17.07899999999995,
+                    "median": 32.7826,
+                    "max": 41.88170000000014
+                  },
+                  "tensorPrimeMs": 32.474500000000035
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 1691,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 906,
+                "minimumFreeMiB": 5061
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "4x3-c3",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 1,
+                "qualification": {
+                  "comparedSupports": 256,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 1,
+                "supportSkeletons": 256,
+                "winningLines": 14,
+                "timingsMs": {
+                  "runtimeOpen": 465.38280000000003,
+                  "solve": 1080.6352,
+                  "processToResult": 1546.0402
+                },
+                "performance": {
+                  "supportsPerSecond": 236.89770608989974,
+                  "structuralPrepareMs": 8.918099999999868,
+                  "gpuPairReduceWallMs": 162.48599999999942,
+                  "finalizeMs": 17.551400000000058
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 3004,
+                  "maximumWinFrontier": 19,
+                  "maximumLossFrontier": 48,
+                  "peakResidentBoundaryRecords": 1184,
+                  "rootWinRecords": 1,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 27,
+                  "batches": 27,
+                  "jobs": 510,
+                  "inputLeftRecords": 2107,
+                  "inputRightRecords": 2024,
+                  "generatedPairCandidates": 9633,
+                  "survivingRecords": 2426,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 47.07569999999964,
+                  "executionMs": 28.385199999999486,
+                  "readbackMs": 84.99009999999953,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 12,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.4174000000000433
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 4,
+                    "boundaryRecords": 14,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.5282999999999447
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 10,
+                    "boundaryRecords": 189,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 48,
+                    "wallMs": 11.116700000000037
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 20,
+                    "boundaryRecords": 356,
+                    "maximumWinFrontier": 19,
+                    "maximumLossFrontier": 14,
+                    "wallMs": 18.337600000000066
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 31,
+                    "boundaryRecords": 555,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 22,
+                    "wallMs": 25.704999999999927
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 40,
+                    "boundaryRecords": 624,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 24.916300000000092
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 44,
+                    "boundaryRecords": 560,
+                    "maximumWinFrontier": 10,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 25.62519999999995
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 40,
+                    "boundaryRecords": 384,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 18.914599999999837
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 31,
+                    "boundaryRecords": 203,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 16.731300000000147
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 20,
+                    "boundaryRecords": 80,
+                    "maximumWinFrontier": 3,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 16.960600000000113
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 10,
+                    "boundaryRecords": 30,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 14.990500000000111
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 4,
+                    "boundaryRecords": 8,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 15.50279999999998
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 1,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.08390000000008513
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 190.0893000000001,
+                "processedSupports": 256,
+                "completedRanks": 13,
+                "gpuReducer": {
+                  "calls": 27,
+                  "batches": 27,
+                  "jobs": 510,
+                  "inputLeftRecords": 2107,
+                  "inputRightRecords": 2024,
+                  "generatedPairCandidates": 9633,
+                  "survivingRecords": 2426,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 47.07569999999964,
+                  "executionMs": 28.385199999999486,
+                  "readbackMs": 84.99009999999953,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "caseId": "02-4x4-c4",
+          "geometry": {
+            "columns": 4,
+            "rows": 4,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 3874,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 16,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2046,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 836,
+                "minimumFreeMiB": 5131
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 180.7074,
+                  "compositionCompileMs": 67.28140000000008
+                },
+                "authority": {
+                  "submissionWaitMs": 60.960399999999936,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      19.480000000000018,
+                      16.64350000000013,
+                      18.92319999999995
+                    ],
+                    "min": 16.64350000000013,
+                    "median": 18.92319999999995,
+                    "max": 19.480000000000018
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      31.592399999999998,
+                      35.438499999999976,
+                      33.17660000000001
+                    ],
+                    "min": 31.592399999999998,
+                    "median": 33.17660000000001,
+                    "max": 35.438499999999976
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      32.5467000000001,
+                      29.133299999999963,
+                      14.623599999999897
+                    ],
+                    "min": 14.623599999999897,
+                    "median": 29.133299999999963,
+                    "max": 32.5467000000001
+                  },
+                  "tensorPrimeMs": 33.65910000000008
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 1812,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 906,
+                "minimumFreeMiB": 5061
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "4x4-c4",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 0,
+                "qualification": {
+                  "comparedSupports": 625,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 0,
+                "supportSkeletons": 625,
+                "winningLines": 10,
+                "timingsMs": {
+                  "runtimeOpen": 469.42429999999996,
+                  "solve": 1169.8020999999999,
+                  "processToResult": 1639.2461
+                },
+                "performance": {
+                  "supportsPerSecond": 534.2784048686526,
+                  "structuralPrepareMs": 18.388200000000552,
+                  "gpuPairReduceWallMs": 220.80859999999916,
+                  "finalizeMs": 20.883699999999635
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 6591,
+                  "maximumWinFrontier": 26,
+                  "maximumLossFrontier": 54,
+                  "peakResidentBoundaryRecords": 2187,
+                  "rootWinRecords": 0,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 35,
+                  "batches": 35,
+                  "jobs": 1243,
+                  "inputLeftRecords": 4817,
+                  "inputRightRecords": 4606,
+                  "generatedPairCandidates": 21361,
+                  "survivingRecords": 5358,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 54.6438999999998,
+                  "executionMs": 51.897500000000264,
+                  "readbackMs": 111.6424999999997,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 16,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.42200000000002547
+                  },
+                  {
+                    "rank": 15,
+                    "supports": 4,
+                    "boundaryRecords": 10,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.5033999999998287
+                  },
+                  {
+                    "rank": 14,
+                    "supports": 10,
+                    "boundaryRecords": 67,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 10.604299999999967
+                  },
+                  {
+                    "rank": 13,
+                    "supports": 20,
+                    "boundaryRecords": 254,
+                    "maximumWinFrontier": 26,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 17.55899999999997
+                  },
+                  {
+                    "rank": 12,
+                    "supports": 35,
+                    "boundaryRecords": 535,
+                    "maximumWinFrontier": 9,
+                    "maximumLossFrontier": 54,
+                    "wallMs": 25.77500000000009
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 52,
+                    "boundaryRecords": 906,
+                    "maximumWinFrontier": 21,
+                    "maximumLossFrontier": 19,
+                    "wallMs": 23.42840000000001
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 68,
+                    "boundaryRecords": 1059,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 17,
+                    "wallMs": 23.03819999999996
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 80,
+                    "boundaryRecords": 1128,
+                    "maximumWinFrontier": 18,
+                    "maximumLossFrontier": 15,
+                    "wallMs": 22.060199999999895
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 85,
+                    "boundaryRecords": 1024,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 21.869899999999916
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 80,
+                    "boundaryRecords": 724,
+                    "maximumWinFrontier": 8,
+                    "maximumLossFrontier": 9,
+                    "wallMs": 35.61400000000003
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 68,
+                    "boundaryRecords": 492,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 7,
+                    "wallMs": 18.45790000000011
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 52,
+                    "boundaryRecords": 234,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 6,
+                    "wallMs": 17.016399999999976
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 35,
+                    "boundaryRecords": 105,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 18.423700000000053
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 20,
+                    "boundaryRecords": 44,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 10.534700000000157
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 10,
+                    "boundaryRecords": 5,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 15.828199999999924
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 4,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.1512000000000171
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.028300000000172076
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 261.64639999999986,
+                "processedSupports": 625,
+                "completedRanks": 17,
+                "gpuReducer": {
+                  "calls": 35,
+                  "batches": 35,
+                  "jobs": 1243,
+                  "inputLeftRecords": 4817,
+                  "inputRightRecords": 4606,
+                  "generatedPairCandidates": 21361,
+                  "survivingRecords": 5358,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 54.6438999999998,
+                  "executionMs": 51.897500000000264,
+                  "readbackMs": 111.6424999999997,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "caseId": "03-5x5-c4",
+          "geometry": {
+            "columns": 5,
+            "rows": 5,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 28013,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 25,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2065,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 834,
+                "minimumFreeMiB": 5133
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 179.00699999999995,
+                  "compositionCompileMs": 65.4393
+                },
+                "authority": {
+                  "submissionWaitMs": 61.87749999999983,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      18.14189999999985,
+                      16.101000000000113,
+                      19.666500000000042
+                    ],
+                    "min": 16.101000000000113,
+                    "median": 18.14189999999985,
+                    "max": 19.666500000000042
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      33.17269999999985,
+                      21.63740000000007,
+                      27.48810000000003
+                    ],
+                    "min": 21.63740000000007,
+                    "median": 27.48810000000003,
+                    "max": 33.17269999999985
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      32.19869999999992,
+                      33.0797,
+                      31.09089999999992
+                    ],
+                    "min": 31.09089999999992,
+                    "median": 32.19869999999992,
+                    "max": 33.0797
+                  },
+                  "tensorPrimeMs": 34.24689999999987
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 25931,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 50,
+                "peakUsedMiB": 906,
+                "minimumFreeMiB": 5061
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "5x5-c4",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 0,
+                "qualification": {
+                  "comparedSupports": 7776,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 0,
+                "supportSkeletons": 7776,
+                "winningLines": 28,
+                "timingsMs": {
+                  "runtimeOpen": 481.1290000000008,
+                  "solve": 13896.9786,
+                  "processToResult": 14378.1286
+                },
+                "performance": {
+                  "supportsPerSecond": 559.5460872336668,
+                  "structuralPrepareMs": 837.5771999999852,
+                  "gpuPairReduceWallMs": 5871.359500000004,
+                  "finalizeMs": 6263.549399999994
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 1044159,
+                  "maximumWinFrontier": 562,
+                  "maximumLossFrontier": 568,
+                  "peakResidentBoundaryRecords": 267675,
+                  "rootWinRecords": 0,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 163,
+                  "batches": 163,
+                  "jobs": 24558,
+                  "inputLeftRecords": 1148276,
+                  "inputRightRecords": 879189,
+                  "generatedPairCandidates": 61177131,
+                  "survivingRecords": 1380219,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 295.9879999999848,
+                  "executionMs": 4765.874699999995,
+                  "readbackMs": 731.271200000012,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 25,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.6015000000006694
+                  },
+                  {
+                    "rank": 24,
+                    "supports": 5,
+                    "boundaryRecords": 17,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.6564999999991414
+                  },
+                  {
+                    "rank": 23,
+                    "supports": 15,
+                    "boundaryRecords": 683,
+                    "maximumWinFrontier": 105,
+                    "maximumLossFrontier": 5,
+                    "wallMs": 12.480500000001484
+                  },
+                  {
+                    "rank": 22,
+                    "supports": 35,
+                    "boundaryRecords": 4633,
+                    "maximumWinFrontier": 86,
+                    "maximumLossFrontier": 504,
+                    "wallMs": 24.01089999999931
+                  },
+                  {
+                    "rank": 21,
+                    "supports": 70,
+                    "boundaryRecords": 13878,
+                    "maximumWinFrontier": 451,
+                    "maximumLossFrontier": 104,
+                    "wallMs": 154.89969999999994
+                  },
+                  {
+                    "rank": 20,
+                    "supports": 126,
+                    "boundaryRecords": 30359,
+                    "maximumWinFrontier": 288,
+                    "maximumLossFrontier": 456,
+                    "wallMs": 179.89980000000105
+                  },
+                  {
+                    "rank": 19,
+                    "supports": 205,
+                    "boundaryRecords": 53676,
+                    "maximumWinFrontier": 562,
+                    "maximumLossFrontier": 153,
+                    "wallMs": 1076.684800000001
+                  },
+                  {
+                    "rank": 18,
+                    "supports": 305,
+                    "boundaryRecords": 82244,
+                    "maximumWinFrontier": 364,
+                    "maximumLossFrontier": 568,
+                    "wallMs": 699.8664000000008
+                  },
+                  {
+                    "rank": 17,
+                    "supports": 420,
+                    "boundaryRecords": 107297,
+                    "maximumWinFrontier": 470,
+                    "maximumLossFrontier": 195,
+                    "wallMs": 2154.871900000002
+                  },
+                  {
+                    "rank": 16,
+                    "supports": 540,
+                    "boundaryRecords": 131039,
+                    "maximumWinFrontier": 344,
+                    "maximumLossFrontier": 399,
+                    "wallMs": 1468.4542000000001
+                  },
+                  {
+                    "rank": 15,
+                    "supports": 651,
+                    "boundaryRecords": 134923,
+                    "maximumWinFrontier": 306,
+                    "maximumLossFrontier": 187,
+                    "wallMs": 2094.8655
+                  },
+                  {
+                    "rank": 14,
+                    "supports": 735,
+                    "boundaryRecords": 132752,
+                    "maximumWinFrontier": 181,
+                    "maximumLossFrontier": 235,
+                    "wallMs": 1327.0420000000013
+                  },
+                  {
+                    "rank": 13,
+                    "supports": 780,
+                    "boundaryRecords": 111552,
+                    "maximumWinFrontier": 170,
+                    "maximumLossFrontier": 124,
+                    "wallMs": 1237.0154000000002
+                  },
+                  {
+                    "rank": 12,
+                    "supports": 780,
+                    "boundaryRecords": 89511,
+                    "maximumWinFrontier": 128,
+                    "maximumLossFrontier": 119,
+                    "wallMs": 766.0610000000015
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 735,
+                    "boundaryRecords": 62292,
+                    "maximumWinFrontier": 83,
+                    "maximumLossFrontier": 75,
+                    "wallMs": 553.994200000001
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 651,
+                    "boundaryRecords": 41484,
+                    "maximumWinFrontier": 66,
+                    "maximumLossFrontier": 59,
+                    "wallMs": 415.4184000000023
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 540,
+                    "boundaryRecords": 23973,
+                    "maximumWinFrontier": 39,
+                    "maximumLossFrontier": 40,
+                    "wallMs": 311.43069999999716
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 420,
+                    "boundaryRecords": 13066,
+                    "maximumWinFrontier": 34,
+                    "maximumLossFrontier": 32,
+                    "wallMs": 196.6222999999991
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 305,
+                    "boundaryRecords": 6412,
+                    "maximumWinFrontier": 18,
+                    "maximumLossFrontier": 18,
+                    "wallMs": 124.60419999999795
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 205,
+                    "boundaryRecords": 2795,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 38.52010000000155
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 126,
+                    "boundaryRecords": 1062,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 9,
+                    "wallMs": 40.28470000000016
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 70,
+                    "boundaryRecords": 368,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 44.64970000000176
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 35,
+                    "boundaryRecords": 113,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 29.932300000000396
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 15,
+                    "boundaryRecords": 25,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 24.644799999998213
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 5,
+                    "boundaryRecords": 5,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.21120000000155414
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.03290000000197324
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 12978.1643,
+                "processedSupports": 7776,
+                "completedRanks": 26,
+                "gpuReducer": {
+                  "calls": 163,
+                  "batches": 163,
+                  "jobs": 24558,
+                  "inputLeftRecords": 1148276,
+                  "inputRightRecords": 879189,
+                  "generatedPairCandidates": 61177131,
+                  "survivingRecords": 1380219,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 295.9879999999848,
+                  "executionMs": 4765.874699999995,
+                  "readbackMs": 731.271200000012,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "20260916T081642344Z-301c4264",
+      "source": {
+        "revision": "b16d77023d93f84bb79a2308942bf7d7ad0dbfaf",
+        "branch": "research/bsfp-tensor-overflow-dominance",
+        "dirty": false,
+        "repository": "iteathen/Connect4"
+      },
+      "node": "v26.7.0",
+      "gpu": {
+        "available": true,
+        "gpuIndex": 0,
+        "name": "NVIDIA GeForce GTX 1660 Ti",
+        "driverVersion": "610.74",
+        "computeCapability": "7.5",
+        "totalMiB": 6144,
+        "freeMiB": 5198,
+        "usedMiB": 769
+      },
+      "dependencies": {
+        "cudaAlgorithms": {
+          "packageName": "cuda-algorithms",
+          "version": "0.1.0-alpha.0",
+          "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+        },
+        "cudaJs": {
+          "packageName": "cuda-js",
+          "version": "0.1.0-alpha.20",
+          "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "cudaJsTensor": {
+          "packageName": "cuda-js-tensor",
+          "version": "0.1.0-alpha.6",
+          "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+        }
+      },
+      "outcome": "qualified",
+      "publication": "local-only --no-publish",
+      "cases": [
+        {
+          "caseId": "01-4x3-c3",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 3858,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 12,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2128,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 833,
+                "minimumFreeMiB": 5134
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 179.22000000000003,
+                  "compositionCompileMs": 65.4805
+                },
+                "authority": {
+                  "submissionWaitMs": 46.046600000000126,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      17.66709999999989,
+                      18.605099999999993,
+                      17.55679999999984
+                    ],
+                    "min": 17.55679999999984,
+                    "median": 17.66709999999989,
+                    "max": 18.605099999999993
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      33.41060000000016,
+                      18.292900000000145,
+                      30.702199999999948
+                    ],
+                    "min": 18.292900000000145,
+                    "median": 30.702199999999948,
+                    "max": 33.41060000000016
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      34.63630000000012,
+                      34.8751000000002,
+                      30.68360000000007
+                    ],
+                    "min": 30.68360000000007,
+                    "median": 34.63630000000012,
+                    "max": 34.8751000000002
+                  },
+                  "tensorPrimeMs": 34.586500000000115
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 1714,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 905,
+                "minimumFreeMiB": 5062
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "4x3-c3",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 1,
+                "qualification": {
+                  "comparedSupports": 256,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 1,
+                "supportSkeletons": 256,
+                "evaluatedSupports": 136,
+                "optimizations": {
+                  "reflection": true,
+                  "cofactorPreservation": true
+                },
+                "winningLines": 14,
+                "timingsMs": {
+                  "runtimeOpen": 464.181,
+                  "solve": 1107.6448,
+                  "processToResult": 1571.8517
+                },
+                "performance": {
+                  "supportsPerSecond": 122.78304380610102,
+                  "reflectedChildLookups": 60,
+                  "reflectedChildRecords": 727,
+                  "structuralPrepareMs": 4.054299999999557,
+                  "gpuPairReduceWallMs": 165.50869999999986,
+                  "finalizeMs": 10.817899999999554
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 1591,
+                  "maximumWinFrontier": 19,
+                  "maximumLossFrontier": 48,
+                  "peakResidentBoundaryRecords": 615,
+                  "rootWinRecords": 1,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 27,
+                  "batches": 27,
+                  "jobs": 270,
+                  "inputLeftRecords": 1099,
+                  "inputRightRecords": 1093,
+                  "generatedPairCandidates": 5180,
+                  "survivingRecords": 1289,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 41.66199999999981,
+                  "executionMs": 33.711800000000494,
+                  "readbackMs": 88.22739999999999,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 12,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.4394999999999527
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 2,
+                    "boundaryRecords": 7,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.5634000000000015
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 6,
+                    "boundaryRecords": 126,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 48,
+                    "wallMs": 11.522300000000087
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 10,
+                    "boundaryRecords": 178,
+                    "maximumWinFrontier": 19,
+                    "maximumLossFrontier": 14,
+                    "wallMs": 17.045100000000048
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 17,
+                    "boundaryRecords": 299,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 22,
+                    "wallMs": 24.40000000000009
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 20,
+                    "boundaryRecords": 312,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 22.13059999999996
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 24,
+                    "boundaryRecords": 303,
+                    "maximumWinFrontier": 10,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 22.288299999999936
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 20,
+                    "boundaryRecords": 192,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 17.200399999999945
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 17,
+                    "boundaryRecords": 111,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 17.389400000000023
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 10,
+                    "boundaryRecords": 40,
+                    "maximumWinFrontier": 3,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 14.825800000000072
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 6,
+                    "boundaryRecords": 18,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 16.827199999999948
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 16.472299999999905
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 1,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.0646999999999025
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": true,
+                  "cofactorPreservation": true,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 181.43149999999991,
+                "processedSupports": 136,
+                "completedRanks": 13,
+                "gpuReducer": {
+                  "calls": 27,
+                  "batches": 27,
+                  "jobs": 270,
+                  "inputLeftRecords": 1099,
+                  "inputRightRecords": 1093,
+                  "generatedPairCandidates": 5180,
+                  "survivingRecords": 1289,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 41.66199999999981,
+                  "executionMs": 33.711800000000494,
+                  "readbackMs": 88.22739999999999,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "caseId": "02-4x4-c4",
+          "geometry": {
+            "columns": 4,
+            "rows": 4,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 3867,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 16,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2094,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 833,
+                "minimumFreeMiB": 5134
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 186.34260000000006,
+                  "compositionCompileMs": 66.54599999999994
+                },
+                "authority": {
+                  "submissionWaitMs": 47.87310000000002,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      15.784200000000055,
+                      19.00499999999988,
+                      16.949499999999944
+                    ],
+                    "min": 15.784200000000055,
+                    "median": 16.949499999999944,
+                    "max": 19.00499999999988
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      36.17949999999996,
+                      29.625499999999874,
+                      34.912399999999934
+                    ],
+                    "min": 29.625499999999874,
+                    "median": 34.912399999999934,
+                    "max": 36.17949999999996
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      31.695999999999913,
+                      17.03559999999993,
+                      31.062200000000075
+                    ],
+                    "min": 17.03559999999993,
+                    "median": 31.062200000000075,
+                    "max": 31.695999999999913
+                  },
+                  "tensorPrimeMs": 34.479699999999866
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 1762,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 905,
+                "minimumFreeMiB": 5062
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "4x4-c4",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 0,
+                "qualification": {
+                  "comparedSupports": 625,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 0,
+                "supportSkeletons": 625,
+                "evaluatedSupports": 325,
+                "optimizations": {
+                  "reflection": true,
+                  "cofactorPreservation": true
+                },
+                "winningLines": 10,
+                "timingsMs": {
+                  "runtimeOpen": 468.64480000000003,
+                  "solve": 1124.9919,
+                  "processToResult": 1593.6599
+                },
+                "performance": {
+                  "supportsPerSecond": 288.890968903865,
+                  "reflectedChildLookups": 120,
+                  "reflectedChildRecords": 1274,
+                  "structuralPrepareMs": 7.960099999999329,
+                  "gpuPairReduceWallMs": 209.35020000000077,
+                  "finalizeMs": 12.710099999999557
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 3413,
+                  "maximumWinFrontier": 26,
+                  "maximumLossFrontier": 54,
+                  "peakResidentBoundaryRecords": 1121,
+                  "rootWinRecords": 0,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 35,
+                  "batches": 35,
+                  "jobs": 650,
+                  "inputLeftRecords": 2487,
+                  "inputRightRecords": 2380,
+                  "generatedPairCandidates": 10935,
+                  "survivingRecords": 2756,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 55.71139999999991,
+                  "executionMs": 41.818100000000186,
+                  "readbackMs": 109.25859999999989,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 16,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.4238000000000284
+                  },
+                  {
+                    "rank": 15,
+                    "supports": 2,
+                    "boundaryRecords": 5,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.5635999999999513
+                  },
+                  {
+                    "rank": 14,
+                    "supports": 6,
+                    "boundaryRecords": 43,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 10.478799999999865
+                  },
+                  {
+                    "rank": 13,
+                    "supports": 10,
+                    "boundaryRecords": 127,
+                    "maximumWinFrontier": 26,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 14.328700000000026
+                  },
+                  {
+                    "rank": 12,
+                    "supports": 19,
+                    "boundaryRecords": 305,
+                    "maximumWinFrontier": 9,
+                    "maximumLossFrontier": 54,
+                    "wallMs": 25.517499999999927
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 26,
+                    "boundaryRecords": 453,
+                    "maximumWinFrontier": 21,
+                    "maximumLossFrontier": 19,
+                    "wallMs": 22.14969999999994
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 36,
+                    "boundaryRecords": 557,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 17,
+                    "wallMs": 26.930000000000064
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 40,
+                    "boundaryRecords": 564,
+                    "maximumWinFrontier": 18,
+                    "maximumLossFrontier": 15,
+                    "wallMs": 22.30269999999996
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 45,
+                    "boundaryRecords": 535,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 17.929100000000062
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 40,
+                    "boundaryRecords": 362,
+                    "maximumWinFrontier": 8,
+                    "maximumLossFrontier": 9,
+                    "wallMs": 16.1717000000001
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 36,
+                    "boundaryRecords": 259,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 7,
+                    "wallMs": 17.30709999999999
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 26,
+                    "boundaryRecords": 117,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 6,
+                    "wallMs": 16.532900000000154
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 19,
+                    "boundaryRecords": 59,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 16.429599999999937
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 10,
+                    "boundaryRecords": 22,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 10.113000000000056
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 6,
+                    "boundaryRecords": 3,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 13.74330000000009
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.05290000000013606
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.018399999999928696
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": true,
+                  "cofactorPreservation": true,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 231.36889999999994,
+                "processedSupports": 325,
+                "completedRanks": 17,
+                "gpuReducer": {
+                  "calls": 35,
+                  "batches": 35,
+                  "jobs": 650,
+                  "inputLeftRecords": 2487,
+                  "inputRightRecords": 2380,
+                  "generatedPairCandidates": 10935,
+                  "survivingRecords": 2756,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 55.71139999999991,
+                  "executionMs": 41.818100000000186,
+                  "readbackMs": 109.25859999999989,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "caseId": "03-5x5-c4",
+          "geometry": {
+            "columns": 5,
+            "rows": 5,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 24024,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 25,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2049,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 833,
+                "minimumFreeMiB": 5134
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 181.24760000000003,
+                  "compositionCompileMs": 67.3872
+                },
+                "authority": {
+                  "submissionWaitMs": 56.824499999999944,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      15.213199999999915,
+                      20.281600000000026,
+                      28.75559999999996
+                    ],
+                    "min": 15.213199999999915,
+                    "median": 20.281600000000026,
+                    "max": 28.75559999999996
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      18.42840000000001,
+                      16.08120000000008,
+                      17.556100000000015
+                    ],
+                    "min": 16.08120000000008,
+                    "median": 17.556100000000015,
+                    "max": 18.42840000000001
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      33.86079999999993,
+                      33.634199999999964,
+                      34.17910000000006
+                    ],
+                    "min": 33.634199999999964,
+                    "median": 33.86079999999993,
+                    "max": 34.17910000000006
+                  },
+                  "tensorPrimeMs": 19.521299999999883
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 21959,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 43,
+                "peakUsedMiB": 905,
+                "minimumFreeMiB": 5062
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "5x5-c4",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 0,
+                "qualification": {
+                  "comparedSupports": 7776,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 0,
+                "supportSkeletons": 7776,
+                "evaluatedSupports": 3996,
+                "optimizations": {
+                  "reflection": true,
+                  "cofactorPreservation": true
+                },
+                "winningLines": 28,
+                "timingsMs": {
+                  "runtimeOpen": 602.6507000000001,
+                  "solve": 8588.233099999998,
+                  "processToResult": 9190.911900000001
+                },
+                "performance": {
+                  "supportsPerSecond": 465.2877901043465,
+                  "reflectedChildLookups": 1260,
+                  "reflectedChildRecords": 189723,
+                  "structuralPrepareMs": 411.3017000000018,
+                  "gpuPairReduceWallMs": 3554.130400000002,
+                  "finalizeMs": 3594.6739000000034
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 536209,
+                  "maximumWinFrontier": 562,
+                  "maximumLossFrontier": 568,
+                  "peakResidentBoundaryRecords": 136626,
+                  "rootWinRecords": 0,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 113,
+                  "batches": 113,
+                  "jobs": 12614,
+                  "inputLeftRecords": 586564,
+                  "inputRightRecords": 457177,
+                  "generatedPairCandidates": 32002452,
+                  "survivingRecords": 711916,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 181.6788999999917,
+                  "executionMs": 2949.4883000000045,
+                  "readbackMs": 387.46640000001025,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 25,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.7695999999996275
+                  },
+                  {
+                    "rank": 24,
+                    "supports": 3,
+                    "boundaryRecords": 10,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.868399999999383
+                  },
+                  {
+                    "rank": 23,
+                    "supports": 9,
+                    "boundaryRecords": 414,
+                    "maximumWinFrontier": 105,
+                    "maximumLossFrontier": 5,
+                    "wallMs": 11.765199999999822
+                  },
+                  {
+                    "rank": 22,
+                    "supports": 19,
+                    "boundaryRecords": 2397,
+                    "maximumWinFrontier": 86,
+                    "maximumLossFrontier": 504,
+                    "wallMs": 21.219900000000052
+                  },
+                  {
+                    "rank": 21,
+                    "supports": 38,
+                    "boundaryRecords": 7521,
+                    "maximumWinFrontier": 451,
+                    "maximumLossFrontier": 104,
+                    "wallMs": 96.65439999999944
+                  },
+                  {
+                    "rank": 20,
+                    "supports": 66,
+                    "boundaryRecords": 15967,
+                    "maximumWinFrontier": 288,
+                    "maximumLossFrontier": 456,
+                    "wallMs": 112.48149999999987
+                  },
+                  {
+                    "rank": 19,
+                    "supports": 107,
+                    "boundaryRecords": 28244,
+                    "maximumWinFrontier": 562,
+                    "maximumLossFrontier": 153,
+                    "wallMs": 728.9848000000002
+                  },
+                  {
+                    "rank": 18,
+                    "supports": 157,
+                    "boundaryRecords": 42709,
+                    "maximumWinFrontier": 364,
+                    "maximumLossFrontier": 568,
+                    "wallMs": 364.6128000000008
+                  },
+                  {
+                    "rank": 17,
+                    "supports": 216,
+                    "boundaryRecords": 55350,
+                    "maximumWinFrontier": 470,
+                    "maximumLossFrontier": 195,
+                    "wallMs": 1238.3058
+                  },
+                  {
+                    "rank": 16,
+                    "supports": 276,
+                    "boundaryRecords": 67060,
+                    "maximumWinFrontier": 344,
+                    "maximumLossFrontier": 399,
+                    "wallMs": 811.2510000000002
+                  },
+                  {
+                    "rank": 15,
+                    "supports": 333,
+                    "boundaryRecords": 68879,
+                    "maximumWinFrontier": 306,
+                    "maximumLossFrontier": 187,
+                    "wallMs": 1339.6219999999994
+                  },
+                  {
+                    "rank": 14,
+                    "supports": 375,
+                    "boundaryRecords": 67747,
+                    "maximumWinFrontier": 181,
+                    "maximumLossFrontier": 235,
+                    "wallMs": 751.2224999999999
+                  },
+                  {
+                    "rank": 13,
+                    "supports": 398,
+                    "boundaryRecords": 56795,
+                    "maximumWinFrontier": 170,
+                    "maximumLossFrontier": 124,
+                    "wallMs": 685.959600000002
+                  },
+                  {
+                    "rank": 12,
+                    "supports": 398,
+                    "boundaryRecords": 45686,
+                    "maximumWinFrontier": 128,
+                    "maximumLossFrontier": 119,
+                    "wallMs": 400.81059999999707
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 375,
+                    "boundaryRecords": 31693,
+                    "maximumWinFrontier": 83,
+                    "maximumLossFrontier": 75,
+                    "wallMs": 335.89120000000185
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 333,
+                    "boundaryRecords": 21232,
+                    "maximumWinFrontier": 66,
+                    "maximumLossFrontier": 59,
+                    "wallMs": 221.61160000000018
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 276,
+                    "boundaryRecords": 12202,
+                    "maximumWinFrontier": 39,
+                    "maximumLossFrontier": 40,
+                    "wallMs": 193.064699999999
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 216,
+                    "boundaryRecords": 6736,
+                    "maximumWinFrontier": 34,
+                    "maximumLossFrontier": 32,
+                    "wallMs": 91.17109999999957
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 157,
+                    "boundaryRecords": 3280,
+                    "maximumWinFrontier": 18,
+                    "maximumLossFrontier": 18,
+                    "wallMs": 38.4246000000021
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 107,
+                    "boundaryRecords": 1456,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 31.80949999999939
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 66,
+                    "boundaryRecords": 550,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 9,
+                    "wallMs": 26.592400000001362
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 38,
+                    "boundaryRecords": 201,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 21.19249999999738
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 19,
+                    "boundaryRecords": 61,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 19.84530000000086
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 9,
+                    "boundaryRecords": 16,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 19.752800000002026
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 3,
+                    "boundaryRecords": 3,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.07660000000032596
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.020899999999528518
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": true,
+                  "cofactorPreservation": true,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 7564.434800000001,
+                "processedSupports": 3996,
+                "completedRanks": 26,
+                "gpuReducer": {
+                  "calls": 113,
+                  "batches": 113,
+                  "jobs": 12614,
+                  "inputLeftRecords": 586564,
+                  "inputRightRecords": 457177,
+                  "generatedPairCandidates": 32002452,
+                  "survivingRecords": 711916,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 181.6788999999917,
+                  "executionMs": 2949.4883000000045,
+                  "readbackMs": 387.46640000001025,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "20260916T081744627Z-a7fd3082",
+      "source": {
+        "revision": "b16d77023d93f84bb79a2308942bf7d7ad0dbfaf",
+        "branch": "research/bsfp-tensor-overflow-dominance",
+        "dirty": false,
+        "repository": "iteathen/Connect4"
+      },
+      "node": "v26.7.0",
+      "gpu": {
+        "available": true,
+        "gpuIndex": 0,
+        "name": "NVIDIA GeForce GTX 1660 Ti",
+        "driverVersion": "610.74",
+        "computeCapability": "7.5",
+        "totalMiB": 6144,
+        "freeMiB": 5198,
+        "usedMiB": 769
+      },
+      "dependencies": {
+        "cudaAlgorithms": {
+          "packageName": "cuda-algorithms",
+          "version": "0.1.0-alpha.0",
+          "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+        },
+        "cudaJs": {
+          "packageName": "cuda-js",
+          "version": "0.1.0-alpha.20",
+          "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "cudaJsTensor": {
+          "packageName": "cuda-js-tensor",
+          "version": "0.1.0-alpha.6",
+          "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+        }
+      },
+      "outcome": "complete-with-boundaries",
+      "publication": "local-only --no-publish",
+      "cases": [
+        {
+          "caseId": "01-7x6-c4",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "timeout",
+          "durationMs": 120217,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 42,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2222,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 4,
+                "peakUsedMiB": 993,
+                "minimumFreeMiB": 4974
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 183.19370000000004,
+                  "compositionCompileMs": 87.29290000000003
+                },
+                "authority": {
+                  "submissionWaitMs": 65.91639999999984,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      4.391499999999951,
+                      14.276200000000017,
+                      19.865999999999985
+                    ],
+                    "min": 4.391499999999951,
+                    "median": 14.276200000000017,
+                    "max": 19.865999999999985
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      34.919399999999996,
+                      35.44140000000016,
+                      30.91190000000006
+                    ],
+                    "min": 30.91190000000006,
+                    "median": 34.919399999999996,
+                    "max": 35.44140000000016
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      33.164999999999964,
+                      35.62900000000036,
+                      29.674199999999928
+                    ],
+                    "min": 29.674199999999928,
+                    "median": 33.164999999999964,
+                    "max": 35.62900000000036
+                  },
+                  "tensorPrimeMs": 28.84849999999983
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "timeout",
+              "exitCode": 1,
+              "timedOut": true,
+              "durationMs": 117981,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 233,
+                "peakUsedMiB": 909,
+                "minimumFreeMiB": 5058
+              },
+              "solverResult": null,
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": true,
+                  "cofactorPreservation": true,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 115317.90950000001,
+                "processedSupports": 175,
+                "completedRanks": 5,
+                "gpuReducer": {
+                  "calls": 7,
+                  "batches": 6,
+                  "jobs": 501,
+                  "inputLeftRecords": 15727,
+                  "inputRightRecords": 12332,
+                  "generatedPairCandidates": 2229118,
+                  "survivingRecords": 106752,
+                  "overflowRetries": 17,
+                  "overflowRecoveredJobs": 16,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 1710,
+                  "overflowMaxSurvivingRecords": 5891,
+                  "uploadMs": 22.42859999999996,
+                  "executionMs": 107210.10980000003,
+                  "readbackMs": 82.08379999999647,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 104217.44510000001,
+                  "overflowReadbackMs": 48.16099999999551,
+                  "tensorOverflowCalls": 16,
+                  "tensorOverflowCandidates": 2159232,
+                  "tensorOverflow": {
+                    "calls": 17,
+                    "candidates": 2421120,
+                    "uniqueCandidates": 897872,
+                    "duplicateCandidatesRemoved": 1261360,
+                    "candidateTiles": 3665,
+                    "referenceTiles": 6982,
+                    "comparisonPairs": 1619995769,
+                    "tensorRuns": 6983,
+                    "tensorUploadMs": 6855.95829999958,
+                    "tensorExecutionMs": 77881.59460000003,
+                    "tensorReadbackMs": 3091.9516000002736,
+                    "maximumFrontier": 5891
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "20260916T082019392Z-135e3f63",
+      "source": {
+        "revision": "b16d77023d93f84bb79a2308942bf7d7ad0dbfaf",
+        "branch": "research/bsfp-tensor-overflow-dominance",
+        "dirty": false,
+        "repository": "iteathen/Connect4"
+      },
+      "node": "v26.7.0",
+      "gpu": {
+        "available": true,
+        "gpuIndex": 0,
+        "name": "NVIDIA GeForce GTX 1660 Ti",
+        "driverVersion": "610.74",
+        "computeCapability": "7.5",
+        "totalMiB": 6144,
+        "freeMiB": 5198,
+        "usedMiB": 769
+      },
+      "dependencies": {
+        "cudaAlgorithms": {
+          "packageName": "cuda-algorithms",
+          "version": "0.1.0-alpha.0",
+          "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+        },
+        "cudaJs": {
+          "packageName": "cuda-js",
+          "version": "0.1.0-alpha.20",
+          "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "cudaJsTensor": {
+          "packageName": "cuda-js-tensor",
+          "version": "0.1.0-alpha.6",
+          "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+        }
+      },
+      "outcome": "qualified",
+      "publication": "local-only --no-publish",
+      "cases": [
+        {
+          "caseId": "01-5x5-c4",
+          "geometry": {
+            "columns": 5,
+            "rows": 5,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 28201,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 25,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2191,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 4,
+                "peakUsedMiB": 993,
+                "minimumFreeMiB": 4974
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 180.9121,
+                  "compositionCompileMs": 69.31689999999992
+                },
+                "authority": {
+                  "submissionWaitMs": 54.161400000000185,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      15.38799999999992,
+                      21.417899999999918,
+                      18.33159999999998
+                    ],
+                    "min": 15.38799999999992,
+                    "median": 18.33159999999998,
+                    "max": 21.417899999999918
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      31.388799999999947,
+                      32.93679999999995,
+                      35.52350000000001
+                    ],
+                    "min": 31.388799999999947,
+                    "median": 32.93679999999995,
+                    "max": 35.52350000000001
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      30.762500000000045,
+                      33.991199999999935,
+                      32.02149999999983
+                    ],
+                    "min": 30.762500000000045,
+                    "median": 32.02149999999983,
+                    "max": 33.991199999999935
+                  },
+                  "tensorPrimeMs": 30.730000000000018
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 25993,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 51,
+                "peakUsedMiB": 905,
+                "minimumFreeMiB": 5062
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "5x5-c4",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 0,
+                "qualification": {
+                  "comparedSupports": 7776,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 0,
+                "supportSkeletons": 7776,
+                "evaluatedSupports": 7776,
+                "optimizations": {
+                  "reflection": false,
+                  "cofactorPreservation": false
+                },
+                "winningLines": 28,
+                "timingsMs": {
+                  "runtimeOpen": 530.3677000000007,
+                  "solve": 13848.128900000002,
+                  "processToResult": 14378.523500000001
+                },
+                "performance": {
+                  "supportsPerSecond": 561.5199032412241,
+                  "reflectedChildLookups": 0,
+                  "reflectedChildRecords": 0,
+                  "structuralPrepareMs": 851.9072999999826,
+                  "gpuPairReduceWallMs": 5845.096100000008,
+                  "finalizeMs": 6137.345600000004
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 1044159,
+                  "maximumWinFrontier": 562,
+                  "maximumLossFrontier": 568,
+                  "peakResidentBoundaryRecords": 267675,
+                  "rootWinRecords": 0,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 163,
+                  "batches": 163,
+                  "jobs": 24558,
+                  "inputLeftRecords": 1148276,
+                  "inputRightRecords": 879189,
+                  "generatedPairCandidates": 61177131,
+                  "survivingRecords": 1380219,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 272.2991999999904,
+                  "executionMs": 4778.433399999985,
+                  "readbackMs": 723.8232000000062,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 25,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.468300000000454
+                  },
+                  {
+                    "rank": 24,
+                    "supports": 5,
+                    "boundaryRecords": 17,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.6655999999984488
+                  },
+                  {
+                    "rank": 23,
+                    "supports": 15,
+                    "boundaryRecords": 683,
+                    "maximumWinFrontier": 105,
+                    "maximumLossFrontier": 5,
+                    "wallMs": 11.922099999999773
+                  },
+                  {
+                    "rank": 22,
+                    "supports": 35,
+                    "boundaryRecords": 4633,
+                    "maximumWinFrontier": 86,
+                    "maximumLossFrontier": 504,
+                    "wallMs": 23.34269999999924
+                  },
+                  {
+                    "rank": 21,
+                    "supports": 70,
+                    "boundaryRecords": 13878,
+                    "maximumWinFrontier": 451,
+                    "maximumLossFrontier": 104,
+                    "wallMs": 168.35069999999905
+                  },
+                  {
+                    "rank": 20,
+                    "supports": 126,
+                    "boundaryRecords": 30359,
+                    "maximumWinFrontier": 288,
+                    "maximumLossFrontier": 456,
+                    "wallMs": 157.08519999999953
+                  },
+                  {
+                    "rank": 19,
+                    "supports": 205,
+                    "boundaryRecords": 53676,
+                    "maximumWinFrontier": 562,
+                    "maximumLossFrontier": 153,
+                    "wallMs": 1121.9796000000006
+                  },
+                  {
+                    "rank": 18,
+                    "supports": 305,
+                    "boundaryRecords": 82244,
+                    "maximumWinFrontier": 364,
+                    "maximumLossFrontier": 568,
+                    "wallMs": 632.5812999999998
+                  },
+                  {
+                    "rank": 17,
+                    "supports": 420,
+                    "boundaryRecords": 107297,
+                    "maximumWinFrontier": 470,
+                    "maximumLossFrontier": 195,
+                    "wallMs": 2235.009399999999
+                  },
+                  {
+                    "rank": 16,
+                    "supports": 540,
+                    "boundaryRecords": 131039,
+                    "maximumWinFrontier": 344,
+                    "maximumLossFrontier": 399,
+                    "wallMs": 1375.3307000000023
+                  },
+                  {
+                    "rank": 15,
+                    "supports": 651,
+                    "boundaryRecords": 134923,
+                    "maximumWinFrontier": 306,
+                    "maximumLossFrontier": 187,
+                    "wallMs": 2146.433499999999
+                  },
+                  {
+                    "rank": 14,
+                    "supports": 735,
+                    "boundaryRecords": 132752,
+                    "maximumWinFrontier": 181,
+                    "maximumLossFrontier": 235,
+                    "wallMs": 1240.757099999999
+                  },
+                  {
+                    "rank": 13,
+                    "supports": 780,
+                    "boundaryRecords": 111552,
+                    "maximumWinFrontier": 170,
+                    "maximumLossFrontier": 124,
+                    "wallMs": 1241.851499999997
+                  },
+                  {
+                    "rank": 12,
+                    "supports": 780,
+                    "boundaryRecords": 89511,
+                    "maximumWinFrontier": 128,
+                    "maximumLossFrontier": 119,
+                    "wallMs": 762.9042000000009
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 735,
+                    "boundaryRecords": 62292,
+                    "maximumWinFrontier": 83,
+                    "maximumLossFrontier": 75,
+                    "wallMs": 576.3336999999992
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 651,
+                    "boundaryRecords": 41484,
+                    "maximumWinFrontier": 66,
+                    "maximumLossFrontier": 59,
+                    "wallMs": 398.71099999999933
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 540,
+                    "boundaryRecords": 23973,
+                    "maximumWinFrontier": 39,
+                    "maximumLossFrontier": 40,
+                    "wallMs": 289.4354000000021
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 420,
+                    "boundaryRecords": 13066,
+                    "maximumWinFrontier": 34,
+                    "maximumLossFrontier": 32,
+                    "wallMs": 189.59519999999975
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 305,
+                    "boundaryRecords": 6412,
+                    "maximumWinFrontier": 18,
+                    "maximumLossFrontier": 18,
+                    "wallMs": 130.00110000000132
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 205,
+                    "boundaryRecords": 2795,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 33.92610000000059
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 126,
+                    "boundaryRecords": 1062,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 9,
+                    "wallMs": 30.699000000000524
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 70,
+                    "boundaryRecords": 368,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 26.500800000001618
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 35,
+                    "boundaryRecords": 113,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 24.165399999998044
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 15,
+                    "boundaryRecords": 25,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 21.07430000000022
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 5,
+                    "boundaryRecords": 5,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.17560000000230502
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.030299999998533167
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": false,
+                  "cofactorPreservation": false,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 12839.7247,
+                "processedSupports": 7776,
+                "completedRanks": 26,
+                "gpuReducer": {
+                  "calls": 163,
+                  "batches": 163,
+                  "jobs": 24558,
+                  "inputLeftRecords": 1148276,
+                  "inputRightRecords": 879189,
+                  "generatedPairCandidates": 61177131,
+                  "survivingRecords": 1380219,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 272.2991999999904,
+                  "executionMs": 4778.433399999985,
+                  "readbackMs": 723.8232000000062,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "20260916T082048065Z-de2d9aca",
+      "source": {
+        "revision": "b16d77023d93f84bb79a2308942bf7d7ad0dbfaf",
+        "branch": "research/bsfp-tensor-overflow-dominance",
+        "dirty": false,
+        "repository": "iteathen/Connect4"
+      },
+      "node": "v26.7.0",
+      "gpu": {
+        "available": true,
+        "gpuIndex": 0,
+        "name": "NVIDIA GeForce GTX 1660 Ti",
+        "driverVersion": "610.74",
+        "computeCapability": "7.5",
+        "totalMiB": 6144,
+        "freeMiB": 5198,
+        "usedMiB": 769
+      },
+      "dependencies": {
+        "cudaAlgorithms": {
+          "packageName": "cuda-algorithms",
+          "version": "0.1.0-alpha.0",
+          "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+        },
+        "cudaJs": {
+          "packageName": "cuda-js",
+          "version": "0.1.0-alpha.20",
+          "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "cudaJsTensor": {
+          "packageName": "cuda-js-tensor",
+          "version": "0.1.0-alpha.6",
+          "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+        }
+      },
+      "outcome": "qualified",
+      "publication": "local-only --no-publish",
+      "cases": [
+        {
+          "caseId": "01-5x5-c4",
+          "geometry": {
+            "columns": 5,
+            "rows": 5,
+            "connect": 4,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 22477,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 25,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2069,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 3,
+                "peakUsedMiB": 835,
+                "minimumFreeMiB": 5132
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 177.09270000000004,
+                  "compositionCompileMs": 65.17279999999994
+                },
+                "authority": {
+                  "submissionWaitMs": 46.75060000000008,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      17.39300000000003,
+                      17.198499999999967,
+                      17.371599999999944
+                    ],
+                    "min": 17.198499999999967,
+                    "median": 17.371599999999944,
+                    "max": 17.39300000000003
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      34.61640000000011,
+                      32.057799999999816,
+                      33.7679999999998
+                    ],
+                    "min": 32.057799999999816,
+                    "median": 33.7679999999998,
+                    "max": 34.61640000000011
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      32.80140000000006,
+                      34.59979999999996,
+                      32.696100000000115
+                    ],
+                    "min": 32.696100000000115,
+                    "median": 32.80140000000006,
+                    "max": 34.59979999999996
+                  },
+                  "tensorPrimeMs": 30.150899999999865
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 20393,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 40,
+                "peakUsedMiB": 905,
+                "minimumFreeMiB": 5062
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "5x5-c4",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 0,
+                "qualification": {
+                  "comparedSupports": 7776,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 0,
+                "supportSkeletons": 7776,
+                "evaluatedSupports": 3996,
+                "optimizations": {
+                  "reflection": true,
+                  "cofactorPreservation": true
+                },
+                "winningLines": 28,
+                "timingsMs": {
+                  "runtimeOpen": 494.38900000000103,
+                  "solve": 8354.074600000002,
+                  "processToResult": 8848.487100000002
+                },
+                "performance": {
+                  "supportsPerSecond": 478.3294609315554,
+                  "reflectedChildLookups": 1260,
+                  "reflectedChildRecords": 189723,
+                  "structuralPrepareMs": 379.1889000000119,
+                  "gpuPairReduceWallMs": 3776.8017999999847,
+                  "finalizeMs": 3273.020499999986
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 536209,
+                  "maximumWinFrontier": 562,
+                  "maximumLossFrontier": 568,
+                  "peakResidentBoundaryRecords": 136626,
+                  "rootWinRecords": 0,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 113,
+                  "batches": 113,
+                  "jobs": 12614,
+                  "inputLeftRecords": 586564,
+                  "inputRightRecords": 457177,
+                  "generatedPairCandidates": 32002452,
+                  "survivingRecords": 711916,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 176.29100000000108,
+                  "executionMs": 3094.8047999999744,
+                  "readbackMs": 473.0152000000071,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 25,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.4592000000011467
+                  },
+                  {
+                    "rank": 24,
+                    "supports": 3,
+                    "boundaryRecords": 10,
+                    "maximumWinFrontier": 4,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.654500000000553
+                  },
+                  {
+                    "rank": 23,
+                    "supports": 9,
+                    "boundaryRecords": 414,
+                    "maximumWinFrontier": 105,
+                    "maximumLossFrontier": 5,
+                    "wallMs": 10.970999999999549
+                  },
+                  {
+                    "rank": 22,
+                    "supports": 19,
+                    "boundaryRecords": 2397,
+                    "maximumWinFrontier": 86,
+                    "maximumLossFrontier": 504,
+                    "wallMs": 19.751000000000204
+                  },
+                  {
+                    "rank": 21,
+                    "supports": 38,
+                    "boundaryRecords": 7521,
+                    "maximumWinFrontier": 451,
+                    "maximumLossFrontier": 104,
+                    "wallMs": 87.12299999999959
+                  },
+                  {
+                    "rank": 20,
+                    "supports": 66,
+                    "boundaryRecords": 15967,
+                    "maximumWinFrontier": 288,
+                    "maximumLossFrontier": 456,
+                    "wallMs": 112.37359999999899
+                  },
+                  {
+                    "rank": 19,
+                    "supports": 107,
+                    "boundaryRecords": 28244,
+                    "maximumWinFrontier": 562,
+                    "maximumLossFrontier": 153,
+                    "wallMs": 760.607399999999
+                  },
+                  {
+                    "rank": 18,
+                    "supports": 157,
+                    "boundaryRecords": 42709,
+                    "maximumWinFrontier": 364,
+                    "maximumLossFrontier": 568,
+                    "wallMs": 356.3912999999993
+                  },
+                  {
+                    "rank": 17,
+                    "supports": 216,
+                    "boundaryRecords": 55350,
+                    "maximumWinFrontier": 470,
+                    "maximumLossFrontier": 195,
+                    "wallMs": 1192.674500000001
+                  },
+                  {
+                    "rank": 16,
+                    "supports": 276,
+                    "boundaryRecords": 67060,
+                    "maximumWinFrontier": 344,
+                    "maximumLossFrontier": 399,
+                    "wallMs": 791.0072999999993
+                  },
+                  {
+                    "rank": 15,
+                    "supports": 333,
+                    "boundaryRecords": 68879,
+                    "maximumWinFrontier": 306,
+                    "maximumLossFrontier": 187,
+                    "wallMs": 1338.9706000000006
+                  },
+                  {
+                    "rank": 14,
+                    "supports": 375,
+                    "boundaryRecords": 67747,
+                    "maximumWinFrontier": 181,
+                    "maximumLossFrontier": 235,
+                    "wallMs": 734.7990000000027
+                  },
+                  {
+                    "rank": 13,
+                    "supports": 398,
+                    "boundaryRecords": 56795,
+                    "maximumWinFrontier": 170,
+                    "maximumLossFrontier": 124,
+                    "wallMs": 640.9730000000018
+                  },
+                  {
+                    "rank": 12,
+                    "supports": 398,
+                    "boundaryRecords": 45686,
+                    "maximumWinFrontier": 128,
+                    "maximumLossFrontier": 119,
+                    "wallMs": 379.45900000000256
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 375,
+                    "boundaryRecords": 31693,
+                    "maximumWinFrontier": 83,
+                    "maximumLossFrontier": 75,
+                    "wallMs": 326.1196999999993
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 333,
+                    "boundaryRecords": 21232,
+                    "maximumWinFrontier": 66,
+                    "maximumLossFrontier": 59,
+                    "wallMs": 228.66029999999955
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 276,
+                    "boundaryRecords": 12202,
+                    "maximumWinFrontier": 39,
+                    "maximumLossFrontier": 40,
+                    "wallMs": 188.18119999999908
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 216,
+                    "boundaryRecords": 6736,
+                    "maximumWinFrontier": 34,
+                    "maximumLossFrontier": 32,
+                    "wallMs": 96.02969999999914
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 157,
+                    "boundaryRecords": 3280,
+                    "maximumWinFrontier": 18,
+                    "maximumLossFrontier": 18,
+                    "wallMs": 32.94219999999768
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 107,
+                    "boundaryRecords": 1456,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 25.252400000001217
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 66,
+                    "boundaryRecords": 550,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 9,
+                    "wallMs": 22.008700000002136
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 38,
+                    "boundaryRecords": 201,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 25.270700000000943
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 19,
+                    "boundaryRecords": 61,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 21.812799999999697
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 9,
+                    "boundaryRecords": 16,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 39.62169999999969
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 3,
+                    "boundaryRecords": 3,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.0724000000009255
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.021600000000034925
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": true,
+                  "cofactorPreservation": true,
+                  "reducer": {
+                    "outputCapacityPerSegment": 1024,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 7432.530199999999,
+                "processedSupports": 3996,
+                "completedRanks": 26,
+                "gpuReducer": {
+                  "calls": 113,
+                  "batches": 113,
+                  "jobs": 12614,
+                  "inputLeftRecords": 586564,
+                  "inputRightRecords": 457177,
+                  "generatedPairCandidates": 32002452,
+                  "survivingRecords": 711916,
+                  "overflowRetries": 0,
+                  "overflowRecoveredJobs": 0,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 0,
+                  "overflowMaxSurvivingRecords": 0,
+                  "uploadMs": 176.29100000000108,
+                  "executionMs": 3094.8047999999744,
+                  "readbackMs": 473.0152000000071,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 0,
+                  "overflowReadbackMs": 0,
+                  "tensorOverflowCalls": 0,
+                  "tensorOverflowCandidates": 0,
+                  "tensorOverflow": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": "20260916T082127123Z-b08a6b9f",
+      "source": {
+        "revision": "b16d77023d93f84bb79a2308942bf7d7ad0dbfaf",
+        "branch": "research/bsfp-tensor-overflow-dominance",
+        "dirty": false,
+        "repository": "iteathen/Connect4"
+      },
+      "node": "v26.7.0",
+      "gpu": {
+        "available": true,
+        "gpuIndex": 0,
+        "name": "NVIDIA GeForce GTX 1660 Ti",
+        "driverVersion": "610.74",
+        "computeCapability": "7.5",
+        "totalMiB": 6144,
+        "freeMiB": 5198,
+        "usedMiB": 769
+      },
+      "dependencies": {
+        "cudaAlgorithms": {
+          "packageName": "cuda-algorithms",
+          "version": "0.1.0-alpha.0",
+          "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+        },
+        "cudaJs": {
+          "packageName": "cuda-js",
+          "version": "0.1.0-alpha.20",
+          "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+        },
+        "cudaJsTensor": {
+          "packageName": "cuda-js-tensor",
+          "version": "0.1.0-alpha.6",
+          "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+        }
+      },
+      "outcome": "qualified",
+      "publication": "local-only --no-publish",
+      "cases": [
+        {
+          "caseId": "01-4x3-c3",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3,
+            "tier": "user-specified"
+          },
+          "status": "passed",
+          "durationMs": 5914,
+          "estimate": {
+            "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+            "executable": true,
+            "cellCount": 12,
+            "candidateCapacity": 4194304,
+            "segmentCapacity": 256,
+            "sideCapacity": 262144,
+            "frontierCapacityPerSegment": 1024,
+            "devicePayloadBytes": 73407500,
+            "fixedRuntimeAllowanceBytes": "268435456",
+            "tensorOverflowAllowanceBytes": "67108864",
+            "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+            "upperBoundBytes": 543169548
+          },
+          "steps": [
+            {
+              "stepId": "tensor-dominance-full-shape-ab",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 2133,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 4,
+                "peakUsedMiB": 993,
+                "minimumFreeMiB": 4974
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-bsfp-tensor-dominance-overflow-ab",
+                "mode": "native",
+                "geometry": "7x6-c4-packed42-workshape",
+                "fixture": {
+                  "kind": "connect4-bsfp-tensor-dominance-overflow-minimal-v0",
+                  "frontierCount": 1487,
+                  "candidateCount": 4096,
+                  "expectedDominatedCount": 2048,
+                  "expectedFinalFrontierCount": 3535
+                },
+                "tensor": {
+                  "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+                  "itemCapacity": 4096,
+                  "totalWorkspaceBytes": 164544512,
+                  "workspaceLimitBytes": 201326592,
+                  "compileMs": 181.7763000000001,
+                  "compositionCompileMs": 64.89300000000003
+                },
+                "authority": {
+                  "submissionWaitMs": 60.753099999999904,
+                  "outcome": "native-authority-frontier-match",
+                  "frontierCount": 3535
+                },
+                "execution": {
+                  "outcome": "native-tensor-dominance-exact-match",
+                  "baselineSubsetChecks": 4309345,
+                  "tensorLogicalSubsetPairs": 6090752,
+                  "tensorLogicalF32Products": 255811584,
+                  "baselineTiming": {
+                    "samples": [
+                      17.672000000000025,
+                      17.521799999999985,
+                      18.64779999999996
+                    ],
+                    "min": 17.521799999999985,
+                    "median": 17.672000000000025,
+                    "max": 18.64779999999996
+                  },
+                  "tensorOnlyTiming": {
+                    "samples": [
+                      35.90840000000003,
+                      31.163299999999936,
+                      31.907300000000077
+                    ],
+                    "min": 31.163299999999936,
+                    "median": 31.907300000000077,
+                    "max": 35.90840000000003
+                  },
+                  "tensorFullTiming": {
+                    "samples": [
+                      34.728200000000015,
+                      46.262699999999995,
+                      30.719499999999925
+                    ],
+                    "min": 30.719499999999925,
+                    "median": 34.728200000000015,
+                    "max": 46.262699999999995
+                  },
+                  "tensorPrimeMs": 35.26209999999992
+                }
+              },
+              "configuration": null,
+              "lastProgress": null
+            },
+            {
+              "stepId": "compact-hybrid-root-wdl",
+              "status": "passed",
+              "exitCode": 0,
+              "timedOut": false,
+              "durationMs": 3766,
+              "memorySafetyAbort": false,
+              "gpuTelemetry": {
+                "sampleCount": 7,
+                "peakUsedMiB": 907,
+                "minimumFreeMiB": 5060
+              },
+              "solverResult": {
+                "schemaVersion": 1,
+                "kind": "connect4-cuda-bsfp-compact-hybrid-root-wdl",
+                "mode": "native",
+                "geometry": "4x3-c3",
+                "outcome": "native-compact-hybrid-root-wdl-pass",
+                "rootWdl": 1,
+                "qualification": {
+                  "comparedSupports": 256,
+                  "frontierMismatches": 0
+                },
+                "expectedRootWdl": 1,
+                "supportSkeletons": 256,
+                "evaluatedSupports": 136,
+                "optimizations": {
+                  "reflection": true,
+                  "cofactorPreservation": true
+                },
+                "winningLines": 14,
+                "timingsMs": {
+                  "runtimeOpen": 464.97299999999996,
+                  "solve": 3145.0992,
+                  "processToResult": 3610.0962
+                },
+                "performance": {
+                  "supportsPerSecond": 43.24187930224903,
+                  "reflectedChildLookups": 60,
+                  "reflectedChildRecords": 727,
+                  "structuralPrepareMs": 4.407800000000179,
+                  "gpuPairReduceWallMs": 2209.4835000000003,
+                  "finalizeMs": 10.9391999999998
+                },
+                "frontiers": {
+                  "totalBoundaryRecords": 1591,
+                  "maximumWinFrontier": 19,
+                  "maximumLossFrontier": 48,
+                  "peakResidentBoundaryRecords": 615,
+                  "rootWinRecords": 1,
+                  "rootLossRecords": 0
+                },
+                "gpuReducer": {
+                  "calls": 27,
+                  "batches": 27,
+                  "jobs": 270,
+                  "inputLeftRecords": 1099,
+                  "inputRightRecords": 1093,
+                  "generatedPairCandidates": 5180,
+                  "survivingRecords": 1289,
+                  "overflowRetries": 122,
+                  "overflowRecoveredJobs": 122,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 11,
+                  "overflowMaxSurvivingRecords": 19,
+                  "uploadMs": 33.70670000000018,
+                  "executionMs": 2085.5866000000024,
+                  "readbackMs": 68.9487000000006,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 2058.426400000003,
+                  "overflowReadbackMs": 51.29010000000153,
+                  "tensorOverflowCalls": 122,
+                  "tensorOverflowCandidates": 3893,
+                  "tensorOverflow": {
+                    "calls": 122,
+                    "candidates": 3893,
+                    "uniqueCandidates": 2532,
+                    "duplicateCandidatesRemoved": 1361,
+                    "candidateTiles": 350,
+                    "referenceTiles": 350,
+                    "comparisonPairs": 12735,
+                    "tensorRuns": 350,
+                    "tensorUploadMs": 266.96549999999866,
+                    "tensorExecutionMs": 1094.7090999999957,
+                    "tensorReadbackMs": 60.309799999999086,
+                    "maximumFrontier": 19
+                  }
+                },
+                "rankSummaries": [
+                  {
+                    "rank": 12,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.41660000000001673
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 2,
+                    "boundaryRecords": 7,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.5368999999998323
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 6,
+                    "boundaryRecords": 126,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 48,
+                    "wallMs": 144.8207
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 10,
+                    "boundaryRecords": 178,
+                    "maximumWinFrontier": 19,
+                    "maximumLossFrontier": 14,
+                    "wallMs": 133.03189999999995
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 17,
+                    "boundaryRecords": 299,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 22,
+                    "wallMs": 457.5060000000001
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 20,
+                    "boundaryRecords": 312,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 515.6005999999998
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 24,
+                    "boundaryRecords": 303,
+                    "maximumWinFrontier": 10,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 686.8537000000001
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 20,
+                    "boundaryRecords": 192,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 255.95399999999972
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 17,
+                    "boundaryRecords": 111,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 11.765800000000127
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 10,
+                    "boundaryRecords": 40,
+                    "maximumWinFrontier": 3,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 7.285000000000309
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 6,
+                    "boundaryRecords": 18,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 6.1500999999998385
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 5.596499999999651
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 1,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.05160000000023501
+                  }
+                ]
+              },
+              "configuration": {
+                "kind": "compact-hybrid-configuration",
+                "options": {
+                  "supportShardSize": 256,
+                  "reflection": true,
+                  "cofactorPreservation": true,
+                  "reducer": {
+                    "outputCapacityPerSegment": 4,
+                    "candidateCapacity": 4194304,
+                    "segmentCapacity": 256,
+                    "leftCapacity": 262144,
+                    "rightCapacity": 262144,
+                    "blockSize": 256,
+                    "tensorCandidateTile": 256,
+                    "tensorReferenceTile": 1024,
+                    "tensorMaxWorkspaceBytes": 67108864,
+                    "tensorBackend": "simt"
+                  }
+                },
+                "cudaMemoryPolicy": {
+                  "maxDeviceBytes": 268435456,
+                  "maxAllocationBytes": 134217728,
+                  "maxTransferBytes": 16777216
+                }
+              },
+              "lastProgress": {
+                "kind": "compact-hybrid-progress",
+                "elapsedMs": 2225.9248,
+                "processedSupports": 136,
+                "completedRanks": 13,
+                "gpuReducer": {
+                  "calls": 27,
+                  "batches": 27,
+                  "jobs": 270,
+                  "inputLeftRecords": 1099,
+                  "inputRightRecords": 1093,
+                  "generatedPairCandidates": 5180,
+                  "survivingRecords": 1289,
+                  "overflowRetries": 122,
+                  "overflowRecoveredJobs": 122,
+                  "overflowFailures": 0,
+                  "overflowInitialRequiredAtLeastMax": 11,
+                  "overflowMaxSurvivingRecords": 19,
+                  "uploadMs": 33.70670000000018,
+                  "executionMs": 2085.5866000000024,
+                  "readbackMs": 68.9487000000006,
+                  "overflowUploadMs": 0,
+                  "overflowExecutionMs": 2058.426400000003,
+                  "overflowReadbackMs": 51.29010000000153,
+                  "tensorOverflowCalls": 122,
+                  "tensorOverflowCandidates": 3893,
+                  "tensorOverflow": {
+                    "calls": 122,
+                    "candidates": 3893,
+                    "uniqueCandidates": 2532,
+                    "duplicateCandidatesRemoved": 1361,
+                    "candidateTiles": 350,
+                    "referenceTiles": 350,
+                    "comparisonPairs": 12735,
+                    "tensorRuns": 350,
+                    "tensorUploadMs": 266.96549999999866,
+                    "tensorExecutionMs": 1094.7090999999957,
+                    "tensorReadbackMs": 60.309799999999086,
+                    "maximumFrontier": 19
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

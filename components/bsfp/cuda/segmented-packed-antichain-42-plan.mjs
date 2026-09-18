@@ -7,7 +7,7 @@ const CUDA_THREAD_BLOCK_CEILING = 1024;
 const CARDINALITY_BUCKETS = 43;
 
 export const SEGMENTED_PACKED_ANTICHAIN_42_CONTRACT = 'Connect4-CUDA-BSFP-segmented-packed-antichain-42-cardinality-v1';
-export const SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION = Object.freeze({ MINIMAL: 0, MAXIMAL: 1 });
+export { SEGMENTED_PACKED_ANTICHAIN_42_DIRECTION } from './packed42-direction.mjs';
 export const SEGMENTED_PACKED_ANTICHAIN_42_STATUS = Object.freeze({ OK: 0, OUTPUT_CAPACITY_EXCEEDED: 1 });
 export const SEGMENTED_PACKED_ANTICHAIN_42_STRATEGY = Object.freeze({
   LEGACY: 'legacy-43-phase-scan',

@@ -1,0 +1,103 @@
+name: bsfp-clause-coverage-experimental
+
+on:
+  pull_request:
+    paths:
+      - 'research/experiments/cuda-bsfp-clause-coverage/**'
+      - '.github/workflows/bsfp-clause-coverage-experimental.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    name: clause-coverage portable
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      CONNECT4_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      CUDA_JS_HEAD: 077bd527d3468932b4710a59849e07c3da5fe3c5
+    steps:
+      - name: Checkout exact Connect4 head without marketplace actions
+        run: |
+          git init .
+          git remote add origin https://github.com/iteathen/Connect4.git
+          git fetch --depth=1 origin "$CONNECT4_HEAD"
+          git checkout --detach FETCH_HEAD
+
+      - name: Checkout exact CUDA-JS authority without marketplace actions
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/iteathen/CUDA-JS.git cuda-js
+          git -C cuda-js fetch --depth=1 origin "$CUDA_JS_HEAD"
+          git -C cuda-js checkout --detach "$CUDA_JS_HEAD"
+          test "$(git -C cuda-js rev-parse HEAD)" = "$CUDA_JS_HEAD"
+
+      - name: Install exact Node 26.7.0 tool runtime
+        run: |
+          mkdir -p .node26
+          npm install --prefix .node26 --no-save node@26.7.0
+          echo "$PWD/.node26/node_modules/node/bin" >> "$GITHUB_PATH"
+
+      - name: Verify exact Node runtime
+        run: test "$(node --version)" = "v26.7.0"
+
+      - name: Install exact CUDA-JS dependencies without engine gating
+        env:
+          npm_config_engine_strict: 'false'
+        run: npm ci --prefix cuda-js
+
+      - name: Bind exact CUDA-JS package through public package surface
+        run: |
+          node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});const link=p.resolve('node_modules','cuda-js'),target=p.resolve('cuda-js');fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,'dir')"
+
+      - name: Compile and submit synthetic coverage contract fixture
+        run: node research/experiments/cuda-bsfp-clause-coverage/run.mjs portable
+
+      - name: Derive, pack, compile and submit real BSFP hot workloads
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-real.mjs portable
+
+      - name: Derive, map, compile and submit real support-edge cofactors
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-cofactor.mjs portable
+
+      - name: Census scalar versus preimage cofactor work shape
+        run: node research/experiments/cuda-bsfp-clause-coverage/analyze-cofactor-work.mjs
+
+      - name: Derive and submit real three-word 6x5 support-edge cofactors
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-multiword-cofactor.mjs portable
+
+      - name: Qualify real three-word 6x5 universal merges
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-universal.mjs
+
+      - name: Qualify multiword core-relative absorption
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-core-absorption.mjs
+
+      - name: Qualify ownership absorption exact result quotient
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-ownership-result-quotient.mjs
+
+      - name: Compile and submit real multiword core-relative absorption marks
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-multiword-absorption.mjs portable
+
+      - name: Qualify multiword cell and coverage legal-slice guards
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-multiword-capacity.mjs
+
+      - name: Qualify admissibility completion synthesis
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-admissibility-completion-synthesis.mjs
+
+      - name: Qualify positive-certificate algebra synthesis
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-positive-certificate-algebra.mjs
+
+      - name: Qualify certificate absorption ordering synthesis
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-certificate-absorption-ordering.mjs
+
+      - name: Qualify guarded commuting transporters on reflection and O3
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-guarded-transporter-synthesis.mjs
+
+      - name: Qualify reflection-quotiented coverage recurrence
+        run: node research/experiments/cuda-bsfp-clause-coverage/qualify-reflection-quotient-recurrence.mjs
+
+      - name: Compile and submit warp-native real support-edge cofactors
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-cofactor-warp.mjs portable
+
+      - name: Compile and submit real core-relative absorption marks
+        run: node research/experiments/cuda-bsfp-clause-coverage/run-absorption.mjs portable

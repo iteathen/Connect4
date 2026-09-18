@@ -95,6 +95,9 @@ function packedNormalize42Bucketed(candidateLo, candidateHi, candidatePopcount, 
     bucketCursors[metaBase + bucket] = gpu.u32(0);
     bucket = bucket + stride;
   }
+  // All warps must finish zeroing shared bucket counters before ANY warp
+  // atomically increments them. Atomics alone do not order the plain resets.
+  gpu.barrier.block();
   let initial = start + lane;
   while (initial < end) {
     checks[initial] = gpu.u32(0);
@@ -191,6 +194,8 @@ function packedNormalize42BucketedDedupFirst(candidateLo, candidateHi, candidate
     bucketCursors[metaBase + bucket] = gpu.u32(0);
     bucket = bucket + stride;
   }
+  // Same cross-warp initialization/publication boundary as the bucketed path.
+  gpu.barrier.block();
   let initial = start + lane;
   while (initial < end) {
     checks[initial] = gpu.u32(0);
