@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "application_id": "connect4-nei-application-0.1",
+  "connect4_authority": {
+    "authority_id": "connect4-isograph-logic-1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "nei_authority": {
+    "qualified": [
+      {
+        "revision": "NEI 0.1",
+        "git_blob": "d9da13d7df3515e4229d61f43b0b94a2cae0fedb"
+      },
+      {
+        "revision": "NEI 0.2",
+        "git_blob": "a9a9d01af733e461b609c5b1bd9f9f23128c04b4"
+      }
+    ],
+    "guidance_only": [
+      {
+        "revision": "NEI 0.3 candidate",
+        "git_blob": "2192a45dd21ba4564e1d7d89c5d3a6458a304995"
+      }
+    ]
+  },
+  "profiles": [
+    {
+      "id": "P-C4-ARTIFACT-IDENTITY-0.1",
+      "native_id": 920001,
+      "carrier": "frozen Connect4 evidence/provenance artifact instances",
+      "path": "determinate",
+      "identity_preserving_laws": [
+        "one frozen artifact instance remains itself across transparent representation/serialization changes"
+      ],
+      "identity_separating_laws": [
+        "authority-declared distinct artifact identities remain DISTINCT under artifact-instance identity",
+        "different artifact instance is not merged merely because it summarizes/derives from/supports the same evidence lineage"
+      ],
+      "authority": [
+        "research/isograph/successor/EVIDENCE_LINEAGE_MODEL_0_1_CANDIDATE.md",
+        "research/isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.json"
+      ]
+    },
+    {
+      "id": "P-C4-EVENT-IDENTITY-0.1",
+      "native_id": 920002,
+      "carrier": "represented evidence events",
+      "path": "determinate",
+      "identity_preserving_laws": [
+        "one represented event occurrence remains itself across references to that event"
+      ],
+      "identity_separating_laws": [
+        "distinct represented event occurrences remain DISTINCT",
+        "derived_from/reproduces does not imply SAME event"
+      ],
+      "authority": [
+        "research/isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.json"
+      ]
+    },
+    {
+      "id": "P-C4-LINEAGE-IDENTITY-0.1",
+      "native_id": 920003,
+      "carrier": "represented evidence lineages",
+      "path": "determinate",
+      "identity_preserving_laws": [
+        "artifact/event projections explicitly attached to one lineage resolve to the SAME lineage referent"
+      ],
+      "identity_separating_laws": [
+        "different represented lineage records remain DISTINCT as lineage objects",
+        "unknown cross-lineage independence does not collapse lineage identity and does not create NEI UNKNOWN"
+      ],
+      "authority": [
+        "research/isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.json"
+      ]
+    },
+    {
+      "id": "P-C4-PHYSICAL-STATE-IDENTITY-0.1",
+      "native_id": 920004,
+      "carrier": "enumerated legal physical Connect Four states in SIU-1 controls",
+      "path": "determinate",
+      "identity_preserving_laws": [
+        "a physical state is identical to itself under the exact physical-state oracle representation"
+      ],
+      "identity_separating_laws": [
+        "distinct enumerated physical states remain DISTINCT under physical-state identity"
+      ],
+      "authority": [
+        "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json"
+      ]
+    },
+    {
+      "id": "P-C4-FUTURE-BEHAVIOR-STATE-BOUNDED-0.1",
+      "native_id": 920005,
+      "carrier": "legal non-winning physical states in SIU-1 complete bounded control geometries",
+      "path": "determinate",
+      "scope": [
+        "4x3:c3",
+        "4x4:c4",
+        "5x3:c4",
+        "4x5:c4"
+      ],
+      "semantic_projection": "q = supportIndex + sideToMove + normalized P0 residual antichain + normalized P1 residual antichain",
+      "identity_preserving_laws": [
+        "within the exhausted SIU-1 domains, equal q plus the complete zero-mismatch transition/terminal/strong-score/action-score/WDL evidence establishes one exact future-behavior state under this profile"
+      ],
+      "identity_separating_laws": [],
+      "coverage": {
+        "physical_states_checked": 1681808,
+        "exactness_mismatches": 0,
+        "bsfp_wdl_mismatches": 0,
+        "reverse_closure_mismatches": 0
+      },
+      "authority": [
+        "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json",
+        "research/semantic-quotient/state-identity-unification/SIU1_RESULT.md"
+      ]
+    },
+    {
+      "id": "P-C4-FUTURE-BEHAVIOR-STATE-7X6-0.1",
+      "native_id": 920006,
+      "carrier": "standard 7x6 legal physical states",
+      "path": "incomplete",
+      "semantic_projection": "same q candidate as bounded SIU-1",
+      "required_closure": "proof or complete qualified coverage that q preserves the full declared future-behavior identity on standard 7x6",
+      "missing_authority": [
+        "SIU-1 explicitly does not establish standard 7x6 exhaustive sufficiency",
+        "the state-identity-unification packet is source-native INCOMPLETE_SCOPE and does not supply a qualified QU realization family for this identity question"
+      ],
+      "authority": [
+        "research/semantic-quotient/state-identity-unification/README.md",
+        "research/semantic-quotient/state-identity-unification/SIU1_RESULT.md",
+        "research/isograph/qualification/CONNECT4_INCOMPLETE_SCOPE_BRIDGE_1_1.md"
+      ]
+    }
+  ]
+}
