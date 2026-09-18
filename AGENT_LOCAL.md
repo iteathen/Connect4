@@ -38,6 +38,7 @@ Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thre
 Acceptance status is part of authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
 
 - `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
+- `docs/decisions/2026-09-18-isometric-isograph-realignment.md` — current q/gameplay/proof identity alignment after IsoGraph/NEI discovery.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
 - `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — **Candidate structural research specification** for shared Connect4 mathematics: CPC event/control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics. Its definitions and qualified theorem instances may be used explicitly in research controls, but it is not Accepted authority until its own status changes.
 - `docs/specs/C4-0007-nested-dependency-closure-v1.md` — **Candidate proof/certificate research specification** for NDC dependency/certificate/timing/fixed-point semantics. Research consuming these clauses must identify the dependency and qualification evidence; using the file does not change its Candidate status.
@@ -87,10 +88,14 @@ geometric winning-line axioms
 The forward quotient projection currently uses:
 
 ```text
-supportIndex + normalized R0 + normalized R1
+q = supportIndex + normalized R0 + normalized R1
 ```
 
-for ordinary legal-transition identity. That is not permission to discard CPC/NDC context from a strategic certificate that depends on reservations, releases, response resources, event order, race horizon or deadline.
+for ordinary legal-transition identity.
+
+On Isometric, treat this as the ordinary gameplay identity profile. The implementation may retain derived/runtime fields such as ply, side-to-move, terminal status, support/playable masks and reversible history without making them additional semantic identity coordinates.
+
+Coarse WSL equality remains a certificate-retrieval relation, not gameplay equality. q equality remains ordinary future-behavior equality, not proof/certificate equality. A strategic certificate that depends on reservations, releases, response resources, event order, race horizon, deadline or another non-q premise must preserve that context in its guard/proof identity.
 
 ## CPC invariant — do not flatten it
 
