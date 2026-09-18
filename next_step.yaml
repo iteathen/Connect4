@@ -201,6 +201,11 @@ execution:
   proof_standard: >-
     Any unbounded board-family claim requires symbolic proof. Finite solved tables, constrained strategy solves,
     board sweeps and oracle data may falsify or guide discovery only.
+  relation_promotion: >-
+    Treat every newly discovered source-target correspondence as a claim until it has deductive or guarded-exact
+    proof. Empirical confirmation may strengthen the claim but must not create a native IsoGraph relation edge.
+    When proof is obtained, record the relation explicitly in the successor IsoGraph and carry any load-bearing
+    guards with it. Unproved relation claims must not be consumed as established topology.
   discrepancy_handling: >-
     Treat a material mismatch as an observation first. Align semantic quantity, scope, layer, aggregation,
     authority and closure before repair. Record qualification_disposition separately from discovery_disposition.
