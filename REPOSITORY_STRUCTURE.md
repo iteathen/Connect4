@@ -107,7 +107,7 @@ research/
       manifest.json   # source identity, environment, commands, disposition
 ```
 
-Solver-neutral future-behavior/quotient work belongs on `research/semantic-quotient`; solver-specific experiments belong on their solver branch. Hybrid-confluence research may remain on a research lane until it becomes implementation, at which point implementation belongs on `solver/hybrid-confluence`.
+All durable research belongs on `research/semantic-quotient`, including solver-specific hypotheses, experiment results, falsifiers, research evidence, and unresolved questions. Solver branches own implementation and implementation qualification only. Temporary experiment/work branches may carry in-progress research, but their durable research output must be integrated into `research/semantic-quotient` before retirement.
 
 ## Evidence discipline
 
