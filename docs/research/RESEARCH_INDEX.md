@@ -14,7 +14,7 @@ Status classes:
 - **ACTIVE SEAM / CONTROL** — current unresolved mechanism and its bounded falsifiers.
 - **NEGATIVE CONTROL / CORRECTION** — rejected shortcut or note that corrects an earlier interpretation.
 - **HISTORICAL EVIDENCE** — implementation/performance/provenance record with continuing value but no current routing authority.
-- **RETAINED SPECIALIZED LANE** — BSFP/OQS/minimax/other work kept for its owning lane.
+- **RETAINED SPECIALIZED LANE** — active specialized work kept for a current owner such as BSFP/OQS; retired solver families route through historical lineage records.
 
 Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
 
@@ -23,6 +23,20 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 ## Gameplay strategy / implementation proposal index
 
 - `research/GAMEPLAY_STRATEGY_INDEX.md` — living index where IsoGraph findings are translated into gameplay description, solver strategy, and implementation proposals. Unlike this durable-evidence index, it is intentionally forward-looking and tracks candidate strategies, implementation seams, proof burdens, and next experiments.
+
+---
+
+## Historical solver-family lineages
+
+### HISTORICAL EVIDENCE — Minimax / Negamax / alpha-beta
+
+- `research/history/historical-only/solver-lineages/MINIMAX_ALPHA_BETA.md` — preserves the retired exact-search lineage, fixed-width/TT lessons, MQ5 residual-state results, important negative findings, final branch head, and retirement rationale.
+
+### HISTORICAL EVIDENCE — Hybrid Confluence
+
+- `research/history/historical-only/solver-lineages/HYBRID_CONFLUENCE.md` — preserves the never-matured composition lineage and routes its useful exact-exchange/proof-strength/cancellation questions into SUT.
+
+Active solver-family heads are IsoMax/Isometric, CUDA-BSFP, and SUT. The incumbent on `main` remains reference/baseline only.
 
 ---
 
@@ -285,7 +299,7 @@ Useful entry records include:
 - [`2026-09-10-r6-incremental-oqs-results.md`](2026-09-10-r6-incremental-oqs-results.md)
 - [`2026-09-11-oqs-cuda-cofactor-qualification.md`](2026-09-11-oqs-cuda-cofactor-qualification.md)
 
-BSFP and forward Negamax remain separate solver semantics even when they share Connect4 structural mathematics.
+BSFP and IsoMax remain separate active solver semantics even when they share Connect4 structural mathematics. Historical Negamax evidence remains available through the retired lineage record.
 
 ---
 
