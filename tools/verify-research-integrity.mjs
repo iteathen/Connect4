@@ -76,12 +76,10 @@ for (const {from,to} of relationTargets) {
   if (!claims.has(to)) throw new Error(`claim relation ${from} -> ${to} has no target claim`);
 }
 
-const authorityFiles = [
-  'AGENT_LOCAL.md',
+// Canonical research validates its branch-local authority surfaces. The repository-wide\n// REPOSITORY_STRUCTURE.md router is owned on main and is not a dependency of this branch.\nconst authorityFiles = [\n  'AGENT_LOCAL.md',
   'research/AGENTS.md',
   'research/README.md',
   'STATUS.md',
-  'REPOSITORY_STRUCTURE.md',
   'docs/decisions/2026-09-17-single-research-owner.md'
 ];
 for (const relative of authorityFiles) {
