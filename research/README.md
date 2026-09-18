@@ -2,7 +2,7 @@
 
 Research lives here, and all durable Connect4 research belongs here.
 
-The branch `research/semantic-quotient` is the single canonical research owner for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmarks, oracle work, and future solver families. Solver branches own implementation; they do not own separate research truth, research notes, hypotheses, experiment results, counterexamples, or research evidence.
+The branch `research/semantic-quotient` is the single canonical research owner for Connect4. Active solver consumers are IsoMax/Isometric, CUDA-BSFP, and SUT. Minimax/Negamax/alpha-beta and Hybrid Confluence are historical solver lineages whose useful knowledge remains preserved here. Solver branches own implementation; they do not own separate research truth, research notes, hypotheses, experiment results, counterexamples, or research evidence.
 
 Research direction: Josh Oshiro.
 
@@ -83,6 +83,7 @@ A statement must be classified before it is used as authority:
 - `experiments/` — experiment design/result normalization.
 - `confidence/` — confidence/Bayesian update model.
 - `history/` — disproven, rejected, deferred/superseded, and historical-only knowledge.
+  - `history/historical-only/solver-lineages/` — retired Minimax and Hybrid Confluence knowledge; active solver topology remains outside history.
 - `untriaged/` — explicit queue of source material still awaiting semantic normalization.
 - `provenance/` — lossless historical source archive. Evidence, not current authority.
 
