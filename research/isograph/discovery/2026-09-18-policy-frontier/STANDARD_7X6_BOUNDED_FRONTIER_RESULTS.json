@@ -1,0 +1,302 @@
+{
+  "schema": 1,
+  "campaign_id": "connect4-standard-7x6-policy-frontier-bounded-2026-09-18",
+  "environment": {
+    "runtime": "Node.js v22.16.0",
+    "note": "Correctness/count research control only; timings are not production benchmark claims.",
+    "oracle": "Pons-style exact 7x6 recurrence reproduced from components/oracle/exact7x6.mjs",
+    "sampling": "Deterministic seeded legal nonterminal sequence generation with physical-state and q deduplication."
+  },
+  "same_rank_20k": [
+    {
+      "rank": 30,
+      "q": 20000,
+      "supports": 9272,
+      "comparable_q_pairs": 177,
+      "comparable_action_pairs": 813,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 1.169,
+      "wdl_frontier_compression": 1.322,
+      "strong_frontier_compression": 3.176
+    },
+    {
+      "rank": 32,
+      "q": 19996,
+      "supports": 5636,
+      "comparable_q_pairs": 1070,
+      "comparable_action_pairs": 4009,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 1.48,
+      "wdl_frontier_compression": 1.262,
+      "strong_frontier_compression": 2.099
+    },
+    {
+      "rank": 34,
+      "q": 19955,
+      "supports": 2614,
+      "comparable_q_pairs": 9013,
+      "comparable_action_pairs": 25298,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 2.441,
+      "wdl_frontier_compression": 1.343,
+      "strong_frontier_compression": 1.446
+    },
+    {
+      "rank": 36,
+      "q": 18886,
+      "supports": 894,
+      "comparable_q_pairs": 74485,
+      "comparable_action_pairs": 162523,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 5.39,
+      "wdl_frontier_compression": 2.113,
+      "strong_frontier_compression": 1.479
+    },
+    {
+      "rank": 37,
+      "q": 15764,
+      "supports": 458,
+      "comparable_q_pairs": 124955,
+      "comparable_action_pairs": 250730,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 7.894,
+      "wdl_frontier_compression": 3.021,
+      "strong_frontier_compression": 2.041
+    },
+    {
+      "rank": 38,
+      "q": 9546,
+      "supports": 209,
+      "comparable_q_pairs": 94349,
+      "comparable_action_pairs": 178571,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 10.017,
+      "wdl_frontier_compression": 4.171,
+      "strong_frontier_compression": 2.781
+    },
+    {
+      "rank": 39,
+      "q": 3841,
+      "supports": 84,
+      "comparable_q_pairs": 39700,
+      "comparable_action_pairs": 74494,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 11.133,
+      "wdl_frontier_compression": 6.491,
+      "strong_frontier_compression": 5.345
+    },
+    {
+      "rank": 40,
+      "q": 595,
+      "supports": 28,
+      "comparable_q_pairs": 3456,
+      "comparable_action_pairs": 5850,
+      "state_violations": 0,
+      "action_violations": 0,
+      "q_to_support_policy": 8.5,
+      "wdl_frontier_compression": 6.699,
+      "strong_frontier_compression": 6.699
+    }
+  ],
+  "heldout_density": {
+    "rank39": {
+      "train_50pct": {
+        "best_move_coverage": 0.4787,
+        "false_claims": 0
+      },
+      "train_70pct": {
+        "best_move_coverage": 0.6118,
+        "false_claims": 0
+      },
+      "train_85pct": {
+        "best_move_coverage": 0.6709,
+        "false_claims": 0
+      }
+    }
+  },
+  "cross_rank_20k_child_5k_parent": [
+    {
+      "parent_rank": 26,
+      "child_rank": 27,
+      "action_coverage": 0.207,
+      "best_move_coverage": 0.154,
+      "unknown_support_hits": 9373,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 299784
+    },
+    {
+      "parent_rank": 27,
+      "child_rank": 28,
+      "action_coverage": 0.2091,
+      "best_move_coverage": 0.2098,
+      "unknown_support_hits": 7825,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 279356
+    },
+    {
+      "parent_rank": 28,
+      "child_rank": 29,
+      "action_coverage": 0.2421,
+      "best_move_coverage": 0.3044,
+      "unknown_support_hits": 5965,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 259235
+    },
+    {
+      "parent_rank": 29,
+      "child_rank": 30,
+      "action_coverage": 0.2491,
+      "best_move_coverage": 0.4198,
+      "unknown_support_hits": 4237,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 238535
+    },
+    {
+      "parent_rank": 30,
+      "child_rank": 31,
+      "action_coverage": 0.2822,
+      "best_move_coverage": 0.5462,
+      "unknown_support_hits": 2699,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 216973
+    },
+    {
+      "parent_rank": 31,
+      "child_rank": 32,
+      "action_coverage": 0.2994,
+      "best_move_coverage": 0.6404,
+      "unknown_support_hits": 1493,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 192641
+    },
+    {
+      "parent_rank": 32,
+      "child_rank": 33,
+      "action_coverage": 0.3651,
+      "best_move_coverage": 0.7409,
+      "unknown_support_hits": 789,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 165669
+    },
+    {
+      "parent_rank": 33,
+      "child_rank": 34,
+      "action_coverage": 0.4434,
+      "best_move_coverage": 0.7698,
+      "unknown_support_hits": 447,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 127903
+    },
+    {
+      "parent_rank": 34,
+      "child_rank": 35,
+      "action_coverage": 0.561,
+      "best_move_coverage": 0.8163,
+      "unknown_support_hits": 193,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 89420
+    },
+    {
+      "parent_rank": 35,
+      "child_rank": 36,
+      "action_coverage": 0.6911,
+      "best_move_coverage": 0.8452,
+      "unknown_support_hits": 45,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 51003
+    },
+    {
+      "parent_rank": 36,
+      "child_rank": 37,
+      "action_coverage": 0.818,
+      "best_move_coverage": 0.8839,
+      "unknown_support_hits": 17,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 23255
+    },
+    {
+      "parent_rank": 37,
+      "child_rank": 38,
+      "action_coverage": 0.8943,
+      "best_move_coverage": 0.9188,
+      "unknown_support_hits": 0,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 7876
+    },
+    {
+      "parent_rank": 38,
+      "child_rank": 39,
+      "action_coverage": 0.9737,
+      "best_move_coverage": 0.9744,
+      "unknown_support_hits": 0,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 1677
+    },
+    {
+      "parent_rank": 39,
+      "child_rank": 40,
+      "action_coverage": 1,
+      "best_move_coverage": 1,
+      "unknown_support_hits": 0,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0,
+      "frontier_generators": 203
+    }
+  ],
+  "cross_rank_100k_scaling": [
+    {
+      "parent_rank": 26,
+      "child_rank": 27,
+      "child_states": 100000,
+      "best_move_coverage": 0.6136,
+      "action_coverage": 0.2104,
+      "unknown_support_hits": 1434,
+      "frontier_generators": 1492693,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0
+    },
+    {
+      "parent_rank": 28,
+      "child_rank": 29,
+      "child_states": 100000,
+      "best_move_coverage": 0.7336,
+      "action_coverage": 0.2518,
+      "unknown_support_hits": 607,
+      "frontier_generators": 1280406,
+      "false_action_claims": 0,
+      "false_best_move_claims": 0
+    }
+  ],
+  "aggregate": {
+    "same_rank_comparable_q_pairs": 347205,
+    "same_rank_comparable_action_pairs": 702288,
+    "same_rank_value_violations": 0,
+    "cross_rank_test_q_states": 64644,
+    "cross_rank_test_actions": 257007,
+    "cross_rank_exact_best_moves": 40855,
+    "cross_rank_exact_action_scores": 103198,
+    "cross_rank_false_action_claims": 0,
+    "cross_rank_false_best_move_claims": 0
+  },
+  "authority_effect": "NO_FROZEN_AUTHORITY_MUTATION"
+}
