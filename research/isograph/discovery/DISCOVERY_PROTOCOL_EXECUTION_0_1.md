@@ -59,6 +59,31 @@ same closure assumptions?
 
 If not aligned, record the mismatch itself as a discovery input.
 
+## NEI applicability gate
+
+Before protocol expansion, classify whether the branch actually requires an identity conclusion.
+
+Record one of:
+
+~~~text
+NOT_APPLICABLE
+    no referent merge/distinctness/identity claim is needed
+
+GUARD_ONLY
+    NEI constrains invalid inference between identity and another property,
+    but NEI is not the target conclusion
+
+APPLIED
+    an explicit NEI profile/result directly resolves a load-bearing identity question
+
+CENTRAL
+    identity itself is the main discovery target and DP-38/NEI drive the branch
+~~~
+
+Do not invoke NEI merely because two values differ or two structures correspond.
+
+When NEI is applied, preserve the exact profile/scope/evidence revision. A result under one identity profile does not silently transfer to another.
+
 ## Protocol selection
 
 Choose the smallest high-information subset of Discovery Protocols suggested by the observation.
@@ -99,6 +124,7 @@ lifecycle
 qualification_disposition
 discovery_disposition
 authority_effect
+nei_applicability when the applied NEI layer exists
 ~~~
 
 Lifecycle uses the Discovery Protocol vocabulary:
