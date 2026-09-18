@@ -13,7 +13,7 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Current durable topology authority
 
-This branch is the **durable Isometric solver head** under the owner-authorized closed topology in `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
+This branch is the **durable active Isometric/IsoMax solver head** under `docs/decisions/2026-09-18-three-active-solver-topology.md`.
 
 The durable set is closed. Do not create or promote another continuity branch without explicit owner instruction. Any `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging or evidence ref created from this lane must name this or another durable owner, preserve useful results back to that owner or an immutable archive, and retire when its bounded purpose ends.
 
@@ -23,7 +23,7 @@ Connect4 is an independent Node benchmark/validation product and exact-solver la
 
 The repository contains deliberately separate solver lanes built on shared Connect4 structural mathematics:
 
-- `components/incumbent/` owns the incumbent minimax/alpha-beta/search implementation and its accepted incumbent search/evaluator semantics.
+- `components/incumbent/` on `main` is the retained minimax/alpha-beta reference baseline; Minimax is no longer an active solver-family owner.
 - `components/bsfp/` owns the backward symbolic fixed-point solver implementation and Connect4-specific BSFP composition.
 - `research/semantic-quotient` owns all Connect4 research, including Isometric research, quotient/Negamax research, BSFP research, experiments/results, hypotheses, falsifiers, negative results, open questions, maps, evidence, synthesis, and provenance.
 
