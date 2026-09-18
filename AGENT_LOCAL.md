@@ -30,7 +30,7 @@ The active durable solver topology is:
 
 Minimax/Negamax/alpha-beta and Hybrid Confluence are historical lineages only. Do not recreate them as durable implementation owners.
 
-**Agents must not invent another durable lane or alter this topology without explicit owner instruction.** Current authority is `docs/decisions/2026-09-18-three-active-solver-topology.md` once the shared topology change is present on this branch.
+**Agents must not invent another durable lane or alter this topology without explicit owner instruction.** Current authority is `docs/decisions/2026-09-18-three-active-solver-topology.md`.
 ## Temporary branch rule
 
 Temporary `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging and evidence branches are subordinate to a named durable owner.
