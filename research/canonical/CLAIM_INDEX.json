@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "research_direction": "Josh Oshiro",
-  "purpose": "Authoritative machine-readable entrypoint for the normalized Connect4 claim graph.",
+  "purpose": "Legacy machine-readable bridge for the normalized pre-IsoGraph Connect4 claim graph.",
   "coverage": "seeded-and-expanding",
   "registries": [
     "CLAIM_REGISTRY.json",
@@ -24,5 +24,8 @@
     "CLAIMS_GUARDED_LIFT.md",
     "CLAIMS_SELECTION.md"
   ],
-  "rule": "A claim ID is unique across all listed registries. The listed shards form one logical registry; no shard is complete alone. Epistemic status is claim-specific and solver adoption does not change it."
+  "rule": "Claim IDs remain globally unique across the listed legacy shards. Authoritative claim semantics/status/relations are resolved through the current qualified IsoGraph logic authority; direct edits to this bridge are not authoritative.",
+  "authority": "legacy_bridge",
+  "superseded_by": "research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md",
+  "frozen_authority_source_revision": "aea692af800f524569ea1c2fda722087cd9bca39"
 }
