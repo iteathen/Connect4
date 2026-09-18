@@ -1,8 +1,10 @@
 # BSFP support-local monotone-clause dictionary
 
-**Status:** deductive exact representation theorem / production-shape hypothesis.
+**Status:** semantic theorem promoted to `C4-R0073`; bounded recurrence qualification promoted to `C4-R0074`; native production profitability remains a hypothesis.
 
 **Research direction:** Josh Oshiro.
+
+**Canonical claims:** `C4-R0073` (deductive dictionary/predecessor-closure theorem) and `C4-R0074` (bounded complete-control qualification). The remaining open part of this file is implementation profitability and device layout, not semantic closure.
 
 ## Purpose
 
@@ -350,6 +352,6 @@ A representative-support schedule may precompute one clause dictionary plus refl
 
 ## Disposition
 
-Promote the support-local clause dictionary as the preferred semantic basis for the experimental coverage-signature BSFP profile.
+The semantic dictionary/predecessor-closure result is promoted to canonical claim `C4-R0073`, and the complete-control coverage/cofactor result is promoted to `C4-R0074`. Retain as hypothesis only whether the packed support-local form is profitable in a native device profile.
 
-It converts the remaining variable-array cofactor operation into an exact precomputed support-edge map and gives a geometry-derived variable-width bound. The next decisive experiment is full recurrence equivalence using only local dictionary coverage signatures and precomputed child->parent maps.
+It converts the remaining variable-array cofactor operation into an exact precomputed support-edge map and gives a geometry-derived variable-width bound. The next decisive experiment is a native real-frontier CUDA A/B using the qualified coverage/cofactor recurrence against the rank-slice ownership reference.
