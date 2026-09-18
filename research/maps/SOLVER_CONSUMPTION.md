@@ -16,7 +16,7 @@ Core inputs:
 - line-hit product structural evidence and its missing realizability law: C4-R0042, R0043;
 - residual-pair occurrence reuse as evidence for structural factorization: C4-R0044;
 - exact subset-family terminal-subtraction algebra: C4-R0046;
-- support-local clause-coverage/cofactor closure evidence: C4-R0073;
+- support-local clause dictionary theorem and bounded coverage/cofactor qualification: C4-R0073, R0074;
 - derivative semantic-lift candidate and perfect-play discovery program: C4-R0012, R0013;
 - optimal structural-to-terminal selection gap: C4-R0052.
 
@@ -55,7 +55,7 @@ Shared inputs:
 - line-hit product boundary and missing direct-recurrence law: C4-R0042, R0043;
 - residual-pair cofactor reuse: C4-R0044;
 - measured compute/frontier scaling wall: C4-R0045;
-- support-local clause-coverage recurrence: C4-R0073.
+- support-local clause dictionary theorem and bounded coverage/cofactor qualification: C4-R0073, R0074.
 
 R0057..R0059 may inform exact symbolic bases, cokernel coordinates and structural indexing, but they do not permit BSFP to discard support/realizability correlations required by the predecessor semantics. MQ5/A123 runtime measurements are primarily recursive-solver evidence; BSFP should consume their shared semantic conclusions only when the relevant representation/guard equivalence is explicit.
 
