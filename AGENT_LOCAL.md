@@ -21,6 +21,21 @@ The pre-IsoGraph Markdown/JSON/spec/claim files are retained as provenance and r
 
 Unknown and unresolved research remains authoritative as explicit unresolved structure. Do not silently convert `INCOMPLETE_SCOPE`, hypotheses, missing laws, candidate rules, or open questions into settled claims.
 
+### Observation-first discrepancy discipline
+
+For any material discrepancy involving identity, count, scope, relation membership, provenance, uncertainty, aggregation, or evidence meaning:
+
+1. preserve the raw observations before repair;
+2. determine whether both observations denote the same semantic quantity under the same scope/layer/authority;
+3. keep `qualification_disposition` separate from `discovery_disposition`;
+4. a proven decoder/scorer/implementation error may close qualification while leaving a structural lead open;
+5. do not promote an open lead into authority without exact supporting evidence;
+6. do not weaken dependency propagation merely to localize a newly exposed distinction.
+
+Current 1.1 post-hoc dispositions are recorded in:
+- `research/isograph/qualification/CORE_0_18_SANITY_AUDIT_1_1.md`;
+- `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
+
 See `docs/decisions/2026-09-18-isograph-logic-authority-1-1.md`. The original 1.0 decision remains at `docs/decisions/2026-09-18-isograph-logic-authority.md`.
 
 ## Current durable topology authority
