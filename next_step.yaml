@@ -22,10 +22,10 @@ canonical_lanes:
     branch: solver/hybrid-confluence
     solver_head: true
   isometric:
-    branch: isometric
+    branch: solver/isometric
     solver_head: true
   sut:
-    branch: sut
+    branch: solver/sut
     solver_head: true
     maturity: early_directional
 
@@ -77,13 +77,13 @@ main_role:
     minimax: solver/minimax-alpha-beta
     bsfp: solver/cuda-bsfp
     hybrid_confluence: solver/hybrid-confluence
-    isometric: isometric
-    sut: sut
+    isometric: solver/isometric
+    sut: solver/sut
 
 restructure:
   original_lane_decision: docs/decisions/2026-09-10-repository-lane-restructure.md
   three_solver_extension: docs/decisions/2026-09-11-main-shared-foundation-three-solver-heads.md
-  closed_five_solver_topology: docs/decisions/2026-09-17-closed-durable-lane-topology.md
+  closed_five_solver_topology: docs/decisions/2026-09-17-solver-namespace-normalization.md
   historical_manifest: research/MIGRATION_MANIFEST.json
   historical_branch_retirement: research/BRANCH_RETIREMENT.md
   repository_structure: REPOSITORY_STRUCTURE.md
