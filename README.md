@@ -1,6 +1,6 @@
 # SUT
 
-**SUT** is a new root-level Connect4 exact-solver lineage.
+**SUT** is the retained future exact-composition solver lineage for IsoMax/Isometric + CUDA-BSFP.
 
 The name is written conceptually as:
 
@@ -25,4 +25,4 @@ It was created from the shared `main` substrate so neither Isometric nor BSFP is
 
 Research truth remains owned by the shared Connect4 research knowledge space and must be imported deliberately as SUT begins to define its own solver contracts.
 
-SUT is a sibling solver lineage, not a rename of Isometric, BSFP, or the existing hybrid-confluence solver.
+SUT does not replace the private internals of Isometric or BSFP. Hybrid Confluence is now a historical lineage; its useful exact-composition questions are inputs to SUT rather than a separate live solver.
