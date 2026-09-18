@@ -62,6 +62,13 @@ This vocabulary extends the qualified 1.0 representation with dependency-closed 
 | `^97454` | independent-lineage-count measurement |
 | `^97455` | correlated-evidence relation |
 | `^97456` | independent-evidence relation |
+| `^97457` | independence status unknown |
+| `^97458` | explicitly correlated / same independence group |
+| `^97459` | independence not applicable to deductive derivation |
+| `^97460` | independently countable evidence group |
+| `^97461` | lineage identity/provenance bytes |
+| `^97462` | event/run identity bytes |
+| `^97463` | independence-status relation |
 
 ## Invariants
 
