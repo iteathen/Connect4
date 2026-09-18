@@ -1,0 +1,23 @@
+name: Connect4 IsoGraph INCOMPLETE_SCOPE bridge verify
+
+on:
+  push:
+    branches:
+      - work/isograph-logic-authority-20260918
+    paths:
+      - research/isograph/qualification/RUN_QU_BRIDGE_VERIFY_0_1.request
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Verify narrow INCOMPLETE_SCOPE bridge
+        run: node research/isograph/qualification/tools/verify-incomplete-scope-bridge.mjs
