@@ -226,6 +226,36 @@ Policy-collapse headroom is large: q/support-policy collapse ranges from 3.646x 
 
 This is a derived theorem candidate and implementation lead; authority 1.1 remains unchanged.
 
+The standard-7x6 bounded constructive follow-up is now complete through sampled ranks 26-40.
+
+Key cross-rank result:
+
+~~~text
+independent child-rank frontiers
++ one exact legal transition
+-> held-out parent action intervals
+-> exact best-move proof when intervals separate
+
+20k child frontier budget:
+    rank 26 best-move coverage   15.40%
+    rank 30                      54.62%
+    rank 34                      81.63%
+    rank 36                      88.39%
+    rank 38                      97.44%
+    rank 39                     100.00%
+
+aggregate ranks 26-39:
+    held-out q states        64,644
+    held-out actions        257,007
+    false action claims           0
+    false best-move claims        0
+~~~
+
+Scaling the child frontier from 20k to 100k states raised rank-28 best-move coverage from 30.44% to 73.36% and rank-26 coverage from 15.40% to 61.36%, again with zero false claims.
+
+This shifts the open engineering question from whether the relation can select moves to how to construct/propagate enough frontier coverage toward the root.
+
+
 ## Gameplay strategy / implementation proposal lane
 
 The persistent index for turning IsoGraph findings into gameplay descriptions, solver strategies, and implementation experiments is:
