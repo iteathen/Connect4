@@ -1,6 +1,6 @@
 # Connect4 CUDA-BSFP Status
 
-**Updated:** 2026-09-17  
+**Updated:** 2026-09-18  
 **Lane:** CUDA-BSFP exact solver  
 **Canonical branch:** `solver/cuda-bsfp`  
 **State:** P2 compact-hybrid correctness/capacity repairs qualified and promoted; 7x6 root still unsolved
