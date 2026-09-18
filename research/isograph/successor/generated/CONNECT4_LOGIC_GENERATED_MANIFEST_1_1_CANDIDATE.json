@@ -1,0 +1,2129 @@
+{
+  "schema": 1,
+  "candidate": "connect4-isograph-logic-1.1",
+  "frozen_source_revision": "aea692af800f524569ea1c2fda722087cd9bca39",
+  "dependency_closed": true,
+  "corpus_objects": 432,
+  "native_image_objects": 234,
+  "content_addressed_only_objects": 198,
+  "semantic_items": 29650,
+  "source_image_parts": 12,
+  "item_parts": 6,
+  "roles": {
+    "current_logic": 185,
+    "current_policy_or_routing": 20,
+    "implementation_qualification": 134,
+    "raw_evidence_or_provenance": 61,
+    "normalized_evidence": 24,
+    "historical_only": 4,
+    "source_native_unresolved_logic": 4
+  },
+  "documents": [
+    {
+      "path": "AGENT_LOCAL.md",
+      "object_si": 3000001,
+      "image_si": 12000000,
+      "bytes": 16730,
+      "semantic_items": 146,
+      "role": "current_logic",
+      "git_object": "be1f73a59e5ff51c040b442aaef7707485e0ebd1"
+    },
+    {
+      "path": "AGENTS.md",
+      "object_si": 3000002,
+      "image_si": 12000001,
+      "bytes": 134,
+      "semantic_items": 2,
+      "role": "current_policy_or_routing",
+      "git_object": "c5c97fa063fb50ea0920a52fb25c84d695e96c29"
+    },
+    {
+      "path": "docs/decisions/2026-09-17-closed-durable-lane-topology.md",
+      "object_si": 3000011,
+      "image_si": 12000010,
+      "bytes": 4414,
+      "semantic_items": 58,
+      "role": "current_policy_or_routing",
+      "git_object": "a18c9f6fa7a263b4fbb7862830e1e26a0ad8a0a3"
+    },
+    {
+      "path": "docs/decisions/2026-09-17-single-research-owner.md",
+      "object_si": 3000012,
+      "image_si": 12000011,
+      "bytes": 3370,
+      "semantic_items": 53,
+      "role": "current_logic",
+      "git_object": "615cf66a8bc5fdc3cdbecae73e97fddc5453d565"
+    },
+    {
+      "path": "docs/decisions/2026-09-17-solver-namespace-normalization.md",
+      "object_si": 3000013,
+      "image_si": 12000012,
+      "bytes": 2685,
+      "semantic_items": 36,
+      "role": "current_policy_or_routing",
+      "git_object": "77d796dd56a0c7f99dbde73308ea9e4702b5048d"
+    },
+    {
+      "path": "docs/research/2026-09-09-backward-winline-fixed-point.md",
+      "object_si": 3000014,
+      "image_si": 12000013,
+      "bytes": 7949,
+      "semantic_items": 112,
+      "role": "current_logic",
+      "git_object": "ac0640d4839126b7e51ea49b0120da82ab6b502c"
+    },
+    {
+      "path": "docs/research/2026-09-09-bsfp-terminology-and-attribution.md",
+      "object_si": 3000015,
+      "image_si": 12000014,
+      "bytes": 7242,
+      "semantic_items": 106,
+      "role": "current_logic",
+      "git_object": "0c347afb0f0619e3197628b844e50895590f3a6d"
+    },
+    {
+      "path": "docs/research/2026-09-09-native-winspace-candidate-results.md",
+      "object_si": 3000016,
+      "image_si": 12000015,
+      "bytes": 11993,
+      "semantic_items": 163,
+      "role": "current_logic",
+      "git_object": "a5107543f48d69c0cda772507cd48ac37ba5675b"
+    },
+    {
+      "path": "docs/research/2026-09-09-nested-strategic-dependency-closure.md",
+      "object_si": 3000017,
+      "image_si": 12000016,
+      "bytes": 9762,
+      "semantic_items": 199,
+      "role": "current_logic",
+      "git_object": "9bf78bded20f9ab547f58c3e8f191574de69aad7"
+    },
+    {
+      "path": "docs/research/2026-09-09-owner-searchless-connect4-findings.md",
+      "object_si": 3000018,
+      "image_si": 12000017,
+      "bytes": 20480,
+      "semantic_items": 347,
+      "role": "current_logic",
+      "git_object": "217fb84afdfe1e27da446ad645abea68a5b335a7"
+    },
+    {
+      "path": "docs/research/2026-09-09-searchless-backward-candidate-update.md",
+      "object_si": 3000019,
+      "image_si": 12000018,
+      "bytes": 5775,
+      "semantic_items": 93,
+      "role": "current_logic",
+      "git_object": "63e7ccc899f8f4f4b2cce102054e843a29058c32"
+    },
+    {
+      "path": "docs/research/2026-09-09-searchless-closure-test-results.md",
+      "object_si": 3000020,
+      "image_si": 12000019,
+      "bytes": 9399,
+      "semantic_items": 137,
+      "role": "current_logic",
+      "git_object": "7429e7c36fff4f77b64dbc539439a073531caea3"
+    },
+    {
+      "path": "docs/research/2026-09-09-searchless-solver-hypothesis.md",
+      "object_si": 3000021,
+      "image_si": 12000020,
+      "bytes": 6514,
+      "semantic_items": 106,
+      "role": "current_logic",
+      "git_object": "d4dc82916330848f2caf8b9f55fc1841233d9dba"
+    },
+    {
+      "path": "docs/research/2026-09-09-searchless-symbolic-backward-solver.md",
+      "object_si": 3000022,
+      "image_si": 12000021,
+      "bytes": 10052,
+      "semantic_items": 128,
+      "role": "current_logic",
+      "git_object": "25792f5dcc89d7fc0867b62999f979bcff6140a0"
+    },
+    {
+      "path": "docs/research/2026-09-09-strategic-candidate-theory-state-proof.md",
+      "object_si": 3000023,
+      "image_si": 12000022,
+      "bytes": 44287,
+      "semantic_items": 305,
+      "role": "current_logic",
+      "git_object": "6d1b555ab9d33bf6aef12e7a4883c3988645423b"
+    },
+    {
+      "path": "docs/research/2026-09-09-structural-candidate-retest.md",
+      "object_si": 3000024,
+      "image_si": 12000023,
+      "bytes": 6443,
+      "semantic_items": 56,
+      "role": "current_logic",
+      "git_object": "ba1df39978ffcafb6cedd39aa4de7ad5f621224d"
+    },
+    {
+      "path": "docs/research/2026-09-09-terminal-boundary-qualification.md",
+      "object_si": 3000025,
+      "image_si": 12000024,
+      "bytes": 7157,
+      "semantic_items": 104,
+      "role": "current_logic",
+      "git_object": "b23f0be9317aed7dd61eda2593274ec77b6159ac"
+    },
+    {
+      "path": "docs/research/2026-09-09-terminalization-candidate-audit.md",
+      "object_si": 3000026,
+      "image_si": 12000025,
+      "bytes": 13610,
+      "semantic_items": 121,
+      "role": "current_logic",
+      "git_object": "eb0990b85f6f7b0a23a0cc9b7a76529c5d23adbf"
+    },
+    {
+      "path": "docs/research/2026-09-09-universal-strategic-algebra.md",
+      "object_si": 3000027,
+      "image_si": 12000026,
+      "bytes": 15321,
+      "semantic_items": 232,
+      "role": "current_logic",
+      "git_object": "f459dc0758b5e3e134ddd321362e413300ab5220"
+    },
+    {
+      "path": "docs/research/2026-09-09-win-space-representation-discussion.md",
+      "object_si": 3000028,
+      "image_si": 12000027,
+      "bytes": 8834,
+      "semantic_items": 49,
+      "role": "current_logic",
+      "git_object": "9fed2a47407bb382c58e4ce33eb3dcfbfc9b99ac"
+    },
+    {
+      "path": "docs/research/2026-09-09-winspace-results.md",
+      "object_si": 3000029,
+      "image_si": 12000028,
+      "bytes": 12892,
+      "semantic_items": 55,
+      "role": "current_logic",
+      "git_object": "78bec9947cf99911dab123f2a2dd1be733b2bb51"
+    },
+    {
+      "path": "docs/research/2026-09-10-bsfp-antichain-performance.md",
+      "object_si": 3000030,
+      "image_si": 12000029,
+      "bytes": 4482,
+      "semantic_items": 60,
+      "role": "current_logic",
+      "git_object": "14421e5f2454dc4f43866db5764b1d01d1290349"
+    },
+    {
+      "path": "docs/research/2026-09-10-bsfp-incremental-dominance-rejected.md",
+      "object_si": 3000031,
+      "image_si": 12000030,
+      "bytes": 2607,
+      "semantic_items": 24,
+      "role": "current_logic",
+      "git_object": "ea7628c0d27243c27aa1eb0384a4e1747dd400c5"
+    },
+    {
+      "path": "docs/research/2026-09-10-c3-diagnostic-implementation.md",
+      "object_si": 3000032,
+      "image_si": 12000031,
+      "bytes": 5981,
+      "semantic_items": 60,
+      "role": "current_logic",
+      "git_object": "c5bef56e7eaaa3b7fc971b1562078441ef29f139"
+    },
+    {
+      "path": "docs/research/2026-09-10-cardinality-bucketed-normalizer-candidate.md",
+      "object_si": 3000033,
+      "image_si": 12000032,
+      "bytes": 4242,
+      "semantic_items": 40,
+      "role": "current_logic",
+      "git_object": "8671dc00a8056770a96c237e91bdea16dcc1a2c7"
+    },
+    {
+      "path": "docs/research/2026-09-10-compact-cuda-vertical-slice.md",
+      "object_si": 3000034,
+      "image_si": 12000033,
+      "bytes": 11734,
+      "semantic_items": 149,
+      "role": "current_logic",
+      "git_object": "7cf248ab48102654b0e542959eb3a4b1284b8f4a"
+    },
+    {
+      "path": "docs/research/2026-09-10-cuda-bsfp-flat-transfer-r4.md",
+      "object_si": 3000035,
+      "image_si": 12000034,
+      "bytes": 8036,
+      "semantic_items": 81,
+      "role": "current_logic",
+      "git_object": "f1468ccd6a23868fe23ad5712dde84b9d909b9e5"
+    },
+    {
+      "path": "docs/research/2026-09-10-cuda-bsfp-research-synthesis.md",
+      "object_si": 3000036,
+      "image_si": 12000035,
+      "bytes": 49113,
+      "semantic_items": 852,
+      "role": "current_logic",
+      "git_object": "da4eedd2fa2abb6830fc32d0c4bb7def150c6924"
+    },
+    {
+      "path": "docs/research/2026-09-10-double-threat-absorber-results.md",
+      "object_si": 3000037,
+      "image_si": 12000036,
+      "bytes": 7504,
+      "semantic_items": 68,
+      "role": "current_logic",
+      "git_object": "7c1f1560e7704f3c9519ddcc73e24dfe0f8b8819"
+    },
+    {
+      "path": "docs/research/2026-09-10-identified-winline-quotient-exact-results.md",
+      "object_si": 3000038,
+      "image_si": 12000037,
+      "bytes": 9542,
+      "semantic_items": 156,
+      "role": "current_logic",
+      "git_object": "81a3d859ba76d02e110fbdea43ebc4d4fce0f140"
+    },
+    {
+      "path": "docs/research/2026-09-10-identified-winline-quotient.md",
+      "object_si": 3000039,
+      "image_si": 12000038,
+      "bytes": 14503,
+      "semantic_items": 157,
+      "role": "current_logic",
+      "git_object": "977f00253ee6f0cbd5384da3fa0a9525cead2070"
+    },
+    {
+      "path": "docs/research/2026-09-10-minimum-description-semantic-quotient.md",
+      "object_si": 3000040,
+      "image_si": 12000039,
+      "bytes": 19567,
+      "semantic_items": 276,
+      "role": "current_logic",
+      "git_object": "eca2ac2a322126b4aa38826defa581b76a89c7e2"
+    },
+    {
+      "path": "docs/research/2026-09-10-packed42-scaling-observation.md",
+      "object_si": 3000041,
+      "image_si": 12000040,
+      "bytes": 2390,
+      "semantic_items": 17,
+      "role": "current_logic",
+      "git_object": "261bcb1ab5fabd80c3dddc0aa537e7c3a175ac92"
+    },
+    {
+      "path": "docs/research/2026-09-10-r6-incremental-oqs-results.md",
+      "object_si": 3000042,
+      "image_si": 12000041,
+      "bytes": 6613,
+      "semantic_items": 66,
+      "role": "current_logic",
+      "git_object": "feb52e5d0172e175486f31109b5b0a764a8ffa0f"
+    },
+    {
+      "path": "docs/research/2026-09-10-separator-history-census.md",
+      "object_si": 3000043,
+      "image_si": 12000042,
+      "bytes": 7345,
+      "semantic_items": 81,
+      "role": "current_logic",
+      "git_object": "da104824090747e8133dbd3987e3550ece0b4405"
+    },
+    {
+      "path": "docs/research/2026-09-10-terminal-subtraction-specialization-results.md",
+      "object_si": 3000044,
+      "image_si": 12000043,
+      "bytes": 4304,
+      "semantic_items": 37,
+      "role": "current_logic",
+      "git_object": "015161af3813948a38e1fac67ddce8ac1fb4914a"
+    },
+    {
+      "path": "docs/research/2026-09-10-winline-product-antichain-results.md",
+      "object_si": 3000045,
+      "image_si": 12000044,
+      "bytes": 8985,
+      "semantic_items": 139,
+      "role": "current_logic",
+      "git_object": "42bf7f6897a2944164cf0196133dcfdb55548532"
+    },
+    {
+      "path": "docs/research/2026-09-10-zdd-fused-minjoin-results.md",
+      "object_si": 3000046,
+      "image_si": 12000045,
+      "bytes": 5881,
+      "semantic_items": 92,
+      "role": "current_logic",
+      "git_object": "dce93c2f3bb7facc9cac3bb9201ff784f0df6124"
+    },
+    {
+      "path": "docs/research/2026-09-10-zdd-incidence-frontier-census-results.md",
+      "object_si": 3000047,
+      "image_si": 12000046,
+      "bytes": 4911,
+      "semantic_items": 83,
+      "role": "current_logic",
+      "git_object": "556c8cc6dd70228eb07811bd8d8e6be3d298ff7a"
+    },
+    {
+      "path": "docs/research/2026-09-10-zdd-transfer-analysis-for-cuda-bsfp.md",
+      "object_si": 3000048,
+      "image_si": 12000047,
+      "bytes": 21843,
+      "semantic_items": 322,
+      "role": "current_logic",
+      "git_object": "814fe96cd1d25c8a52d32a35b99a767bab590e72"
+    },
+    {
+      "path": "docs/research/2026-09-11-oqs-cuda-cofactor-qualification.md",
+      "object_si": 3000049,
+      "image_si": 12000048,
+      "bytes": 9714,
+      "semantic_items": 127,
+      "role": "current_logic",
+      "git_object": "3b9ffae4b4c962a2688df040cc810051d8540aaa"
+    },
+    {
+      "path": "docs/research/2026-09-11-semantic-quotient-mq1-strong-score.md",
+      "object_si": 3000050,
+      "image_si": 12000049,
+      "bytes": 5837,
+      "semantic_items": 90,
+      "role": "current_logic",
+      "git_object": "7a4e8043ce9becd55c5d29ac88dd0b6373602bfe"
+    },
+    {
+      "path": "docs/research/2026-09-11-semantic-quotient-mq2-behavioral-partition.md",
+      "object_si": 3000051,
+      "image_si": 12000050,
+      "bytes": 7450,
+      "semantic_items": 135,
+      "role": "current_logic",
+      "git_object": "ce1aca32ba0fdce6a7d896f34aeb44d56d978bef"
+    },
+    {
+      "path": "docs/research/2026-09-11-semantic-quotient-mq3-residual-sufficiency.md",
+      "object_si": 3000052,
+      "image_si": 12000051,
+      "bytes": 5532,
+      "semantic_items": 93,
+      "role": "current_logic",
+      "git_object": "38480312b5813f83d6a786f0513962757bad24db"
+    },
+    {
+      "path": "docs/research/2026-09-11-semantic-quotient-mq4-residual-automaton.md",
+      "object_si": 3000053,
+      "image_si": 12000052,
+      "bytes": 5326,
+      "semantic_items": 121,
+      "role": "current_logic",
+      "git_object": "a1a800c8f03fabad6c60fc4771ed548f478ed042"
+    },
+    {
+      "path": "docs/research/2026-09-12-board-depth-reservation.md",
+      "object_si": 3000054,
+      "image_si": 12000053,
+      "bytes": 7204,
+      "semantic_items": 108,
+      "role": "current_logic",
+      "git_object": "39944c2bc304809c08977a010126876674ca2d9a"
+    },
+    {
+      "path": "docs/research/2026-09-12-changed-slot-class-hash.md",
+      "object_si": 3000055,
+      "image_si": 12000054,
+      "bytes": 6778,
+      "semantic_items": 98,
+      "role": "current_logic",
+      "git_object": "449880ef554339eee4e3bbe93a4466f8bd58d172"
+    },
+    {
+      "path": "docs/research/2026-09-12-chunk-lookup-experiments.md",
+      "object_si": 3000056,
+      "image_si": 12000055,
+      "bytes": 5799,
+      "semantic_items": 85,
+      "role": "current_logic",
+      "git_object": "ed6884bfecc695d5216673485f646ec6fc4a3133"
+    },
+    {
+      "path": "docs/research/2026-09-12-chunk-probe-distribution.md",
+      "object_si": 3000057,
+      "image_si": 12000056,
+      "bytes": 5080,
+      "semantic_items": 75,
+      "role": "current_logic",
+      "git_object": "2f10e271fd17e886bf73e7e21c395ac87bedb2b6"
+    },
+    {
+      "path": "docs/research/2026-09-12-compact-chunk-index.md",
+      "object_si": 3000058,
+      "image_si": 12000057,
+      "bytes": 5488,
+      "semantic_items": 77,
+      "role": "current_logic",
+      "git_object": "aaaa856535f28dd6c94e6050ae76306f1ddc22a7"
+    },
+    {
+      "path": "docs/research/2026-09-12-depth21-ranked-optimization.md",
+      "object_si": 3000059,
+      "image_si": 12000058,
+      "bytes": 6854,
+      "semantic_items": 30,
+      "role": "current_logic",
+      "git_object": "5a2fea1083fb259b30708ab510f6ecd3c1bad55c"
+    },
+    {
+      "path": "docs/research/2026-09-12-direct-residual-read.md",
+      "object_si": 3000060,
+      "image_si": 12000059,
+      "bytes": 3317,
+      "semantic_items": 45,
+      "role": "current_logic",
+      "git_object": "6df4e3a461651be013275df9dd264ee7cee1872b"
+    },
+    {
+      "path": "docs/research/2026-09-12-direct-semantic-edge-reuse.md",
+      "object_si": 3000061,
+      "image_si": 12000060,
+      "bytes": 5759,
+      "semantic_items": 86,
+      "role": "current_logic",
+      "git_object": "2bacc20955e24e6d5ffee0bda48b5da4118a265c"
+    },
+    {
+      "path": "docs/research/2026-09-12-frontier-audit-coverage.json",
+      "object_si": 3000062,
+      "image_si": 12000061,
+      "bytes": 32771,
+      "semantic_items": 696,
+      "role": "current_logic",
+      "git_object": "fd9ee5cb312433f19b2b820fa0d87df1bf5b472b"
+    },
+    {
+      "path": "docs/research/2026-09-12-frontier-optimization-handoff-v2.md",
+      "object_si": 3000063,
+      "image_si": 12000062,
+      "bytes": 11457,
+      "semantic_items": 137,
+      "role": "current_logic",
+      "git_object": "07da8f70489ad7d12ca6f9fa183480c7aa1647a9"
+    },
+    {
+      "path": "docs/research/2026-09-12-full-engine-sanity-audit.md",
+      "object_si": 3000064,
+      "image_si": 12000063,
+      "bytes": 75496,
+      "semantic_items": 1005,
+      "role": "current_logic",
+      "git_object": "ef02d0d67c9ca93b8787700858f06a0392285e4a"
+    },
+    {
+      "path": "docs/research/2026-09-12-hot-loop-eval-terminal-report.md",
+      "object_si": 3000065,
+      "image_si": 12000064,
+      "bytes": 12263,
+      "semantic_items": 148,
+      "role": "current_logic",
+      "git_object": "d522c510f6981d216f33cfaf2a66d4bb92609c60"
+    },
+    {
+      "path": "docs/research/2026-09-12-hot-method-cpu-assessment.md",
+      "object_si": 3000066,
+      "image_si": 12000065,
+      "bytes": 35048,
+      "semantic_items": 242,
+      "role": "current_logic",
+      "git_object": "0a946158ac71592e93b006c28258204758cebd69"
+    },
+    {
+      "path": "docs/research/2026-09-12-incremental-response-closure.md",
+      "object_si": 3000067,
+      "image_si": 12000066,
+      "bytes": 10714,
+      "semantic_items": 155,
+      "role": "current_logic",
+      "git_object": "8964ab88e16130058d7560a98a28e4b0d671d99f"
+    },
+    {
+      "path": "docs/research/2026-09-12-integrated-identity-ownership.md",
+      "object_si": 3000068,
+      "image_si": 12000067,
+      "bytes": 5564,
+      "semantic_items": 78,
+      "role": "current_logic",
+      "git_object": "e1fc7c2b7cb5b286f1559d3e7670f7a9c7e5407d"
+    },
+    {
+      "path": "docs/research/2026-09-12-line-cpu-profiling.md",
+      "object_si": 3000069,
+      "image_si": 12000068,
+      "bytes": 3178,
+      "semantic_items": 42,
+      "role": "current_logic",
+      "git_object": "d9a2db5f79ba9952095ff468b6cb209e24baa283"
+    },
+    {
+      "path": "docs/research/2026-09-12-native-key-integration.md",
+      "object_si": 3000070,
+      "image_si": 12000069,
+      "bytes": 8606,
+      "semantic_items": 122,
+      "role": "current_logic",
+      "git_object": "146c3883b2a48e25849f658c79928a733a39f5d4"
+    },
+    {
+      "path": "docs/research/2026-09-12-native-relational-key.md",
+      "object_si": 3000071,
+      "image_si": 12000070,
+      "bytes": 5949,
+      "semantic_items": 84,
+      "role": "current_logic",
+      "git_object": "ddd6476c90320f2fb59a80be7bbb95a410a675a0"
+    },
+    {
+      "path": "docs/research/2026-09-12-negamax-methods-local-review.md",
+      "object_si": 3000072,
+      "image_si": 12000071,
+      "bytes": 9832,
+      "semantic_items": 108,
+      "role": "current_logic",
+      "git_object": "865d3b27830edfaf3289b9b4eaa01275f041acdf"
+    },
+    {
+      "path": "docs/research/2026-09-12-original-engine-structural-lessons.md",
+      "object_si": 3000073,
+      "image_si": 12000072,
+      "bytes": 5988,
+      "semantic_items": 89,
+      "role": "current_logic",
+      "git_object": "8b661bae2ddc65813baa10cc635cc9fe23e2ca79"
+    },
+    {
+      "path": "docs/research/2026-09-12-pons-protocol-benchmark.md",
+      "object_si": 3000074,
+      "image_si": 12000073,
+      "bytes": 4383,
+      "semantic_items": 24,
+      "role": "current_logic",
+      "git_object": "f3d10f8d32c7f1b796532eb29296903e956b47ad"
+    },
+    {
+      "path": "docs/research/2026-09-12-pre-alpha-cleanup-ledger.md",
+      "object_si": 3000075,
+      "image_si": 12000074,
+      "bytes": 9112,
+      "semantic_items": 159,
+      "role": "current_logic",
+      "git_object": "9477c7dec816a615575cbe9c6fa0385535bc7320"
+    },
+    {
+      "path": "docs/research/2026-09-12-preallocated-search-storage.md",
+      "object_si": 3000076,
+      "image_si": 12000075,
+      "bytes": 6060,
+      "semantic_items": 92,
+      "role": "current_logic",
+      "git_object": "92f5b8315a9d7b42022db55e5cd67a2cebaf0605"
+    },
+    {
+      "path": "docs/research/2026-09-12-ranked-hot-loop-optimization.md",
+      "object_si": 3000077,
+      "image_si": 12000076,
+      "bytes": 7365,
+      "semantic_items": 88,
+      "role": "current_logic",
+      "git_object": "286755fea912ae614eaf4334421342b58dd0e63e"
+    },
+    {
+      "path": "docs/research/2026-09-12-ranked-probe-refinement.md",
+      "object_si": 3000078,
+      "image_si": 12000077,
+      "bytes": 6174,
+      "semantic_items": 67,
+      "role": "current_logic",
+      "git_object": "a3060457d62406858590625e10e7ba59dd815b36"
+    },
+    {
+      "path": "docs/research/2026-09-12-relational-address-investigation.md",
+      "object_si": 3000079,
+      "image_si": 12000078,
+      "bytes": 8882,
+      "semantic_items": 124,
+      "role": "current_logic",
+      "git_object": "107df0eac3a6f974ae6d155e85102202e9e9b87e"
+    },
+    {
+      "path": "docs/research/2026-09-12-relational-duplication-review.md",
+      "object_si": 3000080,
+      "image_si": 12000079,
+      "bytes": 7937,
+      "semantic_items": 111,
+      "role": "current_logic",
+      "git_object": "aa8296927b4f6110e6d03dfd597f1db5d8c01adb"
+    },
+    {
+      "path": "docs/research/2026-09-12-search-volume-structural-review.md",
+      "object_si": 3000081,
+      "image_si": 12000080,
+      "bytes": 4720,
+      "semantic_items": 70,
+      "role": "current_logic",
+      "git_object": "c32ca0550519a2d756ee217e683993a18c7f7a24"
+    },
+    {
+      "path": "docs/research/2026-09-12-state-hash-reuse.md",
+      "object_si": 3000082,
+      "image_si": 12000081,
+      "bytes": 6200,
+      "semantic_items": 84,
+      "role": "current_logic",
+      "git_object": "c7649f15320197e72d13d8fba3f72025a51add70"
+    },
+    {
+      "path": "docs/research/2026-09-12-state-retention-review.md",
+      "object_si": 3000083,
+      "image_si": 12000082,
+      "bytes": 7132,
+      "semantic_items": 98,
+      "role": "current_logic",
+      "git_object": "3bd58fb5e8dba0772f9a00595eb799e45e21d4e6"
+    },
+    {
+      "path": "docs/research/2026-09-12-transition-state-read-commit-audit.md",
+      "object_si": 3000084,
+      "image_si": 12000083,
+      "bytes": 6575,
+      "semantic_items": 35,
+      "role": "current_logic",
+      "git_object": "c1935ca24371709bfd8f066a58d5416a082f3652"
+    },
+    {
+      "path": "docs/research/2026-09-12-universal-optimization-checkpoint.md",
+      "object_si": 3000085,
+      "image_si": 12000084,
+      "bytes": 11217,
+      "semantic_items": 88,
+      "role": "current_logic",
+      "git_object": "8e239436e56dc05dc0b7c9fd4cd8fac182ad8a66"
+    },
+    {
+      "path": "docs/research/2026-09-13-alternating-fixed-point-calculus.md",
+      "object_si": 3000086,
+      "image_si": 12000085,
+      "bytes": 10576,
+      "semantic_items": 235,
+      "role": "current_logic",
+      "git_object": "aa80635a7828ad15ada0ed8ee8fe1325e0fdb21b"
+    },
+    {
+      "path": "docs/research/2026-09-13-center-defect-edge-denial-amplification.md",
+      "object_si": 3000087,
+      "image_si": 12000086,
+      "bytes": 11272,
+      "semantic_items": 302,
+      "role": "current_logic",
+      "git_object": "dc95ec5337d8bd9355a6f83726ef3ff4e3846cde"
+    },
+    {
+      "path": "docs/research/2026-09-13-center-defect-lift.md",
+      "object_si": 3000088,
+      "image_si": 12000087,
+      "bytes": 8099,
+      "semantic_items": 234,
+      "role": "current_logic",
+      "git_object": "03d2df2df341c97507e989518d2dfbd95841e506"
+    },
+    {
+      "path": "docs/research/2026-09-13-center-response-serialization-correction.md",
+      "object_si": 3000089,
+      "image_si": 12000088,
+      "bytes": 11186,
+      "semantic_items": 258,
+      "role": "current_logic",
+      "git_object": "ba4c023815ad8c0860a62c50b9b684af50720236"
+    },
+    {
+      "path": "docs/research/2026-09-13-claim-relative-event-isomorphism.md",
+      "object_si": 3000090,
+      "image_si": 12000089,
+      "bytes": 8713,
+      "semantic_items": 267,
+      "role": "current_logic",
+      "git_object": "02dcb43ce04cea50cf1121b5e129e486f7a3049f"
+    },
+    {
+      "path": "docs/research/2026-09-13-compatible-cover-progress-calculus.md",
+      "object_si": 3000091,
+      "image_si": 12000090,
+      "bytes": 15562,
+      "semantic_items": 263,
+      "role": "current_logic",
+      "git_object": "75093f79e986b44f4aee09e3bf22d81d97a94e4c"
+    },
+    {
+      "path": "docs/research/2026-09-13-event-dependency-cone-product-calculus.md",
+      "object_si": 3000092,
+      "image_si": 12000091,
+      "bytes": 11153,
+      "semantic_items": 289,
+      "role": "current_logic",
+      "git_object": "38a734d8e67ecd0c525ffa2f6ff48398e223abf8"
+    },
+    {
+      "path": "docs/research/2026-09-13-five-diagonal-singleton-capacity.md",
+      "object_si": 3000093,
+      "image_si": 12000092,
+      "bytes": 8300,
+      "semantic_items": 202,
+      "role": "current_logic",
+      "git_object": "cb87b7c8eb775086f7962d9fc4a64c34510afe2a"
+    },
+    {
+      "path": "docs/research/2026-09-13-guarded-theorem-composition-calculus.md",
+      "object_si": 3000094,
+      "image_si": 12000093,
+      "bytes": 10946,
+      "semantic_items": 183,
+      "role": "current_logic",
+      "git_object": "cd22d4b76c247cbea7af7a427bc9b70308cc7b15"
+    },
+    {
+      "path": "docs/research/2026-09-13-response-channel-antichain-calculus.md",
+      "object_si": 3000097,
+      "image_si": 12000096,
+      "bytes": 12036,
+      "semantic_items": 344,
+      "role": "current_logic",
+      "git_object": "8cbd01a5b69a8672b2b161abe034219a1cc7c811"
+    },
+    {
+      "path": "docs/research/2026-09-13-response-matroid-defect-transfer.md",
+      "object_si": 3000098,
+      "image_si": 12000097,
+      "bytes": 11438,
+      "semantic_items": 277,
+      "role": "current_logic",
+      "git_object": "b8d7d2ca1be316afc27e73f88456e2514b1227bb"
+    },
+    {
+      "path": "docs/research/2026-09-13-temporal-contract-automata-and-latent-cross-pair.md",
+      "object_si": 3000099,
+      "image_si": 12000098,
+      "bytes": 11683,
+      "semantic_items": 342,
+      "role": "current_logic",
+      "git_object": "00dda8604942a56ff42928cf4cf189dfe5d37e89"
+    },
+    {
+      "path": "docs/research/2026-09-13-temporal-response-capacity-calculus.md",
+      "object_si": 3000100,
+      "image_si": 12000099,
+      "bytes": 13096,
+      "semantic_items": 302,
+      "role": "current_logic",
+      "git_object": "35b00f302b19480dcec1e0fa6c43462300290d97"
+    },
+    {
+      "path": "docs/research/2026-09-13-unified-structural-logic-statement.md",
+      "object_si": 3000101,
+      "image_si": 12000100,
+      "bytes": 5235,
+      "semantic_items": 134,
+      "role": "current_logic",
+      "git_object": "f01d425cecc496f8299abd8711478567b2eb0d1f"
+    },
+    {
+      "path": "docs/research/2026-09-13-wdl-interval-predecessor-calculus.md",
+      "object_si": 3000102,
+      "image_si": 12000101,
+      "bytes": 9716,
+      "semantic_items": 231,
+      "role": "current_logic",
+      "git_object": "4a35207d779a16e76405b59636d164caefb89438"
+    },
+    {
+      "path": "docs/research/2026-09-14-a4-quiver-structural-decomposition.md",
+      "object_si": 3000103,
+      "image_si": 12000102,
+      "bytes": 14154,
+      "semantic_items": 379,
+      "role": "current_logic",
+      "git_object": "3058f321b3b2ea787817a02fc9e59bdd8e3423a8"
+    },
+    {
+      "path": "docs/research/2026-09-14-affine-clause-blocker-decomposition.md",
+      "object_si": 3000104,
+      "image_si": 12000103,
+      "bytes": 8022,
+      "semantic_items": 206,
+      "role": "current_logic",
+      "git_object": "97ae3b0b16f097dc4c19a85f84b5f4ae24aa25f0"
+    },
+    {
+      "path": "docs/research/2026-09-14-anchored-zero-edge-residuals.md",
+      "object_si": 3000105,
+      "image_si": 12000104,
+      "bytes": 7977,
+      "semantic_items": 184,
+      "role": "current_logic",
+      "git_object": "8b3d91c1b02f35ee4244b01d574aab99202dc40c"
+    },
+    {
+      "path": "docs/research/2026-09-14-connect4-derived-difference-axioms.md",
+      "object_si": 3000106,
+      "image_si": 12000105,
+      "bytes": 6451,
+      "semantic_items": 159,
+      "role": "current_logic",
+      "git_object": "6ac1b59a5085fc6ad72b6af23d27b01988501241"
+    },
+    {
+      "path": "docs/research/2026-09-14-cpc-control-potential-unification.md",
+      "object_si": 3000107,
+      "image_si": 12000106,
+      "bytes": 8908,
+      "semantic_items": 206,
+      "role": "current_logic",
+      "git_object": "acc62a2817837b52cc93c34fa964e73195b1024a"
+    },
+    {
+      "path": "docs/research/2026-09-14-external-structural-isomorph-audit.md",
+      "object_si": 3000110,
+      "image_si": 12000109,
+      "bytes": 8637,
+      "semantic_items": 158,
+      "role": "current_logic",
+      "git_object": "b7543ea5a94617e590580164613e2bb011e03c2a"
+    },
+    {
+      "path": "docs/research/2026-09-14-gravity-adapted-domain-wall-normal-form.md",
+      "object_si": 3000111,
+      "image_si": 12000110,
+      "bytes": 10172,
+      "semantic_items": 244,
+      "role": "current_logic",
+      "git_object": "b899422185e15271446a88838e7d022ae1411d64"
+    },
+    {
+      "path": "docs/research/2026-09-14-guarded-affine-clause-closure-kernel.md",
+      "object_si": 3000112,
+      "image_si": 12000111,
+      "bytes": 14323,
+      "semantic_items": 318,
+      "role": "current_logic",
+      "git_object": "f8e597419d00aa6c071282badaf496743e02f89f"
+    },
+    {
+      "path": "docs/research/2026-09-14-residual-sequential-ladder-falsifier.md",
+      "object_si": 3000116,
+      "image_si": 12000115,
+      "bytes": 2827,
+      "semantic_items": 43,
+      "role": "current_logic",
+      "git_object": "0191a2487d0c90392d6cec7e0d0f748f92ce9acd"
+    },
+    {
+      "path": "docs/research/2026-09-14-response-capacity-hall-closure.md",
+      "object_si": 3000117,
+      "image_si": 12000116,
+      "bytes": 8769,
+      "semantic_items": 145,
+      "role": "current_logic",
+      "git_object": "0887b77af7eafd56bc91964ed1656fe986d39c88"
+    },
+    {
+      "path": "docs/research/2026-09-14-response-control-decomposition.md",
+      "object_si": 3000118,
+      "image_si": 12000117,
+      "bytes": 9265,
+      "semantic_items": 171,
+      "role": "current_logic",
+      "git_object": "0531722644afad7e4486ad814ba2d7248303e00b"
+    },
+    {
+      "path": "docs/research/2026-09-14-safe-affine-seam-cube.md",
+      "object_si": 3000119,
+      "image_si": 12000118,
+      "bytes": 7510,
+      "semantic_items": 152,
+      "role": "current_logic",
+      "git_object": "21029e6e460485e2d0d7ab060796949a3b74c6b3"
+    },
+    {
+      "path": "docs/research/2026-09-14-safe-bulk-boundary-entry.md",
+      "object_si": 3000120,
+      "image_si": 12000119,
+      "bytes": 7662,
+      "semantic_items": 153,
+      "role": "current_logic",
+      "git_object": "518c1908993daf205875f364e9058f5126f7f2ea"
+    },
+    {
+      "path": "docs/research/2026-09-14-safe-phase-transfer-automaton.md",
+      "object_si": 3000121,
+      "image_si": 12000120,
+      "bytes": 4777,
+      "semantic_items": 113,
+      "role": "current_logic",
+      "git_object": "193e55a143aa445e1d96a38df75c04f846bc58d2"
+    },
+    {
+      "path": "docs/research/2026-09-14-single-seam-safety.md",
+      "object_si": 3000122,
+      "image_si": 12000121,
+      "bytes": 5704,
+      "semantic_items": 83,
+      "role": "current_logic",
+      "git_object": "4b4151ddfc41944a202d45b70259a6e8da00539f"
+    },
+    {
+      "path": "docs/research/2026-09-14-solved-db-structural-assessment.md",
+      "object_si": 3000123,
+      "image_si": 12000122,
+      "bytes": 13146,
+      "semantic_items": 204,
+      "role": "current_logic",
+      "git_object": "5595238deccb95282bed418a2f22c6d8086066ad"
+    },
+    {
+      "path": "docs/research/2026-09-14-solved-db-structural-discovery.md",
+      "object_si": 3000124,
+      "image_si": 12000123,
+      "bytes": 18467,
+      "semantic_items": 138,
+      "role": "current_logic",
+      "git_object": "d965c0bf554ee5ce0bc27b134e4a5c9c58271777"
+    },
+    {
+      "path": "docs/research/2026-09-14-thin-board-draw-theorem.md",
+      "object_si": 3000125,
+      "image_si": 12000124,
+      "bytes": 2503,
+      "semantic_items": 42,
+      "role": "current_logic",
+      "git_object": "5af4ed8a980081b7767ec9591618e19761c79154"
+    },
+    {
+      "path": "docs/research/2026-09-14-top-defect-transport-module.md",
+      "object_si": 3000126,
+      "image_si": 12000125,
+      "bytes": 6258,
+      "semantic_items": 135,
+      "role": "current_logic",
+      "git_object": "dbf05e7f957057fc24af4926143384669ea6b859"
+    },
+    {
+      "path": "docs/research/2026-09-14-total-domain-incidence-decomposition.md",
+      "object_si": 3000127,
+      "image_si": 12000126,
+      "bytes": 10549,
+      "semantic_items": 275,
+      "role": "current_logic",
+      "git_object": "3e2bb47664358e710da5abdbae891b018e8f991b"
+    },
+    {
+      "path": "docs/research/2026-09-14-z2-domain-wall-causal-field.md",
+      "object_si": 3000128,
+      "image_si": 12000127,
+      "bytes": 11607,
+      "semantic_items": 259,
+      "role": "current_logic",
+      "git_object": "72de6a2390ac1e8784822282177da5be62d2beb5"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-backward-winline-fixed-point.json",
+      "object_si": 3000129,
+      "image_si": 12000128,
+      "bytes": 2781,
+      "semantic_items": 29,
+      "role": "normalized_evidence",
+      "git_object": "155fd05731411e5658fcf21c7eb053338494ef0c"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-searchless-dependency-shape-results.json",
+      "object_si": 3000130,
+      "image_si": 12000129,
+      "bytes": 5559,
+      "semantic_items": 36,
+      "role": "normalized_evidence",
+      "git_object": "65cf04b30a4cee2f8d2ccbe87258b086e7dfcb29"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-searchless-symbolic-backward-solver.json",
+      "object_si": 3000131,
+      "image_si": 12000130,
+      "bytes": 2863,
+      "semantic_items": 30,
+      "role": "normalized_evidence",
+      "git_object": "073ecaa88aa9118e0e858cfd6e66e8dfa89e8784"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-terminal-boundary-qualification.json",
+      "object_si": 3000132,
+      "image_si": 12000131,
+      "bytes": 5073,
+      "semantic_items": 73,
+      "role": "normalized_evidence",
+      "git_object": "b9ce297d447e2dd981140d707b73c22684486209"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-universal-blocker-unification.json",
+      "object_si": 3000133,
+      "image_si": 12000132,
+      "bytes": 1473,
+      "semantic_items": 29,
+      "role": "normalized_evidence",
+      "git_object": "0151494e63eeace5f8cc8b65e64e3c2122611f11"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-10-bsfp-antichain-performance.json",
+      "object_si": 3000134,
+      "image_si": 12000133,
+      "bytes": 2982,
+      "semantic_items": 56,
+      "role": "normalized_evidence",
+      "git_object": "5387f5fe571c8bed95c66c763b113e9f24cb4a52"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq1-strong-score.json",
+      "object_si": 3000135,
+      "image_si": 12000134,
+      "bytes": 3828,
+      "semantic_items": 108,
+      "role": "normalized_evidence",
+      "git_object": "8d3a928027b2b03bed7c3d35008afbdd839badd4"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq2-behavioral-partition.json",
+      "object_si": 3000136,
+      "image_si": 12000135,
+      "bytes": 5711,
+      "semantic_items": 147,
+      "role": "normalized_evidence",
+      "git_object": "1b38f1e9fc323fe990c4224e62fc0ef01c7be822"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq3-residual-sufficiency.json",
+      "object_si": 3000137,
+      "image_si": 12000136,
+      "bytes": 2880,
+      "semantic_items": 30,
+      "role": "normalized_evidence",
+      "git_object": "86e65508290919f09ca07b41cbacef610291a221"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq4-residual-automaton.json",
+      "object_si": 3000138,
+      "image_si": 12000137,
+      "bytes": 2415,
+      "semantic_items": 27,
+      "role": "normalized_evidence",
+      "git_object": "cbc7e9bb8aa96eaf68ea90ecd527cf8009c82076"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-center-defect-lift.json",
+      "object_si": 3000139,
+      "image_si": 12000138,
+      "bytes": 1149,
+      "semantic_items": 19,
+      "role": "normalized_evidence",
+      "git_object": "1d75ec5a6184032842984ce7974c9a871c46a079"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-center-defect-repair-exposure.json",
+      "object_si": 3000140,
+      "image_si": 12000139,
+      "bytes": 2584,
+      "semantic_items": 89,
+      "role": "normalized_evidence",
+      "git_object": "715a7b7ce5ffa9c8e7ef4d4f62fe88ca9a481f9b"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-center-response-serialization.json",
+      "object_si": 3000141,
+      "image_si": 12000140,
+      "bytes": 1434,
+      "semantic_items": 11,
+      "role": "normalized_evidence",
+      "git_object": "c51810365433752606d33a0c47beaa4ed7c928ef"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-early-blocker-union-non-discrimination.json",
+      "object_si": 3000142,
+      "image_si": 12000141,
+      "bytes": 1518,
+      "semantic_items": 31,
+      "role": "normalized_evidence",
+      "git_object": "ce756bc01975bf273047bf7427122af76529228e"
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-response-matroid-control.json",
+      "object_si": 3000143,
+      "image_si": 12000142,
+      "bytes": 1326,
+      "semantic_items": 29,
+      "role": "normalized_evidence",
+      "git_object": "951473144b5cf9bb67f2bb5fb0be5e0a6030e147"
+    },
+    {
+      "path": "docs/research/RESEARCH_INDEX.md",
+      "object_si": 3000144,
+      "image_si": 12000143,
+      "bytes": 13511,
+      "semantic_items": 157,
+      "role": "current_policy_or_routing",
+      "git_object": "8162c08ced77f1b1a02957199d43840165a902ff"
+    },
+    {
+      "path": "docs/specs/C4-0001-domain-v1.md",
+      "object_si": 3000145,
+      "image_si": 12000144,
+      "bytes": 2277,
+      "semantic_items": 24,
+      "role": "current_logic",
+      "git_object": "3ec7bda83e02dde059ae0836c65c53e4689b60fc"
+    },
+    {
+      "path": "docs/specs/C4-0002-incumbent-evaluator-v1.md",
+      "object_si": 3000146,
+      "image_si": 12000145,
+      "bytes": 5094,
+      "semantic_items": 55,
+      "role": "current_logic",
+      "git_object": "a84e8e54b124caaac5195975a79caec80b24ead2"
+    },
+    {
+      "path": "docs/specs/C4-0003-incumbent-search-v1.md",
+      "object_si": 3000147,
+      "image_si": 12000146,
+      "bytes": 5965,
+      "semantic_items": 70,
+      "role": "current_logic",
+      "git_object": "703f9780f09d7cff5057ff52c75ae35539bf8c04"
+    },
+    {
+      "path": "docs/specs/C4-0004-incumbent-benchmark-v1.md",
+      "object_si": 3000148,
+      "image_si": 12000147,
+      "bytes": 5643,
+      "semantic_items": 65,
+      "role": "current_logic",
+      "git_object": "c408305ce6619b192f2f5a3c6716f45b7d6922ff"
+    },
+    {
+      "path": "docs/specs/C4-0005-solved-strength-oracle-v1.md",
+      "object_si": 3000149,
+      "image_si": 12000148,
+      "bytes": 6667,
+      "semantic_items": 70,
+      "role": "current_logic",
+      "git_object": "6343c8fab8875d22f90018d0d59adac375fc7f0e"
+    },
+    {
+      "path": "docs/specs/C4-0006-control-parity-and-winspace-v1.md",
+      "object_si": 3000150,
+      "image_si": 12000149,
+      "bytes": 10892,
+      "semantic_items": 165,
+      "role": "current_logic",
+      "git_object": "ff03816b554174e63eaa4d1b646d5317e54b25b3"
+    },
+    {
+      "path": "docs/specs/C4-0007-nested-dependency-closure-v1.md",
+      "object_si": 3000151,
+      "image_si": 12000150,
+      "bytes": 11604,
+      "semantic_items": 193,
+      "role": "current_logic",
+      "git_object": "706e91d48909434e4b713a886f310c2b2a932598"
+    },
+    {
+      "path": "docs/specs/C4-0008-bsfp-exact-solver-v1.md",
+      "object_si": 3000152,
+      "image_si": 12000151,
+      "bytes": 13177,
+      "semantic_items": 218,
+      "role": "current_logic",
+      "git_object": "40d6b54e406f64547d045f5546d6f038ba3d5106"
+    },
+    {
+      "path": "docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md",
+      "object_si": 3000153,
+      "image_si": 12000152,
+      "bytes": 20647,
+      "semantic_items": 317,
+      "role": "current_logic",
+      "git_object": "c770260e9deb87e17833558b3a2f090353a5b3e4"
+    },
+    {
+      "path": "docs/specs/C4-0010-quotient-native-negamax-v1.md",
+      "object_si": 3000154,
+      "image_si": 12000153,
+      "bytes": 12534,
+      "semantic_items": 173,
+      "role": "current_logic",
+      "git_object": "97f0c22ab30b7cc18492eb9f0a2b891d1a56a4aa"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-B1-packed-dominance-throughput-v0.md",
+      "object_si": 3000155,
+      "image_si": 12000154,
+      "bytes": 3818,
+      "semantic_items": 57,
+      "role": "current_logic",
+      "git_object": "12f1b8ce02ba11ee6ff1eb0feb38d03f92b4cc21"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-B2-packed-normalizer-bucketed-v0.md",
+      "object_si": 3000156,
+      "image_si": 12000155,
+      "bytes": 4680,
+      "semantic_items": 56,
+      "role": "current_logic",
+      "git_object": "5beb919ff60a3347f45c2fdd38a36f9402168a64"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-B3-packed-dedup-first-v0.md",
+      "object_si": 3000157,
+      "image_si": 12000156,
+      "bytes": 5628,
+      "semantic_items": 66,
+      "role": "current_logic",
+      "git_object": "00b6dfeee57a45790942805d9d515bb6ec18dd9a"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-C1-compact-ownership-42-v0.md",
+      "object_si": 3000158,
+      "image_si": 12000157,
+      "bytes": 4050,
+      "semantic_items": 52,
+      "role": "current_logic",
+      "git_object": "d1026c122420c82e0b62407fcc3154f104d45106"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-C3-compact-work-diagnostic-v0.md",
+      "object_si": 3000159,
+      "image_si": 12000158,
+      "bytes": 3205,
+      "semantic_items": 56,
+      "role": "current_logic",
+      "git_object": "61d0c472bfbcbd1b51c22f13f999bcc823e9b2db"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-O1-oqs-cofactor-42-v0.md",
+      "object_si": 3000160,
+      "image_si": 12000159,
+      "bytes": 2749,
+      "semantic_items": 35,
+      "role": "current_logic",
+      "git_object": "0f3d3569060c5d020c4111dfba51239681d64c32"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-P1-4x3-cuda-bsfp-v0.md",
+      "object_si": 3000161,
+      "image_si": 12000160,
+      "bytes": 9853,
+      "semantic_items": 232,
+      "role": "current_logic",
+      "git_object": "de4a6cbb72301a3e1fd1c7ecba697723bcdd6fa6"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md",
+      "object_si": 3000162,
+      "image_si": 12000161,
+      "bytes": 6320,
+      "semantic_items": 88,
+      "role": "current_logic",
+      "git_object": "50ef77b98b827187fa8063a3a7e0409e17eb2c62"
+    },
+    {
+      "path": "docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md",
+      "object_si": 3000163,
+      "image_si": 12000162,
+      "bytes": 12033,
+      "semantic_items": 91,
+      "role": "current_logic",
+      "git_object": "dc2de870bd2dbd15c6b503c1c09d19a06cda3ca1"
+    },
+    {
+      "path": "next_step.yaml",
+      "object_si": 3000164,
+      "image_si": 12000163,
+      "bytes": 11357,
+      "semantic_items": 182,
+      "role": "current_logic",
+      "git_object": "e4f8d90bbf76a5a3dd6026ffcde9ae81a7cc039e"
+    },
+    {
+      "path": "README.md",
+      "object_si": 3000165,
+      "image_si": 12000164,
+      "bytes": 2403,
+      "semantic_items": 26,
+      "role": "current_policy_or_routing",
+      "git_object": "43b0dc019a6946714df6f433ae79a749cb93c3df"
+    },
+    {
+      "path": "research/AGENTS.md",
+      "object_si": 3000196,
+      "image_si": 12000195,
+      "bytes": 14690,
+      "semantic_items": 139,
+      "role": "current_logic",
+      "git_object": "8c06752b1445d66af8c653ea86b481e946f58b0d"
+    },
+    {
+      "path": "research/canonical/CLAIM_INDEX.json",
+      "object_si": 3000197,
+      "image_si": 12000196,
+      "bytes": 996,
+      "semantic_items": 28,
+      "role": "current_logic",
+      "git_object": "326f805a4d595a9a88319515716ab0289ddfd26f"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_BSFP.json",
+      "object_si": 3000198,
+      "image_si": 12000197,
+      "bytes": 13792,
+      "semantic_items": 301,
+      "role": "current_logic",
+      "git_object": "b8dd4adf11981a73d1c732e9728aebb662b587ad"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_DERIVATIVE.json",
+      "object_si": 3000199,
+      "image_si": 12000198,
+      "bytes": 4544,
+      "semantic_items": 60,
+      "role": "current_logic",
+      "git_object": "0170d33ce82f64b8da36be6976504e4e1dac2f7d"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json",
+      "object_si": 3000200,
+      "image_si": 12000199,
+      "bytes": 17011,
+      "semantic_items": 72,
+      "role": "current_logic",
+      "git_object": "4533d4f7d95ac0b87bed4fec98b1e2136b048958"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_GUARDED_LIFT.json",
+      "object_si": 3000201,
+      "image_si": 12000200,
+      "bytes": 3765,
+      "semantic_items": 42,
+      "role": "current_logic",
+      "git_object": "48247b51e0e16ceda4aeebf57ee0aa6f241f5a36"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_REALIZABILITY.json",
+      "object_si": 3000202,
+      "image_si": 12000201,
+      "bytes": 6867,
+      "semantic_items": 79,
+      "role": "current_logic",
+      "git_object": "23eb2c131bb8111dcd534cf5374a0bd2e5782c15"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_RECOVERED.json",
+      "object_si": 3000203,
+      "image_si": 12000202,
+      "bytes": 4456,
+      "semantic_items": 101,
+      "role": "current_logic",
+      "git_object": "be51bdeac4a14c077edfca61ac1c080592be504b"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_SELECTION.json",
+      "object_si": 3000204,
+      "image_si": 12000203,
+      "bytes": 6071,
+      "semantic_items": 60,
+      "role": "current_logic",
+      "git_object": "19676ad098806bf7e587e9ab68d29f2a830a57ad"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_STRATEGY.json",
+      "object_si": 3000205,
+      "image_si": 12000204,
+      "bytes": 6455,
+      "semantic_items": 72,
+      "role": "current_logic",
+      "git_object": "c7923a5ebd301f779aec0254f0d90178c378b4d5"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY_WINSET.json",
+      "object_si": 3000206,
+      "image_si": 12000205,
+      "bytes": 12325,
+      "semantic_items": 188,
+      "role": "current_logic",
+      "git_object": "e23760993cb4332d9b6a612e87a6edc3fdaee71d"
+    },
+    {
+      "path": "research/canonical/CLAIM_REGISTRY.json",
+      "object_si": 3000207,
+      "image_si": 12000206,
+      "bytes": 8930,
+      "semantic_items": 48,
+      "role": "current_logic",
+      "git_object": "2494b8a812313b4e4217f3fdf7954823fdffa266"
+    },
+    {
+      "path": "research/canonical/CLAIMS_DERIVATIVE.md",
+      "object_si": 3000208,
+      "image_si": 12000207,
+      "bytes": 2801,
+      "semantic_items": 54,
+      "role": "current_logic",
+      "git_object": "97a586e24adb8d13bc1e411cbecb435ca9bc9e9d"
+    },
+    {
+      "path": "research/canonical/CLAIMS_GUARDED_LIFT.md",
+      "object_si": 3000209,
+      "image_si": 12000208,
+      "bytes": 2800,
+      "semantic_items": 40,
+      "role": "current_logic",
+      "git_object": "4b5eb5456472ba7937b2a12686aec316ac7c26fb"
+    },
+    {
+      "path": "research/canonical/CLAIMS_REALIZABILITY.md",
+      "object_si": 3000210,
+      "image_si": 12000209,
+      "bytes": 3674,
+      "semantic_items": 35,
+      "role": "current_logic",
+      "git_object": "3bd5e1584febd1a457ce8db01b5c26ff65b316f3"
+    },
+    {
+      "path": "research/canonical/CLAIMS_SELECTION.md",
+      "object_si": 3000211,
+      "image_si": 12000210,
+      "bytes": 3877,
+      "semantic_items": 66,
+      "role": "current_logic",
+      "git_object": "1bdb2c5acb3e074abe841508f782236af44625c1"
+    },
+    {
+      "path": "research/canonical/CLAIMS_STRATEGY.md",
+      "object_si": 3000212,
+      "image_si": 12000211,
+      "bytes": 4202,
+      "semantic_items": 38,
+      "role": "current_logic",
+      "git_object": "7ec2fb4fbd3ca91933363bd70bb330bf87fc3d06"
+    },
+    {
+      "path": "research/canonical/CLAIMS_WINSET.md",
+      "object_si": 3000213,
+      "image_si": 12000212,
+      "bytes": 4162,
+      "semantic_items": 31,
+      "role": "current_logic",
+      "git_object": "d284cc67b2e89cf3a0e3d235d378b86d81f065c5"
+    },
+    {
+      "path": "research/canonical/CLAIMS.md",
+      "object_si": 3000214,
+      "image_si": 12000213,
+      "bytes": 16600,
+      "semantic_items": 105,
+      "role": "current_logic",
+      "git_object": "9e44d258f5c56626f6cde1b91620e2984cb6c4a7"
+    },
+    {
+      "path": "research/canonical/CORE_MODEL.md",
+      "object_si": 3000215,
+      "image_si": 12000214,
+      "bytes": 4964,
+      "semantic_items": 41,
+      "role": "current_logic",
+      "git_object": "cdcd89647c4e73960fc0124f058524975e455808"
+    },
+    {
+      "path": "research/canonical/CROSS_LINEAGE_SYNTHESIS.md",
+      "object_si": 3000216,
+      "image_si": 12000215,
+      "bytes": 5256,
+      "semantic_items": 66,
+      "role": "current_logic",
+      "git_object": "5faf0a6a4d2d6be8bc4c6c398112cd9d2eb04cf3"
+    },
+    {
+      "path": "research/canonical/README.md",
+      "object_si": 3000217,
+      "image_si": 12000216,
+      "bytes": 782,
+      "semantic_items": 5,
+      "role": "current_logic",
+      "git_object": "37a21951cc15f5eb969c5237dc632a54baed3efd"
+    },
+    {
+      "path": "research/canonical/WINSET_SYNTHESIS.md",
+      "object_si": 3000218,
+      "image_si": 12000217,
+      "bytes": 4067,
+      "semantic_items": 59,
+      "role": "current_logic",
+      "git_object": "e74a7fca0c7dc5e02ad7e60f280c5f354ab990cb"
+    },
+    {
+      "path": "research/confidence/README.md",
+      "object_si": 3000219,
+      "image_si": 12000218,
+      "bytes": 1720,
+      "semantic_items": 24,
+      "role": "current_logic",
+      "git_object": "d0c47e827c96b67acb89130a098498f17359efc3"
+    },
+    {
+      "path": "research/confidence/SCHEMA.json",
+      "object_si": 3000220,
+      "image_si": 12000219,
+      "bytes": 1529,
+      "semantic_items": 46,
+      "role": "current_logic",
+      "git_object": "1ffb79e86909581c28dac2cddeaf76d0768653a0"
+    },
+    {
+      "path": "research/evidence/bsfp/representation-algebra.json",
+      "object_si": 3000222,
+      "image_si": 12000221,
+      "bytes": 5392,
+      "semantic_items": 74,
+      "role": "normalized_evidence",
+      "git_object": "e948b2ca8fac050dc944ae2ee70f72ba11279f25"
+    },
+    {
+      "path": "research/evidence/bsfp/support-local-clause-coverage.json",
+      "object_si": 3000223,
+      "image_si": 12000222,
+      "bytes": 3526,
+      "semantic_items": 130,
+      "role": "normalized_evidence",
+      "git_object": "9d95ed9eda3626e7a13364e7caf7096c4961d9fa"
+    },
+    {
+      "path": "research/evidence/minimax/a1a9-a10-ablation.json",
+      "object_si": 3000224,
+      "image_si": 12000223,
+      "bytes": 4916,
+      "semantic_items": 52,
+      "role": "normalized_evidence",
+      "git_object": "2e15d8ddc8caef29bc251afe7c156c3eae3a8473"
+    },
+    {
+      "path": "research/evidence/minimax/typed-mq5-a123-composition.json",
+      "object_si": 3000225,
+      "image_si": 12000224,
+      "bytes": 6519,
+      "semantic_items": 81,
+      "role": "normalized_evidence",
+      "git_object": "bcdfd55e9e74c187f762c703e2e4188c38d55ac7"
+    },
+    {
+      "path": "research/evidence/perfect-play/winset-invariants.json",
+      "object_si": 3000226,
+      "image_si": 12000225,
+      "bytes": 2701,
+      "semantic_items": 57,
+      "role": "normalized_evidence",
+      "git_object": "7f33a5df64ccae17233b4d702948f8c1d5f272d4"
+    },
+    {
+      "path": "research/evidence/README.md",
+      "object_si": 3000227,
+      "image_si": 12000226,
+      "bytes": 1062,
+      "semantic_items": 13,
+      "role": "current_policy_or_routing",
+      "git_object": "31a5fd5baca96272141b91f7366b349241ac04d5"
+    },
+    {
+      "path": "research/evidence/realizability/2026-09-16-ab-collision-controllable-predecessor.md",
+      "object_si": 3000228,
+      "image_si": 12000227,
+      "bytes": 9134,
+      "semantic_items": 149,
+      "role": "normalized_evidence",
+      "git_object": "f6c18b0a47dda268b118726554d41bb6ed2a7d55"
+    },
+    {
+      "path": "research/evidence/realizability/2026-09-16-line-hit-and-history-realizability.md",
+      "object_si": 3000229,
+      "image_si": 12000228,
+      "bytes": 13118,
+      "semantic_items": 172,
+      "role": "normalized_evidence",
+      "git_object": "85824e74b425afca12a997ac35054fad21dad5d1"
+    },
+    {
+      "path": "research/evidence/realizability/2026-09-16-strategy-dependency-and-history-complexity.md",
+      "object_si": 3000230,
+      "image_si": 12000229,
+      "bytes": 12814,
+      "semantic_items": 211,
+      "role": "normalized_evidence",
+      "git_object": "aaf8b612bd784c21384d6d9eac2b1d8b32fed99e"
+    },
+    {
+      "path": "research/evidence/structural-selection/2026-09-16-connect-k-transversal-centrality.md",
+      "object_si": 3000231,
+      "image_si": 12000230,
+      "bytes": 9263,
+      "semantic_items": 224,
+      "role": "normalized_evidence",
+      "git_object": "33a3ea6ac14657965525e6152672c527a250d9cd"
+    },
+    {
+      "path": "research/experiments/README.md",
+      "object_si": 3000236,
+      "image_si": 12000235,
+      "bytes": 1283,
+      "semantic_items": 16,
+      "role": "current_policy_or_routing",
+      "git_object": "5eb05ae373e3780eac929709dc77ae3d6c102230"
+    },
+    {
+      "path": "research/history/disproven/legacy-a9-responder-orientation.md",
+      "object_si": 3000237,
+      "image_si": 12000236,
+      "bytes": 1339,
+      "semantic_items": 11,
+      "role": "historical_only",
+      "git_object": "f0281e2259ce30e2ce1a52b87efe9077658c6206"
+    },
+    {
+      "path": "research/history/disproven/README.md",
+      "object_si": 3000238,
+      "image_si": 12000237,
+      "bytes": 310,
+      "semantic_items": 3,
+      "role": "current_policy_or_routing",
+      "git_object": "11d4c5a54f761f00a4d2d6edb7b0cfe908e05b0c"
+    },
+    {
+      "path": "research/history/disproven/static-envelope-equals-core-selector.md",
+      "object_si": 3000239,
+      "image_si": 12000238,
+      "bytes": 753,
+      "semantic_items": 12,
+      "role": "historical_only",
+      "git_object": "5ce462f991c7f3cbfac73ed2a6d01ed8f5786ae4"
+    },
+    {
+      "path": "research/history/historical-only/README.md",
+      "object_si": 3000240,
+      "image_si": 12000239,
+      "bytes": 287,
+      "semantic_items": 3,
+      "role": "current_policy_or_routing",
+      "git_object": "ee64bbe30cc994002499ff5612ae75d3f08764a7"
+    },
+    {
+      "path": "research/history/README.md",
+      "object_si": 3000241,
+      "image_si": 12000240,
+      "bytes": 580,
+      "semantic_items": 7,
+      "role": "current_policy_or_routing",
+      "git_object": "730e71a90e3d525eb2a89910ccb2160467faf257"
+    },
+    {
+      "path": "research/history/rejected/bsfp-streaming-incremental-dominance.md",
+      "object_si": 3000242,
+      "image_si": 12000241,
+      "bytes": 1096,
+      "semantic_items": 7,
+      "role": "historical_only",
+      "git_object": "c75afd52131fa5ee2bb941bfd9247f8157e6f8b7"
+    },
+    {
+      "path": "research/history/rejected/README.md",
+      "object_si": 3000243,
+      "image_si": 12000242,
+      "bytes": 276,
+      "semantic_items": 3,
+      "role": "current_policy_or_routing",
+      "git_object": "6a0d4efc3344ed51cd27fcfc902deaaf9315c821"
+    },
+    {
+      "path": "research/history/superseded/README.md",
+      "object_si": 3000244,
+      "image_si": 12000243,
+      "bytes": 201,
+      "semantic_items": 2,
+      "role": "current_policy_or_routing",
+      "git_object": "f8872402b3db1a453f72b7dca99975df93e0d8f0"
+    },
+    {
+      "path": "research/hypotheses/BIDIRECTIONAL_REACHABLE_QUOTIENT_BSFP.md",
+      "object_si": 3000245,
+      "image_si": 12000244,
+      "bytes": 8137,
+      "semantic_items": 126,
+      "role": "current_logic",
+      "git_object": "4b66423862fff98236b9776650b49b79c6981570"
+    },
+    {
+      "path": "research/hypotheses/BSFP_CERTIFIED_MACRO_TRANSITIONS.md",
+      "object_si": 3000246,
+      "image_si": 12000245,
+      "bytes": 4953,
+      "semantic_items": 83,
+      "role": "current_logic",
+      "git_object": "cf56c02b4254e48285161d74c037fdc311a4bc40"
+    },
+    {
+      "path": "research/hypotheses/BSFP_CONSTRAINT_RELATIVE_ANTICHAIN.md",
+      "object_si": 3000247,
+      "image_si": 12000246,
+      "bytes": 10035,
+      "semantic_items": 244,
+      "role": "current_logic",
+      "git_object": "5c2fe4d7474974a6ff28507b3af623738f097e22"
+    },
+    {
+      "path": "research/hypotheses/BSFP_DEVICE_CANONICALIZATION_PIPELINE.md",
+      "object_si": 3000248,
+      "image_si": 12000247,
+      "bytes": 3774,
+      "semantic_items": 69,
+      "role": "current_logic",
+      "git_object": "9f8d602d4f7e7827ab3c20cb5a3669f7dc913a35"
+    },
+    {
+      "path": "research/hypotheses/BSFP_DUAL_POSITIVE_CERTIFICATE_FRONTIERS.md",
+      "object_si": 3000249,
+      "image_si": 12000248,
+      "bytes": 10335,
+      "semantic_items": 240,
+      "role": "current_logic",
+      "git_object": "5d49d1b825d2539d9fc1fdcd6ebd51283375da3d"
+    },
+    {
+      "path": "research/hypotheses/BSFP_FEASIBLE_SLICE_REDUCTION.md",
+      "object_si": 3000250,
+      "image_si": 12000249,
+      "bytes": 9316,
+      "semantic_items": 172,
+      "role": "current_logic",
+      "git_object": "6e85224c297cf646c3646b872b2bbc03596cd2f6"
+    },
+    {
+      "path": "research/hypotheses/BSFP_FRONTIER_PROOF_TEMPLATE_MINING.md",
+      "object_si": 3000251,
+      "image_si": 12000250,
+      "bytes": 13560,
+      "semantic_items": 297,
+      "role": "current_logic",
+      "git_object": "bb5ca0753d19cbde2e14eff61e22582e69e0fc0c"
+    },
+    {
+      "path": "research/hypotheses/BSFP_INTERVAL_ANTICHAIN_FRONTIERS.md",
+      "object_si": 3000252,
+      "image_si": 12000251,
+      "bytes": 10507,
+      "semantic_items": 245,
+      "role": "current_logic",
+      "git_object": "7dfb91d31e92428afe341ea6286c4b354c3fc5ec"
+    },
+    {
+      "path": "research/hypotheses/BSFP_ISOMETRIC_INVARIANT_TRANSFER.md",
+      "object_si": 3000253,
+      "image_si": 12000252,
+      "bytes": 17164,
+      "semantic_items": 267,
+      "role": "current_logic",
+      "git_object": "3ed580a7f61dfd6bf1494a34867c2c40e36599f5"
+    },
+    {
+      "path": "research/hypotheses/BSFP_MONOTONE_CLAUSE_FRONTIER.md",
+      "object_si": 3000254,
+      "image_si": 12000253,
+      "bytes": 9180,
+      "semantic_items": 190,
+      "role": "current_logic",
+      "git_object": "7c19ccb75a71a85395e930bacbec41894bfaf5ae"
+    },
+    {
+      "path": "research/hypotheses/BSFP_MONOTONE_THRESHOLD_FRONTIERS.md",
+      "object_si": 3000255,
+      "image_si": 12000254,
+      "bytes": 8062,
+      "semantic_items": 224,
+      "role": "current_logic",
+      "git_object": "4c14cbea1e199b2c257b53319403acb1a9ab47dd"
+    },
+    {
+      "path": "research/hypotheses/BSFP_REFLECTION_ORBIT_SCHEDULE.md",
+      "object_si": 3000256,
+      "image_si": 12000255,
+      "bytes": 5208,
+      "semantic_items": 109,
+      "role": "current_logic",
+      "git_object": "3890aa484faf7aa55846e09940a649f47fb10085"
+    },
+    {
+      "path": "research/hypotheses/BSFP_SUPPORT_LOCAL_CLAUSE_DICTIONARY.md",
+      "object_si": 3000257,
+      "image_si": 12000256,
+      "bytes": 9899,
+      "semantic_items": 235,
+      "role": "current_logic",
+      "git_object": "740776138227045d7434d074ab2ae771131dc88e"
+    },
+    {
+      "path": "research/hypotheses/BSFP_SUPPORT_LOCAL_RESIDUAL_BASIS.md",
+      "object_si": 3000258,
+      "image_si": 12000257,
+      "bytes": 12727,
+      "semantic_items": 225,
+      "role": "current_logic",
+      "git_object": "1ea99fbc7ca4d43f5032a5ade449e79f57026c7a"
+    },
+    {
+      "path": "research/hypotheses/ISOMETRIC_BSFP_DUAL_CLOSURE.md",
+      "object_si": 3000259,
+      "image_si": 12000258,
+      "bytes": 7174,
+      "semantic_items": 166,
+      "role": "current_logic",
+      "git_object": "6b948fee916d79559b09765c1e3ff5d9f352f423"
+    },
+    {
+      "path": "research/hypotheses/README.md",
+      "object_si": 3000260,
+      "image_si": 12000259,
+      "bytes": 6031,
+      "semantic_items": 21,
+      "role": "current_logic",
+      "git_object": "c7225e3d6bd103b994e894d8c5b73584f0953766"
+    },
+    {
+      "path": "research/maps/BSFP_ISOMETRIC_INTEGRATION_BOUNDARY.md",
+      "object_si": 3000261,
+      "image_si": 12000260,
+      "bytes": 11442,
+      "semantic_items": 298,
+      "role": "current_logic",
+      "git_object": "50ba223502c5e0e180e3a7b9e61afaf36d2c72ff"
+    },
+    {
+      "path": "research/maps/CORE_LOGIC_MAP.md",
+      "object_si": 3000262,
+      "image_si": 12000261,
+      "bytes": 7628,
+      "semantic_items": 113,
+      "role": "current_logic",
+      "git_object": "0a30fa696dccbab49b4c62f2cc65402a968f35fc"
+    },
+    {
+      "path": "research/maps/INVARIANT_CROSS_SYNTHESIS_METHOD.md",
+      "object_si": 3000263,
+      "image_si": 12000262,
+      "bytes": 13751,
+      "semantic_items": 354,
+      "role": "current_logic",
+      "git_object": "6ec2bdf8862b44bc90a853b222b80d8ebb32412c"
+    },
+    {
+      "path": "research/maps/REALIZABILITY_COMPOSITION_MAP.md",
+      "object_si": 3000264,
+      "image_si": 12000263,
+      "bytes": 5395,
+      "semantic_items": 104,
+      "role": "current_logic",
+      "git_object": "768fe9f260a0b752a74b9f7f33c2cf81b00bee94"
+    },
+    {
+      "path": "research/maps/RESEARCH_TO_CORE_LOGIC.md",
+      "object_si": 3000265,
+      "image_si": 12000264,
+      "bytes": 2988,
+      "semantic_items": 24,
+      "role": "current_logic",
+      "git_object": "c49cc299bfc3a587458d3cb693fe9fc57eff1509"
+    },
+    {
+      "path": "research/maps/SOLVER_CONSUMPTION.md",
+      "object_si": 3000266,
+      "image_si": 12000265,
+      "bytes": 4525,
+      "semantic_items": 55,
+      "role": "current_logic",
+      "git_object": "7d184cb31daefd63769b52c28a0d2d34746c79a9"
+    },
+    {
+      "path": "research/maps/STRUCTURAL_SELECTION_MAP.md",
+      "object_si": 3000267,
+      "image_si": 12000266,
+      "bytes": 4384,
+      "semantic_items": 84,
+      "role": "current_logic",
+      "git_object": "a6b33a177813801e8198dc2504f362b53a77caaf"
+    },
+    {
+      "path": "research/open-questions/COMPOSITION_AND_REPRESENTATION.md",
+      "object_si": 3000268,
+      "image_si": 12000267,
+      "bytes": 1669,
+      "semantic_items": 12,
+      "role": "current_logic",
+      "git_object": "c44622a34d5eadad358a85fff3b43f9be2c16688"
+    },
+    {
+      "path": "research/open-questions/DERIVATIVE_SEMANTIC_LIFT.md",
+      "object_si": 3000269,
+      "image_si": 12000268,
+      "bytes": 3226,
+      "semantic_items": 35,
+      "role": "current_logic",
+      "git_object": "9f98fbeeffadd0651e17d8514fbd9e589eb2c4e6"
+    },
+    {
+      "path": "research/open-questions/README.md",
+      "object_si": 3000270,
+      "image_si": 12000269,
+      "bytes": 2897,
+      "semantic_items": 25,
+      "role": "current_logic",
+      "git_object": "067dafce33e02b40006ffa0a2d0361810d4f7d13"
+    },
+    {
+      "path": "research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md",
+      "object_si": 3000271,
+      "image_si": 12000270,
+      "bytes": 5212,
+      "semantic_items": 43,
+      "role": "current_logic",
+      "git_object": "a2ba6c062b29f316f8b42ff82876324bf19bd696"
+    },
+    {
+      "path": "research/open-questions/WINSET_SELECTION.md",
+      "object_si": 3000272,
+      "image_si": 12000271,
+      "bytes": 2612,
+      "semantic_items": 32,
+      "role": "current_logic",
+      "git_object": "82f57beea5b78ae191e639bab9422d12956b9b32"
+    },
+    {
+      "path": "research/provenance/README.md",
+      "object_si": 3000273,
+      "image_si": 12000272,
+      "bytes": 945,
+      "semantic_items": 5,
+      "role": "current_policy_or_routing",
+      "git_object": "fd065eb891c86d58f99a52ffcdb3adc6bd9fea72"
+    },
+    {
+      "path": "research/provenance/SOURCE_MANIFEST.json",
+      "object_si": 3000275,
+      "image_si": 12000274,
+      "bytes": 6155,
+      "semantic_items": 155,
+      "role": "current_policy_or_routing",
+      "git_object": "5b2aa9f25d2e2ffd728c4e67e68852e57d9867a2"
+    },
+    {
+      "path": "research/README.md",
+      "object_si": 3000305,
+      "image_si": 12000304,
+      "bytes": 5350,
+      "semantic_items": 52,
+      "role": "current_logic",
+      "git_object": "39d08df465359df1d5da9397bc85add53ba8855b"
+    },
+    {
+      "path": "research/semantic-quotient/direct-line-product/README.md",
+      "object_si": 3000307,
+      "image_si": 12000306,
+      "bytes": 1486,
+      "semantic_items": 12,
+      "role": "historical_only",
+      "git_object": "0dfed337c797472025baedb17a880b6521c6d4ab"
+    },
+    {
+      "path": "research/semantic-quotient/README.md",
+      "object_si": 3000312,
+      "image_si": 12000311,
+      "bytes": 1596,
+      "semantic_items": 22,
+      "role": "current_policy_or_routing",
+      "git_object": "08cce3d6538c18db14dc8e70189f671ce2564012"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/NEGAMAX_OPTIMIZATION_CANDIDATES.md",
+      "object_si": 3000328,
+      "image_si": 12000327,
+      "bytes": 8642,
+      "semantic_items": 129,
+      "role": "source_native_unresolved_logic",
+      "git_object": "b3e29a38f0e598fd4f5d0f49982690b709b232d4"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/QUOTIENT_NATIVE_NEURAL_REPRESENTATION.md",
+      "object_si": 3000344,
+      "image_si": 12000343,
+      "bytes": 15942,
+      "semantic_items": 313,
+      "role": "source_native_unresolved_logic",
+      "git_object": "5f9b7696c84ce2ef9e9fa80d6d4e0996b83ea884"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/README.md",
+      "object_si": 3000372,
+      "image_si": 12000371,
+      "bytes": 9562,
+      "semantic_items": 123,
+      "role": "source_native_unresolved_logic",
+      "git_object": "23ee737e03805d9c8ac2af2ed354cd414e7f7b25"
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/SEARCH_METHOD_CANDIDATES.md",
+      "object_si": 3000374,
+      "image_si": 12000373,
+      "bytes": 17297,
+      "semantic_items": 270,
+      "role": "source_native_unresolved_logic",
+      "git_object": "3d399350d4d3e4245c503303859f6cd9b9e3817a"
+    },
+    {
+      "path": "research/untriaged/README.md",
+      "object_si": 3000429,
+      "image_si": 12000428,
+      "bytes": 290,
+      "semantic_items": 3,
+      "role": "current_policy_or_routing",
+      "git_object": "cf4a04136b0ee1edb72d0d11e0066ee34548c681"
+    },
+    {
+      "path": "research/untriaged/SOURCE_QUEUE.md",
+      "object_si": 3000430,
+      "image_si": 12000429,
+      "bytes": 5054,
+      "semantic_items": 32,
+      "role": "current_policy_or_routing",
+      "git_object": "131e3ba19342b64e5a2ee8d7c3d5c132bc997a75"
+    },
+    {
+      "path": "STATUS.md",
+      "object_si": 3000431,
+      "image_si": 12000430,
+      "bytes": 9931,
+      "semantic_items": 109,
+      "role": "current_logic",
+      "git_object": "9094d66e670672524cb8372c868ebae8e45fc08a"
+    }
+  ]
+}
