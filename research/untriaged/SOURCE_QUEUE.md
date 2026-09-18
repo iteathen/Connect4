@@ -1,6 +1,6 @@
 # Source normalization queue
 
-The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, realizability/strategy/guarded-lift claims through C4-R0069, and the structural-selection bridge through C4-R0072.
+The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, realizability/strategy/guarded-lift claims through C4-R0069, and the structural-selection bridge through C4-R0072, and the support-local clause-coverage recurrence through C4-R0073.
 
 Remaining work is classification of **meaning**, not file movement.
 
@@ -9,6 +9,11 @@ Remaining work is classification of **meaning**, not file movement.
 The former `research/bsfp-isometric-invariant-transfer` branch has been physically consolidated into this research branch. Its later BSFP/Isometric transfer hypotheses, support-local residual/clause experiments, reflection-orbit work, direct line-product qualification, clause-frontier results, feasible-slice recurrence, dual-positive frontier work, constraint-relative antichain work, and solution-invariant qualification records now live under the canonical `research/` tree.
 
 The old branch is provenance only after retirement. No solver or side branch owns a competing research corpus. Active temporary experiments must merge their research outputs back here before retirement.
+
+## Newly normalized BSFP clause-coverage result
+
+- C4-R0073 normalizes the former temporary support-local clause-coverage experiment: six complete variable-geometry controls reproduced the exact array-CNF recurrence with zero mismatches, and the 6x5 support census bounded the local dictionary widths observed there.
+- The temporary experiment's durable research artifacts now live in canonical research. CUDA profitability, universal fixed width, and production adoption remain unclaimed.
 
 ## Active selection / realizability follow-up
 
