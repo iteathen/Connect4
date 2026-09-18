@@ -6,7 +6,7 @@
 
 ## Mission
 
-This branch owns the exact minimax/negamax/alpha-beta solver line, its search-specific experiments, benchmark evidence, TT/scheduling work, and search-side structural optimizations. CUDA-BSFP remains a separate solver. Shared semantic-quotient research is routed through `research/semantic-quotient`.
+This branch owns the exact minimax/negamax/alpha-beta solver line, its search-specific experiments, benchmark evidence, TT/scheduling work, and search-side structural optimizations. CUDA-BSFP remains a separate solver. All durable Connect4 research is owned by `research/semantic-quotient`; this branch owns Minimax implementation and implementation qualification only.
 
 ## Consolidation state
 
@@ -37,15 +37,17 @@ semantic state + column
 
 MQ4 generated complete residual automata without colored ownership or line-hit history and reproduced reachable states, exact strong scores, every action score, and a materialized/serialized flat transition replay with zero mismatches on 4x3 c3, 4x4 c4, 5x3 c4 and 4x5 c4.
 
-The shared semantic mathematics remains owned by `research/semantic-quotient`; this branch owns search implementation and performance consequences.
+The canonical research corpus remains owned by `research/semantic-quotient`; this branch owns search implementation and implementation-local performance/qualification consequences.
 
 ## MQ5 structural result
 
-Packet:
+Implementation prototype packet (historical path name; not research authority):
 
 ```text
 research/minimax/semantic-residual-mq5/
 ```
+
+Its durable research meaning is owned by `research/semantic-quotient`; the local path is retained for implementation reproduction.
 
 Frozen exact-search control:
 
