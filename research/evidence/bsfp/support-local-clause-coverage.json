@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "evidence_id": "C4-E0073-BSFP-SUPPORT-LOCAL-CLAUSE-COVERAGE",
+  "claims": [
+    "C4-R0073"
+  ],
+  "direction": "supports",
+  "research_direction": "Josh Oshiro",
+  "canonical_qualification": {
+    "branch": "research/semantic-quotient",
+    "source_revision": "cd36d487734314b012ac6cd67fa727fa027b4617",
+    "workflow": "Canonical research support-local clause qualification",
+    "workflow_run": 35332181198,
+    "job": 105558777887,
+    "runner": "ubuntu-24.04",
+    "node": "26.7.0",
+    "conclusion": "success"
+  },
+  "historical_experiment_qualification": {
+    "workflow": "bsfp-support-local-clause-coverage",
+    "workflow_run": 35035686510,
+    "job": 104604170153,
+    "head": "3ea28173f7f5743790a1226b0b27f876a4330ca9",
+    "conclusion": "success",
+    "note": "Retained as historical experiment evidence; canonical requalification above is the current branch-owned confirmation."
+  },
+  "complete_controls": [
+    {
+      "geometry": "4x3-c3",
+      "supports": 256,
+      "winning_lines": 14,
+      "max_local_dictionary": 26,
+      "cofactor_maps": 1536,
+      "support_mismatches": 0
+    },
+    {
+      "geometry": "4x4-c4",
+      "supports": 625,
+      "winning_lines": 10,
+      "max_local_dictionary": 26,
+      "cofactor_maps": 4000,
+      "support_mismatches": 0
+    },
+    {
+      "geometry": "5x3-c4",
+      "supports": 1024,
+      "winning_lines": 6,
+      "max_local_dictionary": 21,
+      "cofactor_maps": 7680,
+      "support_mismatches": 0
+    },
+    {
+      "geometry": "4x4-c3",
+      "supports": 625,
+      "winning_lines": 24,
+      "max_local_dictionary": 40,
+      "cofactor_maps": 4000,
+      "support_mismatches": 0
+    },
+    {
+      "geometry": "4x5-c4",
+      "supports": 1296,
+      "winning_lines": 17,
+      "max_local_dictionary": 37,
+      "cofactor_maps": 8640,
+      "support_mismatches": 0
+    },
+    {
+      "geometry": "5x4-c4",
+      "supports": 3125,
+      "winning_lines": 17,
+      "max_local_dictionary": 37,
+      "cofactor_maps": 25000,
+      "support_mismatches": 0
+    }
+  ],
+  "totals": {
+    "supports": 6951,
+    "cofactor_maps": 50856,
+    "support_mismatches": 0
+  },
+  "six_by_five_dictionary_census": {
+    "supports": 46656,
+    "maximum_local_dictionary": 69,
+    "selected_ranks": {
+      "23": {
+        "supports": 756,
+        "mean": 58.648,
+        "min": 56,
+        "max": 61
+      },
+      "25": {
+        "supports": 252,
+        "mean": 62.206,
+        "min": 61,
+        "max": 64
+      },
+      "26": {
+        "supports": 126,
+        "mean": 63.865,
+        "min": 62,
+        "max": 65
+      },
+      "30": {
+        "supports": 1,
+        "mean": 69,
+        "min": 69,
+        "max": 69
+      }
+    }
+  },
+  "established": [
+    "support-local upward-coverage signatures reproduced the authoritative array-CNF recurrence on all listed complete controls",
+    "precomputed child-to-parent cofactor maps were sufficient for the tested recurrence",
+    "the 6x5 dictionary-width census gives exact workload facts for the enumerated supports"
+  ],
+  "not_established": [
+    "universal fixed-width representation",
+    "CUDA speedup",
+    "profitability on every Connect-K geometry",
+    "native-GPU cofactor-map throughput",
+    "production adoption",
+    "superiority over rank-slice ownership BSFP"
+  ],
+  "sources": [
+    "research/experiments/bsfp-support-local-clause-coverage/RESULT.md",
+    "research/experiments/bsfp-support-local-clause-coverage/reference-coverage-cofactor.mjs"
+  ]
+}
