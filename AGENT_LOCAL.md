@@ -1,5 +1,8 @@
 # Repository context: Connect4
 
+> **RETIRED BRANCH:** `solver/hybrid-confluence` is historical-only as of 2026-09-18. Do not implement, research, or route new work here. Composition work belongs to `solver/sut`; durable history belongs to `research/semantic-quotient`.
+
+
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
 ## Single research owner
