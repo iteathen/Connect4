@@ -5,10 +5,11 @@ branch: solver/hybrid-confluence
 solver_family: hybrid_confluence
 
 authority:
+  research_ownership: docs/decisions/2026-09-17-single-research-owner.md
   repository_context: AGENT_LOCAL.md
   branch_identity: HYBRID_CONFLUENCE_BRANCH.md
   shared_foundation: main
-  shared_research: research/semantic-quotient
+  canonical_research: research/semantic-quotient
   topology_decision: docs/decisions/2026-09-17-closed-durable-lane-topology.md
 
 ownership:
@@ -22,7 +23,7 @@ ownership:
     - cuda_bsfp_private_recurrence_or_storage
     - isometric_structural_calculus
     - sut_semantics
-    - canonical_shared_research
+    - canonical_research_corpus
 
 task:
   id: define_exact_hybrid_confluence_contract
