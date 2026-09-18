@@ -114,7 +114,40 @@ fine identity DISTINCT
 
 observed across R0044 artifact/lineage, R0074 event/lineage, and SIU physical/future-behavior identity.
 
-The standard-7x6 state-identity gap is now a precise falsifiable NEI obligation rather than generic "unproved quotient sufficiency."
+The standard-7x6 state-identity gap was then investigated directly in the high-value-lead campaign.
+
+### High-value lead investigation
+
+Primary record:
+
+- `research/isograph/discovery/2026-09-18-high-value-leads/CAMPAIGN.md`
+- `research/isograph/discovery/2026-09-18-high-value-leads/LEAD_LEDGER.json`
+
+Results:
+
+~~~text
+semantic scope:
+    current structured fields are insufficient for exact derivation;
+    successor needs typed claim-domain / guards / evidence-coverage / exclusions
+
+evidence independence:
+    current graph cleanly separates deductive-only vs empirical lineages;
+    successor should type evidence_mode
+
+identity projection:
+    artifact identity != artifact-lineage occurrence
+    contextual correspondence span replaces global quotient assumption
+
+standard 7x6 q identity:
+    direct future-behavior congruence proof candidate derived
+
+same-q breaker search:
+    reclassified as adversarial theorem/implementation qualification
+~~~
+
+The q-congruence proof shows that equal support + equal normalized P0/P1 residual antichains determines legal actions, immediate terminal results, and every nonterminal successor q; finite induction then determines the entire ordinary future game. An exhaustive abstract antichain/cofactor control passed 32,906 set families / 131,474 cofactor cases.
+
+The historical NEI-C4-0007 result remains `INCOMPLETE_UNQUALIFIED` under its pinned evidence revision. New post-application research now supports candidate `SAME` for standard-7x6 future-behavior identity pending independent qualification and successor authority ingestion.
 
 ## Consolidated research-lane state
 
