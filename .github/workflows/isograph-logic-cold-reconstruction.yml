@@ -1,0 +1,57 @@
+name: Connect4 IsoGraph cold reconstruction 0.1
+
+on:
+  push:
+    branches:
+      - work/isograph-logic-authority-20260918
+    paths:
+      - research/isograph/qualification/RUN_COLD_RECONSTRUCTION_0_1.request
+
+permissions:
+  contents: read
+
+concurrency:
+  group: connect4-isograph-cold-reconstruction-0-1
+  cancel-in-progress: false
+
+env:
+  GEMINI_MODEL: gemini-3.5-flash
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Deterministic preflight and packet build
+        run: |
+          set -euo pipefail
+          node --check research/isograph/qualification/tools/run-cold-reconstruction.mjs
+          node --check research/isograph/qualification/tools/score-cold-reconstruction.mjs
+          ISOGRAPH_COLD_DRY_RUN=1 node research/isograph/qualification/tools/run-cold-reconstruction.mjs
+      - name: Execute one isolated semantic reconstruction call
+        id: cold
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node research/isograph/qualification/tools/run-cold-reconstruction.mjs
+      - name: Mechanical post-freeze scoring
+        if: always() && steps.cold.outcome == 'success'
+        run: node research/isograph/qualification/tools/score-cold-reconstruction.mjs
+      - name: Emit frozen evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in out/isograph-cold/METADATA.json out/isograph-cold/COLD_REPORT_RAW.txt out/isograph-cold/PARSED_REPORT.json out/isograph-cold/SCORE.json; do
+            [ -f "$p" ] || continue
+            echo "===== BEGIN ${p#out/isograph-cold/} ====="
+            cat "$p"
+            echo "===== END ${p#out/isograph-cold/} ====="
+          done
+          echo "Evidence hashes:"
+          find out/isograph-cold -type f ! -name API_RESPONSE.json -print0 2>/dev/null | sort -z | xargs -0 -r sha256sum
