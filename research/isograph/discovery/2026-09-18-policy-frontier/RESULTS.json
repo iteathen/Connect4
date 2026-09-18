@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "campaign_id": "connect4-policy-frontier-2026-09-18",
+  "score_convention": "current-player exact WDL; fastest win / longest loss distance; equal draws tied",
+  "controls": [
+    {
+      "geometry": "4x3:c3",
+      "physical_nonterminal_states": 4631,
+      "q_classes": 3734,
+      "supports": 255,
+      "support_policy_classes": 1024,
+      "q_to_support_policy_collapse": 3.646,
+      "comparable_q_pairs": 7880,
+      "comparable_fixed_action_pairs": 18312,
+      "state_wdl_violations": 0,
+      "state_strong_violations": 0,
+      "action_wdl_violations": 0,
+      "action_strong_violations": 0,
+      "action_state_entries": 10232,
+      "wdl_frontier_generators": 5386,
+      "wdl_entry_to_generator_ratio": 1.9,
+      "strong_thresholds": 2046,
+      "strong_frontier_generators": 8532,
+      "strong_entry_to_generator_ratio": 1.199,
+      "policy_automaton_classes": 2798,
+      "policy_automaton_collapse_from_q": 1.335,
+      "direct_policy_upward_checks": 12518,
+      "direct_policy_upward_violations": 3368
+    },
+    {
+      "geometry": "4x4:c4",
+      "physical_nonterminal_states": 134289,
+      "q_classes": 34094,
+      "supports": 624,
+      "support_policy_classes": 2995,
+      "q_to_support_policy_collapse": 11.384,
+      "comparable_q_pairs": 235243,
+      "comparable_fixed_action_pairs": 646776,
+      "state_wdl_violations": 0,
+      "state_strong_violations": 0,
+      "action_wdl_violations": 0,
+      "action_strong_violations": 0,
+      "action_state_entries": 100764,
+      "wdl_frontier_generators": 24026,
+      "wdl_entry_to_generator_ratio": 4.194,
+      "strong_thresholds": 5548,
+      "strong_frontier_generators": 43302,
+      "strong_entry_to_generator_ratio": 2.327,
+      "policy_automaton_classes": 27392,
+      "policy_automaton_collapse_from_q": 1.245,
+      "direct_policy_upward_checks": 399302,
+      "direct_policy_upward_violations": 111176
+    },
+    {
+      "geometry": "5x3:c4",
+      "physical_nonterminal_states": 147563,
+      "q_classes": 11316,
+      "supports": 1023,
+      "support_policy_classes": 3017,
+      "q_to_support_policy_collapse": 3.751,
+      "comparable_q_pairs": 28312,
+      "comparable_fixed_action_pairs": 86277,
+      "state_wdl_violations": 0,
+      "state_strong_violations": 0,
+      "action_wdl_violations": 0,
+      "action_strong_violations": 0,
+      "action_state_entries": 37719,
+      "wdl_frontier_generators": 10983,
+      "wdl_entry_to_generator_ratio": 3.434,
+      "strong_thresholds": 5339,
+      "strong_frontier_generators": 10842,
+      "strong_entry_to_generator_ratio": 3.479,
+      "policy_automaton_classes": 9772,
+      "policy_automaton_collapse_from_q": 1.158,
+      "direct_policy_upward_checks": 58014,
+      "direct_policy_upward_violations": 13325
+    },
+    {
+      "geometry": "4x5:c4",
+      "physical_nonterminal_states": 1348441,
+      "q_classes": 294592,
+      "supports": 1295,
+      "support_policy_classes": 9017,
+      "q_to_support_policy_collapse": 32.671,
+      "comparable_q_pairs": 6029318,
+      "comparable_fixed_action_pairs": 17325040,
+      "state_wdl_violations": 0,
+      "state_strong_violations": 0,
+      "action_wdl_violations": 0,
+      "action_strong_violations": 0,
+      "action_state_entries": 890358,
+      "wdl_frontier_generators": 149660,
+      "wdl_entry_to_generator_ratio": 5.949,
+      "strong_thresholds": 21986,
+      "strong_frontier_generators": 467252,
+      "strong_entry_to_generator_ratio": 1.906,
+      "policy_automaton_classes": 228344,
+      "policy_automaton_collapse_from_q": 1.29,
+      "direct_policy_upward_checks": null,
+      "direct_policy_upward_violations": null
+    }
+  ],
+  "aggregate": {
+    "comparable_q_pairs": 6300753,
+    "comparable_fixed_action_pairs": 18076405,
+    "state_wdl_violations": 0,
+    "state_strong_violations": 0,
+    "action_wdl_violations": 0,
+    "action_strong_violations": 0
+  },
+  "negative_controls": {
+    "cross_support_raw_residual_dominance": {
+      "note": "Pointwise mover-easier/opponent-harder residual comparison without equal-support guard is not sound.",
+      "4x3:c3": {
+        "triggers": 5886,
+        "false_better": 70
+      },
+      "4x4:c4": {
+        "triggers": 126590,
+        "false_better": 4296
+      },
+      "5x3:c4": {
+        "triggers": 345730,
+        "false_better": 10032
+      }
+    },
+    "simple_cell_accessibility_guard": {
+      "note": "Requiring covering residual cells to be no less accessible removes all observed 4x3 false positives but remains insufficient on larger controls; temporal/response control is still load-bearing.",
+      "4x3:c3": {
+        "triggers": 5404,
+        "false_better": 0
+      },
+      "4x4:c4": {
+        "triggers": 98174,
+        "false_better": 826
+      },
+      "5x3:c4": {
+        "triggers": 210166,
+        "false_better": 2688
+      }
+    },
+    "direct_policy_region_monotonicity": {
+      "note": "Predicate 'column c is currently optimal' is not upward-closed under the favorable residual order, so direct best-action antichains are invalid.",
+      "4x3:c3": {
+        "checks": 12518,
+        "violations": 3368
+      },
+      "4x4:c4": {
+        "checks": 399302,
+        "violations": 111176
+      },
+      "5x3:c4": {
+        "checks": 58014,
+        "violations": 13325
+      }
+    }
+  },
+  "authority_effect": "NO_FROZEN_AUTHORITY_MUTATION"
+}
