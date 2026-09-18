@@ -10,6 +10,26 @@ The index does **not** promote proposals into semantic authority. It tracks what
 
 ---
 
+## Human-facing entrypoint
+
+For the gameplay idea in ordinary language, including a classical logic proof and its IsoGraph/NEI interpretation, start with:
+
+- `GAMEPLAY_DESCRIPTION_FOR_HUMANS.md`
+
+Human-facing gameplay proposals should normally expose three aligned views when correctness is involved:
+
+~~~text
+1. novice gameplay language
+2. classical logic / mathematical argument
+3. IsoGraph / NEI structural representation
+~~~
+
+The novice view explains what a player or implementer should imagine happening.
+The classical proof makes the correctness claim independently checkable without IsoGraph.
+The IsoGraph view owns typed identity, scope, provenance, uncertainty, and structural composition.
+
+If the three views disagree, the disagreement is a research defect to investigate rather than wording to smooth over.
+
 ## Why this exists
 
 The current research has crossed an architectural seam:
@@ -198,6 +218,9 @@ When a new IsoGraph/discovery result suggests a gameplay or solver strategy:
    - falsifier;
    - proof/qualification burden;
    - current status;
+   - novice gameplay explanation when the idea changes gameplay description;
+   - classical logic/mathematical justification when correctness is claimed;
+   - IsoGraph/NEI mapping when identity, scope, or structural collapse is involved;
 6. add it to this index in the same change.
 
 Do not leave a durable gameplay strategy discoverable only from a dated research note, issue, chat summary, or solver branch.
