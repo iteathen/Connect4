@@ -25,7 +25,7 @@ The repository contains deliberately separate solver lanes built on shared Conne
 
 - `components/incumbent/` owns the incumbent minimax/alpha-beta/search implementation and its accepted incumbent search/evaluator semantics.
 - `components/bsfp/` owns the backward symbolic fixed-point solver implementation and Connect4-specific BSFP composition.
-- `research/semantic-quotient/` owns quotient-native forward-solver research and its Negamax/parallel execution evidence.
+- `research/semantic-quotient` owns all Connect4 research, including Isometric research, quotient/Negamax research, BSFP research, experiments/results, hypotheses, falsifiers, negative results, open questions, maps, evidence, synthesis, and provenance.
 
 Do not make BSFP a specialization of Negamax or import recursive search lifecycle semantics into BSFP. Conversely, do not let the forward Negamax lane redefine the CPC/WSL/NDC mathematics simply because it consumes those facts differently.
 
@@ -50,7 +50,7 @@ Acceptance status is part of authority. A required reading order does **not** si
 - `docs/research/2026-09-09-searchless-solver-hypothesis.md` — explicit searchless criterion and unresolved algebraic-choice question.
 - `docs/research/2026-09-09-backward-winline-fixed-point.md` — backward W/L attractor and draw-safety fixed-point evidence.
 - `docs/research/2026-09-09-terminal-boundary-qualification.md` — independently qualified geometric terminal boundary.
-- `research/semantic-quotient/state-identity-unification/` — forward quotient research implementation/evidence; qualified controls may establish theorem instances inside the research calculus but do not redefine specification status.
+- `research/semantic-quotient/**` — canonical research content and research evidence; qualified controls may establish theorem instances inside the research calculus but do not redefine specification status.
 - `reference/legacy-source/` — provenance/source evidence only, not specification authority.
 
 ### Required reading by lane
