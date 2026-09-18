@@ -1,90 +1,56 @@
-# Connect4 Repository Status
+# Connect4 Hybrid Confluence Status
 
 **Updated:** 2026-09-17  
-**Role:** shared-foundation dashboard and authority router
+**Branch:** `solver/hybrid-confluence`  
+**Solver family:** Hybrid Confluence  
+**State:** initialized; branch-local implementation contract not yet established
 
-`main` is the accepted shared Connect4 substrate. It is not the canonical implementation head for any solver family.
+## Role
 
-## Canonical durable lanes
+Hybrid Confluence is a first-class solver-family head. It owns exact cooperation between solver capabilities through an explicit confluence contract. It is not a generic shared-services branch and it is not a rename of SUT.
 
-| Lane | Canonical branch | Purpose | Current routing note |
-| --- | --- | --- | --- |
-| Shared product foundation | `main` | accepted domain/spec/oracle/benchmark contracts and repository routing | authoritative shared substrate |
-| Shared research | `research/semantic-quotient` | solver-neutral normalized research, evidence, provenance and cross-solver synthesis | canonical research lane |
-| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | first-class solver head |
-| CUDA-BSFP | `solver/cuda-bsfp` | backward symbolic fixed-point implementation and qualification | first-class solver head |
-| Hybrid confluence | `solver/hybrid-confluence` | exact hybrid-confluence implementation and qualification | first-class solver head |
-| Isometric | `isometric` | structural-calculus / frontier-exact solver implementation | first-class solver head |
-| SUT | `sut` | SUT (`S ∪ T`) solver lineage | first-class solver head; intentionally early-stage |
+The branch may consume accepted/public behavior from Minimax/Negamax and CUDA-BSFP, and later other solver families where explicitly qualified. It does not take ownership of their private implementation state.
 
-This durable set is closed. Agents may not invent another durable lane or promote a temporary branch into a continuity owner without explicit owner instruction and an updated repository-organization decision.
+## Current implementation state
 
-Read each non-main lane's own branch state before execution. Root status/next-step on `main` are routing records only.
+At the 2026-09-17 implementation-topology cleanup, this branch had no unique implementation commits beyond the shared foundation. It was therefore fast-forwarded to current `main` and given explicit branch-local routing rather than left as a stale placeholder.
 
-## Main branch role
+No mature Hybrid Confluence kernel, scheduler, proof-exchange implementation, performance claim, or qualification result is currently established by this branch.
 
-`main` owns facts that must be common and stable across solver lines:
+## Ownership
 
-- Connect Four rules, legality and state semantics;
-- benchmark positions, fairness and measurement meaning;
-- independent oracle/reference behavior;
-- accepted shared contracts/conformance vectors;
-- repository ownership/routing decisions.
+Hybrid Confluence may own:
 
-`components/incumbent/` remains on `main` as a qualified reference/baseline comparator. It is not an active solver-head ownership claim.
+- solver-specific confluence/result exchange;
+- hybrid proof transport and exact reconciliation;
+- hybrid scheduling/cancellation where specific to this solver;
+- hybrid qualification and benchmark evidence.
 
-Solver-specific kernels and performance machinery must not accumulate on `main`.
+It does not own:
 
-## Branch hygiene
+- Minimax/Negamax private search/TT internals;
+- CUDA-BSFP private symbolic recurrence/storage;
+- Isometric structural calculus;
+- SUT semantics;
+- canonical solver-neutral research.
 
-Temporary `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging and evidence refs are subordinate to a named durable owner.
+## Immediate seam
 
-A temporary branch is retired after its useful implementation, research, evidence, negative results and provenance are integrated into the owner lane or preserved by an immutable archive. Accumulating commits does not make a temporary branch authoritative.
+Before substantive implementation:
 
-See `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
+1. define the smallest exact confluence contract between participating solver capabilities;
+2. identify exact shared state/result identity and proof-strength ordering;
+3. define which side may publish, consume, supersede or cancel work;
+4. prove that composition cannot turn stale/partial information into a false exact result;
+5. qualify the contract on bounded controls before performance work.
 
-## Cross-lane flow
+Do not infer a concrete architecture merely from the branch name or the older repository-level sketch.
 
-Shared accepted changes flow from `main` into solver heads. Shared solver-neutral research is normalized on `research/semantic-quotient`.
+## Routing
 
-When a solver discovers a shared fact, extract the smallest shared semantic/contract/research change and deliberately promote it to the appropriate shared owner. Solver branches are not merged wholesale to `main` merely to carry history.
+- Shared product/domain facts -> `main`.
+- Shared solver-neutral research -> `research/semantic-quotient`.
+- Hybrid-specific implementation/evidence -> this branch.
+- Temporary Hybrid work -> bounded branch owned by this lane, then integrate/archive/retire.
 
-## Current high-level state
-
-### Shared product foundation
-
-C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain protected on `main`. Shared-domain and benchmark/oracle corrections belong here.
-
-### Shared research
-
-`research/semantic-quotient` now owns the consolidated solver-neutral research knowledge base and structural-calculus history. Historical generic research refs were archived and retired in the 2026-09-17 consolidation. Solver-specific BSFP research branches remain separate while active.
-
-### Minimax
-
-`solver/minimax-alpha-beta` owns exact minimax/negamax/alpha-beta implementation and search-specific optimization/evidence.
-
-### CUDA-BSFP
-
-`solver/cuda-bsfp` owns searchless backward symbolic fixed-point implementation, CUDA qualification and BSFP-specific evidence.
-
-### Hybrid confluence
-
-`solver/hybrid-confluence` is a durable solver-family head for exact confluence/composition work. It is distinct from SUT and must have branch-local execution state rather than inherit `main`'s dashboard indefinitely.
-
-### Isometric
-
-`isometric` owns the structural-calculus / frontier-exact solver family governed by its branch-local routing and C4-0011. Historical terminal-frontier experiment branches are provenance, not continuity owners.
-
-### SUT
-
-`sut` owns the distinct SUT (`S ∪ T`) solver lineage. It is intentionally early-stage and currently carries a direction sketch rather than an established architecture or performance claim. SUT is not a rename of Hybrid Confluence, Isometric or BSFP.
-
-## Repository restructuring state
-
-The 2026-09-10/11 decisions established the shared-foundation and solver-head model. The 2026-09-17 decision reopens the topology after Isometric and SUT became explicit solver families and closes the durable set to prevent agent-created branch sprawl.
-
-Historical migration/retirement records remain preserved under `research/`; they are provenance snapshots and are not rewritten to pretend the later topology existed earlier.
-
-## Governing rule
-
-`main` is shared accepted truth, not "the winning solver." Solver heads own implementation, canonical research owns shared research knowledge, and temporary branches must terminate instead of becoming accidental permanent lanes.
+See `HYBRID_CONFLUENCE_BRANCH.md` and `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
