@@ -608,3 +608,39 @@ The campaign therefore produced all important protocol outcomes:
 The protocols did not merely find patterns.
 
 They also prevented a false pattern from being promoted.
+
+
+---
+
+# 7. Upstream IsoGraph feedback
+
+The completed campaign was fed back into the IsoGraph repository as real-world development evidence for the Core 0.18 / DP 0.5 successor stack.
+
+IsoGraph evidence record commit:
+
+`159d18a91ed3238e2b6ca985729b684bffbbec3d`
+
+File:
+
+`qualification/REAL_WORLD_DISCOVERY_PROTOCOL_EVIDENCE_CONNECT4_2026-09-18.md`
+
+IsoGraph STATUS routing commit:
+
+`8208cf659e65f162649a14cea1d7d80511bf4200`
+
+The upstream record explicitly states:
+
+- this campaign is development evidence;
+- it does not promote Core 0.18 or DP 0.5;
+- future holdouts must use independent structurally analogous cases;
+- the Connect4 findings must not become hidden oracle material.
+
+This closes the discovery feedback loop:
+
+```text
+specification
+-> live application
+-> discovery/falsification evidence
+-> reusable local execution machinery
+-> upstream qualification-design evidence
+```
