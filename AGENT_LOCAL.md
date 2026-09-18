@@ -16,26 +16,21 @@ Connect4 owns Connect Four domain semantics, benchmark/oracle meaning, exact-sol
 
 `main` owns the **shared accepted substrate** for all Connect4 solver lines: domain rules, benchmark/fairness semantics, oracle/reference behavior, accepted cross-lane contracts, repository routing and shared product documentation. It is not itself a solver implementation head.
 
-The incumbent implementation retained on `main` is a qualified baseline/reference and oracle comparator. Do not treat it as evidence that `main` owns the active minimax solver line.
+The incumbent implementation retained on `main` is a qualified baseline/reference and oracle comparator. Minimax is a historical solver lineage, not an active implementation owner.
 
 ## Closed durable lane set
 
-The durable branch topology is owner-authorized and closed:
+The active durable solver topology is:
 
 - `main` — accepted shared product/domain/spec/oracle substrate and repository router; not a solver head.
-- `research/semantic-quotient` — single canonical owner of all Connect4 research.
-- `solver/minimax-alpha-beta` — minimax/negamax/alpha-beta implementation and search-specific evidence.
-- `solver/cuda-bsfp` — CUDA-BSFP implementation, qualification and production-adjacent work.
-- `solver/hybrid-confluence` — hybrid exact-confluence implementation and qualification.
-- `solver/isometric` — Isometric structural/frontier solver implementation.
-- `solver/sut` — SUT (`S ∪ T`) solver lineage.
+- `research/semantic-quotient` — single canonical owner of all research and historical solver knowledge.
+- `solver/isometric` — active IsoMax structural/frontier exact solver.
+- `solver/cuda-bsfp` — active backward symbolic fixed-point solver.
+- `solver/sut` — future exact composition of IsoMax + CUDA-BSFP.
 
-The root-level `solver/isometric` and `solver/sut` names are intentional solver-family names.
+Minimax/Negamax/alpha-beta and Hybrid Confluence are historical lineages only. Do not recreate them as durable implementation owners.
 
-**Agents must not invent another durable lane, promote a temporary branch into a continuity owner, or alter this topology without explicit owner instruction.** See `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
-
-Each non-main durable lane owns its own current-state routing. Where a solver lane lacks mature implementation state, its branch-local status must say so explicitly rather than inheriting `main`'s dashboard as if it were solver state.
-
+**Agents must not invent another durable lane or alter this topology without explicit owner instruction.** Current authority is `docs/decisions/2026-09-18-three-active-solver-topology.md` once the shared topology change is present on this branch.
 ## Temporary branch rule
 
 Temporary `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging and evidence branches are subordinate to a named durable owner.
@@ -56,7 +51,7 @@ Before retiring one, preserve useful code, evidence, negative results and resear
 - Solver-specific implementation and evidence stay on the owning solver head.
 - Do not merge a solver branch wholesale into `main` merely to synchronize history.
 - If a solver discovers a shared fact, extract and qualify the smallest shared change, then route it to `main` or canonical research according to ownership.
-- Hybrid Confluence and SUT may compose other solver capabilities without becoming owners of those solvers' private internals.
+- SUT may compose IsoMax and CUDA-BSFP without becoming owner of either parent's private internals.
 
 ## Authority routing
 
