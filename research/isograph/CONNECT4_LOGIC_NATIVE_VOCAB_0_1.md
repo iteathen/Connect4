@@ -102,6 +102,21 @@ This companion documents the stable-label roles used by the native `.isg` corpus
 | ^97090 | exact source content as ordered UTF-8 byte literals |
 | ^97091 | exact source-image inclusion relation |
 | ^97092 | exact source-content reconstruction obligation/witness |
+| ^97093 | qualification result record |
+| ^97094 | qualification status PASS |
+| ^97095 | qualification status BLOCKED |
+| ^97096 | qualification status NOT_YET_PROVED |
+| ^97097 | qualification measurement/count |
+| ^97098 | zero-mismatch result |
+| ^97099 | deterministic verifier/audit |
+| ^97100 | exact source round-trip result |
+| ^97101 | canonical claim exactness result |
+| ^97102 | uncertainty fidelity result |
+| ^97103 | native syntax result |
+| ^97104 | semantic item-accounting obligation |
+| ^97105 | isolated cold-reconstruction obligation |
+| ^97106 | adversarial semantic differential obligation |
+| ^97107 | QU dependency/bridge qualification obligation |
 
 Text-bearing fields are encoded as ordered incidences of exact UTF-8 byte literals. They are source-faithful payloads, not alpha-renamable labels.
 
