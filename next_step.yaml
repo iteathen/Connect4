@@ -20,7 +20,7 @@ consolidation:
 
 parallel_high_value_seam:
   id: qualify_support_local_action_value_frontier
-  status: derived_candidate_four_complete_controls
+  status: bounded_standard_7x6_cross_rank_supported_sampled
   objective: >-
     Independently review and qualify the support-local favorable residual order as an exact isotone order for
     state and fixed-action strong value, then measure whether bounded standard-7x6 score-threshold antichain
@@ -30,6 +30,9 @@ parallel_high_value_seam:
     - research/isograph/discovery/2026-09-18-policy-frontier/SUPPORT_LOCAL_ACTION_VALUE_ISOTONY.md
     - research/isograph/discovery/2026-09-18-policy-frontier/RESULTS.json
     - research/isograph/discovery/2026-09-18-policy-frontier/policy-frontier-control.mjs
+    - research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_TEST.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_RESULTS.json
+    - research/isograph/discovery/2026-09-18-policy-frontier/standard-7x6-cross-rank-frontier-control.mjs
   constraints:
     - equal_support_is_load_bearing
     - do_not_lift_raw_residual_dominance_across_supports
@@ -39,8 +42,10 @@ parallel_high_value_seam:
   next:
     - independent_proof_review
     - rerun_four_complete_controls
-    - construct_bounded_7x6_rank_frontier_slice
-    - compare_generator_growth_against_q_and_current_bsfp_isomax_work
+    - replace_uniform_random_frontier_construction_with_support_aware_or_root_demand_aware_generation
+    - propagate_exact_threshold_generators_rank_by_rank_toward_root
+    - measure_generator_growth_lookup_cost_and_best_move_coverage_against_current_bsfp_and_isomax
+    - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
   id: derive_guarded_mixed_cofactor_obligation_birth
