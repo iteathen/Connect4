@@ -1,5 +1,8 @@
 # Repository context: Connect4
 
+> **RETIRED BRANCH:** `solver/minimax-alpha-beta` is historical-only as of 2026-09-18. Do not implement, research, or route new work here. Active forward solving belongs to `solver/isometric`; durable history belongs to `research/semantic-quotient`.
+
+
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
 
