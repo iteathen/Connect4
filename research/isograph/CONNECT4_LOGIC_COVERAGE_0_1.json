@@ -1058,17 +1058,19 @@
     }
   ],
   "obligations": {
-    "complete_source_coverage": "RENDERED",
-    "complete_normalized_claim_coverage": "RENDERED",
-    "source_native_uncertainty": "RENDERED_FOR_CANONICAL_UNRESOLVED_CLAIMS",
+    "complete_source_coverage": "PASS_125_OF_125_EXACT_GIT_OBJECTS",
+    "complete_normalized_claim_coverage": "PASS_74_OF_74_EXACT_FULL_FIELD_RECORDS",
+    "source_native_uncertainty": "PASS_8_CANONICAL_CLAIMS_PLUS_19_UNRESOLVED_DOCUMENTS",
     "unaccounted_load_bearing_logic": "NOT_YET_PROVED",
-    "exact_round_trip": "NOT_YET_PROVED",
+    "exact_round_trip": "PASS_77_OF_77_CURRENT_LOGIC_FILES_BYTE_IDENTICAL",
     "semantic_differential": "NOT_YET_PROVED",
     "cold_reconstruction": "NOT_YET_RUN",
     "adversarial_guard_scope_status_review": "NOT_YET_RUN",
     "rendering_gap_closure": "NOT_YET_PROVED",
     "authority_switch": "BLOCKED",
-    "source_native_document_uncertainty": "RENDERED_FOR_19_HYPOTHESIS_OR_OPEN_QUESTION_DOCUMENTS"
+    "source_native_document_uncertainty": "RENDERED_FOR_19_HYPOTHESIS_OR_OPEN_QUESTION_DOCUMENTS",
+    "native_syntax": "PASS_11_FILES_818748_TOKENS_0_FAILURES",
+    "qu_dependency_bridge": "NOT_YET_QUALIFIED"
   },
   "source_native_unresolved_documents": [
     "research/hypotheses/BIDIRECTIONAL_REACHABLE_QUOTIENT_BSFP.md",
@@ -1090,5 +1092,13 @@
     "research/open-questions/DERIVATIVE_SEMANTIC_LIFT.md",
     "research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md",
     "research/open-questions/WINSET_SELECTION.md"
+  ],
+  "known_corrected_defects": [
+    {
+      "defect": "claim SI collision from parsing C4 rather than terminal R####",
+      "detected_by": "independent claim exactness audit",
+      "corrected": true,
+      "post_fix_result": "74 unique claim SIs; 0 exactness/status/property-count mismatches"
+    }
   ]
 }
