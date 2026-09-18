@@ -1,6 +1,6 @@
 # ISOMETRIC branch
 
-**Branch:** `isometric`  
+**Branch:** `solver/isometric`  
 **Solver family:** Isometric  
 **Research direction / structural architecture:** Josh Oshiro
 
@@ -22,7 +22,7 @@ C4-0010 (`quotient-native-negamax`) remains useful lineage and conformance evide
 
 ## Migration rule
 
-- New Isometric work lands on `isometric`.
+- New Isometric work lands on `solver/isometric`.
 - `research/terminal-frontier-horizon-exact` and draft PR #45 are historical provenance only after this split.
 - Do not merge the Isometric experiment back into the Negamax lane merely to preserve its historical branch ancestry.
 - Preserve the experiment's valid code, research notes, qualification evidence, negative results, and exact checkpoints unless later assessment supersedes them.
