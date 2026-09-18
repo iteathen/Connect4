@@ -3,6 +3,8 @@
 **Disposition:** historical-only solver lineage  
 **Retired active branch:** `solver/hybrid-confluence`  
 **Final observed branch head before retirement:** `3bab0d8989ce8649b13e21bc320ea254c4a0a802`  
+**Retirement tombstone head:** `39e5df3aa3e1818acb1adcd1e6e2a69f02046c06`  
+**Physical ref status:** retirement-ready; pending deletion of `solver/hybrid-confluence`  
 **Successor composition lane:** `solver/sut`
 
 ## What this lineage was
