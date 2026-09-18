@@ -1,0 +1,93 @@
+name: Retire implementation cleanup host
+
+on:
+  push:
+    branches:
+      - cleanup/implementation-topology-20260917
+    paths:
+      - .github/workflows/retire-implementation-cleanup-host.yml
+
+permissions:
+  contents: write
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify cleanup and retire host branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          const [owner,repo]=process.env.REPOSITORY.split('/');
+          const branch=process.env.BRANCH;
+          const head=process.env.HEAD_SHA;
+          if(process.env.REPOSITORY!=='iteathen/Connect4') throw new Error('repository mismatch');
+          if(branch!=='cleanup/implementation-topology-20260917') throw new Error('unexpected host branch');
+          const api='https://api.github.com';
+          const headers={
+            Authorization:`Bearer ${process.env.GH_TOKEN}`,
+            Accept:'application/vnd.github+json',
+            'X-GitHub-Api-Version':'2022-11-28',
+            'Content-Type':'application/json'
+          };
+          const enc=s=>s.split('/').map(encodeURIComponent).join('/');
+          async function gh(path,{method='GET',body,ok=[200]}={}){
+            const r=await fetch(api+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});
+            const text=await r.text();
+            if(!ok.includes(r.status)) throw new Error(`${method} ${path} -> ${r.status}: ${text.slice(0,800)}`);
+            return text?JSON.parse(text):null;
+          }
+          async function tagTarget(tag){
+            try{
+              const r=await gh(`/repos/${owner}/${repo}/git/ref/tags/${enc(tag)}`);
+              if(r.object.type==='commit') return r.object.sha;
+              return (await gh(`/repos/${owner}/${repo}/git/tags/${r.object.sha}`)).object.sha;
+            }catch(e){
+              if(String(e).includes('-> 404:')) return null;
+              throw e;
+            }
+          }
+
+          const pr=await gh(`/repos/${owner}/${repo}/pulls/52`);
+          if(!pr.merged||pr.head.ref!==branch) throw new Error('topology PR not merged from cleanup host');
+
+          const branches=await gh(`/repos/${owner}/${repo}/branches?per_page=100`);
+          const names=new Set(branches.map(x=>x.name));
+          for(const n of names){
+            if(n.startsWith('work/')) throw new Error(`stale work ref remains: ${n}`);
+          }
+          for(const n of ['feature/cuda-bsfp','tmp-unused-should-not-create']){
+            if(names.has(n)) throw new Error(`stale ref remains: ${n}`);
+          }
+          for(const n of ['main','research/semantic-quotient','solver/minimax-alpha-beta','solver/cuda-bsfp','solver/hybrid-confluence','isometric','sut']){
+            if(!names.has(n)) throw new Error(`durable lane missing: ${n}`);
+          }
+
+          const implTags=await gh(`/repos/${owner}/${repo}/git/matching-refs/tags/archive/implementation-consolidation-2026-09/`);
+          if(implTags.length<15) throw new Error(`expected >=15 implementation archive tags, found ${implTags.length}`);
+          const tmpTag='archive/research-consolidation-2026-09/research-unified-knowledge-staging';
+          if(await tagTarget(tmpTag)!=='73edfac22f2fedfc4dc08ac584c608386d1797c4') throw new Error('tmp-unused archive alias missing');
+
+          const tag='archive/implementation-consolidation-2026-09/cleanup--implementation-topology-20260917';
+          const existing=await tagTarget(tag);
+          if(existing!==null&&existing!==head) throw new Error('cleanup archive tag points elsewhere');
+          if(existing===null){
+            const t=await gh(`/repos/${owner}/${repo}/git/tags`,{
+              method:'POST',ok:[201],
+              body:{tag,message:'Archive implementation topology cleanup host before branch retirement',object:head,type:'commit'}
+            });
+            await gh(`/repos/${owner}/${repo}/git/refs`,{
+              method:'POST',ok:[201],
+              body:{ref:`refs/tags/${tag}`,sha:t.sha}
+            });
+            if(await tagTarget(tag)!==head) throw new Error('cleanup archive tag verification failed');
+          }
+
+          await gh(`/repos/${owner}/${repo}/git/refs/heads/${enc(branch)}`,{method:'DELETE',ok:[204]});
+          console.log(`archived+deleted cleanup host ${branch} @ ${head}`);
+          NODE
