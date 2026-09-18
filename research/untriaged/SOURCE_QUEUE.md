@@ -1,38 +1,36 @@
 # Source normalization queue
 
-The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, and the derivative/predicate packet through C4-R0059.
+The provenance archive is lossless. The canonical graph now includes structural foundations, terminal-frontier rules, semantic quotient MQ1-MQ5, CPC/WSL/NDC/BSFP, strategic certificates, recovered Minimax composition evidence, BSFP representation/boundary algebra, the perfect-play win-set/structural-invariant packet through C4-R0056, the derivative/predicate packet through C4-R0059, realizability/strategy/guarded-lift claims through C4-R0069, and the structural-selection bridge through C4-R0072.
 
 Remaining work is classification of **meaning**, not file movement.
 
+## Active selection / realizability follow-up
+
+- C4-R0068 localizes the six-ply A/B witness to low-order certificate generation; C4-R0069 states the missing guarded controllable-predecessor law.
+- C4-R0070 identifies one-move purefollowup safe entry with singleton transversality of the consecutive K-window interval hypergraph for K>=4.
+- C4-R0071 proves unique safe entry and unique initial requirement-impact centrality coincide exactly at W=2K-1; for K=4, core balance then yields 7x6 and structural 28.
+- C4-R0072 normalizes the independent non-center safety results: every non-center first move on 7 x even-H Connect-4 has a constructive P1 safety certificate, and standard 7x6 has an independent local-product 69-line closure proof.
+- `research/maps/STRUCTURAL_SELECTION_MAP.md` now marks opening-location necessity closed while keeping positive center progress and optimal-delay preservation separate.
+- `research/open-questions/REALIZABILITY_COMPRESSION_AND_DYNAMIC_LIFT.md` owns the bounded A/B intervention-class derivation, fixed-width history factorization, and the remaining strong-play-28 semantic bridge.
+
 ## High priority remaining
 
-1. **Minimax candidate-map long tail** — normalize remaining historical mechanisms and signed interaction edges without collapsing mechanism/form/workload/order distinctions. C4-R0035 governs this pass.
-2. **A9 repair / role-generalization** — derive the missing guard/orientation law for the falsified legacy/even-ply responder form.
-3. **A4/A8 structural extraction** — express their safe sampled extra cover in solver-neutral relation primitives where possible.
-4. **BSFP remaining engineering long tail** — normalize dense-ID/grouping/device-chaining results while keeping kernel-only diagnostics solver-scoped.
-5. **Historical candidate/evaluator cleanup** — move obsolete implementation-specific findings to history only after surviving semantic content has stable claim IDs.
+1. **Positive center progress** — derive or falsify a center-opening P0 winning/value-preserving strategy from exact consequence predecessors without importing the solved root value. Reuse the existing fork-precursor, response-capacity, causal-deadline, support-seizure and guarded-composition theorems before introducing any new primitive.
+2. **Strong-play delay preservation** — derive or falsify a center-phase invariant carrying optimal P1 delay to the rank-5 center-stack extremum.
+3. **A/B consequence-relative intervention classes** — derive the first bounded controllable-predecessor slice after the shared d continuation and stop at the first missing dependency/resource/deadline fact.
+4. **Fixed-width history factorization** — exploit width-7 structure rather than searching for an all-width scalar formula ruled out by the constrained-shuffle boundary.
+5. **BSFP/minimax engineering and candidate-map long tail** — retain solver-specific ownership and do not let implementation evidence promote research status.
 
-## Derivative / predicate packet now normalized
+## Perfect-play distinctions retained
 
-- C4-R0057 records the exact Connect-K 2-adic derivative factorization and pure-derivative power-of-two classification.
-- C4-R0058 records the K=4 axis/mixed-derivative derivation of the two diagonal relations and keeps legal-response semantics outside the geometric theorem.
-- C4-R0059 records the exact seven-mode periodic annihilator/code representation of the regular incidence cokernel.
-- `research/open-questions/DERIVATIVE_SEMANTIC_LIFT.md` maps the source M1-M7 register into existing C4-R0011/R0017/R0018/R0043/R0052 gaps rather than creating a competing hierarchy.
-- The binary/operator-native selector/evaluator remains a falsifiable hypothesis; it has not been promoted to correctness authority.
-
-## Perfect-play packet now normalized
-
-- C4-R0047 defines the exact set-valued W/D/L output algebra `G(s)`.
-- C4-R0048 preserves the coarse W/D/L-only 61-line observation with its evidence limitation.
-- C4-R0049 records the independently qualified distance-sensitive 28-line census.
-- C4-R0050 separates the target-free structural common-core 28.
-- C4-R0051 records the searchless 38-to-28 rank-5 maximal-delay extremal theorem.
-- C4-R0052 names the still-missing semantic selection law.
-- C4-R0053 records the board-family structural classification isolating 7x6.
-- C4-R0054 fixes the 6x7 `30` semantics as a support upper bound pending exact census.
-- C4-R0055 preserves the 8x7 counterexample to a simple scalar selector.
-- C4-R0056 records the `2+20+6` incidence filtration showing that the two standard `28` objects are not identical.
+- C4-R0048: coarse W/D/L-only terminal union `61` is empirical and a different object.
+- C4-R0049: distance-sensitive terminal-line support `28` is a finite/oracle result.
+- C4-R0050: target-free structural core `28` is deductive exact.
+- C4-R0051: `38-10=28` rank-5 maximal-delay extremum is deductive geometry once the support is selected.
+- C4-R0052: semantic selection remains missing beyond the now-closed center-necessity subclaim.
+- C4-R0054: `6x7 -> 30` is a support/terminal-horizon upper bound, not either standard 28.
+- C4-R0055: 8x7 falsifies a simple scalar selector.
 
 ## Cleanup gate
 
-Do not delete source branches solely because their bytes are archived. A branch becomes retirement-safe only after its unique semantic claims, counterexamples, evidence and open questions have entries in the canonical graph or an explicit historical disposition.
+Do not delete source branches solely because their bytes are archived. A branch becomes retirement-safe only after its unique semantic claims, counterexamples, evidence and open questions have stable dispositions.

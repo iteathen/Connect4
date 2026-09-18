@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0068..C4-R0069",
+  "research_direction": "Josh Oshiro",
+  "claims": [
+    {
+      "id": "C4-R0068",
+      "title": "The six-ply A/B collision is a certificate-generation collision, not a full-residual identity collision",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For the standard 7x6 structural control A=[6,6,6,6,2,2] and B=[2,6,6,2,6,6] in zero-based columns, A and B have equal support [0,0,2,0,0,0,4], the same side to move and equal retained low-order degree-2 observations, but their complete positive residual antichains already differ. Exact mixed-owner cofactor substitution later exposes a low-order difference, and after the shared d-column continuation the structural replay still contains higher-order residual differences. Therefore this witness does not establish a missing board-state coordinate beyond exact support plus complete player-labelled residual content. It localizes the unresolved mechanism to deriving a guarded strategic certificate/consequence from already-present exact residual information.",
+      "scope": "Exact classification of the structural witness and its information loss. External solved W/D/L/action labels are validation/falsification controls only and are not premises. This claim does not prove either A or B game value, value-completeness of support plus residuals for all states, or completeness of the current certificate generator.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-ab-collision-controllable-predecessor.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "supports", "target": "C4-R0069"},
+        {"type": "constrains", "target": "C4-R0011"},
+        {"type": "constrains", "target": "C4-R0064"}
+      ]
+    },
+    {
+      "id": "C4-R0069",
+      "title": "Guarded cofactor obligation birth is an observation-relative controllable predecessor law",
+      "status": "missing_law",
+      "confidence_mode": "open",
+      "statement": "The active mixed-cofactor seam can be stated without adding a new Boolean consequence operator: from an exact structural observation alpha and an exact post-cofactor consequence state, derive CertifiedObligation only when there exists a controller certificate/response policy that is uniform over alpha-equivalent histories and, for every admissible opponent intervention before the relevant deadline, preserves an equivalent certified consequence or reaches an independently certified favorable terminal result, while respecting support, response-resource compatibility, precedence and first-win stopping. In bounded form the allowed opponent distinctions are the Skolem dependencies of C4-R0065. The unresolved task is to derive this controllable predecessor compactly from existing residual/cofactor, support, resource and deadline facts.",
+      "scope": "Open composition law, not a theorem of completeness and not a new state coordinate. Existing affine facts, monotone blocker clauses, terminal propositions and typed resource/deadline guards remain the only established consequence shapes; a genuinely new consequence type is warranted only if an exact instance cannot be represented by those shapes plus the stated quantified guard.",
+      "sources": [
+        "research/evidence/realizability/2026-09-16-ab-collision-controllable-predecessor.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0064"},
+        {"type": "derived_from", "target": "C4-R0065"},
+        {"type": "refines", "target": "C4-R0011"},
+        {"type": "constrained_by", "target": "C4-R0068"}
+      ]
+    }
+  ]
+}
