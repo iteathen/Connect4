@@ -135,6 +135,7 @@ Source: `isograph/discovery/2026-09-18-method-emergence/`.
 | GSP-005 | [Second-stage behavioral quotient after q](gameplay-strategy/GSP-005-BEHAVIORAL_QUOTIENT_AFTER_Q.md) | ROUGH_PROPOSAL | Tries to shrink q further while remaining executable | semantic-state minimization / automaton layer | exact behavior equivalence + maintainable update law | classify bounded q distinctions erased by MQ2 |
 | GSP-006 | [Profile-safe proof and cache keys](gameplay-strategy/GSP-006-PROFILE_SAFE_PROOF_AND_CACHE_KEYS.md) | ROUGH_PROPOSAL | Prevents q identity from over-authorizing proof/context reuse | TT/proof-store/cache contracts | negative controls with equal q but different proof context | define QKey/ProofKey/HintKey contracts |
 | GSP-007 | [Generic finite-gravity Connect-K q congruence](gameplay-strategy/GSP-007-GENERIC_CONNECT_K_Q_CONGRUENCE.md) | ROUGH_PROPOSAL | Tests whether q gameplay semantics generalize beyond 7x6 K=4 | generic Connect-K domain/profile | symbolic proof review + nonstandard-board controls | build qualification matrix and independent theorem review |
+| GSP-008 | [Support-local exact action-value frontier](gameplay-strategy/GSP-008-SUPPORT_LOCAL_ACTION_VALUE_FRONTIER.md) | ACTIVE_INVESTIGATION | Collapses exact move choice into support-local score-threshold antichain frontiers | shared Connect4 decision/value layer; consumed by IsoMax and BSFP | independent isotony proof + four-control reproduction + 7x6 frontier-growth test | qualify theorem and build bounded 7x6 frontier slice |
 
 ---
 
@@ -190,6 +191,23 @@ Tracked by:
 - GSP-005.
 
 A smaller partition is useful only if it remains constructible and exact.
+
+### D. Exact decision frontier
+
+The current best-move collapse candidate is:
+
+~~~text
+support-local residual favorable order
+    -> exact isotone action values
+    -> nested antichain score frontiers
+    -> exact argmax move
+~~~
+
+Tracked by:
+
+- GSP-008.
+
+Direct best-action regions are not monotone under the tested order; action-value frontiers are the exact object.
 
 ### D. Identity-safe runtime composition
 
