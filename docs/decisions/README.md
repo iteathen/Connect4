@@ -9,6 +9,7 @@ Current repository-organization decisions:
 - [`2026-09-17-closed-durable-lane-topology.md`](2026-09-17-closed-durable-lane-topology.md) — recognizes Isometric and SUT as additional peer solver families, closes the durable lane set, and makes temporary branch ownership/retirement explicit.
 - [`2026-09-17-solver-namespace-normalization.md`](2026-09-17-solver-namespace-normalization.md) — normalizes every durable solver-family head under `solver/*` while preserving Isometric and SUT ownership/history.
 - [`2026-09-17-single-research-owner.md`](2026-09-17-single-research-owner.md) — establishes `research/semantic-quotient` as the single owner of all Connect4 research and supersedes any solver-specific or multi-branch research routing.
+- [`2026-09-18-three-active-solver-topology.md`](2026-09-18-three-active-solver-topology.md) — retires Minimax and Hybrid Confluence as active solver families, keeps IsoMax and CUDA-BSFP active, and retains SUT as their future exact composition lane.
 
 A decision record should state:
 
