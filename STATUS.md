@@ -13,13 +13,25 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## Current logic representation authority
+
+Connect4 logic authority is now IsoGraph authority 1.0:
+
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md`
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.isg`
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json`
+
+Qualification and promotion are recorded in `research/isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_0.md` and `docs/decisions/2026-09-18-isograph-logic-authority.md`.
+
+The prior Markdown/JSON/spec/claim corpus is retained as a provenance/readability bridge. The exact qualified frozen source is embedded in the native IsoGraph source-image layer. Unknown and unresolved material remains explicitly represented; it is not treated as absent or false.
+
 ## Consolidated research-lane state
 
 On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
 
 The consolidation changes branch ownership/provenance only. It does not promote research claims, alter theorem dispositions, or make this branch a solver implementation head. Non-research solver/product branches remain outside this cleanup.
 
-Use `research/canonical/CLAIM_INDEX.json` as the normalized claim entrypoint and `research/provenance/SOURCE_MANIFEST.json` for lossless source provenance.
+Use `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md` as the logic entrypoint. `research/canonical/CLAIM_INDEX.json` is now a legacy claim-ID/readability bridge, while `research/provenance/SOURCE_MANIFEST.json` remains source provenance.
 
 ## Authority and proof boundary
 

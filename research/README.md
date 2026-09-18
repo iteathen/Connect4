@@ -8,19 +8,17 @@ Research direction: Josh Oshiro.
 
 ## Read this first
 
-Agents should normally read in this order:
+The qualified logic authority is IsoGraph. Read in this order:
 
-1. `canonical/CORE_MODEL.md` — the common conceptual model.
-2. `canonical/CLAIMS.md` — the complete human-readable claim ledger.
-3. `canonical/CLAIM_INDEX.json` — the authoritative machine-readable entrypoint. Read **every registry shard listed there**; no individual shard is complete by itself.
-4. `canonical/CROSS_LINEAGE_SYNTHESIS.md`, `maps/INVARIANT_CROSS_SYNTHESIS_METHOD.md`, and `maps/CORE_LOGIC_MAP.md` — how to connect historical campaigns, extract representation-independent invariants, and perform guarded cross-project synthesis.
-5. `maps/SOLVER_CONSUMPTION.md` — how solver families consume the shared research.
-6. `open-questions/README.md` and `hypotheses/README.md` — what is not yet established.
-7. `confidence/README.md` — evidence/confidence policy.
-8. `evidence/` — normalized claim-level evidence records.
-9. `provenance/` — exact historical source packets when an audit is needed.
+1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md` — current authority root.
+2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json` — immutable authority/evidence identities.
+3. `isograph/CONNECT4_LOGIC_PROFILE_0_1.md` and `isograph/CONNECT4_LOGIC_BUNDLE_0_1.isg` — corpus scope and native bundle.
+4. `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg` and `isograph/CONNECT4_LOGIC_UNCERTAINTY_0_1.isg` — normalized claims/status/guards/relations and unresolved structure.
+5. relevant native source/item shards when exact source reconstruction or occurrence topology is required.
+6. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
+7. `provenance/` when an audit or exact historical reconstruction requires it.
 
-Do not begin by reading provenance branch dumps unless auditing a claim. The canonical layer exists so an agent can absorb the related idea as a coherent whole rather than reconstruct it from branch history.
+The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
 
 ## Epistemic categories
 
@@ -43,7 +41,8 @@ A statement must be classified before it is used as authority:
 
 ## Directory roles
 
-- `canonical/` — current normalized model and claim registry.
+- `isograph/` — qualified current logic representation, authority manifests, native corpus, and qualification evidence.
+- `canonical/` — legacy normalized model/claim-registry bridge retained for readability and reconstruction.
 - `maps/` — relationships among claims and solver consumers.
 - `hypotheses/` — live unproved ideas worth testing.
 - `open-questions/` — missing laws and unresolved seams.
@@ -62,9 +61,9 @@ Temporary `experiment/*`, `work/*`, or other explicitly temporary branches may c
 
 Code should reference stable claim IDs such as `C4-R0004` where practical. A solver-specific optimization can consume a claim without changing its epistemic status.
 
-## Claim-registry rule
+## Claim-registry bridge rule
 
-`CLAIM_INDEX.json` is the registry root. Registry shards exist only to keep files bounded and reviewable. Claim identity is global across all shards, and agents must not treat `CLAIM_REGISTRY.json` or any extension shard as a complete database in isolation.
+The legacy `CLAIM_INDEX.json` and its shards preserve the pre-IsoGraph normalized claim database and remain useful bridge views. They are no longer the logical authority root. Stable `C4-R####` identities remain preserved in IsoGraph authority 1.0, and any authoritative change to a claim requires a successor qualified IsoGraph authority revision.
 
 ## Cleanup rule
 

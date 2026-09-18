@@ -1,7 +1,7 @@
 version: 1
-status: active
+status: active_derived_view
 branch: research/semantic-quotient
-updated: 2026-09-17
+updated: 2026-09-18
 
 attribution:
   research_direction_structural_architecture_invariant_first_program: Josh Oshiro
@@ -11,9 +11,12 @@ consolidation:
   canonical_branch: research/semantic-quotient
   structural_history_through: 5f376cc6915ff2285fec2d45a38b3a3cb6b65562
   unified_knowledge_attached_commit: ed71cbe95790d32517f52b2ab815b904516bf665
-  normalized_claim_root: research/canonical/CLAIM_INDEX.json
+  logic_authority_root: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md
+  logic_authority_manifest: research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json
+  legacy_claim_bridge: research/canonical/CLAIM_INDEX.json
   provenance_manifest: research/provenance/SOURCE_MANIFEST.json
   rule: branch_consolidation_does_not_change_claim_status_or_solver_ownership
+  authority_resolution_rule: qualified_isograph_authority_overrides_legacy_bridge_views
 
 task:
   id: derive_guarded_mixed_cofactor_obligation_birth
@@ -26,6 +29,8 @@ task:
 required_authority:
   - account-global iteathen/.github/AGENTS.md
   - AGENT_LOCAL.md
+  - research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md
+  - research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json
   - docs/specs/C4-0001-domain-v1.md
   - docs/specs/C4-0006-control-parity-and-winspace-v1.md
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
@@ -106,6 +111,10 @@ outcome_encoding:
 
 execution:
   cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
+  authority_publication_rule: >-
+    This file is an operational derived view. Any new durable logic, changed claim status, new theorem, falsifier,
+    missing law or research conclusion must be incorporated into a successor qualified IsoGraph authority revision;
+    editing this file or a legacy Markdown/JSON bridge does not itself change logic authority.
   proof_standard: >-
     Any unbounded board-family claim requires symbolic proof. Finite solved tables, constrained strategy solves,
     board sweeps and oracle data may falsify or guide discovery only.

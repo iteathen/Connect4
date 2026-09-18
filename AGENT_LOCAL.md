@@ -11,6 +11,18 @@ This branch owns the research corpus itself. Solver-local or historical paths na
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
+## Current logic authority — IsoGraph
+
+The qualified current representation of the Connect4 logic corpus is `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md` with native root `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.isg` and immutable manifest `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json`.
+
+This is representation authority, not a branch-ownership transfer. `research/semantic-quotient` remains the sole durable research owner; solver branches remain implementation owners.
+
+The pre-IsoGraph Markdown/JSON/spec/claim files are retained as provenance and readability/compatibility bridges. Their qualified frozen content is represented inside authority 1.0. A newer direct edit to a legacy view does not become logical authority unless incorporated into a newly qualified IsoGraph authority revision.
+
+Unknown and unresolved research remains authoritative as explicit unresolved structure. Do not silently convert `INCOMPLETE_SCOPE`, hypotheses, missing laws, candidate rules, or open questions into settled claims.
+
+See `docs/decisions/2026-09-18-isograph-logic-authority.md`.
+
 ## Current durable topology authority
 
 This branch is the **single canonical owner of all Connect4 research** under the owner-authorized closed topology in `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
@@ -35,7 +47,9 @@ Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thre
 
 ## Structural authority and local routing
 
-Acceptance status is part of authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
+Acceptance status is part of the qualified IsoGraph authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
+
+The legacy files listed below remain useful human-readable bridge views of the logic rendered into IsoGraph authority 1.0. They are not independent conflict-resolution authority after the 2026-09-18 promotion decision. If a bridge view appears to conflict with the IsoGraph authority, audit the exact native source image and qualification evidence rather than silently preferring the bridge file.
 
 - `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
