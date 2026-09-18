@@ -1,11 +1,19 @@
 # Connect4 current research status
 
-**Updated:** 2026-09-14  
-**Branch:** `research/frontier-negamax-conformance`  
+**Updated:** 2026-09-17  
+**Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
 This file is the current-state router, not a theorem ledger. Exact derivations and qualification evidence live in `docs/research/**`; the executable continuation lives in `next_step.yaml`; forward-lane controls live under `research/semantic-quotient/**`.
+
+## Consolidated research-lane state
+
+On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916` and the exact unified-knowledge trees were attached under `research/`. This branch now preserves both the active structural-calculus lineage and the normalized cross-lineage research knowledge base.
+
+The consolidation changes branch ownership/provenance only. It does not promote research claims, alter theorem dispositions, or make this branch a solver implementation head. Non-research solver/product branches remain outside this cleanup.
+
+Use `research/canonical/CLAIM_INDEX.json` as the normalized claim entrypoint and `research/provenance/SOURCE_MANIFEST.json` for lossless source provenance.
 
 ## Authority and proof boundary
 
