@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "finding": "citation_artifact_count_is_not_evidence_lineage_count",
+  "trigger_claim": "C4-R0044",
+  "normalized_evidence_policy": {
+    "evidence_readme_requires_independence": true,
+    "confidence_schema_has_independence_group": true,
+    "normalized_json_records_with_independence_group": 0,
+    "normalized_json_records_audited": 5
+  },
+  "claims_with_normalized_evidence_plus_other_sources": [
+    "C4-R0036",
+    "C4-R0037",
+    "C4-R0038",
+    "C4-R0039",
+    "C4-R0042",
+    "C4-R0044",
+    "C4-R0045",
+    "C4-R0060",
+    "C4-R0062",
+    "C4-R0063",
+    "C4-R0070",
+    "C4-R0071",
+    "C4-R0074"
+  ],
+  "c4_r0044": {
+    "citation_occurrences": 2,
+    "distinct_artifacts": 2,
+    "independent_lineages_observed": 1,
+    "normalized_artifact": "research/evidence/bsfp/representation-algebra.json",
+    "provenance_artifact": "research/provenance/source-archive/bsfp/docs-research/2026-09-11-oqs-cuda-residual-reuse.md",
+    "shared_lineage": {
+      "native_source": "5dfe1312a357c48eee53168e82fd6eba27814a06",
+      "q1_run": "20260911T050640911Z-b3554293",
+      "evidence_commit": "e99680503aae6e3d56e168437e4b1ffc5708b6c3"
+    }
+  },
+  "required_successor_roles": [
+    "citation_occurrence",
+    "artifact_identity",
+    "evidence_event",
+    "evidence_lineage",
+    "independence_group",
+    "reproduction_event",
+    "claim_support_relation",
+    "derived_or_summary_artifact_relation"
+  ]
+}
