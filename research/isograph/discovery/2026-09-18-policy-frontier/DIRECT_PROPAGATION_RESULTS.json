@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "campaign": "connect4-direct-frontier-propagation-2026-09-18",
+  "complete_controls": {
+    "deadline_clause_exhaustive": [
+      {
+        "geometry": "4x3:c3",
+        "states": 4631,
+        "records": 1555,
+        "max_frontier": 15,
+        "mismatches": 0,
+        "root_deadline": 9
+      },
+      {
+        "geometry": "4x4:c4",
+        "states": 134289,
+        "records": 2246,
+        "max_frontier": 13,
+        "mismatches": 0,
+        "root_p0_win": false
+      },
+      {
+        "geometry": "5x3:c4",
+        "states": 147563,
+        "records": 1946,
+        "max_frontier": 8,
+        "mismatches": 0,
+        "root_p0_win": false
+      }
+    ],
+    "deadline_clause_frontier_only": [
+      {
+        "geometry": "4x5:c4",
+        "records": 13446,
+        "max_frontier": 30,
+        "root_p0_win": false
+      },
+      {
+        "geometry": "5x4:c4",
+        "records": 41727,
+        "max_frontier": 53,
+        "root_p0_win": false
+      }
+    ],
+    "exact_cardinality_filtered": [
+      {
+        "geometry": "4x3:c3",
+        "records": 1370,
+        "max_frontier": 13,
+        "mismatches": 0
+      },
+      {
+        "geometry": "4x4:c4",
+        "records": 1620,
+        "max_frontier": 9,
+        "mismatches": 0
+      },
+      {
+        "geometry": "5x3:c4",
+        "records": 1448,
+        "max_frontier": 8,
+        "mismatches": 0
+      },
+      {
+        "geometry": "4x5:c4",
+        "records": 10822,
+        "max_frontier": 25
+      },
+      {
+        "geometry": "5x4:c4",
+        "records": 33814,
+        "max_frontier": 44
+      }
+    ]
+  },
+  "standard_7x6": {
+    "ownership_deadline": [
+      {
+        "rank": 40,
+        "records": 174,
+        "max_frontier": 9
+      },
+      {
+        "rank": 39,
+        "records": 64808,
+        "max_frontier": 3618
+      },
+      {
+        "rank": 38,
+        "records": 38336,
+        "max_frontier": 2162
+      }
+    ],
+    "q_projection": [
+      {
+        "rank": 40,
+        "ownership": 174,
+        "distinct_q": 54,
+        "q_pareto": 46,
+        "max_ownership": 9,
+        "max_q": 3,
+        "max_q_pareto": 2
+      },
+      {
+        "rank": 39,
+        "ownership": 64808,
+        "distinct_q": 626,
+        "q_pareto": 192,
+        "max_ownership": 3618,
+        "max_q": 12,
+        "max_q_pareto": 4
+      },
+      {
+        "rank": 38,
+        "ownership": 38336,
+        "distinct_q": 2740,
+        "q_pareto": 1039,
+        "max_ownership": 2162,
+        "max_q": 42,
+        "max_q_pareto": 10
+      }
+    ],
+    "clause_deadline": [
+      {
+        "rank": 40,
+        "records": 174,
+        "max_frontier": 9
+      },
+      {
+        "rank": 39,
+        "records": 1760,
+        "max_frontier": 53
+      },
+      {
+        "rank": 38,
+        "records": 3186,
+        "max_frontier": 58
+      },
+      {
+        "rank": 37,
+        "records": 33566,
+        "max_frontier": 403
+      },
+      {
+        "rank": 36,
+        "records": 50176,
+        "max_frontier": 321
+      }
+    ],
+    "rank35": {
+      "supports": 1709,
+      "disposition": "unclosed_distributed_universal_product_wall",
+      "pathological_examples": [
+        {
+          "support": [
+            5,
+            5,
+            5,
+            2,
+            6,
+            6,
+            6
+          ],
+          "move_widths": [
+            74,
+            170,
+            210,
+            217
+          ],
+          "naive_cartesian": 573270600
+        },
+        {
+          "support": [
+            5,
+            5,
+            2,
+            5,
+            6,
+            6,
+            6
+          ],
+          "move_widths": [
+            43,
+            89,
+            119,
+            129
+          ],
+          "naive_cartesian": 58748277
+        }
+      ],
+      "benign_example": {
+        "support": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "move_widths": [
+          12,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13
+        ]
+      }
+    }
+  },
+  "tested_reductions": [
+    "exact legal-cardinality filtering",
+    "smallest-frontier-first conjunction ordering",
+    "deadline-streaming Pareto product",
+    "multiway branch-and-bound Pareto product",
+    "root-center anchor conditioning",
+    "non-distributed monotone formula DAG",
+    "BigInt-key normalization without decimal-string round trips"
+  ],
+  "next_seam": "derive compact q/residual-level controllable predecessor from predecessor-closed clause carrier before universal proof alternatives are fully distributed",
+  "root_solved": false,
+  "authority_effect": "NO_FROZEN_AUTHORITY_MUTATION"
+}
