@@ -79,7 +79,7 @@ calculus                                      |
                                               +--> rolling ranks ------ C4-R0040
                                               +--> rejected no-sort --- C4-R0041
                                               +--> measured compute wall C4-R0045
-                                              +--> support-local clause theorem/qualification C4-R0073,R0074
+                                              +--> support-local clause theorem/qualification C4-R0073,C4-R0074
 ```
 
 ## Derivative boundary
@@ -126,4 +126,4 @@ This is why the exact dead-residual theorem survives a runtime-negative detector
 
 ## Current central gap
 
-The program has exact geometry, exact local terminal rules, strong bounded quotient evidence, strategic certificates, timing structure and several proof-compression mechanisms. The main missing bridge remains C4-R0011: a complete enough **guarded composition calculus** to turn these local relations into global game-theoretic consequences without silently reintroducing ordinary game-tree enumeration. R0043 gives that gap a concrete structural target: a realizability-preserving closure law over line-hit product state. R0073 closes one exact representation subproblem by proving support-local clause dictionaries are sufficient and predecessor-closed for the stated recurrence. R0074 independently qualifies the coverage/cofactor realization on complete bounded controls. Neither closes the full realizability/composition problem.
+The program has exact geometry, exact local terminal rules, strong bounded quotient evidence, strategic certificates, timing structure and several proof-compression mechanisms. The main missing bridge remains C4-R0011: a complete enough **guarded composition calculus** to turn these local relations into global game-theoretic consequences without silently reintroducing ordinary game-tree enumeration. R0043 gives that gap a concrete structural target: a realizability-preserving closure law over line-hit product state. R0073 closes one exact representation subproblem by proving support-local clause dictionaries are sufficient and predecessor-closed for the stated recurrence. C4-R0074 independently qualifies the coverage/cofactor realization on complete bounded controls. Neither closes the full realizability/composition problem.
