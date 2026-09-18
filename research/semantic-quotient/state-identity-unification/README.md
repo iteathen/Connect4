@@ -89,6 +89,39 @@ Keep three concepts separate:
 
 SIU-1 strengthens the hypothesis that semantic identity can be unified without requiring physical representation unification.
 
+## NEI interpretation
+
+The applied Connect4 NEI layer now makes the SIU identity claim explicit rather than using "semantic identity" informally.
+
+On the complete SIU-1 control domains:
+
+~~~text
+distinct physical states
+    may be NEI DISTINCT under physical-state identity
+
+while
+
+equal q
+    is NEI SAME under the bounded future-behavior identity profile
+~~~
+
+This is profile-relative identity, not a contradiction and not permission to rewrite physical-state provenance.
+
+For standard 7x6, the analogous same-`q` future-behavior identity claim remains:
+
+~~~text
+INCOMPLETE_UNQUALIFIED
+~~~
+
+not semantic NEI UNKNOWN.
+
+The NEI-enabled Discovery Protocol rerun refines the 7x6 closure target: either prove complete preservation of the declared future behavior, or exhibit a same-`q` pair differing in legal actions, terminal behavior, same-action successor `q`, strong/action score, or exact W/D/L.
+
+See:
+
+- `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md`.
+
 ## Current gaps
 
 ### Minimax hot-path economics
