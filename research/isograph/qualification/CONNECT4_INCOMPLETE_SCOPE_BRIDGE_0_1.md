@@ -1,6 +1,6 @@
 # Connect4 IsoGraph INCOMPLETE_SCOPE bridge 0.1
 
-**Status:** qualified local semantic bridge candidate pending deterministic verifier  
+**Status:** qualified local semantic bridge  
 **Scope:** frozen Connect4 IsoGraph candidate `82366fbf406dcab11f7926ee5a9487e538003cd3` only  
 **Frozen source:** `aea692af800f524569ea1c2fda722087cd9bca39`  
 **IsoGraph Core authority:** Draft 0.17 blob `fb47f8de1bd70d6f9fe1d4cf5181a52018ce8e04`  
@@ -92,6 +92,10 @@ Independent frozen cold reconstruction run `35366098631` additionally concluded:
 - no material omission, strengthening, or weakening was found.
 
 The cold decoder's separate C4-R0044 source-count transcription error is unrelated to this bridge and was independently adjudicated as a decoder-output error; the native C4-R0044 record is exact.
+
+## Qualification result
+
+Deterministic verifier workflow run `35367102877`, job `105672105515`, completed successfully on 2026-09-18. The verifier independently reconstructed all 27 records from the native corpus and reported `QUALIFIED_LOCAL_BRIDGE` with 8 claim records, 19 document records, zero rendering uncertainty, zero rendering limitations, and no broader QU roles.
 
 ## Qualification boundary
 
