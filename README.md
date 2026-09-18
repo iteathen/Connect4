@@ -15,6 +15,7 @@ Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fa
 - `AGENT_LOCAL.md` — repository ownership, authority, lane boundaries, and local constraints.
 - `STATUS.md` — current research state and proof boundary.
 - `next_step.yaml` — current executable research seam.
+- `research/GAMEPLAY_STRATEGY_INDEX.md` — living index of gameplay-facing strategies and implementation proposals derived from IsoGraph research.
 - `docs/research/RESEARCH_INDEX.md` — compact map of durable research notes, controls, negative results, and historical evidence.
 
 Dated research notes are evidence, not current-state authority. Solved databases and finite oracle/census results may validate or falsify structural candidates but do not prove unbounded theorems.
