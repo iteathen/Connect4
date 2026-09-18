@@ -187,6 +187,45 @@ This strongly supports the hypothesis that solver multiplicity was partly a repr
 
 The active guarded mixed-cofactor obligation seam remains valid; it is now interpreted as compact derivation of shortcut controllable-predecessor facts rather than creation of a separate solver semantics.
 
+## Exact best-move frontier discovery
+
+The follow-up campaign targeted the actual decision problem rather than solver recurrence:
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/CAMPAIGN.md`
+- `research/isograph/discovery/2026-09-18-policy-frontier/SUPPORT_LOCAL_ACTION_VALUE_ISOTONY.md`
+- `research/isograph/discovery/2026-09-18-policy-frontier/RESULTS.json`
+
+Current strongest result:
+
+~~~text
+fix support S and side p
+
+qA >=_p qB
+    when mover residual completion is no harder
+    and opponent residual completion is no easier
+
+candidate consequence:
+    exact state value and every fixed-action strong score are isotone
+~~~
+
+Complete-control adversarial evidence:
+
+~~~text
+comparable q pairs              6,300,753
+state W/D/L violations                  0
+state strong-distance violations         0
+
+comparable fixed-action pairs  18,076,405
+action W/D/L violations                 0
+action strong-distance violations        0
+~~~
+
+This yields exact support-local antichain frontiers for action-score thresholds. The direct predicate `column c is optimal` is not monotone and is rejected as the frontier object.
+
+Policy-collapse headroom is large: q/support-policy collapse ranges from 3.646x to 32.671x on the four controls, while transition-closed policy automata collapse only about 1.16x-1.34x. The useful object is therefore a decision/value relation evaluated on current structure, not a smaller q state machine.
+
+This is a derived theorem candidate and implementation lead; authority 1.1 remains unchanged.
+
 ## Gameplay strategy / implementation proposal lane
 
 The persistent index for turning IsoGraph findings into gameplay descriptions, solver strategies, and implementation experiments is:
