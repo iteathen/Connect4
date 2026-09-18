@@ -1,6 +1,6 @@
 # Connect4 current research status
 
-**Updated:** 2026-09-17  
+**Updated:** 2026-09-18  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
@@ -150,7 +150,7 @@ Conventional fixed-center, reversed-worker, history/killer, or scalar heuristic 
 - history-aware marked residual calculus after the qualified 21-space — preserved;
 - forward W/D/L rank-7 P1 horizon at exact state `4665655` — unfinished but preserved;
 - varying-board census — validation/falsification only;
-- isolated `research/connect-k-derivative-classification` branch — not merged; its predicate/axiom ledger is compatible with the current classification but does not solve the temporal guard seam.
+- former `research/connect-k-derivative-classification` work — retired from live topology; its durable predicate/axiom results are integrated into the canonical derivative claim registry and retained provenance, and they do not solve the temporal guard seam.
 
 ## Retention and cleanup rule
 
