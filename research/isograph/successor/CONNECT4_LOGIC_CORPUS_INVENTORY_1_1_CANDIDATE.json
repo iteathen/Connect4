@@ -3,30 +3,19 @@
   "candidate": "connect4-isograph-logic-1.1",
   "frozen_source_revision": "aea692af800f524569ea1c2fda722087cd9bca39",
   "authority_1_0_source_objects": 125,
-  "successor_candidate_objects": 266,
-  "newly_added_objects": 141,
+  "successor_candidate_objects": 371,
+  "newly_added_objects": 246,
   "role_counts": {
-    "current_policy_or_routing": 17,
-    "current_logic": 135,
-    "raw_evidence_or_provenance": 35,
-    "normalized_evidence": 9,
-    "implementation_qualification": 62,
+    "current_logic": 185,
+    "current_policy_or_routing": 19,
+    "implementation_qualification": 87,
+    "raw_evidence_or_provenance": 51,
+    "normalized_evidence": 21,
     "historical_only": 4,
     "source_native_unresolved_logic": 4
   },
   "unresolved_classifications": [],
   "entries": [
-    {
-      "path": "AGENTS.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "c5c97fa063fb50ea0920a52fb25c84d695e96c29",
-      "size": 134,
-      "role": "current_policy_or_routing",
-      "rationale": "current repository/research routing or taxonomy policy",
-      "in_authority_1_0_source_universe": false,
-      "in_authority_1_0_current_logic": false
-    },
     {
       "path": "AGENT_LOCAL.md",
       "exists_at_frozen_revision": true,
@@ -39,26 +28,59 @@
       "in_authority_1_0_current_logic": true
     },
     {
-      "path": "README.md",
+      "path": "AGENTS.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "43b0dc019a6946714df6f433ae79a749cb93c3df",
-      "size": 2403,
+      "sha": "c5c97fa063fb50ea0920a52fb25c84d695e96c29",
+      "size": 134,
       "role": "current_policy_or_routing",
       "rationale": "current repository/research routing or taxonomy policy",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "STATUS.md",
+      "path": "benchmarks/bsfp-performance.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "9094d66e670672524cb8372c868ebae8e45fc08a",
-      "size": 9931,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
+      "sha": "e70074ffaa4979fafc6291727c5916f488a4ae23",
+      "size": 5250,
+      "role": "implementation_qualification",
+      "rationale": "implementation artifact referenced by current logic/spec",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "benchmarks/incumbent.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "971edc14a9b24a1e9e3440093b712d995c9c9922",
+      "size": 8405,
+      "role": "implementation_qualification",
+      "rationale": "implementation artifact referenced by current logic/spec",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "components/bsfp/cuda/oqs-cofactor-42-program.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "429dc0ce1311b8ed582f156e2fe10c41984a197e",
+      "size": 8481,
+      "role": "implementation_qualification",
+      "rationale": "implementation artifact referenced by current logic/spec",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "components/oracle/exact7x6.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8908dba0fe84798b9bfc5b3d8e8875567a5ead54",
+      "size": 7337,
+      "role": "implementation_qualification",
+      "rationale": "implementation artifact referenced by current logic/spec",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
     },
     {
       "path": "docs/decisions/2026-09-17-closed-durable-lane-topology.md",
@@ -105,6 +127,28 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-09-bsfp-terminology-and-attribution.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "0c347afb0f0619e3197628b844e50895590f3a6d",
+      "size": 7242,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-09-native-winspace-candidate-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "a5107543f48d69c0cda772507cd48ac37ba5675b",
+      "size": 11993,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-09-nested-strategic-dependency-closure.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -127,6 +171,28 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-09-searchless-backward-candidate-update.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "63e7ccc899f8f4f4b2cce102054e843a29058c32",
+      "size": 5775,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-09-searchless-closure-test-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7429e7c36fff4f77b64dbc539439a073531caea3",
+      "size": 9399,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-09-searchless-solver-hypothesis.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -134,6 +200,39 @@
       "size": 6514,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-09-searchless-symbolic-backward-solver.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "25792f5dcc89d7fc0867b62999f979bcff6140a0",
+      "size": 10052,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-09-strategic-candidate-theory-state-proof.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "6d1b555ab9d33bf6aef12e7a4883c3988645423b",
+      "size": 44287,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-09-structural-candidate-retest.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "ba1df39978ffcafb6cedd39aa4de7ad5f621224d",
+      "size": 6443,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -149,6 +248,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-09-terminalization-candidate-audit.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "eb0990b85f6f7b0a23a0cc9b7a76529c5d23adbf",
+      "size": 13610,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-09-universal-strategic-algebra.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -160,6 +270,39 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-09-win-space-representation-discussion.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "9fed2a47407bb382c58e4ce33eb3dcfbfc9b99ac",
+      "size": 8834,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-09-winspace-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "78bec9947cf99911dab123f2a2dd1be733b2bb51",
+      "size": 12892,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-bsfp-antichain-performance.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "14421e5f2454dc4f43866db5764b1d01d1290349",
+      "size": 4482,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-10-bsfp-incremental-dominance-rejected.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -167,6 +310,39 @@
       "size": 2607,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-c3-diagnostic-implementation.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c5bef56e7eaaa3b7fc971b1562078441ef29f139",
+      "size": 5981,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-cardinality-bucketed-normalizer-candidate.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8671dc00a8056770a96c237e91bdea16dcc1a2c7",
+      "size": 4242,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-compact-cuda-vertical-slice.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7cf248ab48102654b0e542959eb3a4b1284b8f4a",
+      "size": 11734,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -193,6 +369,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-10-double-threat-absorber-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7c1f1560e7704f3c9519ddcc73e24dfe0f8b8819",
+      "size": 7504,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-10-identified-winline-quotient-exact-results.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -204,6 +391,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-10-identified-winline-quotient.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "977f00253ee6f0cbd5384da3fa0a9525cead2070",
+      "size": 14503,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-10-minimum-description-semantic-quotient.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -211,6 +409,17 @@
       "size": 19567,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-packed42-scaling-observation.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "261bcb1ab5fabd80c3dddc0aa537e7c3a175ac92",
+      "size": 2390,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -233,6 +442,61 @@
       "size": 7345,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-terminal-subtraction-specialization-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "015161af3813948a38e1fac67ddce8ac1fb4914a",
+      "size": 4304,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-winline-product-antichain-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "42bf7f6897a2944164cf0196133dcfdb55548532",
+      "size": 8985,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-zdd-fused-minjoin-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "dce93c2f3bb7facc9cac3bb9201ff784f0df6124",
+      "size": 5881,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-zdd-incidence-frontier-census-results.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "556c8cc6dd70228eb07811bd8d8e6be3d298ff7a",
+      "size": 4911,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-10-zdd-transfer-analysis-for-cuda-bsfp.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "814fe96cd1d25c8a52d32a35b99a767bab590e72",
+      "size": 21843,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -292,6 +556,116 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-12-board-depth-reservation.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "39944c2bc304809c08977a010126876674ca2d9a",
+      "size": 7204,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-changed-slot-class-hash.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "449880ef554339eee4e3bbe93a4466f8bd58d172",
+      "size": 6778,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-chunk-lookup-experiments.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "ed6884bfecc695d5216673485f646ec6fc4a3133",
+      "size": 5799,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-chunk-probe-distribution.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "2f10e271fd17e886bf73e7e21c395ac87bedb2b6",
+      "size": 5080,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-compact-chunk-index.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "aaaa856535f28dd6c94e6050ae76306f1ddc22a7",
+      "size": 5488,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-depth21-ranked-optimization.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5a2fea1083fb259b30708ab510f6ecd3c1bad55c",
+      "size": 6854,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-direct-residual-read.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "6df4e3a461651be013275df9dd264ee7cee1872b",
+      "size": 3317,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-direct-semantic-edge-reuse.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "2bacc20955e24e6d5ffee0bda48b5da4118a265c",
+      "size": 5759,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-frontier-audit-coverage.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "fd9ee5cb312433f19b2b820fa0d87df1bf5b472b",
+      "size": 32771,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-frontier-optimization-handoff-v2.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "07da8f70489ad7d12ca6f9fa183480c7aa1647a9",
+      "size": 11457,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-12-full-engine-sanity-audit.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -299,6 +673,39 @@
       "size": 75496,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-hot-loop-eval-terminal-report.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "d522c510f6981d216f33cfaf2a66d4bb92609c60",
+      "size": 12263,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-hot-method-cpu-assessment.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "0a946158ac71592e93b006c28258204758cebd69",
+      "size": 35048,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-incremental-response-closure.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8964ab88e16130058d7560a98a28e4b0d671d99f",
+      "size": 10714,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -314,6 +721,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/2026-09-12-line-cpu-profiling.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "d9a2db5f79ba9952095ff468b6cb209e24baa283",
+      "size": 3178,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/2026-09-12-native-key-integration.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -321,6 +739,39 @@
       "size": 8606,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-native-relational-key.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "ddd6476c90320f2fb59a80be7bbb95a410a675a0",
+      "size": 5949,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-negamax-methods-local-review.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "865d3b27830edfaf3289b9b4eaa01275f041acdf",
+      "size": 9832,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-original-engine-structural-lessons.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8b661bae2ddc65813baa10cc635cc9fe23e2ca79",
+      "size": 5988,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -343,6 +794,94 @@
       "size": 9112,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-preallocated-search-storage.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "92f5b8315a9d7b42022db55e5cd67a2cebaf0605",
+      "size": 6060,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-ranked-hot-loop-optimization.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "286755fea912ae614eaf4334421342b58dd0e63e",
+      "size": 7365,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-ranked-probe-refinement.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "a3060457d62406858590625e10e7ba59dd815b36",
+      "size": 6174,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-relational-address-investigation.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "107df0eac3a6f974ae6d155e85102202e9e9b87e",
+      "size": 8882,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-relational-duplication-review.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "aa8296927b4f6110e6d03dfd597f1db5d8c01adb",
+      "size": 7937,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-search-volume-structural-review.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c32ca0550519a2d756ee217e683993a18c7f7a24",
+      "size": 4720,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-state-hash-reuse.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c7649f15320197e72d13d8fba3f72025a51add70",
+      "size": 6200,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-12-state-retention-review.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "3bd58fb5e8dba0772f9a00595eb799e45e21d4e6",
+      "size": 7132,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -376,6 +915,28 @@
       "size": 10576,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-13-center-defect-edge-denial-amplification.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "dc95ec5337d8bd9355a6f83726ef3ff4e3846cde",
+      "size": 11272,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-13-center-defect-lift.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "03d2df2df341c97507e989518d2dfbd95841e506",
+      "size": 8099,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -420,6 +981,17 @@
       "size": 11153,
       "role": "current_logic",
       "rationale": "reachable from current RESEARCH_INDEX durable research routing",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/2026-09-13-five-diagonal-singleton-capacity.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "cb87b7c8eb775086f7962d9fc4a64c34510afe2a",
+      "size": 8300,
+      "role": "current_logic",
+      "rationale": "referenced by current specs/research foundation",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -809,6 +1381,138 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/evidence/2026-09-09-backward-winline-fixed-point.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "155fd05731411e5658fcf21c7eb053338494ef0c",
+      "size": 2781,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-searchless-dependency-shape-results.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "65cf04b30a4cee2f8d2ccbe87258b086e7dfcb29",
+      "size": 5559,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-searchless-symbolic-backward-solver.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "073ecaa88aa9118e0e858cfd6e66e8dfa89e8784",
+      "size": 2863,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-terminal-boundary-qualification.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b9ce297d447e2dd981140d707b73c22684486209",
+      "size": 5073,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-09-universal-blocker-unification.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "0151494e63eeace5f8cc8b65e64e3c2122611f11",
+      "size": 1473,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq1-strong-score.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8d3a928027b2b03bed7c3d35008afbdd839badd4",
+      "size": 3828,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq2-behavioral-partition.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1b38f1e9fc323fe990c4224e62fc0ef01c7be822",
+      "size": 5711,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq3-residual-sufficiency.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "86e65508290919f09ca07b41cbacef610291a221",
+      "size": 2880,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq4-residual-automaton.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "cbc7e9bb8aa96eaf68ea90ecd527cf8009c82076",
+      "size": 2415,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-center-response-serialization.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c51810365433752606d33a0c47beaa4ed7c928ef",
+      "size": 1434,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-early-blocker-union-non-discrimination.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "ce756bc01975bf273047bf7427122af76529228e",
+      "size": 1518,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-response-matroid-control.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "951473144b5cf9bb67f2bb5fb0be5e0a6030e147",
+      "size": 1326,
+      "role": "normalized_evidence",
+      "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/RESEARCH_INDEX.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1040,6 +1744,237 @@
       "in_authority_1_0_current_logic": true
     },
     {
+      "path": "README.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "43b0dc019a6946714df6f433ae79a749cb93c3df",
+      "size": 2403,
+      "role": "current_policy_or_routing",
+      "rationale": "current repository/research routing or taxonomy policy",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/conformance/evaluator-v1.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "87d94119b743009f60c86b728663d2f5f4000718",
+      "size": 7628,
+      "role": "implementation_qualification",
+      "rationale": "conformance authority/evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/conformance/legacy-selfplay-v1.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e913aeb99d576e57282eb5f51527ca2c5a0a3436",
+      "size": 3983,
+      "role": "implementation_qualification",
+      "rationale": "conformance authority/evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/conformance/search-v1.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "0d77a649c28ee29c521532d144b98ed03c75d7c8",
+      "size": 3110,
+      "role": "implementation_qualification",
+      "rationale": "conformance authority/evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/legacy-source/Connect4-engine-source.zip",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "03fb453b30bf9de6d62f18c2babf2e5696e84109",
+      "size": 13635,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "legacy source provenance",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/oracles/beginning-spotchecks-v1.meta.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e26f07a1389df455bd7bcc05ae732af24ed214ee",
+      "size": 1280,
+      "role": "implementation_qualification",
+      "rationale": "oracle evidence/metadata",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/oracles/solved-actions-v1.meta.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "ac9df8cc78dd310f593cd3ed0e928da5b1071e22",
+      "size": 1034,
+      "role": "implementation_qualification",
+      "rationale": "oracle evidence/metadata",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/oracles/solved-actions-v1.tsv",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e096faea3c8c62eabbf7bb0f8fc58d30287565b9",
+      "size": 10854,
+      "role": "implementation_qualification",
+      "rationale": "oracle evidence/metadata",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-low-confidence-survival/terminal_boundary_qualify.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "a4764b61a401f3984be9da6f07c48ba0b0cfd009",
+      "size": 9508,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-low-confidence-survival/terminal_known_fixture_qualify.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "52ad4ab95f60ef4049ac9a78a76eeb65079a0793",
+      "size": 4440,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-bsfp-terminal-specialization/measure-terminal-subtraction.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5257bd81e8b3a7e58c3c6b77c73516a06cf4004d",
+      "size": 9195,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-bsfp-winspace-inference/double-threat-absorber.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "73aa00715e9c18c155ca0791edfb1d20043619b5",
+      "size": 16168,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-identified-winline-quotient/product-antichain.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "432122ac5df13be012250901bba556b4504bf144",
+      "size": 13949,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-identified-winline-quotient/qualify.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b0ce62fb5590ce364d908452d4e6328aaf30de97",
+      "size": 19326,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-identified-winline-quotient/solve-quotient.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5e374a7e434ad75e50ae59cca12bed7b6a3d4587",
+      "size": 9907,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-zdd-transfer/frontier-width.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e79902c5cebe094e91829d82ef02514e2621d1c4",
+      "size": 7236,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-zdd-transfer/fused-minjoin.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "788cf6406a82feaff9135fcac255b694abcd2c9a",
+      "size": 22623,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-zdd-transfer/line-frontier-support-census.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5b8ea0557fc66118dde782bcf4e9065b98cdd812",
+      "size": 6857,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-zdd-transfer/monotone-closure-bdd.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8c24c9fb69b4c46a545adfdea6e77c074454ed9c",
+      "size": 13740,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-10-zdd-transfer/optimize-line-frontier-order.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "3cdffcb0381e95c5d05dc8aa5b306683e1daba34",
+      "size": 6500,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-13-perfect-play-winline/center_response_serialization.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b37041ad3e8d3f85ddb7ba3ba7d2250fb890df9d",
+      "size": 4246,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/AGENTS.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1051,110 +1986,11 @@
       "in_authority_1_0_current_logic": true
     },
     {
-      "path": "research/README.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "39d08df465359df1d5da9397bc85add53ba8855b",
-      "size": 5350,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "9e44d258f5c56626f6cde1b91620e2984cb6c4a7",
-      "size": 16600,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS_DERIVATIVE.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "97a586e24adb8d13bc1e411cbecb435ca9bc9e9d",
-      "size": 2801,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS_GUARDED_LIFT.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "4b5eb5456472ba7937b2a12686aec316ac7c26fb",
-      "size": 2800,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS_REALIZABILITY.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "3bd5e1584febd1a457ce8db01b5c26ff65b316f3",
-      "size": 3674,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS_SELECTION.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "1bdb2c5acb3e074abe841508f782236af44625c1",
-      "size": 3877,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS_STRATEGY.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "7ec2fb4fbd3ca91933363bd70bb330bf87fc3d06",
-      "size": 4202,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIMS_WINSET.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "d284cc67b2e89cf3a0e3d235d378b86d81f065c5",
-      "size": 4162,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
       "path": "research/canonical/CLAIM_INDEX.json",
       "exists_at_frozen_revision": true,
       "type": "blob",
       "sha": "326f805a4d595a9a88319515716ab0289ddfd26f",
       "size": 996,
-      "role": "current_logic",
-      "rationale": "authority 1.0 current-logic member",
-      "in_authority_1_0_source_universe": true,
-      "in_authority_1_0_current_logic": true
-    },
-    {
-      "path": "research/canonical/CLAIM_REGISTRY.json",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "2494b8a812313b4e4217f3fdf7954823fdffa266",
-      "size": 8930,
       "role": "current_logic",
       "rationale": "authority 1.0 current-logic member",
       "in_authority_1_0_source_universe": true,
@@ -1260,6 +2096,94 @@
       "in_authority_1_0_current_logic": true
     },
     {
+      "path": "research/canonical/CLAIM_REGISTRY.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "2494b8a812313b4e4217f3fdf7954823fdffa266",
+      "size": 8930,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS_DERIVATIVE.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "97a586e24adb8d13bc1e411cbecb435ca9bc9e9d",
+      "size": 2801,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS_GUARDED_LIFT.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "4b5eb5456472ba7937b2a12686aec316ac7c26fb",
+      "size": 2800,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS_REALIZABILITY.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "3bd5e1584febd1a457ce8db01b5c26ff65b316f3",
+      "size": 3674,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS_SELECTION.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1bdb2c5acb3e074abe841508f782236af44625c1",
+      "size": 3877,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS_STRATEGY.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7ec2fb4fbd3ca91933363bd70bb330bf87fc3d06",
+      "size": 4202,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS_WINSET.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "d284cc67b2e89cf3a0e3d235d378b86d81f065c5",
+      "size": 4162,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/canonical/CLAIMS.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "9e44d258f5c56626f6cde1b91620e2984cb6c4a7",
+      "size": 16600,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
       "path": "research/canonical/CORE_MODEL.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1326,13 +2250,13 @@
       "in_authority_1_0_current_logic": true
     },
     {
-      "path": "research/evidence/README.md",
+      "path": "research/evidence",
       "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "31a5fd5baca96272141b91f7366b349241ac04d5",
-      "size": 1062,
+      "type": "tree",
+      "sha": "5ac726e8fd9a2f4748bfb21b932fc466103c15f8",
+      "size": null,
       "role": "current_policy_or_routing",
-      "rationale": "current repository/research routing or taxonomy policy",
+      "rationale": "referenced directory/namespace owner",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -1392,6 +2316,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/evidence/README.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "31a5fd5baca96272141b91f7366b349241ac04d5",
+      "size": 1062,
+      "role": "current_policy_or_routing",
+      "rationale": "current repository/research routing or taxonomy policy",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/evidence/realizability/2026-09-16-ab-collision-controllable-predecessor.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1436,13 +2371,24 @@
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/experiments/README.md",
+      "path": "research/experiments/bsfp-clause-frontier/RESULT.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "5eb05ae373e3780eac929709dc77ae3d6c102230",
-      "size": 1283,
-      "role": "current_policy_or_routing",
-      "rationale": "current repository/research routing or taxonomy policy",
+      "sha": "60b72438973eda22bdcb4e1f510af3a4462ff265",
+      "size": 11366,
+      "role": "implementation_qualification",
+      "rationale": "referenced experiment result",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/experiments/bsfp-support-local-clause-coverage/reference-coverage-cofactor.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "74906847de99eb1318779550a5880c13448d22bd",
+      "size": 22974,
+      "role": "implementation_qualification",
+      "rationale": "active normalized experiment qualification",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -1458,33 +2404,11 @@
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/experiments/bsfp-support-local-clause-coverage/reference-coverage-cofactor.mjs",
+      "path": "research/experiments/README.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "74906847de99eb1318779550a5880c13448d22bd",
-      "size": 22974,
-      "role": "implementation_qualification",
-      "rationale": "active normalized experiment qualification",
-      "in_authority_1_0_source_universe": false,
-      "in_authority_1_0_current_logic": false
-    },
-    {
-      "path": "research/history/README.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "730e71a90e3d525eb2a89910ccb2160467faf257",
-      "size": 580,
-      "role": "current_policy_or_routing",
-      "rationale": "current repository/research routing or taxonomy policy",
-      "in_authority_1_0_source_universe": false,
-      "in_authority_1_0_current_logic": false
-    },
-    {
-      "path": "research/history/disproven/README.md",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "11d4c5a54f761f00a4d2d6edb7b0cfe908e05b0c",
-      "size": 310,
+      "sha": "5eb05ae373e3780eac929709dc77ae3d6c102230",
+      "size": 1283,
       "role": "current_policy_or_routing",
       "rationale": "current repository/research routing or taxonomy policy",
       "in_authority_1_0_source_universe": false,
@@ -1499,6 +2423,17 @@
       "role": "historical_only",
       "rationale": "current negative/superseded history taxonomy or retained result",
       "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/history/disproven/README.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "11d4c5a54f761f00a4d2d6edb7b0cfe908e05b0c",
+      "size": 310,
+      "role": "current_policy_or_routing",
+      "rationale": "current repository/research routing or taxonomy policy",
+      "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
@@ -1524,11 +2459,11 @@
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/history/rejected/README.md",
+      "path": "research/history/README.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "6a0d4efc3344ed51cd27fcfc902deaaf9315c821",
-      "size": 276,
+      "sha": "730e71a90e3d525eb2a89910ccb2160467faf257",
+      "size": 580,
       "role": "current_policy_or_routing",
       "rationale": "current repository/research routing or taxonomy policy",
       "in_authority_1_0_source_universe": false,
@@ -1543,6 +2478,17 @@
       "role": "historical_only",
       "rationale": "current negative/superseded history taxonomy or retained result",
       "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/history/rejected/README.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "6a0d4efc3344ed51cd27fcfc902deaaf9315c821",
+      "size": 276,
+      "role": "current_policy_or_routing",
+      "rationale": "current repository/research routing or taxonomy policy",
+      "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
@@ -1876,6 +2822,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/provenance/retirements/2026-09-18-bsfp-support-local-clause-coverage.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "04fbae533d91ef701b9d23ec83167529ec8572f4",
+      "size": 2491,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced provenance artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/provenance/SOURCE_MANIFEST.json",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -2151,6 +3108,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/provenance/source-archive/minimax-work-typed-a123/research/minimax/semantic-residual-mq5/run_wsl625_typed_a123_gate_repeated.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8cb3dabeb1504d95f12abb3be6eef2b69f4de689",
+      "size": 2579,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "referenced provenance artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/provenance/source-archive/perfect-play-winset/research/perfect-play-winset-dag.cpp",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -2195,13 +3163,24 @@
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/README.md",
+      "path": "research/README.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "08cce3d6538c18db14dc8e70189f671ce2564012",
-      "size": 1596,
+      "sha": "39d08df465359df1d5da9397bc85add53ba8855b",
+      "size": 5350,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "research/semantic-quotient",
+      "exists_at_frozen_revision": true,
+      "type": "tree",
+      "sha": "b3f9ebbe7ea11b23712262c02648eed7aa14f80c",
+      "size": null,
       "role": "current_policy_or_routing",
-      "rationale": "current repository/research routing or taxonomy policy",
+      "rationale": "referenced directory/namespace owner",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -2217,6 +3196,61 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/semantic-quotient/mq1-strong-score.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "76ef760b3de1cdd347338159ad6e04265f3e0452",
+      "size": 17215,
+      "role": "implementation_qualification",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/mq2-behavioral-partition.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "96c348555b33a60c866f0da2eedf87e8779d84a1",
+      "size": 16584,
+      "role": "implementation_qualification",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/mq3-residual-sufficiency.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5d5c5807edb1d54e0a4cf3c0ec3d3caf632f99af",
+      "size": 15910,
+      "role": "implementation_qualification",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/mq4-residual-automaton.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c6f8577fa36d9de2e3f704a4e99b86f59044c996",
+      "size": 18130,
+      "role": "implementation_qualification",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/README.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "08cce3d6538c18db14dc8e70189f671ce2564012",
+      "size": 1596,
+      "role": "current_policy_or_routing",
+      "rationale": "current repository/research routing or taxonomy policy",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/semantic-quotient/state-identity-unification/CHESS_RELATIONAL_QUOTIENT_RESEARCH_NOTES.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -2228,11 +3262,143 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-negamax-optimization-campaign.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "62f342eba5aa104b8803e95c25688028af255c25",
+      "size": 5555,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-best-child.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "55ed336eaec177dde3855b0a3776be3be0cbbebf",
+      "size": 2128,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-class-cache.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "da4f70c5e8f1639943bfa3a3ab2183958d8c5f3e",
+      "size": 1717,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-native-driver.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "570a8632b00cb44ddb9399291b2c93c0108708eb",
+      "size": 2447,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-native-negamax.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "af1771e229fc3310f1c0316654f90a124b0b107b",
+      "size": 4216,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-vs-physical-wdl.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "431295c31362200303b17264d1e3048938fdf7f2",
+      "size": 2502,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-search-method-campaign-v1.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "52265a23a94c58a08a5a3acf2eb36170ff5505f7",
+      "size": 6057,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c4e8007f7657fdc599ef4b39a734379dc053cda3",
+      "size": 4309,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-14-solved-db-independent-control.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "bd9c85e69fa808d0d30af9295866351fa2f76b04",
+      "size": 2222,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-14-solved-db-qualification.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "410540baf4fcfd0c5bbf342a1cf6cf9956629fe2",
+      "size": 3130,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-14-solved-db-structural-collisions.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1e3546a665933af7748c35dc1abd0d2ab795ac7b",
+      "size": 51648,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/semantic-quotient/state-identity-unification/FRONTIER_NEGAMAX_HIDDEN_ASSUMPTION_AUDIT.md",
       "exists_at_frozen_revision": true,
       "type": "blob",
       "sha": "13d408fa89418d318aad5aa6f1c6a0fef9ebcf6a",
       "size": 14695,
+      "role": "implementation_qualification",
+      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/manifest.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "a44dd51fc15ca708f181287ed572540169a5fa86",
+      "size": 8646,
       "role": "implementation_qualification",
       "rationale": "active semantic-quotient result/evidence/qualification surface",
       "in_authority_1_0_source_universe": false,
@@ -2778,134 +3944,101 @@
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-negamax-optimization-campaign.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-connect4-guarded-affine-clause-control.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "62f342eba5aa104b8803e95c25688028af255c25",
-      "size": 5555,
+      "sha": "34737c04998e905fae267ba72410852f5b718bc4",
+      "size": 5307,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-best-child.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-connect4-solved-db-structural-collision-audit.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "55ed336eaec177dde3855b0a3776be3be0cbbebf",
-      "size": 2128,
+      "sha": "0d44fe09859aee8eff682ecedd1d251dea79c54d",
+      "size": 10299,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-class-cache.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "da4f70c5e8f1639943bfa3a3ab2183958d8c5f3e",
-      "size": 1717,
+      "sha": "85deef6b6bf15399a0acd30310ade8bccf3773a1",
+      "size": 15488,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-native-driver.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "570a8632b00cb44ddb9399291b2c93c0108708eb",
-      "size": 2447,
+      "sha": "fce2b8c4cad9aeac6f9c24b3949b7491701735df",
+      "size": 6279,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-native-negamax.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-solved-bdd-source.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "af1771e229fc3310f1c0316654f90a124b0b107b",
-      "size": 4216,
+      "sha": "a7a1cc82a1b32df97d1ff897528769397a5b39c4",
+      "size": 4075,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-quotient-vs-physical-wdl.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-solved-db-independent-control.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "431295c31362200303b17264d1e3048938fdf7f2",
-      "size": 2502,
+      "sha": "9e0dde92e68582082edcab3e8ff06a6e7ac26f4c",
+      "size": 4567,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-search-method-campaign-v1.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "52265a23a94c58a08a5a3acf2eb36170ff5505f7",
-      "size": 6057,
+      "sha": "d26bc98ee311135736dac69a5c4f016afe62b5e5",
+      "size": 12273,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery-signature.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "c4e8007f7657fdc599ef4b39a734379dc053cda3",
-      "size": 4309,
+      "sha": "f8c7d069c3ac50c70c525855655c48fbb991bbed",
+      "size": 6168,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-14-solved-db-independent-control.json",
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery.test.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
-      "sha": "bd9c85e69fa808d0d30af9295866351fa2f76b04",
-      "size": 2222,
+      "sha": "eadba66fa3cd348bd6c42ba7222c33323c927c2f",
+      "size": 4924,
       "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
-      "in_authority_1_0_source_universe": false,
-      "in_authority_1_0_current_logic": false
-    },
-    {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-14-solved-db-qualification.json",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "410540baf4fcfd0c5bbf342a1cf6cf9956629fe2",
-      "size": 3130,
-      "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
-      "in_authority_1_0_source_universe": false,
-      "in_authority_1_0_current_logic": false
-    },
-    {
-      "path": "research/semantic-quotient/state-identity-unification/evidence/2026-09-14-solved-db-structural-collisions.json",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "1e3546a665933af7748c35dc1abd0d2ab795ac7b",
-      "size": 51648,
-      "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
-      "in_authority_1_0_source_universe": false,
-      "in_authority_1_0_current_logic": false
-    },
-    {
-      "path": "research/semantic-quotient/state-identity-unification/manifest.json",
-      "exists_at_frozen_revision": true,
-      "type": "blob",
-      "sha": "a44dd51fc15ca708f181287ed572540169a5fa86",
-      "size": 8646,
-      "role": "implementation_qualification",
-      "rationale": "active semantic-quotient result/evidence/qualification surface",
+      "rationale": "referenced semantic-quotient qualification/implementation artifact",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -2941,6 +4074,38 @@
       "rationale": "current repository/research routing or taxonomy policy",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "STATUS.md",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "9094d66e670672524cb8372c868ebae8e45fc08a",
+      "size": 9931,
+      "role": "current_logic",
+      "rationale": "authority 1.0 current-logic member",
+      "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": true
+    },
+    {
+      "path": "tools/cuda-bsfp-qualifier.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "76688e3a531989b90e0fdcfda6b38b4a7db0112c",
+      "size": 12615,
+      "role": "implementation_qualification",
+      "rationale": "implementation artifact referenced by current logic/spec",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    }
+  ],
+  "closure_passes": [
+    {
+      "pass": 1,
+      "workflow_run": 35369640832,
+      "job": 105680292400,
+      "reference_edges": 455,
+      "missing_dependency_targets": 105,
+      "added_targets": 105
     }
   ]
 }
