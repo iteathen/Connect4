@@ -1,0 +1,49 @@
+name: Remove stray research archive branch
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - .github/workflows/remove-stray-research-archive-branch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Delete redundant archive branch after tag verification
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          node --input-type=module <<'NODE'
+          const [owner,repo]=process.env.REPOSITORY.split('/');
+          const api='https://api.github.com';
+          const headers={
+            Authorization:`Bearer ${process.env.GH_TOKEN}`,
+            Accept:'application/vnd.github+json',
+            'X-GitHub-Api-Version':'2022-11-28',
+            'Content-Type':'application/json'
+          };
+          const branch='archive/research-consolidation-2026-09/experiment--bsfp-support-local-clause-coverage';
+          const tag='archive/research-consolidation-2026-09/experiment--bsfp-support-local-clause-coverage';
+          const expected='2082c1d3c82c3426d1d199fd960b37cddab7fe79';
+          const enc=s=>s.split('/').map(encodeURIComponent).join('/');
+          async function gh(path,{method='GET',ok=[200]}={}){
+            const r=await fetch(api+path,{method,headers});
+            const text=await r.text();
+            if(!ok.includes(r.status)) throw new Error(`${method} ${path} -> ${r.status}: ${text.slice(0,500)}`);
+            return text?JSON.parse(text):null;
+          }
+          const br=await gh(`/repos/${owner}/${repo}/git/ref/heads/${enc(branch)}`);
+          if(br.object.sha!==expected) throw new Error('archive branch moved');
+          const tr=await gh(`/repos/${owner}/${repo}/git/ref/tags/${enc(tag)}`);
+          const td=await gh(`/repos/${owner}/${repo}/git/tags/${tr.object.sha}`);
+          if(td.object.sha!==expected) throw new Error('archive tag target mismatch');
+          await gh(`/repos/${owner}/${repo}/git/refs/heads/${enc(branch)}`,{method:'DELETE',ok:[204]});
+          console.log(`deleted redundant archive branch ${branch} @ ${expected}`);
+          NODE
