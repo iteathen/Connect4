@@ -1,6 +1,6 @@
 # Connect4 SUT Status
 
-**Updated:** 2026-09-17  
+**Updated:** 2026-09-18  
 **Branch:** `solver/sut`  
 **Solver family:** SUT (`S ∪ T`)  
 **State:** early directional lineage; no established architecture or implementation contract yet
