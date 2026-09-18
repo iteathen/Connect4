@@ -187,6 +187,13 @@
               "object",
               "null"
             ]
+          },
+          "nei_applicability": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ]
           }
         },
         "additionalProperties": true
@@ -207,7 +214,31 @@
         "array",
         "null"
       ]
+    },
+    "nei_layer": {
+      "type": "object"
     }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "nei_layer"
+        ]
+      },
+      "then": {
+        "properties": {
+          "runs": {
+            "type": "array",
+            "items": {
+              "required": [
+                "nei_applicability"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
 }
