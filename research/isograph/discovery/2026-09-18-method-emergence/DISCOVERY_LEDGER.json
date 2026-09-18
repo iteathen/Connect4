@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "campaign_id": "connect4-method-emergence-2026-09-18",
+  "authority_base": "connect4-isograph-logic-1.1",
+  "post_authority_inputs": [
+    "standard-7x6-q-congruence-deductive-candidate"
+  ],
+  "starting_head": "f072859e2c6f0c299593ef4894d0ded6e5e8710c",
+  "nei_applicability": {
+    "status": "GUARD_ONLY",
+    "reason": "Identity profiles constrain q/proof reuse, but method emergence is primarily a layer/closure question."
+  },
+  "observations": {
+    "canonical_claims": 74,
+    "claims_consumed_by_3_solver_labels": 35,
+    "claims_consumed_by_2_solver_labels": 27,
+    "claims_consumed_by_1_solver_label": 11,
+    "method_core_claims": 18,
+    "method_core_claims_consumed_by_at_least_2_solver_labels": 17,
+    "consumer_erasure_disconnects_core": false
+  },
+  "leads": [
+    {
+      "id": "ME-01",
+      "name": "solver-consumer labels are not semantic topology",
+      "protocols": [
+        "DP-10",
+        "DP-11",
+        "DP-36"
+      ],
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "statement": "Removing consumed_by solver labels leaves the operational/proof claim topology connected; solver names act primarily as consumer/provenance metadata at this layer.",
+      "falsifier": "A load-bearing semantic path required solely a solver-consumer edge.",
+      "falsifier_result": "NOT_FOUND",
+      "authority_effect": "NONE"
+    },
+    {
+      "id": "ME-02",
+      "name": "ranked alternating ordinary WDL recurrence",
+      "protocols": [
+        "DP-23",
+        "DP-37"
+      ],
+      "disposition": "STRUCTURE_ESTABLISHED_FOR_EXACT_BEHAVIOR_CARRIER",
+      "statement": "Exact behavior state + legal transition + terminal boundary + alternating player quantification + strictly increasing occupied-cell rank induces a unique exact WDL value recurrence by backward induction.",
+      "supporting_claims": [
+        "C4-R0008",
+        "C4-R0021",
+        "C4-R0025",
+        "C4-R0026",
+        "C4-R0047",
+        "C4-R0065",
+        "C4-R0069"
+      ],
+      "scope_note": "Standard-7x6 q is a newer deductive candidate, not yet frozen authority.",
+      "authority_effect": "NONE"
+    },
+    {
+      "id": "ME-03",
+      "name": "state-evolution orientation versus value-dependency orientation",
+      "protocols": [
+        "DP-10",
+        "DP-23",
+        "DP-36"
+      ],
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "statement": "The legal state edge points q_r->q_(r+1), while exact value dependency points V(q_(r+1))->V(q_r). IsoMax forward child discovery and BSFP backward predecessor propagation operate on different layers of this same relation.",
+      "falsifier": "Show different exact WDL dependency semantics between the active solvers rather than different discovery/evaluation schedules.",
+      "falsifier_result": "NOT_FOUND",
+      "authority_effect": "NONE"
+    },
+    {
+      "id": "ME-04",
+      "name": "solver differentiation is primarily evaluation/materialization policy",
+      "protocols": [
+        "DP-10",
+        "DP-11",
+        "DP-25"
+      ],
+      "disposition": "SUPPORTED_CANDIDATE",
+      "statement": "IsoMax is demand-driven evaluation of unresolved dependencies with theorem shortcuts; BSFP is supply-driven symbolic predecessor/value-family evaluation. Both implement the same ordinary WDL relation when exact.",
+      "residual": "Implementation forms and stronger proof-context handling remain solver-specific.",
+      "authority_effect": "NONE"
+    },
+    {
+      "id": "ME-05",
+      "name": "antichain and clause frontiers are representation layer",
+      "protocols": [
+        "DP-23",
+        "DP-36",
+        "DP-37"
+      ],
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "statement": "Ownership antichains, line-product antichains, terminal-subtraction frontiers and support-local clause dictionaries are exact/qualified representations of semantic families and transforms, not separate game-value semantics.",
+      "supporting_claims": [
+        "C4-R0042",
+        "C4-R0046",
+        "C4-R0073",
+        "C4-R0074"
+      ],
+      "authority_effect": "NONE"
+    },
+    {
+      "id": "ME-06",
+      "name": "guarded structural calculus is shortcut proof topology",
+      "protocols": [
+        "DP-10",
+        "DP-25",
+        "DP-37"
+      ],
+      "disposition": "SUPPORTED_CANDIDATE",
+      "statement": "NDC/certificates can be interpreted as sound shortcut edges deriving the same exact consequences that ordinary transition dependencies would establish, subject to explicit guards.",
+      "supporting_claims": [
+        "C4-R0018",
+        "C4-R0064",
+        "C4-R0065",
+        "C4-R0069"
+      ],
+      "residual": "Complete compact guarded-obligation closure remains unresolved.",
+      "authority_effect": "NONE"
+    },
+    {
+      "id": "ME-07",
+      "name": "SUT as meeting evaluation fronts over one dependency relation",
+      "protocols": [
+        "DP-10",
+        "DP-11",
+        "DP-25"
+      ],
+      "disposition": "LEAD",
+      "statement": "A future SUT may be naturally modeled as root-demand and terminal-supply evaluation fronts sharing exact value/proof facts over one Connect4 dependency topology, rather than as a semantic weld between two different games.",
+      "guards": [
+        "ordinary gameplay identity must be exact",
+        "stronger proof context remains profile-safe",
+        "parent solver private representations are not semantic authority"
+      ],
+      "falsifier": "A required cross-solver exact fact cannot be expressed on shared Connect4 value/proof topology without importing private solver semantics.",
+      "authority_effect": "NONE"
+    }
+  ],
+  "optimization_leads": [
+    "compile forward transition and backward predecessor views from one exact cofactor relation",
+    "collapse distinctions before materialization when the next exact projection erases them",
+    "separate state discovery from value propagation",
+    "use rank induction for ordinary progression and fixed-point iteration only for genuine closure cycles",
+    "compile qualified certificates as shortcut proof edges",
+    "publish exact value/proof facts by semantic identity profile rather than private representation"
+  ],
+  "authority_effect": "NO_FROZEN_AUTHORITY_MUTATION"
+}
