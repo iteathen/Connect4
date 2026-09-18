@@ -3,6 +3,24 @@
 **Status:** rough proposal  
 **Purpose:** make the exact future-relevant game description explicit at the boundary between IsoGraph research semantics and executable gameplay.
 
+## Human-facing companion
+
+Read `../GAMEPLAY_DESCRIPTION_FOR_HUMANS.md` for:
+
+- novice-level gameplay language;
+- the full classical logic proof that equal q implies equal ordinary future gameplay;
+- the mapping back into IsoGraph/NEI terminology.
+
+This proposal intentionally keeps all three views available:
+
+~~~text
+novice gameplay description
+classical mathematical proof
+IsoGraph / NEI representation
+~~~
+
+They must continue to agree semantically as the implementation evolves.
+
 ## Proposal
 
 For ordinary legal Connect Four play, treat the gameplay description consumed by exact solvers as:
