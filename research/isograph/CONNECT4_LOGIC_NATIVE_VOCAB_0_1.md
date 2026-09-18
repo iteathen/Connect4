@@ -85,6 +85,13 @@ This companion documents the stable-label roles used by the native `.isg` corpus
 | ^97073 | corpus inclusion rule |
 | ^97074 | current-logic source set |
 | ^97075 | canonical-claim source dependency set |
+| ^97076 | generic claim property record |
+| ^97077 | property-name bytes |
+| ^97078 | property-value canonical JSON bytes |
+| ^97079 | relation target canonical-claim SI |
+| ^97080 | source URL/external reference bytes |
+| ^97081 | source-native QU qualification limitation |
+| ^97082 | rendering-created QU qualification limitation |
 
 Text-bearing fields are encoded as ordered incidences of exact UTF-8 byte literals. They are source-faithful payloads, not alpha-renamable labels.
 
