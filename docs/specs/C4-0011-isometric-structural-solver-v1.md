@@ -175,8 +175,8 @@ These controls qualify the implemented standard-board semantics they exercise. T
 
 ## Ownership and migration
 
-The root branch `isometric` is the active branch for this solver family.
+The branch `solver/isometric` is the active branch for this solver family.
 
-`research/terminal-frontier-horizon-exact` and draft PR #45 are retained only as historical provenance for the pre-split experiment. New Isometric/IsoMax semantics, implementation, experiments, qualification evidence, and current-state routing belong on `isometric` unless a later explicit ownership decision says otherwise.
+`research/terminal-frontier-horizon-exact` and draft PR #45 are retained only as historical provenance for the pre-split experiment. New Isometric/IsoMax semantics, implementation, experiments, qualification evidence, and current-state routing belong on `solver/isometric` unless a later explicit ownership decision says otherwise.
 
 This repository is pre-alpha. No compatibility adapter, parallel legacy Isometric state, migration wrapper, or evaluator fallback is required merely to preserve the superseded inherited implementation path.
