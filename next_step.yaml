@@ -12,6 +12,8 @@ authority:
   cuda_profile: docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md
   p2_profile: docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md
   qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
+  canonical_research_branch: research/semantic-quotient
+  research_ownership: docs/decisions/2026-09-17-single-research-owner.md
 
 product_goal:
   geometry: 7x6_connect4
@@ -56,9 +58,10 @@ qualification:
     - 4x3_c3_full_frontiers_exact
     - 4x4_c4_full_frontiers_exact
     - 5x5_c4_full_frontiers_exact
-  evidence:
+  implementation_qualification_packets:
     - research/cuda-bsfp/2026-09-16-p2-sanity
     - research/cuda-bsfp/2026-09-16-issues
+  note: local_research_named_paths_are_implementation_provenance_not_research_authority
   seven_by_six:
     crossed_old_1024_record_boundary: true
     outcome: clean_timeout
@@ -91,7 +94,8 @@ next_actions:
   - preserve_oqs_dense_id_and_layer_chaining_as_independent_valid_track
   - rerun_bounded_7x6_only_when_code_dependency_or_hypothesis_changes_materially
 
-separate_research:
+canonical_research_dependencies:
+  owner: research/semantic-quotient
   clause_legal_slice_coverage:
     status: not_substituted_into_p2
     reason: different_representation_and_qualification_domain
@@ -101,6 +105,8 @@ separate_research:
     status: retained_control
 
 constraints:
+  - all_durable_research_routes_to_research_semantic_quotient
+  - no_solver_local_research_authority
   - no_silent_frontier_or_candidate_truncation
   - no_hash_only_semantic_equality
   - no_full_colored_state_table_for_7x6
