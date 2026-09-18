@@ -14,8 +14,8 @@
 | Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | first-class solver head |
 | CUDA-BSFP | `solver/cuda-bsfp` | backward symbolic fixed-point implementation and qualification | first-class solver head |
 | Hybrid confluence | `solver/hybrid-confluence` | exact hybrid-confluence implementation and qualification | first-class solver head |
-| Isometric | `isometric` | structural-calculus / frontier-exact solver implementation | first-class solver head |
-| SUT | `sut` | SUT (`S ∪ T`) solver lineage | first-class solver head; intentionally early-stage |
+| Isometric | `solver/isometric` | structural-calculus / frontier-exact solver implementation | first-class solver head |
+| SUT | `solver/sut` | SUT (`S ∪ T`) solver lineage | first-class solver head; intentionally early-stage |
 
 This durable set is closed. Agents may not invent another durable lane or promote a temporary branch into a continuity owner without explicit owner instruction and an updated repository-organization decision.
 
@@ -41,7 +41,7 @@ Temporary `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, hand
 
 A temporary branch is retired after its useful implementation, research, evidence, negative results and provenance are integrated into the owner lane or preserved by an immutable archive. Accumulating commits does not make a temporary branch authoritative.
 
-See `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
+See `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
 
 ## Cross-lane flow
 
@@ -73,11 +73,11 @@ C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain prote
 
 ### Isometric
 
-`isometric` owns the structural-calculus / frontier-exact solver family governed by its branch-local routing and C4-0011. Historical terminal-frontier experiment branches are provenance, not continuity owners.
+`solver/isometric` owns the structural-calculus / frontier-exact solver family governed by its branch-local routing and C4-0011. Historical terminal-frontier experiment branches are provenance, not continuity owners.
 
 ### SUT
 
-`sut` owns the distinct SUT (`S ∪ T`) solver lineage. It is intentionally early-stage and currently carries a direction sketch rather than an established architecture or performance claim. SUT is not a rename of Hybrid Confluence, Isometric or BSFP.
+`solver/sut` owns the distinct SUT (`S ∪ T`) solver lineage. It is intentionally early-stage and currently carries a direction sketch rather than an established architecture or performance claim. SUT is not a rename of Hybrid Confluence, Isometric or BSFP.
 
 ## Repository restructuring state
 
