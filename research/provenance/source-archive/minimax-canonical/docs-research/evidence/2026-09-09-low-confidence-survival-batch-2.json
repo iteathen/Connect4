@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-09",
+  "branch": "research/low-confidence-survival-2026-09-09",
+  "language": "Node.js/JavaScript only",
+  "support_event_equivalence": {
+    "representation": "minimal residual requirements + exact move rank/side + per-active-column gap to next residual event + pooled capacity of columns with no future residual event",
+    "qualification": "exhaustive reachable nonterminal physical states; compare exact distance-sensitive value and unique semantic successor set for every pair merged by the event key",
+    "profiles": [
+      {"profile":"4x3c3","physical_states":4659,"residual_height_states":3735,"event_states":3670,"event_reduction_vs_residual_height_pct":1.7402945113788482,"value_mismatches":0,"successor_mismatches":0,"max_equivalence_group":28},
+      {"profile":"4x4c4","physical_states":139625,"residual_height_states":34095,"event_states":32921,"event_reduction_vs_residual_height_pct":3.4433201349171383,"value_mismatches":0,"successor_mismatches":0,"max_equivalence_group":7290},
+      {"profile":"5x3c4","physical_states":152003,"residual_height_states":11317,"event_states":10336,"event_reduction_vs_residual_height_pct":8.668375011045326,"value_mismatches":0,"successor_mismatches":0,"max_equivalence_group":11166},
+      {"profile":"4x5c4","physical_states":1385521,"residual_height_states":294593,"event_states":290162,"event_reduction_vs_residual_height_pct":1.5041090589389405,"value_mismatches":0,"successor_mismatches":0,"max_equivalence_group":53534}
+    ],
+    "interpretation": "The event-support quotient is exact on all four complete tested games and strictly coarser than residual requirements plus full column heights. Permanently dead column tails can be pooled without changing the semantic successor graph in these exhaustive games. This is semantic evidence, not a hot-kernel timing result."
+  },
+  "e3_root_asymmetry_rank": {
+    "cohort": "36 deterministic nontrivial P0-to-move 7x6 decision roots, plies 20..30, no immediate P0 win and no immediate P1 threat; exact child values from residual exact solver",
+    "parent_exact_nodes": 40246,
+    "child_exact_nodes": 150124,
+    "metrics": {
+      "legacy_asym_065": {"top1_rate":0.5555555555555556,"mean_best_rank":1.9166666666666667,"pair_accuracy":0.7103064066852368},
+      "symmetric_score0_minus_score1": {"top1_rate":0.5555555555555556,"mean_best_rank":1.8611111111111112,"pair_accuracy":0.7420289855072464},
+      "own_score_only": {"top1_rate":0.5,"mean_best_rank":2.0277777777777777,"pair_accuracy":0.617737003058104},
+      "opponent_negative_only": {"top1_rate":0.5277777777777778,"mean_best_rank":1.9722222222222223,"pair_accuracy":0.7428571428571429},
+      "center_prior": {"top1_rate":0.3888888888888889,"mean_best_rank":2.4444444444444446,"pair_accuracy":0.5399449035812672}
+    },
+    "interpretation": "The incumbent evaluator information clearly ranks exact children better than center ordering on this cohort, but the specific 0.65 root-relative asymmetry did not improve over the symmetric player-score difference. It tied symmetric top-1 rate and was worse on mean best rank and pairwise concordance."
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "interrupted-sibling-alternative-response-pool-session",
+  "date": "2026-09-13",
+  "status": "unreproduced_working_session_observation",
+  "branch": "research/frontier-negamax-conformance",
+  "attribution": {
+    "research_direction": "Josh Oshiro",
+    "formalization_and_exploratory_synthesis": "OpenAI ChatGPT"
+  },
+  "derived_theorem": {
+    "name": "interval-separated-sibling-elimination",
+    "p0_max": "U(a) <= L(b) implies a may be discarded from the parent max",
+    "p1_min": "L(a) >= U(b) implies a may be discarded from the parent min",
+    "state_equality_claim": false
+  },
+  "negative_candidate": {
+    "name": "odd-column-unpaired-vertical-pairing",
+    "status": "observed_unsound_not_yet_reproduced",
+    "working_session_observation": {
+      "false_no_win_claims_4x3_connect3": 106,
+      "smallest_observed_failure_ply": 4
+    }
+  },
+  "waiting_pool_candidate": {
+    "status": "promising_unqualified_not_yet_reproduced",
+    "idea": "odd-remainder playable frontier cells form a shared waiting-response pool; attacker consumption of one pool event is answered by another, converting both affected columns to the ordinary even vertical-pair regime",
+    "guards_still_required": [
+      "legality",
+      "totality",
+      "resource_nonreuse",
+      "deadline_safety",
+      "CPC_event_parity",
+      "WSL_coverage",
+      "NDC_guards",
+      "first_win_terminal_ordering"
+    ],
+    "working_session_observation": {
+      "bounded_games": 7,
+      "old_all_even_certified_states": 10912,
+      "waiting_pool_candidate_certified_states": 40804,
+      "additional_candidate_certificates": 29892,
+      "explicit_policy_states_explored": 279261,
+      "observed_policy_failures": 0
+    }
+  },
+  "claim_boundary": "Numerical observations are not qualified repository evidence until independently reproduced by a committed prototype. No standard-7x6 solve/root/output claim follows.",
+  "owner_disposition": "stop_this_route_and_switch_approach"
+}

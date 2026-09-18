@@ -1,0 +1,508 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+index bfd65a2..478cea3 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-slot64-residual-pool-v2.mjs"
+@@ -68,6 +68,7 @@ function assertWordSource(source, offset) {
+ }
+ 
+ class SlotChunkPool64 {
++  #sealed = false;
+   constructor(slot, slotCount) {
+     if (!Number.isInteger(slot) || slot < 0 || slot >= slotCount) throw new RangeError(`invalid slot64 chunk slot ${slot}`);
+     this.slot = slot;
+@@ -88,6 +89,7 @@ class SlotChunkPool64 {
+   _ensureCapacity(required) {
+     if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 chunk capacity request ${required}`);
+     if (required <= this.capacity) return;
++    if (this.#sealed) throw new RangeError('reserved chunk payload capacity exhausted');
+     const next = nextPowerOfTwo(required);
+     const target = new Uint32Array(next * CHUNK_WORDS);
+     target.set(this.words);
+@@ -104,9 +106,10 @@ class SlotChunkPool64 {
+       && this.words[base + 1] === (source[offset + 1] >>> 0);
+   }
+ 
+-  _growHash() {
++  _growHash(capacity = this.hashSlots.length * 2) {
++    if (this.#sealed) throw new RangeError('reserved chunk hash capacity exhausted');
+     if (this.hashSlots.length >= (1 << 30)) throw new RangeError('slot64 chunk hash capacity exhausted');
+-    const next = new Int32Array(this.hashSlots.length * 2);
++    const next = new Int32Array(capacity);
+     next.fill(-1);
+     const mask = next.length - 1;
+     for (let id = 0; id < this.count; id += 1) {
+@@ -120,6 +123,16 @@ class SlotChunkPool64 {
+     this.metrics.hashGrows += 1;
+   }
+ 
++  reserveForSearch(required) {
++    if (this.#sealed) return this.capacity;
++    const capacity = nextPowerOfTwo(Math.max(required, this.capacity));
++    if (capacity > (1 << 29)) throw new RangeError('chunk reservation exceeds hash index domain');
++    this._ensureCapacity(capacity);
++    if (this.hashSlots.length < capacity * 2) this._growHash(capacity * 2);
++    this.#sealed = true;
++    return this.capacity;
++  }
++
+   intern(source, offset) {
+     assertWordSource(source, offset);
+     this.metrics.lookups += 1;
+@@ -204,6 +217,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+ 
+   const slotPools = Array.from({ length: CHUNKS_PER_CLASS }, (_, slot) => new SlotChunkPool64(slot, CHUNKS_PER_CLASS));
+   let classCount = 0;
++  let searchSealed = false;
+   let classCapacity = 1024;
+   let classSlotIds = Array.from({ length: CHUNKS_PER_CLASS }, () => new Uint8Array(classCapacity));
+   let classHashes = new Uint32Array(classCapacity);
+@@ -337,6 +351,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     const current = classSlotIds[slot];
+     const Type = referenceTypeFor(requiredId);
+     if (current.BYTES_PER_ELEMENT >= Type.BYTES_PER_ELEMENT) return;
++    if (searchSealed) throw new RangeError('reserved chunk reference width exhausted');
+     const widened = new Type(classCapacity);
+     widened.set(current);
+     classSlotIds[slot] = widened;
+@@ -346,6 +361,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+   function ensureClassCapacity(required) {
+     if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid slot64 class capacity request ${required}`);
+     if (required <= classCapacity) return;
++    if (searchSealed) throw new RangeError('reserved residual class capacity exhausted');
+     const next = nextPowerOfTwo(required);
+     const nextSlots = [];
+     for (let slot = 0; slot < CHUNKS_PER_CLASS; slot += 1) {
+@@ -376,9 +392,10 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     return true;
+   }
+ 
+-  function growClassHash() {
++  function growClassHash(capacity = classHashSlots.length * 2) {
++    if (searchSealed) throw new RangeError('reserved residual hash capacity exhausted');
+     if (classHashSlots.length >= (1 << 30)) throw new RangeError('slot64 class hash capacity exhausted');
+-    const next = new Int32Array(classHashSlots.length * 2);
++    const next = new Int32Array(capacity);
+     next.fill(-1);
+     const mask = next.length - 1;
+     for (let id = 0; id < classCount; id += 1) {
+@@ -390,6 +407,20 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+     metrics.hashGrows += 1;
+   }
+ 
++  function reserveForSearch(requiredClasses, requiredChunks) {
++    if (searchSealed) return classCapacity;
++    const capacity = nextPowerOfTwo(Math.max(requiredClasses, classCapacity));
++    if (capacity > (1 << 29)) throw new RangeError('class reservation exceeds hash index domain');
++    ensureClassCapacity(capacity);
++    if (classHashSlots.length < capacity * 2) growClassHash(capacity * 2);
++    for (let slot = 0; slot < CHUNKS_PER_CLASS; slot++) {
++      const chunkCapacity = slotPools[slot].reserveForSearch(requiredChunks);
++      ensureReferenceWidth(slot, chunkCapacity - 1);
++    }
++    searchSealed = true;
++    return classCapacity;
++  }
++
+   function computeClassMetadata(bits, classId) {
+     assertBits(bits);
+     let lo = 0;
+@@ -498,6 +529,7 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+   pool.initialClass = initialClass;
+   pool.termVocabulary = vocabulary;
+   pool.metrics = metrics;
++  Object.defineProperty(pool, 'reservedClassCapacity', { get: () => searchSealed ? classCapacity : 0 });
+   pool.slotPools = slotPools;
+   pool.isEmpty = (id) => assertClassId(id) === emptyClass;
+   pool.hasSingletonAt = (id, bitLo, bitHi) => {
+@@ -783,5 +815,5 @@ export function installSlot64ResidualPool(kernel, spec, options = {}) {
+   pool.ownTransitions = null;
+   pool.blockTransitions = null;
+ 
+-  return Object.freeze({ vocabulary, prefixClasses, slotPools, metrics, memoryStats: pool.memoryStats });
++  return Object.freeze({ vocabulary, prefixClasses, slotPools, metrics, reserveForSearch, memoryStats: pool.memoryStats });
+ }
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs"
+index b38e2fe..0f27750 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-support-layout-kernel.mjs"
+@@ -453,6 +453,7 @@ class ResidualClassPool {
+ class QuotientStatePool {
+   #supportCapacity;
+   #classes;
++  #sealed = false;
+ 
+   constructor(columns, cacheEdges, supportCapacity, classes) {
+     this.columns = columns;
+@@ -473,6 +474,7 @@ class QuotientStatePool {
+ 
+   _ensureStateCapacity(required) {
+     if (required <= this.capacity) return;
++    if (this.#sealed) throw new RangeError('reserved quotient state capacity exhausted');
+     const nextCapacity = nextPowerOfTwo(required);
+     const copy = (Type, source) => {
+       const target = new Type(nextCapacity);
+@@ -496,9 +498,10 @@ class QuotientStatePool {
+     this.metrics.stateGrows += 1;
+   }
+ 
+-  _growHash() {
++  _growHash(capacity = this.hashSlots.length * 2) {
++    if (this.#sealed) throw new RangeError('reserved quotient state hash capacity exhausted');
+     if (this.hashSlots.length >= 2 ** 30) throw new RangeError('quotient state hash capacity exhausted');
+-    const next = new Int32Array(this.hashSlots.length * 2);
++    const next = new Int32Array(capacity);
+     next.fill(-1);
+     const mask = next.length - 1;
+     for (let id = 0; id < this.count; id += 1) {
+@@ -511,6 +514,16 @@ class QuotientStatePool {
+     this.metrics.hashGrows += 1;
+   }
+ 
++  reserveForSearch(required) {
++    if (this.#sealed) return this.capacity;
++    const capacity = nextPowerOfTwo(Math.max(required, this.capacity));
++    if (capacity > 2 ** 29) throw new RangeError('state reservation exceeds hash index domain');
++    this._ensureStateCapacity(capacity);
++    if (this.hashSlots.length < capacity * 2) this._growHash(capacity * 2);
++    this.#sealed = true;
++    return this.capacity;
++  }
++
+   intern(supportIndex, p0Class, p1Class) {
+     assertSupportIndex(supportIndex, this.#supportCapacity);
+     this.#assertClass(p0Class);
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs"
+index 688f309..6579bc9 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-native-negamax-slot64-residual-kernel.mjs"
+@@ -11,6 +11,22 @@ import { installSlot64ResidualPool } from './quotient-slot64-residual-pool-v2.mj
+ import { createPairedResponseClosure } from './quotient-paired-response-closure.mjs';
+ 
+ export function createSlot64ResidualQuotientKernel(spec, options = {}) {
++  // Resource targets, not geometry: callers may size these for their task.
++  // Capture once; no mutable configuration is consulted during search.
++  const requested = options.searchStorage ?? {};
++  if (typeof requested !== 'object' || Array.isArray(requested)) {
++    throw new TypeError('search storage reservation must be an object');
++  }
++  const reservation = Object.freeze({
++    states: requested.states ?? 262144,
++    classes: requested.classes ?? 524288,
++    chunksPerSlot: requested.chunksPerSlot ?? 262144,
++  });
++  for (const value of Object.values(reservation)) {
++    if (!Number.isSafeInteger(value) || value < 1 || value > 2 ** 29) {
++      throw new RangeError('search storage targets must be integers in 1..2^29');
++    }
++  }
+   if (options.responseClosure !== undefined && typeof options.responseClosure !== 'boolean') {
+     throw new TypeError('responseClosure must be boolean');
+   }
+@@ -25,6 +41,29 @@ export function createSlot64ResidualQuotientKernel(spec, options = {}) {
+   const frontierOrder = createLiveLineMoveOrder(substrate.domain);
+   const responseClosure = options.responseClosure === false ? null
+     : createPairedResponseClosure(substrate.domain, substrate.supportAccess, substrate.classes, residual.vocabulary);
++  let preparedStorage = null;
++
++  function prepareSearchStorage() {
++    if (preparedStorage !== null) return preparedStorage;
++    const states = substrate.states.reserveForSearch(reservation.states);
++    const classes = residual.reserveForSearch(reservation.classes, reservation.chunksPerSlot);
++    preparedStorage = Object.freeze({ states, classes,
++      chunksPerSlot: Object.freeze(residual.slotPools.map(pool => pool.capacity)), sealed: true });
++    return preparedStorage;
++  }
++
++  function storageGrowthStats() {
++    return Object.freeze({
++      prepared: preparedStorage !== null,
++      statePayloadGrows: substrate.states.metrics.stateGrows,
++      stateHashGrows: substrate.states.metrics.hashGrows,
++      residualPayloadGrows: residual.metrics.classGrows,
++      residualHashGrows: residual.metrics.hashGrows,
++      referenceWidens: residual.metrics.slotReferenceWidens,
++      chunkPayloadGrows: residual.slotPools.reduce((sum, pool) => sum + pool.metrics.payloadGrows, 0),
++      chunkHashGrows: residual.slotPools.reduce((sum, pool) => sum + pool.metrics.hashGrows, 0),
++    });
++  }
+ 
+   function frontierBoundCode(stateId) {
+     const supportIndex = substrate.states.support[stateId];
+@@ -63,12 +102,16 @@ export function createSlot64ResidualQuotientKernel(spec, options = {}) {
+     frontierOrder,
+     frontierBoundCode,
+     responseClosureProfile: responseClosure?.profile ?? null,
++    prepareSearchStorage,
++    storageGrowthStats,
+     memoryStats() {
+       const base = substrate.memoryStats();
+       const responseClosureBytes = responseClosure?.profile.retainedTypedBytes ?? 0;
+       return Object.freeze({ ...base, responseClosureBytes, totalTypedBytes: base.totalTypedBytes + responseClosureBytes });
+     },
+     createWdlSolver(config = {}) {
++      prepareSearchStorage();
++      proofStore.reserveForSearch(substrate.states.capacity);
+       const engine = createQuotientNegamaxEngine(stateSpacePort, config);
+       return Object.freeze({
+         run: engine.run,
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-lib.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-lib.mjs"
+index cd0552e..980db25 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-lib.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-lib.mjs"
+@@ -24,6 +24,7 @@ export function createOnlineSemanticQuotientPort(kernel, semanticArena) {
+     throw new RangeError('online semantic quotient port requires a positive semantic entry capacity');
+   }
+ 
++  kernel.prepareSearchStorage?.();
+   const descriptorCache = createLocalSemanticDescriptorCache(kernel);
+   const tt = createSemanticSharedTtView(semanticArena);
+   const semanticProofStore = createPackedProofStore(semanticArena);
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"
+index 1441fe7..e24fecd 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"
+@@ -30,7 +30,11 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     throw new RangeError(`semantic term vocabulary count must be in 1..${MAX_DESCRIPTOR_LENGTH}, got ${vocabularyCount}`);
+   }
+ 
+-  let classCapacity = INITIAL_CLASS_CAPACITY;
++  const reservedCapacity = kernel.classes.reservedClassCapacity ?? 0;
++  if (!Number.isSafeInteger(reservedCapacity) || reservedCapacity < 0 || reservedCapacity > MAX_POWER_OF_TWO) {
++    throw new RangeError('invalid reserved semantic class capacity');
++  }
++  let classCapacity = reservedCapacity === 0 ? INITIAL_CLASS_CAPACITY : nextPowerOfTwo(reservedCapacity);
+   // Only hash readiness is cached here. Exact lengths belong to the residual pool.
+   let classHashReady = new Uint32Array(classCapacity / 32);
+   let classHashLo = new Uint32Array(classCapacity);
+@@ -107,6 +111,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+   function ensureClassCapacity(required) {
+     if (!Number.isInteger(required) || required < 1) throw new RangeError(`invalid semantic class capacity request ${required}`);
+     if (required <= classCapacity) return;
++    if (reservedCapacity !== 0) throw new RangeError('reserved descriptor metadata capacity exhausted');
+     const next = nextPowerOfTwo(required);
+     if (!Number.isSafeInteger(next) || next <= classCapacity) throw new RangeError(`semantic class capacity overflow at ${required}`);
+     const ready = new Uint32Array(next / 32);
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"
+index 84eff57..e96921c 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-shared-tt.mjs"
+@@ -276,7 +276,9 @@ export function createSemanticSharedTtView(arena) {
+   const records = new Uint8Array(arena.recordBuffer);
+   const terms = new Uint16Array(arena.termBuffer);
+   const bucketMask = arena.bucketCount - 1;
+-  let descriptorTermScratch = new Uint16Array(1024);
++  // The descriptor contract already bounds total length by Uint16. Allocate
++  // that complete scratch domain once, before any proof probe/publication.
++  const descriptorTermScratch = new Uint16Array(UINT16_MAX);
+   const metrics = {
+     probes: 0,
+     probeMisses: 0,
+@@ -317,8 +319,6 @@ export function createSemanticSharedTtView(arena) {
+     if (!Number.isInteger(required) || required < 0 || required > UINT16_MAX) {
+       throw new RangeError(`semantic descriptor scratch length ${required} is invalid`);
+     }
+-    if (required <= descriptorTermScratch.length) return descriptorTermScratch;
+-    descriptorTermScratch = new Uint16Array(nextPowerOfTwo(required));
+     return descriptorTermScratch;
+   }
+ 
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-proof-store.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-proof-store.mjs"
+index cbe56a3..baf7183 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-proof-store.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-proof-store.mjs"
+@@ -14,6 +14,7 @@ export function createLocalQuotientProofStore(states) {
+   }
+ 
+   let capacity = 0;
++  let searchSealed = false;
+   let lowerBounds = null;
+   let upperBounds = null;
+   let bestMoves = null;
+@@ -47,6 +48,7 @@ export function createLocalQuotientProofStore(states) {
+ 
+   function ensureCapacity(required) {
+     if (required <= capacity) return;
++    if (searchSealed) throw new RangeError('reserved local proof capacity exhausted');
+     const next = nextPowerOfTwo(Math.max(required, INITIAL_CAPACITY));
+     const lower = new Int8Array(next);
+     const upper = new Int8Array(next);
+@@ -72,6 +74,15 @@ export function createLocalQuotientProofStore(states) {
+     ensureCapacity(stateId + 1);
+   }
+ 
++  function reserveForSearch(required) {
++    if (!Number.isSafeInteger(required) || required < states.count || required > 2 ** 29) {
++      throw new RangeError('local proof reservation is outside its state/index domain');
++    }
++    ensureCapacity(required);
++    searchSealed = true;
++    return capacity;
++  }
++
+   function readInto(stateId, target) {
+     assertProofReadTarget(target);
+     ensureState(stateId);
+@@ -180,6 +191,12 @@ export function createLocalQuotientProofStore(states) {
+   }
+ 
+   function reset() {
++    if (searchSealed) {
++      lowerBounds.fill(-1);
++      upperBounds.fill(1);
++      bestMoves.fill(-1);
++      return;
++    }
+     lowerBounds = null;
+     upperBounds = null;
+     bestMoves = null;
+@@ -196,6 +213,7 @@ export function createLocalQuotientProofStore(states) {
+   }
+ 
+   return Object.freeze({
++    reserveForSearch,
+     readInto,
+     lower,
+     upper,
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs"
+index 3107f4b..51b5dfa 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-bounded-search.mjs"
+@@ -18,6 +18,8 @@ if (process.argv[2] === '--child') {
+   const arena = createSemanticSharedTtArena({ entryCapacity: 262144, termCapacity: 1 << 24, domainSpec: kernel.domain });
+   const searcher = createOnlineSemanticQuotientSearcher(kernel, arena, { etc: false });
+   const setupMs = performance.now() - setupStarted;
++  const storageBefore = kernel.storageGrowthStats();
++  const descriptorCapacityBefore = searcher.descriptorCache.metrics.classCapacity;
+   let result, searchMs, cpu, profile;
+   const profiler = config.cpuProfile ? new Session() : null;
+   const post = (method, params = {}) => new Promise((accept, reject) =>
+@@ -38,9 +40,14 @@ if (process.argv[2] === '--child') {
+   // Profile serialization and reporting happen after the measured search.
+   if (profile) await writeFile(config.cpuProfile, JSON.stringify(profile));
+   assert.ok(result.maxReachedDepth <= config.depth);
++  const storageAfter = kernel.storageGrowthStats();
++  assert.equal(storageBefore.prepared, true);
++  assert.deepEqual(storageAfter, storageBefore, 'storage grew inside bounded search');
++  assert.equal(searcher.descriptorCache.metrics.classCapacity, descriptorCapacityBefore, 'descriptor metadata grew inside search');
+   console.log(JSON.stringify({ kind: 'normal-frontier-negamax-bounded-search', node: process.version,
+     domain: kernel.domain, config, result, setupMs, searchMs, cpuMs: (cpu.user + cpu.system) / 1000,
+-    search: searcher.stats(), memory: kernel.memoryStats(), processMemory: process.memoryUsage() }));
++    search: searcher.stats(), memory: kernel.memoryStats(), storageDuringSearch: { before: storageBefore, after: storageAfter },
++    processMemory: process.memoryUsage() }));
+ } else {
+   const { values } = parseArgs({ options: {
+     columns: { type: 'string', default: '7' }, rows: { type: 'string', default: '6' },
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs"
+index d68ca83..e3e0e04 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-search-worker.mjs"
+@@ -10,6 +10,7 @@ if (!parentPort) throw new Error('online semantic search worker requires parentP
+ const { kernel } = createSlot64ResidualQuotientKernel(workerData.spec, {
+   cacheEdges: false,
+   prefixClasses: workerData.prefixClasses ?? 4096,
++  searchStorage: workerData.searchStorage,
+ });
+ const onlineStateStorage = installOnlineOnlyStateStorage(kernel.states);
+ const searcher = createOnlineSemanticQuotientSearcher(kernel, workerData.semanticArena, {
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-worker-pool.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-worker-pool.mjs"
+index b97fa89..685dfe2 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-worker-pool.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-online-semantic-worker-pool.mjs"
+@@ -261,6 +261,7 @@ export async function startOnlineSearchWorkers(count, spec, semanticArena, optio
+           spec,
+           semanticArena,
+           prefixClasses,
++          searchStorage: options.searchStorage,
+           etc: options.etc === true,
+         },
+       });
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index e3b8717..1535617 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\reservation-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -6,10 +6,85 @@ import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+ import { installOnlineOnlyStateStorage } from './quotient-online-only-state-storage.mjs';
+ import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
+ import { hashResidualTermIds } from './quotient-semantic-identity.mjs';
++import { createSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
++import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic-search-lib.mjs';
+ 
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('prepared exact search performs no typed allocation or backing-array growth', () => {
++  const k = createSlot64ResidualQuotientKernel(spec, { prefixClasses: 8, cacheEdges: false,
++    searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } }).kernel;
++  const arena = createSemanticSharedTtArena({ entryCapacity: 128, termCapacity: 65536, domainSpec: spec });
++  const searcher = createOnlineSemanticQuotientSearcher(k, arena);
++  const before = k.storageGrowthStats(), memory = k.memoryStats();
++  const descriptorCapacity = searcher.descriptorCache.metrics.classCapacity;
++  const types = [ 'Uint8Array', 'Int8Array', 'Uint16Array', 'Int16Array', 'Uint32Array', 'Int32Array', 'Float64Array', 'ArrayBuffer', 'SharedArrayBuffer' ];
++  const originals = types.map(name => globalThis[name]);
++  for (let index = 0; index < types.length; index++) globalThis[types[index]] = new Proxy(originals[index], {
++    construct() { throw new Error('typed allocation attempted inside prepared search'); },
++  });
++  let value;
++  try { value = searcher.search(k.rootId, -2, 2); }
++  finally { for (let index = 0; index < types.length; index++) globalThis[types[index]] = originals[index]; }
++  assert.ok(value === -1 || value === 0 || value === 1);
++  assert.deepEqual(k.storageGrowthStats(), before);
++  assert.equal(searcher.descriptorCache.metrics.classCapacity, descriptorCapacity);
++  assert.equal(k.memoryStats().totalTypedBytes, memory.totalTypedBytes);
++});
++
++test('reserved state/chunk exhaustion preserves published identities instead of allocating', () => {
++  const k = createSlot64ResidualQuotientKernel({ columns: 4, rows: 5, connect: 4 }, {
++    searchStorage: { states: 4096, classes: 1024, chunksPerSlot: 256 } }).kernel;
++  k.prepareSearchStorage();
++  const before = k.storageGrowthStats();
++  assert.throws(() => {
++    for (let p0 = 0; p0 < 2; p0++) for (let p1 = 0; p1 < 2; p1++) {
++      for (let support = 0; support < k.support.itemCapacity; support++) k.states.intern(support, p0, p1);
++    }
++  }, /reserved quotient state capacity/);
++  assert.equal(k.states.count, 4096);
++  assert.equal(k.states.intern(0, 1, 1), k.rootId);
++  const chunk = k.classes.slotPools[0], pair = new Uint32Array(2);
++  assert.throws(() => {
++    for (let index = 1; index < 1000; index++) { pair[0] = index; pair[1] = index; chunk.intern(pair, 0); }
++  }, /reserved chunk payload capacity/);
++  assert.equal(chunk.count, 256);
++  assert.deepEqual(k.storageGrowthStats(), before);
++});
++
++test('standalone local solver reserves its proof arrays without adding them to online workers', () => {
++  const k = createSlot64ResidualQuotientKernel(spec, {
++    searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } }).kernel;
++  assert.equal(k.proofStore.metrics.capacity, 0);
++  const solver = k.createWdlSolver();
++  assert.equal(k.proofStore.metrics.capacity, k.states.capacity);
++  const grows = k.proofStore.metrics.grows, before = k.storageGrowthStats();
++  const result = solver.run();
++  assert.ok(result === -1 || result === 0 || result === 1);
++  assert.equal(k.proofStore.metrics.grows, grows);
++  assert.deepEqual(k.storageGrowthStats(), before);
++  k.proofStore.reset();
++  assert.equal(solver.run(), result);
++  assert.equal(k.proofStore.metrics.grows, grows);
++});
++
++test('reserved residual exhaustion preserves existing classes and reports the resource boundary', () => {
++  const k = createSlot64ResidualQuotientKernel({ columns: 4, rows: 5, connect: 4 }, {
++    searchStorage: { states: 16384, classes: 1024, chunksPerSlot: 4096 }, prefixClasses: 8 }).kernel;
++  k.prepareSearchStorage();
++  const initial = k.classes.termIds(1), before = k.storageGrowthStats();
++  assert.throws(() => {
++    for (let state = 0; state < k.states.count; state++) for (let column = 0; column < k.columns; column++) k.advance(state, column);
++  }, /reserved residual class capacity/);
++  assert.equal(k.classes.size, 1024);
++  assert.deepEqual(k.classes.termIds(1), initial);
++  assert.deepEqual(k.storageGrowthStats(), before);
++  for (const searchStorage of [1, 'large', [], { states: -1 }, { classes: 0.5 }, { chunksPerSlot: NaN }]) {
++    assert.throws(() => createSlot64ResidualQuotientKernel(spec, { searchStorage }));
++  }
++});
++
+ test('chunk exact keys survive collisions and growth; a hit never requests insertion capacity', () => {
+   const chunk = make().classes.slotPools[0];
+   const source = new Uint32Array(2), pairs = [];

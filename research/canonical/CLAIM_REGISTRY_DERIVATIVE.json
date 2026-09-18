@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0057..C4-R0059",
+  "research_direction": "Josh Oshiro",
+  "claims": [
+    {
+      "id": "C4-R0057",
+      "title": "Connect-K winning-window derivative multiplicity is governed exactly by v2(K)",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For the one-dimensional Connect-K winning-window polynomial S_K(T)=1+T+...+T^(K-1) over F2, write K=2^s m with m odd. Then S_K(T)=(1+T)^(2^s-1) S_m(T)^(2^s), so the exact multiplicity of the finite-difference factor partial=1+T is nu(K)=2^(v2(K))-1. The window is a pure derivative S_K=(1+T)^(K-1) iff K is a power of two. Consequently Connect-4 is the smallest nontrivial pure higher-derivative case and has the exact one-dimensional hierarchy partial -> partial^2 -> partial^3 with no additional hidden linear factor.",
+      "scope": "Exact F2 line-incidence geometry. This is not a game-value, move-selection, gravity, blocker, reachability or perfect-play theorem.",
+      "sources": [
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-connect-k-derivative-classification.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "supports", "target": "C4-R0002"},
+        {"type": "constrains", "target": "C4-R0012"}
+      ]
+    },
+    {
+      "id": "C4-R0058",
+      "title": "K=4 axis derivative algebra derives the diagonal incidence constraints",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For K=4, after quotienting horizontal and vertical winning windows, let X=partial_x and Y=partial_y. The residual algebra satisfies X^3=0, Y^3=0 and XY=YX. The rising diagonal has partial_+=X+Y+XY and partial_+^3=XY^2+X^2Y; the falling diagonal contributes, after the rising relation, X^2Y^2=0. Thus the two regular-board diagonal rank corrections are exactly XY^2+X^2Y=0 and X^2Y^2=0. The familiar 4x4 small-board defect is boundary realization of this same system, not an independent diagonal axiom. A two-cell response-pair incidence has first-derivative shape partial, but causal/legal response semantics still require gravity, support, resource and deadline guards.",
+      "scope": "Exact F2 incidence algebra plus finite-boundary start availability. It does not prove that a geometric response factor is legally or strategically usable in a game state.",
+      "sources": [
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-connect4-derived-difference-axioms.md",
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-connect-k-derivative-classification.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0057"},
+        {"type": "supports", "target": "C4-R0002"},
+        {"type": "constrains", "target": "C4-R0012"},
+        {"type": "constrains", "target": "C4-R0011"}
+      ]
+    },
+    {
+      "id": "C4-R0059",
+      "title": "Regular Connect-4 incidence cokernel is a seven-mode 4-periodic binary tile code",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "A one-axis binary labeling annihilating every length-4 interval is 4-periodic with an even-parity 4-symbol block, giving the [4,3] single-parity-check code P. Horizontal/vertical annihilators therefore form P tensor P of dimension 9. The exact diagonal constraints a_22=0 and a_12=a_21 remove two modes, leaving a seven-dimensional periodic code C4_ann. On sufficiently regular boards realizing both diagonal relations, dim coker(B)=7 and rank(B)=WH-7. This code is another representation of the same derivative/diagonal algebra, not a new game-value invariant family.",
+      "scope": "Regular-board incidence geometry only. Finite boundary degeneracies remain governed by the total-domain theorem. The code does not encode gravity, turn order, blockers, reachability, stopping or game value.",
+      "sources": [
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-seven-mode-periodic-annihilator.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0058"},
+        {"type": "supports", "target": "C4-R0002"},
+        {"type": "supports", "target": "C4-R0050"},
+        {"type": "constrains", "target": "C4-R0012"}
+      ]
+    }
+  ]
+}

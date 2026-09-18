@@ -1,0 +1,352 @@
+{
+  "status": "timed-out",
+  "config": {
+    "domain": {
+      "columns": 7,
+      "rows": 6,
+      "connect": 4
+    },
+    "depth": 21,
+    "timeoutMs": 60000,
+    "reservationBudgetBytes": 2147483648,
+    "cpuProfile": "C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\connect4-frontier-audit\\docs\\research\\evidence\\2026-09-12-ranked-depth21\\simplified-filter\\profile\\search.cpuprofile"
+  },
+  "signal": "SIGKILL",
+  "childExited": true,
+  "profileWindow": {
+    "reason": "pre-timeout-checkpoint",
+    "elapsedMs": 55033.2559,
+    "cpuMs": 52579,
+    "rss": 712306688,
+    "counters": {
+      "search": {
+        "calls": 86728046,
+        "expanded": 14262425,
+        "ttExactReturns": 6096593,
+        "ttBoundReturns": 0,
+        "domainBoundCuts": 0,
+        "ttMoveOrderHits": 0,
+        "cutoffs": 87369,
+        "firstMoveCutoffs": 53702,
+        "tacticalExact": 246332,
+        "forcedNodes": 3611580,
+        "forcedMacroChains": 938350,
+        "forcedMacroTransitions": 3611580,
+        "frontierBoundCuts": 0,
+        "frontierOrderedNodes": 14262425,
+        "etcProbes": 0,
+        "etcCutoffs": 0,
+        "thresholdPasses": 0,
+        "transitionsRequested": 86728045,
+        "proofProbeMisses": 80631453,
+        "proofAdmissions": 336391
+      },
+      "identity": {
+        "ttProbes": 86728046,
+        "ttEnsures": 336391,
+        "ttReprobes": 0,
+        "proofHandleRefreshes": 0,
+        "proofReadRetries": 0,
+        "publicationRetries": 0
+      },
+      "semanticTt": {
+        "probes": 86728046,
+        "probeMisses": 80631453,
+        "ensures": 336391,
+        "hits": 6096593,
+        "inserts": 246746,
+        "replacements": 89645,
+        "poisonedInstalls": 0,
+        "nonExactVictims": 0,
+        "exactVictims": 89645,
+        "descriptorCompares": 6096593,
+        "hashCollisions": 0,
+        "bucketLockWaits": 0,
+        "proofWriterWaits": 0,
+        "termIdsPublished": 9933201,
+        "termIdsAllocated": 7534957,
+        "termArenaWordsAllocated": 8402398,
+        "termChunkAllocations": 289147,
+        "termSpanReuses": 47244,
+        "termSpanGrows": 42401,
+        "maxBucketScan": 8,
+        "entries": 246746,
+        "replacementsShared": 89645,
+        "termSpanReusesShared": 47244,
+        "termSpanGrowsShared": 42401,
+        "termChunkCountShared": 289147,
+        "termIdsUsed": 7534957,
+        "termArenaWordsUsed": 8402398,
+        "termHeaderWordsUsed": 867441,
+        "entryCapacity": 262144,
+        "associativity": 8,
+        "bucketCount": 32768,
+        "generationLimit": 4294967295,
+        "termCapacity": 144703488
+      },
+      "proofStore": {
+        "reads": 6096593,
+        "publications": 336391,
+        "retries": 0,
+        "staleReads": 0,
+        "stalePublications": 0,
+        "waits": 0
+      },
+      "descriptorCache": {
+        "classBuilds": 1652134,
+        "classHits": 172476740,
+        "stateBuilds": 87064437,
+        "stateHashBuilds": 1773424,
+        "stateHashReuses": 85291013,
+        "stateHashCapacity": 2097152,
+        "stateMetadataBytes": 17039360,
+        "transientStateDescriptorUses": 87064437,
+        "stateDescriptorObjectsAllocated": 0,
+        "classDescriptorObjectsAllocated": 0,
+        "termArrayMaterializations": 0,
+        "termIdsMaterialized": 0,
+        "directTermWrites": 14518102,
+        "directTermIdsWritten": 206198759,
+        "termIdsCached": 0,
+        "termArrayObjectsCached": 0,
+        "classDescriptorObjectsCached": 0,
+        "classMetadataBytes": 34078720,
+        "scratchBytes": 1250,
+        "scratchCapacity": 625,
+        "termArenaBytes": 0,
+        "retainedTypedBytes": 51118080,
+        "classCapacity": 4194304,
+        "termCapacity": 0
+      },
+      "localStates": 1773424,
+      "localClasses": 1652135,
+      "operations": {
+        "transitions": {
+          "edgeCacheHits": 83920027,
+          "edgeCacheMisses": 2808018,
+          "terminalEdges": 0,
+          "illegalEdges": 0
+        },
+        "states": {
+          "internLookups": 2808019,
+          "internHits": 1034595,
+          "internMisses": 1773424,
+          "hashGrows": 1,
+          "stateGrows": 1
+        },
+        "residual": {
+          "internLookups": 4755678,
+          "internHits": 3103543,
+          "internMisses": 1652135,
+          "ownTransitionHits": 7785,
+          "ownTransitionMisses": 2800233,
+          "blockTransitionHits": 13071,
+          "blockTransitionMisses": 2794947,
+          "ownNoop": 460637,
+          "blockNoop": 378867,
+          "ownTerminal": 0,
+          "reducedTerms": 4368083,
+          "supersetWordProbes": 24455603,
+          "supersetWordClears": 24455603,
+          "classGrows": 1,
+          "hashGrows": 1,
+          "slotReferenceWidens": 10,
+          "parentChunkReuses": 35050831,
+          "chunkInterns": 12505949,
+          "outOfPrefixOwn": 2793788,
+          "outOfPrefixBlock": 2785515,
+          "cachedStores": 15877,
+          "termCountReads": 186994842,
+          "termWrites": 14518102
+        }
+      },
+      "memory": {
+        "state": {
+          "stateCount": 1773424,
+          "stateCapacity": 2097152,
+          "stateArrayBytes": 25165824,
+          "edgeCacheBytes": 58720256,
+          "hashSlotBytes": 16777216,
+          "totalTypedBytes": 100663296
+        },
+        "residual": {
+          "classCount": 1652135,
+          "termVocabularyCount": 625,
+          "termWordCount": 20,
+          "residualTerms": null,
+          "vocabularyBytes": 107638,
+          "classTupleBytes": 167772160,
+          "classTermCountBytes": 8388608,
+          "classReferenceWidths": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "classMetadataBytes": 226492416,
+          "transitionCacheKind": "dense-prefix",
+          "transitionPrefixClasses": 4096,
+          "transitionCacheBytes": 1376256,
+          "classHashSlotBytes": 33554432,
+          "chunkCounts": [
+            3852,
+            185,
+            1161,
+            750,
+            685,
+            84,
+            774,
+            1051,
+            364,
+            1604
+          ],
+          "chunkPayloadBytes": 335544320,
+          "chunkHashSlotBytes": 83886080,
+          "chunkCollisionLinkBytes": 167772160,
+          "chunkDictionaryBytes": 587202560,
+          "slotDictionaries": [
+            {
+              "slot": 0,
+              "chunkCount": 3852,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 1,
+              "chunkCount": 185,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 2,
+              "chunkCount": 1161,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 3,
+              "chunkCount": 750,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 4,
+              "chunkCount": 685,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 5,
+              "chunkCount": 84,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 6,
+              "chunkCount": 774,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 7,
+              "chunkCount": 1051,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 8,
+              "chunkCount": 364,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            },
+            {
+              "slot": 9,
+              "chunkCount": 1604,
+              "chunkCapacity": 4194304,
+              "payloadBytes": 33554432,
+              "hashSlotBytes": 8388608,
+              "collisionLinkBytes": 16777216,
+              "totalTypedBytes": 58720256
+            }
+          ],
+          "normalizationLayout": "sparse-superset-word-rows",
+          "strictSupersetEntries": 1466,
+          "maskBytes": 13274,
+          "scratchBytes": 280,
+          "totalTypedBytes": 848746856
+        },
+        "localProof": {
+          "capacity": 0,
+          "retainedTypedBytes": 0,
+          "bytesPerAdmittedState": 0
+        },
+        "supportLayout": "packed",
+        "supportBytes": 3294207,
+        "bitBytes": 336,
+        "totalTypedBytes": 952704775,
+        "responseClosureBytes": 80
+      }
+    },
+    "scope": "Main-thread profile; process CPU includes profiler worker. Interval excludes initialization and ends before hard timeout."
+  },
+  "reservation": {
+    "kind": "board-depth-bounded-reservation-v1",
+    "domain": {
+      "columns": 7,
+      "rows": 6,
+      "connect": 4
+    },
+    "depth": 21,
+    "budgetBytes": 2147483648,
+    "positionUpperBound": "42252235497",
+    "fullBoundCovered": false,
+    "limitingResource": "reservation-budget-or-index-domain",
+    "searchStorage": {
+      "states": 2097152,
+      "classes": 4194304,
+      "chunksPerSlot": 4194304
+    },
+    "arena": {
+      "entryCapacity": 262144,
+      "termCapacity": 144703488
+    },
+    "kernelBytes": 952704775,
+    "descriptorBytes": 51119330,
+    "arenaBytes": 297795612,
+    "estimatedBytes": 1301619717,
+    "budgetScope": "retained kernel, descriptor metadata/scratch and shared arena; excludes V8 heap, transient growth copies and shared-view scratch"
+  }
+}

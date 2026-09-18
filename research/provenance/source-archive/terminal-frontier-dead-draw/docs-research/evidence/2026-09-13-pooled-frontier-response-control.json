@@ -1,0 +1,213 @@
+{
+  "kind": "pooled-frontier-response-control",
+  "date": "2026-09-13",
+  "attribution": {
+    "research_direction": "Josh Oshiro",
+    "formalization_implementation_qualification": "OpenAI ChatGPT"
+  },
+  "theorem": {
+    "name": "pooled-frontier paired-response safety theorem",
+    "attacker": "side to move",
+    "frontier_pool": "current playable cell from each column with odd remaining capacity",
+    "pool_guard": "frontier-pool cardinality is even",
+    "vertical_pairing": "after omitting each pool cell, pair each remaining column suffix bottom-up; upper mate is defender response",
+    "coverage_guard": "every surviving attacker residual requirement intersects the upper-response set",
+    "policy": [
+      "attacker plays vertical lower mate -> defender immediately plays upper mate",
+      "attacker plays frontier-pool cell -> defender plays any other still-unconsumed frontier-pool cell"
+    ],
+    "consequence": "side to move cannot force a win"
+  },
+  "totals": {
+    "reachable_states": 443170,
+    "nonterminal_states": 353378,
+    "legacy_all_even_physical_states": 10912,
+    "pooled_frontier_physical_states": 40804,
+    "incremental_physical_states": 29892,
+    "legacy_genuine_decision_states": 9388,
+    "pooled_genuine_decision_states": 31845,
+    "incremental_genuine_decision_states": 22457,
+    "legacy_quotient_classes": 2386,
+    "pooled_quotient_classes": 9841,
+    "legacy_decision_quotient_classes": 1981,
+    "pooled_decision_quotient_classes": 6960,
+    "exact_value_mismatches": 0,
+    "explicit_policy_failures": 0,
+    "explicit_policy_states_explored": 279261,
+    "legacy_strict_eliminated_sibling_edges": 2440,
+    "pooled_strict_eliminated_sibling_edges": 2804,
+    "incremental_strict_eliminated_sibling_edges": 364,
+    "exact_parent_value_mismatches_after_strict_batch_elimination": 0
+  },
+  "complete_controls": [
+    {
+      "domain": "3x3-connect3",
+      "reachable_states": 694,
+      "legacy_states": 37,
+      "pooled_states": 79,
+      "new_states": 42,
+      "legacy_decision_states": 23,
+      "pooled_decision_states": 39,
+      "new_decision_states": 16,
+      "legacy_q_classes": 29,
+      "pooled_q_classes": 71,
+      "strict_edges_legacy": 6,
+      "strict_edges_pooled": 8,
+      "policy_states_explored": 177,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0
+    },
+    {
+      "domain": "3x4-connect3",
+      "reachable_states": 2715,
+      "legacy_states": 68,
+      "pooled_states": 92,
+      "new_states": 24,
+      "legacy_decision_states": 32,
+      "pooled_decision_states": 42,
+      "new_decision_states": 10,
+      "legacy_q_classes": 46,
+      "pooled_q_classes": 70,
+      "strict_edges_legacy": 12,
+      "strict_edges_pooled": 14,
+      "policy_states_explored": 214,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0
+    },
+    {
+      "domain": "4x3-connect3",
+      "reachable_states": 7157,
+      "legacy_states": 122,
+      "pooled_states": 214,
+      "new_states": 92,
+      "legacy_decision_states": 77,
+      "pooled_decision_states": 111,
+      "new_decision_states": 34,
+      "legacy_q_classes": 90,
+      "pooled_q_classes": 180,
+      "legacy_decision_q_classes": 57,
+      "pooled_decision_q_classes": 91,
+      "strict_edges_legacy": 36,
+      "strict_edges_pooled": 40,
+      "policy_states_explored": 524,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0,
+      "pooled_decision_value_distribution": {
+        "P0_draw": 25,
+        "P0_loss": 86,
+        "P0_win": 0
+      }
+    },
+    {
+      "domain": "4x4-connect3",
+      "reachable_states": 41750,
+      "legacy_states": 134,
+      "pooled_states": 174,
+      "new_states": 40,
+      "legacy_decision_states": 26,
+      "pooled_decision_states": 38,
+      "new_decision_states": 12,
+      "legacy_q_classes": 98,
+      "pooled_q_classes": 138,
+      "strict_edges_legacy": 114,
+      "strict_edges_pooled": 114,
+      "policy_states_explored": 422,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0
+    },
+    {
+      "domain": "4x4-connect4",
+      "reachable_states": 161029,
+      "legacy_states": 8620,
+      "pooled_states": 23932,
+      "new_states": 15312,
+      "legacy_decision_states": 7890,
+      "pooled_decision_states": 19272,
+      "new_decision_states": 11382,
+      "legacy_q_classes": 1808,
+      "pooled_q_classes": 6865,
+      "strict_edges_legacy": 1680,
+      "strict_edges_pooled": 1956,
+      "policy_states_explored": 126320,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0
+    },
+    {
+      "domain": "5x3-connect3",
+      "reachable_states": 70914,
+      "legacy_states": 345,
+      "pooled_states": 1052,
+      "new_states": 707,
+      "legacy_decision_states": 107,
+      "pooled_decision_states": 210,
+      "new_decision_states": 103,
+      "legacy_q_classes": 226,
+      "pooled_q_classes": 828,
+      "strict_edges_legacy": 292,
+      "strict_edges_pooled": 372,
+      "policy_states_explored": 3281,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0
+    },
+    {
+      "domain": "5x3-connect4",
+      "reachable_states": 158911,
+      "legacy_states": 1586,
+      "pooled_states": 15261,
+      "new_states": 13675,
+      "legacy_decision_states": 1233,
+      "pooled_decision_states": 12133,
+      "new_decision_states": 10900,
+      "legacy_q_classes": 89,
+      "pooled_q_classes": 1689,
+      "strict_edges_legacy": 300,
+      "strict_edges_pooled": 300,
+      "policy_states_explored": 148323,
+      "policy_failures": 0,
+      "exact_value_mismatches": 0
+    }
+  ],
+  "negative_controls": {
+    "primary_domain": "4x3-connect3",
+    "leave_top_unpaired_without_resource_policy": {
+      "qualifying_states": 562,
+      "false_no_win_claims": 106,
+      "smallest_counterexample": {
+        "ply": 4,
+        "side": "P0",
+        "exact_value": "P0-win",
+        "support": [1, 2, 0, 1],
+        "p0_hex": "9",
+        "p1_hex": "22"
+      }
+    },
+    "leave_bottom_unpaired_without_even_pool_guard": {
+      "qualifying_states": 562,
+      "false_no_win_claims": 96,
+      "smallest_counterexample": {
+        "ply": 5,
+        "side": "P1",
+        "exact_value": "P1-win",
+        "support": [1, 2, 2, 0],
+        "p0_hex": "43",
+        "p1_hex": "24"
+      }
+    }
+  },
+  "standard_7x6_ply2_boundary": {
+    "certifying_p1_replies_after_any_p0_first_move": 0,
+    "minimum_uncovered_residuals": {
+      "columns_1_2_3_5_6_7": 8,
+      "column_4": 9
+    }
+  },
+  "output_semantics": {
+    "strict_sibling_elimination": "safe for W/D/L-perfect output because the eliminated child is provably strictly worse",
+    "weak_tie_elimination": "value-safe only with a retained witness; not output-safe without Pi0/output subsumption"
+  },
+  "claim_boundary": {
+    "exact_enumeration_role": "qualification and falsification only",
+    "standard_7x6_solved": false,
+    "final_terminal_line_cardinality_used": false
+  }
+}

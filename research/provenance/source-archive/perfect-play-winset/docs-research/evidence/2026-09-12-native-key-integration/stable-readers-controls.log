@@ -1,0 +1,37 @@
+✔ native identity layout round trips all width regimes against independent BigInt concatenation (7.3157ms)
+✔ sealing preserves IDs and edges, replaces payload, and rejects capacity aliases (2.2506ms)
+✔ invalid reservation requests fail before changing the state owner (0.3864ms)
+✔ all-zero bucket hash still distinguishes complete keys and full pool still returns existing IDs (25.7735ms)
+✔ failed reservation allocation preserves readable identities and allows a clean retry (1.0493ms)
+✔ singleton scalar reads match canonical residual terms across geometries and reject invalid addresses (43.0015ms)
+✔ bounded reservations follow board/depth bounds, budget and actual owner byte counts (60.299ms)
+✔ changed-slot identity converges across blocking order, including all-zero address filters (16.0489ms)
+✔ compact index preserves capacity and published keys when link or bucket allocation fails (1.5977ms)
+✔ cheap chunk address collisions preserve exact IDs through dictionary rehash (3.0624ms)
+✔ reserved composed hashes reuse immutable local IDs across traversal and shared arena reset (22.7676ms)
+✔ empty chunk identity survives dictionary growth and validates input before reuse (0.8456ms)
+✔ direct semantic edges agree with recomputation and repeated edges bypass every interner (16.4602ms)
+✔ prepared exact search performs no typed allocation or backing-array growth (6.7063ms)
+✔ reserved state/chunk exhaustion preserves published identities instead of allocating (3.6016ms)
+✔ standalone local solver reserves its proof arrays without adding them to online workers (2.6515ms)
+✔ reserved residual exhaustion preserves existing classes and reports the resource boundary (4.1097ms)
+✔ chunk exact keys survive collisions and growth; a hit never requests insertion capacity (0.8299ms)
+✔ canonical cardinality and descriptor hashes match independent term sequences across growth and geometries (467.6854ms)
+✔ term writer rejects malformed capacity before mutation and class-count allocation failure preserves published classes (3.3498ms)
+✔ qualification baseline keeps one proof owner and rejects invalid residual inputs (0.7537ms)
+✔ support access rejects malformed indices and columns without rank-zero aliases (2.7869ms)
+✔ paired response guard preserves every column reservoir in packed and table layouts (3.5915ms)
+✔ compiled residual coverage rejects malformed inputs and reads canonical chunks after growth (9.9907ms)
+✔ board input is captured once at initialization and residual widths derive from that domain (58.9521ms)
+✔ state interning and cached edges reject values outside their owned domains (0.6737ms)
+✔ slot64 cell masks reject integer wrapping and preserve the residual class (0.5127ms)
+✔ failed state growth leaves every existing backing array and capacity intact (8.6568ms)
+✔ semantic IDs and cached edges survive repeated state growth and hash collisions (80.2808ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 945.6383

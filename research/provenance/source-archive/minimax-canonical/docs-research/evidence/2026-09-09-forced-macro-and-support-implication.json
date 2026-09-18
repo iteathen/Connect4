@@ -1,0 +1,126 @@
+{
+  "date": "2026-09-09",
+  "status": "research_evidence_only",
+  "parent_research_commit": "5f84cb526c43d9b5ce4112ded3d8f05fbe1faa3d",
+  "harness": {
+    "residual_universe_7x6": 625,
+    "move_order_7x6": [3, 4, 2, 5, 1, 6, 0],
+    "tt_exact_entry_returns_immediately": true,
+    "maintained_source_changed": false
+  },
+  "forced_macro": {
+    "rule": {
+      "immediate_own_playable_singleton": "exact immediate win",
+      "two_distinct_opponent_playable_singletons": "exact loss on opponent next move when no own immediate win",
+      "one_opponent_playable_singleton": "forced reply; collapse without TT-admitting intermediate state"
+    },
+    "complete_small_games": [
+      {"geometry":"4x3_connect3","score":2,"baseline_nodes":812,"tactical_nodes":383,"macro_nodes":246,"macro_vs_tactical_reduction_pct":35.8},
+      {"geometry":"4x4_connect4","score":0,"baseline_nodes":12935,"tactical_nodes":8450,"macro_nodes":6501,"macro_vs_tactical_reduction_pct":23.1},
+      {"geometry":"5x3_connect4","score":0,"baseline_nodes":2628,"tactical_nodes":1746,"macro_nodes":1570,"macro_vs_tactical_reduction_pct":10.1},
+      {"geometry":"4x5_connect4","score":0,"baseline_nodes":57944,"tactical_nodes":31574,"macro_nodes":24291,"macro_vs_tactical_reduction_pct":23.1}
+    ],
+    "frozen_7x6": {
+      "baseline_nodes": 43269,
+      "tactical_nodes": 4499,
+      "macro_nodes": 3084,
+      "macro_vs_tactical_reduction_pct": 31.5,
+      "current_nodes": 28606,
+      "current_tactical_nodes": 3807,
+      "current_macro_nodes": 2609,
+      "current_macro_vs_current_tactical_reduction_pct": 31.5,
+      "median_ms": {
+        "baseline": 66.39,
+        "tactical": 5.33,
+        "macro": 4.13,
+        "current": 48.97,
+        "current_tactical": 6.22,
+        "current_macro": 5.47
+      }
+    },
+    "fresh_non_tactical_root_cohort": {
+      "eligibility": "legal nonterminal; root not immediately solved by singleton win/double-threat; baseline nodes 500..30000",
+      "sequences": [
+        "621127156744766655177736122",
+        "5733552616345467572653",
+        "641611415412354415426",
+        "5614521215777143515526",
+        "23232164161665114265426",
+        "6321331637312657725255673",
+        "4624457276251163555754346",
+        "74176721336322633642277",
+        "774464663465771717631244522",
+        "1143263472123166214631736",
+        "2753752264534522127553",
+        "15336164467424331116134727"
+      ],
+      "nodes": {
+        "baseline": 137930,
+        "tactical": 16846,
+        "macro": 13928,
+        "current_tactical": 11848,
+        "current_macro": 7322
+      },
+      "macro_vs_tactical_reduction_pct": 17.3,
+      "current_macro_vs_current_tactical_reduction_pct": 38.2,
+      "median_ms": {
+        "tactical": 24.99,
+        "macro": 24.43,
+        "current_tactical": 19.39,
+        "current_macro": 15.31
+      }
+    },
+    "disposition": "promote"
+  },
+  "support_compatible_implication": {
+    "soundness_condition": "identical packed column-height vector plus F(T.P0)=>F(S.P0) and F(S.P1)=>F(T.P1) permits V(S)>=V(T)",
+    "representation": "625-bit upward closure per residual requirement ID; support-local lower/upper Pareto proof frontiers",
+    "complete_small_games": [
+      {"geometry":"4x3_connect3","baseline_nodes":812,"implication_nodes":749,"reduction_pct":7.8},
+      {"geometry":"4x4_connect4","baseline_nodes":12935,"implication_nodes":9340,"reduction_pct":27.8},
+      {"geometry":"5x3_connect4","baseline_nodes":2628,"implication_nodes":2163,"reduction_pct":17.7},
+      {"geometry":"4x5_connect4","baseline_nodes":57944,"implication_nodes":36265,"reduction_pct":37.4}
+    ],
+    "frozen_7x6_pareto": {
+      "baseline_nodes": 43269,
+      "full_nodes": 33238,
+      "bounded8_nodes": 33293,
+      "bounded8_reduction_pct": 23.1,
+      "current_nodes": 28606,
+      "current_full_nodes": 22147,
+      "current_bounded8_nodes": 22201,
+      "current_bounded8_reduction_pct": 22.4,
+      "median_ms": {
+        "baseline": 62.25,
+        "full": 100.52,
+        "bounded8": 100.51,
+        "current": 48.61,
+        "current_full": 77.48,
+        "current_bounded8": 72.79
+      }
+    },
+    "fresh_non_tactical_root_cohort": {
+      "baseline_nodes": 137930,
+      "bounded8_nodes": 100273,
+      "reduction_pct": 27.3,
+      "current_nodes": 75419,
+      "current_bounded8_nodes": 56470,
+      "current_reduction_pct": 25.1,
+      "median_ms": {
+        "baseline": 339.58,
+        "bounded8": 556.08,
+        "current": 254.93,
+        "current_bounded8": 355.87
+      }
+    },
+    "after_forced_macro": {
+      "current_macro_nodes": 7322,
+      "current_macro_plus_bounded8_implication_nodes": 6326,
+      "node_reduction_pct": 13.6,
+      "median_ms_current_macro": 15.95,
+      "median_ms_with_implication": 19.44,
+      "runtime_regression_pct": 21.9
+    },
+    "disposition": "semantically_valid_keep_research_candidate_not_hot_stack"
+  }
+}

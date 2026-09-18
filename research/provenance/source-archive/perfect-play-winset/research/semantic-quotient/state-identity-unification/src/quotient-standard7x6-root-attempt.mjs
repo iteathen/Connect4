@@ -1,0 +1,225 @@
+import { availableParallelism } from 'node:os';
+import { performance } from 'node:perf_hooks';
+import { assertWdlValue } from './quotient-negamax-domain-contract.mjs';
+import { createSlot64ResidualQuotientKernel } from './quotient-native-negamax-slot64-residual-kernel.mjs';
+import { createOnlineDependencyCoordinator } from './quotient-online-dependency-coordinator.mjs';
+import {
+  startOnlineBranchManager,
+  startOnlineSearchWorkers,
+  cleanupOnlineSession,
+} from './quotient-online-semantic-worker-pool.mjs';
+import { createSearchWorkerExecutor } from './quotient-search-worker-executor.mjs';
+import { createSemanticSharedTtView } from './quotient-semantic-shared-tt.mjs';
+import { standard7x6RootConfiguration } from './quotient-standard7x6-root-config.mjs';
+
+const SPEC = Object.freeze({ columns: 7, rows: 6, connect: 4 });
+const EXPECTED_ROOT_WDL = 1;
+const { PREFIX_CLASSES, SPLIT_DEPTH, PRIORITY_PROBE_DEPTH, REQUESTED_WORKERS,
+  ENTRY_CAPACITY, TERM_CAPACITY, PROGRESS_MS, CPU_PARALLELISM, searchWorkers,
+} = standard7x6RootConfiguration(process.env, availableParallelism());
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+const attemptStarted = performance.now();
+let branchManager = null;
+let branchManagerFinalStats = null;
+let semanticArena = null;
+let workers = [];
+let executor = null;
+let progressTimer = null;
+let coordinatorKernel = null;
+let coordinator = null;
+let ttView = null;
+let status = 'initializing';
+let rootWdl = null;
+let errorText = null;
+let rootResolvedMs = null;
+let quiescentMs = null;
+
+function errorString(error) {
+  return error instanceof Error ? error.stack ?? error.message : String(error);
+}
+
+function recordFailure(error) {
+  if (errorText === null) errorText = errorString(error);
+  status = 'failed';
+}
+
+function processMemory() {
+  const memory = process.memoryUsage();
+  return Object.freeze({
+    rss: memory.rss,
+    heapUsed: memory.heapUsed,
+    external: memory.external,
+    arrayBuffers: memory.arrayBuffers,
+  });
+}
+
+function progressSnapshot() {
+  return Object.freeze({
+    kind: 'connect4-standard7x6-frontier-root-progress-v4',
+    status,
+    elapsedMs: performance.now() - attemptStarted,
+    rootWdl,
+    rootResolvedMs,
+    tt: ttView?.stats() ?? null,
+    executor: executor?.stats() ?? null,
+    coordinator: coordinatorKernel
+      ? Object.freeze({
+          states: coordinatorKernel.states.count,
+          residualClasses: coordinatorKernel.classes.size,
+          typedBytes: coordinatorKernel.memoryStats().totalTypedBytes,
+          shallowExpanded: coordinator?.engine.metrics.shallowExpanded ?? 0,
+          workerExpanded: coordinator?.engine.metrics.workerExpanded ?? 0,
+          leafTasks: coordinator?.engine.metrics.leafTasks ?? 0,
+          scoutTasks: coordinator?.engine.metrics.scoutTasks ?? 0,
+          proofAdmissions: coordinator?.engine.metrics.proofAdmissions ?? 0,
+          forcedMacroTransitions: coordinator?.engine.metrics.forcedMacroTransitions ?? 0,
+          detachedScoutTasks: coordinator?.engine.metrics.detachedScoutTasks ?? 0,
+        })
+      : null,
+    processMemory: processMemory(),
+  });
+}
+
+async function drainProofWork() {
+  if (coordinator) await coordinator.engine.drainBackground();
+  if (executor) await executor.drain();
+}
+
+function recordResolvedRoot(value) {
+  rootWdl = assertWdlValue(value, 'standard 7x6 root result');
+  rootResolvedMs = performance.now() - attemptStarted;
+  if (rootWdl !== EXPECTED_ROOT_WDL) {
+    throw new Error(`standard 7x6 root oracle mismatch: expected ${EXPECTED_ROOT_WDL}, got ${rootWdl}`);
+  }
+}
+
+try {
+  branchManager = await startOnlineBranchManager(SPEC, {
+    prebuildGraph: false,
+    prefixClasses: PREFIX_CLASSES,
+    entryCapacity: ENTRY_CAPACITY,
+    termCapacity: TERM_CAPACITY,
+    exploreEnabled: false,
+  });
+  assert(branchManager.published.graph === null, 'online 7x6 Branch Manager unexpectedly prebuilt a graph');
+  assert(branchManager.published.arena === null, 'online 7x6 Branch Manager unexpectedly allocated a graph proof arena');
+  semanticArena = branchManager.published.semanticArena;
+  assert(semanticArena?.entryCapacity === ENTRY_CAPACITY, `semantic TT entry capacity drifted to ${semanticArena?.entryCapacity}`);
+  assert(semanticArena?.termCapacity === TERM_CAPACITY, `semantic TT term capacity drifted to ${semanticArena?.termCapacity}`);
+  ttView = createSemanticSharedTtView(semanticArena);
+
+  workers = await startOnlineSearchWorkers(searchWorkers, SPEC, semanticArena, {
+    prefixClasses: PREFIX_CLASSES,
+    etc: false,
+  });
+  assert(workers.length === searchWorkers, `started ${workers.length} workers, expected ${searchWorkers}`);
+  executor = createSearchWorkerExecutor(workers);
+
+  coordinatorKernel = createSlot64ResidualQuotientKernel(SPEC, {
+    cacheEdges: true,
+    prefixClasses: PREFIX_CLASSES,
+  }).kernel;
+  coordinator = createOnlineDependencyCoordinator(
+    coordinatorKernel,
+    semanticArena,
+    executor,
+    {
+      splitDepth: SPLIT_DEPTH,
+      priorityProbeDepth: PRIORITY_PROBE_DEPTH,
+    },
+  );
+
+  status = 'searching-win-threshold';
+  progressTimer = setInterval(() => {
+    console.error(`STANDARD7X6_ROOT_PROGRESS=${JSON.stringify(progressSnapshot())}`);
+  }, PROGRESS_MS);
+  progressTimer.unref();
+
+  const first = assertWdlValue(
+    await coordinator.engine.search(coordinatorKernel.rootId, 0, 1),
+    'standard 7x6 win-threshold result',
+  );
+  if (first >= 1) {
+    recordResolvedRoot(1);
+  } else {
+    status = 'searching-draw-threshold';
+    const second = assertWdlValue(
+      await coordinator.engine.search(coordinatorKernel.rootId, -1, 0),
+      'standard 7x6 draw-threshold result',
+    );
+    recordResolvedRoot(second >= 0 ? 0 : -1);
+  }
+
+  // Authoritative threshold completion above is the exact proof time. Detached scouts
+  // remain sound proof producers but are lifecycle cleanup, not a prerequisite for the result.
+  status = 'quiescing';
+  console.error(`STANDARD7X6_ROOT_RESOLVED=${JSON.stringify({ rootWdl, rootResolvedMs })}`);
+  await drainProofWork();
+  quiescentMs = performance.now() - attemptStarted;
+} catch (error) {
+  recordFailure(error);
+} finally {
+  if (progressTimer) clearInterval(progressTimer);
+  try {
+    await drainProofWork();
+    if (rootWdl !== null && quiescentMs === null) quiescentMs = performance.now() - attemptStarted;
+  } catch (error) {
+    recordFailure(error);
+  }
+
+  try { branchManagerFinalStats = await cleanupOnlineSession({ executor, workers, branchManager }); }
+  catch (error) { recordFailure(error); }
+
+  if (errorText === null && rootWdl !== null) status = 'complete';
+  else status = 'failed';
+}
+
+const summary = Object.freeze({
+  kind: 'connect4-standard7x6-frontier-dependency-root-attempt-v4',
+  status,
+  spec: SPEC,
+  expectedRootWdl: EXPECTED_ROOT_WDL,
+  rootWdl,
+  error: errorText,
+  rootResolvedMs,
+  quiescentMs,
+  elapsedMs: performance.now() - attemptStarted,
+  configuration: Object.freeze({
+    requestedWorkers: REQUESTED_WORKERS,
+    searchWorkers,
+    availableParallelism: CPU_PARALLELISM,
+    splitDepth: SPLIT_DEPTH,
+    splitDepthMeaning: 'unresolved_decision_depth_after_forced_macro_normalization',
+    priorityProbeDepth: PRIORITY_PROBE_DEPTH,
+    prefixClasses: PREFIX_CLASSES,
+    ttEntryCapacity: semanticArena?.entryCapacity ?? ENTRY_CAPACITY,
+    ttTermCapacity: semanticArena?.termCapacity ?? TERM_CAPACITY,
+    ordering: 'dynamic_live_winning_line_frontier',
+    forcedTransit: 'macro_normalized_before_decision_depth',
+    sharedProofAdmission: 'probe_without_allocation_then_generation_stable_read_or_rebind_on_publication',
+    siblingCompletion: 'incremental_completion_order_with_noninterrupting_detach_after_cutoff',
+    rootProofTiming: 'authoritative_threshold_completion_before_detached_quiescence',
+    autonomousExploration: false,
+  }),
+  tt: ttView?.stats() ?? null,
+  executor: executor?.stats() ?? null,
+  coordinator: coordinatorKernel
+    ? Object.freeze({
+        states: coordinatorKernel.states.count,
+        residualClasses: coordinatorKernel.classes.size,
+        memory: coordinatorKernel.memoryStats(),
+        metrics: coordinator ? Object.freeze({ ...coordinator.engine.metrics }) : null,
+      })
+    : null,
+  branchManager: branchManagerFinalStats ?? branchManager?.published.stats ?? null,
+  processMemory: processMemory(),
+});
+
+console.error(`STANDARD7X6_ROOT_ATTEMPT=${JSON.stringify(summary)}`);
+console.log(JSON.stringify(summary, null, 2));
+
+if (status === 'failed') process.exitCode = 1;

@@ -1,0 +1,822 @@
+{
+  "kind": "connect4-autonomous-branch-manager-frontier-explore-v5",
+  "status": "complete",
+  "spec": {
+    "columns": 4,
+    "rows": 5,
+    "connect": 4
+  },
+  "exploreDepth": 3,
+  "policy": "Branch Manager auto-seeds and replenishes a bounded exact frontier-context reservoir; workers never request branches; authoritative proof work has idle-dispatch priority and running work is never interrupted",
+  "standardRootIncidence": {
+    "values": [
+      3,
+      4,
+      5,
+      7,
+      5,
+      4,
+      3
+    ],
+    "order": [
+      3,
+      2,
+      4,
+      1,
+      5,
+      0,
+      6
+    ]
+  },
+  "autonomous": {
+    "completedExplores": 4,
+    "rootFragment": {
+      "kind": "connect4-quotient-explore-fragment-v5",
+      "startPath": [],
+      "startContextKey": "0|174.175.176.177.178.179.180.181.182.183.184.185.186.187.188.189.190./174.175.176.177.178.179.180.181.182.183.184.185.186.187.188.189.190.|1ffff.1ffff.",
+      "requestedDepth": 3,
+      "reachedDepth": 3,
+      "ordering": "dynamic-live-winning-line-frontier",
+      "contextIdentity": "exact_q_semantic_content_plus_exact_live_line_frontier",
+      "firstLayerOrder": [
+        {
+          "column": 0,
+          "landingCell": 0,
+          "value": 3
+        },
+        {
+          "column": 3,
+          "landingCell": 3,
+          "value": 3
+        },
+        {
+          "column": 1,
+          "landingCell": 1,
+          "value": 2
+        },
+        {
+          "column": 2,
+          "landingCell": 2,
+          "value": 2
+        }
+      ],
+      "uniqueContexts": 73,
+      "expandedContexts": 21,
+      "traversedEdges": 84,
+      "duplicateContextEdges": 12,
+      "terminalWins": 0,
+      "tacticalClosed": 0,
+      "forcedNodes": 0,
+      "orderedNodes": 21,
+      "scoredMoves": 84,
+      "maxMoveValue": 4,
+      "frontierCandidates": [
+        {
+          "path": [
+            0,
+            0,
+            3
+          ],
+          "contextKey": "218|22.133.146.148.176.179.180.183.185.186.187.190./117.155.168.176.179.180.183.185.186.187.189.190.|1bf9d.157de."
+        },
+        {
+          "path": [
+            0,
+            0,
+            1
+          ],
+          "contextKey": "8|25.136.146.176.178.180.182.183.185.187.189.190./117.155.168.176.178.180.182.183.185.186.187.189.190.|1bf9d.1df5e."
+        },
+        {
+          "path": [
+            0,
+            0,
+            2
+          ],
+          "contextKey": "38|24.141.146.176.178.179.182.183.185.186.189.190./117.155.168.176.178.179.182.183.185.186.187.189.190.|1bf9d.1ddde."
+        },
+        {
+          "path": [
+            0,
+            0,
+            0
+          ],
+          "contextKey": "3|113.127.146.178.179.180.182.183.185.186.187.189.190./117.168.178.179.180.182.183.185.186.187.189.190.|1bf9d.1df9a."
+        },
+        {
+          "path": [
+            0,
+            3,
+            0
+          ],
+          "contextKey": "218|62.117.146.168.176.179.180.183.185.186.187.189.190./133.148.176.179.180.183.185.186.187.190.|177fe.19f9c."
+        },
+        {
+          "path": [
+            0,
+            3,
+            3
+          ],
+          "contextKey": "433|114.131.146.157.170.176.179.180.183.186.187.188.190./133.176.179.180.183.184.186.187.188.190.|177fe.c7dc."
+        },
+        {
+          "path": [
+            0,
+            3,
+            1
+          ],
+          "contextKey": "223|131.136.146.175.176.180.183.185.187.188.189.190./133.148.175.176.180.183.184.185.186.187.188.190.|177fe.1df5e."
+        },
+        {
+          "path": [
+            0,
+            3,
+            2
+          ],
+          "contextKey": "253|131.141.146.175.176.179.183.185.186.188.189.190./133.148.175.176.179.183.184.185.186.187.188.190.|177fe.1ddde."
+        },
+        {
+          "path": [
+            0,
+            1,
+            0
+          ],
+          "contextKey": "8|62.117.146.168.176.178.180.182.183.185.186.187.189.190./136.176.178.180.182.183.185.187.189.190.|1ff7e.19f9c."
+        },
+        {
+          "path": [
+            0,
+            1,
+            1
+          ],
+          "contextKey": "13|81.116.131.160.176.178.180.182.183.185.187.188.189.190./176.178.180.182.183.184.185.187.188.189.190.|1ff7e.1de5c."
+        },
+        {
+          "path": [
+            0,
+            1,
+            3
+          ],
+          "contextKey": "223|131.133.146.148.175.176.180.183.185.186.187.188.190./136.175.176.180.183.184.185.187.188.189.190.|1ff7e.157de."
+        },
+        {
+          "path": [
+            0,
+            1,
+            2
+          ],
+          "contextKey": "43|131.141.146.175.176.178.182.183.185.186.188.189.190./136.175.176.178.182.183.184.185.187.188.189.190.|1ff7e.1ddde."
+        },
+        {
+          "path": [
+            0,
+            2,
+            0
+          ],
+          "contextKey": "38|62.117.146.168.176.178.179.182.183.185.186.187.189.190./141.176.178.179.182.183.185.186.189.190.|1fdfe.19f9c."
+        },
+        {
+          "path": [
+            0,
+            2,
+            2
+          ],
+          "contextKey": "73|115.131.132.146.163.176.179.182.183.185.186.188.189.190./176.179.182.183.184.185.186.188.189.190.|1fdfe.159dc."
+        },
+        {
+          "path": [
+            0,
+            2,
+            3
+          ],
+          "contextKey": "253|131.133.146.148.175.176.179.183.185.186.187.188.190./141.175.176.179.183.184.185.186.188.189.190.|1fdfe.157de."
+        },
+        {
+          "path": [
+            0,
+            2,
+            1
+          ],
+          "contextKey": "43|131.136.146.175.176.178.182.183.185.187.188.189.190./141.175.176.178.182.183.184.185.186.188.189.190.|1fdfe.1df5e."
+        },
+        {
+          "path": [
+            3,
+            3,
+            0
+          ],
+          "contextKey": "433|22.131.133.146.176.179.180.183.186.187.188.190./114.157.170.176.179.180.183.184.186.187.188.190.|e7fd.157de."
+        },
+        {
+          "path": [
+            3,
+            3,
+            1
+          ],
+          "contextKey": "438|21.133.136.176.177.180.181.183.184.187.188.190./114.157.170.176.177.180.181.183.184.186.187.188.190.|e7fd.1777e."
+        },
+        {
+          "path": [
+            3,
+            3,
+            2
+          ],
+          "contextKey": "468|20.133.141.176.177.179.181.183.184.186.188.190./114.157.170.176.177.179.181.183.184.186.187.188.190.|e7fd.175fe."
+        },
+        {
+          "path": [
+            3,
+            3,
+            3
+          ],
+          "contextKey": "648|110.123.133.177.179.180.181.183.184.186.187.188.190./114.157.177.179.180.181.183.184.186.187.188.190.|e7fd.167fa."
+        },
+        {
+          "path": [
+            3,
+            0,
+            3
+          ],
+          "contextKey": "433|82.114.133.157.176.179.180.183.184.186.187.188.190./131.146.176.179.180.183.186.187.188.190.|1dfde.67fc."
+        },
+        {
+          "path": [
+            3,
+            0,
+            0
+          ],
+          "contextKey": "218|117.133.148.155.168.176.179.180.183.185.186.187.190./146.176.179.180.183.185.186.187.189.190.|1dfde.1379c."
+        },
+        {
+          "path": [
+            3,
+            0,
+            1
+          ],
+          "contextKey": "223|133.136.148.175.176.180.183.184.185.187.188.190./131.146.175.176.180.183.185.186.187.188.189.190.|1dfde.1777e."
+        },
+        {
+          "path": [
+            3,
+            0,
+            2
+          ],
+          "contextKey": "253|133.141.148.175.176.179.183.184.185.186.188.190./131.146.175.176.179.183.185.186.187.188.189.190.|1dfde.175fe."
+        },
+        {
+          "path": [
+            3,
+            1,
+            3
+          ],
+          "contextKey": "438|82.114.133.157.176.177.180.181.183.184.186.187.188.190./136.176.177.180.181.183.184.187.188.190.|1ff7e.67fc."
+        },
+        {
+          "path": [
+            3,
+            1,
+            1
+          ],
+          "contextKey": "228|116.133.145.148.160.176.177.180.183.184.185.187.188.190./176.177.180.183.184.185.187.188.189.190.|1ff7e.1567c."
+        },
+        {
+          "path": [
+            3,
+            1,
+            2
+          ],
+          "contextKey": "258|133.141.148.175.176.177.181.183.184.185.186.188.190./136.175.176.177.181.183.184.185.187.188.189.190.|1ff7e.175fe."
+        },
+        {
+          "path": [
+            3,
+            2,
+            3
+          ],
+          "contextKey": "468|82.114.133.157.176.177.179.181.183.184.186.187.188.190./141.176.177.179.181.183.184.186.188.190.|1fdfe.67fc."
+        },
+        {
+          "path": [
+            3,
+            2,
+            2
+          ],
+          "contextKey": "288|63.115.148.163.176.177.179.181.183.184.185.186.188.190./176.177.179.181.183.184.185.186.188.189.190.|1fdfe.171fc."
+        },
+        {
+          "path": [
+            3,
+            2,
+            1
+          ],
+          "contextKey": "258|133.136.148.175.176.177.181.183.184.185.187.188.190./141.175.176.177.181.183.184.185.186.188.189.190.|1fdfe.1777e."
+        },
+        {
+          "path": [
+            1,
+            1,
+            1
+          ],
+          "contextKey": "18|112.126.129.167.177.180.182.183.184.185.187.189.190./116.145.177.180.182.183.184.185.187.189.190.|1de7d.13e7a."
+        },
+        {
+          "path": [
+            1,
+            1,
+            3
+          ],
+          "contextKey": "228|21.133.148.176.177.180.183.184.185.187.188.190./116.145.160.176.177.180.183.184.185.187.188.189.190.|1de7d.1777e."
+        },
+        {
+          "path": [
+            1,
+            1,
+            0
+          ],
+          "contextKey": "13|25.131.176.178.180.182.183.185.187.188.189.190./116.160.176.178.180.182.183.184.185.187.188.189.190.|1de7d.1df5e."
+        },
+        {
+          "path": [
+            1,
+            1,
+            2
+          ],
+          "contextKey": "48|23.141.176.177.178.182.183.184.185.188.189.190./116.145.160.176.177.178.182.183.184.185.187.188.189.190.|1de7d.1fd7e."
+        },
+        {
+          "path": [
+            1,
+            0,
+            0
+          ],
+          "contextKey": "8|117.136.155.168.176.178.180.182.183.185.187.189.190./146.176.178.180.182.183.185.186.187.189.190.|1dfde.1bf1c."
+        },
+        {
+          "path": [
+            1,
+            0,
+            1
+          ],
+          "contextKey": "13|67.116.176.178.180.182.183.184.185.187.188.189.190./131.176.178.180.182.183.185.187.188.189.190.|1dfde.1de7c."
+        },
+        {
+          "path": [
+            1,
+            0,
+            2
+          ],
+          "contextKey": "43|136.141.175.176.178.182.183.184.185.188.189.190./131.146.175.176.178.182.183.185.186.187.188.189.190.|1dfde.1fd7e."
+        },
+        {
+          "path": [
+            1,
+            3,
+            1
+          ],
+          "contextKey": "228|67.116.145.176.177.180.183.184.185.187.188.189.190./133.148.176.177.180.183.184.185.187.188.190.|177fe.1de7c."
+        },
+        {
+          "path": [
+            1,
+            3,
+            3
+          ],
+          "contextKey": "438|114.136.157.170.176.177.180.181.183.184.187.188.190./133.176.177.180.181.183.184.186.187.188.190.|177fe.e77c."
+        },
+        {
+          "path": [
+            1,
+            3,
+            2
+          ],
+          "contextKey": "258|136.141.175.176.177.181.183.184.185.188.189.190./133.148.175.176.177.181.183.184.185.186.187.188.190.|177fe.1fd7e."
+        },
+        {
+          "path": [
+            1,
+            2,
+            1
+          ],
+          "contextKey": "48|67.116.145.176.177.178.182.183.184.185.187.188.189.190./141.176.177.178.182.183.184.185.188.189.190.|1fdfe.1de7c."
+        },
+        {
+          "path": [
+            1,
+            2,
+            2
+          ],
+          "contextKey": "78|115.132.136.163.176.177.181.182.183.184.185.188.189.190./176.177.181.182.183.184.185.186.188.189.190.|1fdfe.1797c."
+        },
+        {
+          "path": [
+            2,
+            2,
+            0
+          ],
+          "contextKey": "73|24.131.146.176.179.182.183.185.186.188.189.190./115.132.163.176.179.182.183.184.185.186.188.189.190.|179fd.1ddde."
+        },
+        {
+          "path": [
+            2,
+            2,
+            2
+          ],
+          "contextKey": "108|111.125.143.156.177.179.182.183.184.186.188.189.190./115.132.177.179.182.183.184.186.188.189.190.|179fd.d9fa."
+        },
+        {
+          "path": [
+            2,
+            2,
+            1
+          ],
+          "contextKey": "78|23.136.176.177.181.182.183.184.185.188.189.190./115.132.163.176.177.181.182.183.184.185.186.188.189.190.|179fd.1fd7e."
+        },
+        {
+          "path": [
+            2,
+            2,
+            3
+          ],
+          "contextKey": "288|20.148.176.177.179.181.183.184.185.186.188.190./115.163.176.177.179.181.183.184.185.186.188.189.190.|179fd.175fe."
+        },
+        {
+          "path": [
+            2,
+            0,
+            2
+          ],
+          "contextKey": "73|74.115.132.176.179.182.183.184.185.186.188.189.190./131.146.176.179.182.183.185.186.188.189.190.|1dfde.179fc."
+        },
+        {
+          "path": [
+            2,
+            0,
+            0
+          ],
+          "contextKey": "38|117.141.155.168.176.178.179.182.183.185.186.189.190./146.176.178.179.182.183.185.186.187.189.190.|1dfde.1bd9c."
+        },
+        {
+          "path": [
+            2,
+            3,
+            2
+          ],
+          "contextKey": "288|74.115.176.177.179.181.183.184.185.186.188.189.190./148.176.177.179.181.183.184.185.186.188.190.|177fe.179fc."
+        },
+        {
+          "path": [
+            2,
+            3,
+            3
+          ],
+          "contextKey": "468|114.141.157.170.176.177.179.181.183.184.186.188.190./133.176.177.179.181.183.184.186.187.188.190.|177fe.e5fc."
+        },
+        {
+          "path": [
+            2,
+            1,
+            2
+          ],
+          "contextKey": "78|74.115.132.176.177.181.182.183.184.185.186.188.189.190./136.176.177.181.182.183.184.185.188.189.190.|1ff7e.179fc."
+        },
+        {
+          "path": [
+            2,
+            1,
+            1
+          ],
+          "contextKey": "48|116.141.145.160.176.177.178.182.183.184.185.188.189.190./176.177.178.182.183.184.185.187.188.189.190.|1ff7e.1dc7c."
+        }
+      ]
+    },
+    "executor": {
+      "submitted": 0,
+      "completed": 0,
+      "failed": 0,
+      "aborted": 0,
+      "workerFaults": 0,
+      "maxQueued": 0,
+      "exploreQueued": 4,
+      "exploreStarted": 4,
+      "exploreCompleted": 4,
+      "exploreFailed": 0,
+      "queued": 0,
+      "exploreReady": 0,
+      "active": 0,
+      "pending": 0,
+      "backgroundSideEffects": 0,
+      "poisoned": false,
+      "workerTasks": [
+        3,
+        1
+      ],
+      "workerResources": [
+        {
+          "localStatesHighWater": 191,
+          "localClassesHighWater": 370,
+          "localTypedBytesHighWater": 852270,
+          "onlineStateCapacityHighWater": 4096,
+          "onlineStateBytesPerStateAvoided": 3,
+          "onlineStateLocalProofBytesAvoidedHighWater": 12288,
+          "onlineStateLocalProofBytesRetainedHighWater": 0,
+          "descriptorStateBuildsHighWater": 0,
+          "descriptorClassBuildsHighWater": 0,
+          "descriptorTransientStateDescriptorUsesHighWater": 0,
+          "descriptorStateDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorClassDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorTermArrayMaterializationsHighWater": 0,
+          "descriptorTermIdsMaterializedHighWater": 0,
+          "descriptorDirectTermWritesHighWater": 0,
+          "descriptorDirectTermIdsWrittenHighWater": 0,
+          "descriptorTermIdsCachedHighWater": 0,
+          "descriptorTermArrayObjectsCachedHighWater": 0,
+          "descriptorClassObjectsCachedHighWater": 0,
+          "descriptorClassMetadataBytesHighWater": 10240,
+          "descriptorScratchBytesHighWater": 382,
+          "descriptorScratchCapacityHighWater": 191,
+          "descriptorTermArenaBytesHighWater": 0,
+          "descriptorRetainedTypedBytesHighWater": 10240,
+          "descriptorClassCapacityHighWater": 1024,
+          "descriptorTermCapacityHighWater": 0,
+          "isolateHeapUsedHighWater": 10601584,
+          "isolateExternalHighWater": 4377713,
+          "isolateArrayBuffersHighWater": 1009855
+        },
+        {
+          "localStatesHighWater": 66,
+          "localClassesHighWater": 131,
+          "localTypedBytesHighWater": 849198,
+          "onlineStateCapacityHighWater": 4096,
+          "onlineStateBytesPerStateAvoided": 3,
+          "onlineStateLocalProofBytesAvoidedHighWater": 12288,
+          "onlineStateLocalProofBytesRetainedHighWater": 0,
+          "descriptorStateBuildsHighWater": 0,
+          "descriptorClassBuildsHighWater": 0,
+          "descriptorTransientStateDescriptorUsesHighWater": 0,
+          "descriptorStateDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorClassDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorTermArrayMaterializationsHighWater": 0,
+          "descriptorTermIdsMaterializedHighWater": 0,
+          "descriptorDirectTermWritesHighWater": 0,
+          "descriptorDirectTermIdsWrittenHighWater": 0,
+          "descriptorTermIdsCachedHighWater": 0,
+          "descriptorTermArrayObjectsCachedHighWater": 0,
+          "descriptorClassObjectsCachedHighWater": 0,
+          "descriptorClassMetadataBytesHighWater": 10240,
+          "descriptorScratchBytesHighWater": 382,
+          "descriptorScratchCapacityHighWater": 191,
+          "descriptorTermArenaBytesHighWater": 0,
+          "descriptorRetainedTypedBytesHighWater": 10240,
+          "descriptorClassCapacityHighWater": 1024,
+          "descriptorTermCapacityHighWater": 0,
+          "isolateHeapUsedHighWater": 10000752,
+          "isolateExternalHighWater": 4369477,
+          "isolateArrayBuffersHighWater": 1001659
+        }
+      ]
+    },
+    "branchManager": {
+      "buildMs": 1.1869999999999976,
+      "prebuildGraph": false,
+      "canonicalStates": 0,
+      "residualClasses": 0,
+      "canonicalEdges": 0,
+      "semanticTtEnabled": true,
+      "resets": 0,
+      "cleanupPasses": 0,
+      "plansBuilt": 0,
+      "plansReduced": 0,
+      "exploreSessionStarts": 1,
+      "exploreSessionStops": 1,
+      "exploreCandidatesAccepted": 35,
+      "exploreCandidatesDropped": 60,
+      "exploreActive": false,
+      "exploreConfig": {
+        "enabled": true,
+        "depth": 3,
+        "reservoirTarget": 2,
+        "backlogCapacity": 32,
+        "historyCapacity": 4096,
+        "completedCapacity": 64
+      },
+      "exploreBacklog": 0,
+      "exploreHints": {
+        "offered": 4,
+        "deduplicated": 0,
+        "completed": 4,
+        "abandoned": 0,
+        "retiredHistoryEvictions": 0,
+        "completedResultEvictions": 0,
+        "outstanding": 0,
+        "activeKeys": 0,
+        "recentKeys": 4,
+        "seen": 4,
+        "completedQueued": 0,
+        "historyCapacity": 4096,
+        "completedCapacity": 64
+      }
+    },
+    "semanticTt": {
+      "probes": 0,
+      "probeMisses": 0,
+      "ensures": 0,
+      "hits": 0,
+      "inserts": 0,
+      "replacements": 0,
+      "poisonedInstalls": 0,
+      "nonExactVictims": 0,
+      "exactVictims": 0,
+      "descriptorCompares": 0,
+      "hashCollisions": 0,
+      "bucketLockWaits": 0,
+      "proofWriterWaits": 0,
+      "termIdsPublished": 0,
+      "termIdsAllocated": 0,
+      "termArenaWordsAllocated": 0,
+      "termChunkAllocations": 0,
+      "termSpanReuses": 0,
+      "termSpanGrows": 0,
+      "maxBucketScan": 0,
+      "entries": 0,
+      "replacementsShared": 0,
+      "termSpanReusesShared": 0,
+      "termSpanGrowsShared": 0,
+      "termChunkCountShared": 0,
+      "termIdsUsed": 0,
+      "termArenaWordsUsed": 0,
+      "termHeaderWordsUsed": 0,
+      "entryCapacity": 524288,
+      "associativity": 8,
+      "bucketCount": 65536,
+      "generationLimit": 4294967295,
+      "termCapacity": 16777216
+    }
+  },
+  "mixed": {
+    "authoritativeValue": 0,
+    "authoritativeWorker": 0,
+    "completedExplores": 1,
+    "executor": {
+      "submitted": 1,
+      "completed": 1,
+      "failed": 0,
+      "aborted": 0,
+      "workerFaults": 0,
+      "maxQueued": 1,
+      "exploreQueued": 5,
+      "exploreStarted": 5,
+      "exploreCompleted": 5,
+      "exploreFailed": 0,
+      "queued": 0,
+      "exploreReady": 0,
+      "active": 0,
+      "pending": 0,
+      "backgroundSideEffects": 0,
+      "poisoned": false,
+      "workerTasks": [
+        4,
+        2
+      ],
+      "workerResources": [
+        {
+          "localStatesHighWater": 17045,
+          "localClassesHighWater": 9371,
+          "localTypedBytesHighWater": 1903918,
+          "onlineStateCapacityHighWater": 32768,
+          "onlineStateBytesPerStateAvoided": 3,
+          "onlineStateLocalProofBytesAvoidedHighWater": 98304,
+          "onlineStateLocalProofBytesRetainedHighWater": 0,
+          "descriptorStateBuildsHighWater": 38537,
+          "descriptorClassBuildsHighWater": 9124,
+          "descriptorTransientStateDescriptorUsesHighWater": 38537,
+          "descriptorStateDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorClassDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorTermArrayMaterializationsHighWater": 0,
+          "descriptorTermIdsMaterializedHighWater": 0,
+          "descriptorDirectTermWritesHighWater": 48428,
+          "descriptorDirectTermIdsWrittenHighWater": 139094,
+          "descriptorTermIdsCachedHighWater": 0,
+          "descriptorTermArrayObjectsCachedHighWater": 0,
+          "descriptorClassObjectsCachedHighWater": 0,
+          "descriptorClassMetadataBytesHighWater": 163840,
+          "descriptorScratchBytesHighWater": 382,
+          "descriptorScratchCapacityHighWater": 191,
+          "descriptorTermArenaBytesHighWater": 0,
+          "descriptorRetainedTypedBytesHighWater": 163840,
+          "descriptorClassCapacityHighWater": 16384,
+          "descriptorTermCapacityHighWater": 0,
+          "isolateHeapUsedHighWater": 15666104,
+          "isolateExternalHighWater": 6777999,
+          "isolateArrayBuffersHighWater": 3410141
+        },
+        {
+          "localStatesHighWater": 135,
+          "localClassesHighWater": 257,
+          "localTypedBytesHighWater": 849198,
+          "onlineStateCapacityHighWater": 4096,
+          "onlineStateBytesPerStateAvoided": 3,
+          "onlineStateLocalProofBytesAvoidedHighWater": 12288,
+          "onlineStateLocalProofBytesRetainedHighWater": 0,
+          "descriptorStateBuildsHighWater": 0,
+          "descriptorClassBuildsHighWater": 0,
+          "descriptorTransientStateDescriptorUsesHighWater": 0,
+          "descriptorStateDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorClassDescriptorObjectsAllocatedHighWater": 0,
+          "descriptorTermArrayMaterializationsHighWater": 0,
+          "descriptorTermIdsMaterializedHighWater": 0,
+          "descriptorDirectTermWritesHighWater": 0,
+          "descriptorDirectTermIdsWrittenHighWater": 0,
+          "descriptorTermIdsCachedHighWater": 0,
+          "descriptorTermArrayObjectsCachedHighWater": 0,
+          "descriptorClassObjectsCachedHighWater": 0,
+          "descriptorClassMetadataBytesHighWater": 10240,
+          "descriptorScratchBytesHighWater": 382,
+          "descriptorScratchCapacityHighWater": 191,
+          "descriptorTermArenaBytesHighWater": 0,
+          "descriptorRetainedTypedBytesHighWater": 10240,
+          "descriptorClassCapacityHighWater": 1024,
+          "descriptorTermCapacityHighWater": 0,
+          "isolateHeapUsedHighWater": 10000752,
+          "isolateExternalHighWater": 4370579,
+          "isolateArrayBuffersHighWater": 1002721
+        }
+      ]
+    },
+    "branchManager": {
+      "buildMs": 1.1869999999999976,
+      "prebuildGraph": false,
+      "canonicalStates": 0,
+      "residualClasses": 0,
+      "canonicalEdges": 0,
+      "semanticTtEnabled": true,
+      "resets": 1,
+      "cleanupPasses": 0,
+      "plansBuilt": 0,
+      "plansReduced": 0,
+      "exploreSessionStarts": 2,
+      "exploreSessionStops": 2,
+      "exploreCandidatesAccepted": 36,
+      "exploreCandidatesDropped": 60,
+      "exploreActive": false,
+      "exploreConfig": {
+        "enabled": true,
+        "depth": 3,
+        "reservoirTarget": 2,
+        "backlogCapacity": 32,
+        "historyCapacity": 4096,
+        "completedCapacity": 64
+      },
+      "exploreBacklog": 0,
+      "exploreHints": {
+        "offered": 5,
+        "deduplicated": 0,
+        "completed": 5,
+        "abandoned": 0,
+        "retiredHistoryEvictions": 0,
+        "completedResultEvictions": 0,
+        "outstanding": 0,
+        "activeKeys": 0,
+        "recentKeys": 1,
+        "seen": 1,
+        "completedQueued": 0,
+        "historyCapacity": 4096,
+        "completedCapacity": 64
+      }
+    },
+    "semanticTt": {
+      "probes": 0,
+      "probeMisses": 0,
+      "ensures": 0,
+      "hits": 0,
+      "inserts": 0,
+      "replacements": 0,
+      "poisonedInstalls": 0,
+      "nonExactVictims": 0,
+      "exactVictims": 0,
+      "descriptorCompares": 0,
+      "hashCollisions": 0,
+      "bucketLockWaits": 0,
+      "proofWriterWaits": 0,
+      "termIdsPublished": 0,
+      "termIdsAllocated": 0,
+      "termArenaWordsAllocated": 0,
+      "termChunkAllocations": 0,
+      "termSpanReuses": 0,
+      "termSpanGrows": 0,
+      "maxBucketScan": 0,
+      "entries": 13325,
+      "replacementsShared": 0,
+      "termSpanReusesShared": 0,
+      "termSpanGrowsShared": 0,
+      "termChunkCountShared": 13325,
+      "termIdsUsed": 75978,
+      "termArenaWordsUsed": 115953,
+      "termHeaderWordsUsed": 39975,
+      "entryCapacity": 524288,
+      "associativity": 8,
+      "bucketCount": 65536,
+      "generationLimit": 4294967295,
+      "termCapacity": 16777216
+    }
+  }
+}

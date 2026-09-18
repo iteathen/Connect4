@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "kind": "response-transversal-matroid",
+  "intervalGround": {
+    "subsets": 64,
+    "independent": 40,
+    "hereditaryChecks": 217,
+    "exchangeChecks": 507
+  },
+  "parallelGround": {
+    "subsets": 16,
+    "independent": 10,
+    "hereditaryChecks": 29,
+    "exchangeChecks": 29
+  },
+  "repairCircuit": {
+    "baselineIndependent": true,
+    "withRepairDependent": true,
+    "removeEitherBaselineElementRestoresIndependence": true
+  },
+  "interpretation": [
+    "Response obligations that can be injectively matched to legal defender response turns form a transversal matroid on the obligation set.",
+    "A repair obligation that makes an independent response set dependent creates a matroid circuit; retaining the repair requires dropping some existing circuit obligation.",
+    "This gives an exact algebraic basis for defect transfer once coverage-essential response obligations are connected to WSL requirements."
+  ],
+  "claim_boundary": "This control validates the intended small finite formulation. The transversal-matroid statement itself follows from the standard matching definition; this evidence does not yet map every Connect Four strategic certificate into one such obligation matroid."
+}

@@ -1,0 +1,203 @@
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"
+index e24fecd..8552690 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-local-semantic-descriptor.mjs"
+@@ -40,6 +40,18 @@ export function createLocalSemanticDescriptorCache(kernel) {
+   let classHashLo = new Uint32Array(classCapacity);
+   let classHashHi = new Uint32Array(classCapacity);
+ 
++  // Canonical local IDs are append-only for this kernel's lifetime. Cache only
++  // composed hashes, never shared proof handles or descriptor/term payloads.
++  // Prepared workers reserve this prefix at initialization; unprepared research
++  // kernels keep uncached composition. Neither mode grows these arrays in search.
++  const stateHashCapacity = reservedCapacity === 0 ? 0 : kernel.states.capacity;
++  if (!Number.isSafeInteger(stateHashCapacity) || stateHashCapacity < 0 || stateHashCapacity > MAX_POWER_OF_TWO) {
++    throw new RangeError('invalid semantic state hash capacity');
++  }
++  const stateHashReady = new Uint32Array(Math.ceil(stateHashCapacity / 32));
++  const stateHashLo = new Uint32Array(stateHashCapacity);
++  const stateHashHi = new Uint32Array(stateHashCapacity);
++
+   // One bounded scratch buffer is sufficient because descriptor/TT operations are synchronous
+   // within a worker. Exact residual ownership remains in the canonical class pool.
+   const termScratch = new Uint16Array(vocabularyCount);
+@@ -60,6 +72,10 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     classBuilds: 0,
+     classHits: 0,
+     stateBuilds: 0,
++    stateHashBuilds: 0,
++    stateHashReuses: 0,
++    stateHashCapacity,
++    stateMetadataBytes: stateHashReady.byteLength + stateHashLo.byteLength + stateHashHi.byteLength,
+     transientStateDescriptorUses: 0,
+     stateDescriptorObjectsAllocated: 0,
+     classDescriptorObjectsAllocated: 0,
+@@ -84,7 +100,7 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     metrics.termArenaBytes = 0;
+     // retainedTypedBytes intentionally describes retained semantic cache ownership;
+     // the bounded reusable working scratch is reported separately as scratchBytes.
+-    metrics.retainedTypedBytes = metrics.classMetadataBytes;
++    metrics.retainedTypedBytes = metrics.classMetadataBytes + metrics.stateMetadataBytes;
+     metrics.classCapacity = classCapacity;
+     metrics.termCapacity = 0;
+   }
+@@ -217,18 +233,29 @@ export function createLocalSemanticDescriptorCache(kernel) {
+     if (p0Length + p1Length > MAX_DESCRIPTOR_LENGTH) {
+       throw new RangeError(`semantic state ${stateId} combined residual length exceeds Uint16 domain`);
+     }
+-    hashSemanticQuotientDescriptorPartsUnchecked(
+-      transientStateDescriptor.supportIndex,
+-      classHashLo[p0ClassId],
+-      classHashHi[p0ClassId],
+-      classHashLo[p1ClassId],
+-      classHashHi[p1ClassId],
+-      p0Length,
+-      p1Length,
+-      stateHashScratch,
+-    );
+-    transientStateDescriptor.p0Length = p0Length;
+-    transientStateDescriptor.p1Length = p1Length;
++    const word = stateId >>> 5, bit = 1 << (stateId & 31);
++    if (stateId < stateHashCapacity && (stateHashReady[word] & bit) !== 0) {
++      stateHashScratch.lo = stateHashLo[stateId];
++      stateHashScratch.hi = stateHashHi[stateId];
++      metrics.stateHashReuses += 1;
++    } else {
++      hashSemanticQuotientDescriptorPartsUnchecked(
++        transientStateDescriptor.supportIndex,
++        classHashLo[p0ClassId],
++        classHashHi[p0ClassId],
++        classHashLo[p1ClassId],
++        classHashHi[p1ClassId],
++        p0Length,
++        p1Length,
++        stateHashScratch,
++      );
++      if (stateId < stateHashCapacity) {
++        stateHashLo[stateId] = stateHashScratch.lo;
++        stateHashHi[stateId] = stateHashScratch.hi;
++        stateHashReady[word] |= bit;
++      }
++      metrics.stateHashBuilds += 1;
++    }
+     metrics.stateBuilds += 1;
+     metrics.transientStateDescriptorUses += 1;
+     return transientStateDescriptor;
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+index 79fbb7d..2152fbf 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-storage-contract.test.mjs"
+@@ -6,12 +6,50 @@ import { createTermVocabulary } from './quotient-term-id-pool.mjs';
+ import { installOnlineOnlyStateStorage } from './quotient-online-only-state-storage.mjs';
+ import { createLocalSemanticDescriptorCache } from './quotient-local-semantic-descriptor.mjs';
+ import { hashResidualTermIds } from './quotient-semantic-identity.mjs';
+-import { createSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
++import { createSemanticSharedTtArena, createSemanticSharedTtView, resetSemanticSharedTtArena } from './quotient-semantic-shared-tt.mjs';
+ import { createOnlineSemanticQuotientSearcher } from './quotient-online-semantic-search-lib.mjs';
+ 
+ const spec = { columns: 4, rows: 3, connect: 3 };
+ const make = (supportLayout = 'packed') => createSlot64ResidualQuotientKernel(spec, { supportLayout, prefixClasses: 8 }).kernel;
+ 
++test('reserved composed hashes reuse immutable local IDs across traversal and shared arena reset', () => {
++  const k = createSlot64ResidualQuotientKernel(spec, {
++    searchStorage: { states: 16384, classes: 16384, chunksPerSlot: 16384 } }).kernel;
++  k.prepareSearchStorage();
++  const cache = createLocalSemanticDescriptorCache(k);
++  for (let state = 0; state < k.states.count; state++) {
++    for (let column = 0; column < k.columns; column++) k.advance(state, column);
++  }
++  const metadataBytes = cache.metrics.retainedTypedBytes;
++  for (let state = 0; state < k.states.count; state++) {
++    const expected = cache.stateDescriptor(state), actual = cache.hotStateDescriptor(state);
++    assert.equal(actual.p0Length, expected.p0Length);
++    assert.equal(actual.p1Length, expected.p1Length);
++    assert.deepEqual(actual.hash, expected.hash);
++  }
++  const builds = cache.metrics.stateHashBuilds;
++  for (let state = k.states.count - 1; state >= 0; state--) {
++    assert.deepEqual(cache.hotStateDescriptor(state).hash, cache.stateDescriptor(state).hash);
++  }
++  assert.equal(builds, k.states.count);
++  assert.equal(cache.metrics.stateHashBuilds, builds);
++  assert.equal(cache.metrics.stateHashReuses, k.states.count);
++  assert.equal(cache.metrics.retainedTypedBytes, metadataBytes);
++  const beforeInvalid = cache.metrics.stateHashReuses;
++  for (const invalid of [-1, NaN, 0.5, '0', k.states.count]) assert.throws(() => cache.hotStateDescriptor(invalid));
++  assert.equal(cache.metrics.stateHashReuses, beforeInvalid);
++  const arena = createSemanticSharedTtArena({ entryCapacity: 8, termCapacity: 4096, domainSpec: spec });
++  const tt = createSemanticSharedTtView(arena);
++  const descriptor = cache.hotStateDescriptor(k.rootId), originalHash = { ...descriptor.hash };
++  const old = tt.ensure(descriptor);
++  resetSemanticSharedTtArena(arena);
++  assert.equal(tt.probe(cache.hotStateDescriptor(k.rootId)), -1);
++  const current = tt.ensure(cache.hotStateDescriptor(k.rootId));
++  assert.notEqual(current, old);
++  assert.deepEqual(descriptor.hash, originalHash);
++  assert.equal(cache.metrics.stateHashBuilds, builds);
++});
++
+ test('empty chunk identity survives dictionary growth and validates input before reuse', () => {
+   const chunk = make().classes.slotPools[0], pair = new Uint32Array(2);
+   const empty = chunk.intern(pair, 0);
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-search-worker-executor.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-search-worker-executor.mjs"
+index 97990ed..8690c49 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-search-worker-executor.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-search-worker-executor.mjs"
+@@ -59,6 +59,8 @@ export function createSearchWorkerExecutor(workers, options = {}) {
+     descriptorTermArrayObjectsCachedHighWater: 0,
+     descriptorClassObjectsCachedHighWater: 0,
+     descriptorClassMetadataBytesHighWater: 0,
++    descriptorStateMetadataBytesHighWater: 0,
++    descriptorStateHashCapacityHighWater: 0,
+     descriptorScratchBytesHighWater: 0,
+     descriptorScratchCapacityHighWater: 0,
+     descriptorTermArenaBytesHighWater: 0,
+@@ -177,6 +179,8 @@ export function createSearchWorkerExecutor(workers, options = {}) {
+     resource.descriptorTermArrayObjectsCachedHighWater = Math.max(resource.descriptorTermArrayObjectsCachedHighWater, counter(message.descriptorCache?.termArrayObjectsCached, 'descriptor term arrays'));
+     resource.descriptorClassObjectsCachedHighWater = Math.max(resource.descriptorClassObjectsCachedHighWater, counter(message.descriptorCache?.classDescriptorObjectsCached, 'descriptor class objects'));
+     resource.descriptorClassMetadataBytesHighWater = Math.max(resource.descriptorClassMetadataBytesHighWater, counter(message.descriptorCache?.classMetadataBytes, 'descriptor class metadata bytes'));
++    resource.descriptorStateMetadataBytesHighWater = Math.max(resource.descriptorStateMetadataBytesHighWater, counter(message.descriptorCache?.stateMetadataBytes, 'descriptor state metadata bytes'));
++    resource.descriptorStateHashCapacityHighWater = Math.max(resource.descriptorStateHashCapacityHighWater, counter(message.descriptorCache?.stateHashCapacity, 'descriptor state hash capacity'));
+     resource.descriptorScratchBytesHighWater = Math.max(resource.descriptorScratchBytesHighWater, counter(message.descriptorCache?.scratchBytes, 'descriptor scratch bytes'));
+     resource.descriptorScratchCapacityHighWater = Math.max(resource.descriptorScratchCapacityHighWater, counter(message.descriptorCache?.scratchCapacity, 'descriptor scratch capacity'));
+     resource.descriptorTermArenaBytesHighWater = Math.max(resource.descriptorTermArenaBytesHighWater, counter(message.descriptorCache?.termArenaBytes, 'descriptor term arena bytes'));
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-tt-replacement-campaign.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-tt-replacement-campaign.mjs"
+index d2d6e96..6a84e88 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-tt-replacement-campaign.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-semantic-tt-replacement-campaign.mjs"
+@@ -226,10 +226,15 @@ async function runConstrainedGameControl() {
+         'worker semantic term scratch byte accounting drifted',
+       );
+       assert.equal(resource.descriptorTermArenaBytesHighWater, 0, 'worker retained a duplicate descriptor term arena');
++      assert.equal(resource.descriptorStateMetadataBytesHighWater,
++        resource.descriptorStateHashCapacityHighWater * 8 + Math.ceil(resource.descriptorStateHashCapacityHighWater / 32) * 4,
++        'worker composed hash metadata byte accounting drifted');
++      assert.equal(resource.descriptorStateHashCapacityHighWater, resource.onlineStateCapacityHighWater,
++        'worker hash metadata did not match initialized semantic capacity');
+       assert.equal(
+         resource.descriptorRetainedTypedBytesHighWater,
+-        resource.descriptorClassMetadataBytesHighWater,
+-        'worker descriptor ownership exceeded class metadata only',
++        resource.descriptorClassMetadataBytesHighWater + resource.descriptorStateMetadataBytesHighWater,
++        'worker descriptor ownership exceeded class and composed hash metadata',
+       );
+       assert.equal(resource.descriptorTermCapacityHighWater, 0, 'worker retained descriptor term capacity');
+     }
+diff --git "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-proof-lifecycle-control.mjs" "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-proof-lifecycle-control.mjs"
+index 2960ffb..59c0eaf 100644
+--- "a/C:\\Users\\josho\\OneDrive\\Documents\\ChatGPT\\GENERAL OPERATIONS\\frontier-audit-results\\bound-hash-baseline-20260912\\research\\semantic-quotient\\state-identity-unification\\src\\quotient-proof-lifecycle-control.mjs"	
++++ "b/research\\semantic-quotient\\state-identity-unification\\src\\quotient-proof-lifecycle-control.mjs"
+@@ -64,9 +64,11 @@ assert.equal(semantic.descriptorCache.metrics.termIdsCached, 0, 'semantic descri
+ assert.equal(semantic.descriptorCache.metrics.termArenaBytes, 0, 'semantic descriptor cache retained a duplicate term arena');
+ assert.equal(
+   semantic.descriptorCache.metrics.retainedTypedBytes,
+-  semantic.descriptorCache.metrics.classMetadataBytes,
+-  'semantic descriptor cache retained storage beyond class metadata',
++  semantic.descriptorCache.metrics.classMetadataBytes + semantic.descriptorCache.metrics.stateMetadataBytes,
++  'semantic descriptor cache retained storage beyond class and composed hash metadata',
+ );
++assert.equal(semantic.descriptorCache.metrics.stateMetadataBytes,
++  semantic.descriptorCache.metrics.stateHashCapacity * 8 + Math.ceil(semantic.descriptorCache.metrics.stateHashCapacity / 32) * 4);
+ 
+ const rootDescriptor = semantic.descriptorCache.stateDescriptor(rootId);
+ const originalHandle = rawTt.probe(rootDescriptor);

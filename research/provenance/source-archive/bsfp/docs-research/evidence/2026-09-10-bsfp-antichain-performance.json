@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "connect4-bsfp-antichain-performance-evidence",
+  "date": "2026-09-10",
+  "sourceRevision": "1dcd0dd4b3d504e83b3421d5671d9979fa428d21",
+  "githubActionsRun": 34449586657,
+  "environment": {
+    "os": "Ubuntu 24.04.4 LTS",
+    "image": "ubuntu-24.04 20260831.293.1",
+    "node": "v26.7.0",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpuCount": 4,
+    "repetitions": 5,
+    "warmups": 1
+  },
+  "timingPolicy": "descriptive-non-gating-median-plus-range",
+  "cases": [
+    {
+      "geometry": "4x3-c3",
+      "supportSkeletons": 256,
+      "rootWdl": 1,
+      "mtbdd": {"medianMs": 29.213702, "minMs": 20.811157, "p90Ms": 33.2686334, "maxMs": 34.440553, "records": 7691, "supportSkeletonsPerSecond": 8763.011},
+      "ownershipAntichain": {"medianMs": 15.498244, "minMs": 14.177111, "p90Ms": 20.662985, "maxMs": 23.333379, "records": 3004, "maxWinFrontier": 19, "maxLossFrontier": 48, "supportSkeletonsPerSecond": 16518},
+      "comparison": {"speedup": 1.885, "representationReductionPct": 60.941}
+    },
+    {
+      "geometry": "4x4-c4",
+      "supportSkeletons": 625,
+      "rootWdl": 0,
+      "mtbdd": {"medianMs": 97.144269, "minMs": 95.125623, "p90Ms": 104.5565926, "maxMs": 109.370781, "records": 38412, "supportSkeletonsPerSecond": 6433.73},
+      "ownershipAntichain": {"medianMs": 31.94173, "minMs": 29.006426, "p90Ms": 35.087206, "maxMs": 35.28772, "records": 6591, "maxWinFrontier": 26, "maxLossFrontier": 54, "supportSkeletonsPerSecond": 19566.88},
+      "comparison": {"speedup": 3.041, "representationReductionPct": 82.841}
+    },
+    {
+      "geometry": "5x3-c4",
+      "supportSkeletons": 1024,
+      "rootWdl": 0,
+      "mtbdd": {"medianMs": 24.911274, "minMs": 24.083513, "p90Ms": 26.3500544, "maxMs": 27.113606, "records": 9071, "supportSkeletonsPerSecond": 41105.886},
+      "ownershipAntichain": {"medianMs": 20.421007, "minMs": 18.941356, "p90Ms": 28.5911746, "maxMs": 29.021855, "records": 5442, "maxWinFrontier": 19, "maxLossFrontier": 10, "supportSkeletonsPerSecond": 50144.442},
+      "comparison": {"speedup": 1.22, "representationReductionPct": 40.007}
+    },
+    {
+      "geometry": "4x5-c4",
+      "supportSkeletons": 1296,
+      "rootWdl": 0,
+      "mtbdd": {"medianMs": 899.330499, "minMs": 888.52803, "p90Ms": 943.2098944, "maxMs": 951.94627, "records": 302723, "supportSkeletonsPerSecond": 1441.072},
+      "ownershipAntichain": {"medianMs": 378.138909, "minMs": 376.735327, "p90Ms": 378.8568614, "maxMs": 379.159799, "records": 40707, "maxWinFrontier": 84, "maxLossFrontier": 75, "supportSkeletonsPerSecond": 3427.312},
+      "comparison": {"speedup": 2.378, "representationReductionPct": 86.553}
+    }
+  ],
+  "notes": [
+    "Wall time covers complete synchronous solver construction; it is not GPU kernel time.",
+    "Representation record counts are algorithmic size measures, not byte-for-byte memory measurements.",
+    "Timing is evidence only and does not gate correctness or acceptance."
+  ]
+}

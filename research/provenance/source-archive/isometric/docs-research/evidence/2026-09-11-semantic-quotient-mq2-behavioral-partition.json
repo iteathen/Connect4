@@ -1,0 +1,147 @@
+{
+  "kind": "connect4-semantic-quotient-mq2-behavioral-partition",
+  "status": "pass",
+  "dateUtc": "2026-09-11",
+  "branch": "research/semantic-quotient",
+  "sourceCommit": "e937e90ed86588ff5272db6370ac789e14af911a",
+  "sourceFile": "research/semantic-quotient/mq2-behavioral-partition.mjs",
+  "workflow": ".github/workflows/semantic-quotient-mq2.yml",
+  "workflowRun": 34570098421,
+  "workflowJob": 103170191176,
+  "equivalence": "coarsest deterministic action-labelled future behavior on the bounded acyclic game graph",
+  "actionSignature": "column -> illegal | immediate-terminal-score | child-behavior-class",
+  "aggregateAcrossIndependentControls": {
+    "physicalStates": 1681808,
+    "identifiedLineClasses": 420704,
+    "behaviorClasses": 269347,
+    "physicalToBehaviorCollapse": 6.244019796025202,
+    "lineToBehaviorCollapse": 1.5619405450961028,
+    "identifiedLineClassBehaviorMismatches": 0
+  },
+  "cases": [
+    {
+      "geometry": "4x3:c3",
+      "physicalStates": 4659,
+      "identifiedLineClasses": 4499,
+      "behaviorClasses": 2912,
+      "physicalToLineCollapse": 1.0355634585463436,
+      "lineToBehaviorCollapse": 1.5449862637362637,
+      "physicalToBehaviorCollapse": 1.5999313186813187,
+      "multiLineBehaviorClasses": 445,
+      "maximumLineClassesPerBehaviorClass": 86,
+      "maximumPhysicalStatesPerBehaviorClass": 89,
+      "crossRankBehaviorClasses": 22,
+      "crossSupportBehaviorClasses": 27,
+      "firstLineClassMergeRank": 5,
+      "encoding": {
+        "rawLineTupleBits": 36,
+        "denseBehaviorIdBits": 12,
+        "denseBehaviorClassIdBytes": 2,
+        "flatActionEntries": 11648,
+        "actionSymbolBytes": 2,
+        "flatTransitionBytes": 23296
+      }
+    },
+    {
+      "geometry": "4x4:c4",
+      "physicalStates": 139625,
+      "identifiedLineClasses": 37323,
+      "behaviorClasses": 27424,
+      "physicalToLineCollapse": 3.7409908099563274,
+      "lineToBehaviorCollapse": 1.3609612018669779,
+      "physicalToBehaviorCollapse": 5.091343348891482,
+      "multiLineBehaviorClasses": 4809,
+      "maximumLineClassesPerBehaviorClass": 45,
+      "maximumPhysicalStatesPerBehaviorClass": 5336,
+      "crossRankBehaviorClasses": 26,
+      "crossSupportBehaviorClasses": 30,
+      "firstLineClassMergeRank": 8,
+      "encoding": {
+        "rawLineTupleBits": 30,
+        "denseBehaviorIdBits": 15,
+        "denseBehaviorClassIdBytes": 2,
+        "flatActionEntries": 109696,
+        "actionSymbolBytes": 2,
+        "flatTransitionBytes": 219392
+      }
+    },
+    {
+      "geometry": "5x3:c4",
+      "physicalStates": 152003,
+      "identifiedLineClasses": 17455,
+      "behaviorClasses": 9779,
+      "physicalToLineCollapse": 8.708278430249212,
+      "lineToBehaviorCollapse": 1.7849473361284385,
+      "physicalToBehaviorCollapse": 15.54381838633807,
+      "multiLineBehaviorClasses": 3010,
+      "maximumLineClassesPerBehaviorClass": 33,
+      "maximumPhysicalStatesPerBehaviorClass": 4440,
+      "crossRankBehaviorClasses": 10,
+      "crossSupportBehaviorClasses": 10,
+      "firstLineClassMergeRank": 2,
+      "encoding": {
+        "rawLineTupleBits": 22,
+        "denseBehaviorIdBits": 14,
+        "denseBehaviorClassIdBytes": 2,
+        "flatActionEntries": 48895,
+        "actionSymbolBytes": 2,
+        "flatTransitionBytes": 97790
+      }
+    },
+    {
+      "geometry": "4x5:c4",
+      "physicalStates": 1385521,
+      "identifiedLineClasses": 361427,
+      "behaviorClasses": 229232,
+      "physicalToLineCollapse": 3.8334739795311363,
+      "lineToBehaviorCollapse": 1.5766865010120752,
+      "physicalToBehaviorCollapse": 6.044186675507783,
+      "multiLineBehaviorClasses": 43587,
+      "maximumLineClassesPerBehaviorClass": 498,
+      "maximumPhysicalStatesPerBehaviorClass": 37080,
+      "crossRankBehaviorClasses": 208,
+      "crossSupportBehaviorClasses": 211,
+      "firstLineClassMergeRank": 9,
+      "firstLineClassMerge": {
+        "supportIndex": 199,
+        "first": {
+          "p0OwnershipHex": "0x40621",
+          "p1OwnershipHex": "0x4046",
+          "p0HitMaskHex": "0x1e7b7",
+          "p1HitMaskHex": "0xc68b"
+        },
+        "second": {
+          "p0OwnershipHex": "0x625",
+          "p1OwnershipHex": "0x44042",
+          "p0HitMaskHex": "0x1e7a7",
+          "p1HitMaskHex": "0xc69b"
+        },
+        "actionSignature": "C181756|C185404|I|C185405"
+      },
+      "encoding": {
+        "rawLineTupleBits": 45,
+        "denseBehaviorIdBits": 18,
+        "denseBehaviorClassIdBytes": 4,
+        "flatActionEntries": 916928,
+        "actionSymbolBytes": 4,
+        "flatTransitionBytes": 3667712
+      },
+      "lateRankBehavior": [
+        {"rank": 15, "physicalStates": 204136, "lineClasses": 41808, "behaviorClasses": 9287, "lineToBehaviorCollapse": 4.5017766770754815},
+        {"rank": 16, "physicalStates": 221834, "lineClasses": 19405, "behaviorClasses": 1989, "lineToBehaviorCollapse": 9.756158873805933},
+        {"rank": 17, "physicalStates": 192778, "lineClasses": 5882, "behaviorClasses": 402, "lineToBehaviorCollapse": 14.631840796019901},
+        {"rank": 18, "physicalStates": 153648, "lineClasses": 968, "behaviorClasses": 60, "lineToBehaviorCollapse": 16.133333333333333},
+        {"rank": 19, "physicalStates": 88520, "lineClasses": 64, "behaviorClasses": 8, "lineToBehaviorCollapse": 8},
+        {"rank": 20, "physicalStates": 37080, "lineClasses": 1, "behaviorClasses": 1, "lineToBehaviorCollapse": 1}
+      ]
+    }
+  ],
+  "claims": {
+    "identifiedLineClassRefinesBehavioralClass": true,
+    "labeledActionsPreserved": true,
+    "immediateTerminalTimingPreserved": true,
+    "deterministicSuccessorBehaviorPreserved": true,
+    "productionSolverClaim": false,
+    "standard7x6Claim": false
+  }
+}

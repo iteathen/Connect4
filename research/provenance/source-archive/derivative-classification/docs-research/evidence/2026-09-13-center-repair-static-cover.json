@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "prototype": "reference/research-prototypes/2026-09-13-perfect-play-winline/center_repair_static_cover.mjs",
+  "prototype_blob_sha": "1e79ad0651e3c73662e7e5955809474d30214dbc",
+  "geometry": {"W":7,"H":6,"K":4,"winning_lines":69},
+  "base": {
+    "staticCovered": 66,
+    "uncovered": [
+      [[1,1],[2,1],[3,1],[4,1]],
+      [[1,3],[2,3],[3,3],[4,3]],
+      [[1,5],[2,5],[3,5],[4,5]]
+    ]
+  },
+  "hypotheticalLocalParitySwaps": {
+    "column1": {"staticCovered":69,"uncoveredCount":0},
+    "column2": {"staticCovered":64,"uncoveredCount":5},
+    "column3": {"staticCovered":63,"uncoveredCount":6}
+  },
+  "interpretation": [
+    "Static blocker coverage alone cannot prove the center opening win: a hypothetical local parity swap in column 1 creates a 69-of-69 hitting set.",
+    "The column-1 swap is intentionally not claimed to be a jointly realizable response policy. Its purpose is to falsify any argument that equates set coverage with strategic compatibility.",
+    "Therefore the center proof must include response-resource, timing, or policy-realizability constraints in addition to WSL upward coverage.",
+    "The result is consistent with the response-capacity calculus: a repair can look complete as a set while still being impossible to schedule as one contingent strategy."
+  ],
+  "anti_leakage": "No perfect-play terminal-line subset, solved-state table, or terminal witness classification was used."
+}
