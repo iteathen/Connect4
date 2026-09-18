@@ -1,0 +1,565 @@
+{
+  "schema": 1,
+  "campaign_id": "connect4-isograph-discrepancy-discovery-nei-rerun-2026-09-18",
+  "authority": {
+    "owner": "research/semantic-quotient",
+    "authority_id": "connect4-isograph-logic-1.1",
+    "revision": "31e276d7f8ebf451f0e53718f840e1ab98eb7538"
+  },
+  "comparison_control": {
+    "campaign": "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json",
+    "blob": "b085a309f07a370cb55c33a47f1810c993458571"
+  },
+  "nei_layer": {
+    "application": "research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md",
+    "manifest_blob": "a0640a1957288280f5b69389c0242b85fa5ef78e",
+    "results_blob": "5639078d95fd871c834fc2ff93185e8ccac9b93f",
+    "semantics": [
+      "NEI 0.1 qualified",
+      "NEI 0.2 qualified"
+    ],
+    "guidance_only": [
+      "NEI 0.3 candidate"
+    ]
+  },
+  "inputs": [
+    "research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json",
+    "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json",
+    "research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json",
+    "research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json",
+    "research/isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.json",
+    "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json"
+  ],
+  "runs": [
+    {
+      "lead": "A_scope_explicit_vs_derived",
+      "observations": [
+        "explicit scope field absent on R0010/R0034/R0054",
+        "semantic validity restrictions nevertheless exist in statement/context"
+      ],
+      "semantic_alignment": {
+        "subject": [
+          "C4-R0010",
+          "C4-R0034",
+          "C4-R0054"
+        ],
+        "predicate_or_quantity": [
+          "explicit metadata scope presence",
+          "semantic validity restriction"
+        ],
+        "scope": "claim-local",
+        "layer": [
+          "record metadata",
+          "proposition/guard/evidence semantics"
+        ],
+        "aggregation": "claim-local boolean/property",
+        "authority": "authority 1.1 canonical claims + cold report",
+        "closure": "local distinction only; no universal derivation relation assumed"
+      },
+      "protocols": [
+        "DP-08",
+        "DP-10",
+        "DP-23",
+        "DP-36",
+        "DP0.5-derived-vs-explicit"
+      ],
+      "nei_applicability": {
+        "status": "NOT_APPLICABLE",
+        "reason": "No referent identity/collapse or natural-distinctness conclusion is required."
+      },
+      "hypotheses": [
+        {
+          "id": "A1",
+          "statement": "explicit metadata scope and semantic validity restriction are distinct predicates",
+          "result": "SURVIVES"
+        },
+        {
+          "id": "A2",
+          "statement": "decoder true iff any semantic restriction exists",
+          "result": "FALSIFIED"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "other guarded/bounded cold claims"
+      ],
+      "falsifiers": [
+        "bounded/guarded claims reconstructed with scope_present=false"
+      ],
+      "residual": "Exact derivation relation from semantic restrictions to a successor explicit scope object remains open.",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "qualification_disposition": "DECODER_FIELD_EXTRACTION_ERROR",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_REFINEMENT",
+      "authority_effect": "NONE",
+      "delta_vs_control": "UNCHANGED_NEI_NOT_APPLICABLE"
+    },
+    {
+      "lead": "B_relation_count_generating_basis",
+      "observations": [
+        "R0015 2->1",
+        "R0016 2->1",
+        "R0052 6->5"
+      ],
+      "semantic_alignment": {
+        "subject": [
+          "C4-R0015",
+          "C4-R0016",
+          "C4-R0052"
+        ],
+        "predicate_or_quantity": "explicit relation occurrence count",
+        "scope": "canonical claim relation arrays",
+        "layer": [
+          "explicit graph",
+          "decoder reconstruction"
+        ],
+        "aggregation": "relation occurrences",
+        "authority": "authority 1.1 claim graph + cold output",
+        "closure": "bounded hypothesis tests over the three observed relation structures"
+      },
+      "protocols": [
+        "DP-07",
+        "DP-08",
+        "DP-24",
+        "DP-36",
+        "DP0.5-minimal-generating-structure"
+      ],
+      "nei_applicability": {
+        "status": "NOT_APPLICABLE",
+        "reason": "This is a representation redundancy/factorization question, not referent identity."
+      },
+      "hypotheses": [
+        {
+          "id": "B1",
+          "statement": "omit supports",
+          "result": "FALSIFIED"
+        },
+        {
+          "id": "B2",
+          "statement": "count unique relation types",
+          "result": "FALSIFIED"
+        },
+        {
+          "id": "B3",
+          "statement": "count claim-ID targets only",
+          "result": "FALSIFIED"
+        },
+        {
+          "id": "B4",
+          "statement": "collapse reciprocal support/dependency pairs",
+          "result": "FALSIFIED_AS_COMMON_EXPLANATION"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "R0015/R0016 reciprocal neighborhood",
+        "R0052 dependency/bridge neighborhood"
+      ],
+      "falsifiers": [
+        "R0052 has no supports edge",
+        "unique-type counts mismatch",
+        "claim-target counts mismatch"
+      ],
+      "residual": "No common exact generating basis explains all three deficits.",
+      "lifecycle": "REJECTED",
+      "qualification_disposition": "DECODER_RELATION_COUNT_ERROR",
+      "discovery_disposition": "STRUCTURAL_LEAD_FALSIFIED",
+      "authority_effect": "NONE",
+      "delta_vs_control": "UNCHANGED_NEI_NOT_APPLICABLE"
+    },
+    {
+      "lead": "C_R0045_evidence_layers",
+      "observations": {
+        "citations": 4,
+        "distinct_artifacts": 4,
+        "evidence_events": 3,
+        "evidence_lineages": 2,
+        "cross_lineage_independence": "UNKNOWN",
+        "decoder_source_count": 3
+      },
+      "semantic_alignment": {
+        "subject": "C4-R0045 support evidence",
+        "predicate_or_quantity": [
+          "citation/artifact identity",
+          "event identity",
+          "lineage identity",
+          "statistical independence"
+        ],
+        "scope": "R0045 claim/evidence context",
+        "layer": [
+          "claim citation",
+          "artifact",
+          "event",
+          "lineage",
+          "independence property"
+        ],
+        "aggregation": [
+          "4",
+          "4",
+          "3",
+          "2",
+          "UNKNOWN"
+        ],
+        "authority": "authority 1.1 evidence-lineage graph + NEI overlay",
+        "closure": "complete represented R0045 evidence graph"
+      },
+      "protocols": [
+        "DP-08",
+        "DP-23",
+        "DP-24",
+        "DP-25",
+        "DP-36",
+        "DP-38",
+        "NEI"
+      ],
+      "nei_applicability": {
+        "status": "APPLIED",
+        "results": [
+          "R0045 rolling-rank lineage DISTINCT compact-CUDA lineage under lineage identity",
+          "cross-lineage independence UNKNOWN is not NEI UNKNOWN"
+        ]
+      },
+      "hypotheses": [
+        {
+          "id": "C1",
+          "statement": "R0045 has a 4-artifact/3-event/2-lineage typed hierarchy",
+          "result": "ESTABLISHED"
+        },
+        {
+          "id": "C2",
+          "statement": "decoder value 3 is consistent with event-layer substitution",
+          "result": "SUPPORTED_NOT_PROVED"
+        },
+        {
+          "id": "C3",
+          "statement": "artifact->event->lineage is a global successive quotient staircase",
+          "result": "FALSIFIED",
+          "breaker": "artifact 3000222 participates in five distinct lineages; artifact 3000283 participates in two"
+        },
+        {
+          "id": "C4",
+          "statement": "lineage projection must be context/anchor scoped when one artifact participates in multiple lineages",
+          "result": "ESTABLISHED"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "all lineage uses of artifact 3000222",
+        "all lineage uses of artifact 3000283",
+        "R0045 two-lineage identities",
+        "R0045 independence property"
+      ],
+      "falsifiers": [
+        "global lineage_of function broken by multi-lineage artifacts",
+        "NEI DISTINCT does not establish statistical independence"
+      ],
+      "residual": "The decoder's hidden causal reasoning remains unobservable; event-layer substitution is supported but not proved.",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "qualification_disposition": "DECODER_SOURCE_COUNT_ERROR",
+      "discovery_disposition": "STRUCTURE_REFINED_BY_NEI",
+      "authority_effect": "NONE",
+      "delta_vs_control": "MATERIAL_IMPROVEMENT"
+    },
+    {
+      "lead": "D_deductive_independence_owner_layer",
+      "observations": {
+        "explicit_property_owner": "evidence lineage",
+        "decoder_generalized_to_claims": true
+      },
+      "semantic_alignment": {
+        "subject": "deductive evidence applicability",
+        "predicate_or_quantity": "empirical independence applicability",
+        "scope": "represented proof/evidence lineages",
+        "layer": [
+          "claim epistemic status",
+          "evidence lineage",
+          "proof topology"
+        ],
+        "aggregation": "lineage property projected onto covered claims",
+        "authority": "authority 1.1 evidence-lineage graph + NEI overlay",
+        "closure": "explicit two deductive lineages"
+      },
+      "protocols": [
+        "DP-08",
+        "DP-24",
+        "DP-36",
+        "DP-37",
+        "DP-38",
+        "NEI"
+      ],
+      "nei_applicability": {
+        "status": "GUARD_ONLY",
+        "results": [
+          "lineage identity does not entail statistical independence",
+          "same lineage identity does not imply same evidence-event identity"
+        ],
+        "reason": "The target property is independence applicability, not identity itself."
+      },
+      "hypotheses": [
+        {
+          "id": "D1",
+          "statement": "independence applicability belongs to lineage/proof topology rather than claim status",
+          "result": "ESTABLISHED"
+        },
+        {
+          "id": "D2",
+          "statement": "claim status alone derives not_applicable_deductive",
+          "result": "FALSIFIED"
+        },
+        {
+          "id": "D3",
+          "statement": "NEI DISTINCT lineages imply independent evidence",
+          "result": "FALSIFIED_BY_TYPE_BOUNDARY"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "R0016 empirical status",
+        "explicit deductive lineages",
+        "NEI lineage profile"
+      ],
+      "falsifiers": [
+        "R0016 included by decoder despite empirical status",
+        "independence is separate property from lineage identity"
+      ],
+      "residual": "A safe derived lineage predicate from exact proof topology remains open.",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "qualification_disposition": "DECODER_OVERREACH",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_STRONGER_TYPE_GUARD",
+      "authority_effect": "NONE",
+      "delta_vs_control": "PRECISION_IMPROVED"
+    },
+    {
+      "lead": "E_lineage_event_prose_substitution",
+      "observations": {
+        "lineages": 10,
+        "events": 13,
+        "decoder_prose": "13 evidence lineages"
+      },
+      "semantic_alignment": {
+        "subject": "authority 1.1 evidence graph",
+        "predicate_or_quantity": [
+          "lineage count",
+          "event count"
+        ],
+        "scope": "whole evidence graph",
+        "layer": [
+          "lineage",
+          "event",
+          "prose"
+        ],
+        "aggregation": [
+          "10",
+          "13"
+        ],
+        "authority": "authority manifest/evidence graph + cold report",
+        "closure": "complete represented counts"
+      },
+      "protocols": [
+        "DP-08",
+        "DP-36",
+        "DP0.5-semantic-quantity-alignment"
+      ],
+      "nei_applicability": {
+        "status": "NOT_APPLICABLE",
+        "reason": "No unresolved identity relation is needed to explain the count-label substitution."
+      },
+      "hypotheses": [
+        {
+          "id": "E1",
+          "statement": "prose slip exposes another missing identity layer",
+          "result": "FALSIFIED"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "structured decoder controls",
+        "authority event/lineage model"
+      ],
+      "falsifiers": [
+        "existing first-class event/lineage distinction fully explains mismatch"
+      ],
+      "residual": "None.",
+      "lifecycle": "REJECTED",
+      "qualification_disposition": "DECODER_PROSE_SLIPPAGE",
+      "discovery_disposition": "NO_STRUCTURAL_LEAD",
+      "authority_effect": "NONE",
+      "delta_vs_control": "UNCHANGED_NEI_NOT_APPLICABLE"
+    },
+    {
+      "lead": "F_profile_mediated_identity_collapse_motif",
+      "observations": [
+        "R0044 artifacts DISTINCT; pinned lineage projections SAME",
+        "R0074 events DISTINCT; lineage projections SAME",
+        "SIU bounded physical states can be DISTINCT while same-q future-behavior identity is SAME"
+      ],
+      "semantic_alignment": {
+        "subject": "three scoped identity-collapse instances",
+        "predicate_or_quantity": [
+          "fine identity",
+          "scoped projected identity"
+        ],
+        "scope": [
+          "R0044 evidence context",
+          "R0074 evidence context",
+          "SIU-1 bounded geometry"
+        ],
+        "layer": [
+          "artifact/event/physical state",
+          "lineage/future-behavior state"
+        ],
+        "aggregation": "pairwise identity relations under explicit profiles",
+        "authority": "NEI application 0.1 + authority 1.1 + SIU-1 complete controls",
+        "closure": "local instances only; no universal ontology claim"
+      },
+      "protocols": [
+        "DP-10",
+        "DP-13",
+        "DP-14",
+        "DP-23",
+        "DP-25",
+        "DP-38",
+        "NEI"
+      ],
+      "nei_applicability": {
+        "status": "CENTRAL",
+        "results": [
+          "fine-carrier DISTINCT is independently established",
+          "projected/scoped SAME is independently established",
+          "profile/context boundaries are load-bearing"
+        ]
+      },
+      "hypotheses": [
+        {
+          "id": "F1",
+          "statement": "There is a reusable profile-mediated safe-collapse motif: fine DISTINCT, scoped projected SAME, residual preserved.",
+          "result": "SUPPORTED_ACROSS_THREE_INSTANCES"
+        },
+        {
+          "id": "F2",
+          "statement": "The projection can be one global context-free function in all instances.",
+          "result": "FALSIFIED",
+          "breaker": "evidence artifacts can participate in multiple lineages"
+        },
+        {
+          "id": "F3",
+          "statement": "coarse SAME erases fine identity/provenance",
+          "result": "FALSIFIED",
+          "breaker": "all NEI results preserve fine referents/provenance"
+        },
+        {
+          "id": "F4",
+          "statement": "all three instances use the same semantic mechanism",
+          "result": "REJECTED_AS_OVERCLAIM",
+          "breaker": "evidence uses context-scoped lineage incidence; SIU uses exact future-behavior projection q"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "R0044 artifact/lineage pair",
+        "R0074 event/lineage pair",
+        "SIU physical/future-behavior profile pair",
+        "multi-lineage artifact counterexamples"
+      ],
+      "falsifiers": [
+        "context-free projection fails on artifact 3000222",
+        "semantics differ across evidence and state domains"
+      ],
+      "residual": "Whether the profile-mediated safe-collapse motif deserves a reusable IsoGraph structural class remains a successor-research question.",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "qualification_disposition": "NOT_A_QUALIFICATION_DISCREPANCY",
+      "discovery_disposition": "NEW_SUPPORTED_STRUCTURAL_CORRESPONDENCE",
+      "authority_effect": "NONE",
+      "delta_vs_control": "NEW_DISCOVERY_ENABLED_BY_NEI"
+    },
+    {
+      "lead": "G_standard_7x6_identity_closure",
+      "observations": [
+        "bounded same-q future-behavior identity is SAME",
+        "standard 7x6 same-q future-behavior identity is INCOMPLETE_UNQUALIFIED"
+      ],
+      "semantic_alignment": {
+        "subject": "standard 7x6 physical-state pairs with equal candidate q",
+        "predicate_or_quantity": "future-behavior state identity",
+        "scope": "standard 7x6 legal game graph",
+        "layer": [
+          "physical state",
+          "candidate relational q",
+          "future behavior"
+        ],
+        "aggregation": "quantified all same-q pairs",
+        "authority": "SIU-1 evidence + NEI 7x6 incomplete profile",
+        "closure": "missing complete 7x6 sufficiency theorem/coverage certificate"
+      },
+      "protocols": [
+        "DP-08",
+        "DP-11",
+        "DP-23",
+        "DP-24",
+        "DP-38",
+        "NEI"
+      ],
+      "nei_applicability": {
+        "status": "CENTRAL",
+        "result": "INCOMPLETE_UNQUALIFIED",
+        "semantic_unknown": false
+      },
+      "hypotheses": [
+        {
+          "id": "G1",
+          "statement": "same q is exact future-behavior identity on standard 7x6",
+          "result": "OPEN_UNQUALIFIED"
+        },
+        {
+          "id": "G2",
+          "statement": "missing 7x6 proof should be represented as NEI UNKNOWN",
+          "result": "FALSIFIED_BY_NEI_SEMANTICS"
+        }
+      ],
+      "immediate_neighborhood_checked": [
+        "SIU-1 non-claims",
+        "7x6 INCOMPLETE_SCOPE bridge",
+        "bounded future-behavior profile"
+      ],
+      "falsifiers": [
+        "find same-q pair with differing legal actions",
+        "find same-q pair with differing terminal behavior",
+        "find same-q pair with differing successor q for same action",
+        "find same-q pair with differing strong/action scores",
+        "find same-q pair with differing exact W/D/L"
+      ],
+      "residual": "Need either exact coverage theorem/certificate or concrete same-q behavioral counterexample on standard 7x6.",
+      "lifecycle": "CANDIDATE",
+      "qualification_disposition": "INCOMPLETE_UNQUALIFIED",
+      "discovery_disposition": "IDENTITY_TARGET_REFINED",
+      "authority_effect": "NONE",
+      "delta_vs_control": "OPEN_GAP_BECOMES_PRECISE_FALSIFIABLE_IDENTITY_OBLIGATION"
+    }
+  ],
+  "synthesis": [
+    {
+      "id": "S-NEI-1",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "statement": "Profile-mediated safe collapse recurs across evidence identity and solver-state identity: fine referents remain distinct while an explicit context/profile supports SAME at a coarser semantic carrier, with residual/provenance preserved."
+    },
+    {
+      "id": "S-NEI-2",
+      "lifecycle": "STRUCTURE_ESTABLISHED",
+      "statement": "Identity projection itself can require context/anchors; artifact-to-lineage is not globally functional in the Connect4 evidence graph."
+    },
+    {
+      "id": "S-NEI-3",
+      "lifecycle": "STRUCTURE_ESTABLISHED",
+      "statement": "Unknown non-identity properties such as statistical independence must not be lifted into NEI UNKNOWN."
+    },
+    {
+      "id": "S-NEI-4",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "statement": "NEI adds value selectively: it should remain absent from non-identity branches and become load-bearing only when merge/distinctness/profile conclusions are required."
+    }
+  ],
+  "comparison_summary": {
+    "original_branches": 5,
+    "original_branches_materially_changed": 1,
+    "original_branches_precision_improved": 1,
+    "original_branches_unchanged_nei_not_applicable": 3,
+    "new_branches_from_nei": 2,
+    "new_supported_structural_correspondences": 1,
+    "refined_identity_targets": 1,
+    "false_global_quotient_interpretations_falsified": 1
+  },
+  "authority_effect": "NO_SEMANTIC_AUTHORITY_CHANGE"
+}
