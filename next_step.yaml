@@ -5,11 +5,12 @@ branch: solver/sut
 solver_family: sut
 
 authority:
+  research_ownership: docs/decisions/2026-09-17-single-research-owner.md
   repository_context: AGENT_LOCAL.md
   branch_identity: README.md
   direction_note: docs/SUT_DIRECTION_SKETCH.md
   shared_foundation: main
-  shared_research: research/semantic-quotient
+  canonical_research: research/semantic-quotient
   topology_decision: docs/decisions/2026-09-17-solver-namespace-normalization.md
 
 ownership:
@@ -22,7 +23,7 @@ ownership:
     - cuda_bsfp_private_recurrence_or_storage
     - hybrid_confluence_semantics
     - minimax_private_search_state
-    - canonical_shared_research
+    - canonical_research_corpus
 
 task:
   id: identify_first_exact_sut_weld_contract
