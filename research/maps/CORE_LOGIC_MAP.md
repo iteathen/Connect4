@@ -79,6 +79,7 @@ calculus                                      |
                                               +--> rolling ranks ------ C4-R0040
                                               +--> rejected no-sort --- C4-R0041
                                               +--> measured compute wall C4-R0045
+                                              +--> support-local clause closure C4-R0073
 ```
 
 ## Derivative boundary
@@ -125,4 +126,4 @@ This is why the exact dead-residual theorem survives a runtime-negative detector
 
 ## Current central gap
 
-The program has exact geometry, exact local terminal rules, strong bounded quotient evidence, strategic certificates, timing structure and several proof-compression mechanisms. The main missing bridge remains C4-R0011: a complete enough **guarded composition calculus** to turn these local relations into global game-theoretic consequences without silently reintroducing ordinary game-tree enumeration. R0043 gives that gap a concrete structural target: a realizability-preserving closure law over line-hit product state.
+The program has exact geometry, exact local terminal rules, strong bounded quotient evidence, strategic certificates, timing structure and several proof-compression mechanisms. The main missing bridge remains C4-R0011: a complete enough **guarded composition calculus** to turn these local relations into global game-theoretic consequences without silently reintroducing ordinary game-tree enumeration. R0043 gives that gap a concrete structural target: a realizability-preserving closure law over line-hit product state. R0073 closes one bounded subproblem inside that space by showing support-local clause coverage plus precomputed cofactors reproduces the tested exact clause recurrence; it does not close the full realizability/composition problem.
