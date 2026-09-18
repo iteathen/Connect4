@@ -81,7 +81,7 @@
         "C4-R0045"
       ],
       "qualification_disposition": "DECODER_SOURCE_COUNT_ERROR",
-      "discovery_disposition": "STRUCTURE_ESTABLISHED_PLUS_SUPPORTED_LAYER_SUBSTITUTION_CANDIDATE",
+      "discovery_disposition": "STRUCTURE_REFINED_BY_NEI",
       "confidence": "low",
       "observed": {
         "claim_citation_occurrences": 4,
@@ -102,8 +102,14 @@
           "evidence_lineages": 2,
           "cross_lineage_independence": "UNKNOWN"
         },
+        "nei": {
+          "lineage_identity": "DISTINCT",
+          "independence_unknown_is_nei_unknown": false
+        },
+        "refined_structure": "context-scoped typed evidence incidence hierarchy, not a global artifact->event->lineage quotient staircase",
+        "falsified": "global context-free lineage_of(artifact) function; artifact 3000222 participates in five lineages",
         "supported_candidate": "decoder value 3 substituted the evidence-event layer for the requested source/citation layer",
-        "limitation": "decoder internal reasoning is not observable"
+        "limitation": "decoder internal reasoning remains unobservable"
       }
     },
     {
@@ -116,7 +122,7 @@
         "C4-R0071"
       ],
       "qualification_disposition": "DECODER_OVERREACH",
-      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_LINEAGE_DERIVATION_QUESTION",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_STRONGER_TYPE_GUARD",
       "confidence": "medium",
       "observed": {
         "explicit_not_applicable_deductive_claims": [
@@ -135,6 +141,10 @@
       ],
       "discovery_result": {
         "established": "independence applicability is evidence-lineage/proof-topology scoped rather than claim-status scoped",
+        "nei_guard": [
+          "NEI DISTINCT lineages do not imply independent evidence",
+          "NEI SAME lineage does not imply same evidence-event identity"
+        ],
         "falsified": "claim-status-only derivation rule",
         "open": "safe derived lineage predicate from exact proof/evidence topology"
       }
@@ -189,6 +199,25 @@
       "id": "typed-observation-coordinate",
       "lifecycle": "SUPPORTED_CANDIDATE",
       "statement": "Direct comparison should align subject, predicate/quantity, representation layer, aggregation level, scope/view, authority revision, closure assumptions, and value."
+    },
+    {
+      "id": "profile-mediated-safe-collapse",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "statement": "Across R0044, R0074, and bounded SIU-1, fine-grained referents can remain DISTINCT while an explicitly scoped/profiled projection supports SAME, with fine residual/provenance preserved.",
+      "constraint": "Projection may be context-scoped; evidence artifact-to-lineage is not globally functional."
+    },
+    {
+      "id": "7x6-identity-closure",
+      "lifecycle": "OPEN_STRUCTURAL_LEAD",
+      "statement": "Standard 7x6 same-q future-behavior identity is an explicit NEI closure target: prove complete SAME coverage or find a same-q pair with differing load-bearing future behavior.",
+      "current_result": "INCOMPLETE_UNQUALIFIED"
     }
-  ]
+  ],
+  "nei_enabled_rerun": {
+    "campaign": "research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md",
+    "ledger": "research/isograph/discovery/2026-09-18-nei-enabled-rerun/DISCOVERY_LEDGER.json",
+    "comparison": "research/isograph/discovery/2026-09-18-nei-enabled-rerun/BEFORE_AFTER.json",
+    "status": "EXECUTED",
+    "conclusion": "NEI materially improves identity-shaped discovery while remaining not applicable to non-identity branches."
+  }
 }
