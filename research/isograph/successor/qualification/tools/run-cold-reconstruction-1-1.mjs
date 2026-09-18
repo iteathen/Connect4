@@ -2,13 +2,13 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 
-const SHA=process.env.GITHUB_SHA;
+const SHA=process.env.CONNECT4_QUALIFICATION_SHA;
 const MODEL=process.env.GEMINI_MODEL||'gemini-3.5-flash';
 const DRY=process.env.ISOGRAPH_COLD_DRY_RUN==='1';
 const MANIFEST_BLOB='0b3c54f193b084e2e5dd2eb7f4fb641b1052491a';
 const manifestPath='research/isograph/successor/CONNECT4_LOGIC_CANDIDATE_MANIFEST_1_1.json';
 const promptPath='research/isograph/successor/qualification/COLD_RECONSTRUCTION_PROMPT_1_1.md';
-if(!SHA) throw new Error('GITHUB_SHA unavailable');
+if(!SHA) throw new Error('CONNECT4_QUALIFICATION_SHA unavailable');
 function blob(p){return execFileSync('git',['hash-object',p],{encoding:'utf8'}).trim();}
 function sha256(x){return crypto.createHash('sha256').update(x).digest('hex');}
 function decode(group){return Buffer.from((group.match(/#\d+/g)||[]).map(x=>Number(x.slice(1)))).toString('utf8');}
@@ -131,7 +131,7 @@ for(let i=0;i<2;i++){
   break;
 }
 fs.writeFileSync('out/isograph-1-1-cold/API_RESPONSE.json',responseText);
-const meta={candidate_manifest_blob:MANIFEST_BLOB,workflow_sha:SHA,model:MODEL,packet_sha256:packetHash,packet_bytes:Buffer.byteLength(packet),api_attempts:attempts,http_status:status,workflow_run_id:process.env.GITHUB_RUN_ID||null};
+const meta={candidate_manifest_blob:MANIFEST_BLOB,qualification_sha:SHA,model:MODEL,packet_sha256:packetHash,packet_bytes:Buffer.byteLength(packet),api_attempts:attempts,http_status:status,workflow_run_id:process.env.GITHUB_RUN_ID||null};
 if(!(status>=200&&status<300)){
   fs.writeFileSync('out/isograph-1-1-cold/METADATA.json',JSON.stringify({...meta,semantic_status:'PROVIDER_FAILURE'},null,2)+'\n');
   throw new Error('Gemini failed HTTP '+status);
