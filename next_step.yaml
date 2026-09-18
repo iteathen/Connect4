@@ -35,6 +35,10 @@ required_authority:
   - research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json
   - research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md
   - research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json
+  - research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md
+  - research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json
+  - research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json
+  - research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json
   - docs/specs/C4-0001-domain-v1.md
   - docs/specs/C4-0006-control-parity-and-winspace-v1.md
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
@@ -126,6 +130,10 @@ execution:
     Treat a material mismatch as an observation first. Align semantic quantity, scope, layer, aggregation,
     authority and closure before repair. Record qualification_disposition separately from discovery_disposition.
     A qualification error may leave an open structural lead; an open lead is not authority.
+  identity_handling: >-
+    When a discovery branch becomes an identity or safe-collapse question, evaluate it under the applied NEI
+    profile layer before merging referents or claiming natural distinctness. Keep physical, artifact, event,
+    lineage and future-behavior identities separate. Missing 7x6 closure remains incomplete, not NEI UNKNOWN.
   primary_question: >-
     Can the exact mixed owner-cofactor consequences already present in the full positive residual antichains be
     lifted, with explicit opponent-universal intervention, support/resource, deadline and first-win guards, into
