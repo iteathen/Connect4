@@ -32,7 +32,7 @@
     {
       "name": "research/cross-synthesis-method",
       "head": "7454321ceee574146368600162afa8ee7672265a",
-      "proof": "strict_ancestor_of_unified_knowledge_whose_exact_knowledge_trees_are_attached",
+      "proof": "neutral cross-synthesis content preserved through lossless descendant and canonical merge bc1bdb6a932e1126ac0ab425249a8fef91fc8a6b; complete branch history preserved by immutable archive tag",
       "tag": "archive/research-consolidation-2026-09/research--cross-synthesis-method"
     },
     {
@@ -62,7 +62,7 @@
     {
       "name": "research/lossless-join-realizability",
       "head": "6a3b22199ededa4cf18e29dfe7f25c2dfb25b020",
-      "proof": "strict_ancestor_of_unified_knowledge_whose_exact_knowledge_trees_are_attached",
+      "proof": "selected solver-neutral claim/evidence/map/open-question paths are exact on canonical research lane at and after bc1bdb6a932e1126ac0ab425249a8fef91fc8a6b; complete branch history preserved by immutable archive tag",
       "tag": "archive/research-consolidation-2026-09/research--lossless-join-realizability"
     },
     {
@@ -116,7 +116,7 @@
     {
       "name": "research/unified-knowledge",
       "head": "0e5e29e4ca4fd3941bdcffe70a52b66348705589",
-      "proof": "exact_knowledge_tree_objects_attached_to_canonical_plus_archive_tag",
+      "proof": "unified knowledge tree objects attached to canonical research history at ed71cbe95790d32517f52b2ab815b904516bf665; later neutral synthesis intentionally extends selected trees; complete original branch history preserved by immutable archive tag",
       "tag": "archive/research-consolidation-2026-09/research--unified-knowledge"
     },
     {
@@ -149,5 +149,51 @@
       "proof": "exact_alias_of_staging",
       "tag": "archive/research-consolidation-2026-09/research-unified-knowledge-staging"
     }
-  ]
+  ],
+  "cleanup_result": {
+    "status": "completed",
+    "completed_utc": "2026-09-18",
+    "retired_branch_count": 22,
+    "unique_archive_tag_count": 19,
+    "workflow_runs": [
+      {
+        "id": 35306562082,
+        "disposition": "partial_guarded_run",
+        "note": "retired center-reply-partition and connect-k-derivative-classification, then stopped on an ancestry assumption before further mutation"
+      },
+      {
+        "id": 35306759418,
+        "disposition": "success",
+        "note": "retired all remaining prevalidated generic research refs except the three synthesis refs held for deeper preservation review"
+      },
+      {
+        "id": 35306987681,
+        "disposition": "success",
+        "note": "retired cross-synthesis-method, lossless-join-realizability, and unified-knowledge after exact content-preservation checks"
+      }
+    ],
+    "final_research_branches": [
+      "research/semantic-quotient",
+      "research/bsfp-isometric-invariant-transfer",
+      "research/bsfp-tensor-dominance-overflow",
+      "research/bsfp-tensor-overflow-dominance"
+    ],
+    "protected_heads_verified_unchanged": {
+      "feature/cuda-bsfp": "093218ca55b37f9179d0ede8255ac1621f2e96f5",
+      "isometric": "b112c341d8a365cbec8d1dd2c474b3b11fec7806",
+      "research/bsfp-isometric-invariant-transfer": "e8e3bb5266a39a92549248f2a586b45de4f2709e",
+      "research/bsfp-tensor-dominance-overflow": "0860adcfb7acb9631a21e830befc7ec6c38f0e85",
+      "research/bsfp-tensor-overflow-dominance": "a71ddd4919292a743c1a00188d1d5aeed38b4d7d",
+      "solver/cuda-bsfp": "e80b4295698bd9d0554742217af284e683304676",
+      "solver/hybrid-confluence": "ed26481faef9ec635d1fd0d790cf7030a29f64ee",
+      "solver/minimax-alpha-beta": "bf2c1b4d12a7b6f869d145735371c9ae4336fa38",
+      "sut": "08d48f20fd81249927d8c5d40b7354f153581ca2"
+    },
+    "canonical_integration": [
+      "fast-forwarded research/semantic-quotient through structural-calculus-handoff history",
+      "attached exact unified-knowledge research trees without rewriting source packets",
+      "merged solver-neutral cross-synthesis and realizability claims/evidence/maps while excluding BSFP-specific branch deltas",
+      "updated STATUS.md and next_step.yaml to route current research through research/semantic-quotient"
+    ]
+  }
 }
