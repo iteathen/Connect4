@@ -13,7 +13,7 @@ Solve standard empty-board 7x6 Connect Four to exact W/D/L extremely fast with b
 
 This branch is the durable CUDA-BSFP implementation head under `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
 
-Connect4 owns BSFP semantics, terminal/first-win behavior, exact residual/frontier equality, product state identity, solver-specific recurrence/composition and qualification. Generic scalable scan/order/group/unique/compaction/antichain algorithms belong in CUDA-Algorithms; runtime/compiler/device mechanisms belong in CUDA-JS. Shared solver-neutral mathematics routes through `research/semantic-quotient`.
+Connect4 owns BSFP semantics, terminal/first-win behavior, exact residual/frontier equality, product state identity, solver-specific recurrence/composition and qualification. Generic scalable scan/order/group/unique/compaction/antichain algorithms belong in CUDA-Algorithms; runtime/compiler/device mechanisms belong in CUDA-JS. All durable Connect4 research—including BSFP-specific hypotheses, research results, negative results, and research evidence—routes through `research/semantic-quotient`. This branch owns CUDA-BSFP implementation and implementation qualification only.
 
 ## Retained qualified milestones
 
