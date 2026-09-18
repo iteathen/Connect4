@@ -1,0 +1,88 @@
+name: Retire single research owner cleanup branch
+
+on:
+  push:
+    branches:
+      - cleanup/single-research-owner-20260917
+    paths:
+      - .github/workflows/retire-single-research-owner-cleanup.yml
+
+permissions:
+  contents: write
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify consolidation and retire cleanup branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          const [owner,repo]=process.env.REPOSITORY.split('/');
+          if(process.env.REPOSITORY!=='iteathen/Connect4') throw new Error('repository mismatch');
+          if(process.env.BRANCH!=='cleanup/single-research-owner-20260917') throw new Error('unexpected branch');
+          const api='https://api.github.com';
+          const headers={
+            Authorization:`Bearer ${process.env.GH_TOKEN}`,
+            Accept:'application/vnd.github+json',
+            'X-GitHub-Api-Version':'2022-11-28',
+            'Content-Type':'application/json'
+          };
+          const enc=s=>s.split('/').map(encodeURIComponent).join('/');
+          async function gh(path,{method='GET',body,ok=[200]}={}){
+            const r=await fetch(api+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});
+            const text=await r.text();
+            if(!ok.includes(r.status)) throw new Error(`${method} ${path} -> ${r.status}: ${text.slice(0,800)}`);
+            return text?JSON.parse(text):null;
+          }
+          async function refMaybe(branch){
+            try{return (await gh(`/repos/${owner}/${repo}/git/ref/heads/${enc(branch)}`)).object.sha;}
+            catch(e){if(String(e).includes('-> 404:')) return null; throw e;}
+          }
+          async function tagTarget(tag){
+            try{
+              const r=await gh(`/repos/${owner}/${repo}/git/ref/tags/${enc(tag)}`);
+              if(r.object.type==='commit') return r.object.sha;
+              return (await gh(`/repos/${owner}/${repo}/git/tags/${r.object.sha}`)).object.sha;
+            }catch(e){if(String(e).includes('-> 404:')) return null; throw e;}
+          }
+
+          const pr=await gh(`/repos/${owner}/${repo}/pulls/55`);
+          if(!pr.merged||pr.merge_commit_sha!=='2487ea0c032cb1d81609fef81317bbcf82974090') throw new Error('PR55 merge mismatch');
+
+          if(await refMaybe('research/bsfp-isometric-invariant-transfer')!==null) throw new Error('old research branch still exists');
+          if(await refMaybe('research/semantic-quotient')===null) throw new Error('canonical research branch missing');
+
+          const branches=await gh(`/repos/${owner}/${repo}/branches?per_page=100`);
+          const researchBranches=branches.map(x=>x.name).filter(x=>x.startsWith('research/'));
+          if(researchBranches.length!==1||researchBranches[0]!=='research/semantic-quotient'){
+            throw new Error(`unexpected research branch set: ${researchBranches.join(',')}`);
+          }
+
+          const mainDecision=await gh(`/repos/${owner}/${repo}/contents/docs/decisions/2026-09-17-single-research-owner.md?ref=main`);
+          if(!mainDecision?.sha) throw new Error('single research owner decision missing on main');
+
+          const tag='archive/research-consolidation-2026-09/cleanup--single-research-owner-20260917';
+          const head=process.env.HEAD_SHA;
+          const existing=await tagTarget(tag);
+          if(existing!==null&&existing!==head) throw new Error('archive tag mismatch');
+          if(existing===null){
+            const t=await gh(`/repos/${owner}/${repo}/git/tags`,{
+              method:'POST',ok:[201],
+              body:{tag,message:'Archive single research owner cleanup branch before retirement',object:head,type:'commit'}
+            });
+            await gh(`/repos/${owner}/${repo}/git/refs`,{
+              method:'POST',ok:[201],
+              body:{ref:`refs/tags/${tag}`,sha:t.sha}
+            });
+            if(await tagTarget(tag)!==head) throw new Error('archive verification failed');
+          }
+
+          await gh(`/repos/${owner}/${repo}/git/refs/heads/${enc(process.env.BRANCH)}`,{method:'DELETE',ok:[204]});
+          console.log(`archived+deleted ${process.env.BRANCH} @ ${head}`);
+          NODE
