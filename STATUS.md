@@ -25,6 +25,8 @@ Qualification and promotion are recorded in `research/isograph/qualification/FIN
 
 The prior Markdown/JSON/spec/claim corpus is retained as a provenance/readability bridge. The exact qualified frozen source is embedded in the native IsoGraph source-image layer. Unknown and unresolved material remains explicitly represented; it is not treated as absent or false.
 
+The Core-0.18 sanity correction has been applied operationally without changing authority 1.1 semantics. Material discrepancies now carry separate qualification and discovery dispositions. The frozen 1.1 cold evidence remains unchanged; surviving structural leads are tracked in `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
+
 ## Consolidated research-lane state
 
 On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
