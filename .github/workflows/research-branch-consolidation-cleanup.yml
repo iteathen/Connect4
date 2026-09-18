@@ -168,6 +168,23 @@ jobs:
               case 'staging_alias':
                 if(!await isAncestor(actual,request.unified_head)) throw new Error(`${branch} not contained by unified knowledge`);
                 break;
+              case 'neutral_cross_synthesis':
+                if(!await isAncestor(actual,item.descendant_head)) throw new Error(`${branch} not contained by recorded descendant`);
+                for(const p of item.preserved_paths){
+                  if(await pathSha(item.descendant_head,p)!==await pathSha(canonical,p)) throw new Error(`cross-synthesis preservation mismatch: ${p}`);
+                }
+                break;
+              case 'neutral_lossless':
+                for(const p of item.preserved_paths){
+                  if(await pathSha(actual,p)!==await pathSha(canonical,p)) throw new Error(`lossless preservation mismatch: ${p}`);
+                }
+                break;
+              case 'unified_preserved':
+                if(!await isAncestor(item.preservation_commit,canonical)) throw new Error('unified attachment commit not in canonical history');
+                for(const p of item.preserved_paths){
+                  if(await pathSha(actual,p)!==await pathSha(canonical,p)) throw new Error(`unified preservation mismatch: ${p}`);
+                }
+                break;
               default:
                 throw new Error(`unknown proof class ${item.proof}`);
             }
