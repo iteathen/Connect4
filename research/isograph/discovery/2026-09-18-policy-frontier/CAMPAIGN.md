@@ -198,11 +198,89 @@ Try propagating only minimal threshold generators under predecessor/cofactor clo
 
 Both solvers become ways to construct or consume the same action-value frontier relation.
 
+## Standard 7x6 bounded constructive test
+
+The candidate was then tested on deterministic exact standard-7x6 samples.
+
+Detailed record:
+
+- `STANDARD_7X6_BOUNDED_FRONTIER_TEST.md`
+- `STANDARD_7X6_BOUNDED_FRONTIER_RESULTS.json`
+- `standard-7x6-cross-rank-frontier-control.mjs`
+
+### Same-rank order
+
+Across sampled ranks 30,32,34,36,37,38,39,40:
+
+~~~text
+comparable q-state pairs          347,205
+comparable fixed-action pairs     702,288
+
+strong-score monotonicity violations
+    state   0
+    action  0
+~~~
+
+### Cross-rank move selection
+
+Independent rank-(r+1) value frontiers were used to classify unseen rank-r actions through one exact legal transition.
+
+With 20,000 child training states and 5,000 parent physical test states per rank:
+
+~~~text
+parent rank 26 best-move coverage   15.40%
+parent rank 30 best-move coverage   54.62%
+parent rank 34 best-move coverage   81.63%
+parent rank 36 best-move coverage   88.39%
+parent rank 38 best-move coverage   97.44%
+parent rank 39 best-move coverage  100.00%
+
+false action-score claims               0
+false best-move claims                  0
+~~~
+
+Across ranks 26-39:
+
+~~~text
+held-out q states         64,644
+held-out legal actions   257,007
+exact best moves proved   40,855
+exact action scores      103,198
+~~~
+
+### Frontier-budget scaling
+
+Low-rank weakness was dominated by sparse support/frontier coverage.
+
+At parent rank 28:
+
+~~~text
+20k child states  -> 30.44% exact best moves
+100k child states -> 73.36% exact best moves
+~~~
+
+At parent rank 26:
+
+~~~text
+20k child states  -> 15.40%
+100k child states -> 61.36%
+~~~
+
+No false move claim appeared in either scaling control.
+
+### Interpretation
+
+This is the first bounded evidence that the relation is **constructive across ranks**, not merely a compressed view of already-solved same-rank data.
+
+The remaining scaling problem is frontier construction/coverage as rank decreases.
+
+The current evidence does not establish an empty-root solve or exhaustive 7x6 completeness.
+
 ## Next falsifiers
 
 1. independent proof review of support-local isotony;
 2. exact nonstandard-board controls beyond the four current complete domains;
-3. construct a 7x6 bounded-rank/frontier slice and measure generator growth before claiming scalability;
+3. extend the bounded 7x6 cross-rank frontier test toward earlier ranks with support-aware construction rather than uniform random coverage;
 4. test whether theorem/certificate closure reduces strong-threshold frontier size materially;
 5. test whether the frontier can be represented over a coarser observation than full q while preserving isotony.
 
@@ -215,6 +293,6 @@ CROSS_SUPPORT_RESIDUAL_DOMINANCE      FALSIFIED
 SUPPORT_LOCAL_ACTION_VALUE_ISOTONY    DEDUCTIVE_CANDIDATE + 4 COMPLETE CONTROLS
 DIRECT_POLICY_REGION_MONOTONICITY     FALSIFIED
 ACTION_VALUE_ANTICHAIN_FRONTIER       SUPPORTED_CANDIDATE
-7X6_SCALABILITY                       OPEN
+7X6_BOUNDED_CROSS_RANK_CONSTRUCTION   SUPPORTED_SAMPLED\n7X6_ROOT_SCALABILITY                  OPEN
 AUTHORITY_1_1_MUTATED                 NO
 ~~~
