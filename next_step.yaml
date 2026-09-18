@@ -1,53 +1,17 @@
-schema_version: 1
-updated: 2026-09-17
-state: initialized_no_implementation_contract
+schema_version: 2
+updated: 2026-09-18
+state: retired_historical_only
+repository_role: historical_solver_lineage
 branch: solver/hybrid-confluence
-solver_family: hybrid_confluence
 
-authority:
-  research_ownership: docs/decisions/2026-09-17-single-research-owner.md
-  repository_context: AGENT_LOCAL.md
-  branch_identity: HYBRID_CONFLUENCE_BRANCH.md
-  shared_foundation: main
-  canonical_research: research/semantic-quotient
-  topology_decision: docs/decisions/2026-09-17-closed-durable-lane-topology.md
-
-ownership:
-  owns:
-    - hybrid_confluence_contract
-    - exact_cross_solver_result_exchange
-    - hybrid_specific_transport_and_scheduling
-    - hybrid_specific_qualification_and_performance_evidence
-  does_not_own:
-    - minimax_private_search_or_tt_state
-    - cuda_bsfp_private_recurrence_or_storage
-    - isometric_structural_calculus
-    - sut_semantics
-    - canonical_research_corpus
-
-task:
-  id: define_exact_hybrid_confluence_contract
-  objective: >-
-    Establish the smallest exact branch-local contract for composing independently owned solver
-    capabilities without importing their private internals or converting partial/stale evidence into
-    false exact results.
-
-required_questions:
-  - what_exact_semantic_identity_is_shared
-  - what_result_or_proof_strength_order_is_monotone
-  - when_a_result_may_close_or_supersede_other_work
-  - how_stale_information_remains_sound
-  - what_cancellation_is_semantically_safe
-  - what_bounded_controls_falsify_the_contract
+retirement:
+  successor_composition_lane: solver/sut
+  canonical_history: research/history/historical-only/solver-lineages/HYBRID_CONFLUENCE.md
+  pre_retirement_head: 3bab0d8989ce8649b13e21bc320ea254c4a0a802
+  topology_decision: docs/decisions/2026-09-18-three-active-solver-topology.md
 
 constraints:
-  - no_wholesale_copy_of_parent_solver_internals
-  - no_performance_claim_before_exact_composition_qualification
-  - no_assumption_that_sut_and_hybrid_confluence_are_the_same_solver
-  - temporary_work_branches_must_return_durable_results_here_and_retire
-
-success_criteria:
-  - explicit_exact_confluence_contract
-  - bounded_independent_correctness_controls
-  - clear_ownership_and_lifecycle
-  - branch_local_status_updated_before_substantive_implementation
+  - no_new_implementation_work
+  - no_new_research_authority
+  - composition_questions_route_to_sut_and_canonical_research
+  - physical_branch_ref_should_be_deleted_after_retirement_verification
