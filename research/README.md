@@ -31,6 +31,25 @@ The qualified logic authority is IsoGraph. Read in this order:
 8. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit or exact historical reconstruction requires it.
 
 The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
+### Current derived method-emergence result
+
+The current operational-layer discovery is:
+
+- `isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md`
+- `isograph/discovery/2026-09-18-method-emergence/OPERATIONAL_LAYER_METHOD_EMERGENCE.md`
+
+It does **not** add solver ontology to IsoGraph. It strips solver labels and shows that exact ordinary W/D/L already follows from existing Connect4 topology:
+
+~~~text
+exact behavior carrier
++ legal transition
++ terminal boundary
++ alternating player quantification
++ finite rank
+-> ranked exact value dependency
+~~~
+
+IsoMax and BSFP are then observed as different evaluation/materialization policies over that relation. Frozen authority 1.1 is unchanged.
 
 ## Observation-first discrepancy handling
 
