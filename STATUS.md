@@ -149,6 +149,44 @@ The q-congruence proof shows that equal support + equal normalized P0/P1 residua
 
 The historical NEI-C4-0007 result remains `INCOMPLETE_UNQUALIFIED` under its pinned evidence revision. New post-application research now supports candidate `SAME` for standard-7x6 future-behavior identity pending independent qualification and successor authority ingestion.
 
+## Operational-layer method emergence
+
+A new Discovery Protocol campaign tested whether active solving methodology had been mapped at the wrong semantic layer:
+
+- `research/isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md`
+- `research/isograph/discovery/2026-09-18-method-emergence/OPERATIONAL_LAYER_METHOD_EMERGENCE.md`
+- `research/isograph/discovery/2026-09-18-method-emergence/DISCOVERY_LEDGER.json`
+
+The campaign erased solver `consumed_by` labels from the claim graph before interpretation. The operational/proof core remained connected.
+
+Current discovery disposition:
+
+~~~text
+ordinary exact game semantics:
+    behavior state + legal transition + terminal boundary
+    + alternating player quantification + finite rank
+    -> unique ranked W/D/L recurrence
+
+state-evolution edge:
+    q_r -> q_(r+1)
+
+value-dependency edge:
+    V(q_(r+1)) -> V(q_r)
+
+IsoMax:
+    demand-driven materialization/evaluation of that dependency
+
+CUDA-BSFP:
+    supply-driven symbolic predecessor/evaluation of that dependency
+
+NDC / guarded certificates:
+    shortcut proof edges over the same exact game semantics
+~~~
+
+This strongly supports the hypothesis that solver multiplicity was partly a representation-layer/control-flow distinction. It does **not** establish complete structural shortcut closure, standard-7x6 q as frozen authority, or a final SUT architecture.
+
+The active guarded mixed-cofactor obligation seam remains valid; it is now interpreted as compact derivation of shortcut controllable-predecessor facts rather than creation of a separate solver semantics.
+
 ## Gameplay strategy / implementation proposal lane
 
 The persistent index for turning IsoGraph findings into gameplay descriptions, solver strategies, and implementation experiments is:
@@ -196,8 +234,9 @@ geometric winning-line axioms
   -> CPC control potential / event precedence
   -> positive residual antichains and blocker clauses
   -> guarded response/resource/deadline consequences
-  -> NDC certificate closure
-  -> solver-specific exact proof procedure.
+  -> NDC certificate closure / shortcut proof dependencies
+  -> solver-neutral ranked exact value dependency
+  -> solver-specific evaluation/materialization policy.
 ```
 
 The following September 14 results are retained as the active foundation rather than repeated here in full:
