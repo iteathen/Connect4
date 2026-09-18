@@ -31,6 +31,22 @@ The qualified logic authority is IsoGraph. Read in this order:
 8. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit or exact historical reconstruction requires it.
 
 The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
+### Post-1.1 derived successor claims
+
+Confirmed research that occurred after the frozen 1.1 authority is recorded without mutating that authority.
+
+Current successor overlay:
+
+- `isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.md`
+- `isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.json`
+- `isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.isg`
+
+It records:
+
+- `C4-R0075` — confirmed scoped distributed-universal-composition wall before semantic collapse;
+- `C4-R0076` — missing compact realizability-preserving clause-to-value controllable predecessor.
+
+These are successor-overlay claims, not authority-1.1 mutations. A later authority revision must independently qualify and ingest them.
 ### Current derived method-emergence result
 
 The current operational-layer discovery is:
