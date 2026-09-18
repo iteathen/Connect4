@@ -30,6 +30,30 @@ CUDA-JS supplies only runtime/compiler/memory/execution mechanisms. CUDA-Algorit
 
 P2 supports Connect Four geometries with at most 42 cells. Ownership masks are exact JavaScript integers below `2^42` on the host and two u32 lanes on device.
 
+### IsoGraph/q alignment
+
+The packed ownership mask is a **P2 representation coordinate**, not the canonical ordinary gameplay identity.
+
+Current canonical research identifies ordinary future-behavior state as:
+
+```text
+q =
+    support
+    + normalized P0 residual antichain
+    + normalized P1 residual antichain
+```
+
+P2 is still exact because retaining physical ownership distinctions is conservative: it may distinguish records that are SAME under q, but it does not merge states that require different gameplay behavior.
+
+The consequence is primarily efficiency and architecture:
+
+- ownership-frontier width may contain q-redundant distinctions;
+- P2 metrics must not be interpreted as the irreducible gameplay-state count;
+- future compression may quotient or seed frontiers through q only after exact profile qualification;
+- blockers/CPC/NDC proof context must remain separately typed when not derivable from q.
+
+P2 therefore remains a valid exact control while becoming the **finer-representation baseline** for q-native BSFP experiments.
+
 The solver retains only two logical support ranks at a time. Current-rank supports are processed in bounded host shards. Child frontiers are immutable during production of a parent rank.
 
 P2 now evaluates one representative per horizontal-reflection support orbit,
@@ -194,6 +218,32 @@ Every native result must report at least:
 - per-rank wall time and frontier width.
 
 Performance numbers are descriptive evidence, not correctness thresholds.
+
+## Next semantic compression seam
+
+Before increasing frontier capacity merely to accommodate growth, measure whether the growth is caused by distinctions that collapse under q.
+
+A q-native successor experiment should compare, on the same bounded complete controls:
+
+```text
+P2 ownership-antichain frontier
+vs
+q-keyed explicit dynamic-programming frontier
+vs
+symbolic q-region / predecessor frontier
+```
+
+Required measurements:
+
+- exact root and all-frontier agreement;
+- number of physical/ownership records represented;
+- distinct q identities represented;
+- q-equivalent records merged;
+- candidate products avoided before materialization;
+- extra cost of q construction/canonicalization;
+- peak frontier width and wall time.
+
+Do not replace P2 with q merely because q is smaller in theory. Promotion requires exact replay and net solver economics.
 
 ## Promotion / rejection rule
 
