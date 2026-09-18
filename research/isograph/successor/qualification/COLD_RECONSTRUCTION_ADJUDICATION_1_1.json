@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "candidate_manifest_blob": "0b3c54f193b084e2e5dd2eb7f4fb641b1052491a",
+  "source_revision": "aea692af800f524569ea1c2fda722087cd9bca39",
+  "cold_run": {
+    "repository": "iteathen/OX-Alpha-Contol",
+    "workflow_run": 35372607670,
+    "job": 105689864398,
+    "packet_sha256": "197391d6c5df8455e749bf9001157d483780d5e874f699bc1b8dd099629ec300",
+    "report_sha256": "4ae5a67327cfec05f0ab8d94ed4e6f06f009d918321729a672dd8c689952bb7f",
+    "provider_response_frozen": true,
+    "semantic_candidate_qualifies": true,
+    "mechanical_score": "FAIL",
+    "mechanical_error_count": 2
+  },
+  "claim_inventory_adjudication": {
+    "result": "DECODER_EXTRACTION_ERRORS",
+    "hidden_assertion_correct": true,
+    "semantic_candidate_defect": false,
+    "mismatches": [
+      {
+        "id": "C4-R0010",
+        "field": "scope_present",
+        "canonical": false,
+        "decoder": true,
+        "basis": "The literal canonical JSON in the cold packet has no scope field."
+      },
+      {
+        "id": "C4-R0015",
+        "field": "relation_count",
+        "canonical": 2,
+        "decoder": 1,
+        "basis": "The literal canonical JSON contains defines(winspace-basis) and supports(C4-R0016)."
+      },
+      {
+        "id": "C4-R0016",
+        "field": "relation_count",
+        "canonical": 2,
+        "decoder": 1,
+        "basis": "The literal canonical JSON contains derived_from(C4-R0015) and supports(C4-R0018)."
+      },
+      {
+        "id": "C4-R0034",
+        "field": "scope_present",
+        "canonical": false,
+        "decoder": true,
+        "basis": "The literal canonical JSON in the cold packet has no scope field."
+      },
+      {
+        "id": "C4-R0045",
+        "field": "source_count",
+        "canonical": 4,
+        "decoder": 3,
+        "basis": "The claim record contains four source citations. Evidence-lineage grouping must not redefine claim source_count."
+      },
+      {
+        "id": "C4-R0052",
+        "field": "relation_count",
+        "canonical": 6,
+        "decoder": 5,
+        "basis": "The literal canonical JSON contains one refines, two depends_on and three bridges relations."
+      },
+      {
+        "id": "C4-R0054",
+        "field": "scope_present",
+        "canonical": false,
+        "decoder": true,
+        "basis": "The statement is guarded/conditional, but the canonical record has no explicit scope field; scope_present measures field presence."
+      }
+    ],
+    "conclusion": "The scorer correctly compared explicit canonical record fields. The decoder sometimes inferred semantic scope or collapsed/count-omitted explicit arrays. No source/native correction is warranted."
+  },
+  "deductive_independence_adjudication": {
+    "result": "DECODER_OVERREACH",
+    "hidden_assertion_correct": true,
+    "semantic_candidate_defect": false,
+    "requested_control_claims": [
+      "C4-R0060",
+      "C4-R0062",
+      "C4-R0063",
+      "C4-R0070",
+      "C4-R0071"
+    ],
+    "graph_basis": [
+      {
+        "lineage": "L-REALIZABILITY-DERIVATION-20260916",
+        "claims": ["C4-R0060", "C4-R0062", "C4-R0063"],
+        "independence_status": "not_applicable_deductive"
+      },
+      {
+        "lineage": "L-STRUCTURAL-SELECTION-DERIVATION-20260916",
+        "claims": ["C4-R0070", "C4-R0071"],
+        "independence_status": "not_applicable_deductive"
+      }
+    ],
+    "decoder_issue": "The decoder generalized the requested control to many other deductive/guarded records, included duplicates, and included C4-R0016 despite its empirically_supported status.",
+    "conclusion": "The scorer is not overconstrained for this field: it checks the exact five claims explicitly requested by the cold prompt and explicitly represented by the two not_applicable_deductive lineage records."
+  },
+  "lineage_event_wording_adjudication": {
+    "result": "DECODER_PROSE_SLIPPAGE",
+    "semantic_candidate_defect": false,
+    "manifest_lineages": 10,
+    "manifest_events": 13,
+    "lineage_graph_lineages": 10,
+    "lineage_graph_events": 13,
+    "cold_dry_run_lineages": 10,
+    "incorrect_decoder_prose": "13 evidence lineages",
+    "conclusion": "The prose substituted the event total for the lineage total. Structured candidate data remains unambiguous."
+  },
+  "cold_material_omission_classification": [
+    {
+      "item": "four new INCOMPLETE_SCOPE records",
+      "classification": "QUALIFICATION_OBLIGATION",
+      "disposition": "DISCHARGED",
+      "basis": "Deterministic run 35371183917 contains explicit four-subject bridge checks; the frozen cold report reconstructs all four and their narrow source-native uncertainty meaning."
+    },
+    {
+      "item": "C4-R0045 cross-lineage independence UNKNOWN",
+      "classification": "SOURCE_NATIVE_OR_EVIDENCE_MODEL_UNRESOLVED_FACT",
+      "disposition": "CORRECTLY_REPRESENTED",
+      "basis": "Both R0045 lineages explicitly carry unknown_relative_to_other_R0045_lineages."
+    },
+    {
+      "item": "C4-R0037/R0038 correlated independence group",
+      "classification": "REPRESENTED_EVIDENCE_RELATION",
+      "disposition": "CORRECTLY_REPRESENTED"
+    },
+    {
+      "item": "C4-R0074 reproduction relationship",
+      "classification": "REPRESENTED_EVIDENCE_RELATION",
+      "disposition": "CORRECTLY_REPRESENTED"
+    },
+    {
+      "item": "factorization-space completeness",
+      "classification": "INTENTIONALLY_ABSENT_STRONGER_CLAIM",
+      "disposition": "NOT_A_REPRESENTATION_OMISSION",
+      "basis": "IsoGraph Core 0.17 distinguishes claim-scoped factorization coverage from factorization-space completeness and forbids lifting local claims without coverage evidence."
+    },
+    {
+      "item": "global canonical factorization/canonical-labeling prerequisite",
+      "classification": "INTENTIONALLY_ABSENT_STRONGER_CLAIM",
+      "disposition": "NOT_A_REPRESENTATION_OMISSION",
+      "basis": "IsoGraph Core 0.17 explicitly states there is no global canonical factorization or canonical-labeling prerequisite."
+    }
+  ],
+  "bridge_1_1": {
+    "deterministic_obligation_discharged": true,
+    "cold_semantic_obligation_discharged": true,
+    "qualified_record_count": 31,
+    "rendering_created_uncertainty": 0
+  },
+  "semantic_candidate": {
+    "mutated_by_adjudication": false,
+    "new_freeze_required": false,
+    "fresh_cold_rerun_required": false,
+    "reason": "All discrepancies are in decoder extraction/generalization/prose. The frozen semantic packet and candidate are unchanged, and rerunning only to seek cleaner model output would weaken evidentiary discipline."
+  },
+  "final_adjudication": "SEMANTIC_CANDIDATE_SOUND_DECODER_FIDELITY_ERRORS_ONLY"
+}
