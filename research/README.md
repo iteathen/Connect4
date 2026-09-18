@@ -20,6 +20,26 @@ The qualified logic authority is IsoGraph. Read in this order:
 
 The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
 
+## Observation-first discrepancy handling
+
+Research discrepancies are preserved as evidence before they are normalized.
+
+For count/scope/identity/relation/provenance/uncertainty disagreements, first ask whether both sides actually measure the same semantic quantity under the same scope, representation layer, aggregation level, authority, and closure assumptions.
+
+Record two independent outcomes:
+
+```text
+qualification_disposition
+discovery_disposition
+```
+
+A decoder/output error may be closed for qualification while leaving a structural lead open. An interesting structural lead does not excuse a qualification error and does not become authority without its own evidence.
+
+Authority-1.1 post-hoc dispositions are in:
+
+- `isograph/qualification/CORE_0_18_SANITY_AUDIT_1_1.md`;
+- `isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
+
 ## Epistemic categories
 
 A statement must be classified before it is used as authority:
