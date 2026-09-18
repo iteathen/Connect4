@@ -1,5 +1,8 @@
 # Branch retirement ledger
 
+> **Current topology note (2026-09-18):** `solver/minimax-alpha-beta` and `solver/hybrid-confluence` are now historical solver lineages under `docs/decisions/2026-09-18-three-active-solver-topology.md`. The earlier durable-lane list below is retained as a historical cleanup record, not current routing authority.
+
+
 This file is the human-readable companion to `MIGRATION_MANIFEST.json` and `RETIREMENT_PROOFS.json`.
 
 `MIGRATION_MANIFEST.json` is the frozen pre-restructure census. `RETIREMENT_PROOFS.json` records post-migration ancestry/content checks and physical cleanup observations. Recheck live refs and dependents before any later deletion.

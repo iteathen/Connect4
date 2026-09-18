@@ -7,9 +7,7 @@ This file defines the live organizational model of the repository. It is routing
 ```text
 main
 ├── research/semantic-quotient
-├── solver/minimax-alpha-beta
 ├── solver/cuda-bsfp
-├── solver/hybrid-confluence
 ├── solver/isometric
 └── solver/sut
 ```
@@ -18,15 +16,15 @@ main
 
 `research/semantic-quotient` is the **single canonical owner of all Connect4 research**, including solver-specific research observations, hypotheses, experiment results, research evidence, negative results, open questions, maps, synthesis, and provenance.
 
-The five solver-family heads are peers:
+The three active solver-family heads are:
 
-- `solver/minimax-alpha-beta` — minimax/negamax/alpha-beta implementation and evidence;
+- `solver/isometric` — IsoMax structural/frontier implementation and evidence;
 - `solver/cuda-bsfp` — CUDA-BSFP implementation and evidence;
-- `solver/hybrid-confluence` — hybrid exact-confluence implementation and evidence;
-- `solver/isometric` — Isometric structural/frontier implementation and evidence;
-- `solver/sut` — SUT (`S ∪ T`) implementation lineage.
+- `solver/sut` — future exact composition of IsoMax + CUDA-BSFP.
 
-The durable set is closed by `docs/decisions/2026-09-17-solver-namespace-normalization.md`. An agent may not create another durable lane without explicit owner instruction.
+Minimax/Negamax/alpha-beta and Hybrid Confluence are historical solver lineages. The incumbent implementation on `main` remains a reference/baseline only.
+
+The durable set is closed by `docs/decisions/2026-09-18-three-active-solver-topology.md`. An agent may not create another durable lane without explicit owner instruction.
 
 ## Temporary branch lifecycle
 
@@ -54,7 +52,7 @@ A change belongs on `main` when it is shared accepted product truth rather than 
 
 A change does not belong on `main` merely because it is useful to more than one solver. Solver kernels, scheduling, TT policy, BSFP recurrence/storage, structural consequence execution, confluence machinery and SUT composition remain on their owning solver head unless a consumer-neutral shared contract is deliberately extracted.
 
-The qualified incumbent under `components/incumbent/` is retained on `main` as a baseline/reference comparator. It is not the canonical minimax implementation.
+The qualified incumbent under `components/incumbent/` is retained on `main` as a baseline/reference comparator. It is not an active Minimax solver-family implementation.
 
 ## Cross-lane synchronization
 
@@ -73,7 +71,7 @@ solver head -- selective qualification/promotion --> shared owner
 
 Solver branches are not expected to merge wholesale back into `main`. When solver work reveals a shared fact, extract the smallest shared semantic/contract/research change and promote it deliberately.
 
-Historical ancestry does not transfer ownership. In particular, Isometric remains distinct from its Negamax/minimax ancestry, and SUT remains distinct from Isometric, BSFP and Hybrid Confluence.
+Historical ancestry does not transfer ownership. Isometric remains distinct from its Minimax/Negamax ancestry. SUT is the current composition lane for Isometric + BSFP; historical Hybrid Confluence questions are inputs, not a separate active owner.
 
 ## Filesystem ownership
 

@@ -1,6 +1,6 @@
 schema_version: 4
-updated: 2026-09-17
-state: main_shared_foundation_with_closed_five_solver_heads
+updated: 2026-09-18
+state: main_shared_foundation_with_three_active_solver_heads
 repository_role: connect4_shared_foundation_and_router
 
 canonical_lanes:
@@ -12,14 +12,8 @@ canonical_lanes:
     branch: research/semantic-quotient
     purpose: all_connect4_research_claims_derivations_hypotheses_experiments_results_evidence_negative_results_open_questions_synthesis_and_provenance
     solver_head: false
-  minimax:
-    branch: solver/minimax-alpha-beta
-    solver_head: true
   cuda_bsfp:
     branch: solver/cuda-bsfp
-    solver_head: true
-  hybrid_confluence:
-    branch: solver/hybrid-confluence
     solver_head: true
   isometric:
     branch: solver/isometric
@@ -27,7 +21,7 @@ canonical_lanes:
   sut:
     branch: solver/sut
     solver_head: true
-    maturity: early_directional
+    maturity: early_directional_composition
 
 routing_rules:
   - main_is_shared_accepted_substrate_not_a_solver_head
@@ -38,9 +32,9 @@ routing_rules:
   - all_research_routes_to_research_semantic_quotient
   - solver_branches_do_not_own_research
   - no_new_durable_focused_research_branches
-  - minimax_search_policy_tt_scheduler_and_search_kernel_work_routes_to_minimax
+  - historical_minimax_mechanisms_may_be_reassessed_only_through_current_owner_and_canonical_research
   - bsfp_recurrence_cuda_profiles_symbolic_storage_and_bsfp_qualification_routes_to_cuda_bsfp
-  - hybrid_confluence_transport_proof_exchange_and_hybrid_qualification_route_to_hybrid_confluence
+  - former_hybrid_confluence_questions_route_to_sut_as_historical_design_inputs
   - isometric_structural_frontier_solver_implementation_routes_to_isometric
   - sut_solver_implementation_routes_to_sut
   - shared_facts_discovered_on_solver_heads_are_selectively_promoted_to_the_shared_owner
@@ -75,16 +69,18 @@ main_role:
     - accepted_cross_lane_specs_and_decisions
     - repository_routing_and_provenance
   solver_specific_ownership:
-    minimax: solver/minimax-alpha-beta
     bsfp: solver/cuda-bsfp
-    hybrid_confluence: solver/hybrid-confluence
     isometric: solver/isometric
     sut: solver/sut
+  historical_solver_lineages:
+    - minimax_alpha_beta
+    - hybrid_confluence
 
 restructure:
   original_lane_decision: docs/decisions/2026-09-10-repository-lane-restructure.md
   three_solver_extension: docs/decisions/2026-09-11-main-shared-foundation-three-solver-heads.md
-  closed_five_solver_topology: docs/decisions/2026-09-17-solver-namespace-normalization.md
+  historical_five_solver_topology: docs/decisions/2026-09-17-solver-namespace-normalization.md
+  current_three_solver_topology: docs/decisions/2026-09-18-three-active-solver-topology.md
   single_research_owner: docs/decisions/2026-09-17-single-research-owner.md
   historical_manifest: research/MIGRATION_MANIFEST.json
   historical_branch_retirement: research/BRANCH_RETIREMENT.md
@@ -93,7 +89,7 @@ restructure:
 
 next_actions:
   - keep_main_role_verification_green_for_changes_targeting_main
-  - give_hybrid_confluence_branch_local_status_and_next_step_before_substantive_new_work
+  - keep_minimax_and_hybrid_confluence_historical_only
   - keep_sut_branch_local_state_explicitly_early_stage_until_architecture_is_qualified
   - selectively_flow_shared_main_changes_into_solver_heads_when_needed
   - preserve_active_experiment_research_in_research_semantic_quotient_then_retire_temporary_refs
