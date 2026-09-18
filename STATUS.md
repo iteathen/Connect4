@@ -10,7 +10,7 @@
 | Lane | Canonical branch | Purpose | Current routing note |
 | --- | --- | --- | --- |
 | Shared product foundation | `main` | accepted domain/spec/oracle/benchmark contracts and repository routing | authoritative shared substrate |
-| Shared research | `research/semantic-quotient` | solver-neutral normalized research, evidence, provenance and cross-solver synthesis | canonical research lane |
+| Research | `research/semantic-quotient` | **all Connect4 research**: normalized claims, derivations, hypotheses, experiments/results, research evidence, negative results, open questions, synthesis and provenance | single canonical research owner |
 | Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | first-class solver head |
 | CUDA-BSFP | `solver/cuda-bsfp` | backward symbolic fixed-point implementation and qualification | first-class solver head |
 | Hybrid confluence | `solver/hybrid-confluence` | exact hybrid-confluence implementation and qualification | first-class solver head |
@@ -37,15 +37,15 @@ Solver-specific kernels and performance machinery must not accumulate on `main`.
 
 ## Branch hygiene
 
-Temporary `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging and evidence refs are subordinate to a named durable owner.
+Temporary `work/*`, `experiment/*`, `feature/*`, handoff, staging and evidence refs are subordinate to a named durable owner. New durable focused `research/*` branches are prohibited.
 
-A temporary branch is retired after its useful implementation, research, evidence, negative results and provenance are integrated into the owner lane or preserved by an immutable archive. Accumulating commits does not make a temporary branch authoritative.
+A temporary branch is retired after useful implementation returns to its solver owner and **all durable research output** is integrated into `research/semantic-quotient` or its provenance archive. Accumulating commits does not make a temporary branch authoritative.
 
 See `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
 
 ## Cross-lane flow
 
-Shared accepted changes flow from `main` into solver heads. Shared solver-neutral research is normalized on `research/semantic-quotient`.
+Shared accepted changes flow from `main` into solver heads. **All research, regardless of which solver produced it, is owned by `research/semantic-quotient`.**
 
 When a solver discovers a shared fact, extract the smallest shared semantic/contract/research change and deliberately promote it to the appropriate shared owner. Solver branches are not merged wholesale to `main` merely to carry history.
 
@@ -57,7 +57,7 @@ C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain prote
 
 ### Shared research
 
-`research/semantic-quotient` now owns the consolidated solver-neutral research knowledge base and structural-calculus history. Historical generic research refs were archived and retired in the 2026-09-17 consolidation. Solver-specific BSFP research branches remain separate while active.
+`research/semantic-quotient` owns the complete Connect4 research corpus. Historical generic research refs and the former BSFP/Isometric transfer research branch are consolidated into it; no solver-specific durable research branch is valid current topology. Active experiments may remain temporary, but their durable research output belongs here.
 
 ### Minimax
 
@@ -87,4 +87,4 @@ Historical migration/retirement records remain preserved under `research/`; they
 
 ## Governing rule
 
-`main` is shared accepted truth, not "the winning solver." Solver heads own implementation, canonical research owns shared research knowledge, and temporary branches must terminate instead of becoming accidental permanent lanes.
+`main` is shared accepted truth, not "the winning solver." Solver heads own implementation; `research/semantic-quotient` owns **all research**; temporary branches must terminate instead of becoming accidental permanent lanes or alternate research authorities.
