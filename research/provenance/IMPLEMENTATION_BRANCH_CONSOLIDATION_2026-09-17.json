@@ -241,5 +241,62 @@
     },
     "retained_reason": "These six BSFP refs are active experiment/research surfaces with current draft PR work; they were explicitly excluded from stale implementation cleanup.",
     "cleanup_host_archive_tag": "archive/implementation-consolidation-2026-09/cleanup--implementation-topology-20260917"
+  },
+  "bsfp_p2_promotion": {
+    "status": "merged",
+    "promotion_pr": 53,
+    "reviewed_head": "2e71ba0ad05010fdb0634faaabc4cd00e525810d",
+    "merge_commit": "e778b90e0d042ce6a42e25ca3f5266ce1d90214c",
+    "durable_cuda_bsfp_head_after_status_reconciliation": "98ccd54e1d187056b40e63a03608cbbda05b61e9",
+    "promoted_content": [
+      "P2 loss-cofactor correctness repair",
+      "large-frontier host capacity repair",
+      "bucket histogram synchronization repair",
+      "bounded tiling for oversized intersections",
+      "full-frontier native qualification controls",
+      "reflection/cofactor-preservation optimizations",
+      "bucketed ordinary and packed overflow recovery selection",
+      "sanitized native evidence and retained failures"
+    ],
+    "qualification_checks": [
+      "verify",
+      "strength-evidence",
+      "benchmark-evidence",
+      "bsfp-portable",
+      "bsfp-scaling",
+      "bsfp-clause-coverage-experimental",
+      "bsfp-tensor-overflow-portable"
+    ],
+    "non_claims": [
+      "no complete empty-board 7x6 root WDL",
+      "no solve-time forecast from bounded timeout evidence",
+      "no lower-layer defect inferred from consumer cost",
+      "Tensor remains control rather than selected overflow path"
+    ],
+    "superseded_refs_pending_retirement": [
+      {
+        "name": "experiment/bsfp-clause-coverage",
+        "head": "a70d457f79c9e4e60d60b0ae9a4c6670662983ad",
+        "proof": "contained by promoted durable CUDA-BSFP history; PR #46 closed/merged after containment",
+        "archive_tag": "archive/implementation-consolidation-2026-09/experiment--bsfp-clause-coverage"
+      },
+      {
+        "name": "research/bsfp-tensor-overflow-dominance",
+        "head": "2e71ba0ad05010fdb0634faaabc4cd00e525810d",
+        "proof": "exact reviewed/merged PR #53 head and ancestor of durable CUDA-BSFP",
+        "archive_tag": "archive/implementation-consolidation-2026-09/research--bsfp-tensor-overflow-dominance"
+      },
+      {
+        "name": "research/bsfp-tensor-dominance-overflow",
+        "head": "0860adcfb7acb9631a21e830befc7ec6c38f0e85",
+        "proof": "historical Tensor A/B branch superseded by later native qualification; exact fixture retained, evolved runner retained on durable CUDA-BSFP, exact head preserved by archive tag",
+        "archive_tag": "archive/implementation-consolidation-2026-09/research--bsfp-tensor-dominance-overflow"
+      }
+    ],
+    "active_bsfp_refs_intentionally_retained": [
+      "experiment/bsfp-rank-slice-compact42",
+      "research/bsfp-isometric-invariant-transfer",
+      "experiment/bsfp-support-local-clause-coverage"
+    ]
   }
 }
