@@ -9,7 +9,7 @@ const CUDA_ALGORITHMS_REPOSITORY = 'https://github.com/iteathen/CUDA-Algorithms.
 const CUDA_JS_REPOSITORY = 'https://github.com/iteathen/CUDA-JS.git';
 
 export const DEFAULT_REVISIONS = Object.freeze({
-  connect4: 'feature/cuda-bsfp',
+  connect4: 'solver/cuda-bsfp',
   cudaAlgorithms: '48ee0aec9acae7776950f03ab52ab1737e598b6e',
   cudaJs: '98e2ebc942c14d63acf4dd82e912dd548c363a05',
 });
