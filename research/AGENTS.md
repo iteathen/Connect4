@@ -2,7 +2,7 @@
 
 This file specializes the account-global `iteathen/.github/AGENTS.md` and repository `AGENT_LOCAL.md` for all work under `research/`.
 
-The purpose of this tree is not to accumulate notes. It is the **single canonical research ownership surface and normalized knowledge graph** for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmark/oracle work, and future consumers. No solver branch or long-lived side branch owns a separate research corpus. Historical branches and temporary experiments may generate evidence, but all durable research meaning and research artifacts are integrated here.
+The purpose of this tree is not to accumulate notes. The branch `research/semantic-quotient` is the **single canonical research ownership surface and normalized knowledge graph** for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmark/oracle work, and future consumers. No solver branch or long-lived side branch owns a separate research corpus. Historical branches and temporary experiments may generate evidence, but all durable research meaning and research artifacts are integrated here.
 
 Research direction: Josh Oshiro.
 

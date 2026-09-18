@@ -6,7 +6,7 @@ The repository deliberately keeps solver lanes separate while sharing Connect4-o
 
 - `components/incumbent/` — incumbent Node minimax/alpha-beta baseline;
 - `components/bsfp/` — backward symbolic fixed-point solver and CUDA-BSFP composition;
-- `research/semantic-quotient/` — quotient-native forward/Negamax research and conformance evidence.
+- `research/semantic-quotient/` — all durable Connect4 research and research evidence across every solver family and representation.
 
 Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, CPC/WSL/NDC structural semantics, solver-specific proof meaning, and qualification evidence belong here. Reusable CUDA algorithms/runtime/search mechanisms remain owned by their respective CUDA repositories.
 

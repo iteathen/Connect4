@@ -1,0 +1,27 @@
+name: research-integrity
+
+on:
+  pull_request:
+    branches:
+      - research/semantic-quotient
+  push:
+    branches:
+      - research/semantic-quotient
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  research-integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Verify canonical research graph and ownership
+        run: node tools/verify-research-integrity.mjs
