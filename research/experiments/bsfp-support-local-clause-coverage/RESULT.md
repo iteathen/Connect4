@@ -4,6 +4,8 @@
 
 **Research direction:** Josh Oshiro.
 
+**Canonical research claims:** `C4-R0073` and `C4-R0074`.
+
 ## Question
 
 Can beneficiary-relative monotone-CNF BSFP be represented persistently by support-local upward-coverage bitsets, with one-ply cofactors implemented entirely by precomputed child-to-parent clause maps, without reconstructing variable clause arrays?
