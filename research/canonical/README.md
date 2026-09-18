@@ -1,9 +1,11 @@
-# Canonical research
+# Legacy canonical research bridge
 
-This directory contains the normalized, agent-facing statement of current Connect4 research.
+**Current logic authority:** `../isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md`
 
-Canonical does **not** mean every entry is proven. It means every live idea has one stable identity, an explicit epistemic status, explicit premises/guards, evidence/provenance links, and relationships to other claims.
+This directory preserves the pre-IsoGraph normalized claim/model views. It remains useful for human readability, stable `C4-R####` lookup, compatibility, and provenance reconstruction, but it is no longer the conflict-resolution authority for the frozen logic promoted on 2026-09-18.
 
-Use `CLAIM_INDEX.json` as the machine-readable root of claim identity. It lists every registry shard and human ledger that must be read as one logical claim graph. `CORE_MODEL.md` and `CROSS_LINEAGE_SYNTHESIS.md` describe the shared conceptual system into which claims fit.
+The exact qualified content of this directory at source revision `aea692af800f524569ea1c2fda722087cd9bca39` is embedded in IsoGraph authority 1.0.
 
-A claim changes status only when new proof, counterexample, or evidence is recorded. Solver implementation success by itself does not promote a research claim to theorem.
+Canonical in the historical filenames means normalized stable identity at that revision; it does not override the current IsoGraph authority root.
+
+`CLAIM_INDEX.json` remains the legacy machine-readable claim bridge. A direct edit here does not become authoritative logic unless incorporated into a newly qualified IsoGraph authority revision.
