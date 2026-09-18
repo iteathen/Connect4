@@ -6,7 +6,7 @@
 
 This overlay records confirmed post-authority findings without editing the frozen 1.1 authority or its frozen candidate manifest.
 
-**Relation rule:** a proposed relationship between claims is represented here as claim content only until it has deductive proof or explicit qualified-exact status. Unproved post-1.1 relationships are not native IsoGraph edges.
+**Relation rule:** a proposed relationship between claims is represented here as claim content only until it has deductive or guarded-exact proof. Empirical confirmation alone does not promote it. Unproved post-1.1 relationships are not native IsoGraph edges.
 
 ## Claims
 
@@ -45,6 +45,6 @@ A compact realizability-preserving controllable-predecessor operation is needed 
 
 `C4-R0076` is explicitly a missing law. It must not be consumed as though the compact controllable predecessor already exists.
 
-The suggested correspondences to C4-R0043, C4-R0069, C4-R0073 and C4-R0074 remain **relation claims**, not graph edges. Promote a relation only after its own proof/qualification burden is satisfied.
+The suggested correspondences to C4-R0043, C4-R0069, C4-R0073 and C4-R0074 remain **relation claims**, not graph edges. Promote a relation only after its own deductive or guarded-exact proof burden is satisfied.
 
 Frozen authority 1.1 remains unchanged.
