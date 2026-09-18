@@ -1,246 +1,66 @@
-version: 1
+version: 2
 status: active
 branch: solver/isometric
-updated: 2026-09-15
+updated: 2026-09-17
+solver_family: isometric
+repository_role: solver_implementation
 
-attribution:
-  research_direction_structural_architecture_invariant_first_program: Josh Oshiro
-  formalization_implementation_qualification: OpenAI ChatGPT
+authority:
+  repository_context: AGENT_LOCAL.md
+  branch_identity: ISOMETRIC_BRANCH.md
+  solver_specification: docs/specs/C4-0011-isometric-structural-solver-v1.md
+  canonical_research_branch: research/semantic-quotient
+  research_ownership_decision: docs/decisions/2026-09-17-single-research-owner.md
 
-solver_family:
-  name: Isometric
-  branch: solver/isometric
-  specification: docs/specs/C4-0011-isometric-structural-solver-v1.md
-  lineage_split_commit: 6b7f19ce4d15423f6f2537dd7b18bcba2a7348ea
-  former_experiment_branch: research/terminal-frontier-horizon-exact
-  former_pr: 45
-  ownership: >-
-    Isometric is a sibling of BSFP, Research, and Negamax. The former branch and PR are historical provenance only;
-    new Isometric semantics, implementation, experiments and qualification work land on this branch.
+ownership:
+  owns:
+    - isometric_maintained_implementation
+    - isometric_solver_contracts
+    - implementation_local_status_and_plans
+    - implementation_qualification_and_reproduction
+    - implementation_local_performance_evidence
+  does_not_own:
+    - theorem_development
+    - research_hypotheses
+    - research_experiment_results
+    - research_falsifiers_or_negative_results
+    - canonical_research_evidence
+    - open_research_questions
 
-task:
-  id: derive_guarded_mixed_cofactor_obligation_birth
-  objective: >-
-    Derive the smallest exact guarded quantifier-lift rule that converts mixed owner-labelled positive cofactors
-    into certified NDC obligations before a deadline. Preserve exact support and full residual identity. Treat
-    owner-labelled enabling as a derived certificate relation, not a new board-state coordinate, unless the first
-    unresolved support/resource/deadline guard proves otherwise.
+current:
+  action: maintain_and_qualify_native_isometric_solver_against_canonical_research
+  research_dependency_rule: consume_only_canonical_research_claims_with_matching_guards
+  implementation_backend: exact_recursive_P0_oriented_WDL_for_unresolved_residue
 
-solver_optimization_lane:
-  status: active_secondary
-  branch: solver/isometric
-  specification: docs/specs/C4-0011-isometric-structural-solver-v1.md
-  former_pr: 45
-  accepted_checkpoint: b45a6350fbc026b7a3429c5b49816c7d3a248f9e
-  accepted:
-    - >-
-      Exact terminal/frontier first-order line and residual facts are transition-owned and consumed by terminal,
-      tactical and evaluator logic; maintain stable first-order facts once and derive cheap second-order consumer
-      consequences unless aggregate maintenance clearly pays.
-    - >-
-      Native playable-singleton move ordering is accepted as advisory ordering only. After exact tactical and TT
-      authority, a non-TT move may be promoted when its native landing-cell transition creates one or two distinct
-      playable own singleton completion cells without exposing an opponent singleton. No child materialization or
-      new maintained metadata is required.
-  rejected:
-    - id: opponent_residual_suppression_ordering
-      evidence: docs/research/2026-09-15-opponent-residual-suppression-ordering.md
-      statement: >-
-        Opponent-only residual destruction by the landing event is an exact unsigned cofactor fact, but broad,
-        tier-isolated and degree-2-only suppression ordering variants are rejected at the tested first-child
-        placement. They saved substantial work on the paired fixture while materially increasing depth-12 work on
-        the independent calibration corpus. Preserve the descriptor for other consumers; do not restore the tested
-        ordering tier without materially new evidence.
-  evidence_branch: research/terminal-frontier-horizon-exact-suppression-evidence
-  next_assessment:
-    - >-
-      Reassess own residual contraction/live-line incidence only as a small explicit structural class, not a weighted
-      count, and require the same independent cross-corpus qualification before retention.
-    - >-
-      Evaluate whether exact transition-effect descriptors are more naturally consumed by TT retention/replacement
-      or Branch Manager scheduling than by first-child ordering.
-    - >-
-      Keep TT aliasing, bucket/probe cost, capacity/replacement eviction and cross-worker contention distinct.
-      Reduced TT traffic caused by a smaller tree is not a TT-policy result.
-    - >-
-      Consider a compiled structural consequence/effect plane only after multiple consumers demonstrate reuse value.
-  proof_boundary: >-
-    Ordering descriptors remain advisory unless a separately qualified theorem supplies an exact WDL interval/value
-    consequence. Residual degree/cardinality and cofactor deletion remain unsigned. The guarded mixed-cofactor to
-    obligation theorem below is still unresolved.
+accepted_implementation:
+  - exact_first_win_stopping
+  - exact_positive_residual_cofactor_transition
+  - bilateral_residual_exhaustion_draw
+  - exact_native_frontier_consequences
+  - guarded_certificate_consumption
+  - exact_transition_identity_stronger_than_coarse_WSL_retrieval
+  - native_playable_singleton_advisory_ordering_after_exact_authority
 
-required_authority:
-  - account-global iteathen/.github/AGENTS.md
-  - AGENT_LOCAL.md
-  - ISOMETRIC_BRANCH.md
-  - docs/specs/C4-0001-domain-v1.md
-  - docs/specs/C4-0006-control-parity-and-winspace-v1.md
-  - docs/specs/C4-0007-nested-dependency-closure-v1.md
-  - docs/specs/C4-0011-isometric-structural-solver-v1.md
-  - STATUS.md
-  - docs/research/2026-09-14-total-domain-incidence-decomposition.md
-  - docs/research/2026-09-14-connect4-derived-difference-axioms.md
-  - docs/research/2026-09-14-cpc-control-potential-unification.md
-  - docs/research/2026-09-14-z2-domain-wall-causal-field.md
-  - docs/research/2026-09-14-gravity-adapted-domain-wall-normal-form.md
-  - docs/research/2026-09-14-anchored-zero-edge-residuals.md
-  - docs/research/2026-09-14-affine-clause-blocker-decomposition.md
-  - docs/research/2026-09-14-solved-db-structural-discovery.md
-  - docs/research/2026-09-14-solved-db-structural-assessment.md
-  - docs/research/2026-09-09-universal-strategic-algebra.md
-  - docs/research/2026-09-09-nested-strategic-dependency-closure.md
+rejected_implementation:
+  - opponent_residual_suppression_first_child_tier_at_tested_placement
 
-lineage_and_control_evidence:
-  - docs/specs/C4-0010-quotient-native-negamax-v1.md
-  - research/frontier-negamax-conformance
-  - research/terminal-frontier-horizon-exact
-  - pull_request_45
+next_assessment:
+  - exact_transition_and_certificate_cache_economics
+  - TT_retention_replacement_separate_from_tree_size_effects
+  - branch_manager_scheduling_from_already_qualified_descriptors
+  - compiled_consequence_effect_data_only_if_multiple_consumers_need_it
+  - native_state_and_transition_efficiency_without_semantic_change
 
-qualified_premises:
-  - id: total_domain_static_core
-    statement: >-
-      For a=(W-3)_+, b=(H-3)_+, p=min(W,3), q=min(H,3), d=min(2,ab):
-      L=Ha+Wb+2ab; rank(B)=WH-pq+d; ker(B)=3ab-d; rank(Q_axis)=a+b;
-      rank(Q_phase)=min(a,ab)+min(2,ab,a+floor((b-1)_+/2));
-      Y_cell=rank(B)-rank(Q_axis); Y_line=ker(B)-rank(Q_phase).
-  - id: thin_board_draw
-    statement: >-
-      For every positive W,H, min(W,H)<4 implies empty-board draw by quantified legal mate-response proof.
-  - id: absolute_cpc_owner
-    statement: >-
-      With owner bit 0=first player and 1=second player, the zero-reservation absolute owner of target (c,r)
-      is q0=((W-1)H+r) mod2. A certified prior-event parity correction rho gives q=kappa+r+rho.
-  - id: control_potential_derivatives
-    statement: >-
-      Horizontal disagreement is delta_x rho; vertical disagreement is 1+delta_y rho; seam transport is
-      mixed-difference commutation. Every geometric Connect-4 terminal line is three consecutive zero
-      disagreement edges in its direction.
-  - id: gravity_normal_form
-    statement: >-
-      One ownership anchor + bottom horizontal disagreement word + one vertical seam mask per row boundary is
-      a lossless WH-bit coordinate system. Pure-followup neutral pairs only decrement integer pair-depth counters.
-  - id: anchored_zero_edge_target
-    statement: >-
-      A four-line path is invertibly represented by one owner anchor and three path disagreement edges.
-      Player-p terminal target is anchor=p and edge word 000.
-  - id: blocker_clause_form
-    statement: >-
-      Against player p, x_v=q(v)+p. A certified blocker B is the positive clause OR_(v in B)x_v=1.
-      It blocks residual R exactly when B subset_of R. Pair blocker is not XOR unless split ownership is
-      independently certified.
-  - id: positive_cofactor_transition
-    statement: >-
-      Positive residual antichains implement exact monotone Boolean substitution. If player p acquires x,
-      p-residuals containing x contract by removing x and opponent residuals containing x are deleted, followed
-      by minimal-antichain canonicalization.
-  - id: mixed_owner_cofactor_commutation
-    statement: >-
-      For distinct cells x and y, owner-p substitution at x and owner-(1-p) substitution at y commute as Boolean
-      cofactors. Any noncommuting game content therefore enters through admissibility, support, resources,
-      deadlines or first-win stopping, not through the positive residual algebra itself.
-  - id: safe_affine_seam_cube
-    statement: >-
-      Around any one-move safe setup column c, e_c + span{e_j : parity(j)!=parity(c)} is entirely
-      pure-followup-safe. At most one seam in each free coordinate may occur at arbitrary heights without
-      introducing a geometric Connect-4.
-  - id: standard_static_corollary
-    statement: >-
-      Standard 7x6 has L=69, rankB=35, kerB=34, Q_axis=7, Q_phase=6, Y_cell=Y_line=28.
-
-outcome_encoding:
-  bits: "[sign_player, win]"
-  canonical:
-    "00": draw
-    "01": first_player_win_plus_one
-    "11": second_player_win_minus_one
-    "10": reserved_noncanonical
-  note: >-
-    This is a projection of the ownership-lift/domain-wall representation, not an independent proof primitive.
-
-execution:
-  cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
-  proof_standard: >-
-    Any unbounded board-family claim requires symbolic proof. Finite solved tables, constrained strategy solves,
-    board sweeps and oracle data may falsify or guide discovery only.
-  primary_question: >-
-    Can the exact mixed owner-cofactor consequences already present in the full positive residual antichains be
-    lifted, with explicit opponent-universal intervention, support/resource, deadline and first-win guards, into
-    an NDC obligation that distinguishes the documented shared d-column continuation without using its solved
-    label as a premise or reconstructing a recursive move-tree proof?
-  first_construction:
-    - >-
-      Start from zero-based A=[6,6,6,6,2,2] and B=[2,6,6,2,6,6]. Both have support [0,0,2,0,0,0,4]
-      and equal current-owner low-order jets; keep their distinct full positive residual antichains.
-    - >-
-      Use exact owner-labelled cofactor substitution, including mixed-owner compositions. Do not add a new
-      enabling coordinate merely to cache a relation already derivable from residual incidence plus an event owner.
-    - >-
-      Separate algebra from time: cofactor substitutions on distinct cells commute, while legal/admissible event
-      order is carried by support, side-to-move, reserved responses, deadlines and first-win stopping.
-    - >-
-      Define obligation birth only when a contracted residual is certified active before its deadline. Degree drop
-      alone is not an obligation. Reuse existing singleton/fork, blocker-clause and response-capacity consequence
-      forms rather than inventing a fourth Boolean consequence type.
-    - >-
-      Quantify intervening opponent choices over the post-cofactor consequence, not over survival of one named
-      residual. An opponent may kill one residual while an alternative residual/certificate survives.
-    - >-
-      Merge equal consequences in the NDC certificate DAG. Apply min/max only with explicit controller-existential
-      or opponent-universal semantics. Stop at the first guard not derivable from support, blocker, control-potential,
-      response-resource, deadline or first-win coordinates; only that residue is a candidate new predicate.
-    - >-
-      Use solved BDD evidence only to falsify proposed strengthenings. Absence of sampled collisions is not proof,
-      and a nearly injective signature is not a compact value selector.
-  required_checks:
-    - pair blocker must not be silently promoted to XOR
-    - eventual ownership must not replace ownership-before-deadline
-    - a lower-degree residual must not be promoted to a defensive obligation without support/deadline/resource proof
-    - pure-followup/domain-wall safety is defensive substrate, not a signed value theorem
-    - finite outcome interpolation is never proof
-    - outcome player/sign bit is derived from an exact terminal ownership lift
-    - draw is canonical 00 and does not require an arbitrary player bit
-    - preserve first-win stopping semantics
-    - no Hall deficiency is a forcing certificate only where its guards are proved; absence is not draw evidence
-  falsification:
-    - a rule instance needs a consequence not expressible as affine fact, monotone clause or guarded temporal composition
-    - two different substitution orders on distinct cells produce different canonical positive cofactors
-    - affine/clause propagation derives a stronger fact after its deadline rather than before it
-    - two merged states with equal parity/clause sets have different support/resource obligations relevant to future proof
-    - universal intervention closure silently ignores an admissible opponent event that destroys the claimed consequence
-    - a candidate signed selector disagrees with an independently solved board (validation only)
-    - standard 7x6 requires inserting the known +1 label or 28 as a premise
+constraints:
+  - all_research_routes_to_research_semantic_quotient
+  - no_durable_research_authored_on_solver_branch
+  - no_hypothesis_promoted_by_implementation_speedup
+  - no_solver_local_research_status_override
+  - preserve_first_win_stopping
+  - fail_closed_on_unresolved_research_guards
 
 success_criteria:
-  - exact guarded mixed-cofactor-to-obligation composition with explicit quantifier and deadline semantics
-  - owner-labelled enabling remains derived unless a concrete non-derivable guard residue is exhibited
-  - complete consequence-shape classification of currently used strategic rules
-  - exact guarded affine-clause NDC closure with explicit information order and deadline semantics
-  - no duplicated CPC/phase/player-color representation where one potential suffices
-  - standard 7x6 terminal proof returns canonical 01 without solved-label premise
-  - thin-board theorem returns canonical 00 from the same value semantics
-  - second-player-winning controls, when used, are validation only until independently derived
-  - structural magnitude remains distinct from win/draw sign until a natural coupling is proved
-  - synchronized STATUS.md / next_step.yaml and durable theorem notes
-
-validation_only:
-  - published finite W/D/L tables
-  - standard 7x6 strong-distance/oracle data
-  - constrained pure-followup solves
-  - finite generated-rank/barcode controls
-  - varying-board censuses
-  - >-
-    2026-09-14 solved-db structural discovery: 30254 standard-board states; finite source collisions falsify
-    boundary-capacity, degree2, F2-span and current-owner degree2-jet value completeness. Full exact residual
-    identity and ownerJet have no observed sampled collision, which is validation only and not completeness proof.
-  - >-
-    2026-09-14 independent assessment: the A/B collision's 13/49 two-event low-order divergence was reproduced
-    without solved labels. The distinction is already present in full positive residual incidence and is exposed
-    by a derived mixed owner cofactor; the unresolved seam is guarded quantifier closure into obligations.
-
-paused_selection_seam:
-  id: derive_post_center_strong_distance_selector
-  status: subsumed_but_preserved_under_guarded_value_closure
-
-paused_solver_seam:
-  state: "4665655"
-  status: unfinished_but_preserved
+  - implementation_changes_preserve_current_exact_semantics
+  - qualification_passes
+  - research_dependencies_reference_canonical_research
+  - no_new_solver_local_research_authority
