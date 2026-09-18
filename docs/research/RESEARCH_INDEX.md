@@ -1,6 +1,6 @@
 # Connect4 research index
 
-**Updated:** 2026-09-14  
+**Updated:** 2026-09-18  
 **Purpose:** route durable research without turning chronology, handoffs, or historical experiments into current authority.
 
 Research direction / structural architecture / invariant-first program: **Josh Oshiro**.  
@@ -17,6 +17,33 @@ Status classes:
 - **RETAINED SPECIALIZED LANE** — BSFP/OQS/minimax/other work kept for its owning lane.
 
 Unlisted dated notes remain repository evidence. Being unlisted means “not primary routing,” not “invalid.” Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete scaffolding, except where an untouched current authority file still routes one explicitly.
+
+---
+
+## 0. IsoGraph Discovery Protocol campaign
+
+### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE
+
+- `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md`  
+  First full execution of the IsoGraph Discovery Protocols against live Connect4 authority discrepancies. Establishes explicit-scope-metadata vs semantic-validity-scope as distinct predicates; establishes the R0045 4-artifact / 3-event / 2-lineage hierarchy; establishes lineage-level ownership of evidence-independence applicability; falsifies the shared minimal-relation-basis hypothesis for the repeated relation-count deficits; and closes the 10-lineage/13-event prose slip as ordinary error.
+
+- `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json`  
+  Machine-readable protocol routing, hypotheses, falsifiers, residuals, lifecycle states and cross-case synthesis.
+
+- `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`  
+  Live qualification/discovery dispositions after protocol execution.
+
+Primary cross-case result:
+
+```text
+typed observation at semantic layer L
+    ->
+possible adjacent projection / aggregation / inferred layer L'
+    ->
+plausible but contract-wrong reconstruction
+```
+
+This is a discovery result, not a new authority claim. Future IsoGraph successor qualification should include the R0045 evidence staircase as an adversarial fixture.
 
 ---
 
