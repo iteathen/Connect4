@@ -55,6 +55,48 @@ source archive != current IsoGraph authority
 
 When two artifacts appear to disagree, first determine whether they actually assert different semantics, scopes, guards, tie conventions, representations, or workloads.
 
+## Observation-first discrepancy rule
+
+A discrepancy is initially an observation, not a defect classification.
+
+Before repair or semantic normalization, establish as applicable:
+
+```text
+same referent/anchor?
+same predicate or count?
+same scope/guard?
+same representation layer?
+same aggregation level?
+same authority/revision?
+same closure/completeness assumptions?
+```
+
+Every material discrepancy gets two independent dispositions:
+
+```text
+qualification_disposition
+discovery_disposition
+```
+
+Examples:
+
+```text
+qualification: decoder count wrong
+discovery: OPEN_STRUCTURAL_LEAD
+```
+
+or:
+
+```text
+qualification: decoder prose slip
+discovery: NO_STRUCTURAL_LEAD
+```
+
+Closing qualification never silently closes discovery. Conversely, an interesting anomaly never excuses an actual qualification defect and never becomes a theorem merely by being interesting.
+
+For the authority-1.1 cold anomalies, use:
+`isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
+
 ## Classification and routing
 
 Classify meaning before choosing a directory.
