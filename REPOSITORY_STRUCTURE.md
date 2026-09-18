@@ -12,7 +12,7 @@ main
 └── solver/sut
 ```
 
-`main` is the shared accepted substrate`main` is the shared accepted substrate: domain semantics, benchmark/fairness authority, oracle/reference behavior, accepted cross-lane contracts and repository-level routing. It is not a solver implementation line.
+`main` is the shared accepted substrate: domain semantics, benchmark/fairness authority, oracle/reference behavior, accepted cross-lane contracts and repository-level routing. It is not a solver implementation line.
 
 `research/semantic-quotient` is the **single canonical owner of all Connect4 research**, including solver-specific research observations, hypotheses, experiment results, research evidence, negative results, open questions, maps, synthesis, and provenance.
 
