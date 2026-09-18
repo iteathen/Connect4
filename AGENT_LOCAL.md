@@ -5,7 +5,7 @@ Universal engineering and design guidance comes from the account-global `AGENTS.
 
 ## Current durable topology authority
 
-This branch is the **canonical solver-neutral research/knowledge lane** under the owner-authorized closed topology in `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
+This branch is the **canonical solver-neutral research/knowledge lane** under the owner-authorized closed topology in `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
 
 The durable set is closed. Do not create or promote another continuity branch without explicit owner instruction. Any `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging or evidence ref created from this lane must name this or another durable owner, preserve useful results back to that owner or an immutable archive, and retire when its bounded purpose ends.
 
