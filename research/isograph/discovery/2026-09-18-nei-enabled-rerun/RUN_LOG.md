@@ -260,3 +260,40 @@ Final disposition:
 ~~~text
 NEI_EFFECT_ON_DISCOVERY = MATERIAL_BUT_SCOPED
 ~~~
+
+
+---
+
+# 8. Final integrity
+
+Final Connect4 research head:
+
+`b180fbc194edb65348502fb5a07c9e02138a8865`
+
+Frozen authority/evidence blobs remained unchanged:
+
+~~~text
+authority 1.1 manifest              986f10a0011059e4d19598de6c836272c102415d
+candidate 1.1 manifest              0b3c54f193b084e2e5dd2eb7f4fb641b1052491a
+cold report                         189a15b790f91c65eed49154cd9839dec21364d8
+original cold adjudication          0c191314a83dc2d3f5a28fedc1e7d710701844ca
+final qualification review          251926dda0f724fb2c64cc7f902875f8e579e2c1
+NEI JSON results                    5639078d95fd871c834fc2ff93185e8ccac9b93f
+NEI native results                  9d68c3e4fbd1df302512f03bd244eaca022df311
+~~~
+
+Campaign validation:
+
+~~~text
+DP-only control:
+    runs  = 5
+    valid = true
+
+DP + NEI rerun:
+    runs  = 7
+    valid = true
+~~~
+
+The rerun changed only derived research/process surfaces. No authority-1.1 semantic artifact was mutated.
+
+**NEI_ENABLED_DISCOVERY_RERUN_INTEGRITY = PASS**
