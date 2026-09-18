@@ -10,13 +10,13 @@ Research direction: Josh Oshiro.
 
 The qualified logic authority is IsoGraph. Read in this order:
 
-1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md` — current authority root.
-2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json` — immutable authority/evidence identities.
-3. `isograph/CONNECT4_LOGIC_PROFILE_0_1.md` and `isograph/CONNECT4_LOGIC_BUNDLE_0_1.isg` — corpus scope and native bundle.
-4. `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg` and `isograph/CONNECT4_LOGIC_UNCERTAINTY_0_1.isg` — normalized claims/status/guards/relations and unresolved structure.
-5. relevant native source/item shards when exact source reconstruction or occurrence topology is required.
+1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` — current authority root.
+2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` — immutable authority/evidence identities.
+3. `isograph/successor/CONNECT4_LOGIC_PROFILE_1_1_CANDIDATE.md` and `isograph/successor/CONNECT4_LOGIC_NATIVE_VOCAB_1_1_CANDIDATE.md` — frozen promoted corpus profile/vocabulary.
+4. `isograph/successor/generated/CONNECT4_LOGIC_CORPUS_1_1_CANDIDATE.isg`, `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg`, `isograph/successor/CONNECT4_LOGIC_UNCERTAINTY_1_1_CANDIDATE.isg`, and `isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.isg` — corpus/claim/uncertainty/evidence structure.
+5. relevant 1.1 native source/item shards when exact source reconstruction or occurrence topology is required.
 6. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
-7. `provenance/` when an audit or exact historical reconstruction requires it.
+7. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit or exact historical reconstruction requires it.
 
 The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
 
@@ -63,7 +63,7 @@ Code should reference stable claim IDs such as `C4-R0004` where practical. A sol
 
 ## Claim-registry bridge rule
 
-The legacy `CLAIM_INDEX.json` and its shards preserve the pre-IsoGraph normalized claim database and remain useful bridge views. They are no longer the logical authority root. Stable `C4-R####` identities remain preserved in IsoGraph authority 1.0, and any authoritative change to a claim requires a successor qualified IsoGraph authority revision.
+The legacy `CLAIM_INDEX.json` and its shards preserve the pre-IsoGraph normalized claim database and remain useful bridge views. They are no longer the logical authority root. Stable `C4-R####` identities remain preserved in current IsoGraph authority 1.1; authority 1.0 remains immutable historical evidence. Any authoritative change to a claim requires a successor qualified IsoGraph authority revision.
 
 ## Cleanup rule
 
