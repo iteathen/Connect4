@@ -1,0 +1,257 @@
+name: Frontier claim-relative signature library
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-claim-relative-typed-event-signature.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-claim-relative-typed-event-signature.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-signature-library.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-seed-claims.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theorem-factorization-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-continuation-congruence.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-continuation-refinement.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-cross-action-congruence.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-reply-routing.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-safe-chain-witness.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-blocking-tail-all-action-terminal-census.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-action-adversarial-elimination.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-adjacent-tail-ab-reentry.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-adjacent-tail-noab-all-action-routing.mjs
+      - .github/workflows/frontier-claim-relative-signature-library.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  claim-relative-library:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      circuits: ${{ steps.tail_summary.outputs.circuits }}
+      forced_terminal: ${{ steps.tail_summary.outputs.forced_terminal }}
+      forced_continue: ${{ steps.tail_summary.outputs.forced_continue }}
+      overrides: ${{ steps.tail_summary.outputs.overrides }}
+      unresolved: ${{ steps.tail_summary.outputs.unresolved }}
+      blocking_circuits: ${{ steps.tail_summary.outputs.blocking_circuits }}
+      blocking_forced_terminal: ${{ steps.tail_summary.outputs.blocking_forced_terminal }}
+      blocking_forced_continue: ${{ steps.tail_summary.outputs.blocking_forced_continue }}
+      blocking_overrides: ${{ steps.tail_summary.outputs.blocking_overrides }}
+      universal_terminal: ${{ steps.action_census.outputs.universal_terminal }}
+      escape_states: ${{ steps.action_census.outputs.escape_states }}
+      tail_eliminated: ${{ steps.tail_elimination.outputs.tail_eliminated }}
+      tail_surviving: ${{ steps.tail_elimination.outputs.tail_surviving }}
+      tail_survivor_key: ${{ steps.tail_elimination.outputs.tail_survivor_key }}
+      ab_terminal: ${{ steps.ab_reentry.outputs.ab_terminal }}
+      ab_both: ${{ steps.ab_reentry.outputs.ab_both }}
+      ab_one: ${{ steps.ab_reentry.outputs.ab_one }}
+      ab_none: ${{ steps.ab_reentry.outputs.ab_none }}
+      noab_cert: ${{ steps.noab_routing.outputs.noab_cert }}
+      noab_continue: ${{ steps.noab_routing.outputs.noab_continue }}
+      noab_unresolved: ${{ steps.noab_routing.outputs.noab_unresolved }}
+      noab_unresolved_key: ${{ steps.noab_routing.outputs.noab_unresolved_key }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify generic claim-relative typed-cone substrate
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node --test research/semantic-quotient/state-identity-unification/src/quotient-claim-relative-typed-event-signature.test.mjs
+      - name: Bind library to exact C4-0010 replay controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-signature-library.mjs
+      - name: Qualify remaining typed-event seed claims
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-claim-relative-seed-claims.mjs
+      - name: Qualify cross-claim primitive factorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theorem-factorization-control.mjs
+      - name: Qualify guarded theorem composition substrate
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node --test research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs
+      - name: Bind guarded composition to exact C4-0010 bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
+      - name: Test off-subsystem continuation congruence
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-continuation-congruence.mjs
+      - name: Identify off-subsystem continuation refinement
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-continuation-refinement.mjs
+      - name: Test refined classes across next P0 action channels
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-off-subsystem-cross-action-congruence.mjs
+      - name: Qualify action-conditioned progress-cone substrate
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node --test research/semantic-quotient/state-identity-unification/src/quotient-action-progress-cone.test.mjs
+      - name: Bind action-progress cones to exact C4-0010 reply horizon
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-cone-control.mjs
+      - name: Route action-progress replies to terminal, descent, or handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-action-progress-reply-routing.mjs
+      - name: Classify exhausted-tail off-target handoff safety
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-safe-chain-witness.mjs
+      - name: Map tail target-support response obligations
+        id: tail_summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          summary_file="$RUNNER_TEMP/tail-target-support-summary.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-handoff-target-support-routing.mjs | tee "$summary_file"
+          SUMMARY_FILE="$summary_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.SUMMARY_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('TAIL_HANDOFF_TARGET_SUPPORT_SUMMARY='));
+          if (!line) throw new Error('target-support summary line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          const b = x.blockingStatusCounts ?? {};
+          const out = [
+            `circuits=${x.exactCapacityCircuits}`,
+            `forced_terminal=${x.forcedBlockThenImmediateTerminal}`,
+            `forced_continue=${x.forcedBlockContinuations}`,
+            `overrides=${x.statesWithP1TerminalOverride}`,
+            `unresolved=${x.unresolvedRowCount}`,
+            `blocking_circuits=${b.P0_response_capacity_circuit ?? 0}`,
+            `blocking_forced_terminal=${b.P0_forced_block_then_immediate_terminal ?? 0}`,
+            `blocking_forced_continue=${b.forced_target_block_continuation ?? 0}`,
+            `blocking_overrides=${b.P1_terminal_override_exists ?? 0}`,
+          ].join('\n') + '\n';
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, out);
+          NODE
+      - name: Exhaust all P0 actions in the exact blocking tail states
+        id: action_census
+        shell: bash
+        run: |
+          set -euo pipefail
+          census_file="$RUNNER_TEMP/blocking-tail-action-census.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-blocking-tail-all-action-terminal-census.mjs | tee "$census_file"
+          CENSUS_FILE="$census_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.CENSUS_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('BLOCKING_TAIL_ALL_ACTION_TERMINAL_CENSUS='));
+          if (!line) throw new Error('blocking-tail action census line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            `universal_terminal=${x.universalP1TerminalResponseStates}\n` +
+            `escape_states=${x.statesWithEscapeOrImmediateP0Win}\n`);
+          NODE
+      - name: Push universal terminal-response certificates back to tail actions
+        id: tail_elimination
+        shell: bash
+        run: |
+          set -euo pipefail
+          elimination_file="$RUNNER_TEMP/tail-action-elimination.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-tail-action-adversarial-elimination.mjs | tee "$elimination_file"
+          ELIMINATION_FILE="$elimination_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.ELIMINATION_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('TAIL_ACTION_ADVERSARIAL_ELIMINATION='));
+          if (!line) throw new Error('tail-action elimination line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          const shorten = (m) => m
+            .replace('C_resolved_P0_owned_C1:', 'CP0-')
+            .replace('C_resolved_P1_owned_C1:', 'CP1-')
+            .replace('G_resolved_P1_owned_G1:', 'GP1-')
+            .replace('G_resolved_P0_owned_G1:', 'GP0-');
+          const survivorKey = x.survivingRows.map((r) => shorten(r.member)).join(',');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            `tail_eliminated=${x.adversariallyEliminatedTailActions}\n` +
+            `tail_surviving=${x.survivingTailActions}\n` +
+            `tail_survivor_key=${survivorKey}\n`);
+          NODE
+      - name: Classify adjacent-tail A/B reentry
+        id: ab_reentry
+        shell: bash
+        run: |
+          set -euo pipefail
+          reentry_file="$RUNNER_TEMP/adjacent-tail-ab-reentry.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-adjacent-tail-ab-reentry.mjs | tee "$reentry_file"
+          REENTRY_FILE="$reentry_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.REENTRY_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('ADJACENT_TAIL_AB_REENTRY='));
+          if (!line) throw new Error('adjacent-tail A/B reentry line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            `ab_terminal=${x.immediateTargetTerminalReplies}\n` +
+            `ab_both=${x.bothABSafe}\n` +
+            `ab_one=${x.exactlyOneABSafe}\n` +
+            `ab_none=${x.noABSafe}\n`);
+          NODE
+      - name: Route adjacent-tail no-A/B counterexamples over all P0 actions
+        id: noab_routing
+        shell: bash
+        run: |
+          set -euo pipefail
+          routing_file="$RUNNER_TEMP/adjacent-tail-noab-routing.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-adjacent-tail-noab-all-action-routing.mjs | tee "$routing_file"
+          ROUTING_FILE="$routing_file" node <<'NODE'
+          const fs = require('node:fs');
+          const line = fs.readFileSync(process.env.ROUTING_FILE, 'utf8')
+            .split(/\r?\n/)
+            .find((x) => x.startsWith('ADJACENT_TAIL_NOAB_ALL_ACTION_ROUTING='));
+          if (!line) throw new Error('adjacent-tail no-A/B routing line missing');
+          const x = JSON.parse(line.slice(line.indexOf('=') + 1));
+          const shorten = (m) => m
+            .replace('C_resolved_P0_owned_C1:', 'CP0-')
+            .replace('C_resolved_P1_owned_C1:', 'CP1-')
+            .replace('G_resolved_P1_owned_G1:', 'GP1-')
+            .replace('G_resolved_P0_owned_G1:', 'GP0-');
+          const unresolvedKey = x.unresolvedRows.map((r) => shorten(r.member)).join(',');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            `noab_cert=${x.statesWithImmediateP0Certificate}\n` +
+            `noab_continue=${x.statesWithSafeContinuationOnly}\n` +
+            `noab_unresolved=${x.unresolvedStates}\n` +
+            `noab_unresolved_key=${unresolvedKey}\n`);
+          NODE
+
+  tail-routing-summary:
+    needs: claim-relative-library
+    name: tail-routing all-c${{ needs.claim-relative-library.outputs.circuits }}-ft${{ needs.claim-relative-library.outputs.forced_terminal }}-fc${{ needs.claim-relative-library.outputs.forced_continue }}-o${{ needs.claim-relative-library.outputs.overrides }} block-c${{ needs.claim-relative-library.outputs.blocking_circuits }}-ft${{ needs.claim-relative-library.outputs.blocking_forced_terminal }}-fc${{ needs.claim-relative-library.outputs.blocking_forced_continue }}-o${{ needs.claim-relative-library.outputs.blocking_overrides }} census-u${{ needs.claim-relative-library.outputs.universal_terminal }}-e${{ needs.claim-relative-library.outputs.escape_states }} tails-x${{ needs.claim-relative-library.outputs.tail_eliminated }}-s${{ needs.claim-relative-library.outputs.tail_surviving }}-${{ needs.claim-relative-library.outputs.tail_survivor_key }} ab-t${{ needs.claim-relative-library.outputs.ab_terminal }}-both${{ needs.claim-relative-library.outputs.ab_both }}-one${{ needs.claim-relative-library.outputs.ab_one }}-none${{ needs.claim-relative-library.outputs.ab_none }} noab-c${{ needs.claim-relative-library.outputs.noab_cert }}-k${{ needs.claim-relative-library.outputs.noab_continue }}-u${{ needs.claim-relative-library.outputs.noab_unresolved }}-${{ needs.claim-relative-library.outputs.noab_unresolved_key }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Publish compact routing counts
+        run: echo "qualified target-support, tail, A/B, and no-A/B routing counts are encoded in this job name"

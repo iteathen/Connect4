@@ -1,0 +1,63 @@
+name: Frontier mu15 lexicographic structural shards
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-mu15-lexicographic-structural-shards.mjs
+      - .github/workflows/frontier-mu15-lexicographic-structural-shards.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shards:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      candidates: ${{ steps.run.outputs.candidates }}
+      shards: ${{ steps.run.outputs.shards }}
+      max_shard: ${{ steps.run.outputs.max_shard }}
+      proved: ${{ steps.run.outputs.proved }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+      max_states: ${{ steps.run.outputs.max_states }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify structurally sharded mu15 lexicographic closure
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/mu15-lex-shards.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-mu15-lexicographic-structural-shards.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('MU15_LEXICOGRAPHIC_STRUCTURAL_SHARDS='));
+          if(!line) throw new Error('mu15 lexicographic shard summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactCandidateStates!==160) throw new Error('mu15 corpus drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `candidates=${x.exactCandidateStates}`,
+            `shards=${x.structuralShardCount}`,
+            `max_shard=${x.maxShardSize}`,
+            `proved=${x.provedStates}`,
+            `failed=${x.failedStates}`,
+            `resource=${x.resourceFailures}`,
+            `max_states=${x.maxProofStatesObserved}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: shards
+    name: mu15shard-c${{ needs.shards.outputs.candidates }}-n${{ needs.shards.outputs.shards }}-m${{ needs.shards.outputs.max_shard }}-p${{ needs.shards.outputs.proved }}-f${{ needs.shards.outputs.failed }}-r${{ needs.shards.outputs.resource }}-s${{ needs.shards.outputs.max_states }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "structurally sharded mu15 lexicographic qualification counts encoded in job name"

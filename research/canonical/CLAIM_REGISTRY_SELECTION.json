@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "id_range": "C4-R0070..C4-R0072",
+  "research_direction": "Josh Oshiro",
+  "claims": [
+    {
+      "id": "C4-R0070",
+      "title": "One-move pure-followup safe entry is a singleton transversal of the Connect-K interval hypergraph",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For Connect-K with K>=4, consider the pure-followup ownership field q(c,r)=a+r+phi(c) mod 2 entered after one setup move phi=e_c. Vertical K-lines are automatically nonmonochromatic. A horizontal K-line is monochromatic exactly when its K-column phase word is constant, and either diagonal K-line is monochromatic exactly when that phase word alternates. For phi=e_c, every K-window containing c has one 1 and K-1 zeros and is therefore neither constant nor alternating when K>=4; every K-window omitting c is all-zero and unsafe. Hence the setup is pure-followup-safe iff c belongs to every consecutive K-column window: c is a singleton transversal of the interval hypergraph H_{W,K}. For W<K every column is vacuously safe; for K<=W<=2K-1 the safe set is {W-K,...,K-1} of size 2K-W; for W>=2K it is empty. There is exactly one safe setup column iff W=2K-1, namely c=K-1.",
+      "scope": "Exact geometry/ownership theorem for the pure-followup response profile and K>=4. It proves bulk no-win safety of that coloring/profile, not finite-board game value, legal availability of every required response through the top boundary, optimal opening selection, or strong distance. K=2,3 require separate treatment because a one-hot K-window can itself be alternating for K=3.",
+      "sources": [
+        "research/evidence/structural-selection/2026-09-16-connect-k-transversal-centrality.md",
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-safe-bulk-boundary-entry.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "supports", "target": "C4-R0052"},
+        {"type": "constrains", "target": "C4-R0012"}
+      ]
+    },
+    {
+      "id": "C4-R0071",
+      "title": "Unique safe-entry and unique initial requirement-impact centrality coincide exactly at W=2K-1",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For W,H>=K, let d_{W,K}(c)=1+h_{W,K}(c)+I[c<=W-K]+I[c>=K-1] be the number of geometric Connect-K requirements incident to the initially legal bottom event in column c, where h_{W,K}(c) is the number of consecutive horizontal K-windows containing c. Then d_{W,K} has a unique maximizer iff W=2K-1, in which case that maximizer is c=K-1. For K<=W<2K-1 the two endpoints W-K and K-1 of the singleton-transversal interval are tied maxima; for W>2K-1 a central plateau has at least two maxima. Combining with C4-R0070, for K>=4 the unique pure-followup-safe setup and unique maximum-impact initially legal event exist simultaneously iff W=2K-1 and are the same center event. Specializing K=4 gives W=7,c=3. Combining W=7 with the independently proved regular K=4 core-balance equation (W-4)(2H-9)=9 forces H=6 and the common structural core dimension 28.",
+      "scope": "Exact empty-board geometry plus the already-proved K=4 core-balance theorem. It provides a new symbolic route from Connect-K interval incidence and safe response geometry to the standard 7x6 structural 28. It does not prove that distance-optimal play selects the center, that the strong-play terminal support equals the structural core, or that the same core-balance formula holds for arbitrary K.",
+      "sources": [
+        "research/evidence/structural-selection/2026-09-16-connect-k-transversal-centrality.md",
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-safe-bulk-boundary-entry.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "derived_from", "target": "C4-R0070"},
+        {"type": "supports", "target": "C4-R0050"},
+        {"type": "supports", "target": "C4-R0053"},
+        {"type": "constrains", "target": "C4-R0052"}
+      ]
+    },
+    {
+      "id": "C4-R0072",
+      "title": "Every non-center opening on seven-wide even-height Connect-4 admits an exact defender safety certificate",
+      "status": "deductive_exact",
+      "confidence_mode": "deductive",
+      "statement": "For K=4, width W=7 and every even height H>=4, each non-center P0 first move admits an explicit P1 response-certificate construction that blocks or preempts every P0 geometric winning group; by reflection the three left-side opening classes cover all six non-center columns. Hence any P0 forced-win proof on 7xH must begin in the center column. On standard 7x6 this implication is independently strengthened by a local-product proof: three finite response-component types compose asynchronously into total P1 policies for openings 1/7, 2/6 and 3/5, and the generated invariant closure classifies all 69 P0 winning lines by singleton blockers, same-component forbidden pairs, or support-shadow preemption with zero unclassified lines.",
+      "scope": "Exact one-sided non-win theorem. The generalized parameterized certificate is for K=4,W=7, even H>=4; the independent local-product/69-line closure is qualified on standard 7x6. The theorem does not distinguish draw from P1 win, does not prove that the center opening wins for P0, does not establish strong distance, and does not identify the strong-play terminal-line support with structural 28.",
+      "sources": [
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-searchless-seven-wide-opening-selection.md",
+        "research/provenance/source-archive/derivative-classification/docs-research/2026-09-13-noncenter-opening-structural-safety-theorem.md"
+      ],
+      "consumed_by": ["isometric", "negamax-minimax", "bsfp"],
+      "relations": [
+        {"type": "constrains", "target": "C4-R0052"},
+        {"type": "supports", "target": "structural-selection-bridge"}
+      ]
+    }
+  ]
+}

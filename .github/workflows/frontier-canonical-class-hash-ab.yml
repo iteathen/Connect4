@@ -1,0 +1,349 @@
+name: Frontier canonical class hash A-B
+
+on:
+  push:
+    branches: [research/frontier-negamax-conformance]
+    paths: ['.github/workflows/frontier-canonical-class-hash-ab.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Generate qualify and pair canonical content hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=e72f1caf0677149a697d03a81b391d25effedbbb
+          baseline="$RUNNER_TEMP/baseline"
+          candidate="$RUNNER_TEMP/candidate"
+          git worktree add --detach "$baseline" "$base"
+          git worktree add --detach "$candidate" "$base"
+
+          cat > "$RUNNER_TEMP/patch.mjs" <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          const root = process.argv[2];
+          function file(rel) { return path.join(root, rel); }
+          function replaceExact(rel, before, after) {
+            const p=file(rel), s=fs.readFileSync(p,'utf8'), i=s.indexOf(before);
+            if(i<0) throw Error(`missing seam ${rel}: ${before.slice(0,80)}`);
+            if(s.indexOf(before,i+1)>=0) throw Error(`nonunique seam ${rel}`);
+            fs.writeFileSync(p,s.slice(0,i)+after+s.slice(i+before.length));
+          }
+          function replaceRange(rel,startMarker,endMarker,replacement) {
+            const p=file(rel),s=fs.readFileSync(p,'utf8');
+            const a=s.indexOf(startMarker); if(a<0) throw Error(`missing start ${rel}: ${startMarker}`);
+            const b0=s.indexOf(endMarker,a+startMarker.length); if(b0<0) throw Error(`missing end ${rel}: ${endMarker}`);
+            if(s.indexOf(startMarker,a+1)>=0 || s.indexOf(endMarker,b0+1)>=0) throw Error(`nonunique range ${rel}`);
+            const b=b0+endMarker.length;
+            fs.writeFileSync(p,s.slice(0,a)+replacement+s.slice(b));
+          }
+
+          const semantic='research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs';
+          replaceRange(semantic,
+            'function foldTermIds(ids, length, seed, multiplier) {',
+            'export function hashResidualTermIds(ids, length = ids?.length, target = null) {\n  const actualLength = assertTermIds(ids, length);\n  const lo = foldTermIds(ids, actualLength, 0x811c9dc5, 0x01000193);\n  const hi = foldTermIds(ids, actualLength, 0x9e3779b9, 0x85ebca6b);\n  return writeHash(target, lo, hi);\n}',
+          `function semanticResidualWordWeightLoUnchecked(word) {
+            return ((Math.imul((word + 1) >>> 0, 0x9e3779b1) ^ 0x85ebca6b) | 1) >>> 0;
+          }
+          function semanticResidualWordWeightHiUnchecked(word) {
+            return ((Math.imul((word + 1) >>> 0, 0xc2b2ae35) ^ 0x27d4eb2d) | 1) >>> 0;
+          }
+          export function semanticResidualWordWeightLo(word) {
+            if (!Number.isInteger(word) || word < 0 || word > 0x7ff) throw new RangeError('semantic residual word index is invalid');
+            return semanticResidualWordWeightLoUnchecked(word);
+          }
+          export function semanticResidualWordWeightHi(word) {
+            if (!Number.isInteger(word) || word < 0 || word > 0x7ff) throw new RangeError('semantic residual word index is invalid');
+            return semanticResidualWordWeightHiUnchecked(word);
+          }
+
+          function writeHash(target, lo, hi) {
+            if (target === null || target === undefined) return Object.freeze({ lo, hi });
+            if (typeof target !== 'object' || Array.isArray(target) || Object.isFrozen(target)) {
+              throw new TypeError('semantic hash target must be a mutable object');
+            }
+            target.lo = lo;
+            target.hi = hi;
+            if (target.lo !== lo || target.hi !== hi) throw new Error('semantic hash target rejected hash assignment');
+            return target;
+          }
+
+          export function hashResidualTermIds(ids, length = ids?.length, target = null) {
+            const actualLength = assertTermIds(ids, length);
+            let rawLo = 0, rawHi = 0, currentWord = -1, weightLo = 0, weightHi = 0;
+            for (let index = 0; index < actualLength; index += 1) {
+              const termId = ids[index];
+              const word = termId >>> 5;
+              if (word !== currentWord) {
+                currentWord = word;
+                weightLo = semanticResidualWordWeightLoUnchecked(word);
+                weightHi = semanticResidualWordWeightHiUnchecked(word);
+              }
+              const bit = (1 << (termId & 31)) >>> 0;
+              rawLo = (rawLo + Math.imul(bit, weightLo)) >>> 0;
+              rawHi = (rawHi + Math.imul(bit, weightHi)) >>> 0;
+            }
+            return writeHash(target, mix32(rawLo), mix32(rawHi));
+          }`);
+
+          const residual='research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs';
+          replaceExact(residual,
+            "import { createTermVocabulary } from './quotient-term-id-pool.mjs';",
+            "import { createTermVocabulary } from './quotient-term-id-pool.mjs';\nimport { semanticResidualWordWeightLo, semanticResidualWordWeightHi } from './quotient-semantic-identity.mjs';");
+          replaceExact(residual,
+            '  let classHashes = new Uint32Array(classCapacity);',
+            '  let classSemanticLo = new Uint32Array(classCapacity);\n  let classSemanticHi = new Uint32Array(classCapacity);');
+          replaceExact(residual,
+            '  const singletonTermMasks = new Uint32Array(WORDS_PER_CLASS);\n  for (let termId = 0; termId < vocabulary.count; termId += 1) {',
+            `  const singletonTermMasks = new Uint32Array(WORDS_PER_CLASS);
+            const semanticWordWeightLo = new Uint32Array(WORDS_PER_CLASS);
+            const semanticWordWeightHi = new Uint32Array(WORDS_PER_CLASS);
+            for (let word = 0; word < WORDS_PER_CLASS; word += 1) {
+              semanticWordWeightLo[word] = semanticResidualWordWeightLo(word);
+              semanticWordWeightHi[word] = semanticResidualWordWeightHi(word);
+            }
+            for (let termId = 0; termId < vocabulary.count; termId += 1) {`);
+          replaceExact(residual,
+            '    const hashes = new Uint32Array(next); hashes.set(classHashes);',
+            '    const semanticLo = new Uint32Array(next); semanticLo.set(classSemanticLo);\n    const semanticHi = new Uint32Array(next); semanticHi.set(classSemanticHi);');
+          replaceExact(residual,
+            '    classHashes = hashes;\n    classTermCounts = counts;',
+            '    classSemanticLo = semanticLo;\n    classSemanticHi = semanticHi;\n    classTermCounts = counts;');
+          replaceExact(residual,
+            '  function growClassHash(capacity = classHashSlots.length * 2) {',
+            `  function classAddress(hashLo, hashHi) { return (hashLo ^ hashHi) >>> 0; }
+
+            function growClassHash(capacity = classHashSlots.length * 2) {`);
+          replaceExact(residual,
+            '      let slot = classHashes[id] & mask;',
+            '      let slot = classAddress(classSemanticLo[id], classSemanticHi[id]) & mask;');
+          replaceExact(residual,
+            '      + tuples + capacity * 14 + Math.max(classHashSlots.length, capacity * 2) * 4 + chunks;',
+            '      + tuples + capacity * 18 + Math.max(classHashSlots.length, capacity * 2) * 4 + chunks;');
+
+          replaceRange(residual,
+            '  function internBits(bits, parentId = -1) {',
+            '  const emptyBits = new Uint32Array(WORDS_PER_CLASS);',
+          `  function internBits(bits, parentId = -1) {
+            assertBits(bits);
+            if (parentId !== -1) assertClassId(parentId);
+            metrics.internLookups += 1;
+            let sameAsParent = parentId >= 0;
+            let semanticLo = parentId >= 0 ? classSemanticLo[parentId] : 0;
+            let semanticHi = parentId >= 0 ? classSemanticHi[parentId] : 0;
+            for (let slotIndex = 0; slotIndex < CHUNKS_PER_CLASS; slotIndex += 1) {
+              const offset = slotIndex * CHUNK_WORDS;
+              let parentChunk = -1, old0 = 0, old1 = 0;
+              if (parentId >= 0) {
+                parentChunk = classSlotIds[slotIndex][parentId];
+                const words = slotPools[slotIndex].words, base = parentChunk * CHUNK_WORDS;
+                old0 = words[base] >>> 0;
+                old1 = words[base + 1] >>> 0;
+                if (old0 === bits[offset] && old1 === bits[offset + 1]) {
+                  chunkIds[slotIndex] = parentChunk;
+                  metrics.parentChunkReuses += 1;
+                  continue;
+                }
+                sameAsParent = false;
+              }
+              const next0 = bits[offset] >>> 0, next1 = bits[offset + 1] >>> 0;
+              semanticLo = (semanticLo
+                + Math.imul((next0 - old0) | 0, semanticWordWeightLo[offset])
+                + Math.imul((next1 - old1) | 0, semanticWordWeightLo[offset + 1])) >>> 0;
+              semanticHi = (semanticHi
+                + Math.imul((next0 - old0) | 0, semanticWordWeightHi[offset])
+                + Math.imul((next1 - old1) | 0, semanticWordWeightHi[offset + 1])) >>> 0;
+              chunkIds[slotIndex] = slotPools[slotIndex].intern(bits, offset);
+              metrics.chunkInterns += 1;
+            }
+            if (sameAsParent) {
+              metrics.internHits += 1;
+              return parentId;
+            }
+            if ((classCount + 1) * 10 >= classHashSlots.length * 7) growClassHash();
+            const address = classAddress(semanticLo, semanticHi);
+            const mask = classHashSlots.length - 1;
+            let slot = address & mask;
+            while (true) {
+              const id = classHashSlots[slot];
+              if (id === -1) break;
+              if (classSemanticLo[id] === semanticLo && classSemanticHi[id] === semanticHi && classEquals(id, chunkIds)) {
+                metrics.internHits += 1;
+                return id;
+              }
+              slot = (slot + 1) & mask;
+            }
+
+            if (classCount >= UINT32_MAX) throw new RangeError('slot64 residual class ID domain exhausted');
+            for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) ensureReferenceWidth(chunk, chunkIds[chunk]);
+            ensureClassCapacity(classCount + 1);
+            const id = classCount;
+            for (let chunk = 0; chunk < CHUNKS_PER_CLASS; chunk += 1) classSlotIds[chunk][id] = chunkIds[chunk];
+            classSemanticLo[id] = semanticLo;
+            classSemanticHi[id] = semanticHi;
+            computeClassMetadata(bits, id);
+            classHashSlots[slot] = id;
+            classCount += 1;
+            metrics.internMisses += 1;
+            return id;
+          }
+
+          const emptyBits = new Uint32Array(WORDS_PER_CLASS);`);
+
+          replaceRange(residual,
+            '  // Canonical packed chunks already contain the exact ordered residual terms.',
+            '  pool.writeTermIds = function slot64WriteTermIds(id, target, offset = 0) {',
+          `  // Canonical content fingerprints are created with the residual class and
+            // shared by local addressing and semantic publication. Exact content owns identity.
+            pool.writeSemanticMetadata = function slot64WriteSemanticMetadata(id, target) {
+              assertClassId(id);
+              if (!target || typeof target !== 'object' || Array.isArray(target) || Object.isFrozen(target)) {
+                throw new TypeError('slot64 semantic metadata target must be mutable');
+              }
+              target.length = classTermCounts[id];
+              target.hashLo = mix32(classSemanticLo[id]);
+              target.hashHi = mix32(classSemanticHi[id]);
+              return target;
+            };
+            pool.writeTermIds = function slot64WriteTermIds(id, target, offset = 0) {`);
+
+          replaceExact(residual,
+            '    let hash = classHashes[id];',
+            '    let semanticLo = classSemanticLo[id];\n    let semanticHi = classSemanticHi[id];');
+          replaceExact(residual,
+            `      removedTerms += popcount32(input0 ^ next0) + popcount32(input1 ^ next1);
+                resultBits[word] = next0;
+                resultBits[word + 1] = next1;
+                chunkIds[slotIndex] = slotPools[slotIndex].intern(resultBits, word);
+                const salt = Math.imul(slotIndex + 1, 0x9e3779b1);
+                hash ^= mix32(parentChunk ^ salt) ^ mix32(chunkIds[slotIndex] ^ salt);`,
+            `      removedTerms += popcount32(input0 ^ next0) + popcount32(input1 ^ next1);
+                semanticLo = (semanticLo
+                  + Math.imul((next0 - input0) | 0, semanticWordWeightLo[word])
+                  + Math.imul((next1 - input1) | 0, semanticWordWeightLo[word + 1])) >>> 0;
+                semanticHi = (semanticHi
+                  + Math.imul((next0 - input0) | 0, semanticWordWeightHi[word])
+                  + Math.imul((next1 - input1) | 0, semanticWordWeightHi[word + 1])) >>> 0;
+                resultBits[word] = next0;
+                resultBits[word + 1] = next1;
+                chunkIds[slotIndex] = slotPools[slotIndex].intern(resultBits, word);`);
+          replaceExact(residual,
+            `    hash >>>= 0;
+              const hashMask = classHashSlots.length - 1;
+              let hashSlot = hash & hashMask;`,
+            `    const hashMask = classHashSlots.length - 1;
+              let hashSlot = classAddress(semanticLo, semanticHi) & hashMask;`);
+          replaceExact(residual,
+            '      if (classHashes[existingId] === hash && classEquals(existingId, chunkIds)) {',
+            '      if (classSemanticLo[existingId] === semanticLo && classSemanticHi[existingId] === semanticHi && classEquals(existingId, chunkIds)) {');
+          replaceExact(residual,
+            '    classHashes[result] = hash;\n    classTermCounts[result] = count;',
+            '    classSemanticLo[result] = semanticLo;\n    classSemanticHi[result] = semanticHi;\n    classTermCounts[result] = count;');
+          replaceExact(residual,
+            '    const classMetadataBytes = classTupleBytes + classHashes.byteLength + classTermCounts.byteLength + singletonLo.byteLength + singletonHi.byteLength;',
+            '    const classSemanticHashBytes = classSemanticLo.byteLength + classSemanticHi.byteLength;\n    const classMetadataBytes = classTupleBytes + classSemanticHashBytes + classTermCounts.byteLength + singletonLo.byteLength + singletonHi.byteLength;');
+          replaceExact(residual,
+            '      + singletonTermMasks.byteLength;',
+            '      + singletonTermMasks.byteLength\n      + semanticWordWeightLo.byteLength\n      + semanticWordWeightHi.byteLength;');
+          replaceExact(residual,
+            '      classTermCountBytes: classTermCounts.byteLength,',
+            '      classTermCountBytes: classTermCounts.byteLength,\n      classSemanticHashBytes,');
+
+          const s=fs.readFileSync(file(residual),'utf8');
+          if(s.includes('classHashes')) throw Error('stale classHashes reference remains');
+          NODE
+
+          node "$RUNNER_TEMP/patch.mjs" "$candidate"
+          git -C "$candidate" diff --check
+
+          node --test "$candidate/research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs"
+          node --test "$candidate/research/semantic-quotient/state-identity-unification/src/quotient-semantic-arena-contract.test.mjs"
+          node "$candidate/research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs"
+          node "$candidate/research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs"
+          node "$candidate/research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs"
+          node "$candidate/research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-parallel-campaign.mjs"
+
+          cat > "$RUNNER_TEMP/case.mjs" <<'NODE'
+          import { performance } from 'node:perf_hooks';
+          import { resolve } from 'node:path';
+          import { pathToFileURL } from 'node:url';
+          const tree=process.argv[2],variant=process.argv[3];
+          const src=resolve(tree,'research/semantic-quotient/state-identity-unification/src');
+          const load=async n=>import(pathToFileURL(resolve(src,n)).href);
+          const {createSlot64ResidualQuotientKernel}=await load('quotient-native-negamax-slot64-residual-kernel.mjs');
+          const {createSemanticSharedTtArena}=await load('quotient-semantic-shared-tt.mjs');
+          const {createOnlineSemanticQuotientSearcher}=await load('quotient-online-semantic-search-lib.mjs');
+          const {createBoundedStoragePlan}=await load('quotient-bounded-storage-plan.mjs');
+          const domain={columns:7,rows:6,connect:4};
+          const {kernel}=createSlot64ResidualQuotientKernel(domain,{cacheEdges:true,prefixClasses:4096});
+          const plan=createBoundedStoragePlan(kernel,8,2048*1048576);
+          kernel.prepareSearchStorage(plan.searchStorage);
+          const arena=createSemanticSharedTtArena({...plan.arena,domainSpec:domain});
+          const searcher=createOnlineSemanticQuotientSearcher(kernel,arena,{etc:false});
+          const before=kernel.storageGrowthStats();
+          const cpu0=process.cpuUsage(),t0=performance.now();
+          const result=searcher.searchBounded(kernel.rootId,-2,2,8);
+          const searchMs=performance.now()-t0,cpu=process.cpuUsage(cpu0),after=kernel.storageGrowthStats();
+          if(JSON.stringify(before)!==JSON.stringify(after)) throw Error('storage grew during search');
+          const stats=searcher.stats(),memory=kernel.memoryStats();
+          console.log(JSON.stringify({variant,result,searchMs,cpuMs:(cpu.user+cpu.system)/1000,
+            kernelBytes:memory.totalTypedBytes,residualBytes:memory.residual?.totalTypedBytes??null,
+            descriptorBytes:stats.descriptorCache.retainedTypedBytes+stats.descriptorCache.scratchBytes,
+            rss:process.memoryUsage().rss,search:stats.search,proofStore:stats.proofStore,semanticTt:stats.semanticTt,
+            descriptorCache:stats.descriptorCache,localStates:stats.localStates,localClasses:stats.localClasses,
+            transitionMetrics:kernel.transitionMetrics,stateMetrics:kernel.states.metrics,growth:after}));
+          NODE
+
+          run_case(){ label="$1";tree="$2";n="$3";out="$RUNNER_TEMP/r$n.json";node --expose-gc "$RUNNER_TEMP/case.mjs" "$tree" "$label">"$out";
+            N="$n" OUT="$out" node - <<'NODE'
+          const fs=require('node:fs'),d=JSON.parse(fs.readFileSync(process.env.OUT,'utf8'));
+          console.log('PAIR_RESULT='+JSON.stringify({n:+process.env.N,variant:d.variant,searchMs:d.searchMs,cpuMs:d.cpuMs,
+            kernelBytes:d.kernelBytes,residualBytes:d.residualBytes,descriptorBytes:d.descriptorBytes,rss:d.rss,
+            calls:d.search.calls,expanded:d.search.expanded,proofProbeMisses:d.search.proofProbeMisses,
+            proofAdmissions:d.search.proofAdmissions,states:d.localStates,classes:d.localClasses,maxBucketScan:d.semanticTt.maxBucketScan,
+            classBuilds:d.descriptorCache.classBuilds,directTermWrites:d.descriptorCache.directTermWrites}));
+          NODE
+          }
+
+          node "$RUNNER_TEMP/case.mjs" "$candidate" candidate >/dev/null
+          node "$RUNNER_TEMP/case.mjs" "$baseline" baseline >/dev/null
+          node "$RUNNER_TEMP/case.mjs" "$baseline" baseline >/dev/null
+          node "$RUNNER_TEMP/case.mjs" "$candidate" candidate >/dev/null
+          run_case baseline "$baseline" 1
+          run_case candidate "$candidate" 2
+          run_case candidate "$candidate" 3
+          run_case baseline "$baseline" 4
+          run_case candidate "$candidate" 5
+          run_case baseline "$baseline" 6
+          run_case baseline "$baseline" 7
+          run_case candidate "$candidate" 8
+
+          RUNNER_TEMP="$RUNNER_TEMP" node - <<'NODE'
+          const fs=require('node:fs'),path=require('node:path'),rows=[];
+          for(let i=1;i<=8;i++)rows.push(JSON.parse(fs.readFileSync(path.join(process.env.RUNNER_TEMP,`r${i}.json`),'utf8')));
+          const a=rows.filter(x=>x.variant==='baseline'),b=rows.filter(x=>x.variant==='candidate');
+          for(const x of rows){if(x.result!==a[0].result||x.localStates!==a[0].localStates||x.localClasses!==a[0].localClasses)throw Error('semantic census/result mismatch');}
+          const mean=(x,k)=>x.reduce((s,r)=>s+r[k],0)/x.length,med=(x,k)=>{const v=x.map(r=>r[k]).sort((p,q)=>p-q);return(v[1]+v[2])/2};
+          console.log('PAIR_SUMMARY='+JSON.stringify({baselineSearchMeanMs:mean(a,'searchMs'),candidateSearchMeanMs:mean(b,'searchMs'),searchMeanRatio:mean(b,'searchMs')/mean(a,'searchMs'),
+            baselineSearchMedianMs:med(a,'searchMs'),candidateSearchMedianMs:med(b,'searchMs'),searchMedianRatio:med(b,'searchMs')/med(a,'searchMs'),
+            baselineCpuMeanMs:mean(a,'cpuMs'),candidateCpuMeanMs:mean(b,'cpuMs'),cpuMeanRatio:mean(b,'cpuMs')/mean(a,'cpuMs'),
+            baselineKernelBytes:a[0].kernelBytes,candidateKernelBytes:b[0].kernelBytes,baselineResidualBytes:a[0].residualBytes,candidateResidualBytes:b[0].residualBytes,
+            baselineDescriptorBytes:a[0].descriptorBytes,candidateDescriptorBytes:b[0].descriptorBytes,
+            baselineCalls:a.map(x=>x.search.calls),candidateCalls:b.map(x=>x.search.calls),baselineExpanded:a.map(x=>x.search.expanded),candidateExpanded:b.map(x=>x.search.expanded),
+            baselineProofProbeMisses:a.map(x=>x.search.proofProbeMisses),candidateProofProbeMisses:b.map(x=>x.search.proofProbeMisses),
+            baselineMaxBucketScan:Math.max(...a.map(x=>x.semanticTt.maxBucketScan)),candidateMaxBucketScan:Math.max(...b.map(x=>x.semanticTt.maxBucketScan)),
+            baselineDirectTermWrites:a[0].descriptorCache.directTermWrites,candidateDirectTermWrites:b[0].descriptorCache.directTermWrites,
+            resultMatch:true,stateClassCensusMatch:true}));
+          NODE

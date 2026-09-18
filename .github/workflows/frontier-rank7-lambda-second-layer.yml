@@ -1,0 +1,52 @@
+name: Frontier rank7 lambda second layer
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-lambda-root-branch-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-sequence-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-mu-proof-lib.mjs'
+      - '.github/workflows/frontier-rank7-lambda-second-layer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: C_exception, sequence: '46656553664474', target: G5, max_distance: '4', action: G }
+          - { name: D_A, sequence: '46656554664431', target: C3, max_distance: '2', action: B }
+          - { name: D_B, sequence: '46656554664432', target: C3, max_distance: '2', action: B }
+          - { name: D_D, sequence: '46656554664434', target: C3, max_distance: '2', action: B }
+          - { name: D_E, sequence: '46656554664435', target: C3, max_distance: '2', action: B }
+          - { name: D_G, sequence: '46656554664437', target: C3, max_distance: '2', action: B }
+          - { name: F_A, sequence: '4665655671', target: D4, max_distance: '2', action: E }
+          - { name: F_B, sequence: '4665655672', target: D4, max_distance: '2', action: D }
+          - { name: F_C, sequence: '4665655673', target: D4, max_distance: '2', action: E }
+          - { name: F_D, sequence: '4665655674', target: D4, max_distance: '2', action: E }
+          - { name: F_E, sequence: '4665655675', target: D4, max_distance: '2', action: D }
+          - { name: F_F, sequence: '4665655676', target: D4, max_distance: '2', action: A }
+          - { name: F_G, sequence: '4665655677', target: D4, max_distance: '2', action: E }
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Probe branch-isolated lambda root
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+          TARGET: ${{ matrix.target }}
+          MAX_TARGET_DISTANCE: ${{ matrix.max_distance }}
+          ACTION: ${{ matrix.action }}
+        run: |
+          set -euo pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-lambda-root-branch-probe.mjs

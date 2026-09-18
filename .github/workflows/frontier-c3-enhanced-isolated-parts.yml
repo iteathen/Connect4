@@ -1,0 +1,46 @@
+name: Frontier C3 enhanced isolated parts
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-c3-enhanced-isolated-part.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - .github/workflows/frontier-c3-enhanced-isolated-parts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  part:
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+    name: c3-part-${{ matrix.part }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify isolated three-root partition
+        shell: bash
+        env:
+          PART_INDEX: ${{ matrix.part }}
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/c3-part-${PART_INDEX}.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-c3-enhanced-isolated-part.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('C3_ENHANCED_ISOLATED_PART='));
+          if(!line) throw new Error('C3 isolated part summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.roots!==3) throw new Error(`partition root drift ${x.roots}`);
+          console.log(`C3_PART_RESULT=part${x.part}-c${x.closed}-f${x.failed}-r${x.resourceBranches}`);
+          NODE

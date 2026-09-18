@@ -1,0 +1,65 @@
+name: Frontier resolved-tail cofactor hypothesis
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-cofactor-hypothesis.mjs
+      - .github/workflows/frontier-resolved-tail-cofactor-hypothesis.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hypothesis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      positives: ${{ steps.run.outputs.positives }}
+      candidates: ${{ steps.run.outputs.candidates }}
+      zero_candidates: ${{ steps.run.outputs.zero_candidates }}
+      samples: ${{ steps.run.outputs.samples }}
+      proved: ${{ steps.run.outputs.proved }}
+      unproved: ${{ steps.run.outputs.unproved }}
+      zero_unproved: ${{ steps.run.outputs.zero_unproved }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify resolved-tail cofactor hypothesis
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/resolved-tail-cofactor.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-cofactor-hypothesis.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RESOLVED_TAIL_COFACTOR_HYPOTHESIS='));
+          if(!line) throw new Error('resolved-tail hypothesis summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.qualifiedPositiveStarts!==16) throw new Error('positive start drift');
+          if(x.exactMu15CleanCandidates!==160) throw new Error('mu15 candidate population drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `positives=${x.qualifiedPositiveStarts}`,
+            `candidates=${x.exactMu15CleanCandidates}`,
+            `zero_candidates=${x.candidateZeroTailBurden}`,
+            `samples=${x.completedSamples}`,
+            `proved=${x.sampledProved}`,
+            `unproved=${x.sampledUnproved}`,
+            `zero_unproved=${x.sampledZeroTailBurdenUnproved}`,
+            `resource=${x.resourceFailures}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: hypothesis
+    name: tail-pos${{ needs.hypothesis.outputs.positives }}-c${{ needs.hypothesis.outputs.candidates }}-z${{ needs.hypothesis.outputs.zero_candidates }}-s${{ needs.hypothesis.outputs.samples }}-p${{ needs.hypothesis.outputs.proved }}-u${{ needs.hypothesis.outputs.unproved }}-zu${{ needs.hypothesis.outputs.zero_unproved }}-r${{ needs.hypothesis.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "resolved-tail cofactor hypothesis counts encoded in job name"

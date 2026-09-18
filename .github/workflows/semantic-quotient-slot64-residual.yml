@@ -1,0 +1,151 @@
+name: Slot-local 64-bit residual pool
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-residual-provider-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-chunked-residual-class-first-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-chunked-residual-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-chunked-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-term-id-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-term-id-bounded-cache-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-bounded-storage-plan.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-bounded-search.mjs'
+      - '.github/workflows/semantic-quotient-slot64-residual.yml'
+      - 'components/bsfp/geometry.mjs'
+      - 'components/bsfp/ownership-antichain-solver.mjs'
+      - 'components/bsfp/support-lattice.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs'
+      - 'reference/legacy-source/Connect4-engine-source.zip'
+      - 'reference/legacy-source-manifest.json'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-state-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-state-pool.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-online-only-state-storage.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-paired-response-closure.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-pruning-campaign.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-neutral-capacity-diagnostic.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    name: Qualify slot-local 64-bit residual pool
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run slot64 residual qualification campaign
+        run: node --expose-gc --max-old-space-size=6144 research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs
+      - name: Exercise storage value and allocation boundaries
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs research/semantic-quotient/state-identity-unification/src/quotient-packed-state-pool.test.mjs
+      - name: Verify singleton projection across retained residual representations
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-residual-provider-control.mjs
+      - name: Qualify bounded state retention and report isolated local timings
+        run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-state-retention-comparison.mjs
+      - name: Check neutral-capacity relation and observe equivalent physical choices
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-neutral-capacity-diagnostic.mjs
+      - name: Independently verify physical terminals and standard-board eval
+        run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-terminal-boundary-campaign.mjs
+      - name: Independently verify pruning bounds and move eval
+        run: node research/semantic-quotient/state-identity-unification/src/quotient-pruning-campaign.mjs
+      - name: Verify standard-board guarded response certificates
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-paired-response-contract.test.mjs
+      - name: Verify CPC address parity and terminal interpretation boundary
+        run: node --test research/semantic-quotient/state-identity-unification/src/quotient-control-parity-derivation.test.mjs
+      - name: Compare original evaluator relations with the canonical frontier
+        run: |
+          unzip -q reference/legacy-source/Connect4-engine-source.zip -d "$RUNNER_TEMP/connect4-legacy-source"
+          printf '%s\n' '{"type":"module"}' > "$RUNNER_TEMP/connect4-legacy-source/package.json"
+          node research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs "$RUNNER_TEMP/connect4-legacy-source"
+      - name: Measure paired bounded response closure
+        run: node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-response-comparison.mjs
+
+  timing:
+    name: Observe six-second bounded timing
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Run source-attributed six-second timing probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          result="$RUNNER_TEMP/connect4-six-second-result.json"
+          stderr="$RUNNER_TEMP/connect4-six-second-stderr.txt"
+          timing="$RUNNER_TEMP/connect4-six-second-time.txt"
+
+          set +e
+          /usr/bin/time -f 'elapsed_seconds=%e\nuser_seconds=%U\nsystem_seconds=%S\nmax_rss_kib=%M' -o "$timing" \
+            node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-bounded-search.mjs \
+              --columns 7 --rows 6 --connect 4 --depth 8 --timeout-ms 6000 --memory-mib 2048 \
+              > "$result" 2> "$stderr"
+          status=$?
+          set -e
+
+          printf 'source_sha=%s\n' "$GITHUB_SHA"
+          printf 'runner_image=ubuntu-24.04\n'
+          printf 'node_version=%s\n' "$(node --version)"
+          printf 'bounded_depth=8\nchild_budget_ms=6000\nexit_status=%s\n' "$status"
+          cat "$timing"
+          cat "$result"
+          if [[ -s "$stderr" ]]; then cat "$stderr" >&2; fi
+
+          {
+            echo '### Six-second bounded timing probe'
+            echo
+            echo "- Source SHA: \`$GITHUB_SHA\`"
+            echo '- Runner image: `ubuntu-24.04`'
+            echo "- Node: \`$(node --version)\`"
+            echo '- Domain: `7x6 connect-4`'
+            echo '- Bounded depth: `8`'
+            echo '- Child-process budget: `6000 ms`'
+            echo "- Exit status: \`$status\` (\`124\` means the six-second budget was reached)"
+            echo
+            echo '```text'
+            cat "$timing"
+            echo '```'
+            echo
+            echo '```json'
+            cat "$result"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$status" -ne 0 && "$status" -ne 124 ]]; then
+            exit "$status"
+          fi

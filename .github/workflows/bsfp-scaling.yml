@@ -1,0 +1,65 @@
+name: bsfp-scaling
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  antichain-scaling:
+    name: packed42-scaling (${{ matrix.geometry }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - geometry: 5x4:c4
+            timeout_seconds: 120
+          - geometry: 5x5:c4
+            timeout_seconds: 300
+          - geometry: 6x5:c4
+            timeout_seconds: 600
+          - geometry: 7x5:c4
+            timeout_seconds: 600
+          - geometry: 7x6:c4
+            timeout_seconds: 600
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Record runtime
+        run: |
+          node --version
+          uname -a
+          nproc
+          free -h
+      - name: Run bounded packed42 antichain scaling case
+        shell: bash
+        env:
+          C4_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+          BSFP_SCALE_EXECUTOR: packed42
+        run: |
+          set +e
+          /usr/bin/time -v timeout --signal=TERM --kill-after=5s ${{ matrix.timeout_seconds }}s \
+            node --expose-gc --max-old-space-size=4096 benchmarks/bsfp-scale-case.mjs "${{ matrix.geometry }}" \
+            > bsfp-scaling-${{ matrix.geometry }}.json 2> bsfp-scaling-${{ matrix.geometry }}.stderr
+          status=$?
+          echo "scaling_exit_status=$status"
+          echo "--- result ---"
+          cat bsfp-scaling-${{ matrix.geometry }}.json || true
+          echo "--- resource/timeout stderr ---"
+          cat bsfp-scaling-${{ matrix.geometry }}.stderr || true
+          if [ "$status" -eq 124 ]; then
+            echo "scaling_outcome=timeout"
+          elif [ "$status" -eq 137 ]; then
+            echo "scaling_outcome=killed_or_oom"
+          elif [ "$status" -eq 0 ]; then
+            echo "scaling_outcome=completed"
+          else
+            echo "scaling_outcome=runtime_failure"
+          fi
+          exit 0

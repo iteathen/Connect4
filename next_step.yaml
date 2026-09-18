@@ -1,72 +1,193 @@
-schema_version: 3
-updated: 2026-09-11
-state: main_shared_foundation_with_three_solver_heads
-repository_role: connect4_shared_foundation_and_router
+version: 1
+status: active
+branch: research/semantic-quotient
+updated: 2026-09-17
 
-canonical_lanes:
-  shared_product:
-    branch: main
-    purpose: accepted_domain_specs_oracles_benchmarks_cross_lane_contracts_and_repository_dashboard
-    solver_head: false
-  minimax:
-    branch: solver/minimax-alpha-beta
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: true
-  cuda_bsfp:
-    branch: solver/cuda-bsfp
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: true
-  hybrid_confluence:
-    branch: solver/hybrid-confluence
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: true
-  semantic_quotient:
-    branch: research/semantic-quotient
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: false
+attribution:
+  research_direction_structural_architecture_invariant_first_program: Josh Oshiro
+  formalization_implementation_qualification: OpenAI ChatGPT
 
-routing_rules:
-  - main_is_shared_accepted_substrate_not_a_solver_head
-  - read_the_target_lane_status_and_next_step_before_execution
-  - do_not_use_root_status_as_solver_specific_execution_authority
-  - shared_domain_oracle_benchmark_and_cross_lane_contract_changes_route_to_main
-  - shared_future_behavior_or_state_compression_research_routes_to_semantic_quotient
-  - minimax_search_policy_tt_scheduler_and_search_kernel_work_routes_to_minimax
-  - bsfp_recurrence_cuda_profiles_symbolic_storage_and_bsfp_qualification_routes_to_cuda_bsfp
-  - hybrid_confluence_transport_proof_exchange_scheduling_and_hybrid_qualification_route_to_hybrid_confluence
-  - solver_branches_are_long_lived_peer_product_heads_not_feature_branches_waiting_for_wholesale_merge
-  - shared_facts_discovered_on_solver_heads_are_extracted_qualified_and_selectively_promoted_to_main
-  - accepted_shared_changes_flow_from_main_into_solver_heads
-  - solver_specific_implementation_does_not_move_to_main_for_history_synchronization
+consolidation:
+  canonical_branch: research/semantic-quotient
+  structural_history_through: 5f376cc6915ff2285fec2d45a38b3a3cb6b65562
+  unified_knowledge_attached_commit: ed71cbe95790d32517f52b2ab815b904516bf665
+  normalized_claim_root: research/canonical/CLAIM_INDEX.json
+  provenance_manifest: research/provenance/SOURCE_MANIFEST.json
+  rule: branch_consolidation_does_not_change_claim_status_or_solver_ownership
 
-main_role:
-  shared:
-    - components_domain
-    - components_oracle
-    - qualified_incumbent_reference_baseline
-    - benchmark_and_fairness_authority
-    - accepted_cross_lane_specs_and_decisions
-    - repository_routing_and_provenance
-  solver_specific_ownership:
-    minimax: solver/minimax-alpha-beta
-    bsfp: solver/cuda-bsfp
-    hybrid_confluence: solver/hybrid-confluence
+task:
+  id: derive_guarded_mixed_cofactor_obligation_birth
+  objective: >-
+    Derive the smallest exact guarded quantifier-lift rule that converts mixed owner-labelled positive cofactors
+    into certified NDC obligations before a deadline. Preserve exact support and full residual identity. Treat
+    owner-labelled enabling as a derived certificate relation, not a new board-state coordinate, unless the first
+    unresolved support/resource/deadline guard proves otherwise.
 
-restructure:
-  original_lane_decision: docs/decisions/2026-09-10-repository-lane-restructure.md
-  main_role_extension: docs/decisions/2026-09-11-main-shared-foundation-three-solver-heads.md
-  manifest: research/MIGRATION_MANIFEST.json
-  branch_retirement: research/BRANCH_RETIREMENT.md
-  repository_structure: REPOSITORY_STRUCTURE.md
-  physical_cleanup: research/RETIREMENT_PROOFS.json
+required_authority:
+  - account-global iteathen/.github/AGENTS.md
+  - AGENT_LOCAL.md
+  - docs/specs/C4-0001-domain-v1.md
+  - docs/specs/C4-0006-control-parity-and-winspace-v1.md
+  - docs/specs/C4-0007-nested-dependency-closure-v1.md
+  - docs/specs/C4-0010-quotient-native-negamax-v1.md
+  - STATUS.md
+  - docs/research/2026-09-14-total-domain-incidence-decomposition.md
+  - docs/research/2026-09-14-connect4-derived-difference-axioms.md
+  - docs/research/2026-09-14-cpc-control-potential-unification.md
+  - docs/research/2026-09-14-z2-domain-wall-causal-field.md
+  - docs/research/2026-09-14-gravity-adapted-domain-wall-normal-form.md
+  - docs/research/2026-09-14-anchored-zero-edge-residuals.md
+  - docs/research/2026-09-14-affine-clause-blocker-decomposition.md
+  - docs/research/2026-09-14-solved-db-structural-discovery.md
+  - docs/research/2026-09-14-solved-db-structural-assessment.md
+  - docs/research/2026-09-09-universal-strategic-algebra.md
+  - docs/research/2026-09-09-nested-strategic-dependency-closure.md
 
-next_actions:
-  - keep_main_role_verification_green_for_changes_targeting_main
-  - initialize_lane_local_status_and_next_step_on_solver_hybrid_confluence_before_substantive_implementation
-  - selectively_flow_shared_main_changes_into_each_solver_head_when_needed
-  - promote_shared_solver_discoveries_back_to_main_only_after_cross_lane_qualification
-  - retain_solver_specific_hot_state_and_implementation_on_its_own_solver_head
+qualified_premises:
+  - id: total_domain_static_core
+    statement: >-
+      For a=(W-3)_+, b=(H-3)_+, p=min(W,3), q=min(H,3), d=min(2,ab):
+      L=Ha+Wb+2ab; rank(B)=WH-pq+d; ker(B)=3ab-d; rank(Q_axis)=a+b;
+      rank(Q_phase)=min(a,ab)+min(2,ab,a+floor((b-1)_+/2));
+      Y_cell=rank(B)-rank(Q_axis); Y_line=ker(B)-rank(Q_phase).
+  - id: thin_board_draw
+    statement: >-
+      For every positive W,H, min(W,H)<4 implies empty-board draw by quantified legal mate-response proof.
+  - id: absolute_cpc_owner
+    statement: >-
+      With owner bit 0=first player and 1=second player, the zero-reservation absolute owner of target (c,r)
+      is q0=((W-1)H+r) mod2. A certified prior-event parity correction rho gives q=kappa+r+rho.
+  - id: control_potential_derivatives
+    statement: >-
+      Horizontal disagreement is delta_x rho; vertical disagreement is 1+delta_y rho; seam transport is
+      mixed-difference commutation. Every geometric Connect-4 terminal line is three consecutive zero
+      disagreement edges in its direction.
+  - id: gravity_normal_form
+    statement: >-
+      One ownership anchor + bottom horizontal disagreement word + one vertical seam mask per row boundary is
+      a lossless WH-bit coordinate system. Pure-followup neutral pairs only decrement integer pair-depth counters.
+  - id: anchored_zero_edge_target
+    statement: >-
+      A four-line path is invertibly represented by one owner anchor and three path disagreement edges.
+      Player-p terminal target is anchor=p and edge word 000.
+  - id: blocker_clause_form
+    statement: >-
+      Against player p, x_v=q(v)+p. A certified blocker B is the positive clause OR_(v in B)x_v=1.
+      It blocks residual R exactly when B subset_of R. Pair blocker is not XOR unless split ownership is
+      independently certified.
+  - id: positive_cofactor_transition
+    statement: >-
+      Positive residual antichains implement exact monotone Boolean substitution. If player p acquires x,
+      p-residuals containing x contract by removing x and opponent residuals containing x are deleted, followed
+      by minimal-antichain canonicalization.
+  - id: mixed_owner_cofactor_commutation
+    statement: >-
+      For distinct cells x and y, owner-p substitution at x and owner-(1-p) substitution at y commute as Boolean
+      cofactors. Any noncommuting game content therefore enters through admissibility, support, resources,
+      deadlines or first-win stopping, not through the positive residual algebra itself.
+  - id: safe_affine_seam_cube
+    statement: >-
+      Around any one-move safe setup column c, e_c + span{e_j : parity(j)!=parity(c)} is entirely
+      pure-followup-safe. At most one seam in each free coordinate may occur at arbitrary heights without
+      introducing a geometric Connect-4.
+  - id: standard_static_corollary
+    statement: >-
+      Standard 7x6 has L=69, rankB=35, kerB=34, Q_axis=7, Q_phase=6, Y_cell=Y_line=28.
+
+outcome_encoding:
+  bits: "[sign_player, win]"
+  canonical:
+    "00": draw
+    "01": first_player_win_plus_one
+    "11": second_player_win_minus_one
+    "10": reserved_noncanonical
+  note: >-
+    This is a projection of the ownership-lift/domain-wall representation, not an independent proof primitive.
+
+execution:
+  cycle: assess -> research -> reassess -> plan -> execute -> qualify -> review -> cleanup/document
+  proof_standard: >-
+    Any unbounded board-family claim requires symbolic proof. Finite solved tables, constrained strategy solves,
+    board sweeps and oracle data may falsify or guide discovery only.
+  primary_question: >-
+    Can the exact mixed owner-cofactor consequences already present in the full positive residual antichains be
+    lifted, with explicit opponent-universal intervention, support/resource, deadline and first-win guards, into
+    an NDC obligation that distinguishes the documented shared d-column continuation without using its solved
+    label as a premise or reconstructing a recursive move-tree proof?
+  first_construction:
+    - >-
+      Start from zero-based A=[6,6,6,6,2,2] and B=[2,6,6,2,6,6]. Both have support [0,0,2,0,0,0,4]
+      and equal current-owner low-order jets; keep their distinct full positive residual antichains.
+    - >-
+      Use exact owner-labelled cofactor substitution, including mixed-owner compositions. Do not add a new
+      enabling coordinate merely to cache a relation already derivable from residual incidence plus an event owner.
+    - >-
+      Separate algebra from time: cofactor substitutions on distinct cells commute, while legal/admissible event
+      order is carried by support, side-to-move, reserved responses, deadlines and first-win stopping.
+    - >-
+      Define obligation birth only when a contracted residual is certified active before its deadline. Degree drop
+      alone is not an obligation. Reuse existing singleton/fork, blocker-clause and response-capacity consequence
+      forms rather than inventing a fourth Boolean consequence type.
+    - >-
+      Quantify intervening opponent choices over the post-cofactor consequence, not over survival of one named
+      residual. An opponent may kill one residual while an alternative residual/certificate survives.
+    - >-
+      Merge equal consequences in the NDC certificate DAG. Apply min/max only with explicit controller-existential
+      or opponent-universal semantics. Stop at the first guard not derivable from support, blocker, control-potential,
+      response-resource, deadline or first-win coordinates; only that residue is a candidate new predicate.
+    - >-
+      Use solved BDD evidence only to falsify proposed strengthenings. Absence of sampled collisions is not proof,
+      and a nearly injective signature is not a compact value selector.
+  required_checks:
+    - pair blocker must not be silently promoted to XOR
+    - eventual ownership must not replace ownership-before-deadline
+    - a lower-degree residual must not be promoted to a defensive obligation without support/deadline/resource proof
+    - pure-followup/domain-wall safety is defensive substrate, not a signed value theorem
+    - finite outcome interpolation is never proof
+    - outcome player/sign bit is derived from an exact terminal ownership lift
+    - draw is canonical 00 and does not require an arbitrary player bit
+    - preserve first-win stopping semantics
+    - no Hall deficiency is a forcing certificate only where its guards are proved; absence is not draw evidence
+  falsification:
+    - a rule instance needs a consequence not expressible as affine fact, monotone clause or guarded temporal composition
+    - two different substitution orders on distinct cells produce different canonical positive cofactors
+    - affine/clause propagation derives a stronger fact after its deadline rather than before it
+    - two merged states with equal parity/clause sets have different support/resource obligations relevant to future proof
+    - universal intervention closure silently ignores an admissible opponent event that destroys the claimed consequence
+    - a candidate signed selector disagrees with an independently solved board (validation only)
+    - standard 7x6 requires inserting the known +1 label or 28 as a premise
+
+success_criteria:
+  - exact guarded mixed-cofactor-to-obligation composition with explicit quantifier and deadline semantics
+  - owner-labelled enabling remains derived unless a concrete non-derivable guard residue is exhibited
+  - complete consequence-shape classification of currently used strategic rules
+  - exact guarded affine-clause NDC closure with explicit information order and deadline semantics
+  - no duplicated CPC/phase/player-color representation where one potential suffices
+  - standard 7x6 terminal proof returns canonical 01 without solved-label premise
+  - thin-board theorem returns canonical 00 from the same value semantics
+  - second-player-winning controls, when used, are validation only until independently derived
+  - structural magnitude remains distinct from win/draw sign until a natural coupling is proved
+  - synchronized STATUS.md / next_step.yaml and durable theorem notes
+
+validation_only:
+  - published finite W/D/L tables
+  - standard 7x6 strong-distance/oracle data
+  - constrained pure-followup solves
+  - finite generated-rank/barcode controls
+  - varying-board censuses
+  - >-
+    2026-09-14 solved-db structural discovery: 30254 standard-board states; finite source collisions falsify
+    boundary-capacity, degree2, F2-span and current-owner degree2-jet value completeness. Full exact residual
+    identity and ownerJet have no observed sampled collision, which is validation only and not completeness proof.
+  - >-
+    2026-09-14 independent assessment: the A/B collision's 13/49 two-event low-order divergence was reproduced
+    without solved labels. The distinction is already present in full positive residual incidence and is exposed
+    by a derived mixed owner cofactor; the unresolved seam is guarded quantifier closure into obligations.
+
+paused_selection_seam:
+  id: derive_post_center_strong_distance_selector
+  status: subsumed_but_preserved_under_guarded_value_closure
+
+paused_solver_seam:
+  state: "4665655"
+  status: unfinished_but_preserved

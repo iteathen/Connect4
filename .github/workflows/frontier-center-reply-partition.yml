@@ -1,0 +1,29 @@
+name: Frontier center reply partition
+
+on:
+  push:
+    branches: [research/center-reply-partition]
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-oncontract-target.mjs
+      - .github/workflows/frontier-center-reply-partition.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  oncontract-target:
+    name: target-${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [C3, G3]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify on-contract target
+        run: timeout 450s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-center-oncontract-target.mjs "${{ matrix.target }}"

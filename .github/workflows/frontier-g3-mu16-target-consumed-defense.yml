@@ -1,0 +1,59 @@
+name: Frontier G3 mu16 target-consumed defense
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-g3-mu16-target-consumed-defense.mjs
+      - .github/workflows/frontier-g3-mu16-target-consumed-defense.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  defense:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      states: ${{ steps.run.outputs.states }}
+      replies: ${{ steps.run.outputs.replies }}
+      p1_terminal: ${{ steps.run.outputs.p1_terminal }}
+      p0_terminal: ${{ steps.run.outputs.p0_terminal }}
+      unclassified: ${{ steps.run.outputs.unclassified }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify forced G4 defense after target consumption
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/g3-target-consumed-defense.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-g3-mu16-target-consumed-defense.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('G3_MU16_TARGET_CONSUMED_DEFENSE='));
+          if(!line) throw new Error('target-consumed defense summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactStates!==2) throw new Error('target-consumed state inventory drift');
+          const c=x.replyRouteCounts||{};
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `states=${x.exactStates}`,
+            `replies=${x.replyCount}`,
+            `p1_terminal=${c.P1_terminal||0}`,
+            `p0_terminal=${c.immediate_P0_terminal||0}`,
+            `unclassified=${c.nonterminal_unclassified||0}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: defense
+    name: g3def-s${{ needs.defense.outputs.states }}-r${{ needs.defense.outputs.replies }}-pt${{ needs.defense.outputs.p1_terminal }}-p0${{ needs.defense.outputs.p0_terminal }}-u${{ needs.defense.outputs.unclassified }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "G3 target-consumed defense counts encoded in job name"

@@ -1,0 +1,66 @@
+name: Frontier perfect-play closure horizon
+
+on:
+  push:
+    branches: [research/frontier-negamax-conformance]
+    paths:
+      - '.github/workflows/frontier-perfect-play-closure.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-perfect-play-closure-campaign.mjs'
+  workflow_dispatch:
+    inputs:
+      max_prefix_ms:
+        description: 'Maximum milliseconds for one exact quotient prefix proof'
+        required: false
+        default: '15000'
+      min_prefix_ply:
+        description: 'Earliest perfect-play prefix to probe; root is intentionally excluded'
+        required: false
+        default: '8'
+
+permissions:
+  contents: read
+
+jobs:
+  closure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      MAX_PREFIX_MS: ${{ inputs.max_prefix_ms || '15000' }}
+      MIN_PREFIX_PLY: ${{ inputs.min_prefix_ply || '8' }}
+      PONS_CASE_MS: '60000'
+      PONS_SOURCE_COMMIT: 'd6ba50d8aaf2308c769d9bf2abd42d90f34baf41'
+      PONS_BOOK_ASSET_ID: '10766475'
+      PONS_BOOK_EXPECTED_SHA256: 'f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Checkout pinned Pascal Pons oracle source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: PascalPons/connect4
+          ref: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          path: .external/pons-connect4
+          persist-credentials: false
+      - name: Build and bind external oracle controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -C .external/pons-connect4 c4solver
+          curl --fail --location --retry 3 --silent --show-error \
+            --output .external/pons-connect4/7x6.book \
+            https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          size=$(stat -c '%s' .external/pons-connect4/7x6.book)
+          test "$size" = '33554524'
+          sha=$(sha256sum .external/pons-connect4/7x6.book | awk '{print $1}')
+          test "$sha" = "$PONS_BOOK_EXPECTED_SHA256"
+          echo "PONS_BOOK_SHA256=$sha" >> "$GITHUB_ENV"
+          echo "PONS_SOLVER_PATH=$GITHUB_WORKSPACE/.external/pons-connect4/c4solver" >> "$GITHUB_ENV"
+          echo "PONS_BOOK_PATH=$GITHUB_WORKSPACE/.external/pons-connect4/7x6.book" >> "$GITHUB_ENV"
+          echo "Pons source=$PONS_SOURCE_COMMIT asset=$PONS_BOOK_ASSET_ID size=$size sha256=$sha"
+      - name: Measure pinned-oracle exact closure horizon
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-perfect-play-closure-campaign.mjs

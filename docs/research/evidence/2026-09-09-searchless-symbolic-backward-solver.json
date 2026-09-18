@@ -1,0 +1,30 @@
+{
+  "date":"2026-09-09",
+  "branch":"research/low-confidence-survival-2026-09-09",
+  "solver":"backward support-skeleton MTBDD WDL solver",
+  "constraints":["no physical-state enumeration in solve","no recursive minimax","geometric winning lines are terminal predicates","bottom-up support skeleton processing"],
+  "completeGames":[
+    {"profile":"4x3c3","heightSkeletons":256,"rootWDL":1,"decisionNodes":7635,"solveMs":29.69,"oraclePhysicalStates":4659,"oracleEdges":11818,"allStateMismatches":0},
+    {"profile":"4x4c4","heightSkeletons":625,"rootWDL":0,"decisionNodes":38438,"solveMs":130.62,"oraclePhysicalStates":139625,"oracleEdges":304574,"allStateMismatches":0},
+    {"profile":"5x3c4","heightSkeletons":1024,"rootWDL":0,"decisionNodes":9099,"solveMs":30.98,"oraclePhysicalStates":152003,"oracleEdges":377229,"allStateMismatches":0},
+    {"profile":"4x5c4","heightSkeletons":1296,"rootWDL":0,"decisionNodes":302745,"solveMs":1046.65,"oraclePhysicalStates":1385521,"oracleEdges":3175616,"allStateMismatches":0}
+  ],
+  "qualificationTotals":{"physicalStates":1681808,"oracleEdges":3869237,"wdlMismatches":0},
+  "frozen7x6":[
+    {"sequence":"764353221241721325116531","exactScore":-2,"rootWDL":-1,"heightSkeletons":3000,"decisionNodes":342590,"ms":1479.07},
+    {"sequence":"5563576621726752473477144213","exactScore":7,"rootWDL":1,"heightSkeletons":1296,"decisionNodes":13700,"ms":54.24},
+    {"sequence":"3253472274311154254412135","exactScore":-9,"rootWDL":-1,"heightSkeletons":2520,"decisionNodes":25904,"ms":92.07},
+    {"sequence":"24763565123272565531172315","exactScore":2,"rootWDL":1,"heightSkeletons":1728,"decisionNodes":23370,"ms":95.56},
+    {"sequence":"544111352647536626717444135","exactScore":-8,"rootWDL":-1,"heightSkeletons":1440,"decisionNodes":21440,"ms":86.75},
+    {"sequence":"3412761563244125763551573","exactScore":-9,"rootWDL":-1,"heightSkeletons":4608,"decisionNodes":103061,"ms":376.37},
+    {"sequence":"1174534625627233274533652316","exactScore":-6,"rootWDL":-1,"heightSkeletons":1152,"decisionNodes":3394,"ms":31.22},
+    {"sequence":"463141571213634656162165252","exactScore":7,"rootWDL":1,"heightSkeletons":864,"decisionNodes":16727,"ms":57.05}
+  ],
+  "empty7x6":{"heightSkeletons":823543,"status":"not yet completed in naive generic MTBDD representation","primaryRisk":"decision-diagram node growth, not support-skeleton count"},
+  "interpretation":[
+    "Exact WDL can be solved backward from winning-line predicates without enumerating colored board states on complete tested games.",
+    "All reachable states of the four complete small games independently agree with the symbolic functions.",
+    "Full 7x6 geometry is validated on eight frozen roots after root-known ownership is constant-folded.",
+    "Move-zero 7x6 is now a symbolic compression/scaling seam rather than an untested mathematical hypothesis."
+  ]
+}

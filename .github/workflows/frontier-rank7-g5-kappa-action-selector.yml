@@ -1,0 +1,30 @@
+name: Frontier rank7 G5 kappa action selector
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-g5-kappa-action-selector.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-g5-kappa-child-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-target-distance-lexicographic-proof-lib.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs'
+      - '.github/workflows/frontier-rank7-g5-kappa-action-selector.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Select exact child witnesses
+        run: |
+          set -euo pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank7-g5-kappa-action-selector.mjs

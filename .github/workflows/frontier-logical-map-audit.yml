@@ -1,0 +1,50 @@
+name: Frontier logical map audit
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-braid-transport.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-braid-transport.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-forced-obligation.test.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-reversed-ownership-stutter-control.mjs
+      - .github/workflows/frontier-logical-map-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof-kernel-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Guarded theorem composition tests
+        shell: bash
+        run: timeout 300s node --test research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.test.mjs
+      - name: Guarded braid transport adversarial tests
+        shell: bash
+        run: timeout 300s node --test research/semantic-quotient/state-identity-unification/src/quotient-guarded-braid-transport.test.mjs
+      - name: Repair-capacity generic target-distance tests
+        shell: bash
+        run: timeout 300s node --test research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.test.mjs
+      - name: Forced-obligation before rho tests
+        shell: bash
+        run: timeout 300s node --test research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-forced-obligation.test.mjs
+      - name: Corrected D3-D4 composition control
+        shell: bash
+        run: timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-guarded-theorem-composition-control.mjs
+      - name: Reversed-ownership temporal falsifier
+        shell: bash
+        run: timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-reversed-ownership-stutter-control.mjs

@@ -1,0 +1,57 @@
+name: Frontier mu15 lexicographic corpus closure
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-mu15-lexicographic-corpus-closure.mjs
+      - .github/workflows/frontier-mu15-lexicographic-corpus-closure.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  closure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      candidates: ${{ steps.run.outputs.candidates }}
+      proved: ${{ steps.run.outputs.proved }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify full mu15 lexicographic corpus closure
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/mu15-lex-corpus.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-mu15-lexicographic-corpus-closure.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('MU15_LEXICOGRAPHIC_CORPUS_CLOSURE='));
+          if(!line) throw new Error('mu15 lexicographic corpus summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactCandidateStates!==160) throw new Error('mu15 corpus drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `candidates=${x.exactCandidateStates}`,
+            `proved=${x.provedStates}`,
+            `failed=${x.failedStates}`,
+            `resource=${x.resourceFailures}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: closure
+    name: mu15lex-c${{ needs.closure.outputs.candidates }}-p${{ needs.closure.outputs.proved }}-f${{ needs.closure.outputs.failed }}-r${{ needs.closure.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "full mu15 lexicographic corpus counts encoded in job name"

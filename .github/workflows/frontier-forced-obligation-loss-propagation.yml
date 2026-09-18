@@ -1,0 +1,55 @@
+name: Frontier forced-obligation loss propagation
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-forced-obligation-loss-propagation.mjs
+      - .github/workflows/frontier-forced-obligation-loss-propagation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  loss:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      residual: ${{ steps.run.outputs.residual }}
+      rank16: ${{ steps.run.outputs.rank16 }}
+      positive: ${{ steps.run.outputs.positive }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify forced-obligation loss propagation
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/forced-obligation-loss.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-forced-obligation-loss-propagation.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('FORCED_OBLIGATION_LOSS_PROPAGATION='));
+          if(!line) throw new Error('forced-obligation loss summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactRank18Roots!==84||x.qualifiedPositiveRoots!==62||x.residualRoots!==22||x.exactRank16Contexts!==12) throw new Error('domain inventory drift');
+          if(x.qualifiedPositiveLossCertificates!==0) throw new Error('loss calculus contradicted qualified positive root');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `residual=${x.residualLossCertificates}`,
+            `rank16=${x.rank16LossCertificates}`,
+            `positive=${x.qualifiedPositiveLossCertificates}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: loss
+    name: forced-loss-residual-${{ needs.loss.outputs.residual }}-rank16-${{ needs.loss.outputs.rank16 }}-positive-${{ needs.loss.outputs.positive }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "forced-obligation loss counts encoded in job name"

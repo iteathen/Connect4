@@ -1,43 +1,42 @@
 # Connect4
 
-Connect4 is the shared product/domain repository for exact Connect Four semantics, benchmark and oracle authority, solver qualification contracts, and product-specific CUDA composition.
+Independent Connect Four exact-solver laboratory and benchmark/validation product.
 
-The repository has **three first-class exact solver lines** plus one solver-neutral representation-research line:
+The repository deliberately keeps solver lanes separate while sharing Connect4-owned structural mathematics:
 
-- `solver/minimax-alpha-beta` — exact minimax/negamax/alpha-beta implementation and search-specific optimization/evidence;
-- `solver/cuda-bsfp` — backward symbolic fixed-point solving on CUDA, not move-tree search;
-- `solver/hybrid-confluence` — hybrid exact solving that composes the minimax and CUDA-BSFP lines through an exact confluence contract;
-- `research/semantic-quotient` — solver-neutral research into win-space, support/accessibility, future-behavior equivalence, quotient construction and minimum-description game state.
+- `components/incumbent/` — incumbent Node minimax/alpha-beta baseline;
+- `components/bsfp/` — backward symbolic fixed-point solver and CUDA-BSFP composition;
+- `research/semantic-quotient/` — quotient-native forward/Negamax research and conformance evidence.
 
-`main` is **not a fourth solver line**. It is the shared accepted substrate and repository router. It owns the domain rules, benchmark/fairness semantics, oracle/reference baseline, accepted cross-lane contracts and repository-level documentation needed by all solver lines.
+Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, CPC/WSL/NDC structural semantics, solver-specific proof meaning, and qualification evidence belong here. Reusable CUDA algorithms/runtime/search mechanisms remain owned by their respective CUDA repositories.
 
-The qualified incumbent implementation on `main` is retained as a reference/baseline and oracle comparator. It is not the repository's singular "current solver" and does not make `main` the minimax product head.
+## Start here
 
-## Branch model
+- `AGENT_LOCAL.md` — repository ownership, authority, lane boundaries, and local constraints.
+- `STATUS.md` — current research state and proof boundary.
+- `next_step.yaml` — current executable research seam.
+- `docs/research/RESEARCH_INDEX.md` — compact map of durable research notes, controls, negative results, and historical evidence.
+
+Dated research notes are evidence, not current-state authority. Solved databases and finite oracle/census results may validate or falsify structural candidates but do not prove unbounded theorems.
+
+## CUDA-BSFP qualification
+
+The maintained benchmark qualifier is governed by `docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md`.
+
+Official native qualification is explicitly armed and publishes immutable evidence back to this repository:
 
 ```text
-                         main
-          shared domain / oracle / contracts
-              /            |            \
-             /             |             \
-solver/minimax-     solver/cuda-bsfp   solver/hybrid-
-alpha-beta                              confluence
-             \             |             /
-              \            |            /
-               research/semantic-quotient
-                solver-neutral research
+npm run bench:bsfp:qualify
 ```
 
-The three `solver/*` branches are intentionally long-lived peer product heads. They are not ordinary feature branches waiting to be merged wholesale into `main`.
+For a non-publishing plan check:
 
-Shared accepted changes flow from `main` into each solver line. A solver may discover a fact or mechanism that belongs to the shared product/domain layer, but that fact is promoted back to `main` selectively after its cross-lane meaning is established. Solver-specific kernels, scheduling, symbolic state, transposition structures and confluence implementation remain on their owning solver line.
+```text
+node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run
+```
 
-Read `STATUS.md`, `next_step.yaml`, `REPOSITORY_STRUCTURE.md`, and the target lane's own status/next-step before executing work.
+GPU cases are admitted only after the profile-owned memory bound is checked against current free VRAM under the configured safety policy. Cases use bounded timeouts, and interrupted qualification is recoverable on the next invocation.
 
-## Current state
+Publication requires `CUDA_BSFP_GITHUB_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN` with suitable repository permissions. Tokens are not forwarded to solver children or evidence.
 
-The shared domain, benchmark protocol and solved-strength oracle baseline remain qualified on `main`. Minimax/alpha-beta and CUDA-BSFP continue independently on their canonical solver heads. `solver/hybrid-confluence` is the dedicated implementation head for the new asynchronous exact-confluence architecture; research may be developed on the appropriate research lane before implementation is promoted there.
-
-No solver lane should be inferred from old historical branch names. The branch migration/retirement record is preserved in `research/MIGRATION_MANIFEST.json`.
-
-The archived 2025 browser game is source/provenance material, not the target architecture. UI/audio/browser-specific structure is not imported wholesale.
+Current C4-0009-P1 native execution is intentionally frozen to 4x3 connect-3; larger default-ladder cases remain visibly unsupported until a later compact CUDA-BSFP profile supplies executable semantics and a safe memory bound.

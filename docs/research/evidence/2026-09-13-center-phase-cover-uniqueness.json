@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-13",
+  "branch": "research/frontier-negamax-conformance",
+  "research_direction": "Josh Oshiro",
+  "prototype": "reference/research-prototypes/2026-09-13-perfect-play-winline/center_phase_cover_uniqueness.mjs",
+  "geometry": {"W":7,"H":6,"K":4,"winning_lines":69},
+  "phaseAssignments": 32,
+  "uncoveredCountDistribution": {"0":1,"2":1,"3":2,"5":2,"6":5,"8":3,"9":10,"11":2,"12":6},
+  "completeCovers": [
+    {"oddControlledWingColumns":[1],"evenControlledWingColumns":[2,3,6,7]}
+  ],
+  "uniqueCompleteCover": {
+    "knownP0OpeningCell":[4,1],
+    "requiredP1BottomCells":[[1,1],[5,1]],
+    "reasonForE1":"the pair blocker {D1,E1} plus known P0 ownership of D1 forces P1 ownership of E1",
+    "reasonForA1":"odd control of wing column A includes singleton blocker A1"
+  },
+  "firstResponseCapacity": {
+    "P1MovesBeforeP0SecondMove":1,
+    "distinctRequiredBottomCells":2,
+    "feasible":false
+  },
+  "interpretation": [
+    "Within the five-wing column-phase family induced by the center D/E pairing topology, exactly one of 32 parity assignments statically blocks every geometric P0 win line.",
+    "That unique complete cover simultaneously requires P1 ownership of A1 and E1 while D1 is already P0-owned.",
+    "P1 can occupy at most one of A1/E1 before P0's second move, so P0 can occupy the other immediately. The unique static complete cover is therefore temporally unrealizable at the first response boundary.",
+    "This exactly predicts two known positive control edges: after P1 replies E1, P0 A1 is winning; after P1 replies A1, P0 E1 is winning. The W/D/L labels are validation only, not premises of the phase-cover enumeration."
+  ],
+  "claim_boundary": "The result proves impossibility only for this generic phase/pairing safety family. It does not yet prove that every possible P1 safety policy after center opening belongs to this family."
+}

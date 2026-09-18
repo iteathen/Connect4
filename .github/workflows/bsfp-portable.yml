@@ -1,0 +1,129 @@
+name: bsfp-portable
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bsfp-portable:
+    name: bsfp-portable (${{ matrix.os }}, node-${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - windows-2025
+        node:
+          - 24.15.0
+          - 26.7.0
+    steps:
+      - name: Checkout Connect4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout exact CUDA-Algorithms candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/CUDA-Algorithms
+          ref: 48ee0aec9acae7776950f03ab52ab1737e598b6e
+          path: cuda-algorithms
+          persist-credentials: false
+
+      - name: Checkout exact CUDA-JS authority
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: iteathen/CUDA-JS
+          ref: 98e2ebc942c14d63acf4dd82e912dd548c363a05
+          path: cuda-js
+          persist-credentials: false
+
+      - name: Select compatibility-probe Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Record actual Node version
+        run: node --version
+
+      - name: Verify bootstrap FFI propagation policy
+        run: node -e "import('./tools/bootstrap-cuda-bsfp-q1.mjs').then(({qualificationNodeOptions})=>{const f='--experimental-ffi';const supported=process.allowedNodeEnvironmentFlags?.has(f)===true;const result=qualificationNodeOptions('--trace-warnings');if(supported&&!result.split(/\s+/).includes(f))throw new Error('bootstrap failed to add experimental FFI');if(!supported&&result.split(/\s+/).includes(f))throw new Error('bootstrap added unsupported experimental FFI');console.log(JSON.stringify({node:process.version,supported,nodeOptions:result}))})"
+
+      - name: Verify native Q1 child FFI argv
+        run: node -e "import('./tools/cuda-bsfp-qualifier/profiles.mjs').then(({nativeNodeArgs})=>{const f='--experimental-ffi';const supported=process.allowedNodeEnvironmentFlags?.has(f)===true;const args=nativeNodeArgs('probe.mjs');if(supported&&args[0]!==f)throw new Error('native Q1 child did not receive experimental FFI on argv');if(!supported&&args.includes(f))throw new Error('native Q1 child received unsupported FFI argv');console.log(JSON.stringify({node:process.version,supported,args}))})"
+
+      - name: Install exact CUDA-JS dependencies without engine gating
+        env:
+          npm_config_engine_strict: "false"
+        run: npm ci --prefix cuda-js
+
+      - name: Bind exact CUDA packages through public package surfaces
+        shell: pwsh
+        run: |
+          node -e "const fs=require('fs'),p=require('path');fs.mkdirSync('node_modules',{recursive:true});for(const[n,t]of[['cuda-js','cuda-js'],['cuda-algorithms','cuda-algorithms']]){const link=p.resolve('node_modules',n),target=p.resolve(t);fs.rmSync(link,{recursive:true,force:true});fs.symlinkSync(target,link,process.platform==='win32'?'junction':'dir')}"
+
+      - name: Run ranked-activation CUDA-BSFP portable slice
+        run: node experiments/cuda-bsfp-vertical-slice/run.mjs portable
+
+      - name: Run dense 4x3 CUDA-BSFP WDL portable slice
+        run: node experiments/cuda-bsfp-dense-4x3/run.mjs portable
+
+      - name: Run packed 42-bit dominance portable benchmark
+        run: node experiments/cuda-bsfp-packed-dominance/run.mjs portable
+
+      - name: Run segmented packed-antichain portable slice
+        run: node experiments/cuda-bsfp-segmented-antichain/run.mjs portable
+
+      - name: Run bucketed segmented packed-antichain portable candidate
+        run: node experiments/cuda-bsfp-segmented-antichain/run.mjs portable-bucketed
+
+      - name: Run mixed-cardinality bucketed portable candidate
+        run: node experiments/cuda-bsfp-segmented-antichain/run.mjs portable-bucketed mixed
+
+      - name: Run duplicate-rich bucketed control
+        run: node experiments/cuda-bsfp-dedup-first/run.mjs portable-bucketed
+
+      - name: Run duplicate-first portable candidate
+        run: node experiments/cuda-bsfp-dedup-first/run.mjs portable-dedup-first
+
+      - name: Run segmented pair-generate-normalize portable slice
+        run: node experiments/cuda-bsfp-pair-antichain/run.mjs
+
+      - name: Run compact root solver portable composition
+        run: node experiments/cuda-bsfp-compact-ownership/run.mjs portable
+
+      - name: Run compact scaling static epochs portable composition
+        run: node experiments/cuda-bsfp-compact-ownership/run.mjs portable-scaling 6 5 4 8192 2048
+
+      - name: Run compact one-epoch diagnostic portable composition
+        run: node experiments/cuda-bsfp-compact-ownership/run.mjs portable-diagnostic 6 5 4 8192 2048 64 128 1
+
+      - name: Run Q1 qualifier dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
+
+      - name: Run B1 Q1 dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-b1-packed-dominance-42 --cases 7x6:c4 --spool-root .q1-b1-ci-spool
+
+      - name: Run B2 normalizer A/B Q1 dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-b2-packed-normalizer-bucketed-42 --cases 7x6:c4 --spool-root .q1-b2-ci-spool
+
+      - name: Run B3 duplicate-first A/B Q1 dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-b3-packed-dedup-first-42 --cases 7x6:c4 --spool-root .q1-b3-ci-spool
+
+      - name: Run C3 diagnostic Q1 dry-run orchestration
+        run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --profile c4-0009-c3-compact-work-diagnostic-42 --cases 6x5:c4 --spool-root .q1-c3-ci-spool
+
+      - name: Reproduce clean sibling bootstrap topology
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-bootstrap-probe" --q1-profile c4-0009-b1-packed-dominance-42 --q1-cases 7x6:c4
+
+      - name: Reproduce B2 normalizer A/B bootstrap topology
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-b2-bootstrap-probe" --q1-profile c4-0009-b2-packed-normalizer-bucketed-42 --q1-cases 7x6:c4
+
+      - name: Reproduce B3 duplicate-first A/B bootstrap topology
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-b3-bootstrap-probe" --q1-profile c4-0009-b3-packed-dedup-first-42 --q1-cases 7x6:c4
+
+      - name: Reproduce C3 diagnostic bootstrap topology
+        run: node tools/bootstrap-cuda-bsfp-q1.mjs --prepare-only --workspace "${{ runner.temp }}/q1-c3-bootstrap-probe" --q1-profile c4-0009-c3-compact-work-diagnostic-42 --q1-cases 6x5:c4

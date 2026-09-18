@@ -1,0 +1,59 @@
+name: Frontier distance2 target-support reentry
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-reentry.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - .github/workflows/frontier-distance2-target-support-reentry.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reentry:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      states: ${{ steps.run.outputs.states }}
+      evaluated: ${{ steps.run.outputs.evaluated }}
+      closed: ${{ steps.run.outputs.closed }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify target-support reentry from distance two
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/distance2-target-support.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-reentry.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('DISTANCE2_TARGET_SUPPORT_REENTRY='));
+          if(!line) throw new Error('distance2 target-support summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.exactDistance2States<1) throw new Error('distance2 corpus empty');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `states=${x.exactDistance2States}`,
+            `evaluated=${x.evaluatedStates}`,
+            `closed=${x.closedStates}`,
+            `failed=${x.failedStates}`,
+            `resource=${x.resourceShards}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: reentry
+    name: d2-s${{ needs.reentry.outputs.states }}-e${{ needs.reentry.outputs.evaluated }}-c${{ needs.reentry.outputs.closed }}-f${{ needs.reentry.outputs.failed }}-r${{ needs.reentry.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "distance2 target-support reentry counts encoded in job name"

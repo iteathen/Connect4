@@ -1,0 +1,59 @@
+name: Frontier rank7 D exception root actions
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-lambda-root-branch-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-sequence-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-distance-mu-proof-lib.mjs'
+      - '.github/workflows/frontier-rank7-d-exception-root-actions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: C3, action: C }
+          - { target: C3, action: A }
+          - { target: C3, action: B }
+          - { target: C3, action: D }
+          - { target: C3, action: E }
+          - { target: C3, action: F }
+          - { target: G3, action: G }
+          - { target: G3, action: A }
+          - { target: G3, action: B }
+          - { target: G3, action: D }
+          - { target: G3, action: E }
+          - { target: G3, action: F }
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    name: ${{ matrix.target }}-${{ matrix.action }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Probe D-exception root action
+        env:
+          SEQUENCE: '466565546644'
+          TARGET: ${{ matrix.target }}
+          MAX_TARGET_DISTANCE: '2'
+          ACTION: ${{ matrix.action }}
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/out.txt"
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-lambda-root-branch-probe.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('GENERIC_LAMBDA_ROOT_BRANCH_PROBE='));
+          if(!line) throw new Error('lambda branch output missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.proved!==true) throw new Error(`root ${x.target}/${x.rootAction} unproved: ${x.proofKind}`);
+          NODE

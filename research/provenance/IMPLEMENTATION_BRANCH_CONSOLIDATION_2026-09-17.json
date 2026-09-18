@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-17",
+  "repository": "iteathen/Connect4",
+  "purpose": "Preserve exact disposition/provenance before retiring stale non-durable implementation/work refs after the closed durable-lane decision.",
+  "authority": {
+    "topology_decision": "docs/decisions/2026-09-17-closed-durable-lane-topology.md",
+    "canonical_research": "research/semantic-quotient",
+    "research_source_manifest": "research/provenance/SOURCE_MANIFEST.json"
+  },
+  "protected_not_in_scope": [
+    "main",
+    "research/semantic-quotient",
+    "solver/minimax-alpha-beta",
+    "solver/cuda-bsfp",
+    "solver/hybrid-confluence",
+    "isometric",
+    "sut",
+    "experiment/bsfp-clause-coverage",
+    "experiment/bsfp-rank-slice-compact42",
+    "experiment/bsfp-support-local-clause-coverage",
+    "research/bsfp-isometric-invariant-transfer",
+    "research/bsfp-tensor-dominance-overflow",
+    "research/bsfp-tensor-overflow-dominance"
+  ],
+  "retire": [
+    {
+      "name": "feature/cuda-bsfp",
+      "head": "093218ca55b37f9179d0ede8255ac1621f2e96f5",
+      "proof": "strict_ancestor",
+      "owner": "solver/cuda-bsfp",
+      "archive_tag": "archive/implementation-consolidation-2026-09/feature--cuda-bsfp"
+    },
+    {
+      "name": "tmp-unused-should-not-create",
+      "head": "73edfac22f2fedfc4dc08ac584c608386d1797c4",
+      "proof": "existing_archive_alias",
+      "archive_tag": "archive/research-consolidation-2026-09/research-unified-knowledge-staging"
+    },
+    {
+      "name": "work/main-shared-foundation-20260911",
+      "head": "adce6b444aaab9469843f3f9700c6ca4b89b0a41",
+      "proof": "strict_ancestor",
+      "owner": "main",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--main-shared-foundation-20260911"
+    },
+    {
+      "name": "work/minimax-a1a9-a10-exact-20260911",
+      "head": "e39c52eaecebaf0f7e67004dd2900a041588e90b",
+      "proof": "source_packet",
+      "source_id": "minimax-work-a1a9-a10",
+      "source_tree": "d37d8c0918339cfe9b3074a8efb87d06b1fed008",
+      "archive_path": "research/provenance/source-archive/minimax-work-a1a9-a10/research",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a1a9-a10-exact-20260911"
+    },
+    {
+      "name": "work/minimax-a123-direct-20260911",
+      "head": "f350731b2335d4d90ffdfc110027a9e0f4e6767b",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-direct-20260911"
+    },
+    {
+      "name": "work/minimax-a123-mq5-anchors-20260911",
+      "head": "3c70cc28415b43af40bd85b1cbc138231d896aa5",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-anchors-20260911",
+      "alias_set": [
+        "work/minimax-a123-mq5-anchors-20260911",
+        "work/minimax-impl-mq5-a123-20260911"
+      ]
+    },
+    {
+      "name": "work/minimax-a123-mq5-evidence-20260911",
+      "head": "38077ddb1ab386c88fca70f1332a56d98bab5001",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-evidence-20260911",
+      "alias_set": [
+        "work/minimax-a123-mq5-evidence-20260911",
+        "work/minimax-a123-mq5-integrate-20260911",
+        "work/minimax-proof-hierarchy-saturation-20260911"
+      ]
+    },
+    {
+      "name": "work/minimax-a123-mq5-evidence-copy-20260911",
+      "head": "38324e1f11301bbbd6f91984e0b83bf70b236d73",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-final-20260911",
+      "alias_set": [
+        "work/minimax-a123-mq5-evidence-copy-20260911",
+        "work/minimax-a123-mq5-final-20260911",
+        "work/minimax-a123-mq5-pr-20260911"
+      ]
+    },
+    {
+      "name": "work/minimax-a123-mq5-final-20260911",
+      "head": "38324e1f11301bbbd6f91984e0b83bf70b236d73",
+      "proof": "alias_of_recorded_head",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-final-20260911"
+    },
+    {
+      "name": "work/minimax-a123-mq5-integrate-20260911",
+      "head": "38077ddb1ab386c88fca70f1332a56d98bab5001",
+      "proof": "alias_of_recorded_head",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-evidence-20260911"
+    },
+    {
+      "name": "work/minimax-a123-mq5-pr-20260911",
+      "head": "38324e1f11301bbbd6f91984e0b83bf70b236d73",
+      "proof": "alias_of_recorded_head",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-final-20260911"
+    },
+    {
+      "name": "work/minimax-candidate-composition-20260911",
+      "head": "841f33f4face3c391d164b674ae47329b1e5f5ec",
+      "proof": "source_packet",
+      "source_id": "minimax-work-candidate-composition",
+      "source_tree": "e2eed781cf684069bfe61cc2303b2ec79d0b8f89",
+      "archive_path": "research/provenance/source-archive/minimax-work-candidate-composition/research",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-candidate-composition-20260911"
+    },
+    {
+      "name": "work/minimax-impl-mq5-a123-20260911",
+      "head": "3c70cc28415b43af40bd85b1cbc138231d896aa5",
+      "proof": "alias_of_recorded_head",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-anchors-20260911"
+    },
+    {
+      "name": "work/minimax-impl-prefilter-20260911-copy",
+      "head": "c0ec20129d18143dd244dd49ddb49a2053785084",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-impl-prefilter-20260911-copy"
+    },
+    {
+      "name": "work/minimax-impl-prefilter-20260911",
+      "head": "f0ec8d0a5bc62885b0e2f0846125f1837e548ec8",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-impl-prefilter-20260911"
+    },
+    {
+      "name": "work/minimax-proof-hierarchy-saturation-20260911",
+      "head": "38077ddb1ab386c88fca70f1332a56d98bab5001",
+      "proof": "alias_of_recorded_head",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-a123-mq5-evidence-20260911"
+    },
+    {
+      "name": "work/minimax-typed-a123-20260911",
+      "head": "d2b3f98918ed42ad2e8a1314ae6173dcae8bd997",
+      "proof": "source_packet",
+      "source_id": "minimax-work-typed-a123",
+      "source_tree": "b74b777853d7a6c4063ff4ae12aef639ba9dd5ec",
+      "archive_path": "research/provenance/source-archive/minimax-work-typed-a123/research",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-typed-a123-20260911"
+    },
+    {
+      "name": "work/minimax-typed-intern-20260911",
+      "head": "01797ca11bb7f248156548c35e33fff14c05c105",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-typed-intern-20260911"
+    },
+    {
+      "name": "work/minimax-u1-testb-compat-20260911",
+      "head": "31bdb7da6712b186810d6cb7b7c86850af3436df",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-u1-testb-compat-20260911"
+    },
+    {
+      "name": "work/minimax-zpar-single-threat-20260911",
+      "head": "d7115bbc2e8d9c1ca7218a4cddcd951091d1d2e6",
+      "proof": "source_manifest_subsumed",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--minimax-zpar-single-threat-20260911"
+    },
+    {
+      "name": "work/semantic-quotient-mq4-flat-replay-20260911",
+      "head": "5ac3d45b03bb466d97ccac77e431d0b6dcd966a6",
+      "proof": "strict_ancestor",
+      "owner": "research/semantic-quotient",
+      "archive_tag": "archive/implementation-consolidation-2026-09/work--semantic-quotient-mq4-flat-replay-20260911"
+    }
+  ],
+  "note": "The listed work/minimax refs contain research/prototype/workflow surfaces rather than maintained solver components. Canonical research SOURCE_MANIFEST preserves the three maximal source packets and explicitly marks the remaining work refs as subsumed/aliases.",
+  "cleanup_result": {
+    "status": "completed",
+    "completed_utc": "2026-09-18",
+    "topology_pr": 52,
+    "topology_main_commit": "33f3cb5451ab4dcb891823f506a11c2c483c32c8",
+    "stale_ref_cleanup_run": 35308129113,
+    "cleanup_host_retirement_run": 35308233304,
+    "retired_listed_ref_count": 21,
+    "retired_cleanup_host_count": 1,
+    "new_implementation_archive_tag_count": 16,
+    "existing_archive_alias_reused": {
+      "ref": "tmp-unused-should-not-create",
+      "tag": "archive/research-consolidation-2026-09/research-unified-knowledge-staging",
+      "target": "73edfac22f2fedfc4dc08ac584c608386d1797c4"
+    },
+    "cuda_bsfp_tracking_pr_25": "closed_as_wholesale_merge_path; solver/cuda-bsfp remains durable active lane",
+    "dependency_reroutes": [
+      {
+        "branch": "research/semantic-quotient",
+        "commit": "e947e30f52c9d4eab117a22fd438df569d26617d",
+        "change": "Q1 bootstrap default feature/cuda-bsfp -> solver/cuda-bsfp"
+      },
+      {
+        "branch": "isometric",
+        "commit": "4c122e661c4c3bd11aa4732e0e77f9ef0eef0cb6",
+        "change": "Q1 bootstrap default feature/cuda-bsfp -> solver/cuda-bsfp"
+      }
+    ],
+    "durable_lane_repairs": [
+      {
+        "branch": "solver/hybrid-confluence",
+        "final_head": "53a05729a2f649da9bc07f14f409124bbe70c6f5",
+        "change": "fast-forwarded from stale shared-foundation placeholder and given branch identity/status/next-step"
+      },
+      {
+        "branch": "sut",
+        "final_head": "f4e2eb7f93095514edc45a971ed61cc66d5cb84f",
+        "change": "preserved unique SUT direction commits, imported current topology authority, and replaced inherited main dashboard with SUT-local status/next-step"
+      }
+    ],
+    "final_branch_count": 13,
+    "durable_lanes": {
+      "main": "33f3cb5451ab4dcb891823f506a11c2c483c32c8",
+      "research_semantic_quotient": {
+        "head_before_cleanup_result_record": "ca8dca065fac363762c419838c9594f1e9575d83",
+        "note": "The cleanup-result record itself advances research/semantic-quotient, so no self-referential final SHA is embedded here."
+      },
+      "solver_minimax_alpha_beta": "f8b9085dbfe9b4c5fa9a6865ea17b7478eb9ca9a",
+      "solver_cuda_bsfp": "b997bb72cfc84e53eacb91eaf0b2b124552e4a34",
+      "solver_hybrid_confluence": "53a05729a2f649da9bc07f14f409124bbe70c6f5",
+      "isometric": "2012ea9711e1e8d277b49b3ee7862344fb945388",
+      "sut": "f4e2eb7f93095514edc45a971ed61cc66d5cb84f"
+    },
+    "active_bsfp_temporary_refs_retained": {
+      "experiment/bsfp-clause-coverage": "a70d457f79c9e4e60d60b0ae9a4c6670662983ad",
+      "experiment/bsfp-rank-slice-compact42": "8555e47d853dcefb4731bc45d282e0ffe8b1e87a",
+      "experiment/bsfp-support-local-clause-coverage": "fd7a8df05eadfbf47f5a3569423c552284542d15",
+      "research/bsfp-isometric-invariant-transfer": "e8e3bb5266a39a92549248f2a586b45de4f2709e",
+      "research/bsfp-tensor-dominance-overflow": "0860adcfb7acb9631a21e830befc7ec6c38f0e85",
+      "research/bsfp-tensor-overflow-dominance": "a71ddd4919292a743c1a00188d1d5aeed38b4d7d"
+    },
+    "retained_reason": "These six BSFP refs are active experiment/research surfaces with current draft PR work; they were explicitly excluded from stale implementation cleanup.",
+    "cleanup_host_archive_tag": "archive/implementation-consolidation-2026-09/cleanup--implementation-topology-20260917"
+  },
+  "bsfp_p2_promotion": {
+    "status": "merged",
+    "promotion_pr": 53,
+    "reviewed_head": "2e71ba0ad05010fdb0634faaabc4cd00e525810d",
+    "merge_commit": "e778b90e0d042ce6a42e25ca3f5266ce1d90214c",
+    "durable_cuda_bsfp_head_after_status_reconciliation": "98ccd54e1d187056b40e63a03608cbbda05b61e9",
+    "promoted_content": [
+      "P2 loss-cofactor correctness repair",
+      "large-frontier host capacity repair",
+      "bucket histogram synchronization repair",
+      "bounded tiling for oversized intersections",
+      "full-frontier native qualification controls",
+      "reflection/cofactor-preservation optimizations",
+      "bucketed ordinary and packed overflow recovery selection",
+      "sanitized native evidence and retained failures"
+    ],
+    "qualification_checks": [
+      "verify",
+      "strength-evidence",
+      "benchmark-evidence",
+      "bsfp-portable",
+      "bsfp-scaling",
+      "bsfp-clause-coverage-experimental",
+      "bsfp-tensor-overflow-portable"
+    ],
+    "non_claims": [
+      "no complete empty-board 7x6 root WDL",
+      "no solve-time forecast from bounded timeout evidence",
+      "no lower-layer defect inferred from consumer cost",
+      "Tensor remains control rather than selected overflow path"
+    ],
+    "superseded_refs_pending_retirement": [
+      {
+        "name": "experiment/bsfp-clause-coverage",
+        "head": "a70d457f79c9e4e60d60b0ae9a4c6670662983ad",
+        "proof": "contained by promoted durable CUDA-BSFP history; PR #46 closed/merged after containment",
+        "archive_tag": "archive/implementation-consolidation-2026-09/experiment--bsfp-clause-coverage"
+      },
+      {
+        "name": "research/bsfp-tensor-overflow-dominance",
+        "head": "2e71ba0ad05010fdb0634faaabc4cd00e525810d",
+        "proof": "exact reviewed/merged PR #53 head and ancestor of durable CUDA-BSFP",
+        "archive_tag": "archive/implementation-consolidation-2026-09/research--bsfp-tensor-overflow-dominance"
+      },
+      {
+        "name": "research/bsfp-tensor-dominance-overflow",
+        "head": "0860adcfb7acb9631a21e830befc7ec6c38f0e85",
+        "proof": "historical Tensor A/B branch superseded by later native qualification; exact fixture retained, evolved runner retained on durable CUDA-BSFP, exact head preserved by archive tag",
+        "archive_tag": "archive/implementation-consolidation-2026-09/research--bsfp-tensor-dominance-overflow"
+      }
+    ],
+    "active_bsfp_refs_intentionally_retained": [
+      "experiment/bsfp-rank-slice-compact42",
+      "research/bsfp-isometric-invariant-transfer",
+      "experiment/bsfp-support-local-clause-coverage"
+    ]
+  }
+}

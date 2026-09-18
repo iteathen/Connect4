@@ -1,0 +1,45 @@
+name: Frontier standard 7x6 depth scaling
+
+on:
+  push:
+    branches: [research/frontier-negamax-conformance]
+    paths:
+      - '.github/workflows/frontier-standard7x6-depth-scaling.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-depth-scaling-campaign.mjs'
+  workflow_dispatch:
+    inputs:
+      depths:
+        description: 'Comma-separated bounded depths'
+        required: false
+        default: '8,9,10'
+      repeats:
+        description: 'Fresh-process timing repeats per depth'
+        required: false
+        default: '3'
+      max_case_ms:
+        description: 'Per-sample timeout in milliseconds'
+        required: false
+        default: '120000'
+
+permissions:
+  contents: read
+
+jobs:
+  scale:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      DEPTHS: ${{ inputs.depths || '8,9,10' }}
+      REPEATS: ${{ inputs.repeats || '3' }}
+      MAX_CASE_MS: ${{ inputs.max_case_ms || '120000' }}
+      BUDGET_MIB: '2048'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Measure bounded depth scaling and predictive curve inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-depth-scaling-campaign.mjs

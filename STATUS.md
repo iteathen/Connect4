@@ -1,70 +1,153 @@
-# Connect4 Repository Status
+# Connect4 current research status
 
-**Updated:** 2026-09-11  
-**Role:** shared-foundation dashboard and authority router
+**Updated:** 2026-09-17  
+**Branch:** `research/semantic-quotient`  
+**Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
+**Formalization / implementation / qualification:** OpenAI ChatGPT
 
-`main` is the accepted shared Connect4 substrate. It is not the canonical implementation head for any of the three active solver lines.
+This file is the current-state router, not a theorem ledger. Exact derivations and qualification evidence live in `docs/research/**`; the executable continuation lives in `next_step.yaml`; forward-lane controls live under `research/semantic-quotient/**`.
 
-## Canonical durable lanes
+## Consolidated research-lane state
 
-| Lane | Canonical branch | Purpose | Current routing note |
-| --- | --- | --- | --- |
-| Shared product foundation | `main` | accepted domain/spec/oracle/benchmark contracts and repository routing | authoritative shared substrate |
-| Minimax / alpha-beta | `solver/minimax-alpha-beta` | exact search implementation and search-specific evidence | first-class solver head |
-| CUDA-BSFP | `solver/cuda-bsfp` | BSFP implementation and solver-specific qualification | first-class solver head |
-| Hybrid confluence | `solver/hybrid-confluence` | exact minimax + CUDA-BSFP confluence implementation and hybrid qualification | first-class solver head; created from `ed26481faef9ec635d1fd0d790cf7030a29f64ee` |
-| Semantic quotient research | `research/semantic-quotient` | solver-neutral future-behavior/minimum-description research | shared research lane |
+On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916` and the exact unified-knowledge trees were attached under `research/`. This branch now preserves both the active structural-calculus lineage and the normalized cross-lineage research knowledge base.
 
-Read each non-main lane's own `STATUS.md` and `next_step.yaml` before executing work there. Root status/next-step on `main` are routing records only.
+The consolidation changes branch ownership/provenance only. It does not promote research claims, alter theorem dispositions, or make this branch a solver implementation head. Non-research solver/product branches remain outside this cleanup.
 
-## Main branch role
+Use `research/canonical/CLAIM_INDEX.json` as the normalized claim entrypoint and `research/provenance/SOURCE_MANIFEST.json` for lossless source provenance.
 
-`main` owns facts that must be common and stable across solver lines:
+## Authority and proof boundary
 
-- Connect Four rules, legality and state semantics;
-- benchmark positions, fairness and measurement meaning;
-- independent oracle/reference behavior;
-- accepted shared contracts/conformance vectors;
-- repository ownership/routing decisions.
+- Domain target: every positive finite rectangle `W x H`, Connect-4 (`K=4`).
+- C4-0006 and C4-0007 remain Candidate structural/proof specifications. C4-0010 is an accepted research consumer and does not promote imported Candidate clauses.
+- Finite sweeps, solved W/D/L tables, strong-distance data, and varying-board censuses are discovery/validation/falsification evidence only.
+- Unknown is not loss; theorem failure is not theorem negation; equal dimension is not a natural isomorphism; absence of a forcing certificate is not a draw certificate.
+- No recursive minimax/Negamax/MCTS/PNS result or solved database label is a premise of an asserted structural theorem.
+- First-win stopping remains authoritative over partial structural observations.
 
-`components/incumbent/` remains on `main` as a qualified reference/baseline comparator. It is not the active minimax solver head.
+## Closed structural foundation currently in use
 
-Solver-specific kernels and performance machinery must not accumulate on `main`. The solver branches are long-lived product heads, not feature branches awaiting wholesale merge.
+The current research stack is:
 
-## Cross-lane flow
+```text
+geometric winning-line axioms
+  -> support / future placement-event frontier
+  -> CPC control potential / event precedence
+  -> positive residual antichains and blocker clauses
+  -> guarded response/resource/deadline consequences
+  -> NDC certificate closure
+  -> solver-specific exact proof procedure.
+```
 
-Shared accepted changes flow from `main` into solver heads. When a solver discovers a fact that belongs to shared product semantics, the smallest shared change is extracted, qualified and deliberately promoted to `main`; the solver branch itself is not merged wholesale merely to carry that fact.
+The following September 14 results are retained as the active foundation rather than repeated here in full:
 
-This makes `main` the common foundation and authority router while allowing the three solvers to optimize independently.
+- **total-domain static geometry and third-difference calculus** — symbolic formulas for line count, incidence rank/kernel, axis/phase quotients, and their board-family boundary cases;
+- **A4/quiver decomposition** — canonical static decomposition of the principal empty-board maps; standard 7x6 yields `69 = 28 + 6 + 28 + 7`;
+- **thin-board theorem** — `min(W,H)<4` implies empty-board draw by quantified legal response proof;
+- **binary control potential** — CPC, phase, seams, and ownership correction are views of one parity/control potential rather than duplicated player-color state;
+- **domain-wall / gravity normal form** — terminal four-lines are zero-edge predicates; ownership fields admit an anchor-plus-seam representation;
+- **safe pure-followup / seam reservoir** — exact defensive geometry, including the standard width-7 center-safe affine seam cube;
+- **anchored zero-edge residuals** — both players share one zero-edge terminal geometry with player identity supplied by the ownership anchor;
+- **affine/clause separation** — blocker sets are positive monotone clauses, not XOR unless split ownership is separately certified.
 
-## Current high-level state
+Primary routing for these results is in `docs/research/RESEARCH_INDEX.md` and the `required_authority` / `qualified_premises` sections of `next_step.yaml`.
 
-### Shared product foundation
+## Current strategic interpretation
 
-C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain protected on `main`. Shared-domain and benchmark/oracle corrections belong here. Solver-specific contracts/specs remain on their owning solver branch until deliberately promoted as cross-lane authority.
+The smallest preserved common strategic shape is:
 
-### Minimax
+```text
+binary control potential
++ full positive residual incidence
++ affine ownership/parity relations
++ monotone blocker clauses
++ support / response-resource / deadline guards
++ NDC composition
+-> exact terminal or proof consequence where qualified.
+```
 
-`solver/minimax-alpha-beta` owns exact minimax/negamax/alpha-beta implementation and search-specific optimization/evidence. Its history may diverge substantially from `main`; only shared accepted facts should be promoted back.
+Pure-followup/domain-wall safety is a defensive/no-loss substrate, not a signed value theorem. Hall/resource deficiency is a sufficient forcing/stopping certificate only under its exact guards; absence of Hall deficiency is not draw evidence.
 
-### CUDA-BSFP
+## Active seam — guarded mixed-owner cofactor obligation birth
 
-`solver/cuda-bsfp` owns searchless backward symbolic fixed-point implementation, CUDA qualification and BSFP-specific evidence. Its internal symbolic/quotient/recurrence structures are not `main` concerns unless an accepted consumer-neutral contract is extracted.
+The solved-database collision audit changed the classification of the missing mechanism.
 
-### Hybrid confluence
+For player `p`, the positive residual antichain is a monotone Boolean completion formula. Owner-labelled events are exact cofactors. On distinct cells, owner-`p` and owner-`1-p` substitutions commute algebraically. Therefore the missing noncommuting game content is not another residual-algebra primitive; it enters through legality/admissibility, support, response resources, deadlines, opponent-universal intervention, and first-win stopping.
 
-`solver/hybrid-confluence` is the dedicated third solver head for asynchronous exact cooperation between the minimax and CUDA-BSFP lines. It owns confluence transport/scheduling, hybrid proof exchange, hybrid-specific performance experiments and eventual hybrid implementation. It may consume accepted/public behavior from both solver lines without becoming owner of their private internal state.
+Current classification:
 
-### Shared semantic research
+```text
+new primitive enabling predicate        not warranted
+owner-labelled enabling                derived certificate relation
+cofactor degree drop                   exact algebra, not yet obligation birth
+intervening-choice stability           missing guard
+cofactor -> obligation quantifier lift primary missing composition rule
+winner/sign lift                       downstream of decisive terminal certificate
+```
 
-`research/semantic-quotient` remains the solver-neutral lane for minimum-description/future-behavior representation research. Research does not become shared architecture or solver implementation until deliberately promoted.
+Target rule shape:
 
-## Repository restructuring state
+```text
+MixedCofactorConsequence
++ AdmissibleSupport
++ UniversalInterventionStability
++ SharedResourceAccounting
++ FirstWinBeforeDeadline
+-> CertifiedObligation.
+```
 
-The 2026-09-10 lane restructure established `main`, minimax, CUDA-BSFP and semantic-quotient ownership. The emergence of hybrid confluence triggered the documented reopen condition for a new independently owned solver line. The 2026-09-11 main-role decision extends the topology to three peer solver heads while preserving the original cleanup, research and provenance rules.
+Apply this first to the documented shared d-column continuation of the minimal six-ply collision. Stop at the first required guard not derivable from existing support, blocker, control-potential, response-resource, deadline, or first-win coordinates. Only that residue is a candidate new predicate.
 
-Physical ref cleanup and archive evidence remain recorded under `research/`. Those historical cleanup records are not rewritten by this topology update.
+### Bounded collision control
 
-## Governing rule
+Zero-based paths:
 
-`main` is shared accepted truth, not "the winning solver." Solver heads own implementation. Historical checkpoints should eventually become immutable archive refs/tags plus committed evidence, not long-lived active-looking branches.
+```text
+A = [6,6,6,6,2,2] -> database draw
+B = [2,6,6,2,6,6] -> database P0 win
+```
+
+They share support `[0,0,2,0,0,0,4]`, degree-2 structural signatures, and all first-P0-event degree-2 jets. Independent structural replay reproduced exactly 13 differing degree-2 signatures among 49 common two-event column pairs. `P0 a1, P1 d1` exposes a B-only P1 residual `{e1,f1}`.
+
+That residual is a discriminator, not a proof of the database outcome. Degree contraction alone does not establish an active defensive obligation.
+
+Primary notes:
+
+- `docs/research/2026-09-14-solved-db-structural-discovery.md`
+- `docs/research/2026-09-14-solved-db-structural-assessment.md`
+
+Finite database results currently falsify value-completeness of boundary-capacity, degree-2, GF(2)-span, and current-owner degree-2-jet projections. Exact residual identity and the ownerJet signature have no sampled value collision, but this is finite validation only and gives no theorem or compact-selector proof.
+
+## Immediate execution target
+
+`next_step.yaml` owns the executable continuation:
+
+`derive_guarded_mixed_cofactor_obligation_birth`
+
+The first construction must:
+
+1. preserve exact support and full positive residual identity;
+2. separate commuting Boolean cofactor algebra from game-time admissibility;
+3. quantify opponent interventions over the post-cofactor consequence/antichain, not survival of one named residual;
+4. reuse existing singleton/fork, blocker, response-capacity, deadline, and NDC consequence types before inventing new state;
+5. use solved labels only to falsify proposed rules;
+6. preserve first-win stopping and absolute player/sign lift only after an exact terminal certificate.
+
+## Solver / ordering side seam
+
+GitHub issue **#43 — `Design-only: theorem-tiered packed structural key for frontier-native Negamax ordering`** records the move-order/advisory-evaluation design. It remains **design only**: no implementation, pruning authority, branch, or PR is implied by that issue.
+
+Conventional fixed-center, reversed-worker, history/killer, or scalar heuristic policies have no default structural authority. They may remain explicit controls or survive only through measured evidence.
+
+## Paused / preserved work
+
+- post-center strong-distance selector — paused inside the broader guarded value-closure problem;
+- history-aware marked residual calculus after the qualified 21-space — preserved;
+- forward W/D/L rank-7 P1 horizon at exact state `4665655` — unfinished but preserved;
+- varying-board census — validation/falsification only;
+- isolated `research/connect-k-derivative-classification` branch — not merged; its predicate/axiom ledger is compatible with the current classification but does not solve the temporal guard seam.
+
+## Retention and cleanup rule
+
+Keep durable theorem derivations, exact qualification evidence, useful falsifiers, and historically important performance/provenance records. Git history is the archive for superseded handoffs, chat summaries, temporary publication checkpoints, and obsolete executable/scaffolding state.
+
+Do not create another chronological status ledger. Update this file only when the current proof boundary, active seam, or routing materially changes.

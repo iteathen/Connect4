@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-17",
+  "canonical_research_branch": "research/semantic-quotient",
+  "source_branch": "research/bsfp-isometric-invariant-transfer",
+  "source_head": "6da4712501f54888ac42f31952d6a28a55d19841",
+  "source_research_tree": "dd31fab0271f132254be466f96739cedfa16f55c",
+  "imported_missing_research_blobs": 46,
+  "integration_commit": "03449505da4d88a0986ab4bcbd796e5cdaab109a",
+  "historical_routing_snapshots_archived_under": "research/provenance/historical-repository-routing/2026-09-10/",
+  "overlapping_files": {
+    "research/canonical/CLAIM_INDEX.json": "kept newer canonical superset",
+    "research/hypotheses/README.md": "merged by restoring the BSFP/Isometric hypothesis set into canonical",
+    "research/untriaged/SOURCE_QUEUE.md": "kept newer canonical queue and added consolidation disposition"
+  },
+  "policy": "All durable Connect4 research is owned by the canonical research branch. Solver branches own implementation only; temporary experiment branches may carry in-progress research but must integrate durable research output here before retirement.",
+  "retirement_gate": [
+    "active experiment PR #47 retargeted away from source branch",
+    "source branch exact head archived",
+    "no active workflow depends on source branch"
+  ]
+}

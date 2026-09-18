@@ -1,88 +1,221 @@
 # Repository context: Connect4
 
-Universal engineering and design guidance comes from the account-global `AGENTS.md`. This file supplies repository-specific ownership, routing, constraints, and authority. Research-space maintenance under `research/` is further specialized by `research/AGENTS.md`.
+Universal engineering and design guidance comes from the account-global `AGENTS.md`.
+
+
+## Current durable topology authority
+
+This branch is the **canonical solver-neutral research/knowledge lane** under the owner-authorized closed topology in `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
+
+The durable set is closed. Do not create or promote another continuity branch without explicit owner instruction. Any `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging or evidence ref created from this lane must name this or another durable owner, preserve useful results back to that owner or an immutable archive, and retire when its bounded purpose ends.
 
 ## Mission and ownership
 
-Connect4 owns Connect Four domain semantics, benchmark/oracle meaning, exact-solver product semantics, product Device-JS composition, solver qualification contracts, and product-specific evidence. Generic CUDA/search/tensor/runtime mechanisms remain owned by their natural lower repositories.
+Connect4 is an independent Node benchmark/validation product and exact-solver laboratory for Connect Four. It owns Connect Four domain semantics, the custom evaluator and conformance vectors, solved-game oracle evidence, benchmark positions/budgets/fairness/metrics/evidence, exact-solver semantics/evidence, and product composition of public CUDA libraries.
 
-`main` owns the **shared accepted substrate** for all Connect4 solver lines: domain rules, benchmark/fairness semantics, oracle/reference behavior, accepted cross-lane contracts, repository routing and shared product documentation. It is not itself the canonical implementation head for minimax, CUDA-BSFP, or hybrid confluence.
+The repository contains deliberately separate solver lanes built on shared Connect4 structural mathematics:
 
-The incumbent implementation retained on `main` is a qualified baseline/reference and oracle comparator. Do not treat it as evidence that `main` owns the active minimax solver line.
+- `components/incumbent/` owns the incumbent minimax/alpha-beta/search implementation and its accepted incumbent search/evaluator semantics.
+- `components/bsfp/` owns the backward symbolic fixed-point solver implementation and Connect4-specific BSFP composition.
+- `research/semantic-quotient/` owns quotient-native forward-solver research and its Negamax/parallel execution evidence.
 
-## Canonical durable lanes
+Do not make BSFP a specialization of Negamax or import recursive search lifecycle semantics into BSFP. Conversely, do not let the forward Negamax lane redefine the CPC/WSL/NDC mathematics simply because it consumes those facts differently.
 
-Connect4 has explicit durable lanes. Do not infer ownership or authority from historical branch names.
+CUDA-Algorithms owns reusable provider-neutral GPU parallel-algorithm semantics. CUDA-MCGS owns generic search/evaluator/resource/session semantics. CUDA-JS-Tensor owns generic Tensor semantics. CUDA-JS owns runtime/compiler/memory/provider/lifecycle mechanisms.
 
-- `main` — accepted shared product/domain/spec/oracle substrate and repository-level dashboard/router; not a solver head.
-- `solver/minimax-alpha-beta` — minimax/negamax/alpha-beta implementation, search-specific experiments and search evidence.
-- `solver/cuda-bsfp` — CUDA-BSFP implementation, BSFP-specific qualification and production-adjacent work.
-- `solver/hybrid-confluence` — hybrid minimax + CUDA-BSFP exact-confluence implementation and hybrid-specific qualification/evidence.
-- `research/unified-knowledge` — canonical solver-neutral **normalized research knowledge plane**. Shared research claims, confidence/status, provenance relationships, open questions, claim indexes and solver-consumption mappings are maintained here.
-- `research/semantic-quotient` and other focused research branches — exploratory/source lanes that may generate evidence, derivations, counterexamples or prototypes. They do not independently own cross-lineage research truth once material is normalized into `research/unified-knowledge`.
+Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thread placement, and generic shared search-resource mechanisms belong in their natural lower-layer owner when promoted beyond Connect4 research. A Connect4 research prototype may investigate them, but first-consumer implementation does not transfer semantic ownership.
 
-Each solver branch is a first-class long-lived product head and may diverge in implementation while remaining compatible with accepted shared semantics. Exploratory research branches may likewise remain useful workspaces, but branch existence or age does not confer research authority.
+## Structural authority and local routing
 
-## Cross-lane flow
+Acceptance status is part of authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
 
-- Shared accepted domain/oracle/benchmark/contract changes originate or are deliberately promoted to `main`, then flow into solver lines.
-- Solver-specific implementation and evidence stay on the owning `solver/*` branch.
-- Do not merge a solver branch wholesale into `main` merely to synchronize history.
-- If a solver or exploratory research branch discovers a potentially shared research fact, preserve its exact evidence/provenance and normalize the semantic claim into `research/unified-knowledge` before treating it as cross-family research authority.
-- If normalized research becomes an accepted product/domain contract, promote the smallest accepted contract deliberately to `main`; research normalization itself does not silently override accepted specs.
-- `solver/hybrid-confluence` may consume public/accepted semantics from both solver lines, but it does not become the owner of minimax or BSFP internals.
-- `research/unified-knowledge` owns the shared research graph, not solver implementations. A solver may consume a claim without changing that claim's epistemic status.
+- `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
+- C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
+- `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — **Candidate structural research specification** for shared Connect4 mathematics: CPC event/control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics. Its definitions and qualified theorem instances may be used explicitly in research controls, but it is not Accepted authority until its own status changes.
+- `docs/specs/C4-0007-nested-dependency-closure-v1.md` — **Candidate proof/certificate research specification** for NDC dependency/certificate/timing/fixed-point semantics. Research consuming these clauses must identify the dependency and qualification evidence; using the file does not change its Candidate status.
+- `docs/specs/C4-0008-bsfp-exact-solver-v1.md` — BSFP-specific exact W/D/L solver architecture and backward fixed-point meaning, subject to the status declared in that specification.
+- `docs/specs/C4-0009-bsfp-cuda-execution-profile-v1.md` — CUDA-BSFP execution/consumer profile, subject to its declared status.
+- `docs/specs/C4-0010-quotient-native-negamax-v1.md` — accepted **research** specification for the forward exact W/D/L Negamax consumer/execution lane. Where it imports CPC/WSL/NDC semantics from C4-0006/C4-0007, those imported structural/proof clauses retain the upstream Candidate status unless independently restated and accepted here.
+- `docs/research/2026-09-09-owner-searchless-connect4-findings.md` — owner-authored synthesis of CPC → WSL-625 → NDC → BSFP and attribution; research evidence, not a status override.
+- `docs/research/2026-09-09-universal-strategic-algebra.md` — U1 parity/response + U2 blocker-lattice unification, including even-release control preservation; research evidence.
+- `docs/research/2026-09-09-nested-strategic-dependency-closure.md` — nested conditional event reservoirs and proof closure; research evidence.
+- `docs/research/2026-09-09-searchless-solver-hypothesis.md` — explicit searchless criterion and unresolved algebraic-choice question.
+- `docs/research/2026-09-09-backward-winline-fixed-point.md` — backward W/L attractor and draw-safety fixed-point evidence.
+- `docs/research/2026-09-09-terminal-boundary-qualification.md` — independently qualified geometric terminal boundary.
+- `research/semantic-quotient/state-identity-unification/` — forward quotient research implementation/evidence; qualified controls may establish theorem instances inside the research calculus but do not redefine specification status.
+- `reference/legacy-source/` — provenance/source evidence only, not specification authority.
 
-## Research knowledge-plane routing
+### Required reading by lane
 
-When working on `research/unified-knowledge` or mutating any path under `research/`:
+For BSFP work, read:
 
-1. obey `research/AGENTS.md`;
-2. start from `research/README.md` and the canonical claim graph rather than historical branch dumps;
-3. treat `research/canonical/CLAIM_INDEX.json` as the machine-readable root and read every registry shard it lists when assigning or interpreting claim IDs;
-4. preserve stable claim IDs, explicit epistemic classification, guards/scope, sources, relations, solver-consumption meaning, open-question/hypothesis disposition, and provenance;
-5. keep affected indexes, human ledgers, maps, evidence/history state and `research/untriaged/SOURCE_QUEUE.md` synchronized with claim changes;
-6. preserve negative knowledge and historical source material until semantic retirement gates are satisfied.
+**C4-0001 → C4-0006 → C4-0007 → C4-0008 → C4-0009 → selected profile**.
 
-The previous branch-first research ownership model is retired for shared truth. Historical and focused branches are evidence/source locations; the normalized graph is the shared research authority.
+For quotient-native Negamax work, read:
 
-## Authority routing
+**C4-0001 → C4-0006 → C4-0010 → STATUS.md → next_step.yaml**.
 
-- explicit current owner instructions govern the task;
-- account-global `AGENTS.md` supplies universal engineering/process doctrine;
-- this file supplies repository ownership/routing/constraints;
-- `research/AGENTS.md` supplies research-space maintenance rules for `research/**`;
-- accepted `docs/specs/` and ADR/contract files own their stated product/domain semantics;
-- within research, `research/canonical/CLAIM_INDEX.json` plus every listed registry shard owns claim identity and epistemic status;
-- `research/canonical/*.md` are human-facing normalized synthesis and must agree with machine claim records where they overlap;
-- `research/maps/` connects claims and consumers but does not independently promote status;
-- `research/open-questions/`, `hypotheses/`, `evidence/`, `history/`, `untriaged/` and `provenance/` retain their scoped roles defined by `research/README.md` and `research/AGENTS.md`;
-- `components/domain/` and `components/oracle/` on `main` own shared maintained product semantics/reference behavior within accepted contracts;
-- `components/incumbent/` on `main` is retained as qualified baseline/reference material, not an active solver-lane ownership claim;
-- solver-owned maintained kernels belong on their canonical `solver/*` branch;
-- `reference/legacy-source/`, conformance vectors, frozen oracles and research provenance are reference/evidence, not automatic implementation or theorem authority;
-- `docs/decisions/` records explicit promotion/rejection/ownership decisions; research reports themselves do not silently become architecture authority.
+If the forward lane touches parity/Zugzwang control, blockers, strategic terminalization, event-frontier compression, race/deadline facts, or nested certificates, also read **C4-0007** and the relevant 2026-09-09 research notes above before changing semantics.
 
-## Research integrity boundary
+These arrows are reading/dependency order, not an acceptance-status ladder. Always inspect the status declared inside each specification.
 
-A research-space mutation is not complete merely because a note was added or a registry file parses. The affected normalized graph must remain coherent.
+Do not substitute generic alpha-beta literature for this repository's frontier mathematics.
 
-At minimum, preserve these distinctions:
+## Core frontier model
+
+The project research does not treat the colored board as the sole ontology of solving.
+
+The structural stack is:
 
 ```text
-exact geometry != game semantics
-static invariant != game value
-same number != same object
-finite/oracle agreement != proof
-exact certificate != advisory ordering/evaluation
-mechanism != implementation form/workload/stage order/synergy/adoption
-provenance source != current authority
+geometric winning-line axioms
+  -> support / future placement-event frontier
+  -> CPC control parity / event precedence / race
+  -> WSL-625 residual requirements and blockers
+  -> NDC nested dependency closure
+  -> exact solver-specific proof procedure
 ```
 
-Do not create duplicate claim IDs for alternate wording or solver lineage. Do not promote hypotheses or empirical results because they perform well. Do not remove source branches or queue entries merely because bytes are archived; retirement requires semantic claims, counterexamples, evidence, open questions and attribution to have stable dispositions.
+The forward quotient projection currently uses:
+
+```text
+supportIndex + normalized R0 + normalized R1
+```
+
+for ordinary legal-transition identity. That is not permission to discard CPC/NDC context from a strategic certificate that depends on reservations, releases, response resources, event order, race horizon or deadline.
+
+## CPC invariant — do not flatten it
+
+The zero-reservation target-event count is:
+
+```text
+N(t)
+  = (r - h_c + 1)
+    + sum_{d != c}(H - h_d)
+  = (W - 1)H - ply + r + 1
+```
+
+The target-column height cancels. Future target control is the event-rank parity relative to side to move.
+
+When a fragment changes the relevant future event reservoir by `Delta`, control is preserved iff the relevant change is even **and** its resource/response/event-order guards remain satisfied.
+
+Therefore:
+
+- CPC is not merely row parity;
+- parity metadata is not automatically an exact certificate;
+- dropping an event from a compressed frontier is not automatically parity-neutral;
+- eventual ownership is weaker than ownership before an opponent completion deadline.
+
+Any implementation that compresses/reserves/releases future events must account for their parity contribution where CPC proof meaning depends on it.
+
+## WSL/NDC terminalization
+
+Do not implement immediate win, double threat, exhaustion, Zugzwang, Allis-style coverage and blocker closure as unrelated conceptual systems if the common frontier algebra can express them.
+
+Cheap local tactical checks may be specialized for speed, but their semantic meaning must remain projections of the shared structural model.
+
+NDC permits feedback:
+
+```text
+response/parity fact
+  -> certified blocker
+  -> requirement elimination
+  -> changed event obligations
+  -> stronger response/parity fact
+  -> ...
+```
+
+Timing/race premises are first-class. A blocker ID represents a consequence after certification; it does not erase the premises that made the blocker valid.
+
+## Forward Negamax local boundaries
+
+For the quotient-native forward lane:
+
+- C4-0006 supplies Candidate residual/CPC structural meaning when explicitly imported by research controls;
+- C4-0007 supplies Candidate strategic certificate/dependency meaning when explicitly consumed;
+- C4-0010 owns the accepted research-lane transition/execution contract, but does not silently upgrade imported Candidate clauses;
+- the quotient state-space implementation owns the chosen exact forward projection and transition realization, not the underlying structural theory;
+- proof state is separate from semantic/frontier state;
+- the Negamax engine owns recursive W/D/L proof policy over unresolved decisions;
+- canonical shared identity is semantic content, never worker-local qID/classID or a hash alone;
+- search workers own their synchronous active task and are not interrupted for new work;
+- **Branch Manager** is an execution role for proactive branch/frontier work supply and hosted background services, not a semantic owner of every hosted concern;
+- no per-node Branch-Manager RPC belongs in recursive search.
+
+Execution locality is not semantic ownership.
+
+## Frontier-native ordering
+
+The legacy live-line position value is player-relative and dynamic:
+
+```text
+value_p(cell)
+  = number of original geometric winning lines through cell
+    containing no opponent stone
+```
+
+An opponent stone cancels that line's value for player `p`; own stones do not.
+
+The empty 7x6 vector `[3,4,5,7,5,4,3]` is derived evidence, not a static table.
+
+If this original-line multiplicity is used for ordering, carry an incremental live-line frontier or proved equivalent auxiliary representation. Do not reconstruct a conventional colored board just to recover the score, and do not pretend advisory line multiplicity is exact quotient identity.
+
+Fixed center order, reversed worker order, history/killer tables and similar conventional search policies have no default authority here. They may exist as explicit controls or survive only by measurement.
+
+## Forced work and Branch Manager
+
+One exact forced response is not a decision branch. Repeated forced responses may be collapsed into a deterministic macro-edge when semantics remain exact.
+
+When the side to move faces enabled opponent singleton obligations, **response-capacity classification precedes ordinary progress induction**:
+
+- an immediate terminal move for the side to move closes first;
+- two or more distinct enabled opponent singleton cells with only one placement response slot are an exact loss boundary;
+- exactly one enabled opponent singleton cell forces that exact defense before any ordinary `mu`/`rho`/`kappa` action choice;
+- only a zero-obligation state may enter the ordinary progress-action vocabulary unrestricted.
+
+A failed progress theorem remains unknown unless a separate exact loss certificate applies.
+
+Branch Manager should proactively maintain a bounded ready reservoir. Workers do not request work and wait. An idle worker consumes already-ready work with authoritative dependency-qualified proof work ahead of structural exploration.
+
+Exploration discovers frontier structure; it does not independently invent an alpha/beta proof obligation.
+
+## Local application of the design hierarchy
+
+For Connect4 changes, apply the global hierarchy in order: **LEGO boundaries first, then SOLID inside each valid LEGO, then CUPID, then KISS**. Do not use a lower-level principle to justify crossing a higher-level semantic/ownership boundary.
+
+Prefer logical edges where semantic meaning, authority, lifecycle, resource/failure behavior, or independently replaceable context changes. File size, queue shape, worker placement, search depth and implementation convenience are not sufficient reasons for a boundary by themselves.
+
+Reserve **gate** language for an actually blocking condition. Ordinary benchmarks, comparisons, checkpoints, experiments and optimization decisions are not gates.
+
+## Frontier hot-path specialization
+
+Apply the account-global compute-synergy doctrine aggressively to the quotient-native solver hot path.
+
+- A measured ~0.5% reduction in total CPU is material when it survives deliberate paired/repeated evidence and exact work remains unchanged.
+- Prefer invariant-bearing packed structures that reduce work on both producer and consumer sides. Masks/shifts and fixed-width typed-array arithmetic are acceptable implementation detail when the owner preserves exact semantics and explicit width/domain contracts.
+- Preallocated/sealed memory is intentionally spendable to remove recursive growth/rehash, lower load factors, shorten probe chains, reduce dependent loads, keep backing stores stable, and improve V8/JIT visibility. Do not optimize bytes independently of total solve time and the supported memory budget.
+- The recursive search path should remain fixed-storage after preparation; a setup-time resize/rehash is categorically different from growth during recursion.
+- Hashes/fingerprints are addressing/rejection accelerators only. Exact quotient/residual content remains equality authority unless an injective encoding is proved over the supported domain.
+- A meaningful performance regression blocks additional stacking until the exact diff and expanded producer→boundary→consumer causal neighborhood are audited and paired retested. If it still loses and no higher-priority requirement justifies it, record and remove/supersede it before continuing.
+- Stay in Node/JavaScript for product/domain implementation whenever the result is practically achievable there. If a genuinely consumer-neutral primitive materially requires native/GPU/SIMD/runtime support, implement the universal primitive in the appropriate CUDA-* library and consume it through a public Node-facing contract; do not add a Connect4-specific native escape path.
+
+Current durable optimization checkpoint/handoff:
+
+- `docs/research/2026-09-12-universal-optimization-checkpoint.md`
+- `docs/research/2026-09-12-frontier-optimization-handoff-v2.md`
+
+## Pre-alpha evolution
+
+The quotient-native lane is pre-alpha and has no released compatibility contract.
+
+Do not add compatibility aliases, deprecated names, redirect modules, tombstones, migration wrappers, duplicate old/new APIs, or dead historical implementations merely to preserve unreleased code. Rename, replace or delete directly and update current consumers/spec/current-state files coherently.
+
+Preserve research findings/evidence with continuing informational value; do not preserve obsolete executable architecture as compatibility baggage.
 
 ## Local constraints
 
-Maintained source is JavaScript/Node.js plus product Device-JS through public CUDA contracts. No Python, direct CUDA FFI, C/C++/CUDA C++, hand PTX, or native-addon escape path in maintained product code. Historical/provenance material may contain other languages and remains evidence rather than maintained implementation. Benchmark correctness/fairness semantics remain Connect4-owned.
+Maintained source is JavaScript/Node.js plus product Device-JS through public CUDA contracts. No Python, direct CUDA FFI, C/C++/CUDA C++, hand PTX, or native-addon escape path. Benchmark correctness/fairness semantics remain Connect4-owned.
 
-Before mutating a lane, re-fetch that lane's exact live state and preserve newer valid work. Read governing specifications/contracts and the applicable agent routing before mutation. Treat historical branches, PR descriptions, issue text, handoffs, research summaries, solved labels and prior-agent conclusions as evidence until their relationship to current canonical authority is verified.
+BSFP may consume CUDA-Algorithms only through public consumer-neutral contracts. Generic workset/closure/sequence mechanics must not be copied downstream. Conversely CPC/WSL-625/NDC/WDL semantics, exact BSFP equality/dominance, existential/universal proof reduction and semantic rank completion remain Connect4-owned.
+
+Q1 GPU qualification remains fail-closed for memory/telemetry and append-only evidence publication under its own profile.

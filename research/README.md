@@ -1,8 +1,8 @@
 # Connect4 research knowledge base
 
-Research lives here.
+Research lives here, and all durable Connect4 research belongs here.
 
-This directory is the canonical knowledge home for Connect4 research across solver families. Isometric, Negamax/Minimax, BSFP, hybrid solvers, benchmarks, and future implementations consume this knowledge; they do not independently own the truth of shared claims.
+This branch is the single canonical research owner for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmarks, oracle work, and future solver families. Solver branches own implementation; they do not own separate research truth, research notes, hypotheses, experiment results, counterexamples, or research evidence.
 
 Research direction: Josh Oshiro.
 
@@ -56,7 +56,9 @@ A statement must be classified before it is used as authority:
 
 ## Ownership rule
 
-The previous branch-first research ownership model is retired. Shared research claims are normalized here first. Solver-family branches may keep implementation notes, but a semantic claim used across families must point back to a stable research claim ID.
+The previous branch-first and solver-specific research ownership models are retired. All durable research material is integrated here: claims, derivations, hypotheses, experiment results, falsifiers, negative results, open questions, research evidence, maps, and provenance. Solver-family branches may keep implementation contracts, implementation status, qualification/reproduction artifacts, and code-local operational notes, but they are not research owners.
+
+Temporary `experiment/*`, `work/*`, or other explicitly temporary branches may carry in-progress research while an experiment is active. Their research output must be integrated into this branch before the temporary ref is retired; a temporary branch never becomes a second research authority.
 
 Code should reference stable claim IDs such as `C4-R0004` where practical. A solver-specific optimization can consume a claim without changing its epistemic status.
 

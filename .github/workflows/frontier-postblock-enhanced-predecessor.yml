@@ -1,0 +1,88 @@
+name: Frontier post-block enhanced predecessor
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-enhanced-predecessor.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+      - .github/workflows/frontier-postblock-enhanced-predecessor.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  c3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      states: ${{ steps.run.outputs.states }}
+      evaluated: ${{ steps.run.outputs.evaluated }}
+      closed: ${{ steps.run.outputs.closed }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify C3 enhanced predecessor
+        id: run
+        shell: bash
+        env:
+          FILTER_TARGET: C3
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/postblock-enhanced-c3.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-enhanced-predecessor.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_ENHANCED_PREDECESSOR='));
+          if(!line) throw new Error('enhanced predecessor summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.filterTarget!=='C3'||x.exactRank18States!==42) throw new Error('C3 filtered-domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`states=${x.exactRank18States}`,`evaluated=${x.evaluatedStates}`,`closed=${x.closedStates}`,`failed=${x.failedStates}`,`resource=${x.resourceShards}`].join('\n')+'\n');
+          NODE
+
+  g3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      states: ${{ steps.run.outputs.states }}
+      evaluated: ${{ steps.run.outputs.evaluated }}
+      closed: ${{ steps.run.outputs.closed }}
+      failed: ${{ steps.run.outputs.failed }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Qualify G3 enhanced predecessor
+        id: run
+        shell: bash
+        env:
+          FILTER_TARGET: G3
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/postblock-enhanced-g3.txt"
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-enhanced-predecessor.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_ENHANCED_PREDECESSOR='));
+          if(!line) throw new Error('enhanced predecessor summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.filterTarget!=='G3'||x.exactRank18States!==42) throw new Error('G3 filtered-domain drift');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[`states=${x.exactRank18States}`,`evaluated=${x.evaluatedStates}`,`closed=${x.closedStates}`,`failed=${x.failedStates}`,`resource=${x.resourceShards}`].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: [c3,g3]
+    name: enhanced-c3-${{ needs.c3.outputs.closed }}of${{ needs.c3.outputs.evaluated }}-f${{ needs.c3.outputs.failed }}-r${{ needs.c3.outputs.resource }}-g3-${{ needs.g3.outputs.closed }}of${{ needs.g3.outputs.evaluated }}-f${{ needs.g3.outputs.failed }}-r${{ needs.g3.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "enhanced post-block predecessor counts encoded in job name"

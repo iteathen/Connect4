@@ -1,0 +1,67 @@
+name: Frontier support-graded middle duality
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-self-duality-audit.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-natural-boundary-splittings-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-residual-degree3-core-control.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-residual-sequential-ladder-falsifier.mjs'
+      - 'docs/research/2026-09-14-support-graded-middle-duality.md'
+      - 'docs/research/2026-09-14-cpc-self-duality-audit.md'
+      - 'docs/research/2026-09-14-cpc-residual-middle-isomorph.md'
+      - 'docs/research/2026-09-14-natural-boundary-splittings-and-P.md'
+      - 'docs/research/2026-09-14-residual-degree3-core.md'
+      - 'docs/research/2026-09-14-residual-sequential-ladder-falsifier.md'
+      - '.github/workflows/frontier-support-graded-middle-duality.yml'
+  workflow_dispatch:
+
+jobs:
+  support-graded-middle-duality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Qualify support-graded middle duality
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-support-graded-middle-duality-control.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
+      - name: Falsify simple CPC self-duality candidates
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-self-duality-audit.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
+      - name: Qualify CPC-residual direct middle isomorphism
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-cpc-residual-middle-isomorph-control.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
+      - name: Qualify natural boundary splittings and typed P
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-natural-boundary-splittings-control.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
+      - name: Qualify residual degree-3 core
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-residual-degree3-core-control.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"
+      - name: Falsify naive sequential residual ladder
+        run: |
+          set -euo pipefail
+          output="$(timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-residual-sequential-ladder-falsifier.mjs)"
+          printf '%s\n' "$output"
+          grep -F '"proved":true' <<<"$output"

@@ -1,0 +1,58 @@
+name: Frontier rank20 gap representative probes
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank20-gap-representative-probes.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-repair-capacity-proof-lib.mjs
+      - .github/workflows/frontier-rank20-gap-representative-probes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      attempted: ${{ steps.run.outputs.attempted }}
+      completed: ${{ steps.run.outputs.completed }}
+      proved: ${{ steps.run.outputs.proved }}
+      logical: ${{ steps.run.outputs.logical }}
+      resource: ${{ steps.run.outputs.resource }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/rank20-gap-probes.txt"
+          timeout 270s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-rank20-gap-representative-probes.mjs | tee "$f"
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('RANK20_GAP_REPRESENTATIVE_PROBES='));
+          if(!line) throw new Error('rank20 representative probe summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.totals.attempted!==5) throw new Error(`probe inventory drift ${x.totals.attempted}`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `attempted=${x.totals.attempted}`,
+            `completed=${x.totals.completed}`,
+            `proved=${x.totals.proved}`,
+            `logical=${x.totals.logicalFailures}`,
+            `resource=${x.totals.resourceFailures}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: probes
+    name: probes-a${{ needs.probes.outputs.attempted }}-c${{ needs.probes.outputs.completed }}-p${{ needs.probes.outputs.proved }}-l${{ needs.probes.outputs.logical }}-r${{ needs.probes.outputs.resource }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "qualified rank20 representative probe counts encoded in job name"

@@ -1,0 +1,24 @@
+name: bsfp-research
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  research:
+    name: bsfp-research
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Record exact runtime
+        run: node --version
+      - name: Exact double-threat absorber replay
+        run: node --expose-gc reference/research-prototypes/2026-09-10-bsfp-winspace-inference/double-threat-absorber.mjs | tee double-threat-absorber-evidence.json
+      - name: Exact terminal-subtraction specialization opportunity
+        run: node --expose-gc reference/research-prototypes/2026-09-10-bsfp-terminal-specialization/measure-terminal-subtraction.mjs | tee terminal-subtraction-specialization-evidence.json

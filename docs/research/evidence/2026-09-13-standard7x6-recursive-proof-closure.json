@@ -1,0 +1,117 @@
+{
+  "kind": "standard7x6-recursive-proof-closure-evidence-v1",
+  "date": "2026-09-13",
+  "attribution": {
+    "researchDirectionAndStructuralTarget": "Josh Oshiro",
+    "formalizationImplementationAndQualification": "OpenAI ChatGPT"
+  },
+  "sourceFrontier": {
+    "levels": [
+      {"ply": 0, "states": 1, "paths": 1},
+      {"ply": 1, "states": 1, "paths": 1},
+      {"ply": 2, "states": 7, "paths": 7},
+      {"ply": 3, "states": 7, "paths": 7},
+      {"ply": 4, "states": 47, "paths": 49},
+      {"ply": 5, "states": 47, "paths": 49},
+      {"ply": 6, "states": 277, "paths": 343},
+      {"ply": 7, "states": 204, "paths": 231},
+      {"ply": 8, "states": 1141, "paths": 1616}
+    ],
+    "ply8": {
+      "physicalStates": 1141,
+      "rawQuotientStates": 1141,
+      "immediateWinStates": 319,
+      "recursiveStates": 822
+    }
+  },
+  "recursiveAlphabet": {
+    "workflowRun": 34790994651,
+    "workflowJob": 103815060746,
+    "workflowHead": "ea6aac56c8e8fff9232363b47d7dfb7ea1a60110",
+    "classCounts": {
+      "exactQModuloHorizontalReflection": 531,
+      "supportOnly": 273,
+      "supportPlusResidualSize": 519,
+      "supportPlusPlayableFrontierIncidence": 531,
+      "supportPlusResourceDependency": 531,
+      "resourceDependencyPlusLandingEffectMultiset": 531,
+      "resourceDependencyPlusReflectionPreservingEffects": 531
+    }
+  },
+  "sizeDifferential": {
+    "workflowRun": 34791088068,
+    "workflowJob": 103815316158,
+    "workflowHead": "9f126405bfc8f0faa6affe4d9f66e5e4c3a7d13c",
+    "supportPlusResidualSizeClasses": 519,
+    "exactQReflectionClasses": 531,
+    "mixedCoarseClasses": 12,
+    "allMixedClassesSplitAfterOneTransitionLayer": true,
+    "oneStepRefinedClasses": 531
+  },
+  "sameSupportResidualDominance": {
+    "workflowRun": 34791226882,
+    "workflowJob": 103815705429,
+    "workflowHead": "5599e8c0c56655f4b9fa360bf064ce3410afd94a",
+    "supportGroups": 444,
+    "strictDominancePairs": 1,
+    "transitionChecks": 7,
+    "transitionViolations": 0,
+    "hardestStates": 821,
+    "candidateStatus": "bounded weak/negative control; not an accepted strategic implication theorem"
+  },
+  "siblingCrossResponse": {
+    "workflowRun": 34791389035,
+    "workflowJob": 103816156049,
+    "workflowHead": "a653b46bcbd02906993d81a16ea0b0a595db7771",
+    "ply7Parents": 204,
+    "rawSiblingPairs": 4278,
+    "nonImmediateSiblingPairs": 2619,
+    "bothCrossResponsesExactWinning": 1487,
+    "exactQConvergencePairs": 0,
+    "strictResidualDominancePairs": 0,
+    "candidateStatus": "negative control"
+  },
+  "guidedIoRecursiveClosure": {
+    "workflowRun": 34791554423,
+    "workflowJob": 103816615935,
+    "workflowHead": "b40497ae01f62525017b84f3e28344375763b3c4",
+    "additionalPlies": 4,
+    "stateCap": 100000,
+    "capHit": false,
+    "materializedQStates": 21656,
+    "startingRecursiveStates": 822,
+    "provenStartingStates": 99,
+    "unresolvedStartingStates": 723,
+    "closureFraction": 0.12043795620437957,
+    "rootProofClasses": {
+      "E(O)": 84,
+      "E(A(E(O)|I))": 15
+    },
+    "provenUniversalNodes": 15,
+    "rawUniversalBranches": 105,
+    "normalizedConsequenceBranches": 30,
+    "universalBranchReduction": 0.7142857142857143,
+    "maxNormalizedUniversalArity": 2,
+    "oracleBoundary": "Pons selected only the attempted existential edge; every closed expression is independently justified by legal transitions and I/O/E/A rules"
+  },
+  "exhaustiveLocalGrammar": {
+    "workflowRun": 34791694587,
+    "workflowJob": 103817006993,
+    "workflowHead": "15bcf673e7bacc7f31af5a1c1d9a46133fead040",
+    "recursiveRoots": 822,
+    "structurallyProvenRoots": 99,
+    "unresolvedRoots": 723,
+    "closureFraction": 0.12043795620437957,
+    "proofClasses": {
+      "E(O)": 84,
+      "E(A(E(O)|I))": 15
+    },
+    "rawUniversalBranches": 105,
+    "normalizedUniversalConsequenceBranches": 30,
+    "universalBranchReduction": 0.7142857142857143,
+    "maxNormalizedUniversalArity": 2,
+    "exactWdlOrOracleMovesUsedInProofSelection": false,
+    "interpretation": "all legal witnesses were exhausted for the two observed local proof forms; zero additional roots closed beyond the guided pilot"
+  },
+  "currentConclusion": "Proof-class recursion is the first tested relation that materially compresses the real standard-7x6 recursive frontier. The remaining 723 roots require deeper grammar and/or additional theorem-backed structural leaves; they are not explained by missed local existential witnesses."
+}

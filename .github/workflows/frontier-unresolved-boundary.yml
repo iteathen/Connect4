@@ -1,0 +1,56 @@
+name: Frontier unresolved boundary
+
+on:
+  push:
+    branches: [research/frontier-negamax-conformance]
+    paths:
+      - '.github/workflows/frontier-unresolved-boundary.yml'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-unresolved-boundary-census.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-proof-frontier-census.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  boundary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      FRONTIER_DEPTH: '8'
+      PONS_BATCH_MS: '120000'
+      PONS_SOURCE_COMMIT: 'd6ba50d8aaf2308c769d9bf2abd42d90f34baf41'
+      PONS_BOOK_ASSET_ID: '10766475'
+      PONS_BOOK_EXPECTED_SHA256: 'f346cd449626fb81da93be0958e017ee854e5f74d85b6d38062357f5403aec53'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Checkout pinned Pascal Pons oracle source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: PascalPons/connect4
+          ref: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+          path: .external/pons-connect4
+          persist-credentials: false
+      - name: Build and bind pinned diagnostic oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -C .external/pons-connect4 c4solver
+          curl --fail --location --retry 3 --silent --show-error \
+            --output .external/pons-connect4/7x6.book \
+            https://github.com/PascalPons/connect4/releases/download/book/7x6.book
+          size=$(stat -c '%s' .external/pons-connect4/7x6.book)
+          test "$size" = '33554524'
+          sha=$(sha256sum .external/pons-connect4/7x6.book | awk '{print $1}')
+          test "$sha" = "$PONS_BOOK_EXPECTED_SHA256"
+          echo "PONS_BOOK_SHA256=$sha" >> "$GITHUB_ENV"
+          echo "PONS_SOLVER_PATH=$GITHUB_WORKSPACE/.external/pons-connect4/c4solver" >> "$GITHUB_ENV"
+          echo "PONS_BOOK_PATH=$GITHUB_WORKSPACE/.external/pons-connect4/7x6.book" >> "$GITHUB_ENV"
+      - name: Classify the unresolved structural boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-unresolved-boundary-census.mjs

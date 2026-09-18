@@ -1,0 +1,90 @@
+name: Frontier post-block enhanced failure census
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - .github/workflows/frontier-postblock-enhanced-failure-census.yml
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-enhanced-predecessor.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-distance2-target-support-proof-lib.mjs
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-resolved-tail-lexicographic-proof-lib.mjs
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      failures: ${{ steps.census.outputs.failures }}
+      p1_terminal: ${{ steps.census.outputs.p1_terminal }}
+      d1_unproved: ${{ steps.census.outputs.d1_unproved }}
+      d2_rejected: ${{ steps.census.outputs.d2_rejected }}
+      outside: ${{ steps.census.outputs.outside }}
+      signatures: ${{ steps.census.outputs.signatures }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Reproduce G3 enhanced predecessor
+        shell: bash
+        env:
+          FILTER_TARGET: G3
+        run: |
+          set -euo pipefail
+          timeout 270s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-postblock-enhanced-predecessor.mjs > "$RUNNER_TEMP/enhanced-g3.txt"
+      - name: Emit compact exact failure census
+        id: census
+        shell: bash
+        run: |
+          RESULT_FILE="$RUNNER_TEMP/enhanced-g3.txt" node <<'NODE'
+          const fs=require('node:fs');
+          const line=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).find(x=>x.startsWith('POSTBLOCK_ENHANCED_PREDECESSOR='));
+          if(!line) throw new Error('enhanced predecessor summary missing');
+          const x=JSON.parse(line.slice(line.indexOf('=')+1));
+          if(x.filterTarget!=='G3'||x.failedStates!==17||x.resourceShards!==0) throw new Error(`G3 baseline drift f${x.failedStates} r${x.resourceShards}`);
+          const rows=x.failureSamples.map(r=>{
+            const attempts=r.attempts.map(a=>{
+              if(a.accepted)return {column:a.column,accepted:true};
+              const f=a.firstFailure||{};
+              const nested=f.detail?.firstFailure?.reason??f.detail?.firstFailure?.route??null;
+              return {column:a.column,reason:f.reason??'unknown',reply:f.reply??null,replyCell:f.replyCell??null,nested,targetDistance:f.detail?.targetDistance??f.detail?.firstFailure?.targetDistance??null,enabledP1:f.detail?.enabledP1??f.detail?.firstFailure?.enabledP1??[]};
+            });
+            return {member:r.member,sequence:r.sequence,attempts};
+          });
+          const mechanismCounts={};
+          const signatures={};
+          for(const r of rows){
+            const parts=[];
+            for(const a of r.attempts){
+              if(a.accepted){parts.push(`${a.column}:accepted`);continue;}
+              const key=a.nested?`${a.reason}>${a.nested}`:a.reason;
+              mechanismCounts[key]=(mechanismCounts[key]??0)+1;
+              parts.push(`${a.column}:${key}`);
+            }
+            const sig=parts.join('|');signatures[sig]=(signatures[sig]??0)+1;
+          }
+          const countPrefix=(prefix)=>Object.entries(mechanismCounts).filter(([k])=>k.startsWith(prefix)).reduce((s,[,n])=>s+n,0);
+          const summary={kind:'g3-enhanced-rank18-failure-census-v1',failures:rows.length,mechanismCounts,signatureCount:Object.keys(signatures).length,signatures,rows};
+          console.log('G3_ENHANCED_FAILURE_CENSUS='+JSON.stringify(summary));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,[
+            `failures=${rows.length}`,
+            `p1_terminal=${countPrefix('P1_terminal')}`,
+            `d1_unproved=${countPrefix('distance1_lexicographic_unproved')}`,
+            `d2_rejected=${countPrefix('distance2_target_support_rejected')}`,
+            `outside=${countPrefix('outside_supported_contract')}`,
+            `signatures=${Object.keys(signatures).length}`,
+          ].join('\n')+'\n');
+          NODE
+
+  summary:
+    needs: census
+    name: g3fail-f${{ needs.census.outputs.failures }}-pt${{ needs.census.outputs.p1_terminal }}-d1${{ needs.census.outputs.d1_unproved }}-d2${{ needs.census.outputs.d2_rejected }}-o${{ needs.census.outputs.outside }}-s${{ needs.census.outputs.signatures }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "G3 enhanced failure census encoded in job name"

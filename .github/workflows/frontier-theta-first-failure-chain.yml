@@ -1,0 +1,34 @@
+name: Frontier theta first-failure chain
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-first-failure-chain.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-sequence-probe.mjs'
+      - 'research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-generic-target-aux-lex-proof-lib.mjs'
+      - '.github/workflows/frontier-theta-first-failure-chain.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trace:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Trace deterministic theta failure chain
+        env:
+          SEQUENCE: '466565536644747533'
+          TARGET: G5
+          MAX_TARGET_DISTANCE: '4'
+          MAX_STEPS: '24'
+        run: |
+          set -euo pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-theta-first-failure-chain.mjs

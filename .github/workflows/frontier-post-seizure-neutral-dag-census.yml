@@ -1,0 +1,62 @@
+name: Frontier post-seizure neutral DAG census
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-post-seizure-neutral-dag-census.mjs
+      - .github/workflows/frontier-post-seizure-neutral-dag-census.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    name: neutral-dag-${{ matrix.case }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - case: D-all
+            refusal: D
+            first: ''
+          - case: E-all
+            refusal: E
+            first: ''
+          - case: F-A
+            refusal: F
+            first: A
+          - case: F-B
+            refusal: F
+            first: B
+          - case: F-C
+            refusal: F
+            first: C
+          - case: F-D
+            refusal: F
+            first: D
+          - case: F-E
+            refusal: F
+            first: E
+          - case: F-F
+            refusal: F
+            first: F
+          - case: F-G
+            refusal: F
+            first: G
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Census ranked neutral DAG
+        shell: bash
+        env:
+          CENSUS_COMPACT: '1'
+        run: |
+          set -euo pipefail
+          timeout 300s node research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-post-seizure-neutral-dag-census.mjs "${{ matrix.refusal }}" "${{ matrix.first }}"

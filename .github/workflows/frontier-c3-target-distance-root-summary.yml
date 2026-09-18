@@ -1,0 +1,105 @@
+name: Frontier C3 target-distance root summary
+
+on:
+  push:
+    branches:
+      - research/frontier-negamax-conformance
+    paths:
+      - .github/workflows/frontier-c3-target-distance-root-summary.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  root1:
+    name: summarize-757776
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      proved: ${{ steps.collect.outputs.proved }}
+      logic: ${{ steps.collect.outputs.logic }}
+      resource: ${{ steps.collect.outputs.resource }}
+      witnesses: ${{ steps.collect.outputs.witnesses }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - id: collect
+        env:
+          ROOT_SEQUENCE: '466565554644757776'
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/root1.txt"; : > "$f"
+          for ACTION in A B C D E F G; do
+            ROOT_SEQUENCE="$ROOT_SEQUENCE" ACTION="$ACTION" timeout 240s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-c3-target-distance-root-action-probe.mjs >> "$f"
+          done
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs'); const lines=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).filter(x=>x.startsWith('C3_TARGET_DISTANCE_ROOT_ACTION_PROBE=')); if(lines.length!==7) throw new Error(`expected 7 results, got ${lines.length}`); const xs=lines.map(x=>JSON.parse(x.slice(x.indexOf('=')+1))); const proved=xs.filter(x=>x.proved); const resource=xs.filter(x=>x.proofKind==='quotient_capacity'||x.proofKind==='proof_capacity'); const logic=xs.filter(x=>!x.proved&&!resource.includes(x)); const witnesses=proved.map(x=>x.action).join('')||'none'; fs.appendFileSync(process.env.GITHUB_OUTPUT,`proved=${proved.length}\nlogic=${logic.length}\nresource=${resource.length}\nwitnesses=${witnesses}\n`); console.log(`ROOT_SUMMARY=${JSON.stringify({root:xs[0].sequence,proved:proved.map(x=>x.action),logic:logic.map(x=>[x.action,x.proofKind]),resource:resource.map(x=>[x.action,x.proofKind])})}`);
+          NODE
+
+  root2:
+    name: summarize-757777
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      proved: ${{ steps.collect.outputs.proved }}
+      logic: ${{ steps.collect.outputs.logic }}
+      resource: ${{ steps.collect.outputs.resource }}
+      witnesses: ${{ steps.collect.outputs.witnesses }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - id: collect
+        env:
+          ROOT_SEQUENCE: '466565554644757777'
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/root2.txt"; : > "$f"
+          for ACTION in A B C D E F G; do
+            ROOT_SEQUENCE="$ROOT_SEQUENCE" ACTION="$ACTION" timeout 240s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-c3-target-distance-root-action-probe.mjs >> "$f"
+          done
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs'); const lines=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).filter(x=>x.startsWith('C3_TARGET_DISTANCE_ROOT_ACTION_PROBE=')); if(lines.length!==7) throw new Error(`expected 7 results, got ${lines.length}`); const xs=lines.map(x=>JSON.parse(x.slice(x.indexOf('=')+1))); const proved=xs.filter(x=>x.proved); const resource=xs.filter(x=>x.proofKind==='quotient_capacity'||x.proofKind==='proof_capacity'); const logic=xs.filter(x=>!x.proved&&!resource.includes(x)); const witnesses=proved.map(x=>x.action).join('')||'none'; fs.appendFileSync(process.env.GITHUB_OUTPUT,`proved=${proved.length}\nlogic=${logic.length}\nresource=${resource.length}\nwitnesses=${witnesses}\n`); console.log(`ROOT_SUMMARY=${JSON.stringify({root:xs[0].sequence,proved:proved.map(x=>x.action),logic:logic.map(x=>[x.action,x.proofKind]),resource:resource.map(x=>[x.action,x.proofKind])})}`);
+          NODE
+
+  root3:
+    name: summarize-767775
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      proved: ${{ steps.collect.outputs.proved }}
+      logic: ${{ steps.collect.outputs.logic }}
+      resource: ${{ steps.collect.outputs.resource }}
+      witnesses: ${{ steps.collect.outputs.witnesses }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - id: collect
+        env:
+          ROOT_SEQUENCE: '466565554644767775'
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="$RUNNER_TEMP/root3.txt"; : > "$f"
+          for ACTION in A B C D E F G; do
+            ROOT_SEQUENCE="$ROOT_SEQUENCE" ACTION="$ACTION" timeout 240s node --expose-gc research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-c3-target-distance-root-action-probe.mjs >> "$f"
+          done
+          RESULT_FILE="$f" node <<'NODE'
+          const fs=require('node:fs'); const lines=fs.readFileSync(process.env.RESULT_FILE,'utf8').split(/\r?\n/).filter(x=>x.startsWith('C3_TARGET_DISTANCE_ROOT_ACTION_PROBE=')); if(lines.length!==7) throw new Error(`expected 7 results, got ${lines.length}`); const xs=lines.map(x=>JSON.parse(x.slice(x.indexOf('=')+1))); const proved=xs.filter(x=>x.proved); const resource=xs.filter(x=>x.proofKind==='quotient_capacity'||x.proofKind==='proof_capacity'); const logic=xs.filter(x=>!x.proved&&!resource.includes(x)); const witnesses=proved.map(x=>x.action).join('')||'none'; fs.appendFileSync(process.env.GITHUB_OUTPUT,`proved=${proved.length}\nlogic=${logic.length}\nresource=${resource.length}\nwitnesses=${witnesses}\n`); console.log(`ROOT_SUMMARY=${JSON.stringify({root:xs[0].sequence,proved:proved.map(x=>x.action),logic:logic.map(x=>[x.action,x.proofKind]),resource:resource.map(x=>[x.action,x.proofKind])})}`);
+          NODE
+
+  summary:
+    needs: [root1,root2,root3]
+    name: r1-p${{ needs.root1.outputs.proved }}-l${{ needs.root1.outputs.logic }}-q${{ needs.root1.outputs.resource }}-w${{ needs.root1.outputs.witnesses }}__r2-p${{ needs.root2.outputs.proved }}-l${{ needs.root2.outputs.logic }}-q${{ needs.root2.outputs.resource }}-w${{ needs.root2.outputs.witnesses }}__r3-p${{ needs.root3.outputs.proved }}-l${{ needs.root3.outputs.logic }}-q${{ needs.root3.outputs.resource }}-w${{ needs.root3.outputs.witnesses }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - run: echo "isolated C3 root-action summaries encoded in job name"
