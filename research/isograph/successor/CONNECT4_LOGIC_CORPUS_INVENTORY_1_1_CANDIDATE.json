@@ -3,14 +3,14 @@
   "candidate": "connect4-isograph-logic-1.1",
   "frozen_source_revision": "aea692af800f524569ea1c2fda722087cd9bca39",
   "authority_1_0_source_objects": 125,
-  "successor_candidate_objects": 371,
-  "newly_added_objects": 246,
+  "successor_candidate_objects": 432,
+  "newly_added_objects": 307,
   "role_counts": {
     "current_logic": 185,
-    "current_policy_or_routing": 19,
-    "implementation_qualification": 87,
-    "raw_evidence_or_provenance": 51,
-    "normalized_evidence": 21,
+    "current_policy_or_routing": 20,
+    "implementation_qualification": 134,
+    "raw_evidence_or_provenance": 61,
+    "normalized_evidence": 24,
     "historical_only": 4,
     "source_native_unresolved_logic": 4
   },
@@ -61,6 +61,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "components/bsfp",
+      "exists_at_frozen_revision": true,
+      "type": "tree",
+      "sha": "8e048038c00bc5bb4c9dbb2fc0ebf41b6f6ba8c4",
+      "size": null,
+      "role": "current_policy_or_routing",
+      "rationale": "referenced namespace/directory owner",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "components/bsfp/cuda/oqs-cofactor-42-program.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -68,6 +79,39 @@
       "size": 8481,
       "role": "implementation_qualification",
       "rationale": "implementation artifact referenced by current logic/spec",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "components/bsfp/geometry.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "0af51aca503ce3004c6f7d5d18af04df682da260",
+      "size": 2111,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "components/bsfp/ownership-antichain-solver.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "30d0ae3aae1fa5750d458076345115aced53dca0",
+      "size": 12410,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "components/bsfp/support-lattice.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "29ea865e81ecfd996323fdf4fecfe81ab8742877",
+      "size": 3350,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -1436,6 +1480,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "docs/research/evidence/2026-09-10-bsfp-antichain-performance.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5387f5fe571c8bed95c66c763b113e9f24cb4a52",
+      "size": 2982,
+      "role": "normalized_evidence",
+      "rationale": "evidence directly referenced by current research logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "docs/research/evidence/2026-09-11-semantic-quotient-mq1-strong-score.json",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1476,6 +1531,28 @@
       "size": 2415,
       "role": "normalized_evidence",
       "rationale": "research evidence referenced by active logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-center-defect-lift.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1d75ec5a6184032842984ce7974c9a871c46a079",
+      "size": 1149,
+      "role": "normalized_evidence",
+      "rationale": "evidence directly referenced by current research logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "docs/research/evidence/2026-09-13-center-defect-repair-exposure.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "715a7b7ce5ffa9c8e7ef4d4f62fe88ca9a481f9b",
+      "size": 2584,
+      "role": "normalized_evidence",
+      "rationale": "evidence directly referenced by current research logic",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -1788,6 +1865,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "reference/legacy-source-manifest.json",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "2f133de38d44826a7c96511bb946ea35b91fca72",
+      "size": 1242,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "legacy implementation provenance",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "reference/legacy-source/Connect4-engine-source.zip",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1832,6 +1920,17 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "reference/research-prototypes/2026-09-09-low-confidence-survival/searchless_dependency_shapes.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7e4bbc31385741789219fbb6fbb1340e0c8a2347",
+      "size": 9743,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "reference/research-prototypes/2026-09-09-low-confidence-survival/terminal_boundary_qualify.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1850,6 +1949,61 @@
       "size": 4440,
       "role": "raw_evidence_or_provenance",
       "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-winspace-native/dense_key_check.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "3e03577762838cc994795e74b6b650cc4862cb9a",
+      "size": 2217,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-winspace-native/holdout.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "a82e5914ae0cfebcba9440ce7e02b2ac92330d65",
+      "size": 1896,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-winspace-native/qualify_dense.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "07ea9333be701df2ba782fbbed28f09f9614a5cc",
+      "size": 4413,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-winspace-native/replay.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "18120bd720698b83a220d87d959b33297d3d6e18",
+      "size": 2819,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-09-winspace-native/restore_evidence.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "fe33099cdabbac5a1afe07a6db2ad294a4921020",
+      "size": 1469,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -1964,6 +2118,28 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "reference/research-prototypes/2026-09-13-perfect-play-winline/center_defect_lift.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c1a7081731abba3f2670654e74f4ad5f38e7fd0a",
+      "size": 2944,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-13-perfect-play-winline/center_defect_repair_exposure.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "26d0af744dbd1f846d995a6f9e887a57301e7759",
+      "size": 7784,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "reference/research-prototypes/2026-09-13-perfect-play-winline/center_response_serialization.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -1971,6 +2147,17 @@
       "size": 4246,
       "role": "raw_evidence_or_provenance",
       "rationale": "referenced research prototype",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "reference/research-prototypes/2026-09-13-perfect-play-winline/early_blocker_union_non_discrimination.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e63a8c530bc7df8a6eedf5a1a47759b6aa7aa25b",
+      "size": 9876,
+      "role": "raw_evidence_or_provenance",
+      "rationale": "research prototype evidence",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -2368,6 +2555,17 @@
       "role": "normalized_evidence",
       "rationale": "normalized evidence surface",
       "in_authority_1_0_source_universe": true,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/experiments/bsfp-clause-frontier/clause-frontier-equivalence.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "d3d046179ebc96e7baca6b082e61ea3f14490d45",
+      "size": 18880,
+      "role": "implementation_qualification",
+      "rationale": "experiment implementation/qualification artifact",
+      "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
     {
@@ -3944,6 +4142,28 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-bounded-line-profile.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "66c518c80351432229b42902ec69d6bd6945925b",
+      "size": 8611,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-branch-manager-worker.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b30ad45fa006ee364d66557db4bfa276850d0376",
+      "size": 12673,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/semantic-quotient/state-identity-unification/src/quotient-connect4-guarded-affine-clause-control.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -3966,6 +4186,50 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-decision-contract.test.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7549f7decd316da3915858f15d5368dce0a9253e",
+      "size": 10509,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-campaign.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e33339389014ee8f4cf816b53c6781eec71324a9",
+      "size": 7987,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-explore-hint-service.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b00fddda08cd0985fb034e6d1b063ef5988becfb",
+      "size": 5487,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-explore-path.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "6092d2b8fb084d0a682b5b64fee19eb0a16ec943",
+      "size": 10088,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/semantic-quotient/state-identity-unification/src/quotient-guarded-theorem-composition.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -3984,6 +4248,336 @@
       "size": 6279,
       "role": "implementation_qualification",
       "rationale": "referenced semantic-quotient qualification/implementation artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-legacy-frontier-study.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5778d750d9afcec4e970ccd8c2f98e29565b3341",
+      "size": 7977,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-live-line-move-order.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "d690867467ea3b367a2c56e2c83de9f59ea01ac1",
+      "size": 9597,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-local-proof-store.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "baf718303481ccf2bdabade889bdf85dc7c210af",
+      "size": 6619,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-local-semantic-descriptor.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "07888a8993508c1154dfeb1293183864617d3782",
+      "size": 12552,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-lookahead-work-dag.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "61379943258eafa2c93f7b98f86a085f12162b2b",
+      "size": 14506,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-scaled-term-id-kernel.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "97c78c5ebdb0255701c67bf53ce6e88cbc887bc1",
+      "size": 2839,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-slot64-residual-kernel.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1f12a70e4c3a460ccea6070832044fe216fe4841",
+      "size": 6815,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-native-negamax-support-layout-kernel.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "e3f3adc80721d42a09c35408dc1537c0f90c65a9",
+      "size": 31611,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-negamax-domain-contract.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "56c0705e07910cd37e7651b4e167ce158084d5dc",
+      "size": 4159,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-negamax-engine.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "9f44664787aac550e612ae6aa6721fad70a7efcc",
+      "size": 38905,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-negamax-search-record.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b96c184b8cf0e4bcca179a02535c7ac0d7905d21",
+      "size": 2902,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-coordinator.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "b76cb1fb9e71ed103e0c7734de2cfc9377b7aa18",
+      "size": 6968,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-online-dependency-parallel-campaign.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "52a9b8b579abbca877ba26c5f221b79e01ff85c4",
+      "size": 11020,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-online-only-state-storage.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "f0aa31efd796575debf586995b92a1f19bbefc5d",
+      "size": 955,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-lib.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "75d449e7830c4ab34de38871ec77ff257ea1e5be",
+      "size": 12965,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-search-worker.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "ebe95788314748eea8253d31410724e7fda67b62",
+      "size": 4122,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-online-semantic-worker-pool.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "685dfe2b028257ea9c8cee5410c75c67a0e30eb6",
+      "size": 20047,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-packed-proof-store.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8820607a8d7c02f40b849de8f1560025504c38e4",
+      "size": 8832,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-proof-lifecycle-control.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "59c0eaf33b6bb64201b9c08dca703cb28c880a2b",
+      "size": 5886,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-proof-resource-service.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "578c69cc447db3391991edf5d2fb5ecf7e4090c7",
+      "size": 3202,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-proof-store-contract.test.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "3034348f81e9afa345317cea67467fd3f32069c1",
+      "size": 5755,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-root-config.test.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "06c2861244a9cee63e2f57d00706821c8a414fd2",
+      "size": 1007,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "8690c492bed81f9aadb8e025f7988297764e9115",
+      "size": 20664,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-arena-contract.test.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "a504a4347c535cfcf8c4287305c732175663ab18",
+      "size": 14400,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-identity.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "7d4cc7fbdfdc3be610d1dac651c604eebf95375e",
+      "size": 10768,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-shared-tt.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1cd75f3acc6655d01993fafbd5972a350340cc25",
+      "size": 31941,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-semantic-tt-replacement-campaign.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "6a84e88ed60b542fa5c4139085c8c75e59a75d9a",
+      "size": 14799,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-shared-graph-lib.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "c0e1de5957c72de274e4d2fd49d9d837da330dd4",
+      "size": 3077,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-campaign.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "3414bce350039cf9e69b136bf68c6893dcf8547c",
+      "size": 9899,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-slot64-residual-pool-v2.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "f43ed7f4727a4a2d492971ba44358cf46e1166ac",
+      "size": 39698,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -4021,6 +4615,39 @@
       "in_authority_1_0_current_logic": false
     },
     {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-attempt.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "1844b77ad0ec9cdf9cc1e4f651de3885851ccb59",
+      "size": 8487,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-standard7x6-root-config.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "de9d9c3444d5c39303e4949b370112da814ef10f",
+      "size": 1664,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-storage-contract.test.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "2b81dbf765e4026be39018de0a1a81556382bb6f",
+      "size": 31262,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
       "path": "research/semantic-quotient/state-identity-unification/src/quotient-structural-discovery-signature.mjs",
       "exists_at_frozen_revision": true,
       "type": "blob",
@@ -4039,6 +4666,50 @@
       "size": 4924,
       "role": "implementation_qualification",
       "rationale": "referenced semantic-quotient qualification/implementation artifact",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-term-id-pool.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "18aa2f2d23d7c0a34d80436e24bcb22ed2818ce0",
+      "size": 15777,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-term-id-prefix-pool.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "5dff903c6df86d37056a91c9888935fb7d0db985",
+      "size": 17878,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-work-plan-service.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "0afbc15fdb478c0886e7754c4e3653de4c497601",
+      "size": 2111,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
+      "in_authority_1_0_source_universe": false,
+      "in_authority_1_0_current_logic": false
+    },
+    {
+      "path": "research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs",
+      "exists_at_frozen_revision": true,
+      "type": "blob",
+      "sha": "85a28aac1ca1a577a95d43b65d1a735c3b677fec",
+      "size": 6931,
+      "role": "implementation_qualification",
+      "rationale": "implementation/oracle/conformance artifact referenced by current logic",
       "in_authority_1_0_source_universe": false,
       "in_authority_1_0_current_logic": false
     },
@@ -4106,6 +4777,14 @@
       "reference_edges": 455,
       "missing_dependency_targets": 105,
       "added_targets": 105
+    },
+    {
+      "pass": 2,
+      "workflow_run": 35369753329,
+      "job": 105680658649,
+      "reference_edges": 568,
+      "missing_dependency_targets": 61,
+      "added_targets": 61
     }
   ]
 }
