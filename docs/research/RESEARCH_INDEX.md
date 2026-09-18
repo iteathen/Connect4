@@ -20,7 +20,31 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
-## 0. IsoGraph Discovery Protocol campaign
+## 0. Applied IsoGraph identity/discovery layers
+
+### ACTIVE FOUNDATION — Natural Entropic Identity overlay
+
+- `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`  
+  Applies qualified NEI 0.1+0.2 semantics to evidence artifacts/events/lineages and solver-semantic state identity.
+
+- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json` / `.isg`  
+  Machine/native results. Establishes scoped SAME/DISTINCT relations and preserves standard-7x6 identity as incomplete rather than semantic UNKNOWN.
+
+Key identity result:
+
+```text
+physical-state identity:
+    x DISTINCT y
+
+bounded future-behavior identity:
+    q(x)=q(y) -> x SAME y
+```
+
+on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
+
+### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE
+
+### IsoGraph Discovery Protocol campaign
 
 ### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE
 
