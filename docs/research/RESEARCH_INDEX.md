@@ -74,6 +74,15 @@ on the exhausted SIU-1 control domains. This is profile-relative identity, not a
   Four complete controls: 6,300,753 comparable q pairs and 18,076,405 comparable action pairs with zero exact-score monotonicity violations.
 
 - `research/isograph/discovery/2026-09-18-policy-frontier/policy-frontier-control.mjs`  
+- `research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_TEST.md`  
+  Standard-board bounded constructive test. Independent next-rank frontiers choose exact held-out best moves with zero false claims; 20k-child coverage rises from 15.4% at rank 26 to 100% at rank 39, and 100k-child controls raise rank-26/rank-28 coverage to 61.36%/73.36%.
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_RESULTS.json`  
+  Machine-readable same-rank, held-out, cross-rank, and frontier-budget scaling results.
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/standard-7x6-cross-rank-frontier-control.mjs`  
+  Standalone bounded standard-7x6 cross-rank reproducer.
+
   Complete-control reproducer for the core favorable-order/frontier result.
 
 The direct policy region `column c is optimal` is not monotone. The supported exact object is the nested action-score threshold frontier.
