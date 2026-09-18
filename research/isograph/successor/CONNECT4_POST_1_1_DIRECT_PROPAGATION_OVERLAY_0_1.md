@@ -6,6 +6,8 @@
 
 This overlay records confirmed post-authority findings without editing the frozen 1.1 authority or its frozen candidate manifest.
 
+**Relation rule:** a proposed relationship between claims is represented here as claim content only until it has deductive proof or explicit qualified-exact status. Unproved post-1.1 relationships are not native IsoGraph edges.
+
 ## Claims
 
 ### C4-R0075 - empirically_supported
@@ -31,17 +33,18 @@ A compact realizability-preserving controllable-predecessor operation is needed 
 | `^97513` | claim status bytes |
 | `^97514` | claim statement bytes |
 | `^97515` | claim guard bytes by ordinal |
-| `^97516` | relation record |
-| `^97517` | relation type bytes |
-| `^97518` | relation target bytes |
 | `^97519` | evidence/provenance bytes by ordinal |
 | `^97520` | authority-effect bytes |
-| `^97523` | claim-to-relation edge |
+| `^97521` | proposed relation type bytes by ordinal; claim-only |
+| `^97522` | proposed relation target bytes by ordinal; claim-only |
+| `^97524` | proposed relation status bytes by ordinal; claim-only |
 
 ## Boundary
 
 `C4-R0075` confirms the observed representation/composition wall only within the tested direct-propagation recurrence. It does not promote the abstract residual projection into legal q.
 
 `C4-R0076` is explicitly a missing law. It must not be consumed as though the compact controllable predecessor already exists.
+
+The suggested correspondences to C4-R0043, C4-R0069, C4-R0073 and C4-R0074 remain **relation claims**, not graph edges. Promote a relation only after its own proof/qualification burden is satisfied.
 
 Frozen authority 1.1 remains unchanged.
