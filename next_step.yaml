@@ -1,72 +1,51 @@
-schema_version: 3
-updated: 2026-09-11
-state: main_shared_foundation_with_three_solver_heads
-repository_role: connect4_shared_foundation_and_router
+schema_version: 1
+updated: 2026-09-17
+state: early_direction_only
+branch: sut
+solver_family: sut
 
-canonical_lanes:
-  shared_product:
-    branch: main
-    purpose: accepted_domain_specs_oracles_benchmarks_cross_lane_contracts_and_repository_dashboard
-    solver_head: false
-  minimax:
-    branch: solver/minimax-alpha-beta
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: true
-  cuda_bsfp:
-    branch: solver/cuda-bsfp
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: true
-  hybrid_confluence:
-    branch: solver/hybrid-confluence
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: true
-  semantic_quotient:
-    branch: research/semantic-quotient
-    status_file: STATUS.md
-    next_step_file: next_step.yaml
-    solver_head: false
+authority:
+  repository_context: AGENT_LOCAL.md
+  branch_identity: README.md
+  direction_note: docs/SUT_DIRECTION_SKETCH.md
+  shared_foundation: main
+  shared_research: research/semantic-quotient
+  topology_decision: docs/decisions/2026-09-17-closed-durable-lane-topology.md
 
-routing_rules:
-  - main_is_shared_accepted_substrate_not_a_solver_head
-  - read_the_target_lane_status_and_next_step_before_execution
-  - do_not_use_root_status_as_solver_specific_execution_authority
-  - shared_domain_oracle_benchmark_and_cross_lane_contract_changes_route_to_main
-  - shared_future_behavior_or_state_compression_research_routes_to_semantic_quotient
-  - minimax_search_policy_tt_scheduler_and_search_kernel_work_routes_to_minimax
-  - bsfp_recurrence_cuda_profiles_symbolic_storage_and_bsfp_qualification_routes_to_cuda_bsfp
-  - hybrid_confluence_transport_proof_exchange_scheduling_and_hybrid_qualification_route_to_hybrid_confluence
-  - solver_branches_are_long_lived_peer_product_heads_not_feature_branches_waiting_for_wholesale_merge
-  - shared_facts_discovered_on_solver_heads_are_extracted_qualified_and_selectively_promoted_to_main
-  - accepted_shared_changes_flow_from_main_into_solver_heads
-  - solver_specific_implementation_does_not_move_to_main_for_history_synchronization
+ownership:
+  owns:
+    - sut_solver_contract_when_defined
+    - sut_specific_coordination_and_composition
+    - sut_specific_qualification_and_performance_evidence
+  does_not_own:
+    - isometric_private_structural_solver_internals
+    - cuda_bsfp_private_recurrence_or_storage
+    - hybrid_confluence_semantics
+    - minimax_private_search_state
+    - canonical_shared_research
 
-main_role:
-  shared:
-    - components_domain
-    - components_oracle
-    - qualified_incumbent_reference_baseline
-    - benchmark_and_fairness_authority
-    - accepted_cross_lane_specs_and_decisions
-    - repository_routing_and_provenance
-  solver_specific_ownership:
-    minimax: solver/minimax-alpha-beta
-    bsfp: solver/cuda-bsfp
-    hybrid_confluence: solver/hybrid-confluence
+task:
+  id: identify_first_exact_sut_weld_contract
+  objective: >-
+    Find the smallest exact semantic meeting surface between mature structural and terminal solver
+    capabilities without reshaping either parent around a guessed SUT interface.
 
-restructure:
-  original_lane_decision: docs/decisions/2026-09-10-repository-lane-restructure.md
-  main_role_extension: docs/decisions/2026-09-11-main-shared-foundation-three-solver-heads.md
-  manifest: research/MIGRATION_MANIFEST.json
-  branch_retirement: research/BRANCH_RETIREMENT.md
-  repository_structure: REPOSITORY_STRUCTURE.md
-  physical_cleanup: research/RETIREMENT_PROOFS.json
+required_questions:
+  - what_exact_object_can_both_sides_name
+  - what_bsfp_horizon_or_exact_coverage_statement_is_sound
+  - what_condition_allows_forward_work_to_close_without_recursive_reproof
+  - how_sut_differs_from_hybrid_confluence
+  - what_bounded_control_can_falsify_the_weld
 
-next_actions:
-  - keep_main_role_verification_green_for_changes_targeting_main
-  - initialize_lane_local_status_and_next_step_on_solver_hybrid_confluence_before_substantive_implementation
-  - selectively_flow_shared_main_changes_into_each_solver_head_when_needed
-  - promote_shared_solver_discoveries_back_to_main_only_after_cross_lane_qualification
-  - retain_solver_specific_hot_state_and_implementation_on_its_own_solver_head
+constraints:
+  - direction_sketch_is_not_architecture_authority
+  - no_parent_solver_internal_ownership_transfer
+  - no_speculative_shared_state_layout
+  - no_concurrency_or_performance_claim_before_exact_contract
+  - temporary_sut_work_must_return_durable_results_here_and_retire
+
+success_criteria:
+  - explicit_small_exact_weld_contract
+  - clear_distinction_from_hybrid_confluence
+  - independent_bounded_correctness_control
+  - branch_local_status_updated_before_implementation
