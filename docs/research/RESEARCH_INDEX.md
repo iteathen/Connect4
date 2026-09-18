@@ -62,6 +62,22 @@ bounded future-behavior identity:
 
 on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
 
+### ACTIVE FOUNDATION / DISCOVERY SYNTHESIS — exact support-local action-value frontier
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/CAMPAIGN.md`  
+  Tests whether exact best move can be derived from a smaller decision relation than complete future-behavior q. Finds large support-policy collapse headroom, rejects transition-closed policy minimization as too weak, falsifies cross-support residual dominance, and establishes a four-control isotony candidate for support-local exact action value.
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/SUPPORT_LOCAL_ACTION_VALUE_ISOTONY.md`  
+  Deductive candidate: at equal support, mover-easier/opponent-harder residual implication preserves exact state and fixed-action W/D/L and strong-distance order.
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/RESULTS.json`  
+  Four complete controls: 6,300,753 comparable q pairs and 18,076,405 comparable action pairs with zero exact-score monotonicity violations.
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/policy-frontier-control.mjs`  
+  Complete-control reproducer for the core favorable-order/frontier result.
+
+The direct policy region `column c is optimal` is not monotone. The supported exact object is the nested action-score threshold frontier.
+
 ### ACTIVE FOUNDATION / DISCOVERY SYNTHESIS — method emergence from existing Connect4 topology
 
 - `research/isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md`  
