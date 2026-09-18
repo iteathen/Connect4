@@ -19,12 +19,12 @@ The durable branch topology is owner-authorized and closed:
 - `solver/minimax-alpha-beta` — minimax/negamax/alpha-beta implementation and search-specific evidence.
 - `solver/cuda-bsfp` — CUDA-BSFP implementation, qualification and production-adjacent work.
 - `solver/hybrid-confluence` — hybrid exact-confluence implementation and qualification.
-- `isometric` — Isometric structural/frontier solver implementation.
-- `sut` — SUT (`S ∪ T`) solver lineage.
+- `solver/isometric` — Isometric structural/frontier solver implementation.
+- `solver/sut` — SUT (`S ∪ T`) solver lineage.
 
-The root-level `isometric` and `sut` names are intentional solver-family names.
+The root-level `solver/isometric` and `solver/sut` names are intentional solver-family names.
 
-**Agents must not invent another durable lane, promote a temporary branch into a continuity owner, or alter this topology without explicit owner instruction.** See `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
+**Agents must not invent another durable lane, promote a temporary branch into a continuity owner, or alter this topology without explicit owner instruction.** See `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
 
 Each non-main durable lane owns its own current-state routing. Where a solver lane lacks mature implementation state, its branch-local status must say so explicitly rather than inheriting `main`'s dashboard as if it were solver state.
 
