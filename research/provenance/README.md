@@ -6,4 +6,4 @@ The subtrees under `source-archive/` are exact Git tree objects copied from maxi
 
 Canonical research belongs under the top-level `research/` taxonomy. Solver families consume accepted research; they do not own research truth.
 
-Original branch refs remain available while consolidation is qualified. `SOURCE_MANIFEST.json` records exact source identities and refs found to be subsumed by preserved maximal lineages.
+Historical research branch heads are preserved by immutable archive tags and committed provenance records before live refs are retired. Live side research branches are not continuity owners. `SOURCE_MANIFEST.json` records exact source identities and refs found to be subsumed by preserved maximal lineages.
