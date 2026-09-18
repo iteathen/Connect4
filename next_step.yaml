@@ -14,6 +14,7 @@ authority:
   qualification_profile: docs/specs/profiles/C4-0009-Q1-benchmark-qualification-v1.md
   canonical_research_branch: research/semantic-quotient
   research_ownership: docs/decisions/2026-09-17-single-research-owner.md
+  isograph_realignment: docs/decisions/2026-09-18-bsfp-isograph-realignment.md
 
 product_goal:
   geometry: 7x6_connect4
@@ -26,6 +27,7 @@ current:
   mode: active
   selected_large_frontier_path: packed_bucketed_recovery
   p2_full_domain_semantics: preserved
+  p2_representation_identity: finer_than_q_future_behavior_identity
   seven_by_six_root_wdl: unknown
   seven_by_six_latest_bounded_outcome: clean_timeout
 
@@ -67,6 +69,24 @@ qualification:
     outcome: clean_timeout
     root_wdl_observed: false
     complete_solve_claim: false
+
+semantic_alignment:
+  ordinary_gameplay_key: support_plus_normalized_p0_p1_residual_antichains_q
+  representation_key: profile_specific_exact_symbolic_or_physical_record
+  proof_key: q_plus_proof_profile_plus_non_q_required_premises
+  rule: q_equality_never_authorizes_stronger_proof_reuse_without_premise_equivalence
+  p2_status: exact_finer_representation_control_not_irreducible_gameplay_identity
+  ndc_missing_law: guarded_mixed_cofactor_obligation_birth
+
+open_issues:
+  - number: 60
+    target: qualify_q_native_frontier_against_p2
+  - number: 61
+    target: profile_safe_gameplay_vs_proof_identity
+  - number: 62
+    target: symbolic_predecessor_directly_over_q
+  - number: 63
+    target: guarded_obligation_birth_without_hidden_recursion
 
 ownership_gate:
   connect4_owns:
@@ -114,5 +134,8 @@ constraints:
   - no_generic_cuda_algorithm_copy_into_connect4
   - no_lower_layer_mutation_without_generic_missing_mechanism
   - no_root_wdl_claim_from_clean_timeout
+  - no_p2_ownership_record_claim_as_canonical_gameplay_identity
+  - no_q_level_merge_of_non_q_proof_context
+  - no_obligation_birth_from_degree_drop_without_support_intervention_resource_deadline_first_win_guards
   - no_python_in_maintained_ecosystem_code
   - no_direct_cuda_ffi_c_cpp_cuda_cpp_hand_ptx_or_native_addon_escape
