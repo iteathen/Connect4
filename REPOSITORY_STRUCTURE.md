@@ -16,7 +16,7 @@ main
 
 `main` is the shared accepted substrate: domain semantics, benchmark/fairness authority, oracle/reference behavior, accepted cross-lane contracts and repository-level routing. It is not a solver implementation line.
 
-`research/semantic-quotient` is the one canonical solver-neutral research/knowledge lane.
+`research/semantic-quotient` is the single canonical owner of all Connect4 research and research knowledge.
 
 The five solver-family heads are peers:
 
@@ -96,7 +96,7 @@ Solver-specific maintained code belongs on its durable solver-family branch unde
 
 ### Canonical research
 
-Shared research knowledge is normalized on `research/semantic-quotient`:
+All durable research knowledge is normalized on `research/semantic-quotient`:
 
 ```text
 research/canonical/
