@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "id_range": "C4-R0039..C4-R0046",
+  "id_range": "C4-R0039..C4-R0046; C4-R0073",
   "claims": [
     {
       "id": "C4-R0039",
@@ -13,11 +13,22 @@
         "research/evidence/bsfp/representation-algebra.json",
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-antichain-performance.md"
       ],
-      "consumed_by": ["bsfp"],
+      "consumed_by": [
+        "bsfp"
+      ],
       "relations": [
-        {"type":"supports","target":"C4-R0019"},
-        {"type":"constrains","target":"C4-R0022"},
-        {"type":"depends_on","target":"C4-R0035"}
+        {
+          "type": "supports",
+          "target": "C4-R0019"
+        },
+        {
+          "type": "constrains",
+          "target": "C4-R0022"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        }
       ]
     },
     {
@@ -35,10 +46,18 @@
       "sources": [
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-rolling-rank-sharding.md"
       ],
-      "consumed_by": ["bsfp"],
+      "consumed_by": [
+        "bsfp"
+      ],
       "relations": [
-        {"type":"derived_from","target":"C4-R0020"},
-        {"type":"constrains","target":"bsfp-retained-memory"}
+        {
+          "type": "derived_from",
+          "target": "C4-R0020"
+        },
+        {
+          "type": "constrains",
+          "target": "bsfp-retained-memory"
+        }
       ]
     },
     {
@@ -52,10 +71,18 @@
         "research/history/rejected/bsfp-streaming-incremental-dominance.md",
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-incremental-dominance-rejected.md"
       ],
-      "consumed_by": ["bsfp"],
+      "consumed_by": [
+        "bsfp"
+      ],
       "relations": [
-        {"type":"depends_on","target":"C4-R0035"},
-        {"type":"constrains","target":"bsfp-dominance-implementation"}
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        },
+        {
+          "type": "constrains",
+          "target": "bsfp-dominance-implementation"
+        }
       ]
     },
     {
@@ -69,12 +96,28 @@
         "research/evidence/bsfp/representation-algebra.json",
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md"
       ],
-      "consumed_by": ["bsfp", "isometric", "negamax-minimax"],
+      "consumed_by": [
+        "bsfp",
+        "isometric",
+        "negamax-minimax"
+      ],
       "relations": [
-        {"type":"derived_from","target":"C4-R0023"},
-        {"type":"supports","target":"C4-R0008"},
-        {"type":"supports","target":"C4-R0018"},
-        {"type":"depends_on","target":"C4-R0043"}
+        {
+          "type": "derived_from",
+          "target": "C4-R0023"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0008"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0018"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0043"
+        }
       ]
     },
     {
@@ -86,11 +129,23 @@
       "sources": [
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md"
       ],
-      "consumed_by": ["bsfp", "isometric"],
+      "consumed_by": [
+        "bsfp",
+        "isometric"
+      ],
       "relations": [
-        {"type":"derived_from","target":"C4-R0042"},
-        {"type":"refines","target":"C4-R0011"},
-        {"type":"constrains","target":"C4-R0008"}
+        {
+          "type": "derived_from",
+          "target": "C4-R0042"
+        },
+        {
+          "type": "refines",
+          "target": "C4-R0011"
+        },
+        {
+          "type": "constrains",
+          "target": "C4-R0008"
+        }
       ]
     },
     {
@@ -104,11 +159,23 @@
         "research/evidence/bsfp/representation-algebra.json",
         "research/provenance/source-archive/bsfp/docs-research/2026-09-11-oqs-cuda-residual-reuse.md"
       ],
-      "consumed_by": ["bsfp", "isometric"],
+      "consumed_by": [
+        "bsfp",
+        "isometric"
+      ],
       "relations": [
-        {"type":"supports","target":"C4-R0008"},
-        {"type":"supports","target":"C4-R0026"},
-        {"type":"depends_on","target":"C4-R0035"}
+        {
+          "type": "supports",
+          "target": "C4-R0008"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0026"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        }
       ]
     },
     {
@@ -124,11 +191,22 @@
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-compact-cuda-vertical-slice.md",
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-cuda-bsfp-saturation-winspace-inference-review.md"
       ],
-      "consumed_by": ["bsfp"],
+      "consumed_by": [
+        "bsfp"
+      ],
       "relations": [
-        {"type":"constrains","target":"C4-R0022"},
-        {"type":"supports","target":"C4-R0042"},
-        {"type":"depends_on","target":"C4-R0035"}
+        {
+          "type": "constrains",
+          "target": "C4-R0022"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0042"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        }
       ]
     },
     {
@@ -145,10 +223,49 @@
       "sources": [
         "research/provenance/source-archive/bsfp/docs-research/2026-09-10-compact-cuda-vertical-slice.md"
       ],
-      "consumed_by": ["bsfp", "isometric"],
+      "consumed_by": [
+        "bsfp",
+        "isometric"
+      ],
       "relations": [
-        {"type":"supports","target":"C4-R0018"},
-        {"type":"supports","target":"C4-R0043"}
+        {
+          "type": "supports",
+          "target": "C4-R0018"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0043"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0073",
+      "title": "Support-local clause coverage is closed under the tested exact BSFP cofactor recurrence",
+      "status": "empirically_supported",
+      "confidence_mode": "empirical",
+      "statement": "A beneficiary-relative monotone-CNF BSFP represented by support-local upward-coverage signatures and precomputed child-to-parent clause cofactor maps reproduced the authoritative array-CNF recurrence with zero support mismatches on six complete variable-geometry controls. The same representation census over all 46,656 supports of 6x5 Connect-4 found maximum local dictionary size 69; every rank-23 support fit within 61 dictionary entries and every support through rank 25 fit within 64 entries.",
+      "scope": "Complete differential controls: 4x3 c3, 4x4 c4, 5x3 c4, 4x4 c3, 4x5 c4, and 5x4 c4 (6,951 supports total, 50,856 cofactor maps, zero mismatches), plus a support-only 6x5 c4 dictionary-width census. This does not prove a universal fixed bit width, a CUDA speedup, profitability on every geometry, or production adoption.",
+      "sources": [
+        "research/experiments/bsfp-support-local-clause-coverage/RESULT.md",
+        "research/evidence/bsfp/support-local-clause-coverage.json"
+      ],
+      "consumed_by": [
+        "bsfp",
+        "isometric"
+      ],
+      "relations": [
+        {
+          "type": "supports",
+          "target": "C4-R0043"
+        },
+        {
+          "type": "constrains",
+          "target": "C4-R0045"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0035"
+        }
       ]
     }
   ]
