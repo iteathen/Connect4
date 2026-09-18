@@ -170,3 +170,21 @@ The next device experiment should use **real persistent coverage frontiers from 
 **Supports** support-local coverage signatures plus precomputed cofactor maps strongly enough to advance to a real-frontier CUDA A/B profile.
 
 Keep the array-CNF implementation as semantic qualification authority and rank-slice ownership as production/reference fallback.
+
+## Canonical consolidation qualification
+
+After the repository moved to a single research owner, the exact result and qualifier were copied verbatim to `research/semantic-quotient` and requalified there.
+
+```text
+branch:   research/semantic-quotient
+workflow: Canonical research support-local clause qualification
+run:      35332181198
+job:      105558777887
+head:     cd36d487734314b012ac6cd67fa727fa027b4617
+runner:   Ubuntu 24.04 / Node 26.7.0
+result:   success
+```
+
+The canonical requalification also used the maintained-test boundary so provenance archives were not executed as live product tests. The earlier experiment run remains historical evidence; this canonical run confirms the same research result in its final owning branch.
+
+Normalized claim: **C4-R0073**.
