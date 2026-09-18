@@ -20,6 +20,37 @@ Historical descent from the terminal-frontier experiment does not make Negamax s
 
 The maintained implementation uses native Isometric/WSL state and exact recursive resolution for residue not closed by structural consequences.
 
+### IsoGraph / q alignment
+
+The current implementation is already substantially aligned with the newer canonical research:
+
+~~~text
+ordinary gameplay identity:
+    q = support + normalized P0 residuals + normalized P1 residuals
+
+current exact-value cache equality:
+    canonical P0 residual class
+    + canonical P1 residual class
+    + canonical support
+~~~
+
+So the cache is already effectively q-keyed even though the older C4-0011 wording claimed a stronger key including side/status.
+
+Stored `ply`, `sideToMove`, terminal status, support/playable masks and reversible history remain useful runtime fields. They are not all irreducible gameplay-identity coordinates.
+
+Coarse WSL certificate buckets are also intentionally not transition identity: they locate candidate certificates, and guards establish contextual applicability.
+
+The remaining implementation work is targeted rather than a solver rewrite:
+
+1. expose q/gameplay identity explicitly instead of relying on a transition-signature convention;
+2. harden proof-identity deduplication so one proof token cannot silently alias different guarded content;
+3. add direct q/cross-profile qualification;
+4. implement temporal/resource/realizability guards and guarded obligation birth only after canonical research is sufficiently qualified.
+
+See `docs/decisions/2026-09-18-isometric-isograph-realignment.md`.
+
+
+
 Current accepted implementation properties include:
 
 - exact first-win stopping;
@@ -49,7 +80,11 @@ Maintain and qualify the native Isometric solver against canonical research cont
 
 Near-term implementation assessment areas:
 
-1. exact transition/certificate cache economics;
+1. explicit q gameplay-key API and transition-signature cleanup;
+2. proofIdentity/content binding and collision rejection;
+3. q-congruence plus cross-profile negative controls;
+4. temporal/resource/realizability guard implementation after research qualification;
+5. exact transition/certificate cache economics;
 2. TT retention/replacement behavior separated from tree-size effects;
 3. Branch Manager scheduling only from already-qualified descriptors;
 4. shared compiled consequence/effect data only if multiple implementation consumers demonstrate reuse value;
