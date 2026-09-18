@@ -84,6 +84,38 @@ semantic NEI UNKNOWN:
 
 The 7x6 result is deliberately incomplete/unqualified rather than semantic UNKNOWN because no qualified QU-mediated identity model family exists for that question.
 
+### Discovery Protocol rerun with NEI
+
+The original discrepancy campaign was rerun against the same authority evidence with the applied NEI layer enabled:
+
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md`;
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/DISCOVERY_LEDGER.json`;
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/BEFORE_AFTER.json`.
+
+Measured effect:
+
+~~~text
+original branches materially changed     1
+original branches precision improved     1
+original branches unchanged / NEI N/A    3
+new NEI-enabled discovery branches       2
+~~~
+
+The material change was R0045: NEI showed that the 4/3/2 evidence hierarchy is **not** a global artifact->event->lineage quotient staircase. Artifact `3000222` participates in five lineages, so evidence identity projection must be context/anchor scoped.
+
+The new cross-domain structural candidate is:
+
+~~~text
+fine identity DISTINCT
+-> context/profile-specific projection
+-> scoped semantic identity SAME
+-> fine residual/provenance preserved
+~~~
+
+observed across R0044 artifact/lineage, R0074 event/lineage, and SIU physical/future-behavior identity.
+
+The standard-7x6 state-identity gap is now a precise falsifiable NEI obligation rather than generic "unproved quotient sufficiency."
+
 ## Consolidated research-lane state
 
 On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
