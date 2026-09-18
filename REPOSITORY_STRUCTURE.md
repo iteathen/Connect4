@@ -10,13 +10,13 @@ main
 ├── solver/minimax-alpha-beta
 ├── solver/cuda-bsfp
 ├── solver/hybrid-confluence
-├── isometric
-└── sut
+├── solver/isometric
+└── solver/sut
 ```
 
 `main` is the shared accepted substrate: domain semantics, benchmark/fairness authority, oracle/reference behavior, accepted cross-lane contracts and repository-level routing. It is not a solver implementation line.
 
-`research/semantic-quotient` is the one canonical solver-neutral research/knowledge lane.
+`research/semantic-quotient` is the **single canonical owner of all Connect4 research**, including solver-specific research observations, hypotheses, experiment results, research evidence, negative results, open questions, maps, synthesis, and provenance.
 
 The five solver-family heads are peers:
 
@@ -26,13 +26,11 @@ The five solver-family heads are peers:
 - `solver/isometric` — Isometric structural/frontier implementation and evidence;
 - `solver/sut` — SUT (`S ∪ T`) implementation lineage.
 
-The root-level `solver/isometric` and `solver/sut` branch names are intentional established family names.
-
 The durable set is closed by `docs/decisions/2026-09-17-solver-namespace-normalization.md`. An agent may not create another durable lane without explicit owner instruction.
 
 ## Temporary branch lifecycle
 
-One-off implementation/research work should use temporary branches only when isolation is useful. Typical temporary refs include `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff/staging and evidence refs.
+One-off implementation/research work should use temporary branches only when isolation is useful. Typical temporary refs include `work/*`, `experiment/*`, `feature/*`, handoff/staging and evidence refs. Do not create another durable focused `research/*` branch.
 
 Every temporary branch must have:
 
@@ -41,7 +39,7 @@ Every temporary branch must have:
 - acceptance or falsification criteria;
 - a retirement condition.
 
-Before retirement, durable code/results go to the owner lane and historically useful state is preserved as evidence/provenance or an immutable archive ref. A temporary branch never gains authority simply because more work accumulated on it.
+Before retirement, durable implementation goes to the owning solver lane, while every durable research result, hypothesis, falsifier, research-evidence packet, negative result and unresolved question goes to `research/semantic-quotient`. Historically useful source state is preserved as provenance or an immutable archive ref. A temporary branch never gains authority simply because more work accumulated on it.
 
 ## Main branch contract
 
@@ -66,8 +64,8 @@ The branch model is asymmetric:
 shared accepted change
 main ----------------------> solver heads
 
-shared research
-research/semantic-quotient ------> consumers
+all research
+research/semantic-quotient ------> solver consumers
 
 solver discovery
 solver head -- selective qualification/promotion --> shared owner
@@ -96,7 +94,7 @@ Solver-specific maintained code belongs on its durable solver-family branch unde
 
 ### Canonical research
 
-Shared research knowledge is normalized on `research/semantic-quotient`:
+**All research** is normalized and preserved on `research/semantic-quotient`:
 
 ```text
 research/canonical/
@@ -107,7 +105,7 @@ research/maps/
 research/provenance/
 ```
 
-Solver-specific experiments may live on a solver-owned temporary branch while active, but shared semantic claims must ultimately route through canonical research.
+Solver-specific research experiments may live on an explicitly temporary `experiment/*` or `work/*` branch while active, but every durable research artifact and semantic result must route back through canonical research. Solver branches own implementation and implementation qualification, not separate research corpora.
 
 ### Accepted contracts
 
