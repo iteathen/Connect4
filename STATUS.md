@@ -149,6 +149,26 @@ The q-congruence proof shows that equal support + equal normalized P0/P1 residua
 
 The historical NEI-C4-0007 result remains `INCOMPLETE_UNQUALIFIED` under its pinned evidence revision. New post-application research now supports candidate `SAME` for standard-7x6 future-behavior identity pending independent qualification and successor authority ingestion.
 
+## Gameplay strategy / implementation proposal lane
+
+The persistent index for turning IsoGraph findings into gameplay descriptions, solver strategies, and implementation experiments is:
+
+- `research/GAMEPLAY_STRATEGY_INDEX.md`
+
+Current rough proposals cover:
+
+~~~text
+q-native gameplay description
+packed q transition compiler
+symbolic q fixed-point solving
+guarded obligation/searchless closure
+behavioral quotienting beyond q
+profile-safe proof/cache keys
+generic Connect-K q congruence
+~~~
+
+This is a proposal/implementation surface, not semantic authority. New durable gameplay-facing ideas should enter through that index so they remain visible and trackable.
+
 ## Consolidated research-lane state
 
 On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
