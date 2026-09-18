@@ -4,6 +4,21 @@
 
 SUT (`S ∪ T`) is expected to bring the independently developed IsoMax/Isometric and BSFP solver lines together only after their natural boundaries have matured. The parent solvers should continue to cross-reference one another at those boundaries rather than being reshaped around a guessed SUT interface in advance.
 
+## Historical composition input
+
+The former Hybrid Confluence solver lane is retired. It never established a mature implementation, but its useful questions are retained here as design constraints:
+
+- what exact semantic object both parent solvers can name;
+- what result/proof-strength ordering is monotone;
+- when one exact result may close or supersede another worker's work;
+- how stale but exact information remains sound;
+- what cancellation is semantically safe;
+- which bounded controls can falsify the weld.
+
+SUT owns resolving or explicitly deferring these questions. A separate Hybrid Confluence implementation is no longer part of the topology.
+
+The current q work makes `support + normalized P0/P1 residual antichains` a strong candidate ordinary gameplay meeting identity, but SUT must not assume that q alone carries stronger proof/certificate context. The exact weld still needs profile-safe proof/result semantics.
+
 ## Current working picture
 
 The cleanest weld presently appears to be two independent solver workers coordinated by Branch Manager:
