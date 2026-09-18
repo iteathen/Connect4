@@ -3,6 +3,8 @@
 **Date:** 2026-09-17  
 **Status:** owner-authorized repository organization decision  
 
+> **Superseded for current solver membership by `2026-09-18-three-active-solver-topology.md`.** This file remains historical authority for the topology decision made on 2026-09-17.
+
 > **Current research-routing authority:** `2026-09-17-single-research-owner.md` supersedes any wording in this historical decision that could be read as permitting solver-specific research ownership, multiple research authorities, or durable focused research branches. All durable research belongs on `research/semantic-quotient`.
 **Amends current branch names from:** `2026-09-17-closed-durable-lane-topology.md`
 
