@@ -36,6 +36,22 @@ Current 1.1 post-hoc dispositions are recorded in:
 - `research/isograph/qualification/CORE_0_18_SANITY_AUDIT_1_1.md`;
 - `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
 
+### Applied NEI identity layer
+
+Natural Entropic Identity is now applied as a derived identity overlay over authority 1.1:
+
+- `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
+- `research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json`;
+- `research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json`;
+- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json`;
+- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.isg`.
+
+Use the qualified NEI 0.1+0.2 semantics pinned by that manifest. NEI 0.3 is guidance only.
+
+Identity is profile-relative. In particular, do not collapse artifact/event/lineage/physical-state/future-behavior identity into one relation. The bounded SIU-1 domains establish SAME for same-`q` future-behavior identity while preserving physical-state distinction. Standard 7x6 same-`q` identity remains incomplete/unqualified, not semantic NEI UNKNOWN.
+
+When Discovery Protocol work reaches a genuine identity question, consult the NEI overlay before permitting collapse or natural-distinctness conclusions.
+
 See `docs/decisions/2026-09-18-isograph-logic-authority-1-1.md`. The original 1.0 decision remains at `docs/decisions/2026-09-18-isograph-logic-authority.md`.
 
 ## Current durable topology authority
