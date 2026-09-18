@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "authority_id": "connect4-isograph-logic-1.1",
+  "purpose": "Core 0.18 observation-first discovery dispositions for frozen 1.1 cold discrepancies",
+  "semantic_authority_changed": false,
+  "frozen_qualification_artifacts_changed": false,
+  "core_0_18_status": "unqualified_candidate_used_as_process_lens",
+  "governing_rule": {
+    "qualification_disposition_and_discovery_disposition_are_independent": true,
+    "discrepancy_is_observation_before_defect_classification": true,
+    "unknown_is_not_irrelevant": true,
+    "no_discovery_lead_is_promoted_to_authority_by_this_record": true
+  },
+  "discrepancies": [
+    {
+      "id": "scope-explicit-vs-derived",
+      "claims": [
+        "C4-R0010",
+        "C4-R0034",
+        "C4-R0054"
+      ],
+      "qualification_disposition": "DECODER_FIELD_EXTRACTION_ERROR",
+      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "confidence": "mixed",
+      "observed": {
+        "canonical_quantity": "explicit scope field presence",
+        "decoder_quantity": "appears to include inferred semantic/domain scope in at least some cases"
+      },
+      "question": "For which claim classes can semantic validity scope be derived exactly from statement/guard/dependency structure when explicit scope metadata is absent?",
+      "cautions": [
+        "R0054 is the strongest motivating case because its statement is explicitly conditional/guarded.",
+        "R0010 and R0034 remain weaker observations until the decoder's inferred basis is reconstructed.",
+        "Do not change canonical scope_present values without a separate semantic revision."
+      ]
+    },
+    {
+      "id": "explicit-relations-vs-generating-basis",
+      "claims": [
+        "C4-R0015",
+        "C4-R0016",
+        "C4-R0052"
+      ],
+      "qualification_disposition": "DECODER_RELATION_COUNT_ERROR",
+      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "confidence": "low",
+      "observed": {
+        "explicit_relation_counts": {
+          "C4-R0015": 2,
+          "C4-R0016": 2,
+          "C4-R0052": 6
+        },
+        "decoder_relation_counts": {
+          "C4-R0015": 1,
+          "C4-R0016": 1,
+          "C4-R0052": 5
+        }
+      },
+      "question": "Is any omitted explicit relation exactly derivable from other relations plus surrounding claim structure, or were these ordinary omissions?",
+      "cautions": [
+        "No generating-basis claim is established.",
+        "Explicit authority relations remain authoritative until an exact derivation and coverage proof exists."
+      ]
+    },
+    {
+      "id": "r0045-intermediate-evidence-identity",
+      "claims": [
+        "C4-R0045"
+      ],
+      "qualification_disposition": "DECODER_SOURCE_COUNT_ERROR",
+      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "confidence": "low",
+      "observed": {
+        "claim_citation_occurrences": 4,
+        "decoder_source_count": 3,
+        "represented_evidence_lineages": 2,
+        "cross_lineage_independence": "UNKNOWN"
+      },
+      "question": "Is there a useful exact intermediate evidentiary identity or aggregation between citation occurrence/artifact identity and evidence lineage that explains a stable 4->3->2 structure?",
+      "cautions": [
+        "The value 3 has no authority.",
+        "Do not invent an intermediate evidence layer unless an exact semantic relation is demonstrated."
+      ]
+    },
+    {
+      "id": "explicit-vs-derived-deductive-independence-inapplicability",
+      "claims": [
+        "C4-R0060",
+        "C4-R0062",
+        "C4-R0063",
+        "C4-R0070",
+        "C4-R0071"
+      ],
+      "qualification_disposition": "DECODER_OVERREACH",
+      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "confidence": "medium",
+      "observed": {
+        "explicit_not_applicable_deductive_claims": [
+          "C4-R0060",
+          "C4-R0062",
+          "C4-R0063",
+          "C4-R0070",
+          "C4-R0071"
+        ],
+        "decoder_generalized_beyond_explicit_set": true
+      },
+      "question": "Can empirical-independence inapplicability be safely derived from claim/evidence type in some cases, distinct from explicit not_applicable_deductive tagging?",
+      "cautions": [
+        "The cold prompt's exact five-claim control remains correct.",
+        "Any derived predicate must exclude empirically supported or mixed-evidence claims such as C4-R0016 unless independently justified."
+      ]
+    },
+    {
+      "id": "lineage-event-prose-substitution",
+      "claims": [],
+      "qualification_disposition": "DECODER_PROSE_SLIPPAGE",
+      "discovery_disposition": "NO_STRUCTURAL_LEAD",
+      "confidence": "high",
+      "observed": {
+        "evidence_lineages": 10,
+        "evidence_events": 13,
+        "incorrect_prose": "13 evidence lineages"
+      },
+      "question": null,
+      "cautions": [
+        "The authority already models event and lineage as distinct first-class quantities.",
+        "Treat this as ordinary summarization substitution unless new evidence shows otherwise."
+      ]
+    }
+  ],
+  "future_rule": {
+    "material_discrepancy_record_must_include": [
+      "observation_a",
+      "observation_b",
+      "semantic_quantity_alignment",
+      "scope_layer_authority_alignment",
+      "qualification_disposition",
+      "discovery_disposition",
+      "surviving_structural_lead_or_none",
+      "affected_dependency_cone_if_material"
+    ]
+  }
+}
