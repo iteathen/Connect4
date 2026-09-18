@@ -12,7 +12,7 @@ The Isometric solver consumes canonical research; it does not own a separate res
 
 ## Solver-family boundary
 
-Isometric is a first-class solver family governed by C4-0011. It is distinct from Minimax/Negamax, CUDA-BSFP, Hybrid Confluence, and SUT.
+Isometric is the active forward structural solver family governed by C4-0011. CUDA-BSFP is the active backward solver and SUT is their future composition lane. Minimax/Negamax and Hybrid Confluence are historical lineages.
 
 Historical descent from the terminal-frontier experiment does not make Negamax semantics or branch ownership authoritative here.
 
