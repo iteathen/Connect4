@@ -2,7 +2,7 @@
 
 Research lives here, and all durable Connect4 research belongs here.
 
-This branch is the single canonical research owner for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmarks, oracle work, and future solver families. Solver branches own implementation; they do not own separate research truth, research notes, hypotheses, experiment results, counterexamples, or research evidence.
+The branch `research/semantic-quotient` is the single canonical research owner for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmarks, oracle work, and future solver families. Solver branches own implementation; they do not own separate research truth, research notes, hypotheses, experiment results, counterexamples, or research evidence.
 
 Research direction: Josh Oshiro.
 
