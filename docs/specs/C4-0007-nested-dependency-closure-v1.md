@@ -123,6 +123,74 @@ where:
 
 The abstract representation may be refined or compressed, but it must preserve the same proof meaning.
 
+## 5A. Gameplay state versus proof context
+
+NDC extends gameplay semantics; it does not redefine ordinary gameplay identity.
+
+The ordinary future-behavior carrier is the q profile owned by C4-0006:
+
+```text
+q =
+    support
+    + normalized P0 residual antichain
+    + normalized P1 residual antichain
+```
+
+The abstract NDC closure state:
+
+```text
+X = (R0, R1, B0, B1, P, T)
+```
+
+contains **proof context** in addition to the gameplay carrier.
+
+Therefore:
+
+- equal q may justify reuse of ordinary legal-transition/game-value facts;
+- it does not by itself justify reuse of blocker, response-resource, deadline, race, certificate, or provenance facts unless those facts are exactly derivable from q;
+- NDC hash-consing/caching must use a proof identity that includes every non-q premise required by the published fact.
+
+Conceptually:
+
+```text
+QKey(q)
+
+ProofKey(
+    q,
+    proofProfile,
+    extraPremises
+)
+```
+
+This separation is mandatory even when one implementation physically stores q and proof context in one record.
+
+## 5B. Current incompleteness boundary — guarded obligation birth
+
+NDC v1 defines the proof language and closure architecture, but it must not be read as claiming that the current rule set is already complete for empty-root 7x6 value derivation.
+
+The current canonical research seam is the missing guarded lift from an exact mixed-owner cofactor consequence to a certified strategic obligation:
+
+```text
+MixedCofactorConsequence
++ AdmissibleSupport
++ UniversalInterventionStability
++ SharedResourceAccounting
++ FirstWinBeforeDeadline
+-> CertifiedObligation
+```
+
+A residual degree drop, eventual ownership fact, or one named surviving residual is not sufficient by itself.
+
+The implementation must preserve these guards:
+
+- legal/support availability;
+- all admissible intervening opponent choices;
+- shared response-resource accounting;
+- deadline/race order;
+- first-win stopping.
+
+If closure cannot derive one of those guards from existing support/CPC/blocker/resource/deadline facts, the result remains unresolved. Do not introduce an opaque solved-state predicate or hide the missing law inside recursive legal-move enumeration.
+
 ## 6. Monotone inference
 
 For an NDC profile declared monotone under its chosen information order:
