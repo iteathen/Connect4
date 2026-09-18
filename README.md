@@ -1,11 +1,17 @@
-# Connect4
+# Connect4 — historical Minimax lineage
 
-Independent Connect Four benchmark and validation product for Node search architectures.
+`solver/minimax-alpha-beta` is retired as an active solver family.
 
-The repository will preserve a strong pre-existing Node minimax/alpha-beta engine as an incumbent baseline while building a clean Connect Four domain/evaluator contract for comparison with CUDA-MCGS. Connect Four rules, evaluator meaning, benchmark positions and benchmark fairness belong here; generic search/runtime/Tensor/CUDA mechanisms remain owned by their respective CUDA repositories.
+Current active solver-family heads are:
 
-## Current state
+- `solver/isometric` — IsoMax / forward structural exact solver;
+- `solver/cuda-bsfp` — backward symbolic fixed-point solver;
+- `solver/sut` — future exact composition of IsoMax + CUDA-BSFP.
 
-Bootstrap only. No CUDA-MCGS performance or strength claim exists yet.
+The incumbent minimax/alpha-beta implementation on `main` remains a reference/baseline comparator.
 
-The 2025 browser game supplied by the project owner is source material and provenance, not the target architecture. UI, audio and browser-specific structure are not being imported wholesale.
+Durable historical knowledge from this branch is indexed at:
+
+`research/history/historical-only/solver-lineages/MINIMAX_ALPHA_BETA.md` on `research/semantic-quotient`.
+
+Do not route new implementation or research work to this branch.
