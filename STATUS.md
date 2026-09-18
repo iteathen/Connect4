@@ -38,10 +38,14 @@ Before implementation:
 4. distinguish SUT from the existing Hybrid Confluence family in contract and purpose;
 5. qualify the smallest bounded composition before concurrency or performance work.
 
+## Research ownership
+
+This branch does not own research. SUT-specific research questions, hypotheses, weld candidates, negative results, and research evidence belong on `research/semantic-quotient`; this branch owns SUT implementation and implementation qualification.
+
 ## Routing
 
 - Shared product/domain facts -> `main`.
-- Shared solver-neutral research -> `research/semantic-quotient`.
+- All research -> `research/semantic-quotient`.
 - SUT-specific contracts/implementation/evidence -> this branch.
 - Isometric and CUDA-BSFP remain independent owners of their own internals.
 
