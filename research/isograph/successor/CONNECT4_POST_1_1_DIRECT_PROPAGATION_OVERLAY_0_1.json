@@ -35,31 +35,31 @@
           "type": "supports",
           "target": "C4-R0043",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "supports",
           "target": "C4-R0069",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "depends_on",
           "target": "C4-R0073",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "depends_on",
           "target": "C4-R0074",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "constrains",
           "target": "implementation-hot-path",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         }
       ]
     },
@@ -83,38 +83,38 @@
           "type": "derived_from",
           "target": "C4-R0075",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "refines",
           "target": "C4-R0043",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "refines",
           "target": "C4-R0069",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "depends_on",
           "target": "C4-R0073",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         },
         {
           "type": "depends_on",
           "target": "C4-R0074",
           "status": "claim_only_unproved",
-          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_or_guarded_exact_proof"
         }
       ]
     }
   ],
-  "ingestion_rule": "A later qualified Connect4 IsoGraph authority revision may ingest these claims. Proposed relations must remain claim-only unless independently proved or explicitly qualified as exact; only then may they become IsoGraph relation edges. This overlay does not mutate authority 1.1.",
+  "ingestion_rule": "A later qualified Connect4 IsoGraph authority revision may ingest these claims. Proposed relations remain claim-only until deductive or guarded-exact proof; empirical confirmation alone is insufficient. Only proved relations may become IsoGraph relation edges. This overlay does not mutate authority 1.1.",
   "relation_policy": {
-    "rule": "Post-authority relation hypotheses remain claim content, not IsoGraph edges, until deductively proved or explicitly qualified as exact.",
+    "rule": "New post-authority relations remain claim-only until deductive or guarded-exact proof. Empirical confirmation alone does not promote a relation into IsoGraph topology.",
     "current_relation_edges_promoted": 0,
     "proposed_relation_claims": 10
   }
