@@ -1,0 +1,346 @@
+{
+  "schema": 1,
+  "model": "connect4-evidence-lineage-0.1",
+  "frozen_source_revision": "aea692af800f524569ea1c2fda722087cd9bca39",
+  "policy": {
+    "citation_occurrence_not_artifact_identity": true,
+    "artifact_identity_not_evidence_event": true,
+    "event_not_independence_group": true,
+    "artifact_count_not_independent_evidence_count": true,
+    "unknown_independence_is_explicit": true
+  },
+  "lineages": [
+    {
+      "id": "L-MQ5-A123-20260911",
+      "claims": [
+        "C4-R0036"
+      ],
+      "independence_group": "IG-MQ5-A123-20260911",
+      "independence_status": "correlated_within_group",
+      "events": [
+        {
+          "id": "E-MQ5-A123-RUN-34597167365",
+          "kind": "exact-oracle qualification + repeated benchmark",
+          "run": "34597167365"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/minimax/typed-mq5-a123-composition.json",
+          "relation": "normalized_summary",
+          "object_si": 3000225
+        },
+        {
+          "path": "research/provenance/source-archive/minimax-work-typed-a123/research/minimax/semantic-residual-mq5",
+          "relation": "provenance_tree",
+          "object_si": 3000299
+        }
+      ],
+      "note": "Rotated timing repetitions share implementation, anchors, runner and oracle; source explicitly says not independent trials."
+    },
+    {
+      "id": "L-A1A9-A10-20260911",
+      "claims": [
+        "C4-R0037",
+        "C4-R0038"
+      ],
+      "independence_group": "IG-A1A9-SAMPLED-ORACLE-20260911",
+      "independence_status": "correlated_within_group",
+      "events": [
+        {
+          "id": "E-A1A9-FULL-34598616430",
+          "kind": "sampled exact-oracle falsification",
+          "run": "34598616430"
+        },
+        {
+          "id": "E-A1A9-ABLATION-34598807320",
+          "kind": "sampled correlated ablation",
+          "run": "34598807320"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/minimax/a1a9-a10-ablation.json",
+          "relation": "normalized_summary",
+          "object_si": 3000224
+        },
+        {
+          "path": "research/history/disproven/legacy-a9-responder-orientation.md",
+          "relation": "negative_history_summary",
+          "object_si": 3000237
+        },
+        {
+          "path": "research/provenance/source-archive/minimax-work-a1a9-a10/research/minimax/composition-campaign/allis_a1a9_a10_exact.mjs",
+          "relation": "reproducer",
+          "object_si": 3000297
+        },
+        {
+          "path": "research/provenance/source-archive/minimax-work-a1a9-a10/research/minimax/composition-campaign/allis_a1a9_a10_ablation_runner.mjs",
+          "relation": "reproducer",
+          "object_si": 3000296
+        }
+      ],
+      "note": "Ablations use the same deterministic sampled corpus/oracle; normalized evidence explicitly marks them correlated."
+    },
+    {
+      "id": "L-BSFP-ANTICHAIN-MTBDD-20260910",
+      "claims": [
+        "C4-R0039"
+      ],
+      "independence_group": "IG-BSFP-ANTICHAIN-MTBDD-20260910",
+      "independence_status": "correlated_within_group",
+      "events": [
+        {
+          "id": "E-BSFP-ANTICHAIN-34449586657",
+          "kind": "complete-control performance comparison",
+          "run": "34449586657",
+          "source_revision": "1dcd0dd4b3d504e83b3421d5671d9979fa428d21"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/bsfp/representation-algebra.json",
+          "relation": "normalized_summary",
+          "object_si": 3000222
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-antichain-performance.md",
+          "relation": "detailed_report",
+          "object_si": 3000277
+        }
+      ]
+    },
+    {
+      "id": "L-BSFP-LINE-HIT-PRODUCT-20260910",
+      "claims": [
+        "C4-R0042"
+      ],
+      "independence_group": "IG-BSFP-LINE-HIT-PRODUCT-20260910",
+      "independence_status": "correlated_within_group",
+      "events": [
+        {
+          "id": "E-BSFP-LINE-HIT-34505707527",
+          "kind": "complete/hot-support structural qualification",
+          "run": "34505707527",
+          "source_revision": "36a95ce955b76ce95d34c7cf8ea5b3ee4c3b927d"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/bsfp/representation-algebra.json",
+          "relation": "normalized_summary",
+          "object_si": 3000222
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md",
+          "relation": "detailed_report",
+          "object_si": 3000283
+        }
+      ]
+    },
+    {
+      "id": "L-BSFP-OQS-RESIDUAL-REUSE-20260911",
+      "claims": [
+        "C4-R0044"
+      ],
+      "independence_group": "IG-BSFP-OQS-RESIDUAL-REUSE-20260911",
+      "independence_status": "correlated_within_group",
+      "events": [
+        {
+          "id": "E-BSFP-OQS-20260911T050640911Z-b3554293",
+          "kind": "native residual-pair reuse qualification",
+          "run": "20260911T050640911Z-b3554293",
+          "native_source": "5dfe1312a357c48eee53168e82fd6eba27814a06",
+          "evidence_commit": "e99680503aae6e3d56e168437e4b1ffc5708b6c3"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/bsfp/representation-algebra.json",
+          "relation": "normalized_summary",
+          "object_si": 3000222
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-11-oqs-cuda-residual-reuse.md",
+          "relation": "detailed_report",
+          "object_si": 3000284
+        }
+      ],
+      "motivating_counts": {
+        "claim_citation_occurrences": 2,
+        "distinct_artifacts": 2,
+        "independently_countable_lineages": 1
+      }
+    },
+    {
+      "id": "L-BSFP-ROLLING-SCALING-20260910",
+      "claims": [
+        "C4-R0045"
+      ],
+      "independence_group": "IG-BSFP-SCALING-ROLLING-20260910",
+      "independence_status": "unknown_relative_to_other_R0045_lineages",
+      "events": [
+        {
+          "id": "E-BSFP-ROLLING-34450288860",
+          "kind": "JavaScript rolling-rank scaling",
+          "run": "34450288860",
+          "source_revision": "309c4ad52a1cca89564c069f86b5ca902b536116"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/bsfp/representation-algebra.json",
+          "relation": "normalized_summary",
+          "object_si": 3000222
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-10-bsfp-rolling-rank-sharding.md",
+          "relation": "detailed_report",
+          "object_si": 3000279
+        }
+      ]
+    },
+    {
+      "id": "L-BSFP-COMPACT-CUDA-SCALING-20260910",
+      "claims": [
+        "C4-R0045"
+      ],
+      "independence_group": "IG-BSFP-SCALING-COMPACT-CUDA-20260910",
+      "independence_status": "unknown_relative_to_other_R0045_lineages",
+      "events": [
+        {
+          "id": "E-BSFP-COMPACT-CUDA-Q1-20260910T100734116Z-e8de3c61",
+          "kind": "Q1 compact CUDA qualification/scaling",
+          "run": "20260910T100734116Z-e8de3c61",
+          "workflow_run": "34464383666"
+        },
+        {
+          "id": "E-BSFP-SATURATION-REVIEW-20260910",
+          "kind": "derived saturation/winspace inference review",
+          "derived_from": "E-BSFP-COMPACT-CUDA-Q1-20260910T100734116Z-e8de3c61"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/bsfp/representation-algebra.json",
+          "relation": "normalized_summary",
+          "object_si": 3000222
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-10-compact-cuda-vertical-slice.md",
+          "relation": "detailed_report",
+          "object_si": 3000280
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-10-cuda-bsfp-saturation-winspace-inference-review.md",
+          "relation": "derived_review",
+          "object_si": 3000281
+        }
+      ]
+    },
+    {
+      "id": "L-BSFP-SUPPORT-LOCAL-COVERAGE",
+      "claims": [
+        "C4-R0074"
+      ],
+      "independence_group": "IG-BSFP-SUPPORT-LOCAL-COVERAGE",
+      "independence_status": "correlated_reproduction",
+      "events": [
+        {
+          "id": "E-SUPPORT-LOCAL-HISTORICAL-35035686510",
+          "kind": "historical experiment qualification",
+          "run": "35035686510"
+        },
+        {
+          "id": "E-SUPPORT-LOCAL-CANONICAL-35332181198",
+          "kind": "canonical requalification",
+          "run": "35332181198",
+          "reproduces": "E-SUPPORT-LOCAL-HISTORICAL-35035686510"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/bsfp/support-local-clause-coverage.json",
+          "relation": "normalized_summary",
+          "object_si": 3000223
+        },
+        {
+          "path": "research/experiments/bsfp-support-local-clause-coverage/RESULT.md",
+          "relation": "canonical_result",
+          "object_si": 3000235
+        },
+        {
+          "path": "research/experiments/bsfp-support-local-clause-coverage/reference-coverage-cofactor.mjs",
+          "relation": "reproducer",
+          "object_si": 3000234
+        }
+      ],
+      "note": "Same recurrence/control family; canonical run confirms rather than establishing an automatically independent Bayesian trial."
+    },
+    {
+      "id": "L-REALIZABILITY-DERIVATION-20260916",
+      "claims": [
+        "C4-R0060",
+        "C4-R0062",
+        "C4-R0063"
+      ],
+      "independence_group": null,
+      "independence_status": "not_applicable_deductive",
+      "events": [
+        {
+          "id": "E-REALIZABILITY-DERIVATION-20260916",
+          "kind": "deductive derivation/structural analysis"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/realizability/2026-09-16-line-hit-and-history-realizability.md",
+          "relation": "normalized_derivation",
+          "object_si": 3000229
+        },
+        {
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-10-winline-product-antichain-results.md",
+          "relation": "prior_structural_source",
+          "object_si": 3000283
+        },
+        {
+          "path": "research/provenance/source-archive/derivative-classification/docs-research/2026-09-13-colored-event-structure-and-proof-antichain-control.md",
+          "relation": "prior_structural_source",
+          "object_si": 3000285
+        },
+        {
+          "path": "research/maps/INVARIANT_CROSS_SYNTHESIS_METHOD.md",
+          "relation": "method_dependency",
+          "object_si": 3000263
+        }
+      ]
+    },
+    {
+      "id": "L-STRUCTURAL-SELECTION-DERIVATION-20260916",
+      "claims": [
+        "C4-R0070",
+        "C4-R0071"
+      ],
+      "independence_group": null,
+      "independence_status": "not_applicable_deductive",
+      "events": [
+        {
+          "id": "E-STRUCTURAL-SELECTION-DERIVATION-20260916",
+          "kind": "deductive Connect-K transversal/centrality derivation"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "research/evidence/structural-selection/2026-09-16-connect-k-transversal-centrality.md",
+          "relation": "normalized_derivation",
+          "object_si": 3000231
+        },
+        {
+          "path": "research/provenance/source-archive/derivative-classification/docs-research/2026-09-14-safe-bulk-boundary-entry.md",
+          "relation": "prior_derivation_source",
+          "object_si": 3000291
+        }
+      ]
+    }
+  ]
+}
