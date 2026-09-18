@@ -46,10 +46,14 @@ Before substantive implementation:
 
 Do not infer a concrete architecture merely from the branch name or the older repository-level sketch.
 
+## Research ownership
+
+This branch does not own research. Hybrid-specific research questions, hypotheses, results, negative results, and research evidence belong on `research/semantic-quotient`; this branch owns Hybrid Confluence implementation and implementation qualification.
+
 ## Routing
 
 - Shared product/domain facts -> `main`.
-- Shared solver-neutral research -> `research/semantic-quotient`.
+- All research -> `research/semantic-quotient`.
 - Hybrid-specific implementation/evidence -> this branch.
 - Temporary Hybrid work -> bounded branch owned by this lane, then integrate/archive/retire.
 
