@@ -2,6 +2,13 @@
 
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
+
+## Current durable topology authority
+
+This branch is the **durable Isometric solver head** under the owner-authorized closed topology in `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
+
+The durable set is closed. Do not create or promote another continuity branch without explicit owner instruction. Any `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging or evidence ref created from this lane must name this or another durable owner, preserve useful results back to that owner or an immutable archive, and retire when its bounded purpose ends.
+
 ## Mission and ownership
 
 Connect4 is an independent Node benchmark/validation product and exact-solver laboratory for Connect Four. It owns Connect Four domain semantics, the custom evaluator and conformance vectors, solved-game oracle evidence, benchmark positions/budgets/fairness/metrics/evidence, exact-solver semantics/evidence, and product composition of public CUDA libraries.
