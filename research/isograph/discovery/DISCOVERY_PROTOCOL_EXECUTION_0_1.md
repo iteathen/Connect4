@@ -218,6 +218,33 @@ Qualification closure never silently closes discovery.
 
 Discovery interest never excuses a qualification defect.
 
+## Relation promotion gate
+
+A newly discovered correspondence between represented claims/objects does **not** become an IsoGraph relation edge merely because the surrounding finding is empirically confirmed.
+
+Use the following progression:
+
+~~~text
+observed correspondence
+    -> relation claim / hypothesis
+    -> falsification and proof burden
+    -> deductive_exact or guarded_exact proof
+    -> only then native IsoGraph relation edge
+~~~
+
+Until proof exists:
+
+- preserve the proposed relation as claim content;
+- preserve its source/target, intended relation type, scope and falsifier;
+- do not encode it as a load-bearing native edge;
+- do not allow other derivations to consume it as though the relation were established.
+
+Empirical support may strengthen the **claim status**, but empirical confirmation alone does not promote the relation.
+
+Guarded relation proof must carry its guards on the promoted relation or on an explicitly linked proof object; do not silently globalize it.
+
+When proof is later obtained, update the successor IsoGraph representation so the confirmed relation becomes explicit topology rather than remaining only prose/claim metadata.
+
 ## Integration
 
 A completed discovery run must:
