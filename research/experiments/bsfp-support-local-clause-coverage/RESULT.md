@@ -187,4 +187,4 @@ result:   success
 
 The canonical requalification also used the maintained-test boundary so provenance archives were not executed as live product tests. The earlier experiment run remains historical evidence; this canonical run confirms the same research result in its final owning branch.
 
-Normalized claim: **C4-R0073**.
+Normalized claims: **C4-R0073** (deductive support-local dictionary/predecessor closure) and **C4-R0074** (bounded empirical coverage/cofactor qualification).
