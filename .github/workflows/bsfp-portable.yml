@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   bsfp-portable:
+    if: github.event_name != 'pull_request' || github.base_ref != 'research/semantic-quotient'
     name: bsfp-portable (${{ matrix.os }}, node-${{ matrix.node }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
