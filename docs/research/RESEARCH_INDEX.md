@@ -42,7 +42,32 @@ bounded future-behavior identity:
 
 on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
 
-### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE — IsoGraph Discovery Protocol campaign
+### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE — NEI-enabled Discovery Protocol rerun
+
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md`  
+  Controlled rerun of the original discrepancy campaign with the applied NEI identity layer available. NEI was not applicable to 3/5 original branches, materially refined R0045 evidence identity, strengthened the independence type boundary, exposed a profile-mediated safe-collapse correspondence across evidence/state identity, and converted standard-7x6 state identity into a concrete falsifiable closure target.
+
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/DISCOVERY_LEDGER.json`  
+  Seven-branch machine ledger with explicit NEI applicability on every branch.
+
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/BEFORE_AFTER.json`  
+  Machine-readable DP-only versus DP+NEI comparison.
+
+- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/RUN_LOG.md`  
+  Chronological rerun evidence.
+
+Primary new structural candidate:
+
+~~~text
+fine identity DISTINCT
+-> context/profile-specific projection
+-> scoped semantic identity SAME
+-> fine residual/provenance preserved
+~~~
+
+The evidence-side projection is context-scoped rather than globally functional.
+
+### ACTIVE FOUNDATION / DISCOVERY METHOD EVIDENCE — original IsoGraph Discovery Protocol campaign
 
 - `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md`  
   First full execution of the IsoGraph Discovery Protocols against live Connect4 authority discrepancies. Establishes explicit-scope-metadata vs semantic-validity-scope as distinct predicates; establishes the R0045 4-artifact / 3-event / 2-lineage hierarchy; establishes lineage-level ownership of evidence-independence applicability; falsifies the shared minimal-relation-basis hypothesis for the repeated relation-count deficits; and closes the 10-lineage/13-event prose slip as ordinary error.
