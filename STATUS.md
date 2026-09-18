@@ -5,11 +5,17 @@
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
 
-This file is the current-state router, not a theorem ledger. Exact derivations and qualification evidence live in `docs/research/**`; the executable continuation lives in `next_step.yaml`; forward-lane controls live under `research/semantic-quotient/**`.
+This file is the current-state router, not a theorem ledger. This branch owns **all durable Connect4 research**, regardless of which solver produced it. Research artifacts live across `research/**` and `docs/research/**` on this branch; the executable research continuation lives in `next_step.yaml`.
+
+## Research ownership
+
+`research/semantic-quotient` is the single durable research owner. Minimax, CUDA-BSFP, Hybrid Confluence, Isometric, and SUT are implementation consumers, not alternate research authorities. Temporary experiments may carry in-progress research only until durable results are integrated here.
+
+See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Consolidated research-lane state
 
-On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916` and the exact unified-knowledge trees were attached under `research/`. This branch now preserves both the active structural-calculus lineage and the normalized cross-lineage research knowledge base.
+On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
 
 The consolidation changes branch ownership/provenance only. It does not promote research claims, alter theorem dispositions, or make this branch a solver implementation head. Non-research solver/product branches remain outside this cleanup.
 
