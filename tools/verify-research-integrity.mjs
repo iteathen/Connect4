@@ -78,8 +78,6 @@ for (const {from,to} of relationTargets) {
 
 // Canonical research validates its branch-local authority surfaces. The repository-wide
 // REPOSITORY_STRUCTURE.md router is owned on main and is not a dependency of this branch.
-// Canonical research validates its branch-local authority surfaces. The repository-wide
-// REPOSITORY_STRUCTURE.md router is owned on main and is not a dependency of this branch.
 const authorityFiles = [
   'AGENT_LOCAL.md',
   'research/AGENTS.md',
