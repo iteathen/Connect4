@@ -8,19 +8,17 @@ Research direction: Josh Oshiro.
 
 ## Mandatory read order
 
-Before changing research meaning, read enough of the following to understand the current graph rather than reconstructing it from branch history:
+Before changing research meaning, begin with the qualified IsoGraph authority rather than reconstructing authority from legacy branch/file topology:
 
-1. `README.md` — research-space roles and epistemic categories.
-2. `canonical/CORE_MODEL.md` — shared conceptual model.
-3. `canonical/CLAIMS.md` plus any specialized human ledgers named by `canonical/CLAIM_INDEX.json`.
-4. `canonical/CLAIM_INDEX.json` — authoritative registry root. Read **every registry shard it lists** before assigning or interpreting claim IDs.
-5. `canonical/CROSS_LINEAGE_SYNTHESIS.md` and `maps/CORE_LOGIC_MAP.md` — graph position and cross-lineage synthesis.
-6. `maps/RESEARCH_TO_CORE_LOGIC.md` and `maps/SOLVER_CONSUMPTION.md` — logical roles and consumer boundaries.
-7. `open-questions/`, `hypotheses/`, and `confidence/` entries relevant to the work.
-8. `evidence/` and `experiments/` when evaluating empirical support.
-9. `provenance/` only when an audit, source normalization, attribution check, or exact historical reconstruction requires it.
+1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md` — current logic authority root.
+2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json` — immutable authority/evidence identities.
+3. `isograph/CONNECT4_LOGIC_PROFILE_0_1.md`, native vocabulary, and bundle.
+4. `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg` and `isograph/CONNECT4_LOGIC_UNCERTAINTY_0_1.isg` — claim/status/guard/relation and unresolved structure.
+5. relevant native source/item shards when exact source reconstruction or lower-level occurrence topology is required.
+6. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
+7. `provenance/` only when an audit, source normalization, attribution check, or exact historical reconstruction requires it.
 
-Do not begin with provenance dumps merely because they are larger or older. Canonical normalized claims are the starting authority for research state; provenance is evidence and recovery material.
+A direct edit to a legacy bridge view does not change authoritative logic. New durable logic must be represented and qualified in a successor IsoGraph authority revision.
 
 ## Core invariants
 
@@ -28,7 +26,7 @@ Maintain these invariants on every research mutation:
 
 - **One claim, one stable identity.** Semantically identical statements do not get parallel IDs because wording, branch, solver, or source differs.
 - **Global ID uniqueness.** `C4-R####` IDs are unique across every registry shard. Never renumber, recycle, or silently repurpose an existing ID.
-- **One logical registry.** Shards are storage/review boundaries only. `canonical/CLAIM_INDEX.json` is the root and all listed shards form one database.
+- **One authoritative logic graph.** IsoGraph authority is the current root. Legacy claim-registry shards are compatibility/readability views of the frozen pre-IsoGraph graph, not a second authority.
 - **Status is claim-specific.** Solver adoption, benchmark speed, branch age, issue labels, repeated model agreement, or implementation success do not promote a research claim.
 - **Guards are part of truth.** A guarded theorem without its guards is a different and usually false claim.
 - **Scope is part of truth.** A bounded control, one board size, one tie convention, or one solver workload may not be silently widened.
@@ -61,7 +59,8 @@ When two artifacts appear to disagree, first determine whether they actually ass
 
 Classify meaning before choosing a directory.
 
-- `canonical/` — normalized claims and the shared model. Entries here may be proven, empirical, open, disproven, or otherwise classified; “canonical” means stable identity and normalized semantics, not “true theorem.”
+- `isograph/` — current qualified logic authority, native corpus, immutable manifests and qualification evidence.
+- `canonical/` — legacy normalized-claim/shared-model bridge. Its stable IDs remain useful, but authoritative semantics/status/relations are resolved through IsoGraph.
 - `maps/` — connective structure among claims, logical roles, and solver consumers. Maps do not independently promote claims.
 - `hypotheses/` — coherent falsifiable ideas worth testing that are not established.
 - `open-questions/` — unresolved seams and missing laws. Prefer refining an existing gap over creating a parallel gap taxonomy.
@@ -79,9 +78,9 @@ Use the status vocabulary already established by the research README and registr
 When a source packet, experiment, branch, issue, paper, implementation result, or new derivation contains research meaning:
 
 1. **Extract atomic propositions.** Separate theorem, guard, counterexample, empirical result, implementation observation, conjecture, and open question instead of promoting an entire document as one claim.
-2. **Search the complete claim graph.** Read all registry shards from `CLAIM_INDEX.json`. Determine whether each proposition is identical to, refines, constrains, contradicts, supports, derives from, or is genuinely distinct from an existing claim.
+2. **Search the complete authoritative graph.** Read the current IsoGraph authority claim/uncertainty graph. Use the legacy registry shards only as bridge indexes for existing `C4-R####` identities. Determine whether each proposition is identical to, refines, constrains, contradicts, supports, derives from, or is genuinely distinct from an existing claim.
 3. **Reuse identity when semantics are the same.** Add source/evidence/relations/scope to the existing claim rather than minting a duplicate.
-4. **Create a new ID only for a distinct truth condition or research object.** Allocate the next unused global `C4-R####` after checking all shards.
+4. **Create a new ID only for a distinct truth condition or research object.** Allocate the next unused global `C4-R####` after checking the authoritative IsoGraph graph and legacy bridge IDs; publish it only through a newly qualified IsoGraph authority revision.
 5. **Record the full proposition.** Include status/confidence mode, precise statement, scope and/or guards where material, source links, intended solver consumers if known, and graph relations.
 6. **Preserve attribution.** Keep explicit source attribution such as Josh Oshiro’s research direction where the source carries it. Do not invent authorship or erase contributor provenance during normalization.
 7. **Route unresolved residue.** If the normalized claim exposes a missing law or hypothesis, connect it to the existing open-question/hypothesis structure instead of leaving the gap only in prose.
