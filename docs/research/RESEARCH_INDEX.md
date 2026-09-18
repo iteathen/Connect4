@@ -62,6 +62,27 @@ bounded future-behavior identity:
 
 on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
 
+### ACTIVE SEAM / CONFIRMED DISCOVERY — pre-semantic universal-composition wall
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md`  
+  Direct rank-by-rank clause/deadline propagation. Localizes the first standard-7x6 unclosed rank to universal proof composition at rank 35.
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.md` / `.json`  
+  Independent confirmation of rank-35 support cardinality, recorded Cartesian domains, current BSFP Cartesian intersection semantics, qualified predecessor-closed clause carrier, and the realizability boundary on the abstract residual projection.
+
+- `research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.isg` / `.json` / `.md`  
+  Post-1.1 successor overlay recording `C4-R0075` (confirmed scoped representation/composition wall) and `C4-R0076` (missing compact clause-to-value controllable-predecessor law). Frozen authority 1.1 is unchanged.
+
+Current structural seam:
+
+~~~text
+predecessor-closed clause/proof carrier
+    -> compact realizability-preserving controllable predecessor
+    -> residual/q-value boundary
+
+before distributed universal alternatives expand
+~~~
+
 ### ACTIVE FOUNDATION / DISCOVERY SYNTHESIS — exact support-local action-value frontier
 
 - `research/isograph/discovery/2026-09-18-policy-frontier/CAMPAIGN.md`  
