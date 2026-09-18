@@ -4,6 +4,12 @@ The provenance archive is lossless. The canonical graph now includes structural 
 
 Remaining work is classification of **meaning**, not file movement.
 
+## BSFP / Isometric transfer packet consolidated
+
+The former `research/bsfp-isometric-invariant-transfer` branch has been physically consolidated into this research branch. Its later BSFP/Isometric transfer hypotheses, support-local residual/clause experiments, reflection-orbit work, direct line-product qualification, clause-frontier results, feasible-slice recurrence, dual-positive frontier work, constraint-relative antichain work, and solution-invariant qualification records now live under the canonical `research/` tree.
+
+The old branch is provenance only after retirement. No solver or side branch owns a competing research corpus. Active temporary experiments must merge their research outputs back here before retirement.
+
 ## Active selection / realizability follow-up
 
 - C4-R0068 localizes the six-ply A/B witness to low-order certificate generation; C4-R0069 states the missing guarded controllable-predecessor law.
