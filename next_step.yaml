@@ -21,8 +21,7 @@ ownership:
   does_not_own:
     - isometric_private_structural_solver_internals
     - cuda_bsfp_private_recurrence_or_storage
-    - hybrid_confluence_semantics
-    - minimax_private_search_state
+    - historical_minimax_private_search_state
     - canonical_research_corpus
 
 task:
@@ -35,7 +34,9 @@ required_questions:
   - what_exact_object_can_both_sides_name
   - what_bsfp_horizon_or_exact_coverage_statement_is_sound
   - what_condition_allows_forward_work_to_close_without_recursive_reproof
-  - how_sut_differs_from_hybrid_confluence
+  - what_result_or_proof_strength_order_is_monotone
+  - how_stale_exact_information_remains_sound
+  - what_supersession_or_cancellation_is_semantically_safe
   - what_bounded_control_can_falsify_the_weld
 
 constraints:
@@ -47,6 +48,6 @@ constraints:
 
 success_criteria:
   - explicit_small_exact_weld_contract
-  - clear_distinction_from_hybrid_confluence
+  - historical_hybrid_confluence_questions_resolved_or_explicitly_deferred
   - independent_bounded_correctness_control
   - branch_local_status_updated_before_implementation
