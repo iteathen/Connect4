@@ -21,28 +21,6 @@
         "abstract residual-shaped projections are not legal-q class censuses",
         "finding does not establish empty-root solution or existence of a compact exact projection"
       ],
-      "relations": [
-        [
-          "supports",
-          "C4-R0043"
-        ],
-        [
-          "supports",
-          "C4-R0069"
-        ],
-        [
-          "depends_on",
-          "C4-R0073"
-        ],
-        [
-          "depends_on",
-          "C4-R0074"
-        ],
-        [
-          "constrains",
-          "implementation-hot-path"
-        ]
-      ],
       "evidence": [
         "research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md",
         "research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_RESULTS.json",
@@ -51,7 +29,39 @@
         "solver/cuda-bsfp@30d0ae3aae1fa5750d458076345115aced53dca0:components/bsfp/ownership-antichain-solver.mjs",
         "solver/cuda-bsfp@4ae66125953ef810b6a826050fed4135f43dddef:docs/specs/profiles/C4-0009-P2-compact-hybrid-v0.md"
       ],
-      "authority_effect": "post_1_1_derived_overlay_only"
+      "authority_effect": "post_1_1_derived_overlay_only",
+      "proposed_relations": [
+        {
+          "type": "supports",
+          "target": "C4-R0043",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0069",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0073",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0074",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "constrains",
+          "target": "implementation-hot-path",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        }
+      ]
     },
     {
       "id": "C4-R0076",
@@ -63,34 +73,49 @@
         "must preserve first-win stopping, support and quantified opponent semantics",
         "must not treat abstract residual projections as legal q without cardinality/history qualification"
       ],
-      "relations": [
-        [
-          "derived_from",
-          "C4-R0075"
-        ],
-        [
-          "refines",
-          "C4-R0043"
-        ],
-        [
-          "refines",
-          "C4-R0069"
-        ],
-        [
-          "depends_on",
-          "C4-R0073"
-        ],
-        [
-          "depends_on",
-          "C4-R0074"
-        ]
-      ],
       "evidence": [
         "research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md",
         "research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.md"
       ],
-      "authority_effect": "post_1_1_derived_overlay_only"
+      "authority_effect": "post_1_1_derived_overlay_only",
+      "proposed_relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0075",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "refines",
+          "target": "C4-R0043",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "refines",
+          "target": "C4-R0069",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0073",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0074",
+          "status": "claim_only_unproved",
+          "promotion_rule": "promote_to_isograph_edge_only_after_deductive_proof_or_explicit_qualified_exact_relation"
+        }
+      ]
     }
   ],
-  "ingestion_rule": "A later qualified Connect4 IsoGraph authority revision may ingest these claims only after successor qualification. This overlay does not mutate authority 1.1."
+  "ingestion_rule": "A later qualified Connect4 IsoGraph authority revision may ingest these claims. Proposed relations must remain claim-only unless independently proved or explicitly qualified as exact; only then may they become IsoGraph relation edges. This overlay does not mutate authority 1.1.",
+  "relation_policy": {
+    "rule": "Post-authority relation hypotheses remain claim content, not IsoGraph edges, until deductively proved or explicitly qualified as exact.",
+    "current_relation_edges_promoted": 0,
+    "proposed_relation_claims": 10
+  }
 }
