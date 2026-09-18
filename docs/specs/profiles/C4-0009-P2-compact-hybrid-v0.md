@@ -191,7 +191,7 @@ This means P2 does **not** satisfy the final C4-0009 goal of device-resident sem
 
 P2 can attempt the current Q1 ladder through 7x6 so long as `columns * rows <= 42`. Larger cases remain unsupported by this packed42 profile.
 
-Established root checks currently include:
+Independent expected/oracle root checks available to P2 qualification include:
 
 - 4x3 connect-3: Win;
 - 4x4 connect-4: Draw;
@@ -199,7 +199,9 @@ Established root checks currently include:
 - 5x5 connect-4: Draw;
 - 7x6 connect-4: Win.
 
-Intermediate scaling geometries without a separately frozen root oracle still produce exact BSFP results, but completion alone does not create an independent-oracle claim.
+This list is **not** a list of completed P2 solves. In particular, the current canonical branch status records the bounded 7x6 P2 attempt as a clean timeout with no observed root W/D/L. A profile may compare a completed result with the expected/oracle value only after the solve actually completes.
+
+Intermediate scaling geometries without a separately frozen root oracle still produce exact BSFP results when they complete, but completion alone does not create an independent-oracle claim.
 
 ## Performance evidence
 
