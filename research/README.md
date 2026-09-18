@@ -10,6 +10,7 @@ Research direction: Josh Oshiro.
 
 The living bridge from IsoGraph research into gameplay description, solver strategy, and implementation ideas is:
 
+- `GAMEPLAY_DESCRIPTION_FOR_HUMANS.md` — novice-level gameplay description, classical q-congruence proof, and IsoGraph/NEI interpretation.
 - `GAMEPLAY_STRATEGY_INDEX.md`
 
 New durable gameplay-facing strategies must be registered there rather than left only in dated notes, issues, experiments, or solver branches. Proposal documents live under `gameplay-strategy/`.
