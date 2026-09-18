@@ -185,11 +185,31 @@ A conforming BSFP realization may use, individually or in composition:
 
 Changing representation must not change exact W/D/L.
 
-## 9. Residual-state realization
+## 9. Gameplay carrier versus BSFP proof representation
 
-When C4-0006 residual winspace is used, a BSFP state must preserve every fact needed to reproduce legal transitions and terminal timing, including the selected profile's support/accessibility, side/event rank, normalized surviving requirements, blockers, and response/race facts.
+When C4-0006 residual winspace is used, distinguish the ordinary gameplay carrier from stronger BSFP proof representation.
 
-A compressed state is valid only if exact transition/result equivalence is established. Historical colors may be omitted where proven irrelevant; blocked-line history may not be forgotten in a way that revives an impossible win.
+For ordinary legal future behavior:
+
+```text
+q =
+    support/accessibility
+    + normalized P0 residual antichain
+    + normalized P1 residual antichain
+```
+
+is the canonical research candidate gameplay identity.
+
+A BSFP realization may nevertheless use a **finer** symbolic representation, including raw ownership functions or ownership antichains. That is conforming when exact, but the extra distinctions are implementation/proof representation rather than a competing gameplay identity.
+
+Blockers, CPC response/order facts, deadlines, NDC certificates, or other proof premises belong to a stronger proof context unless exactly derivable from q.
+
+Therefore a valid BSFP implementation must preserve two boundaries:
+
+1. q-level equality for ordinary transition/game-value semantics;
+2. profile-specific proof equality for any stronger published fact.
+
+Historical colors may be omitted where proven irrelevant. Conversely, a q-level merge must never revive a blocked line, lose first-win timing, or reuse a path-dependent proof premise that is not derivable from q.
 
 ## 10. NDC realization
 
@@ -222,9 +242,28 @@ Budget exhaustion, capacity yield, unfinished input, or an empty temporary works
 
 A hash is not equality.
 
-If BSFP deduplicates symbolic records, states, certificates, or frontier entries, equality/canonicalization must preserve complete solver semantics for the selected representation.
+BSFP uses **typed identity profiles**.
 
-CUDA-Algorithms may provide ordering/grouping/compaction over item indices; the equality predicate and canonical proof meaning remain Connect4-owned.
+At minimum distinguish:
+
+```text
+ordinary gameplay identity:
+    q
+
+symbolic representation identity:
+    exact physical/packed record used by a profile
+
+proof/certificate identity:
+    q + proof profile + every non-q premise required by the fact
+```
+
+A finer symbolic record may distinguish two states that are SAME under q. That is conservative and may cost performance; it is not a correctness error.
+
+The inverse is not allowed: equality under q does not authorize merging stronger proof/certificate records unless the additional premises are equal or are exactly derivable from q.
+
+If BSFP deduplicates symbolic records, states, certificates, or frontier entries, equality/canonicalization must preserve complete semantics for the identity profile of the fact being deduplicated.
+
+CUDA-Algorithms may provide ordering/grouping/compaction over item indices; the equality predicate, identity profile, and canonical proof meaning remain Connect4-owned.
 
 ## 13. Independent terminal qualification
 
