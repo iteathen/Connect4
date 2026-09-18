@@ -7,8 +7,8 @@ The repository has one shared foundation, one canonical research lane, and **fiv
 - `solver/minimax-alpha-beta` — exact minimax/negamax/alpha-beta implementation and search-specific optimization/evidence;
 - `solver/cuda-bsfp` — backward symbolic fixed-point solving on CUDA, not move-tree search;
 - `solver/hybrid-confluence` — hybrid exact solving that composes solver capabilities through an exact confluence contract;
-- `isometric` — the structural-calculus / frontier-exact Isometric solver family;
-- `sut` — SUT (`S ∪ T`), a distinct solver lineage intended to combine mature structural and terminal solving boundaries;
+- `solver/isometric` — the structural-calculus / frontier-exact Isometric solver family;
+- `solver/sut` — SUT (`S ∪ T`), a distinct solver lineage intended to combine mature structural and terminal solving boundaries;
 - `research/semantic-quotient` — canonical solver-neutral research, normalized knowledge, evidence and cross-solver synthesis.
 
 `main` is **not another solver line**. It is the shared accepted substrate and repository router. It owns domain rules, benchmark/fairness semantics, oracle/reference behavior, accepted cross-lane contracts and repository-level ownership decisions.
@@ -32,7 +32,7 @@ The qualified incumbent implementation on `main` is retained as a reference/base
 
 The diagram is ownership-oriented, not a Git ancestry claim. Solver heads are peers and may have different historical origins.
 
-The durable set is closed by `docs/decisions/2026-09-17-closed-durable-lane-topology.md`. Agents may create bounded temporary work/experiment branches, but may not invent another durable lane or let a temporary branch become a continuity owner without explicit owner instruction.
+The durable set is closed by `docs/decisions/2026-09-17-solver-namespace-normalization.md`. Agents may create bounded temporary work/experiment branches, but may not invent another durable lane or let a temporary branch become a continuity owner without explicit owner instruction.
 
 ## Branch hygiene
 
