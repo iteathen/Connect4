@@ -3,6 +3,8 @@
 **Disposition:** historical-only solver lineage  
 **Retired active branch:** `solver/minimax-alpha-beta`  
 **Final observed branch head before retirement:** `c25de7ddab5dcae525a250331cd6c74bd94beb4e`  
+**Retirement tombstone head:** `3c7524321d49c11c3cb6c519425e3bd0ed4bb42b`  
+**Physical ref status:** retirement-ready; pending deletion of `solver/minimax-alpha-beta`  
 **Active successor for forward structural exact solving:** `solver/isometric`
 
 ## What this lineage was
