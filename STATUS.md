@@ -1,7 +1,7 @@
 # Connect4 SUT Status
 
 **Updated:** 2026-09-17  
-**Branch:** `sut`  
+**Branch:** `solver/sut`  
 **Solver family:** SUT (`S ∪ T`)  
 **State:** early directional lineage; no established architecture or implementation contract yet
 
@@ -45,4 +45,4 @@ Before implementation:
 - SUT-specific contracts/implementation/evidence -> this branch.
 - Isometric and CUDA-BSFP remain independent owners of their own internals.
 
-See `README.md`, `docs/SUT_DIRECTION_SKETCH.md`, and `docs/decisions/2026-09-17-closed-durable-lane-topology.md`.
+See `README.md`, `docs/SUT_DIRECTION_SKETCH.md`, and `docs/decisions/2026-09-17-solver-namespace-normalization.md`.
