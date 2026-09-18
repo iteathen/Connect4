@@ -1,0 +1,206 @@
+{
+  "schema": 1,
+  "application_id": "connect4-nei-application-0.1",
+  "authority_revision": "connect4-isograph-logic-1.1",
+  "nei_semantics": [
+    "NEI 0.1 qualified",
+    "NEI 0.2 qualified"
+  ],
+  "guidance_only": [
+    "NEI 0.3 candidate"
+  ],
+  "results": [
+    {
+      "id": "NEI-C4-0001",
+      "native_id": 921001,
+      "profile": "P-C4-ARTIFACT-IDENTITY-0.1",
+      "query": {
+        "subject_a": {
+          "object_si": 3000222,
+          "path": "research/evidence/bsfp/representation-algebra.json"
+        },
+        "subject_b": {
+          "object_si": 3000284,
+          "path": "research/provenance/source-archive/bsfp/docs-research/2026-09-11-oqs-cuda-residual-reuse.md"
+        }
+      },
+      "context": "C4-R0044 evidence support",
+      "path": "determinate",
+      "result": "DISTINCT",
+      "basis": [
+        "authority 1.1 explicitly records two distinct artifacts for C4-R0044",
+        "both artifacts may share one evidence lineage without becoming one artifact instance"
+      ],
+      "verification_status": "local_verified_from_authority"
+    },
+    {
+      "id": "NEI-C4-0002",
+      "native_id": 921002,
+      "profile": "P-C4-LINEAGE-IDENTITY-0.1",
+      "query": {
+        "subject_a": {
+          "projection": "lineage_of",
+          "source_object_si": 3000222,
+          "lineage": "L-BSFP-OQS-RESIDUAL-REUSE-20260911"
+        },
+        "subject_b": {
+          "projection": "lineage_of",
+          "source_object_si": 3000284,
+          "lineage": "L-BSFP-OQS-RESIDUAL-REUSE-20260911"
+        }
+      },
+      "context": "C4-R0044 evidence support",
+      "path": "determinate",
+      "result": "SAME",
+      "basis": [
+        "both artifact projections resolve to the same represented evidence lineage"
+      ],
+      "caveat": "SAME applies to the projected lineage referents, not to the underlying artifact instances",
+      "verification_status": "local_verified_from_authority"
+    },
+    {
+      "id": "NEI-C4-0003",
+      "native_id": 921003,
+      "profile": "P-C4-EVENT-IDENTITY-0.1",
+      "query": {
+        "subject_a": {
+          "event": "E-SUPPORT-LOCAL-HISTORICAL-35035686510"
+        },
+        "subject_b": {
+          "event": "E-SUPPORT-LOCAL-CANONICAL-35332181198"
+        }
+      },
+      "context": "C4-R0074 reproduction",
+      "path": "determinate",
+      "result": "DISTINCT",
+      "basis": [
+        "authority 1.1 represents two distinct evidence events",
+        "the canonical event reproduces the historical event; reproduction is a relation between events, not event identity"
+      ],
+      "verification_status": "local_verified_from_authority"
+    },
+    {
+      "id": "NEI-C4-0004",
+      "native_id": 921004,
+      "profile": "P-C4-LINEAGE-IDENTITY-0.1",
+      "query": {
+        "subject_a": {
+          "projection": "lineage_of_event",
+          "event": "E-SUPPORT-LOCAL-HISTORICAL-35035686510",
+          "lineage": "L-BSFP-SUPPORT-LOCAL-COVERAGE"
+        },
+        "subject_b": {
+          "projection": "lineage_of_event",
+          "event": "E-SUPPORT-LOCAL-CANONICAL-35332181198",
+          "lineage": "L-BSFP-SUPPORT-LOCAL-COVERAGE"
+        }
+      },
+      "context": "C4-R0074 reproduction",
+      "path": "determinate",
+      "result": "SAME",
+      "basis": [
+        "both event projections belong to the same represented lineage"
+      ],
+      "caveat": "SAME applies to lineage identity, while the events remain DISTINCT under event identity",
+      "verification_status": "local_verified_from_authority"
+    },
+    {
+      "id": "NEI-C4-0005",
+      "native_id": 921005,
+      "profile": "P-C4-LINEAGE-IDENTITY-0.1",
+      "query": {
+        "subject_a": {
+          "lineage": "L-BSFP-ROLLING-SCALING-20260910"
+        },
+        "subject_b": {
+          "lineage": "L-BSFP-COMPACT-CUDA-SCALING-20260910"
+        }
+      },
+      "context": "C4-R0045 evidence support",
+      "path": "determinate",
+      "result": "DISTINCT",
+      "basis": [
+        "authority 1.1 represents two distinct lineages for C4-R0045"
+      ],
+      "non_identity_unknown": {
+        "property": "cross-lineage independence",
+        "value": "UNKNOWN",
+        "meaning": "unknown independence does not create NEI UNKNOWN and does not merge the lineages"
+      },
+      "verification_status": "local_verified_from_authority"
+    },
+    {
+      "id": "NEI-C4-0006",
+      "native_id": 921006,
+      "profile": "P-C4-FUTURE-BEHAVIOR-STATE-BOUNDED-0.1",
+      "query": {
+        "quantified_pair": "for any legal non-winning physical states x,y in the same exhausted SIU-1 geometry with q(x)=q(y)"
+      },
+      "path": "determinate",
+      "result": "SAME",
+      "scope": [
+        "4x3:c3",
+        "4x4:c4",
+        "5x3:c4",
+        "4x5:c4"
+      ],
+      "basis": [
+        "SIU-1 exhaustively checked 1,681,808 physical states",
+        "equal relational state q drove exact forward transitions without recursive colored-board state",
+        "terminal, distance-sensitive strong score, per-column action score, BSFP W/D/L and reverse closure had zero mismatches over the complete bounded controls",
+        "the finite Connect Four state graphs are acyclic, so the checked transition/terminal contract closes future-behavior semantics inside the exhausted domains"
+      ],
+      "coverage": {
+        "physical_states_checked": 1681808,
+        "exactness_mismatches": 0,
+        "bsfp_wdl_mismatches": 0,
+        "reverse_closure_mismatches": 0
+      },
+      "verification_status": "local_verified_complete_bounded_coverage"
+    },
+    {
+      "id": "NEI-C4-0007",
+      "native_id": 921007,
+      "profile": "P-C4-FUTURE-BEHAVIOR-STATE-7X6-0.1",
+      "query": {
+        "quantified_pair": "for standard 7x6 physical states x,y with q(x)=q(y)"
+      },
+      "path": "incomplete",
+      "result": "INCOMPLETE_UNQUALIFIED",
+      "basis": [
+        "SIU-1 explicitly lists standard 7x6 exhaustive sufficiency as a non-claim",
+        "no qualified theorem or complete coverage certificate currently closes q as the exact future-behavior identity on standard 7x6",
+        "the state-identity-unification packet is locally INCOMPLETE_SCOPE and no qualified QU realization family is pinned for this identity question"
+      ],
+      "semantic_nei_unknown": false,
+      "reason_not_unknown": "NEI UNKNOWN requires a qualified QU-mediated model family containing both SAME and DISTINCT admissible models; that authority is absent here",
+      "verification_status": "fail_closed"
+    }
+  ],
+  "cross_profile_results": [
+    {
+      "id": "NEI-C4-X001",
+      "statement": "On every SIU-1 control geometry there exists at least one q class containing more than one distinct physical state.",
+      "basis": [
+        "physical state count exceeds relational state count in all four controls",
+        "maximum physical states per relational state is greater than 1 in all four controls"
+      ]
+    },
+    {
+      "id": "NEI-C4-X002",
+      "statement": "The same underlying pair can be DISTINCT under physical-state identity and SAME under bounded future-behavior identity without contradiction.",
+      "basis": [
+        "P-C4-PHYSICAL-STATE-IDENTITY-0.1 preserves distinct enumerated physical states",
+        "P-C4-FUTURE-BEHAVIOR-STATE-BOUNDED-0.1 identifies same-q states by exact exhausted future-behavior semantics"
+      ],
+      "conclusion": "identity is profile/scoped; physical representation identity and future-behavior semantic identity are different questions"
+    }
+  ],
+  "summary": {
+    "same_results": 3,
+    "distinct_results": 3,
+    "semantic_unknown_results": 0,
+    "incomplete_unqualified_results": 1,
+    "no_admissible_model_results": 0
+  }
+}
