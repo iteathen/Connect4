@@ -209,6 +209,37 @@ Exact complete-support publication currently reaches rank 36. Rank 35 is the fir
 
 That negative result is retained as the next research seam rather than hidden by a larger timeout or buffer.
 
+## Confirmation and IsoGraph recording
+
+The representation/composition-wall finding was independently reviewed after this experiment.
+
+Confirmation:
+
+- `DIRECT_PROPAGATION_CONFIRMATION.md`
+- `DIRECT_PROPAGATION_CONFIRMATION.json`
+
+Post-authority Connect4 IsoGraph successor overlay:
+
+- `research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.md`
+- `research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.json`
+- `research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.isg`
+
+Recorded claims:
+
+~~~text
+C4-R0075
+    confirmed scoped finding:
+    distributed universal proof composition causes the observed
+    rank-35 direct-propagation wall before semantic collapse
+
+C4-R0076
+    missing law:
+    compact realizability-preserving clause-to-value
+    controllable predecessor before distributed universal expansion
+~~~
+
+The overlay does not mutate frozen authority 1.1.
+
 ## Disposition
 
 ~~~text
