@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "application_id": "connect4-nei-application-0.1",
+  "status": "derived_nei_overlay",
+  "created_on": "2026-09-18",
+  "base_connect4_authority": {
+    "authority_id": "connect4-isograph-logic-1.1",
+    "authority_manifest_blob": "986f10a0011059e4d19598de6c836272c102415d",
+    "frozen_candidate_manifest_blob": "0b3c54f193b084e2e5dd2eb7f4fb641b1052491a"
+  },
+  "nei_authority": {
+    "qualified": [
+      {
+        "revision": "NEI 0.1",
+        "git_blob": "d9da13d7df3515e4229d61f43b0b94a2cae0fedb"
+      },
+      {
+        "revision": "NEI 0.2",
+        "git_blob": "a9a9d01af733e461b609c5b1bd9f9f23128c04b4"
+      }
+    ],
+    "guidance_only": [
+      {
+        "revision": "NEI 0.3 candidate",
+        "git_blob": "2192a45dd21ba4564e1d7d89c5d3a6458a304995"
+      }
+    ],
+    "native_vocab_blob": "199785947da62d5bd61bdabe09803ae684d259f2"
+  },
+  "application_files": [
+    {
+      "path": "research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json",
+      "git_blob": "4baf34184cc86df720f5e8303304cca451be1c57"
+    },
+    {
+      "path": "research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json",
+      "git_blob": "5639078d95fd871c834fc2ff93185e8ccac9b93f"
+    },
+    {
+      "path": "research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.isg",
+      "git_blob": "d000c548058cdd029c8de840e40f89948bc77428"
+    },
+    {
+      "path": "research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md",
+      "git_blob": "dde694c0f0cec0d262282959cede389623310932"
+    }
+  ],
+  "evidence_dependencies": [
+    "research/isograph/successor/EVIDENCE_LINEAGE_MODEL_0_1_CANDIDATE.md",
+    "research/isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.json",
+    "research/semantic-quotient/state-identity-unification/evidence/2026-09-11-siu1-relational-dual-direction.json",
+    "research/semantic-quotient/state-identity-unification/SIU1_RESULT.md",
+    "research/isograph/qualification/CONNECT4_INCOMPLETE_SCOPE_BRIDGE_1_1.md"
+  ],
+  "result_counts": {
+    "same": 3,
+    "distinct": 3,
+    "semantic_unknown": 0,
+    "incomplete_unqualified": 1
+  },
+  "authority_effect": "NO_CHANGE_TO_CONNECT4_AUTHORITY_1_1",
+  "successor_rule": "A future Connect4 IsoGraph authority revision may ingest these profile/result relations after deciding which derived identity layer is representation-authoritative."
+}
