@@ -130,6 +130,22 @@ Temporary `experiment/*`, `work/*`, or other explicitly temporary branches may c
 
 Code should reference stable claim IDs such as `C4-R0004` where practical. A solver-specific optimization can consume a claim without changing its epistemic status.
 
+## New-relation rule
+
+Newly discovered relations follow a stricter promotion rule than ordinary empirical findings.
+
+~~~text
+candidate relation
+    -> claim/hypothesis only
+
+deductive or guarded-exact proof
+    -> IsoGraph relation edge
+~~~
+
+Empirical confirmation can support the claim that a relation may exist, but does not by itself make that relation part of authoritative graph topology. Until proof, keep the source/target/type/scope as claim metadata and prevent downstream reasoning from consuming it as an established edge.
+
+Once proved, the relation must be recorded explicitly in the next qualified IsoGraph successor representation.
+
 ## Claim-registry bridge rule
 
 The legacy `CLAIM_INDEX.json` and its shards preserve the pre-IsoGraph normalized claim database and remain useful bridge views. They are no longer the logical authority root. Stable `C4-R####` identities remain preserved in current IsoGraph authority 1.1; authority 1.0 remains immutable historical evidence. Any authoritative change to a claim requires a successor qualified IsoGraph authority revision.
