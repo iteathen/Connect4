@@ -238,6 +238,26 @@ Consequently any exact recursively defined game value depending only on that fut
 
 ---
 
+# Dimension-independent generalization candidate
+
+The proof above does not use the numerical values 7, 6, or 4.
+
+It requires only:
+
+- a fixed finite gravity board;
+- a fixed finite family of geometric winning sets;
+- alternating no-pass play;
+- immediate first-win stopping;
+- support that determines legal landing events;
+- exact per-player residual winning requirements;
+- canonical minimal-antichain semantics.
+
+Therefore the same derivation appears to establish:
+
+> For any fixed finite gravity Connect-K geometry under these rules, equal support plus equal normalized residual antichains gives identical ordinary action-labelled future behavior.
+
+This is recorded as a **generalization candidate** because the present investigation was triggered by and reviewed against the standard-7x6 contracts. A successor qualification should explicitly include thin boards, K larger than a board dimension, and nearby nonstandard geometries before promoting the generalized statement.
+
 # Standard 7x6 consequence
 
 The proof does not require exhaustive enumeration of all standard-7x6 q classes.
