@@ -119,6 +119,28 @@ q =
     + Player 1's shortest live winning recipes
 ~~~
 
+The exact technical names for those same three pieces are:
+
+~~~text
+q =
+    support
+    + normalized P0 residual antichain
+    + normalized P1 residual antichain
+~~~
+
+So in this document:
+
+~~~text
+column heights
+    = support
+
+Player 0's shortest live winning recipes
+    = normalized P0 residual antichain
+
+Player 1's shortest live winning recipes
+    = normalized P1 residual antichain
+~~~
+
 We do **not** put the entire move history into q.
 
 We do **not** even need every physical ownership detail if it no longer affects any future winning recipe.
