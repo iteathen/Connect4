@@ -119,13 +119,13 @@ for(const id of ['L-REALIZABILITY-DERIVATION-20260916','L-STRUCTURAL-SELECTION-D
 
 const inheritedUncertainty=fs.readFileSync('research/isograph/CONNECT4_LOGIC_UNCERTAINTY_0_1.isg','utf8');
 const addedUncertainty=fs.readFileSync(root+'/CONNECT4_LOGIC_UNCERTAINTY_1_1_CANDIDATE.isg','utf8');
-const inheritedIncomplete=new Set([...inheritedUncertainty.matchAll(/\\(\\^95014\\s+(\\d+)\\)/g)].map(m=>Number(m[1])));
-const addedIncomplete=new Set([...addedUncertainty.matchAll(/\\(\\^95014\\s+(\\d+)\\)/g)].map(m=>Number(m[1])));
-const addedSourceNative=new Set([...addedUncertainty.matchAll(/\\(\\^97068\\s+(\\d+)\\)/g)].map(m=>Number(m[1])));
-const addedLimit=new Set([...addedUncertainty.matchAll(/\\(\\^97081\\s+(\\d+)\\)/g)].map(m=>Number(m[1])));
-const addedRendering=[...addedUncertainty.matchAll(/\\(\\^97069\\s+(\\d+)\\)/g)];
-const addedRenderingLimit=[...addedUncertainty.matchAll(/\\(\\^97082\\s+(\\d+)\\)/g)];
-const addedSubjects=new Map([...addedUncertainty.matchAll(/\\(\\^95002\\s+(\\d+)\\s+(\\d+)\\)/g)].map(m=>[Number(m[1]),Number(m[2])]));
+const inheritedIncomplete=new Set([...inheritedUncertainty.matchAll(/\(\^95014\s+(\d+)\)/g)].map(m=>Number(m[1])));
+const addedIncomplete=new Set([...addedUncertainty.matchAll(/\(\^95014\s+(\d+)\)/g)].map(m=>Number(m[1])));
+const addedSourceNative=new Set([...addedUncertainty.matchAll(/\(\^97068\s+(\d+)\)/g)].map(m=>Number(m[1])));
+const addedLimit=new Set([...addedUncertainty.matchAll(/\(\^97081\s+(\d+)\)/g)].map(m=>Number(m[1])));
+const addedRendering=[...addedUncertainty.matchAll(/\(\^97069\s+(\d+)\)/g)];
+const addedRenderingLimit=[...addedUncertainty.matchAll(/\(\^97082\s+(\d+)\)/g)];
+const addedSubjects=new Map([...addedUncertainty.matchAll(/\(\^95002\s+(\d+)\s+(\d+)\)/g)].map(m=>[Number(m[1]),Number(m[2])]));
 if(inheritedIncomplete.size!==27) err('inherited INCOMPLETE_SCOPE expected 27 got '+inheritedIncomplete.size);
 if(addedIncomplete.size!==4) err('added INCOMPLETE_SCOPE expected 4 got '+addedIncomplete.size);
 for(const q of addedIncomplete){
