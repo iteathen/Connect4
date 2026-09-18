@@ -9,7 +9,7 @@ The repository has one shared foundation, one canonical research lane, and **fiv
 - `solver/hybrid-confluence` — hybrid exact solving that composes solver capabilities through an exact confluence contract;
 - `isometric` — the structural-calculus / frontier-exact Isometric solver family;
 - `sut` — SUT (`S ∪ T`), a distinct solver lineage intended to combine mature structural and terminal solving boundaries;
-- `research/semantic-quotient` — canonical solver-neutral research, normalized knowledge, evidence and cross-solver synthesis.
+- `research/semantic-quotient` — the single canonical owner of all Connect4 research, including solver-specific research results, normalized knowledge, evidence, negative results, open questions, provenance, and cross-solver synthesis.
 
 `main` is **not another solver line**. It is the shared accepted substrate and repository router. It owns domain rules, benchmark/fairness semantics, oracle/reference behavior, accepted cross-lane contracts and repository-level ownership decisions.
 
@@ -46,6 +46,6 @@ Read `STATUS.md`, `next_step.yaml`, `REPOSITORY_STRUCTURE.md`, and the target la
 
 The shared domain, benchmark protocol and solved-strength oracle baseline remain qualified on `main`. Minimax, CUDA-BSFP and Isometric have established implementation/research histories. Hybrid Confluence remains a dedicated implementation lane whose branch-local state must be developed explicitly. SUT is intentionally at its starting point and is not a rename of Hybrid Confluence, Isometric or BSFP.
 
-The canonical research lane consolidates solver-neutral findings and provenance so historical experiment branches do not need to remain active-looking continuity owners.
+The canonical research lane consolidates all durable research findings and provenance so solver branches and temporary experiments do not become alternate research authorities.
 
 The archived 2025 browser game is source/provenance material, not the target architecture. UI/audio/browser-specific structure is not imported wholesale.
