@@ -194,22 +194,51 @@ If both players' residual requirement sets are empty and no earlier win exists, 
 
 Exhaustion does not authorize continuation past an already completed win.
 
-## 9. Structural equality
+## 9. Identity profiles and structural equality
 
 A hash is never exact structural equality.
 
-An exact WSL/CPC state identity must preserve every fact that can affect future legal transitions or proof meaning, including at least the selected profile's:
+Keep **ordinary gameplay identity** separate from **proof/certificate context**.
+
+For ordinary legal future behavior, the current canonical research candidate is:
 
 ```text
-support/accessibility or equivalent legal frontier
-side/event parity
-normalized surviving requirement sets
-certified blocker state where material
-CPC response/parity/order facts where material
-first-win/terminal preconditions where material
+q =
+    support/accessibility
+    + normalized P0 residual antichain
+    + normalized P1 residual antichain
 ```
 
-An implementation may prove a smaller sufficient state. It may not remove a distinction merely because it appears irrelevant on sampled games.
+Under standard alternating no-pass play, side to move is derivable from support rank parity. The current q-congruence derivation on the canonical research branch establishes a candidate theorem that equal q determines the same legal actions, terminal result per action, and nonterminal successor q. This is future-behavior identity, not physical-history identity.
+
+Facts such as these are **not automatically part of q**:
+
+```text
+certified blockers
+reserved/response resources
+CPC response/parity/order premises not derivable from q
+deadlines / race horizons
+NDC certificate identities
+proof bounds / proof provenance
+advisory ordering state
+```
+
+When such facts are load-bearing, they belong to an explicitly typed proof/certificate context layered over q:
+
+```text
+GameplayKey = q
+
+ProofKey =
+    q
+    + proof profile
+    + exact additional premises not derivable from q
+```
+
+A q-level SAME result never authorizes reuse of stronger proof facts whose premises are outside q.
+
+A conforming implementation may retain a **finer** representation, including physical ownership masks, provided it is exact. Such extra distinctions are representation detail and potential redundant work; they are not a competing definition of ordinary gameplay identity.
+
+A representation may remove a distinction only under the identity profile whose complete semantics are proved preserved. It may not lift equality from one profile into another merely because sampled games agree.
 
 ## 10. Residual dominance
 
