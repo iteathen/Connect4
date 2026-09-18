@@ -20,7 +20,7 @@
         "C4-R0054"
       ],
       "qualification_disposition": "DECODER_FIELD_EXTRACTION_ERROR",
-      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_REFINEMENT",
       "confidence": "mixed",
       "observed": {
         "canonical_quantity": "explicit scope field presence",
@@ -31,7 +31,12 @@
         "R0054 is the strongest motivating case because its statement is explicitly conditional/guarded.",
         "R0010 and R0034 remain weaker observations until the decoder's inferred basis is reconstructed.",
         "Do not change canonical scope_present values without a separate semantic revision."
-      ]
+      ],
+      "discovery_result": {
+        "established": "explicit scope metadata presence and semantic validity restriction are distinct predicates",
+        "open": "exact derivation/normalization relation between them",
+        "falsified": "decoder true iff any semantic scope exists"
+      }
     },
     {
       "id": "explicit-relations-vs-generating-basis",
@@ -41,7 +46,7 @@
         "C4-R0052"
       ],
       "qualification_disposition": "DECODER_RELATION_COUNT_ERROR",
-      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "discovery_disposition": "STRUCTURAL_LEAD_FALSIFIED",
       "confidence": "low",
       "observed": {
         "explicit_relation_counts": {
@@ -59,7 +64,16 @@
       "cautions": [
         "No generating-basis claim is established.",
         "Explicit authority relations remain authoritative until an exact derivation and coverage proof exists."
-      ]
+      ],
+      "discovery_result": {
+        "falsified_common_explanations": [
+          "omit supports",
+          "count unique relation types",
+          "claim-ID targets only",
+          "reciprocal-edge collapse"
+        ],
+        "residual": "no common exact generating-basis quotient currently explains all three relation deficits"
+      }
     },
     {
       "id": "r0045-intermediate-evidence-identity",
@@ -67,7 +81,7 @@
         "C4-R0045"
       ],
       "qualification_disposition": "DECODER_SOURCE_COUNT_ERROR",
-      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_PLUS_SUPPORTED_LAYER_SUBSTITUTION_CANDIDATE",
       "confidence": "low",
       "observed": {
         "claim_citation_occurrences": 4,
@@ -79,7 +93,18 @@
       "cautions": [
         "The value 3 has no authority.",
         "Do not invent an intermediate evidence layer unless an exact semantic relation is demonstrated."
-      ]
+      ],
+      "discovery_result": {
+        "established_counts": {
+          "claim_citation_occurrences": 4,
+          "distinct_source_artifacts": 4,
+          "evidence_events": 3,
+          "evidence_lineages": 2,
+          "cross_lineage_independence": "UNKNOWN"
+        },
+        "supported_candidate": "decoder value 3 substituted the evidence-event layer for the requested source/citation layer",
+        "limitation": "decoder internal reasoning is not observable"
+      }
     },
     {
       "id": "explicit-vs-derived-deductive-independence-inapplicability",
@@ -91,7 +116,7 @@
         "C4-R0071"
       ],
       "qualification_disposition": "DECODER_OVERREACH",
-      "discovery_disposition": "OPEN_STRUCTURAL_LEAD",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_LINEAGE_DERIVATION_QUESTION",
       "confidence": "medium",
       "observed": {
         "explicit_not_applicable_deductive_claims": [
@@ -107,7 +132,12 @@
       "cautions": [
         "The cold prompt's exact five-claim control remains correct.",
         "Any derived predicate must exclude empirically supported or mixed-evidence claims such as C4-R0016 unless independently justified."
-      ]
+      ],
+      "discovery_result": {
+        "established": "independence applicability is evidence-lineage/proof-topology scoped rather than claim-status scoped",
+        "falsified": "claim-status-only derivation rule",
+        "open": "safe derived lineage predicate from exact proof/evidence topology"
+      }
     },
     {
       "id": "lineage-event-prose-substitution",
@@ -124,7 +154,11 @@
       "cautions": [
         "The authority already models event and lineage as distinct first-class quantities.",
         "Treat this as ordinary summarization substitution unless new evidence shows otherwise."
-      ]
+      ],
+      "discovery_result": {
+        "closed": true,
+        "reason": "event/lineage distinction is already first-class and no additional layer is needed"
+      }
     }
   ],
   "future_rule": {
@@ -138,5 +172,23 @@
       "surviving_structural_lead_or_none",
       "affected_dependency_cone_if_material"
     ]
-  }
+  },
+  "discovery_campaign": {
+    "path": "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md",
+    "ledger": "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json",
+    "status": "EXECUTED",
+    "result": "MIXED_ESTABLISHED_SUPPORTED_FALSIFIED_AND_CLOSED"
+  },
+  "cross_case_synthesis": [
+    {
+      "id": "semantic-layer-substitution",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "statement": "Cold reconstruction can substitute an adjacent semantic projection/aggregation/derived layer for the requested explicit representation layer."
+    },
+    {
+      "id": "typed-observation-coordinate",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "statement": "Direct comparison should align subject, predicate/quantity, representation layer, aggregation level, scope/view, authority revision, closure assumptions, and value."
+    }
+  ]
 }
