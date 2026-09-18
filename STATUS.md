@@ -1,6 +1,6 @@
 # Connect4 Isometric implementation status
 
-**Updated:** 2026-09-17  
+**Updated:** 2026-09-18  
 **Branch:** `solver/isometric`  
 **Solver family:** Isometric  
 **Research direction / structural architecture:** Josh Oshiro  
