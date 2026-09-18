@@ -27,6 +27,31 @@ The prior Markdown/JSON/spec/claim corpus is retained as a provenance/readabilit
 
 The Core-0.18 sanity correction has been applied operationally without changing authority 1.1 semantics. Material discrepancies now carry separate qualification and discovery dispositions. The frozen 1.1 cold evidence remains unchanged; surviving structural leads are tracked in `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
 
+The first full Discovery Protocol campaign has now executed against those anomalies:
+
+- campaign narrative: `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md`;
+- machine ledger: `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json`.
+
+Key results:
+
+```text
+ESTABLISHED:
+    explicit scope metadata != semantic validity restriction
+    R0045 = 4 citations/artifacts -> 3 events -> 2 lineages
+    evidence-independence applicability is lineage/proof-topology scoped
+
+SUPPORTED:
+    semantic-layer substitution is a recurring cold-reconstruction failure mode
+
+FALSIFIED:
+    one shared minimal relation-basis explanation for R0015/R0016/R0052 deficits
+
+CLOSED AS ORDINARY ERROR:
+    10-lineage / 13-event prose substitution
+```
+
+No authority-1.1 semantic artifact changed.
+
 ## Consolidated research-lane state
 
 On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
