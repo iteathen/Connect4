@@ -16,3 +16,8 @@ Historical experiment trees are preserved in `research/provenance/source-archive
 10. disposition: supports, contradicts, qualifies, inconclusive, or implementation-only.
 
 Negative results are retained. A failed implementation strategy belongs in history/rejected or deferred after its evidence is normalized; the theorem it attempted to exploit is classified separately.
+
+
+## Active normalized experiment records
+
+- `bsfp-support-local-clause-coverage/` — target claim **C4-R0073**. Complete differential recurrence controls plus 6x5 support-local dictionary census. Canonical requalification run 35332181198 passed. Result is correctness/representation evidence only; no CUDA speedup or production adoption is claimed.
