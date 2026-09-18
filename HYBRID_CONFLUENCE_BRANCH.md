@@ -1,3 +1,8 @@
+# RETIRED SOLVER LINEAGE
+
+> **Retired 2026-09-18. Do not continue implementation work on this branch.**
+>
+> SUT is the future exact composition lane for IsoMax + CUDA-BSFP. Useful Hybrid Confluence questions are preserved in canonical research at `research/history/historical-only/solver-lineages/HYBRID_CONFLUENCE.md`. The pre-retirement active head was `3bab0d8989ce8649b13e21bc320ea254c4a0a802`.
 # Hybrid Confluence branch
 
 **Branch:** `solver/hybrid-confluence`  
