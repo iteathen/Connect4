@@ -2,10 +2,13 @@
 
 Independent Connect Four exact-solver laboratory and benchmark/validation product.
 
-The repository deliberately preserves separate solver lanes:
+The current active solver-family topology is:
 
-- `components/incumbent/` — the incumbent Node minimax/alpha-beta search baseline;
-- `components/bsfp/` — CUDA-BSFP (Backward Symbolic Fixed-Point), whose proof/solver semantics are not search semantics.
+- `solver/isometric` — IsoMax / forward structural exact solving;
+- `solver/cuda-bsfp` — CUDA-BSFP (Backward Symbolic Fixed-Point), whose proof/solver semantics are not search semantics;
+- `solver/sut` — future exact composition of IsoMax + CUDA-BSFP.
+
+`components/incumbent/` on `main` remains a minimax/alpha-beta reference baseline only. The Minimax and Hybrid Confluence solver families are historical.
 
 Connect Four rules, evaluator meaning, solved-game oracle evidence, benchmark fairness, BSFP structural/proof semantics, and qualification evidence belong here. Reusable CUDA algorithms/runtime mechanisms remain owned by their respective CUDA repositories.
 
