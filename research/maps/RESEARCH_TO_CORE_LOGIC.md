@@ -16,7 +16,7 @@ This file maps normalized research concepts into the logical roles an implementa
 | strategic certificate | C4-R0029, C4-R0030, C4-R0033 | qualified longer-horizon certificate families |
 | composition | C4-R0011, C4-R0018, C4-R0032, C4-R0034 | current missing law plus candidate closures/transfer |
 | semantic quotient | C4-R0008, C4-R0023..C4-R0028 | behavior-preserving state reduction and representations |
-| support-local clause recurrence | C4-R0073 | bounded evidence that support-local coverage signatures plus precomputed cofactors close the tested exact monotone-CNF predecessor algebra; not a universal width or performance claim |
+| support-local clause recurrence | C4-R0073, C4-R0074 | exact support-local dictionary/predecessor-closure theorem plus bounded complete-control qualification of the coverage/cofactor realization; not a universal width or performance claim |
 | evaluation boundary | C4-R0006, C4-R0007 | exact-before-heuristic; unresolved residue stays unresolved |
 | research discipline | C4-R0035 | evidence scope and anti-bias contract |
 
