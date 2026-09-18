@@ -1,3 +1,8 @@
+# RETIRED SOLVER LINEAGE
+
+> **Retired 2026-09-18. Do not continue implementation work on this branch.**
+>
+> Active forward exact solving is owned by `solver/isometric`. Useful Minimax knowledge is preserved in canonical research at `research/history/historical-only/solver-lineages/MINIMAX_ALPHA_BETA.md`. The pre-retirement active head was `c25de7ddab5dcae525a250331cd6c74bd94beb4e`.
 # Connect4 minimax / alpha-beta branch
 
 This branch is the consolidation home for the Connect4 **search-based exact-solver** line.
