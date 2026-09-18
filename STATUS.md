@@ -9,7 +9,7 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 ## Research ownership
 
-`research/semantic-quotient` is the single durable research owner. Minimax, CUDA-BSFP, Hybrid Confluence, Isometric, and SUT are implementation consumers, not alternate research authorities. Temporary experiments may carry in-progress research only until durable results are integrated here.
+`research/semantic-quotient` is the single durable research owner. Active implementation consumers are IsoMax/Isometric, CUDA-BSFP, and SUT. Minimax/Negamax/alpha-beta and Hybrid Confluence are historical solver lineages, not current implementation owners. Temporary experiments may carry in-progress research only until durable results are integrated here.
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
