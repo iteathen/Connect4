@@ -1,0 +1,143 @@
+name: Retire superseded BSFP branches
+
+on:
+  push:
+    branches:
+      - solver/cuda-bsfp
+    paths:
+      - research/cuda-bsfp/BSFP_BRANCH_CLEANUP_TRIGGER_2026-09-17.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bsfp-superseded-ref-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out CUDA-BSFP lane
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: solver/cuda-bsfp
+          persist-credentials: false
+
+      - name: Prevalidate, archive, and delete superseded refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          CANONICAL_SHA: ${{ github.sha }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const req=JSON.parse(fs.readFileSync('research/cuda-bsfp/BSFP_BRANCH_CLEANUP_TRIGGER_2026-09-17.json','utf8'));
+          if(process.env.REPOSITORY!=='iteathen/Connect4'||req.repository!==process.env.REPOSITORY) throw new Error('repository mismatch');
+          if(req.owner_branch!=='solver/cuda-bsfp') throw new Error('owner branch mismatch');
+
+          const [owner,repo]=process.env.REPOSITORY.split('/');
+          const canonical=process.env.CANONICAL_SHA;
+          const api='https://api.github.com';
+          const headers={
+            Authorization:`Bearer ${process.env.GH_TOKEN}`,
+            Accept:'application/vnd.github+json',
+            'X-GitHub-Api-Version':'2022-11-28',
+            'Content-Type':'application/json'
+          };
+          const enc=s=>s.split('/').map(encodeURIComponent).join('/');
+
+          async function gh(path,{method='GET',body,ok=[200]}={}){
+            const r=await fetch(api+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});
+            const text=await r.text();
+            if(!ok.includes(r.status)) throw new Error(`${method} ${path} -> ${r.status}: ${text.slice(0,800)}`);
+            return text?JSON.parse(text):null;
+          }
+          async function refSha(branch){
+            return (await gh(`/repos/${owner}/${repo}/git/ref/heads/${enc(branch)}`)).object.sha;
+          }
+          async function isAncestor(base,head){
+            const d=await gh(`/repos/${owner}/${repo}/compare/${base}...${head}`);
+            return d.merge_base_commit?.sha===base && d.behind_by===0;
+          }
+          async function fileSha(ref,path){
+            return (await gh(`/repos/${owner}/${repo}/contents/${enc(path)}?ref=${ref}`)).sha;
+          }
+          async function tagTarget(tag){
+            try{
+              const r=await gh(`/repos/${owner}/${repo}/git/ref/tags/${enc(tag)}`);
+              if(r.object.type==='commit') return r.object.sha;
+              return (await gh(`/repos/${owner}/${repo}/git/tags/${r.object.sha}`)).object.sha;
+            }catch(e){
+              if(String(e).includes('-> 404:')) return null;
+              throw e;
+            }
+          }
+          async function ensureTag(tag,branch,sha){
+            const current=await tagTarget(tag);
+            if(current!==null){
+              if(current!==sha) throw new Error(`archive tag mismatch: ${tag}`);
+              return;
+            }
+            const t=await gh(`/repos/${owner}/${repo}/git/tags`,{
+              method:'POST',ok:[201],
+              body:{tag,message:`Archive ${branch} before BSFP branch consolidation cleanup`,object:sha,type:'commit'}
+            });
+            await gh(`/repos/${owner}/${repo}/git/refs`,{
+              method:'POST',ok:[201],
+              body:{ref:`refs/tags/${tag}`,sha:t.sha}
+            });
+            if(await tagTarget(tag)!==sha) throw new Error(`archive verification failed: ${tag}`);
+          }
+          async function openPrCount(branch){
+            const q=new URLSearchParams({state:'open',head:`${owner}:${branch}`,per_page:'1'});
+            return (await gh(`/repos/${owner}/${repo}/pulls?${q}`)).length;
+          }
+          async function activeRunCount(branch,status){
+            const q=new URLSearchParams({branch,status,per_page:'1'});
+            return (await gh(`/repos/${owner}/${repo}/actions/runs?${q}`)).total_count;
+          }
+
+          if(await refSha(req.owner_branch)!==canonical) throw new Error('owner branch moved during cleanup');
+
+          const expectedNames=new Set([
+            'experiment/bsfp-clause-coverage',
+            'research/bsfp-tensor-dominance-overflow',
+            'research/bsfp-tensor-overflow-dominance'
+          ]);
+          if(req.branches.length!==3||req.branches.some(x=>!expectedNames.has(x.name))) throw new Error('unexpected cleanup target set');
+
+          const pr46=await gh(`/repos/${owner}/${repo}/pulls/46`);
+          const pr50=await gh(`/repos/${owner}/${repo}/pulls/50`);
+          const pr53=await gh(`/repos/${owner}/${repo}/pulls/53`);
+          if(!pr53.merged||pr53.head.sha!=='2e71ba0ad05010fdb0634faaabc4cd00e525810d') throw new Error('PR53 merge authority mismatch');
+          if(!pr46.merged||pr46.head.sha!=='a70d457f79c9e4e60d60b0ae9a4c6670662983ad') throw new Error('PR46 containment mismatch');
+          if(pr50.state!=='closed'||pr50.merged||pr50.head.sha!=='0860adcfb7acb9631a21e830befc7ec6c38f0e85') throw new Error('PR50 disposition mismatch');
+
+          const promoHead='2e71ba0ad05010fdb0634faaabc4cd00e525810d';
+          const clauseHead='a70d457f79c9e4e60d60b0ae9a4c6670662983ad';
+          if(!await isAncestor(promoHead,canonical)) throw new Error('PR53 head not contained by durable CUDA-BSFP');
+          if(!await isAncestor(clauseHead,canonical)) throw new Error('clause-coverage head not contained by durable CUDA-BSFP');
+
+          const tensorOld='0860adcfb7acb9631a21e830befc7ec6c38f0e85';
+          const fixture='research/experiments/cuda-bsfp-tensor-dominance/fixture.mjs';
+          if(await fileSha(tensorOld,fixture)!==await fileSha(canonical,fixture)) throw new Error('historical Tensor fixture not preserved on durable lane');
+
+          const validated=[];
+          for(const item of req.branches){
+            const actual=await refSha(item.name);
+            if(actual!==item.expected_head) throw new Error(`${item.name} moved: ${actual}`);
+            if(await openPrCount(item.name)) throw new Error(`open PR remains for ${item.name}`);
+            if(await activeRunCount(item.name,'queued')||await activeRunCount(item.name,'in_progress')) throw new Error(`active workflow remains for ${item.name}`);
+            validated.push({item,actual});
+          }
+          console.log('all three superseded BSFP refs prevalidated');
+
+          for(const {item,actual} of validated){
+            await ensureTag(item.archive_tag,item.name,actual);
+            await gh(`/repos/${owner}/${repo}/git/refs/heads/${enc(item.name)}`,{method:'DELETE',ok:[204]});
+            console.log(`archived+deleted ${item.name} @ ${actual}`);
+          }
+          NODE
