@@ -354,4 +354,4 @@ A representative-support schedule may precompute one clause dictionary plus refl
 
 The semantic dictionary/predecessor-closure result is promoted to canonical claim `C4-R0073`, and the complete-control coverage/cofactor result is promoted to `C4-R0074`. Retain as hypothesis only whether the packed support-local form is profitable in a native device profile.
 
-It converts the remaining variable-array cofactor operation into an exact precomputed support-edge map and gives a geometry-derived variable-width bound. The next decisive experiment is full recurrence equivalence using only local dictionary coverage signatures and precomputed child->parent maps.
+It converts the remaining variable-array cofactor operation into an exact precomputed support-edge map and gives a geometry-derived variable-width bound. The next decisive experiment is a native real-frontier CUDA A/B using the qualified coverage/cofactor recurrence against the rank-slice ownership reference.
