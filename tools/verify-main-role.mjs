@@ -7,9 +7,13 @@ const forbiddenPaths = [
   'components/minimax-alpha-beta',
   'components/hybrid',
   'components/hybrid-confluence',
+  'components/isometric',
+  'components/sut',
   'MINIMAX_BRANCH.md',
   'BSFP_BRANCH.md',
   'HYBRID_BRANCH.md',
+  'ISOMETRIC_BRANCH.md',
+  'SUT_BRANCH.md',
 ];
 
 const violations = forbiddenPaths.filter((path) => existsSync(path));
@@ -23,9 +27,9 @@ const routingFiles = [
 ];
 
 const requiredSolverHeads = [
-  'solver/minimax-alpha-beta',
+  'solver/isometric',
   'solver/cuda-bsfp',
-  'solver/hybrid-confluence',
+  'solver/sut',
 ];
 
 for (const file of routingFiles) {
