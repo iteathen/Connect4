@@ -33,6 +33,7 @@ CUDA-Algorithms owns reusable provider-neutral GPU parallel-algorithm semantics.
 ## Local routing
 
 - `STATUS.md` and `next_step.yaml` — current product/workstream state.
+- `docs/decisions/2026-09-18-bsfp-isograph-realignment.md` — current identity/proof-context alignment after IsoGraph/NEI discovery; P2 remains exact but is a finer representation than q.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their stated scopes.
 - `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL-625 structural/domain mathematics for the BSFP lane.
 - `docs/specs/C4-0007-nested-dependency-closure-v1.md` — NDC dependency/certificate/fixed-point proof semantics.
@@ -53,6 +54,16 @@ On a BSFP work branch, read **C4-0006 → C4-0007 → C4-0008 → C4-0009**, the
 Maintained source is JavaScript/Node.js plus product Device-JS through public CUDA contracts. No Python, direct CUDA FFI, C/C++/CUDA C++, hand PTX, or native-addon escape path. Benchmark correctness/fairness semantics remain Connect4-owned.
 
 BSFP may consume CUDA-Algorithms only through its public consumer-neutral contracts; generic workset/closure/sequence mechanics must not be copied downstream into Connect4. Conversely, CPC/WSL-625/NDC/WDL semantics, exact BSFP equality/dominance, existential/universal proof reduction and semantic rank completion must not move into CUDA-Algorithms.
+
+After the 2026-09-18 IsoGraph/NEI realignment, distinguish three identity layers in BSFP work:
+
+```text
+ordinary gameplay identity = q
+representation identity    = exact profile-specific symbolic/physical record
+proof identity             = q + proof profile + every required non-q premise
+```
+
+P2 ownership masks/frontiers are a valid finer representation, not the canonical ordinary gameplay identity. q-level SAME does not authorize reuse of blocker/resource/deadline/race/NDC facts that are not derivable from q.
 
 Generic ranked activation is not by itself BSFP W/D/L evaluation. A lower-rank BSFP target is authoritative only after the complete required higher-rank contribution set has been accounted for and consumer-owned semantic reduction has finalized it.
 
