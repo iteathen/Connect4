@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "control": "antichain-cofactor-congruence",
+  "date": "2026-09-18",
+  "runtime": "local Node.js control",
+  "script": "research/isograph/discovery/2026-09-18-high-value-leads/antichain-congruence-control.mjs",
+  "cases": [
+    {
+      "n": 1,
+      "families": 2,
+      "checks": 2,
+      "result": "PASS"
+    },
+    {
+      "n": 2,
+      "families": 8,
+      "checks": 16,
+      "result": "PASS"
+    },
+    {
+      "n": 3,
+      "families": 128,
+      "checks": 384,
+      "result": "PASS"
+    },
+    {
+      "n": 4,
+      "families": 32768,
+      "checks": 131072,
+      "result": "PASS"
+    }
+  ],
+  "totals": {
+    "families": 32906,
+    "checks": 131474,
+    "result": "PASS"
+  },
+  "first_attempt": {
+    "disposition": "HARNESS_OVERCONSTRAINT",
+    "observation": "A dominated superset can leave a different hypothetical residual after the mover has already completed a winning singleton.",
+    "correction": "Under first-win stopping, only the terminal transition token is observable after that move; post-terminal residual equality must not be required.",
+    "semantic_lesson": "first-win stopping is load-bearing for antichain transition congruence"
+  },
+  "claim": "For all exhaustively enumerated finite set families through universe size 4, canonical minimal-antichain normalization preserves mover terminal outcome and every nonterminal mover/opponent cofactor result."
+}
