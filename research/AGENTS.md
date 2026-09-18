@@ -10,13 +10,13 @@ Research direction: Josh Oshiro.
 
 Before changing research meaning, begin with the qualified IsoGraph authority rather than reconstructing authority from legacy branch/file topology:
 
-1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md` — current logic authority root.
-2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_0.json` — immutable authority/evidence identities.
-3. `isograph/CONNECT4_LOGIC_PROFILE_0_1.md`, native vocabulary, and bundle.
-4. `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg` and `isograph/CONNECT4_LOGIC_UNCERTAINTY_0_1.isg` — claim/status/guard/relation and unresolved structure.
-5. relevant native source/item shards when exact source reconstruction or lower-level occurrence topology is required.
+1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` — current logic authority root.
+2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` — immutable authority/evidence identities.
+3. `isograph/successor/CONNECT4_LOGIC_PROFILE_1_1_CANDIDATE.md` and `isograph/successor/CONNECT4_LOGIC_NATIVE_VOCAB_1_1_CANDIDATE.md` — frozen promoted profile/vocabulary.
+4. `isograph/successor/generated/CONNECT4_LOGIC_CORPUS_1_1_CANDIDATE.isg`, `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg`, `isograph/successor/CONNECT4_LOGIC_UNCERTAINTY_1_1_CANDIDATE.isg`, and `isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.isg` — corpus/claim/uncertainty/evidence structure.
+5. relevant 1.1 native source/item shards when exact source reconstruction or lower-level occurrence topology is required.
 6. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
-7. `provenance/` only when an audit, source normalization, attribution check, or exact historical reconstruction requires it.
+7. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit, source normalization, attribution check, or exact historical reconstruction requires it.
 
 A direct edit to a legacy bridge view does not change authoritative logic. New durable logic must be represented and qualified in a successor IsoGraph authority revision.
 
