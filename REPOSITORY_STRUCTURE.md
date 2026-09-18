@@ -6,23 +6,42 @@ This file defines the live organizational model of the repository. It is routing
 
 ```text
 main
+├── research/semantic-quotient
 ├── solver/minimax-alpha-beta
 ├── solver/cuda-bsfp
 ├── solver/hybrid-confluence
-└── research/semantic-quotient
+├── isometric
+└── sut
 ```
 
-`main` is the shared accepted substrate: domain semantics, benchmark/fairness authority, oracle/reference behavior, accepted cross-lane contracts and repository-level routing. It is **not** a fourth solver implementation line.
+`main` is the shared accepted substrate: domain semantics, benchmark/fairness authority, oracle/reference behavior, accepted cross-lane contracts and repository-level routing. It is not a solver implementation line.
 
-The three `solver/*` branches are intentionally long-lived peer product heads:
+`research/semantic-quotient` is the one canonical solver-neutral research/knowledge lane.
 
-- `solver/minimax-alpha-beta` owns minimax/negamax/alpha-beta implementation and evidence;
-- `solver/cuda-bsfp` owns CUDA-BSFP implementation and evidence;
-- `solver/hybrid-confluence` owns the hybrid exact-confluence implementation and evidence.
+The five solver-family heads are peers:
 
-`research/semantic-quotient` owns solver-neutral mathematical/representational research that can feed any solver line.
+- `solver/minimax-alpha-beta` — minimax/negamax/alpha-beta implementation and evidence;
+- `solver/cuda-bsfp` — CUDA-BSFP implementation and evidence;
+- `solver/hybrid-confluence` — hybrid exact-confluence implementation and evidence;
+- `isometric` — Isometric structural/frontier implementation and evidence;
+- `sut` — SUT (`S ∪ T`) implementation lineage.
 
-Long-lived branch names represent ongoing owners/product lines. One-off experiments should use short-lived work branches and land durable findings/evidence into the owning lane before the temporary ref is retired.
+The root-level `isometric` and `sut` branch names are intentional established family names.
+
+The durable set is closed by `docs/decisions/2026-09-17-closed-durable-lane-topology.md`. An agent may not create another durable lane without explicit owner instruction.
+
+## Temporary branch lifecycle
+
+One-off implementation/research work should use temporary branches only when isolation is useful. Typical temporary refs include `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff/staging and evidence refs.
+
+Every temporary branch must have:
+
+- one durable owning lane;
+- one bounded question/change;
+- acceptance or falsification criteria;
+- a retirement condition.
+
+Before retirement, durable code/results go to the owner lane and historically useful state is preserved as evidence/provenance or an immutable archive ref. A temporary branch never gains authority simply because more work accumulated on it.
 
 ## Main branch contract
 
@@ -35,25 +54,28 @@ A change belongs on `main` when it is shared accepted product truth rather than 
 - accepted cross-lane interfaces/identities;
 - repository routing, ownership and release/promotion decisions.
 
-A change does **not** belong on `main` merely because it is useful to more than one solver. Solver kernels, minimax scheduling/TT policy, BSFP recurrence/storage, hybrid confluence scheduling/transport and solver-specific performance machinery stay on their solver head unless a consumer-neutral shared contract is deliberately extracted.
+A change does not belong on `main` merely because it is useful to more than one solver. Solver kernels, scheduling, TT policy, BSFP recurrence/storage, structural consequence execution, confluence machinery and SUT composition remain on their owning solver head unless a consumer-neutral shared contract is deliberately extracted.
 
-The qualified incumbent under `components/incumbent/` is retained on `main` as a baseline/reference comparator. It is not the canonical minimax product implementation and must not be used to infer solver ownership.
+The qualified incumbent under `components/incumbent/` is retained on `main` as a baseline/reference comparator. It is not the canonical minimax implementation.
 
 ## Cross-lane synchronization
 
-The branch model is asymmetric on purpose:
+The branch model is asymmetric:
 
 ```text
 shared accepted change
 main ----------------------> solver heads
 
+shared research
+research/semantic-quotient ------> consumers
+
 solver discovery
-solver head --selective promotion/qualification--> main
+solver head -- selective qualification/promotion --> shared owner
 ```
 
-Solver branches are **not** expected to merge wholesale back into `main`. When solver work reveals a shared fact, extract the smallest shared semantic/contract/evidence change and promote it deliberately. This avoids turning `main` into whichever solver happened to move fastest.
+Solver branches are not expected to merge wholesale back into `main`. When solver work reveals a shared fact, extract the smallest shared semantic/contract/research change and promote it deliberately.
 
-Likewise, `solver/hybrid-confluence` may compose public/accepted behavior from minimax and BSFP without taking ownership of their private hot structures. Shared physical state is adopted only when measured benefit justifies the locality/synchronization cost.
+Historical ancestry does not transfer ownership. In particular, Isometric remains distinct from its Negamax/minimax ancestry, and SUT remains distinct from Isometric, BSFP and Hybrid Confluence.
 
 ## Filesystem ownership
 
@@ -66,11 +88,26 @@ components/incumbent/   # qualified reference/baseline only
 benchmarks/
 ```
 
-`main` must not gain solver-owned maintained surfaces such as `components/bsfp/`, `components/minimax/`, or `components/hybrid-confluence/`.
+`main` must not gain solver-owned maintained kernels merely for history synchronization.
 
 ### Solver maintained implementation
 
-Solver-specific maintained code belongs on the owning `solver/*` branch under a coherent solver-owned component namespace. The exact internal topology may differ by solver; branch ownership is semantic, not a requirement to make all three directory trees visually identical.
+Solver-specific maintained code belongs on its durable solver-family branch under a coherent solver-owned component namespace. Internal topology may differ by solver.
+
+### Canonical research
+
+Shared research knowledge is normalized on `research/semantic-quotient`:
+
+```text
+research/canonical/
+research/evidence/
+research/hypotheses/
+research/open-questions/
+research/maps/
+research/provenance/
+```
+
+Solver-specific experiments may live on a solver-owned temporary branch while active, but shared semantic claims must ultimately route through canonical research.
 
 ### Accepted contracts
 
@@ -79,7 +116,7 @@ docs/specs/
 docs/decisions/
 ```
 
-`docs/specs/` owns accepted/candidate contracts according to each file's stated status. `docs/decisions/` records explicit promotion, rejection, supersession and ownership decisions so architecture does not have to be reconstructed from the newest research report.
+`docs/specs/` owns accepted/candidate contracts according to each file's declared status. `docs/decisions/` records explicit promotion, rejection, supersession and ownership decisions.
 
 ### Reference/provenance
 
@@ -89,46 +126,19 @@ reference/conformance/
 reference/oracles/
 ```
 
-`reference/` is for provenance, frozen conformance/reference inputs and immutable oracle material.
-
-Historical `reference/research-prototypes/` trees are grandfathered for reproducibility. **Do not add new experiments to that catch-all path.** New experiments should use the owning lane's `research/` namespace.
-
-### New research packets
-
-Future research should be organized as:
-
-```text
-research/
-  <topic-or-lane>/
-    <experiment-or-study>/
-      README.md
-      src/            # when executable research exists
-      evidence/       # raw/structured evidence when practical
-      manifest.json   # source identity, environment, commands, disposition
-```
-
-Solver-neutral future-behavior/quotient work belongs on `research/semantic-quotient`; solver-specific experiments belong on their solver branch. Hybrid-confluence research may remain on a research lane until it becomes implementation, at which point implementation belongs on `solver/hybrid-confluence`.
+Historical `reference/research-prototypes/` trees are grandfathered for reproducibility. Do not add new work there by default.
 
 ## Evidence discipline
 
-A research packet should distinguish:
+Research/implementation packets should distinguish question, exact source/base identity, qualification scope, raw evidence, negative/adverse results and disposition.
 
-- question/falsifier;
-- exact source/base identities;
-- qualification scope;
-- raw evidence versus derivative summary;
-- positive, negative and adverse results;
-- disposition: promote, retain candidate, reject tested form, superseded, or historical only.
-
-A report does not become architecture authority just because it is recent. Promotion is explicit.
+A report does not become architecture authority because it is recent, and a branch does not become durable because it is large.
 
 ## Branch retirement
 
-`research/MIGRATION_MANIFEST.json` freezes branch heads observed during the 2026-09-10 restructure. `research/BRANCH_RETIREMENT.md` classifies obsolete/duplicate refs and names the canonical descendant when known.
+A temporary ref may be removed only after its exact head is preserved and either:
 
-Deletion is allowed only after the exact source SHA is preserved and either:
+1. it is a confirmed ancestor/duplicate of a durable lane; or
+2. its unique durable code/research/evidence is preserved by the owner lane or an immutable archive.
 
-1. the branch is a confirmed ancestor/duplicate of a canonical lane; or
-2. its unique durable information is preserved by committed evidence/manifest/archive reference.
-
-Physical cleanup results and exact archive tags are recorded in `research/RETIREMENT_PROOFS.json` and `research/BRANCH_RETIREMENT.md`. Historical classifications never override live dependency checks.
+Historical cleanup ledgers remain under `research/`. They are provenance snapshots and do not override current live dependency checks.
