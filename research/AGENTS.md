@@ -2,7 +2,7 @@
 
 This file specializes the account-global `iteathen/.github/AGENTS.md` and repository `AGENT_LOCAL.md` for all work under `research/`.
 
-The purpose of this tree is not to accumulate notes. The branch `research/semantic-quotient` is the **single canonical research ownership surface and normalized knowledge graph** for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmark/oracle work, and future consumers. No solver branch or long-lived side branch owns a separate research corpus. Historical branches and temporary experiments may generate evidence, but all durable research meaning and research artifacts are integrated here.
+The purpose of this tree is not to accumulate notes. The branch `research/semantic-quotient` is the **single canonical research ownership surface and normalized knowledge graph** for Connect4. Active solver consumers are IsoMax/Isometric, CUDA-BSFP, and SUT. Minimax/Negamax/alpha-beta and Hybrid Confluence are historical solver lineages. No solver branch or long-lived side branch owns a separate research corpus. Historical branches and temporary experiments may generate evidence, but all durable research meaning and research artifacts are integrated here.
 
 Research direction: Josh Oshiro.
 
@@ -33,7 +33,7 @@ Maintain these invariants on every research mutation:
 - **Scope is part of truth.** A bounded control, one board size, one tie convention, or one solver workload may not be silently widened.
 - **Sources are evidence, not authority by filename.** Historical conclusions, handoffs, PR descriptions, issues, solved labels, database outputs, and old agent statements must be reclassified against the authoritative IsoGraph graph.
 - **Negative knowledge is first-class.** Counterexamples, failed selectors, rejected implementations, deferred mechanisms, and scope limits must remain discoverable.
-- **Shared truth is solver-neutral.** Isometric, Minimax, BSFP, and hybrid consumers may use the same claim differently without forking its epistemic status.
+- **Shared truth is solver-neutral.** IsoMax/Isometric, CUDA-BSFP, SUT, historical Minimax controls, and other consumers may use the same claim differently without forking its epistemic status.
 
 ## Required epistemic separations
 
@@ -97,6 +97,12 @@ Closing qualification never silently closes discovery. Conversely, an interestin
 
 For the authority-1.1 cold anomalies, use:
 `isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
+
+## Historical solver-lineage rule
+
+The retired Minimax/Negamax/alpha-beta and Hybrid Confluence branches are historical only. Their durable knowledge lives under `history/historical-only/solver-lineages/`.
+
+Do not recreate or treat those branch names as implementation owners. A useful historical mechanism must be reassessed against current canonical research and implemented, if appropriate, in IsoMax, CUDA-BSFP, or SUT according to current ownership.
 
 ## Gameplay strategy proposal routing
 
