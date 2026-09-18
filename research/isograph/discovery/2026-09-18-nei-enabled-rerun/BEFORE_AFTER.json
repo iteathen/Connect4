@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "comparison_id": "connect4-dp-before-after-nei-2026-09-18",
+  "control_campaign": {
+    "path": "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json",
+    "blob": "b085a309f07a370cb55c33a47f1810c993458571"
+  },
+  "nei_campaign": {
+    "path": "research/isograph/discovery/2026-09-18-nei-enabled-rerun/DISCOVERY_LEDGER.json",
+    "blob": "86159dfd6361afa3db3a032112d595e4652bbd5e"
+  },
+  "original_branch_deltas": [
+    {
+      "lead": "A_scope_explicit_vs_derived",
+      "effect": "UNCHANGED",
+      "nei": "NOT_APPLICABLE"
+    },
+    {
+      "lead": "B_relation_count_generating_basis",
+      "effect": "UNCHANGED",
+      "nei": "NOT_APPLICABLE"
+    },
+    {
+      "lead": "C_R0045_evidence_layers",
+      "effect": "MATERIAL_IMPROVEMENT",
+      "nei": "APPLIED",
+      "added": [
+        "two R0045 lineages are DISTINCT under lineage identity",
+        "UNKNOWN independence is explicitly non-identity uncertainty",
+        "global artifact->lineage quotient interpretation falsified",
+        "lineage projection shown to require context/anchor"
+      ]
+    },
+    {
+      "lead": "D_deductive_independence_owner_layer",
+      "effect": "PRECISION_IMPROVED",
+      "nei": "GUARD_ONLY",
+      "added": [
+        "NEI DISTINCT lineage does not imply statistical independence",
+        "NEI SAME lineage does not imply same evidence-event identity"
+      ]
+    },
+    {
+      "lead": "E_lineage_event_prose_substitution",
+      "effect": "UNCHANGED",
+      "nei": "NOT_APPLICABLE"
+    }
+  ],
+  "new_branches": [
+    {
+      "lead": "F_profile_mediated_identity_collapse_motif",
+      "outcome": "NEW_SUPPORTED_STRUCTURAL_CORRESPONDENCE",
+      "summary": "fine-carrier DISTINCT + context/profile projection + scoped SAME + residual/provenance preserved"
+    },
+    {
+      "lead": "G_standard_7x6_identity_closure",
+      "outcome": "IDENTITY_TARGET_REFINED",
+      "summary": "7x6 gap converted from generic unproved sufficiency into an exact NEI identity-closure obligation with concrete same-q counterexample criteria"
+    }
+  ],
+  "nei_routing_counts": {
+    "not_applicable": 3,
+    "guard_only": 1,
+    "applied_or_central": 3
+  },
+  "net_effect": {
+    "original_branches_materially_changed": 1,
+    "original_branches_precision_improved": 1,
+    "original_branches_unchanged": 3,
+    "new_branches": 2,
+    "new_supported_correspondence": 1,
+    "new_precise_open_identity_target": 1,
+    "false_global_quotient_interpretation_falsified": 1
+  },
+  "conclusion": "NEI materially improved identity-shaped discovery while correctly abstaining from non-identity branches."
+}
