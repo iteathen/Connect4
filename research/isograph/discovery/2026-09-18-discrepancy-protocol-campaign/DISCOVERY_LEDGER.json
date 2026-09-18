@@ -81,7 +81,43 @@
         }
       ],
       "residual": "Exact derivation/normalization relation from statement/guard/evidence structure to a semantic-scope object remains open.",
-      "final_discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_REFINEMENT"
+      "final_discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_REFINEMENT",
+      "qualification_disposition": "DECODER_FIELD_EXTRACTION_ERROR",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_REFINEMENT",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "authority_effect": "NONE",
+      "semantic_alignment": {
+        "subject": [
+          "C4-R0010",
+          "C4-R0034",
+          "C4-R0054"
+        ],
+        "predicate_or_quantity": [
+          "explicit scope field presence",
+          "semantic validity restriction"
+        ],
+        "scope": "per claim",
+        "layer": [
+          "canonical metadata",
+          "proposition/guard/evidence semantics"
+        ],
+        "aggregation": "claim-local",
+        "authority": "authority 1.1 canonical claim record + cold decoder output",
+        "closure": "local structural comparison only; no global derivation rule assumed"
+      },
+      "immediate_neighborhood_checked": true,
+      "falsifiers": [
+        {
+          "id": "A1",
+          "result": "SURVIVES",
+          "breaker": "show that every semantic restriction is represented exactly by the explicit scope field or that the cited claims contain no semantic restriction"
+        },
+        {
+          "id": "A2",
+          "result": "FALSIFIED",
+          "breaker": "find bounded/guarded claims reconstructed with scope_present=false"
+        }
+      ]
     },
     {
       "lead": "B_relation_count_generating_basis",
@@ -154,7 +190,50 @@
       ],
       "residual": "No common exact quotient explains all three deficits.",
       "final_discovery_disposition": "STRUCTURAL_LEAD_FALSIFIED",
-      "ordinary_error_disposition": "DECODER_OMISSION_OR_COUNTING_ERROR"
+      "ordinary_error_disposition": "DECODER_OMISSION_OR_COUNTING_ERROR",
+      "qualification_disposition": "DECODER_RELATION_COUNT_ERROR",
+      "discovery_disposition": "STRUCTURAL_LEAD_FALSIFIED",
+      "lifecycle": "REJECTED",
+      "authority_effect": "NONE",
+      "semantic_alignment": {
+        "subject": [
+          "C4-R0015",
+          "C4-R0016",
+          "C4-R0052"
+        ],
+        "predicate_or_quantity": "explicit relation occurrence count",
+        "scope": "claim relation arrays",
+        "layer": [
+          "canonical explicit graph",
+          "decoder reconstructed count"
+        ],
+        "aggregation": "relation occurrences",
+        "authority": "authority 1.1 canonical claim record + cold decoder output",
+        "closure": "bounded hypothesis tests over observed relation structures"
+      },
+      "immediate_neighborhood_checked": true,
+      "falsifiers": [
+        {
+          "id": "B1",
+          "result": "FALSIFIED",
+          "breaker": "C4-R0052 has no supports edge but is undercounted"
+        },
+        {
+          "id": "B2",
+          "result": "FALSIFIED",
+          "breaker": "predicted counts 2/2/3, not 1/1/5"
+        },
+        {
+          "id": "B3",
+          "result": "FALSIFIED",
+          "breaker": "predicts 1/2/6"
+        },
+        {
+          "id": "B4",
+          "result": "FALSIFIED_AS_COMMON_EXPLANATION",
+          "breaker": "can at most explain part of C4-R0015 neighborhood; does not explain C4-R0016 or C4-R0052"
+        }
+      ]
     },
     {
       "lead": "C_R0045_evidence_layer_staircase",
@@ -203,7 +282,51 @@
           "disposition": "SUPPORTED_CANDIDATE"
         }
       ],
-      "final_discovery_disposition": "STRUCTURE_ESTABLISHED_PLUS_SUPPORTED_LAYER_SUBSTITUTION_CANDIDATE"
+      "final_discovery_disposition": "STRUCTURE_ESTABLISHED_PLUS_SUPPORTED_LAYER_SUBSTITUTION_CANDIDATE",
+      "qualification_disposition": "DECODER_SOURCE_COUNT_ERROR",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_PLUS_SUPPORTED_LAYER_SUBSTITUTION_CANDIDATE",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "authority_effect": "NONE",
+      "semantic_alignment": {
+        "subject": "C4-R0045",
+        "predicate_or_quantity": [
+          "claim source/citation count",
+          "artifact count",
+          "event count",
+          "lineage count",
+          "independence status"
+        ],
+        "scope": "R0045 evidence support structure",
+        "layer": [
+          "claim citations",
+          "artifact identity",
+          "evidence events",
+          "evidence lineages",
+          "independence relation"
+        ],
+        "aggregation": [
+          "4",
+          "4",
+          "3",
+          "2",
+          "UNKNOWN"
+        ],
+        "authority": "authority 1.1 claim record + evidence-lineage graph + cold decoder output",
+        "closure": "exact represented R0045 evidence graph"
+      },
+      "immediate_neighborhood_checked": true,
+      "falsifiers": [
+        {
+          "id": "C1",
+          "result": "ESTABLISHED",
+          "breaker": null
+        },
+        {
+          "id": "C2",
+          "result": "SUPPORTED_NOT_PROVED",
+          "breaker": null
+        }
+      ]
     },
     {
       "lead": "D_deductive_independence_owner_layer",
@@ -242,7 +365,43 @@
         }
       ],
       "residual": "A derived lineage-level predicate may be possible from exact proof/evidence topology, but no such general rule is currently established.",
-      "final_discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_LINEAGE_DERIVATION_QUESTION"
+      "final_discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_LINEAGE_DERIVATION_QUESTION",
+      "qualification_disposition": "DECODER_OVERREACH",
+      "discovery_disposition": "STRUCTURE_ESTABLISHED_WITH_OPEN_LINEAGE_DERIVATION_QUESTION",
+      "lifecycle": "SUPPORTED_CANDIDATE",
+      "authority_effect": "NONE",
+      "semantic_alignment": {
+        "subject": [
+          "C4-R0060",
+          "C4-R0062",
+          "C4-R0063",
+          "C4-R0070",
+          "C4-R0071"
+        ],
+        "predicate_or_quantity": "empirical independence applicability",
+        "scope": "explicit evidence lineages",
+        "layer": [
+          "claim status",
+          "evidence-lineage property",
+          "proof/evidence topology"
+        ],
+        "aggregation": "lineage-scoped property projected to claims",
+        "authority": "authority 1.1 evidence-lineage graph + cold decoder output",
+        "closure": "exact explicit not_applicable_deductive lineages only"
+      },
+      "immediate_neighborhood_checked": true,
+      "falsifiers": [
+        {
+          "id": "D1",
+          "result": "ESTABLISHED",
+          "breaker": null
+        },
+        {
+          "id": "D2",
+          "result": "FALSIFIED",
+          "breaker": "decoder included C4-R0016 despite empirically_supported status and no explicit not_applicable_deductive lineage"
+        }
+      ]
     },
     {
       "lead": "E_lineage_event_prose_substitution",
@@ -258,7 +417,33 @@
         "decoder_prose": "13 evidence lineages"
       },
       "result": "No missing semantic layer. Existing authority already represents event and lineage separately.",
-      "final_discovery_disposition": "NO_STRUCTURAL_LEAD"
+      "final_discovery_disposition": "NO_STRUCTURAL_LEAD",
+      "hypotheses": [],
+      "qualification_disposition": "DECODER_PROSE_SLIPPAGE",
+      "discovery_disposition": "NO_STRUCTURAL_LEAD",
+      "lifecycle": "REJECTED",
+      "authority_effect": "NONE",
+      "semantic_alignment": {
+        "subject": "authority 1.1 evidence summary",
+        "predicate_or_quantity": [
+          "lineage count",
+          "event count"
+        ],
+        "scope": "whole evidence-lineage graph",
+        "layer": [
+          "evidence lineages",
+          "evidence events",
+          "cold prose"
+        ],
+        "aggregation": [
+          "10",
+          "13"
+        ],
+        "authority": "authority 1.1 manifest/evidence graph + cold report",
+        "closure": "complete represented lineage/event counts"
+      },
+      "immediate_neighborhood_checked": true,
+      "falsifiers": []
     }
   ],
   "synthesis": [
@@ -296,5 +481,20 @@
     "falsified_attractive_hypotheses": 1,
     "ordinary_error_branches_closed": 1,
     "authority_mutations": 0
+  },
+  "authority": {
+    "owner": "research/semantic-quotient",
+    "authority_id": "connect4-isograph-logic-1.1",
+    "revision": "99b41db8613bef1d1f9dd8dbf54e8033446ed881"
+  },
+  "authority_effect": "NO_SEMANTIC_AUTHORITY_CHANGE",
+  "integration": {
+    "campaign_narrative": "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md",
+    "discrepancy_dispositions": "research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json",
+    "execution_contract": "research/isograph/discovery/DISCOVERY_PROTOCOL_EXECUTION_0_1.md",
+    "schema": "research/isograph/discovery/DISCOVERY_PROTOCOL_RUN_SCHEMA_0_1.json",
+    "research_index": "docs/research/RESEARCH_INDEX.md",
+    "status": "STATUS.md",
+    "next_step": "next_step.yaml"
   }
 }
