@@ -644,3 +644,54 @@ specification
 -> reusable local execution machinery
 -> upstream qualification-design evidence
 ```
+
+
+---
+
+# 8. Final integrity
+
+Final repository heads at integrity check:
+
+~~~text
+Connect4 research/semantic-quotient
+    c725d9ca921de95c5c8fdb9d8ed4bee91b35c32f
+
+IsoGraph main
+    8208cf659e65f162649a14cea1d7d80511bf4200
+~~~
+
+Connect4 frozen authority/evidence blobs rechecked unchanged:
+
+~~~text
+authority manifest                  986f10a0011059e4d19598de6c836272c102415d
+candidate manifest                  0b3c54f193b084e2e5dd2eb7f4fb641b1052491a
+cold report                         189a15b790f91c65eed49154cd9839dec21364d8
+cold score                          15e7839d4d1855cb6c988275c1dde8b99a86d744
+original cold adjudication          0c191314a83dc2d3f5a28fedc1e7d710701844ca
+final qualification review          251926dda0f724fb2c64cc7f902875f8e579e2c1
+~~~
+
+IsoGraph semantic authority/candidate blobs rechecked unchanged:
+
+~~~text
+qualified module manifest           acb2c7baf68917d31718d736269a587d3f0a2f9a
+Core 0.17 qualified                 fb47f8de1bd70d6f9fe1d4cf5181a52018ce8e04
+Core 0.18 candidate                 f092962900f7e8ff28517458e23df48285d7e9ad
+DP 0.5 candidate                    c9328ac762d4573480ea6292d1c3775ad58b0b81
+NEI 0.3 candidate                   2192a45dd21ba4564e1d7d89c5d3a6458a304995
+~~~
+
+Reference Discovery Protocol ledger:
+
+~~~text
+blob       b085a309f07a370cb55c33a47f1810c993458571
+runs       5
+validation PASS
+errors     0
+~~~
+
+Final integrity disposition:
+
+```text
+DISCOVERY_PROTOCOL_IMPLEMENTATION_INTEGRITY = PASS
+```
