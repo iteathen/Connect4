@@ -6,6 +6,7 @@ Current repository-organization decisions:
 
 - [`2026-09-10-repository-lane-restructure.md`](2026-09-10-repository-lane-restructure.md) — established the original main/minimax/CUDA-BSFP/semantic-quotient lane model and branch-retirement rules.
 - [`2026-09-11-main-shared-foundation-three-solver-heads.md`](2026-09-11-main-shared-foundation-three-solver-heads.md) — reopens the topology after hybrid confluence emerged, defines `main` as the shared accepted foundation, and defines minimax, CUDA-BSFP and hybrid confluence as peer long-lived solver heads.
+- [`2026-09-17-closed-durable-lane-topology.md`](2026-09-17-closed-durable-lane-topology.md) — recognizes Isometric and SUT as additional peer solver families, closes the durable lane set, and makes temporary branch ownership/retirement explicit.
 
 A decision record should state:
 
