@@ -256,6 +256,45 @@ Scaling the child frontier from 20k to 100k states raised rank-28 best-move cove
 This shifts the open engineering question from whether the relation can select moves to how to construct/propagate enough frontier coverage toward the root.
 
 
+## Confirmed direct-propagation representation wall
+
+The direct rank-propagation follow-up advanced beyond the sampled frontier work and has now been independently reviewed.
+
+Evidence:
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md`
+- `research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_RESULTS.json`
+- `research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.md`
+- `research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.json`
+
+Recorded post-authority IsoGraph claims:
+
+~~~text
+C4-R0075  empirically_supported
+    observed standard-7x6 rank-35 wall is a scoped
+    representation/composition explosion at distributed
+    universal proof conjunction before semantic/value collapse
+
+C4-R0076  missing_law
+    derive a compact realizability-preserving clause/proof
+    -> residual/q-value controllable predecessor before
+    universal alternatives are fully distributed
+~~~
+
+Confirmation boundaries:
+
+- rank 35 has exactly 1,709 supports;
+- recorded pathological move-width products recompute exactly to 573,270,600 and 58,748,277;
+- maintained BSFP host/CUDA semantics independently confirm Cartesian candidate generation before antichain normalization;
+- C4-R0073/R0074 already qualify the predecessor-closed clause carrier;
+- the large residual-shaped projection gap is real, but the recorded 626/192 rank-39 projection objects are **not** legal-q classes because exact cardinality and alternating-history realizability were not enforced.
+
+Frozen authority 1.1 remains unchanged. The claims live in:
+
+`research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.*`
+
+This now supersedes generic reducer tuning as the primary scaling seam.
+
 ## Gameplay strategy / implementation proposal lane
 
 The persistent index for turning IsoGraph findings into gameplay descriptions, solver strategies, and implementation experiments is:
