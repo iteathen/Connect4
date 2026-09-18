@@ -22,6 +22,7 @@
 | Hypothesis/open-question documents | 19/19 document-level source-native QU states |
 | Rendering-created QU gaps | 0 explicitly introduced |
 | Native surface syntax audit | 11 .isg files, 818,748 tokens, 0 scanner failures |
+| Semantic item accounting | 77/77 documents; 8,517/8,517 non-empty source occurrences; 0 missing, 0 extra, 0 span mismatches |
 
 ## Defect found and corrected
 
@@ -40,7 +41,7 @@ This failure is retained as evidence that the differential audit is capable of d
 
 ## What these passes prove
 
-The current candidate is complete at the **frozen source-fidelity layer**:
+The current candidate is complete at the **frozen source-fidelity and occurrence-accounting layers**:
 
 - every current logic source object is represented;
 - every current logic byte is recoverable from native IsoGraph exact literals;
@@ -48,7 +49,8 @@ The current candidate is complete at the **frozen source-fidelity layer**:
 - every top-level canonical claim field is preserved;
 - canonical unresolved statuses are not collapsed into false/absent/established;
 - hypothesis and open-question documents remain explicitly unresolved rather than being omitted;
-- every claim evidence/provenance dependency is content-addressed exactly.
+- every claim evidence/provenance dependency is content-addressed exactly;
+- every non-empty current-logic source occurrence has one exact native semantic-item record with source document, ordinal, byte span, lexical class, section topology, and canonical-claim/QU links where present.
 
 ## What is not proved yet
 
@@ -56,7 +58,7 @@ These deterministic passes do **not** yet prove that the higher-level structural
 
 Authority promotion remains blocked on:
 
-1. **semantic item accounting:** every load-bearing statement/rule/guard in the 77 current-logic source files must be assigned to native structural content, a canonical claim, or a source-native uncertainty record;
+1. **semantic reconstruction sufficiency:** the now-complete 8,517-item occurrence accounting must be shown to preserve every load-bearing logical distinction without requiring hidden legacy context;
 2. **isolated cold reconstruction:** a decoder that receives the pinned IsoGraph authorities and native corpus, but not the legacy sources, must reconstruct the current logic without material omission or strengthening;
 3. **adversarial differential review:** guard/scope/status/relation-direction near-neighbors must remain distinguishable;
 4. **QU dependency qualification:** the narrow QU 0.1 usage must be qualified or bridged exactly for Connect4;
