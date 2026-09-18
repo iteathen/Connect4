@@ -2,7 +2,7 @@
 
 This file specializes the account-global `iteathen/.github/AGENTS.md` and repository `AGENT_LOCAL.md` for all work under `research/`.
 
-The purpose of this tree is not to accumulate notes. It is the **canonical normalized knowledge graph** for Connect4 research across Isometric, Negamax/Minimax, BSFP, hybrid solvers, benchmark/oracle work, and future consumers. Historical branches and source packets may generate evidence; they do not independently own shared truth once that truth is normalized here.
+The purpose of this tree is not to accumulate notes. It is the **single canonical research ownership surface and normalized knowledge graph** for Connect4 across Isometric, Negamax/Minimax, BSFP, Hybrid Confluence, SUT, benchmark/oracle work, and future consumers. No solver branch or long-lived side branch owns a separate research corpus. Historical branches and temporary experiments may generate evidence, but all durable research meaning and research artifacts are integrated here.
 
 Research direction: Josh Oshiro.
 
@@ -166,7 +166,7 @@ The provenance archive exists so semantic cleanup can be aggressive without dest
 
 ## Mutation boundaries
 
-Research normalization and solver implementation are separate ownership units. Prefer a research-only commit when classifying or reorganizing knowledge. Do not mutate solver code merely to make a research claim look adopted, and do not rewrite research status merely because code happened to implement a candidate.
+Research and solver implementation are separate ownership units. Research belongs on this branch; implementation belongs on the owning `solver/*` branch. Prefer a research-only commit when classifying or reorganizing knowledge. Do not leave durable research notes, hypotheses, experiment conclusions, falsifiers, or research evidence stranded on a solver branch merely because that solver produced them. Do not mutate solver code merely to make a research claim look adopted, and do not rewrite research status merely because code happened to implement a candidate.
 
 When the task explicitly spans both research and implementation, preserve the separation in the diff and qualification: first establish the claim/contract and guards, then record the implementation’s exact consumption of it.
 
