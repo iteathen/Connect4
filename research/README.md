@@ -14,9 +14,10 @@ The qualified logic authority is IsoGraph. Read in this order:
 2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` — immutable authority/evidence identities.
 3. `isograph/successor/CONNECT4_LOGIC_PROFILE_1_1_CANDIDATE.md` and `isograph/successor/CONNECT4_LOGIC_NATIVE_VOCAB_1_1_CANDIDATE.md` — frozen promoted corpus profile/vocabulary.
 4. `isograph/successor/generated/CONNECT4_LOGIC_CORPUS_1_1_CANDIDATE.isg`, `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg`, `isograph/successor/CONNECT4_LOGIC_UNCERTAINTY_1_1_CANDIDATE.isg`, and `isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.isg` — corpus/claim/uncertainty/evidence structure.
-5. relevant 1.1 native source/item shards when exact source reconstruction or occurrence topology is required.
-6. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
-7. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit or exact historical reconstruction requires it.
+5. `isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md` plus its manifest/profiles/results when the research question concerns identity or safe quotient collapse.
+6. relevant 1.1 native source/item shards when exact source reconstruction or occurrence topology is required.
+7. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
+8. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit or exact historical reconstruction requires it.
 
 The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
 
