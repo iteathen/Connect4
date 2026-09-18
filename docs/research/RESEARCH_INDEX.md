@@ -30,6 +30,15 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 - `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json`  
   Machine-readable protocol routing, hypotheses, falsifiers, residuals, lifecycle states and cross-case synthesis.
 
+- `research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/RUN_LOG.md`  
+  Chronological process record for the first live protocol execution.
+
+- `research/isograph/discovery/DISCOVERY_PROTOCOL_EXECUTION_0_1.md`  
+  Reusable Connect4 execution contract for future Discovery Protocol runs.
+
+- `research/isograph/discovery/DISCOVERY_PROTOCOL_RUN_SCHEMA_0_1.json`  
+  Machine schema for required observation/alignment/protocol/falsifier/residual/disposition fields.
+
 - `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`  
   Live qualification/discovery dispositions after protocol execution.
 
