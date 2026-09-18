@@ -98,10 +98,23 @@ Closing qualification never silently closes discovery. Conversely, an interestin
 For the authority-1.1 cold anomalies, use:
 `isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
 
+## Gameplay strategy proposal routing
+
+When qualified or candidate research suggests a gameplay description, solver strategy, runtime representation, proof/cache design, or implementation path:
+
+1. consult `GAMEPLAY_STRATEGY_INDEX.md`;
+2. extend an existing `GSP-###` proposal when it owns the same strategy;
+3. create a new proposal under `gameplay-strategy/` only for a genuinely distinct implementation/research path;
+4. add the proposal to `GAMEPLAY_STRATEGY_INDEX.md` in the same change;
+5. keep proposal status separate from semantic claim status and implementation adoption.
+
+Do not strand durable gameplay/implementation ideas only in dated notes, issues, chat summaries, experiments, or solver branches.
+
 ## Classification and routing
 
 Classify meaning before choosing a directory.
 
+- `GAMEPLAY_STRATEGY_INDEX.md` / `gameplay-strategy/` — gameplay-facing strategy and implementation proposals derived from research; never semantic authority by themselves.
 - `isograph/` — current qualified logic authority, native corpus, immutable manifests and qualification evidence.
 - `canonical/` — legacy normalized-claim/shared-model bridge. Its stable IDs remain useful, but authoritative semantics/status/relations are resolved through IsoGraph.
 - `maps/` — connective structure among claims, logical roles, and solver consumers. Maps do not independently promote claims.
