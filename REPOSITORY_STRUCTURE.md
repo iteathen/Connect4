@@ -23,12 +23,12 @@ The five solver-family heads are peers:
 - `solver/minimax-alpha-beta` — minimax/negamax/alpha-beta implementation and evidence;
 - `solver/cuda-bsfp` — CUDA-BSFP implementation and evidence;
 - `solver/hybrid-confluence` — hybrid exact-confluence implementation and evidence;
-- `isometric` — Isometric structural/frontier implementation and evidence;
-- `sut` — SUT (`S ∪ T`) implementation lineage.
+- `solver/isometric` — Isometric structural/frontier implementation and evidence;
+- `solver/sut` — SUT (`S ∪ T`) implementation lineage.
 
-The root-level `isometric` and `sut` branch names are intentional established family names.
+The root-level `solver/isometric` and `solver/sut` branch names are intentional established family names.
 
-The durable set is closed by `docs/decisions/2026-09-17-closed-durable-lane-topology.md`. An agent may not create another durable lane without explicit owner instruction.
+The durable set is closed by `docs/decisions/2026-09-17-solver-namespace-normalization.md`. An agent may not create another durable lane without explicit owner instruction.
 
 ## Temporary branch lifecycle
 
