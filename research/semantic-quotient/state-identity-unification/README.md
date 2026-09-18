@@ -107,20 +107,34 @@ equal q
 
 This is profile-relative identity, not a contradiction and not permission to rewrite physical-state provenance.
 
-For standard 7x6, the analogous same-`q` future-behavior identity claim remains:
+For standard 7x6, the **historical applied NEI result** remains:
 
 ~~~text
 INCOMPLETE_UNQUALIFIED
 ~~~
 
-not semantic NEI UNKNOWN.
+under the evidence revision pinned by NEI application 0.1.
 
-The NEI-enabled Discovery Protocol rerun refines the 7x6 closure target: either prove complete preservation of the declared future behavior, or exhibit a same-`q` pair differing in legal actions, terminal behavior, same-action successor `q`, strong/action score, or exact W/D/L.
+The later high-value-lead investigation then derived a direct q transition-congruence proof candidate. Equal q fixes legal actions, mover/landing event, immediate terminal result and every nonterminal successor q; induction on remaining cells therefore fixes the complete ordinary future game.
+
+Current interpretation:
+
+~~~text
+historical NEI-C4-0007:
+    INCOMPLETE_UNQUALIFIED
+
+new post-application research:
+    candidate SAME for standard-7x6 future-behavior identity
+    pending independent qualification
+~~~
+
+The earlier same-q breaker family is now primarily adversarial qualification: a breaker would indicate a q-construction/transition/first-win defect or an out-of-scope observable, rather than an expected missing ordinary state coordinate.
 
 See:
 
 - `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
-- `research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md`.
+- `research/isograph/identity/CONNECT4_NEI_7X6_REASSESSMENT_0_1.md`;
+- `research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md`.
 
 ## Current gaps
 
