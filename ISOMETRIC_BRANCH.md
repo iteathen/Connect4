@@ -4,7 +4,7 @@
 **Solver family:** Isometric  
 **Research direction / structural architecture:** Josh Oshiro
 
-Isometric is a first-class Connect4 solver/research lineage. It is a sibling of the BSFP, Research, and Negamax lineages; it is not a Negamax sub-experiment.
+Isometric is a first-class Connect4 solver implementation lineage. It is a sibling of the BSFP, Research, and Negamax lineages; it is not a Negamax sub-experiment.
 
 The branch was cut without semantic rewriting from the complete live `research/terminal-frontier-horizon-exact` experiment at commit `6b7f19ce4d15423f6f2537dd7b18bcba2a7348ea`. That commit is the historical split point, not an ongoing ownership dependency.
 
@@ -16,7 +16,7 @@ The current implementation may retain alpha-beta/minimax mechanics inherited fro
 
 ## Shared authority
 
-Isometric shares Connect4-owned domain and structural mathematics with the other solver families, especially C4-0001, C4-0006, and C4-0007.
+Isometric consumes Connect4-owned domain and structural mathematics from accepted contracts and the canonical research branch, especially C4-0001, C4-0006, and C4-0007. All durable research ownership is on `research/semantic-quotient`.
 
 C4-0010 (`quotient-native-negamax`) remains useful lineage and conformance evidence where its clauses are independently applicable, but it does not own Isometric semantics. Isometric-specific solver semantics are routed through C4-0011.
 
@@ -25,4 +25,4 @@ C4-0010 (`quotient-native-negamax`) remains useful lineage and conformance evide
 - New Isometric work lands on `solver/isometric`.
 - `research/terminal-frontier-horizon-exact` and draft PR #45 are historical provenance only after this split.
 - Do not merge the Isometric experiment back into the Negamax lane merely to preserve its historical branch ancestry.
-- Preserve the experiment's valid code, research notes, qualification evidence, negative results, and exact checkpoints unless later assessment supersedes them.
+- Preserve valid implementation/code and implementation qualification here. Preserve durable research notes, hypotheses, negative research results, and research evidence on `research/semantic-quotient`; historical source checkpoints remain provenance.
