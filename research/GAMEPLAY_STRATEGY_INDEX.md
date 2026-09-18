@@ -85,6 +85,45 @@ SUPERSEDED
 
 ---
 
+## Cross-cutting method-emergence correction
+
+The latest IsoGraph discovery changes how the solver proposals should be interpreted.
+
+Do **not** treat IsoMax, BSFP, or SUT as separate semantic ontologies.
+
+The existing Connect4 topology already yields the ordinary exact recurrence:
+
+~~~text
+exact behavior carrier
++ legal actions / successor relation
++ terminal boundary
++ alternating existential/universal choice
++ finite occupied-cell rank
+-> exact W/D/L dependency
+~~~
+
+Current solver families are primarily different evaluation/materialization policies over that relation:
+
+~~~text
+IsoMax
+    demand-driven
+
+BSFP
+    supply-driven / symbolic predecessor
+
+SUT candidate
+    coordinated meeting of demand and supply fronts
+~~~
+
+Accordingly:
+
+- GSP-003 should be read as a symbolic evaluation policy over the common recurrence, not creation of different game semantics;
+- GSP-004 should be read as adding qualified shortcut proof edges, not replacing the underlying game relation;
+- GSP-006 remains load-bearing because q-level gameplay identity does not automatically authorize stronger proof reuse;
+- new proposals should first ask whether the required operation already exists as Connect4 topology at another layer before inventing solver-specific state.
+
+Source: `isograph/discovery/2026-09-18-method-emergence/`.
+
 ## Current proposals
 
 | ID | Proposal | Current status | What it changes | Primary implementation seam | Proof/qualification burden | Next action |
@@ -232,6 +271,7 @@ Do not leave a durable gameplay strategy discoverable only from a dated research
 Current proposal generation is primarily informed by:
 
 - `isograph/discovery/2026-09-18-high-value-leads/CAMPAIGN.md`;
+- `isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md`;
 - `isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md`;
 - `isograph/discovery/2026-09-18-high-value-leads/CONTEXTUAL_IDENTITY_SPANS.md`;
 - `isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
