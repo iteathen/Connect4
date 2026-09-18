@@ -39,9 +39,15 @@ support/accessibility
 
 P0 residual class + P1 residual class
   + support/accessibility
-  + side to move
-  + first-win terminal status
-  -> native reversible Isometric state
+  -> ordinary future-behavior key q
+
+derived/runtime fields:
+  side to move
+  rank / ply
+  playable masks
+  first-win terminal status
+  reversible history
+  -> maintained where useful for execution, guards, undo and diagnostics
 ```
 
 Residual updates are exact positive cofactors:
@@ -58,7 +64,32 @@ The current packed WSL implementation is deliberately specialized to accepted st
 
 ## Identity and authority separation
 
-IsoMax must not force structural grouping, behavioral identity, and proof reuse to use one key.
+IsoMax must not force structural grouping, behavioral identity, representation identity, and proof reuse to use one key.
+
+### Ordinary gameplay identity q
+
+For legal nonterminal standard-7x6 states, the current canonical research candidate future-behavior identity is:
+
+```text
+q =
+    support/accessibility
+    + normalized P0 residual antichain
+    + normalized P1 residual antichain
+```
+
+Under standard alternating no-pass play:
+
+- rank/ply is derivable from support;
+- side to move is derivable from rank parity;
+- terminal outcome is emitted by the transition that first completes a win or fills the board and is not an additional nonterminal q coordinate.
+
+The canonical research q-congruence derivation is newer than this branch's original specification and remains a research candidate pending its own authority/qualification cycle. Isometric may consume only the portions independently qualified for its implementation.
+
+The current Isometric implementation already uses the q-shaped triple `(canonical P0 residual class, canonical P1 residual class, canonical support)` as the exact-value transition-cache equality check. Derived/runtime fields may remain physically stored for speed, reversible play, guards, or diagnostics without becoming additional gameplay identity.
+
+A future implementation change must not remove those cached fields merely because they are semantically derivable; removal is an economics decision and still requires exact qualification.
+
+
 
 ### Coarse structural signature
 
@@ -70,6 +101,8 @@ A structural-signature match means:
 
 It does **not** by itself authorize exact transition reuse or proof transfer.
 
+This is intentionally a contextual-correspondence design rather than a global quotient: one coarse structural bucket may contain certificates whose applicability differs by support, playability, rank, turn, temporal/resource context, or another guard. The bucket locates candidates; the guard/context establishes which certificate image applies.
+
 ### Guarded proof authority
 
 A reusable certificate contains a typed conclusion and the minimum guard required for that conclusion. A certificate transfers only when its guard is applicable after the same structural transporter is applied to the guard/conclusion pair.
@@ -78,32 +111,61 @@ Current cheap guard classes include support/playability masks, side to move, ran
 
 Horizontal-reflection stabilizers are handled explicitly. When multiple transporters preserve the same coarse WSL signature, applicability may be tested through the valid transporter images rather than made dependent on an arbitrary canonicalization choice.
 
-### Transition identity
+### Transition / exact-value identity
 
-Exact transition/value memoization uses a stronger identity:
+Exact ordinary transition/value memoization uses the q identity:
 
 ```text
 canonical P0 residual class
 + canonical P1 residual class
 + canonical packed support
-+ side to move
-+ terminal status
 ```
 
-Horizontal mirrors share one canonical transition entry. Coarse WSL equality alone is not transition authority.
+Horizontal mirrors share one canonical entry.
+
+The implementation may expose additional side/status/orientation fields from a diagnostic or transport signature, but those fields are not part of exact-value cache equality when they are derivable or terminal-administrative under the declared scope.
+
+Coarse WSL equality without support remains only a retrieval relation, not transition authority.
 
 ### Proof identity
 
-Proof/certificate identity is independent from transition identity. Multiple behaviorally distinct states may reuse one guarded proof when the certificate's structural domain and guard justify the transfer.
+Proof/certificate identity is independent from transition identity. Multiple gameplay states may reuse one guarded proof when the certificate's structural domain, transporter and guard justify the transfer.
+
+A proof identity is valid only for the exact proof profile and canonical payload it names. Reusing one `proofIdentity` token with a different canonical guard, conclusion, dependency cone, or other load-bearing proof premise must fail closed or create a distinct proof identity; it must never silently deduplicate the new proof into an older certificate.
 
 This separation is intentional:
 
 ```text
 WSL equality tells IsoMax where to look.
-A proved guard tells IsoMax what may safely transfer.
-A transition identity tells IsoMax what may behave identically.
-A proof identity tells IsoMax what work need not be repeated.
+q tells IsoMax what ordinary future game is the same.
+A proved guard tells IsoMax what stronger fact may safely transfer.
+A proof identity tells IsoMax what proof work need not be repeated.
 ```
+
+## Current structural-closure boundary
+
+The active implementation already represents temporal, resource and realizability guards as explicit unresolved guard kinds. That fail-closed behavior remains correct.
+
+Canonical research has now isolated the next structural-composition seam as guarded obligation birth:
+
+```text
+MixedCofactorConsequence
++ AdmissibleSupport
++ UniversalInterventionStability
++ SharedResourceAccounting
++ FirstWinBeforeDeadline
+-> CertifiedObligation
+```
+
+Isometric must not treat residual degree drop, eventual ownership, or a surviving named residual as an obligation without those guards.
+
+Until the relevant temporal/resource/realizability semantics are implemented and qualified:
+
+- such guards remain unresolved;
+- certificate lookup may not treat them as false or applicable;
+- recursive exact W/D/L remains the fallback for unresolved residue.
+
+The target implementation direction is to close more residue structurally while preserving recursive search as an exact fallback, not to disguise recursive enumeration as certificate derivation.
 
 ## Exact frontier consequences currently admitted
 
