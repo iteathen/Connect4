@@ -53,6 +53,7 @@ Shared inputs:
 - rejected streaming dominance form: C4-R0041;
 - line-hit product boundary and missing direct-recurrence law: C4-R0042, R0043;
 - residual-pair cofactor reuse: C4-R0044;
+- support-local clause dictionary theorem and bounded coverage/cofactor qualification: C4-R0073, R0074;
 - measured compute/frontier scaling wall: C4-R0045.
 
 R0057..R0059 may inform exact symbolic bases, cokernel coordinates and structural indexing, but they do not permit BSFP to discard support/realizability correlations required by the predecessor semantics. MQ5/A123 runtime measurements are primarily recursive-solver evidence; BSFP should consume their shared semantic conclusions only when the relevant representation/guard equivalence is explicit.
