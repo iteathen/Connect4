@@ -52,6 +52,38 @@ CLOSED AS ORDINARY ERROR:
 
 No authority-1.1 semantic artifact changed.
 
+## Applied Natural Entropic Identity layer
+
+NEI is now applied over the Connect4 IsoGraph as a derived identity overlay:
+
+- `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
+- `research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json`;
+- `research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json`;
+- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json`;
+- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.isg`.
+
+Current NEI results:
+
+```text
+SAME:
+    R0044 artifact projections -> same lineage
+    R0074 event projections -> same lineage
+    same-q states -> same future-behavior state on exhausted SIU-1 controls
+
+DISTINCT:
+    R0044 artifacts under artifact identity
+    R0074 historical/canonical events under event identity
+    R0045 rolling/compact lineages under lineage identity
+
+INCOMPLETE:
+    standard 7x6 same-q future-behavior identity
+
+semantic NEI UNKNOWN:
+    none
+```
+
+The 7x6 result is deliberately incomplete/unqualified rather than semantic UNKNOWN because no qualified QU-mediated identity model family exists for that question.
+
 ## Consolidated research-lane state
 
 On 2026-09-17, the canonical research lane was fast-forwarded through `research/structural-calculus-handoff-20260916`, the exact unified-knowledge trees were attached under `research/`, and the later BSFP/Isometric transfer packet was consolidated from `research/bsfp-isometric-invariant-transfer`. This branch now preserves the active structural-calculus lineage, BSFP/Isometric transfer research, and the normalized cross-lineage research knowledge base.
