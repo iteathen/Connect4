@@ -62,6 +62,35 @@ bounded future-behavior identity:
 
 on the exhausted SIU-1 control domains. This is profile-relative identity, not a global merge.
 
+### ACTIVE FOUNDATION / DISCOVERY SYNTHESIS — method emergence from existing Connect4 topology
+
+- `research/isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md`  
+  Removes solver-consumer labels and implementation vocabulary, then reconstructs the exact W/D/L method from existing Connect4 topology. Establishes the layer distinction between state evolution and value dependency and reclassifies IsoMax/BSFP primarily as demand-driven versus supply-driven evaluation/materialization policies over one ranked exact recurrence.
+
+- `research/isograph/discovery/2026-09-18-method-emergence/OPERATIONAL_LAYER_METHOD_EMERGENCE.md`  
+  Formal layer map: exact behavior carrier, legal transition, terminal boundary, alternating quantification, controllable predecessor, theorem shortcuts, representation, and machine realization.
+
+- `research/isograph/discovery/2026-09-18-method-emergence/DISCOVERY_LEDGER.json`  
+  Machine-readable dispositions, falsifiers, optimization leads, and SUT reinterpretation lead.
+
+Primary discovery:
+
+~~~text
+state evolution:
+    q_r -> q_(r+1)
+
+value dependency:
+    V(q_(r+1)) -> V(q_r)
+
+IsoMax:
+    demand-driven dependency discovery + backward value return
+
+BSFP:
+    supply-driven predecessor/value-family propagation
+~~~
+
+The solver names are not needed to state the underlying exact recurrence.
+
 ### ACTIVE FOUNDATION / DISCOVERY SYNTHESIS — high-value lead investigation
 
 - `research/isograph/discovery/2026-09-18-high-value-leads/CAMPAIGN.md`  
