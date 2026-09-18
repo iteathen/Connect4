@@ -92,6 +92,12 @@ This companion documents the stable-label roles used by the native `.isg` corpus
 | ^97080 | source URL/external reference bytes |
 | ^97081 | source-native QU qualification limitation |
 | ^97082 | rendering-created QU qualification limitation |
+| ^97083 | document-level uncertainty state |
+| ^97084 | hypothesis-document role |
+| ^97085 | open-question-document role |
+| ^97086 | fixed source authority within document QU |
+| ^97087 | open research region within document QU |
+| ^97088 | source-native unresolved document |
 
 Text-bearing fields are encoded as ordered incidences of exact UTF-8 byte literals. They are source-faithful payloads, not alpha-renamable labels.
 
