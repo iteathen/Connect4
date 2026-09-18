@@ -1,6 +1,6 @@
 # Connect4 Repository Status
 
-**Updated:** 2026-09-17  
+**Updated:** 2026-09-18  
 **Role:** shared-foundation dashboard and authority router
 
 `main` is the accepted shared Connect4 substrate. It is not the canonical implementation head for any solver family.
@@ -72,6 +72,7 @@ C4-0001 through C4-0005 and the qualified incumbent/oracle baseline remain prote
 ### Historical solver lineages
 
 Minimax/Negamax/alpha-beta and Hybrid Confluence are no longer active solver-family owners. Their useful knowledge is preserved under `research/history/historical-only/solver-lineages/` on `research/semantic-quotient`.
+
 ## Repository restructuring state
 
 The 2026-09-10/11 decisions established the shared-foundation and solver-head model. The 2026-09-17 decisions normalized five then-current solver-family heads. The 2026-09-18 topology decision retires Minimax and Hybrid Confluence, leaving IsoMax, CUDA-BSFP and SUT as the three active solver-family heads.
