@@ -1,0 +1,178 @@
+name: Implementation branch consolidation cleanup
+
+on:
+  push:
+    branches:
+      - cleanup/implementation-topology-20260917
+    paths:
+      - cleanup/IMPLEMENTATION_BRANCH_CLEANUP_TRIGGER_2026-09-17.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: implementation-branch-consolidation-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out cleanup host
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: cleanup/implementation-topology-20260917
+          persist-credentials: false
+
+      - name: Prevalidate, archive, and retire stale implementation refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const req=JSON.parse(fs.readFileSync('cleanup/IMPLEMENTATION_BRANCH_CLEANUP_TRIGGER_2026-09-17.json','utf8'));
+          if(process.env.REPOSITORY!=='iteathen/Connect4'||req.repository!==process.env.REPOSITORY) throw new Error('repository mismatch');
+          if(!process.env.GH_TOKEN) throw new Error('GITHUB_TOKEN unavailable');
+
+          const [owner,repo]=process.env.REPOSITORY.split('/');
+          const api='https://api.github.com';
+          const headers={
+            Authorization:`Bearer ${process.env.GH_TOKEN}`,
+            Accept:'application/vnd.github+json',
+            'X-GitHub-Api-Version':'2022-11-28',
+            'Content-Type':'application/json'
+          };
+          const enc=s=>s.split('/').map(encodeURIComponent).join('/');
+          async function gh(path,{method='GET',body,ok=[200]}={}){
+            const r=await fetch(api+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});
+            const text=await r.text();
+            if(!ok.includes(r.status)) throw new Error(`${method} ${path} -> ${r.status}: ${text.slice(0,800)}`);
+            return text?JSON.parse(text):null;
+          }
+          async function refSha(branch){
+            return (await gh(`/repos/${owner}/${repo}/git/ref/heads/${enc(branch)}`)).object.sha;
+          }
+          async function resolveTag(tag){
+            try{
+              const r=await gh(`/repos/${owner}/${repo}/git/ref/tags/${enc(tag)}`);
+              if(r.object.type==='commit') return r.object.sha;
+              const t=await gh(`/repos/${owner}/${repo}/git/tags/${r.object.sha}`);
+              return t.object.sha;
+            }catch(e){
+              if(String(e).includes('-> 404:')) return null;
+              throw e;
+            }
+          }
+          async function ensureTag(tag,branch,sha){
+            const existing=await resolveTag(tag);
+            if(existing!==null){
+              if(existing!==sha) throw new Error(`tag target mismatch for ${tag}`);
+              return;
+            }
+            const t=await gh(`/repos/${owner}/${repo}/git/tags`,{
+              method:'POST',ok:[201],
+              body:{tag,message:`Archive ${branch} before implementation branch consolidation cleanup`,object:sha,type:'commit'}
+            });
+            await gh(`/repos/${owner}/${repo}/git/refs`,{
+              method:'POST',ok:[201],
+              body:{ref:`refs/tags/${tag}`,sha:t.sha}
+            });
+            if(await resolveTag(tag)!==sha) throw new Error(`archive tag verification failed: ${tag}`);
+          }
+          async function pathSha(commitSha,path){
+            let tree=(await gh(`/repos/${owner}/${repo}/git/commits/${commitSha}`)).tree.sha;
+            for(const part of path.split('/')){
+              const d=await gh(`/repos/${owner}/${repo}/git/trees/${tree}`);
+              const e=d.tree.find(x=>x.path===part);
+              if(!e) throw new Error(`missing ${path} at ${commitSha}`);
+              tree=e.sha;
+            }
+            return tree;
+          }
+          async function fileText(ref,path){
+            const d=await gh(`/repos/${owner}/${repo}/contents/${enc(path)}?ref=${enc(ref)}`);
+            return Buffer.from(d.content,'base64').toString('utf8');
+          }
+          async function isAncestor(base,head){
+            const d=await gh(`/repos/${owner}/${repo}/compare/${base}...${head}`);
+            return d.merge_base_commit?.sha===base && d.behind_by===0;
+          }
+          async function openPrCount(branch){
+            const q=new URLSearchParams({state:'open',head:`${owner}:${branch}`,per_page:'1'});
+            const d=await gh(`/repos/${owner}/${repo}/pulls?${q}`);
+            return d.length;
+          }
+          async function activeRunCount(branch,status){
+            const q=new URLSearchParams({branch,status,per_page:'1'});
+            const d=await gh(`/repos/${owner}/${repo}/actions/runs?${q}`);
+            return d.total_count;
+          }
+
+          const mainHead=await refSha('main');
+          const topology=await fileText('main','docs/decisions/2026-09-17-closed-durable-lane-topology.md');
+          if(!topology.includes('closed durable set')&&!topology.includes('durable set is **closed**')) throw new Error('accepted topology decision missing');
+
+          const researchHead=await refSha('research/semantic-quotient');
+          const ledger=JSON.parse(await fileText('research/semantic-quotient','research/provenance/IMPLEMENTATION_BRANCH_CONSOLIDATION_2026-09-17.json'));
+          const manifest=JSON.parse(await fileText('research/semantic-quotient','research/provenance/SOURCE_MANIFEST.json'));
+          const lm=new Map(ledger.retire.map(x=>[x.name,x]));
+          const durable=new Set(['main','research/semantic-quotient','solver/minimax-alpha-beta','solver/cuda-bsfp','solver/hybrid-confluence','isometric','sut']);
+
+          // Phase 1: validate the full set before mutating any refs.
+          const validated=[];
+          for(const item of req.branches){
+            const branch=item.name;
+            if(durable.has(branch)) throw new Error(`refusing durable branch ${branch}`);
+            if(!(branch==='feature/cuda-bsfp'||branch==='tmp-unused-should-not-create'||branch.startsWith('work/'))){
+              throw new Error(`refusing out-of-scope branch ${branch}`);
+            }
+            const actual=await refSha(branch);
+            if(actual!==item.expected_head) throw new Error(`${branch} moved: ${actual}`);
+            const rec=lm.get(branch);
+            if(!rec||rec.head!==actual||rec.proof!==item.proof||rec.archive_tag!==item.archive_tag){
+              throw new Error(`ledger mismatch for ${branch}`);
+            }
+            if(await openPrCount(branch)) throw new Error(`open PR still depends on ${branch}`);
+            if(await activeRunCount(branch,'queued')||await activeRunCount(branch,'in_progress')) throw new Error(`active Actions run depends on ${branch}`);
+
+            switch(item.proof){
+              case 'strict_ancestor': {
+                const ownerHead=await refSha(rec.owner);
+                if(!await isAncestor(actual,ownerHead)) throw new Error(`${branch} not ancestor of ${rec.owner}`);
+                break;
+              }
+              case 'source_packet': {
+                const src=manifest.sources.find(x=>x.ref===branch&&x.id===rec.source_id);
+                if(!src||src.trees?.research!==rec.source_tree) throw new Error(`source manifest mismatch for ${branch}`);
+                if(await pathSha(actual,'research')!==rec.source_tree) throw new Error(`source research tree moved for ${branch}`);
+                if(await pathSha(researchHead,rec.archive_path)!==rec.source_tree) throw new Error(`archive tree mismatch for ${branch}`);
+                break;
+              }
+              case 'source_manifest_subsumed':
+                if(!manifest.subsumed_or_alias_refs.includes(branch)) throw new Error(`${branch} not marked subsumed`);
+                break;
+              case 'alias_of_recorded_head': {
+                const stronger=ledger.retire.find(x=>x.head===actual&&x.archive_tag===item.archive_tag&&x.proof!=='alias_of_recorded_head');
+                if(!stronger) throw new Error(`no stronger preservation record for alias ${branch}`);
+                break;
+              }
+              case 'existing_archive_alias':
+                if(await resolveTag(item.archive_tag)!==actual) throw new Error(`existing archive does not preserve ${branch}`);
+                break;
+              default:
+                throw new Error(`unknown proof class ${item.proof}`);
+            }
+            validated.push({branch,actual,item});
+          }
+          console.log(`prevalidated ${validated.length} stale refs; main=${mainHead}; research=${researchHead}`);
+
+          // Phase 2: archive exact heads and delete only after each archive verifies.
+          for(const {branch,actual,item} of validated){
+            if(item.proof!=='existing_archive_alias') await ensureTag(item.archive_tag,branch,actual);
+            await gh(`/repos/${owner}/${repo}/git/refs/heads/${enc(branch)}`,{method:'DELETE',ok:[204]});
+            console.log(`archived+deleted ${branch} @ ${actual}`);
+          }
+          NODE
