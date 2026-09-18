@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "campaign_id": "connect4-high-value-leads-2026-09-18",
+  "authority_base": "connect4-isograph-logic-1.1",
+  "starting_head": "8451713e3a5be0f004d2e971f3211faf16d398b7",
+  "leads": [
+    {
+      "id": 2,
+      "name": "semantic-scope derivation",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "conclusion": "Exact semantic scope cannot be derived from the current structured scope/guards fields in general.",
+      "evidence": {
+        "claims": 74,
+        "explicit_scope": 31,
+        "guards": 8,
+        "scope_or_guards": 39,
+        "neither": 35,
+        "empirically_supported_without_scope": 13,
+        "guarded_exact_without_guards": 2
+      },
+      "new_structure": [
+        "claim_domain",
+        "guards",
+        "evidence_coverage",
+        "anti_lift_exclusions"
+      ],
+      "remaining": "Normalize legacy prose restrictions into typed semantic-scope atoms and qualify extraction."
+    },
+    {
+      "id": 20,
+      "name": "derived deductive-independence applicability",
+      "disposition": "CURRENT_CORPUS_STRUCTURE_ESTABLISHED_GENERAL_RULE_SUPPORTED",
+      "conclusion": "The current evidence graph cleanly separates deductive-only lineages from empirical/reproduction lineages, but the classifier is not yet a clean typed semantic rule.",
+      "evidence": {
+        "lineages": 10,
+        "empirical_or_reproduction": 8,
+        "deductive_only": 2,
+        "current_classifier_counterexamples": 0
+      },
+      "proposed_field": "evidence_mode = empirical | deductive_only | mixed",
+      "remaining": "Qualify typed evidence_mode against mixed-lineage controls."
+    },
+    {
+      "id": 32,
+      "name": "profile-mediated safe collapse",
+      "disposition": "REFINED_SUPPORTED_CORRESPONDENCE",
+      "conclusion": "Safe collapse is better modeled as profile-mediated identity through contextual correspondences; quotient functions are a special case.",
+      "evidence": {
+        "instances": [
+          "R0044 artifact/lineage",
+          "R0074 event/lineage",
+          "SIU physical/future-behavior"
+        ]
+      },
+      "remaining": "Decide whether the contextual correspondence span belongs in successor IsoGraph/NEI representation."
+    },
+    {
+      "id": 36,
+      "name": "context-dependent identity projection",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "conclusion": "Evidence artifact identity does not globally determine lineage; lineage projection must use an incidence/context anchor.",
+      "evidence": {
+        "artifact_incidence_records": 26,
+        "unique_underlying_artifacts": 21,
+        "repeated_artifact_3000222_lineages": 5,
+        "repeated_artifact_3000283_lineages": 2
+      },
+      "hidden_distinction": [
+        "underlying evidence artifact object",
+        "artifact-lineage occurrence/incidence"
+      ],
+      "remaining": "Split the successor vocabulary and preserve both projections."
+    },
+    {
+      "id": 40,
+      "name": "standard 7x6 same-q future-behavior identity",
+      "disposition": "DEDUCTIVE_CANDIDATE_MATHEMATICALLY_RESOLVED",
+      "conclusion": "For legal nonterminal standard-7x6 states, equal q determines the complete labeled future game under ordinary legal-transition semantics.",
+      "proof_components": [
+        "same support -> same legal actions, landing cell and mover",
+        "residual cofactors determine identical terminal outcomes",
+        "minimal-antichain normalization is cofactor-congruent under first-win stopping",
+        "every nonterminal successor q is a function of q + action",
+        "finite acyclic induction yields identical full future behavior"
+      ],
+      "control": {
+        "set_families": 32906,
+        "cofactor_checks": 131474,
+        "result": "PASS",
+        "first_attempt_lesson": "post-terminal residual comparison was invalid under first-win stopping"
+      },
+      "scope_exclusions": [
+        "physical identity",
+        "move-history identity",
+        "terminal-line provenance",
+        "non-q-derivable CPC/NDC proof state",
+        "advisory state"
+      ],
+      "remaining": "Independent review and successor authority/NEI qualification."
+    },
+    {
+      "id": 43,
+      "name": "same-q breaker search",
+      "disposition": "RECLASSIFIED_AS_ADVERSARIAL_QUALIFICATION",
+      "conclusion": "A same-q pair with different ordinary future behavior would now falsify theorem premises or implementation, rather than reveal an expected missing state coordinate.",
+      "breaker_family": [
+        "different legal actions",
+        "different terminal token",
+        "different same-action successor q",
+        "different W/D/L",
+        "different strong state/action score"
+      ],
+      "remaining": "Use independent implementation/property controls; add negative controls for properties intentionally outside q scope."
+    }
+  ],
+  "cross_lead_synthesis": [
+    {
+      "id": "HVL-S1",
+      "statement": "The recurring problem is not insufficient compression but insufficiently typed context: scope, evidence mode, identity carrier, and projection anchor must be explicit before collapse."
+    },
+    {
+      "id": "HVL-S2",
+      "statement": "A functional quotient is one case of a more general contextual correspondence span; safe identity claims attach to scoped images while fine referents remain available."
+    },
+    {
+      "id": "HVL-S3",
+      "statement": "The standard-7x6 q identity burden is mathematical transition congruence, not exhaustive census. The proof candidate appears to close that burden for ordinary future behavior."
+    }
+  ],
+  "authority_effect": "NO_FROZEN_AUTHORITY_MUTATION"
+}
