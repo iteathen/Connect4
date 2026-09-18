@@ -20,6 +20,12 @@ Unlisted dated notes remain repository evidence. Being unlisted means “not pri
 
 ---
 
+## Gameplay strategy / implementation proposal index
+
+- `research/GAMEPLAY_STRATEGY_INDEX.md` — living index where IsoGraph findings are translated into gameplay description, solver strategy, and implementation proposals. Unlike this durable-evidence index, it is intentionally forward-looking and tracks candidate strategies, implementation seams, proof burdens, and next experiments.
+
+---
+
 ## 0. Applied IsoGraph identity/discovery layers
 
 ### ACTIVE FOUNDATION — Natural Entropic Identity overlay
