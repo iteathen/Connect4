@@ -30,7 +30,7 @@ Maintain these invariants on every research mutation:
 - **Status is claim-specific.** Solver adoption, benchmark speed, branch age, issue labels, repeated model agreement, or implementation success do not promote a research claim.
 - **Guards are part of truth.** A guarded theorem without its guards is a different and usually false claim.
 - **Scope is part of truth.** A bounded control, one board size, one tie convention, or one solver workload may not be silently widened.
-- **Sources are evidence, not authority by filename.** Historical conclusions, handoffs, PR descriptions, issues, solved labels, database outputs, and old agent statements must be reclassified against the canonical graph.
+- **Sources are evidence, not authority by filename.** Historical conclusions, handoffs, PR descriptions, issues, solved labels, database outputs, and old agent statements must be reclassified against the authoritative IsoGraph graph.
 - **Negative knowledge is first-class.** Counterexamples, failed selectors, rejected implementations, deferred mechanisms, and scope limits must remain discoverable.
 - **Shared truth is solver-neutral.** Isometric, Minimax, BSFP, and hybrid consumers may use the same claim differently without forking its epistemic status.
 
@@ -50,7 +50,7 @@ mechanism != workload fit
 mechanism != stage order
 mechanism != synergy with neighboring mechanisms
 mechanism != adoption status
-source archive != canonical authority
+source archive != current IsoGraph authority
 ```
 
 When two artifacts appear to disagree, first determine whether they actually assert different semantics, scopes, guards, tie conventions, representations, or workloads.
@@ -88,9 +88,9 @@ When a source packet, experiment, branch, issue, paper, implementation result, o
 
 A historical packet may yield zero new claims if all of its semantic content is already represented. In that case, record the provenance/normalization disposition rather than manufacturing IDs for activity.
 
-## Registry and index rules
+## Legacy registry bridge and index rules
 
-`canonical/CLAIM_INDEX.json` is a hard integrity boundary.
+`canonical/CLAIM_INDEX.json` is a hard **compatibility/integrity** boundary for the retained pre-IsoGraph claim bridge. It is not the current logic authority root.
 
 - Every active registry shard must be listed there.
 - Every specialized human ledger intended as part of canonical reading must be listed there.
@@ -102,9 +102,11 @@ A historical packet may yield zero new claims if all of its semantic content is 
 - Prefer an existing relation term when it expresses the semantics. If a genuinely new relation type is required, document its meaning rather than using a near-synonym casually.
 - A human ledger and machine registry describing the same claim family must agree on ID, status, scope, and central statement.
 
-## Research mutation is a graph transaction
+## Research mutation is an IsoGraph authority transaction
 
-A semantic change is incomplete until all **affected** representations agree. Do not mechanically touch every file; do update every file whose meaning changed.
+A semantic change is not authoritative until it is represented in a successor IsoGraph authority revision and that revision is qualified/promoted. Legacy machine registries, human ledgers and maps are derived/readability bridges after the 2026-09-18 authority decision.
+
+After the authoritative IsoGraph change is defined, synchronize all **affected** bridge views that are still maintained. Do not mechanically touch every file; do update every bridge file whose displayed meaning changed.
 
 For each claim-level mutation, assess at least:
 
