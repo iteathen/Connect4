@@ -18,6 +18,35 @@ consolidation:
   rule: branch_consolidation_does_not_change_claim_status_or_solver_ownership
   authority_resolution_rule: qualified_isograph_authority_overrides_legacy_bridge_views
 
+confirmed_direct_propagation_seam:
+  id: derive_compact_clause_to_value_controllable_predecessor
+  status: confirmed_scoped_missing_law
+  claims:
+    - C4-R0075
+    - C4-R0076
+  objective: >-
+    Derive an exact realizability-preserving controllable-predecessor operation that maps the
+    predecessor-closed support-local clause/proof carrier into residual/q-value bounds before
+    universal proof alternatives are fully distributed into Cartesian products.
+  authority:
+    - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_RESULTS.json
+    - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.json
+    - research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.json
+    - research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.isg
+  constraints:
+    - do_not_fully_distribute_universal_alternatives_before_testing_semantic_collapse
+    - preserve_support_first_win_and_opponent_universal_semantics
+    - preserve_realizability_and_exact_cardinality
+    - abstract_residual_projection_is_not_legal_q_without_history_realizability
+    - C4_R0076_is_missing_law_not_implemented_authority
+  first_target:
+    - reproduce_exact_distributed_result_on_the_two_recorded_rank35_pathological_supports
+    - derive_a_non_distributed_clause_to_value_projection_for_the_same_supports
+    - require_exact_agreement_with_the_distributed_reference_where_reference_completes
+    - measure_candidate_domain_and_surviving_value_boundary_before_and_after_projection
+    - stop_if_realizability_requires_information_not_present_in_existing_clause_support_residual_topology
 parallel_high_value_seam:
   id: qualify_support_local_action_value_frontier
   status: bounded_standard_7x6_cross_rank_supported_sampled
@@ -48,12 +77,16 @@ parallel_high_value_seam:
     - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
-  id: derive_guarded_mixed_cofactor_obligation_birth
+  id: derive_compact_clause_to_value_controllable_predecessor
   objective: >-
-    Derive the smallest exact guarded quantifier-lift rule that converts mixed owner-labelled positive cofactors
-    into certified NDC obligations before a deadline. Preserve exact support and full residual identity. Treat
-    owner-labelled enabling as a derived certificate relation, not a new board-state coordinate, unless the first
-    unresolved support/resource/deadline guard proves otherwise.
+    Close C4-R0076 by deriving the smallest exact realizability-preserving mapping from predecessor-closed
+    clause/proof structure to residual/q-value bounds before distributed universal proof expansion. Use the
+    confirmed rank-35 pathologies as the first falsification controls. Preserve the prior guarded mixed-cofactor
+    obligation-birth seam as a supporting subproblem of the same controllable-predecessor law rather than a
+    separate primary program.
+  supporting_subseam:
+    id: derive_guarded_mixed_cofactor_obligation_birth
+    role: quantify_and_guard_structural_shortcut_consequences_within_the_compact_predecessor
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
@@ -73,6 +106,9 @@ required_authority:
   - research/isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md
   - research/isograph/discovery/2026-09-18-method-emergence/DISCOVERY_LEDGER.json
   - research/isograph/discovery/2026-09-18-method-emergence/OPERATIONAL_LAYER_METHOD_EMERGENCE.md
+  - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md
+  - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.md
+  - research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.json
   - research/isograph/identity/CONNECT4_NEI_7X6_REASSESSMENT_0_1.md
   - research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md
   - research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json
@@ -184,11 +220,10 @@ execution:
     relations already suffice. Separate state-evolution direction from value-dependency direction, and separate
     semantic relation from evaluation schedule and representation.
   primary_question: >-
-    Can the exact mixed owner-cofactor consequences already present in the full positive residual antichains be
-    lifted, with explicit opponent-universal intervention, support/resource, deadline and first-win guards, into
-    an NDC obligation that distinguishes the documented shared d-column continuation without using its solved
-    label as a premise or reconstructing a recursive move-tree proof?
-  first_construction:
+    Can the predecessor-closed support-local clause carrier be projected into exact residual/q-value bounds under
+    controller-existential and opponent-universal choice before universal proof alternatives are distributed,
+    while preserving realizability, support, deadlines, response resources and first-win stopping?
+  supporting_guarded_obligation_construction:
     - >-
       Start from zero-based A=[6,6,6,6,2,2] and B=[2,6,6,2,6,6]. Both have support [0,0,2,0,0,0,4]
       and equal current-owner low-order jets; keep their distinct full positive residual antichains.
