@@ -35,6 +35,9 @@ required_authority:
   - research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json
   - research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md
   - research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/DISCOVERY_LEDGER.json
+  - research/isograph/discovery/2026-09-18-nei-enabled-rerun/CAMPAIGN.md
+  - research/isograph/discovery/2026-09-18-nei-enabled-rerun/DISCOVERY_LEDGER.json
+  - research/isograph/discovery/2026-09-18-nei-enabled-rerun/BEFORE_AFTER.json
   - research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md
   - research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json
   - research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json
@@ -134,6 +137,9 @@ execution:
     When a discovery branch becomes an identity or safe-collapse question, evaluate it under the applied NEI
     profile layer before merging referents or claiming natural distinctness. Keep physical, artifact, event,
     lineage and future-behavior identities separate. Missing 7x6 closure remains incomplete, not NEI UNKNOWN.
+    Do not assume a context-free quotient map: evidence artifacts may participate in multiple lineages, so any
+    identity projection must preserve the context/anchor that makes it single-valued. NEI DISTINCT never implies
+    statistical independence, and NEI SAME at a projected profile never erases fine-grained provenance.
   primary_question: >-
     Can the exact mixed owner-cofactor consequences already present in the full positive residual antichains be
     lifted, with explicit opponent-universal intervention, support/resource, deadline and first-win guards, into
@@ -165,6 +171,8 @@ execution:
       and a nearly injective signature is not a compact value selector.
   required_checks:
     - any material discrepancy preserves raw observations before normalization and records separate qualification/discovery dispositions
+    - any identity projection used for collapse is explicitly scoped/anchored when the source referent can participate in multiple higher-level identities
+    - NEI SAME/DISTINCT is not lifted into unrelated properties such as evidence independence
     - pair blocker must not be silently promoted to XOR
     - eventual ownership must not replace ownership-before-deadline
     - a lower-degree residual must not be promoted to a defensive obligation without support/deadline/resource proof
