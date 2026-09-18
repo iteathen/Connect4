@@ -112,6 +112,52 @@ The frontier relation belongs to Connect4 semantics/research, not either solver.
 
 Both active solvers can construct or consume the same support-local action-value boundaries.
 
+## Standard 7x6 bounded evidence
+
+A deterministic exact standard-board control now shows the frontier relation can be used constructively across ranks.
+
+Using independently constructed child-rank value frontiers and unseen parent states:
+
+~~~text
+20k child-state frontier budget:
+
+rank 26 -> 15.40% exact best moves
+rank 30 -> 54.62%
+rank 34 -> 81.63%
+rank 36 -> 88.39%
+rank 38 -> 97.44%
+rank 39 -> 100.00%
+~~~
+
+Across ranks 26-39:
+
+~~~text
+held-out q states        64,644
+held-out legal actions  257,007
+
+false action claims           0
+false best-move claims        0
+~~~
+
+Increasing child-frontier coverage materially improves earlier ranks:
+
+~~~text
+rank 28:
+    20k child states  -> 30.44%
+    100k child states -> 73.36%
+
+rank 26:
+    20k child states  -> 15.40%
+    100k child states -> 61.36%
+~~~
+
+The next bottleneck is therefore frontier construction/coverage toward the root, not a detected correctness failure in the support-local order.
+
+See:
+
+- `research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_TEST.md`
+- `research/isograph/discovery/2026-09-18-policy-frontier/STANDARD_7X6_BOUNDED_FRONTIER_RESULTS.json`
+
 ## Qualification burden
 
 Before adoption:
@@ -119,7 +165,7 @@ Before adoption:
 1. independently review the isotony proof;
 2. reproduce all four complete controls from the checked-in control;
 3. test nonstandard complete geometries;
-4. build bounded standard-7x6 rank slices and measure frontier growth;
+4. extend standard-7x6 frontier construction toward earlier ranks using support-aware/demand-aware generation and measure generator growth;
 5. verify q/proof identity separation;
 6. measure lookup/construction economics against current IsoMax and BSFP baselines.
 
