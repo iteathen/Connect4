@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "experiment": "rba-antichain-semiring-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "algebra": {
+    "carrier": "minimal antichains of the support-local favorable q-state lattice, representing upward-closed threshold regions",
+    "plus": "A ⊕ B = Min(A ∪ B), representing union of upward-closed regions",
+    "times": "A ⊗ B = Min({a ∨ b | a∈A,b∈B}), representing intersection of upward-closed regions",
+    "zero": "empty antichain / empty upward set",
+    "one": "{bottom state} / whole upward set",
+    "interpretation": "bounded distributive lattice and idempotent commutative semiring presentation of the upward-set lattice"
+  },
+  "tests": [
+    {
+      "support": [
+        5,
+        5,
+        5,
+        2,
+        6,
+        6,
+        6
+      ],
+      "semiring_law_checks": 1000,
+      "semiring_law_mismatches": 0,
+      "fixed_path_preimage_join_mismatches": 0,
+      "fixed_path_preimage_meet_mismatches": 0
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        5,
+        6,
+        6,
+        6
+      ],
+      "semiring_law_checks": 500,
+      "semiring_law_mismatches": 0,
+      "fixed_path_preimage_join_mismatches": 0,
+      "fixed_path_preimage_meet_mismatches": 0
+    }
+  ],
+  "laws_checked": [
+    "idempotence of ⊕",
+    "idempotence of ⊗",
+    "commutativity",
+    "associativity",
+    "both distributive laws",
+    "additive identity",
+    "multiplicative identity"
+  ],
+  "path_preimage": {
+    "statement": "For tested deterministic two-ply path predicate preimages with terminal constants integrated, Pre(A⊕B)=Pre(A)⊕Pre(B) and Pre(A⊗B)=Pre(A)⊗Pre(B).",
+    "interpretation": "fixed-path predicate preimages act as distributive-lattice / semiring homomorphisms on threshold fronts"
+  },
+  "bellman_form": {
+    "statement": "A two-ply threshold transformer is a monotone lattice polynomial over the antichain semiring: current-player action aggregation uses ⊕, opponent-reply aggregation uses ⊗, and composed path preimages are homomorphisms.",
+    "mixed_reply_cover": "The previously observed Cartesian mixed-cover candidates are exactly the concrete expansion of semiring multiplication ⊗ before antichain minimization."
+  },
+  "remaining_problem": "Find an output-sensitive compact algorithm/normal form for semiring multiplication and composed Bellman polynomials at earlier ranks/root scale; the semantic operation itself is no longer unknown.",
+  "authority_effect": "none"
+}
