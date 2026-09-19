@@ -47,3 +47,23 @@ terminal identity and independently checked support/rank/turn relations.
 after two warmups, each 250,000 lookups over 84 replay/mirror states. Node 26.7.0
 median before/after: **12.8243 / 12.1553 ms**, identical checksum 46122552.
 This isolated single-process observation is not a full-solve speedup claim.
+
+## q congruence qualification (#66)
+
+Twelve persisted pairs at ranks 35–36 have distinct legal physical colorings
+and move histories but exactly equal support and independently reconstructed
+minimal residual antichains. Deterministic discovery rejects premature wins;
+it is qualification infrastructure, never solver code. The test exhausts every
+legal suffix of each pair and its mirror: 100 paired state occurrences and 76
+paired edges. First-win stopping makes these cones much smaller than unrestricted
+move permutations. It checks landing cells, immediate terminal tokens, successor
+q, full undo, exact W/D/L and the complete value-preserving action set against
+an independent physical control. No sampled suffix or hash-only match is used.
+
+Negative cases preserve distinct deadline/resource/realizability and load-bearing
+provenance premises despite q equality. Proof contexts remain unresolved, not
+draw or false. Together with the existing 96 deterministic game-prefix residual
+controls these are bounded implementation qualifications, not a universal
+q-congruence theorem or promotion of candidate research authority.
+
+Qualification before adding a value resolver: 25/25 Isometric tests pass.
