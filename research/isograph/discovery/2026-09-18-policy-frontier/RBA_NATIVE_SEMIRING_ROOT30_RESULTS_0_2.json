@@ -1,0 +1,215 @@
+{
+  "schema": 2,
+  "experiment": "rba-native-antichain-semiring-root30-0.2",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "predecessor_checkpoint": "RBA_NATIVE_SEMIRING_CHECKPOINT_0_1.md",
+  "target": {
+    "support": [
+      3,
+      5,
+      2,
+      2,
+      6,
+      6,
+      6
+    ],
+    "rank": 30,
+    "residual_shapes": 32,
+    "transformed_state_bits": 64
+  },
+  "execution_structure": {
+    "method": "cache the four exact rank31 child boundary families independently, then compose only the rank30 root",
+    "reason": "avoid duplicate descendant-cone construction while profiling the actual root algebra",
+    "child_supports": [
+      [
+        4,
+        5,
+        2,
+        2,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        6,
+        2,
+        2,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        5,
+        3,
+        2,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        5,
+        2,
+        3,
+        6,
+        6,
+        6
+      ]
+    ],
+    "multiplication": "streaming local skyline; for large 64-bit candidate unions, exact same-mover then same-opponent absorption before global maximalization"
+  },
+  "root_boundaries": {
+    "score_order": [
+      "loss2",
+      "loss4",
+      "loss6",
+      "loss8",
+      "loss10",
+      "loss12",
+      "draw12",
+      "win11",
+      "win9",
+      "win7",
+      "win5",
+      "win3",
+      "win1"
+    ],
+    "upper": [
+      1,
+      8,
+      41,
+      364,
+      6460,
+      38320,
+      84371,
+      31636,
+      15367,
+      1665,
+      90,
+      9,
+      4
+    ],
+    "lower": [
+      7,
+      42,
+      451,
+      9521,
+      31252,
+      66013,
+      55385,
+      24366,
+      3000,
+      164,
+      12,
+      1,
+      1
+    ]
+  },
+  "threshold_products": [
+    {
+      "level": "loss10",
+      "raw_steps": [
+        40008644,
+        41312916,
+        64932588
+      ],
+      "local_candidates": [
+        338304,
+        117249,
+        237183
+      ],
+      "outputs": [
+        18468,
+        23724,
+        31252
+      ]
+    },
+    {
+      "level": "loss12",
+      "raw_steps": [
+        164890797,
+        212284620,
+        303269252
+      ],
+      "local_candidates": [
+        799601,
+        268168,
+        567577
+      ],
+      "outputs": [
+        42990,
+        53638,
+        66013
+      ]
+    },
+    {
+      "level": "draw12",
+      "raw_steps": [
+        114199959,
+        163711712,
+        278906040
+      ],
+      "local_candidates": [
+        655260,
+        178269,
+        564183
+      ],
+      "outputs": [
+        37343,
+        42777,
+        55385
+      ]
+    },
+    {
+      "level": "win11",
+      "raw_steps": [
+        7164732,
+        33749352,
+        72237360
+      ],
+      "local_candidates": [
+        215540,
+        77617,
+        307830
+      ],
+      "outputs": [
+        15912,
+        null,
+        24366
+      ]
+    }
+  ],
+  "representative_large_product": {
+    "level": "loss12",
+    "step": 1,
+    "raw_pairs": 164890797,
+    "local_candidates": 799601,
+    "distinct_candidates": 615305,
+    "after_same_mover_absorption": 279509,
+    "after_same_opponent_absorption": 199005,
+    "exact_output": 42990,
+    "local_generation_ms": 1751.18,
+    "coordinate_group_ms": 322.4,
+    "global_skyline_ms": 264.28
+  },
+  "performance": {
+    "root_only_elapsed_ms": 17721.5,
+    "principal_cover_ms": 1066.77,
+    "note": "No descendant-cone recomputation included; child boundaries were independently cached."
+  },
+  "interpretation": [
+    "The 32-residual-shape rank30 root is algebraically closed by the current RBA boundary recurrence.",
+    "Hundreds of millions of raw semiring pair opportunities collapse to sub-million local skyline families and tens-of-thousands exact boundaries.",
+    "The previous bounded full-cone timeout was not a semantic closure failure.",
+    "The single-uint64 transformed-state regime is now exhausted at 32 residual shapes; the next earlier-rank tests require a wider exact bitset representation rather than a new Bellman/RBA law."
+  ],
+  "current_frontier": {
+    "rank": 29,
+    "first_question": "extend exact state/upset masks beyond 64 transformed bits and test whether boundary/product widths, rather than bit-width mechanics, become the next wall",
+    "empty_root_solved": false
+  },
+  "authority_effect": "none"
+}
