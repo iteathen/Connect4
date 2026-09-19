@@ -54,11 +54,11 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through complete selected rank29/rank28 boundaries, three adjacent selected rank27 thresholds, and two independently qualified exact fixed-width antichain normalizers:
+The post-1.1 successor graph is current through a qualified selected-rank27 staged evaluator and the first selected rank26 predecessor:
 
-- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_7.*`
-- `research/isograph/successor/CONNECT4_RBA_QU_0_14.*`
-- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7.*`
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_8.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_15.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_8.*`
 
 Current semantic disposition:
 
@@ -70,76 +70,49 @@ C4-R0080  four-front partial-WDL block carrier                      deductive_ex
 C4-R0081  Bellman antichain-semiring lattice polynomial            deductive_exact
 C4-R0082  local-skyline semiring multiplication factorization      deductive_exact
 C4-R0083  selected rank31/rank30/rank29/rank28 recurrence          empirically_supported
-C4-R0084  staged local-query / multi-factor cost law                open_question
+C4-R0084  earlier-rank staged/operator cost law                     open_question
 C4-R0085  outer-restriction skyline-width monotonicity             deductive_exact
 C4-R0086  projection-tree subtree dominance pruning                deductive_exact
 C4-R0087  selected rank27 draw15 closure                            empirically_supported
 C4-R0088  block-signature subset/superset antichain indexing       deductive_exact
 C4-R0089  selected rank27 loss14/win15 adjacent closures           empirically_supported
 C4-R0090  static dominance-tree antichain normalization            deductive_exact
+C4-R0091  core-relative pre-product absorption                     deductive_exact
+C4-R0092  shared-target principal-cover dynamic program            deductive_exact
+C4-R0093  rank27 staged qualification / rank26 selection           empirically_supported
 ```
 
-Selected rank27 remains:
+Selected rank27:
 
 ```text
 support [3,4,2,0,6,6,6]
-rank 27
-residual shapes 38
-transformed bits 76
-
 loss14  Upper 114,585   Lower 158,402
 draw15  Upper 161,398   Lower 534,618
 win15   Upper 235,107   Lower 306,617
 ```
 
-The rank27 `win15` action-0 x action-2 product is now a full evaluator differential:
+The evaluator campaign has now passed its progression criterion. The known stress thresholds retain exact bounded routes using different qualified phase-local methods. On win15, core-relative absorption reproduces the persisted 239,149-generator three-factor intermediate and 306,617-generator final stream while removing 55.0% and 81.4% of raw pair work respectively.
+
+The first rank26 interface wall was a different operation: repeated principal-cover preimage construction. C4-R0092 shares uncovered-target subproblems across all queries on one cofactor edge. On the first predecessor, 89,032 ownGE targets evaluate in ~142 ms and 117,692 oppGE targets in ~95 ms. A 576-target differential against the prior exact operator has zero mismatches.
+
+Selected rank26:
 
 ```text
-30,387 x 20,096
-= 610,657,152 implicit pairs
--> 2,862,195 local candidate occurrences
--> 2,170,447 distinct candidates
--> 143,550 exact maximal generators
+support [3,3,2,0,6,6,6]
+rank 26
+residual shapes 40
+transformed bits 80
 
-flat-local and projection-tree local occurrence streams      identical
-static-tree and block-signature global generator streams     identical
-static/block SHA-256:
-9d621eb921febde027869bc77e88d07f4a49c5a7d50fdc67ba2c60390b765389
+loss16 fixed-action interface from known child win15:
+    Upper 75,920 / Lower 49,724
+
+win15 fixed-action interface from known child loss14:
+    Upper 59,798 / Lower 44,706
 ```
 
-Static-tree maximalization closes the full distinct candidate family in ~4.86 s with the parallel leaf-31 control (~7.26 s with one query thread). Its complement dual reproduces the complete `Upper(win15)` stream in ~2.79 s.
+The selected rank26 target is `draw16`. Three of its four legal rank27 `draw15` children remain to be generated and qualified.
 
-The planner is now explicitly staged:
-
-```text
-preflight local/orientation economics
-    hash projection samples
-    + deterministic union-nearest extreme probes
-
-execute exact local projection phase
-
-observe exact:
-    C local candidate occurrences
-    D distinct candidate volume
-
-choose exact global normalizer
-
-for multiple factors:
-    bounded lookahead over the exact intermediate
-    against remaining factors
-```
-
-The rare-tail guard is load-bearing: a union-nearest action0->action1 outer has local width 57,549/58,059 and ~981 ms indexed query time, while small hash samples missed it.
-
-A cheap first pair is not necessarily a cheap full tree. The exact `action0 x action2 -> 143,550` intermediate leaves hard continuations, while the persisted `action0 x action1 -> 205,066` path has a materially cheaper next multiplication by action2.
-
-The principal unresolved scaling wall is now **hard local restricted-image evaluation** at some intermediate/final products. Global antichain normalization correctness/performance is no longer the primary wall on these controls.
-
-Do not descend to rank26 yet.
-
-C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a separate side seam.
-
-Authority 1.1 and its frozen qualification evidence remain unchanged.
+The proof/certificate clause-to-value bridge remains a separate OPEN side seam. Authority 1.1 remains unchanged.
 
 ## Applied Natural Entropic Identity layer
 
