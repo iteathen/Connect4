@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "workload": "standard-7x6-empty-exact-P0-WDL",
+  "executedSeparately": true,
+  "repetitions": 1,
+  "caseLimitMs": 120000,
+  "host": {
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+    "logicalCpus": 16,
+    "totalRamBytes": 34088599552,
+    "node": "v26.7.0",
+    "v8": "14.6.202.34-node.28",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "gpu": {
+      "available": true,
+      "gpuIndex": 0,
+      "name": "NVIDIA GeForce GTX 1660 Ti",
+      "driverVersion": "610.74",
+      "computeCapability": "7.5",
+      "totalMiB": 6144,
+      "freeMiB": 5189,
+      "usedMiB": 778,
+      "utilizationGpuPercent": 0,
+      "utilizationMemoryPercent": 3,
+      "powerDrawWatts": 18.41,
+      "smClockMHz": 300,
+      "memoryClockMHz": 405
+    }
+  },
+  "isomax": {
+    "sourceRevision": "681caa3cb9ba55ec61fe347d4d20dd580538b176",
+    "runId": "20260919T150939953Z-isomax",
+    "policy": {
+      "rba": false,
+      "freshPoolAndCache": true,
+      "v8OldSpaceMiB": 4096,
+      "progress": "clock check every 8192 node entries; flushed snapshot approximately once per second"
+    },
+    "status": "timeout",
+    "rootWdl": null,
+    "wallMs": 120286.05290000001,
+    "lastSnapshot": {
+      "kind": "isomax-performance",
+      "phase": "progress",
+      "elapsedMs": 119448.545,
+      "solveMs": 119447.36039999999,
+      "metrics": {
+        "nodes": 60858368,
+        "transitionCacheHits": 29123420,
+        "transitionCacheStores": 31734919,
+        "nativeExactHits": 5760065,
+        "nativeForcedHits": 8934140,
+        "certificateExactHits": 0,
+        "certificateForcedHits": 0,
+        "certificateNoWinHits": 0,
+        "unresolvedCertificates": 0,
+        "forcedTransitions": 8934140,
+        "recursiveChildren": 51924228,
+        "valueBoundaryQueries": 0,
+        "valueBoundaryHits": 0,
+        "valueBoundaryQueryMs": 0
+      },
+      "memory": {
+        "rss": 1993306112,
+        "heapTotal": 610934784,
+        "heapUsed": 566089752,
+        "external": 1514426023,
+        "arrayBuffers": 1512409062,
+        "maxRssBytes": 3332882432
+      },
+      "cpuUserUs": 116187000,
+      "cpuSystemUs": 1140000,
+      "cacheEntries": 31734919,
+      "cacheCapacity": 67108864,
+      "residualClasses": 10989280
+    },
+    "nodesPerSecond": 509499.47990646434,
+    "countsAreLowerBounds": true
+  },
+  "bsfp": {
+    "sourceRevision": "8f15ffe4f13ca0c287e100a1d17e4c91f9425552",
+    "runId": "20260919T151201835Z-bsfp",
+    "qualifierRunId": "20260919T151202206Z-350f4328",
+    "dependencies": {
+      "cudaAlgorithms": {
+        "packageName": "cuda-algorithms",
+        "version": "0.1.0-alpha.0",
+        "revision": "48ee0aec9acae7776950f03ab52ab1737e598b6e"
+      },
+      "cudaJs": {
+        "packageName": "cuda-js",
+        "version": "0.1.0-alpha.20",
+        "revision": "98e2ebc942c14d63acf4dd82e912dd548c363a05"
+      },
+      "cudaJsTensor": {
+        "packageName": "cuda-js-tensor",
+        "version": "0.1.0-alpha.6",
+        "revision": "9df9324b0ca7606f9dd2af2e89aed118839896a5"
+      }
+    },
+    "status": "timeout",
+    "reason": "step exceeded 109787 timeout",
+    "rootWdl": null,
+    "wallMs": 120716.9331,
+    "caseMs": 120189,
+    "estimate": {
+      "kind": "proved-hybrid-tensor-overflow-workspace-upper-bound",
+      "executable": true,
+      "cellCount": 42,
+      "candidateCapacity": 4194304,
+      "segmentCapacity": 256,
+      "sideCapacity": 262144,
+      "frontierCapacityPerSegment": 1024,
+      "devicePayloadBytes": 90316812,
+      "baseDevicePayloadBytes": 73407500,
+      "packedOverflowBucketBytes": 16909312,
+      "replayUpperBoundBytes": 516177944,
+      "fixedRuntimeAllowanceBytes": "268435456",
+      "tensorOverflowAllowanceBytes": "67108864",
+      "tensorDeviceProgramWorkspaceLimitBytes": "201326592",
+      "upperBoundBytes": 543169548
+    },
+    "tensorAB": {
+      "status": "passed",
+      "elapsedMs": 10144,
+      "workspace": {
+        "libraryContract": "SPEC-0009-item-parallel-device-tensor-program-v1",
+        "itemCapacity": 4096,
+        "totalWorkspaceBytes": 164544512,
+        "workspaceLimitBytes": 201326592,
+        "compileMs": 277.33410000000003,
+        "compositionCompileMs": 86.79629999999997
+      },
+      "execution": {
+        "outcome": "native-tensor-dominance-exact-match",
+        "baselineSubsetChecks": 4309345,
+        "tensorLogicalSubsetPairs": 6090752,
+        "tensorLogicalF32Products": 255811584,
+        "baselineTiming": {
+          "samples": [
+            6.755400000000009,
+            7.178400000000693,
+            16.799299999998766,
+            6.549700000001394,
+            7.014799999999013,
+            3.344200000001365,
+            16.60359999999855
+          ],
+          "min": 3.344200000001365,
+          "median": 7.014799999999013,
+          "max": 16.799299999998766
+        },
+        "tensorOnlyTiming": {
+          "samples": [
+            22.151499999999942,
+            31.50840000000062,
+            20.38010000000031,
+            32.397399999999834,
+            25.620500000000902,
+            27.579200000000128,
+            31.97570000000087
+          ],
+          "min": 20.38010000000031,
+          "median": 27.579200000000128,
+          "max": 32.397399999999834
+        },
+        "tensorFullTiming": {
+          "samples": [
+            33.866900000000896,
+            31.264900000000125,
+            30.022000000000844,
+            24.43209999999999,
+            29.64010000000053,
+            29.848299999999654,
+            31.236899999999878
+          ],
+          "min": 24.43209999999999,
+          "median": 30.022000000000844,
+          "max": 33.866900000000896
+        },
+        "tensorPrimeMs": 34.635699999998906
+      },
+      "gpu": {
+        "sampleCount": 19,
+        "peakUsedMiB": 1003,
+        "minimumFreeMiB": 4964,
+        "scope": "device-wide; sample averages are not kernel occupancy or time-weighted utilization",
+        "performance": {
+          "utilizationGpuPercent": {
+            "samples": 19,
+            "mean": 2.3684210526315788,
+            "minimum": 0,
+            "maximum": 41
+          },
+          "utilizationMemoryPercent": {
+            "samples": 19,
+            "mean": 1.1578947368421053,
+            "minimum": 0,
+            "maximum": 4
+          },
+          "powerDrawWatts": {
+            "samples": 19,
+            "mean": 29.922631578947367,
+            "minimum": 16.67,
+            "maximum": 54.31
+          },
+          "smClockMHz": {
+            "samples": 19,
+            "mean": 1273.421052631579,
+            "minimum": 300,
+            "maximum": 1950
+          },
+          "memoryClockMHz": {
+            "samples": 19,
+            "mean": 4624.736842105263,
+            "minimum": 405,
+            "maximum": 5750
+          }
+        }
+      }
+    },
+    "native": {
+      "elapsedMs": 109955,
+      "status": "timeout",
+      "reason": "step exceeded 109787 timeout",
+      "gpu": {
+        "sampleCount": 215,
+        "peakUsedMiB": 931,
+        "minimumFreeMiB": 5036,
+        "scope": "device-wide; sample averages are not kernel occupancy or time-weighted utilization",
+        "performance": {
+          "utilizationGpuPercent": {
+            "samples": 215,
+            "mean": 56.29302325581396,
+            "minimum": 0,
+            "maximum": 100
+          },
+          "utilizationMemoryPercent": {
+            "samples": 215,
+            "mean": 0.986046511627907,
+            "minimum": 0,
+            "maximum": 5
+          },
+          "powerDrawWatts": {
+            "samples": 215,
+            "mean": 37.496,
+            "minimum": 16.26,
+            "maximum": 49.85
+          },
+          "smClockMHz": {
+            "samples": 215,
+            "mean": 1408.046511627907,
+            "minimum": 300,
+            "maximum": 1950
+          },
+          "memoryClockMHz": {
+            "samples": 215,
+            "mean": 4059.4883720930234,
+            "minimum": 405,
+            "maximum": 5750
+          }
+        }
+      },
+      "lastSnapshot": {
+        "kind": "compact-hybrid-progress",
+        "elapsedMs": 107586.20890000001,
+        "cpuMicroseconds": {
+          "user": 43000000,
+          "system": 593000
+        },
+        "activeRank": 36,
+        "activeShardStart": 0,
+        "processedSupports": 411,
+        "completedRanks": 6,
+        "tiledIntersections": 2,
+        "intersectionTiles": 9,
+        "tiledMergeMs": 1353.0786000000226,
+        "gpuReducer": {
+          "calls": 20,
+          "batches": 32,
+          "jobs": 1047,
+          "inputLeftRecords": 170295,
+          "inputRightRecords": 148022,
+          "generatedPairCandidates": 79797022,
+          "submittedPairCandidates": 79797022,
+          "completedBatchPairCandidates": 75798666,
+          "activeBatch": {
+            "jobs": 15,
+            "candidateCount": 3998356,
+            "stage": "readback-and-recovery"
+          },
+          "activeOverflow": {
+            "job": 133,
+            "candidateCount": 590976,
+            "direction": 1,
+            "context": {
+              "supportIndex": 571380,
+              "stage": 1,
+              "rank": 36
+            },
+            "executor": "packed"
+          },
+          "packedOverflowCalls": 124,
+          "survivingRecords": 449830,
+          "overflowRetries": 125,
+          "overflowRecoveredJobs": 124,
+          "overflowFailures": 0,
+          "overflowInitialRequiredAtLeastMax": 2512,
+          "overflowMaxSurvivingRecords": 8895,
+          "uploadMs": 443.39380000001347,
+          "executionMs": 64102.85200000003,
+          "readbackMs": 752.8931000001053,
+          "overflowUploadMs": 222.06790000002206,
+          "overflowExecutionMs": 62293.31180000007,
+          "overflowReadbackMs": 574.1193000000817,
+          "tensorOverflowCalls": 0,
+          "tensorOverflowCandidates": 0,
+          "overflowExecutor": "packed",
+          "packedStrategy": "bucketed-cardinality-v0",
+          "pairStrategy": "bucketed-cardinality-v0",
+          "tensorOverflow": null
+        }
+      },
+      "countsAreLowerBounds": true
+    },
+    "cleanup": "qualifier and solver child exited; observed native PID absent; post-run GPU free memory 5191 MiB"
+  },
+  "limitations": [
+    "Single instrumented bounded run per solver; no statistical speedup claim.",
+    "No root WDL or full-solve time observed.",
+    "IsoMax node counts and BSFP symbolic candidates are different work units.",
+    "BSFP case budget includes Tensor A/B; native root step received 109787 ms.",
+    "GPU telemetry is device-wide sample statistics, not kernel occupancy."
+  ]
+}
