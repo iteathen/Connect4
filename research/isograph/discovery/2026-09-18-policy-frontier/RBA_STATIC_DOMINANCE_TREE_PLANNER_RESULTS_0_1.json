@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "experiment": "rba-static-dominance-tree-and-staged-planner-refinement",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "status": "exact_global_normalizer_qualified_planner_refined",
+  "real_product": {
+    "factors": [
+      30387,
+      20096
+    ],
+    "raw_pairs": 610657152,
+    "local_candidate_occurrences": 2862195,
+    "distinct_candidates": 2170447,
+    "exact_maximal": 143550,
+    "candidate_occurrence_stream_matches_persisted_projection_tree": true
+  },
+  "static_maximalizer": {
+    "law": "q is maximal iff no strict superset exists; node union and max-popcount provide exact subtree pruning",
+    "leaf64": {
+      "dedup_ms": 261.722,
+      "build_ms": 2230.45,
+      "parallel_query_ms": 2895.62,
+      "wall_s": 5.44,
+      "avg_nodes_per_query": 57.0458,
+      "avg_leaf_records_per_query": 313.423
+    },
+    "leaf31": {
+      "dedup_ms": 262.571,
+      "build_ms": 2393.24,
+      "parallel_query_ms": 2161.08,
+      "wall_s": 4.86,
+      "avg_nodes_per_query": 64.1802,
+      "avg_leaf_records_per_query": 139.319
+    },
+    "leaf31_single_query_thread": {
+      "dedup_ms": 259.512,
+      "build_ms": 2400.78,
+      "query_ms": 4558.4,
+      "wall_s": 7.26
+    },
+    "output_sha256": "9d621eb921febde027869bc77e88d07f4a49c5a7d50fdc67ba2c60390b765389",
+    "block_signature_exact_set_match": true,
+    "block_signature_wall_s": 19.51,
+    "old_exact_self_renormalization": {
+      "count": 143550,
+      "same_set": true,
+      "wall_s": 2.37
+    },
+    "two_leaf_partition_same_bytes": true
+  },
+  "minimal_dual": {
+    "raw_candidates": 279650,
+    "final": 235107,
+    "wall_s": 2.79,
+    "sha256": "0e7af9d6ae271925a98995795ba2c1e11266d2000c905a7e2417bcc6dc243621",
+    "qualified_win15_upper_match": true,
+    "block_signature_dual_wall_s": 5.1
+  },
+  "local_evaluator": {
+    "flat_single_thread_s": 15.6512,
+    "flat_four_worker_s": 5.64016,
+    "exact_occurrence_stream_match_to_projection_tree": true
+  },
+  "extreme_guard": {
+    "definition": "d_B(a)=popcount(Union(B) & ~a); probe smallest-d_B outers explicitly",
+    "action0_to_action1": {
+      "extreme_missing": 7,
+      "width": 57549,
+      "inner": 58059,
+      "leaf_scans": 58059,
+      "query_ms": 980.997
+    },
+    "action0_to_action2": {
+      "largest_width_first12": 3169,
+      "inner": 20096,
+      "largest_query_ms_first12": 11.845
+    },
+    "action2_to_action3": {
+      "extreme_missing": 3,
+      "width": 133469,
+      "inner": 133469,
+      "leaf_scans": 133469,
+      "query_ms": 4682.97
+    }
+  },
+  "pair_products": {
+    "action0_action3": {
+      "raw_pairs": 4055722503,
+      "local_candidates": 1317951,
+      "distinct": 1114518,
+      "final": 234374,
+      "local_five_worker_ms": 27902.1,
+      "static_global_wall_s": 4.45,
+      "sha256": "9e5e5f67702b828c4b544375c2bf3fb8914d3b2e710d069a4c3a0ddf068b4bff"
+    },
+    "action1_action2": {
+      "raw_pairs": 1166753664,
+      "local_candidates": 3673781,
+      "distinct": 3100581,
+      "final": 223676,
+      "local_five_worker_ms": 9059.18,
+      "static_global_wall_s": 8.7,
+      "sha256": "0dec0f92604cde520cd2d2e09a8cc30d73803b35d38e22aa28101e8f94f61354"
+    },
+    "balanced_final": {
+      "a": 234374,
+      "b": 223676,
+      "raw_pairs": 52423838824,
+      "hash_sample_mean_query_ms": 6.20702,
+      "projected_serial_local_ms": 1454760,
+      "mean_width": 16.4219,
+      "p99_width": 132,
+      "mean_leaf_scans": 29432.5,
+      "scan_fraction": 0.131585,
+      "bounded_five_worker_180s_closed": false
+    }
+  },
+  "persisted_path_probes": {
+    "p01_size": 205066,
+    "p01_x_factor2": {
+      "b": 20096,
+      "raw_pairs": 4121006336,
+      "hash_projected_serial_ms": 63825.9,
+      "extreme_width": 2427,
+      "extreme_query_ms": 9.0174
+    },
+    "p01_x_factor3": {
+      "b": 133469,
+      "raw_pairs": 27369953954,
+      "hash_projected_serial_ms": 236784,
+      "extreme_width": 119187,
+      "extreme_query_ms": 4061.79
+    },
+    "p012_size": 239149,
+    "p012_x_factor3": {
+      "b": 133469,
+      "raw_pairs": 31918977881,
+      "hash_projected_serial_ms": 248675,
+      "extreme_width": 119187,
+      "extreme_query_ms": 4173.41
+    }
+  },
+  "final_step_replay": {
+    "a": 239149,
+    "b": 133469,
+    "status": "bounded_240s_local_phase_did_not_complete",
+    "global_normalization_started": false,
+    "persisted_final": 306617,
+    "persisted_sha256": "a361b50c801fe6bcb339d39d04e1f15452d1663a0778d606dbb327e519a406c9",
+    "mismatch_observed": false
+  },
+  "planner": {
+    "staged": true,
+    "preflight": [
+      "deterministic_hash_projection_samples",
+      "union_nearest_extreme_probes"
+    ],
+    "after_local_exact": [
+      "observe_C_local_occurrences",
+      "observe_D_distinct_candidates",
+      "choose_global_normalizer"
+    ],
+    "multi_factor": "bounded lookahead over exact intermediate against remaining factors; reject greedy first-pair-only planning",
+    "current_remaining_wall": "hard local restricted-image evaluation"
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
