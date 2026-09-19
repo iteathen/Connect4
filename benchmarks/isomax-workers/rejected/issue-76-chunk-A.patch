@@ -1,0 +1,63 @@
+diff --git a/components/isometric/residual-pool.mjs b/components/isometric/residual-pool.mjs
+index 0d0ddd6e..8fa25841 100644
+--- a/components/isometric/residual-pool.mjs
++++ b/components/isometric/residual-pool.mjs
+@@ -2,6 +2,7 @@ import { FRONTIER_SLOTS, FRONTIER_WORDS, ISOMETRIC_PROFILE, SLOT_WORDS } from '.
+ 
+ export const RESIDUAL_TERMINAL_WIN = -1;
+ const CLASS_UNKNOWN = -3;
++const BLOCK_CHUNK_PREFIX = 1024;
+ 
+ function nextPowerOfTwo(value) {
+   // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+@@ -81,6 +82,11 @@ class SlotChunkPool64 {
+     this.hashSlots = new Int32Array(512);
+     this.hashSlots.fill(-1);
+     this.sealed = false;
++    // OWNER-PROTECTED PREPARATION — do not remove/weaken this comment.
++    // Exact blocker transforms are slot-local; own normalization is NOT.
++    // Fixed storage before entry, IDs local to this immutable chunk dictionary.
++    this.blockMemo = new Int32Array(BLOCK_CHUNK_PREFIX * ISOMETRIC_PROFILE.cellCount);
++    this.blockMemo.fill(CLASS_UNKNOWN);
+   }
+ 
+   ensureCapacity(required) {
+@@ -477,15 +483,34 @@ export class ResidualPool {
+       const mask1 = p.containsMasks[containsBase + word + 1] >>> 0;
+       if ((mask0 | mask1) === 0) continue;
+ 
+-      const input0 = this.slotPools[slotIndex].word(parentChunk, 0);
+-      const input1 = this.slotPools[slotIndex].word(parentChunk, 1);
++      // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
++      // Slot + immutable parent chunk + cell exactly determine a blocker chunk.
++      // Memo hits skip only this local transform; whole-class equality remains
++      // authoritative below. Never generalize this cache to own cofactoring.
++      const chunks = this.slotPools[slotIndex];
++      const localIndex = parentChunk < BLOCK_CHUNK_PREFIX ? parentChunk * p.cellCount + cell : -1;
++      if (localIndex >= 0) {
++        const cached = chunks.blockMemo[localIndex];
++        if (cached !== CLASS_UNKNOWN) {
++          this.chunkIds[slotIndex] = cached;
++          changedSlots += cached === parentChunk ? 0 : 1;
++          continue;
++        }
++      }
++      const input0 = chunks.word(parentChunk, 0);
++      const input1 = chunks.word(parentChunk, 1);
+       const next0 = (input0 & ~mask0) >>> 0;
+       const next1 = (input1 & ~mask1) >>> 0;
+-      if (next0 === input0 && next1 === input1) continue;
++      if (next0 === input0 && next1 === input1) {
++        if (localIndex >= 0) chunks.blockMemo[localIndex] = parentChunk;
++        continue;
++      }
+ 
+       this.resultBits[word] = next0;
+       this.resultBits[word + 1] = next1;
+-      this.chunkIds[slotIndex] = this.slotPools[slotIndex].intern(this.resultBits, word);
++      const nextChunk = chunks.intern(this.resultBits, word);
++      this.chunkIds[slotIndex] = nextChunk;
++      if (localIndex >= 0) chunks.blockMemo[localIndex] = nextChunk;
+       changedSlots += 1;
+     }
+ 
