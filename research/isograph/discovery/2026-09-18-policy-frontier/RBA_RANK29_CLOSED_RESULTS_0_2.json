@@ -1,0 +1,245 @@
+{
+  "schema": 2,
+  "experiment": "rba-rank29-exact-closure",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "base_live_head": "3353ff413e18ff755b31335195d98c2611ea9a3c",
+  "support": [
+    3,
+    5,
+    2,
+    1,
+    6,
+    6,
+    6
+  ],
+  "rank": 29,
+  "remaining_cells": 13,
+  "residual_shapes": 33,
+  "transformed_bits": 66,
+  "status": "closed",
+  "boundaries": {
+    "order": [
+      "loss2",
+      "loss4",
+      "loss6",
+      "loss8",
+      "loss10",
+      "loss12",
+      "draw13",
+      "win13",
+      "win11",
+      "win9",
+      "win7",
+      "win5",
+      "win3",
+      "win1"
+    ],
+    "upper": [
+      1,
+      6,
+      26,
+      223,
+      2262,
+      18399,
+      47472,
+      66024,
+      30923,
+      9120,
+      537,
+      44,
+      7,
+      3
+    ],
+    "lower": [
+      4,
+      16,
+      160,
+      2114,
+      16787,
+      44864,
+      140454,
+      68522,
+      11917,
+      779,
+      84,
+      8,
+      1,
+      1
+    ]
+  },
+  "draw13": {
+    "action_lower": [
+      30430,
+      31397,
+      8821,
+      41133
+    ],
+    "intermediates": [
+      {
+        "left": 30430,
+        "right": 31397,
+        "raw": 955410710,
+        "output": 92989
+      },
+      {
+        "left": 92989,
+        "right": 8821,
+        "raw": 820255969,
+        "output": 131121
+      }
+    ],
+    "final_product": {
+      "left": 131121,
+      "right": 41133,
+      "raw_opportunities": 5393400093,
+      "prior_stated_raw_opportunities": 5393996493,
+      "prior_raw_count_disposition": "arithmetic_error_only",
+      "orientation": {
+        "outer": 41133,
+        "inner": 131121
+      },
+      "workers": 5,
+      "local_candidates": 4393899,
+      "local_width": {
+        "median": 36,
+        "p90": 280,
+        "p99": 896,
+        "max": 11379,
+        "mean": 106.8217489606885
+      },
+      "distinct": 3195849,
+      "after_same_mover": 1563781,
+      "after_same_opponent": 683923,
+      "final_generators": 140454,
+      "timings_ms": {
+        "local_generation_sharded_sum": 51254.499,
+        "deduplicate": 307.038,
+        "same_mover": 409.695,
+        "same_opponent": 222.14,
+        "global_maximal": 4970.164,
+        "global_normalization": 5909.037
+      },
+      "peak_kib": {
+        "local_generation": 74332,
+        "normalization": 94848
+      },
+      "pathological_outer": [
+        {
+          "index": 0,
+          "width": 11379,
+          "q": "3f7bfbff7fffffffe"
+        },
+        {
+          "index": 1,
+          "width": 10867,
+          "q": "1cfffffbffffffffe"
+        },
+        {
+          "index": 2,
+          "width": 8697,
+          "q": "3ffffedffffffffd8"
+        },
+        {
+          "index": 5,
+          "width": 8697,
+          "q": "37efff9ffffffffd8"
+        },
+        {
+          "index": 768,
+          "width": 6405,
+          "q": "376ffbbffffe7eb90"
+        }
+      ]
+    }
+  },
+  "stream_serialization": "one lowercase hexadecimal transformed q-mask per line, no 0x prefix, newline terminated",
+  "sha256": {
+    "action_lower_c0": "c218ad863d4f65731c19c9a636be57fa9601ec3b870af0f442a61bf1824cc108",
+    "action_lower_c1": "33e0604fd55e8643f0e036026f29c10de2baab81173dd0e1541d0f19c599bf9d",
+    "action_lower_c2": "34423f6e476d4676fce94b43db5ef4a582ddfc1cf62781ff73988a8c04541244",
+    "action_lower_c3": "7cbe2dfece5ba683a2a446e5a9022695a3b3cb5d0ab1226232bf93d36bc629d5",
+    "after_c0_c1": "28048c8ceaa7cace43bd316cacaa0261d8a208a1c783492d5ede8c3c3b1038a4",
+    "after_c0_c1_c2": "985dc1026f68246fe41872460903a1e0b471c91a7f5abafb98d1c51d38cacdc6",
+    "final_draw13": "33fa501eb8ff6a7501079d131452d8f2807302ad74ce104b3ecea10a6e1349bc"
+  },
+  "qualification": {
+    "persisted_draw_controls": [
+      {
+        "support": [
+          5,
+          5,
+          2,
+          3,
+          6,
+          6,
+          6
+        ],
+        "upper": 1116,
+        "lower": 2534,
+        "result": "exact"
+      },
+      {
+        "support": [
+          4,
+          5,
+          2,
+          3,
+          6,
+          6,
+          6
+        ],
+        "upper": 9348,
+        "lower": 6422,
+        "result": "exact"
+      },
+      {
+        "support": [
+          4,
+          5,
+          2,
+          1,
+          6,
+          6,
+          6
+        ],
+        "upper": 37906,
+        "lower": 12818,
+        "result": "exact"
+      },
+      {
+        "support": [
+          3,
+          5,
+          2,
+          2,
+          6,
+          6,
+          6
+        ],
+        "upper": 84371,
+        "lower": 55385,
+        "result": "exact"
+      }
+    ],
+    "final_stability": {
+      "input": 140454,
+      "duplicates": 0,
+      "renormalized": 140454,
+      "same_set": true
+    },
+    "win_suffix_child_boundary_crosscheck": "exact against persisted rank30 counts at each reversed threshold"
+  },
+  "interpretation": {
+    "semantic_failure": false,
+    "representation_width_failure": false,
+    "dominant_measured_quantities": [
+      "local_skyline_width_distribution",
+      "wide_outer_concentration",
+      "global_cross_coordinate_maximal_normalization"
+    ],
+    "raw_cartesian_count_reliable_complexity_metric": false
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
