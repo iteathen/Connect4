@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "experiment": "rba-board-fiber-g4-transformer-types-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "candidate": "G4",
+  "scope": {
+    "source_ranks": [
+      34,
+      35
+    ]
+  },
+  "counts": {
+    "concrete_supports": 4663,
+    "concrete_legal_support_edges": 18382,
+    "source_fiber_types": 1971,
+    "representative_fiber_actions": 8043,
+    "exact_action_rooted_fiber_types": 7924,
+    "exact_residual_cofactor_transformer_types": 7836
+  },
+  "by_rank": {
+    "34": {
+      "source_supports": 2954,
+      "source_fibers": 1294,
+      "representative_actions": 5369,
+      "action_rooted_types": 5292,
+      "residual_cofactor_transformer_types": 5249
+    },
+    "35": {
+      "source_supports": 1709,
+      "source_fibers": 677,
+      "representative_actions": 2674,
+      "action_rooted_types": 2632,
+      "residual_cofactor_transformer_types": 2587
+    }
+  },
+  "validation": {
+    "duplicate_action_rooted_hash_member_checks": 119,
+    "action_rooted_false_isomorphisms": 0,
+    "duplicate_transformer_hash_member_checks": 207,
+    "transformer_false_isomorphisms": 0
+  },
+  "transformer_object": [
+    "source residual-shape poset",
+    "target residual-shape poset",
+    "owner-true principal cofactor map including terminal",
+    "owner-false principal cofactor map including bottom/kill",
+    "side-to-move parity",
+    "target G2 fiber identity as continuation type"
+  ],
+  "compression": {
+    "concrete_edges_over_transformer_types": 2.3458397141398675,
+    "representative_actions_over_transformer_types": 1.026416539050536,
+    "interpretation": "Most of the edge compression comes from the G2 support-fiber quotient. The additional raw cofactor-transformer quotient is real but modest at ranks 34-35."
+  },
+  "disposition": "WEAK_POSITIVE_NOT_PRIMARY_COMPRESSION_LAW",
+  "interpretation": [
+    "Exact board-fiber transition types exist and can be reused across concrete supports.",
+    "The raw transition alphabet is still large relative to the already-quotiented fiber graph.",
+    "This does not explain the three-orders-of-magnitude collapse from q-pair transition behavior to action-score vectors observed in the RBA value-interface tests.",
+    "The primary remaining compression target is therefore value/order/boundary transformer composition over the fiber graph, not further raw geometric edge quotienting."
+  ],
+  "authority_effect": "none"
+}
