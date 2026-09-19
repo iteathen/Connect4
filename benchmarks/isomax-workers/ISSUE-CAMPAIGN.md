@@ -195,3 +195,18 @@ the candidate; exact serial/one-worker work and all decisions agree. New
 independent BigInt cofactor/reflection test covers all 625 isolated vocabulary
 terms and all 42 cells, including every word's sign bit. 52 IsoMax tests passed.
 Only test formatting changed after timing; production diff is identical.
+
+#84 exact cold copy census now distinguishes typed source bytes from widened
+destination bytes, counts actual bulk-set calls, chunk/class/cache rehash entries,
+and nested reference/chunk preparation. Wrappers are benchmark-only and restored
+before recursion even on failure (two controls pass). They can invalidate JIT
+assumptions, so instrumented wall times are NOT production or A/B evidence.
+Four-worker 10s empty profile: 779 settled tasks, bulk pool copy source 42,319,872
+bytes / destination 168,148,992; 80 widened slots; 459,597 class / 474 chunk /
+5,340,063 cache rehash entries. Cache bulk-set bytes are zero because its rehash
+uses scalar stores, not because rehash has no traffic. Raw task records remain
+Git-private; cold-copy-profile.json preserves portable totals.
+The large copied destination with small replaced backing identifies a concrete
+preparation ordering candidate: class arrays grow at their old narrow type before
+being widened, so widening copies the newly reserved mostly-unused capacity.
+Test widening against the small old class capacity before class-array growth.

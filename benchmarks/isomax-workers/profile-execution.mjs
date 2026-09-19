@@ -7,6 +7,7 @@ import { syncBuiltinESMExports } from 'node:module';
 import { PerformanceObserver } from 'node:perf_hooks';
 import inspector from 'node:inspector';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 const output = path.resolve(process.argv[2]); fs.mkdirSync(output,{recursive:true});
 const NativeWorker = workerThreads.Worker;
 let taskRecords = [];
@@ -31,7 +32,8 @@ await post('Profiler.enable'); await post('Profiler.start');
 await post('HeapProfiler.enable'); await post('HeapProfiler.startSampling',{
   samplingInterval:32768,includeObjectsCollectedByMajorGC:true,includeObjectsCollectedByMinorGC:true });
 const report = { source:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),node:process.version,
-  policy:'actual manager and native worker tasks; cold wrappers perturb time; replacedBackingBytes is NOT bytes copied; per-thread CPU covers manager isolate',records:[] };
+  diffSha256:createHash('sha256').update(execFileSync('git',['diff','HEAD'])).digest('hex'),
+  policy:'actual manager/native tasks; cold wrappers perturb time and are restored before recursion; bulk copy bytes exclude scalar rehash stores, fills and allocator zeroing; reference/chunk times are subsets of pool time; replacedBackingBytes is NOT bytes copied; per-thread CPU covers manager isolate',records:[] };
 const save = () => fs.writeFileSync(path.join(output,'summary.json'),JSON.stringify(report,null,2)+'\n',{flush:true});
 save();
 for (const sequence of ['717657616532237625','466537327657277224','616767454664457417','']) {
@@ -45,7 +47,10 @@ for (const sequence of ['717657616532237625','466537327657277224','6167674546644
   const wallMs=performance.now()-start, managerCpu=process.threadCpuUsage(cpuStart);
   const totals = {};
   for (const task of taskRecords) for (const key of ['replayMs','poolPreparationMs','cachePreparationMs','packagingMs','taskMs',
-    'recursiveAndOtherMs','replayMoves','replacedBackingBytes','replacedArrays','widenedSlots','classRehashEntries','cacheRehashEntries'])
+    'recursiveAndOtherMs','replayMoves','replacedBackingBytes','replacedArrays','widenedSlots','classRehashEntries','cacheRehashEntries',
+    'chunkPreparationMs','referenceWidthMs','chunkRehashEntries',
+    'poolCopyOperations','poolCopySourceBytes','poolCopyDestinationBytes',
+    'cacheCopyOperations','cacheCopySourceBytes','cacheCopyDestinationBytes'])
     totals[key]=(totals[key]??0)+(task[key]??0);
   report.records.push({sequence,wallMs,managerCpu,gc:gc.slice(gcStart),totals,
     result:result?{value:result.value,move:result.move}:null,error:error?.message??null,

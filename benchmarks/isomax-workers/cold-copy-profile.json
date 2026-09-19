@@ -1,0 +1,443 @@
+{
+  "source": "51b8b30c067bdee90a40490239d7356a7aee256b",
+  "node": "v26.7.0",
+  "diffSha256": "1513fd531266678620f1a4f3fe81029b8fbf4f5abc51262a66600b87302775d0",
+  "policy": "actual manager/native tasks; cold wrappers perturb time and are restored before recursion; bulk copy bytes exclude scalar rehash stores, fills and allocator zeroing; reference/chunk times are subsets of pool time; replacedBackingBytes is NOT bytes copied; per-thread CPU covers manager isolate",
+  "records": [
+    {
+      "sequence": "717657616532237625",
+      "wallMs": 316.35209999999995,
+      "managerCpu": {
+        "user": 0,
+        "system": 31000
+      },
+      "gc": [
+        {
+          "durationMs": 1.9843000173568726,
+          "kind": 4
+        },
+        {
+          "durationMs": 0.2190999984741211,
+          "kind": 1
+        }
+      ],
+      "totals": {
+        "replayMs": 4.941699999999884,
+        "poolPreparationMs": 55.143100000000146,
+        "cachePreparationMs": 14.8549000000001,
+        "packagingMs": 1.681100000000015,
+        "taskMs": 909.8764000000001,
+        "recursiveAndOtherMs": 833.2555999999997,
+        "replayMoves": 1226,
+        "replacedBackingBytes": 303104,
+        "replacedArrays": 140,
+        "widenedSlots": 40,
+        "classRehashEntries": 160,
+        "cacheRehashEntries": 128501,
+        "chunkPreparationMs": 22.41070000000093,
+        "referenceWidthMs": 19.437199999999933,
+        "chunkRehashEntries": 526,
+        "poolCopyOperations": 136,
+        "poolCopySourceBytes": 21159936,
+        "poolCopyDestinationBytes": 84074496,
+        "cacheCopyOperations": 0,
+        "cacheCopySourceBytes": 0,
+        "cacheCopyDestinationBytes": 0
+      },
+      "result": {
+        "value": -1,
+        "move": 3
+      },
+      "error": null,
+      "metrics": {
+        "nodes": 383813,
+        "managerExpansions": 36,
+        "exactTasks": 32,
+        "splitTasks": 2,
+        "retiredTasks": 15,
+        "busyRetiredTasks": 14,
+        "retiredTaskNodes": 96256,
+        "controlChecks": 786,
+        "qReuses": 96,
+        "submitted": 49,
+        "maxPending": 4,
+        "maxActive": 4,
+        "maxReady": 8,
+        "workerExecutionMs": 910.7841000000002,
+        "workerTasks": [
+          16,
+          13,
+          15,
+          5
+        ],
+        "workerNodes": [
+          99899,
+          84003,
+          101095,
+          98816
+        ]
+      },
+      "taskCount": 49,
+      "unchangedBackingTasks": 41
+    },
+    {
+      "sequence": "466537327657277224",
+      "wallMs": 3134.2167,
+      "managerCpu": {
+        "user": 62000,
+        "system": 141000
+      },
+      "gc": [
+        {
+          "durationMs": 0.20469999313354492,
+          "kind": 8
+        },
+        {
+          "durationMs": 1.0911999940872192,
+          "kind": 4
+        },
+        {
+          "durationMs": 0.1933000087738037,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.3302000164985657,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.2662000060081482,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.21950000524520874,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.29269999265670776,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.3198999762535095,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.3330000042915344,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.9381999969482422,
+          "kind": 1
+        }
+      ],
+      "totals": {
+        "replayMs": 20.586599999998043,
+        "poolPreparationMs": 83.40179999999748,
+        "cachePreparationMs": 75.94999999999777,
+        "packagingMs": 10.164900000000443,
+        "taskMs": 11250.303999999998,
+        "recursiveAndOtherMs": 11060.200700000007,
+        "replayMoves": 13395,
+        "replacedBackingBytes": 8691712,
+        "replacedArrays": 144,
+        "widenedSlots": 40,
+        "classRehashEntries": 433627,
+        "cacheRehashEntries": 1904621,
+        "chunkPreparationMs": 23.906900000006317,
+        "referenceWidthMs": 20.266199999996502,
+        "chunkRehashEntries": 453,
+        "poolCopyOperations": 136,
+        "poolCopySourceBytes": 21159936,
+        "poolCopyDestinationBytes": 84074496,
+        "cacheCopyOperations": 0,
+        "cacheCopySourceBytes": 0,
+        "cacheCopyDestinationBytes": 0
+      },
+      "result": {
+        "value": 0,
+        "move": 3
+      },
+      "error": null,
+      "metrics": {
+        "nodes": 4043620,
+        "managerExpansions": 302,
+        "exactTasks": 464,
+        "splitTasks": 25,
+        "retiredTasks": 27,
+        "busyRetiredTasks": 24,
+        "retiredTaskNodes": 182272,
+        "controlChecks": 8268,
+        "qReuses": 1098,
+        "submitted": 516,
+        "maxPending": 4,
+        "maxActive": 4,
+        "maxReady": 8,
+        "workerExecutionMs": 11254.274499999998,
+        "workerTasks": [
+          134,
+          163,
+          146,
+          73
+        ],
+        "workerNodes": [
+          1059797,
+          974961,
+          1013062,
+          995800
+        ]
+      },
+      "taskCount": 516,
+      "unchangedBackingTasks": 496
+    },
+    {
+      "sequence": "616767454664457417",
+      "wallMs": 3391.6946000000003,
+      "managerCpu": {
+        "user": 47000,
+        "system": 31000
+      },
+      "gc": [
+        {
+          "durationMs": 0.2353000044822693,
+          "kind": 8
+        },
+        {
+          "durationMs": 0.9038000106811523,
+          "kind": 4
+        },
+        {
+          "durationMs": 1.0819000005722046,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.9348000288009644,
+          "kind": 1
+        },
+        {
+          "durationMs": 2.2039999961853027,
+          "kind": 1
+        }
+      ],
+      "totals": {
+        "replayMs": 22.77510000001712,
+        "poolPreparationMs": 113.53319999999576,
+        "cachePreparationMs": 130.72760000000062,
+        "packagingMs": 10.427799999999479,
+        "taskMs": 12725.681800000017,
+        "recursiveAndOtherMs": 12448.218099999984,
+        "replayMoves": 7238,
+        "replacedBackingBytes": 8691712,
+        "replacedArrays": 144,
+        "widenedSlots": 40,
+        "classRehashEntries": 433903,
+        "cacheRehashEntries": 1896636,
+        "chunkPreparationMs": 36.787999999975455,
+        "referenceWidthMs": 29.362200000040502,
+        "chunkRehashEntries": 484,
+        "poolCopyOperations": 136,
+        "poolCopySourceBytes": 21159936,
+        "poolCopyDestinationBytes": 84074496,
+        "cacheCopyOperations": 0,
+        "cacheCopySourceBytes": 0,
+        "cacheCopyDestinationBytes": 0
+      },
+      "result": {
+        "value": 1,
+        "move": 4
+      },
+      "error": null,
+      "metrics": {
+        "nodes": 2648915,
+        "managerExpansions": 189,
+        "exactTasks": 253,
+        "splitTasks": 15,
+        "retiredTasks": 15,
+        "busyRetiredTasks": 13,
+        "retiredTaskNodes": 162304,
+        "controlChecks": 5370,
+        "qReuses": 548,
+        "submitted": 283,
+        "maxPending": 4,
+        "maxActive": 4,
+        "maxReady": 8,
+        "workerExecutionMs": 12729.887199999994,
+        "workerTasks": [
+          71,
+          71,
+          62,
+          79
+        ],
+        "workerNodes": [
+          669398,
+          657501,
+          661304,
+          660712
+        ]
+      },
+      "taskCount": 283,
+      "unchangedBackingTasks": 263
+    },
+    {
+      "sequence": "",
+      "wallMs": 10041.265099999999,
+      "managerCpu": {
+        "user": 266000,
+        "system": 16000
+      },
+      "gc": [
+        {
+          "durationMs": 0.19849997758865356,
+          "kind": 8
+        },
+        {
+          "durationMs": 1.2091000080108643,
+          "kind": 4
+        },
+        {
+          "durationMs": 3.1901999711990356,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.7213000059127808,
+          "kind": 1
+        },
+        {
+          "durationMs": 1.11080002784729,
+          "kind": 1
+        },
+        {
+          "durationMs": 1.919800043106079,
+          "kind": 1
+        },
+        {
+          "durationMs": 1.1493000388145447,
+          "kind": 1
+        },
+        {
+          "durationMs": 1.8170999884605408,
+          "kind": 1
+        },
+        {
+          "durationMs": 3.2146999835968018,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.8632999658584595,
+          "kind": 1
+        },
+        {
+          "durationMs": 1.50409996509552,
+          "kind": 1
+        },
+        {
+          "durationMs": 2.2194000482559204,
+          "kind": 1
+        },
+        {
+          "durationMs": 0.4336000084877014,
+          "kind": 1
+        },
+        {
+          "durationMs": 5.63620001077652,
+          "kind": 8
+        },
+        {
+          "durationMs": 4.012600004673004,
+          "kind": 4
+        }
+      ],
+      "totals": {
+        "replayMs": 62.956599999984974,
+        "poolPreparationMs": 182.65140000000792,
+        "cachePreparationMs": 330.0596999999889,
+        "packagingMs": 53.71180000000368,
+        "taskMs": 37809.24170000001,
+        "recursiveAndOtherMs": 37179.862200000054,
+        "replayMoves": 17380,
+        "replacedBackingBytes": 8994816,
+        "replacedArrays": 284,
+        "widenedSlots": 80,
+        "classRehashEntries": 459597,
+        "cacheRehashEntries": 5340063,
+        "chunkPreparationMs": 65.00369999993927,
+        "referenceWidthMs": 39.54409999997915,
+        "chunkRehashEntries": 474,
+        "poolCopyOperations": 272,
+        "poolCopySourceBytes": 42319872,
+        "poolCopyDestinationBytes": 168148992,
+        "cacheCopyOperations": 0,
+        "cacheCopySourceBytes": 0,
+        "cacheCopyDestinationBytes": 0
+      },
+      "result": null,
+      "error": "ISOMAX_TIMEOUT: 10000 ms; no exact root result",
+      "metrics": {
+        "nodes": 7688554,
+        "managerExpansions": 890,
+        "exactTasks": 654,
+        "splitTasks": 55,
+        "retiredTasks": 70,
+        "busyRetiredTasks": 65,
+        "retiredTaskNodes": 918016,
+        "controlChecks": 15613,
+        "qReuses": 2554,
+        "submitted": 783,
+        "maxPending": 4,
+        "maxActive": 4,
+        "maxReady": 8,
+        "workerExecutionMs": 37820.515799999965,
+        "workerTasks": [
+          152,
+          219,
+          180,
+          228
+        ],
+        "workerNodes": [
+          1916571,
+          1935799,
+          1943540,
+          1892644
+        ]
+      },
+      "taskCount": 779,
+      "unchangedBackingTasks": 745
+    }
+  ],
+  "cpuSelfUs": {
+    "(runtime/harness)::(idle)": 16444795,
+    "components/isometric/execution/branch-manager.mjs::visit": 89787,
+    "(runtime/harness)::spawn": 89082,
+    "(runtime/harness)::(program)": 58488,
+    "(runtime/harness)::(garbage collector)": 40813,
+    "node:internal/worker/js_transferable::structuredClone": 36713,
+    "(runtime/harness)::": 23240,
+    "(runtime/harness)::fsync": 23207,
+    "components/isometric/state.mjs::IsometricState": 18335,
+    "node:internal/worker::": 15527,
+    "node:inspector::post": 13609,
+    "components/isometric/residual-pool.mjs::ResidualPool": 12449,
+    "components/isometric/state.mjs::applyUnchecked": 9873,
+    "(runtime/harness)::postMessage": 9091,
+    "(runtime/harness)::save": 8735,
+    "components/isometric/execution/branch-manager.mjs::expand": 7700,
+    "node:internal/per_context/messageport::": 6732,
+    "components/isometric/residual-pool.mjs::intern": 6632,
+    "components/isometric/residual-pool.mjs::ownTransition": 6421,
+    "components/isometric/residual-pool.mjs::internBits": 6347,
+    "components/isometric/residual-pool.mjs::assertCell": 6278,
+    "components/isometric/execution/branch-manager.mjs::": 6120,
+    "(runtime/harness)::structuredClone": 5679,
+    "components/isometric/residual-pool.mjs::reflectClass": 5047,
+    "(runtime/harness)::open": 4506,
+    "node:internal/worker::postMessage": 4482,
+    "(runtime/harness)::Worker": 3768,
+    "components/isometric/residual-pool.mjs::blockTransition": 3593,
+    "components/isometric/isomax-index.mjs::grow": 3449,
+    "components/isometric/residual-pool.mjs::equals": 3342,
+    "components/isometric/execution/branch-manager.mjs::complete": 3286,
+    "(runtime/harness)::pump": 3199,
+    "(runtime/harness)::settleWorker": 3168,
+    "node:internal/event_target::": 2907,
+    "components/isometric/residual-pool.mjs::bitIndex32": 2815
+  },
+  "limits": "Temporary builtin/method wrappers may invalidate JIT assumptions even after restoration. Instrumented timings are not production or before/after speed evidence. Bulk-set traffic counts exclude zero fills and scalar rehash stores."
+}
