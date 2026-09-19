@@ -1,0 +1,51 @@
+{
+  "schema": 2,
+  "experiment": "rba-block-signature-normalization-qualification",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "status": "qualified_both_antichain_directions",
+  "maximal": {
+    "product": "rank27_win15_action0_x_action2",
+    "raw_pairs": 610657152,
+    "local_candidates": 2862195,
+    "distinct": 2170447,
+    "final": 143550,
+    "real_prefix_differential": {
+      "candidates": 100000,
+      "old": 26078,
+      "block": 26078,
+      "same_set": true
+    }
+  },
+  "minimal": {
+    "source": "rank27_win15_complete_action_upper_union",
+    "raw_candidates": 279650,
+    "old_exact": 235107,
+    "block_dual": 235107,
+    "qualified_stream": 235107,
+    "same_set": true,
+    "elapsed_ms": 5097.57,
+    "peak_kib": 22204
+  },
+  "exactness": {
+    "maximal": "block superset-signature enumeration is complete for any true full superset; full-mask test rejects false positives",
+    "minimal": "fixed-universe complement dual of exact maximalization"
+  },
+  "planner_dimensions": [
+    "factor_order",
+    "operand_orientation",
+    "local_projection_evaluator",
+    "global_antichain_normalizer"
+  ],
+  "cost_variables": [
+    "raw_pairs_R",
+    "projection_query_Q",
+    "local_candidates_C",
+    "distinct_D",
+    "normalization_M",
+    "output_width_O"
+  ],
+  "next": "qualify multi-phase exact product planner on persisted rank27 controls before rank26",
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
