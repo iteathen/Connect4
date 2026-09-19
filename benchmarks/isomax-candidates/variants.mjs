@@ -19,7 +19,7 @@ export async function loadSolver(variant) {
     const opp = '(state.sideToMove === 0 ? state.p1Class : state.p0Class) === 0';
     const active = variant === 'I1-both' ? 'true' : variant === 'I1-nonwin' ? own : opp;
     const seam = '    if (exact !== null) {\n      if ((exact === 1 && p0NoWin)';
-    replace(seam, '    if (!state.isTerminal() && (' + active + ')) {\n' +
+    replace(seam, '    if (this.certificates.size === 0 && !state.isTerminal() && (' + active + ')) {\n' +
       '      p0NoWin ||= state.p0Class === 0;\n' +
       '      p1NoWin ||= state.p1Class === 0;\n    }\n' + seam);
   }

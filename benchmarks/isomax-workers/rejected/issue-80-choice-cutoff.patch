@@ -1,0 +1,19 @@
+diff --git a/components/isometric/solver.mjs b/components/isometric/solver.mjs
+index 00ad3d81..af78e7cf 100644
+--- a/components/isometric/solver.mjs
++++ b/components/isometric/solver.mjs
+@@ -219,0 +220,8 @@ export class IsoMaxSolver {
++    // OWNER-PROTECTED ORDINARY BOUND — do not remove/weaken this comment.
++    // Only the mover's no-win bound can shorten this node's WDL choice loop.
++    // Empty class 0 stays empty under both cofactors; winning class -1 differs.
++    // Apply after native exact/forced precedence, only without certificates:
++    // never combine native emptiness with a false opposite certificate into a
++    // draw. No child value is clamped, and no proof identity is manufactured.
++    const exhausted = this.certificates.size === 0 && (maximizing ? state.p0Class : state.p1Class) === 0;
++    const cutoff = exhausted ? 0 : maximizing ? upper : lower;
+@@ -238 +246 @@ export class IsoMaxSolver {
+-        if (best >= upper) {
++        if (best >= cutoff) {
+@@ -243 +251 @@ export class IsoMaxSolver {
+-        if (best <= lower) {
++        if (best <= cutoff) {

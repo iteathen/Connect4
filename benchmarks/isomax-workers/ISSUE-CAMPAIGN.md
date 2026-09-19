@@ -112,3 +112,23 @@ collect the requested 32 per depth (34/35). Corpus generation is outside timing,
 performed once and captured with a hash for all candidate processes. Each cold
 state's residual emptiness is checked against the physical predicate. Existing
 independent WDL/all-action/certificate controls pass; no production promotion yet.
+
+#80 expanded run afcba6ed / 20260919T195747516Z-isomax-candidates: 192 roots,
+baseline 5,337,845 calls / 3895.36 ms median; non-win 5,229,810 / 3848.84;
+non-loss 5,337,845 / 3893.05; both 5,229,810 / 3855.59. Exact actions agree;
+timing ranges overlap. Both exhaustion-only strata save over half their calls.
+An ensuing FULL-suite check exposed a missing experimental guard: native
+emptiness plus a contradictory opposite certificate could prematurely declare
+draw. Correct every experimental variant to activate only without certificates,
+and add that concrete independent physical-WDL regression to candidate coverage.
+Ordinary certificate-free timing evidence above remains valid; it was not proof
+of the omitted certificate interaction. Production never contained that defect.
+
+Tested two simpler native implementations after repairing the guard. Direct flag
+initialization: serial 1765.49 -> 1752.78 ms, one-worker 2152.44 -> 2168.88 ms.
+Choice-loop-only cutoff after exact/forced precedence: serial 1735.03 -> 1727.13,
+one-worker 2150.34 -> 2157.68, four-worker 1783.58 -> 1805.49 ms. Both reduce
+serial calls 2,643,905 -> 2,616,106 but fail the worker timing promotion test.
+Reject both, preserving protected comments in their patches. All 55 relevant
+controls passed for the guarded implementations. No native exhaustion bound is
+promoted; stronger workload-specific economics remain possible, not established.

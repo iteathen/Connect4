@@ -1,0 +1,286 @@
+{
+  "runId": "20260919T195747516Z-isomax-candidates",
+  "sourceRevision": "afcba6ed3a1b27bbfe10fb29da08469d8d17a347",
+  "node": "v26.7.0",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "corpusSha256": "cd2f6e0fddba93fd975cc287ce8324dc831fc05f519fc6c71103735bde2dbf09",
+  "policy": {
+    "timeoutMsPerProcess": 120000,
+    "warmupRoots": 8,
+    "freshPoolPerRoot": true,
+    "measured": "exact WDL and root move; setup and forced GC reported separately/excluded",
+    "sequence": [
+      "baseline",
+      "I1-nonwin",
+      "I1-nonloss",
+      "I1-both",
+      "I1-both",
+      "I1-nonloss",
+      "I1-nonwin",
+      "baseline",
+      "I1-nonloss",
+      "I1-both",
+      "baseline",
+      "I1-nonwin"
+    ]
+  },
+  "comparison": [
+    {
+      "variant": "baseline",
+      "nodes": 5337845,
+      "medianMs": 3895.3647000000024,
+      "samplesMs": [
+        3826.8984000000028,
+        3899.2432000000017,
+        3895.3647000000024
+      ],
+      "maxRssBytes": 195584000,
+      "workloads": [
+        {
+          "name": "quiet-ply18",
+          "medianMs": 2951.4103,
+          "nodes": 4263076
+        },
+        {
+          "name": "quiet-ply20",
+          "medianMs": 488.30599999999913,
+          "nodes": 558223
+        },
+        {
+          "name": "quiet-ply24",
+          "medianMs": 78.25900000000183,
+          "nodes": 75335
+        },
+        {
+          "name": "quiet-ply28",
+          "medianMs": 8.942700000001423,
+          "nodes": 8158
+        },
+        {
+          "name": "quiet-ply19",
+          "medianMs": 309.1992,
+          "nodes": 373207
+        },
+        {
+          "name": "quiet-ply21",
+          "medianMs": 12.45850000000064,
+          "nodes": 12009
+        },
+        {
+          "name": "quiet-ply25",
+          "medianMs": 33.332799999997405,
+          "nodes": 34834
+        },
+        {
+          "name": "quiet-ply29",
+          "medianMs": 4.615799999998671,
+          "nodes": 4493
+        },
+        {
+          "name": "one-sided-ply34",
+          "medianMs": 5.19130000000041,
+          "nodes": 6391
+        },
+        {
+          "name": "one-sided-ply35",
+          "medianMs": 2.2101000000002387,
+          "nodes": 2119
+        }
+      ]
+    },
+    {
+      "variant": "I1-nonwin",
+      "nodes": 5229810,
+      "medianMs": 3848.841600000003,
+      "samplesMs": [
+        3804.6622000000007,
+        3912.1297999999974,
+        3848.841600000003
+      ],
+      "maxRssBytes": 215662592,
+      "workloads": [
+        {
+          "name": "quiet-ply18",
+          "medianMs": 2943.6215,
+          "nodes": 4204292
+        },
+        {
+          "name": "quiet-ply20",
+          "medianMs": 478.0906000000009,
+          "nodes": 539488
+        },
+        {
+          "name": "quiet-ply24",
+          "medianMs": 78.1726000000017,
+          "nodes": 70562
+        },
+        {
+          "name": "quiet-ply28",
+          "medianMs": 8.437200000003031,
+          "nodes": 6889
+        },
+        {
+          "name": "quiet-ply19",
+          "medianMs": 314.08259999999973,
+          "nodes": 357954
+        },
+        {
+          "name": "quiet-ply21",
+          "medianMs": 11.973899999999048,
+          "nodes": 11162
+        },
+        {
+          "name": "quiet-ply25",
+          "medianMs": 31.25590000000102,
+          "nodes": 32498
+        },
+        {
+          "name": "quiet-ply29",
+          "medianMs": 4.331199999999626,
+          "nodes": 4156
+        },
+        {
+          "name": "one-sided-ply34",
+          "medianMs": 2.548899999997957,
+          "nodes": 2015
+        },
+        {
+          "name": "one-sided-ply35",
+          "medianMs": 1.3188999999983935,
+          "nodes": 794
+        }
+      ]
+    },
+    {
+      "variant": "I1-nonloss",
+      "nodes": 5337845,
+      "medianMs": 3893.050199999997,
+      "samplesMs": [
+        3966.7229999999954,
+        3893.050199999997,
+        3848.602200000001
+      ],
+      "maxRssBytes": 216092672,
+      "workloads": [
+        {
+          "name": "quiet-ply18",
+          "medianMs": 2942.049000000001,
+          "nodes": 4263076
+        },
+        {
+          "name": "quiet-ply20",
+          "medianMs": 487.4831000000004,
+          "nodes": 558223
+        },
+        {
+          "name": "quiet-ply24",
+          "medianMs": 84.41119999999819,
+          "nodes": 75335
+        },
+        {
+          "name": "quiet-ply28",
+          "medianMs": 8.777700000003279,
+          "nodes": 8158
+        },
+        {
+          "name": "quiet-ply19",
+          "medianMs": 314.319199999999,
+          "nodes": 373207
+        },
+        {
+          "name": "quiet-ply21",
+          "medianMs": 12.840499999999338,
+          "nodes": 12009
+        },
+        {
+          "name": "quiet-ply25",
+          "medianMs": 33.48349999999937,
+          "nodes": 34834
+        },
+        {
+          "name": "quiet-ply29",
+          "medianMs": 4.855500000002394,
+          "nodes": 4493
+        },
+        {
+          "name": "one-sided-ply34",
+          "medianMs": 5.2728999999972075,
+          "nodes": 6391
+        },
+        {
+          "name": "one-sided-ply35",
+          "medianMs": 2.2364000000006854,
+          "nodes": 2119
+        }
+      ]
+    },
+    {
+      "variant": "I1-both",
+      "nodes": 5229810,
+      "medianMs": 3855.592599999997,
+      "samplesMs": [
+        3831.943600000005,
+        3855.592599999997,
+        3863.5598999999997
+      ],
+      "maxRssBytes": 216035328,
+      "workloads": [
+        {
+          "name": "quiet-ply18",
+          "medianMs": 2951.4529999999995,
+          "nodes": 4204292
+        },
+        {
+          "name": "quiet-ply20",
+          "medianMs": 473.8125999999993,
+          "nodes": 539488
+        },
+        {
+          "name": "quiet-ply24",
+          "medianMs": 77.33329999999842,
+          "nodes": 70562
+        },
+        {
+          "name": "quiet-ply28",
+          "medianMs": 8.325500000003558,
+          "nodes": 6889
+        },
+        {
+          "name": "quiet-ply19",
+          "medianMs": 290.4750000000022,
+          "nodes": 357954
+        },
+        {
+          "name": "quiet-ply21",
+          "medianMs": 12.008800000002338,
+          "nodes": 11162
+        },
+        {
+          "name": "quiet-ply25",
+          "medianMs": 30.354199999997945,
+          "nodes": 32498
+        },
+        {
+          "name": "quiet-ply29",
+          "medianMs": 4.387900000002446,
+          "nodes": 4156
+        },
+        {
+          "name": "one-sided-ply34",
+          "medianMs": 2.5805999999984124,
+          "nodes": 2015
+        },
+        {
+          "name": "one-sided-ply35",
+          "medianMs": 1.33980000000156,
+          "nodes": 794
+        }
+      ]
+    }
+  ],
+  "correctness": {
+    "sameWdlAndRootMoves": true,
+    "repeatableWork": true,
+    "decisionSha256": "93d33c4555196cdddec3616671bccb374e27a0013202811b6c254859537c9395"
+  }
+}

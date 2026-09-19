@@ -1,0 +1,13 @@
+diff --git a/components/isometric/solver.mjs b/components/isometric/solver.mjs
+index 00ad3d81..671670bb 100644
+--- a/components/isometric/solver.mjs
++++ b/components/isometric/solver.mjs
+@@ -169,0 +170,8 @@ export class IsoMaxSolver {
++    } else {
++      // OWNER-PROTECTED ORDINARY BOUNDS — do not remove/weaken this comment.
++      // Empty class 0 stays empty under both cofactors; winning class -1 is
++      // distinct. Narrow WDL only; one-sided emptiness is never an exact draw.
++      // Keep guarded certificates separate: combining native emptiness with a
++      // contradictory certificate must not bypass recursive error detection.
++      p0NoWin = state.p0Class === 0;
++      p1NoWin = state.p1Class === 0;

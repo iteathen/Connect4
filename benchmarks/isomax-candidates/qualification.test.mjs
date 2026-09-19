@@ -81,3 +81,17 @@ test('exhaustion candidate remains active without certificates; obsolete I6 is r
   }
   assert.ok(bounds > 0, 'candidate must not hide inside the nonempty-certificate branch');
 });
+
+test('native exhaustion cannot hide a contradictory one-sided certificate', async () => {
+  const moves = [1,4,1,6,6,6,5,6,2,6,6,3,2,3,4,3,4,5,2,1,3,0,5,0,3,4,3,4,0,1,1,0,4,2];
+  assert.equal(value(new Connect4Position(moves)),1);
+  for (const variant of VARIANTS) {
+    const Solver = await loadSolver(variant), solver = new Solver(), state = solver.createState(moves);
+    const before = snapshot(state);
+    assert.equal(state.p1Class,0);
+    solver.certificates.add(state,{guard:rankGuard({min:34,max:34}),conclusion:noWinConclusion(0)});
+    assert.throws(()=>solver.solveValue(state),/violates P[01] no-win/);
+    assert.deepEqual(snapshot(state),before);
+    assert.equal(solver.transitionCache.get(state),undefined);
+  }
+});
