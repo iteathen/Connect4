@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "experiment": "rba-two-ply-alternating-macro-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "results": [
+    {
+      "support": [
+        5,
+        5,
+        5,
+        2,
+        6,
+        6,
+        6
+      ],
+      "parent_q_pairs": 491401,
+      "macro_action_cases": 1965604,
+      "action_value_mismatches": 0,
+      "state_value_mismatches": 0,
+      "first_ply_terminal_cases": 538368,
+      "second_ply_terminal_reply_observations": 1261138
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        5,
+        6,
+        6,
+        6
+      ],
+      "parent_q_pairs": 495616,
+      "macro_action_cases": 1982464,
+      "action_value_mismatches": 0,
+      "state_value_mismatches": 0,
+      "first_ply_terminal_cases": 575168,
+      "second_ply_terminal_reply_observations": 1310596
+    }
+  ],
+  "totals": {
+    "parent_q_pairs": 987017,
+    "macro_action_cases": 3948068,
+    "action_value_mismatches": 0,
+    "state_value_mismatches": 0,
+    "first_ply_terminal_cases": 1113536,
+    "second_ply_terminal_reply_observations": 2571734
+  },
+  "tested_macro": "max_current_action -> min_opponent_reply -> two-ply lifted exact grandchild value, with exact first/second-ply terminal handling",
+  "interpretation": [
+    "Alternating choice quantifiers compose exactly over at least two plies on the complete tested abstract residual domains.",
+    "Rank-by-rank semantic evaluation is therefore not intrinsically required for two-ply blocks.",
+    "The remaining O3 burden is compact representation/normalization of composed value-boundary transformers, not semantic composability of transitions or alternating quantifiers.",
+    "A finite full-depth nested max/min expression exists by acyclicity; root-scale compactness remains open."
+  ],
+  "authority_effect": "none"
+}
