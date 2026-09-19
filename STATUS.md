@@ -82,7 +82,7 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through a qualified selected-rank27 staged evaluator and the first selected rank26 predecessor:
+Raw post-1.1 RBA execution/research evidence is current through a qualified selected-rank27 staged evaluator and the first selected rank26 predecessor. Its **current semantic interpretation is integrated into `CONNECT4_GAME_THEORY_1_2_CANDIDATE.*`**; the files below are evidence/checkpoints, not parallel authority:
 
 - `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_8.*`
 - `research/isograph/successor/CONNECT4_RBA_QU_0_15.*`
@@ -140,7 +140,7 @@ win15 fixed-action interface from known child loss14:
 
 The selected rank26 target is `draw16`. Three of its four legal rank27 `draw15` children remain to be generated and qualified.
 
-The proof/certificate clause-to-value bridge remains a separate OPEN side seam. Authority 1.1 remains unchanged.
+The proof/certificate clause-to-value bridge remains a separate OPEN side seam represented directly in the 1.2 game-theory candidate as `QU-GAME-02`. Authority 1.1 remains unchanged until successor promotion.
 
 ## Historical applied NEI layer — superseded for active interpretation
 
