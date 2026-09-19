@@ -51,3 +51,57 @@ earlier roots is differential evidence, not an independent solved oracle.
 Logs flush per completed root; interrupted roots have no invented result.
 Evidence is retained under the Git-private `solver-performance/<run-id>/`
 directory. Results do not automatically promote the candidate to production.
+
+## Qualification result — 2026-09-19
+
+Tested source: `afb61e98d69d809bb51da3b57446ab9fdd09f787`.
+Host: Intel Core i5-12600K, Windows, Node 26.7.0. CPU execution; no GPU.
+Run: `20260919T154057273Z-isomax-ordering`.
+Structured evidence: `../results/2026-09-19-isomax-ordering.json`.
+
+Historical order is fixed control first, accepted research effect second.
+Times are three-process medians of total solve time for each set:
+
+| Pieces played / remaining | Roots | Fixed time | Singleton time | Time change | Fixed nodes | Singleton nodes |
+|---|---:|---:|---:|---:|---:|---:|
+| 18 / 24 | 16 | 5,908.44 ms | 4,759.53 ms | -19.45% | 5,893,201 | 4,263,076 |
+| 20 / 22 | 16 | 743.56 ms | 761.62 ms | +2.43% | 653,136 | 558,223 |
+| 24 / 18 | 32 | 155.36 ms | 130.29 ms | -16.14% | 110,412 | 75,335 |
+| 28 / 14 | 32 | 15.66 ms | 13.88 ms | -11.35% | 9,934 | 8,158 |
+
+Median total across all 96 roots: 6,839.35 ms fixed versus 5,639.22 ms singleton
+(17.55% less time). This is the median of each process's total, not a sum of
+per-workload medians. Nodes: 6,666,683 versus 4,904,792 (26.43% fewer).
+Every process produced identical WDL and root moves; node counts repeated exactly.
+
+Actual chronological execution, all on 2026-09-19 UTC:
+
+| Run | Start | End | Variant | Total solve ms |
+|---|---|---|---|---:|
+| 1 | 15:40:57.370 | 15:41:04.788 | fixed | 6,656.07 |
+| 2 | 15:41:04.790 | 15:41:11.164 | singleton | 5,639.22 |
+| 3 | 15:41:11.167 | 15:41:17.591 | singleton | 5,711.62 |
+| 4 | 15:41:17.594 | 15:41:25.230 | fixed | 6,890.93 |
+| 5 | 15:41:25.232 | 15:41:32.824 | fixed | 6,839.35 |
+| 6 | 15:41:32.827 | 15:41:39.179 | singleton | 5,617.34 |
+
+All processes exited normally and stayed within their 120-second deadlines.
+31 tests passed, including 1,390 independent physical child-effect comparisons
+(104 opponent-exposure vetoes; 319 high-cell cases) and independent physical
+exact WDL/root-move checks on 32 late roots. No production solver file changed.
+
+The 20-piece set has a small median timing regression despite 14.53% fewer
+nodes; sample ranges overlap (fixed 742.67–759.64 ms, singleton
+726.22–781.99 ms). Do not claim a uniform improvement or a settled regression
+from those three timing samples. Classification cost and execution overhead
+can offset less recursive work. No heuristic threshold was tuned on these sets.
+
+The initial smaller run `20260919T154018851Z-isomax-ordering` at
+`365bd185731d5c94f41884e4cf9a6ceda2981acc` is retained separately in
+`../results/2026-09-19-isomax-ordering-initial.json`. Its subsecond totals
+motivated adding earlier roots; do not combine its timing samples with the
+expanded workload's different warmup/execution history.
+
+These results support this candidate on the measured synthetic controls. They
+do not establish an empty-board solve speedup, Begin-Hard performance, or
+universal benefit. The benchmark candidate remains isolated from production.
