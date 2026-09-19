@@ -81,6 +81,7 @@ export class IsoMaxBranchManager {
     if(signal?.aborted) onAbort();
     const solver=new IsoMaxSolver(), nodes=new IsoMaxTransitionCache({pool:solver.pool}), pending=new Map();
     const metrics={nodes:0,managerExpansions:0,exactTasks:0,splitTasks:0,retiredTasks:0,
+      busyRetiredTasks:0,retiredTaskNodes:0,controlChecks:0,
       qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,workerExecutionMs:0,
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
     const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
@@ -180,6 +181,7 @@ export class IsoMaxBranchManager {
           if(message.jobId!==node.id)throw new Error('worker result has wrong manager job identity');
           node.pending=false;node.needed=null;
           metrics.nodes+=message.nodes;metrics.workerExecutionMs+=message.executionMs;
+          metrics.controlChecks+=message.metrics?.controlChecks??0;
           metrics.workerTasks[message.workerId]++;metrics.workerNodes[message.workerId]+=message.nodes;
           if(message.kind==='exact'){metrics.exactTasks++;complete(node,message.value);}
           else if(message.kind==='split'){
@@ -199,7 +201,11 @@ export class IsoMaxBranchManager {
               }
             }
           }
-          else metrics.retiredTasks++;
+          else {
+            metrics.retiredTasks++;
+            if(message.nodes>0)metrics.busyRetiredTasks++;
+            metrics.retiredTaskNodes+=message.nodes;
+          }
         });
       pending.set(node,promise);
       promise.then(()=>pending.delete(node),()=>pending.delete(node));
@@ -237,7 +243,7 @@ export class IsoMaxBranchManager {
         }
       }
       resultReadyMs=performance.now()-started;
-      // Retire only queued work. Busy workers finish their bounded native task;
+      // Retire queued work at entry and busy work at its scheduled local poll;
       // the root never waits for a whole unbounded sibling proof.
       for(const node of pending.keys())if(node.needed)Atomics.store(node.needed,0,0);
       await Promise.all(pending.values());

@@ -7,6 +7,43 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
 import { createSearchWorkerExecutor } from '../../../research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs';
 
+test('running retirement unwinds to the exact task root without publishing WDL', () => {
+  const solver = new IsoMaxTaskSolver(), needed = new SharedArrayBuffer(4), abort = new SharedArrayBuffer(4);
+  Atomics.store(new Int32Array(needed), 0, 1);
+  const create = solver.createState, check = solver.checkTaskControl;
+  let state, before;
+  const snapshot = s => [s.ply, s.p0Class, s.p1Class, s.status, s.sideToMove,
+    s.supportCode, s.supportLo, s.supportHi, s.playableLo, s.playableHi, Array.from(s.heights)];
+  solver.createState = function (moves) { state = create.call(this, moves); before = snapshot(state); return state; };
+  solver.checkTaskControl = function (s) {
+    if (this.metrics.nodes > 0) Atomics.store(this.needed, 0, 0);
+    return check.call(this, s);
+  };
+  const result = solver.runTask({ moves: [], rootPly: 0, nodeBudget: 65536, needed, abort });
+  assert.equal(result.kind, 'retired'); assert.equal(Object.hasOwn(result, 'value'), false);
+  assert.ok(result.nodes > 0 && result.nodes < 65536);
+  assert.equal(result.metrics.controlChecks, 2);
+  assert.deepEqual(snapshot(state), before);
+  assert.equal(solver.pool.sealed, false); assert.equal(solver.transitionCache.sealed, false);
+  validateTaskResult(result);
+  solver.checkTaskControl = check; Atomics.store(new Int32Array(needed), 0, 1);
+  const exact = solver.runTask({ moves: [0,1,0,1,0,1], rootPly: 6, nodeBudget: 65536, needed, abort });
+  assert.equal(exact.kind, 'exact'); assert.equal(exact.value, 1);
+});
+
+test('completed exact value survives a later retirement request', () => {
+  const solver = new IsoMaxTaskSolver(), needed = new SharedArrayBuffer(4), abort = new SharedArrayBuffer(4);
+  Atomics.store(new Int32Array(needed), 0, 1);
+  const enter = solver.solveNode;
+  solver.solveNode = function (state) {
+    const value = enter.call(this, state);
+    Atomics.store(this.needed, 0, 0);
+    return value;
+  };
+  const result = solver.runTask({ moves:[0,1,0,1,0,1], rootPly:6, nodeBudget:65536, needed, abort });
+  assert.equal(result.kind, 'exact'); assert.equal(result.value, 1);
+});
+
 test('native task quantum preserves root and never claims unfinished WDL',()=>{
   const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
   Atomics.store(new Int32Array(needed),0,1);

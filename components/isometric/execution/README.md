@@ -33,9 +33,11 @@ Worker-local exact caches survive yields; q equality in the manager shares
 completed task values. There is no shared recursive transposition table yet.
 
 At an exact parent cutoff, queued unnecessary tasks retire before execution.
-Already busy tasks finish their bounded quantum; they are not interrupted to
-take another branch. Root result-ready time and drain/termination time remain
-separate. Deadline/session abort checks occur every 8192 recursive entries.
+Busy tasks observe their manager-owned necessity word at scheduled checks,
+unwind to their exact root and return retired without WDL. They never inspect
+the queue or take another branch inside recursion. Root result-ready time and
+drain/termination time remain separate. Abort/retirement checks occur every
+512 recursive entries, and at the exact task budget boundary.
 Worker fault, bad result, missing work or capacity exhaustion fails closed.
 No unfinished result is published as draw.
 
@@ -49,7 +51,7 @@ Sealed overflow fails explicitly; it cannot trigger recursive allocation.
 Memory shares above are retained-record thresholds, not reserved-byte limits.
 
 The recursive scheduling overhead is one numeric threshold check. Abort polls
-occur every 8192 nodes or at the exact budget boundary. A yield saves the active
+occur every 512 nodes or at the exact budget boundary. A yield saves the active
 path to preallocated bytes, unwinds native play/undo, and only then packages
 dependency messages. There is no inherited per-node wrapper/catch, per-node
 promise, reporter call, string key, or conclusion-object construction.

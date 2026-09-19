@@ -1,6 +1,7 @@
 import { IsoMaxSolver } from '../solver.mjs';
 
 const quantumEnd = Symbol('unfinished IsoMax task');
+const taskRetired = Symbol('retired IsoMax task');
 export function positive(value, name, maximum = Number.MAX_SAFE_INTEGER) {
   if (!Number.isSafeInteger(value) || value < 1 || value > maximum) throw new RangeError('invalid ' + name);
   return value;
@@ -22,6 +23,8 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
     super(options);
     this.continuation = new Uint8Array(42);
     this.continuationPly = 0;
+    this.needed = null;
+    this.controlChecks = 0;
   }
 
   checkTaskControl(state) {
@@ -30,7 +33,11 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
     // override with per-node wrapper/catch, clock reads, RPC, or reporting.
     // Save the path with scalar stores into existing bytes; the yield token
     // is precreated. Package objects only AFTER native recursion unwinds.
+    // Task necessity is manager-owned scheduling authority, never a WDL fact.
+    // Check only this task's shared word here; no queue inspection or RPC.
+    this.controlChecks++;
     if (Atomics.load(this.abort, 0)) throw new Error('ISOMAX_ABORTED');
+    if (!Atomics.load(this.needed, 0)) throw taskRetired;
     if (this.metrics.nodes >= this.nodeBudget) {
       this.continuationPly = state.ply;
       // Scalar stores to existing storage. No snapshot object/buffer, no
@@ -38,7 +45,9 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
       for (let ply = 0; ply < state.ply; ply++) this.continuation[ply] = state.moveCells[ply] % 7;
       throw quantumEnd;
     }
-    this.nextControlNode = Math.min(this.nodeBudget, this.metrics.nodes + 8192);
+    // 512 was qualified against 8192 and 32; lower polling latency alone is
+    // not a throughput win. See issue-79 evidence before changing this policy.
+    this.nextControlNode = Math.min(this.nodeBudget, this.metrics.nodes + 512);
   }
 
   packageContinuation(state) {
@@ -79,7 +88,8 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
       throw new TypeError('invalid native task replay');
     if (!(abort instanceof SharedArrayBuffer) || abort.byteLength !== 4 ||
         !(needed instanceof SharedArrayBuffer) || needed.byteLength !== 4) throw new TypeError('invalid task controls');
-    if (!Atomics.load(new Int32Array(needed), 0)) return { kind:'retired', nodes:0, metrics:{} };
+    this.needed = new Int32Array(needed); this.controlChecks = 0;
+    if (!Atomics.load(this.needed, 0)) return { kind:'retired', nodes:0, metrics:{} };
     this.abort = new Int32Array(abort); this.nodeBudget = nodeBudget; this.nextControlNode = 0;
     const state = this.createState(moves);
     // At most one own and one block class per entered edge, plus their two
@@ -96,7 +106,11 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
     let result;
     let yielded = false;
     try { result = { kind:'exact', value:this.solveNode(state) }; }
-    catch (error) { if (error !== quantumEnd) throw error; yielded = true; }
+    catch (error) {
+      if (error === quantumEnd) yielded = true;
+      else if (error === taskRetired) result = { kind:'retired' };
+      else throw error;
+    }
     finally {
       this.nextControlNode = Infinity;
       this.pool.releaseSearchStorage();
@@ -104,6 +118,6 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
     }
     if (yielded) result = { kind:'split',frames:this.packageContinuation(state) };
     if (state.ply !== moves.length) throw new Error('task failed to restore native root');
-    return { ...result, nodes:this.metrics.nodes, metrics:{...this.metrics} };
+    return { ...result, nodes:this.metrics.nodes, metrics:{...this.metrics,controlChecks:this.controlChecks} };
   }
 }

@@ -331,10 +331,14 @@ restarting the parent proof. Forced edges remain single edges, native terminal
 facts retain precedence, and parent values reduce in fixed P0 coordinates.
 Root witnesses retain center-first ties regardless of completion order.
 
-Queued obsolete work retires before execution. Busy workers finish their
-bounded native task; a global deadline, failure or explicit session close may
-abort execution. Incomplete work, worker death and capacity failures must never
-be reported as a draw. Every owned worker must be drained or terminated.
+Queued obsolete work retires before execution. Busy workers complete their
+bounded native task or observe the manager-owned task-necessity word at a
+scheduled local control check. Retirement unwinds to the exact task root and
+reports no WDL; it neither inspects the queue nor interrupts recursion to take
+another task. A completed exact value remains valid if retirement arrives
+later. A global deadline, failure or explicit session close may abort execution.
+Incomplete work, worker death and capacity failures must never be reported as
+a draw. Every owned worker must be drained or terminated.
 
 The ordinary-value worker prepares and seals typed search storage before each
 bounded quantum. Residual/chunk capacity, reference width and exact-cache
