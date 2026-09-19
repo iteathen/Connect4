@@ -210,3 +210,18 @@ The large copied destination with small replaced backing identifies a concrete
 preparation ordering candidate: class arrays grow at their old narrow type before
 being widened, so widening copies the newly reserved mostly-unused capacity.
 Test widening against the small old class capacity before class-array growth.
+
+#84 preparation order retained: size/widen chunk references while class arrays
+still have their old capacity, then grow class storage. Exact IDs/content,
+reservation amounts and sealed bounds are unchanged. Warm class/transition/
+reflection content survives widening; repeat reservation retains array identity.
+53 IsoMax controls pass. Cold empty-pool 262144-class reservation bulk-set source
+bytes 5,289,984 -> 88,064; destination bytes 21,018,624 -> 118,784. At 524288
+reservation destination bytes 41,990,144 -> 118,784. Both variants perform 34
+bulk-set calls; repeat same reservation performs zero. This excludes allocator
+zeroing, fills and scalar rehash traffic; the same final capacity is retained.
+Three-pair one/two/four-worker medians: 2081.02 -> 2068.59, 1858.51 -> 1816.41,
+1795.25 -> 1722.93 ms. Confirmation: 2101.37 -> 2090.78, 1863.63 -> 1842.71,
+1801.99 -> 1780.18. All one-worker pairs favor the candidate with identical
+work; five of six pairs favor it at each parallel count, with scheduling/work
+variation. Keep this direct preparation repair, not a new continuation layer.

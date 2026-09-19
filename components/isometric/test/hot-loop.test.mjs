@@ -18,6 +18,24 @@ test('preloaded cell masks match independent 42-bit decomposition including bit 
   }
 });
 
+test('cold reservation preserves warm class content and transition identity across width growth', () => {
+  const pool = new ResidualPool();
+  const state = new IsometricState({ pool, moves: [3, 2, 4, 3, 5, 4] });
+  const signature = [...state.gameplayKey()];
+  const expected = Array.from({ length: pool.classCount }, (_, id) => pool.terms(id));
+  const own = pool.ownTransition(state.p0Class, 7), blocked = pool.blockTransition(state.p1Class, 7);
+  pool.prepareSearchStorage(65536);
+  assert.equal(pool.sealed, true);
+  for (const slots of pool.classSlotIds) assert.equal(slots.BYTES_PER_ELEMENT, 4);
+  expected.forEach((terms, id) => assert.deepEqual(pool.terms(id), terms));
+  assert.deepEqual([...state.gameplayKey()], signature);
+  assert.equal(pool.ownTransition(state.p0Class, 7), own);
+  assert.equal(pool.blockTransition(state.p1Class, 7), blocked);
+  const retained = [...pool.classSlotIds];
+  pool.prepareSearchStorage(1);
+  retained.forEach((array, slot) => assert.equal(pool.classSlotIds[slot], array));
+});
+
 test('every isolated vocabulary term preserves all cell cofactors and reflection', () => {
   const pool = new ResidualPool(), p = ISOMETRIC_PROFILE, bits = new Uint32Array(20);
   const pair = wide => [[Number(wide & 0xffffffffn), Number(wide >> 32n)]];

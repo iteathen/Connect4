@@ -292,9 +292,10 @@ export class ResidualPool {
         additionalClasses > 2 ** 26) throw new RangeError('invalid residual reservation');
     this.releaseSearchStorage();
     const required = this.classCount + additionalClasses;
-    this.ensureClassCapacity(required);
-    const classHashLength = nextPowerOfTwo(Math.ceil((required + 1) * 10 / 7));
-    if (classHashLength > this.classHashSlots.length) this.growClassHash(classHashLength);
+    // OWNER-PROTECTED PREPARATION ORDER — do not remove/weaken this comment.
+    // Determine chunk reference widths before growing class arrays. Widening
+    // after growth copies the new, mostly-unused reservation a second time.
+    // Chunk IDs/content and existing class IDs remain unchanged in both steps.
     for (let slot = 0; slot < FRONTIER_SLOTS; slot++) {
       const chunks = this.slotPools[slot], chunkRequired = chunks.count + additionalClasses;
       chunks.ensureCapacity(chunkRequired);
@@ -303,6 +304,9 @@ export class ResidualPool {
       this.ensureReferenceWidth(slot, chunks.capacity - 1);
       chunks.sealed = true;
     }
+    this.ensureClassCapacity(required);
+    const classHashLength = nextPowerOfTwo(Math.ceil((required + 1) * 10 / 7));
+    if (classHashLength > this.classHashSlots.length) this.growClassHash(classHashLength);
     this.sealed = true;
   }
 

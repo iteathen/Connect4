@@ -1,0 +1,113 @@
+{
+  "scope": "logical TypedArray.set bytes only, cold empty pool; excludes fill/zeroing/scalar rehash; not timing evidence",
+  "rows": [
+    {
+      "label": "baseline",
+      "reserve": 262144,
+      "first": {
+        "operations": 34,
+        "sourceBytes": 5289984,
+        "destinationBytes": 21018624
+      },
+      "second": {
+        "operations": 0,
+        "sourceBytes": 0,
+        "destinationBytes": 0
+      },
+      "classCapacity": 524288,
+      "widths": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "label": "baseline",
+      "reserve": 524288,
+      "first": {
+        "operations": 34,
+        "sourceBytes": 10532864,
+        "destinationBytes": 41990144
+      },
+      "second": {
+        "operations": 0,
+        "sourceBytes": 0,
+        "destinationBytes": 0
+      },
+      "classCapacity": 1048576,
+      "widths": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "label": "candidate",
+      "reserve": 262144,
+      "first": {
+        "operations": 34,
+        "sourceBytes": 88064,
+        "destinationBytes": 118784
+      },
+      "second": {
+        "operations": 0,
+        "sourceBytes": 0,
+        "destinationBytes": 0
+      },
+      "classCapacity": 524288,
+      "widths": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "label": "candidate",
+      "reserve": 524288,
+      "first": {
+        "operations": 34,
+        "sourceBytes": 88064,
+        "destinationBytes": 118784
+      },
+      "second": {
+        "operations": 0,
+        "sourceBytes": 0,
+        "destinationBytes": 0
+      },
+      "classCapacity": 1048576,
+      "widths": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    }
+  ]
+}
