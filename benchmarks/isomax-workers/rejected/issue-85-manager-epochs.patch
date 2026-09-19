@@ -1,0 +1,28 @@
+diff --git a/components/isometric/execution/branch-manager.mjs b/components/isometric/execution/branch-manager.mjs
+index 94bdbf22..0fcc26fe 100644
+--- a/components/isometric/execution/branch-manager.mjs
++++ b/components/isometric/execution/branch-manager.mjs
+@@ -97 +97 @@ export class IsoMaxBranchManager {
+-        parents:new Set(),pending:false,needed:null,directMove:undefined};
++        parents:new Set(),pending:false,needed:null,directMove:undefined,requiredEpoch:0};
+@@ -156,0 +157 @@ export class IsoMaxBranchManager {
++    let requiredEpoch=0;
+@@ -158 +159,6 @@ export class IsoMaxBranchManager {
+-      const live=new Set(), leaves=[];
++      // OWNER-PROTECTED MANAGER LOOP — do not remove/weaken this comment.
++      // Epochs replace repeated Set hashing/allocation, not q/proof identity.
++      // Mark every live DAG node (including shared descendants) before pending
++      // task retirement. Never reuse an old epoch or prune required root ties.
++      if(requiredEpoch===Number.MAX_SAFE_INTEGER)throw new Error('ISOMAX_MANAGER_EPOCH_CAPACITY');
++      const epoch=++requiredEpoch, leaves=[];
+@@ -160,2 +166,2 @@ export class IsoMaxBranchManager {
+-        if(node.value!==null||live.has(node))return;
+-        live.add(node);
++        if(node.value!==null||node.requiredEpoch===epoch)return;
++        node.requiredEpoch=epoch;
+@@ -172 +178 @@ export class IsoMaxBranchManager {
+-      return {live,leaves};
++      return {epoch,leaves};
+@@ -233 +239 @@ export class IsoMaxBranchManager {
+-          for(const node of pending.keys())if(!supply.live.has(node)&&node.needed)Atomics.store(node.needed,0,0);
++          for(const node of pending.keys())if(node.requiredEpoch!==supply.epoch&&node.needed)Atomics.store(node.needed,0,0);

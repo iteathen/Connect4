@@ -83,3 +83,12 @@ empty-root smoke follows this implementation checkpoint.
 #86: tested separate checked public / unchecked trusted primitives for own/block transitions, class loading and singleton queries. Native state and quiet classifier supplied owning-pool nonterminal IDs and bounded legal cells; public APIs still rejected 42 malformed class/cell cases. 27 state/hot-loop/ordering/execution controls passed. Three paired measurements did not justify the API split: serial 1744.66 -> 1757.06 ms (0.7% slower), one-worker 2145.70 -> 2145.36 ms (neutral). Restore the safer existing methods; retain full candidate and protected comments in rejected/issue-86-trusted-primitives.patch, raw timings in issue-86-trusted-primitives.json. This does not prove every guard is free; it rejects this combined fast-path proposal on actual caller economics.
 
 #84/#85 actual execution profile at 500f73f5: benchmark-only bootstrap wraps cold boundaries, then imports the unchanged native worker; ordinary recursion is not instrumented. Three completed roots and a 10s empty-root control. Empty root: 2799 settled tasks, 2687 without backing-array replacement/cache rehash; replay 90.37 ms, pool preparation 316.90 ms, cache preparation 886.43 ms across 36,932.93 aggregate worker-task ms. Five pool lifetimes per worker reflect explicit retained-record resets. Existing retained capacity/hysteresis are real; there is no rebuild on every task. Manager thread used 1.078 CPU s in 10.017 wall s; 42.19 ms observed manager GC. Across the profile, required-graph visit accounts for 321.32 ms CPU self samples and is the largest manager source site. Test epoch visitation first; do not jump to graph arenas. ReplacedBackingBytes is explicitly not a copy-byte estimate. Full raw task/CPU/heap traces remain Git-private; portable aggregate and per-task percentiles in execution-profile.json.
+
+#85: reject per-node epoch visitation after two independent three-pair screens.
+First one-worker median 2145.12 -> 2166.94 ms; four-worker 1780.83 -> 1803.37 ms.
+Confirmation one-worker 2163.62 -> 2163.44 ms; four-worker 1815.76 -> 1823.22 ms.
+All exact decisions match; nine execution controls pass. Fewer Set operations did
+not establish an end-to-end improvement. Restore the existing traversal; preserve
+candidate and protected comments in rejected/issue-85-manager-epochs.patch. No
+claim that every arena design is disproven; their extra lifecycle/identity
+machinery lacks measured justification in this pass.
