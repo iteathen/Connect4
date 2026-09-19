@@ -1,5 +1,4 @@
-import fs from 'node:fs';
-import { ISOMETRIC_PROFILE as profile } from '../../components/isometric/profile.mjs';
+import { ISOMETRIC_PROFILE as profile } from './profile.mjs';
 
 export const CENTER_ORDER = Object.freeze([3, 2, 4, 1, 5, 0, 6]);
 // Compile incidence once from the native WSL vocabulary. No board, class
@@ -49,36 +48,4 @@ export function promotedColumn(state) {
     }
   }
   return bestColumn;
-}
-
-// Experiment-only substitution, asserted against the current source shape.
-// Production files remain untouched; all other solver code is identical.
-// Import URLs exist only in memory and are never serialized into evidence.
-export async function loadCandidateSolver() {
-  const url = new URL('../../components/isometric/solver.mjs', import.meta.url);
-  let source = fs.readFileSync(url, 'utf8').replaceAll('\r\n', '\n');
-  const before = '    for (const column of MOVE_ORDER) {\n      if (!state.canPlay(column)) continue;\n      sawMove = true;';
-  if (source.split(before).length !== 2) throw new Error('solver ordering seam changed; review candidate substitution');
-  source = source.replace(before, `    const promoted = state.ply > this.orderingRootPly ? promotedColumn(state) : -1;
-    if (promoted >= 0) this.orderingPromotions++;
-    for (let orderIndex = promoted >= 0 ? -1 : 0; orderIndex < MOVE_ORDER.length; orderIndex++) {
-      const column = orderIndex === -1 ? promoted : MOVE_ORDER[orderIndex];
-      if (orderIndex >= 0 && column === promoted) continue;
-      if (!state.canPlay(column)) continue;
-      sawMove = true;`);
-  source = source.replace(/from '(\.[^']+)'/g, (_, relative) => `from '${new URL(relative, url).href}'`);
-  source = `import { promotedColumn } from '${import.meta.url}';\n` + source;
-  const { IsoMaxSolver } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
-  return class SingletonOrderedSolver extends IsoMaxSolver {
-    solveValue(state) {
-      this.orderingRootPly = state.ply;
-      this.orderingPromotions = 0;
-      return super.solveValue(state);
-    }
-    solve(state) {
-      this.orderingRootPly = state.ply;
-      this.orderingPromotions = 0;
-      return super.solve(state);
-    }
-  };
 }

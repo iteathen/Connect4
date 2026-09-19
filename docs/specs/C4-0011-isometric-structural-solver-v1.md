@@ -225,6 +225,61 @@ Unlike the historical finite-horizon implementation, the active native solver do
 
 ## Native exact residue solver
 
+### Qualified native advisory move ordering
+
+The default unresolved-recursion policy is the qualified playable-singleton
+effect order. This is an implementation-policy promotion; C4-0011 retains its
+declared Candidate status and the ordering creates no new value theorem.
+
+After exact cache/native/certificate/value-boundary closure and any forced
+transition, a quiet nonterminal node strictly below the external root may
+promote one legal column ahead of the remaining center-first order:
+
+1. two distinct own playable singleton completions after the move;
+2. one own playable singleton completion after the move;
+3. otherwise no promotion.
+
+Support exposure of an existing opponent singleton immediately above the
+landing cell vetoes promotion. Counts are capped at two and deduplicated by
+completion cell, not by residual or original winning-line multiplicity.
+Equal classes retain the tie order `[3, 2, 4, 1, 5, 0, 6]`. Every remaining
+legal move stays available exactly once, in that same order.
+
+The native implementation derives effects from current WSL degree-two
+requirements containing the landing cell, current singleton masks, and
+support/playability. Pair incidence is compiled once from the standard WSL
+vocabulary. Classification does not materialize a child, reconstruct a colored
+board, intern residual classes, or add maintained state to gameplay identity.
+
+Normalization may suppress a degree-two requirement only when a singleton
+subset already supplies the completion, or when the landing singleton would
+have closed the parent as an immediate win. Quiet-node classification therefore
+retains the relevant completion-cell effect without original-line multiplicity.
+
+`solve` and `solveValue` establish root scope from the supplied state's actual
+ply on each call, including legal imported replays. Root expansion and
+value-preserving root move selection keep center-first tie selection. An
+external root is not inferred from empty-board ply zero. The solver reports
+`metrics.orderingPromotions` as the count of below-root unresolved nodes with
+a positive advisory class; it is work telemetry, not proof evidence.
+
+No ordering class may supply W/D/L, a bound, pruning, a certificate, or a change
+to q/proof identity. Opponent-residual suppression and own-cofactor proximity
+tiers remain excluded. Exact first-win, immediate-win, forced-block and
+double-threat authorities retain precedence.
+
+The consumed ordering evidence is the September 15 native singleton-effect
+research, preserved at canonical research revision
+`104abfbe4444fcd315ac807b46ce2be8da13df39`.
+Native implementation qualification and limits are recorded in
+`benchmarks/isomax-ordering/README.md`: 96 synthetic roots, repeated independent
+processes, unchanged WDL/root moves, 26.43% fewer nodes and 17.55% less aggregate
+median time in the pre-promotion comparison. One workload had a small overlapping
+timing regression. These observations do not promise universal speedup,
+Begin-Hard performance, or an empty-board solve.
+
+### Value recursion
+
 `IsoMaxSolver` consumes `IsometricState` directly.
 
 Its authority order is:
@@ -235,6 +290,7 @@ exact transition-cache hit
   -> applicable guarded IsoMax certificates
   -> qualified exact q/RBA value-boundary consequence when available
   -> forced transition if certified
+  -> below-root advisory singleton-effect ordering
   -> exact max/min W/D/L recursion over remaining unresolved residue
 ```
 

@@ -3,14 +3,14 @@
 Run with Node 26.7.0 from a clean source checkout:
 
 ```text
-node --test benchmarks/test/isomax-ordering.test.mjs components/isometric/test/*.test.mjs
+node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs components/bsfp/test/rba-wdl-reference.test.mjs
 node benchmarks/isomax-ordering/run.mjs
 ```
 
 This implementation qualification compares, in historical order:
 
-1. Current fixed center-first recursive ordering.
-2. A native WSL realization of the accepted September 15 playable-singleton
+1. The retained benchmark-only fixed center-first control.
+2. Production native WSL ordering from the accepted September 15 playable-singleton
    effect order: promote one move creating two, then one, distinct own playable
    completions; veto promotion if support exposes an opponent singleton.
 
@@ -20,9 +20,9 @@ by canonical research revision `104abfbe4444fcd315ac807b46ce2be8da13df39`.
 The separately rejected opponent-suppression and own-cofactor proximity tiers
 are not part of this candidate.
 
-Production solver files remain unchanged. The candidate loader reads the current
-solver and substitutes only the unresolved recursive ordering loop, failing if
-its source seam changes. Native state, transitions, exact closures, caches and
+Singleton ordering is now the production default. The fixed-control loader reads
+the current solver and removes only the unresolved recursive ordering prefix,
+failing if its source seam changes. Native state, transitions, exact closures, caches and
 root tie selection remain the same. Pair incidence is compiled once from the
 WSL vocabulary; move classification does not materialize children or mutate the
 residual pool. Suppressed degree-two supersets cannot remove a new completion:
@@ -50,9 +50,10 @@ orders to a physical-board exact oracle on late roots. Benchmark agreement on
 earlier roots is differential evidence, not an independent solved oracle.
 Logs flush per completed root; interrupted roots have no invented result.
 Evidence is retained under the Git-private `solver-performance/<run-id>/`
-directory. Results do not automatically promote the candidate to production.
+directory. The runner also asserts that both variants reproduce the recorded
+pre-promotion decisions, node counts and ordering-promotion counts exactly.
 
-## Qualification result — 2026-09-19
+## Pre-promotion qualification result — 2026-09-19
 
 Tested source: `afb61e98d69d809bb51da3b57446ab9fdd09f787`.
 Host: Intel Core i5-12600K, Windows, Node 26.7.0. CPU execution; no GPU.
@@ -102,6 +103,22 @@ The initial smaller run `20260919T154018851Z-isomax-ordering` at
 motivated adding earlier roots; do not combine its timing samples with the
 expanded workload's different warmup/execution history.
 
-These results support this candidate on the measured synthetic controls. They
+These results support this method on the measured synthetic controls. They
 do not establish an empty-board solve speedup, Begin-Hard performance, or
-universal benefit. The benchmark candidate remains isolated from production.
+universal benefit. The owner subsequently authorized production promotion.
+
+## Production promotion
+
+The native classifier now lives in `components/isometric/move-order.mjs` and
+is called directly by the ordinary solver below the root. The experimental
+candidate copy/loader was removed. Root scope is reset for every `solve` and
+`solveValue` call; promotion counts are in returned solver metrics.
+
+C4-0011 documents the ordering classes, opponent-exposure veto, quiet-node and
+root guards, exact-authority precedence and unchanged proof/value boundaries.
+Its overall Candidate specification status is unchanged.
+
+Local domain/native/RBA qualification: 47 tests passed, including the original
+1,390 child-effect comparisons and independent physical WDL controls, plus
+imported-root ordering/reset/exception-restoration coverage. These tests now
+run in the native IsoMax CI workflow.

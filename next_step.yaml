@@ -55,6 +55,7 @@ accepted_implementation:
   - optional_bounded_rba_value_resolver_disabled_by_default
   - recursive_exception_state_restoration
   - contradictory_no_win_bounds_rejected_without_clamping
+  - native_playable_singleton_effect_ordering_below_root_with_opponent_exposure_veto
 
 completed_implementation_issues:
   - number: 64
@@ -74,7 +75,9 @@ open_issues:
 qualification:
   report: docs/decisions/2026-09-19-isomax-issue-qualification.md
   local_node: 26.7.0
-  tests: 44
+  ordering_report: benchmarks/isomax-ordering/README.md
+  ordering_default: native_playable_singleton_effect
+  ordering_root_ties: center_first
   rba_default_enabled: false
   rba_promotion: rejected_for_one_off_total_cost_despite_fewer_recursive_children
 

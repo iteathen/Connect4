@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { Connect4Position, STATUS_ONGOING } from '../../components/domain/index.mjs';
-import { IsoMaxSolver } from '../../components/isometric/solver.mjs';
-import { makeCorpus } from '../isomax-ordering/corpus.mjs';
-import { singletonEffectClass, promotedColumn, CENTER_ORDER, loadCandidateSolver } from '../isomax-ordering/candidate.mjs';
+import { Connect4Position, STATUS_ONGOING } from '../../domain/index.mjs';
+import { IsoMaxSolver } from '../solver.mjs';
+import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+import { singletonEffectClass, promotedColumn, CENTER_ORDER } from '../move-order.mjs';
+import { loadFixedControlSolver } from '../../../benchmarks/isomax-ordering/fixed-control.mjs';
 
 test('native advisory effects agree with realized physical child threats, including mirrors and high cells', () => {
   const solver = new IsoMaxSolver();
@@ -60,13 +61,13 @@ function physicalValue(position, memo = new Map()) {
 }
 
 test('both orders agree with physical exact WDL, root move choice and restoration', async () => {
-  const Candidate = await loadCandidateSolver();
+  const Control = await loadFixedControlSolver();
   for (const ply of [34, 35]) {
     for (const { moves } of makeCorpus({ seed: 73 + ply, ply, count: 16 })) {
       const reference = new Connect4Position(moves);
       const expected = physicalValue(reference);
       const decisions = [];
-      for (const Solver of [IsoMaxSolver, Candidate]) {
+      for (const Solver of [Control, IsoMaxSolver]) {
         const solver = new Solver(), state = solver.createState(moves);
         const before = state.gameplayKey();
         const result = solver.solve(state);
@@ -80,6 +81,38 @@ test('both orders agree with physical exact WDL, root move choice and restoratio
         decisions.push(result.move);
       }
       assert.equal(decisions[0], decisions[1]);
+    }
+  }
+});
+
+test('imported roots keep center-first order and reset root scope on each entry point', () => {
+  class ObserveRoot extends IsoMaxSolver {
+    solveNode(state) {
+      if (state.ply === this.orderingRootPly + 1) {
+        this.firstColumn = state.moveCells[this.orderingRootPly] % 7;
+        throw new Error('observed first root child');
+      }
+      return super.solveNode(state);
+    }
+  }
+  const solver = new ObserveRoot();
+  for (const ply of [21, 28]) {
+    const roots = makeCorpus({ seed: 100 + ply, ply, count: 32 });
+    const moves = roots.find(({ moves }) => {
+      const state = solver.createState(moves);
+      const promotion = promotedColumn(state);
+      return promotion >= 0 && promotion !== CENTER_ORDER.find(c => state.canPlay(c));
+    })?.moves;
+    assert.ok(moves, 'fixture must distinguish root order from advisory promotion');
+    for (const method of ['solveValue', 'solve']) {
+      const state = solver.createState(moves), before = state.gameplayKey();
+      solver.metrics.orderingPromotions = 999;
+      assert.throws(() => solver[method](state), /observed first root child/);
+      assert.equal(solver.firstColumn, CENTER_ORDER.find(c => state.canPlay(c)));
+      assert.equal(solver.metrics.orderingPromotions, 0);
+      assert.equal(solver.orderingRootPly, ply);
+      assert.equal(state.ply, ply);
+      assert.deepEqual(state.gameplayKey(), before);
     }
   }
 });

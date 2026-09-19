@@ -9,8 +9,7 @@ import { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mj
 import { ResidualPool } from './residual-pool.mjs';
 import { IsometricState } from './state.mjs';
 import { IsoMaxRbaValueResolver } from './rba-value-resolver.mjs';
-
-const MOVE_ORDER = Object.freeze([3, 2, 4, 1, 5, 0, 6]);
+import { CENTER_ORDER as MOVE_ORDER, promotedColumn } from './move-order.mjs';
 
 function emptyMetrics() {
   return {
@@ -28,6 +27,7 @@ function emptyMetrics() {
     valueBoundaryQueries: 0,
     valueBoundaryHits: 0,
     valueBoundaryQueryMs: 0,
+    orderingPromotions: 0,
   };
 }
 
@@ -57,6 +57,7 @@ export class IsoMaxSolver {
       throw new TypeError('valueResolver must be an IsoMaxRbaValueResolver for the solver pool');
     }
     this.valueResolver = valueResolver;
+    this.orderingRootPly = 0;
   }
 
   createState(moves = null) {
@@ -70,6 +71,7 @@ export class IsoMaxSolver {
   solveValue(state) {
     this.assertState(state);
     this.metrics = emptyMetrics();
+    this.orderingRootPly = state.ply;
     const value = this.solveNode(state);
     return { value, metrics: { ...this.metrics } };
   }
@@ -77,6 +79,7 @@ export class IsoMaxSolver {
   solve(state) {
     this.assertState(state);
     this.metrics = emptyMetrics();
+    this.orderingRootPly = state.ply;
     const value = this.solveNode(state);
     const move = state.isTerminal() ? null : this.selectMoveForValue(state, value);
     return { value, move, metrics: { ...this.metrics } };
@@ -179,7 +182,11 @@ export class IsoMaxSolver {
     const maximizing = state.sideToMove === 0;
     let best = maximizing ? -1 : 1;
     let sawMove = false;
-    for (const column of MOVE_ORDER) {
+    const promoted = state.ply > this.orderingRootPly ? promotedColumn(state) : -1;
+    if (promoted >= 0) this.metrics.orderingPromotions++;
+    for (let orderIndex = promoted >= 0 ? -1 : 0; orderIndex < MOVE_ORDER.length; orderIndex++) {
+      const column = orderIndex === -1 ? promoted : MOVE_ORDER[orderIndex];
+      if (orderIndex >= 0 && column === promoted) continue;
       if (!state.canPlay(column)) continue;
       sawMove = true;
       state.applyUnchecked(column);

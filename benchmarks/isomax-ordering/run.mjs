@@ -19,7 +19,7 @@ const report = { runId, sourceRevision: git('rev-parse', 'HEAD'), node: process.
   policy: { sequence: ['fixed', 'singleton', 'singleton', 'fixed', 'fixed', 'singleton'],
     timeoutMsPerProcess: 120000, freshPoolAndCachePerRoot: true, warmupRootsPerProcess: 8,
     rba: false, timedOperation: 'solve (exact WDL plus value-preserving root move)',
-    setupAndForcedGcExcluded: true, productionSolverUnmodified: true }, runs: [] };
+    setupAndForcedGcExcluded: true, singletonIsProduction: true }, runs: [] };
 write(path.join(directory, 'result.json'), report);
 for (const [index, variant] of report.policy.sequence.entries()) {
   const subdir = path.join(directory, String(index + 1) + '-' + variant);
@@ -55,5 +55,16 @@ report.comparison = report.runs[0].summaries.map(control => {
     variants, timeChangePercent: (variants[1].medianMs / variants[0].medianMs - 1) * 100,
     nodeChangePercent: (variants[1].nodes / variants[0].nodes - 1) * 100 };
 });
+// Promotion must reproduce the qualified experiment's exact work and decisions.
+const qualified = JSON.parse(fs.readFileSync(new URL('../results/2026-09-19-isomax-ordering.json', import.meta.url), 'utf8'));
+for (const run of report.runs) {
+  for (const summary of run.summaries) {
+    const expected = qualified.runs.find(r => r.variant === run.variant).summaries.find(s => s.workload === summary.workload);
+    assert.deepEqual(summary.decisions, expected.decisions, 'promotion changed qualified decisions');
+    assert.equal(summary.nodes, expected.nodes, 'promotion changed qualified node counts');
+    assert.equal(summary.promotions, expected.promotions, 'promotion changed qualified ordering choices');
+  }
+}
+report.matchesQualifiedExperiment = true;
 write(path.join(directory, 'result.json'), report);
 console.log(JSON.stringify({ runId, evidence: path.relative(root, directory), comparison: report.comparison }));

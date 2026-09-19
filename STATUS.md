@@ -93,11 +93,19 @@ Current accepted implementation properties include:
 - guarded certificate consumption;
 - stronger transition identity than coarse WSL retrieval identity;
 - recursive fixed-P0 W/D/L backup for unresolved residue;
+- native playable-singleton effect ordering below the root, with opponent-exposure veto;
 - optional bounded ordinary-value membership before forced/recursive fallback;
 - recursive state restoration on downstream errors;
 - fail-closed contradictory exact/no-win certificate handling.
 
 The previously tested opponent-residual-suppression first-child tier remains rejected for the tested placement because it improved one paired fixture while materially worsening the independent calibration corpus.
+
+The qualified singleton-effect method is now the default native recursive move
+order. Root tie selection stays center-first. It consumes the existing WSL
+carrier directly; no speculative child or legacy board is created. The paired
+96-root evidence showed 26.43% fewer nodes and 17.55% less aggregate median
+time, with a small overlapping timing regression on one subset. See
+`benchmarks/isomax-ordering/README.md` for qualification and reproduction.
 
 ## Research dependency
 
@@ -125,7 +133,7 @@ No new theorem, hypothesis, research result, or research evidence should be auth
 
 The Isometric native WSL workflow targets `solver/isometric` and qualifies
 domain/native WSL plus shared RBA controls under Node 26.7.0. The final local
-suite has 44 tests: domain, Isometric and RBA. Bounded controls do not prove a
+suite covers domain, Isometric (including native ordering) and RBA. Bounded controls do not prove a
 universal quotient theorem, complete proof calculus, or empty-board performance.
 
 ## Routing
