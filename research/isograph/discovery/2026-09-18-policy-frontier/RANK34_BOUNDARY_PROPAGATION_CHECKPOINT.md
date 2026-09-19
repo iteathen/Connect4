@@ -167,3 +167,134 @@ largest preimage candidates                     120
 remaining rank-34 predecessor census            NEXT
 root solved                                     NO
 ```
+
+
+## Sparse single-coordinate implementation validation
+
+Before widening to the largest rank-34 coordinate domain, the dense pair-free boundary construction was rewritten so it no longer allocates an n x n player-pair table.
+
+For rank-34/near-terminal testing it uses exact monotone-function signatures over the at-most-eight future cells only as a fast implication comparator; the semantic objects remain the residual antichains.
+
+The sparse implementation was replayed on the already oracle-qualified parent:
+
+```text
+[5,5,5,1,6,6,6]
+
+sparse Upper root boundaries == qualified dense boundaries   YES
+sparse Lower root boundaries == qualified dense boundaries   YES
+
+largest action candidates   120
+largest Upper                61
+largest Lower               119
+```
+
+Thus the sparse code path reproduces the prior exact result before being used on larger coordinate domains.
+
+## Largest immediate rank-34 predecessor tested
+
+Target:
+
+```text
+[5,5,2,4,6,6,6]
+```
+
+Geometry/domain size:
+
+```text
+residual shapes                    20
+single-player antichains        6,556
+
+full parent pair domain
+if explicitly enumerated   42,981,136
+```
+
+The full pair oracle was deliberately **not** built.
+
+Sparse generator-only construction over its complete rank-34..42 future cone:
+
+```text
+supports                                60
+largest single-player antichain set  6,556
+largest action preimage candidate set   536
+largest state Upper boundary            359
+largest state Lower boundary            372
+largest distinct dual active patterns 1,673
+bounded prototype elapsed              ~26.6 s
+```
+
+Root rank-34 boundary widths:
+
+```text
+Upper:
+    loss2      1
+    loss4      8
+    loss6     28
+    loss8    102
+    draw8    359
+    win7     150
+    win5      44
+    win3       5
+    win1       4
+
+Lower:
+    loss2      8
+    loss4     29
+    loss6     98
+    loss8    203
+    draw8    213
+    win7      83
+    win5       6
+    win3       1
+    win1       1
+```
+
+### Disposition
+
+This is not independently pair-oracle-qualified at the 43M parent domain.
+
+It is, however, produced by the same sparse boundary implementation that exactly reproduced the already-qualified rank-34 parent, and it exercises the current largest immediate single-coordinate domain.
+
+The next observed scaling pressure has therefore moved from player-pair/product materialization to:
+
+```text
+single-player residual-antichain coordinate size
++
+dual-boundary active-pattern count.
+```
+
+That pressure is measurable but has not yet become a wall at rank 34.
+
+## Updated next executable step
+
+Run the sparse generator-only recurrence across the remaining rank-34 predecessor supports and record the envelope:
+
+```text
+max antichains/player
+max action-preimage candidates
+max Upper width
+max Lower width
+max dual active-pattern count
+time
+```
+
+Do not construct large pair oracles.
+
+If the rank-34 envelope remains bounded, move one structurally informative case to rank 33 and identify whether the first true new wall is:
+
+1. single-player antichain count;
+2. dual-complement pattern count;
+3. action preimage width;
+4. threshold boundary width.
+
+Current breadcrumb:
+
+```text
+largest rank-34 coordinate case tested
+    [5,5,2,4,6,6,6]
+
+result
+    CLOSED by sparse generator-only recurrence
+
+next
+    rank34_sparse_predecessor_envelope
+```
