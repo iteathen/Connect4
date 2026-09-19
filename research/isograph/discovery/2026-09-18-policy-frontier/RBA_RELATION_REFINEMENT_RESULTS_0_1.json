@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "experiment": "rba-relation-refinement-tests-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "terminal_top_join_morphism": {
+    "total_pair_cases": 3953688,
+    "join_mismatches": 0,
+    "bottom_mismatches": 0,
+    "interpretation": "Adjoining immediate terminal WIN_NOW as a top element makes the tested one-cell coordinate cofactors total join-preserving maps."
+  },
+  "full_galois_adjunction": {
+    "total_cases": 2932532,
+    "adjunction_mismatches": 0,
+    "unit_mismatches": 0,
+    "counit_mismatches": 0,
+    "interpretation": "For every tested action/ownership map, F(x) <= y iff x <= R(y), including the terminal top target."
+  },
+  "closure_fixed_points": {
+    "all_action_rows_match": true,
+    "closure_fixed_equals_forward_image_count": true,
+    "interior_fixed_equals_forward_image_count": true,
+    "examples": [
+      {
+        "support": [
+          5,
+          5,
+          5,
+          2,
+          6,
+          6,
+          6
+        ],
+        "column": 3,
+        "value": false,
+        "parent_formulas": 701,
+        "distinct_forward_images": 157,
+        "parent_closure_fixed_points": 157,
+        "child_interior_fixed_points": 157
+      },
+      {
+        "support": [
+          5,
+          5,
+          5,
+          2,
+          6,
+          6,
+          6
+        ],
+        "column": 3,
+        "value": true,
+        "parent_formulas": 701,
+        "distinct_forward_images": 260,
+        "parent_closure_fixed_points": 260,
+        "child_interior_fixed_points": 260
+      },
+      {
+        "support": [
+          5,
+          5,
+          2,
+          5,
+          6,
+          6,
+          6
+        ],
+        "column": 2,
+        "value": false,
+        "parent_formulas": 704,
+        "distinct_forward_images": 210,
+        "parent_closure_fixed_points": 210,
+        "child_interior_fixed_points": 210
+      },
+      {
+        "support": [
+          5,
+          5,
+          2,
+          5,
+          6,
+          6,
+          6
+        ],
+        "column": 2,
+        "value": true,
+        "parent_formulas": 704,
+        "distinct_forward_images": 368,
+        "parent_closure_fixed_points": 368,
+        "child_interior_fixed_points": 368
+      }
+    ],
+    "interpretation": "R∘F is a closure selecting canonical parent representatives of distinctions visible after propagation; F∘R is the matching child interior. Their fixed sets correspond to the forward image."
+  },
+  "word_closure_nesting": {
+    "monotone_closure_checks": 1896750,
+    "monotone_closure_mismatches": 0,
+    "fixed_image_count_mismatches": 0,
+    "support_1_fixed_points_by_depth_avg": [
+      220.25,
+      72.3846153846,
+      26.9558823529,
+      11.1849315068,
+      5.37407407407,
+      3,
+      2
+    ],
+    "support_2_fixed_points_by_depth_avg": [
+      238.75,
+      80.2307692308,
+      29.4852941176,
+      11.6232876712,
+      5.37407407407,
+      3,
+      2
+    ],
+    "interpretation": "Extending a fixed word produces a more extensive parent closure and a non-increasing fixed-point/image distinction set."
+  },
+  "joint_all_action_observation": [
+    {
+      "support": [
+        5,
+        5,
+        5,
+        2,
+        6,
+        6,
+        6
+      ],
+      "formulas": 701,
+      "legal_actions": 4,
+      "joint_true_false_classes": 701,
+      "false_only_classes": 701,
+      "true_only_classes": 672
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        5,
+        6,
+        6,
+        6
+      ],
+      "formulas": 704,
+      "legal_actions": 4,
+      "joint_true_false_classes": 704,
+      "false_only_classes": 704,
+      "true_only_classes": 663
+    }
+  ],
+  "interpretation": {
+    "surviving_relation_shape": "finite join-preserving left adjoint / residuated map with right adjoint; generally non-meet-preserving and distinction-collapsing along selected propagation",
+    "rejected_global_collapse": "The entire immediate action interface does not quotient either tested single-player residual lattice: joint true+false action observations remain injective.",
+    "shrinkage_scope": "path-conditional / information-conditional rather than unconditional global one-step collapse",
+    "authority_effect": "none"
+  }
+}
