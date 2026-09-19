@@ -103,6 +103,33 @@ Its open region separately represents the unknown minimal operator basis, compac
 `OPEN` applies to the RBA realization family. Individual propositions such as “rank propagation can be eliminated” are **not** automatically semantic QU `UNRESOLVED`; they retain their own witness/coverage burden.
 
 The RBA QU is post-1.1 research structure only. It does not mutate frozen authority 1.1, close C4-R0076, assert root compactness, solve the empty 7x6 root, or promote any unproved relation edge.
+### Current RBA IsoGraph successor state
+
+The current post-1.1 RBA logic/topology layer is:
+
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_2.md`, `.json`, and `.isg` — successor claims C4-R0077 through C4-R0084;
+- `isograph/successor/CONNECT4_RBA_QU_0_9.md`, `.json`, and `.isg` — current structured OPEN completion space;
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_2.md`, `.json`, and `.isg` — current semantic/topology placement.
+
+Current correction:
+
+```text
+ordinary exact value algebra:
+    board-fiber residuated residual lattice
+    + four-front partial WDL
+    + antichain-semiring Bellman lattice polynomial
+    = explicit
+
+current exact execution frontier:
+    rank29 draw13 final sparse semiring multiplication
+    131,121 x 41,133 = 5,393,996,493 implicit opportunities
+
+proof/certificate clause-to-value bridge:
+    still OPEN
+```
+
+Authority 1.1 remains frozen.
+
 ### Current derived method-emergence result
 
 The current operational-layer discovery is:
