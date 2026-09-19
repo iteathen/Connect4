@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "experiment": "rank32-lattice-pressure-probe",
+  "branch": "research/semantic-quotient",
+  "predecessor_checkpoint": "a664db80259ee69505f4ff2d31dc003e13019b3e",
+  "immediate_predecessor_census": [
+    {
+      "support": [
+        4,
+        5,
+        2,
+        3,
+        6,
+        6,
+        6
+      ],
+      "residual_shapes": 27,
+      "antichains_per_player": 226537
+    },
+    {
+      "support": [
+        5,
+        4,
+        2,
+        3,
+        6,
+        6,
+        6
+      ],
+      "residual_shapes": 27,
+      "antichains_per_player": 191806
+    },
+    {
+      "support": [
+        5,
+        5,
+        1,
+        3,
+        6,
+        6,
+        6
+      ],
+      "residual_shapes": 25,
+      "antichains_per_player": 99364
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        2,
+        6,
+        6,
+        6
+      ],
+      "residual_shapes": 27,
+      "antichains_per_player": 210720
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        3,
+        5,
+        6,
+        6
+      ],
+      "residual_shapes": 27,
+      "antichains_per_player": 145124
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        3,
+        6,
+        5,
+        6
+      ],
+      "residual_shapes": 27,
+      "antichains_per_player": 168400
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        3,
+        6,
+        6,
+        5
+      ],
+      "residual_shapes": 26,
+      "antichains_per_player": 143876
+    }
+  ],
+  "calibration": {
+    "support": [
+      5,
+      5,
+      1,
+      3,
+      6,
+      6,
+      6
+    ],
+    "rank": 32,
+    "residual_shapes": 25,
+    "antichains_per_player": 99364,
+    "root_upper": {
+      "loss2": 1,
+      "loss4": 8,
+      "loss6": 35,
+      "loss8": 109,
+      "loss10": 373,
+      "draw10": 1368,
+      "win9": 323,
+      "win7": 141,
+      "win5": 31,
+      "win3": 6,
+      "win1": 4
+    },
+    "root_lower": {
+      "loss2": 8,
+      "loss4": 21,
+      "loss6": 74,
+      "loss8": 297,
+      "loss10": 663,
+      "draw10": 508,
+      "win9": 165,
+      "win7": 61,
+      "win5": 18,
+      "win3": 1,
+      "win1": 1
+    },
+    "maxima": {
+      "fixed_action_upper_candidates": 2550,
+      "fixed_action_lower_candidates": 1746,
+      "lower_intersection_candidates": 587492,
+      "stored_upper": 1368,
+      "stored_lower": 2534
+    },
+    "timings_ms": {
+      "antichain_enumeration": 1400.360913,
+      "cofactor_maps": 1512.593196,
+      "boundary_propagation": 22825.193302,
+      "total": 25747.345388
+    }
+  },
+  "next": "probe_rank32_max_coordinate_case_[4,5,2,3,6,6,6]_without_pair_enumeration",
+  "authority_effect": "none"
+}
