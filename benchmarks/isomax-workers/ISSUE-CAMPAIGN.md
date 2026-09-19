@@ -34,6 +34,13 @@ No baseline/candidate timing ranges overlap in this sample. Keep the change;
 Experiment B and final four-worker review remain separate pending work.
 Portable raw root records: issue-74-key-A.json.
 
+#74 experiment B: maintained mirrored support was correct on every imported
+prefix/undo and mirror control, but the independent paired screen against A
+was inconclusive: serial 2290.40 -> 2292.42 ms; one-worker 2682.78 -> 2669.68 ms,
+with overlapping ranges. Do not promote another maintained field on that
+evidence. Candidate source AND its protected comments remain together in
+rejected/issue-74-mirror.patch; raw records in issue-74-key-B.json.
+
 Profiling uses actual bounded native tasks in a worker. Raw CPU/heap/generated
 code traces stay in Git-private evidence because they contain machine paths.
 Portable summaries retain source/runtime/workload and explicit limitations.
