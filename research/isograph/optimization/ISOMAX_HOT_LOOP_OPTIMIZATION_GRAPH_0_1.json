@@ -363,7 +363,8 @@
         92,
         93,
         94,
-        95
+        95,
+        96
       ]
     }
   ],
@@ -408,6 +409,21 @@
         "blocker chunk memoization",
         "trusted unchecked primitive split",
         "manager epoch visitation"
+      ]
+    },
+    {
+      "id": "DP-HOT-05",
+      "status": "new_bounded_candidate",
+      "finding": "full hash-mix chains still materialize unsigned Number intermediates although hot consumers appear bit-pattern-only",
+      "candidate_issue": 96,
+      "nei_profile": "P-ISOMAX-32BIT-CONSUMER",
+      "qu_region": "QU-HOT-01",
+      "qualification_required": [
+        "exact 32-bit differential",
+        "collision/probe equality",
+        "generated-code comparison",
+        "allocation profile",
+        "equal-work timing"
       ]
     }
   ],
