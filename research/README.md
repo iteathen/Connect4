@@ -47,6 +47,25 @@ It records:
 - `C4-R0076` — missing compact realizability-preserving clause-to-value controllable predecessor.
 
 These are successor-overlay claims, not authority-1.1 mutations. A later authority revision must independently qualify and ingest them.
+
+
+### Structured post-1.1 unknown — Residual Boundary Algebra (RBA)
+
+The currently unknown complete/minimal algebra behind the Connect4 residual-boundary value work is represented as a qualified-IsoGraph-QU **OPEN** information state rather than an opaque unknown:
+
+- `isograph/successor/CONNECT4_RBA_QU_0_1.md`
+- `isograph/successor/CONNECT4_RBA_QU_0_1.json`
+- `isograph/successor/CONNECT4_RBA_QU_0_1.isg`
+
+Stable research identity:
+
+`RBA-QU-0001 — Residual Boundary Algebra completion space`
+
+Its open region separately represents the unknown minimal operator basis, compactness law, rank-collapse law, direct-root expression, minimal observation, proof/value correspondence, family scope, and canonical factorization. It pins exact constraints, interfaces, exclusions, evidence and refinement semantics under qualified IsoGraph QU 0.1.
+
+`OPEN` applies to the RBA realization family. Individual propositions such as “rank propagation can be eliminated” are **not** automatically semantic QU `UNRESOLVED`; they retain their own witness/coverage burden.
+
+The RBA QU is post-1.1 research structure only. It does not mutate frozen authority 1.1, close C4-R0076, assert root compactness, solve the empty 7x6 root, or promote any unproved relation edge.
 ### Current derived method-emergence result
 
 The current operational-layer discovery is:
