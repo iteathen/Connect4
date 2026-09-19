@@ -1,6 +1,6 @@
 # Connect4 current research status
 
-**Updated:** 2026-09-18  
+**Updated:** 2026-09-19  
 **Branch:** `research/semantic-quotient`  
 **Research direction / structural architecture / invariant-first and self-proving-predicate program:** Josh Oshiro  
 **Formalization / implementation / qualification:** OpenAI ChatGPT
@@ -51,6 +51,42 @@ CLOSED AS ORDINARY ERROR:
 ```
 
 No authority-1.1 semantic artifact changed.
+
+## Current RBA successor frontier — 2026-09-19
+
+The post-1.1 successor graph is current through the rank-29 sparse-semiring frontier:
+
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_2.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_9.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_2.*`
+
+Current semantic disposition:
+
+```text
+C4-R0077  board-fiber residual/cofactor algebra                 deductive_exact
+C4-R0078  board-fiber ordinary-value invariance                 guarded_exact
+C4-R0079  terminal-extended cofactor adjunction/composition      deductive_exact
+C4-R0080  four-front partial-WDL block carrier                   deductive_exact
+C4-R0081  Bellman antichain-semiring lattice polynomial         deductive_exact
+C4-R0082  local-skyline semiring multiplication factorization   deductive_exact
+C4-R0083  selected rank31/rank30/rank29 native recurrence       empirically_supported
+C4-R0084  root-scale frontier-width/economics                    open_question
+```
+
+C4-R0076 remains open on the proof/certificate clause-to-value bridge, but it is no longer the primary ordinary-value blocker.
+
+Live exact seam:
+
+```text
+rank29 support [3,5,2,1,6,6,6]
+draw13 Lower
+current boundary 131,121
+final action Lower 41,133
+implicit semiring product 5,393,996,493
+preferred orientation 41,133 outer / 131,121 inner
+```
+
+Authority 1.1 and its frozen qualification evidence remain unchanged.
 
 ## Applied Natural Entropic Identity layer
 
