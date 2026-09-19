@@ -54,11 +54,11 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through complete selected rank-29 and rank-28 strong-value boundaries:
+The post-1.1 successor graph is current through complete selected rank29/rank28 boundaries and the selected rank27 draw threshold:
 
-- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_4.*`
-- `research/isograph/successor/CONNECT4_RBA_QU_0_11.*`
-- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4.*`
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_5.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_12.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_5.*`
 
 Current semantic disposition:
 
@@ -70,51 +70,38 @@ C4-R0080  four-front partial-WDL block carrier                   deductive_exact
 C4-R0081  Bellman antichain-semiring lattice polynomial         deductive_exact
 C4-R0082  local-skyline semiring multiplication factorization   deductive_exact
 C4-R0083  selected rank31/rank30/rank29/rank28 recurrence       empirically_supported
-C4-R0084  root-scale frontier-width/economics                    open_question
+C4-R0084  root-scale frontier/query-width law                    open_question
 C4-R0085  outer-restriction skyline-width monotonicity          deductive_exact
+C4-R0086  projection-tree subtree dominance pruning             deductive_exact
+C4-R0087  selected rank27 draw15 closure                         empirically_supported
 ```
 
-Selected rank29 remains fully closed. Its final draw13 product is now also qualified in the faster exact orientation:
+Selected rank27:
 
 ```text
-131,121 outer x 41,133 inner
-5,393,400,093 implicit opportunities
--> 1,353,069 local candidates
--> 140,454 exact generators
-same qualified final stream
-```
-
-Selected rank28 is now fully closed:
-
-```text
-support [3,5,2,0,6,6,6]
-rank 28
-residual shapes 35
-transformed bits 70
-
-score order:
-loss2,loss4,loss6,loss8,loss10,loss12,loss14,draw14,win13,win11,win9,win7,win5,win3,win1
-
-Upper:
-1,6,20,140,1159,13428,72737,144462,51645,17346,2233,203,27,7,3
-
-Lower:
-4,13,79,770,10770,45034,110931,78546,29554,4708,534,54,9,1,1
-```
-
-The exact evaluation-policy campaign found that the accumulated semiring boundary as outer was fastest on all six measured rank29/rank28 draw-fold products. Ordered-prefix orientation sampling is rejected as biased; deterministic hash-sampled local work is the current guard on new regimes. This is empirical evaluation-policy evidence, not a new semantic relation.
-
-The selected next structural control is rank27 support `[3,4,2,0,6,6,6]`:
-
-```text
+support [3,4,2,0,6,6,6]
+rank 27
 residual shapes 38
 transformed bits 76
-fixed-action draw-derived Upper 23,203
-fixed-action draw-derived Lower 72,117
-max principal-cover frontier 2
+
+Upper(draw15) 161,398
+Lower(draw15) 534,618
 ```
 
-It was selected precisely because representation width is high while its measured interface is small. Before composing its rank27 draw15 root, the remaining legal rank28 draw14 child boundaries must be generated and qualified exactly.
+The final Lower multiplication has 89,578,193,706 implicit pair opportunities. Flat pair scanning did not close inside a bounded 300-second run. Exact projection-tree pruning inspected only 1,306,881,417 inner generators:
+
+```text
+scan fraction      1.46%
+pruned            98.54%
+local candidates 1,555,168
+final generators   534,618
+local generation    28.061 s
+normalization        41.698 s
+```
+
+This refines the scaling question: local skyline width alone is insufficient. The current measured cost object is restricted-image width plus the inner volume that cannot be certified dominated without leaf inspection, plus global normalization cost.
+
+The selected support remains OPEN on its other strong thresholds. Test adjacent rank27 thresholds before any rank26 descent.
 
 C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a side seam rather than the primary ordinary-value execution route.
 

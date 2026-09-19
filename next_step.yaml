@@ -1,49 +1,48 @@
 current_rba_execution:
-  id: cache_selected_rank27_draw_children
-  status: rank29_rank28_closed_rank27_selected
+  id: test_adjacent_rank27_indexed_thresholds
+  status: rank29_rank28_closed_rank27_draw15_closed
   authority:
-    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_4.json
-    - research/isograph/successor/CONNECT4_RBA_QU_0_11.json
-    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4.json
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_CLOSED_CHECKPOINT_0_2.md
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_PREDECESSOR_ASSESSMENT_0_1.md
+    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_5.json
+    - research/isograph/successor/CONNECT4_RBA_QU_0_12.json
+    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_5.json
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_RESULTS_0_1.json
   exact_state:
     rank29:
       support: "[3,5,2,1,6,6,6]"
       status: complete_strong_boundary_closed
-      draw13_upper: 47472
-      draw13_lower: 140454
     rank28:
       support: "[3,5,2,0,6,6,6]"
       status: complete_strong_boundary_closed
-      residual_shapes: 35
-      transformed_bits: 70
-      upper: [1,6,20,140,1159,13428,72737,144462,51645,17346,2233,203,27,7,3]
-      lower: [4,13,79,770,10770,45034,110931,78546,29554,4708,534,54,9,1,1]
     rank27:
       support: "[3,4,2,0,6,6,6]"
-      status: selected_children_not_cached
+      status: draw15_closed_full_strong_boundary_open
       residual_shapes: 38
       transformed_bits: 76
-      fixed_draw_upper_interface: 23203
-      fixed_draw_lower_interface: 72117
-      max_cover: 2
+      draw15_upper: 161398
+      draw15_lower: 534618
+      final_raw_opportunities: 89578193706
+      indexed_inner_scanned: 1306881417
+      indexed_scan_fraction: 0.014589
+      indexed_pruned_fraction: 0.985411
   evaluation_policy:
-    exact_law: outer_restriction_skyline_width_monotonicity
-    current_empirical_policy: accumulated_boundary_as_outer
-    qualification: faster_on_all_six_rank29_rank28_draw_products
-    new_regime_guard: deterministic_hash_sampled_local_work_with_candidate_volume_guard
+    exact_laws:
+      - outer_restriction_skyline_width_monotonicity
+      - projection_subtree_union_dominance_pruning
+    flat_pair_scan: rejected_at_rank27_final_product
+    indexed_projection: current_exact_large_product_path
+    orientation_guard: deterministic_hash_sampled_local_work
   objective: >-
-    Generate and cache the remaining exact rank28 draw14 child boundaries required by selected rank27 support
-    [3,4,2,0,6,6,6], qualify each child against the same exact recurrence, then compose the rank27 draw15 root.
-    Compare local-skyline width, local work, candidate volume, normalization and final antichain width against the
-    closed rank28/rank29 controls. Reassess before any further descent.
+    Test adjacent strong thresholds on selected rank27 support [3,4,2,0,6,6,6], prioritizing loss14 and win15.
+    Use the ordinary sparse kernel while its measured economics remain bounded; switch to the exact projection-tree
+    evaluator when flat inner scans become the wall. Compare restricted-image width, prunable/inspected inner volume,
+    local candidate volume, normalization and final antichain width against draw15. Determine whether the rank27
+    pruning structure is support-fiber stable before any descent to rank26.
   constraints:
-    - do_not_infer_or_interpolate_missing_rank28_child_boundaries
-    - do_not_descend_below_rank27_before_rank27_reassessment
+    - do_not_descend_to_rank26_before_rank27_threshold_reassessment
     - preserve_exact_antichain_semiring_and_first_win_semantics
-    - keep_accumulated_boundary_outer_on_qualified_regime_unless_hash_sampled_local_work_falsifies_it
+    - do_not_use_local_skyline_width_alone_as_cost_predictor
+    - measure_or_bound_leaf_inspection_volume_on_large_products
     - candidate_count_alone_is_not_an_orientation_criterion
     - ordered_prefix_sampling_is_not_an_orientation_oracle
     - ordinary_value_bellman_semantics_are_not_the_open_law
@@ -128,13 +127,12 @@ parallel_high_value_seam:
     - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
-  id: cache_selected_rank27_draw_children
+  id: test_adjacent_rank27_indexed_thresholds
   objective: >-
-    Continue the exact RBA recurrence toward selected rank27 support [3,4,2,0,6,6,6]. Generate and persist the
-    missing exact rank28 draw14 child boundaries first; do not interpolate them. Then compose the exact rank27
-    draw15 root using the accumulated-boundary outer policy, guarded by deterministic hash-sampled local work on
-    any new orientation regime. Record skyline-width distribution, local work, candidate volume, normalization,
-    final antichain width and any principal-cover pressure. Reassess before descending below rank27.
+    Continue the exact RBA recurrence on selected rank27 support [3,4,2,0,6,6,6]. Test loss14 and win15 first,
+    preserving exact child boundaries and fixed-action fronts. For large universal products, measure restricted-image
+    skyline width and projection-tree leaf-inspection/pruning volume; use exact subtree-union dominance pruning when
+    flat scanning becomes the measured wall. Persist exact boundaries and stream hashes. Reassess before rank26.
   supporting_subseam:
     id: proof_value_bridge
     role: preserve_and_revisit_only_when_new_exact_relation_evidence_appears

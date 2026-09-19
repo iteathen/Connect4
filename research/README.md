@@ -107,46 +107,49 @@ The RBA QU is post-1.1 research structure only. It does not mutate frozen author
 
 The current post-1.1 RBA logic/topology layer is:
 
-- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_4.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_QU_0_11.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4.md`, `.json`, and `.isg`.
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_5.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_QU_0_12.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_5.md`, `.json`, and `.isg`.
 
 Current exact progression:
 
 ```text
 selected rank29 [3,5,2,1,6,6,6]   complete strong-value boundary CLOSED
 selected rank28 [3,5,2,0,6,6,6]   complete strong-value boundary CLOSED
-
-selected rank27 [3,4,2,0,6,6,6]
-    38 residual shapes / 76 transformed bits
-    structural predecessor selected
-    root not yet executed
+selected rank27 [3,4,2,0,6,6,6]   draw15 CLOSED; full strong boundary OPEN
 ```
 
-Rank28 exact boundary:
+Rank27 draw15:
 
 ```text
-Upper 1,6,20,140,1159,13428,72737,144462,51645,17346,2233,203,27,7,3
-Lower 4,13,79,770,10770,45034,110931,78546,29554,4708,534,54,9,1,1
+Upper 161,398
+Lower 534,618
+
+final product:
+    89,578,193,706 implicit opportunities
+    -> projection tree inspects 1,306,881,417
+    -> 98.54% of inner visits pruned
+    -> 1,555,168 local candidates
+    -> 534,618 exact generators
 ```
 
-The semiring evaluation refinement adds one exact successor law:
+The new exact successor law C4-R0086 is projection-tree subtree dominance pruning:
 
 ```text
-C4-R0085:
-for fixed inner B, if outer mask a is a restriction of a',
-then local skyline width at a cannot exceed local skyline width at a'
+if g >= a meet union(S)
+then every a meet b, b in S, is dominated
+and S may be skipped without leaf inspection
 ```
 
-Measured orientation evidence is separate from that theorem. Across six exact rank29/rank28 draw products, keeping the accumulated boundary as the outer projection family was fastest; raw pair count, operand size, and local-candidate count each failed as sufficient standalone cost predictors.
+This is distinct from the measured 98.54% pruning ratio, which is evidence for this particular rank27 product rather than a universal constant.
 
-Current durable evidence includes:
+Current durable evidence:
 
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_CLOSED_CHECKPOINT_0_2.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_PREDECESSOR_ASSESSMENT_0_1.md`.
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_RESULTS_0_1.json`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md`.
 
-The next exact seam is to cache and qualify the remaining rank28 draw14 children of selected rank27 support `[3,4,2,0,6,6,6]`, then compose its draw15 root and reassess before further descent.
+The next exact seam is adjacent rank27 strong thresholds, not rank26. The goal is to determine whether projection pruning remains structural across the support fiber or is specific to draw15.
 
 The proof/certificate clause-to-value bridge remains OPEN. Authority 1.1 remains frozen.
 
