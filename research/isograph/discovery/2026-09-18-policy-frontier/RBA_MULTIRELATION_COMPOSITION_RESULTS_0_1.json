@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "experiment": "rba-multirelation-composition-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "semantic_model": {
+    "state_mapping": "A two-ply macro maps each q/game state to a family of opponent-possible successor sets, one set per current-player action.",
+    "threshold_semantics": "A threshold holds iff there exists one action outcome-set entirely contained in the target threshold region.",
+    "closure_observation": "Up-closing or union-closing the outcome-set family does not change this existential/universal threshold semantics; supersets are weaker current-player choices.",
+    "literature": "Up-closed multirelations support associative Parikh composition; union-closed multirelations support associative Peleg composition."
+  },
+  "complete_control_4x3": {
+    "physical_states": 4631,
+    "two_ply": {
+      "value_mismatches": 0,
+      "average_minimal_outcome_sets": 2.2904340315266682,
+      "max_minimal_outcome_sets": 4,
+      "root_minimal_outcome_sets": 4
+    },
+    "four_ply": {
+      "value_mismatches": 0,
+      "average_minimal_outcome_sets": 14.094148132152883,
+      "max_minimal_outcome_sets": 1024,
+      "root_minimal_outcome_sets": 1024,
+      "raw_choice_products": 148142,
+      "max_incremental_partial_family": 256,
+      "raw_candidates_before_final_minimization": 74147
+    },
+    "six_ply_late_slice": {
+      "min_rank": 6,
+      "states": 4070,
+      "associativity_mismatches": 0,
+      "value_mismatches": 0,
+      "average_minimal_outcome_sets": 1.3552825552825554,
+      "max_minimal_outcome_sets": 3,
+      "left_parenthesization_choice_products": 27723,
+      "right_parenthesization_choice_products": 21282
+    }
+  },
+  "interpretation": [
+    "Connect4 two-ply game macros fit the alternating multirelation / monotone predicate-transformer semantics from the literature.",
+    "Associative closure is available after semantically harmless up/union closure.",
+    "The inclusion-minimal outcome-set antichain is not a compact RBA representation: it can explode to 1024 sets at the empty 4x3 root after only four plies.",
+    "Applying the four-front value abstraction during composition is therefore essential; composing the raw multirelation first and abstracting afterward preserves too much strategy-outcome detail.",
+    "The RBA mixed-cover operation can be understood as the abstract image of multirelational choice-function composition under the value-boundary abstraction."
+  ],
+  "authority_effect": "none"
+}
