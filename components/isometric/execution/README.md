@@ -24,7 +24,10 @@ boundaries, never process-local class IDs. Workers reconstruct native state once
 per task and recurse directly on packed WSL state. Root ordering scope remains
 the original external root ply; result arrival order cannot change root ties.
 
-Workers run synchronous bounded quanta (default 65,536 calls). A yielded task
+Workers run synchronous bounded quanta (default 131,072 calls for one/two
+workers, 65,536 for larger pools; explicit `taskNodes` overrides this policy).
+The larger low-worker quantum amortizes cold preparation at a measured memory
+cost; it is not a larger deadline or retained-record allowance. A yielded task
 returns `split` with no value, plus its unfinished native dependency path and
 already proved sibling values. Only `exact` returns WDL. The manager expands
 unfinished work at its actual child-value dependencies and consumes completions

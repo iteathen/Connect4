@@ -24,7 +24,11 @@ export class IsoMaxBranchManager {
   // Numeric exact q deduplication is intentional; no string-key reconstruction.
   // Manager/task objects belong outside worker recursion. Preserve dependency
   // continuations and cleanup; busy-core counts alone are not solve speed.
-  constructor({ workers = defaultIsoMaxWorkers(), taskNodes = 65536,
+  // OWNER-PROTECTED PREPARATION POLICY — do not remove/weaken this comment.
+  // 128K helped one/two workers, but cost more time/memory at four; retain 64K
+  // there. Explicit taskNodes remains available. Polling/retention/time/memory
+  // limits are separate contracts, not enlarged by this scheduling policy.
+  constructor({ workers = defaultIsoMaxWorkers(), taskNodes = workers <= 2 ? 131072 : 65536,
     maxTasks = 262144 } = {}) {
     this.workerCount = positive(workers, 'workers', 256);
     this.taskNodes = positive(taskNodes, 'taskNodes');

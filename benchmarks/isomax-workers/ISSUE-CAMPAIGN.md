@@ -146,3 +146,17 @@ serialization/scans into recursion. Sampling/snapshot tails/pool resets bias
 coverage, so do not extrapolate a precise total. Portable summary retained;
 full exact snapshots remain Git-private evidence. Before a shared-TT protocol,
 test the existing task quantum as the lowest-coordination scheduling candidate.
+
+#78/#84 quantum: reject 32K (one/two/four-worker medians 2139.86 -> 2182.90,
+1913.60 -> 1961.27, 1806.64 -> 1848.86 ms). 128K initial medians:
+one 2150.03 -> 2124.70, two 1920.06 -> 1873.77, four 1823.51 -> 1855.88.
+Do not increase four-worker quantum. Confirm conditional 128K only for one/two:
+one 2412.55 -> 2268.58, two 2118.32 -> 2029.45 ms; confirmation has visibly
+higher host variance, so do not claim its larger percentage as universal.
+Five of six pairs favor 128K at each selected count. Initial observed peak RSS:
+one 251,850,752 -> 316,493,824 bytes; two 387,366,912 -> 476,094,464;
+four 612,843,520 -> 814,325,760 (four-worker change rejected).
+Select conditional policy; keep 512-node controls, retention, deadlines and
+memory limits unchanged. Exact actions agree; one-worker nodes decrease only
+2,644,522 -> 2,644,187, so this is predominantly task-entry amortization, not
+proof of portable recursive reuse. Full controls and bounded smoke follow.
