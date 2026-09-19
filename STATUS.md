@@ -15,7 +15,7 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Current logic representation authority
 
-Connect4 logic authority is now IsoGraph authority 1.1:
+Qualified Connect4 logic authority remains IsoGraph authority 1.1 until a successor is explicitly qualified/promoted:
 
 - `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md`
 - `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.isg`
@@ -24,6 +24,34 @@ Connect4 logic authority is now IsoGraph authority 1.1:
 Qualification and promotion are recorded in `research/isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_1.md` and `docs/decisions/2026-09-18-isograph-logic-authority-1-1.md`. Authority 1.0 remains immutable historical qualification evidence.
 
 The prior Markdown/JSON/spec/claim corpus is retained as a provenance/readability bridge. The exact qualified frozen source is embedded in the native IsoGraph source-image layer. Unknown and unresolved material remains explicitly represented; it is not treated as absent or false.
+
+## Active clean successor interpretations
+
+Pre-alpha research no longer composes the old NEI/RBA/hot-loop overlay stacks as active semantics.
+
+For current game-theory research, use only:
+
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`.
+
+For current IsoMax hot-loop semantic/performance research, use only:
+
+- `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md`;
+- `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json`;
+- `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg`.
+
+These are successor **candidates**, not promoted authority. Authority 1.1 remains the qualified historical/current authority until replacement qualification. The old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain provenance/evidence only for active interpretation.
+
+Both successors use the NEI 0.4 candidate direction from `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`:
+
+```text
+facts + constraints + evidence + QU
+    -> admissible identity models
+    -> derived SAME / DISTINCT / UNKNOWN
+```
+
+No profile-declared identity answer is active in the successors. No Bayesian identity weight is invented from test counts; Bayes/log-Bayes evidence requires a qualified likelihood model.
 
 The Core-0.18 sanity correction has been applied operationally without changing authority 1.1 semantics. Material discrepancies now carry separate qualification and discovery dispositions. The frozen 1.1 cold evidence remains unchanged; surviving structural leads are tracked in `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
 
@@ -114,9 +142,9 @@ The selected rank26 target is `draw16`. Three of its four legal rank27 `draw15` 
 
 The proof/certificate clause-to-value bridge remains a separate OPEN side seam. Authority 1.1 remains unchanged.
 
-## Applied Natural Entropic Identity layer
+## Historical applied NEI layer — superseded for active interpretation
 
-NEI is now applied over the Connect4 IsoGraph as a derived identity overlay:
+The old applied NEI overlay remains immutable research/provenance evidence:
 
 - `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
 - `research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json`;
@@ -124,27 +152,9 @@ NEI is now applied over the Connect4 IsoGraph as a derived identity overlay:
 - `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json`;
 - `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.isg`.
 
-Current NEI results:
+Do not use it as a current identity layer. Its profile-declared SAME/DISTINCT framing is replaced in active research by the integrated 1.2 game-theory candidate, where identity conclusions are derived from ordinary facts/evidence/QU under the NEI 0.4 successor model.
 
-```text
-SAME:
-    R0044 artifact projections -> same lineage
-    R0074 event projections -> same lineage
-    same-q states -> same future-behavior state on exhausted SIU-1 controls
-
-DISTINCT:
-    R0044 artifacts under artifact identity
-    R0074 historical/canonical events under event identity
-    R0045 rolling/compact lineages under lineage identity
-
-INCOMPLETE:
-    standard 7x6 same-q future-behavior identity
-
-semantic NEI UNKNOWN:
-    none
-```
-
-The 7x6 result is deliberately incomplete/unqualified rather than semantic UNKNOWN because no qualified QU-mediated identity model family exists for that question.
+The historical standard-7x6 incomplete result remains correct at its pinned old evidence revision. The later q-congruence proof is represented directly in the 1.2 successor as deductive candidate evidence pending independent qualification; it is not silently rewritten into historical NEI artifacts.
 
 ### Discovery Protocol rerun with NEI
 
