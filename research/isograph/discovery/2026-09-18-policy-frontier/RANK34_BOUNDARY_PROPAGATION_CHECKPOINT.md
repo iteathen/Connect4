@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-18
 **Canonical branch:** `research/semantic-quotient`
-**Status:** active checkpoint — first direct rank-34 parent qualified, second direct parent next
+**Status:** both direct rank-34 parents qualified exactly; widening to the remaining rank-34 predecessor supports
 **Authority effect:** none
 
 ## Resume chain
@@ -83,32 +83,87 @@ The 3.15M-state pair oracle was separate and served only as a falsifier.
 
 The generator-only boundary widths did not increase materially at this first rank-34 step.
 
+## Second rank-34 target
+
+The analogous parent of the second pathological support was then qualified:
+
+```text
+rank 34 parent
+    [5,5,1,5,6,6,6]
+
+direct child
+    [5,5,2,5,6,6,6]
+
+distinct residual shapes          17
+single-player antichains       1,319
+rank-34 pair domain          1,739,761
+complete rank-34..42 oracle  3,305,845
+```
+
+Generator-only construction:
+
+```text
+fixed-action threshold constructions     616
+largest pre-normalization preimage set   100
+largest state Upper boundary              55
+largest state Lower boundary              99
+```
+
+Exact oracle comparison:
+
+```text
+Upper boundaries        240 / 240 exact
+Lower boundaries        240 / 240 exact
+total mismatches                  0
+```
+
+## Combined direct rank-34 result
+
+```text
+direct pathological-parent cones             2
+Upper boundary comparisons                  480
+Lower boundary comparisons                  480
+total exact boundary comparisons            960
+total generator-set mismatches                0
+largest preimage candidate set              120
+largest Upper boundary                       61
+largest Lower boundary                      119
+```
+
 ## Next executable step
 
-Run the analogous direct rank-34 parent of the second pathological support:
+Widen across the remaining rank-34 predecessors of the two pathological supports.
+
+Observed single-player domain sizes range from roughly 1.3k to 6.6k antichains. The largest identified immediate predecessor is:
 
 ```text
-[5,5,1,5,6,6,6]
-    -> [5,5,2,5,6,6,6]
+[5,5,2,4,6,6,6]
+    residual shapes             20
+    antichains/player         6,556
+    full pair domain     42,981,136
 ```
 
-Known pre-run geometry:
+Do **not** build that 43M-state pair oracle merely for reassurance.
 
-```text
-residual shapes              17
-single-player antichains  1,319
-rank-34 pair domain      1,739,761
-future-cone pair oracle  3,305,845
-```
+First run the generator-only construction itself and measure:
 
-After that, checkpoint again before widening to the remaining rank-34 predecessor supports.
+- single-player implication-poset cost;
+- boundary widths;
+- preimage candidate widths;
+- time/memory.
+
+Use a full pair oracle only on rank-34 cases where it remains a proportionate independent falsifier.
+
+Stop if the single-player antichain/implication coordinate becomes the new wall.
 
 ## Current disposition
 
 ```text
-rank-35 pathological wall bypassed          YES on value-boundary path
-first rank-34 parent boundary propagation   480/480 exact
-largest preimage candidates                 120
-rank-34 second direct parent                NEXT
-root solved                                 NO
+rank-35 pathological wall bypassed              YES on value-boundary path
+direct rank-34 parent #1                        480/480 exact
+direct rank-34 parent #2                        480/480 exact
+combined direct rank-34 qualification           960/960 exact
+largest preimage candidates                     120
+remaining rank-34 predecessor census            NEXT
+root solved                                     NO
 ```
