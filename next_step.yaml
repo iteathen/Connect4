@@ -1,6 +1,6 @@
-schema_version: 25
-updated: 2026-09-18
-state: cuda_bsfp_spec_aligned_rba_update_ready
+schema_version: 26
+updated: 2026-09-19
+state: cuda_bsfp_rba_reference_qualified_p2_retained
 repository_role: connect4_cuda_bsfp_solver
 canonical_branch: solver/cuda-bsfp
 
@@ -32,6 +32,8 @@ current:
   p2_representation_identity: finer_than_q_future_behavior_identity
   seven_by_six_root_wdl: unknown
   seven_by_six_latest_bounded_outcome: clean_timeout
+  rba_reference: bounded_cpu_qualified_not_promoted
+  rba_economics_gate: retain_p2
 
 promoted_repairs:
   - correct_loss_cofactor_binding
@@ -49,6 +51,17 @@ promoted_optimizations:
   - active_output_slab_readback
 
 qualification:
+  current_local_node_tests: 127_pass_0_fail
+  rba:
+    complete_physical_control: 4x3_c3_4659_states_11818_edges
+    complete_abstract_control: 2x2_c2_all_fibers_and_generator_sets
+    research_boundary_hashes: 608_matches_across_152_support_occurrences
+    limits: unchanged_4096_supports_2000000_candidates_50000_frontier
+    rba_4x3_cpu_median_ms: 756.3365
+    p2_cpu_control_4x3_median_ms: 21.8322
+    native_gpu_comparison: not_run_no_promotion
+    evidence: experiments/bsfp-rba-reference
+    identity_audit: docs/qualification/bsfp-identity-audit.md
   promotion_pr: 53
   ci:
     - verify_pass
@@ -83,13 +96,14 @@ semantic_alignment:
   ndc_side_seam: guarded_mixed_cofactor_obligation_birth
   proof_value_bridge: open_not_primary_for_ordinary_wdl
 
-open_issues:
+resolved_update_seams:
   - number: 60
     target: qualify_q_rba_boundary_native_frontier_against_p2
   - number: 61
     target: profile_safe_gameplay_vs_proof_identity
   - number: 62
     target: implement_and_qualify_existing_rba_q_predecessor_algebra
+open_issues:
   - number: 63
     target: optional_ndc_guarded_obligation_birth_side_seam
 
@@ -131,11 +145,10 @@ ownership_gate:
     - generic_tensor_semantics_and_device_callable_tensor_mechanisms
 
 next_actions:
-  - pin_and_materialize_the_initial_rba_candidate_contract_from_research_revision_104abfbe4444fcd315ac807b46ce2be8da13df39_without_copying_research_ownership
-  - implement_a_bounded_cpu_node_q_rba_boundary_reference_adjacent_to_p2_not_inside_p2
-  - reproduce_complete_small_game_wdl_and_persisted_rba_boundary_controls_before_gpu_work
-  - audit_identity_sites_under_issue_61_before_any_q_level_dedup_is_widened
-  - compare_p2_vs_q_rba_on_exact_same_inputs_frontier_width_projection_visits_normalization_memory_and_wall_time
+  - retain_p2_as_selected_path_after_unfavorable_same_input_rba_economics
+  - use_qualified_rba_reference_and_reproduction_fixtures_for_future_bounded_candidates
+  - require_representative_total_cost_improvement_before_widening_rba_or_shared_q_reuse
+  - leave_ndc_63_unresolved_until_canonical_research_supplies_its_missing_proof_guards
   - promote_generic_projection_tree_or_segmented_antichain_mechanics_to_cuda_algorithms_only_if_consumer_neutral
   - build_device_js_profile_only_after_reference_semantics_and_economics_are_qualified
   - refresh_current_head_verify_bsfp_portable_scaling_and_native_bounded_controls_before_any_promotion

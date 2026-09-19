@@ -3,7 +3,7 @@
 **Updated:** 2026-09-19  
 **Lane:** CUDA-BSFP exact solver  
 **Canonical branch:** `solver/cuda-bsfp`  
-**State:** specification-aligned for post-P2 q/RBA update pass; P2 remains the qualified exact baseline; 7x6 root still unsolved
+**State:** bounded q/RBA reference and identity audit qualified; economics gate retains P2; NDC proof seam remains open; 7x6 root still unsolved
 
 ## Mission
 
@@ -28,7 +28,7 @@ These remain bounded milestones. They do not establish a complete empty-board 7x
 
 ## Update-pass readiness — 2026-09-19
 
-The BSFP specifications are now aligned to the current semantic boundary before the next implementation pass.
+The bounded implementation pass consumed research revision 104abfbe4444fcd315ac807b46ce2be8da13df39 without changing research authority or P2.
 
 Current contract:
 
@@ -56,13 +56,33 @@ Readiness disposition:
 P2 exact baseline                         READY
 BSFP W/D/L semantics                     READY
 gameplay / representation / proof keys   READY
-q/RBA ordinary-value candidate           READY FOR IMPLEMENTATION QUALIFICATION
+q/RBA ordinary-value candidate           BOUNDED CPU REFERENCE QUALIFIED
+same-input economics gate                RETAIN P2; DO NOT PROMOTE RBA TO GPU
 NDC guarded-obligation / proof bridge    OPEN SIDE SEAM
 empty-board 7x6                           UNSOLVED
 current-head CI/qualification refresh    REQUIRED BEFORE PROMOTION
 ```
 
-The implementation pass should add the q/RBA candidate alongside P2 and compare it on identical controls. Do not rewrite P2 first and do not block ordinary-value work on C4-R0076/#63.
+Implementation and qualification:
+
+- Native residual boundary construction in components/bsfp/rba-wdl-reference.mjs:
+  exact cofactor adjoints, terminal handling, Upper/Lower WDL fronts and local
+  skyline composition; no q-interior or physical-state enumeration in the solver.
+- Complete 4x3 physical/q agreement, complete 2x2 abstract-fiber agreement,
+  and 608 research boundary hashes across two rank-33 cones.
+- Explicit identity profiles and negative proof-context controls under #61.
+- Exact minimal-generator cover optimization reduced measured 4x3 RBA median
+  from 862.14 to 756.34 ms and closed the larger rank-33 cone under the unchanged
+  two-million-candidate bound.
+- P2 CPU control median 21.83 ms versus RBA 756.34 ms: retain P2. These are
+  same-input CPU comparisons, not fresh native-GPU timings.
+- All 127 repository Node tests passed. No current-head native/CI promotion
+  claim is made; the native P2 path and its limits are unchanged.
+
+See docs/qualification/bsfp-rba-reference.md and
+docs/qualification/bsfp-identity-audit.md for contracts, commands and evidence.
+NDC #63 remains unresolved under C4-0007 section 5B; ordinary WDL does not
+discharge its missing proof guards.
 
 ## Current promoted P2 implementation
 
@@ -122,7 +142,10 @@ These are bounded measurements, not a universal speedup distribution or a 7x6 so
 
 For the retained P2 baseline, the large-case path is no longer blocked by the old frontier-capacity defect; remaining cost is dominated by large exact normalization/recovery work and serial host orchestration/finalization.
 
-For the **update pass**, the primary question is now whether the boundary-native q/RBA realization reduces total frontier/projection/normalization work enough to replace or complement P2. This is a representation/evaluation comparison, not a correctness repair of P2.
+The bounded q/RBA update pass did not improve total economics over P2 on the
+complete small-game controls. It remains a reproducible CPU reference.
+Earlier-rank scaling, representative larger-input economics, and a justified
+GPU specialization remain opportunities, not qualified performance claims.
 
 The next scalable capabilities should be owned at their natural layer:
 
