@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "experiment": "rba-bellman-unknown-shell-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "information_domain": {
+    "values": [
+      "UNKNOWN",
+      "WIN",
+      "DRAW",
+      "LOSS"
+    ],
+    "concrete_interval_encoding": {
+      "UNKNOWN": [
+        -1,
+        1
+      ],
+      "WIN": [
+        1,
+        1
+      ],
+      "DRAW": [
+        0,
+        0
+      ],
+      "LOSS": [
+        -1,
+        -1
+      ]
+    },
+    "other_interval_values_observed": 0
+  },
+  "controls": [
+    {
+      "geometry": "4x3:c3",
+      "q_states": 3734,
+      "exact_strong_state_classes": 19,
+      "bellman_information_trace_classes": 19,
+      "exact_action_score_vector_classes": 1000,
+      "bellman_action_trace_classes": 1000,
+      "state_resolution_distance_mismatches": 0,
+      "action_resolution_distance_mismatches": 0,
+      "convergence_passes_before_no_change": 10,
+      "state_resolution_frontiers": {
+        "cases": 1536,
+        "win_upward_closure_violations": 0,
+        "loss_downward_closure_violations": 0,
+        "max_win_boundary": 17,
+        "max_loss_boundary": 11
+      },
+      "action_resolution_frontiers": {
+        "cases": 4992,
+        "win_upward_closure_violations": 0,
+        "loss_downward_closure_violations": 0,
+        "max_win_boundary": 14,
+        "max_loss_boundary": 14
+      }
+    },
+    {
+      "geometry": "4x4:c4",
+      "q_states": 34094,
+      "exact_strong_state_classes": 29,
+      "bellman_information_trace_classes": 29,
+      "exact_action_score_vector_classes": 3005,
+      "bellman_action_trace_classes": 3005,
+      "state_resolution_distance_mismatches": 0,
+      "action_resolution_distance_mismatches": 0,
+      "convergence_passes_before_no_change": 16,
+      "state_resolution_frontiers": {
+        "cases": 5000,
+        "win_upward_closure_violations": 0,
+        "loss_downward_closure_violations": 0,
+        "max_win_boundary": 29,
+        "max_loss_boundary": 15
+      },
+      "action_resolution_frontiers": {
+        "cases": 17000,
+        "win_upward_closure_violations": 0,
+        "loss_downward_closure_violations": 0,
+        "max_win_boundary": 18,
+        "max_loss_boundary": 25
+      }
+    },
+    {
+      "geometry": "5x3:c4",
+      "q_states": 11316,
+      "exact_strong_state_classes": 26,
+      "bellman_information_trace_classes": 26,
+      "exact_action_score_vector_classes": 2334,
+      "bellman_action_trace_classes": 2334,
+      "state_resolution_distance_mismatches": 0,
+      "action_resolution_distance_mismatches": 0,
+      "convergence_passes_before_no_change": 15,
+      "state_resolution_frontiers": {
+        "cases": 7680,
+        "win_upward_closure_violations": 0,
+        "loss_downward_closure_violations": 0,
+        "max_win_boundary": 6,
+        "max_loss_boundary": 3
+      },
+      "action_resolution_frontiers": {
+        "cases": 30720,
+        "win_upward_closure_violations": 0,
+        "loss_downward_closure_violations": 0,
+        "max_win_boundary": 5,
+        "max_loss_boundary": 6
+      }
+    }
+  ],
+  "theorem_candidate": {
+    "domain_rule": [
+      "UNKNOWN negates to UNKNOWN; WIN and LOSS swap; DRAW is fixed.",
+      "Immediate terminal action is exact WIN or final-board DRAW.",
+      "A state resolves WIN if any action is known WIN.",
+      "If no action is WIN and at least one action remains UNKNOWN, the state remains UNKNOWN.",
+      "If all actions are exact and at least one is DRAW, the state is DRAW.",
+      "If all actions are LOSS, the state is LOSS."
+    ],
+    "induction": "In a finite acyclic alternating game, synchronous iteration from UNKNOWN resolves a winning state at 1 + the minimum resolution time of a losing child, and a losing state at 1 + the maximum resolution time of winning children. This is exactly faster-win/slower-loss strong distance. Draws resolve when the finite continuation is exhausted without a forced win/loss.",
+    "consequence": "Strong score is derivable as (resolved outcome, first resolution iteration); the finite strong-score chain need not be treated as a primitive value carrier."
+  },
+  "relation_to_shell_tests": {
+    "raw_transition_partition_shell": "too fine",
+    "value_specific_bellman_orbit": "exactly matches strong state/action semantics on all complete controls",
+    "caution": "This experiment establishes a value-specific refinement orbit / generated abstract domain. It is not yet a proof that this four-valued domain is the unique forward-complete shell in the full abstract-interpretation sense."
+  },
+  "relation_to_boundaries": [
+    "WIN-resolved-by-k sets were upward closed under the support-local favorable q order in every tested case.",
+    "LOSS-resolved-by-k sets were downward closed in every tested case.",
+    "Therefore the four-valued Bellman refinement can be represented symbolically by the same extremal antichain boundary machinery."
+  ],
+  "literature_alignment": [
+    "Win/draw/loss/unknown retrograde databases propagate partial information by the same existential-win / universal-loss rules.",
+    "Generalized strong-preservation theory warns that raw-transition partition shells can be needlessly fine and allows non-partitioning abstract domains.",
+    "The observed RBA boundary domain is a non-partitioning monotone representation of the value-specific refinement."
+  ],
+  "authority_effect": "none"
+}
