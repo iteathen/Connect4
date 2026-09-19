@@ -397,8 +397,8 @@ export class ResidualPool {
       if (cached !== CLASS_UNKNOWN) return cached;
     }
 
-    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
-    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+    const bitLo = ISOMETRIC_PROFILE.cellLo[cell];
+    const bitHi = ISOMETRIC_PROFILE.cellHi[cell];
     if ((((this.singletonLo[id] & bitLo) >>> 0) !== 0) || (((this.singletonHi[id] & bitHi) >>> 0) !== 0)) {
       if (cacheIndex >= 0) this.ownTransitions[cacheIndex] = RESIDUAL_TERMINAL_WIN;
       return RESIDUAL_TERMINAL_WIN;
@@ -517,8 +517,8 @@ export class ResidualPool {
       this.classSlotIds[slotIndex][result] = this.chunkIds[slotIndex];
     }
     this.classHashes[result] = hash;
-    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
-    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+    const bitLo = ISOMETRIC_PROFILE.cellLo[cell];
+    const bitHi = ISOMETRIC_PROFILE.cellHi[cell];
     this.singletonLo[result] = (this.singletonLo[id] & ~bitLo) >>> 0;
     this.singletonHi[result] = (this.singletonHi[id] & ~bitHi) >>> 0;
     this.classHashSlots[hashSlot] = result;
@@ -620,8 +620,8 @@ export class ResidualPool {
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.assertClass(id);
     this.assertCell(cell);
-    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
-    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+    const bitLo = ISOMETRIC_PROFILE.cellLo[cell];
+    const bitHi = ISOMETRIC_PROFILE.cellHi[cell];
     return (((this.singletonLo[id] & bitLo) >>> 0) !== 0) || (((this.singletonHi[id] & bitHi) >>> 0) !== 0);
   }
 

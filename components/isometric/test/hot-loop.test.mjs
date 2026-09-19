@@ -8,6 +8,15 @@ import { ResidualPool } from '../residual-pool.mjs';
 import { IsoMaxTransitionCache } from '../isomax-index.mjs';
 import { IsometricState } from '../state.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+import { ISOMETRIC_PROFILE } from '../profile.mjs';
+
+test('preloaded cell masks match independent 42-bit decomposition including bit 31', () => {
+  for (let cell = 0; cell < 42; cell++) {
+    const wide = 1n << BigInt(cell);
+    assert.equal(ISOMETRIC_PROFILE.cellLo[cell], Number(wide & 0xffffffffn));
+    assert.equal(ISOMETRIC_PROFILE.cellHi[cell], Number(wide >> 32n));
+  }
+});
 
 test('prepared q scalars survive scratch reuse, collisions, repeated growth and mirrored lookup', () => {
   const pool = new ResidualPool(), cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });

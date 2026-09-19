@@ -101,16 +101,16 @@ export class IsometricState {
     const nextOwn = this.pool.ownTransition(ownClass, cell);
     const nextOpponent = this.pool.blockTransition(opponentClass, cell);
 
-    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
-    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+    const bitLo = ISOMETRIC_PROFILE.cellLo[cell];
+    const bitHi = ISOMETRIC_PROFILE.cellHi[cell];
     this.supportLo = (this.supportLo | bitLo) >>> 0;
     this.supportHi = (this.supportHi | bitHi) >>> 0;
     this.playableLo = (this.playableLo & ~bitLo) >>> 0;
     this.playableHi = (this.playableHi & ~bitHi) >>> 0;
     if (row + 1 < ROWS) {
       const above = cell + COLUMNS;
-      const aboveLo = above < 32 ? ((2 ** above) >>> 0) : 0;
-      const aboveHi = above >= 32 ? ((2 ** (above - 32)) >>> 0) : 0;
+      const aboveLo = ISOMETRIC_PROFILE.cellLo[above];
+      const aboveHi = ISOMETRIC_PROFILE.cellHi[above];
       this.playableLo = (this.playableLo | aboveLo) >>> 0;
       this.playableHi = (this.playableHi | aboveHi) >>> 0;
     }
@@ -156,15 +156,15 @@ export class IsometricState {
     this.sideToMove = player;
     this.heights[column] = row;
     this.supportCode = (this.supportCode - (1 << (column * 3)) - (1 << RANK_SHIFT)) >>> 0;
-    const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
-    const bitHi = cell >= 32 ? ((2 ** (cell - 32)) >>> 0) : 0;
+    const bitLo = ISOMETRIC_PROFILE.cellLo[cell];
+    const bitHi = ISOMETRIC_PROFILE.cellHi[cell];
     this.supportLo = (this.supportLo & ~bitLo) >>> 0;
     this.supportHi = (this.supportHi & ~bitHi) >>> 0;
 
     if (row + 1 < ROWS) {
       const above = cell + COLUMNS;
-      const aboveLo = above < 32 ? ((2 ** above) >>> 0) : 0;
-      const aboveHi = above >= 32 ? ((2 ** (above - 32)) >>> 0) : 0;
+      const aboveLo = ISOMETRIC_PROFILE.cellLo[above];
+      const aboveHi = ISOMETRIC_PROFILE.cellHi[above];
       this.playableLo = (this.playableLo & ~aboveLo) >>> 0;
       this.playableHi = (this.playableHi & ~aboveHi) >>> 0;
     }

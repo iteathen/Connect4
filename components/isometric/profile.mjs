@@ -198,10 +198,22 @@ function buildProfile() {
     else initialPlayableHi = (initialPlayableHi | ((2 ** (cell - 32)) >>> 0)) >>> 0;
   }
 
+  // OWNER-PROTECTED PRELOAD — do not remove/weaken this comment.
+  // Standard-profile cell masks are immutable prepared data, not state.
+  // Keep both unsigned halves: cell 31 must not leak signedness and cells
+  // 32..41 must not wrap into the low word. No exponentiation in recursion.
+  const cellLo = new Uint32Array(CELL_COUNT), cellHi = new Uint32Array(CELL_COUNT);
+  for (let cell = 0; cell < CELL_COUNT; cell++) {
+    if (cell < 32) cellLo[cell] = (1 << cell) >>> 0;
+    else cellHi[cell] = (1 << (cell - 32)) >>> 0;
+  }
+
   return Object.freeze({
     columns: COLUMNS,
     rows: ROWS,
     cellCount: CELL_COUNT,
+    cellLo,
+    cellHi,
     lineCount: WINNING_LINES.length,
     count: terms.length,
     terminal,

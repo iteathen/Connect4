@@ -1,0 +1,257 @@
+{
+  "traceSha256": "f81f6a3317657a702a932702cdc1645fa904c9b28fc17887686546c163bf2161",
+  "limits": "Static sites are not dynamic cost. Deopt events include warmup and repeated lazy frames. No hardware counters captured.",
+  "code": [
+    {
+      "name": "singletonEffectClass",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 3064,
+      "fastCCallSites": 4,
+      "deoptPoints": 47,
+      "inlined": [
+        "wordAt",
+        "word",
+        "hasSingletonAt",
+        "assertClass",
+        "assertCell"
+      ]
+    },
+    {
+      "name": "ownTransition",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 6460,
+      "fastCCallSites": 2,
+      "deoptPoints": 124,
+      "inlined": [
+        "bitIndex32",
+        "cacheIndex",
+        "assertClass",
+        "assertCell",
+        "loadClassBits",
+        "copyTo"
+      ]
+    },
+    {
+      "name": "promotedColumn",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 1588,
+      "fastCCallSites": 0,
+      "deoptPoints": 28,
+      "inlined": []
+    },
+    {
+      "name": "gameplayKey",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 4464,
+      "fastCCallSites": 0,
+      "deoptPoints": 123,
+      "inlined": [
+        "reflectedSupportCode",
+        "reflectSupportCode",
+        "compareClasses",
+        "wordAt",
+        "word",
+        "assertClass"
+      ]
+    },
+    {
+      "name": "applyUnchecked",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 2928,
+      "fastCCallSites": 4,
+      "deoptPoints": 52,
+      "inlined": []
+    },
+    {
+      "name": "undo",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 2120,
+      "fastCCallSites": 4,
+      "deoptPoints": 31,
+      "inlined": []
+    },
+    {
+      "name": "blockTransition",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 7288,
+      "fastCCallSites": 2,
+      "deoptPoints": 150,
+      "inlined": [
+        "word",
+        "cacheIndex",
+        "assertClass",
+        "assertCell",
+        "ensureReferenceWidth",
+        "referenceTypeFor",
+        "classEquals",
+        "hashChunkTuple",
+        "mix32",
+        "ensureClassCapacity"
+      ]
+    },
+    {
+      "name": "internBits",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 8088,
+      "fastCCallSites": 0,
+      "deoptPoints": 163,
+      "inlined": [
+        "equals",
+        "ensureReferenceWidth",
+        "referenceTypeFor",
+        "classEquals",
+        "computeSingletonMasks",
+        "bitIndex32",
+        "hashChunkTuple",
+        "mix32"
+      ]
+    },
+    {
+      "name": "solveNode",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 8880,
+      "fastCCallSites": 0,
+      "deoptPoints": 169,
+      "inlined": [
+        "assertExactValue",
+        "assertNoWinBounds",
+        "promotedColumn",
+        "get",
+        "findSlot",
+        "hashSignature",
+        "mix32",
+        "storeExact",
+        "set",
+        "matches"
+      ]
+    },
+    {
+      "name": "ownTransition",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 6452,
+      "fastCCallSites": 2,
+      "deoptPoints": 123,
+      "inlined": [
+        "bitIndex32",
+        "cacheIndex",
+        "assertClass",
+        "assertCell",
+        "loadClassBits",
+        "copyTo"
+      ]
+    },
+    {
+      "name": "undo",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 2108,
+      "fastCCallSites": 4,
+      "deoptPoints": 30,
+      "inlined": []
+    },
+    {
+      "name": "applyUnchecked",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 2912,
+      "fastCCallSites": 4,
+      "deoptPoints": 51,
+      "inlined": []
+    },
+    {
+      "name": "blockTransition",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 7240,
+      "fastCCallSites": 2,
+      "deoptPoints": 147,
+      "inlined": [
+        "word",
+        "cacheIndex",
+        "assertClass",
+        "assertCell",
+        "ensureReferenceWidth",
+        "referenceTypeFor",
+        "classEquals",
+        "hashChunkTuple",
+        "mix32",
+        "ensureClassCapacity"
+      ]
+    },
+    {
+      "name": "internBits",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 8028,
+      "fastCCallSites": 0,
+      "deoptPoints": 161,
+      "inlined": [
+        "equals",
+        "ensureReferenceWidth",
+        "referenceTypeFor",
+        "classEquals",
+        "computeSingletonMasks",
+        "bitIndex32",
+        "hashChunkTuple",
+        "mix32"
+      ]
+    },
+    {
+      "name": "computeSingletonMasks",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 2196,
+      "fastCCallSites": 0,
+      "deoptPoints": 35,
+      "inlined": [
+        "bitIndex32"
+      ]
+    },
+    {
+      "name": "internBits",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 8220,
+      "fastCCallSites": 0,
+      "deoptPoints": 160,
+      "inlined": [
+        "equals",
+        "ensureReferenceWidth",
+        "referenceTypeFor",
+        "classEquals",
+        "computeSingletonMasks",
+        "bitIndex32",
+        "hashChunkTuple",
+        "mix32"
+      ]
+    }
+  ],
+  "deopts": {
+    "popcount32: not int32": 1,
+    "cardinality: not int32": 1,
+    "comparePair: not int32": 1,
+    "buildProfile: Insufficient type feedback for generic named access": 1,
+    "subsetOf: not a Smi": 2,
+    "buildProfile: Insufficient type feedback for binary operation": 1,
+    "(sfi: Smi": 1,
+    "bitIndex32: not int32": 19,
+    "reflectClass: not int32": 1,
+    "computeSingletonMasks: not int32": 51,
+    "get: Insufficient type feedback for binary operation": 1,
+    "#setKey: Insufficient type feedback for binary operation": 1,
+    "findSlot: Insufficient type feedback for binary operation": 1,
+    "hasSingletonAt: not int32": 1,
+    "applyUnchecked: not int32": 1,
+    "solveNode: (unknown": 18,
+    "blockTransition: not int32": 1,
+    "nativeFrontierCode: Insufficient type feedback for generic named access": 1,
+    "undo: not int32": 1,
+    "firstCell: not int32": 2,
+    "internBits: Insufficient type feedback for binary operation": 1,
+    "solveNode: Insufficient type feedback for generic named access": 1,
+    "blockTransition: Insufficient type feedback for binary operation": 1,
+    "ownTransition: lost precision": 1,
+    "applyUnchecked: lost precision": 1,
+    "undo: lost precision": 1,
+    "blockTransition: wrong map": 1,
+    "internBits: wrong map": 2,
+    "ensureReferenceWidth: wrong map": 2,
+    "referenceTypeFor: Insufficient type feedback for generic global access": 1,
+    "ensureClassCapacity: wrong map": 2,
+    "growClassHash: prepare for on stack replacement (OSR": 1
+  }
+}

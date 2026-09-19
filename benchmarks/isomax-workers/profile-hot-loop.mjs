@@ -6,6 +6,7 @@ import { Worker, isMainThread, parentPort, workerData } from 'node:worker_thread
 import inspector from 'node:inspector';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
+import { createHash } from 'node:crypto';
 const roots = ['717657616532237625', '466537327657277224', '616767454664457417'];
 if (isMainThread) {
   const output = path.resolve(process.argv[2]);
@@ -24,7 +25,11 @@ if (isMainThread) {
   });
   const testedSource = process.argv[3] ? execFileSync('git', ['-C', process.argv[3], 'rev-parse', 'HEAD'],
     { encoding: 'utf8', windowsHide: true }).trim() : source;
-  const report = { source: testedSource, harnessSource: source, node: process.version, v8: process.versions.v8, cpu: os.cpus()[0]?.model,
+  const sourceDiff = execFileSync('git', ['-C', process.argv[3] ?? process.cwd(), 'diff', 'HEAD'],
+    { encoding: 'utf8', windowsHide: true });
+  const report = { source: testedSource, sourceDirty: sourceDiff.length !== 0,
+    sourceDiffSha256: createHash('sha256').update(sourceDiff).digest('hex'),
+    harnessSource: source, node: process.version, v8: process.versions.v8, cpu: os.cpus()[0]?.model,
     workload: roots, quantum: 65536, mode: 'actual native task kernel in worker; profiles are not wall-time evidence', ...result };
   fs.writeFileSync(path.join(output, 'summary.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report));
