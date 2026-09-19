@@ -33,7 +33,9 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Current logic authority — IsoGraph
 
-The qualified current representation of the Connect4 logic corpus is `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` with native root `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.isg` and immutable manifest `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json`. Authority 1.0 remains immutable historical qualification evidence.
+The qualified historical/current logic authority remains `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` with native root `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.isg` and immutable manifest `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` until a successor is explicitly qualified/promoted. Authority 1.0 remains immutable historical qualification evidence.
+
+For **active game-theory research**, the single current successor interpretation is `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*`. It cleanly integrates q, ordinary value dependency, proof/certificate boundaries, RBA, QU, and the NEI-0.4 successor model. Do not compose the old applied-NEI overlay or RBA overlay stack with 1.1 as a parallel active semantics; those files are historical/provenance/evidence inputs to the successor.
 
 This is representation authority, not a branch-ownership transfer. `research/semantic-quotient` remains the sole durable research owner; solver branches remain implementation owners.
 
@@ -56,23 +58,29 @@ Current 1.1 post-hoc dispositions are recorded in:
 - `research/isograph/qualification/CORE_0_18_SANITY_AUDIT_1_1.md`;
 - `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
 
-### Applied NEI identity layer
+### Active identity/game-theory successor
 
-Natural Entropic Identity is now applied as a derived identity overlay over authority 1.1:
+The old applied-NEI overlay is superseded for active interpretation.
 
-- `research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`;
-- `research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json`;
-- `research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json`;
-- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json`;
-- `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.isg`.
+Use:
 
-Use the qualified NEI 0.1+0.2 semantics pinned by that manifest. NEI 0.3 is guidance only.
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`.
 
-Identity is profile-relative. In particular, do not collapse artifact/event/lineage/physical-state/future-behavior identity into one relation. The bounded SIU-1 domains establish SAME for same-`q` future-behavior identity while preserving physical-state distinction. Standard 7x6 same-`q` identity remains incomplete/unqualified, not semantic NEI UNKNOWN.
+The successor follows the NEI 0.4 candidate architecture pinned to `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`:
 
-When Discovery Protocol work reaches a genuine identity question, consult the NEI overlay before permitting collapse or natural-distinctness conclusions.
+- SAME/DISTINCT are derived outputs, never profile answer tags;
+- ordinary facts, q-congruence evidence, proof context and QU are represented first;
+- Bayes/log-Bayes identity evidence is permitted only with a real likelihood model;
+- finite controls/test counts are not converted into invented Bayes factors;
+- QU is required whenever unresolved identity-relevant structure can change identity or identity-evidence interpretation;
+- missing qualification/authority is incomplete, not semantic NEI UNKNOWN.
 
-See `docs/decisions/2026-09-18-isograph-logic-authority-1-1.md`. The original 1.0 decision remains at `docs/decisions/2026-09-18-isograph-logic-authority.md`.
+The old files under `research/isograph/identity/CONNECT4_NEI_*` remain historical/provenance evidence and MUST NOT be layered into new game-theory reasoning as a second identity authority.
+
+For hot-loop performance research, use only `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*` as the current integrated interpretation. The older hot-loop 0.1/0.2 graph/NEI/qualification files are historical evidence.
+
 
 ## Current durable topology authority
 
