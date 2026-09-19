@@ -229,6 +229,51 @@ export class IsoMaxTransitionCache {
     return this.used[slot] === 0 ? undefined : this.values[slot];
   }
 
+  prepareKey(state) {
+    // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // This is the checked pool boundary for prepared scalar operations below.
+    // Copy scratch coordinates to recursive scalar locals BEFORE any child;
+    // never retain this borrowed array or a probe slot across descent.
+    if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
+    state.gameplayKey(this.scratch);
+    return hashSignature(this.scratch);
+  }
+
+  findPreparedSlotUnchecked(p0, p1, support, hash) {
+    // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // Caller owns a validated prepared key for THIS pool. Hash only addresses;
+    // full exact scalar equality authorizes a hit. Reprobe after descendants.
+    const mask = this.capacity - 1;
+    let slot = hash & mask;
+    while (this.used[slot] !== 0 &&
+      (this.p0[slot] !== p0 || this.p1[slot] !== p1 || this.support[slot] !== support))
+      slot = (slot + 1) & mask;
+    return slot;
+  }
+
+  getPreparedUnchecked(p0, p1, support, hash) {
+    // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // Prepared, pool-validated scalars only; no key derivation or allocation.
+    const slot = this.findPreparedSlotUnchecked(p0, p1, support, hash);
+    return this.used[slot] === 0 ? undefined : this.values[slot];
+  }
+
+  setPreparedUnchecked(p0, p1, support, hash, value) {
+    // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // Exact value and pool ownership are validated by the solver/prepareKey.
+    // Parent scalar key survives scratch reuse; an old slot does not. Never
+    // publish incomplete work or weaken the sealed-capacity failure.
+    if ((this.count + 1) * 10 >= this.capacity * 7) this.grow();
+    const slot = this.findPreparedSlotUnchecked(p0, p1, support, hash);
+    if (this.used[slot] === 0) {
+      this.used[slot] = 1;
+      this.p0[slot] = p0; this.p1[slot] = p1; this.support[slot] = support;
+      this.count++;
+    }
+    this.values[slot] = value;
+    return value;
+  }
+
   prepareSearchStorage(additionalEntries) {
     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
     // Reserve before recursion; preparation may rehash, sealed lookup/insertion may not.

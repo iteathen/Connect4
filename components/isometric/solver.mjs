@@ -123,7 +123,10 @@ export class IsoMaxSolver {
     // Preserve existing measured optimizations; see HOT-LOOP.md in that folder.
     if (this.metrics.nodes >= this.nextControlNode) this.checkTaskControl(state);
     this.metrics.nodes += 1;
-    const cached = this.transitionCache.get(state);
+    const cache = this.transitionCache;
+    const hash = cache.prepareKey(state);
+    const key0 = cache.scratch[0], key1 = cache.scratch[1], support = cache.scratch[2] >>> 0;
+    const cached = cache.getPreparedUnchecked(key0, key1, support, hash);
     if (cached !== undefined) {
       assertExactValue(cached);
       this.metrics.transitionCacheHits += 1;
@@ -170,12 +173,12 @@ export class IsoMaxSolver {
       if ((exact === 1 && p0NoWin) || (exact === -1 && p1NoWin)) {
         throw new Error('exact-value certificate contradicts an applicable no-win certificate');
       }
-      this.storeExact(state, exact);
+      this.storeExact(key0, key1, support, hash, exact);
       return exact;
     }
 
     if (p0NoWin && p1NoWin) {
-      this.storeExact(state, 0);
+      this.storeExact(key0, key1, support, hash, 0);
       return 0;
     }
 
@@ -189,7 +192,7 @@ export class IsoMaxSolver {
         assertExactValue(value);
         this.assertNoWinBounds(value, p0NoWin, p1NoWin);
         this.metrics.valueBoundaryHits++;
-        this.storeExact(state,value);
+        this.storeExact(key0, key1, support, hash, value);
         return value;
       }
     }
@@ -202,14 +205,14 @@ export class IsoMaxSolver {
       try { value = this.solveNode(state); }
       finally { state.undo(); }
       this.assertNoWinBounds(value, p0NoWin, p1NoWin);
-      this.storeExact(state, value);
+      this.storeExact(key0, key1, support, hash, value);
       return value;
     }
 
     let lower = p1NoWin ? 0 : -1;
     let upper = p0NoWin ? 0 : 1;
     if (lower === upper) {
-      this.storeExact(state, lower);
+      this.storeExact(key0, key1, support, hash, lower);
       return lower;
     }
 
@@ -244,7 +247,7 @@ export class IsoMaxSolver {
     }
     if (!sawMove) throw new Error('ongoing state has no legal moves');
     this.assertNoWinBounds(best, p0NoWin, p1NoWin);
-    this.storeExact(state, best);
+    this.storeExact(key0, key1, support, hash, best);
     return best;
   }
 
@@ -317,12 +320,12 @@ export class IsoMaxSolver {
     throw new Error(`exact value ${targetValue} has no value-preserving legal action`);
   }
 
-  storeExact(state, value) {
+  storeExact(key0, key1, support, hash, value) {
     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
     // Keep exact identity through descendant unwind; never cache unfinished/retired work.
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     assertExactValue(value);
-    this.transitionCache.set(state, value);
+    this.transitionCache.setPreparedUnchecked(key0, key1, support, hash, value);
     this.metrics.transitionCacheStores += 1;
   }
 

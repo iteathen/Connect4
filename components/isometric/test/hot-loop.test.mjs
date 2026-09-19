@@ -6,6 +6,41 @@ import { STATUS_ONGOING } from '../../domain/index.mjs';
 import { IsoMaxTaskSolver } from '../execution/task.mjs';
 import { ResidualPool } from '../residual-pool.mjs';
 import { IsoMaxTransitionCache } from '../isomax-index.mjs';
+import { IsometricState } from '../state.mjs';
+import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+
+test('prepared q scalars survive scratch reuse, collisions, repeated growth and mirrored lookup', () => {
+  const pool = new ResidualPool(), cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });
+  const root = new IsometricState({ pool, moves: [1, 3, 2, 4] });
+  const hash = cache.prepareKey(root), a = cache.scratch[0], b = cache.scratch[1], support = cache.scratch[2] >>> 0;
+  assert.equal(cache.getPreparedUnchecked(a, b, support, hash), undefined);
+  const oldSlot = cache.findPreparedSlotUnchecked(a, b, support, hash);
+  let collision = false;
+  const entries = makeCorpus({ seed: 774, ply: 20, count: 64 }).map(({ moves }, i) => {
+    const state = new IsometricState({ pool, moves });
+    const h = cache.prepareKey(state);
+    if ((h & 7) === oldSlot) collision = true;
+    cache.set(state, 100 + i); return { state, value: 100 + i };
+  });
+  assert.ok(collision); assert.ok(cache.capacity > 32);
+  root.applyUnchecked(0); cache.get(root); root.undo();
+  cache.setPreparedUnchecked(a, b, support, hash, 12345);
+  assert.equal(cache.get(root), 12345);
+  assert.equal(cache.get(new IsometricState({ pool, moves: [5, 3, 4, 2] })), 12345);
+  for (const { state, value } of entries) assert.equal(cache.get(state), value);
+  assert.throws(() => cache.prepareKey(new IsometricState()), /pool/);
+});
+
+test('recursive exact lookup and store derive q only once per entered node', () => {
+  const solver = new IsoMaxSolver(), state = solver.createState(Array.from('466537327657277224', c => Number(c) - 1));
+  const derive = state.gameplayKey;
+  let derivations = 0;
+  state.gameplayKey = function (target) { derivations++; return derive.call(this, target); };
+  const result = solver.solveValue(state);
+  assert.equal(result.value, 0);
+  assert.equal(derivations, result.metrics.nodes);
+  assert.ok(result.metrics.transitionCacheStores > 1000);
+});
 
 test('scalar frontier classifies every single and paired cell across both words', () => {
   const pool = { emptyClass: 0, singletonLo: new Uint32Array(3), singletonHi: new Uint32Array(3) };
