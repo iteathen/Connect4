@@ -69,6 +69,13 @@ Stable research identity:
 
 `RBA-QU-0001 — Residual Boundary Algebra completion space`
 
+Latest strict research refinement after assertion-collapse tests:
+
+- `isograph/successor/CONNECT4_RBA_QU_0_2.md`
+- `isograph/successor/CONNECT4_RBA_QU_0_2.json`
+
+RBA-QU-0002 narrows the rank-collapse unknown: fixed action-word transitions and two-ply alternating max/min composition are no longer broadly open; compact value-boundary block composition and compact root normal form remain open. It is a research refinement, not a new qualified authority revision.
+
 Its open region separately represents the unknown minimal operator basis, compactness law, rank-collapse law, direct-root expression, minimal observation, proof/value correspondence, family scope, and canonical factorization. It pins exact constraints, interfaces, exclusions, evidence and refinement semantics under qualified IsoGraph QU 0.1.
 
 `OPEN` applies to the RBA realization family. Individual propositions such as “rank propagation can be eliminated” are **not** automatically semantic QU `UNRESOLVED`; they retain their own witness/coverage burden.
