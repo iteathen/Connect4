@@ -80,6 +80,15 @@ Latest board-fiber refinement:
 - `isograph/successor/CONNECT4_RBA_QU_0_3.md`
 - `isograph/successor/CONNECT4_RBA_QU_0_3.json`
 
+
+Value-information refinements:
+
+- `isograph/successor/CONNECT4_RBA_QU_0_4.md`
+- `isograph/successor/CONNECT4_RBA_QU_0_4.json`
+- `isograph/successor/CONNECT4_RBA_QU_0_5.json`
+
+RBA-QU-0004 records that the raw-transition complete shell is too fine and that a four-valued UNKNOWN/WIN/DRAW/LOSS Bellman refinement exactly reconstructs strong outcome+distance on complete controls. RBA-QU-0005 further records that the six contiguous WDL partial-information bounds compose exactly through fixed-depth alternating blocks. The remaining core unknown is symbolic boundary composition/normalization of those exact block transformers over the board-fiber graph.
+
 RBA-QU-0003 records that exact board-fiber isomorphism transports the abstract ordinary-value algebra, while raw transformer typing adds only modest compression beyond the fiber quotient. The remaining core unknown is compact value-boundary transformer composition over the board-fiber graph.
 
 RBA-QU-0002 narrows the rank-collapse unknown: fixed action-word transitions and two-ply alternating max/min composition are no longer broadly open; compact value-boundary block composition and compact root normal form remain open. It is a research refinement, not a new qualified authority revision.
