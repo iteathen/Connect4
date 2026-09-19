@@ -1,0 +1,125 @@
+{
+  "schema": 2,
+  "id": "isomax-hot-loop-nei-application-0.2",
+  "status": "corrective_successor_application",
+  "supersedes": [
+    "ISOMAX_HOT_LOOP_OPTIMIZATION_GRAPH_0_1 NEI interpretation",
+    "ISOMAX_HOT_LOOP_QUALIFICATION_0_1 NEI qualification section"
+  ],
+  "authority_effect": "none",
+  "nei_authority": {
+    "revision_0_1_blob": "d9da13d7df3515e4229d61f43b0b94a2cae0fedb",
+    "revision_0_2_blob": "a9a9d01af733e461b609c5b1bd9f9f23128c04b4"
+  },
+  "profile": {
+    "id": "P-ISOMAX-OPERATION-WORD32-0.2",
+    "native_id": 995600,
+    "carrier": {
+      "native_id": 995601,
+      "description": "representation occurrences viewed as operation-observed 32-bit word referents"
+    },
+    "path": "determinate",
+    "fixed_evidence": {
+      "native_id": 995602,
+      "description": "qualified exact implementation differentials and solver equality controls pinned to the cited baseline/final revisions"
+    },
+    "identity_preserving_law": {
+      "native_id": 995603,
+      "statement": "For one pinned operation role O, if exact pi32_O(A)=pi32_O(B), every identity-relevant observable admitted by the profile factors through pi32_O, and magnitude/object/provenance properties are outside the carrier, A and B denote the SAME operation-observed 32-bit referent under this profile."
+    },
+    "identity_separating_boundary": {
+      "native_id": 995604,
+      "statement": "If an admitted observable depends on information not determined by pi32_O, this profile cannot license SAME."
+    },
+    "provenance_rule": "source representation occurrences remain separately addressable and reconstructible"
+  },
+  "claims": [
+    {
+      "id": "NEI-HOT-001",
+      "native_id": 995610,
+      "query_a": {
+        "native_id": 995611,
+        "description": "baseline unsigned Number representation of prepared q locator hash"
+      },
+      "query_b": {
+        "native_id": 995612,
+        "description": "selected signed-int32 representation carrying the same 32 locator bits"
+      },
+      "operation_role": "q locator hash consumed by masked table addressing; full p0/p1/support coordinates authorize equality",
+      "result": "SAME",
+      "result_role": 94017,
+      "path": "determinate",
+      "qu_required": false,
+      "evidence": [
+        "negative-hash/high-bit/collision/resize/cross-API lookup controls",
+        "identical exact serial work and WDL/actions for the qualified change",
+        "hash is locator only; full exact q coordinates decide cache equality"
+      ],
+      "nonclaims": [
+        "same JavaScript numeric representation",
+        "same numeric magnitude",
+        "same q",
+        "universal V8 equivalence"
+      ]
+    },
+    {
+      "id": "NEI-HOT-002",
+      "native_id": 995620,
+      "query_a": {
+        "native_id": 995621,
+        "description": "baseline unsigned Number representation of isolated residual-word bit"
+      },
+      "query_b": {
+        "native_id": 995622,
+        "description": "selected signed-int32 representation of the same isolated 32-bit word"
+      },
+      "operation_role": "isolated bit consumed by Math.clz32 / bit-index derivation",
+      "result": "SAME",
+      "result_role": 94017,
+      "path": "determinate",
+      "qu_required": false,
+      "evidence": [
+        "all 625 isolated residual terms x 42 cells differential",
+        "reflection coverage",
+        "sign-bit cases included",
+        "exact solver decisions/work preserved"
+      ]
+    }
+  ],
+  "nonclaims": {
+    "hash_vs_q": {
+      "disposition": "no_nei_claim_needed",
+      "reason": "different semantic roles; hash equality is never q equality authority"
+    },
+    "task_occurrence_vs_q": {
+      "disposition": "contextual_span_only",
+      "standard_7x6_nei_status": "INCOMPLETE_UNQUALIFIED",
+      "reason": "current promoted Connect4 NEI profile predates successor ingestion of the later q-congruence proof"
+    },
+    "issue_96": {
+      "disposition": "unqualified_candidate",
+      "nei_status": "not_yet_qualified",
+      "required_before_same": [
+        "pin exact operation role",
+        "pin queried representation occurrences",
+        "prove exact pi32 equality",
+        "prove all identity-relevant consumers factor through pi32",
+        "exclude unsigned magnitude/general Number observation before canonicalization boundary"
+      ]
+    }
+  },
+  "verification": {
+    "native_id": 995630,
+    "status": "corrective_review_required_by_full_dp_pass"
+  },
+  "completeness": {
+    "complete_determinate_claims": [
+      "NEI-HOT-001",
+      "NEI-HOT-002"
+    ],
+    "incomplete_queries": [
+      "standard-7x6 q future-behavior NEI under current promoted Connect4 identity authority",
+      "#96 full hash-mix chain"
+    ]
+  }
+}
