@@ -33,9 +33,9 @@ export function compactOwnership42Shape({ columns, rows, connect, frontierCapaci
   }
   const structuralBytes = 4 * (4 * support.itemCapacity + 4 * support.itemCapacity * columns + 1)
     + 8 * support.itemCapacity * columns * lineCount;
-  // Per-support observer metrics are 12 u64 lanes plus four u32 report lanes = 112 bytes/support.
+  // Per-support observer metrics are 13 u64 lanes plus four u32 report lanes = 120 bytes/support.
   const payloadUpperBoundBytes = 8 * rankElements + 16 * rankCapacity + 16 * scratchElements
-    + 8 * workElements + 8 * shards + 4 + 112 * support.itemCapacity + structuralBytes;
+    + 8 * workElements + 8 * shards + 4 + 120 * support.itemCapacity + structuralBytes;
   const oracleUpperBoundBytes = 16 * support.itemCapacity * frontierCapacity + 4 * (2 * support.itemCapacity + 1);
   for (const count of [rankElements, scratchElements, workElements, support.itemCapacity * columns * lineCount]) {
     if (count > 0xffff_ffff) throw new RangeError('compact42 layout exceeds u32 indexing');

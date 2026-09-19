@@ -101,6 +101,12 @@ jobs:
       - name: Run compact one-epoch diagnostic portable composition
         run: node experiments/cuda-bsfp-compact-ownership/run.mjs portable-diagnostic 6 5 4 8192 2048 64 128 1
 
+      - name: Run exact rank-slice compact42 portable qualifier
+        run: node research/experiments/cuda-bsfp-rank-slice-compact42/run.mjs portable
+
+      - name: Run rank-bounded compact42 phase-window qualifier
+        run: node research/experiments/cuda-bsfp-rank-slice-compact42/run-phase-window.mjs portable
+
       - name: Run Q1 qualifier dry-run orchestration
         run: node tools/cuda-bsfp-qualifier.mjs --qualify-benchmark --dry-run --spool-root .q1-ci-spool
 

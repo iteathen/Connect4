@@ -1,17 +1,21 @@
 import { packedAntichain42CollectiveSource, packedAntichain42CollectiveFunctions } from './packed-antichain-42-collective.mjs';
 
-export const COMPACT_OWNERSHIP_42_METRIC_STRIDE = 12;
+export const COMPACT_OWNERSHIP_42_METRIC_STRIDE = 13;
 
 const source = `
-function compactNormalizeObserved(candidateLo, candidateHi, candidatePopcount, outputLo, outputHi, counts, status, checks, metrics, start, end, outputBase, segment, capacity, direction, item, phaseClass) {
+function compactNormalizeObserved(candidateLo, candidateHi, candidatePopcount, outputLo, outputHi, counts, status, checks, metrics, start, end, outputBase, segment, capacity, direction, item, phaseClass, rank) {
   const lane = gpu.thread.x();
   const stride = gpu.blockDim.x();
-  const metricBase = item * gpu.u32(12);
+  const metricBase = item * gpu.u32(13);
+  const legal = (rank + gpu.u32(1)) / gpu.u32(2);
+  let phaseCount = legal + gpu.u32(1);
+  if (direction !== gpu.u32(0)) phaseCount = rank - legal + gpu.u32(1);
   if (lane === gpu.u32(0)) {
     counts[segment] = gpu.u32(0);
     status[segment] = gpu.u32(0);
     metrics[metricBase + gpu.u32(4)] = metrics[metricBase + gpu.u32(4)] + gpu.u64(end - start);
     metrics[metricBase + gpu.u32(5)] = metrics[metricBase + gpu.u32(5)] + gpu.u64(1);
+    metrics[metricBase + gpu.u32(12)] = metrics[metricBase + gpu.u32(12)] + gpu.u64(end - start) * gpu.u64(phaseCount);
     if (phaseClass === gpu.u32(0)) metrics[metricBase + gpu.u32(8)] = metrics[metricBase + gpu.u32(8)] + gpu.u64(end - start);
     else if (phaseClass === gpu.u32(1)) metrics[metricBase + gpu.u32(9)] = metrics[metricBase + gpu.u32(9)] + gpu.u64(end - start);
     else if (phaseClass === gpu.u32(2)) metrics[metricBase + gpu.u32(10)] = metrics[metricBase + gpu.u32(10)] + gpu.u64(end - start);
@@ -23,9 +27,9 @@ function compactNormalizeObserved(candidateLo, candidateHi, candidatePopcount, o
   let priorScans = gpu.u64(0);
   let duplicateHits = gpu.u64(0);
   let phase = gpu.u32(0);
-  while (phase < gpu.u32(43)) {
+  while (phase < phaseCount) {
     let target = phase;
-    if (direction !== gpu.u32(0)) target = gpu.u32(42) - phase;
+    if (direction !== gpu.u32(0)) target = rank - phase;
     const frontierCount = counts[segment];
     gpu.barrier.block();
     let i = start + lane;
@@ -83,12 +87,12 @@ function compactNormalizeObserved(candidateLo, candidateHi, candidatePopcount, o
   return counts[segment];
 }
 
-function compactNormalize(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, count, wb, segment, capacity, direction, item, phaseClass) {
-  const result = compactNormalizeObserved(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, cb + count, wb + gpu.u32(5) * capacity, segment, capacity, direction, item, phaseClass);
+function compactNormalize(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, count, wb, segment, capacity, direction, item, phaseClass, rank) {
+  const result = compactNormalizeObserved(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, cb + count, wb + gpu.u32(5) * capacity, segment, capacity, direction, item, phaseClass, rank);
   let sum = gpu.u64(0);
   let i = gpu.thread.x();
   while (i < count) { sum = sum + gpu.u64(checks[cb + i]); i = i + gpu.blockDim.x(); }
-  gpu.atomic.add(metrics, item * gpu.u32(12) + gpu.u32(1), sum);
+  gpu.atomic.add(metrics, item * gpu.u32(13) + gpu.u32(1), sum);
   return result;
 }
 
@@ -98,7 +102,7 @@ function compactCopy(workLo, workHi, sourceBase, targetBase, count) {
   gpu.barrier.block();
 }
 
-function compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, leftBank, leftCount, rightBank, rightCount, targetBank, direction, intersection, item, phaseClass) {
+function compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, leftBank, leftCount, rightBank, rightCount, targetBank, direction, intersection, item, phaseClass, rank) {
   const leftBase = wb + leftBank * capacity;
   const rightBase = wb + rightBank * capacity;
   const outputBase = wb + gpu.u32(5) * capacity;
@@ -112,7 +116,7 @@ function compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, me
     if (intersection !== gpu.u32(0)) {
       packedPairTile42(workLo, workHi, workLo, workHi, lo, hi, pop, leftBase, rightBase, rightCount, start, count, cb, direction);
       if (gpu.thread.x() === gpu.u32(0)) {
-        const metricBase = item * gpu.u32(12);
+        const metricBase = item * gpu.u32(13);
         metrics[metricBase] = metrics[metricBase] + gpu.u64(count);
         if (phaseClass === gpu.u32(1)) metrics[metricBase + gpu.u32(6)] = metrics[metricBase + gpu.u32(6)] + gpu.u64(count);
         else if (phaseClass === gpu.u32(3)) metrics[metricBase + gpu.u32(7)] = metrics[metricBase + gpu.u32(7)] + gpu.u64(count);
@@ -135,7 +139,7 @@ function compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, me
       copy = copy + gpu.blockDim.x();
     }
     gpu.barrier.block();
-    retained = compactNormalize(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, count + retained, wb, segment, capacity, direction, item, phaseClass);
+    retained = compactNormalize(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, count + retained, wb, segment, capacity, direction, item, phaseClass, rank);
     if (status[segment] !== gpu.u32(0)) return gpu.u32(0);
     start = start + count;
   }
@@ -202,7 +206,7 @@ function solveCompactRank42(rankLo, rankHi, rankCounts, items, slots, children, 
           i = i + gpu.blockDim.x();
         }
         gpu.barrier.block();
-        const count = compactNormalize(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, childCount, wb, segment, capacity, direction, item, gpu.u32(0));
+        const count = compactNormalize(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, childCount, wb, segment, capacity, direction, item, gpu.u32(0), rank);
         if (status[segment] !== gpu.u32(0)) { if (lane === gpu.u32(0)) gpu.atomic.cas(errors, gpu.u32(0), gpu.u32(0), gpu.u32(1)); return; }
         compactCopy(workLo, workHi, wb + gpu.u32(5) * capacity, wb + (gpu.u32(2) + direction) * capacity, count);
         if (direction === gpu.u32(0)) moveWins = count;
@@ -239,7 +243,7 @@ function solveCompactRank42(rankLo, rankHi, rankCounts, items, slots, children, 
         if (mover === gpu.u32(0)) oppositeCount = moveLosses;
         const oppositeDirection = gpu.u32(1) - mover;
         const oppositeBank = gpu.u32(2) + oppositeDirection;
-        oppositeCount = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, oppositeBank, oppositeCount, gpu.u32(4), complementCount, oppositeBank, oppositeDirection, gpu.u32(1), item, gpu.u32(1));
+        oppositeCount = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, oppositeBank, oppositeCount, gpu.u32(4), complementCount, oppositeBank, oppositeDirection, gpu.u32(1), item, gpu.u32(1), rank);
         if (status[segment] !== gpu.u32(0)) { if (lane === gpu.u32(0)) gpu.atomic.cas(errors, gpu.u32(0), gpu.u32(0), gpu.u32(1)); return; }
         if (mover === gpu.u32(0)) moveLosses = oppositeCount;
         else moveWins = oppositeCount;
@@ -254,15 +258,15 @@ function solveCompactRank42(rankLo, rankHi, rankCounts, items, slots, children, 
         let ownCount = moveWins;
         if (mover === gpu.u32(1)) ownCount = moveLosses;
         const ownBank = gpu.u32(2) + mover;
-        ownCount = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, ownBank, ownCount, gpu.u32(4), gpu.u32(1), ownBank, mover, gpu.u32(0), item, gpu.u32(2));
+        ownCount = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, ownBank, ownCount, gpu.u32(4), gpu.u32(1), ownBank, mover, gpu.u32(0), item, gpu.u32(2), rank);
         if (status[segment] !== gpu.u32(0)) { if (lane === gpu.u32(0)) gpu.atomic.cas(errors, gpu.u32(0), gpu.u32(0), gpu.u32(1)); return; }
         if (mover === gpu.u32(0)) moveWins = ownCount;
         else moveLosses = ownCount;
         term++;
       }
-      aggregateWins = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, gpu.u32(0), aggregateWins, gpu.u32(2), moveWins, gpu.u32(0), gpu.u32(0), mover, item, gpu.u32(3));
+      aggregateWins = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, gpu.u32(0), aggregateWins, gpu.u32(2), moveWins, gpu.u32(0), gpu.u32(0), mover, item, gpu.u32(3), rank);
       if (status[segment] !== gpu.u32(0)) { if (lane === gpu.u32(0)) gpu.atomic.cas(errors, gpu.u32(0), gpu.u32(0), gpu.u32(1)); return; }
-      aggregateLosses = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, gpu.u32(1), aggregateLosses, gpu.u32(3), moveLosses, gpu.u32(1), gpu.u32(1), gpu.u32(1) - mover, item, gpu.u32(3));
+      aggregateLosses = compactCombine(lo, hi, pop, workLo, workHi, control, status, checks, metrics, cb, wb, segment, capacity, tileSize, gpu.u32(1), aggregateLosses, gpu.u32(3), moveLosses, gpu.u32(1), gpu.u32(1), gpu.u32(1) - mover, item, gpu.u32(3), rank);
       if (status[segment] !== gpu.u32(0)) { if (lane === gpu.u32(0)) gpu.atomic.cas(errors, gpu.u32(0), gpu.u32(0), gpu.u32(1)); return; }
     }
     column++;
@@ -346,10 +350,10 @@ export const compactOwnership42DeviceProgram = {
   compile: { headerProfile: 'cuda-cccl' },
   functions: [
     ...packedAntichain42CollectiveFunctions,
-    descriptor('compactNormalizeObserved', ['candidateLo', 'candidateHi', 'candidatePopcount', 'outputLo', 'outputHi', 'counts', 'status', 'checks'], ['start', 'end', 'outputBase', 'segment', 'capacity', 'direction', 'item', 'phaseClass'], 'u32', 'device', ['metrics']),
-    descriptor('compactNormalize', common, ['cb', 'count', 'wb', 'segment', 'capacity', 'direction', 'item', 'phaseClass'], 'u32', 'device', ['metrics']),
+    descriptor('compactNormalizeObserved', ['candidateLo', 'candidateHi', 'candidatePopcount', 'outputLo', 'outputHi', 'counts', 'status', 'checks'], ['start', 'end', 'outputBase', 'segment', 'capacity', 'direction', 'item', 'phaseClass', 'rank'], 'u32', 'device', ['metrics']),
+    descriptor('compactNormalize', common, ['cb', 'count', 'wb', 'segment', 'capacity', 'direction', 'item', 'phaseClass', 'rank'], 'u32', 'device', ['metrics']),
     descriptor('compactCopy', ['workLo', 'workHi'], ['sourceBase', 'targetBase', 'count']),
-    descriptor('compactCombine', common, ['cb', 'wb', 'segment', 'capacity', 'tileSize', 'leftBank', 'leftCount', 'rightBank', 'rightCount', 'targetBank', 'direction', 'intersection', 'item', 'phaseClass'], 'u32', 'device', ['metrics']),
+    descriptor('compactCombine', common, ['cb', 'wb', 'segment', 'capacity', 'tileSize', 'leftBank', 'leftCount', 'rightBank', 'rightCount', 'targetBank', 'direction', 'intersection', 'item', 'phaseClass', 'rank'], 'u32', 'device', ['metrics']),
     descriptor('solveCompactRank42', ['rankLo', 'rankHi', 'rankCounts', 'items', 'slots', 'children', 'landingLo', 'landingHi', 'universeLo', 'universeHi', 'terminalOffsets', 'terminalLo', 'terminalHi', ...common, 'errors'], ['rank', 'rankOffset', 'shardStart', 'shardCount', 'rankCapacity', 'capacity', 'tileSize', 'columns', 'maxRank'], 'void', 'kernel', ['metrics']),
     descriptor('recordCompactRank42', ['rankCounts', 'items', 'report'], ['rank', 'rankOffset', 'rankCount', 'rankCapacity'], 'void', 'kernel'),
     descriptor('verifyCompactRank42', ['rankLo', 'rankHi', 'rankCounts', 'items', 'expectedOffsets', 'expectedLo', 'expectedHi', 'report'], ['rank', 'rankOffset', 'rankCount', 'rankCapacity', 'capacity'], 'void', 'kernel'),
