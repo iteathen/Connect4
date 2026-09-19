@@ -1,0 +1,82 @@
+{
+  "schema": 4,
+  "id": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4",
+  "status": "post_1_1_successor_topology",
+  "current_qu": "RBA-QU-0011",
+  "refines": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3",
+  "nodes": {
+    "board_fiber": 431000,
+    "rba_qu": 430011,
+    "exact_ordinary_value": 431010,
+    "proof_controllable_predecessor": 431020,
+    "native_semiring_scaling": 431030,
+    "outer_restriction_law": 100085
+  },
+  "relations": [
+    {
+      "id": "RBA-REL-01",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-02",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-03",
+      "status": "open"
+    },
+    {
+      "id": "RBA-REL-04",
+      "status": "fixed"
+    },
+    {
+      "source": "C4-R0085",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    }
+  ],
+  "live_execution": {
+    "rank29": {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "status": "closed"
+    },
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "closed"
+    },
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "selected_not_executed"
+    }
+  },
+  "orientation_observation": {
+    "status": "empirical_policy_evidence",
+    "promoted_as_relation": false
+  },
+  "authority_1_1_mutated": false
+}

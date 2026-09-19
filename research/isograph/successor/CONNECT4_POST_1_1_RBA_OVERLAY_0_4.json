@@ -1,0 +1,151 @@
+{
+  "schema": 4,
+  "overlay_id": "connect4-post-1.1-rba-current-0.4",
+  "status": "derived_successor_overlay_not_authority",
+  "date": "2026-09-19",
+  "research_direction": "Josh Oshiro",
+  "refines": "connect4-post-1.1-rba-current-0.3",
+  "base_authority": {
+    "name": "Connect4 IsoGraph Logic Authority 1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "claims": [
+    {
+      "id": "C4-R0077",
+      "node": 100077,
+      "status": "deductive_exact",
+      "title": "Board-fiber isomorphism determines the residual/cofactor algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0078",
+      "node": 100078,
+      "status": "guarded_exact",
+      "title": "Board-fiber isomorphism preserves the abstract ordinary strong-value algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0079",
+      "node": 100079,
+      "status": "deductive_exact",
+      "title": "Terminal-extended residual cofactors are compositional left adjoints with exact right adjoints",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0080",
+      "node": 100080,
+      "status": "deductive_exact",
+      "title": "Four nested monotone endpoint fronts exactly carry partial WDL block semantics",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0081",
+      "node": 100081,
+      "status": "deductive_exact",
+      "title": "Exact ordinary-value Bellman propagation is an antichain-semiring lattice polynomial",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0082",
+      "node": 100082,
+      "status": "deductive_exact",
+      "title": "Antichain-semiring multiplication admits exact local-skyline factorization",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0083",
+      "node": 100083,
+      "status": "empirically_supported",
+      "title": "Native sparse RBA recurrence closes selected rank31/rank30 and complete selected rank29/rank28 strong boundaries",
+      "evidence": [
+        "RBA_RANK29_CLOSED_CHECKPOINT_0_2.md",
+        "RBA_RANK28_CLOSED_CHECKPOINT_0_2.md"
+      ]
+    },
+    {
+      "id": "C4-R0084",
+      "node": 100084,
+      "status": "open_question",
+      "title": "Root-scale RBA compactness and the general frontier-width law remain open",
+      "evidence": [
+        "RBA_RANK28_CLOSED_RESULTS_0_2.json",
+        "RBA_RANK27_PREDECESSOR_ASSESSMENT_0_1.json"
+      ]
+    },
+    {
+      "id": "C4-R0085",
+      "node": 100085,
+      "status": "deductive_exact",
+      "title": "For fixed inner family, local skyline width is monotone under outer-mask restriction",
+      "evidence": [
+        "RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md",
+        "RBA_SEMIRING_ORIENTATION_RESULTS_0_1.json"
+      ]
+    }
+  ],
+  "numerical_frontier": {
+    "rank29": {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "status": "complete_strong_boundary_closed"
+    },
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "complete_strong_boundary_closed",
+      "largest_upper": 144462,
+      "largest_lower": 110931
+    },
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "selected_not_executed",
+      "residual_shapes": 38,
+      "transformed_bits": 76,
+      "fixed_upper_interface": 23203,
+      "fixed_lower_interface": 72117
+    }
+  },
+  "evaluation_policy": {
+    "accumulated_boundary_outer_controls": "6_of_6_faster",
+    "prefix_sampling": "rejected_biased",
+    "new_regime_guard": "deterministic_hash_sampled_local_work"
+  },
+  "relation_policy": {
+    "proof_value_bridge_relations_promoted": 0,
+    "orientation_empirical_relation_promoted": false,
+    "outer_restriction_relation": {
+      "source": "C4-R0085",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    }
+  },
+  "ordinary_value_disposition": {
+    "semantic_operator_missing": false,
+    "current_scaling_frontier": "selected rank27 child-cache then draw15 root",
+    "empty_root_solved": false
+  },
+  "authority_effect": "post_1_1_successor_only"
+}

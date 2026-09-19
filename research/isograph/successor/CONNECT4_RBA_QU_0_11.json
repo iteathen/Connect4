@@ -1,0 +1,89 @@
+{
+  "schema": 11,
+  "id": "RBA-QU-0011",
+  "name": "Residual Boundary Algebra completion space - rank28 closure refinement",
+  "refines": "RBA-QU-0010",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "newly_fixed_or_constrained": [
+    {
+      "id": "SF8",
+      "statement": "Selected rank28 support [3,5,2,0,6,6,6] is fully closed across all strong thresholds.",
+      "status": "exact_recurrence_result"
+    },
+    {
+      "id": "SF9",
+      "statement": "For fixed inner B, local skyline width is monotone under outer-mask restriction.",
+      "status": "deductive_exact"
+    },
+    {
+      "id": "SF10",
+      "statement": "Accumulated-boundary-as-outer is faster on all six exact rank29/rank28 draw-fold products; candidate count alone is not a runtime criterion.",
+      "status": "empirically_supported"
+    },
+    {
+      "id": "SF11",
+      "statement": "Ordered-prefix sampling is nonrepresentative on the measured generator ordering; deterministic hash-sampled local work is the current orientation guard.",
+      "status": "empirically_supported"
+    },
+    {
+      "id": "SF12",
+      "statement": "Selected rank27 predecessor [3,4,2,0,6,6,6] has 38 residual shapes / 76 transformed bits but the smallest fixed-action Upper interface among immediate predecessors.",
+      "status": "exact_assessment"
+    }
+  ],
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis"
+    },
+    {
+      "id": "O2",
+      "role": "frontier_width_law"
+    },
+    {
+      "id": "O3",
+      "role": "output_sensitive_rank27_scaling"
+    },
+    {
+      "id": "O4",
+      "role": "transformer_fusion"
+    },
+    {
+      "id": "O5",
+      "role": "root_compactness"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_bridge"
+    },
+    {
+      "id": "O7",
+      "role": "independent_replay"
+    },
+    {
+      "id": "O8",
+      "role": "orientation_generalization"
+    }
+  ],
+  "current_frontier": {
+    "rank29": "complete",
+    "rank28": "complete",
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "selected_children_not_cached"
+    },
+    "next": "cache remaining rank28 draw14 children then compose rank27 draw15"
+  },
+  "authority_1_1_mutated": false
+}
