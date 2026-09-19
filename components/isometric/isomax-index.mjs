@@ -1,5 +1,7 @@
 import { GUARD_APPLICABLE, GUARD_INAPPLICABLE, GUARD_UNRESOLVED, evaluateGuard } from './guards.mjs';
 import { canonicalizeCertificatePayload, reflectConclusion } from './certificate.mjs';
+import { reflectGuard } from './guards.mjs';
+import { PROOF_PROFILE, snapshotProofData, proofDataKey } from './proof-payload.mjs';
 
 function structuralBucket(root, p0Class, p1Class, create) {
   let byP1 = root.get(p0Class);
@@ -10,7 +12,7 @@ function structuralBucket(root, p0Class, p1Class, create) {
   }
   let bucket = byP1.get(p1Class);
   if (!bucket && create) {
-    bucket = { certificates: [], byProofIdentity: new Map() };
+    bucket = { certificates: [] };
     byP1.set(p1Class, bucket);
   }
   return bucket ?? null;
@@ -26,21 +28,44 @@ export class IsoMaxCertificateIndex {
     if (!pool) throw new TypeError('IsoMaxCertificateIndex requires the ResidualPool used by indexed states');
     this.pool = pool;
     this.root = new Map();
+    this.byProofIdentity = new Map();
     this.nextCertificateId = 1;
     this.size = 0;
   }
 
-  add(state, { guard, conclusion, proofIdentity = null, provenance = null, dependencyCone = null } = {}) {
+  add(state, { guard, conclusion, proofIdentity = null, provenance = null, dependencyCone = null, proofProfile = PROOF_PROFILE } = {}) {
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this IsoMax index');
     if (!guard) throw new TypeError('certificate guard is required');
     if (!conclusion) throw new TypeError('certificate conclusion is required');
 
-    const signature = state.structuralSignature();
-    const canonical = canonicalizeCertificatePayload(guard, conclusion, signature[2]);
-    const bucket = structuralBucket(this.root, signature[0], signature[1], true);
-    if (proofIdentity !== null && bucket.byProofIdentity.has(proofIdentity)) {
-      return bucket.byProofIdentity.get(proofIdentity);
+    if (proofProfile !== PROOF_PROFILE) throw new RangeError('unsupported IsoMax proof profile');
+    if (proofIdentity !== null && typeof proofIdentity !== 'string' && !(Number.isSafeInteger(proofIdentity))) {
+      throw new TypeError('proofIdentity must be null, a string or a safe integer');
     }
+    guard = snapshotProofData(guard);
+    conclusion = snapshotProofData(conclusion);
+    dependencyCone = snapshotProofData(dependencyCone);
+    provenance = snapshotProofData(provenance);
+    const reflectedGuard = reflectGuard(guard);
+    if ((reflectedGuard !== null && proofDataKey(reflectGuard(reflectedGuard)) !== proofDataKey(guard))
+      || proofDataKey(reflectConclusion(reflectConclusion(conclusion))) !== proofDataKey(conclusion)) {
+      throw new Error('proof payload is not losslessly reflection-transportable');
+    }
+    const signature = state.structuralSignature();
+    let canonical = canonicalizeCertificatePayload(guard, conclusion, signature[2]);
+    // A stabilizer permits either image. Compare the complete transported pair.
+    if (signature[3] === 1 && reflectGuard(guard) !== null) {
+      const other = canonicalizeCertificatePayload(guard, conclusion, 1);
+      if (proofDataKey(other) < proofDataKey(canonical)) canonical = other;
+    }
+    canonical = snapshotProofData(canonical);
+    const payloadKey = proofDataKey({ proofProfile, p0Class: signature[0], p1Class: signature[1], ...canonical, dependencyCone });
+    if (proofIdentity !== null && this.byProofIdentity.has(proofIdentity)) {
+      const existing = this.byProofIdentity.get(proofIdentity);
+      if (existing.payloadKey !== payloadKey) throw new Error('proofIdentity collision: canonical proof payload differs');
+      return existing.certificate;
+    }
+    const bucket = structuralBucket(this.root, signature[0], signature[1], true);
 
     const certificate = Object.freeze({
       id: this.nextCertificateId++,
@@ -49,11 +74,12 @@ export class IsoMaxCertificateIndex {
       guard: canonical.guard,
       conclusion: canonical.conclusion,
       proofIdentity,
+      proofProfile,
       provenance,
       dependencyCone,
     });
     bucket.certificates.push(certificate);
-    if (proofIdentity !== null) bucket.byProofIdentity.set(proofIdentity, certificate);
+    if (proofIdentity !== null) this.byProofIdentity.set(proofIdentity, { payloadKey, certificate });
     this.size += 1;
     return certificate;
   }
