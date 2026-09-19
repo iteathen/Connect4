@@ -54,11 +54,11 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through complete selected rank29/rank28 boundaries, three adjacent selected rank27 thresholds, and exact block-signature antichain indexing:
+The post-1.1 successor graph is current through complete selected rank29/rank28 boundaries, three adjacent selected rank27 thresholds, and two independently qualified exact fixed-width antichain normalizers:
 
-- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_6.*`
-- `research/isograph/successor/CONNECT4_RBA_QU_0_13.*`
-- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6.*`
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_7.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_14.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7.*`
 
 Current semantic disposition:
 
@@ -70,15 +70,16 @@ C4-R0080  four-front partial-WDL block carrier                      deductive_ex
 C4-R0081  Bellman antichain-semiring lattice polynomial            deductive_exact
 C4-R0082  local-skyline semiring multiplication factorization      deductive_exact
 C4-R0083  selected rank31/rank30/rank29/rank28 recurrence          empirically_supported
-C4-R0084  multi-phase root-scale frontier/query cost law            open_question
+C4-R0084  staged local-query / multi-factor cost law                open_question
 C4-R0085  outer-restriction skyline-width monotonicity             deductive_exact
 C4-R0086  projection-tree subtree dominance pruning                deductive_exact
 C4-R0087  selected rank27 draw15 closure                            empirically_supported
 C4-R0088  block-signature subset/superset antichain indexing       deductive_exact
 C4-R0089  selected rank27 loss14/win15 adjacent closures           empirically_supported
+C4-R0090  static dominance-tree antichain normalization            deductive_exact
 ```
 
-Selected rank27:
+Selected rank27 remains:
 
 ```text
 support [3,4,2,0,6,6,6]
@@ -91,43 +92,50 @@ draw15  Upper 161,398   Lower 534,618
 win15   Upper 235,107   Lower 306,617
 ```
 
-These thresholds require materially different evaluation regimes on the same support. The active cost decomposition is now:
-
-```text
-R = raw pair opportunities
-Q = local projection / inspected-leaf work
-C = local skyline candidate occurrences
-D = distinct candidate count
-M = global antichain normalization work
-O = exact output width
-```
-
-The `win15` action-0 x action-2 Lower product provides the current normalization control:
+The rank27 `win15` action-0 x action-2 product is now a full evaluator differential:
 
 ```text
 30,387 x 20,096
 = 610,657,152 implicit pairs
--> 2,862,195 local candidates
--> 2,170,447 distinct
+-> 2,862,195 local candidate occurrences
+-> 2,170,447 distinct candidates
 -> 143,550 exact maximal generators
 
-projection-tree local phase   ~38.33 s
-block-signature normalization ~19.36 s
+flat-local and projection-tree local occurrence streams      identical
+static-tree and block-signature global generator streams     identical
+static/block SHA-256:
+9d621eb921febde027869bc77e88d07f4a49c5a7d50fdc67ba2c60390b765389
 ```
 
-The same product previously failed under older evaluator/normalizer combinations. It is therefore an evaluation-pipeline wall, not an intrinsic semantic or factor-pair wall.
+Static-tree maximalization closes the full distinct candidate family in ~4.86 s with the parallel leaf-31 control (~7.26 s with one query thread). Its complement dual reproduces the complete `Upper(win15)` stream in ~2.79 s.
 
-Block-signature indexing is qualified in both directions:
+The planner is now explicitly staged:
 
 ```text
-subset-maximal real differential:
-    100,000 candidates -> 26,078 / 26,078 exact match
+preflight local/orientation economics
+    hash projection samples
+    + deterministic union-nearest extreme probes
 
-subset-minimal full win15 Upper:
-    279,650 raw -> 235,107 / 235,107 exact match
+execute exact local projection phase
+
+observe exact:
+    C local candidate occurrences
+    D distinct candidate volume
+
+choose exact global normalizer
+
+for multiple factors:
+    bounded lookahead over the exact intermediate
+    against remaining factors
 ```
 
-Do not descend to rank26 yet. The next seam is a multi-phase exact product planner that chooses orientation/local evaluator/global normalizer and preserves persisted rank27 streams.
+The rare-tail guard is load-bearing: a union-nearest action0->action1 outer has local width 57,549/58,059 and ~981 ms indexed query time, while small hash samples missed it.
+
+A cheap first pair is not necessarily a cheap full tree. The exact `action0 x action2 -> 143,550` intermediate leaves hard continuations, while the persisted `action0 x action1 -> 205,066` path has a materially cheaper next multiplication by action2.
+
+The principal unresolved scaling wall is now **hard local restricted-image evaluation** at some intermediate/final products. Global antichain normalization correctness/performance is no longer the primary wall on these controls.
+
+Do not descend to rank26 yet.
 
 C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a separate side seam.
 

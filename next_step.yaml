@@ -1,14 +1,15 @@
 current_rba_execution:
-  id: qualify_multiphase_rba_product_planner
-  status: rank29_rank28_closed_rank27_three_thresholds_closed_block_index_qualified
+  id: qualify_staged_rba_local_projection_planner
+  status: rank29_rank28_closed_rank27_three_thresholds_closed_static_and_block_normalizers_qualified
   authority:
-    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_6.json
-    - research/isograph/successor/CONNECT4_RBA_QU_0_13.json
-    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6.json
+    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_7.json
+    - research/isograph/successor/CONNECT4_RBA_QU_0_14.json
+    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7.json
     - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md
     - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_LOSS14_CHECKPOINT_0_1.md
     - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_WIN15_CHECKPOINT_0_1.md
     - research/isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_QUALIFICATION_0_2.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_STATIC_DOMINANCE_TREE_PLANNER_CHECKPOINT_0_1.md
   exact_state:
     rank29:
       support: "[3,5,2,1,6,6,6]"
@@ -29,30 +30,45 @@ current_rba_execution:
     - outer_restriction_skyline_width_monotonicity
     - projection_subtree_union_dominance_pruning
     - block_signature_subset_superset_antichain_indexing
+    - static_dominance_tree_antichain_normalization
     - minimal_antichain_complement_dual
   cost_model:
     variables:
-      - R_raw_pair_opportunities
       - Q_projection_query_work
       - C_local_skyline_candidate_occurrences
       - D_distinct_candidate_volume
       - M_global_normalization_work
       - O_exact_output_width
-    planner_dimensions:
-      - factor_order
-      - operand_orientation
-      - local_projection_evaluator
-      - global_antichain_normalizer
+      - T_rare_tail_extreme_projection_structure
+    raw_pair_count:
+      role: upper_bound_not_standalone_cost_oracle
+  planner:
+    preflight:
+      - deterministic_hash_projection_samples
+      - union_nearest_extreme_probes
+    semantic_phase_boundary:
+      - execute_exact_local_projection
+      - observe_exact_C_and_D
+      - choose_exact_global_normalizer
+    global_normalizers:
+      - static_dominance_tree
+      - block_signature_index
+      - retained_exact_control
+    multi_factor:
+      - bounded_lookahead_over_exact_intermediate_and_remaining_factors
+      - no_greedy_cheapest_first_pair
   objective: >-
-    Build and qualify a multi-phase exact antichain-semiring product planner against the persisted selected-rank27
-    loss14/draw15/win15 controls. The planner must estimate both projection/query work and global normalization pressure,
-    select only semantics-preserving evaluator/orientation/normalizer choices, and reproduce exact persisted streams.
-    Reassess after the planner control set passes and before any descent to rank26.
+    Qualify the staged exact RBA product planner on persisted selected-rank27 controls, focusing on the remaining
+    hard local restricted-image phase. Improve or predict local projection work using deterministic hash probes plus
+    union-nearest extreme probes, choose flat versus projection-indexed local evaluation only by exact qualified
+    economics, and use bounded lookahead for multi-factor products. Reproduce persisted streams. Reassess before rank26.
   constraints:
-    - do_not_descend_to_rank26_before_multiphase_planner_qualification
+    - do_not_descend_to_rank26_before_staged_planner_qualification
     - preserve_exact_antichain_semiring_and_first_win_semantics
-    - do_not_use_raw_pairs_final_width_pruning_percentage_or_local_query_sample_as_a_standalone_cost_oracle
-    - ordered_prefix_sampling_is_not_an_orientation_oracle
+    - global_normalizer_may_be_selected_only_after_exact_local_C_D_when_using_staged_path
+    - do_not_use_raw_pairs_final_width_pruning_percentage_or_small_hash_sample_as_a_standalone_cost_oracle
+    - always_include_deterministic_extreme_tail_probe_when_estimating_local_query_work
+    - no_greedy_first_pair_only_multifactor_planning
     - every_adaptive_pipeline_choice_must_preserve_exact_stream_identity
     - ordinary_value_bellman_semantics_are_not_the_open_law
     - proof_value_bridge_remains_a_separate_open_side_seam
@@ -136,13 +152,14 @@ parallel_high_value_seam:
     - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
-  id: qualify_multiphase_rba_product_planner
+  id: qualify_staged_rba_local_projection_planner
   objective: >-
-    Continue RBA evaluation research on the persisted selected-rank27 controls. Build a multi-phase exact product
-    planner that chooses operand orientation, local projection evaluator and global antichain normalizer while tracking
-    R/Q/C/D/M/O phase costs. Use factor-order exploration only with exact semiring associativity/commutativity preserved.
-    Require byte-identical generator streams against qualified controls. Do not descend to rank26 until the planner is
-    qualified and the rank27 cost-law reassessment is complete.
+    Continue RBA evaluation research on the persisted selected-rank27 controls. The exact static and block-signature
+    global normalizers are already qualified. Focus on the hard local restricted-image phase: measure deterministic
+    hash samples plus union-nearest extreme projections, select flat or projection-tree local evaluation only under
+    exact stream invariance, then choose the global normalizer after exact C/D are known. For four-factor products,
+    use bounded lookahead over exact intermediates instead of greedy first-pair choice. Reproduce persisted streams
+    before rank26 descent.
   supporting_subseam:
     id: proof_value_bridge
     role: preserve_and_revisit_only_when_new_exact_relation_evidence_appears

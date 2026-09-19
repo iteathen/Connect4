@@ -107,51 +107,39 @@ The RBA QU is post-1.1 research structure only. It does not mutate frozen author
 
 The current post-1.1 RBA logic/topology layer is:
 
-- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_6.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_QU_0_13.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6.md`, `.json`, and `.isg`.
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_7.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_QU_0_14.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7.md`, `.json`, and `.isg`.
 
 Current exact progression:
 
 ```text
 selected rank29 [3,5,2,1,6,6,6]   complete strong-value boundary CLOSED
 selected rank28 [3,5,2,0,6,6,6]   complete strong-value boundary CLOSED
-selected rank27 [3,4,2,0,6,6,6]:
-    loss14 CLOSED
-    draw15 CLOSED
-    win15  CLOSED
-    full strong boundary OPEN
+selected rank27 [3,4,2,0,6,6,6]   loss14/draw15/win15 CLOSED
+rank26                                 NOT STARTED
 ```
 
-Rank27 adjacent thresholds:
+The current evaluator refinement has two exact global antichain implementations:
 
 ```text
-loss14  114,585 / 158,402
-draw15  161,398 / 534,618
-win15   235,107 / 306,617
+C4-R0088 block-signature dominance index
+C4-R0090 static candidate dominance tree
 ```
 
-The new exact successor law C4-R0088 is a block-signature dominance index for fixed-width antichain normalization. It is qualified on real RBA data in both maximal and minimal modes.
+On the full rank27 `win15` action-0 x action-2 candidate family, both return the same 143,550-generator canonical stream. Static-tree minimal dual also reproduces the exact 235,107-generator `Upper(win15)` stream.
 
-The current planner problem is explicitly multi-phase:
-
-```text
-factor order
-x operand orientation
-x local projection evaluator
-x global antichain normalizer
-```
-
-The cost variables tracked separately are raw pairs, projection work, local candidate volume, distinct volume, normalization work and final width.
+The active planner is staged rather than one-shot. It preflights local projection with deterministic hash samples plus union-nearest extreme probes, executes the exact local phase, observes exact C/D candidate volumes, and only then selects the global normalizer. Multi-factor products require bounded lookahead over exact intermediates.
 
 Current durable evidence includes:
 
 - `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_LOSS14_CHECKPOINT_0_1.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md`;
 - `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_WIN15_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_QUALIFICATION_0_2.md`.
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_QUALIFICATION_0_2.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_STATIC_DOMINANCE_TREE_PLANNER_CHECKPOINT_0_1.md`.
 
-The next exact seam is to qualify an adaptive multi-phase product pipeline against the persisted rank27 controls before any rank26 descent.
+The next technical seam is hard local restricted-image evaluation on rank27 controls, not another global normalizer and not rank26 descent.
 
 The proof/certificate clause-to-value bridge remains OPEN. Authority 1.1 remains frozen.
 
