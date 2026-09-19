@@ -1,0 +1,502 @@
+{
+  "schema": 2,
+  "id": "isomax-hot-loop-full-discovery-0.2",
+  "date": "2026-09-19",
+  "owner_branch": "research/semantic-quotient",
+  "research_head_at_freeze": "b8774306c209b530b8bd1b6f7e6dcb2f74eee475",
+  "solver_head": "69a1ae0929b934682d475b31cdd4a38fac77fc12",
+  "isograph_head": "8208cf659e65f162649a14cea1d7d80511bf4200",
+  "base_graph": "ISOMAX_HOT_LOOP_OPTIMIZATION_GRAPH_0_1",
+  "corrected_nei": "ISOMAX_HOT_LOOP_NEI_APPLICATION_0_2",
+  "dp_authority": {
+    "qualified": "Discovery Protocols 0.1-0.4 cumulative module",
+    "guidance_only": "DP 0.5 observation-first discrepancy guidance"
+  },
+  "authority_effect": "none",
+  "protocols": [
+    {
+      "id": "DP-01",
+      "title": "Cross-boundary relational structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Semantic/source/runtime/machine/cost boundaries are distinct but causally connected. NEI 0.1 implementation defect was exposed at the identity-authority boundary; q-DAG/task boundary remains a distribution seam.",
+      "issues": [
+        97,
+        98,
+        101
+      ]
+    },
+    {
+      "id": "DP-02",
+      "title": "Constraint-structure discovery",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "First-win stopping, exact-q equality, sealed-capacity rules, proof/q separation and operation-word identity guards are load-bearing constraints. First-win excludes nonterminal-q authority after terminal transition.",
+      "issues": [
+        98
+      ]
+    },
+    {
+      "id": "DP-03",
+      "title": "Interface / port correspondence",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Generic IsoMaxTransitionCache and ordinary-WDL solver use the same key interface but have different value-domain ownership. Global Int8 conversion is invalid; consumer-specific WDL specialization is the lawful candidate.",
+      "issues": [
+        101
+      ]
+    },
+    {
+      "id": "DP-04",
+      "title": "Dependency-topology discovery",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Semantic value dependency is a ranked q DAG while worker execution materializes private subtree occurrences. Existing #89-#95 remain valid candidate refinements; no scheduler winner is promoted.",
+      "issues": [
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95
+      ]
+    },
+    {
+      "id": "DP-05",
+      "title": "QU / open-region topology",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Three open regions remain valid: V8 lowering, dynamic hardware cost, and parallel-distribution economics. They are connected constrained unknowns, not missing scalars. No justified QUI between them.",
+      "issues": []
+    },
+    {
+      "id": "DP-06",
+      "title": "Repeated relational motifs",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Repeated over-general representation motif spans signed hash/isolated-bit, fixed masks, singleton projection, move-order incidence, and remaining hash-mix chain. Repeated same-word move-order loads form a new local motif.",
+      "issues": [
+        96,
+        99
+      ]
+    },
+    {
+      "id": "DP-07",
+      "title": "Alternative-factorization discovery",
+      "disposition": "OPEN_STRUCTURAL_LEADS",
+      "finding": "Residual-first mirror canonicalization can be refactored to support-first without changing the reflection orbit; dense ownTransition can fuse class loading with its existing dense transform.",
+      "issues": [
+        97,
+        100
+      ]
+    },
+    {
+      "id": "DP-08",
+      "title": "Residual-structure discovery after partial match",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "The initial #73 NEI layer's residual was not a natural distinction but a qualification defect. Corrected 0.2 preserves representation equivalence separately from NEI authority. Lower-confidence residuals: derived support masks and blocker affected-slot traversal.",
+      "issues": []
+    },
+    {
+      "id": "DP-09",
+      "title": "Symmetry / automorphism discovery",
+      "disposition": "SUPPORTED_CANDIDATE",
+      "finding": "Horizontal reflection is exact. Support-first orientation can decide asymmetric mirror orbits before residual reflection; residual comparison remains only for support stabilizers. Per-class reflection-order memo is demoted to a symmetric-support fallback.",
+      "issues": [
+        97
+      ]
+    },
+    {
+      "id": "DP-10",
+      "title": "Role-equivalent elements under different labels",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Signed and unsigned representation occurrences can play the same operation-word role only under the explicit P-ISOMAX-OPERATION-WORD32-0.2 identity law; role match alone is not NEI SAME.",
+      "issues": [
+        96
+      ]
+    },
+    {
+      "id": "DP-11",
+      "title": "Invariants across admissible variation",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "NEI-HOT-001 and -002 are determinate only because exact operation-word projection plus fixed evidence settles identity. #96 remains unqualified because full-chain consumer closure is not yet proved.",
+      "issues": [
+        96
+      ]
+    },
+    {
+      "id": "DP-12",
+      "title": "Known/unknown interface correspondence",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Known source/runtime observations attach to QU-HOT-01/02/03 at exact boundaries. Hardware counters remain unknown; failure to configure xperf is not zero cost.",
+      "issues": []
+    },
+    {
+      "id": "DP-13",
+      "title": "Multi-scale common substructure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "The same mismatch pattern appears from bit-level carriers through residual kernels to task scheduling: implementation generality/materialization can exceed semantic need. No claim of one universal mechanism is made.",
+      "issues": [
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+      ]
+    },
+    {
+      "id": "DP-14",
+      "title": "Transformation-invariant discovery",
+      "disposition": "SUPPORTED_CANDIDATES",
+      "finding": "Exact results survive signed/unsigned carrier changes, table precomputation, flattening, reflection and preparation reorder. Support-first mirror selection is a new transformation-invariant candidate; hash-mix signing remains pending.",
+      "issues": [
+        96,
+        97
+      ]
+    },
+    {
+      "id": "DP-15",
+      "title": "Information-flow structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "q information flows from state to prepared key to cache; residual content flows through an avoidable inputBits copy before dense own cofactor; exact values flow backward across task/q dependencies. Dense load-transform fusion is candidate.",
+      "issues": [
+        100
+      ]
+    },
+    {
+      "id": "DP-16",
+      "title": "Causal / temporal structure",
+      "disposition": "SUPPORTED_CANDIDATE",
+      "finding": "First-win stopping is a causal cut: once mover transition terminalizes, no later future-game state exists. Current q lookup occurs after terminalization at recursive entry and opponent cofactor is computed before terminal recognition. Stage A terminal-before-q is candidate; Stage B post-win blocker suppression requires explicit terminal-state scope.",
+      "issues": [
+        98
+      ]
+    },
+    {
+      "id": "DP-17",
+      "title": "Containment / ownership structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Generic q cache owns arbitrary payload semantics and Branch Manager object-valued q nodes; ordinary worker owns WDL-only values. This ownership boundary blocks global Int8 conversion and permits only scoped specialization.",
+      "issues": [
+        101
+      ]
+    },
+    {
+      "id": "DP-18",
+      "title": "Cardinality / multiplicity structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Ordinary WDL has cardinality three while generic cache value domain is open; pair-incidence records have repeated word multiplicity; one canonical q can have many parent/task occurrences. These counts are optimization cues, not identity evidence.",
+      "issues": [
+        90,
+        99,
+        101
+      ]
+    },
+    {
+      "id": "DP-19",
+      "title": "Dual / reversed structures",
+      "disposition": "NO_NEW_LEAD",
+      "finding": "Own and blocker cofactors are complementary player-event roles but not interchangeable algorithms; global own normalization prevents mechanically importing block locality. Existing dense-own/block separation is retained.",
+      "issues": [
+        100
+      ]
+    },
+    {
+      "id": "DP-20",
+      "title": "Complement / exclusion structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "First-win stopping excludes post-terminal continuation semantics; sealed storage excludes growth; unresolved proof guards exclude optimistic applicability. Terminal boundary candidate uses only the first exclusion.",
+      "issues": [
+        98
+      ]
+    },
+    {
+      "id": "DP-21",
+      "title": "Fixed-point / recurrence structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Ordinary game value is rank-well-founded, not intrinsically a global fixed point. Current task quantum is execution policy over that DAG. Existing rank-cut/supply-front candidates remain valid; terminal nodes are recurrence leaves and need not be nonterminal q cache entries.",
+      "issues": [
+        89,
+        93,
+        98
+      ]
+    },
+    {
+      "id": "DP-22",
+      "title": "Compositional-structure discovery",
+      "disposition": "SUPPORTED_CANDIDATE",
+      "finding": "ownTransition composes class load then dense transform then normalization; the first two can potentially fuse without changing composition semantics. q mirror canonicalization similarly composes orbit selection with exact triple representation.",
+      "issues": [
+        97,
+        100
+      ]
+    },
+    {
+      "id": "DP-23",
+      "title": "Reconstruction-structure discovery",
+      "disposition": "OPEN_STRUCTURAL_LEAD",
+      "finding": "supportLo/supportHi are reconstructible from gravity support/heights and are consumed by optional proof guards, while ordinary workers exclude certificates/RBA. A worker-only omission could be possible, but specialization/branching economics and public-state reconstruction obligations are unresolved; no issue filed.",
+      "issues": []
+    },
+    {
+      "id": "DP-24",
+      "title": "Proof / witness topology",
+      "disposition": "STRUCTURE_ESTABLISHED_CORRECTION",
+      "finding": "0.1 native NEI records lacked proper A/B/P/E claim topology. Corrected NEI 0.2 uses ^94000/01/02/03/07/08/10/11/17/24/25 roles. q/proof identity remains separate.",
+      "issues": []
+    },
+    {
+      "id": "DP-25",
+      "title": "Refinement-relation discovery",
+      "disposition": "REVISION_NOT_REFINEMENT",
+      "finding": "NEI application 0.2 corrects an invalid identity-strengthening in 0.1; it is a corrective successor/revision of that qualification layer, not evidence-narrowing refinement. Runtime observations from 0.1 remain valid.",
+      "issues": []
+    },
+    {
+      "id": "DP-26",
+      "title": "Boundary-movement invariance",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Moving growU32 to module scope changed runtime allocation without semantic change, proving administrative/source boundary can matter to machine realization. Support-first q candidate moves the mirror-decision boundary while preserving the q orbit; must not move proof-transporter authority.",
+      "issues": [
+        97
+      ]
+    },
+    {
+      "id": "DP-27",
+      "title": "Parameter-role correspondence",
+      "disposition": "NO_NEW_LEAD",
+      "finding": "worker count, node quantum, 512 poll interval, 64K transition prefix and retention caps have distinct resource/control roles. Existing #75/#79/#94 evidence already owns them; numerical coincidence gives no new relation.",
+      "issues": [
+        94
+      ]
+    },
+    {
+      "id": "DP-28",
+      "title": "Dimensional / unit structure",
+      "disposition": "STRUCTURE_ESTABLISHED_NO_NEW_CANDIDATE",
+      "finding": "Fixed widths (42 cells, 20 frontier words, 10 chunks, 32-bit words, 3 WDL values) explain several exact specializations, but width alone does not authorize a representation change. New fixed-width cache candidate is ownership-scoped in #101.",
+      "issues": [
+        101
+      ]
+    },
+    {
+      "id": "DP-29",
+      "title": "Ordering / partial-order structure",
+      "disposition": "STRUCTURE_ESTABLISHED_EXISTING",
+      "finding": "Support-local action-value isotony and task dependency leverage remain separate ordering relations. Move-order pair record term IDs are monotone enough to make same-word reuse possible without reordering advisory semantics.",
+      "issues": [
+        92,
+        99
+      ]
+    },
+    {
+      "id": "DP-30",
+      "title": "Reachability / connectivity structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Manager q graph exposes only part of worker-internal reachability; rank-cut #89 targets earlier convergence. Terminal states are absorbing leaves, reinforcing #98. No hidden bypass invalidates first-win stopping.",
+      "issues": [
+        89,
+        98
+      ]
+    },
+    {
+      "id": "DP-31",
+      "title": "Conservation / balance structure",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Exact apply/undo, prepared-key bit preservation, mirror orbit equality and WDL invariance are conservation obligations across optimized representations. They are qualification constraints, not new semantics.",
+      "issues": [
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+      ]
+    },
+    {
+      "id": "DP-32",
+      "title": "Threshold / phase-boundary structure",
+      "disposition": "NO_NEW_PROMOTION",
+      "finding": "Measured thresholds 64K transition prefix, 512 necessity poll, worker-count-dependent quantum, and retention caps are policy boundaries. Empty-root class high-water crosses the four-worker retention share, but #84 already found existing hysteresis effective and lacks a new measured case; retain as QU observation only.",
+      "issues": [
+        94
+      ]
+    },
+    {
+      "id": "DP-33",
+      "title": "Degenerate / special-case structure",
+      "disposition": "SUPPORTED_CANDIDATES",
+      "finding": "Terminal states, horizontally symmetric supports, singleton terms, empty residuals and forced edges expose simpler exact structures. Terminal special case -> #98; support stabilizer is the only case where #97 still needs residual tie-break.",
+      "issues": [
+        97,
+        98
+      ]
+    },
+    {
+      "id": "DP-34",
+      "title": "Failure-mode correspondence",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Rejected hit-first interning, blocker memo, trusted fast paths and manager epochs share a failure mode: source-operation reduction/reuse did not improve end-to-end economics. This is a negative discovery law used to gate new candidates.",
+      "issues": []
+    },
+    {
+      "id": "DP-35",
+      "title": "Exception-structure discovery",
+      "disposition": "STRUCTURE_ESTABLISHED",
+      "finding": "Exceptions define lawful optimization scopes: support symmetry for residual mirror tie-break; terminal states for q bypass; proof-enabled states for support masks; object-valued manager cache for generic payload. Exceptions prevent over-generalizing candidates.",
+      "issues": [
+        97,
+        98,
+        101
+      ]
+    },
+    {
+      "id": "DP-36",
+      "title": "Representation-redundancy discovery",
+      "disposition": "HIGH_VALUE_LEADS",
+      "finding": "Confirmed past redundancies: general Number carriers, runtime cell masks, object pair incidence, singleton scan, lexical helper context. New candidates: support-first avoids unnecessary residual reflection, WDL specialization avoids general payload only at ordinary-worker boundary, dense own copy may be redundant. supportLo/Hi redundancy remains open.",
+      "issues": [
+        97,
+        100,
+        101
+      ]
+    },
+    {
+      "id": "DP-37",
+      "title": "Equivalent constraint-closure discovery",
+      "disposition": "STRUCTURE_ESTABLISHED_WITH_IDENTITY_GUARD",
+      "finding": "Operation-word signed/unsigned forms can be equivalent under exact projected consumer closure, but equivalence does not automatically imply NEI SAME. Corrected profile supplies explicit identity law only for NEI-HOT-001/002. Mirror canonical representative alternatives preserve the same exact reflection equivalence class.",
+      "issues": [
+        96,
+        97
+      ]
+    },
+    {
+      "id": "DP-38",
+      "title": "Semantic-identity candidate discovery",
+      "disposition": "QUALIFICATION_DEFECT_REPAIRED",
+      "finding": "Full NEI audit found 0.1 overreach. Corrected 0.2 qualifies only two determinate operation-word SAME claims; hash-vs-q has no NEI claim; task-occurrence/q is contextual only; standard-7x6 q NEI remains INCOMPLETE_UNQUALIFIED; #96 remains unqualified.",
+      "issues": [
+        96
+      ]
+    },
+    {
+      "id": "DP-39",
+      "title": "QUI extension from partial unknown correspondence",
+      "disposition": "DORMANT_NO_CANDIDATE",
+      "finding": "QU-HOT-01/02/03 are different unknown questions with no qualified structural isomorphism target. Equal uncertainty shape would not establish identity or optimization equivalence. No QUI is proposed.",
+      "issues": []
+    },
+    {
+      "id": "DP-40",
+      "title": "Global whole-structure isomorphism",
+      "disposition": "REJECTED_AS_TARGET",
+      "finding": "Semantic, source, V8, machine and scheduling layers are intentionally not globally isomorphic. The useful object is a typed causal correspondence with residuals/unknowns. Whole-graph isomorphism would erase load-bearing implementation distinctions.",
+      "issues": []
+    },
+    {
+      "id": "DP-41",
+      "title": "Literal-value coincidence",
+      "disposition": "LOW_VALUE_NO_LEAD",
+      "finding": "Repeated values such as 32, 42, 64K or 512 are meaningful only with their structural roles. No candidate is based on literal coincidence.",
+      "issues": []
+    },
+    {
+      "id": "DP-42",
+      "title": "Lexical / name similarity",
+      "disposition": "LOW_VALUE_NO_LEAD",
+      "finding": "Labels such as hot/cold, cache, frontier or identity are retrieval hints only. The cold-helper result is a direct counterexample to trusting lexical hot/cold classification as machine behavior.",
+      "issues": []
+    },
+    {
+      "id": "DP-43",
+      "title": "Shared ontology / class-label hints",
+      "disposition": "LOW_VALUE_NO_LEAD",
+      "finding": "Shared class/module labels did not supply optimization authority. Generic cache and ordinary WDL cache share ontology labels but differ in ownership; structural contract wins.",
+      "issues": [
+        101
+      ]
+    },
+    {
+      "id": "DP-44",
+      "title": "Serialization / layout similarity",
+      "disposition": "LOW_VALUE_BOUNDED",
+      "finding": "Flat numeric layout was historically beneficial, but layout similarity alone is not evidence. Native .isg/JSON/JS layout differences carry no identity claim; runtime layout changes require exact A/B qualification.",
+      "issues": []
+    },
+    {
+      "id": "DP-45",
+      "title": "Raw identifier correspondence",
+      "disposition": "NEGATIVE_GUARD",
+      "finding": "Pool-local residual class IDs, task IDs, SIs and hash values are addressing only. They are not portable q/NEI/proof identity. This explicitly blocks shared-TT schemes keyed directly by worker class IDs.",
+      "issues": [
+        78
+      ]
+    }
+  ],
+  "new_candidate_issues": [
+    97,
+    98,
+    99,
+    100,
+    101
+  ],
+  "existing_reinforced_issues": [
+    78,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96
+  ],
+  "open_nonissue_leads": [
+    "ordinary-worker supportLo/supportHi maintenance may be redundant because proof/RBA consumers are excluded, but specialization economics/contract are unresolved",
+    "per-class reflection-order memoization is a fallback only for support-symmetric states if support-first q canonicalization qualifies",
+    "support reflection lookup/precompute may become relevant only after support-first q canonicalization proves useful",
+    "worker retention threshold crossing remains QU observation; prior #84 evidence does not justify reopening without a new measured case"
+  ],
+  "major_corrections": [
+    "optimization graph 0.1 NEI SAME edges were not valid complete NEI claims",
+    "standard-7x6 task/q NEI sameness was overstated relative to current promoted Connect4 NEI authority",
+    "corrected NEI application 0.2 supplies explicit operation-word identity law and proper A/B/P/E claim topology"
+  ],
+  "strongest_findings": [
+    {
+      "id": "F1",
+      "name": "support-first reflection quotient realization",
+      "issue": 97
+    },
+    {
+      "id": "F2",
+      "name": "first-win terminal before nonterminal q lookup",
+      "issue": 98
+    },
+    {
+      "id": "F3",
+      "name": "same-word reuse in flat move-order incidence",
+      "issue": 99
+    },
+    {
+      "id": "F4",
+      "name": "fuse dense residual class loading with cofactor traversal",
+      "issue": 100
+    },
+    {
+      "id": "F5",
+      "name": "WDL-specialized consumer cache without narrowing generic q cache",
+      "issue": 101
+    },
+    {
+      "id": "F6",
+      "name": "full signed hash-mix chain remains a candidate, NEI not yet qualified",
+      "issue": 96
+    }
+  ],
+  "negative_results": [
+    "global generic q-cache Int8 conversion rejected by arbitrary-payload/manager-node ownership",
+    "global whole-structure isomorphism rejected as an optimization target",
+    "no QUI justified among current performance QU regions",
+    "per-class reflection-order memo not promoted ahead of stronger support-first factorization",
+    "worker retention tuning not reopened because prior #84 evidence lacks a new beneficiary",
+    "raw worker class IDs remain nonportable and cannot key shared exact identity"
+  ]
+}
