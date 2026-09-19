@@ -1,0 +1,348 @@
+{
+  "schema": 1,
+  "experiment": "rba-shared-target-cover-dp-rank26-predecessor-assessment",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "status": "exact_operator_qualified_rank26_selected",
+  "law": {
+    "name": "shared_uncovered_target_minimal_cover_dp",
+    "base": "MC(0)={0}",
+    "recurrence": "choose b in T; MC(T)=Min union_{i:b in I_i}{P_i union U | U in MC(T minus I_i)}",
+    "exactness": "every cover contains an image covering b; recursion covers the remainder; Min retains exactly inclusion-minimal parent upset unions"
+  },
+  "differential": {
+    "edges": 6,
+    "modes": 2,
+    "targets_per_mode_edge": 48,
+    "total": 576,
+    "mismatches": 0
+  },
+  "complete_c0": {
+    "own": {
+      "requested": 89032,
+      "memo": 141871,
+      "calls": 291600,
+      "hits": 149730,
+      "max_frontier": 2,
+      "total_output_width": 132649,
+      "ms": 141.783
+    },
+    "opp": {
+      "requested": 117692,
+      "memo": 163346,
+      "calls": 289514,
+      "hits": 126169,
+      "max_frontier": 1,
+      "total_output_width": 69252,
+      "ms": 95.0524
+    }
+  },
+  "interfaces": {
+    "child_win15_parent_loss16": [
+      {
+        "column": 0,
+        "support": [
+          2,
+          4,
+          2,
+          0,
+          6,
+          6,
+          6
+        ],
+        "shapes": 39,
+        "bits": 78,
+        "upper": 177036,
+        "lower": 111041,
+        "max_own_cover": 2,
+        "max_opp_cover": 1,
+        "total_ms": 2073
+      },
+      {
+        "column": 1,
+        "support": [
+          3,
+          3,
+          2,
+          0,
+          6,
+          6,
+          6
+        ],
+        "shapes": 40,
+        "bits": 80,
+        "upper": 75920,
+        "lower": 49724,
+        "max_own_cover": 2,
+        "max_opp_cover": 2,
+        "total_ms": 2071.8
+      },
+      {
+        "column": 2,
+        "support": [
+          3,
+          4,
+          1,
+          0,
+          6,
+          6,
+          6
+        ],
+        "shapes": 40,
+        "bits": 80,
+        "upper": 134818,
+        "lower": 128724,
+        "max_own_cover": 8,
+        "max_opp_cover": 2,
+        "total_ms": 2924.3
+      },
+      {
+        "column": 4,
+        "support": [
+          3,
+          4,
+          2,
+          0,
+          5,
+          6,
+          6
+        ],
+        "shapes": 41,
+        "bits": 82,
+        "upper": 218009,
+        "lower": 144461,
+        "max_own_cover": 2,
+        "max_opp_cover": 1,
+        "total_ms": 2480.4
+      },
+      {
+        "column": 5,
+        "support": [
+          3,
+          4,
+          2,
+          0,
+          6,
+          5,
+          6
+        ],
+        "shapes": 41,
+        "bits": 82,
+        "upper": 233985,
+        "lower": 187533,
+        "max_own_cover": 2,
+        "max_opp_cover": 1,
+        "total_ms": 2634.3
+      },
+      {
+        "column": 6,
+        "support": [
+          3,
+          4,
+          2,
+          0,
+          6,
+          6,
+          5
+        ],
+        "shapes": 41,
+        "bits": 82,
+        "upper": 326205,
+        "lower": 235107,
+        "max_own_cover": 4,
+        "max_opp_cover": 1,
+        "total_ms": 3497.2
+      }
+    ],
+    "child_loss14_parent_win15": [
+      {
+        "column": 0,
+        "support": [
+          2,
+          4,
+          2,
+          0,
+          6,
+          6,
+          6
+        ],
+        "shapes": 39,
+        "bits": 78,
+        "upper": 120412,
+        "lower": 70506,
+        "max_own_cover": 2,
+        "max_opp_cover": 1,
+        "total_ms": 1151.8
+      },
+      {
+        "column": 1,
+        "support": [
+          3,
+          3,
+          2,
+          0,
+          6,
+          6,
+          6
+        ],
+        "shapes": 40,
+        "bits": 80,
+        "upper": 59798,
+        "lower": 44706,
+        "max_own_cover": 2,
+        "max_opp_cover": 2,
+        "total_ms": 1187.4
+      },
+      {
+        "column": 2,
+        "support": [
+          3,
+          4,
+          1,
+          0,
+          6,
+          6,
+          6
+        ],
+        "shapes": 40,
+        "bits": 80,
+        "upper": 86027,
+        "lower": 71507,
+        "max_own_cover": 8,
+        "max_opp_cover": 2,
+        "total_ms": 1599.8
+      },
+      {
+        "column": 4,
+        "support": [
+          3,
+          4,
+          2,
+          0,
+          5,
+          6,
+          6
+        ],
+        "shapes": 41,
+        "bits": 82,
+        "upper": 167173,
+        "lower": 112884,
+        "max_own_cover": 2,
+        "max_opp_cover": 1,
+        "total_ms": 1479.7
+      },
+      {
+        "column": 5,
+        "support": [
+          3,
+          4,
+          2,
+          0,
+          6,
+          5,
+          6
+        ],
+        "shapes": 41,
+        "bits": 82,
+        "upper": 173370,
+        "lower": 112884,
+        "max_own_cover": 3,
+        "max_opp_cover": 1,
+        "total_ms": 1632.7
+      },
+      {
+        "column": 6,
+        "support": [
+          3,
+          4,
+          2,
+          0,
+          6,
+          6,
+          5
+        ],
+        "shapes": 41,
+        "bits": 82,
+        "upper": 187318,
+        "lower": 114585,
+        "max_own_cover": 4,
+        "max_opp_cover": 1,
+        "total_ms": 2373.6
+      }
+    ],
+    "full_wall_ms": 25770
+  },
+  "selected": {
+    "support": [
+      3,
+      3,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 26,
+    "residual_shapes": 40,
+    "transformed_bits": 80,
+    "status": "selected_children_not_cached",
+    "reason": "smallest dual-threshold fixed-action interfaces while not minimizing representation width; max principal-cover frontier 2"
+  },
+  "pressure_control": {
+    "support": [
+      3,
+      4,
+      1,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 26,
+    "max_own_cover": 8
+  },
+  "next": {
+    "threshold": "draw16",
+    "children": [
+      [
+        4,
+        3,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        3,
+        3,
+        0,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        3,
+        2,
+        1,
+        6,
+        6,
+        6
+      ]
+    ],
+    "missing_child_draw15": 3
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
