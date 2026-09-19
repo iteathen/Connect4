@@ -57,6 +57,14 @@ The currently unknown complete/minimal algebra behind the Connect4 residual-boun
 - `isograph/successor/CONNECT4_RBA_QU_0_1.json`
 - `isograph/successor/CONNECT4_RBA_QU_0_1.isg`
 
+Topology placement of that QU inside the Connect4 graph:
+
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_1.md`
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_1.json`
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_1.isg`
+
+The placement fixes the participating semantic regions/endpoints while keeping the unresolved relation occurrences themselves as nested OPEN QU states. This is specifically how the graph records “we know these structures are connected, but do not yet know the exact relation kind/direction.” No typed authority edge is promoted by the placement.
+
 Stable research identity:
 
 `RBA-QU-0001 — Residual Boundary Algebra completion space`
