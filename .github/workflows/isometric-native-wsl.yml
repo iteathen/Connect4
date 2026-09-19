@@ -6,6 +6,9 @@ on:
     paths:
       - 'components/isometric/**'
       - 'tools/isomax-performance-child.mjs'
+      - 'tools/isomax-performance-reporter.mjs'
+      - 'tools/test/solver-performance.test.mjs'
+      - 'benchmarks/isomax-candidates/**'
       - 'tools/solver-performance.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'
       - 'benchmarks/isomax-ordering/**'
@@ -21,6 +24,9 @@ on:
     paths:
       - 'components/isometric/**'
       - 'tools/isomax-performance-child.mjs'
+      - 'tools/isomax-performance-reporter.mjs'
+      - 'tools/test/solver-performance.test.mjs'
+      - 'benchmarks/isomax-candidates/**'
       - 'tools/solver-performance.mjs'
       - 'research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'
       - 'benchmarks/isomax-ordering/**'
@@ -48,4 +54,4 @@ jobs:
       - name: Assert exact Node runtime
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
       - name: Domain and native WSL qualification
-        run: node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs components/bsfp/test/rba-wdl-reference.test.mjs tools/test/solver-performance.test.mjs research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs
+        run: node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs components/bsfp/test/rba-wdl-reference.test.mjs tools/test/solver-performance.test.mjs research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs benchmarks/isomax-candidates/qualification.test.mjs

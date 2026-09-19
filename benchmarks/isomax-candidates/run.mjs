@@ -41,7 +41,6 @@ for (const run of report.runs) for (const [i,s] of run.summaries.entries()) {
   assert.deepEqual(s.decisions, controls[0].summaries[i].decisions, 'WDL/root move mismatch');
   const repeat = report.runs.find(r=>r.variant === run.variant).summaries[i];
   assert.deepEqual(s.work, repeat.work, 'nondeterministic exact work');
-  if (run.variant === 'I6-empty-facts') assert.deepEqual(s.work, controls[0].summaries[i].work);
 }
 report.comparison = VARIANTS.map(variant => {
   const samples = report.runs.filter(r=>r.variant === variant);
@@ -53,7 +52,7 @@ report.comparison = VARIANTS.map(variant => {
       medianMs: median(samples.map(r=>r.summaries[i].elapsedMs)),
       nodes: samples[0].summaries[i].nodes })) };
 });
-report.correctness = { sameWdlAndRootMoves: true, repeatableWork: true, emptyFactsSameWork: true,
+report.correctness = { sameWdlAndRootMoves: true, repeatableWork: true,
   decisionSha256: createHash('sha256').update(JSON.stringify(controls[0].summaries.map(s=>s.decisions))).digest('hex') };
 report.finishedAt = new Date().toISOString(); save();
 console.log(JSON.stringify({ runId, evidence: path.relative(root,directory), comparison: report.comparison }));

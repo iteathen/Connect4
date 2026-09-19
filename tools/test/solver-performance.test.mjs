@@ -42,4 +42,17 @@ test('observed IsoMax executes the native path and reports completed root WDL',
   assert.equal(r.exitCode,0);assert.equal(r.lastRecord.phase,'complete');assert.equal(r.lastRecord.rootWdl,1);
   assert.equal(r.lastRecord.metrics.managerExpansions,1);assert.ok(r.lastRecord.memory.rss>0);
   assert.equal(r.lastRecord.cleanup,'workers-terminated');
+  assert.ok(r.lastRecord.reporting.threadId>0);
+  assert.equal(r.lastRecord.memory.heapScope,'reporter-worker');
+});
+
+test('reporting worker preserves periodic evidence and final timeout before exit',async t=>{
+  const r=await fixture(t,['tools/isomax-performance-child.mjs','','1400','2'],6000);
+  assert.equal(r.exitCode,0);assert.equal(r.timedOut,false);
+  const records=fs.readFileSync(path.join(r.directory,'stdout.log'),'utf8').trim().split('\n').map(JSON.parse);
+  assert.equal(records[0].phase,'prepared');
+  assert.ok(records.some(record=>record.phase==='progress'));
+  assert.equal(records.at(-1).phase,'timeout');
+  assert.equal(records.at(-1).cleanup,'workers-terminated');
+  assert.ok(records.every(record=>record.reporting.threadId>0));
 });

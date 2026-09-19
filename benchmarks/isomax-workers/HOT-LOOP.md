@@ -61,3 +61,15 @@ All samples preserve exact WDL/actions and call counts within each execution
 mode. This compares the combined first/second unit, not a causal attribution
 of the total saving to reservation alone. Neither multi-core scaling nor an
 empty-root solve follows from these bounded three-root timings.
+
+Third unit: manager q deduplication reuses exact numeric triple storage rather
+than a formatted string. A dedicated reporting worker serializes and writes
+periodic evidence; manager/search execution never awaits periodic output.
+Final cleanup drains accepted reports before process exit. A timeout test
+verifies prepared/progress/final ordering and worker-thread provenance.
+
+The prior I1 source seam would have put its bound inside the now-optional
+certificate block. The harness now injects outside that block and checks that
+bounds actually execute without certificates. Obsolete I6 empty-fact timing is
+retired; its historical samples remain. Physical differential qualification
+still covers 132 roots and 330 actions.

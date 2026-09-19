@@ -56,6 +56,14 @@ promise, reporter call, string key, or conclusion-object construction.
 The explicit synchronous certificate/RBA and serial controls are outside this
 bounded fixed-storage worker profile.
 
+Manager q deduplication also uses the existing exact numeric triple cache;
+it no longer formats strings. Manager dependency objects and legal replay
+messages remain outside recursive worker execution. The performance entry
+posts periodic snapshots without waiting; a dedicated reporting worker owns
+JSON/output. Cleanup drains its FIFO after search workers terminate. Telemetry
+RSS/CPU are process-wide; heap figures explicitly identify the reporting
+isolate and must not be mistaken for aggregate solver heap.
+
 The manager exposes up to twice the worker count as ready work and submits at
 most one task per worker, keeping stale queued speculation off the executor.
 Manager q capacity defaults

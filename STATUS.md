@@ -18,6 +18,14 @@ Historical descent from the terminal-frontier experiment does not make Negamax s
 
 ## Research-coupled update readiness — 2026-09-19
 
+The native worker hot-loop restoration removes per-node frontier objects and
+empty-certificate materialization, seals search storage before each quantum,
+and packages continuations only after recursive unwind. Periodic performance
+reporting runs in a separate worker. Manager q keys are numeric. Qualification
+and paired timing evidence: `benchmarks/isomax-workers/HOT-LOOP.md`.
+These changes preserve the reinstated Branch Manager and exact native ordering;
+they do not claim optimal assembly generation or eliminate all V8/runtime work.
+
 The updated-spec implementation pass is qualified. Details and reproducible
 measurements: `docs/decisions/2026-09-19-isomax-issue-qualification.md`.
 

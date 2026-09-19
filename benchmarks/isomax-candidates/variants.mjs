@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-export const VARIANTS = ['baseline', 'I1-nonwin', 'I1-nonloss', 'I1-both', 'I6-empty-facts'];
+export const VARIANTS = ['baseline', 'I1-nonwin', 'I1-nonloss', 'I1-both'];
 
 // Qualification-only transformations. Each candidate starts from production;
 // no candidate is stacked on another or installed in the production route.
@@ -18,16 +18,10 @@ export async function loadSolver(variant) {
     const own = '(state.sideToMove === 0 ? state.p0Class : state.p1Class) === 0';
     const opp = '(state.sideToMove === 0 ? state.p1Class : state.p0Class) === 0';
     const active = variant === 'I1-both' ? 'true' : variant === 'I1-nonwin' ? own : opp;
-    replace('    p0NoWin = facts.p0NoWin;\n    p1NoWin = facts.p1NoWin;',
-      '    p0NoWin = facts.p0NoWin;\n    p1NoWin = facts.p1NoWin;\n' +
-      '    if (!state.isTerminal() && (' + active + ')) {\n' +
+    const seam = '    if (exact !== null) {\n      if ((exact === 1 && p0NoWin)';
+    replace(seam, '    if (!state.isTerminal() && (' + active + ')) {\n' +
       '      p0NoWin ||= state.p0Class === 0;\n' +
-      '      p1NoWin ||= state.p1Class === 0;\n    }');
-  }
-  if (variant === 'I6-empty-facts') {
-    source = 'const EMPTY_FACTS = Object.freeze({ exact: null, forcedCell: null, p0NoWin: false, p1NoWin: false });\n' + source;
-    replace('      return { exact: null, forcedCell: null, p0NoWin: false, p1NoWin: false };',
-      '      return EMPTY_FACTS;');
+      '      p1NoWin ||= state.p1Class === 0;\n    }\n' + seam);
   }
   source = source.replace(/from '(\.[^']+)'/g, (_, relative) => `from '${new URL(relative, url).href}'`);
   return (await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'))).IsoMaxSolver;

@@ -66,11 +66,18 @@ test('certificate contradictions still fail closed for every candidate', async (
   }
 });
 
-test('empty-facts candidate reuses immutable facts only while index is empty', async () => {
-  const Solver=await loadSolver('I6-empty-facts'), solver=new Solver(), state=solver.createState();
-  const a=solver.collectCertificateFacts(state), b=solver.collectCertificateFacts(state);
-  assert.equal(a,b); assert.ok(Object.isFrozen(a));
-  solver.certificates.add(state,{guard:rankGuard({min:0,max:0}),conclusion:noWinConclusion(0),proofIdentity:'test'});
-  const c=solver.collectCertificateFacts(state);
-  assert.notEqual(c,a); assert.equal(c.p0NoWin,true); assert.equal(a.p0NoWin,false);
+test('exhaustion candidate remains active without certificates; obsolete I6 is rejected', async () => {
+  await assert.rejects(loadSolver('I6-empty-facts'), /unknown candidate/);
+  const Solver = await loadSolver('I1-both');
+  let bounds = 0;
+  for (const { moves } of makeCorpus({ seed: 0xc401 + 34, ply: 34, count: 16 })) {
+    const solver = new Solver();
+    const original = solver.assertNoWinBounds;
+    solver.assertNoWinBounds = function (value, p0, p1) {
+      if (p0 || p1) bounds++;
+      return original.call(this, value, p0, p1);
+    };
+    solver.solveMoves(moves);
+  }
+  assert.ok(bounds > 0, 'candidate must not hide inside the nonempty-certificate branch');
 });

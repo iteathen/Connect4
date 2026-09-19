@@ -6,18 +6,21 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
+import os from 'node:os';
 import { captureProcess } from '../../tools/solver-performance.mjs';
 const current = fileURLToPath(new URL('../../', import.meta.url));
 const baseline = path.resolve(process.argv[2]);
 const output = path.resolve(process.argv[3]);
 const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8', windowsHide: true }).trim();
-const report = { node: process.version, baseline: git(baseline, 'rev-parse', 'HEAD'),
+const variants = process.argv[4]?.split(',') ?? ['serial', '1'];
+for (const variant of variants) assert.ok(variant === 'serial' || /^[1-9][0-9]*$/.test(variant));
+const report = { node: process.version, cpu: os.cpus()[0]?.model, variants, baseline: git(baseline, 'rev-parse', 'HEAD'),
   candidateParent: git(current, 'rev-parse', 'HEAD'),
   candidateDiffSha256: createHash('sha256').update(git(current, 'diff', 'HEAD')).digest('hex'),
   runs: [] };
 fs.mkdirSync(output, { recursive: true });
 for (let sample = 0; sample < 3; sample++) {
-  for (const variant of ['serial', '1']) {
+  for (const variant of variants) {
     for (const label of sample === 1 ? ['candidate', 'baseline'] : ['baseline', 'candidate']) {
       const cwd = label === 'baseline' ? baseline : current;
       const directory = path.join(output, sample + '-' + variant + '-' + label);

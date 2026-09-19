@@ -1,6 +1,7 @@
 import { Worker } from 'node:worker_threads';
 import { availableParallelism } from 'node:os';
 import { IsoMaxSolver } from '../solver.mjs';
+import { IsoMaxTransitionCache } from '../isomax-index.mjs';
 import { deriveNativeFrontierConsequence } from '../frontier.mjs';
 import { CONCLUSION_EXACT_VALUE, CONCLUSION_FORCED_MOVE } from '../certificate.mjs';
 import { CENTER_ORDER, promotedColumn } from '../move-order.mjs';
@@ -72,22 +73,22 @@ export class IsoMaxBranchManager {
     const timer=setTimeout(()=>fail(new Error('ISOMAX_TIMEOUT: '+timeoutMs+' ms; no exact root result')),timeoutMs);
     signal?.addEventListener('abort',onAbort,{once:true});
     if(signal?.aborted) onAbort();
-    const solver=new IsoMaxSolver(), nodes=new Map(), pending=new Map();
+    const solver=new IsoMaxSolver(), nodes=new IsoMaxTransitionCache({pool:solver.pool}), pending=new Map();
     const metrics={nodes:0,managerExpansions:0,exactTasks:0,splitTasks:0,retiredTasks:0,
       qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,workerExecutionMs:0,
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
     const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
       metrics:{...metrics,workerTasks:[...metrics.workerTasks],workerNodes:[...metrics.workerNodes]},
-      managerNodes:nodes.size,executor:this.executor?.stats()??null});
+      managerNodes:nodes.count,executor:this.executor?.stats()??null});
     const notify=()=>{try{onProgress?.(snapshot());}catch(error){fail(error);}};
     const build=moves=>{
-      const state=solver.createState(moves), key=Array.from(state.gameplayKey()).join(':');
-      let node=nodes.get(key);
+      const state=solver.createState(moves);
+      let node=nodes.get(state);
       if(node){metrics.qReuses++;return node;}
-      if(nodes.size>=this.maxTasks) throw new Error('ISOMAX_MANAGER_CAPACITY: no exact root result');
-      node={id:nodes.size,moves:[...moves],side:state.sideToMove,value:null,edges:null,
+      if(nodes.count>=this.maxTasks) throw new Error('ISOMAX_MANAGER_CAPACITY: no exact root result');
+      node={id:nodes.count,moves:[...moves],side:state.sideToMove,value:null,edges:null,
         parents:new Set(),pending:false,needed:null,directMove:undefined};
-      nodes.set(key,node); return node;
+      nodes.set(state,node); return node;
     };
     const complete=(node,value)=>{
       if(![-1,0,1].includes(value)) throw new Error('invalid manager WDL');
