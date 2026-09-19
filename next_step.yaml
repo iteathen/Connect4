@@ -1,3 +1,37 @@
+current_rba_execution:
+  id: close_rank29_draw13_sparse_semiring_product
+  status: exact_sparse_semiring_scaling_frontier
+  authority:
+    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_2.json
+    - research/isograph/successor/CONNECT4_RBA_QU_0_9.json
+    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_2.json
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_PARTIAL_CHECKPOINT_0_1.md
+  objective: >-
+    Continue the exact native RBA recurrence from the persisted rank29 draw13 seam without rebuilding descendants.
+    Close the implicit 131121 x 41133 antichain-semiring product using output-sensitive parallel local skylines,
+    then finish the rank29 root and continue earlier only while exact frontier economics remain informative.
+  exact_seam:
+    support: "[3,5,2,1,6,6,6]"
+    rank: 29
+    threshold: draw13
+    current_boundary: 131121
+    next_action_lower: 41133
+    raw_opportunities: 5393996493
+    preferred_outer: 41133
+    preferred_inner: 131121
+    estimated_local_candidates: 6800000
+  constraints:
+    - do_not_restart_from_rank30
+    - do_not_rebuild_cached_descendants
+    - ordinary_value_bellman_semantics_are_not_the_open_law
+    - preserve_exact_antichain_semiring_and_first_win_semantics
+    - classify_any_new_wall_as_frontier_width_normalization_preimage_or_throughput_before_speculating
+  secondary_open_relation:
+    id: proof_value_bridge
+    claims: [C4-R0043, C4-R0069, C4-R0076]
+    status: open_not_primary_for_ordinary_value
+    rule: do_not_promote_typed_relation_without_deductive_or_guarded_exact_proof
+
 version: 1
 status: active_derived_view
 branch: research/semantic-quotient
@@ -21,6 +55,7 @@ consolidation:
 confirmed_direct_propagation_seam:
   id: derive_compact_clause_to_value_controllable_predecessor
   status: confirmed_scoped_missing_law
+  role: secondary_open_proof_value_bridge_not_primary_execution
   claims:
     - C4-R0075
     - C4-R0076
@@ -77,16 +112,16 @@ parallel_high_value_seam:
     - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
-  id: derive_compact_clause_to_value_controllable_predecessor
+  id: close_rank29_draw13_sparse_semiring_product
   objective: >-
-    Close C4-R0076 by deriving the smallest exact realizability-preserving mapping from predecessor-closed
-    clause/proof structure to residual/q-value bounds before distributed universal proof expansion. Use the
-    confirmed rank-35 pathologies as the first falsification controls. Preserve the prior guarded mixed-cofactor
-    obligation-birth seam as a supporting subproblem of the same controllable-predecessor law rather than a
-    separate primary program.
+    Continue the exact current RBA semiring recurrence from the persisted rank29 draw13 seam. Use parallel,
+    output-sensitive local skyline multiplication on the 131121 x 41133 final Lower product, preserve exact
+    antichain dominance semantics, finish rank29 if it closes, and only then descend further. Treat the
+    C4-R0043/C4-R0069/C4-R0076 proof/value bridge as a separate open side seam rather than the primary
+    ordinary-value route.
   supporting_subseam:
-    id: derive_guarded_mixed_cofactor_obligation_birth
-    role: quantify_and_guard_structural_shortcut_consequences_within_the_compact_predecessor
+    id: proof_value_bridge
+    role: preserve_and_revisit_only_when_new_exact_relation_evidence_appears
 
 required_authority:
   - account-global iteathen/.github/AGENTS.md
