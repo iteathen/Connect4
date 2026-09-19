@@ -122,3 +122,17 @@ Local domain/native/RBA qualification: 47 tests passed, including the original
 1,390 child-effect comparisons and independent physical WDL controls, plus
 imported-root ordering/reset/exception-restoration coverage. These tests now
 run in the native IsoMax CI workflow.
+
+Post-promotion repeated comparison at `b4b8f1f9`, run
+`20260919T154659258Z-isomax-ordering`, passed with
+`matchesQualifiedExperiment: true`. Across all six processes, both variants
+exactly reproduced the earlier experiment's decisions, nodes and promotion
+counts. Production made 738,581 advisory promotions per complete workload.
+
+Median total solve time: fixed control 6,840.28 ms, production singleton
+5,906.60 ms (13.65% less time). Nodes remain 6,666,683 versus 4,904,792
+(26.43% fewer). Per-set timing changes were -15.67%, +2.05%, -18.79%, -3.75%
+for 18, 20, 24, 28 pieces played respectively. The 20-piece ranges again
+overlapped; the benefit is workload-dependent. All processes exited normally.
+Complete source/runtime identities, decisions and timing samples:
+`../results/2026-09-19-isomax-ordering-promoted.json`.

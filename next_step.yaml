@@ -75,9 +75,12 @@ open_issues:
 qualification:
   report: docs/decisions/2026-09-19-isomax-issue-qualification.md
   local_node: 26.7.0
+  tests: 47
   ordering_report: benchmarks/isomax-ordering/README.md
   ordering_default: native_playable_singleton_effect
   ordering_root_ties: center_first
+  ordering_promotion_run: 20260919T154659258Z-isomax-ordering
+  ordering_matches_qualified_decisions_nodes_and_promotions: true
   rba_default_enabled: false
   rba_promotion: rejected_for_one_off_total_cost_despite_fewer_recursive_children
 
