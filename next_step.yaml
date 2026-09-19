@@ -1,3 +1,25 @@
+active_semantic_successors:
+  game_theory:
+    status: active_candidate
+    root: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md
+    native: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg
+    machine: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json
+    replaces_active_overlay_composition: true
+  isomax_hot_loop:
+    status: active_candidate
+    root: research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md
+    native: research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg
+    machine: research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json
+    replaces_active_overlay_composition: true
+  external_nei_successor:
+    repository: iteathen/isograph
+    revision: 485a16cd44299b3e7ec03768791d261a38bc08c8
+    path: extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md
+    status: unqualified_successor_candidate
+  rule: >-
+    New research uses these clean successors directly. Historical NEI/RBA/hot-loop overlays remain evidence and
+    provenance only and must not be composed as parallel active semantic authority.
+
 current_rba_execution:
   id: cache_selected_rank26_draw16_children
   status: rank27_staged_planner_qualified_rank26_selected
@@ -63,8 +85,10 @@ consolidation:
   canonical_branch: research/semantic-quotient
   structural_history_through: 5f376cc6915ff2285fec2d45a38b3a3cb6b65562
   unified_knowledge_attached_commit: ed71cbe95790d32517f52b2ab815b904516bf665
-  logic_authority_root: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md
-  logic_authority_manifest: research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json
+  qualified_logic_authority_root: research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md
+  qualified_logic_authority_manifest: research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json
+  active_game_theory_successor: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md
+  active_hot_loop_successor: research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md
   legacy_claim_bridge: research/canonical/CLAIM_INDEX.json
   provenance_manifest: research/provenance/SOURCE_MANIFEST.json
   rule: branch_consolidation_does_not_change_claim_status_or_solver_ownership
@@ -146,6 +170,9 @@ required_authority:
   - AGENT_LOCAL.md
   - research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md
   - research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json
+  - research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md
+  - research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json
+  - research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md
   - research/isograph/qualification/CORE_0_18_SANITY_AUDIT_1_1.md
   - research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json
   - research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md
@@ -162,11 +189,6 @@ required_authority:
   - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CLAUSE_Q_BRIDGE.md
   - research/isograph/discovery/2026-09-18-policy-frontier/DIRECT_PROPAGATION_CONFIRMATION.md
   - research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.json
-  - research/isograph/identity/CONNECT4_NEI_7X6_REASSESSMENT_0_1.md
-  - research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md
-  - research/isograph/identity/CONNECT4_NEI_APPLICATION_MANIFEST_0_1.json
-  - research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json
-  - research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json
   - docs/specs/C4-0001-domain-v1.md
   - docs/specs/C4-0006-control-parity-and-winspace-v1.md
   - docs/specs/C4-0007-nested-dependency-closure-v1.md
@@ -264,14 +286,13 @@ execution:
     authority and closure before repair. Record qualification_disposition separately from discovery_disposition.
     A qualification error may leave an open structural lead; an open lead is not authority.
   identity_handling: >-
-    When a discovery branch becomes an identity or safe-collapse question, evaluate it under the applied NEI
-    profile layer before merging referents or claiming natural distinctness. Keep physical, artifact, event,
-    lineage and future-behavior identities separate. Historical NEI-C4-0007 remains incomplete under its pinned
-    evidence revision, while the later q-congruence proof is a candidate SAME result pending independent
-    qualification. Do not assume a context-free quotient map: evidence artifacts may participate in multiple
-    lineages, so any identity projection must preserve the context/anchor that makes it single-valued. Treat
-    artifact identity and artifact-lineage occurrence as separate concepts. NEI DISTINCT never implies statistical
-    independence, and NEI SAME at a projected profile never erases fine-grained provenance.
+    Identity results are derived, not profile-declared. Start from ordinary Connect4 facts, exact correspondences,
+    evidence, and QU; then evaluate the admissible identity-model family under the NEI 0.4 successor semantics.
+    Keep physical occurrence, board position, move history, future behavior, proof/certificate, artifact, event and
+    lineage identity questions separate. The later q-congruence proof is exact candidate evidence for ordinary
+    future-behavior identity pending independent qualification; it does not erase physical/history/proof provenance.
+    Do not invent Bayes factors from finite controls or test counts. If unresolved structure can affect identity or
+    identity-evidence likelihood/dependence, represent it in QU. Missing authority is incomplete, not semantic UNKNOWN.
   method_emergence_context: >-
     Treat the guarded obligation rule as a shortcut controllable-predecessor derivation over the common Connect4
     value-dependency topology. Do not invent solver-specific semantics where the existing action/terminal/quantifier
