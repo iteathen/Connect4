@@ -8,6 +8,7 @@ import { deriveNativeFrontierConsequence } from './frontier.mjs';
 import { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
 import { ResidualPool } from './residual-pool.mjs';
 import { IsometricState } from './state.mjs';
+import { IsoMaxRbaValueResolver } from './rba-value-resolver.mjs';
 
 const MOVE_ORDER = Object.freeze([3, 2, 4, 1, 5, 0, 6]);
 
@@ -24,6 +25,9 @@ function emptyMetrics() {
     unresolvedCertificates: 0,
     forcedTransitions: 0,
     recursiveChildren: 0,
+    valueBoundaryQueries: 0,
+    valueBoundaryHits: 0,
+    valueBoundaryQueryMs: 0,
   };
 }
 
@@ -36,6 +40,7 @@ export class IsoMaxSolver {
     pool = new ResidualPool(),
     certificates = null,
     transitionCache = null,
+    valueResolver = null,
   } = {}) {
     if (!(pool instanceof ResidualPool)) throw new TypeError('pool must be a ResidualPool');
     this.pool = pool;
@@ -48,6 +53,10 @@ export class IsoMaxSolver {
       throw new TypeError('transitionCache must be an IsoMaxTransitionCache for the solver pool');
     }
     this.metrics = emptyMetrics();
+    if (valueResolver !== null && (!(valueResolver instanceof IsoMaxRbaValueResolver) || valueResolver.pool !== pool)) {
+      throw new TypeError('valueResolver must be an IsoMaxRbaValueResolver for the solver pool');
+    }
+    this.valueResolver = valueResolver;
   }
 
   createState(moves = null) {
@@ -133,12 +142,28 @@ export class IsoMaxSolver {
       return 0;
     }
 
+    if (this.valueResolver !== null) {
+      this.metrics.valueBoundaryQueries++;
+      const started = performance.now();
+      let value;
+      try { value = this.valueResolver.resolve(state); }
+      finally { this.metrics.valueBoundaryQueryMs += performance.now() - started; }
+      if (value !== null) {
+        assertExactValue(value);
+        this.assertNoWinBounds(value, p0NoWin, p1NoWin);
+        this.metrics.valueBoundaryHits++;
+        this.storeExact(state,value);
+        return value;
+      }
+    }
+
     if (forcedCell !== null) {
       const column = this.columnForForcedCell(state, forcedCell);
       state.applyUnchecked(column);
       this.metrics.forcedTransitions += 1;
-      const value = this.solveNode(state);
-      state.undo();
+      let value;
+      try { value = this.solveNode(state); }
+      finally { state.undo(); }
       this.assertNoWinBounds(value, p0NoWin, p1NoWin);
       this.storeExact(state, value);
       return value;
@@ -159,8 +184,9 @@ export class IsoMaxSolver {
       sawMove = true;
       state.applyUnchecked(column);
       this.metrics.recursiveChildren += 1;
-      const childValue = this.solveNode(state);
-      state.undo();
+      let childValue;
+      try { childValue = this.solveNode(state); }
+      finally { state.undo(); }
       if (maximizing) {
         if (childValue > best) best = childValue;
         if (best >= upper) {
@@ -233,8 +259,9 @@ export class IsoMaxSolver {
     for (const column of MOVE_ORDER) {
       if (!state.canPlay(column)) continue;
       state.applyUnchecked(column);
-      const childValue = this.solveNode(state);
-      state.undo();
+      let childValue;
+      try { childValue = this.solveNode(state); }
+      finally { state.undo(); }
       if (childValue === targetValue) return column;
     }
     throw new Error(`exact value ${targetValue} has no value-preserving legal action`);

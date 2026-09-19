@@ -36,3 +36,4 @@ export {
 export { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
 export { deriveNativeFrontierConsequence } from './frontier.mjs';
 export { IsoMaxSolver } from './solver.mjs';
+export { IsoMaxRbaValueResolver } from './rba-value-resolver.mjs';
