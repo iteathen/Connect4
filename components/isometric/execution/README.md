@@ -1,0 +1,72 @@
+# Native IsoMax execution
+
+`IsoMaxBranchManager` reintegrates bounded ready-work supply with the existing
+`createSearchWorkerExecutor`. It runs `IsoMaxSolver` in real Node worker
+threads. The older quotient kernel/Negamax engine is not used by these workers.
+The manager is an execution role on the calling thread, not a second solver
+representation. It owns native q task dependencies and fixed-P0 exact backup.
+
+Normal performance entry: `npm run bench:isomax:performance`.
+Public one-shot entry: `await solveIsoMax(moves)`. For repeated roots use
+`new IsoMaxBranchManager(options)`, `await manager.solveMoves(moves)`,
+and `await manager.close()` in finally. `IsoMaxSolver` remains the synchronous
+worker kernel and explicit serial correctness/performance control.
+
+Default workers: available logical CPUs minus one, minimum one. This reserves a
+logical CPU for the manager/other host work; it is not a proven optimum or a
+guarantee of contention-free BSFP orchestration. Set `workers` explicitly when
+composing resource owners. GPU work is never launched.
+
+The manager exposes a bounded reservoir of authoritative ordinary-value tasks.
+Exact native frontier consequences and forced single edges retain precedence.
+It deduplicates q in its own residual pool; only legal replay paths cross worker
+boundaries, never process-local class IDs. Workers reconstruct native state once
+per task and recurse directly on packed WSL state. Root ordering scope remains
+the original external root ply; result arrival order cannot change root ties.
+
+Workers run synchronous bounded quanta (default 65,536 calls). A yielded task
+returns `split` with no value. Only `exact` returns WDL. The manager expands
+unfinished work at its actual child-value dependencies and consumes completions
+incrementally. A node quota is scheduling, not search depth or a WDL cutoff.
+Worker-local exact caches survive yields; q equality in the manager shares
+completed task values. There is no shared recursive transposition table yet.
+
+At an exact parent cutoff, queued unnecessary tasks retire before execution.
+Already busy tasks finish their bounded quantum; they are not interrupted to
+take another branch. Root result-ready time and drain/termination time remain
+separate. Deadline/session abort checks occur every 8192 recursive entries.
+Worker fault, bad result, missing work or capacity exhaustion fails closed.
+No unfinished result is published as draw.
+
+The ready/in-flight bound is twice the worker count; manager q capacity defaults
+to 262,144 and fails visibly at exhaustion. V8 old-generation budgets split a
+4096 MiB budget among workers plus the host share; this is not an aggregate RSS
+limit. Worker-local pools reset between tasks above 65,536 classes or 262,144
+cache entries. Typed arrays/runtime overhead must be included in measurements.
+The public solve deadline cannot exceed 120 seconds. The performance supervisor
+reserves up to one second inside its existing wall deadline for worker cleanup.
+
+This public parallel profile accepts legal replay roots with native ordinary
+value semantics. It does not serialize custom certificate indexes or optional
+RBA resolver objects; their synchronous API remains explicit. It introduces no
+new proof transfer, exploration-as-proof rule, CPU/GPU adapter or legacy board
+inside recursion. The historical executor's proof/exploration priority and
+failure handling are reused; this integration supplies authoritative IsoMax
+tasks, not speculative exploration presented as exact value.
+
+Research inspected: canonical `ae30ed3b` (new loss14 result changes no worker
+contract), earlier Branch Manager/worker source and lifecycle tests, C4-0010
+execution/proof separation, C4-0011 native value/identity/root-order contracts.
+Execution policy is explicitly restated for IsoMax; the old Negamax algorithm
+does not become its authority.
+
+Qualification:
+```sh
+node --test components/isometric/test/execution.test.mjs research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs
+node benchmarks/isomax-workers/run.mjs
+```
+The benchmark uses three preselected expensive synthetic roots, three fresh
+processes per worker count, and includes session startup/cleanup. Correct WDL
+and root actions must match the serial native control. It measures completed
+answers, not summed throughput alone. Empty-board telemetry is separately
+bounded and does not claim a solve.

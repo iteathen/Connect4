@@ -40,5 +40,6 @@ test('observed IsoMax executes the native path and reports completed root WDL',
   {skip:fs.existsSync(path.join(root,'components/isometric/index.mjs'))?false:'IsoMax source belongs to solver/isometric'},async t=>{
   const r=await fixture(t,['tools/isomax-performance-child.mjs','3,0,3,0,3,0,3'],5000);
   assert.equal(r.exitCode,0);assert.equal(r.lastRecord.phase,'complete');assert.equal(r.lastRecord.rootWdl,1);
-  assert.equal(r.lastRecord.metrics.nodes,1);assert.ok(r.lastRecord.memory.rss>0);
+  assert.equal(r.lastRecord.metrics.managerExpansions,1);assert.ok(r.lastRecord.memory.rss>0);
+  assert.equal(r.lastRecord.cleanup,'workers-terminated');
 });

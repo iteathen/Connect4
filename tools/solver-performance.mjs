@@ -59,12 +59,15 @@ export async function runPerformance(solver,timeoutMs=120000) {
     node:process.version,v8:process.versions.v8,platform:process.platform,release:os.release(),arch:process.arch,
     cpu:os.cpus()[0]?.model,logicalCpus:os.cpus().length,totalRamBytes:os.totalmem(),freeRamBytes:os.freemem(),
     policy:solver==='isomax'?{rba:false,freshPoolAndCache:true,v8OldSpaceMiB:4096,
-      progress:'clock check every 8192 node entries; flushed snapshot approximately once per second'}:
+      execution:'native IsoMax Branch Manager and worker executor; one logical CPU reserved by default',
+      progress:'flushed manager/worker snapshot every second; nodes include settled tasks only',
+      cleanupReserveMs:Math.min(1000,timeoutMs-1)}:
       {profile:'c4-0009-p2-compact-hybrid',native:true,publish:false,
         budget:'existing per-case budget includes Tensor A/B and native root step',memory:'unchanged Q1/P2 admission and runtime limits'}};
   writeJson(path.join(directory,'metadata.json'),metadata);
   const args = solver==='isomax'
-    ? ['--max-old-space-size=4096',path.join(repositoryRoot,'tools/isomax-performance-child.mjs')]
+    ? ['--max-old-space-size=4096',path.join(repositoryRoot,'tools/isomax-performance-child.mjs'),'',
+      String(Math.max(1,timeoutMs-1000))]
     : ['tools/cuda-bsfp-qualifier.mjs','--qualify-benchmark','--profile','c4-0009-p2-compact-hybrid',
       '--cases','7x6:c4','--no-publish','--case-timeout-ms',String(timeoutMs),'--spool-root',path.join(directory,'qualification')];
   // BSFP owns its 120s case deadline. Extra outer time only bounds probes/report
@@ -75,9 +78,10 @@ export async function runPerformance(solver,timeoutMs=120000) {
   if (solver==='isomax') {
     const last=captured.lastRecord;
     const rootWdl=last?.phase==='complete'?last.rootWdl:null;
-    result={...captured,status:captured.timedOut?'timeout':captured.exitCode!==0?'runtime-failure':
+    result={...captured,status:captured.timedOut||last?.phase==='timeout'?'timeout':captured.exitCode!==0?'runtime-failure':
       rootWdl===1?'passed':'correctness-failure',rootWdl,oracleMatched:rootWdl===null?null:rootWdl===1,
       metrics:last?.metrics??null,solveMs:last?.solveMs??null,memory:last?.memory??null,
+      execution:last?.execution??null,workerCleanup:last?.cleanup??null,
       nodesPerSecond:last?.metrics?.nodes && last.solveMs>0?last.metrics.nodes/(last.solveMs/1000):null,
       progressIsLowerBound:captured.timedOut||last?.phase!=='complete'};
   } else {
