@@ -54,26 +54,28 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through complete selected rank29/rank28 boundaries and the selected rank27 draw threshold:
+The post-1.1 successor graph is current through complete selected rank29/rank28 boundaries, three adjacent selected rank27 thresholds, and exact block-signature antichain indexing:
 
-- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_5.*`
-- `research/isograph/successor/CONNECT4_RBA_QU_0_12.*`
-- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_5.*`
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_6.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_13.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6.*`
 
 Current semantic disposition:
 
 ```text
-C4-R0077  board-fiber residual/cofactor algebra                 deductive_exact
-C4-R0078  board-fiber ordinary-value invariance                 guarded_exact
-C4-R0079  terminal-extended cofactor adjunction/composition      deductive_exact
-C4-R0080  four-front partial-WDL block carrier                   deductive_exact
-C4-R0081  Bellman antichain-semiring lattice polynomial         deductive_exact
-C4-R0082  local-skyline semiring multiplication factorization   deductive_exact
-C4-R0083  selected rank31/rank30/rank29/rank28 recurrence       empirically_supported
-C4-R0084  root-scale frontier/query-width law                    open_question
-C4-R0085  outer-restriction skyline-width monotonicity          deductive_exact
-C4-R0086  projection-tree subtree dominance pruning             deductive_exact
-C4-R0087  selected rank27 draw15 closure                         empirically_supported
+C4-R0077  board-fiber residual/cofactor algebra                    deductive_exact
+C4-R0078  board-fiber ordinary-value invariance                    guarded_exact
+C4-R0079  terminal-extended cofactor adjunction/composition         deductive_exact
+C4-R0080  four-front partial-WDL block carrier                      deductive_exact
+C4-R0081  Bellman antichain-semiring lattice polynomial            deductive_exact
+C4-R0082  local-skyline semiring multiplication factorization      deductive_exact
+C4-R0083  selected rank31/rank30/rank29/rank28 recurrence          empirically_supported
+C4-R0084  multi-phase root-scale frontier/query cost law            open_question
+C4-R0085  outer-restriction skyline-width monotonicity             deductive_exact
+C4-R0086  projection-tree subtree dominance pruning                deductive_exact
+C4-R0087  selected rank27 draw15 closure                            empirically_supported
+C4-R0088  block-signature subset/superset antichain indexing       deductive_exact
+C4-R0089  selected rank27 loss14/win15 adjacent closures           empirically_supported
 ```
 
 Selected rank27:
@@ -84,26 +86,50 @@ rank 27
 residual shapes 38
 transformed bits 76
 
-Upper(draw15) 161,398
-Lower(draw15) 534,618
+loss14  Upper 114,585   Lower 158,402
+draw15  Upper 161,398   Lower 534,618
+win15   Upper 235,107   Lower 306,617
 ```
 
-The final Lower multiplication has 89,578,193,706 implicit pair opportunities. Flat pair scanning did not close inside a bounded 300-second run. Exact projection-tree pruning inspected only 1,306,881,417 inner generators:
+These thresholds require materially different evaluation regimes on the same support. The active cost decomposition is now:
 
 ```text
-scan fraction      1.46%
-pruned            98.54%
-local candidates 1,555,168
-final generators   534,618
-local generation    28.061 s
-normalization        41.698 s
+R = raw pair opportunities
+Q = local projection / inspected-leaf work
+C = local skyline candidate occurrences
+D = distinct candidate count
+M = global antichain normalization work
+O = exact output width
 ```
 
-This refines the scaling question: local skyline width alone is insufficient. The current measured cost object is restricted-image width plus the inner volume that cannot be certified dominated without leaf inspection, plus global normalization cost.
+The `win15` action-0 x action-2 Lower product provides the current normalization control:
 
-The selected support remains OPEN on its other strong thresholds. Test adjacent rank27 thresholds before any rank26 descent.
+```text
+30,387 x 20,096
+= 610,657,152 implicit pairs
+-> 2,862,195 local candidates
+-> 2,170,447 distinct
+-> 143,550 exact maximal generators
 
-C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a side seam rather than the primary ordinary-value execution route.
+projection-tree local phase   ~38.33 s
+block-signature normalization ~19.36 s
+```
+
+The same product previously failed under older evaluator/normalizer combinations. It is therefore an evaluation-pipeline wall, not an intrinsic semantic or factor-pair wall.
+
+Block-signature indexing is qualified in both directions:
+
+```text
+subset-maximal real differential:
+    100,000 candidates -> 26,078 / 26,078 exact match
+
+subset-minimal full win15 Upper:
+    279,650 raw -> 235,107 / 235,107 exact match
+```
+
+Do not descend to rank26 yet. The next seam is a multi-phase exact product planner that chooses orientation/local evaluator/global normalizer and preserves persisted rank27 streams.
+
+C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a separate side seam.
 
 Authority 1.1 and its frozen qualification evidence remain unchanged.
 

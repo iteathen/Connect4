@@ -1,12 +1,14 @@
 current_rba_execution:
-  id: test_adjacent_rank27_indexed_thresholds
-  status: rank29_rank28_closed_rank27_draw15_closed
+  id: qualify_multiphase_rba_product_planner
+  status: rank29_rank28_closed_rank27_three_thresholds_closed_block_index_qualified
   authority:
-    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_5.json
-    - research/isograph/successor/CONNECT4_RBA_QU_0_12.json
-    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_5.json
+    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_6.json
+    - research/isograph/successor/CONNECT4_RBA_QU_0_13.json
+    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6.json
     - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_RESULTS_0_1.json
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_LOSS14_CHECKPOINT_0_1.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_WIN15_CHECKPOINT_0_1.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_QUALIFICATION_0_2.md
   exact_state:
     rank29:
       support: "[3,5,2,1,6,6,6]"
@@ -16,35 +18,42 @@ current_rba_execution:
       status: complete_strong_boundary_closed
     rank27:
       support: "[3,4,2,0,6,6,6]"
-      status: draw15_closed_full_strong_boundary_open
+      status: loss14_draw15_win15_closed_full_strong_boundary_open
       residual_shapes: 38
       transformed_bits: 76
-      draw15_upper: 161398
-      draw15_lower: 534618
-      final_raw_opportunities: 89578193706
-      indexed_inner_scanned: 1306881417
-      indexed_scan_fraction: 0.014589
-      indexed_pruned_fraction: 0.985411
-  evaluation_policy:
-    exact_laws:
-      - outer_restriction_skyline_width_monotonicity
-      - projection_subtree_union_dominance_pruning
-    flat_pair_scan: rejected_at_rank27_final_product
-    indexed_projection: current_exact_large_product_path
-    orientation_guard: deterministic_hash_sampled_local_work
+      loss14: { upper: 114585, lower: 158402 }
+      draw15: { upper: 161398, lower: 534618 }
+      win15:  { upper: 235107, lower: 306617 }
+  exact_evaluation_laws:
+    - local_skyline_semiring_factorization
+    - outer_restriction_skyline_width_monotonicity
+    - projection_subtree_union_dominance_pruning
+    - block_signature_subset_superset_antichain_indexing
+    - minimal_antichain_complement_dual
+  cost_model:
+    variables:
+      - R_raw_pair_opportunities
+      - Q_projection_query_work
+      - C_local_skyline_candidate_occurrences
+      - D_distinct_candidate_volume
+      - M_global_normalization_work
+      - O_exact_output_width
+    planner_dimensions:
+      - factor_order
+      - operand_orientation
+      - local_projection_evaluator
+      - global_antichain_normalizer
   objective: >-
-    Test adjacent strong thresholds on selected rank27 support [3,4,2,0,6,6,6], prioritizing loss14 and win15.
-    Use the ordinary sparse kernel while its measured economics remain bounded; switch to the exact projection-tree
-    evaluator when flat inner scans become the wall. Compare restricted-image width, prunable/inspected inner volume,
-    local candidate volume, normalization and final antichain width against draw15. Determine whether the rank27
-    pruning structure is support-fiber stable before any descent to rank26.
+    Build and qualify a multi-phase exact antichain-semiring product planner against the persisted selected-rank27
+    loss14/draw15/win15 controls. The planner must estimate both projection/query work and global normalization pressure,
+    select only semantics-preserving evaluator/orientation/normalizer choices, and reproduce exact persisted streams.
+    Reassess after the planner control set passes and before any descent to rank26.
   constraints:
-    - do_not_descend_to_rank26_before_rank27_threshold_reassessment
+    - do_not_descend_to_rank26_before_multiphase_planner_qualification
     - preserve_exact_antichain_semiring_and_first_win_semantics
-    - do_not_use_local_skyline_width_alone_as_cost_predictor
-    - measure_or_bound_leaf_inspection_volume_on_large_products
-    - candidate_count_alone_is_not_an_orientation_criterion
+    - do_not_use_raw_pairs_final_width_pruning_percentage_or_local_query_sample_as_a_standalone_cost_oracle
     - ordered_prefix_sampling_is_not_an_orientation_oracle
+    - every_adaptive_pipeline_choice_must_preserve_exact_stream_identity
     - ordinary_value_bellman_semantics_are_not_the_open_law
     - proof_value_bridge_remains_a_separate_open_side_seam
 version: 1
@@ -127,12 +136,13 @@ parallel_high_value_seam:
     - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
-  id: test_adjacent_rank27_indexed_thresholds
+  id: qualify_multiphase_rba_product_planner
   objective: >-
-    Continue the exact RBA recurrence on selected rank27 support [3,4,2,0,6,6,6]. Test loss14 and win15 first,
-    preserving exact child boundaries and fixed-action fronts. For large universal products, measure restricted-image
-    skyline width and projection-tree leaf-inspection/pruning volume; use exact subtree-union dominance pruning when
-    flat scanning becomes the measured wall. Persist exact boundaries and stream hashes. Reassess before rank26.
+    Continue RBA evaluation research on the persisted selected-rank27 controls. Build a multi-phase exact product
+    planner that chooses operand orientation, local projection evaluator and global antichain normalizer while tracking
+    R/Q/C/D/M/O phase costs. Use factor-order exploration only with exact semiring associativity/commutativity preserved.
+    Require byte-identical generator streams against qualified controls. Do not descend to rank26 until the planner is
+    qualified and the rank27 cost-law reassessment is complete.
   supporting_subseam:
     id: proof_value_bridge
     role: preserve_and_revisit_only_when_new_exact_relation_evidence_appears

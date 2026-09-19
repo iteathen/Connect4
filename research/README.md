@@ -107,49 +107,51 @@ The RBA QU is post-1.1 research structure only. It does not mutate frozen author
 
 The current post-1.1 RBA logic/topology layer is:
 
-- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_5.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_QU_0_12.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_5.md`, `.json`, and `.isg`.
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_6.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_QU_0_13.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6.md`, `.json`, and `.isg`.
 
 Current exact progression:
 
 ```text
 selected rank29 [3,5,2,1,6,6,6]   complete strong-value boundary CLOSED
 selected rank28 [3,5,2,0,6,6,6]   complete strong-value boundary CLOSED
-selected rank27 [3,4,2,0,6,6,6]   draw15 CLOSED; full strong boundary OPEN
+selected rank27 [3,4,2,0,6,6,6]:
+    loss14 CLOSED
+    draw15 CLOSED
+    win15  CLOSED
+    full strong boundary OPEN
 ```
 
-Rank27 draw15:
+Rank27 adjacent thresholds:
 
 ```text
-Upper 161,398
-Lower 534,618
-
-final product:
-    89,578,193,706 implicit opportunities
-    -> projection tree inspects 1,306,881,417
-    -> 98.54% of inner visits pruned
-    -> 1,555,168 local candidates
-    -> 534,618 exact generators
+loss14  114,585 / 158,402
+draw15  161,398 / 534,618
+win15   235,107 / 306,617
 ```
 
-The new exact successor law C4-R0086 is projection-tree subtree dominance pruning:
+The new exact successor law C4-R0088 is a block-signature dominance index for fixed-width antichain normalization. It is qualified on real RBA data in both maximal and minimal modes.
+
+The current planner problem is explicitly multi-phase:
 
 ```text
-if g >= a meet union(S)
-then every a meet b, b in S, is dominated
-and S may be skipped without leaf inspection
+factor order
+x operand orientation
+x local projection evaluator
+x global antichain normalizer
 ```
 
-This is distinct from the measured 98.54% pruning ratio, which is evidence for this particular rank27 product rather than a universal constant.
+The cost variables tracked separately are raw pairs, projection work, local candidate volume, distinct volume, normalization work and final width.
 
-Current durable evidence:
+Current durable evidence includes:
 
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_RESULTS_0_1.json`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md`.
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_LOSS14_CHECKPOINT_0_1.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_WIN15_CHECKPOINT_0_1.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_CHECKPOINT_0_1.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_QUALIFICATION_0_2.md`.
 
-The next exact seam is adjacent rank27 strong thresholds, not rank26. The goal is to determine whether projection pruning remains structural across the support fiber or is specific to draw15.
+The next exact seam is to qualify an adaptive multi-phase product pipeline against the persisted rank27 controls before any rank26 descent.
 
 The proof/certificate clause-to-value bridge remains OPEN. Authority 1.1 remains frozen.
 
