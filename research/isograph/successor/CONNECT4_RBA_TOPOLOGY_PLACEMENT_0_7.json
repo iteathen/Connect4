@@ -1,0 +1,96 @@
+{
+  "schema": 7,
+  "id": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7",
+  "status": "post_1_1_successor_topology",
+  "current_qu": "RBA-QU-0014",
+  "refines": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_6",
+  "nodes": {
+    "board_fiber": 431000,
+    "rba_qu": 430014,
+    "exact_ordinary_value": 431010,
+    "proof_controllable_predecessor": 431020,
+    "native_semiring_scaling": 431030,
+    "outer_restriction_law": 100085,
+    "projection_subtree_pruning_law": 100086,
+    "block_signature_antichain_index": 100088,
+    "static_dominance_tree_antichain_index": 100090
+  },
+  "relations": [
+    {
+      "id": "RBA-REL-01",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-02",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-03",
+      "status": "open"
+    },
+    {
+      "id": "RBA-REL-04",
+      "status": "fixed"
+    },
+    {
+      "source": "C4-R0085",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0086",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0088",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0090",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    }
+  ],
+  "live_execution": {
+    "rank29": {
+      "status": "closed"
+    },
+    "rank28": {
+      "status": "closed"
+    },
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "three_adjacent_thresholds_closed_full_strong_open",
+      "loss14": [
+        114585,
+        158402
+      ],
+      "draw15": [
+        161398,
+        534618
+      ],
+      "win15": [
+        235107,
+        306617
+      ]
+    },
+    "rank26": {
+      "status": "not_started_pending_staged_planner"
+    }
+  },
+  "authority_1_1_mutated": false
+}

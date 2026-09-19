@@ -1,0 +1,128 @@
+{
+  "schema": 14,
+  "id": "RBA-QU-0014",
+  "name": "Residual Boundary Algebra completion space - staged local-query planner refinement",
+  "refines": "RBA-QU-0013",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "newly_fixed_or_constrained": [
+    {
+      "id": "SF23",
+      "statement": "Static candidate dominance trees exactly implement distinct fixed-width subset-maximal antichain normalization; subset-minimal is the complement dual.",
+      "status": "deductive_exact"
+    },
+    {
+      "id": "SF24",
+      "statement": "Static-tree and block-signature normalization return the identical full 143550-generator rank27 action-0 x action-2 stream.",
+      "status": "exact_differential"
+    },
+    {
+      "id": "SF25",
+      "statement": "Flat and projection-tree local evaluators return the identical 2862195 candidate-occurrence stream on the same product.",
+      "status": "exact_differential"
+    },
+    {
+      "id": "SF26",
+      "statement": "Global-normalizer selection may be staged after exact local execution exposes C and D.",
+      "status": "exact_evaluation_decomposition"
+    },
+    {
+      "id": "SF27",
+      "statement": "Union-nearest deterministic extreme probing detects rare local-query tails missed by small hash samples.",
+      "status": "empirically_supported"
+    },
+    {
+      "id": "SF28",
+      "statement": "Greedy cheapest-first factor selection is insufficient for the rank27 win15 four-factor product.",
+      "status": "measured_falsifier"
+    },
+    {
+      "id": "SF29",
+      "statement": "The remaining bounded replay wall on the qualified win15 final step occurs in local projection before global normalization.",
+      "status": "measured_localization"
+    }
+  ],
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis"
+    },
+    {
+      "id": "O2",
+      "role": "intrinsic_staged_local_query_cost_law"
+    },
+    {
+      "id": "O3",
+      "role": "adaptive_local_evaluator_scaling"
+    },
+    {
+      "id": "O4",
+      "role": "transformer_fusion"
+    },
+    {
+      "id": "O5",
+      "role": "root_compactness"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_bridge"
+    },
+    {
+      "id": "O7",
+      "role": "independent_replay"
+    },
+    {
+      "id": "O8",
+      "role": "multifactor_order_orientation_lookahead"
+    },
+    {
+      "id": "O9",
+      "role": "prunable_volume_characterization"
+    },
+    {
+      "id": "O10",
+      "role": "rare_tail_local_query_prediction"
+    },
+    {
+      "id": "O11",
+      "role": "hard_restricted_image_evaluation"
+    }
+  ],
+  "current_frontier": {
+    "rank29": "complete",
+    "rank28": "complete",
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "loss14": "closed",
+      "draw15": "closed",
+      "win15": "closed",
+      "full_strong_boundary": "open"
+    },
+    "rank26": "blocked_pending_staged_planner"
+  },
+  "planner": {
+    "preflight": [
+      "hash_projection_samples",
+      "union_nearest_extreme_probes"
+    ],
+    "phase_boundary": "execute_local_then_observe_C_D",
+    "global_choices": [
+      "static_dominance_tree",
+      "block_signature_index",
+      "retained_exact_control"
+    ],
+    "multifactor": "bounded_exact_intermediate_lookahead",
+    "current_wall": "hard_local_restricted_image_evaluation"
+  },
+  "authority_1_1_mutated": false
+}

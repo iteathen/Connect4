@@ -1,0 +1,229 @@
+{
+  "schema": 7,
+  "overlay_id": "connect4-post-1.1-rba-current-0.7",
+  "status": "derived_successor_overlay_not_authority",
+  "date": "2026-09-19",
+  "research_direction": "Josh Oshiro",
+  "refines": "connect4-post-1.1-rba-current-0.6",
+  "base_authority": {
+    "name": "Connect4 IsoGraph Logic Authority 1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "claims": [
+    {
+      "id": "C4-R0077",
+      "node": 100077,
+      "status": "deductive_exact",
+      "title": "Board-fiber isomorphism determines residual/cofactor algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0078",
+      "node": 100078,
+      "status": "guarded_exact",
+      "title": "Board-fiber isomorphism preserves abstract ordinary strong-value algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0079",
+      "node": 100079,
+      "status": "deductive_exact",
+      "title": "Terminal-extended residual cofactors are compositional left adjoints with exact right adjoints",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0080",
+      "node": 100080,
+      "status": "deductive_exact",
+      "title": "Four nested monotone endpoint fronts exactly carry partial WDL block semantics",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0081",
+      "node": 100081,
+      "status": "deductive_exact",
+      "title": "Ordinary-value Bellman propagation is an antichain-semiring lattice polynomial",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0082",
+      "node": 100082,
+      "status": "deductive_exact",
+      "title": "Antichain-semiring multiplication admits exact local-skyline factorization",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0083",
+      "node": 100083,
+      "status": "empirically_supported",
+      "title": "Native sparse RBA recurrence closes selected rank31/rank30 and complete selected rank29/rank28 boundaries",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0084",
+      "node": 100084,
+      "status": "open_question",
+      "title": "Root-scale compactness and the intrinsic staged local-query/planning cost law remain open",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0085",
+      "node": 100085,
+      "status": "deductive_exact",
+      "title": "For fixed inner family, local skyline width is monotone under outer-mask restriction",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0086",
+      "node": 100086,
+      "status": "deductive_exact",
+      "title": "Projection-tree subtree upper bounds permit exact dominance pruning without leaf inspection",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0087",
+      "node": 100087,
+      "status": "empirically_supported",
+      "title": "Selected rank27 draw15 closes exactly with projection-indexed sparse semiring evaluation",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0088",
+      "node": 100088,
+      "status": "deductive_exact",
+      "title": "Block-signature indexing exactly implements fixed-width subset/superset antichain dominance queries",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0089",
+      "node": 100089,
+      "status": "empirically_supported",
+      "title": "Selected rank27 loss14 and win15 close exactly and exhibit threshold-specific evaluation economics",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0090",
+      "node": 100090,
+      "status": "deductive_exact",
+      "title": "Static dominance trees exactly implement fixed-width minimal/maximal antichain normalization by subtree union/cardinality pruning",
+      "evidence": [
+        "RBA_STATIC_DOMINANCE_TREE_PLANNER_CHECKPOINT_0_1.md",
+        "RBA_STATIC_DOMINANCE_TREE_PLANNER_RESULTS_0_1.json"
+      ]
+    }
+  ],
+  "numerical_frontier": {
+    "rank29": {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "status": "complete"
+    },
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "complete"
+    },
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "loss14_draw15_win15_closed_full_strong_open",
+      "loss14": {
+        "upper": 114585,
+        "lower": 158402
+      },
+      "draw15": {
+        "upper": 161398,
+        "lower": 534618
+      },
+      "win15": {
+        "upper": 235107,
+        "lower": 306617
+      }
+    }
+  },
+  "exact_normalizers": {
+    "block_signature": {
+      "claim": "C4-R0088",
+      "status": "qualified"
+    },
+    "static_dominance_tree": {
+      "claim": "C4-R0090",
+      "status": "qualified",
+      "real_maximal": {
+        "input_occurrences": 2862195,
+        "distinct": 2170447,
+        "output": 143550,
+        "sha256": "9d621eb921febde027869bc77e88d07f4a49c5a7d50fdc67ba2c60390b765389"
+      },
+      "real_minimal": {
+        "input": 279650,
+        "output": 235107,
+        "sha256": "0e7af9d6ae271925a98995795ba2c1e11266d2000c905a7e2417bcc6dc243621"
+      }
+    }
+  },
+  "staged_planner": {
+    "preflight": [
+      "deterministic_hash_projection_samples",
+      "union_nearest_extreme_probes"
+    ],
+    "exact_phase_boundary": "execute local projections before choosing global normalizer",
+    "observed_after_local": [
+      "C_local_candidate_occurrences",
+      "D_distinct_candidate_volume"
+    ],
+    "multi_factor": "bounded lookahead over exact intermediate against remaining factors",
+    "current_wall": "hard local restricted-image evaluation"
+  },
+  "cost_model": {
+    "variables": [
+      "Q_projection_work",
+      "C_local_candidates",
+      "D_distinct",
+      "M_normalization_work",
+      "O_output_width",
+      "T_rare_tail_structure"
+    ],
+    "raw_pairs": "bound_not_sufficient"
+  },
+  "relation_policy": {
+    "proof_value_bridge_relations_promoted": 0,
+    "static_tree": {
+      "source": "C4-R0090",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    "block_index": {
+      "source": "C4-R0088",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    }
+  },
+  "ordinary_value_disposition": {
+    "semantic_operator_missing": false,
+    "current_scaling_frontier": "staged local-projection planner before rank26",
+    "empty_root_solved": false
+  },
+  "authority_effect": "post_1_1_successor_only"
+}
