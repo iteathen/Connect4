@@ -1,0 +1,577 @@
+{
+  "schema": 1,
+  "id": "isomax-hot-loop-optimization-0.1",
+  "issue": 73,
+  "status": "performance_successor_candidate",
+  "authority_effect": "none",
+  "owner_branch": "research/semantic-quotient",
+  "solver_source": {
+    "branch": "solver/isometric",
+    "inspected_head": "69a1ae0929b934682d475b31cdd4a38fac77fc12",
+    "integrated_qualification_sha": "a34743cd7ccd91185afd84c518e9eb610d03ab01",
+    "baseline_sha": "5acf8ea855fdead7e502091e62464bd5242f4ae5"
+  },
+  "environment": {
+    "node": "26.7.0",
+    "v8": "14.6.202.34-node.28",
+    "os": "Windows x64",
+    "cpu": "Intel Core i5-12600K"
+  },
+  "semantic_nodes": [
+    {
+      "id": 995001,
+      "name": "ordinary_value_dependency",
+      "authority": "Connect4/IsoMax exact WDL"
+    },
+    {
+      "id": 995002,
+      "name": "canonical_q_addressing",
+      "authority": "exact support+P0 residual+P1 residual equality"
+    },
+    {
+      "id": 995003,
+      "name": "own_residual_cofactor"
+    },
+    {
+      "id": 995004,
+      "name": "block_residual_cofactor"
+    },
+    {
+      "id": 995005,
+      "name": "support_transition"
+    },
+    {
+      "id": 995006,
+      "name": "advisory_move_order",
+      "constraint": "ordering only"
+    },
+    {
+      "id": 995007,
+      "name": "task_necessity",
+      "constraint": "scheduling only; never WDL"
+    },
+    {
+      "id": 995008,
+      "name": "ranked_q_dependency_dag"
+    }
+  ],
+  "source_nodes": [
+    {
+      "id": 995010,
+      "name": "solveNode",
+      "path": "components/isometric/solver.mjs"
+    },
+    {
+      "id": 995011,
+      "name": "prepared_q_key",
+      "path": "components/isometric/isomax-index.mjs"
+    },
+    {
+      "id": 995012,
+      "name": "apply_undo",
+      "path": "components/isometric/state.mjs"
+    },
+    {
+      "id": 995013,
+      "name": "ownTransition",
+      "path": "components/isometric/residual-pool.mjs"
+    },
+    {
+      "id": 995014,
+      "name": "blockTransition",
+      "path": "components/isometric/residual-pool.mjs"
+    },
+    {
+      "id": 995015,
+      "name": "move_order",
+      "path": "components/isometric/move-order.mjs"
+    },
+    {
+      "id": 995016,
+      "name": "task_control",
+      "path": "components/isometric/execution/task.mjs"
+    },
+    {
+      "id": 995017,
+      "name": "branch_manager",
+      "path": "components/isometric/execution/branch-manager.mjs"
+    }
+  ],
+  "optimized_realizations": [
+    {
+      "id": 995100,
+      "name": "signed_hash_bitpattern",
+      "semantic": 995002,
+      "qualification": {
+        "solveNodeAllocationTopReads": [
+          6,
+          0
+        ],
+        "heapNumberMapLoads": [
+          3,
+          0
+        ],
+        "optimizedBodyBytes": [
+          8888,
+          8580
+        ],
+        "sampledAllocationBytes": [
+          10553904,
+          65552
+        ]
+      },
+      "identity_profile": "P-ISOMAX-32BIT-CONSUMER"
+    },
+    {
+      "id": 995101,
+      "name": "profile_cell_masks",
+      "semantic": 995005,
+      "qualification": {
+        "applyFastCCallSites": [
+          4,
+          0
+        ],
+        "undoFastCCallSites": [
+          4,
+          0
+        ],
+        "applyBodyBytes": [
+          2912,
+          2484
+        ],
+        "undoBodyBytes": [
+          2108,
+          1720
+        ]
+      }
+    },
+    {
+      "id": 995102,
+      "name": "flat_pair_incidence",
+      "semantic": 995006,
+      "qualification": {
+        "exactOrderingPreserved": true
+      }
+    },
+    {
+      "id": 995103,
+      "name": "residual_transition_prefix_64k",
+      "semantic": [
+        995003,
+        995004
+      ],
+      "qualification": {
+        "serialMedianMs": [
+          2304.59,
+          1943.12
+        ],
+        "oneWorkerMedianMs": [
+          2666.45,
+          2375.84
+        ],
+        "fourWorkerMedianMs": [
+          2362.54,
+          2065.04
+        ],
+        "bytesPerPool": 22020096
+      }
+    },
+    {
+      "id": 995104,
+      "name": "singleton_direct_projection",
+      "semantic": 995003,
+      "qualification": {
+        "serialMedianMs": [
+          1798.82,
+          1749.07
+        ],
+        "oneWorkerMedianMs": [
+          2176.16,
+          2153.42
+        ],
+        "termIdCellIdInvariant": true
+      }
+    },
+    {
+      "id": 995105,
+      "name": "module_scope_growth_helper",
+      "semantic": 995003,
+      "qualification": {
+        "internBitsSampledAllocationBytes": [
+          14853112,
+          0
+        ],
+        "optimizedBodyBytes": [
+          9328,
+          9164
+        ],
+        "allocationTopSites": [
+          4,
+          0
+        ]
+      }
+    },
+    {
+      "id": 995106,
+      "name": "signed_isolated_bit",
+      "semantic": 995003,
+      "qualification": {
+        "optimizedBodyBytes": [
+          6208,
+          5616
+        ],
+        "allocationTopSites": [
+          4,
+          0
+        ],
+        "heapNumberMapSites": [
+          2,
+          0
+        ],
+        "cofactorCases": "625 terms x 42 cells + reflection"
+      }
+    },
+    {
+      "id": 995107,
+      "name": "widen_before_grow_preparation",
+      "qualification": {
+        "reserve262144BulkSetSourceBytes": [
+          5289984,
+          88064
+        ],
+        "reserve262144BulkSetDestinationBytes": [
+          21018624,
+          118784
+        ]
+      }
+    },
+    {
+      "id": 995108,
+      "name": "necessity_poll_512",
+      "semantic": 995007,
+      "qualification": {
+        "fourWorkerMedianMs": [
+          1904.36,
+          1768.53
+        ],
+        "fourWorkerNodesBefore": "7.34-7.59M",
+        "fourWorkerNodesAfter": "6.95-6.99M"
+      }
+    }
+  ],
+  "current_distribution": {
+    "task_occurrence_node": 995009,
+    "subtree_dispatch_node": 995109,
+    "manager_q_dedup_node": 995110,
+    "exact_result_node": 995111,
+    "observation": {
+      "serial_calls": 2643905,
+      "final_four_worker_calls": "7.09-7.17M",
+      "disposition": "parallel duplicate/occurrence-local work remains material"
+    }
+  },
+  "nei_profiles": [
+    {
+      "id": "P-ISOMAX-32BIT-CONSUMER",
+      "node": 995200,
+      "status": "derived_optimization_profile",
+      "carrier": "representations consumed only through the same 32-bit pattern",
+      "same": [
+        "signed int32 hash carrier and unsigned JS-number hash carrier under exact bitwise locator consumption",
+        "signed isolated bit and unsigned isolated bit under Math.clz32 ToUint32 consumption"
+      ],
+      "distinct": [
+        "the same pairs under JavaScript numeric representation/value identity"
+      ],
+      "guards": [
+        "consumer must observe only the same 32 bits",
+        "no magnitude/order semantics may depend on unsigned Number value"
+      ]
+    },
+    {
+      "id": "P-ISOMAX-Q-IDENTITY",
+      "node": 995201,
+      "status": "safety_profile",
+      "same": [
+        "full canonical q with exact content equality"
+      ],
+      "distinct": [
+        "32-bit hash locator and q identity",
+        "proof/certificate context and ordinary q when premises are not q-derived"
+      ]
+    },
+    {
+      "id": "P-ISOMAX-Q-OCCURRENCE",
+      "node": 995202,
+      "status": "derived_contextual_profile",
+      "statement": "distinct parent/task occurrences may project to the same ordinary q while occurrence provenance remains distinct"
+    }
+  ],
+  "qu_regions": [
+    {
+      "id": "QU-HOT-01",
+      "node": 995300,
+      "name": "v8_lowering",
+      "known": [
+        "pinned source/runtime/cpu",
+        "captured optimized-code summaries",
+        "selected allocation/map/call sites"
+      ],
+      "open": [
+        "cross-version/tier stability",
+        "remaining hidden allocation/deopt structure",
+        "dynamic frequency of static sites"
+      ],
+      "boundary": "runtime-specific observation, not universal JS->assembly identity"
+    },
+    {
+      "id": "QU-HOT-02",
+      "node": 995301,
+      "name": "dynamic_machine_cost",
+      "known": [
+        "statistical CPU profiles",
+        "sampled allocation",
+        "end-to-end timing"
+      ],
+      "open": [
+        "branch misses",
+        "cache misses",
+        "retired instruction counts"
+      ],
+      "reason": "xperf failed to configure counters"
+    },
+    {
+      "id": "QU-HOT-03",
+      "node": 995302,
+      "name": "parallel_distribution",
+      "known": [
+        "manager q reuse",
+        "private worker TTs",
+        "cross-worker portable-q overlap",
+        "four-worker excess work",
+        "busy-retirement benefit"
+      ],
+      "open": [
+        "avoidable subtree work per duplicate",
+        "best publication/cut boundary",
+        "affinity/priority/frontier economics"
+      ],
+      "candidates": [
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95
+      ]
+    }
+  ],
+  "discovery_findings": [
+    {
+      "id": "DP-HOT-01",
+      "node": 995401,
+      "status": "structure_established",
+      "finding": "fixed bit-pattern/static semantic facts were repeatedly represented as more general runtime objects",
+      "instances": [
+        995100,
+        995101,
+        995102,
+        995104,
+        995106
+      ],
+      "boundary": "collapse invalid if consumer depends on stronger numeric/object/dynamic-domain semantics"
+    },
+    {
+      "id": "DP-HOT-02",
+      "node": 995402,
+      "status": "structure_established_runtime_scoped",
+      "finding": "cold lexical helper structure leaked allocation into hot invocation despite source early return",
+      "instance": 995105,
+      "boundary": "requires generated-code/profile evidence; not every nested helper has this effect"
+    },
+    {
+      "id": "DP-HOT-03",
+      "node": 995403,
+      "status": "supported_optimization_lead",
+      "finding": "semantic ranked q DAG is materialized as partially hidden private task subtrees",
+      "evidence_node": 995113,
+      "falsifier": "earlier sharing/visibility costs at least as much as duplicate work avoided"
+    },
+    {
+      "id": "DP-HOT-04",
+      "node": 995404,
+      "status": "structure_established",
+      "finding": "source-level operation reduction is not sufficient performance evidence",
+      "negative_controls": [
+        "hit-first interning",
+        "blocker chunk memoization",
+        "trusted unchecked primitive split",
+        "manager epoch visitation"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "type": "realizes",
+      "from": 995010,
+      "to": 995001
+    },
+    {
+      "type": "realizes",
+      "from": 995011,
+      "to": 995002
+    },
+    {
+      "type": "realizes",
+      "from": 995012,
+      "to": 995005
+    },
+    {
+      "type": "realizes",
+      "from": 995013,
+      "to": 995003
+    },
+    {
+      "type": "realizes",
+      "from": 995014,
+      "to": 995004
+    },
+    {
+      "type": "realizes",
+      "from": 995015,
+      "to": 995006
+    },
+    {
+      "type": "realizes",
+      "from": 995016,
+      "to": 995007
+    },
+    {
+      "type": "realizes",
+      "from": 995017,
+      "to": 995008
+    },
+    {
+      "type": "optimized_by",
+      "from": 995002,
+      "to": 995100
+    },
+    {
+      "type": "optimized_by",
+      "from": 995005,
+      "to": 995101
+    },
+    {
+      "type": "optimized_by",
+      "from": 995006,
+      "to": 995102
+    },
+    {
+      "type": "optimized_by",
+      "from": 995003,
+      "to": 995103
+    },
+    {
+      "type": "optimized_by",
+      "from": 995004,
+      "to": 995103
+    },
+    {
+      "type": "optimized_by",
+      "from": 995003,
+      "to": 995104
+    },
+    {
+      "type": "optimized_by",
+      "from": 995003,
+      "to": 995105
+    },
+    {
+      "type": "optimized_by",
+      "from": 995003,
+      "to": 995106
+    },
+    {
+      "type": "optimized_by",
+      "from": 995007,
+      "to": 995108
+    },
+    {
+      "type": "contextual_occurrence_of",
+      "from": 995009,
+      "to": 995008
+    },
+    {
+      "type": "unresolved_as",
+      "from": 995010,
+      "to": 995300
+    },
+    {
+      "type": "unresolved_as",
+      "from": 995112,
+      "to": 995301
+    },
+    {
+      "type": "unresolved_as",
+      "from": 995109,
+      "to": 995302
+    },
+    {
+      "type": "discovered_by",
+      "from": 995401,
+      "to": 995400
+    },
+    {
+      "type": "discovered_by",
+      "from": 995402,
+      "to": 995400
+    },
+    {
+      "type": "discovered_by",
+      "from": 995403,
+      "to": 995400
+    },
+    {
+      "type": "discovered_by",
+      "from": 995404,
+      "to": 995400
+    }
+  ],
+  "integrated_performance": {
+    "corpus": "three preselected 18-ply synthetic roots; startup/cleanup included",
+    "serial": {
+      "baseline_ms": 2379.87,
+      "final_ms": 1709.77,
+      "reduction_percent": 28.16,
+      "calls": 2643905
+    },
+    "one_worker": {
+      "baseline_ms": 2761.83,
+      "final_ms": 2052.99,
+      "reduction_percent": 25.67
+    },
+    "four_worker": {
+      "baseline_ms": 2429.99,
+      "final_ms": 1779.85,
+      "reduction_percent": 26.75
+    },
+    "exact_wdl_and_root_actions_agree": true,
+    "relevant_tests_passed": 112,
+    "empty_root_solved": false
+  },
+  "source_evidence": [
+    "benchmarks/isomax-workers/ISSUE-CAMPAIGN.md",
+    "benchmarks/isomax-workers/HOT-LOOP.md",
+    "benchmarks/isomax-workers/jit-hash-allocation.json",
+    "benchmarks/isomax-workers/jit-signed-hash-code.json",
+    "benchmarks/isomax-workers/jit-before-cold-helper.json",
+    "benchmarks/isomax-workers/jit-cold-helper.json",
+    "benchmarks/isomax-workers/jit-signed-bits-summary.json",
+    "benchmarks/isomax-workers/issue-campaign-final-comparison.json",
+    "research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md",
+    "research/isograph/authority/QU_0_1_CANDIDATE.md",
+    "research/isograph/discovery/2026-09-18-discrepancy-protocol-campaign/CAMPAIGN.md",
+    "research/isograph/discovery/2026-09-18-method-emergence/CAMPAIGN.md"
+  ]
+}
