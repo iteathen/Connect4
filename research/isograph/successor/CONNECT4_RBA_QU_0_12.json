@@ -1,0 +1,94 @@
+{
+  "schema": 12,
+  "id": "RBA-QU-0012",
+  "name": "Residual Boundary Algebra completion space - restricted-image refinement",
+  "refines": "RBA-QU-0011",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "newly_fixed_or_constrained": [
+    {
+      "id": "SF13",
+      "statement": "Selected rank27 support [3,4,2,0,6,6,6] closes exactly at draw15 with Upper 161398 / Lower 534618.",
+      "status": "exact_threshold_result"
+    },
+    {
+      "id": "SF14",
+      "statement": "Flat scanning all pair opportunities is not sufficient at the rank27 final product; bounded 300s run did not close.",
+      "status": "measured_falsifier"
+    },
+    {
+      "id": "SF15",
+      "statement": "Projection-tree subtree pruning using a meet-union upper bound is exact.",
+      "status": "deductive_exact"
+    },
+    {
+      "id": "SF16",
+      "statement": "The rank27 final product prunes 98.54% of inner visits and closes in about 69.76s total.",
+      "status": "empirically_supported"
+    },
+    {
+      "id": "SF17",
+      "statement": "Local skyline width alone is not a complete cost law; median width 1 can coexist with a flat 89.6B scan wall.",
+      "status": "measured_falsifier"
+    }
+  ],
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis"
+    },
+    {
+      "id": "O2",
+      "role": "intrinsic_frontier_query_width_law"
+    },
+    {
+      "id": "O3",
+      "role": "indexed_projection_scaling"
+    },
+    {
+      "id": "O4",
+      "role": "transformer_fusion"
+    },
+    {
+      "id": "O5",
+      "role": "root_compactness"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_bridge"
+    },
+    {
+      "id": "O7",
+      "role": "independent_replay"
+    },
+    {
+      "id": "O8",
+      "role": "factor_order_orientation_planning"
+    },
+    {
+      "id": "O9",
+      "role": "representation_independent_prunable_volume"
+    }
+  ],
+  "current_frontier": {
+    "rank29": "complete",
+    "rank28": "complete",
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "draw15": "closed",
+      "full_strong_boundary": "open"
+    },
+    "rank26": "do_not_descend_yet"
+  },
+  "authority_1_1_mutated": false
+}

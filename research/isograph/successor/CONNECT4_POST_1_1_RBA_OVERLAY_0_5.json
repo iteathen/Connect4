@@ -1,0 +1,165 @@
+{
+  "schema": 5,
+  "overlay_id": "connect4-post-1.1-rba-current-0.5",
+  "status": "derived_successor_overlay_not_authority",
+  "date": "2026-09-19",
+  "research_direction": "Josh Oshiro",
+  "refines": "connect4-post-1.1-rba-current-0.4",
+  "base_authority": {
+    "name": "Connect4 IsoGraph Logic Authority 1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "claims": [
+    {
+      "id": "C4-R0077",
+      "node": 100077,
+      "status": "deductive_exact",
+      "title": "Board-fiber isomorphism determines residual/cofactor algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0078",
+      "node": 100078,
+      "status": "guarded_exact",
+      "title": "Board-fiber isomorphism preserves abstract ordinary strong-value algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0079",
+      "node": 100079,
+      "status": "deductive_exact",
+      "title": "Terminal-extended residual cofactors are compositional left adjoints with exact right adjoints",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0080",
+      "node": 100080,
+      "status": "deductive_exact",
+      "title": "Four nested monotone endpoint fronts exactly carry partial WDL block semantics",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0081",
+      "node": 100081,
+      "status": "deductive_exact",
+      "title": "Ordinary-value Bellman propagation is an antichain-semiring lattice polynomial",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0082",
+      "node": 100082,
+      "status": "deductive_exact",
+      "title": "Antichain-semiring multiplication admits exact local-skyline factorization",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0083",
+      "node": 100083,
+      "status": "empirically_supported",
+      "title": "Native sparse RBA recurrence closes selected rank31/rank30 and complete selected rank29/rank28 boundaries",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0084",
+      "node": 100084,
+      "status": "open_question",
+      "title": "Root-scale compactness and the general frontier-width law remain open",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0085",
+      "node": 100085,
+      "status": "deductive_exact",
+      "title": "For fixed inner family, local skyline width is monotone under outer-mask restriction",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0086",
+      "node": 100086,
+      "status": "deductive_exact",
+      "title": "Projection-tree subtree upper bounds permit exact dominance pruning without leaf inspection",
+      "evidence": [
+        "RBA_RANK27_DRAW15_CHECKPOINT_0_1.md",
+        "RBA_RANK27_DRAW15_RESULTS_0_1.json"
+      ]
+    },
+    {
+      "id": "C4-R0087",
+      "node": 100087,
+      "status": "empirically_supported",
+      "title": "Selected rank27 draw15 closes exactly with projection-indexed sparse semiring evaluation",
+      "evidence": [
+        "RBA_RANK27_DRAW15_CHECKPOINT_0_1.md",
+        "RBA_RANK27_DRAW15_RESULTS_0_1.json"
+      ]
+    }
+  ],
+  "numerical_frontier": {
+    "rank29": {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "status": "complete"
+    },
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "complete"
+    },
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "draw15_closed_full_strong_open",
+      "upper_draw15": 161398,
+      "lower_draw15": 534618,
+      "residual_shapes": 38,
+      "transformed_bits": 76
+    }
+  },
+  "indexed_product": {
+    "raw": 89578193706,
+    "inner_scanned": 1306881417,
+    "scan_fraction": 0.014589,
+    "pruned_fraction": 0.985411,
+    "local_candidates": 1555168,
+    "final": 534618,
+    "local_ms": 28060.617,
+    "norm_ms": 41698.001
+  },
+  "relation_policy": {
+    "proof_value_bridge_relations_promoted": 0,
+    "projection_pruning_relation": {
+      "source": "C4-R0086",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    "rank27_closure_promoted_as_relation": false
+  },
+  "ordinary_value_disposition": {
+    "semantic_operator_missing": false,
+    "current_scaling_frontier": "adjacent rank27 strong thresholds under indexed projection pruning",
+    "empty_root_solved": false
+  },
+  "authority_effect": "post_1_1_successor_only"
+}
