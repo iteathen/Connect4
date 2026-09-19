@@ -1,0 +1,111 @@
+{
+  "schema": 8,
+  "id": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_8",
+  "status": "post_1_1_successor_topology",
+  "current_qu": "RBA-QU-0015",
+  "refines": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7",
+  "nodes": {
+    "board_fiber": 431000,
+    "rba_qu": 430015,
+    "exact_ordinary_value": 431010,
+    "proof_controllable_predecessor": 431020,
+    "native_semiring_scaling": 431030,
+    "outer_restriction_law": 100085,
+    "projection_subtree_pruning_law": 100086,
+    "block_signature_antichain_index": 100088,
+    "static_dominance_tree_antichain_index": 100090,
+    "core_relative_absorption": 100091,
+    "shared_target_cover_dp": 100092
+  },
+  "relations": [
+    {
+      "id": "RBA-REL-01",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-02",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-03",
+      "status": "open"
+    },
+    {
+      "id": "RBA-REL-04",
+      "status": "fixed"
+    },
+    {
+      "source": "C4-R0085",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0086",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0088",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0090",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0091",
+      "type": "derived_from",
+      "target": "C4-R0082",
+      "proof": "deductive"
+    },
+    {
+      "source": "C4-R0092",
+      "type": "derived_from",
+      "target": "C4-R0079",
+      "proof": "deductive"
+    }
+  ],
+  "live_execution": {
+    "rank29": {
+      "status": "closed"
+    },
+    "rank28": {
+      "status": "closed"
+    },
+    "rank27": {
+      "support": [
+        3,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "stress_thresholds_closed_planner_qualified"
+    },
+    "rank26": {
+      "support": [
+        3,
+        3,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "selected_missing_three_draw15_children",
+      "target": "draw16"
+    },
+    "rank25": {
+      "status": "not_started"
+    }
+  },
+  "authority_1_1_mutated": false
+}
