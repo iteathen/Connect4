@@ -4,7 +4,22 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { captureProcess } from '../solver-performance.mjs';
+import { summarizeBsfpRanks } from '../bsfp-rank-progress.mjs';
 const root=path.resolve(import.meta.dirname,'../..');
+test('BSFP rank report separates completed layers from active work and observed times',()=>{
+  const log=[{kind:'compact-hybrid-progress',activeRank:37,completedRanks:5,elapsedMs:12000},
+    {kind:'compact-hybrid-progress',activeRank:36,completedRanks:6,elapsedMs:52000},
+    {kind:'compact-hybrid-progress',activeRank:36,completedRanks:6,elapsedMs:107000}].map(JSON.stringify).join('\n');
+  const r=summarizeBsfpRanks(log);
+  assert.deepEqual(r.completedRanks,[42,41,40,39,38,37]);
+  assert.equal(r.activeRank,36);assert.equal(r.emptyCells,6);assert.equal(r.rootCompleted,false);
+  assert.equal(r.observations[1].firstObservedMs,52000);assert.equal(r.observations[1].lastObservedMs,107000);
+  const complete=summarizeBsfpRanks(log,{completed:true});
+  assert.equal(complete.completedRanks.at(-1),0);assert.equal(complete.activeRank,null);
+});
+test('absent native rank evidence stays unknown',()=>{
+  assert.equal(summarizeBsfpRanks('warning\n'+JSON.stringify({kind:'tensor-ab',outcome:'pass'})),null);
+});
 const fixture=async(t,args,timeoutMs)=>{
   const directory=fs.mkdtempSync(path.join(os.tmpdir(),'c4-performance-'));
   t.after(()=>fs.rmSync(directory,{recursive:true,force:true}));

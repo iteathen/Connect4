@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn, execFileSync } from 'node:child_process';
 import { performance } from 'node:perf_hooks';
+import { summarizeBsfpRanks } from './bsfp-rank-progress.mjs';
 
 const repositoryRoot = fileURLToPath(new URL('../',import.meta.url));
 const git = (...args) => execFileSync('git',args,{cwd:repositoryRoot,encoding:'utf8',windowsHide:true}).trim();
@@ -81,17 +82,24 @@ export async function runPerformance(solver,timeoutMs=120000) {
       progressIsLowerBound:captured.timedOut||last?.phase!=='complete'};
   } else {
     let qualification = null, final = null;
+    let rankProgress = null;
     try {
       final=JSON.parse(fs.readFileSync(path.join(directory,'stdout.log'),'utf8'));
       qualification=JSON.parse(fs.readFileSync(path.join(final.localReport,'results.json'),'utf8'));
+      const native = qualification.cases?.[0]?.steps?.find(step=>step.stepId==='compact-hybrid-root-wdl');
+      if (native) {
+        const log = fs.readFileSync(path.join(final.localReport,'cases','01-7x6-c4','compact-hybrid-root-wdl','stderr.log'),'utf8');
+        rankProgress = summarizeBsfpRanks(log,{completed:native.status==='passed'});
+      }
     } catch {}
     result={...captured,status:qualification?.cases?.[0]?.status??'qualifier-failure',
-      qualifierRunId:final?.runId??null,rootWdl:qualification?.cases?.[0]?.solverResult?.rootWdl??null,qualification};
+      qualifierRunId:final?.runId??null,rootWdl:qualification?.cases?.[0]?.solverResult?.rootWdl??null,rankProgress,qualification};
   }
   const report={...metadata,result};
   writeJson(path.join(directory,'result.json'),report);
   console.log(JSON.stringify({runId,solver,status:result.status,evidence:path.relative(repositoryRoot,directory),
-    sourceRevision:metadata.sourceRevision,elapsedMs:captured.elapsedMs,rootWdl:result.rootWdl??null}));
+    sourceRevision:metadata.sourceRevision,elapsedMs:captured.elapsedMs,rootWdl:result.rootWdl??null,
+    ...(solver==='bsfp'?{rankProgress:result.rankProgress}:{})}));
   return {report,directory};
 }
 
