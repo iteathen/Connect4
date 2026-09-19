@@ -105,43 +105,34 @@ Its open region separately represents the unknown minimal operator basis, compac
 The RBA QU is post-1.1 research structure only. It does not mutate frozen authority 1.1, close C4-R0076, assert root compactness, solve the empty 7x6 root, or promote any unproved relation edge.
 ### Current RBA IsoGraph successor state
 
-The current post-1.1 RBA logic/topology layer is:
+Current post-1.1 RBA successor:
 
-- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_7.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_QU_0_14.md`, `.json`, and `.isg`;
-- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_7.md`, `.json`, and `.isg`.
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_8.*`
+- `isograph/successor/CONNECT4_RBA_QU_0_15.*`
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_8.*`
 
-Current exact progression:
-
-```text
-selected rank29 [3,5,2,1,6,6,6]   complete strong-value boundary CLOSED
-selected rank28 [3,5,2,0,6,6,6]   complete strong-value boundary CLOSED
-selected rank27 [3,4,2,0,6,6,6]   loss14/draw15/win15 CLOSED
-rank26                                 NOT STARTED
-```
-
-The current evaluator refinement has two exact global antichain implementations:
+Progression:
 
 ```text
-C4-R0088 block-signature dominance index
-C4-R0090 static candidate dominance tree
+rank29 [3,5,2,1,6,6,6]   complete
+rank28 [3,5,2,0,6,6,6]   complete
+rank27 [3,4,2,0,6,6,6]   loss14/draw15/win15 closed; staged evaluator qualified
+rank26 [3,3,2,0,6,6,6]   selected; draw16 children being cached
 ```
 
-On the full rank27 `win15` action-0 x action-2 candidate family, both return the same 143,550-generator canonical stream. Static-tree minimal dual also reproduces the exact 235,107-generator `Upper(win15)` stream.
+New exact evaluation laws:
 
-The active planner is staged rather than one-shot. It preflights local projection with deterministic hash samples plus union-nearest extreme probes, executes the exact local phase, observes exact C/D candidate volumes, and only then selects the global normalizer. Multi-factor products require bounded lookahead over exact intermediates.
+- C4-R0091 — core-relative envelope absorption removes dominated rows/columns before product materialization using real product witnesses;
+- C4-R0092 — principal-cover coordinate preimages share an exact uncovered-target dynamic program across many queries on one cofactor edge.
 
-Current durable evidence includes:
+The staged rank27 qualification is preserved in:
 
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_LOSS14_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_DRAW15_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_WIN15_CHECKPOINT_0_1.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_BLOCK_SIGNATURE_NORMALIZATION_QUALIFICATION_0_2.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_STATIC_DOMINANCE_TREE_PLANNER_CHECKPOINT_0_1.md`.
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_STAGED_PLANNER_QUALIFICATION_0_2.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_SHARED_TARGET_COVER_DP_RANK26_CHECKPOINT_0_1.md`.
 
-The next technical seam is hard local restricted-image evaluation on rank27 controls, not another global normalizer and not rank26 descent.
+The selected rank26 central target is `draw16`. Three rank27 `draw15` children remain to be cached before root composition.
 
-The proof/certificate clause-to-value bridge remains OPEN. Authority 1.1 remains frozen.
+The proof/value bridge remains OPEN. Authority 1.1 remains frozen.
 
 ### Current derived method-emergence result
 
