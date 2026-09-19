@@ -1,0 +1,280 @@
+{
+  "schema": 2,
+  "overlay_id": "connect4-post-1.1-rba-current-0.2",
+  "status": "derived_successor_overlay_not_authority",
+  "date": "2026-09-19",
+  "research_direction": "Josh Oshiro",
+  "base_authority": {
+    "name": "Connect4 IsoGraph Logic Authority 1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "claims": [
+    {
+      "id": "C4-R0077",
+      "node": 100077,
+      "title": "Board-fiber isomorphism determines the residual/cofactor algebra",
+      "status": "deductive_exact",
+      "statement": "An exact isomorphism of the support-conditioned future-cell gravity/frontier plus residual-winning-line incidence fiber induces an isomorphism of the support-local residual-shape poset, its distributive upset lattice, and every legal one-cell owner-true/owner-false principal cofactor neighborhood.",
+      "guards": [
+        "abstract ordinary-value board fiber; physical/history realizability remains separate"
+      ],
+      "evidence": [
+        "RBA_BOARD_FIBER_G2_RESULTS_0_1.json",
+        "RBA_BOARD_FIBER_G2_CHECKPOINT_0_1.md"
+      ],
+      "relations": [
+        {
+          "type": "supports",
+          "target": "C4-R0008",
+          "proof": "deductive"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0078",
+      "node": 100078,
+      "title": "Board-fiber isomorphism preserves the abstract ordinary strong-value algebra",
+      "status": "guarded_exact",
+      "statement": "Under the board-fiber isomorphism, legal actions, terminals, successor q states, exact strong action/state values, argmax best-move sets, and Upper/Lower threshold boundaries transport exactly by induction on remaining cells.",
+      "guards": [
+        "abstract ordinary-value semantics only",
+        "does not identify past physical histories or proof/certificate provenance"
+      ],
+      "evidence": [
+        "RBA_BOARD_FIBER_G3_RESULTS_0_1.json",
+        "RBA_BOARD_FIBER_G3_CHECKPOINT_0_1.md"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0077",
+          "proof": "deductive"
+        },
+        {
+          "type": "supports",
+          "target": "C4-R0008",
+          "proof": "deductive"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0079",
+      "node": 100079,
+      "title": "Terminal-extended residual cofactors are compositional left adjoints with exact right adjoints",
+      "status": "deductive_exact",
+      "statement": "With immediate WIN_NOW adjoined as terminal top, each legal residual cofactor is a total join-preserving map on the finite support-local residual upset lattice and therefore has an exact right adjoint. Fixed legal action-word maps compose exactly; principal images remain principal, killed/bottom, or terminal; induced closures coarsen along extended fixed words.",
+      "guards": [
+        "coordinate residual algebra only",
+        "cofactor is not generally meet-preserving"
+      ],
+      "evidence": [
+        "RBA_ASSERTION_COLLAPSE_RESULTS_0_1.json",
+        "RBA_RELATION_REFINEMENT_RESULTS_0_1.json"
+      ],
+      "relations": [
+        {
+          "type": "constrains",
+          "target": "C4-R0011",
+          "proof": "deductive"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0080",
+      "node": 100080,
+      "title": "Four nested monotone endpoint fronts exactly carry partial WDL block semantics",
+      "status": "deductive_exact",
+      "statement": "The six contiguous partial WDL bounds LL, LD, LW, DD, DW, WW are exactly a pair of isotone three-valued endpoint maps, hence four nested threshold upsets. These four fronts are closed under exact finite alternating block composition with first-win terminals; Bellman UNKNOWN/WIN/DRAW/LOSS refinement is the special case whose first resolution ordinal equals strong distance.",
+      "guards": [
+        "ordinary WDL/strong-value semantics",
+        "support-local favorable q order"
+      ],
+      "evidence": [
+        "RBA_BELLMAN_UNKNOWN_SHELL_RESULTS_0_1.json",
+        "RBA_SIX_VALUE_BLOCK_RESULTS_0_1.json",
+        "RBA_FOUR_FRONT_BLOCK_RESULTS_0_1.json"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0078",
+          "proof": "deductive"
+        },
+        {
+          "type": "derived_from",
+          "target": "C4-R0079",
+          "proof": "deductive"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0081",
+      "node": 100081,
+      "title": "Exact ordinary-value Bellman propagation is an antichain-semiring lattice polynomial",
+      "status": "deductive_exact",
+      "statement": "Minimal antichains of the favorable q-state lattice represent upward threshold regions. Min-union is idempotent addition; minimized pairwise lattice join is multiplication/intersection. Fixed-path predicate preimages are semiring homomorphisms. Alternating Bellman threshold propagation is therefore a monotone lattice polynomial over this antichain semiring.",
+      "guards": [
+        "ordinary value-boundary layer",
+        "proof/certificate carrier remains separate"
+      ],
+      "evidence": [
+        "RBA_ANTICHAIN_SEMIRING_RESULTS_0_1.json",
+        "RBA_ALGEBRA_CORE_CHECKPOINT_0_1.md"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0080",
+          "proof": "deductive"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0082",
+      "node": 100082,
+      "title": "Antichain-semiring multiplication admits exact local-skyline factorization",
+      "status": "deductive_exact",
+      "statement": "The global maximal product family equals the global maxima of the union of per-outer-generator local maximal projection skylines, so dominated products may be absorbed before global materialization without changing the exact boundary.",
+      "guards": [
+        "finite support-local lattice",
+        "exact dominance order"
+      ],
+      "evidence": [
+        "RBA_NATIVE_SEMIRING_RESULTS_0_1.json",
+        "RBA_NATIVE_SEMIRING_CHECKPOINT_0_1.md"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0081",
+          "proof": "deductive"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0083",
+      "node": 100083,
+      "title": "Native sparse RBA recurrence has closed selected ranks 31 and 30 and a rank-29 prefix",
+      "status": "empirically_supported",
+      "statement": "The independently reconstructed native shape-lattice/adjoint engine reproduced persisted rank-33/rank-32 controls, closed the selected rank-31 root and two rank-30 roots, qualified 128-bit transformed-state widening on controls, and closed the selected rank-29 root through loss12 plus draw13 Upper and its first two Lower products.",
+      "guards": [
+        "new rank31/rank30/rank29 suffixes do not all have a second independent representation replay",
+        "empty root is not solved"
+      ],
+      "evidence": [
+        "RBA_NATIVE_SEMIRING_CHECKPOINT_0_1.md",
+        "RBA_NATIVE_SEMIRING_ROOT30_CHECKPOINT_0_2.md",
+        "RBA_RANK29_PARTIAL_CHECKPOINT_0_1.md"
+      ],
+      "relations": [
+        {
+          "type": "depends_on",
+          "target": "C4-R0081",
+          "proof": "structural"
+        },
+        {
+          "type": "depends_on",
+          "target": "C4-R0082",
+          "proof": "structural"
+        },
+        {
+          "type": "qualifies",
+          "target": "C4-R0082",
+          "proof": "empirical"
+        }
+      ]
+    },
+    {
+      "id": "C4-R0084",
+      "node": 100084,
+      "title": "Root-scale RBA compactness is now a sparse-semiring frontier-width question",
+      "status": "open_question",
+      "statement": "No missing ordinary-value Bellman law is currently exposed. The live exact frontier is rank29 support [3,5,2,1,6,6,6], draw13 Lower: current exact boundary 131121 generators times final fixed-action Lower 41133, an implicit 5393996493-pair semiring product. Whether skyline and final antichain width remain economical to the empty root is unknown.",
+      "guards": [
+        "raw Cartesian pair count is not semantic state count",
+        "selected late-rank closures do not prove empty-root tractability"
+      ],
+      "evidence": [
+        "RBA_RANK29_PARTIAL_CHECKPOINT_0_1.md"
+      ],
+      "relations": [
+        {
+          "type": "derived_from",
+          "target": "C4-R0083",
+          "proof": "direct"
+        }
+      ]
+    }
+  ],
+  "prior_successor_claims": {
+    "C4-R0075": "retained scoped distributed-universal proof-composition wall before semantic collapse",
+    "C4-R0076": "retained OPEN on proof/certificate clause-to-value bridge; no longer primary blocker for ordinary exact value"
+  },
+  "ordinary_value_disposition": {
+    "semantic_operator_missing": false,
+    "current_exact_algebra": "board-fiber indexed residuated residual lattice + four-front partial WDL carrier + antichain semiring Bellman lattice polynomials",
+    "current_scaling_frontier": "rank29 draw13 final sparse semiring multiplication",
+    "empty_root_solved": false
+  },
+  "relation_policy": {
+    "proved_successor_relations": [
+      {
+        "source": "C4-R0077",
+        "type": "supports",
+        "target": "C4-R0008",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0078",
+        "type": "derived_from",
+        "target": "C4-R0077",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0078",
+        "type": "supports",
+        "target": "C4-R0008",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0079",
+        "type": "constrains",
+        "target": "C4-R0011",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0080",
+        "type": "derived_from",
+        "target": "C4-R0078",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0080",
+        "type": "derived_from",
+        "target": "C4-R0079",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0081",
+        "type": "derived_from",
+        "target": "C4-R0080",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0082",
+        "type": "derived_from",
+        "target": "C4-R0081",
+        "proof": "deductive"
+      },
+      {
+        "source": "C4-R0084",
+        "type": "derived_from",
+        "target": "C4-R0083",
+        "proof": "direct"
+      }
+    ],
+    "proof_value_bridge_relations_promoted": 0,
+    "rule": "Only relation instances with their own deductive or guarded-exact proof are successor topology. The C4-R0043/C4-R0069/C4-R0076 bridge remains open."
+  },
+  "authority_effect": "post_1_1_successor_only"
+}
