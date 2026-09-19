@@ -92,3 +92,14 @@ not establish an end-to-end improvement. Restore the existing traversal; preserv
 candidate and protected comments in rejected/issue-85-manager-epochs.patch. No
 claim that every arena design is disproven; their extra lifecycle/identity
 machinery lacks measured justification in this pass.
+
+#84: existing retained preparation already avoids rebuilding on 96% of the
+instrumented empty-root tasks. Tested two-quantum TT reservation to reduce early
+rehashing. Initial one/four-worker medians improved 2175.40 -> 2152.65 ms and
+1833.86 -> 1817.17 ms. Independent confirmation reversed this: one worker
+2145.96 -> 2170.56, two 1926.80 -> 1987.30, four 1786.25 -> 1801.08 ms.
+All 84 controls and exact decisions pass; do not promote the extra reservation.
+Preserve rejected patch and both paired reports. Retain the existing capacity
+policy; replay is only 0.245% of aggregate worker-task time in the profile, so
+worker-affine restart is not justified by replay alone. Byte-copy attribution
+and quantum/duplicate-work co-design remain separate, uncompleted measurements.

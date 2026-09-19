@@ -1,0 +1,7 @@
+diff --git a/components/isometric/isomax-index.mjs b/components/isometric/isomax-index.mjs
+index e07de8c0..ccfc611f 100644
+--- a/components/isometric/isomax-index.mjs
++++ b/components/isometric/isomax-index.mjs
+@@ -288 +288 @@ export class IsoMaxTransitionCache {
+-    while ((this.count + additionalEntries + 1) * 10 >= capacity * 7) capacity *= 2;
++    while ((this.count + 2 * additionalEntries + 1) * 10 >= capacity * 7) capacity *= 2;
