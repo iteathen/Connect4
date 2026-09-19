@@ -60,7 +60,9 @@ function bitIndex32(value) {
   // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
   // Keep the integer bit primitive; callers supply the isolated nonzero bit.
   // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
-  return 31 - Math.clz32(value >>> 0);
+  // Preserve bit 31 as signed int32 across calls; clz32 reads the same bits.
+  // Unsigned 0x80000000 can otherwise box before a MathClz32 builtin call.
+  return 31 - Math.clz32(value | 0);
 }
 
 function popcount32(value) {
@@ -415,7 +417,7 @@ export class ResidualPool {
       this.resultBits[word] = (input & ~p.containsMasks[containsBase + word]) >>> 0;
       if (active !== 0) affected = true;
       while (active !== 0) {
-        const lsb = (active & -active) >>> 0;
+        const lsb = active & -active;
         const termId = (word << 5) + bitIndex32(lsb);
         const target = p.reduce[termId * p.cellCount + cell];
         if (target === p.terminal) {
@@ -437,7 +439,7 @@ export class ResidualPool {
     for (let word = 0; word < FRONTIER_WORDS; word += 1) {
       let active = this.reducedBits[word] >>> 0;
       while (active !== 0) {
-        const lsb = (active & -active) >>> 0;
+        const lsb = active & -active;
         const termId = (word << 5) + bitIndex32(lsb);
         const start = p.strictSupersetStarts[termId];
         const end = p.strictSupersetStarts[termId + 1];
@@ -540,7 +542,7 @@ export class ResidualPool {
     for (let word = 0; word < FRONTIER_WORDS; word += 1) {
       let active = this.inputBits[word] >>> 0;
       while (active !== 0) {
-        const lsb = (active & -active) >>> 0;
+        const lsb = active & -active;
         const termId = (word << 5) + bitIndex32(lsb);
         const reflected = this.profile.reflectedTermIds[termId];
         this.reflectBits[reflected >>> 5] |= 1 << (reflected & 31);
@@ -591,7 +593,7 @@ export class ResidualPool {
     for (let word = 0; word < FRONTIER_WORDS; word += 1) {
       let active = this.inputBits[word] >>> 0;
       while (active !== 0) {
-        const lsb = (active & -active) >>> 0;
+        const lsb = active & -active;
         ids[out++] = (word << 5) + bitIndex32(lsb);
         active = (active & (active - 1)) >>> 0;
       }

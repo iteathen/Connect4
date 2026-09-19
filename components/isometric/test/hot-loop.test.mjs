@@ -18,6 +18,25 @@ test('preloaded cell masks match independent 42-bit decomposition including bit 
   }
 });
 
+test('every isolated vocabulary term preserves all cell cofactors and reflection', () => {
+  const pool = new ResidualPool(), p = ISOMETRIC_PROFILE, bits = new Uint32Array(20);
+  const pair = wide => [[Number(wide & 0xffffffffn), Number(wide >> 32n)]];
+  for (let id = 0; id < p.count; id++) {
+    bits.fill(0); bits[id >>> 5] = 1 << (id & 31);
+    const parent = pool.internBits(bits), mask = BigInt(p.lo[id]) | (BigInt(p.hi[id]) << 32n);
+    let mirror = 0n;
+    for (let cell = 0; cell < 42; cell++) {
+      const bit = 1n << BigInt(cell), hit = (mask & bit) !== 0n;
+      const remaining = mask & ~bit, own = pool.ownTransition(parent, cell);
+      if (remaining === 0n) assert.equal(own, -1);
+      else assert.deepEqual(pool.terms(own), pair(remaining));
+      assert.equal(pool.blockTransition(parent, cell), hit ? 0 : parent);
+      if (hit) mirror |= 1n << BigInt(Math.floor(cell / 7) * 7 + 6 - cell % 7);
+    }
+    assert.deepEqual(pool.terms(pool.reflectClass(parent)), pair(mirror));
+  }
+});
+
 test('direct singleton projection is exact for every vocabulary term and mixed word-1 bits', () => {
   const pool = new ResidualPool(), bits = new Uint32Array(20), target = pool.classCount;
   for (let id = 0; id < ISOMETRIC_PROFILE.count; id++) {

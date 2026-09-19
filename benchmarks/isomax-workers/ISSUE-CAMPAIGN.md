@@ -183,3 +183,15 @@ within scheduling variation). Confirmation serial 1749.03 -> 1735.44, one-worker
 was needed. Raw machine review also shows unsigned isolated-bit arguments boxing
 before MathClz32 in ownTransition; assess that separately rather than attributing
 all residual allocation to hashing.
+
+#88 isolated-bit repair: preserve the isolated high bit as signed int32 before
+Math.clz32; its ToUint32 semantics read identical bits. Previously unsigned
+0x80000000 boxed at two MathClz32 sites in ownTransition. Captured optimized
+body 6208 -> 5616 bytes, allocation-top sites 4 -> 0, HeapNumber-map sites 2 -> 0.
+No hash layout change. First three pairs: serial 1726.48 -> 1708.42 ms,
+one-worker 2119.75 -> 2068.83, four-worker 1820.23 -> 1755.36. Confirmation:
+serial 1756.19 -> 1724.97, one-worker 2150.93 -> 2093.53. Every pair favors
+the candidate; exact serial/one-worker work and all decisions agree. New
+independent BigInt cofactor/reflection test covers all 625 isolated vocabulary
+terms and all 42 cells, including every word's sign bit. 52 IsoMax tests passed.
+Only test formatting changed after timing; production diff is identical.
