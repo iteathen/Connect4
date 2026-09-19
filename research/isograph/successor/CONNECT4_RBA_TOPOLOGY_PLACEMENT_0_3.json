@@ -1,0 +1,65 @@
+{
+  "schema": 3,
+  "id": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3",
+  "status": "post_1_1_successor_topology",
+  "current_qu": "RBA-QU-0010",
+  "refines": "CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_2",
+  "nodes": {
+    "board_fiber": 431000,
+    "rba_qu": 430010,
+    "exact_ordinary_value": 431010,
+    "proof_controllable_predecessor": 431020,
+    "native_semiring_scaling": 431030
+  },
+  "relations": [
+    {
+      "id": "RBA-REL-01",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-02",
+      "status": "partially_fixed"
+    },
+    {
+      "id": "RBA-REL-03",
+      "status": "open"
+    },
+    {
+      "id": "RBA-REL-04",
+      "status": "fixed"
+    }
+  ],
+  "live_execution": {
+    "rank29": {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "status": "complete_strong_boundary_closed"
+    },
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "draw14_closed_full_strong_open",
+      "upper_draw14": 144462,
+      "lower_draw14": 78546
+    }
+  },
+  "scaling_observation": {
+    "simple_monotone_rank_or_width_cost": false,
+    "promoted_as_relation": false
+  },
+  "authority_1_1_mutated": false
+}

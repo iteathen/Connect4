@@ -1,0 +1,129 @@
+{
+  "schema": 3,
+  "overlay_id": "connect4-post-1.1-rba-current-0.3",
+  "status": "derived_successor_overlay_not_authority",
+  "date": "2026-09-19",
+  "research_direction": "Josh Oshiro",
+  "refines": "connect4-post-1.1-rba-current-0.2",
+  "base_authority": {
+    "name": "Connect4 IsoGraph Logic Authority 1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "claims": [
+    {
+      "id": "C4-R0077",
+      "node": 100077,
+      "status": "deductive_exact",
+      "title": "Board-fiber isomorphism determines the residual/cofactor algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0078",
+      "node": 100078,
+      "status": "guarded_exact",
+      "title": "Board-fiber isomorphism preserves the abstract ordinary strong-value algebra",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0079",
+      "node": 100079,
+      "status": "deductive_exact",
+      "title": "Terminal-extended residual cofactors are compositional left adjoints with exact right adjoints",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0080",
+      "node": 100080,
+      "status": "deductive_exact",
+      "title": "Four nested monotone endpoint fronts exactly carry partial WDL block semantics",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0081",
+      "node": 100081,
+      "status": "deductive_exact",
+      "title": "Exact ordinary-value Bellman propagation is an antichain-semiring lattice polynomial",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0082",
+      "node": 100082,
+      "status": "deductive_exact",
+      "title": "Antichain-semiring multiplication admits exact local-skyline factorization",
+      "evidence": []
+    },
+    {
+      "id": "C4-R0083",
+      "node": 100083,
+      "status": "empirically_supported",
+      "title": "Native sparse RBA recurrence closes selected rank31/rank30, the complete selected rank29 root, and one rank28 draw-threshold predecessor",
+      "evidence": [
+        "RBA_RANK29_CLOSED_CHECKPOINT_0_2.md",
+        "RBA_RANK29_CLOSED_QUALIFICATION_0_3.md",
+        "RBA_RANK28_DRAW14_CHECKPOINT_0_1.md"
+      ]
+    },
+    {
+      "id": "C4-R0084",
+      "node": 100084,
+      "status": "open_question",
+      "title": "Root-scale RBA compactness/frontier law remains open; selected rank28 evidence rejects simple monotone rank or transformed-width cost growth",
+      "evidence": [
+        "RBA_RANK29_CLOSED_RESULTS_0_2.json",
+        "RBA_RANK28_DRAW14_RESULTS_0_1.json"
+      ]
+    }
+  ],
+  "numerical_frontier": {
+    "rank29": {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "status": "complete_strong_boundary_closed",
+      "upper_draw13": 47472,
+      "lower_draw13": 140454,
+      "final_raw_opportunities": 5393400093,
+      "local_candidates": 4393899,
+      "direct_global_replay": true
+    },
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "status": "draw_threshold_closed",
+      "residual_shapes": 35,
+      "transformed_bits": 70,
+      "upper_draw14": 144462,
+      "lower_draw14": 78546,
+      "largest_product_raw": 1903410921,
+      "largest_product_local": 2641949
+    }
+  },
+  "empirical_scaling_disposition": {
+    "simple_monotone_rank_cost": false,
+    "simple_monotone_transformed_width_cost": false,
+    "general_frontier_width_law": "open"
+  },
+  "relation_policy": {
+    "proof_value_bridge_relations_promoted": 0,
+    "new_scaling_relation_promoted": false
+  },
+  "ordinary_value_disposition": {
+    "semantic_operator_missing": false,
+    "current_scaling_frontier": "rank28 strong-value completion / cross-support frontier-width law",
+    "empty_root_solved": false
+  },
+  "authority_effect": "post_1_1_successor_only"
+}

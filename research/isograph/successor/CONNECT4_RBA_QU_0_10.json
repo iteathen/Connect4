@@ -1,0 +1,102 @@
+{
+  "schema": 10,
+  "id": "RBA-QU-0010",
+  "name": "Residual Boundary Algebra completion space - frontier-law refinement",
+  "refines": "RBA-QU-0009",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "fixed_current_core": [
+    "board-fiber residual distributive lattice",
+    "terminal-extended cofactor adjunction",
+    "four nested partial-WDL fronts",
+    "antichain-semiring Bellman lattice polynomial",
+    "strong-distance resolution ordinal"
+  ],
+  "newly_fixed_or_constrained": [
+    {
+      "id": "SF1",
+      "statement": "128-bit transformed-state widening remains qualified on persisted controls.",
+      "status": "qualified_on_existing_controls"
+    },
+    {
+      "id": "SF2",
+      "statement": "Selected rank31 and rank30 roots close under the native semiring recurrence.",
+      "status": "exact_recurrence_results"
+    },
+    {
+      "id": "SF3",
+      "statement": "Selected rank29 support [3,5,2,1,6,6,6] is fully closed across its strong-value boundary.",
+      "status": "exact_recurrence_result"
+    },
+    {
+      "id": "SF4",
+      "statement": "Rank29 draw13 final product is 5,393,400,093 implicit -> 4,393,899 local -> 140,454 exact generators; direct maximal replay agrees exactly.",
+      "status": "replay_qualified"
+    },
+    {
+      "id": "SF5",
+      "statement": "The closed rank29 support has seven immediate rank28 support predecessors, not four.",
+      "status": "exact_support_graph_correction"
+    },
+    {
+      "id": "SF6",
+      "statement": "Selected rank28 support [3,5,2,0,6,6,6] closes at draw14 with Upper 144,462 and Lower 78,546.",
+      "status": "exact_threshold_result"
+    },
+    {
+      "id": "SF7",
+      "statement": "Simple monotone scaling rules based only on rank, residual-shape count, transformed bit width, or raw pair count are falsified by the selected rank29-to-rank28 step.",
+      "status": "empirical_falsifier"
+    }
+  ],
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis"
+    },
+    {
+      "id": "O2",
+      "role": "frontier_width_law"
+    },
+    {
+      "id": "O3",
+      "role": "output_sensitive_semiring_scaling"
+    },
+    {
+      "id": "O4",
+      "role": "transformer_fusion"
+    },
+    {
+      "id": "O5",
+      "role": "root_compactness"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_bridge"
+    },
+    {
+      "id": "O7",
+      "role": "independent_replay"
+    }
+  ],
+  "current_frontier": {
+    "rank29": "complete",
+    "rank28": {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "draw14": "closed",
+      "full_strong_boundary": "open"
+    },
+    "rank27": "do_not_descend_yet"
+  },
+  "authority_1_1_mutated": false
+}
