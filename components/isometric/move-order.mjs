@@ -37,6 +37,12 @@ export function singletonEffectClass(state, column) {
 }
 
 export function promotedColumn(state) {
+  // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+  // Incidence is precompiled; scan by numeric index, without iterators,
+  // callbacks, sorting, child materialization or speculative play/undo.
+  // The caller established quiet ongoing status and columns are prevalidated.
+  // Preserve the research-qualified advisory order and external-root scope;
+  // ordering supplies no WDL proof. Measure any replacement in real recursion.
   let bestClass = 0, bestColumn = -1;
   for (let index = 0; index < CENTER_ORDER.length; index++) {
     const column = CENTER_ORDER[index];

@@ -18,6 +18,10 @@ const reporterClosed=new Promise(resolve=>{
   });
 });
 function emit(phase,snapshot={},extra={}) {
+  // OWNER-PROTECTED REPORTING — do not remove/weaken this comment.
+  // Fire-and-forget to the reporter worker. No stringify, file/console I/O or
+  // awaiting periodic reports on the manager/search path. Await the FIFO drain
+  // only at final cleanup so crash/timeout evidence is not silently discarded.
   if(!reportingError)reporter.postMessage({phase,snapshot,extra,observedAt:performance.now()});
 }
 emit('prepared',{}, {rootPly:moves.length});

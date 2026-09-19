@@ -20,6 +20,11 @@ conclusions[6] = exactValueConclusion(0, null);
 for (let cell = 0; cell < 42; cell++) conclusions[64 + cell] = forcedMoveConclusion(cell);
 
 export function nativeFrontierCode(state) {
+  // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+  // Return scalar codes; proof-facing objects are preloaded above, never
+  // constructed/frozen per node. Keep the zero/one/multiple bit classification,
+  // separate 32-bit halves, and own-win precedence. A full popcount or repeated
+  // semantic validation here needs measured justification, not convenience.
   if (state.status !== STATUS_ONGOING) {
     const winner = state.winner();
     return winner === null ? 2 : winner === 0 ? 3 : 1;

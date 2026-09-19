@@ -25,6 +25,11 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
   }
 
   checkTaskControl(state) {
+    // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+    // Called only at scheduled thresholds. Do not reinstate a solveNode
+    // override with per-node wrapper/catch, clock reads, RPC, or reporting.
+    // Save the path with scalar stores into existing bytes; the yield token
+    // is precreated. Package objects only AFTER native recursion unwinds.
     if (Atomics.load(this.abort, 0)) throw new Error('ISOMAX_ABORTED');
     if (this.metrics.nodes >= this.nodeBudget) {
       this.continuationPly = state.ply;
@@ -37,6 +42,10 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
   }
 
   packageContinuation(state) {
+    // OWNER-PROTECTED COLD BOUNDARY — do not remove/weaken this comment.
+    // Allocation/transport is allowed here because recursion has ended.
+    // Do not move packaging into recursive catches, omit proved siblings,
+    // restart parent work, or publish a WDL value for an unfinished task.
     const rootPly = state.ply, frames = [];
     // The budget-rejected node itself was never entered. Restore the active
     // ancestor path after recursion has fully unwound, then package cold data.
@@ -59,6 +68,10 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
   }
 
   runTask({ moves, rootPly, nodeBudget, abort, needed }) {
+    // OWNER-PROTECTED PREPARATION — do not remove/weaken this comment.
+    // Validate/admit, preload and seal before entry; preserve external-root
+    // ordering and warm caches. The reservation bound below belongs to this
+    // ordinary-value profile: do not add consumers without re-proving it.
     positive(nodeBudget, 'task node budget');
     if (this.certificates.size !== 0 || this.valueResolver !== null)
       throw new Error('native worker tasks require the ordinary-value profile');

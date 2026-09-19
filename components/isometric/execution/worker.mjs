@@ -7,6 +7,10 @@ let solver = new IsoMaxTaskSolver(), poisoned = false;
 const retainedClasses=Math.floor(1048576/workerData.workerCount);
 const retainedEntries=Math.floor(8388608/workerData.workerCount);
 parentPort.on('message', message => {
+  // OWNER-PROTECTED TASK BOUNDARY — do not remove/weaken this comment.
+  // This handler owns cold setup/result transport. Do not move its object
+  // construction, memory sampling or postMessage calls into solveNode.
+  // Retire/reset retained state only between tasks, never during recursion.
   try {
     if (poisoned) throw new Error('IsoMax worker is poisoned');
     if (message?.type !== 'isomax-task') throw new Error('unsupported IsoMax worker message');

@@ -74,6 +74,13 @@ export class IsometricState {
   }
 
   applyUnchecked(column) {
+    // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+    // Keep native scalar updates and preallocated reversible history. Do not
+    // restore mask arrays, per-move objects, board adapters, snapshots, copies,
+    // or global residual rebuilds. Preserve both unsigned mask halves and
+    // first-win stopping. Entry legality is established by the caller.
+    // See solver.mjs's owner contract; changes require restoration/differential
+    // tests and paired recursive-worker measurements, not stylistic preference.
     const player = this.sideToMove;
     const row = this.heights[column];
     const cell = row * COLUMNS + column;
@@ -122,6 +129,10 @@ export class IsometricState {
   }
 
   undo() {
+    // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
+    // Undo restores native scalars/history in place: no replay, allocation,
+    // snapshot copying or residual recomputation. Ancestor state must survive
+    // ordinary returns AND scheduling/error unwind exactly.
     if (this.ply === 0) return false;
     const currentPly = this.ply;
     const cell = this.moveCells[currentPly - 1];

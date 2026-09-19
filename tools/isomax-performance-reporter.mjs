@@ -5,6 +5,10 @@ import { parentPort, workerData, threadId } from 'node:worker_threads';
 // report per node; the manager posts completed-task snapshots without awaiting
 // serialization or I/O. FIFO close drains all accepted records at cleanup.
 parentPort.on('message', message => {
+  // OWNER-PROTECTED REPORTING OWNER — do not remove/weaken this comment.
+  // Formatting and output intentionally live in THIS worker. Do not inline
+  // them into the manager or recursive workers to "simplify" the architecture.
+  // Preserve FIFO final drain and explicit isolate/process metric ownership.
   if (message.close) { parentPort.close(); return; }
   const { phase, snapshot, extra, observedAt } = message;
   const resource = process.resourceUsage();

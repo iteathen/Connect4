@@ -91,6 +91,33 @@ export class IsoMaxSolver {
   }
 
   solveNode(state) {
+    // OWNER-PROTECTED HOT-PATH CONTRACT — repository owner instruction.
+    // Agents MUST NOT delete, weaken, bypass, or relocate these protections
+    // away from the code, including the adjacent invariant/rationale comments.
+    // Changing that protection requires an explicit repository-owner instruction.
+    //
+    // This is the real recursive worker kernel. Keep successful ordinary-value
+    // execution scalar/indexed over preloaded, preallocated, sealed storage.
+    // No new objects/arrays/views, closures, iterators, spread/destructuring,
+    // array transforms, promises, string keys/formatting/parsing, buffer copies,
+    // growth, widening, rehashing, logging, or reporter/manager RPC per node.
+    // Decode necessary text once into numeric character-code/indexed storage
+    // BEFORE entry; do not introduce string operations into recursion.
+    // Required scalar residual/history writes are computation, not permission
+    // to clone buffers. Reuse scratch only where no live ancestor can alias it.
+    //
+    // Establish validation at its owning boundary; remove repeated Boolean
+    // tests only under proved preconditions. Never trade exact identity,
+    // first-win precedence, guarded proof premises, or undo safety for speed.
+    // Keep the empty-certificate bypass: object-based certificate/RBA research
+    // APIs are NOT silently admitted into the sealed ordinary-worker profile.
+    // Scheduling stays one numeric threshold check; reporting is fire-and-
+    // forget outside recursion and formatting/I/O belongs to its own worker.
+    //
+    // Qualify changes with test/hot-loop.test.mjs plus execution/correctness
+    // controls and paired real-worker timings (benchmarks/isomax-workers).
+    // Fewer source lines or "cleaner" abstractions are not speed evidence.
+    // Preserve existing measured optimizations; see HOT-LOOP.md in that folder.
     if (this.metrics.nodes >= this.nextControlNode) this.checkTaskControl(state);
     this.metrics.nodes += 1;
     const cached = this.transitionCache.get(state);

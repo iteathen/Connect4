@@ -131,6 +131,12 @@ function hashSignature(signature) {
 }
 
 export class IsoMaxTransitionCache {
+  // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+  // Numeric exact q triples and reusable key scratch are intentional.
+  // Do not replace them with string keys, signature objects/temporary arrays,
+  // hash-only equality, or coarse WSL/proof identity. Sealed worker recursion
+  // cannot grow/rehash; reserve at task entry. Rehash scratch must not alias a
+  // live insertion key. Keep collision/resize/reflection controls effective.
   constructor({ pool, initialCapacity = 1024 } = {}) {
     if (!pool) throw new TypeError('IsoMaxTransitionCache requires its ResidualPool');
     this.pool = pool;

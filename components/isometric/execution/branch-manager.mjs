@@ -18,6 +18,12 @@ export const defaultIsoMaxWorkers = () => Math.max(1, Math.min(4, availableParal
  * domains. The manager owns proof dependencies; workers execute native residue.
  * Custom certificate indexes and optional RBA resolvers are not serialized. */
 export class IsoMaxBranchManager {
+  // OWNER-PROTECTED EXECUTION — do not remove/weaken this or adjacent comments.
+  // Keep proactive bounded worker queuing integrated with the native kernel.
+  // Do not silently replace this entry with a serial solve or per-node RPC.
+  // Numeric exact q deduplication is intentional; no string-key reconstruction.
+  // Manager/task objects belong outside worker recursion. Preserve dependency
+  // continuations and cleanup; busy-core counts alone are not solve speed.
   constructor({ workers = defaultIsoMaxWorkers(), taskNodes = 65536,
     maxTasks = 262144 } = {}) {
     this.workerCount = positive(workers, 'workers', 256);

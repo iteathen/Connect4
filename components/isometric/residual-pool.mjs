@@ -216,6 +216,11 @@ export class ResidualPool {
   }
 
   prepareSearchStorage(additionalClasses) {
+    // OWNER-PROTECTED HOT-PATH BOUNDARY — do not remove/weaken these comments.
+    // Reserve, widen and rehash BEFORE recursion, then seal every owner.
+    // Never "fix" a capacity error by growing/copying from a recursive caller
+    // or silently unsealing. Preserve warm IDs and exact dictionary equality.
+    // Memory headroom is deliberately spent to avoid hot-loop allocation.
     if (!Number.isSafeInteger(additionalClasses) || additionalClasses < 1 ||
         additionalClasses > 2 ** 26) throw new RangeError('invalid residual reservation');
     this.releaseSearchStorage();
@@ -248,6 +253,9 @@ export class ResidualPool {
   }
 
   computeSingletonMasks(bits, id) {
+    // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
+    // Write scalar results directly to reserved metadata. Returning [lo, hi]
+    // or an object and destructuring it recreates allocation per new class.
     let lo = 0;
     let hi = 0;
     const p = this.profile;
@@ -308,6 +316,11 @@ export class ResidualPool {
   }
 
   ownTransition(id, cell) {
+    // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
+    // Preserve dense transformation plus sparse normalization and shared
+    // scratch. The earlier lazy/branchy mover regressed the real 7x6 workload;
+    // a locality proxy alone does not authorize replacing this implementation.
+    // No allocating term lists, string identities, or scratch-buffer copies.
     this.assertClass(id);
     this.assertCell(cell);
     const cacheIndex = this.cacheIndex(id, cell);

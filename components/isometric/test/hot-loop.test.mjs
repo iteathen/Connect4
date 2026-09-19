@@ -34,6 +34,11 @@ test('scalar frontier classifies every single and paired cell across both words'
 });
 
 test('actual native worker recursion reserves storage and never constructs/copies buffers', () => {
+  // OWNER-PROTECTED REGRESSION CONTROL — do not remove/weaken this comment.
+  // Do not disable traps, skip this test, shrink it to cache-only work, or move
+  // instrumentation outside the actual recursive path to make a change pass.
+  // New classes must be created under the traps. Extend coverage when adding
+  // a hot-path operation; preserve the owner contract in solver.mjs.
   const solver = new IsoMaxTaskSolver();
   const needed = new SharedArrayBuffer(4), abort = new SharedArrayBuffer(4);
   Atomics.store(new Int32Array(needed), 0, 1);
