@@ -12,6 +12,16 @@ function nextPowerOfTwo(value) {
   return result;
 }
 
+function growU32(source, next) {
+  // OWNER-PROTECTED COLD HELPER — do not remove/weaken this comment.
+  // Keep at module scope. A nested closure capturing next made V8 allocate a
+  // function context at ensureClassCapacity entry, even on its no-growth path.
+  // Only the cold, unsealed growth branch may call this allocating helper.
+  const target = new Uint32Array(next);
+  target.set(source);
+  return target;
+}
+
 function mix32(value) {
   // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
   // Keep scalar integer mixing; no string/BigInt conversion or allocating hash input.
@@ -234,10 +244,9 @@ export class ResidualPool {
       target.set(this.classSlotIds[slot]);
       this.classSlotIds[slot] = target;
     }
-    const growU32 = (source) => { const target = new Uint32Array(next); target.set(source); return target; };
-    this.classHashes = growU32(this.classHashes);
-    this.singletonLo = growU32(this.singletonLo);
-    this.singletonHi = growU32(this.singletonHi);
+    this.classHashes = growU32(this.classHashes, next);
+    this.singletonLo = growU32(this.singletonLo, next);
+    this.singletonHi = growU32(this.singletonHi, next);
     const reflected = new Int32Array(next);
     reflected.fill(CLASS_UNKNOWN);
     reflected.set(this.reflectionCache);

@@ -160,3 +160,26 @@ Select conditional policy; keep 512-node controls, retention, deadlines and
 memory limits unchanged. Exact actions agree; one-worker nodes decrease only
 2,644,522 -> 2,644,187, so this is predominantly task-entry amortization, not
 proof of portable recursive reuse. Full controls and bounded smoke follow.
+
+Selected quantum qualified with 108 tests (including incumbent/oracle controls).
+Two-worker empty smoke at cc2744b1: 18,120,626 settled calls / 10,014.55 solve ms,
+peak RSS 839,958,528 bytes; only the configured 10s timeout, no WDL, all workers
+and reporting child exited. Executor abort/fault counters reflect its existing
+timeout poisoning path; they are not silently rewritten to zero.
+
+#88 machine review at cc2744b1: xperf reports `Failed to configure counters`;
+no active loggers before/after. No hardware branch/cache claim. Actual worker
+CPU/heap/V8 code capture succeeded. Inspection found FUNCTION_CONTEXT_TYPE and
+growU32 closure allocation in inlined ensureClassCapacity, despite source early
+return preceding the closure declaration. Moving growU32 to module scope removes
+the captured local and leaves cold allocation/copy behind the existing sealed
+guard. Sampled internBits allocation 14,853,112 -> 0 bytes; last compiled body
+9328 -> 9164 bytes, allocation-top sites 4 -> 0. Sampling includes warmup and
+does not prove universal zero allocation. Three-pair timings: serial 1769.39 ->
+1746.46, one-worker 2129.78 -> 2124.41, four-worker 1788.74 -> 1792.44 ms (neutral
+within scheduling variation). Confirmation serial 1749.03 -> 1735.44, one-worker
+2124.54 -> 2103.76; all six serial pairs favor the candidate, exact work equal.
+51 IsoMax tests passed. Retain this allocation repair; no hash-storage rewrite
+was needed. Raw machine review also shows unsigned isolated-bit arguments boxing
+before MathClz32 in ownTransition; assess that separately rather than attributing
+all residual allocation to hashing.
