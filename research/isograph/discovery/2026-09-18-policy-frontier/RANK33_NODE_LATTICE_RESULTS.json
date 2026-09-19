@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "experiment": "rank33-independent-node-lattice-probe",
+  "branch": "research/semantic-quotient",
+  "base_checkpoint": "2d9cf2bff8d9346452c006e74031c5d97adfe191",
+  "implementation_sha256": "65246879a4f2bcc125c147589d5e93ab0f009dc8afd1375af13cdf594f8b5396",
+  "validation_case": {
+    "support": [
+      5,
+      5,
+      1,
+      4,
+      6,
+      6,
+      6
+    ],
+    "residual_shapes": 21,
+    "antichains_per_player": 12929,
+    "expected_checkpoint": {
+      "upper_widths": [
+        1,
+        8,
+        17,
+        71,
+        146,
+        145,
+        82,
+        23,
+        5,
+        4
+      ],
+      "lower_widths": [
+        8,
+        13,
+        36,
+        114,
+        250,
+        101,
+        39,
+        6,
+        1,
+        1
+      ],
+      "max_action_upper_candidates": 536,
+      "max_action_lower_candidates": 513,
+      "max_lower_intersection_candidates": 41307,
+      "max_upper": 359,
+      "max_lower": 372
+    },
+    "independent_node_result": {
+      "upper_widths": [
+        1,
+        8,
+        17,
+        71,
+        146,
+        145,
+        82,
+        23,
+        5,
+        4
+      ],
+      "lower_widths": [
+        8,
+        13,
+        36,
+        114,
+        250,
+        101,
+        39,
+        6,
+        1,
+        1
+      ],
+      "max_action_upper_candidates": 536,
+      "max_action_lower_candidates": 513,
+      "max_lower_intersection_candidates": 41307,
+      "max_upper": 359,
+      "max_lower": 372,
+      "elapsed_ms": 1239.934067
+    },
+    "mismatch_count": 0
+  },
+  "target_case": {
+    "support": [
+      5,
+      5,
+      2,
+      3,
+      6,
+      6,
+      6
+    ],
+    "rank": 33,
+    "residual_shapes": 24,
+    "antichains_per_player": 49682,
+    "explicit_pair_domain_if_enumerated": 2468301124,
+    "supports_in_future_cone": 80,
+    "root_upper": {
+      "loss2": 1,
+      "loss4": 8,
+      "loss6": 35,
+      "loss8": 226,
+      "draw9": 1116,
+      "win9": 1251,
+      "win7": 447,
+      "win5": 69,
+      "win3": 9,
+      "win1": 4
+    },
+    "root_lower": {
+      "loss2": 8,
+      "loss4": 30,
+      "loss6": 228,
+      "loss8": 660,
+      "draw9": 2534,
+      "win9": 714,
+      "win7": 119,
+      "win5": 15,
+      "win3": 1,
+      "win1": 1
+    },
+    "maxima": {
+      "antichains_per_player": 49682,
+      "residual_shapes": 24,
+      "fixed_action_upper_candidates": 1600,
+      "fixed_action_lower_candidates": 787,
+      "lower_intersection_candidates_before_normalization": 530700,
+      "stored_upper_boundary": 1251,
+      "stored_lower_boundary": 2534
+    },
+    "timings_ms": {
+      "antichain_enumeration": 563.959681,
+      "cofactor_maps": 567.971371,
+      "boundary_propagation": 9444.956016,
+      "total": 10582.354485
+    }
+  },
+  "interpretation": [
+    "The rank-33 49,682-antichain case closes without enumerating the 2.468B player-pair domain.",
+    "Current dominant growth is lower/downset boundary intersection rather than antichain enumeration or one-cell cofactor map construction.",
+    "No authority or IsoGraph relation is promoted by this result."
+  ],
+  "next": "derive_rank32_lattice_boundary_probe_with_lower_intersection_as_primary_scaling_falsifier"
+}
