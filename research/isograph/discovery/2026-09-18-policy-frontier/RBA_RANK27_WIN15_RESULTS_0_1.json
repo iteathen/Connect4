@@ -1,0 +1,201 @@
+{
+  "schema": 1,
+  "experiment": "rba-rank27-win15-adjacent-threshold",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "support": [
+    3,
+    4,
+    2,
+    0,
+    6,
+    6,
+    6
+  ],
+  "rank": 27,
+  "remaining_cells": 15,
+  "residual_shapes": 38,
+  "transformed_bits": 76,
+  "threshold": "win15",
+  "status": "closed",
+  "child_threshold": "loss14",
+  "children": [
+    {
+      "support": [
+        4,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper": 40104,
+      "lower": 31912
+    },
+    {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper": 72737,
+      "lower": 110931,
+      "previous_closed_control_match": true
+    },
+    {
+      "support": [
+        3,
+        4,
+        3,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper": 36055,
+      "lower": 43802
+    },
+    {
+      "support": [
+        3,
+        4,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "upper": 153209,
+      "lower": 206099
+    }
+  ],
+  "action_fronts": [
+    {
+      "column": 0,
+      "upper": 29226,
+      "lower": 30387
+    },
+    {
+      "column": 1,
+      "upper": 54062,
+      "lower": 58059
+    },
+    {
+      "column": 2,
+      "upper": 19311,
+      "lower": 20096
+    },
+    {
+      "column": 3,
+      "upper": 177051,
+      "lower": 133469
+    }
+  ],
+  "upper": {
+    "raw": 279650,
+    "final": 235107,
+    "sha256": "0e7af9d6ae271925a98995795ba2c1e11266d2000c905a7e2417bcc6dc243621",
+    "independent_renormalization": {
+      "count": 235107,
+      "same_set": true,
+      "elapsed_ms": 7450
+    }
+  },
+  "lower": {
+    "products": [
+      {
+        "a": 30387,
+        "b": 58059,
+        "raw": 1764238833,
+        "final": 205066
+      },
+      {
+        "a": 205066,
+        "b": 20096,
+        "raw": 4121006336,
+        "final": 239149
+      },
+      {
+        "a": 239149,
+        "b": 133469,
+        "raw": 31918977881,
+        "final": 306617
+      }
+    ],
+    "total_raw": 37804223050,
+    "final": 306617,
+    "sha256": "a361b50c801fe6bcb339d39d04e1f15452d1663a0778d606dbb327e519a406c9",
+    "independent_renormalization": {
+      "count": 306617,
+      "same_set": true,
+      "elapsed_ms": 11720
+    }
+  },
+  "root_metrics": {
+    "preimage_ms": 14349.912,
+    "product_ms": 240736.003,
+    "normalization_ms": 103956.261,
+    "elapsed_ms": 365537.361,
+    "local_candidates": 8104773,
+    "indexed_leaf_scans": 2226085644,
+    "indexed_tree_nodes": 248917009
+  },
+  "final_indexed_product": {
+    "raw": 31918977881,
+    "inspected_leaves": 2226085644,
+    "scan_fraction": 0.0697417584,
+    "pruned_fraction": 0.9302582416
+  },
+  "factor_order_falsifier": {
+    "qualified_first_product": {
+      "a": 30387,
+      "b": 58059,
+      "raw": 1764238833,
+      "status": "closed"
+    },
+    "alternate_first_product": {
+      "a": 30387,
+      "b": 20096,
+      "raw": 610657152,
+      "status": "bounded_420s_did_not_close"
+    },
+    "conclusion": "raw pair cardinality is not a sufficient pair-ordering cost predictor"
+  },
+  "same_support_comparison": {
+    "loss14": {
+      "upper": 114585,
+      "lower": 158402,
+      "total_root_raw": 7590525287,
+      "evaluation": "streaming_closed"
+    },
+    "draw15": {
+      "upper": 161398,
+      "lower": 534618,
+      "final_raw": 89578193706,
+      "pruned_fraction": 0.985411,
+      "evaluation": "indexed_required"
+    },
+    "win15": {
+      "upper": 235107,
+      "lower": 306617,
+      "total_root_raw": 37804223050,
+      "final_pruned_fraction": 0.9302582416,
+      "evaluation": "indexed_final_normalization_heavy"
+    }
+  },
+  "interpretation": {
+    "fiber_wide_constant_pruning_model": false,
+    "raw_pair_count_sufficient": false,
+    "final_frontier_width_sufficient": false,
+    "pruning_percentage_sufficient": false,
+    "current_cost_object": "threshold-specific action-front geometry + restricted-image skyline distribution + prunable leaf volume + local dominance work + global normalization geometry"
+  },
+  "next": "derive cheap pair-product query-cost predictor before rank26 descent",
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
