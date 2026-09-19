@@ -33,8 +33,8 @@ Only below-root unresolved nodes receive advisory promotion. No value, pruning,
 certificate or identity consequence follows from an ordering class. Optional
 RBA remains disabled in both variants.
 
-The workload has two independently seeded sets of 32 quiet legal roots, at
-24 and 28 pieces played (18 and 14 remaining). Physical domain predicates select
+The workload has independently seeded sets of 16 quiet legal roots at 18 and
+20 pieces played, plus 32 roots each at 24 and 28 pieces played. Physical domain predicates select
 roots without either player's immediate win; no solver results select fixtures.
 These are synthetic controls, not Begin-Hard or an empty-board solve.
 

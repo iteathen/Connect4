@@ -25,6 +25,8 @@ export function makeCorpus({ seed, ply, count }) {
 }
 
 export const WORKLOADS = Object.freeze([
+  { name: 'quiet-ply18', seed: 0x185c4, ply: 18, count: 16 },
+  { name: 'quiet-ply20', seed: 0x205c4, ply: 20, count: 16 },
   { name: 'quiet-ply24', seed: 20260919, ply: 24, count: 32 },
   { name: 'quiet-ply28', seed: 0x92c4, ply: 28, count: 32 },
 ]);

@@ -6,6 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { captureProcess } from '../../tools/solver-performance.mjs';
+import { WORKLOADS } from './corpus.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', windowsHide: true }).trim();
 const write = (file, data) => fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n', { flush: true });
@@ -34,7 +35,7 @@ for (const [index, variant] of report.policy.sequence.entries()) {
   write(path.join(directory, 'result.json'), report);
   console.log(JSON.stringify({ phase: 'finish', ordinal: index + 1, variant, ...captured,
     summaries: summaries.map(({ decisions, ...s }) => s) }));
-  if (captured.exitCode !== 0 || captured.timedOut || summaries.length !== 2) {
+  if (captured.exitCode !== 0 || captured.timedOut || summaries.length !== WORKLOADS.length) {
     throw new Error('incomplete comparison; preserve logs and do not claim speedup');
   }
 }
