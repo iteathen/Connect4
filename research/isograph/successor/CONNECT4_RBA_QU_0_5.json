@@ -1,0 +1,81 @@
+{
+  "schema": 5,
+  "id": "RBA-QU-0005",
+  "name": "Residual Boundary Algebra completion space — partial-information block refinement",
+  "refines": "RBA-QU-0004",
+  "refinement_relation": "R(RBA-QU-0005) subset_of R(RBA-QU-0004)",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "newly_fixed_or_constrained": [
+    {
+      "id": "PB1",
+      "statement": "For fixed-depth alternating blocks, scalar WDL value under arbitrary contiguous partial bounds is exactly propagated by the six-value interval algebra LL/LD/LW/DD/DW/WW.",
+      "status": "theorem_shaped_with_1309_block_tests_zero_mismatch"
+    },
+    {
+      "id": "PB2",
+      "statement": "Fixed-depth block value is globally monotone or antitone in all unresolved frontier values according to depth parity; shared frontier states do not create mixed polarity.",
+      "status": "deductive_candidate"
+    },
+    {
+      "id": "PB3",
+      "statement": "Scalar partial-value block composition is no longer the main RBA unknown.",
+      "status": "research_refinement"
+    }
+  ],
+  "refined_candidate_core": {
+    "board_layer": "exact support-conditioned board fiber",
+    "residual_layer": "finite distributive residual lattice",
+    "transition_layer": "terminal-extended left adjoints with right adjoints",
+    "scalar_information_layer": "six contiguous WDL bounds LL/LD/LW/DD/DW/WW",
+    "exact_value_refinement": "four-valued U/W/D/L orbit as the all-unknown special case",
+    "strong_distance": "first exact resolution ordinal",
+    "symbolic_layer": "monotone boundary fronts carrying scalar bound predicates"
+  },
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis",
+      "question": "Can the board-fiber + adjoint transition + six-value partial-information + boundary basis be reduced further?"
+    },
+    {
+      "id": "O2",
+      "role": "boundary_compactness_law",
+      "question": "What parameter bounds the symbolic q-region boundaries for each partial-information value under block composition?"
+    },
+    {
+      "id": "O3",
+      "role": "symbolic_block_composition",
+      "question": "Can the exact six-value block transformer be represented compositionally on antichain/boundary regions without enumerating intermediate supports or q states?"
+    },
+    {
+      "id": "O4",
+      "role": "compact_root_normal_form",
+      "question": "Can symbolic block transformers be composed/exponentiated to a compact empty-root normal form?"
+    },
+    {
+      "id": "O5",
+      "role": "minimal_symbolic_value_carrier",
+      "question": "What is the smallest compositionally closed symbolic carrier for the six scalar bound predicates and exact best-move/action-value recovery?"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_correspondence",
+      "question": "How does the refined partial-information value algebra relate to proof/controllable-predecessor structure?"
+    }
+  ],
+  "evidence": [
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_BELLMAN_UNKNOWN_SHELL_RESULTS_0_1.json",
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_SIX_VALUE_BLOCK_RESULTS_0_1.json"
+  ],
+  "current_localization": "The unresolved RBA core is now symbolic boundary composition/normalization of exact partial-information block transformers over board-fiber transitions, not scalar minimax composition itself.",
+  "current_disposition": {
+    "scalar_block_composition_open": false,
+    "symbolic_boundary_block_composition_open": true,
+    "compact_root_normal_form_open": true,
+    "empty_root_solved": false,
+    "typed_relation_promoted": false
+  }
+}
