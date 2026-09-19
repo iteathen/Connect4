@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "experiment": "rba-rank26-descent-hard-restricted-image-wall",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "selected_rank26": {
+    "support": [
+      3,
+      3,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 26,
+    "target": "draw16"
+  },
+  "first_missing_child": {
+    "support": [
+      4,
+      3,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 27,
+    "target": "draw15",
+    "status": "not_closed"
+  },
+  "newly_closed_descendants": [
+    {
+      "support": [
+        5,
+        3,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "rank": 29,
+      "threshold": "draw13",
+      "upper": 44505,
+      "lower": 69700,
+      "upper_sha256": "e11b81a8b0729aa6f2a9b8c412eb1e022493872a7ac38691f30c41d1b6261cbd",
+      "lower_sha256": "2bfcffe67c7300c4749140693916b53b5f8e5e9b64dee70d5635729bba60a0ae"
+    },
+    {
+      "support": [
+        4,
+        3,
+        3,
+        1,
+        6,
+        6,
+        6
+      ],
+      "rank": 29,
+      "threshold": "draw13",
+      "upper": 26306,
+      "lower": 84733,
+      "upper_sha256": "4a9e148274d7b1e0deaae9237fec5db269d3291f00c009082cf129371c6e501a",
+      "lower_sha256": "53f104b5449122b628385881c4923c7d66f376ba60df9597cf0d9d0d51aeba28"
+    },
+    {
+      "support": [
+        4,
+        3,
+        2,
+        3,
+        6,
+        6,
+        6
+      ],
+      "rank": 30,
+      "threshold": "draw12",
+      "upper": 132496,
+      "lower": 116924,
+      "upper_sha256": "adc8bf11a7aae4a0e1e9d2724fa0a95974a68c4ac258af86f2e751d5cf99e418",
+      "lower_sha256": "9833ec5700c9306322b8a49717a46dc61606f02da142f2afaafa1d7c9db36654"
+    }
+  ],
+  "blocked_support": {
+    "support": [
+      4,
+      3,
+      2,
+      2,
+      6,
+      6,
+      6
+    ],
+    "rank": 29,
+    "threshold": "draw13",
+    "upper": 117781,
+    "upper_sha256": "7d5465d24c558d2c9e8484ca998558b0919985c725ac0ddeb6faa9e482ea7a27",
+    "factors": [
+      110523,
+      34867,
+      24148,
+      56637
+    ]
+  },
+  "closed_pair": {
+    "factors": [
+      34867,
+      24148
+    ],
+    "raw": 841968316,
+    "output": 208183,
+    "wall_ms": 22988.1,
+    "sha256": "73703d49cc5af2af10cf3862001d78abc9daa0bfdf2118f64c66f67b2c32e00e"
+  },
+  "bounded_nonclosures": [
+    {
+      "path": "f0xf1_indexed_after_absorption",
+      "residual": [
+        62179,
+        29512
+      ],
+      "raw_residual": 1835026648,
+      "status": "bounded_180s_local_not_closed"
+    },
+    {
+      "path": "f0xf1_parallel_flat_after_absorption",
+      "residual": [
+        62179,
+        29512
+      ],
+      "raw_residual": 1835026648,
+      "status": "bounded_240s_local_not_closed"
+    },
+    {
+      "path": "p12xf3_indexed_after_absorption",
+      "residual": [
+        129662,
+        56605
+      ],
+      "raw_residual": 7339517510,
+      "status": "bounded_240s_local_not_closed"
+    },
+    {
+      "path": "p12xf0_indexed_after_absorption",
+      "residual": [
+        102950,
+        73215
+      ],
+      "raw_residual": 7537484250,
+      "status": "bounded_240s_local_not_closed"
+    },
+    {
+      "path": "f0xf3_indexed_after_absorption",
+      "residual": [
+        60097,
+        53185
+      ],
+      "raw_residual": 3196258945,
+      "status": "bounded_240s_local_not_closed"
+    }
+  ],
+  "wall": {
+    "operation": "P_B(a)=Max({a AND b | b in B})",
+    "phase": "local_restricted_image",
+    "repeated_absorption_fixed_point": true
+  },
+  "next": "research exact local restricted-image representation/evaluator; stop factor-order permutation by inertia",
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
