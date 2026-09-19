@@ -131,8 +131,10 @@ function hashSignature(signature) {
 }
 
 export class IsoMaxTransitionCache {
-  constructor({ initialCapacity = 1024 } = {}) {
-    if (!Number.isInteger(initialCapacity) || initialCapacity < 8) throw new RangeError('initialCapacity must be an integer >= 8');
+  constructor({ pool, initialCapacity = 1024 } = {}) {
+    if (!pool) throw new TypeError('IsoMaxTransitionCache requires its ResidualPool');
+    this.pool = pool;
+    if (!Number.isInteger(initialCapacity) || initialCapacity < 8 || initialCapacity > 2 ** 29) throw new RangeError('initialCapacity must be an integer in [8, 2^29]');
     let capacity = 1;
     while (capacity < initialCapacity) capacity <<= 1;
     this.capacity = capacity;
@@ -142,7 +144,7 @@ export class IsoMaxTransitionCache {
     this.p1 = new Int32Array(capacity);
     this.support = new Uint32Array(capacity);
     this.values = new Array(capacity);
-    this.scratch = new Int32Array(6);
+    this.scratch = new Int32Array(3);
     this.rehashScratch = new Int32Array(3);
   }
 
@@ -181,23 +183,25 @@ export class IsoMaxTransitionCache {
       signature[0] = old.p0[slot];
       signature[1] = old.p1[slot];
       signature[2] = old.support[slot];
-      this.setSignature(signature, old.values[slot]);
+      this.#setKey(signature, old.values[slot]);
     }
   }
 
   get(state) {
-    const signature = state.transitionSignature(this.scratch);
+    if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
+    const signature = state.gameplayKey(this.scratch);
     const slot = this.findSlot(signature);
     return this.used[slot] === 0 ? undefined : this.values[slot];
   }
 
   set(state, value) {
+    if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
     if (value === undefined) throw new TypeError('transition cache cannot store undefined');
-    const signature = state.transitionSignature(this.scratch);
-    return this.setSignature(signature, value);
+    const signature = state.gameplayKey(this.scratch);
+    return this.#setKey(signature, value);
   }
 
-  setSignature(signature, value) {
+  #setKey(signature, value) {
     if ((this.count + 1) * 10 >= this.capacity * 7) this.grow();
     const slot = this.findSlot(signature);
     if (this.used[slot] === 0) {

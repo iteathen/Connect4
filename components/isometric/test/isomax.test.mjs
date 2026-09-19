@@ -68,7 +68,7 @@ test('proof identity deduplicates proof work independently of transition identit
 
 test('transition cache uses stronger support-aware identity while mirrors share one canonical entry', () => {
   const pool = new ResidualPool();
-  const cache = new IsoMaxTransitionCache({ initialCapacity: 8 });
+  const cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });
   const a = new IsometricState({ pool, moves: [1, 3, 2, 4] });
   const b = new IsometricState({ pool, moves: [5, 3, 4, 2] });
   cache.set(a, 12345);
@@ -79,7 +79,7 @@ test('transition cache uses stronger support-aware identity while mirrors share 
 
 test('transition cache resize preserves the incoming signature and arbitrary cached values', () => {
   const pool = new ResidualPool();
-  const cache = new IsoMaxTransitionCache({ initialCapacity: 8 });
+  const cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });
   const prefixes = [
     [],
     [0],

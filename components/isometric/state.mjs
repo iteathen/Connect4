@@ -191,23 +191,23 @@ export class IsometricState {
     return target;
   }
 
-  transitionSignature(target = new Int32Array(6)) {
-    const structural = this.structuralSignature(target);
-    let orientation = structural[2];
-    let support = orientation === 0 ? this.supportCode : this.reflectedSupportCode();
-    if (structural[3] === 1) {
-      const reflectedSupport = this.reflectedSupportCode();
-      if (reflectedSupport < support) {
-        support = reflectedSupport;
-        orientation = 1;
-      }
-    }
-    target[0] = structural[0];
-    target[1] = structural[1];
-    target[2] = support >>> 0;
-    target[3] = this.sideToMove >>> 0;
-    target[4] = this.status >>> 0;
-    target[5] = orientation >>> 0;
+  // Pool-local q equality: normalized residual pair + support. Transport is not
+  // part of equality; rank/turn follow support in the supported replay domain.
+  gameplayKey(target = new Int32Array(3)) {
+    const reflected0 = this.pool.reflectClass(this.p0Class);
+    const reflected1 = this.pool.reflectClass(this.p1Class);
+    let comparison = this.pool.compareClasses(this.p0Class, reflected0);
+    if (comparison === 0) comparison = this.pool.compareClasses(this.p1Class, reflected1);
+    target[0] = comparison > 0 ? reflected0 : this.p0Class;
+    target[1] = comparison > 0 ? reflected1 : this.p1Class;
+    target[2] = comparison > 0 ? this.reflectedSupportCode()
+      : comparison === 0 ? Math.min(this.supportCode, this.reflectedSupportCode()) : this.supportCode;
     return target;
+  }
+
+  gameplayOrientation() {
+    const signature = this.structuralSignature();
+    return signature[3] === 1
+      ? Number(this.reflectedSupportCode() < this.supportCode) : signature[2];
   }
 }

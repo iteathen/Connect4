@@ -178,7 +178,7 @@ test('play/undo restores exact packed state without a compatibility board', () =
   const pool = new ResidualPool();
   const state = new IsometricState({ pool });
   const initialStructural = Array.from(state.structuralSignature());
-  const initialTransition = Array.from(state.transitionSignature());
+  const initialTransition = Array.from(state.gameplayKey());
   const moves = [3, 2, 3, 4, 2, 4, 1, 5, 0, 6];
   let accepted = 0;
   for (const move of moves) {
@@ -188,7 +188,7 @@ test('play/undo restores exact packed state without a compatibility board', () =
   for (let i = 0; i < accepted; i += 1) assert.equal(state.undo(), true);
   assert.equal(state.undo(), false);
   assert.deepEqual(Array.from(state.structuralSignature()), initialStructural);
-  assert.deepEqual(Array.from(state.transitionSignature()), initialTransition);
+  assert.deepEqual(Array.from(state.gameplayKey()), initialTransition);
   assert.equal(state.supportLo, 0);
   assert.equal(state.supportHi, 0);
   assert.equal(state.ply, 0);
@@ -209,7 +209,7 @@ test('mirrors share one coarse structural and transition signature', () => {
   const a = new IsometricState({ pool, moves });
   const b = new IsometricState({ pool, moves: moves.map(reflectMove) });
   assert.deepEqual(Array.from(a.structuralSignature()).slice(0, 2), Array.from(b.structuralSignature()).slice(0, 2));
-  assert.deepEqual(Array.from(a.transitionSignature()).slice(0, 5), Array.from(b.transitionSignature()).slice(0, 5));
+  assert.deepEqual(Array.from(a.gameplayKey()), Array.from(b.gameplayKey()));
 });
 
 test('typed guards use bit masks on the fast path and preserve unresolved semantics', () => {

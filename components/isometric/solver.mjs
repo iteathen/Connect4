@@ -43,9 +43,9 @@ export class IsoMaxSolver {
     if (!(this.certificates instanceof IsoMaxCertificateIndex) || this.certificates.pool !== pool) {
       throw new TypeError('certificates must be an IsoMaxCertificateIndex for the solver pool');
     }
-    this.transitionCache = transitionCache ?? new IsoMaxTransitionCache();
-    if (!(this.transitionCache instanceof IsoMaxTransitionCache)) {
-      throw new TypeError('transitionCache must be an IsoMaxTransitionCache');
+    this.transitionCache = transitionCache ?? new IsoMaxTransitionCache({ pool });
+    if (!(this.transitionCache instanceof IsoMaxTransitionCache) || this.transitionCache.pool !== pool) {
+      throw new TypeError('transitionCache must be an IsoMaxTransitionCache for the solver pool');
     }
     this.metrics = emptyMetrics();
   }
@@ -55,7 +55,7 @@ export class IsoMaxSolver {
   }
 
   resetSearchMemory() {
-    this.transitionCache = new IsoMaxTransitionCache();
+    this.transitionCache = new IsoMaxTransitionCache({ pool: this.pool });
   }
 
   solveValue(state) {
