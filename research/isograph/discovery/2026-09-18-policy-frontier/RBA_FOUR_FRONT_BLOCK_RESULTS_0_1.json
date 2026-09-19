@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "experiment": "rba-four-front-symbolic-block-composition-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "carrier": {
+    "scalar_values": [
+      "LL",
+      "LD",
+      "LW",
+      "DD",
+      "DW",
+      "WW"
+    ],
+    "endpoint_order": [
+      "LOSS",
+      "DRAW",
+      "WIN"
+    ],
+    "symbolic_fronts": [
+      "lower >= DRAW",
+      "lower >= WIN",
+      "upper >= DRAW",
+      "upper >= WIN"
+    ],
+    "nesting_constraints": [
+      "lower>=WIN subset lower>=DRAW",
+      "lower>=DRAW subset upper>=DRAW",
+      "lower>=WIN subset upper>=WIN",
+      "upper>=WIN subset upper>=DRAW"
+    ]
+  },
+  "two_ply_random_partial_information": {
+    "supports": [
+      [
+        5,
+        5,
+        5,
+        2,
+        6,
+        6,
+        6
+      ],
+      [
+        5,
+        5,
+        2,
+        5,
+        6,
+        6,
+        6
+      ]
+    ],
+    "random_monotone_interval_trials_per_support": 3,
+    "complete_front_generator_comparisons": 24,
+    "generator_set_mismatches": 0,
+    "largest_observed_final_front": 36,
+    "largest_observed_reply_intersection_raw": 224
+  },
+  "chained_symbolic_blocks": {
+    "depths": [
+      4,
+      6
+    ],
+    "trials_per_support_per_depth": 2,
+    "state_front_comparisons": 32,
+    "state_front_generator_set_mismatches": 0,
+    "largest_intermediate_raw_intersection": 840,
+    "largest_intermediate_normalized_intersection": 56,
+    "largest_fixed_action_front": 57,
+    "largest_final_state_front": 85
+  },
+  "action_specific": {
+    "first_support_trials_per_depth": 2,
+    "second_support_trials_per_depth": 1,
+    "depths": [
+      4,
+      6
+    ],
+    "action_front_comparisons": 96,
+    "action_front_generator_set_mismatches": 0
+  },
+  "exact_wdl_two_ply_control": {
+    "complete_parent_domains": [
+      491401,
+      495616
+    ],
+    "thresholds": [
+      "DRAW_OR_WIN",
+      "WIN"
+    ],
+    "generator_set_mismatches": 0,
+    "max_universal_intersection_raw": 368,
+    "max_normalized_intersection": 38,
+    "max_fixed_action_boundary": 39
+  },
+  "negative_control": {
+    "candidate": "naive deep Upper-only root-space flattening without paired endpoint/nonterminal dual information",
+    "depth_2": "passes",
+    "depth_4_and_6": "fails",
+    "structural_reason": "Internal early-terminal branches require nonterminal/complement guards. Pure success-upset propagation that discards the dual/prefix-information state is insufficient under deeper nesting.",
+    "disposition": "REJECTED_AS_INCOMPLETE_REPRESENTATION_NOT_A_NO_GO_THEOREM_FOR_ALL_UPPER_ONLY_NORMAL_FORMS"
+  },
+  "theorem_candidate": {
+    "representation": "A six-valued partial WDL function is exactly a pair of isotone endpoint maps lower,upper into the 3-chain LOSS<DRAW<WIN with lower<=upper. Each endpoint map is exactly determined by its two nested threshold upsets, hence four nested fronts.",
+    "even_block": "For an even-depth alternating block, the scalar block value is monotone in all frontier values, so lower and upper endpoint maps transform independently through the same monotone predicate transformer.",
+    "odd_block": "For an odd-depth block, global polarity reverses; lower and upper endpoint roles swap under negation. A one-ply endpoint transformer plus even two-ply blocks therefore closes arbitrary finite depth.",
+    "symbolic_closure": "Preimages of threshold upsets under the exact q/cofactor maps are upward closed; current-player choice is union and opponent choice is intersection. Therefore the four-front carrier is closed under Bellman block composition.",
+    "action_recovery": "Retaining the corresponding four fronts per root action preserves exact partial action values and therefore supports exact best-move recovery after refinement resolves."
+  },
+  "interpretation": [
+    "Six independent symbolic value regions are unnecessary; four nested monotone fronts suffice.",
+    "The four-front representation is compositionally closed through tested 2/4/6-ply blocks on arbitrary monotone q-dependent partial information.",
+    "Symbolic block composition itself is no longer the primary unknown.",
+    "The remaining compactness question is whether a composition of front transformers can be fused/factored into a small normal form without explicitly materializing intermediate support/fiber frontiers."
+  ],
+  "authority_effect": "none"
+}
