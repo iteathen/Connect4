@@ -138,7 +138,7 @@ canonical q content equality (terminal sentinel explicitly distinct), determinis
 content-hash 1/128 selection. Three roots complete with expected -1/0/1 and moves
 3/3/4, workers cleaned up. Sampled unique keys 672/4237/4851; cross-worker keys
 295/3242/3421. Snapshot observation lag medians 14.90/261.36/160.56 ms are NOT
-exact completion lags. Most overlaps are late: on the hard draw, 3077 of 3242
+exact completion lags. Most overlaps are late: on the hard draw, 3089 of 3242
 duplicates have rank >=30; the lowest sampled overlap rank is 22. Distinct
 completed keys are not a saved-subtree count. Census overhead (46/1790/814 ms
 aggregate worker time) is unacceptable for production; do not import its string
