@@ -1,0 +1,339 @@
+{
+  "schema": 1,
+  "experiment": "rba-native-antichain-semiring-boundary-engine-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "purpose": "Independent native reconstruction of the shape-lattice/adjoint exact boundary recurrence using compiled bitmask antichain-semiring multiplication with local absorption.",
+  "algorithm": {
+    "coordinate_domain": "support-local residual-shape upset lattice; explicit full antichain census is not constructed",
+    "coordinate_predecessor": "principal-image minimal-cover frontier for F(U)>=V plus exact right adjoint for F(U)<=V",
+    "state_encoding": "current-player favorable product order transformed to one bitmask; through 32 residual shapes the state uses at most 64 bits",
+    "upper_normalization": "minimal antichain under transformed subset order",
+    "lower_normalization": "maximal antichain under transformed subset order",
+    "semiring_product": "for A⊗B, stream one outer generator at a time, form pairwise meet/intersection projections against B, absorb dominated projections into a tiny local skyline, then globally absorb only the union of local skylines",
+    "exactness_identity": "Max({a∧b}) = Max( union_a Max({a∧b | b∈B}) ); local dominated products cannot become globally maximal"
+  },
+  "microbenchmarks": {
+    "rank33_real_stress_product": {
+      "operand_sizes": [
+        915,
+        580
+      ],
+      "raw_pairs": 530700,
+      "distinct_pair_intersections": 306665,
+      "exact_output_generators": 1992,
+      "globally_maximal_witness_pairs": 2630,
+      "maximal_witness_fraction": 0.00495572,
+      "outputs_with_exactly_one_witness": 1586,
+      "local_skyline_candidates_best_orientation": 7075,
+      "local_skyline_width": {
+        "median": 1,
+        "p90": 22,
+        "p99": 66,
+        "max": 293,
+        "mean": 7.73224
+      },
+      "native_raw_generate_sort_absorb_ms": 97.65,
+      "native_streaming_local_skyline_ms": 4.32,
+      "exact_oracle_match": true
+    },
+    "zdd": {
+      "exact": true,
+      "best_tested_product_variable_order": "low-frequency bits first",
+      "product_distinct_family": 306665,
+      "final_generators": 1992,
+      "total_ms_with_in_diagram_maximalization": 5.51,
+      "note": "Exact and symbolic, but not faster than the native streaming local-skyline kernel on this stress case."
+    },
+    "blocker_dual": {
+      "exact_set_identity": "A∩B = complement(complement(A)∪complement(B))",
+      "bounded_run_disposition": "did_not_complete",
+      "observation": "dualizing the first 915-generator operand alone grew to roughly 17k live blocker candidates during the bounded prototype; repeated minimization dominated cost",
+      "note": "Do not extend timeout blindly; direct semiring product is currently better."
+    },
+    "synthetic_rank31_throughput_only": {
+      "operand_sizes": [
+        6744,
+        7901
+      ],
+      "raw_pairs": 53284344,
+      "bits": 60,
+      "raw_storage_mib": 406.5,
+      "generate_ms": 683.8,
+      "sort_ms": 4687.9,
+      "unique_ms": 53.4,
+      "total_ms": 5425.2,
+      "warning": "Synthetic random equal-density masks; throughput bound only, not a Connect4 semantic result."
+    }
+  },
+  "exact_recurrence_controls": [
+    {
+      "support": [
+        5,
+        5,
+        2,
+        3,
+        6,
+        6,
+        6
+      ],
+      "rank": 33,
+      "residual_shapes": 24,
+      "upper": [
+        1,
+        8,
+        35,
+        226,
+        1116,
+        1251,
+        447,
+        69,
+        9,
+        4
+      ],
+      "lower": [
+        8,
+        30,
+        228,
+        660,
+        2534,
+        714,
+        119,
+        15,
+        1,
+        1
+      ],
+      "expected_checkpoint_match": true,
+      "max_raw_semiring_product": 530700,
+      "max_local_skyline_candidates": 8696,
+      "total_raw_product_opportunities": 2048281,
+      "total_local_candidates": 71453,
+      "semiring_product_ms": 41.76,
+      "elapsed_ms": 98.6
+    },
+    {
+      "support": [
+        5,
+        5,
+        1,
+        3,
+        6,
+        6,
+        6
+      ],
+      "rank": 32,
+      "residual_shapes": 25,
+      "upper": [
+        1,
+        8,
+        35,
+        109,
+        373,
+        1368,
+        323,
+        141,
+        31,
+        6,
+        4
+      ],
+      "lower": [
+        8,
+        21,
+        74,
+        297,
+        663,
+        508,
+        165,
+        61,
+        18,
+        1,
+        1
+      ],
+      "expected_checkpoint_match": true,
+      "max_raw_semiring_product": 587492,
+      "semiring_product_ms": 62.68,
+      "elapsed_ms": 161.57
+    },
+    {
+      "support": [
+        4,
+        5,
+        2,
+        3,
+        6,
+        6,
+        6
+      ],
+      "rank": 32,
+      "residual_shapes": 27,
+      "upper": [
+        1,
+        8,
+        46,
+        381,
+        3223,
+        9348,
+        3437,
+        1069,
+        95,
+        13,
+        4
+      ],
+      "lower": [
+        8,
+        51,
+        564,
+        3897,
+        8722,
+        6422,
+        2001,
+        211,
+        28,
+        1,
+        1
+      ],
+      "expected_checkpoint_match": true,
+      "max_raw_semiring_product": 3283380,
+      "max_local_skyline_candidates": 35194,
+      "total_raw_product_opportunities": 24355695,
+      "total_local_candidates": 466294,
+      "semiring_product_ms": 410.24,
+      "elapsed_ms": 679.91
+    }
+  ],
+  "new_exact_results": [
+    {
+      "support": [
+        4,
+        5,
+        2,
+        2,
+        6,
+        6,
+        6
+      ],
+      "rank": 31,
+      "residual_shapes": 30,
+      "upper": [
+        1,
+        8,
+        54,
+        404,
+        3120,
+        13954,
+        19047,
+        8428,
+        1237,
+        107,
+        12,
+        4
+      ],
+      "lower": [
+        7,
+        55,
+        504,
+        5224,
+        11350,
+        49105,
+        18456,
+        1954,
+        176,
+        21,
+        1,
+        1
+      ],
+      "previously_known_upper_match": true,
+      "previously_known_lower_prefix_match_through": "loss10",
+      "new_lower_suffix": {
+        "draw11": 49105,
+        "win11": 18456,
+        "win9": 1954,
+        "win7": 176,
+        "win5": 21,
+        "win3": 1,
+        "win1": 1
+      },
+      "max_raw_semiring_product": 171149374,
+      "max_local_skyline_candidates": 697634,
+      "total_raw_product_opportunities": 412416787,
+      "total_local_candidates": 3137847,
+      "semiring_product_ms": 10609.1,
+      "elapsed_ms": 11742.5,
+      "qualification_note": "Generated by independently reconstructed native engine that exactly reproduces all persisted rank33 and rank32 controls plus the previously closed rank31 prefix. Independent closed-blocker replay of the newly opened suffix remains incomplete."
+    },
+    {
+      "support": [
+        4,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "rank": 30,
+      "residual_shapes": 31,
+      "upper": [
+        1,
+        6,
+        26,
+        240,
+        2043,
+        14033,
+        37906,
+        10534,
+        4464,
+        470,
+        58,
+        7,
+        3
+      ],
+      "lower": [
+        4,
+        16,
+        132,
+        1301,
+        7732,
+        20143,
+        12818,
+        5387,
+        796,
+        142,
+        8,
+        1,
+        1
+      ],
+      "max_raw_semiring_product": 178929000,
+      "max_local_skyline_candidates": 697634,
+      "total_raw_product_opportunities": 999610265,
+      "total_local_candidates": 6638694,
+      "semiring_product_ms": 19889.8,
+      "elapsed_ms": 22299.5,
+      "qualification_note": "New native recurrence result downstream of exact reproduced controls; no independent second representation yet."
+    }
+  ],
+  "current_frontier": {
+    "target_support": [
+      3,
+      5,
+      2,
+      2,
+      6,
+      6,
+      6
+    ],
+    "rank": 30,
+    "residual_shapes": 32,
+    "status": "bounded_run_did_not_close_root",
+    "completed_before_stall": "all descendants through rank31",
+    "first_new_wall": "rank30 root composition/performance",
+    "note": "The 64-bit representation itself is valid at 32 residual shapes (64 transformed state bits); bounded run exceeded 60 s during root composition. Do not classify as semantic failure."
+  },
+  "interpretation": [
+    "The rank31 53M/171M-style Cartesian counts are not semantic walls; compiled bitmask semiring plus early local absorption closes the previously open rank31 target.",
+    "The same exact algebra closes at least one rank30 predecessor.",
+    "Local skyline absorption is an exact generic factorization of antichain multiplication and materially reduces global normalization work.",
+    "The next wall is again implementation/representation scaling at a 32-residual-shape rank30 root, not a missing Bellman/RBA semantic law."
+  ],
+  "authority_effect": "none"
+}
