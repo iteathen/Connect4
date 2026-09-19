@@ -1,0 +1,873 @@
+{
+  "runId": "20260919T163307351Z-rba-candidates",
+  "sourceRevision": "664c693ae5f860623ea9b51c18c5ac1e0d238dc1",
+  "node": "v26.7.0",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "startedAt": "2026-09-19T16:33:07.456Z",
+  "execution": "CPU reference; no native GPU measurement",
+  "policy": {
+    "timeoutMsPerProcess": 30000,
+    "maxSupports": 4096,
+    "maxCandidates": 2000000,
+    "maxFrontier": 50000,
+    "sequence": [
+      "baseline",
+      "B3-stream",
+      "B3-stream",
+      "baseline",
+      "baseline",
+      "B3-stream"
+    ],
+    "progress": "flush every 16 completed supports; heap sampled at every support",
+    "metricCaveat": "candidate normalizationMs includes projection generation; compare total elapsedMs instead"
+  },
+  "runs": [
+    {
+      "ordinal": 1,
+      "variant": "baseline",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "launchError": null,
+      "elapsedMs": 3232.5328,
+      "lastRecord": null,
+      "cleanup": "child-process-exited",
+      "summaries": [
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "4x3-c3-complete",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3
+          },
+          "minimumHeights": null,
+          "elapsedMs": 758.1472,
+          "rootWdl": 1,
+          "metrics": {
+            "supports": 256,
+            "generatedCandidates": 1144648,
+            "projectionQueries": 958778,
+            "localSkylineRecords": 102295,
+            "maximumLocalSkyline": 167,
+            "maximumActionBoundary": 270,
+            "normalizationCalls": 126420,
+            "normalizationMs": 452.1741999999999,
+            "boundaryRecords": 30994,
+            "maximumBoundary": 277,
+            "elapsedMs": 758.0649000000001
+          },
+          "observedHeapBytes": 25084944,
+          "maxRssBytes": 88301568,
+          "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+          "pinnedHashesChecked": 0
+        },
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "rank33-small",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            1,
+            4,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 157.74519999999995,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 72,
+            "generatedCandidates": 230715,
+            "projectionQueries": 199478,
+            "localSkylineRecords": 18640,
+            "maximumLocalSkyline": 222,
+            "maximumActionBoundary": 294,
+            "normalizationCalls": 19131,
+            "normalizationMs": 97.30810000000588,
+            "boundaryRecords": 6900,
+            "maximumBoundary": 372,
+            "elapsedMs": 157.63440000000003
+          },
+          "observedHeapBytes": 25464352,
+          "maxRssBytes": 91496448,
+          "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+          "pinnedHashesChecked": 288
+        },
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "rank33-large",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            2,
+            3,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 1892.0009000000002,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 80,
+            "generatedCandidates": 1985709,
+            "projectionQueries": 1893378,
+            "localSkylineRecords": 81759,
+            "maximumLocalSkyline": 556,
+            "maximumActionBoundary": 716,
+            "normalizationCalls": 46496,
+            "normalizationMs": 1729.2757000000413,
+            "boundaryRecords": 20461,
+            "maximumBoundary": 2534,
+            "elapsedMs": 1891.8831000000002
+          },
+          "observedHeapBytes": 25408952,
+          "maxRssBytes": 129212416,
+          "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+          "pinnedHashesChecked": 320
+        }
+      ]
+    },
+    {
+      "ordinal": 2,
+      "variant": "B3-stream",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "launchError": null,
+      "elapsedMs": 3015.9015,
+      "lastRecord": null,
+      "cleanup": "child-process-exited",
+      "summaries": [
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "4x3-c3-complete",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3
+          },
+          "minimumHeights": null,
+          "elapsedMs": 724.177,
+          "rootWdl": 1,
+          "metrics": {
+            "supports": 256,
+            "generatedCandidates": 1144648,
+            "projectionQueries": 958778,
+            "localSkylineRecords": 102295,
+            "maximumLocalSkyline": 167,
+            "maximumActionBoundary": 270,
+            "normalizationCalls": 126420,
+            "normalizationMs": 429.8990999999823,
+            "boundaryRecords": 30994,
+            "maximumBoundary": 277,
+            "elapsedMs": 724.0861
+          },
+          "observedHeapBytes": 24393032,
+          "maxRssBytes": 88092672,
+          "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+          "pinnedHashesChecked": 0
+        },
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "rank33-small",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            1,
+            4,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 153.26639999999998,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 72,
+            "generatedCandidates": 230715,
+            "projectionQueries": 199478,
+            "localSkylineRecords": 18640,
+            "maximumLocalSkyline": 222,
+            "maximumActionBoundary": 294,
+            "normalizationCalls": 19131,
+            "normalizationMs": 96.65280000000075,
+            "boundaryRecords": 6900,
+            "maximumBoundary": 372,
+            "elapsedMs": 153.1409
+          },
+          "observedHeapBytes": 24747968,
+          "maxRssBytes": 92090368,
+          "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+          "pinnedHashesChecked": 288
+        },
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "rank33-large",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            2,
+            3,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 1821.9356000000002,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 80,
+            "generatedCandidates": 1985709,
+            "projectionQueries": 1893378,
+            "localSkylineRecords": 81759,
+            "maximumLocalSkyline": 556,
+            "maximumActionBoundary": 716,
+            "normalizationCalls": 46496,
+            "normalizationMs": 1681.7929999999906,
+            "boundaryRecords": 20461,
+            "maximumBoundary": 2534,
+            "elapsedMs": 1821.7393000000002
+          },
+          "observedHeapBytes": 29129424,
+          "maxRssBytes": 130154496,
+          "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+          "pinnedHashesChecked": 320
+        }
+      ]
+    },
+    {
+      "ordinal": 3,
+      "variant": "B3-stream",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "launchError": null,
+      "elapsedMs": 3064.493699999999,
+      "lastRecord": null,
+      "cleanup": "child-process-exited",
+      "summaries": [
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "4x3-c3-complete",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3
+          },
+          "minimumHeights": null,
+          "elapsedMs": 727.3227,
+          "rootWdl": 1,
+          "metrics": {
+            "supports": 256,
+            "generatedCandidates": 1144648,
+            "projectionQueries": 958778,
+            "localSkylineRecords": 102295,
+            "maximumLocalSkyline": 167,
+            "maximumActionBoundary": 270,
+            "normalizationCalls": 126420,
+            "normalizationMs": 430.64769999999754,
+            "boundaryRecords": 30994,
+            "maximumBoundary": 277,
+            "elapsedMs": 727.2333
+          },
+          "observedHeapBytes": 24205448,
+          "maxRssBytes": 88289280,
+          "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+          "pinnedHashesChecked": 0
+        },
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "rank33-small",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            1,
+            4,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 154.65840000000003,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 72,
+            "generatedCandidates": 230715,
+            "projectionQueries": 199478,
+            "localSkylineRecords": 18640,
+            "maximumLocalSkyline": 222,
+            "maximumActionBoundary": 294,
+            "normalizationCalls": 19131,
+            "normalizationMs": 97.59750000000076,
+            "boundaryRecords": 6900,
+            "maximumBoundary": 372,
+            "elapsedMs": 154.54380000000003
+          },
+          "observedHeapBytes": 24749104,
+          "maxRssBytes": 91828224,
+          "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+          "pinnedHashesChecked": 288
+        },
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "rank33-large",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            2,
+            3,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 1834.3000000000002,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 80,
+            "generatedCandidates": 1985709,
+            "projectionQueries": 1893378,
+            "localSkylineRecords": 81759,
+            "maximumLocalSkyline": 556,
+            "maximumActionBoundary": 716,
+            "normalizationCalls": 46496,
+            "normalizationMs": 1697.6172999999947,
+            "boundaryRecords": 20461,
+            "maximumBoundary": 2534,
+            "elapsedMs": 1834.1915
+          },
+          "observedHeapBytes": 29175968,
+          "maxRssBytes": 129945600,
+          "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+          "pinnedHashesChecked": 320
+        }
+      ]
+    },
+    {
+      "ordinal": 4,
+      "variant": "baseline",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "launchError": null,
+      "elapsedMs": 3230.0691000000006,
+      "lastRecord": null,
+      "cleanup": "child-process-exited",
+      "summaries": [
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "4x3-c3-complete",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3
+          },
+          "minimumHeights": null,
+          "elapsedMs": 757.4615000000001,
+          "rootWdl": 1,
+          "metrics": {
+            "supports": 256,
+            "generatedCandidates": 1144648,
+            "projectionQueries": 958778,
+            "localSkylineRecords": 102295,
+            "maximumLocalSkyline": 167,
+            "maximumActionBoundary": 270,
+            "normalizationCalls": 126420,
+            "normalizationMs": 447.4646000000005,
+            "boundaryRecords": 30994,
+            "maximumBoundary": 277,
+            "elapsedMs": 757.3586
+          },
+          "observedHeapBytes": 18799488,
+          "maxRssBytes": 88195072,
+          "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+          "pinnedHashesChecked": 0
+        },
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "rank33-small",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            1,
+            4,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 157.46720000000005,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 72,
+            "generatedCandidates": 230715,
+            "projectionQueries": 199478,
+            "localSkylineRecords": 18640,
+            "maximumLocalSkyline": 222,
+            "maximumActionBoundary": 294,
+            "normalizationCalls": 19131,
+            "normalizationMs": 96.27839999999753,
+            "boundaryRecords": 6900,
+            "maximumBoundary": 372,
+            "elapsedMs": 157.35119999999995
+          },
+          "observedHeapBytes": 25508976,
+          "maxRssBytes": 91566080,
+          "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+          "pinnedHashesChecked": 288
+        },
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "rank33-large",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            2,
+            3,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 1881.2457,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 80,
+            "generatedCandidates": 1985709,
+            "projectionQueries": 1893378,
+            "localSkylineRecords": 81759,
+            "maximumLocalSkyline": 556,
+            "maximumActionBoundary": 716,
+            "normalizationCalls": 46496,
+            "normalizationMs": 1715.6197999999981,
+            "boundaryRecords": 20461,
+            "maximumBoundary": 2534,
+            "elapsedMs": 1881.1206
+          },
+          "observedHeapBytes": 33323000,
+          "maxRssBytes": 129830912,
+          "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+          "pinnedHashesChecked": 320
+        }
+      ]
+    },
+    {
+      "ordinal": 5,
+      "variant": "baseline",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "launchError": null,
+      "elapsedMs": 3217.3482000000004,
+      "lastRecord": null,
+      "cleanup": "child-process-exited",
+      "summaries": [
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "4x3-c3-complete",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3
+          },
+          "minimumHeights": null,
+          "elapsedMs": 755.8693,
+          "rootWdl": 1,
+          "metrics": {
+            "supports": 256,
+            "generatedCandidates": 1144648,
+            "projectionQueries": 958778,
+            "localSkylineRecords": 102295,
+            "maximumLocalSkyline": 167,
+            "maximumActionBoundary": 270,
+            "normalizationCalls": 126420,
+            "normalizationMs": 448.56780000000674,
+            "boundaryRecords": 30994,
+            "maximumBoundary": 277,
+            "elapsedMs": 755.7848
+          },
+          "observedHeapBytes": 22183384,
+          "maxRssBytes": 88154112,
+          "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+          "pinnedHashesChecked": 0
+        },
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "rank33-small",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            1,
+            4,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 155.8925999999999,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 72,
+            "generatedCandidates": 230715,
+            "projectionQueries": 199478,
+            "localSkylineRecords": 18640,
+            "maximumLocalSkyline": 222,
+            "maximumActionBoundary": 294,
+            "normalizationCalls": 19131,
+            "normalizationMs": 96.07670000000348,
+            "boundaryRecords": 6900,
+            "maximumBoundary": 372,
+            "elapsedMs": 155.7856999999999
+          },
+          "observedHeapBytes": 25451728,
+          "maxRssBytes": 91533312,
+          "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+          "pinnedHashesChecked": 288
+        },
+        {
+          "kind": "summary",
+          "variant": "baseline",
+          "case": "rank33-large",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            2,
+            3,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 1879.8748,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 80,
+            "generatedCandidates": 1985709,
+            "projectionQueries": 1893378,
+            "localSkylineRecords": 81759,
+            "maximumLocalSkyline": 556,
+            "maximumActionBoundary": 716,
+            "normalizationCalls": 46496,
+            "normalizationMs": 1716.8156000000126,
+            "boundaryRecords": 20461,
+            "maximumBoundary": 2534,
+            "elapsedMs": 1879.7685000000001
+          },
+          "observedHeapBytes": 33100024,
+          "maxRssBytes": 129830912,
+          "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+          "pinnedHashesChecked": 320
+        }
+      ]
+    },
+    {
+      "ordinal": 6,
+      "variant": "B3-stream",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "launchError": null,
+      "elapsedMs": 3044.7850000000017,
+      "lastRecord": null,
+      "cleanup": "child-process-exited",
+      "summaries": [
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "4x3-c3-complete",
+          "geometry": {
+            "columns": 4,
+            "rows": 3,
+            "connect": 3
+          },
+          "minimumHeights": null,
+          "elapsedMs": 717.9625,
+          "rootWdl": 1,
+          "metrics": {
+            "supports": 256,
+            "generatedCandidates": 1144648,
+            "projectionQueries": 958778,
+            "localSkylineRecords": 102295,
+            "maximumLocalSkyline": 167,
+            "maximumActionBoundary": 270,
+            "normalizationCalls": 126420,
+            "normalizationMs": 427.5183000000144,
+            "boundaryRecords": 30994,
+            "maximumBoundary": 277,
+            "elapsedMs": 717.8641
+          },
+          "observedHeapBytes": 22318360,
+          "maxRssBytes": 87773184,
+          "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+          "pinnedHashesChecked": 0
+        },
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "rank33-small",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            1,
+            4,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 154.10130000000004,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 72,
+            "generatedCandidates": 230715,
+            "projectionQueries": 199478,
+            "localSkylineRecords": 18640,
+            "maximumLocalSkyline": 222,
+            "maximumActionBoundary": 294,
+            "normalizationCalls": 19131,
+            "normalizationMs": 97.17829999999333,
+            "boundaryRecords": 6900,
+            "maximumBoundary": 372,
+            "elapsedMs": 153.98969999999997
+          },
+          "observedHeapBytes": 24752984,
+          "maxRssBytes": 91316224,
+          "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+          "pinnedHashesChecked": 288
+        },
+        {
+          "kind": "summary",
+          "variant": "B3-stream",
+          "case": "rank33-large",
+          "geometry": {
+            "columns": 7,
+            "rows": 6,
+            "connect": 4
+          },
+          "minimumHeights": [
+            5,
+            5,
+            2,
+            3,
+            6,
+            6,
+            6
+          ],
+          "elapsedMs": 1839.2097000000003,
+          "rootWdl": null,
+          "metrics": {
+            "supports": 80,
+            "generatedCandidates": 1985709,
+            "projectionQueries": 1893378,
+            "localSkylineRecords": 81759,
+            "maximumLocalSkyline": 556,
+            "maximumActionBoundary": 716,
+            "normalizationCalls": 46496,
+            "normalizationMs": 1699.402699999991,
+            "boundaryRecords": 20461,
+            "maximumBoundary": 2534,
+            "elapsedMs": 1839.0926
+          },
+          "observedHeapBytes": 45773664,
+          "maxRssBytes": 129380352,
+          "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+          "pinnedHashesChecked": 320
+        }
+      ]
+    }
+  ],
+  "comparison": [
+    {
+      "case": "4x3-c3-complete",
+      "variants": [
+        {
+          "variant": "baseline",
+          "medianMs": 757.4615000000001,
+          "samplesMs": [
+            758.1472,
+            757.4615000000001,
+            755.8693
+          ],
+          "maxObservedHeapBytes": 25084944,
+          "maxRssBytes": 88301568
+        },
+        {
+          "variant": "B3-stream",
+          "medianMs": 724.177,
+          "samplesMs": [
+            724.177,
+            727.3227,
+            717.9625
+          ],
+          "maxObservedHeapBytes": 24393032,
+          "maxRssBytes": 88289280
+        }
+      ],
+      "timeChangePercent": -4.394216735768097,
+      "metrics": {
+        "supports": 256,
+        "generatedCandidates": 1144648,
+        "projectionQueries": 958778,
+        "localSkylineRecords": 102295,
+        "maximumLocalSkyline": 167,
+        "maximumActionBoundary": 270,
+        "normalizationCalls": 126420,
+        "normalizationMs": 452.1741999999999,
+        "boundaryRecords": 30994,
+        "maximumBoundary": 277,
+        "elapsedMs": 758.0649000000001
+      },
+      "boundaryDigest": "cb2f50f5fca78aae72fb936c1eacb06a3a3d2e8c8c4511fff688ba0eb4cff130",
+      "rootWdl": 1
+    },
+    {
+      "case": "rank33-small",
+      "variants": [
+        {
+          "variant": "baseline",
+          "medianMs": 157.46720000000005,
+          "samplesMs": [
+            157.74519999999995,
+            157.46720000000005,
+            155.8925999999999
+          ],
+          "maxObservedHeapBytes": 25508976,
+          "maxRssBytes": 91566080
+        },
+        {
+          "variant": "B3-stream",
+          "medianMs": 154.10130000000004,
+          "samplesMs": [
+            153.26639999999998,
+            154.65840000000003,
+            154.10130000000004
+          ],
+          "maxObservedHeapBytes": 24752984,
+          "maxRssBytes": 92090368
+        }
+      ],
+      "timeChangePercent": -2.1375245130414555,
+      "metrics": {
+        "supports": 72,
+        "generatedCandidates": 230715,
+        "projectionQueries": 199478,
+        "localSkylineRecords": 18640,
+        "maximumLocalSkyline": 222,
+        "maximumActionBoundary": 294,
+        "normalizationCalls": 19131,
+        "normalizationMs": 97.30810000000588,
+        "boundaryRecords": 6900,
+        "maximumBoundary": 372,
+        "elapsedMs": 157.63440000000003
+      },
+      "boundaryDigest": "628693add5e399e13e2b4e01a00437c2f778db6664775832e008032cfce0a525",
+      "rootWdl": null
+    },
+    {
+      "case": "rank33-large",
+      "variants": [
+        {
+          "variant": "baseline",
+          "medianMs": 1881.2457,
+          "samplesMs": [
+            1892.0009000000002,
+            1881.2457,
+            1879.8748
+          ],
+          "maxObservedHeapBytes": 33323000,
+          "maxRssBytes": 129830912
+        },
+        {
+          "variant": "B3-stream",
+          "medianMs": 1834.3000000000002,
+          "samplesMs": [
+            1821.9356000000002,
+            1834.3000000000002,
+            1839.2097000000003
+          ],
+          "maxObservedHeapBytes": 45773664,
+          "maxRssBytes": 130154496
+        }
+      ],
+      "timeChangePercent": -2.4954581955987876,
+      "metrics": {
+        "supports": 80,
+        "generatedCandidates": 1985709,
+        "projectionQueries": 1893378,
+        "localSkylineRecords": 81759,
+        "maximumLocalSkyline": 556,
+        "maximumActionBoundary": 716,
+        "normalizationCalls": 46496,
+        "normalizationMs": 1729.2757000000413,
+        "boundaryRecords": 20461,
+        "maximumBoundary": 2534,
+        "elapsedMs": 1891.8831000000002
+      },
+      "boundaryDigest": "8229caf07b336815c0b9576ed3fbe0a508e0494d745c51769120ac0e9fdd346d",
+      "rootWdl": null
+    }
+  ],
+  "correctness": "equal complete boundary digests, pinned hashes and semantic work counters",
+  "finishedAt": "2026-09-19T16:33:26.320Z"
+}

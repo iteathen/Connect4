@@ -37,3 +37,34 @@ and ranked derived activation, not either requested complete API (#12/#11).
 The possible composition is still to be qualified in its owning library.
 B4 completed artifacts, B5 device progression and B6 native clause coverage
 remain queued with their individual acceptance criteria in issue #71.
+
+## Measured B3 streaming result
+
+Source `664c693ae5f860623ea9b51c18c5ac1e0d238dc1`, Node 26.7.0.
+Two independent batches, six fresh samples per variant in total:
+`20260919T163216752Z-rba-candidates` and
+`20260919T163307351Z-rba-candidates`. See `initial-results.json` and
+`repeated-results.json` for chronological samples and hardware.
+
+| Case | Initial baseline → stream ms | Repeat baseline → stream ms |
+|---|---:|---:|
+| Complete 4x3 c3 | 763.37 → 721.84 (-5.44%) | 757.46 → 724.18 (-4.39%) |
+| Rank 33, [5,5,1,4,6,6,6] | 158.65 → 152.20 (-4.06%) | 157.47 → 154.10 (-2.14%) |
+| Rank 33, [5,5,2,3,6,6,6] | 1925.37 → 1832.94 (-4.80%) | 1881.25 → 1834.30 (-2.50%) |
+
+All seven qualification tests passed. Both batches preserved boundary digests,
+608 pinned hashes per process, and generated/projection/skyline/boundary counts.
+4x3 root WDL remained 1. Rank-33 cone roots have no specified ownership/residual
+root assignment and correctly report null WDL. These are complete support cones,
+not partial solves of the empty 7x6 board.
+
+The first batch's largest-cone observed heap rose from 33.33 MB to 45.82 MB;
+the repeat shows the same pattern. RSS stayed around 130 MB. Sampling cannot
+prove peak allocations or GC savings: no memory improvement is claimed.
+Across both batches the candidate was faster on all three measured cases,
+but the magnitude varied. Disposition: qualified **bounded Node-reference
+performance candidate**, pending production integration/requalification.
+P2 remains unchanged; this cannot establish a native GPU or full-7x6 gain.
+
+No temporary limits or debug source changes were needed. All twelve workers
+exited normally; raw flushed logs remain under the two Git-private run IDs.
