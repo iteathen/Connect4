@@ -11,6 +11,10 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
   const completeExploreHint = typeof options.completeExploreHint === 'function' ? options.completeExploreHint : null;
   const abandonExploreHint = typeof options.abandonExploreHint === 'function' ? options.abandonExploreHint : null;
+  // Consumer-owned result algebra. The historical quotient profile still
+  // requires exact WDL; IsoMax also has an explicitly unfinished split result.
+  const validateResult = options.validateResult ?? (message => assertWdlValue(message.value, 'authoritative worker result'));
+  if (typeof validateResult !== 'function') throw new TypeError('validateResult must be a function');
 
   const queue = [];
   const exploreQueue = [];
@@ -258,7 +262,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       return;
     }
     if (active.kind === 'authoritative' && message?.type === 'result') {
-      assertWdlValue(message.value, 'authoritative worker result');
+      validateResult(message);
     }
     if (active.kind === 'explore' && message?.type === 'explore-result' && message.hintId !== active.hintId) {
       throw new Error(`explore response hint ${message.hintId} does not match ${active.hintId}`);
