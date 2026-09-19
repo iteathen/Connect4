@@ -1,0 +1,73 @@
+diff --git a/components/isometric/move-order.mjs b/components/isometric/move-order.mjs
+index a382b32d..4171d3a5 100644
+--- a/components/isometric/move-order.mjs
++++ b/components/isometric/move-order.mjs
+@@ -42,2 +42,2 @@ export function singletonEffectClass(state, column) {
+-  if (above < 42 && state.pool.hasSingletonAt(opponent, above)) return 0;
+-  let first = above < 42 && state.pool.hasSingletonAt(own, above) ? above : -1;
++  if (above < 42 && state.pool.hasSingletonAtUnchecked(opponent, above)) return 0;
++  let first = above < 42 && state.pool.hasSingletonAtUnchecked(own, above) ? above : -1;
+diff --git a/components/isometric/residual-pool.mjs b/components/isometric/residual-pool.mjs
+index fa762e31..d3d2f900 100644
+--- a/components/isometric/residual-pool.mjs
++++ b/components/isometric/residual-pool.mjs
+@@ -306,0 +307,7 @@ export class ResidualPool {
++    // OWNER-PROTECTED PUBLIC BOUNDARY — do not remove/weaken this comment.
++    // External class IDs remain checked; only proved internal IDs skip this.
++    this.assertClass(id);
++    return this.loadClassBitsUnchecked(id, target);
++  }
++
++  loadClassBitsUnchecked(id, target) {
+@@ -310 +316,0 @@ export class ResidualPool {
+-    this.assertClass(id);
+@@ -377,0 +384,7 @@ export class ResidualPool {
++    // OWNER-PROTECTED PUBLIC BOUNDARY — do not remove/weaken this comment.
++    // Preserve malformed-class/cell rejection before entering the trusted core.
++    this.assertClass(id); this.assertCell(cell);
++    return this.ownTransitionUnchecked(id, cell);
++  }
++
++  ownTransitionUnchecked(id, cell) {
+@@ -383,2 +396,2 @@ export class ResidualPool {
+-    this.assertClass(id);
+-    this.assertCell(cell);
++    // Native caller supplies a live nonterminal class in this pool and a legal
++    // landing cell. Root replay/play checks legality; undo restores these IDs.
+@@ -399 +412 @@ export class ResidualPool {
+-    this.loadClassBits(id, this.inputBits);
++    this.loadClassBitsUnchecked(id, this.inputBits);
+@@ -448,0 +462,7 @@ export class ResidualPool {
++    // OWNER-PROTECTED PUBLIC BOUNDARY — do not remove/weaken this comment.
++    // Preserve malformed-class/cell rejection before entering the trusted core.
++    this.assertClass(id); this.assertCell(cell);
++    return this.blockTransitionUnchecked(id, cell);
++  }
++
++  blockTransitionUnchecked(id, cell) {
+@@ -452,2 +472 @@ export class ResidualPool {
+-    this.assertClass(id);
+-    this.assertCell(cell);
++    // Same owning-pool/legal-cell preconditions as ownTransitionUnchecked.
+@@ -608,0 +628,7 @@ export class ResidualPool {
++    // OWNER-PROTECTED PUBLIC BOUNDARY — do not remove/weaken this comment.
++    // Public callers still validate both identity and the cell domain.
++    this.assertClass(id); this.assertCell(cell);
++    return this.hasSingletonAtUnchecked(id, cell);
++  }
++
++  hasSingletonAtUnchecked(id, cell) {
+@@ -612,2 +638,2 @@ export class ResidualPool {
+-    this.assertClass(id);
+-    this.assertCell(cell);
++    // Advisory classifier has an ongoing state, live owning-pool classes and
++    // explicitly bounded above cells. No terminal sentinel enters this path.
+diff --git a/components/isometric/state.mjs b/components/isometric/state.mjs
+index 9c9c27e2..dbd4accd 100644
+--- a/components/isometric/state.mjs
++++ b/components/isometric/state.mjs
+@@ -101,2 +101,2 @@ export class IsometricState {
+-    const nextOwn = this.pool.ownTransition(ownClass, cell);
+-    const nextOpponent = this.pool.blockTransition(opponentClass, cell);
++    const nextOwn = this.pool.ownTransitionUnchecked(ownClass, cell);
++    const nextOpponent = this.pool.blockTransitionUnchecked(opponentClass, cell);
