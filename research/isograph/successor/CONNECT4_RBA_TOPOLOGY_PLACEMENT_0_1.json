@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "overlay_id": "connect4-rba-topology-placement-0.1",
+  "status": "post_1_1_successor_topology_overlay_not_authority",
+  "date": "2026-09-18",
+  "research_direction": "Josh Oshiro",
+  "base_authority": {
+    "name": "Connect4 IsoGraph Logic Authority 1.1",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "rba_qu": {
+    "id": "RBA-QU-0001",
+    "native_node": 430000,
+    "state": "OPEN",
+    "source": "research/isograph/successor/CONNECT4_RBA_QU_0_1.json"
+  },
+  "regions": [
+    {
+      "id": "RBA-REGION-RESIDUAL",
+      "native_node": 431000,
+      "name": "residual/future-behavior region",
+      "authority_claim_members": [
+        {
+          "id": "C4-R0008",
+          "native_node": 100008,
+          "role": "behavior-preserving quotient contract"
+        },
+        {
+          "id": "C4-R0025",
+          "native_node": 100025,
+          "role": "support plus residual antichain exactness on bounded controls"
+        },
+        {
+          "id": "C4-R0026",
+          "native_node": 100026,
+          "role": "direct semantic residual automaton exactness on bounded controls"
+        },
+        {
+          "id": "C4-R0068",
+          "native_node": 100068,
+          "role": "exact support plus complete player-labelled residual content"
+        }
+      ],
+      "post_1_1_evidence": [
+        "research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md",
+        "research/isograph/discovery/2026-09-18-policy-frontier/ABSTRACT_RESIDUAL_CONSERVATIVE_EXTENSION.md",
+        "research/isograph/discovery/2026-09-18-policy-frontier/COFACTOR_UPSET_ADJOINT_CHECKPOINT.md"
+      ]
+    },
+    {
+      "id": "RBA-REGION-VALUE",
+      "native_node": 431010,
+      "name": "exact ordinary value-boundary region",
+      "post_1_1_evidence": [
+        "research/isograph/discovery/2026-09-18-policy-frontier/SUPPORT_LOCAL_ACTION_VALUE_ISOTONY.md",
+        "research/isograph/discovery/2026-09-18-policy-frontier/TWO_SIDED_BOUNDARY_PROPAGATION_CHECKPOINT.md",
+        "research/isograph/discovery/2026-09-18-policy-frontier/RANK33_LATTICE_BOUNDARY_CHECKPOINT.md",
+        "research/isograph/discovery/2026-09-18-policy-frontier/COFACTOR_UPSET_ADJOINT_CHECKPOINT.md",
+        "research/isograph/discovery/2026-09-18-policy-frontier/CLOSED_BLOCKER_LOWER_DUAL_CHECKPOINT.md"
+      ],
+      "output_semantics": [
+        "exact strong-score threshold membership",
+        "exact strong action value",
+        "exact best-move set by argmax"
+      ]
+    },
+    {
+      "id": "RBA-REGION-PROOF-PREDECESSOR",
+      "native_node": 431020,
+      "name": "proof/controllable-predecessor region",
+      "members": [
+        {
+          "id": "C4-R0073",
+          "native_node": 100073,
+          "status": "deductive_exact"
+        },
+        {
+          "id": "C4-R0074",
+          "native_node": 100074,
+          "status": "empirically_supported"
+        },
+        {
+          "id": "C4-R0043",
+          "native_node": 100043,
+          "status": "missing_law"
+        },
+        {
+          "id": "C4-R0069",
+          "native_node": 100069,
+          "status": "missing_law"
+        },
+        {
+          "id": "C4-R0076",
+          "native_node": 100076,
+          "status": "missing_law_post_1_1_successor"
+        }
+      ]
+    }
+  ],
+  "open_relation_qu": [
+    {
+      "id": "RBA-REL-01",
+      "relation_native_node": 431101,
+      "qu_native_node": 430901,
+      "semantic_state": "OPEN",
+      "endpoint_incidence_fixed": true,
+      "endpoints": [
+        431000,
+        430000
+      ],
+      "endpoint_names": [
+        "residual/future-behavior region",
+        "RBA-QU-0001"
+      ],
+      "directionality": "partly_open",
+      "relation_kind": "OPEN",
+      "admissible_relation_kinds": [
+        "representation_or_factorization",
+        "sufficient_observation",
+        "quotient_or_embedding",
+        "algebra_carrier_or_interface",
+        "Galois_or_adjoint_interface",
+        "other_exact_relation_consistent_with_constraints"
+      ],
+      "constraints": [
+        "preserve exact ordinary future/value behavior",
+        "preserve first-win stopping",
+        "do not collapse ordinary value identity into proof/history identity",
+        "do not treat abstract residual pairs as legal q without applicable exact restriction"
+      ]
+    },
+    {
+      "id": "RBA-REL-02",
+      "relation_native_node": 431102,
+      "qu_native_node": 430902,
+      "semantic_state": "OPEN",
+      "endpoint_incidence_fixed": true,
+      "endpoints": [
+        430000,
+        431010
+      ],
+      "endpoint_names": [
+        "RBA-QU-0001",
+        "exact ordinary value-boundary region"
+      ],
+      "directionality": "information_flow_rba_to_value_fixed_relation_semantics_open",
+      "relation_kind": "OPEN",
+      "admissible_relation_kinds": [
+        "algebraic_generation",
+        "closure",
+        "fixed_point_semantics",
+        "transfer_or_composition",
+        "threshold_boundary_realization",
+        "other_exact_relation_consistent_with_constraints"
+      ],
+      "constraints": [
+        "resulting state/action strong values exact",
+        "preserve discrete strong-score order",
+        "no solved database outcome as theorem premise",
+        "implementation schedule is not itself semantic relation"
+      ]
+    },
+    {
+      "id": "RBA-REL-03",
+      "relation_native_node": 431103,
+      "qu_native_node": 430903,
+      "semantic_state": "OPEN",
+      "endpoint_incidence_fixed": true,
+      "endpoints": [
+        430000,
+        431020
+      ],
+      "endpoint_names": [
+        "RBA-QU-0001",
+        "proof/controllable-predecessor region"
+      ],
+      "directionality": "OPEN",
+      "relation_kind": "OPEN",
+      "admissible_relation_kinds": [
+        "bridge",
+        "projection",
+        "refinement",
+        "factorization",
+        "one_way_consequence",
+        "scoped_equivalence_under_ordinary_value_view",
+        "proof_value_separation_with_weaker_interface",
+        "other_exact_relation_consistent_with_constraints"
+      ],
+      "exclusions": [
+        "RBA equals C4-R0076",
+        "RBA derived_from C4-R0076",
+        "RBA refines C4-R0069",
+        "RBA closes C4-R0043",
+        "C4-R0043 equals C4-R0069 equals C4-R0076",
+        "proof carrier equals ordinary-value carrier"
+      ],
+      "promotion_rule": "fix relation type/direction only after deductive or guarded-exact proof of that relation"
+    }
+  ],
+  "topology_summary": {
+    "primary_chain": [
+      431000,
+      431101,
+      430000,
+      431102,
+      431010
+    ],
+    "side_seam": [
+      430000,
+      431103,
+      431020
+    ],
+    "interpretation": "RBA occupies the unresolved structural gap between residual/future-behavior structure and exact ordinary value-boundary consequences, with an OPEN side relation to proof/controllable-predecessor structure."
+  },
+  "authority_effect": {
+    "authority_1_1_mutated": false,
+    "typed_relation_promoted": false,
+    "relation_occurrence_incidence_added_in_successor_overlay": true,
+    "unknown_relation_semantics_preserved": true
+  }
+}
