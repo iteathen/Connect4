@@ -55,6 +55,25 @@ Host: i5-12600K, 32 GiB RAM, GTX 1660 Ti 6 GiB, NVIDIA 610.74, Node 26.7.0.
 One run per solver, strictly sequential. Source changes were benchmark-only.
 Structured sanitized evidence: [results/2026-09-19-separate-solvers.json](results/2026-09-19-separate-solvers.json).
 
+### BSFP rank progress
+
+Rank means **pieces already played**. BSFP works backward from rank 42 (full
+support) to rank 0 (empty board). This run completed ranks **42, 41, 40, 39, 38,
+37** and timed out with **rank 36 still in progress**: 36 pieces played, six empty
+cells. It did not complete rank 36 or any lower rank.
+
+| Native solver elapsed | Observed active rank | Empty cells |
+|---|---:|---:|
+| 12.87 s | 37 | 5 |
+| 52.51 s | 36 | 6 |
+| 107.59 s, last snapshot | 36 | 6 |
+
+These are observation times, not exact rank-boundary timestamps. Six completed
+ranks out of 43 does **not** mean 14% of the solve is done: layer costs differ
+greatly. Future harness summaries expose `rankProgress` directly.
+[Rank-only evidence](results/2026-09-19-bsfp-ranks.json) is derived from the
+preserved run logs; no new solve was launched.
+
 | Measurement | IsoMax | Native CUDA-BSFP P2 |
 |---|---:|---:|
 | Tested SHA | `681caa3c` | `8f15ffe4` |
