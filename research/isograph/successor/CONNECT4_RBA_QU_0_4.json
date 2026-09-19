@@ -1,0 +1,120 @@
+{
+  "schema": 4,
+  "id": "RBA-QU-0004",
+  "name": "Residual Boundary Algebra completion space — Bellman-information refinement",
+  "refines": "RBA-QU-0003",
+  "refinement_relation": "R(RBA-QU-0004) subset_of R(RBA-QU-0003)",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "newly_fixed_or_constrained": [
+    {
+      "id": "BV1",
+      "statement": "The full raw-transition partition shell is not the target RBA abstraction; it is far finer than exact value/action-score semantics on complete controls.",
+      "status": "complete_control_test"
+    },
+    {
+      "id": "BV2",
+      "statement": "A four-valued UNKNOWN/WIN/DRAW/LOSS Bellman refinement orbit reproduces exact strong state scores by outcome plus first resolution iteration on all complete controls.",
+      "status": "theorem_shaped_with_zero_mismatches"
+    },
+    {
+      "id": "BV3",
+      "statement": "The same Bellman refinement reproduces exact strong action scores action-by-action by outcome plus first resolution iteration.",
+      "status": "theorem_shaped_with_zero_mismatches"
+    },
+    {
+      "id": "BV4",
+      "statement": "No intermediate partial interval values beyond UNKNOWN/WIN/DRAW/LOSS occurred on any complete control.",
+      "status": "exact_observation"
+    },
+    {
+      "id": "BV5",
+      "statement": "WIN-resolved-by-k state/action regions are upward closed and LOSS-resolved-by-k regions are downward closed under the favorable q order on all tested complete controls.",
+      "status": "zero_closure_violations"
+    },
+    {
+      "id": "BV6",
+      "statement": "The finite strong-score chain can be treated as derived from Bellman information outcome plus resolution ordinal rather than as a primitive RBA value carrier.",
+      "status": "deductive_candidate"
+    }
+  ],
+  "refined_candidate_core": {
+    "board_layer": "exact support-conditioned board fiber",
+    "residual_layer": "finite distributive residual lattice derived from board fiber",
+    "transition_layer": "terminal-extended join-preserving left adjoints with exact right adjoints",
+    "information_value_layer": [
+      "UNKNOWN",
+      "WIN",
+      "DRAW",
+      "LOSS"
+    ],
+    "value_operator": "Bellman information refinement",
+    "strong_distance": "first resolution ordinal",
+    "symbolic_layer": "monotone WIN/LOSS antichain fronts",
+    "draw_semantics": "residual exact outcome after finite continuation resolves without forced win/loss"
+  },
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis",
+      "question": "Can the current board-fiber + adjoint transition + four-valued Bellman information + monotone boundary basis be reduced further?"
+    },
+    {
+      "id": "O2",
+      "role": "frontier_compactness_law",
+      "question": "What structural parameter bounds the size of WIN_k/LOSS_k extremal fronts and their composed transformers toward the empty root?"
+    },
+    {
+      "id": "O3",
+      "role": "compact_information_transformer_composition",
+      "question": "Can multiple Bellman refinement steps over board-fiber transitions be block-composed directly on WIN/LOSS antichain fronts without intermediate rank/support boundaries?"
+    },
+    {
+      "id": "O4",
+      "role": "compact_root_normal_form",
+      "question": "Does the finite full-depth Bellman-information expression admit a compact direct-root normal form?"
+    },
+    {
+      "id": "O5",
+      "role": "minimal_symbolic_value_carrier",
+      "question": "Is the pair of monotone WIN/LOSS fronts plus iteration ordinal minimal for exact state/action strong values, or is there a smaller compositionally closed representation?"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_correspondence",
+      "question": "How does the four-valued value-information algebra relate to the proof/controllable-predecessor region and C4-R0043/C4-R0069/C4-R0076?"
+    },
+    {
+      "id": "O7",
+      "role": "family_scope",
+      "question": "Which Bellman-information and board-fiber results generalize to finite gravity Connect-K families?"
+    },
+    {
+      "id": "O8",
+      "role": "canonical_normal_form",
+      "question": "What is the canonical/minimal normal form for a block Bellman-information transformer over fiber transitions?"
+    }
+  ],
+  "literature_alignment": {
+    "raw_complete_shell": "generalized strong-preservation partition refinement is demonstrably too fine for the target value semantics",
+    "nonpartitioning_abstraction": "monotone antichain boundary domain matches generalized abstract-interpretation models beyond state partitions",
+    "retrograde_partial_information": "UNKNOWN/WIN/DRAW/LOSS propagation matches standard partial-information retrograde rules",
+    "caution": "No claim yet that RBA-QU-0004 is the unique forward-complete shell in the formal abstract-interpretation sense."
+  },
+  "evidence": [
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_COMPLETE_SHELL_BOUNDARY_RESULTS_0_1.json",
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_BELLMAN_UNKNOWN_SHELL_RESULTS_0_1.json",
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_BELLMAN_UNKNOWN_SHELL_CHECKPOINT_0_1.md"
+  ],
+  "current_disposition": {
+    "raw_transition_complete_shell_target": false,
+    "strong_score_chain_primitive": false,
+    "four_value_bellman_information_candidate": true,
+    "win_loss_frontier_compact_composition_open": true,
+    "compact_root_normal_form_open": true,
+    "empty_root_solved": false,
+    "typed_relation_promoted": false
+  }
+}
