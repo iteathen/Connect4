@@ -7,14 +7,19 @@ import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { captureProcess } from '../../tools/solver-performance.mjs';
 import { VARIANTS } from './variants.mjs';
-import { WORKLOADS } from '../isomax-ordering/corpus.mjs';
+import { WORKLOADS, makeCandidateCorpus } from './corpus.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', windowsHide: true }).trim();
 if (git('status', '--porcelain')) throw new Error('commit campaign before measurement');
 const runId = new Date().toISOString().replace(/[-:.]/g, '') + '-isomax-candidates';
 const directory = path.resolve(root, git('rev-parse', '--git-path', 'solver-performance'), runId);
 fs.mkdirSync(directory, { recursive: true });
+// Generate once, outside every timed solve; retain exact workload inputs.
+const corpusFile = path.join(directory,'corpus.json');
+const corpus = WORKLOADS.map(workload => ({workload,roots:makeCandidateCorpus(workload)}));
+fs.writeFileSync(corpusFile,JSON.stringify(corpus,null,2)+'\n');
 const report = { runId, sourceRevision: git('rev-parse', 'HEAD'), node: process.version,
+  corpusSha256: createHash('sha256').update(fs.readFileSync(corpusFile)).digest('hex'),
   cpu: os.cpus()[0]?.model, startedAt: new Date().toISOString(),
   policy: { timeoutMsPerProcess: 120000, warmupRoots: 8, freshPoolPerRoot: true,
     measured: 'exact WDL and root move; setup and forced GC reported separately/excluded',
@@ -26,7 +31,7 @@ for (const [index, variant] of report.policy.sequence.entries()) {
   const subdir = path.join(directory, String(index + 1) + '-' + variant);
   console.log(JSON.stringify({ phase: 'start', ordinal: index + 1, variant, runId }));
   const captured = await captureProcess({ command: process.execPath,
-    args: ['--expose-gc', '--max-old-space-size=4096', fileURLToPath(new URL('child.mjs', import.meta.url)), variant],
+    args: ['--expose-gc', '--max-old-space-size=4096', fileURLToPath(new URL('child.mjs', import.meta.url)), variant, corpusFile],
     cwd: root, directory: subdir, timeoutMs: report.policy.timeoutMsPerProcess });
   const lines = fs.readFileSync(path.join(subdir, 'stdout.log'), 'utf8').trim().split('\n').filter(Boolean);
   const summaries = lines.map(JSON.parse).filter(r => r.kind === 'summary');

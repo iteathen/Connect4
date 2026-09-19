@@ -103,3 +103,12 @@ Preserve rejected patch and both paired reports. Retain the existing capacity
 policy; replay is only 0.245% of aggregate worker-task time in the profile, so
 worker-affine restart is not justified by replay alone. Byte-copy attribution
 and quantum/duplicate-work co-design remain separate, uncompleted measurements.
+
+#80 expanded qualification retains the original 96 even-ply roots and adds 32
+odd-ply roots plus 64 one-sided-exhaustion roots. Selection uses independent
+physical winning-line blocking, never outcome/timing. A single 512-root batch
+had only six eligible roots at one depth, so bounded deterministic seed batches
+collect the requested 32 per depth (34/35). Corpus generation is outside timing,
+performed once and captured with a hash for all candidate processes. Each cold
+state's residual emptiness is checked against the physical predicate. Existing
+independent WDL/all-action/certificate controls pass; no production promotion yet.
