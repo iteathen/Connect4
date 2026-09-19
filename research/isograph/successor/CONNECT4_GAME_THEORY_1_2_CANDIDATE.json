@@ -1,0 +1,348 @@
+{
+  "schema": 1,
+  "id": "connect4-game-theory-1.2-candidate",
+  "status": "active_successor_candidate",
+  "owner_branch": "research/semantic-quotient",
+  "base_historical_authority": "connect4-isograph-logic-1.1",
+  "nei_dependency": {
+    "repository": "iteathen/isograph",
+    "revision": "485a16cd44299b3e7ec03768791d261a38bc08c8",
+    "path": "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+    "status": "unqualified_successor_candidate"
+  },
+  "authority_effect": "none_until_qualification",
+  "supersedes_for_active_game_theory_interpretation": [
+    "research/isograph/identity/CONNECT4_NEI_APPLICATION_0_1.*",
+    "research/isograph/identity/CONNECT4_NEI_PROFILES_0_1.json",
+    "research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.*",
+    "research/isograph/identity/CONNECT4_NEI_7X6_REASSESSMENT_0_1.md",
+    "research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_*.{md,json,isg}",
+    "research/isograph/successor/CONNECT4_RBA_QU_0_*.{md,json,isg}",
+    "research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_*.{md,json,isg}"
+  ],
+  "layers": [
+    {
+      "id": 997001,
+      "name": "physical_event_game",
+      "rank": 0
+    },
+    {
+      "id": 997002,
+      "name": "structural_residual_state",
+      "rank": 1
+    },
+    {
+      "id": 997003,
+      "name": "ordinary_behavioral_state_q",
+      "rank": 2
+    },
+    {
+      "id": 997004,
+      "name": "ordinary_value_dependency",
+      "rank": 3
+    },
+    {
+      "id": 997005,
+      "name": "proof_guarded_consequence",
+      "rank": 4
+    },
+    {
+      "id": 997006,
+      "name": "residual_boundary_value_algebra",
+      "rank": 5
+    },
+    {
+      "id": 997007,
+      "name": "evaluation_policy",
+      "rank": 6
+    }
+  ],
+  "physical_game": {
+    "geometry": "standard 7x6 connect4",
+    "alternating_no_pass": true,
+    "first_win_stops": true,
+    "full_nonwinning_board": "draw",
+    "legal_landing_determined_by_support": true,
+    "rank_increases_per_nonterminal_move": 1
+  },
+  "q": {
+    "node": 997003,
+    "coordinates": [
+      "support",
+      "normalized P0 residual antichain",
+      "normalized P1 residual antichain"
+    ],
+    "side_to_move": "derived from support rank parity",
+    "domain": "legal nonterminal standard-7x6 states",
+    "congruence": {
+      "status": "deductive_successor_candidate_pending_independent_qualification",
+      "evidence": "research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md",
+      "lemmas": [
+        "same support -> same legal action frontier and mover",
+        "terminal result of one legal move determined by q+action",
+        "minimal-antichain normalization exact under legal cofactors and first-win stopping",
+        "nonterminal successor q determined by q+action",
+        "rank induction -> same complete action-labelled ordinary future game"
+      ],
+      "consequence": [
+        "same exact WDL",
+        "same distance-sensitive ordinary state value",
+        "same exact per-action values under fixed tie convention"
+      ]
+    }
+  },
+  "value_dependency": {
+    "order": [
+      -1,
+      0,
+      1
+    ],
+    "p0_turn": "max over action outcomes",
+    "p1_turn": "min over action outcomes",
+    "well_founded_by_rank": true,
+    "global_fixed_point_required": false
+  },
+  "identity_questions": [
+    {
+      "id": "ID-PHYSICAL-OCCURRENCE",
+      "node": 997020,
+      "name": "physical_occurrence_identity",
+      "q_equality_effect": "none"
+    },
+    {
+      "id": "ID-BOARD-POSITION",
+      "node": 997021,
+      "name": "colored_board_position_identity",
+      "q_equality_effect": "may_merge_distinct_physical_positions"
+    },
+    {
+      "id": "ID-HISTORY",
+      "node": 997022,
+      "name": "ordered_move_history_identity",
+      "q_equality_effect": "none"
+    },
+    {
+      "id": "ID-FUTURE",
+      "node": 997023,
+      "name": "ordinary_future_behavior_identity",
+      "candidate_result": {
+        "condition": "equal q on legal nonterminal standard-7x6 states plus q-congruence theorem",
+        "nei_result": "SAME",
+        "status": "candidate_pending_q_congruence_and_NEI_0_4_qualification"
+      }
+    },
+    {
+      "id": "ID-PROOF",
+      "node": 997024,
+      "name": "proof_certificate_identity",
+      "q_equality_effect": "insufficient when guards/premises not q-derived"
+    },
+    {
+      "id": "ID-REFLECTION",
+      "node": 997025,
+      "name": "reflection_orbit_equivalence",
+      "kind": "exact automorphism/scoped transformed equivalence",
+      "physical_occurrence_identity": "not_implied"
+    },
+    {
+      "id": "ID-VALUE",
+      "node": 997026,
+      "name": "exact_value_property_equality",
+      "future_behavior_identity": "not_implied"
+    },
+    {
+      "id": "ID-EVIDENCE",
+      "node": 997027,
+      "name": "artifact_event_lineage_identity",
+      "rule": "artifact instance, event, lineage and independence remain distinct quantities"
+    }
+  ],
+  "nei_0_4_integration": {
+    "profile_answer_tags_forbidden": true,
+    "derive_results_from_admissible_identity_models": true,
+    "missing_qualification_is_semantic_unknown": false,
+    "scoped_quotient_is_global_identity": false,
+    "bayes_factors": {
+      "calibrated_currently": false,
+      "finite_controls_converted_to_bf": false,
+      "reason": "no qualified likelihood model"
+    }
+  },
+  "exact_identity_evidence": [
+    {
+      "id": "E-Q-CONGRUENCE",
+      "node": 997040,
+      "kind": "exact_deductive_candidate",
+      "supports": "ordinary_future_behavior_identity",
+      "source": "STANDARD_7X6_Q_CONGRUENCE.md"
+    },
+    {
+      "id": "E-FIRST-WIN",
+      "node": 997041,
+      "kind": "exact_domain_fact",
+      "role": "makes post-terminal residual differences unobservable to ordinary future behavior"
+    },
+    {
+      "id": "E-NEGATIVE-SCOPE",
+      "node": 997042,
+      "kind": "exact_scope_control",
+      "facts": [
+        "equal q need not imply physical-state identity",
+        "equal q need not imply move-history identity",
+        "equal q need not imply proof/certificate identity",
+        "equal q need not preserve terminal-line provenance"
+      ]
+    }
+  ],
+  "qu_regions": [
+    {
+      "id": "QU-GAME-01",
+      "node": 997060,
+      "name": "evidence_independence",
+      "known": "lineage identity structure",
+      "open": "cross-lineage statistical independence where not established",
+      "nei_note": "property uncertainty is not identity uncertainty"
+    },
+    {
+      "id": "QU-GAME-02",
+      "node": 997061,
+      "name": "proof_value_bridge",
+      "status": "open_missing_law_C4-R0076",
+      "known": "C4-R0075 distributed universal proof composition causes rank35 wall before semantic collapse",
+      "open": "compact realizability-preserving clause/proof -> q/value controllable predecessor with support/deadline/resource/first-win guards"
+    },
+    {
+      "id": "QU-GAME-03",
+      "node": 997062,
+      "name": "rba_research_execution",
+      "source": "RBA-QU-0015",
+      "open": [
+        "canonical/minimal presentation",
+        "earlier-rank staged cost law",
+        "adaptive evaluator scaling",
+        "transformer fusion",
+        "empty-root compactness",
+        "proof/value bridge",
+        "independent replay",
+        "multi-factor planning",
+        "representation-independent prunable volume",
+        "rare-tail prediction",
+        "hard restricted-image evaluation",
+        "earlier-support shared-target cover-DP scaling"
+      ]
+    }
+  ],
+  "proof_context": {
+    "q_same_transfers_proof": false,
+    "separately_owned_premises": [
+      "temporal/deadline",
+      "response resources",
+      "realizability",
+      "CPC/NDC premise state",
+      "provenance/dependency cone",
+      "guard context"
+    ]
+  },
+  "rba_relations": {
+    "exact_or_deductive": [
+      "C4-R0077",
+      "C4-R0078",
+      "C4-R0079",
+      "C4-R0080",
+      "C4-R0081",
+      "C4-R0082",
+      "C4-R0085",
+      "C4-R0086",
+      "C4-R0088",
+      "C4-R0090",
+      "C4-R0091",
+      "C4-R0092"
+    ],
+    "empirically_supported_execution": [
+      "C4-R0083",
+      "C4-R0087",
+      "C4-R0089",
+      "C4-R0093"
+    ],
+    "open": [
+      "C4-R0084"
+    ]
+  },
+  "action_value_order": {
+    "status": "deductive_candidate_with_complete_bounded_controls",
+    "source": "SUPPORT_LOCAL_ACTION_VALUE_ISOTONY.md",
+    "guard": "equal support",
+    "result": "state and fixed-action strong value isotone under favorable residual order",
+    "negative": "direct predicate 'action a is optimal' is not upward-closed",
+    "standard_7x6_dependency": "q-congruence qualification"
+  },
+  "current_rba_execution": {
+    "selected_support": [
+      3,
+      3,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 26,
+    "target": "draw16",
+    "residual_shapes": 40,
+    "transformed_bits": 80,
+    "known_draw15_child": [
+      3,
+      4,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "missing_draw15_children": [
+      [
+        4,
+        3,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        3,
+        3,
+        0,
+        6,
+        6,
+        6
+      ],
+      [
+        3,
+        3,
+        2,
+        1,
+        6,
+        6,
+        6
+      ]
+    ]
+  },
+  "evaluation_schedules": {
+    "isomax": "demand-driven exact q dependency discovery plus theorem shortcuts",
+    "bsfp": "supply-driven predecessor/value-family propagation",
+    "sut_candidate": "meeting over exact shared q/value/proof facts with non-q proof premises preserved"
+  },
+  "qualification_burden": [
+    "independent q-congruence proof review",
+    "bounded q controls plus negative scope controls",
+    "verify physical/history/proof identity distinctions",
+    "derive NEI outputs from model constraints rather than profile tags",
+    "no Bayes factor without likelihood model",
+    "QU captures identity-relevant uncertainty without turning process incompleteness into semantic UNKNOWN",
+    "integrate current RBA exact relations and open QU without overlay precedence",
+    "full Discovery Protocol pass",
+    "coverage against authority 1.1 game-theory claims and post-1.1 successor corpus"
+  ]
+}
