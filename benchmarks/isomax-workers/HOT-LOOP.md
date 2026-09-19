@@ -35,3 +35,29 @@ The comparator alternates fresh processes, reverses order for the middle sample,
 checks exact decisions, records node work, and includes worker startup/cleanup.
 It accepts a dirty candidate while recording the tracked diff hash; final
 evidence must also identify the committed tested source.
+
+Second unit: one scheduled node-control check replaces the per-node inherited
+wrapper; native unwind precedes continuation packaging. Ordinary worker tasks
+reserve/seal residuals, chunks, reference widths and exact-cache storage before
+entry. The move-order scan is indexed and uses its proven ongoing/valid-column
+precondition. The fixed-storage contract is for the normal bounded worker path;
+the explicit synchronous research/certificate APIs are not certified by it.
+
+72 controls pass. The actual task-entry regression traps buffer construction,
+typed-array copies/subviews, array iterators, Array.from and JSON formatting
+during 4096 recursive entries while new classes are created. Sealed capacity
+failures are explicit. Existing quantum, continuation-work, forced/mirror,
+first-win, deadline, worker-death and cleanup controls remain passing.
+
+The isolated final second-unit comparison against fcfdd1fb is retained in
+hot-loop-results.json. No tests ran concurrently. Three paired samples:
+
+| Execution | Baseline median ms | Candidate median ms | Reduction | Calls |
+|---|---:|---:|---:|---:|
+| Serial control | 2504.06 | 2355.69 | 5.93% | 2,643,905 |
+| One actual worker, including lifecycle | 2822.58 | 2752.23 | 2.49% | 2,644,522 |
+
+All samples preserve exact WDL/actions and call counts within each execution
+mode. This compares the combined first/second unit, not a causal attribution
+of the total saving to reservation alone. Neither multi-core scaling nor an
+empty-root solve follows from these bounded three-root timings.

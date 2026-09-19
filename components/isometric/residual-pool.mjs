@@ -59,10 +59,12 @@ class SlotChunkPool64 {
     this.words = new Uint32Array(this.capacity * SLOT_WORDS);
     this.hashSlots = new Int32Array(512);
     this.hashSlots.fill(-1);
+    this.sealed = false;
   }
 
   ensureCapacity(required) {
     if (required <= this.capacity) return;
+    if (this.sealed) throw new Error('ISOMAX_CHUNK_CAPACITY');
     const next = nextPowerOfTwo(required);
     const target = new Uint32Array(next * SLOT_WORDS);
     target.set(this.words);
@@ -76,8 +78,9 @@ class SlotChunkPool64 {
       && this.words[base + 1] === (source[offset + 1] >>> 0);
   }
 
-  growHash() {
-    const next = new Int32Array(this.hashSlots.length * 2);
+  growHash(length = this.hashSlots.length * 2) {
+    if (this.sealed) throw new Error('ISOMAX_CHUNK_HASH_CAPACITY');
+    const next = new Int32Array(length);
     next.fill(-1);
     const mask = next.length - 1;
     for (let id = 0; id < this.count; id += 1) {
@@ -127,6 +130,7 @@ export class ResidualPool {
       throw new RangeError('transitionPrefixClasses must be a positive integer');
     }
     this.profile = ISOMETRIC_PROFILE;
+    this.sealed = false;
     this.transitionPrefixClasses = transitionPrefixClasses;
     this.slotPools = Array.from({ length: FRONTIER_SLOTS }, (_, slot) => new SlotChunkPool64(slot));
 
@@ -164,6 +168,7 @@ export class ResidualPool {
     const current = this.classSlotIds[slot];
     const Type = referenceTypeFor(requiredId);
     if (current.BYTES_PER_ELEMENT >= Type.BYTES_PER_ELEMENT) return;
+    if (this.sealed) throw new Error('ISOMAX_REFERENCE_CAPACITY');
     const widened = new Type(this.classCapacity);
     widened.set(current);
     this.classSlotIds[slot] = widened;
@@ -171,6 +176,7 @@ export class ResidualPool {
 
   ensureClassCapacity(required) {
     if (required <= this.classCapacity) return;
+    if (this.sealed) throw new Error('ISOMAX_CLASS_CAPACITY');
     const next = nextPowerOfTwo(required);
     for (let slot = 0; slot < FRONTIER_SLOTS; slot += 1) {
       const Type = this.classSlotIds[slot].constructor;
@@ -196,8 +202,9 @@ export class ResidualPool {
     return true;
   }
 
-  growClassHash() {
-    const next = new Int32Array(this.classHashSlots.length * 2);
+  growClassHash(length = this.classHashSlots.length * 2) {
+    if (this.sealed) throw new Error('ISOMAX_CLASS_HASH_CAPACITY');
+    const next = new Int32Array(length);
     next.fill(-1);
     const mask = next.length - 1;
     for (let id = 0; id < this.classCount; id += 1) {
@@ -206,6 +213,30 @@ export class ResidualPool {
       next[slot] = id;
     }
     this.classHashSlots = next;
+  }
+
+  prepareSearchStorage(additionalClasses) {
+    if (!Number.isSafeInteger(additionalClasses) || additionalClasses < 1 ||
+        additionalClasses > 2 ** 26) throw new RangeError('invalid residual reservation');
+    this.releaseSearchStorage();
+    const required = this.classCount + additionalClasses;
+    this.ensureClassCapacity(required);
+    const classHashLength = nextPowerOfTwo(Math.ceil((required + 1) * 10 / 7));
+    if (classHashLength > this.classHashSlots.length) this.growClassHash(classHashLength);
+    for (let slot = 0; slot < FRONTIER_SLOTS; slot++) {
+      const chunks = this.slotPools[slot], chunkRequired = chunks.count + additionalClasses;
+      chunks.ensureCapacity(chunkRequired);
+      const hashLength = nextPowerOfTwo(Math.ceil((chunkRequired + 1) * 10 / 7));
+      if (hashLength > chunks.hashSlots.length) chunks.growHash(hashLength);
+      this.ensureReferenceWidth(slot, chunks.capacity - 1);
+      chunks.sealed = true;
+    }
+    this.sealed = true;
+  }
+
+  releaseSearchStorage() {
+    this.sealed = false;
+    for (let slot = 0; slot < FRONTIER_SLOTS; slot++) this.slotPools[slot].sealed = false;
   }
 
   loadClassBits(id, target) {

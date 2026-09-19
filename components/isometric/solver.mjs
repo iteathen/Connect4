@@ -58,6 +58,7 @@ export class IsoMaxSolver {
     }
     this.valueResolver = valueResolver;
     this.orderingRootPly = 0;
+    this.nextControlNode = Infinity;
   }
 
   createState(moves = null) {
@@ -90,6 +91,7 @@ export class IsoMaxSolver {
   }
 
   solveNode(state) {
+    if (this.metrics.nodes >= this.nextControlNode) this.checkTaskControl(state);
     this.metrics.nodes += 1;
     const cached = this.transitionCache.get(state);
     if (cached !== undefined) {

@@ -336,6 +336,14 @@ bounded native task; a global deadline, failure or explicit session close may
 abort execution. Incomplete work, worker death and capacity failures must never
 be reported as a draw. Every owned worker must be drained or terminated.
 
+The ordinary-value worker prepares and seals typed search storage before each
+bounded quantum. Residual/chunk capacity, reference width and exact-cache
+rehashing/copying belong to preparation, never recursive growth. A sealed
+capacity violation fails closed. Preparation preserves warm identities/values.
+Recursive native consequences use scalars; immutable proof-facing views are
+preloaded. Continuation packaging occurs after recursive unwind, and periodic
+report serialization/output belongs to a reporting worker outside recursion.
+
 The default is min(4, available logical CPUs minus one), at least one worker.
 An explicit worker count remains available. The solve deadline is at most
 120 seconds. Worker count is a resource policy, not an exactness premise or

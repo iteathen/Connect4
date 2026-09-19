@@ -139,6 +139,7 @@ export class IsoMaxTransitionCache {
     while (capacity < initialCapacity) capacity <<= 1;
     this.capacity = capacity;
     this.count = 0;
+    this.sealed = false;
     this.used = new Uint8Array(capacity);
     this.p0 = new Int32Array(capacity);
     this.p1 = new Int32Array(capacity);
@@ -161,7 +162,8 @@ export class IsoMaxTransitionCache {
     return slot;
   }
 
-  grow() {
+  grow(capacity = this.capacity * 2) {
+    if (this.sealed) throw new Error('ISOMAX_TRANSITION_CAPACITY');
     const old = {
       capacity: this.capacity,
       used: this.used,
@@ -170,7 +172,7 @@ export class IsoMaxTransitionCache {
       support: this.support,
       values: this.values,
     };
-    this.capacity <<= 1;
+    this.capacity = capacity;
     this.count = 0;
     this.used = new Uint8Array(this.capacity);
     this.p0 = new Int32Array(this.capacity);
@@ -192,6 +194,16 @@ export class IsoMaxTransitionCache {
     const signature = state.gameplayKey(this.scratch);
     const slot = this.findSlot(signature);
     return this.used[slot] === 0 ? undefined : this.values[slot];
+  }
+
+  prepareSearchStorage(additionalEntries) {
+    if (!Number.isSafeInteger(additionalEntries) || additionalEntries < 1 ||
+        additionalEntries > 2 ** 26) throw new RangeError('invalid cache reservation');
+    this.sealed = false;
+    let capacity = this.capacity;
+    while ((this.count + additionalEntries + 1) * 10 >= capacity * 7) capacity *= 2;
+    if (capacity > this.capacity) this.grow(capacity);
+    this.sealed = true;
   }
 
   set(state, value) {

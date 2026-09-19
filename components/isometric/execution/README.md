@@ -39,6 +39,23 @@ separate. Deadline/session abort checks occur every 8192 recursive entries.
 Worker fault, bad result, missing work or capacity exhaustion fails closed.
 No unfinished result is published as draw.
 
+Before each quantum, the worker reserves and seals residual/chunk dictionaries,
+reference widths and its exact transition cache. At most four new residual
+classes per admitted node covers the ordinary replay profile (own, block and
+their reflections); each class contributes at most one chunk per slot. This is
+a conservative capacity bound, not measured expected occupancy. Reservation and
+any rehash/copy happen before recursion, retaining warm IDs and exact values.
+Sealed overflow fails explicitly; it cannot trigger recursive allocation.
+Memory shares above are retained-record thresholds, not reserved-byte limits.
+
+The recursive scheduling overhead is one numeric threshold check. Abort polls
+occur every 8192 nodes or at the exact budget boundary. A yield saves the active
+path to preallocated bytes, unwinds native play/undo, and only then packages
+dependency messages. There is no inherited per-node wrapper/catch, per-node
+promise, reporter call, string key, or conclusion-object construction.
+The explicit synchronous certificate/RBA and serial controls are outside this
+bounded fixed-storage worker profile.
+
 The manager exposes up to twice the worker count as ready work and submits at
 most one task per worker, keeping stale queued speculation off the executor.
 Manager q capacity defaults

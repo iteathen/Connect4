@@ -38,8 +38,9 @@ export function singletonEffectClass(state, column) {
 
 export function promotedColumn(state) {
   let bestClass = 0, bestColumn = -1;
-  for (const column of CENTER_ORDER) {
-    if (!state.canPlay(column)) continue;
+  for (let index = 0; index < CENTER_ORDER.length; index++) {
+    const column = CENTER_ORDER[index];
+    if (state.heights[column] === 6) continue;
     const effect = singletonEffectClass(state, column);
     if (effect > bestClass) {
       bestClass = effect;
