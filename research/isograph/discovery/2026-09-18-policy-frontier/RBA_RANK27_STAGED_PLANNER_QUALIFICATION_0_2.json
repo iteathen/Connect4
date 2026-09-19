@@ -1,0 +1,124 @@
+{
+  "schema": 2,
+  "experiment": "rba-rank27-staged-product-qualification",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "status": "qualified_for_rank26_progression",
+  "controls": {
+    "loss14": {
+      "upper": 114585,
+      "lower": 158402,
+      "route": "ordinary_streaming"
+    },
+    "draw15": {
+      "upper": 161398,
+      "lower": 534618,
+      "route": "projection_indexed"
+    },
+    "win15": {
+      "upper": 235107,
+      "lower": 306617,
+      "route": "heterogeneous_staged"
+    }
+  },
+  "win15": {
+    "factors": [
+      30387,
+      58059,
+      20096,
+      133469
+    ],
+    "absorption": [
+      [
+        "f0xf1",
+        1764238833,
+        0.182476
+      ],
+      [
+        "p01xf2",
+        4121006336,
+        0.550434
+      ],
+      [
+        "p012xf3",
+        31918977881,
+        0.814017
+      ],
+      [
+        "f0xf2",
+        610657152,
+        0.058106
+      ],
+      [
+        "p02xf1",
+        8334369450,
+        0.614545
+      ],
+      [
+        "p02xf3",
+        19159474950,
+        0.732344
+      ],
+      [
+        "f0xf3",
+        4055722503,
+        0.449799
+      ],
+      [
+        "f1xf2",
+        1166753664,
+        0.231994
+      ],
+      [
+        "p03xp12",
+        52423838824,
+        0.818324
+      ],
+      [
+        "f2xf3",
+        2682193024,
+        0.533068
+      ]
+    ],
+    "step2": {
+      "raw": 4121006336,
+      "residual": 1852664681,
+      "eliminated": 0.550434,
+      "candidates": 3251193,
+      "leaf_scans": 504129002,
+      "tree_nodes": 52234299,
+      "final": 239149,
+      "wall_ms": 31401.6,
+      "sha256": "8ce37539d397aeb823f7b4a00e181831bba88791fc2093aada202ca99ab82189",
+      "same_persisted": true
+    },
+    "step3": {
+      "raw": 31918977881,
+      "residual": 5936389460,
+      "eliminated": 0.814017,
+      "candidates": 1718644,
+      "leaf_scans": 1013041309,
+      "tree_nodes": 113961971,
+      "final": 306617,
+      "wall_ms": 44729.3,
+      "sha256": "a361b50c801fe6bcb339d39d04e1f15452d1663a0778d606dbb327e519a406c9",
+      "same_persisted": true
+    },
+    "alternate_reconvergence": {
+      "path": "p02xf1",
+      "raw": 8334369450,
+      "eliminated": 0.614545,
+      "final": 239149,
+      "wall_ms": 36475,
+      "sha256": "8ce37539d397aeb823f7b4a00e181831bba88791fc2093aada202ca99ab82189",
+      "same_p012": true
+    }
+  },
+  "conclusion": {
+    "rank27_evaluation_blocker_removed": true,
+    "universal_optimal_planner_proved": false,
+    "rank26_progression_allowed": true
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
