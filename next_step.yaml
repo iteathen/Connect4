@@ -93,6 +93,26 @@ open_issues:
   - number: 63
     target: optional_ndc_guarded_obligation_birth_side_seam
 
+issue_execution_order:
+  first_parallel:
+    - 62
+    - 61
+  integration_gate:
+    - 60
+  deferred_side_seam:
+    - 63
+  lower_layer_dependencies:
+    - repository: iteathen/CUDA-Algorithms
+      issue: 11
+      role: segmented_fixed_width_antichain_normalization
+      status: open_optional_until_selected_profile_needs_public_contract
+    - repository: iteathen/CUDA-Algorithms
+      issue: 12
+      role: pre_product_core_relative_absorption
+      status: open_optional_until_selected_profile_needs_public_contract
+  closed_historical_audits:
+    - 51
+
 ownership_gate:
   connect4_owns:
     - bsfp_value_and_first_win_semantics
