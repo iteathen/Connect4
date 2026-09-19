@@ -45,3 +45,5 @@ Profiling uses actual bounded native tasks in a worker. Raw CPU/heap/generated
 code traces stay in Git-private evidence because they contain machine paths.
 Portable summaries retain source/runtime/workload and explicit limitations.
 Timing promotion uses separate uninstrumented alternating processes.
+
+#82 hit-first interning: explicit chunk/class/cache threshold and sealed-hit controls passed. Three paired samples against #74A had serial medians 2313.37 -> 2339.67 ms (1.14% slower), one-worker 2679.24 -> 2679.52 ms (neutral), identical exact work. No promotion: normal sealed tasks reserve sufficient insertion headroom before entry; an artificial threshold-hit test is not evidence of a live solver defect. Preserve candidate, tests and protected comments in rejected/issue-82-hit-first.patch, timings in issue-82-hit-first.json.

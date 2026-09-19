@@ -1,0 +1,182 @@
+diff --git a/components/isometric/isomax-index.mjs b/components/isometric/isomax-index.mjs
+index 35971b34..f0590cc8 100644
+--- a/components/isometric/isomax-index.mjs
++++ b/components/isometric/isomax-index.mjs
+@@ -263,9 +263,12 @@ export class IsoMaxTransitionCache {
+     // Exact value and pool ownership are validated by the solver/prepareKey.
+     // Parent scalar key survives scratch reuse; an old slot does not. Never
+     // publish incomplete work or weaken the sealed-capacity failure.
+-    if ((this.count + 1) * 10 >= this.capacity * 7) this.grow();
+-    const slot = this.findPreparedSlotUnchecked(p0, p1, support, hash);
++    let slot = this.findPreparedSlotUnchecked(p0, p1, support, hash);
+     if (this.used[slot] === 0) {
++      if ((this.count + 1) * 10 >= this.capacity * 7) {
++        this.grow();
++        slot = this.findPreparedSlotUnchecked(p0, p1, support, hash);
++      }
+       this.used[slot] = 1;
+       this.p0[slot] = p0; this.p1[slot] = p1; this.support[slot] = support;
+       this.count++;
+@@ -301,9 +304,12 @@ export class IsoMaxTransitionCache {
+     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+     // Reprobe after descendants/resizes; old slot addresses are not authority. No sealed growth.
+     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
+-    if ((this.count + 1) * 10 >= this.capacity * 7) this.grow();
+-    const slot = this.findSlot(signature);
++    let slot = this.findSlot(signature);
+     if (this.used[slot] === 0) {
++      if ((this.count + 1) * 10 >= this.capacity * 7) {
++        this.grow();
++        slot = this.findSlot(signature);
++      }
+       this.used[slot] = 1;
+       this.p0[slot] = signature[0];
+       this.p1[slot] = signature[1];
+diff --git a/components/isometric/residual-pool.mjs b/components/isometric/residual-pool.mjs
+index a6e056f1..2e272129 100644
+--- a/components/isometric/residual-pool.mjs
++++ b/components/isometric/residual-pool.mjs
+@@ -126,9 +126,8 @@ class SlotChunkPool64 {
+     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+     // Probe numeric immutable words; keep successful sealed insertion allocation-free.
+     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
+-    if ((this.count + 1) * 10 >= this.hashSlots.length * 7) this.growHash();
+     const hash = hashWords2(source, offset);
+-    const mask = this.hashSlots.length - 1;
++    let mask = this.hashSlots.length - 1;
+     let slot = hash & mask;
+     while (true) {
+       const id = this.hashSlots[slot];
+@@ -136,6 +135,12 @@ class SlotChunkPool64 {
+       if (this.equals(id, source, offset)) return id;
+       slot = (slot + 1) & mask;
+     }
++    if ((this.count + 1) * 10 >= this.hashSlots.length * 7) {
++      this.growHash();
++      mask = this.hashSlots.length - 1;
++      slot = hash & mask;
++      while (this.hashSlots[slot] !== -1) slot = (slot + 1) & mask;
++    }
+     this.ensureCapacity(this.count + 1);
+     const id = this.count;
+     const base = id * SLOT_WORDS;
+@@ -349,9 +354,8 @@ export class ResidualPool {
+     }
+     if (sameAsParent) return parentId;
+ 
+-    if ((this.classCount + 1) * 10 >= this.classHashSlots.length * 7) this.growClassHash();
+     const hash = hashChunkTuple(this.chunkIds);
+-    const mask = this.classHashSlots.length - 1;
++    let mask = this.classHashSlots.length - 1;
+     let slot = hash & mask;
+     while (true) {
+       const id = this.classHashSlots[slot];
+@@ -360,6 +364,13 @@ export class ResidualPool {
+       slot = (slot + 1) & mask;
+     }
+ 
++    if ((this.classCount + 1) * 10 >= this.classHashSlots.length * 7) {
++      this.growClassHash();
++      mask = this.classHashSlots.length - 1;
++      slot = hash & mask;
++      while (this.classHashSlots[slot] !== -1) slot = (slot + 1) & mask;
++    }
++
+     for (let chunk = 0; chunk < FRONTIER_SLOTS; chunk += 1) this.ensureReferenceWidth(chunk, this.chunkIds[chunk]);
+     this.ensureClassCapacity(this.classCount + 1);
+     const id = this.classCount;
+@@ -489,9 +500,8 @@ export class ResidualPool {
+       return id;
+     }
+ 
+-    if ((this.classCount + 1) * 10 >= this.classHashSlots.length * 7) this.growClassHash();
+     const hash = hashChunkTuple(this.chunkIds);
+-    const hashMask = this.classHashSlots.length - 1;
++    let hashMask = this.classHashSlots.length - 1;
+     let hashSlot = hash & hashMask;
+     while (true) {
+       const existingId = this.classHashSlots[hashSlot];
+@@ -503,6 +513,13 @@ export class ResidualPool {
+       hashSlot = (hashSlot + 1) & hashMask;
+     }
+ 
++    if ((this.classCount + 1) * 10 >= this.classHashSlots.length * 7) {
++      this.growClassHash();
++      hashMask = this.classHashSlots.length - 1;
++      hashSlot = hash & hashMask;
++      while (this.classHashSlots[hashSlot] !== -1) hashSlot = (hashSlot + 1) & hashMask;
++    }
++
+     for (let slotIndex = 0; slotIndex < FRONTIER_SLOTS; slotIndex += 1) {
+       this.ensureReferenceWidth(slotIndex, this.chunkIds[slotIndex]);
+     }
+diff --git a/components/isometric/test/hit-first.test.mjs b/components/isometric/test/hit-first.test.mjs
+new file mode 100644
+--- /dev/null
++++ b/components/isometric/test/hit-first.test.mjs
+@@ -0,0 +1,65 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { ResidualPool } from '../residual-pool.mjs';
++import { IsoMaxTransitionCache } from '../isomax-index.mjs';
++import { IsometricState } from '../state.mjs';
++import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
++
++test('chunk and class exact hits do not grow at the sealed hash threshold', () => {
++  const pool = new ResidualPool(), chunk = pool.slotPools[0];
++  const words = new Uint32Array(2);
++  const empty = chunk.intern(words, 0);
++  for (let i = 1; (chunk.count + 1) * 10 < chunk.hashSlots.length * 7; i++) {
++    words[0] = i; chunk.intern(words, 0);
++  }
++  const hash = chunk.hashSlots;
++  chunk.sealed = true; words[0] = 0;
++  assert.equal(chunk.intern(words, 0), empty);
++  assert.strictEqual(chunk.hashSlots, hash);
++  words[0] = 0xffffffff;
++  assert.throws(() => chunk.intern(words, 0), /HASH_CAPACITY/);
++  chunk.sealed = false; chunk.intern(words, 0);
++  assert.equal(chunk.hashSlots.length, hash.length * 2);
++  words[0] = 0; assert.equal(chunk.intern(words, 0), empty);
++
++  // Distinct same-degree initial terms are valid incomparable antichains.
++  const ids = pool.profile.initialIds, bits = new Uint32Array(20);
++  let a = 0, b = 1;
++  const nextPair = () => {
++    bits.fill(0);
++    bits[ids[a] >>> 5] |= 1 << (ids[a] & 31);
++    bits[ids[b] >>> 5] |= 1 << (ids[b] & 31);
++    if (++b === ids.length) { a++; b = a + 1; }
++  };
++  while ((pool.classCount + 1) * 10 < pool.classHashSlots.length * 7) {
++    nextPair(); pool.internBits(bits);
++  }
++  const classHash = pool.classHashSlots, count = pool.classCount;
++  pool.sealed = true;
++  assert.equal(pool.internBits(bits), count - 1);
++  assert.strictEqual(pool.classHashSlots, classHash);
++  nextPair(); assert.throws(() => pool.internBits(bits), /HASH_CAPACITY/);
++  pool.sealed = false; pool.internBits(bits);
++  assert.equal(pool.classHashSlots.length, classHash.length * 2);
++  assert.equal(pool.classCount, count + 1);
++});
++
++test('state and prepared cache overwrites survive sealed threshold; misses still require growth', () => {
++  for (const prepared of [false, true]) {
++    const pool = new ResidualPool(), cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });
++    const states = makeCorpus({ seed: 82, ply: 20, count: 6 }).map(({ moves }) => new IsometricState({ pool, moves }));
++    const write = (state, value) => {
++      if (!prepared) return cache.set(state, value);
++      const h = cache.prepareKey(state);
++      return cache.setPreparedUnchecked(cache.scratch[0], cache.scratch[1], cache.scratch[2] >>> 0, h, value);
++    };
++    for (let i = 0; i < 5; i++) write(states[i], i);
++    assert.equal(cache.count, 5); assert.equal(cache.capacity, 8);
++    cache.sealed = true; write(states[2], 42);
++    assert.equal(cache.get(states[2]), 42); assert.equal(cache.capacity, 8);
++    assert.throws(() => write(states[5], 5), /TRANSITION_CAPACITY/);
++    cache.sealed = false; write(states[5], 5);
++    assert.equal(cache.capacity, 16); assert.equal(cache.count, 6);
++    for (let i = 0; i < 6; i++) assert.equal(cache.get(states[i]), i === 2 ? 42 : i);
++  }
++});

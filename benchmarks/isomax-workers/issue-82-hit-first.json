@@ -1,0 +1,1165 @@
+{
+  "node": "v26.7.0",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "variants": [
+    "serial",
+    "1"
+  ],
+  "baseline": "e71f3ab51685ea013698858e5eba2063ae79616a",
+  "candidateParent": "7cbe9b40cd4910a9c862016175409d86e5a7a83e",
+  "candidateDiffSha256": "06a469a7500ebf7ca02e0bbbea8d5a8c16bbc64b72471a11c4240e2c3b9bd725",
+  "runs": [
+    {
+      "sample": 0,
+      "label": "baseline",
+      "variant": "serial",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "717657616532237625",
+          "elapsedMs": 283.4611,
+          "cleanupMs": 0,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338479,
+            "transitionCacheHits": 156901,
+            "transitionCacheStores": 181578,
+            "nativeExactHits": 39540,
+            "nativeForcedHits": 37377,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 37377,
+            "recursiveChildren": 301100,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 47926
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 69341184
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1281.9540000000002,
+          "cleanupMs": 0,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1409891,
+            "transitionCacheHits": 722827,
+            "transitionCacheStores": 687064,
+            "nativeExactHits": 104058,
+            "nativeForcedHits": 197160,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 197160,
+            "recursiveChildren": 1212729,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 223597
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 119717888
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "616767454664457417",
+          "elapsedMs": 714.0406000000003,
+          "cleanupMs": 0,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895535,
+            "transitionCacheHits": 449788,
+            "transitionCacheStores": 445747,
+            "nativeExactHits": 81054,
+            "nativeForcedHits": 118529,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 118529,
+            "recursiveChildren": 777002,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 134153
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 172642304
+        }
+      ],
+      "elapsedMs": 2279.4557000000004,
+      "nodes": 2643905
+    },
+    {
+      "sample": 0,
+      "label": "candidate",
+      "variant": "serial",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "717657616532237625",
+          "elapsedMs": 282.1571,
+          "cleanupMs": 0,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338479,
+            "transitionCacheHits": 156901,
+            "transitionCacheStores": 181578,
+            "nativeExactHits": 39540,
+            "nativeForcedHits": 37377,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 37377,
+            "recursiveChildren": 301100,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 47926
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 71536640
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1310.0928999999999,
+          "cleanupMs": 0,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1409891,
+            "transitionCacheHits": 722827,
+            "transitionCacheStores": 687064,
+            "nativeExactHits": 104058,
+            "nativeForcedHits": 197160,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 197160,
+            "recursiveChildren": 1212729,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 223597
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 141606912
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "616767454664457417",
+          "elapsedMs": 728.693,
+          "cleanupMs": 0,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895535,
+            "transitionCacheHits": 449788,
+            "transitionCacheStores": 445747,
+            "nativeExactHits": 81054,
+            "nativeForcedHits": 118529,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 118529,
+            "recursiveChildren": 777002,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 134153
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 167059456
+        }
+      ],
+      "elapsedMs": 2320.943,
+      "nodes": 2643905
+    },
+    {
+      "sample": 0,
+      "label": "baseline",
+      "variant": "1",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "717657616532237625",
+          "elapsedMs": 336.99989999999997,
+          "cleanupMs": 4.126599999999996,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338519,
+            "managerExpansions": 24,
+            "exactTasks": 41,
+            "splitTasks": 2,
+            "retiredTasks": 0,
+            "qReuses": 78,
+            "submitted": 43,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 276.00699999999995,
+            "workerTasks": [
+              43
+            ],
+            "workerNodes": [
+              338519
+            ]
+          },
+          "resultReadyMs": 332.1861,
+          "maxRssBytes": 145424384
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1468.5491,
+          "cleanupMs": 5.238499999999931,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1410389,
+            "managerExpansions": 137,
+            "exactTasks": 263,
+            "splitTasks": 10,
+            "retiredTasks": 0,
+            "qReuses": 505,
+            "submitted": 273,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 1368.2335000000003,
+            "workerTasks": [
+              273
+            ],
+            "workerNodes": [
+              1410389
+            ]
+          },
+          "resultReadyMs": 1463.2631999999999,
+          "maxRssBytes": 216518656
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "616767454664457417",
+          "elapsedMs": 821.2846999999999,
+          "cleanupMs": 4.4690999999997985,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895614,
+            "managerExpansions": 50,
+            "exactTasks": 84,
+            "splitTasks": 4,
+            "retiredTasks": 0,
+            "qReuses": 132,
+            "submitted": 88,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 757.5328999999983,
+            "workerTasks": [
+              88
+            ],
+            "workerNodes": [
+              895614
+            ]
+          },
+          "resultReadyMs": 816.7495000000001,
+          "maxRssBytes": 216518656
+        }
+      ],
+      "elapsedMs": 2626.8337,
+      "nodes": 2644522
+    },
+    {
+      "sample": 0,
+      "label": "candidate",
+      "variant": "1",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "717657616532237625",
+          "elapsedMs": 356.4117,
+          "cleanupMs": 4.04770000000002,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338519,
+            "managerExpansions": 24,
+            "exactTasks": 41,
+            "splitTasks": 2,
+            "retiredTasks": 0,
+            "qReuses": 78,
+            "submitted": 43,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 290.3318000000001,
+            "workerTasks": [
+              43
+            ],
+            "workerNodes": [
+              338519
+            ]
+          },
+          "resultReadyMs": 351.894,
+          "maxRssBytes": 146702336
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1481.2065,
+          "cleanupMs": 4.17470000000003,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1410389,
+            "managerExpansions": 137,
+            "exactTasks": 263,
+            "splitTasks": 10,
+            "retiredTasks": 0,
+            "qReuses": 505,
+            "submitted": 273,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 1377.2609,
+            "workerTasks": [
+              273
+            ],
+            "workerNodes": [
+              1410389
+            ]
+          },
+          "resultReadyMs": 1476.9852,
+          "maxRssBytes": 214589440
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "616767454664457417",
+          "elapsedMs": 841.9007000000001,
+          "cleanupMs": 3.617999999999938,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895614,
+            "managerExpansions": 50,
+            "exactTasks": 84,
+            "splitTasks": 4,
+            "retiredTasks": 0,
+            "qReuses": 132,
+            "submitted": 88,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 777.0830000000001,
+            "workerTasks": [
+              88
+            ],
+            "workerNodes": [
+              895614
+            ]
+          },
+          "resultReadyMs": 838.2237,
+          "maxRssBytes": 214589440
+        }
+      ],
+      "elapsedMs": 2679.5189,
+      "nodes": 2644522
+    },
+    {
+      "sample": 1,
+      "label": "candidate",
+      "variant": "serial",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "717657616532237625",
+          "elapsedMs": 282.8592,
+          "cleanupMs": 0,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338479,
+            "transitionCacheHits": 156901,
+            "transitionCacheStores": 181578,
+            "nativeExactHits": 39540,
+            "nativeForcedHits": 37377,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 37377,
+            "recursiveChildren": 301100,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 47926
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 71503872
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1347.3708,
+          "cleanupMs": 0,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1409891,
+            "transitionCacheHits": 722827,
+            "transitionCacheStores": 687064,
+            "nativeExactHits": 104058,
+            "nativeForcedHits": 197160,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 197160,
+            "recursiveChildren": 1212729,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 223597
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 141135872
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "616767454664457417",
+          "elapsedMs": 750.8729000000001,
+          "cleanupMs": 0,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895535,
+            "transitionCacheHits": 449788,
+            "transitionCacheStores": 445747,
+            "nativeExactHits": 81054,
+            "nativeForcedHits": 118529,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 118529,
+            "recursiveChildren": 777002,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 134153
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 166199296
+        }
+      ],
+      "elapsedMs": 2381.1029,
+      "nodes": 2643905
+    },
+    {
+      "sample": 1,
+      "label": "baseline",
+      "variant": "serial",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "717657616532237625",
+          "elapsedMs": 277.65349999999995,
+          "cleanupMs": 0,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338479,
+            "transitionCacheHits": 156901,
+            "transitionCacheStores": 181578,
+            "nativeExactHits": 39540,
+            "nativeForcedHits": 37377,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 37377,
+            "recursiveChildren": 301100,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 47926
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 69169152
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1325.2656,
+          "cleanupMs": 0,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1409891,
+            "transitionCacheHits": 722827,
+            "transitionCacheStores": 687064,
+            "nativeExactHits": 104058,
+            "nativeForcedHits": 197160,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 197160,
+            "recursiveChildren": 1212729,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 223597
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 125743104
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "616767454664457417",
+          "elapsedMs": 785.1006999999997,
+          "cleanupMs": 0,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895535,
+            "transitionCacheHits": 449788,
+            "transitionCacheStores": 445747,
+            "nativeExactHits": 81054,
+            "nativeForcedHits": 118529,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 118529,
+            "recursiveChildren": 777002,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 134153
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 180703232
+        }
+      ],
+      "elapsedMs": 2388.0197999999996,
+      "nodes": 2643905
+    },
+    {
+      "sample": 1,
+      "label": "candidate",
+      "variant": "1",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "717657616532237625",
+          "elapsedMs": 343.1925,
+          "cleanupMs": 3.8876999999999953,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338519,
+            "managerExpansions": 24,
+            "exactTasks": 41,
+            "splitTasks": 2,
+            "retiredTasks": 0,
+            "qReuses": 78,
+            "submitted": 43,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 280.7714000000002,
+            "workerTasks": [
+              43
+            ],
+            "workerNodes": [
+              338519
+            ]
+          },
+          "resultReadyMs": 338.7163,
+          "maxRssBytes": 144834560
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1509.6812,
+          "cleanupMs": 6.239000000000033,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1410389,
+            "managerExpansions": 137,
+            "exactTasks": 263,
+            "splitTasks": 10,
+            "retiredTasks": 0,
+            "qReuses": 505,
+            "submitted": 273,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 1409.0852000000011,
+            "workerTasks": [
+              273
+            ],
+            "workerNodes": [
+              1410389
+            ]
+          },
+          "resultReadyMs": 1503.3964,
+          "maxRssBytes": 214900736
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "616767454664457417",
+          "elapsedMs": 832.8757999999998,
+          "cleanupMs": 3.8342999999999847,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895614,
+            "managerExpansions": 50,
+            "exactTasks": 84,
+            "splitTasks": 4,
+            "retiredTasks": 0,
+            "qReuses": 132,
+            "submitted": 88,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 765.4640999999992,
+            "workerTasks": [
+              88
+            ],
+            "workerNodes": [
+              895614
+            ]
+          },
+          "resultReadyMs": 828.9785999999999,
+          "maxRssBytes": 214900736
+        }
+      ],
+      "elapsedMs": 2685.7495,
+      "nodes": 2644522
+    },
+    {
+      "sample": 1,
+      "label": "baseline",
+      "variant": "1",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "717657616532237625",
+          "elapsedMs": 343.73109999999997,
+          "cleanupMs": 4.336600000000033,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338519,
+            "managerExpansions": 24,
+            "exactTasks": 41,
+            "splitTasks": 2,
+            "retiredTasks": 0,
+            "qReuses": 78,
+            "submitted": 43,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 281.7020000000001,
+            "workerTasks": [
+              43
+            ],
+            "workerNodes": [
+              338519
+            ]
+          },
+          "resultReadyMs": 338.8982,
+          "maxRssBytes": 145543168
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1503.6487,
+          "cleanupMs": 4.241800000000012,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1410389,
+            "managerExpansions": 137,
+            "exactTasks": 263,
+            "splitTasks": 10,
+            "retiredTasks": 0,
+            "qReuses": 505,
+            "submitted": 273,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 1394.1873000000016,
+            "workerTasks": [
+              273
+            ],
+            "workerNodes": [
+              1410389
+            ]
+          },
+          "resultReadyMs": 1499.3575,
+          "maxRssBytes": 213573632
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "616767454664457417",
+          "elapsedMs": 831.8597,
+          "cleanupMs": 4.7289999999998145,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895614,
+            "managerExpansions": 50,
+            "exactTasks": 84,
+            "splitTasks": 4,
+            "retiredTasks": 0,
+            "qReuses": 132,
+            "submitted": 88,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 769.2762000000018,
+            "workerTasks": [
+              88
+            ],
+            "workerNodes": [
+              895614
+            ]
+          },
+          "resultReadyMs": 827.0685000000001,
+          "maxRssBytes": 213573632
+        }
+      ],
+      "elapsedMs": 2679.2394999999997,
+      "nodes": 2644522
+    },
+    {
+      "sample": 2,
+      "label": "baseline",
+      "variant": "serial",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "717657616532237625",
+          "elapsedMs": 280.5492,
+          "cleanupMs": 0,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338479,
+            "transitionCacheHits": 156901,
+            "transitionCacheStores": 181578,
+            "nativeExactHits": 39540,
+            "nativeForcedHits": 37377,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 37377,
+            "recursiveChildren": 301100,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 47926
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 69431296
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1294.1035000000002,
+          "cleanupMs": 0,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1409891,
+            "transitionCacheHits": 722827,
+            "transitionCacheStores": 687064,
+            "nativeExactHits": 104058,
+            "nativeForcedHits": 197160,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 197160,
+            "recursiveChildren": 1212729,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 223597
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 119988224
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "616767454664457417",
+          "elapsedMs": 738.7208999999998,
+          "cleanupMs": 0,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895535,
+            "transitionCacheHits": 449788,
+            "transitionCacheStores": 445747,
+            "nativeExactHits": 81054,
+            "nativeForcedHits": 118529,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 118529,
+            "recursiveChildren": 777002,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 134153
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 151842816
+        }
+      ],
+      "elapsedMs": 2313.3736,
+      "nodes": 2643905
+    },
+    {
+      "sample": 2,
+      "label": "candidate",
+      "variant": "serial",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "717657616532237625",
+          "elapsedMs": 284.1531,
+          "cleanupMs": 0,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338479,
+            "transitionCacheHits": 156901,
+            "transitionCacheStores": 181578,
+            "nativeExactHits": 39540,
+            "nativeForcedHits": 37377,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 37377,
+            "recursiveChildren": 301100,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 47926
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 71688192
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1315.1502,
+          "cleanupMs": 0,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1409891,
+            "transitionCacheHits": 722827,
+            "transitionCacheStores": 687064,
+            "nativeExactHits": 104058,
+            "nativeForcedHits": 197160,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 197160,
+            "recursiveChildren": 1212729,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 223597
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 141688832
+        },
+        {
+          "kind": "root",
+          "variant": "serial",
+          "sequence": "616767454664457417",
+          "elapsedMs": 740.3629000000001,
+          "cleanupMs": 0,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895535,
+            "transitionCacheHits": 449788,
+            "transitionCacheStores": 445747,
+            "nativeExactHits": 81054,
+            "nativeForcedHits": 118529,
+            "certificateExactHits": 0,
+            "certificateForcedHits": 0,
+            "certificateNoWinHits": 0,
+            "unresolvedCertificates": 0,
+            "forcedTransitions": 118529,
+            "recursiveChildren": 777002,
+            "valueBoundaryQueries": 0,
+            "valueBoundaryHits": 0,
+            "valueBoundaryQueryMs": 0,
+            "orderingPromotions": 134153
+          },
+          "resultReadyMs": null,
+          "maxRssBytes": 167424000
+        }
+      ],
+      "elapsedMs": 2339.6662,
+      "nodes": 2643905
+    },
+    {
+      "sample": 2,
+      "label": "baseline",
+      "variant": "1",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "717657616532237625",
+          "elapsedMs": 344.7866,
+          "cleanupMs": 4.118700000000047,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338519,
+            "managerExpansions": 24,
+            "exactTasks": 41,
+            "splitTasks": 2,
+            "retiredTasks": 0,
+            "qReuses": 78,
+            "submitted": 43,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 281.5032,
+            "workerTasks": [
+              43
+            ],
+            "workerNodes": [
+              338519
+            ]
+          },
+          "resultReadyMs": 340.2136,
+          "maxRssBytes": 145895424
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1503.539,
+          "cleanupMs": 4.1871000000001,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1410389,
+            "managerExpansions": 137,
+            "exactTasks": 263,
+            "splitTasks": 10,
+            "retiredTasks": 0,
+            "qReuses": 505,
+            "submitted": 273,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 1397.0955999999985,
+            "workerTasks": [
+              273
+            ],
+            "workerNodes": [
+              1410389
+            ]
+          },
+          "resultReadyMs": 1499.3038999999999,
+          "maxRssBytes": 213716992
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "616767454664457417",
+          "elapsedMs": 844.0265999999999,
+          "cleanupMs": 3.5597999999999956,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895614,
+            "managerExpansions": 50,
+            "exactTasks": 84,
+            "splitTasks": 4,
+            "retiredTasks": 0,
+            "qReuses": 132,
+            "submitted": 88,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 779.5491000000045,
+            "workerTasks": [
+              88
+            ],
+            "workerNodes": [
+              895614
+            ]
+          },
+          "resultReadyMs": 840.4037000000001,
+          "maxRssBytes": 213716992
+        }
+      ],
+      "elapsedMs": 2692.3522000000003,
+      "nodes": 2644522
+    },
+    {
+      "sample": 2,
+      "label": "candidate",
+      "variant": "1",
+      "records": [
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "717657616532237625",
+          "elapsedMs": 344.4425,
+          "cleanupMs": 4.868100000000027,
+          "value": -1,
+          "move": 3,
+          "metrics": {
+            "nodes": 338519,
+            "managerExpansions": 24,
+            "exactTasks": 41,
+            "splitTasks": 2,
+            "retiredTasks": 0,
+            "qReuses": 78,
+            "submitted": 43,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 280.14519999999976,
+            "workerTasks": [
+              43
+            ],
+            "workerNodes": [
+              338519
+            ]
+          },
+          "resultReadyMs": 339.1181,
+          "maxRssBytes": 147218432
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "466537327657277224",
+          "elapsedMs": 1494.3143,
+          "cleanupMs": 6.935899999999947,
+          "value": 0,
+          "move": 3,
+          "metrics": {
+            "nodes": 1410389,
+            "managerExpansions": 137,
+            "exactTasks": 263,
+            "splitTasks": 10,
+            "retiredTasks": 0,
+            "qReuses": 505,
+            "submitted": 273,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 1392.455699999998,
+            "workerTasks": [
+              273
+            ],
+            "workerNodes": [
+              1410389
+            ]
+          },
+          "resultReadyMs": 1487.3333,
+          "maxRssBytes": 216571904
+        },
+        {
+          "kind": "root",
+          "variant": "1",
+          "sequence": "616767454664457417",
+          "elapsedMs": 839.8687,
+          "cleanupMs": 3.3647000000000844,
+          "value": 1,
+          "move": 4,
+          "metrics": {
+            "nodes": 895614,
+            "managerExpansions": 50,
+            "exactTasks": 84,
+            "splitTasks": 4,
+            "retiredTasks": 0,
+            "qReuses": 132,
+            "submitted": 88,
+            "maxPending": 1,
+            "maxActive": 1,
+            "maxReady": 2,
+            "workerExecutionMs": 777.3604999999998,
+            "workerTasks": [
+              88
+            ],
+            "workerNodes": [
+              895614
+            ]
+          },
+          "resultReadyMs": 836.4446,
+          "maxRssBytes": 216571904
+        }
+      ],
+      "elapsedMs": 2678.6255,
+      "nodes": 2644522
+    }
+  ]
+}
