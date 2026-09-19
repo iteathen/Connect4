@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "experiment": "rba-assertion-collapse-tests-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "tested_assertions": {
+    "A3_A4": "Residual cofactor on the support-local upset lattice is determined by join-irreducible/principal residual-shape images; adjoint/preimage behavior follows that map.",
+    "A8": "The current residual/upset/cofactor/score operator basis is sufficient for exact ordinary value on complete bounded controls.",
+    "A9": "Fixed action-word cofactor propagation composes exactly and remains principal/killed/terminal on join-irreducibles."
+  },
+  "pathological_support_tests": [
+    {
+      "support": [
+        5,
+        5,
+        5,
+        2,
+        6,
+        6,
+        6
+      ],
+      "residual_shapes": 16,
+      "antichains": 701,
+      "one_cell_generator_cases": 5608,
+      "one_cell_generator_mismatches": 0,
+      "two_ply_paths": 13,
+      "two_ply_formula_cases": 18226,
+      "two_ply_formula_mismatches": 0,
+      "adjoint_composition_cases": 2322,
+      "adjoint_composition_mismatches": 0,
+      "nonempty_future_prefix_sequences": 679,
+      "arbitrary_length_formula_composition_cases": 951958,
+      "arbitrary_length_formula_composition_mismatches": 0,
+      "arbitrary_length_principal_cases": 21728,
+      "principal_images": {
+        "principal": 3572,
+        "killed": 13308,
+        "terminal": 4848,
+        "non_principal": 0
+      }
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        5,
+        6,
+        6,
+        6
+      ],
+      "residual_shapes": 16,
+      "antichains": 704,
+      "one_cell_generator_cases": 5632,
+      "one_cell_generator_mismatches": 0,
+      "two_ply_paths": 13,
+      "two_ply_formula_cases": 18304,
+      "two_ply_formula_mismatches": 0,
+      "adjoint_composition_cases": 2666,
+      "adjoint_composition_mismatches": 0,
+      "nonempty_future_prefix_sequences": 679,
+      "arbitrary_length_formula_composition_cases": 956032,
+      "arbitrary_length_formula_composition_mismatches": 0,
+      "arbitrary_length_principal_cases": 21728,
+      "principal_images": {
+        "principal": 3727,
+        "killed": 13194,
+        "terminal": 4807,
+        "non_principal": 0
+      }
+    }
+  ],
+  "complete_controls": [
+    {
+      "geometry": "4x3:c3",
+      "physical_states": 4631,
+      "reachable_q_classes": 3734,
+      "action_cases": 11818,
+      "state_mismatches": 0,
+      "action_mismatches": 0,
+      "best_move_mismatches": 0,
+      "q_value_conflicts": 0
+    },
+    {
+      "geometry": "4x4:c4",
+      "physical_states": 134289,
+      "reachable_q_classes": 34094,
+      "action_cases": 304574,
+      "state_mismatches": 0,
+      "action_mismatches": 0,
+      "best_move_mismatches": 0,
+      "q_value_conflicts": 0
+    },
+    {
+      "geometry": "5x3:c4",
+      "physical_states": 147563,
+      "reachable_q_classes": 11316,
+      "action_cases": 377229,
+      "state_mismatches": 0,
+      "action_mismatches": 0,
+      "best_move_mismatches": 0,
+      "q_value_conflicts": 0
+    }
+  ],
+  "totals": {
+    "one_cell_generator_cases": 11240,
+    "one_cell_generator_mismatches": 0,
+    "two_ply_formula_cases": 36530,
+    "two_ply_formula_mismatches": 0,
+    "adjoint_composition_cases": 4988,
+    "adjoint_composition_mismatches": 0,
+    "arbitrary_length_formula_composition_cases": 1907990,
+    "arbitrary_length_formula_composition_mismatches": 0,
+    "arbitrary_length_principal_cases": 43456,
+    "arbitrary_length_non_principal_images": 0,
+    "complete_control_physical_states": 286483,
+    "complete_control_reachable_q_classes": 49144,
+    "complete_control_action_cases": 693621,
+    "state_mismatches": 0,
+    "action_mismatches": 0,
+    "best_move_mismatches": 0,
+    "q_value_conflicts": 0
+  },
+  "interpretation": {
+    "fixed_word_transition_composition": "closed and compact at join-irreducible level on tested full future cones",
+    "residual_principal_map_class": "principal | killed(bottom) | terminal",
+    "rank_collapse_refinement": "transition composition itself is not the remaining unknown; compact composition of alternating branching/value-boundary operators is",
+    "authority_effect": "none"
+  }
+}
