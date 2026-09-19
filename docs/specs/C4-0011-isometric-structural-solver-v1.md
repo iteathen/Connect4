@@ -1,6 +1,6 @@
 # C4-0011 — Isometric structural solver v1
 
-**Status:** candidate research specification
+**Status:** Candidate solver-semantic specification on durable branch `solver/isometric`; canonical research remains owned by `research/semantic-quotient`
 
 **Research direction / structural architecture:** Josh Oshiro
 
@@ -10,7 +10,7 @@ Define the Connect4-owned **Isometric / IsoMax** solver family: the structural-c
 
 Isometric is a sibling of the BSFP, Research, and Negamax lineages. Historical descent from a forward search experiment does not make Negamax recurrence, value orientation, proof procedure, board-state layout, heuristic evaluation, or branch ownership authoritative here.
 
-The active implementation now has a native WSL residual state and an exact recursive residue backend. Recursive value backup remains subordinate execution machinery for states not closed by structural facts or guarded certificates; it is not the solver-family identity.
+The active implementation now has a native WSL residual state and an exact recursive residue backend. Recursive value backup remains subordinate fallback machinery for states not closed by exact structural/value facts; it is not the solver-family identity. A separately qualified ordinary-value boundary resolver may close residue before recursion without becoming proof/certificate identity.
 
 ## Shared structural dependencies
 
@@ -18,7 +18,7 @@ Read and preserve the shared Connect4 meanings from:
 
 - **C4-0001** — legal Connect Four domain and first-win stopping;
 - **C4-0006** — control parity, support/event semantics, residual win-space requirements, blocker semantics, antichain/exhaustion semantics;
-- **C4-0007** — nested dependency closure, certificate, response/resource, timing and deadline semantics.
+- **C4-0007** — nested dependency closure, certificate, response/resource, timing and deadline semantics **when the selected IsoMax path consumes stronger proof/certificate facts**.
 
 C4-0010 defines the separate quotient-native Negamax lane. It may be used as historical evidence, a control implementation, or an explicitly imported clause when independently justified, but it does not own Isometric semantics.
 
@@ -89,6 +89,8 @@ The current Isometric implementation already uses the q-shaped triple `(canonica
 
 A future implementation change must not remove those cached fields merely because they are semantically derivable; removal is an economics decision and still requires exact qualification.
 
+Current post-1.1 successor research on `research/semantic-quotient` additionally derives an exact ordinary-value residual-boundary algebra over the same support-conditioned residual carrier. That work is successor research evidence, not frozen IsoGraph 1.1 authority. IsoMax may consume a pinned, qualified value-boundary realization without equating that value artifact with NDC proof identity.
+
 
 
 ### Coarse structural signature
@@ -142,11 +144,51 @@ A proved guard tells IsoMax what stronger fact may safely transfer.
 A proof identity tells IsoMax what proof work need not be repeated.
 ```
 
+## Ordinary-value boundary closure before recursion
+
+C4-0011 does not require every unresolved q state to be resolved either by an NDC certificate or by recursive move expansion.
+
+A conforming IsoMax implementation may insert an exact ordinary-value boundary resolver before recursive fallback:
+
+```text
+transition-cache hit
+  -> native exact structural consequence
+  -> applicable guarded proof/certificate consequence
+  -> qualified q/RBA ordinary-value boundary consequence
+  -> forced transition if certified
+  -> recursive exact W/D/L fallback
+```
+
+The candidate research realization currently available on `research/semantic-quotient` is:
+
+```text
+support-conditioned residual fiber
+  -> residual distributive lattice
+  -> terminal-extended cofactor adjunction
+  -> exact W/D/L / strong-value threshold boundaries
+  -> extremal antichain-semiring Bellman composition
+  -> exact local-skyline / projection-index evaluation
+```
+
+This path is ordinary-value authority only. It must not publish an NDC proof certificate unless the stronger proof premises are separately established.
+
+Implementation requirements:
+
+- pin the exact canonical research revision/evidence consumed;
+- preserve q/support identity and first-win semantics;
+- keep recursive exact W/D/L as an independent fallback/control until replacement economics and coverage are qualified;
+- treat factor order, orientation, skyline evaluation and projection-tree pruning as exact evaluation policy, not semantic identity;
+- never infer a value from incomplete boundary work, budget exhaustion or missing threshold membership;
+- qualify same-state W/D/L and value-preserving moves against the retained recursive/oracle path;
+- measure recursive children avoided separately from boundary-construction/query cost.
+
+The initial post-1.1 RBA evidence is therefore a research-fed optimization/closure seam, not a rewrite of IsoMax identity.
+
 ## Current structural-closure boundary
 
 The active implementation already represents temporal, resource and realizability guards as explicit unresolved guard kinds. That fail-closed behavior remains correct.
 
-Canonical research has now isolated the next structural-composition seam as guarded obligation birth:
+Canonical research has isolated a stronger **proof/certificate** composition seam as guarded obligation birth:
 
 ```text
 MixedCofactorConsequence
@@ -163,9 +205,11 @@ Until the relevant temporal/resource/realizability semantics are implemented and
 
 - such guards remain unresolved;
 - certificate lookup may not treat them as false or applicable;
-- recursive exact W/D/L remains the fallback for unresolved residue.
+- no stronger proof/certificate consequence may be synthesized from their absence.
 
-The target implementation direction is to close more residue structurally while preserving recursive search as an exact fallback, not to disguise recursive enumeration as certificate derivation.
+This does **not** block an independently qualified ordinary-value q/RBA boundary consequence. If neither value-boundary closure nor stronger proof closure applies, recursive exact W/D/L remains the fallback.
+
+The target implementation direction is to close more residue by exact structural/value consequences while preserving recursion as an exact fallback/control, not to disguise recursive enumeration as certificate derivation.
 
 ## Exact frontier consequences currently admitted
 
@@ -189,8 +233,9 @@ Its authority order is:
 exact transition-cache hit
   -> native exact WSL consequence
   -> applicable guarded IsoMax certificates
+  -> qualified exact q/RBA value-boundary consequence when available
   -> forced transition if certified
-  -> exact max/min W/D/L recursion over unresolved residue
+  -> exact max/min W/D/L recursion over remaining unresolved residue
 ```
 
 The value orientation is fixed P0-oriented W/D/L:
@@ -221,6 +266,15 @@ Current native qualification includes:
 - native recursive W/D/L agreement and value-preserving move selection against an independent physical-board minimax oracle on late roots;
 - fail-closed contradictory-certificate behavior;
 - exact Node 26.7.0 CI qualification.
+
+Future q/RBA value-boundary integration must additionally qualify:
+
+- exact boundary/result agreement on pinned persisted RBA controls where applicable;
+- W/D/L and value-preserving action agreement against the retained recursive/oracle path;
+- boundary-query identity under q/support and horizontal reflection;
+- no proof/certificate reuse inferred from ordinary value equality;
+- exact factor-order/orientation/projection-pruning invariance for any optimized evaluator;
+- recursive-residue reduction reported together with boundary construction/query cost.
 
 These controls qualify the implemented standard-board semantics they exercise. They do not prove completeness of the broader structural calculus, future temporal/resource/realizability guard languages, or a universal board-family quotient.
 

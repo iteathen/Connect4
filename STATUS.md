@@ -1,6 +1,6 @@
 # Connect4 Isometric implementation status
 
-**Updated:** 2026-09-18  
+**Updated:** 2026-09-19  
 **Branch:** `solver/isometric`  
 **Solver family:** Isometric  
 **Research direction / structural architecture:** Josh Oshiro  
@@ -15,6 +15,29 @@ The Isometric solver consumes canonical research; it does not own a separate res
 Isometric is the active forward structural solver family governed by C4-0011. CUDA-BSFP is the active backward solver and SUT is their future composition lane. Minimax/Negamax and Hybrid Confluence are historical lineages.
 
 Historical descent from the terminal-frontier experiment does not make Negamax semantics or branch ownership authoritative here.
+
+## Research-coupled update readiness — 2026-09-19
+
+The IsoMax implementation lane is aligned for a research-coupled update pass.
+
+Stable execution boundary:
+
+```text
+q-native gameplay state
+  -> exact transition cache
+  -> native frontier consequences
+  -> guarded proof/certificate consequences
+  -> qualified q/RBA ordinary-value closure when available
+  -> recursive exact W/D/L fallback/control
+```
+
+The alignment decision is:
+
+- `docs/decisions/2026-09-19-isomax-rba-update-alignment.md`.
+
+Frozen IsoGraph authority 1.1 remains unchanged. Current RBA overlay/QU/topology and late-rank checkpoints are post-1.1 successor research evidence. A value-boundary consumer must pin the exact research revision it consumes and re-check live canonical research before meaningful implementation steps.
+
+The guarded-obligation/proof-value bridge remains a separate stronger proof/certificate seam. It does not block an independently exact ordinary-value RBA consumer.
 
 ## Current implementation
 
@@ -45,7 +68,8 @@ The remaining implementation work is targeted rather than a solver rewrite:
 1. expose q/gameplay identity explicitly instead of relying on a transition-signature convention;
 2. harden proof-identity deduplication so one proof token cannot silently alias different guarded content;
 3. add direct q/cross-profile qualification;
-4. implement temporal/resource/realizability guards and guarded obligation birth only after canonical research is sufficiently qualified.
+4. add and qualify an optional q/RBA exact-value boundary consumer before recursive fallback;
+5. implement temporal/resource/realizability guards and guarded obligation birth only when the stronger proof/certificate research seam is sufficiently qualified.
 
 See `docs/decisions/2026-09-18-isometric-isograph-realignment.md`.
 
