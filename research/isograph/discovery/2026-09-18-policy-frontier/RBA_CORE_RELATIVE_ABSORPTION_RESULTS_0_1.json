@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "experiment": "rba-core-relative-absorption-rank27-final-step",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "status": "exact_replay_pass",
+  "provenance": {
+    "historical_revision": "86f588455ac74307a211d2e0588bec3ea3985e9a",
+    "historical_artifacts": [
+      "research/experiments/cuda-bsfp-clause-coverage/CORE_RELATIVE_ABSORPTION.md",
+      "research/experiments/cuda-bsfp-clause-coverage/CORE_RELATIVE_ABSORPTION_OWNERSHIP.md"
+    ],
+    "historical_scope": "generic minimal-OR and maximal-AND antichain product absorption; ownership differential passed five complete variable geometries"
+  },
+  "law": {
+    "mode": "subset_maximal_AND",
+    "envA": "union(A)",
+    "envB": "union(B)",
+    "row_absorbed_if": "exists b in B: (a AND envB) subseteq b",
+    "row_absorber": "a AND envB",
+    "column_dual": true,
+    "exactness": "absorber is a real product occurrence and dominates every product in its row/column"
+  },
+  "target": {
+    "support": [
+      3,
+      4,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 27,
+    "threshold": "win15",
+    "stage": "final Lower product",
+    "a": 239149,
+    "b": 133469,
+    "raw_pairs": 31918977881
+  },
+  "absorption": {
+    "absorbed_rows": 193704,
+    "row_fraction": 0.8100008785,
+    "absorbed_columns": 2841,
+    "column_fraction": 0.0212858385,
+    "unabsorbed_rows": 45445,
+    "unabsorbed_columns": 130628,
+    "residual_pairs": 5936389460,
+    "residual_pair_fraction": 0.1859831029,
+    "eliminated_pair_fraction": 0.8140168971,
+    "discovery_ms": 411.97
+  },
+  "replay": {
+    "absorber_candidates": 196545,
+    "local_candidates": 1522099,
+    "combined_candidates": 1718644,
+    "projection_leaf_scans": 1013041309,
+    "projection_tree_nodes": 113961971,
+    "local_ms": 35146.4,
+    "global_ms": 9069.42,
+    "total_ms": 44729.3,
+    "final": 306617,
+    "sha256": "a361b50c801fe6bcb339d39d04e1f15452d1663a0778d606dbb327e519a406c9",
+    "byte_identical_to_persisted_win15_lower": true
+  },
+  "composition": [
+    "core_relative_absorption",
+    "local_skyline_or_projection_tree_evaluation",
+    "exact_global_maximalization"
+  ],
+  "interpretation": {
+    "hard_final_product_intrinsically_requires_full_cartesian": false,
+    "pre_materialization_absorption_is_load_bearing": true,
+    "reconnects_historical_bsfp_and_current_rba_antichain_product_algebra": true
+  },
+  "next": "qualify core-relative absorption across persisted rank27 products before rank26 descent",
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
