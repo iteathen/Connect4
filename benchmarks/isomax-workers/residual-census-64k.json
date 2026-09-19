@@ -1,0 +1,1565 @@
+{
+  "source": "47446ccfc0b435b3214a5265f6d58adf83635c03",
+  "node": "v26.7.0",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "quantum": 65536,
+  "mode": "real worker native task; repeated warm-root tasks, not manager scheduling; instrumentation perturbs timing",
+  "records": [
+    {
+      "sequence": "717657616532237625",
+      "nodes": 338686,
+      "value": -1,
+      "result": "exact",
+      "classCount": 52788,
+      "transitions": {
+        "own": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 181073,
+            "directHits": 167830,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 44359,
+            "directHits": 36604,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 43262,
+            "directHits": 31626,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 37650,
+            "directHits": 21876,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 33044,
+            "directHits": 17182,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ],
+        "block": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 172273,
+            "directHits": 157869,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 41802,
+            "directHits": 34176,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 47441,
+            "directHits": 35140,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 42276,
+            "directHits": 23445,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 35596,
+            "directHits": 17607,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ]
+      },
+      "blockChunks": {
+        "internerCalls": 59602,
+        "internerHits": 59323,
+        "repeatedTriples": 56298,
+        "below256": 55630,
+        "below1024": 59602,
+        "below4096": 59602,
+        "uniqueTriples": 3304
+      },
+      "phasesMs": {
+        "ownTransition": 53.59179999995166,
+        "blockTransition": 34.43209999995406,
+        "replay": 1.1895999999999276,
+        "poolPreparation": 9.437100000000044,
+        "cachePreparation": 7.395399999999938,
+        "continuationPackaging": 1.1686999999999443
+      },
+      "phaseCalls": {
+        "replay": 6,
+        "poolPreparation": 6,
+        "cachePreparation": 6,
+        "continuationPackaging": 5
+      },
+      "tasks": [
+        {
+          "elapsedMs": 92.0526,
+          "nodes": 65536,
+          "classes": 8272,
+          "chunks": [
+            162,
+            7,
+            24,
+            116,
+            182,
+            21,
+            39,
+            94,
+            174,
+            185
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 59.10489999999999,
+          "nodes": 65536,
+          "classes": 13843,
+          "chunks": [
+            198,
+            7,
+            26,
+            150,
+            265,
+            21,
+            39,
+            122,
+            231,
+            275
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 52.68709999999999,
+          "nodes": 65536,
+          "classes": 19149,
+          "chunks": [
+            218,
+            7,
+            26,
+            163,
+            300,
+            21,
+            40,
+            133,
+            244,
+            307
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 64.38749999999999,
+          "nodes": 65536,
+          "classes": 32615,
+          "chunks": [
+            281,
+            7,
+            30,
+            197,
+            338,
+            21,
+            40,
+            215,
+            333,
+            430
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 73.53970000000004,
+          "nodes": 65536,
+          "classes": 49683,
+          "chunks": [
+            378,
+            9,
+            44,
+            259,
+            559,
+            25,
+            52,
+            275,
+            468,
+            643
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 14.272500000000036,
+          "nodes": 11006,
+          "classes": 52788,
+          "chunks": [
+            406,
+            9,
+            46,
+            265,
+            589,
+            25,
+            52,
+            279,
+            525,
+            661
+          ],
+          "kind": "exact"
+        }
+      ]
+    },
+    {
+      "sequence": "466537327657277224",
+      "nodes": 1410910,
+      "value": 0,
+      "result": "exact",
+      "classCount": 336148,
+      "transitions": {
+        "own": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 246351,
+            "directHits": 235580,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 175032,
+            "directHits": 162636,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 108150,
+            "directHits": 90073,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 86151,
+            "directHits": 63119,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 288605,
+            "directHits": 241445,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 193880,
+            "directHits": 0,
+            "recomputations": 116540
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 236925,
+            "directHits": 0,
+            "recomputations": 124173
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 78591,
+            "directHits": 0,
+            "recomputations": 28269
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ],
+        "block": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 201627,
+            "directHits": 189150,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 130370,
+            "directHits": 116863,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 96990,
+            "directHits": 77322,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 91846,
+            "directHits": 62948,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 310629,
+            "directHits": 251955,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 202647,
+            "directHits": 0,
+            "recomputations": 111424
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 279880,
+            "directHits": 0,
+            "recomputations": 137286
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 99696,
+            "directHits": 0,
+            "recomputations": 32275
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ]
+      },
+      "blockChunks": {
+        "internerCalls": 722697,
+        "internerHits": 721988,
+        "repeatedTriples": 712031,
+        "below256": 510125,
+        "below1024": 695215,
+        "below4096": 722697,
+        "uniqueTriples": 10666
+      },
+      "phasesMs": {
+        "ownTransition": 386.0687000001858,
+        "blockTransition": 254.4207000000415,
+        "replay": 0.7005999999996675,
+        "poolPreparation": 18.083599999999933,
+        "cachePreparation": 33.66069999999945,
+        "continuationPackaging": 3.9967000000001462
+      },
+      "phaseCalls": {
+        "replay": 22,
+        "poolPreparation": 22,
+        "cachePreparation": 22,
+        "continuationPackaging": 21
+      },
+      "tasks": [
+        {
+          "elapsedMs": 63.95120000000003,
+          "nodes": 65536,
+          "classes": 6924,
+          "chunks": [
+            117,
+            4,
+            18,
+            78,
+            147,
+            21,
+            29,
+            71,
+            197,
+            151
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 63.02859999999998,
+          "nodes": 65536,
+          "classes": 17942,
+          "chunks": [
+            267,
+            4,
+            19,
+            108,
+            281,
+            21,
+            29,
+            79,
+            326,
+            223
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 59.42419999999993,
+          "nodes": 65536,
+          "classes": 27385,
+          "chunks": [
+            354,
+            4,
+            19,
+            126,
+            362,
+            21,
+            29,
+            80,
+            388,
+            258
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 68.79380000000003,
+          "nodes": 65536,
+          "classes": 43218,
+          "chunks": [
+            517,
+            4,
+            21,
+            156,
+            475,
+            21,
+            29,
+            101,
+            460,
+            291
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 62.362300000000005,
+          "nodes": 65536,
+          "classes": 55627,
+          "chunks": [
+            663,
+            4,
+            30,
+            205,
+            720,
+            21,
+            29,
+            157,
+            585,
+            371
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 79.68579999999997,
+          "nodes": 65536,
+          "classes": 71754,
+          "chunks": [
+            728,
+            4,
+            35,
+            239,
+            886,
+            21,
+            29,
+            185,
+            704,
+            402
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 87.60179999999991,
+          "nodes": 65536,
+          "classes": 85466,
+          "chunks": [
+            759,
+            4,
+            35,
+            263,
+            933,
+            21,
+            29,
+            224,
+            738,
+            453
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 77.82219999999995,
+          "nodes": 65536,
+          "classes": 95938,
+          "chunks": [
+            762,
+            4,
+            35,
+            286,
+            949,
+            21,
+            29,
+            235,
+            758,
+            503
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 82.50609999999995,
+          "nodes": 65536,
+          "classes": 110692,
+          "chunks": [
+            776,
+            4,
+            35,
+            299,
+            975,
+            21,
+            29,
+            262,
+            770,
+            599
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 82.68889999999988,
+          "nodes": 65536,
+          "classes": 124971,
+          "chunks": [
+            798,
+            4,
+            38,
+            338,
+            1080,
+            21,
+            29,
+            293,
+            859,
+            609
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 111.16899999999987,
+          "nodes": 65536,
+          "classes": 142764,
+          "chunks": [
+            810,
+            4,
+            38,
+            387,
+            1110,
+            21,
+            29,
+            319,
+            897,
+            656
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 82.80690000000004,
+          "nodes": 65536,
+          "classes": 156905,
+          "chunks": [
+            853,
+            6,
+            46,
+            417,
+            1152,
+            22,
+            34,
+            353,
+            939,
+            701
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 108.89740000000006,
+          "nodes": 65536,
+          "classes": 180131,
+          "chunks": [
+            919,
+            6,
+            46,
+            430,
+            1262,
+            22,
+            35,
+            363,
+            991,
+            723
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 102.88400000000001,
+          "nodes": 65536,
+          "classes": 201464,
+          "chunks": [
+            1016,
+            8,
+            59,
+            458,
+            1369,
+            23,
+            36,
+            419,
+            1076,
+            794
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 104.00199999999995,
+          "nodes": 65536,
+          "classes": 218888,
+          "chunks": [
+            1037,
+            8,
+            59,
+            484,
+            1472,
+            23,
+            36,
+            462,
+            1087,
+            827
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 119.09050000000002,
+          "nodes": 65536,
+          "classes": 245128,
+          "chunks": [
+            1071,
+            8,
+            67,
+            511,
+            1524,
+            23,
+            36,
+            503,
+            1119,
+            946
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 83.9106999999999,
+          "nodes": 65536,
+          "classes": 256068,
+          "chunks": [
+            1101,
+            9,
+            68,
+            525,
+            1711,
+            23,
+            36,
+            536,
+            1179,
+            992
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 88.61200000000008,
+          "nodes": 65536,
+          "classes": 264300,
+          "chunks": [
+            1127,
+            9,
+            73,
+            556,
+            1743,
+            23,
+            36,
+            536,
+            1199,
+            995
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 117.1570999999999,
+          "nodes": 65536,
+          "classes": 287800,
+          "chunks": [
+            1159,
+            9,
+            81,
+            581,
+            1813,
+            23,
+            38,
+            567,
+            1283,
+            1023
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 99.51659999999993,
+          "nodes": 65536,
+          "classes": 307314,
+          "chunks": [
+            1177,
+            9,
+            82,
+            593,
+            1847,
+            23,
+            38,
+            577,
+            1316,
+            1054
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 110.47209999999995,
+          "nodes": 65536,
+          "classes": 327354,
+          "chunks": [
+            1204,
+            9,
+            82,
+            619,
+            1881,
+            23,
+            38,
+            606,
+            1351,
+            1106
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 93.71640000000025,
+          "nodes": 34654,
+          "classes": 336148,
+          "chunks": [
+            1208,
+            9,
+            82,
+            623,
+            1900,
+            23,
+            38,
+            611,
+            1373,
+            1110
+          ],
+          "kind": "exact"
+        }
+      ]
+    },
+    {
+      "sequence": "616767454664457417",
+      "nodes": 895997,
+      "value": 1,
+      "result": "exact",
+      "classCount": 168397,
+      "transitions": {
+        "own": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 219253,
+            "directHits": 210756,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 91152,
+            "directHits": 83375,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 92489,
+            "directHits": 80254,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 65724,
+            "directHits": 43917,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 175189,
+            "directHits": 138660,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 149219,
+            "directHits": 0,
+            "recomputations": 95703
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 104494,
+            "directHits": 0,
+            "recomputations": 65456
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ],
+        "block": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 193936,
+            "directHits": 183923,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 74933,
+            "directHits": 65683,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 93589,
+            "directHits": 78463,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 68815,
+            "directHits": 43234,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 181001,
+            "directHits": 134386,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 167397,
+            "directHits": 0,
+            "recomputations": 104477
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 117849,
+            "directHits": 0,
+            "recomputations": 69588
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ]
+      },
+      "blockChunks": {
+        "internerCalls": 356826,
+        "internerHits": 356511,
+        "repeatedTriples": 353217,
+        "below256": 311661,
+        "below1024": 354837,
+        "below4096": 356826,
+        "uniqueTriples": 3609
+      },
+      "phasesMs": {
+        "ownTransition": 291.52979999970194,
+        "blockTransition": 198.3563000001468,
+        "replay": 0.4157000000009248,
+        "poolPreparation": 14.313500000000658,
+        "cachePreparation": 17.313500000000204,
+        "continuationPackaging": 2.139899999998306
+      },
+      "phaseCalls": {
+        "replay": 14,
+        "poolPreparation": 14,
+        "cachePreparation": 14,
+        "continuationPackaging": 13
+      },
+      "tasks": [
+        {
+          "elapsedMs": 66.70449999999983,
+          "nodes": 65536,
+          "classes": 9843,
+          "chunks": [
+            268,
+            7,
+            21,
+            58,
+            151,
+            23,
+            38,
+            54,
+            80,
+            94
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 59.72920000000022,
+          "nodes": 65536,
+          "classes": 20423,
+          "chunks": [
+            380,
+            13,
+            41,
+            76,
+            243,
+            24,
+            44,
+            61,
+            118,
+            99
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 69.00520000000006,
+          "nodes": 65536,
+          "classes": 33201,
+          "chunks": [
+            492,
+            15,
+            41,
+            87,
+            262,
+            24,
+            49,
+            69,
+            137,
+            108
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 61.575700000000325,
+          "nodes": 65536,
+          "classes": 41631,
+          "chunks": [
+            588,
+            15,
+            46,
+            90,
+            267,
+            24,
+            53,
+            73,
+            140,
+            117
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 63.146600000000035,
+          "nodes": 65536,
+          "classes": 49235,
+          "chunks": [
+            610,
+            15,
+            46,
+            95,
+            272,
+            24,
+            53,
+            94,
+            153,
+            117
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 63.879199999999855,
+          "nodes": 65536,
+          "classes": 59037,
+          "chunks": [
+            694,
+            19,
+            56,
+            102,
+            287,
+            24,
+            61,
+            94,
+            175,
+            121
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 71.56590000000006,
+          "nodes": 65536,
+          "classes": 73101,
+          "chunks": [
+            877,
+            21,
+            78,
+            141,
+            329,
+            24,
+            73,
+            96,
+            194,
+            131
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 79.61430000000018,
+          "nodes": 65536,
+          "classes": 90406,
+          "chunks": [
+            1043,
+            23,
+            95,
+            178,
+            336,
+            24,
+            87,
+            99,
+            196,
+            133
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 147.81299999999965,
+          "nodes": 65536,
+          "classes": 109853,
+          "chunks": [
+            1144,
+            23,
+            104,
+            188,
+            343,
+            24,
+            87,
+            99,
+            209,
+            142
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 145.6515999999997,
+          "nodes": 65536,
+          "classes": 124210,
+          "chunks": [
+            1172,
+            23,
+            112,
+            193,
+            348,
+            24,
+            100,
+            99,
+            210,
+            146
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 152.50120000000015,
+          "nodes": 65536,
+          "classes": 135784,
+          "chunks": [
+            1206,
+            23,
+            112,
+            193,
+            348,
+            24,
+            103,
+            99,
+            225,
+            146
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 153.8739999999998,
+          "nodes": 65536,
+          "classes": 146354,
+          "chunks": [
+            1309,
+            23,
+            115,
+            213,
+            518,
+            28,
+            103,
+            116,
+            336,
+            223
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 176.73100000000022,
+          "nodes": 65536,
+          "classes": 160171,
+          "chunks": [
+            1331,
+            23,
+            115,
+            215,
+            583,
+            29,
+            103,
+            117,
+            430,
+            329
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 111.57850000000008,
+          "nodes": 44029,
+          "classes": 168397,
+          "chunks": [
+            1345,
+            23,
+            116,
+            219,
+            611,
+            31,
+            103,
+            120,
+            542,
+            381
+          ],
+          "kind": "exact"
+        }
+      ]
+    },
+    {
+      "sequence": "",
+      "nodes": 524288,
+      "value": null,
+      "result": "split",
+      "classCount": 97101,
+      "transitions": {
+        "own": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 173391,
+            "directHits": 161839,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 65527,
+            "directHits": 58676,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 40748,
+            "directHits": 28871,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 87792,
+            "directHits": 71479,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 101016,
+            "directHits": 68066,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 57557,
+            "directHits": 0,
+            "recomputations": 32333
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ],
+        "block": [
+          {
+            "lower": 0,
+            "upper": 4096,
+            "calls": 160178,
+            "directHits": 147552,
+            "recomputations": 0
+          },
+          {
+            "lower": 4096,
+            "upper": 8192,
+            "calls": 60045,
+            "directHits": 52670,
+            "recomputations": 0
+          },
+          {
+            "lower": 8192,
+            "upper": 16384,
+            "calls": 47897,
+            "directHits": 33796,
+            "recomputations": 0
+          },
+          {
+            "lower": 16384,
+            "upper": 32768,
+            "calls": 85827,
+            "directHits": 66047,
+            "recomputations": 0
+          },
+          {
+            "lower": 32768,
+            "upper": 65536,
+            "calls": 107385,
+            "directHits": 67476,
+            "recomputations": 0
+          },
+          {
+            "lower": 65536,
+            "upper": 131072,
+            "calls": 64699,
+            "directHits": 0,
+            "recomputations": 33431
+          },
+          {
+            "lower": 131072,
+            "upper": 262144,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 262144,
+            "upper": 524288,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          },
+          {
+            "lower": 524288,
+            "upper": null,
+            "calls": 0,
+            "directHits": 0,
+            "recomputations": 0
+          }
+        ]
+      },
+      "blockChunks": {
+        "internerCalls": 127429,
+        "internerHits": 127191,
+        "repeatedTriples": 125006,
+        "below256": 117121,
+        "below1024": 127404,
+        "below4096": 127429,
+        "uniqueTriples": 2423
+      },
+      "phasesMs": {
+        "replay": 1.4587999999985186,
+        "poolPreparation": 17.335900000000038,
+        "cachePreparation": 8.630800000000818,
+        "ownTransition": 171.74210000034782,
+        "blockTransition": 118.58940000006805,
+        "continuationPackaging": 5.315700000000106
+      },
+      "phaseCalls": {
+        "replay": 8,
+        "poolPreparation": 8,
+        "cachePreparation": 8,
+        "continuationPackaging": 8
+      },
+      "tasks": [
+        {
+          "elapsedMs": 130.38450000000012,
+          "nodes": 65536,
+          "classes": 16339,
+          "chunks": [
+            290,
+            20,
+            56,
+            54,
+            96,
+            72,
+            150,
+            73,
+            132,
+            273
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 135.70829999999978,
+          "nodes": 65536,
+          "classes": 31671,
+          "chunks": [
+            471,
+            32,
+            76,
+            81,
+            131,
+            78,
+            170,
+            75,
+            158,
+            321
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 127.84040000000005,
+          "nodes": 65536,
+          "classes": 44300,
+          "chunks": [
+            624,
+            32,
+            93,
+            89,
+            185,
+            78,
+            187,
+            85,
+            177,
+            326
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 118.22350000000006,
+          "nodes": 65536,
+          "classes": 54122,
+          "chunks": [
+            656,
+            32,
+            97,
+            89,
+            204,
+            79,
+            192,
+            87,
+            195,
+            329
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 117.51149999999961,
+          "nodes": 65536,
+          "classes": 61930,
+          "chunks": [
+            721,
+            32,
+            97,
+            92,
+            215,
+            79,
+            195,
+            91,
+            195,
+            329
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 118.0623999999998,
+          "nodes": 65536,
+          "classes": 69390,
+          "chunks": [
+            808,
+            32,
+            102,
+            107,
+            233,
+            80,
+            195,
+            93,
+            203,
+            329
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 147.17609999999968,
+          "nodes": 65536,
+          "classes": 82246,
+          "chunks": [
+            912,
+            38,
+            135,
+            122,
+            267,
+            81,
+            222,
+            119,
+            223,
+            370
+          ],
+          "kind": "split"
+        },
+        {
+          "elapsedMs": 149.85390000000007,
+          "nodes": 65536,
+          "classes": 97101,
+          "chunks": [
+            1064,
+            38,
+            145,
+            133,
+            315,
+            81,
+            223,
+            123,
+            228,
+            370
+          ],
+          "kind": "split"
+        }
+      ]
+    }
+  ]
+}

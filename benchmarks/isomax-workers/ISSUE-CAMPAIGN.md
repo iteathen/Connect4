@@ -63,3 +63,5 @@ full undo/reflection/singleton equality and an exact root crossing 64K classes.
 The selected default is 64K; no recursive allocation or memory limit change.
 Portable paired records are issue-75-prefix-{16k,64k,four}.json. Bounded normal
 empty-root smoke follows this implementation checkpoint.
+
+#75 empty-root smoke: 20260919T185905961Z-isomax tested 47446ccf, 78,695,656 settled calls in the unchanged 29s internal deadline plus cleanup within 30s. Timeout only; root WDL unknown, no solve claim. Workers terminated, 1,359,732,736-byte peak RSS. This exceeds the prior campaign's 962,416,640-byte observation; typed-array retention/GC and different progress make it more than the fixed table delta. Available host RAM is 32 GiB and no existing limit was increased. Four-worker completed-root paired timing, not empty-root node count, authorizes the speed claim. Evidence: issue-75-empty.json.

@@ -30,7 +30,8 @@ if (isMainThread) {
     const solver = new IsoMaxTaskSolver(), pool = solver.pool;
     const phasesMs = {}, phaseCalls = {}, transitions = {}, tasks = [];
     let currentBlock = -1, currentCell = -1;
-    const triples = new Set(), blockChunks = { internerCalls: 0, repeatedTriples: 0 };
+    const triples = new Set(), blockChunks = { internerCalls: 0, internerHits: 0, repeatedTriples: 0,
+      below256: 0, below1024: 0, below4096: 0 };
     for (let slot = 0; slot < pool.slotPools.length; slot++) {
       const chunk = pool.slotPools[slot], intern = chunk.intern;
       chunk.intern = function (source, offset) {
@@ -40,9 +41,14 @@ if (isMainThread) {
           if (parent >= 2 ** 24) throw new Error('census triple key bound');
           const key = ((slot * 2 ** 24 + parent) * 42) + currentCell;
           blockChunks.internerCalls++;
+          if (parent < 256) blockChunks.below256++;
+          if (parent < 1024) blockChunks.below1024++;
+          if (parent < 4096) blockChunks.below4096++;
           if (triples.has(key)) blockChunks.repeatedTriples++; else triples.add(key);
         }
-        return intern.call(this, source, offset);
+        const count = this.count, result = intern.call(this, source, offset);
+        if (currentBlock >= 0 && count === this.count) blockChunks.internerHits++;
+        return result;
       };
     }
     for (const kind of ['own', 'block']) {
