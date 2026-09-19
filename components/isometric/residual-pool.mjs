@@ -318,21 +318,12 @@ export class ResidualPool {
     // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
     // Write scalar results directly to reserved metadata. Returning [lo, hi]
     // or an object and destructuring it recreates allocation per new class.
-    let lo = 0;
-    let hi = 0;
-    const p = this.profile;
-    for (let word = 0; word < FRONTIER_WORDS; word += 1) {
-      let active = (bits[word] & p.singletonTermMasks[word]) >>> 0;
-      while (active !== 0) {
-        const lsb = (active & -active) >>> 0;
-        const termId = (word << 5) + bitIndex32(lsb);
-        lo = (lo | p.lo[termId]) >>> 0;
-        hi = (hi | p.hi[termId]) >>> 0;
-        active = (active & (active - 1)) >>> 0;
-      }
-    }
-    this.singletonLo[id] = lo;
-    this.singletonHi[id] = hi;
+    // profile.mjs checks the full singleton-term-ID -> cell-ID correspondence.
+    // Project the FINAL normalized bits; this works for own moves, reflection
+    // and arbitrary valid interning, without assumed parent/update provenance.
+    // Word 1 also contains larger terms, so its singleton mask is mandatory.
+    this.singletonLo[id] = bits[0] >>> 0;
+    this.singletonHi[id] = (bits[1] & this.profile.singletonTermMasks[1]) >>> 0;
   }
 
   internBits(bits, parentId = -1) {

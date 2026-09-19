@@ -18,6 +18,20 @@ test('preloaded cell masks match independent 42-bit decomposition including bit 
   }
 });
 
+test('direct singleton projection is exact for every vocabulary term and mixed word-1 bits', () => {
+  const pool = new ResidualPool(), bits = new Uint32Array(20), target = pool.classCount;
+  for (let id = 0; id < ISOMETRIC_PROFILE.count; id++) {
+    bits.fill(0); bits[id >>> 5] = 1 << (id & 31);
+    pool.computeSingletonMasks(bits, target);
+    const singleton = ISOMETRIC_PROFILE.cardinality[id] === 1;
+    assert.equal(pool.singletonLo[target], singleton ? ISOMETRIC_PROFILE.lo[id] : 0);
+    assert.equal(pool.singletonHi[target], singleton ? ISOMETRIC_PROFILE.hi[id] : 0);
+  }
+  bits.fill(0xffffffff); pool.computeSingletonMasks(bits, target);
+  assert.equal(pool.singletonLo[target], 0xffffffff);
+  assert.equal(pool.singletonHi[target], 0x3ff);
+});
+
 test('prepared q scalars survive scratch reuse, collisions, repeated growth and mirrored lookup', () => {
   const pool = new ResidualPool(), cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });
   const root = new IsometricState({ pool, moves: [1, 3, 2, 4] });

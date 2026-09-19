@@ -207,6 +207,16 @@ function buildProfile() {
     if (cell < 32) cellLo[cell] = (1 << cell) >>> 0;
     else cellHi[cell] = (1 << (cell - 32)) >>> 0;
   }
+  // OWNER-PROTECTED ENCODING GUARD — do not remove/weaken this comment.
+  // Singleton metadata projects directly from residual words 0 and 1 ONLY
+  // because singleton term ID equals cell ID in this generated vocabulary.
+  // Check the actual mapping, not equal cardinalities. Reject encoding drift
+  // before any recursive consumer can use the projection.
+  for (let id = 0; id < terms.length; id++) {
+    if ((termCardinality[id] === 1) !== (id < CELL_COUNT) ||
+        (id < CELL_COUNT && (lo[id] !== cellLo[id] || hi[id] !== cellHi[id])))
+      throw new Error('WSL singleton prefix no longer matches cell identity');
+  }
 
   return Object.freeze({
     columns: COLUMNS,
