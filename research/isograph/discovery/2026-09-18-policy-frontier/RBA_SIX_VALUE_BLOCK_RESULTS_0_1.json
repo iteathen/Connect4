@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "experiment": "rba-six-value-partial-information-blocks-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "value_domain": [
+    {
+      "name": "LL",
+      "bounds": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "name": "LD",
+      "bounds": [
+        -1,
+        0
+      ]
+    },
+    {
+      "name": "LW",
+      "bounds": [
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "DD",
+      "bounds": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "DW",
+      "bounds": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "WW",
+      "bounds": [
+        1,
+        1
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "geometry": "4x3:c3",
+      "block_cases": 372,
+      "depths": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "endpoint_bound_mismatches": 0,
+      "sampled_exact_completion_violations": 0,
+      "all_six_values_observed": true
+    },
+    {
+      "geometry": "4x4:c4",
+      "block_cases": 467,
+      "depths": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "endpoint_bound_mismatches": 0,
+      "sampled_exact_completion_violations": 0,
+      "all_six_values_observed": true
+    },
+    {
+      "geometry": "5x3:c4",
+      "block_cases": 470,
+      "depths": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "endpoint_bound_mismatches": 0,
+      "sampled_exact_completion_violations": 0,
+      "all_six_values_observed": true
+    }
+  ],
+  "totals": {
+    "block_cases": 1309,
+    "endpoint_bound_mismatches": 0,
+    "sampled_exact_completion_violations": 0
+  },
+  "theorem_candidate": {
+    "premise": "For a fixed d-ply block in an acyclic alternating game, every nonterminal frontier leaf is exactly d plies from the root. Early terminals are constants.",
+    "parity": "Each frontier variable therefore occurs with the same sign parity (-1)^d in the nested max/negation expression.",
+    "consequence": "The block value is monotone in every frontier variable for even d and antitone in every frontier variable for odd d.",
+    "interval_exactness": "For contiguous WDL bounds [lower,upper], the exact minimum and maximum block values over all admissible independent frontier completions are attained at the uniform endpoint assignments (with endpoints swapped for odd parity). Therefore the six contiguous WDL intervals are closed under exact block backup."
+  },
+  "interpretation": [
+    "Scalar WDL partial-information propagation through a fixed-depth alternating block is exact in the six-value interval algebra.",
+    "This is stronger than the four-valued all-UNKNOWN refinement: arbitrary partial lower/upper WDL bounds can be composed through a block without loss.",
+    "Shared/transposed frontier q states do not break the result because fixed depth gives every occurrence the same polarity.",
+    "This does not solve symbolic q-region/boundary composition; it solves the scalar value-bound component of block composition."
+  ],
+  "literature_alignment": "Bjornsson/Schaeffer/Sturtevant partial-information endgame databases use the same contiguous WDL bound values and max/negation propagation.",
+  "authority_effect": "none"
+}
