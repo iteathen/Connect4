@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "experiment": "rba-complete-shell-and-boundary-domain-tests-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "partition_shell_controls": [
+    {
+      "geometry": "4x3:c3",
+      "q_states": 3734,
+      "initial_value_classes": 19,
+      "initial_value_policy_classes": 172,
+      "initial_action_score_classes": 1000,
+      "stable_raw_transition_shell_classes": 2798,
+      "value_seed_refinement": [
+        19,
+        1000,
+        2338,
+        2746,
+        2790,
+        2798,
+        2798
+      ],
+      "action_score_seed_refinement": [
+        1000,
+        2338,
+        2746,
+        2790,
+        2798,
+        2798
+      ]
+    },
+    {
+      "geometry": "4x4:c4",
+      "q_states": 34094,
+      "initial_value_classes": 29,
+      "initial_value_policy_classes": 314,
+      "initial_action_score_classes": 3005,
+      "stable_raw_transition_shell_classes": 27392,
+      "value_seed_refinement": [
+        29,
+        3005,
+        14370,
+        23057,
+        26754,
+        27352,
+        27392,
+        27392
+      ],
+      "action_score_seed_refinement": [
+        3005,
+        14370,
+        23057,
+        26754,
+        27352,
+        27392,
+        27392
+      ]
+    },
+    {
+      "geometry": "5x3:c4",
+      "q_states": 11316,
+      "initial_value_classes": 26,
+      "initial_value_policy_classes": 455,
+      "initial_action_score_classes": 2334,
+      "stable_raw_transition_shell_classes": 9772,
+      "value_seed_refinement": [
+        26,
+        2334,
+        6380,
+        8498,
+        9441,
+        9737,
+        9771,
+        9772,
+        9772
+      ],
+      "action_score_seed_refinement": [
+        2334,
+        6380,
+        8498,
+        9441,
+        9737,
+        9771,
+        9772,
+        9772
+      ]
+    }
+  ],
+  "one_step_action_score_partition_instability": [
+    {
+      "geometry": "4x3:c3",
+      "action_score_classes": 1000,
+      "classes_split_by_raw_successor_structure": 416,
+      "states_in_split_classes": 2925,
+      "max_raw_subclasses_inside_one_action_score_class": 68
+    },
+    {
+      "geometry": "4x4:c4",
+      "action_score_classes": 3005,
+      "classes_split_by_raw_successor_structure": 2209,
+      "states_in_split_classes": 33003,
+      "max_raw_subclasses_inside_one_action_score_class": 469
+    },
+    {
+      "geometry": "5x3:c4",
+      "action_score_classes": 2334,
+      "classes_split_by_raw_successor_structure": 1528,
+      "states_in_split_classes": 10431,
+      "max_raw_subclasses_inside_one_action_score_class": 93
+    }
+  ],
+  "monotone_boundary_domain_controls": [
+    {
+      "geometry": "4x3:c3",
+      "supports": 255,
+      "state_threshold_cases": 983,
+      "state_upward_closure_violations": 0,
+      "max_state_boundary_generators": 19,
+      "total_state_boundary_generators": 6112,
+      "action_threshold_cases": 2814,
+      "action_upward_closure_violations": 0,
+      "max_action_boundary_generators": 19,
+      "total_action_boundary_generators": 14148
+    },
+    {
+      "geometry": "4x4:c4",
+      "supports": 624,
+      "state_threshold_cases": 2376,
+      "state_upward_closure_violations": 0,
+      "max_state_boundary_generators": 68,
+      "total_state_boundary_generators": 25916,
+      "action_threshold_cases": 7548,
+      "action_upward_closure_violations": 0,
+      "max_action_boundary_generators": 68,
+      "total_action_boundary_generators": 73470
+    },
+    {
+      "geometry": "5x3:c4",
+      "supports": 1023,
+      "state_threshold_cases": 2587,
+      "state_upward_closure_violations": 0,
+      "max_state_boundary_generators": 8,
+      "total_state_boundary_generators": 6727,
+      "action_threshold_cases": 9179,
+      "action_upward_closure_violations": 0,
+      "max_action_boundary_generators": 8,
+      "total_action_boundary_generators": 21931
+    }
+  ],
+  "interpretation": [
+    "The coarsest partition abstraction strongly preserving the full raw labeled transition interface is far finer than exact value/action-score observations.",
+    "Exact action-score equivalence is not forward-complete for raw successor identity; many classes split immediately.",
+    "The support-local favorable-order upset domain is a non-partitioning abstraction in which all tested exact state/action threshold predicates are upward-closed and have small extremal boundaries.",
+    "This matches the generalized abstract-interpretation result that non-partitioning abstractions can be strictly better than state partitions for strong preservation.",
+    "The RBA target should therefore be formulated as a complete/strongly-preserving non-partitioning domain for the value language/operator family, not as a bisimulation-like partition shell for raw transitions."
+  ],
+  "authority_effect": "none"
+}
