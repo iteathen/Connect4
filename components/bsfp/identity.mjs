@@ -10,10 +10,24 @@ function canonical(value) {
   if (typeof value === 'bigint') return ['bigint', value.toString()];
   if (value === null || typeof value === 'string' || typeof value === 'boolean') return [typeof value, value];
   if (typeof value === 'number' && Number.isSafeInteger(value)) return ['integer', value];
-  if (Array.isArray(value)) return ['array', Array.from(value, canonical)];
+  if (Array.isArray(value)) {
+    if (Reflect.ownKeys(value).length !== value.length + 1) throw new TypeError('identity array must be dense with no extra premises');
+    const items = [];
+    for (let i = 0; i < value.length; i++) {
+      const descriptor = Object.getOwnPropertyDescriptor(value, String(i));
+      if (!descriptor || !Object.hasOwn(descriptor, 'value')) throw new TypeError('identity cannot evaluate accessor premises');
+      items.push(canonical(descriptor.value));
+    }
+    return ['array', items];
+  }
   if (value && Object.getPrototypeOf(value) === Object.prototype) {
-    if (Reflect.ownKeys(value).some(k => typeof k !== 'string')) throw new TypeError('identity cannot omit symbol premises');
-    return ['record', Object.keys(value).sort().map(k => [k, canonical(value[k])])];
+    const keys = Reflect.ownKeys(value);
+    if (keys.some(k => typeof k !== 'string')) throw new TypeError('identity cannot omit symbol premises');
+    return ['record', keys.sort().map(k => {
+      const descriptor = Object.getOwnPropertyDescriptor(value, k);
+      if (!Object.hasOwn(descriptor, 'value')) throw new TypeError('identity cannot evaluate accessor premises');
+      return [k, canonical(descriptor.value)];
+    })];
   }
   throw new TypeError('identity requires exact finite data');
 }
@@ -73,4 +87,3 @@ export function createBsfpFactCache(exemplar) {
     get size() { return facts.size; },
   });
 }
-

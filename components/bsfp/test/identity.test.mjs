@@ -59,8 +59,12 @@ test('exact keys preserve types and reject lossy/omitted identity data', () => {
   assert.notDeepEqual(id(1), id(1n));
   assert.notDeepEqual(id([1, 2]), id({ 0: 1, 1: 2 }));
   assert.deepEqual(id({ a: 1, b: 2 }), id({ b: 2, a: 1 }));
+  assert.notDeepEqual(id(Object.defineProperty({}, 'deadline', { value: 3 })), id({}));
+  const extra = [1]; extra.deadline = 3;
+  assert.throws(() => id(extra), /identity/);
+  assert.throws(() => id({ get deadline() { throw new Error('must not execute'); } }), /accessor premises/);
+  assert.throws(() => id(new Array(2)), /identity/);
   for (const v of [undefined, NaN, Infinity, 0.5, new Map(), { dropped: undefined }, { [Symbol()]: 1 }]) {
     assert.throws(() => id(v), /identity/);
   }
 });
-
