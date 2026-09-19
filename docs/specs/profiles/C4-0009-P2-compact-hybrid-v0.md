@@ -1,6 +1,6 @@
 # C4-0009-P2 — Compact hybrid packed42 CUDA-BSFP profile v0
 
-**Status:** working performance/qualification profile on `feature/cuda-bsfp`; not an Accepted production execution profile.
+**Status:** working performance/qualification profile on durable branch `solver/cuda-bsfp`; retained as the exact finer-representation baseline for the post-P2 update pass; not an Accepted final production execution profile.
 
 ## Purpose
 
@@ -11,6 +11,12 @@ It is deliberately a transition profile between the exact CPU reference and the 
 > Once antichain Cartesian generation and dominance reduction move to CUDA, what work remains on the critical path to an extremely fast empty 7x6 solve?
 
 P2 is a solver profile, not a synthetic primitive benchmark. A successful run must produce the root W/D/L.
+
+### Update-pass role
+
+P2 is now the **exact regression and economics baseline**, not a presumption about the final ordinary-value representation.
+
+The update pass may add a q/RBA boundary-native profile alongside P2. Do not rewrite P2 semantics merely to obtain the new representation. Promotion requires exact same-input comparison and better total economics; a smaller state partition or fewer frontier records alone is insufficient.
 
 ## Semantic ownership
 
@@ -53,6 +59,8 @@ The consequence is primarily efficiency and architecture:
 - blockers/CPC/NDC proof context must remain separately typed when not derivable from q.
 
 P2 therefore remains a valid exact control while becoming the **finer-representation baseline** for q-native BSFP experiments.
+
+Post-1.1 successor research has since supplied a candidate exact ordinary-value residual-boundary algebra over the q/residual carrier, including antichain-semiring Bellman composition and exact output-sensitive projection pruning. Those results remain canonical research evidence, not an automatic P2 mutation or frozen-authority promotion. A new profile may consume them only with explicit revision pinning and qualification against this baseline.
 
 The solver retains only two logical support ranks at a time. Current-rank supports are processed in bounded host shards. Child frontiers are immutable during production of a parent rank.
 

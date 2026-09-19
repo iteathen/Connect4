@@ -1,12 +1,12 @@
 # C4-0008 — BSFP exact solver v1
 
-**Status:** Candidate exact-solver semantic specification on `feature/cuda-bsfp`; not Accepted until reviewed and integrated through the repository's normal authority path.
+**Status:** Candidate exact-solver semantic specification on durable branch `solver/cuda-bsfp`; not Accepted until reviewed and integrated through the repository's normal authority path.
 
 ## Purpose
 
 Define **BSFP — Backward Symbolic Fixed-Point** as a Connect4-owned exact W/D/L solver architecture.
 
-BSFP executes exact game solution backward from geometric terminal facts through NDC dependencies. Its primary proof mechanism is symbolic/ranked fixed-point closure, not recursive move-tree search.
+BSFP executes exact game solution backward from geometric terminal facts through exact symbolic/ranked fixed-point closure, not recursive move-tree search. NDC is one optional stronger proof/certificate realization; it is not a mandatory carrier for ordinary W/D/L when an independently qualified value-boundary realization is exact.
 
 This specification defines solver mathematics and result meaning. CUDA execution is separately governed by C4-0009.
 
@@ -15,7 +15,7 @@ This specification defines solver mathematics and result meaning. CUDA execution
 - C4-0001 Connect Four domain semantics;
 - C4-0005 solved-strength oracle evidence where standard-7x6 external checkpoints are used for qualification;
 - C4-0006 Control Parity and Winspace v1;
-- C4-0007 Nested Dependency Closure v1;
+- C4-0007 Nested Dependency Closure v1 **when the selected profile emits or consumes NDC proof/certificate facts**;
 - preserved research/evidence, especially:
   - `docs/research/2026-09-09-searchless-symbolic-backward-solver.md`;
   - `docs/research/2026-09-09-backward-winline-fixed-point.md`;
@@ -23,6 +23,10 @@ This specification defines solver mathematics and result meaning. CUDA execution
   - `docs/research/2026-09-09-searchless-backward-candidate-update.md`;
   - `docs/research/evidence/2026-09-09-searchless-symbolic-backward-solver.json`;
   - `docs/research/evidence/2026-09-09-terminal-boundary-qualification.json`.
+
+- current canonical research routing on `research/semantic-quotient`.
+  - Frozen Connect4 IsoGraph authority 1.1 remains the representation authority.
+  - Post-1.1 RBA successor artifacts, including the current RBA overlay/QU/topology and exact late-rank checkpoints, are **research evidence rather than frozen authority**. They may drive experimental BSFP representations only with explicit revision pinning and qualification; they do not silently rewrite this specification.
 
 ## Ownership
 
@@ -136,6 +140,34 @@ Evaluation proceeds from deeper support skeletons toward shallower predecessors/
 
 This `max/min` notation is semantic choice composition, not authorization to implement recursive minimax search. The qualified prototype computes complete symbolic predecessor functions bottom-up.
 
+## 5A. Ordinary residual-boundary realization
+
+C4-0008 is representation-independent. A conforming ordinary-value profile does **not** need to materialize NDC certificates when exact value boundaries can be propagated directly.
+
+Current post-1.1 successor research provides the following candidate exact ordinary-value stack:
+
+```text
+support-conditioned residual fiber
+  -> finite residual-shape distributive lattice
+  -> terminal-extended cofactor left adjoint <-> exact right adjoint
+  -> monotone W/D/L threshold fronts
+  -> extremal antichain semiring
+  -> Bellman lattice-polynomial predecessor composition
+```
+
+For an ordinary W/D/L profile, this is a candidate realization of the same C4-0008 Bellman semantics, not a different game solver.
+
+Load-bearing boundaries:
+
+- q/residual equality is ordinary future-behavior identity only;
+- proof/certificate context remains outside q unless exactly derivable from q;
+- first-win terminal semantics and gravity/support legality remain unchanged;
+- existential action choice and universal opponent coverage remain exact even when represented as union/intersection of antichain boundaries;
+- factor order, multiplication orientation, local-skyline evaluation, projection trees, and dominance-pruning schedules are **evaluation policy** and may vary only when exact output equality is preserved;
+- current RBA successor research does not prove the ordinary-value carrier equal to the C4-0007 proof carrier.
+
+The current research line has exact late-rank evidence for local-skyline antichain multiplication and subtree projection pruning. Those laws are implementation candidates for a BSFP RBA/q-native profile; they are not permission to claim empty-root 7x6 completion or to bypass profile qualification.
+
 ## 6. Finite rank
 
 For the support-lattice profile:
@@ -211,9 +243,11 @@ Therefore a valid BSFP implementation must preserve two boundaries:
 
 Historical colors may be omitted where proven irrelevant. Conversely, a q-level merge must never revive a blocked line, lose first-win timing, or reuse a path-dependent proof premise that is not derivable from q.
 
-## 10. NDC realization
+## 10. Optional NDC realization / stronger proof context
 
-C4-0007 dependencies may be used as symbolic predecessor obligations.
+C4-0007 dependencies may be used as symbolic predecessor obligations when the selected BSFP profile requires stronger proof/certificate closure.
+
+An ordinary-value profile that derives exact C4-0008 W/D/L directly from qualified residual/q value boundaries is conforming without closing the C4-0007 guarded-obligation side seam. Such a profile must not mislabel its value boundary as an NDC proof certificate.
 
 A later/lower-rank result may depend on shared certificates derived from multiple terminal lines. BSFP may hash-cons or otherwise share those subproofs.
 
@@ -341,6 +375,10 @@ Before a new BSFP representation is treated as a maintained exact path, it must:
 6. include adverse/collision/capacity cases where applicable;
 7. preserve exact root results under physical batching/sharding if the representation is batched;
 8. keep performance claims separate from correctness qualification.
+
+9. for q/RBA boundary profiles, reproduce exact persisted control boundaries and exact root W/D/L where the comparison profile completes;
+10. prove or differentially verify every antichain order, local absorption, factor-order/orientation transformation, projection-index pruning rule, and stream canonicalization used to avoid materializing the full Cartesian product;
+11. compare total economics against the retained exact P2/reference baseline rather than promoting a smaller representation solely because it has fewer identities.
 
 ## 18. Strong distance is separate
 

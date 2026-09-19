@@ -1,6 +1,6 @@
 # C4-0009 — CUDA-BSFP execution profile v1
 
-**Status:** Working execution-profile specification on `feature/cuda-bsfp`; intentionally mutable until the first real BSFP-backed GPU vertical slice fixes the remaining composition details.
+**Status:** Working execution-profile specification on durable branch `solver/cuda-bsfp`; intentionally mutable while the post-P2 q/RBA update pass qualifies the next maintained physical seam.
 
 ## Purpose
 
@@ -17,7 +17,7 @@ C4-0006 owns CPC/WSL structural mathematics. C4-0007 owns NDC proof semantics. C
 - C4-0001 Connect Four domain semantics;
 - C4-0005 independent solved-strength oracle evidence;
 - C4-0006 Control Parity and Winspace v1;
-- C4-0007 Nested Dependency Closure v1;
+- C4-0007 Nested Dependency Closure v1 when the selected execution profile carries NDC proof/certificate state;
 - C4-0008 BSFP exact solver v1.
 
 ### CUDA-Algorithms
@@ -56,9 +56,12 @@ Every qualification record must freeze the exact repository/package revisions ex
 
 No implementation convenience transfers semantic ownership.
 
-## 2. Required logical pipeline
+## 2. Required semantic boundary and permitted physical pipelines
 
-The CUDA-BSFP profile must preserve the already-developed first-consumer pipeline:
+Every CUDA-BSFP profile must preserve C4-0008 exact semantics and the ownership boundaries below. The original ranked-item pipeline remains a valid profile, but it is **not** the only conforming physical shape.
+
+### Ranked item / certificate profile
+
 
 ```text
 BSFP active resolved facts/items at rank r
@@ -73,6 +76,25 @@ BSFP active resolved facts/items at rank r
 ```
 
 The exact kernel/node count is not normative. The ownership order is.
+
+### Boundary-native ordinary-value profile
+
+A q/RBA ordinary-value profile may instead expose rank-local value boundaries directly:
+
+```text
+exact child support-fiber threshold boundaries
+  -> BSFP residual cofactor / adjoint predecessor construction
+  -> fixed-action Upper/Lower antichain fronts
+  -> exact BSFP existential/universal antichain-semiring composition
+  -> exact normalization / dominance / projection pruning
+  -> rank-complete parent boundary publication
+  -> next support rank
+```
+
+This path need not instantiate NDC proof certificates or the generic ranked-item workset merely to conform. It must still preserve complete rank contribution semantics, first-win stopping, exact identity, and administrative failure/yield distinctions.
+
+Factor order, multiplication orientation, batching, projection indexing, and subtree traversal are physical evaluation policy. They may be selected adaptively only when the selected transformation is exact and qualification proves output invariance.
+
 
 ## 3. Critical distinction: dependency reachability is not W/D/L evaluation
 
@@ -142,6 +164,11 @@ REPRESENTATION_ITEM
 
 PROOF_ITEM
     q + proof profile + all required non-q premises
+
+VALUE_BOUNDARY_ITEM
+    one exact generator of a support-local q/value threshold frontier;
+    identity additionally includes support/fiber, threshold polarity/level,
+    and the profile's exact canonical generator representation
 ```
 
 A physical ownership mask/frontier entry may be a valid `REPRESENTATION_ITEM` even when several such records correspond to one q. CUDA execution may preserve those finer distinctions conservatively; it must not describe them as a stronger natural gameplay identity.
@@ -232,6 +259,27 @@ A profile may deliberately retain finer ownership/frontier equality than q. That
 Do not add a generic CUDA-Algorithms proof-record equality callback merely because BSFP is the first consumer unless evidence proves the primitive-fact boundary cannot support an efficient exact path.
 
 If a required generic segmentation/scan primitive is not yet maintained by CUDA-Algorithms, route that reusable primitive to CUDA-Algorithms. Do not implement a permanent private BSFP copy and then call the seam complete.
+
+## 9A. Exact antichain-semiring evaluation profiles
+
+A boundary-native BSFP profile may evaluate exact intersections/universal reductions without materializing the full Cartesian product when the reduction law is independently exact.
+
+Current post-1.1 successor research supplies candidate laws including:
+
+- local-skyline factorization of maximal/minimal antichain products;
+- monotonic collapse of local skyline width under outer-mask restriction;
+- exact subtree projection pruning when a subtree union upper bound is already dominated by the current local skyline.
+
+These are **consumer-side exact evaluation laws**, not changes to W/D/L semantics. Adoption requires:
+
+1. pinning the exact canonical research revision/evidence consumed;
+2. reproducing qualified control outputs with a simpler exact oracle or retained P2/reference path where affordable;
+3. keeping hashes/fingerprints non-authoritative for equality;
+4. preserving exact global maximal/minimal normalization after all local pruning;
+5. measuring leaf-inspection volume, local skyline work, normalization, memory and wall time separately;
+6. keeping close orientation/factor-order choices guarded by representative deterministic sampling or another qualified policy rather than ordered-prefix assumptions.
+
+If projection-tree traversal, subset/superset normalization, segmented antichain reduction, scan/group/unique, or another mechanism becomes consumer-neutral, route that mechanism to CUDA-Algorithms. Connect4 retains the residual lattice, value-frontier order, Bellman factor meaning, and correctness oracle.
 
 ## 10. Rank-complete semantic reduction
 

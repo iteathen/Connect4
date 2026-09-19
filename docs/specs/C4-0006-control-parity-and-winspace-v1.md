@@ -1,6 +1,6 @@
 # C4-0006 — Control Parity and Winspace v1
 
-**Status:** Candidate structural-mathematics specification on `feature/cuda-bsfp`; not Accepted until reviewed and integrated through the repository's normal authority path.
+**Status:** Candidate structural-mathematics specification on durable branch `solver/cuda-bsfp`; canonical research remains owned by `research/semantic-quotient`; not Accepted until reviewed and integrated through the repository's normal authority path.
 
 ## Purpose
 
@@ -11,7 +11,7 @@ This specification owns structural/domain mathematics only. It does not define N
 ## Depends on
 
 - C4-0001 Connect Four domain semantics;
-- the preserved research/evidence packet on `feature/cuda-bsfp`, especially:
+- preserved source/provenance material retained on the BSFP implementation branch, with durable research meaning owned by `research/semantic-quotient`, especially:
   - `docs/research/2026-09-09-bsfp-terminology-and-attribution.md`;
   - `docs/research/2026-09-09-universal-strategic-algebra.md`;
   - `docs/research/2026-09-09-win-space-representation-discussion.md`;
@@ -235,6 +235,8 @@ ProofKey =
 ```
 
 A q-level SAME result never authorizes reuse of stronger proof facts whose premises are outside q.
+
+Current post-1.1 successor research on `research/semantic-quotient` further derives an exact ordinary-value residual-boundary algebra over the support-conditioned residual carrier. That RBA work is successor research rather than frozen IsoGraph 1.1 authority. It may qualify an implementation profile under C4-0008, but it does not by itself change this specification's acceptance status, enlarge q with proof context, or identify the ordinary gameplay carrier with the NDC proof carrier.
 
 A conforming implementation may retain a **finer** representation, including physical ownership masks, provided it is exact. Such extra distinctions are representation detail and potential redundant work; they are not a competing definition of ordinary gameplay identity.
 

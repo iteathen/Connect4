@@ -1,6 +1,6 @@
 # C4-0007 — Nested Dependency Closure v1
 
-**Status:** Candidate proof-semantics specification on `feature/cuda-bsfp`; not Accepted until reviewed and integrated through the repository's normal authority path.
+**Status:** Candidate proof-semantics specification on durable branch `solver/cuda-bsfp`; canonical research remains owned by `research/semantic-quotient`; not Accepted until reviewed and integrated through the repository's normal authority path.
 
 ## Purpose
 
@@ -8,7 +8,7 @@ Promote **NDC — Nested Dependency Closure** from the preserved research line i
 
 NDC defines how exact Connect Four facts may depend on other exact facts and be composed to closure without converting every unresolved relation into recursive move-tree search.
 
-NDC is the algorithmic/proof mathematics. BSFP, defined by C4-0008, is the solver architecture that executes the backward fixed-point solution using these dependencies.
+NDC is the stronger proof/certificate composition mathematics. BSFP, defined by C4-0008, may consume NDC when a selected profile publishes proof/certificate facts, but ordinary exact W/D/L does not require NDC if a separately qualified value-boundary realization satisfies C4-0008 directly.
 
 ## Depends on
 
@@ -164,9 +164,11 @@ ProofKey(
 
 This separation is mandatory even when one implementation physically stores q and proof context in one record.
 
-## 5B. Current incompleteness boundary — guarded obligation birth
+## 5B. Proof/certificate side seam — guarded obligation birth
 
-NDC v1 defines the proof language and closure architecture, but it must not be read as claiming that the current rule set is already complete for empty-root 7x6 value derivation.
+NDC v1 defines the proof language and closure architecture, but it must not be read as claiming that the current proof/certificate rule set is already complete for empty-root 7x6 proof derivation.
+
+Post-1.1 RBA successor research has independently closed the ordinary-value Bellman/residual-boundary algebra without proving an equivalence to this proof carrier. Therefore the guarded-obligation seam below remains load-bearing for stronger NDC certificates, but it is **not** the primary blocker for an ordinary exact W/D/L BSFP profile. C4-R0043/C4-R0069/C4-R0076 remain a separate proof/value bridge unless later proved.
 
 The current canonical research seam is the missing guarded lift from an exact mixed-owner cofactor consequence to a certified strategic obligation:
 
