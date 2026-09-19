@@ -73,3 +73,49 @@ certificate block. The harness now injects outside that block and checks that
 bounds actually execute without certificates. Obsolete I6 empty-fact timing is
 retired; its historical samples remain. Physical differential qualification
 still covers 132 roots and 330 actions.
+
+Final runtime source: 1441f513b2cac31b4c083f4091147440af6fcb9b.
+76 tests pass locally and in CI run 35459938641. The final four-worker comparison
+is in hot-loop-four-workers.json: medians 2493.73 -> 2379.37 ms (4.59% lower).
+Three samples each, same exact WDL/moves. Parallel calls vary with completion
+order (baseline 7.41–7.60 million, candidate 7.37–7.41 million); this measures the
+whole execution change, not identical-work instruction savings.
+
+The normal 30-second empty-root smoke is in hot-loop-empty-root.json, run
+20260919T180404665Z-isomax. It reached the unchanged 29-second internal deadline
+(one second reserved inside the outer budget), with no earlier storage/runtime
+failure. 66,610,937 settled calls, four active search workers, 28 periodic
+records, 962,416,640 bytes peak process RSS, all workers and the child exited.
+Root WDL is unknown. The executor's poison/fault counters at shutdown are its
+existing fail-closed abort handling, not an earlier solver failure. Compared
+with the earlier single smoke (64,763,476 calls, 937,029,632 bytes), memory is
+slightly higher; these nondeterministic single observations are not a solve
+speed comparison or a proof of multicore efficiency.
+
+## Reviewed boundary and remaining costs
+
+- Replay import, tables, scratch, masks and reversible history are prepared
+  outside recursive execution. The native packed representation remains active.
+- Recursive frontier/ordering/play/undo/cache paths use numeric state and
+  preexisting storage. No runtime string-key formatting, conclusion object
+  construction, per-node promises, reporting, buffer clone/copy, widening or
+  rehash is required on the successful ordinary-worker path. Scalar writes
+  implementing residual transforms/history are still necessary computation.
+- Typed constructors/copy APIs/iterators/formatting are trapped by tests; source
+  review covers literal-object sites. This is not proof of zero V8 internal
+  allocation, optimal generated assembly or all possible runtime behaviors.
+- Errors remain explicit cold diagnostics. The normal quantum throw is a
+  precreated symbol, not a new Error. Its catch/packaging is outside recursion.
+- Manager dependency nodes and worker transport still allocate at task
+  boundaries. Preparation may copy/rehash warm storage between tasks. The
+  reporter has its own isolate and final cleanup waits for its FIFO drain.
+- Custom certificate/RBA synchronous research paths still have object-based
+  guards/results. They are not silently enabled in the fixed-storage worker.
+- Repeated q hashing/reflection comparisons, residual interning/normalization,
+  validation crossings, task-boundary allocation and duplicate parallel proof
+  work remain candidates. Dense own-move normalization is preserved: the older
+  lazy mover's 7x6 regression is evidence against casually replacing it.
+
+The supported exact identity, first-win stopping, advisory move-order method,
+worker queue and continuation reuse are retained. No new quotient, proof
+shortcut, GPU implementation or timeout extension was introduced.
