@@ -54,11 +54,11 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through the complete selected rank-29 boundary and one exact rank-28 draw-threshold predecessor:
+The post-1.1 successor graph is current through complete selected rank-29 and rank-28 strong-value boundaries:
 
-- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_3.*`
-- `research/isograph/successor/CONNECT4_RBA_QU_0_10.*`
-- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3.*`
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_4.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_11.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4.*`
 
 Current semantic disposition:
 
@@ -69,38 +69,52 @@ C4-R0079  terminal-extended cofactor adjunction/composition      deductive_exact
 C4-R0080  four-front partial-WDL block carrier                   deductive_exact
 C4-R0081  Bellman antichain-semiring lattice polynomial         deductive_exact
 C4-R0082  local-skyline semiring multiplication factorization   deductive_exact
-C4-R0083  rank31/rank30 + complete selected rank29 + rank28 draw empirically_supported
+C4-R0083  selected rank31/rank30/rank29/rank28 recurrence       empirically_supported
 C4-R0084  root-scale frontier-width/economics                    open_question
+C4-R0085  outer-restriction skyline-width monotonicity          deductive_exact
 ```
 
-Selected rank29 is fully closed:
+Selected rank29 remains fully closed. Its final draw13 product is now also qualified in the faster exact orientation:
 
 ```text
-support [3,5,2,1,6,6,6]
-draw13 final product:
-    131,121 x 41,133
-    = 5,393,400,093 implicit opportunities
-    -> 4,393,899 local candidates
-    -> 140,454 exact generators
-
-complete strong boundary:
-    Upper 1,6,26,223,2262,18399,47472,66024,30923,9120,537,44,7,3
-    Lower 4,16,160,2114,16787,44864,140454,68522,11917,779,84,8,1,1
+131,121 outer x 41,133 inner
+5,393,400,093 implicit opportunities
+-> 1,353,069 local candidates
+-> 140,454 exact generators
+same qualified final stream
 ```
 
-A direct maximal replay of all 4,393,899 local candidates returns the same 140,454-generator draw13 boundary.
-
-The first structurally selected rank28 predecessor is:
+Selected rank28 is now fully closed:
 
 ```text
 support [3,5,2,0,6,6,6]
+rank 28
 residual shapes 35
 transformed bits 70
-Upper(draw14) 144,462
-Lower(draw14)  78,546
+
+score order:
+loss2,loss4,loss6,loss8,loss10,loss12,loss14,draw14,win13,win11,win9,win7,win5,win3,win1
+
+Upper:
+1,6,20,140,1159,13428,72737,144462,51645,17346,2233,203,27,7,3
+
+Lower:
+4,13,79,770,10770,45034,110931,78546,29554,4708,534,54,9,1,1
 ```
 
-This one-step result rejects a simple monotone cost law based only on rank, residual-shape count, transformed bit width, or raw pair count. It does not establish a general earlier-rank scaling law.
+The exact evaluation-policy campaign found that the accumulated semiring boundary as outer was fastest on all six measured rank29/rank28 draw-fold products. Ordered-prefix orientation sampling is rejected as biased; deterministic hash-sampled local work is the current guard on new regimes. This is empirical evaluation-policy evidence, not a new semantic relation.
+
+The selected next structural control is rank27 support `[3,4,2,0,6,6,6]`:
+
+```text
+residual shapes 38
+transformed bits 76
+fixed-action draw-derived Upper 23,203
+fixed-action draw-derived Lower 72,117
+max principal-cover frontier 2
+```
+
+It was selected precisely because representation width is high while its measured interface is small. Before composing its rank27 draw15 root, the remaining legal rank28 draw14 child boundaries must be generated and qualified exactly.
 
 C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a side seam rather than the primary ordinary-value execution route.
 

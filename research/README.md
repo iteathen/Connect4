@@ -107,45 +107,48 @@ The RBA QU is post-1.1 research structure only. It does not mutate frozen author
 
 The current post-1.1 RBA logic/topology layer is:
 
-- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_3.md`, `.json`, and `.isg` — successor claims C4-R0077 through C4-R0084;
-- `isograph/successor/CONNECT4_RBA_QU_0_10.md`, `.json`, and `.isg` — current structured OPEN completion space;
-- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3.md`, `.json`, and `.isg` — current semantic/topology placement.
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_4.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_QU_0_11.md`, `.json`, and `.isg`;
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4.md`, `.json`, and `.isg`.
 
-Current correction:
+Current exact progression:
 
 ```text
-ordinary exact value algebra:
-    board-fiber residuated residual lattice
-    + four-front partial WDL
-    + antichain-semiring Bellman lattice polynomial
-    = explicit
+selected rank29 [3,5,2,1,6,6,6]   complete strong-value boundary CLOSED
+selected rank28 [3,5,2,0,6,6,6]   complete strong-value boundary CLOSED
 
-selected rank29:
-    [3,5,2,1,6,6,6] complete strong-value boundary CLOSED
-    draw13 Lower = 140,454
-    final raw opportunity count = 5,393,400,093
-
-selected rank28 predecessor:
-    [3,5,2,0,6,6,6]
-    draw14 Upper = 144,462
-    draw14 Lower = 78,546
-    full strong-value boundary remains OPEN
-
-frontier-width law:
-    simple monotone rank/bit-width/raw-pair rule rejected on this step
-    general structural law remains OPEN
-
-proof/certificate clause-to-value bridge:
-    still OPEN
+selected rank27 [3,4,2,0,6,6,6]
+    38 residual shapes / 76 transformed bits
+    structural predecessor selected
+    root not yet executed
 ```
 
-The exact rank29 closure and rank28 draw-threshold evidence are preserved in:
+Rank28 exact boundary:
 
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_CLOSED_CHECKPOINT_0_2.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_CLOSED_QUALIFICATION_0_3.md`;
-- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_DRAW14_CHECKPOINT_0_1.md`.
+```text
+Upper 1,6,20,140,1159,13428,72737,144462,51645,17346,2233,203,27,7,3
+Lower 4,13,79,770,10770,45034,110931,78546,29554,4708,534,54,9,1,1
+```
 
-Authority 1.1 remains frozen.
+The semiring evaluation refinement adds one exact successor law:
+
+```text
+C4-R0085:
+for fixed inner B, if outer mask a is a restriction of a',
+then local skyline width at a cannot exceed local skyline width at a'
+```
+
+Measured orientation evidence is separate from that theorem. Across six exact rank29/rank28 draw products, keeping the accumulated boundary as the outer projection family was fastest; raw pair count, operand size, and local-candidate count each failed as sufficient standalone cost predictors.
+
+Current durable evidence includes:
+
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_CLOSED_CHECKPOINT_0_2.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_PREDECESSOR_ASSESSMENT_0_1.md`.
+
+The next exact seam is to cache and qualify the remaining rank28 draw14 children of selected rank27 support `[3,4,2,0,6,6,6]`, then compose its draw15 root and reassess before further descent.
+
+The proof/certificate clause-to-value bridge remains OPEN. Authority 1.1 remains frozen.
 
 ### Current derived method-emergence result
 

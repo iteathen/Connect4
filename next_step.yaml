@@ -1,37 +1,51 @@
 current_rba_execution:
-  id: complete_selected_rank28_strong_boundary
-  status: rank29_closed_rank28_draw_threshold_closed
+  id: cache_selected_rank27_draw_children
+  status: rank29_rank28_closed_rank27_selected
   authority:
-    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_3.json
-    - research/isograph/successor/CONNECT4_RBA_QU_0_10.json
-    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3.json
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_CLOSED_CHECKPOINT_0_2.md
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_CLOSED_QUALIFICATION_0_3.md
-    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_DRAW14_CHECKPOINT_0_1.md
+    - research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_4.json
+    - research/isograph/successor/CONNECT4_RBA_QU_0_11.json
+    - research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_4.json
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_SEMIRING_ORIENTATION_CHECKPOINT_0_1.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_CLOSED_CHECKPOINT_0_2.md
+    - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK27_PREDECESSOR_ASSESSMENT_0_1.md
   exact_state:
     rank29:
       support: "[3,5,2,1,6,6,6]"
       status: complete_strong_boundary_closed
       draw13_upper: 47472
       draw13_lower: 140454
-      final_raw_opportunities: 5393400093
-      local_candidates: 4393899
     rank28:
       support: "[3,5,2,0,6,6,6]"
-      status: draw14_closed_full_strong_boundary_open
+      status: complete_strong_boundary_closed
       residual_shapes: 35
       transformed_bits: 70
-      draw14_upper: 144462
-      draw14_lower: 78546
+      upper: [1,6,20,140,1159,13428,72737,144462,51645,17346,2233,203,27,7,3]
+      lower: [4,13,79,770,10770,45034,110931,78546,29554,4708,534,54,9,1,1]
+    rank27:
+      support: "[3,4,2,0,6,6,6]"
+      status: selected_children_not_cached
+      residual_shapes: 38
+      transformed_bits: 76
+      fixed_draw_upper_interface: 23203
+      fixed_draw_lower_interface: 72117
+      max_cover: 2
+  evaluation_policy:
+    exact_law: outer_restriction_skyline_width_monotonicity
+    current_empirical_policy: accumulated_boundary_as_outer
+    qualification: faster_on_all_six_rank29_rank28_draw_products
+    new_regime_guard: deterministic_hash_sampled_local_work_with_candidate_volume_guard
   objective: >-
-    Complete or structurally sample the remaining strong-value thresholds of the selected rank28 support
-    [3,5,2,0,6,6,6], compare their exact local-skyline and final-antichain economics against the closed rank29
-    boundary, and refine the frontier-width law before any descent to rank27.
+    Generate and cache the remaining exact rank28 draw14 child boundaries required by selected rank27 support
+    [3,4,2,0,6,6,6], qualify each child against the same exact recurrence, then compose the rank27 draw15 root.
+    Compare local-skyline width, local work, candidate volume, normalization and final antichain width against the
+    closed rank28/rank29 controls. Reassess before any further descent.
   constraints:
-    - do_not_descend_to_rank27_before_rank28_reassessment
-    - do_not_infer_monotone_cost_from_rank_residual_shape_count_transformed_width_or_raw_pair_count
+    - do_not_infer_or_interpolate_missing_rank28_child_boundaries
+    - do_not_descend_below_rank27_before_rank27_reassessment
     - preserve_exact_antichain_semiring_and_first_win_semantics
-    - preserve_rank29_stream_hashes_and_direct_replay_evidence
+    - keep_accumulated_boundary_outer_on_qualified_regime_unless_hash_sampled_local_work_falsifies_it
+    - candidate_count_alone_is_not_an_orientation_criterion
+    - ordered_prefix_sampling_is_not_an_orientation_oracle
     - ordinary_value_bellman_semantics_are_not_the_open_law
     - proof_value_bridge_remains_a_separate_open_side_seam
 version: 1
@@ -114,12 +128,13 @@ parallel_high_value_seam:
     - inject_qualified_structural_certificate_bounds_into_frontier_and_measure_generator_reduction
 
 task:
-  id: complete_selected_rank28_strong_boundary
+  id: cache_selected_rank27_draw_children
   objective: >-
-    Continue the exact RBA recurrence on selected rank28 support [3,5,2,0,6,6,6]. The draw14 threshold is already
-    closed at Upper 144462 / Lower 78546. Complete or sample the remaining strong thresholds sufficiently to compare
-    skyline-width concentration, candidate volume, normalization cost and final antichain width against rank29.
-    Reassess before any rank27 descent. Treat C4-R0043/C4-R0069/C4-R0076 as a separate open proof/value side seam.
+    Continue the exact RBA recurrence toward selected rank27 support [3,4,2,0,6,6,6]. Generate and persist the
+    missing exact rank28 draw14 child boundaries first; do not interpolate them. Then compose the exact rank27
+    draw15 root using the accumulated-boundary outer policy, guarded by deterministic hash-sampled local work on
+    any new orientation regime. Record skyline-width distribution, local work, candidate volume, normalization,
+    final antichain width and any principal-cover pressure. Reassess before descending below rank27.
   supporting_subseam:
     id: proof_value_bridge
     role: preserve_and_revisit_only_when_new_exact_relation_evidence_appears
