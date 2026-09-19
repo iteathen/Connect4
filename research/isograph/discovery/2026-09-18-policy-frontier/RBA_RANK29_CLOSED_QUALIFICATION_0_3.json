@@ -1,0 +1,71 @@
+{
+  "schema": 3,
+  "experiment": "rba-rank29-post-disconnect-qualification",
+  "date": "2026-09-19",
+  "qualifies": [
+    "RBA_RANK29_CLOSED_CHECKPOINT_0_2.md",
+    "RBA_RANK29_CLOSED_RESULTS_0_2.json"
+  ],
+  "direct_global_replay": {
+    "local_candidates": 4393899,
+    "direct_maximal": 140454,
+    "checkpoint_final": 140454,
+    "same_set": true,
+    "elapsed_ms": 27590,
+    "peak_kib": 96688
+  },
+  "timing_replay": {
+    "workers": 5,
+    "shards": 24,
+    "outer": 41133,
+    "local_candidates": 4393899,
+    "local_generation_ms": 49866.299,
+    "max_local_peak_kib": 74460,
+    "normalization": {
+      "deduplicate_ms": 289.237,
+      "same_mover_ms": 399.151,
+      "same_opponent_ms": 211.714,
+      "global_maximal_ms": 4746.365,
+      "total_ms": 5646.466,
+      "peak_kib": 94848
+    }
+  },
+  "skyline_width": {
+    "median": 36,
+    "p90": 280,
+    "p99": 896,
+    "max": 11379,
+    "mean": 106.8217489606885,
+    "top_0_1_percent_candidate_share": 0.036939174068407125,
+    "top_1_percent_candidate_share": 0.14797745692379366,
+    "top_10_percent_candidate_share": 0.5222184214976267,
+    "width_ge_1000": 329,
+    "width_ge_2000": 68,
+    "width_ge_5000": 5,
+    "width_ge_10000": 2
+  },
+  "predecessor_correction": {
+    "prior_stated": 4,
+    "exact_immediate_support_predecessors": 7,
+    "residual_shape_counts": [
+      35,
+      36,
+      36,
+      35,
+      36,
+      36,
+      36
+    ],
+    "transformed_bits": [
+      70,
+      72,
+      72,
+      70,
+      72,
+      72,
+      72
+    ]
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}

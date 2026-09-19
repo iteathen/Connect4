@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "experiment": "rba-rank28-draw14-predecessor",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "support": [
+    3,
+    5,
+    2,
+    0,
+    6,
+    6,
+    6
+  ],
+  "rank": 28,
+  "remaining_cells": 14,
+  "residual_shapes": 35,
+  "transformed_bits": 70,
+  "status": "draw_threshold_closed",
+  "selection_reason": "all rank29 children have <=33 residual shapes, isolating rank28 root economics",
+  "children": [
+    {
+      "support": [
+        4,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper_draw": 10278,
+      "lower_draw": 31729
+    },
+    {
+      "support": [
+        3,
+        6,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper_draw": 20292,
+      "lower_draw": 58035
+    },
+    {
+      "support": [
+        3,
+        5,
+        3,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper_draw": 13152,
+      "lower_draw": 40834
+    },
+    {
+      "support": [
+        3,
+        5,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "upper_draw": 47472,
+      "lower_draw": 140454,
+      "reused_qualified": true
+    }
+  ],
+  "fixed_action": [
+    {
+      "column": 0,
+      "upper_raw": 54927,
+      "upper": 26562,
+      "lower_raw": 6474,
+      "lower": 6474,
+      "max_cover": 4
+    },
+    {
+      "column": 1,
+      "upper_raw": 58036,
+      "upper": 49595,
+      "lower_raw": 20292,
+      "lower": 20292,
+      "max_cover": 1
+    },
+    {
+      "column": 2,
+      "upper_raw": 154549,
+      "upper": 18686,
+      "lower_raw": 10313,
+      "lower": 6423,
+      "max_cover": 9
+    },
+    {
+      "column": 3,
+      "upper_raw": 245310,
+      "upper": 95647,
+      "lower_raw": 76974,
+      "lower": 32869,
+      "max_cover": 4
+    }
+  ],
+  "upper_draw14": 144462,
+  "lower_products": [
+    {
+      "raw": 131370408,
+      "outer": 6474,
+      "inner": 20292,
+      "local": 182036,
+      "width": {
+        "median": 16,
+        "p90": 57,
+        "p99": 139,
+        "max": 19945
+      },
+      "distinct": 167449,
+      "after_mover": 121546,
+      "after_opponent": 85308,
+      "final": 51208,
+      "local_ms": 272.791,
+      "norm_ms": 382.871,
+      "peak_kib": 19040
+    },
+    {
+      "raw": 328908984,
+      "outer": 6423,
+      "inner": 51208,
+      "local": 275039,
+      "width": {
+        "median": 12,
+        "p90": 102,
+        "p99": 372,
+        "max": 19945
+      },
+      "distinct": 246290,
+      "after_mover": 167198,
+      "after_opponent": 115283,
+      "final": 57909,
+      "local_ms": 640.818,
+      "norm_ms": 535.369,
+      "peak_kib": 27284
+    },
+    {
+      "raw": 1903410921,
+      "outer": 32869,
+      "inner": 57909,
+      "local": 2641949,
+      "width": {
+        "median": 38,
+        "p90": 194,
+        "p99": 661,
+        "max": 7397
+      },
+      "distinct": 1945794,
+      "after_mover": 850016,
+      "after_opponent": 508764,
+      "final": 78546,
+      "local_ms": 4328.78,
+      "norm_ms": 2433.3,
+      "peak_kib": 73368
+    }
+  ],
+  "lower_draw14": 78546,
+  "sha256": {
+    "upper_draw14": "c1c31c66d34e407bbcce869782a728a9b7de77fa66b7296a94023ea67658e067",
+    "action_lower_c0": "2903297bf9e058da9d4ecc3079f557cc7c76403309170ae96260dd329b3b0ad6",
+    "action_lower_c1": "774c7b203eea3c84f577058dd404a6ec45503b7df4b639cf37224d951da25de7",
+    "action_lower_c2": "f80d8bd030f2a3ca8caf36ff6323b8bf326a963924301932036d09a349fa5222",
+    "action_lower_c3": "b4c167ede2dcb9ba8ee356bf46554127d76b0becd587dd20a366d2a16fa7844f",
+    "lower_draw14": "1aa22092bea4ff337f5fb114675da76c3ad7de969a877efd269cb02e34ae453e"
+  },
+  "interpretation": {
+    "simple_monotone_rank_or_width_cost_law_falsified_on_this_step": true,
+    "root_scale_law_known": false,
+    "do_not_descend_to_rank27_yet": true
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
