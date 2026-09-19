@@ -12,8 +12,8 @@ Public one-shot entry: `await solveIsoMax(moves)`. For repeated roots use
 and `await manager.close()` in finally. `IsoMaxSolver` remains the synchronous
 worker kernel and explicit serial correctness/performance control.
 
-Default workers: available logical CPUs minus one, minimum one. This reserves a
-logical CPU for the manager/other host work; it is not a proven optimum or a
+Default workers: min(4, available logical CPUs minus one), minimum one. This leaves
+capacity for the manager/other host work; it is not a proven optimum or a
 guarantee of contention-free BSFP orchestration. Set `workers` explicitly when
 composing resource owners. GPU work is never launched.
 

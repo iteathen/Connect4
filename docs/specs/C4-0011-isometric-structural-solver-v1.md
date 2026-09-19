@@ -308,6 +308,46 @@ The recursive backend is deliberately exact and contains no evaluator fallback. 
 
 ## Qualification boundary
 
+### Native Branch Manager execution
+
+The normal execution entry is `solveIsoMax(moves)` or a reusable
+`IsoMaxBranchManager` session. The performance command routes through this
+manager. `IsoMaxSolver` remains the synchronous native worker kernel and serial
+control, not the default whole-host performance entry.
+
+The manager reintegrates the existing worker executor's queue, priority,
+dispatch, task identity and failure lifecycle. It supplies bounded native
+ordinary-value work proactively. Workers execute packed IsoMax directly; the
+historical quotient/Negamax kernel is not an execution dependency.
+
+Tasks carry legal replay roots and the external root ply. Process-local pool
+IDs are not wire identity. The manager deduplicates exact q in its own pool;
+proof/certificate identity does not collapse into q.
+
+Only an exact worker result carries WDL. A bounded scheduling yield carries its
+unfinished native dependency path and already exact sibling values, with no
+value for unfinished work. The manager resumes those dependencies instead of
+restarting the parent proof. Forced edges remain single edges, native terminal
+facts retain precedence, and parent values reduce in fixed P0 coordinates.
+Root witnesses retain center-first ties regardless of completion order.
+
+Queued obsolete work retires before execution. Busy workers finish their
+bounded native task; a global deadline, failure or explicit session close may
+abort execution. Incomplete work, worker death and capacity failures must never
+be reported as a draw. Every owned worker must be drained or terminated.
+
+The default is min(4, available logical CPUs minus one), at least one worker.
+An explicit worker count remains available. The solve deadline is at most
+120 seconds. Worker count is a resource policy, not an exactness premise or
+an assertion that more workers improve latency.
+
+This parallel profile currently accepts ordinary legal replay roots without
+custom certificate indexes or optional RBA resolver objects. Those existing
+synchronous APIs remain supported explicitly; no transfer of guarded proof
+objects across workers is implied. There is no shared recursive TT yet.
+See `components/isometric/execution/README.md` for retained-state bounds,
+cleanup, qualification and known performance limitations.
+
 Current native qualification includes:
 
 - exact construction of the 625-term standard WSL universe;

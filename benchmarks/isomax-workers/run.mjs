@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {IsoMaxSolver} from '../../components/isometric/solver.mjs';
-import {IsoMaxBranchManager,defaultIsoMaxWorkers} from '../../components/isometric/execution/branch-manager.mjs';
+import {IsoMaxBranchManager} from '../../components/isometric/execution/branch-manager.mjs';
 import {captureProcess} from '../../tools/solver-performance.mjs';
 const roots=['717657616532237625','466537327657277224','616767454664457417'];
 const emit=data=>fs.writeSync(1,JSON.stringify(data)+'\n');
@@ -28,7 +28,7 @@ if(process.argv[2]==='child'){
   const root=fileURLToPath(new URL('../../',import.meta.url));
   const git=(...a)=>execFileSync('git',a,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
   if(git('status','--porcelain'))throw new Error('commit source before measuring');
-  const variants=[...new Set(['serial','1','2','4',String(defaultIsoMaxWorkers())])];
+  const variants=[...new Set(['serial','1','2','4',String(Math.max(1,os.availableParallelism()-1))])];
   const runId=new Date().toISOString().replace(/[-:.]/g,'')+'-isomax-workers';
   const directory=path.resolve(root,git('rev-parse','--git-path','solver-performance'),runId);
   fs.mkdirSync(directory,{recursive:true});

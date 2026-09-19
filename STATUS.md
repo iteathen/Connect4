@@ -42,6 +42,21 @@ The guarded-obligation/proof-value bridge remains a separate stronger proof/cert
 
 ## Current implementation
 
+Native Branch Manager/worker execution is reintegrated. The standard
+`bench:isomax:performance` command now starts a bounded native worker pool
+and reports queue, active-worker, split/exact-task and cleanup telemetry.
+The default is up to four workers with an explicit configurable count.
+Workers use packed IsoMax; the old quotient solver is not invoked.
+
+The initial integration lost continuation work and recycled caches too eagerly;
+both were repaired before final qualification. On three expensive synthetic
+roots, four-worker median latency was 2507 ms versus serial 2533 ms (overlapping
+ranges; no broad speedup claim). Fifteen workers were much worse at 8143 ms.
+Private recursive caches and redundant speculative proof remain scaling limits.
+See `components/isometric/execution/README.md` and
+`benchmarks/isomax-workers/`. This is operational reintegration, not proof of
+full-core efficiency or an empty-board solve.
+
 The maintained implementation uses native Isometric/WSL state and exact recursive resolution for residue not closed by structural consequences.
 
 ### IsoGraph / q alignment

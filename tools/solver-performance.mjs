@@ -59,7 +59,7 @@ export async function runPerformance(solver,timeoutMs=120000) {
     node:process.version,v8:process.versions.v8,platform:process.platform,release:os.release(),arch:process.arch,
     cpu:os.cpus()[0]?.model,logicalCpus:os.cpus().length,totalRamBytes:os.totalmem(),freeRamBytes:os.freemem(),
     policy:solver==='isomax'?{rba:false,freshPoolAndCache:true,v8OldSpaceMiB:4096,
-      execution:'native IsoMax Branch Manager and worker executor; one logical CPU reserved by default',
+      execution:'native IsoMax Branch Manager; min(4, available logical CPUs minus one), minimum one worker',
       progress:'flushed manager/worker snapshot every second; nodes include settled tasks only',
       cleanupReserveMs:Math.min(1000,timeoutMs-1)}:
       {profile:'c4-0009-p2-compact-hybrid',native:true,publish:false,

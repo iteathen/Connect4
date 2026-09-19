@@ -9,7 +9,9 @@ import { positive, validateTaskResult } from './task.mjs';
 // quotient result contract remains unchanged; no second executor is introduced.
 import { createSearchWorkerExecutor } from '../../../research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs';
 
-export const defaultIsoMaxWorkers = () => Math.max(1, availableParallelism() - 1);
+// Measured bounded default. Wide speculative dispatch lost badly at 15 workers;
+// keep all CPU counts available explicitly without making that regression default.
+export const defaultIsoMaxWorkers = () => Math.max(1, Math.min(4, availableParallelism() - 1));
 
 /** Native ordinary-value session. Worker pools/class IDs never cross identity
  * domains. The manager owns proof dependencies; workers execute native residue.
