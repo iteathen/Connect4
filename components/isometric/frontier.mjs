@@ -2,6 +2,9 @@ import { STATUS_ONGOING } from '../domain/index.mjs';
 import { exactValueConclusion, forcedMoveConclusion } from './certificate.mjs';
 
 function firstCell(lo, hi) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Keep direct bit indexing with the +32 high-word offset; no cell list or string conversion.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (lo !== 0) return 31 - Math.clz32((lo & -lo) >>> 0);
   if (hi !== 0) return 32 + 31 - Math.clz32((hi & -hi) >>> 0);
   return -1;
@@ -51,5 +54,8 @@ export function nativeFrontierCode(state) {
 }
 
 export function deriveNativeFrontierConsequence(state) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Return the preloaded immutable view; ordinary recursion consumes nativeFrontierCode directly.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   return conclusions[nativeFrontierCode(state)];
 }

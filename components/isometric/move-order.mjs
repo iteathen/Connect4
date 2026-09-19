@@ -16,6 +16,9 @@ for (let id = 0; id < profile.count; id++) {
 // Precondition: quiet ongoing node, after native exact/forced closure.
 // Return the accepted advisory class only; this never supplies a WDL bound.
 export function singletonEffectClass(state, column) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Scan precompiled incidence numerically; preserve exposure veto and completion-cell deduplication. No child simulation or allocating score records.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   const cell = state.heights[column] * 7 + column;
   const above = cell + 7;
   const own = state.sideToMove === 0 ? state.p0Class : state.p1Class;

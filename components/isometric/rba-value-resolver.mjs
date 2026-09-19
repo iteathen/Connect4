@@ -27,6 +27,9 @@ export class IsoMaxRbaValueResolver {
     Object.freeze(this);
   }
   #residuals(id) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Optional RBA conversion cache only. Pool-local IDs are not portable artifact identity; BigInt/object conversion stays outside ordinary worker admission.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     let result = this.#requirements.get(id);
     if (!result) {
       result = Object.freeze(this.pool.terms(id).map(([lo,hi])=>BigInt(lo) | (BigInt(hi)<<32n)));
@@ -35,6 +38,9 @@ export class IsoMaxRbaValueResolver {
     return result;
   }
   resolve(state) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Optional synchronous value path, excluded from sealed workers. A complete boundary may prove WDL; a miss remains unknown and supplies no proof certificate.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!(state instanceof IsometricState) || state.pool !== this.pool) throw new TypeError('RBA state must belong to the resolver pool');
     if (state.isTerminal()) return null; // First-win authority stays with native transition.
     let entry = this.#supports.get(state.supportCode);

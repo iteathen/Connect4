@@ -4,12 +4,18 @@ export const RESIDUAL_TERMINAL_WIN = -1;
 const CLASS_UNKNOWN = -3;
 
 function nextPowerOfTwo(value) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Preparation/growth helper only; never route a sealed recursive miss into resizing.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let result = 1;
   while (result < value) result *= 2;
   return result;
 }
 
 function mix32(value) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Keep scalar integer mixing; no string/BigInt conversion or allocating hash input.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let x = value >>> 0;
   x ^= x >>> 16;
   x = Math.imul(x, 0x7feb352d) >>> 0;
@@ -20,6 +26,9 @@ function mix32(value) {
 }
 
 function hashWords2(words, offset) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Hash the existing two-word storage directly; full words still decide equality.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let hash = 0x811c9dc5;
   hash = Math.imul(hash ^ mix32(words[offset]), 0x01000193) >>> 0;
   hash = Math.imul(hash ^ mix32(words[offset + 1]), 0x01000193) >>> 0;
@@ -27,6 +36,9 @@ function hashWords2(words, offset) {
 }
 
 function hashChunkTuple(ids) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Scan the existing numeric tuple; do not materialize an array/key per probe.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let hash = 0x811c9dc5;
   for (let index = 0; index < FRONTIER_SLOTS; index += 1) {
     hash = Math.imul(hash ^ mix32((ids[index] + 1) >>> 0), 0x01000193) >>> 0;
@@ -35,10 +47,16 @@ function hashChunkTuple(ids) {
 }
 
 function bitIndex32(value) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Keep the integer bit primitive; callers supply the isolated nonzero bit.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   return 31 - Math.clz32(value >>> 0);
 }
 
 function popcount32(value) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Numeric diagnostic enumeration helper; do not add term enumeration to native recursion.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let x = value >>> 0;
   x -= (x >>> 1) & 0x55555555;
   x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
@@ -46,6 +64,9 @@ function popcount32(value) {
 }
 
 function referenceTypeFor(maxId) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Width selection may be checked hot, but widening/copying belongs before sealing.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (maxId <= 0xff) return Uint8Array;
   if (maxId <= 0xffff) return Uint16Array;
   return Uint32Array;
@@ -63,6 +84,9 @@ class SlotChunkPool64 {
   }
 
   ensureCapacity(required) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // A sealed miss must fail; no grow-on-demand fallback or recursive buffer copy.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (required <= this.capacity) return;
     if (this.sealed) throw new Error('ISOMAX_CHUNK_CAPACITY');
     const next = nextPowerOfTwo(required);
@@ -73,12 +97,18 @@ class SlotChunkPool64 {
   }
 
   equals(id, source, offset) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Compare both exact words in place; hashes and chunk IDs from other pools are insufficient.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const base = id * SLOT_WORDS;
     return this.words[base] === (source[offset] >>> 0)
       && this.words[base + 1] === (source[offset + 1] >>> 0);
   }
 
   growHash(length = this.hashSlots.length * 2) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Cold preparation only. Preserve exact rehashing and the sealed rejection.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (this.sealed) throw new Error('ISOMAX_CHUNK_HASH_CAPACITY');
     const next = new Int32Array(length);
     next.fill(-1);
@@ -93,6 +123,9 @@ class SlotChunkPool64 {
   }
 
   intern(source, offset) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Probe numeric immutable words; keep successful sealed insertion allocation-free.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if ((this.count + 1) * 10 >= this.hashSlots.length * 7) this.growHash();
     const hash = hashWords2(source, offset);
     const mask = this.hashSlots.length - 1;
@@ -114,12 +147,18 @@ class SlotChunkPool64 {
   }
 
   copyTo(id, target, offset) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // These two scalar loads/stores are residual computation into caller-owned scratch, not a buffer clone.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const base = id * SLOT_WORDS;
     target[offset] = this.words[base];
     target[offset + 1] = this.words[base + 1];
   }
 
   word(id, localWord) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Direct scalar access only; do not return a view/object or expand chunk contents.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return this.words[id * SLOT_WORDS + localWord] >>> 0;
   }
 }
@@ -165,6 +204,9 @@ export class ResidualPool {
   }
 
   ensureReferenceWidth(slot, requiredId) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Preparation widens references; sealed recursion must reject unexpected widening.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const current = this.classSlotIds[slot];
     const Type = referenceTypeFor(requiredId);
     if (current.BYTES_PER_ELEMENT >= Type.BYTES_PER_ELEMENT) return;
@@ -175,6 +217,9 @@ export class ResidualPool {
   }
 
   ensureClassCapacity(required) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Allocate/copy only before recursive entry. Keep sealed overflow fail-closed.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (required <= this.classCapacity) return;
     if (this.sealed) throw new Error('ISOMAX_CLASS_CAPACITY');
     const next = nextPowerOfTwo(required);
@@ -196,6 +241,9 @@ export class ResidualPool {
   }
 
   classEquals(id, ids) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Full slot-tuple equality is authority; avoid allocating descriptors or hash-only matches.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     for (let slot = 0; slot < FRONTIER_SLOTS; slot += 1) {
       if (this.classSlotIds[slot][id] !== ids[slot]) return false;
     }
@@ -203,6 +251,9 @@ export class ResidualPool {
   }
 
   growClassHash(length = this.classHashSlots.length * 2) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Preparation only. Never silently grow an active sealed worker dictionary.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (this.sealed) throw new Error('ISOMAX_CLASS_HASH_CAPACITY');
     const next = new Int32Array(length);
     next.fill(-1);
@@ -240,11 +291,17 @@ export class ResidualPool {
   }
 
   releaseSearchStorage() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Unseal only after recursive unwind, never to bypass a hot capacity failure.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.sealed = false;
     for (let slot = 0; slot < FRONTIER_SLOTS; slot++) this.slotPools[slot].sealed = false;
   }
 
   loadClassBits(id, target) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Use caller-owned fixed scratch and indexed scalar stores; no returned fresh view/array.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.assertClass(id);
     for (let slot = 0; slot < FRONTIER_SLOTS; slot += 1) {
       this.slotPools[slot].copyTo(this.classSlotIds[slot][id], target, slot * SLOT_WORDS);
@@ -274,6 +331,9 @@ export class ResidualPool {
   }
 
   internBits(bits, parentId = -1) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep shared scratch call-local; reuse unchanged chunks and verify full exact content.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     let sameAsParent = parentId >= 0;
     for (let slot = 0; slot < FRONTIER_SLOTS; slot += 1) {
       const offset = slot * SLOT_WORDS;
@@ -312,6 +372,9 @@ export class ResidualPool {
   }
 
   cacheIndex(id, cell) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Numeric pool-local addressing only. Preserve terminal/unknown sentinel distinctions.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return id < this.transitionPrefixClasses ? id * this.profile.cellCount + cell : -1;
   }
 
@@ -387,6 +450,9 @@ export class ResidualPool {
   }
 
   blockTransition(id, cell) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep exact slot-local masking and scalar metadata; do not allocate term lists or generalize locality to own normalization.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.assertClass(id);
     this.assertCell(cell);
     const cacheIndex = this.cacheIndex(id, cell);
@@ -457,6 +523,9 @@ export class ResidualPool {
   }
 
   reflectClass(id) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Memoize in reserved storage; scratch is borrowed only during this call, never across recursion.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (id === RESIDUAL_TERMINAL_WIN) return RESIDUAL_TERMINAL_WIN;
     this.assertClass(id);
     const cached = this.reflectionCache[id];
@@ -480,6 +549,9 @@ export class ResidualPool {
   }
 
   compareClasses(a, b) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Compare immutable numeric content directly; sentinel ordering and exact reflection ties matter.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (a === b) return 0;
     if (a === RESIDUAL_TERMINAL_WIN) return -1;
     if (b === RESIDUAL_TERMINAL_WIN) return 1;
@@ -494,11 +566,17 @@ export class ResidualPool {
   }
 
   wordAt(id, word) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep direct chunk access; no subarray, term expansion or object-shaped word result.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const slot = Math.floor(word / SLOT_WORDS);
     return this.slotPools[slot].word(this.classSlotIds[slot][id], word & 1);
   }
 
   termIds(id) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Allocating optional/diagnostic API, excluded from ordinary worker recursion; do not substitute it for wordAt.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.assertClass(id);
     this.loadClassBits(id, this.inputBits);
     let count = 0;
@@ -517,15 +595,24 @@ export class ResidualPool {
   }
 
   terms(id) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Allocating optional proof/RBA boundary only, never ordinary sealed recursion.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const p = this.profile;
     return Array.from(this.termIds(id), (termId) => [p.lo[termId] >>> 0, p.hi[termId] >>> 0]);
   }
 
   isEmpty(id) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Empty-class identity is scalar; do not scan residual terms to recover this fact.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return id === this.emptyClass;
   }
 
   hasSingletonAt(id, cell) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Use existing numeric masks. Keep public validation unless a separately qualified trusted boundary replaces it.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.assertClass(id);
     this.assertCell(cell);
     const bitLo = cell < 32 ? ((2 ** cell) >>> 0) : 0;
@@ -534,10 +621,16 @@ export class ResidualPool {
   }
 
   assertClass(id) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Successful validation is scalar; diagnostics allocate only on failure. Do not remove boundary checks globally.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!Number.isInteger(id) || id < 0 || id >= this.classCount) throw new RangeError(`invalid residual class: ${id}`);
   }
 
   assertCell(cell) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Successful validation is scalar; diagnostic formatting belongs only on failure.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!Number.isInteger(cell) || cell < 0 || cell >= this.profile.cellCount) throw new RangeError(`invalid cell: ${cell}`);
   }
 }

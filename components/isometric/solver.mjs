@@ -32,6 +32,9 @@ function emptyMetrics() {
 }
 
 function assertExactValue(value) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Scalar success path; keep malformed exact values fail-closed and format diagnostics only on failure.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (value !== -1 && value !== 0 && value !== 1) throw new Error(`invalid exact W/D/L value: ${value}`);
 }
 
@@ -246,6 +249,9 @@ export class IsoMaxSolver {
   }
 
   collectCertificateFacts(state) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Optional object-based proof path. Keep empty-index bypass and ordinary-worker exclusion; never flatten guarded premises into q.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (this.certificates.size === 0) {
       return { exact: null, forcedCell: null, p0NoWin: false, p1NoWin: false };
     }
@@ -272,6 +278,9 @@ export class IsoMaxSolver {
   }
 
   columnForForcedCell(state, cell) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Validate external proof consequences; native shortcuts need a proved playable-cell precondition.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!Number.isInteger(cell) || cell < 0 || cell >= COLUMNS * ROWS) throw new Error(`forced cell out of range: ${cell}`);
     const column = cell % COLUMNS;
     const row = Math.floor(cell / COLUMNS);
@@ -282,6 +291,9 @@ export class IsoMaxSolver {
   }
 
   selectMoveForValue(state, targetValue) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Preserve exact value and deterministic root witness; reuse native play/undo, not a legacy board adapter.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const native = deriveNativeFrontierConsequence(state);
     if (native?.kind === CONCLUSION_FORCED_MOVE) return this.columnForForcedCell(state, native.cell);
     if (native?.kind === CONCLUSION_EXACT_VALUE && native.distance === 1) {
@@ -306,17 +318,26 @@ export class IsoMaxSolver {
   }
 
   storeExact(state, value) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep exact identity through descendant unwind; never cache unfinished/retired work.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     assertExactValue(value);
     this.transitionCache.set(state, value);
     this.metrics.transitionCacheStores += 1;
   }
 
   assertNoWinBounds(value, p0NoWin, p1NoWin) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Scalar contradiction checks; never clamp an inconsistent value to manufacture success.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (p0NoWin && value > 0) throw new Error('recursive result violates P0 no-win certificate');
     if (p1NoWin && value < 0) throw new Error('recursive result violates P1 no-win certificate');
   }
 
   assertState(state) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Validate ownership at the public boundary. Do not silently mix pool-local IDs.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!(state instanceof IsometricState) || state.pool !== this.pool) {
       throw new TypeError('state must be an IsometricState owned by this solver pool');
     }

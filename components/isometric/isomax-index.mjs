@@ -4,6 +4,9 @@ import { reflectGuard } from './guards.mjs';
 import { PROOF_PROFILE, snapshotProofData, proofDataKey } from './proof-payload.mjs';
 
 function structuralBucket(root, p0Class, p1Class, create) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Optional proof lookup only; never replace numeric ordinary q lookup with nested Maps.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let byP1 = root.get(p0Class);
   if (!byP1) {
     if (!create) return null;
@@ -19,6 +22,9 @@ function structuralBucket(root, p0Class, p1Class, create) {
 }
 
 function canonicalOrientations(signature) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Optional proof transport only; do not introduce its allocated orientation arrays into ordinary recursion.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (signature[3] === 1) return [0, 1];
   return [signature[2]];
 }
@@ -85,6 +91,9 @@ export class IsoMaxCertificateIndex {
   }
 
   lookup(state, { conclusionKind = null } = {}) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Object-based guarded-proof API, excluded from ordinary workers. Missing/unresolved guards never authorize a value.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this IsoMax index');
     const signature = state.structuralSignature();
     const bucket = structuralBucket(this.root, signature[0], signature[1], false);
@@ -115,6 +124,9 @@ export class IsoMaxCertificateIndex {
 }
 
 function mix32(value) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Keep integer mixing; hash is a locator, never exact identity.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let x = value >>> 0;
   x ^= x >>> 16;
   x = Math.imul(x, 0x7feb352d) >>> 0;
@@ -125,6 +137,9 @@ function mix32(value) {
 }
 
 function hashSignature(signature) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Read existing numeric key storage; no serialization or temporary hash tuples.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let hash = 0x811c9dc5;
   for (let index = 0; index < 3; index += 1) hash = Math.imul(hash ^ mix32(signature[index]), 0x01000193) >>> 0;
   return mix32(hash);
@@ -156,12 +171,18 @@ export class IsoMaxTransitionCache {
   }
 
   matches(slot, signature) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Compare all three exact coordinates; no fingerprint-only equality.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return this.p0[slot] === signature[0]
       && this.p1[slot] === signature[1]
       && this.support[slot] === (signature[2] >>> 0);
   }
 
   findSlot(signature) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep indexed numeric collision probing; no callbacks or allocating probe records.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const mask = this.capacity - 1;
     let slot = hashSignature(signature) & mask;
     while (this.used[slot] !== 0 && !this.matches(slot, signature)) slot = (slot + 1) & mask;
@@ -169,6 +190,9 @@ export class IsoMaxTransitionCache {
   }
 
   grow(capacity = this.capacity * 2) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Cold preparation/control only. Preserve scratch isolation and reject growth while sealed.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (this.sealed) throw new Error('ISOMAX_TRANSITION_CAPACITY');
     const old = {
       capacity: this.capacity,
@@ -196,6 +220,9 @@ export class IsoMaxTransitionCache {
   }
 
   get(state) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Derive q into owned scratch; never return/retain that borrowed buffer as a recursive key.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
     const signature = state.gameplayKey(this.scratch);
     const slot = this.findSlot(signature);
@@ -203,6 +230,9 @@ export class IsoMaxTransitionCache {
   }
 
   prepareSearchStorage(additionalEntries) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Reserve before recursion; preparation may rehash, sealed lookup/insertion may not.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!Number.isSafeInteger(additionalEntries) || additionalEntries < 1 ||
         additionalEntries > 2 ** 26) throw new RangeError('invalid cache reservation');
     this.sealed = false;
@@ -213,6 +243,9 @@ export class IsoMaxTransitionCache {
   }
 
   set(state, value) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Publish only completed values. Exact q identity and pool ownership must survive optimized entry APIs.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
     if (value === undefined) throw new TypeError('transition cache cannot store undefined');
     const signature = state.gameplayKey(this.scratch);
@@ -220,6 +253,9 @@ export class IsoMaxTransitionCache {
   }
 
   #setKey(signature, value) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Reprobe after descendants/resizes; old slot addresses are not authority. No sealed growth.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if ((this.count + 1) * 10 >= this.capacity * 7) this.grow();
     const slot = this.findSlot(signature);
     if (this.used[slot] === 0) {

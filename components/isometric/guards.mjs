@@ -69,6 +69,9 @@ export function realizabilityGuard(payload) {
 }
 
 function maskView(state, orientation) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Optional object-based proof path only; do not admit these allocations into sealed ordinary workers.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (orientation === 0) {
     return {
       supportLo: state.supportLo >>> 0,
@@ -84,15 +87,24 @@ function maskView(state, orientation) {
 }
 
 function containsAll(actualLo, actualHi, requiredLo, requiredHi) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Keep exact unsigned two-word mask algebra; no cell expansion.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   return (((actualLo & requiredLo) >>> 0) === (requiredLo >>> 0))
     && (((actualHi & requiredHi) >>> 0) === (requiredHi >>> 0));
 }
 
 function intersects(actualLo, actualHi, forbiddenLo, forbiddenHi) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Keep numeric two-word overlap and no temporary masks.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   return (((actualLo & forbiddenLo) >>> 0) !== 0) || (((actualHi & forbiddenHi) >>> 0) !== 0);
 }
 
 export function evaluateGuard(state, guard, orientation = 0) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Optional guarded-proof consumer. Preserve UNRESOLVED and full temporal/resource/realizability premises; never silently enable this object path in ordinary workers.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (!guard || typeof guard !== 'object') throw new TypeError('guard must be a typed guard record');
   switch (guard.kind) {
     case GUARD_MASK: {
@@ -126,6 +138,9 @@ export function evaluateGuard(state, guard, orientation = 0) {
 }
 
 export function reflectGuard(guard) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Proof-side reflection may allocate; preserve complete transport or return unresolved, never approximate.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   if (!guard || typeof guard !== 'object') throw new TypeError('guard must be a typed guard record');
   switch (guard.kind) {
     case GUARD_MASK: {

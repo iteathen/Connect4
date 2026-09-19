@@ -13,12 +13,18 @@ import { ResidualPool, RESIDUAL_TERMINAL_WIN } from './residual-pool.mjs';
 const RANK_SHIFT = 21;
 
 function packSupport(heights, ply) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Reference reconstruction only; ordinary transitions maintain packed support incrementally.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let packed = (ply << RANK_SHIFT) >>> 0;
   for (let column = 0; column < COLUMNS; column += 1) packed = (packed | (heights[column] << (column * 3))) >>> 0;
   return packed >>> 0;
 }
 
 function reflectSupportCode(code) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Use numeric packed support directly, never expand a board/array or format a key.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   const ply = code >>> RANK_SHIFT;
   let reflected = (ply << RANK_SHIFT) >>> 0;
   for (let column = 0; column < COLUMNS; column += 1) {
@@ -61,6 +67,9 @@ export class IsometricState {
   }
 
   canPlay(column) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Public checked predicate; skip redundant checks internally only under proved caller preconditions.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return Number.isInteger(column)
       && column >= 0
       && column < COLUMNS
@@ -69,6 +78,9 @@ export class IsometricState {
   }
 
   play(column) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Checked external replay boundary, not a reason to restore repeated validation in trusted recursion.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (!this.canPlay(column)) return -1;
     return this.applyUnchecked(column);
   }
@@ -166,30 +178,48 @@ export class IsometricState {
   }
 
   isTerminal() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep status scalar; no board scan or certificate construction.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return this.status !== STATUS_ONGOING;
   }
 
   winner() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Keep terminal interpretation scalar and first-win consistent.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (this.status === STATUS_PLAYER0_WIN) return 0;
     if (this.status === STATUS_PLAYER1_WIN) return 1;
     return null;
   }
 
   hasStructuralDrawCertificate() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Bilateral exhaustion only; one empty residual is a bound, not an exact draw.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return this.status === STATUS_ONGOING
       && this.pool.isEmpty(this.p0Class)
       && this.pool.isEmpty(this.p1Class);
   }
 
   supportCodeFromState() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Independent reconstruction control; do not insert this column scan into maintained transitions.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return packSupport(this.heights, this.ply);
   }
 
   reflectedSupportCode() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Numeric reflection only; benchmark any cached representation with play/undo restoration.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     return reflectSupportCode(this.supportCode);
   }
 
   structuralSignature(target = new Int32Array(4)) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Allocating default is proof-facing. Ordinary q uses supplied scratch; never retain borrowed scratch across descendants.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const reflected0 = this.pool.reflectClass(this.p0Class);
     const reflected1 = this.pool.reflectClass(this.p1Class);
     let comparison = this.pool.compareClasses(this.p0Class, reflected0);
@@ -205,6 +235,9 @@ export class IsometricState {
   // Pool-local q equality: normalized residual pair + support. Transport is not
   // part of equality; rank/turn follow support in the supported replay domain.
   gameplayKey(target = new Int32Array(3)) {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Recursive callers must supply storage. Exact residual pair plus canonical support is q, not proof identity.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const reflected0 = this.pool.reflectClass(this.p0Class);
     const reflected1 = this.pool.reflectClass(this.p1Class);
     let comparison = this.pool.compareClasses(this.p0Class, reflected0);
@@ -217,6 +250,9 @@ export class IsometricState {
   }
 
   gameplayOrientation() {
+    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // Allocating proof/transport helper, excluded from the ordinary recursive worker path.
+    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     const signature = this.structuralSignature();
     return signature[3] === 1
       ? Number(this.reflectedSupportCode() < this.supportCode) : signature[2];
