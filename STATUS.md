@@ -54,11 +54,11 @@ No authority-1.1 semantic artifact changed.
 
 ## Current RBA successor frontier — 2026-09-19
 
-The post-1.1 successor graph is current through the rank-29 sparse-semiring frontier:
+The post-1.1 successor graph is current through the complete selected rank-29 boundary and one exact rank-28 draw-threshold predecessor:
 
-- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_2.*`
-- `research/isograph/successor/CONNECT4_RBA_QU_0_9.*`
-- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_2.*`
+- `research/isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_3.*`
+- `research/isograph/successor/CONNECT4_RBA_QU_0_10.*`
+- `research/isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3.*`
 
 Current semantic disposition:
 
@@ -69,22 +69,40 @@ C4-R0079  terminal-extended cofactor adjunction/composition      deductive_exact
 C4-R0080  four-front partial-WDL block carrier                   deductive_exact
 C4-R0081  Bellman antichain-semiring lattice polynomial         deductive_exact
 C4-R0082  local-skyline semiring multiplication factorization   deductive_exact
-C4-R0083  selected rank31/rank30/rank29 native recurrence       empirically_supported
+C4-R0083  rank31/rank30 + complete selected rank29 + rank28 draw empirically_supported
 C4-R0084  root-scale frontier-width/economics                    open_question
 ```
 
-C4-R0076 remains open on the proof/certificate clause-to-value bridge, but it is no longer the primary ordinary-value blocker.
-
-Live exact seam:
+Selected rank29 is fully closed:
 
 ```text
-rank29 support [3,5,2,1,6,6,6]
-draw13 Lower
-current boundary 131,121
-final action Lower 41,133
-implicit semiring product 5,393,996,493
-preferred orientation 41,133 outer / 131,121 inner
+support [3,5,2,1,6,6,6]
+draw13 final product:
+    131,121 x 41,133
+    = 5,393,400,093 implicit opportunities
+    -> 4,393,899 local candidates
+    -> 140,454 exact generators
+
+complete strong boundary:
+    Upper 1,6,26,223,2262,18399,47472,66024,30923,9120,537,44,7,3
+    Lower 4,16,160,2114,16787,44864,140454,68522,11917,779,84,8,1,1
 ```
+
+A direct maximal replay of all 4,393,899 local candidates returns the same 140,454-generator draw13 boundary.
+
+The first structurally selected rank28 predecessor is:
+
+```text
+support [3,5,2,0,6,6,6]
+residual shapes 35
+transformed bits 70
+Upper(draw14) 144,462
+Lower(draw14)  78,546
+```
+
+This one-step result rejects a simple monotone cost law based only on rank, residual-shape count, transformed bit width, or raw pair count. It does not establish a general earlier-rank scaling law.
+
+C4-R0076 remains open on the proof/certificate clause-to-value bridge and remains a side seam rather than the primary ordinary-value execution route.
 
 Authority 1.1 and its frozen qualification evidence remain unchanged.
 

@@ -107,9 +107,9 @@ The RBA QU is post-1.1 research structure only. It does not mutate frozen author
 
 The current post-1.1 RBA logic/topology layer is:
 
-- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_2.md`, `.json`, and `.isg` — successor claims C4-R0077 through C4-R0084;
-- `isograph/successor/CONNECT4_RBA_QU_0_9.md`, `.json`, and `.isg` — current structured OPEN completion space;
-- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_2.md`, `.json`, and `.isg` — current semantic/topology placement.
+- `isograph/successor/CONNECT4_POST_1_1_RBA_OVERLAY_0_3.md`, `.json`, and `.isg` — successor claims C4-R0077 through C4-R0084;
+- `isograph/successor/CONNECT4_RBA_QU_0_10.md`, `.json`, and `.isg` — current structured OPEN completion space;
+- `isograph/successor/CONNECT4_RBA_TOPOLOGY_PLACEMENT_0_3.md`, `.json`, and `.isg` — current semantic/topology placement.
 
 Current correction:
 
@@ -120,13 +120,30 @@ ordinary exact value algebra:
     + antichain-semiring Bellman lattice polynomial
     = explicit
 
-current exact execution frontier:
-    rank29 draw13 final sparse semiring multiplication
-    131,121 x 41,133 = 5,393,996,493 implicit opportunities
+selected rank29:
+    [3,5,2,1,6,6,6] complete strong-value boundary CLOSED
+    draw13 Lower = 140,454
+    final raw opportunity count = 5,393,400,093
+
+selected rank28 predecessor:
+    [3,5,2,0,6,6,6]
+    draw14 Upper = 144,462
+    draw14 Lower = 78,546
+    full strong-value boundary remains OPEN
+
+frontier-width law:
+    simple monotone rank/bit-width/raw-pair rule rejected on this step
+    general structural law remains OPEN
 
 proof/certificate clause-to-value bridge:
     still OPEN
 ```
+
+The exact rank29 closure and rank28 draw-threshold evidence are preserved in:
+
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_CLOSED_CHECKPOINT_0_2.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK29_CLOSED_QUALIFICATION_0_3.md`;
+- `isograph/discovery/2026-09-18-policy-frontier/RBA_RANK28_DRAW14_CHECKPOINT_0_1.md`.
 
 Authority 1.1 remains frozen.
 
