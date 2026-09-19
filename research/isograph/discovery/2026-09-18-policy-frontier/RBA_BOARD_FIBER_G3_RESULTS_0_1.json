@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "experiment": "rba-board-fiber-g3-value-invariance-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "candidate": "G3",
+  "statement": "An exact G2 board-fiber isomorphism transports the complete abstract ordinary-value algebra: q states, legal actions, exact strong action/state values, best-move sets, and strong-score threshold boundaries.",
+  "tested_scope": {
+    "ranks": [
+      34,
+      35
+    ],
+    "distinct_nonreflection_fiber_pairs": 15,
+    "complete_q_pairs": 1592642,
+    "mapped_action_value_cases": 3929368,
+    "state_value_mismatches": 0,
+    "action_value_mismatches": 0,
+    "best_move_set_mismatches": 0,
+    "explicit_threshold_boundary_checks": 53,
+    "threshold_boundary_generator_set_mismatches": 0
+  },
+  "representative_boundary_tests": [
+    {
+      "rank": 35,
+      "source_support": [
+        0,
+        6,
+        6,
+        6,
+        5,
+        6,
+        6
+      ],
+      "target_support": [
+        0,
+        6,
+        6,
+        6,
+        6,
+        5,
+        6
+      ],
+      "antichains_per_player": 164,
+      "q_pairs": 26896,
+      "threshold_boundary_checks": 21,
+      "mismatches": 0,
+      "largest_boundary": 11
+    },
+    {
+      "rank": 34,
+      "source_support": [
+        0,
+        6,
+        6,
+        6,
+        5,
+        5,
+        6
+      ],
+      "target_support": [
+        0,
+        6,
+        6,
+        6,
+        5,
+        6,
+        5
+      ],
+      "antichains_per_player": 410,
+      "q_pairs": 168100,
+      "threshold_boundary_checks": 32,
+      "mismatches": 0,
+      "largest_boundary": 12
+    }
+  ],
+  "theorem_candidate": {
+    "premises": [
+      "A G2 fiber isomorphism bijects future cells and residual hyperedges.",
+      "It preserves gravity/frontier legality and therefore bijects legal actions.",
+      "It transports owner-true and owner-false principal cofactors exactly.",
+      "The induced child mapping is again a G2 fiber isomorphism.",
+      "Strong-score semantics depend only on terminal kind, remaining-ply distance, child value, and max over legal actions."
+    ],
+    "induction": "Induct on number of remaining cells. Corresponding terminal actions have equal strong scores. Corresponding nonterminal actions map to isomorphic child q states and therefore equal child values by the induction hypothesis; one-ply lift preserves equality. Max over the action bijection preserves state value and maps the argmax set. Since the q-state mapping is an order isomorphism, every Upper/Lower threshold boundary transports exactly.",
+    "conclusion": "G2 structural fiber isomorphism implies isomorphism of the complete abstract ordinary strong-value boundary algebra."
+  },
+  "guards": [
+    "This is an abstract ordinary-value fiber-algebra result.",
+    "It does not assert that the historical/physical legal-q realization subset at one support maps onto the legal-q realization subset at another embedding.",
+    "It does not identify proof/certificate provenance or past ownership history.",
+    "Use for exact value-boundary reuse relies on the conservative-extension property for legal q states.",
+    "It does not establish that the board-fiber quotient is minimal or that root-scale representation is compact."
+  ],
+  "interpretation": [
+    "G3 survives all executed non-reflection value-transport tests.",
+    "Given G2, G3 is theorem-shaped rather than merely empirical: value semantics are functorial under the board-fiber isomorphism.",
+    "Concrete board embedding is irrelevant to the abstract ordinary-value RBA fiber once the support-conditioned residual-incidence/gravity fiber is fixed.",
+    "The board geometry can therefore be factored before the value algebra by quotienting supports to exact structural fiber types."
+  ],
+  "authority_effect": "none"
+}
