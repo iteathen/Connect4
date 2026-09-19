@@ -132,3 +132,17 @@ serial calls 2,643,905 -> 2,616,106 but fail the worker timing promotion test.
 Reject both, preserving protected comments in their patches. All 55 relevant
 controls passed for the guarded implementations. No native exhaustion bound is
 promoted; stronger workload-specific economics remain possible, not established.
+
+#78 phase 0: actual four-worker native task-boundary snapshots, full portable
+canonical q content equality (terminal sentinel explicitly distinct), deterministic
+content-hash 1/128 selection. Three roots complete with expected -1/0/1 and moves
+3/3/4, workers cleaned up. Sampled unique keys 672/4237/4851; cross-worker keys
+295/3242/3421. Snapshot observation lag medians 14.90/261.36/160.56 ms are NOT
+exact completion lags. Most overlaps are late: on the hard draw, 3077 of 3242
+duplicates have rank >=30; the lowest sampled overlap rank is 22. Distinct
+completed keys are not a saved-subtree count. Census overhead (46/1790/814 ms
+aggregate worker time) is unacceptable for production; do not import its string
+serialization/scans into recursion. Sampling/snapshot tails/pool resets bias
+coverage, so do not extrapolate a precise total. Portable summary retained;
+full exact snapshots remain Git-private evidence. Before a shared-TT protocol,
+test the existing task quantum as the lowest-coordination scheduling candidate.
