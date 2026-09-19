@@ -119,3 +119,23 @@ The matching P1/min case had the same defect. Backup now keeps the observed valu
 and rejects the contradiction before publication. Independent physical controls
 at ranks 34 and 37 verify both orientations, root-state restoration and absence
 of a cached draw after failure. Valid no-win cutoff semantics are unchanged.
+
+## Final qualification and remaining boundary
+
+Node 26.7.0: **44/44 pass**, using the CI command:
+
+```sh
+node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs components/bsfp/test/rba-wdl-reference.test.mjs
+```
+
+The Isometric CI workflow now includes the consumed RBA engine, its dependencies
+and its persisted controls in triggers and execution. `git diff --check` passes.
+No GPU or empty-board performance claim is made by these portable qualifications.
+
+#67 remains the explicitly deferred stronger proof seam. Live canonical research
+was rechecked throughout and still points to the pinned revision above. Exact
+temporal/resource/realizability premise evaluation and valid transporter semantics
+are not established by these value controls. Their guards remain unresolved;
+implementing an obligation producer now would substitute solved values for proof
+premises. This pass resolves current implementation issues #64/#65/#66/#70, not
+the earlier exhaustive historical-corpus audit or a complete structural calculus.

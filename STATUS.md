@@ -18,7 +18,8 @@ Historical descent from the terminal-frontier experiment does not make Negamax s
 
 ## Research-coupled update readiness — 2026-09-19
 
-The IsoMax implementation lane is aligned for a research-coupled update pass.
+The updated-spec implementation pass is qualified. Details and reproducible
+measurements: `docs/decisions/2026-09-19-isomax-issue-qualification.md`.
 
 Stable execution boundary:
 
@@ -57,19 +58,27 @@ current exact-value cache equality:
     + canonical support
 ~~~
 
-So the cache is already effectively q-keyed even though the older C4-0011 wording claimed a stronger key including side/status.
+`gameplayKey()` exposes exactly this triple; transport is separate and the cache
+enforces residual-pool ownership. Full-field comparison remains mandatory.
 
 Stored `ply`, `sideToMove`, terminal status, support/playable masks and reversible history remain useful runtime fields. They are not all irreducible gameplay-identity coordinates.
 
 Coarse WSL certificate buckets are also intentionally not transition identity: they locate candidate certificates, and guards establish contextual applicability.
 
-The remaining implementation work is targeted rather than a solver rewrite:
+Completed implementation scope:
 
-1. expose q/gameplay identity explicitly instead of relying on a transition-signature convention;
-2. harden proof-identity deduplication so one proof token cannot silently alias different guarded content;
-3. add direct q/cross-profile qualification;
-4. add and qualify an optional q/RBA exact-value boundary consumer before recursive fallback;
-5. implement temporal/resource/realizability guards and guarded obligation birth only when the stronger proof/certificate research seam is sufficiently qualified.
+1. explicit pool-bound q keys and separate reflection transport (#64);
+2. immutable canonical proof payload binding and collision rejection (#65);
+3. deliberate physical q-collision and cross-profile controls (#66);
+4. optional bounded RBA value closure before forced/recursive fallback (#70);
+5. recursive exception restoration and rejection of contradictory no-win bounds.
+
+The RBA consumer remains opt-in: one late root avoids 35 recursive children and
+7 forced transitions, but roughly 6.43 ms construction outweighs the 0.086 ms
+recursive control. A faster warm query alone does not justify promotion.
+Temporal/resource/realizability proof guards and guarded obligation birth (#67)
+remain deferred pending qualified canonical proof semantics. Unresolved stays
+unresolved; ordinary value is not a proof premise.
 
 See `docs/decisions/2026-09-18-isometric-isograph-realignment.md`.
 
@@ -84,7 +93,9 @@ Current accepted implementation properties include:
 - guarded certificate consumption;
 - stronger transition identity than coarse WSL retrieval identity;
 - recursive fixed-P0 W/D/L backup for unresolved residue;
-- native playable-singleton advisory ordering after exact tactical/TT authority.
+- optional bounded ordinary-value membership before forced/recursive fallback;
+- recursive state restoration on downstream errors;
+- fail-closed contradictory exact/no-win certificate handling.
 
 The previously tested opponent-residual-suppression first-child tier remains rejected for the tested placement because it improved one paired fixture while materially worsening the independent calibration corpus.
 
@@ -102,23 +113,20 @@ Historical `docs/research/**` and inherited `research/**` files on this branch a
 
 Maintain and qualify the native Isometric solver against canonical research contracts while improving implementation consumers only when the consumed research guard/consequence is already established.
 
-Near-term implementation assessment areas:
+Remaining assessment areas:
 
-1. explicit q gameplay-key API and transition-signature cleanup;
-2. proofIdentity/content binding and collision rejection;
-3. q-congruence plus cross-profile negative controls;
-4. temporal/resource/realizability guard implementation after research qualification;
-5. exact transition/certificate cache economics;
-2. TT retention/replacement behavior separated from tree-size effects;
-3. Branch Manager scheduling only from already-qualified descriptors;
-4. shared compiled consequence/effect data only if multiple implementation consumers demonstrate reuse value;
-5. native state/transition efficiency without changing research semantics.
+1. temporal/resource/realizability guard implementation after research qualification;
+2. actual repeated-query economics before promoting optional RBA closure;
+3. transition/certificate cache economics and native transition efficiency.
 
 No new theorem, hypothesis, research result, or research evidence should be authored as durable authority on this branch. Such work goes to canonical research first.
 
 ## Qualification
 
-The Isometric native WSL workflow targets `solver/isometric` and qualifies domain/native WSL behavior under Node 26.7.0.
+The Isometric native WSL workflow targets `solver/isometric` and qualifies
+domain/native WSL plus shared RBA controls under Node 26.7.0. The final local
+suite has 44 tests: domain, Isometric and RBA. Bounded controls do not prove a
+universal quotient theorem, complete proof calculus, or empty-board performance.
 
 ## Routing
 

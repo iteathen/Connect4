@@ -6,12 +6,22 @@ on:
     paths:
       - 'components/isometric/**'
       - 'components/domain/**'
+      - 'components/bsfp/rba-wdl-reference.mjs'
+      - 'components/bsfp/geometry.mjs'
+      - 'components/bsfp/residual-winspace.mjs'
+      - 'components/bsfp/test/rba-wdl-reference.test.mjs'
+      - 'experiments/bsfp-rba-reference/**'
       - 'package.json'
       - '.github/workflows/isometric-native-wsl.yml'
   pull_request:
     paths:
       - 'components/isometric/**'
       - 'components/domain/**'
+      - 'components/bsfp/rba-wdl-reference.mjs'
+      - 'components/bsfp/geometry.mjs'
+      - 'components/bsfp/residual-winspace.mjs'
+      - 'components/bsfp/test/rba-wdl-reference.test.mjs'
+      - 'experiments/bsfp-rba-reference/**'
       - 'package.json'
       - '.github/workflows/isometric-native-wsl.yml'
   workflow_dispatch:
@@ -30,4 +40,4 @@ jobs:
       - name: Assert exact Node runtime
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
       - name: Domain and native WSL qualification
-        run: node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs
+        run: node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs components/bsfp/test/rba-wdl-reference.test.mjs
