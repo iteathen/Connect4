@@ -23,6 +23,30 @@ known relation kind
 
 Where the participating endpoints are known but the exact relation is not, the **relation occurrence itself** is represented as an OPEN QU state.
 
+## Native overlay vocabulary
+
+The companion native overlay uses successor-local placement roles:
+
+| Label | Role |
+| --- | --- |
+| `^97600` | RBA topology overlay record |
+| `^97601` | overlay identity bytes |
+| `^97602` | frozen base-authority manifest identity |
+| `^97603` | semantic-region record |
+| `^97604` | fixed region-member incidence |
+| `^97605` | open relation-occurrence record |
+| `^97606` | fixed relation endpoint incidence |
+| `^97607` | endpoint-incidence-fixed marker |
+| `^97608` | open relation-semantics marker/description |
+| `^97609` | directionality-state description |
+| `^97610` | relation constraint bytes |
+| `^97611` | admissible future relation-kind candidate |
+| `^97612` | excluded/unsupported relation interpretation |
+| `^97613` | placement evidence/provenance reference |
+| `^97614` | authority-effect/status record |
+
+These labels are local to this successor overlay. They do not extend Core or authority 1.1.
+
 ## Placement
 
 The current ordinary-value topology is represented as:
