@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "experiment": "rba-semiring-orientation-projection-refinement",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "deductive": {
+    "outer_restriction_skyline_monotonicity": "For fixed B, if a subset_of a_prime then |Max({a meet b})| <= |Max({a_prime meet b})|.",
+    "projection_identity": "For fixed B, the projection family depends only on a meet Union(B); Intersection(B) factors as a constant projection component."
+  },
+  "projection_quotient": {
+    "rank29": {
+      "outer": 41133,
+      "inner": 131121,
+      "inner_union_bits": 64,
+      "inner_intersection_bits": 0,
+      "unique_outer_restrictions": 41096,
+      "duplicate_classes": 37,
+      "max_class": 2
+    },
+    "rank28": {
+      "outer": 32869,
+      "inner": 57909,
+      "inner_union_bits": 68,
+      "inner_intersection_bits": 1,
+      "unique_outer_restrictions": 32869,
+      "duplicate_classes": 0,
+      "max_class": 1
+    },
+    "disposition": "exact_but_not_materially_compressive"
+  },
+  "projection_index_rank28": {
+    "raw": 1903410921,
+    "inner_scanned": 691043700,
+    "scan_fraction": 0.363,
+    "pruned_fraction": 0.637,
+    "local_candidates": 2641949,
+    "final": 78546,
+    "same_final_set": true,
+    "local_ms": 13416.338,
+    "norm_ms": 2863.633,
+    "disposition": "exact_but_slower_than_streaming_kernel"
+  },
+  "final_orientation": {
+    "rank29": {
+      "old": {
+        "outer": 41133,
+        "inner": 131121,
+        "local": 4393899,
+        "median": 36,
+        "p90": 280,
+        "p99": 896,
+        "final": 140454,
+        "local_ms": 51254.499,
+        "norm_ms": 5909.037
+      },
+      "new": {
+        "outer": 131121,
+        "inner": 41133,
+        "local": 1353069,
+        "median": 1,
+        "p90": 25,
+        "p99": 135,
+        "max": 24083,
+        "distinct": 1169283,
+        "after_mover": 640912,
+        "after_opponent": 413093,
+        "final": 140454,
+        "local_ms": 5001.402,
+        "norm_ms": 5417.497,
+        "sha256": "33fa501eb8ff6a7501079d131452d8f2807302ad74ce104b3ecea10a6e1349bc"
+      }
+    },
+    "rank28": {
+      "old": {
+        "outer": 32869,
+        "inner": 57909,
+        "local": 2641949,
+        "median": 38,
+        "p90": 194,
+        "p99": 661,
+        "final": 78546,
+        "local_ms": 4328.78,
+        "norm_ms": 2433.3
+      },
+      "new": {
+        "outer": 57909,
+        "inner": 32869,
+        "local": 253413,
+        "median": 1,
+        "p90": 1,
+        "p99": 40,
+        "max": 26599,
+        "distinct": 235635,
+        "after_mover": 172901,
+        "after_opponent": 141454,
+        "final": 78546,
+        "local_ms": 1487.432,
+        "norm_ms": 1045.618,
+        "sha256": "1aa22092bea4ff337f5fb114675da76c3ad7de969a877efd269cb02e34ae453e"
+      }
+    }
+  },
+  "six_product_controls": [
+    {
+      "id": "rank29_step1",
+      "A": 30430,
+      "B": 31397,
+      "A_outer_total_ms": 3397.084,
+      "B_outer_total_ms": 6061.764,
+      "faster": "A"
+    },
+    {
+      "id": "rank29_step2",
+      "A": 92989,
+      "B": 8821,
+      "A_outer_total_ms": 5571.723,
+      "B_outer_total_ms": 9792.287,
+      "A_outer_local": 1537353,
+      "B_outer_local": 1200735,
+      "faster": "A",
+      "note": "fewer candidates did not mean faster"
+    },
+    {
+      "id": "rank29_step3",
+      "A": 131121,
+      "B": 41133,
+      "A_outer_total_ms": 10418.899,
+      "B_outer_total_ms": 57163.536,
+      "faster": "A"
+    },
+    {
+      "id": "rank28_step1",
+      "A": 6474,
+      "B": 20292,
+      "A_outer_total_ms": 893.562,
+      "B_outer_total_ms": 2231.864,
+      "faster": "A"
+    },
+    {
+      "id": "rank28_step2",
+      "A": 51208,
+      "B": 6423,
+      "A_outer_total_ms": 1634.789,
+      "B_outer_total_ms": 1676.127,
+      "faster": "A_near_tie"
+    },
+    {
+      "id": "rank28_step3",
+      "A": 57909,
+      "B": 32869,
+      "A_outer_total_ms": 2533.05,
+      "B_outer_total_ms": 6762.08,
+      "faster": "A"
+    }
+  ],
+  "mean_popcount": {
+    "rank29": [
+      [
+        43.35,
+        44.03
+      ],
+      [
+        41.27,
+        43.62
+      ],
+      [
+        40.48,
+        43.46
+      ]
+    ],
+    "rank28": [
+      [
+        45.29,
+        46.9
+      ],
+      [
+        43.43,
+        45.49
+      ],
+      [
+        42.85,
+        46.16
+      ]
+    ]
+  },
+  "sampling": {
+    "prefix_sampling_disposition": "biased_by_generator_order_rejected",
+    "candidate_hash_sampling_control": "median_of_3_x_32 hash samples selected lower-candidate final orientation 100/100 seeds at rank29 and rank28",
+    "runtime_policy": "sample actual local-skyline work with independent deterministic hash samples; use candidate estimate as normalization/memory guard; escalate when close",
+    "fixed_runtime_control": "selected measured faster A-outer orientation on all six products"
+  },
+  "interpretation": {
+    "raw_cartesian_size_sufficient": false,
+    "operand_size_sufficient": false,
+    "local_candidate_count_sufficient": false,
+    "current_best_policy": "keep accumulated semiring boundary as outer in tested left fold; verify with hash-sampled local work on new regimes"
+  },
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
