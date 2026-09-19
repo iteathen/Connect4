@@ -1,0 +1,149 @@
+{
+  "schema": 2,
+  "overlay_id": "connect4-rba-topology-placement-0.2",
+  "status": "post_1_1_successor_topology_overlay_not_authority",
+  "date": "2026-09-19",
+  "base_authority": {
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d"
+  },
+  "current_rba_qu": {
+    "id": "RBA-QU-0009",
+    "native_node": 430009,
+    "state": "OPEN"
+  },
+  "regions": [
+    {
+      "id": "RBA-REGION-RESIDUAL",
+      "native_node": 431000,
+      "name": "board-fiber / residual / future-behavior region",
+      "members": [
+        "C4-R0008",
+        "C4-R0025",
+        "C4-R0026",
+        "C4-R0068",
+        "C4-R0077",
+        "C4-R0079"
+      ]
+    },
+    {
+      "id": "RBA-REGION-VALUE",
+      "native_node": 431010,
+      "name": "exact ordinary value algebra / boundary region",
+      "members": [
+        "C4-R0078",
+        "C4-R0080",
+        "C4-R0081"
+      ]
+    },
+    {
+      "id": "RBA-REGION-PROOF",
+      "native_node": 431020,
+      "name": "proof / controllable-predecessor region",
+      "members": [
+        "C4-R0073",
+        "C4-R0074",
+        "C4-R0043",
+        "C4-R0069",
+        "C4-R0076"
+      ]
+    },
+    {
+      "id": "RBA-REGION-SCALING",
+      "native_node": 431030,
+      "name": "native semiring evaluation / root-scaling frontier",
+      "members": [
+        "C4-R0082",
+        "C4-R0083",
+        "C4-R0084"
+      ]
+    }
+  ],
+  "relation_state": [
+    {
+      "id": "RBA-REL-01",
+      "endpoints": [
+        431000,
+        430009
+      ],
+      "semantic_state": "OPEN_WITH_DETERMINATE_CORE",
+      "fixed": [
+        "board fiber derives residual lattice/cofactor neighborhood (C4-R0077)",
+        "terminal-extended cofactor is left adjoint with right adjoint and fixed-word composition (C4-R0079)"
+      ],
+      "open": [
+        "minimality/canonicality of the basis",
+        "family generalization"
+      ]
+    },
+    {
+      "id": "RBA-REL-02",
+      "endpoints": [
+        430009,
+        431010
+      ],
+      "semantic_state": "OPEN_WITH_DETERMINATE_CORE",
+      "fixed": [
+        "four-front partial information is exact (C4-R0080)",
+        "Bellman threshold semantics is antichain-semiring lattice polynomial (C4-R0081)"
+      ],
+      "open": [
+        "compact canonical transformer normal form",
+        "root-scale frontier-width law"
+      ]
+    },
+    {
+      "id": "RBA-REL-03",
+      "endpoints": [
+        430009,
+        431020
+      ],
+      "semantic_state": "OPEN",
+      "fixed": [
+        "ordinary-value universal reply composition is explicit semiring multiplication"
+      ],
+      "open": [
+        "exact clause/proof to ordinary-value projection",
+        "relation to C4-R0043/C4-R0069/C4-R0076"
+      ],
+      "excluded": [
+        "RBA == C4-R0076",
+        "proof carrier == ordinary-value carrier",
+        "C4-R0043 == C4-R0069 == C4-R0076"
+      ]
+    },
+    {
+      "id": "RBA-REL-04",
+      "endpoints": [
+        431010,
+        431030
+      ],
+      "semantic_state": "DETERMINATE_EVALUATION_INTERFACE",
+      "fixed": [
+        "local-skyline factorization evaluates exact semiring multiplication (C4-R0082)",
+        "current native recurrence evidence/frontier are C4-R0083/C4-R0084"
+      ]
+    }
+  ],
+  "topology_summary": {
+    "primary_semantic_chain": [
+      431000,
+      430009,
+      431010
+    ],
+    "evaluation_chain": [
+      431010,
+      431030
+    ],
+    "open_side_seam": [
+      430009,
+      431020
+    ],
+    "current_frontier": "431030 rank29 draw13 final product",
+    "interpretation": "Residual-to-value semantics is substantially determined. The remaining semantic side seam is proof/value correspondence; the current ordinary-value execution wall is sparse semiring scaling."
+  },
+  "authority_effect": {
+    "authority_1_1_mutated": false,
+    "proved_successor_relations_added": true,
+    "proof_value_typed_edges_promoted": 0
+  }
+}
