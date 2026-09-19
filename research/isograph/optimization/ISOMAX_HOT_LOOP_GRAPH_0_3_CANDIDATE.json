@@ -1,0 +1,306 @@
+{
+  "schema": 3,
+  "id": "isomax-hot-loop-graph-0.3",
+  "status": "active_successor_candidate",
+  "owner_branch": "research/semantic-quotient",
+  "solver_revision": "69a1ae0929b934682d475b31cdd4a38fac77fc12",
+  "nei_dependency": {
+    "repository": "iteathen/isograph",
+    "revision": "485a16cd44299b3e7ec03768791d261a38bc08c8",
+    "path": "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+    "status": "unqualified_successor_candidate"
+  },
+  "authority_effect": "none",
+  "supersedes_for_active_interpretation": [
+    "ISOMAX_HOT_LOOP_OPTIMIZATION_GRAPH_0_1.*",
+    "ISOMAX_HOT_LOOP_NEI_APPLICATION_0_2.*",
+    "ISOMAX_HOT_LOOP_DISCOVERY_PROTOCOL_0_1.md",
+    "ISOMAX_HOT_LOOP_FULL_DISCOVERY_0_2.*",
+    "ISOMAX_HOT_LOOP_QUALIFICATION_0_1.md",
+    "ISOMAX_HOT_LOOP_QUALIFICATION_0_2.md"
+  ],
+  "semantic_parents": [
+    {
+      "id": 996001,
+      "name": "ordinary_value_dependency"
+    },
+    {
+      "id": 996002,
+      "name": "exact_q_cache_identity"
+    },
+    {
+      "id": 996003,
+      "name": "own_residual_cofactor"
+    },
+    {
+      "id": 996004,
+      "name": "block_residual_cofactor"
+    },
+    {
+      "id": 996005,
+      "name": "support_transition"
+    },
+    {
+      "id": 996006,
+      "name": "advisory_move_order"
+    },
+    {
+      "id": 996007,
+      "name": "task_necessity"
+    },
+    {
+      "id": 996008,
+      "name": "ranked_q_dependency_dag"
+    }
+  ],
+  "exact_scoped_equivalences": [
+    {
+      "id": 996020,
+      "name": "prepared_hash_pi32_equivalence",
+      "scope": "q locator bitwise addressing",
+      "left": "unsigned Number hash carrier",
+      "right": "signed int32 hash carrier",
+      "invariant": "identical low 32 bits under pi32",
+      "nei_result": "not_required"
+    },
+    {
+      "id": 996021,
+      "name": "isolated_bit_pi32_equivalence",
+      "scope": "Math.clz32 / bit-index input",
+      "left": "unsigned Number isolated bit",
+      "right": "signed int32 isolated bit",
+      "invariant": "identical low 32 bits under pi32",
+      "nei_result": "not_required"
+    },
+    {
+      "id": 996022,
+      "name": "cell_mask_precomputation_equivalence",
+      "scope": "42-cell mask lookup"
+    },
+    {
+      "id": 996023,
+      "name": "flat_pair_incidence_equivalence",
+      "scope": "advisory singleton-effect classifier"
+    },
+    {
+      "id": 996024,
+      "name": "singleton_projection_equivalence",
+      "scope": "singleton metadata projection"
+    },
+    {
+      "id": 996025,
+      "name": "cold_helper_boundary_equivalence",
+      "scope": "growth semantics"
+    },
+    {
+      "id": 996026,
+      "name": "preparation_order_equivalence",
+      "scope": "final prepared storage semantics"
+    }
+  ],
+  "identity_boundaries": {
+    "q_cache": {
+      "kind": "implementation_exact_equality",
+      "coordinates": [
+        "canonical p0 residual class",
+        "canonical p1 residual class",
+        "canonical packed support"
+      ],
+      "exclusions": [
+        "hash",
+        "slot",
+        "worker-local class ID"
+      ]
+    },
+    "task_occurrence": {
+      "kind": "contextual_occurrence",
+      "may_project_to_same_q": true,
+      "occurrence_identity_preserved": true,
+      "future_behavior_identity_owner": "Connect4 game-theory IsoGraph"
+    },
+    "nei": {
+      "required_current_claims": [],
+      "rule": "invoke only for genuine identity questions; exact scoped equivalence is not automatically NEI SAME"
+    }
+  },
+  "identity_evidence": {
+    "bayes_factors_present": false,
+    "reason": "no qualified likelihood model; benchmark repetition is not converted into identity evidence weight"
+  },
+  "qu_regions": [
+    {
+      "id": "QU-HOT-01",
+      "node": 996040,
+      "name": "v8_lowering",
+      "known": [
+        "pinned source/runtime/cpu",
+        "generated-code summaries",
+        "allocation/map/call observations",
+        "exact A/B controls"
+      ],
+      "open": [
+        "tier/version stability",
+        "remaining hidden deopts/allocations",
+        "dynamic site frequency"
+      ]
+    },
+    {
+      "id": "QU-HOT-02",
+      "node": 996041,
+      "name": "dynamic_machine_cost",
+      "known": [
+        "statistical CPU profile",
+        "sampled allocation",
+        "wall time"
+      ],
+      "open": [
+        "branch misses",
+        "cache misses",
+        "retired instruction counts"
+      ]
+    },
+    {
+      "id": "QU-HOT-03",
+      "node": 996042,
+      "name": "workload_distribution",
+      "known": [
+        "manager q reuse",
+        "private worker TT",
+        "cross-worker q overlap",
+        "four-worker excess work",
+        "busy retirement benefit"
+      ],
+      "open": [
+        "avoidable work per duplicate",
+        "best publication boundary",
+        "affinity/priority/frontier economics",
+        "memory/task-entry interaction"
+      ],
+      "candidates": [
+        78,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95
+      ]
+    }
+  ],
+  "current_candidates": [
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    78,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95
+  ],
+  "retained_performance": {
+    "serial": {
+      "baseline_ms": 2379.87,
+      "final_ms": 1709.77,
+      "reduction_percent": 28.16,
+      "calls": 2643905
+    },
+    "one_worker": {
+      "baseline_ms": 2761.83,
+      "final_ms": 2052.99,
+      "reduction_percent": 25.67
+    },
+    "four_worker": {
+      "baseline_ms": 2429.99,
+      "final_ms": 1779.85,
+      "reduction_percent": 26.75
+    },
+    "exact_decisions_agree": true
+  },
+  "relations": [
+    {
+      "type": "realizes",
+      "from": 996002,
+      "to": "components/isometric/isomax-index.mjs"
+    },
+    {
+      "type": "realizes",
+      "from": 996003,
+      "to": "components/isometric/residual-pool.mjs#ownTransition"
+    },
+    {
+      "type": "realizes",
+      "from": 996004,
+      "to": "components/isometric/residual-pool.mjs#blockTransition"
+    },
+    {
+      "type": "realizes",
+      "from": 996005,
+      "to": "components/isometric/state.mjs#applyUnchecked/undo"
+    },
+    {
+      "type": "realizes",
+      "from": 996006,
+      "to": "components/isometric/move-order.mjs"
+    },
+    {
+      "type": "realizes",
+      "from": 996007,
+      "to": "components/isometric/execution/task.mjs"
+    },
+    {
+      "type": "realizes",
+      "from": 996008,
+      "to": "components/isometric/execution/branch-manager.mjs"
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996020
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996021
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996022
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996023
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996024
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996025
+    },
+    {
+      "type": "exact_scoped_equivalence",
+      "node": 996026
+    },
+    {
+      "type": "unresolved_as",
+      "from": 996001,
+      "to": 996040
+    },
+    {
+      "type": "unresolved_as",
+      "from": 996001,
+      "to": 996041
+    },
+    {
+      "type": "unresolved_as",
+      "from": 996008,
+      "to": 996042
+    }
+  ]
+}
