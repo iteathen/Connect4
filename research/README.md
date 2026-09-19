@@ -87,6 +87,11 @@ Value-information refinements:
 - `isograph/successor/CONNECT4_RBA_QU_0_4.json`
 - `isograph/successor/CONNECT4_RBA_QU_0_5.json`
 
+- `isograph/successor/CONNECT4_RBA_QU_0_6.md`
+- `isograph/successor/CONNECT4_RBA_QU_0_6.json`
+
+RBA-QU-0006 records that six-valued partial information is exactly represented by four nested endpoint fronts and that those fronts remain closed through tested 2/4/6-ply symbolic block composition, including action-specific fronts. The remaining core unknown is compact/output-sensitive normalization of mixed opponent-reply cover terms and possible fusion of those front transformers across the board-fiber graph.
+
 RBA-QU-0004 records that the raw-transition complete shell is too fine and that a four-valued UNKNOWN/WIN/DRAW/LOSS Bellman refinement exactly reconstructs strong outcome+distance on complete controls. RBA-QU-0005 further records that the six contiguous WDL partial-information bounds compose exactly through fixed-depth alternating blocks. The remaining core unknown is symbolic boundary composition/normalization of those exact block transformers over the board-fiber graph.
 
 RBA-QU-0003 records that exact board-fiber isomorphism transports the abstract ordinary-value algebra, while raw transformer typing adds only modest compression beyond the fiber quotient. The remaining core unknown is compact value-boundary transformer composition over the board-fiber graph.
