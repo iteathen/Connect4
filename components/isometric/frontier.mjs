@@ -1,42 +1,50 @@
 import { STATUS_ONGOING } from '../domain/index.mjs';
 import { exactValueConclusion, forcedMoveConclusion } from './certificate.mjs';
 
-function popcount32(value) {
-  let x = value >>> 0;
-  x -= (x >>> 1) & 0x55555555;
-  x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
-  return (((x + (x >>> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24;
-}
-
-function countMask(lo, hi) {
-  return popcount32(lo) + popcount32(hi);
-}
-
 function firstCell(lo, hi) {
   if (lo !== 0) return 31 - Math.clz32((lo & -lo) >>> 0);
   if (hi !== 0) return 32 + 31 - Math.clz32((hi & -hi) >>> 0);
   return -1;
 }
 
-export function deriveNativeFrontierConsequence(state) {
+// Numeric worker ABI: zero = unresolved; exact value = (code & 3) - 2;
+// bits 2..4 retain the consequence kind/distance; 64 + cell = forced move.
+// The public proof-facing view uses immutable, module-preloaded conclusions.
+const conclusions = new Array(106).fill(null);
+for (let value = -1; value <= 1; value++) {
+  conclusions[value + 2] = exactValueConclusion(value, 0);
+  conclusions[8 + value + 2] = exactValueConclusion(value, 1);
+  conclusions[16 + value + 2] = exactValueConclusion(value, 2);
+}
+conclusions[6] = exactValueConclusion(0, null);
+for (let cell = 0; cell < 42; cell++) conclusions[64 + cell] = forcedMoveConclusion(cell);
+
+export function nativeFrontierCode(state) {
   if (state.status !== STATUS_ONGOING) {
     const winner = state.winner();
-    return exactValueConclusion(winner === null ? 0 : winner === 0 ? 1 : -1, 0);
+    return winner === null ? 2 : winner === 0 ? 3 : 1;
   }
-  if (state.hasStructuralDrawCertificate()) return exactValueConclusion(0, null);
+  if (state.p0Class === state.pool.emptyClass && state.p1Class === state.pool.emptyClass) return 6;
 
   const ownClass = state.sideToMove === 0 ? state.p0Class : state.p1Class;
   const opponentClass = state.sideToMove === 0 ? state.p1Class : state.p0Class;
   const ownLo = (state.pool.singletonLo[ownClass] & state.playableLo) >>> 0;
   const ownHi = (state.pool.singletonHi[ownClass] & state.playableHi) >>> 0;
   if ((ownLo | ownHi) !== 0) {
-    return exactValueConclusion(state.sideToMove === 0 ? 1 : -1, 1);
+    return state.sideToMove === 0 ? 11 : 9;
   }
 
   const opponentLo = (state.pool.singletonLo[opponentClass] & state.playableLo) >>> 0;
   const opponentHi = (state.pool.singletonHi[opponentClass] & state.playableHi) >>> 0;
-  const opponentThreats = countMask(opponentLo, opponentHi);
-  if (opponentThreats >= 2) return exactValueConclusion(state.sideToMove === 0 ? -1 : 1, 2);
-  if (opponentThreats === 1) return forcedMoveConclusion(firstCell(opponentLo, opponentHi));
-  return null;
+  if ((opponentLo | opponentHi) === 0) return 0;
+  // Only zero / one / multiple matters. Preserve separate halves: OR-ing them
+  // before the single-bit test would conflate cell 0 with cell 32.
+  if ((opponentLo !== 0 && opponentHi !== 0) ||
+      (opponentLo & (opponentLo - 1)) !== 0 || (opponentHi & (opponentHi - 1)) !== 0)
+    return state.sideToMove === 0 ? 17 : 19;
+  return 64 + firstCell(opponentLo, opponentHi);
+}
+
+export function deriveNativeFrontierConsequence(state) {
+  return conclusions[nativeFrontierCode(state)];
 }

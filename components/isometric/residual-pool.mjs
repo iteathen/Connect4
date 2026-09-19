@@ -216,7 +216,7 @@ export class ResidualPool {
     return target;
   }
 
-  computeSingletonMasks(bits) {
+  computeSingletonMasks(bits, id) {
     let lo = 0;
     let hi = 0;
     const p = this.profile;
@@ -230,7 +230,8 @@ export class ResidualPool {
         active = (active & (active - 1)) >>> 0;
       }
     }
-    return [lo, hi];
+    this.singletonLo[id] = lo;
+    this.singletonHi[id] = hi;
   }
 
   internBits(bits, parentId = -1) {
@@ -265,9 +266,7 @@ export class ResidualPool {
     const id = this.classCount;
     for (let chunk = 0; chunk < FRONTIER_SLOTS; chunk += 1) this.classSlotIds[chunk][id] = this.chunkIds[chunk];
     this.classHashes[id] = hash;
-    const [singleLo, singleHi] = this.computeSingletonMasks(bits);
-    this.singletonLo[id] = singleLo;
-    this.singletonHi[id] = singleHi;
+    this.computeSingletonMasks(bits, id);
     this.classHashSlots[slot] = id;
     this.classCount += 1;
     return id;

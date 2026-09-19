@@ -4,7 +4,7 @@ import {
   CONCLUSION_FORCED_MOVE,
   CONCLUSION_NO_WIN,
 } from './certificate.mjs';
-import { deriveNativeFrontierConsequence } from './frontier.mjs';
+import { deriveNativeFrontierConsequence, nativeFrontierCode } from './frontier.mjs';
 import { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
 import { ResidualPool } from './residual-pool.mjs';
 import { IsometricState } from './state.mjs';
@@ -98,22 +98,23 @@ export class IsoMaxSolver {
       return cached;
     }
 
-    const native = deriveNativeFrontierConsequence(state);
-    const facts = this.collectCertificateFacts(state);
+    const native = nativeFrontierCode(state);
 
     let exact = null;
     let forcedCell = null;
     let p0NoWin = false;
     let p1NoWin = false;
 
-    if (native?.kind === CONCLUSION_EXACT_VALUE) {
-      exact = native.value;
+    if (native !== 0 && native < 64) {
+      exact = (native & 3) - 2;
       this.metrics.nativeExactHits += 1;
-    } else if (native?.kind === CONCLUSION_FORCED_MOVE) {
-      forcedCell = native.cell;
+    } else if (native >= 64) {
+      forcedCell = native - 64;
       this.metrics.nativeForcedHits += 1;
     }
 
+    if (this.certificates.size !== 0) {
+    const facts = this.collectCertificateFacts(state);
     if (facts.exact !== null) {
       if (exact !== null && exact !== facts.exact) {
         throw new Error(`native/certificate exact-value contradiction: ${exact} vs ${facts.exact}`);
@@ -131,6 +132,7 @@ export class IsoMaxSolver {
     p0NoWin = facts.p0NoWin;
     p1NoWin = facts.p1NoWin;
     this.metrics.certificateNoWinHits += (p0NoWin ? 1 : 0) + (p1NoWin ? 1 : 0);
+    }
 
     if (exact !== null) {
       if ((exact === 1 && p0NoWin) || (exact === -1 && p1NoWin)) {
@@ -187,7 +189,9 @@ export class IsoMaxSolver {
     for (let orderIndex = promoted >= 0 ? -1 : 0; orderIndex < MOVE_ORDER.length; orderIndex++) {
       const column = orderIndex === -1 ? promoted : MOVE_ORDER[orderIndex];
       if (orderIndex >= 0 && column === promoted) continue;
-      if (!state.canPlay(column)) continue;
+      // Frontier classification established ongoing status; MOVE_ORDER and
+      // promotedColumn supply validated columns. Only gravity fullness varies.
+      if (state.heights[column] === ROWS) continue;
       sawMove = true;
       state.applyUnchecked(column);
       this.metrics.recursiveChildren += 1;
