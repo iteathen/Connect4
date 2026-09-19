@@ -109,3 +109,13 @@ The other root closes natively and gains nothing from a boundary. **No default
 promotion**: faster warm membership and fewer children do not justify worse
 total economics. Shared repeated queries are a future workload to qualify, not
 a demonstrated amortized benefit. Existing recursion remains the exact control.
+
+## Contradictory no-win bound repair
+
+Review found a further fail-closed violation: max/min backup replaced a child
+value crossing a certified bound with that bound before checking contradiction.
+A legal rank-34 P0-winning root with a false P0-no-win certificate returned draw.
+The matching P1/min case had the same defect. Backup now keeps the observed value
+and rejects the contradiction before publication. Independent physical controls
+at ranks 34 and 37 verify both orientations, root-state restoration and absence
+of a cached draw after failure. Valid no-win cutoff semantics are unchanged.

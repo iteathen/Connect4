@@ -190,13 +190,11 @@ export class IsoMaxSolver {
       if (maximizing) {
         if (childValue > best) best = childValue;
         if (best >= upper) {
-          best = upper;
           break;
         }
       } else {
         if (childValue < best) best = childValue;
         if (best <= lower) {
-          best = lower;
           break;
         }
       }
