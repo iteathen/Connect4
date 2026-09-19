@@ -43,6 +43,13 @@ For current IsoMax hot-loop semantic/performance research, use only:
 
 These are successor **candidates**, not promoted authority. Authority 1.1 remains the qualified historical/current authority until replacement qualification. The old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain provenance/evidence only for active interpretation.
 
+Full DP-01..DP-45 re-discovery on the cleaned successors is complete:
+
+- `research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_1.md`;
+- `research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_1.json`.
+
+It found no new semantic defect and confirmed that the hot-loop successor currently requires no NEI SAME/DISTINCT result at all. Old-NEI concept coverage is recorded in `research/isograph/qualification/CLEAN_NEI_REINTEGRATION_COVERAGE_0_1.json`; this is an audit, not a compatibility layer.
+
 Both successors use the NEI 0.4 candidate direction from `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`:
 
 ```text
