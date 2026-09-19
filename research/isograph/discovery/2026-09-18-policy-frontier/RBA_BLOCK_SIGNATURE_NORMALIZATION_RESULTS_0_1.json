@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "experiment": "rba-block-signature-normalization-refinement",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "status": "exact_evaluation_law_refinement",
+  "trigger": {
+    "support": [
+      3,
+      4,
+      2,
+      0,
+      6,
+      6,
+      6
+    ],
+    "rank": 27,
+    "threshold": "win15",
+    "factor_pair": [
+      0,
+      2
+    ],
+    "operand_sizes": [
+      30387,
+      20096
+    ],
+    "raw_pairs": 610657152
+  },
+  "law": {
+    "name": "block_signature_exact_superset_index",
+    "mode": "subset_maximal",
+    "exactness": "For any selected block, every full superset of q lies in a block-signature superset bucket; full-mask verification rejects false positives.",
+    "semantic_effect": "none"
+  },
+  "local_phase": {
+    "chunk_0_20000": {
+      "outer": 20000,
+      "local_candidates": 2327296,
+      "leaf_scans": 169597191,
+      "tree_nodes": 16592192,
+      "elapsed_ms": 28881.6
+    },
+    "chunk_20000_end": {
+      "outer": 10387,
+      "local_candidates": 534899,
+      "leaf_scans": 72830035,
+      "tree_nodes": 7427885,
+      "elapsed_ms": 9448.07
+    },
+    "total": {
+      "outer": 30387,
+      "local_candidates": 2862195,
+      "leaf_scans": 242427226,
+      "tree_nodes": 24020077,
+      "elapsed_ms": 38329.67
+    }
+  },
+  "normalization": {
+    "candidate_occurrences": 2862195,
+    "distinct": 2170447,
+    "final": 143550,
+    "sort_dedup_ms": 768.964,
+    "maximalize_ms": 18589.5,
+    "approximate_total_ms": 19358.5,
+    "peak_kib": 57484
+  },
+  "differential": {
+    "real_candidate_prefix": 100000,
+    "old_exact_output": 26078,
+    "block_index_output": 26078,
+    "same_set": true,
+    "elapsed_ms": 390
+  },
+  "complete_product_approx_ms": 57688.2,
+  "refined_interpretation": {
+    "smaller_raw_pair_count_sufficient": false,
+    "factor_order_alone_sufficient": false,
+    "local_query_sample_alone_sufficient": false,
+    "planner_domain": [
+      "factor_order",
+      "orientation",
+      "local_projection_method",
+      "global_normalization_index"
+    ],
+    "cost_components": [
+      "local_query_work",
+      "local_candidate_occurrences",
+      "distinct_candidates",
+      "normalization_work",
+      "output_width"
+    ]
+  },
+  "genericity": {
+    "connect4_owned": [
+      "residual/value semantics",
+      "Bellman factor meaning",
+      "Upper/Lower authority",
+      "qualification"
+    ],
+    "candidate_generic_mechanism": "fixed-width block-signature subset/superset antichain indexing"
+  },
+  "next": [
+    "qualify block index on additional real products",
+    "derive minimal-antichain dual",
+    "replay win15 with adaptive exact product pipeline",
+    "derive multi-phase planner before rank26"
+  ],
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
