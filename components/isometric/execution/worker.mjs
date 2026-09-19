@@ -2,6 +2,10 @@ import { parentPort, workerData } from 'node:worker_threads';
 import { IsoMaxTaskSolver } from './task.mjs';
 if (!parentPort) throw new Error('IsoMax worker requires parentPort');
 let solver = new IsoMaxTaskSolver(), poisoned = false;
+// Divide one session retention allowance rather than discarding equally small
+// caches on every worker count (which destroyed serial-equivalent reuse).
+const retainedClasses=Math.floor(1048576/workerData.workerCount);
+const retainedEntries=Math.floor(8388608/workerData.workerCount);
 parentPort.on('message', message => {
   try {
     if (poisoned) throw new Error('IsoMax worker is poisoned');
@@ -12,7 +16,7 @@ parentPort.on('message', message => {
       workerId:workerData.workerId,executionMs:performance.now()-start,
       localClasses:solver.pool.classCount,isolateMemory:process.memoryUsage()});
     // Bound retained per-worker warm state at task boundaries, not recursively.
-    if (solver.pool.classCount > 65536 || solver.transitionCache.count > 262144) solver = new IsoMaxTaskSolver();
+    if (solver.pool.classCount > retainedClasses || solver.transitionCache.count > retainedEntries) solver = new IsoMaxTaskSolver();
   } catch (error) {
     poisoned = true;
     parentPort.postMessage({type:'error',taskId:message?.taskId,message:error.message});

@@ -25,7 +25,8 @@ per task and recurse directly on packed WSL state. Root ordering scope remains
 the original external root ply; result arrival order cannot change root ties.
 
 Workers run synchronous bounded quanta (default 65,536 calls). A yielded task
-returns `split` with no value. Only `exact` returns WDL. The manager expands
+returns `split` with no value, plus its unfinished native dependency path and
+already proved sibling values. Only `exact` returns WDL. The manager expands
 unfinished work at its actual child-value dependencies and consumes completions
 incrementally. A node quota is scheduling, not search depth or a WDL cutoff.
 Worker-local exact caches survive yields; q equality in the manager shares
@@ -38,11 +39,16 @@ separate. Deadline/session abort checks occur every 8192 recursive entries.
 Worker fault, bad result, missing work or capacity exhaustion fails closed.
 No unfinished result is published as draw.
 
-The ready/in-flight bound is twice the worker count; manager q capacity defaults
+The manager exposes up to twice the worker count as ready work and submits at
+most one task per worker, keeping stale queued speculation off the executor.
+Manager q capacity defaults
 to 262,144 and fails visibly at exhaustion. V8 old-generation budgets split a
 4096 MiB budget among workers plus the host share; this is not an aggregate RSS
-limit. Worker-local pools reset between tasks above 65,536 classes or 262,144
-cache entries. Typed arrays/runtime overhead must be included in measurements.
+limit. A session retention allowance of 1,048,576 classes and 8,388,608 cache
+entries is divided across workers. Pools reset only between tasks above their
+share; a task may temporarily exceed it. Typed arrays/runtime overhead must be
+included in measurements. Small identical per-worker caps were rejected because
+they repeatedly discarded useful exact values on the one-worker control.
 The public solve deadline cannot exceed 120 seconds. The performance supervisor
 reserves up to one second inside its existing wall deadline for worker cleanup.
 

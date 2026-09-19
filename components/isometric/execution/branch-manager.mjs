@@ -31,7 +31,7 @@ export class IsoMaxBranchManager {
     try {
       for (let id = 0; id < this.workerCount; id++) {
         const worker = new Worker(new URL('./worker.mjs', import.meta.url), {
-          workerData:{workerId:id}, execArgv:[],
+          workerData:{workerId:id,workerCount:this.workerCount}, execArgv:[],
           resourceLimits:{maxOldGenerationSizeMb:Math.max(16,Math.floor(4096/(this.workerCount+1)))},
         });
         this.workers.push(worker);
@@ -173,7 +173,23 @@ export class IsoMaxBranchManager {
           metrics.nodes+=message.nodes;metrics.workerExecutionMs+=message.executionMs;
           metrics.workerTasks[message.workerId]++;metrics.workerNodes[message.workerId]+=message.nodes;
           if(message.kind==='exact'){metrics.exactTasks++;complete(node,message.value);}
-          else if(message.kind==='split'){metrics.splitTasks++;if(!answer)expand(node);}
+          else if(message.kind==='split'){
+            metrics.splitTasks++;
+            if(!answer)for(const frame of message.frames.toReversed()){
+              if(!Array.isArray(frame.moves)||frame.moves.length<node.moves.length ||
+                node.moves.some((c,i)=>frame.moves[i]!==c) || !Array.isArray(frame.values))
+                throw new Error('invalid native dependency continuation');
+              const owner=build(frame.moves);
+              expand(owner);
+              for(const known of frame.values){
+                if(!Number.isInteger(known.column)||known.column<0||known.column>=7)
+                  throw new Error('invalid continuation column');
+                // Construct in the frame's orientation. The manager's existing
+                // representative may be reflected; its pool establishes q.
+                complete(build([...frame.moves,known.column]),known.value);
+              }
+            }
+          }
           else metrics.retiredTasks++;
         });
       pending.set(node,promise);
@@ -193,7 +209,7 @@ export class IsoMaxBranchManager {
           let supply=required(), expansions=0;
           // Proactively fill a bounded reservoir. Forced moves remain one edge.
           // Larger unfinished tasks split at real value dependencies on yield.
-          while(supply.leaves.length+pending.size<this.workerCount*2 && supply.leaves.length && expansions++<64){
+          while(supply.leaves.length+pending.size<this.workerCount && supply.leaves.length && expansions++<64){
             expand(supply.leaves[0]);answer=rootAnswer();
             if(answer)break;
             supply=required();
@@ -202,7 +218,7 @@ export class IsoMaxBranchManager {
           for(const node of pending.keys())if(!supply.live.has(node)&&node.needed)Atomics.store(node.needed,0,0);
           metrics.maxReady=Math.max(metrics.maxReady,Math.min(supply.leaves.length,this.workerCount*2));
           for(const node of supply.leaves){
-            if(pending.size>=this.workerCount*2)break;
+            if(pending.size>=this.workerCount)break;
             submit(node);
           }
           metrics.maxPending=Math.max(metrics.maxPending,pending.size);

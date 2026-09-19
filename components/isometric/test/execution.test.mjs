@@ -24,7 +24,7 @@ test('existing executor accepts typed native results and still rejects invalid W
   class Fake extends EventEmitter {postMessage(m){this.sent=m;}}
   const worker=new Fake(),executor=createSearchWorkerExecutor([worker],{validateResult:validateTaskResult});
   const p=executor.submit({type:'isomax-task'});
-  worker.emit('message',{type:'result',taskId:worker.sent.taskId,kind:'split',nodes:8});
+  worker.emit('message',{type:'result',taskId:worker.sent.taskId,kind:'split',nodes:8,frames:[{moves:[],values:[]}]});
   assert.equal((await p).kind,'split');await executor.drain();executor.close();
   const bad=new Fake(),e=createSearchWorkerExecutor([bad],{validateResult:validateTaskResult});
   const rejected=e.submit({type:'isomax-task'});
@@ -85,4 +85,25 @@ test('timeout, worker death, capacity and pre-abort fail closed and clean up',{t
   const aborted=new IsoMaxBranchManager({workers:2});
   await assert.rejects(aborted.solveMoves([],{signal:AbortSignal.abort()}),/ABORTED/);
   assert.equal(aborted.workers.length,0);
+});
+
+test('continuation handoff retains completed dependencies instead of restarting proof work',{timeout:10000},async()=>{
+  const moves=Array.from('466537327657277224',c=>Number(c)-1);
+  const expected=new IsoMaxSolver().solveMoves(moves);
+  const manager=new IsoMaxBranchManager({workers:1});
+  try{
+    const result=await manager.solveMoves(moves,{timeoutMs:9000});
+    assert.equal(result.value,expected.value);assert.equal(result.move,expected.move);
+    assert.ok(result.metrics.splitTasks>0);
+    assert.ok(result.metrics.nodes<expected.metrics.nodes*1.01,
+      'continuation/cache retention must not multiply the serial proof work');
+  }finally{await manager.close();}
+});
+
+test('closing an active session aborts, terminates and is idempotent',{timeout:5000},async()=>{
+  const manager=new IsoMaxBranchManager({workers:2});
+  await manager.start();
+  const run=manager.solveMoves([]),rejected=assert.rejects(run,/ABORTED/);
+  await manager.close().catch(error=>assert.match(error.message,/ABORTED/));
+  await rejected;await manager.close();assert.equal(manager.workers.length,0);
 });
