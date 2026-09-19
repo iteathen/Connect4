@@ -62,6 +62,7 @@ export function createRbaFiber(geometry, heights) {
   const n = shapes.length;
   const top = bit(n) - 1n;
   const up = shapes.map(shape => shapes.reduce((m, other, i) => subset(shape, other) ? m | bit(i) : m, 0n));
+  const downStrict = shapes.map(shape => shapes.reduce((m, other, i) => other !== shape && subset(other, shape) ? m | bit(i) : m, 0n));
   const ids = new Map(shapes.map((shape, i) => [shape, i]));
   function encode(requirements) {
     let result = 0n;
@@ -90,7 +91,8 @@ export function createRbaFiber(geometry, heights) {
     key: JSON.stringify([RBA_PROFILE, columns, rows, connect, heights]),
     heights: Object.freeze(heights.slice()), rank: heights.reduce((a, b) => a + b, 0),
     occupied, lineMasks: Object.freeze(lineMasks), shapes: Object.freeze(shapes),
-    up: Object.freeze(up), top, full: top | (top << BigInt(n)), encode, pack, unpack });
+    up: Object.freeze(up), downStrict: Object.freeze(downStrict), top,
+    full: top | (top << BigInt(n)), encode, pack, unpack, assertUpset });
 }
 
 /** Join-preserving cofactor on principal upsets. null is the adjoined WIN_NOW top. */
@@ -113,7 +115,9 @@ export function createRbaCofactor(parent, child, column, owner) {
   });
   const terminal = normalizeBoundary(parent.up.filter((_, i) => images[i] === null));
   const minCache = new Map(), maxCache = new Map(); // fiber + action + owner scoped exact coordinate keys
+  const principalCovers = new Map(); // same edge, exact child shape ID
   function rightAdjoint(target) {
+    child.assertUpset(target);
     if (maxCache.has(target)) return maxCache.get(target);
     let result = 0n;
     for (let i = 0; i < images.length; i++) if (images[i] !== null && subset(images[i], target)) result |= parent.up[i];
@@ -121,13 +125,19 @@ export function createRbaCofactor(parent, child, column, owner) {
     return result;
   }
   function minimalCovers(target, metrics, charge) {
+    child.assertUpset(target);
     if (minCache.has(target)) return minCache.get(target);
     let covers = [0n];
-    // Cover every child upset bit using principal parent images. Terminal
-    // principals are excluded; the separate immediate-win branch owns them.
+    // Every image is an upset, so covering the target's minimal generators
+    // covers its entire closure. No q/proof information is discarded.
+    // Terminal principals remain owned by the separate immediate-win branch.
     for (let i = 0; i < child.shapes.length; i++) {
-      if (!(target & bit(i))) continue;
-      const options = normalizeBoundary(parent.up.filter((_, j) => images[j] !== null && (images[j] & bit(i))));
+      if (!(target & bit(i)) || (target & child.downStrict[i])) continue;
+      let options = principalCovers.get(i);
+      if (!options) {
+        options = normalizeBoundary(parent.up.filter((_, j) => images[j] !== null && (images[j] & bit(i))));
+        principalCovers.set(i, options);
+      }
       const next = [];
       for (const cover of covers) for (const option of options) { charge(); next.push(cover | option); }
       covers = normalizeBoundary(next, false, metrics);
@@ -239,4 +249,3 @@ export function solveRbaWdl(geometry, {
     rootWdl, metrics: Object.freeze({ ...metrics, elapsedMs: performance.now() - start }),
     evaluate, frontierAt: heights => completed.get(supportKey(heights)) });
 }
-

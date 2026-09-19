@@ -72,3 +72,27 @@ Exact persisted-stream reproduction, same-input P2/q/RBA economics and issue
 61 identity audit/negative controls precede any shared-cache or GPU promotion.
 Issue 63 NDC guarded obligations remain separate and require additional proof
 premises; these ordinary-value results do not discharge them.
+
+## Qualified reference improvement
+
+Cover only minimal generators of the target upset, and cache each principal
+cover set within its exact cofactor edge. Every principal image is upward closed,
+so the covered generators imply the discarded redundant target bits. Terminal
+principals are still separate; no proof/realizability premise is removed.
+
+Fresh-process 4x3 median: 862.14 -> 756.34 ms (12.3% lower).
+Generated candidates: 1,230,737 -> 1,144,648.
+Normalization calls: 169,369 -> 126,420. Exact outputs unchanged.
+Small 3x2 timings are near noise (2.58 -> 2.64 ms), not a claimed win.
+
+The previously bounded-out larger rank-33 cone now closes at 1,985,709
+candidates under the SAME 2,000,000 limit. Its four WDL widths are
+[1116,1251,660,2534]. Both rank-33 cones reproduce 608 exact semantic
+boundary hashes over 152 support occurrences from the pinned, unchanged
+coordinate-enumerating research implementation. These hashes are reproduction
+evidence, not authoritative equality in the solver.
+
+Promotion disposition: retain P2. After the improvement, the CPU P2 control is
+21.83 ms on 4x3 versus RBA 756.34 ms (34.6x slower). Smaller local skylines do not
+offset abstract-fiber work and normalization cost. No native GPU speedup or
+empty-board 7x6 solve is claimed. No timeout, GPU memory policy or P2 path changed.

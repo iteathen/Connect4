@@ -4,12 +4,13 @@ import { createRbaFiber, createRbaCofactor, solveRbaWdl, subset, normalizeBounda
 import { normalizeResidualRequirements } from '../residual-winspace.mjs';
 import { physicalControl } from '../../../experiments/bsfp-rba-reference/physical-control.mjs';
 import expectedRank33 from '../../../experiments/bsfp-rba-reference/rank33-expected.json' with { type: 'json' };
+import expectedLargerRank33 from '../../../experiments/bsfp-rba-reference/rank33-larger-expected.json' with { type: 'json' };
 import { boundaryHash } from '../../../experiments/bsfp-rba-reference/boundary-hash.mjs';
 
-test('rank-33 cone reproduces 288 pinned research boundary hashes', () => {
-  const solved = solveRbaWdl(expectedRank33.geometry, { minimumHeights: expectedRank33.minimumHeights });
-  assert.equal(solved.metrics.supports, 72);
-  for (const expected of expectedRank33.supports) {
+for (const fixture of [expectedRank33, expectedLargerRank33]) test('rank-33 cone reproduces pinned boundary hashes: ' + fixture.minimumHeights, () => {
+  const solved = solveRbaWdl(fixture.geometry, { minimumHeights: fixture.minimumHeights });
+  assert.equal(solved.metrics.supports, fixture.supports.length);
+  for (const expected of fixture.supports) {
     const actual = solved.frontierAt(expected.heights);
     for (const name of ['upper0', 'upper1', 'lowerMinus1', 'lower0']) {
       assert.deepEqual(boundaryHash(actual.fiber, actual[name]), expected[name]);
@@ -122,6 +123,9 @@ test('RBA support, closure, and capacity rejections cannot be reported as a draw
   assert.throws(() => fiber.pack(fiber.top + 1n, 0n), /invalid/);
   assert.throws(() => createRbaCofactor(fiber, fiber, 0, true), /legal support edge/);
   const late = createRbaFiber(geometry, [1, 0]);
+  const cofactor = createRbaCofactor(fiber, late, 0, true);
+  assert.throws(() => cofactor.rightAdjoint(late.top + 1n), /invalid fiber upset/);
+  assert.throws(() => cofactor.minimalCovers(late.top + 1n, null, () => {}), /invalid fiber upset/);
   const nonClosed = late.up.find(x => (x & (x - 1n)) !== 0n);
   assert.throws(() => late.pack(nonClosed & -nonClosed, 0n), /not an upset/);
 });

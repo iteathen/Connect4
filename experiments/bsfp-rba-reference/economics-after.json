@@ -1,0 +1,1205 @@
+{
+  "schema": 1,
+  "testedSha": "1232c2a9555ac3966b0b905010748c73b8263e15",
+  "workingTreeDirty": true,
+  "researchRevision": "104abfbe4444fcd315ac807b46ce2be8da13df39",
+  "node": "v26.7.0",
+  "execution": "CPU-only implementation qualification, three fresh processes per profile/case; 30s worker bound",
+  "caveats": [
+    "P2 is the actual unchanged recurrence with an injected CPU exact reducer and retained observation frontiers; this is not a native GPU speed comparison.",
+    "Explicit-q total includes physical enumeration and independent oracle; its q-table-only time is separately reported and is not a deployable symbolic solver.",
+    "All profiles use the same geometry and complete legal-state oracle. RBA also computes unrealizable abstract fibers; record counts have different meanings.",
+    "RSS includes imports/runtime; observed heap samples occur at support publication and may miss transient peaks. Null peak RSS means unavailable.",
+    "No GPU specialization or widened shared q cache is promoted by this report."
+  ],
+  "cases": [
+    {
+      "geometry": {
+        "columns": 3,
+        "rows": 2,
+        "connect": 3
+      },
+      "profiles": {
+        "p2": {
+          "medianMs": 2.782600000000002,
+          "samples": [
+            {
+              "profile": "p2",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 2.8064999999999998,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6670232,
+              "peakRssBytes": 44806144,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "structuralPrepareMs": 1.170800000000014,
+                "gpuPairReduceWallMs": 0.2079000000000022,
+                "finalizeMs": 0.43249999999999744,
+                "totalBoundaryRecords": 23,
+                "maximumWinFrontier": 1,
+                "maximumLossFrontier": 3,
+                "peakResidentBoundaryRecords": 15,
+                "processedSupports": 18,
+                "reflectedChildLookups": 6,
+                "reflectedChildRecords": 9,
+                "tiledIntersections": 0,
+                "intersectionTiles": 0,
+                "tiledMergeMs": 0,
+                "rankSummaries": [
+                  {
+                    "rank": 6,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.04619999999999891
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.7197000000000031
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 4,
+                    "boundaryRecords": 6,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 2,
+                    "wallMs": 0.4661000000000044
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 4,
+                    "boundaryRecords": 9,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.26670000000000016
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 4,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.44469999999999743
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.08019999999999783
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.03760000000000474
+                  }
+                ],
+                "activeRank": 0,
+                "activeShardStart": 0,
+                "reducer": {
+                  "generatedPairCandidates": 3,
+                  "closed": false
+                }
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "p2",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 2.639099999999999,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6847536,
+              "peakRssBytes": 44756992,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "structuralPrepareMs": 1.0986000000000047,
+                "gpuPairReduceWallMs": 0.20860000000000412,
+                "finalizeMs": 0.4089000000000027,
+                "totalBoundaryRecords": 23,
+                "maximumWinFrontier": 1,
+                "maximumLossFrontier": 3,
+                "peakResidentBoundaryRecords": 15,
+                "processedSupports": 18,
+                "reflectedChildLookups": 6,
+                "reflectedChildRecords": 9,
+                "tiledIntersections": 0,
+                "intersectionTiles": 0,
+                "tiledMergeMs": 0,
+                "rankSummaries": [
+                  {
+                    "rank": 6,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.04940000000000566
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.6786999999999992
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 4,
+                    "boundaryRecords": 6,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 2,
+                    "wallMs": 0.4917000000000016
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 4,
+                    "boundaryRecords": 9,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.19479999999999364
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 4,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.3843999999999994
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.10430000000000206
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.04800000000000182
+                  }
+                ],
+                "activeRank": 0,
+                "activeShardStart": 0,
+                "reducer": {
+                  "generatedPairCandidates": 3,
+                  "closed": false
+                }
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "p2",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 2.782600000000002,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6686328,
+              "peakRssBytes": 44646400,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "structuralPrepareMs": 1.220799999999997,
+                "gpuPairReduceWallMs": 0.20490000000000208,
+                "finalizeMs": 0.3936000000000064,
+                "totalBoundaryRecords": 23,
+                "maximumWinFrontier": 1,
+                "maximumLossFrontier": 3,
+                "peakResidentBoundaryRecords": 15,
+                "processedSupports": 18,
+                "reflectedChildLookups": 6,
+                "reflectedChildRecords": 9,
+                "tiledIntersections": 0,
+                "intersectionTiles": 0,
+                "tiledMergeMs": 0,
+                "rankSummaries": [
+                  {
+                    "rank": 6,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.04129999999999967
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.882799999999996
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 4,
+                    "boundaryRecords": 6,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 2,
+                    "wallMs": 0.41799999999999926
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 4,
+                    "boundaryRecords": 9,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.2143000000000015
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 4,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.38800000000000523
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 2,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.09360000000000213
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.03200000000000358
+                  }
+                ],
+                "activeRank": 0,
+                "activeShardStart": 0,
+                "reducer": {
+                  "generatedPairCandidates": 3,
+                  "closed": false
+                }
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            }
+          ]
+        },
+        "explicit-q": {
+          "medianMs": 1.6171000000000006,
+          "samples": [
+            {
+              "profile": "explicit-q",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 1.6171000000000006,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 5796336,
+              "peakRssBytes": 45080576,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "physicalEnumerationAndOracleMs": 1.2815999999999974,
+                "explicitQTableMs": 0.1285000000000025,
+                "totalMs": 1.4116999999999962
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "explicit-q",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 1.9815999999999931,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 16000
+              },
+              "observedHeapBytes": 5770032,
+              "peakRssBytes": 44974080,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "physicalEnumerationAndOracleMs": 1.5653000000000006,
+                "explicitQTableMs": 0.15979999999999706,
+                "totalMs": 1.7267999999999972
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "explicit-q",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 1.579499999999996,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6004032,
+              "peakRssBytes": 44912640,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "physicalEnumerationAndOracleMs": 1.2492000000000019,
+                "explicitQTableMs": 0.12870000000000203,
+                "totalMs": 1.3795000000000002
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            }
+          ]
+        },
+        "rba": {
+          "medianMs": 2.6443999999999974,
+          "samples": [
+            {
+              "profile": "rba",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 2.7804999999999964,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6982856,
+              "peakRssBytes": 44593152,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "supports": 27,
+                "generatedCandidates": 303,
+                "projectionQueries": 87,
+                "localSkylineRecords": 87,
+                "maximumLocalSkyline": 2,
+                "maximumActionBoundary": 2,
+                "normalizationCalls": 604,
+                "normalizationMs": 0.23190000000007416,
+                "boundaryRecords": 101,
+                "maximumBoundary": 2,
+                "elapsedMs": 2.273700000000005
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "rba",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 2.5689999999999955,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6839656,
+              "peakRssBytes": 45015040,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "supports": 27,
+                "generatedCandidates": 303,
+                "projectionQueries": 87,
+                "localSkylineRecords": 87,
+                "maximumLocalSkyline": 2,
+                "maximumActionBoundary": 2,
+                "normalizationCalls": 604,
+                "normalizationMs": 0.2254999999999967,
+                "boundaryRecords": 101,
+                "maximumBoundary": 2,
+                "elapsedMs": 2.1306999999999974
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "rba",
+              "geometry": {
+                "columns": 3,
+                "rows": 2,
+                "connect": 3
+              },
+              "elapsedMs": 2.6443999999999974,
+              "cpuMicroseconds": {
+                "user": 0,
+                "system": 0
+              },
+              "observedHeapBytes": 6999416,
+              "peakRssBytes": 44867584,
+              "rootWdl": 0,
+              "physicalStates": 112,
+              "distinctQ": 42,
+              "qRedundancy": 0.625,
+              "checkedLegalEdges": 159,
+              "metrics": {
+                "supports": 27,
+                "generatedCandidates": 303,
+                "projectionQueries": 87,
+                "localSkylineRecords": 87,
+                "maximumLocalSkyline": 2,
+                "maximumActionBoundary": 2,
+                "normalizationCalls": 604,
+                "normalizationMs": 0.3679000000000059,
+                "boundaryRecords": 101,
+                "maximumBoundary": 2,
+                "elapsedMs": 2.2088000000000036
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "geometry": {
+        "columns": 4,
+        "rows": 3,
+        "connect": 3
+      },
+      "profiles": {
+        "p2": {
+          "medianMs": 21.832200000000004,
+          "samples": [
+            {
+              "profile": "p2",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 21.8662,
+              "cpuMicroseconds": {
+                "user": 31000,
+                "system": 63000
+              },
+              "observedHeapBytes": 8087264,
+              "peakRssBytes": 53096448,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "structuralPrepareMs": 5.400799999999997,
+                "gpuPairReduceWallMs": 3.8699999999999832,
+                "finalizeMs": 11.198799999999999,
+                "totalBoundaryRecords": 1591,
+                "maximumWinFrontier": 19,
+                "maximumLossFrontier": 48,
+                "peakResidentBoundaryRecords": 615,
+                "processedSupports": 136,
+                "reflectedChildLookups": 60,
+                "reflectedChildRecords": 727,
+                "tiledIntersections": 0,
+                "intersectionTiles": 0,
+                "tiledMergeMs": 0,
+                "rankSummaries": [
+                  {
+                    "rank": 12,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.05090000000000572
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 2,
+                    "boundaryRecords": 7,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.8402999999999992
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 6,
+                    "boundaryRecords": 126,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 48,
+                    "wallMs": 1.9680999999999997
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 10,
+                    "boundaryRecords": 178,
+                    "maximumWinFrontier": 19,
+                    "maximumLossFrontier": 14,
+                    "wallMs": 2.8581000000000003
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 17,
+                    "boundaryRecords": 299,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 22,
+                    "wallMs": 4.547699999999999
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 20,
+                    "boundaryRecords": 312,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 3.967800000000004
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 24,
+                    "boundaryRecords": 303,
+                    "maximumWinFrontier": 10,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 3.4994999999999976
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 20,
+                    "boundaryRecords": 192,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 1.603200000000001
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 17,
+                    "boundaryRecords": 111,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.8303000000000011
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 10,
+                    "boundaryRecords": 40,
+                    "maximumWinFrontier": 3,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.4298999999999964
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 6,
+                    "boundaryRecords": 18,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.15379999999999683
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.04520000000000124
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 1,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.02449999999999619
+                  }
+                ],
+                "activeRank": 0,
+                "activeShardStart": 0,
+                "reducer": {
+                  "generatedPairCandidates": 5180,
+                  "closed": false
+                }
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "p2",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 21.832200000000004,
+              "cpuMicroseconds": {
+                "user": 47000,
+                "system": 31000
+              },
+              "observedHeapBytes": 8097272,
+              "peakRssBytes": 53096448,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "structuralPrepareMs": 5.470700000000001,
+                "gpuPairReduceWallMs": 3.830299999999994,
+                "finalizeMs": 11.249299999999998,
+                "totalBoundaryRecords": 1591,
+                "maximumWinFrontier": 19,
+                "maximumLossFrontier": 48,
+                "peakResidentBoundaryRecords": 615,
+                "processedSupports": 136,
+                "reflectedChildLookups": 60,
+                "reflectedChildRecords": 727,
+                "tiledIntersections": 0,
+                "intersectionTiles": 0,
+                "tiledMergeMs": 0,
+                "rankSummaries": [
+                  {
+                    "rank": 12,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.03810000000000002
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 2,
+                    "boundaryRecords": 7,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.7115999999999971
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 6,
+                    "boundaryRecords": 126,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 48,
+                    "wallMs": 2.117599999999996
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 10,
+                    "boundaryRecords": 178,
+                    "maximumWinFrontier": 19,
+                    "maximumLossFrontier": 14,
+                    "wallMs": 2.8858999999999995
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 17,
+                    "boundaryRecords": 299,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 22,
+                    "wallMs": 4.424699999999994
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 20,
+                    "boundaryRecords": 312,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 3.939
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 24,
+                    "boundaryRecords": 303,
+                    "maximumWinFrontier": 10,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 3.6311000000000035
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 20,
+                    "boundaryRecords": 192,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 1.6407000000000025
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 17,
+                    "boundaryRecords": 111,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.8458000000000041
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 10,
+                    "boundaryRecords": 40,
+                    "maximumWinFrontier": 3,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.44660000000000366
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 6,
+                    "boundaryRecords": 18,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.15270000000000294
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.04509999999999792
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 1,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.026200000000002888
+                  }
+                ],
+                "activeRank": 0,
+                "activeShardStart": 0,
+                "reducer": {
+                  "generatedPairCandidates": 5180,
+                  "closed": false
+                }
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "p2",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 21.5057,
+              "cpuMicroseconds": {
+                "user": 31000,
+                "system": 47000
+              },
+              "observedHeapBytes": 8127632,
+              "peakRssBytes": 52879360,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "structuralPrepareMs": 5.3109000000000215,
+                "gpuPairReduceWallMs": 3.7401999999999944,
+                "finalizeMs": 11.222600000000007,
+                "totalBoundaryRecords": 1591,
+                "maximumWinFrontier": 19,
+                "maximumLossFrontier": 48,
+                "peakResidentBoundaryRecords": 615,
+                "processedSupports": 136,
+                "reflectedChildLookups": 60,
+                "reflectedChildRecords": 727,
+                "tiledIntersections": 0,
+                "intersectionTiles": 0,
+                "tiledMergeMs": 0,
+                "rankSummaries": [
+                  {
+                    "rank": 12,
+                    "supports": 1,
+                    "boundaryRecords": 0,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.03780000000000072
+                  },
+                  {
+                    "rank": 11,
+                    "supports": 2,
+                    "boundaryRecords": 7,
+                    "maximumWinFrontier": 0,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.6778000000000013
+                  },
+                  {
+                    "rank": 10,
+                    "supports": 6,
+                    "boundaryRecords": 126,
+                    "maximumWinFrontier": 5,
+                    "maximumLossFrontier": 48,
+                    "wallMs": 2.003300000000003
+                  },
+                  {
+                    "rank": 9,
+                    "supports": 10,
+                    "boundaryRecords": 178,
+                    "maximumWinFrontier": 19,
+                    "maximumLossFrontier": 14,
+                    "wallMs": 2.9306000000000054
+                  },
+                  {
+                    "rank": 8,
+                    "supports": 17,
+                    "boundaryRecords": 299,
+                    "maximumWinFrontier": 12,
+                    "maximumLossFrontier": 22,
+                    "wallMs": 4.509399999999999
+                  },
+                  {
+                    "rank": 7,
+                    "supports": 20,
+                    "boundaryRecords": 312,
+                    "maximumWinFrontier": 15,
+                    "maximumLossFrontier": 12,
+                    "wallMs": 3.866199999999999
+                  },
+                  {
+                    "rank": 6,
+                    "supports": 24,
+                    "boundaryRecords": 303,
+                    "maximumWinFrontier": 10,
+                    "maximumLossFrontier": 11,
+                    "wallMs": 3.4276000000000053
+                  },
+                  {
+                    "rank": 5,
+                    "supports": 20,
+                    "boundaryRecords": 192,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 8,
+                    "wallMs": 1.558799999999998
+                  },
+                  {
+                    "rank": 4,
+                    "supports": 17,
+                    "boundaryRecords": 111,
+                    "maximumWinFrontier": 6,
+                    "maximumLossFrontier": 4,
+                    "wallMs": 0.9200000000000017
+                  },
+                  {
+                    "rank": 3,
+                    "supports": 10,
+                    "boundaryRecords": 40,
+                    "maximumWinFrontier": 3,
+                    "maximumLossFrontier": 3,
+                    "wallMs": 0.44179999999999353
+                  },
+                  {
+                    "rank": 2,
+                    "supports": 6,
+                    "boundaryRecords": 18,
+                    "maximumWinFrontier": 2,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.15409999999999968
+                  },
+                  {
+                    "rank": 1,
+                    "supports": 2,
+                    "boundaryRecords": 4,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 1,
+                    "wallMs": 0.0508000000000024
+                  },
+                  {
+                    "rank": 0,
+                    "supports": 1,
+                    "boundaryRecords": 1,
+                    "maximumWinFrontier": 1,
+                    "maximumLossFrontier": 0,
+                    "wallMs": 0.0257000000000005
+                  }
+                ],
+                "activeRank": 0,
+                "activeShardStart": 0,
+                "reducer": {
+                  "generatedPairCandidates": 5180,
+                  "closed": false
+                }
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            }
+          ]
+        },
+        "explicit-q": {
+          "medianMs": 47.2784,
+          "samples": [
+            {
+              "profile": "explicit-q",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 47.4587,
+              "cpuMicroseconds": {
+                "user": 31000,
+                "system": 47000
+              },
+              "observedHeapBytes": 19285000,
+              "peakRssBytes": 77737984,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "physicalEnumerationAndOracleMs": 43.3482,
+                "explicitQTableMs": 3.901200000000003,
+                "totalMs": 47.2511
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "explicit-q",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 47.2453,
+              "cpuMicroseconds": {
+                "user": 62000,
+                "system": 32000
+              },
+              "observedHeapBytes": 19271512,
+              "peakRssBytes": 77557760,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "physicalEnumerationAndOracleMs": 42.94089999999999,
+                "explicitQTableMs": 4.091400000000007,
+                "totalMs": 47.034299999999995
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "explicit-q",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 47.2784,
+              "cpuMicroseconds": {
+                "user": 78000,
+                "system": 47000
+              },
+              "observedHeapBytes": 19125952,
+              "peakRssBytes": 77668352,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "physicalEnumerationAndOracleMs": 43.1071,
+                "explicitQTableMs": 3.9790999999999883,
+                "totalMs": 47.0886
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            }
+          ]
+        },
+        "rba": {
+          "medianMs": 756.3365,
+          "samples": [
+            {
+              "profile": "rba",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 756.3365,
+              "cpuMicroseconds": {
+                "user": 734000,
+                "system": 63000
+              },
+              "observedHeapBytes": 24446288,
+              "peakRssBytes": 85123072,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "supports": 256,
+                "generatedCandidates": 1144648,
+                "projectionQueries": 958778,
+                "localSkylineRecords": 102295,
+                "maximumLocalSkyline": 167,
+                "maximumActionBoundary": 270,
+                "normalizationCalls": 126420,
+                "normalizationMs": 446.54089999999627,
+                "boundaryRecords": 30994,
+                "maximumBoundary": 277,
+                "elapsedMs": 755.7764999999999
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "rba",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 769.8059,
+              "cpuMicroseconds": {
+                "user": 796000,
+                "system": 47000
+              },
+              "observedHeapBytes": 26110208,
+              "peakRssBytes": 85291008,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "supports": 256,
+                "generatedCandidates": 1144648,
+                "projectionQueries": 958778,
+                "localSkylineRecords": 102295,
+                "maximumLocalSkyline": 167,
+                "maximumActionBoundary": 270,
+                "normalizationCalls": 126420,
+                "normalizationMs": 455.67329999998236,
+                "boundaryRecords": 30994,
+                "maximumBoundary": 277,
+                "elapsedMs": 769.2447
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            },
+            {
+              "profile": "rba",
+              "geometry": {
+                "columns": 4,
+                "rows": 3,
+                "connect": 3
+              },
+              "elapsedMs": 753.7027,
+              "cpuMicroseconds": {
+                "user": 829000,
+                "system": 63000
+              },
+              "observedHeapBytes": 24168920,
+              "peakRssBytes": 85151744,
+              "rootWdl": 1,
+              "physicalStates": 4659,
+              "distinctQ": 3735,
+              "qRedundancy": 0.1983258209916291,
+              "checkedLegalEdges": 11818,
+              "metrics": {
+                "supports": 256,
+                "generatedCandidates": 1144648,
+                "projectionQueries": 958778,
+                "localSkylineRecords": 102295,
+                "maximumLocalSkyline": 167,
+                "maximumActionBoundary": 270,
+                "normalizationCalls": 126420,
+                "normalizationMs": 444.624499999994,
+                "boundaryRecords": 30994,
+                "maximumBoundary": 277,
+                "elapsedMs": 753.0942
+              },
+              "exact": true,
+              "deviceWorkMs": null,
+              "hostDeviceTransfers": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
