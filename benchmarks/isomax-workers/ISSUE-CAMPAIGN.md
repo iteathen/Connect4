@@ -4,8 +4,8 @@ Owner request: extend protected comments through hot-loop callees; review all
 issues, qualify improvements, resolve only with evidence, compare prior
 performance and integrate reasonable non-regressing work.
 
-Baseline: 5acf8ea855fdead7e502091e62464bd5242f4ae5. The temporary detached baseline
-is retained for paired runs until campaign cleanup. Live integration owner is
+Baseline: 5acf8ea855fdead7e502091e62464bd5242f4ae5. Temporary detached baselines
+were used for paired runs and removed after qualification. Live integration owner is
 solver/isometric; no solver-family merge into main is assumed.
 
 Inventory: 27 open issues. IsoMax implementation candidates: #74–#88; umbrella
@@ -225,3 +225,82 @@ Three-pair one/two/four-worker medians: 2081.02 -> 2068.59, 1858.51 -> 1816.41,
 1801.99 -> 1780.18. All one-worker pairs favor the candidate with identical
 work; five of six pairs favor it at each parallel count, with scheduling/work
 variation. Keep this direct preparation repair, not a new continuation layer.
+
+## Integrated qualification and issue disposition
+
+Final tested implementation: a34743cd7ccd91185afd84c518e9eb610d03ab01; baseline
+5acf8ea855fdead7e502091e62464bd5242f4ae5. Both clean; candidate diff hash empty.
+Node26.7.0 / V8 14.6.202.34-node.28 / Windows x64 / i5-12600K. Three alternating
+fresh-process pairs per variant, same preselected three 18-ply synthetic roots,
+startup and cleanup included; NOT Begin-Hard or an empty solve.
+
+| Mode | Baseline median ms | Final median ms | Less time |
+|---|---:|---:|---:|
+| Serial | 2379.87 | 1709.77 | 28.16% |
+| One worker | 2761.83 | 2052.99 | 25.67% |
+| Four workers | 2429.99 | 1779.85 | 26.75% |
+
+Every pair favors final. Serial work remains 2,643,905 calls; one worker changes
+2,644,522 -> 2,644,187 from task granularity. Four workers perform 7.09-7.17M
+calls, still much more than serial and still slower on this corpus. Exact WDL
+and root actions all agree. Max observed process RSS baseline/final: serial
+181,743,616/170,094,592 bytes; one 217,382,912/269,103,104; four
+526,835,712/550,449,152. The retained policies spend memory; no limit increased.
+Raw per-root records: issue-campaign-final-comparison.json.
+
+112 relevant tests pass, zero failures/skips. Command:
+
+```sh
+node --test components/domain/test/domain.test.mjs components/isometric/test/*.test.mjs components/bsfp/test/rba-wdl-reference.test.mjs tools/test/solver-performance.test.mjs research/semantic-quotient/state-identity-unification/src/quotient-worker-contract.test.mjs benchmarks/isomax-candidates/qualification.test.mjs benchmarks/isomax-workers/portable-q-census.test.mjs benchmarks/isomax-workers/cold-copy-census.test.mjs components/incumbent/test/*.test.mjs components/oracle/test/*.test.mjs benchmarks/test/*.test.mjs
+```
+
+CI qualify succeeds at the tested SHA (run 35468208132). Reviewed the complete
+retained production diff, scratch lifetime, exact collision/rehash behavior,
+sentinel/bit-width/normalization boundaries, task retirement races and cold
+preparation order. No independent human/model review is claimed.
+
+Final normal empty-root run 20260919T204424414Z-isomax: 91,431,317 settled calls,
+29,004.69 solve ms, 976,625,664 peak RSS bytes, 107.046/2.062 CPU user/system s.
+Only `ISOMAX_TIMEOUT: 29000 ms; no exact root result`; WDL/oracle match unknown.
+Four workers supplied, zero active/pending after cleanup; workers terminated and
+reporter/child exited. Existing timeout poisoning reports failed=1, aborted=3,
+workerFaults=1; these are not erased from evidence or called successful solves.
+30s supervisor / 29s internal deadline unchanged. Raw result retained in
+issue-campaign-final-empty.json. No empty-root speedup is inferred from nodes.
+
+All 27 initially open issues were reviewed; 17 have supported closed dispositions:
+
+- Qualified implementation/qualification: #74, #75, #77, #79, #81, #84, #88.
+- Tested/rejected or superseded: #13, #76, #80, #82, #85, #86.
+- Previously delivered scoped foundation/research/design records: #1, #41,
+  #42, #43. Closing these does not mean new external-oracle reproduction, an
+  all-board exact census, or promotion of the historical packed-key proposal.
+
+Remaining open, with concrete boundaries:
+
+- #78: full-content overlap demonstrated; exact task-boundary import/export
+  still unimplemented. Counts/observation lag do not prove avoidable subtree work.
+- #83/#87: shared completed RBA artifact contract missing; optional proof/value
+  object paths remain excluded from ordinary workers pending a qualified consumer.
+- #67/#63: canonical temporal/resource/realizability proof lift still unqualified;
+  UNRESOLVED remains UNRESOLVED. Exact WDL is not a guard premise.
+- #73: native integrated IsoGraph not constructed/fidelity-qualified. Supplied
+  semantic/source/V8/machine/cost evidence is input, not a substitute graph.
+- #71: native-GPU-only BSFP backlog; no GPU run or CPU-fallback promotion here.
+  CUDA-Algorithms #11/#12 remain open. PR #48 reviewed at 8555e47d, left draft:
+  native equality/timing and live-consumer slice-domain qualification missing.
+- #69: removed only fully merged work/retire-minimax-hybrid-20260918. Retained
+  solver/minimax-alpha-beta and solver/hybrid-confluence because 54/17 commits
+  are unreachable from surviving durable heads. Do not delete unique history.
+- #3: corrected stale issue text. Main is ruleset-protected; CLI admin is
+  available. Other desired settings were not silently changed, particularly
+  automatic head deletion versus active durable-owner retention.
+- #72 remains the umbrella for outstanding IsoMax work, not falsely closed.
+
+All qualified units were fast-forward published to solver/isometric. No main or
+CUDA-BSFP merge is justified by these CPU timings. Canonical research remains
+fea030f5c6c143b25f1723705017c38babbd290d; BSFP remains 582c7024f84659cd71e5c08124adcf7fa743a646.
+Rejected patches, portable evidence and reproduction tools are intentionally
+retained. Raw profiles/logs stay Git-private in .git/issue-campaign and
+.git/solver-performance. Temporary detached benchmark worktrees are removed
+after qualification; no task-owned worker or profiler remains running.

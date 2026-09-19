@@ -26,6 +26,18 @@ and paired timing evidence: `benchmarks/isomax-workers/HOT-LOOP.md`.
 These changes preserve the reinstated Branch Manager and exact native ordering;
 they do not claim optimal assembly generation or eliminate all V8/runtime work.
 
+The subsequent issue campaign extends owner-protected comments through 72
+transitive callees and qualifies scalar q reuse, a fixed 64K transition prefix,
+preloaded masks, flat ordering incidence, direct singleton metadata, bounded
+busy-task retirement, preparation amortization and V8 boxing/context repairs.
+At `a34743cd`, 112 tests pass; serial/one/four-worker medians improve
+2379.87/2761.83/2429.99 ms to 1709.77/2052.99/1779.85 ms on three synthetic
+18-ply roots. This is not Begin-Hard or an empty-board solve. Four workers still
+perform substantially more work than serial; exact portable reuse remains #78.
+The normal 30-second empty-root check times out with no WDL and complete cleanup.
+Measured tradeoffs, rejected candidates, issue dispositions and reproduction:
+`benchmarks/isomax-workers/ISSUE-CAMPAIGN.md`.
+
 The updated-spec implementation pass is qualified. Details and reproducible
 measurements: `docs/decisions/2026-09-19-isomax-issue-qualification.md`.
 

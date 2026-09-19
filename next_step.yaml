@@ -43,6 +43,10 @@ current:
   periodic_reporting: fire_and_forget_to_dedicated_reporting_worker
   worker_default: min_4_available_logical_cpus_minus_one_at_least_one
   worker_scaling_status: reintegrated_but_wide_dispatch_loses_to_redundant_work
+  task_quantum_default: 131072_for_one_or_two_workers_else_65536
+  task_necessity_poll_nodes: 512
+  transition_prefix_classes: 65536
+  preparation_order: widen_small_reference_arrays_before_class_capacity_growth
   rba_research_status: post_1_1_successor_evidence_not_frozen_authority
 
 accepted_implementation:
@@ -73,16 +77,27 @@ completed_implementation_issues:
     target: qualified_q_rba_exact_value_closure_before_recursive_fallback
 
 open_issues:
+  - number: 78
+    target: exact_portable_task_boundary_reuse
+    status: overlap_census_complete_import_export_candidate_unimplemented
+  - number: 83
+    target: completed_rba_artifact_reuse
+    status: shared_producer_contract_missing
+  - number: 87
+    target: optional_proof_value_consumer_economics
+    status: deferred_until_qualified_worker_consumer_exists
   - number: 67
     target: optional_temporal_resource_realizability_proof_guards_and_guarded_obligation_birth
     status: deferred_pending_canonical_proof_guard_qualification
 
 qualification:
-  report: docs/decisions/2026-09-19-isomax-issue-qualification.md
+  report: benchmarks/isomax-workers/ISSUE-CAMPAIGN.md
+  earlier_alignment_report: docs/decisions/2026-09-19-isomax-issue-qualification.md
+  tested_revision: a34743cd7ccd91185afd84c518e9eb610d03ab01
   local_node: 26.7.0
-  tests: 68
+  tests: 112
   worker_execution_report: benchmarks/isomax-workers/README.md
-  worker_empty_root_run: 20260919T171405726Z-isomax
+  worker_empty_root_run: 20260919T204424414Z-isomax
   worker_empty_root_result: bounded_timeout_all_four_workers_active_cleanup_complete
   ordering_report: benchmarks/isomax-ordering/README.md
   ordering_default: native_playable_singleton_effect
