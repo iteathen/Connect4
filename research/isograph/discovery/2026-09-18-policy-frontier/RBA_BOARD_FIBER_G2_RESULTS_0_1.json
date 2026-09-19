@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "experiment": "rba-board-fiber-isomorphism-g2-0.1",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "candidate": "G2",
+  "statement": "Isomorphic support-conditioned residual-incidence + gravity/frontier structures induce isomorphic residual lattices and legal one-step cofactor neighborhoods.",
+  "census": {
+    "ranks": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "supports": 43128,
+    "reflection_only_classes": 21692,
+    "exact_fiber_isomorphism_classes": 20685,
+    "support_to_fiber_ratio": 2.0849891225525745,
+    "reflection_to_fiber_ratio": 1.0486826202562243,
+    "classes_removed_beyond_reflection": 1007,
+    "class_size_distribution": {
+      "1": 242,
+      "2": 19776,
+      "3": 4,
+      "4": 439,
+      "5": 3,
+      "6": 149,
+      "7": 1,
+      "8": 41,
+      "10": 19,
+      "12": 11
+    },
+    "max_class_size": 12,
+    "by_rank": {
+      "30": {
+        "supports": 15330,
+        "reflection_classes": 7702,
+        "fiber_classes": 7593,
+        "support_to_fiber": 2.0189648360331884,
+        "reflection_to_fiber": 1.0143553272751218
+      },
+      "31": {
+        "supports": 10906,
+        "reflection_classes": 5476,
+        "fiber_classes": 5335,
+        "support_to_fiber": 2.044236176938,
+        "reflection_to_fiber": 1.0264292408622306
+      },
+      "32": {
+        "supports": 7420,
+        "reflection_classes": 3736,
+        "fiber_classes": 3563,
+        "support_to_fiber": 2.0825147347740667,
+        "reflection_to_fiber": 1.048554588829638
+      },
+      "33": {
+        "supports": 4809,
+        "reflection_classes": 2420,
+        "fiber_classes": 2223,
+        "support_to_fiber": 2.163292847503374,
+        "reflection_to_fiber": 1.0886189833558255
+      },
+      "34": {
+        "supports": 2954,
+        "reflection_classes": 1494,
+        "fiber_classes": 1294,
+        "support_to_fiber": 2.2828438948995364,
+        "reflection_to_fiber": 1.1545595054095827
+      },
+      "35": {
+        "supports": 1709,
+        "reflection_classes": 864,
+        "fiber_classes": 677,
+        "support_to_fiber": 2.5243722304283605,
+        "reflection_to_fiber": 1.276218611521418
+      }
+    }
+  },
+  "exact_validation": {
+    "wl_signature_buckets_split_by_exact_isomorphism": 0,
+    "nonrepresentative_member_isomorphism_checks": 22443,
+    "mapped_legal_frontier_actions": 101743,
+    "static_isomorphism_failures": 0,
+    "child_fiber_failures": 0,
+    "principal_true_false_cofactor_failures": 0
+  },
+  "nonreflection_example": {
+    "rank": 30,
+    "same_exact_fiber_class": [
+      [
+        0,
+        1,
+        6,
+        6,
+        6,
+        5,
+        6
+      ],
+      [
+        0,
+        1,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      [
+        5,
+        6,
+        6,
+        6,
+        6,
+        1,
+        0
+      ],
+      [
+        6,
+        5,
+        6,
+        6,
+        6,
+        1,
+        0
+      ]
+    ],
+    "reflection_orbits": 2
+  },
+  "fiber_definition": {
+    "cell_nodes": "all unoccupied/future cells",
+    "cell_structure": [
+      "gravity-chain directed covers",
+      "frontier/legal-landing marker"
+    ],
+    "residual_nodes": "unique nonempty winning-line residual hyperedges",
+    "incidence": "residual-shape membership in future cells",
+    "rank": "derived from future-cell count"
+  },
+  "interpretation": [
+    "G2 survives exhaustive rank-30..35 support census and exact one-step neighborhood validation.",
+    "The board admits structural fiber equivalences beyond horizontal reflection.",
+    "The extra quotient grows toward the terminal ranks in this census.",
+    "Residual lattice and cofactor neighborhood can be treated as derived from the support-conditioned incidence/gravity fiber rather than independently rebuilt semantic primitives.",
+    "G3 exact value-boundary invariance across non-reflection fiber isomorphs remains the next stronger test."
+  ],
+  "authority_effect": "none"
+}
