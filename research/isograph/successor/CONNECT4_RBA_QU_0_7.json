@@ -1,0 +1,99 @@
+{
+  "schema": 7,
+  "id": "RBA-QU-0007",
+  "name": "Residual Boundary Algebra completion space — antichain-semiring refinement",
+  "refines": "RBA-QU-0006",
+  "refinement_relation": "R(RBA-QU-0007) subset_of R(RBA-QU-0006)",
+  "date": "2026-09-18",
+  "branch": "research/semantic-quotient",
+  "qu_state": "OPEN",
+  "authority_effect": "post_1_1_research_refinement_only",
+  "newly_fixed_or_constrained": [
+    {
+      "id": "AS1",
+      "statement": "Minimal q-boundaries of upward-closed regions form the support-local bounded distributive lattice / idempotent commutative antichain semiring under minimized union and minimized pairwise state-join product.",
+      "status": "deductive_structure_with_1500_law_checks_zero_mismatch"
+    },
+    {
+      "id": "AS2",
+      "statement": "Tested deterministic fixed-path predicate preimages preserve both semiring operations.",
+      "status": "zero_join_and_meet_homomorphism_mismatches"
+    },
+    {
+      "id": "AS3",
+      "statement": "The two-ply Bellman threshold transformer is a monotone lattice polynomial over that antichain semiring.",
+      "status": "deductive_candidate"
+    },
+    {
+      "id": "AS4",
+      "statement": "Mixed opponent-reply cover generation is the concrete expansion of semiring multiplication before antichain minimization, not an additional missing semantic operator.",
+      "status": "structural_identification"
+    },
+    {
+      "id": "AS5",
+      "statement": "Raw up/union-closed multirelation successor-set antichains are semantically appropriate but not compact; on complete 4x3 the empty-root four-ply family already has 1024 minimal outcome sets.",
+      "status": "bounded_negative_for_compact_representation"
+    },
+    {
+      "id": "AS6",
+      "statement": "Reply dominance and independent mover/opponent rectangle factorization do not materially remove the mixed-cover operation on the tested pathologies.",
+      "status": "bounded_negative"
+    }
+  ],
+  "refined_candidate_core": {
+    "board_layer": "exact support-conditioned board fiber",
+    "residual_transition": "residuated join-preserving cofactor algebra",
+    "scalar_information": "six contiguous WDL bounds",
+    "symbolic_information": "four nested endpoint fronts",
+    "threshold_region_algebra": "support-local antichain semiring / upward-set distributive lattice",
+    "bellman_operator": "alternating lattice polynomial over preimage homomorphisms, semiring plus/times, and terminal constants",
+    "strong_distance": "resolution ordinal"
+  },
+  "refined_open_region": [
+    {
+      "id": "O1",
+      "role": "minimal_complete_basis",
+      "question": "Is the current board-fiber/residuated/four-front/antichain-semiring basis minimal, or can semantic structure be removed without losing exact action/state value?"
+    },
+    {
+      "id": "O2",
+      "role": "output_sensitive_semiring_multiplication",
+      "question": "Can A times B = Min({a join b}) be computed at earlier ranks/root scale in time/memory close to the output size rather than the Cartesian product size?"
+    },
+    {
+      "id": "O3",
+      "role": "mixed_cover_normal_form",
+      "question": "What canonical sparse representation captures mixed reply covers while preserving mover/opponent coupling?"
+    },
+    {
+      "id": "O4",
+      "role": "transformer_fusion",
+      "question": "Can Bellman lattice-polynomial transformers be fused/factored across board fibers without materializing every intermediate frontier?"
+    },
+    {
+      "id": "O5",
+      "role": "root_compactness",
+      "question": "Do actual Connect4 frontier widths and semiring products remain tractable to the empty 7x6 root under the best output-sensitive representation?"
+    },
+    {
+      "id": "O6",
+      "role": "proof_value_bridge",
+      "question": "How does the antichain-semiring mixed-cover operation relate exactly to the clause/proof controllable-predecessor seam?"
+    }
+  ],
+  "evidence": [
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_MULTIRELATION_COMPOSITION_RESULTS_0_1.json",
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_ANTICHAIN_SEMIRING_RESULTS_0_1.json",
+    "research/isograph/discovery/2026-09-18-policy-frontier/RBA_ALGEBRA_CORE_CHECKPOINT_0_1.md"
+  ],
+  "current_disposition": {
+    "missing_semantic_bellman_operator": false,
+    "raw_multirelation_carrier": false,
+    "antichain_semiring_candidate": true,
+    "output_sensitive_multiplication_open": true,
+    "transformer_fusion_open": true,
+    "root_compactness_open": true,
+    "empty_root_solved": false,
+    "typed_relation_promoted": false
+  }
+}
