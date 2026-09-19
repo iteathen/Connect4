@@ -1,9 +1,11 @@
 // External qualification oracle only. Physical enumeration never participates
 // in the RBA/P2 construction. First-win stopping uses independent ray scanning.
 import { createConnectWinningLines } from '../../components/bsfp/geometry.mjs';
+import { performance } from 'node:perf_hooks';
 import { normalizeResidualRequirements, residualStateKey } from '../../components/bsfp/residual-winspace.mjs';
 
 export function physicalControl(geometry) {
+  const started = performance.now();
   const { columns, rows, connect } = geometry;
   const cellBit = (c, r) => 1n << BigInt(r * columns + c);
   const key = (p0, p1) => p0 + '/' + p1;
@@ -54,6 +56,7 @@ export function physicalControl(geometry) {
   }
   // Explicit reachable-q ordinary-value reference; structural transition
   // equality is checked before sharing. This census is qualification-only.
+  const qStarted = performance.now();
   const q = new Map();
   for (let rank = ranks.length - 1; rank >= 0; rank--) for (const state of ranks[rank]) {
     const signature = JSON.stringify(state.actions.map(a => a.child === undefined ? ['terminal', a.value] : ['q', states.get(a.child).qKey]));
@@ -67,6 +70,7 @@ export function physicalControl(geometry) {
     if (value !== state.value) throw new Error('explicit-q recurrence mismatch');
     q.set(state.qKey, { signature, value });
   }
-  return { geometry, rootWdl: root.value, states, q, edges, terminalEdges };
+  return { geometry, rootWdl: root.value, states, q, edges, terminalEdges,
+    metrics: { physicalEnumerationAndOracleMs: qStarted - started,
+      explicitQTableMs: performance.now() - qStarted, totalMs: performance.now() - started } };
 }
-

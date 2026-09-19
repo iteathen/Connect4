@@ -54,8 +54,21 @@ Width agreement alone is not complete generator equality.
 
 ## Next qualification seams
 
+The rank-33 reproduction seam is now covered by rank33-expected.json and the
+reproduce.mjs harness: the unchanged pinned research algorithm (source SHA-256
+65246879a4f2bcc125c147589d5e93ab0f009dc8afd1375af13cdf594f8b5396) produces 288
+semantic generator hashes across all 72 supports. All match the new reference.
+Only research reporting is extended; no research algorithm is modified.
+
+Initial same-input CPU qualification (three fresh processes per profile):
+4x3 c3 P2 median 21.33 ms, explicit reachable-q census/table 47.11 ms,
+RBA 862.14 ms. The explicit-q timing includes enumeration/oracle; it is not
+a symbolic production alternative. P2 uses the real unchanged recurrence with
+an injected CPU reducer and observation frontiers, not the NVIDIA path.
+See experiments/bsfp-rba-reference/economics-before.json for all samples,
+CPU/RSS/observed-heap metrics and caveats. RBA is not promoted on this evidence.
+
 Exact persisted-stream reproduction, same-input P2/q/RBA economics and issue
 61 identity audit/negative controls precede any shared-cache or GPU promotion.
 Issue 63 NDC guarded obligations remain separate and require additional proof
 premises; these ordinary-value results do not discharge them.
-

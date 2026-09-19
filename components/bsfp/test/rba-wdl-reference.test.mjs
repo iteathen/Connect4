@@ -3,6 +3,19 @@ import test from 'node:test';
 import { createRbaFiber, createRbaCofactor, solveRbaWdl, subset, normalizeBoundary, intersectLowerBoundaries } from '../rba-wdl-reference.mjs';
 import { normalizeResidualRequirements } from '../residual-winspace.mjs';
 import { physicalControl } from '../../../experiments/bsfp-rba-reference/physical-control.mjs';
+import expectedRank33 from '../../../experiments/bsfp-rba-reference/rank33-expected.json' with { type: 'json' };
+import { boundaryHash } from '../../../experiments/bsfp-rba-reference/boundary-hash.mjs';
+
+test('rank-33 cone reproduces 288 pinned research boundary hashes', () => {
+  const solved = solveRbaWdl(expectedRank33.geometry, { minimumHeights: expectedRank33.minimumHeights });
+  assert.equal(solved.metrics.supports, 72);
+  for (const expected of expectedRank33.supports) {
+    const actual = solved.frontierAt(expected.heights);
+    for (const name of ['upper0', 'upper1', 'lowerMinus1', 'lower0']) {
+      assert.deepEqual(boundaryHash(actual.fiber, actual[name]), expected[name]);
+    }
+  }
+});
 
 function coordinates(fiber) {
   const result = new Map();
@@ -112,4 +125,3 @@ test('RBA support, closure, and capacity rejections cannot be reported as a draw
   const nonClosed = late.up.find(x => (x & (x - 1n)) !== 0n);
   assert.throws(() => late.pack(nonClosed & -nonClosed, 0n), /not an upset/);
 });
-
