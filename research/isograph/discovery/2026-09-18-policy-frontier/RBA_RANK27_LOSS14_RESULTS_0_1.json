@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "experiment": "rba-rank27-loss14-adjacent-threshold",
+  "date": "2026-09-19",
+  "branch": "research/semantic-quotient",
+  "support": [
+    3,
+    4,
+    2,
+    0,
+    6,
+    6,
+    6
+  ],
+  "rank": 27,
+  "remaining_cells": 15,
+  "residual_shapes": 38,
+  "transformed_bits": 76,
+  "threshold": "loss14",
+  "status": "closed",
+  "reconstruction": {
+    "transient_prior_harness_available": false,
+    "rebuilt_from_committed_semantics": true,
+    "resumable_support_threshold_cache": true,
+    "controls_reproduced": [
+      {
+        "support": [
+          3,
+          5,
+          2,
+          1,
+          6,
+          6,
+          6
+        ],
+        "rank": 29,
+        "threshold": "draw13",
+        "upper": 47472,
+        "lower": 140454
+      },
+      {
+        "rank": 29,
+        "threshold": "draw13",
+        "upper": 27647,
+        "lower": 103479,
+        "note": "wide child control"
+      },
+      {
+        "support": [
+          4,
+          4,
+          2,
+          0,
+          6,
+          6,
+          6
+        ],
+        "rank": 28,
+        "threshold": "draw14",
+        "upper": 67191,
+        "lower": 17721
+      },
+      {
+        "support": [
+          3,
+          5,
+          2,
+          0,
+          6,
+          6,
+          6
+        ],
+        "rank": 28,
+        "threshold": "draw14",
+        "upper": 144462,
+        "lower": 78546
+      },
+      {
+        "support": [
+          3,
+          4,
+          3,
+          0,
+          6,
+          6,
+          6
+        ],
+        "rank": 28,
+        "threshold": "draw14",
+        "upper": 63615,
+        "lower": 36217
+      }
+    ]
+  },
+  "child_threshold": "win13",
+  "children": [
+    {
+      "support": [
+        4,
+        4,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper": 19523,
+      "lower": 16074
+    },
+    {
+      "support": [
+        3,
+        5,
+        2,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper": 51645,
+      "lower": 29554,
+      "previous_closed_control_match": true
+    },
+    {
+      "support": [
+        3,
+        4,
+        3,
+        0,
+        6,
+        6,
+        6
+      ],
+      "upper": 27276,
+      "lower": 38042
+    },
+    {
+      "support": [
+        3,
+        4,
+        2,
+        1,
+        6,
+        6,
+        6
+      ],
+      "upper": 126524,
+      "lower": 122309
+    }
+  ],
+  "action_fronts": [
+    {
+      "column": 0,
+      "upper": 13774,
+      "lower": 11883
+    },
+    {
+      "column": 1,
+      "upper": 19329,
+      "lower": 14379
+    },
+    {
+      "column": 2,
+      "upper": 13460,
+      "lower": 9231
+    },
+    {
+      "column": 3,
+      "upper": 86597,
+      "lower": 106363
+    }
+  ],
+  "upper": {
+    "raw": 133160,
+    "final": 114585,
+    "sha256": "f38ea10662b49c9746140bdf8b4da1009ce784c8ecde59247867c720b365bf20"
+  },
+  "lower": {
+    "products": [
+      {
+        "a": 11883,
+        "b": 14379,
+        "raw": 170865657,
+        "final": 44625
+      },
+      {
+        "a": 44625,
+        "b": 9231,
+        "raw": 411933375,
+        "final": 65885
+      },
+      {
+        "a": 65885,
+        "b": 106363,
+        "raw": 7007726255,
+        "final": 158402
+      }
+    ],
+    "total_raw": 7590525287,
+    "final": 158402,
+    "sha256": "15b671bcc8b9caab5814712aba5a8888e1fbb6f411862ae13e489da1e310db1e"
+  },
+  "root_only_metrics": {
+    "preimage_ms": 4999.925,
+    "product_ms": 20994.449,
+    "normalization_ms": 11838.512,
+    "elapsed_ms": 39327.268,
+    "local_candidates": 1263256,
+    "indexed_leaf_scans": 0
+  },
+  "comparison": {
+    "draw15": {
+      "upper": 161398,
+      "lower": 534618,
+      "final_raw": 89578193706,
+      "required_indexed_escape_from_flat_wall": true
+    },
+    "loss14": {
+      "upper": 114585,
+      "lower": 158402,
+      "total_root_raw": 7590525287,
+      "direct_streaming_closed": true
+    }
+  },
+  "interpretation": {
+    "uniform_support_fiber_cost_law": false,
+    "current_evidence": "threshold_and_boundary_specific_restricted_image_geometry",
+    "general_threshold_local_law_promoted": false
+  },
+  "next": "compute rank27 win15 before rank26 descent",
+  "authority_1_1_mutated": false,
+  "proof_value_bridge": "open_side_seam"
+}
