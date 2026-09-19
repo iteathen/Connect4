@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "experiment": "connect4-abstract-residual-superdomain-conservative-extension",
+  "source": "research/isograph/discovery/2026-09-18-policy-frontier/abstract-residual-superdomain-control.mjs",
+  "controls": [
+    {
+      "geometry": "4x3:c3",
+      "physical_states": 4631,
+      "q_states": 3734,
+      "state_mismatches": 0,
+      "action_mismatches": 0,
+      "best_move_mismatches": 0
+    },
+    {
+      "geometry": "4x4:c4",
+      "physical_states": 134289,
+      "q_states": 34094,
+      "state_mismatches": 0,
+      "action_mismatches": 0,
+      "best_move_mismatches": 0
+    },
+    {
+      "geometry": "5x3:c4",
+      "physical_states": 147563,
+      "q_states": 11316,
+      "state_mismatches": 0,
+      "action_mismatches": 0,
+      "best_move_mismatches": 0
+    }
+  ],
+  "standard_7x6": [
+    {
+      "support": [
+        5,
+        5,
+        5,
+        2,
+        6,
+        6,
+        6
+      ],
+      "published_distributed_product": 573270600,
+      "residual_shapes": 16,
+      "antichains_per_player": 701,
+      "parent_residual_pairs": 491401,
+      "future_cone_residual_pairs": 804133,
+      "pairs_by_rank": {
+        "35": 491401,
+        "36": 245282,
+        "37": 56904,
+        "38": 9087,
+        "39": 1267,
+        "40": 175,
+        "41": 16,
+        "42": 1
+      },
+      "distributed_product_over_parent_domain": 1166.6044635643802,
+      "distributed_product_over_entire_future_cone": 712.9052034924571,
+      "max_strong_threshold_boundary_generators": 33,
+      "independent_exhaustive_parent_action_isotony": {
+        "mover_coordinate_violations": 0,
+        "opponent_coordinate_violations": 0
+      }
+    },
+    {
+      "support": [
+        5,
+        5,
+        2,
+        5,
+        6,
+        6,
+        6
+      ],
+      "published_distributed_product": 58748277,
+      "residual_shapes": 16,
+      "antichains_per_player": 704,
+      "parent_residual_pairs": 495616,
+      "future_cone_residual_pairs": 897291,
+      "pairs_by_rank": {
+        "35": 495616,
+        "36": 308453,
+        "37": 79261,
+        "38": 12347,
+        "39": 1422,
+        "40": 175,
+        "41": 16,
+        "42": 1
+      },
+      "distributed_product_over_parent_domain": 118.5358765657283,
+      "distributed_product_over_entire_future_cone": 65.47293687332203,
+      "max_strong_threshold_boundary_generators": 39,
+      "independent_exhaustive_parent_action_isotony": {
+        "mover_coordinate_violations": 0,
+        "opponent_coordinate_violations": 0
+      }
+    }
+  ],
+  "scope": {
+    "abstract_domain": "all normalized residual-antichain pairs over the support-local future residual shapes",
+    "legal_q_census": false,
+    "authority_effect": "none"
+  }
+}
