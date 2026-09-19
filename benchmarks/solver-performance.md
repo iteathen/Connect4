@@ -48,3 +48,44 @@ Harness controls:
 ```sh
 node --test tools/test/solver-performance.test.mjs
 ```
+
+## Recorded run — 2026-09-19
+
+Host: i5-12600K, 32 GiB RAM, GTX 1660 Ti 6 GiB, NVIDIA 610.74, Node 26.7.0.
+One run per solver, strictly sequential. Source changes were benchmark-only.
+Structured sanitized evidence: [results/2026-09-19-separate-solvers.json](results/2026-09-19-separate-solvers.json).
+
+| Measurement | IsoMax | Native CUDA-BSFP P2 |
+|---|---:|---:|
+| Tested SHA | `681caa3c` | `8f15ffe4` |
+| Outcome | 120 s timeout | 120 s case timeout |
+| Root W/D/L | Not produced | Not produced |
+| Last progress time | 119.447 s | 107.586 s in native solver |
+| Work recorded | 60,858,368 nodes | 79,797,022 submitted pair candidates |
+| Completed work | 31,734,919 cached values | 75,798,666 completed-batch candidates; 411 supports |
+| Peak memory | 3.10 GiB process RSS high-water | 931 MiB device-wide native stage; 1003 MiB during A/B |
+
+IsoMax instrumented throughput was about 509,499 nodes/s at the last snapshot;
+29,123,420 cache hits and 8,934,140 forced transitions were recorded.
+
+BSFP's A/B took 10.144 s, leaving 109.787 s for its native root step. A/B passed
+with medians 7.0148 ms packed, 27.5792 ms Tensor-only and 30.0220 ms packed→Tensor;
+callable workspace was 164,544,512 bytes. Native progression reached active rank
+36 with six ranks completed, 124 recovered overflow jobs, zero reported overflow
+failures and maximum recovered frontier 8,895. The promoted default executor was
+packed/bucketed; Tensor overflow calls were zero. At the last snapshot, cumulative
+GPU execution was 64.103 s, including 62.293 s overflow execution. An overflow
+was still active when interrupted, so counters are lower bounds, not final totals.
+
+Native GPU utilization samples averaged 56.29% (0–100%, 215 samples), device-wide.
+Both parents observed child exit. The native solver PID was absent after timeout;
+post-run free VRAM was 5191 MiB. No solver retry or limit increase was performed.
+
+Run IDs:
+
+- IsoMax: `20260919T150939953Z-isomax`
+- BSFP wrapper: `20260919T151201835Z-bsfp`
+- BSFP qualifier: `20260919T151202206Z-350f4328`
+
+Neither run establishes full-solve speed or a winner between solvers. The work
+units differ and BSFP's prerequisite consumes part of its case budget.
