@@ -27,50 +27,50 @@ let pairWord, pairMask, pairOther;
     const target = pairStart[cell] + i, pair = pairs[cell][i];
     pairWord[target] = pair.word; pairMask[target] = pair.mask; pairOther[target] = pair.other;
   }
+}
+
+// Precondition: quiet ongoing node, after native exact/forced closure.
+// Return the accepted advisory class only; this never supplies a WDL bound.
+export function singletonEffectClass(state, column) {
+  // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+  // Scan precompiled incidence numerically; preserve exposure veto and completion-cell deduplication. No child simulation or allocating score records.
+  // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
+  const cell = state.heights[column] * 7 + column;
+  const above = cell + 7;
+  const own = state.sideToMove === 0 ? state.p0Class : state.p1Class;
+  const opponent = state.sideToMove === 0 ? state.p1Class : state.p0Class;
+  if (above < 42 && state.pool.hasSingletonAt(opponent, above)) return 0;
+  let first = above < 42 && state.pool.hasSingletonAt(own, above) ? above : -1;
+  for (let i = pairStart[cell]; i < pairStart[cell + 1]; i++) {
+    if ((state.pool.wordAt(own, pairWord[i]) & pairMask[i]) === 0) continue;
+    const other = pairOther[i];
+    const playable = other === above || (other < 32
+      ? (state.playableLo >>> other) & 1
+      : (state.playableHi >>> (other - 32)) & 1);
+    if (!playable || other === first) continue;
+    if (first >= 0) return 2;
+    first = other;
   }
-  
-  // Precondition: quiet ongoing node, after native exact/forced closure.
-  // Return the accepted advisory class only; this never supplies a WDL bound.
-  export function singletonEffectClass(state, column) {
-    // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
-    // Scan precompiled incidence numerically; preserve exposure veto and completion-cell deduplication. No child simulation or allocating score records.
-    // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
-    const cell = state.heights[column] * 7 + column;
-    const above = cell + 7;
-    const own = state.sideToMove === 0 ? state.p0Class : state.p1Class;
-    const opponent = state.sideToMove === 0 ? state.p1Class : state.p0Class;
-    if (above < 42 && state.pool.hasSingletonAt(opponent, above)) return 0;
-    let first = above < 42 && state.pool.hasSingletonAt(own, above) ? above : -1;
-    for (let i = pairStart[cell]; i < pairStart[cell + 1]; i++) {
-      if ((state.pool.wordAt(own, pairWord[i]) & pairMask[i]) === 0) continue;
-      const other = pairOther[i];
-      const playable = other === above || (other < 32
-        ? (state.playableLo >>> other) & 1
-        : (state.playableHi >>> (other - 32)) & 1);
-      if (!playable || other === first) continue;
-      if (first >= 0) return 2;
-      first = other;
+  return first >= 0 ? 1 : 0;
+}
+
+export function promotedColumn(state) {
+  // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+  // Incidence is precompiled; scan by numeric index, without iterators,
+  // callbacks, sorting, child materialization or speculative play/undo.
+  // The caller established quiet ongoing status and columns are prevalidated.
+  // Preserve the research-qualified advisory order and external-root scope;
+  // ordering supplies no WDL proof. Measure any replacement in real recursion.
+  let bestClass = 0, bestColumn = -1;
+  for (let index = 0; index < CENTER_ORDER.length; index++) {
+    const column = CENTER_ORDER[index];
+    if (state.heights[column] === 6) continue;
+    const effect = singletonEffectClass(state, column);
+    if (effect > bestClass) {
+      bestClass = effect;
+      bestColumn = column;
+      if (effect === 2) break;
     }
-    return first >= 0 ? 1 : 0;
   }
-  
-  export function promotedColumn(state) {
-    // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
-    // Incidence is precompiled; scan by numeric index, without iterators,
-    // callbacks, sorting, child materialization or speculative play/undo.
-    // The caller established quiet ongoing status and columns are prevalidated.
-    // Preserve the research-qualified advisory order and external-root scope;
-    // ordering supplies no WDL proof. Measure any replacement in real recursion.
-    let bestClass = 0, bestColumn = -1;
-    for (let index = 0; index < CENTER_ORDER.length; index++) {
-      const column = CENTER_ORDER[index];
-      if (state.heights[column] === 6) continue;
-      const effect = singletonEffectClass(state, column);
-      if (effect > bestClass) {
-        bestClass = effect;
-        bestColumn = column;
-        if (effect === 2) break;
-      }
-    }
-    return bestColumn;
-  }
+  return bestColumn;
+}

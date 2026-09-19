@@ -234,9 +234,12 @@ export class IsoMaxTransitionCache {
     // This is the checked pool boundary for prepared scalar operations below.
     // Copy scratch coordinates to recursive scalar locals BEFORE any child;
     // never retain this borrowed array or a probe slot across descent.
+    // Preserve all hash bits as signed int32 across JS calls. Unsigned values
+    // above INT32_MAX otherwise box as HeapNumbers in this Node/V8 profile.
+    // Addressing still uses hash & mask; exact q coordinates decide equality.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
     state.gameplayKey(this.scratch);
-    return hashSignature(this.scratch);
+    return hashSignature(this.scratch) | 0;
   }
 
   findPreparedSlotUnchecked(p0, p1, support, hash) {

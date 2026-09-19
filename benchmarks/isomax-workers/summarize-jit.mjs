@@ -15,6 +15,8 @@ for (const fragment of trace.split('--- Optimized code ---').slice(1)) {
   code.push({ name, tier: block.match(/kind = (.*)/)?.[1].trim(),
     instructionBytes: Number(block.match(/Instructions \(size = (\d+)\)/)?.[1]),
     fastCCallSites: (block.match(/external value \(IsolateData::fast_c_call_caller_pc_\)/g) ?? []).length,
+    allocationTopReads: (block.match(/movq[^\n]*external value \(IsolateData::new_allocation_info_top_address/g) ?? []).length,
+    heapNumberMapLoads: (block.match(/movq[^\n]*root \(heap_number_map\)/g) ?? []).length,
     deoptPoints: Number(block.match(/deopt points = (\d+)/)?.[1] ?? 0),
     inlined: [...inline.matchAll(/<SharedFunctionInfo ([^>]+)>/g)].map(m => m[1]) });
 }

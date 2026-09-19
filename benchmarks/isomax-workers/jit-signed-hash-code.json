@@ -1,15 +1,15 @@
 {
-  "traceSha256": "8a9414cfa765e3cc910919f50110463d161578fb49514dede7733cfd20c6cf2d",
+  "traceSha256": "9114c211a2a0d06a743b83e15843496e00fdd13bb09e333739f8a318b8586119",
   "limits": "Static sites are not dynamic cost. Deopt events include warmup and repeated lazy frames. No hardware counters captured.",
   "code": [
     {
       "name": "singletonEffectClass",
       "tier": "TURBOFAN_JS",
-      "instructionBytes": 2648,
+      "instructionBytes": 2972,
       "fastCCallSites": 0,
       "allocationTopReads": 0,
       "heapNumberMapLoads": 0,
-      "deoptPoints": 51,
+      "deoptPoints": 59,
       "inlined": [
         "wordAt",
         "word",
@@ -85,7 +85,7 @@
     {
       "name": "setPreparedUnchecked",
       "tier": "TURBOFAN_JS",
-      "instructionBytes": 1828,
+      "instructionBytes": 1756,
       "fastCCallSites": 0,
       "allocationTopReads": 0,
       "heapNumberMapLoads": 0,
@@ -93,16 +93,6 @@
       "inlined": [
         "findPreparedSlotUnchecked"
       ]
-    },
-    {
-      "name": "undo",
-      "tier": "TURBOFAN_JS",
-      "instructionBytes": 1732,
-      "fastCCallSites": 0,
-      "allocationTopReads": 0,
-      "heapNumberMapLoads": 0,
-      "deoptPoints": 39,
-      "inlined": []
     },
     {
       "name": "blockTransition",
@@ -128,7 +118,7 @@
     {
       "name": "internBits",
       "tier": "TURBOFAN_JS",
-      "instructionBytes": 8092,
+      "instructionBytes": 8088,
       "fastCCallSites": 0,
       "allocationTopReads": 4,
       "heapNumberMapLoads": 2,
@@ -145,21 +135,31 @@
       ]
     },
     {
+      "name": "undo",
+      "tier": "TURBOFAN_JS",
+      "instructionBytes": 1732,
+      "fastCCallSites": 0,
+      "allocationTopReads": 0,
+      "heapNumberMapLoads": 0,
+      "deoptPoints": 39,
+      "inlined": []
+    },
+    {
       "name": "solveNode",
       "tier": "TURBOFAN_JS",
-      "instructionBytes": 8888,
+      "instructionBytes": 8580,
       "fastCCallSites": 0,
-      "allocationTopReads": 6,
-      "heapNumberMapLoads": 3,
+      "allocationTopReads": 0,
+      "heapNumberMapLoads": 0,
       "deoptPoints": 155,
       "inlined": [
         "getPreparedUnchecked",
         "prepareKey",
+        "hashSignature",
+        "mix32",
         "findPreparedSlotUnchecked",
         "assertExactValue",
         "assertNoWinBounds",
-        "hashSignature",
-        "mix32",
         "promotedColumn"
       ]
     },
@@ -277,10 +277,11 @@
     "popcount32: not int32": 1,
     "comparePair: not int32": 1,
     "buildProfile: Insufficient type feedback for generic named access": 1,
-    "subsetOf: not a Smi": 1,
+    "subsetOf: not a Smi": 2,
     "buildProfile: Insufficient type feedback for binary operation": 1,
+    "(sfi: Smi": 1,
     "bitIndex32: not int32": 20,
-    "computeSingletonMasks: not int32": 58,
+    "computeSingletonMasks: not int32": 55,
     "reflectClass: not int32": 1,
     "findPreparedSlotUnchecked: Insufficient type feedback for binary operation": 1,
     "hasSingletonAt: not int32": 1,

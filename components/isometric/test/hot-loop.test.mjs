@@ -25,13 +25,17 @@ test('prepared q scalars survive scratch reuse, collisions, repeated growth and 
   assert.equal(cache.getPreparedUnchecked(a, b, support, hash), undefined);
   const oldSlot = cache.findPreparedSlotUnchecked(a, b, support, hash);
   let collision = false;
+  let negativeHash = false;
   const entries = makeCorpus({ seed: 774, ply: 20, count: 64 }).map(({ moves }, i) => {
     const state = new IsometricState({ pool, moves });
     const h = cache.prepareKey(state);
+    assert.equal(h, h | 0);
+    negativeHash ||= h < 0;
     if ((h & 7) === oldSlot) collision = true;
     cache.set(state, 100 + i); return { state, value: 100 + i };
   });
   assert.ok(collision); assert.ok(cache.capacity > 32);
+  assert.ok(negativeHash, 'exercise the high hash bit without unsigned boxing');
   root.applyUnchecked(0); cache.get(root); root.undo();
   cache.setPreparedUnchecked(a, b, support, hash, 12345);
   assert.equal(cache.get(root), 12345);
