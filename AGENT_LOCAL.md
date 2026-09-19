@@ -2,6 +2,26 @@
 
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
+## Crash-safe runner checkpoint discipline
+
+Runner and long-form execution tasks must assume the chat/tool transport can disconnect at any time. Durable progress is part of normal execution, not cleanup at the end.
+
+Required behavior:
+
+- **Never accumulate more than one meaningful unsaved research or implementation step.** A new exact result, falsifier, negative result, algorithmic observation, changed hypothesis, selected control, new wall, or completed qualification unit must be written to the correct durable owner promptly.
+- **Checkpoint before any long, bounded, expensive, or multi-stage run.** Persist the live branch/head, target, harness/source needed to reproduce the run, inputs/configuration, and the exact question/falsifier being tested before launching it.
+- **Make expensive runs resumable by default.** Persist monotone cache/progress state incrementally when recomputation would be material. Do not rely on `/tmp`, process memory, chat context, or an uncommitted generated artifact as the only copy.
+- **Checkpoint immediately after a meaningful phase completes**, even when a larger campaign is still running. Do not wait for the whole campaign, full boundary, full benchmark matrix, or final interpretation.
+- **Persist negative evidence too.** Timeouts, rejected approaches, mismatches, unexpected bottlenecks, and localized walls are durable research/engineering results when they change the next action.
+- **Before switching algorithms or hypotheses, save the evidence that justified the switch.** The prior path must remain reconstructable after a disconnect.
+- **Before a run likely to cross a connection boundary, persist the executable harness or exact reconstruction recipe first.** Transient prototypes may remain transient only when their complete semantics and recovery seam are already durable.
+- **On reconnect, re-fetch the live branch and latest durable checkpoint before doing new work.** Preserve any newer valid work. Do not reconstruct from an older chat checkpoint when the repository has advanced.
+- **If a write or publish call disconnects, treat mutation as uncertain.** Re-fetch the live ref/file before retrying; never assume the write failed or succeeded.
+- **Chat updates are not checkpoints.** The sole durable copy of a result must not exist only in conversation text.
+- Route the checkpoint to the correct owner: canonical research results to `research/semantic-quotient`; solver implementation/contracts/qualification to their durable solver branch; shared accepted product changes through the repository's normal authority path.
+
+The default bias is toward many small durable checkpoints. Consolidation can happen later; lost research cannot.
+
 
 ## Single research owner
 
