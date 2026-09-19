@@ -647,3 +647,16 @@ This graph does **not**:
 It does establish a qualified performance representation in which semantic, source, runtime, generated-machine and measured-cost quantities are kept at their correct layers and connected by explicit evidence/unknown relations.
 
 The graph should evolve demand-first: expand an unresolved machine/runtime child only when doing so can distinguish competing exact implementations or explain material cost.
+
+
+## Fresh graph-derived candidate — #96
+
+A post-construction Discovery Protocol scan reapplied the graph's strongest repeated invariant to the current optimized source.
+
+Both remaining `mix32` families and their FNV-style callers still force 32-bit hash intermediates through repeated `>>> 0` conversions even though the hot downstream consumers appear to observe only their low 32-bit pattern through XOR, `Math.imul`, shifts and masked probe addressing. Exact q/residual equality remains separate authority.
+
+NEI therefore supplies a lawful **candidate comparison profile**, not a result: keep the full mix chain signed-int32 where only bit pattern is observed. QU-HOT-01 retains the unresolved V8-lowering/performance consequence.
+
+The candidate is tracked as **#96 — keep bit-pattern-only hash mixing signed through the full mix chain**. No performance benefit is asserted until generated-code/allocation and equal-work timing qualification succeeds.
+
+This fresh candidate is the direct utility output of the integrated graph + NEI + QU + Discovery Protocol pass.
