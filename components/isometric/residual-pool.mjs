@@ -164,7 +164,12 @@ class SlotChunkPool64 {
 }
 
 export class ResidualPool {
-  constructor({ transitionPrefixClasses = 4096 } = {}) {
+  constructor({ transitionPrefixClasses = 65536 } = {}) {
+    // OWNER-PROTECTED PREPARATION — do not remove/weaken this comment.
+    // Fixed pool-local own/block memo: 21 MiB per pool, allocated before search.
+    // The 4K prefix repeatedly recomputed later classes; 16K and 64K were paired
+    // against it in benchmarks/isomax-workers/issue-75-prefix-*.json. Do not
+    // shrink/grow this policy on hit rate alone or allocate pages in recursion.
     if (!Number.isInteger(transitionPrefixClasses) || transitionPrefixClasses < 1) {
       throw new RangeError('transitionPrefixClasses must be a positive integer');
     }

@@ -101,3 +101,12 @@ processes per worker count, and includes session startup/cleanup. Correct WDL
 and root actions must match the serial native control. It measures completed
 answers, not summed throughput alone. Empty-board telemetry is separately
 bounded and does not claim a solve.
+## Fixed residual-transition memo qualification (#75)
+
+The default pool now reserves two 65,536 × 42 Int32 transition tables (21 MiB
+per pool), before recursion. IDs and terminal/unknown sentinels remain local;
+no equality or WDL rules change. Above the prefix, exact dense computation
+continues. Measured against the prior 4K policy in ISSUE-CAMPAIGN.md; a 16K
+control was also tested. Include the manager pool and every worker pool when
+accounting memory. This is a measured policy for this workload/host, not a
+claim of a universal optimal prefix or a reason to grow during recursion.

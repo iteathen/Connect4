@@ -47,3 +47,19 @@ Portable summaries retain source/runtime/workload and explicit limitations.
 Timing promotion uses separate uninstrumented alternating processes.
 
 #82 hit-first interning: explicit chunk/class/cache threshold and sealed-hit controls passed. Three paired samples against #74A had serial medians 2313.37 -> 2339.67 ms (1.14% slower), one-worker 2679.24 -> 2679.52 ms (neutral), identical exact work. No promotion: normal sealed tasks reserve sufficient insertion headroom before entry; an artificial threshold-hit test is not evidence of a live solver defect. Preserve candidate, tests and protected comments in rejected/issue-82-hit-first.patch, timings in issue-82-hit-first.json.
+
+#75: benchmark-only residual-census.mjs measured real native tasks inside a
+worker; instrumentation times are not promotion evidence. All three roots show substantial above-prefix reuse; residual-census.json
+retains exact per-band counts. The census
+also found 98–99% repeated blocker chunk triples, motivating #76 separately.
+16K reduced serial median 2289.35 -> 2120.27 ms and one-worker
+2665.39 -> 2516.39 ms. 64K reduced serial 2304.59 -> 1943.12 ms (15.7%),
+one-worker 2666.45 -> 2375.84 ms (10.9%), four-worker 2362.54 -> 2065.04 ms
+(12.6%). Serial/one-worker work is identical; four-worker scheduling changes
+node totals, with identical exact decisions. Prefix tables cost 21 MiB/pool;
+four-worker peak observed process RSS 539,000,832 -> 617,136,128 bytes.
+All 80 relevant tests pass, including prefix 1/4K/64K differential transitions,
+full undo/reflection/singleton equality and an exact root crossing 64K classes.
+The selected default is 64K; no recursive allocation or memory limit change.
+Portable paired records are issue-75-prefix-{16k,64k,four}.json. Bounded normal
+empty-root smoke follows this implementation checkpoint.
