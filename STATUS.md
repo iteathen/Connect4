@@ -1,9 +1,9 @@
 # Connect4 CUDA-BSFP Status
 
-**Updated:** 2026-09-18  
+**Updated:** 2026-09-19  
 **Lane:** CUDA-BSFP exact solver  
 **Canonical branch:** `solver/cuda-bsfp`  
-**State:** P2 compact-hybrid correctness/capacity repairs qualified and promoted; 7x6 root still unsolved
+**State:** specification-aligned for post-P2 q/RBA update pass; P2 remains the qualified exact baseline; 7x6 root still unsolved
 
 ## Mission
 
@@ -25,6 +25,44 @@ Connect4 owns BSFP semantics, terminal/first-win behavior, exact residual/fronti
 - O3 — native exact residual-pair reuse plus crossing-occurrence mapping.
 
 These remain bounded milestones. They do not establish a complete empty-board 7x6 solve.
+
+## Update-pass readiness — 2026-09-19
+
+The BSFP specifications are now aligned to the current semantic boundary before the next implementation pass.
+
+Current contract:
+
+```text
+ordinary gameplay/value carrier:
+    q / support-local residual fiber
+
+ordinary exact value:
+    C4-0008 Bellman fixed point
+    candidate boundary-native RBA realization
+
+stronger proof/certificate closure:
+    optional C4-0007 NDC context
+```
+
+The new alignment decision is:
+
+- `docs/decisions/2026-09-19-bsfp-rba-update-alignment.md`.
+
+Frozen IsoGraph authority 1.1 remains unchanged. Current RBA overlay/QU/topology and rank27+ checkpoints on `research/semantic-quotient` are post-1.1 successor research evidence; the update pass may consume them only with an exact revision pin and qualification.
+
+Readiness disposition:
+
+```text
+P2 exact baseline                         READY
+BSFP W/D/L semantics                     READY
+gameplay / representation / proof keys   READY
+q/RBA ordinary-value candidate           READY FOR IMPLEMENTATION QUALIFICATION
+NDC guarded-obligation / proof bridge    OPEN SIDE SEAM
+empty-board 7x6                           UNSOLVED
+current-head CI/qualification refresh    REQUIRED BEFORE PROMOTION
+```
+
+The implementation pass should add the q/RBA candidate alongside P2 and compare it on identical controls. Do not rewrite P2 first and do not block ordinary-value work on C4-R0076/#63.
 
 ## Current promoted P2 implementation
 
@@ -82,7 +120,9 @@ These are bounded measurements, not a universal speedup distribution or a 7x6 so
 
 ## Current bottleneck
 
-The large-case path is no longer blocked by the old frontier-capacity defect. Remaining cost is dominated by large exact normalization/recovery work and serial host orchestration/finalization.
+For the retained P2 baseline, the large-case path is no longer blocked by the old frontier-capacity defect; remaining cost is dominated by large exact normalization/recovery work and serial host orchestration/finalization.
+
+For the **update pass**, the primary question is now whether the boundary-native q/RBA realization reduces total frontier/projection/normalization work enough to replace or complement P2. This is a representation/evaluation comparison, not a correctness repair of P2.
 
 The next scalable capabilities should be owned at their natural layer:
 
@@ -94,6 +134,7 @@ Connect4 should supply exact BSFP semantics/fixtures and consume public generic 
 ## Parallel/open seams
 
 - OQS dense-ID/device-layer chaining remains a valid independent BSFP track.
+- q/RBA boundary-native ordinary-value work is the primary new update-pass comparison and must remain adjacent to the unchanged P2 baseline until qualified.
 - Clause legal-slice / coverage research remains a separate representation qualification problem; it is not silently substituted for P2's full Boolean ownership domain.
 - Host structural/cofactor/union/finalization cost should be measured and reduced after the dominant normalization path is addressed.
 - Device-resident semantic progression remains the intended direction where exact contracts permit it.

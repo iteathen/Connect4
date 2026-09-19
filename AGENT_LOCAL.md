@@ -34,7 +34,8 @@ CUDA-Algorithms owns reusable provider-neutral GPU parallel-algorithm semantics.
 ## Local routing
 
 - `STATUS.md` and `next_step.yaml` — current product/workstream state.
-- `docs/decisions/2026-09-18-bsfp-isograph-realignment.md` — current identity/proof-context alignment after IsoGraph/NEI discovery; P2 remains exact but is a finer representation than q.
+- `docs/decisions/2026-09-18-bsfp-isograph-realignment.md` — identity/proof-context alignment after IsoGraph/NEI discovery; P2 remains exact but is a finer representation than q.
+- `docs/decisions/2026-09-19-bsfp-rba-update-alignment.md` — current update-pass alignment: ordinary W/D/L may use a boundary-native q/RBA realization without closing the NDC proof/value side seam; P2 remains the exact baseline.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their stated scopes.
 - `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — CPC + WSL-625 structural/domain mathematics for the BSFP lane.
 - `docs/specs/C4-0007-nested-dependency-closure-v1.md` — NDC dependency/certificate/fixed-point proof semantics.
@@ -65,6 +66,19 @@ proof identity             = q + proof profile + every required non-q premise
 ```
 
 P2 ownership masks/frontiers are a valid finer representation, not the canonical ordinary gameplay identity. q-level SAME does not authorize reuse of blocker/resource/deadline/race/NDC facts that are not derivable from q.
+
+For the post-P2 update pass, distinguish ordinary value evaluation from stronger proof closure:
+
+```text
+ordinary W/D/L:
+    C4-0008 exact Bellman semantics
+    candidate q/RBA boundary-native realization
+
+stronger proof/certificate facts:
+    optional C4-0007 NDC ProofKey context
+```
+
+The RBA successor research on `research/semantic-quotient` is post-1.1 evidence, not frozen authority. Pin the exact research revision consumed, qualify it against retained P2/reference controls, and do not copy durable research ownership into this solver branch. C4-R0043/C4-R0069/C4-R0076 and guarded obligation birth remain a proof/certificate side seam; they do not block an ordinary W/D/L update profile.
 
 Generic ranked activation is not by itself BSFP W/D/L evaluation. A lower-rank BSFP target is authoritative only after the complete required higher-rank contribution set has been accounted for and consumer-owned semantic reduction has finalized it.
 
