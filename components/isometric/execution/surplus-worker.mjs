@@ -50,6 +50,7 @@ import {
   WORK_READY,
   WORK_RETIRED,
   WORK_RUNNING,
+  WORK_UNUSED,
   WORK_WRITING,
   allocateOccurrence,
   claimHighest,
@@ -272,13 +273,15 @@ class SurplusDistributor {
         continue;
       }
 
-      if(stateCode===WORK_RETIRED||stateCode===WORK_WRITING){
-        // Reconciliation may replace/clear the canonical work pointer while
-        // this occurrence remains live. Re-read occurrence linkage after a
-        // short wait; if no replacement is admitted, local recursion wins.
-        Atomics.wait(shared.workState,work,stateCode,1);
+      if(stateCode===WORK_RETIRED||stateCode===WORK_UNUSED||stateCode===WORK_WRITING){
+        // Work identity is advisory to the occurrence. Exact publication or
+        // retirement can recycle a carrier after we validated its generation
+        // but before this state load. Re-read occurrence linkage instead of
+        // treating the carrier's terminal UNUSED state as semantic failure.
+        if(stateCode!==WORK_UNUSED)Atomics.wait(shared.workState,work,stateCode,1);
         const replacement=Atomics.load(shared.occWork,slot);
-        if(replacement===work&&Atomics.load(shared.workState,work)===WORK_RETIRED){
+        const currentState=Atomics.load(shared.workState,work);
+        if(replacement===work&&(currentState===WORK_RETIRED||currentState===WORK_UNUSED)){
           return this.solveOccurrenceLocally(solver,state,column,slot,generation);
         }
         continue;
