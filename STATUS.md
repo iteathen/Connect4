@@ -52,7 +52,7 @@ The first clean pass was superseded after independent q-congruence reconstructio
 
 The q review is `research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md`. Old-NEI concept coverage is recorded in `research/isograph/qualification/CLEAN_NEI_REINTEGRATION_COVERAGE_0_1.json`; this is an audit, not a compatibility layer.
 
-Both successors use the NEI 0.4 candidate direction from `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`:
+Both successors use qualified NEI 0.4 authority from `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`:
 
 ```text
 facts + constraints + evidence + QU
@@ -161,7 +161,7 @@ The old applied NEI overlay remains immutable research/provenance evidence:
 - `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.json`;
 - `research/isograph/identity/CONNECT4_NEI_RESULTS_0_1.isg`.
 
-Do not use it as a current identity layer. Its profile-declared SAME/DISTINCT framing is replaced in active research by the integrated 1.2 game-theory candidate, where identity conclusions are derived from ordinary facts/evidence/QU under the NEI 0.4 successor model.
+Do not use it as a current identity layer. Its profile-declared SAME/DISTINCT framing is replaced in active research by the integrated 1.2 game-theory candidate, where identity conclusions are derived from ordinary facts/evidence/QU under qualified NEI 0.4.
 
 The historical standard-7x6 incomplete result remains correct at its pinned old evidence revision. The later q-congruence proof is represented directly in the 1.2 successor as deductive candidate evidence pending independent qualification; it is not silently rewritten into historical NEI artifacts.
 
