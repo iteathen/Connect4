@@ -14,6 +14,7 @@ import {
   PUB_EXACT,
   PUB_FAILURE,
   PUB_OCCURRENCE,
+  PUB_OCCURRENCE_EXACT,
   PUB_RETIRE_OCCURRENCE,
   PUB_WORK_RETIRED,
   SESSION_RUNNING,
@@ -38,7 +39,6 @@ import {
   WORK_WRITING,
   allocateOccurrence,
   claimHighest,
-  claimSpecific,
   completeWork,
   openSurplusPool,
   publish,
@@ -56,7 +56,6 @@ class SurplusDistributor {
     this.columns=new Int8Array((MAX_MOVES+1)*7);
     this.occSlots=new Int32Array((MAX_MOVES+1)*7);this.occSlots.fill(-1);
     this.occGenerations=new Int32Array((MAX_MOVES+1)*7);
-    this.claimScratch=new Int32Array(4);
   }
 
   publishBlocking(kind,a=0,b=0,c=0,d=0,e=0,f=0,g=0) {
@@ -94,6 +93,20 @@ class SurplusDistributor {
     this.publishBlocking(PUB_EXACT,slot,generation,attempt,value,rootMove,workerIndex);
   }
 
+  solveOccurrenceLocally(solver,state,column,slot,generation) {
+    this.worker.counters[WC_LOCAL_RECLAIMS]++;
+    this.worker.counters[WC_SURPLUS_LOCAL]++;
+    state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+    let value;
+    try{value=solver.solveNode(state);}
+    finally{state.undo();}
+    // Exact ordinary value is authoritative even when no spare worker was
+    // admitted for this visible opportunity. Reconciliation broadcasts it to
+    // every convergent occurrence and retires any redundant helper work.
+    this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,value,workerIndex);
+    return value;
+  }
+
   resolveOccurrence(solver,state,column,slot,generation) {
     const shared=this.worker.shared;
     while(true){
@@ -106,7 +119,13 @@ class SurplusDistributor {
 
       const work=Atomics.load(shared.occWork,slot);
       const workGeneration=Atomics.load(shared.occWorkGeneration,slot);
-      if(work<0||work>=shared.workCapacity||workGeneration<=0)throw new Error('linked surplus occurrence lacks work');
+
+      // Visibility is broader than execution. If no spare worker capacity was
+      // admitted for this q, continue the serial proof directly from the live
+      // parent state. No replay or scheduler round-trip is introduced.
+      if(work<0||workGeneration<=0){
+        return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+      }
 
       const stateCode=Atomics.load(shared.workState,work);
       if(stateCode===WORK_EXACT){
@@ -115,36 +134,13 @@ class SurplusDistributor {
       }
 
       if(stateCode===WORK_READY){
-        if(claimSpecific(shared,work,workGeneration,workerIndex,this.claimScratch)){
-          this.worker.counters[WC_LOCAL_RECLAIMS]++;
-          this.worker.counters[WC_SURPLUS_LOCAL]++;
-          const attempt=this.claimScratch[2];
-          const priorWork=this.worker.activeWork;
-          const priorGeneration=this.worker.activeGeneration;
-          const priorAttempt=this.worker.activeAttempt;
-          this.worker.activeWork=work;this.worker.activeGeneration=workGeneration;this.worker.activeAttempt=attempt;
-          state.applyUnchecked(column);solver.metrics.recursiveChildren++;
-          let value;
-          try{
-            value=solver.solveNode(state);
-          }catch(error){
-            if(error!==workRetired)throw error;
-            Atomics.store(shared.workState,work,WORK_RETIRED);
-            Atomics.notify(shared.workState,work,Infinity);
-            this.publishBlocking(PUB_WORK_RETIRED,work,workGeneration,attempt,workerIndex);
-            value=null;
-          }finally{
-            state.undo();
-            this.worker.activeWork=priorWork;this.worker.activeGeneration=priorGeneration;this.worker.activeAttempt=priorAttempt;
-          }
-          if(value!==null){
-            this.publishWorkExact(work,workGeneration,attempt,value,-1);
-            return value;
-          }
+        // READY exists only because spare worker capacity was available.
+        // Give that helper a short opportunity to claim it. If OS scheduling
+        // has not done so, preserve local progress instead of stalling.
+        Atomics.wait(shared.workState,work,WORK_READY,1);
+        if(Atomics.load(shared.workState,work)===WORK_READY){
+          return this.solveOccurrenceLocally(solver,state,column,slot,generation);
         }
-        // A helper may win READY -> RUNNING between our state read and CAS.
-        // Re-read on the next iteration instead of treating the stale READY
-        // snapshot as an impossible state.
         continue;
       }
 
@@ -156,7 +152,14 @@ class SurplusDistributor {
       }
 
       if(stateCode===WORK_RETIRED||stateCode===WORK_WRITING){
-        Atomics.wait(shared.workState,work,stateCode,10);
+        // Reconciliation may replace/clear the canonical work pointer while
+        // this occurrence remains live. Re-read occurrence linkage after a
+        // short wait; if no replacement is admitted, local recursion wins.
+        Atomics.wait(shared.workState,work,stateCode,1);
+        const replacement=Atomics.load(shared.occWork,slot);
+        if(replacement===work&&Atomics.load(shared.workState,work)===WORK_RETIRED){
+          return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+        }
         continue;
       }
       throw new Error('invalid canonical surplus work state '+stateCode);
