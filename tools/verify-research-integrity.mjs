@@ -98,8 +98,8 @@ if(!rootIsg.includes('^97050')||!rootIsg.includes('^97059')){
 
 const neesText=fs.readFileSync(path.join(root,neesRealizationAuthority),'utf8');
 if(!neesText.includes(neesRevision)||
-   !neesText.includes('Gameplay authority: none')||
-   !neesText.includes('Graph-semantic authority effect: none')){
+   !neesText.includes('**Gameplay authority:** none')||
+   !neesText.includes('**Graph-semantic authority effect:** none')){
   throw new Error('NEES hot-loop realization authority does not preserve the required non-gameplay boundary/pin');
 }
 
