@@ -393,7 +393,9 @@ export function retireWorkSlot(pool, slot, generation) {
     Atomics.store(pool.workState, slot, WORK_DONE);
     return releaseWorkSlot(pool, slot, generation);
   }
-  return state === WORK_RUNNING || state === WORK_DONE;
+  // WORK_DONE can still have a terminal publication in flight. Only the
+  // reconciliation handler for that publication may reclaim it.
+  return state === WORK_RUNNING || state === WORK_DONE || state === WORK_FREE;
 }
 
 export function copyPathBetweenSlots(pool, sourceSlot, targetSlot, appendColumn = -1) {
