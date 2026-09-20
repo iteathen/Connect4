@@ -10,6 +10,7 @@ import {
   WC_BAND_BASE,
   WC_BRANCHES,
   WC_CONTROL_CHECKS,
+  WC_CONTINUATION_YIELDS,
   WC_HELPER_WAITS,
   WC_LOCAL_PRIMARY,
   WC_LOCAL_RECLAIMS,
@@ -238,6 +239,7 @@ export class IsoMaxSurplusBranchManager {
         occurrenceRetires:aggregate[WC_RETIRE_OCC],
         pathReplayApplies:aggregate[WC_PATH_REPLAY_APPLIES],
         controlChecks:aggregate[WC_CONTROL_CHECKS],
+        continuationYields:aggregate[WC_CONTINUATION_YIELDS],
         claimsByBand:Array.from({length:PRIORITY_BANDS},(_,b)=>aggregate[WC_BAND_BASE+b]),
         localClasses:Array.from(session.localClasses),localEntries:Array.from(session.localEntries),
       };
