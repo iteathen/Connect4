@@ -1,0 +1,32 @@
+name: IsoMax capacity-aligned scheduler qualification
+
+on:
+  push:
+    branches: [solver/isometric]
+    paths:
+      - 'benchmarks/isomax-workers/scheduler-capacity.mjs'
+      - '.github/workflows/isomax-scheduler-capacity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Run capacity-aligned reserve comparison
+        run: node benchmarks/isomax-workers/scheduler-capacity.mjs scheduler-capacity-result.json
+      - name: Preserve raw qualification report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: isomax-scheduler-capacity-${{ github.sha }}
+          path: scheduler-capacity-result.json
+          if-no-files-found: error
