@@ -52,6 +52,8 @@ class PullEvaluator {
     this.queueScratch = new Int32Array(3);
     this.allocateScratch = new Int32Array(2);
     this.counters = new Int32Array(24);
+    this.frontierSlots = new Int32Array(7);
+    this.frontierGenerations = new Int32Array(7);
   }
 
   prepareSession() {
@@ -199,16 +201,15 @@ class PullEvaluator {
         shared.workPath[base + this.state.ply] = column;
         Atomics.store(shared.workPathLength, childSlot, this.state.ply + 1);
         const localClass = column === promoted ? 1 : 0;
-        // Visibility precedes execution eligibility. Reconciliation must see
-        // the parent/action occurrence before a fast child can complete and
-        // recycle its execution slot.
+        // Publish the complete occurrence set before any child is executable.
+        // This makes FRONTIER_END the semantic commit marker for the worker
+        // attempt; a worker death before it cannot leave a half-frontier live.
         if (!this.publishBlocking(shared, PUB_CHILD,
           slot, generation, attempt, childSlot, childGeneration, column, localClass)) {
           return false;
         }
-        if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
-          throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
-        }
+        this.frontierSlots[childCount] = childSlot;
+        this.frontierGenerations[childCount] = childGeneration;
         childCount++;
         this.counters[WC_CHILDREN]++;
       }
@@ -216,8 +217,22 @@ class PullEvaluator {
 
       Atomics.store(shared.workState, slot, WORK_DONE);
       this.counters[WC_FRONTIERS]++;
-      return this.publishBlocking(shared, PUB_FRONTIER_END,
-        slot, generation, attempt, childCount, firstDeterministic, this.state.ply, workerIndex);
+      if (!this.publishBlocking(shared, PUB_FRONTIER_END,
+        slot, generation, attempt, childCount, firstDeterministic, this.state.ply, workerIndex)) return false;
+
+      // The manager may race this publication and promote WRITING -> READY at
+      // the canonical priority. CAS keeps that race benign. The discovering
+      // worker never reserves a child for itself.
+      for (let index = 0; index < childCount; index++) {
+        const childSlot = this.frontierSlots[index];
+        const childGeneration = this.frontierGenerations[index];
+        if (Atomics.compareExchange(shared.workState, childSlot, 1, 2) === 1) {
+          if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
+            throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
+          }
+        }
+      }
+      return true;
     }
   }
 
