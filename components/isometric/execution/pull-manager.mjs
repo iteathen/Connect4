@@ -380,6 +380,8 @@ export class IsoMaxPullBranchManager {
         canonicalQ:snapshot.qCount ?? 0,
         canonicalEdges:snapshot.edgeCount ?? 0,
         workAllocated:snapshot.workAllocated ?? 0,
+        occurrenceAllocated:snapshot.occurrenceAllocated ?? 0,
+        executionWorkCount:snapshot.executionWorkCount ?? 0,
         memory:process.memoryUsage(),
         cleanup:'shared pool stopped; evaluator session drained; workers retained',
       };
