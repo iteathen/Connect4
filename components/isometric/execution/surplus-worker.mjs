@@ -230,7 +230,16 @@ class SurplusDistributor {
       if(stateCode===WORK_RUNNING){
         this.worker.counters[WC_HELPER_WAITS]++;
         this.worker.counters[WC_SURPLUS_REMOTE]++;
-        Atomics.wait(shared.workState,work,WORK_RUNNING,10);
+        // A stolen surplus is speculative parallel help, not a dependency
+        // that may indefinitely stall the current worker. Give the helper a
+        // brief opportunity to finish; if it remains RUNNING, preserve local
+        // forward progress from the live parent state. PUB_CONTINUATION_START
+        // then makes the local continuation canonical-visible and reconciliation
+        // retires the now-redundant helper at its amortized control boundary.
+        Atomics.wait(shared.workState,work,WORK_RUNNING,1);
+        if(Atomics.load(shared.workState,work)===WORK_RUNNING){
+          return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+        }
         continue;
       }
 
