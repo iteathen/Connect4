@@ -9,8 +9,13 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { captureProcess } from '../../tools/solver-performance.mjs';
+import { makeCorpus, WORKLOADS } from '../isomax-ordering/corpus.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const roots = ['717657616532237625','466537327657277224','616767454664457417'];
+export function selectRoots(suite = 'three') {
+  if (suite === 'broad') return WORKLOADS.flatMap(w => makeCorpus(w).map(r => r.sequence));
+  assert.equal(suite, 'three');
+  return ['717657616532237625','466537327657277224','616767454664457417'];
+}
 const managerUrl = new URL('../../components/isometric/execution/branch-manager.mjs', import.meta.url);
 const executorUrl = new URL('../../research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs', import.meta.url);
 const emit = x => fs.writeSync(1, JSON.stringify(x) + '\n');
@@ -88,6 +93,7 @@ export async function loadManagerCandidate(variant) {
 
 if (process.argv[2] === 'child') {
   const variant = process.argv[3], workers = Number(process.argv[4] ?? 4);
+  const roots = selectRoots(process.argv[5]);
   const { IsoMaxBranchManager, sourceHash, candidateHash } = await loadManagerCandidate(variant);
   for (const sequence of roots) {
     const manager = new IsoMaxBranchManager({ workers });
@@ -99,15 +105,16 @@ if (process.argv[2] === 'child') {
   }
 } else if (process.argv[2] === 'run') {
   const output=path.resolve(process.argv[3]),variants=process.argv[4].split(','),workers=Number(process.argv[5]??4);
+  const suite=process.argv[7]??'three',roots=selectRoots(suite);
   const samples=Number(process.argv[6]??3),git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
   const report={source:git('rev-parse','HEAD'),node:process.version,v8:process.versions.v8,cpu:os.cpus()[0]?.model,
-    roots,variants,workers,samples,instrumented:variants.includes('survey'),runs:[]};
+    roots,suite,variants,workers,samples,instrumented:variants.includes('survey'),runs:[]};
   fs.mkdirSync(output,{recursive:true});
   const save=()=>fs.writeFileSync(path.join(output,'result.json'),JSON.stringify(report,null,2)+'\n',{flush:true});
   save();let decisions;
   for(let sample=0;sample<samples;sample++)for(const variant of sample%2?[...variants].reverse():variants){
     const directory=path.join(output,sample+'-'+variant);
-    const captured=await captureProcess({command:process.execPath,args:['--max-old-space-size=4096',fileURLToPath(import.meta.url),'child',variant,String(workers)],cwd:root,directory,timeoutMs:120000});
+    const captured=await captureProcess({command:process.execPath,args:['--max-old-space-size=4096',fileURLToPath(import.meta.url),'child',variant,String(workers),suite],cwd:root,directory,timeoutMs:120000});
     const records=fs.readFileSync(path.join(directory,'stdout.log'),'utf8').trim().split('\n').filter(Boolean).map(JSON.parse);
     report.runs.push({sample,variant,...captured,records});save();
     assert.equal(captured.exitCode,0);assert.equal(captured.timedOut,false);assert.equal(records.length,roots.length);

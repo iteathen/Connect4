@@ -568,3 +568,9 @@ separate. No new recursive counters or reporting. A real-worker test independent
 sums received replies and checks both derived counts. 12 execution/admission
 tests pass. Its first test-only interception tried to mutate the frozen executor;
 replaced with a wrapper without changing the executor contract.
+
+Rank3 confirmation on four workers: all five paired times improve, median
+1616.5771 -> 1549.2538 ms. Before promoting, broaden to the existing independent
+96-root quiet corpus (ranks 18/20/24/28) and two workers, retaining identical
+30s/root, 120s/process limits. This avoids choosing policy from three expensive
+roots alone. Source substitution remains qualification-only.
