@@ -3,6 +3,7 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { CENTER_ORDER } from '../move-order.mjs';
 import {
   CTRL_ABORT,
+  CTRL_OCC_FREE_WAKE,
   CTRL_PUB_WAKE,
   CTRL_SESSION,
   CTRL_WORK_WAKE,
@@ -60,6 +61,26 @@ class SurplusDistributor {
     this.columns=new Int8Array((MAX_MOVES+1)*7);
     this.occSlots=new Int32Array((MAX_MOVES+1)*7);this.occSlots.fill(-1);
     this.occGenerations=new Int32Array((MAX_MOVES+1)*7);
+    this.allocateScratch=new Int32Array(1);
+  }
+
+  allocateOpportunity(state,column,orderRank,role) {
+    const shared=this.worker.shared;
+    let slot=allocateOccurrence(
+      shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
+      state,column,orderRank,role,this.allocateScratch,
+    );
+    if(slot>=0)return slot;
+
+    // Bounded global backpressure: give reconciliation one short chance to
+    // retire/recycle consumed occurrences. Never grow the arena in recursion.
+    const epoch=Atomics.load(shared.control,CTRL_OCC_FREE_WAKE);
+    Atomics.wait(shared.control,CTRL_OCC_FREE_WAKE,epoch,2);
+    slot=allocateOccurrence(
+      shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
+      state,column,orderRank,role,this.allocateScratch,
+    );
+    return slot;
   }
 
   publishBlocking(kind,a=0,b=0,c=0,d=0,e=0,f=0,g=0) {
@@ -228,10 +249,7 @@ class SurplusDistributor {
       for(let i=0;i<count;i++){
         const column=this.columns[base+i];
         const role=i===0?OCC_ROLE_CONTINUATION:OCC_ROLE_SURPLUS;
-        const slot=allocateOccurrence(
-          this.worker.shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
-          state,column,i,role,
-        );
+        const slot=this.allocateOpportunity(state,column,i,role);
         if(slot<0)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_CAPACITY');
         const generation=Atomics.load(this.worker.shared.occGeneration,slot);
         this.occSlots[base+i]=slot;this.occGenerations[base+i]=generation;
