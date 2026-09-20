@@ -17,8 +17,8 @@ const expectedHistoricalManifestBlob='ef155699dd083ee3b24da7b7639ed7824c28281b';
 const historicalAuthorityRoot='research/isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md';
 
 const hotLoopAuthority='research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md';
-const neesRealizationAuthority='research/isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_1.md';
-const neesRevision='0294f37909e9a5b7a2202d3a9367a9e2428d47b3';
+const neesRealizationAuthority='research/isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_2.md';
+const neesRevision='3a78310a3ba14fb3acb4046c8dffd396209c213c';
 
 const legacyDir=path.join(root,'research','canonical');
 const legacyIndexPath=path.join(legacyDir,'CLAIM_INDEX.json');

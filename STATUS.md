@@ -58,7 +58,7 @@ For current **qualified** IsoMax hot-loop semantic/performance research, use:
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json`;
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg`.
 
-The game-theory 1.2 package is promoted as the sole current game-theory/logic authority by `CONNECT4_LOGIC_AUTHORITY_1_2.md` and `FINAL_QUALIFICATION_REVIEW_1_2.md`. The hot-loop 0.3 package is promoted for current performance-research use and has no gameplay-authority effect. Hot-loop realization is additionally governed by `research/isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_1.md`, pinned to NEES Draft 0.2; this changes realization obligations only.
+The game-theory 1.2 package is promoted as the sole current game-theory/logic authority by `CONNECT4_LOGIC_AUTHORITY_1_2.md` and `FINAL_QUALIFICATION_REVIEW_1_2.md`. The hot-loop 0.3 package is promoted for current performance-research use and has no gameplay-authority effect. Hot-loop realization is additionally governed by `research/isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_2.md`, pinned to NEES Draft 0.3; this changes realization obligations only.
 
 Authority 1.1, the old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain historical provenance/evidence only.
 
