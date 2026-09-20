@@ -26,7 +26,7 @@ The qualified logic authority is IsoGraph. Read in this order:
 3. `isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*` plus the 1.2 claim-coverage artifact — frozen promoted semantic package.
 4. `isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_2.md` and q_o/q_r / NEI qualification evidence when identity is material.
 5. `isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md` — separately qualified hot-loop performance graph, no gameplay-authority effect.
-6. `isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_1.md` — current NEES realization binding for promoted IsoMax hot execution.
+6. `isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_2.md` — current NEES realization binding for promoted IsoMax hot execution.
 7. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` only for readability, compatibility, or provenance checks.
 8. authorities 1.1 and 1.0 only as immutable historical qualification evidence.
 
