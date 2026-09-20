@@ -42,6 +42,8 @@ export const WC_FREE_WAITS = 8;
 export const WC_PATH_REPLAYS = 9;
 export const WC_TRANSITIONS = 10;
 export const WC_FRONTIER_EVALS = 11;
+export const WC_PATH_APPLIES = 12;
+export const WC_PATH_UNDOS = 13;
 export const WC_BAND_BASE = 16;
 export const WC_WORDS = 24;
 
