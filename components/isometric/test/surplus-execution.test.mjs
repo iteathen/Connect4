@@ -7,11 +7,14 @@ import { CENTER_ORDER } from '../move-order.mjs';
 import {
   CTRL_WORK_NEXT,
   OCC_RETIRED,
+  WORK_EXACT,
   WORK_RUNNING,
   allocateOccurrence,
+  allocateWork,
   createSurplusPool,
   openSurplusPool,
   releaseOccurrence,
+  releaseWork,
 } from '../execution/surplus-pool.mjs';
 
 class BranchProbe {
@@ -47,6 +50,29 @@ function branchyFixture(seed,ply=34){
   }
   throw new Error('failed to find branchy IsoMax fixture');
 }
+
+test('surplus helper work arena reuses one slot only after terminal reconciliation', () => {
+  const descriptor=createSurplusPool({
+    workerCount:1,workCapacity:1,occurrenceCapacity:2,queueCapacity:4,publicationCapacity:4,
+  });
+  const shared=openSurplusPool(descriptor);
+  const scratch=new Int32Array(2);
+  let priorGeneration=0;
+  for(let iteration=0;iteration<64;iteration++){
+    const slot=allocateWork(shared,scratch);
+    assert.equal(slot,0);
+    const generation=scratch[1];
+    assert.ok(generation>priorGeneration);
+    priorGeneration=generation;
+
+    assert.equal(releaseWork(shared,slot,generation),false,
+      'live WRITING work cannot be recycled');
+    Atomics.store(shared.workState,slot,WORK_EXACT);
+    assert.equal(releaseWork(shared,slot,generation),true);
+    assert.equal(releaseWork(shared,slot,generation),false,
+      'released generation cannot be reclaimed twice');
+  }
+});
 
 test('surplus occurrence arena reuses one slot only under a new generation', () => {
   const descriptor=createSurplusPool({
