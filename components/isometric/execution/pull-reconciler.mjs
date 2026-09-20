@@ -927,6 +927,9 @@ class PullReconciler {
       rootMove:this.answerMove ?? null,
       metrics:{...this.metrics},
       workAllocated:Math.min(this.shared.workCapacity, Atomics.load(this.shared.control, CTRL_WORK_NEXT)),
+      occurrenceAllocated:Math.min(this.shared.occurrenceCapacity, Atomics.load(this.shared.control, CTRL_OCC_NEXT)),
+      executionWorkCount:this.executionWorkCount,
+      executionLimit:this.executionLimit,
       qCount:this.qCount,
       edgeCount:this.edgeCount,
     };
