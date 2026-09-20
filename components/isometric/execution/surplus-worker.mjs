@@ -483,7 +483,13 @@ class SurplusEvaluator {
 
     let move=-1;
     if(state.ply===this.externalRootPly&&!state.isTerminal()){
-      move=this.solver.selectMoveForValue(state,value);
+      // Root value is already exact. Select the physical witness from this
+      // worker's warm local cache without creating fresh surplus work whose
+      // only purpose would be post-value move reconstruction.
+      const distributor=this.solver.branchDistributor;
+      this.solver.branchDistributor=null;
+      try{move=this.solver.selectMoveForValue(state,value);}
+      finally{this.solver.branchDistributor=distributor;}
     }
     this.distributor.publishWorkExact(slot,generation,attempt,value,move);
   }
