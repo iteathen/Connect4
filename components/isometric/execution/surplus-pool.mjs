@@ -118,6 +118,7 @@ export function createSurplusPool({
     occPublisherWorker: sabI32(occurrenceCapacity),
     occRole: sabI32(occurrenceCapacity),
     occLeader: sabI32(occurrenceCapacity),
+    occLeaderGeneration: sabI32(occurrenceCapacity),
     occParentWork: sabI32(occurrenceCapacity),
     occParentAttempt: sabI32(occurrenceCapacity),
     occAction: sabI32(occurrenceCapacity),
@@ -162,6 +163,8 @@ export function createSurplusPool({
   pool.occWork.fill(-1);
   pool.occWorkGeneration.fill(-1);
   pool.occPublisherWorker.fill(-1);
+  pool.occLeader.fill(-1);
+  pool.occLeaderGeneration.fill(-1);
   pool.occParentWork.fill(-1);
   pool.occAction.fill(-1);
   pool.workerAlive.fill(1);
@@ -202,6 +205,7 @@ export function openSurplusPool(d) {
     occPublisherWorker:new Int32Array(d.occPublisherWorker),
     occRole:new Int32Array(d.occRole),
     occLeader:new Int32Array(d.occLeader),
+    occLeaderGeneration:new Int32Array(d.occLeaderGeneration),
     occParentWork:new Int32Array(d.occParentWork),
     occParentAttempt:new Int32Array(d.occParentAttempt),
     occAction:new Int32Array(d.occAction),
@@ -404,6 +408,7 @@ export function releaseOccurrence(pool,slot,generation) {
   Atomics.store(pool.occPublisherWorker,slot,-1);
   Atomics.store(pool.occRole,slot,OCC_ROLE_SURPLUS);
   Atomics.store(pool.occLeader,slot,-1);
+  Atomics.store(pool.occLeaderGeneration,slot,-1);
   Atomics.store(pool.occParentWork,slot,-1);
   Atomics.store(pool.occParentAttempt,slot,0);
   Atomics.store(pool.occAction,slot,-1);
@@ -436,6 +441,7 @@ export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt,
   Atomics.store(pool.occPublisherWorker,slot,workerIndex);
   Atomics.store(pool.occRole,slot,role);
   Atomics.store(pool.occLeader,slot,-1);
+  Atomics.store(pool.occLeaderGeneration,slot,-1);
   Atomics.store(pool.occParentWork,slot,parentWork);
   Atomics.store(pool.occParentAttempt,slot,parentAttempt);
   Atomics.store(pool.occAction,slot,column);
