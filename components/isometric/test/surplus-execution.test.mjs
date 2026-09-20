@@ -53,25 +53,29 @@ function branchyFixture(seed,ply=34){
   throw new Error('failed to find branchy IsoMax fixture');
 }
 
-function qConvergenceFixture(seed,ply=34){
-  for(const {moves} of makeCorpus({seed,ply,count:128})){
-    const solver=new IsoMaxSolver();
-    const state=solver.createState(moves);
-    if(state.isTerminal())continue;
-    const seen=new Map();
-    for(const column of CENTER_ORDER){
-      if(!state.canPlay(column))continue;
-      state.applyUnchecked(column);
-      const key=Array.from(state.gameplayKey()).join(',');
-      state.undo();
-      const prior=seen.get(key);
-      if(prior!==undefined&&prior!==column){
-        return {moves,columns:[prior,column],expected:new IsoMaxSolver().solveMoves(moves)};
-      }
-      seen.set(key,column);
-    }
-  }
-  throw new Error('failed to find deterministic q convergence fixture');
+function qConvergenceFixture(){
+  // Reflection-invariant 32-ply legal position. Each player's physical stones
+  // are paired across the vertical mirror. Therefore playable mirror children
+  // 0 and 6 are physically distinct occurrences in one parent but one q_r orbit.
+  const moves=[
+    0,1,6,5, 0,1,6,5, 0,1,6,5,
+    1,2,5,4, 1,2,5,4, 1,2,5,4,
+    2,0,4,6, 2,0,4,6,
+  ];
+  const solver=new IsoMaxSolver(),state=solver.createState(moves);
+  assert.equal(state.isTerminal(),false);
+  assert.equal(state.canPlay(0),true);
+  assert.equal(state.canPlay(6),true);
+
+  state.applyUnchecked(0);
+  const left=Array.from(state.gameplayKey());
+  state.undo();
+  state.applyUnchecked(6);
+  const right=Array.from(state.gameplayKey());
+  state.undo();
+  assert.deepEqual(left,right,'mirror child occurrences must share exact q_r');
+
+  return {moves,columns:[0,6],expected:new IsoMaxSolver().solveMoves(moves)};
 }
 
 test('surplus helper work arena reuses one slot only after terminal reconciliation', () => {
@@ -225,7 +229,7 @@ test('surplus helpers steal alternatives while the current worker keeps local re
 
 test('surplus reconciler merges physically distinct child occurrences with the same q_r',
   {timeout:20000}, async () => {
-    const {moves,columns,expected}=qConvergenceFixture(0x1025e,34);
+    const {moves,columns,expected}=qConvergenceFixture();
     assert.notEqual(columns[0],columns[1]);
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
