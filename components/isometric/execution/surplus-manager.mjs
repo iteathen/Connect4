@@ -214,8 +214,11 @@ export class IsoMaxSurplusBranchManager {
           session.localClasses[id]=m.localClasses??0;session.localEntries[id]=m.localEntries??0;
           session.done[id]=1;session.checkDone();
         }else if(m.type==='surplus-error'){
-          session.failure??=new Error(m.message??'surplus evaluator failed');
-          this.#markDead(id);this.#abort(session.failure);
+          const error=new Error(m.message??'surplus evaluator failed');
+          // #abort owns first-failure publication and rejection. Do not
+          // pre-populate session.failure here or the pending solve promise
+          // will never observe the worker failure.
+          this.#markDead(id);this.#abort(error);
         }
       };
       worker.on('message',onMessage);listeners.push([worker,onMessage]);
