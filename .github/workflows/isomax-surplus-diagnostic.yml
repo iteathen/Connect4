@@ -26,30 +26,43 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Probe reflected fixture prefixes
+      - name: Search late reflected ordinary-branch fixtures
         run: |
           node --input-type=module <<'NODE'
           import { IsoMaxSolver } from './components/isometric/solver.mjs';
           import { nativeFrontierCode } from './components/isometric/frontier.mjs';
 
-          const full=[
-            0,1,6,5, 0,1,6,5, 0,1,6,5,
-            1,2,5,4, 1,2,5,4, 1,2,5,4,
-            2,0,4,6, 2,0,4,6,
-          ];
-          for (const n of [8,12,16,20,24,28,32]) {
-            const moves=full.slice(0,n);
-            const solver=new IsoMaxSolver(),state=solver.createState(moves);
-            let same=false,left=null,right=null;
-            if(!state.isTerminal()&&state.canPlay(0)&&state.canPlay(6)){
-              state.applyUnchecked(0);left=Array.from(state.gameplayKey());state.undo();
-              state.applyUnchecked(6);right=Array.from(state.gameplayKey());state.undo();
-              same=JSON.stringify(left)===JSON.stringify(right);
+          let rng=0x102c4 >>> 0;
+          const next=()=>{rng^=rng<<13;rng^=rng>>>17;rng^=rng<<5;return rng>>>0;};
+          for (const target of [32,28,24]) {
+            let found=0;
+            for (let attempt=0;attempt<200000 && found<3;attempt++) {
+              const solver=new IsoMaxSolver(),state=solver.createState(),moves=[];
+              let ok=true;
+              for(let chunk=0;chunk<target/4;chunk++){
+                const a=next()%7,b=next()%7;
+                const seq=[a,b,6-a,6-b];
+                for(const column of seq){
+                  if(!state.canPlay(column)){ok=false;break;}
+                  state.applyUnchecked(column);moves.push(column);
+                  if(state.isTerminal()&&moves.length<target){ok=false;break;}
+                }
+                if(!ok)break;
+              }
+              if(!ok||moves.length!==target||state.isTerminal()||nativeFrontierCode(state)!==0)continue;
+              let pair=null;
+              for(const column of [0,1,2]){
+                const mirror=6-column;
+                if(!state.canPlay(column)||!state.canPlay(mirror))continue;
+                state.applyUnchecked(column);const left=Array.from(state.gameplayKey());state.undo();
+                state.applyUnchecked(mirror);const right=Array.from(state.gameplayKey());state.undo();
+                if(JSON.stringify(left)===JSON.stringify(right)){pair=[column,mirror];break;}
+              }
+              if(pair){
+                console.log(JSON.stringify({target,attempt,moves,pair,native:nativeFrontierCode(state)}));
+                found++;
+              }
             }
-            console.log(JSON.stringify({
-              n,terminal:state.isTerminal(),can0:state.canPlay(0),can6:state.canPlay(6),
-              native:nativeFrontierCode(state),same,
-            }));
           }
           NODE
 
