@@ -33,7 +33,7 @@ export {
   cellSetConclusion,
   reflectConclusion,
 } from './certificate.mjs';
-export { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
+export { IsoMaxCertificateIndex, IsoMaxTransitionCache, IsoMaxWdlTransitionCache } from './isomax-index.mjs';
 export { deriveNativeFrontierConsequence } from './frontier.mjs';
 export { IsoMaxSolver } from './solver.mjs';
 export { IsoMaxRbaValueResolver } from './rba-value-resolver.mjs';

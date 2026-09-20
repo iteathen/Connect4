@@ -165,7 +165,7 @@ test('actual native worker recursion reserves storage and never constructs/copie
   const solver = new IsoMaxTaskSolver();
   const needed = new SharedArrayBuffer(4), abort = new SharedArrayBuffer(4);
   Atomics.store(new Int32Array(needed), 0, 1);
-  const names = ['Array', 'ArrayBuffer', 'SharedArrayBuffer', 'Uint8Array', 'Uint16Array', 'Uint32Array', 'Int32Array'];
+  const names = ['Array', 'ArrayBuffer', 'SharedArrayBuffer', 'Uint8Array', 'Uint16Array', 'Uint32Array', 'Int32Array', 'Int8Array'];
   const originals = names.map(name => globalThis[name]);
   const typedPrototype = Object.getPrototypeOf(Uint8Array.prototype);
   const set = typedPrototype.set, subarray = typedPrototype.subarray;

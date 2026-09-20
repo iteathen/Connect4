@@ -167,9 +167,15 @@ export class IsoMaxTransitionCache {
     this.p0 = new Int32Array(capacity);
     this.p1 = new Int32Array(capacity);
     this.support = new Uint32Array(capacity);
-    this.values = new Array(capacity);
+    this.values = this.allocateValues(capacity);
     this.scratch = new Int32Array(3);
     this.rehashScratch = new Int32Array(3);
+  }
+
+  allocateValues(capacity) {
+    // OWNER-PROTECTED COLD STORAGE POLICY — no mode dispatch in probes/stores.
+    // Generic q consumers retain arbitrary payloads, including manager nodes.
+    return new Array(capacity);
   }
 
   matches(slot, signature) {
@@ -210,7 +216,7 @@ export class IsoMaxTransitionCache {
     this.p0 = new Int32Array(this.capacity);
     this.p1 = new Int32Array(this.capacity);
     this.support = new Uint32Array(this.capacity);
-    this.values = new Array(this.capacity);
+    this.values = this.allocateValues(this.capacity);
     const signature = this.rehashScratch;
     for (let slot = 0; slot < old.capacity; slot += 1) {
       if (old.used[slot] === 0) continue;
@@ -320,5 +326,22 @@ export class IsoMaxTransitionCache {
     }
     this.values[slot] = value;
     return value;
+  }
+}
+
+export class IsoMaxWdlTransitionCache extends IsoMaxTransitionCache {
+  allocateValues(capacity) {
+    // OWNER-PROTECTED ORDINARY-VALUE OWNER — only {-1,0,+1}; absence remains
+    // in used[]. Inherit exact q equality, probing, rehash and sealed failure.
+    // Allocation occurs at construction/cold growth, never successful E0/E1.
+    return new Int8Array(capacity);
+  }
+
+  set(state, value) {
+    // OWNER-PROTECTED CHECKED INGRESS — never silently truncate a public value.
+    // The inherited prepared primitive requires the solver's assertExactValue
+    // provenance and owns no additional per-node storage-mode dispatch.
+    if (value !== -1 && value !== 0 && value !== 1) throw new TypeError('WDL cache requires an exact W/D/L value');
+    return super.set(state, value);
   }
 }

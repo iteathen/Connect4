@@ -5,7 +5,7 @@ import {
   CONCLUSION_NO_WIN,
 } from './certificate.mjs';
 import { deriveNativeFrontierConsequence, nativeFrontierCode } from './frontier.mjs';
-import { IsoMaxCertificateIndex, IsoMaxTransitionCache } from './isomax-index.mjs';
+import { IsoMaxCertificateIndex, IsoMaxTransitionCache, IsoMaxWdlTransitionCache } from './isomax-index.mjs';
 import { ResidualPool } from './residual-pool.mjs';
 import { IsometricState } from './state.mjs';
 import { IsoMaxRbaValueResolver } from './rba-value-resolver.mjs';
@@ -51,7 +51,7 @@ export class IsoMaxSolver {
     if (!(this.certificates instanceof IsoMaxCertificateIndex) || this.certificates.pool !== pool) {
       throw new TypeError('certificates must be an IsoMaxCertificateIndex for the solver pool');
     }
-    this.transitionCache = transitionCache ?? new IsoMaxTransitionCache({ pool });
+    this.transitionCache = transitionCache ?? new IsoMaxWdlTransitionCache({ pool });
     if (!(this.transitionCache instanceof IsoMaxTransitionCache) || this.transitionCache.pool !== pool) {
       throw new TypeError('transitionCache must be an IsoMaxTransitionCache for the solver pool');
     }
@@ -69,7 +69,7 @@ export class IsoMaxSolver {
   }
 
   resetSearchMemory() {
-    this.transitionCache = new IsoMaxTransitionCache({ pool: this.pool });
+    this.transitionCache = new IsoMaxWdlTransitionCache({ pool: this.pool });
   }
 
   solveValue(state) {

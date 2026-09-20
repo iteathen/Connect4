@@ -465,3 +465,34 @@ sampled allocation is attributed to generic q-value array growth in this
 bounded task replay. Next test only the ordinary WDL owner, keeping the generic
 manager/object cache unchanged; falsify on exactness, lifecycle or adverse
 resource/runtime effects. No per-probe storage-mode branch is permitted.
+
+### #101 qualified ordinary WDL payload storage
+
+`IsoMaxWdlTransitionCache` shares the exact generic key/probe/rehash code and
+selects Int8 value storage only at cold construction/growth. No per-probe mode
+branch. Generic cache remains Array-backed for manager objects/arbitrary public
+payloads. Checked WDL ingress rejects non-WDL rather than truncating; prepared
+publication retains the solver's exact-value precondition. Absence stays in
+`used`, so zero is a value, not a miss. Reset preserves WDL specialization.
+
+Against c8720a5b, three alternating fresh-process pairs:
+
+| mode | baseline/candidate median ms | max observed RSS before/after bytes |
+|---|---:|---:|
+| serial | 1426.7373 / 1398.9687 | 167391232 / 175771648 |
+| one worker | 1794.9081 / 1752.3382 | 289869824 / 242860032 |
+| four workers | 1551.0547 / 1520.1511 | 538882048 / 509833216 |
+
+All nine paired times improve; exact decisions and serial/one-worker calls
+agree. Serial RSS rises in these samples despite narrower storage: report it,
+not a blanket memory claim. Payload storage is exactly one byte per capacity
+slot; other keys/used/pool storage are unchanged. Worker heap sampling falls
+58,120,152 -> 3,070,208 attributed bytes; the ~55.6MB generic Array growth
+attribution disappears. Typed backing storage remains external memory, not
+zero memory. Same profiled tasks/calls/results as #96.
+
+123 full relevant tests pass, no failures/skips, 25.11s. New controls cover
+generic object ownership, lossy-value rejection, all WDLs, collisions/repeated
+resize/mirrors, prepared-parent lifetime and sealed growth. Allocation traps
+now include Int8Array. Evidence: `issue-101-wdl-cache.json`,
+`issue-101-profile-after.json`, inherited `issue-96-profile-after.json`.
