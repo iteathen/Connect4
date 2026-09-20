@@ -45,6 +45,10 @@ function aggregate(records, profile) {
     };
   } else if(profile==='surplus'){
     summary.surplus={
+      calls:sum(records,r=>r.metrics?.worker?.nodes),
+      expandedEntries:sum(records,r=>r.metrics?.worker?.expandedEntries),
+      transitionAttempts:sum(records,r=>r.metrics?.worker?.transitionAttempts),
+      transitionCacheStores:sum(records,r=>r.metrics?.worker?.transitionCacheStores),
       workClaims:sum(records,r=>r.metrics?.worker?.workClaims),
       branches:sum(records,r=>r.metrics?.worker?.branches),
       localPrimary:sum(records,r=>r.metrics?.worker?.localPrimary),
