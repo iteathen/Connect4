@@ -104,12 +104,15 @@ class SurplusDistributor {
   waitOccurrence(slot,generation) {
     const shared=this.worker.shared;
     while(true){
+      // Cancellation owns lifecycle before any already-linked state can send
+      // us back into a helper wait. Otherwise LINKED -> WORK_RUNNING can spin
+      // forever after the host has stopped the session.
+      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
       if(Atomics.load(shared.occGeneration,slot)!==generation)throw new Error('surplus occurrence generation changed');
       const state=Atomics.load(shared.occState,slot);
       if(state===OCC_LINKED||state===OCC_EXACT||state===OCC_RETIRED)return state;
       if(state!==OCC_PUBLISHED)throw new Error('invalid surplus occurrence state '+state);
-      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
-      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
       Atomics.wait(shared.occState,slot,OCC_PUBLISHED,10);
     }
   }
@@ -158,6 +161,8 @@ class SurplusDistributor {
   resolveOccurrence(solver,state,column,slot,generation) {
     const shared=this.worker.shared;
     while(true){
+      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
       const occState=this.waitOccurrence(slot,generation);
       if(occState===OCC_RETIRED)throw new Error('needed surplus occurrence retired');
       if(occState===OCC_EXACT){
