@@ -1,0 +1,5736 @@
+{
+  "source": "a63fc927897c19732bcc34c0974a2e1a02b28228",
+  "node": "v26.7.0",
+  "v8": "14.6.202.34-node.28",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "roots": [
+    "672213326472712137",
+    "717657616532237625",
+    "244436214322125632",
+    "263666125275777433",
+    "525136375514635432",
+    "357451162116727767",
+    "177723517527441215",
+    "466537327657277224",
+    "266337366231225334",
+    "616767454664457417",
+    "445275214177724623",
+    "232473165344315655",
+    "275244225774576523",
+    "212542744773463711",
+    "741717235175424327",
+    "323674232127326274",
+    "64134677325171734477",
+    "33576124376771362347",
+    "57225747212571235276",
+    "12371351562553363514",
+    "53662667127254222671",
+    "16225761216711566476",
+    "53577536164136135166",
+    "66755213516366367145",
+    "57351757711645523345",
+    "64146236672617435436",
+    "11633117743756657667",
+    "64133554766417462154",
+    "11371142416516747436",
+    "37421234735653664544",
+    "36732337646726557336",
+    "74742743234324375274",
+    "646152256531531214313621",
+    "424452434771222537231763",
+    "311221166277755215433673",
+    "113713163121553773557324",
+    "614511112123233373376255",
+    "435176773734115636664323",
+    "634712272744667755626252",
+    "151416213416166663447355",
+    "744453752532751717475454",
+    "111756641773551145532566",
+    "375527147423174231333417",
+    "123775652226155627411772",
+    "157671345513455716314457",
+    "441557726146451776722574",
+    "561421167752215311674563",
+    "741732537123224535471467",
+    "276615724615634634574562",
+    "766676311127276333721374",
+    "317461716363113627274143",
+    "133173773513256442776637",
+    "763535562123312262672713",
+    "227111376117773365323666",
+    "745773763511236762311537",
+    "147377726234275452154537",
+    "472165263713722114677256",
+    "742352112221512344131537",
+    "626237473336163664443515",
+    "672747521216441446711173",
+    "127547621175722332666677",
+    "632743164714334646647772",
+    "531327331743747142471255",
+    "447156136247264252633715",
+    "1667761232422326111512577444",
+    "5772116425311542526153462666",
+    "3665467723513367541264242145",
+    "1243636275231637477376756361",
+    "3335753447666251265476176545",
+    "5162327172711127542645517456",
+    "3756664211363753747763635571",
+    "6311634722456665143411125657",
+    "7542672651767227424417616124",
+    "7442446137265236274675647113",
+    "3732772377541654376343122221",
+    "1664113441621174547254366226",
+    "6142544775227422533577164675",
+    "1731773216455126575775536413",
+    "5667173111652376712554253225",
+    "1351651217257511523436322253",
+    "6313673524256171231136317752",
+    "3235233745622112541626533571",
+    "6327343226651611137746767572",
+    "1114634132532623224536677153",
+    "2772647333126757622711266113",
+    "5513362176667137322575735725",
+    "5334411676224743272226647651",
+    "2417541255245323337361632245",
+    "6215365253325446764477237562",
+    "1224453122452133245474571167",
+    "6212144723417671331352427724",
+    "2546622744747742247166267531",
+    "6272474172217345241747255141",
+    "4726565623315364722122146635",
+    "7245655354234317741464313176",
+    "6511724542554427453761267746"
+  ],
+  "suite": "broad",
+  "variants": [
+    "survey"
+  ],
+  "workers": 4,
+  "samples": 1,
+  "instrumented": true,
+  "runs": [
+    {
+      "sample": 0,
+      "variant": "survey",
+      "exitCode": 0,
+      "timedOut": false,
+      "records": [
+        {
+          "sequence": "672213326472712137",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 111.91690000000003,
+          "resultReadyMs": 103.63589999999999,
+          "maxRssBytes": 366096384,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 48983,
+          "expandedEntries": 21326,
+          "transitionAttempts": 48979,
+          "nativeExactHits": 5756,
+          "transitionCacheHits": 21901,
+          "recursiveChildren": 41304,
+          "forcedTransitions": 7675,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 8704,
+          "qReuses": 0,
+          "requiredMs": 0.06770000000000209,
+          "workerExecutionMs": 133.51609999999997,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 48983,
+                "executionMs": 133.51609999999997
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "717657616532237625",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 178.6706,
+          "resultReadyMs": 172.4912,
+          "maxRssBytes": 375660544,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 398629,
+          "expandedEntries": 169612,
+          "transitionAttempts": 398593,
+          "nativeExactHits": 46381,
+          "transitionCacheHits": 182636,
+          "recursiveChildren": 353550,
+          "forcedTransitions": 45043,
+          "managerExpansions": 36,
+          "submitted": 52,
+          "splitTasks": 2,
+          "retiredTaskNodes": 87040,
+          "qReuses": 96,
+          "requiredMs": 0.3415000000001669,
+          "workerExecutionMs": 376.5287000000003,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 52,
+            "ready": 49,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 23,
+                "nodes": 329759,
+                "executionMs": 327.44120000000015
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 26,
+                "nodes": 68293,
+                "executionMs": 48.21040000000022
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 3,
+                "nodes": 577,
+                "executionMs": 0.8770999999999276
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "244436214322125632",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 86.64499999999998,
+          "resultReadyMs": 78.49950000000001,
+          "maxRssBytes": 388943872,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 24161,
+          "expandedEntries": 11643,
+          "transitionAttempts": 24159,
+          "nativeExactHits": 2553,
+          "transitionCacheHits": 9965,
+          "recursiveChildren": 20074,
+          "forcedTransitions": 4085,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 15360,
+          "qReuses": 0,
+          "requiredMs": 0.011599999999987176,
+          "workerExecutionMs": 96.63260000000002,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 24161,
+                "executionMs": 96.63260000000002
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "263666125275777433",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 199.0602,
+          "resultReadyMs": 192.6072999999999,
+          "maxRssBytes": 392626176,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 595224,
+          "expandedEntries": 229244,
+          "transitionAttempts": 595114,
+          "nativeExactHits": 41106,
+          "transitionCacheHits": 324874,
+          "recursiveChildren": 510637,
+          "forcedTransitions": 84477,
+          "managerExpansions": 47,
+          "submitted": 124,
+          "splitTasks": 3,
+          "retiredTaskNodes": 55808,
+          "qReuses": 118,
+          "requiredMs": 1.7215000000005602,
+          "workerExecutionMs": 483.01990000000023,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 124,
+            "ready": 121,
+            "maxParents": 1,
+            "maxFiber": 2,
+            "fiberPairSamples": 138,
+            "forcedTasks": 5,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 55,
+                "nodes": 494811,
+                "executionMs": 415.55330000000015
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 49,
+                "nodes": 98708,
+                "executionMs": 59.962100000000305
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 20,
+                "nodes": 1705,
+                "executionMs": 7.50449999999978
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "525136375514635432",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 207.2541000000001,
+          "resultReadyMs": 201.42150000000004,
+          "maxRssBytes": 407076864,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 703856,
+          "expandedEntries": 284259,
+          "transitionAttempts": 703788,
+          "nativeExactHits": 43587,
+          "transitionCacheHits": 376010,
+          "recursiveChildren": 609181,
+          "forcedTransitions": 94607,
+          "managerExpansions": 67,
+          "submitted": 85,
+          "splitTasks": 4,
+          "retiredTaskNodes": 168448,
+          "qReuses": 171,
+          "requiredMs": 0.848400000000197,
+          "workerExecutionMs": 521.3698999999995,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 85,
+            "ready": 85,
+            "maxParents": 2,
+            "maxFiber": 2,
+            "fiberPairSamples": 105,
+            "forcedTasks": 5,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 48,
+                "nodes": 672167,
+                "executionMs": 493.35479999999995
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 27,
+                "nodes": 31288,
+                "executionMs": 14.648699999999849
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 10,
+                "nodes": 401,
+                "executionMs": 13.366399999999658
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "357451162116727767",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 258.59360000000004,
+          "resultReadyMs": 251.71320000000003,
+          "maxRssBytes": 421322752,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1051415,
+          "expandedEntries": 442409,
+          "transitionAttempts": 1051336,
+          "nativeExactHits": 98024,
+          "transitionCacheHits": 510982,
+          "recursiveChildren": 904189,
+          "forcedTransitions": 147147,
+          "managerExpansions": 87,
+          "submitted": 97,
+          "splitTasks": 7,
+          "retiredTaskNodes": 218624,
+          "qReuses": 256,
+          "requiredMs": 1.818599999999833,
+          "workerExecutionMs": 750.9592000000013,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 97,
+            "ready": 94,
+            "maxParents": 2,
+            "maxFiber": 2,
+            "fiberPairSamples": 175,
+            "forcedTasks": 6,
+            "maxForcedChain": 3,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 47,
+                "nodes": 1024006,
+                "executionMs": 727.3658000000008
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 39,
+                "nodes": 27277,
+                "executionMs": 23.084200000000237
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 11,
+                "nodes": 132,
+                "executionMs": 0.5092000000001917
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "177723517527441215",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 84.36650000000009,
+          "resultReadyMs": 78.07499999999982,
+          "maxRssBytes": 421322752,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 6692,
+          "expandedEntries": 3377,
+          "transitionAttempts": 6685,
+          "nativeExactHits": 887,
+          "transitionCacheHits": 2428,
+          "recursiveChildren": 5806,
+          "forcedTransitions": 879,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.03340000000002874,
+          "workerExecutionMs": 67.2953,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 6692,
+                "executionMs": 67.2953
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "466537327657277224",
+          "value": 0,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 809.7203,
+          "resultReadyMs": 802.4120999999998,
+          "maxRssBytes": 517033984,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 4043159,
+          "expandedEntries": 1636546,
+          "transitionAttempts": 4042656,
+          "nativeExactHits": 280436,
+          "transitionCacheHits": 2126177,
+          "recursiveChildren": 3498093,
+          "forcedTransitions": 544563,
+          "managerExpansions": 323,
+          "submitted": 559,
+          "splitTasks": 28,
+          "retiredTaskNodes": 182272,
+          "qReuses": 1187,
+          "requiredMs": 5.179899999996451,
+          "workerExecutionMs": 2809.7435999999975,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 559,
+            "ready": 556,
+            "maxParents": 2,
+            "maxFiber": 2,
+            "fiberPairSamples": 666,
+            "forcedTasks": 30,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 277,
+                "nodes": 3815468,
+                "executionMs": 2605.902499999998
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 222,
+                "nodes": 225825,
+                "executionMs": 165.30320000000142
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 60,
+                "nodes": 1866,
+                "executionMs": 38.537899999999354
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "266337366231225334",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 73.65079999999989,
+          "resultReadyMs": 65.08059999999978,
+          "maxRssBytes": 517033984,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 519,
+          "expandedEntries": 251,
+          "transitionAttempts": 517,
+          "nativeExactHits": 32,
+          "transitionCacheHits": 236,
+          "recursiveChildren": 451,
+          "forcedTransitions": 66,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.004799999999704596,
+          "workerExecutionMs": 41.02520000000004,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 519,
+                "executionMs": 41.02520000000004
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "616767454664457417",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 502.1988000000001,
+          "resultReadyMs": 495.0335,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2697469,
+          "expandedEntries": 1090134,
+          "transitionAttempts": 2697209,
+          "nativeExactHits": 235842,
+          "transitionCacheHits": 1371493,
+          "recursiveChildren": 2342972,
+          "forcedTransitions": 354237,
+          "managerExpansions": 208,
+          "submitted": 290,
+          "splitTasks": 16,
+          "retiredTaskNodes": 67072,
+          "qReuses": 598,
+          "requiredMs": 2.9543999999973494,
+          "workerExecutionMs": 1716.972700000004,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 290,
+            "ready": 287,
+            "maxParents": 2,
+            "maxFiber": 2,
+            "fiberPairSamples": 861,
+            "forcedTasks": 7,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 162,
+                "nodes": 2628200,
+                "executionMs": 1661.486100000001
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 100,
+                "nodes": 68883,
+                "executionMs": 48.07000000000244
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 28,
+                "nodes": 386,
+                "executionMs": 7.4166000000004715
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "445275214177724623",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 83.63319999999976,
+          "resultReadyMs": 73.27570000000014,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 11118,
+          "expandedEntries": 4911,
+          "transitionAttempts": 11117,
+          "nativeExactHits": 1005,
+          "transitionCacheHits": 5202,
+          "recursiveChildren": 9643,
+          "forcedTransitions": 1474,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 6144,
+          "qReuses": 0,
+          "requiredMs": 0.003000000000156433,
+          "workerExecutionMs": 73.12139999999954,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 11118,
+                "executionMs": 73.12139999999954
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "232473165344315655",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 76.33870000000024,
+          "resultReadyMs": 71.29430000000002,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 4651,
+          "expandedEntries": 1825,
+          "transitionAttempts": 4644,
+          "nativeExactHits": 285,
+          "transitionCacheHits": 2541,
+          "recursiveChildren": 4191,
+          "forcedTransitions": 453,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.017000000000280124,
+          "workerExecutionMs": 43.791099999999915,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 4651,
+                "executionMs": 43.791099999999915
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "275244225774576523",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 187.79539999999997,
+          "resultReadyMs": 181.42139999999972,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 314260,
+          "expandedEntries": 127314,
+          "transitionAttempts": 314231,
+          "nativeExactHits": 24877,
+          "transitionCacheHits": 162069,
+          "recursiveChildren": 268494,
+          "forcedTransitions": 45737,
+          "managerExpansions": 21,
+          "submitted": 39,
+          "splitTasks": 1,
+          "retiredTaskNodes": 148992,
+          "qReuses": 52,
+          "requiredMs": 0.19460000000071886,
+          "workerExecutionMs": 361.507099999998,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 39,
+            "ready": 36,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 22,
+                "nodes": 280540,
+                "executionMs": 318.2664999999997
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 12,
+                "nodes": 32462,
+                "executionMs": 34.04169999999931
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 5,
+                "nodes": 1258,
+                "executionMs": 9.198899999998957
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "212542744773463711",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 171.27019999999993,
+          "resultReadyMs": 154.80290000000014,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1428,
+          "expandedEntries": 817,
+          "transitionAttempts": 1425,
+          "nativeExactHits": 441,
+          "transitionCacheHits": 170,
+          "recursiveChildren": 1148,
+          "forcedTransitions": 277,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.057599999999638385,
+          "workerExecutionMs": 106.16589999999997,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 1428,
+                "executionMs": 106.16589999999997
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "741717235175424327",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 143.40930000000026,
+          "resultReadyMs": 129.61549999999988,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1028,
+          "expandedEntries": 542,
+          "transitionAttempts": 1026,
+          "nativeExactHits": 155,
+          "transitionCacheHits": 331,
+          "recursiveChildren": 828,
+          "forcedTransitions": 198,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 1024,
+          "qReuses": 0,
+          "requiredMs": 0.008800000000064756,
+          "workerExecutionMs": 79.74130000000014,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 1028,
+                "executionMs": 79.74130000000014
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "323674232127326274",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 203.84519999999975,
+          "resultReadyMs": 187.7156,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 34941,
+          "expandedEntries": 18471,
+          "transitionAttempts": 34939,
+          "nativeExactHits": 4970,
+          "transitionCacheHits": 11500,
+          "recursiveChildren": 28674,
+          "forcedTransitions": 6265,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 16896,
+          "qReuses": 0,
+          "requiredMs": 0.010299999999460852,
+          "workerExecutionMs": 275.2948000000001,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 34941,
+                "executionMs": 275.2948000000001
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "64134677325171734477",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 150.3702000000003,
+          "resultReadyMs": 141.7869999999998,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 46,
+          "expandedEntries": 32,
+          "transitionAttempts": 42,
+          "nativeExactHits": 14,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 29,
+          "forcedTransitions": 13,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.015499999999974534,
+          "workerExecutionMs": 67.35649999999987,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 46,
+                "executionMs": 67.35649999999987
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "33576124376771362347",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 176.48070000000007,
+          "resultReadyMs": 153.20399999999972,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 518,
+          "expandedEntries": 257,
+          "transitionAttempts": 516,
+          "nativeExactHits": 118,
+          "transitionCacheHits": 143,
+          "recursiveChildren": 435,
+          "forcedTransitions": 81,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.008100000000013097,
+          "workerExecutionMs": 124.41000000000031,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 518,
+                "executionMs": 124.41000000000031
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "57225747212571235276",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 149.11269999999968,
+          "resultReadyMs": 137.1866,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 138,
+          "expandedEntries": 85,
+          "transitionAttempts": 134,
+          "nativeExactHits": 38,
+          "transitionCacheHits": 15,
+          "recursiveChildren": 105,
+          "forcedTransitions": 29,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.012600000000020373,
+          "workerExecutionMs": 66.01940000000013,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 138,
+                "executionMs": 66.01940000000013
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "12371351562553363514",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 160.54809999999998,
+          "resultReadyMs": 151.05159999999978,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 3254,
+          "expandedEntries": 1478,
+          "transitionAttempts": 3247,
+          "nativeExactHits": 648,
+          "transitionCacheHits": 1128,
+          "recursiveChildren": 2814,
+          "forcedTransitions": 433,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.051200000001699664,
+          "workerExecutionMs": 76.41700000000219,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 3254,
+                "executionMs": 76.41700000000219
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "53662667127254222671",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 174.79600000000028,
+          "resultReadyMs": 163.29079999999976,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 11370,
+          "expandedEntries": 4801,
+          "transitionAttempts": 11367,
+          "nativeExactHits": 921,
+          "transitionCacheHits": 5648,
+          "recursiveChildren": 9710,
+          "forcedTransitions": 1657,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 9216,
+          "qReuses": 0,
+          "requiredMs": 0.021499999999832653,
+          "workerExecutionMs": 164.72899999999936,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 11370,
+                "executionMs": 164.72899999999936
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "16225761216711566476",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 255.95069999999942,
+          "resultReadyMs": 249.52859999999964,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 119933,
+          "expandedEntries": 52186,
+          "transitionAttempts": 119904,
+          "nativeExactHits": 10275,
+          "transitionCacheHits": 57472,
+          "recursiveChildren": 102351,
+          "forcedTransitions": 17553,
+          "managerExpansions": 14,
+          "submitted": 35,
+          "splitTasks": 1,
+          "retiredTaskNodes": 8704,
+          "qReuses": 32,
+          "requiredMs": 0.8581999999969412,
+          "workerExecutionMs": 271.6267000000016,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 35,
+            "ready": 35,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 10,
+                "nodes": 89506,
+                "executionMs": 211.58579999999984
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 21,
+                "nodes": 30380,
+                "executionMs": 55.530000000001564
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 4,
+                "nodes": 47,
+                "executionMs": 4.51090000000022
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "53577536164136135166",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 188.32890000000043,
+          "resultReadyMs": 181.42209999999977,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 23696,
+          "expandedEntries": 10722,
+          "transitionAttempts": 23692,
+          "nativeExactHits": 4059,
+          "transitionCacheHits": 8915,
+          "recursiveChildren": 20304,
+          "forcedTransitions": 3388,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.021499999999832653,
+          "workerExecutionMs": 168.03640000000178,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 23696,
+                "executionMs": 168.03640000000178
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "66755213516366367145",
+          "value": 1,
+          "move": 1,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 182.58929999999964,
+          "resultReadyMs": 171.79570000000058,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 47,
+          "expandedEntries": 33,
+          "transitionAttempts": 43,
+          "nativeExactHits": 14,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 27,
+          "forcedTransitions": 16,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.014999999998508429,
+          "workerExecutionMs": 117.6211000000003,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 47,
+                "executionMs": 117.6211000000003
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "57351757711645523345",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 218.83169999999973,
+          "resultReadyMs": 205.7520999999997,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 69243,
+          "expandedEntries": 28304,
+          "transitionAttempts": 69242,
+          "nativeExactHits": 4831,
+          "transitionCacheHits": 36108,
+          "recursiveChildren": 61312,
+          "forcedTransitions": 7930,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 44032,
+          "qReuses": 0,
+          "requiredMs": 0.009799999999813735,
+          "workerExecutionMs": 312.3068999999996,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 69243,
+                "executionMs": 312.3068999999996
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "64146236672617435436",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 193.97689999999966,
+          "resultReadyMs": 187.63999999999942,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 54488,
+          "expandedEntries": 23787,
+          "transitionAttempts": 54486,
+          "nativeExactHits": 3230,
+          "transitionCacheHits": 27471,
+          "recursiveChildren": 47347,
+          "forcedTransitions": 7139,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.017500000000836735,
+          "workerExecutionMs": 118.27440000000024,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 54488,
+                "executionMs": 118.27440000000024
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "11633117743756657667",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 281.85660000000007,
+          "resultReadyMs": 267.58080000000064,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 134962,
+          "expandedEntries": 59271,
+          "transitionAttempts": 134958,
+          "nativeExactHits": 14049,
+          "transitionCacheHits": 61642,
+          "recursiveChildren": 112930,
+          "forcedTransitions": 22028,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 54272,
+          "qReuses": 0,
+          "requiredMs": 0.032199999999647844,
+          "workerExecutionMs": 514.3333000000011,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 134962,
+                "executionMs": 514.3333000000011
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "64133554766417462154",
+          "value": 0,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 518.4771000000001,
+          "resultReadyMs": 511.2494000000006,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 662539,
+          "expandedEntries": 270419,
+          "transitionAttempts": 662487,
+          "nativeExactHits": 48838,
+          "transitionCacheHits": 343282,
+          "recursiveChildren": 556271,
+          "forcedTransitions": 106216,
+          "managerExpansions": 25,
+          "submitted": 54,
+          "splitTasks": 2,
+          "retiredTaskNodes": 0,
+          "qReuses": 65,
+          "requiredMs": 0.33399999999801366,
+          "workerExecutionMs": 1059.6349999999993,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 54,
+            "ready": 54,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 5,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 23,
+                "nodes": 573345,
+                "executionMs": 971.3853999999974
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 27,
+                "nodes": 88826,
+                "executionMs": 87.18630000000212
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 4,
+                "nodes": 368,
+                "executionMs": 1.0632999999997992
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "11371142416516747436",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 179.3078999999998,
+          "resultReadyMs": 170.51170000000002,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 7562,
+          "expandedEntries": 3506,
+          "transitionAttempts": 7556,
+          "nativeExactHits": 811,
+          "transitionCacheHits": 3245,
+          "recursiveChildren": 6402,
+          "forcedTransitions": 1154,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.03979999999774009,
+          "workerExecutionMs": 141.08070000000043,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 4,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 7562,
+                "executionMs": 141.08070000000043
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "37421234735653664544",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 151.04100000000017,
+          "resultReadyMs": 143.58960000000025,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2126,
+          "expandedEntries": 1124,
+          "transitionAttempts": 2119,
+          "nativeExactHits": 270,
+          "transitionCacheHits": 732,
+          "recursiveChildren": 1718,
+          "forcedTransitions": 401,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.057999999999992724,
+          "workerExecutionMs": 88.39470000000074,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 2126,
+                "executionMs": 88.39470000000074
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "36732337646726557336",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 274.5032000000001,
+          "resultReadyMs": 264.64650000000074,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 131901,
+          "expandedEntries": 58290,
+          "transitionAttempts": 131895,
+          "nativeExactHits": 13827,
+          "transitionCacheHits": 59784,
+          "recursiveChildren": 111575,
+          "forcedTransitions": 20320,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.02479999999923166,
+          "workerExecutionMs": 509.6365999999998,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 131901,
+                "executionMs": 509.6365999999998
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "74742743234324375274",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 152.97609999999986,
+          "resultReadyMs": 145.17010000000028,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 249,
+          "expandedEntries": 121,
+          "transitionAttempts": 246,
+          "nativeExactHits": 105,
+          "transitionCacheHits": 23,
+          "recursiveChildren": 215,
+          "forcedTransitions": 31,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01610000000164291,
+          "workerExecutionMs": 65.81420000000071,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 249,
+                "executionMs": 65.81420000000071
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "646152256531531214313621",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 172.4902000000002,
+          "resultReadyMs": 135.48599999999988,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 526,
+          "expandedEntries": 272,
+          "transitionAttempts": 524,
+          "nativeExactHits": 43,
+          "transitionCacheHits": 211,
+          "recursiveChildren": 452,
+          "forcedTransitions": 72,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.007700000000113505,
+          "workerExecutionMs": 86.66990000000078,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 526,
+                "executionMs": 86.66990000000078
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "424452434771222537231763",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 179.58889999999974,
+          "resultReadyMs": 166.01369999999952,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1371,
+          "expandedEntries": 790,
+          "transitionAttempts": 1369,
+          "nativeExactHits": 218,
+          "transitionCacheHits": 363,
+          "recursiveChildren": 1045,
+          "forcedTransitions": 324,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 1024,
+          "qReuses": 0,
+          "requiredMs": 0.011800000000221189,
+          "workerExecutionMs": 94.91469999999936,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 1371,
+                "executionMs": 94.91469999999936
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "311221166277755215433673",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 183.07889999999952,
+          "resultReadyMs": 176.60540000000037,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 19420,
+          "expandedEntries": 9677,
+          "transitionAttempts": 19413,
+          "nativeExactHits": 2146,
+          "transitionCacheHits": 7597,
+          "recursiveChildren": 15732,
+          "forcedTransitions": 3681,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.05459999999948195,
+          "workerExecutionMs": 203.36110000000008,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 19420,
+                "executionMs": 203.36110000000008
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "113713163121553773557324",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 149.6247000000003,
+          "resultReadyMs": 137.27559999999994,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 68,
+          "expandedEntries": 45,
+          "transitionAttempts": 65,
+          "nativeExactHits": 23,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 50,
+          "forcedTransitions": 15,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01010000000042055,
+          "workerExecutionMs": 63.1966999999986,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 68,
+                "executionMs": 63.1966999999986
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "614511112123233373376255",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 150.0027,
+          "resultReadyMs": 143.3666000000003,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 94,
+          "expandedEntries": 65,
+          "transitionAttempts": 89,
+          "nativeExactHits": 24,
+          "transitionCacheHits": 5,
+          "recursiveChildren": 69,
+          "forcedTransitions": 20,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.02730000000065047,
+          "workerExecutionMs": 72.51600000000053,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 94,
+                "executionMs": 72.51600000000053
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "435176773734115636664323",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 160.71870000000035,
+          "resultReadyMs": 144.3121000000001,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1672,
+          "expandedEntries": 861,
+          "transitionAttempts": 1671,
+          "nativeExactHits": 172,
+          "transitionCacheHits": 639,
+          "recursiveChildren": 1351,
+          "forcedTransitions": 320,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 1536,
+          "qReuses": 0,
+          "requiredMs": 0.006899999999404827,
+          "workerExecutionMs": 106.33869999999933,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 1672,
+                "executionMs": 106.33869999999933
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "634712272744667755626252",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 140.42219999999998,
+          "resultReadyMs": 127.15310000000045,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 517,
+          "expandedEntries": 274,
+          "transitionAttempts": 515,
+          "nativeExactHits": 91,
+          "transitionCacheHits": 152,
+          "recursiveChildren": 389,
+          "forcedTransitions": 126,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.019800000000032014,
+          "workerExecutionMs": 65.35799999999927,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 4,
+            "maxForcedChain": 3,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 517,
+                "executionMs": 65.35799999999927
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "151416213416166663447355",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 189.1366999999991,
+          "resultReadyMs": 183.27499999999964,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 14,
+          "expandedEntries": 9,
+          "transitionAttempts": 9,
+          "nativeExactHits": 5,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 5,
+          "forcedTransitions": 4,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.038499999996929546,
+          "workerExecutionMs": 63.32860000000073,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 14,
+                "executionMs": 63.32860000000073
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "744453752532751717475454",
+          "value": -1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 148.15860000000066,
+          "resultReadyMs": 139.77349999999933,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2568,
+          "expandedEntries": 1344,
+          "transitionAttempts": 2564,
+          "nativeExactHits": 261,
+          "transitionCacheHits": 963,
+          "recursiveChildren": 2110,
+          "forcedTransitions": 454,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.026100000000951695,
+          "workerExecutionMs": 103.15689999999995,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 2568,
+                "executionMs": 103.15689999999995
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "111756641773551145532566",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 146.6880999999994,
+          "resultReadyMs": 139.09740000000056,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 5613,
+          "expandedEntries": 2979,
+          "transitionAttempts": 5609,
+          "nativeExactHits": 730,
+          "transitionCacheHits": 1904,
+          "recursiveChildren": 4518,
+          "forcedTransitions": 1091,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 2048,
+          "qReuses": 0,
+          "requiredMs": 0.019699999998920248,
+          "workerExecutionMs": 113.64429999999811,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 5613,
+                "executionMs": 113.64429999999811
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "375527147423174231333417",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 148.27340000000004,
+          "resultReadyMs": 138.66560000000027,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 18,
+          "expandedEntries": 12,
+          "transitionAttempts": 12,
+          "nativeExactHits": 6,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 6,
+          "forcedTransitions": 6,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.0492000000031112,
+          "workerExecutionMs": 59.61360000000059,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 18,
+                "executionMs": 59.61360000000059
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "123775652226155627411772",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 144.29640000000109,
+          "resultReadyMs": 137.70169999999962,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 12,
+          "expandedEntries": 6,
+          "transitionAttempts": 6,
+          "nativeExactHits": 6,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 4,
+          "forcedTransitions": 2,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01929999999993015,
+          "workerExecutionMs": 59.22600000000239,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 12,
+                "executionMs": 59.22600000000239
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "157671345513455716314457",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 162.91690000000017,
+          "resultReadyMs": 154.9974000000002,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2386,
+          "expandedEntries": 1369,
+          "transitionAttempts": 2380,
+          "nativeExactHits": 431,
+          "transitionCacheHits": 586,
+          "recursiveChildren": 1751,
+          "forcedTransitions": 629,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.033600000002479646,
+          "workerExecutionMs": 109.76160000000164,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 2386,
+                "executionMs": 109.76160000000164
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "441557726146451776722574",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 154.65029999999933,
+          "resultReadyMs": 144.21290000000045,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 231,
+          "expandedEntries": 122,
+          "transitionAttempts": 225,
+          "nativeExactHits": 86,
+          "transitionCacheHits": 23,
+          "recursiveChildren": 189,
+          "forcedTransitions": 36,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.05769999999938591,
+          "workerExecutionMs": 72.36099999999715,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 231,
+                "executionMs": 72.36099999999715
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "561421167752215311674563",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 209.22630000000026,
+          "resultReadyMs": 199.65030000000115,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1723,
+          "expandedEntries": 818,
+          "transitionAttempts": 1720,
+          "nativeExactHits": 189,
+          "transitionCacheHits": 716,
+          "recursiveChildren": 1495,
+          "forcedTransitions": 225,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.011899999999513966,
+          "workerExecutionMs": 97.33380000000034,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 1723,
+                "executionMs": 97.33380000000034
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "741732537123224535471467",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 145.4953000000005,
+          "resultReadyMs": 138.08840000000055,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 16,
+          "expandedEntries": 9,
+          "transitionAttempts": 9,
+          "nativeExactHits": 7,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 7,
+          "forcedTransitions": 2,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.021699999997508712,
+          "workerExecutionMs": 67.49139999999898,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 16,
+                "executionMs": 67.49139999999898
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "276615724615634634574562",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 172.15070000000014,
+          "resultReadyMs": 163.4447,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 5874,
+          "expandedEntries": 3018,
+          "transitionAttempts": 5870,
+          "nativeExactHits": 628,
+          "transitionCacheHits": 2228,
+          "recursiveChildren": 4790,
+          "forcedTransitions": 1080,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.016800000001239823,
+          "workerExecutionMs": 144.9421000000002,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 3,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 5874,
+                "executionMs": 144.9421000000002
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "766676311127276333721374",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 161.9965000000011,
+          "resultReadyMs": 154.8053,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1628,
+          "expandedEntries": 828,
+          "transitionAttempts": 1622,
+          "nativeExactHits": 580,
+          "transitionCacheHits": 220,
+          "recursiveChildren": 1492,
+          "forcedTransitions": 130,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.03539999999702559,
+          "workerExecutionMs": 105.25229999999829,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 1628,
+                "executionMs": 105.25229999999829
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "317461716363113627274143",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 141.3159999999989,
+          "resultReadyMs": 129.02289999999994,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 119,
+          "expandedEntries": 74,
+          "transitionAttempts": 117,
+          "nativeExactHits": 32,
+          "transitionCacheHits": 13,
+          "recursiveChildren": 91,
+          "forcedTransitions": 26,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.029800000000250293,
+          "workerExecutionMs": 63.777900000000955,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 119,
+                "executionMs": 63.777900000000955
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "133173773513256442776637",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 174.78260000000046,
+          "resultReadyMs": 166.4292000000005,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 13489,
+          "expandedEntries": 6027,
+          "transitionAttempts": 13484,
+          "nativeExactHits": 1032,
+          "transitionCacheHits": 6430,
+          "recursiveChildren": 11471,
+          "forcedTransitions": 2013,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.017600000002857996,
+          "workerExecutionMs": 114.83730000000287,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 13489,
+                "executionMs": 114.83730000000287
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "763535562123312262672713",
+          "value": 1,
+          "move": 5,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 169.82930000000124,
+          "resultReadyMs": 157.0558000000001,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 521,
+          "expandedEntries": 249,
+          "transitionAttempts": 517,
+          "nativeExactHits": 200,
+          "transitionCacheHits": 72,
+          "recursiveChildren": 474,
+          "forcedTransitions": 43,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.024099999998725252,
+          "workerExecutionMs": 83.13049999999748,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 521,
+                "executionMs": 83.13049999999748
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "227111376117773365323666",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 178.10630000000128,
+          "resultReadyMs": 171.35269999999946,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 4252,
+          "expandedEntries": 1945,
+          "transitionAttempts": 4245,
+          "nativeExactHits": 1287,
+          "transitionCacheHits": 1020,
+          "recursiveChildren": 3710,
+          "forcedTransitions": 535,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.054799999998067506,
+          "workerExecutionMs": 88.00330000000031,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 4252,
+                "executionMs": 88.00330000000031
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "745773763511236762311537",
+          "value": 1,
+          "move": 1,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 184.7492000000002,
+          "resultReadyMs": 175.22069999999985,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 20595,
+          "expandedEntries": 8765,
+          "transitionAttempts": 20590,
+          "nativeExactHits": 2144,
+          "transitionCacheHits": 9686,
+          "recursiveChildren": 18209,
+          "forcedTransitions": 2381,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.02050000000053842,
+          "workerExecutionMs": 190.89660000000367,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 20595,
+                "executionMs": 190.89660000000367
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "147377726234275452154537",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 141.0619000000006,
+          "resultReadyMs": 132.0655999999999,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 59,
+          "expandedEntries": 44,
+          "transitionAttempts": 54,
+          "nativeExactHits": 15,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 32,
+          "forcedTransitions": 22,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01749999999810825,
+          "workerExecutionMs": 65.40859999999884,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 59,
+                "executionMs": 65.40859999999884
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "472165263713722114677256",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 151.88730000000032,
+          "resultReadyMs": 143.71140000000014,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1719,
+          "expandedEntries": 843,
+          "transitionAttempts": 1713,
+          "nativeExactHits": 303,
+          "transitionCacheHits": 573,
+          "recursiveChildren": 1424,
+          "forcedTransitions": 289,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.03660000000309083,
+          "workerExecutionMs": 90.02440000000206,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 7,
+                "nodes": 1719,
+                "executionMs": 90.02440000000206
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "742352112221512344131537",
+          "value": 0,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 174.41400000000067,
+          "resultReadyMs": 162.6159000000007,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 10360,
+          "expandedEntries": 5239,
+          "transitionAttempts": 10355,
+          "nativeExactHits": 1281,
+          "transitionCacheHits": 3840,
+          "recursiveChildren": 8390,
+          "forcedTransitions": 1965,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.044799999999668216,
+          "workerExecutionMs": 136.77250000000276,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 10360,
+                "executionMs": 136.77250000000276
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "626237473336163664443515",
+          "value": 1,
+          "move": 0,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 145.7541000000001,
+          "resultReadyMs": 139.4452000000001,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 16,
+          "expandedEntries": 12,
+          "transitionAttempts": 12,
+          "nativeExactHits": 4,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 4,
+          "forcedTransitions": 8,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.016200000000026193,
+          "workerExecutionMs": 62.665100000000166,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 16,
+                "executionMs": 62.665100000000166
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "672747521216441446711173",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 198.5029999999988,
+          "resultReadyMs": 188.91469999999936,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2460,
+          "expandedEntries": 1420,
+          "transitionAttempts": 2456,
+          "nativeExactHits": 502,
+          "transitionCacheHits": 538,
+          "recursiveChildren": 1837,
+          "forcedTransitions": 619,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.017099999999118154,
+          "workerExecutionMs": 203.55709999999817,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 2460,
+                "executionMs": 203.55709999999817
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "127547621175722332666677",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 199.35220000000118,
+          "resultReadyMs": 190.1234999999997,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 21050,
+          "expandedEntries": 9695,
+          "transitionAttempts": 21044,
+          "nativeExactHits": 2001,
+          "transitionCacheHits": 9354,
+          "recursiveChildren": 17544,
+          "forcedTransitions": 3500,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.035800000001472654,
+          "workerExecutionMs": 224.7948000000033,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 6,
+                "nodes": 21050,
+                "executionMs": 224.7948000000033
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "632743164714334646647772",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 172.66380000000026,
+          "resultReadyMs": 160.1280999999999,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 11986,
+          "expandedEntries": 5981,
+          "transitionAttempts": 11983,
+          "nativeExactHits": 1206,
+          "transitionCacheHits": 4799,
+          "recursiveChildren": 10085,
+          "forcedTransitions": 1898,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 2048,
+          "qReuses": 0,
+          "requiredMs": 0.01119999999900756,
+          "workerExecutionMs": 176.20810000000165,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 11986,
+                "executionMs": 176.20810000000165
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "531327331743747142471255",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 156.83630000000085,
+          "resultReadyMs": 146.4985000000015,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 4917,
+          "expandedEntries": 2524,
+          "transitionAttempts": 4913,
+          "nativeExactHits": 876,
+          "transitionCacheHits": 1517,
+          "recursiveChildren": 4100,
+          "forcedTransitions": 813,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.04829999999856227,
+          "workerExecutionMs": 136.4990999999991,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 5,
+                "nodes": 4917,
+                "executionMs": 136.4990999999991
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "447156136247264252633715",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 146.01130000000012,
+          "resultReadyMs": 137.76720000000023,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 4,
+          "expandedEntries": 2,
+          "transitionAttempts": 2,
+          "nativeExactHits": 2,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 1,
+          "forcedTransitions": 1,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.014100000000325963,
+          "workerExecutionMs": 59.83260000000155,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 2,
+            "fiberPairSamples": 3,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 4,
+                "nodes": 4,
+                "executionMs": 59.83260000000155
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1667761232422326111512577444",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 155.5025000000005,
+          "resultReadyMs": 144.84289999999964,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 312,
+          "expandedEntries": 197,
+          "transitionAttempts": 307,
+          "nativeExactHits": 104,
+          "transitionCacheHits": 11,
+          "recursiveChildren": 218,
+          "forcedTransitions": 89,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01929999999811116,
+          "workerExecutionMs": 73.57750000000124,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 312,
+                "executionMs": 73.57750000000124
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "5772116425311542526153462666",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 142.8024000000005,
+          "resultReadyMs": 129.250399999999,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 235,
+          "expandedEntries": 142,
+          "transitionAttempts": 232,
+          "nativeExactHits": 51,
+          "transitionCacheHits": 42,
+          "recursiveChildren": 168,
+          "forcedTransitions": 64,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.007400000000416185,
+          "workerExecutionMs": 59.670100000001185,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 235,
+                "executionMs": 59.670100000001185
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "3665467723513367541264242145",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 197.26780000000144,
+          "resultReadyMs": 188.45160000000033,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 3508,
+          "expandedEntries": 1417,
+          "transitionAttempts": 3504,
+          "nativeExactHits": 251,
+          "transitionCacheHits": 1840,
+          "recursiveChildren": 3131,
+          "forcedTransitions": 373,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.015199999999822467,
+          "workerExecutionMs": 115.79359999999906,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 3508,
+                "executionMs": 115.79359999999906
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1243636275231637477376756361",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 137.0553,
+          "resultReadyMs": 129.1983999999993,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 15,
+          "expandedEntries": 8,
+          "transitionAttempts": 11,
+          "nativeExactHits": 7,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 8,
+          "forcedTransitions": 3,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01329999999870779,
+          "workerExecutionMs": 59.69480000000112,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 15,
+                "executionMs": 59.69480000000112
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "3335753447666251265476176545",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 147.54219999999987,
+          "resultReadyMs": 141.09180000000015,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 8,
+          "expandedEntries": 4,
+          "transitionAttempts": 4,
+          "nativeExactHits": 4,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 2,
+          "forcedTransitions": 2,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.04869999999937136,
+          "workerExecutionMs": 63.53240000000005,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 8,
+                "executionMs": 63.53240000000005
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "5162327172711127542645517456",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 148.23869999999988,
+          "resultReadyMs": 135.45119999999952,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 270,
+          "expandedEntries": 148,
+          "transitionAttempts": 266,
+          "nativeExactHits": 88,
+          "transitionCacheHits": 34,
+          "recursiveChildren": 232,
+          "forcedTransitions": 34,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.00969999999870197,
+          "workerExecutionMs": 72.33579999999893,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 270,
+                "executionMs": 72.33579999999893
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "3756664211363753747763635571",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 157.52649999999994,
+          "resultReadyMs": 147.5028999999995,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 138,
+          "expandedEntries": 71,
+          "transitionAttempts": 134,
+          "nativeExactHits": 56,
+          "transitionCacheHits": 11,
+          "recursiveChildren": 122,
+          "forcedTransitions": 12,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.012500000000727596,
+          "workerExecutionMs": 77.53160000000025,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 138,
+                "executionMs": 77.53160000000025
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6311634722456665143411125657",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 156.57989999999882,
+          "resultReadyMs": 149.48389999999927,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2545,
+          "expandedEntries": 1293,
+          "transitionAttempts": 2540,
+          "nativeExactHits": 288,
+          "transitionCacheHits": 964,
+          "recursiveChildren": 2020,
+          "forcedTransitions": 520,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.019400000002860907,
+          "workerExecutionMs": 97.03740000000107,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 2545,
+                "executionMs": 97.03740000000107
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "7542672651767227424417616124",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 156.41610000000037,
+          "resultReadyMs": 147.6164000000008,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 69,
+          "expandedEntries": 47,
+          "transitionAttempts": 65,
+          "nativeExactHits": 19,
+          "transitionCacheHits": 3,
+          "recursiveChildren": 44,
+          "forcedTransitions": 21,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.016200000000026193,
+          "workerExecutionMs": 67.07030000000123,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 69,
+                "executionMs": 67.07030000000123
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "7442446137265236274675647113",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 185.01070000000072,
+          "resultReadyMs": 173.43559999999889,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 258,
+          "expandedEntries": 124,
+          "transitionAttempts": 254,
+          "nativeExactHits": 92,
+          "transitionCacheHits": 42,
+          "recursiveChildren": 228,
+          "forcedTransitions": 26,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.007600000000820728,
+          "workerExecutionMs": 73.20470000000023,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 258,
+                "executionMs": 73.20470000000023
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "3732772377541654376343122221",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 158.53770000000077,
+          "resultReadyMs": 151.64140000000043,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 2795,
+          "expandedEntries": 1461,
+          "transitionAttempts": 2791,
+          "nativeExactHits": 277,
+          "transitionCacheHits": 1057,
+          "recursiveChildren": 2292,
+          "forcedTransitions": 499,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.020100000001548324,
+          "workerExecutionMs": 124.23519999999917,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 2795,
+                "executionMs": 124.23519999999917
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1664113441621174547254366226",
+          "value": 1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 143.97280000000137,
+          "resultReadyMs": 136.83880000000136,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 10,
+          "expandedEntries": 3,
+          "transitionAttempts": 6,
+          "nativeExactHits": 7,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 6,
+          "forcedTransitions": 0,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.011899999999513966,
+          "workerExecutionMs": 56.62520000000222,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 10,
+                "executionMs": 56.62520000000222
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6142544775227422533577164675",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 157.0036999999993,
+          "resultReadyMs": 151.21199999999953,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1033,
+          "expandedEntries": 458,
+          "transitionAttempts": 1027,
+          "nativeExactHits": 77,
+          "transitionCacheHits": 498,
+          "recursiveChildren": 935,
+          "forcedTransitions": 92,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.053899999997156556,
+          "workerExecutionMs": 70.66259999999966,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 6,
+                "nodes": 1033,
+                "executionMs": 70.66259999999966
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1731773216455126575775536413",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 159.46700000000055,
+          "resultReadyMs": 146.3778000000002,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1186,
+          "expandedEntries": 639,
+          "transitionAttempts": 1181,
+          "nativeExactHits": 342,
+          "transitionCacheHits": 205,
+          "recursiveChildren": 948,
+          "forcedTransitions": 233,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.01569999999992433,
+          "workerExecutionMs": 102.37270000000171,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 1186,
+                "executionMs": 102.37270000000171
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "5667173111652376712554253225",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 147.78570000000036,
+          "resultReadyMs": 138.1857,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 123,
+          "expandedEntries": 67,
+          "transitionAttempts": 119,
+          "nativeExactHits": 51,
+          "transitionCacheHits": 5,
+          "recursiveChildren": 101,
+          "forcedTransitions": 18,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.012800000000424916,
+          "workerExecutionMs": 66.11739999999918,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 123,
+                "executionMs": 66.11739999999918
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1351651217257511523436322253",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 138.54249999999956,
+          "resultReadyMs": 131.29739999999947,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 154,
+          "expandedEntries": 85,
+          "transitionAttempts": 150,
+          "nativeExactHits": 60,
+          "transitionCacheHits": 9,
+          "recursiveChildren": 136,
+          "forcedTransitions": 14,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.02080000000023574,
+          "workerExecutionMs": 63.8208999999988,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 154,
+                "executionMs": 63.8208999999988
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6313673524256171231136317752",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 173.99469999999928,
+          "resultReadyMs": 163.92300000000068,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 83,
+          "expandedEntries": 45,
+          "transitionAttempts": 80,
+          "nativeExactHits": 32,
+          "transitionCacheHits": 6,
+          "recursiveChildren": 69,
+          "forcedTransitions": 11,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.007099999998899875,
+          "workerExecutionMs": 57.07890000000043,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 83,
+                "executionMs": 57.07890000000043
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "3235233745622112541626533571",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 154.94810000000143,
+          "resultReadyMs": 140.82690000000002,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 1163,
+          "expandedEntries": 643,
+          "transitionAttempts": 1159,
+          "nativeExactHits": 220,
+          "transitionCacheHits": 300,
+          "recursiveChildren": 873,
+          "forcedTransitions": 286,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.030900000001565786,
+          "workerExecutionMs": 94.40240000000085,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 1163,
+                "executionMs": 94.40240000000085
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6327343226651611137746767572",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 150.40790000000015,
+          "resultReadyMs": 135.99049999999988,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 518,
+          "expandedEntries": 268,
+          "transitionAttempts": 516,
+          "nativeExactHits": 56,
+          "transitionCacheHits": 194,
+          "recursiveChildren": 414,
+          "forcedTransitions": 102,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.009099999999307329,
+          "workerExecutionMs": 75.3202999999994,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 518,
+                "executionMs": 75.3202999999994
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1114634132532623224536677153",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 153.44950000000063,
+          "resultReadyMs": 142.67419999999947,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 51,
+          "expandedEntries": 34,
+          "transitionAttempts": 47,
+          "nativeExactHits": 11,
+          "transitionCacheHits": 6,
+          "recursiveChildren": 28,
+          "forcedTransitions": 19,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.009500000000116415,
+          "workerExecutionMs": 67.28139999999803,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 1,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 3,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 51,
+                "executionMs": 67.28139999999803
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "2772647333126757622711266113",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 146.51469999999972,
+          "resultReadyMs": 139.35560000000078,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 12,
+          "expandedEntries": 7,
+          "transitionAttempts": 7,
+          "nativeExactHits": 5,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 3,
+          "forcedTransitions": 4,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.08909999999741558,
+          "workerExecutionMs": 68.47280000000137,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 12,
+                "executionMs": 68.47280000000137
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "5513362176667137322575735725",
+          "value": 1,
+          "move": 1,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 148.06870000000163,
+          "resultReadyMs": 140.13160000000062,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 79,
+          "expandedEntries": 41,
+          "transitionAttempts": 74,
+          "nativeExactHits": 35,
+          "transitionCacheHits": 3,
+          "recursiveChildren": 68,
+          "forcedTransitions": 6,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.02080000000023574,
+          "workerExecutionMs": 61.04809999999634,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 79,
+                "executionMs": 61.04809999999634
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "5334411676224743272226647651",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 131.8171999999995,
+          "resultReadyMs": 125.88410000000113,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 23,
+          "expandedEntries": 16,
+          "transitionAttempts": 20,
+          "nativeExactHits": 7,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 12,
+          "forcedTransitions": 8,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.022199999999429565,
+          "workerExecutionMs": 58.70860000000175,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 23,
+                "executionMs": 58.70860000000175
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "2417541255245323337361632245",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 169.35939999999937,
+          "resultReadyMs": 159.58929999999964,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 223,
+          "expandedEntries": 111,
+          "transitionAttempts": 218,
+          "nativeExactHits": 38,
+          "transitionCacheHits": 74,
+          "recursiveChildren": 187,
+          "forcedTransitions": 31,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.06340000000091095,
+          "workerExecutionMs": 108.33839999999873,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 5,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 223,
+                "executionMs": 108.33839999999873
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6215365253325446764477237562",
+          "value": -1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 143.4423000000006,
+          "resultReadyMs": 136.58519999999953,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 24,
+          "expandedEntries": 12,
+          "transitionAttempts": 17,
+          "nativeExactHits": 12,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 16,
+          "forcedTransitions": 1,
+          "managerExpansions": 1,
+          "submitted": 7,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.02410000000418222,
+          "workerExecutionMs": 58.463299999999435,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 7,
+            "ready": 7,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 7,
+                "nodes": 24,
+                "executionMs": 58.463299999999435
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "1224453122452133245474571167",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 149.73610000000008,
+          "resultReadyMs": 140.39730000000054,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 63,
+          "expandedEntries": 45,
+          "transitionAttempts": 59,
+          "nativeExactHits": 16,
+          "transitionCacheHits": 2,
+          "recursiveChildren": 38,
+          "forcedTransitions": 21,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.014999999999417923,
+          "workerExecutionMs": 69.32120000000214,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 2,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 2,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 63,
+                "executionMs": 69.32120000000214
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6212144723417671331352427724",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 158.32310000000143,
+          "resultReadyMs": 146.04680000000008,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 673,
+          "expandedEntries": 375,
+          "transitionAttempts": 668,
+          "nativeExactHits": 112,
+          "transitionCacheHits": 186,
+          "recursiveChildren": 548,
+          "forcedTransitions": 120,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 512,
+          "qReuses": 0,
+          "requiredMs": 0.024099999998725252,
+          "workerExecutionMs": 78.58600000000297,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 6,
+                "nodes": 673,
+                "executionMs": 78.58600000000297
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "2546622744747742247166267531",
+          "value": -1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 138.29339999999866,
+          "resultReadyMs": 130.40040000000226,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 8,
+          "expandedEntries": 4,
+          "transitionAttempts": 4,
+          "nativeExactHits": 4,
+          "transitionCacheHits": 0,
+          "recursiveChildren": 2,
+          "forcedTransitions": 2,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.04310000000259606,
+          "workerExecutionMs": 63.843199999995704,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 0,
+            "maxForcedChain": 0,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 8,
+                "executionMs": 63.843199999995704
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6272474172217345241747255141",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 135.41859999999724,
+          "resultReadyMs": 129.01980000000185,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 151,
+          "expandedEntries": 100,
+          "transitionAttempts": 147,
+          "nativeExactHits": 49,
+          "transitionCacheHits": 2,
+          "recursiveChildren": 109,
+          "forcedTransitions": 38,
+          "managerExpansions": 1,
+          "submitted": 4,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.011400000003050081,
+          "workerExecutionMs": 65.14459999999963,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 4,
+            "ready": 3,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 1,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 4,
+                "nodes": 151,
+                "executionMs": 65.14459999999963
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "4726565623315364722122146635",
+          "value": 1,
+          "move": 3,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 155.54479999999967,
+          "resultReadyMs": 146.47710000000006,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 710,
+          "expandedEntries": 330,
+          "transitionAttempts": 705,
+          "nativeExactHits": 76,
+          "transitionCacheHits": 304,
+          "recursiveChildren": 637,
+          "forcedTransitions": 68,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.0239000000001397,
+          "workerExecutionMs": 77.1752000000015,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 710,
+                "executionMs": 77.1752000000015
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "7245655354234317741464313176",
+          "value": -1,
+          "move": 2,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 142.5476000000017,
+          "resultReadyMs": 132.22269999999844,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 551,
+          "expandedEntries": 355,
+          "transitionAttempts": 545,
+          "nativeExactHits": 70,
+          "transitionCacheHits": 126,
+          "recursiveChildren": 394,
+          "forcedTransitions": 151,
+          "managerExpansions": 1,
+          "submitted": 6,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.05169999999998254,
+          "workerExecutionMs": 83.38690000000133,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 6,
+            "ready": 6,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 6,
+                "nodes": 551,
+                "executionMs": 83.38690000000133
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        },
+        {
+          "sequence": "6511724542554427453761267746",
+          "value": 1,
+          "move": 4,
+          "sourceHash": "0896febf90ba3b39f496e213d9e4deae7a658b3681d08e54be1d098c81c1407e",
+          "candidateHash": "683cce42c9f7722fb769de2dab70b35066710057a369f358cce262c11f1c6571",
+          "wallMs": 181.28510000000097,
+          "resultReadyMs": 170.84400000000096,
+          "maxRssBytes": 544530432,
+          "cleanup": "tasks-drained; session workers retained",
+          "nodes": 183,
+          "expandedEntries": 105,
+          "transitionAttempts": 178,
+          "nativeExactHits": 61,
+          "transitionCacheHits": 17,
+          "recursiveChildren": 146,
+          "forcedTransitions": 32,
+          "managerExpansions": 1,
+          "submitted": 5,
+          "splitTasks": 0,
+          "retiredTaskNodes": 0,
+          "qReuses": 0,
+          "requiredMs": 0.014699999999720603,
+          "workerExecutionMs": 69.49150000000009,
+          "workerResets": 0,
+          "survey": {
+            "tasks": 5,
+            "ready": 4,
+            "maxParents": 1,
+            "maxFiber": 1,
+            "fiberPairSamples": 0,
+            "forcedTasks": 2,
+            "maxForcedChain": 1,
+            "rankGroups": [
+              {
+                "rankFrom": 0,
+                "rankThrough": 25,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              },
+              {
+                "rankFrom": 26,
+                "rankThrough": 31,
+                "tasks": 5,
+                "nodes": 183,
+                "executionMs": 69.49150000000009
+              },
+              {
+                "rankFrom": 32,
+                "rankThrough": 42,
+                "tasks": 0,
+                "nodes": 0,
+                "executionMs": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "rawSha256": "74d45d357242bfc1f23bc447361c2d7be991f946bca14cf24b5fc32d20eed269",
+  "comparison": [
+    {
+      "variant": "survey",
+      "totals": [
+        {
+          "sample": 0,
+          "wallMs": 16964.101400000014,
+          "nodes": 11312077,
+          "expandedEntries": 4631070,
+          "transitionAttempts": 11310544,
+          "nativeExactHits": 907494,
+          "transitionCacheHits": 5773513,
+          "recursiveChildren": 9759742,
+          "forcedTransitions": 1550802,
+          "managerExpansions": 915,
+          "submitted": 1766,
+          "splitTasks": 64,
+          "retiredTaskNodes": 1105408,
+          "qReuses": 2575,
+          "requiredMs": 16.429999999989548,
+          "workerExecutionMs": 17586.596300000023,
+          "workerResets": 0,
+          "maxRssBytes": 544530432
+        }
+      ],
+      "medians": {
+        "wallMs": 16964.101400000014,
+        "nodes": 11312077,
+        "expandedEntries": 4631070,
+        "transitionAttempts": 11310544,
+        "nativeExactHits": 907494,
+        "transitionCacheHits": 5773513,
+        "recursiveChildren": 9759742,
+        "forcedTransitions": 1550802,
+        "managerExpansions": 915,
+        "submitted": 1766,
+        "splitTasks": 64,
+        "retiredTaskNodes": 1105408,
+        "qReuses": 2575,
+        "requiredMs": 16.429999999989548,
+        "workerExecutionMs": 17586.596300000023,
+        "workerResets": 0
+      },
+      "maxRssBytes": 544530432
+    }
+  ]
+}

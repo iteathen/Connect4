@@ -412,6 +412,10 @@ preloaded. Continuation packaging occurs after recursive unwind, and periodic
 report serialization/output belongs to a reporting worker outside recursion.
 
 The default is min(4, available logical CPUs minus one), at least one worker.
+The qualified four-worker admission policy targets a root-relative three-ply
+q frontier, bounded by 64 manager expansions per scheduling turn and the existing
+capacity limit. `rankCutDepth:0` retains the control; other worker counts default
+to zero. This is task admission only, not a solve-depth cutoff or new value rule.
 An explicit worker count remains available. The solve deadline is at most
 120 seconds. Worker count is a resource policy, not an exactness premise or
 an assertion that more workers improve latency.

@@ -33,6 +33,10 @@ export async function loadManagerCandidate(variant) {
   // exact substitutions on Windows CRLF and Unix LF checkouts.
   let source = fs.readFileSync(managerUrl, 'utf8').replaceAll('\r\n', '\n');
   const sourceHash = createHash('sha256').update(source).digest('hex');
+  // Preserve pre-promotion controls. Rank variants exercise the production
+  // parameter now; all unrelated controls run with rank admission disabled.
+  source = replaceOnce(source, 'rankCutDepth = workers === 4 ? 3 : 0',
+    'rankCutDepth = ' + (variant==='rank2'?2:variant==='rank3'?3:0));
   if (variant === 'rank-quantum') {
     // Bounded rank-only control, no root reconstruction or feature allocation.
     source = replaceOnce(source, 'nodeBudget:this.taskNodes,abort:abortBuffer',
@@ -43,11 +47,7 @@ export async function loadManagerCandidate(variant) {
     source = replaceOnce(source, 'for(const node of supply.leaves){',
       'supply.leaves.sort((a,b)=>b.parents.size-a.parents.size);\n          for(const node of supply.leaves){');
   } else if (variant === 'rank2' || variant === 'rank3') {
-    const depth = Number(variant.at(-1));
-    source = replaceOnce(source, 'supply.leaves.length+pending.size<outstandingLimit && supply.leaves.length',
-      `(supply.leaves.length+pending.size<outstandingLimit || supply.leaves.some(n=>n.moves.length<moves.length+${depth})) && supply.leaves.length`);
-    source = replaceOnce(source, 'expand(supply.leaves[0]);answer=rootAnswer();',
-      `expand(supply.leaves.find(n=>n.moves.length<moves.length+${depth})??supply.leaves[0]);answer=rootAnswer();`);
+    // Production constructor selection above owns this admitted policy.
   } else if (variant === 'affinity') {
     source = replaceOnce(source, 'const owner=build(frame.moves);',
       'const owner=build(frame.moves);owner.preferredWorkerId=message.workerId;');

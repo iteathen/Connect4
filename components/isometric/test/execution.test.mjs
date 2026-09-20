@@ -109,7 +109,7 @@ test('bounded ready reserve queues portable work without changing exact result',
 });
 
 test('manager preserves native exact values and center-first actions across turns, mirrors and first win',{timeout:30000},async()=>{
-  const manager=new IsoMaxBranchManager({workers:2,taskNodes:128});
+  const manager=new IsoMaxBranchManager({workers:2,taskNodes:128,rankCutDepth:3});
   try{
     for(const ply of [28,29,34,35]){
       for(const {moves} of makeCorpus({seed:772+ply,ply,count:4})){
@@ -128,6 +128,15 @@ test('manager preserves native exact values and center-first actions across turn
     }
   }finally{await manager.close();}
   assert.equal(manager.workers.length,0);
+});
+
+test('rank-cut policy is bounded, four-worker scoped and keeps an explicit control',()=>{
+  for(const workers of [1,2,3,4,8]){
+    assert.equal(new IsoMaxBranchManager({workers}).rankCutDepth,workers===4?3:0);
+    assert.equal(new IsoMaxBranchManager({workers,rankCutDepth:0}).rankCutDepth,0);
+  }
+  for(const rankCutDepth of [-1,43,NaN,Infinity,1.5])
+    assert.throws(()=>new IsoMaxBranchManager({rankCutDepth}),/rankCutDepth/);
 });
 
 test('bounded manager feeds multiple real workers and exposes exact task splits',{timeout:30000},async()=>{

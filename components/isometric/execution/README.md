@@ -69,8 +69,17 @@ JSON/output. Cleanup drains its FIFO after search workers terminate. Telemetry
 RSS/CPU are process-wide; heap figures explicitly identify the reporting
 isolate and must not be mistaken for aggregate solver heap.
 
-The manager exposes up to twice the worker count as ready work and submits at
-most one task per worker, keeping stale queued speculation off the executor.
+At four workers the manager targets a root-relative three-ply q frontier before
+dispatch, retaining the 64-expansion-per-turn bound. Other worker counts default
+to depth zero; `rankCutDepth:0` selects the explicit control. This changes task
+admission only, never solve depth, first-win stopping or exact value authority.
+Three-pair qualification on 96 quiet roots reduced median worker expansion
+entries 3.6% and wall time 3.1%; see `issue-89-rank3-broad-four.json`.
+
+The manager submits at most workers + `readyReserve` tasks (reserve defaults to
+zero). More leaves may be visible after expansion/continuation; visibility is
+not simultaneous execution. `maxReadyLeaves` reports the actual observed width;
+the historical `maxReady` is capped at twice the worker count.
 Manager q capacity defaults
 to 262,144 and fails visibly at exhaustion. V8 old-generation budgets split a
 4096 MiB budget among workers plus the host share; this is not an aggregate RSS
@@ -106,6 +115,13 @@ processes per worker count, and includes session startup/cleanup. Correct WDL
 and root actions must match the serial native control. It measures completed
 answers, not summed throughput alone. Empty-board telemetry is separately
 bounded and does not claim a solve.
+
+Worker work accounting: `nodes` counts entered calls including exact returns;
+`expandedEntries` subtracts transition-cache hits and native exact returns in
+this ordinary profile. It is not a count of distinct q states.
+`transitionAttempts` sums ordinary child and forced transitions, including a
+child attempt rejected at a quantum boundary. Manager expansions are separate.
+These counters are collected after tasks finish, with no new recursive work.
 ## Fixed residual-transition memo qualification (#75)
 
 The default pool now reserves two 65,536 × 42 Int32 transition tables (21 MiB

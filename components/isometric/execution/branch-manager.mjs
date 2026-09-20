@@ -32,13 +32,16 @@ export class IsoMaxBranchManager {
   // there. Explicit taskNodes remains available. Polling/retention/time/memory
   // limits are separate contracts, not enlarged by this scheduling policy.
   constructor({ workers = defaultIsoMaxWorkers(), taskNodes = workers <= 2 ? 131072 : 65536,
-    maxTasks = 262144, readyReserve = 0 } = {}) {
+    maxTasks = 262144, readyReserve = 0, rankCutDepth = workers === 4 ? 3 : 0 } = {}) {
     this.workerCount = positive(workers, 'workers', 256);
     this.taskNodes = positive(taskNodes, 'taskNodes');
     this.maxTasks = positive(maxTasks, 'maxTasks');
     if (!Number.isSafeInteger(readyReserve) || readyReserve < 0 || readyReserve > this.maxTasks)
       throw new RangeError('invalid readyReserve');
     this.readyReserve = readyReserve;
+    if (!Number.isSafeInteger(rankCutDepth) || rankCutDepth < 0 || rankCutDepth > 42)
+      throw new RangeError('invalid rankCutDepth');
+    this.rankCutDepth = rankCutDepth;
     this.workers = []; this.executor = null; this.busy = false; this.closed = false;
     this.lastStats = null;
   }
@@ -100,8 +103,10 @@ export class IsoMaxBranchManager {
       taskExecutionMsMin:null,taskExecutionMsMax:0,taskExecutionMsBuckets:[0,0,0,0,0,0],
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
     const outstandingLimit=this.workerCount+this.readyReserve;
+    const cutPly=Math.min(42,moves.length+this.rankCutDepth);
     const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
-      scheduler:{workers:this.workerCount,taskNodes:this.taskNodes,readyReserve:this.readyReserve,outstandingLimit},
+      scheduler:{workers:this.workerCount,taskNodes:this.taskNodes,readyReserve:this.readyReserve,
+        rankCutDepth:this.rankCutDepth,outstandingLimit},
       // Ordinary worker profile only: cache and native exact returns do not
       // expand. These are entries, not distinct q states. Transition counters
       // include an attempted child rejected at the scheduled quantum boundary.
@@ -266,8 +271,16 @@ export class IsoMaxBranchManager {
           let supply=required(), expansions=0;
           // Proactively fill a bounded reservoir. Forced moves remain one edge.
           // Larger unfinished tasks split at real value dependencies on yield.
-          while(supply.leaves.length+pending.size<outstandingLimit && supply.leaves.length && expansions++<64){
-            expand(supply.leaves[0]);answer=rootAnswer();
+          // OWNER-PROTECTED E3 POLICY — retain this qualification boundary.
+          // Four-worker rank3 exposes shallow q convergence before private work;
+          // it qualified on 96 roots. This is admission, not a depth/value cutoff.
+          // Preserve the 64-expansion turn bound, capacity and worker limits.
+          // Other worker counts retain the control; do not generalize blindly.
+          while((supply.leaves.length+pending.size<outstandingLimit ||
+            (this.rankCutDepth!==0 && supply.leaves.some(n=>n.moves.length<cutPly))) &&
+            supply.leaves.length && expansions++<64){
+            expand(this.rankCutDepth===0?supply.leaves[0]:
+              (supply.leaves.find(n=>n.moves.length<cutPly)??supply.leaves[0]));answer=rootAnswer();
             if(answer)break;
             supply=required();
           }

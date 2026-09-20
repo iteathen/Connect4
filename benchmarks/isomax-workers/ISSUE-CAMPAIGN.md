@@ -583,3 +583,40 @@ changed. Also admit a separate #94 rank-only bounded-quantum control: below rank
 26 halve the existing quantum; elsewhere retain it. This does not increase
 resource limits or add feature extraction to recursion. Compare independently,
 not stacked with rank3. Historical global-32K rejection remains evidence.
+
+### #89 qualified four-worker rank cut; corrected scheduler evidence
+
+The independent 96-root quiet corpus confirms rank3 on four workers. Three
+alternating fresh-process pairs preserve every WDL/root action. Median total
+wall time 18144.1444 -> 17577.6695 ms (-3.12%); expanded entries 4,647,513 ->
+4,478,039 (-3.65%); attempted transitions 11,327,068 -> 10,904,631. Manager
+expansions rise 888 -> 3150; submitted tasks 1723 -> 2499; required scans
+20.02 -> 66.15 ms. Median summed worker execution falls 19186.18 -> 18011.51 ms;
+max observed RSS 546680832 -> 521150464 bytes. Zero resets. All three paired
+times improve, one narrowly. The tradeoff is less worker expansion despite
+more orchestration. This is precisely a work reduction that justifies overhead.
+
+Promote `rankCutDepth=3` only at four workers, with explicit zero-depth control.
+The bounded loop, exact q equality, first-win consequences, root witness order,
+capacity/timeout/retirement remain unchanged. Other worker counts stay at zero:
+two-worker screen has mixed paired timing and increased calls. No claim about
+Begin-Hard, empty-board completion or universal optimum. 13 targeted execution
+and source-admission controls pass, including mirrors, odd/even roots, first-win,
+timeout/failure/capacity, continuation reuse and rank policy validation.
+
+The corrected canonical-support survey covers 96 roots / 1766 tasks / 1655 ready
+snapshots. Maximum ready support fiber=2, maximum parent fan-in=2; no snapshot
+has a fiber above two. Forced chains occur in 165 tasks (9.3%), maximum length 4.
+Survey timing is not used as speed evidence. These measurements do not prove
+support-order isotony or predict dense early-root workloads.
+
+The rank-only halved-quantum screen loses all three four-worker paired times:
+control median 1640.8028 -> 1717.3975 ms. Do not promote #94's tested policy;
+feature-rich/learned models do not gain authority from this negative result.
+Fan-in, affinity and rank2 retain their mixed/negative screen dispositions.
+Portable raw-counter reductions and source hashes: `issue-scheduler-*.json`,
+`issue-89-rank3-{four,two,broad-four}.json`, `issue-94-rank-quantum.json`.
+
+README correction: ready visibility was never limited to twice the worker count;
+only the legacy `maxReady` report was capped. Document actual `maxReadyLeaves`,
+bounded outstanding admission and separate q capacity; no limit is increased.
