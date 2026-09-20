@@ -378,27 +378,38 @@ class SurplusReconciler {
     this.qExact[q]=1;this.qValue[q]=value;
     this.qRunningOcc[q]=-1;
 
+    // Publish semantic truth before reclaiming any execution carrier that live
+    // occurrences may still reference. Atomics are sequentially consistent:
+    // a waiter awakened here can consume q exact without interpreting a
+    // subsequently recycled helper slot as part of this dependency.
+    for(let occ=this.qOccHead[q];occ!==-1;occ=this.occNext[occ]){
+      if(Atomics.load(this.shared.occNeeded,occ)===0)continue;
+      if(Atomics.load(this.shared.occState,occ)===OCC_RETIRED)continue;
+      Atomics.store(this.shared.occResult,occ,value);
+      Atomics.store(this.shared.occState,occ,OCC_EXACT);
+      Atomics.notify(this.shared.occState,occ,Infinity);
+      this.metrics.exactBroadcasts++;
+    }
+
     const work=this.qWork[q];
     if(work>=0){
       const state=Atomics.load(this.shared.workState,work);
       if(work===sourceWork||state===WORK_EXACT){
-        this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
+        this.qWork[q]=-1;
+        if(this.activeWorkCount>0)this.activeWorkCount--;
       }else if(state===WORK_READY){
         const generation=Atomics.load(this.shared.workGeneration,work);
-        Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
-        Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
-        if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
+        Atomics.store(this.shared.workNeeded,work,0);
+        Atomics.store(this.shared.workState,work,WORK_RETIRED);
+        Atomics.notify(this.shared.workState,work,Infinity);
+        this.qWork[q]=-1;
+        if(this.activeWorkCount>0)this.activeWorkCount--;
+        this.metrics.readyRetired++;
         this.recycleWork(work,generation);
       }else if(state===WORK_RUNNING){
-        Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
+        Atomics.store(this.shared.workNeeded,work,0);
+        this.metrics.runningRetireSignals++;
       }
-    }
-
-    for(let occ=this.qOccHead[q];occ!==-1;occ=this.occNext[occ]){
-      if(Atomics.load(this.shared.occNeeded,occ)===0)continue;
-      if(Atomics.load(this.shared.occState,occ)===OCC_RETIRED)continue;
-      Atomics.store(this.shared.occResult,occ,value);Atomics.store(this.shared.occState,occ,OCC_EXACT);
-      Atomics.notify(this.shared.occState,occ,Infinity);this.metrics.exactBroadcasts++;
     }
   }
 
