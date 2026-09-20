@@ -29,6 +29,7 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
 
   checkTaskControl(state) {
     // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+    // NEES E2 / NEES-EXTREME scheduled control boundary.
     // Called only at scheduled thresholds. Do not reinstate a solveNode
     // override with per-node wrapper/catch, clock reads, RPC, or reporting.
     // Save the path with scalar stores into existing bytes; the yield token
@@ -78,6 +79,7 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
 
   runTask({ moves, rootPly, nodeBudget, abort, needed }) {
     // OWNER-PROTECTED PREPARATION — do not remove/weaken this comment.
+    // NEES E3 admission/preparation feeding the E0/E1 kernel.
     // Validate/admit, preload and seal before entry; preserve external-root
     // ordering and warm caches. The reservation bound below belongs to this
     // ordinary-value profile: do not add consumers without re-proving it.
