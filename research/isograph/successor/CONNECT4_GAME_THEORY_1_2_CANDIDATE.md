@@ -9,6 +9,33 @@
 **Supersedes for active game-theory interpretation:** the separate applied NEI 0.1 overlay and the stack of post-1.1 RBA/QU/topology overlays  
 **Historical evidence retained:** authority 1.1, the old NEI overlay, and all successor RBA/proof discovery artifacts remain immutable provenance/evidence
 
+## Candidate package components
+
+The active 1.2 candidate is one semantic package:
+
+- `CONNECT4_GAME_THEORY_1_2_CANDIDATE.md` — semantic root;
+- `CONNECT4_GAME_THEORY_1_2_CANDIDATE.json` — machine-readable semantic graph;
+- `CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg` — native topology;
+- `CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json` — dependency-closed claim inventory and disposition.
+
+The claim companion is part of this candidate package, not a second authority.
+
+Coverage currently accounts for:
+
+```text
+authority-1.1 canonical claims     74
+post-1.1 C4-R0075..R0093          19
+total                              93
+uncovered                           0
+
+retained                           65
+strengthened                        4
+historical-only                    17
+open                                7
+```
+
+Historical-only entries remain evidence/provenance and are not active semantic primitives.
+
 ## 1. Purpose
 
 This is the clean current game-theory representation we would build from scratch knowing the post-1.1 results.
