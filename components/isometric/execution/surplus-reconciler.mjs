@@ -253,7 +253,20 @@ class SurplusReconciler {
     }
     const q=Atomics.load(this.shared.workQ,work);if(q<0||q>=this.qCount)
       throw new Error('surplus exact work lacks canonical q');
-    this.markQExact(q,value,work);this.refillExecution();
+
+    // A local continuation may have established the same q exactly while this
+    // helper was still RUNNING. The duplicate exact value is valid, but this
+    // work reservation still has to leave the bounded active population.
+    if(this.qWork[q]===work){
+      this.qWork[q]=-1;
+      if(this.activeWorkCount>0)this.activeWorkCount--;
+    }
+    if(this.qExact[q]){
+      if(this.qValue[q]!==value)throw new Error('conflicting surplus q exact values');
+    }else{
+      this.markQExact(q,value,-1);
+    }
+    this.refillExecution();
     if(q===this.rootQ){
       parentPort.postMessage({type:'surplus-result',value,move:rootMove,metrics:{...this.metrics}});
       stopSurplusPool(this.shared);
