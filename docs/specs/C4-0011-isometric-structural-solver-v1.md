@@ -105,6 +105,12 @@ COLD
 
 An operation's class follows its execution frequency, not the file/process that hosts it. A future manager or scheduler operation that becomes branch/claim/reconciliation-frequency work must be lowered to the applicable NEES class rather than grandfathered as "manager code".
 
+Current conformance evidence is recorded in `components/isometric/NEES_CONFORMANCE.md`.
+
+The promoted E0/E1 conformance claim is the active ordinary native worker profile. Optional guarded-certificate and RBA synchronous consumers may remain richer auxiliary APIs, but if they are promoted into repeated E0 worker execution they inherit NEES-EXTREME immediately and must receive a separate conformance/lowering decision before promotion.
+
+Current Branch Manager task orchestration is E3 only while it remains amortized at current coarse worker-task quanta. If branch exposure, priority competition, claim, or reconciliation moves to decision-frontier frequency, that machinery becomes E2 and must satisfy NEES-EXTREME.
+
 Project-local E0/E1 rules may be stricter than generic NEES where the qualified IsoMax domain permits it. In particular, ordinary recursive execution remains scalar/indexed over prepared sealed storage, with no per-node manager RPC, queue scan, string identity, structured clone, Promise orchestration, reporting, storage growth, or hash-only equality.
 
 NEES adoption also requires preserving stronger upstream facts. When native frontier classification proves a stronger precondition than a generic proof-facing API requires, a scoped trusted specialization may consume that fact directly while the public/certificate path remains checked.
