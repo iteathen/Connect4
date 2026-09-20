@@ -180,6 +180,13 @@ class SurplusDistributor {
       const work=Atomics.load(shared.occWork,slot);
       const workGeneration=Atomics.load(shared.occWorkGeneration,slot);
 
+      if(work>=0&&workGeneration>0&&Atomics.load(shared.workGeneration,work)!==workGeneration){
+        // The canonical helper reservation was retired and its numeric slot
+        // reused. Occurrence/q state remains authoritative; re-read it rather
+        // than interpreting the new generation as this dependency.
+        continue;
+      }
+
       // Visibility is broader than execution. If no spare worker capacity was
       // admitted for this q, continue the serial proof directly from the live
       // parent state. No replay or scheduler round-trip is introduced.
