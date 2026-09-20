@@ -449,13 +449,16 @@ class SurplusEvaluator {
     try{
       while(Atomics.load(shared.control,CTRL_SESSION)===SESSION_RUNNING &&
             !Atomics.load(shared.control,CTRL_ABORT)){
+        // Read the wake epoch before checking the queue. If work is published
+        // after this load but before wait(), the changed epoch makes wait()
+        // return immediately instead of sleeping through an available helper.
+        const epoch=Atomics.load(shared.control,CTRL_WORK_WAKE);
         if(claimHighest(shared,workerIndex,this.claimScratch)){
           this.counters[WC_WORK_CLAIMS]++;
           this.counters[WC_BAND_BASE+this.claimScratch[3]]++;
           this.runClaim(this.claimScratch[0],this.claimScratch[1],this.claimScratch[2]);
           continue;
         }
-        const epoch=Atomics.load(shared.control,CTRL_WORK_WAKE);
         if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING ||
            Atomics.load(shared.control,CTRL_ABORT))break;
         Atomics.wait(shared.control,CTRL_WORK_WAKE,epoch,50);
