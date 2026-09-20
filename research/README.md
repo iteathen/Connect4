@@ -33,6 +33,30 @@ The qualified logic authority is IsoGraph. Read in this order:
 The exact pre-IsoGraph corpus remains preserved in the historical authority layers. Direct edits to legacy Markdown/JSON bridge files do not change current logic authority.
 
 
+### Current IsoMax work-distribution result
+
+The complete decentralized worker-pull candidate from issue #102 has been implemented and qualified as a bounded experiment.
+
+Current result:
+
+- `isograph/optimization/ISOMAX_DECENTRALIZED_PULL_102_RESULT_0_1.md`
+
+Disposition: **rejected for promotion in the current Node 26 / V8 14.6 IsoMax profile**.
+
+Key distinction preserved by that result:
+
+```text
+global semantic visibility / canonical q reconciliation / worker pull
+    feasible and semantically useful
+
+every genuine decision frontier as a shared execution unit
+    economically rejected
+```
+
+The result strengthens the case for coarser shared exact-reuse mechanisms (#78) rather than invalidating q convergence or dependency-leverage priority as concepts.
+
+
+
 ### Post-1.1 derived successor claims
 
 Confirmed research that occurred after the frozen 1.1 authority is recorded without mutating that authority.
