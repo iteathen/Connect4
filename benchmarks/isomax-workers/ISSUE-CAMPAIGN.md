@@ -639,3 +639,11 @@ Cache hits can shorten but cannot lengthen the proved chain. Ordinary-profile
 admission excludes arbitrary certificate/value consumers before this reasoning.
 Counters expose preflight transitions separately so work is not hidden.
 No task quantum, timeout, q identity, first-win rule or E0/E1 code changes.
+
+Targeted preflight tests pass (24): exact chain and mirror, budget 1/2/3/full,
+root restoration, immediate/first-win terminal roots, unresolved full reservation,
+sealed recursion, retirement/failure. Three-root timing is mixed: one-worker
+median 1745.8963 -> 1749.9527 ms; four-worker 1490.3797 -> 1470.0821 ms,
+with two of three individual pairs slower in each mode. Do not claim a clock
+win from that. Broaden to 96 roots to test the measured short-task beneficiary
+before accepting the preparation/work tradeoff.
