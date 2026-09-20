@@ -5,7 +5,7 @@ import {
   CTRL_ABORT, CTRL_FAILURE, CTRL_OCC_NEXT, CTRL_PUB_WAKE, CTRL_SESSION, CTRL_WORK_NEXT,
   MAX_MOVES, OCC_EXACT, OCC_LINKED, OCC_PUBLISHED, OCC_RETIRED,
   OCC_ROLE_CONTINUATION, PRIORITY_BANDS,
-  PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
+  PUB_CONTINUATION_START, PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
   PUB_RETIRE_OCCURRENCE, PUB_WORK_RETIRED,
   SESSION_RUNNING, WORK_EXACT, WORK_READY, WORK_RETIRED, WORK_RUNNING, WORK_UNUSED, WORK_WRITING,
   dequeuePublication, enqueueWork, openSurplusPool, stopSurplusPool,
@@ -288,6 +288,42 @@ class SurplusReconciler {
     }
   }
 
+  startContinuation(slot,generation){
+    if(slot<0||slot>=this.shared.occurrenceCapacity ||
+       Atomics.load(this.shared.occGeneration,slot)!==generation ||
+       Atomics.load(this.shared.occNeeded,slot)===0){
+      this.metrics.stalePublications++;return;
+    }
+    const q=this.occQ[slot];if(q<0||q>=this.qCount)throw new Error('surplus continuation lacks canonical q');
+    if(this.qExact[q]){
+      Atomics.store(this.shared.occResult,slot,this.qValue[q]);
+      Atomics.store(this.shared.occState,slot,OCC_EXACT);
+      Atomics.notify(this.shared.occState,slot,Infinity);return;
+    }
+    Atomics.store(this.shared.occRole,slot,OCC_ROLE_CONTINUATION);
+    const leader=this.liveContinuation(q);
+    if(leader<0){
+      this.qRunningOcc[q]=slot;Atomics.store(this.shared.occLeader,slot,slot);
+      this.metrics.runningContinuations++;
+    }else if(leader!==slot){
+      Atomics.store(this.shared.occLeader,slot,leader);
+      this.metrics.duplicateRunningContinuations++;
+    }
+
+    const work=this.qWork[q];
+    if(work>=0){
+      const state=Atomics.load(this.shared.workState,work);
+      if(state===WORK_READY){
+        Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
+        Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
+        if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
+      }else if(state===WORK_RUNNING){
+        Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
+      }
+    }
+    this.refillExecution();
+  }
+
   acceptOccurrenceExact(slot,generation,value){
     if(slot<0||slot>=this.shared.occurrenceCapacity ||
        Atomics.load(this.shared.occGeneration,slot)!==generation){
@@ -376,6 +412,7 @@ class SurplusReconciler {
     const kind=this.pub[0],a=this.pub[1],b=this.pub[2],c=this.pub[3],d=this.pub[4],e=this.pub[5];
     this.metrics.publications++;
     if(kind===PUB_OCCURRENCE)this.linkOccurrence(a,b);
+    else if(kind===PUB_CONTINUATION_START)this.startContinuation(a,b);
     else if(kind===PUB_OCCURRENCE_EXACT)this.acceptOccurrenceExact(a,b,c);
     else if(kind===PUB_EXACT)this.acceptExact(a,b,c,d,e);
     else if(kind===PUB_RETIRE_OCCURRENCE)this.retireOccurrence(a,b);
