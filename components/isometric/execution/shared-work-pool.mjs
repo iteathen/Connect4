@@ -89,6 +89,7 @@ export function createSharedWorkPool({
     workPriority: sabI32(workCapacity),
     workQ: sabI32(workCapacity),
     workWorker: sabI32(workCapacity),
+    workPublisher: sabI32(workCapacity),
     workNeeded: sabI32(workCapacity),
     workPathLength: sabI32(workCapacity),
     workAffinity: sabI32(workCapacity),
@@ -136,6 +137,7 @@ export function createSharedWorkPool({
   const pool = openSharedWorkPool(descriptor);
   pool.workQ.fill(-1);
   pool.workWorker.fill(-1);
+  pool.workPublisher.fill(-1);
   pool.workAffinity.fill(-1);
   pool.preferredSlot.fill(-1);
   pool.preferredGeneration.fill(-1);
@@ -164,6 +166,7 @@ export function openSharedWorkPool(descriptor) {
     workPriority: new Int32Array(descriptor.workPriority),
     workQ: new Int32Array(descriptor.workQ),
     workWorker: new Int32Array(descriptor.workWorker),
+    workPublisher: new Int32Array(descriptor.workPublisher),
     workNeeded: new Int32Array(descriptor.workNeeded),
     workPathLength: new Int32Array(descriptor.workPathLength),
     workAffinity: new Int32Array(descriptor.workAffinity),
@@ -360,6 +363,7 @@ export function allocateWorkSlot(pool, scratch) {
   Atomics.store(pool.workPriority, slot, 0);
   Atomics.store(pool.workQ, slot, -1);
   Atomics.store(pool.workWorker, slot, -1);
+  Atomics.store(pool.workPublisher, slot, -1);
   Atomics.store(pool.workNeeded, slot, 1);
   Atomics.store(pool.workPathLength, slot, 0);
   Atomics.store(pool.workAffinity, slot, -1);
@@ -377,6 +381,7 @@ export function releaseWorkSlot(pool, slot, generation) {
   Atomics.store(pool.workNeeded, slot, 0);
   Atomics.store(pool.workQ, slot, -1);
   Atomics.store(pool.workWorker, slot, -1);
+  Atomics.store(pool.workPublisher, slot, -1);
   Atomics.store(pool.workPathLength, slot, 0);
   Atomics.store(pool.workAffinity, slot, -1);
   Atomics.store(pool.workState, slot, WORK_FREE);
