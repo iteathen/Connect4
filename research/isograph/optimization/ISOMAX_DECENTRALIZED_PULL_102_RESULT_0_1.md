@@ -151,7 +151,7 @@ At `9639a52ff1d3bf8f9c8468cd1b1c985035769c7b`:
 
 | Workers | Central wall total | Pull wall total | Pull delta | Central peak RSS | Pull peak RSS |
 |---|---:|---:|---:|---:|---:|
-| 1 | 301.1 ms | 526.2 ms | +74.8% | 279.3 MiB | 620.1 MiB |
+| 1 | 301.1 ms | 526.2 ms | +74.8% | 266.3 MiB | 620.1 MiB |
 | 2 | 340.8 ms | 655.9 ms | +92.5% | 485.3 MiB | 746.4 MiB |
 | 4 | 580.1 ms | 828.0 ms | +42.7% | 487.8 MiB | 816.3 MiB |
 
