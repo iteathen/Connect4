@@ -229,6 +229,29 @@ class SurplusReconciler {
     this.metrics.workSlotReclaims++;
   }
 
+  retireReadyWork(q,work){
+    // READY -> RUNNING is owned by the worker claim CAS. Retirement must
+    // compete with that same state transition instead of loading READY and
+    // later overwriting a claim that already succeeded.
+    const generation=Atomics.load(this.shared.workGeneration,work);
+    Atomics.store(this.shared.workNeeded,work,0);
+    const prior=Atomics.compareExchange(
+      this.shared.workState,work,WORK_READY,WORK_RETIRED,
+    );
+    if(prior===WORK_READY){
+      Atomics.notify(this.shared.workState,work,Infinity);
+      if(q>=0&&q<this.qCount&&this.qWork[q]===work){
+        this.qWork[q]=-1;
+        if(this.activeWorkCount>0)this.activeWorkCount--;
+      }
+      this.metrics.readyRetired++;
+      this.recycleWork(work,generation);
+      return WORK_RETIRED;
+    }
+    if(prior===WORK_RUNNING)this.metrics.runningRetireSignals++;
+    return prior;
+  }
+
   createWork(q,occ){
     const slot=allocateWork(this.shared,this.workScratch);
     if(slot<0)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
@@ -316,11 +339,7 @@ class SurplusReconciler {
       if(work>=0){
         const state=Atomics.load(this.shared.workState,work);
         if(state===WORK_READY){
-          const generation=Atomics.load(this.shared.workGeneration,work);
-          Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
-          Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
-          if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
-          this.recycleWork(work,generation);
+          this.retireReadyWork(q,work);
         }else if(state===WORK_RUNNING){
           Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
         }
@@ -394,18 +413,13 @@ class SurplusReconciler {
     const work=this.qWork[q];
     if(work>=0){
       const state=Atomics.load(this.shared.workState,work);
-      if(work===sourceWork||state===WORK_EXACT){
-        this.qWork[q]=-1;
-        if(this.activeWorkCount>0)this.activeWorkCount--;
+      if(state===WORK_EXACT){
+        // Keep a terminal carrier attached until its PUB_EXACT record is
+        // consumed and the carrier is recycled. Otherwise an inactive exact q
+        // can be evicted/reused while workQ still names its old numeric slot,
+        // and the delayed publication can be applied to an unrelated q.
       }else if(state===WORK_READY){
-        const generation=Atomics.load(this.shared.workGeneration,work);
-        Atomics.store(this.shared.workNeeded,work,0);
-        Atomics.store(this.shared.workState,work,WORK_RETIRED);
-        Atomics.notify(this.shared.workState,work,Infinity);
-        this.qWork[q]=-1;
-        if(this.activeWorkCount>0)this.activeWorkCount--;
-        this.metrics.readyRetired++;
-        this.recycleWork(work,generation);
+        this.retireReadyWork(q,work);
       }else if(state===WORK_RUNNING){
         Atomics.store(this.shared.workNeeded,work,0);
         this.metrics.runningRetireSignals++;
@@ -460,11 +474,7 @@ class SurplusReconciler {
     if(work>=0){
       const state=Atomics.load(this.shared.workState,work);
       if(state===WORK_READY){
-        const generation=Atomics.load(this.shared.workGeneration,work);
-        Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
-        Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
-        if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
-        this.recycleWork(work,generation);
+        this.retireReadyWork(q,work);
       }else if(state===WORK_RUNNING){
         Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
       }
@@ -606,14 +616,7 @@ class SurplusReconciler {
         if(work>=0){
           const state=Atomics.load(this.shared.workState,work);
           if(state===WORK_READY){
-            const generation=Atomics.load(this.shared.workGeneration,work);
-            Atomics.store(this.shared.workNeeded,work,0);
-            Atomics.store(this.shared.workState,work,WORK_RETIRED);
-            Atomics.notify(this.shared.workState,work,Infinity);
-            this.qWork[q]=-1;
-            if(this.activeWorkCount>0)this.activeWorkCount--;
-            this.metrics.readyRetired++;
-            this.recycleWork(work,generation);
+            this.retireReadyWork(q,work);
             this.refillExecution();
           }else if(state===WORK_RUNNING){
             Atomics.store(this.shared.workNeeded,work,0);
