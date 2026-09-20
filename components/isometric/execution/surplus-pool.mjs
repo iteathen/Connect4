@@ -242,52 +242,56 @@ export function openSurplusPool(d) {
   };
 }
 
-function ringEnqueue(sequence, enqueue, lane, capacity, write) {
-  const base = lane * capacity;
-  for (let spin = 0; spin < 1024; spin++) {
-    const pos = Atomics.load(enqueue, lane);
-    const cell = base + (pos % capacity);
-    const seq = Atomics.load(sequence, cell);
-    const diff = seq - pos;
-    if (diff === 0) {
-      if (Atomics.compareExchange(enqueue, lane, pos, pos + 1) !== pos) continue;
-      write(cell);
-      Atomics.store(sequence, cell, pos + 1);
-      return true;
+function reserveEnqueue(sequence,enqueue,lane,capacity) {
+  const base=lane*capacity;
+  for(let spin=0;spin<1024;spin++){
+    const pos=Atomics.load(enqueue,lane);
+    const cell=base+(pos%capacity);
+    const seq=Atomics.load(sequence,cell);
+    const diff=seq-pos;
+    if(diff===0){
+      if(Atomics.compareExchange(enqueue,lane,pos,pos+1)===pos)return pos;
+      continue;
     }
-    if (diff < 0) return false;
+    if(diff<0)return -1;
   }
-  return false;
+  return -1;
 }
-function ringDequeue(sequence, dequeue, lane, capacity, read) {
-  const base = lane * capacity;
-  for (let spin = 0; spin < 1024; spin++) {
-    const pos = Atomics.load(dequeue, lane);
-    const cell = base + (pos % capacity);
-    const seq = Atomics.load(sequence, cell);
-    const diff = seq - (pos + 1);
-    if (diff === 0) {
-      if (Atomics.compareExchange(dequeue, lane, pos, pos + 1) !== pos) continue;
-      read(cell);
-      Atomics.store(sequence, cell, pos + capacity);
-      return true;
+function commitEnqueue(sequence,lane,capacity,pos) {
+  Atomics.store(sequence,lane*capacity+(pos%capacity),pos+1);
+}
+function reserveDequeue(sequence,dequeue,lane,capacity) {
+  const base=lane*capacity;
+  for(let spin=0;spin<1024;spin++){
+    const pos=Atomics.load(dequeue,lane);
+    const cell=base+(pos%capacity);
+    const seq=Atomics.load(sequence,cell);
+    const diff=seq-(pos+1);
+    if(diff===0){
+      if(Atomics.compareExchange(dequeue,lane,pos,pos+1)===pos)return pos;
+      continue;
     }
-    if (diff < 0) return false;
+    if(diff<0)return -1;
   }
-  return false;
+  return -1;
+}
+function commitDequeue(sequence,lane,capacity,pos) {
+  Atomics.store(sequence,lane*capacity+(pos%capacity),pos+capacity);
 }
 
 export function enqueueWork(pool, slot, generation, band) {
   if (band < 0 || band >= pool.bands) throw new RangeError('invalid surplus priority band');
   if (Atomics.load(pool.workGeneration, slot) !== generation ||
       Atomics.load(pool.workState, slot) !== WORK_READY) return false;
-  let ticket = 0;
-  const ok = ringEnqueue(pool.queueSequence,pool.queueEnqueue,band,pool.queueCapacity,cell=>{
-    ticket = Atomics.add(pool.workTicket,slot,1)+1;
-    Atomics.store(pool.workPriority,slot,band);
-    pool.queueSlot[cell]=slot; pool.queueGeneration[cell]=generation; pool.queueTicket[cell]=ticket;
-  });
-  if (!ok) return false;
+  const pos=reserveEnqueue(pool.queueSequence,pool.queueEnqueue,band,pool.queueCapacity);
+  if(pos<0)return false;
+  const cell=band*pool.queueCapacity+(pos%pool.queueCapacity);
+  const ticket=Atomics.add(pool.workTicket,slot,1)+1;
+  Atomics.store(pool.workPriority,slot,band);
+  pool.queueSlot[cell]=slot;
+  pool.queueGeneration[cell]=generation;
+  pool.queueTicket[cell]=ticket;
+  commitEnqueue(pool.queueSequence,band,pool.queueCapacity,pos);
   Atomics.add(pool.control,CTRL_WORK_WAKE,1);
   Atomics.notify(pool.control,CTRL_WORK_WAKE);
   return true;
@@ -295,10 +299,12 @@ export function enqueueWork(pool, slot, generation, band) {
 
 export function claimHighest(pool, workerIndex, scratch) {
   for (let band=pool.bands-1; band>=0; band--) {
-    while (ringDequeue(pool.queueSequence,pool.queueDequeue,band,pool.queueCapacity,cell=>{
-      scratch[0]=pool.queueSlot[cell]; scratch[1]=pool.queueGeneration[cell]; scratch[2]=pool.queueTicket[cell];
-    })) {
-      const slot=scratch[0], gen=scratch[1], ticket=scratch[2];
+    for(;;){
+      const pos=reserveDequeue(pool.queueSequence,pool.queueDequeue,band,pool.queueCapacity);
+      if(pos<0)break;
+      const cell=band*pool.queueCapacity+(pos%pool.queueCapacity);
+      const slot=pool.queueSlot[cell], gen=pool.queueGeneration[cell], ticket=pool.queueTicket[cell];
+      commitDequeue(pool.queueSequence,band,pool.queueCapacity,pos);
       if (slot<0||slot>=pool.workCapacity ||
           Atomics.load(pool.workGeneration,slot)!==gen ||
           Atomics.load(pool.workTicket,slot)!==ticket ||
@@ -344,16 +350,20 @@ export function claimSpecific(pool, slot, generation, workerIndex, scratch) {
 }
 
 function enqueueWorkFree(pool,slot) {
-  const ok=ringEnqueue(pool.workFreeSequence,pool.workFreeEnqueue,0,pool.workCapacity,cell=>{
-    pool.workFreeSlot[cell]=slot;
-  });
-  if(!ok)throw new Error('ISOMAX_SURPLUS_WORK_FREE_RING_CAPACITY');
+  const pos=reserveEnqueue(pool.workFreeSequence,pool.workFreeEnqueue,0,pool.workCapacity);
+  if(pos<0)throw new Error('ISOMAX_SURPLUS_WORK_FREE_RING_CAPACITY');
+  const cell=pos%pool.workCapacity;
+  pool.workFreeSlot[cell]=slot;
+  commitEnqueue(pool.workFreeSequence,0,pool.workCapacity,pos);
 }
 
 function dequeueWorkFree(pool,scratch) {
-  return ringDequeue(pool.workFreeSequence,pool.workFreeDequeue,0,pool.workCapacity,cell=>{
-    scratch[0]=pool.workFreeSlot[cell];
-  });
+  const pos=reserveDequeue(pool.workFreeSequence,pool.workFreeDequeue,0,pool.workCapacity);
+  if(pos<0)return false;
+  const cell=pos%pool.workCapacity;
+  scratch[0]=pool.workFreeSlot[cell];
+  commitDequeue(pool.workFreeSequence,0,pool.workCapacity,pos);
+  return true;
 }
 
 export function allocateWork(pool,scratch) {
@@ -400,19 +410,23 @@ export function releaseWork(pool,slot,generation) {
   return true;
 }
 
-function enqueueOccurrenceFree(pool, slot) {
-  const ok=ringEnqueue(pool.occFreeSequence,pool.occFreeEnqueue,0,pool.occurrenceCapacity,cell=>{
-    pool.occFreeSlot[cell]=slot;
-  });
-  if(!ok)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_FREE_RING_CAPACITY');
+function enqueueOccurrenceFree(pool,slot) {
+  const pos=reserveEnqueue(pool.occFreeSequence,pool.occFreeEnqueue,0,pool.occurrenceCapacity);
+  if(pos<0)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_FREE_RING_CAPACITY');
+  const cell=pos%pool.occurrenceCapacity;
+  pool.occFreeSlot[cell]=slot;
+  commitEnqueue(pool.occFreeSequence,0,pool.occurrenceCapacity,pos);
   Atomics.add(pool.control,CTRL_OCC_FREE_WAKE,1);
   Atomics.notify(pool.control,CTRL_OCC_FREE_WAKE,Infinity);
 }
 
 function dequeueOccurrenceFree(pool,scratch) {
-  return ringDequeue(pool.occFreeSequence,pool.occFreeDequeue,0,pool.occurrenceCapacity,cell=>{
-    scratch[0]=pool.occFreeSlot[cell];
-  });
+  const pos=reserveDequeue(pool.occFreeSequence,pool.occFreeDequeue,0,pool.occurrenceCapacity);
+  if(pos<0)return false;
+  const cell=pos%pool.occurrenceCapacity;
+  scratch[0]=pool.occFreeSlot[cell];
+  commitDequeue(pool.occFreeSequence,0,pool.occurrenceCapacity,pos);
+  return true;
 }
 
 export function releaseOccurrence(pool,slot,generation) {
@@ -472,22 +486,27 @@ export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt,
 }
 
 export function publish(pool,kind,a=0,b=0,c=0,d=0,e=0,f=0,g=0) {
-  const ok=ringEnqueue(pool.publicationSequence,pool.publicationEnqueue,0,pool.publicationCapacity,cell=>{
-    pool.publicationKind[cell]=kind; pool.publicationA[cell]=a; pool.publicationB[cell]=b;
-    pool.publicationC[cell]=c; pool.publicationD[cell]=d; pool.publicationE[cell]=e;
-    pool.publicationF[cell]=f; pool.publicationG[cell]=g;
-  });
-  if (!ok) return false;
-  Atomics.add(pool.control,CTRL_PUB_WAKE,1); Atomics.notify(pool.control,CTRL_PUB_WAKE);
+  const pos=reserveEnqueue(pool.publicationSequence,pool.publicationEnqueue,0,pool.publicationCapacity);
+  if(pos<0)return false;
+  const cell=pos%pool.publicationCapacity;
+  pool.publicationKind[cell]=kind;
+  pool.publicationA[cell]=a;pool.publicationB[cell]=b;pool.publicationC[cell]=c;
+  pool.publicationD[cell]=d;pool.publicationE[cell]=e;pool.publicationF[cell]=f;pool.publicationG[cell]=g;
+  commitEnqueue(pool.publicationSequence,0,pool.publicationCapacity,pos);
+  Atomics.add(pool.control,CTRL_PUB_WAKE,1);
+  Atomics.notify(pool.control,CTRL_PUB_WAKE);
   return true;
 }
 export function dequeuePublication(pool,scratch) {
-  return ringDequeue(pool.publicationSequence,pool.publicationDequeue,0,pool.publicationCapacity,cell=>{
-    scratch[0]=pool.publicationKind[cell]; scratch[1]=pool.publicationA[cell];
-    scratch[2]=pool.publicationB[cell]; scratch[3]=pool.publicationC[cell];
-    scratch[4]=pool.publicationD[cell]; scratch[5]=pool.publicationE[cell];
-    scratch[6]=pool.publicationF[cell]; scratch[7]=pool.publicationG[cell];
-  });
+  const pos=reserveDequeue(pool.publicationSequence,pool.publicationDequeue,0,pool.publicationCapacity);
+  if(pos<0)return false;
+  const cell=pos%pool.publicationCapacity;
+  scratch[0]=pool.publicationKind[cell];scratch[1]=pool.publicationA[cell];
+  scratch[2]=pool.publicationB[cell];scratch[3]=pool.publicationC[cell];
+  scratch[4]=pool.publicationD[cell];scratch[5]=pool.publicationE[cell];
+  scratch[6]=pool.publicationF[cell];scratch[7]=pool.publicationG[cell];
+  commitDequeue(pool.publicationSequence,0,pool.publicationCapacity,pos);
+  return true;
 }
 
 export function completeWork(pool,slot,generation,attempt,value,rootMove=-1) {
