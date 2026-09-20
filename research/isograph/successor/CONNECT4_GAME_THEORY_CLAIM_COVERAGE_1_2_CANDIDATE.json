@@ -8,9 +8,8 @@
   "total_claims": 93,
   "disposition_counts": {
     "retained": 65,
-    "strengthened": 2,
+    "strengthened": 4,
     "historical_only": 17,
-    "superseded": 2,
     "open": 7
   },
   "uncovered_count": 0,
@@ -104,7 +103,11 @@
       "successor_targets": [
         "L6_evaluation_policy"
       ],
-      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json",
+      "successor_refinement": [
+        "L6 exact structural/value closure before unresolved exact fallback"
+      ],
+      "coverage_note": "Historical heuristic-horizon wording is obsolete in current IsoMax; the stronger surviving rule is to consume exact closure before unresolved evaluation/recursion."
     },
     {
       "id": "C4-R0007",
@@ -171,11 +174,17 @@
       "statement": "Current local exact predicates are insufficient for a complete derivation system; explicit composition/closure laws over structural relations remain missing.",
       "guards": null,
       "scope": null,
-      "coverage_disposition": "superseded",
+      "coverage_disposition": "strengthened",
       "successor_targets": [
         "QU-GAME-02_proof_value_bridge"
       ],
-      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json",
+      "successor_refinement": [
+        "C4-R0075",
+        "C4-R0076",
+        "C4-R0077..C4-R0092"
+      ],
+      "coverage_note": "Many composition/closure laws are now exact; the broad gap is narrowed to specific remaining seams, especially QU-GAME-02."
     },
     {
       "id": "C4-R0012",
@@ -612,11 +621,16 @@
       "statement": "A direct solver over line-hit pairs cannot treat arbitrary (H0,H1) pairs as legal symbolic states because support-local realizability correlates the two masks. The missing law is a compact predecessor/composition representation that preserves this realizability while supporting move preimages, terminal subtraction, and existential/universal move composition without reconstructing ownership assignments.",
       "guards": null,
       "scope": null,
-      "coverage_disposition": "superseded",
+      "coverage_disposition": "strengthened",
       "successor_targets": [
         "QU-GAME-02_proof_value_bridge"
       ],
-      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json",
+      "successor_refinement": [
+        "C4-R0075",
+        "C4-R0076"
+      ],
+      "coverage_note": "The generic realizability-closure gap is localized to compact proof/clause -> q/value controllable-predecessor projection before distributed universal expansion."
     },
     {
       "id": "C4-R0044",
@@ -981,7 +995,13 @@
         "QU-GAME-02_proof_value_bridge",
         "L4_proof_guarded_consequence"
       ],
-      "source_registry": "research/canonical/CLAIM_REGISTRY_GUARDED_LIFT.json"
+      "source_registry": "research/canonical/CLAIM_REGISTRY_GUARDED_LIFT.json",
+      "successor_refinement": [
+        "C4-R0075",
+        "C4-R0076",
+        "QU-GAME-02"
+      ],
+      "coverage_note": "Observation-relative controllable predecessor remains the semantic direction; later work localizes the missing compact projection and the distributed-expansion wall."
     },
     {
       "id": "C4-R0070",
