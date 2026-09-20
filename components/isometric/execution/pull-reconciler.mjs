@@ -335,7 +335,6 @@ class PullReconciler {
 
   releaseIfPossible(slot, generation) {
     if (slot < 0 || slot >= this.shared.workCapacity) return;
-    if (this.workHold[slot] !== 0) return;
     if (Atomics.load(this.shared.workGeneration, slot) !== generation) return;
     if (Atomics.load(this.shared.workState, slot) !== WORK_DONE) return;
     if (releaseWorkSlot(this.shared, slot, generation)) this.metrics.slotReclaims++;
