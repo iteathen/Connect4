@@ -3,7 +3,7 @@
 **Status:** active successor candidate for hot-loop optimization research  
 **Owner:** `research/semantic-quotient`  
 **Solver realization inspected:** `solver/isometric@69a1ae0929b934682d475b31cdd4a38fac77fc12`  
-**NEI successor dependency:** `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`, `extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md`  
+**Qualified NEI authority dependency:** `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`, `extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md` (SHA-256 `6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee`)  
 **Gameplay authority effect:** none  
 **Supersedes for active hot-loop interpretation:** the 0.1 optimization graph, 0.2 NEI correction layer, and 0.1/0.2 qualification/discovery overlays  
 **Historical evidence retained:** all prior artifacts remain immutable research/provenance evidence
@@ -152,7 +152,7 @@ This performance graph consumes only the `q_r` cache/value consequence. It MUST 
 
 There is currently **no required hot-loop NEI SAME/DISTINCT claim** for the retained implementation optimizations.
 
-If a future optimization asks a genuine identity question, it must use NEI 0.4 successor semantics:
+If a future optimization asks a genuine identity question, it must use qualified NEI 0.4 semantics:
 
 ```text
 identity query context
