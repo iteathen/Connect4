@@ -235,14 +235,19 @@ Reserve **gate** language for an actually blocking condition. Ordinary benchmark
 
 ## Frontier hot-path specialization
 
+The IsoMax hot loop is governed by NEES Draft 0.2 at
+`iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3`.
+Use `components/isometric/NEES_PROFILE.md` as the repository-local mapping.
+NEES governs realization only; Connect4/IsoGraph/C4-0011 retain semantic authority.
+
 Apply the account-global compute-synergy doctrine aggressively to the quotient-native solver hot path.
 
-- A measured ~0.5% reduction in total CPU is material when it survives deliberate paired/repeated evidence and exact work remains unchanged.
+- A measured ~0.5% reduction in total CPU is material when it survives deliberate paired/repeated evidence and exact work remains unchanged. Qualification belongs at the coherent PR/change-set boundary, not after every local edit.
 - Prefer invariant-bearing packed structures that reduce work on both producer and consumer sides. Masks/shifts and fixed-width typed-array arithmetic are acceptable implementation detail when the owner preserves exact semantics and explicit width/domain contracts.
 - Preallocated/sealed memory is intentionally spendable to remove recursive growth/rehash, lower load factors, shorten probe chains, reduce dependent loads, keep backing stores stable, and improve V8/JIT visibility. Do not optimize bytes independently of total solve time and the supported memory budget.
 - The recursive search path should remain fixed-storage after preparation; a setup-time resize/rehash is categorically different from growth during recursion.
 - Hashes/fingerprints are addressing/rejection accelerators only. Exact quotient/residual content remains equality authority unless an injective encoding is proved over the supported domain.
-- A meaningful performance regression blocks additional stacking until the exact diff and expanded producer→boundary→consumer causal neighborhood are audited and paired retested. If it still loses and no higher-priority requirement justifies it, record and remove/supersede it before continuing.
+- At the completed PR/change-set qualification boundary, a meaningful performance regression blocks promotion until the exact diff and expanded producer→boundary→consumer causal neighborhood are audited and paired retested. During development, run targeted checks only when the result can change the next design decision or protect a prerequisite invariant; do not force every optimized line into its own benchmark cycle. If the completed candidate still loses and no higher-priority requirement justifies it, record and remove/supersede it.
 - Stay in Node/JavaScript for product/domain implementation whenever the result is practically achievable there. If a genuinely consumer-neutral primitive materially requires native/GPU/SIMD/runtime support, implement the universal primitive in the appropriate CUDA-* library and consume it through a public Node-facing contract; do not add a Connect4-specific native escape path.
 
 Current durable optimization checkpoint/handoff:
