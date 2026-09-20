@@ -428,3 +428,40 @@ Removing scratch traffic or static mask tests is not sufficient: extra loop/
 index/load dependencies change runtime economics. No hardware-cause claim is
 made without counters. A different fused realization remains possible, but the
 two proposed implementations do not earn promotion on the current profile.
+
+### Owner criterion update and #96 hash-carrier qualification
+
+Owner clarified that justified work reduction can be acceptable without a wall
+speedup. Distinguish expanded entries/transition edges, representation traffic,
+allocation/GC and elapsed time; do not call all of these "nodes" or infer a
+time gain from fewer source operations. Reassess affected candidate decisions
+under this resource/work criterion, preserving their measured timing tradeoffs.
+
+#96 keeps bit-pattern mixing signed but explicitly returns an unsigned class
+hash at the Uint32 strict-equality boundary. The original blanket proposal
+would have violated interning if that boundary were omitted. Two new independent
+BigInt modulo-2^32 controls cover 10,000 adversarial/random q triples and class
+hash/re-interning across a legal corpus. 13 hash/hot-loop tests pass.
+
+On Node26.7.0, generated `hashSignature`: 628 -> 528 bytes, allocation-top sites
+2 -> 0, HeapNumber-map sites 1 -> 0. `hashWords2`: 816 -> 644 bytes, sites 2 -> 0
+and 1 -> 0. `hashChunkTuple` retains the required magnitude boundary: 1076 ->
+1028 bytes, sites remain 2/1. Counts are static code sites, not dynamic cycles.
+Actual worker sampling, same tasks/calls/results: total sampled allocation
+59,749,544 -> 58,120,152 bytes; remaining table-growth allocation dominates.
+Raw profiles remain Git-private; portable summaries and trace hashes retained.
+
+Three paired fresh-process timings against 347b6945:
+serial median 1432.6946 -> 1427.8593 ms; one worker 1782.4714 -> 1795.7392 ms;
+four workers 1575.9674 -> 1573.8470 ms. Mixed/overlapping results: **no reliable
+wall-time speedup claim**. Exact decisions and serial/one-worker calls match.
+Retain for directly observed boxing/allocation-site and code-size reduction
+under the owner's clarified work/resource criterion, with the small mixed
+timing tradeoff explicit. This is scoped representation equivalence, not a
+new NEI identity claim. Evidence: `issue-96-{hash-chain*,jit-*,profile-*}.json`.
+
+The worker allocation profile also establishes #101 headroom: about 55.6 MB
+sampled allocation is attributed to generic q-value array growth in this
+bounded task replay. Next test only the ordinary WDL owner, keeping the generic
+manager/object cache unchanged; falsify on exactness, lifecycle or adverse
+resource/runtime effects. No per-probe storage-mode branch is permitted.

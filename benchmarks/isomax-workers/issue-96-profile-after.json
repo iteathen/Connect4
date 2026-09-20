@@ -1,0 +1,462 @@
+{
+  "source": "52fad8c54104c94f026b071b2c4199b9731f32cb",
+  "sourceDirty": true,
+  "sourceDiffSha256": "37340639d8818aca0f035d39be7dc8ff0c3329a7ee75c131dd79cc7c8909d072",
+  "harnessSource": "52fad8c54104c94f026b071b2c4199b9731f32cb",
+  "node": "v26.7.0",
+  "v8": "14.6.202.34-node.28",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "workload": [
+    "717657616532237625",
+    "466537327657277224",
+    "616767454664457417"
+  ],
+  "quantum": 65536,
+  "mode": "actual native task kernel in worker; profiles are not wall-time evidence",
+  "results": [
+    {
+      "sequence": "717657616532237625",
+      "calls": 338686,
+      "tasks": 6,
+      "value": -1
+    },
+    {
+      "sequence": "466537327657277224",
+      "calls": 1410910,
+      "tasks": 22,
+      "value": 0
+    },
+    {
+      "sequence": "616767454664457417",
+      "calls": 895997,
+      "tasks": 14,
+      "value": 1
+    }
+  ],
+  "cpuDurationUs": 1621813,
+  "hot": [
+    {
+      "name": "ownTransition",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 395,
+      "selfUs": 170673
+    },
+    {
+      "name": "blockTransition",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 467,
+      "selfUs": 149128
+    },
+    {
+      "name": "internBits",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 347,
+      "selfUs": 125684
+    },
+    {
+      "name": "findPreparedSlotUnchecked",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 248,
+      "selfUs": 123341
+    },
+    {
+      "name": "wordAt",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 584,
+      "selfUs": 95665
+    },
+    {
+      "name": "reflectClass",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 541,
+      "selfUs": 74370
+    },
+    {
+      "name": "singletonEffectClass",
+      "source": "components/isometric/move-order.mjs",
+      "line": 34,
+      "selfUs": 71265
+    },
+    {
+      "name": "solveNode",
+      "source": "components/isometric/solver.mjs",
+      "line": 96,
+      "selfUs": 60858
+    },
+    {
+      "name": "intern",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 140,
+      "selfUs": 52211
+    },
+    {
+      "name": "copyTo",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 164,
+      "selfUs": 51265
+    },
+    {
+      "name": "loadClassBits",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 324,
+      "selfUs": 45159
+    },
+    {
+      "name": "classEquals",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 262,
+      "selfUs": 43031
+    },
+    {
+      "name": "applyUnchecked",
+      "source": "components/isometric/state.mjs",
+      "line": 88,
+      "selfUs": 42436
+    },
+    {
+      "name": "undo",
+      "source": "components/isometric/state.mjs",
+      "line": 144,
+      "selfUs": 41949
+    },
+    {
+      "name": "equals",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 114,
+      "selfUs": 40031
+    },
+    {
+      "name": "word",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 173,
+      "selfUs": 32624
+    },
+    {
+      "name": "promotedColumn",
+      "source": "components/isometric/move-order.mjs",
+      "line": 66,
+      "selfUs": 27277
+    },
+    {
+      "name": "hashChunkTuple",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 48,
+      "selfUs": 24588
+    },
+    {
+      "name": "post",
+      "source": "node:inspector",
+      "line": 115,
+      "selfUs": 24392
+    },
+    {
+      "name": "mix32",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 25,
+      "selfUs": 23982
+    },
+    {
+      "name": "(garbage collector)",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "selfUs": 22802
+    },
+    {
+      "name": "setPreparedUnchecked",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 268,
+      "selfUs": 22387
+    },
+    {
+      "name": "grow",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 194,
+      "selfUs": 22378
+    },
+    {
+      "name": "reflectSupportCode",
+      "source": "components/isometric/state.mjs",
+      "line": 24,
+      "selfUs": 21787
+    },
+    {
+      "name": "#setKey",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 308,
+      "selfUs": 19999
+    },
+    {
+      "name": "gameplayKey",
+      "source": "components/isometric/state.mjs",
+      "line": 239,
+      "selfUs": 17778
+    },
+    {
+      "name": "nativeFrontierCode",
+      "source": "components/isometric/frontier.mjs",
+      "line": 26,
+      "selfUs": 17260
+    },
+    {
+      "name": "mix32",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 126,
+      "selfUs": 16000
+    },
+    {
+      "name": "hashWords2",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 38,
+      "selfUs": 15555
+    },
+    {
+      "name": "hashSignature",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 139,
+      "selfUs": 15419
+    },
+    {
+      "name": "growHash",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 123,
+      "selfUs": 14751
+    },
+    {
+      "name": "getPreparedUnchecked",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 260,
+      "selfUs": 12074
+    },
+    {
+      "name": "ensureReferenceWidth",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 226,
+      "selfUs": 11356
+    },
+    {
+      "name": "ResidualPool",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 182,
+      "selfUs": 11115
+    },
+    {
+      "name": "hasSingletonAt",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 628,
+      "selfUs": 10986
+    },
+    {
+      "name": "storeExact",
+      "source": "components/isometric/solver.mjs",
+      "line": 337,
+      "selfUs": 7869
+    },
+    {
+      "name": "findSlot",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 184,
+      "selfUs": 6257
+    },
+    {
+      "name": "ensureClassCapacity",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 239,
+      "selfUs": 5354
+    },
+    {
+      "name": "cacheIndex",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 388,
+      "selfUs": 4758
+    },
+    {
+      "name": "growClassHash",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 272,
+      "selfUs": 4309
+    }
+  ],
+  "sampledAllocationBytes": 58120152,
+  "allocationSites": [
+    {
+      "name": "grow",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 194,
+      "sampledBytes": 55574720
+    },
+    {
+      "name": "packageContinuation",
+      "source": "components/isometric/execution/task.mjs",
+      "line": 54,
+      "sampledBytes": 460240
+    },
+    {
+      "name": "#onMessage",
+      "source": "node:inspector",
+      "line": 84,
+      "sampledBytes": 164056
+    },
+    {
+      "name": "growClassHash",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 272,
+      "sampledBytes": 163888
+    },
+    {
+      "name": "post",
+      "source": "node:inspector",
+      "line": 115,
+      "sampledBytes": 163160
+    },
+    {
+      "name": "push",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "sampledBytes": 131832
+    },
+    {
+      "name": "singletonEffectClass",
+      "source": "components/isometric/move-order.mjs",
+      "line": 34,
+      "sampledBytes": 74880
+    },
+    {
+      "name": "intern",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 140,
+      "sampledBytes": 70672
+    },
+    {
+      "name": "singletonEffectClass",
+      "source": "components/isometric/move-order.mjs",
+      "line": 34,
+      "sampledBytes": 67880
+    },
+    {
+      "name": "min",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "sampledBytes": 67856
+    },
+    {
+      "name": "undo",
+      "source": "components/isometric/state.mjs",
+      "line": 144,
+      "sampledBytes": 65616
+    },
+    {
+      "name": "ResidualPool",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 182,
+      "sampledBytes": 65600
+    },
+    {
+      "name": "next",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "sampledBytes": 65560
+    },
+    {
+      "name": "ownTransition",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 395,
+      "sampledBytes": 65552
+    },
+    {
+      "name": "singletonEffectClass",
+      "source": "components/isometric/move-order.mjs",
+      "line": 34,
+      "sampledBytes": 33040
+    },
+    {
+      "name": "ownTransition",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 395,
+      "sampledBytes": 33024
+    },
+    {
+      "name": "runTask",
+      "source": "components/isometric/execution/task.mjs",
+      "line": 80,
+      "sampledBytes": 32832
+    },
+    {
+      "name": "Uint32Array",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "sampledBytes": 32832
+    },
+    {
+      "name": "Uint8Array",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "sampledBytes": 32816
+    },
+    {
+      "name": "prepareKey",
+      "source": "components/isometric/isomax-index.mjs",
+      "line": 234,
+      "sampledBytes": 32816
+    },
+    {
+      "name": "gameplayKey",
+      "source": "components/isometric/state.mjs",
+      "line": 239,
+      "sampledBytes": 32800
+    },
+    {
+      "name": "next",
+      "source": "(runtime/setup)",
+      "line": 0,
+      "sampledBytes": 32800
+    },
+    {
+      "name": "applyUnchecked",
+      "source": "components/isometric/state.mjs",
+      "line": 88,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "solveNode",
+      "source": "components/isometric/solver.mjs",
+      "line": 96,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "undo",
+      "source": "components/isometric/state.mjs",
+      "line": 144,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "ownTransition",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 395,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "hashChunkTuple",
+      "source": "components/isometric/residual-pool.mjs",
+      "line": 48,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "undo",
+      "source": "components/isometric/state.mjs",
+      "line": 144,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "applyUnchecked",
+      "source": "components/isometric/state.mjs",
+      "line": 88,
+      "sampledBytes": 32784
+    },
+    {
+      "name": "undo",
+      "source": "components/isometric/state.mjs",
+      "line": 144,
+      "sampledBytes": 32784
+    }
+  ]
+}

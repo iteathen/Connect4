@@ -26,13 +26,13 @@ function mix32(value) {
   // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
   // Keep scalar integer mixing; no string/BigInt conversion or allocating hash input.
   // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
-  let x = value >>> 0;
+  let x = value | 0;
   x ^= x >>> 16;
-  x = Math.imul(x, 0x7feb352d) >>> 0;
+  x = Math.imul(x, 0x7feb352d);
   x ^= x >>> 15;
-  x = Math.imul(x, 0x846ca68b) >>> 0;
+  x = Math.imul(x, 0x846ca68b);
   x ^= x >>> 16;
-  return x >>> 0;
+  return x;
 }
 
 function hashWords2(words, offset) {
@@ -40,8 +40,8 @@ function hashWords2(words, offset) {
   // Hash the existing two-word storage directly; full words still decide equality.
   // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let hash = 0x811c9dc5;
-  hash = Math.imul(hash ^ mix32(words[offset]), 0x01000193) >>> 0;
-  hash = Math.imul(hash ^ mix32(words[offset + 1]), 0x01000193) >>> 0;
+  hash = Math.imul(hash ^ mix32(words[offset]), 0x01000193);
+  hash = Math.imul(hash ^ mix32(words[offset + 1]), 0x01000193);
   return mix32(hash ^ SLOT_WORDS);
 }
 
@@ -51,9 +51,12 @@ function hashChunkTuple(ids) {
   // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let hash = 0x811c9dc5;
   for (let index = 0; index < FRONTIER_SLOTS; index += 1) {
-    hash = Math.imul(hash ^ mix32((ids[index] + 1) >>> 0), 0x01000193) >>> 0;
+    hash = Math.imul(hash ^ mix32(ids[index] + 1), 0x01000193);
   }
-  return mix32(hash ^ FRONTIER_SLOTS);
+  // OWNER-PROTECTED MAGNITUDE BOUNDARY — classHashes is Uint32 storage and
+  // interners use strict numeric equality. Only intermediates are signed;
+  // converting this result to signed would break immutable class identity.
+  return mix32(hash ^ FRONTIER_SLOTS) >>> 0;
 }
 
 function bitIndex32(value) {

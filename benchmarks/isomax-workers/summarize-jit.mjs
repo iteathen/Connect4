@@ -5,7 +5,8 @@ import { createHash } from 'node:crypto';
 const trace = fs.readFileSync(process.argv[2], 'utf8');
 const names = new Set(['solveNode', 'applyUnchecked', 'undo', 'ownTransition', 'blockTransition',
   'internBits', 'computeSingletonMasks', 'gameplayKey', 'singletonEffectClass', 'promotedColumn',
-  'getPreparedUnchecked', 'setPreparedUnchecked', 'prepareKey']);
+  'getPreparedUnchecked', 'setPreparedUnchecked', 'prepareKey',
+  'mix32', 'hashSignature', 'hashWords2', 'hashChunkTuple']);
 const code = [];
 for (const fragment of trace.split('--- Optimized code ---').slice(1)) {
   const block = fragment.split('--- End code ---')[0];

@@ -127,13 +127,13 @@ function mix32(value) {
   // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
   // Keep integer mixing; hash is a locator, never exact identity.
   // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
-  let x = value >>> 0;
+  let x = value | 0;
   x ^= x >>> 16;
-  x = Math.imul(x, 0x7feb352d) >>> 0;
+  x = Math.imul(x, 0x7feb352d);
   x ^= x >>> 15;
-  x = Math.imul(x, 0x846ca68b) >>> 0;
+  x = Math.imul(x, 0x846ca68b);
   x ^= x >>> 16;
-  return x >>> 0;
+  return x;
 }
 
 function hashSignature(signature) {
@@ -141,7 +141,9 @@ function hashSignature(signature) {
   // Read existing numeric key storage; no serialization or temporary hash tuples.
   // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
   let hash = 0x811c9dc5;
-  for (let index = 0; index < 3; index += 1) hash = Math.imul(hash ^ mix32(signature[index]), 0x01000193) >>> 0;
+  // OWNER-PROTECTED LOCATOR CARRIAGE — XOR/imul/shifts and slot masking observe
+  // the same low 32 bits; numeric hash magnitude is not exposed as identity.
+  for (let index = 0; index < 3; index += 1) hash = Math.imul(hash ^ mix32(signature[index]), 0x01000193);
   return mix32(hash);
 }
 
