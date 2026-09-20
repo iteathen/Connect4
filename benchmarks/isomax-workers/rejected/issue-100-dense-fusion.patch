@@ -1,0 +1,34 @@
+diff --git a/components/isometric/residual-pool.mjs b/components/isometric/residual-pool.mjs
+index 7a98133c..3c573bff 100644
+--- a/components/isometric/residual-pool.mjs
++++ b/components/isometric/residual-pool.mjs
+@@ -412,12 +412,18 @@ export class ResidualPool {
+     }
+ 
+     const p = this.profile;
+-    this.loadClassBits(id, this.inputBits);
+     this.reducedBits.fill(0);
+     let affected = false;
+     const containsBase = cell * FRONTIER_WORDS;
+-    for (let word = 0; word < FRONTIER_WORDS; word += 1) {
+-      const input = this.inputBits[word] >>> 0;
++    // OWNER-PROTECTED DENSE DATAFLOW — consume immutable chunk words directly.
++    // No intermediate 20-word scratch copy; keep the same dense transform and
++    // sparse global superset normalization. Chunk content cannot change here.
++    for (let slot = 0; slot < FRONTIER_SLOTS; slot++) {
++      const words = this.slotPools[slot].words;
++      const base = this.classSlotIds[slot][id] * SLOT_WORDS;
++      for (let local = 0; local < SLOT_WORDS; local++) {
++      const word = slot * SLOT_WORDS + local;
++      const input = words[base + local] >>> 0;
+       let active = (input & p.containsMasks[containsBase + word]) >>> 0;
+       this.resultBits[word] = (input & ~p.containsMasks[containsBase + word]) >>> 0;
+       if (active !== 0) affected = true;
+@@ -432,6 +438,7 @@ export class ResidualPool {
+         this.reducedBits[target >>> 5] |= 1 << (target & 31);
+         active = (active & (active - 1)) >>> 0;
+       }
++      }
+     }
+     if (!affected) {
+       if (cacheIndex >= 0) this.ownTransitions[cacheIndex] = id;

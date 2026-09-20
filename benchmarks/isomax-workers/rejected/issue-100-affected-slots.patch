@@ -1,0 +1,54 @@
+diff --git a/components/isometric/profile.mjs b/components/isometric/profile.mjs
+index f3363ba9..5f200a76 100644
+--- a/components/isometric/profile.mjs
++++ b/components/isometric/profile.mjs
+@@ -158,6 +158,14 @@ function buildProfile() {
+   }
+ 
+   const strictSupersetStarts = new Uint32Array(terms.length + 1);
++  const affectedSlots = new Uint16Array(CELL_COUNT);
++  for (let cell = 0; cell < CELL_COUNT; cell++) {
++    for (let slot = 0; slot < FRONTIER_SLOTS; slot++) {
++      if ((containsMasks[cell * FRONTIER_WORDS + slot * SLOT_WORDS] |
++          containsMasks[cell * FRONTIER_WORDS + slot * SLOT_WORDS + 1]) !== 0)
++        affectedSlots[cell] |= 1 << slot;
++    }
++  }
+   let strictSupersetEntryCount = 0;
+   for (let termId = 0; termId < terms.length; termId += 1) {
+     strictSupersetStarts[termId] = strictSupersetEntryCount;
+@@ -233,6 +241,7 @@ function buildProfile() {
+     reduce,
+     initialIds,
+     containsMasks,
++    affectedSlots,
+     singletonTermMasks,
+     strictSupersetStarts,
+     strictSupersetWordIndex,
+diff --git a/components/isometric/residual-pool.mjs b/components/isometric/residual-pool.mjs
+index 7a98133c..4af85e52 100644
+--- a/components/isometric/residual-pool.mjs
++++ b/components/isometric/residual-pool.mjs
+@@ -477,13 +477,19 @@ export class ResidualPool {
+     const p = this.profile;
+     const containsBase = cell * FRONTIER_WORDS;
+     let changedSlots = 0;
++    // OWNER-PROTECTED BLOCKER PREPARATION — retain the complete tuple, then
++    // visit only profile-proved affected slots. Own normalization is not local.
+     for (let slotIndex = 0; slotIndex < FRONTIER_SLOTS; slotIndex += 1) {
+-      const parentChunk = this.classSlotIds[slotIndex][id];
+-      this.chunkIds[slotIndex] = parentChunk;
++      this.chunkIds[slotIndex] = this.classSlotIds[slotIndex][id];
++    }
++    let remainingSlots = p.affectedSlots[cell];
++    while (remainingSlots !== 0) {
++      const slotIndex = 31 - Math.clz32(remainingSlots & -remainingSlots);
++      remainingSlots &= remainingSlots - 1;
++      const parentChunk = this.chunkIds[slotIndex];
+       const word = slotIndex * SLOT_WORDS;
+       const mask0 = p.containsMasks[containsBase + word] >>> 0;
+       const mask1 = p.containsMasks[containsBase + word + 1] >>> 0;
+-      if ((mask0 | mask1) === 0) continue;
+ 
+       const input0 = this.slotPools[slotIndex].word(parentChunk, 0);
+       const input1 = this.slotPools[slotIndex].word(parentChunk, 1);

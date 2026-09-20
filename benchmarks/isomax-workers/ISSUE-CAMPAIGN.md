@@ -407,3 +407,24 @@ seven pairs; median 3031.58 -> 3138.87 ms, calls 5,755,121 -> 5,973,872,
 max RSS 629,448,704 -> 660,643,840. No worker resets. This falsifies promoting
 full reserve as a general capacity-aware policy; the earlier four-worker stress
 win is not evidence for the new decentralized architecture.
+
+### #100 rejected both independent dataflow candidates
+
+Baseline 347b6945. Both variants pass 18 hot-loop/state controls, including all
+625 isolated terms x 42 cells, physical reconstruction and sealed allocation
+traps. All completed decisions/calls match the baseline.
+
+| candidate | serial baseline/candidate median ms | one-worker baseline/candidate median ms |
+|---|---:|---:|
+| A: dense direct two-word chunk traversal | 1414.4610 / 1435.8014 | 1778.4041 / 1791.0788 |
+| B: precompiled affected-slot bitset | 1437.8907 / 1451.6182 | 1808.4435 / 1780.7734 |
+
+Each was isolated, never stacked. A loses all three serial pairs and two of
+three worker pairs. B wins all three worker pairs but loses all three serial
+pairs. Neither qualifies as a general replacement under the no-material-
+regression gate. Both production changes reverted; patches and raw results
+retained as `rejected/issue-100-*.patch` and `issue-100-*.json`.
+Removing scratch traffic or static mask tests is not sufficient: extra loop/
+index/load dependencies change runtime economics. No hardware-cause claim is
+made without counters. A different fused realization remains possible, but the
+two proposed implementations do not earn promotion on the current profile.
