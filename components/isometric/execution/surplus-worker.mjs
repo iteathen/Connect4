@@ -240,7 +240,7 @@ class SurplusDistributor {
         // READY exists only because spare worker capacity was available.
         // Give that helper a short opportunity to claim it. If OS scheduling
         // has not done so, preserve local progress instead of stalling.
-        Atomics.wait(shared.workState,work,WORK_READY,1);
+        Atomics.wait(shared.workState,work,WORK_READY,this.worker.helperGraceMs);
         if(Atomics.load(shared.workState,work)===WORK_READY){
           return this.solveOccurrenceLocally(solver,state,column,slot,generation);
         }
@@ -256,7 +256,7 @@ class SurplusDistributor {
         // forward progress from the live parent state. PUB_CONTINUATION_START
         // then makes the local continuation canonical-visible and reconciliation
         // retires the now-redundant helper at its amortized control boundary.
-        Atomics.wait(shared.workState,work,WORK_RUNNING,1);
+        Atomics.wait(shared.workState,work,WORK_RUNNING,this.worker.helperGraceMs);
         if(Atomics.load(shared.workState,work)===WORK_RUNNING){
           return this.solveOccurrenceLocally(solver,state,column,slot,generation);
         }
@@ -383,6 +383,7 @@ class SurplusEvaluator {
     this.activeGeneration=0;
     this.activeAttempt=0;
     this.externalRootPly=0;
+    this.helperGraceMs=1;
     this.counters=new Int32Array(WC_WORDS);
     this.claimScratch=new Int32Array(4);
     this.continuationPly=new Int8Array(MAX_MOVES+1);
@@ -399,6 +400,9 @@ class SurplusEvaluator {
   prepareSession(message) {
     this.shared=openSurplusPool(message.pool);
     this.externalRootPly=message.rootPly;
+    this.helperGraceMs=message.helperGraceMs;
+    if(!Number.isSafeInteger(this.helperGraceMs)||this.helperGraceMs<1||this.helperGraceMs>1000)
+      throw new RangeError('invalid surplus helperGraceMs');
     const classCapacity=message.classCapacity;
     const entryCapacity=message.entryCapacity;
     const additional=Math.max(1,classCapacity-this.solver.pool.classCount);
