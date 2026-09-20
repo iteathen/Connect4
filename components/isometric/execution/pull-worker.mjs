@@ -199,12 +199,15 @@ class PullEvaluator {
         shared.workPath[base + this.state.ply] = column;
         Atomics.store(shared.workPathLength, childSlot, this.state.ply + 1);
         const localClass = column === promoted ? 1 : 0;
-        if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
-          throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
-        }
+        // Visibility precedes execution eligibility. Reconciliation must see
+        // the parent/action occurrence before a fast child can complete and
+        // recycle its execution slot.
         if (!this.publishBlocking(shared, PUB_CHILD,
           slot, generation, attempt, childSlot, childGeneration, column, localClass)) {
           return false;
+        }
+        if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
+          throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
         }
         childCount++;
         this.counters[WC_CHILDREN]++;
