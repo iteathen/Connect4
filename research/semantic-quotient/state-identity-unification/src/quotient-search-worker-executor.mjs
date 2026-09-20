@@ -18,7 +18,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
 
   const queue = [];
   const exploreQueue = [];
-  const idle = workers.map((worker, workerIndex) => ({ worker, workerIndex }));
+  const idle = workers.map((worker, workerIndex) => ({ worker, workerIndex, idleSince: null }));
   const busy = new Map();
   const pending = new Map();
   const listeners = new Map();
@@ -40,6 +40,12 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     exploreCompleted: 0,
     exploreFailed: 0,
     workerFaults: 0,
+    dispatched: 0,
+    redispatches: 0,
+    queueWaitMsTotal: 0,
+    queueWaitMsMax: 0,
+    redispatchIdleMsTotal: 0,
+    redispatchIdleMsMax: 0,
     workerTasks: Array(workers.length).fill(0),
   };
   const workerResources = Array.from({ length: workers.length }, () => ({
@@ -208,6 +214,17 @@ export function createSearchWorkerExecutor(workers, options = {}) {
   }
 
   function dispatchAuthoritative(slot, task) {
+    const dispatchedAt = performance.now();
+    const queueWaitMs = Math.max(0, dispatchedAt - task.submittedAt);
+    metrics.dispatched += 1;
+    metrics.queueWaitMsTotal += queueWaitMs;
+    metrics.queueWaitMsMax = Math.max(metrics.queueWaitMsMax, queueWaitMs);
+    if (slot.idleSince !== null) {
+      const redispatchIdleMs = Math.max(0, dispatchedAt - slot.idleSince);
+      metrics.redispatches += 1;
+      metrics.redispatchIdleMsTotal += redispatchIdleMs;
+      metrics.redispatchIdleMsMax = Math.max(metrics.redispatchIdleMsMax, redispatchIdleMs);
+    }
     busy.set(slot.worker, Object.freeze({ taskId: task.taskId, kind: 'authoritative' }));
     metrics.workerTasks[slot.workerIndex] += 1;
     slot.worker.postMessage({ ...task.message, taskId: task.taskId });
@@ -295,7 +312,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
         return;
       }
       trackSideEffect(Promise.resolve().then(() => completeExploreHint(active.hintId, message.fragment)));
-      idle.push(slot);
+      idle.push({ ...slot, idleSince: performance.now() });
       pump();
       return;
     }
@@ -319,7 +336,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     pending.delete(active.taskId);
     metrics.completed += 1;
     task.resolve(message);
-    idle.push(slot);
+    idle.push({ ...slot, idleSince: performance.now() });
     pump();
   }
 
@@ -376,7 +393,7 @@ export function createSearchWorkerExecutor(workers, options = {}) {
     metrics.submitted += 1;
     return new Promise((resolve, reject) => {
       pending.set(taskId, { resolve, reject });
-      queue.push({ taskId, message: capturedMessage, priority, sequence: taskId });
+      queue.push({ taskId, message: capturedMessage, priority, sequence: taskId, submittedAt: performance.now() });
       if (queue.length > metrics.maxQueued) metrics.maxQueued = queue.length;
       pump();
     });
@@ -415,6 +432,13 @@ export function createSearchWorkerExecutor(workers, options = {}) {
       failed: metrics.failed,
       aborted: metrics.aborted,
       workerFaults: metrics.workerFaults,
+      dispatched: metrics.dispatched,
+      redispatches: metrics.redispatches,
+      queueWaitMsTotal: metrics.queueWaitMsTotal,
+      queueWaitMsMax: metrics.queueWaitMsMax,
+      redispatchIdleMsTotal: metrics.redispatchIdleMsTotal,
+      redispatchIdleMsMax: metrics.redispatchIdleMsMax,
+      idle: idle.length,
       maxQueued: metrics.maxQueued,
       exploreQueued: metrics.exploreQueued,
       exploreStarted: metrics.exploreStarted,
