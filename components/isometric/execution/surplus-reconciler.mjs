@@ -48,7 +48,12 @@ class SurplusReconciler {
     this.qOccHead=new Int32Array(this.maxQ);this.qOccHead.fill(-1);
     this.qPriority=new Uint8Array(this.maxQ);
     this.qRunningOcc=new Int32Array(this.maxQ);this.qRunningOcc.fill(-1);
-    this.qCount=0;
+    this.qAlive=new Uint8Array(this.maxQ);
+    this.qFree=new Int32Array(this.maxQ);
+    this.qFreeCount=0;
+    this.qCount=0; // high-water index, not live cardinality
+    this.qActiveCount=0;
+    this.qTombstones=0;
 
     const hashCapacity=nextPowerOfTwo(this.maxQ*2);
     this.qSlots=new Int32Array(hashCapacity);this.qSlots.fill(-1);this.qMask=hashCapacity-1;
@@ -67,7 +72,8 @@ class SurplusReconciler {
       localOccurrenceExact:0,managerReplayApplies:0,managerReplayUndos:0,
       priorityUpdates:0,publications:0,failures:0,maxWork:0,maxOccurrences:0,
       maxActiveWork:0,runningContinuations:0,duplicateRunningContinuations:0,
-      continuationExact:0,
+      continuationExact:0,qReclaims:0,exactQEvictions:0,qHashRebuilds:0,
+      maxActiveCanonicalQ:0,
     };
   }
 
@@ -90,20 +96,107 @@ class SurplusReconciler {
     this.state.gameplayKey(this.key);return this.internCurrent();
   }
 
-  internCurrent(){
-    const p0=this.key[0],p1=this.key[1],support=this.key[2]>>>0,hash=hashQ(p0,p1,support);
+  rebuildQHash(){
+    this.qSlots.fill(-1);
+    this.qTombstones=0;
+    for(let q=0;q<this.qCount;q++){
+      if(!this.qAlive[q])continue;
+      let bucket=this.qHash[q]&this.qMask;
+      while(this.qSlots[bucket]>=0)bucket=(bucket+1)&this.qMask;
+      this.qSlots[bucket]=q;
+    }
+    this.metrics.qHashRebuilds++;
+  }
+
+  removeQHash(q){
+    const hash=this.qHash[q];
     let bucket=hash&this.qMask;
-    while(true){
-      const q=this.qSlots[bucket];if(q===-1)break;
-      if(this.qHash[q]===hash&&this.qP0[q]===p0&&this.qP1[q]===p1&&this.qSupport[q]===support){
-        this.metrics.qReuses++;return q;
+    for(let steps=0;steps<this.qSlots.length;steps++){
+      const entry=this.qSlots[bucket];
+      if(entry===-1)return false;
+      if(entry===q){
+        this.qSlots[bucket]=-2;
+        this.qTombstones++;
+        return true;
       }
       bucket=(bucket+1)&this.qMask;
     }
-    if(this.qCount>=this.maxQ)throw new Error('ISOMAX_SURPLUS_Q_CAPACITY');
-    const q=this.qCount++;this.qSlots[bucket]=q;this.qHash[q]=hash;
-    this.qP0[q]=p0;this.qP1[q]=p1;this.qSupport[q]=support;
-    this.metrics.canonicalQ=this.qCount;return q;
+    return false;
+  }
+
+  reclaimQ(q,evictExact=false){
+    if(q<0||q>=this.qCount||!this.qAlive[q]||q===this.rootQ)return false;
+    if(this.qDemand[q]!==0||this.qWork[q]>=0||this.qRunningOcc[q]>=0||this.qOccHead[q]!==-1)return false;
+    if(this.qExact[q]&&!evictExact)return false;
+    if(!this.removeQHash(q))throw new Error('canonical q missing from hash during reclaim');
+
+    this.qAlive[q]=0;
+    this.qExact[q]=0;this.qValue[q]=0;this.qWork[q]=-1;this.qDemand[q]=0;
+    this.qOccHead[q]=-1;this.qPriority[q]=0;this.qRunningOcc[q]=-1;
+    this.qFree[this.qFreeCount++]=q;
+    if(this.qActiveCount>0)this.qActiveCount--;
+    this.metrics.qReclaims++;
+    if(evictExact)this.metrics.exactQEvictions++;
+    this.metrics.canonicalQ=this.qActiveCount;
+    return true;
+  }
+
+  evictInactiveExactQ(){
+    for(let q=0;q<this.qCount;q++){
+      if(this.qAlive[q]&&this.qExact[q]&&this.qDemand[q]===0&&this.qWork[q]<0&&
+         this.qRunningOcc[q]<0&&this.qOccHead[q]===-1){
+        return this.reclaimQ(q,true);
+      }
+    }
+    return false;
+  }
+
+  internCurrent(){
+    const p0=this.key[0],p1=this.key[1],support=this.key[2]>>>0,hash=hashQ(p0,p1,support);
+    let bucket=hash&this.qMask,firstTombstone=-1,empty=-1;
+    for(let steps=0;steps<this.qSlots.length;steps++){
+      const entry=this.qSlots[bucket];
+      if(entry===-1){empty=bucket;break;}
+      if(entry===-2){
+        if(firstTombstone<0)firstTombstone=bucket;
+      }else if(this.qAlive[entry]&&this.qHash[entry]===hash&&
+               this.qP0[entry]===p0&&this.qP1[entry]===p1&&this.qSupport[entry]===support){
+        this.metrics.qReuses++;return entry;
+      }
+      bucket=(bucket+1)&this.qMask;
+    }
+
+    if(this.qFreeCount===0&&this.qCount>=this.maxQ){
+      if(!this.evictInactiveExactQ())throw new Error('ISOMAX_SURPLUS_Q_CAPACITY');
+    }
+    if(this.qTombstones>this.maxQ/2){
+      this.rebuildQHash();
+      return this.internCurrent();
+    }
+
+    let q;
+    if(this.qFreeCount>0)q=this.qFree[--this.qFreeCount];
+    else if(this.qCount<this.maxQ)q=this.qCount++;
+    else throw new Error('ISOMAX_SURPLUS_Q_CAPACITY');
+
+    let insertBucket=firstTombstone>=0?firstTombstone:empty;
+    if(insertBucket<0){
+      this.rebuildQHash();
+      insertBucket=hash&this.qMask;
+      while(this.qSlots[insertBucket]>=0)insertBucket=(insertBucket+1)&this.qMask;
+    }else if(firstTombstone>=0){
+      this.qTombstones--;
+    }
+
+    this.qSlots[insertBucket]=q;
+    this.qAlive[q]=1;
+    this.qP0[q]=p0;this.qP1[q]=p1;this.qSupport[q]=support;this.qHash[q]=hash;
+    this.qExact[q]=0;this.qValue[q]=0;this.qWork[q]=-1;this.qDemand[q]=0;
+    this.qOccHead[q]=-1;this.qPriority[q]=0;this.qRunningOcc[q]=-1;
+    this.qActiveCount++;
+    this.metrics.canonicalQ=this.qActiveCount;
+    this.metrics.maxActiveCanonicalQ=Math.max(this.metrics.maxActiveCanonicalQ,this.qActiveCount);
+    return q;
   }
 
   firstLiveOccurrence(q){
@@ -166,7 +259,7 @@ class SurplusReconciler {
     while(this.activeWorkCount<this.shared.workerCount){
       let bestQ=-1,bestBand=-1,bestOcc=-1;
       for(let q=0;q<this.qCount;q++){
-        if(this.qExact[q]||this.qDemand[q]===0||this.qWork[q]>=0||this.liveContinuation(q)>=0)continue;
+        if(!this.qAlive[q]||this.qExact[q]||this.qDemand[q]===0||this.qWork[q]>=0||this.liveContinuation(q)>=0)continue;
         const occ=this.firstLiveOccurrence(q);if(occ<0)continue;
         const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,occ));
         if(band>bestBand){bestQ=q;bestBand=band;bestOcc=occ;if(band===PRIORITY_BANDS-1)break;}
@@ -448,6 +541,9 @@ class SurplusReconciler {
 
     if(!releaseOccurrence(this.shared,slot,generation))
       throw new Error('failed to recycle retired surplus occurrence');
+
+    if(this.qDemand[q]===0&&this.qWork[q]<0&&this.qRunningOcc[q]<0&&this.qOccHead[q]===-1)
+      this.reclaimQ(q,false);
   }
 
   acceptWorkRetired(work,generation,attempt){
@@ -456,9 +552,11 @@ class SurplusReconciler {
        Atomics.load(this.shared.workAttempt,work)!==attempt)return;
     const q=Atomics.load(this.shared.workQ,work);
     Atomics.store(this.shared.workState,work,WORK_RETIRED);Atomics.notify(this.shared.workState,work,Infinity);
-    if(q>=0&&q<this.qCount&&this.qWork[q]===work){
+    if(q>=0&&q<this.qCount&&this.qAlive[q]&&this.qWork[q]===work){
       this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
       if(!this.qExact[q]&&this.qDemand[q]>0)this.metrics.workRequeues++;
+      else if(this.qDemand[q]===0&&this.qRunningOcc[q]<0&&this.qOccHead[q]===-1)
+        this.reclaimQ(q,false);
     }
     this.refillExecution();
   }
@@ -534,7 +632,7 @@ class SurplusReconciler {
   snapshot(){
     return {
       elapsedMs:performance.now()-this.started,rootExact:this.qExact[this.rootQ]?this.qValue[this.rootQ]:null,
-      metrics:{...this.metrics},qCount:this.qCount,activeWorkCount:this.activeWorkCount,
+      metrics:{...this.metrics},qCount:this.qActiveCount,qHighWater:this.qCount,activeWorkCount:this.activeWorkCount,
       workAllocated:Math.min(this.shared.workCapacity,Atomics.load(this.shared.control,CTRL_WORK_NEXT)),
       occurrenceAllocated:Math.min(this.shared.occurrenceCapacity,Atomics.load(this.shared.control,CTRL_OCC_NEXT)),
     };
