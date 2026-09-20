@@ -91,11 +91,15 @@ export class IsoMaxBranchManager {
       busyRetiredTasks:0,retiredTaskNodes:0,zeroNodeRetiredTasks:0,controlChecks:0,
       qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,
       readySamples:0,readyLeavesTotal:0,maxReadyLeaves:0,idleWithReadyEvents:0,workerExecutionMs:0,
+      requiredCalls:0,requiredMs:0,transitionCacheHits:0,transitionCacheStores:0,
+      warmEntryStarts:0,warmClassStarts:0,localEntryGrowth:0,localClassGrowth:0,workerResets:0,
+      taskExecutionMsMin:null,taskExecutionMsMax:0,taskExecutionMsBuckets:[0,0,0,0,0,0],
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
     const outstandingLimit=this.workerCount+this.readyReserve;
     const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
       scheduler:{workers:this.workerCount,taskNodes:this.taskNodes,readyReserve:this.readyReserve,outstandingLimit},
-      metrics:{...metrics,workerTasks:[...metrics.workerTasks],workerNodes:[...metrics.workerNodes]},
+      metrics:{...metrics,taskExecutionMsBuckets:[...metrics.taskExecutionMsBuckets],
+        workerTasks:[...metrics.workerTasks],workerNodes:[...metrics.workerNodes]},
       managerNodes:nodes.count,executor:this.executor?.stats()??null});
     const notify=()=>{try{onProgress?.(snapshot());}catch(error){fail(error);}};
     const build=moves=>{
@@ -165,7 +169,7 @@ export class IsoMaxBranchManager {
       throw new Error('exact root lacks a preserving action');
     };
     const required=()=>{
-      const live=new Set(), leaves=[];
+      const scanStarted=performance.now(), live=new Set(), leaves=[];
       const visit=node=>{
         if(node.value!==null||live.has(node))return;
         live.add(node);
@@ -179,6 +183,7 @@ export class IsoMaxBranchManager {
           visit(edge.node);
         }
       }
+      metrics.requiredCalls++;metrics.requiredMs+=performance.now()-scanStarted;
       return {live,leaves};
     };
     const submit=node=>{
@@ -192,6 +197,19 @@ export class IsoMaxBranchManager {
           node.pending=false;node.needed=null;
           metrics.nodes+=message.nodes;metrics.workerExecutionMs+=message.executionMs;
           metrics.controlChecks+=message.metrics?.controlChecks??0;
+          metrics.transitionCacheHits+=message.metrics?.transitionCacheHits??0;
+          metrics.transitionCacheStores+=message.metrics?.transitionCacheStores??0;
+          metrics.warmEntryStarts+=message.localEntriesBefore??0;
+          metrics.warmClassStarts+=message.localClassesBefore??0;
+          metrics.localEntryGrowth+=Math.max(0,(message.localEntries??0)-(message.localEntriesBefore??0));
+          metrics.localClassGrowth+=Math.max(0,(message.localClasses??0)-(message.localClassesBefore??0));
+          if(message.workerReset)metrics.workerResets++;
+          metrics.taskExecutionMsMin=metrics.taskExecutionMsMin===null?message.executionMs:
+            Math.min(metrics.taskExecutionMsMin,message.executionMs);
+          metrics.taskExecutionMsMax=Math.max(metrics.taskExecutionMsMax,message.executionMs);
+          const durationBucket=message.executionMs<1?0:message.executionMs<4?1:message.executionMs<16?2:
+            message.executionMs<64?3:message.executionMs<256?4:5;
+          metrics.taskExecutionMsBuckets[durationBucket]++;
           metrics.workerTasks[message.workerId]++;metrics.workerNodes[message.workerId]+=message.nodes;
           if(message.kind==='exact'){metrics.exactTasks++;complete(node,message.value);}
           else if(message.kind==='split'){
