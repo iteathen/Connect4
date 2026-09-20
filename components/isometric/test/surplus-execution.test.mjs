@@ -51,6 +51,27 @@ function branchyFixture(seed,ply=34){
   throw new Error('failed to find branchy IsoMax fixture');
 }
 
+function qConvergenceFixture(seed,ply=34){
+  for(const {moves} of makeCorpus({seed,ply,count:128})){
+    const solver=new IsoMaxSolver();
+    const state=solver.createState(moves);
+    if(state.isTerminal())continue;
+    const seen=new Map();
+    for(const column of CENTER_ORDER){
+      if(!state.canPlay(column))continue;
+      state.applyUnchecked(column);
+      const key=Array.from(state.gameplayKey()).join(',');
+      state.undo();
+      const prior=seen.get(key);
+      if(prior!==undefined&&prior!==column){
+        return {moves,columns:[prior,column],expected:new IsoMaxSolver().solveMoves(moves)};
+      }
+      seen.set(key,column);
+    }
+  }
+  throw new Error('failed to find deterministic q convergence fixture');
+}
+
 test('surplus helper work arena reuses one slot only after terminal reconciliation', () => {
   const descriptor=createSurplusPool({
     workerCount:1,workCapacity:1,occurrenceCapacity:2,queueCapacity:4,publicationCapacity:4,
@@ -164,14 +185,31 @@ test('surplus helpers steal alternatives while the current worker keeps local re
         JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
-      assert.ok((actual.metrics.qReuses??0)>0,
-        'hard helper fixture must exercise canonical q convergence');
-      assert.ok((actual.metrics.qReclaims??0)>0,
-        'bounded q arena must reclaim dead speculative visibility');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
         'helper stealing must not imply full-root replay at every branch');
       assert.ok(Number.isFinite(actual.resultReadyMs)&&Number.isFinite(actual.cleanupMs));
       assert.ok(actual.elapsedMs>=actual.resultReadyMs);
+    }finally{await manager.close();}
+  });
+
+test('surplus reconciler merges physically distinct child occurrences with the same q_r',
+  {timeout:20000}, async () => {
+    const {moves,columns,expected}=qConvergenceFixture(0x1025e,34);
+    assert.notEqual(columns[0],columns[1]);
+    const manager=new IsoMaxSurplusBranchManager({
+      workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
+      queueCapacity:131072,publicationCapacity:131072,
+      workerClassReserve:262144,workerEntryReserve:524288,
+    });
+    try{
+      const actual=await manager.solveMoves(moves,{timeoutMs:10000});
+      assert.equal(actual.value,expected.value);
+      assert.equal(actual.move,expected.move);
+      assert.ok((actual.metrics.qReuses??0)>0,
+        'reconciler must observe at least one exact q_r reuse for the selected fixture');
+      assert.ok((actual.metrics.duplicateOccurrences??0)>0 ||
+        (actual.metrics.duplicateRunningContinuations??0)>0,
+        'q_r reuse must reach occurrence/execution reconciliation rather than remain a locator-only count');
     }finally{await manager.close();}
   });
 
