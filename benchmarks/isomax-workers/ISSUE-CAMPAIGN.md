@@ -517,3 +517,20 @@ Stage B is not admitted: the issue makes it conditional on Stage A qualification
 and public terminal residual reconstruction remains an observable contract.
 The stronger frontier-qualified nonterminal mover question F-002 remains
 separately visible debt rather than being silently deleted with this issue.
+
+### Scheduler qualification checkpoint
+
+Current runtime e462ec4c, documentation head 95df7542. Next instrumented survey
+uses `scheduler-candidates.mjs run <output> survey 4 1` on the same three
+completed roots, unchanged 30s/root and 120s child supervisor. It records ready
+fan-in/support-fiber density, submitted-root forced chains, task structural
+features and existing worker counters. Survey time is not performance evidence.
+
+Then independently screen control versus rank2/rank3, admission fan-in and
+non-waiting continuation affinity through qualification-only source variants.
+Exact source substitutions fail if the owning implementation changes. Normal
+worker execution and production policy remain unchanged. Falsifiers: incorrect
+WDL/action/cleanup, more total expanded/transition work without compensating
+resource/time benefit, manager amplification or lost locality. Priority must
+affect ready admission: with only W outstanding, merely supplying executor
+priority often has no competing queued work and cannot test #90's premise.
