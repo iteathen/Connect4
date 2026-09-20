@@ -87,6 +87,7 @@ export class IsometricState {
 
   applyUnchecked(column) {
     // OWNER-PROTECTED HOT-PATH — do not remove/weaken this or adjacent comments.
+    // NEES E1 / NEES-EXTREME under components/isometric/NEES_PROFILE.md.
     // Keep native scalar updates and preallocated reversible history. Do not
     // restore mask arrays, per-move objects, board adapters, snapshots, copies,
     // or global residual rebuilds. Preserve both unsigned mask halves and
@@ -142,6 +143,7 @@ export class IsometricState {
 
   undo() {
     // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
+    // NEES E1 / NEES-EXTREME under components/isometric/NEES_PROFILE.md.
     // Undo restores native scalars/history in place: no replay, allocation,
     // snapshot copying or residual recomputation. Ancestor state must survive
     // ordinary returns AND scheduling/error unwind exactly.

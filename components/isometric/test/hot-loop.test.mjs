@@ -132,6 +132,30 @@ test('scalar frontier classifies every single and paired cell across both words'
   }
 });
 
+test('native forced response preserves playable provenance and bypasses proof-facing validation', () => {
+  const solver = new IsoMaxSolver();
+  const moves = [0, 1, 0, 1, 2, 1];
+  const state = solver.createState(moves);
+  const code = nativeFrontierCode(state);
+  assert.ok(code >= 64, 'fixture must be a native forced-response state');
+  const forcedCell = code - 64;
+  const forcedColumn = forcedCell % 7;
+  assert.equal(forcedColumn, 1);
+
+  // Make the forced child exact so this control tests only the root admission
+  // boundary rather than solving the early-game subtree.
+  state.applyUnchecked(forcedColumn);
+  solver.transitionCache.set(state, 0);
+  state.undo();
+
+  solver.columnForForcedCell = () => {
+    throw new Error('proof-facing forced-cell validator entered native path');
+  };
+
+  assert.equal(solver.solveNode(state), 0);
+  assert.equal(state.ply, moves.length);
+});
+
 test('actual native worker recursion reserves storage and never constructs/copies buffers', () => {
   // OWNER-PROTECTED REGRESSION CONTROL — do not remove/weaken this comment.
   // Do not disable traps, skip this test, shrink it to cache-only work, or move

@@ -19,6 +19,9 @@ export const defaultIsoMaxWorkers = () => Math.max(1, Math.min(4, availableParal
  * Custom certificate indexes and optional RBA resolvers are not serialized. */
 export class IsoMaxBranchManager {
   // OWNER-PROTECTED EXECUTION — do not remove/weaken this or adjacent comments.
+  // Current task orchestration is NEES E3. If branch exposure/claim/reconciliation
+  // moves to E2 cadence (for example issue #102), that hot machinery must satisfy
+  // NEES-EXTREME rather than inheriting these object/Promise orchestration forms.
   // Keep proactive bounded worker queuing integrated with the native kernel.
   // Do not silently replace this entry with a serial solve or per-node RPC.
   // Numeric exact q deduplication is intentional; no string-key reconstruction.

@@ -391,6 +391,7 @@ export class ResidualPool {
 
   ownTransition(id, cell) {
     // OWNER-PROTECTED HOT-PATH — do not remove/weaken this comment.
+    // NEES E1 / NEES-EXTREME residual transition.
     // Preserve dense transformation plus sparse normalization and shared
     // scratch. The earlier lazy/branchy mover regressed the real 7x6 workload;
     // a locality proxy alone does not authorize replacing this implementation.
@@ -462,6 +463,7 @@ export class ResidualPool {
 
   blockTransition(id, cell) {
     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
+    // NEES E1 / NEES-EXTREME residual transition.
     // Keep exact slot-local masking and scalar metadata; do not allocate term lists or generalize locality to own normalization.
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     this.assertClass(id);

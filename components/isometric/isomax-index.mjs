@@ -231,6 +231,7 @@ export class IsoMaxTransitionCache {
 
   prepareKey(state) {
     // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // NEES E1 / NEES-EXTREME prepared q boundary.
     // This is the checked pool boundary for prepared scalar operations below.
     // Copy scratch coordinates to recursive scalar locals BEFORE any child;
     // never retain this borrowed array or a probe slot across descent.
@@ -256,6 +257,7 @@ export class IsoMaxTransitionCache {
 
   getPreparedUnchecked(p0, p1, support, hash) {
     // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // NEES E1 / NEES-EXTREME prepared q lookup.
     // Prepared, pool-validated scalars only; no key derivation or allocation.
     const slot = this.findPreparedSlotUnchecked(p0, p1, support, hash);
     return this.used[slot] === 0 ? undefined : this.values[slot];
@@ -263,6 +265,7 @@ export class IsoMaxTransitionCache {
 
   setPreparedUnchecked(p0, p1, support, hash, value) {
     // OWNER-PROTECTED CALLEE — do not remove/weaken this comment.
+    // NEES E1 / NEES-EXTREME prepared q publication.
     // Exact value and pool ownership are validated by the solver/prepareKey.
     // Parent scalar key survives scratch reuse; an old slot does not. Never
     // publish incomplete work or weaken the sealed-capacity failure.

@@ -8,6 +8,7 @@ const retainedClasses=Math.floor(1048576/workerData.workerCount);
 const retainedEntries=Math.floor(8388608/workerData.workerCount);
 parentPort.on('message', message => {
   // OWNER-PROTECTED TASK BOUNDARY — do not remove/weaken this comment.
+  // NEES E3 task/result transport; never use this richness as E0/E1 precedent.
   // This handler owns cold setup/result transport. Do not move its object
   // construction, memory sampling or postMessage calls into solveNode.
   // Retire/reset retained state only between tasks, never during recursion.

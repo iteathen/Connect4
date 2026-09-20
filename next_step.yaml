@@ -13,6 +13,10 @@ authority:
   research_ownership_decision: docs/decisions/2026-09-17-single-research-owner.md
   isograph_realignment: docs/decisions/2026-09-18-isometric-isograph-realignment.md
   rba_update_alignment: docs/decisions/2026-09-19-isomax-rba-update-alignment.md
+  nees_profile: components/isometric/NEES_PROFILE.md
+  nees_standard_repository: iteathen/NEES
+  nees_standard_revision: 0294f37909e9a5b7a2202d3a9367a9e2428d47b3
+  nees_standard_version: draft_0_2
   initial_rba_research_revision: 104abfbe4444fcd315ac807b46ce2be8da13df39
 
 ownership:
@@ -40,6 +44,9 @@ current:
   implementation_backend: exact_recursive_P0_oriented_WDL_retained_as_fallback_and_control
   normal_execution: native_branch_manager_with_existing_worker_executor
   recursive_storage: reserved_and_sealed_before_each_bounded_worker_quantum
+  hot_loop_performance_contract: NEES_EXTREME_E0_E1
+  scheduled_control_contract: NEES_EXTREME_E2
+  qualification_boundary: coherent_completed_PR_or_equivalent_change_set
   periodic_reporting: fire_and_forget_to_dedicated_reporting_worker
   worker_default: min_4_available_logical_cpus_minus_one_at_least_one
   worker_scaling_status: reintegrated_but_wide_dispatch_loses_to_redundant_work
@@ -133,6 +140,9 @@ constraints:
   - no_durable_research_authored_on_solver_branch
   - no_hypothesis_promoted_by_implementation_speedup
   - no_solver_local_research_status_override
+  - isomax_hot_loop_must_conform_to_pinned_NEES_profile
+  - reuse_inherited_NEES_evidence_until_admission_or_requalification_trigger_changes
+  - no_full_benchmark_or_test_cycle_required_after_each_local_optimization
   - preserve_first_win_stopping
   - fail_closed_on_unresolved_research_guards
   - no_derived_side_rank_terminal_field_promoted_into_gameplay_identity_without_need

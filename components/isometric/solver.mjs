@@ -99,8 +99,10 @@ export class IsoMaxSolver {
     // away from the code, including the adjacent invariant/rationale comments.
     // Changing that protection requires an explicit repository-owner instruction.
     //
-    // This is the real recursive worker kernel. Keep successful ordinary-value
-    // execution scalar/indexed over preloaded, preallocated, sealed storage.
+    // This is the real recursive worker kernel and the IsoMax NEES E0 boundary.
+    // It MUST conform to the pinned NEES-EXTREME profile in NEES_PROFILE.md.
+    // Keep successful ordinary-value execution scalar/indexed over preloaded,
+    // preallocated, sealed storage.
     // No new objects/arrays/views, closures, iterators, spread/destructuring,
     // array transforms, promises, string keys/formatting/parsing, buffer copies,
     // growth, widening, rehashing, logging, or reporter/manager RPC per node.
@@ -137,6 +139,11 @@ export class IsoMaxSolver {
 
     let exact = null;
     let forcedCell = null;
+    // NEES-BOUND-002 / M38: nativeFrontierCode already proves that a native
+    // forced cell is the unique playable landing cell. Preserve that provenance
+    // so the E0 path does not discard the proof and rerun certificate-facing
+    // validation. Certificate-origin forced cells remain fully validated.
+    let nativeForcedCell = false;
     let p0NoWin = false;
     let p1NoWin = false;
 
@@ -145,6 +152,7 @@ export class IsoMaxSolver {
       this.metrics.nativeExactHits += 1;
     } else if (native >= 64) {
       forcedCell = native - 64;
+      nativeForcedCell = true;
       this.metrics.nativeForcedHits += 1;
     }
 
@@ -161,7 +169,13 @@ export class IsoMaxSolver {
       if (forcedCell !== null && forcedCell !== facts.forcedCell) {
         throw new Error(`native/certificate forced-move contradiction: ${forcedCell} vs ${facts.forcedCell}`);
       }
-      forcedCell = facts.forcedCell;
+      // If native already established the same forced cell, retain the stronger
+      // native provenance. Otherwise the certificate is the authority and must
+      // pass the checked proof-facing conversion below.
+      if (forcedCell === null) {
+        forcedCell = facts.forcedCell;
+        nativeForcedCell = false;
+      }
       this.metrics.certificateForcedHits += 1;
     }
     p0NoWin = facts.p0NoWin;
@@ -198,7 +212,7 @@ export class IsoMaxSolver {
     }
 
     if (forcedCell !== null) {
-      const column = this.columnForForcedCell(state, forcedCell);
+      const column = nativeForcedCell ? forcedCell % COLUMNS : this.columnForForcedCell(state, forcedCell);
       state.applyUnchecked(column);
       this.metrics.forcedTransitions += 1;
       let value;
