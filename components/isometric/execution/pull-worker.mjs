@@ -106,15 +106,16 @@ class PullEvaluator {
   }
 
   allocateChild(shared) {
-    while (true) {
-      const slot = allocateWorkSlot(shared, this.allocateScratch);
-      if (slot >= 0) return slot;
-      if (Atomics.load(shared.control, CTRL_ABORT) ||
-          Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING) return -1;
-      const epoch = Atomics.load(shared.control, CTRL_FREE_WAKE);
-      this.counters[WC_FREE_WAITS]++;
-      Atomics.wait(shared.control, CTRL_FREE_WAKE, epoch, 10);
-    }
+    let slot = allocateWorkSlot(shared, this.allocateScratch);
+    if (slot >= 0) return slot;
+    if (Atomics.load(shared.control, CTRL_ABORT) ||
+        Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING) return -1;
+    const epoch = Atomics.load(shared.control, CTRL_FREE_WAKE);
+    this.counters[WC_FREE_WAITS]++;
+    Atomics.wait(shared.control, CTRL_FREE_WAKE, epoch, 2);
+    slot = allocateWorkSlot(shared, this.allocateScratch);
+    if (slot >= 0) return slot;
+    throw new Error('ISOMAX_PULL_WORK_CAPACITY');
   }
 
   publishBlocking(shared, kind, a, b, c, d, e, f, g) {
@@ -153,6 +154,7 @@ class PullEvaluator {
 
     while (true) {
       if (Atomics.load(shared.control, CTRL_ABORT) ||
+          Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING ||
           Atomics.load(shared.workNeeded, slot) === 0) {
         return this.publishRetired(shared, slot, generation, attempt);
       }
@@ -200,6 +202,10 @@ class PullEvaluator {
         continue;
       }
 
+      if (Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING ||
+          Atomics.load(shared.workNeeded, slot) === 0) {
+        return this.publishRetired(shared, slot, generation, attempt);
+      }
       const promoted = this.state.ply > rootPly ? promotedColumn(this.state) : -1;
       let childCount = 0;
       for (let orderIndex = 0; orderIndex < CENTER_ORDER.length; orderIndex++) {
