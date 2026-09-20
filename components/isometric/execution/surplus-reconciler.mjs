@@ -293,10 +293,14 @@ class SurplusReconciler {
 
     if(role===OCC_ROLE_CONTINUATION){
       if(running<0){
-        this.qRunningOcc[q]=slot;Atomics.store(this.shared.occLeader,slot,slot);
+        this.qRunningOcc[q]=slot;
+        Atomics.store(this.shared.occLeader,slot,slot);
+        Atomics.store(this.shared.occLeaderGeneration,slot,generation);
         this.metrics.runningContinuations++;
       }else{
         Atomics.store(this.shared.occLeader,slot,running);
+        Atomics.store(this.shared.occLeaderGeneration,slot,
+          Atomics.load(this.shared.occGeneration,running));
         this.metrics.duplicateRunningContinuations++;
       }
 
@@ -324,6 +328,8 @@ class SurplusReconciler {
       // continuation. Do not create duplicate executable work; wait for the
       // continuation's exact publication.
       Atomics.store(this.shared.occLeader,slot,running);
+      Atomics.store(this.shared.occLeaderGeneration,slot,
+        Atomics.load(this.shared.occGeneration,running));
       Atomics.store(this.shared.occState,slot,OCC_LINKED);Atomics.notify(this.shared.occState,slot,Infinity);
       this.metrics.duplicateOccurrences++;this.metrics.visibilityOnlyOccurrences++;return;
     }
@@ -397,6 +403,8 @@ class SurplusReconciler {
       const state=Atomics.load(this.shared.occState,occ);
       if(state===OCC_RETIRED||state===OCC_EXACT)continue;
       Atomics.store(this.shared.occLeader,occ,leader);
+      Atomics.store(this.shared.occLeaderGeneration,occ,
+        Atomics.load(this.shared.occGeneration,leader));
       // Once a native continuation is authoritative execution for q, any
       // helper-work reference is advisory/stale. Clearing it prevents slot
       // reuse from becoming an infinite stale-generation loop.
@@ -423,6 +431,8 @@ class SurplusReconciler {
     if(leader<0){
       leader=slot;
       this.qRunningOcc[q]=slot;
+      Atomics.store(this.shared.occLeader,slot,slot);
+      Atomics.store(this.shared.occLeaderGeneration,slot,generation);
       this.metrics.runningContinuations++;
     }else if(leader!==slot){
       this.metrics.duplicateRunningContinuations++;
@@ -509,6 +519,7 @@ class SurplusReconciler {
       if(occ===leader||Atomics.load(this.shared.occNeeded,occ)===0)continue;
       if(Atomics.load(this.shared.occLeader,occ)!==leader)continue;
       Atomics.store(this.shared.occLeader,occ,-1);
+      Atomics.store(this.shared.occLeaderGeneration,occ,-1);
       // Followers may be sleeping on their own LINKED state while observing
       // the leader. Wake them so they can re-evaluate local/remote execution.
       Atomics.notify(this.shared.occState,occ,Infinity);
