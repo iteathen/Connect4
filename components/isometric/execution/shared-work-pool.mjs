@@ -456,7 +456,16 @@ export function markReady(pool, slot, generation, band, affinityWorker = -1) {
   if (Atomics.load(pool.workGeneration, slot) !== generation) return false;
   Atomics.store(pool.workAffinity, slot, affinityWorker);
   Atomics.store(pool.workNeeded, slot, 1);
-  Atomics.store(pool.workState, slot, WORK_READY);
+  let state = Atomics.load(pool.workState, slot);
+  if (state === WORK_WRITING) {
+    const observed = Atomics.compareExchange(pool.workState, slot, WORK_WRITING, WORK_READY);
+    state = observed === WORK_WRITING ? WORK_READY : observed;
+  }
+  // Reconciliation may already have reprioritized, claimed or retired this
+  // occurrence after FRONTIER_END. Never overwrite that newer state.
+  if (state === WORK_RUNNING || state === WORK_DONE || state === WORK_FREE) return true;
+  if (state !== WORK_READY) return false;
+  if (Atomics.load(pool.workTicket, slot) !== 0) return true;
   return enqueueReady(pool, slot, generation, band);
 }
 
