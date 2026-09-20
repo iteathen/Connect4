@@ -30,6 +30,7 @@ export const PUB_RETIRE_OCCURRENCE = 3;
 export const PUB_WORK_RETIRED = 4;
 export const PUB_FAILURE = 5;
 export const PUB_OCCURRENCE_EXACT = 6;
+export const PUB_CONTINUATION_START = 7;
 
 export const CTRL_ABORT = 0;
 export const CTRL_SESSION = 1;
