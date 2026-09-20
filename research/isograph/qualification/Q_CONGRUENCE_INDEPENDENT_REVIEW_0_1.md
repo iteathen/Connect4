@@ -239,3 +239,28 @@ Before promotion of `CONNECT4_GAME_THEORY_1_2_CANDIDATE`:
 6. add negative controls for literal action labels across reflected positions.
 
 This is a semantic clarification, not a failure of the q-congruence theorem.
+
+## 8. q_r transporter implementation qualification
+
+The explicit reflection-transporter regression was added on `solver/isometric`:
+
+```text
+commit: eb8928fe6f4c4b3dba6ad3e2d42f186947a6ebf2
+test: reflection-canonical q_r transports literal action labels
+workflow: Isometric native WSL
+run: 35478469795
+conclusion: success
+```
+
+The control constructs a nonterminal position with column 0 full and its mirror with column 6 full. It establishes:
+
+- equal reflection-canonical `gameplayKey()` / q_r;
+- unequal literal legal-column sets;
+- exact legal-set correspondence under `c -> 6-c`;
+- equal child terminal status under transported actions;
+- equal child q_r under transported actions;
+- exact undo restoration.
+
+The workflow also ran the full domain/native-Isometric/RBA qualification command and completed successfully.
+
+This closes the implementation-side transporter control requested by Section 7. Promotion-grade semantic/cold review of the q_o theorem remains separate.
