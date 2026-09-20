@@ -172,6 +172,7 @@ class PullReconciler {
       rematerializedExecutions:0,
       executionAdmissions:0,
       maxExecutionWork:0,
+      priorityAdmissionPreemptions:0,
       priorityUpdates:0,
       slotReclaims:0,
       qReuses:0,
@@ -398,13 +399,38 @@ class PullReconciler {
     return Atomics.load(this.shared.workGeneration, slot) === generation;
   }
 
+  evictLowerPriorityReady(minimumBand) {
+    let victimSlot = -1;
+    let victimQ = -1;
+    let victimBand = minimumBand;
+    const allocated = Math.min(this.shared.workCapacity, Atomics.load(this.shared.control, CTRL_WORK_NEXT));
+    for (let slot = 0; slot < allocated; slot++) {
+      if (Atomics.load(this.shared.workState, slot) !== WORK_READY ||
+          Atomics.load(this.shared.workNeeded, slot) === 0) continue;
+      const band = Atomics.load(this.shared.workPriority, slot);
+      if (band >= minimumBand || band >= victimBand) continue;
+      const q = Atomics.load(this.shared.workQ, slot);
+      if (q < 0 || q === this.rootQ || this.qWork[q] !== slot) continue;
+      victimSlot = slot;
+      victimQ = q;
+      victimBand = band;
+    }
+    if (victimSlot < 0) return false;
+    const generation = Atomics.load(this.shared.workGeneration, victimSlot);
+    this.qWork[victimQ] = -1;
+    if (this.executionWorkCount > 0) this.executionWorkCount--;
+    this.retireSlot(victimSlot, generation, false);
+    this.metrics.priorityAdmissionPreemptions++;
+    return true;
+  }
+
   refillExecution() {
-    if (this.executionWorkCount >= this.executionLimit) return 0;
     let admitted = 0;
-    for (let band = PRIORITY_BANDS - 1; band >= 0 && this.executionWorkCount < this.executionLimit; band--) {
-      for (let q = 0; q < this.qCount && this.executionWorkCount < this.executionLimit; q++) {
+    for (let band = PRIORITY_BANDS - 1; band >= 0; band--) {
+      for (let q = 0; q < this.qCount; q++) {
         if (this.qPriority[q] !== band || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED ||
             this.qWork[q] !== -1 || (q !== this.rootQ && this.qParentCount[q] === 0)) continue;
+        if (this.executionWorkCount >= this.executionLimit && !this.evictLowerPriorityReady(band)) continue;
         if (this.ensureExecution(q)) admitted++;
       }
     }
