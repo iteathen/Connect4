@@ -122,8 +122,12 @@ test('surplus helpers steal alternatives while the current worker keeps local re
       assert.equal(actual.move,expected.move);
       claims+=actual.metrics.worker.workClaims;
       branches+=actual.metrics.worker.branches;
-      assert.ok(branches>0,'corrected profile must expose genuine branch opportunities');
-      assert.ok(claims>=2,'an available helper must claim globally exposed surplus work');
+      assert.ok(branches>0,
+        'corrected profile must expose genuine branch opportunities; worker='+
+        JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
+      assert.ok(claims>=2,
+        'an available helper must claim globally exposed surplus work; worker='+
+        JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
