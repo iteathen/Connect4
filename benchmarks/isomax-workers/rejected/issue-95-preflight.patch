@@ -1,0 +1,113 @@
+diff --git a/components/isometric/execution/branch-manager.mjs b/components/isometric/execution/branch-manager.mjs
+index f9a7358d..df219726 100644
+--- a/components/isometric/execution/branch-manager.mjs
++++ b/components/isometric/execution/branch-manager.mjs
+@@ -99,6 +99,7 @@ export class IsoMaxBranchManager {
+       readySamples:0,readyLeavesTotal:0,maxReadyLeaves:0,idleWithReadyEvents:0,workerExecutionMs:0,
+       requiredCalls:0,requiredMs:0,transitionCacheHits:0,transitionCacheStores:0,
+       nativeExactHits:0,recursiveChildren:0,forcedTransitions:0,
++      preparedNodeSlots:0,preflightTransitions:0,
+       warmEntryStarts:0,warmClassStarts:0,localEntryGrowth:0,localClassGrowth:0,workerResets:0,
+       taskExecutionMsMin:null,taskExecutionMsMax:0,taskExecutionMsBuckets:[0,0,0,0,0,0],
+       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
+@@ -217,6 +218,8 @@ export class IsoMaxBranchManager {
+           metrics.nativeExactHits+=message.metrics?.nativeExactHits??0;
+           metrics.recursiveChildren+=message.metrics?.recursiveChildren??0;
+           metrics.forcedTransitions+=message.metrics?.forcedTransitions??0;
++          metrics.preparedNodeSlots+=message.preparedNodeSlots??0;
++          metrics.preflightTransitions+=message.preflightTransitions??0;
+           metrics.warmEntryStarts+=message.localEntriesBefore??0;
+           metrics.warmClassStarts+=message.localClassesBefore??0;
+           metrics.localEntryGrowth+=Math.max(0,(message.localEntries??0)-(message.localEntriesBefore??0));
+diff --git a/components/isometric/execution/task.mjs b/components/isometric/execution/task.mjs
+index 2a6c45b7..bc3638fb 100644
+--- a/components/isometric/execution/task.mjs
++++ b/components/isometric/execution/task.mjs
+@@ -1,4 +1,5 @@
+ import { IsoMaxSolver } from '../solver.mjs';
++import { nativeFrontierCode } from '../frontier.mjs';
+ 
+ const quantumEnd = Symbol('unfinished IsoMax task');
+ const taskRetired = Symbol('retired IsoMax task');
+@@ -94,13 +95,29 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
+     if (!Atomics.load(this.needed, 0)) return { kind:'retired', nodes:0, metrics:{} };
+     this.abort = new Int32Array(abort); this.nodeBudget = nodeBudget; this.nextControlNode = 0;
+     const state = this.createState(moves);
++    // OWNER-PROTECTED E3 PREPARATION — retain this proof/resource distinction.
++    // Ordinary native exact/forced consequences can prove a shorter entry bound
++    // before reservation. Inspect only within this task's budget and restore
++    // the full root before the unchanged sealed recurrence runs. Cache hits can
++    // shorten the path further; no optional consumer is admitted above.
++    // An unresolved chain keeps the full bound. Do not use advisory ordering,
++    // a guessed value, or a fixed depth cutoff to reduce reserved capacity.
++    let preparedNodeSlots=nodeBudget,preflightTransitions=0,code;
++    try {
++      code=nativeFrontierCode(state);
++      while(code>=64 && preflightTransitions+1<nodeBudget){
++        state.applyUnchecked((code-64)%7);preflightTransitions++;
++        code=nativeFrontierCode(state);
++      }
++      if(code!==0 && code<64)preparedNodeSlots=preflightTransitions+1;
++    } finally { while(state.ply>moves.length)state.undo(); }
+     // At most one own and one block class per entered edge, plus their two
+     // reflected classes during q lookup. The unentered budget boundary can
+     // create two edge classes; the root lacks that entering edge. Four classes
+     // per admitted node therefore bounds this ordinary-value task. Each class
+     // creates at most one chunk in each slot. Reserve before recursive entry.
+-    this.pool.prepareSearchStorage(4 * nodeBudget);
+-    this.transitionCache.prepareSearchStorage(nodeBudget);
++    this.pool.prepareSearchStorage(4 * preparedNodeSlots);
++    this.transitionCache.prepareSearchStorage(preparedNodeSlots);
+     // Reset through the native entry contract, but preserve EXTERNAL root scope
+     // for advisory ordering on a subtree delegated to a worker.
+     for (const key of Object.keys(this.metrics)) this.metrics[key] = 0;
+@@ -120,6 +137,7 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
+     }
+     if (yielded) result = { kind:'split',frames:this.packageContinuation(state) };
+     if (state.ply !== moves.length) throw new Error('task failed to restore native root');
+-    return { ...result, nodes:this.metrics.nodes, metrics:{...this.metrics,controlChecks:this.controlChecks} };
++    return { ...result, nodes:this.metrics.nodes,preparedNodeSlots,preflightTransitions,
++      metrics:{...this.metrics,controlChecks:this.controlChecks} };
+   }
+ }
+diff --git a/components/isometric/test/execution.test.mjs b/components/isometric/test/execution.test.mjs
+index f0d16b24..0595dd95 100644
+--- a/components/isometric/test/execution.test.mjs
++++ b/components/isometric/test/execution.test.mjs
+@@ -130,6 +130,36 @@ test('manager preserves native exact values and center-first actions across turn
+   assert.equal(manager.workers.length,0);
+ });
+ 
++test('native forced preflight bounds preparation without changing quantum or root',()=>{
++  const forced=[2,2,4,6,5,0,1,3,2,6,5,6,6,0,2,5,1,2,3,6,4];
++  for(const moves of [forced,forced.map(c=>6-c)])for(const nodeBudget of [1,2,3,65536]){
++    const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
++    Atomics.store(new Int32Array(needed),0,1);
++    let state,before;const create=solver.createState;
++    const snapshot=s=>[s.ply,s.p0Class,s.p1Class,s.status,s.sideToMove,s.supportCode,
++      s.supportLo,s.supportHi,s.playableLo,s.playableHi,...s.heights];
++    solver.createState=function(replay){state=create.call(this,replay);before=snapshot(state);return state;};
++    const result=solver.runTask({moves,rootPly:moves.length,nodeBudget,needed,abort});
++    assert.deepEqual(snapshot(state),before);
++    assert.equal(solver.nodeBudget,nodeBudget,'preflight must not change the execution quantum');
++    assert.equal(result.preflightTransitions,Math.min(2,nodeBudget-1));
++    assert.equal(result.preparedNodeSlots,Math.min(3,nodeBudget));
++    if(nodeBudget<3){assert.equal(result.kind,'split');assert.equal(Object.hasOwn(result,'value'),false);}
++    else {assert.equal(result.kind,'exact');assert.equal(result.value,1);assert.equal(result.nodes,3);}
++    assert.equal(solver.pool.sealed,false);assert.equal(solver.transitionCache.sealed,false);
++  }
++  for(const moves of [[0,1,0,1,0,1],[0,1,0,1,0,1,0]]){
++    const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
++    Atomics.store(new Int32Array(needed),0,1);
++    const result=solver.runTask({moves,rootPly:moves.length,nodeBudget:65536,needed,abort});
++    assert.equal(result.preparedNodeSlots,1);assert.equal(result.value,1);
++  }
++  const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
++  Atomics.store(new Int32Array(needed),0,1);
++  const unknown=solver.runTask({moves:[],rootPly:0,nodeBudget:8,needed,abort});
++  assert.equal(unknown.kind,'split');assert.equal(unknown.preparedNodeSlots,8);
++});
++
+ test('rank-cut policy is bounded, four-worker scoped and keeps an explicit control',()=>{
+   for(const workers of [1,2,3,4,8]){
+     assert.equal(new IsoMaxBranchManager({workers}).rankCutDepth,workers===4?3:0);

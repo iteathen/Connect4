@@ -656,3 +656,39 @@ q_o/q_r/transporter language to canonical 21cfe24a / manifest blob 5f401c93.
 Do not edit frozen research, promote isotony/frontiers, close C4-R0076, or change
 the optional producer's actual RBA revision. This fixes stale specification
 status rather than inventing new semantic authority.
+
+### #95 preparation candidate rejected after broader qualification
+
+The 96-root paired comparison loses all three wall timings: median 16797.2653
+-> 16983.5494 ms (+1.11%). Median worker expansion entries rise 4,454,242 ->
+4,548,865 (+2.12%). Peak observed RSS falls 530595840 -> 520744960 bytes, a modest
+1.86% tradeoff without a demonstrated allocation/work saving sufficient to
+justify slower completion and more expansion. Requested reservation slots are
+not actual newly allocated slots in warm pools. Preflight adds 467/489/477
+native transitions in those runs. Timing and topology vary asynchronously;
+the verdict is scoped economics, not a semantic failure.
+
+Revert the production preflight and its dedicated tests, retain the replayable
+patch (including regression tests), complete paired evidence and census. The
+three touched source/test blobs again exactly match qualified c1c06791. 23
+execution/hot-loop tests pass after revert; the earlier full 125-test result
+applies to the same runtime. #95 is costed out for the current task architecture.
+No higher-priority requirement requires keeping the speculative optimization.
+
+### Final retained-runtime comparison
+
+Against initial 11f3ec61, runtime c1c06791 improves all nine paired completed
+three-root totals. Median ms: serial 1717.7892 -> 1406.7262 (-18.11%); one worker
+2077.2569 -> 1751.7989 (-15.67%); four workers 1798.2528 -> 1497.6567 (-16.72%).
+Serial/one-worker calls are exactly unchanged (2,643,905 / 2,644,187). Four-worker
+median calls fall 7,115,471 -> 7,028,796, with asynchronous scheduling variation.
+This comparison includes startup/cleanup and no timing/profiling overlap.
+The admission-only harness test ran after the comparison's final file timestamp.
+It does not establish Begin-Hard throughput or an empty-root solve. Final code
+continues to carry explicit unverified structural optimization debt.
+
+Closed this pass: #89 qualified; #90-94 tested/surveyed and not promoted under
+their scoped falsifiers; #96/#97/#99/#101 qualified; #98/#100 costed out.
+The work/resource criterion is explicit: #96 survives mixed timing because its
+boxing/allocation-site reduction is demonstrated; #100/#95 do not get a free
+pass merely from fewer source operations or requested slots.
