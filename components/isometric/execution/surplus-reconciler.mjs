@@ -532,7 +532,16 @@ class SurplusReconciler {
        Atomics.load(this.shared.occGeneration,slot)!==generation){
       this.metrics.stalePublications++;return;
     }
-    const q=this.occQ[slot];if(q<0||q>=this.qCount)throw new Error('local surplus exact lacks canonical q');
+    // Worker-death cleanup may retire/unlink an occurrence after the worker
+    // queued its exact publication but before reconciliation consumes it.
+    // Generation still matches until reuse; liveness decides whether the
+    // publication remains meaningful.
+    const state=Atomics.load(this.shared.occState,slot);
+    if(Atomics.load(this.shared.occNeeded,slot)===0 ||
+       state===OCC_RETIRED||state===OCC_UNUSED){
+      this.metrics.stalePublications++;return;
+    }
+    const q=this.occQ[slot];if(q<0||q>=this.qCount)throw new Error('live local surplus exact lacks canonical q');
     if(Atomics.load(this.shared.occRole,slot)===OCC_ROLE_CONTINUATION)this.metrics.continuationExact++;
     else this.metrics.localOccurrenceExact++;
     this.markQExact(q,value);this.refillExecution();
