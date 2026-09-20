@@ -68,7 +68,7 @@ Use:
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`.
 
-The successor follows the NEI 0.4 candidate architecture pinned to `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`:
+The successor follows qualified NEI 0.4 authority pinned to `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`:
 
 - SAME/DISTINCT are derived outputs, never profile answer tags;
 - ordinary facts, q-congruence evidence, proof context and QU are represented first;
