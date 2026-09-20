@@ -212,6 +212,12 @@ class SurplusDistributor {
       this.columns[base+count++]=column;
     }
     if(count===0)throw new Error('ongoing surplus state has no legal moves');
+    if(count===1){
+      const column=this.columns[base];
+      state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+      try{return solver.solveNode(state);}
+      finally{state.undo();}
+    }
     this.worker.counters[WC_BRANCHES]++;
 
     for(let i=0;i<count;i++)this.occSlots[base+i]=-1;
