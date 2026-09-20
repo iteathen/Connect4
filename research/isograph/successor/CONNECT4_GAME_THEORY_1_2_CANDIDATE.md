@@ -3,7 +3,7 @@
 **Status:** active successor candidate for Connect4 game-theory semantics  
 **Owner:** `research/semantic-quotient`  
 **Base historical authority:** Connect4 IsoGraph logic authority 1.1  
-**NEI successor dependency:** `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`, NEI 0.4 candidate  
+**Qualified NEI authority dependency:** `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`, NEI 0.4 (SHA-256 `6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee`)  
 **QU dependency:** qualified QU 0.1 semantics pinned by historical authority 1.1  
 **Authority effect:** none until independent qualification/promotion  
 **Supersedes for active game-theory interpretation:** the separate applied NEI 0.1 overlay and the stack of post-1.1 RBA/QU/topology overlays  
@@ -216,7 +216,7 @@ legal nonterminal standard-7x6
 candidate exact literal action-labelled future-behavior coidentity
 ```
 
-Under NEI 0.4 successor semantics, the query context does not declare `q_o` equality “identity-preserving.” The q-congruence theorem constrains the admissible identity-model family. If independently qualified, every admissible orientation-sensitive future-behavior model merges equal-`q_o` states and the derived result is:
+Under qualified NEI 0.4 semantics, the query context does not declare `q_o` equality “identity-preserving.” The q-congruence theorem constrains the admissible identity-model family. If independently qualified, every admissible orientation-sensitive future-behavior model merges equal-`q_o` states and the derived result is:
 
 ```text
 NEI_future_behavior_oriented(s,t) = SAME
