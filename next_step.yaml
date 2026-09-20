@@ -1,9 +1,13 @@
-active_semantic_successors:
+active_semantic_authorities:
   game_theory:
-    status: active_candidate
+    status: qualified_current_game_theory_authority
+    authority: research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md
+    manifest: research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json
+    qualification: research/isograph/qualification/CONNECT4_GAME_THEORY_1_2_QUALIFICATION.md
     root: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md
     native: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg
     machine: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json
+    coverage: research/isograph/successor/CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json
     replaces_active_overlay_composition: true
   isomax_hot_loop:
     status: qualified_performance_research_authority
@@ -19,8 +23,8 @@ active_semantic_successors:
     path: extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md
     status: qualified_authority
   rule: >-
-    New research uses these clean successors directly. Historical NEI/RBA/hot-loop overlays remain evidence and
-    provenance only and must not be composed as parallel active semantic authority.
+    New research uses these qualified authority surfaces directly. Historical authority 1.1 and old
+    NEI/RBA/hot-loop overlays remain evidence/provenance only and must not be composed as parallel active semantics.
 
 current_rba_execution:
   semantic_owner: research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md
