@@ -14,13 +14,18 @@ parentPort.on('message', message => {
   try {
     if (poisoned) throw new Error('IsoMax worker is poisoned');
     if (message?.type !== 'isomax-task') throw new Error('unsupported IsoMax worker message');
+    const localClassesBefore=solver.pool.classCount,localEntriesBefore=solver.transitionCache.count;
     const start = performance.now();
     const result = solver.runTask(message);
+    const executionMs=performance.now()-start;
+    const localClasses=solver.pool.classCount,localEntries=solver.transitionCache.count;
+    const workerReset=localClasses>retainedClasses||localEntries>retainedEntries;
     parentPort.postMessage({type:'result',taskId:message.taskId,jobId:message.jobId,...result,
-      workerId:workerData.workerId,executionMs:performance.now()-start,
-      localClasses:solver.pool.classCount,isolateMemory:process.memoryUsage()});
+      workerId:workerData.workerId,executionMs,
+      localClassesBefore,localEntriesBefore,localClasses,localEntries,workerReset,
+      isolateMemory:process.memoryUsage()});
     // Bound retained per-worker warm state at task boundaries, not recursively.
-    if (solver.pool.classCount > retainedClasses || solver.transitionCache.count > retainedEntries) solver = new IsoMaxTaskSolver();
+    if(workerReset)solver=new IsoMaxTaskSolver();
   } catch (error) {
     poisoned = true;
     parentPort.postMessage({type:'error',taskId:message?.taskId,message:error.message});
