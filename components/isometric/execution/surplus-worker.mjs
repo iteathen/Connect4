@@ -13,6 +13,7 @@ import {
   OCC_RETIRED,
   OCC_ROLE_CONTINUATION,
   OCC_ROLE_SURPLUS,
+  PUB_CONTINUATION_START,
   PUB_EXACT,
   PUB_FAILURE,
   PUB_OCCURRENCE,
@@ -97,16 +98,36 @@ class SurplusDistributor {
   }
 
   solveOccurrenceLocally(solver,state,column,slot,generation) {
+    const ply=state.ply;
     this.worker.counters[WC_LOCAL_RECLAIMS]++;
     this.worker.counters[WC_SURPLUS_LOCAL]++;
+
+    // A visibility-only surplus becomes the current continuation when this
+    // worker reaches it. Announce that transition without creating a task.
+    this.publishBlocking(PUB_CONTINUATION_START,slot,generation,workerIndex);
+
+    let value,remoteResolved=false;
+    this.worker.pushContinuation(ply,slot,generation);
     state.applyUnchecked(column);solver.metrics.recursiveChildren++;
-    let value;
-    try{value=solver.solveNode(state);}
-    finally{state.undo();}
-    // Exact ordinary value is authoritative even when no spare worker was
-    // admitted for this visible opportunity. Reconciliation broadcasts it to
-    // every convergent occurrence and retires any redundant helper work.
-    this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,value,workerIndex);
+    try{
+      value=solver.solveNode(state);
+    }catch(error){
+      if(error===continuationResolved&&this.worker.interruptPly===ply){
+        value=this.worker.interruptValue;
+        remoteResolved=true;
+        this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+      }else throw error;
+    }finally{
+      state.undo();
+      this.worker.popContinuation(ply,slot);
+    }
+
+    if(!remoteResolved){
+      // Exact ordinary value is authoritative even though this q never needed
+      // a new execution reservation. Reconciliation broadcasts it to every
+      // convergent occurrence and retires any redundant helper work.
+      this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,value,workerIndex);
+    }
     return value;
   }
 
