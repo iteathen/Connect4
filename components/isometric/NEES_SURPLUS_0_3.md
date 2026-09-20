@@ -57,13 +57,13 @@ The existing native apply/undo, residual transitions, q cache and move-order ope
 | child-order staging | preallocated per-worker numeric arrays indexed by ply | REQUIRED/TRadeoff; no per-branch array allocation |
 | current continuation | native recursive call on first locally ordered child | REQUIRED corrected semantic model; REMOVES prior global rematerialization |
 | surplus occurrence write | fixed shared numeric fields + legal path bytes | TRADEOFF; global visibility requires portable occurrence, but full replay bytes remain machine-cost debt |
-| occurrence allocation | generation-safe bounded free ring, no growth | CONFORMS M13/M14; contention/free-ring cost remains measurable |
-| occurrence publication | bounded numeric MPMC publication ring | REQUIRED current cross-thread visibility contract; Atomics/cache-line traffic is UNVERIFIED-DEBT |
+| occurrence allocation | generation-safe bounded free ring, no growth | CONFORMS M13/M14; live-domain default is >3x the physical 42×7×workers occurrence bound; contention remains measurable |
+| occurrence publication | bounded numeric MPMC publication ring with scalar reserve/write/commit operations | REQUIRED current cross-thread visibility contract; per-publication callback allocation was REMOVED; Atomics/cache-line traffic remains UNVERIFIED-DEBT |
 | continuation visibility | occurrence record only, not READY execution | REQUIRED for canonical convergence without surrendering local recursion |
-| global work claim | fixed priority-band ring + READY->RUNNING CAS | REQUIRED worker-pull mechanism; contention and stale-ticket cost measurable |
-| helper work slots | generation-safe bounded reusable arena | CONFORMS bounded-lifetime requirement; queue stale records fail generation |
-| helper replay | reusable native worker state with common-prefix undo/apply | TRADEOFF only for remotely stolen surplus; must be compared with useful parallel work |
-| local surplus reclaim | same parent native state, no path replay | REMOVED prior rematerialization cost for un-stolen surplus |
+| global work claim | fixed priority-band ring + READY->RUNNING CAS + post-CAS generation/ticket revalidation | REQUIRED worker-pull mechanism; stale queue records cannot claim a recycled generation |
+| helper work slots | generation-safe bounded reusable arena sized to O(workers), not q capacity | CONFORMS bounded-lifetime requirement; terminal slots recycle only after reconciliation; queue stale records fail generation |
+| helper replay | reusable native worker state with common-prefix undo/apply | TRADEOFF only for remotely stolen surplus; remote exact completion is inserted into the consuming worker's normal exact cache to prevent later local recomputation |
+| local surplus reclaim | same parent native state, no path replay; RUNNING helper gets a short grace then local continuation wins | REMOVED prior rematerialization cost for un-stolen surplus and prevents helper execution from indefinitely stalling the owner |
 | canonical q derive | reconciler reusable native state + exact q triple | REQUIRED exact convergence; manager replay work is material E2 cost |
 | q dictionary | preallocated typed arrays, exact hash locator + full triple equality | REQUIRED; hash-only equality forbidden |
 | q lifetime | live-demand recycle + exact inactive cache eviction under pressure | CONFORMS bounded visibility; linear exact-eviction search is UNVERIFIED-DEBT |
@@ -78,6 +78,7 @@ The existing native apply/undo, residual transitions, q cache and move-order ope
 | worker idle sleep | wake epoch sampled before queue check | REQUIRED lost-wakeup correctness; timeout/wakeup latency measured |
 | worker death recovery | invalidate running attempt and requeue portable helper work | REQUIRED fail-closed lifecycle |
 | timeout/abort delivery | one immediately-handled session failure promise | REQUIRED host lifecycle; outside branch cadence |
+| shared arena defaults | work O(workers), occurrences O(42×7×workers) with explicit headroom; q cache independent/recyclable | REMOVED prior append-only/q-capacity-sized shared-memory over-allocation |
 | result reporting | cold host objects/process memory snapshot after solve | E3/COLD, not precedent for E2 |
 
 ## Removed work versus rejected over-externalized variant
@@ -127,6 +128,12 @@ The reconciler currently scans q indices when helper capacity becomes available.
 
 If manager CPU/reconciliation lag is material, lower this to an incrementally maintained priority-ready index rather than accepting O(q-high-water) scanning.
 
+### Resolved during candidate qualification — per-operation ring callbacks
+
+The initial shared ring helper accepted JS callbacks for payload read/write at every enqueue/dequeue.
+
+That realization has been removed. E2 rings now use scalar reserve -> direct numeric payload access -> commit/release operations, so branch-frequency queue/publication traffic does not construct callback closures.
+
 ### E2-DS-04 — shared-ring contention / false sharing
 
 Typed/shared storage is not automatically fast.
@@ -146,6 +153,8 @@ Layout may need padding/partitioning if cache-line contention is visible.
 A locally running continuation checks canonical exact/retirement state only at the existing amortized control boundary.
 
 This preserves E0 simplicity but may waste up to one control interval of duplicate work.
+
+A separate owner-side liveness rule now prevents a stolen RUNNING helper from becoming an unbounded wait: after a short grace, the owner resumes that child as a local continuation and reconciliation retires the redundant helper. This is forward-progress policy, not a replacement for future quantum tuning.
 
 #94 owns future quantum/yield tuning if measurements justify it.
 
