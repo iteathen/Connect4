@@ -157,6 +157,7 @@ class PullReconciler {
       duplicateRunningRetired:0,
       exactDuplicateCompletions:0,
       workerDeathRequeues:0,
+      demandResurrectionRequeues:0,
       priorityUpdates:0,
       slotReclaims:0,
       qReuses:0,
@@ -582,14 +583,32 @@ class PullReconciler {
     }
     if (this.stageAttempt[slot] === attempt) this.clearStage(slot, true);
     const q = Atomics.load(this.shared.workQ, slot);
+    this.metrics.retiredPublications++;
+
+    // Demand can disappear while RUNNING and reappear through a newly
+    // reconciled occurrence before the retirement publication arrives. The
+    // portable replay is still exact and owned by this slot, so resurrect the
+    // execution reservation instead of failing or inventing semantic state.
+    if (q >= 0 && this.qWork[q] === slot &&
+        !this.qExact[q] && this.qForm[q] === Q_UNEXPANDED &&
+        this.qParentCount[q] > 0 &&
+        Atomics.load(this.shared.control, CTRL_SESSION) === SESSION_RUNNING) {
+      Atomics.store(this.shared.workNeeded, slot, 1);
+      Atomics.store(this.shared.workWorker, slot, -1);
+      Atomics.store(this.shared.workState, slot, WORK_READY);
+      const band = this.desiredPriority(q);
+      this.qPriority[q] = band;
+      Atomics.store(this.shared.workPriority, slot, band);
+      if (!enqueueReady(this.shared, slot, generation, band)) {
+        throw new Error('ISOMAX_PULL_PRIORITY_QUEUE_CAPACITY');
+      }
+      this.metrics.demandResurrectionRequeues++;
+      return;
+    }
+
     if (q >= 0 && this.qWork[q] === slot) this.qWork[q] = -1;
     Atomics.store(this.shared.workState, slot, WORK_DONE);
     this.releaseIfPossible(slot, generation);
-    this.metrics.retiredPublications++;
-    if (q >= 0 && !this.qExact[q] && this.qForm[q] === Q_UNEXPANDED &&
-        this.qParentCount[q] > 0) {
-      throw new Error('needed canonical q retired without replacement');
-    }
   }
 
   handlePublication() {
