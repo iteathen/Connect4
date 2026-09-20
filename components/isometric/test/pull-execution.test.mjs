@@ -1,0 +1,124 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { IsoMaxSolver } from '../solver.mjs';
+import { IsoMaxPullBranchManager } from '../execution/pull-manager.mjs';
+import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+import {
+  WORK_DONE,
+  allocateWorkSlot,
+  claimHighestReady,
+  createSharedWorkPool,
+  markReady,
+  openSharedWorkPool,
+  releaseWorkSlot,
+} from '../execution/shared-work-pool.mjs';
+
+test('shared pull pool claims highest global priority and rejects stale generation tickets', () => {
+  const descriptor = createSharedWorkPool({
+    workCapacity:4,
+    workerCount:1,
+    queueCapacity:8,
+    publicationCapacity:16,
+  });
+  const pool = openSharedWorkPool(descriptor);
+  const alloc = new Int32Array(2), claim = new Int32Array(4), queue = new Int32Array(3);
+
+  const low = allocateWorkSlot(pool, alloc), lowGeneration = alloc[1];
+  assert.ok(low >= 0);
+  assert.equal(markReady(pool, low, lowGeneration, 2), true);
+
+  const high = allocateWorkSlot(pool, alloc), highGeneration = alloc[1];
+  assert.ok(high >= 0);
+  assert.equal(markReady(pool, high, highGeneration, 6), true);
+
+  assert.equal(claimHighestReady(pool, 0, claim, queue), true);
+  assert.equal(claim[0], high);
+  assert.equal(claim[1], highGeneration);
+  assert.equal(claim[3], 6);
+
+  Atomics.store(pool.workState, high, WORK_DONE);
+  assert.equal(releaseWorkSlot(pool, high, highGeneration), true);
+
+  const reused = allocateWorkSlot(pool, alloc), reusedGeneration = alloc[1];
+  assert.equal(reused, high);
+  assert.notEqual(reusedGeneration, highGeneration);
+  assert.equal(markReady(pool, reused, reusedGeneration, 7), true);
+
+  assert.equal(claimHighestReady(pool, 0, claim, queue), true);
+  assert.equal(claim[0], reused);
+  assert.equal(claim[1], reusedGeneration);
+  assert.equal(claim[3], 7);
+});
+
+test('decentralized pull solver matches serial exact WDL and root action at 1/2/4 workers',
+  {timeout:60000}, async () => {
+    const roots = makeCorpus({seed:0x1020c4, ply:34, count:2}).map(entry => entry.moves);
+    for (const moves of roots) {
+      const expected = new IsoMaxSolver().solveMoves(moves);
+      for (const workers of [1, 2, 4]) {
+        const manager = new IsoMaxPullBranchManager({
+          workers,
+          maxTasks:8192,
+          maxEdges:8192 * 7,
+          workCapacity:2048,
+          queueCapacity:4096,
+          publicationCapacity:4096,
+        });
+        try {
+          const actual = await manager.solveMoves(moves, {timeoutMs:15000});
+          assert.equal(actual.value, expected.value, 'WDL mismatch workers=' + workers);
+          assert.equal(actual.move, expected.move, 'root move mismatch workers=' + workers);
+          assert.equal(actual.scheduler.architecture, 'decentralized-pull');
+          assert.ok(actual.metrics.worker.claims > 0);
+          assert.ok(actual.metrics.worker.nativeStateEvaluations > 0);
+          assert.ok(actual.canonicalQ > 0);
+          assert.ok(actual.metrics.worker.claimsByBand.some(value => value > 0));
+        } finally {
+          await manager.close();
+        }
+      }
+    }
+  });
+
+test('decentralized pull solver preserves mirror transport and deterministic first win',
+  {timeout:30000}, async () => {
+    const root = makeCorpus({seed:0x1020c5, ply:32, count:1})[0].moves;
+    const mirror = root.map(column => 6 - column);
+    const manager = new IsoMaxPullBranchManager({
+      workers:2,
+      maxTasks:8192,
+      workCapacity:2048,
+      queueCapacity:4096,
+      publicationCapacity:4096,
+    });
+    try {
+      for (const moves of [root, mirror, [0,1,0,1,0,1]]) {
+        const expected = new IsoMaxSolver().solveMoves(moves);
+        const actual = await manager.solveMoves(moves, {timeoutMs:10000});
+        assert.equal(actual.value, expected.value);
+        assert.equal(actual.move, expected.move);
+      }
+    } finally {
+      await manager.close();
+    }
+  });
+
+test('decentralized pull capacity exhaustion fails closed without manufacturing WDL',
+  {timeout:10000}, async () => {
+    const manager = new IsoMaxPullBranchManager({
+      workers:1,
+      maxTasks:64,
+      maxEdges:448,
+      workCapacity:1,
+      queueCapacity:4,
+      publicationCapacity:16,
+    });
+    try {
+      await assert.rejects(
+        manager.solveMoves([], {timeoutMs:5000}),
+        /CAPACITY|failed|aborted/i,
+      );
+    } finally {
+      await manager.close();
+    }
+  });
