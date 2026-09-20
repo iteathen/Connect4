@@ -15,14 +15,16 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Current semantic authorities
 
-Current qualified Connect4 **game-theory** authority:
+Current qualified Connect4 **game-theory / logic** authority:
 
-- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md`
-- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.isg`
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`
 
-Qualification:
+Qualification and promotion:
 
-- `research/isograph/qualification/CONNECT4_GAME_THEORY_1_2_QUALIFICATION.md`
+- `research/isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_2.md`
+- `docs/decisions/2026-09-19-isograph-logic-authority-1-2.md`
 
 Current qualified IsoMax hot-loop performance-research authority:
 
@@ -43,8 +45,8 @@ Pre-alpha research no longer composes the old NEI/RBA/hot-loop overlay stacks as
 
 For current game-theory research, use the qualified 1.2 authority and its exact promoted package:
 
-- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md`;
-- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`;
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`;
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`;
@@ -56,7 +58,7 @@ For current **qualified** IsoMax hot-loop semantic/performance research, use:
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json`;
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg`.
 
-The game-theory 1.2 package is promoted as current game-theory authority by `CONNECT4_GAME_THEORY_AUTHORITY_1_2.md` and `CONNECT4_GAME_THEORY_1_2_QUALIFICATION.md`. The hot-loop 0.3 package is promoted for current performance-research use and has no gameplay-authority effect.
+The game-theory 1.2 package is promoted as the sole current game-theory/logic authority by `CONNECT4_LOGIC_AUTHORITY_1_2.md` and `FINAL_QUALIFICATION_REVIEW_1_2.md`. The hot-loop 0.3 package is promoted for current performance-research use and has no gameplay-authority effect.
 
 Authority 1.1, the old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain historical provenance/evidence only.
 
@@ -166,7 +168,7 @@ win15 fixed-action interface from known child loss14:
 
 The selected rank26 target is `draw16`. Three of its four legal rank27 `draw15` children remain to be generated and qualified.
 
-The proof/certificate clause-to-value bridge remains a separate OPEN side seam represented directly in the 1.2 game-theory candidate as `QU-GAME-02`. Authority 1.1 remains unchanged until successor promotion.
+The proof/certificate clause-to-value bridge remains a separate OPEN side seam represented directly in authority 1.2 as `QU-GAME-02`. Authority 1.1 remains immutable historical evidence.
 
 ## Historical applied NEI layer — superseded for active interpretation
 
@@ -180,7 +182,7 @@ The old applied NEI overlay remains immutable research/provenance evidence:
 
 Do not use it as a current identity layer. Its profile-declared SAME/DISTINCT framing is replaced in active research by the integrated 1.2 game-theory candidate, where identity conclusions are derived from ordinary facts/evidence/QU under qualified NEI 0.4.
 
-The historical standard-7x6 incomplete result remains correct at its pinned old evidence revision. The later q-congruence proof is represented directly in the 1.2 successor as deductive candidate evidence pending independent qualification; it is not silently rewritten into historical NEI artifacts.
+The historical standard-7x6 incomplete result remains correct at its pinned old evidence revision. The later q_o congruence is now independently qualified in authority 1.2; that later result does not rewrite the historical NEI artifact.
 
 ### Discovery Protocol rerun with NEI
 
@@ -245,7 +247,7 @@ same-q breaker search:
 
 The q-congruence proof shows that equal support + equal normalized P0/P1 residual antichains determines legal actions, immediate terminal results, and every nonterminal successor q; finite induction then determines the entire ordinary future game. An exhaustive abstract antichain/cofactor control passed 32,906 set families / 131,474 cofactor cases.
 
-The historical NEI-C4-0007 result remains `INCOMPLETE_UNQUALIFIED` under its pinned evidence revision. New post-application research now supports candidate `SAME` for standard-7x6 future-behavior identity pending independent qualification and successor authority ingestion.
+The historical NEI-C4-0007 result remains `INCOMPLETE_UNQUALIFIED` under its pinned evidence revision. Authority 1.2 now carries qualified `SAME` for the scoped orientation-sensitive q_o future-behavior identity question.
 
 ## Operational-layer method emergence
 
@@ -322,7 +324,7 @@ This yields exact support-local antichain frontiers for action-score thresholds.
 
 Policy-collapse headroom is large: q/support-policy collapse ranges from 3.646x to 32.671x on the four controls, while transition-closed policy automata collapse only about 1.16x-1.34x. The useful object is therefore a decision/value relation evaluated on current structure, not a smaller q state machine.
 
-This is a derived theorem candidate and implementation lead; authority 1.1 remains unchanged.
+This remains a derived theorem candidate and implementation lead under current authority 1.2.
 
 The standard-7x6 bounded constructive follow-up is now complete through sampled ranks 26-40.
 
@@ -387,7 +389,7 @@ Confirmation boundaries:
 - C4-R0073/R0074 already qualify the predecessor-closed clause carrier;
 - the large residual-shaped projection gap is real, but the recorded 626/192 rank-39 projection objects are **not** legal-q classes because exact cardinality and alternating-history realizability were not enforced.
 
-Frozen authority 1.1 remains unchanged. The claims live in:
+Historical authority 1.1 remains unchanged; current authority 1.2 integrates the claim statuses. The original overlay evidence lives in:
 
 `research/isograph/successor/CONNECT4_POST_1_1_DIRECT_PROPAGATION_OVERLAY_0_1.*`
 
@@ -419,7 +421,7 @@ On 2026-09-17, the canonical research lane was fast-forwarded through `research/
 
 The consolidation changes branch ownership/provenance only. It does not promote research claims, alter theorem dispositions, or make this branch a solver implementation head. Non-research solver/product branches remain outside this cleanup.
 
-Use `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` as the logic entrypoint. `research/canonical/CLAIM_INDEX.json` is now a legacy claim-ID/readability bridge, while `research/provenance/SOURCE_MANIFEST.json` remains source provenance.
+Use `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md` as the logic entrypoint. `research/canonical/CLAIM_INDEX.json` is now a legacy claim-ID/readability bridge, while `research/provenance/SOURCE_MANIFEST.json` remains source provenance.
 
 ## Authority and proof boundary
 
