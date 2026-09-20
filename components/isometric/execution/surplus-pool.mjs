@@ -305,6 +305,17 @@ export function claimHighest(pool, workerIndex, scratch) {
           Atomics.load(pool.workPriority,slot)!==band ||
           Atomics.load(pool.workNeeded,slot)===0 ||
           Atomics.compareExchange(pool.workState,slot,WORK_READY,WORK_RUNNING)!==WORK_READY) continue;
+      // Slot reuse is generation-safe only if identity is rechecked after the
+      // claim CAS. Otherwise an old queue record can race retire/reuse and
+      // transiently claim a new generation whose ticket/band happen to match.
+      if(Atomics.load(pool.workGeneration,slot)!==gen ||
+         Atomics.load(pool.workTicket,slot)!==ticket ||
+         Atomics.load(pool.workPriority,slot)!==band){
+        Atomics.compareExchange(pool.workState,slot,WORK_RUNNING,WORK_READY);
+        Atomics.add(pool.control,CTRL_WORK_WAKE,1);
+        Atomics.notify(pool.control,CTRL_WORK_WAKE);
+        continue;
+      }
       Atomics.store(pool.workWorker,slot,workerIndex);
       const attempt=Atomics.add(pool.workAttempt,slot,1)+1;
       scratch[0]=slot; scratch[1]=gen; scratch[2]=attempt; scratch[3]=band;
@@ -319,6 +330,12 @@ export function claimSpecific(pool, slot, generation, workerIndex, scratch) {
       Atomics.load(pool.workGeneration,slot)!==generation ||
       Atomics.load(pool.workNeeded,slot)===0) return false;
   if (Atomics.compareExchange(pool.workState,slot,WORK_READY,WORK_RUNNING)!==WORK_READY) return false;
+  if(Atomics.load(pool.workGeneration,slot)!==generation){
+    Atomics.compareExchange(pool.workState,slot,WORK_RUNNING,WORK_READY);
+    Atomics.add(pool.control,CTRL_WORK_WAKE,1);
+    Atomics.notify(pool.control,CTRL_WORK_WAKE);
+    return false;
+  }
   Atomics.store(pool.workWorker,slot,workerIndex);
   const attempt=Atomics.add(pool.workAttempt,slot,1)+1;
   scratch[0]=slot; scratch[1]=generation; scratch[2]=attempt;
