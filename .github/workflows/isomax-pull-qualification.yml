@@ -31,9 +31,13 @@ jobs:
       - name: Compare serial, central and decentralized pull solves (late roots)
         env:
           ISOMAX_PULL_SUMMARY_ONLY: "1"
-        run: node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-late.json
+        run: |
+          set -o pipefail
+          node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-late.json
       - name: Compare serial, central and decentralized pull solves (historical hard roots)
         env:
           ISOMAX_PULL_CORPUS: hard
           ISOMAX_PULL_SUMMARY_ONLY: "1"
-        run: node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-hard.json
+        run: |
+          set -o pipefail
+          node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-hard.json
