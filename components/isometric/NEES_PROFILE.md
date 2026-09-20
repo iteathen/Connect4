@@ -1,8 +1,8 @@
 # IsoMax NEES conformance profile
 
-**Status:** governing implementation-performance contract for the IsoMax hot loop on `solver/isometric`  
-**NEES authority:** `iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3`  
-**NEES version:** Draft 0.2  
+**Status:** governing implementation-performance contract for the IsoMax hot loop on `solver/isometric`; Draft 0.3 baseline maximal-effort audit required  
+**NEES authority:** `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c`  
+**NEES version:** Draft 0.3  
 **Runtime profile:** Node.js 26.x / V8 14.6 family; current qualification runtime Node v26.7.0  
 **Gameplay authority effect:** none  
 **Semantic authority:** Connect4 logic authority and C4-0011 remain authoritative for game meaning
@@ -11,9 +11,11 @@ NEES governs **how** the IsoMax hot execution is realized. It does not change Co
 
 ## 0. Conformance scope
 
-The current audited conformance record is:
+The conformance record is:
 
 `components/isometric/NEES_CONFORMANCE.md`
+
+The previous Draft 0.2 audit is inherited evidence. Because Draft 0.3 adds a one-time complete E0-E2 maximal-effort baseline cost audit, the active 0.3 conformance claim is **pending that baseline audit**. The stronger pin is governing immediately; the older audit must not be misreported as proof of 0.3 completion.
 
 The promoted conformance claim covers the **active ordinary native worker profile**. Optional guarded-certificate and RBA synchronous consumers remain valid APIs, but they are not implicitly included in the ordinary-worker E0 claim because they currently use richer proof/boundary representations.
 
@@ -175,7 +177,7 @@ The current hot loop materially implements these NEES methods:
 - M40 — retain optimized Node/V8 builtins unless a narrower method is admitted;
 - M44 — runtime-sensitive realization is tied to a pinned profile.
 
-Method numbering follows NEES Draft 0.2 at the pinned revision. A later NEES revision does not silently alter this profile.
+Method numbering and doctrine follow NEES Draft 0.3 at the pinned revision. Draft 0.3 additionally requires M45 maximal-effort hot-path cost audit and M46 critical-path cycle analysis. A later NEES revision does not silently alter this profile.
 
 ## 7. Known realization-sensitive records
 
@@ -200,6 +202,26 @@ They are not universal Connect-k laws.
 ### Native frontier specialization
 
 Native exact/forced consequences are consumed before recursive move enumeration. Stronger native provenance may bypass proof-facing validation only where the native theorem establishes the exact checked property.
+
+## 7.1. Draft 0.3 maximal-effort baseline obligation
+
+The first Draft 0.3 qualification of this profile MUST establish a durable cost/debt disposition over the complete declared E0-E2 scope, including reasonably visible:
+
+- repeated calls and dispatch;
+- branches and dependency chains;
+- loads/stores and memory traffic;
+- allocation/lifetime/GC;
+- boxing and representation conversion;
+- hashing/probing/scanning;
+- synchronization/coherence;
+- copies/transport;
+- runtime/JIT realization where load-bearing.
+
+Known avoidable work may not disappear because it is small or non-dominant. Cost magnitude controls optimization priority, not whether the item is recorded.
+
+Each item must resolve as REQUIRED, TRADEOFF, UNAVOIDABLE-PROFILE, COSTED-OUT, REMOVED, SUPERSEDED, UNVERIFIED-DEBT, or DEVIATION under NEES 0.3.
+
+After this baseline exists, later coherent PRs inherit it and re-audit only the affected causal neighborhood and invalidated assumptions.
 
 ## 8. Qualification cadence
 

@@ -1,14 +1,27 @@
 # IsoMax NEES conformance audit — active ordinary worker profile
 
-**Status:** conformance record for the promoted IsoMax ordinary worker hot loop  
+**Status:** Draft 0.2 conformance evidence retained; Draft 0.3 maximal-effort baseline audit pending  
 **Solver revision audited:** `solver/isometric@b784c710382a819717889a3c71183ceff6f40f49`  
-**NEES authority:** `iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3` — Draft 0.2  
+**NEES authority:** `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c` — Draft 0.3  
 **Runtime profile:** Node v26.7.0 / Node 26-V8 14.6 family  
 **Semantic authority effect:** none
 
-## 1. Conformance claim
+## 1. Conformance status after the Draft 0.3 pin
 
-The **active ordinary worker hot-loop profile** conforms to the pinned NEES realization contract for its declared execution classes:
+The completed audit below remains valid inherited structural/runtime evidence from the Draft 0.2 qualification.
+
+It is **not by itself a completed Draft 0.3 conformance claim** because Draft 0.3 adds a one-time full E0-E2 maximal-effort cost/debt baseline.
+
+Active governing requirement:
+
+```text
+NEES Draft 0.3
+    -> governing immediately
+    -> full E0-E2 baseline maximal-effort audit required
+    -> only then may current profile be declared fully NEES-EXTREME 0.3 conformant
+```
+
+The inherited Draft 0.2 execution-class evidence was:
 
 ```text
 E0 / NEES-EXTREME
@@ -230,9 +243,28 @@ assess
 -> promote/reject
 ```
 
-## 9. Conformance conclusion
+## 8.1. Draft 0.3 requalification delta
 
-For the currently promoted **ordinary native worker execution profile**:
+Draft 0.3 requires the next conformance pass to inventory the **complete declared E0-E2 scope**, not only the last changed operation.
+
+The baseline must preserve durable disposition of known or suspected machine costs, including small non-dominant candidates.
+
+Existing known leads that must enter that baseline rather than disappear include, at minimum:
+
+- native/frontier transition specialization opportunities already represented by F-002;
+- signed-int32 hash carrier as V8-sensitive retained realization;
+- q/reflection/cache probe and publication cost;
+- residual own/block transition load/store/probe cost;
+- apply/undo history and support update cost;
+- native ordering classification cost;
+- scheduled control polling/Atomics cost;
+- any other reasonably visible E0-E2 calls, branches, loads/stores, conversions, allocation/lifetime, or runtime/JIT machinery found by the baseline audit.
+
+E3 observations such as result-side `process.memoryUsage()`, pre-dispatch `structuredClone`, and current coarse manager object/Promise orchestration remain outside E0-E2 unless their execution cadence changes, but they stay visible as optimization leads rather than being called free.
+
+## 9. Historical Draft 0.2 conclusion and current Draft 0.3 status
+
+The previous Draft 0.2 audit concluded for the promoted ordinary native worker profile:
 
 ```text
 E0 ordinary recursion      CONFORMS NEES-EXTREME
@@ -245,3 +277,5 @@ COLD preparation/report    CONFORMS to its declared cold scope
 Optional certificate/RBA profiles are not claimed as ordinary-worker E0 realizations and may not be promoted into that role without a separate NEES conformance decision.
 
 Issue #102 remains planned. Its future E2 realization must conform before promotion.
+
+**Draft 0.3 current status:** governing pin moved; full maximal-effort E0-E2 baseline audit pending. Do not report full Draft 0.3 NEES-EXTREME conformance until that audit is completed and qualified.

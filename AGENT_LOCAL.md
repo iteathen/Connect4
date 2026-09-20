@@ -235,9 +235,10 @@ Reserve **gate** language for an actually blocking condition. Ordinary benchmark
 
 ## Frontier hot-path specialization
 
-The IsoMax hot loop is governed by NEES Draft 0.2 at
-`iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3`.
+The IsoMax hot loop is governed by NEES Draft 0.3 at
+`iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c`.
 Use `components/isometric/NEES_PROFILE.md` as the repository-local mapping.
+Draft 0.3's first adoption requires a complete declared E0-E2 maximal-effort cost/debt baseline; the prior 0.2 audit is inherited evidence, not completion of that stronger requirement.
 NEES governs realization only; Connect4/IsoGraph/C4-0011 retain semantic authority.
 
 Apply the account-global compute-synergy doctrine aggressively to the quotient-native solver hot path.
