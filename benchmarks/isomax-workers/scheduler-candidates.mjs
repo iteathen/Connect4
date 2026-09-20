@@ -33,7 +33,11 @@ export async function loadManagerCandidate(variant) {
   // exact substitutions on Windows CRLF and Unix LF checkouts.
   let source = fs.readFileSync(managerUrl, 'utf8').replaceAll('\r\n', '\n');
   const sourceHash = createHash('sha256').update(source).digest('hex');
-  if (variant === 'fanin') {
+  if (variant === 'rank-quantum') {
+    // Bounded rank-only control, no root reconstruction or feature allocation.
+    source = replaceOnce(source, 'nodeBudget:this.taskNodes,abort:abortBuffer',
+      'nodeBudget:node.moves.length<26?Math.max(1,Math.floor(this.taskNodes/2)):this.taskNodes,abort:abortBuffer');
+  } else if (variant === 'fanin') {
     // Rank admission, not merely submit(priority): with W outstanding the
     // executor often immediately dispatches and has no competing queue item.
     source = replaceOnce(source, 'for(const node of supply.leaves){',
@@ -61,7 +65,7 @@ export async function loadManagerCandidate(variant) {
       `const observation={tasks:[],ready:[],forced:[],firstReadyAt:new Map()};
     const outstandingLimit=this.workerCount+this.readyReserve;`);
     source = replaceOnce(source, 'parents:new Set(),pending:false,needed:null,directMove:undefined',
-      'parents:new Set(),pending:false,needed:null,directMove:undefined,support:state.supportCode');
+      'parents:new Set(),pending:false,needed:null,directMove:undefined,support:Math.min(state.supportCode,state.reflectedSupportCode())');
     source = replaceOnce(source, 'metrics.readySamples++;', `
           const fibers=new Map();let multiParent=0,maxParents=0;
           for(const n of supply.leaves){fibers.set(n.support,(fibers.get(n.support)??0)+1);
@@ -73,7 +77,7 @@ export async function loadManagerCandidate(variant) {
     source = replaceOnce(source, 'const submit=node=>{', `const submit=node=>{
       const inspected=solver.createState(node.moves);let branches=0;
       for(let c=0;c<7;c++)branches+=Number(inspected.canPlay(c));
-      const feature={jobId:node.id,rank:inspected.ply,support:inspected.supportCode,branches,
+      const feature={jobId:node.id,rank:inspected.ply,support:Math.min(inspected.supportCode,inspected.reflectedSupportCode()),branches,
         parents:node.parents.size,ownWidth:inspected.pool.termIds(inspected.sideToMove?inspected.p1Class:inspected.p0Class).length,
         opponentWidth:inspected.pool.termIds(inspected.sideToMove?inspected.p0Class:inspected.p1Class).length};
       let chain=0,code=deriveNativeFrontierConsequence(inspected);

@@ -574,3 +574,12 @@ Rank3 confirmation on four workers: all five paired times improve, median
 96-root quiet corpus (ranks 18/20/24/28) and two workers, retaining identical
 30s/root, 120s/process limits. This avoids choosing policy from three expensive
 roots alone. Source substitution remains qualification-only.
+
+Survey review found its fiber key used raw support rather than the support-first
+q orbit's canonical support. That can undercount mirrored fibers. Correct both
+ready and task feature grouping to `min(support, reflectedSupport)` and supersede
+the earlier density numbers before deciding #92/#93. No production identity
+changed. Also admit a separate #94 rank-only bounded-quantum control: below rank
+26 halve the existing quantum; elsewhere retain it. This does not increase
+resource limits or add feature extraction to recursion. Compare independently,
+not stacked with rank3. Historical global-32K rejection remains evidence.
