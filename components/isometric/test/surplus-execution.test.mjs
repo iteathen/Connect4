@@ -68,7 +68,11 @@ test('one-worker surplus profile preserves one native continuation across publis
 
 test('surplus helpers steal alternatives while the current worker keeps local recursion',
   {timeout:45000}, async () => {
-    const fixtures=[branchyFixture(0x1025b,36)];
+    // Historical expensive root: long enough that the idle helper has a real
+    // opportunity to claim published surplus while the primary continuation
+    // remains inside native recursion.
+    const moves=Array.from('717657616532237625',character=>Number(character)-1);
+    const expected=new IsoMaxSolver().solveMoves(moves);
     let claims=0,branches=0;
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:131072,workCapacity:131072,occurrenceCapacity:262144,
@@ -76,15 +80,15 @@ test('surplus helpers steal alternatives while the current worker keeps local re
       workerClassReserve:262144,workerEntryReserve:524288,
     });
     try{
-      for(const {moves,expected} of fixtures){
-        const actual=await manager.solveMoves(moves,{timeoutMs:10000});
-        assert.equal(actual.value,expected.value);
-        assert.equal(actual.move,expected.move);
-        claims+=actual.metrics.worker.workClaims;
-        branches+=actual.metrics.worker.branches;
-      }
+      const actual=await manager.solveMoves(moves,{timeoutMs:15000});
+      assert.equal(actual.value,expected.value);
+      assert.equal(actual.move,expected.move);
+      claims+=actual.metrics.worker.workClaims;
+      branches+=actual.metrics.worker.branches;
       assert.ok(branches>0,'corrected profile must expose genuine branch opportunities');
       assert.ok(claims>=2,'an available helper must claim globally exposed surplus work');
+      assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
+        'helper stealing must not imply full-root replay at every branch');
     }finally{await manager.close();}
   });
 
