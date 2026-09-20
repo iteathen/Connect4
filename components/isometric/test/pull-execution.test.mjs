@@ -172,7 +172,9 @@ test('decentralized pull capacity exhaustion fails closed without manufacturing 
       maxTasks:64,
       maxEdges:448,
       workCapacity:1,
+      executionLimit:1,
       queueCapacity:4,
+      occurrenceCapacity:1,
       publicationCapacity:16,
     });
     try {
