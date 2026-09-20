@@ -62,6 +62,61 @@ The dense mover transform and direct slot-local blocker transform are the active
 
 The current packed WSL implementation is deliberately specialized to accepted standard 7x6 geometry. Broader board-family structural theorems remain research authority where stated, but this implementation does not claim a generic W x H packed vocabulary yet.
 
+## NEES extreme-performance realization contract
+
+The IsoMax **hot loop MUST conform to the Node Extreme Execution Standard (NEES)** under the repository-owned profile:
+
+`components/isometric/NEES_PROFILE.md`
+
+Current pinned NEES authority:
+
+`iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3` — Draft 0.2.
+
+NEES is a realization/performance authority only. It does not redefine Connect4 gameplay semantics, q identity, W/D/L orientation, first-win stopping, certificate/proof identity, or the qualified structural claims consumed by C4-0011.
+
+The required frequency mapping is:
+
+```text
+E0 / NEES-EXTREME
+    IsoMaxSolver.solveNode recursive ordinary-value kernel
+
+E1 / NEES-EXTREME
+    native frontier classification
+    prepared q/cache probe and publication
+    residual own/block transition
+    applyUnchecked / undo
+    qualified native ordering operations
+
+E2 / NEES-EXTREME where implemented at hot cadence
+    scheduled task-control polling
+    future decision-frontier exposure / work claim / hot reconciliation
+
+E3
+    task admission and preparation
+    continuation packaging
+    worker message/result transport
+    current Branch Manager task lifecycle
+
+COLD
+    worker startup/termination
+    capacity growth/widening/rehash preparation
+    rich diagnostics/report formatting
+```
+
+An operation's class follows its execution frequency, not the file/process that hosts it. A future manager or scheduler operation that becomes branch/claim/reconciliation-frequency work must be lowered to the applicable NEES class rather than grandfathered as "manager code".
+
+Project-local E0/E1 rules may be stricter than generic NEES where the qualified IsoMax domain permits it. In particular, ordinary recursive execution remains scalar/indexed over prepared sealed storage, with no per-node manager RPC, queue scan, string identity, structured clone, Promise orchestration, reporting, storage growth, or hash-only equality.
+
+NEES adoption also requires preserving stronger upstream facts. When native frontier classification proves a stronger precondition than a generic proof-facing API requires, a scoped trusted specialization may consume that fact directly while the public/certificate path remains checked.
+
+### Qualification cadence
+
+The coherent implementation PR/change set is the default qualification unit.
+
+Do not interrupt each optimized line or helper with the full test suite, benchmark matrix, profiling pass, or generated-code inspection. During implementation, use inherited qualified evidence and targeted checks only where their result can change the next design decision or protect a prerequisite invariant.
+
+Before promotion, run the applicable exact correctness controls, NEES conformance review, structural detectors, runtime/JIT checks for load-bearing engine claims, and paired performance qualification required by the completed change.
+
 ## Identity and authority separation
 
 IsoMax must not force structural grouping, behavioral identity, representation identity, and proof reuse to use one key.
