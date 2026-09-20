@@ -364,35 +364,90 @@ class SurplusReconciler {
     }
   }
 
+  unlinkOccurrence(q,slot){
+    if(q<0||q>=this.qCount)return false;
+    let previous=-1,current=this.qOccHead[q];
+    while(current!==-1){
+      if(current===slot){
+        const next=this.occNext[current];
+        if(previous<0)this.qOccHead[q]=next;
+        else this.occNext[previous]=next;
+        this.occNext[current]=-1;
+        this.occQ[current]=-1;
+        return true;
+      }
+      previous=current;
+      current=this.occNext[current];
+    }
+    return false;
+  }
+
+  clearLeaderReferences(q,leader){
+    for(let occ=this.qOccHead[q];occ!==-1;occ=this.occNext[occ]){
+      if(occ===leader||Atomics.load(this.shared.occNeeded,occ)===0)continue;
+      if(Atomics.load(this.shared.occLeader,occ)!==leader)continue;
+      Atomics.store(this.shared.occLeader,occ,-1);
+      // Followers may be sleeping on their own LINKED state while observing
+      // the leader. Wake them so they can re-evaluate local/remote execution.
+      Atomics.notify(this.shared.occState,occ,Infinity);
+    }
+  }
+
   retireOccurrence(slot,generation){
     if(slot<0||slot>=this.shared.occurrenceCapacity ||
        Atomics.load(this.shared.occGeneration,slot)!==generation)return;
     if(Atomics.exchange(this.shared.occNeeded,slot,0)===0)return;
-    const q=this.occQ[slot];Atomics.store(this.shared.occState,slot,OCC_RETIRED);
-    Atomics.notify(this.shared.occState,slot,Infinity);this.metrics.occRetired++;
-    if(q<0||q>=this.qCount)return;
+
+    const q=this.occQ[slot];
+    Atomics.store(this.shared.occState,slot,OCC_RETIRED);
+    Atomics.notify(this.shared.occState,slot,Infinity);
+    this.metrics.occRetired++;
+
+    if(q<0||q>=this.qCount){
+      releaseOccurrence(this.shared,slot,generation);
+      return;
+    }
 
     const wasContinuation=this.qRunningOcc[q]===slot;
-    if(wasContinuation)this.qRunningOcc[q]=-1;
-    if(this.qDemand[q]>0)this.qDemand[q]--;
-    if(this.qExact[q])return;
-
     if(wasContinuation){
-      // Surplus demand may now need spare-worker admission because the native
-      // continuation disappeared without exact completion.
-      this.refillExecution();
+      this.qRunningOcc[q]=-1;
+      this.clearLeaderReferences(q,slot);
     }
-    if(this.qDemand[q]!==0)return;
+    if(this.qDemand[q]>0)this.qDemand[q]--;
 
-    const work=this.qWork[q];if(work<0)return;
-    const state=Atomics.load(this.shared.workState,work);
-    if(state===WORK_READY){
-      Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
-      Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
-      if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;this.refillExecution();
-    }else if(state===WORK_RUNNING){
-      Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
+    // Remove the manager-local adjacency before the shared slot can be reused
+    // under a new generation. q identity never aliases a recycled occurrence.
+    this.unlinkOccurrence(q,slot);
+
+    if(!this.qExact[q]){
+      if(wasContinuation){
+        // Surplus demand may now need spare-worker admission because the native
+        // continuation disappeared without exact completion.
+        this.refillExecution();
+      }
+
+      if(this.qDemand[q]===0){
+        const work=this.qWork[q];
+        if(work>=0){
+          const state=Atomics.load(this.shared.workState,work);
+          if(state===WORK_READY){
+            Atomics.store(this.shared.workNeeded,work,0);
+            Atomics.store(this.shared.workState,work,WORK_RETIRED);
+            Atomics.notify(this.shared.workState,work,Infinity);
+            this.qWork[q]=-1;
+            if(this.activeWorkCount>0)this.activeWorkCount--;
+            this.metrics.readyRetired++;
+            this.refillExecution();
+          }else if(state===WORK_RUNNING){
+            Atomics.store(this.shared.workNeeded,work,0);
+            this.metrics.runningRetireSignals++;
+          }
+        }
+      }
     }
+
+    if(!releaseOccurrence(this.shared,slot,generation))
+      throw new Error('failed to recycle retired surplus occurrence');
   }
 
   acceptWorkRetired(work,generation,attempt){
