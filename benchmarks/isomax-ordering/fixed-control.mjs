@@ -5,6 +5,22 @@ import fs from 'node:fs';
 export async function loadFixedControlSolver() {
   const url = new URL('../../components/isometric/solver.mjs', import.meta.url);
   let source = fs.readFileSync(url, 'utf8').replaceAll('\r\n', '\n');
+  const distributionHook = `    // Corrected #102 boundary: a distributed worker may expose surplus branch
+    // opportunities here while preserving one current continuation in native
+    // recursion. Canonical q is reconciliation identity, not a mandatory task
+    // boundary. The ordinary production profile keeps branchDistributor null.
+    if (this.branchDistributor !== null) {
+      best = this.branchDistributor.solveChildren(
+        this, state, maximizing, lower, upper, promoted,
+      );
+      this.assertNoWinBounds(best, p0NoWin, p1NoWin);
+      this.storeExact(key0, key1, support, hash, best);
+      return best;
+    }
+
+`;
+  if (source.split(distributionHook).length !== 2) throw new Error('solver distribution seam changed; review fixed control');
+  source = source.replace(distributionHook, '');
   const ordered = `    const promoted = state.ply > this.orderingRootPly ? promotedColumn(state) : -1;
     if (promoted >= 0) this.metrics.orderingPromotions++;
     for (let orderIndex = promoted >= 0 ? -1 : 0; orderIndex < MOVE_ORDER.length; orderIndex++) {
