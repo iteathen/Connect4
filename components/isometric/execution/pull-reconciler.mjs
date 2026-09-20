@@ -175,7 +175,10 @@ class PullReconciler {
     const fullLength = Atomics.load(this.shared.workPathLength, slot);
     const length = fullLength - trim;
     if (length < this.rootPly || fullLength < 0 || fullLength > MAX_MOVES) {
-      throw new Error('invalid published pull replay length');
+      throw new Error('invalid published pull replay length: slot=' + slot +
+        ' full=' + fullLength + ' trim=' + trim + ' root=' + this.rootPly +
+        ' state=' + Atomics.load(this.shared.workState, slot) +
+        ' generation=' + Atomics.load(this.shared.workGeneration, slot));
     }
     const base = slot * MAX_MOVES;
     for (let ply = 0; ply < this.rootPly; ply++) {
@@ -283,6 +286,10 @@ class PullReconciler {
       return true;
     }
     if (state === WORK_FREE) return true;
+    // A worker writes DONE before its terminal publication becomes visible.
+    // Until EXACT/FRONTIER_END/RETIRED is reconciled, the slot still owns the
+    // replay bytes referenced by that in-flight record and cannot be recycled.
+    if (state === WORK_DONE) return true;
     if (state === WORK_READY && duplicate) this.metrics.duplicateReadyCollapsed++;
     Atomics.store(this.shared.workState, slot, WORK_DONE);
     this.releaseIfPossible(slot, generation);
