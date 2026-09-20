@@ -16,6 +16,43 @@ permissions:
   contents: read
 
 jobs:
+  q-fixture-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Probe reflected fixture prefixes
+        run: |
+          node --input-type=module <<'NODE'
+          import { IsoMaxSolver } from './components/isometric/solver.mjs';
+          import { nativeFrontierCode } from './components/isometric/frontier.mjs';
+
+          const full=[
+            0,1,6,5, 0,1,6,5, 0,1,6,5,
+            1,2,5,4, 1,2,5,4, 1,2,5,4,
+            2,0,4,6, 2,0,4,6,
+          ];
+          for (const n of [8,12,16,20,24,28,32]) {
+            const moves=full.slice(0,n);
+            const solver=new IsoMaxSolver(),state=solver.createState(moves);
+            let same=false,left=null,right=null;
+            if(!state.isTerminal()&&state.canPlay(0)&&state.canPlay(6)){
+              state.applyUnchecked(0);left=Array.from(state.gameplayKey());state.undo();
+              state.applyUnchecked(6);right=Array.from(state.gameplayKey());state.undo();
+              same=JSON.stringify(left)===JSON.stringify(right);
+            }
+            console.log(JSON.stringify({
+              n,terminal:state.isTerminal(),can0:state.canPlay(0),can6:state.canPlay(6),
+              native:nativeFrontierCode(state),same,
+            }));
+          }
+          NODE
+
   q-convergence:
     runs-on: ubuntu-24.04
     timeout-minutes: 3
