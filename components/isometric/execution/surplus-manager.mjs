@@ -115,7 +115,10 @@ export class IsoMaxSurplusBranchManager {
   }
   #abort(error){
     const s=this.session;if(!s)return;
-    s.failure??=error;
+    if(s.failure===null){
+      s.failure=error;
+      s.rejectFailure?.(error);
+    }
     Atomics.store(s.shared.control,CTRL_ABORT,1);stopSurplusPool(s.shared);this.#wake(s.shared);
   }
 
@@ -140,12 +143,18 @@ export class IsoMaxSurplusBranchManager {
     const shared=openSurplusPool(descriptor);
     for(let id=0;id<this.workerCount;id++)Atomics.store(shared.workerAlive,id,this.workers[id]?1:0);
 
-    let resultMessage=null,resultReadyAt=null,resolveReady,rejectReady,resolveResult,rejectResult,resolveDone;
-    const ready=new Promise((res,rej)=>{resolveReady=res;rejectReady=rej;});
-    const result=new Promise((res,rej)=>{resolveResult=res;rejectResult=rej;});
+    let resultMessage=null,resultReadyAt=null,resolveReady,resolveResult,resolveDone,rejectFailure;
+    const ready=new Promise(res=>{resolveReady=res;});
+    const result=new Promise(res=>{resolveResult=res;});
     const workersDone=new Promise(res=>{resolveDone=res;});
+    const failure=new Promise((_,rej)=>{rejectFailure=rej;});
+    // Failure can happen before the sequential solve flow reaches its next
+    // await (for example a 1 ms timeout before reconciler readiness). Attach a
+    // handler immediately so Node never observes a transient unhandled
+    // rejection; Promise.race below still propagates the same failure.
+    void failure.catch(()=>{});
     const session={
-      shared,done:new Uint8Array(this.workerCount),failure:null,
+      shared,done:new Uint8Array(this.workerCount),failure:null,rejectFailure,
       counters:Array.from({length:this.workerCount},()=>new Int32Array(WC_WORDS)),
       localClasses:new Int32Array(this.workerCount),localEntries:new Int32Array(this.workerCount),
       checkDone:()=>{for(let i=0;i<this.workerCount;i++)if(!session.done[i])return;resolveDone();},
@@ -162,10 +171,11 @@ export class IsoMaxSurplusBranchManager {
       }
       if(m?.type==='surplus-reconciler-error'){
         const e=session.failure??new Error(m.message??'surplus reconciliation failed');
-        if(m.snapshot)this.lastStats=m.snapshot;rejectReady(e);rejectResult(e);
+        if(m.snapshot)this.lastStats=m.snapshot;
+        this.#abort(e);
       }
     };
-    const onRecError=e=>{this.#abort(e);rejectReady(e);rejectResult(e);};
+    const onRecError=e=>{this.#abort(e);};
     this.reconciler.on('message',onRec);this.reconciler.on('error',onRecError);
 
     const listeners=[];
@@ -198,7 +208,7 @@ export class IsoMaxSurplusBranchManager {
       this.reconciler.postMessage({
         type:'isomax-surplus-reconcile',pool:descriptor,moves:[...moves],maxQ:this.maxQ,progressIntervalMs,
       });
-      await ready;if(session.failure)throw session.failure;
+      await Promise.race([ready,failure]);
       for(let id=0;id<this.workerCount;id++){
         if(!this.workers[id]){this.#markDead(id);continue;}
         this.workers[id].postMessage({
@@ -206,7 +216,7 @@ export class IsoMaxSurplusBranchManager {
           classCapacity:this.workerClassReserve,entryCapacity:this.workerEntryReserve,
         });
       }
-      const message=await result;
+      const message=await Promise.race([result,failure]);
       // Result-ready and cleanup remain distinct timing concepts, but metrics
       // are authoritative only after every live worker has left the shared
       // session and published its counters.
