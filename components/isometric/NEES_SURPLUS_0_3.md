@@ -199,8 +199,21 @@ Report separately at 1/2/4 workers:
 - worker helper replay apply count;
 - duplicate running continuations;
 - exact broadcasts;
+- retirement waste in abandoned recursive nodes;
 - priority claims by band;
-- RSS;
+- RSS plus fixed shared-storage capacity and retained worker state counts;
 - timeouts/failures without fabricated WDL.
+
+### Qualification counter semantics
+
+For this candidate, `surplusRemote` counts actual non-root canonical helper claims. It does not count
+mere observation or waiting on another continuation. `helperWaits` records those waits separately,
+and `occurrenceExactConsumed` records exact canonical values consumed by native recursion.
+
+`retirementWasteNodes` counts recursive nodes whose result is abandoned because a continuation is
+resolved/superseded or a claimed execution reservation is retired/stopped. Nested continuation
+interruptions subtract already-accounted waste so the same recursive nodes are not counted twice.
+Replay work is reported separately: `pathReplayApplies` is total claim replay and
+`helperReplayApplies` is the non-root helper subset. No per-node reporting/RPC is introduced.
 
 Historical hard roots and late roots are both required before promotion.

@@ -24,6 +24,22 @@ function sum(records, getter) {
   for (const record of records) value += getter(record) ?? 0;
   return value;
 }
+function sumVectors(records,getter) {
+  const out=[];
+  for(const record of records){
+    const values=getter(record)??[];
+    for(let i=0;i<values.length;i++)out[i]=(out[i]??0)+(values[i]??0);
+  }
+  return out;
+}
+function maxVector(records,getter) {
+  let maximum=0;
+  for(const record of records){
+    const values=getter(record)??[];
+    for(let i=0;i<values.length;i++)if((values[i]??0)>maximum)maximum=values[i];
+  }
+  return maximum;
+}
 function aggregate(records, profile) {
   const summary={
     totalMs:sum(records,r=>r.elapsedMs),
@@ -31,6 +47,8 @@ function aggregate(records, profile) {
     cleanupMs:sum(records,r=>r.cleanupMs),
     maxRssBytes:Math.max(...records.map(r=>r.maxRssBytes??0)),
     failed:records.some(r=>r.failed),
+    failureCount:records.filter(r=>r.failed).length,
+    timeoutCount:records.filter(r=>r.failed&&/TIMEOUT/.test(r.error??'')).length,
     values:records.map(r=>[r.sequence,r.failed?'FAILED':r.value,r.failed?r.error:r.move]),
   };
   if(profile==='central'){
@@ -53,16 +71,21 @@ function aggregate(records, profile) {
       branches:sum(records,r=>r.metrics?.worker?.branches),
       localPrimary:sum(records,r=>r.metrics?.worker?.localPrimary),
       surplusLocal:sum(records,r=>r.metrics?.worker?.surplusLocal),
-      surplusRemote:sum(records,r=>r.metrics?.worker?.surplusRemote),
+      surplusRemoteClaims:sum(records,r=>r.metrics?.worker?.surplusRemote),
       helperWaits:sum(records,r=>r.metrics?.worker?.helperWaits),
+      helperReplayApplies:sum(records,r=>r.metrics?.worker?.helperReplayApplies),
       occurrencesPublished:sum(records,r=>r.metrics?.worker?.occurrencesPublished),
       occurrenceExactConsumed:sum(records,r=>r.metrics?.worker?.occurrenceExactConsumed),
+      occurrenceRetires:sum(records,r=>r.metrics?.worker?.occurrenceRetires),
+      retirementWasteNodes:sum(records,r=>r.metrics?.worker?.retirementWasteNodes),
       pathReplayApplies:sum(records,r=>r.metrics?.worker?.pathReplayApplies),
       controlChecks:sum(records,r=>r.metrics?.worker?.controlChecks),
       continuationYields:sum(records,r=>r.metrics?.worker?.continuationYields),
       remoteCacheTransitions:sum(records,r=>r.metrics?.worker?.remoteCacheTransitions),
-      canonicalQMax:Math.max(...records.map(r=>r.metrics?.maxActiveCanonicalQ??0)),
-      qHighWaterMax:Math.max(...records.map(r=>r.qHighWater??r.metrics?.qHighWater??0)),
+      activeCanonicalQHighWater:Math.max(...records.map(r=>r.metrics?.maxActiveCanonicalQ??0)),
+      qIndexHighWater:Math.max(...records.map(r=>r.metrics?.qHighWater??0)),
+      workSlotHighWater:Math.max(...records.map(r=>r.metrics?.maxWork??0)),
+      occurrenceHighWater:Math.max(...records.map(r=>r.metrics?.maxOccurrences??0)),
       qReuses:sum(records,r=>r.metrics?.qReuses),
       qReclaims:sum(records,r=>r.metrics?.qReclaims),
       exactQEvictions:sum(records,r=>r.metrics?.exactQEvictions),
@@ -71,13 +94,25 @@ function aggregate(records, profile) {
       duplicateOccurrences:sum(records,r=>r.metrics?.duplicateOccurrences),
       duplicateRunningContinuations:sum(records,r=>r.metrics?.duplicateRunningContinuations),
       exactBroadcasts:sum(records,r=>r.metrics?.exactBroadcasts),
+      readyRetired:sum(records,r=>r.metrics?.readyRetired),
+      runningRetireSignals:sum(records,r=>r.metrics?.runningRetireSignals),
       managerReplayApplies:sum(records,r=>r.metrics?.managerReplayApplies),
       managerReplayUndos:sum(records,r=>r.metrics?.managerReplayUndos),
+      claimsByBand:sumVectors(records,r=>r.metrics?.worker?.claimsByBand),
       maxActiveWork:Math.max(...records.map(r=>r.metrics?.maxActiveWork??0)),
-      maxOccurrences:Math.max(...records.map(r=>r.metrics?.maxOccurrences??0)),
+      maxWorkerClasses:maxVector(records,r=>r.metrics?.worker?.localClasses),
+      maxWorkerEntries:maxVector(records,r=>r.metrics?.worker?.localEntries),
+      sharedBytes:Math.max(...records.map(r=>r.scheduler?.storage?.sharedBytes??0)),
+      storage:records.find(r=>r.scheduler?.storage)?.scheduler.storage??null,
     };
   } else {
-    summary.serial={calls:sum(records,r=>r.metrics?.nodes)};
+    summary.serial={
+      calls:sum(records,r=>r.metrics?.nodes),
+      expandedEntries:sum(records,r=>(r.metrics?.nodes??0)-(r.metrics?.transitionCacheHits??0)-
+        (r.metrics?.nativeExactHits??0)),
+      transitionAttempts:sum(records,r=>(r.metrics?.recursiveChildren??0)+(r.metrics?.forcedTransitions??0)),
+      transitionCacheStores:sum(records,r=>r.metrics?.transitionCacheStores),
+    };
   }
   return summary;
 }
@@ -110,7 +145,8 @@ async function runChild(variant) {
           elapsedMs:performance.now()-started,
           resultReadyMs:solved.resultReadyMs??solved.elapsedMs??(performance.now()-started),
           cleanupMs:solved.cleanupMs??0,
-          qHighWater:solved.qHighWater??null,
+          qHighWater:solved.metrics?.qHighWater??null,
+          scheduler:solved.scheduler??null,
           maxRssBytes:process.resourceUsage().maxRSS*1024,failed:false,
         });
       } catch (error) {

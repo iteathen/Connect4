@@ -181,7 +181,8 @@ test('one-worker surplus profile preserves one native continuation across publis
       assert.ok(worker.branches>0,'fixture must exercise genuine branches');
       assert.ok(worker.occurrencesPublished>0,'surplus alternatives must become globally visible');
       assert.ok(worker.localReclaims>0,'single worker must reclaim un-stolen surplus locally');
-      assert.equal(worker.surplusRemote,0,'single worker cannot turn its own surplus into remote dependencies');
+      assert.equal(worker.surplusRemote,0,'single worker cannot claim a remote surplus helper');
+      assert.equal(worker.helperReplayApplies,0,'single worker must not replay helper work');
       assert.equal(worker.helperWaits,0,'single worker must not wait for a helper');
       assert.equal(worker.workClaims,1,
         'branching must not force the single worker to end its current continuation and claim new roots');
@@ -218,6 +219,10 @@ test('surplus helpers steal alternatives while the current worker keeps local re
       assert.ok(claims>=2,
         'an available helper must claim globally exposed surplus work; worker='+
         JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
+      assert.ok(actual.metrics.worker.surplusRemote>0,
+        'a non-root surplus opportunity must be claimed as helper work');
+      assert.ok(actual.metrics.worker.helperReplayApplies>0,
+        'remote helper execution must report its physical replay cost');
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,

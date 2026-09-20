@@ -508,7 +508,10 @@ class SurplusReconciler {
     this.recycleWork(work,generation);
     this.refillExecution();
     if(q===this.rootQ){
-      parentPort.postMessage({type:'surplus-result',value,move:rootMove,metrics:{...this.metrics}});
+      parentPort.postMessage({
+        type:'surplus-result',value,move:rootMove,
+        metrics:{...this.metrics,qHighWater:this.qCount},
+      });
       stopSurplusPool(this.shared);
     }
   }

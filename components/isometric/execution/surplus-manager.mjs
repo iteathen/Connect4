@@ -12,12 +12,14 @@ import {
   WC_CONTROL_CHECKS,
   WC_CONTINUATION_YIELDS,
   WC_HELPER_WAITS,
+  WC_HELPER_REPLAY_APPLIES,
   WC_LOCAL_PRIMARY,
   WC_LOCAL_RECLAIMS,
   WC_OCC_EXACT_CONSUMED,
   WC_OCC_PUBLISHED,
   WC_PATH_REPLAY_APPLIES,
   WC_RETIRE_OCC,
+  WC_RETIREMENT_WASTE_NODES,
   WC_REMOTE_CACHE_TRANSITIONS,
   WC_SOLVER_CACHE_HITS,
   WC_SOLVER_CACHE_STORES,
@@ -161,6 +163,9 @@ export class IsoMaxSurplusBranchManager {
       publicationCapacity:this.publicationCapacity,
     });
     const shared=openSurplusPool(descriptor);
+    let sharedBytes=0;
+    for(const value of Object.values(descriptor))
+      if(value instanceof SharedArrayBuffer)sharedBytes+=value.byteLength;
     for(let id=0;id<this.workerCount;id++)Atomics.store(shared.workerAlive,id,this.workers[id]?1:0);
 
     let resultMessage=null,resultReadyAt=null,resolveReady,resolveResult,resolveDone,rejectFailure;
@@ -250,6 +255,7 @@ export class IsoMaxSurplusBranchManager {
         workClaims:aggregate[WC_WORK_CLAIMS],
         localReclaims:aggregate[WC_LOCAL_RECLAIMS],
         helperWaits:aggregate[WC_HELPER_WAITS],
+        helperReplayApplies:aggregate[WC_HELPER_REPLAY_APPLIES],
         occurrencesPublished:aggregate[WC_OCC_PUBLISHED],
         occurrenceExactConsumed:aggregate[WC_OCC_EXACT_CONSUMED],
         branches:aggregate[WC_BRANCHES],
@@ -257,6 +263,7 @@ export class IsoMaxSurplusBranchManager {
         surplusLocal:aggregate[WC_SURPLUS_LOCAL],
         surplusRemote:aggregate[WC_SURPLUS_REMOTE],
         occurrenceRetires:aggregate[WC_RETIRE_OCC],
+        retirementWasteNodes:aggregate[WC_RETIREMENT_WASTE_NODES],
         pathReplayApplies:aggregate[WC_PATH_REPLAY_APPLIES],
         controlChecks:aggregate[WC_CONTROL_CHECKS],
         continuationYields:aggregate[WC_CONTINUATION_YIELDS],
@@ -277,7 +284,14 @@ export class IsoMaxSurplusBranchManager {
       const out={
         value:message.value,move:message.move<0?null:message.move,
         elapsedMs,resultReadyMs,cleanupMs:Math.max(0,elapsedMs-resultReadyMs),
-        scheduler:{architecture:'surplus-opportunity-pull',workers:this.workerCount,helperGraceMs:this.helperGraceMs},
+        scheduler:{
+          architecture:'surplus-opportunity-pull',workers:this.workerCount,helperGraceMs:this.helperGraceMs,
+          storage:{
+            sharedBytes,maxQ:this.maxQ,workSlots:this.workCapacity,occurrenceSlots:this.occurrenceCapacity,
+            queueRecords:this.queueCapacity,publicationRecords:this.publicationCapacity,
+            workerClassReserve:this.workerClassReserve,workerEntryReserve:this.workerEntryReserve,
+          },
+        },
         metrics:{...(message.metrics??{}),worker:workerMetrics},
         memory:process.memoryUsage(),
         cleanup:'surplus pool stopped; workers retained',

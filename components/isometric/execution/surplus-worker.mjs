@@ -27,12 +27,14 @@ import {
   WC_CONTROL_CHECKS,
   WC_CONTINUATION_YIELDS,
   WC_HELPER_WAITS,
+  WC_HELPER_REPLAY_APPLIES,
   WC_LOCAL_PRIMARY,
   WC_LOCAL_RECLAIMS,
   WC_OCC_EXACT_CONSUMED,
   WC_OCC_PUBLISHED,
   WC_PATH_REPLAY_APPLIES,
   WC_RETIRE_OCC,
+  WC_RETIREMENT_WASTE_NODES,
   WC_REMOTE_CACHE_TRANSITIONS,
   WC_SOLVER_CACHE_HITS,
   WC_SOLVER_CACHE_STORES,
@@ -143,16 +145,19 @@ class SurplusDistributor {
     this.publishBlocking(PUB_CONTINUATION_START,slot,generation,workerIndex);
 
     let value,remoteResolved=false,superseded=false;
+    const nodeStart=solver.metrics.nodes,wasteStart=this.worker.claimWasteNodes;
     this.worker.pushContinuation(ply,slot,generation);
     state.applyUnchecked(column);solver.metrics.recursiveChildren++;
     try{
       value=solver.solveNode(state);
     }catch(error){
       if(error===continuationResolved&&this.worker.interruptPly===ply){
+        this.worker.recordRetirementWaste(nodeStart,wasteStart);
         value=this.worker.interruptValue;
         remoteResolved=true;
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
       }else if(error===continuationSuperseded&&this.worker.interruptPly===ply){
+        this.worker.recordRetirementWaste(nodeStart,wasteStart);
         superseded=true;
         this.worker.counters[WC_CONTINUATION_YIELDS]++;
       }else throw error;
@@ -214,7 +219,6 @@ class SurplusDistributor {
         // A canonical-equivalent native continuation is already running.
         // Preserve global convergence without rematerializing another subtree.
         this.worker.counters[WC_HELPER_WAITS]++;
-        this.worker.counters[WC_SURPLUS_REMOTE]++;
         Atomics.wait(shared.occState,slot,OCC_LINKED,10);
         continue;
       }
@@ -255,7 +259,6 @@ class SurplusDistributor {
 
       if(stateCode===WORK_RUNNING){
         this.worker.counters[WC_HELPER_WAITS]++;
-        this.worker.counters[WC_SURPLUS_REMOTE]++;
         // A stolen surplus is speculative parallel help, not a dependency
         // that may indefinitely stall the current worker. Give the helper a
         // brief opportunity to finish; if it remains RUNNING, preserve local
@@ -328,16 +331,19 @@ class SurplusDistributor {
         if(i===0){
           this.worker.counters[WC_LOCAL_PRIMARY]++;
           let remoteResolved=false,superseded=false;
+          const nodeStart=solver.metrics.nodes,wasteStart=this.worker.claimWasteNodes;
           this.worker.pushContinuation(ply,slot,generation);
           state.applyUnchecked(column);solver.metrics.recursiveChildren++;
           try{
             childValue=solver.solveNode(state);
           }catch(error){
             if(error===continuationResolved&&this.worker.interruptPly===ply){
+              this.worker.recordRetirementWaste(nodeStart,wasteStart);
               childValue=this.worker.interruptValue;
               remoteResolved=true;
               this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
             }else if(error===continuationSuperseded&&this.worker.interruptPly===ply){
+              this.worker.recordRetirementWaste(nodeStart,wasteStart);
               superseded=true;
               this.worker.counters[WC_CONTINUATION_YIELDS]++;
             }else throw error;
@@ -396,6 +402,7 @@ class SurplusEvaluator {
     this.continuationSlot=new Int32Array(MAX_MOVES+1);this.continuationSlot.fill(-1);
     this.continuationGeneration=new Int32Array(MAX_MOVES+1);
     this.continuationDepth=0;
+    this.claimWasteNodes=0;
     this.interruptPly=-1;
     this.interruptValue=0;
     this.distributor=new SurplusDistributor(this);
@@ -439,6 +446,16 @@ class SurplusEvaluator {
     this.continuationSlot[depth]=-1;this.continuationDepth=depth;
   }
 
+  recordRetirementWaste(nodeStart,wasteStart) {
+    const span=this.solver.metrics.nodes-nodeStart;
+    const already=this.claimWasteNodes-wasteStart;
+    const delta=span-already;
+    if(delta>0){
+      this.counters[WC_RETIREMENT_WASTE_NODES]+=delta;
+      this.claimWasteNodes+=delta;
+    }
+  }
+
   checkTaskControl() {
     this.counters[WC_CONTROL_CHECKS]++;
     const shared=this.shared;
@@ -474,7 +491,7 @@ class SurplusEvaluator {
   resetMetrics() {
     for(const key of Object.keys(this.solver.metrics))this.solver.metrics[key]=0;
     this.solver.orderingRootPly=this.externalRootPly;
-    this.continuationDepth=0;this.interruptPly=-1;
+    this.continuationDepth=0;this.claimWasteNodes=0;this.interruptPly=-1;
     this.solver.nextControlNode=0;
   }
 
@@ -484,6 +501,7 @@ class SurplusEvaluator {
 
   replayWork(slot) {
     const shared=this.shared,length=Atomics.load(shared.workPathLength,slot);
+    const helperReplay=length>this.externalRootPly;
     if(length<0||length>MAX_MOVES)throw new Error('invalid surplus work replay');
     const base=slot*MAX_MOVES;
     let common=Math.min(this.state.ply,length),prefix=0;
@@ -494,6 +512,7 @@ class SurplusEvaluator {
       const column=shared.workPath[base+i];
       if(!this.state.canPlay(column))throw new Error('invalid surplus work path');
       this.state.applyUnchecked(column);this.counters[WC_PATH_REPLAY_APPLIES]++;
+      if(helperReplay)this.counters[WC_HELPER_REPLAY_APPLIES]++;
     }
     return this.state;
   }
@@ -512,6 +531,7 @@ class SurplusEvaluator {
       else throw error;
     }
     if(retired||stopped){
+      this.recordRetirementWaste(0,0);
       Atomics.store(shared.workNeeded,slot,0);
       Atomics.store(shared.workState,slot,WORK_RETIRED);
       Atomics.notify(shared.workState,slot,Infinity);
@@ -556,6 +576,8 @@ class SurplusEvaluator {
         if(claimHighest(shared,workerIndex,this.claimScratch)){
           this.counters[WC_WORK_CLAIMS]++;
           this.counters[WC_BAND_BASE+this.claimScratch[3]]++;
+          if(Atomics.load(shared.workPathLength,this.claimScratch[0])>this.externalRootPly)
+            this.counters[WC_SURPLUS_REMOTE]++;
           this.runClaim(this.claimScratch[0],this.claimScratch[1],this.claimScratch[2]);
           this.accumulateSolverMetrics();
           continue;
