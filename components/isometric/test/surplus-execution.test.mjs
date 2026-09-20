@@ -4,6 +4,13 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { IsoMaxSurplusBranchManager } from '../execution/surplus-manager.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
 import { CENTER_ORDER } from '../move-order.mjs';
+import {
+  OCC_RETIRED,
+  allocateOccurrence,
+  createSurplusPool,
+  openSurplusPool,
+  releaseOccurrence,
+} from '../execution/surplus-pool.mjs';
 
 class BranchProbe {
   constructor(){this.branches=0;this.multiChild=0;}
@@ -38,6 +45,34 @@ function branchyFixture(seed,ply=34){
   }
   throw new Error('failed to find branchy IsoMax fixture');
 }
+
+test('surplus occurrence arena reuses one slot only under a new generation', () => {
+  const descriptor=createSurplusPool({
+    workerCount:1,workCapacity:4,occurrenceCapacity:1,queueCapacity:4,publicationCapacity:4,
+  });
+  const shared=openSurplusPool(descriptor);
+  const solver=new IsoMaxSolver();
+  const state=solver.createState();
+  const scratch=new Int32Array(1);
+  let priorGeneration=0;
+
+  for(let iteration=0;iteration<64;iteration++){
+    const slot=allocateOccurrence(shared,0,-1,0,state,3,1,0,scratch);
+    assert.equal(slot,0);
+    const generation=Atomics.load(shared.occGeneration,slot);
+    assert.ok(generation>priorGeneration);
+    priorGeneration=generation;
+
+    // Live occurrences are never reusable.
+    assert.equal(releaseOccurrence(shared,slot,generation),false);
+
+    Atomics.store(shared.occNeeded,slot,0);
+    Atomics.store(shared.occState,slot,OCC_RETIRED);
+    assert.equal(releaseOccurrence(shared,slot,generation),true);
+    // A stale generation can never reclaim the newly reusable slot.
+    assert.equal(releaseOccurrence(shared,slot,generation),false);
+  }
+});
 
 test('one-worker surplus profile preserves one native continuation across published branches',
   {timeout:30000}, async () => {
