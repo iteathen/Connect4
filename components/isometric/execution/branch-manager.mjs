@@ -29,10 +29,13 @@ export class IsoMaxBranchManager {
   // there. Explicit taskNodes remains available. Polling/retention/time/memory
   // limits are separate contracts, not enlarged by this scheduling policy.
   constructor({ workers = defaultIsoMaxWorkers(), taskNodes = workers <= 2 ? 131072 : 65536,
-    maxTasks = 262144 } = {}) {
+    maxTasks = 262144, readyReserve = 0 } = {}) {
     this.workerCount = positive(workers, 'workers', 256);
     this.taskNodes = positive(taskNodes, 'taskNodes');
     this.maxTasks = positive(maxTasks, 'maxTasks');
+    if (!Number.isSafeInteger(readyReserve) || readyReserve < 0 || readyReserve > this.maxTasks)
+      throw new RangeError('invalid readyReserve');
+    this.readyReserve = readyReserve;
     this.workers = []; this.executor = null; this.busy = false; this.closed = false;
     this.lastStats = null;
   }
@@ -85,10 +88,13 @@ export class IsoMaxBranchManager {
     if(signal?.aborted) onAbort();
     const solver=new IsoMaxSolver(), nodes=new IsoMaxTransitionCache({pool:solver.pool}), pending=new Map();
     const metrics={nodes:0,managerExpansions:0,exactTasks:0,splitTasks:0,retiredTasks:0,
-      busyRetiredTasks:0,retiredTaskNodes:0,controlChecks:0,
-      qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,workerExecutionMs:0,
+      busyRetiredTasks:0,retiredTaskNodes:0,zeroNodeRetiredTasks:0,controlChecks:0,
+      qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,
+      readySamples:0,readyLeavesTotal:0,maxReadyLeaves:0,idleWithReadyEvents:0,workerExecutionMs:0,
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
+    const outstandingLimit=this.workerCount+this.readyReserve;
     const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
+      scheduler:{workers:this.workerCount,taskNodes:this.taskNodes,readyReserve:this.readyReserve,outstandingLimit},
       metrics:{...metrics,workerTasks:[...metrics.workerTasks],workerNodes:[...metrics.workerNodes]},
       managerNodes:nodes.count,executor:this.executor?.stats()??null});
     const notify=()=>{try{onProgress?.(snapshot());}catch(error){fail(error);}};
@@ -208,6 +214,7 @@ export class IsoMaxBranchManager {
           else {
             metrics.retiredTasks++;
             if(message.nodes>0)metrics.busyRetiredTasks++;
+            else metrics.zeroNodeRetiredTasks++;
             metrics.retiredTaskNodes+=message.nodes;
           }
         });
@@ -228,16 +235,20 @@ export class IsoMaxBranchManager {
           let supply=required(), expansions=0;
           // Proactively fill a bounded reservoir. Forced moves remain one edge.
           // Larger unfinished tasks split at real value dependencies on yield.
-          while(supply.leaves.length+pending.size<this.workerCount && supply.leaves.length && expansions++<64){
+          while(supply.leaves.length+pending.size<outstandingLimit && supply.leaves.length && expansions++<64){
             expand(supply.leaves[0]);answer=rootAnswer();
             if(answer)break;
             supply=required();
           }
           if(answer)break;
           for(const node of pending.keys())if(!supply.live.has(node)&&node.needed)Atomics.store(node.needed,0,0);
+          metrics.readySamples++;
+          metrics.readyLeavesTotal+=supply.leaves.length;
+          metrics.maxReadyLeaves=Math.max(metrics.maxReadyLeaves,supply.leaves.length);
+          if(supply.leaves.length&&this.executor.stats().idle>0)metrics.idleWithReadyEvents++;
           metrics.maxReady=Math.max(metrics.maxReady,Math.min(supply.leaves.length,this.workerCount*2));
           for(const node of supply.leaves){
-            if(pending.size>=this.workerCount)break;
+            if(pending.size>=outstandingLimit)break;
             submit(node);
           }
           metrics.maxPending=Math.max(metrics.maxPending,pending.size);
