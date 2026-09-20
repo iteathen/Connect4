@@ -1,0 +1,101 @@
+name: RBA rank26 draw16 resumable
+
+on:
+  push:
+    branches:
+      - research/semantic-quotient
+    paths:
+      - research/isograph/discovery/2026-09-18-policy-frontier/RBA_RANK26_RUN.request
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rba-rank26-draw16
+  cancel-in-progress: false
+
+jobs:
+  advance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out exact research revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Restore latest RBA cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: out/rba-rank26-cache
+          key: rba-rank26-draw16-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            rba-rank26-draw16-
+
+      - name: Advance bounded exact cone
+        id: advance
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/rba-rank26-cache
+          set +e
+          timeout --signal=TERM --kill-after=30s 30m             node research/isograph/discovery/2026-09-18-policy-frontier/rba-draw-boundary-runner.mjs               --base 3,3,2,0,6,6,6               --cache out/rba-rank26-cache               --stop-rank 26             2>&1 | tee out/rba-rank26.log
+          code=${PIPESTATUS[0]}
+          set -e
+          echo "runner_exit=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then
+            echo "unexpected runner exit $code" >&2
+            exit "$code"
+          fi
+
+      - name: Summarize durable progress
+        if: always()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          const dir='out/rba-rank26-cache';
+          const target='3_3_2_0_6_6_6.json';
+          const childNames=[
+            '4_3_2_0_6_6_6.json',
+            '3_4_2_0_6_6_6.json',
+            '3_3_3_0_6_6_6.json',
+            '3_3_2_1_6_6_6.json'
+          ];
+          const all=fs.existsSync(dir)?fs.readdirSync(dir):[];
+          const metas=all.filter(n=>/^\d(?:_\d){6}\.json$/.test(n));
+          const child={};
+          for(const n of childNames){
+            if(fs.existsSync(path.join(dir,n))){
+              const j=JSON.parse(fs.readFileSync(path.join(dir,n),'utf8'));
+              child[n]={upper:j.upper,lower:j.lower,upper_sha256:j.upper_sha256,lower_sha256:j.lower_sha256};
+            } else child[n]=null;
+          }
+          const status={
+            schema:1,
+            target_label:'rank26 [3,3,2,0,6,6,6] draw16',
+            completed_support_boundaries:metas.length,
+            target_complete:fs.existsSync(path.join(dir,target)),
+            target:fs.existsSync(path.join(dir,target))?JSON.parse(fs.readFileSync(path.join(dir,target),'utf8')):null,
+            children:child
+          };
+          fs.writeFileSync('out/rba-rank26-status.json',JSON.stringify(status,null,2)+'\n');
+          console.log(JSON.stringify(status,null,2));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'```json\n'+JSON.stringify(status,null,2)+'\n```\n');
+          NODE
+
+      - name: Upload progress summary
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rba-rank26-progress-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            out/rba-rank26-status.json
+            out/rba-rank26.log
+          if-no-files-found: warn
+          retention-days: 14
