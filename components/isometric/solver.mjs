@@ -60,6 +60,11 @@ export class IsoMaxSolver {
       throw new TypeError('valueResolver must be an IsoMaxRbaValueResolver for the solver pool');
     }
     this.valueResolver = valueResolver;
+    // Optional branch-frequency execution adapter. Null is the production
+    // recursive control. A qualified distributed profile may use this only at
+    // genuine ordinary branch points; deterministic/forced recursion remains
+    // entirely local.
+    this.branchDistributor = null;
     this.orderingRootPly = 0;
     this.nextControlNode = Infinity;
   }
@@ -235,6 +240,20 @@ export class IsoMaxSolver {
     let sawMove = false;
     const promoted = state.ply > this.orderingRootPly ? promotedColumn(state) : -1;
     if (promoted >= 0) this.metrics.orderingPromotions++;
+
+    // Corrected #102 boundary: a distributed worker may expose surplus branch
+    // opportunities here while preserving one current continuation in native
+    // recursion. Canonical q is reconciliation identity, not a mandatory task
+    // boundary. The ordinary production profile keeps branchDistributor null.
+    if (this.branchDistributor !== null) {
+      best = this.branchDistributor.solveChildren(
+        this, state, maximizing, lower, upper, promoted,
+      );
+      this.assertNoWinBounds(best, p0NoWin, p1NoWin);
+      this.storeExact(key0, key1, support, hash, best);
+      return best;
+    }
+
     for (let orderIndex = promoted >= 0 ? -1 : 0; orderIndex < MOVE_ORDER.length; orderIndex++) {
       const column = orderIndex === -1 ? promoted : MOVE_ORDER[orderIndex];
       if (orderIndex >= 0 && column === promoted) continue;
