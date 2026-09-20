@@ -3,7 +3,8 @@ import { ResidualPool } from '../residual-pool.mjs';
 import { IsometricState } from '../state.mjs';
 import {
   CTRL_ABORT, CTRL_FAILURE, CTRL_OCC_NEXT, CTRL_PUB_WAKE, CTRL_SESSION, CTRL_WORK_NEXT,
-  MAX_MOVES, OCC_EXACT, OCC_LINKED, OCC_PUBLISHED, OCC_RETIRED, PRIORITY_BANDS,
+  MAX_MOVES, OCC_EXACT, OCC_LINKED, OCC_PUBLISHED, OCC_RETIRED,
+  OCC_ROLE_CONTINUATION, PRIORITY_BANDS,
   PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
   PUB_RETIRE_OCCURRENCE, PUB_WORK_RETIRED,
   SESSION_RUNNING, WORK_EXACT, WORK_READY, WORK_RETIRED, WORK_RUNNING, WORK_UNUSED, WORK_WRITING,
@@ -45,7 +46,9 @@ class SurplusReconciler {
     this.qWork=new Int32Array(this.maxQ);this.qWork.fill(-1);
     this.qDemand=new Uint32Array(this.maxQ);
     this.qOccHead=new Int32Array(this.maxQ);this.qOccHead.fill(-1);
-    this.qPriority=new Uint8Array(this.maxQ);this.qCount=0;
+    this.qPriority=new Uint8Array(this.maxQ);
+    this.qRunningOcc=new Int32Array(this.maxQ);this.qRunningOcc.fill(-1);
+    this.qCount=0;
 
     const hashCapacity=nextPowerOfTwo(this.maxQ*2);
     this.qSlots=new Int32Array(hashCapacity);this.qSlots.fill(-1);this.qMask=hashCapacity-1;
@@ -63,7 +66,8 @@ class SurplusReconciler {
       workerDeathRequeues:0,stalePublications:0,visibilityOnlyOccurrences:0,
       localOccurrenceExact:0,managerReplayApplies:0,managerReplayUndos:0,
       priorityUpdates:0,publications:0,failures:0,maxWork:0,maxOccurrences:0,
-      maxActiveWork:0,
+      maxActiveWork:0,runningContinuations:0,duplicateRunningContinuations:0,
+      continuationExact:0,
     };
   }
 
@@ -105,6 +109,17 @@ class SurplusReconciler {
   firstLiveOccurrence(q){
     let occ=this.qOccHead[q];
     while(occ!==-1&&Atomics.load(this.shared.occNeeded,occ)===0)occ=this.occNext[occ];
+    return occ;
+  }
+
+  liveContinuation(q){
+    const occ=this.qRunningOcc[q];
+    if(occ<0)return -1;
+    if(Atomics.load(this.shared.occNeeded,occ)===0 ||
+       Atomics.load(this.shared.occState,occ)===OCC_RETIRED){
+      this.qRunningOcc[q]=-1;
+      return -1;
+    }
     return occ;
   }
 
@@ -151,7 +166,7 @@ class SurplusReconciler {
     while(this.activeWorkCount<this.shared.workerCount){
       let bestQ=-1,bestBand=-1,bestOcc=-1;
       for(let q=0;q<this.qCount;q++){
-        if(this.qExact[q]||this.qDemand[q]===0||this.qWork[q]>=0)continue;
+        if(this.qExact[q]||this.qDemand[q]===0||this.qWork[q]>=0||this.liveContinuation(q)>=0)continue;
         const occ=this.firstLiveOccurrence(q);if(occ<0)continue;
         const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,occ));
         if(band>bestBand){bestQ=q;bestBand=band;bestOcc=occ;if(band===PRIORITY_BANDS-1)break;}
@@ -177,6 +192,44 @@ class SurplusReconciler {
     }
 
     this.qDemand[q]++;
+    const role=Atomics.load(this.shared.occRole,slot);
+    const running=this.liveContinuation(q);
+
+    if(role===OCC_ROLE_CONTINUATION){
+      if(running<0){
+        this.qRunningOcc[q]=slot;Atomics.store(this.shared.occLeader,slot,slot);
+        this.metrics.runningContinuations++;
+      }else{
+        Atomics.store(this.shared.occLeader,slot,running);
+        this.metrics.duplicateRunningContinuations++;
+      }
+
+      // A current native continuation is cheaper than rematerializing the same
+      // q. Retire/signal any helper work and let exact completion broadcast.
+      const work=this.qWork[q];
+      if(work>=0){
+        const state=Atomics.load(this.shared.workState,work);
+        if(state===WORK_READY){
+          Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
+          Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
+          if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
+        }else if(state===WORK_RUNNING){
+          Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
+        }
+      }
+      Atomics.store(this.shared.occState,slot,OCC_LINKED);Atomics.notify(this.shared.occState,slot,Infinity);
+      this.metrics.visibilityOnlyOccurrences++;this.refillExecution();return;
+    }
+
+    if(running>=0){
+      // This surplus occurrence converges with an already-running native
+      // continuation. Do not create duplicate executable work; wait for the
+      // continuation's exact publication.
+      Atomics.store(this.shared.occLeader,slot,running);
+      Atomics.store(this.shared.occState,slot,OCC_LINKED);Atomics.notify(this.shared.occState,slot,Infinity);
+      this.metrics.duplicateOccurrences++;this.metrics.visibilityOnlyOccurrences++;return;
+    }
+
     let work=this.qWork[q];
     if(work>=0){
       const state=Atomics.load(this.shared.workState,work);
@@ -189,8 +242,7 @@ class SurplusReconciler {
     }
 
     Atomics.store(this.shared.occState,slot,OCC_LINKED);Atomics.notify(this.shared.occState,slot,Infinity);
-    this.metrics.visibilityOnlyOccurrences++;
-    this.refillExecution();
+    this.metrics.visibilityOnlyOccurrences++;this.refillExecution();
 
     work=this.qWork[q];
     if(work>=0){
@@ -212,6 +264,7 @@ class SurplusReconciler {
       return;
     }
     this.qExact[q]=1;this.qValue[q]=value;
+    this.qRunningOcc[q]=-1;
 
     const work=this.qWork[q];
     if(work>=0){
@@ -241,7 +294,9 @@ class SurplusReconciler {
       this.metrics.stalePublications++;return;
     }
     const q=this.occQ[slot];if(q<0||q>=this.qCount)throw new Error('local surplus exact lacks canonical q');
-    this.metrics.localOccurrenceExact++;this.markQExact(q,value);this.refillExecution();
+    if(Atomics.load(this.shared.occRole,slot)===OCC_ROLE_CONTINUATION)this.metrics.continuationExact++;
+    else this.metrics.localOccurrenceExact++;
+    this.markQExact(q,value);this.refillExecution();
   }
 
   acceptExact(work,generation,attempt,value,rootMove){
@@ -279,8 +334,18 @@ class SurplusReconciler {
     if(Atomics.exchange(this.shared.occNeeded,slot,0)===0)return;
     const q=this.occQ[slot];Atomics.store(this.shared.occState,slot,OCC_RETIRED);
     Atomics.notify(this.shared.occState,slot,Infinity);this.metrics.occRetired++;
-    if(q<0||q>=this.qCount||this.qExact[q])return;
+    if(q<0||q>=this.qCount)return;
+
+    const wasContinuation=this.qRunningOcc[q]===slot;
+    if(wasContinuation)this.qRunningOcc[q]=-1;
     if(this.qDemand[q]>0)this.qDemand[q]--;
+    if(this.qExact[q])return;
+
+    if(wasContinuation){
+      // Surplus demand may now need spare-worker admission because the native
+      // continuation disappeared without exact completion.
+      this.refillExecution();
+    }
     if(this.qDemand[q]!==0)return;
 
     const work=this.qWork[q];if(work<0)return;
