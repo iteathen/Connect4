@@ -81,18 +81,15 @@ The clean hot-loop graph must preserve every retained optimization fact without 
 
 No retained optimization is allowed to depend on the superseded hot-loop NEI overlay.
 
-## 3. NEI 0.4 dependency gate
+## 3. NEI 0.4 dependency gate — CLOSED
 
-The successor graphs use NEI 0.4 candidate semantics from:
+The successor graphs now use qualified NEI 0.4 semantics from:
 
-`iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`
+`iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`
 
-Promotion of Connect4 identity conclusions requires either:
+NEI 0.4 was qualified by IsoGraph Experiment 016 and promoted on main at `55c98d31dd2715cdb48abe4f8e313fd72d0dabba`, exact semantic SHA-256 `6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee`.
 
-1. NEI 0.4 itself is qualified/promoted at a compatible revision; or
-2. Connect4 carries an independently qualified exact bridge discharging the same derived-identity/QU/evidence obligations.
-
-Do not silently fall back to qualified NEI 0.1/0.2 answer-tag semantics for new claims.
+This external dependency is closed. Connect4 must use NEI 0.4 for new identity claims and must not fall back to the historical NEI 0.1/0.2 answer-tag mechanism.
 
 ## 4. Game-theory qualification gates
 
