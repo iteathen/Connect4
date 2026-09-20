@@ -33,6 +33,7 @@ import {
   WC_OCC_PUBLISHED,
   WC_PATH_REPLAY_APPLIES,
   WC_RETIRE_OCC,
+  WC_REMOTE_CACHE_TRANSITIONS,
   WC_SURPLUS_LOCAL,
   WC_SURPLUS_REMOTE,
   WC_WORK_CLAIMS,
@@ -169,6 +170,7 @@ class SurplusDistributor {
   rememberExactChild(solver,state,column,value) {
     const cache=solver.transitionCache;
     state.applyUnchecked(column);
+    this.worker.counters[WC_REMOTE_CACHE_TRANSITIONS]++;
     try{
       const hash=cache.prepareKey(state);
       const key0=cache.scratch[0],key1=cache.scratch[1],support=cache.scratch[2]>>>0;
