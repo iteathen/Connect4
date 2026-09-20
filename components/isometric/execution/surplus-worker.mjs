@@ -166,6 +166,24 @@ class SurplusDistributor {
     return value;
   }
 
+  rememberExactChild(solver,state,column,value) {
+    const cache=solver.transitionCache;
+    state.applyUnchecked(column);
+    try{
+      const hash=cache.prepareKey(state);
+      const key0=cache.scratch[0],key1=cache.scratch[1],support=cache.scratch[2]>>>0;
+      const existing=cache.getPreparedUnchecked(key0,key1,support,hash);
+      if(existing===undefined){
+        solver.storeExact(key0,key1,support,hash,value);
+      }else if(existing!==value){
+        throw new Error('remote exact value contradicts local transition cache');
+      }
+    }finally{
+      state.undo();
+    }
+    return value;
+  }
+
   resolveOccurrence(solver,state,column,slot,generation) {
     const shared=this.worker.shared;
     while(true){
@@ -175,7 +193,7 @@ class SurplusDistributor {
       if(occState===OCC_RETIRED)throw new Error('needed surplus occurrence retired');
       if(occState===OCC_EXACT){
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
-        return Atomics.load(shared.occResult,slot);
+        return this.rememberExactChild(solver,state,column,Atomics.load(shared.occResult,slot));
       }
 
       const leader=Atomics.load(shared.occLeader,slot);
@@ -213,7 +231,7 @@ class SurplusDistributor {
       const stateCode=Atomics.load(shared.workState,work);
       if(stateCode===WORK_EXACT){
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
-        return Atomics.load(shared.workResult,work);
+        return this.rememberExactChild(solver,state,column,Atomics.load(shared.workResult,work));
       }
 
       if(stateCode===WORK_READY){
