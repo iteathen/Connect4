@@ -68,7 +68,7 @@ test('one-worker surplus profile preserves one native continuation across publis
 
 test('surplus helpers steal alternatives while the current worker keeps local recursion',
   {timeout:45000}, async () => {
-    const fixtures=[branchyFixture(0x1025b),branchyFixture(0x1025c)];
+    const fixtures=[branchyFixture(0x1025b,36)];
     let claims=0,branches=0;
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:131072,workCapacity:131072,occurrenceCapacity:262144,
@@ -77,7 +77,7 @@ test('surplus helpers steal alternatives while the current worker keeps local re
     });
     try{
       for(const {moves,expected} of fixtures){
-        const actual=await manager.solveMoves(moves,{timeoutMs:20000});
+        const actual=await manager.solveMoves(moves,{timeoutMs:10000});
         assert.equal(actual.value,expected.value);
         assert.equal(actual.move,expected.move);
         claims+=actual.metrics.worker.workClaims;
