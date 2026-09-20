@@ -94,3 +94,14 @@ Promotion remains blocked on:
 3. final semantic qualification of the replacement package;
 4. final hot-loop qualification against the clean q_r boundary.
 
+
+## Additional q_r transporter evidence
+
+```text
+solver head                                  eb8928fe6f4c4b3dba6ad3e2d42f186947a6ebf2
+q_r transporter regression                  PASS
+Isometric native WSL workflow run            35478469795
+workflow conclusion                          success
+```
+
+The control explicitly proves that reflection-canonical q_r equality can coexist with different literal legal-column sets while the transported action map `c -> 6-c` preserves child q_r and terminal status.
