@@ -33,7 +33,7 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Current semantic authority — IsoGraph
 
-Current qualified **game-theory** authority is `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md` with manifest `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`. Its exact promoted semantic package is `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*` plus `CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
+Current qualified **game-theory / logic** authority is `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md` with manifest `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`. Its exact promoted semantic package is `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*` plus `CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
 
 Current qualified hot-loop performance-research authority is `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md`.
 
@@ -41,7 +41,7 @@ Authority 1.1 remains immutable historical full-corpus qualification/provenance 
 
 This is representation authority, not a branch-ownership transfer. `research/semantic-quotient` remains the sole durable research owner; solver branches remain implementation owners.
 
-The pre-IsoGraph Markdown/JSON/spec/claim files are retained as provenance and readability/compatibility bridges. Their qualified frozen content is represented inside authority 1.1, with authority 1.0 preserved as historical evidence of its earlier boundary. A newer direct edit to a legacy view does not become logical authority unless incorporated into a newly qualified IsoGraph authority revision.
+The pre-IsoGraph Markdown/JSON/spec/claim files are retained as provenance/readability bridges. Authority 1.1 preserves the frozen full-corpus historical representation; current game-theory semantics and status routing are owned by authority 1.2. A newer direct edit to a legacy view does not become logical authority unless incorporated into a newly qualified IsoGraph authority revision.
 
 Unknown and unresolved research remains authoritative as explicit unresolved structure. Do not silently convert `INCOMPLETE_SCOPE`, hypotheses, missing laws, candidate rules, or open questions into settled claims.
 
@@ -113,7 +113,7 @@ Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thre
 
 Acceptance status is part of the qualified IsoGraph authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
 
-The legacy files listed below remain useful human-readable bridge views of the logic represented by current IsoGraph authority 1.1 and preserved historical authority 1.0. They are not independent conflict-resolution authority after promotion. If a bridge view appears to conflict with the IsoGraph authority, audit the exact native source image and qualification evidence rather than silently preferring the bridge file.
+The legacy files listed below remain useful human-readable bridge views. Current conflict-resolution authority is IsoGraph authority 1.2; authorities 1.1 and 1.0 remain historical qualification/provenance evidence. They are not independent conflict-resolution authority after promotion. If a bridge view appears to conflict with the IsoGraph authority, audit the exact native source image and qualification evidence rather than silently preferring the bridge file.
 
 - `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
