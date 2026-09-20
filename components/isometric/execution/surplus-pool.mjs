@@ -21,6 +21,9 @@ export const OCC_LINKED = 2;
 export const OCC_EXACT = 3;
 export const OCC_RETIRED = 4;
 
+export const OCC_ROLE_SURPLUS = 0;
+export const OCC_ROLE_CONTINUATION = 1;
+
 export const PUB_OCCURRENCE = 1;
 export const PUB_EXACT = 2;
 export const PUB_RETIRE_OCCURRENCE = 3;
@@ -107,6 +110,8 @@ export function createSurplusPool({
     occResult: sabI32(occurrenceCapacity),
     occNeeded: sabI32(occurrenceCapacity),
     occPublisherWorker: sabI32(occurrenceCapacity),
+    occRole: sabI32(occurrenceCapacity),
+    occLeader: sabI32(occurrenceCapacity),
     occParentWork: sabI32(occurrenceCapacity),
     occParentAttempt: sabI32(occurrenceCapacity),
     occAction: sabI32(occurrenceCapacity),
@@ -179,6 +184,8 @@ export function openSurplusPool(d) {
     occResult:new Int32Array(d.occResult),
     occNeeded:new Int32Array(d.occNeeded),
     occPublisherWorker:new Int32Array(d.occPublisherWorker),
+    occRole:new Int32Array(d.occRole),
+    occLeader:new Int32Array(d.occLeader),
     occParentWork:new Int32Array(d.occParentWork),
     occParentAttempt:new Int32Array(d.occParentAttempt),
     occAction:new Int32Array(d.occAction),
@@ -294,7 +301,7 @@ export function claimSpecific(pool, slot, generation, workerIndex, scratch) {
   return true;
 }
 
-export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt, state, column, orderRank) {
+export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt, state, column, orderRank, role = OCC_ROLE_SURPLUS) {
   const slot=Atomics.add(pool.control,CTRL_OCC_NEXT,1);
   if (slot>=pool.occurrenceCapacity) return -1;
   const gen=Atomics.add(pool.occGeneration,slot,1)+1;
@@ -303,6 +310,8 @@ export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt,
   Atomics.store(pool.occWorkGeneration,slot,-1);
   Atomics.store(pool.occNeeded,slot,1);
   Atomics.store(pool.occPublisherWorker,slot,workerIndex);
+  Atomics.store(pool.occRole,slot,role);
+  Atomics.store(pool.occLeader,slot,-1);
   Atomics.store(pool.occParentWork,slot,parentWork);
   Atomics.store(pool.occParentAttempt,slot,parentAttempt);
   Atomics.store(pool.occAction,slot,column);
