@@ -8,7 +8,7 @@ import {
   PUB_CONTINUATION_START, PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
   PUB_RETIRE_OCCURRENCE, PUB_WORK_RETIRED,
   SESSION_RUNNING, WORK_EXACT, WORK_READY, WORK_RETIRED, WORK_RUNNING, WORK_UNUSED, WORK_WRITING,
-  dequeuePublication, enqueueWork, openSurplusPool, releaseOccurrence, stopSurplusPool,
+  allocateWork, dequeuePublication, enqueueWork, openSurplusPool, releaseOccurrence, releaseWork, stopSurplusPool,
 } from './surplus-pool.mjs';
 
 if (!parentPort) throw new Error('IsoMax surplus reconciler requires parentPort');
@@ -38,7 +38,7 @@ class SurplusReconciler {
     this.pool=new ResidualPool();
     this.state=new IsometricState({pool:this.pool,moves:this.rootMoves});
     this.pool.prepareSearchStorage(Math.min(2**26,Math.max(4096,4*this.maxQ)));
-    this.key=new Int32Array(3);this.pub=new Int32Array(8);
+    this.key=new Int32Array(3);this.pub=new Int32Array(8);this.workScratch=new Int32Array(2);
 
     this.qP0=new Int32Array(this.maxQ);this.qP1=new Int32Array(this.maxQ);
     this.qSupport=new Uint32Array(this.maxQ);this.qHash=new Int32Array(this.maxQ);
@@ -224,13 +224,10 @@ class SurplusReconciler {
   }
 
   createWork(q,occ){
-    const slot=Atomics.add(this.shared.control,CTRL_WORK_NEXT,1);
-    if(slot>=this.shared.workCapacity)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
-    const gen=Atomics.add(this.shared.workGeneration,slot,1)+1;
-    Atomics.store(this.shared.workState,slot,WORK_WRITING);
-    Atomics.store(this.shared.workTicket,slot,0);Atomics.store(this.shared.workQ,slot,q);
-    Atomics.store(this.shared.workWorker,slot,-1);Atomics.store(this.shared.workNeeded,slot,1);
-    Atomics.store(this.shared.workAttempt,slot,0);Atomics.store(this.shared.workRootMove,slot,-1);
+    const slot=allocateWork(this.shared,this.workScratch);
+    if(slot<0)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
+    const gen=this.workScratch[1];
+    Atomics.store(this.shared.workQ,slot,q);
 
     const length=Atomics.load(this.shared.occPathLength,occ),source=occ*MAX_MOVES,target=slot*MAX_MOVES;
     for(let i=0;i<length;i++)this.shared.workPath[target+i]=this.shared.occPath[source+i];
@@ -616,11 +613,11 @@ class SurplusReconciler {
 
   initRoot(){
     this.state.gameplayKey(this.key);this.rootQ=this.internCurrent();
-    const work=Atomics.add(this.shared.control,CTRL_WORK_NEXT,1);
-    if(work>=this.shared.workCapacity)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
-    const gen=Atomics.add(this.shared.workGeneration,work,1)+1;
-    Atomics.store(this.shared.workState,work,WORK_WRITING);Atomics.store(this.shared.workQ,work,this.rootQ);
-    Atomics.store(this.shared.workNeeded,work,1);Atomics.store(this.shared.workPriority,work,7);
+    const work=allocateWork(this.shared,this.workScratch);
+    if(work<0)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
+    const gen=this.workScratch[1];
+    Atomics.store(this.shared.workQ,work,this.rootQ);
+    Atomics.store(this.shared.workPriority,work,7);
     const base=work*MAX_MOVES;for(let i=0;i<this.rootPly;i++)this.shared.workPath[base+i]=this.rootMoves[i];
     Atomics.store(this.shared.workPathLength,work,this.rootPly);
     this.qWork[this.rootQ]=work;this.rootWork=work;this.activeWorkCount=1;this.metrics.maxActiveWork=1;
