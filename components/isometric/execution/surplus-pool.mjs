@@ -104,6 +104,10 @@ export function createSurplusPool({
     workRootMove: sabI32(workCapacity),
     workPathLength: sabI32(workCapacity),
     workPath: new SharedArrayBuffer(workCapacity * MAX_MOVES),
+    workFreeSequence: sabI32(workCapacity),
+    workFreeSlot: sabI32(workCapacity),
+    workFreeEnqueue: sabI32(1),
+    workFreeDequeue: sabI32(1),
 
     occState: sabI32(occurrenceCapacity),
     occGeneration: sabI32(occurrenceCapacity),
@@ -149,6 +153,7 @@ export function createSurplusPool({
   });
   initRing(descriptor.queueSequence, PRIORITY_BANDS, queueCapacity);
   initRing(descriptor.publicationSequence, 1, publicationCapacity);
+  initRing(descriptor.workFreeSequence, 1, workCapacity);
   initRing(descriptor.occFreeSequence, 1, occurrenceCapacity);
   const pool = openSurplusPool(descriptor);
   pool.workQ.fill(-1);
@@ -183,6 +188,10 @@ export function openSurplusPool(d) {
     workRootMove:new Int32Array(d.workRootMove),
     workPathLength:new Int32Array(d.workPathLength),
     workPath:new Uint8Array(d.workPath),
+    workFreeSequence:new Int32Array(d.workFreeSequence),
+    workFreeSlot:new Int32Array(d.workFreeSlot),
+    workFreeEnqueue:new Int32Array(d.workFreeEnqueue),
+    workFreeDequeue:new Int32Array(d.workFreeDequeue),
 
     occState:new Int32Array(d.occState),
     occGeneration:new Int32Array(d.occGeneration),
@@ -309,6 +318,63 @@ export function claimSpecific(pool, slot, generation, workerIndex, scratch) {
   const attempt=Atomics.add(pool.workAttempt,slot,1)+1;
   scratch[0]=slot; scratch[1]=generation; scratch[2]=attempt;
   scratch[3]=Atomics.load(pool.workPriority,slot);
+  return true;
+}
+
+function enqueueWorkFree(pool,slot) {
+  const ok=ringEnqueue(pool.workFreeSequence,pool.workFreeEnqueue,0,pool.workCapacity,cell=>{
+    pool.workFreeSlot[cell]=slot;
+  });
+  if(!ok)throw new Error('ISOMAX_SURPLUS_WORK_FREE_RING_CAPACITY');
+}
+
+function dequeueWorkFree(pool,scratch) {
+  return ringDequeue(pool.workFreeSequence,pool.workFreeDequeue,0,pool.workCapacity,cell=>{
+    scratch[0]=pool.workFreeSlot[cell];
+  });
+}
+
+export function allocateWork(pool,scratch) {
+  let slot=-1;
+  if(dequeueWorkFree(pool,scratch)){
+    slot=scratch[0];
+  }else{
+    for(;;){
+      const next=Atomics.load(pool.control,CTRL_WORK_NEXT);
+      if(next>=pool.workCapacity)return -1;
+      if(Atomics.compareExchange(pool.control,CTRL_WORK_NEXT,next,next+1)===next){
+        slot=next;break;
+      }
+    }
+  }
+  const generation=Atomics.add(pool.workGeneration,slot,1)+1;
+  Atomics.store(pool.workState,slot,WORK_WRITING);
+  Atomics.store(pool.workTicket,slot,0);
+  Atomics.store(pool.workPriority,slot,0);
+  Atomics.store(pool.workQ,slot,-1);
+  Atomics.store(pool.workWorker,slot,-1);
+  Atomics.store(pool.workNeeded,slot,1);
+  Atomics.store(pool.workAttempt,slot,0);
+  Atomics.store(pool.workResult,slot,0);
+  Atomics.store(pool.workRootMove,slot,-1);
+  Atomics.store(pool.workPathLength,slot,0);
+  scratch[0]=slot;
+  scratch[1]=generation;
+  return slot;
+}
+
+export function releaseWork(pool,slot,generation) {
+  if(slot<0||slot>=pool.workCapacity)return false;
+  if(Atomics.load(pool.workGeneration,slot)!==generation)return false;
+  const state=Atomics.load(pool.workState,slot);
+  if(state!==WORK_EXACT&&state!==WORK_RETIRED)return false;
+  Atomics.store(pool.workNeeded,slot,0);
+  Atomics.store(pool.workQ,slot,-1);
+  Atomics.store(pool.workWorker,slot,-1);
+  Atomics.store(pool.workPriority,slot,0);
+  Atomics.store(pool.workPathLength,slot,0);
+  Atomics.store(pool.workState,slot,WORK_UNUSED);
+  enqueueWorkFree(pool,slot);
   return true;
 }
 
