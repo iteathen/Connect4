@@ -304,3 +304,47 @@ Rejected patches, portable evidence and reproduction tools are intentionally
 retained. Raw profiles/logs stay Git-private in .git/issue-campaign and
 .git/solver-performance. Temporary detached benchmark worktrees are removed
 after qualification; no task-owned worker or profiler remains running.
+
+## Spec-alignment pass: live 11f3ec61, NEES Draft 0.3
+
+Execution checkpoint, 2026-09-19. Starting implementation head:
+`11f3ec619f5348aa0145a151d62f6af936df9bcc`; canonical research:
+`21cfe24af925a2eceaadccac494cacc87b0faf6f`. Global authority unchanged;
+current local authority, C4-0011, NEES profile/conformance and pinned NEES
+`3a78310a3ba14fb3acb4046c8dffd396209c213c` consulted before mutation.
+Node 26.7.0 / V8 14.6.202.34-node.28 / Windows x64 remains the runtime.
+
+Scope: complete ordinary-worker E0-E2 cost baseline, then critically qualified
+issue fixes. Candidates are not implementation authority. The existing manager
+stays active; no scheduler rewrite is inferred from issue #102's proposal.
+No timeout, memory limit, GPU policy or gameplay/proof authority is changed.
+
+Critical review before experiments:
+
+- #96: every bit-pattern consumer must be checked. `classHashes` is Uint32
+  storage compared with strict numeric equality: blindly returning a signed
+  class hash would break interning. Preserve unsigned equality at that boundary.
+- #97: support-first q orientation requires matching `gameplayOrientation()`;
+  the issue's instruction to leave that helper unchanged is unsafe. The proof
+  `structuralSignature()` must remain independent. Test both equality and action
+  transport, including symmetric support and residual/support order disagreement.
+- #98: ordinary recursion usually closes immediate wins before a winning child
+  is entered. Count actual terminal entries before adding another per-node test.
+  Public terminal residuals and certificate contradiction checks remain required.
+- #99/#100: plausible redundant loads/scratch passes, not proven speedups.
+  Preserve dense mover normalization and exact advisory ordering; compare equal
+  work in fresh alternating processes. Reject if end-to-end timing regresses.
+- #101: generic cache stores arbitrary payloads and manager nodes. Any WDL
+  specialization belongs only to the ordinary solver, never the generic owner.
+- #89-95/#102: scheduling-only candidates require topology/work economics;
+  q/proof identity, first-win and unfinished/retired semantics remain unchanged.
+  Ready reserve is historical evidence, not proof of decentralized pull.
+
+Planned qualification: full existing relevant suite at coherent unit boundary;
+targeted invariant controls during development; existing compare-hot-loop.mjs
+against a detached 11f3ec61 checkout, serial/one/four workers, three alternating
+fresh-process pairs. Retain per-root results, exact calls and memory; the three
+18-ply synthetic roots are not Begin-Hard or empty-board solve claims. Use a
+separate broader ordering corpus before claims beyond those controls. Run no
+competing timing/profile workload. Before each expensive run persist the exact
+candidate and falsifier here or in its result manifest; results flush per case.
