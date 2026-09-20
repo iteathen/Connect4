@@ -401,3 +401,89 @@ The benchmark now has a compact summary mode preserving:
 - work-slot high water.
 
 This is an evidence-format correction only; solver semantics are unchanged.
+
+
+## R-102-09 — occurrence visibility and execution reservation are distinct storage domains
+
+The 32K/131K work-slot capacity failures exposed a deeper modeling error in the first integrated slice.
+
+The worker originally represented every discovered child occurrence by immediately reserving a work slot, even before canonical q reconciliation.
+
+That encoded:
+
+```text
+visible parent/action occurrence
+    == execution reservation
+```
+
+which contradicts the intended #102 architecture:
+
+```text
+visibility is broader than execution
+```
+
+and caused broad global visibility to consume broad simultaneous execution storage.
+
+The corrected representation separates three domains explicitly:
+
+```text
+occurrence replay slot
+    short-lived publication transport
+    physical parent/action occurrence
+    released after reconciliation
+
+canonical q dependency
+    manager-owned semantic/dependency record
+    retains one execution-seed legal replay
+    may have many parent occurrences
+
+execution work slot
+    READY/RUNNING reservation only
+    allocated only to globally admitted canonical q
+    bounded independently of visibility
+```
+
+The reconciler now owns admission from visible q into a narrow execution pool.
+
+Current default candidate policy:
+
+```text
+work slots        max(64, workers * 16)
+execution limit   workers * 4
+occurrence slots  max(4096, workers * 2048)
+canonical q cap   262,144
+```
+
+These are bounded implementation-profile values, not semantic constants.
+
+### Consequence
+
+This removes the need to size execution storage to the full visible dependency frontier.
+
+It also makes priority meaningful:
+
+1. worker exposes all genuine successor occurrences;
+2. reconciler canonicalizes all of them;
+3. global topology determines priority;
+4. only the highest-priority unresolved canonical q are admitted to execution slots;
+5. workers pull from that narrow canonical READY set.
+
+The discovering worker never receives a provisional child execution privilege.
+
+### New liveness rule
+
+A canonical q retains one manager-owned legal replay representative as an **execution seed**.
+
+The seed is not q identity or proof identity.
+
+If an execution occurrence is retired/reclaimed while semantic demand remains, the reconciler can rematerialize a fresh work slot from the seed.
+
+Therefore:
+
+```text
+canonical dependency lifetime
+    != occurrence transport lifetime
+    != execution reservation lifetime
+```
+
+This is now represented directly in storage ownership rather than only documented as a conceptual distinction.
