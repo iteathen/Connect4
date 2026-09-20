@@ -208,6 +208,14 @@ test('surplus worker death requeues live canonical work without changing exact r
       assert.equal(actual.move,expected.move);
       assert.ok((actual.metrics.workerDeathRequeues??0)>0,
         'dead active work must be requeued from portable replay');
+
+      // The dead Worker object must not remain reusable host state. A second
+      // solve on the same manager respawns the missing evaluator and preserves
+      // exact semantics.
+      const second=await manager.solveMoves(moves,{timeoutMs:30000});
+      assert.equal(second.value,expected.value);
+      assert.equal(second.move,expected.move);
+      assert.equal(manager.workers.filter(Boolean).length,2);
     }finally{await manager.close();}
   });
 
