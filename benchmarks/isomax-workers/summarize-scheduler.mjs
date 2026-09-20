@@ -13,6 +13,7 @@ const report = {...input, rawSha256:createHash('sha256').update(raw).digest('hex
   records:run.records.map(r=>({sequence:r.sequence,value:r.value,move:r.move,
     sourceHash:r.sourceHash,candidateHash:r.candidateHash,wallMs:r.wallMs,
     resultReadyMs:r.resultReadyMs,maxRssBytes:r.maxRssBytes,cleanup:r.cleanup,
+    affinityChanges:r.executor?.affinityChanges,affinityMatches:r.executor?.affinityMatches,
     ...Object.fromEntries(metricKeys.map(k=>[k,r.metrics[k]??null])),
     ...(r.observation?{survey:{tasks:r.observation.tasks.length,ready:r.observation.ready.length,
       maxParents:Math.max(0,...r.observation.ready.map(t=>t.maxParents)),
@@ -20,6 +21,9 @@ const report = {...input, rawSha256:createHash('sha256').update(raw).digest('hex
       fiberPairSamples:sum(r.observation.ready,'fiberPairs'),
       forcedTasks:r.observation.tasks.filter(t=>t.forcedChain>0).length,
       maxForcedChain:Math.max(0,...r.observation.tasks.map(t=>t.forcedChain)),
+      forcedKnownDestinations:r.observation.tasks.filter(t=>t.forcedDestinationKnown).length,
+      forcedExactDestinations:r.observation.tasks.filter(t=>t.forcedDestinationExact).length,
+      forcedExactEnds:r.observation.tasks.filter(t=>t.forcedEndsExact).length,
       rankGroups:[0,26,32].map((rank,i)=>{const tasks=r.observation.tasks.filter(t=>t.rank>=rank&&t.rank<([26,32,43][i]));
         return {rankFrom:rank,rankThrough:[25,31,42][i],tasks:tasks.length,nodes:sum(tasks,'nodes'),executionMs:sum(tasks,'executionMs')};})
     }}:{})}))

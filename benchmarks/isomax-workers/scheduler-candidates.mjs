@@ -48,7 +48,7 @@ export async function loadManagerCandidate(variant) {
       'supply.leaves.sort((a,b)=>b.parents.size-a.parents.size);\n          for(const node of supply.leaves){');
   } else if (variant === 'rank2' || variant === 'rank3') {
     // Production constructor selection above owns this admitted policy.
-  } else if (variant === 'affinity') {
+  } else if (variant === 'affinity' || variant === 'affinity-survey') {
     source = replaceOnce(source, 'const owner=build(frame.moves);',
       'const owner=build(frame.moves);owner.preferredWorkerId=message.workerId;');
     source = replaceOnce(source, 'node.edges.push({column,node:child});',
@@ -58,6 +58,12 @@ export async function loadManagerCandidate(variant) {
     let executor = fs.readFileSync(executorUrl, 'utf8').replaceAll('\r\n', '\n');
     executor = replaceOnce(executor, 'const slot = idle.shift();\n      try { dispatchAuthoritative',
       'const preferred = idle.findIndex(s=>s.workerIndex===queue[0].message.preferredWorkerId);\n      const slot = idle.splice(preferred<0?0:preferred,1)[0];\n      try { dispatchAuthoritative');
+    if (variant === 'affinity-survey') {
+      executor=replaceOnce(executor,'const idle = workers.map','let affinityChanges=0,affinityMatches=0;\n  const idle = workers.map');
+      executor=replaceOnce(executor,'const slot = idle.splice(preferred<0?0:preferred,1)[0];',
+        'affinityMatches+=Number(preferred>=0);affinityChanges+=Number(preferred>0);\n      const slot = idle.splice(preferred<0?0:preferred,1)[0];');
+      executor=replaceOnce(executor,'submitted: metrics.submitted,','affinityChanges,affinityMatches,submitted: metrics.submitted,');
+    }
     source = replaceOnce(source, "'../../../research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'",
       JSON.stringify(asModule(executor, executorUrl)));
   } else if (variant === 'survey') {
@@ -82,7 +88,12 @@ export async function loadManagerCandidate(variant) {
         opponentWidth:inspected.pool.termIds(inspected.sideToMove?inspected.p0Class:inspected.p1Class).length};
       let chain=0,code=deriveNativeFrontierConsequence(inspected);
       while(code?.kind===CONCLUSION_FORCED_MOVE){inspected.applyUnchecked(code.cell%7);chain++;code=deriveNativeFrontierConsequence(inspected);}
-      feature.forcedChain=chain;observation.tasks.push(feature);`);
+      feature.forcedChain=chain;
+      if(chain){const destination=nodes.get(inspected);
+        feature.forcedDestinationKnown=!!destination;
+        feature.forcedDestinationExact=destination?.value!==null&&destination?.value!==undefined;
+        feature.forcedEndsExact=code?.kind===CONCLUSION_EXACT_VALUE;}
+      observation.tasks.push(feature);`);
     source = replaceOnce(source, "if(message.jobId!==node.id)throw new Error('worker result has wrong manager job identity');",
       `if(message.jobId!==node.id)throw new Error('worker result has wrong manager job identity');
           Object.assign(feature,{kind:message.kind,nodes:message.nodes,executionMs:message.executionMs,
@@ -112,7 +123,7 @@ if (process.argv[2] === 'child') {
   const suite=process.argv[7]??'three',roots=selectRoots(suite);
   const samples=Number(process.argv[6]??3),git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
   const report={source:git('rev-parse','HEAD'),node:process.version,v8:process.versions.v8,cpu:os.cpus()[0]?.model,
-    roots,suite,variants,workers,samples,instrumented:variants.includes('survey'),runs:[]};
+    roots,suite,variants,workers,samples,instrumented:variants.some(v=>v.includes('survey')),runs:[]};
   fs.mkdirSync(output,{recursive:true});
   const save=()=>fs.writeFileSync(path.join(output,'result.json'),JSON.stringify(report,null,2)+'\n',{flush:true});
   save();let decisions;
