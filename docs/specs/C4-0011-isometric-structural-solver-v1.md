@@ -70,7 +70,7 @@ The IsoMax **hot loop MUST conform to the Node Extreme Execution Standard (NEES)
 
 Current pinned NEES authority:
 
-`iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3` — Draft 0.2.
+`iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c` — Draft 0.3.
 
 NEES is a realization/performance authority only. It does not redefine Connect4 gameplay semantics, q identity, W/D/L orientation, first-win stopping, certificate/proof identity, or the qualified structural claims consumed by C4-0011.
 
@@ -106,6 +106,8 @@ COLD
 An operation's class follows its execution frequency, not the file/process that hosts it. A future manager or scheduler operation that becomes branch/claim/reconciliation-frequency work must be lowered to the applicable NEES class rather than grandfathered as "manager code".
 
 Current conformance evidence is recorded in `components/isometric/NEES_CONFORMANCE.md`.
+
+Draft 0.3 is the governing realization standard. The earlier Draft 0.2 conformance audit remains inherited evidence but does not complete the new one-time Draft 0.3 full E0-E2 maximal-effort baseline audit. Until that baseline is qualified, implementation changes must obey 0.3 but the branch must not claim completed 0.3 NEES-EXTREME conformance.
 
 The promoted E0/E1 conformance claim is the active ordinary native worker profile. Optional guarded-certificate and RBA synchronous consumers may remain richer auxiliary APIs, but if they are promoted into repeated E0 worker execution they inherit NEES-EXTREME immediately and must receive a separate conformance/lowering decision before promotion.
 
