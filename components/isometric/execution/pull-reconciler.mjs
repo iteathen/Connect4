@@ -698,6 +698,7 @@ class PullReconciler {
     Atomics.store(this.shared.workState, slot, WORK_DONE);
     this.releaseIfPossible(slot, generation);
     this.metrics.exactPublications++;
+    this.refillExecution();
   }
 
   acceptRetired(slot, generation, attempt) {
@@ -932,6 +933,7 @@ class PullReconciler {
           this.metrics.reconcileMs += performance.now() - batchStart;
         }
         this.processWorkerDeaths();
+        this.refillExecution();
         this.updateRootAnswer();
         this.metrics.maxAllocatedWork = Math.max(this.metrics.maxAllocatedWork,
           Math.min(this.shared.workCapacity, Atomics.load(this.shared.control, CTRL_WORK_NEXT)));
