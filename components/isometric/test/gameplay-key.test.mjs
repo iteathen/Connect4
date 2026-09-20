@@ -19,6 +19,32 @@ test('gameplay key is exactly a pool-local triple, with transport separate', () 
   assert.throws(() => new IsoMaxSolver({ pool: otherPool, transitionCache: cache }), /pool/);
 });
 
+test('reflection-canonical q_r transports literal action labels', () => {
+  const pool = new ResidualPool();
+  const left = new IsometricState({ pool, moves: [0, 0, 0, 0, 0, 0] });
+  const right = new IsometricState({ pool, moves: [6, 6, 6, 6, 6, 6] });
+
+  assert.deepEqual(left.gameplayKey(), right.gameplayKey());
+
+  const legalLeft = Array.from({ length: 7 }, (_, column) => column).filter(column => left.canPlay(column));
+  const legalRight = Array.from({ length: 7 }, (_, column) => column).filter(column => right.canPlay(column));
+  assert.notDeepEqual(legalLeft, legalRight);
+  assert.deepEqual(legalLeft.map(column => 6 - column).sort((a, b) => a - b), legalRight);
+
+  const parentKey = Array.from(left.gameplayKey());
+  for (const column of legalLeft) {
+    const reflectedColumn = 6 - column;
+    assert.notEqual(left.play(column), -1);
+    assert.notEqual(right.play(reflectedColumn), -1);
+    assert.equal(left.status, right.status);
+    assert.deepEqual(left.gameplayKey(), right.gameplayKey());
+    assert.equal(left.undo(), true);
+    assert.equal(right.undo(), true);
+    assert.deepEqual(Array.from(left.gameplayKey()), parentKey);
+    assert.deepEqual(left.gameplayKey(), right.gameplayKey());
+  }
+});
+
 test('repeated resize, collisions, mirrors and arbitrary payloads preserve full q equality', () => {
   const pool = new ResidualPool();
   const cache = new IsoMaxTransitionCache({ pool, initialCapacity: 8 });
