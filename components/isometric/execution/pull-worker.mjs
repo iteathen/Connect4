@@ -235,17 +235,29 @@ class PullEvaluator {
       }
       if (childCount < 2) throw new Error('pull decision frontier must expose at least two children');
 
+      // Complete all child records in shared storage, but do not put any
+      // child in a claimable queue before the semantic frontier commit marker.
+      for (let index = 0; index < childCount; index++) {
+        const childSlot = this.frontierSlots[index];
+        if (Atomics.compareExchange(shared.workState, childSlot, WORK_WRITING, WORK_READY) !== WORK_WRITING) {
+          throw new Error('invalid pull child state before frontier commit');
+        }
+      }
+
       Atomics.store(shared.workState, slot, WORK_DONE);
       this.counters[WC_FRONTIERS]++;
       if (!this.publishBlocking(shared, PUB_FRONTIER_END,
         slot, generation, attempt, childCount, firstDeterministic, this.state.ply, workerIndex)) return false;
 
-      // The manager may race this publication and promote WRITING -> READY at
-      // the canonical priority. CAS keeps that race benign. The discovering
-      // worker never reserves a child for itself.
+      // FRONTIER_END is now visible. Reconciliation may enqueue at a stronger
+      // canonical priority or retire a duplicate before this worker reaches a
+      // child. Generation/state checks make either race benign.
       for (let index = 0; index < childCount; index++) {
         const childSlot = this.frontierSlots[index];
         const childGeneration = this.frontierGenerations[index];
+        if (Atomics.load(shared.workGeneration, childSlot) !== childGeneration) continue;
+        const childState = Atomics.load(shared.workState, childSlot);
+        if (childState !== WORK_READY) continue;
         if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
           throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
         }
