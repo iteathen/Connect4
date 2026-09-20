@@ -4,7 +4,9 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { IsoMaxPullBranchManager } from '../execution/pull-manager.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
 import {
+  CTRL_WORK_NEXT,
   WORK_DONE,
+  WORK_RUNNING,
   allocateWorkSlot,
   claimHighestReady,
   createSharedWorkPool,
@@ -126,16 +128,34 @@ test('decentralized pull requeues dead-worker execution and still returns exact 
     let killed = false;
     try {
       await manager.start();
-      const result = await manager.solveMoves(moves, {
-        timeoutMs:20000,
-        progressIntervalMs:100,
-        onProgress:() => {
-          if (killed || !manager.workers[0]) return;
-          killed = true;
-          void manager.workers[0].terminate();
-        },
-      });
-      assert.equal(killed, true, 'test must terminate one active evaluator');
+      const run = manager.solveMoves(moves, {timeoutMs:20000});
+
+      let runningWorker = -1;
+      for (let spin = 0; spin < 2000 && runningWorker < 0; spin++) {
+        const shared = manager.session?.shared;
+        if (shared) {
+          const allocated = Math.min(
+            shared.workCapacity,
+            Atomics.load(shared.control, CTRL_WORK_NEXT),
+          );
+          for (let slot = 0; slot < allocated; slot++) {
+            if (Atomics.load(shared.workState, slot) !== WORK_RUNNING) continue;
+            const owner = Atomics.load(shared.workWorker, slot);
+            if (owner >= 0 && manager.workers[owner]) {
+              runningWorker = owner;
+              break;
+            }
+          }
+        }
+        if (runningWorker < 0) await new Promise(resolve => setTimeout(resolve, 1));
+      }
+
+      assert.ok(runningWorker >= 0, 'test must observe a RUNNING pull execution');
+      killed = true;
+      await manager.workers[runningWorker].terminate();
+
+      const result = await run;
+      assert.equal(killed, true);
       assert.equal(result.value, expected.value);
       assert.equal(result.move, expected.move);
       assert.ok((result.metrics.workerDeathRequeues ?? 0) > 0,
