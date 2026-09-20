@@ -24,7 +24,9 @@ function asModule(source, url) {
   return 'data:text/javascript;base64,' + Buffer.from(source).toString('base64');
 }
 export async function loadManagerCandidate(variant) {
-  let source = fs.readFileSync(managerUrl, 'utf8');
+  // Git checkout line endings are not candidate semantics. Admit the same
+  // exact substitutions on Windows CRLF and Unix LF checkouts.
+  let source = fs.readFileSync(managerUrl, 'utf8').replaceAll('\r\n', '\n');
   const sourceHash = createHash('sha256').update(source).digest('hex');
   if (variant === 'fanin') {
     // Rank admission, not merely submit(priority): with W outstanding the
@@ -44,7 +46,7 @@ export async function loadManagerCandidate(variant) {
       'if(child.preferredWorkerId===undefined)child.preferredWorkerId=node.preferredWorkerId;\n        node.edges.push({column,node:child});');
     source = replaceOnce(source, "rootPly:moves.length,nodeBudget:this.taskNodes,abort:abortBuffer,needed:neededBuffer}",
       'preferredWorkerId:node.preferredWorkerId,rootPly:moves.length,nodeBudget:this.taskNodes,abort:abortBuffer,needed:neededBuffer}');
-    let executor = fs.readFileSync(executorUrl, 'utf8');
+    let executor = fs.readFileSync(executorUrl, 'utf8').replaceAll('\r\n', '\n');
     executor = replaceOnce(executor, 'const slot = idle.shift();\n      try { dispatchAuthoritative',
       'const preferred = idle.findIndex(s=>s.workerIndex===queue[0].message.preferredWorkerId);\n      const slot = idle.splice(preferred<0?0:preferred,1)[0];\n      try { dispatchAuthoritative');
     source = replaceOnce(source, "'../../../research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs'",

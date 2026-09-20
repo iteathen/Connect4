@@ -534,3 +534,18 @@ WDL/action/cleanup, more total expanded/transition work without compensating
 resource/time benefit, manager amplification or lost locality. Priority must
 affect ready admission: with only W outstanding, merely supplying executor
 priority often has no competing queued work and cannot test #90's premise.
+
+Survey completed: the three roots submitted 50/433/281 tasks; maximum ready
+fan-in was 1/2/2 and maximum same-support fiber was 1/2/2. Submitted forced
+chains occurred in 1/16/6 tasks, with maximum length 1/2/2. Most task execution
+and entered calls were below rank 26. This is evidence for screening admission
+and locality, not evidence of a dense GPU batch or an exact isotony theorem.
+Instrumented time is excluded from performance claims.
+
+The first scheduler screen preserved four completed sample-zero variants, then
+failed admission before affinity execution: `candidate source admission drift:
+const slot = idle.shift(); ...`, `1 !== 2`. The executor checkout used CRLF,
+where the exact multiline needle used LF. Normalize source line endings in the
+qualification loader; no production solver change. A regression admits all six
+variants against the real checkout. Preserve the partial screen as evidence,
+then run the full alternating screen with the corrected, committed harness.
