@@ -66,15 +66,19 @@ export class IsoMaxPullBranchManager {
     workers = defaultIsoMaxPullWorkers(),
     maxTasks = 262144,
     maxEdges = maxTasks * 7,
-    workCapacity = Math.min(maxTasks, 131072),
-    queueCapacity = Math.max(1024, Math.min(workCapacity * 2, 1 << 20)),
-    publicationCapacity = Math.max(4096, Math.min(workCapacity * 2, 1 << 20)),
+    workCapacity = Math.min(maxTasks, Math.max(64, workers * 16)),
+    executionLimit = Math.min(workCapacity, Math.max(1, workers * 4)),
+    queueCapacity = Math.max(1024, workCapacity * 16),
+    occurrenceCapacity = Math.max(4096, workers * 2048),
+    publicationCapacity = Math.max(4096, workers * 2048),
   } = {}) {
     this.workerCount = positive(workers, 'workers', 256);
     this.maxTasks = positive(maxTasks, 'maxTasks');
     this.maxEdges = positive(maxEdges, 'maxEdges');
     this.workCapacity = positive(workCapacity, 'workCapacity');
+    this.executionLimit = positive(executionLimit, 'executionLimit', this.workCapacity);
     this.queueCapacity = positive(queueCapacity, 'queueCapacity');
+    this.occurrenceCapacity = positive(occurrenceCapacity, 'occurrenceCapacity');
     this.publicationCapacity = positive(publicationCapacity, 'publicationCapacity');
     if (this.workCapacity > this.maxTasks) throw new RangeError('workCapacity cannot exceed maxTasks');
     this.workers = new Array(this.workerCount).fill(null);
@@ -204,6 +208,7 @@ export class IsoMaxPullBranchManager {
       workerCount:this.workerCount,
       publicationCapacity:this.publicationCapacity,
       queueCapacity:this.queueCapacity,
+      occurrenceCapacity:this.occurrenceCapacity,
     });
     const shared = openSharedWorkPool(descriptor);
     for (let id = 0; id < this.workerCount; id++) Atomics.store(shared.workerAlive, id, this.workers[id] ? 1 : 0);
@@ -304,6 +309,7 @@ export class IsoMaxPullBranchManager {
         maxEdges:this.maxEdges,
         selectMove,
         progressIntervalMs,
+        executionLimit:this.executionLimit,
       });
       await readyPromise;
       if (session.failure) throw session.failure;
@@ -362,7 +368,9 @@ export class IsoMaxPullBranchManager {
           maxTasks:this.maxTasks,
           maxEdges:this.maxEdges,
           workCapacity:this.workCapacity,
+          executionLimit:this.executionLimit,
           queueCapacity:this.queueCapacity,
+          occurrenceCapacity:this.occurrenceCapacity,
           publicationCapacity:this.publicationCapacity,
         },
         metrics:{
