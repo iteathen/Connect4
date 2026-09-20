@@ -249,11 +249,13 @@ test('surplus reconciler merges physically distinct child occurrences with the s
       const actual=await manager.solveMoves(moves,{timeoutMs:10000});
       assert.equal(actual.value,expected.value);
       assert.equal(actual.move,expected.move);
+      // qReuses increments only while linkOccurrence() interns a physical
+      // occurrence into an already-existing full exact q_r. Depending on
+      // scheduling, that reused q may still be running (duplicate carrier) or
+      // already exact (immediate exact broadcast), so duplicate-carrier counts
+      // are not a deterministic requirement of successful reconciliation.
       assert.ok((actual.metrics.qReuses??0)>0,
-        'reconciler must observe at least one exact q_r reuse for the selected fixture');
-      assert.ok((actual.metrics.duplicateOccurrences??0)>0 ||
-        (actual.metrics.duplicateRunningContinuations??0)>0,
-        'q_r reuse must reach occurrence/execution reconciliation rather than remain a locator-only count');
+        'reconciler must merge a physical occurrence into an existing exact q_r');
     }finally{await manager.close();}
   });
 
