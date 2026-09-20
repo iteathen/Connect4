@@ -230,6 +230,7 @@ class SurplusDistributor {
 class SurplusEvaluator {
   constructor() {
     this.solver=new IsoMaxSolver();
+    this.state=this.solver.createState();
     this.shared=null;
     this.activeWork=-1;
     this.activeGeneration=0;
@@ -254,6 +255,7 @@ class SurplusEvaluator {
   }
 
   finishSession() {
+    while(this.state.ply>0)this.state.undo();
     this.solver.nextControlNode=Infinity;
     this.solver.pool.releaseSearchStorage();
     this.solver.transitionCache.sealed=false;
@@ -281,10 +283,17 @@ class SurplusEvaluator {
   replayWork(slot) {
     const shared=this.shared,length=Atomics.load(shared.workPathLength,slot);
     if(length<0||length>MAX_MOVES)throw new Error('invalid surplus work replay');
-    const moves=new Array(length);
     const base=slot*MAX_MOVES;
-    for(let i=0;i<length;i++){moves[i]=shared.workPath[base+i];this.counters[WC_PATH_REPLAY_APPLIES]++;}
-    return this.solver.createState(moves);
+    let common=Math.min(this.state.ply,length),prefix=0;
+    while(prefix<common&&(this.state.moveCells[prefix]%7)===shared.workPath[base+prefix])prefix++;
+    common=prefix;
+    while(this.state.ply>common)this.state.undo();
+    for(let i=common;i<length;i++){
+      const column=shared.workPath[base+i];
+      if(!this.state.canPlay(column))throw new Error('invalid surplus work path');
+      this.state.applyUnchecked(column);this.counters[WC_PATH_REPLAY_APPLIES]++;
+    }
+    return this.state;
   }
 
   runClaim(slot,generation,attempt) {
