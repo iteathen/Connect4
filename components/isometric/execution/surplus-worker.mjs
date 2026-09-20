@@ -11,6 +11,8 @@ import {
   OCC_LINKED,
   OCC_PUBLISHED,
   OCC_RETIRED,
+  OCC_ROLE_CONTINUATION,
+  OCC_ROLE_SURPLUS,
   PUB_EXACT,
   PUB_FAILURE,
   PUB_OCCURRENCE,
@@ -47,6 +49,7 @@ import {
 if (!parentPort) throw new Error('IsoMax surplus worker requires parentPort');
 
 const workRetired=Symbol('surplus work retired');
+const continuationResolved=Symbol('surplus continuation resolved');
 const workerIndex=workerData.workerId;
 const workerCount=workerData.workerCount;
 
@@ -117,6 +120,18 @@ class SurplusDistributor {
         return Atomics.load(shared.occResult,slot);
       }
 
+      const leader=Atomics.load(shared.occLeader,slot);
+      if(leader>=0&&leader!==slot&&leader<shared.occurrenceCapacity &&
+         Atomics.load(shared.occNeeded,leader)!==0 &&
+         Atomics.load(shared.occState,leader)!==OCC_RETIRED){
+        // A canonical-equivalent native continuation is already running.
+        // Preserve global convergence without rematerializing another subtree.
+        this.worker.counters[WC_HELPER_WAITS]++;
+        this.worker.counters[WC_SURPLUS_REMOTE]++;
+        Atomics.wait(shared.occState,slot,OCC_LINKED,10);
+        continue;
+      }
+
       const work=Atomics.load(shared.occWork,slot);
       const workGeneration=Atomics.load(shared.occWorkGeneration,slot);
 
@@ -180,13 +195,15 @@ class SurplusDistributor {
 
     for(let i=0;i<count;i++)this.occSlots[base+i]=-1;
     try{
-      // Publish only alternatives. The current worker keeps column[0] in its
-      // native call stack and does not round-trip it through global scheduling.
-      for(let i=1;i<count;i++){
+      // Primary continuation is globally visible but never scheduled merely
+      // because this branch exists. Surplus alternatives use the same
+      // occurrence identity and may be admitted only for spare worker capacity.
+      for(let i=0;i<count;i++){
         const column=this.columns[base+i];
+        const role=i===0?OCC_ROLE_CONTINUATION:OCC_ROLE_SURPLUS;
         const slot=allocateOccurrence(
           this.worker.shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
-          state,column,i,
+          state,column,i,role,
         );
         if(slot<0)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_CAPACITY');
         const generation=Atomics.load(this.worker.shared.occGeneration,slot);
@@ -199,17 +216,33 @@ class SurplusDistributor {
       let best=maximizing?-1:1;
       for(let i=0;i<count;i++){
         const column=this.columns[base+i];
+        const slot=this.occSlots[base+i],generation=this.occGenerations[base+i];
         let childValue;
+
         if(i===0){
           this.worker.counters[WC_LOCAL_PRIMARY]++;
+          let remoteResolved=false;
+          this.worker.pushContinuation(ply,slot,generation);
           state.applyUnchecked(column);solver.metrics.recursiveChildren++;
-          try{childValue=solver.solveNode(state);}
-          finally{state.undo();}
+          try{
+            childValue=solver.solveNode(state);
+          }catch(error){
+            if(error===continuationResolved&&this.worker.interruptPly===ply){
+              childValue=this.worker.interruptValue;
+              remoteResolved=true;
+              this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+            }else throw error;
+          }finally{
+            state.undo();
+            this.worker.popContinuation(ply,slot);
+          }
+          if(!remoteResolved){
+            this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,childValue,workerIndex);
+          }
+          this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
         }else{
-          const slot=this.occSlots[base+i],generation=this.occGenerations[base+i];
           childValue=this.resolveOccurrence(solver,state,column,slot,generation);
-          this.retireOccurrence(slot,generation);
-          this.occSlots[base+i]=-1;
+          this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
         }
 
         if(maximizing){
@@ -222,9 +255,9 @@ class SurplusDistributor {
       }
       return best;
     }finally{
-      // A cutoff, retirement or failure invalidates any alternatives this
-      // frame published but never consumed.
-      for(let i=1;i<count;i++){
+      // Cutoff, retirement or failure invalidates every still-live occurrence,
+      // including a primary continuation whose recursion was interrupted.
+      for(let i=0;i<count;i++){
         const slot=this.occSlots[base+i];
         if(slot>=0){
           this.retireOccurrence(slot,this.occGenerations[base+i]);
@@ -233,6 +266,7 @@ class SurplusDistributor {
       }
     }
   }
+
 }
 
 class SurplusEvaluator {
@@ -246,6 +280,12 @@ class SurplusEvaluator {
     this.externalRootPly=0;
     this.counters=new Int32Array(WC_WORDS);
     this.claimScratch=new Int32Array(4);
+    this.continuationPly=new Int8Array(MAX_MOVES+1);
+    this.continuationSlot=new Int32Array(MAX_MOVES+1);this.continuationSlot.fill(-1);
+    this.continuationGeneration=new Int32Array(MAX_MOVES+1);
+    this.continuationDepth=0;
+    this.interruptPly=-1;
+    this.interruptValue=0;
     this.distributor=new SurplusDistributor(this);
     this.solver.branchDistributor=this.distributor;
     this.solver.checkTaskControl=(state)=>this.checkTaskControl(state);
@@ -270,17 +310,45 @@ class SurplusEvaluator {
     this.shared=null;
   }
 
+  pushContinuation(ply,slot,generation){
+    const depth=this.continuationDepth++;
+    this.continuationPly[depth]=ply;
+    this.continuationSlot[depth]=slot;
+    this.continuationGeneration[depth]=generation;
+  }
+
+  popContinuation(ply,slot){
+    const depth=this.continuationDepth-1;
+    if(depth<0||this.continuationPly[depth]!==ply||this.continuationSlot[depth]!==slot)
+      throw new Error('surplus continuation stack corruption');
+    this.continuationSlot[depth]=-1;this.continuationDepth=depth;
+  }
+
   checkTaskControl() {
     this.counters[WC_CONTROL_CHECKS]++;
     const shared=this.shared;
     if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
     if(this.activeWork>=0&&Atomics.load(shared.workNeeded,this.activeWork)===0)throw workRetired;
+
+    // Continuations remain native/local, but canonical exact knowledge may
+    // resolve an ancestor branch while this worker is deeper in recursion.
+    // Unwind only to that branch frame at the amortized control boundary.
+    for(let depth=0;depth<this.continuationDepth;depth++){
+      const slot=this.continuationSlot[depth],generation=this.continuationGeneration[depth];
+      if(slot<0||Atomics.load(shared.occGeneration,slot)!==generation)continue;
+      if(Atomics.load(shared.occState,slot)===OCC_EXACT){
+        this.interruptPly=this.continuationPly[depth];
+        this.interruptValue=Atomics.load(shared.occResult,slot);
+        throw continuationResolved;
+      }
+    }
     this.solver.nextControlNode=this.solver.metrics.nodes+512;
   }
 
   resetMetrics() {
     for(const key of Object.keys(this.solver.metrics))this.solver.metrics[key]=0;
     this.solver.orderingRootPly=this.externalRootPly;
+    this.continuationDepth=0;this.interruptPly=-1;
     this.solver.nextControlNode=0;
   }
 
