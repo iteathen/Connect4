@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  q-fixture-probe:
+  occurrence-capacity-trace:
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
@@ -26,72 +26,50 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Search late reflected ordinary-branch fixtures
+      - name: Trace occurrence-capacity failure lifecycle
         run: |
-          node --input-type=module <<'NODE'
-          import { IsoMaxSolver } from './components/isometric/solver.mjs';
-          import { nativeFrontierCode } from './components/isometric/frontier.mjs';
+          timeout 30s node --input-type=module <<'NODE'
+          import { IsoMaxSurplusBranchManager } from './components/isometric/execution/surplus-manager.mjs';
 
-          let rng=0x102c4 >>> 0;
-          const next=()=>{rng^=rng<<13;rng^=rng>>>17;rng^=rng<<5;return rng>>>0;};
-          for (const target of [32,28,24]) {
-            let found=0;
-            for (let attempt=0;attempt<200000 && found<3;attempt++) {
-              const solver=new IsoMaxSolver(),state=solver.createState(),moves=[];
-              let ok=true;
-              for(let chunk=0;chunk<target/4;chunk++){
-                const a=next()%7,b=next()%7;
-                const seq=[a,b,6-a,6-b];
-                for(const column of seq){
-                  if(!state.canPlay(column)){ok=false;break;}
-                  state.applyUnchecked(column);moves.push(column);
-                  if(state.isTerminal()&&moves.length<target){ok=false;break;}
-                }
-                if(!ok)break;
-              }
-              if(!ok||moves.length!==target||state.isTerminal()||nativeFrontierCode(state)!==0)continue;
-              let pair=null;
-              for(const column of [0,1,2]){
-                const mirror=6-column;
-                if(!state.canPlay(column)||!state.canPlay(mirror))continue;
-                state.applyUnchecked(column);const left=Array.from(state.gameplayKey());state.undo();
-                state.applyUnchecked(mirror);const right=Array.from(state.gameplayKey());state.undo();
-                if(JSON.stringify(left)===JSON.stringify(right)){pair=[column,mirror];break;}
-              }
-              if(pair){
-                console.log(JSON.stringify({target,attempt,moves,pair,native:nativeFrontierCode(state)}));
-                found++;
-              }
-            }
-          }
+          const moves=[
+            6,6,0,0, 2,1,4,5, 3,2,3,4, 6,3,0,3,
+            5,0,1,6, 2,6,4,0, 1,1,5,5, 2,2,4,4,
+          ];
+          const manager=new IsoMaxSurplusBranchManager({
+            workers:1,maxQ:64,workCapacity:64,occurrenceCapacity:1,
+            queueCapacity:64,publicationCapacity:64,
+          });
+          await manager.start();
+          manager.reconciler.on('message',m=>{
+            if(m?.type!=='surplus-progress')
+              console.log('TRACE_REC',JSON.stringify({type:m?.type,message:m?.message}));
+          });
+          manager.workers[0].on('message',m=>{
+            console.log('TRACE_WORKER',JSON.stringify({type:m?.type,message:m?.message,workerId:m?.workerId}));
+          });
+
+          let settled=false;
+          const solve=manager.solveMoves(moves,{timeoutMs:5000,progressIntervalMs:100})
+            .then(v=>{settled=true;return {kind:'resolved',value:v.value,move:v.move};},
+              e=>{settled=true;return {kind:'rejected',message:e?.message??String(e)};});
+
+          const ticker=setInterval(()=>{
+            const s=manager.session;
+            console.log('TRACE_STATE',JSON.stringify({
+              settled,
+              session:!!s,
+              failure:s?.failure?.message??null,
+              done:s?Array.from(s.done):null,
+              control:s?Array.from(s.shared.control):null,
+            }));
+          },250);
+
+          const outcome=await Promise.race([
+            solve,
+            new Promise(resolve=>setTimeout(()=>resolve({kind:'host-timeout'}),8000)),
+          ]);
+          clearInterval(ticker);
+          console.log('TRACE_OUTCOME',JSON.stringify(outcome));
+          await manager.close();
+          console.log('TRACE_CLOSED');
           NODE
-
-  q-convergence:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
-        with:
-          node-version: 26.7.0
-      - name: Isolate q_r convergence failure
-        run: |
-          set -o pipefail
-          timeout 45s node --test --test-reporter=spec --test-name-pattern="surplus reconciler merges physically distinct child occurrences with the same q_r" components/isometric/test/surplus-execution.test.mjs
-
-  occurrence-capacity:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
-        with:
-          node-version: 26.7.0
-      - name: Isolate bounded occurrence lifecycle failure
-        run: |
-          set -o pipefail
-          timeout 45s node --test --test-reporter=spec --test-name-pattern="surplus bounded occurrence capacity fails closed" components/isometric/test/surplus-execution.test.mjs
