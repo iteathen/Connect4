@@ -215,6 +215,7 @@ class PullEvaluator {
         const childSlot = this.allocateChild(shared);
         if (childSlot < 0) return this.publishRetired(shared, slot, generation, attempt);
         const childGeneration = this.allocateScratch[1];
+        Atomics.store(shared.workPublisher, childSlot, workerIndex);
         const base = childSlot * MAX_MOVES;
         for (let ply = 0; ply < this.state.ply; ply++) {
           shared.workPath[base + ply] = this.state.moveCells[ply] % 7;
