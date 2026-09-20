@@ -41,6 +41,7 @@ export const WC_QUEUE_DEQUEUES = 7;
 export const WC_FREE_WAITS = 8;
 export const WC_PATH_REPLAYS = 9;
 export const WC_TRANSITIONS = 10;
+export const WC_FRONTIER_EVALS = 11;
 export const WC_BAND_BASE = 16;
 export const WC_WORDS = 24;
 
@@ -123,6 +124,7 @@ export function createSharedWorkPool({
     preferredGeneration: sabI32(workerCount),
     preferredTicket: sabI32(workerCount),
     preferredBand: sabI32(workerCount),
+    workerAlive: sabI32(workerCount),
 
     workerCounters: sabI32(workerCount * WC_WORDS),
   });
@@ -139,6 +141,7 @@ export function createSharedWorkPool({
   pool.preferredGeneration.fill(-1);
   pool.preferredTicket.fill(-1);
   pool.preferredBand.fill(-1);
+  pool.workerAlive.fill(1);
   return descriptor;
 }
 
@@ -196,6 +199,7 @@ export function openSharedWorkPool(descriptor) {
     preferredGeneration: new Int32Array(descriptor.preferredGeneration),
     preferredTicket: new Int32Array(descriptor.preferredTicket),
     preferredBand: new Int32Array(descriptor.preferredBand),
+    workerAlive: new Int32Array(descriptor.workerAlive),
 
     workerCounters: new Int32Array(descriptor.workerCounters),
   };
