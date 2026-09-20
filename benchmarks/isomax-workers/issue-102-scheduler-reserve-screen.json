@@ -1,0 +1,212 @@
+{
+  "issue": 102,
+  "kind": "initial scheduler-reserve screen",
+  "sourceRevision": "cb496b6aaf75132d161af92d8cb1744d0eae6dbb",
+  "workflowRun": 35480504178,
+  "artifactId": 10595378470,
+  "node": "v26.7.0",
+  "cpu": "AMD EPYC 7763 64-Core Processor",
+  "availableParallelism": 4,
+  "roots": [
+    "717657616532237625",
+    "466537327657277224",
+    "616767454664457417"
+  ],
+  "samplesPerConfig": 3,
+  "exactDecisionsMatched": true,
+  "results": [
+    {
+      "label": "serial",
+      "workers": 0,
+      "reserve": 0,
+      "medianWallMs": 2755.952313,
+      "medianNodes": 2643905,
+      "maxRssBytes": 191295488
+    },
+    {
+      "label": "w1-r0",
+      "workers": 1,
+      "reserve": 0,
+      "medianWallMs": 3349.335555,
+      "medianResultReadyMs": 3329.228957,
+      "medianNodes": 2644187,
+      "medianRedispatchIdleMsTotal": 42.280258,
+      "idleWithReadyEvents": [
+        252,
+        252,
+        252
+      ],
+      "zeroNodeRetiredTasks": [
+        0,
+        0,
+        0
+      ],
+      "maxRssBytes": 398581760
+    },
+    {
+      "label": "w1-r1",
+      "workers": 1,
+      "reserve": 1,
+      "medianWallMs": 3387.510348,
+      "medianResultReadyMs": 3371.043238,
+      "medianNodes": 2772544,
+      "medianRedispatchIdleMsTotal": 0.702211,
+      "idleWithReadyEvents": [
+        3,
+        3,
+        3
+      ],
+      "zeroNodeRetiredTasks": [
+        17,
+        16,
+        18
+      ],
+      "maxRssBytes": 356089856
+    },
+    {
+      "label": "w2-r0",
+      "workers": 2,
+      "reserve": 0,
+      "medianWallMs": 3106.40589,
+      "medianResultReadyMs": 3078.58117,
+      "medianNodes": 4334990,
+      "medianRedispatchIdleMsTotal": 216.483911,
+      "idleWithReadyEvents": [
+        334,
+        352,
+        362
+      ],
+      "zeroNodeRetiredTasks": [
+        3,
+        1,
+        2
+      ],
+      "maxRssBytes": 565821440
+    },
+    {
+      "label": "w2-r1",
+      "workers": 2,
+      "reserve": 1,
+      "medianWallMs": 3245.303761,
+      "medianResultReadyMs": 3216.843717,
+      "medianNodes": 4457439,
+      "medianRedispatchIdleMsTotal": 261.050601,
+      "idleWithReadyEvents": [
+        6,
+        6,
+        5
+      ],
+      "zeroNodeRetiredTasks": [
+        17,
+        22,
+        17
+      ],
+      "maxRssBytes": 592162816
+    },
+    {
+      "label": "w2-r2",
+      "workers": 2,
+      "reserve": 2,
+      "medianWallMs": 3182.460101,
+      "medianResultReadyMs": 3147.195323,
+      "medianNodes": 4394114,
+      "medianRedispatchIdleMsTotal": 167.693211,
+      "idleWithReadyEvents": [
+        6,
+        6,
+        6
+      ],
+      "zeroNodeRetiredTasks": [
+        39,
+        35,
+        40
+      ],
+      "maxRssBytes": 595849216
+    },
+    {
+      "label": "w4-r0",
+      "workers": 4,
+      "reserve": 0,
+      "medianWallMs": 4729.546886,
+      "medianResultReadyMs": 4683.648022,
+      "medianNodes": 7072169,
+      "medianRedispatchIdleMsTotal": 354.773106,
+      "idleWithReadyEvents": [
+        849,
+        806,
+        810
+      ],
+      "zeroNodeRetiredTasks": [
+        7,
+        8,
+        11
+      ],
+      "maxRssBytes": 732958720
+    },
+    {
+      "label": "w4-r1",
+      "workers": 4,
+      "reserve": 1,
+      "medianWallMs": 4789.253911,
+      "medianResultReadyMs": 4739.456595,
+      "medianNodes": 7304115,
+      "medianRedispatchIdleMsTotal": 191.95612,
+      "idleWithReadyEvents": [
+        6,
+        6,
+        6
+      ],
+      "zeroNodeRetiredTasks": [
+        45,
+        50,
+        48
+      ],
+      "maxRssBytes": 777957376
+    },
+    {
+      "label": "w4-r4",
+      "workers": 4,
+      "reserve": 4,
+      "medianWallMs": 4638.455454,
+      "medianResultReadyMs": 4581.283184,
+      "medianNodes": 6936473,
+      "medianRedispatchIdleMsTotal": 356.255162,
+      "idleWithReadyEvents": [
+        7,
+        6,
+        7
+      ],
+      "zeroNodeRetiredTasks": [
+        100,
+        108,
+        87
+      ],
+      "maxRssBytes": 707244032
+    }
+  ],
+  "comparisons": {
+    "w1-r1_vs_w1-r0": {
+      "wallPct": 1.139772,
+      "nodesPct": 4.854309
+    },
+    "w2-r1_vs_w2-r0": {
+      "wallPct": 4.471337,
+      "nodesPct": 2.824666
+    },
+    "w2-r2_vs_w2-r0": {
+      "wallPct": 2.448302,
+      "nodesPct": 1.363879
+    },
+    "w4-r1_vs_w4-r0": {
+      "wallPct": 1.262426,
+      "nodesPct": 3.279701
+    },
+    "w4-r4_vs_w4-r0": {
+      "wallPct": -1.926008,
+      "resultReadyPct": -2.185579,
+      "nodesPct": -1.918732,
+      "maxRssPct": -3.508341
+    }
+  },
+  "disposition": "Broad reserve hypothesis falsified. +1 regressed at 1/2/4 workers. Only 4-worker reserve=4 improved wall and nodes in all three screen samples; requires independent confirmation before policy change."
+}
