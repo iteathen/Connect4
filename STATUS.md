@@ -38,6 +38,8 @@ NEES has no gameplay-authority effect. C4-0011 and canonical Connect4/IsoGraph r
 
 The first implementation alignment preserves native forced-cell provenance: a unique playable forced cell established by `nativeFrontierCode` now bypasses the certificate-facing cell validator, while certificate-origin forced cells remain fully checked.
 
+Audited conformance record: `components/isometric/NEES_CONFORMANCE.md`. The active ordinary native worker profile is declared conformant at E0/E1/E2; optional certificate/RBA synchronous consumers require a separate E0 conformance decision before any hot-worker promotion. Current Branch Manager orchestration remains E3 only while amortized at the existing coarse task quantum.
+
 Qualification follows NEES cadence: one coherent PR/change set is the default qualification unit. Full correctness/performance/JIT qualification is not rerun after every optimized line.
 
 ## Research-coupled update readiness — 2026-09-19
