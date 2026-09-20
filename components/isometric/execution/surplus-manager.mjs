@@ -101,7 +101,10 @@ export class IsoMaxSurplusBranchManager {
       });
       this.workers[id]=worker;pending.push(waitReady(worker,'surplus-ready',id));
       worker.on('error',()=>this.#markDead(id));
-      worker.on('exit',()=>{if(!this.closed)this.#markDead(id);});
+      worker.on('exit',()=>{
+        if(this.workers[id]===worker)this.workers[id]=null;
+        if(!this.closed)this.#markDead(id);
+      });
     }
     await Promise.all(pending);
   }
