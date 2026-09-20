@@ -16,6 +16,30 @@ Isometric is the active forward structural solver family governed by C4-0011. CU
 
 Historical descent from the terminal-frontier experiment does not make Negamax semantics or branch ownership authoritative here.
 
+## NEES hot-loop conformance — 2026-09-19
+
+The IsoMax hot loop now has an explicit extreme-performance realization contract:
+
+`components/isometric/NEES_PROFILE.md`
+
+Pinned standard:
+
+`iteathen/NEES@0294f37909e9a5b7a2202d3a9367a9e2428d47b3` — Draft 0.2.
+
+Current scope:
+
+- E0 recursive ordinary-value kernel: **NEES-EXTREME required**;
+- E1 native transition/cache/apply/undo path: **NEES-EXTREME required**;
+- E2 scheduled control and any future branch/claim/reconciliation hot path: **NEES-EXTREME at that cadence**;
+- E3 task/worker/manager orchestration may retain richer objects/Promises/messages while it remains outside the hot cadence;
+- COLD preparation/reporting remains outside hot-loop restrictions.
+
+NEES has no gameplay-authority effect. C4-0011 and canonical Connect4/IsoGraph research still define what is true.
+
+The first implementation alignment preserves native forced-cell provenance: a unique playable forced cell established by `nativeFrontierCode` now bypasses the certificate-facing cell validator, while certificate-origin forced cells remain fully checked.
+
+Qualification follows NEES cadence: one coherent PR/change set is the default qualification unit. Full correctness/performance/JIT qualification is not rerun after every optimized line.
+
 ## Research-coupled update readiness — 2026-09-19
 
 The native worker hot-loop restoration removes per-node frontier objects and
