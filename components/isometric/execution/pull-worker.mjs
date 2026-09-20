@@ -26,7 +26,9 @@ import {
   WC_FREE_WAITS,
   WC_FRONTIER_EVALS,
   WC_FRONTIERS,
+  WC_PATH_APPLIES,
   WC_PATH_REPLAYS,
+  WC_PATH_UNDOS,
   WC_RETIRED,
   WC_STALE_QUEUE,
   WC_TRANSITIONS,
@@ -74,15 +76,29 @@ class PullEvaluator {
   }
 
   resetToClaimedPath(shared, slot) {
-    while (this.state.ply > 0) this.state.undo();
     const length = Atomics.load(shared.workPathLength, slot);
     if (length < 0 || length > MAX_MOVES) throw new Error('invalid pull work path length');
     const base = slot * MAX_MOVES;
-    for (let ply = 0; ply < length; ply++) {
+
+    // Portable identity remains the complete legal replay, but execution need
+    // not reconstruct the unchanged prefix. Reuse only physical move equality;
+    // no worker-local residual/class ID crosses this boundary.
+    let common = Math.min(this.state.ply, length);
+    let prefix = 0;
+    while (prefix < common &&
+      (this.state.moveCells[prefix] % 7) === shared.workPath[base + prefix]) prefix++;
+    common = prefix;
+
+    while (this.state.ply > common) {
+      this.state.undo();
+      this.counters[WC_PATH_UNDOS]++;
+    }
+    for (let ply = common; ply < length; ply++) {
       const column = shared.workPath[base + ply];
       if (!this.state.canPlay(column)) throw new Error('invalid portable pull replay');
       this.state.applyUnchecked(column);
       this.counters[WC_TRANSITIONS]++;
+      this.counters[WC_PATH_APPLIES]++;
     }
     this.counters[WC_PATH_REPLAYS]++;
   }
