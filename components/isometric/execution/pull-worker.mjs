@@ -18,6 +18,7 @@ import {
   PUB_RETIRED,
   SESSION_RUNNING,
   SESSION_STOP,
+  WC_BAND_BASE,
   WC_CHILDREN,
   WC_CLAIMS,
   WC_DETERMINISTIC,
@@ -50,7 +51,7 @@ class PullEvaluator {
     this.claimScratch = new Int32Array(4);
     this.queueScratch = new Int32Array(3);
     this.allocateScratch = new Int32Array(2);
-    this.counters = new Int32Array(16);
+    this.counters = new Int32Array(24);
   }
 
   prepareSession() {
@@ -127,6 +128,7 @@ class PullEvaluator {
     const attempt = this.claimScratch[2];
 
     this.counters[WC_CLAIMS]++;
+    this.counters[WC_BAND_BASE + this.claimScratch[3]]++;
     if (Atomics.load(shared.workGeneration, slot) !== generation ||
         Atomics.load(shared.workState, slot) !== WORK_RUNNING ||
         Atomics.load(shared.workNeeded, slot) === 0) {
