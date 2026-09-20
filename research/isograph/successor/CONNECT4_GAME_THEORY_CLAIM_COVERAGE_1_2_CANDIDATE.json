@@ -1,0 +1,1234 @@
+{
+  "schema": 1,
+  "id": "connect4-game-theory-1.2-claim-coverage",
+  "status": "candidate_companion",
+  "root": "research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*",
+  "base_authority_claims": 74,
+  "post_1_1_claims": 19,
+  "total_claims": 93,
+  "disposition_counts": {
+    "retained": 65,
+    "strengthened": 2,
+    "historical_only": 17,
+    "superseded": 2,
+    "open": 7
+  },
+  "uncovered_count": 0,
+  "compatibility_layer": false,
+  "rule": "This is part of the 1.2 successor package. Historical-only entries remain evidence/provenance and are not active game-theory semantics. Retained/strengthened/open/superseded entries must be interpretable through the named successor target without overlay precedence.",
+  "claims": [
+    {
+      "id": "C4-R0001",
+      "title": "Winning structures are first-class research objects",
+      "source_status": "research_model",
+      "statement": "Reason about Connect4 through possible winning structures and their relations in addition to ordinary board-state/game-tree representation.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_residual_state"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0002",
+      "title": "Exact derivative structure of Connect-k line geometry",
+      "source_status": "deductive_exact",
+      "statement": "Directional winning-line counts and finite differences admit exactly derivable interior and boundary structure.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0003",
+      "title": "Playable own singleton is immediate terminal win",
+      "source_status": "guarded_exact",
+      "statement": "A legal playable cell completing the current player's unblocked singleton-residual winning line yields a terminal win one physical ply later.",
+      "guards": [
+        "completion cell is legal/playable",
+        "line is an unblocked winning line for current player",
+        "position is not already terminal"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L0_physical_event_game",
+        "L1_structural_residual_state"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0004",
+      "title": "Distinct multiple opponent immediate completions force loss",
+      "source_status": "guarded_exact",
+      "statement": "At least two distinct legal playable opponent completion cells force loss when the current player has no earlier terminal win.",
+      "guards": [
+        "completion cells are distinct",
+        "each completion is legal/playable",
+        "current player has no immediate terminal win that ends the game first"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_residual_state",
+        "L3_ordinary_value_dependency"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0005",
+      "title": "Unique opponent immediate completion forces reply but not terminal value",
+      "source_status": "guarded_exact",
+      "statement": "Exactly one legal immediate opponent completion forces a blocking reply, but does not by itself determine the final game value.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_residual_state",
+        "L3_ordinary_value_dependency"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0006",
+      "title": "Exact structural certificates precede heuristic horizon evaluation",
+      "source_status": "accepted_contract",
+      "statement": "Apply accepted exact structural certificates before heuristic evaluation at the horizon.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "strengthened",
+      "successor_targets": [
+        "L6_evaluation_policy"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0007",
+      "title": "Unresolved structural residue remains delegated solver work",
+      "source_status": "accepted_contract",
+      "statement": "States not decided by accepted exact certificates or valid reductions remain unresolved and must be delegated to solver/evaluation mechanisms.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L6_evaluation_policy"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0008",
+      "title": "Semantic quotient requires behavior preservation",
+      "source_status": "accepted_contract",
+      "statement": "A quotient may collapse distinctions only under an explicit equivalence preserving behavior relevant to the target semantics.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L2_q_o_behavioral_quotient",
+        "L2_q_r_reflection_orbit"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0009",
+      "title": "Dead residual win-space implies exact draw",
+      "source_status": "guarded_exact",
+      "statement": "If neither player has any residual unblocked winning line in a legal nonterminal state, neither can later win and the game-theoretic value is draw.",
+      "guards": [
+        "legal state",
+        "not already terminal",
+        "no residual unblocked winning line for either player"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_residual_state",
+        "L3_ordinary_value_dependency"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0010",
+      "title": "Dead-residual hot-state maintenance is not justified on measured workload",
+      "source_status": "empirically_supported",
+      "statement": "The investigated incremental live-counter detector incurred transition/runtime cost while the measured campaign found effectively no useful pruning incidence, so it is not justified in the current hot path.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_implementation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0011",
+      "title": "Complete structural calculus lacks composition and closure laws",
+      "source_status": "missing_law",
+      "statement": "Current local exact predicates are insufficient for a complete derivation system; explicit composition/closure laws over structural relations remain missing.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "superseded",
+      "successor_targets": [
+        "QU-GAME-02_proof_value_bridge"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0012",
+      "title": "Higher derivative and periodic-annihilator structure may yield semantic predicates",
+      "source_status": "candidate_rule",
+      "statement": "Exact geometric derivative structure may support higher-order semantic predicates, but game-theoretic closure/sufficiency is not yet established.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "L1_structural_geometry",
+        "open_research"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0013",
+      "title": "Perfect-play win-set support/DAG structural experiment family",
+      "source_status": "hypothesis",
+      "statement": "Support/DAG experiments investigate initial-board and support-structure invariants that may characterize reachable winning-space quantities without ordinary recursive search; individual numerical generalizations remain to be normalized.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "L3_value_selection_research",
+        "open_research"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY.json"
+    },
+    {
+      "id": "C4-R0014",
+      "title": "CPC event-rank parity arithmetic",
+      "source_status": "guarded_exact",
+      "statement": "For a target cell under the stated support/height model, the future event count reduces to N(t)=(W-1)H-ply+r+1; target-column height cancels and ownership parity follows from event rank. On standard 7x6, (W-1)H=36 is even, giving the documented row/parity simplification.",
+      "guards": [
+        "standard gravity support model",
+        "event sequence counted as defined by CPC",
+        "ownership claim limited to the modeled target event rather than arbitrary strategic control"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_control_event_structure",
+        "L4_proof_guarded_consequence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0015",
+      "title": "WSL-625 residual-requirement universe",
+      "source_status": "deductive_exact",
+      "statement": "The 69 standard 7x6 geometric winning lines induce 625 unique nonempty residual winning-requirement masks under the documented residual construction, permitting a fixed u16 requirement-ID universe.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_residual_state"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0016",
+      "title": "Generic blocker upward closure reproduces tested Allis solved-group semantics",
+      "source_status": "empirically_supported",
+      "statement": "Across 331,955 generated A1-A9 rule instances in the cited comparison, the generic blocker/upward-closure operation produced zero solved-group mismatches against the named Allis Solutions predicates.",
+      "guards": null,
+      "scope": "generated comparison corpus only; not a universal proof of all strategic compatibility or a claim of priority over Allis",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0017",
+      "title": "Race-free nested ownership inference is unsound",
+      "source_status": "disproven",
+      "statement": "The stronger rule that eventual ownership/blocker satisfaction alone is sufficient for a nested proof is false: temporal race order can allow the opponent to complete a win first.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "negative_control"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0018",
+      "title": "Nested Dependency Closure with temporal precedence may replace explicit move-tree proof",
+      "source_status": "hypothesis",
+      "statement": "A recursive proof grammar over ownership, response obligations, blockers, support, and temporal/event precedence may derive long-horizon game consequences without enumerating each intervening game state.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "open_research"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0019",
+      "title": "Tested WDL proofs are dramatically smaller than their physical state graphs",
+      "source_status": "empirically_supported",
+      "statement": "Proof-dependency compression produced WDL proof DAGs of 9, 17, 16, 21, and 38 nodes for the cited 4x3 c3, 4x4 c4, 5x3 c4, 4x5 c4, and hardest tested frozen 7x6 root respectively, despite much larger physical graphs.",
+      "guards": null,
+      "scope": "tested games/roots; supports non-minimality of the move tree as proof representation, not a universal bound",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_proof_compression_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0020",
+      "title": "Direct BSFP matches exhaustive small-game WDL controls",
+      "source_status": "empirically_supported",
+      "statement": "The direct backward symbolic recurrence matched every reachable physical state in four complete small-game controls: 1,681,808 physical states and 3,869,237 legal edges with zero WDL disagreements, and it returned the correct sign on eight frozen standard-7x6 roots.",
+      "guards": null,
+      "scope": "the four complete controls plus eight cited frozen 7x6 roots; not an empty-board 7x6 completion claim",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_solver_validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0021",
+      "title": "Terminal winning-line boundary independently qualified on complete controls",
+      "source_status": "empirically_supported",
+      "statement": "Independent terminal-boundary checks covered 1,634,924 nonterminal states, 3,869,237 legal edges, 414,691 winning terminal edges and 96,960 full-board draws with zero terminal-predicate, reconstruction, or post-terminal-admission mismatches in the cited controls.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L0_physical_event_game",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0022",
+      "title": "Generic raw-ownership BSFP representation does not yet scale to empty standard 7x6",
+      "source_status": "empirically_supported",
+      "statement": "The current generic raw-ownership symbolic representation has not completed the empty standard 7x6 solve; observed research identifies representation width as the current engineering bottleneck rather than evidence falsifying the tested backward recurrence.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_solver_performance_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0023",
+      "title": "Identified-line quotient is exact on tested complete controls",
+      "source_status": "empirically_supported",
+      "statement": "Q=(support,H0,H1), where H0/H1 are identified winning-line hit masks, matched physical terminal detection, successor signatures, reachable quotient classes, bottom-up WDL and roots across four complete controls with zero mismatches over 1,681,808 physical nonterminal states.",
+      "guards": null,
+      "scope": "tested complete controls; production 7x6 quotient remains research",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_quotient_validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0024",
+      "title": "Behavioral minimization removes support/rank distinctions on tested quotient",
+      "source_status": "empirically_supported",
+      "statement": "The cited MQ2 minimization reduced 420,704 identified-line classes to 269,347 exact behavioral classes, including classes crossing support and rank boundaries; therefore raw support/rank history is not irreducible under the tested action-labeled future semantics.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L2_behavioral_minimization_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0025",
+      "title": "Residual antichains require support/accessibility in tested exact quotient",
+      "source_status": "empirically_supported",
+      "statement": "Minimal residual winning-requirement antichains paired with support were exact on bounded complete controls, while support-free residuals failed; support/gravity accessibility is semantically necessary for this candidate representation.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L2_q_o_behavioral_quotient"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0026",
+      "title": "Direct semantic residual automaton replay is exact on bounded controls",
+      "source_status": "empirically_supported",
+      "statement": "After repairing an initially weak qualifier, the MQ4 automaton was materialized, serialized, decoded, traversed through actual encoded transitions, solved bottom-up, and checked for rank/action/state mismatches and orphan states; bounded controls passed with zero mismatches.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L2_q_o_behavioral_quotient",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0027",
+      "title": "MQ5 semantic residual state reduces exact proof volume on frozen anchors",
+      "source_status": "empirically_supported",
+      "statement": "On frozen strong-distance anchors, semantic residual search preserved exact scores while reducing proof nodes by about 22.48% on the loss anchor and 21.34% on the win anchor versus the cited strong board-state control.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_solver_representation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0028",
+      "title": "Typed exact MQ5 interning preserves semantic identity and improves measured runtime",
+      "source_status": "empirically_supported",
+      "statement": "MQ5-TYPED-OPENADDR-V1 preserved exact score, proof-node and state/cache metrics on both frozen anchors when hash values selected slots only and full-record equality remained identity authority; repeated alternating-order medians were about 1.493x and 1.571x faster than the cited Map/BigInt form.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_implementation_performance_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0029",
+      "title": "Role-general A1-A3/U1 certificates qualify on tested exact controls",
+      "source_status": "empirically_supported",
+      "statement": "U1 event-rank parity showed zero owner/rank/delta mismatches over 2,750 states, 61,416 targets and 798,408 deltas; role-general A1/A3 plus Baseinverse then showed zero false claims on the cited 96 exact roots and matched the historical even-ply classification where comparable.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0030",
+      "title": "Geometry-native A123 substantially reduces MQ5 proof volume on frozen anchors",
+      "source_status": "empirically_supported",
+      "statement": "The cited A123 geometry-native form preserved exact results while reducing MQ5 proof nodes from 786,581 to 557,605 (29.11%) on the loss anchor and 4,138,812 to 3,161,623 (23.61%) on the win anchor; runtime benefit was workload-dependent.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_proof_representation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0031",
+      "title": "Blanket resource-overlap exclusion is too strict for Allis compatibility",
+      "source_status": "disproven",
+      "statement": "U1 Test B V2 rejected 10,938 pairs that the Allis compatibility oracle allowed among 695,232 comparisons; the false negatives localized to A5/A6 with A1 at the claim/inverse boundary-sharing seam.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "negative_control"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0032",
+      "title": "Generic interval compatibility matches Allis allowed set but extra pairs remain unproved",
+      "source_status": "candidate_rule",
+      "statement": "U1 Test B V3 accepted all 359,512 Allis-table-allowed pairs with zero false negatives in 695,232 comparisons, while also accepting 82,367 extra pairs whose soundness has not been established and which are not proof authority.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "open_research"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0033",
+      "title": "ZPAR singleton-pair rule is only narrowly qualified",
+      "source_status": "empirically_supported",
+      "statement": "ZPAR-SINGLETON-PAIR-V1 matched 112 qualified exact states across the cited singleton-threat classes and mirrors; supporting censuses found limited predicted cases, but the rule is not a general Zugzwang terminalizer and WO_BO_diff remains unresolved.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0034",
+      "title": "Support-compatible implication transfer is proof-positive but runtime-negative in tested forms",
+      "source_status": "empirically_supported",
+      "statement": "Exact RID-closure implication reproduced proof reduction; SIG4 and INDEX8 reduced comparison work and improved their immediate baselines, but the tested forms remained slower than no-IMPL. The parent proof-transfer mechanism is therefore not falsified, while current implementations are deferred pending marginal-value tests on stronger stacks.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "historical_runtime_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0035",
+      "title": "Research evidence must separate mechanism, form, workload, order, synergy and adoption",
+      "source_status": "accepted_contract",
+      "statement": "Candidate evidence is scoped to mechanism, implementation form, workload regime, stage order and interactions; adoption/promotion metadata must not bias epistemic assessment, missing interaction edges mean unassessed rather than neutral, and invalid harnesses are not evidence against the parent mechanism.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "research_evidence_discipline"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_EXTENSIONS.json"
+    },
+    {
+      "id": "C4-R0036",
+      "title": "Typed MQ5 and geometry-native A123 compose without losing the qualified proof-volume reduction",
+      "source_status": "empirically_supported",
+      "statement": "On the two frozen exact-distance anchors, composing MQ5-TYPED-OPENADDR-V1 with the geometry-native A123 certificate preserved exact root scores and reproduced the previously measured full-A123 proof node counts: 557,605 nodes on the -4 loss anchor and 3,161,623 nodes on the +3 win anchor. Repeated timing was workload-dependent: about 6.1% faster than typed MQ5 alone on the loss anchor and about 6.2% slower on the win anchor.",
+      "guards": null,
+      "scope": "Frozen roots 663152175 and 41267575; five rotated-order runs with first run excluded from median; safe residual-count gate implementation. Not a universal runtime claim.",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_composition_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_RECOVERED.json"
+    },
+    {
+      "id": "C4-R0037",
+      "title": "Tested legacy/even-ply A9 responder orientation is unsound",
+      "source_status": "disproven",
+      "statement": "The tested legacy/even-ply A9 responder generator/orientation produced three false no-win claims in the sampled conservative A1-A9/A10 composition. Every observed false claim depended on A9, and disabling A9 removed all false claims in the same sampled corpus.",
+      "guards": null,
+      "scope": "This falsifies the tested generator/orientation only. It does not falsify Victor Allis's published A9 rule family or every possible role-general A9 formulation.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "negative_control"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_RECOVERED.json"
+    },
+    {
+      "id": "C4-R0038",
+      "title": "A4 and A8 add sampled exact cover beyond A123 while A6 is saturated in the A9-disabled regime",
+      "source_status": "empirically_supported",
+      "statement": "On the sampled A1-A9/A10 corpus with the falsified A9 orientation disabled, conservative composition produced 84 oracle-confirmed claims versus 49 A123 claims, for 35 additional claims with zero false positives. Removing A8 reduced the additional count to 22; removing A4 reduced it to 28; removing A6 changed neither total nor additional claims. Removing both A4 and A8 reduced the additional count to 10, so their effects are not simply additive.",
+      "guards": null,
+      "scope": "Same sampled roots, conservative Allis compatibility table, per-type instance cap and cover-step limit as C4-E0037-0038. A6 zero marginal value is a regime-specific saturation observation, not a global rejection.",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_certificate_coverage_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_RECOVERED.json"
+    },
+    {
+      "id": "C4-R0039",
+      "title": "Ownership-antichain BSFP is smaller and faster than raw-ownership MTBDD on measured complete controls",
+      "source_status": "empirically_supported",
+      "statement": "On four measured complete small-game BSFP controls, the exact ownership-antichain realization used fewer symbolic boundary records and lower median wall time than the maintained raw-ownership MTBDD realization. Representation reduction ranged from 40.0% to 86.6% and measured speedup from 1.220x to 3.041x.",
+      "guards": null,
+      "scope": "4x3 c3, 4x4 c4, 5x3 c4, and 4x5 c4 on the cited CPU runner; performance is geometry- and implementation-dependent and is not a universal antichain speed theorem.",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_bsfp_performance_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0040",
+      "title": "Root-only WDL BSFP admits exact rolling two-rank execution",
+      "source_status": "guarded_exact",
+      "statement": "For the qualified one-move BSFP WDL recurrence, every rank-r support depends semantically only on completed rank r+1. When only the root result is required, older completed ranks may therefore be discarded after rank r is complete without changing the root semantics.",
+      "guards": [
+        "the recurrence advances exactly one occupied cell per move",
+        "rank r+1 is complete before rank r consumes it",
+        "the requested output is the root result rather than arbitrary post-solve state lookup",
+        "no auxiliary semantic rule depends on discarded older-rank state"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L3_ordinary_value_dependency",
+        "L6_evaluation_policy"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0041",
+      "title": "Streaming no-sort BigInt dominance reducer is rejected in its tested form",
+      "source_status": "rejected",
+      "statement": "The tested online incremental dominance reducer preserved exact BSFP semantics but regressed the 5x5 workload to 73.806 s versus 62.486 s for the first rolling ordered form and 58.326 s for the retained ordered reference. The parent antichain/dominance mechanism is not rejected; this implementation form is.",
+      "guards": null,
+      "scope": "JavaScript BigInt streaming/no-sort reducer at the cited workload and source revision.",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_negative_implementation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0042",
+      "title": "Line-hit product antichains exactly represent tested BSFP symbolic Win/Loss boundaries",
+      "source_status": "empirically_supported",
+      "statement": "Using Q=(support,H0,H1) with the P0-favorable order a<=b iff a.H0 is a subset of b.H0 and b.H1 is a subset of a.H1, minimal Win pairs and maximal Loss pairs reproduced every tested C1 symbolic Win/Loss classification with zero quotient conflicts, false coverage, or missing coverage. Compression increased on several later/hot supports.",
+      "guards": null,
+      "scope": "Complete symbolic domains for all supports of 4x3 c3, 4x4 c4, and 5x3 c4, plus the selected hottest support per rank for bounded 4x5 c4 and 5x4 c4 controls. It does not establish a direct line-product recurrence.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_symbolic_value_boundary",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0043",
+      "title": "Direct line-product recurrence requires a realizability-preserving closure law",
+      "source_status": "missing_law",
+      "statement": "A direct solver over line-hit pairs cannot treat arbitrary (H0,H1) pairs as legal symbolic states because support-local realizability correlates the two masks. The missing law is a compact predecessor/composition representation that preserves this realizability while supporting move preimages, terminal subtraction, and existential/universal move composition without reconstructing ownership assignments.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "superseded",
+      "successor_targets": [
+        "QU-GAME-02_proof_value_bridge"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0044",
+      "title": "Residual-pair cofactor work can be exactly reused across crossing occurrences on tested OQS fixtures",
+      "source_status": "empirically_supported",
+      "statement": "The qualified OQS residual-reuse slice computed each residual-pair/input cofactor once and mapped all crossing occurrences to that exact result with zero mismatches and complete target coverage on all ten 4x4 cuts and the selected 7x6 cut-five fixture. On the 7x6 fixture, factored device arrays were 54.384x smaller and median submit/wait was 7.904x lower than the unfactored control, while the tiny 4x4 workload did not show a speed benefit.",
+      "guards": null,
+      "scope": "The cited O3 fixtures and prepared CUDA DAG. Output slots were not canonical dense next-quotient IDs; grouping/compaction/device chaining remained open. Timing is bounded A/B evidence, not a general throughput claim.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_cofactor_reuse",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0045",
+      "title": "Measured BSFP scaling wall is compute/frontier manipulation before retained-memory exhaustion",
+      "source_status": "empirically_supported",
+      "statement": "In the cited ownership-antichain/rolling and compact-CUDA experiments, larger geometries timed out while retained host/device memory stayed well below the relevant capacity limits. The 6x5 CUDA wall also appeared in high-rank work before the support-count peak. Current evidence therefore points to candidate/frontier/normalization work as the first measured scaling wall for these implementations rather than retained-memory capacity.",
+      "guards": null,
+      "scope": "The cited JavaScript BigInt and packed CUDA BSFP implementations; this is not a complexity-theoretic statement and does not prove which individual kernel or algebraic phase dominates.",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "historical_bsfp_scaling_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0046",
+      "title": "Terminal subtraction has an exact antichain frontier form",
+      "source_status": "deductive_exact",
+      "statement": "Over a finite ownership universe U, removing the upward-closed family generated by requirement q from a downward-closed family is exactly intersection with the complement of up(q), whose maximal generators are U\\{x} for x in q. Dually, removing a downward cap F from an upward-closed family uses singleton generators {x} for x in U\\F. Normalized antichain intersection therefore implements exact terminal subtraction without enumerating every represented state.",
+      "guards": [
+        "finite subset universe U",
+        "frontiers denote downward-closed or upward-closed subset families with the stated orientation",
+        "normalization preserves exact set-family union/intersection semantics"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_symbolic_value_boundary"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0047",
+      "title": "Perfect W/D/L terminal-line support has an exact set-valued game algebra",
+      "source_status": "deductive_exact",
+      "statement": "For a fixed geometric winning-line universe Lambda, define G(s) as the set of first-player terminal winning lines reachable on at least one W/D/L-perfect continuation from s, with G(s)=empty when the first player cannot force a win. At first-player nodes G is the union of child sets. At second-player nodes G is empty if any legal child is empty; otherwise it is the union of all child sets. Thus G(s)!=empty exactly encodes first-player W/D/L winning value while membership encodes possible perfect-play terminal-line identity.",
+      "guards": [
+        "finite deterministic alternating zero-sum game with first-win termination",
+        "perfect means W/D/L optimality only; tied equal-valued actions remain equally perfect",
+        "the projection records first-player terminal winning-line labels only"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L3_ordinary_value_dependency",
+        "terminal_line_value_projection"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0048",
+      "title": "The preserved coarse W/D/L-only 7x6 oracle experiment reports 61 terminal line identities",
+      "source_status": "empirically_supported",
+      "statement": "A preserved oracle-guided traversal using only W/D/L score class as the optimality criterion reported a union of 61 geometric P0 terminal winning-line identities from the empty standard 7x6 root. Because all losing replies at a P1 node tie under W/D/L-only semantics, this support includes faster strategically inferior losses that distance-sensitive best-move semantics later exclude.",
+      "guards": null,
+      "scope": "Standard 7x6 empty root; W/D/L-only tie relation. The preserved source can run strong or WDL modes, but the normalized packet currently retains the 61 result through the later issue/research synthesis rather than a raw run artifact. Do not treat 61 as distance-optimal.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L3_value_selection_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0049",
+      "title": "Distance-sensitive optimal play on empty 7x6 has exactly 28 P0 terminal winning-line identities",
+      "source_status": "empirically_supported",
+      "statement": "Under the supplied strong best-move convention (W/D/L first, fastest forced win for P0 and longest resistance to loss for P1), exactly 28 distinct geometric P0 winning lines occur from the empty standard 7x6 root. Every optimal terminal witness ends on ply 41; the set has 12 vertical, 8 horizontal and 8 diagonal lines. A structural upper bound of 28 and one legal optimal witness for each candidate provide matching upper/lower bounds.",
+      "guards": null,
+      "scope": "Standard 7x6 empty root under the cited distance-sensitive best-move ordering. This does not replace the 69-line geometric universe for arbitrary/imperfect play and is not by itself a searchless derivation of the optimal selection premises.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L3_value_selection_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0050",
+      "title": "Total-domain incidence decomposition derives the standard structural common core dimension 28 without solved play",
+      "source_status": "deductive_exact",
+      "statement": "For any positive W,H at K=4, generated Connect-4 line incidence over GF(2) has exact total-domain rank rank(B)=WH-pq+d and kernel dimension 3ab-d, with a=(W-3)+, b=(H-3)+, p=min(W,3), q=min(H,3), d=min(2,ab). The exact axis and gravity-oriented phase quotients then define Y_cell and Y_line. On 7x6 this derives rank(B)=35, dim ker(B)=34, rank axis=7, rank phase=6, and Y_cell=Y_line=28 without any W/D/L, optimal-move, terminal-distance or predefined-28 premise.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0051",
+      "title": "The standard maximal-delay rank-5 envelope has a searchless 38-to-28 extremal refinement",
+      "source_status": "deductive_exact",
+      "statement": "On standard 7x6, P0's latest parity-compatible terminal capacity is ply 41, giving a 38-line maximal-delay support envelope. At P0's natural preterminal rank 5, every legal five-ply prefix excludes at most ten of those candidates. The exclusion maximum ten is uniquely realized by the five-high reflection-fixed center stack, leaving 38-10=28 candidates. This is a finite geometry/gravity/support theorem and does not assume that optimal play attains the maximal-delay horizon or selects that prefix.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry",
+        "L4_proof_guarded_consequence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0052",
+      "title": "Distance-optimal center/deadline selection remains the missing bridge from structural 28 to optimal terminal 28",
+      "source_status": "missing_law",
+      "statement": "The current searchless theory does not yet prove that distance-optimal play selects the unique phase-center/maximum-impact center event, preserves that center through the canonical rank-5 stack, and forces longest resistance to attain the maximal-delay boundary. A deadline-valued CPC/NDC closure over support, response resources, phase transport, blockers and completion horizons is the leading candidate mechanism for this selection theorem.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "open_research"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0053",
+      "title": "Core balance plus unique initial requirement impact isolates 7x6 in the regular K=4 family",
+      "source_status": "deductive_exact",
+      "statement": "For regular K=4 boards, gravity-oriented core balance is Delta(W,H)=(W-4)(2H-9)-9=0. Independently, the empty-board initially legal event has a unique maximum winning-requirement incidence exactly at width W=7. Combining those structural conditions forces H=6, so 7x6 is the unique regular K=4 board with both properties; its common cell/line core dimension then evaluates to 28.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0054",
+      "title": "Terminal ply yields a sound board-specific gravity support upper bound; 6x7 equals 30 only at this upper-bound layer",
+      "source_status": "guarded_exact",
+      "statement": "For a decisive W x H Connect-4 root with distance-optimal terminal move T, let N=WH, q=N-T+1 and t=max(0,H-q). Every newly completed terminal line must touch a gravity-legal final landing at row >=t, so U_support(W,H,T)=G(W,H)-G(W,t) is a sound line-count upper bound. Using the cited external terminal move T=41 for 6x7 gives U_support=30. The current packet does not prove that all 30 are attainable, so 30 is not yet an exact 6x7 terminal census.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry",
+        "L3_value_selection_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0055",
+      "title": "Static equality between minimum surviving maximal-delay envelope and Y_cell is not a sufficient optimal-play selector",
+      "source_status": "disproven",
+      "statement": "The candidate characterization 'minimum surviving maximal-delay support envelope equals Y_cell, therefore this identifies the standard optimal terminal structure' is insufficient. The exact finite audit gives the same scalar equality on 8x7: 46-6=40=Y_cell, even though this does not characterize the standard 7x6 optimal terminal geometry. Static cardinality equality therefore cannot serve as the missing semantic selector.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "negative_control"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0056",
+      "title": "The oracle 28-line coordinate set is not the standard common structural Y object",
+      "source_status": "empirically_supported",
+      "statement": "For the externally qualified distance-optimal 28-line coordinate set E_opt, dim(E_opt)=28 but its incidence image has dimension 26; E_opt intersects the qualified line core in dimension 2 and its cell image intersects Y_cell in dimension 20, with six axis-boundary image dimensions. The exact filtration is 28=2+20+6. Equal cardinality between the optimal terminal set and the structural common-core dimension therefore does not establish identity or basis equivalence.",
+      "guards": null,
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry",
+        "identity_scope_negative_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_WINSET.json"
+    },
+    {
+      "id": "C4-R0057",
+      "title": "Connect-K winning-window derivative multiplicity is governed exactly by v2(K)",
+      "source_status": "deductive_exact",
+      "statement": "For the one-dimensional Connect-K winning-window polynomial S_K(T)=1+T+...+T^(K-1) over F2, write K=2^s m with m odd. Then S_K(T)=(1+T)^(2^s-1) S_m(T)^(2^s), so the exact multiplicity of the finite-difference factor partial=1+T is nu(K)=2^(v2(K))-1. The window is a pure derivative S_K=(1+T)^(K-1) iff K is a power of two. Consequently Connect-4 is the smallest nontrivial pure higher-derivative case and has the exact one-dimensional hierarchy partial -> partial^2 -> partial^3 with no additional hidden linear factor.",
+      "guards": null,
+      "scope": "Exact F2 line-incidence geometry. This is not a game-value, move-selection, gravity, blocker, reachability or perfect-play theorem.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_DERIVATIVE.json"
+    },
+    {
+      "id": "C4-R0058",
+      "title": "K=4 axis derivative algebra derives the diagonal incidence constraints",
+      "source_status": "deductive_exact",
+      "statement": "For K=4, after quotienting horizontal and vertical winning windows, let X=partial_x and Y=partial_y. The residual algebra satisfies X^3=0, Y^3=0 and XY=YX. The rising diagonal has partial_+=X+Y+XY and partial_+^3=XY^2+X^2Y; the falling diagonal contributes, after the rising relation, X^2Y^2=0. Thus the two regular-board diagonal rank corrections are exactly XY^2+X^2Y=0 and X^2Y^2=0. The familiar 4x4 small-board defect is boundary realization of this same system, not an independent diagonal axiom. A two-cell response-pair incidence has first-derivative shape partial, but causal/legal response semantics still require gravity, support, resource and deadline guards.",
+      "guards": null,
+      "scope": "Exact F2 incidence algebra plus finite-boundary start availability. It does not prove that a geometric response factor is legally or strategically usable in a game state.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_DERIVATIVE.json"
+    },
+    {
+      "id": "C4-R0059",
+      "title": "Regular Connect-4 incidence cokernel is a seven-mode 4-periodic binary tile code",
+      "source_status": "deductive_exact",
+      "statement": "A one-axis binary labeling annihilating every length-4 interval is 4-periodic with an even-parity 4-symbol block, giving the [4,3] single-parity-check code P. Horizontal/vertical annihilators therefore form P tensor P of dimension 9. The exact diagonal constraints a_22=0 and a_12=a_21 remove two modes, leaving a seven-dimensional periodic code C4_ann. On sufficiently regular boards realizing both diagonal relations, dim coker(B)=7 and rank(B)=WH-7. This code is another representation of the same derivative/diagonal algebra, not a new game-value invariant family.",
+      "guards": null,
+      "scope": "Regular-board incidence geometry only. Finite boundary degeneracies remain governed by the total-domain theorem. The code does not encode gravity, turn order, blockers, reachability, stopping or game value.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_DERIVATIVE.json"
+    },
+    {
+      "id": "C4-R0060",
+      "title": "Fixed-support line-hit realizability is a pinned NAE hypergraph CSP",
+      "source_status": "deductive_exact",
+      "statement": "Fix a support ideal I and let x_v in {0,1} denote the owner of each occupied cell v (1=P0, 0=P1). For every geometric winning line lambda with occupied intersection A_lambda=I intersect lambda, the line-hit bits satisfy h0_lambda=OR_{v in A_lambda} x_v and h1_lambda=OR_{v in A_lambda}(1-x_v). Therefore a candidate pair (H0,H1) is induced by some ownership partition of I iff: A_lambda empty exactly permits status 00; nonempty status 10 pins every v in A_lambda to P0; status 01 pins every v in A_lambda to P1; status 11 requires both colors on A_lambda, i.e. a not-all-equal constraint. Fixed-support line-hit image membership is exactly satisfiability of this pinned NAE/hypergraph 2-coloring CSP.",
+      "guards": null,
+      "scope": "Exact symbolic ownership-partition realizability at fixed support. It does not require alternating turn counts, a legal move history, first-win stopping, game value, or a compact owner-free recurrence. It characterizes the correlation demanded by C4-R0043 but does not yet eliminate the hidden cell-owner variables.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "realizability"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_REALIZABILITY.json"
+    },
+    {
+      "id": "C4-R0061",
+      "title": "Line-local and pairwise compatibility do not imply global line-hit realizability",
+      "source_status": "deductive_exact",
+      "statement": "For Connect-4 on every board W>=5,H>=4, take support heights 2 in adjacent columns 1 and 2 and zero elsewhere (zero-based columns). Three geometric lines can have occupied intersections {c,a}, {a,b}, and {c,b}. Requiring line-hit status 11 on all three gives NAE constraints c!=a, a!=b, c!=b, an odd inequality cycle with no binary coloring. Every one-constraint and every two-constraint subfamily is satisfiable. Thus line-local validity and pairwise satisfiability are insufficient; higher-order correlation is genuinely required before any temporal/game semantics enter.",
+      "guards": null,
+      "scope": "Exact counterexample for K=4 and W>=5,H>=4, including standard 7x6 and nearby 6x7. It is a partial line-status obstruction: no full line-hit pair extending the three requested statuses can be realizable.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "realizability",
+        "negative_control"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_REALIZABILITY.json"
+    },
+    {
+      "id": "C4-R0062",
+      "title": "Legal pre-terminal ownership history is alternating linear-extension/shuffle realizability",
+      "source_status": "deductive_exact",
+      "statement": "Fix support heights h and an owner label q on every occupied cell. Gravity makes the occupied support poset a disjoint union of bottom-to-top column chains. Ignoring terminal stopping, (h,q) is reachable by alternating play from P0 exactly when the labeled poset has a linear extension whose j-th event has owner (j-1) mod 2. Equivalently, if w_c is the bottom-to-top owner word of column c and A_n=0101... is the length-n global turn word, then A_n lies in the shuffle of the column words. If the final colored position is nonterminal, this condition is also sufficient under ordinary first-win stopping because a winning line is monotone under later placements, so no earlier prefix could have been terminal. Terminal final states require the additional condition that an admissible extension first becomes terminal on its final event.",
+      "guards": null,
+      "scope": "Exact legal-history realizability for a fixed colored support, separated from C4-R0060 symbolic ownership-partition realizability. It is not a game-value theorem and does not assert a constant-size characterization of the shuffle relation.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "history_realizability"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_REALIZABILITY.json"
+    },
+    {
+      "id": "C4-R0063",
+      "title": "Exact projection recombination is a lossless-join requirement, distinct from dynamic legality",
+      "source_status": "deductive_exact",
+      "statement": "Let R be a feasible relation over a complete structural state and let R_i be projections onto selected invariant scopes. Their natural join J contains R; the decomposition is exact exactly when J=R (lossless join / satisfaction of the corresponding join dependency). Otherwise J\\R consists of spurious Cartesian recombinations of individually valid projections. C4-R0060 supplies an exact hidden-variable factorization of one such Connect-4 compatibility relation, and C4-R0061 exhibits a cyclic higher-order obstruction. Restoring a lossless static join still does not establish transition equivalence or game value: legal history, opponent quantification, shared response resources, deadlines, first-win stopping, and proof identity remain separate dynamic/proof relations.",
+      "guards": null,
+      "scope": "Exact relational characterization and Connect-4 application. It does not claim a unique minimal sidecar, bounded-width factorization, compact variable-elimination result, or that lossless static decomposition alone is a game quotient.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L2_projection_semantics",
+        "L4_proof_guarded_consequence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_REALIZABILITY.json"
+    },
+    {
+      "id": "C4-R0064",
+      "title": "A history projection preserves a strategy exactly through observation-based uniformity",
+      "source_status": "deductive_exact",
+      "statement": "Fix a turn-based game and a history projection alpha with unchanged action labels. A strategy sigma factors through alpha iff, on every pair of sigma-consistent histories h,h' ending at the same controller turn, alpha(h)=alpha(h') implies sigma(h)=sigma(h'). Equivalently, sigma is observation-based/uniform for the equivalence induced by alpha. Therefore a structural projection is sufficient for a requested controller objective whenever there exists a winning strategy uniform for that projection. If every winning strategy must choose different actions on two alpha-equivalent histories, the projection is too coarse for that objective even when both histories and both projected states are individually realizable.",
+      "guards": null,
+      "scope": "Exact strategy-factorization statement for fixed action labels. Symmetry quotients with action relabeling require the corresponding equivariant action transport. Existence of an alpha-uniform winning strategy is objective-relative and does not imply transition equivalence, proof identity, or that alpha is a minimal quotient.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "strategy_uniformity"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_STRATEGY.json"
+    },
+    {
+      "id": "C4-R0065",
+      "title": "Finite-horizon strategy dependencies have an exact DQBF/Skolem-function representation",
+      "source_status": "deductive_exact",
+      "statement": "For any bounded Connect-4 proof/game horizon, encode opponent choices as universal variables, controller choices as existential variables, and legal/support/terminal/certificate semantics in the Boolean matrix. Standard QBF permits each existential response to depend on preceding universal choices; DQBF can state an explicit dependency set for each response. Hiding an opponent distinction in a proposed structural observation is therefore exactly a restriction on the admissible Skolem dependencies. The restriction preserves the bounded objective iff a satisfying/winning Skolem family exists with those dependencies. This represents dependency legality; it does not make the quantified synthesis problem cheap.",
+      "guards": null,
+      "scope": "Exact bounded-horizon semantic encoding. It does not claim a preferred runtime solver, polynomial complexity, a complete empty-root certificate family, or that DQBF is the minimum implementation representation. First-win and legal-move constraints must be encoded in the matrix rather than assumed.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "strategy_dependency"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_STRATEGY.json"
+    },
+    {
+      "id": "C4-R0066",
+      "title": "Unbounded-width alternating history realizability contains an NP-hard constrained-shuffle problem",
+      "source_status": "deductive_exact",
+      "statement": "On even occupied rank, C4-R0062 asks whether the disjoint union of bottom-to-top column owner words has a topological ordering in the fixed regular language (01)*. This is exactly the constrained-shuffle problem CSh[(ab)*] after relabeling 0=a,1=b. Amarilli and Paperman prove CSh[(ab)*] NP-hard. Hence the generalized pre-terminal ownership-history realizability problem is NP-hard when the number of columns/chains is part of the input, before Connect-K winning-line geometry or first-win stopping is added.",
+      "guards": null,
+      "scope": "Complexity boundary for generalized variable-width history realizability and even total rank. It does not prove NP-hardness for fixed width 7, for already-certified strategic subfamilies, or for the full K=4 legal-state reachability problem with terminal stopping. Fixed-width and structurally restricted cases may admit much smaller exact calculi.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "complexity_boundary"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_STRATEGY.json"
+    },
+    {
+      "id": "C4-R0067",
+      "title": "Per-event parity windows plus unit-capacity matching do not characterize alternating history realizability",
+      "source_status": "deductive_exact",
+      "statement": "Take two column owner words w0=01 and w1=0011 with target global turn word 010101. No legal shuffle exists: choosing w1 at rank 1 leaves no rank-2 owner-1 event, while choosing w0 at rank 1 forces w0's owner-1 event at rank 2 and then w1's second owner-0 event blocks rank 4. Nevertheless each event has a nonempty parity-compatible earliest/latest rank interval and the resulting event-to-slot interval graph has a perfect matching (for example b1->1,b2->3,b3->4,b4->6,a2->2,a1->5). The matching violates the within-column precedence a1<a2. Therefore release/deadline intervals and Hall/matching capacity alone are insufficient for C4-R0062; precedence correlation must remain explicit.",
+      "guards": null,
+      "scope": "Exact negative control for the history-realizability layer. It does not weaken guarded Hall matching where obligations have already been normalized to independent unit jobs with exact legal slot sets; it shows only that such a slot model cannot replace the column precedence relation when reconstructing a colored history.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "negative_control"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_STRATEGY.json"
+    },
+    {
+      "id": "C4-R0068",
+      "title": "The six-ply A/B collision is a certificate-generation collision, not a full-residual identity collision",
+      "source_status": "deductive_exact",
+      "statement": "For the standard 7x6 structural control A=[6,6,6,6,2,2] and B=[2,6,6,2,6,6] in zero-based columns, A and B have equal support [0,0,2,0,0,0,4], the same side to move and equal retained low-order degree-2 observations, but their complete positive residual antichains already differ. Exact mixed-owner cofactor substitution later exposes a low-order difference, and after the shared d-column continuation the structural replay still contains higher-order residual differences. Therefore this witness does not establish a missing board-state coordinate beyond exact support plus complete player-labelled residual content. It localizes the unresolved mechanism to deriving a guarded strategic certificate/consequence from already-present exact residual information.",
+      "guards": null,
+      "scope": "Exact classification of the structural witness and its information loss. External solved W/D/L/action labels are validation/falsification controls only and are not premises. This claim does not prove either A or B game value, value-completeness of support plus residuals for all states, or completeness of the current certificate generator.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L2_q_o_behavioral_quotient",
+        "L4_proof_guarded_consequence",
+        "identity_scope_negative_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_GUARDED_LIFT.json"
+    },
+    {
+      "id": "C4-R0069",
+      "title": "Guarded cofactor obligation birth is an observation-relative controllable predecessor law",
+      "source_status": "missing_law",
+      "statement": "The active mixed-cofactor seam can be stated without adding a new Boolean consequence operator: from an exact structural observation alpha and an exact post-cofactor consequence state, derive CertifiedObligation only when there exists a controller certificate/response policy that is uniform over alpha-equivalent histories and, for every admissible opponent intervention before the relevant deadline, preserves an equivalent certified consequence or reaches an independently certified favorable terminal result, while respecting support, response-resource compatibility, precedence and first-win stopping. In bounded form the allowed opponent distinctions are the Skolem dependencies of C4-R0065. The unresolved task is to derive this controllable predecessor compactly from existing residual/cofactor, support, resource and deadline facts.",
+      "guards": null,
+      "scope": "Open composition law, not a theorem of completeness and not a new state coordinate. Existing affine facts, monotone blocker clauses, terminal propositions and typed resource/deadline guards remain the only established consequence shapes; a genuinely new consequence type is warranted only if an exact instance cannot be represented by those shapes plus the stated quantified guard.",
+      "coverage_disposition": "strengthened",
+      "successor_targets": [
+        "QU-GAME-02_proof_value_bridge",
+        "L4_proof_guarded_consequence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_GUARDED_LIFT.json"
+    },
+    {
+      "id": "C4-R0070",
+      "title": "One-move pure-followup safe entry is a singleton transversal of the Connect-K interval hypergraph",
+      "source_status": "deductive_exact",
+      "statement": "For Connect-K with K>=4, consider the pure-followup ownership field q(c,r)=a+r+phi(c) mod 2 entered after one setup move phi=e_c. Vertical K-lines are automatically nonmonochromatic. A horizontal K-line is monochromatic exactly when its K-column phase word is constant, and either diagonal K-line is monochromatic exactly when that phase word alternates. For phi=e_c, every K-window containing c has one 1 and K-1 zeros and is therefore neither constant nor alternating when K>=4; every K-window omitting c is all-zero and unsafe. Hence the setup is pure-followup-safe iff c belongs to every consecutive K-column window: c is a singleton transversal of the interval hypergraph H_{W,K}. For W<K every column is vacuously safe; for K<=W<=2K-1 the safe set is {W-K,...,K-1} of size 2K-W; for W>=2K it is empty. There is exactly one safe setup column iff W=2K-1, namely c=K-1.",
+      "guards": null,
+      "scope": "Exact geometry/ownership theorem for the pure-followup response profile and K>=4. It proves bulk no-win safety of that coloring/profile, not finite-board game value, legal availability of every required response through the top boundary, optimal opening selection, or strong distance. K=2,3 require separate treatment because a one-hot K-window can itself be alternating for K=3.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry",
+        "L4_proof_guarded_consequence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_SELECTION.json"
+    },
+    {
+      "id": "C4-R0071",
+      "title": "Unique safe-entry and unique initial requirement-impact centrality coincide exactly at W=2K-1",
+      "source_status": "deductive_exact",
+      "statement": "For W,H>=K, let d_{W,K}(c)=1+h_{W,K}(c)+I[c<=W-K]+I[c>=K-1] be the number of geometric Connect-K requirements incident to the initially legal bottom event in column c, where h_{W,K}(c) is the number of consecutive horizontal K-windows containing c. Then d_{W,K} has a unique maximizer iff W=2K-1, in which case that maximizer is c=K-1. For K<=W<2K-1 the two endpoints W-K and K-1 of the singleton-transversal interval are tied maxima; for W>2K-1 a central plateau has at least two maxima. Combining with C4-R0070, for K>=4 the unique pure-followup-safe setup and unique maximum-impact initially legal event exist simultaneously iff W=2K-1 and are the same center event. Specializing K=4 gives W=7,c=3. Combining W=7 with the independently proved regular K=4 core-balance equation (W-4)(2H-9)=9 forces H=6 and the common structural core dimension 28.",
+      "guards": null,
+      "scope": "Exact empty-board geometry plus the already-proved K=4 core-balance theorem. It provides a new symbolic route from Connect-K interval incidence and safe response geometry to the standard 7x6 structural 28. It does not prove that distance-optimal play selects the center, that the strong-play terminal support equals the structural core, or that the same core-balance formula holds for arbitrary K.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L1_structural_geometry"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_SELECTION.json"
+    },
+    {
+      "id": "C4-R0072",
+      "title": "Every non-center opening on seven-wide even-height Connect-4 admits an exact defender safety certificate",
+      "source_status": "deductive_exact",
+      "statement": "For K=4, width W=7 and every even height H>=4, each non-center P0 first move admits an explicit P1 response-certificate construction that blocks or preempts every P0 geometric winning group; by reflection the three left-side opening classes cover all six non-center columns. Hence any P0 forced-win proof on 7xH must begin in the center column. On standard 7x6 this implication is independently strengthened by a local-product proof: three finite response-component types compose asynchronously into total P1 policies for openings 1/7, 2/6 and 3/5, and the generated invariant closure classifies all 69 P0 winning lines by singleton blockers, same-component forbidden pairs, or support-shadow preemption with zero unclassified lines.",
+      "guards": null,
+      "scope": "Exact one-sided non-win theorem. The generalized parameterized certificate is for K=4,W=7, even H>=4; the independent local-product/69-line closure is qualified on standard 7x6. The theorem does not distinguish draw from P1 win, does not prove that the center opening wins for P0, does not establish strong distance, and does not identify the strong-play terminal-line support with structural 28.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_SELECTION.json"
+    },
+    {
+      "id": "C4-R0073",
+      "title": "Support-local monotone-clause dictionaries are sufficient and predecessor-closed for clause-frontier BSFP",
+      "source_status": "deductive_exact",
+      "statement": "For finite Connect-K geometry with current occupied support S, the dictionary D(S) consisting of occupied-cell singletons together with every nonempty winning-line intersection lambda∩S contains every nonempty clause shape generated by the exact beneficiary-relative monotone-CNF clause-frontier recurrence. Under any legal one-cell predecessor edge S -> S∪{x}, each child dictionary clause maps exactly to SATISFIED, KILL, or one parent dictionary clause, so the dictionary is predecessor-closed and normalized records admit exact support-local upward-coverage signatures.",
+      "guards": [
+        "finite Connect-K winning-line family",
+        "legal gravity support S and one-cell support edge",
+        "beneficiary-relative clause-frontier semantics use terminal injection, first-win blocker clauses, owner-labelled one-cell cofactors, record conjunction, and implication/subsumption normalization"
+      ],
+      "scope": null,
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "L5_symbolic_value_boundary"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0074",
+      "title": "Support-local coverage/cofactor recurrence matches array-CNF authority on complete bounded controls",
+      "source_status": "empirically_supported",
+      "statement": "The independent support-local upward-coverage recurrence with precomputed child-to-parent SATISFIED/KILL/parent-clause maps matched the authoritative array-CNF clause-frontier recurrence exactly for both beneficiaries on all 6,951 supports across six complete variable geometries, covering 50,856 cofactor maps with zero support mismatches. A support-only 6x5 Connect-4 census found every rank-23 support dictionary at width at most 61, every support through rank 25 at width at most 64, and larger widths beginning at rank 26.",
+      "guards": null,
+      "scope": "Complete controls 4x3 c3, 4x4 c4, 5x3 c4, 4x4 c3, 4x5 c4, and 5x4 c4; plus geometry/support-only dictionary census over all 46,656 supports of 6x5 c4. This does not establish CUDA speedup, a universal fixed bit width, or profitability on every Connect-K geometry.",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L4_proof_guarded_consequence",
+        "L5_symbolic_value_boundary",
+        "validation_evidence"
+      ],
+      "source_registry": "research/canonical/CLAIM_REGISTRY_BSFP.json"
+    },
+    {
+      "id": "C4-R0075",
+      "title": "Distributed universal proof composition causes the rank-35 wall before semantic collapse",
+      "source_status": "confirmed_scoped_finding",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "QU-GAME-02_proof_value_bridge"
+      ],
+      "statement": "On the recorded standard-7x6 direct-propagation path, universal proof alternatives expand before q/value collapse; this composition order is the observed rank-35 wall."
+    },
+    {
+      "id": "C4-R0076",
+      "title": "Compact realizability-preserving clause-to-value controllable predecessor",
+      "source_status": "missing_law",
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "QU-GAME-02_proof_value_bridge"
+      ],
+      "statement": "Derive an exact compact controllable-predecessor projection from the predecessor-closed support-local clause/proof carrier into q/value bounds before distributed universal expansion, preserving realizability, support, resources, deadlines and first-win semantics."
+    },
+    {
+      "id": "C4-R0077",
+      "title": "Board-fiber residual/cofactor algebra",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0078",
+      "title": "Board-fiber ordinary-value invariance",
+      "source_status": "guarded_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0079",
+      "title": "Terminal-extended cofactor adjunction/composition",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0080",
+      "title": "Four-front partial-WDL block carrier",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0081",
+      "title": "Bellman antichain-semiring lattice polynomial",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0082",
+      "title": "Local-skyline semiring multiplication factorization",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0083",
+      "title": "Selected rank31/rank30/rank29/rank28 recurrence",
+      "source_status": "empirically_supported",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "RBA_execution_evidence"
+      ]
+    },
+    {
+      "id": "C4-R0084",
+      "title": "Earlier-rank staged/operator cost law",
+      "source_status": "open_question",
+      "coverage_disposition": "open",
+      "successor_targets": [
+        "QU-GAME-03_rba_research_execution"
+      ]
+    },
+    {
+      "id": "C4-R0085",
+      "title": "Outer-restriction skyline-width monotonicity",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0086",
+      "title": "Projection-tree subtree dominance pruning",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0087",
+      "title": "Selected rank27 draw15 closure",
+      "source_status": "empirically_supported",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "RBA_execution_evidence"
+      ]
+    },
+    {
+      "id": "C4-R0088",
+      "title": "Block-signature subset/superset antichain indexing",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0089",
+      "title": "Selected rank27 loss14/win15 adjacent closures",
+      "source_status": "empirically_supported",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "RBA_execution_evidence"
+      ]
+    },
+    {
+      "id": "C4-R0090",
+      "title": "Static dominance-tree antichain normalization",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0091",
+      "title": "Core-relative pre-product absorption",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0092",
+      "title": "Shared-target principal-cover dynamic program",
+      "source_status": "deductive_exact",
+      "coverage_disposition": "retained",
+      "successor_targets": [
+        "L5_residual_boundary_value_algebra"
+      ]
+    },
+    {
+      "id": "C4-R0093",
+      "title": "Rank27 staged qualification / rank26 selection",
+      "source_status": "empirically_supported",
+      "coverage_disposition": "historical_only",
+      "successor_targets": [
+        "RBA_execution_evidence",
+        "QU-GAME-03_rba_research_execution"
+      ]
+    }
+  ]
+}
