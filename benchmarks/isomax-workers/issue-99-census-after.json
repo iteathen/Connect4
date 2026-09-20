@@ -1,0 +1,117 @@
+{
+  "source": "5fa41300324bc37a4b538427a66f0e7c41912718",
+  "node": "v26.7.0",
+  "sourceDiff": "diff --git a/components/isometric/move-order.mjs b/components/isometric/move-order.mjs\nindex a382b32d..ef3a2824 100644\n--- a/components/isometric/move-order.mjs\n+++ b/components/isometric/move-order.mjs\n@@ -41,8 +41,17 @@ export function singletonEffectClass(state, column) {\n   const opponent = state.sideToMove === 0 ? state.p1Class : state.p0Class;\n   if (above < 42 && state.pool.hasSingletonAt(opponent, above)) return 0;\n   let first = above < 42 && state.pool.hasSingletonAt(own, above) ? above : -1;\n+  // OWNER-PROTECTED WORD REUSE — incidence is prepared in term-ID order.\n+  // Reuse only consecutive equal word indices; no state cache or allocation.\n+  // The class is immutable for this synchronous classifier invocation.\n+  let currentWord = -1, currentBits = 0;\n   for (let i = pairStart[cell]; i < pairStart[cell + 1]; i++) {\n-    if ((state.pool.wordAt(own, pairWord[i]) & pairMask[i]) === 0) continue;\n+    const word = pairWord[i];\n+    if (word !== currentWord) {\n+      currentWord = word;\n+      currentBits = state.pool.wordAt(own, word);\n+    }\n+    if ((currentBits & pairMask[i]) === 0) continue;\n     const other = pairOther[i];\n     const playable = other === above || (other < 32\n       ? (state.playableLo >>> other) & 1\ndiff --git a/components/isometric/test/ordering.test.mjs b/components/isometric/test/ordering.test.mjs\nindex 42cf9298..2382be15 100644\n--- a/components/isometric/test/ordering.test.mjs\n+++ b/components/isometric/test/ordering.test.mjs\n@@ -5,6 +5,31 @@ import { IsoMaxSolver } from '../solver.mjs';\n import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';\n import { singletonEffectClass, promotedColumn, CENTER_ORDER } from '../move-order.mjs';\n import { loadFixedControlSolver } from '../../../benchmarks/isomax-ordering/fixed-control.mjs';\n+import { ISOMETRIC_PROFILE } from '../profile.mjs';\n+\n+test('advisory classification loads each incident residual word at most once', () => {\n+  const solver = new IsoMaxSolver(), p = ISOMETRIC_PROFILE;\n+  const wordsByCell = Array.from({ length: 42 }, () => new Set());\n+  for (let term = 0; term < p.count; term++) if (p.cardinality[term] === 2) {\n+    for (let cell = 0; cell < 42; cell++) {\n+      if (cell < 32 ? (p.lo[term] >>> cell) & 1 : (p.hi[term] >>> (cell - 32)) & 1)\n+        wordsByCell[cell].add(term >>> 5);\n+    }\n+  }\n+  const original = solver.pool.wordAt;\n+  let loads = 0, comparisons = 0;\n+  solver.pool.wordAt = function (id, word) { loads++; return original.call(this, id, word); };\n+  for (const { moves } of makeCorpus({ seed: 271, ply: 21, count: 32 })) {\n+    const state = solver.createState(moves);\n+    for (let column = 0; column < 7; column++) if (state.canPlay(column)) {\n+      loads = 0;\n+      singletonEffectClass(state, column);\n+      assert.ok(loads <= wordsByCell[state.heights[column] * 7 + column].size);\n+      comparisons++;\n+    }\n+  }\n+  assert.ok(comparisons > 100);\n+});\n \n test('native advisory effects agree with realized physical child threats, including mirrors and high cells', () => {\n   const solver = new IsoMaxSolver();\n",
+  "instrumented": true,
+  "timingIsNotPerformanceEvidence": true,
+  "records": [
+    {
+      "sequence": "717657616532237625",
+      "value": -1,
+      "move": 3,
+      "counts": {
+        "terminalEntries": 4,
+        "reflectionCalls": 342146,
+        "comparisonCalls": 19846,
+        "wordLoads": 1397941,
+        "denseClassLoads": 82916,
+        "ownCalls": 338496,
+        "blockCalls": 338496
+      },
+      "metrics": {
+        "nodes": 338479,
+        "transitionCacheHits": 156901,
+        "transitionCacheStores": 181578,
+        "nativeExactHits": 39540,
+        "nativeForcedHits": 37377,
+        "certificateExactHits": 0,
+        "certificateForcedHits": 0,
+        "certificateNoWinHits": 0,
+        "unresolvedCertificates": 0,
+        "forcedTransitions": 37377,
+        "recursiveChildren": 301100,
+        "valueBoundaryQueries": 0,
+        "valueBoundaryHits": 0,
+        "valueBoundaryQueryMs": 0,
+        "orderingPromotions": 47926
+      },
+      "expandedEntries": 142038,
+      "transitionEdges": 338477,
+      "classes": 44888,
+      "cacheCount": 181578,
+      "cacheCapacity": 262144
+    },
+    {
+      "sequence": "466537327657277224",
+      "value": 0,
+      "move": 3,
+      "counts": {
+        "terminalEntries": 4,
+        "reflectionCalls": 2488324,
+        "comparisonCalls": 22860,
+        "wordLoads": 5197217,
+        "denseClassLoads": 784388,
+        "ownCalls": 1409908,
+        "blockCalls": 1409908
+      },
+      "metrics": {
+        "nodes": 1409891,
+        "transitionCacheHits": 722827,
+        "transitionCacheStores": 687064,
+        "nativeExactHits": 104058,
+        "nativeForcedHits": 197160,
+        "certificateExactHits": 0,
+        "certificateForcedHits": 0,
+        "certificateNoWinHits": 0,
+        "unresolvedCertificates": 0,
+        "forcedTransitions": 197160,
+        "recursiveChildren": 1212729,
+        "valueBoundaryQueries": 0,
+        "valueBoundaryHits": 0,
+        "valueBoundaryQueryMs": 0,
+        "orderingPromotions": 223597
+      },
+      "expandedEntries": 583006,
+      "transitionEdges": 1409889,
+      "classes": 329565,
+      "cacheCount": 687064,
+      "cacheCapacity": 1048576
+    },
+    {
+      "sequence": "616767454664457417",
+      "value": 1,
+      "move": 4,
+      "counts": {
+        "terminalEntries": 4,
+        "reflectionCalls": 1361524,
+        "comparisonCalls": 3682,
+        "wordLoads": 3320500,
+        "denseClassLoads": 408950,
+        "ownCalls": 895552,
+        "blockCalls": 895552
+      },
+      "metrics": {
+        "nodes": 895535,
+        "transitionCacheHits": 449788,
+        "transitionCacheStores": 445747,
+        "nativeExactHits": 81054,
+        "nativeForcedHits": 118529,
+        "certificateExactHits": 0,
+        "certificateForcedHits": 0,
+        "certificateNoWinHits": 0,
+        "unresolvedCertificates": 0,
+        "forcedTransitions": 118529,
+        "recursiveChildren": 777002,
+        "valueBoundaryQueries": 0,
+        "valueBoundaryHits": 0,
+        "valueBoundaryQueryMs": 0,
+        "orderingPromotions": 134153
+      },
+      "expandedEntries": 364693,
+      "transitionEdges": 895531,
+      "classes": 160527,
+      "cacheCount": 445747,
+      "cacheCapacity": 1048576
+    }
+  ]
+}

@@ -378,3 +378,32 @@ discarded. Fresh IDs may differ; portable identity still uses content.
 The complete Draft 0.3 E0-E2 baseline is in
 `components/isometric/NEES_BASELINE_0_3.md`. It records suspected costs and
 rejected alternatives instead of claiming all remaining work is required.
+
+### #99 qualified consecutive residual-word reuse
+
+Against 5fa41300, unchanged decisions/calls/classes: serial median
+1578.3344 -> 1436.8903 ms; one worker 1921.8988 -> 1810.8124 ms;
+four workers 1636.8564 -> 1587.2005 ms. All nine paired totals favor the
+candidate. Raw `issue-99-word-reuse*.json` records use the existing three-root
+control and alternating fresh processes; this is not a universal speed claim.
+
+Instrumented `hot-cost-census.mjs` separately counts operations, not timing.
+`wordAt` calls fall 35,381,843 -> 9,915,658 across the controls (25,466,185
+avoided dependent chunk lookups). Class counts, exact work, q/reflection counts
+and all semantic metrics agree. Corpus physical-threat differential plus the
+new maximum-one-load-per-incident-word detector passes; full hot-loop controls
+also pass. The last full-suite result remains 118/118; this unit adds one
+targeted ordering test and changes no scheduling/identity/transition behavior.
+
+The census also critically narrows #98: only 12 terminal entries occur among
+2,643,905 calls. Native immediate-win closure already prevents almost all
+terminal child descent. A new status test at every call must justify itself
+against those 12 avoided q lookups, and must preserve optional contradiction
+and public terminal-residual contracts. Do not assume terminal-before-q wins.
+
+Retrieved the independent capacity-aligned reserve result from Actions
+35480965920 (70ed0dba, EPYC/4 logical slots): three-worker reserve 3 loses all
+seven pairs; median 3031.58 -> 3138.87 ms, calls 5,755,121 -> 5,973,872,
+max RSS 629,448,704 -> 660,643,840. No worker resets. This falsifies promoting
+full reserve as a general capacity-aware policy; the earlier four-worker stress
+win is not evidence for the new decentralized architecture.

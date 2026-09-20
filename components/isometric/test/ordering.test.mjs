@@ -5,6 +5,31 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
 import { singletonEffectClass, promotedColumn, CENTER_ORDER } from '../move-order.mjs';
 import { loadFixedControlSolver } from '../../../benchmarks/isomax-ordering/fixed-control.mjs';
+import { ISOMETRIC_PROFILE } from '../profile.mjs';
+
+test('advisory classification loads each incident residual word at most once', () => {
+  const solver = new IsoMaxSolver(), p = ISOMETRIC_PROFILE;
+  const wordsByCell = Array.from({ length: 42 }, () => new Set());
+  for (let term = 0; term < p.count; term++) if (p.cardinality[term] === 2) {
+    for (let cell = 0; cell < 42; cell++) {
+      if (cell < 32 ? (p.lo[term] >>> cell) & 1 : (p.hi[term] >>> (cell - 32)) & 1)
+        wordsByCell[cell].add(term >>> 5);
+    }
+  }
+  const original = solver.pool.wordAt;
+  let loads = 0, comparisons = 0;
+  solver.pool.wordAt = function (id, word) { loads++; return original.call(this, id, word); };
+  for (const { moves } of makeCorpus({ seed: 271, ply: 21, count: 32 })) {
+    const state = solver.createState(moves);
+    for (let column = 0; column < 7; column++) if (state.canPlay(column)) {
+      loads = 0;
+      singletonEffectClass(state, column);
+      assert.ok(loads <= wordsByCell[state.heights[column] * 7 + column].size);
+      comparisons++;
+    }
+  }
+  assert.ok(comparisons > 100);
+});
 
 test('native advisory effects agree with realized physical child threats, including mirrors and high cells', () => {
   const solver = new IsoMaxSolver();

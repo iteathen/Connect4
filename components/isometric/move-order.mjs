@@ -41,8 +41,17 @@ export function singletonEffectClass(state, column) {
   const opponent = state.sideToMove === 0 ? state.p1Class : state.p0Class;
   if (above < 42 && state.pool.hasSingletonAt(opponent, above)) return 0;
   let first = above < 42 && state.pool.hasSingletonAt(own, above) ? above : -1;
+  // OWNER-PROTECTED WORD REUSE — incidence is prepared in term-ID order.
+  // Reuse only consecutive equal word indices; no state cache or allocation.
+  // The class is immutable for this synchronous classifier invocation.
+  let currentWord = -1, currentBits = 0;
   for (let i = pairStart[cell]; i < pairStart[cell + 1]; i++) {
-    if ((state.pool.wordAt(own, pairWord[i]) & pairMask[i]) === 0) continue;
+    const word = pairWord[i];
+    if (word !== currentWord) {
+      currentWord = word;
+      currentBits = state.pool.wordAt(own, word);
+    }
+    if ((currentBits & pairMask[i]) === 0) continue;
     const other = pairOther[i];
     const playable = other === above || (other < 32
       ? (state.playableLo >>> other) & 1
