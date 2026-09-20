@@ -79,7 +79,7 @@ The successor follows qualified NEI 0.4 authority pinned to `iteathen/isograph@5
 
 The old files under `research/isograph/identity/CONNECT4_NEI_*` remain historical/provenance evidence and MUST NOT be layered into new game-theory reasoning as a second identity authority.
 
-For hot-loop performance research, use only `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*` as the current integrated interpretation. The older hot-loop 0.1/0.2 graph/NEI/qualification files are historical evidence.
+For hot-loop performance research, current qualified authority is `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md`, promoting the exact `ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*` artifacts. The qualification record is `ISOMAX_HOT_LOOP_GRAPH_0_3_QUALIFICATION.md`. The older hot-loop 0.1/0.2 graph/NEI/qualification files are historical evidence.
 
 
 ## Current durable topology authority
