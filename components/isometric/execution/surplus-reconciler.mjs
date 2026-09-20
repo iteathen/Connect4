@@ -73,7 +73,7 @@ class SurplusReconciler {
       priorityUpdates:0,publications:0,failures:0,maxWork:0,maxOccurrences:0,
       maxActiveWork:0,runningContinuations:0,duplicateRunningContinuations:0,
       continuationExact:0,qReclaims:0,exactQEvictions:0,qHashRebuilds:0,
-      maxActiveCanonicalQ:0,
+      workSlotReclaims:0,maxActiveCanonicalQ:0,
     };
   }
 
@@ -223,6 +223,12 @@ class SurplusReconciler {
     return band;
   }
 
+  recycleWork(work,generation){
+    if(!releaseWork(this.shared,work,generation))
+      throw new Error('failed to recycle terminal surplus helper work');
+    this.metrics.workSlotReclaims++;
+  }
+
   createWork(q,occ){
     const slot=allocateWork(this.shared,this.workScratch);
     if(slot<0)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
@@ -300,9 +306,11 @@ class SurplusReconciler {
       if(work>=0){
         const state=Atomics.load(this.shared.workState,work);
         if(state===WORK_READY){
+          const generation=Atomics.load(this.shared.workGeneration,work);
           Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
           Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
           if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
+          this.recycleWork(work,generation);
         }else if(state===WORK_RUNNING){
           Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
         }
@@ -327,7 +335,9 @@ class SurplusReconciler {
         this.markQExact(q,Atomics.load(this.shared.workResult,work),work);return;
       }
       if(state===WORK_RETIRED||state===WORK_UNUSED){
+        const retiredWork=work,generation=Atomics.load(this.shared.workGeneration,retiredWork);
         this.qWork[q]=-1;work=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
+        if(state===WORK_RETIRED)this.recycleWork(retiredWork,generation);
       }else this.metrics.duplicateOccurrences++;
     }
 
@@ -362,9 +372,11 @@ class SurplusReconciler {
       if(work===sourceWork||state===WORK_EXACT){
         this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
       }else if(state===WORK_READY){
+        const generation=Atomics.load(this.shared.workGeneration,work);
         Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
         Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
         if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
+        this.recycleWork(work,generation);
       }else if(state===WORK_RUNNING){
         Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
       }
@@ -404,9 +416,11 @@ class SurplusReconciler {
     if(work>=0){
       const state=Atomics.load(this.shared.workState,work);
       if(state===WORK_READY){
+        const generation=Atomics.load(this.shared.workGeneration,work);
         Atomics.store(this.shared.workNeeded,work,0);Atomics.store(this.shared.workState,work,WORK_RETIRED);
         Atomics.notify(this.shared.workState,work,Infinity);this.qWork[q]=-1;
         if(this.activeWorkCount>0)this.activeWorkCount--;this.metrics.readyRetired++;
+        this.recycleWork(work,generation);
       }else if(state===WORK_RUNNING){
         Atomics.store(this.shared.workNeeded,work,0);this.metrics.runningRetireSignals++;
       }
@@ -447,6 +461,7 @@ class SurplusReconciler {
     }else{
       this.markQExact(q,value,-1);
     }
+    this.recycleWork(work,generation);
     this.refillExecution();
     if(q===this.rootQ){
       parentPort.postMessage({type:'surplus-result',value,move:rootMove,metrics:{...this.metrics}});
@@ -521,12 +536,14 @@ class SurplusReconciler {
         if(work>=0){
           const state=Atomics.load(this.shared.workState,work);
           if(state===WORK_READY){
+            const generation=Atomics.load(this.shared.workGeneration,work);
             Atomics.store(this.shared.workNeeded,work,0);
             Atomics.store(this.shared.workState,work,WORK_RETIRED);
             Atomics.notify(this.shared.workState,work,Infinity);
             this.qWork[q]=-1;
             if(this.activeWorkCount>0)this.activeWorkCount--;
             this.metrics.readyRetired++;
+            this.recycleWork(work,generation);
             this.refillExecution();
           }else if(state===WORK_RUNNING){
             Atomics.store(this.shared.workNeeded,work,0);
@@ -555,6 +572,7 @@ class SurplusReconciler {
       else if(this.qDemand[q]===0&&this.qRunningOcc[q]<0&&this.qOccHead[q]===-1)
         this.reclaimQ(q,false);
     }
+    this.recycleWork(work,generation);
     this.refillExecution();
   }
 
@@ -591,8 +609,10 @@ class SurplusReconciler {
             throw new Error('ISOMAX_SURPLUS_QUEUE_CAPACITY');
           this.metrics.workerDeathRequeues++;
         }else{
+          const generation=Atomics.load(this.shared.workGeneration,work);
           Atomics.store(this.shared.workState,work,WORK_RETIRED);Atomics.notify(this.shared.workState,work,Infinity);
           if(q>=0&&q<this.qCount&&this.qWork[q]===work){this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;}
+          this.recycleWork(work,generation);
         }
       }
 
