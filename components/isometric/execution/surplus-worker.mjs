@@ -52,6 +52,7 @@ if (!parentPort) throw new Error('IsoMax surplus worker requires parentPort');
 
 const workRetired=Symbol('surplus work retired');
 const continuationResolved=Symbol('surplus continuation resolved');
+const sessionStopped=Symbol('surplus session stopped');
 const workerIndex=workerData.workerId;
 const workerCount=workerData.workerCount;
 
@@ -86,8 +87,8 @@ class SurplusDistributor {
   publishBlocking(kind,a=0,b=0,c=0,d=0,e=0,f=0,g=0) {
     const shared=this.worker.shared;
     while(!publish(shared,kind,a,b,c,d,e,f,g)){
-      if(Atomics.load(shared.control,CTRL_ABORT) ||
-         Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
       const epoch=Atomics.load(shared.control,CTRL_PUB_WAKE);
       Atomics.wait(shared.control,CTRL_PUB_WAKE,epoch,2);
     }
@@ -95,6 +96,7 @@ class SurplusDistributor {
 
   retireOccurrence(slot,generation) {
     if(slot<0)return;
+    if(Atomics.load(this.worker.shared.control,CTRL_SESSION)!==SESSION_RUNNING)return;
     this.publishBlocking(PUB_RETIRE_OCCURRENCE,slot,generation);
     this.worker.counters[WC_RETIRE_OCC]++;
   }
@@ -107,6 +109,7 @@ class SurplusDistributor {
       if(state===OCC_LINKED||state===OCC_EXACT||state===OCC_RETIRED)return state;
       if(state!==OCC_PUBLISHED)throw new Error('invalid surplus occurrence state '+state);
       if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
       Atomics.wait(shared.occState,slot,OCC_PUBLISHED,10);
     }
   }
@@ -373,6 +376,7 @@ class SurplusEvaluator {
     this.counters[WC_CONTROL_CHECKS]++;
     const shared=this.shared;
     if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+    if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
     if(this.activeWork>=0&&Atomics.load(shared.workNeeded,this.activeWork)===0)throw workRetired;
 
     // Continuations remain native/local, but canonical exact knowledge may
@@ -422,17 +426,20 @@ class SurplusEvaluator {
     this.activeWork=slot;this.activeGeneration=generation;this.activeAttempt=attempt;
     this.resetMetrics();
     const state=this.replayWork(slot);
-    let value,retired=false;
+    let value,retired=false,stopped=false;
     try{
       value=this.solver.solveNode(state);
     }catch(error){
       if(error===workRetired)retired=true;
+      else if(error===sessionStopped)stopped=true;
       else throw error;
     }
-    if(retired){
+    if(retired||stopped){
+      Atomics.store(shared.workNeeded,slot,0);
       Atomics.store(shared.workState,slot,WORK_RETIRED);
       Atomics.notify(shared.workState,slot,Infinity);
-      this.publishBlocking(PUB_WORK_RETIRED,slot,generation,attempt,workerIndex);
+      if(retired&&Atomics.load(shared.control,CTRL_SESSION)===SESSION_RUNNING)
+        this.publishBlocking(PUB_WORK_RETIRED,slot,generation,attempt,workerIndex);
       return;
     }
 
