@@ -292,17 +292,23 @@ class SurplusReconciler {
     const running=this.liveContinuation(q);
 
     if(role===OCC_ROLE_CONTINUATION){
-      if(running<0){
+      let leader=running;
+      if(leader<0){
+        leader=slot;
         this.qRunningOcc[q]=slot;
         Atomics.store(this.shared.occLeader,slot,slot);
         Atomics.store(this.shared.occLeaderGeneration,slot,generation);
         this.metrics.runningContinuations++;
       }else{
-        Atomics.store(this.shared.occLeader,slot,running);
+        Atomics.store(this.shared.occLeader,slot,leader);
         Atomics.store(this.shared.occLeaderGeneration,slot,
-          Atomics.load(this.shared.occGeneration,running));
+          Atomics.load(this.shared.occGeneration,leader));
         this.metrics.duplicateRunningContinuations++;
       }
+      // Primary continuations enter through this path and do not emit a later
+      // CONTINUATION_START record. Redirect every existing canonical waiter
+      // here, before any helper reservation can be recycled.
+      this.redirectToContinuation(q,leader);
 
       // A current native continuation is cheaper than rematerializing the same
       // q. Retire/signal any helper work and let exact completion broadcast.
