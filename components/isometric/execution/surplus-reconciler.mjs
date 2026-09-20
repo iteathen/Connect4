@@ -520,6 +520,25 @@ class SurplusReconciler {
     return false;
   }
 
+  promoteContinuationLeader(q){
+    if(q<0||q>=this.qCount||this.qExact[q])return -1;
+    for(let occ=this.qOccHead[q];occ!==-1;occ=this.occNext[occ]){
+      if(Atomics.load(this.shared.occNeeded,occ)===0)continue;
+      if(Atomics.load(this.shared.occRole,occ)!==OCC_ROLE_CONTINUATION)continue;
+      const state=Atomics.load(this.shared.occState,occ);
+      if(state===OCC_RETIRED||state===OCC_EXACT)continue;
+      this.qRunningOcc[q]=occ;
+      Atomics.store(this.shared.occLeader,occ,occ);
+      Atomics.store(this.shared.occLeaderGeneration,occ,
+        Atomics.load(this.shared.occGeneration,occ));
+      this.redirectToContinuation(q,occ);
+      this.metrics.continuationLeaderPromotions++;
+      return occ;
+    }
+    this.qRunningOcc[q]=-1;
+    return -1;
+  }
+
   clearLeaderReferences(q,leader){
     for(let occ=this.qOccHead[q];occ!==-1;occ=this.occNext[occ]){
       if(occ===leader||Atomics.load(this.shared.occNeeded,occ)===0)continue;
@@ -560,9 +579,12 @@ class SurplusReconciler {
 
     if(!this.qExact[q]){
       if(wasContinuation){
-        // Surplus demand may now need spare-worker admission because the native
-        // continuation disappeared without exact completion.
-        this.refillExecution();
+        // Prefer an already-running duplicate native continuation over creating
+        // fresh helper work. This preserves local recursion and makes qRunning
+        // leadership a replaceable reconciliation role, not ownership.
+        if(this.promoteContinuationLeader(q)<0){
+          this.refillExecution();
+        }
       }
 
       if(this.qDemand[q]===0){
