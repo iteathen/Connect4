@@ -53,6 +53,7 @@ test('shared pull pool claims highest global priority and rejects stale generati
 test('decentralized pull solver matches serial exact WDL and root action at 1/2/4 workers',
   {timeout:60000}, async () => {
     const roots = makeCorpus({seed:0x1020c4, ply:34, count:2}).map(entry => entry.moves);
+    let qReuses = 0, duplicateRetirements = 0;
     for (const moves of roots) {
       const expected = new IsoMaxSolver().solveMoves(moves);
       for (const workers of [1, 2, 4]) {
@@ -73,11 +74,18 @@ test('decentralized pull solver matches serial exact WDL and root action at 1/2/
           assert.ok(actual.metrics.worker.nativeStateEvaluations > 0);
           assert.ok(actual.canonicalQ > 0);
           assert.ok(actual.metrics.worker.claimsByBand.some(value => value > 0));
+          qReuses += actual.metrics.qReuses ?? 0;
+          duplicateRetirements += (actual.metrics.duplicateReadyCollapsed ?? 0)
+            + (actual.metrics.duplicateRunningRetired ?? 0)
+            + (actual.metrics.exactDuplicateCompletions ?? 0);
         } finally {
           await manager.close();
         }
       }
     }
+    assert.ok(qReuses > 0, 'integrated pull corpus must exercise canonical q convergence');
+    assert.ok(duplicateRetirements > 0,
+      'integrated pull corpus must collapse or retire at least one duplicate execution occurrence');
   });
 
 test('decentralized pull solver preserves mirror transport and deterministic first win',
@@ -98,6 +106,40 @@ test('decentralized pull solver preserves mirror transport and deterministic fir
         assert.equal(actual.value, expected.value);
         assert.equal(actual.move, expected.move);
       }
+    } finally {
+      await manager.close();
+    }
+  });
+
+test('decentralized pull requeues dead-worker execution and still returns exact root',
+  {timeout:30000}, async () => {
+    const moves = makeCorpus({seed:0x1020d1, ply:28, count:1})[0].moves;
+    const expected = new IsoMaxSolver().solveMoves(moves);
+    const manager = new IsoMaxPullBranchManager({
+      workers:2,
+      maxTasks:65536,
+      maxEdges:65536 * 7,
+      workCapacity:8192,
+      queueCapacity:16384,
+      publicationCapacity:16384,
+    });
+    let killed = false;
+    try {
+      await manager.start();
+      const result = await manager.solveMoves(moves, {
+        timeoutMs:20000,
+        progressIntervalMs:100,
+        onProgress:() => {
+          if (killed || !manager.workers[0]) return;
+          killed = true;
+          void manager.workers[0].terminate();
+        },
+      });
+      assert.equal(killed, true, 'test must terminate one active evaluator');
+      assert.equal(result.value, expected.value);
+      assert.equal(result.move, expected.move);
+      assert.ok((result.metrics.workerDeathRequeues ?? 0) > 0,
+        'dead evaluator must cause at least one live canonical dependency to be requeued');
     } finally {
       await manager.close();
     }
