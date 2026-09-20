@@ -1,0 +1,211 @@
+{
+  "cases": [
+    {
+      "case_id": "P01",
+      "answers": {
+        "one_package": true,
+        "parallel_active_overlays": false
+      },
+      "reason": "The candidate package explicitly defines itself as one semantic package containing the Markdown root, JSON graph, native graph, and claim-coverage companion. It supersedes the historical NEI and RBA overlays, which are no longer active parallel authorities.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    },
+    {
+      "case_id": "P02",
+      "answers": {
+        "covered_claims": 93,
+        "uncovered_claims": 0,
+        "open_claims_become_solved": false
+      },
+      "reason": "The claim coverage companion reports 93 total claims (74 base plus 19 post-1.1) with 0 uncovered. The 7 open claims remain open and are not solved by package qualification.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md"
+      ]
+    },
+    {
+      "case_id": "P03",
+      "answers": {
+        "oriented_future_nei": "SAME",
+        "bayes_factor_required": false
+      },
+      "reason": "Under the qualified q_o congruence theorem, equal q_o on legal nonterminal standard-7x6 states forces the orientation-sensitive literal-action-labelled ordinary future behavior to be SAME under NEI 0.4. This is an exact structural result, so no Bayes factor is required.",
+      "authority_used": [
+        "Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json",
+        "NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md"
+      ]
+    },
+    {
+      "case_id": "P04",
+      "answers": {
+        "transporter": "REFLECT_6_MINUS_C",
+        "literal_action_labels_identical": false
+      },
+      "reason": "Horizontal reflection is an exact automorphism with transporter c -> 6-c when orientations differ. Equal q_r alone does not authorize identical literal column labels without orientation transport.",
+      "authority_used": [
+        "Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json",
+        "CLEAN_SUCCESSOR_DISCOVERY_0_2.md"
+      ]
+    },
+    {
+      "case_id": "P05",
+      "answers": {
+        "scalar_value_reuse_exact": true,
+        "proof_identity_follows": false
+      },
+      "reason": "Equal q_r supports exact scalar W/D/L/value-cache reuse, but non-q proof/certificate identity does not follow because proof context depends on premises not derivable from q.",
+      "authority_used": [
+        "Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    },
+    {
+      "case_id": "P06",
+      "answers": {
+        "same_colored_board": false,
+        "same_move_history": false,
+        "same_physical_occurrence": false
+      },
+      "reason": "The q_o future-behavior identity does not imply physical colored-board identity, move-history identity, or physical occurrence identity, as these are finer physical states.",
+      "authority_used": [
+        "Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    },
+    {
+      "case_id": "P07",
+      "answers": {
+        "independence_is_identity_question": false,
+        "qu_required": true,
+        "nei_unknown_established": false
+      },
+      "reason": "QU-GAME-01 represents cross-lineage statistical independence as a property uncertainty, which is not an identity question. It is represented in QU, but unresolved independence does not establish NEI UNKNOWN for the evidence artifacts.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "QUANTIFIABLE_UNKNOWN_SPEC_0_1_CANDIDATE.md"
+      ]
+    },
+    {
+      "case_id": "P08",
+      "answers": {
+        "r0075_supplies_r0076": false,
+        "r0076_status": "MISSING_LAW"
+      },
+      "reason": "C4-R0075 identifies the observed rank-35 wall, but does not supply the compact realizability-preserving controllable predecessor law C4-R0076, which remains an open missing law.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md"
+      ]
+    },
+    {
+      "case_id": "P09",
+      "answers": {
+        "proof_premises_transport": false,
+        "proof_identity_established": false
+      },
+      "reason": "An RBA relation closing an exact ordinary value consequence does not transport non-q proof premises (such as deadlines or resources) or establish proof/certificate identity.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    },
+    {
+      "case_id": "P10",
+      "answers": {
+        "invent_bayes_factor_from_control_count": false
+      },
+      "reason": "In the absence of a qualified likelihood model, a numerical Bayes factor cannot be invented from the count of passing controls. NEI 0.4 strictly forbids fabricating probability distributions.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json",
+        "NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md"
+      ]
+    },
+    {
+      "case_id": "P11",
+      "answers": {
+        "historical_provenance_retained": true,
+        "historical_only_active_primitive": false,
+        "package_can_remain_complete": true
+      },
+      "reason": "Claims marked HISTORICAL_ONLY are retained as evidence/provenance and do not disappear, but they are not active game-theory primitives. The package remains complete with 93 covered claims.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md"
+      ]
+    },
+    {
+      "case_id": "P12",
+      "answers": {
+        "different_game_semantics": false,
+        "different_evaluation_schedules": true
+      },
+      "reason": "IsoMax and BSFP share the same ordinary value dependency semantics but represent different evaluation and materialization schedules over that dependency.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    },
+    {
+      "case_id": "P13",
+      "answers": {
+        "hotloop_can_redefine_game_semantics": false,
+        "game_theory_owns_q_semantics": true
+      },
+      "reason": "The hot-loop authority has no gameplay authority and cannot redefine game semantics; q_o and q_r semantics remain strictly owned by the game-theory package.",
+      "authority_used": [
+        "ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md",
+        "CLEAN_SUCCESSOR_DISCOVERY_0_2.json"
+      ]
+    },
+    {
+      "case_id": "P14",
+      "answers": {
+        "reflection_exact_automorphism": true,
+        "physical_occurrence_same": false
+      },
+      "reason": "Horizontal reflection is an exact board automorphism, but it does not make a position and its reflection the same physical occurrence.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    },
+    {
+      "case_id": "P15",
+      "answers": {
+        "dp_pass_promotes_open_claims": false
+      },
+      "reason": "A Discovery Protocol PASS provides search guidance and structural verification but does not automatically promote open or candidate theorems to exact authority.",
+      "authority_used": [
+        "QUALIFIED_MODULES_2026-09-18.md",
+        "CLEAN_SUCCESSOR_DISCOVERY_0_2.md"
+      ]
+    },
+    {
+      "case_id": "P16",
+      "answers": {
+        "old_authority_remains_coequal_active": false,
+        "old_overlays_remain_coequal_active": false,
+        "v12_becomes_current": true
+      },
+      "reason": "Upon promotion, the 1.2 package becomes the current game-theory authority, while authority 1.1 and the old overlays are superseded and retained only as historical evidence.",
+      "authority_used": [
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+        "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json"
+      ]
+    }
+  ],
+  "package_assessment": {
+    "connect4_game_theory_1_2": "SUPPORTED"
+  },
+  "self_audit": {
+    "used_only_packet": true,
+    "notes": "Decoded the Connect4 game-theory 1.2 candidate package and verified all cases against the provided specifications and qualification documents."
+  }
+}
