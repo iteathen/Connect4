@@ -8,7 +8,7 @@ import {
   PUB_CONTINUATION_START, PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
   PUB_RETIRE_OCCURRENCE, PUB_WORK_RETIRED,
   SESSION_RUNNING, WORK_EXACT, WORK_READY, WORK_RETIRED, WORK_RUNNING, WORK_UNUSED, WORK_WRITING,
-  dequeuePublication, enqueueWork, openSurplusPool, stopSurplusPool,
+  dequeuePublication, enqueueWork, openSurplusPool, releaseOccurrence, stopSurplusPool,
 } from './surplus-pool.mjs';
 
 if (!parentPort) throw new Error('IsoMax surplus reconciler requires parentPort');
