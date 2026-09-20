@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  occurrence-capacity-trace:
+  draw-class-trace:
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
@@ -26,50 +26,50 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Trace occurrence-capacity failure lifecycle
+      - name: Trace draw-root class capacity owner
         run: |
-          timeout 30s node --input-type=module <<'NODE'
+          timeout 60s node --input-type=module <<'NODE'
           import { IsoMaxSurplusBranchManager } from './components/isometric/execution/surplus-manager.mjs';
 
-          const moves=[
-            6,6,0,0, 2,1,4,5, 3,2,3,4, 6,3,0,3,
-            5,0,1,6, 2,6,4,0, 1,1,5,5, 2,2,4,4,
-          ];
-          const manager=new IsoMaxSurplusBranchManager({
-            workers:1,maxQ:64,workCapacity:64,occurrenceCapacity:1,
-            queueCapacity:64,publicationCapacity:64,
-          });
+          const moves=Array.from('466537327657277224',c=>Number(c)-1);
+          const manager=new IsoMaxSurplusBranchManager({workers:1});
           await manager.start();
           manager.reconciler.on('message',m=>{
-            if(m?.type!=='surplus-progress')
-              console.log('TRACE_REC',JSON.stringify({type:m?.type,message:m?.message}));
+            if(m?.type!=='surplus-progress'){
+              console.log('TRACE_REC',JSON.stringify({type:m?.type,message:m?.message,snapshot:m?.snapshot??null}));
+            }
           });
           manager.workers[0].on('message',m=>{
-            console.log('TRACE_WORKER',JSON.stringify({type:m?.type,message:m?.message,workerId:m?.workerId}));
-          });
-
-          let settled=false;
-          const solve=manager.solveMoves(moves,{timeoutMs:5000,progressIntervalMs:100})
-            .then(v=>{settled=true;return {kind:'resolved',value:v.value,move:v.move};},
-              e=>{settled=true;return {kind:'rejected',message:e?.message??String(e)};});
-
-          const ticker=setInterval(()=>{
-            const s=manager.session;
-            console.log('TRACE_STATE',JSON.stringify({
-              settled,
-              session:!!s,
-              failure:s?.failure?.message??null,
-              done:s?Array.from(s.done):null,
-              control:s?Array.from(s.shared.control):null,
+            console.log('TRACE_WORKER',JSON.stringify({
+              type:m?.type,message:m?.message,workerId:m?.workerId,
+              localClasses:m?.localClasses,localEntries:m?.localEntries,
             }));
-          },250);
-
-          const outcome=await Promise.race([
-            solve,
-            new Promise(resolve=>setTimeout(()=>resolve({kind:'host-timeout'}),8000)),
-          ]);
-          clearInterval(ticker);
-          console.log('TRACE_OUTCOME',JSON.stringify(outcome));
-          await manager.close();
-          console.log('TRACE_CLOSED');
+          });
+          let lastProgress=null;
+          try{
+            const result=await manager.solveMoves(moves,{
+              timeoutMs:30000,
+              progressIntervalMs:500,
+              onProgress:p=>{
+                lastProgress=p;
+                console.log('TRACE_PROGRESS',JSON.stringify({
+                  qCount:p?.qCount,qHighWater:p?.qHighWater,
+                  workAllocated:p?.workAllocated,occurrenceAllocated:p?.occurrenceAllocated,
+                  metrics:p?.metrics,
+                }));
+              },
+            });
+            console.log('TRACE_OUTCOME',JSON.stringify({
+              kind:'resolved',value:result.value,move:result.move,
+              worker:result.metrics?.worker,metrics:result.metrics,
+            }));
+          }catch(error){
+            console.log('TRACE_OUTCOME',JSON.stringify({
+              kind:'rejected',message:error?.message??String(error),
+              lastStats:manager.lastStats,lastProgress,
+            }));
+          }finally{
+            await manager.close();
+            console.log('TRACE_CLOSED');
+          }
           NODE
