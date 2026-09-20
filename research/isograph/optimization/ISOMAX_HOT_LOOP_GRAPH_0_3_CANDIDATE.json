@@ -26,7 +26,8 @@
     },
     {
       "id": 996002,
-      "name": "exact_q_cache_identity"
+      "name": "exact_qr_cache_identity",
+      "game_theory_owner": "q_r horizontal-reflection orbit quotient"
     },
     {
       "id": 996003,
@@ -100,11 +101,22 @@
   ],
   "identity_boundaries": {
     "q_cache": {
-      "kind": "implementation_exact_equality",
+      "kind": "implementation_exact_qr_equality",
+      "semantic_owner": "Connect4 game-theory IsoGraph q_r",
       "coordinates": [
-        "canonical p0 residual class",
-        "canonical p1 residual class",
-        "canonical packed support"
+        "reflection-canonical p0 residual class",
+        "reflection-canonical p1 residual class",
+        "reflection-canonical packed support"
+      ],
+      "transporter": "identity or horizontal reflection; action c maps to 6-c when orientations differ",
+      "exact_scope": [
+        "scalar WDL/value cache reuse",
+        "reflection-transported future-game equivalence"
+      ],
+      "nonconsequence": [
+        "literal action-label identity",
+        "physical occurrence identity",
+        "proof/certificate identity"
       ],
       "exclusions": [
         "hash",
@@ -114,13 +126,18 @@
     },
     "task_occurrence": {
       "kind": "contextual_occurrence",
-      "may_project_to_same_q": true,
       "occurrence_identity_preserved": true,
-      "future_behavior_identity_owner": "Connect4 game-theory IsoGraph"
+      "future_behavior_identity_owner": "Connect4 game-theory IsoGraph q_o/q_r distinction",
+      "may_project_to_same_q_r": true
     },
     "nei": {
       "required_current_claims": [],
       "rule": "invoke only for genuine identity questions; exact scoped equivalence is not automatically NEI SAME"
+    },
+    "game_theory_dependency": {
+      "q_o": "orientation-sensitive ordinary future-behavior carrier",
+      "q_r": "horizontal-reflection orbit quotient used by current cache",
+      "review": "research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md"
     }
   },
   "identity_evidence": {
