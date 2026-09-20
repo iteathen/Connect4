@@ -1,12 +1,28 @@
 # Connect4 clean NEI reintegration — replacement qualification plan 0.1
 
-**Status:** active qualification plan  
+**Status:** COMPLETED — historical qualification plan  
 **Owner:** `research/semantic-quotient`  
 **Pre-alpha compatibility policy:** no adapters, no dual active semantics, no migration bridge  
 **Qualified historical authority:** Connect4 IsoGraph authority 1.1  
 **Active successor candidates:**
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*`
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*`
+
+## Completion disposition
+
+All replacement gates are closed.
+
+- qualified NEI 0.4: `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`;
+- q_o/q_r qualification: `Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md`;
+- hot-loop 0.3: separately qualified performance-research authority;
+- 93-claim coverage: zero uncovered;
+- corrected DP-01..DP-45 rerun: complete;
+- final package Experiment 018: 16/16 PASS;
+- current authority: `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`;
+- authority 1.1 and old overlays: historical provenance/evidence only;
+- compatibility/dual-authority phase: none.
+
+This file is retained as process history, not as an active gate list.
 
 ## Objective
 
