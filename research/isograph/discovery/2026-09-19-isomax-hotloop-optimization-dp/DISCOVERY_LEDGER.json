@@ -1,18 +1,454 @@
 {
   "campaign": "2026-09-19-isomax-hotloop-optimization-dp",
-  "status": "in_progress",
+  "status": "complete",
+  "authority_effect": "none_without_separate_qualification",
   "anchors": {
-    "research": "138ce556f09efd327264cedf1ceb8e331f407889",
+    "start_research": "138ce556f09efd327264cedf1ceb8e331f407889",
     "solver": "eb8928fe6f4c4b3dba6ad3e2d42f186947a6ebf2",
-    "isograph": "55c98d31dd2715cdb48abe4f8e313fd72d0dabba"
+    "isograph": "55c98d31dd2715cdb48abe4f8e313fd72d0dabba",
+    "final_report_commit": "1c962218bf992fe5b0008dd7465e97e22e76b204",
+    "campaign_close_commit": "f0435dd4eadaf7b95e99d3832514c7ebbde6684c"
   },
-  "protocols": {},
-  "findings": [],
-  "negative_results": [],
-  "qu_refinements": [],
-  "issue_mappings": [],
-  "stop_decisions": [],
+  "authorities": {
+    "game_theory_root": "research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md",
+    "game_theory_manifest": "research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json",
+    "hot_loop_root": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md",
+    "hot_loop_graph": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*",
+    "nei": {
+      "version": "0.4",
+      "repository": "iteathen/isograph",
+      "revision": "55c98d31dd2715cdb48abe4f8e313fd72d0dabba"
+    }
+  },
+  "protocols": {
+    "DP-01": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-02": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-03": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-04": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-05": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-06": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-07": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-08": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-09": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-01-09.md"
+    },
+    "DP-10": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-11": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-12": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-13": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-14": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-15": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-16": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-17": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-18": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-10-18.md"
+    },
+    "DP-19": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-20": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-21": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-22": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-23": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-24": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-25": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-26": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-27": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-19-27.md"
+    },
+    "DP-28": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-29": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-30": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-31": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-32": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-33": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-34": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-35": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-36": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-28-36.md"
+    },
+    "DP-37": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-38": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-39": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-40": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-41": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-42": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-43": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-44": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    },
+    "DP-45": {
+      "status": "PASS",
+      "checkpoint": "checkpoints/DP-37-45.md"
+    }
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "name": "semantic q visibility delay",
+      "class": "established_structural_mismatch",
+      "statement": "Canonical q_r dependencies can be created/completed privately in worker TT/subtrees before becoming globally visible to Branch Manager, allowing root-relevant duplicate scalar-value work to accumulate during that interval.",
+      "qualification": "structural_evidence_only_economics_open",
+      "issue_owners": [
+        78,
+        89,
+        90,
+        91,
+        94,
+        95
+      ],
+      "related": [
+        92,
+        93
+      ],
+      "qu": "QU-HOT-03A"
+    },
+    {
+      "id": "F-002",
+      "name": "frontier-qualified nonterminal mover cofactor",
+      "class": "supported_exact_optimization_lead",
+      "statement": "After native frontier exact cases are excluded, no playable mover singleton exists; WSL terminal reduction occurs only by consuming singleton {cell}; therefore a legal worker mover cofactor on that edge cannot return RESIDUAL_TERMINAL_WIN.",
+      "qualification": "exact_scoped_derivation_implementation_unqualified",
+      "issue_owner": 100,
+      "nei_required": false
+    },
+    {
+      "id": "F-003",
+      "name": "executor pre-dispatch structuredClone excess",
+      "class": "stopped_low_information_lead",
+      "statement": "Current fresh IsoMax task messages are explicitly structuredClone'd by the shared executor before another object is constructed for Worker.postMessage, but shared ownership and prior manager economics do not justify change without direct transport evidence.",
+      "qualification": "not_promoted"
+    },
+    {
+      "id": "F-004",
+      "name": "per-task full memory census on result critical path",
+      "class": "measurement_gated_runtime_lead",
+      "statement": "Every successful worker result calls full process.memoryUsage() before postMessage; worker executionMs excludes this cost.",
+      "qualification": "measure_before_issue_or_mutation",
+      "qu": "QU-HOT-03B",
+      "external_reference": "https://nodejs.org/api/process.html#processmemoryusage"
+    },
+    {
+      "id": "F-005",
+      "name": "native forced-cell provenance fast path",
+      "class": "measurement_gated_exact_lead",
+      "statement": "Native forced cells originate from the maintained playable mask and can retain that provenance so proof-facing forced-cell validation remains exclusive to external/certificate consequences.",
+      "qualification": "exact_scope_economics_unmeasured",
+      "issue_owners": [
+        86,
+        87
+      ]
+    },
+    {
+      "id": "F-006",
+      "name": "manager child q derivation from live parent state",
+      "class": "supported_exact_optimization_lead",
+      "statement": "Manager replay(parentMoves+column) is exactly reconstructible as replay(parentMoves); applyUnchecked(column). Child q can be derived from the already-live parent state while move history remains the worker portability format.",
+      "qualification": "exact_reconstruction_equivalence_manager_economics_open",
+      "issue_owner": 85,
+      "qu": "QU-HOT-03C"
+    },
+    {
+      "id": "F-007",
+      "name": "semantic outdegree-one decision-frontier collapse",
+      "class": "supported_exact_candidate_generalization",
+      "statement": "Deterministic macro-edge structure is ordinary legal-action outdegree one, not specifically threat-forced classification.",
+      "qualification": "exact_topology_candidate_economics_open",
+      "issue_owner": 95
+    }
+  ],
+  "qu_refinements": [
+    {
+      "id": "QU-HOT-03A",
+      "name": "q visibility delay",
+      "known": [
+        "private worker TTs exist",
+        "portable-q cross-worker overlap exists",
+        "manager q dedup is exact once visible"
+      ],
+      "open": [
+        "private first creation/completion to global visibility latency",
+        "root-relevant duplicate work accrued in interval",
+        "hidden q fan-in/leverage",
+        "optimal exposure rank/boundary"
+      ]
+    },
+    {
+      "id": "QU-HOT-03B",
+      "name": "task service-time decomposition",
+      "known": [
+        "runTask executionMs exists",
+        "manager wall time and task counts exist"
+      ],
+      "open": [
+        "full memory census cost",
+        "result serialization/postMessage cost",
+        "queue/dispatch turnaround",
+        "critical-path worker-idle contribution"
+      ]
+    },
+    {
+      "id": "QU-HOT-03C",
+      "name": "manager reconstruction cost",
+      "known": [
+        "manager replays parent state",
+        "build replays each child history",
+        "prior manager CPU is measurable but not dominant"
+      ],
+      "open": [
+        "child replay moves and CPU",
+        "removable residual-transition work",
+        "F-006 end-to-end economics"
+      ]
+    }
+  ],
+  "issue_mappings": [
+    {
+      "issue": 78,
+      "action": "commented",
+      "comment_id": 5746557183,
+      "finding": "F-001",
+      "disposition": "consolidate common q-visibility cause"
+    },
+    {
+      "issue": 85,
+      "action": "commented",
+      "comment_id": 5746556652,
+      "finding": "F-006",
+      "disposition": "narrower reconstruction experiment; do not automatically reopen"
+    },
+    {
+      "issue": 95,
+      "action": "commented",
+      "comment_id": 5746556941,
+      "finding": "F-007",
+      "disposition": "strengthen forced-chain concept to exact outdegree-one chains"
+    },
+    {
+      "issue": 100,
+      "action": "commented",
+      "comment_id": 5746556217,
+      "finding": "F-002",
+      "disposition": "add worker-scoped nonterminal mover-cofactor experiment family"
+    },
+    {
+      "issues": [
+        86,
+        87
+      ],
+      "action": "mapped_only",
+      "finding": "F-005",
+      "disposition": "measure before reopening/filing"
+    },
+    {
+      "issue": null,
+      "action": "no_issue",
+      "finding": "F-004",
+      "disposition": "measurement gate not yet cleared"
+    },
+    {
+      "issues": [
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+      ],
+      "action": "retained_existing_candidates"
+    },
+    {
+      "issues": [
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95
+      ],
+      "action": "retained_existing_candidates"
+    }
+  ],
+  "negative_results": [
+    "No new semantic defect found in current logic authority 1.2 or hot-loop authority 0.3.",
+    "No new NEI identity result is required for hot-loop substitutions.",
+    "Semantic derivability of runtime fields does not establish profitable storage removal.",
+    "Shared residual vocabulary does not make ownTransition and blockTransition one interchangeable kernel.",
+    "Proof/action witness identity must not be stored or transported through q equality.",
+    "Broad manager arena/epoch rewrite is not reopened from structural appeal after prior negative economics.",
+    "Per-task worker-state reuse is not justified without isolated allocation evidence.",
+    "Raw hash/class/chunk/node/task/worker identifiers do not authorize semantic reuse.",
+    "Unavailable hardware counters remain unknown, not zero."
+  ],
+  "stop_decisions": [
+    "Stop F-003 until direct executor transport profiling establishes material cost.",
+    "Do not file F-004 before timing process.memoryUsage and checking diagnostic contract ownership.",
+    "Do not reopen broad trusted-primitives work for F-005 before forced-transition frequency/cost is measured.",
+    "Do not transport pool-local residual IDs to avoid worker replay.",
+    "Do not select a scheduler among #89-#95 before QU-HOT-03A economics are measured.",
+    "Do not stack independent representation candidates in the first F-002 causal experiment."
+  ],
+  "next_implementation_work": [
+    {
+      "order": 1,
+      "owner": "solver/isometric via #100",
+      "task": "Run isolated F-002 worker-scoped nonterminal mover-cofactor experiment.",
+      "gates": [
+        "exact differential/counterexample controls",
+        "first-win/reflection/undo",
+        "generated code/allocation",
+        "paired serial/worker timing"
+      ]
+    },
+    {
+      "order": 2,
+      "owner": "measurement only",
+      "task": "Measure QU-HOT-03A q visibility delay with bounded production-suitable observation rather than full portable-q census."
+    },
+    {
+      "order": 3,
+      "owner": "measurement only",
+      "task": "Measure QU-HOT-03B result-side process.memoryUsage/serialization/turnaround cost."
+    },
+    {
+      "order": 4,
+      "owner": "measurement only / #85",
+      "task": "Census QU-HOT-03C manager child replay work before implementing F-006."
+    }
+  ],
+  "checkpoints": [
+    "checkpoints/DP-01-09.md",
+    "checkpoints/DP-10-18.md",
+    "checkpoints/DP-19-27.md",
+    "checkpoints/DP-28-36.md",
+    "checkpoints/DP-37-45.md"
+  ],
+  "final_report": "FINAL_REPORT.md",
   "notes": [
-    "Campaign created after preserving newer Experiment 018 and logic-authority qualification commits."
+    "Concurrent research branch work was re-fetched before meaningful mutations and preserved.",
+    "Old successor authority aliases were not recreated after concurrent atomic authority cleanup.",
+    "No solver source mutation occurred in this discovery campaign.",
+    "Negative results are durable findings."
   ]
 }
