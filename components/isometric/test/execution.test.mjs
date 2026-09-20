@@ -133,7 +133,13 @@ test('manager preserves native exact values and center-first actions across turn
 test('bounded manager feeds multiple real workers and exposes exact task splits',{timeout:30000},async()=>{
   const moves=makeCorpus({seed:0x205c4,ply:20,count:1})[0].moves;
   const manager=new IsoMaxBranchManager({workers:2,taskNodes:8});
+  const replies=[];
   try{
+    await manager.start();
+    const submit=manager.executor.submit.bind(manager.executor);
+    manager.executor={...manager.executor,submit:async message=>{
+      const result=await submit(message);replies.push(result);return result;
+    }};
     const actual=await manager.solveMoves(moves,{timeoutMs:25000});
     const expected=new IsoMaxSolver().solveMoves(moves);
     assert.equal(actual.value,expected.value);assert.equal(actual.move,expected.move);
@@ -141,6 +147,13 @@ test('bounded manager feeds multiple real workers and exposes exact task splits'
     assert.equal(actual.metrics.maxActive,2);
     assert.ok(actual.metrics.splitTasks>0);
     assert.ok(actual.metrics.maxPending<=4);
+    for(const key of ['nodes','transitionCacheHits','nativeExactHits','recursiveChildren','forcedTransitions'])
+      assert.equal(actual.metrics[key],replies.reduce((sum,r)=>sum+(r.metrics?.[key]??0),0),key);
+    assert.equal(actual.metrics.expandedEntries,
+      actual.metrics.nodes-actual.metrics.transitionCacheHits-actual.metrics.nativeExactHits);
+    assert.equal(actual.metrics.transitionAttempts,actual.metrics.recursiveChildren+actual.metrics.forcedTransitions);
+    assert.ok(actual.metrics.expandedEntries>0);
+    assert.ok(actual.metrics.transitionAttempts>0);
     console.log(JSON.stringify({multicore:actual.metrics,elapsedMs:actual.elapsedMs}));
   }finally{await manager.close();}
 });

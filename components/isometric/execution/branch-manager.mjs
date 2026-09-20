@@ -95,13 +95,20 @@ export class IsoMaxBranchManager {
       qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,
       readySamples:0,readyLeavesTotal:0,maxReadyLeaves:0,idleWithReadyEvents:0,workerExecutionMs:0,
       requiredCalls:0,requiredMs:0,transitionCacheHits:0,transitionCacheStores:0,
+      nativeExactHits:0,recursiveChildren:0,forcedTransitions:0,
       warmEntryStarts:0,warmClassStarts:0,localEntryGrowth:0,localClassGrowth:0,workerResets:0,
       taskExecutionMsMin:null,taskExecutionMsMax:0,taskExecutionMsBuckets:[0,0,0,0,0,0],
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
     const outstandingLimit=this.workerCount+this.readyReserve;
     const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
       scheduler:{workers:this.workerCount,taskNodes:this.taskNodes,readyReserve:this.readyReserve,outstandingLimit},
-      metrics:{...metrics,taskExecutionMsBuckets:[...metrics.taskExecutionMsBuckets],
+      // Ordinary worker profile only: cache and native exact returns do not
+      // expand. These are entries, not distinct q states. Transition counters
+      // include an attempted child rejected at the scheduled quantum boundary.
+      // Aggregate existing counters here; never add reporting to recursion.
+      metrics:{...metrics,expandedEntries:metrics.nodes-metrics.transitionCacheHits-metrics.nativeExactHits,
+        transitionAttempts:metrics.recursiveChildren+metrics.forcedTransitions,
+        taskExecutionMsBuckets:[...metrics.taskExecutionMsBuckets],
         workerTasks:[...metrics.workerTasks],workerNodes:[...metrics.workerNodes]},
       managerNodes:nodes.count,executor:this.executor?.stats()??null});
     const notify=()=>{try{onProgress?.(snapshot());}catch(error){fail(error);}};
@@ -202,6 +209,9 @@ export class IsoMaxBranchManager {
           metrics.controlChecks+=message.metrics?.controlChecks??0;
           metrics.transitionCacheHits+=message.metrics?.transitionCacheHits??0;
           metrics.transitionCacheStores+=message.metrics?.transitionCacheStores??0;
+          metrics.nativeExactHits+=message.metrics?.nativeExactHits??0;
+          metrics.recursiveChildren+=message.metrics?.recursiveChildren??0;
+          metrics.forcedTransitions+=message.metrics?.forcedTransitions??0;
           metrics.warmEntryStarts+=message.localEntriesBefore??0;
           metrics.warmClassStarts+=message.localClassesBefore??0;
           metrics.localEntryGrowth+=Math.max(0,(message.localEntries??0)-(message.localEntriesBefore??0));

@@ -549,3 +549,22 @@ where the exact multiline needle used LF. Normalize source line endings in the
 qualification loader; no production solver change. A regression admits all six
 variants against the real checkout. Preserve the partial screen as evidence,
 then run the full alternating screen with the corrected, committed harness.
+
+The corrected screen completed all 15 runs with identical WDL/actions and clean
+process exit. Control median 1503.1822 ms; rank2 1508.9636, rank3 1489.2726,
+fan-in 1527.6818, affinity 1498.0901. Rank3 improves all three paired times,
+but median entered calls 7,082,597 versus control 7,098,695 is only a small
+change. This screen does not promote any policy. Rank2/fan-in/affinity fail a
+consistent benefit screen on this corpus; rank3 needs confirmation with real
+expanded-entry accounting and other worker counts.
+
+Reporting repair: workers already return native-exact/forced/child counters,
+but the manager discarded them. Forward these at E3 completion and derive
+`expandedEntries = nodes - transitionCacheHits - nativeExactHits` for the
+ordinary worker profile. These are expansion entries, not distinct q states.
+`transitionAttempts = recursiveChildren + forcedTransitions` includes the child
+attempt that can hit a quantum boundary before entry. Manager expansions remain
+separate. No new recursive counters or reporting. A real-worker test independently
+sums received replies and checks both derived counts. 12 execution/admission
+tests pass. Its first test-only interception tried to mutate the frozen executor;
+replaced with a wrapper without changing the executor contract.
