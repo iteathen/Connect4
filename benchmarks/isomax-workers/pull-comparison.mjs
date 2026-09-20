@@ -150,5 +150,78 @@ if (process.argv[2] === 'child') {
     };
   }
   report.sameExactDecisions = true;
-  process.stdout.write(JSON.stringify(report) + '\n');
+
+  const sum = values => values.reduce((total, value) => total + (value ?? 0), 0);
+  const summary = {
+    kind:'pull-comparison-summary',
+    sourceRevision,
+    node:report.node,
+    cpu:report.cpu,
+    corpus,
+    roots:report.roots,
+    sameExactDecisions:true,
+    variants:{},
+  };
+  for (const [variant, entry] of Object.entries(report.variants)) {
+    const records = entry.records;
+    const item = {
+      totalMs:entry.totalMs,
+      maxRssBytes:entry.maxRssBytes,
+      values:records.map(record => [record.sequence, record.value, record.move]),
+    };
+    if (variant.startsWith('central-')) {
+      item.central = {
+        calls:sum(records.map(record => record.central?.calls)),
+        expandedEntries:sum(records.map(record => record.central?.expandedEntries)),
+        transitionAttempts:sum(records.map(record => record.central?.transitionAttempts)),
+        managerExpansions:sum(records.map(record => record.central?.managerExpansions)),
+        submitted:sum(records.map(record => record.central?.submitted)),
+        retiredTaskNodes:sum(records.map(record => record.central?.retiredTaskNodes)),
+        qReuses:sum(records.map(record => record.central?.qReuses)),
+      };
+    }
+    if (variant.startsWith('pull-')) {
+      const bands = Array(8).fill(0);
+      for (const record of records) {
+        for (let index = 0; index < bands.length; index++) bands[index] += record.pull?.claimsByBand?.[index] ?? 0;
+      }
+      item.pull = {
+        canonicalQ:sum(records.map(record => record.pull?.canonicalQ)),
+        canonicalEdges:sum(records.map(record => record.pull?.canonicalEdges)),
+        workAllocatedMax:Math.max(...records.map(record => record.pull?.workAllocated ?? 0)),
+        publications:sum(records.map(record => record.pull?.publications)),
+        childOccurrences:sum(records.map(record => record.pull?.childOccurrences)),
+        qReuses:sum(records.map(record => record.pull?.qReuses)),
+        decisionExpansions:sum(records.map(record => record.pull?.decisionExpansions)),
+        passthroughExpansions:sum(records.map(record => record.pull?.passthroughExpansions)),
+        duplicateReadyCollapsed:sum(records.map(record => record.pull?.duplicateReadyCollapsed)),
+        duplicateRunningRetired:sum(records.map(record => record.pull?.duplicateRunningRetired)),
+        exactDuplicateCompletions:sum(records.map(record => record.pull?.exactDuplicateCompletions)),
+        workerDeathRequeues:sum(records.map(record => record.pull?.workerDeathRequeues)),
+        demandResurrectionRequeues:sum(records.map(record => record.pull?.demandResurrectionRequeues)),
+        staleAttempts:sum(records.map(record => record.pull?.staleAttempts)),
+        slotReclaims:sum(records.map(record => record.pull?.slotReclaims)),
+        priorityUpdates:sum(records.map(record => record.pull?.priorityUpdates)),
+        reconcileMs:sum(records.map(record => record.pull?.reconcileMs)),
+        claims:sum(records.map(record => record.pull?.claims)),
+        nativeStateEvaluations:sum(records.map(record => record.pull?.nativeStateEvaluations)),
+        transitionAttempts:sum(records.map(record => record.pull?.transitionAttempts)),
+        staleQueueRecords:sum(records.map(record => record.pull?.staleQueueRecords)),
+        queueDequeues:sum(records.map(record => record.pull?.queueDequeues)),
+        freeSlotWaits:sum(records.map(record => record.pull?.freeSlotWaits)),
+        workerPathReplays:sum(records.map(record => record.pull?.workerPathReplays)),
+        workerPathReplayApplies:sum(records.map(record => record.pull?.workerPathReplayApplies)),
+        workerPathReplayUndos:sum(records.map(record => record.pull?.workerPathReplayUndos)),
+        claimsByBand:bands,
+      };
+    }
+    summary.variants[variant] = item;
+  }
+
+  if (process.env.ISOMAX_PULL_SUMMARY_ONLY === '1') {
+    process.stdout.write(JSON.stringify(summary) + '\n');
+  } else {
+    process.stdout.write(JSON.stringify(report) + '\n');
+    process.stdout.write(JSON.stringify(summary) + '\n');
+  }
 }
