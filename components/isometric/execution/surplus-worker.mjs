@@ -3,6 +3,7 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { CENTER_ORDER } from '../move-order.mjs';
 import {
   CTRL_ABORT,
+  CTRL_ACTIVE_WORK,
   CTRL_OCC_FREE_WAKE,
   CTRL_PUB_WAKE,
   CTRL_SESSION,
@@ -44,6 +45,7 @@ import {
   WC_SOLVER_RECURSIVE_CHILDREN,
   WC_SURPLUS_LOCAL,
   WC_SURPLUS_REMOTE,
+  WC_UNPUBLISHED_LOCAL,
   WC_WORK_CLAIMS,
   WC_WORDS,
   WORK_EXACT,
@@ -290,6 +292,27 @@ class SurplusDistributor {
     }
   }
 
+  solveLocalChildren(solver,state,maximizing,lower,upper,count,base){
+    let best=maximizing?-1:1;
+    for(let i=0;i<count;i++){
+      const column=this.columns[base+i];
+      if(i===0)this.worker.counters[WC_LOCAL_PRIMARY]++;
+      else this.worker.counters[WC_UNPUBLISHED_LOCAL]++;
+      state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+      let childValue;
+      try{childValue=solver.solveNode(state);}
+      finally{state.undo();}
+      if(maximizing){
+        if(childValue>best)best=childValue;
+        if(best>=upper)break;
+      }else{
+        if(childValue<best)best=childValue;
+        if(best<=lower)break;
+      }
+    }
+    return best;
+  }
+
   solveChildren(solver,state,maximizing,lower,upper,promoted) {
     const ply=state.ply,base=ply*7;
     let count=0;
@@ -308,12 +331,21 @@ class SurplusDistributor {
     }
     this.worker.counters[WC_BRANCHES]++;
 
+    // No second worker can consume or converge with branch occurrences.
+    // Preserve native DFS instead of globalizing work solely for bookkeeping.
+    if(workerCount===1)return this.solveLocalChildren(
+      solver,state,maximizing,lower,upper,count,base,
+    );
+
+    const activeWork=Atomics.load(this.worker.shared.control,CTRL_ACTIVE_WORK);
+    const spare=Math.max(0,workerCount-activeWork);
+    const publishCount=1+Math.min(count-1,spare);
+
     for(let i=0;i<count;i++)this.occSlots[base+i]=-1;
     try{
-      // Primary continuation is globally visible but never scheduled merely
-      // because this branch exists. Surplus alternatives use the same
-      // occurrence identity and may be admitted only for spare worker capacity.
-      for(let i=0;i<count;i++){
+      // Retain current-continuation visibility for cross-worker q convergence,
+      // but produce claimable surplus only for currently spare execution.
+      for(let i=0;i<publishCount;i++){
         const column=this.columns[base+i];
         const role=i===0?OCC_ROLE_CONTINUATION:OCC_ROLE_SURPLUS;
         const slot=this.allocateOpportunity(state,column,i,role);
@@ -360,9 +392,14 @@ class SurplusDistributor {
             this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,childValue,workerIndex);
           }
           this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
-        }else{
+        }else if(slot>=0){
           childValue=this.resolveOccurrence(solver,state,column,slot,generation);
           this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
+        }else{
+          this.worker.counters[WC_UNPUBLISHED_LOCAL]++;
+          state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+          try{childValue=solver.solveNode(state);}
+          finally{state.undo();}
         }
 
         if(maximizing){

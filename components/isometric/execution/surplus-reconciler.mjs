@@ -3,7 +3,7 @@ import { ResidualPool } from '../residual-pool.mjs';
 import { IsometricState } from '../state.mjs';
 import { FRONTIER_WORDS } from '../profile.mjs';
 import {
-  CTRL_ABORT, CTRL_FAILURE, CTRL_OCC_NEXT, CTRL_PUB_WAKE, CTRL_SESSION, CTRL_WORK_NEXT,
+  CTRL_ABORT, CTRL_ACTIVE_WORK, CTRL_FAILURE, CTRL_OCC_NEXT, CTRL_PUB_WAKE, CTRL_SESSION, CTRL_WORK_NEXT,
   MAX_MOVES, OCC_EXACT, OCC_LINKED, OCC_PUBLISHED, OCC_RETIRED,
   OCC_ROLE_CONTINUATION, PRIORITY_BANDS,
   PUB_CONTINUATION_START, PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
@@ -286,7 +286,7 @@ class SurplusReconciler {
       Atomics.notify(this.shared.workState,work,Infinity);
       if(q>=0&&q<this.qCount&&this.qWork[q]===work){
         this.qWork[q]=-1;
-        if(this.activeWorkCount>0)this.activeWorkCount--;
+        if(this.activeWorkCount>0)this.activeWorkCount--;Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,this.activeWorkCount);
       }
       this.metrics.readyRetired++;
       this.recycleWork(work,generation);
@@ -308,6 +308,7 @@ class SurplusReconciler {
 
     const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,occ));
     this.qWork[q]=slot;this.qPriority[q]=band;this.activeWorkCount++;
+    Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,this.activeWorkCount);
     this.metrics.maxActiveWork=Math.max(this.metrics.maxActiveWork,this.activeWorkCount);
     Atomics.store(this.shared.workPriority,slot,band);Atomics.store(this.shared.workState,slot,WORK_READY);
 
@@ -411,7 +412,7 @@ class SurplusReconciler {
       }
       if(state===WORK_RETIRED||state===WORK_UNUSED){
         const retiredWork=work,generation=Atomics.load(this.shared.workGeneration,retiredWork);
-        this.qWork[q]=-1;work=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
+        this.qWork[q]=-1;work=-1;if(this.activeWorkCount>0)this.activeWorkCount--;Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,this.activeWorkCount);
         if(state===WORK_RETIRED)this.recycleWork(retiredWork,generation);
       }else this.metrics.duplicateOccurrences++;
     }
@@ -552,7 +553,7 @@ class SurplusReconciler {
     // work reservation still has to leave the bounded active population.
     if(this.qWork[q]===work){
       this.qWork[q]=-1;
-      if(this.activeWorkCount>0)this.activeWorkCount--;
+      if(this.activeWorkCount>0)this.activeWorkCount--;Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,this.activeWorkCount);
     }
     if(this.qExact[q]){
       if(this.qValue[q]!==value)throw new Error('conflicting surplus q exact values');
@@ -684,7 +685,7 @@ class SurplusReconciler {
     const q=Atomics.load(this.shared.workQ,work);
     Atomics.store(this.shared.workState,work,WORK_RETIRED);Atomics.notify(this.shared.workState,work,Infinity);
     if(q>=0&&q<this.qCount&&this.qAlive[q]&&this.qWork[q]===work){
-      this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
+      this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,this.activeWorkCount);
       if(!this.qExact[q]&&this.qDemand[q]>0)this.metrics.workRequeues++;
       else if(this.qDemand[q]===0&&this.qRunningOcc[q]<0&&this.qOccHead[q]===-1)
         this.reclaimQ(q,false);
@@ -728,7 +729,7 @@ class SurplusReconciler {
         }else{
           const generation=Atomics.load(this.shared.workGeneration,work);
           Atomics.store(this.shared.workState,work,WORK_RETIRED);Atomics.notify(this.shared.workState,work,Infinity);
-          if(q>=0&&q<this.qCount&&this.qWork[q]===work){this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;}
+          if(q>=0&&q<this.qCount&&this.qWork[q]===work){this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,this.activeWorkCount);}
           this.recycleWork(work,generation);
         }
       }
@@ -757,7 +758,8 @@ class SurplusReconciler {
     Atomics.store(this.shared.workPriority,work,7);
     const base=work*MAX_MOVES;for(let i=0;i<this.rootPly;i++)this.shared.workPath[base+i]=this.rootMoves[i];
     Atomics.store(this.shared.workPathLength,work,this.rootPly);
-    this.qWork[this.rootQ]=work;this.rootWork=work;this.activeWorkCount=1;this.metrics.maxActiveWork=1;
+    this.qWork[this.rootQ]=work;this.rootWork=work;this.activeWorkCount=1;
+    Atomics.store(this.shared.control,CTRL_ACTIVE_WORK,1);this.metrics.maxActiveWork=1;
     Atomics.store(this.shared.workState,work,WORK_READY);
     if(!enqueueWork(this.shared,work,gen,7))throw new Error('ISOMAX_SURPLUS_QUEUE_CAPACITY');
     this.metrics.canonicalWorkCreated++;this.metrics.maxWork=1;

@@ -40,6 +40,7 @@ export const CTRL_OCC_NEXT = 4;
 export const CTRL_WORK_NEXT = 5;
 export const CTRL_FAILURE = 6;
 export const CTRL_OCC_FREE_WAKE = 7;
+export const CTRL_ACTIVE_WORK = 8;
 export const CTRL_WORDS = 16;
 
 export const WC_WORK_CLAIMS = 0;
@@ -65,6 +66,7 @@ export const WC_SOLVER_NATIVE_EXACT = 26;
 export const WC_SOLVER_RECURSIVE_CHILDREN = 27;
 export const WC_SOLVER_FORCED_TRANSITIONS = 28;
 export const WC_SOLVER_CACHE_STORES = 29;
+export const WC_UNPUBLISHED_LOCAL = 30;
 export const WC_WORDS = 32;
 
 function positive(value, name, maximum = 1 << 28) {

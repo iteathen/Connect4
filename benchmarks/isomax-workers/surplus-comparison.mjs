@@ -72,6 +72,7 @@ function aggregate(records, profile) {
       localPrimary:sum(records,r=>r.metrics?.worker?.localPrimary),
       surplusLocal:sum(records,r=>r.metrics?.worker?.surplusLocal),
       surplusRemoteClaims:sum(records,r=>r.metrics?.worker?.surplusRemote),
+      unpublishedLocal:sum(records,r=>r.metrics?.worker?.unpublishedLocal),
       helperWaits:sum(records,r=>r.metrics?.worker?.helperWaits),
       helperReplayApplies:sum(records,r=>r.metrics?.worker?.helperReplayApplies),
       occurrencesPublished:sum(records,r=>r.metrics?.worker?.occurrencesPublished),

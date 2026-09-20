@@ -68,18 +68,18 @@ function qConvergenceFixture(){
   assert.equal(state.isTerminal(),false);
   assert.equal(nativeFrontierCode(state),0,
     'q convergence fixture must reach the ordinary branch-distribution boundary');
-  assert.equal(state.canPlay(0),true);
-  assert.equal(state.canPlay(6),true);
+  assert.equal(state.canPlay(2),true);
+  assert.equal(state.canPlay(4),true);
 
-  state.applyUnchecked(0);
+  state.applyUnchecked(2);
   const left=Array.from(state.gameplayKey());
   state.undo();
-  state.applyUnchecked(6);
+  state.applyUnchecked(4);
   const right=Array.from(state.gameplayKey());
   state.undo();
   assert.deepEqual(left,right,'mirror child occurrences must share exact q_r');
 
-  return {moves,columns:[0,6],expected:new IsoMaxSolver().solveMoves(moves)};
+  return {moves,columns:[2,4],expected:new IsoMaxSolver().solveMoves(moves)};
 }
 
 test('surplus helper work arena reuses one slot only after terminal reconciliation', () => {
@@ -167,7 +167,7 @@ test('surplus occurrence arena reuses one slot only under a new generation', () 
   }
 });
 
-test('one-worker surplus profile preserves one native continuation across published branches',
+test('one-worker surplus profile degenerates to native recursive DFS',
   {timeout:30000}, async () => {
     const {moves,expected}=branchyFixture(0x1025a);
     const manager=new IsoMaxSurplusBranchManager({
@@ -183,15 +183,21 @@ test('one-worker surplus profile preserves one native continuation across publis
 
       const worker=actual.metrics.worker;
       assert.ok(worker.branches>0,'fixture must exercise genuine branches');
-      assert.ok(worker.occurrencesPublished>0,'surplus alternatives must become globally visible');
-      assert.ok(worker.localReclaims>0,'single worker must reclaim un-stolen surplus locally');
+      assert.equal(worker.occurrencesPublished,0,
+        'single worker must not globalize branch occurrences nobody can consume');
+      assert.equal(worker.localReclaims,0,
+        'single worker has no published surplus to reclaim');
+      assert.ok(worker.unpublishedLocal>0,
+        'single worker must keep non-primary siblings in native local recursion');
       assert.equal(worker.surplusRemote,0,'single worker cannot claim a remote surplus helper');
       assert.equal(worker.helperReplayApplies,0,'single worker must not replay helper work');
       assert.equal(worker.helperWaits,0,'single worker must not wait for a helper');
       assert.equal(worker.workClaims,1,
         'branching must not force the single worker to end its current continuation and claim new roots');
       assert.equal(actual.metrics.maxActiveWork,1,
-        'one worker permits only one executable canonical subtree despite broader visibility');
+        'one worker permits only one executable canonical subtree');
+      assert.equal(actual.metrics.qHighWater,1,
+        'single worker must retain only the external canonical root globally');
       assert.equal(worker.pathReplayApplies,moves.length,
         'single-worker execution should replay only the external root, not every decision frontier');
     }finally{await manager.close();}
@@ -241,7 +247,7 @@ test('surplus reconciler merges physically distinct child occurrences with the s
     const {moves,columns,expected}=qConvergenceFixture();
     assert.notEqual(columns[0],columns[1]);
     const manager=new IsoMaxSurplusBranchManager({
-      workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
+      workers:3,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
       queueCapacity:131072,publicationCapacity:131072,
       workerClassReserve:262144,workerEntryReserve:524288,
     });
@@ -336,7 +342,7 @@ test('surplus pre-abort fails closed promptly', {timeout:10000}, async () => {
 test('surplus bounded occurrence capacity fails closed', {timeout:10000}, async () => {
   const {moves}=branchyFixture(0x1025a,34);
   const manager=new IsoMaxSurplusBranchManager({
-    workers:1,maxQ:64,workCapacity:64,occurrenceCapacity:1,
+    workers:2,maxQ:64,workCapacity:64,occurrenceCapacity:1,
     queueCapacity:64,publicationCapacity:64,
   });
   try{

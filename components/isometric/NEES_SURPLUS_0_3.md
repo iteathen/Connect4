@@ -26,7 +26,8 @@ At a genuine branch:
 current worker
     continues one locally ordered child in-place
     +
-    publishes surplus sibling opportunities
+    publishes only enough surplus sibling opportunities
+    to satisfy currently spare execution capacity
 ```
 
 An available worker may claim a surplus opportunity. If no helper claims it, the current worker later reclaims the opportunity and evaluates the sibling directly from its live parent state.
@@ -55,8 +56,10 @@ The existing native apply/undo, residual transitions, q cache and move-order ope
 |---|---|---|
 | branch distributor call | one branch-only indirect call at unresolved ordinary branch | REQUIRED for candidate; cost must be measured against saved duplicate work |
 | child-order staging | preallocated per-worker numeric arrays indexed by ply | REQUIRED/TRadeoff; no per-branch array allocation |
-| current continuation | native recursive call on first locally ordered child | REQUIRED corrected semantic model; REMOVES prior global rematerialization |
-| surplus occurrence write | fixed shared numeric fields + legal path bytes | TRADEOFF; global visibility requires portable occurrence, but full replay bytes remain machine-cost debt |
+| current continuation | native recursive call on first locally ordered child | REQUIRED corrected semantic model; REMOVES prior global rematerialization; multi-worker execution retains canonical visibility |
+| external-demand gate | one shared active-work scalar read at genuine multi-worker branches | REQUIRED cost control; one-worker bypasses occurrence publication entirely and claimable surplus is bounded by currently spare execution capacity |
+| unpublished local sibling | native apply/solve/undo from the live parent | REQUIRED when no external execution demand; never replayed or reconciled globally |
+| surplus occurrence write | fixed shared numeric fields + legal path bytes | TRADEOFF; only demand-admitted surplus plus multi-worker continuation visibility pays this cost; full replay bytes remain machine-cost debt |
 | occurrence allocation | generation-safe bounded free ring, no growth | CONFORMS M13/M14; live-domain default is >3x the physical 42×7×workers occurrence bound; contention remains measurable |
 | occurrence publication | bounded numeric MPMC publication ring with scalar reserve/write/commit operations | REQUIRED current cross-thread visibility contract; per-publication callback allocation was REMOVED; Atomics/cache-line traffic remains UNVERIFIED-DEBT |
 | continuation visibility | occurrence record only, not READY execution | REQUIRED for canonical convergence without surrendering local recursion |
@@ -92,7 +95,7 @@ The corrected design structurally removes several costs that dominated the rejec
 - no global execution record for every visible successor;
 - no waiting for a scheduler decision before primary recursion continues.
 
-Only surplus work that another worker can use crosses the execution boundary.
+Only surplus work that another worker can currently use crosses the execution boundary. With one worker, branch distribution collapses to native recursive DFS; no branch occurrence enters the shared reconciler.
 
 ## Known optimization debt
 
