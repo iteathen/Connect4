@@ -240,9 +240,10 @@ export function enqueueReady(pool, slot, generation, band) {
   if (band < 0 || band >= pool.bands) throw new RangeError('invalid work priority band');
   if (Atomics.load(pool.workGeneration, slot) !== generation) return false;
   if (Atomics.load(pool.workState, slot) !== WORK_READY) return false;
-  const ticket = Atomics.add(pool.workTicket, slot, 1) + 1;
-  Atomics.store(pool.workPriority, slot, band);
+  let ticket = 0;
   const queued = ringEnqueue(pool.queueSequence, pool.queueEnqueue, band, pool.queueCapacity, (cell) => {
+    ticket = Atomics.add(pool.workTicket, slot, 1) + 1;
+    Atomics.store(pool.workPriority, slot, band);
     pool.queueSlot[cell] = slot;
     pool.queueGeneration[cell] = generation;
     pool.queueTicket[cell] = ticket;
@@ -429,7 +430,7 @@ export function publishRecord(pool, kind, a = 0, b = 0, c = 0, d = 0, e = 0, f =
 }
 
 export function dequeuePublication(pool, scratch) {
-  return ringDequeue(pool.publicationSequence, pool.publicationDequeue, 0, pool.publicationCapacity, (cell) => {
+  const dequeued = ringDequeue(pool.publicationSequence, pool.publicationDequeue, 0, pool.publicationCapacity, (cell) => {
     scratch[0] = pool.publicationKind[cell];
     scratch[1] = pool.publicationA[cell];
     scratch[2] = pool.publicationB[cell];
@@ -439,6 +440,11 @@ export function dequeuePublication(pool, scratch) {
     scratch[6] = pool.publicationF[cell];
     scratch[7] = pool.publicationG[cell];
   });
+  if (dequeued) {
+    Atomics.add(pool.control, CTRL_PUB_WAKE, 1);
+    Atomics.notify(pool.control, CTRL_PUB_WAKE);
+  }
+  return dequeued;
 }
 
 export function markReady(pool, slot, generation, band, affinityWorker = -1) {
