@@ -45,10 +45,12 @@ These are successor **candidates**, not promoted authority. Authority 1.1 remain
 
 Full DP-01..DP-45 re-discovery on the cleaned successors is complete:
 
-- `research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_1.md`;
-- `research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_1.json`.
+- `research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_2.md`;
+- `research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_2.json`.
 
-It found no new semantic defect and confirmed that the hot-loop successor currently requires no NEI SAME/DISTINCT result at all. Old-NEI concept coverage is recorded in `research/isograph/qualification/CLEAN_NEI_REINTEGRATION_COVERAGE_0_1.json`; this is an audit, not a compatibility layer.
+The first clean pass was superseded after independent q-congruence reconstruction exposed a required `q_o`/`q_r` distinction. The corrected 0.2 rerun records that defect and its repair. The hot-loop successor still requires no NEI SAME/DISTINCT result at all.
+
+The q review is `research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md`. Old-NEI concept coverage is recorded in `research/isograph/qualification/CLEAN_NEI_REINTEGRATION_COVERAGE_0_1.json`; this is an audit, not a compatibility layer.
 
 Both successors use the NEI 0.4 candidate direction from `iteathen/isograph@485a16cd44299b3e7ec03768791d261a38bc08c8`:
 
