@@ -138,20 +138,20 @@ test('one-worker surplus profile preserves one native continuation across publis
   });
 
 test('surplus helpers steal alternatives while the current worker keeps local recursion',
-  {timeout:45000}, async () => {
-    // Historical expensive root: long enough that the idle helper has a real
-    // opportunity to claim published surplus while the primary continuation
-    // remains inside native recursion.
-    const moves=Array.from('717657616532237625',character=>Number(character)-1);
-    const expected=new IsoMaxSolver().solveMoves(moves);
+  {timeout:20000}, async () => {
+    // Lifecycle control, not the hard-root economics test. Use a deterministic
+    // branchy late root that completes quickly while still giving an idle
+    // second worker real surplus to steal. Historical hard roots remain in
+    // surplus-comparison.mjs and are mandatory before promotion.
+    const {moves,expected}=branchyFixture(0x1025b,32);
     let claims=0,branches=0;
     const manager=new IsoMaxSurplusBranchManager({
-      workers:2,maxQ:131072,workCapacity:131072,occurrenceCapacity:262144,
-      queueCapacity:262144,publicationCapacity:262144,
+      workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
+      queueCapacity:131072,publicationCapacity:131072,
       workerClassReserve:262144,workerEntryReserve:524288,
     });
     try{
-      const actual=await manager.solveMoves(moves,{timeoutMs:15000});
+      const actual=await manager.solveMoves(moves,{timeoutMs:10000});
       assert.equal(actual.value,expected.value);
       assert.equal(actual.move,expected.move);
       claims+=actual.metrics.worker.workClaims;
@@ -219,41 +219,48 @@ test('surplus worker death requeues live canonical work without changing exact r
     }finally{await manager.close();}
   });
 
-test('surplus timeout, pre-abort and bounded capacity fail closed', {timeout:30000}, async () => {
+test('surplus timeout fails closed promptly', {timeout:10000}, async () => {
   const hard=Array.from('717657616532237625',character=>Number(character)-1);
-
-  const timeoutManager=new IsoMaxSurplusBranchManager({
+  const manager=new IsoMaxSurplusBranchManager({
     workers:1,maxQ:4096,workCapacity:4096,occurrenceCapacity:8192,
     queueCapacity:8192,publicationCapacity:8192,
   });
+  const started=performance.now();
   try{
-    await assert.rejects(timeoutManager.solveMoves(hard,{timeoutMs:1}),/ISOMAX_TIMEOUT/);
-  }finally{await timeoutManager.close();}
+    await assert.rejects(manager.solveMoves(hard,{timeoutMs:1}),/ISOMAX_TIMEOUT/);
+    assert.ok(performance.now()-started<5000,'1ms timeout must not strand worker/reconciler lifecycle');
+  }finally{await manager.close();}
+});
 
-  const abortManager=new IsoMaxSurplusBranchManager({
+test('surplus pre-abort fails closed promptly', {timeout:10000}, async () => {
+  const hard=Array.from('717657616532237625',character=>Number(character)-1);
+  const manager=new IsoMaxSurplusBranchManager({
     workers:1,maxQ:4096,workCapacity:4096,occurrenceCapacity:8192,
     queueCapacity:8192,publicationCapacity:8192,
   });
-  const controller=new AbortController();
-  controller.abort();
+  const controller=new AbortController();controller.abort();
+  const started=performance.now();
   try{
     await assert.rejects(
-      abortManager.solveMoves(hard,{timeoutMs:5000,signal:controller.signal}),
+      manager.solveMoves(hard,{timeoutMs:5000,signal:controller.signal}),
       /ISOMAX_ABORTED|SURPLUS_ABORTED/,
     );
-  }finally{await abortManager.close();}
+    assert.ok(performance.now()-started<5000,'pre-abort must not strand session startup or cleanup');
+  }finally{await manager.close();}
+});
 
+test('surplus bounded occurrence capacity fails closed', {timeout:10000}, async () => {
   const {moves}=branchyFixture(0x1025d,34);
-  const capacityManager=new IsoMaxSurplusBranchManager({
+  const manager=new IsoMaxSurplusBranchManager({
     workers:1,maxQ:64,workCapacity:64,occurrenceCapacity:1,
     queueCapacity:64,publicationCapacity:64,
   });
   try{
     await assert.rejects(
-      capacityManager.solveMoves(moves,{timeoutMs:5000}),
+      manager.solveMoves(moves,{timeoutMs:5000}),
       /ISOMAX_SURPLUS_OCCURRENCE_CAPACITY/,
     );
-  }finally{await capacityManager.close();}
+  }finally{await manager.close();}
 });
 
 test('surplus profile preserves q_r mirror action transport through physical root selection',
