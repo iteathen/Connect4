@@ -56,6 +56,7 @@ function aggregate(records, profile) {
       pathReplayApplies:sum(records,r=>r.metrics?.worker?.pathReplayApplies),
       controlChecks:sum(records,r=>r.metrics?.worker?.controlChecks),
       continuationYields:sum(records,r=>r.metrics?.worker?.continuationYields),
+      remoteCacheTransitions:sum(records,r=>r.metrics?.worker?.remoteCacheTransitions),
       canonicalQMax:Math.max(...records.map(r=>r.metrics?.maxActiveCanonicalQ??0)),
       qHighWaterMax:Math.max(...records.map(r=>r.qHighWater??r.metrics?.qHighWater??0)),
       qReuses:sum(records,r=>r.metrics?.qReuses),
