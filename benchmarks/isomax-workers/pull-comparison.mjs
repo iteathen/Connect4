@@ -139,6 +139,7 @@ if (process.argv[2] === 'child') {
     node:process.version,
     cpu:os.cpus()[0]?.model ?? null,
     corpus,
+    executionFactor:Number(process.env.ISOMAX_PULL_EXECUTION_FACTOR ?? 4),
     roots:roots.map(sequence),
     variants:{},
   };
