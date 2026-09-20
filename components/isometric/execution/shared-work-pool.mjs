@@ -372,7 +372,8 @@ export function allocateWorkSlot(pool, scratch) {
 export function releaseWorkSlot(pool, slot, generation) {
   if (slot < 0 || slot >= pool.workCapacity) return false;
   if (Atomics.load(pool.workGeneration, slot) !== generation) return false;
-  if (Atomics.load(pool.workState, slot) === WORK_RUNNING) return false;
+  const state = Atomics.load(pool.workState, slot);
+  if (state === WORK_FREE || state === WORK_RUNNING || state !== WORK_DONE) return false;
   Atomics.store(pool.workNeeded, slot, 0);
   Atomics.store(pool.workQ, slot, -1);
   Atomics.store(pool.workWorker, slot, -1);
