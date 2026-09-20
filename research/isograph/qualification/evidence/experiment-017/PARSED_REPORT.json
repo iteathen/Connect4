@@ -1,0 +1,224 @@
+{
+  "cases": [
+    {
+      "case_id": "C01",
+      "answers": {
+        "legal_nonterminal_7x6_scope": true,
+        "physical_identity_established": false,
+        "history_identity_established": false,
+        "proof_identity_established": false
+      },
+      "reason": "The q-congruence theorem explicitly targets legal nonterminal standard-7x6 states and establishes future-behavior identity, not physical-state, move-history, or proof/certificate identity.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C02",
+      "answers": {
+        "same_literal_legal_columns": true,
+        "same_landing_cells": true,
+        "same_side_to_move": true
+      },
+      "reason": "Lemma 1 states that equal support determines the same legal columns, landing cells, and side to move.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C03",
+      "answers": {
+        "terminal_token_determined_by_qo_action": true,
+        "draw_after_nonwinning_full_move_determined": true
+      },
+      "reason": "Lemma 2 establishes that the terminal outcome of a move depends only on the landing cell and the player residuals, which are fixed by q_o and the action.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C04",
+      "answers": {
+        "strict_superset_semantically_redundant": true,
+        "first_win_stopping_load_bearing": true,
+        "post_terminal_residual_comparison_required": false
+      },
+      "reason": "Lemma 3 shows that strict supersets are semantically dominated and can be discarded. First-win stopping is load-bearing because post-terminal residual comparisons are invalid once a win occurs.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C05",
+      "answers": {
+        "successor_qo_unique": true,
+        "successor_qo_equal": true
+      },
+      "reason": "Lemma 4 proves that the successor q_o is uniquely determined by the current q_o and the chosen nonterminal action.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C06",
+      "answers": {
+        "rank_induction_valid": true,
+        "same_oriented_labelled_future_game": true
+      },
+      "reason": "The theorem uses induction on the number of remaining cells to establish that equal q_o states have the same complete action-labelled future game.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C07",
+      "answers": {
+        "same_wdl": true,
+        "same_distance_value": true,
+        "same_literal_action_values": true
+      },
+      "reason": "Since the action-labelled future trees are identical, any recursively defined game value depending only on that tree (W/D/L, distance, action values) is identical.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C08",
+      "answers": {
+        "same_colored_board": false,
+        "same_move_history": false,
+        "same_terminal_line_provenance": false,
+        "same_non_q_proof_context": false
+      },
+      "reason": "The theorem's scope boundaries explicitly state that q_o does not preserve physical board ownership, ordered move history, terminal-line provenance, or non-q proof context.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C09",
+      "answers": {
+        "gameplay_key_is_qr": true,
+        "qr_implies_literal_action_identity": false,
+        "reflection_quotient_required": true
+      },
+      "reason": "The gameplayKey() implementation canonicalizes horizontal mirrors, representing q_r. This does not imply literal action-label identity because mirrored states have different literal legal columns.",
+      "authority_used": [
+        "experiments/017/source/state.mjs",
+        "experiments/017/source/gameplay-key.test.mjs"
+      ]
+    },
+    {
+      "case_id": "C10",
+      "answers": {
+        "transporter": "REFLECT_6_MINUS_C"
+      },
+      "reason": "The horizontal reflection transporter maps column c to 6 - c.",
+      "authority_used": [
+        "experiments/017/source/gameplay-key.test.mjs"
+      ]
+    },
+    {
+      "case_id": "C11",
+      "answers": {
+        "transported_child_correspondence_supported": true,
+        "terminal_status_preserved": true,
+        "child_qr_preserved": true
+      },
+      "reason": "The regression test demonstrates that applying c on one state and 6-c on its mirror preserves terminal status and results in equal child gameplayKey() values.",
+      "authority_used": [
+        "experiments/017/source/gameplay-key.test.mjs"
+      ]
+    },
+    {
+      "case_id": "C12",
+      "answers": {
+        "scalar_value_cache_reuse_exact": true,
+        "literal_move_without_orientation_authorized": false
+      },
+      "reason": "Horizontal reflection is an automorphism, so scalar values can be reused. However, returning a literal move label without applying the transporter is unauthorized and can lead to illegal moves.",
+      "authority_used": [
+        "experiments/017/source/gameplay-key.test.mjs",
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C13",
+      "answers": {
+        "qr_establishes_non_q_proof_identity": false
+      },
+      "reason": "q_r equality does not establish non-q proof identity because path-dependent proof/certificate context is not derivable from q_r alone.",
+      "authority_used": [
+        "experiments/017/source/C4-0010-quotient-native-negamax-v1.md",
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C14",
+      "answers": {
+        "equal_wdl_establishes_future_behavior_identity": false
+      },
+      "reason": "Equal scalar values (W/D/L) do not imply identical action-labelled future trees, so they do not establish future-behavior identity.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C15",
+      "answers": {
+        "finite_controls_alone_prove_universal_theorem": false,
+        "deductive_lemmas_induction_required": true
+      },
+      "reason": "Finite controls and tests act as adversarial checks but do not prove the universal theorem, which requires the deductive lemmas and induction.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C16",
+      "answers": {
+        "nei_status": "SAME",
+        "qo_theorem_forces_result": true
+      },
+      "reason": "Under NEI 0.4, since the q_o theorem is exact qualified evidence proving identical action-labelled future behavior, the identity query is forced to SAME.",
+      "authority_used": [
+        "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md"
+      ]
+    },
+    {
+      "case_id": "C17",
+      "answers": {
+        "literal_no_transporter_proved": false,
+        "transported_equivalence_proved": true
+      },
+      "reason": "q_r equality does not prove literal-coordinate identity without a transporter (Query A is false), but it does prove transported equivalence up to the horizontal-reflection transporter (Query B is true).",
+      "authority_used": [
+        "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+        "experiments/017/source/gameplay-key.test.mjs"
+      ]
+    },
+    {
+      "case_id": "C18",
+      "answers": {
+        "proof_core": "VALID_UNDER_DECLARED_SCOPE",
+        "first_failed_premise": "NONE",
+        "qo_qr_distinction_required": true
+      },
+      "reason": "The proof core is valid under its declared scope of legal nonterminal states. The q_o/q_r distinction is required because q_r requires an action transporter.",
+      "authority_used": [
+        "experiments/017/source/STANDARD_7X6_Q_CONGRUENCE.md",
+        "experiments/017/source/gameplay-key.test.mjs"
+      ]
+    }
+  ],
+  "overall": {
+    "q_o_congruence": "VALID_UNDER_DECLARED_SCOPE",
+    "q_r_distinction_required": true,
+    "notes": "The q_o congruence proof is mathematically sound under the declared scope of legal nonterminal states. The distinction between q_o (orientation-sensitive) and q_r (reflection-orbit) is critical because q_r requires an explicit action transporter to map legal moves correctly."
+  },
+  "self_audit": {
+    "used_only_packet": true,
+    "notes": "Verified using only the provided files in the experiment 017 directory."
+  }
+}
