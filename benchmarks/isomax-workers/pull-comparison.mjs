@@ -40,9 +40,6 @@ async function runRoot(variant, moves) {
       workers,
       maxTasks:262144,
       maxEdges:262144 * 7,
-      workCapacity:131072,
-      queueCapacity:131072,
-      publicationCapacity:131072,
     });
     try {
       result = await manager.solveMoves(moves, {timeoutMs:20000});
