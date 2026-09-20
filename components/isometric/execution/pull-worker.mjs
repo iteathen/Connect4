@@ -86,6 +86,14 @@ class PullEvaluator {
     this.counters[WC_PATH_REPLAYS]++;
   }
 
+  firstLegalColumn() {
+    for (let index = 0; index < CENTER_ORDER.length; index++) {
+      const column = CENTER_ORDER[index];
+      if (this.state.heights[column] !== ROWS) return column;
+    }
+    return -1;
+  }
+
   immediateWinningColumn() {
     const own = this.state.sideToMove === 0 ? this.state.p0Class : this.state.p1Class;
     for (let index = 0; index < CENTER_ORDER.length; index++) {
@@ -138,6 +146,8 @@ class PullEvaluator {
       return this.publishRetired(shared, slot, generation, attempt);
     }
 
+    const claimedLength = Atomics.load(shared.workPathLength, slot);
+    const claimedRoot = claimedLength === rootPly;
     this.resetToClaimedPath(shared, slot);
     let firstDeterministic = -1;
 
@@ -152,8 +162,10 @@ class PullEvaluator {
       if (native !== 0 && native < 64) {
         const value = (native & 3) - 2;
         let directMove = firstDeterministic;
-        if (directMove < 0 && this.state.ply === rootPly && (native === 9 || native === 11)) {
-          directMove = this.immediateWinningColumn();
+        if (directMove < 0 && claimedRoot && this.state.ply === rootPly && !this.state.isTerminal()) {
+          directMove = (native === 9 || native === 11)
+            ? this.immediateWinningColumn()
+            : this.firstLegalColumn();
         }
         Atomics.store(shared.workResult, slot, value);
         Atomics.store(shared.workState, slot, WORK_DONE);
