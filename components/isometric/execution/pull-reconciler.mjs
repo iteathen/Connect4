@@ -172,7 +172,6 @@ class PullReconciler {
   }
 
   replaySlot(slot, trim = 0) {
-    while (this.state.ply > this.rootPly) this.state.undo();
     const fullLength = Atomics.load(this.shared.workPathLength, slot);
     const length = fullLength - trim;
     if (length < this.rootPly || fullLength < 0 || fullLength > MAX_MOVES) {
@@ -187,15 +186,27 @@ class PullReconciler {
         throw new Error('published pull replay escaped the external root');
       }
     }
-    for (let ply = this.rootPly; ply < length; ply++) {
+
+    let common = Math.min(this.state.ply, length);
+    let prefix = 0;
+    while (prefix < common &&
+      (this.state.moveCells[prefix] % 7) === this.shared.workPath[base + prefix]) prefix++;
+    common = prefix;
+    if (common < this.rootPly) throw new Error('reconciler replay lost external-root prefix');
+
+    while (this.state.ply > common) {
+      this.state.undo();
+      this.metrics.replayUndos++;
+    }
+    for (let ply = common; ply < length; ply++) {
       const column = this.shared.workPath[base + ply];
       if (!this.state.canPlay(column)) throw new Error('published pull replay is not legal');
       this.state.applyUnchecked(column);
+      this.metrics.replayApplies++;
     }
     this.state.gameplayKey(this.key);
     const q = this.internCurrentState();
     this.lastOrientation = this.state.gameplayOrientation();
-    while (this.state.ply > this.rootPly) this.state.undo();
     return q;
   }
 
