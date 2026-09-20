@@ -4,6 +4,7 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { IsoMaxSurplusBranchManager } from '../execution/surplus-manager.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
 import { CENTER_ORDER } from '../move-order.mjs';
+import { nativeFrontierCode } from '../frontier.mjs';
 import {
   CTRL_WORK_NEXT,
   OCC_RETIRED,
@@ -54,16 +55,19 @@ function branchyFixture(seed,ply=34){
 }
 
 function qConvergenceFixture(){
-  // Reflection-invariant 32-ply legal position. Each player's physical stones
-  // are paired across the vertical mirror. Therefore playable mirror children
-  // 0 and 6 are physically distinct occurrences in one parent but one q_r orbit.
+  // Reflection-invariant 32-ply legal position selected from a deterministic
+  // search specifically because the root is an ordinary branch
+  // (nativeFrontierCode === 0). Mirror children 0 and 6 are therefore both
+  // exposed to reconciliation instead of being bypassed by a native
+  // exact/forced shortcut.
   const moves=[
-    0,1,6,5, 0,1,6,5, 0,1,6,5,
-    1,2,5,4, 1,2,5,4, 1,2,5,4,
-    2,0,4,6, 2,0,4,6,
+    6,6,0,0, 2,1,4,5, 3,2,3,4, 6,3,0,3,
+    5,0,1,6, 2,6,4,0, 1,1,5,5, 2,2,4,4,
   ];
   const solver=new IsoMaxSolver(),state=solver.createState(moves);
   assert.equal(state.isTerminal(),false);
+  assert.equal(nativeFrontierCode(state),0,
+    'q convergence fixture must reach the ordinary branch-distribution boundary');
   assert.equal(state.canPlay(0),true);
   assert.equal(state.canPlay(6),true);
 
@@ -328,7 +332,7 @@ test('surplus pre-abort fails closed promptly', {timeout:10000}, async () => {
 });
 
 test('surplus bounded occurrence capacity fails closed', {timeout:10000}, async () => {
-  const {moves}=branchyFixture(0x1025d,34);
+  const {moves}=branchyFixture(0x1025a,34);
   const manager=new IsoMaxSurplusBranchManager({
     workers:1,maxQ:64,workCapacity:64,occurrenceCapacity:1,
     queueCapacity:64,publicationCapacity:64,
