@@ -94,9 +94,15 @@ test('surplus occurrence arena reuses one slot only under a new generation', () 
     // Live occurrences are never reusable.
     assert.equal(releaseOccurrence(shared,slot,generation),false);
 
+    // Leader references are part of occurrence identity and must not survive
+    // generation reuse.
+    Atomics.store(shared.occLeader,slot,slot);
+    Atomics.store(shared.occLeaderGeneration,slot,generation);
     Atomics.store(shared.occNeeded,slot,0);
     Atomics.store(shared.occState,slot,OCC_RETIRED);
     assert.equal(releaseOccurrence(shared,slot,generation),true);
+    assert.equal(Atomics.load(shared.occLeader,slot),-1);
+    assert.equal(Atomics.load(shared.occLeaderGeneration,slot),-1);
     // A stale generation can never reclaim the newly reusable slot.
     assert.equal(releaseOccurrence(shared,slot,generation),false);
   }
