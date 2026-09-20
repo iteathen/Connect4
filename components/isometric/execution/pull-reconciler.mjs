@@ -348,9 +348,10 @@ class PullReconciler {
     if (generation <= 0 || Atomics.load(this.shared.workQ, slot) !== q) return;
     const band = this.desiredPriority(q);
     this.qPriority[q] = band;
-    Atomics.store(this.shared.workPriority, slot, band);
     const state = Atomics.load(this.shared.workState, slot);
+
     if (state === WORK_WRITING) {
+      Atomics.store(this.shared.workPriority, slot, band);
       if (Atomics.compareExchange(this.shared.workState, slot, WORK_WRITING, WORK_READY) === WORK_WRITING) {
         if (!enqueueReady(this.shared, slot, generation, band)) {
           throw new Error('ISOMAX_PULL_PRIORITY_QUEUE_CAPACITY');
@@ -359,7 +360,14 @@ class PullReconciler {
       }
       return;
     }
+
     if (state === WORK_READY) {
+      const previousBand = Atomics.load(this.shared.workPriority, slot);
+      if (previousBand === band) return;
+      Atomics.store(this.shared.workPriority, slot, band);
+      // Priority changes use a new ticket; the old record becomes stale by
+      // ticket/band comparison. Do not emit duplicate tickets for unchanged
+      // topology.
       if (!enqueueReady(this.shared, slot, generation, band)) {
         throw new Error('ISOMAX_PULL_PRIORITY_QUEUE_CAPACITY');
       }
