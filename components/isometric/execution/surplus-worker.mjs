@@ -25,6 +25,7 @@ import {
   WC_BAND_BASE,
   WC_BRANCHES,
   WC_CONTROL_CHECKS,
+  WC_CONTINUATION_YIELDS,
   WC_HELPER_WAITS,
   WC_LOCAL_PRIMARY,
   WC_LOCAL_RECLAIMS,
@@ -52,6 +53,7 @@ if (!parentPort) throw new Error('IsoMax surplus worker requires parentPort');
 
 const workRetired=Symbol('surplus work retired');
 const continuationResolved=Symbol('surplus continuation resolved');
+const continuationSuperseded=Symbol('surplus continuation superseded');
 const sessionStopped=Symbol('surplus session stopped');
 const workerIndex=workerData.workerId;
 const workerCount=workerData.workerCount;
@@ -133,7 +135,7 @@ class SurplusDistributor {
     // worker reaches it. Announce that transition without creating a task.
     this.publishBlocking(PUB_CONTINUATION_START,slot,generation,workerIndex);
 
-    let value,remoteResolved=false;
+    let value,remoteResolved=false,superseded=false;
     this.worker.pushContinuation(ply,slot,generation);
     state.applyUnchecked(column);solver.metrics.recursiveChildren++;
     try{
@@ -143,12 +145,18 @@ class SurplusDistributor {
         value=this.worker.interruptValue;
         remoteResolved=true;
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+      }else if(error===continuationSuperseded&&this.worker.interruptPly===ply){
+        superseded=true;
+        this.worker.counters[WC_CONTINUATION_YIELDS]++;
       }else throw error;
     }finally{
       state.undo();
       this.worker.popContinuation(ply,slot);
     }
 
+    if(superseded){
+      return this.resolveOccurrence(solver,state,column,slot,generation);
+    }
     if(!remoteResolved){
       // Exact ordinary value is authoritative even though this q never needed
       // a new execution reservation. Reconciliation broadcasts it to every
@@ -171,7 +179,10 @@ class SurplusDistributor {
       }
 
       const leader=Atomics.load(shared.occLeader,slot);
+      const leaderGeneration=Atomics.load(shared.occLeaderGeneration,slot);
       if(leader>=0&&leader!==slot&&leader<shared.occurrenceCapacity &&
+         leaderGeneration>0 &&
+         Atomics.load(shared.occGeneration,leader)===leaderGeneration &&
          Atomics.load(shared.occNeeded,leader)!==0 &&
          Atomics.load(shared.occState,leader)!==OCC_RETIRED){
         // A canonical-equivalent native continuation is already running.
@@ -281,7 +292,7 @@ class SurplusDistributor {
 
         if(i===0){
           this.worker.counters[WC_LOCAL_PRIMARY]++;
-          let remoteResolved=false;
+          let remoteResolved=false,superseded=false;
           this.worker.pushContinuation(ply,slot,generation);
           state.applyUnchecked(column);solver.metrics.recursiveChildren++;
           try{
@@ -291,12 +302,17 @@ class SurplusDistributor {
               childValue=this.worker.interruptValue;
               remoteResolved=true;
               this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+            }else if(error===continuationSuperseded&&this.worker.interruptPly===ply){
+              superseded=true;
+              this.worker.counters[WC_CONTINUATION_YIELDS]++;
             }else throw error;
           }finally{
             state.undo();
             this.worker.popContinuation(ply,slot);
           }
-          if(!remoteResolved){
+          if(superseded){
+            childValue=this.resolveOccurrence(solver,state,column,slot,generation);
+          }else if(!remoteResolved){
             this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,childValue,workerIndex);
           }
           this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
@@ -401,6 +417,16 @@ class SurplusEvaluator {
         this.interruptPly=this.continuationPly[depth];
         this.interruptValue=Atomics.load(shared.occResult,slot);
         throw continuationResolved;
+      }
+      const leader=Atomics.load(shared.occLeader,slot);
+      const leaderGeneration=Atomics.load(shared.occLeaderGeneration,slot);
+      if(leader>=0&&leader!==slot&&leader<shared.occurrenceCapacity &&
+         leaderGeneration>0 &&
+         Atomics.load(shared.occGeneration,leader)===leaderGeneration &&
+         Atomics.load(shared.occNeeded,leader)!==0 &&
+         Atomics.load(shared.occState,leader)!==OCC_RETIRED){
+        this.interruptPly=this.continuationPly[depth];
+        throw continuationSuperseded;
       }
     }
     this.solver.nextControlNode=this.solver.metrics.nodes+512;
