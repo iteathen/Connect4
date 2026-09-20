@@ -130,6 +130,36 @@ test('manager preserves native exact values and center-first actions across turn
   assert.equal(manager.workers.length,0);
 });
 
+test('native forced preflight bounds preparation without changing quantum or root',()=>{
+  const forced=[2,2,4,6,5,0,1,3,2,6,5,6,6,0,2,5,1,2,3,6,4];
+  for(const moves of [forced,forced.map(c=>6-c)])for(const nodeBudget of [1,2,3,65536]){
+    const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
+    Atomics.store(new Int32Array(needed),0,1);
+    let state,before;const create=solver.createState;
+    const snapshot=s=>[s.ply,s.p0Class,s.p1Class,s.status,s.sideToMove,s.supportCode,
+      s.supportLo,s.supportHi,s.playableLo,s.playableHi,...s.heights];
+    solver.createState=function(replay){state=create.call(this,replay);before=snapshot(state);return state;};
+    const result=solver.runTask({moves,rootPly:moves.length,nodeBudget,needed,abort});
+    assert.deepEqual(snapshot(state),before);
+    assert.equal(solver.nodeBudget,nodeBudget,'preflight must not change the execution quantum');
+    assert.equal(result.preflightTransitions,Math.min(2,nodeBudget-1));
+    assert.equal(result.preparedNodeSlots,Math.min(3,nodeBudget));
+    if(nodeBudget<3){assert.equal(result.kind,'split');assert.equal(Object.hasOwn(result,'value'),false);}
+    else {assert.equal(result.kind,'exact');assert.equal(result.value,1);assert.equal(result.nodes,3);}
+    assert.equal(solver.pool.sealed,false);assert.equal(solver.transitionCache.sealed,false);
+  }
+  for(const moves of [[0,1,0,1,0,1],[0,1,0,1,0,1,0]]){
+    const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
+    Atomics.store(new Int32Array(needed),0,1);
+    const result=solver.runTask({moves,rootPly:moves.length,nodeBudget:65536,needed,abort});
+    assert.equal(result.preparedNodeSlots,1);assert.equal(result.value,1);
+  }
+  const solver=new IsoMaxTaskSolver(),needed=new SharedArrayBuffer(4),abort=new SharedArrayBuffer(4);
+  Atomics.store(new Int32Array(needed),0,1);
+  const unknown=solver.runTask({moves:[],rootPly:0,nodeBudget:8,needed,abort});
+  assert.equal(unknown.kind,'split');assert.equal(unknown.preparedNodeSlots,8);
+});
+
 test('rank-cut policy is bounded, four-worker scoped and keeps an explicit control',()=>{
   for(const workers of [1,2,3,4,8]){
     assert.equal(new IsoMaxBranchManager({workers}).rankCutDepth,workers===4?3:0);

@@ -620,3 +620,22 @@ Portable raw-counter reductions and source hashes: `issue-scheduler-*.json`,
 README correction: ready visibility was never limited to twice the worker count;
 only the legacy `maxReady` report was capped. Document actual `maxReadyLeaves`,
 bounded outstanding admission and separate q capacity; no limit is increased.
+
+### #95 reassessed at the preparation owner
+
+A second bounded survey adds forced-chain destination truth. Across 1671 tasks,
+158 forced prefixes contain 191 transitions; none reaches an already-manager-known
+q. 22 end at a native exact consequence, totaling only 45 recursive entries but
+211.24 ms of instrumented worker execution (many cold preparations). This is
+not a timing benchmark, but identifies a better causal target than moving chain
+ownership to the manager: avoid a full-quantum reservation for a proved short
+task. Most forced prefixes still lead to genuine work and should stay local.
+
+Candidate: E3 task preflight follows only native forced cells, at most the task
+budget, restores the root, and reduces reserved node slots only if a native exact
+endpoint proves an entry bound. The unchanged sealed recurrence still executes
+and counts all admitted nodes; unknown paths keep the original reservation.
+Cache hits can shorten but cannot lengthen the proved chain. Ordinary-profile
+admission excludes arbitrary certificate/value consumers before this reasoning.
+Counters expose preflight transitions separately so work is not hidden.
+No task quantum, timeout, q identity, first-win rule or E0/E1 code changes.

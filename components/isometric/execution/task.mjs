@@ -1,4 +1,5 @@
 import { IsoMaxSolver } from '../solver.mjs';
+import { nativeFrontierCode } from '../frontier.mjs';
 
 const quantumEnd = Symbol('unfinished IsoMax task');
 const taskRetired = Symbol('retired IsoMax task');
@@ -94,13 +95,29 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
     if (!Atomics.load(this.needed, 0)) return { kind:'retired', nodes:0, metrics:{} };
     this.abort = new Int32Array(abort); this.nodeBudget = nodeBudget; this.nextControlNode = 0;
     const state = this.createState(moves);
+    // OWNER-PROTECTED E3 PREPARATION — retain this proof/resource distinction.
+    // Ordinary native exact/forced consequences can prove a shorter entry bound
+    // before reservation. Inspect only within this task's budget and restore
+    // the full root before the unchanged sealed recurrence runs. Cache hits can
+    // shorten the path further; no optional consumer is admitted above.
+    // An unresolved chain keeps the full bound. Do not use advisory ordering,
+    // a guessed value, or a fixed depth cutoff to reduce reserved capacity.
+    let preparedNodeSlots=nodeBudget,preflightTransitions=0,code;
+    try {
+      code=nativeFrontierCode(state);
+      while(code>=64 && preflightTransitions+1<nodeBudget){
+        state.applyUnchecked((code-64)%7);preflightTransitions++;
+        code=nativeFrontierCode(state);
+      }
+      if(code!==0 && code<64)preparedNodeSlots=preflightTransitions+1;
+    } finally { while(state.ply>moves.length)state.undo(); }
     // At most one own and one block class per entered edge, plus their two
     // reflected classes during q lookup. The unentered budget boundary can
     // create two edge classes; the root lacks that entering edge. Four classes
     // per admitted node therefore bounds this ordinary-value task. Each class
     // creates at most one chunk in each slot. Reserve before recursive entry.
-    this.pool.prepareSearchStorage(4 * nodeBudget);
-    this.transitionCache.prepareSearchStorage(nodeBudget);
+    this.pool.prepareSearchStorage(4 * preparedNodeSlots);
+    this.transitionCache.prepareSearchStorage(preparedNodeSlots);
     // Reset through the native entry contract, but preserve EXTERNAL root scope
     // for advisory ordering on a subtree delegated to a worker.
     for (const key of Object.keys(this.metrics)) this.metrics[key] = 0;
@@ -120,6 +137,7 @@ export class IsoMaxTaskSolver extends IsoMaxSolver {
     }
     if (yielded) result = { kind:'split',frames:this.packageContinuation(state) };
     if (state.ply !== moves.length) throw new Error('task failed to restore native root');
-    return { ...result, nodes:this.metrics.nodes, metrics:{...this.metrics,controlChecks:this.controlChecks} };
+    return { ...result, nodes:this.metrics.nodes,preparedNodeSlots,preflightTransitions,
+      metrics:{...this.metrics,controlChecks:this.controlChecks} };
   }
 }

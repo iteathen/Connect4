@@ -99,6 +99,7 @@ export class IsoMaxBranchManager {
       readySamples:0,readyLeavesTotal:0,maxReadyLeaves:0,idleWithReadyEvents:0,workerExecutionMs:0,
       requiredCalls:0,requiredMs:0,transitionCacheHits:0,transitionCacheStores:0,
       nativeExactHits:0,recursiveChildren:0,forcedTransitions:0,
+      preparedNodeSlots:0,preflightTransitions:0,
       warmEntryStarts:0,warmClassStarts:0,localEntryGrowth:0,localClassGrowth:0,workerResets:0,
       taskExecutionMsMin:null,taskExecutionMsMax:0,taskExecutionMsBuckets:[0,0,0,0,0,0],
       workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
@@ -217,6 +218,8 @@ export class IsoMaxBranchManager {
           metrics.nativeExactHits+=message.metrics?.nativeExactHits??0;
           metrics.recursiveChildren+=message.metrics?.recursiveChildren??0;
           metrics.forcedTransitions+=message.metrics?.forcedTransitions??0;
+          metrics.preparedNodeSlots+=message.preparedNodeSlots??0;
+          metrics.preflightTransitions+=message.preflightTransitions??0;
           metrics.warmEntryStarts+=message.localEntriesBefore??0;
           metrics.warmClassStarts+=message.localClassesBefore??0;
           metrics.localEntryGrowth+=Math.max(0,(message.localEntries??0)-(message.localEntriesBefore??0));
