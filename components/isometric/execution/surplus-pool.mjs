@@ -39,6 +39,7 @@ export const CTRL_PUB_WAKE = 3;
 export const CTRL_OCC_NEXT = 4;
 export const CTRL_WORK_NEXT = 5;
 export const CTRL_FAILURE = 6;
+export const CTRL_OCC_FREE_WAKE = 7;
 export const CTRL_WORDS = 16;
 
 export const WC_WORK_CLAIMS = 0;
@@ -119,6 +120,10 @@ export function createSurplusPool({
     occOrderRank: sabI32(occurrenceCapacity),
     occPathLength: sabI32(occurrenceCapacity),
     occPath: new SharedArrayBuffer(occurrenceCapacity * MAX_MOVES),
+    occFreeSequence: sabI32(occurrenceCapacity),
+    occFreeSlot: sabI32(occurrenceCapacity),
+    occFreeEnqueue: sabI32(1),
+    occFreeDequeue: sabI32(1),
 
     queueSequence: sabI32(PRIORITY_BANDS * queueCapacity),
     queueSlot: sabI32(PRIORITY_BANDS * queueCapacity),
@@ -144,6 +149,7 @@ export function createSurplusPool({
   });
   initRing(descriptor.queueSequence, PRIORITY_BANDS, queueCapacity);
   initRing(descriptor.publicationSequence, 1, publicationCapacity);
+  initRing(descriptor.occFreeSequence, 1, occurrenceCapacity);
   const pool = openSurplusPool(descriptor);
   pool.workQ.fill(-1);
   pool.workWorker.fill(-1);
@@ -193,6 +199,10 @@ export function openSurplusPool(d) {
     occOrderRank:new Int32Array(d.occOrderRank),
     occPathLength:new Int32Array(d.occPathLength),
     occPath:new Uint8Array(d.occPath),
+    occFreeSequence:new Int32Array(d.occFreeSequence),
+    occFreeSlot:new Int32Array(d.occFreeSlot),
+    occFreeEnqueue:new Int32Array(d.occFreeEnqueue),
+    occFreeDequeue:new Int32Array(d.occFreeDequeue),
 
     queueSequence:new Int32Array(d.queueSequence),
     queueSlot:new Int32Array(d.queueSlot),
@@ -302,9 +312,56 @@ export function claimSpecific(pool, slot, generation, workerIndex, scratch) {
   return true;
 }
 
-export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt, state, column, orderRank, role = OCC_ROLE_SURPLUS) {
-  const slot=Atomics.add(pool.control,CTRL_OCC_NEXT,1);
-  if (slot>=pool.occurrenceCapacity) return -1;
+function enqueueOccurrenceFree(pool, slot) {
+  const ok=ringEnqueue(pool.occFreeSequence,pool.occFreeEnqueue,0,pool.occurrenceCapacity,cell=>{
+    pool.occFreeSlot[cell]=slot;
+  });
+  if(!ok)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_FREE_RING_CAPACITY');
+  Atomics.add(pool.control,CTRL_OCC_FREE_WAKE,1);
+  Atomics.notify(pool.control,CTRL_OCC_FREE_WAKE,Infinity);
+}
+
+function dequeueOccurrenceFree(pool,scratch) {
+  return ringDequeue(pool.occFreeSequence,pool.occFreeDequeue,0,pool.occurrenceCapacity,cell=>{
+    scratch[0]=pool.occFreeSlot[cell];
+  });
+}
+
+export function releaseOccurrence(pool,slot,generation) {
+  if(slot<0||slot>=pool.occurrenceCapacity)return false;
+  if(Atomics.load(pool.occGeneration,slot)!==generation)return false;
+  if(Atomics.load(pool.occNeeded,slot)!==0)return false;
+  if(Atomics.load(pool.occState,slot)!==OCC_RETIRED)return false;
+  Atomics.store(pool.occWork,slot,-1);
+  Atomics.store(pool.occWorkGeneration,slot,-1);
+  Atomics.store(pool.occResult,slot,0);
+  Atomics.store(pool.occPublisherWorker,slot,-1);
+  Atomics.store(pool.occRole,slot,OCC_ROLE_SURPLUS);
+  Atomics.store(pool.occLeader,slot,-1);
+  Atomics.store(pool.occParentWork,slot,-1);
+  Atomics.store(pool.occParentAttempt,slot,0);
+  Atomics.store(pool.occAction,slot,-1);
+  Atomics.store(pool.occOrderRank,slot,0);
+  Atomics.store(pool.occPathLength,slot,0);
+  Atomics.store(pool.occState,slot,OCC_UNUSED);
+  enqueueOccurrenceFree(pool,slot);
+  return true;
+}
+
+export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt, state, column, orderRank, role = OCC_ROLE_SURPLUS, scratch = null) {
+  let slot=-1;
+  const localScratch=scratch??new Int32Array(1);
+  if(dequeueOccurrenceFree(pool,localScratch)){
+    slot=localScratch[0];
+  }else{
+    for(;;){
+      const next=Atomics.load(pool.control,CTRL_OCC_NEXT);
+      if(next>=pool.occurrenceCapacity)return -1;
+      if(Atomics.compareExchange(pool.control,CTRL_OCC_NEXT,next,next+1)===next){
+        slot=next;break;
+      }
+    }
+  }
   const gen=Atomics.add(pool.occGeneration,slot,1)+1;
   Atomics.store(pool.occState,slot,OCC_PUBLISHED);
   Atomics.store(pool.occWork,slot,-1);
