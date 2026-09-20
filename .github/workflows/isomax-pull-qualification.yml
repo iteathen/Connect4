@@ -41,3 +41,11 @@ jobs:
         run: |
           set -o pipefail
           node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-hard.json
+      - name: Compare hard roots with tight pull execution admission
+        env:
+          ISOMAX_PULL_CORPUS: hard
+          ISOMAX_PULL_EXECUTION_FACTOR: "1"
+          ISOMAX_PULL_SUMMARY_ONLY: "1"
+        run: |
+          set -o pipefail
+          node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-hard-tight.json
