@@ -66,6 +66,7 @@ export class IsoMaxSurplusBranchManager {
     occurrenceCapacity=Math.max(4096,workers*1024),
     queueCapacity=Math.max(4096,workers*1024),
     publicationCapacity=Math.max(4096,workers*2048),
+    helperGraceMs=1,
     workerClassReserve=Math.max(131072,Math.floor(1048576/workers)),
     workerEntryReserve=Math.max(262144,Math.floor(4194304/workers)),
   }={}) {
@@ -75,6 +76,7 @@ export class IsoMaxSurplusBranchManager {
     this.occurrenceCapacity=positive(occurrenceCapacity,'occurrenceCapacity');
     this.queueCapacity=positive(queueCapacity,'queueCapacity');
     this.publicationCapacity=positive(publicationCapacity,'publicationCapacity');
+    this.helperGraceMs=positive(helperGraceMs,'helperGraceMs',1000);
     this.workerClassReserve=positive(workerClassReserve,'workerClassReserve',2**26);
     this.workerEntryReserve=positive(workerEntryReserve,'workerEntryReserve',2**26);
     this.workers=new Array(this.workerCount).fill(null);
@@ -226,6 +228,7 @@ export class IsoMaxSurplusBranchManager {
         this.workers[id].postMessage({
           type:'isomax-surplus-session',pool:descriptor,rootPly:moves.length,
           classCapacity:this.workerClassReserve,entryCapacity:this.workerEntryReserve,
+          helperGraceMs:this.helperGraceMs,
         });
       }
       const message=await Promise.race([result,failure]);
@@ -260,7 +263,7 @@ export class IsoMaxSurplusBranchManager {
       const out={
         value:message.value,move:message.move<0?null:message.move,
         elapsedMs,resultReadyMs,cleanupMs:Math.max(0,elapsedMs-resultReadyMs),
-        scheduler:{architecture:'surplus-opportunity-pull',workers:this.workerCount},
+        scheduler:{architecture:'surplus-opportunity-pull',workers:this.workerCount,helperGraceMs:this.helperGraceMs},
         metrics:{...(message.metrics??{}),worker:workerMetrics},
         memory:process.memoryUsage(),
         cleanup:'surplus pool stopped; workers retained',
