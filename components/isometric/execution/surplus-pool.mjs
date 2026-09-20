@@ -57,7 +57,13 @@ export const WC_CONTROL_CHECKS = 11;
 export const WC_CONTINUATION_YIELDS = 12;
 export const WC_REMOTE_CACHE_TRANSITIONS = 13;
 export const WC_BAND_BASE = 16;
-export const WC_WORDS = 24;
+export const WC_SOLVER_NODES = 24;
+export const WC_SOLVER_CACHE_HITS = 25;
+export const WC_SOLVER_NATIVE_EXACT = 26;
+export const WC_SOLVER_RECURSIVE_CHILDREN = 27;
+export const WC_SOLVER_FORCED_TRANSITIONS = 28;
+export const WC_SOLVER_CACHE_STORES = 29;
+export const WC_WORDS = 32;
 
 function positive(value, name, maximum = 1 << 28) {
   if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
