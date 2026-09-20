@@ -4,7 +4,7 @@
 **Candidate:** `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*`  
 **Claim companion:** `research/isograph/successor/CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`  
 **Hot-loop consumer:** `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*`  
-**Status:** deterministic preflight PASS; not promotion  
+**Status:** historical deterministic preflight PASS — promotion completed  
 **Authority effect:** none
 
 ## Checks
@@ -83,16 +83,16 @@ The active 1.2 candidate is one semantic package:
 
 The coverage companion is not a compatibility layer or second authority.
 
-## Remaining blockers
+## Blocker disposition
 
-Deterministic Connect4 structure is no longer the blocker.
+All preflight blockers subsequently closed:
 
-Promotion remains blocked on:
+1. NEI 0.4 qualified/promoted at `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`;
+2. q_o congruence and q_r transporter qualified in `Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md`;
+3. final package qualified by Experiment 018 and `FINAL_QUALIFICATION_REVIEW_1_2.md`;
+4. hot-loop 0.3 qualified as separate non-gameplay performance authority.
 
-1. NEI 0.4 qualification/promotion or an exact compatible bridge;
-2. promotion-grade independent/cold semantic review of q_o congruence plus q_r transporter controls;
-3. final semantic qualification of the replacement package;
-4. final hot-loop qualification against the clean q_r boundary.
+Current authority is `CONNECT4_LOGIC_AUTHORITY_1_2.md`.
 
 
 ## Additional q_r transporter evidence
