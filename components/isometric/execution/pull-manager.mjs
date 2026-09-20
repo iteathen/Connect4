@@ -275,7 +275,9 @@ export class IsoMaxPullBranchManager {
           session.done[id] = 1;
           session.checkWorkersDone();
         } else if (message.type === 'pull-error') {
-          this.#markWorkerUnavailable(id, new Error(message.message ?? 'IsoMax pull evaluator failed'));
+          const error = new Error(message.message ?? 'IsoMax pull evaluator failed');
+          this.#abortSession(error);
+          this.#markWorkerUnavailable(id, error);
         }
       };
       worker.on('message', onMessage);
