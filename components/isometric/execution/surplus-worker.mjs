@@ -34,6 +34,12 @@ import {
   WC_PATH_REPLAY_APPLIES,
   WC_RETIRE_OCC,
   WC_REMOTE_CACHE_TRANSITIONS,
+  WC_SOLVER_CACHE_HITS,
+  WC_SOLVER_CACHE_STORES,
+  WC_SOLVER_FORCED_TRANSITIONS,
+  WC_SOLVER_NATIVE_EXACT,
+  WC_SOLVER_NODES,
+  WC_SOLVER_RECURSIVE_CHILDREN,
   WC_SURPLUS_LOCAL,
   WC_SURPLUS_REMOTE,
   WC_WORK_CLAIMS,
@@ -527,6 +533,16 @@ class SurplusEvaluator {
     this.distributor.publishWorkExact(slot,generation,attempt,value,move);
   }
 
+  accumulateSolverMetrics() {
+    const metrics=this.solver.metrics;
+    this.counters[WC_SOLVER_NODES]+=metrics.nodes;
+    this.counters[WC_SOLVER_CACHE_HITS]+=metrics.transitionCacheHits;
+    this.counters[WC_SOLVER_NATIVE_EXACT]+=metrics.nativeExactHits;
+    this.counters[WC_SOLVER_RECURSIVE_CHILDREN]+=metrics.recursiveChildren;
+    this.counters[WC_SOLVER_FORCED_TRANSITIONS]+=metrics.forcedTransitions;
+    this.counters[WC_SOLVER_CACHE_STORES]+=metrics.transitionCacheStores;
+  }
+
   runSession(message) {
     this.prepareSession(message);
     const shared=this.shared;
@@ -541,6 +557,7 @@ class SurplusEvaluator {
           this.counters[WC_WORK_CLAIMS]++;
           this.counters[WC_BAND_BASE+this.claimScratch[3]]++;
           this.runClaim(this.claimScratch[0],this.claimScratch[1],this.claimScratch[2]);
+          this.accumulateSolverMetrics();
           continue;
         }
         if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING ||
