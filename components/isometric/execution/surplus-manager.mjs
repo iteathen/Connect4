@@ -18,6 +18,7 @@ import {
   WC_OCC_PUBLISHED,
   WC_PATH_REPLAY_APPLIES,
   WC_RETIRE_OCC,
+  WC_REMOTE_CACHE_TRANSITIONS,
   WC_SURPLUS_LOCAL,
   WC_SURPLUS_REMOTE,
   WC_WORK_CLAIMS,
@@ -250,6 +251,7 @@ export class IsoMaxSurplusBranchManager {
         pathReplayApplies:aggregate[WC_PATH_REPLAY_APPLIES],
         controlChecks:aggregate[WC_CONTROL_CHECKS],
         continuationYields:aggregate[WC_CONTINUATION_YIELDS],
+        remoteCacheTransitions:aggregate[WC_REMOTE_CACHE_TRANSITIONS],
         claimsByBand:Array.from({length:PRIORITY_BANDS},(_,b)=>aggregate[WC_BAND_BASE+b]),
         localClasses:Array.from(session.localClasses),localEntries:Array.from(session.localEntries),
       };
