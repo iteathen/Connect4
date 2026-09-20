@@ -381,7 +381,7 @@ class PullReconciler {
     this.qUnresolved[q] = 0;
   }
 
-  completeQ(q, value) {
+  completeQ(q, value, publishingSlot = -1) {
     if (value !== -1 && value !== 0 && value !== 1) throw new Error('invalid pull exact WDL');
     if (this.qExact[q]) {
       if (this.qValue[q] !== value) throw new Error('conflicting pull exact WDL');
@@ -390,7 +390,7 @@ class PullReconciler {
     }
     this.qExact[q] = 1;
     this.qValue[q] = value;
-    this.detachQWork(q);
+    this.detachQWork(q, publishingSlot);
 
     if (q !== this.rootQ) this.dropOutgoing(q);
 
@@ -399,7 +399,13 @@ class PullReconciler {
       const parent = this.edgeParent[edge];
       if (this.qUnresolved[parent] > 0) this.qUnresolved[parent]--;
       this.tryReduce(parent);
-      if (!this.qExact[parent]) this.ensureWorkPriority(q);
+      if (!this.qExact[parent]) {
+        for (let childEdge = this.qOutgoingHead[parent]; childEdge !== -1; childEdge = this.edgeNextOut[childEdge]) {
+          if (!this.edgeLive[childEdge]) continue;
+          const child = this.edgeChild[childEdge];
+          if (!this.qExact[child]) this.ensureWorkPriority(child);
+        }
+      }
     }
     if (q === this.rootQ) this.updateRootAnswer();
   }
@@ -553,7 +559,7 @@ class PullReconciler {
     const q = this.replaySlot(slot, 0);
     const orientation = this.lastOrientation;
     if (directMove >= 0) this.qDirectMove[q] = orientation ? 6 - directMove : directMove;
-    this.completeQ(q, value);
+    this.completeQ(q, value, slot);
     Atomics.store(this.shared.workState, slot, WORK_DONE);
     this.releaseIfPossible(slot, generation);
     this.metrics.exactPublications++;
