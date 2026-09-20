@@ -1,0 +1,161 @@
+{
+  "issue": 102,
+  "kind": "instrumented independent confirmation",
+  "sourceRevision": "1dc4411862a4bf6f11e4ed563f25e1fecc0f3b8b",
+  "workflowRun": 35480738389,
+  "artifactId": 10595473139,
+  "node": "v26.7.0",
+  "cpu": "AMD EPYC 7763 64-Core Processor",
+  "availableParallelism": 4,
+  "exactDecisionsMatched": true,
+  "fourWorker": {
+    "control": {
+      "reserve": 0,
+      "medianWallMs": 4623.101352,
+      "medianResultReadyMs": 4571.556227,
+      "medianNodes": 7085114,
+      "medianRedispatchIdleMsTotal": 421.567729,
+      "maxRssBytes": 774062080,
+      "samples": [
+        {
+          "wallMs": 4568.994962,
+          "nodes": 6870821,
+          "requiredCalls": 762,
+          "requiredMs": 12.585753,
+          "ttHits": 3510969,
+          "ttStores": 3358895,
+          "submitted": 768,
+          "zeroNodeRetired": 7,
+          "taskDurationBuckets": [
+            311,
+            125,
+            132,
+            121,
+            73,
+            6
+          ],
+          "workerResets": 0
+        },
+        {
+          "wallMs": 4623.101352,
+          "nodes": 7085114,
+          "requiredCalls": 800,
+          "requiredMs": 20.421662,
+          "ttHits": 3646671,
+          "ttStores": 3437487,
+          "submitted": 806,
+          "zeroNodeRetired": 7,
+          "taskDurationBuckets": [
+            356,
+            105,
+            125,
+            140,
+            73,
+            7
+          ],
+          "workerResets": 0
+        },
+        {
+          "wallMs": 4633.771968,
+          "nodes": 7134705,
+          "requiredCalls": 792,
+          "requiredMs": 17.390406,
+          "ttHits": 3673113,
+          "ttStores": 3460508,
+          "submitted": 798,
+          "zeroNodeRetired": 9,
+          "taskDurationBuckets": [
+            355,
+            121,
+            122,
+            115,
+            78,
+            7
+          ],
+          "workerResets": 0
+        }
+      ]
+    },
+    "candidate": {
+      "reserve": 4,
+      "medianWallMs": 4544.186236,
+      "medianResultReadyMs": 4488.726845,
+      "medianNodes": 6810165,
+      "medianRedispatchIdleMsTotal": 240.415791,
+      "maxRssBytes": 698454016,
+      "samples": [
+        {
+          "wallMs": 4544.186236,
+          "nodes": 6810165,
+          "requiredCalls": 803,
+          "requiredMs": 26.12629,
+          "ttHits": 3480024,
+          "ttStores": 3329058,
+          "submitted": 814,
+          "zeroNodeRetired": 98,
+          "taskDurationBuckets": [
+            392,
+            103,
+            121,
+            115,
+            76,
+            7
+          ],
+          "workerResets": 0
+        },
+        {
+          "wallMs": 4632.515927,
+          "nodes": 7066151,
+          "requiredCalls": 929,
+          "requiredMs": 24.057743,
+          "ttHits": 3625975,
+          "ttStores": 3439167,
+          "submitted": 945,
+          "zeroNodeRetired": 99,
+          "taskDurationBuckets": [
+            483,
+            123,
+            132,
+            127,
+            74,
+            6
+          ],
+          "workerResets": 0
+        },
+        {
+          "wallMs": 4524.584206,
+          "nodes": 6791263,
+          "requiredCalls": 959,
+          "requiredMs": 31.881254,
+          "ttHits": 3473167,
+          "ttStores": 3316994,
+          "submitted": 965,
+          "zeroNodeRetired": 110,
+          "taskDurationBuckets": [
+            532,
+            114,
+            129,
+            108,
+            75,
+            7
+          ],
+          "workerResets": 0
+        }
+      ]
+    },
+    "relativeMedian": {
+      "wallPct": -1.706974,
+      "resultReadyPct": -1.811842,
+      "nodesPct": -3.880657,
+      "maxRssPct": -9.7677
+    }
+  },
+  "lowerWorkerDisposition": "Reserve remains negative/non-qualifying at 1 and 2 workers in this pass.",
+  "interpretation": [
+    "Manager required() scan time is too small to explain the scaling seam.",
+    "No worker reset occurred in either 4-worker policy.",
+    "Reserve=4 creates many additional sub-1ms tasks primarily through queued obsolete retirement, but long-task tail remains similar.",
+    "Earlier admission changes speculative execution order and can reduce aggregate recursive work in the 4-worker phase; ready tasks are not economically fungible.",
+    "Keep result bounded to 4-worker/full-reserve until 3-worker capacity-aligned and soft-affinity follow-on tests."
+  ]
+}
