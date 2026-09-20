@@ -140,7 +140,7 @@ export class IsoMaxSurplusBranchManager {
     const shared=openSurplusPool(descriptor);
     for(let id=0;id<this.workerCount;id++)Atomics.store(shared.workerAlive,id,this.workers[id]?1:0);
 
-    let resultMessage=null,resolveReady,rejectReady,resolveResult,rejectResult,resolveDone;
+    let resultMessage=null,resultReadyAt=null,resolveReady,rejectReady,resolveResult,rejectResult,resolveDone;
     const ready=new Promise((res,rej)=>{resolveReady=res;rejectReady=rej;});
     const result=new Promise((res,rej)=>{resolveResult=res;rejectResult=rej;});
     const workersDone=new Promise(res=>{resolveDone=res;});
@@ -155,7 +155,11 @@ export class IsoMaxSurplusBranchManager {
     const onRec=m=>{
       if(m?.type==='surplus-reconciler-ready'){resolveReady();return;}
       if(m?.type==='surplus-progress'){try{onProgress?.(m.snapshot);}catch(e){this.#abort(e);}return;}
-      if(m?.type==='surplus-result'){resultMessage=m;resolveResult(m);return;}
+      if(m?.type==='surplus-result'){
+        resultMessage=m;
+        if(resultReadyAt===null)resultReadyAt=performance.now();
+        resolveResult(m);return;
+      }
       if(m?.type==='surplus-reconciler-error'){
         const e=session.failure??new Error(m.message??'surplus reconciliation failed');
         if(m.snapshot)this.lastStats=m.snapshot;rejectReady(e);rejectResult(e);
@@ -228,9 +232,10 @@ export class IsoMaxSurplusBranchManager {
         localClasses:Array.from(session.localClasses),localEntries:Array.from(session.localEntries),
       };
       const elapsedMs=performance.now()-started;
+      const resultReadyMs=(resultReadyAt??performance.now())-started;
       const out={
         value:message.value,move:message.move<0?null:message.move,
-        elapsedMs,resultReadyMs:elapsedMs,
+        elapsedMs,resultReadyMs,cleanupMs:Math.max(0,elapsedMs-resultReadyMs),
         scheduler:{architecture:'surplus-opportunity-pull',workers:this.workerCount},
         metrics:{...(message.metrics??{}),worker:workerMetrics},
         memory:process.memoryUsage(),
