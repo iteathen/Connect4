@@ -10,9 +10,11 @@
 
 ## Disposition
 
-**REJECT FOR PROMOTION in the current Node 26 / V8 14.6 IsoMax profile.**
+**REJECT FOR PROMOTION for the over-externalized frontier-per-work-item realization tested here.**
 
-The complete decentralized worker-pull architecture was implemented as a bounded vertical slice and qualified deeply enough to answer the architectural question.
+**Architectural scope correction:** `ISOMAX_DECENTRALIZED_PULL_102_INTERPRETATION_CORRECTION_0_1.md` is the governing interpretation. This result MUST NOT be cited as rejection of the intended local-continuation + surplus-branch-opportunity architecture.
+
+A complete bounded implementation of the **frontier-per-work-item interpretation** was qualified deeply enough to reject that realization. It did not faithfully test the intended local-continuation + surplus-opportunity architecture.
 
 It is not promoted over the retained central scheduler because:
 
@@ -27,7 +29,7 @@ This result does **not** imply that global canonical q reconciliation, worker pu
 
 ## What was actually implemented
 
-This experiment went beyond central admission and implemented the core issue #102 architecture.
+This experiment went beyond central admission and implemented a substantial worker-pull architecture, but it over-externalized issue #102 by treating each genuine decision frontier as a mandatory execution boundary.
 
 ### Shared global work machinery
 

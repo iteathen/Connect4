@@ -37,23 +37,24 @@ The exact pre-IsoGraph corpus remains preserved in the historical authority laye
 
 The complete decentralized worker-pull candidate from issue #102 has been implemented and qualified as a bounded experiment.
 
-Current result:
+Current records:
 
 - `isograph/optimization/ISOMAX_DECENTRALIZED_PULL_102_RESULT_0_1.md`
+- `isograph/optimization/ISOMAX_DECENTRALIZED_PULL_102_INTERPRETATION_CORRECTION_0_1.md`
 
-Disposition: **rejected for promotion in the current Node 26 / V8 14.6 IsoMax profile**.
+The first report rejects the **over-externalized frontier-per-work-item realization**. The correction records that earlier "branch root" wording drifted into a stronger rule than intended.
 
-Key distinction preserved by that result:
+Current disposition:
 
 ```text
-global semantic visibility / canonical q reconciliation / worker pull
-    feasible and semantically useful
+frontier-per-work-item realization
+    rejected
 
-every genuine decision frontier as a shared execution unit
-    economically rejected
+intended local-continuation + surplus-branch-opportunity architecture
+    OPEN / unqualified
 ```
 
-The result strengthens the case for coarser shared exact-reuse mechanisms (#78) rather than invalidating q convergence or dependency-leverage priority as concepts.
+The intended architecture preserves worker-local recursive continuity while exposing only surplus alternatives globally. Canonical q is reconciliation identity, not a mandatory execution boundary.
 
 
 
