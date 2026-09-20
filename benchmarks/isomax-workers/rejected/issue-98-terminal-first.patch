@@ -1,0 +1,43 @@
+diff --git a/components/isometric/solver.mjs b/components/isometric/solver.mjs
+index 2f75c8a7..8e6a84db 100644
+--- a/components/isometric/solver.mjs
++++ b/components/isometric/solver.mjs
+@@ -1,4 +1,4 @@
+-import { COLUMNS, ROWS } from '../domain/index.mjs';
++import { COLUMNS, ROWS, STATUS_ONGOING, STATUS_PLAYER0_WIN, STATUS_PLAYER1_WIN } from '../domain/index.mjs';
+ import {
+   CONCLUSION_EXACT_VALUE,
+   CONCLUSION_FORCED_MOVE,
+@@ -125,6 +125,12 @@ export class IsoMaxSolver {
+     // Preserve existing measured optimizations; see HOT-LOOP.md in that folder.
+     if (this.metrics.nodes >= this.nextControlNode) this.checkTaskControl(state);
+     this.metrics.nodes += 1;
++    // OWNER-PROTECTED TERMINAL SCOPE — ordinary first-win status precedes q.
++    // Optional certificates keep their existing checked contradiction path.
++    if (state.status !== STATUS_ONGOING && this.certificates.size === 0) {
++      this.metrics.nativeExactHits++;
++      return state.status === STATUS_PLAYER0_WIN ? 1 : state.status === STATUS_PLAYER1_WIN ? -1 : 0;
++    }
+     const cache = this.transitionCache;
+     const hash = cache.prepareKey(state);
+     const key0 = cache.scratch[0], key1 = cache.scratch[1], support = cache.scratch[2] >>> 0;
+diff --git a/components/isometric/test/hot-loop.test.mjs b/components/isometric/test/hot-loop.test.mjs
+index 9e2247cb..0a32ad2d 100644
+--- a/components/isometric/test/hot-loop.test.mjs
++++ b/components/isometric/test/hot-loop.test.mjs
+@@ -98,11 +98,13 @@ test('prepared q scalars survive scratch reuse, collisions, repeated growth and
+ test('recursive exact lookup and store derive q only once per entered node', () => {
+   const solver = new IsoMaxSolver(), state = solver.createState(Array.from('466537327657277224', c => Number(c) - 1));
+   const derive = state.gameplayKey;
+-  let derivations = 0;
++  let derivations = 0, terminalEntries = 0;
++  const solveNode = solver.solveNode;
++  solver.solveNode = function (node) { terminalEntries += Number(node.isTerminal()); return solveNode.call(this, node); };
+   state.gameplayKey = function (target) { derivations++; return derive.call(this, target); };
+   const result = solver.solveValue(state);
+   assert.equal(result.value, 0);
+-  assert.equal(derivations, result.metrics.nodes);
++  assert.equal(derivations + terminalEntries, result.metrics.nodes);
+   assert.ok(result.metrics.transitionCacheStores > 1000);
+ });
+ 

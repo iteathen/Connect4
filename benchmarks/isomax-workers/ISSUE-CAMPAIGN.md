@@ -496,3 +496,24 @@ generic object ownership, lossy-value rejection, all WDLs, collisions/repeated
 resize/mirrors, prepared-parent lifetime and sealed growth. Allocation traps
 now include Int8Array. Evidence: `issue-101-wdl-cache.json`,
 `issue-101-profile-after.json`, inherited `issue-96-profile-after.json`.
+
+### #98 terminal-first candidate costed out
+
+Tested Stage A against e462ec4c, preserving the optional certificate
+contradiction route and public terminal residuals. 15 relevant controls pass;
+exact decisions and entered calls agree. Serial median 1390.7999 -> 1396.9191
+ms; one worker 1742.8095 -> 1745.1853 ms; two of three pairs regress in each
+mode. Timing overlaps, so this is not a claim of a large slowdown.
+
+The work tradeoff is unfavorable: the control census finds only 12 terminal
+entries in 2,643,905 calls. The candidate removes those 12 q lookups/stores
+but adds a status comparison on every call, including cache hits, and repeats
+status interpretation on non-cache native paths. No expanded state/edge is
+eliminated, and no measured memory benefit justifies the change. Under the
+owner's work/resource criterion this is not comparable to removing hot boxing
+or 25M dependent loads. Reverted; raw result and rejected patch retained.
+
+Stage B is not admitted: the issue makes it conditional on Stage A qualification,
+and public terminal residual reconstruction remains an observable contract.
+The stronger frontier-qualified nonterminal mover question F-002 remains
+separately visible debt rather than being silently deleted with this issue.
