@@ -16,6 +16,13 @@ The active implementation now has a native WSL residual state and an exact recur
 
 Read and preserve the shared Connect4 meanings from:
 
+- **Connect4 logic authority 1.2** — current integrated game-theory authority on
+  `research/semantic-quotient@21cfe24af925a2eceaadccac494cacc87b0faf6f`,
+  `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`
+  (manifest blob `5f401c93f8ea653fd3bc96e386b08ef7d92c519e`). Authority 1.1 and
+  former NEI/RBA overlays remain immutable historical evidence. The promotion
+  root/manifest govern status even where frozen package filenames say CANDIDATE.
+
 - **C4-0001** — legal Connect Four domain and first-win stopping;
 - **C4-0006** — control parity, support/event semantics, residual win-space requirements, blocker semantics, antichain/exhaustion semantics;
 - **C4-0007** — nested dependency closure, certificate, response/resource, timing and deadline semantics **when the selected IsoMax path consumes stronger proof/certificate facts**.
@@ -131,10 +138,11 @@ IsoMax must not force structural grouping, behavioral identity, representation i
 
 ### Ordinary gameplay identity q
 
-For legal nonterminal standard-7x6 states, the current canonical research candidate future-behavior identity is:
+For legal nonterminal standard-7x6 states, authority 1.2 qualifies the
+orientation-sensitive ordinary future-behavior carrier:
 
 ```text
-q =
+q_o =
     support/accessibility
     + normalized P0 residual antichain
     + normalized P1 residual antichain
@@ -146,13 +154,26 @@ Under standard alternating no-pass play:
 - side to move is derivable from rank parity;
 - terminal outcome is emitted by the transition that first completes a win or fills the board and is not an additional nonterminal q coordinate.
 
-The canonical research q-congruence derivation is newer than this branch's original specification and remains a research candidate pending its own authority/qualification cycle. Isometric may consume only the portions independently qualified for its implementation.
+Equal q_o preserves literal legal actions, their terminal tokens and successor
+q_o, hence the complete ordinary future game. The reflection orbit q_r is a
+separate exact quotient: actions transport as c -> 6-c when orientations differ.
+Equal q_r permits scalar WDL reuse, not untransported literal action reuse or
+physical/history/proof identity. Support-local isotony and threshold-frontier
+claims retain their separate qualification burden; C4-R0076 remains open.
 
 The current Isometric implementation already uses the q-shaped triple `(canonical P0 residual class, canonical P1 residual class, canonical support)` as the exact-value transition-cache equality check. Derived/runtime fields may remain physically stored for speed, reversible play, guards, or diagnostics without becoming additional gameplay identity.
 
+`gameplayKey()` chooses the q_r representative by support first, breaking
+symmetric-support ties by residual content. `gameplayOrientation()` uses the
+same rule. The proof-facing `structuralSignature()` has its own residual-first
+representative; its orientation must not be inferred from gameplayOrientation.
+
 A future implementation change must not remove those cached fields merely because they are semantically derivable; removal is an economics decision and still requires exact qualification.
 
-Current post-1.1 successor research on `research/semantic-quotient` additionally derives an exact ordinary-value residual-boundary algebra over the same support-conditioned residual carrier. That work is successor research evidence, not frozen IsoGraph 1.1 authority. IsoMax may consume a pinned, qualified value-boundary realization without equating that value artifact with NDC proof identity.
+Authority 1.2 integrates the exact/deductive ordinary-value RBA relations over
+the support-conditioned residual carrier. Representation/evaluation questions
+remain explicitly open. IsoMax may consume a pinned, qualified completed
+value-boundary realization without equating it with NDC proof identity.
 
 
 
@@ -222,7 +243,7 @@ transition-cache hit
   -> recursive exact W/D/L fallback
 ```
 
-The candidate research realization currently available on `research/semantic-quotient` is:
+The integrated ordinary-value RBA route is:
 
 ```text
 support-conditioned residual fiber
@@ -245,7 +266,8 @@ Implementation requirements:
 - qualify same-state W/D/L and value-preserving moves against the retained recursive/oracle path;
 - measure recursive children avoided separately from boundary-construction/query cost.
 
-The initial post-1.1 RBA evidence is therefore a research-fed optimization/closure seam, not a rewrite of IsoMax identity.
+The qualified semantic relations do not by themselves qualify a producer's
+runtime economics, incomplete artifact, stronger proof guard or worker ABI.
 
 ## Current structural-closure boundary
 

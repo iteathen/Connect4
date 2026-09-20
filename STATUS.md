@@ -82,7 +82,14 @@ The alignment decision is:
 
 - `docs/decisions/2026-09-19-isomax-rba-update-alignment.md`.
 
-Frozen IsoGraph authority 1.1 remains unchanged. Current RBA overlay/QU/topology and late-rank checkpoints are post-1.1 successor research evidence. A value-boundary consumer must pin the exact research revision it consumes and re-check live canonical research before meaningful implementation steps.
+Current game-theory authority is Connect4 logic authority 1.2 at canonical
+research `21cfe24af925a2eceaadccac494cacc87b0faf6f`, manifest blob
+`5f401c93f8ea653fd3bc96e386b08ef7d92c519e`. Authority 1.1 and the old overlays
+remain immutable historical evidence. Qualified q_o congruence and q_r reflection
+transport are integrated with ordinary-value RBA relations; support-local
+isotony/frontier qualification and C4-R0076 remain separate open obligations.
+A consumer still pins its actual producer/evidence revision and rechecks live
+canonical research before meaningful implementation changes.
 
 The guarded-obligation/proof-value bridge remains a separate stronger proof/certificate seam. It does not block an independently exact ordinary-value RBA consumer.
 

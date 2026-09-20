@@ -647,3 +647,12 @@ median 1745.8963 -> 1749.9527 ms; four-worker 1490.3797 -> 1470.0821 ms,
 with two of three individual pairs slower in each mode. Do not claim a clock
 win from that. Broaden to 96 roots to test the measured short-task beneficiary
 before accepting the preparation/work tradeoff.
+
+Authority-pointer repair: the complete baseline already consumed logic authority
+1.2, but C4-0011/STATUS/next_step still called q congruence a pending candidate and
+treated the old 1.1/RBA overlays as active routing. Re-read the exact promoted
+root, manifest and semantic package. Update implementation-owned pointers and
+q_o/q_r/transporter language to canonical 21cfe24a / manifest blob 5f401c93.
+Do not edit frozen research, promote isotony/frontiers, close C4-R0076, or change
+the optional producer's actual RBA revision. This fixes stale specification
+status rather than inventing new semantic authority.
