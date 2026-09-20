@@ -203,7 +203,10 @@ export class IsoMaxSurplusBranchManager {
         });
       }
       const message=await result;
-      await Promise.race([workersDone,new Promise(res=>setTimeout(res,1000))]);
+      // Result-ready and cleanup remain distinct timing concepts, but metrics
+      // are authoritative only after every live worker has left the shared
+      // session and published its counters.
+      await workersDone;
       if(session.failure&&!resultMessage)throw session.failure;
 
       const aggregate=new Int32Array(WC_WORDS);
