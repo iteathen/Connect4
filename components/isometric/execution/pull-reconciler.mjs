@@ -301,11 +301,31 @@ class PullReconciler {
     if (q === this.rootQ) return 7;
     let band = this.qOrderHint[q] ? 5 : 4;
     if (this.qParentCount[q] >= 2) band = Math.max(band, 5);
-    for (let edge = this.qIncomingHead[q]; edge !== -1; edge = this.edgeNextIn[edge]) {
-      if (!this.edgeLive[edge]) continue;
-      const parent = this.edgeParent[edge];
-      if (parent === this.rootQ) return 7;
-      if (!this.qExact[parent] && this.qUnresolved[parent] <= 2) band = Math.max(band, 6);
+
+    for (let incoming = this.qIncomingHead[q]; incoming !== -1; incoming = this.edgeNextIn[incoming]) {
+      if (!this.edgeLive[incoming]) continue;
+      const parent = this.edgeParent[incoming];
+      if (this.qExact[parent]) continue;
+
+      // A parent with one unresolved dependency is directly closure-critical.
+      if (this.qUnresolved[parent] <= 1) band = Math.max(band, 7);
+      else if (this.qUnresolved[parent] <= 2) band = Math.max(band, 6);
+
+      // Preserve the parent's exact/advisory move order globally without
+      // reserving ownership. Only its first live unresolved edge receives the
+      // ordering boost; later siblings stay visible at lower priority and may
+      // still execute on spare workers.
+      let firstUnresolved = -1;
+      for (let edge = this.qOutgoingHead[parent]; edge !== -1; edge = this.edgeNextOut[edge]) {
+        if (!this.edgeLive[edge]) continue;
+        const child = this.edgeChild[edge];
+        if (this.qExact[child]) continue;
+        firstUnresolved = edge;
+        break;
+      }
+      if (firstUnresolved === incoming) {
+        band = Math.max(band, parent === this.rootQ ? 7 : 6);
+      }
     }
     return band;
   }
