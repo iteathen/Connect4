@@ -61,6 +61,8 @@ test('one-worker surplus profile preserves one native continuation across publis
       assert.equal(worker.helperWaits,0,'single worker must not wait for a helper');
       assert.equal(worker.workClaims,1,
         'branching must not force the single worker to end its current continuation and claim new roots');
+      assert.equal(actual.metrics.maxActiveWork,1,
+        'one worker permits only one executable canonical subtree despite broader visibility');
       assert.equal(worker.pathReplayApplies,moves.length,
         'single-worker execution should replay only the external root, not every decision frontier');
     }finally{await manager.close();}
@@ -87,6 +89,8 @@ test('surplus helpers steal alternatives while the current worker keeps local re
       branches+=actual.metrics.worker.branches;
       assert.ok(branches>0,'corrected profile must expose genuine branch opportunities');
       assert.ok(claims>=2,'an available helper must claim globally exposed surplus work');
+      assert.ok(actual.metrics.maxActiveWork<=2,
+        'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
         'helper stealing must not imply full-root replay at every branch');
     }finally{await manager.close();}
