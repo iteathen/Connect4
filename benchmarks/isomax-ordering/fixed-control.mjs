@@ -21,6 +21,12 @@ export async function loadFixedControlSolver() {
 `;
   if (source.split(distributionHook).length !== 2) throw new Error('solver distribution seam changed; review fixed control');
   source = source.replace(distributionHook, '');
+  // Removing the optional distribution hook leaves its surrounding blank line.
+  // Normalize only that exact seam before deriving the fixed-order control.
+  source = source.replace(
+    '    if (promoted >= 0) this.metrics.orderingPromotions++;\n\n    for (let orderIndex',
+    '    if (promoted >= 0) this.metrics.orderingPromotions++;\n    for (let orderIndex',
+  );
   const ordered = `    const promoted = state.ply > this.orderingRootPly ? promotedColumn(state) : -1;
     if (promoted >= 0) this.metrics.orderingPromotions++;
     for (let orderIndex = promoted >= 0 ? -1 : 0; orderIndex < MOVE_ORDER.length; orderIndex++) {
