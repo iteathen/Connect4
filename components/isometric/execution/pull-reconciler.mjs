@@ -5,6 +5,7 @@ import { CENTER_ORDER } from '../move-order.mjs';
 import {
   CTRL_ABORT,
   CTRL_FAILURE,
+  CTRL_OCC_NEXT,
   CTRL_PUB_WAKE,
   CTRL_SESSION,
   CTRL_WORK_NEXT,
@@ -27,6 +28,7 @@ import {
   enqueueReady,
   markReady,
   openSharedWorkPool,
+  releaseOccurrenceSlot,
   releaseWorkSlot,
   retireWorkSlot,
   stopSharedPool,
@@ -78,6 +80,9 @@ class PullReconciler {
     this.maxQ = positive(message.maxTasks, 'maxTasks');
     this.maxEdges = positive(message.maxEdges, 'maxEdges');
     this.progressIntervalMs = Math.max(100, message.progressIntervalMs ?? 1000);
+    const requestedExecutionLimit = message.executionLimit ?? this.shared.workerCount * 4;
+    this.executionLimit = Math.min(this.shared.workCapacity,
+      positive(requestedExecutionLimit, 'executionLimit', this.shared.workCapacity));
 
     this.pool = new ResidualPool();
     this.state = new IsometricState({ pool:this.pool, moves:this.rootMoves });
@@ -137,7 +142,7 @@ class PullReconciler {
     this.stageChildGeneration = new Int32Array(staged);
     this.stageAction = new Uint8Array(staged);
     this.stageClass = new Uint8Array(staged);
-    this.workHold = new Uint8Array(this.shared.workCapacity);
+    this.executionWorkCount = 0;
 
     this.rootQ = -1;
     this.rootOrientation = 0;
@@ -164,6 +169,8 @@ class PullReconciler {
       workerDeathRequeues:0,
       demandResurrectionRequeues:0,
       rematerializedExecutions:0,
+      executionAdmissions:0,
+      maxExecutionWork:0,
       priorityUpdates:0,
       slotReclaims:0,
       qReuses:0,
@@ -207,6 +214,44 @@ class PullReconciler {
     for (let ply = common; ply < length; ply++) {
       const column = this.shared.workPath[base + ply];
       if (!this.state.canPlay(column)) throw new Error('published pull replay is not legal');
+      this.state.applyUnchecked(column);
+      this.metrics.replayApplies++;
+    }
+    this.state.gameplayKey(this.key);
+    const q = this.internCurrentState();
+    this.lastOrientation = this.state.gameplayOrientation();
+    return q;
+  }
+
+  replayOccurrence(slot, trim = 0) {
+    if (slot < 0 || slot >= this.shared.occurrenceCapacity ||
+        Atomics.load(this.shared.occurrenceState, slot) !== 1) {
+      throw new Error('invalid published occurrence replay slot');
+    }
+    const fullLength = Atomics.load(this.shared.occurrencePathLength, slot);
+    const length = fullLength - trim;
+    if (length < this.rootPly || fullLength < 0 || fullLength > MAX_MOVES) {
+      throw new Error('invalid published occurrence replay length');
+    }
+    const base = slot * MAX_MOVES;
+    for (let ply = 0; ply < this.rootPly; ply++) {
+      if (this.shared.occurrencePath[base + ply] !== this.rootMoves[ply]) {
+        throw new Error('published occurrence replay escaped the external root');
+      }
+    }
+    let common = Math.min(this.state.ply, length);
+    let prefix = 0;
+    while (prefix < common &&
+      (this.state.moveCells[prefix] % 7) === this.shared.occurrencePath[base + prefix]) prefix++;
+    common = prefix;
+    if (common < this.rootPly) throw new Error('occurrence replay lost external-root prefix');
+    while (this.state.ply > common) {
+      this.state.undo();
+      this.metrics.replayUndos++;
+    }
+    for (let ply = common; ply < length; ply++) {
+      const column = this.shared.occurrencePath[base + ply];
+      if (!this.state.canPlay(column)) throw new Error('published occurrence replay is not legal');
       this.state.applyUnchecked(column);
       this.metrics.replayApplies++;
     }
@@ -275,17 +320,13 @@ class PullReconciler {
     return edge;
   }
 
-  clearStage(parentSlot, retireChildren = true) {
+  clearStage(parentSlot) {
     const count = this.stageCount[parentSlot];
     const base = parentSlot * 7;
     for (let index = 0; index < count; index++) {
-      const slot = this.stageChildSlot[base + index];
-      const generation = this.stageChildGeneration[base + index];
-      if (retireChildren) this.retireSlot(slot, generation, false);
-      if (slot >= 0 && slot < this.shared.workCapacity && this.workHold[slot] > 0) {
-        this.workHold[slot]--;
-        this.releaseIfPossible(slot, generation);
-      }
+      releaseOccurrenceSlot(this.shared,
+        this.stageChildSlot[base + index],
+        this.stageChildGeneration[base + index]);
     }
     this.stageCount[parentSlot] = 0;
     this.stageAttempt[parentSlot] = -1;
@@ -334,8 +375,10 @@ class PullReconciler {
         return true;
       }
       this.qWork[q] = -1;
+      if (this.executionWorkCount > 0) this.executionWorkCount--;
     }
 
+    if (this.executionWorkCount >= this.executionLimit) return false;
     const slot = allocateWorkSlot(this.shared, this.allocateScratch);
     if (slot < 0) return false;
     const generation = this.allocateScratch[1];
@@ -346,19 +389,34 @@ class PullReconciler {
     Atomics.store(this.shared.workPathLength, slot, length);
     Atomics.store(this.shared.workQ, slot, q);
     this.qWork[q] = slot;
+    this.executionWorkCount++;
     this.metrics.rematerializedExecutions++;
+    this.metrics.executionAdmissions++;
+    this.metrics.maxExecutionWork = Math.max(this.metrics.maxExecutionWork, this.executionWorkCount);
     this.ensureWorkPriority(q);
     return Atomics.load(this.shared.workGeneration, slot) === generation;
   }
 
+  refillExecution() {
+    if (this.executionWorkCount >= this.executionLimit) return 0;
+    let admitted = 0;
+    for (let band = PRIORITY_BANDS - 1; band >= 0 && this.executionWorkCount < this.executionLimit; band--) {
+      for (let q = 0; q < this.qCount && this.executionWorkCount < this.executionLimit; q++) {
+        if (this.qPriority[q] !== band || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED ||
+            this.qWork[q] !== -1 || (q !== this.rootQ && this.qParentCount[q] === 0)) continue;
+        if (this.ensureExecution(q)) admitted++;
+      }
+    }
+    return admitted;
+  }
+
   repairExecutableDemand() {
-    let repaired = 0;
     for (let q = 0; q < this.qCount; q++) {
       if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) continue;
       if (q !== this.rootQ && this.qParentCount[q] === 0) continue;
-      if (this.ensureExecution(q)) repaired++;
+      this.ensureWorkPriority(q);
     }
-    return repaired;
+    return this.refillExecution();
   }
 
   desiredPriority(q) {
@@ -395,12 +453,12 @@ class PullReconciler {
   }
 
   ensureWorkPriority(q) {
+    const band = this.desiredPriority(q);
+    this.qPriority[q] = band;
     const slot = this.qWork[q];
     if (slot < 0) return;
     const generation = Atomics.load(this.shared.workGeneration, slot);
     if (generation <= 0 || Atomics.load(this.shared.workQ, slot) !== q) return;
-    const band = this.desiredPriority(q);
-    this.qPriority[q] = band;
     const state = Atomics.load(this.shared.workState, slot);
 
     if (state === WORK_WRITING) {
@@ -428,34 +486,6 @@ class PullReconciler {
     }
   }
 
-  adoptExecution(q, slot, generation, orderHint = 0, affinity = -1, publish = true) {
-    if (slot < 0 || slot >= this.shared.workCapacity) return;
-    if (Atomics.load(this.shared.workGeneration, slot) !== generation) return;
-    if (orderHint > this.qOrderHint[q]) this.qOrderHint[q] = orderHint;
-    Atomics.store(this.shared.workPublisher, slot, -1);
-    Atomics.store(this.shared.workAffinity, slot, affinity);
-
-    if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
-      this.retireSlot(slot, generation);
-      return;
-    }
-
-    const existing = this.qWork[q];
-    if (existing === -1) {
-      this.qWork[q] = slot;
-      Atomics.store(this.shared.workQ, slot, q);
-      if (publish) this.ensureWorkPriority(q);
-      return;
-    }
-    if (existing === slot) {
-      if (publish) this.ensureWorkPriority(q);
-      return;
-    }
-
-    this.retireSlot(slot, generation);
-    if (publish) this.ensureWorkPriority(q);
-  }
-
   detachQWork(q, keepSlot = -1) {
     const slot = this.qWork[q];
     if (slot < 0) return;
@@ -464,6 +494,7 @@ class PullReconciler {
       this.retireSlot(slot, generation);
     }
     this.qWork[q] = -1;
+    if (this.executionWorkCount > 0) this.executionWorkCount--;
   }
 
   dropOutgoing(q) {
