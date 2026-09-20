@@ -1,0 +1,28 @@
+name: isomax-pull-qualification
+
+on:
+  pull_request:
+    paths:
+      - 'components/isometric/execution/pull-*.mjs'
+      - 'components/isometric/execution/shared-work-pool.mjs'
+      - 'components/isometric/test/pull-execution.test.mjs'
+      - 'benchmarks/isomax-workers/pull-comparison.mjs'
+      - '.github/workflows/isomax-pull-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pull-comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Assert exact Node runtime
+        run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
+      - name: Compare serial, central and decentralized pull solves
+        run: node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison.json
