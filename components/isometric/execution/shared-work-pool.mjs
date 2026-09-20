@@ -41,7 +41,8 @@ export const WC_QUEUE_DEQUEUES = 7;
 export const WC_FREE_WAITS = 8;
 export const WC_PATH_REPLAYS = 9;
 export const WC_TRANSITIONS = 10;
-export const WC_WORDS = 16;
+export const WC_BAND_BASE = 16;
+export const WC_WORDS = 24;
 
 function positive(value, name, maximum = 1 << 28) {
   if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
