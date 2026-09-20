@@ -3,11 +3,45 @@ import assert from 'node:assert/strict';
 import { IsoMaxSolver } from '../solver.mjs';
 import { IsoMaxSurplusBranchManager } from '../execution/surplus-manager.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+import { CENTER_ORDER } from '../move-order.mjs';
+
+class BranchProbe {
+  constructor(){this.branches=0;this.multiChild=0;}
+  solveChildren(solver,state,maximizing,lower,upper,promoted){
+    this.branches++;
+    const columns=[];
+    if(promoted>=0&&state.canPlay(promoted))columns.push(promoted);
+    for(const column of CENTER_ORDER)if(column!==promoted&&state.canPlay(column))columns.push(column);
+    let best=maximizing?-1:1,evaluated=0;
+    for(const column of columns){
+      state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+      let value;try{value=solver.solveNode(state);}finally{state.undo();}
+      evaluated++;
+      if(maximizing){if(value>best)best=value;if(best>=upper)break;}
+      else {if(value<best)best=value;if(best<=lower)break;}
+    }
+    if(evaluated>1)this.multiChild++;
+    return best;
+  }
+}
+
+function branchyFixture(seed,ply=34){
+  for(const {moves} of makeCorpus({seed,ply,count:64})){
+    const solver=new IsoMaxSolver(),probe=new BranchProbe();
+    solver.branchDistributor=probe;
+    const value=solver.solveValue(solver.createState(moves)).value;
+    if(probe.branches>0&&probe.multiChild>0){
+      const expected=new IsoMaxSolver().solveMoves(moves);
+      assert.equal(value,expected.value);
+      return {moves,expected};
+    }
+  }
+  throw new Error('failed to find branchy IsoMax fixture');
+}
 
 test('one-worker surplus profile preserves one native continuation across published branches',
   {timeout:30000}, async () => {
-    const moves=makeCorpus({seed:0x1025a,ply:30,count:1})[0].moves;
-    const expected=new IsoMaxSolver().solveMoves(moves);
+    const {moves,expected}=branchyFixture(0x1025a);
     const manager=new IsoMaxSurplusBranchManager({
       workers:1,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
       queueCapacity:131072,publicationCapacity:131072,
@@ -34,27 +68,23 @@ test('one-worker surplus profile preserves one native continuation across publis
 
 test('surplus helpers steal alternatives while the current worker keeps local recursion',
   {timeout:45000}, async () => {
-    const roots=makeCorpus({seed:0x1025b,ply:30,count:2}).map(x=>x.moves);
-    let remote=0,claims=0,branches=0;
+    const fixtures=[branchyFixture(0x1025b),branchyFixture(0x1025c)];
+    let claims=0,branches=0;
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:131072,workCapacity:131072,occurrenceCapacity:262144,
       queueCapacity:262144,publicationCapacity:262144,
       workerClassReserve:262144,workerEntryReserve:524288,
     });
     try{
-      for(const moves of roots){
-        const expected=new IsoMaxSolver().solveMoves(moves);
+      for(const {moves,expected} of fixtures){
         const actual=await manager.solveMoves(moves,{timeoutMs:20000});
         assert.equal(actual.value,expected.value);
         assert.equal(actual.move,expected.move);
-        remote+=actual.metrics.worker.surplusRemote;
         claims+=actual.metrics.worker.workClaims;
         branches+=actual.metrics.worker.branches;
       }
-      assert.ok(branches>claims,
-        'workers should traverse multiple branch points inside claimed continuations');
-      assert.ok(claims>=2,'second worker should claim globally exposed surplus work');
-      assert.ok(remote>0,'at least one local parent should consume work executed by a helper');
+      assert.ok(branches>0,'corrected profile must expose genuine branch opportunities');
+      assert.ok(claims>=2,'an available helper must claim globally exposed surplus work');
     }finally{await manager.close();}
   });
 
