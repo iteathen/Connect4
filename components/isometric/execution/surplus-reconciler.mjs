@@ -1,6 +1,7 @@
 import { parentPort } from 'node:worker_threads';
 import { ResidualPool } from '../residual-pool.mjs';
 import { IsometricState } from '../state.mjs';
+import { FRONTIER_WORDS } from '../profile.mjs';
 import {
   CTRL_ABORT, CTRL_FAILURE, CTRL_OCC_NEXT, CTRL_PUB_WAKE, CTRL_SESSION, CTRL_WORK_NEXT,
   MAX_MOVES, OCC_EXACT, OCC_LINKED, OCC_PUBLISHED, OCC_RETIRED,
@@ -35,10 +36,13 @@ class SurplusReconciler {
     this.maxQ=positive(message.maxQ??this.shared.workCapacity,'maxQ');
     this.progressIntervalMs=Math.max(100,message.progressIntervalMs??1000);
 
+    this.replayClassReserve=Math.min(2**26,Math.max(4096,4*this.maxQ));
     this.pool=new ResidualPool();
     this.state=new IsometricState({pool:this.pool,moves:this.rootMoves});
-    this.pool.prepareSearchStorage(Math.min(2**26,Math.max(4096,4*this.maxQ)));
+    this.pool.prepareSearchStorage(this.replayClassReserve);
     this.key=new Int32Array(3);this.pub=new Int32Array(8);this.workScratch=new Int32Array(2);
+    this.compactP0=new Uint32Array(FRONTIER_WORDS);
+    this.compactP1=new Uint32Array(FRONTIER_WORDS);
 
     this.qP0=new Int32Array(this.maxQ);this.qP1=new Int32Array(this.maxQ);
     this.qSupport=new Uint32Array(this.maxQ);this.qHash=new Int32Array(this.maxQ);
@@ -74,10 +78,50 @@ class SurplusReconciler {
       maxActiveWork:0,runningContinuations:0,duplicateRunningContinuations:0,
       continuationExact:0,qReclaims:0,exactQEvictions:0,qHashRebuilds:0,
       workSlotReclaims:0,maxActiveCanonicalQ:0,
+      replayPoolCompactions:0,maxReplayClasses:this.pool.classCount,
     };
   }
 
+  compactReplayPool(){
+    // q identity is exact residual content + support; pool-local class IDs are
+    // only the current replay representation. The q table is bounded and
+    // recyclable, while a ResidualPool dictionary is append-only. Re-intern
+    // every live q by full residual content before replacing the replay pool
+    // so historical replay classes cannot become an unbounded session lifetime.
+    const oldPool=this.pool;
+    const nextPool=new ResidualPool();
+    const nextState=new IsometricState({pool:nextPool,moves:this.rootMoves});
+
+    for(let q=0;q<this.qCount;q++){
+      if(!this.qAlive[q])continue;
+      oldPool.loadClassBits(this.qP0[q],this.compactP0);
+      oldPool.loadClassBits(this.qP1[q],this.compactP1);
+      const p0=nextPool.internBits(this.compactP0);
+      const p1=nextPool.internBits(this.compactP1);
+      this.qP0[q]=p0;this.qP1[q]=p1;
+      this.qHash[q]=hashQ(p0,p1,this.qSupport[q]);
+    }
+
+    nextPool.prepareSearchStorage(this.replayClassReserve);
+    this.metrics.maxReplayClasses=Math.max(this.metrics.maxReplayClasses,oldPool.classCount);
+    oldPool.releaseSearchStorage();
+    this.pool=nextPool;this.state=nextState;
+    this.rebuildQHash();
+    this.metrics.replayPoolCompactions++;
+  }
+
+  ensureReplayCapacity(){
+    // One replay can apply at most the remaining board plies and canonicalize
+    // two residual classes. Reserve a fixed safety margin and compact before a
+    // sealed class/hash/chunk owner would need to grow in the replay path.
+    const hashLimit=Math.floor(this.pool.classHashSlots.length*7/10);
+    const limit=Math.min(this.pool.classCapacity,hashLimit);
+    this.metrics.maxReplayClasses=Math.max(this.metrics.maxReplayClasses,this.pool.classCount);
+    if(this.pool.classCount+256>=limit)this.compactReplayPool();
+  }
+
   replay(slot){
+    this.ensureReplayCapacity();
     const length=Atomics.load(this.shared.occPathLength,slot);
     if(length<this.rootPly||length>MAX_MOVES)throw new Error('invalid surplus replay length');
     const base=slot*MAX_MOVES;
@@ -725,6 +769,7 @@ class SurplusReconciler {
       metrics:{...this.metrics},qCount:this.qActiveCount,qHighWater:this.qCount,activeWorkCount:this.activeWorkCount,
       workAllocated:Math.min(this.shared.workCapacity,Atomics.load(this.shared.control,CTRL_WORK_NEXT)),
       occurrenceAllocated:Math.min(this.shared.occurrenceCapacity,Atomics.load(this.shared.control,CTRL_OCC_NEXT)),
+      replayClasses:this.pool.classCount,
     };
   }
 
