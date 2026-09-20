@@ -228,10 +228,8 @@ class PullEvaluator {
       for (let index = 0; index < childCount; index++) {
         const childSlot = this.frontierSlots[index];
         const childGeneration = this.frontierGenerations[index];
-        if (Atomics.compareExchange(shared.workState, childSlot, 1, 2) === 1) {
-          if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
-            throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
-          }
+        if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
+          throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
         }
       }
       return true;
