@@ -6,7 +6,16 @@ import { IsoMaxBranchManager } from '../../components/isometric/execution/branch
 import { IsoMaxPullBranchManager } from '../../components/isometric/execution/pull-manager.mjs';
 import { makeCorpus } from '../isomax-ordering/corpus.mjs';
 
-const roots = makeCorpus({seed:0x102c0, ply:28, count:3}).map(entry => entry.moves);
+const historicalHard = [
+  '717657616532237625',
+  '466537327657277224',
+  '616767454664457417',
+].map(sequence => Array.from(sequence, character => Number(character) - 1));
+const corpus = process.env.ISOMAX_PULL_CORPUS ?? 'late';
+const roots = corpus === 'hard'
+  ? historicalHard
+  : makeCorpus({seed:0x102c0, ply:28, count:3}).map(entry => entry.moves);
+if (corpus !== 'late' && corpus !== 'hard') throw new Error('invalid ISOMAX_PULL_CORPUS: ' + corpus);
 const sequence = moves => moves.map(column => column + 1).join('');
 
 async function runRoot(variant, moves) {
@@ -111,6 +120,7 @@ if (process.argv[2] === 'child') {
     sourceRevision,
     node:process.version,
     cpu:os.cpus()[0]?.model ?? null,
+    corpus,
     roots:roots.map(sequence),
     variants:{},
   };
