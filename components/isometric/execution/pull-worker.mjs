@@ -7,6 +7,7 @@ import { CENTER_ORDER, promotedColumn } from '../move-order.mjs';
 import {
   CTRL_ABORT,
   CTRL_FREE_WAKE,
+  CTRL_OCC_FREE_WAKE,
   CTRL_PUB_WAKE,
   CTRL_SESSION,
   CTRL_WAKE,
@@ -36,7 +37,7 @@ import {
   WORK_READY,
   WORK_RUNNING,
   WORK_WRITING,
-  allocateWorkSlot,
+  allocateOccurrenceSlot,
   claimHighestReady,
   openSharedWorkPool,
   publishRecord,
@@ -122,17 +123,17 @@ class PullEvaluator {
     return -1;
   }
 
-  allocateChild(shared) {
-    let slot = allocateWorkSlot(shared, this.allocateScratch);
+  allocateChildOccurrence(shared) {
+    let slot = allocateOccurrenceSlot(shared, this.allocateScratch, workerIndex);
     if (slot >= 0) return slot;
     if (Atomics.load(shared.control, CTRL_ABORT) ||
         Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING) return -1;
-    const epoch = Atomics.load(shared.control, CTRL_FREE_WAKE);
+    const epoch = Atomics.load(shared.control, CTRL_OCC_FREE_WAKE);
     this.counters[WC_FREE_WAITS]++;
-    Atomics.wait(shared.control, CTRL_FREE_WAKE, epoch, 2);
-    slot = allocateWorkSlot(shared, this.allocateScratch);
+    Atomics.wait(shared.control, CTRL_OCC_FREE_WAKE, epoch, 2);
+    slot = allocateOccurrenceSlot(shared, this.allocateScratch, workerIndex);
     if (slot >= 0) return slot;
-    throw new Error('ISOMAX_PULL_WORK_CAPACITY');
+    throw new Error('ISOMAX_PULL_OCCURRENCE_CAPACITY');
   }
 
   publishBlocking(shared, kind, a, b, c, d, e, f, g) {
@@ -228,16 +229,15 @@ class PullEvaluator {
       for (let orderIndex = 0; orderIndex < CENTER_ORDER.length; orderIndex++) {
         const column = CENTER_ORDER[orderIndex];
         if (this.state.heights[column] === ROWS) continue;
-        const childSlot = this.allocateChild(shared);
+        const childSlot = this.allocateChildOccurrence(shared);
         if (childSlot < 0) return this.publishRetired(shared, slot, generation, attempt);
         const childGeneration = this.allocateScratch[1];
-        Atomics.store(shared.workPublisher, childSlot, workerIndex);
         const base = childSlot * MAX_MOVES;
         for (let ply = 0; ply < this.state.ply; ply++) {
-          shared.workPath[base + ply] = this.state.moveCells[ply] % 7;
+          shared.occurrencePath[base + ply] = this.state.moveCells[ply] % 7;
         }
-        shared.workPath[base + this.state.ply] = column;
-        Atomics.store(shared.workPathLength, childSlot, this.state.ply + 1);
+        shared.occurrencePath[base + this.state.ply] = column;
+        Atomics.store(shared.occurrencePathLength, childSlot, this.state.ply + 1);
         const localClass = column === promoted ? 1 : 0;
         // Publish the complete occurrence set before any child is executable.
         // This makes FRONTIER_END the semantic commit marker for the worker
@@ -252,15 +252,6 @@ class PullEvaluator {
         this.counters[WC_CHILDREN]++;
       }
       if (childCount < 2) throw new Error('pull decision frontier must expose at least two children');
-
-      // Complete all child records in shared storage, but do not put any
-      // child in a claimable queue before the semantic frontier commit marker.
-      for (let index = 0; index < childCount; index++) {
-        const childSlot = this.frontierSlots[index];
-        if (Atomics.compareExchange(shared.workState, childSlot, WORK_WRITING, WORK_READY) !== WORK_WRITING) {
-          throw new Error('invalid pull child state before frontier commit');
-        }
-      }
 
       Atomics.store(shared.workState, slot, WORK_DONE);
       this.counters[WC_FRONTIERS]++;
