@@ -115,6 +115,7 @@ class PullReconciler {
     this.qDirectMove = new Int8Array(this.maxQ); this.qDirectMove.fill(-1);
     this.qOrderHint = new Uint8Array(this.maxQ);
     this.qPriority = new Uint8Array(this.maxQ);
+    this.qAffinity = new Int16Array(this.maxQ); this.qAffinity.fill(-1);
     // Execution seed only: one legal physical replay representative per
     // canonical q. This is not q identity or proof identity. It lets semantic
     // demand outlive READY/RUNNING occurrence records safely.
@@ -388,6 +389,7 @@ class PullReconciler {
     for (let ply = 0; ply < length; ply++) this.shared.workPath[targetBase + ply] = this.qReplay[sourceBase + ply];
     Atomics.store(this.shared.workPathLength, slot, length);
     Atomics.store(this.shared.workQ, slot, q);
+    Atomics.store(this.shared.workAffinity, slot, this.qAffinity[q]);
     this.qWork[q] = slot;
     this.executionWorkCount++;
     this.metrics.rematerializedExecutions++;
@@ -580,18 +582,23 @@ class PullReconciler {
 
   stageChild(parentSlot, generation, attempt, childSlot, childGeneration, action, orderClass) {
     if (parentSlot < 0 || parentSlot >= this.shared.workCapacity ||
-        childSlot < 0 || childSlot >= this.shared.workCapacity) {
-      throw new Error('invalid pull child publication slot');
+        childSlot < 0 || childSlot >= this.shared.occurrenceCapacity) {
+      throw new Error('invalid pull child occurrence publication slot');
+    }
+    if (Atomics.load(this.shared.occurrenceGeneration, childSlot) !== childGeneration ||
+        Atomics.load(this.shared.occurrenceState, childSlot) !== 1) {
+      this.metrics.stalePublications++;
+      return;
     }
     if (Atomics.load(this.shared.workGeneration, parentSlot) !== generation ||
         Atomics.load(this.shared.workAttempt, parentSlot) !== attempt) {
       this.metrics.staleAttempts++;
-      this.retireSlot(childSlot, childGeneration, false);
+      releaseOccurrenceSlot(this.shared, childSlot, childGeneration);
       return;
     }
     let stagedAttempt = this.stageAttempt[parentSlot];
     if (stagedAttempt !== -1 && stagedAttempt !== attempt) {
-      this.clearStage(parentSlot, true);
+      this.clearStage(parentSlot);
       stagedAttempt = -1;
     }
     if (stagedAttempt === -1) this.stageAttempt[parentSlot] = attempt;
@@ -603,7 +610,6 @@ class PullReconciler {
     this.stageAction[base] = action;
     this.stageClass[base] = orderClass;
     this.stageCount[parentSlot] = count + 1;
-    this.workHold[childSlot]++;
     this.metrics.childOccurrences++;
   }
 
@@ -622,7 +628,7 @@ class PullReconciler {
     const parentOrientation = this.lastOrientation;
     const base = parentSlot * 7;
     const firstSlot = this.stageChildSlot[base];
-    const endpointQ = this.replaySlot(firstSlot, 1);
+    const endpointQ = this.replayOccurrence(firstSlot, 1);
     const endpointOrientation = this.lastOrientation;
 
     this.detachQWork(parentQ, parentSlot);
@@ -642,15 +648,11 @@ class PullReconciler {
 
     const targetQ = endpointQ;
     if (this.qExact[targetQ] || this.qForm[targetQ] !== Q_UNEXPANDED) {
-      for (let index = 0; index < count; index++) {
-        const childSlot = this.stageChildSlot[base + index];
-        const childGeneration = this.stageChildGeneration[base + index];
-        this.retireSlot(childSlot, childGeneration);
-      }
-      this.clearStage(parentSlot, false);
+      this.clearStage(parentSlot);
       Atomics.store(this.shared.workState, parentSlot, WORK_DONE);
       this.releaseIfPossible(parentSlot, generation);
       this.tryReduce(parentQ);
+      this.refillExecution();
       return;
     }
 
@@ -661,16 +663,17 @@ class PullReconciler {
 
     for (let index = 0; index < count; index++) {
       const childSlot = this.stageChildSlot[base + index];
-      const childGeneration = this.stageChildGeneration[base + index];
       const physicalAction = this.stageAction[base + index];
       const canonicalAction = endpointOrientation ? 6 - physicalAction : physicalAction;
-      const childQ = this.replaySlot(childSlot, 0);
+      const childQ = this.replayOccurrence(childSlot, 0);
       this.appendEdge(targetQ, childQ, canonicalAction);
-      this.adoptExecution(childQ, childSlot, childGeneration,
-        this.stageClass[base + index], affinityWorker, false);
+      if (this.stageClass[base + index] > this.qOrderHint[childQ]) {
+        this.qOrderHint[childQ] = this.stageClass[base + index];
+      }
+      this.qAffinity[childQ] = affinityWorker;
     }
 
-    this.clearStage(parentSlot, false);
+    this.clearStage(parentSlot);
     Atomics.store(this.shared.workState, parentSlot, WORK_DONE);
     this.releaseIfPossible(parentSlot, generation);
 
@@ -679,6 +682,7 @@ class PullReconciler {
     }
     this.tryReduce(targetQ);
     this.tryReduce(parentQ);
+    this.refillExecution();
   }
 
   acceptExact(slot, generation, attempt, value, directMove) {
@@ -704,7 +708,7 @@ class PullReconciler {
       this.metrics.staleAttempts++;
       return;
     }
-    if (this.stageAttempt[slot] === attempt) this.clearStage(slot, true);
+    if (this.stageAttempt[slot] === attempt) this.clearStage(slot);
     const q = Atomics.load(this.shared.workQ, slot);
     this.metrics.retiredPublications++;
 
@@ -729,9 +733,13 @@ class PullReconciler {
       return;
     }
 
-    if (q >= 0 && this.qWork[q] === slot) this.qWork[q] = -1;
+    if (q >= 0 && this.qWork[q] === slot) {
+      this.qWork[q] = -1;
+      if (this.executionWorkCount > 0) this.executionWorkCount--;
+    }
     Atomics.store(this.shared.workState, slot, WORK_DONE);
     this.releaseIfPossible(slot, generation);
+    this.refillExecution();
   }
 
   handlePublication() {
@@ -834,18 +842,6 @@ class PullReconciler {
       for (let slot = 0; slot < allocated; slot++) {
         const state = Atomics.load(this.shared.workState, slot);
 
-        // Child slots reserved by a dead publisher but not committed by a
-        // reconciled FRONTIER_END have no semantic occurrence authority.
-        if ((state === WORK_WRITING || state === WORK_READY) &&
-            Atomics.load(this.shared.workPublisher, slot) === worker) {
-          const generation = Atomics.load(this.shared.workGeneration, slot);
-          Atomics.store(this.shared.workPublisher, slot, -1);
-          Atomics.store(this.shared.workNeeded, slot, 0);
-          Atomics.store(this.shared.workState, slot, WORK_DONE);
-          this.releaseIfPossible(slot, generation);
-          continue;
-        }
-
         // RUNNING and pre-publication DONE both belong to the dead attempt.
         // Incrementing the attempt makes every late record stale; replay from
         // the same portable slot is then safe if the canonical q is still live.
@@ -854,7 +850,7 @@ class PullReconciler {
         const generation = Atomics.load(this.shared.workGeneration, slot);
         const attempt = Atomics.load(this.shared.workAttempt, slot);
         Atomics.add(this.shared.workAttempt, slot, 1);
-        if (this.stageAttempt[slot] === attempt) this.clearStage(slot, true);
+        if (this.stageAttempt[slot] === attempt) this.clearStage(slot);
         Atomics.store(this.shared.workWorker, slot, -1);
         if (Atomics.load(this.shared.workNeeded, slot) &&
             Atomics.load(this.shared.control, CTRL_SESSION) === SESSION_RUNNING) {
@@ -869,7 +865,16 @@ class PullReconciler {
           this.releaseIfPossible(slot, generation);
         }
       }
+
+      const occurrenceAllocated = Math.min(this.shared.occurrenceCapacity,
+        Atomics.load(this.shared.control, CTRL_OCC_NEXT));
+      for (let slot = 0; slot < occurrenceAllocated; slot++) {
+        if (Atomics.load(this.shared.occurrenceState, slot) !== 1 ||
+            Atomics.load(this.shared.occurrencePublisher, slot) !== worker) continue;
+        releaseOccurrenceSlot(this.shared, slot, Atomics.load(this.shared.occurrenceGeneration, slot));
+      }
     }
+    this.refillExecution();
     if (liveCount === 0 && !this.completed) throw new Error('all IsoMax pull evaluators exited');
   }
 
