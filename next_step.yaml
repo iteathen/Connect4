@@ -48,7 +48,8 @@ current:
   hot_loop_performance_contract: NEES_EXTREME_E0_E1
   scheduled_control_contract: NEES_EXTREME_E2
   qualification_boundary: coherent_completed_PR_or_equivalent_change_set
-  nees_0_3_baseline_status: required_pending
+  nees_0_3_baseline_status: complete_with_explicit_unverified_debt
+  nees_0_3_baseline_record: components/isometric/NEES_BASELINE_0_3.md
   nees_0_3_baseline_scope: complete_declared_E0_E1_E2_hot_scope
   periodic_reporting: fire_and_forget_to_dedicated_reporting_worker
   worker_default: min_4_available_logical_cpus_minus_one_at_least_one
@@ -129,7 +130,7 @@ rejected_implementation:
   - opponent_residual_suppression_first_child_tier_at_tested_placement
 
 next_assessment:
-  - complete_NEES_0_3_full_E0_E2_maximal_effort_cost_and_debt_baseline
+  - qualify_remaining_issue_candidates_against_NEES_0_3_baseline_debt
   - shared_exact_native_value_reuse_and_dependency_scheduling_to_reduce_multicore_duplicate_work
   - repeated_query_total_economics_before_optional_rba_promotion
   - temporal_resource_realizability_guard_implementation_when_stronger_proof_research_is_qualified

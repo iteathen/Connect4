@@ -240,14 +240,27 @@ export class IsometricState {
     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
     // Recursive callers must supply storage. Exact residual pair plus canonical support is q, not proof identity.
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
+    // OWNER-PROTECTED ORBIT ORDER — support, then residual content. A mirror
+    // swaps the two tuples, so the minimum has the same exact q_r orbit.
+    // Keep gameplayOrientation in this order too; structuralSignature owns a
+    // DIFFERENT proof retrieval orientation and must not be changed with q.
+    const reflectedSupport = this.reflectedSupportCode();
+    if (this.supportCode < reflectedSupport) {
+      target[0] = this.p0Class;
+      target[1] = this.p1Class;
+      target[2] = this.supportCode;
+      return target;
+    }
     const reflected0 = this.pool.reflectClass(this.p0Class);
     const reflected1 = this.pool.reflectClass(this.p1Class);
-    let comparison = this.pool.compareClasses(this.p0Class, reflected0);
-    if (comparison === 0) comparison = this.pool.compareClasses(this.p1Class, reflected1);
+    let comparison = 1;
+    if (this.supportCode === reflectedSupport) {
+      comparison = this.pool.compareClasses(this.p0Class, reflected0);
+      if (comparison === 0) comparison = this.pool.compareClasses(this.p1Class, reflected1);
+    }
     target[0] = comparison > 0 ? reflected0 : this.p0Class;
     target[1] = comparison > 0 ? reflected1 : this.p1Class;
-    target[2] = comparison > 0 ? this.reflectedSupportCode()
-      : comparison === 0 ? Math.min(this.supportCode, this.reflectedSupportCode()) : this.supportCode;
+    target[2] = reflectedSupport;
     return target;
   }
 
@@ -255,8 +268,10 @@ export class IsometricState {
     // OWNER-PROTECTED CALLEE — agents must not remove/weaken this comment.
     // Allocating proof/transport helper, excluded from the ordinary recursive worker path.
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
-    const signature = this.structuralSignature();
-    return signature[3] === 1
-      ? Number(this.reflectedSupportCode() < this.supportCode) : signature[2];
+    const reflectedSupport = this.reflectedSupportCode();
+    if (this.supportCode !== reflectedSupport) return Number(reflectedSupport < this.supportCode);
+    let comparison = this.pool.compareClasses(this.p0Class, this.pool.reflectClass(this.p0Class));
+    if (comparison === 0) comparison = this.pool.compareClasses(this.p1Class, this.pool.reflectClass(this.p1Class));
+    return Number(comparison > 0);
   }
 }

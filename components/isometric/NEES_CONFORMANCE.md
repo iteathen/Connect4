@@ -1,6 +1,6 @@
 # IsoMax NEES conformance audit — active ordinary worker profile
 
-**Status:** Draft 0.2 conformance evidence retained; Draft 0.3 maximal-effort baseline audit pending  
+**Status:** Draft 0.3 baseline complete for the ordinary worker; explicit suspected optimization debt retained  
 **Solver revision audited:** `solver/isometric@b784c710382a819717889a3c71183ceff6f40f49`  
 **NEES authority:** `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c` — Draft 0.3  
 **Runtime profile:** Node v26.7.0 / Node 26-V8 14.6 family  
@@ -11,6 +11,13 @@
 The completed audit below remains valid inherited structural/runtime evidence from the Draft 0.2 qualification.
 
 It is **not by itself a completed Draft 0.3 conformance claim** because Draft 0.3 adds a one-time full E0-E2 maximal-effort cost/debt baseline.
+
+That additional baseline is now recorded in `NEES_BASELINE_0_3.md`, covering
+11f3ec61 plus the qualified support-first q implementation. Its ordinary E0-E2
+scope conforms with visible UNVERIFIED-DEBT, not a global-optimality claim.
+Qualification: 118 relevant tests pass; nine alternating paired totals favor
+the support-first candidate with unchanged exact decisions. Full evidence is
+in `benchmarks/isomax-workers/ISSUE-CAMPAIGN.md` and `issue-97-support-first.json`.
 
 Active governing requirement:
 
@@ -278,4 +285,4 @@ Optional certificate/RBA profiles are not claimed as ordinary-worker E0 realizat
 
 Issue #102 remains planned. Its future E2 realization must conform before promotion.
 
-**Draft 0.3 current status:** governing pin moved; full maximal-effort E0-E2 baseline audit pending. Do not report full Draft 0.3 NEES-EXTREME conformance until that audit is completed and qualified.
+**Draft 0.3 current status:** the complete E0-E2 baseline and qualification are recorded in `NEES_BASELINE_0_3.md` and the implementation campaign ledger. Inherited methods remain qualified within their declared profiles; remaining suspected costs stay explicit debt. Optional consumers and future decentralized E2 scheduling are not covered by this ordinary-worker claim.

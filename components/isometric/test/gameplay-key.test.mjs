@@ -1,6 +1,51 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { IsometricState, ResidualPool, IsoMaxTransitionCache, IsoMaxSolver } from '../index.mjs';
+import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+
+test('q orbit order and literal action transporter agree independently of proof orientation', () => {
+  const pool = new ResidualPool();
+  const roots = [...makeCorpus({ seed: 911, ply: 20, count: 96 }).map(r => r.moves),
+    [], [0, 6], [0, 1, 1, 0, 2, 3, 3, 2, 4, 5, 5, 4, 6, 6]];
+  let orderDisagreements = 0, symmetricSupports = 0;
+  const oldToNew = new Map(), newToOld = new Map();
+  for (const moves of roots) for (const replay of [moves, moves.map(c => 6 - c)]) {
+    const state = new IsometricState({ pool, moves: replay });
+    const proof = Array.from(state.structuralSignature());
+    const oldSupport = proof[2] ? state.reflectedSupportCode() : proof[3]
+      ? Math.min(state.supportCode, state.reflectedSupportCode()) : state.supportCode;
+    const oldKey = [proof[0], proof[1], oldSupport].join(',');
+    const key = state.gameplayKey(), orientation = state.gameplayOrientation();
+    const newKey = Array.from(key).join(',');
+    if (oldToNew.has(oldKey)) assert.equal(oldToNew.get(oldKey), newKey);
+    if (newToOld.has(newKey)) assert.equal(newToOld.get(newKey), oldKey);
+    oldToNew.set(oldKey, newKey); newToOld.set(newKey, oldKey);
+    assert.deepEqual(Array.from(state.structuralSignature()), proof, 'q must not change proof retrieval');
+    if (proof[3] === 0 && proof[2] !== orientation) orderDisagreements++;
+    if (state.supportCode === state.reflectedSupportCode()) symmetricSupports++;
+    const canonical = new IsometricState({ pool, moves: replay.map(c => orientation ? 6 - c : c) });
+    assert.deepEqual(Array.from(key), [canonical.p0Class, canonical.p1Class, canonical.supportCode]);
+    for (let c = 0; c < 7; c++) {
+      const transported = orientation ? 6 - c : c;
+      assert.equal(state.canPlay(c), canonical.canPlay(transported));
+      if (!state.canPlay(c)) continue;
+      state.play(c); canonical.play(transported);
+      assert.equal(state.status, canonical.status);
+      assert.deepEqual(state.gameplayKey(), canonical.gameplayKey());
+      state.undo(); canonical.undo();
+    }
+  }
+  assert.ok(orderDisagreements > 0, 'old proof orientation would be an incorrect q transporter');
+  assert.ok(symmetricSupports > 0, 'exercise residual tie breaking');
+});
+
+test('original support minimum avoids all residual reflection and comparison', () => {
+  const pool = new ResidualPool(), state = new IsometricState({ pool, moves: [0] });
+  assert.ok(state.supportCode < state.reflectedSupportCode());
+  pool.reflectClass = pool.compareClasses = () => { throw new Error('unnecessary residual transform'); };
+  assert.deepEqual(Array.from(state.gameplayKey()), [state.p0Class, state.p1Class, state.supportCode]);
+  assert.equal(state.gameplayOrientation(), 0);
+});
 
 test('gameplay key is exactly a pool-local triple, with transport separate', () => {
   const pool = new ResidualPool();

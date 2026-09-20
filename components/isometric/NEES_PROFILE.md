@@ -1,6 +1,6 @@
 # IsoMax NEES conformance profile
 
-**Status:** governing implementation-performance contract for the IsoMax hot loop on `solver/isometric`; Draft 0.3 baseline maximal-effort audit required  
+**Status:** governing implementation-performance contract for the IsoMax hot loop on `solver/isometric`; Draft 0.3 baseline recorded with explicit optimization debt  
 **NEES authority:** `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c`  
 **NEES version:** Draft 0.3  
 **Runtime profile:** Node.js 26.x / V8 14.6 family; current qualification runtime Node v26.7.0  
@@ -15,7 +15,7 @@ The conformance record is:
 
 `components/isometric/NEES_CONFORMANCE.md`
 
-The previous Draft 0.2 audit is inherited evidence. Because Draft 0.3 adds a one-time complete E0-E2 maximal-effort baseline cost audit, the active 0.3 conformance claim is **pending that baseline audit**. The stronger pin is governing immediately; the older audit must not be misreported as proof of 0.3 completion.
+The previous Draft 0.2 audit is inherited evidence. The complete Draft 0.3 E0-E2 cost/debt baseline is now recorded in `NEES_BASELINE_0_3.md`. It covers the entire ordinary-worker call closure, not merely the latest diff, and retains explicit UNVERIFIED-DEBT. It is not a claim of globally optimal machine code or that all candidate issues are resolved.
 
 The promoted conformance claim covers the **active ordinary native worker profile**. Optional guarded-certificate and RBA synchronous consumers remain valid APIs, but they are not implicitly included in the ordinary-worker E0 claim because they currently use richer proof/boundary representations.
 

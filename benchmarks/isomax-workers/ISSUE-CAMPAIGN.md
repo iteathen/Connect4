@@ -348,3 +348,33 @@ fresh-process pairs. Retain per-root results, exact calls and memory; the three
 separate broader ordering corpus before claims beyond those controls. Run no
 competing timing/profile workload. Before each expensive run persist the exact
 candidate and falsifier here or in its result manifest; results flush per case.
+
+### #97 qualified support-first q orbit and matching action transporter
+
+Candidate diff and full per-root results: `issue-97-support-first.json`.
+Baseline 11f3ec61, three alternating fresh-process pairs, Node 26.7.0:
+
+| mode | baseline median ms | candidate median ms | calls |
+|---|---:|---:|---|
+| serial | 1715.5173 | 1560.4419 | 2,643,905 both |
+| one worker | 2079.2672 | 1916.4252 | 2,644,187 both |
+| four workers | 1761.1629 | 1683.4616 | 6.94-7.18M baseline; 7.20-7.23M candidate |
+
+All nine paired totals favor the candidate. Four-worker work is schedule-sensitive
+and slightly greater here; do not call that node reduction. Exact values/actions
+match. 118 relevant tests pass, no skips/failures, 25.27 s. New regression covers
+old/new orbit partition correspondence, canonical-state reconstruction by the
+returned action orientation, legal child transport, support-symmetric ties,
+proof-orientation disagreement and a trap proving the original-support minimum
+performs no residual reflection/comparison. Existing collision/resize, full
+physical differential, proof guard and sealed worker controls pass.
+
+Critical correction to the issue: `gameplayOrientation()` MUST change with the
+q representative order. `structuralSignature()` remains unchanged. Support order
+then residual-content order is a total order over the same two-element orbit;
+mirror swapping preserves its minimum. No legal-time or proof information is
+discarded. Fresh IDs may differ; portable identity still uses content.
+
+The complete Draft 0.3 E0-E2 baseline is in
+`components/isometric/NEES_BASELINE_0_3.md`. It records suspected costs and
+rejected alternatives instead of claiming all remaining work is required.
