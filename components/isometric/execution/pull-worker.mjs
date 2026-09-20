@@ -34,7 +34,6 @@ import {
   WORK_RUNNING,
   allocateWorkSlot,
   claimHighestReady,
-  markReady,
   openSharedWorkPool,
   publishRecord,
 } from './shared-work-pool.mjs';
@@ -249,19 +248,10 @@ class PullEvaluator {
       if (!this.publishBlocking(shared, PUB_FRONTIER_END,
         slot, generation, attempt, childCount, firstDeterministic, this.state.ply, workerIndex)) return false;
 
-      // FRONTIER_END is now visible. Reconciliation may enqueue at a stronger
-      // canonical priority or retire a duplicate before this worker reaches a
-      // child. Generation/state checks make either race benign.
-      for (let index = 0; index < childCount; index++) {
-        const childSlot = this.frontierSlots[index];
-        const childGeneration = this.frontierGenerations[index];
-        if (Atomics.load(shared.workGeneration, childSlot) !== childGeneration) continue;
-        const childState = Atomics.load(shared.workState, childSlot);
-        if (childState !== WORK_READY) continue;
-        if (!markReady(shared, childSlot, childGeneration, 0, workerIndex)) {
-          throw new Error('ISOMAX_PULL_READY_QUEUE_CAPACITY');
-        }
-      }
+      // FRONTIER_END is now visible. The worker relinquishes every child.
+      // Canonical reconciliation alone assigns q identity and publishes the
+      // resulting READY ticket at global priority. No discovery-lineage task
+      // receives a provisional scheduling privilege.
       return true;
     }
   }
