@@ -53,11 +53,18 @@ function waitReady(worker,type,id=null){
 export class IsoMaxSurplusBranchManager {
   constructor({
     workers=defaultIsoMaxSurplusWorkers(),
-    maxQ=262144,
-    workCapacity=maxQ,
-    occurrenceCapacity=Math.min(1<<20,maxQ*2),
-    queueCapacity=Math.min(1<<20,maxQ*2),
-    publicationCapacity=Math.min(1<<20,maxQ*2),
+    // q entries are recyclable and inactive exact q can be evicted. Keep a
+    // conservative semantic cache without sizing execution storage to it.
+    maxQ=65536,
+    // Only workerCount canonical subtrees may be READY/RUNNING at once.
+    // Extra slots cover terminal publication/recycle races and stale tickets.
+    workCapacity=Math.max(64,workers*8),
+    // A worker can expose at most seven occurrences per physical recursion
+    // frame and Connect4 has at most 42 plies: 294 live occurrences/worker.
+    // 1024/worker leaves >3x headroom for publication/reconciliation lag.
+    occurrenceCapacity=Math.max(4096,workers*1024),
+    queueCapacity=Math.max(4096,workers*1024),
+    publicationCapacity=Math.max(4096,workers*2048),
     workerClassReserve=Math.max(131072,Math.floor(1048576/workers)),
     workerEntryReserve=Math.max(262144,Math.floor(4194304/workers)),
   }={}) {
