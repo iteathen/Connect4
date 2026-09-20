@@ -28,5 +28,9 @@ jobs:
         run: |
           echo "PULL_SOURCE=$(git rev-parse HEAD)"
           node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
-      - name: Compare serial, central and decentralized pull solves
-        run: node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison.json
+      - name: Compare serial, central and decentralized pull solves (late roots)
+        run: node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-late.json
+      - name: Compare serial, central and decentralized pull solves (historical hard roots)
+        env:
+          ISOMAX_PULL_CORPUS: hard
+        run: node benchmarks/isomax-workers/pull-comparison.mjs | tee isomax-pull-comparison-hard.json
