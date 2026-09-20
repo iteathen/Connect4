@@ -339,6 +339,7 @@ class PullReconciler {
     if (slot < 0 || slot >= this.shared.workCapacity) return;
     if (Atomics.load(this.shared.workGeneration, slot) !== generation) return;
     if (orderHint > this.qOrderHint[q]) this.qOrderHint[q] = orderHint;
+    Atomics.store(this.shared.workPublisher, slot, -1);
     Atomics.store(this.shared.workAffinity, slot, affinity);
 
     if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
@@ -689,7 +690,24 @@ class PullReconciler {
       this.seenAlive[worker] = 0;
       const allocated = Math.min(this.shared.workCapacity, Atomics.load(this.shared.control, CTRL_WORK_NEXT));
       for (let slot = 0; slot < allocated; slot++) {
-        if (Atomics.load(this.shared.workState, slot) !== WORK_RUNNING ||
+        const state = Atomics.load(this.shared.workState, slot);
+
+        // Child slots reserved by a dead publisher but not committed by a
+        // reconciled FRONTIER_END have no semantic occurrence authority.
+        if ((state === WORK_WRITING || state === WORK_READY) &&
+            Atomics.load(this.shared.workPublisher, slot) === worker) {
+          const generation = Atomics.load(this.shared.workGeneration, slot);
+          Atomics.store(this.shared.workPublisher, slot, -1);
+          Atomics.store(this.shared.workNeeded, slot, 0);
+          Atomics.store(this.shared.workState, slot, WORK_DONE);
+          this.releaseIfPossible(slot, generation);
+          continue;
+        }
+
+        // RUNNING and pre-publication DONE both belong to the dead attempt.
+        // Incrementing the attempt makes every late record stale; replay from
+        // the same portable slot is then safe if the canonical q is still live.
+        if ((state !== WORK_RUNNING && state !== WORK_DONE) ||
             Atomics.load(this.shared.workWorker, slot) !== worker) continue;
         const generation = Atomics.load(this.shared.workGeneration, slot);
         const attempt = Atomics.load(this.shared.workAttempt, slot);
