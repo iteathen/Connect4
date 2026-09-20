@@ -664,10 +664,7 @@ class PullReconciler {
   }
 
   processWorkerDeaths() {
-    const alive = this.shared.descriptor.workerAlive
-      ? new Int32Array(this.shared.descriptor.workerAlive)
-      : null;
-    if (!alive) return;
+    const alive = this.shared.workerAlive;
     let liveCount = 0;
     for (let worker = 0; worker < alive.length; worker++) {
       const now = Atomics.load(alive, worker);
@@ -838,3 +835,6 @@ parentPort.on('message', (message) => {
     parentPort.postMessage({ type:'pull-reconciler-error', message:error?.message ?? String(error) });
   }
 });
+
+
+parentPort.postMessage({ type:'pull-reconciler-idle' });
