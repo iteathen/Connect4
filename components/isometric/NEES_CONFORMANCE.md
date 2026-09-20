@@ -19,6 +19,15 @@ Qualification: 118 relevant tests pass; nine alternating paired totals favor
 the support-first candidate with unchanged exact decisions. Full evidence is
 in `benchmarks/isomax-workers/ISSUE-CAMPAIGN.md` and `issue-97-support-first.json`.
 
+Subsequent coherent campaign qualification covers the retained signed hash,
+ordering-word reuse, ordinary WDL storage and E3 rank-cut admission changes:
+125 relevant tests pass at runtime c1c06791. E791f080 restores that same runtime
+after rejecting a cold-preparation candidate. All nine final three-root paired
+times improve against 11f3ec61; the separate 96-root rank-cut comparison reduces
+expanded entries. Mixed-timing hash carriage is retained for demonstrated boxing
+and allocation reduction, not a claimed clock win. The full baseline's debt
+dispositions and issue boundaries remain explicit.
+
 Active governing requirement:
 
 ```text

@@ -692,3 +692,23 @@ their scoped falsifiers; #96/#97/#99/#101 qualified; #98/#100 costed out.
 The work/resource criterion is explicit: #96 survives mixed timing because its
 boxing/allocation-site reduction is demonstrated; #100/#95 do not get a free
 pass merely from fewer source operations or requested slots.
+
+Final bounded empty root, e791f080, run `20260920T055749673Z-isomax`: only
+`ISOMAX_TIMEOUT: 29000 ms; no exact root result`, solve 29003.4466 ms, outer
+29134.1856 ms, 107,980,863 settled calls, 48,082,766 expansion entries,
+107,973,482 attempted transitions. Four workers; 48 retention resets; peak RSS
+1,074,970,624 bytes; user/system CPU 107.046/1.625 s. WDL/oracle match unknown.
+Active/pending/queued all zero at cleanup, owned workers terminated, reporter
+and child exited. Existing timeout poisoning records failed=1, aborted=3,
+workerFaults=1; do not erase these as if an exact solve succeeded. The 30s outer
+/29s internal limit is unchanged. Peak RSS exceeds the earlier run's 976,625,664;
+neither this nor a larger timed-out call count proves whole-solve economics.
+
+All current IsoMax issue bodies were reviewed. This pass closes #87 and #89-101
+with explicit completed/no-promotion dispositions; keeps #67, #78, #83, #102 and
+umbrella #72 open. Their remaining work is not claimed complete. #83's producer
+was rechecked at live CUDA-BSFP abdf7b0993f07bd6087669848c2dda91dff65608: consumed
+solveRbaWdl still has no completed-artifact import contract. Logic authority 1.2
+keeps C4-R0076 open. #78/#102 require independently qualified sharing/ownership
+and E2 realization, not a copy of E3 orchestration into recursion. No BSFP/GPU
+optimization, main-branch merge or unrelated governance cleanup was performed.

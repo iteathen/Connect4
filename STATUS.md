@@ -95,6 +95,29 @@ The guarded-obligation/proof-value bridge remains a separate stronger proof/cert
 
 ## Current implementation
 
+The latest alignment campaign retains support-first q canonicalization with its
+matching action transporter, ordering-word reuse, signed hash carriage with an
+explicit unsigned class-equality boundary, compact ordinary WDL cache storage,
+and bounded rank3 admission at four workers. Manager telemetry now distinguishes
+entered calls, expansion entries and transition attempts without new hot work.
+125 relevant tests pass. Against 11f3ec61, median completed three-root times are
+1717.79 -> 1406.73 ms serial, 2077.26 -> 1751.80 ms one worker, and
+1798.25 -> 1497.66 ms four workers. The independent 96-root rank-cut comparison
+reduces expansion entries 3.65% and time 3.12%. These are synthetic corpora,
+not Begin-Hard or an empty-board solve.
+
+Final 30-second empty-root qualification `20260920T055749673Z-isomax` reaches
+the existing 29-second internal deadline: 107,980,863 settled calls, 48,082,766
+expansion entries, root WDL unknown, peak RSS 1,074,970,624 bytes, owned workers
+terminated. The earlier peak was lower; more calls before timeout do not prove
+less remaining work or a faster eventual solve. No limit was increased.
+
+Issues #89/#96/#97/#99/#101 have qualified implementations; #87/#90-95/#98/#100
+have explicit scoped no-promotion dispositions. #78/#102 remain unimplemented
+sharing/scheduler work, #83 lacks its shared completed-artifact producer contract,
+and #67 retains its open canonical proof law. No claim that every issue is solved.
+Detailed evidence and rejected variants: `benchmarks/isomax-workers/ISSUE-CAMPAIGN.md`.
+
 Native Branch Manager/worker execution is reintegrated. The standard
 `bench:isomax:performance` command now starts a bounded native worker pool
 and reports queue, active-worker, split/exact-task and cleanup telemetry.

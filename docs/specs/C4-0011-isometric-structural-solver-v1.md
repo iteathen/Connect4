@@ -114,7 +114,11 @@ An operation's class follows its execution frequency, not the file/process that 
 
 Current conformance evidence is recorded in `components/isometric/NEES_CONFORMANCE.md`.
 
-Draft 0.3 is the governing realization standard. The earlier Draft 0.2 conformance audit remains inherited evidence but does not complete the new one-time Draft 0.3 full E0-E2 maximal-effort baseline audit. Until that baseline is qualified, implementation changes must obey 0.3 but the branch must not claim completed 0.3 NEES-EXTREME conformance.
+Draft 0.3 is the governing realization standard. The earlier Draft 0.2 audit
+remains inherited evidence. The required complete E0-E2 baseline is now recorded
+in `components/isometric/NEES_BASELINE_0_3.md`, with qualification and explicit
+unverified optimization debt. This is a scoped conformance claim, not proof
+that every candidate is implemented or that machine realization is optimal.
 
 The promoted E0/E1 conformance claim is the active ordinary native worker profile. Optional guarded-certificate and RBA synchronous consumers may remain richer auxiliary APIs, but if they are promoted into repeated E0 worker execution they inherit NEES-EXTREME immediately and must receive a separate conformance/lowering decision before promotion.
 
@@ -490,6 +494,10 @@ These controls qualify the implemented standard-board semantics they exercise. T
 
 The branch `solver/isometric` is the active branch for this solver family.
 
-`research/terminal-frontier-horizon-exact` and draft PR #45 are retained only as historical provenance for the pre-split experiment. New Isometric/IsoMax semantics, implementation, experiments, qualification evidence, and current-state routing belong on `solver/isometric` unless a later explicit ownership decision says otherwise.
+`research/terminal-frontier-horizon-exact` and draft PR #45 remain historical
+provenance. Implementation, solver contracts, implementation qualification and
+current-state routing belong on `solver/isometric`. Durable theorem development,
+research experiments and canonical semantic authority belong solely on
+`research/semantic-quotient`, per the current research-ownership decision.
 
 This repository is pre-alpha. No compatibility adapter, parallel legacy Isometric state, migration wrapper, or evaluator fallback is required merely to preserve the superseded inherited implementation path.

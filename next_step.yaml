@@ -98,9 +98,9 @@ open_issues:
   - number: 83
     target: completed_rba_artifact_reuse
     status: shared_producer_contract_missing
-  - number: 87
-    target: optional_proof_value_consumer_economics
-    status: deferred_until_qualified_worker_consumer_exists
+  - number: 102
+    target: decentralized_worker_pull_with_canonical_q_reconciliation
+    status: planned_candidate_model_and_E2_realization_unimplemented
   - number: 67
     target: optional_temporal_resource_realizability_proof_guards_and_guarded_obligation_birth
     status: deferred_pending_canonical_proof_guard_qualification
@@ -108,11 +108,12 @@ open_issues:
 qualification:
   report: benchmarks/isomax-workers/ISSUE-CAMPAIGN.md
   earlier_alignment_report: docs/decisions/2026-09-19-isomax-issue-qualification.md
-  tested_revision: a34743cd7ccd91185afd84c518e9eb610d03ab01
+  tested_revision: e791f080b79d36c9d7bd2e84dccebe7aadc7405b
+  runtime_equivalent_to: c1c0679136bfcf3601a827c4a50d89a3ae33c514
   local_node: 26.7.0
-  tests: 112
+  tests: 125
   worker_execution_report: benchmarks/isomax-workers/README.md
-  worker_empty_root_run: 20260919T204424414Z-isomax
+  worker_empty_root_run: 20260920T055749673Z-isomax
   worker_empty_root_result: bounded_timeout_all_four_workers_active_cleanup_complete
   ordering_report: benchmarks/isomax-ordering/README.md
   ordering_default: native_playable_singleton_effect
@@ -132,6 +133,13 @@ issue_execution_order:
 
 rejected_implementation:
   - opponent_residual_suppression_first_child_tier_at_tested_placement
+  - dense_chunk_fusion_and_affected_slot_bitset_at_tested_placement
+  - terminal_before_q_check_on_every_entry
+  - simple_fan_in_and_soft_affinity_on_current_admission
+  - support_fiber_priority_or_supply_without_observed_dense_fiber
+  - halved_rank_based_quantum_on_current_corpus
+  - native_forced_preflight_reservation_after_broad_regression
+  - optional_worker_ABI_without_a_qualified_consumer
 
 next_assessment:
   - qualify_remaining_issue_candidates_against_NEES_0_3_baseline_debt
