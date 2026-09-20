@@ -52,30 +52,38 @@ For each player:
 
 CPC/control-potential, blocker clauses, NDC obligations and proof resources are structural/proof facts, not automatically coordinates of ordinary future behavior.
 
-### L2 — ordinary behavioral state q
+### L2 — ordinary behavioral state q_o and reflection orbit q_r
 
-For legal nonterminal standard-7x6 states:
+For legal nonterminal standard-7x6 states, define the **orientation-sensitive** ordinary behavioral carrier:
 
 ```text
-q(s) =
-    support(s)
-    + normalized P0 residual antichain(s)
-    + normalized P1 residual antichain(s)
+q_o(s) =
+    support_o(s)
+    + normalized P0 residual antichain_o(s)
+    + normalized P1 residual antichain_o(s)
 ```
 
-Side to move follows support-rank parity.
+Columns retain physical orientation `0..6`. Side to move follows support-rank parity.
 
 The current q-congruence derivation establishes as a **deductive successor candidate**:
 
 ```text
-q(s) = q(t)
+q_o(s) = q_o(t)
     ->
-same legal actions
-same terminal token for each action
-same successor q for every nonterminal action
+same literal legal columns
+same terminal token for each literal action
+same successor q_o for every nonterminal literal action
     ->
-same complete action-labelled ordinary future game
+same complete orientation-sensitive action-labelled ordinary future game
 ```
+
+Horizontal reflection is a second exact transformation. With `r_action(c)=6-c`, define:
+
+```text
+q_r(s) = canonical orbit representative of { q_o(s), r(q_o(s)) }
+```
+
+`q_r` is the reflection-canonical cache/value quotient used by the current Isometric implementation. Equal `q_r` implies exact future-game correspondence **under the identity-or-reflection action transporter**, not necessarily identical literal column labels.
 
 The proof uses:
 1. support-determined legal frontier;
@@ -166,32 +174,39 @@ History identity is not ordinary future-behavior identity.
 
 ### 3.4 Ordinary future-behavior identity
 
-This is the identity question for which q-congruence is relevant.
+Two related identity/equivalence questions must stay separate.
+
+#### Orientation-sensitive labeled future behavior
 
 Current successor evidence:
 
 ```text
 legal nonterminal standard-7x6
-+ equal support
-+ equal normalized P0 residual antichain
-+ equal normalized P1 residual antichain
++ q_o(s)=q_o(t)
 + first-win semantics
 + exact residual cofactor/normalization laws
     ->
-candidate exact future-behavior coidentity
+candidate exact literal action-labelled future-behavior coidentity
 ```
 
-Under NEI 0.4 successor semantics, the query context does not declare q equality “identity-preserving.”
-
-Instead the q-congruence theorem constrains the admissible identity-model family.
-
-If independently qualified, every admissible future-behavior model merges equal-q states and the derived result is:
+Under NEI 0.4 successor semantics, the query context does not declare `q_o` equality “identity-preserving.” The q-congruence theorem constrains the admissible identity-model family. If independently qualified, every admissible orientation-sensitive future-behavior model merges equal-`q_o` states and the derived result is:
 
 ```text
-NEI_future_behavior(s,t) = SAME
+NEI_future_behavior_oriented(s,t) = SAME
 ```
 
-This candidate result is scoped to ordinary legal future behavior.
+#### Future behavior up to horizontal reflection
+
+For equal `q_r`, the exact relation is transporter-aware:
+
+```text
+orientation agrees: action c <-> c
+orientation differs: action c <-> 6-c
+```
+
+This is an exact automorphism-orbit equivalence. It preserves scalar ordinary value and the entire future game after coordinate transport, but it is not literal action-label identity.
+
+The independent review is recorded in `research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md`.
 
 ### 3.5 Proof/certificate identity
 
@@ -201,13 +216,11 @@ Proof identity must preserve all validity premises not derivable from q.
 
 ### 3.6 Reflection/orbit equivalence
 
-Horizontal reflection is an exact board automorphism.
+Horizontal reflection is an exact board automorphism with explicit action transporter `c -> 6-c`.
 
-It establishes an exact transformed correspondence/orbit equivalence.
+It establishes the orbit quotient `q_r` over orientation-sensitive `q_o`.
 
-It does not mean the two physical occurrences are one physical occurrence.
-
-For future-behavior queries, reflection can support exact equivalence after the action labels/coordinates are transported.
+It does not mean the two physical occurrences are one physical occurrence, and `q_r` equality does not mean literal column labels coincide. Future-behavior equivalence across the orbit is transporter-aware.
 
 ### 3.7 Value equality
 
@@ -386,17 +399,19 @@ This is execution state, not semantic identity.
 
 ## 9. Solver-method consequence
 
-The game-theory graph supports one ordinary relation:
+The game-theory graph supports the orientation-sensitive ordinary relation:
 
 ```text
-q --action--> terminal token | q'
+q_o --literal action--> terminal token | q_o'
 ```
 
 and its reverse value dependency:
 
 ```text
-V(q) <- V(q')
+V(q_o) <- V(q_o')
 ```
+
+Implementations may additionally cache scalar value under `q_r`, because horizontal reflection is an exact automorphism. Any exposed action/move label must retain or reconstruct the transporter orientation.
 
 IsoMax, BSFP and possible SUT differ in materialization/evaluation schedule.
 
@@ -427,8 +442,8 @@ Future game-theory reasoning should start from this candidate and follow direct 
 
 Before promotion as successor game-theory authority:
 
-1. independently review the q-congruence proof;
-2. re-run bounded q controls and explicit negative-scope controls;
+1. retain the completed independent q-congruence review separating `q_o` from `q_r` and obtain any additional independent/cold review required for promotion;
+2. re-run bounded `q_o` controls plus explicit negative-scope and reflected-action-label controls;
 3. verify physical/history/proof identities remain distinct where required;
 4. verify NEI results are derived from model constraints, not profile answer tags;
 5. verify no Bayes factor is asserted without a qualified likelihood model;
