@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "authority_id": "connect4-isograph-logic-1.2",
+  "status": "qualified_authority",
+  "effective_date": "2026-09-19",
+  "semantic_source_revision": "4f4e25b2b6fe10a11ee3145df2422b5df5fbc67f",
+  "predecessor": {
+    "authority_id": "connect4-isograph-logic-1.1",
+    "manifest_path": "research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json",
+    "manifest_blob": "986f10a0011059e4d19598de6c836272c102415d",
+    "disposition": "historical_qualified_authority"
+  },
+  "semantic_package": [
+    {
+      "path": "research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md",
+      "git_blob": "0359e8e7a3d7e5402d562c4ae5be04d2617f46fb",
+      "sha256": "77e13092287ef76533bec93b43bb523a487fb56f761f4d9108b57f4a69858030",
+      "role": "semantic_root"
+    },
+    {
+      "path": "research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json",
+      "git_blob": "761bb2ad4ec3c45eff4707bbeb216b467bc7c300",
+      "sha256": "48c049ee3599283e859e0a7c69494bd2724e3cb0f462c1984a76e36dabd73b8c",
+      "role": "machine_graph"
+    },
+    {
+      "path": "research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg",
+      "git_blob": "dba9fccee417dc6c593011d85330d42f5b71b079",
+      "sha256": "4ac707151235d594ccb6bc43ecc3a54ec6a1afd62562a1a3d3e77d6906a23007",
+      "role": "native_topology"
+    },
+    {
+      "path": "research/isograph/successor/CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json",
+      "git_blob": "b0e2d21935b3035997c19c42941b225e77cf5ff9",
+      "sha256": "969aace9ecb6b080e83838fd46ad87007d0d93a8663e37b72c56fdafc6220f84",
+      "role": "claim_coverage"
+    }
+  ],
+  "qualified_semantic_dependencies": {
+    "isograph_core": {
+      "version": "0.17",
+      "status": "qualified"
+    },
+    "qu": {
+      "version": "0.1",
+      "status": "qualified"
+    },
+    "nei": {
+      "version": "0.4",
+      "repository": "iteathen/isograph",
+      "revision": "55c98d31dd2715cdb48abe4f8e313fd72d0dabba",
+      "path": "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+      "semantic_sha256": "6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee",
+      "status": "qualified_authority"
+    }
+  },
+  "qualified_relations": [
+    {
+      "path": "research/isograph/qualification/Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md",
+      "git_blob": "f96ce5a28fb41cee8fde82eb8b7b58393acb16ba",
+      "sha256": "f5b71cfb3b84bf8baaada00ae1ae096104f9178cdff867813a6b07d3451f96e0",
+      "result": "STANDARD_7X6_q_o_FUTURE_BEHAVIOR_CONGRUENCE_QUALIFIES"
+    },
+    {
+      "path": "research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_2.md",
+      "git_blob": "e9e0b09488b1d0dcd96b6a37364815813bf83da5",
+      "sha256": "7608c6e8b77352fc02013a07599670d35d920b31645529373823136742e634df",
+      "role": "corrected_full_dp_rerun"
+    },
+    {
+      "path": "research/isograph/discovery/CLEAN_SUCCESSOR_DISCOVERY_0_2.json",
+      "git_blob": "8c3af035fcd9b995423b05e45f144b9d88338e50",
+      "sha256": "84843e875cd6197d5d51546ae920a4d108945e1f89f4d2607f55c9e388a57cea",
+      "role": "machine_discovery_ledger"
+    }
+  ],
+  "final_qualification": {
+    "path": "research/isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_2.md",
+    "git_blob": "77e96651571c0d2bc54cbafaaf93ae917383ec69",
+    "disposition": "QUALIFIES_FOR_AUTHORITY_PROMOTION"
+  },
+  "cold_package_qualification": {
+    "host_repository": "iteathen/isograph",
+    "experiment": "018",
+    "trigger_sha": "639c914de627311635f245a7ff165cb527eb5e67",
+    "workflow_run": 35479497878,
+    "workflow_attempt": 1,
+    "model": "gemini-3.5-flash",
+    "external_semantic_calls": 1,
+    "api_attempts": 1,
+    "packet_sha256": "250dfde01e21f89d39d2d0ab27e4546c585aa41ef44dc1c2ce9f83ab4be7d6b9",
+    "report_sha256": "7e6194f9e709189cb26eb5f50c2e5c0cdac7e95b8e0d940e07f74edde2d4dcab",
+    "disposition": "QUALIFIES",
+    "cases": "16/16",
+    "mismatches": 0,
+    "local_evidence_root": "research/isograph/qualification/evidence/experiment-018/"
+  },
+  "q_qualification": {
+    "cold_workflow_run": 35479007618,
+    "cases": "18/18",
+    "mismatches": 0,
+    "qr_solver_commit": "eb8928fe6f4c4b3dba6ad3e2d42f186947a6ebf2",
+    "qr_workflow_run": 35478469795
+  },
+  "claim_coverage": {
+    "authority_1_1_claims": 74,
+    "post_1_1_claims": 19,
+    "total": 93,
+    "uncovered": 0,
+    "dispositions": {
+      "retained": 65,
+      "strengthened": 4,
+      "historical_only": 17,
+      "open": 7
+    }
+  },
+  "identity_model": {
+    "q_o": "orientation_sensitive_ordinary_future_behavior_carrier",
+    "q_r": "horizontal_reflection_orbit_quotient",
+    "reflection_transporter": "c -> 6-c",
+    "oriented_future_identity_result": "SAME",
+    "proof_identity_from_q": false,
+    "physical_identity_from_q": false,
+    "history_identity_from_q": false
+  },
+  "open_structure": {
+    "qu_game_01": "evidence_independence_property_uncertainty",
+    "qu_game_02": "C4-R0076_missing_clause_proof_to_q_value_controllable_predecessor",
+    "qu_game_03": "RBA_research_evaluation_region"
+  },
+  "separate_non_gameplay_authority": {
+    "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md",
+    "git_blob": "0fbd2f8bfc5e21c12e2b8b87877d09fbf32ba1e1",
+    "gameplay_authority_effect": "none"
+  },
+  "routing_rule": "Authority 1.2 is the sole current Connect4 game-theory/logic authority. Authority 1.1 and historical NEI/RBA overlays remain immutable provenance/evidence, not co-equal active semantics."
+}
