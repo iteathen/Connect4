@@ -25,7 +25,7 @@ Qualification and promotion are recorded in `research/isograph/qualification/FIN
 
 The prior Markdown/JSON/spec/claim corpus is retained as a provenance/readability bridge. The exact qualified frozen source is embedded in the native IsoGraph source-image layer. Unknown and unresolved material remains explicitly represented; it is not treated as absent or false.
 
-## Active clean successor interpretations
+## Clean current/successor interpretations
 
 Pre-alpha research no longer composes the old NEI/RBA/hot-loop overlay stacks as active semantics.
 
@@ -35,13 +35,15 @@ For current game-theory research, use only:
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`.
 
-For current IsoMax hot-loop semantic/performance research, use only:
+For current **qualified** IsoMax hot-loop semantic/performance research, use:
 
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.md`;
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json`;
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg`.
 
-These are successor **candidates**, not promoted authority. Authority 1.1 remains the qualified historical/current authority until replacement qualification. The old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain provenance/evidence only for active interpretation.
+The game-theory 1.2 package remains a successor candidate pending final replacement qualification. The hot-loop 0.3 package is promoted for current performance-research use by `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md` and `ISOMAX_HOT_LOOP_GRAPH_0_3_QUALIFICATION.md`; it has no gameplay-authority effect.
+
+Authority 1.1 remains the qualified Connect4 gameplay/logic authority until game-theory replacement qualification. The old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain provenance/evidence only.
 
 Full DP-01..DP-45 re-discovery on the cleaned successors is complete:
 
