@@ -66,8 +66,8 @@ The old applied-NEI overlay is superseded for active interpretation.
 
 Use:
 
-- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md`;
-- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`;
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`;
+- `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`;
