@@ -884,6 +884,12 @@ class PullReconciler {
       const state = Atomics.load(this.shared.workState, slot);
       if ((state === WORK_READY || state === WORK_RUNNING || state === WORK_WRITING) &&
           Atomics.load(this.shared.workNeeded, slot)) return true;
+      // Worker terminal publication is ordered after its DONE state store.
+      // While the owning evaluator is still live, this slot represents an
+      // in-flight EXACT/FRONTIER_END/RETIRED record rather than deadlock.
+      if (state === WORK_DONE &&
+          Atomics.load(this.shared.workNeeded, slot) &&
+          Atomics.load(this.shared.workWorker, slot) >= 0) return true;
     }
     return false;
   }
