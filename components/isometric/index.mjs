@@ -38,3 +38,4 @@ export { deriveNativeFrontierConsequence } from './frontier.mjs';
 export { IsoMaxSolver } from './solver.mjs';
 export { IsoMaxRbaValueResolver } from './rba-value-resolver.mjs';
 export { IsoMaxBranchManager, solveIsoMax, defaultIsoMaxWorkers } from './execution/branch-manager.mjs';
+export { IsoMaxSurplusBranchManager, solveIsoMaxSurplus, defaultIsoMaxSurplusWorkers } from './execution/surplus-manager.mjs';
