@@ -92,7 +92,7 @@ q_o(s) =
 
 Columns retain physical orientation `0..6`. Side to move follows support-rank parity.
 
-The current q-congruence derivation establishes as a **deductive successor candidate**:
+The standard-7x6 q-congruence is now a **qualified exact relation**, reviewed in `research/isograph/qualification/Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md`:
 
 ```text
 q_o(s) = q_o(t)
@@ -205,7 +205,7 @@ Two related identity/equivalence questions must stay separate.
 
 #### Orientation-sensitive labeled future behavior
 
-Current successor evidence:
+Qualified exact evidence:
 
 ```text
 legal nonterminal standard-7x6
@@ -373,11 +373,15 @@ They become NEI-relevant only if they can change an identity/evidence conclusion
 
 Authority 1.1 remains current qualified history until this successor is promoted.
 
+### Qualified exact successor relations
+
+- standard-7x6 q_o future-behavior congruence;
+- q_r horizontal-reflection orbit equivalence with explicit action transporter and exact scalar value reuse.
+
 ### Deductive successor candidates
 
-- standard-7x6 q future-behavior congruence;
 - support-local favorable residual order -> isotone state/fixed-action strong value;
-- exact action-value threshold antichain frontiers, contingent on q-congruence qualification.
+- exact action-value threshold antichain frontiers; the prior q-congruence dependency is now closed, but the isotony/frontier theorem retains its own qualification burden.
 
 ### Confirmed scoped findings
 
@@ -469,14 +473,12 @@ Future game-theory reasoning should start from this candidate and follow direct 
 
 Before promotion as successor game-theory authority:
 
-1. retain the completed independent q-congruence review separating `q_o` from `q_r` and obtain any additional independent/cold review required for promotion;
-2. re-run bounded `q_o` controls plus explicit negative-scope and reflected-action-label controls;
-3. verify physical/history/proof identities remain distinct where required;
-4. verify NEI results are derived from model constraints, not profile answer tags;
-5. verify no Bayes factor is asserted without a qualified likelihood model;
-6. verify QU captures every identity-relevant unresolved region without converting process incompleteness into semantic UNKNOWN;
-7. integrate current RBA exact relations and open QU without relying on overlay precedence;
-8. run a complete Discovery Protocol pass over the clean graph;
-9. verify coverage against every game-theory claim in authority 1.1 and the post-1.1 successor corpus;
-10. after qualification, route current game-theory authority to the promoted successor and leave 1.1 historical.
+1. preserve the qualified q_o/q_r distinction and transporter evidence from `Q_CONGRUENCE_FINAL_QUALIFICATION_0_2.md`;
+2. preserve physical/history/proof identity distinctions;
+3. preserve qualified NEI 0.4 derived-identity semantics and avoid invented Bayesian weights;
+4. preserve QU regions without converting process incompleteness into semantic UNKNOWN;
+5. preserve current RBA exact relations and open QU without overlay precedence;
+6. preserve the corrected DP-01..DP-45 rerun;
+7. preserve complete 93-claim coverage against authority 1.1 and post-1.1 successor research;
+8. complete final package review and promote atomically, leaving 1.1 historical.
 
