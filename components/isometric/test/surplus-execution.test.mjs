@@ -5,7 +5,9 @@ import { IsoMaxSurplusBranchManager } from '../execution/surplus-manager.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
 import { CENTER_ORDER } from '../move-order.mjs';
 import {
+  CTRL_WORK_NEXT,
   OCC_RETIRED,
+  WORK_RUNNING,
   allocateOccurrence,
   createSurplusPool,
   openSurplusPool,
@@ -130,10 +132,89 @@ test('surplus helpers steal alternatives while the current worker keeps local re
         JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
+      assert.ok((actual.metrics.qReuses??0)>0,
+        'hard helper fixture must exercise canonical q convergence');
+      assert.ok((actual.metrics.qReclaims??0)>0,
+        'bounded q arena must reclaim dead speculative visibility');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
         'helper stealing must not imply full-root replay at every branch');
+      assert.ok(Number.isFinite(actual.resultReadyMs)&&Number.isFinite(actual.cleanupMs));
+      assert.ok(actual.elapsedMs>=actual.resultReadyMs);
     }finally{await manager.close();}
   });
+
+test('surplus worker death requeues live canonical work without changing exact root',
+  {timeout:45000}, async () => {
+    const moves=Array.from('717657616532237625',character=>Number(character)-1);
+    const expected=new IsoMaxSolver().solveMoves(moves);
+    const manager=new IsoMaxSurplusBranchManager({
+      workers:2,maxQ:131072,workCapacity:131072,occurrenceCapacity:262144,
+      queueCapacity:262144,publicationCapacity:262144,
+      workerClassReserve:262144,workerEntryReserve:524288,
+    });
+    let killed=false;
+    try{
+      const actual=await manager.solveMoves(moves,{
+        timeoutMs:30000,
+        progressIntervalMs:100,
+        onProgress:()=>{
+          if(killed||!manager.session)return;
+          const shared=manager.session.shared;
+          const allocated=Math.min(shared.workCapacity,Atomics.load(shared.control,CTRL_WORK_NEXT));
+          for(let slot=0;slot<allocated;slot++){
+            if(Atomics.load(shared.workState,slot)!==WORK_RUNNING)continue;
+            const workerId=Atomics.load(shared.workWorker,slot);
+            if(workerId<0||!manager.workers[workerId])continue;
+            killed=true;
+            void manager.workers[workerId].terminate();
+            break;
+          }
+        },
+      });
+      assert.equal(killed,true,'test must terminate an active surplus evaluator');
+      assert.equal(actual.value,expected.value);
+      assert.equal(actual.move,expected.move);
+      assert.ok((actual.metrics.workerDeathRequeues??0)>0,
+        'dead active work must be requeued from portable replay');
+    }finally{await manager.close();}
+  });
+
+test('surplus timeout, pre-abort and bounded capacity fail closed', {timeout:30000}, async () => {
+  const hard=Array.from('717657616532237625',character=>Number(character)-1);
+
+  const timeoutManager=new IsoMaxSurplusBranchManager({
+    workers:1,maxQ:4096,workCapacity:4096,occurrenceCapacity:8192,
+    queueCapacity:8192,publicationCapacity:8192,
+  });
+  try{
+    await assert.rejects(timeoutManager.solveMoves(hard,{timeoutMs:1}),/ISOMAX_TIMEOUT/);
+  }finally{await timeoutManager.close();}
+
+  const abortManager=new IsoMaxSurplusBranchManager({
+    workers:1,maxQ:4096,workCapacity:4096,occurrenceCapacity:8192,
+    queueCapacity:8192,publicationCapacity:8192,
+  });
+  const controller=new AbortController();
+  controller.abort();
+  try{
+    await assert.rejects(
+      abortManager.solveMoves(hard,{timeoutMs:5000,signal:controller.signal}),
+      /ISOMAX_ABORTED|SURPLUS_ABORTED/,
+    );
+  }finally{await abortManager.close();}
+
+  const {moves}=branchyFixture(0x1025d,34);
+  const capacityManager=new IsoMaxSurplusBranchManager({
+    workers:1,maxQ:64,workCapacity:64,occurrenceCapacity:1,
+    queueCapacity:64,publicationCapacity:64,
+  });
+  try{
+    await assert.rejects(
+      capacityManager.solveMoves(moves,{timeoutMs:5000}),
+      /ISOMAX_SURPLUS_OCCURRENCE_CAPACITY/,
+    );
+  }finally{await capacityManager.close();}
+});
 
 test('surplus profile preserves q_r mirror action transport through physical root selection',
   {timeout:30000}, async () => {
