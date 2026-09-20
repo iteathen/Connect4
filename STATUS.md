@@ -13,27 +13,42 @@ This file is the current-state router, not a theorem ledger. This branch owns **
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
-## Current logic representation authority
+## Current semantic authorities
 
-Qualified Connect4 logic authority remains IsoGraph authority 1.1 until a successor is explicitly qualified/promoted:
+Current qualified Connect4 **game-theory** authority:
+
+- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md`
+- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`
+
+Qualification:
+
+- `research/isograph/qualification/CONNECT4_GAME_THEORY_1_2_QUALIFICATION.md`
+
+Current qualified IsoMax hot-loop performance-research authority:
+
+- `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md`
+- `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_QUALIFICATION.md`
+
+Historical Connect4 IsoGraph authority 1.1 remains immutable full-corpus qualification/provenance evidence:
 
 - `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md`
 - `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.isg`
 - `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json`
 
-Qualification and promotion are recorded in `research/isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_1.md` and `docs/decisions/2026-09-18-isograph-logic-authority-1-1.md`. Authority 1.0 remains immutable historical qualification evidence.
+Authority 1.1 is no longer the active game-theory interpretation. Pre-alpha replacement is direct: no compatibility adapter, dual active semantics, or fallback identity layer. Unknown and unresolved material remains explicitly represented in the current owner rather than treated as absent or false.
 
-The prior Markdown/JSON/spec/claim corpus is retained as a provenance/readability bridge. The exact qualified frozen source is embedded in the native IsoGraph source-image layer. Unknown and unresolved material remains explicitly represented; it is not treated as absent or false.
-
-## Clean current/successor interpretations
+## Current authority routing
 
 Pre-alpha research no longer composes the old NEI/RBA/hot-loop overlay stacks as active semantics.
 
-For current game-theory research, use only:
+For current game-theory research, use the qualified 1.2 authority and its exact promoted package:
 
+- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
-- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`.
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
 
 For current **qualified** IsoMax hot-loop semantic/performance research, use:
 
@@ -41,9 +56,9 @@ For current **qualified** IsoMax hot-loop semantic/performance research, use:
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json`;
 - `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg`.
 
-The game-theory 1.2 package remains a successor candidate pending final replacement qualification. The hot-loop 0.3 package is promoted for current performance-research use by `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md` and `ISOMAX_HOT_LOOP_GRAPH_0_3_QUALIFICATION.md`; it has no gameplay-authority effect.
+The game-theory 1.2 package is promoted as current game-theory authority by `CONNECT4_GAME_THEORY_AUTHORITY_1_2.md` and `CONNECT4_GAME_THEORY_1_2_QUALIFICATION.md`. The hot-loop 0.3 package is promoted for current performance-research use and has no gameplay-authority effect.
 
-Authority 1.1 remains the qualified Connect4 gameplay/logic authority until game-theory replacement qualification. The old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain provenance/evidence only.
+Authority 1.1, the old applied NEI overlay, RBA overlays/QU/topology overlays, and hot-loop 0.1/0.2 graph/NEI layers remain historical provenance/evidence only.
 
 Full DP-01..DP-45 re-discovery on the cleaned successors is complete:
 
