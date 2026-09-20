@@ -9,6 +9,18 @@
 
 NEES governs **how** the IsoMax hot execution is realized. It does not change Connect4 semantics, q identity, W/D/L meaning, certificate/proof identity, first-win precedence, or any qualified research theorem.
 
+## 0. Conformance scope
+
+The current audited conformance record is:
+
+`components/isometric/NEES_CONFORMANCE.md`
+
+The promoted conformance claim covers the **active ordinary native worker profile**. Optional guarded-certificate and RBA synchronous consumers remain valid APIs, but they are not implicitly included in the ordinary-worker E0 claim because they currently use richer proof/boundary representations.
+
+If either optional consumer is promoted into repeated E0 worker execution, it immediately inherits E0 / NEES-EXTREME and MUST be separately lowered or explicitly deviated/qualified before promotion.
+
+Current Branch Manager orchestration is E3 because its default task quanta amortize 65,536-131,072 recursive nodes. If its scheduling/reconciliation frequency moves to decision-frontier cadence, it is reclassified E2 regardless of file/process ownership.
+
 ## 1. Conformance declaration
 
 The IsoMax ordinary-value hot loop is required to conform to:
