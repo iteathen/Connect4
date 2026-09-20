@@ -65,32 +65,6 @@
     "legal_landing_determined_by_support": true,
     "rank_increases_per_nonterminal_move": 1
   },
-  "q": {
-    "node": 997003,
-    "coordinates": [
-      "support",
-      "normalized P0 residual antichain",
-      "normalized P1 residual antichain"
-    ],
-    "side_to_move": "derived from support rank parity",
-    "domain": "legal nonterminal standard-7x6 states",
-    "congruence": {
-      "status": "deductive_successor_candidate_pending_independent_qualification",
-      "evidence": "research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md",
-      "lemmas": [
-        "same support -> same legal action frontier and mover",
-        "terminal result of one legal move determined by q+action",
-        "minimal-antichain normalization exact under legal cofactors and first-win stopping",
-        "nonterminal successor q determined by q+action",
-        "rank induction -> same complete action-labelled ordinary future game"
-      ],
-      "consequence": [
-        "same exact WDL",
-        "same distance-sensitive ordinary state value",
-        "same exact per-action values under fixed tie convention"
-      ]
-    }
-  },
   "value_dependency": {
     "order": [
       -1,
@@ -129,7 +103,22 @@
         "condition": "equal q on legal nonterminal standard-7x6 states plus q-congruence theorem",
         "nei_result": "SAME",
         "status": "candidate_pending_q_congruence_and_NEI_0_4_qualification"
-      }
+      },
+      "candidate_results": [
+        {
+          "query": "orientation-sensitive literal action-labelled future behavior",
+          "condition": "equal q_o on legal nonterminal standard-7x6 states plus q-congruence theorem",
+          "nei_result": "SAME",
+          "status": "candidate pending q-congruence and NEI 0.4 qualification"
+        },
+        {
+          "query": "future behavior up to horizontal reflection",
+          "condition": "equal q_r plus explicit identity-or-reflection action transporter",
+          "result_kind": "exact automorphism-orbit equivalence",
+          "nei_result": "query-dependent; do not substitute literal action-label identity",
+          "status": "exact transformed correspondence"
+        }
+      ]
     },
     {
       "id": "ID-PROOF",
@@ -142,7 +131,10 @@
       "node": 997025,
       "name": "reflection_orbit_equivalence",
       "kind": "exact automorphism/scoped transformed equivalence",
-      "physical_occurrence_identity": "not_implied"
+      "physical_occurrence_identity": "not_implied",
+      "q_r_node": 997028,
+      "transporter": "c -> 6-c",
+      "literal_action_identity": "not_implied"
     },
     {
       "id": "ID-VALUE",
@@ -173,8 +165,12 @@
       "id": "E-Q-CONGRUENCE",
       "node": 997040,
       "kind": "exact_deductive_candidate",
-      "supports": "ordinary_future_behavior_identity",
-      "source": "STANDARD_7X6_Q_CONGRUENCE.md"
+      "supports": "orientation-sensitive ordinary future-behavior identity over q_o",
+      "source": [
+        "STANDARD_7X6_Q_CONGRUENCE.md",
+        "Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md"
+      ],
+      "reflection_note": "q_r is a separate automorphism-orbit quotient with explicit action transporter"
     },
     {
       "id": "E-FIRST-WIN",
@@ -332,11 +328,13 @@
   "evaluation_schedules": {
     "isomax": "demand-driven exact q dependency discovery plus theorem shortcuts",
     "bsfp": "supply-driven predecessor/value-family propagation",
-    "sut_candidate": "meeting over exact shared q/value/proof facts with non-q proof premises preserved"
+    "sut_candidate": "meeting over exact shared q/value/proof facts with non-q proof premises preserved",
+    "semantic_transition": "q_o --literal action--> terminal token | q_o'",
+    "reflection_value_cache": "q_r may key exact scalar value reuse under the horizontal-reflection automorphism"
   },
   "qualification_burden": [
-    "independent q-congruence proof review",
-    "bounded q controls plus negative scope controls",
+    "retain/extend independent q-congruence review separating q_o from q_r",
+    "bounded q_o controls plus reflected action-label/transporter negative controls",
     "verify physical/history/proof identity distinctions",
     "derive NEI outputs from model constraints rather than profile tags",
     "no Bayes factor without likelihood model",
@@ -344,5 +342,47 @@
     "integrate current RBA exact relations and open QU without overlay precedence",
     "full Discovery Protocol pass",
     "coverage against authority 1.1 game-theory claims and post-1.1 successor corpus"
-  ]
+  ],
+  "q_o": {
+    "node": 997003,
+    "name": "orientation_sensitive_ordinary_behavioral_state",
+    "coordinates": [
+      "orientation-sensitive support",
+      "normalized P0 residual antichain in physical orientation",
+      "normalized P1 residual antichain in physical orientation"
+    ],
+    "side_to_move": "derived from support rank parity",
+    "domain": "legal nonterminal standard-7x6 states",
+    "congruence": {
+      "status": "deductive_successor_candidate_core_survives_independent_review",
+      "evidence": [
+        "research/isograph/discovery/2026-09-18-high-value-leads/STANDARD_7X6_Q_CONGRUENCE.md",
+        "research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md"
+      ],
+      "consequence": [
+        "same literal legal columns",
+        "same terminal token for each literal action",
+        "same orientation-sensitive successor q_o for each nonterminal literal action",
+        "same complete orientation-sensitive action-labelled ordinary future game",
+        "same exact WDL and distance-sensitive ordinary state/action values under fixed tie convention"
+      ]
+    }
+  },
+  "q_r": {
+    "node": 997028,
+    "name": "horizontal_reflection_orbit_quotient",
+    "construction": "canonical orbit representative of q_o under horizontal reflection",
+    "action_transporter": "c -> 6-c when orientations differ; identity otherwise",
+    "implementation_owner": "components/isometric/state.mjs#gameplayKey",
+    "exact_consequence": [
+      "same ordinary future game under explicit action-coordinate transporter",
+      "same scalar WDL/value",
+      "safe exact value-cache reuse"
+    ],
+    "nonconsequence": [
+      "literal action-label identity without transporter",
+      "physical occurrence identity",
+      "proof/certificate identity"
+    ]
+  }
 }
