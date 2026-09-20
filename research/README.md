@@ -21,16 +21,18 @@ The strategy index is not semantic authority. It tracks what to try, how it coul
 
 The qualified logic authority is IsoGraph. Read in this order:
 
-1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` — current authority root.
-2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` — immutable authority/evidence identities.
-3. `isograph/successor/CONNECT4_LOGIC_PROFILE_1_1_CANDIDATE.md` and `isograph/successor/CONNECT4_LOGIC_NATIVE_VOCAB_1_1_CANDIDATE.md` — frozen promoted corpus profile/vocabulary.
-4. `isograph/successor/generated/CONNECT4_LOGIC_CORPUS_1_1_CANDIDATE.isg`, `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg`, `isograph/successor/CONNECT4_LOGIC_UNCERTAINTY_1_1_CANDIDATE.isg`, and `isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.isg` — corpus/claim/uncertainty/evidence structure.
-5. `isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md` plus its manifest/profiles/results when the research question concerns identity or safe quotient collapse.
-6. relevant 1.1 native source/item shards when exact source reconstruction or occurrence topology is required.
-7. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
-8. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit or exact historical reconstruction requires it.
+1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md` — sole current game-theory / logic authority root.
+2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json` — immutable promoted semantic package/evidence identities.
+3. `isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*` plus the 1.2 claim-coverage artifact — frozen promoted semantic package.
+4. `isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_2.md` and q_o/q_r / NEI qualification evidence when identity is material.
+5. `isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md` — separately qualified hot-loop performance graph, no gameplay-authority effect.
+6. `isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_1.md` — current NEES realization binding for promoted IsoMax hot execution.
+7. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` only for readability, compatibility, or provenance checks.
+8. authorities 1.1 and 1.0 only as immutable historical qualification evidence.
 
-The exact pre-IsoGraph corpus is preserved inside the native source-image layer. Do not treat a newer legacy Markdown/JSON edit as authoritative; durable logic changes require a newly qualified IsoGraph authority revision.
+The exact pre-IsoGraph corpus remains preserved in the historical authority layers. Direct edits to legacy Markdown/JSON bridge files do not change current logic authority.
+
+
 ### Post-1.1 derived successor claims
 
 Confirmed research that occurred after the frozen 1.1 authority is recorded without mutating that authority.
