@@ -112,8 +112,23 @@ async function runRoot(variant, moves) {
 if (process.argv[2] === 'child') {
   const variant = process.argv[3];
   const records = [];
-  for (const moves of roots) records.push(await runRoot(variant, moves));
-  process.stdout.write(JSON.stringify({kind:'variant', variant, records}) + '\n');
+  for (const moves of roots) {
+    const started = performance.now();
+    try {
+      records.push({status:'completed', ...(await runRoot(variant, moves))});
+    } catch (error) {
+      records.push({
+        status:'failed',
+        sequence:sequence(moves),
+        elapsedMs:performance.now() - started,
+        error:error?.message ?? String(error),
+        maxRssBytes:process.resourceUsage().maxRSS * 1024,
+      });
+    }
+  }
+  const failed = records.some(record => record.status === 'failed');
+  process.stdout.write(JSON.stringify({kind:'variant', variant, failed, records}) + '\n');
+  if (failed) process.exitCode = 2;
 } else {
   const root = new URL('../../', import.meta.url);
   const cwd = decodeURIComponent(root.pathname);
@@ -134,25 +149,38 @@ if (process.argv[2] === 'child') {
       ['--max-old-space-size=4096', new URL(import.meta.url).pathname, 'child', variant],
       {cwd,encoding:'utf8',timeout:90000,windowsHide:true});
     if (child.error) throw child.error;
-    if (child.status !== 0) {
-      throw new Error(variant + ' failed: ' + child.stderr + '\n' + child.stdout);
-    }
     const line = child.stdout.trim().split('\n').filter(Boolean).at(-1);
+    if (!line) throw new Error(variant + ' emitted no structured result: ' + child.stderr);
     const parsed = JSON.parse(line);
     report.variants[variant] = parsed.records;
-    if (oracle === null) oracle = parsed.records.map(record => [record.sequence,record.value,record.move]);
-    else assert.deepEqual(parsed.records.map(record => [record.sequence,record.value,record.move]), oracle,
-      variant + ' exact decisions differ from serial control');
+    const completed = parsed.records.filter(record => record.status === 'completed');
+    if (oracle === null) {
+      if (parsed.failed) throw new Error('serial control failed: ' + child.stderr + '\n' + child.stdout);
+      oracle = completed.map(record => [record.sequence,record.value,record.move]);
+    } else {
+      for (const record of completed) {
+        const expected = oracle.find(entry => entry[0] === record.sequence);
+        assert.deepEqual([record.sequence,record.value,record.move], expected,
+          variant + ' exact decision differs from serial control');
+      }
+    }
+    if (child.status !== 0 && !parsed.failed) {
+      throw new Error(variant + ' exited nonzero without a recorded case failure: ' + child.stderr);
+    }
   }
 
   for (const [variant, records] of Object.entries(report.variants)) {
     report.variants[variant] = {
-      totalMs:records.reduce((sum,record)=>sum+record.elapsedMs,0),
-      maxRssBytes:Math.max(...records.map(record=>record.maxRssBytes)),
+      totalMs:records.reduce((sum,record)=>sum+(record.elapsedMs ?? 0),0),
+      maxRssBytes:Math.max(...records.map(record=>record.maxRssBytes ?? 0)),
+      failed:records.some(record => record.status === 'failed'),
       records,
     };
   }
   report.sameExactDecisions = true;
+  report.failedVariants = Object.entries(report.variants)
+    .filter(([,entry]) => entry.failed)
+    .map(([variant]) => variant);
 
   const sum = values => values.reduce((total, value) => total + (value ?? 0), 0);
   const summary = {
@@ -170,7 +198,10 @@ if (process.argv[2] === 'child') {
     const item = {
       totalMs:entry.totalMs,
       maxRssBytes:entry.maxRssBytes,
-      values:records.map(record => [record.sequence, record.value, record.move]),
+      failed:entry.failed,
+      values:records.map(record => record.status === 'completed'
+        ? [record.sequence, record.value, record.move]
+        : [record.sequence, 'FAILED', record.error]),
     };
     if (variant.startsWith('central-')) {
       item.central = {
@@ -227,10 +258,12 @@ if (process.argv[2] === 'child') {
     summary.variants[variant] = item;
   }
 
+  summary.failedVariants = report.failedVariants;
   if (process.env.ISOMAX_PULL_SUMMARY_ONLY === '1') {
     process.stdout.write(JSON.stringify(summary) + '\n');
   } else {
     process.stdout.write(JSON.stringify(report) + '\n');
     process.stdout.write(JSON.stringify(summary) + '\n');
   }
+  if (report.failedVariants.length) process.exitCode = 1;
 }
