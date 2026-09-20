@@ -328,7 +328,7 @@ class PullReconciler {
     }
   }
 
-  adoptExecution(q, slot, generation, orderHint = 0, affinity = -1) {
+  adoptExecution(q, slot, generation, orderHint = 0, affinity = -1, publish = true) {
     if (slot < 0 || slot >= this.shared.workCapacity) return;
     if (Atomics.load(this.shared.workGeneration, slot) !== generation) return;
     if (orderHint > this.qOrderHint[q]) this.qOrderHint[q] = orderHint;
@@ -343,16 +343,16 @@ class PullReconciler {
     if (existing === -1) {
       this.qWork[q] = slot;
       Atomics.store(this.shared.workQ, slot, q);
-      this.ensureWorkPriority(q);
+      if (publish) this.ensureWorkPriority(q);
       return;
     }
     if (existing === slot) {
-      this.ensureWorkPriority(q);
+      if (publish) this.ensureWorkPriority(q);
       return;
     }
 
     this.retireSlot(slot, generation);
-    this.ensureWorkPriority(q);
+    if (publish) this.ensureWorkPriority(q);
   }
 
   detachQWork(q, keepSlot = -1) {
@@ -535,7 +535,7 @@ class PullReconciler {
       const childQ = this.replaySlot(childSlot, 0);
       this.appendEdge(targetQ, childQ, canonicalAction);
       this.adoptExecution(childQ, childSlot, childGeneration,
-        this.stageClass[base + index], affinityWorker);
+        this.stageClass[base + index], affinityWorker, false);
     }
 
     this.clearStage(parentSlot, false);
