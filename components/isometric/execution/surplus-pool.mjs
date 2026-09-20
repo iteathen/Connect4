@@ -54,6 +54,7 @@ export const WC_SURPLUS_REMOTE = 8;
 export const WC_RETIRE_OCC = 9;
 export const WC_PATH_REPLAY_APPLIES = 10;
 export const WC_CONTROL_CHECKS = 11;
+export const WC_CONTINUATION_YIELDS = 12;
 export const WC_BAND_BASE = 16;
 export const WC_WORDS = 24;
 
