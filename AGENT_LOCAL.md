@@ -31,11 +31,13 @@ This branch owns the research corpus itself. Solver-local or historical paths na
 
 See `docs/decisions/2026-09-17-single-research-owner.md`.
 
-## Current logic authority — IsoGraph
+## Current semantic authority — IsoGraph
 
-The qualified historical/current logic authority remains `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` with native root `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_1.isg` and immutable manifest `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` until a successor is explicitly qualified/promoted. Authority 1.0 remains immutable historical qualification evidence.
+Current qualified **game-theory** authority is `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md` with manifest `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`. Its exact promoted semantic package is `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*` plus `CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
 
-For **active game-theory research**, the single current successor interpretation is `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*`. It cleanly integrates q, ordinary value dependency, proof/certificate boundaries, RBA, QU, and the NEI-0.4 successor model. Do not compose the old applied-NEI overlay or RBA overlay stack with 1.1 as a parallel active semantics; those files are historical/provenance/evidence inputs to the successor.
+Current qualified hot-loop performance-research authority is `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md`.
+
+Authority 1.1 remains immutable historical full-corpus qualification/provenance evidence. Do not compose the old applied-NEI or RBA overlay stack with current authority as parallel semantics.
 
 This is representation authority, not a branch-ownership transfer. `research/semantic-quotient` remains the sole durable research owner; solver branches remain implementation owners.
 
@@ -58,17 +60,20 @@ Current 1.1 post-hoc dispositions are recorded in:
 - `research/isograph/qualification/CORE_0_18_SANITY_AUDIT_1_1.md`;
 - `research/isograph/qualification/DISCREPANCY_DISCOVERY_DISPOSITIONS_1_1.json`.
 
-### Active identity/game-theory successor
+### Current identity/game-theory authority
 
 The old applied-NEI overlay is superseded for active interpretation.
 
 Use:
 
+- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_1_2.md`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_AUTHORITY_MANIFEST_1_2.json`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`;
 - `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.json`;
-- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`.
+- `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg`;
+- `research/isograph/successor/CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
 
-The successor follows qualified NEI 0.4 authority pinned to `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`:
+The current authority follows qualified NEI 0.4 authority pinned to `iteathen/isograph@55c98d31dd2715cdb48abe4f8e313fd72d0dabba`:
 
 - SAME/DISTINCT are derived outputs, never profile answer tags;
 - ordinary facts, q-congruence evidence, proof context and QU are represented first;
