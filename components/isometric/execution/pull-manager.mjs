@@ -64,9 +64,9 @@ function onceReady(worker, type, workerIndex = null) {
 export class IsoMaxPullBranchManager {
   constructor({
     workers = defaultIsoMaxPullWorkers(),
-    maxTasks = 65536,
+    maxTasks = 262144,
     maxEdges = maxTasks * 7,
-    workCapacity = Math.min(maxTasks, 16384),
+    workCapacity = Math.min(maxTasks, 131072),
     queueCapacity = Math.max(1024, Math.min(workCapacity * 2, 1 << 20)),
     publicationCapacity = Math.max(4096, Math.min(workCapacity * 2, 1 << 20)),
   } = {}) {
