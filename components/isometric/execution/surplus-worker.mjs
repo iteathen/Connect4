@@ -114,32 +114,37 @@ class SurplusDistributor {
         return Atomics.load(shared.workResult,work);
       }
 
-      if(stateCode===WORK_READY && claimSpecific(shared,work,workGeneration,workerIndex,this.claimScratch)){
-        this.worker.counters[WC_LOCAL_RECLAIMS]++;
-        this.worker.counters[WC_SURPLUS_LOCAL]++;
-        const attempt=this.claimScratch[2];
-        const priorWork=this.worker.activeWork;
-        const priorGeneration=this.worker.activeGeneration;
-        const priorAttempt=this.worker.activeAttempt;
-        this.worker.activeWork=work;this.worker.activeGeneration=workGeneration;this.worker.activeAttempt=attempt;
-        state.applyUnchecked(column);solver.metrics.recursiveChildren++;
-        let value;
-        try{
-          value=solver.solveNode(state);
-        }catch(error){
-          if(error!==workRetired)throw error;
-          Atomics.store(shared.workState,work,WORK_RETIRED);
-          Atomics.notify(shared.workState,work,Infinity);
-          this.publishBlocking(PUB_WORK_RETIRED,work,workGeneration,attempt,workerIndex);
-          value=null;
-        }finally{
-          state.undo();
-          this.worker.activeWork=priorWork;this.worker.activeGeneration=priorGeneration;this.worker.activeAttempt=priorAttempt;
+      if(stateCode===WORK_READY){
+        if(claimSpecific(shared,work,workGeneration,workerIndex,this.claimScratch)){
+          this.worker.counters[WC_LOCAL_RECLAIMS]++;
+          this.worker.counters[WC_SURPLUS_LOCAL]++;
+          const attempt=this.claimScratch[2];
+          const priorWork=this.worker.activeWork;
+          const priorGeneration=this.worker.activeGeneration;
+          const priorAttempt=this.worker.activeAttempt;
+          this.worker.activeWork=work;this.worker.activeGeneration=workGeneration;this.worker.activeAttempt=attempt;
+          state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+          let value;
+          try{
+            value=solver.solveNode(state);
+          }catch(error){
+            if(error!==workRetired)throw error;
+            Atomics.store(shared.workState,work,WORK_RETIRED);
+            Atomics.notify(shared.workState,work,Infinity);
+            this.publishBlocking(PUB_WORK_RETIRED,work,workGeneration,attempt,workerIndex);
+            value=null;
+          }finally{
+            state.undo();
+            this.worker.activeWork=priorWork;this.worker.activeGeneration=priorGeneration;this.worker.activeAttempt=priorAttempt;
+          }
+          if(value!==null){
+            this.publishWorkExact(work,workGeneration,attempt,value,-1);
+            return value;
+          }
         }
-        if(value!==null){
-          this.publishWorkExact(work,workGeneration,attempt,value,-1);
-          return value;
-        }
+        // A helper may win READY -> RUNNING between our state read and CAS.
+        // Re-read on the next iteration instead of treating the stale READY
+        // snapshot as an impossible state.
         continue;
       }
 
