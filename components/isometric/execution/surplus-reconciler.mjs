@@ -390,6 +390,22 @@ class SurplusReconciler {
     }
   }
 
+  redirectToContinuation(q,leader){
+    if(q<0||q>=this.qCount||leader<0)return;
+    for(let occ=this.qOccHead[q];occ!==-1;occ=this.occNext[occ]){
+      if(Atomics.load(this.shared.occNeeded,occ)===0)continue;
+      const state=Atomics.load(this.shared.occState,occ);
+      if(state===OCC_RETIRED||state===OCC_EXACT)continue;
+      Atomics.store(this.shared.occLeader,occ,leader);
+      // Once a native continuation is authoritative execution for q, any
+      // helper-work reference is advisory/stale. Clearing it prevents slot
+      // reuse from becoming an infinite stale-generation loop.
+      Atomics.store(this.shared.occWork,occ,-1);
+      Atomics.store(this.shared.occWorkGeneration,occ,-1);
+      Atomics.notify(this.shared.occState,occ,Infinity);
+    }
+  }
+
   startContinuation(slot,generation){
     if(slot<0||slot>=this.shared.occurrenceCapacity ||
        Atomics.load(this.shared.occGeneration,slot)!==generation ||
@@ -403,14 +419,15 @@ class SurplusReconciler {
       Atomics.notify(this.shared.occState,slot,Infinity);return;
     }
     Atomics.store(this.shared.occRole,slot,OCC_ROLE_CONTINUATION);
-    const leader=this.liveContinuation(q);
+    let leader=this.liveContinuation(q);
     if(leader<0){
-      this.qRunningOcc[q]=slot;Atomics.store(this.shared.occLeader,slot,slot);
+      leader=slot;
+      this.qRunningOcc[q]=slot;
       this.metrics.runningContinuations++;
     }else if(leader!==slot){
-      Atomics.store(this.shared.occLeader,slot,leader);
       this.metrics.duplicateRunningContinuations++;
     }
+    this.redirectToContinuation(q,leader);
 
     const work=this.qWork[q];
     if(work>=0){
