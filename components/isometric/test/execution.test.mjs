@@ -70,6 +70,44 @@ test('existing executor accepts typed native results and still rejects invalid W
   await assert.rejects(e.drain());assert.throws(()=>e.close());
 });
 
+test('executor redispatches queued authoritative work to the next available worker',async()=>{
+  class Fake extends EventEmitter {
+    constructor(){super();this.sent=[];}
+    postMessage(message){this.sent.push(message);}
+  }
+  const first=new Fake(),second=new Fake();
+  const executor=createSearchWorkerExecutor([first,second],{validateResult:validateTaskResult});
+  const p1=executor.submit({type:'isomax-task',jobId:1});
+  const p2=executor.submit({type:'isomax-task',jobId:2});
+  const p3=executor.submit({type:'isomax-task',jobId:3});
+  assert.equal(first.sent.length,1);assert.equal(second.sent.length,1);
+  assert.equal(executor.stats().queued,1);
+  first.emit('message',{type:'result',taskId:first.sent[0].taskId,jobId:1,kind:'exact',value:0,nodes:1});
+  assert.equal(first.sent.length,2,'freed worker must take queued work in the same executor turn');
+  assert.equal(executor.stats().queued,0);
+  second.emit('message',{type:'result',taskId:second.sent[0].taskId,jobId:2,kind:'exact',value:0,nodes:1});
+  first.emit('message',{type:'result',taskId:first.sent[1].taskId,jobId:3,kind:'exact',value:0,nodes:1});
+  await Promise.all([p1,p2,p3]);await executor.drain();
+  const stats=executor.stats();
+  assert.equal(stats.completed,3);assert.equal(stats.dispatched,3);
+  assert.ok(stats.redispatches>=1);assert.ok(stats.queueWaitMsTotal>=0);assert.ok(stats.redispatchIdleMsTotal>=0);
+  executor.close();
+});
+
+test('bounded ready reserve queues portable work without changing exact result',{timeout:30000},async()=>{
+  const moves=makeCorpus({seed:0x205c4,ply:20,count:1})[0].moves;
+  const expected=new IsoMaxSolver().solveMoves(moves);
+  const manager=new IsoMaxBranchManager({workers:2,taskNodes:8,readyReserve:2});
+  try{
+    const actual=await manager.solveMoves(moves,{timeoutMs:25000});
+    assert.equal(actual.value,expected.value);assert.equal(actual.move,expected.move);
+    assert.equal(actual.scheduler.readyReserve,2);assert.equal(actual.scheduler.outstandingLimit,4);
+    assert.ok(actual.metrics.maxPending>2);assert.ok(actual.metrics.maxPending<=4);
+    assert.ok(actual.executor.maxQueued>0);
+    assert.ok(actual.metrics.readySamples>0);assert.ok(actual.metrics.maxReadyLeaves>0);
+  }finally{await manager.close();}
+});
+
 test('manager preserves native exact values and center-first actions across turns, mirrors and first win',{timeout:30000},async()=>{
   const manager=new IsoMaxBranchManager({workers:2,taskNodes:128});
   try{
