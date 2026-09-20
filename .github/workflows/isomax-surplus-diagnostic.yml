@@ -1,0 +1,47 @@
+name: isomax-surplus-diagnostic
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/isomax-surplus-diagnostic.yml'
+      - 'components/isometric/execution/surplus-*.mjs'
+      - 'components/isometric/test/surplus-execution.test.mjs'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  q-convergence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Isolate q_r convergence failure
+        run: |
+          set -o pipefail
+          timeout 45s node --test --test-reporter=spec --test-name-pattern="surplus reconciler merges physically distinct child occurrences with the same q_r" components/isometric/test/surplus-execution.test.mjs
+
+  occurrence-capacity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Isolate bounded occurrence lifecycle failure
+        run: |
+          set -o pipefail
+          timeout 45s node --test --test-reporter=spec --test-name-pattern="surplus bounded occurrence capacity fails closed" components/isometric/test/surplus-execution.test.mjs
