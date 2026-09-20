@@ -38,7 +38,7 @@ Most hot-loop optimization questions are **representation equivalence** question
 The ordinary worker realizes:
 
 1. exact ordinary W/D/L dependency over a finite ranked game DAG;
-2. canonical q lookup/store using exact `(P0 residual, P1 residual, support)`;
+2. reflection-canonical `q_r` lookup/store using exact `(P0 residual, P1 residual, support)` orbit coordinates;
 3. mover residual cofactor;
 4. blocker residual cofactor;
 5. reversible support/playability transition;
@@ -107,34 +107,46 @@ Their correctness burden is reconstruction/equivalence under the owned operation
 
 ## 4. Exact q identity versus occurrence identity
 
-### 4.1 Cache equality
+### 4.1 Cache equality is q_r, not orientation-sensitive q_o
 
-Within one residual pool:
+The game-theory owner now distinguishes:
 
 ```text
-q_cache =
+q_o = orientation-sensitive ordinary future-behavior carrier
+q_r = canonical horizontal-reflection orbit quotient of q_o
+```
+
+Within one residual pool, the current `gameplayKey()` realizes `q_r`:
+
+```text
+q_r cache key =
 canonical P0 residual class
 + canonical P1 residual class
 + canonical packed support
 ```
 
+Horizontal reflection uses action transporter `c -> 6-c`. Therefore `q_r` safely keys scalar W/D/L/value reuse, but literal action labels require orientation/transport information.
+
 Hash values, slots and pool-local IDs are addressing machinery, not portable semantic identity by themselves.
 
 ### 4.2 Contextual task occurrences
 
-A canonical q dependency may appear in multiple parent/task occurrences:
+A canonical `q_r` value dependency may appear in multiple parent/task occurrences:
 
 ```text
 task occurrence A
 task occurrence B
-    -> same manager-visible q projection
+    -> same manager-visible q_r projection
 ```
 
 The occurrences remain distinct execution/provenance occurrences.
 
-Whether equal q states are one **ordinary future-behavior identity** is a game-theory question owned by the Connect4 game-theory IsoGraph, not by this performance graph.
+The game-theory owner distinguishes two questions:
 
-This graph consumes that result only after it is qualified in the game-theory owner.
+- equal `q_o` -> candidate literal orientation-sensitive future-behavior identity;
+- equal `q_r` -> exact future-game equivalence under identity-or-reflection action transport and exact scalar value reuse.
+
+This performance graph consumes only the `q_r` cache/value consequence. It MUST NOT infer literal move-label identity or proof-context identity from `q_r`.
 
 ## 5. NEI placement
 
@@ -265,7 +277,7 @@ Before this candidate can be called qualified current performance-research autho
 1. mechanical native/JSON closure;
 2. verify every retained exact equivalence against its original controls;
 3. verify no old NEI claim is needed to justify a retained implementation;
-4. verify game-theory q identity is consumed only from its current owner;
+4. verify `q_o` versus `q_r` is preserved and the hot loop consumes only the reflection-orbit cache/value consequence from the game-theory owner;
 5. verify QU regions preserve known constraints and unknowns;
 6. run one full Discovery Protocol pass against this cleaned graph;
 7. record candidate issue dispositions without promoting unmeasured changes.
