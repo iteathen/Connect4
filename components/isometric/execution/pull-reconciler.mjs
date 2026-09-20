@@ -110,6 +110,11 @@ class PullReconciler {
     this.qDirectMove = new Int8Array(this.maxQ); this.qDirectMove.fill(-1);
     this.qOrderHint = new Uint8Array(this.maxQ);
     this.qPriority = new Uint8Array(this.maxQ);
+    // Execution seed only: one legal physical replay representative per
+    // canonical q. This is not q identity or proof identity. It lets semantic
+    // demand outlive READY/RUNNING occurrence records safely.
+    this.qReplayLength = new Uint8Array(this.maxQ);
+    this.qReplay = new Uint8Array(this.maxQ * MAX_MOVES);
 
     const qHashCapacity = nextPowerOfTwo(this.maxQ * 2);
     this.qHashSlots = new Int32Array(qHashCapacity);
@@ -158,6 +163,7 @@ class PullReconciler {
       exactDuplicateCompletions:0,
       workerDeathRequeues:0,
       demandResurrectionRequeues:0,
+      rematerializedExecutions:0,
       priorityUpdates:0,
       slotReclaims:0,
       qReuses:0,
@@ -237,6 +243,11 @@ class PullReconciler {
     this.qSupport[q] = support;
     this.qSide[q] = this.state.sideToMove;
     this.qTerminal[q] = this.state.isTerminal() ? 1 : 0;
+    this.qReplayLength[q] = this.state.ply;
+    const replayBase = q * MAX_MOVES;
+    for (let ply = 0; ply < this.state.ply; ply++) {
+      this.qReplay[replayBase + ply] = this.state.moveCells[ply] % 7;
+    }
     this.metrics.canonicalQ = this.qCount;
     this.metrics.maxCanonicalQ = Math.max(this.metrics.maxCanonicalQ, this.qCount);
     return q;
@@ -306,6 +317,48 @@ class PullReconciler {
     Atomics.store(this.shared.workState, slot, WORK_DONE);
     this.releaseIfPossible(slot, generation);
     return true;
+  }
+
+  ensureExecution(q) {
+    if (q < 0 || q >= this.qCount || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) return false;
+    if (q !== this.rootQ && this.qParentCount[q] === 0) return false;
+
+    const existing = this.qWork[q];
+    if (existing >= 0) {
+      const generation = Atomics.load(this.shared.workGeneration, existing);
+      const state = Atomics.load(this.shared.workState, existing);
+      if (generation > 0 && state !== WORK_FREE &&
+          Atomics.load(this.shared.workQ, existing) === q &&
+          Atomics.load(this.shared.workNeeded, existing) !== 0) {
+        this.ensureWorkPriority(q);
+        return true;
+      }
+      this.qWork[q] = -1;
+    }
+
+    const slot = allocateWorkSlot(this.shared, this.allocateScratch);
+    if (slot < 0) return false;
+    const generation = this.allocateScratch[1];
+    const length = this.qReplayLength[q];
+    const sourceBase = q * MAX_MOVES;
+    const targetBase = slot * MAX_MOVES;
+    for (let ply = 0; ply < length; ply++) this.shared.workPath[targetBase + ply] = this.qReplay[sourceBase + ply];
+    Atomics.store(this.shared.workPathLength, slot, length);
+    Atomics.store(this.shared.workQ, slot, q);
+    this.qWork[q] = slot;
+    this.metrics.rematerializedExecutions++;
+    this.ensureWorkPriority(q);
+    return Atomics.load(this.shared.workGeneration, slot) === generation;
+  }
+
+  repairExecutableDemand() {
+    let repaired = 0;
+    for (let q = 0; q < this.qCount; q++) {
+      if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) continue;
+      if (q !== this.rootQ && this.qParentCount[q] === 0) continue;
+      if (this.ensureExecution(q)) repaired++;
+    }
+    return repaired;
   }
 
   desiredPriority(q) {
@@ -815,19 +868,8 @@ class PullReconciler {
     const root = this.internRoot();
     this.rootQ = root;
     this.rootOrientation = this.state.gameplayOrientation();
-    const slot = allocateWorkSlot(this.shared, this.allocateScratch);
-    if (slot < 0) throw new Error('ISOMAX_PULL_WORK_CAPACITY');
-    const generation = this.allocateScratch[1];
-    const base = slot * MAX_MOVES;
-    for (let ply = 0; ply < this.rootPly; ply++) this.shared.workPath[base + ply] = this.rootMoves[ply];
-    Atomics.store(this.shared.workPathLength, slot, this.rootPly);
-    this.qWork[root] = slot;
-    Atomics.store(this.shared.workQ, slot, root);
     this.qPriority[root] = PRIORITY_BANDS - 1;
-    Atomics.store(this.shared.workPriority, slot, PRIORITY_BANDS - 1);
-    if (!markReady(this.shared, slot, generation, PRIORITY_BANDS - 1, -1)) {
-      throw new Error('ISOMAX_PULL_PRIORITY_QUEUE_CAPACITY');
-    }
+    if (!this.ensureExecution(root)) throw new Error('ISOMAX_PULL_WORK_CAPACITY');
   }
 
   internRoot() {
@@ -874,7 +916,9 @@ class PullReconciler {
         if (records === 0) {
           if (!this.hasExecutableWork() &&
               Atomics.load(this.shared.publicationDequeue, 0) >= Atomics.load(this.shared.publicationEnqueue, 0)) {
-            throw new Error('unresolved IsoMax pull root has no executable work');
+            if (this.repairExecutableDemand() === 0 || !this.hasExecutableWork()) {
+              throw new Error('unresolved IsoMax pull root has no executable work');
+            }
           }
           const epoch = Atomics.load(this.shared.control, CTRL_PUB_WAKE);
           if (!dequeuePublication(this.shared, this.publication)) {
