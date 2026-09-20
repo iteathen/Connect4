@@ -333,3 +333,71 @@ Kept closed with explicit reopen triggers:
    - or reject current realization while preserving the architecture evidence.
 
 No empty-board solve or universal speedup claim is made.
+
+
+## Post-checkpoint liveness/capacity findings
+
+Subsequent exact-head qualification exposed two additional architecture-level findings.
+
+### R-102-07 — canonical demand must outlive execution-occurrence storage
+
+A late-root run reached:
+
+`unresolved IsoMax pull root has no executable work`.
+
+The cause was an ownership mismatch: a canonical q could remain live after the only execution slot carrying its portable replay had been retired/reclaimed.
+
+Repair on the implementation candidate:
+
+- each canonical q now retains one bounded manager-owned **execution-seed legal replay**;
+- the seed is not semantic identity and not proof identity;
+- if a live unexpanded canonical q has no valid execution occurrence, the reconciler can allocate a fresh work slot and rematerialize READY work from that seed;
+- later occurrence reuse remains generation/ticket protected.
+
+This strengthens the intended #102 separation:
+
+```text
+semantic dependency lifetime
+    !=
+execution occurrence lifetime
+```
+
+### R-102-08 — 32K visible-work storage was below observed hard-root demand
+
+The historical hard-root qualification reached the explicit 32,768 work-slot capacity and failed closed with `ISOMAX_PULL_WORK_CAPACITY`.
+
+No WDL was fabricated.
+
+The candidate profile was raised while remaining bounded:
+
+```text
+canonical q cap     262,144
+execution slots     131,072
+queue capacity      131,072 per priority band
+publication cells   131,072
+```
+
+This is a profile/capacity correction, not an unbounded queue.
+
+If 131K is still insufficient on the historical hard roots, the next step is visibility/work-record compaction or admission separation, not another blind capacity increase.
+
+## Evidence observability correction
+
+The first hard comparison emitted a single oversized JSON log line that the connector could not reliably retrieve even though the workflow step succeeded.
+
+The benchmark now has a compact summary mode preserving:
+
+- one-shot total wall;
+- peak RSS;
+- exact root decisions;
+- central calls/expanded entries/transitions;
+- pull canonical q/edges;
+- duplicate READY/RUNNING retirement;
+- q reuse;
+- replay applies/undos;
+- worker transitions;
+- reconciliation time;
+- priority-band claims;
+- work-slot high water.
+
+This is an evidence-format correction only; solver semantics are unchanged.
