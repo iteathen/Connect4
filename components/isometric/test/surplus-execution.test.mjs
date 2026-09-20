@@ -11,7 +11,9 @@ import {
   WORK_RUNNING,
   allocateOccurrence,
   allocateWork,
+  claimHighest,
   createSurplusPool,
+  enqueueWork,
   openSurplusPool,
   releaseOccurrence,
   releaseWork,
@@ -93,6 +95,34 @@ test('surplus helper work arena reuses one slot only after terminal reconciliati
     assert.equal(releaseWork(shared,slot,generation),false,
       'released generation cannot be reclaimed twice');
   }
+});
+
+test('stale READY ticket cannot claim a recycled work-slot generation', () => {
+  const descriptor=createSurplusPool({
+    workerCount:1,workCapacity:1,occurrenceCapacity:2,queueCapacity:8,publicationCapacity:8,
+  });
+  const shared=openSurplusPool(descriptor);
+  const alloc=new Int32Array(2),claim=new Int32Array(4);
+
+  const first=allocateWork(shared,alloc),firstGeneration=alloc[1];
+  assert.equal(first,0);
+  Atomics.store(shared.workState,first,2); // WORK_READY
+  assert.equal(enqueueWork(shared,first,firstGeneration,4),true);
+
+  // Retire/recycle without consuming the old queue ticket.
+  Atomics.store(shared.workState,first,WORK_EXACT);
+  assert.equal(releaseWork(shared,first,firstGeneration),true);
+
+  const second=allocateWork(shared,alloc),secondGeneration=alloc[1];
+  assert.equal(second,0);
+  assert.notEqual(secondGeneration,firstGeneration);
+  Atomics.store(shared.workState,second,2); // WORK_READY
+  assert.equal(enqueueWork(shared,second,secondGeneration,6),true);
+
+  assert.equal(claimHighest(shared,0,claim),true);
+  assert.equal(claim[0],second);
+  assert.equal(claim[1],secondGeneration);
+  assert.equal(claim[3],6);
 });
 
 test('surplus occurrence arena reuses one slot only under a new generation', () => {
