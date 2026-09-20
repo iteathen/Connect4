@@ -8,18 +8,18 @@ Research direction: Josh Oshiro.
 
 ## Mandatory read order
 
-Before changing research meaning, begin with the qualified IsoGraph authority rather than reconstructing authority from legacy branch/file topology:
+Before changing research meaning, begin with the current qualified IsoGraph authority rather than reconstructing authority from legacy branch/file topology:
 
-1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_1.md` — current logic authority root.
-2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_1.json` — immutable authority/evidence identities.
-3. `isograph/successor/CONNECT4_LOGIC_PROFILE_1_1_CANDIDATE.md` and `isograph/successor/CONNECT4_LOGIC_NATIVE_VOCAB_1_1_CANDIDATE.md` — frozen promoted profile/vocabulary.
-4. `isograph/successor/generated/CONNECT4_LOGIC_CORPUS_1_1_CANDIDATE.isg`, `isograph/CONNECT4_LOGIC_CLAIMS_0_1.isg`, `isograph/successor/CONNECT4_LOGIC_UNCERTAINTY_1_1_CANDIDATE.isg`, and `isograph/successor/EVIDENCE_LINEAGE_GRAPH_1_1_CANDIDATE.isg` — corpus/claim/uncertainty/evidence structure.
-5. `isograph/identity/CONNECT4_NEI_APPLICATION_0_1.md`, its manifest/profiles/results, when identity, quotient collapse, or natural distinctness is load-bearing.
-6. relevant 1.1 native source/item shards when exact source reconstruction or lower-level occurrence topology is required.
+1. `isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md` — sole current game-theory / logic authority root.
+2. `isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json` — immutable promoted semantic package/evidence identities.
+3. `isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.md`, `.json`, `.isg`, and the 1.2 claim-coverage artifact — frozen promoted semantic package.
+4. `isograph/qualification/FINAL_QUALIFICATION_REVIEW_1_2.md` and current q_o/q_r / NEI qualification evidence when identity is load-bearing.
+5. `isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md` for the separately qualified IsoMax hot-loop performance graph; it has no gameplay-authority effect.
+6. `isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_1.md` when implementing or reasoning about hot-loop realization; it binds the performance graph to pinned NEES without changing gameplay semantics.
 7. legacy `canonical/`, `maps/`, `hypotheses/`, `open-questions/`, `confidence/`, and `evidence/` views only for readability, compatibility, or provenance checks.
-8. authority 1.0 only as immutable historical qualification evidence, and `provenance/` when an audit, source normalization, attribution check, or exact historical reconstruction requires it.
+8. authorities 1.1 and 1.0 only as immutable historical qualified evidence, and `provenance/` when exact historical reconstruction is required.
 
-A direct edit to a legacy bridge view does not change authoritative logic. New durable logic must be represented and qualified in a successor IsoGraph authority revision.
+A direct edit to a legacy bridge view does not change authoritative logic. New durable game-theory logic must be represented and qualified in a successor IsoGraph authority revision. A performance-realization binding such as NEES remains separate non-gameplay authority.
 
 ## Core invariants
 

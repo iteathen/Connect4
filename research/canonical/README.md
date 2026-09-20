@@ -1,8 +1,8 @@
 # Legacy canonical research bridge
 
-**Current logic authority:** `../isograph/CONNECT4_LOGIC_AUTHORITY_1_0.md`
+**Current logic authority:** `../isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md`
 
-This directory preserves the pre-IsoGraph normalized claim/model views. It remains useful for human readability, stable `C4-R####` lookup, compatibility, and provenance reconstruction, but it is no longer the conflict-resolution authority for the frozen logic promoted on 2026-09-18.
+This directory preserves the pre-IsoGraph normalized claim/model views. It remains useful for human readability, stable `C4-R####` lookup, compatibility, and provenance reconstruction, but it is no longer the conflict-resolution authority. Authority 1.2 is current; authority 1.0 remains the immutable historical package that captured these exact bridge bytes on 2026-09-18.
 
 The exact qualified content of this directory at source revision `aea692af800f524569ea1c2fda722087cd9bca39` is embedded in IsoGraph authority 1.0.
 

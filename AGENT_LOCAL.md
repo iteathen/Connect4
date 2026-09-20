@@ -35,6 +35,8 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 Current qualified **game-theory / logic** authority is `research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md` with manifest `research/isograph/CONNECT4_LOGIC_AUTHORITY_MANIFEST_1_2.json`. Its exact promoted semantic package is `research/isograph/successor/CONNECT4_GAME_THEORY_1_2_CANDIDATE.*` plus `CONNECT4_GAME_THEORY_CLAIM_COVERAGE_1_2_CANDIDATE.json`.
 
+Current separate IsoMax performance realization routing is `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md` plus `research/isograph/optimization/ISOMAX_HOT_LOOP_NEES_REALIZATION_AUTHORITY_0_1.md`. NEES governs implementation realization only and has no gameplay-authority effect.
+
 Current qualified hot-loop performance-research authority is `research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md`.
 
 Authority 1.1 remains immutable historical full-corpus qualification/provenance evidence. Do not compose the old applied-NEI or RBA overlay stack with current authority as parallel semantics.
