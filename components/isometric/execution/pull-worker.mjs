@@ -24,6 +24,7 @@ import {
   WC_DETERMINISTIC,
   WC_EXACT,
   WC_FREE_WAITS,
+  WC_FRONTIER_EVALS,
   WC_FRONTIERS,
   WC_PATH_REPLAYS,
   WC_RETIRED,
@@ -146,6 +147,7 @@ class PullEvaluator {
         return this.publishRetired(shared, slot, generation, attempt);
       }
 
+      this.counters[WC_FRONTIER_EVALS]++;
       const native = nativeFrontierCode(this.state);
       if (native !== 0 && native < 64) {
         const value = (native & 3) - 2;
