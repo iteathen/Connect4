@@ -28,6 +28,8 @@ export const CTRL_WORK_NEXT = 3;
 export const CTRL_FREE_WAKE = 4;
 export const CTRL_PUB_WAKE = 5;
 export const CTRL_FAILURE = 6;
+export const CTRL_OCC_NEXT = 7;
+export const CTRL_OCC_FREE_WAKE = 8;
 export const CTRL_WORDS = 16;
 
 export const WC_CLAIMS = 0;
@@ -71,17 +73,20 @@ export function createSharedWorkPool({
   workerCount,
   publicationCapacity = Math.max(1024, Math.min(workCapacity * 2, 1 << 20)),
   queueCapacity = workCapacity,
+  occurrenceCapacity = publicationCapacity,
 } = {}) {
   positive(workCapacity, 'workCapacity');
   positive(workerCount, 'workerCount', 256);
   positive(publicationCapacity, 'publicationCapacity');
   positive(queueCapacity, 'queueCapacity');
+  positive(occurrenceCapacity, 'occurrenceCapacity');
 
   const descriptor = Object.freeze({
     workCapacity,
     workerCount,
     publicationCapacity,
     queueCapacity,
+    occurrenceCapacity,
     bands: PRIORITY_BANDS,
     control: sabI32(CTRL_WORDS),
 
@@ -111,6 +116,16 @@ export function createSharedWorkPool({
     freeEnqueue: sabI32(1),
     freeDequeue: sabI32(1),
 
+    occurrenceState: sabI32(occurrenceCapacity),
+    occurrenceGeneration: sabI32(occurrenceCapacity),
+    occurrencePathLength: sabI32(occurrenceCapacity),
+    occurrencePublisher: sabI32(occurrenceCapacity),
+    occurrencePath: new SharedArrayBuffer(occurrenceCapacity * MAX_MOVES),
+    occurrenceFreeSequence: sabI32(occurrenceCapacity),
+    occurrenceFreeSlot: sabI32(occurrenceCapacity),
+    occurrenceFreeEnqueue: sabI32(1),
+    occurrenceFreeDequeue: sabI32(1),
+
     publicationSequence: sabI32(publicationCapacity),
     publicationKind: sabI32(publicationCapacity),
     publicationA: sabI32(publicationCapacity),
@@ -135,6 +150,7 @@ export function createSharedWorkPool({
   initializeRingSequence(descriptor.queueSequence, PRIORITY_BANDS, queueCapacity);
   initializeRingSequence(descriptor.freeSequence, 1, workCapacity);
   initializeRingSequence(descriptor.publicationSequence, 1, publicationCapacity);
+  initializeRingSequence(descriptor.occurrenceFreeSequence, 1, occurrenceCapacity);
 
   const pool = openSharedWorkPool(descriptor);
   pool.workQ.fill(-1);
@@ -146,6 +162,7 @@ export function createSharedWorkPool({
   pool.preferredTicket.fill(-1);
   pool.preferredBand.fill(-1);
   pool.workerAlive.fill(1);
+  pool.occurrencePublisher.fill(-1);
   return descriptor;
 }
 
@@ -159,6 +176,7 @@ export function openSharedWorkPool(descriptor) {
     workerCount: descriptor.workerCount,
     publicationCapacity: descriptor.publicationCapacity,
     queueCapacity: descriptor.queueCapacity,
+    occurrenceCapacity: descriptor.occurrenceCapacity,
     bands: descriptor.bands,
 
     control: new Int32Array(descriptor.control),
@@ -187,6 +205,16 @@ export function openSharedWorkPool(descriptor) {
     freeSlot: new Int32Array(descriptor.freeSlot),
     freeEnqueue: new Int32Array(descriptor.freeEnqueue),
     freeDequeue: new Int32Array(descriptor.freeDequeue),
+
+    occurrenceState: new Int32Array(descriptor.occurrenceState),
+    occurrenceGeneration: new Int32Array(descriptor.occurrenceGeneration),
+    occurrencePathLength: new Int32Array(descriptor.occurrencePathLength),
+    occurrencePublisher: new Int32Array(descriptor.occurrencePublisher),
+    occurrencePath: new Uint8Array(descriptor.occurrencePath),
+    occurrenceFreeSequence: new Int32Array(descriptor.occurrenceFreeSequence),
+    occurrenceFreeSlot: new Int32Array(descriptor.occurrenceFreeSlot),
+    occurrenceFreeEnqueue: new Int32Array(descriptor.occurrenceFreeEnqueue),
+    occurrenceFreeDequeue: new Int32Array(descriptor.occurrenceFreeDequeue),
 
     publicationSequence: new Int32Array(descriptor.publicationSequence),
     publicationKind: new Int32Array(descriptor.publicationKind),
@@ -350,6 +378,45 @@ function dequeueFree(pool, scratch) {
   return ringDequeue(pool.freeSequence, pool.freeDequeue, 0, pool.workCapacity, (cell) => {
     scratch[0] = pool.freeSlot[cell];
   });
+}
+
+function enqueueOccurrenceFree(pool, slot) {
+  const queued = ringEnqueue(pool.occurrenceFreeSequence, pool.occurrenceFreeEnqueue, 0,
+    pool.occurrenceCapacity, (cell) => { pool.occurrenceFreeSlot[cell] = slot; });
+  if (!queued) throw new Error('ISOMAX_PULL_OCCURRENCE_FREE_RING_CAPACITY');
+  Atomics.add(pool.control, CTRL_OCC_FREE_WAKE, 1);
+  Atomics.notify(pool.control, CTRL_OCC_FREE_WAKE);
+}
+
+function dequeueOccurrenceFree(pool, scratch) {
+  return ringDequeue(pool.occurrenceFreeSequence, pool.occurrenceFreeDequeue, 0,
+    pool.occurrenceCapacity, (cell) => { scratch[0] = pool.occurrenceFreeSlot[cell]; });
+}
+
+export function allocateOccurrenceSlot(pool, scratch, publisher = -1) {
+  let slot;
+  if (dequeueOccurrenceFree(pool, scratch)) slot = scratch[0];
+  else {
+    slot = Atomics.add(pool.control, CTRL_OCC_NEXT, 1);
+    if (slot >= pool.occurrenceCapacity) return -1;
+  }
+  const generation = Atomics.add(pool.occurrenceGeneration, slot, 1) + 1;
+  Atomics.store(pool.occurrenceState, slot, 1);
+  Atomics.store(pool.occurrencePathLength, slot, 0);
+  Atomics.store(pool.occurrencePublisher, slot, publisher);
+  scratch[0] = slot;
+  scratch[1] = generation;
+  return slot;
+}
+
+export function releaseOccurrenceSlot(pool, slot, generation) {
+  if (slot < 0 || slot >= pool.occurrenceCapacity) return false;
+  if (Atomics.load(pool.occurrenceGeneration, slot) !== generation) return false;
+  if (Atomics.compareExchange(pool.occurrenceState, slot, 1, 0) !== 1) return false;
+  Atomics.store(pool.occurrencePathLength, slot, 0);
+  Atomics.store(pool.occurrencePublisher, slot, -1);
+  enqueueOccurrenceFree(pool, slot);
+  return true;
 }
 
 export function allocateWorkSlot(pool, scratch) {
