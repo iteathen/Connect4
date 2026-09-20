@@ -75,7 +75,7 @@ The clean hot-loop graph must preserve every retained optimization fact without 
 - singleton direct projection -> exact metadata realization equivalence;
 - module-scope growth helper -> same growth semantics / different runtime realization;
 - preparation reorder -> same final storage semantics;
-- q cache identity -> exact q coordinate equality;
+- q_r cache identity -> exact reflection-orbit coordinate equality; q_o remains the orientation-sensitive behavior carrier;
 - task occurrences -> distinct occurrences that may project to one q dependency;
 - V8/machine/distribution unknowns -> QU.
 
@@ -98,14 +98,23 @@ Do not silently fall back to qualified NEI 0.1/0.2 answer-tag semantics for new 
 
 ### G1 — q-congruence independent review
 
-Recheck:
-- support -> legal action frontier/mover;
-- q+action -> terminal token;
-- first-win-aware minimal-antichain cofactor exactness;
-- q+action -> unique successor q;
-- rank induction.
+The first independent reconstruction is recorded in `Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md` and found one required distinction:
 
-Require explicit adversarial attempts to break each premise.
+```text
+q_o = orientation-sensitive ordinary future-behavior carrier
+q_r = horizontal-reflection orbit/cache quotient of q_o
+```
+
+The q-congruence proof core survives for `q_o`.
+
+Promotion requires:
+- support_o -> literal legal action frontier/mover;
+- q_o+literal action -> terminal token;
+- first-win-aware minimal-antichain cofactor exactness;
+- q_o+literal action -> unique successor q_o;
+- rank induction;
+- explicit reflection transporter `c -> 6-c` for q_r;
+- no claim that q_r equality implies identical literal column labels.
 
 ### G2 — negative identity-scope controls
 
@@ -114,6 +123,7 @@ Find/retain cases showing:
 - distinct move histories reaching same q where available;
 - same q with different proof/certificate premises;
 - reflection-related but physically distinct occurrences;
+- reflected positions where literal action `c` corresponds to `6-c`, proving q_r is transporter-aware rather than literal-label identity;
 - same exact W/D/L without complete future-behavior identity.
 
 ### G3 — QU audit
@@ -234,6 +244,7 @@ The eventual review must answer independently:
 
 ```text
 game-theory semantic completeness
+q_o/q_r and action-transporter correctness
 identity-model correctness
 QU completeness
 q-congruence qualification
