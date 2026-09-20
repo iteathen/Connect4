@@ -199,6 +199,7 @@ test('surplus helpers steal alternatives while the current worker keeps local re
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
       queueCapacity:131072,publicationCapacity:131072,
+      helperGraceMs:25,
       workerClassReserve:262144,workerEntryReserve:524288,
     });
     try{
