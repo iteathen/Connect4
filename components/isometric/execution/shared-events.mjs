@@ -84,7 +84,7 @@ export function openSharedEvents(descriptor) {
  * caller-owned scratch indexed by canonical action.
  */
 export function publishBranch(events, workerId, parentQ, parentGeneration, mask,
-  retainedAction, maximizing, runToken, childQ, childGeneration, childEval) {
+  retainedAction, maximizing, runToken, childQ, childGeneration, childEval, childBase = 0) {
   const write = Atomics.load(events.branchWrite, workerId);
   const read = Atomics.load(events.branchRead, workerId);
   if ((write - read) >= events.branchCapacity) throw new Error('ISOMAX_BRANCH_DESCRIPTOR_CAPACITY');
@@ -98,9 +98,9 @@ export function publishBranch(events, workerId, parentQ, parentGeneration, mask,
   events.branchRunToken[slot] = runToken;
   const base = slot * MAX_ACTIONS;
   for (let action = 0; action < MAX_ACTIONS; action++) {
-    events.branchChildQ[base + action] = childQ[action];
-    events.branchChildGeneration[base + action] = childGeneration[action];
-    events.branchChildEval[base + action] = childEval[action];
+    events.branchChildQ[base + action] = childQ[childBase + action];
+    events.branchChildGeneration[base + action] = childGeneration[childBase + action];
+    events.branchChildEval[base + action] = childEval[childBase + action];
   }
   Atomics.store(events.branchWrite, workerId, write + 1);
   return slot;
