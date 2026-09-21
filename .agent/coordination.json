@@ -78,7 +78,27 @@
             "active_task": "A.shared-tt-lifetime.exposure-permit-ownership.NEES-contention-qualification",
             "base_branch": "prototype/isomax-exposure-deficit-latch-102",
             "base_sha": "604a130e8d554a1f9ca0a80bdeeac25760b9cb94",
-            "release_or_replace_if": "returned work crosses architecture/production authority, cannot preserve qualification invariants, or review cost exceeds throughput gain"
+            "release_or_replace_if": "returned work crosses architecture/production authority, cannot preserve qualification invariants, or review cost exceeds throughput gain",
+            "probation": {
+              "level": "new-recruit",
+              "trust_scope": "bounded qualification artifacts only",
+              "no_merge_authority": true,
+              "no_architecture_authority": true,
+              "no_production_write_authority": true,
+              "required_reviewers": [
+                "isomax-reviewer",
+                "isomax-director"
+              ],
+              "evidence_required": [
+                "exact base/head SHA",
+                "small reviewable diff",
+                "independent local test execution",
+                "scope-compliance review",
+                "no weakened assertions or hidden capacity/timeout changes"
+              ],
+              "promotion_gate": "at least 3 consecutive accepted bounded assignments with no material scope violation, hidden correctness defect, or excessive review burden",
+              "regression_rule": "any material scope/correctness violation resets probation and may release the recruit"
+            }
           }
         }
       ],
