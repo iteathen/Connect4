@@ -65,6 +65,58 @@
         }
       ],
       "role_state_rule": "The issue thread owns live role/task state. Registry roles are durable purpose/recovery definitions only; last_session_handle is historical and may be replaced after restart."
+    },
+    {
+      "campaign_id": "project-operations",
+      "status": "active",
+      "scope": {
+        "purpose": "agent_capacity_and_development_budget",
+        "technical_authority": false
+      },
+      "communication": {
+        "kind": "github_issue",
+        "issue": 126,
+        "url": "https://github.com/iteathen/Connect4/issues/126",
+        "transport_profile": "AX/GH-OPS",
+        "live_state_authority": "issue_thread"
+      },
+      "startup": {
+        "read_channel_before_substantive_work": true,
+        "recover_latest_director_exchange": true,
+        "recover_latest_role_exchange": true,
+        "announce_rejoin": true,
+        "monitoring_preference": "condition_watch_if_runtime_supports_it",
+        "monitoring_fallback": "read_channel_before_and_after_each_substantive_work_unit"
+      },
+      "roles": [
+        {
+          "role_id": "capacity-manager",
+          "role": "agent-capacity-and-recruiting",
+          "last_session_handle": null,
+          "purpose": "Continuously identify and qualify runnable agent capacity, free/low-cost resources, collaborators, and role gaps; recruit only into bounded independent seams with an integration owner.",
+          "authority_limits": [
+            "no repository access grants without owner approval",
+            "no paid commitments without owner approval",
+            "no reassignment of technical authority",
+            "no recruitment that creates overlapping write ownership"
+          ],
+          "recovery_behavior": "Refresh project-operations issue #126, recover current role gaps/candidates and technical campaign demand, then resume scouting and onboarding."
+        },
+        {
+          "role_id": "dev-budget",
+          "role": "development-budget-and-revenue",
+          "last_session_handle": null,
+          "purpose": "Continuously identify credible funding, sponsorship, grants, credits, paid support/integration, partnerships, and other resource opportunities that can increase development capacity.",
+          "authority_limits": [
+            "no spending or financial commitments",
+            "no accepting money or legal terms",
+            "no licensing changes",
+            "no public commercial commitments or promised deliverables"
+          ],
+          "recovery_behavior": "Refresh project-operations issue #126, recover the current opportunity pipeline and resource gaps, then resume research and proposal qualification."
+        }
+      ],
+      "role_state_rule": "Issue #126 owns live operations role/task state. Registry roles are durable purpose/recovery definitions only."
     }
   ]
 }
