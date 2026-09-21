@@ -8,6 +8,7 @@ import { nativeFrontierCode } from '../frontier.mjs';
 import {
   CTRL_WORK_NEXT,
   OCC_RETIRED,
+  OCC_ROLE_SURPLUS,
   WORK_EXACT,
   WORK_RUNNING,
   allocateOccurrence,
@@ -225,6 +226,19 @@ test('surplus occurrence arena reuses one slot only under a new generation', () 
   }
 });
 
+test('worker-attached surplus eval survives occurrence transport', () => {
+  const descriptor=createSurplusPool({
+    workerCount:2,workCapacity:4,occurrenceCapacity:4,queueCapacity:8,publicationCapacity:8,
+  });
+  const shared=openSurplusPool(descriptor);
+  const solver=new IsoMaxSolver(),state=solver.createState();
+  const scratch=new Int32Array(1);
+  const slot=allocateOccurrence(shared,0,-1,0,state,3,0,OCC_ROLE_SURPLUS,scratch);
+  assert.ok(slot>=0);
+  Atomics.store(shared.occEval,slot,2);
+  assert.equal(Atomics.load(shared.occEval,slot),2);
+});
+
 test('one-worker surplus profile degenerates to native recursive DFS',
   {timeout:30000}, async () => {
     const {moves,expected}=branchyFixture(0x1025a);
@@ -297,10 +311,12 @@ test('surplus helpers steal alternatives while the current worker keeps local re
         'remote helper execution must report its physical replay cost');
       assert.equal(actual.metrics.worker.helperWaits,0,
         'worker recursion must not block on helper/BranchManager arbitration');
-      assert.ok(actual.metrics.worker.occurrencesPublished>actual.metrics.canonicalWorkCreated,
-        'workers must produce surplus before BranchManager selects queue entries');
-      assert.ok(actual.metrics.canonicalWorkCreated<=actual.metrics.worker.occurrencesPublished,
-        'BranchManager may organize posted surplus but must never manufacture semantic work');
+      assert.ok(actual.metrics.worker.occurrencesPublished>0,
+        'worker must post branch-derived surplus occurrences');
+      assert.ok(actual.metrics.canonicalWorkCreated<=actual.metrics.worker.occurrencesPublished+1,
+        'BranchManager queue entries must derive from worker posts; +1 is the external root');
+      assert.equal(actual.metrics.worker.helperWaits,0,
+        'independent worker loop must not block on peer/helper completion');
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,

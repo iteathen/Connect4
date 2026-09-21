@@ -1,6 +1,6 @@
 import { parentPort, workerData } from 'node:worker_threads';
 import { IsoMaxSolver } from '../solver.mjs';
-import { CENTER_ORDER } from '../move-order.mjs';
+import { CENTER_ORDER, singletonEffectClass } from '../move-order.mjs';
 import {
   CTRL_ABORT,
   CTRL_PUB_WAKE,
@@ -65,20 +65,24 @@ const workerCount=workerData.workerCount;
 class SurplusDistributor {
   constructor(worker) {
     this.worker=worker;
+    this.ownsOrdering=true;
     this.columns=new Int8Array((MAX_MOVES+1)*7);
+    this.evals=new Int8Array((MAX_MOVES+1)*7);
+    this.ranks=new Int8Array((MAX_MOVES+1)*7);
     this.occSlots=new Int32Array((MAX_MOVES+1)*7);this.occSlots.fill(-1);
     this.occGenerations=new Int32Array((MAX_MOVES+1)*7);
     this.allocateScratch=new Int32Array(1);
   }
 
-  allocateOpportunity(state,column,orderRank,role) {
-    // Worker discovers the branch and posts its own surplus. It never blocks
-    // waiting for BranchManager storage reclamation. Bounded exhaustion fails
-    // closed; it is not converted into synchronous manager backpressure.
-    return allocateOccurrence(
+  allocateOpportunity(state,column,orderRank,evalClass,role) {
+    // Worker discovers/evaluates the child. BranchManager only organizes the
+    // posted occurrence afterward; eval is carried with the work source.
+    const slot=allocateOccurrence(
       this.worker.shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
       state,column,orderRank,role,this.allocateScratch,
     );
+    if(slot>=0)Atomics.store(this.worker.shared.occEval,slot,evalClass);
+    return slot;
   }
 
   publishBlocking(kind,a=0,b=0,c=0,d=0,e=0,f=0,g=0) {
@@ -248,15 +252,30 @@ class SurplusDistributor {
 
   solveChildren(solver,state,maximizing,lower,upper,promoted) {
     const ply=state.ply,base=ply*7;
-    let count=0;
-    if(promoted>=0&&state.canPlay(promoted))this.columns[base+count++]=promoted;
-    if(promoted>=0&&state.canPlay(promoted))this.columns[base+count++]=promoted;
-    for(let i=0;i<CENTER_ORDER.length;i++){
-      const column=CENTER_ORDER[i];
-      if(column===promoted||!state.canPlay(column))continue;
-      this.columns[base+count++]=column;
+    let count=0,bestIndex=-1,bestEval=-1;
+
+    // The worker owns branch discovery and the cheap evaluation used to choose
+    // its continuing line. CENTER_ORDER is the deterministic tie-break.
+    for(let rank=0;rank<CENTER_ORDER.length;rank++){
+      const column=CENTER_ORDER[rank];
+      if(!state.canPlay(column))continue;
+      const evalClass=singletonEffectClass(state,column);
+      const index=base+count;
+      this.columns[index]=column;
+      this.evals[index]=evalClass;
+      this.ranks[index]=rank;
+      if(evalClass>bestEval){bestEval=evalClass;bestIndex=count;}
+      count++;
     }
     if(count===0)throw new Error('ongoing surplus state has no legal moves');
+    if(bestIndex>0){
+      const a=base,b=base+bestIndex;
+      let t=this.columns[a];this.columns[a]=this.columns[b];this.columns[b]=t;
+      t=this.evals[a];this.evals[a]=this.evals[b];this.evals[b]=t;
+      t=this.ranks[a];this.ranks[a]=this.ranks[b];this.ranks[b]=t;
+    }
+    if(bestEval>0)solver.metrics.orderingPromotions++;
+
     if(count===1){
       const column=this.columns[base];
       state.applyUnchecked(column);solver.metrics.recursiveChildren++;
@@ -265,33 +284,33 @@ class SurplusDistributor {
     }
     this.worker.counters[WC_BRANCHES]++;
 
-    // One worker has no global consumer and should collapse to ordinary DFS.
+    // With no other worker, queue publication cannot create parallel progress.
     if(workerCount===1)return this.solveLocalChildren(
       solver,state,maximizing,lower,upper,count,base,
     );
 
     for(let i=0;i<count;i++)this.occSlots[base+i]=-1;
     try{
-      // The worker is the sole source of branch work. It posts the running
-      // continuation for TT visibility plus every surplus sibling it actually
-      // discovered. BranchManager decides q identity, dedupe, priority and
-      // which posted surplus is represented in the READY work queue.
+      // Current line is visible to TT but not claimable as surplus. Every
+      // remaining child is worker-produced surplus with eval metadata attached.
       for(let i=0;i<count;i++){
-        const column=this.columns[base+i];
+        const index=base+i,column=this.columns[index];
         const role=i===0?OCC_ROLE_CONTINUATION:OCC_ROLE_SURPLUS;
-        const slot=this.allocateOpportunity(state,column,i,role);
+        const slot=this.allocateOpportunity(
+          state,column,this.ranks[index],this.evals[index],role,
+        );
         if(slot<0)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_CAPACITY');
         const generation=Atomics.load(this.worker.shared.occGeneration,slot);
-        this.occSlots[base+i]=slot;this.occGenerations[base+i]=generation;
+        this.occSlots[index]=slot;this.occGenerations[index]=generation;
         this.publishBlocking(PUB_OCCURRENCE,slot,generation,this.worker.activeWork,
-          this.worker.activeAttempt,column,i,workerIndex);
+          this.worker.activeAttempt,column,this.ranks[index],workerIndex);
         this.worker.counters[WC_OCC_PUBLISHED]++;
       }
 
       let best=maximizing?-1:1;
       for(let i=0;i<count;i++){
-        const column=this.columns[base+i];
-        const slot=this.occSlots[base+i],generation=this.occGenerations[base+i];
+        const index=base+i,column=this.columns[index];
+        const slot=this.occSlots[index],generation=this.occGenerations[index];
         let childValue;
 
         if(i===0){
@@ -316,10 +335,10 @@ class SurplusDistributor {
           if(!remoteResolved){
             this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,childValue,workerIndex);
           }
-          this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
+          this.retireOccurrence(slot,generation);this.occSlots[index]=-1;
         }else{
           childValue=this.resolveOccurrence(solver,state,column,slot,generation);
-          this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
+          this.retireOccurrence(slot,generation);this.occSlots[index]=-1;
         }
 
         if(maximizing){
@@ -333,10 +352,10 @@ class SurplusDistributor {
       return best;
     }finally{
       for(let i=0;i<count;i++){
-        const slot=this.occSlots[base+i];
+        const index=base+i,slot=this.occSlots[index];
         if(slot>=0){
-          this.retireOccurrence(slot,this.occGenerations[base+i]);
-          this.occSlots[base+i]=-1;
+          this.retireOccurrence(slot,this.occGenerations[index]);
+          this.occSlots[index]=-1;
         }
       }
     }
@@ -377,6 +396,7 @@ class SurplusEvaluator {
     this.helperGraceMs=message.helperGraceMs;
     if(!Number.isSafeInteger(this.helperGraceMs)||this.helperGraceMs<1||this.helperGraceMs>1000)
       throw new RangeError('invalid surplus helperGraceMs');
+    // Compatibility field only: recursive workers never wait on helper state.
     this.controlQuantum=message.controlQuantum;
     if(!Number.isSafeInteger(this.controlQuantum)||this.controlQuantum<1||this.controlQuantum>1<<20)
       throw new RangeError('invalid surplus controlQuantum');

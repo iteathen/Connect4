@@ -238,7 +238,12 @@ export class IsoMaxSolver {
     const maximizing = state.sideToMove === 0;
     let best = maximizing ? -1 : 1;
     let sawMove = false;
-    const promoted = state.ply > this.orderingRootPly ? promotedColumn(state) : -1;
+    // A distributed branch worker owns its child evaluation/order so it can
+    // attach the same eval metadata to posted surplus without computing it
+    // twice here. The ordinary solver retains the qualified promotedColumn path.
+    const distributedOrdering = this.branchDistributor?.ownsOrdering === true;
+    const promoted = !distributedOrdering && state.ply > this.orderingRootPly
+      ? promotedColumn(state) : -1;
     if (promoted >= 0) this.metrics.orderingPromotions++;
 
     // Corrected #102 boundary: a distributed worker may expose surplus branch

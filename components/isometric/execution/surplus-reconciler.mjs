@@ -260,8 +260,10 @@ class SurplusBranchManagerLoop {
     return occ;
   }
 
-  priorityFor(q,orderRank=6){
-    let band=orderRank<=1?6:orderRank<=2?5:4;
+  priorityFor(q,orderRank=6,evalClass=0){
+    // Worker evaluation is attached to the posted surplus. BranchManager may
+    // combine it with canonical TT topology/fan-in but never invents the eval.
+    let band=evalClass>=2?7:evalClass>=1?6:orderRank<=1?6:orderRank<=2?5:4;
     if(this.qDemand[q]>=2)band=Math.max(band,6);
     if(this.qDemand[q]>=4)band=7;
     return band;
@@ -309,7 +311,9 @@ class SurplusBranchManagerLoop {
     for(let i=0;i<length;i++)this.shared.workPath[target+i]=this.shared.occPath[source+i];
     Atomics.store(this.shared.workPathLength,slot,length);
 
-    const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,occ));
+    const band=this.priorityFor(
+      q,Atomics.load(this.shared.occOrderRank,occ),Atomics.load(this.shared.occEval,occ),
+    );
     this.qWork[q]=slot;this.qPriority[q]=band;this.activeWorkCount++;
     this.metrics.maxActiveWork=Math.max(this.metrics.maxActiveWork,this.activeWorkCount);
     Atomics.store(this.shared.workPriority,slot,band);Atomics.store(this.shared.workState,slot,WORK_READY);
@@ -337,7 +341,9 @@ class SurplusBranchManagerLoop {
       for(let q=0;q<this.qCount;q++){
         if(!this.qAlive[q]||this.qExact[q]||this.qDemand[q]===0||this.qWork[q]>=0||this.liveContinuation(q)>=0)continue;
         const occ=this.firstLiveOccurrence(q);if(occ<0)continue;
-        const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,occ));
+        const band=this.priorityFor(
+          q,Atomics.load(this.shared.occOrderRank,occ),Atomics.load(this.shared.occEval,occ),
+        );
         if(band>bestBand){bestQ=q;bestBand=band;bestOcc=occ;if(band===PRIORITY_BANDS-1)break;}
       }
       if(bestQ<0)break;
@@ -429,7 +435,9 @@ class SurplusBranchManagerLoop {
     if(work>=0){
       const gen=Atomics.load(this.shared.workGeneration,work);
       Atomics.store(this.shared.occWork,slot,work);Atomics.store(this.shared.occWorkGeneration,slot,gen);
-      const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,slot));
+      const band=this.priorityFor(
+        q,Atomics.load(this.shared.occOrderRank,slot),Atomics.load(this.shared.occEval,slot),
+      );
       if(band>this.qPriority[q]&&Atomics.load(this.shared.workState,work)===WORK_READY){
         // enqueueWork owns ticket + priority publication atomically after it
         // reserves queue space. Do not pre-write workPriority: a concurrent

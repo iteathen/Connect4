@@ -139,6 +139,9 @@ export function createSurplusPool({
     occParentWork: sabI32(occurrenceCapacity),
     occParentAttempt: sabI32(occurrenceCapacity),
     occAction: sabI32(occurrenceCapacity),
+    // Worker-owned branch evaluation metadata. BranchManager may use it for
+    // queue priority but never fabricates or recomputes the branch child.
+    occEval: sabI32(occurrenceCapacity),
     occOrderRank: sabI32(occurrenceCapacity),
     occPathLength: sabI32(occurrenceCapacity),
     occPath: new SharedArrayBuffer(occurrenceCapacity * MAX_MOVES),
@@ -227,6 +230,7 @@ export function openSurplusPool(d) {
     occParentWork:new Int32Array(d.occParentWork),
     occParentAttempt:new Int32Array(d.occParentAttempt),
     occAction:new Int32Array(d.occAction),
+    occEval:new Int32Array(d.occEval),
     occOrderRank:new Int32Array(d.occOrderRank),
     occPathLength:new Int32Array(d.occPathLength),
     occPath:new Uint8Array(d.occPath),
@@ -509,6 +513,7 @@ export function releaseOccurrence(pool,slot,generation) {
   Atomics.store(pool.occParentWork,slot,-1);
   Atomics.store(pool.occParentAttempt,slot,0);
   Atomics.store(pool.occAction,slot,-1);
+  Atomics.store(pool.occEval,slot,0);
   Atomics.store(pool.occOrderRank,slot,0);
   Atomics.store(pool.occPathLength,slot,0);
   Atomics.store(pool.occState,slot,OCC_UNUSED);
@@ -542,6 +547,7 @@ export function allocateOccurrence(pool, workerIndex, parentWork, parentAttempt,
   Atomics.store(pool.occParentWork,slot,parentWork);
   Atomics.store(pool.occParentAttempt,slot,parentAttempt);
   Atomics.store(pool.occAction,slot,column);
+  Atomics.store(pool.occEval,slot,0);
   Atomics.store(pool.occOrderRank,slot,orderRank);
   const base=slot*MAX_MOVES;
   for(let ply=0;ply<state.ply;ply++) pool.occPath[base+ply]=state.moveCells[ply]%7;
