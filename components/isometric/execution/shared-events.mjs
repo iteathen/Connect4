@@ -41,6 +41,8 @@ export function createSharedEvents({
     branchRetainedAction: sab(Int32Array, branchSlots),
     branchMaximizing: sab(Int32Array, branchSlots),
     branchRunToken: sab(Int32Array, branchSlots),
+    branchPly: sab(Int32Array, branchSlots),
+    branchEntryAction: sab(Int32Array, branchSlots),
     branchChildQ: sab(Int32Array, branchSlots * MAX_ACTIONS),
     branchChildGeneration: sab(Int32Array, branchSlots * MAX_ACTIONS),
     branchChildEval: sab(Int32Array, branchSlots * MAX_ACTIONS),
@@ -66,6 +68,8 @@ export function openSharedEvents(descriptor) {
     branchRetainedAction: new Int32Array(descriptor.branchRetainedAction),
     branchMaximizing: new Int32Array(descriptor.branchMaximizing),
     branchRunToken: new Int32Array(descriptor.branchRunToken),
+    branchPly: new Int32Array(descriptor.branchPly),
+    branchEntryAction: new Int32Array(descriptor.branchEntryAction),
     branchChildQ: new Int32Array(descriptor.branchChildQ),
     branchChildGeneration: new Int32Array(descriptor.branchChildGeneration),
     branchChildEval: new Int32Array(descriptor.branchChildEval),
@@ -84,7 +88,8 @@ export function openSharedEvents(descriptor) {
  * caller-owned scratch indexed by canonical action.
  */
 export function publishBranch(events, workerId, parentQ, parentGeneration, mask,
-  retainedAction, maximizing, runToken, childQ, childGeneration, childEval, childBase = 0) {
+  retainedAction, maximizing, runToken, branchPly, entryAction,
+  childQ, childGeneration, childEval, childBase = 0) {
   const write = Atomics.load(events.branchWrite, workerId);
   const read = Atomics.load(events.branchRead, workerId);
   if ((write - read) >= events.branchCapacity) throw new Error('ISOMAX_BRANCH_DESCRIPTOR_CAPACITY');
@@ -96,6 +101,8 @@ export function publishBranch(events, workerId, parentQ, parentGeneration, mask,
   events.branchRetainedAction[slot] = retainedAction;
   events.branchMaximizing[slot] = maximizing ? 1 : 0;
   events.branchRunToken[slot] = runToken;
+  events.branchPly[slot] = branchPly;
+  events.branchEntryAction[slot] = entryAction;
   const base = slot * MAX_ACTIONS;
   for (let action = 0; action < MAX_ACTIONS; action++) {
     events.branchChildQ[base + action] = childQ[childBase + action];
@@ -106,7 +113,8 @@ export function publishBranch(events, workerId, parentQ, parentGeneration, mask,
   return slot;
 }
 
-/** Manager-only consumer. out header: parentQ,parentGen,mask,retained,maximizing,runToken,slot. */
+/** Manager-only consumer. out header:
+ * parentQ,parentGen,mask,retained,maximizing,runToken,slot,branchPly,entryAction. */
 export function consumeBranch(events, workerId, out, childQ, childGeneration, childEval) {
   const read = Atomics.load(events.branchRead, workerId);
   if (read === Atomics.load(events.branchWrite, workerId)) return false;
@@ -119,6 +127,8 @@ export function consumeBranch(events, workerId, out, childQ, childGeneration, ch
   out[4] = events.branchMaximizing[slot];
   out[5] = events.branchRunToken[slot];
   out[6] = slot;
+  out[7] = events.branchPly[slot];
+  out[8] = events.branchEntryAction[slot];
   const base = slot * MAX_ACTIONS;
   for (let action = 0; action < MAX_ACTIONS; action++) {
     childQ[action] = events.branchChildQ[base + action];
