@@ -136,7 +136,12 @@ class PullReconciler {
     this.qHashSlots = new Int32Array(qHashCapacity);
     this.qHashSlots.fill(-1);
     this.qHashMask = qHashCapacity - 1;
-    this.qCount = 0;
+    this.qAlive = new Uint8Array(this.maxQ);
+    this.qFree = new Int32Array(this.maxQ);
+    this.qFreeCount = 0;
+    this.qCount = 0; // index high-water, not live cardinality
+    this.qActiveCount = 0;
+    this.qTombstones = 0;
 
     this.edgeParent = new Int32Array(this.maxEdges);
     this.edgeChild = new Int32Array(this.maxEdges);
@@ -196,6 +201,9 @@ class PullReconciler {
       fullTableRepairs:0,
       slotReclaims:0,
       qReuses:0,
+      qReclaims:0,
+      qHashRebuilds:0,
+      maxActiveCanonicalQ:0,
       reconcileBatches:0,
       reconcileRecords:0,
       reconcileMs:0,
@@ -283,16 +291,90 @@ class PullReconciler {
     return q;
   }
 
+  rebuildQHash() {
+    this.qHashSlots.fill(-1);
+    this.qTombstones = 0;
+    for (let q = 0; q < this.qCount; q++) {
+      if (!this.qAlive[q]) continue;
+      let bucket = this.qHash[q] & this.qHashMask;
+      while (this.qHashSlots[bucket] >= 0) bucket = (bucket + 1) & this.qHashMask;
+      this.qHashSlots[bucket] = q;
+    }
+    this.metrics.qHashRebuilds++;
+  }
+
+  removeQHash(q) {
+    if (q < 0 || q >= this.qCount || !this.qAlive[q]) return false;
+    let bucket = this.qHash[q] & this.qHashMask;
+    for (let steps = 0; steps < this.qHashSlots.length; steps++) {
+      const entry = this.qHashSlots[bucket];
+      if (entry === -1) return false;
+      if (entry === q) {
+        this.qHashSlots[bucket] = -2;
+        this.qTombstones++;
+        return true;
+      }
+      bucket = (bucket + 1) & this.qHashMask;
+    }
+    return false;
+  }
+
+  reclaimOrphanQ(q) {
+    if (q < 0 || q >= this.qCount || q === this.rootQ || !this.qAlive[q]) return false;
+    if (this.qExact[q] || this.qParentCount[q] !== 0 || this.qWork[q] >= 0 ||
+        this.qCandidateBand[q] >= 0 || this.qOutgoingHead[q] !== -1) return false;
+    if (!this.removeQHash(q)) throw new Error('retained canonical q missing from hash during reclaim');
+
+    this.qAlive[q] = 0;
+    this.qP0[q] = 0;
+    this.qP1[q] = 0;
+    this.qSupport[q] = 0;
+    this.qHash[q] = 0;
+    this.qSide[q] = 0;
+    this.qTerminal[q] = 0;
+    this.qForm[q] = Q_UNEXPANDED;
+    this.qExact[q] = 0;
+    this.qValue[q] = 0;
+    this.qWork[q] = -1;
+    this.qIncomingHead[q] = -1;
+    this.qOutgoingHead[q] = -1;
+    this.qOutgoingTail[q] = -1;
+    this.qParentCount[q] = 0;
+    this.qUnresolved[q] = 0;
+    this.qDirectMove[q] = -1;
+    this.qOrderHint[q] = 0;
+    this.qPriority[q] = 0;
+    this.qAffinity[q] = -1;
+    this.qReplayLength[q] = 0;
+    this.qCandidateNext[q] = -1;
+    this.qCandidatePrev[q] = -1;
+    this.qCandidateBand[q] = -1;
+    this.qFree[this.qFreeCount++] = q;
+    if (this.qActiveCount > 0) this.qActiveCount--;
+    this.metrics.qReclaims++;
+    this.metrics.canonicalQ = this.qActiveCount;
+    return true;
+  }
+
   internCurrentState() {
     const p0 = this.key[0];
     const p1 = this.key[1];
     const support = this.key[2] >>> 0;
     const hash = hashQ(p0, p1, support);
     let slot = hash & this.qHashMask;
-    while (true) {
+    let firstTombstone = -1;
+    let empty = -1;
+
+    for (let steps = 0; steps < this.qHashSlots.length; steps++) {
       const q = this.qHashSlots[slot];
-      if (q === -1) break;
-      if (this.qHash[q] === hash &&
+      if (q === -1) {
+        empty = slot;
+        break;
+      }
+      if (q === -2) {
+        if (firstTombstone < 0) firstTombstone = slot;
+      } else if (this.qAlive[q] &&
+          this.qHash[q] === hash &&
           this.qP0[q] === p0 &&
           this.qP1[q] === p1 &&
           this.qSupport[q] === support) {
@@ -301,22 +383,62 @@ class PullReconciler {
       }
       slot = (slot + 1) & this.qHashMask;
     }
-    if (this.qCount >= this.maxQ) throw new Error('ISOMAX_PULL_Q_CAPACITY');
-    const q = this.qCount++;
-    this.qHashSlots[slot] = q;
+
+    if (this.qFreeCount === 0 && this.qCount >= this.maxQ) {
+      throw new Error('ISOMAX_PULL_Q_CAPACITY');
+    }
+    if (this.qTombstones > this.maxQ / 2) {
+      this.rebuildQHash();
+      return this.internCurrentState();
+    }
+
+    let q;
+    if (this.qFreeCount > 0) q = this.qFree[--this.qFreeCount];
+    else q = this.qCount++;
+
+    let insertSlot = firstTombstone >= 0 ? firstTombstone : empty;
+    if (insertSlot < 0) {
+      this.rebuildQHash();
+      insertSlot = hash & this.qHashMask;
+      while (this.qHashSlots[insertSlot] >= 0) insertSlot = (insertSlot + 1) & this.qHashMask;
+    } else if (firstTombstone >= 0) {
+      this.qTombstones--;
+    }
+
+    this.qHashSlots[insertSlot] = q;
+    this.qAlive[q] = 1;
     this.qHash[q] = hash;
     this.qP0[q] = p0;
     this.qP1[q] = p1;
     this.qSupport[q] = support;
     this.qSide[q] = this.state.sideToMove;
     this.qTerminal[q] = this.state.isTerminal() ? 1 : 0;
+    this.qForm[q] = Q_UNEXPANDED;
+    this.qExact[q] = 0;
+    this.qValue[q] = 0;
+    this.qWork[q] = -1;
+    this.qIncomingHead[q] = -1;
+    this.qOutgoingHead[q] = -1;
+    this.qOutgoingTail[q] = -1;
+    this.qParentCount[q] = 0;
+    this.qUnresolved[q] = 0;
+    this.qDirectMove[q] = -1;
+    this.qOrderHint[q] = 0;
+    this.qPriority[q] = 0;
+    this.qAffinity[q] = -1;
+    this.qCandidateNext[q] = -1;
+    this.qCandidatePrev[q] = -1;
+    this.qCandidateBand[q] = -1;
     this.qReplayLength[q] = this.state.ply;
     const replayBase = q * MAX_MOVES;
     for (let ply = 0; ply < this.state.ply; ply++) {
       this.qReplay[replayBase + ply] = this.state.moveCells[ply] % 7;
     }
-    this.metrics.canonicalQ = this.qCount;
-    this.metrics.maxCanonicalQ = Math.max(this.metrics.maxCanonicalQ, this.qCount);
+
+    this.qActiveCount++;
+    this.metrics.canonicalQ = this.qActiveCount;
+    this.metrics.maxActiveCanonicalQ = Math.max(this.metrics.maxActiveCanonicalQ, this.qActiveCount);
+    this.metrics.maxCanonicalQ = Math.max(this.metrics.maxCanonicalQ, this.qActiveCount);
     return q;
   }
 
@@ -383,6 +505,7 @@ class PullReconciler {
 
   candidateEligible(q) {
     return q >= 0 && q < this.qCount &&
+      this.qAlive[q] !== 0 &&
       !this.qExact[q] &&
       this.qForm[q] === Q_UNEXPANDED &&
       this.qWork[q] === -1 &&
@@ -459,7 +582,8 @@ class PullReconciler {
   }
 
   ensureExecution(q) {
-    if (q < 0 || q >= this.qCount || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
+    if (q < 0 || q >= this.qCount || !this.qAlive[q] ||
+        this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
       this.unlinkCandidate(q);
       return false;
     }
@@ -562,6 +686,7 @@ class PullReconciler {
     // never scans the canonical TT.
     this.metrics.fullTableRepairs++;
     for (let q = 0; q < this.qCount; q++) {
+      if (!this.qAlive[q]) continue;
       if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
         this.unlinkCandidate(q);
         continue;
@@ -779,6 +904,7 @@ class PullReconciler {
       this.qForm[q] = Q_UNEXPANDED;
       this.qDirectMove[q] = -1;
       this.metrics.orphanExpansionResets++;
+      if (this.qParentCount[q] === 0 && q !== this.rootQ) this.reclaimOrphanQ(q);
     }
   }
 
@@ -1201,7 +1327,7 @@ class PullReconciler {
     if(this.rootQ>=0)stack[top++]=this.rootQ;
 
     for(let q=0;q<this.qCount;q++){
-      if(this.qExact[q])continue;
+      if(!this.qAlive[q]||this.qExact[q])continue;
       nonExact++;
       const form=this.qForm[q];
       if(form>=0&&form<allForms.length)allForms[form]++;
@@ -1213,7 +1339,7 @@ class PullReconciler {
 
     while(top>0){
       const q=stack[--top];
-      if(q<0||q>=this.qCount||seen[q])continue;
+      if(q<0||q>=this.qCount||!this.qAlive[q]||seen[q])continue;
       seen[q]=1;reachable++;
       if(this.qExact[q]){reachableExact++;continue;}
       const form=this.qForm[q];
@@ -1274,7 +1400,9 @@ class PullReconciler {
       occurrenceAllocated:Math.min(this.shared.occurrenceCapacity, Atomics.load(this.shared.control, CTRL_OCC_NEXT)),
       executionWorkCount:this.executionWorkCount,
       executionLimit:this.executionLimit,
-      qCount:this.qCount,
+      qCount:this.qActiveCount,
+      qHighWater:this.qCount,
+      qFreeCount:this.qFreeCount,
       edgeCount:this.edgeCount,
     };
   }
