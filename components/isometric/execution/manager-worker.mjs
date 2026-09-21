@@ -29,6 +29,8 @@ import {
   publishExactQ,
   qIsCurrent,
   readExactQ,
+  recoverWorkerBucketLocks,
+  recoverWorkerTTReservations,
   recycleQIfDead,
   releaseParentEdge,
   releaseQRef,
@@ -40,6 +42,7 @@ import {
   consumeBranch,
   consumeEvent,
   openSharedEvents,
+  recoverUnpublishedBranch,
 } from './shared-events.mjs';
 
 if (!parentPort) throw new Error('IsoMax BranchManager worker requires parentPort');
@@ -60,6 +63,8 @@ const MC_RECYCLED_Q = 8;
 const MC_ORPHAN_RETIREMENTS = 9;
 const MC_ROOT_WITNESS_WAITS = 10;
 const MC_STALE_DESCRIPTORS = 11;
+const MC_WORKER_DEATH_RECOVERIES = 12;
+const MC_WORKER_DEATH_REQUEUES = 13;
 const MC_WORDS = 16;
 
 class SharedBranchManagerLoop {
@@ -653,8 +658,58 @@ class SharedBranchManagerLoop {
     return true;
   }
 
-  drainOnce() {
+  recoverDeadWorkers() {
     let progress = false;
+    for (let worker = 0; worker < workerCount; worker++) {
+      const deathGeneration = Atomics.load(tt.workerDeath, worker);
+      if (deathGeneration === Atomics.load(tt.workerRecovery, worker)) continue;
+
+      // BranchManager owns failure recovery. A worker ID is not reusable until
+      // every lock/reservation/publication owned by its dead generation has a
+      // deterministic disposition here.
+      recoverWorkerBucketLocks(tt, worker);
+      recoverWorkerTTReservations(tt, worker);
+      recoverUnpublishedBranch(events, tt, worker);
+
+      const high = Math.min(
+        tt.qCapacity,
+        Atomics.load(tt.control, 14), // CTRL_Q_HIGH_WATER; keep E2 scalar.
+      );
+      for (let qIndex = 0; qIndex < high; qIndex++) {
+        if (Atomics.load(tt.qLive, qIndex) === 0) continue;
+        if (Atomics.compareExchange(
+          tt.qExecution,
+          qIndex,
+          EXEC_RUNNING_BASE + worker,
+          EXEC_NONE,
+        ) !== EXEC_RUNNING_BASE + worker) continue;
+
+        const generation = Atomics.load(tt.qGeneration, qIndex);
+        if (readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN) {
+          this.scheduleFinalize(qIndex, generation);
+          continue;
+        }
+        if (Atomics.load(tt.qRefCount, qIndex) > 0) {
+          if (this.queueIfNeeded(
+            qIndex,
+            generation,
+            Atomics.load(tt.qPriorityClass, qIndex),
+          )) this.bump(MC_WORKER_DEATH_REQUEUES);
+        } else {
+          this.pushOrphan(qIndex, generation);
+        }
+      }
+
+      Atomics.store(tt.workerRecovery, worker, deathGeneration);
+      Atomics.notify(tt.workerRecovery, worker, Infinity);
+      this.bump(MC_WORKER_DEATH_RECOVERIES);
+      progress = true;
+    }
+    return progress;
+  }
+
+  drainOnce() {
+    let progress = this.recoverDeadWorkers();
 
     for (let worker = 0; worker < workerCount; worker++) {
       while (consumeBranch(
@@ -717,6 +772,8 @@ class SharedBranchManagerLoop {
       orphanRetirements: this.metrics[MC_ORPHAN_RETIREMENTS],
       rootWitnessWaits: this.metrics[MC_ROOT_WITNESS_WAITS],
       staleDescriptors: this.metrics[MC_STALE_DESCRIPTORS],
+      workerDeathRecoveries: this.metrics[MC_WORKER_DEATH_RECOVERIES],
+      workerDeathRequeues: this.metrics[MC_WORKER_DEATH_REQUEUES],
     };
   }
 }
