@@ -215,7 +215,11 @@ class SurplusDistributor {
           ';remoteValue='+value+
           ';p0='+key0+
           ';p1='+key1+
-          ';support='+(support>>>0)
+          ';support='+(support>>>0)+
+          ';moves='+Array.from(
+            {length:state.ply},
+            (_,i)=>(state.moveCells[i]%7)+1,
+          ).join('')
         );
       }
     }finally{
