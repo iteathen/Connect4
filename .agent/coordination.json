@@ -92,6 +92,11 @@
         "transport_profile": "AX/GH-OPS",
         "live_state_authority": "issue_thread"
       },
+      "durable_state": {
+        "role_gap_and_candidate_queue": "components/operations/state.json",
+        "opportunity_pipeline": "components/operations/state.json",
+        "coordination_ledger": "components/operations/state.json"
+      },
       "startup": {
         "read_channel_before_substantive_work": true,
         "recover_latest_director_exchange": true,

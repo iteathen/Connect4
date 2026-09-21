@@ -81,8 +81,11 @@ Historical ancestry does not transfer ownership. Isometric remains distinct from
 components/domain/
 components/oracle/
 components/incumbent/   # qualified reference/baseline only
+components/operations/  # project-operations role-gap/candidate queue, opportunity pipeline, coordination ledger
 benchmarks/
 ```
+
+`components/operations/` supports the restart-safe `project-operations` campaign declared in `.agent/coordination.json` (issue #126). It owns operations-coordination state and invariants only; it does not own solver architecture or research.
 
 `main` must not gain solver-owned maintained kernels merely for history synchronization.
 

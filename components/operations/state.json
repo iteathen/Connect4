@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "campaign_id": "project-operations",
+  "updated": "2026-09-21",
+  "role_gaps": [
+    {
+      "role_id": "capacity-manager",
+      "role": "agent-capacity-and-recruiting",
+      "campaign_id": "project-operations",
+      "seam": {
+        "bounded": true,
+        "scope": "Recruiting and capacity scouting only. May identify, qualify, and onboard runnable agent capacity against clean bounded seams that each have an integration owner. No solver write ownership, no repository access grants, no paid commitments."
+      },
+      "integration_owner": "isomax-director",
+      "release_trigger": "Recruit and onboard a dedicated capacity-manager agent so the director can drop the temporary double-duty bridge.",
+      "status": "open"
+    },
+    {
+      "role_id": "dev-budget",
+      "role": "development-budget-and-revenue",
+      "campaign_id": "project-operations",
+      "seam": {
+        "bounded": true,
+        "scope": "Development-budget opportunity research and proposal generation only. May research, organize, compare, draft, and recommend funding/credit/partnership opportunities. No spending, no accepting money or legal terms, no licensing changes, no public commercial commitments."
+      },
+      "integration_owner": "isomax-director",
+      "release_trigger": "Recruit and onboard a dedicated dev-budget agent so the research role can drop the temporary double-duty bridge.",
+      "status": "open"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "cand-ops-001",
+      "target_role_id": "capacity-manager",
+      "source": "scouting",
+      "capability": "Channel monitoring plus role-gap/candidate queue maintenance for project-operations issue #126.",
+      "integration_owner": "isomax-director",
+      "status": "queued"
+    },
+    {
+      "candidate_id": "cand-ops-002",
+      "target_role_id": "dev-budget",
+      "source": "scouting",
+      "capability": "Funding/grant/credit research with owner-reviewable proposal drafting, authority-bounded.",
+      "integration_owner": "isomax-director",
+      "status": "queued"
+    }
+  ],
+  "opportunities": [
+    {
+      "proposal_id": "opp-ci-hosted-runners-001",
+      "title": "GitHub Actions OSS minutes and hosted runner capacity",
+      "resource_gap": "CI hosted runners",
+      "source_type": "developer-program",
+      "expected_effort": "low",
+      "upside": "Free/cheap hosted runner capacity and minutes for the existing verify/strength/benchmark workflows on the public repository.",
+      "constraints": [
+        "Repository must remain public",
+        "Usage limits apply per-org",
+        "No change to AGPL licensing"
+      ],
+      "obligations": [
+        "Research only; no enrollment without owner approval",
+        "Must not promise deliverables to third parties"
+      ],
+      "risk": [
+        "Quota or policy changes",
+        "Public-repo visibility requirement is already satisfied"
+      ],
+      "status": "proposal"
+    },
+    {
+      "proposal_id": "opp-cloud-compute-credits-002",
+      "title": "Cloud compute/gpu credits for solver qualification runs",
+      "resource_gap": "Compute for IsoMax/CUDA-BSFP qualification",
+      "source_type": "cloud-credits",
+      "expected_effort": "medium",
+      "upside": "Materially increases qualification throughput and test hardware availability without local spend.",
+      "constraints": [
+        "No spending without explicit owner/director approval",
+        "Credits often expire on fixed schedules",
+        "No acceptance of legal terms by operations roles"
+      ],
+      "obligations": [
+        "Proposal must state effort, upside, constraints, obligations, and risk",
+        "Approval recorded by owner/director before use"
+      ],
+      "risk": [
+        "Credit expiry",
+        "Program terms may be rejected by owner",
+        "Availability depends on external program"
+      ],
+      "status": "research"
+    },
+    {
+      "proposal_id": "opp-api-free-tiers-003",
+      "title": "API free tiers for development and test tooling",
+      "resource_gap": "APIs",
+      "source_type": "developer-program",
+      "expected_effort": "low",
+      "upside": "Free-tier quotas cover routine tooling and test API needs with zero budget impact.",
+      "constraints": [
+        "Free-tier rate limits apply",
+        "No paid upgrade without owner approval"
+      ],
+      "obligations": [
+        "Research and document only",
+        "No public commercial commitment"
+      ],
+      "risk": [
+        "Rate-limit throttling",
+        "Terms changes"
+      ],
+      "status": "research"
+    }
+  ],
+  "ledger": [
+    {
+      "role_id": "capacity-manager",
+      "nominal_headcount": 1,
+      "coordination_cost": 0.2,
+      "note": "Temporary double-duty bridge with isomax-director; cost is the ongoing director attention not displaced from correctness decisions."
+    },
+    {
+      "role_id": "dev-budget",
+      "nominal_headcount": 1,
+      "coordination_cost": 0.2,
+      "note": "Temporary double-duty bridge with isomax-research; cost is research capacity that must remain behind active IsoMax falsifier obligations."
+    }
+  ]
+}
