@@ -1,0 +1,54 @@
+{
+  "schema": "connect4-external-pons-l1-first32-v1",
+  "evidenceClass": "REFERENCE-GROUNDED",
+  "disposition": "PASS",
+  "representativeWithinDeclaredSlice": true,
+  "selection": "first 32 rows of Test_L1_R1 and first 32 rows of Test_L1_R2; no solver-difficulty prefilter",
+  "solver": "IsoMax",
+  "sourceRevision": "a0592561d995ec2857d471dd673d3f5fd9feb991",
+  "externalReference": {
+    "repository": "megakilo/alphafour",
+    "revision": "cf2d4546e5824c155e9dd7e888a572bff3128498",
+    "sets": {
+      "Test_L1_R1": {
+        "url": "https://raw.githubusercontent.com/megakilo/alphafour/cf2d4546e5824c155e9dd7e888a572bff3128498/testdata/Test_L1_R1",
+        "sha256": "003b7f5cc2b9b2d07ee2663cf92dfe99a50d7f4f57c556b6f35048e1bfaedb68",
+        "rowCount": 1000
+      },
+      "Test_L1_R2": {
+        "url": "https://raw.githubusercontent.com/megakilo/alphafour/cf2d4546e5824c155e9dd7e888a572bff3128498/testdata/Test_L1_R2",
+        "sha256": "ba3df3282804270661239d0fc357761a5c7cc31bbd581f3c502222abffa31113",
+        "rowCount": 1000
+      }
+    }
+  },
+  "comparison": {
+    "requestedPositionCount": 64,
+    "completedCount": 64,
+    "matchedCount": 64,
+    "mismatchCount": 0,
+    "timeoutCount": 0,
+    "runtimeFailureCount": 0,
+    "totalNodes": 65530932,
+    "totalSolverMs": 62137.765276000006,
+    "caseTimeoutMs": 15000,
+    "interpretation": "Pons score is side-to-move relative; compared to IsoMax P0-relative W/D/L after parity/sign conversion"
+  },
+  "runtime": {
+    "node": "v26.7.0",
+    "v8": "14.6.202.34-node.28",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "artifact": {
+    "workflowRunId": 35556149699,
+    "artifactId": 10620366597,
+    "artifactDigest": "sha256:1b3251bc81d731ba36ba04a43a0820ebbb7059f823bc94049acf5e6a6ba5e039"
+  },
+  "limitations": [
+    "Scope is exactly the first 32 rows of Test_L1_R1 and the first 32 rows of Test_L1_R2.",
+    "This establishes parent-position W/D/L only, not Pons distance-to-win magnitude.",
+    "It does not validate repository-generated per-move score vectors.",
+    "It does not establish comparative performance superiority."
+  ]
+}
