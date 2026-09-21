@@ -204,6 +204,22 @@ class SurplusDistributor {
       if(existing===undefined){
         solver.storeExact(key0,key1,support,hash,value);
       }else if(existing!==value){
+        let sourceMoves='';
+        if(sourceKind===2&&sourceSlot>=0&&sourceSlot<this.worker.shared.workCapacity){
+          const length=Atomics.load(this.worker.shared.workPathLength,sourceSlot);
+          const base=sourceSlot*MAX_MOVES;
+          sourceMoves=Array.from(
+            {length},
+            (_,i)=>this.worker.shared.workPath[base+i]+1,
+          ).join('');
+        }else if(sourceKind===1&&sourceSlot>=0&&sourceSlot<this.worker.shared.occurrenceCapacity){
+          const length=Atomics.load(this.worker.shared.occPathLength,sourceSlot);
+          const base=sourceSlot*MAX_MOVES;
+          sourceMoves=Array.from(
+            {length},
+            (_,i)=>this.worker.shared.occPath[base+i]+1,
+          ).join('');
+        }
         throw new Error(
           'remote exact value contradicts local transition cache'+
           ';worker='+workerIndex+
@@ -219,7 +235,8 @@ class SurplusDistributor {
           ';moves='+Array.from(
             {length:state.ply},
             (_,i)=>(state.moveCells[i]%7)+1,
-          ).join('')
+          ).join('')+
+          ';sourceMoves='+sourceMoves
         );
       }
     }finally{
