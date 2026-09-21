@@ -286,7 +286,7 @@ class SurplusReconciler {
       Atomics.notify(this.shared.workState,work,Infinity);
       if(q>=0&&q<this.qCount&&this.qWork[q]===work){
         this.qWork[q]=-1;
-        if(this.activeWorkCount>0)this.activeWorkCount--;;
+        if(this.activeWorkCount>0)this.activeWorkCount--;
       }
       this.metrics.readyRetired++;
       this.recycleWork(work,generation);
@@ -411,7 +411,7 @@ class SurplusReconciler {
       }
       if(state===WORK_RETIRED||state===WORK_UNUSED){
         const retiredWork=work,generation=Atomics.load(this.shared.workGeneration,retiredWork);
-        this.qWork[q]=-1;work=-1;if(this.activeWorkCount>0)this.activeWorkCount--;;
+        this.qWork[q]=-1;work=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
         if(state===WORK_RETIRED)this.recycleWork(retiredWork,generation);
       }else this.metrics.duplicateOccurrences++;
     }
@@ -561,7 +561,7 @@ class SurplusReconciler {
     // work reservation still has to leave the bounded active population.
     if(this.qWork[q]===work){
       this.qWork[q]=-1;
-      if(this.activeWorkCount>0)this.activeWorkCount--;;
+      if(this.activeWorkCount>0)this.activeWorkCount--;
     }
     if(this.qExact[q]){
       if(this.qValue[q]!==value)throw new Error('conflicting surplus q exact values');
@@ -693,7 +693,7 @@ class SurplusReconciler {
     const q=Atomics.load(this.shared.workQ,work);
     Atomics.store(this.shared.workState,work,WORK_RETIRED);Atomics.notify(this.shared.workState,work,Infinity);
     if(q>=0&&q<this.qCount&&this.qAlive[q]&&this.qWork[q]===work){
-      this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;;
+      this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;
       if(!this.qExact[q]&&this.qDemand[q]>0)this.metrics.workRequeues++;
       else if(this.qDemand[q]===0&&this.qRunningOcc[q]<0&&this.qOccHead[q]===-1)
         this.reclaimQ(q,false);
@@ -737,7 +737,7 @@ class SurplusReconciler {
         }else{
           const generation=Atomics.load(this.shared.workGeneration,work);
           Atomics.store(this.shared.workState,work,WORK_RETIRED);Atomics.notify(this.shared.workState,work,Infinity);
-          if(q>=0&&q<this.qCount&&this.qWork[q]===work){this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;;}
+          if(q>=0&&q<this.qCount&&this.qWork[q]===work){this.qWork[q]=-1;if(this.activeWorkCount>0)this.activeWorkCount--;}
           this.recycleWork(work,generation);
         }
       }
