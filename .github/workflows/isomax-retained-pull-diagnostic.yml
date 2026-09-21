@@ -112,3 +112,64 @@ jobs:
             console.log('TRACE_CLOSED');
           }
           NODE
+
+
+  liveness-trace:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Trace retained-pull unresolved-root liveness
+        run: |
+          timeout 60s node --input-type=module <<'NODE'
+          import { IsoMaxPullBranchManager } from './components/isometric/execution/pull-manager.mjs';
+          import {
+            CTRL_WORK_NEXT, WORK_FREE, WORK_WRITING, WORK_READY, WORK_RUNNING, WORK_DONE,
+          } from './components/isometric/execution/shared-work-pool.mjs';
+
+          const moves=Array.from('2764575754141616756745653641',c=>Number(c)-1);
+          const manager=new IsoMaxPullBranchManager({
+            workers:2,maxTasks:262144,maxEdges:262144*7,
+          });
+          let last=null;
+          const dump=label=>{
+            const shared=manager.session?.shared;
+            if(!shared)return console.log(label,'NO_SESSION');
+            const allocated=Math.min(shared.workCapacity,Atomics.load(shared.control,CTRL_WORK_NEXT));
+            const states=[0,0,0,0,0],needed=[0,0,0,0,0],slots=[];
+            for(let slot=0;slot<allocated;slot++){
+              const state=Atomics.load(shared.workState,slot);
+              if(state>=0&&state<states.length)states[state]++;
+              if(state>=0&&state<needed.length&&Atomics.load(shared.workNeeded,slot))needed[state]++;
+              if(state!==WORK_FREE)slots.push({
+                slot,state,needed:Atomics.load(shared.workNeeded,slot),
+                q:Atomics.load(shared.workQ,slot),
+                worker:Atomics.load(shared.workWorker,slot),
+                generation:Atomics.load(shared.workGeneration,slot),
+                attempt:Atomics.load(shared.workAttempt,slot),
+                priority:Atomics.load(shared.workPriority,slot),
+                pathLength:Atomics.load(shared.workPathLength,slot),
+              });
+            }
+            console.log(label,JSON.stringify({allocated,states,needed,slots:slots.slice(0,24)}));
+          };
+          try{
+            const result=await manager.solveMoves(moves,{
+              timeoutMs:15000,progressIntervalMs:50,
+              onProgress:s=>{last=s;if((s.metrics?.reconcileBatches??0)%20===0)dump('TRACE_STATE');},
+            });
+            console.log('TRACE_RESULT',JSON.stringify(result));
+          }catch(e){
+            console.log('TRACE_ERROR',e?.message??String(e));
+            console.log('TRACE_LAST',JSON.stringify(last));
+            dump('TRACE_FAILURE_STATE');
+          }finally{
+            await manager.close();
+            console.log('TRACE_CLOSED');
+          }
+          NODE
