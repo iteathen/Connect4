@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'benchmarks/isomax-workers/surplus-grace-sweep.mjs'
+      - 'benchmarks/isomax-workers/surplus-quantum-sweep.mjs'
       - '.github/workflows/isomax-surplus-tuning.yml'
       - 'components/isometric/execution/surplus-*.mjs'
   workflow_dispatch:
@@ -41,3 +42,29 @@ jobs:
           node-version: 26.7.0
       - name: Hard-root helper-grace sweep
         run: node benchmarks/isomax-workers/surplus-grace-sweep.mjs
+
+  quantum-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Hard-root control-quantum sweep
+        run: node benchmarks/isomax-workers/surplus-quantum-sweep.mjs
+
+  quantum-windows:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Hard-root control-quantum sweep
+        run: node benchmarks/isomax-workers/surplus-quantum-sweep.mjs
