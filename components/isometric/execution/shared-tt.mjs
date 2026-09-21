@@ -54,6 +54,9 @@ export const WC_FORCED_TRANSITIONS = 16;
 export const WC_BRANCH_DESCRIPTORS = 17;
 export const WC_SHARED_EXACT_CONSUMED = 18;
 export const WC_CLAIM_BAND_BASE = 19;
+export const WC_LOCAL_SIBLING_RETURNS = 27;
+export const WC_PARENT_LOCAL_COMPLETIONS = 28;
+export const WC_PARENT_REMOTE_YIELDS = 29;
 
 export const SESSION_IDLE = 0;
 export const SESSION_RUNNING = 1;
