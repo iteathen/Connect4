@@ -99,6 +99,10 @@ export function createSurplusPool({
   positive(occurrenceCapacity, 'occurrenceCapacity');
   positive(queueCapacity, 'queueCapacity');
   positive(publicationCapacity, 'publicationCapacity');
+  // Per-cell sequence MPMC rings need at least two cells so a full cell's
+  // published sequence cannot alias the next producer generation.
+  if (queueCapacity < 2) throw new RangeError('invalid queueCapacity');
+  if (publicationCapacity < 2) throw new RangeError('invalid publicationCapacity');
 
   const descriptor = Object.freeze({
     workerCount, workCapacity, occurrenceCapacity, queueCapacity, publicationCapacity,
