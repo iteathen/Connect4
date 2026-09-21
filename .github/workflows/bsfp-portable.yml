@@ -6,6 +6,16 @@ concurrency:
 
 on:
   pull_request:
+    paths:
+      - 'components/bsfp/**'
+      - 'components/domain/**'
+      - 'experiments/cuda-bsfp-*/**'
+      - 'tools/bootstrap-cuda-bsfp-q1.mjs'
+      - 'tools/cuda-bsfp-qualifier.mjs'
+      - 'tools/cuda-bsfp-qualifier/**'
+      - 'docs/specs/C4-0008-*'
+      - 'docs/specs/C4-0009-*'
+      - '.github/workflows/bsfp-portable.yml'
   workflow_dispatch:
 
 permissions:
