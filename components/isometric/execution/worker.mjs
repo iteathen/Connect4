@@ -41,6 +41,7 @@ import {
   addQRef,
   claimHighestQ,
   enterLocalQ,
+  enterQueuedQ,
   openSharedTT,
   probeOrInsertQ,
   publishExactQ,
@@ -102,7 +103,7 @@ class SharedBranchDistributor {
     return q;
   }
 
-  solveOne(solver, state, column, qIndex, generation, orientation) {
+  solveOne(solver, state, column, qIndex, generation, orientation, queuedOnly = false) {
     const runtime = this.runtime;
     const shared = runtime.shared;
     const previousQ = runtime.activeQ;
@@ -127,7 +128,9 @@ class SharedBranchDistributor {
         return value;
       }
 
-      owner = enterLocalQ(shared, qIndex, generation, workerId);
+      owner = queuedOnly
+        ? enterQueuedQ(shared, qIndex, generation, workerId)
+        : enterLocalQ(shared, qIndex, generation, workerId);
       if (owner < 0) {
         value = readExactQ(shared, qIndex, generation);
         if (value !== Q_EXACT_UNKNOWN) {
@@ -334,6 +337,7 @@ class SharedBranchDistributor {
           qIndex,
           generation,
           orientation,
+          pass !== 0,
         );
       } catch (error) {
         if (error !== yieldExecution) throw error;
@@ -395,7 +399,10 @@ class RetainedPullWorker {
     this.claim = new Int32Array(3);
     this.queueScratch = new Int32Array(2);
     this.distributor = new SharedBranchDistributor(this);
-    this.solver.branchDistributor = this.distributor;
+    // With one worker there is no external parallel opportunity. Keep the
+    // ordinary native recursion exactly intact instead of manufacturing E2
+    // branch visibility that nobody can consume.
+    this.solver.branchDistributor = workerCount === 1 ? null : this.distributor;
     this.solver.checkTaskControl = () => this.checkTaskControl();
   }
 
@@ -459,7 +466,7 @@ class RetainedPullWorker {
       this.solver = new IsoMaxSolver();
       this.state = this.solver.createState();
       this.distributor = new SharedBranchDistributor(this);
-      this.solver.branchDistributor = this.distributor;
+      this.solver.branchDistributor = workerCount === 1 ? null : this.distributor;
       this.solver.checkTaskControl = () => this.checkTaskControl();
     }
 
