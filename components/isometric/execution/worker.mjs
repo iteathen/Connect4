@@ -214,6 +214,10 @@ class SharedBranchDistributor {
       retainedAction,
       maximizing,
       runtime.activeRunToken,
+      state.ply,
+      state.ply > runtime.shared.qReplayLength[runtime.activeQ]
+        ? state.moveCells[runtime.shared.qReplayLength[runtime.activeQ]] % 7
+        : -1,
       this.childQ,
       this.childGeneration,
       this.childEval,
