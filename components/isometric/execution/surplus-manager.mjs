@@ -78,8 +78,13 @@ export class IsoMaxSurplusBranchManager {
     queueCapacity=Math.max(4096,workers*1024),
     publicationCapacity=Math.max(4096,workers*2048),
     helperGraceMs=1,
-    workerClassReserve=Math.max(131072,Math.floor(1048576/workers)),
-    workerEntryReserve=Math.max(262144,Math.floor(4194304/workers)),
+    // These are private worker dictionaries, not slices of one global arena.
+    // Any helper may inherit a subtree with one-worker-scale class/entry
+    // diversity, so correctness cannot divide local reserve by worker count.
+    // The power-of-two floors cover the qualified hard corpus while keeping
+    // growth/copying outside sealed recursion.
+    workerClassReserve=524288,
+    workerEntryReserve=1048576,
   }={}) {
     this.workerCount=positive(workers,'workers',256);
     this.maxQ=positive(maxQ,'maxQ');
