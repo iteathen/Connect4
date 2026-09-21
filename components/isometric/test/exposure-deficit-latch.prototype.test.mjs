@@ -671,3 +671,277 @@ test('NEES projection exposes added authority traffic instead of assuming a win'
   // Production promotion must measure CAS retries/cache-line contention and
   // compare these updates against the removed inflight/completeExposure path.
 });
+
+// Qualification-only contention adapter. The p* functions above remain the
+// authoritative prototype transitions; this layer only observes attempts
+// behind the existing provisional owner. CAS attempt means one modeled atomic
+// handoff. A retry is a failed handoff whose owner coordinate was occupied.
+// ownerBusyObservations counts coordinate-level observations; ownerBusyMisses
+// counts the affected worker's private defer instead of a spin. Durations are
+// model steps from first attempt through successful completion or crash.
+function contentionHarness({
+  workerCount = 2,
+  idle = 0,
+  ready = 0,
+  deficit = idle - ready,
+  horizon = 8,
+} = {}) {
+  const s = pState({ workerCount, idle, ready, deficit });
+  s.step = 0;
+  s.horizon = horizon;
+  s.authorityCasAttempts = 0;
+  s.authorityCasSuccesses = 0;
+  s.authorityCasRetries = 0;
+  s.ownerBusyObservations = 0;
+  s.ownerBusyMisses = 0;
+  s.ownerHeldSteps = 0;
+  s.maxOwnerHeldSteps = 0;
+  s.deferredByWorker = new Int32Array(workerCount);
+  s.reservationStart = new Int32Array(workerCount).fill(-1);
+  s.reservationEnd = new Int32Array(workerCount).fill(-1);
+  s.reservationDurations = [];
+  s.maxReservationDurationSteps = 0;
+  s.ownerBusyWorkers = new Set();
+  s.crashRecoveries = 0;
+  s.recoveredUnpublishedRefunds = 0;
+  s.stepKinds = [];
+  return s;
+}
+
+function recordReservation(h, worker, step) {
+  const start = h.reservationStart[worker];
+  assert.ok(start >= 0, 'reservation started before completion');
+  const duration = step - start + 1;
+  h.reservationEnd[worker] = step;
+  h.reservationDurations.push(duration);
+  h.maxReservationDurationSteps = Math.max(
+    h.maxReservationDurationSteps,
+    duration,
+  );
+}
+
+function attemptTransaction(h, worker, kind, crashAfter = null) {
+  const step = h.step;
+  assert.ok(
+    Number.isInteger(worker) && worker >= 0 && worker < h.workerCount,
+    `invalid contention worker ${worker}`,
+  );
+  assert.ok(step < h.horizon, `contention step ${step} exceeds horizon`);
+  assert.ok(
+    crashAfter === null || crashAfter === 'afterBegin',
+    `unsupported crash point ${crashAfter}`,
+  );
+
+  if (h.reservationStart[worker] < 0) h.reservationStart[worker] = step;
+  h.authorityCasAttempts++;
+
+  if (h.owner !== P_NONE) {
+    h.authorityCasRetries++;
+    h.ownerBusyObservations++;
+    h.ownerBusyMisses++;
+    h.deferredByWorker[worker]++;
+    h.ownerBusyWorkers.add(worker);
+    pSafe(h, `owner busy worker ${worker}`);
+    return { acquired: false, crashed: false };
+  }
+
+  if (kind === 'exposure') {
+    if (!pReserve(h, worker)) {
+      throw new Error(`exposure reservation failed for worker ${worker}`);
+    }
+  } else if (kind === 'activeRegistration') {
+    h.owner = worker;
+    pActiveIdle(h);
+  } else if (kind === 'activeReadyClaim') {
+    h.owner = worker;
+    pActiveClaim(h);
+  } else {
+    throw new Error(`unknown contention transaction ${kind}`);
+  }
+
+  h.authorityCasSuccesses++;
+  h.ownerHeldSteps++;
+  h.maxOwnerHeldSteps = Math.max(h.maxOwnerHeldSteps, 1);
+
+  if (kind === 'exposure') {
+    pBegin(h, worker);
+    pSafe(h, 'exposure branch ledger');
+    if (crashAfter === 'afterBegin') {
+      recordReservation(h, worker, step);
+      return { acquired: true, crashed: true };
+    }
+    pClearOwner(h, worker);
+    pWriteDescriptor(h, worker);
+    pPublishWrite(h, worker);
+    pClearPendingRefs(h, worker);
+    pClearPendingPosition(h, worker);
+  } else {
+    h.owner = P_NONE;
+    pSafe(h, `${kind} owner clear`);
+  }
+
+  recordReservation(h, worker, step);
+  pSafe(h, `${kind} completion`);
+  return { acquired: true, crashed: false };
+}
+
+function runStep(h, attempts, recoverCrashed = true) {
+  assert.ok(h.step < h.horizon, `contention step ${h.step} exceeds horizon`);
+  h.stepKinds.push(attempts.map(([, kind]) => kind));
+  const crashed = [];
+
+  for (const [worker, kind, crashAfter] of attempts) {
+    const result = attemptTransaction(h, worker, kind, crashAfter);
+    if (result.crashed) crashed.push(worker);
+  }
+
+  h.step++;
+  if (recoverCrashed) {
+    for (const worker of crashed) {
+      const refund = recoverDeadWorker(h, worker, 'crashed contention transaction');
+      assert.equal(refund, 1, 'unpublished exposure must refund exactly once');
+    }
+    assert.equal(h.owner, P_NONE, 'recovered contention transaction leaked owner');
+    pSafe(h, 'contention step boundary');
+  }
+}
+
+function recoverDeadWorker(h, worker, label = 'dead worker') {
+  const before = h.deficit;
+  pRecover(h, worker);
+  h.crashRecoveries++;
+  const refund = h.deficit - before;
+  assert.ok(refund >= 0, `${label} unexpectedly increased deficit`);
+  if (refund > 0) h.recoveredUnpublishedRefunds++;
+  pSafe(h, `${label} after recovery`);
+  return refund;
+}
+
+function closePublishedExposure(h, worker) {
+  assert.equal(
+    pPublished(h, worker),
+    1,
+    `expected one published exposure for worker ${worker}`,
+  );
+  pConsumeDescriptor(h, worker);
+  pAdmitFromManager(h);
+}
+
+function assertState(h, expected) {
+  pSafe(h, 'contention final state');
+  assert.equal(h.idle, expected.idle, 'idle conservation');
+  assert.equal(h.ready, expected.ready, 'READY conservation');
+  assert.equal(h.deficit, expected.deficit, 'conserved Δ conservation');
+}
+
+test('2-worker mixed contention defers privately and conserves after tagged recovery', () => {
+  // Preserve the existing tagged crash-prefix cases above while adding a
+  // contention schedule around registration, READY claim, and exposure handoff.
+  const h = contentionHarness({
+    workerCount: 2,
+    idle: 5,
+    ready: 1,
+    deficit: 3,
+    horizon: 6,
+  });
+
+  runStep(h, [[0, 'activeRegistration']]);
+
+  // Hold the owner through an unpublished exposure prefix, then let the READY
+  // claim observe the busy coordinate and defer instead of spinning.
+  runStep(
+    h,
+    [
+      [1, 'exposure', 'afterBegin'],
+      [0, 'activeReadyClaim'],
+    ],
+    false,
+  );
+  assert.equal(recoverDeadWorker(h, 1, 'unpublished exposure'), 1);
+  assert.equal(h.owner, P_NONE);
+  assert.equal(h.pendingPosition[1], -1);
+  assert.equal(pPublished(h, 1), 0);
+
+  runStep(h, [[1, 'exposure']]);
+  runStep(h, [[0, 'activeReadyClaim']]);
+  closePublishedExposure(h, 1);
+
+  assertState(h, { idle: 6, ready: 2, deficit: 4 });
+  assert.equal(h.authorityCasAttempts, 5);
+  assert.equal(h.authorityCasSuccesses, 4);
+  assert.equal(h.authorityCasRetries, 1);
+  assert.equal(h.authorityCasAttempts, h.authorityCasSuccesses + h.authorityCasRetries);
+  assert.equal(h.ownerBusyObservations, 1);
+  assert.equal(h.ownerBusyMisses, 1);
+  assert.equal(h.ownerBusyObservations, h.authorityCasRetries);
+  assert.equal(h.ownerBusyMisses, h.authorityCasRetries);
+  assert.deepEqual(Array.from(h.deferredByWorker), [1, 0]);
+  assert.deepEqual(Array.from(h.ownerBusyWorkers).sort((a, b) => a - b), [0]);
+  assert.equal(h.recoveredUnpublishedRefunds, 1);
+  assert.equal(h.crashRecoveries, 1);
+  assert.deepEqual(
+    [...h.reservationDurations].sort((a, b) => a - b),
+    [1, 1, 1, 4],
+  );
+  assert.equal(h.maxReservationDurationSteps, 4);
+  assert.equal(h.maxOwnerHeldSteps, 1);
+  assert.equal(h.ownerHeldSteps, h.authorityCasSuccesses);
+  assert.ok(h.maxReservationDurationSteps <= h.horizon);
+  assert.ok(h.maxOwnerHeldSteps <= h.horizon);
+});
+
+test('4-worker adversarial mixed contention exposes packed-coordinate serialization', () => {
+  const h = contentionHarness({
+    workerCount: 4,
+    idle: 5,
+    ready: 1,
+    deficit: 3,
+    horizon: 6,
+  });
+
+  // All three transaction classes contend in the same model step.
+  runStep(h, [
+    [0, 'activeRegistration'],
+    [1, 'activeReadyClaim'],
+    [2, 'exposure'],
+    [3, 'exposure'],
+  ]);
+  runStep(h, [
+    [1, 'activeReadyClaim'],
+    [2, 'exposure'],
+    [3, 'exposure'],
+  ]);
+  runStep(h, [[2, 'exposure']]);
+  runStep(h, [[3, 'exposure']]);
+  closePublishedExposure(h, 2);
+  closePublishedExposure(h, 3);
+
+  assertState(h, { idle: 6, ready: 2, deficit: 3 });
+  assert.deepEqual(h.stepKinds[0].sort(), [
+    'activeReadyClaim',
+    'activeRegistration',
+    'exposure',
+    'exposure',
+  ]);
+  assert.equal(h.authorityCasAttempts, 10);
+  assert.equal(h.authorityCasSuccesses, 4);
+  assert.equal(h.authorityCasRetries, 6);
+  assert.equal(h.authorityCasAttempts, h.authorityCasSuccesses + h.authorityCasRetries);
+  assert.equal(h.ownerBusyObservations, 6);
+  assert.equal(h.ownerBusyMisses, 6);
+  assert.equal(h.ownerBusyObservations, h.authorityCasRetries);
+  assert.equal(h.ownerBusyMisses, h.authorityCasRetries);
+  assert.deepEqual(Array.from(h.deferredByWorker), [0, 1, 2, 3]);
+  assert.deepEqual(Array.from(h.ownerBusyWorkers).sort((a, b) => a - b), [1, 2, 3]);
+  assert.equal(h.recoveredUnpublishedRefunds, 0);
+  assert.equal(h.crashRecoveries, 0);
+  assert.deepEqual(
+    [...h.reservationDurations].sort((a, b) => a - b),
+    [1, 2, 3, 4],
+  );
+  assert.equal(h.maxReservationDurationSteps, 4);
+  assert.equal(h.maxOwnerHeldSteps, 1);
+  assert.equal(h.ownerHeldSteps, h.authorityCasSuccesses);
+  assert.ok(h.maxReservationDurationSteps <= h.horizon);
+  assert.ok(h.maxOwnerHeldSteps <= h.horizon);
+});
