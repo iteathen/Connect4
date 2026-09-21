@@ -9,12 +9,40 @@ import {
   claimHighestQ,
   createSharedTT,
   enqueueQ,
+  exposureOutstanding,
   openSharedTT,
   probeOrInsertQ,
   recycleQIfDead,
   releaseQRef,
 } from '../execution/shared-tt.mjs';
+import {
+  createSharedEvents,
+  openSharedEvents,
+  recoverUnpublishedBranch,
+} from '../execution/shared-events.mjs';
 import { makeCorpus } from '../../../benchmarks/isomax-ordering/corpus.mjs';
+
+test('untouched worker branch ledger has no exposure transaction to recover', () => {
+  const ttDescriptor = createSharedTT({
+    qCapacity: 8,
+    workerCount: 1,
+    queueCapacity: 8,
+    bucketCount: 16,
+    edgeCapacity: 56,
+  });
+  const eventDescriptor = createSharedEvents({
+    workerCount: 1,
+    branchCapacity: 8,
+    eventCapacity: 8,
+  });
+  const shared = openSharedTT(ttDescriptor);
+  const events = openSharedEvents(eventDescriptor);
+
+  assert.equal(Atomics.load(events.pendingBranchPosition, 0), -1);
+  assert.equal(exposureOutstanding(shared), 0);
+  assert.equal(recoverUnpublishedBranch(events, shared, 0), 0);
+  assert.equal(exposureOutstanding(shared), 0);
+});
 
 test('portable shared q identity converges mirrors by exact residual content', () => {
   const solver = new IsoMaxSolver();
