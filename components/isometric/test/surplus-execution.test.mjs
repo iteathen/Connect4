@@ -142,32 +142,39 @@ test('stale READY ticket cannot claim a recycled work-slot generation', () => {
 });
 
 test('full surplus priority lane reclaims stale tickets before capacity failure', () => {
+  // Sequence-number MPMC rings require at least two cells to distinguish
+  // occupied from reusable generations. Fill a two-cell lane with stale
+  // records, then require enqueue to reclaim only stale head records.
   const descriptor=createSurplusPool({
-    workerCount:1,workCapacity:1,occurrenceCapacity:2,queueCapacity:1,publicationCapacity:4,
+    workerCount:1,workCapacity:2,occurrenceCapacity:2,queueCapacity:2,publicationCapacity:4,
   });
   const shared=openSurplusPool(descriptor);
   const alloc=new Int32Array(2),claim=new Int32Array(4);
+  const stale=[];
 
-  const first=allocateWork(shared,alloc),firstGeneration=alloc[1];
-  assert.equal(first,0);
-  Atomics.store(shared.workState,first,2); // WORK_READY
-  assert.equal(enqueueWork(shared,first,firstGeneration,6),true);
+  for(let i=0;i<2;i++){
+    const slot=allocateWork(shared,alloc),generation=alloc[1];
+    stale.push([slot,generation]);
+    Atomics.store(shared.workState,slot,2); // WORK_READY
+    assert.equal(enqueueWork(shared,slot,generation,6),true);
+  }
 
-  // Retire/recycle without consuming the queue ticket. The single-cell lane is
-  // now physically full, but its only record belongs to a dead generation.
-  Atomics.store(shared.workState,first,WORK_EXACT);
-  assert.equal(releaseWork(shared,first,firstGeneration),true);
+  // Retire/recycle both work records without consuming either queue ticket.
+  // The lane remains physically full, but every queued generation is dead.
+  for(const [slot,generation] of stale){
+    Atomics.store(shared.workState,slot,WORK_EXACT);
+    assert.equal(releaseWork(shared,slot,generation),true);
+  }
 
-  const second=allocateWork(shared,alloc),secondGeneration=alloc[1];
-  assert.equal(second,0);
-  assert.notEqual(secondGeneration,firstGeneration);
-  Atomics.store(shared.workState,second,2); // WORK_READY
-  assert.equal(enqueueWork(shared,second,secondGeneration,6),true,
-    'bounded lane must reclaim the stale head rather than report false capacity');
+  const current=allocateWork(shared,alloc),currentGeneration=alloc[1];
+  Atomics.store(shared.workState,current,2); // WORK_READY
+  assert.equal(enqueueWork(shared,current,currentGeneration,6),true,
+    'bounded lane must reclaim stale heads rather than report false capacity');
 
+  // claimHighest drains the remaining stale ticket before the current one.
   assert.equal(claimHighest(shared,0,claim),true);
-  assert.equal(claim[0],second);
-  assert.equal(claim[1],secondGeneration);
+  assert.equal(claim[0],current);
+  assert.equal(claim[1],currentGeneration);
   assert.equal(claim[3],6);
 });
 
