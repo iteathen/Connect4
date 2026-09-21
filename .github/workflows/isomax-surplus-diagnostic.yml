@@ -16,9 +16,9 @@ permissions:
   contents: read
 
 jobs:
-  remote-exact-trace:
+  contradictory-path-oracle:
     runs-on: ubuntu-24.04
-    timeout-minutes: 3
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -26,43 +26,17 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Trace contradictory remote exact
+      - name: Serial-solve captured contradictory child
         run: |
-          timeout 90s node --input-type=module <<'NODE'
-          import { IsoMaxSurplusBranchManager } from './components/isometric/execution/surplus-manager.mjs';
-
-          const moves=Array.from('466537327657277224',c=>Number(c)-1);
-          for(let iteration=0;iteration<12;iteration++){
-            const manager=new IsoMaxSurplusBranchManager({workers:4,controlQuantum:256});
-            let failed=false;
-            try{
-              await manager.start();
-              manager.reconciler.on('message',m=>{
-                if(m?.type==='surplus-reconciler-error'){
-                  failed=true;console.log('TRACE_REC_ERROR',iteration,m.message,JSON.stringify(m.snapshot??null));
-                }
-              });
-              for(const w of manager.workers)w.on('message',m=>{
-                if(m?.type==='surplus-error'){
-                  failed=true;console.log('TRACE_WORKER_ERROR',iteration,m.workerId,m.message);
-                }
-              });
-              const r=await manager.solveMoves(moves,{timeoutMs:30000});
-              console.log('TRACE_OUTCOME',JSON.stringify({
-                iteration,failed,value:r.value,move:r.move,
-                workClaims:r.metrics?.worker?.workClaims,
-                retirementWasteNodes:r.metrics?.worker?.retirementWasteNodes,
-                controlChecks:r.metrics?.worker?.controlChecks,
-                replayPoolCompactions:r.metrics?.replayPoolCompactions,
-              }));
-            }catch(e){
-              failed=true;
-              console.log('TRACE_OUTCOME',JSON.stringify({
-                iteration,error:e?.message??String(e),lastStats:manager.lastStats,
-              }));
-            }finally{
-              await manager.close();console.log('TRACE_CLOSED',iteration);
-            }
-            if(failed)break;
-          }
+          node --input-type=module <<'NODE'
+          import { IsoMaxSolver } from './components/isometric/solver.mjs';
+          const text='46653732765727722455536261413';
+          const moves=Array.from(text,c=>Number(c)-1);
+          const solver=new IsoMaxSolver();
+          const state=solver.createState(moves);
+          const key=Array.from(state.gameplayKey());
+          const solved=solver.solve(state);
+          console.log('TRACE_ORACLE',JSON.stringify({
+            text,ply:moves.length,key,value:solved.value,move:solved.move,metrics:solved.metrics,
+          }));
           NODE
