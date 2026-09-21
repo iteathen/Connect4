@@ -455,7 +455,8 @@ class SurplusReconciler {
     if(work>=0){
       const state=Atomics.load(this.shared.workState,work);
       if(state===WORK_EXACT){
-        this.markQExact(q,Atomics.load(this.shared.workResult,work),work);return;
+        this.markQExact(q,Atomics.load(this.shared.workResult,work),work);
+        this.refillExecution();return;
       }
       if(state===WORK_RETIRED||state===WORK_UNUSED){
         const retiredWork=work,generation=Atomics.load(this.shared.workGeneration,retiredWork);
@@ -835,6 +836,9 @@ class SurplusReconciler {
     return {
       elapsedMs:performance.now()-this.started,rootExact:this.qExact[this.rootQ]?this.qValue[this.rootQ]:null,
       metrics:{...this.metrics},qCount:this.qActiveCount,qHighWater:this.qCount,activeWorkCount:this.activeWorkCount,
+      surplusCredits:Atomics.load(this.shared.control,CTRL_SURPLUS_CREDITS),
+      surplusReserved:Atomics.load(this.shared.control,CTRL_SURPLUS_RESERVED),
+      managerExecutionPermits:this.executionPermits,
       workAllocated:Math.min(this.shared.workCapacity,Atomics.load(this.shared.control,CTRL_WORK_NEXT)),
       occurrenceAllocated:Math.min(this.shared.occurrenceCapacity,Atomics.load(this.shared.control,CTRL_OCC_NEXT)),
       replayClasses:this.pool.classCount,
