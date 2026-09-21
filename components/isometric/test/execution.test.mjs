@@ -113,6 +113,14 @@ test('shared-TT retained pull matches serial exact WDL and root witness at 1/2/4
           assert.equal(actual.scheduler.architecture, 'retained-decentralized-shared-tt');
           assert.ok(actual.metrics.worker.claims > 0);
           assert.ok(actual.metrics.worker.claimsByBand.some(value => value > 0));
+          if (workers === 1) {
+            assert.equal(actual.metrics.worker.claims, 1,
+              'one worker must finish from its initial claimed root without replay claims');
+            assert.equal(actual.metrics.worker.parentRemoteYields, 0,
+              'one worker cannot require remote-child completion');
+            assert.ok(actual.metrics.worker.localSiblingReturns > 0,
+              'one worker must evaluate a surplus sibling from the live native parent frame');
+          }
           sawFrontier ||= actual.metrics.worker.frontiers > 0;
           sawSharedQ ||= actual.metrics.worker.qCreated > 1 || actual.metrics.worker.qReused > 0;
         } finally {
