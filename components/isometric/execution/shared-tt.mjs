@@ -535,6 +535,32 @@ export function recycleQIfDead(shared, qIndex, generation, ownerCode = shared.wo
   }
 }
 
+function reclaimStaleQueueHead(shared, band) {
+  const capacity = shared.queueCapacity;
+  const mask = capacity - 1;
+  const base = band * capacity;
+  for (let spin = 0; spin < 64; spin++) {
+    const position = Atomics.load(shared.queueDequeue, band);
+    const slot = base + (position & mask);
+    const sequence = Atomics.load(shared.queueSequence, slot);
+    if (((sequence - (position + 1)) | 0) !== 0) return 0;
+
+    const qIndex = shared.queueQ[slot];
+    const generation = shared.queueGeneration[slot];
+    const live = qIsCurrent(shared, qIndex, generation)
+      && Atomics.load(shared.qExact, qIndex) === Q_EXACT_UNKNOWN
+      && Atomics.load(shared.qExecution, qIndex) === EXEC_QUEUED;
+    if (live) return -1;
+
+    if (Atomics.compareExchange(
+      shared.queueDequeue, band, position, position + 1,
+    ) !== position) continue;
+    Atomics.store(shared.queueSequence, slot, position + capacity);
+    return 1;
+  }
+  return 0;
+}
+
 function queueTryEnqueue(shared, band, qIndex, generation) {
   const capacity = shared.queueCapacity;
   const mask = capacity - 1;
@@ -586,6 +612,21 @@ export function enqueueQ(shared, qIndex, generation, priorityClass) {
     return false;
   }
   if (queueTryEnqueue(shared, band, qIndex, generation)) return true;
+
+  // qExecution is the authority. The ring may contain lazy stale references
+  // from exact completion or recycled generations; reclaim only stale heads.
+  for (let recovery = 0; recovery < shared.queueCapacity + 32; recovery++) {
+    const reclaimed = reclaimStaleQueueHead(shared, band);
+    if (reclaimed < 0) break;
+    if (queueTryEnqueue(shared, band, qIndex, generation)) return true;
+    if (reclaimed === 0) {
+      const position = Atomics.load(shared.queueEnqueue, band);
+      const slot = band * shared.queueCapacity + (position & (shared.queueCapacity - 1));
+      const observed = Atomics.load(shared.queueSequence, slot);
+      Atomics.wait(shared.queueSequence, slot, observed, 1);
+    }
+  }
+
   Atomics.compareExchange(shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE);
   throw new Error('ISOMAX_SHARED_QUEUE_CAPACITY');
 }
