@@ -247,7 +247,7 @@ function requeueRepresentedConsumedQ(s, q) {
   q.claimParity = null;
   delete q.disposition;
   s.manager.ready++;
-  s.manager.deficit--;
+  s.manager.deficit--; // restored READY coverage
   s.manager.recoveryRmw++;
 }
 
@@ -259,6 +259,8 @@ function requeueStillRepresentedQ(q) {
 }
 
 function retireStillRepresentedReady(s, q, disposition) {
+  // Claim CAS happened, but the vector RMW did not. Manager still counts this q
+  // as READY. If it cannot be requeued, retire that coverage exactly here.
   q.state = disposition;
   q.ownerGeneration = 0;
   q.claimParity = null;
@@ -275,10 +277,14 @@ function recoverDeadWorker(s) {
   );
   assert.ok(transient.length <= 1, 'sequential worker may have only one transient claim');
 
+  // First classify the only torn claim. The transient q carries expected parity;
+  // the worker ledger carries actual parity. No historical epoch is consulted.
   for (const q of transient) {
     const emitted = s.worker.ledger.txnParity === q.claimParity;
     const disposition = q.disposition ?? 'requeue';
     if (emitted) {
+      // The vector may already have been harvested. Draining again is harmless:
+      // only still-pending additive evidence moves.
       managerHarvest(s);
       if (disposition === 'requeue') requeueRepresentedConsumedQ(s, q);
       else {
@@ -288,12 +294,15 @@ function recoverDeadWorker(s) {
         delete q.disposition;
       }
     } else if (disposition === 'requeue') {
+      // READY consumption was never represented, so restoring qExecution to
+      // QUEUED requires no READY/D update.
       requeueStillRepresentedQ(q);
     } else {
       retireStillRepresentedReady(s, q, disposition);
     }
   }
 
+  // Fold all finalized worker vectors before interpreting durable RUN origins.
   managerHarvest(s);
 
   for (const q of s.q.values()) {
@@ -303,6 +312,9 @@ function recoverDeadWorker(s) {
     }
   }
 
+  // A replacement for the dead BUSY worker contributes one unit of available
+  // capacity. If the crash happened before a scheduler claim's vector RMW, the
+  // availability bit was never cleared and this contribution is already present.
   if (!s.worker.ledger.available) {
     s.worker.ledger.available = true;
     s.manager.deficit++;
@@ -323,12 +335,16 @@ function cloneForCrash(kind, { maxPending = 3 } = {}) {
 }
 
 function applyCrashStage(s, kind, stage, disposition = 'requeue') {
-  if (stage >= 1) assert.equal(beginClaim(s, 'q', kind), true);
-  if (stage === 2) managerHarvest(s);
-  if (stage >= 3) emitClaimVector(s, 'q');
-  if (stage === 4) managerHarvest(s);
-  if (stage >= 5) finalizeClaim(s, 'q');
-  if (stage >= 6) managerHarvest(s);
+  // Stages intentionally include manager harvest both before and after the vector
+  // RMW. There is no "claimTxn clear" stage in this realization: one-bit parity
+  // persists and q finalization discards the transient expected value, removing
+  // that worker RMW entirely.
+  if (stage >= 1) assert.equal(beginClaim(s, 'q', kind), true);           // after q CAS
+  if (stage === 2) managerHarvest(s);                                    // pre-vector harvest race
+  if (stage >= 3) emitClaimVector(s, 'q');                               // after vector/parity RMW
+  if (stage === 4) managerHarvest(s);                                    // vector harvested while CLAIM
+  if (stage >= 5) finalizeClaim(s, 'q');                                 // durable origin established
+  if (stage >= 6) managerHarvest(s);                                     // post-finalization harvest
 
   if (disposition !== 'requeue') {
     const q = qState(s, 'q');
@@ -337,6 +353,8 @@ function applyCrashStage(s, kind, stage, disposition = 'requeue') {
       if (disposition === 'exact') finishExact(s, 'q');
       else abandonWithoutRequeue(s, 'q');
     } else if (q.state === 'queued') {
+      // Crash before q CAS with an independently exact/orphaned q means manager
+      // retires the still-READY occurrence as an ordinary manager event.
       q.state = disposition;
       s.manager.ready--;
       s.manager.deficit++;
@@ -376,6 +394,8 @@ test('old ACTIVE ancestor survives credits far beyond tiny counter modulus witho
   managerAdmitReady(s, 'child-0');
   assertStableExact(s, 'ancestor established');
 
+  // Keep ancestor RUNNING while many later claim vectors reuse the same one-bit
+  // parity. Each child becomes exact; a new READY child restores coverage.
   for (let i = 0; i < 100; i++) {
     const id = `child-${i}`;
     assert.equal(qState(s, 'ancestor').state, 'running-active');
@@ -388,6 +408,8 @@ test('old ACTIVE ancestor survives credits far beyond tiny counter modulus witho
     assertStableExact(s, `cycle ${i}`);
   }
 
+  // Requeueing the very old ancestor cancels exactly one historical ACTIVE
+  // reclaim credit regardless of 100 later parity toggles/harvests.
   recoverDeadWorker(s);
   assert.equal(qState(s, 'ancestor').state, 'queued');
   assertStableExact(s, 'old ancestor recovered');
@@ -398,6 +420,7 @@ test('forced counter saturation defers before q claim and never wraps/drops cred
   claimNormally(s, 'old', KIND_ACTIVE);
   managerAdmitReady(s, 'q0');
 
+  // Fill both pending counters to the artificial maximum without manager harvest.
   for (let i = 0; i < 3; i++) {
     const id = `q${i}`;
     assert.equal(beginClaim(s, id, KIND_ACTIVE), true);
@@ -428,6 +451,7 @@ test('forced counter saturation defers before q claim and never wraps/drops cred
 
 test('availability credit saturation is fail-closed and retryable without worker wait loop', () => {
   const s = model({ outsideAvailable: 3, workerAvailable: false, readyQ: ['a', 'b', 'c'], maxPending: 3 });
+  // Produce three ACTIVE reclaim vectors to fill pendingD/pendingReady.
   for (const id of ['a', 'b', 'c']) {
     assert.equal(beginClaim(s, id, KIND_ACTIVE), true);
     emitClaimVector(s, id);
