@@ -1186,7 +1186,12 @@ class PullReconciler {
         if (records === 0) {
           if (!this.hasExecutableWork() &&
               Atomics.load(this.shared.publicationDequeue, 0) >= Atomics.load(this.shared.publicationEnqueue, 0)) {
-            if (this.repairExecutableDemand() === 0 || !this.hasExecutableWork()) {
+            // Repair may make an already-allocated WRITING reservation
+            // claimable without allocating a new slot, so its numeric admission
+            // count is not a liveness predicate. Shared execution state after
+            // repair is authoritative.
+            this.repairExecutableDemand();
+            if (!this.hasExecutableWork()) {
               throw new Error(
                 'unresolved IsoMax pull root has no executable work;'+
                 JSON.stringify(this.livenessCensus())
