@@ -63,3 +63,23 @@ This campaign uses the repository's pre-existing **deliberately nonrepresentativ
 - Frozen aggregate: [`results/2026-09-20-isomax-Test_L1-spotchecks.summary.json`](results/2026-09-20-isomax-Test_L1-spotchecks.summary.json).
 
 **Disposition:** REFERENCE-GROUNDED parent-position W/D/L correctness for these 30 externally revalidated, nonrepresentative beginning-position spot checks. Combined with the deterministic L2/L3 campaigns, IsoMax has no mismatch across **158 tested external parent positions**, but only the 128 L2/L3 positions form the deterministic first-64-row calibration subsets.
+
+## Frozen result — L1 first-32 unbiased slice
+
+Campaign source revision: `a0592561d995ec2857d471dd673d3f5fd9feb991`.
+
+This campaign removes the earlier spot-check selection bias by taking exactly the first 32 rows of each external L1 set with **no solver-difficulty prefilter**.
+
+- `Test_L1_R1`, first 32 rows: included exactly as published by the pinned external source.
+- `Test_L1_R2`, first 32 rows: included exactly as published by the pinned external source.
+- Requested/completed: **64/64**.
+- W/D/L matches: **64/64**.
+- Mismatches: **0**.
+- 15-second per-position timeouts: **0**.
+- Runtime failures: **0**.
+- Solver nodes: **65,530,932**.
+- Aggregate measured solver time: **62,137.765 ms** (descriptive only; no comparative performance claim).
+- Workflow run: `35556149699`; full artifact: `10620366597`.
+- Frozen aggregate: [`results/2026-09-20-isomax-Test_L1-first32.summary.json`](results/2026-09-20-isomax-Test_L1-first32.summary.json).
+
+**Disposition:** PASS / REFERENCE-GROUNDED parent-position W/D/L correctness for the declared unfiltered first-32 L1 slice. Together with the frozen L2/L3 deterministic slices, IsoMax has **192 unique external Pons parent positions tested, 192 matches, 0 mismatches**. The earlier 30 L1 spot checks are a subset of this stronger 64-position L1 campaign and are retained only as historical corroboration.
