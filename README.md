@@ -2,6 +2,14 @@
 
 Connect4 is the shared product/domain repository for exact Connect Four semantics, benchmark and oracle authority, solver qualification contracts, and product-specific CUDA composition.
 
+## Evidence and external validation
+
+Start with [EVIDENCE.md](EVIDENCE.md) and the machine-readable [claim registry](evidence/claims.json).
+
+The current strongest external correctness result is **192/192 W/D/L matches with 0 mismatches** against deterministic published slices of Pascal Pons Connect Four benchmark sets: the first 32 rows of each L1 set and the first 64 rows of L2_R1 and L3_R1. The solver evidence is preserved on the authoritative [`solver/isometric` external-evidence index](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/README.md).
+
+That result is a scoped **REFERENCE-GROUNDED parent-position correctness claim**. It is not a performance ranking, does not externally validate the repository-generated per-move score vectors, and does not establish CUDA-BSFP correctness.
+
 The repository has one shared foundation, one canonical research lane, and **three active solver-family heads**:
 
 - `solver/isometric` — IsoMax, the active forward structural/frontier exact solver;
