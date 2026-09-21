@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { IsoMaxSolver } from '../solver.mjs';
+import { nativeFrontierCode } from '../frontier.mjs';
 import { IsoMaxBranchManager } from '../execution/branch-manager.mjs';
 import { PortableQBuilder } from '../execution/portable-q.mjs';
 import {
@@ -166,13 +167,44 @@ test('shared-TT retained pull matches serial exact WDL and root witness at 1/2/4
 test('shared-TT root witness survives mirror transport and deterministic compression',
   { timeout: 45000 }, async () => {
     const branchRoot = makeCorpus({ seed: 0x1020c5, ply: 32, count: 1 })[0].moves;
-    const roots = [
-      branchRoot,
-      branchRoot.map(column => 6 - column),
-      [0, 3, 1, 3, 4, 3], // native forced root before deeper work
-      [3, 0, 3, 0, 3, 1], // immediate-win root
-      Array.from('5212714351522553524346343412', c => Number(c) - 1),
+    // Independently solved late forced-block fixture: nine cells remain, P1 is
+    // forced to block column 2, and the complete remaining Connect4 tree is a
+    // P0 win. Keep this explicit expectation so the lifecycle gate never
+    // spends unbounded time solving the former six-ply reference position.
+    const forcedRoot = [
+      0, 2, 6, 4, 1, 2, 5, 0, 2, 5, 2,
+      6, 2, 1, 0, 3, 6, 4, 6, 0, 1, 0,
+      3, 1, 4, 6, 5, 5, 0, 3, 6, 3, 1,
     ];
+    const forcedState = new IsoMaxSolver().createState(forcedRoot);
+    const forcedCode = nativeFrontierCode(forcedState);
+    assert.ok(forcedCode >= 64, 'late forced fixture must retain native forced-move semantics');
+    assert.equal((forcedCode - 64) % 7, 2, 'late forced fixture must force column 2');
+
+    const roots = [
+      { moves: branchRoot },
+      { moves: branchRoot.map(column => 6 - column) },
+      { moves: forcedRoot, expected: { value: 1, move: 2 } },
+      { moves: [3, 0, 3, 0, 3, 1] }, // immediate-win root
+      { moves: Array.from('5212714351522553524346343412', c => Number(c) - 1) },
+    ];
+
+    // Establish every remaining serial oracle before manager construction so a
+    // fixture regression is classified as reference cost, not shared liveness.
+    const prepared = [];
+    for (const root of roots) {
+      if (root.expected) {
+        prepared.push(root);
+        continue;
+      }
+      const started = performance.now();
+      const expected = new IsoMaxSolver().solveMoves(root.moves);
+      const oracleMs = performance.now() - started;
+      assert.ok(oracleMs < 2000,
+        'root-witness serial oracle must remain bounded; elapsed=' + oracleMs.toFixed(3) + 'ms');
+      prepared.push({ moves: root.moves, expected });
+    }
+
     const manager = new IsoMaxBranchManager({
       workers: 2,
       qCapacity: 32768,
@@ -181,8 +213,7 @@ test('shared-TT root witness survives mirror transport and deterministic compres
       eventCapacity: 4096,
     });
     try {
-      for (const moves of roots) {
-        const expected = new IsoMaxSolver().solveMoves(moves);
+      for (const { moves, expected } of prepared) {
         const actual = await manager.solveMoves(moves, { timeoutMs: 15000 });
         assert.equal(actual.value, expected.value);
         assert.equal(actual.move, expected.move);
