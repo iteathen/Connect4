@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { execFileSync, spawnSync } from 'node:child_process';
 import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 import { IsoMaxSolver } from '../../components/isometric/solver.mjs';
 import { IsoMaxBranchManager } from '../../components/isometric/execution/branch-manager.mjs';
 import { IsoMaxPullBranchManager } from '../../components/isometric/execution/pull-manager.mjs';
@@ -142,7 +143,7 @@ if (process.argv[2] === 'child') {
   if (failed) process.exitCode = 2;
 } else {
   const root = new URL('../../', import.meta.url);
-  const cwd = decodeURIComponent(root.pathname);
+  const cwd = fileURLToPath(root);
   let sourceRevision = process.env.ISOMAX_SOURCE_SHA ?? null;
   if (!sourceRevision) {
     try {
@@ -165,7 +166,7 @@ if (process.argv[2] === 'child') {
   let oracle = null;
   for (const variant of variants) {
     const child = spawnSync(process.execPath,
-      ['--max-old-space-size=4096', new URL(import.meta.url).pathname, 'child', variant],
+      ['--max-old-space-size=4096', fileURLToPath(import.meta.url), 'child', variant],
       {cwd,encoding:'utf8',timeout:110000,windowsHide:true});
     if (child.error) throw child.error;
     const line = child.stdout.trim().split('\n').filter(Boolean).at(-1);
