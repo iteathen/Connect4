@@ -66,6 +66,7 @@ const MC_ROOT_WITNESS_WAITS = 10;
 const MC_STALE_DESCRIPTORS = 11;
 const MC_WORKER_DEATH_RECOVERIES = 12;
 const MC_WORKER_DEATH_REQUEUES = 13;
+const MC_WORKER_DEATH_ORPHANS = 14;
 const MC_WORDS = 16;
 
 class SharedBranchManagerLoop {
@@ -95,6 +96,12 @@ class SharedBranchManagerLoop {
     this.candidateHead = new Int32Array(8); this.candidateHead.fill(-1);
     this.candidateTail = new Int32Array(8); this.candidateTail.fill(-1);
     this.readyTarget = Math.max(workerCount, workerCount * 4);
+
+    // Recovery is a cold-path ownership transaction. Record every worker
+    // generation that needs recovery first, then reconcile the shared TT in
+    // one high-water pass so multiple simultaneous deaths cannot enqueue the
+    // same orphan repeatedly.
+    this.deadRecoveryGeneration = new Int32Array(workerCount);
   }
 
   bump(index, delta = 1) {
@@ -660,53 +667,87 @@ class SharedBranchManagerLoop {
   }
 
   recoverDeadWorkers() {
-    let progress = false;
+    let pending = 0;
+
+    // Phase 1: close every ownership transaction that can be tied directly to
+    // a dead worker. Do this for all pending deaths before the TT census; an
+    // unpublished branch may release the last q pin and create an orphan.
     for (let worker = 0; worker < workerCount; worker++) {
       const deathGeneration = Atomics.load(tt.workerDeath, worker);
       if (deathGeneration === Atomics.load(tt.workerRecovery, worker)) continue;
 
-      // BranchManager owns failure recovery. A worker ID is not reusable until
-      // every lock/reservation/publication owned by its dead generation has a
-      // deterministic disposition here.
       recoverWorkerBucketLocks(tt, worker);
       recoverWorkerTTReservations(tt, worker);
       recoverUnpublishedBranch(events, tt, worker);
+      this.deadRecoveryGeneration[worker] = deathGeneration;
+      pending++;
+    }
 
-      const high = Math.min(
-        tt.qCapacity,
-        Atomics.load(tt.control, CTRL_Q_HIGH_WATER),
-      );
-      for (let qIndex = 0; qIndex < high; qIndex++) {
-        if (Atomics.load(tt.qLive, qIndex) === 0) continue;
-        if (Atomics.compareExchange(
-          tt.qExecution,
-          qIndex,
-          EXEC_RUNNING_BASE + worker,
-          EXEC_NONE,
-        ) !== EXEC_RUNNING_BASE + worker) continue;
+    if (pending === 0) return false;
 
-        const generation = Atomics.load(tt.qGeneration, qIndex);
-        if (readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN) {
-          this.scheduleFinalize(qIndex, generation);
-          continue;
-        }
-        if (Atomics.load(tt.qRefCount, qIndex) > 0) {
-          if (this.queueIfNeeded(
-            qIndex,
-            generation,
-            Atomics.load(tt.qPriorityClass, qIndex),
-          )) this.bump(MC_WORKER_DEATH_REQUEUES);
-        } else {
-          this.pushOrphan(qIndex, generation);
+    // Phase 2: one existing high-water recovery census. Besides reclaiming
+    // RUNNING reservations owned by dead workers, classify any parentless,
+    // zero-ref non-root q as an orphan. Such q can be left behind when death
+    // recovery releases the final descriptor pin after that q has already
+    // acquired outgoing topology; recycleQIfDead correctly refuses the
+    // expanded q, so BranchManager must retire its topology first.
+    const rootQ = Atomics.load(tt.control, CTRL_ROOT_Q);
+    const rootGeneration = Atomics.load(tt.control, CTRL_ROOT_GENERATION);
+    const high = Math.min(
+      tt.qCapacity,
+      Atomics.load(tt.control, CTRL_Q_HIGH_WATER),
+    );
+
+    for (let qIndex = 0; qIndex < high; qIndex++) {
+      if (Atomics.load(tt.qLive, qIndex) === 0) continue;
+      const generation = Atomics.load(tt.qGeneration, qIndex);
+      let execution = Atomics.load(tt.qExecution, qIndex);
+
+      if (execution >= EXEC_RUNNING_BASE) {
+        const owner = executionWorker(execution);
+        if (owner >= 0
+            && owner < workerCount
+            && this.deadRecoveryGeneration[owner] !== 0
+            && Atomics.compareExchange(
+              tt.qExecution,
+              qIndex,
+              execution,
+              EXEC_NONE,
+            ) === execution) {
+          execution = EXEC_NONE;
+          if (readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN) {
+            this.scheduleFinalize(qIndex, generation);
+          } else if (Atomics.load(tt.qRefCount, qIndex) > 0) {
+            if (this.queueIfNeeded(
+              qIndex,
+              generation,
+              Atomics.load(tt.qPriorityClass, qIndex),
+            )) this.bump(MC_WORKER_DEATH_REQUEUES);
+          }
         }
       }
 
+      if (qIndex === rootQ && generation === rootGeneration) continue;
+      if (Atomics.load(tt.qRefCount, qIndex) !== 0
+          || Atomics.load(tt.qParentHead, qIndex) !== -1) continue;
+
+      this.pushOrphan(qIndex, generation);
+      this.bump(MC_WORKER_DEATH_ORPHANS);
+    }
+
+    // Only acknowledge a dead worker generation after its owned locks,
+    // reservations/publication state and the resulting orphan census are all
+    // represented in manager-owned recovery queues.
+    for (let worker = 0; worker < workerCount; worker++) {
+      const deathGeneration = this.deadRecoveryGeneration[worker];
+      if (deathGeneration === 0) continue;
       Atomics.store(tt.workerRecovery, worker, deathGeneration);
       Atomics.notify(tt.workerRecovery, worker, Infinity);
+      this.deadRecoveryGeneration[worker] = 0;
       this.bump(MC_WORKER_DEATH_RECOVERIES);
-      progress = true;
     }
-    return progress;
+
+    return true;
   }
 
   drainOnce() {
@@ -775,6 +816,7 @@ class SharedBranchManagerLoop {
       staleDescriptors: this.metrics[MC_STALE_DESCRIPTORS],
       workerDeathRecoveries: this.metrics[MC_WORKER_DEATH_RECOVERIES],
       workerDeathRequeues: this.metrics[MC_WORKER_DEATH_REQUEUES],
+      workerDeathOrphans: this.metrics[MC_WORKER_DEATH_ORPHANS],
     };
   }
 }
