@@ -31,8 +31,7 @@ export const CTRL_EDGE_NEXT = 15;
 export const CTRL_EDGE_FREE_HEAD = 16;
 export const CTRL_ROOT_MOVE_READY = 17;
 export const CTRL_READY_COUNT = 18;
-export const CTRL_EXPOSURE_PERMITS = 19;
-export const CTRL_EXPOSURE_INFLIGHT = 20;
+export const CTRL_EXPOSURE_STATE = 19;
 export const CTRL_WORDS = 32;
 
 export const WORKER_COUNTER_WORDS = 32;
@@ -716,18 +715,61 @@ export function enterLocalQ(shared, qIndex, generation, workerId) {
  * Returns workerId when claimed, another worker id when already RUNNING, and
  * -1 when exact/stale/not-yet-admitted.
  */
+const EXPOSURE_COUNT_MASK = 0xffff;
+const EXPOSURE_INFLIGHT_SHIFT = 16;
+
+function packExposureState(permits, inflight) {
+  if (permits < 0 || permits > EXPOSURE_COUNT_MASK
+      || inflight < 0 || inflight > EXPOSURE_COUNT_MASK) {
+    throw new Error('IsoMax exposure state overflow');
+  }
+  return ((inflight << EXPOSURE_INFLIGHT_SHIFT) | permits) | 0;
+}
+
+export function exposureOutstanding(shared) {
+  const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
+  return (state & EXPOSURE_COUNT_MASK)
+    + ((state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK);
+}
+
+export function grantExposurePermits(shared, count) {
+  if (!Number.isInteger(count) || count <= 0) return 0;
+  while (true) {
+    const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
+    const permits = state & EXPOSURE_COUNT_MASK;
+    const inflight = (state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK;
+    const grant = Math.min(count, EXPOSURE_COUNT_MASK - permits);
+    if (grant <= 0) return 0;
+    const next = packExposureState(permits + grant, inflight);
+    if (Atomics.compareExchange(
+      shared.control, CTRL_EXPOSURE_STATE, state, next,
+    ) === state) return grant;
+  }
+}
+
 export function tryConsumeExposurePermit(shared) {
   while (true) {
-    const permits = Atomics.load(shared.control, CTRL_EXPOSURE_PERMITS);
+    const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
+    const permits = state & EXPOSURE_COUNT_MASK;
+    const inflight = (state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK;
     if (permits <= 0) return false;
+    const next = packExposureState(permits - 1, inflight + 1);
     if (Atomics.compareExchange(
-      shared.control,
-      CTRL_EXPOSURE_PERMITS,
-      permits,
-      permits - 1,
-    ) !== permits) continue;
-    Atomics.add(shared.control, CTRL_EXPOSURE_INFLIGHT, 1);
-    return true;
+      shared.control, CTRL_EXPOSURE_STATE, state, next,
+    ) === state) return true;
+  }
+}
+
+export function completeExposure(shared) {
+  while (true) {
+    const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
+    const permits = state & EXPOSURE_COUNT_MASK;
+    const inflight = (state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK;
+    if (inflight <= 0) throw new Error('IsoMax exposure inflight underflow');
+    const next = packExposureState(permits, inflight - 1);
+    if (Atomics.compareExchange(
+      shared.control, CTRL_EXPOSURE_STATE, state, next,
+    ) === state) return;
   }
 }
 
