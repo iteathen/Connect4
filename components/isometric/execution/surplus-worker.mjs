@@ -1,14 +1,17 @@
 import { parentPort, workerData } from 'node:worker_threads';
 import { IsoMaxSolver } from '../solver.mjs';
-import { CENTER_ORDER, singletonEffectClass } from '../move-order.mjs';
+import { CENTER_ORDER } from '../move-order.mjs';
 import {
   CTRL_ABORT,
+  CTRL_OCC_FREE_WAKE,
   CTRL_PUB_WAKE,
   CTRL_SESSION,
   CTRL_WORK_WAKE,
   CTRL_WORKER_READY,
   MAX_MOVES,
   OCC_EXACT,
+  OCC_LINKED,
+  OCC_PUBLISHED,
   OCC_RETIRED,
   OCC_ROLE_CONTINUATION,
   OCC_ROLE_SURPLUS,
@@ -47,7 +50,11 @@ import {
   WC_WORK_CLAIMS,
   WC_WORDS,
   WORK_EXACT,
+  WORK_READY,
   WORK_RETIRED,
+  WORK_RUNNING,
+  WORK_UNUSED,
+  WORK_WRITING,
   allocateOccurrence,
   claimHighest,
   completeWork,
@@ -59,6 +66,7 @@ if (!parentPort) throw new Error('IsoMax surplus worker requires parentPort');
 
 const workRetired=Symbol('surplus work retired');
 const continuationResolved=Symbol('surplus continuation resolved');
+const continuationSuperseded=Symbol('surplus continuation superseded');
 const sessionStopped=Symbol('surplus session stopped');
 const workerIndex=workerData.workerId;
 const workerCount=workerData.workerCount;
@@ -66,35 +74,39 @@ const workerCount=workerData.workerCount;
 class SurplusDistributor {
   constructor(worker) {
     this.worker=worker;
-    this.ownsOrdering=true;
     this.columns=new Int8Array((MAX_MOVES+1)*7);
-    this.evals=new Int8Array((MAX_MOVES+1)*7);
-    this.ranks=new Int8Array((MAX_MOVES+1)*7);
     this.occSlots=new Int32Array((MAX_MOVES+1)*7);this.occSlots.fill(-1);
     this.occGenerations=new Int32Array((MAX_MOVES+1)*7);
     this.allocateScratch=new Int32Array(1);
   }
 
-  allocateOpportunity(state,column,orderRank,evalClass,role) {
-    // Worker discovers/evaluates the child. BranchManager only organizes the
-    // posted occurrence afterward; eval is carried with the work source.
-    const slot=allocateOccurrence(
-      this.worker.shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
+  allocateOpportunity(state,column,orderRank,role) {
+    const shared=this.worker.shared;
+    let slot=allocateOccurrence(
+      shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
       state,column,orderRank,role,this.allocateScratch,
     );
-    if(slot>=0)Atomics.store(this.worker.shared.occEval,slot,evalClass);
+    if(slot>=0)return slot;
+
+    // Bounded global backpressure: give reconciliation one short chance to
+    // retire/recycle consumed occurrences. Never grow the arena in recursion.
+    const epoch=Atomics.load(shared.control,CTRL_OCC_FREE_WAKE);
+    Atomics.wait(shared.control,CTRL_OCC_FREE_WAKE,epoch,2);
+    slot=allocateOccurrence(
+      shared,workerIndex,this.worker.activeWork,this.worker.activeAttempt,
+      state,column,orderRank,role,this.allocateScratch,
+    );
     return slot;
   }
 
   publishBlocking(kind,a=0,b=0,c=0,d=0,e=0,f=0,g=0) {
-    // Legacy method name; operation is intentionally nonblocking. Workers and
-    // BranchManager have independent loops. A full bounded publication arena
-    // is an explicit capacity failure, never a synchronous manager wait.
     const shared=this.worker.shared;
-    if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
-    if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
-    if(!publish(shared,kind,a,b,c,d,e,f,g))
-      throw new Error('ISOMAX_SURPLUS_PUBLICATION_CAPACITY');
+    while(!publish(shared,kind,a,b,c,d,e,f,g)){
+      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
+      const epoch=Atomics.load(shared.control,CTRL_PUB_WAKE);
+      Atomics.wait(shared.control,CTRL_PUB_WAKE,epoch,2);
+    }
   }
 
   retireOccurrence(slot,generation) {
@@ -104,6 +116,21 @@ class SurplusDistributor {
     this.worker.counters[WC_RETIRE_OCC]++;
   }
 
+  waitOccurrence(slot,generation) {
+    const shared=this.worker.shared;
+    while(true){
+      // Cancellation owns lifecycle before any already-linked state can send
+      // us back into a helper wait. Otherwise LINKED -> WORK_RUNNING can spin
+      // forever after the host has stopped the session.
+      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
+      if(Atomics.load(shared.occGeneration,slot)!==generation)throw new Error('surplus occurrence generation changed');
+      const state=Atomics.load(shared.occState,slot);
+      if(state===OCC_LINKED||state===OCC_EXACT||state===OCC_RETIRED)return state;
+      if(state!==OCC_PUBLISHED)throw new Error('invalid surplus occurrence state '+state);
+      Atomics.wait(shared.occState,slot,OCC_PUBLISHED,10);
+    }
+  }
 
   publishWorkExact(slot,generation,attempt,value,rootMove=-1) {
     const shared=this.worker.shared;
@@ -128,13 +155,11 @@ class SurplusDistributor {
     this.worker.counters[WC_LOCAL_RECLAIMS]++;
     this.worker.counters[WC_SURPLUS_LOCAL]++;
 
-    // This sibling was already worker-produced surplus. If the discovering
-    // worker later reaches it itself, it becomes the live local continuation.
-    // BranchManager may retire a queued duplicate, but this worker never waits
-    // for that decision and simply keeps native recursion moving.
+    // A visibility-only surplus becomes the current continuation when this
+    // worker reaches it. Announce that transition without creating a task.
     this.publishBlocking(PUB_CONTINUATION_START,slot,generation,workerIndex);
 
-    let value,remoteResolved=false;
+    let value,remoteResolved=false,superseded=false;
     const nodeStart=solver.metrics.nodes,wasteStart=this.worker.claimWasteNodes;
     this.worker.pushContinuation(ply,slot,generation);
     state.applyUnchecked(column);solver.metrics.recursiveChildren++;
@@ -146,13 +171,23 @@ class SurplusDistributor {
         value=this.worker.interruptValue;
         remoteResolved=true;
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+      }else if(error===continuationSuperseded&&this.worker.interruptPly===ply){
+        this.worker.recordRetirementWaste(nodeStart,wasteStart);
+        superseded=true;
+        this.worker.counters[WC_CONTINUATION_YIELDS]++;
       }else throw error;
     }finally{
       state.undo();
       this.worker.popContinuation(ply,slot);
     }
 
+    if(superseded){
+      return this.resolveOccurrence(solver,state,column,slot,generation);
+    }
     if(!remoteResolved){
+      // Exact ordinary value is authoritative even though this q never needed
+      // a new execution reservation. Reconciliation broadcasts it to every
+      // convergent occurrence and retires any redundant helper work.
       this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,value,workerIndex);
     }
     return value;
@@ -212,22 +247,117 @@ class SurplusDistributor {
 
   resolveOccurrence(solver,state,column,slot,generation) {
     const shared=this.worker.shared;
-    if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
-    if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
-    if(Atomics.load(shared.occGeneration,slot)!==generation)
-      throw new Error('surplus occurrence generation changed');
+    while(true){
+      if(Atomics.load(shared.control,CTRL_ABORT))throw new Error('ISOMAX_SURPLUS_ABORTED');
+      if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING)throw sessionStopped;
+      const occState=this.waitOccurrence(slot,generation);
+      if(occState===OCC_RETIRED)throw new Error('needed surplus occurrence retired');
+      if(occState===OCC_EXACT){
+        this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+        return this.rememberExactChild(
+          solver,state,column,Atomics.load(shared.occResult,slot),1,slot,generation,
+        );
+      }
 
-    // BranchManager/TT/queue runs independently. Exact truth may be consumed
-    // if it has already arrived; otherwise this worker continues locally now.
-    // READY/RUNNING/priority/leader state is never synchronously arbitrated by
-    // the recursive worker.
-    if(Atomics.load(shared.occState,slot)===OCC_EXACT){
-      this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
-      return this.rememberExactChild(
-        solver,state,column,Atomics.load(shared.occResult,slot),1,slot,generation,
-      );
+      const leader=Atomics.load(shared.occLeader,slot);
+      const leaderGeneration=Atomics.load(shared.occLeaderGeneration,slot);
+      if(leader>=0&&leader!==slot&&leader<shared.occurrenceCapacity &&
+         leaderGeneration>0 &&
+         Atomics.load(shared.occGeneration,leader)===leaderGeneration &&
+         Atomics.load(shared.occNeeded,leader)!==0 &&
+         Atomics.load(shared.occState,leader)!==OCC_RETIRED){
+        // A canonical-equivalent native continuation is already running.
+        // Preserve global convergence without rematerializing another subtree.
+        this.worker.counters[WC_HELPER_WAITS]++;
+        Atomics.wait(shared.occState,slot,OCC_LINKED,10);
+        continue;
+      }
+
+      const work=Atomics.load(shared.occWork,slot);
+      const workGeneration=Atomics.load(shared.occWorkGeneration,slot);
+
+      if(work>=0&&workGeneration>0&&Atomics.load(shared.workGeneration,work)!==workGeneration){
+        // The canonical helper reservation was retired and its numeric slot
+        // reused. Occurrence/q state remains authoritative; re-read it rather
+        // than interpreting the new generation as this dependency.
+        continue;
+      }
+
+      // Visibility is broader than execution. If no spare worker capacity was
+      // admitted for this q, continue the serial proof directly from the live
+      // parent state. No replay or scheduler round-trip is introduced.
+      if(work<0||workGeneration<=0){
+        return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+      }
+
+      const stateCode=Atomics.load(shared.workState,work);
+      if(stateCode===WORK_EXACT){
+        // Reconciliation can consume PUB_EXACT and recycle this carrier while
+        // an occurrence waiter is reading it. Snapshot the scalar result, then
+        // revalidate both generation and terminal state before accepting it.
+        // If recycle/reuse won the race, occurrence/q state remains authority
+        // and this waiter simply retries.
+        const workValue=Atomics.load(shared.workResult,work);
+        if(Atomics.load(shared.workGeneration,work)!==workGeneration ||
+           Atomics.load(shared.workState,work)!==WORK_EXACT)continue;
+        this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+        return this.rememberExactChild(
+          solver,state,column,workValue,2,work,workGeneration,
+        );
+      }
+
+      if(stateCode===WORK_READY){
+        // READY exists only because spare worker capacity was available.
+        // Give that helper a short opportunity to claim it. If OS scheduling
+        // has not done so, preserve local progress instead of stalling.
+        Atomics.wait(shared.workState,work,WORK_READY,this.worker.helperGraceMs);
+        if(Atomics.load(shared.workState,work)===WORK_READY){
+          return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+        }
+        continue;
+      }
+
+      if(stateCode===WORK_RUNNING){
+        this.worker.counters[WC_HELPER_WAITS]++;
+        // A stolen surplus is speculative parallel help, not a dependency
+        // that may indefinitely stall the current worker. Give the helper a
+        // brief opportunity to finish; if it remains RUNNING, preserve local
+        // forward progress from the live parent state. PUB_CONTINUATION_START
+        // then makes the local continuation canonical-visible and reconciliation
+        // retires the now-redundant helper at its amortized control boundary.
+        Atomics.wait(shared.workState,work,WORK_RUNNING,this.worker.helperGraceMs);
+        if(Atomics.load(shared.workState,work)===WORK_RUNNING){
+          return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+        }
+        continue;
+      }
+
+      if(stateCode===WORK_RETIRED||stateCode===WORK_UNUSED||stateCode===WORK_WRITING){
+        // Work identity is advisory to the occurrence. Exact publication or
+        // retirement can recycle a carrier after we validated its generation
+        // but before this state load. Re-read occurrence linkage instead of
+        // treating the carrier's terminal UNUSED state as semantic failure.
+        if(stateCode!==WORK_UNUSED)Atomics.wait(shared.workState,work,stateCode,1);
+        const replacement=Atomics.load(shared.occWork,slot);
+        const currentState=Atomics.load(shared.workState,work);
+        if(replacement===work&&(currentState===WORK_RETIRED||currentState===WORK_UNUSED)){
+          return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+        }
+        continue;
+      }
+      throw new Error('invalid canonical surplus work state '+stateCode);
     }
-    return this.solveOccurrenceLocally(solver,state,column,slot,generation);
+  }
+
+  reserveIdleDemand(limit){
+    let reserved=0;
+    const idle=this.worker.shared.workerIdle;
+    for(let id=0;id<workerCount&&reserved<limit;id++){
+      if(id===workerIndex)continue;
+      if(Atomics.compareExchange(idle,id,1,0)===1)reserved++;
+    }
+    this.worker.counters[WC_DEMAND_RESERVATIONS]+=reserved;
+    return reserved;
   }
 
   solveLocalChildren(solver,state,maximizing,lower,upper,count,base){
@@ -253,30 +383,14 @@ class SurplusDistributor {
 
   solveChildren(solver,state,maximizing,lower,upper,promoted) {
     const ply=state.ply,base=ply*7;
-    let count=0,bestIndex=-1,bestEval=-1;
-
-    // The worker owns branch discovery and the cheap evaluation used to choose
-    // its continuing line. CENTER_ORDER is the deterministic tie-break.
-    for(let rank=0;rank<CENTER_ORDER.length;rank++){
-      const column=CENTER_ORDER[rank];
-      if(!state.canPlay(column))continue;
-      const evalClass=singletonEffectClass(state,column);
-      const index=base+count;
-      this.columns[index]=column;
-      this.evals[index]=evalClass;
-      this.ranks[index]=rank;
-      if(evalClass>bestEval){bestEval=evalClass;bestIndex=count;}
-      count++;
+    let count=0;
+    if(promoted>=0&&state.canPlay(promoted))this.columns[base+count++]=promoted;
+    for(let i=0;i<CENTER_ORDER.length;i++){
+      const column=CENTER_ORDER[i];
+      if(column===promoted||!state.canPlay(column))continue;
+      this.columns[base+count++]=column;
     }
     if(count===0)throw new Error('ongoing surplus state has no legal moves');
-    if(bestIndex>0){
-      const a=base,b=base+bestIndex;
-      let t=this.columns[a];this.columns[a]=this.columns[b];this.columns[b]=t;
-      t=this.evals[a];this.evals[a]=this.evals[b];this.evals[b]=t;
-      t=this.ranks[a];this.ranks[a]=this.ranks[b];this.ranks[b]=t;
-    }
-    if(bestEval>0)solver.metrics.orderingPromotions++;
-
     if(count===1){
       const column=this.columns[base];
       state.applyUnchecked(column);solver.metrics.recursiveChildren++;
@@ -285,38 +399,44 @@ class SurplusDistributor {
     }
     this.worker.counters[WC_BRANCHES]++;
 
-    // With no other worker, queue publication cannot create parallel progress.
+    // No second worker can consume or converge with branch occurrences.
+    // Preserve native DFS instead of globalizing work solely for bookkeeping.
     if(workerCount===1)return this.solveLocalChildren(
       solver,state,maximizing,lower,upper,count,base,
     );
 
+    const demand=this.reserveIdleDemand(count-1);
+    if(demand===0)return this.solveLocalChildren(
+      solver,state,maximizing,lower,upper,count,base,
+    );
+    const publishCount=1+demand;
+
     for(let i=0;i<count;i++)this.occSlots[base+i]=-1;
     try{
-      // Current line is visible to TT but not claimable as surplus. Every
-      // remaining child is worker-produced surplus with eval metadata attached.
-      for(let i=0;i<count;i++){
-        const index=base+i,column=this.columns[index];
+      // Demand reservation consumes an idle-worker availability token, not a
+      // worker identity: all published work remains globally claimable.
+      // Expose the current continuation only when cross-worker work is useful.
+      for(let i=0;i<publishCount;i++){
+        const column=this.columns[base+i];
         const role=i===0?OCC_ROLE_CONTINUATION:OCC_ROLE_SURPLUS;
-        const slot=this.allocateOpportunity(
-          state,column,this.ranks[index],this.evals[index],role,
-        );
+        const slot=this.allocateOpportunity(state,column,i,role);
         if(slot<0)throw new Error('ISOMAX_SURPLUS_OCCURRENCE_CAPACITY');
         const generation=Atomics.load(this.worker.shared.occGeneration,slot);
-        this.occSlots[index]=slot;this.occGenerations[index]=generation;
+        this.occSlots[base+i]=slot;this.occGenerations[base+i]=generation;
         this.publishBlocking(PUB_OCCURRENCE,slot,generation,this.worker.activeWork,
-          this.worker.activeAttempt,column,this.ranks[index],workerIndex);
+          this.worker.activeAttempt,column,i,workerIndex);
         this.worker.counters[WC_OCC_PUBLISHED]++;
       }
 
       let best=maximizing?-1:1;
       for(let i=0;i<count;i++){
-        const index=base+i,column=this.columns[index];
-        const slot=this.occSlots[index],generation=this.occGenerations[index];
+        const column=this.columns[base+i];
+        const slot=this.occSlots[base+i],generation=this.occGenerations[base+i];
         let childValue;
 
         if(i===0){
           this.worker.counters[WC_LOCAL_PRIMARY]++;
-          let remoteResolved=false;
+          let remoteResolved=false,superseded=false;
           const nodeStart=solver.metrics.nodes,wasteStart=this.worker.claimWasteNodes;
           this.worker.pushContinuation(ply,slot,generation);
           state.applyUnchecked(column);solver.metrics.recursiveChildren++;
@@ -328,18 +448,29 @@ class SurplusDistributor {
               childValue=this.worker.interruptValue;
               remoteResolved=true;
               this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
+            }else if(error===continuationSuperseded&&this.worker.interruptPly===ply){
+              this.worker.recordRetirementWaste(nodeStart,wasteStart);
+              superseded=true;
+              this.worker.counters[WC_CONTINUATION_YIELDS]++;
             }else throw error;
           }finally{
             state.undo();
             this.worker.popContinuation(ply,slot);
           }
-          if(!remoteResolved){
+          if(superseded){
+            childValue=this.resolveOccurrence(solver,state,column,slot,generation);
+          }else if(!remoteResolved){
             this.publishBlocking(PUB_OCCURRENCE_EXACT,slot,generation,childValue,workerIndex);
           }
-          this.retireOccurrence(slot,generation);this.occSlots[index]=-1;
-        }else{
+          this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
+        }else if(slot>=0){
           childValue=this.resolveOccurrence(solver,state,column,slot,generation);
-          this.retireOccurrence(slot,generation);this.occSlots[index]=-1;
+          this.retireOccurrence(slot,generation);this.occSlots[base+i]=-1;
+        }else{
+          this.worker.counters[WC_UNPUBLISHED_LOCAL]++;
+          state.applyUnchecked(column);solver.metrics.recursiveChildren++;
+          try{childValue=solver.solveNode(state);}
+          finally{state.undo();}
         }
 
         if(maximizing){
@@ -352,11 +483,13 @@ class SurplusDistributor {
       }
       return best;
     }finally{
+      // Cutoff, retirement or failure invalidates every still-live occurrence,
+      // including a primary continuation whose recursion was interrupted.
       for(let i=0;i<count;i++){
-        const index=base+i,slot=this.occSlots[index];
+        const slot=this.occSlots[base+i];
         if(slot>=0){
-          this.retireOccurrence(slot,this.occGenerations[index]);
-          this.occSlots[index]=-1;
+          this.retireOccurrence(slot,this.occGenerations[base+i]);
+          this.occSlots[base+i]=-1;
         }
       }
     }
@@ -397,7 +530,6 @@ class SurplusEvaluator {
     this.helperGraceMs=message.helperGraceMs;
     if(!Number.isSafeInteger(this.helperGraceMs)||this.helperGraceMs<1||this.helperGraceMs>1000)
       throw new RangeError('invalid surplus helperGraceMs');
-    // Compatibility field only: recursive workers never wait on helper state.
     this.controlQuantum=message.controlQuantum;
     if(!Number.isSafeInteger(this.controlQuantum)||this.controlQuantum<1||this.controlQuantum>1<<20)
       throw new RangeError('invalid surplus controlQuantum');
@@ -463,6 +595,16 @@ class SurplusEvaluator {
         this.interruptPly=this.continuationPly[depth];
         this.interruptValue=Atomics.load(shared.occResult,slot);
         throw continuationResolved;
+      }
+      const leader=Atomics.load(shared.occLeader,slot);
+      const leaderGeneration=Atomics.load(shared.occLeaderGeneration,slot);
+      if(leader>=0&&leader!==slot&&leader<shared.occurrenceCapacity &&
+         leaderGeneration>0 &&
+         Atomics.load(shared.occGeneration,leader)===leaderGeneration &&
+         Atomics.load(shared.occNeeded,leader)!==0 &&
+         Atomics.load(shared.occState,leader)!==OCC_RETIRED){
+        this.interruptPly=this.continuationPly[depth];
+        throw continuationSuperseded;
       }
     }
     this.solver.nextControlNode=this.solver.metrics.nodes+this.activeControlQuantum;

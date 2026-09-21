@@ -8,7 +8,6 @@ import { nativeFrontierCode } from '../frontier.mjs';
 import {
   CTRL_WORK_NEXT,
   OCC_RETIRED,
-  OCC_ROLE_SURPLUS,
   WORK_EXACT,
   WORK_RUNNING,
   allocateOccurrence,
@@ -226,19 +225,6 @@ test('surplus occurrence arena reuses one slot only under a new generation', () 
   }
 });
 
-test('worker-attached surplus eval survives occurrence transport', () => {
-  const descriptor=createSurplusPool({
-    workerCount:2,workCapacity:4,occurrenceCapacity:4,queueCapacity:8,publicationCapacity:8,
-  });
-  const shared=openSurplusPool(descriptor);
-  const solver=new IsoMaxSolver(),state=solver.createState();
-  const scratch=new Int32Array(1);
-  const slot=allocateOccurrence(shared,0,-1,0,state,3,0,OCC_ROLE_SURPLUS,scratch);
-  assert.ok(slot>=0);
-  Atomics.store(shared.occEval,slot,2);
-  assert.equal(Atomics.load(shared.occEval,slot),2);
-});
-
 test('one-worker surplus profile degenerates to native recursive DFS',
   {timeout:30000}, async () => {
     const {moves,expected}=branchyFixture(0x1025a);
@@ -262,7 +248,7 @@ test('one-worker surplus profile degenerates to native recursive DFS',
       assert.ok(worker.unpublishedLocal>0,
         'single worker must keep non-primary siblings in native local recursion');
       assert.equal(worker.demandReservations,0,
-        'workers never own global demand/backpressure policy');
+        'single worker cannot reserve external demand');
       assert.equal(worker.surplusRemote,0,'single worker cannot claim a remote surplus helper');
       assert.equal(worker.helperReplayApplies,0,'single worker must not replay helper work');
       assert.equal(worker.helperWaits,0,'single worker must not wait for a helper');
@@ -279,19 +265,20 @@ test('one-worker surplus profile degenerates to native recursive DFS',
 
 test('surplus helpers steal alternatives while the current worker keeps local recursion',
   {timeout:20000}, async () => {
-    // Nonblocking workers never pause a branch to give a helper scheduling
-    // time. Use a deterministic hard root so an independently polling worker
-    // has a real opportunity to dequeue posted surplus without any grace/wait.
-    const moves=Array.from('717657616532237625',character=>Number(character)-1);
-    const expected=new IsoMaxSolver().solveMoves(moves);
+    // Lifecycle control, not the hard-root economics test. Use a deterministic
+    // branchy late root that completes quickly while still giving an idle
+    // second worker real surplus to steal. Historical hard roots remain in
+    // surplus-comparison.mjs and are mandatory before promotion.
+    const {moves,expected}=branchyFixture(0x1025b,32);
     let claims=0,branches=0;
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
       queueCapacity:131072,publicationCapacity:131072,
+      helperGraceMs:25,
       workerClassReserve:262144,workerEntryReserve:524288,
     });
     try{
-      const actual=await manager.solveMoves(moves,{timeoutMs:20000});
+      const actual=await manager.solveMoves(moves,{timeoutMs:10000});
       assert.equal(actual.value,expected.value);
       assert.equal(actual.move,expected.move);
       claims+=actual.metrics.worker.workClaims;
@@ -302,20 +289,12 @@ test('surplus helpers steal alternatives while the current worker keeps local re
       assert.ok(claims>=2,
         'an available helper must claim globally exposed surplus work; worker='+
         JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
-      assert.equal(actual.metrics.worker.demandReservations,0,
-        'worker must not perform peer-idle/backpressure scheduling policy');
+      assert.ok(actual.metrics.worker.demandReservations>0,
+        'surplus publication must be backed by explicit idle-worker demand');
       assert.ok(actual.metrics.worker.surplusRemote>0,
         'a non-root surplus opportunity must be claimed as helper work');
       assert.ok(actual.metrics.worker.helperReplayApplies>0,
         'remote helper execution must report its physical replay cost');
-      assert.equal(actual.metrics.worker.helperWaits,0,
-        'worker recursion must not block on helper/BranchManager arbitration');
-      assert.ok(actual.metrics.worker.occurrencesPublished>0,
-        'worker must post branch-derived surplus occurrences');
-      assert.ok(actual.metrics.canonicalWorkCreated<=actual.metrics.worker.occurrencesPublished+1,
-        'BranchManager queue entries must derive from worker posts; +1 is the external root');
-      assert.equal(actual.metrics.worker.helperWaits,0,
-        'independent worker loop must not block on peer/helper completion');
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
