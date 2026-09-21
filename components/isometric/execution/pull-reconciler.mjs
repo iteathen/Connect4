@@ -943,14 +943,23 @@ class PullReconciler {
     }
     if (this.qForm[this.rootQ] !== Q_DECISION) return;
 
-    for (let edge = this.qOutgoingHead[this.rootQ]; edge !== -1; edge = this.edgeNextOut[edge]) {
-      if (!this.edgeLive[edge]) continue;
-      const child = this.edgeChild[edge];
+    // Internal retained-path order is execution policy only. Root witness
+    // semantics remain the ordinary physical CENTER_ORDER regardless of TT
+    // insertion order, canonical orientation, or which child was retained.
+    for (const physical of CENTER_ORDER) {
+      const canonical = this.rootOrientation ? 6 - physical : physical;
+      let matched = -1;
+      for (let edge = this.qOutgoingHead[this.rootQ]; edge !== -1; edge = this.edgeNextOut[edge]) {
+        if (!this.edgeLive[edge] || this.edgeAction[edge] !== canonical) continue;
+        matched = edge;
+        break;
+      }
+      if (matched < 0) continue;
+      const child = this.edgeChild[matched];
       if (!this.qExact[child]) return;
       if (this.qValue[child] === value) {
-        const canonical = this.edgeAction[edge];
         this.answerValue = value;
-        this.answerMove = this.rootOrientation ? 6 - canonical : canonical;
+        this.answerMove = physical;
         return;
       }
     }
