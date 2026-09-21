@@ -60,7 +60,7 @@ export async function runPerformance(solver,timeoutMs=120000) {
     cpu:os.cpus()[0]?.model,logicalCpus:os.cpus().length,totalRamBytes:os.totalmem(),freeRamBytes:os.freemem(),
     policy:solver==='isomax'?{rba:false,freshPoolAndCache:true,v8OldSpaceMiB:4096,
       execution:'native IsoMax Branch Manager; min(4, available logical CPUs minus one), minimum one worker',
-      progress:'flushed manager/worker snapshot every second; nodes include settled tasks only',
+      progress:'flushed shared-TT manager/worker snapshot; worker solverNodes counts entered recursive calls',
       cleanupReserveMs:Math.min(1000,timeoutMs-1)}:
       {profile:'c4-0009-p2-compact-hybrid',native:true,publish:false,
         budget:'existing per-case budget includes Tensor A/B and native root step',memory:'unchanged Q1/P2 admission and runtime limits'}};
@@ -82,7 +82,7 @@ export async function runPerformance(solver,timeoutMs=120000) {
       rootWdl===1?'passed':'correctness-failure',rootWdl,oracleMatched:rootWdl===null?null:rootWdl===1,
       metrics:last?.metrics??null,solveMs:last?.solveMs??null,memory:last?.memory??null,
       execution:last?.execution??null,workerCleanup:last?.cleanup??null,
-      nodesPerSecond:last?.metrics?.nodes && last.solveMs>0?last.metrics.nodes/(last.solveMs/1000):null,
+      nodesPerSecond:last?.metrics?.worker?.solverNodes && last.solveMs>0?last.metrics.worker.solverNodes/(last.solveMs/1000):null,
       progressIsLowerBound:captured.timedOut||last?.phase!=='complete'};
   } else {
     let qualification = null, final = null;

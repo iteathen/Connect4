@@ -14,9 +14,9 @@ parentPort.on('message', message => {
   const resource = process.resourceUsage();
   fs.writeSync(1, JSON.stringify({
     kind: 'isomax-performance', phase, elapsedMs: observedAt - workerData.started,
-    solveMs: snapshot.elapsedMs ?? 0, metrics: snapshot.metrics ?? { nodes: 0 },
-    execution: { workerCount: workerData.workerCount, managerNodes: snapshot.managerNodes ?? 0,
-      executor: snapshot.executor ?? null },
+    solveMs: snapshot.elapsedMs ?? 0, metrics: snapshot.metrics ?? { worker: { solverNodes: 0 } },
+    execution: { workerCount: workerData.workerCount, canonicalQ: snapshot.canonicalQ ?? 0,
+      liveQ: snapshot.liveQ ?? 0, manager: snapshot.metrics?.manager ?? null },
     memory: { ...process.memoryUsage(), maxRssBytes: resource.maxRSS * 1024, heapScope: 'reporter-worker' },
     cpuUserUs: resource.userCPUTime, cpuSystemUs: resource.systemCPUTime,
     reporting: { threadId, lagMs: performance.now() - observedAt },

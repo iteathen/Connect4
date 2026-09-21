@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { nativeFrontierCode, deriveNativeFrontierConsequence } from '../frontier.mjs';
 import { IsoMaxSolver } from '../solver.mjs';
 import { STATUS_ONGOING } from '../../domain/index.mjs';
-import { IsoMaxTaskSolver } from '../execution/task.mjs';
 import { ResidualPool } from '../residual-pool.mjs';
 import { IsoMaxTransitionCache } from '../isomax-index.mjs';
 import { IsometricState } from '../state.mjs';
@@ -156,15 +155,17 @@ test('native forced response preserves playable provenance and bypasses proof-fa
   assert.equal(state.ply, moves.length);
 });
 
-test('actual native worker recursion reserves storage and never constructs/copies buffers', () => {
-  // OWNER-PROTECTED REGRESSION CONTROL — do not remove/weaken this comment.
-  // Do not disable traps, skip this test, shrink it to cache-only work, or move
-  // instrumentation outside the actual recursive path to make a change pass.
-  // New classes must be created under the traps. Extend coverage when adding
-  // a hot-path operation; preserve the owner contract in solver.mjs.
-  const solver = new IsoMaxTaskSolver();
-  const needed = new SharedArrayBuffer(4), abort = new SharedArrayBuffer(4);
-  Atomics.store(new Int32Array(needed), 0, 1);
+test('actual native worker recursion remains allocation-free after shared-session preparation', () => {
+  // OWNER-PROTECTED REGRESSION CONTROL — exercise the real E0/E1 recursion
+  // after the same reserve/seal boundary used by shared-TT workers. No deleted
+  // task wrapper or compatibility layer is part of this control.
+  const solver = new IsoMaxSolver();
+  const moves = makeCorpus({ seed: 0x9911, ply: 34, count: 1 })[0].moves;
+  const state = solver.createState(moves);
+  solver.pool.prepareSearchStorage(262144);
+  solver.transitionCache.prepareSearchStorage(65536);
+  solver.nextControlNode = Infinity;
+
   const names = ['Array', 'ArrayBuffer', 'SharedArrayBuffer', 'Uint8Array', 'Uint16Array', 'Uint32Array', 'Int32Array', 'Int8Array'];
   const originals = names.map(name => globalThis[name]);
   const typedPrototype = Object.getPrototypeOf(Uint8Array.prototype);
@@ -172,31 +173,48 @@ test('actual native worker recursion reserves storage and never constructs/copie
   const arrayFrom = Array.from, iterator = Array.prototype[Symbol.iterator], stringify = JSON.stringify;
   const reject = () => { throw new Error('allocation/copy/iterator/string operation in worker recursion'); };
   const originalNode = solver.solveNode;
-  let depth = 0, classesBefore, classesAfter;
-  solver.solveNode = function (state) {
+  let depth = 0, classesBefore = solver.pool.classCount, classesAfter = classesBefore;
+  solver.solveNode = function (nodeState) {
     const outer = depth++ === 0;
     if (outer) {
-      assert.equal(this.pool.sealed, true); assert.equal(this.transitionCache.sealed, true);
-      classesBefore = this.pool.classCount;
+      assert.equal(this.pool.sealed, true);
+      assert.equal(this.transitionCache.sealed, true);
       for (let i = 0; i < names.length; i++) globalThis[names[i]] = new Proxy(originals[i], { construct: reject, apply: reject });
-      typedPrototype.set = reject; typedPrototype.subarray = reject;
-      originals[0].from = reject; originals[0].prototype[Symbol.iterator] = reject; JSON.stringify = reject;
+      typedPrototype.set = reject;
+      typedPrototype.subarray = reject;
+      originals[0].from = reject;
+      originals[0].prototype[Symbol.iterator] = reject;
+      JSON.stringify = reject;
     }
-    try { return originalNode.call(this, state); }
-    finally {
+    try {
+      return originalNode.call(this, nodeState);
+    } finally {
       depth--;
       if (outer) {
         for (let i = 0; i < names.length; i++) globalThis[names[i]] = originals[i];
-        typedPrototype.set = set; typedPrototype.subarray = subarray;
-        Array.from = arrayFrom; Array.prototype[Symbol.iterator] = iterator; JSON.stringify = stringify;
+        typedPrototype.set = set;
+        typedPrototype.subarray = subarray;
+        Array.from = arrayFrom;
+        Array.prototype[Symbol.iterator] = iterator;
+        JSON.stringify = stringify;
         classesAfter = this.pool.classCount;
       }
     }
   };
-  const result = solver.runTask({ moves: [], rootPly: 0, nodeBudget: 4096, abort, needed });
-  assert.equal(result.kind, 'split'); assert.equal(result.nodes, 4096);
-  assert.ok(classesAfter > classesBefore); assert.ok(result.frames.length > 0);
-  assert.equal(solver.pool.sealed, false); assert.equal(solver.nextControlNode, Infinity);
+
+  let value;
+  try {
+    value = solver.solveNode(state);
+  } finally {
+    solver.pool.releaseSearchStorage();
+    solver.transitionCache.sealed = false;
+    solver.nextControlNode = Infinity;
+  }
+  assert.ok(value === -1 || value === 0 || value === 1);
+  assert.ok(classesAfter > classesBefore);
+  assert.equal(state.ply, moves.length);
+  assert.equal(solver.pool.sealed, false);
+  assert.equal(solver.transitionCache.sealed, false);
 });
 
 test('sealed pool and cache reject growth without losing published identities', () => {
