@@ -82,8 +82,9 @@
       "campaign_id": "project-operations",
       "status": "active",
       "scope": {
-        "purpose": "agent_capacity_and_development_budget",
-        "technical_authority": false
+        "purpose": "agent_capacity_and_recruiting",
+        "technical_authority": false,
+        "public_boundary": "financial_budget_treasury_trading_and_revenue_state_is_private_administration"
       },
       "communication": {
         "kind": "github_issue",
@@ -119,29 +120,9 @@
             "priority": "ongoing director function; recruiting/resource-capacity work must not displace active correctness/integration decisions",
             "release_trigger": "recruit a dedicated capacity-manager agent"
           }
-        },
-        {
-          "role_id": "dev-budget",
-          "role": "development-budget-and-revenue",
-          "last_session_handle": "IX-A17E5C42",
-          "purpose": "Continuously identify credible funding, sponsorship, grants, credits, paid support/integration, partnerships, and other resource opportunities that can increase development capacity.",
-          "authority_limits": [
-            "no spending or financial commitments",
-            "no accepting money or legal terms",
-            "no licensing changes",
-            "no public commercial commitments or promised deliverables"
-          ],
-          "recovery_behavior": "Refresh project-operations issue #126, recover the current opportunity pipeline and resource gaps, then resume research and proposal qualification.",
-          "temporary_staffing": {
-            "staffed_by_role_id": "isomax-research",
-            "mode": "double-duty",
-            "priority": "use blocked/waiting research capacity first; active IsoMax falsifier/research obligations remain higher priority unless director explicitly reorders",
-            "release_trigger": "recruit a dedicated dev-budget agent"
-          }
         }
       ],
-      "role_state_rule": "Issue #126 owns live operations role/task state. Registry roles are durable purpose/recovery definitions only.",
-      "staffing_policy": "Double-duty assignments are temporary capacity bridges. Original technical role authority remains intact; support-role authority does not inherit solver architecture/write ownership."
+      "role_state_rule": "Issue #126 owns public agent-capacity/recruiting state only. Financial administration is intentionally private and is not represented here."
     }
   ]
 }
