@@ -128,7 +128,7 @@ test('decentralized pull solver preserves mirror transport and deterministic fir
 
 test('decentralized pull requeues dead-worker execution and still returns exact root',
   {timeout:30000}, async () => {
-    const moves = Array.from('717657616532237625', character => Number(character) - 1);
+    const moves = makeCorpus({seed:0x1020d1, ply:28, count:1})[0].moves;
     const expected = new IsoMaxSolver().solveMoves(moves);
     const manager = new IsoMaxPullBranchManager({
       workers:2,
