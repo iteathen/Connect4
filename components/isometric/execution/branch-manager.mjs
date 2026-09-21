@@ -1,343 +1,528 @@
 import { Worker } from 'node:worker_threads';
 import { availableParallelism } from 'node:os';
 import { IsoMaxSolver } from '../solver.mjs';
-import { IsoMaxTransitionCache } from '../isomax-index.mjs';
-import { deriveNativeFrontierConsequence } from '../frontier.mjs';
-import { CONCLUSION_EXACT_VALUE, CONCLUSION_FORCED_MOVE } from '../certificate.mjs';
-import { CENTER_ORDER, promotedColumn } from '../move-order.mjs';
-import { positive, validateTaskResult } from './task.mjs';
-// Reintegrate the existing priority/failure/dispatch executor. Its default
-// quotient result contract remains unchanged; no second executor is introduced.
-import { createSearchWorkerExecutor } from '../../../research/semantic-quotient/state-identity-unification/src/quotient-search-worker-executor.mjs';
+import { PortableQBuilder } from './portable-q.mjs';
+import {
+  CTRL_ABORT,
+  CTRL_ERROR,
+  CTRL_MANAGER_WAKE,
+  CTRL_Q_HIGH_WATER,
+  CTRL_ROOT_GENERATION,
+  CTRL_ROOT_MOVE,
+  CTRL_ROOT_MOVE_READY,
+  CTRL_ROOT_ORIENTATION,
+  CTRL_ROOT_Q,
+  CTRL_ROOT_VALUE,
+  CTRL_SESSION,
+  CTRL_WORKER_WAKE,
+  EXEC_NONE,
+  EXEC_RUNNING_BASE,
+  Q_EXACT_UNKNOWN,
+  SESSION_DONE,
+  SESSION_FAILED,
+  SESSION_RUNNING,
+  WC_BRANCH_DESCRIPTORS,
+  WC_CACHE_HITS,
+  WC_CLAIMS,
+  WC_CLAIM_BAND_BASE,
+  WC_CONTROL_CHECKS,
+  WC_DUPLICATE_REACHES,
+  WC_EXACT_PUBLICATIONS,
+  WC_FORCED_TRANSITIONS,
+  WC_FRONTIERS,
+  WC_NATIVE_EXACT,
+  WC_Q_CREATED,
+  WC_Q_REUSED,
+  WC_QUEUE_EMPTY,
+  WC_RECURSIVE_CHILDREN,
+  WC_RELEASE_EVENTS,
+  WC_REPLAY_APPLIES,
+  WC_RESET_RETIREMENTS,
+  WC_RETAINED_DESCENTS,
+  WC_SHARED_EXACT_CONSUMED,
+  WC_SOLVER_NODES,
+  WORKER_COUNTER_WORDS,
+  createSharedTT,
+  enqueueQ,
+  openSharedTT,
+  probeOrInsertQ,
+  qIsCurrent,
+  runningExecution,
+} from './shared-tt.mjs';
+import { createSharedEvents } from './shared-events.mjs';
 
-// Measured bounded default. Wide speculative dispatch lost badly at 15 workers;
-// keep all CPU counts available explicitly without making that regression default.
+function positive(value, name, maximum = 2 ** 30) {
+  if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
+    throw new RangeError('invalid ' + name);
+  }
+  return value;
+}
+
 export const defaultIsoMaxWorkers = () => Math.max(1, Math.min(4, availableParallelism() - 1));
 
-/** Native ordinary-value session. Worker pools/class IDs never cross identity
- * domains. The manager owns proof dependencies; workers execute native residue.
- * Custom certificate indexes and optional RBA resolvers are not serialized. */
 export class IsoMaxBranchManager {
-  // OWNER-PROTECTED EXECUTION — do not remove/weaken this or adjacent comments.
-  // Current task orchestration is NEES E3. If branch exposure/claim/reconciliation
-  // moves to E2 cadence (for example issue #102), that hot machinery must satisfy
-  // NEES-EXTREME rather than inheriting these object/Promise orchestration forms.
-  // Keep proactive bounded worker queuing integrated with the native kernel.
-  // Do not silently replace this entry with a serial solve or per-node RPC.
-  // Numeric exact q deduplication is intentional; no string-key reconstruction.
-  // Manager/task objects belong outside worker recursion. Preserve dependency
-  // continuations and cleanup; busy-core counts alone are not solve speed.
-  // OWNER-PROTECTED PREPARATION POLICY — do not remove/weaken this comment.
-  // 128K helped one/two workers, but cost more time/memory at four; retain 64K
-  // there. Explicit taskNodes remains available. Polling/retention/time/memory
-  // limits are separate contracts, not enlarged by this scheduling policy.
-  constructor({ workers = defaultIsoMaxWorkers(), taskNodes = workers <= 2 ? 131072 : 65536,
-    maxTasks = 262144, readyReserve = 0, rankCutDepth = workers === 4 ? 3 : 0 } = {}) {
+  constructor({
+    workers = defaultIsoMaxWorkers(),
+    qCapacity = 131072,
+    queueCapacity = 32768,
+    edgeCapacity = qCapacity * 7,
+    branchCapacity = 4096,
+    eventCapacity = 8192,
+    classReserve = workers <= 2 ? 524288 : 262144,
+    entryReserve = workers <= 2 ? 2097152 : 1048576,
+    retainedClasses = 786432,
+    retainedEntries = 4194304,
+    controlQuantum = 512,
+  } = {}) {
     this.workerCount = positive(workers, 'workers', 256);
-    this.taskNodes = positive(taskNodes, 'taskNodes');
-    this.maxTasks = positive(maxTasks, 'maxTasks');
-    if (!Number.isSafeInteger(readyReserve) || readyReserve < 0 || readyReserve > this.maxTasks)
-      throw new RangeError('invalid readyReserve');
-    this.readyReserve = readyReserve;
-    if (!Number.isSafeInteger(rankCutDepth) || rankCutDepth < 0 || rankCutDepth > 42)
-      throw new RangeError('invalid rankCutDepth');
-    this.rankCutDepth = rankCutDepth;
-    this.workers = []; this.executor = null; this.busy = false; this.closed = false;
+    this.qCapacity = positive(qCapacity, 'qCapacity', 2 ** 24);
+    this.queueCapacity = positive(queueCapacity, 'queueCapacity', 2 ** 24);
+    this.edgeCapacity = positive(edgeCapacity, 'edgeCapacity', 2 ** 27);
+    this.branchCapacity = positive(branchCapacity, 'branchCapacity', 2 ** 20);
+    this.eventCapacity = positive(eventCapacity, 'eventCapacity', 2 ** 20);
+    this.classReserve = positive(classReserve, 'classReserve', 2 ** 26);
+    this.entryReserve = positive(entryReserve, 'entryReserve', 2 ** 27);
+    this.retainedClasses = positive(retainedClasses, 'retainedClasses', 2 ** 26);
+    this.retainedEntries = positive(retainedEntries, 'retainedEntries', 2 ** 27);
+    this.controlQuantum = positive(controlQuantum, 'controlQuantum', 1 << 20);
+
+    this.workers = new Array(this.workerCount).fill(null);
+    this.ready = new Array(this.workerCount).fill(null);
+    this.readyResolve = new Array(this.workerCount).fill(null);
+    this.readyReject = new Array(this.workerCount).fill(null);
+    this.workerGeneration = new Int32Array(this.workerCount);
+    this.session = null;
+    this.sessionCounter = 0;
+    this.started = false;
+    this.closed = false;
+    this.busy = false;
+    this.closing = false;
     this.lastStats = null;
+  }
+
+  makeReadyPromise(id) {
+    this.ready[id] = new Promise((resolve, reject) => {
+      this.readyResolve[id] = resolve;
+      this.readyReject[id] = reject;
+    });
+    return this.ready[id];
+  }
+
+  spawnWorker(id) {
+    if (this.closed || this.closing) throw new Error('IsoMax manager is closed');
+    const generation = ++this.workerGeneration[id];
+    const ready = this.makeReadyPromise(id);
+    const worker = new Worker(new URL('./worker.mjs', import.meta.url), {
+      workerData: { workerId: id, workerCount: this.workerCount },
+      execArgv: [],
+      resourceLimits: {
+        maxOldGenerationSizeMb: Math.max(64, Math.floor(4096 / (this.workerCount + 1))),
+      },
+    });
+    this.workers[id] = worker;
+
+    worker.on('message', message => this.handleWorkerMessage(id, generation, message));
+    worker.on('error', error => this.handleWorkerFailure(id, generation, error));
+    worker.on('exit', code => {
+      if (generation !== this.workerGeneration[id]) return;
+      this.workers[id] = null;
+      if (!this.closing && !this.closed && code !== 0) {
+        void this.recoverDeadWorker(id, generation, new Error('IsoMax worker exited: ' + code));
+      }
+    });
+    return ready;
+  }
+
+  handleWorkerMessage(id, generation, message) {
+    if (generation !== this.workerGeneration[id]) return;
+    if (message?.type === 'ready') {
+      this.readyResolve[id]?.();
+      this.readyResolve[id] = null;
+      this.readyReject[id] = null;
+      return;
+    }
+
+    const session = this.session;
+    if (!session || message?.sessionId !== session.id) return;
+    if (message.type === 'session-done') {
+      if (session.workerDone[id] === 0) {
+        session.workerDone[id] = 1;
+        session.workerDoneCount++;
+        if (session.workerDoneCount === this.workerCount) session.resolveWorkers();
+      }
+      return;
+    }
+    if (message.type === 'error') {
+      this.failSession(new Error(message.message || 'IsoMax worker failed'));
+    }
+  }
+
+  handleWorkerFailure(id, generation, error) {
+    if (generation !== this.workerGeneration[id]) return;
+    this.readyReject[id]?.(error);
+    this.readyResolve[id] = null;
+    this.readyReject[id] = null;
+    if (this.session) void this.recoverDeadWorker(id, generation, error);
+  }
+
+  async recoverDeadWorker(id, generation, error) {
+    if (generation !== this.workerGeneration[id] || this.closing || this.closed) return;
+    const session = this.session;
+    if (!session) {
+      try {
+        await this.spawnWorker(id);
+      } catch {}
+      return;
+    }
+    if (session.recovering[id]) return;
+    session.recovering[id] = 1;
+    try {
+      const shared = session.shared;
+      const high = Math.min(shared.qCapacity, Atomics.load(shared.control, CTRL_Q_HIGH_WATER));
+      for (let qIndex = 0; qIndex < high; qIndex++) {
+        if (Atomics.load(shared.qLive, qIndex) === 0) continue;
+        if (Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) continue;
+        if (Atomics.compareExchange(
+          shared.qExecution,
+          qIndex,
+          runningExecution(id),
+          EXEC_NONE,
+        ) !== runningExecution(id)) continue;
+        const generationNow = Atomics.load(shared.qGeneration, qIndex);
+        if (Atomics.load(shared.qRefCount, qIndex) > 0) {
+          enqueueQ(
+            shared,
+            qIndex,
+            generationNow,
+            Atomics.load(shared.qPriorityClass, qIndex),
+          );
+          session.workerDeathRequeues++;
+        }
+      }
+      Atomics.add(shared.control, CTRL_MANAGER_WAKE, 1);
+      Atomics.notify(shared.control, CTRL_MANAGER_WAKE, 1);
+
+      const previous = this.workers[id];
+      if (previous) {
+        try { await previous.terminate(); } catch {}
+      }
+      if (this.closed || this.closing || this.session !== session) return;
+      await this.spawnWorker(id);
+      if (this.session !== session
+          || Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING) {
+        session.workerDone[id] = 1;
+        if (++session.workerDoneCount === this.workerCount) session.resolveWorkers();
+        return;
+      }
+      session.workerDone[id] = 0;
+      this.workers[id].postMessage(session.workerMessage);
+    } catch (recoveryError) {
+      this.failSession(new Error(
+        'IsoMax worker recovery failed after ' + (error?.message || 'worker death')
+          + ': ' + recoveryError.message,
+      ));
+    } finally {
+      session.recovering[id] = 0;
+    }
   }
 
   async start() {
     if (this.closed) throw new Error('IsoMax manager is closed');
-    if (this.executor) return;
+    if (this.started) return;
     const ready = [];
+    for (let id = 0; id < this.workerCount; id++) ready.push(this.spawnWorker(id));
     try {
-      for (let id = 0; id < this.workerCount; id++) {
-        const worker = new Worker(new URL('./worker.mjs', import.meta.url), {
-          workerData:{workerId:id,workerCount:this.workerCount}, execArgv:[],
-          resourceLimits:{maxOldGenerationSizeMb:Math.max(16,Math.floor(4096/(this.workerCount+1)))},
-        });
-        this.workers.push(worker);
-        ready.push(new Promise((resolve,reject) => {
-          const timer = setTimeout(()=>finish(new Error('IsoMax worker startup timeout')),10000);
-          const onError = error => finish(error);
-          const onExit = code => finish(new Error('IsoMax worker exited during startup: '+code));
-          const onMessage = message => finish(message?.type === 'ready' && message.workerId === id
-            ? null : new Error('invalid IsoMax worker readiness'));
-          const finish = error => {
-            clearTimeout(timer); worker.off('error',onError); worker.off('exit',onExit); worker.off('message',onMessage);
-            error ? reject(error) : resolve();
-          };
-          worker.once('error',onError); worker.once('exit',onExit); worker.once('message',onMessage);
-        }));
-      }
       await Promise.all(ready);
-      this.executor = createSearchWorkerExecutor(this.workers,{validateResult:validateTaskResult});
+      this.started = true;
     } catch (error) {
-      await Promise.allSettled(this.workers.map(w=>w.terminate()));
-      await Promise.allSettled(ready); this.workers=[]; this.closed=true; throw error;
+      await Promise.allSettled(this.workers.filter(Boolean).map(worker => worker.terminate()));
+      this.workers.fill(null);
+      this.closed = true;
+      throw error;
     }
   }
 
-  async solveMoves(moves = [], { timeoutMs = 120000, signal, onProgress, selectMove = true } = {}) {
+  failSession(error) {
+    const session = this.session;
+    if (!session || session.failure) return;
+    session.failure = error;
+    Atomics.store(session.shared.control, CTRL_ABORT, 1);
+    Atomics.store(session.shared.control, CTRL_SESSION, SESSION_FAILED);
+    Atomics.add(session.shared.control, CTRL_MANAGER_WAKE, 1);
+    Atomics.notify(session.shared.control, CTRL_MANAGER_WAKE, Infinity);
+    Atomics.add(session.shared.control, CTRL_WORKER_WAKE, 1);
+    Atomics.notify(session.shared.control, CTRL_WORKER_WAKE, Infinity);
+  }
+
+  createSession(moves) {
+    const ttDescriptor = createSharedTT({
+      qCapacity: this.qCapacity,
+      workerCount: this.workerCount,
+      queueCapacity: this.queueCapacity,
+      edgeCapacity: this.edgeCapacity,
+    });
+    const eventDescriptor = createSharedEvents({
+      workerCount: this.workerCount,
+      branchCapacity: this.branchCapacity,
+      eventCapacity: this.eventCapacity,
+    });
+    const shared = openSharedTT(ttDescriptor);
+
+    const rootSolver = new IsoMaxSolver();
+    const rootState = rootSolver.createState(moves);
+    const builder = new PortableQBuilder();
+    builder.prepare(rootState);
+    const insert = new Int32Array(3);
+    const rootQ = probeOrInsertQ(
+      shared,
+      builder.words,
+      builder.support,
+      builder.flags,
+      builder.replay,
+      builder.replayLength,
+      insert,
+    );
+    const rootGeneration = insert[1];
+
+    Atomics.store(shared.control, CTRL_ROOT_Q, rootQ);
+    Atomics.store(shared.control, CTRL_ROOT_GENERATION, rootGeneration);
+    Atomics.store(shared.control, CTRL_ROOT_ORIENTATION, builder.orientation);
+    Atomics.store(shared.control, CTRL_ROOT_VALUE, Q_EXACT_UNKNOWN);
+    Atomics.store(shared.control, CTRL_ROOT_MOVE, -1);
+    Atomics.store(shared.control, CTRL_ROOT_MOVE_READY, 0);
+    Atomics.store(shared.control, CTRL_ABORT, 0);
+    Atomics.store(shared.control, CTRL_ERROR, 0);
+    Atomics.store(shared.control, CTRL_SESSION, SESSION_RUNNING);
+    enqueueQ(shared, rootQ, rootGeneration, 7);
+
+    let resolveWorkers;
+    const workersDone = new Promise(resolve => { resolveWorkers = resolve; });
+    const id = ++this.sessionCounter;
+    const workerMessage = {
+      type: 'session',
+      sessionId: id,
+      tt: ttDescriptor,
+      events: eventDescriptor,
+      rootPly: moves.length,
+      controlQuantum: this.controlQuantum,
+      classReserve: this.classReserve,
+      entryReserve: this.entryReserve,
+      retainedClasses: this.retainedClasses,
+      retainedEntries: this.retainedEntries,
+    };
+
+    return {
+      id,
+      ttDescriptor,
+      eventDescriptor,
+      shared,
+      rootQ,
+      rootGeneration,
+      rootPly: moves.length,
+      workerMessage,
+      workerDone: new Uint8Array(this.workerCount),
+      workerDoneCount: 0,
+      workersDone,
+      resolveWorkers,
+      recovering: new Uint8Array(this.workerCount),
+      workerDeathRequeues: 0,
+      failure: null,
+      managerMetrics: null,
+      managerWorker: null,
+    };
+  }
+
+  startManagerWorker(session) {
+    const worker = new Worker(new URL('./manager-worker.mjs', import.meta.url), {
+      workerData: {
+        tt: session.ttDescriptor,
+        events: session.eventDescriptor,
+        workerCount: this.workerCount,
+      },
+      execArgv: [],
+    });
+    session.managerWorker = worker;
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const finish = (error, metrics) => {
+        if (settled) return;
+        settled = true;
+        worker.removeAllListeners('message');
+        worker.removeAllListeners('error');
+        worker.removeAllListeners('exit');
+        if (error) reject(error);
+        else resolve(metrics);
+      };
+      worker.on('message', message => {
+        if (message?.type === 'manager-done') finish(null, message.metrics);
+        else if (message?.type === 'manager-error') finish(new Error(message.message));
+      });
+      worker.on('error', error => finish(error));
+      worker.on('exit', code => {
+        if (!settled && code !== 0) finish(new Error('IsoMax BranchManager worker exited: ' + code));
+      });
+    });
+  }
+
+  snapshotWorkerMetrics(shared) {
+    const total = new Int32Array(WORKER_COUNTER_WORDS);
+    for (let worker = 0; worker < this.workerCount; worker++) {
+      const base = worker * WORKER_COUNTER_WORDS;
+      for (let word = 0; word < WORKER_COUNTER_WORDS; word++) {
+        total[word] += Atomics.load(shared.workerCounters, base + word);
+      }
+    }
+    const claimsByBand = new Array(8);
+    for (let band = 0; band < 8; band++) claimsByBand[band] = total[WC_CLAIM_BAND_BASE + band];
+    return {
+      claims: total[WC_CLAIMS],
+      frontiers: total[WC_FRONTIERS],
+      retainedDescents: total[WC_RETAINED_DESCENTS],
+      duplicateReaches: total[WC_DUPLICATE_REACHES],
+      resetRetirements: total[WC_RESET_RETIREMENTS],
+      exactPublications: total[WC_EXACT_PUBLICATIONS],
+      qCreated: total[WC_Q_CREATED],
+      qReused: total[WC_Q_REUSED],
+      queueEmptyPolls: total[WC_QUEUE_EMPTY],
+      replayApplies: total[WC_REPLAY_APPLIES],
+      controlChecks: total[WC_CONTROL_CHECKS],
+      releaseEvents: total[WC_RELEASE_EVENTS],
+      solverNodes: total[WC_SOLVER_NODES],
+      cacheHits: total[WC_CACHE_HITS],
+      nativeExactHits: total[WC_NATIVE_EXACT],
+      recursiveChildren: total[WC_RECURSIVE_CHILDREN],
+      forcedTransitions: total[WC_FORCED_TRANSITIONS],
+      branchDescriptors: total[WC_BRANCH_DESCRIPTORS],
+      sharedExactConsumed: total[WC_SHARED_EXACT_CONSUMED],
+      claimsByBand,
+    };
+  }
+
+  snapshot(session, elapsedMs = 0, cleanupMs = 0) {
+    const shared = session.shared;
+    let liveQ = 0;
+    const high = Math.min(shared.qCapacity, Atomics.load(shared.control, CTRL_Q_HIGH_WATER));
+    for (let qIndex = 0; qIndex < high; qIndex++) liveQ += Number(Atomics.load(shared.qLive, qIndex) !== 0);
+    return {
+      elapsedMs,
+      cleanupMs,
+      canonicalQ: high,
+      liveQ,
+      scheduler: {
+        architecture: 'retained-decentralized-shared-tt',
+        workers: this.workerCount,
+        qCapacity: this.qCapacity,
+        queueCapacity: this.queueCapacity,
+      },
+      metrics: {
+        manager: session.managerMetrics ?? {},
+        worker: this.snapshotWorkerMetrics(shared),
+        workerDeathRequeues: session.workerDeathRequeues,
+      },
+    };
+  }
+
+  async solveMoves(moves = [], {
+    timeoutMs = 120000,
+    signal,
+    onProgress,
+  } = {}) {
     if (this.busy || this.closed) throw new Error('IsoMax manager is busy or closed');
-    positive(timeoutMs,'timeoutMs',120000);
+    positive(timeoutMs, 'timeoutMs', 600000);
     if (!Array.isArray(moves)) throw new TypeError('moves must be an array');
     if (onProgress !== undefined && typeof onProgress !== 'function') throw new TypeError('invalid progress callback');
-    this.busy=true;
-    const started=performance.now(), abortBuffer=new SharedArrayBuffer(4), abort=new Int32Array(abortBuffer);
-    let failure=null, progressTimer, root, answer, resultReadyMs=null;
-    const fail=error=>{failure??=error;Atomics.store(abort,0,1);};
-    this.abortRun=fail;
-    const onAbort=()=>fail(new Error('ISOMAX_ABORTED'));
-    const timer=setTimeout(()=>fail(new Error('ISOMAX_TIMEOUT: '+timeoutMs+' ms; no exact root result')),timeoutMs);
-    signal?.addEventListener('abort',onAbort,{once:true});
-    if(signal?.aborted) onAbort();
-    const solver=new IsoMaxSolver(), nodes=new IsoMaxTransitionCache({pool:solver.pool}), pending=new Map();
-    const metrics={nodes:0,managerExpansions:0,exactTasks:0,splitTasks:0,retiredTasks:0,
-      busyRetiredTasks:0,retiredTaskNodes:0,zeroNodeRetiredTasks:0,controlChecks:0,
-      qReuses:0,submitted:0,maxPending:0,maxActive:0,maxReady:0,
-      readySamples:0,readyLeavesTotal:0,maxReadyLeaves:0,idleWithReadyEvents:0,workerExecutionMs:0,
-      requiredCalls:0,requiredMs:0,transitionCacheHits:0,transitionCacheStores:0,
-      nativeExactHits:0,recursiveChildren:0,forcedTransitions:0,
-      warmEntryStarts:0,warmClassStarts:0,localEntryGrowth:0,localClassGrowth:0,workerResets:0,
-      taskExecutionMsMin:null,taskExecutionMsMax:0,taskExecutionMsBuckets:[0,0,0,0,0,0],
-      workerTasks:Array(this.workerCount).fill(0),workerNodes:Array(this.workerCount).fill(0)};
-    const outstandingLimit=this.workerCount+this.readyReserve;
-    const cutPly=Math.min(42,moves.length+this.rankCutDepth);
-    const snapshot=()=>({elapsedMs:performance.now()-started,rootWdl:answer?.value??null,
-      scheduler:{workers:this.workerCount,taskNodes:this.taskNodes,readyReserve:this.readyReserve,
-        rankCutDepth:this.rankCutDepth,outstandingLimit},
-      // Ordinary worker profile only: cache and native exact returns do not
-      // expand. These are entries, not distinct q states. Transition counters
-      // include an attempted child rejected at the scheduled quantum boundary.
-      // Aggregate existing counters here; never add reporting to recursion.
-      metrics:{...metrics,expandedEntries:metrics.nodes-metrics.transitionCacheHits-metrics.nativeExactHits,
-        transitionAttempts:metrics.recursiveChildren+metrics.forcedTransitions,
-        taskExecutionMsBuckets:[...metrics.taskExecutionMsBuckets],
-        workerTasks:[...metrics.workerTasks],workerNodes:[...metrics.workerNodes]},
-      managerNodes:nodes.count,executor:this.executor?.stats()??null});
-    const notify=()=>{try{onProgress?.(snapshot());}catch(error){fail(error);}};
-    const build=moves=>{
-      const state=solver.createState(moves);
-      let node=nodes.get(state);
-      if(node){metrics.qReuses++;return node;}
-      if(nodes.count>=this.maxTasks) throw new Error('ISOMAX_MANAGER_CAPACITY: no exact root result');
-      node={id:nodes.count,moves:[...moves],side:state.sideToMove,value:null,edges:null,
-        parents:new Set(),pending:false,needed:null,directMove:undefined};
-      nodes.set(state,node); return node;
-    };
-    const complete=(node,value)=>{
-      if(![-1,0,1].includes(value)) throw new Error('invalid manager WDL');
-      if(node.value!==null){if(node.value!==value)throw new Error('conflicting exact task results');return;}
-      node.value=value;
-      const queue=[...node.parents];
-      for(let i=0;i<queue.length;i++){
-        const parent=queue[i];
-        if(parent.value!==null)continue;
-        const target=parent.side===0?1:-1, values=parent.edges.map(e=>e.node.value);
-        if(values.includes(target)){parent.value=target;queue.push(...parent.parents);}
-        else if(values.every(v=>v!==null)){
-          parent.value=parent.side===0?Math.max(...values):Math.min(...values);
-          queue.push(...parent.parents);
-        }
+    if (signal?.aborted) throw new Error('ISOMAX_ABORTED');
+
+    this.busy = true;
+    const started = performance.now();
+    let resultReadyMs = 0;
+    let timer = null;
+    let progressTimer = null;
+    let onAbort = null;
+    try {
+      await this.start();
+      const session = this.createSession(moves);
+      this.session = session;
+
+      const managerDone = this.startManagerWorker(session).then(metrics => {
+        session.managerMetrics = metrics;
+        return metrics;
+      }).catch(error => {
+        this.failSession(error);
+        throw error;
+      });
+
+      for (let id = 0; id < this.workerCount; id++) {
+        session.workerDone[id] = 0;
+        this.workers[id].postMessage(session.workerMessage);
       }
-    };
-    const expand=node=>{
-      if(node.edges || node.value!==null || node.pending)return;
-      const state=solver.createState(node.moves), native=deriveNativeFrontierConsequence(state);
-      metrics.managerExpansions++;
-      if(native?.kind===CONCLUSION_EXACT_VALUE){
-        if(node===root){
-          if(state.isTerminal())node.directMove=null;
-          else if(native.distance===1){
-            const own=state.sideToMove===0?state.p0Class:state.p1Class;
-            node.directMove=CENTER_ORDER.find(c=>state.canPlay(c)&&solver.pool.hasSingletonAt(own,state.heights[c]*7+c));
-          }else node.directMove=CENTER_ORDER.find(c=>state.canPlay(c));
-        }
-        complete(node,native.value);return;
+
+      timer = setTimeout(() => this.failSession(new Error('ISOMAX_TIMEOUT')), timeoutMs);
+      if (signal) {
+        onAbort = () => this.failSession(new Error('ISOMAX_ABORTED'));
+        signal.addEventListener('abort', onAbort, { once: true });
       }
-      let order;
-      if(native?.kind===CONCLUSION_FORCED_MOVE)order=[solver.columnForForcedCell(state,native.cell)];
-      else {
-        const promoted=state.ply>moves.length?promotedColumn(state):-1;
-        order=promoted<0?CENTER_ORDER:[promoted,...CENTER_ORDER.filter(c=>c!==promoted)];
+      if (onProgress) {
+        progressTimer = setInterval(() => {
+          try { onProgress(this.snapshot(session, performance.now() - started, 0)); } catch {}
+        }, 250);
       }
-      node.edges=[];
-      for(const column of order)if(state.canPlay(column)){
-        const child=build([...node.moves,column]);
-        node.edges.push({column,node:child});child.parents.add(node);
+
+      await managerDone;
+      resultReadyMs = performance.now() - started;
+      await session.workersDone;
+      const cleanupMs = performance.now() - started - resultReadyMs;
+
+      if (session.failure) throw session.failure;
+      if (Atomics.load(session.shared.control, CTRL_SESSION) !== SESSION_DONE) {
+        throw new Error('IsoMax shared session ended without exact root');
       }
-      if(!node.edges.length)throw new Error('ongoing manager state has no legal action');
-      const target=node.side===0?1:-1, values=node.edges.map(e=>e.node.value);
-      if(values.includes(target))complete(node,target);
-      else if(values.every(v=>v!==null))complete(node,node.side===0?Math.max(...values):Math.min(...values));
-    };
-    const rootAnswer=()=>{
-      if(root.value===null)return null;
-      if(!selectMove)return {value:root.value,move:null};
-      if(root.directMove!==undefined)return {value:root.value,move:root.directMove};
-      // Completion order must never change the center-first root witness.
-      for(const edge of root.edges){
-        if(edge.node.value===null)return null;
-        if(edge.node.value===root.value)return {value:root.value,move:edge.column};
+      const value = Atomics.load(session.shared.control, CTRL_ROOT_VALUE);
+      if (value !== -1 && value !== 0 && value !== 1) throw new Error('invalid shared root value');
+      if (!Atomics.load(session.shared.control, CTRL_ROOT_MOVE_READY)) {
+        throw new Error('shared root value completed without witness bookkeeping');
       }
-      throw new Error('exact root lacks a preserving action');
-    };
-    const required=()=>{
-      const scanStarted=performance.now(), live=new Set(), leaves=[];
-      const visit=node=>{
-        if(node.value!==null||live.has(node))return;
-        live.add(node);
-        if(!node.edges){if(!node.pending)leaves.push(node);return;}
-        for(const e of node.edges)visit(e.node);
+      const moveRaw = Atomics.load(session.shared.control, CTRL_ROOT_MOVE);
+      const move = moveRaw < 0 ? null : moveRaw;
+      this.lastStats = this.snapshot(session, performance.now() - started, cleanupMs);
+      return {
+        value,
+        move,
+        ...this.lastStats,
+        resultReadyMs,
+        cleanup: 'shared q exact; workers returned to persistent polling boundary',
       };
-      if(root.value===null)visit(root);
-      else if(selectMove && root.directMove===undefined){
-        for(const edge of root.edges){
-          if(edge.node.value===root.value)break;
-          visit(edge.node);
-        }
+    } finally {
+      clearTimeout(timer);
+      clearInterval(progressTimer);
+      if (signal && onAbort) signal.removeEventListener('abort', onAbort);
+      const session = this.session;
+      if (session?.managerWorker) {
+        try { await session.managerWorker.terminate(); } catch {}
       }
-      metrics.requiredCalls++;metrics.requiredMs+=performance.now()-scanStarted;
-      return {live,leaves};
-    };
-    const submit=node=>{
-      const neededBuffer=new SharedArrayBuffer(4);
-      node.needed=new Int32Array(neededBuffer);Atomics.store(node.needed,0,1);node.pending=true;
-      metrics.submitted++; // executor chooses the worker
-      const promise=this.executor.submit({type:'isomax-task',jobId:node.id,moves:node.moves,
-        rootPly:moves.length,nodeBudget:this.taskNodes,abort:abortBuffer,needed:neededBuffer})
-        .then(message=>{
-          if(message.jobId!==node.id)throw new Error('worker result has wrong manager job identity');
-          node.pending=false;node.needed=null;
-          metrics.nodes+=message.nodes;metrics.workerExecutionMs+=message.executionMs;
-          metrics.controlChecks+=message.metrics?.controlChecks??0;
-          metrics.transitionCacheHits+=message.metrics?.transitionCacheHits??0;
-          metrics.transitionCacheStores+=message.metrics?.transitionCacheStores??0;
-          metrics.nativeExactHits+=message.metrics?.nativeExactHits??0;
-          metrics.recursiveChildren+=message.metrics?.recursiveChildren??0;
-          metrics.forcedTransitions+=message.metrics?.forcedTransitions??0;
-          metrics.warmEntryStarts+=message.localEntriesBefore??0;
-          metrics.warmClassStarts+=message.localClassesBefore??0;
-          metrics.localEntryGrowth+=Math.max(0,(message.localEntries??0)-(message.localEntriesBefore??0));
-          metrics.localClassGrowth+=Math.max(0,(message.localClasses??0)-(message.localClassesBefore??0));
-          if(message.workerReset)metrics.workerResets++;
-          metrics.taskExecutionMsMin=metrics.taskExecutionMsMin===null?message.executionMs:
-            Math.min(metrics.taskExecutionMsMin,message.executionMs);
-          metrics.taskExecutionMsMax=Math.max(metrics.taskExecutionMsMax,message.executionMs);
-          const durationBucket=message.executionMs<1?0:message.executionMs<4?1:message.executionMs<16?2:
-            message.executionMs<64?3:message.executionMs<256?4:5;
-          metrics.taskExecutionMsBuckets[durationBucket]++;
-          metrics.workerTasks[message.workerId]++;metrics.workerNodes[message.workerId]+=message.nodes;
-          if(message.kind==='exact'){metrics.exactTasks++;complete(node,message.value);}
-          else if(message.kind==='split'){
-            metrics.splitTasks++;
-            if(!answer)for(const frame of message.frames.toReversed()){
-              if(!Array.isArray(frame.moves)||frame.moves.length<node.moves.length ||
-                node.moves.some((c,i)=>frame.moves[i]!==c) || !Array.isArray(frame.values))
-                throw new Error('invalid native dependency continuation');
-              const owner=build(frame.moves);
-              expand(owner);
-              for(const known of frame.values){
-                if(!Number.isInteger(known.column)||known.column<0||known.column>=7)
-                  throw new Error('invalid continuation column');
-                // Construct in the frame's orientation. The manager's existing
-                // representative may be reflected; its pool establishes q.
-                complete(build([...frame.moves,known.column]),known.value);
-              }
-            }
-          }
-          else {
-            metrics.retiredTasks++;
-            if(message.nodes>0)metrics.busyRetiredTasks++;
-            else metrics.zeroNodeRetiredTasks++;
-            metrics.retiredTaskNodes+=message.nodes;
-          }
-        });
-      pending.set(node,promise);
-      promise.then(()=>pending.delete(node),()=>pending.delete(node));
-      // Other tasks can fail while one awaited reply wins the race.
-      promise.catch(fail);
-    };
-    try{
-      if(failure)throw failure;
-      root=build(moves);expand(root);
-      answer=rootAnswer();
-      if(!answer){
-        await this.start();
-        progressTimer=setInterval(notify,1000);
-        while(!answer){
-          if(failure)throw failure;
-          let supply=required(), expansions=0;
-          // Proactively fill a bounded reservoir. Forced moves remain one edge.
-          // Larger unfinished tasks split at real value dependencies on yield.
-          // OWNER-PROTECTED E3 POLICY — retain this qualification boundary.
-          // Four-worker rank3 exposes shallow q convergence before private work;
-          // it qualified on 96 roots. This is admission, not a depth/value cutoff.
-          // Preserve the 64-expansion turn bound, capacity and worker limits.
-          // Other worker counts retain the control; do not generalize blindly.
-          while((supply.leaves.length+pending.size<outstandingLimit ||
-            (this.rankCutDepth!==0 && supply.leaves.some(n=>n.moves.length<cutPly))) &&
-            supply.leaves.length && expansions++<64){
-            expand(this.rankCutDepth===0?supply.leaves[0]:
-              (supply.leaves.find(n=>n.moves.length<cutPly)??supply.leaves[0]));answer=rootAnswer();
-            if(answer)break;
-            supply=required();
-          }
-          if(answer)break;
-          for(const node of pending.keys())if(!supply.live.has(node)&&node.needed)Atomics.store(node.needed,0,0);
-          metrics.readySamples++;
-          metrics.readyLeavesTotal+=supply.leaves.length;
-          metrics.maxReadyLeaves=Math.max(metrics.maxReadyLeaves,supply.leaves.length);
-          if(supply.leaves.length&&this.executor.stats().idle>0)metrics.idleWithReadyEvents++;
-          metrics.maxReady=Math.max(metrics.maxReady,Math.min(supply.leaves.length,this.workerCount*2));
-          for(const node of supply.leaves){
-            if(pending.size>=outstandingLimit)break;
-            submit(node);
-          }
-          metrics.maxPending=Math.max(metrics.maxPending,pending.size);
-          metrics.maxActive=Math.max(metrics.maxActive,this.executor.stats().active);
-          if(!pending.size)throw new Error('unresolved IsoMax root has no work');
-          await Promise.race(pending.values());answer=rootAnswer();
-        }
-      }
-      resultReadyMs=performance.now()-started;
-      // Retire queued work at entry and busy work at its scheduled local poll;
-      // the root never waits for a whole unbounded sibling proof.
-      for(const node of pending.keys())if(node.needed)Atomics.store(node.needed,0,0);
-      await Promise.all(pending.values());
-      if(failure)throw failure;
-      this.lastStats=snapshot();
-      return {...answer,...this.lastStats,resultReadyMs,cleanup:'tasks-drained; session workers retained'};
-    }catch(error){
-      fail(error);
-      await Promise.allSettled(pending.values());
-      this.lastStats=snapshot();
-      await this.close().catch(()=>{});
-      throw failure;
-    }finally{
-      clearTimeout(timer);clearInterval(progressTimer);
-      signal?.removeEventListener('abort',onAbort);this.busy=false;this.abortRun=null;
+      this.session = null;
+      this.busy = false;
     }
   }
 
-  async close(){
-    if(this.closed && !this.workers.length)return;
-    if(this.busy)this.abortRun?.(new Error('ISOMAX_ABORTED: session closed'));
-    this.closed=true;
-    let failure=null;
-    if(this.executor){
-      try{await this.executor.drain();this.executor.close();}catch(error){failure=error;try{this.executor.close();}catch{}}
-    }
-    const stopped=await Promise.allSettled(this.workers.map(w=>w.terminate()));
-    this.workers=[];
-    if(stopped.some(s=>s.status==='rejected'))throw new Error('IsoMax worker termination failed');
-    if(failure)throw failure;
+  async close() {
+    if (this.closed) return;
+    this.closing = true;
+    if (this.session) this.failSession(new Error('ISOMAX_ABORTED'));
+    const workers = this.workers.filter(Boolean);
+    await Promise.allSettled(workers.map(worker => worker.terminate()));
+    this.workers.fill(null);
+    this.started = false;
+    this.closed = true;
+    this.closing = false;
   }
 }
 
-export async function solveIsoMax(moves=[],options={}){
-  const manager=new IsoMaxBranchManager(options);
-  try{return await manager.solveMoves(moves,options);}
-  finally{await manager.close();}
+export async function solveIsoMax(moves = [], options = {}) {
+  const manager = new IsoMaxBranchManager(options);
+  try {
+    return await manager.solveMoves(moves, options);
+  } finally {
+    await manager.close();
+  }
 }
