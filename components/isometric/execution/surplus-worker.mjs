@@ -47,6 +47,7 @@ import {
   WC_WORK_CLAIMS,
   WC_WORDS,
   WORK_EXACT,
+  WORK_RETIRED,
   allocateOccurrence,
   claimHighest,
   completeWork,
