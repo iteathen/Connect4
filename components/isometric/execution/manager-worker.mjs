@@ -24,8 +24,11 @@ import {
   addQRef,
   allocateParentEdge,
   cancelQueuedQ,
+  completeExposure,
   enqueueQ,
   executionWorker,
+  exposureOutstanding,
+  grantExposurePermits,
   openSharedTT,
   publishExactQ,
   qIsCurrent,
@@ -66,6 +69,8 @@ const MC_ROOT_WITNESS_WAITS = 10;
 const MC_STALE_DESCRIPTORS = 11;
 const MC_WORKER_DEATH_RECOVERIES = 12;
 const MC_WORKER_DEATH_REQUEUES = 13;
+const MC_EXPOSURE_GRANTS = 14;
+const MC_EXPOSURES_COMPLETED = 15;
 const MC_WORDS = 16;
 
 class SharedBranchManagerLoop {
@@ -183,6 +188,20 @@ class SharedBranchManagerLoop {
       }
     }
     return admitted;
+  }
+
+  refreshExposureDemand() {
+    if (Atomics.load(tt.control, CTRL_SESSION) !== SESSION_RUNNING) return 0;
+    let idle = 0;
+    for (let worker = 0; worker < workerCount; worker++) {
+      if (Atomics.load(tt.workerIdle, worker) !== 0) idle++;
+    }
+    const ready = Math.max(0, Atomics.load(tt.control, CTRL_READY_COUNT));
+    const uncovered = idle - ready - exposureOutstanding(tt);
+    if (uncovered <= 0) return 0;
+    const granted = grantExposurePermits(tt, uncovered);
+    if (granted > 0) this.bump(MC_EXPOSURE_GRANTS, granted);
+    return granted;
   }
 
   pushOrphan(qIndex, generation) {
@@ -668,6 +687,7 @@ class SharedBranchManagerLoop {
       // BranchManager owns failure recovery. A worker ID is not reusable until
       // every lock/reservation/publication owned by its dead generation has a
       // deterministic disposition here.
+      Atomics.store(tt.workerIdle, worker, 0);
       recoverWorkerBucketLocks(tt, worker);
       recoverWorkerTTReservations(tt, worker);
       recoverUnpublishedBranch(events, tt, worker);
@@ -722,7 +742,12 @@ class SharedBranchManagerLoop {
         this.branchChildEval,
       )) {
         progress = true;
-        this.attachBranch(worker);
+        try {
+          this.attachBranch(worker);
+        } finally {
+          completeExposure(tt);
+          this.bump(MC_EXPOSURES_COMPLETED);
+        }
       }
     }
 
@@ -737,6 +762,7 @@ class SharedBranchManagerLoop {
     this.drainOrphans();
     if (this.tryCompleteRoot()) progress = true;
     if (this.refillReady() > 0) progress = true;
+    if (this.refreshExposureDemand() > 0) progress = true;
     return progress;
   }
 
@@ -775,6 +801,9 @@ class SharedBranchManagerLoop {
       staleDescriptors: this.metrics[MC_STALE_DESCRIPTORS],
       workerDeathRecoveries: this.metrics[MC_WORKER_DEATH_RECOVERIES],
       workerDeathRequeues: this.metrics[MC_WORKER_DEATH_REQUEUES],
+      exposureGrants: this.metrics[MC_EXPOSURE_GRANTS],
+      exposuresCompleted: this.metrics[MC_EXPOSURES_COMPLETED],
+      exposureOutstanding: exposureOutstanding(tt),
     };
   }
 }
