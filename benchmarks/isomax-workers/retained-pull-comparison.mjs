@@ -17,6 +17,10 @@ const executionFactor = Number(process.env.ISOMAX_RETAINED_PULL_EXECUTION_FACTOR
 if (!Number.isSafeInteger(executionFactor) || executionFactor < 1 || executionFactor > 16) {
   throw new RangeError('invalid ISOMAX_RETAINED_PULL_EXECUTION_FACTOR');
 }
+const candidateOrder = (process.env.ISOMAX_RETAINED_PULL_CANDIDATE_ORDER ?? 'fifo').toLowerCase();
+if (candidateOrder !== 'fifo' && candidateOrder !== 'lifo') {
+  throw new RangeError('invalid ISOMAX_RETAINED_PULL_CANDIDATE_ORDER');
+}
 const roots = corpus === 'hard'
   ? historicalHard
   : makeCorpus({seed:0x102c0, ply:28, count:3}).map(entry => entry.moves);
@@ -46,6 +50,7 @@ async function runRoot(variant, moves) {
       maxTasks:262144,
       maxEdges:262144 * 7,
       executionLimit:workers * executionFactor,
+      candidateLifo:candidateOrder === 'lifo',
     });
     try {
       result = await manager.solveMoves(moves, {
@@ -164,6 +169,7 @@ if (process.argv[2] === 'child') {
     cpu:os.cpus()[0]?.model ?? null,
     corpus,
     executionFactor,
+    candidateOrder,
     roots:roots.map(sequence),
     variants:{},
   };

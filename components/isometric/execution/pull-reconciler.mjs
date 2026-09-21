@@ -83,6 +83,7 @@ class PullReconciler {
     const requestedExecutionLimit = message.executionLimit ?? this.shared.workerCount * 4;
     this.executionLimit = Math.min(this.shared.workCapacity,
       positive(requestedExecutionLimit, 'executionLimit', this.shared.workCapacity));
+    this.candidateLifo = message.candidateLifo === true;
 
     this.pool = new ResidualPool();
     this.state = new IsometricState({ pool:this.pool, moves:this.rootMoves });
@@ -414,13 +415,23 @@ class PullReconciler {
     if (current === band) return true;
     const moved = current >= 0;
     if (moved) this.unlinkCandidate(q);
-    const tail = this.candidateTail[band];
-    this.qCandidatePrev[q] = tail;
-    this.qCandidateNext[q] = -1;
-    this.qCandidateBand[q] = band;
-    if (tail >= 0) this.qCandidateNext[tail] = q;
-    else this.candidateHead[band] = q;
-    this.candidateTail[band] = q;
+    if (this.candidateLifo) {
+      const head = this.candidateHead[band];
+      this.qCandidatePrev[q] = -1;
+      this.qCandidateNext[q] = head;
+      this.qCandidateBand[q] = band;
+      if (head >= 0) this.qCandidatePrev[head] = q;
+      else this.candidateTail[band] = q;
+      this.candidateHead[band] = q;
+    } else {
+      const tail = this.candidateTail[band];
+      this.qCandidatePrev[q] = tail;
+      this.qCandidateNext[q] = -1;
+      this.qCandidateBand[q] = band;
+      if (tail >= 0) this.qCandidateNext[tail] = q;
+      else this.candidateHead[band] = q;
+      this.candidateTail[band] = q;
+    }
     this.candidateCount++;
     if (moved) this.metrics.candidateMoves++;
     else this.metrics.candidateAdds++;

@@ -73,6 +73,7 @@ export class IsoMaxPullBranchManager {
     queueCapacity = Math.max(1024, workCapacity * 16),
     occurrenceCapacity = Math.max(16384, workers * 8192),
     publicationCapacity = Math.max(16384, workers * 8192),
+    candidateLifo = false,
   } = {}) {
     this.workerCount = positive(workers, 'workers', 256);
     this.maxTasks = positive(maxTasks, 'maxTasks');
@@ -82,6 +83,8 @@ export class IsoMaxPullBranchManager {
     this.queueCapacity = positive(queueCapacity, 'queueCapacity');
     this.occurrenceCapacity = positive(occurrenceCapacity, 'occurrenceCapacity');
     this.publicationCapacity = positive(publicationCapacity, 'publicationCapacity');
+    if (typeof candidateLifo !== 'boolean') throw new TypeError('candidateLifo must be boolean');
+    this.candidateLifo = candidateLifo;
     if (this.workCapacity > this.maxTasks) throw new RangeError('workCapacity cannot exceed maxTasks');
     this.workers = new Array(this.workerCount).fill(null);
     this.reconciler = null;
@@ -314,6 +317,7 @@ export class IsoMaxPullBranchManager {
         selectMove,
         progressIntervalMs,
         executionLimit:this.executionLimit,
+        candidateLifo:this.candidateLifo,
       });
       await readyPromise;
       if (session.failure) throw session.failure;
@@ -377,6 +381,7 @@ export class IsoMaxPullBranchManager {
           maxEdges:this.maxEdges,
           workCapacity:this.workCapacity,
           executionLimit:this.executionLimit,
+          candidateOrder:this.candidateLifo ? 'lifo' : 'fifo',
           queueCapacity:this.queueCapacity,
           occurrenceCapacity:this.occurrenceCapacity,
           publicationCapacity:this.publicationCapacity,
