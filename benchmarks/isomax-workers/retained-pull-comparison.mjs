@@ -3,7 +3,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import os from 'node:os';
 import { IsoMaxSolver } from '../../components/isometric/solver.mjs';
 import { IsoMaxBranchManager } from '../../components/isometric/execution/branch-manager.mjs';
-import { IsoMaxPullBranchManager } from '../../components/isometric/execution/retained-manager.mjs';
+import { IsoMaxPullBranchManager } from '../../components/isometric/execution/pull-manager.mjs';
 import { makeCorpus } from '../isomax-ordering/corpus.mjs';
 
 const historicalHard = [
