@@ -100,6 +100,7 @@ export class IsoMaxBranchManager {
     this.closed = false;
     this.busy = false;
     this.closing = false;
+    this.suppressRecovery = false;
     this.lastStats = null;
   }
 
@@ -129,7 +130,7 @@ export class IsoMaxBranchManager {
     worker.on('exit', code => {
       if (generation !== this.workerGeneration[id]) return;
       this.workers[id] = null;
-      if (!this.closing && !this.closed && code !== 0) {
+      if (!this.suppressRecovery && !this.closing && !this.closed && code !== 0) {
         void this.recoverDeadWorker(id, generation, new Error('IsoMax worker exited: ' + code));
       }
     });
@@ -161,7 +162,7 @@ export class IsoMaxBranchManager {
   }
 
   handleWorkerFailure(id, generation, error) {
-    if (generation !== this.workerGeneration[id]) return;
+    if (generation !== this.workerGeneration[id] || this.suppressRecovery) return;
     this.readyReject[id]?.(error);
     this.readyResolve[id] = null;
     this.readyReject[id] = null;
@@ -254,6 +255,7 @@ export class IsoMaxBranchManager {
     const session = this.session;
     if (!session || session.failure) return;
     session.failure = error;
+    session.rejectFailure?.(error);
     Atomics.store(session.shared.control, CTRL_ABORT, 1);
     Atomics.store(session.shared.control, CTRL_SESSION, SESSION_FAILED);
     Atomics.add(session.shared.control, CTRL_MANAGER_WAKE, 1);
@@ -306,6 +308,11 @@ export class IsoMaxBranchManager {
 
     let resolveWorkers;
     const workersDone = new Promise(resolve => { resolveWorkers = resolve; });
+    let rejectFailure;
+    const failureSignal = new Promise((_, reject) => { rejectFailure = reject; });
+    // failSession() owns this rejection; solveMoves races it immediately.
+    // Attach a sink as well so setup-time failure cannot become unhandled.
+    failureSignal.catch(() => {});
     const id = ++this.sessionCounter;
     const workerMessage = {
       type: 'session',
@@ -334,6 +341,8 @@ export class IsoMaxBranchManager {
       workerDoneCount: 0,
       workersDone,
       resolveWorkers,
+      failureSignal,
+      rejectFailure,
       recovering: new Uint8Array(this.workerCount),
       workerDeathRequeues: 0,
       failure: null,
@@ -478,8 +487,9 @@ export class IsoMaxBranchManager {
         }, 250);
       }
 
-      await managerDone;
+      await Promise.race([managerDone, session.failureSignal]);
       resultReadyMs = performance.now() - started;
+      if (session.failure) throw session.failure;
       await session.workersDone;
       const cleanupMs = performance.now() - started - resultReadyMs;
 
@@ -507,7 +517,24 @@ export class IsoMaxBranchManager {
       clearInterval(progressTimer);
       if (signal && onAbort) signal.removeEventListener('abort', onAbort);
       const session = this.session;
-      if (session?.managerWorker) {
+      if (session?.failure) {
+        // A failed session must not rely on cooperative unwind to return host
+        // control. Kill only this failed execution generation; normal success
+        // retains persistent workers.
+        this.suppressRecovery = true;
+        try {
+          if (session.managerWorker) {
+            try { await session.managerWorker.terminate(); } catch {}
+          }
+          await Promise.allSettled(
+            this.workers.filter(Boolean).map(worker => worker.terminate()),
+          );
+          this.workers.fill(null);
+          this.started = false;
+        } finally {
+          this.suppressRecovery = false;
+        }
+      } else if (session?.managerWorker) {
         try { await session.managerWorker.terminate(); } catch {}
       }
       this.session = null;
