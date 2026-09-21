@@ -63,7 +63,7 @@ const MC_WORDS = 16;
 class SharedBranchManagerLoop {
   constructor() {
     this.metrics = new Int32Array(MC_WORDS);
-    this.branchHeader = new Int32Array(7);
+    this.branchHeader = new Int32Array(9);
     this.branchChildQ = new Int32Array(7);
     this.branchChildGeneration = new Int32Array(7);
     this.branchChildEval = new Int32Array(7);
@@ -219,6 +219,8 @@ class SharedBranchManagerLoop {
     const mask = this.branchHeader[2];
     const retainedAction = this.branchHeader[3];
     const maximizing = this.branchHeader[4];
+    const branchPly = this.branchHeader[7];
+    const entryAction = this.branchHeader[8];
 
     if (!qIsCurrent(tt, parentQ, parentGeneration)) {
       this.bump(MC_STALE_DESCRIPTORS);
@@ -231,6 +233,11 @@ class SharedBranchManagerLoop {
     const isRoot = parentQ === rootQ && parentGeneration === rootGeneration;
     const parentExact = readExactQ(tt, parentQ, parentGeneration);
     const existingMask = Atomics.load(tt.qChildMask, parentQ);
+    if (isRoot && branchPly > tt.qReplayLength[parentQ] && entryAction >= 0
+        && !Atomics.load(tt.control, CTRL_ROOT_MOVE_READY)) {
+      Atomics.store(tt.control, CTRL_ROOT_MOVE, entryAction);
+      Atomics.store(tt.control, CTRL_ROOT_MOVE_READY, 1);
+    }
 
     if (existingMask !== 0) {
       if (existingMask !== mask
