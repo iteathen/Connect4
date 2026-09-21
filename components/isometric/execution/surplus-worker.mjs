@@ -292,9 +292,17 @@ class SurplusDistributor {
 
       const stateCode=Atomics.load(shared.workState,work);
       if(stateCode===WORK_EXACT){
+        // Reconciliation can consume PUB_EXACT and recycle this carrier while
+        // an occurrence waiter is reading it. Snapshot the scalar result, then
+        // revalidate both generation and terminal state before accepting it.
+        // If recycle/reuse won the race, occurrence/q state remains authority
+        // and this waiter simply retries.
+        const workValue=Atomics.load(shared.workResult,work);
+        if(Atomics.load(shared.workGeneration,work)!==workGeneration ||
+           Atomics.load(shared.workState,work)!==WORK_EXACT)continue;
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
         return this.rememberExactChild(
-          solver,state,column,Atomics.load(shared.workResult,work),2,work,workGeneration,
+          solver,state,column,workValue,2,work,workGeneration,
         );
       }
 
