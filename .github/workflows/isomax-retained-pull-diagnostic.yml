@@ -3,9 +3,13 @@ name: isomax-retained-pull-diagnostic
 on:
   pull_request:
     paths:
-      - 'components/isometric/execution/shared-work-pool.mjs'
-      - 'components/isometric/execution/pull-*.mjs'
-      - 'components/isometric/test/pull-execution.test.mjs'
+      - 'components/isometric/execution/branch-manager.mjs'
+      - 'components/isometric/execution/manager-worker.mjs'
+      - 'components/isometric/execution/worker.mjs'
+      - 'components/isometric/execution/shared-tt.mjs'
+      - 'components/isometric/execution/shared-events.mjs'
+      - 'components/isometric/execution/portable-q.mjs'
+      - 'components/isometric/test/execution.test.mjs'
       - '.github/workflows/isomax-retained-pull-diagnostic.yml'
   workflow_dispatch:
 
@@ -17,9 +21,9 @@ permissions:
   contents: read
 
 jobs:
-  worker-death-trace:
+  worker-death-recovery:
     runs-on: ubuntu-24.04
-    timeout-minutes: 3
+    timeout-minutes: 4
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -27,194 +31,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Trace retained-pull worker death recovery
-        run: |
-          timeout 90s node --input-type=module <<'NODE'
-          import { IsoMaxPullBranchManager } from './components/isometric/execution/pull-manager.mjs';
-          import {
-            CTRL_WORK_NEXT, WORK_FREE, WORK_WRITING, WORK_READY, WORK_RUNNING, WORK_DONE,
-          } from './components/isometric/execution/shared-work-pool.mjs';
-
-          const moves=Array.from('717657616532237625',c=>Number(c)-1);
-          const manager=new IsoMaxPullBranchManager({
-            workers:2,maxTasks:65536,maxEdges:65536*7,
-            workCapacity:8192,queueCapacity:16384,
-            occurrenceCapacity:32768,publicationCapacity:32768,
-          });
-          await manager.start();
-          let progressCount=0,lastProgress=null;
-          const solve=manager.solveMoves(moves,{
-            timeoutMs:30000,progressIntervalMs:100,
-            onProgress:s=>{
-              lastProgress=s;progressCount++;
-              if(progressCount%5===0)console.log('TRACE_PROGRESS',JSON.stringify(s));
-            },
-          });
-
-          let killed=-1;
-          for(let spin=0;spin<5000&&killed<0;spin++){
-            const shared=manager.session?.shared;
-            if(shared){
-              const allocated=Math.min(shared.workCapacity,Atomics.load(shared.control,CTRL_WORK_NEXT));
-              for(let slot=0;slot<allocated;slot++){
-                if(Atomics.load(shared.workState,slot)!==WORK_RUNNING)continue;
-                const owner=Atomics.load(shared.workWorker,slot);
-                if(owner<0||!manager.workers[owner])continue;
-                killed=owner;
-                console.log('TRACE_KILL',JSON.stringify({
-                  worker:owner,slot,
-                  generation:Atomics.load(shared.workGeneration,slot),
-                  attempt:Atomics.load(shared.workAttempt,slot),
-                  q:Atomics.load(shared.workQ,slot),
-                  needed:Atomics.load(shared.workNeeded,slot),
-                  pathLength:Atomics.load(shared.workPathLength,slot),
-                }));
-                void manager.workers[owner].terminate();
-                break;
-              }
-            }
-            if(killed<0)await new Promise(r=>setTimeout(r,1));
-          }
-
-          const monitor=setInterval(()=>{
-            const shared=manager.session?.shared;if(!shared)return;
-            const allocated=Math.min(shared.workCapacity,Atomics.load(shared.control,CTRL_WORK_NEXT));
-            const states=[0,0,0,0,0],slots=[];
-            for(let slot=0;slot<allocated;slot++){
-              const st=Atomics.load(shared.workState,slot);
-              if(st>=0&&st<states.length)states[st]++;
-              if(st===WORK_READY||st===WORK_RUNNING)slots.push({
-                slot,state:st,q:Atomics.load(shared.workQ,slot),
-                worker:Atomics.load(shared.workWorker,slot),
-                needed:Atomics.load(shared.workNeeded,slot),
-                generation:Atomics.load(shared.workGeneration,slot),
-                attempt:Atomics.load(shared.workAttempt,slot),
-                priority:Atomics.load(shared.workPriority,slot),
-                pathLength:Atomics.load(shared.workPathLength,slot),
-              });
-            }
-            console.log('TRACE_STATE',JSON.stringify({
-              alive:Array.from(shared.workerAlive),allocated,states,slots:slots.slice(0,12),
-            }));
-          },500);
-
-          try{
-            const result=await solve;
-            console.log('TRACE_RESULT',JSON.stringify({
-              value:result.value,move:result.move,metrics:result.metrics,
-            }));
-          }catch(e){
-            console.log('TRACE_ERROR',e?.message??String(e));
-            console.log('TRACE_LAST',JSON.stringify(lastProgress));
-          }finally{
-            clearInterval(monitor);
-            await manager.close();
-            console.log('TRACE_CLOSED');
-          }
-          NODE
-
-
-  liveness-trace:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
-        with:
-          node-version: 26.7.0
-      - name: Trace retained-pull unresolved-root liveness
-        run: |
-          timeout 60s node --input-type=module <<'NODE'
-          import { IsoMaxPullBranchManager } from './components/isometric/execution/pull-manager.mjs';
-          import {
-            CTRL_WORK_NEXT, WORK_FREE, WORK_WRITING, WORK_READY, WORK_RUNNING, WORK_DONE,
-          } from './components/isometric/execution/shared-work-pool.mjs';
-
-          const moves=Array.from('2764575754141616756745653641',c=>Number(c)-1);
-          const manager=new IsoMaxPullBranchManager({
-            workers:2,maxTasks:262144,maxEdges:262144*7,
-          });
-          let last=null;
-          const dump=label=>{
-            const shared=manager.session?.shared;
-            if(!shared)return console.log(label,'NO_SESSION');
-            const allocated=Math.min(shared.workCapacity,Atomics.load(shared.control,CTRL_WORK_NEXT));
-            const states=[0,0,0,0,0],needed=[0,0,0,0,0],slots=[];
-            for(let slot=0;slot<allocated;slot++){
-              const state=Atomics.load(shared.workState,slot);
-              if(state>=0&&state<states.length)states[state]++;
-              if(state>=0&&state<needed.length&&Atomics.load(shared.workNeeded,slot))needed[state]++;
-              if(state!==WORK_FREE)slots.push({
-                slot,state,needed:Atomics.load(shared.workNeeded,slot),
-                q:Atomics.load(shared.workQ,slot),
-                worker:Atomics.load(shared.workWorker,slot),
-                generation:Atomics.load(shared.workGeneration,slot),
-                attempt:Atomics.load(shared.workAttempt,slot),
-                priority:Atomics.load(shared.workPriority,slot),
-                pathLength:Atomics.load(shared.workPathLength,slot),
-              });
-            }
-            console.log(label,JSON.stringify({allocated,states,needed,slots:slots.slice(0,24)}));
-          };
-          try{
-            const result=await manager.solveMoves(moves,{
-              timeoutMs:15000,progressIntervalMs:50,
-              onProgress:s=>{last=s;if((s.metrics?.reconcileBatches??0)%20===0)dump('TRACE_STATE');},
-            });
-            console.log('TRACE_RESULT',JSON.stringify(result));
-          }catch(e){
-            console.log('TRACE_ERROR',e?.message??String(e));
-            console.log('TRACE_LAST',JSON.stringify(last));
-            dump('TRACE_FAILURE_STATE');
-          }finally{
-            await manager.close();
-            console.log('TRACE_CLOSED');
-          }
-          NODE
-
-
-  hard-capacity-trace:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
-        with:
-          node-version: 26.7.0
-      - name: Trace retained-pull hard canonical lifetime
-        run: |
-          timeout 120s node --input-type=module <<'NODE'
-          import { IsoMaxPullBranchManager } from './components/isometric/execution/pull-manager.mjs';
-
-          const roots=[
-            '466537327657277224',
-            '616767454664457417',
-          ];
-          for(const sequence of roots){
-            const moves=Array.from(sequence,c=>Number(c)-1);
-            const manager=new IsoMaxPullBranchManager({
-              workers:2,maxTasks:262144,maxEdges:262144*7,
-            });
-            let last=null;
-            try{
-              const result=await manager.solveMoves(moves,{
-                timeoutMs:30000,progressIntervalMs:100,
-                onProgress:s=>{last=s;},
-              });
-              console.log('CAPACITY_RESULT',sequence,JSON.stringify({
-                value:result.value,move:result.move,
-                canonicalQ:result.canonicalQ,
-                metrics:result.metrics,
-              }));
-            }catch(e){
-              console.log('CAPACITY_ERROR',sequence,e?.message??String(e));
-              console.log('CAPACITY_LAST',sequence,JSON.stringify(manager.lastStats??last));
-            }finally{
-              await manager.close();
-            }
-          }
-          NODE
+      - name: Shared-q worker death recovery
+        run: node --test --test-name-pattern="dead evaluator" components/isometric/test/execution.test.mjs
