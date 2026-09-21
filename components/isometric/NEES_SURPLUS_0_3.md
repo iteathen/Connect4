@@ -56,7 +56,7 @@ The existing native apply/undo, residual transitions, q cache and move-order ope
 |---|---|---|
 | branch distributor call | one branch-only indirect call at unresolved ordinary branch | REQUIRED for candidate; cost must be measured against saved duplicate work |
 | child-order staging | preallocated per-worker numeric arrays indexed by ply | REQUIRED/TRadeoff; no per-branch array allocation |
-| current continuation | native recursive call on first locally ordered child | REQUIRED corrected semantic model; REMOVES prior global rematerialization; multi-worker execution retains canonical visibility |
+| current continuation | native recursive call on first locally ordered child | REQUIRED corrected semantic model; REMOVES prior global rematerialization; canonical visibility is emitted when explicit external demand makes cross-worker reconciliation actionable |
 | external-demand gate | per-worker shared idle-demand slots; producers consume idle tokens with CAS before publication | REQUIRED cost control; one-worker bypasses occurrence publication entirely; a reservation is demand, never worker assignment; any worker may claim the resulting global work |
 | unpublished local sibling | native apply/solve/undo from the live parent | REQUIRED when no external execution demand; never replayed or reconciled globally |
 | surplus occurrence write | fixed shared numeric fields + legal path bytes | TRADEOFF; only demand-admitted surplus plus multi-worker continuation visibility pays this cost; full replay bytes remain machine-cost debt |
