@@ -451,6 +451,7 @@ class SurplusEvaluator {
     this.activeAttempt=0;
     this.externalRootPly=0;
     this.helperGraceMs=1;
+    this.controlQuantum=512;
     this.counters=new Int32Array(WC_WORDS);
     this.claimScratch=new Int32Array(4);
     this.continuationPly=new Int8Array(MAX_MOVES+1);
@@ -471,6 +472,9 @@ class SurplusEvaluator {
     this.helperGraceMs=message.helperGraceMs;
     if(!Number.isSafeInteger(this.helperGraceMs)||this.helperGraceMs<1||this.helperGraceMs>1000)
       throw new RangeError('invalid surplus helperGraceMs');
+    this.controlQuantum=message.controlQuantum;
+    if(!Number.isSafeInteger(this.controlQuantum)||this.controlQuantum<1||this.controlQuantum>1<<20)
+      throw new RangeError('invalid surplus controlQuantum');
     const classCapacity=message.classCapacity;
     const entryCapacity=message.entryCapacity;
     const additional=Math.max(1,classCapacity-this.solver.pool.classCount);
@@ -540,7 +544,7 @@ class SurplusEvaluator {
         throw continuationSuperseded;
       }
     }
-    this.solver.nextControlNode=this.solver.metrics.nodes+512;
+    this.solver.nextControlNode=this.solver.metrics.nodes+this.controlQuantum;
   }
 
   resetMetrics() {
