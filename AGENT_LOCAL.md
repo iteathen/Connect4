@@ -10,6 +10,12 @@ A durable `role_id` survives agent/session restart; a prior session handle does 
 
 The coordination registry is discovery/recovery metadata, not solver/specification authority. Live task/claim state belongs to the declared communication channel, and normal repository authority continues to govern implementation and qualification.
 
+## Private administrative boundary
+
+Financial, budget, funding, revenue, treasury, trading, account, payment, tax, and other sensitive administrative records do **not** belong in this public repository, public issues, public pull requests, public branches, workflow logs, or public evidence.
+
+Keep only the minimum non-sensitive routing fact needed for engineering coordination. Durable financial/administrative state belongs on the owner's private administrative control plane. Never place credentials, wallet addresses tied to private activity, keys, seed phrases, bank/payment details, tax identifiers, or private financial ledgers in this repository.
+
 ## Mission and ownership
 
 Connect4 owns Connect Four domain semantics, benchmark/oracle meaning, exact-solver product semantics, product Device-JS composition, solver qualification contracts, and product-specific evidence. Generic CUDA/search/tensor/runtime mechanisms remain owned by their natural lower repositories.
