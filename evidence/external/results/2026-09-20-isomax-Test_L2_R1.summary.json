@@ -1,0 +1,37 @@
+{
+  "schema": "connect4-external-pons-parent-wdl-v1",
+  "evidenceClass": "REFERENCE-GROUNDED",
+  "solver": "IsoMax",
+  "sourceRevision": "be2142373d2781ca9268a4260b7d5b5776c1855b",
+  "externalReference": {
+    "repository": "megakilo/alphafour",
+    "revision": "cf2d4546e5824c155e9dd7e888a572bff3128498",
+    "path": "testdata/Test_L2_R1",
+    "url": "https://raw.githubusercontent.com/megakilo/alphafour/cf2d4546e5824c155e9dd7e888a572bff3128498/testdata/Test_L2_R1",
+    "sha256": "52b9ee96ab6e92fd755ca4c545792c07c548a5a994fd32beec2775939d071b3c",
+    "gitBlobShaFromFrozenMetadata": "66089b7cf493c00e44f23ddcf12ad1ea0fe8a1a8",
+    "rowsVerifiedAgainstExternal": 64
+  },
+  "comparison": {
+    "sourceSet": "Test_L2_R1",
+    "group": "middle-easy",
+    "positionCount": 64,
+    "interpretation": "Pons exact score is side-to-move relative; compared to IsoMax P0-relative W/D/L after parity/sign conversion",
+    "mismatchCount": 0,
+    "matchedCount": 64,
+    "totalNodes": 86115,
+    "elapsedMs": 362.6165449999999
+  },
+  "runtime": {
+    "node": "v26.7.0",
+    "v8": "14.6.202.34-node.28",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "artifact": {
+    "workflowRunId": 35551975006,
+    "artifactId": 10618653005,
+    "artifactDigest": "sha256:c65e20b6c5423d52c3f8b4eac8b17b0fd4bef677c779299c85ca47af7263e214"
+  },
+  "note": "Full per-position case details remain preserved in GitHub Actions artifact 10618653005. This frozen repository summary records the externally grounded aggregate disposition without altering solver code."
+}
