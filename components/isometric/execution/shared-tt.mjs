@@ -135,6 +135,7 @@ export function createSharedTT({
     edgeCapacity,
     control: sab(Int32Array, CTRL_WORDS),
     qGeneration: sab(Int32Array, qCapacity),
+    qReservationOwner: sab(Int32Array, qCapacity),
     qLive: sab(Int32Array, qCapacity),
     qHash: sab(Int32Array, qCapacity),
     qSupport: sab(Uint32Array, qCapacity),
@@ -211,6 +212,7 @@ export function openSharedTT(descriptor) {
     ...descriptor,
     control: view(Int32Array, descriptor.control),
     qGeneration: view(Int32Array, descriptor.qGeneration),
+    qReservationOwner: view(Int32Array, descriptor.qReservationOwner),
     qLive: view(Int32Array, descriptor.qLive),
     qHash: view(Int32Array, descriptor.qHash),
     qSupport: view(Uint32Array, descriptor.qSupport),
@@ -252,15 +254,80 @@ export function openSharedTT(descriptor) {
   };
 }
 
-function lockBucket(shared, bucket) {
-  while (Atomics.compareExchange(shared.bucketLock, bucket, 0, 1) !== 0) {
-    Atomics.wait(shared.bucketLock, bucket, 1, 1);
+function lockBucket(shared, bucket, ownerCode) {
+  if (!Number.isInteger(ownerCode) || ownerCode <= 0 || ownerCode > shared.workerCount + 1) {
+    throw new RangeError('invalid shared TT lock owner');
+  }
+  while (Atomics.compareExchange(shared.bucketLock, bucket, 0, ownerCode) !== 0) {
+    const observed = Atomics.load(shared.bucketLock, bucket);
+    if (observed !== 0) Atomics.wait(shared.bucketLock, bucket, observed, 1);
   }
 }
 
-function unlockBucket(shared, bucket) {
-  Atomics.store(shared.bucketLock, bucket, 0);
+function unlockBucket(shared, bucket, ownerCode) {
+  if (Atomics.compareExchange(shared.bucketLock, bucket, ownerCode, 0) !== ownerCode) {
+    throw new Error('shared TT bucket lock ownership changed');
+  }
   Atomics.notify(shared.bucketLock, bucket, 1);
+}
+
+export function recoverWorkerBucketLocks(shared, workerId) {
+  if (!Number.isInteger(workerId) || workerId < 0 || workerId >= shared.workerCount) {
+    throw new RangeError('invalid dead worker');
+  }
+  const ownerCode = workerId + 1;
+  let recovered = 0;
+  for (let bucket = 0; bucket < shared.bucketCount; bucket++) {
+    if (Atomics.compareExchange(shared.bucketLock, bucket, ownerCode, 0) === ownerCode) {
+      Atomics.notify(shared.bucketLock, bucket, Infinity);
+      recovered++;
+    }
+  }
+  return recovered;
+}
+
+export function recoverWorkerTTReservations(shared, workerId) {
+  if (!Number.isInteger(workerId) || workerId < 0 || workerId >= shared.workerCount) {
+    throw new RangeError('invalid dead worker');
+  }
+  const deadOwner = workerId + 1;
+  const managerOwner = shared.workerCount + 1;
+  let recovered = 0;
+  const high = Math.min(shared.qCapacity, Atomics.load(shared.control, CTRL_Q_HIGH_WATER));
+  for (let qIndex = 0; qIndex < high; qIndex++) {
+    if (Atomics.load(shared.qReservationOwner, qIndex) !== deadOwner) continue;
+    const bucket = shared.qHash[qIndex] & (shared.bucketCount - 1);
+    lockBucket(shared, bucket, managerOwner);
+    try {
+      if (Atomics.load(shared.qReservationOwner, qIndex) !== deadOwner) continue;
+      let current = Atomics.load(shared.bucketHead, bucket);
+      let linked = false;
+      while (current >= 0) {
+        if (current === qIndex) {
+          linked = true;
+          break;
+        }
+        current = Atomics.load(shared.qHashNext, current);
+      }
+      if (linked && Atomics.load(shared.qLive, qIndex) !== 0) {
+        Atomics.store(shared.qReservationOwner, qIndex, 0);
+        continue;
+      }
+
+      Atomics.store(shared.qLive, qIndex, 0);
+      Atomics.store(shared.qReservationOwner, qIndex, 0);
+      Atomics.store(shared.qRefCount, qIndex, 0);
+      Atomics.store(shared.qExecution, qIndex, EXEC_NONE);
+      Atomics.store(shared.qHashNext, qIndex, -1);
+      Atomics.store(shared.qParentHead, qIndex, -1);
+      Atomics.store(shared.qChildMask, qIndex, 0);
+      pushFree(shared, qIndex);
+      recovered++;
+    } finally {
+      unlockBucket(shared, bucket, managerOwner);
+    }
+  }
+  return recovered;
 }
 
 function exactIdentityEquals(shared, qIndex, hash, words, support, flags) {
@@ -326,7 +393,7 @@ export function qIsCurrent(shared, qIndex, generation) {
  * Probe/insert exact portable q content. out[0]=qIndex, out[1]=generation,
  * out[2]=created(0/1). The returned reference owns one qRefCount pin.
  */
-export function probeOrInsertQ(shared, words, support, flags, replay, replayLength, out) {
+export function probeOrInsertQ(shared, words, support, flags, replay, replayLength, out, ownerCode = shared.workerCount + 1) {
   if (!(words instanceof Uint32Array) || words.length < Q_IDENTITY_WORDS) {
     throw new TypeError('portable q requires exact Uint32 identity words');
   }
@@ -338,7 +405,7 @@ export function probeOrInsertQ(shared, words, support, flags, replay, replayLeng
 
   const hash = hashPortableQ(words, support, flags);
   const bucket = hash & (shared.bucketCount - 1);
-  lockBucket(shared, bucket);
+  lockBucket(shared, bucket, ownerCode);
   try {
     let qIndex = Atomics.load(shared.bucketHead, bucket);
     while (qIndex >= 0) {
@@ -354,6 +421,7 @@ export function probeOrInsertQ(shared, words, support, flags, replay, replayLeng
 
     qIndex = allocateQIndex(shared);
     if (qIndex < 0) throw new Error('ISOMAX_SHARED_TT_CAPACITY');
+    Atomics.store(shared.qReservationOwner, qIndex, ownerCode);
     const generation = nextGeneration(shared, qIndex);
     Atomics.store(shared.qLive, qIndex, 0);
     shared.qHash[qIndex] = hash;
@@ -389,26 +457,27 @@ export function probeOrInsertQ(shared, words, support, flags, replay, replayLeng
     Atomics.store(shared.qHashNext, qIndex, Atomics.load(shared.bucketHead, bucket));
     Atomics.store(shared.qLive, qIndex, 1);
     Atomics.store(shared.bucketHead, bucket, qIndex);
+    Atomics.store(shared.qReservationOwner, qIndex, 0);
     out[0] = qIndex;
     out[1] = generation;
     out[2] = 1;
     return qIndex;
   } finally {
-    unlockBucket(shared, bucket);
+    unlockBucket(shared, bucket, ownerCode);
   }
 }
 
-export function addQRef(shared, qIndex, generation) {
+export function addQRef(shared, qIndex, generation, ownerCode = shared.workerCount + 1) {
   if (!qIsCurrent(shared, qIndex, generation)) return false;
   const hash = shared.qHash[qIndex];
   const bucket = hash & (shared.bucketCount - 1);
-  lockBucket(shared, bucket);
+  lockBucket(shared, bucket, ownerCode);
   try {
     if (!qIsCurrent(shared, qIndex, generation)) return false;
     Atomics.add(shared.qRefCount, qIndex, 1);
     return true;
   } finally {
-    unlockBucket(shared, bucket);
+    unlockBucket(shared, bucket, ownerCode);
   }
 }
 
@@ -422,7 +491,7 @@ export function releaseQRef(shared, qIndex, generation) {
   return prior - 1;
 }
 
-export function recycleQIfDead(shared, qIndex, generation) {
+export function recycleQIfDead(shared, qIndex, generation, ownerCode = shared.workerCount + 1) {
   if (!qIsCurrent(shared, qIndex, generation)) return false;
   if (Atomics.load(shared.qRefCount, qIndex) !== 0
       || Atomics.load(shared.qExecution, qIndex) !== EXEC_NONE
@@ -431,7 +500,7 @@ export function recycleQIfDead(shared, qIndex, generation) {
 
   const hash = shared.qHash[qIndex];
   const bucket = hash & (shared.bucketCount - 1);
-  lockBucket(shared, bucket);
+  lockBucket(shared, bucket, ownerCode);
   try {
     if (!qIsCurrent(shared, qIndex, generation)
         || Atomics.load(shared.qRefCount, qIndex) !== 0
@@ -451,6 +520,7 @@ export function recycleQIfDead(shared, qIndex, generation) {
     else Atomics.store(shared.qHashNext, previous, next);
 
     Atomics.store(shared.qLive, qIndex, 0);
+    Atomics.store(shared.qReservationOwner, qIndex, 0);
     Atomics.store(shared.qHashNext, qIndex, -1);
     Atomics.store(shared.qExact, qIndex, Q_EXACT_UNKNOWN);
     Atomics.store(shared.qExactFinalized, qIndex, 0);
@@ -461,7 +531,7 @@ export function recycleQIfDead(shared, qIndex, generation) {
     pushFree(shared, qIndex);
     return true;
   } finally {
-    unlockBucket(shared, bucket);
+    unlockBucket(shared, bucket, ownerCode);
   }
 }
 

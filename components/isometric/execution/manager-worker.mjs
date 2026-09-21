@@ -202,41 +202,124 @@ class SharedBranchManagerLoop {
     }
   }
 
+  releaseDescriptorRef(qIndex, generation) {
+    if (!qIsCurrent(tt, qIndex, generation)) return;
+    const remaining = releaseQRef(tt, qIndex, generation);
+    if (remaining === 0) this.pushOrphan(qIndex, generation);
+  }
+
   releaseDescriptorChildren(mask) {
     for (let action = 0; action < 7; action++) {
       if ((mask & (1 << action)) === 0) continue;
-      const childQ = this.branchChildQ[action];
-      const childGeneration = this.branchChildGeneration[action];
-      if (!qIsCurrent(tt, childQ, childGeneration)) continue;
-      const remaining = releaseQRef(tt, childQ, childGeneration);
-      if (remaining === 0) this.pushOrphan(childQ, childGeneration);
+      this.releaseDescriptorRef(
+        this.branchChildQ[action],
+        this.branchChildGeneration[action],
+      );
     }
   }
 
-  attachBranch(worker) {
-    const parentQ = this.branchHeader[0];
-    const parentGeneration = this.branchHeader[1];
-    const mask = this.branchHeader[2];
-    const retainedAction = this.branchHeader[3];
-    const maximizing = this.branchHeader[4];
-    const branchPly = this.branchHeader[7];
-    const entryAction = this.branchHeader[8];
+  attachPassthrough(startQ, startGeneration, decisionQ, decisionGeneration, firstAction) {
+    if (startQ === decisionQ && startGeneration === decisionGeneration) {
+      // The decision descriptor carries one temporary q pin even when the
+      // decision endpoint is the already-running q. No new topology owns it.
+      this.releaseDescriptorRef(decisionQ, decisionGeneration);
+      return true;
+    }
+    if (firstAction < 0 || firstAction >= 7) {
+      throw new Error('deterministic q transition lacks canonical first action');
+    }
+    if (!qIsCurrent(tt, startQ, startGeneration)
+        || !qIsCurrent(tt, decisionQ, decisionGeneration)) return false;
 
-    if (!qIsCurrent(tt, parentQ, parentGeneration)) {
+    const expectedMask = 1 << firstAction;
+    const existingMask = Atomics.load(tt.qChildMask, startQ);
+    const base = startQ * 7;
+
+    if (existingMask !== 0) {
+      const matches = existingMask === expectedMask
+        && tt.qChildIndex[base + firstAction] === decisionQ
+        && tt.qChildGeneration[base + firstAction] === decisionGeneration;
+      this.releaseDescriptorRef(decisionQ, decisionGeneration);
+      if (!matches) throw new Error('conflicting deterministic canonical q topology');
+      return true;
+    }
+
+    if (readExactQ(tt, startQ, startGeneration) !== Q_EXACT_UNKNOWN) {
+      this.releaseDescriptorRef(decisionQ, decisionGeneration);
+      return false;
+    }
+
+    tt.qChildIndex[base + firstAction] = decisionQ;
+    tt.qChildGeneration[base + firstAction] = decisionGeneration;
+    tt.qChildEval[base + firstAction] = 7;
+
+    const edge = allocateParentEdge(tt);
+    tt.edgeParentQ[edge] = startQ;
+    tt.edgeParentGeneration[edge] = startGeneration;
+    tt.edgeChildQ[edge] = decisionQ;
+    tt.edgeChildGeneration[edge] = decisionGeneration;
+    tt.edgeAction[edge] = firstAction;
+    tt.edgeNextIncoming[edge] = Atomics.load(tt.qParentHead, decisionQ);
+    Atomics.store(tt.qParentHead, decisionQ, edge);
+    Atomics.add(tt.qFanIn, decisionQ, 1);
+    Atomics.store(tt.qChildMask, startQ, expectedMask);
+    this.bump(MC_EDGES);
+    this.tryReduceParent(startQ, startGeneration);
+    return true;
+  }
+
+  attachBranch(worker) {
+    const startQ = this.branchHeader[0];
+    const startGeneration = this.branchHeader[1];
+    const decisionQ = this.branchHeader[2];
+    const decisionGeneration = this.branchHeader[3];
+    const firstAction = this.branchHeader[4];
+    const mask = this.branchHeader[5];
+    const retainedAction = this.branchHeader[6];
+    const maximizing = this.branchHeader[7];
+
+    if (!qIsCurrent(tt, startQ, startGeneration)
+        || !qIsCurrent(tt, decisionQ, decisionGeneration)) {
       this.bump(MC_STALE_DESCRIPTORS);
+      this.releaseDescriptorRef(decisionQ, decisionGeneration);
       this.releaseDescriptorChildren(mask);
       return;
     }
 
+    if (!this.attachPassthrough(
+      startQ,
+      startGeneration,
+      decisionQ,
+      decisionGeneration,
+      firstAction,
+    )) {
+      this.releaseDescriptorChildren(mask);
+      return;
+    }
+
+    const parentQ = decisionQ;
+    const parentGeneration = decisionGeneration;
     const rootQ = Atomics.load(tt.control, CTRL_ROOT_Q);
     const rootGeneration = Atomics.load(tt.control, CTRL_ROOT_GENERATION);
     const isRoot = parentQ === rootQ && parentGeneration === rootGeneration;
     const parentExact = readExactQ(tt, parentQ, parentGeneration);
     const existingMask = Atomics.load(tt.qChildMask, parentQ);
-    if (isRoot && branchPly > tt.qReplayLength[parentQ] && entryAction >= 0
-        && !Atomics.load(tt.control, CTRL_ROOT_MOVE_READY)) {
-      Atomics.store(tt.control, CTRL_ROOT_MOVE, entryAction);
-      Atomics.store(tt.control, CTRL_ROOT_MOVE_READY, 1);
+
+    // mask=0 is a pure deterministic-link descriptor. The endpoint may already
+    // be exact or may already have canonical topology from another worker.
+    if (mask === 0) {
+      if (parentExact !== Q_EXACT_UNKNOWN) {
+        this.scheduleFinalize(parentQ, parentGeneration);
+        this.tryReduceParent(startQ, startGeneration);
+      } else {
+        this.queueIfNeeded(
+          parentQ,
+          parentGeneration,
+          Math.max(Atomics.load(tt.qPriorityClass, parentQ), 7),
+        );
+      }
+      if (isRoot && parentExact !== Q_EXACT_UNKNOWN) this.tryCompleteRoot();
+      return;
     }
 
     if (existingMask !== 0) {
@@ -260,6 +343,7 @@ class SharedBranchManagerLoop {
 
     if (parentExact !== Q_EXACT_UNKNOWN && !isRoot) {
       this.releaseDescriptorChildren(mask);
+      this.scheduleFinalize(parentQ, parentGeneration);
       return;
     }
 
@@ -273,6 +357,8 @@ class SharedBranchManagerLoop {
         throw new Error('branch descriptor contains stale child q');
       }
 
+      // The descriptor's probe pin transfers directly into this edge. Do not
+      // add another q ref: one relationship has exactly one ownership pin.
       tt.qChildIndex[base + action] = childQ;
       tt.qChildGeneration[base + action] = childGeneration;
       tt.qChildEval[base + action] = this.branchChildEval[action];
@@ -299,6 +385,7 @@ class SharedBranchManagerLoop {
     Atomics.store(tt.qChildMask, parentQ, mask);
     this.bump(MC_BRANCHES);
     this.tryReduceParent(parentQ, parentGeneration);
+    this.tryReduceParent(startQ, startGeneration);
     if (isRoot) this.tryCompleteRoot();
   }
 

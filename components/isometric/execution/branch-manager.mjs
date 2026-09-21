@@ -47,9 +47,12 @@ import {
   openSharedTT,
   probeOrInsertQ,
   qIsCurrent,
+  recoverWorkerBucketLocks,
+  recoverWorkerTTReservations,
+  recycleQIfDead,
   runningExecution,
 } from './shared-tt.mjs';
-import { createSharedEvents } from './shared-events.mjs';
+import { createSharedEvents, openSharedEvents, recoverUnpublishedBranch } from './shared-events.mjs';
 
 function positive(value, name, maximum = 2 ** 30) {
   if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
@@ -178,6 +181,9 @@ export class IsoMaxBranchManager {
     session.recovering[id] = 1;
     try {
       const shared = session.shared;
+      recoverWorkerBucketLocks(shared, id);
+      recoverWorkerTTReservations(shared, id);
+      recoverUnpublishedBranch(session.events, shared, id);
       const high = Math.min(shared.qCapacity, Atomics.load(shared.control, CTRL_Q_HIGH_WATER));
       for (let qIndex = 0; qIndex < high; qIndex++) {
         if (Atomics.load(shared.qLive, qIndex) === 0) continue;
@@ -197,6 +203,8 @@ export class IsoMaxBranchManager {
             Atomics.load(shared.qPriorityClass, qIndex),
           );
           session.workerDeathRequeues++;
+        } else {
+          recycleQIfDead(shared, qIndex, generationNow);
         }
       }
       Atomics.add(shared.control, CTRL_MANAGER_WAKE, 1);
@@ -267,6 +275,7 @@ export class IsoMaxBranchManager {
       eventCapacity: this.eventCapacity,
     });
     const shared = openSharedTT(ttDescriptor);
+    const events = openSharedEvents(eventDescriptor);
 
     const rootSolver = new IsoMaxSolver();
     const rootState = rootSolver.createState(moves);
@@ -316,6 +325,7 @@ export class IsoMaxBranchManager {
       ttDescriptor,
       eventDescriptor,
       shared,
+      events,
       rootQ,
       rootGeneration,
       rootPly: moves.length,

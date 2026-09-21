@@ -8,6 +8,14 @@
 
 This document supersedes the earlier occurrence/reconciler/helper-work realization of #102. Git history preserves that experiment; active source must not preserve its duplicate lifecycle machinery.
 
+## Solver-family separation
+
+This architecture is **IsoMax-only**.
+
+BSFP remains a separate exact-solver solution. IsoMax must not import BSFP state, fixed-point recurrence, proof procedure, scheduling semantics, implementation machinery, or optimization authority. Cross-solver synthesis is deferred until IsoMax is independently performing near its intended limit and the owner explicitly requests that synthesis.
+
+Repository-wide BSFP CI may run when this branch changes; that is unrelated regression coverage and is not IsoMax qualification evidence.
+
 ## Single authority
 
 The governing invariant is:
