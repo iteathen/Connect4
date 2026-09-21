@@ -216,6 +216,7 @@ export class IsoMaxPullBranchManager {
     for (let id = 0; id < this.workerCount; id++) Atomics.store(shared.workerAlive, id, this.workers[id] ? 1 : 0);
 
     let resultMessage = null;
+    let resultReadyAt = null;
     let reconcilerReady = false;
     let resolveReady, rejectReady, resolveResult, rejectResult, resolveWorkers;
     const readyPromise = new Promise((resolve, reject) => { resolveReady = resolve; rejectReady = reject; });
@@ -252,6 +253,7 @@ export class IsoMaxPullBranchManager {
       }
       if (message?.type === 'pull-result') {
         resultMessage = message;
+        if (resultReadyAt === null) resultReadyAt = performance.now();
         resolveResult(message);
         return;
       }
@@ -360,12 +362,14 @@ export class IsoMaxPullBranchManager {
         localClasses:Array.from(session.localClasses),
       };
       const elapsedMs = performance.now() - started;
+      const resultReadyMs = (resultReadyAt ?? performance.now()) - started;
       const snapshot = message.snapshot ?? {};
       const result = {
         value:message.value,
         move:message.move,
         elapsedMs,
-        resultReadyMs:elapsedMs,
+        resultReadyMs,
+        cleanupMs:Math.max(0, elapsedMs - resultReadyMs),
         scheduler:{
           architecture:'retained-decentralized-pull',
           workers:this.workerCount,
