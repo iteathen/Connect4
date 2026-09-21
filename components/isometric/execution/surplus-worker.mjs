@@ -508,6 +508,8 @@ class SurplusEvaluator {
     this.externalRootPly=0;
     this.helperGraceMs=1;
     this.controlQuantum=512;
+    this.helperControlQuantum=512;
+    this.activeControlQuantum=512;
     this.counters=new Int32Array(WC_WORDS);
     this.claimScratch=new Int32Array(4);
     this.continuationPly=new Int8Array(MAX_MOVES+1);
@@ -531,6 +533,11 @@ class SurplusEvaluator {
     this.controlQuantum=message.controlQuantum;
     if(!Number.isSafeInteger(this.controlQuantum)||this.controlQuantum<1||this.controlQuantum>1<<20)
       throw new RangeError('invalid surplus controlQuantum');
+    this.helperControlQuantum=message.helperControlQuantum;
+    if(!Number.isSafeInteger(this.helperControlQuantum)||this.helperControlQuantum<1||
+       this.helperControlQuantum>1<<20)
+      throw new RangeError('invalid surplus helperControlQuantum');
+    this.activeControlQuantum=this.controlQuantum;
     const classCapacity=message.classCapacity;
     const entryCapacity=message.entryCapacity;
     const additional=Math.max(1,classCapacity-this.solver.pool.classCount);
@@ -600,7 +607,7 @@ class SurplusEvaluator {
         throw continuationSuperseded;
       }
     }
-    this.solver.nextControlNode=this.solver.metrics.nodes+this.controlQuantum;
+    this.solver.nextControlNode=this.solver.metrics.nodes+this.activeControlQuantum;
   }
 
   resetMetrics() {
@@ -635,6 +642,9 @@ class SurplusEvaluator {
   runClaim(slot,generation,attempt) {
     const shared=this.shared;
     this.activeWork=slot;this.activeGeneration=generation;this.activeAttempt=attempt;
+    const pathLength=Atomics.load(shared.workPathLength,slot);
+    this.activeControlQuantum=pathLength>this.externalRootPly
+      ? this.helperControlQuantum : this.controlQuantum;
     this.resetMetrics();
     const state=this.replayWork(slot);
     let value,retired=false,stopped=false;
