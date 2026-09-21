@@ -96,7 +96,9 @@ test('surplus default worker storage is sized per worker rather than divided glo
     const manager=new IsoMaxSurplusBranchManager({workers});
     assert.equal(manager.workerClassReserve,524288);
     assert.equal(manager.workerEntryReserve,1048576);
+    assert.equal(manager.controlQuantum,512);
   }
+  assert.throws(()=>new IsoMaxSurplusBranchManager({workers:2,controlQuantum:0}),/controlQuantum/);
 });
 
 test('surplus helper work arena reuses one slot only after terminal reconciliation', () => {
