@@ -212,6 +212,8 @@ class PullReconciler {
       maxAllocatedWork:0,
       maxCanonicalQ:0,
       maxEdges:0,
+      edgeCompactions:0,
+      maxLiveEdgesAfterCompaction:0,
       failures:0,
     };
   }
@@ -465,8 +467,65 @@ class PullReconciler {
     return q;
   }
 
+  compactEdges() {
+    // Edge IDs are manager-local addresses, never semantic identity. Dead
+    // historical edges may therefore be discarded when the fixed arena fills.
+    // Preserve only live graph topology and rebuild intrusive adjacency.
+    let liveCount = 0;
+    for (let edge = 0; edge < this.edgeCount; edge++) {
+      if (this.edgeLive[edge]) liveCount++;
+    }
+    if (liveCount >= this.maxEdges) return false;
+
+    const parents = new Int32Array(liveCount);
+    const children = new Int32Array(liveCount);
+    const actions = new Int8Array(liveCount);
+    let write = 0;
+    for (let edge = 0; edge < this.edgeCount; edge++) {
+      if (!this.edgeLive[edge]) continue;
+      parents[write] = this.edgeParent[edge];
+      children[write] = this.edgeChild[edge];
+      actions[write] = this.edgeAction[edge];
+      write++;
+    }
+
+    this.qIncomingHead.fill(-1);
+    this.qOutgoingHead.fill(-1);
+    this.qOutgoingTail.fill(-1);
+    this.edgeLive.fill(0);
+    this.edgeNextOut.fill(-1);
+    this.edgeNextIn.fill(-1);
+
+    this.edgeCount = 0;
+    for (let index = 0; index < liveCount; index++) {
+      const parent = parents[index];
+      const child = children[index];
+      const edge = this.edgeCount++;
+      this.edgeParent[edge] = parent;
+      this.edgeChild[edge] = child;
+      this.edgeAction[edge] = actions[index];
+      this.edgeLive[edge] = 1;
+
+      const tail = this.qOutgoingTail[parent];
+      if (tail < 0) this.qOutgoingHead[parent] = edge;
+      else this.edgeNextOut[tail] = edge;
+      this.qOutgoingTail[parent] = edge;
+
+      this.edgeNextIn[edge] = this.qIncomingHead[child];
+      this.qIncomingHead[child] = edge;
+    }
+
+    this.metrics.edgeCompactions++;
+    this.metrics.maxLiveEdgesAfterCompaction = Math.max(
+      this.metrics.maxLiveEdgesAfterCompaction, liveCount,
+    );
+    return true;
+  }
+
   appendEdge(parent, child, canonicalAction) {
-    if (this.edgeCount >= this.maxEdges) throw new Error('ISOMAX_PULL_EDGE_CAPACITY');
+    if (this.edgeCount >= this.maxEdges && !this.compactEdges()) {
+      throw new Error('ISOMAX_PULL_EDGE_CAPACITY');
+    }
     const edge = this.edgeCount++;
     this.edgeParent[edge] = parent;
     this.edgeChild[edge] = child;
