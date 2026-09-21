@@ -810,6 +810,11 @@ class SharedBranchManagerLoop {
 
 try {
   const manager = new SharedBranchManagerLoop();
+  // Establish initial global helper demand before the host releases evaluator
+  // session messages. This removes a startup race without introducing a
+  // recursive worker<->manager handshake.
+  manager.refreshExposureDemand();
+  parentPort.postMessage({ type: 'manager-ready' });
   const metrics = manager.run();
   parentPort.postMessage({ type: 'manager-done', metrics });
 } catch (error) {
