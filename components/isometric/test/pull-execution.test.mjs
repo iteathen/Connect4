@@ -133,6 +133,9 @@ test('decentralized pull solver preserves mirror transport and deterministic fir
   {timeout:30000}, async () => {
     const root = makeCorpus({seed:0x1020c5, ply:32, count:1})[0].moves;
     const mirror = root.map(column => 6 - column);
+    const rootOrderRegression = Array.from(
+      '5212714351522553524346343412', character => Number(character) - 1,
+    );
     const manager = new IsoMaxPullBranchManager({
       workers:2,
       maxTasks:8192,
@@ -141,7 +144,7 @@ test('decentralized pull solver preserves mirror transport and deterministic fir
       publicationCapacity:4096,
     });
     try {
-      for (const moves of [root, mirror, [0,1,0,1,0,1]]) {
+      for (const moves of [root, mirror, rootOrderRegression, [0,1,0,1,0,1]]) {
         const expected = new IsoMaxSolver().solveMoves(moves);
         const actual = await manager.solveMoves(moves, {timeoutMs:10000});
         assert.equal(actual.value, expected.value);
