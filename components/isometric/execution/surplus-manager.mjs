@@ -79,6 +79,7 @@ export class IsoMaxSurplusBranchManager {
     publicationCapacity=Math.max(4096,workers*2048),
     helperGraceMs=1,
     controlQuantum=512,
+    helperControlQuantum=controlQuantum,
     // These are private worker dictionaries, not slices of one global arena.
     // Any helper may inherit a subtree with one-worker-scale class/entry
     // diversity, so correctness cannot divide local reserve by worker count.
@@ -95,6 +96,7 @@ export class IsoMaxSurplusBranchManager {
     this.publicationCapacity=positive(publicationCapacity,'publicationCapacity');
     this.helperGraceMs=positive(helperGraceMs,'helperGraceMs',1000);
     this.controlQuantum=positive(controlQuantum,'controlQuantum',1<<20);
+    this.helperControlQuantum=positive(helperControlQuantum,'helperControlQuantum',1<<20);
     this.workerClassReserve=positive(workerClassReserve,'workerClassReserve',2**26);
     this.workerEntryReserve=positive(workerEntryReserve,'workerEntryReserve',2**26);
     this.workers=new Array(this.workerCount).fill(null);
@@ -255,6 +257,8 @@ export class IsoMaxSurplusBranchManager {
           type:'isomax-surplus-session',pool:descriptor,rootPly:moves.length,
           classCapacity:this.workerClassReserve,entryCapacity:this.workerEntryReserve,
           helperGraceMs:this.helperGraceMs,controlQuantum:this.controlQuantum,
+          helperControlQuantum:this.helperControlQuantum,
+          helperControlQuantum:this.helperControlQuantum,
         });
       }
       const message=await Promise.race([result,failure]);
