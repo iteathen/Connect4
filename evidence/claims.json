@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "repository": "iteathen/Connect4",
+  "claims": [
+    {
+      "id": "C4-INT-001",
+      "claim": "The maintained domain/oracle/benchmark substrate on main is the repository's accepted internal comparator for Connect4 solver qualification.",
+      "evidence_class": "INTERNAL-QUALIFICATION",
+      "status": "qualified repository authority",
+      "oracle": "Repository-controlled domain/oracle and benchmark authority",
+      "revision": "main",
+      "falsifier": "The accepted authority or qualification contracts are superseded, or maintained qualification checks fail.",
+      "evidence": [
+        "README.md",
+        "STATUS.md",
+        "benchmarks",
+        "reference"
+      ],
+      "limitations": [
+        "Repository authority is not by itself an independent external oracle or third-party reproduction."
+      ],
+      "external_reproduction": false
+    },
+    {
+      "id": "C4-EXT-001",
+      "claim": "Active solver correctness and comparative performance have been reproduced against an independent standard solved corpus or reference solver.",
+      "evidence_class": "UNVALIDATED",
+      "status": "external campaign not yet registered",
+      "oracle": null,
+      "revision": null,
+      "falsifier": "Any incorrect solved-position result, incomparable workload, missing provenance, or contradictory independent reference result rejects the corresponding claim.",
+      "evidence": [
+        "evidence/external/README.md"
+      ],
+      "limitations": [
+        "Correctness, search work, wall time, and memory require separate comparable measurements."
+      ],
+      "external_reproduction": false
+    }
+  ]
+}
