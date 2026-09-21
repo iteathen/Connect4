@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  four-worker-queue-trace:
+  ownership-trace:
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
@@ -26,81 +26,39 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Trace reproducible four-worker queue saturation
+      - name: Trace four-worker short-quantum ownership
         run: |
           timeout 90s node --input-type=module <<'NODE'
           import { IsoMaxSurplusBranchManager } from './components/isometric/execution/surplus-manager.mjs';
 
-          const moves=Array.from('616767454664457417',c=>Number(c)-1);
+          const moves=Array.from('717657616532237625',c=>Number(c)-1);
           for(let iteration=0;iteration<8;iteration++){
-            const manager=new IsoMaxSurplusBranchManager({workers:4,helperGraceMs:2});
+            const manager=new IsoMaxSurplusBranchManager({workers:4,controlQuantum:64});
             let failed=false;
-            const snapshot=label=>{
-              const s=manager.session;if(!s)return console.log(label,'NO_SESSION');
-              const queue=[];
-              for(let b=0;b<s.shared.bands;b++){
-                const cap=s.shared.queueCapacity;
-                const en=Atomics.load(s.shared.queueEnqueue,b),de=Atomics.load(s.shared.queueDequeue,b);
-                const producerCell=b*cap+(en%cap),headCell=b*cap+(de%cap);
-                const headSlot=s.shared.queueSlot[headCell];
-                queue.push({
-                  band:b,en,de,outstanding:en-de,
-                  producer:{cell:producerCell,seq:Atomics.load(s.shared.queueSequence,producerCell),expected:en},
-                  head:{
-                    cell:headCell,seq:Atomics.load(s.shared.queueSequence,headCell),expected:de+1,
-                    slot:headSlot,generation:s.shared.queueGeneration[headCell],ticket:s.shared.queueTicket[headCell],
-                    work:headSlot>=0&&headSlot<s.shared.workCapacity?{
-                      generation:Atomics.load(s.shared.workGeneration,headSlot),
-                      ticket:Atomics.load(s.shared.workTicket,headSlot),
-                      priority:Atomics.load(s.shared.workPriority,headSlot),
-                      needed:Atomics.load(s.shared.workNeeded,headSlot),
-                      state:Atomics.load(s.shared.workState,headSlot),
-                      worker:Atomics.load(s.shared.workWorker,headSlot),
-                    }:null,
-                  },
-                });
-              }
-              const work=[];
-              for(let i=0;i<s.shared.workCapacity;i++){
-                const state=Atomics.load(s.shared.workState,i);
-                if(state===0)continue;
-                work.push({
-                  slot:i,state,generation:Atomics.load(s.shared.workGeneration,i),
-                  ticket:Atomics.load(s.shared.workTicket,i),priority:Atomics.load(s.shared.workPriority,i),
-                  needed:Atomics.load(s.shared.workNeeded,i),worker:Atomics.load(s.shared.workWorker,i),
-                });
-              }
-              console.log(label,JSON.stringify({
-                iteration,queue,work,
-                idle:Array.from(s.shared.workerIdle),alive:Array.from(s.shared.workerAlive),
-                control:Array.from(s.shared.control),
-              }));
-            };
             try{
               await manager.start();
               manager.reconciler.on('message',m=>{
                 if(m?.type==='surplus-reconciler-error'){
-                  failed=true;console.log('TRACE_REC_ERROR',iteration,m.message);snapshot('TRACE_QUEUE_REC');
+                  failed=true;console.log('TRACE_REC_ERROR',iteration,m.message,JSON.stringify(m.snapshot??null));
                 }
               });
               for(const w of manager.workers)w.on('message',m=>{
                 if(m?.type==='surplus-error'){
-                  failed=true;console.log('TRACE_WORKER_ERROR',iteration,m.workerId,m.message);snapshot('TRACE_QUEUE_WORKER');
+                  failed=true;console.log('TRACE_WORKER_ERROR',iteration,m.workerId,m.message);
                 }
               });
               const r=await manager.solveMoves(moves,{timeoutMs:30000});
               console.log('TRACE_OUTCOME',JSON.stringify({
                 iteration,failed,value:r.value,move:r.move,
                 workClaims:r.metrics?.worker?.workClaims,
-                demandReservations:r.metrics?.worker?.demandReservations,
-                occurrencesPublished:r.metrics?.worker?.occurrencesPublished,
+                retirementWasteNodes:r.metrics?.worker?.retirementWasteNodes,
+                controlChecks:r.metrics?.worker?.controlChecks,
               }));
             }catch(e){
               failed=true;
               console.log('TRACE_OUTCOME',JSON.stringify({
                 iteration,error:e?.message??String(e),lastStats:manager.lastStats,
               }));
-              snapshot('TRACE_QUEUE_CATCH');
             }finally{
               await manager.close();console.log('TRACE_CLOSED',iteration);
             }
