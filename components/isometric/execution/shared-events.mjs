@@ -1,6 +1,6 @@
 import {
-  CTRL_EXPOSURE_INFLIGHT,
   MAX_ACTIONS,
+  completeExposure,
   releaseQRef,
   recycleQIfDead,
 } from './shared-tt.mjs';
@@ -201,11 +201,7 @@ export function recoverUnpublishedBranch(events,tt,workerId){
   }
   Atomics.store(events.pendingRefCount,workerId,0);
   Atomics.store(events.pendingBranchPosition,workerId,-1);
-  const prior=Atomics.sub(tt.control,CTRL_EXPOSURE_INFLIGHT,1);
-  if(prior<=0){
-    Atomics.add(tt.control,CTRL_EXPOSURE_INFLIGHT,1);
-    throw new Error('IsoMax exposure inflight underflow');
-  }
+  completeExposure(tt);
   return released;
 }
 
