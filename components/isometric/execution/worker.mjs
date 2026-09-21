@@ -203,31 +203,40 @@ class SharedBranchDistributor {
       }
     }
 
-    // Branch exposure is globally demand-issued. Without a manager permit,
-    // stay in native recursion; descendants may expose later if parallel demand
-    // appears. This keeps shared visibility proportional to usable CPU demand.
-    if (!tryConsumeExposurePermit(shared)) {
+    // Branch exposure is globally demand-issued, but a genuine branch that
+    // remains private is also a semantic visibility barrier. A later descendant
+    // must not be attached to the current shared q as though the skipped branch
+    // were deterministic. Permit eligibility resumes only after this private
+    // branch has fully unwound to its prior shared-semantic boundary.
+    const exposurePermitted = this.visibilityBarrierDepth === 0
+      && tryConsumeExposurePermit(shared);
+    if (!exposurePermitted) {
       runtime.count(WC_PRIVATE_BRANCHES);
-      let best = maximizing ? -1 : 1;
-      for (let orderIndex = 0; orderIndex < count; orderIndex++) {
-        const column = this.columns[base + orderIndex];
-        state.applyUnchecked(column);
-        solver.metrics.recursiveChildren++;
-        let value;
-        try {
-          value = solver.solveNode(state);
-        } finally {
-          state.undo();
+      this.visibilityBarrierDepth++;
+      try {
+        let best = maximizing ? -1 : 1;
+        for (let orderIndex = 0; orderIndex < count; orderIndex++) {
+          const column = this.columns[base + orderIndex];
+          state.applyUnchecked(column);
+          solver.metrics.recursiveChildren++;
+          let value;
+          try {
+            value = solver.solveNode(state);
+          } finally {
+            state.undo();
+          }
+          if (maximizing) {
+            if (value > best) best = value;
+            if (best >= upper) return best;
+          } else {
+            if (value < best) best = value;
+            if (best <= lower) return best;
+          }
         }
-        if (maximizing) {
-          if (value > best) best = value;
-          if (best >= upper) return best;
-        } else {
-          if (value < best) best = value;
-          if (best <= lower) return best;
-        }
+        return best;
+      } finally {
+        this.visibilityBarrierDepth--;
       }
-      return best;
     }
 
     runtime.count(WC_EXPOSURE_PERMITS);
@@ -434,6 +443,7 @@ class RetainedPullWorker {
     this.externalRootPly = 0;
     this.controlQuantum = 512;
     this.resetting = false;
+    this.visibilityBarrierDepth = 0;
     this.claim = new Int32Array(3);
     this.queueScratch = new Int32Array(2);
     this.distributor = new SharedBranchDistributor(this);
@@ -526,6 +536,7 @@ class RetainedPullWorker {
     this.activeBasePly = 0;
     this.executionQ = -1;
     this.executionGeneration = 0;
+    this.visibilityBarrierDepth = 0;
   }
 
   replayQ(qIndex, generation) {
