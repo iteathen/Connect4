@@ -41,10 +41,6 @@ export const CTRL_WORK_NEXT = 5;
 export const CTRL_FAILURE = 6;
 export const CTRL_OCC_FREE_WAKE = 7;
 export const CTRL_WORKER_READY = 8;
-// Branch Manager owns surplus admission. Workers may only consume permits
-// already published here; they never inspect peer-idle state to make policy.
-export const CTRL_SURPLUS_CREDITS = 9;
-export const CTRL_SURPLUS_RESERVED = 10;
 export const CTRL_WORDS = 16;
 
 export const WC_WORK_CLAIMS = 0;

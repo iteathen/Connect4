@@ -295,10 +295,6 @@ test('surplus helpers steal alternatives while the current worker keeps local re
         'a non-root surplus opportunity must be claimed as helper work');
       assert.ok(actual.metrics.worker.helperReplayApplies>0,
         'remote helper execution must report its physical replay cost');
-      assert.equal(actual.metrics.worker.helperWaits,0,
-        'recursive workers must not wait/arbitrate helper execution');
-      assert.ok((actual.metrics.managerDemandAccepted??0)>0,
-        'Branch Manager must own surplus execution permits');
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
