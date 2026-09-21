@@ -15,8 +15,6 @@ import {
   CTRL_ROOT_VALUE,
   CTRL_SESSION,
   CTRL_WORKER_WAKE,
-  EXEC_NONE,
-  EXEC_RUNNING_BASE,
   Q_EXACT_UNKNOWN,
   SESSION_DONE,
   SESSION_FAILED,
@@ -47,12 +45,8 @@ import {
   openSharedTT,
   probeOrInsertQ,
   qIsCurrent,
-  recoverWorkerBucketLocks,
-  recoverWorkerTTReservations,
-  recycleQIfDead,
-  runningExecution,
 } from './shared-tt.mjs';
-import { createSharedEvents, openSharedEvents, recoverUnpublishedBranch } from './shared-events.mjs';
+import { createSharedEvents, openSharedEvents } from './shared-events.mjs';
 
 function positive(value, name, maximum = 2 ** 30) {
   if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
@@ -130,7 +124,7 @@ export class IsoMaxBranchManager {
     worker.on('exit', code => {
       if (generation !== this.workerGeneration[id]) return;
       this.workers[id] = null;
-      if (!this.suppressRecovery && !this.closing && !this.closed && code !== 0) {
+      if (!this.suppressRecovery && !this.closing && !this.closed) {
         void this.recoverDeadWorker(id, generation, new Error('IsoMax worker exited: ' + code));
       }
     });
@@ -170,61 +164,47 @@ export class IsoMaxBranchManager {
   }
 
   async recoverDeadWorker(id, generation, error) {
-    if (generation !== this.workerGeneration[id] || this.closing || this.closed) return;
+    if (generation !== this.workerGeneration[id]
+        || this.suppressRecovery || this.closing || this.closed) return;
     const session = this.session;
     if (!session) {
-      try {
-        await this.spawnWorker(id);
-      } catch {}
+      try { await this.spawnWorker(id); } catch {}
       return;
     }
     if (session.recovering[id]) return;
     session.recovering[id] = 1;
     try {
       const shared = session.shared;
-      recoverWorkerBucketLocks(shared, id);
-      recoverWorkerTTReservations(shared, id);
-      recoverUnpublishedBranch(session.events, shared, id);
-      const high = Math.min(shared.qCapacity, Atomics.load(shared.control, CTRL_Q_HIGH_WATER));
-      for (let qIndex = 0; qIndex < high; qIndex++) {
-        if (Atomics.load(shared.qLive, qIndex) === 0) continue;
-        if (Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) continue;
-        if (Atomics.compareExchange(
-          shared.qExecution,
-          qIndex,
-          runningExecution(id),
-          EXEC_NONE,
-        ) !== runningExecution(id)) continue;
-        const generationNow = Atomics.load(shared.qGeneration, qIndex);
-        if (Atomics.load(shared.qRefCount, qIndex) > 0) {
-          enqueueQ(
-            shared,
-            qIndex,
-            generationNow,
-            Atomics.load(shared.qPriorityClass, qIndex),
-          );
-          session.workerDeathRequeues++;
-        } else {
-          recycleQIfDead(shared, qIndex, generationNow);
-        }
-      }
+      const deathGeneration = Atomics.add(shared.workerDeath, id, 1) + 1;
       Atomics.add(shared.control, CTRL_MANAGER_WAKE, 1);
-      Atomics.notify(shared.control, CTRL_MANAGER_WAKE, 1);
+      Atomics.notify(shared.control, CTRL_MANAGER_WAKE, Infinity);
+
+      // BranchManager owns TT/publication recovery. The host only waits for its
+      // acknowledgement without blocking timers or Promise delivery.
+      while (this.session === session
+          && !session.failure
+          && Atomics.load(shared.control, CTRL_SESSION) === SESSION_RUNNING
+          && Atomics.load(shared.workerRecovery, id) < deathGeneration) {
+        await new Promise(resolve => setTimeout(resolve, 1));
+      }
+
+      if (this.closed || this.closing || this.session !== session || session.failure) return;
 
       const previous = this.workers[id];
       if (previous) {
         try { await previous.terminate(); } catch {}
       }
-      if (this.closed || this.closing || this.session !== session) return;
       await this.spawnWorker(id);
-      if (this.session !== session
-          || Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING) {
+      if (this.session !== session) return;
+
+      if (Atomics.load(shared.control, CTRL_SESSION) === SESSION_RUNNING) {
+        session.workerDone[id] = 0;
+        this.workers[id].postMessage(session.workerMessage);
+      } else if (session.workerDone[id] === 0) {
         session.workerDone[id] = 1;
-        if (++session.workerDoneCount === this.workerCount) session.resolveWorkers();
-        return;
+        session.workerDoneCount++;
+        if (session.workerDoneCount === this.workerCount) session.resolveWorkers();
       }
-      session.workerDone[id] = 0;
-      this.workers[id].postMessage(session.workerMessage);
     } catch (recoveryError) {
       this.failSession(new Error(
         'IsoMax worker recovery failed after ' + (error?.message || 'worker death')
@@ -436,7 +416,8 @@ export class IsoMaxBranchManager {
       metrics: {
         manager: session.managerMetrics ?? {},
         worker: this.snapshotWorkerMetrics(shared),
-        workerDeathRequeues: session.workerDeathRequeues,
+        workerDeathRequeues:
+          session.managerMetrics?.workerDeathRequeues ?? session.workerDeathRequeues,
       },
     };
   }
