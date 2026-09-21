@@ -425,9 +425,16 @@ class SurplusReconciler {
       Atomics.store(this.shared.occWork,slot,work);Atomics.store(this.shared.occWorkGeneration,slot,gen);
       const band=this.priorityFor(q,Atomics.load(this.shared.occOrderRank,slot));
       if(band>this.qPriority[q]&&Atomics.load(this.shared.workState,work)===WORK_READY){
-        this.qPriority[q]=band;Atomics.store(this.shared.workPriority,work,band);
-        if(!enqueueWork(this.shared,work,gen,band))throw new Error('ISOMAX_SURPLUS_QUEUE_CAPACITY');
-        this.metrics.priorityUpdates++;
+        // enqueueWork owns ticket + priority publication atomically after it
+        // reserves queue space. Do not pre-write workPriority: a concurrent
+        // READY->RUNNING claim is a successful scheduling outcome, not queue
+        // capacity failure, and pre-writing priority can invalidate that claim.
+        if(enqueueWork(this.shared,work,gen,band)){
+          this.qPriority[q]=band;this.metrics.priorityUpdates++;
+        }else if(Atomics.load(this.shared.workGeneration,work)===gen &&
+                 Atomics.load(this.shared.workState,work)===WORK_READY){
+          throw new Error('ISOMAX_SURPLUS_QUEUE_CAPACITY');
+        }
       }
     }
   }
