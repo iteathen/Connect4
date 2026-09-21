@@ -3,7 +3,6 @@ import { IsoMaxSolver } from '../solver.mjs';
 import { CENTER_ORDER } from '../move-order.mjs';
 import {
   CTRL_ABORT,
-  CTRL_ACTIVE_WORK,
   CTRL_OCC_FREE_WAKE,
   CTRL_PUB_WAKE,
   CTRL_SESSION,
@@ -27,6 +26,7 @@ import {
   WC_BRANCHES,
   WC_CONTROL_CHECKS,
   WC_CONTINUATION_YIELDS,
+  WC_DEMAND_RESERVATIONS,
   WC_HELPER_WAITS,
   WC_HELPER_REPLAY_APPLIES,
   WC_LOCAL_PRIMARY,
@@ -292,6 +292,17 @@ class SurplusDistributor {
     }
   }
 
+  reserveIdleDemand(limit){
+    let reserved=0;
+    const idle=this.worker.shared.workerIdle;
+    for(let id=0;id<workerCount&&reserved<limit;id++){
+      if(id===workerIndex)continue;
+      if(Atomics.compareExchange(idle,id,1,0)===1)reserved++;
+    }
+    this.worker.counters[WC_DEMAND_RESERVATIONS]+=reserved;
+    return reserved;
+  }
+
   solveLocalChildren(solver,state,maximizing,lower,upper,count,base){
     let best=maximizing?-1:1;
     for(let i=0;i<count;i++){
@@ -337,14 +348,17 @@ class SurplusDistributor {
       solver,state,maximizing,lower,upper,count,base,
     );
 
-    const activeWork=Atomics.load(this.worker.shared.control,CTRL_ACTIVE_WORK);
-    const spare=Math.max(0,workerCount-activeWork);
-    const publishCount=1+Math.min(count-1,spare);
+    const demand=this.reserveIdleDemand(count-1);
+    if(demand===0)return this.solveLocalChildren(
+      solver,state,maximizing,lower,upper,count,base,
+    );
+    const publishCount=1+demand;
 
     for(let i=0;i<count;i++)this.occSlots[base+i]=-1;
     try{
-      // Retain current-continuation visibility for cross-worker q convergence,
-      // but produce claimable surplus only for currently spare execution.
+      // Demand reservation consumes an idle-worker availability token, not a
+      // worker identity: all published work remains globally claimable.
+      // Expose the current continuation only when cross-worker work is useful.
       for(let i=0;i<publishCount;i++){
         const column=this.columns[base+i];
         const role=i===0?OCC_ROLE_CONTINUATION:OCC_ROLE_SURPLUS;
@@ -603,30 +617,43 @@ class SurplusEvaluator {
     this.counters[WC_SOLVER_CACHE_STORES]+=metrics.transitionCacheStores;
   }
 
+  tryClaimWork(){
+    const shared=this.shared;
+    if(!claimHighest(shared,workerIndex,this.claimScratch))return false;
+    Atomics.store(shared.workerIdle,workerIndex,0);
+    this.counters[WC_WORK_CLAIMS]++;
+    this.counters[WC_BAND_BASE+this.claimScratch[3]]++;
+    if(Atomics.load(shared.workPathLength,this.claimScratch[0])>this.externalRootPly)
+      this.counters[WC_SURPLUS_REMOTE]++;
+    this.runClaim(this.claimScratch[0],this.claimScratch[1],this.claimScratch[2]);
+    this.accumulateSolverMetrics();
+    return true;
+  }
+
   runSession(message) {
     this.prepareSession(message);
     const shared=this.shared;
     try{
       while(Atomics.load(shared.control,CTRL_SESSION)===SESSION_RUNNING &&
             !Atomics.load(shared.control,CTRL_ABORT)){
-        // Read the wake epoch before checking the queue. If work is published
-        // after this load but before wait(), the changed epoch makes wait()
-        // return immediately instead of sleeping through an available helper.
-        const epoch=Atomics.load(shared.control,CTRL_WORK_WAKE);
-        if(claimHighest(shared,workerIndex,this.claimScratch)){
-          this.counters[WC_WORK_CLAIMS]++;
-          this.counters[WC_BAND_BASE+this.claimScratch[3]]++;
-          if(Atomics.load(shared.workPathLength,this.claimScratch[0])>this.externalRootPly)
-            this.counters[WC_SURPLUS_REMOTE]++;
-          this.runClaim(this.claimScratch[0],this.claimScratch[1],this.claimScratch[2]);
-          this.accumulateSolverMetrics();
-          continue;
-        }
+        Atomics.store(shared.workerIdle,workerIndex,0);
+        if(this.tryClaimWork())continue;
         if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING ||
            Atomics.load(shared.control,CTRL_ABORT))break;
-        Atomics.wait(shared.control,CTRL_WORK_WAKE,epoch,50);
+
+        // Advertise actual idle demand. A producer atomically consumes this
+        // token before publishing surplus; the work itself remains global and
+        // may be claimed by any worker. Recheck after publication visibility
+        // to close the idle-advertise race.
+        const epoch=Atomics.load(shared.control,CTRL_WORK_WAKE);
+        Atomics.store(shared.workerIdle,workerIndex,1);
+        if(this.tryClaimWork())continue;
+        if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING ||
+           Atomics.load(shared.control,CTRL_ABORT))break;
+        Atomics.wait(shared.control,CTRL_WORK_WAKE,epoch);
       }
     }finally{
+      Atomics.store(shared.workerIdle,workerIndex,0);
       this.finishSession();
     }
     return Array.from(this.counters);

@@ -11,6 +11,7 @@ import {
   WC_BRANCHES,
   WC_CONTROL_CHECKS,
   WC_CONTINUATION_YIELDS,
+  WC_DEMAND_RESERVATIONS,
   WC_HELPER_WAITS,
   WC_HELPER_REPLAY_APPLIES,
   WC_LOCAL_PRIMARY,
@@ -134,7 +135,8 @@ export class IsoMaxSurplusBranchManager {
   }
   #markDead(id){
     const s=this.session;if(!s||s.done[id])return;
-    s.done[id]=1;Atomics.store(s.shared.workerAlive,id,0);this.#wake(s.shared);s.checkDone();
+    s.done[id]=1;Atomics.store(s.shared.workerAlive,id,0);
+    Atomics.store(s.shared.workerIdle,id,0);this.#wake(s.shared);s.checkDone();
   }
   #abort(error){
     const s=this.session;if(!s)return;
@@ -267,6 +269,7 @@ export class IsoMaxSurplusBranchManager {
         surplusLocal:aggregate[WC_SURPLUS_LOCAL],
         surplusRemote:aggregate[WC_SURPLUS_REMOTE],
         unpublishedLocal:aggregate[WC_UNPUBLISHED_LOCAL],
+        demandReservations:aggregate[WC_DEMAND_RESERVATIONS],
         occurrenceRetires:aggregate[WC_RETIRE_OCC],
         retirementWasteNodes:aggregate[WC_RETIREMENT_WASTE_NODES],
         pathReplayApplies:aggregate[WC_PATH_REPLAY_APPLIES],

@@ -57,7 +57,7 @@ The existing native apply/undo, residual transitions, q cache and move-order ope
 | branch distributor call | one branch-only indirect call at unresolved ordinary branch | REQUIRED for candidate; cost must be measured against saved duplicate work |
 | child-order staging | preallocated per-worker numeric arrays indexed by ply | REQUIRED/TRadeoff; no per-branch array allocation |
 | current continuation | native recursive call on first locally ordered child | REQUIRED corrected semantic model; REMOVES prior global rematerialization; multi-worker execution retains canonical visibility |
-| external-demand gate | one shared active-work scalar read at genuine multi-worker branches | REQUIRED cost control; one-worker bypasses occurrence publication entirely and claimable surplus is bounded by currently spare execution capacity |
+| external-demand gate | per-worker shared idle-demand slots; producers consume idle tokens with CAS before publication | REQUIRED cost control; one-worker bypasses occurrence publication entirely; a reservation is demand, never worker assignment; any worker may claim the resulting global work |
 | unpublished local sibling | native apply/solve/undo from the live parent | REQUIRED when no external execution demand; never replayed or reconciled globally |
 | surplus occurrence write | fixed shared numeric fields + legal path bytes | TRADEOFF; only demand-admitted surplus plus multi-worker continuation visibility pays this cost; full replay bytes remain machine-cost debt |
 | occurrence allocation | generation-safe bounded free ring, no growth | CONFORMS M13/M14; live-domain default is >3x the physical 42×7×workers occurrence bound; contention remains measurable |
@@ -95,7 +95,7 @@ The corrected design structurally removes several costs that dominated the rejec
 - no global execution record for every visible successor;
 - no waiting for a scheduler decision before primary recursion continues.
 
-Only surplus work that another worker can currently use crosses the execution boundary. With one worker, branch distribution collapses to native recursive DFS; no branch occurrence enters the shared reconciler.
+Only surplus work backed by an explicitly idle worker crosses the execution boundary. With one worker, branch distribution collapses to native recursive DFS; no branch occurrence enters the shared reconciler. When every worker is busy, descendants remain native/local until a worker advertises demand again.
 
 ## Known optimization debt
 
@@ -192,6 +192,8 @@ Report separately at 1/2/4 workers:
 - serial/central calls, expansion entries and transition attempts;
 - local primary branches;
 - surplus opportunities published;
+- idle-demand reservations;
+- unpublished local siblings;
 - surplus local reclaim versus remote helper execution;
 - helper waits;
 - exact occurrence consumption;

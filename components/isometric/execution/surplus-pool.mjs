@@ -40,7 +40,6 @@ export const CTRL_OCC_NEXT = 4;
 export const CTRL_WORK_NEXT = 5;
 export const CTRL_FAILURE = 6;
 export const CTRL_OCC_FREE_WAKE = 7;
-export const CTRL_ACTIVE_WORK = 8;
 export const CTRL_WORDS = 16;
 
 export const WC_WORK_CLAIMS = 0;
@@ -67,6 +66,7 @@ export const WC_SOLVER_RECURSIVE_CHILDREN = 27;
 export const WC_SOLVER_FORCED_TRANSITIONS = 28;
 export const WC_SOLVER_CACHE_STORES = 29;
 export const WC_UNPUBLISHED_LOCAL = 30;
+export const WC_DEMAND_RESERVATIONS = 31;
 export const WC_WORDS = 32;
 
 function positive(value, name, maximum = 1 << 28) {
@@ -162,6 +162,7 @@ export function createSurplusPool({
     publicationDequeue: sabI32(1),
 
     workerAlive: sabI32(workerCount),
+    workerIdle: sabI32(workerCount),
     workerCounters: sabI32(workerCount * WC_WORDS),
   });
   initRing(descriptor.queueSequence, PRIORITY_BANDS, queueCapacity);
@@ -249,6 +250,7 @@ export function openSurplusPool(d) {
     publicationDequeue:new Int32Array(d.publicationDequeue),
 
     workerAlive:new Int32Array(d.workerAlive),
+    workerIdle:new Int32Array(d.workerIdle),
     workerCounters:new Int32Array(d.workerCounters),
   };
 }
