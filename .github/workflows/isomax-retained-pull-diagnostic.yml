@@ -173,3 +173,48 @@ jobs:
             console.log('TRACE_CLOSED');
           }
           NODE
+
+
+  hard-capacity-trace:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Trace retained-pull hard canonical lifetime
+        run: |
+          timeout 120s node --input-type=module <<'NODE'
+          import { IsoMaxPullBranchManager } from './components/isometric/execution/pull-manager.mjs';
+
+          const roots=[
+            '466537327657277224',
+            '616767454664457417',
+          ];
+          for(const sequence of roots){
+            const moves=Array.from(sequence,c=>Number(c)-1);
+            const manager=new IsoMaxPullBranchManager({
+              workers:2,maxTasks:262144,maxEdges:262144*7,
+            });
+            let last=null;
+            try{
+              const result=await manager.solveMoves(moves,{
+                timeoutMs:30000,progressIntervalMs:100,
+                onProgress:s=>{last=s;},
+              });
+              console.log('CAPACITY_RESULT',sequence,JSON.stringify({
+                value:result.value,move:result.move,
+                canonicalQ:result.canonicalQ,
+                metrics:result.metrics,
+              }));
+            }catch(e){
+              console.log('CAPACITY_ERROR',sequence,e?.message??String(e));
+              console.log('CAPACITY_LAST',sequence,JSON.stringify(manager.lastStats??last));
+            }finally{
+              await manager.close();
+            }
+          }
+          NODE
