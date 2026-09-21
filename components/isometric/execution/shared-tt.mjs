@@ -140,6 +140,7 @@ export function createSharedTT({
     qSupport: sab(Uint32Array, qCapacity),
     qFlags: sab(Int32Array, qCapacity),
     qExact: sab(Int32Array, qCapacity),
+    qExactFinalized: sab(Int32Array, qCapacity),
     qExecution: sab(Int32Array, qCapacity),
     qPriorityClass: sab(Int32Array, qCapacity),
     qPriorityDepth: sab(Int32Array, qCapacity),
@@ -215,6 +216,7 @@ export function openSharedTT(descriptor) {
     qSupport: view(Uint32Array, descriptor.qSupport),
     qFlags: view(Int32Array, descriptor.qFlags),
     qExact: view(Int32Array, descriptor.qExact),
+    qExactFinalized: view(Int32Array, descriptor.qExactFinalized),
     qExecution: view(Int32Array, descriptor.qExecution),
     qPriorityClass: view(Int32Array, descriptor.qPriorityClass),
     qPriorityDepth: view(Int32Array, descriptor.qPriorityDepth),
@@ -358,6 +360,7 @@ export function probeOrInsertQ(shared, words, support, flags, replay, replayLeng
     shared.qSupport[qIndex] = support >>> 0;
     shared.qFlags[qIndex] = flags | 0;
     Atomics.store(shared.qExact, qIndex, Q_EXACT_UNKNOWN);
+    Atomics.store(shared.qExactFinalized, qIndex, 0);
     Atomics.store(shared.qExecution, qIndex, EXEC_NONE);
     Atomics.store(shared.qPriorityClass, qIndex, 0);
     Atomics.store(shared.qPriorityDepth, qIndex, 0);
@@ -450,6 +453,7 @@ export function recycleQIfDead(shared, qIndex, generation) {
     Atomics.store(shared.qLive, qIndex, 0);
     Atomics.store(shared.qHashNext, qIndex, -1);
     Atomics.store(shared.qExact, qIndex, Q_EXACT_UNKNOWN);
+    Atomics.store(shared.qExactFinalized, qIndex, 0);
     Atomics.store(shared.qPriorityClass, qIndex, 0);
     Atomics.store(shared.qPriorityDepth, qIndex, 0);
     Atomics.store(shared.qFanIn, qIndex, 0);
