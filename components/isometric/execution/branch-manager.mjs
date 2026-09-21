@@ -518,7 +518,7 @@ export class IsoMaxBranchManager {
       await Promise.race([managerDone, session.failureSignal]);
       resultReadyMs = performance.now() - started;
       if (session.failure) throw session.failure;
-      await session.workersDone;
+      await Promise.race([session.workersDone, session.failureSignal]);
       const cleanupMs = performance.now() - started - resultReadyMs;
 
       if (session.failure) throw session.failure;
