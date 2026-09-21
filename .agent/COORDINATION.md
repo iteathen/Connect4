@@ -66,6 +66,14 @@ missed event / restart
 
 Do not claim continuous monitoring or native event delivery when the runtime does not provide it.
 
+## Private coordination route
+
+Non-public cross-agent coordination uses the private OX-Alpha-Control issue #10. Public Connect4 issues, PRs, and the event bus should carry only the minimum sanitized state needed for public engineering coordination.
+
+Private placement does not create authority: actor provenance, ROLE_ID, task ownership, repository authority, and security policy still apply.
+
+Repository vulnerability or exploit details remain governed by the affected repository's Security Advisory. The private OX channel is for private cross-agent coordination and sanitized security-routing state, not a substitute for an advisory.
+
 ## Role recovery
 
 The owner/director may reassign a durable role to a newly started agent with only the role name/ID. The agent should then recover the rest of its working context from the registry and live channel.
