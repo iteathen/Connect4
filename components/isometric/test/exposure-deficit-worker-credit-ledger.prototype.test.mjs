@@ -19,9 +19,17 @@ import assert from 'node:assert/strict';
 // fail-closed before qExecution claim linearization: the worker defers the claim
 // (or availability advertisement), wakes the manager, and does not wrap/drop a
 // credit or synchronously wait for a drain.
+//
+// Manager READY admission/requeue is modeled as a conservative coverage transfer:
+// reserve one unit from D first, keep only transient manager-local transfer state,
+// then publish READY. Any stable nonfatal non-commit refunds the reservation. This
+// removes the false-authorization window where READY became visible before D was
+// retired, without adding a second semantic/work authority.
 
 const KIND_ACTIVE = 'active';
 const KIND_SCHED = 'sched';
+const TRANSFER_ADMIT = 'admit';
+const TRANSFER_REQUEUE = 'requeue';
 
 function model({
   outsideAvailable = 0,
@@ -34,8 +42,11 @@ function model({
     manager: {
       deficit: 0,
       ready: readyQ.length,
+      exposure: 0,
+      transfer: null,
       harvestRmw: 0,
       recoveryRmw: 0,
+      transferRmw: 0,
     },
     worker: {
       generation: 1,
@@ -84,7 +95,8 @@ function actualReady(s) {
 function trueDeficit(s) {
   return s.outsideAvailable
     + (s.worker.ledger.available ? 1 : 0)
-    - actualReady(s);
+    - actualReady(s)
+    - s.manager.exposure;
 }
 
 function assertSafe(s, label = '') {
@@ -98,6 +110,7 @@ function assertSafe(s, label = '') {
 function assertStableExact(s, label = '') {
   assert.equal(s.worker.ledger.pendingD, 0, `${label} pendingD`);
   assert.equal(s.worker.ledger.pendingReadyConsumed, 0, `${label} pendingReady`);
+  assert.equal(s.manager.transfer, null, `${label} manager transfer pending`);
   assert.equal(s.manager.ready, actualReady(s), `${label} READY exact`);
   assert.equal(s.manager.deficit, trueDeficit(s), `${label} D exact`);
   assertSafe(s, label);
@@ -118,12 +131,86 @@ function managerHarvest(s) {
   return true;
 }
 
-function managerAdmitReady(s, id) {
-  assert.ok(!s.q.has(id), `duplicate q ${id}`);
-  s.q.set(id, queuedQ(id));
-  s.manager.ready++;
+function beginReadyTransfer(s, id, mode) {
+  assert.equal(s.manager.transfer, null, 'manager may have only one transfer in progress');
+  assert.ok(mode === TRANSFER_ADMIT || mode === TRANSFER_REQUEUE, `bad transfer mode ${mode}`);
+  if (mode === TRANSFER_ADMIT) {
+    assert.ok(!s.q.has(id), `duplicate q ${id}`);
+  } else {
+    const q = qState(s, id);
+    assert.notEqual(q.state, 'queued', 'requeue transfer starts from consumed execution');
+  }
+
   s.manager.deficit--;
-  assertSafe(s, 'admit READY');
+  s.manager.transfer = { id, mode };
+  s.manager.transferRmw++;
+  assertSafe(s, 'after READY transfer D reservation');
+}
+
+function commitReadyTransfer(s) {
+  const transfer = s.manager.transfer;
+  assert.ok(transfer, 'missing manager transfer');
+  if (transfer.mode === TRANSFER_ADMIT) {
+    assert.ok(!s.q.has(transfer.id), `duplicate q ${transfer.id}`);
+    s.q.set(transfer.id, queuedQ(transfer.id));
+  } else {
+    const q = qState(s, transfer.id);
+    q.state = 'queued';
+    q.ownerGeneration = 0;
+    q.claimParity = null;
+    delete q.disposition;
+  }
+  s.manager.ready++;
+  s.manager.transfer = null;
+  s.manager.transferRmw++;
+  assertSafe(s, 'after READY transfer commit');
+}
+
+function refundReadyTransfer(s, { disposition = null } = {}) {
+  const transfer = s.manager.transfer;
+  assert.ok(transfer, 'missing manager transfer');
+  if (transfer.mode === TRANSFER_REQUEUE && disposition !== null) {
+    const q = qState(s, transfer.id);
+    q.state = disposition;
+    q.ownerGeneration = 0;
+    q.claimParity = null;
+    delete q.disposition;
+  }
+  s.manager.deficit++;
+  s.manager.transfer = null;
+  s.manager.transferRmw++;
+  assertSafe(s, 'after READY transfer refund');
+}
+
+function managerAdmitReady(s, id) {
+  beginReadyTransfer(s, id, TRANSFER_ADMIT);
+  commitReadyTransfer(s);
+}
+
+function tryReserveExposure(s) {
+  if (s.manager.deficit <= 0) return false;
+  s.manager.deficit--;
+  s.manager.exposure++;
+  assertSafe(s, 'exposure reserve');
+  return true;
+}
+
+function releaseExposure(s) {
+  assert.ok(s.manager.exposure > 0, 'no exposure to release');
+  s.manager.exposure--;
+  s.manager.deficit++;
+  assertSafe(s, 'exposure release');
+}
+
+function retireQueuedReady(s, id, disposition = 'retired') {
+  const q = qState(s, id);
+  assert.equal(q.state, 'queued');
+  q.state = disposition;
+  q.ownerGeneration = 0;
+  q.claimParity = null;
+  s.manager.ready--;
+  s.manager.deficit++;
+  assertSafe(s, 'READY retirement');
 }
 
 function claimEffect(kind) {
@@ -242,12 +329,8 @@ function markTransientDisposition(s, id, disposition) {
 }
 
 function requeueRepresentedConsumedQ(s, q) {
-  q.state = 'queued';
-  q.ownerGeneration = 0;
-  q.claimParity = null;
-  delete q.disposition;
-  s.manager.ready++;
-  s.manager.deficit--; // restored READY coverage
+  beginReadyTransfer(s, q.id, TRANSFER_REQUEUE);
+  commitReadyTransfer(s);
   s.manager.recoveryRmw++;
 }
 
@@ -518,6 +601,68 @@ test('deferred READY accounting is one-sided before harvest: it can under-admit 
   assert.equal(sched.manager.deficit, trueDeficit(sched), 'scheduler claim net D is zero even before READY harvest');
   managerHarvest(sched);
   assertStableExact(sched);
+});
+
+test('manager READY transfer reserves D before publication and blocks exposure in the transfer gap', () => {
+  const admission = model({ outsideAvailable: 1 });
+  beginReadyTransfer(admission, 'new-q', TRANSFER_ADMIT);
+  assert.equal(admission.manager.deficit, 0);
+  assert.equal(tryReserveExposure(admission), false, 'reserved READY coverage must block exposure before q publication');
+  assertSafe(admission, 'admission transfer gap');
+  commitReadyTransfer(admission);
+  assert.equal(qState(admission, 'new-q').state, 'queued');
+  assertStableExact(admission, 'admission committed');
+
+  const requeue = model({ outsideAvailable: 1, readyQ: ['q'] });
+  claimNormally(requeue, 'q', KIND_ACTIVE);
+  assertStableExact(requeue, 'requeue source represented');
+  beginReadyTransfer(requeue, 'q', TRANSFER_REQUEUE);
+  assert.equal(requeue.manager.deficit, 0);
+  assert.equal(tryReserveExposure(requeue), false, 'reserved requeue coverage must block exposure before q publication');
+  assertSafe(requeue, 'requeue transfer gap');
+  commitReadyTransfer(requeue);
+  assert.equal(qState(requeue, 'q').state, 'queued');
+  assertStableExact(requeue, 'requeue committed');
+});
+
+test('noncommitting READY transfers refund D exactly for stable same-session outcomes', () => {
+  const outcomes = ['exact', 'stale', 'inadmissible', 'cas-failed', 'cancelled', 'retired'];
+  for (const outcome of outcomes) {
+    const admission = model({ outsideAvailable: 1 });
+    beginReadyTransfer(admission, `new-${outcome}`, TRANSFER_ADMIT);
+    assert.equal(tryReserveExposure(admission), false, `admission ${outcome} transfer gap overgrant`);
+    refundReadyTransfer(admission);
+    assertStableExact(admission, `admission ${outcome} refunded`);
+
+    const requeue = model({ outsideAvailable: 1, readyQ: ['q'] });
+    claimNormally(requeue, 'q', KIND_ACTIVE);
+    beginReadyTransfer(requeue, 'q', TRANSFER_REQUEUE);
+    assert.equal(tryReserveExposure(requeue), false, `requeue ${outcome} transfer gap overgrant`);
+    refundReadyTransfer(requeue, { disposition: outcome });
+    assert.equal(qState(requeue, 'q').state, outcome);
+    assertStableExact(requeue, `requeue ${outcome} refunded`);
+  }
+});
+
+test('committed READY retirement releases coverage exactly after the transfer has completed', () => {
+  const admission = model({ outsideAvailable: 1 });
+  managerAdmitReady(admission, 'q');
+  retireQueuedReady(admission, 'q', 'cancelled');
+  assertStableExact(admission, 'admitted q cancelled');
+
+  const requeue = model({ outsideAvailable: 1, readyQ: ['q'] });
+  claimNormally(requeue, 'q', KIND_ACTIVE);
+  requeueRepresentedConsumedQ(requeue, qState(requeue, 'q'));
+  retireQueuedReady(requeue, 'q', 'retired');
+  assertStableExact(requeue, 'requeued q retired');
+});
+
+test('exposure reservation remains exact outside a manager transfer and is reversible', () => {
+  const s = model({ outsideAvailable: 1 });
+  assert.equal(tryReserveExposure(s), true);
+  assertStableExact(s, 'exposure reserved');
+  releaseExposure(s);
+  assertStableExact(s, 'exposure released');
 });
 
 test('NEES accounting: normal claim uses one worker-ledger RMW but adds one transient qExecution finalization', () => {
