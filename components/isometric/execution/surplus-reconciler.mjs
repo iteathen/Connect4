@@ -4,7 +4,7 @@ import { IsometricState } from '../state.mjs';
 import { FRONTIER_WORDS } from '../profile.mjs';
 import {
   CTRL_ABORT, CTRL_FAILURE, CTRL_OCC_NEXT, CTRL_PUB_WAKE, CTRL_SESSION,
-  CTRL_SURPLUS_CREDITS, CTRL_SURPLUS_RESERVED, CTRL_WORK_NEXT, CTRL_WORK_WAKE,
+  CTRL_SURPLUS_CREDITS, CTRL_SURPLUS_RESERVED, CTRL_WORK_NEXT,
   MAX_MOVES, OCC_EXACT, OCC_LINKED, OCC_PUBLISHED, OCC_RETIRED, OCC_UNUSED,
   OCC_ROLE_CONTINUATION, PRIORITY_BANDS,
   PUB_CONTINUATION_START, PUB_EXACT, PUB_FAILURE, PUB_OCCURRENCE, PUB_OCCURRENCE_EXACT,
@@ -66,7 +66,7 @@ class SurplusReconciler {
     this.occQ=new Int32Array(this.shared.occurrenceCapacity);this.occQ.fill(-1);
     this.occNext=new Int32Array(this.shared.occurrenceCapacity);this.occNext.fill(-1);
 
-    this.rootQ=-1;this.rootWork=-1;this.activeWorkCount=0;this.executionPermits=0;
+    this.rootQ=-1;this.rootWork=-1;this.activeWorkCount=0;
     this.seenDead=new Uint8Array(this.shared.workerCount);
     this.started=performance.now();this.lastProgress=this.started;
     this.metrics={
@@ -79,7 +79,7 @@ class SurplusReconciler {
       maxActiveWork:0,runningContinuations:0,duplicateRunningContinuations:0,
       continuationExact:0,qReclaims:0,exactQEvictions:0,qHashRebuilds:0,
       workSlotReclaims:0,maxActiveCanonicalQ:0,
-      managerDemandAccepted:0,managerDemandReturned:0,managerDemandDirect:0,
+      managerDemandAccepted:0,managerDemandRefreshes:0,managerDemandCreditHighWater:0,
       replayPoolCompactions:0,maxReplayClasses:this.pool.classCount,
     };
   }
@@ -281,38 +281,40 @@ class SurplusReconciler {
       Atomics.add(this.shared.control,CTRL_SURPLUS_RESERVED,1);
       throw new Error('surplus occurrence lacks Branch Manager execution permit');
     }
-    this.executionPermits++;
     this.metrics.managerDemandAccepted++;
   }
 
-  takeDirectPermit(){
-    for(;;){
-      const available=Atomics.load(this.shared.control,CTRL_SURPLUS_CREDITS);
-      if(available<=0)return false;
-      if(Atomics.compareExchange(
-        this.shared.control,CTRL_SURPLUS_CREDITS,available,available-1,
-      )===available){
-        this.executionPermits++;
-        this.metrics.managerDemandDirect++;
-        return true;
-      }
-    }
-  }
+  refreshDemandCredits(){
+    // Branch Manager owns backpressure. Credits reflect actual idle evaluators
+    // not already targeted by READY work, minus branch publications consumed
+    // by workers but not yet reconciled. Workers never scan peer-idle state.
+    let idle=0,ready=0;
+    for(let worker=0;worker<this.shared.workerCount;worker++)
+      idle+=Number(Atomics.load(this.shared.workerIdle,worker)!==0);
+    const allocated=Math.min(
+      this.shared.workCapacity,Atomics.load(this.shared.control,CTRL_WORK_NEXT),
+    );
+    for(let work=0;work<allocated;work++)
+      ready+=Number(Atomics.load(this.shared.workState,work)===WORK_READY);
+    const reserved=Atomics.load(this.shared.control,CTRL_SURPLUS_RESERVED);
+    const desired=Math.max(0,idle-ready-reserved);
 
-  returnUnusedPermits(){
-    const count=this.executionPermits;
-    if(count<=0)return;
-    this.executionPermits=0;
-    Atomics.add(this.shared.control,CTRL_SURPLUS_CREDITS,count);
-    Atomics.add(this.shared.control,CTRL_WORK_WAKE,1);
-    Atomics.notify(this.shared.control,CTRL_WORK_WAKE,Infinity);
-    this.metrics.managerDemandReturned+=count;
+    for(;;){
+      const current=Atomics.load(this.shared.control,CTRL_SURPLUS_CREDITS);
+      if(current===desired)break;
+      if(Atomics.compareExchange(
+        this.shared.control,CTRL_SURPLUS_CREDITS,current,desired,
+      )===current)break;
+    }
+    this.metrics.managerDemandRefreshes++;
+    this.metrics.managerDemandCreditHighWater=Math.max(
+      this.metrics.managerDemandCreditHighWater,desired,
+    );
+    return desired;
   }
 
   releaseExecutionCapacity(){
-    if(this.activeWorkCount<=0)return;
-    this.activeWorkCount--;
-    this.executionPermits++;
+    if(this.activeWorkCount>0)this.activeWorkCount--;
   }
 
   retireReadyWork(q,work){
@@ -369,7 +371,18 @@ class SurplusReconciler {
   refillExecution(){
     let admitted=0;
     while(this.activeWorkCount<this.shared.workerCount){
-      if(this.executionPermits===0&&!this.takeDirectPermit())break;
+      // A READY record already targets one idle worker. Admit another helper
+      // only when Branch Manager can see an additional actually-idle evaluator.
+      let idle=0,ready=0;
+      for(let worker=0;worker<this.shared.workerCount;worker++)
+        idle+=Number(Atomics.load(this.shared.workerIdle,worker)!==0);
+      const allocated=Math.min(
+        this.shared.workCapacity,Atomics.load(this.shared.control,CTRL_WORK_NEXT),
+      );
+      for(let work=0;work<allocated;work++)
+        ready+=Number(Atomics.load(this.shared.workState,work)===WORK_READY);
+      if(ready>=idle)break;
+
       let bestQ=-1,bestBand=-1,bestOcc=-1;
       for(let q=0;q<this.qCount;q++){
         if(!this.qAlive[q]||this.qExact[q]||this.qDemand[q]===0||this.qWork[q]>=0||this.liveContinuation(q)>=0)continue;
@@ -378,10 +391,9 @@ class SurplusReconciler {
         if(band>bestBand){bestQ=q;bestBand=band;bestOcc=occ;if(band===PRIORITY_BANDS-1)break;}
       }
       if(bestQ<0)break;
-      this.executionPermits--;
       this.qPriority[bestQ]=bestBand;this.createWork(bestQ,bestOcc);admitted++;
     }
-    this.returnUnusedPermits();
+    this.refreshDemandCredits();
     return admitted;
   }
 
@@ -823,9 +835,8 @@ class SurplusReconciler {
     const base=work*MAX_MOVES;for(let i=0;i<this.rootPly;i++)this.shared.workPath[base+i]=this.rootMoves[i];
     Atomics.store(this.shared.workPathLength,work,this.rootPly);
     this.qWork[this.rootQ]=work;this.rootWork=work;this.activeWorkCount=1;
-    this.executionPermits=0;
     Atomics.store(this.shared.control,CTRL_SURPLUS_RESERVED,0);
-    Atomics.store(this.shared.control,CTRL_SURPLUS_CREDITS,Math.max(0,this.shared.workerCount-1));
+    Atomics.store(this.shared.control,CTRL_SURPLUS_CREDITS,0);
     this.metrics.maxActiveWork=1;
     Atomics.store(this.shared.workState,work,WORK_READY);
     if(!enqueueWork(this.shared,work,gen,7))throw new Error('ISOMAX_SURPLUS_QUEUE_CAPACITY');
@@ -838,7 +849,6 @@ class SurplusReconciler {
       metrics:{...this.metrics},qCount:this.qActiveCount,qHighWater:this.qCount,activeWorkCount:this.activeWorkCount,
       surplusCredits:Atomics.load(this.shared.control,CTRL_SURPLUS_CREDITS),
       surplusReserved:Atomics.load(this.shared.control,CTRL_SURPLUS_RESERVED),
-      managerExecutionPermits:this.executionPermits,
       workAllocated:Math.min(this.shared.workCapacity,Atomics.load(this.shared.control,CTRL_WORK_NEXT)),
       occurrenceAllocated:Math.min(this.shared.occurrenceCapacity,Atomics.load(this.shared.control,CTRL_OCC_NEXT)),
       replayClasses:this.pool.classCount,
@@ -857,6 +867,7 @@ class SurplusReconciler {
           if(Atomics.load(this.shared.control,CTRL_SESSION)!==SESSION_RUNNING)break;
         }
         this.processWorkerDeaths();
+        this.refreshDemandCredits();
         const now=performance.now();
         if(now-this.lastProgress>=this.progressIntervalMs){
           parentPort.postMessage({type:'surplus-progress',snapshot:this.snapshot()});this.lastProgress=now;
