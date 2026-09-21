@@ -80,6 +80,12 @@ jobs:
               ;;
 
             pull_request)
+              head_repository="$(jq -r '.pull_request.head.repo.full_name // empty' "$GITHUB_EVENT_PATH")"
+              if [[ "$head_repository" != "$REPOSITORY" ]]; then
+                echo "::notice::External-fork PR wake is handled by sparse security reconciliation; no privileged event path is used."
+                echo "route=false" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
               source_number="$(jq -r '.pull_request.number' "$GITHUB_EVENT_PATH")"
               source_url="$(jq -r '.pull_request.html_url' "$GITHUB_EVENT_PATH")"
               source_ref="pr:$source_number"
@@ -88,6 +94,12 @@ jobs:
               ;;
 
             pull_request_review)
+              head_repository="$(jq -r '.pull_request.head.repo.full_name // empty' "$GITHUB_EVENT_PATH")"
+              if [[ "$head_repository" != "$REPOSITORY" ]]; then
+                echo "::notice::External-fork review wake is handled by sparse security reconciliation; no privileged event path is used."
+                echo "route=false" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
               source_number="$(jq -r '.pull_request.number' "$GITHUB_EVENT_PATH")"
               source_url="$(jq -r '.review.html_url // .pull_request.html_url' "$GITHUB_EVENT_PATH")"
               source_ref="pr-review:$source_number"
