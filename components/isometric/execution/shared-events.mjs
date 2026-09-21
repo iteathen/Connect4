@@ -107,7 +107,7 @@ export function publishBranch(events, workerId, parentQ, parentGeneration, mask,
 }
 
 /** Manager-only consumer. out header: parentQ,parentGen,mask,retained,maximizing,runToken,slot. */
-export function consumeBranch(events, workerId, out) {
+export function consumeBranch(events, workerId, out, childQ, childGeneration, childEval) {
   const read = Atomics.load(events.branchRead, workerId);
   if (read === Atomics.load(events.branchWrite, workerId)) return false;
   const local = read & (events.branchCapacity - 1);
@@ -119,6 +119,12 @@ export function consumeBranch(events, workerId, out) {
   out[4] = events.branchMaximizing[slot];
   out[5] = events.branchRunToken[slot];
   out[6] = slot;
+  const base = slot * MAX_ACTIONS;
+  for (let action = 0; action < MAX_ACTIONS; action++) {
+    childQ[action] = events.branchChildQ[base + action];
+    childGeneration[action] = events.branchChildGeneration[base + action];
+    childEval[action] = events.branchChildEval[base + action];
+  }
   Atomics.store(events.branchRead, workerId, read + 1);
   return true;
 }
