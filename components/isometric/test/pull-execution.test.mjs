@@ -210,6 +210,27 @@ test('decentralized pull requeues dead-worker execution and still returns exact 
     }
   });
 
+test('retained pull re-expands a canonical q after orphan demand returns',
+  {timeout:20000}, async () => {
+    // This root previously reached root exact=1 while all remaining witness
+    // dependencies were non-exact DECISION/PASSTHROUGH shells whose live
+    // outgoing edges had been pruned while orphaned.
+    const moves=Array.from('2764575754141616756745653641', character => Number(character)-1);
+    const expected=new IsoMaxSolver().solveMoves(moves);
+    const manager=new IsoMaxPullBranchManager({
+      workers:2,maxTasks:65536,maxEdges:65536*7,
+      workCapacity:2048,queueCapacity:4096,publicationCapacity:16384,
+      occurrenceCapacity:16384,
+    });
+    try{
+      const actual=await manager.solveMoves(moves,{timeoutMs:10000});
+      assert.equal(actual.value,expected.value);
+      assert.equal(actual.move,expected.move);
+      assert.ok((actual.metrics.orphanExpansionResets??0)>0,
+        'regression fixture must exercise non-exact orphan expansion reset');
+    }finally{await manager.close();}
+  });
+
 test('decentralized pull capacity exhaustion fails closed without manufacturing WDL',
   {timeout:10000}, async () => {
     const manager = new IsoMaxPullBranchManager({

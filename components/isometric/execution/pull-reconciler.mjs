@@ -170,6 +170,7 @@ class PullReconciler {
       duplicateWorkerResets:0,
       retainedContinuations:0,
       workerDeathsObserved:0,
+      orphanExpansionResets:0,
       workerDeathRequeues:0,
       demandResurrectionRequeues:0,
       rematerializedExecutions:0,
@@ -622,6 +623,7 @@ class PullReconciler {
   }
 
   dropOutgoing(q) {
+    const resetExpansion = !this.qExact[q];
     for (let edge = this.qOutgoingHead[q]; edge !== -1; edge = this.edgeNextOut[edge]) {
       if (!this.edgeLive[edge]) continue;
       this.edgeLive[edge] = 0;
@@ -634,7 +636,19 @@ class PullReconciler {
         this.ensureWorkPriority(child);
       }
     }
+
+    // Canonical q identity outlives demand, but a non-exact expansion does not
+    // once its live edges are pruned. If the same q later re-enters the live
+    // dependency graph, it must be executable again rather than remaining a
+    // DECISION/PASSTHROUGH shell with no outgoing edges.
+    this.qOutgoingHead[q] = -1;
+    this.qOutgoingTail[q] = -1;
     this.qUnresolved[q] = 0;
+    if (resetExpansion) {
+      this.qForm[q] = Q_UNEXPANDED;
+      this.qDirectMove[q] = -1;
+      this.metrics.orphanExpansionResets++;
+    }
   }
 
   completeQ(q, value, publishingSlot = -1) {
