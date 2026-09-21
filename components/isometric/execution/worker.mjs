@@ -24,6 +24,9 @@ import {
   WC_FORCED_TRANSITIONS,
   WC_FRONTIERS,
   WC_NATIVE_EXACT,
+  WC_LOCAL_SIBLING_RETURNS,
+  WC_PARENT_LOCAL_COMPLETIONS,
+  WC_PARENT_REMOTE_YIELDS,
   WC_Q_CREATED,
   WC_Q_REUSED,
   WC_QUEUE_EMPTY,
@@ -182,7 +185,6 @@ class SharedBranchDistributor {
     }
     if (count === 0) throw new Error('ongoing shared-TT state has no legal moves');
 
-    // Outdegree one is deterministic structure, not a global scheduling event.
     if (count === 1) {
       const column = this.columns[base];
       state.applyUnchecked(column);
@@ -233,9 +235,6 @@ class SharedBranchDistributor {
     let retainedOrder = -1;
     let retainedEval = -1;
 
-    // If another execution has already solved the deterministic endpoint, the
-    // descriptor still publishes start -> decision so exact value/witness
-    // propagation is canonical. No child work is manufactured.
     if (readExactQ(shared, decisionQ, decisionGeneration) === Q_EXACT_UNKNOWN) {
       for (let orderIndex = 0; orderIndex < count; orderIndex++) {
         const column = this.columns[base + orderIndex];
@@ -286,8 +285,9 @@ class SharedBranchDistributor {
     runtime.count(WC_BRANCH_DESCRIPTORS);
     runtime.wakeManager();
 
-    // The q currently represented by this recursive frame ceases to own CPU
-    // once its dependency frontier is globally visible.
+    // Shared execution ownership may move to child q records while this native
+    // parent frame remains disposable proof state. Keeping the frame is not a
+    // second semantic authority: exact q remains committed through shared TT.
     if (runtime.executionQ === startQ
         && runtime.executionGeneration === startGeneration
         && releaseRunningQ(shared, startQ, startGeneration, workerId)) {
@@ -295,23 +295,83 @@ class SharedBranchDistributor {
       runtime.executionGeneration = 0;
     }
 
-    if (retainedOrder < 0) throw yieldExecution;
+    if (retainedOrder < 0) {
+      const exact = readExactQ(shared, decisionQ, decisionGeneration);
+      if (exact !== Q_EXACT_UNKNOWN) {
+        runtime.count(WC_SHARED_EXACT_CONSUMED);
+        runtime.count(WC_PARENT_LOCAL_COMPLETIONS);
+        return exact;
+      }
+      runtime.count(WC_PARENT_REMOTE_YIELDS);
+      throw yieldExecution;
+    }
 
-    // Only the highest-eval child remains local. Every posted sibling belongs
-    // to the shared dependency/priority system and is never revisited here.
     runtime.count(WC_RETAINED_DESCENTS);
-    const retainedColumn = this.columns[base + retainedOrder];
-    this.solveOne(
-      solver,
-      state,
-      retainedColumn,
-      this.childQ[base + retainedAction],
-      this.childGeneration[base + retainedAction],
-      this.childOrientation[base + retainedAction],
-    );
+    let best = maximizing ? -1 : 1;
+    let unresolved = false;
+    let sawValue = false;
 
-    // Parent reduction is BranchManager/shared-TT work. Returning a local best
-    // would reintroduce a second dependency authority, so unwind this claim.
+    // Retained child first, then every remaining sibling in the same local
+    // order. solveOne() uses enterLocalQ(), so an unclaimed/QUEUED sibling is
+    // reclaimed atomically without replay; a remotely RUNNING sibling yields
+    // only that child and lets this frame consume other exact/local evidence.
+    for (let pass = 0; pass < count; pass++) {
+      const orderIndex = pass === 0
+        ? retainedOrder
+        : (pass <= retainedOrder ? pass - 1 : pass);
+      const column = this.columns[base + orderIndex];
+      const action = this.actions[base + orderIndex];
+      const qIndex = this.childQ[base + action];
+      const generation = this.childGeneration[base + action];
+      const orientation = this.childOrientation[base + action];
+
+      let childValue;
+      try {
+        childValue = this.solveOne(
+          solver,
+          state,
+          column,
+          qIndex,
+          generation,
+          orientation,
+        );
+      } catch (error) {
+        if (error !== yieldExecution) throw error;
+        unresolved = true;
+        continue;
+      }
+
+      sawValue = true;
+      if (pass !== 0) runtime.count(WC_LOCAL_SIBLING_RETURNS);
+
+      if (maximizing) {
+        if (childValue > best) best = childValue;
+        if (best >= upper) {
+          runtime.count(WC_PARENT_LOCAL_COMPLETIONS);
+          return best;
+        }
+      } else {
+        if (childValue < best) best = childValue;
+        if (best <= lower) {
+          runtime.count(WC_PARENT_LOCAL_COMPLETIONS);
+          return best;
+        }
+      }
+    }
+
+    if (sawValue && !unresolved) {
+      runtime.count(WC_PARENT_LOCAL_COMPLETIONS);
+      return best;
+    }
+
+    const exact = readExactQ(shared, decisionQ, decisionGeneration);
+    if (exact !== Q_EXACT_UNKNOWN) {
+      runtime.count(WC_SHARED_EXACT_CONSUMED);
+      runtime.count(WC_PARENT_LOCAL_COMPLETIONS);
+      return exact;
+    }
+
+    runtime.count(WC_PARENT_REMOTE_YIELDS);
     throw yieldExecution;
   }
 }
