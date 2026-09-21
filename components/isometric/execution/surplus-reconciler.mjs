@@ -29,7 +29,7 @@ function hashQ(a,b,c){
   return mix32(h);
 }
 
-class SurplusReconciler {
+class SurplusBranchManagerLoop {
   constructor(message){
     this.shared=openSurplusPool(message.pool);
     this.rootMoves=message.moves;this.rootPly=this.rootMoves.length;
@@ -297,6 +297,9 @@ class SurplusReconciler {
   }
 
   createWork(q,occ){
+    // This does not create semantic work. The worker already posted the
+    // occurrence. BranchManager materializes that posted occurrence into the
+    // bounded READY queue after TT canonicalization/dedupe/priority.
     const slot=allocateWork(this.shared,this.workScratch);
     if(slot<0)throw new Error('ISOMAX_SURPLUS_WORK_CAPACITY');
     const gen=this.workScratch[1];
@@ -325,6 +328,9 @@ class SurplusReconciler {
   }
 
   refillExecution(){
+    // BranchManager owns both TT and work queue. It organizes only unresolved
+    // worker-posted occurrences already present in qOccHead; it never descends
+    // game state to manufacture children.
     let admitted=0;
     while(this.activeWorkCount<this.shared.workerCount){
       let bestQ=-1,bestBand=-1,bestOcc=-1;
@@ -826,7 +832,7 @@ parentPort.on('message',message=>{
   if(message?.type!=='isomax-surplus-reconcile'){
     parentPort.postMessage({type:'surplus-reconciler-error',message:'unsupported surplus reconciler message'});return;
   }
-  try{new SurplusReconciler(message).run();}
+  try{new SurplusBranchManagerLoop(message).run();}
   catch(error){parentPort.postMessage({type:'surplus-reconciler-error',message:error?.message??String(error)});}
 });
 parentPort.postMessage({type:'surplus-reconciler-idle'});

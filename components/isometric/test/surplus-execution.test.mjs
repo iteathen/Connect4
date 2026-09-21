@@ -248,7 +248,7 @@ test('one-worker surplus profile degenerates to native recursive DFS',
       assert.ok(worker.unpublishedLocal>0,
         'single worker must keep non-primary siblings in native local recursion');
       assert.equal(worker.demandReservations,0,
-        'single worker cannot reserve external demand');
+        'workers never own global demand/backpressure policy');
       assert.equal(worker.surplusRemote,0,'single worker cannot claim a remote surplus helper');
       assert.equal(worker.helperReplayApplies,0,'single worker must not replay helper work');
       assert.equal(worker.helperWaits,0,'single worker must not wait for a helper');
@@ -289,12 +289,18 @@ test('surplus helpers steal alternatives while the current worker keeps local re
       assert.ok(claims>=2,
         'an available helper must claim globally exposed surplus work; worker='+
         JSON.stringify(actual.metrics.worker)+' reconciler='+JSON.stringify(actual.metrics));
-      assert.ok(actual.metrics.worker.demandReservations>0,
-        'surplus publication must be backed by explicit idle-worker demand');
+      assert.equal(actual.metrics.worker.demandReservations,0,
+        'worker must not perform peer-idle/backpressure scheduling policy');
       assert.ok(actual.metrics.worker.surplusRemote>0,
         'a non-root surplus opportunity must be claimed as helper work');
       assert.ok(actual.metrics.worker.helperReplayApplies>0,
         'remote helper execution must report its physical replay cost');
+      assert.equal(actual.metrics.worker.helperWaits,0,
+        'worker recursion must not block on helper/BranchManager arbitration');
+      assert.ok(actual.metrics.worker.occurrencesPublished>actual.metrics.canonicalWorkCreated,
+        'workers must produce surplus before BranchManager selects queue entries');
+      assert.ok(actual.metrics.canonicalWorkCreated<=actual.metrics.worker.occurrencesPublished,
+        'BranchManager may organize posted surplus but must never manufacture semantic work');
       assert.ok(actual.metrics.maxActiveWork<=2,
         'two-worker execution population must remain bounded by worker capacity');
       assert.ok(actual.metrics.worker.pathReplayApplies < actual.metrics.worker.branches * moves.length,
