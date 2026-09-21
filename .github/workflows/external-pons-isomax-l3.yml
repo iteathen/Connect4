@@ -1,0 +1,47 @@
+name: external-pons-isomax-l3
+
+on:
+  pull_request:
+    branches: [solver/isometric]
+    paths:
+      - "evidence/external/pons-isomax-parent-wdl.mjs"
+      - ".github/workflows/external-pons-isomax-l3.yml"
+      - "reference/oracles/solved-actions-v1.meta.json"
+      - "reference/oracles/solved-actions-v1.tsv"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-pons-isomax-l3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qualify:
+    name: Pons Test_L3_R1 parent WDL
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 26.7.0
+      - name: Run external-grounded IsoMax qualification
+        env:
+          C4_SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+          C4_EXTERNAL_LIMIT: "64"
+        run: node evidence/external/pons-isomax-parent-wdl.mjs pons-isomax-l3-result.json
+      - name: Upload frozen result
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: pons-isomax-l3-result
+          path: pons-isomax-l3-result.json
+          if-no-files-found: error
+          retention-days: 30
