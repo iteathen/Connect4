@@ -82,6 +82,14 @@ function qConvergenceFixture(){
   return {moves,columns:[2,4],expected:new IsoMaxSolver().solveMoves(moves)};
 }
 
+test('surplus default worker storage is sized per worker rather than divided globally', () => {
+  for(const workers of [1,2,4]){
+    const manager=new IsoMaxSurplusBranchManager({workers});
+    assert.equal(manager.workerClassReserve,524288);
+    assert.equal(manager.workerEntryReserve,1048576);
+  }
+});
+
 test('surplus helper work arena reuses one slot only after terminal reconciliation', () => {
   const descriptor=createSurplusPool({
     workerCount:1,workCapacity:1,occurrenceCapacity:2,queueCapacity:4,publicationCapacity:4,
