@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "repository": "iteathen/Connect4",
+  "updated": "2026-09-21",
+  "active_campaigns": [
+    {
+      "campaign_id": "isomax-102",
+      "status": "active",
+      "scope": {
+        "solver": "IsoMax",
+        "durable_lane": "solver/isometric",
+        "forbidden_cross_scope": [
+          "BSFP"
+        ]
+      },
+      "communication": {
+        "kind": "github_issue",
+        "issue": 102,
+        "url": "https://github.com/iteathen/Connect4/issues/102",
+        "transport_profile": "AX/GH-102",
+        "transport_profile_comment": "https://github.com/iteathen/Connect4/issues/102#issuecomment-5760034583",
+        "live_state_authority": "issue_thread"
+      },
+      "startup": {
+        "read_channel_before_substantive_work": true,
+        "recover_latest_director_exchange": true,
+        "recover_latest_role_exchange": true,
+        "announce_rejoin": true,
+        "monitoring_preference": "condition_watch_if_runtime_supports_it",
+        "monitoring_fallback": "read_channel_before_and_after_each_substantive_work_unit"
+      },
+      "current_surfaces": {
+        "implementation_branch": "work/isomax-surplus-pull-102-corrected",
+        "draft_pr": 113,
+        "prototype_branch": "prototype/isomax-exposure-deficit-latch-102"
+      },
+      "roles": [
+        {
+          "role_id": "isomax-director",
+          "role": "project-director",
+          "last_session_handle": "IX-DIRECTOR",
+          "purpose": "Keep the multi-agent effort on course and effective; balance research discipline with action; convert supported research into executable prototypes, production code, qualification, and cleanup.",
+          "recovery_behavior": "Read the full active coordination frontier, reconcile overlapping claims, restore role assignments, push stalled supported work toward implementation, and keep D/performance work behind correctness/lifetime gates."
+        },
+        {
+          "role_id": "isomax-implementation",
+          "role": "planning-implementation",
+          "last_session_handle": "IX-5E9C41B7",
+          "purpose": "Turn supported designs into clean IsoMax implementation with strong planning, NEES discipline, structural performance awareness, and minimal redundant mechanism.",
+          "recovery_behavior": "Recover the latest active implementation claim before writing; prefer structural/synergistic improvements over compensating mechanisms; do not preserve superseded garbage or compatibility layers without a beneficiary."
+        },
+        {
+          "role_id": "isomax-reviewer",
+          "role": "critical-review-validation",
+          "last_session_handle": "IX-C0A17E42",
+          "purpose": "Challenge questionable ideas, independently double-check other agents' findings, catch nuance, enforce NEES/efficiency, and resist dirty or redundant code paths.",
+          "recovery_behavior": "Recover the newest proposal/implementation under review; seek the smallest falsifier or counterexample; validate independently rather than duplicating implementation ownership."
+        },
+        {
+          "role_id": "isomax-research",
+          "role": "research-creative",
+          "last_session_handle": "IX-A17E5C42",
+          "purpose": "Research broadly and creatively, connect abstract structures, consult canonical research and external work when useful, and exploit structural synergy including IsoGraph DP/NEI/QU where justified.",
+          "recovery_behavior": "Recover the current unresolved research question; do not open a new candidate family while an existing executable prototype is awaiting falsification; convert promising abstractions into testable mechanisms."
+        }
+      ],
+      "role_state_rule": "The issue thread owns live role/task state. Registry roles are durable purpose/recovery definitions only; last_session_handle is historical and may be replaced after restart."
+    }
+  ]
+}
