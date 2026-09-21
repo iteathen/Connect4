@@ -27,6 +27,8 @@ import {
   WC_LOCAL_SIBLING_RETURNS,
   WC_PARENT_LOCAL_COMPLETIONS,
   WC_PARENT_REMOTE_YIELDS,
+  WC_PRIVATE_BRANCHES,
+  WC_EXPOSURE_PERMITS,
   WC_Q_CREATED,
   WC_Q_REUSED,
   WC_QUEUE_EMPTY,
@@ -40,6 +42,7 @@ import {
   WORKER_COUNTER_WORDS,
   addQRef,
   claimHighestQ,
+  completeExposure,
   enterLocalQ,
   enterQueuedQ,
   openSharedTT,
@@ -47,6 +50,7 @@ import {
   publishExactQ,
   readExactQ,
   releaseRunningQ,
+  tryConsumeExposurePermit,
 } from './shared-tt.mjs';
 import {
   EVENT_DUPLICATE,
@@ -199,6 +203,34 @@ class SharedBranchDistributor {
       }
     }
 
+    // Branch exposure is globally demand-issued. Without a manager permit,
+    // stay in native recursion; descendants may expose later if parallel demand
+    // appears. This keeps shared visibility proportional to usable CPU demand.
+    if (!tryConsumeExposurePermit(shared)) {
+      runtime.count(WC_PRIVATE_BRANCHES);
+      let best = maximizing ? -1 : 1;
+      for (let orderIndex = 0; orderIndex < count; orderIndex++) {
+        const column = this.columns[base + orderIndex];
+        state.applyUnchecked(column);
+        solver.metrics.recursiveChildren++;
+        let value;
+        try {
+          value = solver.solveNode(state);
+        } finally {
+          state.undo();
+        }
+        if (maximizing) {
+          if (value > best) best = value;
+          if (best >= upper) return best;
+        } else {
+          if (value < best) best = value;
+          if (best <= lower) return best;
+        }
+      }
+      return best;
+    }
+
+    runtime.count(WC_EXPOSURE_PERMITS);
     runtime.count(WC_FRONTIERS);
     for (let action = 0; action < 7; action++) {
       this.childQ[base + action] = -1;
@@ -211,7 +243,13 @@ class SharedBranchDistributor {
     const startGeneration = runtime.activeGeneration;
     const startOrientation = runtime.activeOrientation;
     const startBasePly = runtime.activeBasePly;
-    const branchPosition = beginBranch(runtime.events, workerId);
+    let branchPosition;
+    try {
+      branchPosition = beginBranch(runtime.events, workerId);
+    } catch (error) {
+      completeExposure(shared);
+      throw error;
+    }
 
     let decisionQ;
     let decisionGeneration;
@@ -475,6 +513,7 @@ class RetainedPullWorker {
   }
 
   finishSession() {
+    if (this.shared) Atomics.store(this.shared.workerIdle, workerId, 0);
     while (this.state.ply > 0) this.state.undo();
     this.solver.nextControlNode = Infinity;
     this.solver.pool.releaseSearchStorage();
@@ -595,17 +634,27 @@ class RetainedPullWorker {
   runSession(message) {
     this.prepareSession(message);
     const shared = this.shared;
+    Atomics.store(shared.workerIdle, workerId, 0);
     try {
       while (Atomics.load(shared.control, CTRL_SESSION) === SESSION_RUNNING
           && !Atomics.load(shared.control, CTRL_ABORT)) {
+        // Sample wake before inspection so an enqueue racing the empty probe
+        // makes the subsequent wait return immediately.
+        const wake = Atomics.load(shared.control, CTRL_WORKER_WAKE);
         if (claimHighestQ(shared, workerId, this.claim, this.queueScratch)) {
+          if (Atomics.exchange(shared.workerIdle, workerId, 0) !== 0) {
+            this.wakeManager();
+          }
           this.count(WC_CLAIMS);
           this.count(WC_CLAIM_BAND_BASE + this.claim[2]);
           this.runClaim(this.claim[0], this.claim[1], this.claim[2]);
           continue;
         }
+
         this.count(WC_QUEUE_EMPTY);
-        const wake = Atomics.load(shared.control, CTRL_WORKER_WAKE);
+        if (Atomics.exchange(shared.workerIdle, workerId, 1) === 0) {
+          this.wakeManager();
+        }
         if (Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING
             || Atomics.load(shared.control, CTRL_ABORT)) break;
         Atomics.wait(shared.control, CTRL_WORKER_WAKE, wake, 10);
