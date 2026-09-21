@@ -31,6 +31,8 @@ export const CTRL_EDGE_NEXT = 15;
 export const CTRL_EDGE_FREE_HEAD = 16;
 export const CTRL_ROOT_MOVE_READY = 17;
 export const CTRL_READY_COUNT = 18;
+export const CTRL_EXPOSURE_PERMITS = 19;
+export const CTRL_EXPOSURE_INFLIGHT = 20;
 export const CTRL_WORDS = 32;
 
 export const WORKER_COUNTER_WORDS = 32;
@@ -57,6 +59,8 @@ export const WC_CLAIM_BAND_BASE = 19;
 export const WC_LOCAL_SIBLING_RETURNS = 27;
 export const WC_PARENT_LOCAL_COMPLETIONS = 28;
 export const WC_PARENT_REMOTE_YIELDS = 29;
+export const WC_PRIVATE_BRANCHES = 30;
+export const WC_EXPOSURE_PERMITS = 31;
 
 export const SESSION_IDLE = 0;
 export const SESSION_RUNNING = 1;
@@ -179,6 +183,7 @@ export function createSharedTT({
     workerReset: sab(Int32Array, workerCount),
     workerDeath: sab(Int32Array, workerCount),
     workerRecovery: sab(Int32Array, workerCount),
+    workerIdle: sab(Int32Array, workerCount),
     workerCounters: sab(Int32Array, workerCount * WORKER_COUNTER_WORDS),
   };
 
@@ -258,6 +263,7 @@ export function openSharedTT(descriptor) {
     workerReset: view(Int32Array, descriptor.workerReset),
     workerDeath: view(Int32Array, descriptor.workerDeath),
     workerRecovery: view(Int32Array, descriptor.workerRecovery),
+    workerIdle: view(Int32Array, descriptor.workerIdle),
     workerCounters: view(Int32Array, descriptor.workerCounters),
   };
 }
@@ -710,6 +716,21 @@ export function enterLocalQ(shared, qIndex, generation, workerId) {
  * Returns workerId when claimed, another worker id when already RUNNING, and
  * -1 when exact/stale/not-yet-admitted.
  */
+export function tryConsumeExposurePermit(shared) {
+  while (true) {
+    const permits = Atomics.load(shared.control, CTRL_EXPOSURE_PERMITS);
+    if (permits <= 0) return false;
+    if (Atomics.compareExchange(
+      shared.control,
+      CTRL_EXPOSURE_PERMITS,
+      permits,
+      permits - 1,
+    ) !== permits) continue;
+    Atomics.add(shared.control, CTRL_EXPOSURE_INFLIGHT, 1);
+    return true;
+  }
+}
+
 export function enterQueuedQ(shared, qIndex, generation, workerId) {
   if (!qIsCurrent(shared, qIndex, generation)
       || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
