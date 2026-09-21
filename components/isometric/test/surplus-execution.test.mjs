@@ -279,20 +279,19 @@ test('one-worker surplus profile degenerates to native recursive DFS',
 
 test('surplus helpers steal alternatives while the current worker keeps local recursion',
   {timeout:20000}, async () => {
-    // Lifecycle control, not the hard-root economics test. Use a deterministic
-    // branchy late root that completes quickly while still giving an idle
-    // second worker real surplus to steal. Historical hard roots remain in
-    // surplus-comparison.mjs and are mandatory before promotion.
-    const {moves,expected}=branchyFixture(0x1025b,32);
+    // Nonblocking workers never pause a branch to give a helper scheduling
+    // time. Use a deterministic hard root so an independently polling worker
+    // has a real opportunity to dequeue posted surplus without any grace/wait.
+    const moves=Array.from('717657616532237625',character=>Number(character)-1);
+    const expected=new IsoMaxSolver().solveMoves(moves);
     let claims=0,branches=0;
     const manager=new IsoMaxSurplusBranchManager({
       workers:2,maxQ:65536,workCapacity:65536,occurrenceCapacity:131072,
       queueCapacity:131072,publicationCapacity:131072,
-      helperGraceMs:25,
       workerClassReserve:262144,workerEntryReserve:524288,
     });
     try{
-      const actual=await manager.solveMoves(moves,{timeoutMs:10000});
+      const actual=await manager.solveMoves(moves,{timeoutMs:20000});
       assert.equal(actual.value,expected.value);
       assert.equal(actual.move,expected.move);
       claims+=actual.metrics.worker.workClaims;
