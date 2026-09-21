@@ -169,6 +169,7 @@ class PullReconciler {
       exactDuplicateCompletions:0,
       duplicateWorkerResets:0,
       retainedContinuations:0,
+      workerDeathsObserved:0,
       workerDeathRequeues:0,
       demandResurrectionRequeues:0,
       rematerializedExecutions:0,
@@ -979,6 +980,7 @@ class PullReconciler {
       }
       if (!this.seenAlive[worker]) continue;
       this.seenAlive[worker] = 0;
+      this.metrics.workerDeathsObserved++;
       const allocated = Math.min(this.shared.workCapacity, Atomics.load(this.shared.control, CTRL_WORK_NEXT));
       for (let slot = 0; slot < allocated; slot++) {
         const state = Atomics.load(this.shared.workState, slot);
