@@ -141,6 +141,36 @@ test('stale READY ticket cannot claim a recycled work-slot generation', () => {
   assert.equal(claim[3],6);
 });
 
+test('full surplus priority lane reclaims stale tickets before capacity failure', () => {
+  const descriptor=createSurplusPool({
+    workerCount:1,workCapacity:1,occurrenceCapacity:2,queueCapacity:1,publicationCapacity:4,
+  });
+  const shared=openSurplusPool(descriptor);
+  const alloc=new Int32Array(2),claim=new Int32Array(4);
+
+  const first=allocateWork(shared,alloc),firstGeneration=alloc[1];
+  assert.equal(first,0);
+  Atomics.store(shared.workState,first,2); // WORK_READY
+  assert.equal(enqueueWork(shared,first,firstGeneration,6),true);
+
+  // Retire/recycle without consuming the queue ticket. The single-cell lane is
+  // now physically full, but its only record belongs to a dead generation.
+  Atomics.store(shared.workState,first,WORK_EXACT);
+  assert.equal(releaseWork(shared,first,firstGeneration),true);
+
+  const second=allocateWork(shared,alloc),secondGeneration=alloc[1];
+  assert.equal(second,0);
+  assert.notEqual(secondGeneration,firstGeneration);
+  Atomics.store(shared.workState,second,2); // WORK_READY
+  assert.equal(enqueueWork(shared,second,secondGeneration,6),true,
+    'bounded lane must reclaim the stale head rather than report false capacity');
+
+  assert.equal(claimHighest(shared,0,claim),true);
+  assert.equal(claim[0],second);
+  assert.equal(claim[1],secondGeneration);
+  assert.equal(claim[3],6);
+});
+
 test('surplus occurrence arena reuses one slot only under a new generation', () => {
   const descriptor=createSurplusPool({
     workerCount:1,workCapacity:4,occurrenceCapacity:1,queueCapacity:4,publicationCapacity:4,
