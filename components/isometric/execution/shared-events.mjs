@@ -1,4 +1,5 @@
 import {
+  CTRL_EXPOSURE_INFLIGHT,
   MAX_ACTIONS,
   releaseQRef,
   recycleQIfDead,
@@ -179,10 +180,12 @@ export function consumeBranch(events,workerId,out,childQ,childGeneration,childEv
 
 /** Release only q pins from a branch that never became visible. */
 export function recoverUnpublishedBranch(events,tt,workerId){
-  const count=Atomics.load(events.pendingRefCount,workerId);
-  if(count===0)return 0;
   const position=Atomics.load(events.pendingBranchPosition,workerId);
-  if(position>=0&&Atomics.load(events.branchWrite,workerId)>position){
+  if(position<0)return 0;
+  const count=Atomics.load(events.pendingRefCount,workerId);
+  if(Atomics.load(events.branchWrite,workerId)>position){
+    // Published descriptors remain manager-visible; normal consumption owns
+    // the exposure-inflight release.
     Atomics.store(events.pendingRefCount,workerId,0);
     Atomics.store(events.pendingBranchPosition,workerId,-1);
     return 0;
@@ -198,6 +201,11 @@ export function recoverUnpublishedBranch(events,tt,workerId){
   }
   Atomics.store(events.pendingRefCount,workerId,0);
   Atomics.store(events.pendingBranchPosition,workerId,-1);
+  const prior=Atomics.sub(tt.control,CTRL_EXPOSURE_INFLIGHT,1);
+  if(prior<=0){
+    Atomics.add(tt.control,CTRL_EXPOSURE_INFLIGHT,1);
+    throw new Error('IsoMax exposure inflight underflow');
+  }
   return released;
 }
 
