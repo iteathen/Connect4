@@ -1,253 +1,319 @@
-# IsoMax corrected surplus-opportunity work distribution
+# IsoMax decentralized retained-pull / shared-TT execution
 
-**Status:** implementation candidate for issue #102  
+**Status:** active implementation contract for issue #102  
 **Implementation branch:** `work/isomax-surplus-pull-102-corrected`  
-**Semantic correction authority:** `research/isograph/optimization/ISOMAX_DECENTRALIZED_PULL_102_INTERPRETATION_CORRECTION_0_1.md`  
-**NEES:** Draft 0.3 at `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c`  
+**Clean rebuild point:** `cc0519528e823b01b2dc2b46512e0a2f9768147a`  
+**NEES authority:** `iteathen/NEES@34412670878316295736799097ebb8f248a7bb50` — Draft 0.4  
 **Gameplay authority effect:** none
 
-## Governing distinction
+This document supersedes the earlier occurrence/reconciler/helper-work realization of #102. Git history preserves that experiment; active source must not preserve its duplicate lifecycle machinery.
 
-A **branch point is an opportunity-publication event, not an execution boundary**.
+## Single authority
 
-For ordered legal successors:
-
-```text
-A B C D
-
-current worker:
-    continue A in the existing native recursive stack
-
-global visibility:
-    publish B C D as surplus branch opportunities
-
-spare workers:
-    pull globally prioritized surplus work
-```
-
-The current worker does not stop merely because the position branches.
-
-## Identity domains
-
-Keep distinct:
+The governing invariant is:
 
 ```text
-physical occurrence
-canonical q_r
-running continuation occurrence
-surplus branch opportunity
-canonical helper work
-worker execution reservation
-proof identity
+shared canonical TT
+    = semantic q authority
+    + exact-value authority
+    + live execution authority
 ```
 
-Canonical q_r is used to reconcile equivalent work. It does not itself create an execution boundary.
+BranchManager organizes this table. Workers execute against this table. The global queue contains only generation-safe references into this table.
 
-Worker-local residual/chunk/class IDs remain non-portable.
-
-## Current continuation
-
-Every locally executing child is represented by a **continuation occurrence**.
-
-Publishing a continuation:
-
-- exposes its exact physical replay to canonical reconciliation;
-- does not enqueue it;
-- does not reconstruct it;
-- does not transfer execution ownership;
-- does not interrupt its native recursive stack.
-
-If another equivalent continuation or helper completes the canonical q first, the current worker may consume that exact result at the existing amortized control checkpoint and unwind only to the branch frame owning that continuation.
-
-Thus:
+There is no manager-private q table and no independent q-work object.
 
 ```text
-locality is preserved
-+
-convergence remains globally visible
+                         SHARED TT
+                 +---------------------+
+                 | exact canonical q   |
+                 | exact W/D/L         |
+                 | execution state     |
+                 | priority metadata   |
+                 | generation/liveness |
+                 | portable replay     |
+                 | compact ref state   |
+                 +----------+----------+
+                            |
+             +--------------+--------------+
+             |              |              |
+          worker A       worker B      BranchManager
+             |              |              |
+          execute         execute         organize
+          descend         descend         topology
+          expose          expose          priority
+          surplus         surplus         convergence
+             |              |              |
+             +---------- shared TT --------+
+
+global queue:
+    (qIndex, qGeneration)
+    ...
 ```
 
-## Surplus opportunity
+The queue is ordering/visibility machinery only. Replay is execution reconstruction data only. Neither is semantic authority.
 
-All non-primary legal alternatives at a genuine branch are published as surplus occurrences before the primary continuation is entered.
+## Shared q record
 
-A surplus occurrence is globally visible immediately but is **not necessarily executable**.
+The first corrected realization uses fixed/prepared shared numeric storage. One q slot owns these logical fields:
 
-This implements the required separation:
+| field | meaning |
+|---|---|
+| `generation` | slot lifetime identity; every reuse advances it |
+| `live` | whether the generation is a currently addressable q |
+| `hash` | locator only; never equality |
+| `canonicalSupport` | mirror-canonical packed support |
+| `identityFlags` | exact terminal/sentinel distinctions not expressible by residual words |
+| `p0Words[20]` | exact canonical P0 residual content |
+| `p1Words[20]` | exact canonical P1 residual content |
+| `exactCode` | UNKNOWN or exact LOSS/DRAW/WIN |
+| `execution` | NONE, QUEUED, or RUNNING(worker) in one atomic owner word |
+| `priorityClass` | coarse globally maintained scheduling class |
+| `priorityDepth` | explicit depth/cost metadata, not an opaque combined score |
+| `fanIn` | compact dependency leverage metadata |
+| `refCount` | live topology/root/execution references required for safe reuse |
+| `replayLength` | length of the retained physical reconstruction seed |
+| `replay[42]` | one portable legal-move seed for this q generation |
+| `parentHead` | manager-owned incoming dependency adjacency |
+| `childMask` / child refs | manager-owned fixed-seven-action outgoing topology when established |
+
+Storage may be struct-of-arrays physically. The table record remains the one logical owner.
+
+The exact equality relation is:
 
 ```text
-visibility > execution
+canonicalSupport equal
+AND identityFlags equal
+AND all 20 P0 uint32 words equal
+AND all 20 P1 uint32 words equal
 ```
 
-## Backpressure / execution admission
+Hash equality is insufficient.
 
-The canonical reconciler may materialize helper work only while:
+Worker-local `ResidualPool` class/chunk IDs never enter shared equality.
+
+### Canonicalization boundary
+
+Portable q construction happens only at the E2 branch/claim boundary. The worker:
+
+1. compares physical support with reflected support;
+2. if support differs, chooses the lower packed support orientation;
+3. if support is reflection-symmetric, compares exact residual content through the worker's qualified residual-pool ordering to choose the same q_r orbit orientation as `gameplayKey()`;
+4. writes the chosen residual classes into reusable 20-word P0/P1 scratch;
+5. probes/inserts the shared TT by exact full content.
+
+Ordinary E0 recursion does not construct portable q.
+
+### Replay seed
+
+The q retains one physical legal replay seed sufficient to reconstruct a representative in another worker's private `ResidualPool`.
+
+Replay is not equality, not canonical identity, and not a second q representation. A later equal physical occurrence may have a different replay and still resolve to the same q.
+
+## Shared insertion state machine
+
+The shared hash table is bounded and prepared before execution. Buckets are fine-grained numeric synchronization domains; normal execution never resizes or rehashes.
 
 ```text
-active canonical work < worker count
+portable canonical q
+    |
+    v
+hash -> bucket
+    |
+    +-- lock bucket
+    |
+    +-- scan bucket chain
+    |      |
+    |      +-- generation/live/hash/support/flags/full-40-word match
+    |      |       -> acquire q reference
+    |      |       -> unlock
+    |      |       -> return (qIndex, qGeneration)
+    |      |
+    |      +-- no exact match
+    |              -> acquire prepared free/new slot
+    |              -> initialize next generation completely
+    |              -> link into bucket
+    |              -> publish live
+    |              -> unlock
+    |              -> return (qIndex, qGeneration)
 ```
 
-The currently claimed top-level subtree counts against that capacity.
+A slot is reusable only after BranchManager establishes that its real shared references are gone and execution is NONE. Recycling unlinks the old generation under the same bucket synchronization, advances the generation, clears owned topology/execution state, and returns the slot to the prepared free structure.
 
-Therefore:
+Capacity exhaustion fails closed. It is not repaired by hot resize, manager-private translation, hash-only fallback, or hidden capacity inflation.
 
-- one worker: no helper work is created while the root continuation is active;
-- two workers: at most one additional canonical helper subtree is admitted;
-- N workers: at most N canonical execution roots are READY/RUNNING/owned at once.
+## Execution state machine
 
-Unadmitted surplus remains visible as canonical demand.
-
-This is the corrected meaning of backpressure: workers do not invent local backpressure policies and global visibility need not be truncated merely because CPU is occupied.
-
-## Local reclaim
-
-When the original worker later reaches a surplus sibling:
-
-1. if canonical q is exact, consume it;
-2. if an equivalent running continuation/helper owns the q, wait for exact value;
-3. if spare worker work is READY, allow a short claim opportunity for that helper;
-4. if no helper execution is admitted/claimed, continue the sibling directly from the live parent state.
-
-Local continuation of an unadmitted surplus does not replay the root and does not create a new work task.
-
-When local evaluation starts, that occurrence is promoted to a running continuation occurrence so convergence remains visible.
-
-## Helper work
-
-A spare worker:
-
-1. atomically claims the highest-priority READY canonical surplus q;
-2. reconstructs that q's portable physical replay into its persistent native state using common-prefix undo/apply;
-3. performs ordinary native recursive IsoMax;
-4. at branch points, keeps its own primary continuation local and publishes its own surplus;
-5. publishes exact WDL for its claimed canonical q.
-
-It does not become a scheduler owner.
-
-## Priority
-
-Initial priority is intentionally simple and explicit:
-
-- earlier local move-order rank raises priority;
-- multiple canonical demands raise priority.
-
-Priority is a global surplus-work policy. It does not select the current worker's primary child; local IsoMax ordering does that.
-
-Dependency leverage, richer width/support terms, and affinity remain tunable candidates after the complete corrected lifecycle qualifies.
-
-## Affinity
-
-The corrected first slice does not require affinity to establish semantics.
-
-Any later affinity must remain a marginal execution-cost hint only:
-
-- no ownership;
-- no waiting for a preferred worker;
-- no bypass of higher-priority global work.
-
-## Deterministic structure
-
-Exact native forced structure and ordinary legal outdegree one remain local and publish no scheduling opportunity.
-
-Only two-or-more-child ordinary decisions reach the distribution hook.
-
-## Canonical reconciliation
-
-The reconciler:
-
-- derives q_r from occurrence replay;
-- verifies exact p0/p1/support equality;
-- merges equivalent occurrences;
-- records running continuation leaders;
-- broadcasts exact WDL to all live occurrences;
-- suppresses/removes helper work when a native continuation already covers the same q;
-- admits canonical helper work only for spare worker capacity;
-- retires READY/RUNNING helper work when demand disappears;
-- repairs worker death using portable canonical helper replay.
-
-It does **not** compute the ordinary parent max/min DAG. Parent reduction remains inside the native worker recursion.
-
-This is intentionally different from the rejected frontier-per-work-item experiment.
-
-## Exact-value flow
-
-For locally solved continuation/surplus:
+Execution ownership is a field of q itself:
 
 ```text
-native recursive child value
-    ->
-occurrence exact publication
-    ->
-canonical q exact
-    ->
-broadcast to equivalent occurrences
+                 BranchManager queue admission
+NONE ------------------------------------------------> QUEUED
+ ^                                                       |
+ |                                                       | worker CAS
+ |                                                       v
+ +---------------- exact/retire/release ------------- RUNNING(worker)
 ```
 
-For helper work:
+A queue ticket is only:
 
 ```text
-canonical helper work exact
-    ->
-canonical q exact
-    ->
-broadcast
+(qIndex, qGeneration)
 ```
 
-Only exact WDL in `{-1,0,+1}` is published.
+Claim procedure:
 
-Retirement/failure is never an exact value.
+1. dequeue highest available priority-class reference;
+2. reject it if q generation/live state no longer matches;
+3. atomically transition q execution `QUEUED -> RUNNING(workerId)`;
+4. if the CAS fails, discard the stale ticket and continue polling;
+5. execute directly from the q's replay seed.
 
-## Root semantics
+No second work-slot lifecycle exists.
 
-The externally claimed root remains one ordinary IsoMax recursive subtree.
+If local retained descent reaches a q already RUNNING elsewhere, that convergence is already represented by the shared q. The worker does not synchronously ask BranchManager what to do. BranchManager asynchronously selects the useful execution and increments the redundant worker's reset token. The redundant worker observes it at the existing amortized control boundary, unwinds, releases only execution references it actually owns, and returns to global polling.
 
-Root move selection continues through the existing exact `selectMoveForValue` semantics and reflection/action transport.
+Exact publication uses a single exact q value. Conflicting exact publication is a fatal correctness error. Retirement/reset never fabricates W/D/L.
 
-Parallel completion order must not change the selected root action.
+## Genuine branch publication
 
-## Failure/liveness
+Deterministic/forced/outdegree-one structure remains private native recursion.
 
-Generation, ticket and attempt identity protect helper work.
+At a genuine branch a worker uses fixed per-ply numeric scratch to:
 
-Worker death:
+1. enumerate/rank legal children;
+2. derive/probe/insert each child q in the shared TT;
+3. retain the highest-eval locally ordered child as the current continuation;
+4. publish **one** fixed branch descriptor containing parent q ref, retained child ref, surplus child refs, actions/evaluation classes, worker/run identity and generations;
+5. continue retained descent immediately.
 
-- invalidates the dead helper attempt;
-- requeues demanded helper work;
-- retires stale occurrences whose parent attempt no longer exists.
+The descriptor is a topology notification. It is not another q lifecycle owner.
 
-A local continuation is represented by an occurrence tied to its parent top-level work attempt; death/retirement invalidates that visibility record without creating an exact value.
+BranchManager consumes descriptors and writes/merges the canonical dependency topology on the same q records. It may enqueue live surplus q references by changing that q's own execution state to QUEUED and pushing only its generation-safe reference.
 
-## Required controls
+No `PUB_CHILD x N + PUB_FRONTIER_END`, occurrence pool, manager replay canonicalization, or q-to-work rematerialization survives in the active design.
 
-Before performance promotion:
+## Topology and exact propagation
 
-1. serial exact WDL/root-action differential;
-2. one-worker local-continuation proof:
-   - genuine branches published;
-   - one top-level work claim;
-   - no remote surplus/helper waits;
-   - only external-root replay;
-   - executable population <= 1;
-3. two/four-worker helper stealing:
-   - surplus opportunities claimed by otherwise available workers;
-   - local primary recursion remains active;
-   - executable population <= worker count;
-4. q_r convergence / reflection action controls;
-5. continuation duplicate exact interruption;
-6. helper death/requeue;
-7. timeout/abort/capacity fail closed;
-8. completed-solve 1/2/4 comparison against central control;
-9. historical hard-root comparison;
-10. NEES E2 cost audit.
+Connect Four has at most seven legal actions, so established outgoing topology is stored directly by action/ref on the q record. Incoming parent relationships use a bounded numeric adjacency arena owned by BranchManager because those records represent relationships, not executable work.
 
-## Non-claims
+Workers publish compact exact-q completion references to BranchManager. BranchManager follows incoming adjacency directly; it does not scan the q table to find affected parents.
 
-This candidate does not claim:
+For each parent:
 
-- every internal native node is globally scheduled;
-- every visible q receives a helper work slot;
-- a running continuation is worker-owned semantic truth;
-- q_r is proof identity;
-- current priority is optimal;
-- worker pull is faster before completed-solve qualification;
-- the rejected frontier-per-work-item result applies to this corrected design.
+- maximizing side closes to WIN as soon as a WIN child is exact;
+- minimizing side closes to LOSS as soon as a LOSS child is exact;
+- otherwise the parent closes after all still-relevant children are exact;
+- exact parent closure recursively propagates through the same adjacency relation.
+
+Root witness bookkeeping keeps physical-root action transport separate from canonical q equality. Completion order must not change the existing deterministic root action semantics.
+
+## Worker loop
+
+A persistent worker:
+
+```text
+poll global q-reference queues
+    -> claim QUEUED q atomically
+    -> reconstruct/reuse private IsometricState
+    -> native deterministic descent
+    -> genuine branch:
+         probe/insert child q records
+         publish one branch descriptor
+         keep best child local
+    -> publish exact q completions
+    -> observe reset/abort at amortized control boundary
+    -> return directly to global polling
+```
+
+Workers do not:
+
+- assign work to peers;
+- inspect peer-idle state to decide whether semantic work exists;
+- wait for BranchManager approval;
+- construct manager-private q identity;
+- perform queue scans from E0;
+- build portable q on ordinary recursive nodes.
+
+## BranchManager loop
+
+BranchManager runs independently and owns organization, not gameplay descent:
+
+- consume branch descriptors and exact-completion notifications;
+- attach/merge canonical dependency topology;
+- maintain explicit priority metadata;
+- enqueue generation-safe q refs;
+- converge duplicate READY/RUNNING q;
+- request asynchronous redundant-worker reset;
+- propagate exact values;
+- maintain root closure/witness state;
+- apply real ref/lifetime consequences;
+- recycle q only when the shared record's lifecycle permits it.
+
+It does not manufacture children, replay q to discover identity, assign workers, synchronously gate worker recursion, or own a second q table.
+
+## Initial priority representation
+
+Priority remains explicit and inspectable rather than one opaque formula.
+
+The first implementation stores separate fields for:
+
+- child evaluation/closure class;
+- depth/cost class;
+- canonical fan-in/dependency leverage.
+
+Queue admission consumes a small fixed set of coarse priority classes. BranchManager may improve a q's class as topology becomes known by publishing a fresh generation-safe queue reference; stale lower-priority tickets fail the q execution-state check.
+
+Priority tuning is an economics question after exact lifecycle qualification.
+
+## NEES boundary
+
+E0/E1 remains the qualified native solver:
+
+- `IsometricState.applyUnchecked/undo`;
+- private `ResidualPool`;
+- native frontier handling;
+- local exact transition cache;
+- no shared-q construction in ordinary recursion.
+
+E2 includes:
+
+- branch-only portable-q derivation;
+- shared-TT probe/insert;
+- fixed branch descriptor publication;
+- q-reference queue claim;
+- exact completion notification;
+- amortized reset/abort observation;
+- BranchManager reconciliation at branch/completion cadence.
+
+E2 uses prepared numeric storage, direct indices, bounded atomics and numeric diagnostics only. No strings, Map/Set, Promises, structured clone, per-frontier object graphs, ordinary-path resize/rehash, or synchronous cross-thread coordination.
+
+Draft 0.4 final qualification is intentionally deferred until this coherent worker/shared-TT/BranchManager replacement is complete.
+
+## Removed active machinery
+
+The replacement must delete active compatibility for:
+
+- occurrence pools and occurrence leaders;
+- helper-work slots independent of q;
+- manager-private q dictionaries;
+- manager replay canonicalization;
+- q/work rematerialization;
+- demand-token publication policy;
+- `PUB_CHILD x N + PUB_FRONTIER_END`;
+- old split-task continuation packaging;
+- orphan resurrection / exact-orphan eviction;
+- append-only edge-compaction and tombstone/rebuild machinery inherited from the failed private-manager model.
+
+Historical commits and the Draft 0.3 audit preserve evidence.
+
+## Qualification order after structural completion
+
+1. targeted shared-q exact identity / generation / claim / propagation lifecycle;
+2. Linux + Windows retained-pull exactness;
+3. historical hard-root control;
+4. full repository verify;
+5. completed-solve economics at 1/2/4 workers;
+6. NEES Draft 0.4 qualification of the complete worker + shared-TT + BranchManager E2 optimization unit.
+
+Capacity increases are not an admissible substitute for a lifecycle or contention defect.
