@@ -4,6 +4,7 @@ import {
   CTRL_ABORT,
   CTRL_ERROR,
   CTRL_MANAGER_WAKE,
+  CTRL_Q_HIGH_WATER,
   CTRL_ROOT_GENERATION,
   CTRL_ROOT_MOVE,
   CTRL_ROOT_MOVE_READY,
@@ -673,7 +674,7 @@ class SharedBranchManagerLoop {
 
       const high = Math.min(
         tt.qCapacity,
-        Atomics.load(tt.control, 14), // CTRL_Q_HIGH_WATER; keep E2 scalar.
+        Atomics.load(tt.control, CTRL_Q_HIGH_WATER),
       );
       for (let qIndex = 0; qIndex < high; qIndex++) {
         if (Atomics.load(tt.qLive, qIndex) === 0) continue;
