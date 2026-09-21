@@ -85,6 +85,7 @@ class SharedBranchDistributor {
     this.childEval = new Int32Array((MAX_PLY + 1) * 7);
     this.childOrientation = new Uint8Array((MAX_PLY + 1) * 7);
     this.childQ.fill(-1);
+    this.visibilityBarrierDepth = 0;
   }
 
   holdPreparedQ(state) {
@@ -443,7 +444,6 @@ class RetainedPullWorker {
     this.externalRootPly = 0;
     this.controlQuantum = 512;
     this.resetting = false;
-    this.visibilityBarrierDepth = 0;
     this.claim = new Int32Array(3);
     this.queueScratch = new Int32Array(2);
     this.distributor = new SharedBranchDistributor(this);
@@ -536,7 +536,7 @@ class RetainedPullWorker {
     this.activeBasePly = 0;
     this.executionQ = -1;
     this.executionGeneration = 0;
-    this.visibilityBarrierDepth = 0;
+    this.distributor.visibilityBarrierDepth = 0;
   }
 
   replayQ(qIndex, generation) {
