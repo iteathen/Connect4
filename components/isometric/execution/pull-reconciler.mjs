@@ -1319,6 +1319,7 @@ class PullReconciler {
     // execution capacity.
     const allForms=[0,0,0],parentedForms=[0,0,0],reachableForms=[0,0,0];
     let nonExact=0,parentedNonExact=0,reachable=0,reachableExact=0;
+    let exact=0,parentedExact=0,orphanExact=0,orphanNonExact=0;
     let reachableLeaves=0,reachableDeadEnds=0,liveEdges=0;
     const leafSamples=[];
     const seen=new Uint8Array(this.qCount);
@@ -1327,14 +1328,20 @@ class PullReconciler {
     if(this.rootQ>=0)stack[top++]=this.rootQ;
 
     for(let q=0;q<this.qCount;q++){
-      if(!this.qAlive[q]||this.qExact[q])continue;
+      if(!this.qAlive[q])continue;
+      if(this.qExact[q]){
+        exact++;
+        if(q===this.rootQ||this.qParentCount[q]>0)parentedExact++;
+        else orphanExact++;
+        continue;
+      }
       nonExact++;
       const form=this.qForm[q];
       if(form>=0&&form<allForms.length)allForms[form]++;
       if(q===this.rootQ||this.qParentCount[q]>0){
         parentedNonExact++;
         if(form>=0&&form<parentedForms.length)parentedForms[form]++;
-      }
+      }else orphanNonExact++;
     }
 
     while(top>0){
@@ -1367,7 +1374,9 @@ class PullReconciler {
         unresolved:this.rootQ>=0?this.qUnresolved[this.rootQ]:-1,
         exact:this.rootQ>=0?this.qExact[this.rootQ]:0,
       },
-      qCount:this.qCount,nonExact,parentedNonExact,allForms,parentedForms,
+      qCount:this.qCount,qActiveCount:this.qActiveCount,qFreeCount:this.qFreeCount,
+      exact,parentedExact,orphanExact,nonExact,parentedNonExact,orphanNonExact,
+      allForms,parentedForms,
       reachable,reachableExact,reachableForms,reachableLeaves,
       reachableDeadEnds,liveEdges,leafSamples,
       executionWorkCount:this.executionWorkCount,executionLimit:this.executionLimit,
@@ -1502,7 +1511,10 @@ class PullReconciler {
       Atomics.store(this.shared.control, CTRL_FAILURE, 1);
       Atomics.store(this.shared.control, CTRL_ABORT, 1);
       stopSharedPool(this.shared);
-      parentPort.postMessage({ type:'pull-reconciler-error', message:error?.message ?? String(error), snapshot:this.snapshot() });
+      const snapshot=this.snapshot();
+      // Failure-only structural census: never paid in the manager hot loop.
+      snapshot.liveness=this.livenessCensus();
+      parentPort.postMessage({ type:'pull-reconciler-error', message:error?.message ?? String(error), snapshot });
     } finally {
       this.pool.releaseSearchStorage();
     }
