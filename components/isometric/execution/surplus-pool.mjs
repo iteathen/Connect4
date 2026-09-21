@@ -333,15 +333,18 @@ export function enqueueWork(pool, slot, generation, band) {
     // A long run can therefore fill a bounded lane with stale records even
     // though only O(workers) records are live. On the rare full-lane path,
     // reclaim only provably stale head records; never skip a live READY head.
-    let liveHeadWaits=0;
-    for(let recovery=0;recovery<pool.queueCapacity+8&&pos<0;recovery++){
+    let blockedWaits=0;
+    for(let recovery=0;recovery<pool.queueCapacity+32&&pos<0;recovery++){
       const reclaimed=reclaimStaleQueueHead(pool,band);
-      if(reclaimed<0){
-        if(liveHeadWaits++>=8)break;
-        const observed=Atomics.load(pool.queueDequeue,band);
-        Atomics.wait(pool.queueDequeue,band,observed,1);
-      }else if(reclaimed===0){
-        break;
+      if(reclaimed<=0){
+        // A consumer may already have advanced dequeue but not yet committed
+        // the producer's blocked cell reusable. Waiting on dequeue itself
+        // misses that transition; retry against the exact producer cell.
+        if(blockedWaits++>=32)break;
+        const enqueuePos=Atomics.load(pool.queueEnqueue,band);
+        const cell=band*pool.queueCapacity+(enqueuePos%pool.queueCapacity);
+        const observed=Atomics.load(pool.queueSequence,cell);
+        Atomics.wait(pool.queueSequence,cell,observed,1);
       }
       pos=reserveEnqueue(pool.queueSequence,pool.queueEnqueue,band,pool.queueCapacity);
     }
