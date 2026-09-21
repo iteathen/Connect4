@@ -2,6 +2,14 @@
 
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
+## Restart-safe active coordination
+
+Before substantive work, inspect `.agent/coordination.json` when it exists. If it declares an active campaign overlapping the requested work, read `.agent/COORDINATION.md` and refresh the declared live communication channel before researching, mutating, reviewing, or qualifying that campaign.
+
+A durable `role_id` survives agent/session restart; a prior session handle does not. After the owner/director reassigns a role to a restarted agent, recover the role's latest state from the live channel, announce the rejoin using the campaign transport profile, and resume channel monitoring. Prefer a runtime-supported conditional/scheduled watch when available; otherwise refresh the channel before and after each substantive work unit. Do not claim monitoring while disconnected.
+
+The coordination registry is discovery/recovery metadata, not solver/specification authority. Live task/claim state belongs to the declared communication channel, and normal repository authority continues to govern implementation and qualification.
+
 ## Mission and ownership
 
 Connect4 owns Connect Four domain semantics, benchmark/oracle meaning, exact-solver product semantics, product Device-JS composition, solver qualification contracts, and product-specific evidence. Generic CUDA/search/tensor/runtime mechanisms remain owned by their natural lower repositories.
