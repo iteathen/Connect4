@@ -118,8 +118,10 @@ test('shared-TT retained pull matches serial exact WDL and root witness at 1/2/4
               'one worker must finish from its initial claimed root without replay claims');
             assert.equal(actual.metrics.worker.parentRemoteYields, 0,
               'one worker cannot require remote-child completion');
-            assert.ok(actual.metrics.worker.localSiblingReturns > 0,
-              'one worker must evaluate a surplus sibling from the live native parent frame');
+            assert.equal(actual.metrics.worker.branchDescriptors, 0,
+              'one worker has no external parallel opportunity to publish');
+            assert.equal(actual.metrics.worker.qCreated, 0,
+              'one worker must not materialize branch q records');
           }
           sawFrontier ||= actual.metrics.worker.frontiers > 0;
           sawSharedQ ||= actual.metrics.worker.qCreated > 1 || actual.metrics.worker.qReused > 0;
