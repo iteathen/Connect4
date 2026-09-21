@@ -293,11 +293,55 @@ function commitDequeue(sequence,lane,capacity,pos) {
   Atomics.store(sequence,lane*capacity+(pos%capacity),pos+capacity);
 }
 
+function reclaimStaleQueueHead(pool,band) {
+  const base=band*pool.queueCapacity;
+  for(let spin=0;spin<1024;spin++){
+    const pos=Atomics.load(pool.queueDequeue,band);
+    const cell=base+(pos%pool.queueCapacity);
+    const seq=Atomics.load(pool.queueSequence,cell);
+    if(seq-(pos+1)!==0)return 0;
+
+    const slot=pool.queueSlot[cell],generation=pool.queueGeneration[cell],ticket=pool.queueTicket[cell];
+    let stale=slot<0||slot>=pool.workCapacity;
+    if(!stale){
+      stale=Atomics.load(pool.workGeneration,slot)!==generation ||
+        Atomics.load(pool.workTicket,slot)!==ticket ||
+        Atomics.load(pool.workPriority,slot)!==band ||
+        Atomics.load(pool.workNeeded,slot)===0 ||
+        Atomics.load(pool.workState,slot)!==WORK_READY;
+    }
+    if(!stale)return -1;
+
+    if(Atomics.compareExchange(pool.queueDequeue,band,pos,pos+1)!==pos)continue;
+    commitDequeue(pool.queueSequence,band,pool.queueCapacity,pos);
+    return 1;
+  }
+  return 0;
+}
+
 export function enqueueWork(pool, slot, generation, band) {
   if (band < 0 || band >= pool.bands) throw new RangeError('invalid surplus priority band');
   if (Atomics.load(pool.workGeneration, slot) !== generation ||
       Atomics.load(pool.workState, slot) !== WORK_READY) return false;
-  const pos=reserveEnqueue(pool.queueSequence,pool.queueEnqueue,band,pool.queueCapacity);
+  let pos=reserveEnqueue(pool.queueSequence,pool.queueEnqueue,band,pool.queueCapacity);
+  if(pos<0){
+    // READY tickets are lazy-invalidated by generation/ticket/liveness checks.
+    // A long run can therefore fill a bounded lane with stale records even
+    // though only O(workers) records are live. On the rare full-lane path,
+    // reclaim only provably stale head records; never skip a live READY head.
+    let liveHeadWaits=0;
+    for(let recovery=0;recovery<pool.queueCapacity+8&&pos<0;recovery++){
+      const reclaimed=reclaimStaleQueueHead(pool,band);
+      if(reclaimed<0){
+        if(liveHeadWaits++>=8)break;
+        const observed=Atomics.load(pool.queueDequeue,band);
+        Atomics.wait(pool.queueDequeue,band,observed,1);
+      }else if(reclaimed===0){
+        break;
+      }
+      pos=reserveEnqueue(pool.queueSequence,pool.queueEnqueue,band,pool.queueCapacity);
+    }
+  }
   if(pos<0)return false;
   const cell=band*pool.queueCapacity+(pos%pool.queueCapacity);
   const ticket=Atomics.add(pool.workTicket,slot,1)+1;
