@@ -3,9 +3,13 @@ name: isomax-retained-pull-qualification
 on:
   pull_request:
     paths:
-      - 'components/isometric/execution/shared-work-pool.mjs'
-      - 'components/isometric/execution/pull-*.mjs'
-      - 'components/isometric/test/pull-execution.test.mjs'
+      - 'components/isometric/execution/branch-manager.mjs'
+      - 'components/isometric/execution/manager-worker.mjs'
+      - 'components/isometric/execution/worker.mjs'
+      - 'components/isometric/execution/shared-tt.mjs'
+      - 'components/isometric/execution/shared-events.mjs'
+      - 'components/isometric/execution/portable-q.mjs'
+      - 'components/isometric/test/execution.test.mjs'
       - '.github/workflows/isomax-retained-pull-qualification.yml'
   workflow_dispatch:
 
@@ -19,7 +23,7 @@ permissions:
 jobs:
   retained-pull-linux:
     runs-on: ubuntu-24.04
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -27,12 +31,12 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Retained pull lifecycle and exactness
-        run: node --test components/isometric/test/pull-execution.test.mjs
+      - name: Shared-TT retained-pull exactness and lifecycle
+        run: node --test components/isometric/test/execution.test.mjs
 
   retained-pull-windows:
     runs-on: windows-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -40,5 +44,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Retained pull lifecycle and exactness
-        run: node --test components/isometric/test/pull-execution.test.mjs
+      - name: Shared-TT retained-pull exactness and lifecycle
+        run: node --test components/isometric/test/execution.test.mjs
