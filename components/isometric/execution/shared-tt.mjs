@@ -174,6 +174,8 @@ export function createSharedTT({
     queueQ: sab(Int32Array, PRIORITY_BANDS * queueCapacity),
     queueGeneration: sab(Int32Array, PRIORITY_BANDS * queueCapacity),
     workerReset: sab(Int32Array, workerCount),
+    workerDeath: sab(Int32Array, workerCount),
+    workerRecovery: sab(Int32Array, workerCount),
     workerCounters: sab(Int32Array, workerCount * WORKER_COUNTER_WORDS),
   };
 
@@ -251,6 +253,8 @@ export function openSharedTT(descriptor) {
     queueQ: view(Int32Array, descriptor.queueQ),
     queueGeneration: view(Int32Array, descriptor.queueGeneration),
     workerReset: view(Int32Array, descriptor.workerReset),
+    workerDeath: view(Int32Array, descriptor.workerDeath),
+    workerRecovery: view(Int32Array, descriptor.workerRecovery),
     workerCounters: view(Int32Array, descriptor.workerCounters),
   };
 }
