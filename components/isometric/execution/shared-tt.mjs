@@ -30,6 +30,7 @@ export const CTRL_Q_HIGH_WATER = 14;
 export const CTRL_EDGE_NEXT = 15;
 export const CTRL_EDGE_FREE_HEAD = 16;
 export const CTRL_ROOT_MOVE_READY = 17;
+export const CTRL_READY_COUNT = 18;
 export const CTRL_WORDS = 32;
 
 export const WORKER_COUNTER_WORDS = 32;
@@ -611,14 +612,20 @@ export function enqueueQ(shared, qIndex, generation, priorityClass) {
   if (Atomics.compareExchange(shared.qExecution, qIndex, EXEC_NONE, EXEC_QUEUED) !== EXEC_NONE) {
     return false;
   }
-  if (queueTryEnqueue(shared, band, qIndex, generation)) return true;
+  if (queueTryEnqueue(shared, band, qIndex, generation)) {
+    Atomics.add(shared.control, CTRL_READY_COUNT, 1);
+    return true;
+  }
 
   // qExecution is the authority. The ring may contain lazy stale references
   // from exact completion or recycled generations; reclaim only stale heads.
   for (let recovery = 0; recovery < shared.queueCapacity + 32; recovery++) {
     const reclaimed = reclaimStaleQueueHead(shared, band);
     if (reclaimed < 0) break;
-    if (queueTryEnqueue(shared, band, qIndex, generation)) return true;
+    if (queueTryEnqueue(shared, band, qIndex, generation)) {
+      Atomics.add(shared.control, CTRL_READY_COUNT, 1);
+      return true;
+    }
     if (reclaimed === 0) {
       const position = Atomics.load(shared.queueEnqueue, band);
       const slot = band * shared.queueCapacity + (position & (shared.queueCapacity - 1));
@@ -641,12 +648,15 @@ export function claimHighestQ(shared, workerId, out, queueScratch) {
       const qIndex = queueScratch[0], generation = queueScratch[1];
       if (!qIsCurrent(shared, qIndex, generation)) continue;
       if (Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) {
-        Atomics.compareExchange(shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE);
+        if (Atomics.compareExchange(
+          shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE,
+        ) === EXEC_QUEUED) Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
         continue;
       }
       if (Atomics.compareExchange(
         shared.qExecution, qIndex, EXEC_QUEUED, runningExecution(workerId),
       ) !== EXEC_QUEUED) continue;
+      Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
       if (!qIsCurrent(shared, qIndex, generation)
           || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) {
         Atomics.compareExchange(
@@ -678,6 +688,7 @@ export function enterLocalQ(shared, qIndex, generation, workerId) {
     if (execution >= EXEC_RUNNING_BASE) return executionWorker(execution);
     if (execution !== EXEC_NONE && execution !== EXEC_QUEUED) return -1;
     if (Atomics.compareExchange(shared.qExecution, qIndex, execution, desired) === execution) {
+      if (execution === EXEC_QUEUED) Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
       return workerId;
     }
     if (!qIsCurrent(shared, qIndex, generation)
@@ -700,7 +711,18 @@ export function publishExactQ(shared, qIndex, generation, value) {
   if (prior !== Q_EXACT_UNKNOWN && prior !== value) {
     throw new Error('conflicting shared q exact values');
   }
-  return Atomics.exchange(shared.qExecution, qIndex, EXEC_NONE);
+  const execution = Atomics.exchange(shared.qExecution, qIndex, EXEC_NONE);
+  if (execution === EXEC_QUEUED) Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
+  return execution;
+}
+
+export function cancelQueuedQ(shared, qIndex, generation) {
+  if (!qIsCurrent(shared, qIndex, generation)) return false;
+  if (Atomics.compareExchange(
+    shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE,
+  ) !== EXEC_QUEUED) return false;
+  Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
+  return true;
 }
 
 export function readExactQ(shared, qIndex, generation) {

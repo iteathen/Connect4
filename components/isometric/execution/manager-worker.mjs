@@ -10,6 +10,7 @@ import {
   CTRL_ROOT_ORIENTATION,
   CTRL_ROOT_Q,
   CTRL_ROOT_VALUE,
+  CTRL_READY_COUNT,
   CTRL_SESSION,
   CTRL_WORKER_WAKE,
   EXEC_NONE,
@@ -21,6 +22,7 @@ import {
   SESSION_RUNNING,
   addQRef,
   allocateParentEdge,
+  cancelQueuedQ,
   enqueueQ,
   executionWorker,
   openSharedTT,
@@ -76,6 +78,17 @@ class SharedBranchManagerLoop {
     this.orphanGeneration = new Int32Array(tt.qCapacity);
     this.orphanHead = 0;
     this.orphanTail = 0;
+
+    // Visibility lives in the shared TT. This manager-only intrusive index is
+    // scheduling metadata: it selects which visible q enter the bounded ready
+    // reservoir without creating another work object or semantic authority.
+    this.candidateNext = new Int32Array(tt.qCapacity); this.candidateNext.fill(-1);
+    this.candidatePrev = new Int32Array(tt.qCapacity); this.candidatePrev.fill(-1);
+    this.candidateGeneration = new Int32Array(tt.qCapacity);
+    this.candidateBand = new Int8Array(tt.qCapacity); this.candidateBand.fill(-1);
+    this.candidateHead = new Int32Array(8); this.candidateHead.fill(-1);
+    this.candidateTail = new Int32Array(8); this.candidateTail.fill(-1);
+    this.readyTarget = Math.max(workerCount, workerCount * 4);
   }
 
   bump(index, delta = 1) {
@@ -93,15 +106,77 @@ class SharedBranchManagerLoop {
     this.bump(MC_DUPLICATE_RUNNING_RETIRED);
   }
 
+  unlinkCandidate(qIndex) {
+    const band = this.candidateBand[qIndex];
+    if (band < 0) return false;
+    const previous = this.candidatePrev[qIndex];
+    const next = this.candidateNext[qIndex];
+    if (previous >= 0) this.candidateNext[previous] = next;
+    else this.candidateHead[band] = next;
+    if (next >= 0) this.candidatePrev[next] = previous;
+    else this.candidateTail[band] = previous;
+    this.candidatePrev[qIndex] = -1;
+    this.candidateNext[qIndex] = -1;
+    this.candidateBand[qIndex] = -1;
+    return true;
+  }
+
   queueIfNeeded(qIndex, generation, priority = Atomics.load(tt.qPriorityClass, qIndex)) {
-    if (!qIsCurrent(tt, qIndex, generation)) return false;
-    if (readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN) return false;
-    if (Atomics.load(tt.qExecution, qIndex) !== EXEC_NONE) return false;
-    if (enqueueQ(tt, qIndex, generation, priority)) {
-      this.bump(MC_QUEUE_ADMISSIONS);
-      return true;
+    if (!qIsCurrent(tt, qIndex, generation)
+        || readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN
+        || Atomics.load(tt.qExecution, qIndex) !== EXEC_NONE
+        || Atomics.load(tt.qRefCount, qIndex) <= 0) {
+      if (qIndex >= 0 && qIndex < tt.qCapacity) this.unlinkCandidate(qIndex);
+      return false;
     }
-    return false;
+    const band = Math.max(0, Math.min(7, priority | 0));
+    Atomics.store(tt.qPriorityClass, qIndex, band);
+    const current = this.candidateBand[qIndex];
+    const sameGeneration = this.candidateGeneration[qIndex] === generation;
+    if (current === band && sameGeneration) return true;
+    if (current >= 0) this.unlinkCandidate(qIndex);
+
+    const tail = this.candidateTail[band];
+    this.candidatePrev[qIndex] = tail;
+    this.candidateNext[qIndex] = -1;
+    this.candidateGeneration[qIndex] = generation;
+    this.candidateBand[qIndex] = band;
+    if (tail >= 0) this.candidateNext[tail] = qIndex;
+    else this.candidateHead[band] = qIndex;
+    this.candidateTail[band] = qIndex;
+    return true;
+  }
+
+  popCandidate() {
+    for (let band = 7; band >= 0; band--) {
+      while (this.candidateHead[band] >= 0) {
+        const qIndex = this.candidateHead[band];
+        const generation = this.candidateGeneration[qIndex];
+        this.unlinkCandidate(qIndex);
+        if (!qIsCurrent(tt, qIndex, generation)
+            || readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN
+            || Atomics.load(tt.qExecution, qIndex) !== EXEC_NONE
+            || Atomics.load(tt.qRefCount, qIndex) <= 0) continue;
+        return [qIndex, generation, Math.max(
+          band,
+          Atomics.load(tt.qPriorityClass, qIndex),
+        )];
+      }
+    }
+    return null;
+  }
+
+  refillReady() {
+    let admitted = 0;
+    while (Atomics.load(tt.control, CTRL_READY_COUNT) < this.readyTarget) {
+      const candidate = this.popCandidate();
+      if (candidate === null) break;
+      if (enqueueQ(tt, candidate[0], candidate[1], candidate[2])) {
+        this.bump(MC_QUEUE_ADMISSIONS);
+        admitted++;
+      }
+    }
+    return admitted;
   }
 
   pushOrphan(qIndex, generation) {
@@ -174,6 +249,7 @@ class SharedBranchManagerLoop {
       if (!qIsCurrent(tt, qIndex, generation)) continue;
       if (qIndex === rootQ && generation === rootGeneration) continue;
       if (Atomics.load(tt.qRefCount, qIndex) !== 0) continue;
+      this.unlinkCandidate(qIndex);
 
       let execution = Atomics.load(tt.qExecution, qIndex);
       if (execution >= EXEC_RUNNING_BASE) {
@@ -181,7 +257,7 @@ class SharedBranchManagerLoop {
         continue;
       }
       if (execution === EXEC_QUEUED) {
-        Atomics.compareExchange(tt.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE);
+        cancelQueuedQ(tt, qIndex, generation);
         execution = Atomics.load(tt.qExecution, qIndex);
       }
       if (execution !== EXEC_NONE) continue;
@@ -604,6 +680,7 @@ class SharedBranchManagerLoop {
     this.drainFinalization();
     this.drainOrphans();
     if (this.tryCompleteRoot()) progress = true;
+    if (this.refillReady() > 0) progress = true;
     return progress;
   }
 
