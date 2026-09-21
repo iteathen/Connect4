@@ -1040,6 +1040,68 @@ class PullReconciler {
     if (liveCount === 0 && !this.completed) throw new Error('all IsoMax pull evaluators exited');
   }
 
+  livenessCensus() {
+    // Failure-only diagnostic. The canonical graph is a ply-increasing DAG, so
+    // an unresolved root must have at least one reachable non-exact UNEXPANDED
+    // leaf. If it does not, record the broken topology rather than guessing at
+    // execution capacity.
+    const allForms=[0,0,0],parentedForms=[0,0,0],reachableForms=[0,0,0];
+    let nonExact=0,parentedNonExact=0,reachable=0,reachableExact=0;
+    let reachableLeaves=0,reachableDeadEnds=0,liveEdges=0;
+    const leafSamples=[];
+    const seen=new Uint8Array(this.qCount);
+    const stack=new Int32Array(Math.max(1,this.qCount));
+    let top=0;
+    if(this.rootQ>=0)stack[top++]=this.rootQ;
+
+    for(let q=0;q<this.qCount;q++){
+      if(this.qExact[q])continue;
+      nonExact++;
+      const form=this.qForm[q];
+      if(form>=0&&form<allForms.length)allForms[form]++;
+      if(q===this.rootQ||this.qParentCount[q]>0){
+        parentedNonExact++;
+        if(form>=0&&form<parentedForms.length)parentedForms[form]++;
+      }
+    }
+
+    while(top>0){
+      const q=stack[--top];
+      if(q<0||q>=this.qCount||seen[q])continue;
+      seen[q]=1;reachable++;
+      if(this.qExact[q]){reachableExact++;continue;}
+      const form=this.qForm[q];
+      if(form>=0&&form<reachableForms.length)reachableForms[form]++;
+      if(form===Q_UNEXPANDED){
+        reachableLeaves++;
+        if(leafSamples.length<12)leafSamples.push({
+          q,parentCount:this.qParentCount[q],work:this.qWork[q],
+          priority:this.qPriority[q],replayLength:this.qReplayLength[q],
+        });
+        continue;
+      }
+      let outgoing=0;
+      for(let edge=this.qOutgoingHead[q];edge!==-1;edge=this.edgeNextOut[edge]){
+        if(!this.edgeLive[edge])continue;
+        outgoing++;liveEdges++;
+        if(top<stack.length)stack[top++]=this.edgeChild[edge];
+      }
+      if(outgoing===0)reachableDeadEnds++;
+    }
+
+    return {
+      root:{
+        q:this.rootQ,form:this.rootQ>=0?this.qForm[this.rootQ]:-1,
+        unresolved:this.rootQ>=0?this.qUnresolved[this.rootQ]:-1,
+        exact:this.rootQ>=0?this.qExact[this.rootQ]:0,
+      },
+      qCount:this.qCount,nonExact,parentedNonExact,allForms,parentedForms,
+      reachable,reachableExact,reachableForms,reachableLeaves,
+      reachableDeadEnds,liveEdges,leafSamples,
+      executionWorkCount:this.executionWorkCount,executionLimit:this.executionLimit,
+    };
+  }
+
   hasExecutableWork() {
     const allocated = Math.min(this.shared.workCapacity, Atomics.load(this.shared.control, CTRL_WORK_NEXT));
     for (let slot = 0; slot < allocated; slot++) {
@@ -1125,7 +1187,10 @@ class PullReconciler {
           if (!this.hasExecutableWork() &&
               Atomics.load(this.shared.publicationDequeue, 0) >= Atomics.load(this.shared.publicationEnqueue, 0)) {
             if (this.repairExecutableDemand() === 0 || !this.hasExecutableWork()) {
-              throw new Error('unresolved IsoMax pull root has no executable work');
+              throw new Error(
+                'unresolved IsoMax pull root has no executable work;'+
+                JSON.stringify(this.livenessCensus())
+              );
             }
           }
           const epoch = Atomics.load(this.shared.control, CTRL_PUB_WAKE);
