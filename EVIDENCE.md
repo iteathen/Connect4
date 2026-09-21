@@ -13,7 +13,8 @@ The fact that Connect Four is solved makes this repository unusually suitable fo
 | Claim | Evidence class | Status |
 | --- | --- | --- |
 | `C4-INT-001` — the maintained domain/oracle/benchmark substrate on `main` provides the repository's accepted internal comparator | **INTERNAL-QUALIFICATION** | qualified repository authority |
-| `C4-EXT-001` — active solver correctness/performance has been reproduced against an independent standard solved corpus/reference solver | **UNVALIDATED** | external campaign not yet registered here |
+| `C4-ISOMAX-PONS-001` — IsoMax matches externally sourced Pons parent-position W/D/L on the frozen first 64 `Test_L3_R1` and first 64 `Test_L2_R1` positions | **REFERENCE-GROUNDED** | **128/128 matched; 0 mismatches** |
+| `C4-EXT-001` — broad active-solver correctness/performance, including comparative performance and other solver families, has independent external validation | **UNVALIDATED** | broader external campaign remains open |
 
 Machine-readable records: [`evidence/claims.json`](evidence/claims.json). External evidence belongs under [`evidence/external/`](evidence/external/README.md).
 
@@ -21,9 +22,11 @@ Machine-readable records: [`evidence/claims.json`](evidence/claims.json). Extern
 
 Current repository qualification can establish behavior relative to the pinned Connect4 semantics, oracle/reference implementation, benchmark protocol, and exact tested solver revisions.
 
+In addition, IsoMax has **REFERENCE-GROUNDED parent-position W/D/L correctness evidence** on 128 frozen positions whose sequence/parent-score pairs were revalidated against the pinned public Pascal Pons benchmark mirror before execution: 64/64 from `Test_L3_R1` and 64/64 from `Test_L2_R1`, with zero mismatches. The frozen evidence lives on the authoritative `solver/isometric` branch.
+
 ## What it does not establish
 
-Internal benchmark success alone does not establish independent external correctness, comparative algorithmic superiority, cross-machine performance, or third-party reproduction.
+The registered Pons campaigns establish only the scoped parent-position W/D/L result stated above. They do not establish Pons move-distance parity, correctness of the repository-generated per-move score vectors, comparative algorithmic superiority, cross-machine performance, CUDA-BSFP external correctness, or third-party reproduction.
 
 ## Path to stronger evidence
 
