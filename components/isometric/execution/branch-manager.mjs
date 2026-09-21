@@ -263,6 +263,10 @@ export class IsoMaxBranchManager {
     });
     const shared = openSharedTT(ttDescriptor);
     const events = openSharedEvents(eventDescriptor);
+    // Persistent evaluator workers are available before a new session starts.
+    // Mark that availability before the independent manager loop initializes
+    // global exposure demand; evaluators clear their own bit when they claim.
+    shared.workerIdle.fill(1);
 
     const rootSolver = new IsoMaxSolver();
     const rootState = rootSolver.createState(moves);
@@ -346,11 +350,27 @@ export class IsoMaxBranchManager {
       execArgv: [],
     });
     session.managerWorker = worker;
-    return new Promise((resolve, reject) => {
+
+    let resolveReady;
+    let rejectReady;
+    const ready = new Promise((resolve, reject) => {
+      resolveReady = resolve;
+      rejectReady = reject;
+    });
+
+    const done = new Promise((resolve, reject) => {
       let settled = false;
+      let readySettled = false;
+      const settleReady = error => {
+        if (readySettled) return;
+        readySettled = true;
+        if (error) rejectReady(error);
+        else resolveReady();
+      };
       const finish = (error, metrics) => {
         if (settled) return;
         settled = true;
+        if (error) settleReady(error);
         worker.removeAllListeners('message');
         worker.removeAllListeners('error');
         worker.removeAllListeners('exit');
@@ -358,6 +378,10 @@ export class IsoMaxBranchManager {
         else resolve(metrics);
       };
       worker.on('message', message => {
+        if (message?.type === 'manager-ready') {
+          settleReady(null);
+          return;
+        }
         if (message?.type === 'manager-done') finish(null, message.metrics);
         else if (message?.type === 'manager-error') {
           const error = new Error(message.message);
@@ -370,6 +394,8 @@ export class IsoMaxBranchManager {
         if (!settled && code !== 0) finish(new Error('IsoMax BranchManager worker exited: ' + code));
       });
     });
+
+    return { ready, done };
   }
 
   snapshotWorkerMetrics(shared) {
@@ -458,13 +484,20 @@ export class IsoMaxBranchManager {
       const session = this.createSession(moves);
       this.session = session;
 
-      const managerDone = this.startManagerWorker(session).then(metrics => {
+      const managerRun = this.startManagerWorker(session);
+      const managerDone = managerRun.done.then(metrics => {
         session.managerMetrics = metrics;
         return metrics;
       }).catch(error => {
         this.failSession(error);
         throw error;
       });
+
+      // Session-start ordering only: let the independent manager establish the
+      // initial global helper-demand permit before persistent evaluators begin
+      // recursive work. No evaluator waits on manager approval in recursion.
+      await Promise.race([managerRun.ready, session.failureSignal]);
+      if (session.failure) throw session.failure;
 
       for (let id = 0; id < this.workerCount; id++) {
         session.workerDone[id] = 0;
