@@ -78,6 +78,7 @@ export class IsoMaxSurplusBranchManager {
     queueCapacity=Math.max(4096,workers*1024),
     publicationCapacity=Math.max(4096,workers*2048),
     helperGraceMs=1,
+    controlQuantum=512,
     // These are private worker dictionaries, not slices of one global arena.
     // Any helper may inherit a subtree with one-worker-scale class/entry
     // diversity, so correctness cannot divide local reserve by worker count.
@@ -93,6 +94,7 @@ export class IsoMaxSurplusBranchManager {
     this.queueCapacity=positive(queueCapacity,'queueCapacity');
     this.publicationCapacity=positive(publicationCapacity,'publicationCapacity');
     this.helperGraceMs=positive(helperGraceMs,'helperGraceMs',1000);
+    this.controlQuantum=positive(controlQuantum,'controlQuantum',1<<20);
     this.workerClassReserve=positive(workerClassReserve,'workerClassReserve',2**26);
     this.workerEntryReserve=positive(workerEntryReserve,'workerEntryReserve',2**26);
     this.workers=new Array(this.workerCount).fill(null);
@@ -252,7 +254,7 @@ export class IsoMaxSurplusBranchManager {
         this.workers[id].postMessage({
           type:'isomax-surplus-session',pool:descriptor,rootPly:moves.length,
           classCapacity:this.workerClassReserve,entryCapacity:this.workerEntryReserve,
-          helperGraceMs:this.helperGraceMs,
+          helperGraceMs:this.helperGraceMs,controlQuantum:this.controlQuantum,
         });
       }
       const message=await Promise.race([result,failure]);
@@ -300,7 +302,8 @@ export class IsoMaxSurplusBranchManager {
         value:message.value,move:message.move<0?null:message.move,
         elapsedMs,resultReadyMs,cleanupMs:Math.max(0,elapsedMs-resultReadyMs),
         scheduler:{
-          architecture:'surplus-opportunity-pull',workers:this.workerCount,helperGraceMs:this.helperGraceMs,
+          architecture:'surplus-opportunity-pull',workers:this.workerCount,
+          helperGraceMs:this.helperGraceMs,controlQuantum:this.controlQuantum,
           storage:{
             sharedBytes,maxQ:this.maxQ,workSlots:this.workCapacity,occurrenceSlots:this.occurrenceCapacity,
             queueRecords:this.queueCapacity,publicationRecords:this.publicationCapacity,
