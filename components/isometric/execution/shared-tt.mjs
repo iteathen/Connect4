@@ -703,6 +703,33 @@ export function enterLocalQ(shared, qIndex, generation, workerId) {
   }
 }
 
+/**
+ * Reclaim a surplus q only after BranchManager has admitted it to the global
+ * queue. This preserves manager-owned scheduling while allowing the discovering
+ * worker to consume an unclaimed sibling directly from its live parent frame.
+ * Returns workerId when claimed, another worker id when already RUNNING, and
+ * -1 when exact/stale/not-yet-admitted.
+ */
+export function enterQueuedQ(shared, qIndex, generation, workerId) {
+  if (!qIsCurrent(shared, qIndex, generation)
+      || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
+  const desired = runningExecution(workerId);
+  while (true) {
+    const execution = Atomics.load(shared.qExecution, qIndex);
+    if (execution === desired) return workerId;
+    if (execution >= EXEC_RUNNING_BASE) return executionWorker(execution);
+    if (execution !== EXEC_QUEUED) return -1;
+    if (Atomics.compareExchange(
+      shared.qExecution, qIndex, EXEC_QUEUED, desired,
+    ) === EXEC_QUEUED) {
+      Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
+      return workerId;
+    }
+    if (!qIsCurrent(shared, qIndex, generation)
+        || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
+  }
+}
+
 export function releaseRunningQ(shared, qIndex, generation, workerId) {
   if (!qIsCurrent(shared, qIndex, generation)) return false;
   return Atomics.compareExchange(
