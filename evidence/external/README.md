@@ -25,3 +25,21 @@ Correctness, search efficiency, and hardware performance are separate claims.
 ## Status
 
 No external packet is promoted by this scaffold itself. Add evidence only after an actual independent reference/corpus comparison has been executed and frozen.
+
+## Registered external result: IsoMax / Pascal Pons
+
+The authoritative solver evidence is preserved on `solver/isometric`.
+
+- `Test_L3_R1`, first 64 frozen positions: **64/64 W/D/L matches, 0 mismatches**.
+- `Test_L2_R1`, first 64 frozen positions: **64/64 W/D/L matches, 0 mismatches**.
+- Combined: **128/128, 0 mismatches**.
+- External source: Pascal Pons benchmark parent scores via pinned public mirror `megakilo/alphafour@cf2d4546e5824c155e9dd7e888a572bff3128498`.
+- The harness re-fetches and verifies the external sequence/parent-score rows before solving.
+
+Authoritative details:
+
+- [solver/isometric external evidence index](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/README.md)
+- [L3 frozen aggregate](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L3_R1.summary.json)
+- [L2 frozen aggregate](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L2_R1.summary.json)
+
+This registration is **REFERENCE-GROUNDED parent-position W/D/L correctness only**. It is not a performance ranking and does not promote internal per-move score vectors to external evidence.
