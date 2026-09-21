@@ -13,6 +13,10 @@ const historicalHard = [
   '616767454664457417',
 ].map(sequence => Array.from(sequence, character => Number(character) - 1));
 const corpus = process.env.ISOMAX_RETAINED_PULL_CORPUS ?? 'late';
+const executionFactor = Number(process.env.ISOMAX_RETAINED_PULL_EXECUTION_FACTOR ?? 4);
+if (!Number.isSafeInteger(executionFactor) || executionFactor < 1 || executionFactor > 16) {
+  throw new RangeError('invalid ISOMAX_RETAINED_PULL_EXECUTION_FACTOR');
+}
 const roots = corpus === 'hard'
   ? historicalHard
   : makeCorpus({seed:0x102c0, ply:28, count:3}).map(entry => entry.moves);
@@ -41,6 +45,7 @@ async function runRoot(variant, moves) {
       workers,
       maxTasks:262144,
       maxEdges:262144 * 7,
+      executionLimit:workers * executionFactor,
     });
     try {
       result = await manager.solveMoves(moves, {
@@ -158,7 +163,7 @@ if (process.argv[2] === 'child') {
     node:process.version,
     cpu:os.cpus()[0]?.model ?? null,
     corpus,
-    executionFactor:Number(process.env.ISOMAX_RETAINED_PULL_EXECUTION_FACTOR ?? 4),
+    executionFactor,
     roots:roots.map(sequence),
     variants:{},
   };
