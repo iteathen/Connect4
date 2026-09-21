@@ -104,6 +104,8 @@ class PullReconciler {
     this.qHash = new Int32Array(this.maxQ);
     this.qSide = new Uint8Array(this.maxQ);
     this.qTerminal = new Uint8Array(this.maxQ);
+    this.qP0NoWin = new Uint8Array(this.maxQ);
+    this.qP1NoWin = new Uint8Array(this.maxQ);
     this.qForm = new Uint8Array(this.maxQ);
     this.qExact = new Uint8Array(this.maxQ);
     this.qValue = new Int8Array(this.maxQ);
@@ -214,6 +216,8 @@ class PullReconciler {
       maxEdges:0,
       edgeCompactions:0,
       maxLiveEdgesAfterCompaction:0,
+      noWinBoundClosures:0,
+      noWinImmediateDraws:0,
       failures:0,
     };
   }
@@ -338,6 +342,8 @@ class PullReconciler {
     this.qHash[q] = 0;
     this.qSide[q] = 0;
     this.qTerminal[q] = 0;
+    this.qP0NoWin[q] = 0;
+    this.qP1NoWin[q] = 0;
     this.qForm[q] = Q_UNEXPANDED;
     this.qExact[q] = 0;
     this.qValue[q] = 0;
@@ -438,6 +444,8 @@ class PullReconciler {
     this.qSupport[q] = support;
     this.qSide[q] = this.state.sideToMove;
     this.qTerminal[q] = this.state.isTerminal() ? 1 : 0;
+    this.qP0NoWin[q] = p0 === this.pool.zeroId ? 1 : 0;
+    this.qP1NoWin[q] = p1 === this.pool.zeroId ? 1 : 0;
     this.qForm[q] = Q_UNEXPANDED;
     this.qExact[q] = 0;
     this.qValue[q] = 0;
@@ -675,6 +683,17 @@ class PullReconciler {
     }
 
     this.unlinkCandidate(q);
+
+    // Same exact bound as IsoMaxSolver.solveNode. For an internal dependency,
+    // zero residual winning lines for both players makes every continuation a
+    // draw, so no evaluator work is required. Keep the external root
+    // executable when a physical witness move is requested.
+    if (q !== this.rootQ && this.qP0NoWin[q] && this.qP1NoWin[q]) {
+      this.metrics.noWinImmediateDraws++;
+      this.completeQ(q, 0);
+      return true;
+    }
+
     const existing = this.qWork[q];
     if (existing >= 0) {
       const generation = Atomics.load(this.shared.workGeneration, existing);
@@ -1032,8 +1051,11 @@ class PullReconciler {
       return;
     }
 
-    const target = this.qSide[q] === 0 ? 1 : -1;
-    let best = this.qSide[q] === 0 ? -1 : 1;
+    const maximizing = this.qSide[q] === 0;
+    const target = maximizing
+      ? (this.qP0NoWin[q] ? 0 : 1)
+      : (this.qP1NoWin[q] ? 0 : -1);
+    let best = maximizing ? -1 : 1;
     let saw = false;
     let unresolved = 0;
     for (let edge = this.qOutgoingHead[q]; edge !== -1; edge = this.edgeNextOut[edge]) {
@@ -1045,11 +1067,19 @@ class PullReconciler {
         continue;
       }
       const value = this.qValue[child];
-      if (value === target) {
+
+      // Residual no-win facts are exact bounds, not heuristics. A value
+      // outside them would contradict the same invariant asserted by the
+      // ordinary IsoMax solver.
+      if (this.qP0NoWin[q] && value > 0) throw new Error('P0 no-win bound violated');
+      if (this.qP1NoWin[q] && value < 0) throw new Error('P1 no-win bound violated');
+
+      if ((maximizing && value >= target) || (!maximizing && value <= target)) {
+        this.metrics.noWinBoundClosures += target === 0 ? 1 : 0;
         this.completeQ(q, target);
         return;
       }
-      if (this.qSide[q] === 0) best = Math.max(best, value);
+      if (maximizing) best = Math.max(best, value);
       else best = Math.min(best, value);
     }
     this.qUnresolved[q] = unresolved;
