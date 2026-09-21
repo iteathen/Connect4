@@ -23,21 +23,21 @@
     },
     {
       "id": "C4-ISOMAX-PONS-001",
-      "claim": "IsoMax matches the W/D/L class implied by externally sourced Pascal Pons parent-position scores for 128 deterministic Test_L3_R1/Test_L2_R1 calibration positions and 30 explicitly nonrepresentative beginning-position spot checks from Test_L1_R1/Test_L1_R2.",
+      "claim": "IsoMax matches the W/D/L class implied by externally sourced Pascal Pons parent-position scores for deterministic published slices: first 32 rows of Test_L1_R1 and Test_L1_R2, plus first 64 rows of Test_L2_R1 and Test_L3_R1.",
       "evidence_class": "REFERENCE-GROUNDED",
-      "status": "158 tested; 158 matched; 0 mismatches (128 deterministic calibration + 30 nonrepresentative spot checks)",
+      "status": "192 unique positions; 192 matches; 0 mismatches",
       "oracle": "Pascal Pons Connect Four benchmark parent scores, re-fetched from pinned public mirror megakilo/alphafour revision cf2d4546e5824c155e9dd7e888a572bff3128498",
-      "revision": "solver/isometric commits 3376d134d97cdd1ecf2078c2c4fc9b5ae0713f67, 23e72fc7a49aa74d60aeb9223cef1924ee85bac1, and d5de59054bcbe237065a294db59cf8bae9a7046a",
+      "revision": "solver/isometric commits 3376d134d97cdd1ecf2078c2c4fc9b5ae0713f67, 23e72fc7a49aa74d60aeb9223cef1924ee85bac1, and 1f98d7b15eefdc5cf032f6f6bcb4bb71b51a02b1",
       "falsifier": "Any tested position whose exact IsoMax P0-relative W/D/L differs from the parity/sign-transformed external Pons parent score rejects the scoped claim.",
       "evidence": [
         "solver/isometric:evidence/external/README.md",
         "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L3_R1.summary.json",
         "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L2_R1.summary.json",
-        "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L1-spotchecks.summary.json"
+        "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L1-first32.summary.json"
       ],
       "limitations": [
-        "The 128 L2/L3 positions are deterministic first-64-row calibration subsets.",
-        "The 30 L1 positions are deliberately nonrepresentative spot checks selected by an earlier bounded per-move-oracle generation cap.",
+        "Scope is exactly deterministic prefixes of four named Pons benchmark sets: 32 L1_R1, 32 L1_R2, 64 L2_R1, and 64 L3_R1 positions.",
+        "These deterministic benchmark slices are not asserted to be statistically representative of all Connect Four positions.",
         "Does not validate Pons distance-to-win score magnitude.",
         "Does not externally validate repository-generated per-move score vectors.",
         "Does not establish comparative performance superiority or third-party reproduction.",
@@ -58,7 +58,7 @@
         "solver/isometric:evidence/external/README.md"
       ],
       "limitations": [
-        "IsoMax now has scoped reference-grounded parent-WDL correctness on 158 tested Pons positions (128 deterministic calibration plus 30 nonrepresentative beginning spot checks); comparative performance, other solver families, broader unbiased beginning-position coverage, and third-party reproduction remain separate open claims."
+        "IsoMax now has scoped reference-grounded parent-WDL correctness on 192 unique Pons benchmark positions across deterministic L1/L2/L3 slices; comparative performance, other solver families, wider corpus coverage, and third-party reproduction remain separate open claims."
       ],
       "external_reproduction": false
     }
