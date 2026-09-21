@@ -124,5 +124,14 @@
       ],
       "role_state_rule": "Issue #126 owns public agent-capacity/recruiting state only. Financial administration is intentionally private and is not represented here."
     }
-  ]
+  ],
+  "security": {
+    "default_posture": "fail_closed",
+    "global_policy": "https://raw.githubusercontent.com/iteathen/.github/main/SECURITY_AGENT_POLICY.md",
+    "machine_policy": "https://raw.githubusercontent.com/iteathen/.github/main/.agent/security.json",
+    "new_agent_default_trust": "T2",
+    "external_third_party_default_trust": "T3",
+    "unexpected_auth_connector_default_trust": "T4",
+    "green_ci_sufficient_for_trust_or_merge": false
+  }
 }
