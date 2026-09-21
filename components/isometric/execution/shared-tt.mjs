@@ -27,6 +27,8 @@ export const CTRL_WORKERS_READY = 11;
 export const CTRL_WORKERS_DONE = 12;
 export const CTRL_ERROR = 13;
 export const CTRL_Q_HIGH_WATER = 14;
+export const CTRL_EDGE_NEXT = 15;
+export const CTRL_EDGE_FREE_HEAD = 16;
 export const CTRL_WORDS = 32;
 
 export const SESSION_IDLE = 0;
@@ -93,11 +95,13 @@ export function createSharedTT({
   workerCount = 4,
   queueCapacity = 16384,
   bucketCount = nextPowerOfTwo(qCapacity * 2),
+  edgeCapacity = qCapacity * MAX_ACTIONS,
 } = {}) {
   positive(qCapacity, 'qCapacity', 2 ** 24);
   positive(workerCount, 'workerCount', 256);
   powerOfTwo(queueCapacity, 'queueCapacity');
   powerOfTwo(bucketCount, 'bucketCount');
+  positive(edgeCapacity, 'edgeCapacity', 2 ** 27);
   if (bucketCount < qCapacity) throw new RangeError('bucketCount must be >= qCapacity');
 
   const descriptor = {
@@ -105,6 +109,7 @@ export function createSharedTT({
     workerCount,
     queueCapacity,
     bucketCount,
+    edgeCapacity,
     control: sab(Int32Array, CTRL_WORDS),
     qGeneration: sab(Int32Array, qCapacity),
     qLive: sab(Int32Array, qCapacity),
@@ -128,6 +133,13 @@ export function createSharedTT({
     qChildIndex: sab(Int32Array, qCapacity * MAX_ACTIONS),
     qChildGeneration: sab(Int32Array, qCapacity * MAX_ACTIONS),
     qChildEval: sab(Int32Array, qCapacity * MAX_ACTIONS),
+    edgeParentQ: sab(Int32Array, edgeCapacity),
+    edgeParentGeneration: sab(Int32Array, edgeCapacity),
+    edgeChildQ: sab(Int32Array, edgeCapacity),
+    edgeChildGeneration: sab(Int32Array, edgeCapacity),
+    edgeAction: sab(Int32Array, edgeCapacity),
+    edgeNextIncoming: sab(Int32Array, edgeCapacity),
+    edgeFreeNext: sab(Int32Array, edgeCapacity),
     bucketHead: sab(Int32Array, bucketCount),
     bucketLock: sab(Int32Array, bucketCount),
     queueEnqueue: sab(Int32Array, PRIORITY_BANDS),
@@ -144,8 +156,13 @@ export function createSharedTT({
   shared.qFreeNext.fill(-1);
   shared.qParentHead.fill(-1);
   shared.qChildIndex.fill(-1);
+  shared.edgeParentQ.fill(-1);
+  shared.edgeChildQ.fill(-1);
+  shared.edgeNextIncoming.fill(-1);
+  shared.edgeFreeNext.fill(-1);
   shared.bucketHead.fill(-1);
   Atomics.store(shared.control, CTRL_FREE_HEAD, -1);
+  Atomics.store(shared.control, CTRL_EDGE_FREE_HEAD, -1);
   Atomics.store(shared.control, CTRL_ROOT_Q, -1);
   Atomics.store(shared.control, CTRL_ROOT_GENERATION, 0);
   Atomics.store(shared.control, CTRL_ROOT_VALUE, Q_EXACT_UNKNOWN);
@@ -189,6 +206,13 @@ export function openSharedTT(descriptor) {
     qChildIndex: view(Int32Array, descriptor.qChildIndex),
     qChildGeneration: view(Int32Array, descriptor.qChildGeneration),
     qChildEval: view(Int32Array, descriptor.qChildEval),
+    edgeParentQ: view(Int32Array, descriptor.edgeParentQ),
+    edgeParentGeneration: view(Int32Array, descriptor.edgeParentGeneration),
+    edgeChildQ: view(Int32Array, descriptor.edgeChildQ),
+    edgeChildGeneration: view(Int32Array, descriptor.edgeChildGeneration),
+    edgeAction: view(Int32Array, descriptor.edgeAction),
+    edgeNextIncoming: view(Int32Array, descriptor.edgeNextIncoming),
+    edgeFreeNext: view(Int32Array, descriptor.edgeFreeNext),
     bucketHead: view(Int32Array, descriptor.bucketHead),
     bucketLock: view(Int32Array, descriptor.bucketLock),
     queueEnqueue: view(Int32Array, descriptor.queueEnqueue),
@@ -347,12 +371,16 @@ export function probeOrInsertQ(shared, words, support, flags, replay, replayLeng
 
 export function addQRef(shared, qIndex, generation) {
   if (!qIsCurrent(shared, qIndex, generation)) return false;
-  Atomics.add(shared.qRefCount, qIndex, 1);
-  if (!qIsCurrent(shared, qIndex, generation)) {
-    Atomics.sub(shared.qRefCount, qIndex, 1);
-    return false;
+  const hash = shared.qHash[qIndex];
+  const bucket = hash & (shared.bucketCount - 1);
+  lockBucket(shared, bucket);
+  try {
+    if (!qIsCurrent(shared, qIndex, generation)) return false;
+    Atomics.add(shared.qRefCount, qIndex, 1);
+    return true;
+  } finally {
+    unlockBucket(shared, bucket);
   }
-  return true;
 }
 
 export function releaseQRef(shared, qIndex, generation) {
@@ -537,4 +565,34 @@ export function publishExactQ(shared, qIndex, generation, value) {
 export function readExactQ(shared, qIndex, generation) {
   if (!qIsCurrent(shared, qIndex, generation)) return Q_EXACT_UNKNOWN;
   return Atomics.load(shared.qExact, qIndex);
+}
+
+
+/** BranchManager-only bounded relationship allocation. Parent edges are
+ * topology, never work authority; only q records own execution lifecycle. */
+export function allocateParentEdge(shared) {
+  let edge = Atomics.load(shared.control, CTRL_EDGE_FREE_HEAD);
+  if (edge >= 0) {
+    Atomics.store(shared.control, CTRL_EDGE_FREE_HEAD, shared.edgeFreeNext[edge]);
+    shared.edgeFreeNext[edge] = -1;
+    return edge;
+  }
+  edge = Atomics.add(shared.control, CTRL_EDGE_NEXT, 1);
+  if (edge >= shared.edgeCapacity) throw new Error('ISOMAX_SHARED_EDGE_CAPACITY');
+  return edge;
+}
+
+export function releaseParentEdge(shared, edge) {
+  if (!Number.isInteger(edge) || edge < 0 || edge >= shared.edgeCapacity) {
+    throw new RangeError('invalid shared parent edge');
+  }
+  shared.edgeParentQ[edge] = -1;
+  shared.edgeParentGeneration[edge] = 0;
+  shared.edgeChildQ[edge] = -1;
+  shared.edgeChildGeneration[edge] = 0;
+  shared.edgeAction[edge] = 0;
+  shared.edgeNextIncoming[edge] = -1;
+  const head = Atomics.load(shared.control, CTRL_EDGE_FREE_HEAD);
+  shared.edgeFreeNext[edge] = head;
+  Atomics.store(shared.control, CTRL_EDGE_FREE_HEAD, edge);
 }
