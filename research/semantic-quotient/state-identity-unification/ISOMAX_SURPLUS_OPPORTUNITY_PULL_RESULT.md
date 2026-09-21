@@ -4,7 +4,9 @@ Status: **qualified architecture/result baseline; tuning remains open**
 
 Implementation source qualified:
 
-`work/isomax-surplus-pull-102-corrected@7708f24e379120ad1d73fd686bc36a2068b03d28`
+`work/isomax-surplus-pull-102-corrected@ca02f8672a3f25b0293488fd5401a66797e6773c`
+
+The hard-corpus economics tables below are the earlier qualified baseline measured at `7708f24e…`; later stress repairs preserve the corrected architecture and default policy while strengthening concurrency correctness.
 
 Production comparison source remains `solver/isometric`.
 
@@ -63,6 +65,53 @@ At `7708f24e…`:
 - historical hard-root serial / production-central / corrected-surplus x 1/2/4: PASS on Linux and Windows;
 - exact W/D/L and root action agree with serial for every qualified root;
 - no failed or timed-out variant remains.
+
+## Post-qualification stress correction
+
+The first complete gate at `7708f24e…` was sufficient for the defined corpus/lifecycle qualification, but broader repeated tuning stress later exposed two additional execution-carrier races. These do not change the architecture result; they refine the implementation qualification.
+
+### False queue-capacity classification
+
+A four-worker diagnostic captured `ISOMAX_SURPLUS_QUEUE_CAPACITY` while every priority lane had `enqueue == dequeue` and zero outstanding records. The queue was empty.
+
+The cause was a priority-update race: reconciliation observed a READY helper reservation, but a worker claimed READY->RUNNING before the requeue. The failed requeue was incorrectly interpreted as queue saturation, and pre-writing priority could invalidate the concurrent claim.
+
+Repair `7c0aa1a4b2025353296d74b8b4610b9c0a50a907` makes enqueue own ticket/priority publication and treats a concurrent successful claim as scheduling success rather than capacity failure. Repeated four-worker stress then completed exact.
+
+### Recycled WORK_EXACT carrier read
+
+Quantum/grace stress also captured a remote exact contradiction. One concrete failure delivered remote value 0 for physical child:
+
+`46653732765727722455536261413`
+
+An independent serial IsoMax solve of that exact 29-ply state returned **+1**, matching the worker-local exact cache.
+
+Failure instrumentation showed the WORK_EXACT carrier's replay path had already been cleared when the waiter consumed its result. Therefore reconciliation had recycled/reused the carrier between the waiter's terminal-state observation and result read.
+
+Repair `ca02f8672a3f25b0293488fd5401a66797e6773c` snapshots the scalar work result and then revalidates both carrier generation and WORK_EXACT state before accepting it. If recycle/reuse won the race, the waiter retries from occurrence/q authority instead of consuming the stale carrier.
+
+After this repair:
+
+- full default Surplus qualification passes on Linux and Windows;
+- repository verify passes;
+- native WSL and benchmark-evidence pass;
+- fixed control-quantum sweep 64/128/256/512/1024 at 2 and 4 workers completes exact on both Linux and Windows.
+
+The production-candidate defaults remain `helperGraceMs=1` and `controlQuantum=512` while tuning remains open.
+
+### Fixed-quantum evidence
+
+Post-repair four-worker result-ready totals on one hard-corpus sweep:
+
+| quantum | Linux ms | Windows ms |
+| ---: | ---: | ---: |
+| 64 | 2581.8 | 4134.4 |
+| 128 | **2070.5** | 4541.8 |
+| 256 | 2195.9 | 4868.1 |
+| 512 | 2735.6 | 4400.2 |
+| 1024 | 2271.3 | 4852.7 |
+
+No single fixed quantum wins cross-platform. The result supports continued investigation of adaptive quantum rather than an unconditional fixed-constant replacement.
 
 ## Hard-corpus economics
 
