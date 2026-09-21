@@ -7,6 +7,7 @@ import {
   CTRL_PUB_WAKE,
   CTRL_SESSION,
   CTRL_WORK_WAKE,
+  CTRL_WORKER_READY,
   MAX_MOVES,
   OCC_EXACT,
   OCC_LINKED,
@@ -633,10 +634,25 @@ class SurplusEvaluator {
   runSession(message) {
     this.prepareSession(message);
     const shared=this.shared;
+    // Session-start barrier only: make every live worker visible as idle before
+    // any one of them can claim the external root and enter recursion.
+    Atomics.store(shared.workerIdle,workerIndex,1);
+    Atomics.add(shared.control,CTRL_WORKER_READY,1);
+    Atomics.notify(shared.control,CTRL_WORKER_READY,Infinity);
+    while(Atomics.load(shared.control,CTRL_SESSION)===SESSION_RUNNING &&
+          !Atomics.load(shared.control,CTRL_ABORT)){
+      let alive=0;
+      for(let id=0;id<workerCount;id++)alive+=Number(Atomics.load(shared.workerAlive,id)!==0);
+      const ready=Atomics.load(shared.control,CTRL_WORKER_READY);
+      if(ready>=alive)break;
+      Atomics.wait(shared.control,CTRL_WORKER_READY,ready,10);
+    }
+
     try{
       while(Atomics.load(shared.control,CTRL_SESSION)===SESSION_RUNNING &&
             !Atomics.load(shared.control,CTRL_ABORT)){
-        Atomics.store(shared.workerIdle,workerIndex,0);
+        // If this succeeds it clears our idle token. On failure, preserve an
+        // already-advertised token; only producers consume it.
         if(this.tryClaimWork())continue;
         if(Atomics.load(shared.control,CTRL_SESSION)!==SESSION_RUNNING ||
            Atomics.load(shared.control,CTRL_ABORT))break;

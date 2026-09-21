@@ -40,6 +40,7 @@ export const CTRL_OCC_NEXT = 4;
 export const CTRL_WORK_NEXT = 5;
 export const CTRL_FAILURE = 6;
 export const CTRL_OCC_FREE_WAKE = 7;
+export const CTRL_WORKER_READY = 8;
 export const CTRL_WORDS = 16;
 
 export const WC_WORK_CLAIMS = 0;

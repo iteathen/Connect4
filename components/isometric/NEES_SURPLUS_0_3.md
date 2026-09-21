@@ -78,7 +78,8 @@ The existing native apply/undo, residual transitions, q cache and move-order ope
 | continuation exact interrupt | active continuation occurrence scan at 512-node control boundary | REQUIRED candidate duplicate suppression; scan depth <= physical recursion depth, still E2 debt |
 | priority | coarse numeric bands from order rank and q demand/fan-in proxy | CANDIDATE policy; no opaque scalar |
 | refillExecution | scan live q high-water to admit up to workerCount helpers | UNVERIFIED-DEBT; O(q-high-water) reconciliation scan is not accepted as intrinsically cheap |
-| worker idle sleep | wake epoch sampled before queue check | REQUIRED lost-wakeup correctness; timeout/wakeup latency measured |
+| worker session-entry barrier | one control counter + per-worker idle advertisement before the first root claim | REQUIRED startup determinism for immediate spare-worker demand; cold/session boundary, not branch cadence |
+| worker idle sleep | idle token advertised before wait; wake epoch closes publication race; no polling timeout | REQUIRED lost-wakeup correctness; removes periodic idle wakeups |
 | worker death recovery | invalidate running attempt and requeue portable helper work | REQUIRED fail-closed lifecycle |
 | timeout/abort delivery | one immediately-handled session failure promise | REQUIRED host lifecycle; outside branch cadence |
 | shared arena defaults | work O(workers), occurrences O(42×7×workers) with explicit headroom; q cache independent/recyclable | REMOVED prior append-only/q-capacity-sized shared-memory over-allocation |

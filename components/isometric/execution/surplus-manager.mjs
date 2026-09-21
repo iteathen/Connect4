@@ -5,6 +5,7 @@ import {
   CTRL_PUB_WAKE,
   CTRL_SESSION,
   CTRL_WORK_WAKE,
+  CTRL_WORKER_READY,
   PRIORITY_BANDS,
   SESSION_STOP,
   WC_BAND_BASE,
@@ -132,6 +133,7 @@ export class IsoMaxSurplusBranchManager {
   #wake(shared){
     Atomics.add(shared.control,CTRL_PUB_WAKE,1);Atomics.notify(shared.control,CTRL_PUB_WAKE,Infinity);
     Atomics.add(shared.control,CTRL_WORK_WAKE,1);Atomics.notify(shared.control,CTRL_WORK_WAKE,Infinity);
+    Atomics.notify(shared.control,CTRL_WORKER_READY,Infinity);
   }
   #markDead(id){
     const s=this.session;if(!s||s.done[id])return;
