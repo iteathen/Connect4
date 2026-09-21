@@ -82,6 +82,9 @@ export function createSharedWorkPool({
   positive(publicationCapacity, 'publicationCapacity');
   positive(queueCapacity, 'queueCapacity');
   positive(occurrenceCapacity, 'occurrenceCapacity');
+  // Sequence-number MPMC lanes require at least two cells to distinguish a
+  // published cell from the next producer generation.
+  if (queueCapacity < 2) throw new RangeError('invalid queueCapacity');
 
   const descriptor = Object.freeze({
     workCapacity,
@@ -276,19 +279,68 @@ function ringDequeue(sequence, dequeue, lane, capacity, payloadReader) {
   return false;
 }
 
+function reclaimStaleReadyHead(pool, band) {
+  const base = band * pool.queueCapacity;
+  for (let spins = 0; spins < 1024; spins++) {
+    const position = Atomics.load(pool.queueDequeue, band);
+    const cell = base + (position % pool.queueCapacity);
+    const sequence = Atomics.load(pool.queueSequence, cell);
+    if (sequence - (position + 1) !== 0) return 0;
+
+    const slot = pool.queueSlot[cell];
+    const generation = pool.queueGeneration[cell];
+    const ticket = pool.queueTicket[cell];
+    let stale = slot < 0 || slot >= pool.workCapacity;
+    if (!stale) {
+      stale = Atomics.load(pool.workGeneration, slot) !== generation ||
+        Atomics.load(pool.workTicket, slot) !== ticket ||
+        Atomics.load(pool.workPriority, slot) !== band ||
+        Atomics.load(pool.workNeeded, slot) === 0 ||
+        Atomics.load(pool.workState, slot) !== WORK_READY;
+    }
+    if (!stale) return -1;
+
+    if (Atomics.compareExchange(
+      pool.queueDequeue, band, position, position + 1,
+    ) !== position) continue;
+    Atomics.store(pool.queueSequence, cell, position + pool.queueCapacity);
+    return 1;
+  }
+  return 0;
+}
+
 export function enqueueReady(pool, slot, generation, band) {
   if (band < 0 || band >= pool.bands) throw new RangeError('invalid work priority band');
   if (Atomics.load(pool.workGeneration, slot) !== generation) return false;
   if (Atomics.load(pool.workState, slot) !== WORK_READY) return false;
-  let ticket = 0;
-  const queued = ringEnqueue(pool.queueSequence, pool.queueEnqueue, band, pool.queueCapacity, (cell) => {
-    ticket = Atomics.add(pool.workTicket, slot, 1) + 1;
+
+  const write = (cell) => {
+    const ticket = Atomics.add(pool.workTicket, slot, 1) + 1;
     Atomics.store(pool.workPriority, slot, band);
     pool.queueSlot[cell] = slot;
     pool.queueGeneration[cell] = generation;
     pool.queueTicket[cell] = ticket;
-  });
+  };
+
+  let queued = ringEnqueue(
+    pool.queueSequence, pool.queueEnqueue, band, pool.queueCapacity, write,
+  );
+  if (!queued) {
+    // Priority changes and TT retirement lazily invalidate old tickets. The
+    // bounded queue must reclaim those dead heads rather than treating stale
+    // history as live queue pressure. This is BranchManager queue maintenance,
+    // never worker-side scheduling policy and never a wait on worker progress.
+    for (let recovery = 0; recovery < pool.queueCapacity + 32 && !queued; recovery++) {
+      const reclaimed = reclaimStaleReadyHead(pool, band);
+      if (reclaimed < 0) break; // a genuinely live READY head owns capacity
+      queued = ringEnqueue(
+        pool.queueSequence, pool.queueEnqueue, band, pool.queueCapacity, write,
+      );
+    }
+  }
   if (!queued) return false;
+
+  const ticket = Atomics.load(pool.workTicket, slot);
   Atomics.add(pool.control, CTRL_WAKE, 1);
   Atomics.notify(pool.control, CTRL_WAKE);
   const affinity = Atomics.load(pool.workAffinity, slot);

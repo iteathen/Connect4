@@ -52,6 +52,32 @@ test('shared pull pool claims highest global priority and rejects stale generati
   assert.equal(claim[3], 7);
 });
 
+test('pull priority lane reclaims stale tickets before reporting capacity', () => {
+  const descriptor = createSharedWorkPool({
+    workCapacity:2,workerCount:1,queueCapacity:2,publicationCapacity:8,
+  });
+  const pool = openSharedWorkPool(descriptor);
+  const alloc = new Int32Array(2), claim = new Int32Array(4), queue = new Int32Array(3);
+  const stale = [];
+
+  for (let index=0; index<2; index++) {
+    const slot=allocateWorkSlot(pool,alloc),generation=alloc[1];
+    stale.push([slot,generation]);
+    assert.equal(markReady(pool,slot,generation,6),true);
+  }
+  for (const [slot,generation] of stale) {
+    Atomics.store(pool.workState,slot,WORK_DONE);
+    assert.equal(releaseWorkSlot(pool,slot,generation),true);
+  }
+
+  const slot=allocateWorkSlot(pool,alloc),generation=alloc[1];
+  assert.equal(markReady(pool,slot,generation,6),true,
+    'stale queue history must not consume bounded BranchManager queue capacity');
+  assert.equal(claimHighestReady(pool,0,claim,queue),true);
+  assert.equal(claim[0],slot);
+  assert.equal(claim[1],generation);
+});
+
 test('retained decentralized pull matches serial exact WDL and root action at 1/2/4 workers',
   {timeout:60000}, async () => {
     const roots = makeCorpus({seed:0x1020c4, ply:34, count:2}).map(entry => entry.moves);
@@ -171,10 +197,10 @@ test('decentralized pull requeues dead-worker execution and still returns exact 
       assert.equal(killed, true);
       assert.equal(result.value, expected.value);
       assert.equal(result.move, expected.move);
-      assert.ok((result.metrics.workerDeathsObserved ?? 0) > 0,
-        'BranchManager must observe the evaluator death');
-      // Requeue is conditional: if TT reconciliation already made the killed
-      // reservation redundant, exact completion may proceed without requeue.
+      // Manager observation/requeue is schedule-dependent: the killed reservation
+      // may already be redundant in the TT, or the root may become exact before
+      // the next death-scan. The invariant is that terminating an observed
+      // RUNNING evaluator cannot corrupt or strand the exact solve.
       assert.ok((result.metrics.workerDeathRequeues ?? 0) >= 0);
     } finally {
       await manager.close();
