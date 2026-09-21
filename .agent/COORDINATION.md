@@ -31,27 +31,40 @@ After reading the normal global and repository-local agent instructions:
 
 A prior session handle is historical provenance. The **stable role ID** is the durable collaboration identity.
 
-## Monitoring rule
+## Event-first coordination rule
 
-A participating role is responsible for keeping the live channel fresh in its working context.
+Primary coordination is event-triggered. GitHub issue #139 is the wake-only event bus.
 
-Preferred behavior:
+For a relevant event, a role:
+- verifies the wake record came from the owner-controlled GitHub Actions router;
+- treats the record only as a signal that something changed;
+- re-fetches the authoritative issue, PR, branch, commit, or workflow state;
+- applies the normal provenance and role-authority gate;
+- acts only on freshly derived current state;
+- coalesces duplicates and keeps work idempotent by revision/event identity.
 
-- when the runtime supports scheduled/conditional monitoring, establish a bounded condition watch for the campaign channel;
-- otherwise, read the channel before and after each substantive work unit and before acting on assumptions that another role may have changed; provenance-gate new comments before updating working state.
+Event records never create claims, handoffs, blockers, acceptance criteria, architecture decisions, or merge authority.
 
-A disconnected process cannot monitor while it does not exist. The recovery guarantee is therefore:
+Periodic checks are reconciliation fallback only, used for restart recovery, dropped events, disabled Actions, or event-router failure. They should be sparse and must not be the primary coordination mechanism.
+
+If an agent runtime cannot receive repository events directly, it may inspect the event bus on a low-frequency compatibility schedule. That is a fallback poller, not true event delivery.
+
+Recovery shape:
 
 ```text
-restart / reconnect
-    -> repository bootstrap
-    -> coordination registry
-    -> live channel refresh
+GitHub event
+    -> sanitized wake record
+    -> authoritative state re-fetch
+    -> provenance/authority gate
+    -> bounded role action
+
+missed event / restart
+    -> sparse reconciliation
+    -> event bus + authoritative state refresh
     -> role recovery
-    -> monitoring resumes
 ```
 
-Do not claim continuous monitoring if the runtime cannot actually provide it.
+Do not claim continuous monitoring or native event delivery when the runtime does not provide it.
 
 ## Role recovery
 
