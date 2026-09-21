@@ -16,6 +16,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  ISOMAX_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
 jobs:
   late-linux:
     runs-on: ubuntu-24.04
