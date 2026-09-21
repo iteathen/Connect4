@@ -1,12 +1,16 @@
 # IsoMax NEES conformance audit — active ordinary worker profile
 
-**Status:** Draft 0.3 baseline complete for the ordinary worker; explicit suspected optimization debt retained  
+**Status:** Draft 0.3 baseline retained as inherited evidence; Draft 0.4 authority pinned, with requalification intentionally deferred until the current BranchManager/worker E2 rebuild is complete  
 **Solver revision audited:** `solver/isometric@b784c710382a819717889a3c71183ceff6f40f49`  
-**NEES authority:** `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c` — Draft 0.3  
+**NEES authority:** `iteathen/NEES@34412670878316295736799097ebb8f248a7bb50` — Draft 0.4  
 **Runtime profile:** Node v26.7.0 / Node 26-V8 14.6 family  
 **Semantic authority effect:** none
 
-## 1. Conformance status after the Draft 0.3 pin
+## 1. Conformance status after the Draft 0.4 pin
+
+The authority pin has moved to Draft 0.4. By explicit owner direction, Draft 0.4 qualification is **deferred until after the current BranchManager rebuild and worker E2 cleanup**. The existing Draft 0.3 baseline remains inherited historical evidence; this pin move alone is not a new conformance claim.
+
+### Historical Draft 0.3 baseline
 
 The completed audit below remains valid inherited structural/runtime evidence from the Draft 0.2 qualification.
 

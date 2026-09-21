@@ -1,8 +1,8 @@
 # IsoMax NEES conformance profile
 
-**Status:** governing implementation-performance contract for the IsoMax hot loop on `solver/isometric`; Draft 0.3 baseline recorded with explicit optimization debt  
-**NEES authority:** `iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c`  
-**NEES version:** Draft 0.3  
+**Status:** governing implementation-performance contract for the IsoMax hot loop on `solver/isometric`; authority moved to Draft 0.4, qualification intentionally deferred until the current BranchManager/worker E2 rebuild is complete  
+**NEES authority:** `iteathen/NEES@34412670878316295736799097ebb8f248a7bb50`  
+**NEES version:** Draft 0.4  
 **Runtime profile:** Node.js 26.x / V8 14.6 family; current qualification runtime Node v26.7.0  
 **Gameplay authority effect:** none  
 **Semantic authority:** Connect4 logic authority and C4-0011 remain authoritative for game meaning
@@ -15,7 +15,7 @@ The conformance record is:
 
 `components/isometric/NEES_CONFORMANCE.md`
 
-The previous Draft 0.2 audit is inherited evidence. The complete Draft 0.3 E0-E2 cost/debt baseline is now recorded in `NEES_BASELINE_0_3.md`. It covers the entire ordinary-worker call closure, not merely the latest diff, and retains explicit UNVERIFIED-DEBT. It is not a claim of globally optimal machine code or that all candidate issues are resolved.
+The previous Draft 0.2 audit and the complete Draft 0.3 E0-E2 cost/debt baseline in `NEES_BASELINE_0_3.md` remain inherited historical evidence. The authority pin has moved to Draft 0.4, but Draft 0.4 qualification is intentionally deferred until the current BranchManager rebuild and worker E2 cleanup are complete so the coherent replacement is qualified once at its governing optimization boundary.
 
 The promoted conformance claim covers the **active ordinary native worker profile**. Optional guarded-certificate and RBA synchronous consumers remain valid APIs, but they are not implicitly included in the ordinary-worker E0 claim because they currently use richer proof/boundary representations.
 
@@ -177,7 +177,7 @@ The current hot loop materially implements these NEES methods:
 - M40 — retain optimized Node/V8 builtins unless a narrower method is admitted;
 - M44 — runtime-sensitive realization is tied to a pinned profile.
 
-Method numbering and doctrine follow NEES Draft 0.3 at the pinned revision. Draft 0.3 additionally requires M45 maximal-effort hot-path cost audit and M46 critical-path cycle analysis. A later NEES revision does not silently alter this profile.
+Method numbering and doctrine now follow NEES Draft 0.4 at the pinned revision. The prior Draft 0.3 baseline remains inherited evidence. Draft 0.4 requalification is pending by explicit owner direction until the current BranchManager/worker E2 change set is complete; no conformance claim for the new pin is implied before that qualification.
 
 ## 7. Known realization-sensitive records
 
