@@ -29,6 +29,9 @@ import {
   WC_FORCED_TRANSITIONS,
   WC_FRONTIERS,
   WC_NATIVE_EXACT,
+  WC_LOCAL_SIBLING_RETURNS,
+  WC_PARENT_LOCAL_COMPLETIONS,
+  WC_PARENT_REMOTE_YIELDS,
   WC_Q_CREATED,
   WC_Q_REUSED,
   WC_QUEUE_EMPTY,
@@ -393,6 +396,9 @@ export class IsoMaxBranchManager {
       forcedTransitions: total[WC_FORCED_TRANSITIONS],
       branchDescriptors: total[WC_BRANCH_DESCRIPTORS],
       sharedExactConsumed: total[WC_SHARED_EXACT_CONSUMED],
+      localSiblingReturns: total[WC_LOCAL_SIBLING_RETURNS],
+      parentLocalCompletions: total[WC_PARENT_LOCAL_COMPLETIONS],
+      parentRemoteYields: total[WC_PARENT_REMOTE_YIELDS],
       claimsByBand,
     };
   }
