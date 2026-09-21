@@ -359,7 +359,11 @@ export class IsoMaxBranchManager {
       };
       worker.on('message', message => {
         if (message?.type === 'manager-done') finish(null, message.metrics);
-        else if (message?.type === 'manager-error') finish(new Error(message.message));
+        else if (message?.type === 'manager-error') {
+          const error = new Error(message.message);
+          if (message.stack) error.stack = message.stack;
+          finish(error);
+        }
       });
       worker.on('error', error => finish(error));
       worker.on('exit', code => {
