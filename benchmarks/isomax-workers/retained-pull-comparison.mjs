@@ -143,7 +143,14 @@ if (process.argv[2] === 'child') {
 } else {
   const root = new URL('../../', import.meta.url);
   const cwd = decodeURIComponent(root.pathname);
-  const sourceRevision = execFileSync('git', ['rev-parse','HEAD'], {cwd,encoding:'utf8'}).trim();
+  let sourceRevision = process.env.ISOMAX_SOURCE_SHA ?? null;
+  if (!sourceRevision) {
+    try {
+      sourceRevision = execFileSync('git', ['rev-parse','HEAD'], {cwd,encoding:'utf8'}).trim();
+    } catch {
+      sourceRevision = 'unknown';
+    }
+  }
   const variants = ['serial','central-1','retained-1','central-2','retained-2','central-4','retained-4'];
   const report = {
     sourceRevision,
