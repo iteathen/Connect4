@@ -179,8 +179,6 @@ test('shared-TT root witness survives mirror transport and deterministic compres
       queueCapacity: 8192,
       branchCapacity: 2048,
       eventCapacity: 4096,
-      classReserve: 262144,
-      entryReserve: 524288,
     });
     try {
       for (const moves of roots) {
