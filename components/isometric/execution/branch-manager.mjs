@@ -32,6 +32,8 @@ import {
   WC_LOCAL_SIBLING_RETURNS,
   WC_PARENT_LOCAL_COMPLETIONS,
   WC_PARENT_REMOTE_YIELDS,
+  WC_PRIVATE_BRANCHES,
+  WC_EXPOSURE_PERMITS,
   WC_Q_CREATED,
   WC_Q_REUSED,
   WC_QUEUE_EMPTY,
@@ -399,6 +401,8 @@ export class IsoMaxBranchManager {
       localSiblingReturns: total[WC_LOCAL_SIBLING_RETURNS],
       parentLocalCompletions: total[WC_PARENT_LOCAL_COMPLETIONS],
       parentRemoteYields: total[WC_PARENT_REMOTE_YIELDS],
+      privateBranches: total[WC_PRIVATE_BRANCHES],
+      exposurePermits: total[WC_EXPOSURE_PERMITS],
       claimsByBand,
     };
   }
