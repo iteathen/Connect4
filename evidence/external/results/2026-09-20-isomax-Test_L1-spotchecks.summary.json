@@ -1,0 +1,52 @@
+{
+  "schema": "connect4-external-pons-beginning-spotchecks-v1",
+  "evidenceClass": "REFERENCE-GROUNDED",
+  "representative": false,
+  "selection": "bounded operational spot-checks from the first 32 rows of each beginning set; positions were retained only when exact per-move score generation completed within a 2-second local cap. This set is deliberately not representative and is reported separately from the deterministic first-64-row calibration corpus.",
+  "solver": "IsoMax",
+  "sourceRevision": "ab692df536a62d1aa2c8ccd5caa49f124359330d",
+  "externalReference": {
+    "repository": "megakilo/alphafour",
+    "revision": "cf2d4546e5824c155e9dd7e888a572bff3128498",
+    "sets": {
+      "Test_L1_R1": {
+        "url": "https://raw.githubusercontent.com/megakilo/alphafour/cf2d4546e5824c155e9dd7e888a572bff3128498/testdata/Test_L1_R1",
+        "sha256": "003b7f5cc2b9b2d07ee2663cf92dfe99a50d7f4f57c556b6f35048e1bfaedb68",
+        "gitBlobShaFromFrozenMetadata": "125e3d872dfec4ea13fe09641606dff992f152ee"
+      },
+      "Test_L1_R2": {
+        "url": "https://raw.githubusercontent.com/megakilo/alphafour/cf2d4546e5824c155e9dd7e888a572bff3128498/testdata/Test_L1_R2",
+        "sha256": "ba3df3282804270661239d0fc357761a5c7cc31bbd581f3c502222abffa31113",
+        "gitBlobShaFromFrozenMetadata": "481876168e3690e6bf080c56683b9d506e5ddd58"
+      }
+    }
+  },
+  "comparison": {
+    "positionCount": 30,
+    "matchedCount": 30,
+    "mismatchCount": 0,
+    "timeoutCount": 0,
+    "runtimeFailureCount": 0,
+    "totalNodes": 12846446,
+    "totalSolverMs": 8995.8765,
+    "caseTimeoutMs": 30000,
+    "interpretation": "Pons score is side-to-move relative; compared to IsoMax P0-relative W/D/L after parity/sign conversion"
+  },
+  "runtime": {
+    "node": "v26.7.0",
+    "v8": "14.6.202.34-node.28",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "artifact": {
+    "workflowRunId": 35552435902,
+    "artifactId": 10619360227,
+    "artifactDigest": "sha256:78d70bcecfe6ff0cb24d38574f12e418cad669efd02155d5b23055cb36f87375"
+  },
+  "limitations": [
+    "The 30 positions are deliberately nonrepresentative spot checks selected by an earlier bounded per-move-oracle generation cap.",
+    "This result establishes parent-position W/D/L only.",
+    "It does not validate the repository-generated per-move score vectors.",
+    "It does not establish comparative performance superiority."
+  ]
+}

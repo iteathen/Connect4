@@ -45,3 +45,21 @@ Campaign source revision: `be2142373d2781ca9268a4260b7d5b5776c1855b`.
 - Frozen aggregate: [`results/2026-09-20-isomax-Test_L2_R1.summary.json`](results/2026-09-20-isomax-Test_L2_R1.summary.json).
 
 **Disposition:** REFERENCE-GROUNDED parent-position W/D/L correctness for these 64 external Pons benchmark positions. Combined with the frozen Test_L3_R1 campaign, IsoMax now has 128/128 matching external parent-position W/D/L results across the two tiers. This still does not validate move-distance scores, internally generated per-move score vectors, or performance superiority.
+
+## Frozen result — beginning L1 spot checks
+
+Campaign source revision: `ab692df536a62d1aa2c8ccd5caa49f124359330d`.
+
+This campaign uses the repository's pre-existing **deliberately nonrepresentative** bounded spot-check set drawn from Pons `Test_L1_R1` and `Test_L1_R2`. The selection bias is preserved as a limitation rather than hidden.
+
+- External rows revalidated against pinned public Pons-derived files before execution: **30/30**.
+- IsoMax parent-position W/D/L matches: **30/30**.
+- Mismatches: **0**.
+- Timeouts at 30 s/position: **0**.
+- Runtime failures: **0**.
+- Solver nodes across the 30 positions: **12,846,446**.
+- Aggregate measured solver time: **8,995.877 ms** (descriptive only; no comparative performance claim).
+- Workflow run: `35552435902`; full per-position artifact: `10619360227`.
+- Frozen aggregate: [`results/2026-09-20-isomax-Test_L1-spotchecks.summary.json`](results/2026-09-20-isomax-Test_L1-spotchecks.summary.json).
+
+**Disposition:** REFERENCE-GROUNDED parent-position W/D/L correctness for these 30 externally revalidated, nonrepresentative beginning-position spot checks. Combined with the deterministic L2/L3 campaigns, IsoMax has no mismatch across **158 tested external parent positions**, but only the 128 L2/L3 positions form the deterministic first-64-row calibration subsets.
