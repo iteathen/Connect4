@@ -31,7 +31,7 @@ export function createSharedEvents({
   powerOfTwo(eventCapacity,'eventCapacity');
   const branchSlots=workerCount*branchCapacity;
   const eventSlots=workerCount*eventCapacity;
-  return {
+  const descriptor={
     workerCount,branchCapacity,eventCapacity,
     branchWrite:sab(Int32Array,workerCount),
     branchRead:sab(Int32Array,workerCount),
@@ -61,6 +61,10 @@ export function createSharedEvents({
     eventValue:sab(Int32Array,eventSlots),
     eventAux:sab(Int32Array,eventSlots),
   };
+  // -1 is the only "no branch transaction" sentinel. Zero is a valid first
+  // ring position and must never be confused with an untouched worker ledger.
+  new Int32Array(descriptor.pendingBranchPosition).fill(-1);
+  return descriptor;
 }
 
 export function openSharedEvents(descriptor){
