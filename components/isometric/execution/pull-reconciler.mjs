@@ -142,6 +142,7 @@ class PullReconciler {
     this.qCount = 0; // index high-water, not live cardinality
     this.qActiveCount = 0;
     this.qTombstones = 0;
+    this.qEvictCursor = 0;
 
     this.edgeParent = new Int32Array(this.maxEdges);
     this.edgeChild = new Int32Array(this.maxEdges);
@@ -202,6 +203,7 @@ class PullReconciler {
       slotReclaims:0,
       qReuses:0,
       qReclaims:0,
+      exactQEvictions:0,
       qHashRebuilds:0,
       maxActiveCanonicalQ:0,
       reconcileBatches:0,
@@ -319,10 +321,12 @@ class PullReconciler {
     return false;
   }
 
-  reclaimOrphanQ(q) {
+  reclaimQ(q, evictExact = false) {
     if (q < 0 || q >= this.qCount || q === this.rootQ || !this.qAlive[q]) return false;
-    if (this.qExact[q] || this.qParentCount[q] !== 0 || this.qWork[q] >= 0 ||
+    if (this.qParentCount[q] !== 0 || this.qWork[q] >= 0 ||
         this.qCandidateBand[q] >= 0 || this.qOutgoingHead[q] !== -1) return false;
+    if (this.qExact[q] && !evictExact) return false;
+    if (!this.qExact[q] && evictExact) return false;
     if (!this.removeQHash(q)) throw new Error('retained canonical q missing from hash during reclaim');
 
     this.qAlive[q] = 0;
@@ -352,8 +356,27 @@ class PullReconciler {
     this.qFree[this.qFreeCount++] = q;
     if (this.qActiveCount > 0) this.qActiveCount--;
     this.metrics.qReclaims++;
+    if (evictExact) this.metrics.exactQEvictions++;
     this.metrics.canonicalQ = this.qActiveCount;
     return true;
+  }
+
+  reclaimOrphanQ(q) {
+    return this.reclaimQ(q, false);
+  }
+
+  evictOrphanExactQ() {
+    if (this.qCount <= 1) return false;
+    for (let scanned = 0; scanned < this.qCount; scanned++) {
+      const q = this.qEvictCursor;
+      this.qEvictCursor++;
+      if (this.qEvictCursor >= this.qCount) this.qEvictCursor = 0;
+      if (q === this.rootQ || !this.qAlive[q] || !this.qExact[q]) continue;
+      if (this.qParentCount[q] !== 0 || this.qWork[q] >= 0 ||
+          this.qCandidateBand[q] >= 0 || this.qOutgoingHead[q] !== -1) continue;
+      if (this.reclaimQ(q, true)) return true;
+    }
+    return false;
   }
 
   internCurrentState() {
@@ -385,7 +408,7 @@ class PullReconciler {
     }
 
     if (this.qFreeCount === 0 && this.qCount >= this.maxQ) {
-      throw new Error('ISOMAX_PULL_Q_CAPACITY');
+      if (!this.evictOrphanExactQ()) throw new Error('ISOMAX_PULL_Q_CAPACITY');
     }
     if (this.qTombstones > this.maxQ / 2) {
       this.rebuildQHash();
