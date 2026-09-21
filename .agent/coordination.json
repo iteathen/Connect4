@@ -62,17 +62,21 @@
           "last_session_handle": "IX-A17E5C42",
           "purpose": "Research broadly and creatively, connect abstract structures, consult canonical research and external work when useful, and exploit structural synergy including IsoGraph DP/NEI/QU where justified.",
           "recovery_behavior": "Recover the current unresolved research question; do not open a new candidate family while an existing executable prototype is awaiting falsification; convert promising abstractions into testable mechanisms."
+        },
+        {
+          "role_id": "isomax-qualification",
+          "role": "qualification-and-evidence",
+          "last_session_handle": "IX-C0A17E42",
+          "purpose": "Own lifecycle fixture validity, deterministic crash/lifetime qualification, cross-platform CI evidence, NEES realization-cost measurement, and revision-pinned qualification reporting without redefining architecture or sharing production implementation authority.",
+          "recovery_behavior": "Refresh #102, recover the newest qualification gate and exact revision under test, validate established semantics independently, report bounded evidence, and hand implementation defects back to their owning role.",
+          "temporary_staffing": {
+            "staffed_by_role_id": "isomax-reviewer",
+            "mode": "double-duty",
+            "release_trigger": "recruit and onboard a dedicated isomax-qualification agent"
+          }
         }
       ],
-      "role_state_rule": "The issue thread owns live role/task state. Registry roles are durable purpose/recovery definitions only; last_session_handle is historical and may be replaced after restart.",
-      "temporary_staffing": {
-        "isomax-qualification": {
-          "staffed_by_role_id": "isomax-reviewer",
-          "mode": "double-duty",
-          "priority": "qualification work that does not duplicate adversarial review remains subordinate to correctness review and must not acquire architecture authority",
-          "release_trigger": "recruit a dedicated qualification agent or director explicitly releases the assignment"
-        }
-      }
+      "role_state_rule": "The issue thread owns live role/task state. Registry roles are durable purpose/recovery definitions only; last_session_handle is historical and may be replaced after restart."
     },
     {
       "campaign_id": "project-operations",
