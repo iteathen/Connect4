@@ -46,3 +46,18 @@ Authoritative details:
 - [L1 nonrepresentative spot-check aggregate](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L1-spotchecks.summary.json)
 
 This registration is **REFERENCE-GROUNDED parent-position W/D/L correctness only**. It is not a performance ranking and does not promote internal per-move score vectors to external evidence.
+
+## Stronger registered result: unbiased L1 deterministic slice
+
+The later L1 campaign supersedes the earlier selection-biased spot checks as the primary beginning-position evidence:
+
+- `Test_L1_R1`, first 32 rows: **32/32 matched**;
+- `Test_L1_R2`, first 32 rows: **32/32 matched**;
+- no difficulty prefilter;
+- 0 mismatches, 0 timeouts, 0 runtime failures.
+
+Together with the frozen L2/L3 slices, the primary external correctness record is now **192 unique positions, 192 matches, 0 mismatches**.
+
+- [L1 first-32 frozen aggregate](https://github.com/iteathen/Connect4/blob/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L1-first32.summary.json)
+
+The older 30-position L1 spot-check packet remains historical corroboration and is a subset of this stronger 64-position L1 campaign.

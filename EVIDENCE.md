@@ -13,7 +13,7 @@ The fact that Connect Four is solved makes this repository unusually suitable fo
 | Claim | Evidence class | Status |
 | --- | --- | --- |
 | `C4-INT-001` — the maintained domain/oracle/benchmark substrate on `main` provides the repository's accepted internal comparator | **INTERNAL-QUALIFICATION** | qualified repository authority |
-| `C4-ISOMAX-PONS-001` — IsoMax matches externally sourced Pons parent-position W/D/L on 128 deterministic L2/L3 calibration positions plus 30 explicitly nonrepresentative L1 beginning spot checks | **REFERENCE-GROUNDED** | **158 tested; 158 matched; 0 mismatches** |
+| `C4-ISOMAX-PONS-001` — IsoMax matches externally sourced Pons parent-position W/D/L on deterministic published slices: first 32 rows of each L1 set plus first 64 rows of L2_R1 and L3_R1 | **REFERENCE-GROUNDED** | **192 unique positions; 192 matches; 0 mismatches** |
 | `C4-EXT-001` — broad active-solver correctness/performance, including comparative performance and other solver families, has independent external validation | **UNVALIDATED** | broader external campaign remains open |
 
 Machine-readable records: [`evidence/claims.json`](evidence/claims.json). External evidence belongs under [`evidence/external/`](evidence/external/README.md).
@@ -22,11 +22,11 @@ Machine-readable records: [`evidence/claims.json`](evidence/claims.json). Extern
 
 Current repository qualification can establish behavior relative to the pinned Connect4 semantics, oracle/reference implementation, benchmark protocol, and exact tested solver revisions.
 
-In addition, IsoMax has **REFERENCE-GROUNDED parent-position W/D/L correctness evidence** whose sequence/parent-score pairs were revalidated against the pinned public Pascal Pons benchmark mirror before execution: 64/64 from `Test_L3_R1`, 64/64 from `Test_L2_R1`, and 30/30 from the repository's deliberately nonrepresentative L1 beginning-position spot-check set. That is **158 tested positions, 158 matches, 0 mismatches**. The deterministic calibration claim remains the 128 L2/L3 positions; the 30 L1 cases remain explicitly selection-biased spot checks. The frozen evidence lives on the authoritative `solver/isometric` branch.
+In addition, IsoMax has **REFERENCE-GROUNDED parent-position W/D/L correctness evidence** whose sequence/parent-score pairs were reacquired directly from the pinned public Pascal Pons benchmark mirror before execution: first 32 rows of `Test_L1_R1` (32/32), first 32 rows of `Test_L1_R2` (32/32), first 64 rows of `Test_L2_R1` (64/64), and first 64 rows of `Test_L3_R1` (64/64). That is **192 unique external positions, 192 matches, 0 mismatches**. The L1 first-32 campaign used no solver-difficulty prefilter and completed with zero timeouts. The earlier 30-position L1 spot-check campaign is a subset retained only as historical corroboration. The frozen evidence lives on the authoritative `solver/isometric` branch.
 
 ## What it does not establish
 
-The registered Pons campaigns establish only the scoped parent-position W/D/L result stated above. The L1 addition is not a representative sample and must not be presented as one. They do not establish Pons move-distance parity, correctness of the repository-generated per-move score vectors, comparative algorithmic superiority, cross-machine performance, CUDA-BSFP external correctness, or third-party reproduction.
+The registered Pons campaigns establish only the scoped parent-position W/D/L result stated above. The slices are deterministic prefixes of named Pons benchmark sets, not a claim of statistical representativeness over all legal Connect Four positions. They do not establish Pons move-distance parity, correctness of the repository-generated per-move score vectors, comparative algorithmic superiority, cross-machine performance, CUDA-BSFP external correctness, or third-party reproduction.
 
 ## Path to stronger evidence
 
