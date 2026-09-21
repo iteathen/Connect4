@@ -177,6 +177,7 @@ class PullReconciler {
       maxExecutionWork:0,
       priorityAdmissionPreemptions:0,
       priorityUpdates:0,
+      priorityUpdateDeferrals:0,
       slotReclaims:0,
       qReuses:0,
       reconcileBatches:0,
@@ -492,10 +493,16 @@ class PullReconciler {
     const state = Atomics.load(this.shared.workState, slot);
 
     if (state === WORK_WRITING) {
+      // Initial admission has no prior valid ticket to fall back to. Publish
+      // READY only after the bounded queue accepts the first ticket.
       Atomics.store(this.shared.workPriority, slot, band);
       if (Atomics.compareExchange(this.shared.workState, slot, WORK_WRITING, WORK_READY) === WORK_WRITING) {
         if (!enqueueReady(this.shared, slot, generation, band)) {
-          throw new Error('ISOMAX_PULL_PRIORITY_QUEUE_CAPACITY');
+          // Restore WRITING so refillExecution can retry admission later rather
+          // than leaving an unclaimable READY reservation.
+          Atomics.compareExchange(this.shared.workState, slot, WORK_READY, WORK_WRITING);
+          this.metrics.priorityUpdateDeferrals++;
+          return;
         }
         this.metrics.priorityUpdates++;
       }
@@ -505,12 +512,15 @@ class PullReconciler {
     if (state === WORK_READY) {
       const previousBand = Atomics.load(this.shared.workPriority, slot);
       if (previousBand === band) return;
-      Atomics.store(this.shared.workPriority, slot, band);
-      // Priority changes use a new ticket; the old record becomes stale by
-      // ticket/band comparison. Do not emit duplicate tickets for unchanged
-      // topology.
+
+      // Keep the old ticket valid until the replacement is actually published.
+      // A temporary full lane is queue lag, not semantic/capacity failure:
+      // executing this q at its previous band is always safer than invalidating
+      // its only claimable ticket. BranchManager will retry on later topology
+      // updates/refill passes.
       if (!enqueueReady(this.shared, slot, generation, band)) {
-        throw new Error('ISOMAX_PULL_PRIORITY_QUEUE_CAPACITY');
+        this.metrics.priorityUpdateDeferrals++;
+        return;
       }
       this.metrics.priorityUpdates++;
     }
