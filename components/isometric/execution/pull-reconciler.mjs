@@ -116,6 +116,15 @@ class PullReconciler {
     this.qOrderHint = new Uint8Array(this.maxQ);
     this.qPriority = new Uint8Array(this.maxQ);
     this.qAffinity = new Int16Array(this.maxQ); this.qAffinity.fill(-1);
+
+    // BranchManager owns unresolved execution admission. Keep one intrusive
+    // candidate membership per canonical q so refill never scans the TT.
+    this.qCandidateNext = new Int32Array(this.maxQ); this.qCandidateNext.fill(-1);
+    this.qCandidatePrev = new Int32Array(this.maxQ); this.qCandidatePrev.fill(-1);
+    this.qCandidateBand = new Int8Array(this.maxQ); this.qCandidateBand.fill(-1);
+    this.candidateHead = new Int32Array(PRIORITY_BANDS); this.candidateHead.fill(-1);
+    this.candidateTail = new Int32Array(PRIORITY_BANDS); this.candidateTail.fill(-1);
+    this.candidateCount = 0;
     // Execution seed only: one legal physical replay representative per
     // canonical q. This is not q identity or proof identity. It lets semantic
     // demand outlive READY/RUNNING occurrence records safely.
@@ -179,6 +188,11 @@ class PullReconciler {
       priorityAdmissionPreemptions:0,
       priorityUpdates:0,
       priorityUpdateDeferrals:0,
+      candidateAdds:0,
+      candidateMoves:0,
+      candidatePops:0,
+      maxCandidates:0,
+      fullTableRepairs:0,
       slotReclaims:0,
       qReuses:0,
       reconcileBatches:0,
@@ -366,10 +380,84 @@ class PullReconciler {
     return true;
   }
 
-  ensureExecution(q) {
-    if (q < 0 || q >= this.qCount || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) return false;
-    if (q !== this.rootQ && this.qParentCount[q] === 0) return false;
+  candidateEligible(q) {
+    return q >= 0 && q < this.qCount &&
+      !this.qExact[q] &&
+      this.qForm[q] === Q_UNEXPANDED &&
+      this.qWork[q] === -1 &&
+      (q === this.rootQ || this.qParentCount[q] > 0);
+  }
 
+  unlinkCandidate(q) {
+    const band = this.qCandidateBand[q];
+    if (band < 0) return false;
+    const previous = this.qCandidatePrev[q];
+    const next = this.qCandidateNext[q];
+    if (previous >= 0) this.qCandidateNext[previous] = next;
+    else this.candidateHead[band] = next;
+    if (next >= 0) this.qCandidatePrev[next] = previous;
+    else this.candidateTail[band] = previous;
+    this.qCandidatePrev[q] = -1;
+    this.qCandidateNext[q] = -1;
+    this.qCandidateBand[q] = -1;
+    if (this.candidateCount > 0) this.candidateCount--;
+    return true;
+  }
+
+  queueCandidate(q, band = this.qPriority[q]) {
+    if (!this.candidateEligible(q)) {
+      this.unlinkCandidate(q);
+      return false;
+    }
+    if (band < 0 || band >= PRIORITY_BANDS) throw new Error('invalid retained q candidate band');
+    const current = this.qCandidateBand[q];
+    if (current === band) return true;
+    const moved = current >= 0;
+    if (moved) this.unlinkCandidate(q);
+    const tail = this.candidateTail[band];
+    this.qCandidatePrev[q] = tail;
+    this.qCandidateNext[q] = -1;
+    this.qCandidateBand[q] = band;
+    if (tail >= 0) this.qCandidateNext[tail] = q;
+    else this.candidateHead[band] = q;
+    this.candidateTail[band] = q;
+    this.candidateCount++;
+    if (moved) this.metrics.candidateMoves++;
+    else this.metrics.candidateAdds++;
+    this.metrics.maxCandidates = Math.max(this.metrics.maxCandidates, this.candidateCount);
+    return true;
+  }
+
+  popHighestCandidate() {
+    for (let band = PRIORITY_BANDS - 1; band >= 0; band--) {
+      while (this.candidateHead[band] >= 0) {
+        const q = this.candidateHead[band];
+        this.unlinkCandidate(q);
+        if (!this.candidateEligible(q)) continue;
+        const desired = this.desiredPriority(q);
+        this.qPriority[q] = desired;
+        if (desired !== band) {
+          this.queueCandidate(q, desired);
+          continue;
+        }
+        this.metrics.candidatePops++;
+        return q;
+      }
+    }
+    return -1;
+  }
+
+  ensureExecution(q) {
+    if (q < 0 || q >= this.qCount || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
+      this.unlinkCandidate(q);
+      return false;
+    }
+    if (q !== this.rootQ && this.qParentCount[q] === 0) {
+      this.unlinkCandidate(q);
+      return false;
+    }
+
+    this.unlinkCandidate(q);
     const existing = this.qWork[q];
     if (existing >= 0) {
       const generation = Atomics.load(this.shared.workGeneration, existing);
@@ -425,27 +513,52 @@ class PullReconciler {
     this.qWork[victimQ] = -1;
     if (this.executionWorkCount > 0) this.executionWorkCount--;
     this.retireSlot(victimSlot, generation, false);
+    this.queueCandidate(victimQ, this.qPriority[victimQ]);
     this.metrics.priorityAdmissionPreemptions++;
     return true;
   }
 
   refillExecution() {
     let admitted = 0;
-    for (let band = PRIORITY_BANDS - 1; band >= 0; band--) {
-      for (let q = 0; q < this.qCount; q++) {
-        if (this.qPriority[q] !== band || this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED ||
-            this.qWork[q] !== -1 || (q !== this.rootQ && this.qParentCount[q] === 0)) continue;
-        if (this.executionWorkCount >= this.executionLimit && !this.evictLowerPriorityReady(band)) continue;
-        if (this.ensureExecution(q)) admitted++;
+    let deferred = -1;
+    for (;;) {
+      const q = this.popHighestCandidate();
+      if (q < 0) break;
+      const band = this.qPriority[q];
+
+      if (this.executionWorkCount >= this.executionLimit &&
+          !this.evictLowerPriorityReady(band)) {
+        deferred = q;
+        break;
       }
+
+      if (this.ensureExecution(q)) {
+        admitted++;
+        continue;
+      }
+
+      // Capacity or a concurrent lifecycle change prevented admission. Keep a
+      // still-live q visible for the next manager refill rather than scanning.
+      this.queueCandidate(q, this.qPriority[q]);
+      break;
     }
+    if (deferred >= 0) this.queueCandidate(deferred, this.qPriority[deferred]);
     return admitted;
   }
 
   repairExecutableDemand() {
+    // Rare liveness repair only. Normal refill is strictly incremental and
+    // never scans the canonical TT.
+    this.metrics.fullTableRepairs++;
     for (let q = 0; q < this.qCount; q++) {
-      if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) continue;
-      if (q !== this.rootQ && this.qParentCount[q] === 0) continue;
+      if (this.qExact[q] || this.qForm[q] !== Q_UNEXPANDED) {
+        this.unlinkCandidate(q);
+        continue;
+      }
+      if (q !== this.rootQ && this.qParentCount[q] === 0) {
+        this.unlinkCandidate(q);
+        continue;
+      }
       this.ensureWorkPriority(q);
     }
     return this.refillExecution();
@@ -488,7 +601,11 @@ class PullReconciler {
     const band = this.desiredPriority(q);
     this.qPriority[q] = band;
     const slot = this.qWork[q];
-    if (slot < 0) return;
+    if (slot < 0) {
+      this.queueCandidate(q, band);
+      return;
+    }
+    this.unlinkCandidate(q);
     const generation = Atomics.load(this.shared.workGeneration, slot);
     if (generation <= 0 || Atomics.load(this.shared.workQ, slot) !== q) return;
     const state = Atomics.load(this.shared.workState, slot);
@@ -605,6 +722,7 @@ class PullReconciler {
       }
     }
 
+    this.unlinkCandidate(q);
     this.qWork[q] = slot;
     this.qAffinity[q] = affinityWorker;
     this.metrics.retainedContinuations++;
@@ -612,6 +730,7 @@ class PullReconciler {
   }
 
   detachQWork(q, keepSlot = -1) {
+    this.unlinkCandidate(q);
     const slot = this.qWork[q];
     if (slot < 0) return;
     if (slot !== keepSlot) {
@@ -623,6 +742,7 @@ class PullReconciler {
   }
 
   dropOutgoing(q) {
+    this.unlinkCandidate(q);
     const resetExpansion = !this.qExact[q];
     for (let edge = this.qOutgoingHead[q]; edge !== -1; edge = this.edgeNextOut[edge]) {
       if (!this.edgeLive[edge]) continue;
@@ -660,6 +780,7 @@ class PullReconciler {
     }
     this.qExact[q] = 1;
     this.qValue[q] = value;
+    this.unlinkCandidate(q);
     this.detachQWork(q, publishingSlot);
 
     if (q !== this.rootQ) this.dropOutgoing(q);
