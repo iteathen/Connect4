@@ -29,7 +29,30 @@ export const CTRL_ERROR = 13;
 export const CTRL_Q_HIGH_WATER = 14;
 export const CTRL_EDGE_NEXT = 15;
 export const CTRL_EDGE_FREE_HEAD = 16;
+export const CTRL_ROOT_MOVE_READY = 17;
 export const CTRL_WORDS = 32;
+
+export const WORKER_COUNTER_WORDS = 32;
+export const WC_CLAIMS = 0;
+export const WC_FRONTIERS = 1;
+export const WC_RETAINED_DESCENTS = 2;
+export const WC_DUPLICATE_REACHES = 3;
+export const WC_RESET_RETIREMENTS = 4;
+export const WC_EXACT_PUBLICATIONS = 5;
+export const WC_Q_CREATED = 6;
+export const WC_Q_REUSED = 7;
+export const WC_QUEUE_EMPTY = 8;
+export const WC_REPLAY_APPLIES = 9;
+export const WC_CONTROL_CHECKS = 10;
+export const WC_RELEASE_EVENTS = 11;
+export const WC_SOLVER_NODES = 12;
+export const WC_CACHE_HITS = 13;
+export const WC_NATIVE_EXACT = 14;
+export const WC_RECURSIVE_CHILDREN = 15;
+export const WC_FORCED_TRANSITIONS = 16;
+export const WC_BRANCH_DESCRIPTORS = 17;
+export const WC_SHARED_EXACT_CONSUMED = 18;
+export const WC_CLAIM_BAND_BASE = 19;
 
 export const SESSION_IDLE = 0;
 export const SESSION_RUNNING = 1;
@@ -148,6 +171,7 @@ export function createSharedTT({
     queueQ: sab(Int32Array, PRIORITY_BANDS * queueCapacity),
     queueGeneration: sab(Int32Array, PRIORITY_BANDS * queueCapacity),
     workerReset: sab(Int32Array, workerCount),
+    workerCounters: sab(Int32Array, workerCount * WORKER_COUNTER_WORDS),
   };
 
   const shared = openSharedTT(descriptor);
@@ -167,6 +191,7 @@ export function createSharedTT({
   Atomics.store(shared.control, CTRL_ROOT_GENERATION, 0);
   Atomics.store(shared.control, CTRL_ROOT_VALUE, Q_EXACT_UNKNOWN);
   Atomics.store(shared.control, CTRL_ROOT_MOVE, -1);
+  Atomics.store(shared.control, CTRL_ROOT_MOVE_READY, 0);
   for (let band = 0; band < PRIORITY_BANDS; band++) {
     const base = band * queueCapacity;
     for (let offset = 0; offset < queueCapacity; offset++) {
@@ -221,6 +246,7 @@ export function openSharedTT(descriptor) {
     queueQ: view(Int32Array, descriptor.queueQ),
     queueGeneration: view(Int32Array, descriptor.queueGeneration),
     workerReset: view(Int32Array, descriptor.workerReset),
+    workerCounters: view(Int32Array, descriptor.workerCounters),
   };
 }
 
