@@ -66,13 +66,19 @@
         {
           "role_id": "isomax-qualification",
           "role": "qualification-and-evidence",
-          "last_session_handle": "IX-C0A17E42",
+          "last_session_handle": "IX-OX-QUAL-01",
           "purpose": "Own lifecycle fixture validity, deterministic crash/lifetime qualification, cross-platform CI evidence, NEES realization-cost measurement, and revision-pinned qualification reporting without redefining architecture or sharing production implementation authority.",
-          "recovery_behavior": "Refresh #102, recover the newest qualification gate and exact revision under test, validate established semantics independently, report bounded evidence, and hand implementation defects back to their owning role.",
-          "temporary_staffing": {
-            "staffed_by_role_id": "isomax-reviewer",
-            "mode": "double-duty",
-            "release_trigger": "recruit and onboard a dedicated isomax-qualification agent"
+          "recovery_behavior": "Refresh #102, recover the newest qualification gate and exact revision under test. Dedicated OX sessions use ROLE_ID isomax-qualification with disposable IX-OX-QUAL-* session handles; author bounded qualification artifacts only, then hand returned PRs to isomax-director/isomax-reviewer for verification.",
+          "staffing": {
+            "mode": "dedicated-agent",
+            "provider": "iteathen/OX-Alpha-Contol",
+            "execution_route": "requests/ox-alpha-task.json",
+            "status": "in-flight-probation",
+            "integration_owner": "isomax-director",
+            "active_task": "A.shared-tt-lifetime.exposure-permit-ownership.NEES-contention-qualification",
+            "base_branch": "prototype/isomax-exposure-deficit-latch-102",
+            "base_sha": "604a130e8d554a1f9ca0a80bdeeac25760b9cb94",
+            "release_or_replace_if": "returned work crosses architecture/production authority, cannot preserve qualification invariants, or review cost exceeds throughput gain"
           }
         }
       ],
