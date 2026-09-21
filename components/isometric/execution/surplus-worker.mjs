@@ -193,7 +193,7 @@ class SurplusDistributor {
     return value;
   }
 
-  rememberExactChild(solver,state,column,value) {
+  rememberExactChild(solver,state,column,value,sourceKind=0,sourceSlot=-1,sourceGeneration=0) {
     const cache=solver.transitionCache;
     state.applyUnchecked(column);
     this.worker.counters[WC_REMOTE_CACHE_TRANSITIONS]++;
@@ -204,7 +204,19 @@ class SurplusDistributor {
       if(existing===undefined){
         solver.storeExact(key0,key1,support,hash,value);
       }else if(existing!==value){
-        throw new Error('remote exact value contradicts local transition cache');
+        throw new Error(
+          'remote exact value contradicts local transition cache'+
+          ';worker='+workerIndex+
+          ';sourceKind='+sourceKind+
+          ';sourceSlot='+sourceSlot+
+          ';sourceGeneration='+sourceGeneration+
+          ';column='+column+
+          ';localValue='+existing+
+          ';remoteValue='+value+
+          ';p0='+key0+
+          ';p1='+key1+
+          ';support='+(support>>>0)
+        );
       }
     }finally{
       state.undo();
@@ -221,7 +233,9 @@ class SurplusDistributor {
       if(occState===OCC_RETIRED)throw new Error('needed surplus occurrence retired');
       if(occState===OCC_EXACT){
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
-        return this.rememberExactChild(solver,state,column,Atomics.load(shared.occResult,slot));
+        return this.rememberExactChild(
+          solver,state,column,Atomics.load(shared.occResult,slot),1,slot,generation,
+        );
       }
 
       const leader=Atomics.load(shared.occLeader,slot);
@@ -258,7 +272,9 @@ class SurplusDistributor {
       const stateCode=Atomics.load(shared.workState,work);
       if(stateCode===WORK_EXACT){
         this.worker.counters[WC_OCC_EXACT_CONSUMED]++;
-        return this.rememberExactChild(solver,state,column,Atomics.load(shared.workResult,work));
+        return this.rememberExactChild(
+          solver,state,column,Atomics.load(shared.workResult,work),2,work,workGeneration,
+        );
       }
 
       if(stateCode===WORK_READY){
