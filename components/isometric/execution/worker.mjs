@@ -214,9 +214,10 @@ class SharedBranchDistributor {
       retainedAction,
       maximizing,
       runtime.activeRunToken,
-      this.childQ.subarray(base, base + 7),
-      this.childGeneration.subarray(base, base + 7),
-      this.childEval.subarray(base, base + 7),
+      this.childQ,
+      this.childGeneration,
+      this.childEval,
+      base,
     );
     runtime.count(WC_BRANCH_DESCRIPTORS);
     runtime.wakeManager();
