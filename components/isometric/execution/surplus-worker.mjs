@@ -134,8 +134,19 @@ class SurplusDistributor {
 
   publishWorkExact(slot,generation,attempt,value,rootMove=-1) {
     const shared=this.worker.shared;
-    if(!completeWork(shared,slot,generation,attempt,value,rootMove))
-      throw new Error('surplus exact completion lost work ownership');
+    if(!completeWork(shared,slot,generation,attempt,value,rootMove)){
+      throw new Error(
+        'surplus exact completion lost work ownership'+
+        ';slot='+slot+
+        ';expectedGeneration='+generation+
+        ';actualGeneration='+Atomics.load(shared.workGeneration,slot)+
+        ';expectedAttempt='+attempt+
+        ';actualAttempt='+Atomics.load(shared.workAttempt,slot)+
+        ';state='+Atomics.load(shared.workState,slot)+
+        ';needed='+Atomics.load(shared.workNeeded,slot)+
+        ';owner='+Atomics.load(shared.workWorker,slot)
+      );
+    }
     this.publishBlocking(PUB_EXACT,slot,generation,attempt,value,rootMove,workerIndex);
   }
 
