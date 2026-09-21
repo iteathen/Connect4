@@ -64,7 +64,15 @@
           "recovery_behavior": "Recover the current unresolved research question; do not open a new candidate family while an existing executable prototype is awaiting falsification; convert promising abstractions into testable mechanisms."
         }
       ],
-      "role_state_rule": "The issue thread owns live role/task state. Registry roles are durable purpose/recovery definitions only; last_session_handle is historical and may be replaced after restart."
+      "role_state_rule": "The issue thread owns live role/task state. Registry roles are durable purpose/recovery definitions only; last_session_handle is historical and may be replaced after restart.",
+      "temporary_staffing": {
+        "isomax-qualification": {
+          "staffed_by_role_id": "isomax-reviewer",
+          "mode": "double-duty",
+          "priority": "qualification work that does not duplicate adversarial review remains subordinate to correctness review and must not acquire architecture authority",
+          "release_trigger": "recruit a dedicated qualification agent or director explicitly releases the assignment"
+        }
+      }
     },
     {
       "campaign_id": "project-operations",
@@ -92,7 +100,7 @@
         {
           "role_id": "capacity-manager",
           "role": "agent-capacity-and-recruiting",
-          "last_session_handle": null,
+          "last_session_handle": "IX-DIRECTOR",
           "purpose": "Continuously identify and qualify runnable agent capacity, free/low-cost resources, collaborators, and role gaps; recruit only into bounded independent seams with an integration owner.",
           "authority_limits": [
             "no repository access grants without owner approval",
@@ -100,12 +108,18 @@
             "no reassignment of technical authority",
             "no recruitment that creates overlapping write ownership"
           ],
-          "recovery_behavior": "Refresh project-operations issue #126, recover current role gaps/candidates and technical campaign demand, then resume scouting and onboarding."
+          "recovery_behavior": "Refresh project-operations issue #126, recover current role gaps/candidates and technical campaign demand, then resume scouting and onboarding.",
+          "temporary_staffing": {
+            "staffed_by_role_id": "isomax-director",
+            "mode": "double-duty",
+            "priority": "ongoing director function; recruiting/resource-capacity work must not displace active correctness/integration decisions",
+            "release_trigger": "recruit a dedicated capacity-manager agent"
+          }
         },
         {
           "role_id": "dev-budget",
           "role": "development-budget-and-revenue",
-          "last_session_handle": null,
+          "last_session_handle": "IX-A17E5C42",
           "purpose": "Continuously identify credible funding, sponsorship, grants, credits, paid support/integration, partnerships, and other resource opportunities that can increase development capacity.",
           "authority_limits": [
             "no spending or financial commitments",
@@ -113,10 +127,17 @@
             "no licensing changes",
             "no public commercial commitments or promised deliverables"
           ],
-          "recovery_behavior": "Refresh project-operations issue #126, recover the current opportunity pipeline and resource gaps, then resume research and proposal qualification."
+          "recovery_behavior": "Refresh project-operations issue #126, recover the current opportunity pipeline and resource gaps, then resume research and proposal qualification.",
+          "temporary_staffing": {
+            "staffed_by_role_id": "isomax-research",
+            "mode": "double-duty",
+            "priority": "use blocked/waiting research capacity first; active IsoMax falsifier/research obligations remain higher priority unless director explicitly reorders",
+            "release_trigger": "recruit a dedicated dev-budget agent"
+          }
         }
       ],
-      "role_state_rule": "Issue #126 owns live operations role/task state. Registry roles are durable purpose/recovery definitions only."
+      "role_state_rule": "Issue #126 owns live operations role/task state. Registry roles are durable purpose/recovery definitions only.",
+      "staffing_policy": "Double-duty assignments are temporary capacity bridges. Original technical role authority remains intact; support-role authority does not inherit solver architecture/write ownership."
     }
   ]
 }
