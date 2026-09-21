@@ -167,20 +167,18 @@ jobs:
         run: |
           set -euo pipefail
           run_url="https://github.com/$REPOSITORY/actions/runs/$RUN_ID"
-          body="$(cat <<EOF
-<!-- agent-event-router:v1 -->
-AX/EVENT
-EVENT_KIND: $EVENT_NAME
-ACTION: $EVENT_ACTION
-SOURCE_REF: $SOURCE_REF
-SOURCE_NUMBER: $SOURCE_NUMBER
-SOURCE_URL: $SOURCE_URL
-ACTOR: $ACTOR
-HEAD_SHA: $HEAD_SHA
-TARGETS: $TARGETS
-AUTHORITY: wake-only
-ROUTER_RUN: $run_url
-ROUTER_ATTEMPT: $RUN_ATTEMPT
-EOF
-)"
+          printf -v body '%s\n' \
+            '<!-- agent-event-router:v1 -->' \
+            'AX/EVENT' \
+            "EVENT_KIND: $EVENT_NAME" \
+            "ACTION: $EVENT_ACTION" \
+            "SOURCE_REF: $SOURCE_REF" \
+            "SOURCE_NUMBER: $SOURCE_NUMBER" \
+            "SOURCE_URL: $SOURCE_URL" \
+            "ACTOR: $ACTOR" \
+            "HEAD_SHA: $HEAD_SHA" \
+            "TARGETS: $TARGETS" \
+            'AUTHORITY: wake-only' \
+            "ROUTER_RUN: $run_url" \
+            "ROUTER_ATTEMPT: $RUN_ATTEMPT"
           gh api "repos/$REPOSITORY/issues/139/comments" -f body="$body" >/dev/null
