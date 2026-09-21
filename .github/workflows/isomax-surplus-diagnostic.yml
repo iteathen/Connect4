@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  draw-class-trace:
+  four-worker-queue-trace:
     runs-on: ubuntu-24.04
     timeout-minutes: 3
     steps:
@@ -26,50 +26,79 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: 26.7.0
-      - name: Trace draw-root class capacity owner
+      - name: Trace first hard-root queue saturation
+        run: |
+          timeout 60s node --input-type=module <<'NODE'
+          import { IsoMaxSurplusBranchManager } from './components/isometric/execution/surplus-manager.mjs';
+
+          const moves=Array.from('717657616532237625',c=>Number(c)-1);
+          const manager=new IsoMaxSurplusBranchManager({workers:4});
+          const snapshot=label=>{
+            const s=manager.session;if(!s)return console.log(label,'NO_SESSION');
+            const q=[];
+            for(let b=0;b<s.shared.bands;b++){
+              const en=Atomics.load(s.shared.queueEnqueue,b),de=Atomics.load(s.shared.queueDequeue,b);
+              q.push({band:b,en,de,outstanding:en-de});
+            }
+            const states=[0,0,0,0,0,0];
+            for(let i=0;i<s.shared.workCapacity;i++){
+              const state=Atomics.load(s.shared.workState,i);
+              if(state>=0&&state<states.length)states[state]++;
+            }
+            console.log(label,JSON.stringify({
+              queue:q,idle:Array.from(s.shared.workerIdle),alive:Array.from(s.shared.workerAlive),
+              workStates:states,control:Array.from(s.shared.control),
+            }));
+          };
+          await manager.start();
+          manager.reconciler.on('message',m=>{
+            if(m?.type==='surplus-reconciler-error'){console.log('TRACE_REC_ERROR',m.message);snapshot('TRACE_QUEUE_REC');}
+          });
+          for(const w of manager.workers)w.on('message',m=>{
+            if(m?.type==='surplus-error'){console.log('TRACE_WORKER_ERROR',m.workerId,m.message);snapshot('TRACE_QUEUE_WORKER');}
+          });
+          try{
+            const r=await manager.solveMoves(moves,{timeoutMs:30000});
+            console.log('TRACE_OUTCOME',JSON.stringify({value:r.value,move:r.move,metrics:r.metrics}));
+          }catch(e){
+            console.log('TRACE_OUTCOME',JSON.stringify({error:e?.message??String(e),lastStats:manager.lastStats}));
+          }finally{await manager.close();console.log('TRACE_CLOSED');}
+          NODE
+
+  four-worker-draw-class-trace:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+      - name: Trace draw-root class-capacity owner
         run: |
           timeout 60s node --input-type=module <<'NODE'
           import { IsoMaxSurplusBranchManager } from './components/isometric/execution/surplus-manager.mjs';
 
           const moves=Array.from('466537327657277224',c=>Number(c)-1);
-          const manager=new IsoMaxSurplusBranchManager({workers:1});
+          const manager=new IsoMaxSurplusBranchManager({workers:4});
           await manager.start();
           manager.reconciler.on('message',m=>{
-            if(m?.type!=='surplus-progress'){
-              console.log('TRACE_REC',JSON.stringify({type:m?.type,message:m?.message,snapshot:m?.snapshot??null}));
-            }
+            if(m?.type==='surplus-reconciler-error')
+              console.log('TRACE_REC_ERROR',JSON.stringify({message:m.message,snapshot:m.snapshot}));
           });
-          manager.workers[0].on('message',m=>{
-            console.log('TRACE_WORKER',JSON.stringify({
-              type:m?.type,message:m?.message,workerId:m?.workerId,
-              localClasses:m?.localClasses,localEntries:m?.localEntries,
-            }));
+          for(const w of manager.workers)w.on('message',m=>{
+            if(m?.type==='surplus-error')
+              console.log('TRACE_WORKER_ERROR',JSON.stringify({workerId:m.workerId,message:m.message}));
+            if(m?.type==='surplus-session-done')
+              console.log('TRACE_WORKER_DONE',JSON.stringify({
+                workerId:m.workerId,localClasses:m.localClasses,localEntries:m.localEntries,
+              }));
           });
-          let lastProgress=null;
           try{
-            const result=await manager.solveMoves(moves,{
-              timeoutMs:30000,
-              progressIntervalMs:500,
-              onProgress:p=>{
-                lastProgress=p;
-                console.log('TRACE_PROGRESS',JSON.stringify({
-                  qCount:p?.qCount,qHighWater:p?.qHighWater,
-                  workAllocated:p?.workAllocated,occurrenceAllocated:p?.occurrenceAllocated,
-                  metrics:p?.metrics,
-                }));
-              },
-            });
-            console.log('TRACE_OUTCOME',JSON.stringify({
-              kind:'resolved',value:result.value,move:result.move,
-              worker:result.metrics?.worker,metrics:result.metrics,
-            }));
-          }catch(error){
-            console.log('TRACE_OUTCOME',JSON.stringify({
-              kind:'rejected',message:error?.message??String(error),
-              lastStats:manager.lastStats,lastProgress,
-            }));
-          }finally{
-            await manager.close();
-            console.log('TRACE_CLOSED');
-          }
+            const r=await manager.solveMoves(moves,{timeoutMs:30000});
+            console.log('TRACE_OUTCOME',JSON.stringify({value:r.value,move:r.move,worker:r.metrics?.worker,metrics:r.metrics}));
+          }catch(e){
+            console.log('TRACE_OUTCOME',JSON.stringify({error:e?.message??String(e),lastStats:manager.lastStats}));
+          }finally{await manager.close();console.log('TRACE_CLOSED');}
           NODE
