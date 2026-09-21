@@ -82,6 +82,15 @@ function qConvergenceFixture(){
   return {moves,columns:[2,4],expected:new IsoMaxSolver().solveMoves(moves)};
 }
 
+test('surplus MPMC rings reject one-cell configurations', () => {
+  assert.throws(()=>createSurplusPool({
+    workerCount:1,workCapacity:1,occurrenceCapacity:1,queueCapacity:1,publicationCapacity:2,
+  }),/queueCapacity/);
+  assert.throws(()=>createSurplusPool({
+    workerCount:1,workCapacity:1,occurrenceCapacity:1,queueCapacity:2,publicationCapacity:1,
+  }),/publicationCapacity/);
+});
+
 test('surplus default worker storage is sized per worker rather than divided globally', () => {
   for(const workers of [1,2,4]){
     const manager=new IsoMaxSurplusBranchManager({workers});
