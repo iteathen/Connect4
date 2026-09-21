@@ -30,10 +30,10 @@
       "revision": "solver/isometric commits 3376d134d97cdd1ecf2078c2c4fc9b5ae0713f67, 23e72fc7a49aa74d60aeb9223cef1924ee85bac1, and 1f98d7b15eefdc5cf032f6f6bcb4bb71b51a02b1",
       "falsifier": "Any tested position whose exact IsoMax P0-relative W/D/L differs from the parity/sign-transformed external Pons parent score rejects the scoped claim.",
       "evidence": [
-        "solver/isometric:evidence/external/README.md",
-        "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L3_R1.summary.json",
-        "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L2_R1.summary.json",
-        "solver/isometric:evidence/external/results/2026-09-20-isomax-Test_L1-first32.summary.json"
+        "https://raw.githubusercontent.com/iteathen/Connect4/solver/isometric/evidence/external/README.md",
+        "https://raw.githubusercontent.com/iteathen/Connect4/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L3_R1.summary.json",
+        "https://raw.githubusercontent.com/iteathen/Connect4/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L2_R1.summary.json",
+        "https://raw.githubusercontent.com/iteathen/Connect4/solver/isometric/evidence/external/results/2026-09-20-isomax-Test_L1-first32.summary.json"
       ],
       "limitations": [
         "Scope is exactly deterministic prefixes of four named Pons benchmark sets: 32 L1_R1, 32 L1_R2, 64 L2_R1, and 64 L3_R1 positions.",
@@ -55,7 +55,7 @@
       "falsifier": "Any incorrect solved-position result, incomparable workload, missing provenance, or contradictory independent reference result rejects the corresponding claim.",
       "evidence": [
         "evidence/external/README.md",
-        "solver/isometric:evidence/external/README.md"
+        "https://raw.githubusercontent.com/iteathen/Connect4/solver/isometric/evidence/external/README.md"
       ],
       "limitations": [
         "IsoMax now has scoped reference-grounded parent-WDL correctness on 192 unique Pons benchmark positions across deterministic L1/L2/L3 slices; comparative performance, other solver families, wider corpus coverage, and third-party reproduction remain separate open claims."
