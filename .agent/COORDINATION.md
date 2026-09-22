@@ -249,6 +249,19 @@ For IsoMax:
 
 Fallback staffing declarations in the registry are **eligibility policy only**. Current coverage must be explicitly assigned/bound on private control in the current epoch.
 
+## Temporary double-duty
+
+Short staffing may be handled by explicitly binding one live execution path to multiple **compatible** durable ROLE_IDs, but only on private current control.
+
+- Checked-in files may describe eligibility/conflict rules only; they never claim that a named current agent/path is staffing two roles.
+- Each ROLE_ID keeps its own authority boundary, task ownership, completion contract, liveness disposition and assignment even when the underlying execution path is shared.
+- One execution path may cover multiple ROLE_IDs only after explicit owner/director/capacity assignment and binding for each role.
+- Shared execution does **not** manufacture independence: reviewer + qualification on one path is one independent evidence source, not two.
+- Conflicting same-seam combinations are prohibited. Implementation cannot independently review/qualify its own implementation; director authority cannot self-approve specialist output; evidence produced under one role cannot count as independent acceptance under another role when the contract requires independence.
+- Reviewer + temporary qualification is compatible when that path did not implement the seam. Research + implementation is allowed only for explicitly bounded exploratory/prototype work; production acceptance still needs independent review/qualification. Director + capacity/operations support may be combined temporarily but must preserve single-director control and cannot absorb conflicting implementation/review authority on the same seam.
+- A missing role may be temporarily covered only by an explicitly LIVE compatible path that is deliberately bound for that role. Record both ROLE_ID assignments but count the underlying path once for liveness/capacity.
+- When dedicated capacity becomes available, release temporary coverage explicitly; no automatic handoff.
+
 ## Completion-triggered control
 
 When a bound role reaches a terminal state that can change campaign control:
@@ -295,6 +308,7 @@ A recovery change does not qualify merely because the happy path reads well. Ver
 - private OX handoff exists but no runtime consumed it;
 - public #139 wake exists without a control transition or native consumer;
 - fallback/capacity staffing changes during recovery;
+- one live path is deliberately bound to two compatible ROLE_IDs without double-counting independence/liveness;
 - scheduler/reconciler infrastructure itself is disabled/lost.
 
 PASS requires no invented authority, no stale-work replay, no duplicate current-state authority, no second live-state/lease registry, no dependence on unavailable native delivery, and a pre-effect fence that prevents stale-session mutation.
