@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5",
+  "schema_version": "1.6",
   "repository": "iteathen/Connect4",
   "updated": "2026-09-22",
   "registry_semantics": {
@@ -303,7 +303,8 @@
         "technical_authority": false,
         "supported_functions": [
           "capacity_recruiting",
-          "role_identity_fidelity"
+          "role_identity_fidelity",
+          "agent_behavior_research_methodology"
         ],
         "project_specific_evidence_surfaces_may_be_attached": true,
         "public_boundary": "financial_budget_treasury_trading_and_revenue_state_is_private_administration"
@@ -378,32 +379,53 @@
           }
         },
         {
-          "role_id": "behavioral-therapist",
-          "archetype_id": "behavioral-therapist",
-          "role": "role-identity-fidelity",
-          "project_purpose": "Maintain work-group role fidelity across projects and over time by observing behavioral drift, reinforcing each archetype's distinctive value, and prompting explicit role resets/switches without changing project authority or technical decisions.",
+          "role_id": "behavioral-psychologist",
+          "legacy_role_ids": [
+            "behavioral-therapist"
+          ],
+          "archetype_id": "behavioral-psychologist",
+          "role": "agent-behavior-research-and-role-fidelity",
+          "project_purpose": "Own project-neutral work-group role-fidelity support plus bounded research into observable agent behavior and methodology, including transparent cues, feedback/reinforcement schedules, role switching, shaping, extinction/deconditioning, persistence, transfer, and unintended behavioral side effects.",
           "authority_limits": [
             "no project direction",
-            "no task assignment",
-            "no implementation/review/qualification/performance acceptance authority",
+            "no unrelated task assignment",
+            "no production implementation authority outside explicitly bounded behavioral experiment artifacts",
+            "no review or qualification acceptance authority",
+            "no performance verdict authority",
             "no staffing/compensation authority",
             "no security/finance authority",
+            "no human manipulation",
             "no clinical or human mental-health claims",
+            "no covert conditioning",
             "no role-definition mutation without owner/governance authority"
           ],
-          "project_recovery_behavior": "Recover current work-group roster and role-instance bindings from private OX #13 and each active project's control surface as authorized; load canonical archetypes from iteathen/.github; remain read-only on technical/project state except for bounded role-fidelity reminders/checkpoints.",
+          "project_recovery_behavior": "Recover current work-group roster and project role-instance bindings from private OX #13 and authorized project control surfaces; load canonical behavioral-psychologist archetype from iteathen/.github; distinguish role-fidelity support from behavioral research assignments; remain read-only on unrelated technical/project state.",
+          "research_scope": [
+            "role_identity_persistence_and_drift",
+            "transparent_cueing_and_hat_switches",
+            "reinforcement_and_feedback_schedules",
+            "shaping_and_successive_criteria",
+            "extinction_or_deconditioning_of_unwanted_patterns",
+            "restart_and_long_run_behavior",
+            "multi_role_behavioral_interference",
+            "methodology_comparison",
+            "cross_project_and_cross_model_transfer_when_authorized",
+            "reward_hacking_cue_overfitting_sycophancy_and_authority_drift"
+          ],
           "multi_role_eligibility": {
             "default": "allowed_with_any_number_of_other_roles",
             "count_limit": null,
             "explicit_binding_required": true,
             "self_coaching_allowed": true,
             "self_coaching_independent": false,
-            "note": "May be carried alongside any set of roles. When the same actor coaches itself, that is identity reinforcement only, not independent fidelity verification."
+            "self_research_allowed_for_exploration": true,
+            "self_research_independent_validation": false,
+            "note": "May be carried alongside any set of roles. Same-actor coaching/research is exploratory evidence only when independence matters."
           },
-          "project_completion_contract": "Record only a concise role-fidelity checkpoint or drift escalation: observed behavior, archetype reminder, concrete value of the role's pressure, one or two behaviors to restore, and any persistent fidelity risk. Do not decide technical work."
+          "project_completion_contract": "For fidelity work, record a concise role-fidelity checkpoint. For research, record a reproducible behavioral-methodology handoff with hypothesis, exact cue/reinforcer/intervention, baseline/comparator, observations, persistence/transfer, side effects, limitations, and any proposed durable methodology change. Do not decide unrelated technical work."
         }
       ],
-      "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, capacity and role-fidelity support state. Canonical support-role personalities come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
+      "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, capacity, behavioral-research assignments/evidence routing, and role-fidelity support state. Canonical support-role personalities and behavioral research methodology come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
       "event_interests": {
         "capacity-manager": [
           "control_issue:iteathen/OX-Alpha-Contol#13",
@@ -411,12 +433,14 @@
           "security:external_contribution",
           "public_evidence_issue:Connect4#126"
         ],
-        "behavioral-therapist": [
+        "behavioral-psychologist": [
           "control_issue:iteathen/OX-Alpha-Contol#13",
           "active_project_control_surfaces:role_behavior_observation_only",
           "role_rejoin_or_recovery",
           "multi_role_binding_change",
-          "persistent_role_fidelity_risk"
+          "persistent_role_fidelity_risk",
+          "behavioral_methodology_experiment",
+          "role_cue_or_reinforcement_experiment"
         ]
       },
       "subordinate_processes": [
@@ -596,7 +620,7 @@
     },
     "work_group_support_archetypes": {
       "staffing_recruiting": "capacity-manager",
-      "behavioral_identity_fidelity": "behavioral-therapist"
+      "behavioral_identity_fidelity_and_agent_methodology_research": "behavioral-psychologist"
     },
     "multi_role_rule": "Any number of compatible role instances may be co-held. The limits are conflicts, independence, capacity, fidelity and security—not a numeric duty count.",
     "reboot_rule": "Role completeness counts only if a blank session can recover project role instances plus their canonical archetype identities before OPERATIONS_RESUME."
@@ -604,7 +628,7 @@
   "work_group_archetypes": {
     "canonical_repository": "iteathen/.github",
     "canonical_ref": "main",
-    "canonical_commit_at_last_sync": "7598cbe38b0176f472efa35528e8bfeaf4301006",
+    "canonical_commit_at_last_sync": "f14ffd4573d9c2ebc6dd14a381594279dc7f8a01",
     "machine_path": ".agent/work-group.json",
     "human_path": "WORK_GROUP.md",
     "project_neutral": true,

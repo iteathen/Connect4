@@ -84,7 +84,7 @@ Current IsoMax role instances map to global archetypes:
 
 Work-group support on private OX #13 includes:
 - `capacity-manager` -> `capacity-manager`
-- `behavioral-therapist` -> `behavioral-therapist`
+- `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
 
 A role is reboot-complete only when the session restores both its project-specific authority and its global archetype identity.
 
@@ -96,13 +96,19 @@ Each held role must remain a separate reasoning mode. Explicitly switch hats and
 
 The constraints are conflicts, independence/separation requirements, actual capacity, fidelity, and security—not role count. One execution path remains one actor for independence regardless of how many roles it holds.
 
-If roles begin blending into generic behavior, nominal coverage no longer counts; reduce/reassign coverage or use the behavioral therapist to restore role fidelity.
+If roles begin blending into generic behavior, nominal coverage no longer counts; reduce/reassign coverage or use the behavioral psychologist to restore role fidelity.
 
-### Behavioral therapist
+### Behavioral psychologist
 
-`behavioral-therapist` is a project-neutral role-fidelity support instance on private OX #13. Its personality, drift model, interventions and anti-patterns are canonical only in the global work-group authority.
+`behavioral-psychologist` is the project-neutral work-group support instance on private OX #13. `behavioral-therapist` remains a legacy alias only.
 
-Locally it has no IsoMax technical authority. It may issue bounded role-fidelity reminders/checkpoints and may be co-held with any number of other roles; self-coaching never counts as independent fidelity audit.
+The global work-group authority owns its personality and research methodology. Locally, it has no IsoMax technical authority. It may:
+- issue bounded role-fidelity reminders/checkpoints;
+- research observable agent behavior/methodology under explicit assignment;
+- study transparent cues, reinforcement/feedback schedules, shaping, deconditioning/extinction, persistence, transfer, and behavioral side effects;
+- be co-held with any number of other roles.
+
+Self-coaching and self-research are allowed as exploratory evidence but do not count as independent validation.
 
 ## Private administrative boundary
 
