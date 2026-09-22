@@ -60,6 +60,7 @@ After an owner-directed all-agent logout, operations remain **OFF** even if agen
 - Role ACK, reconciler enablement, role call, double-duty assignment and recovery completion are not operations-resume signals.
 - A later explicit owner instruction is required to supersede the shutdown barrier; the director records a distinct `OPERATIONS_RESUME` transition before issuing any fresh technical assignment.
 - If the restart procedure, role behavior, or current-control reconstruction depends on remembered chat/session context, the reboot has failed.
+- Before `OPERATIONS_RESUME`, require a blank-session reviewer/qualification audit from a path that did not author the reboot-maintenance change when independent capacity exists; otherwise keep operations off unless the owner explicitly accepts reduced assurance.
 
 The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
