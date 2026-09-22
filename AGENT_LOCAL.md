@@ -87,6 +87,13 @@ Work-group support on private OX #13 includes:
 - `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
 - `research-dba` -> `research-dba` (Doctor of Business Administration / organizational research)
 
+Cross-project security support is separate from OX #13:
+- `agentic-security-researcher` -> `agentic-security-researcher`
+- sanitized coordination/router: private OX #10
+- substantive vulnerability/exploit details: affected repository Security Advisory or explicitly approved private security surface
+
+The security researcher is governed by `iteathen/.github/SECURITY_AGENT_POLICY.md` and gains no Connect4 technical or merge authority merely by observing this project.
+
 A role is reboot-complete only when the session restores both its project-specific authority and its global archetype identity.
 
 ### Multi-role coverage
@@ -98,6 +105,14 @@ Each held role must remain a separate reasoning mode. Explicitly switch hats and
 The constraints are conflicts, independence/separation requirements, actual capacity, fidelity, and security—not role count. One execution path remains one actor for independence regardless of how many roles it holds.
 
 If roles begin blending into generic behavior, nominal coverage no longer counts; reduce/reassign coverage or use the behavioral psychologist to restore role fidelity.
+
+### Agentic security researcher
+
+`agentic-security-researcher` is the project-neutral security research archetype for autonomous and multi-agent operations. Its canonical identity and methodology live in the global work-group authority and global security policy.
+
+For Connect4 it may research provenance, prompt/coordination poisoning, delegation/capability boundaries, tool/connector abuse, stale/replay authority, duplicate execution, secret flow, autonomous blast radius and secure recovery. Sensitive findings stay off public coordination surfaces.
+
+It may recommend mitigations or capability reductions, but it does not acquire solver, merge, staffing, finance or unrelated project-direction authority.
 
 ### Research DBA
 
