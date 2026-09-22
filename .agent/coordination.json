@@ -104,6 +104,16 @@
       "rule": "When another director execution path is currently bound, the recurring director reconciler is standby health/recovery transport and must not independently mutate control.",
       "takeover": "challenge bound director -> no valid renewal -> MISSING -> owner/current authority REBIND -> standby becomes current",
       "owner_supersession": "A direct verified owner instruction may explicitly supersede the current director binding."
+    },
+    "role_coverage_transport_separation": {
+      "role_coverage_does_not_select_execution_transport": true,
+      "all_roles_instruction_effect": "coverage_only_unless_owner_or_current_control_explicitly_selects_transport",
+      "interactive_recovery_default": "bootstrap_only_unless_explicitly_bound_for_continuing_execution",
+      "operations_resume_rebinds_transport": false,
+      "self_prompting_restore_rule": "When a declared preprovisioned recurring/self-prompting transport exists and owner intent is autonomous continuation, restore/rebind that transport before fresh dispatch unless owner explicitly chooses another path.",
+      "bootstrap_release_rule": "After the normal continuing transport is restored/bound, release the interactive bootstrap path from state-changing ownership.",
+      "multi_role_transport_rule": "One bound recurring path may carry any compatible ROLE_ID set; overlapping per-role paths remain unbound/disabled unless explicitly selected.",
+      "anti_pattern": "Do not short-circuit the self-prompting control loop by treating the interactive recovery session as the durable executor merely because it currently holds all role identities."
     }
   },
   "active_campaigns": [
@@ -660,6 +670,7 @@
       "DIRECTOR_RESTORE_owner_explicitly_assigns_exactly_one_director_execution_path",
       "NEW_RECOVERY_EPOCH_director_opens_fresh_epoch_without_resuming_technical_work",
       "STAGED_ROLE_REJOIN_restore_project_authority_plus_global_archetype_identity_fresh_identity_and_ACK_without_technical_assignment",
+      "RESTORE_DECLARED_EXECUTION_TRANSPORT_role_coverage_does_not_imply_interactive_session_binding",
       "BIND_EXECUTION_PATHS_at_most_one_current_path_per_ROLE_ID",
       "RECONSTRUCT_FRONTIER_from_repo_and_OX_as_evidence_without_task_replay",
       "ROLE_CALL_ROSTER_GATE_each_expected_role_is_LIVE_double_covered_or_MISSING",
@@ -704,6 +715,12 @@
       "one_underlying_path_counts_once_for_independence_and_liveness": true,
       "role_count_does_not_create_independence": true,
       "overload_rule": "If role fidelity cannot be preserved, reduce or reassign coverage rather than keeping nominal roles."
+    },
+    "transport_separation": {
+      "role_coverage_and_execution_transport_are_distinct": true,
+      "operations_resume_is_not_rebind": true,
+      "interactive_bootstrap_path_must_not_displace_declared_self_prompting_transport_without_explicit_owner_choice": true,
+      "blank_session_falsifier": "take_all_roles_then_begin_operations_must_restore_or_preserve_declared_self_prompting_transport_not_make_current_chat_the_durable_executor"
     }
   },
   "role_completeness_contract": {
