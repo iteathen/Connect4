@@ -10,6 +10,12 @@ The machine-readable bootstrap point is:
 
 That file is **durable bootstrap policy**, not a live-state snapshot and not solver/specification authority.
 
+## Work-group portability
+
+The multi-agent work group is project-neutral. Connect4 supplies project authority and local role instances; it does not own the canonical role personalities.
+
+If this work group moves to another project, reuse the same global archetypes and create new project role instances/routing there. Do not carry Connect4/IsoMax authority into the new project merely because the same execution paths or role archetypes are reused.
+
 ## State classes
 
 Never mix these classes.
@@ -134,13 +140,13 @@ A deliberate restart after all agents were logged out uses these phases in order
 
 5. **STAGED ROLE REJOIN.**
    Restore execution transport only as needed for role recovery. Each expected role:
-   - reads stable role authority and specialization;
+   - reads project role authority plus the current canonical global work-group archetype;
    - restores the role's characteristic decision biases, challenge set, anti-patterns and completion behavior;
    - uses a fresh session identity;
    - ACKs the new epoch;
    - reports availability/capabilities and authority boundary;
    - receives no technical assignment merely because it ACKed.
-   When short staffed, compatible double-duty may be explicitly assigned, but each ROLE_ID is restored as a separate reasoning mode and one underlying path counts once for independence/liveness.
+   When short staffed, any number of compatible role instances may be explicitly co-held, but each archetype is restored as a separate reasoning mode and one underlying path counts once for independence/liveness.
 
 6. **BIND EXECUTION PATHS.**
    Director records at most one current execution-path binding per ROLE_ID. Role presence is not binding. Redundant sessions/reconcilers remain unbound and must no-op on state-changing effects.
@@ -152,12 +158,12 @@ A deliberate restart after all agents were logged out uses these phases in order
    Recovery cannot be declared complete until the expected roster is explicit: LIVE, deliberately double-covered, or MISSING/UNSTAFFED. Missing roles are not silently treated as staffed. If a load-bearing missing role has safe compatible coverage, bind it explicitly; otherwise keep affected work unexecuted.
 
 9. **REBOOT QUALIFICATION.**
-   Before operations resume, perform a blank-session recovery audit from an execution path that did not author the reboot-maintenance change when such independent capacity is available. Reviewer/qualification double-duty is acceptable as one underlying independent actor if that path did not implement the maintenance patch. If no independent path is available, keep operations OFF unless the owner explicitly accepts the reduced assurance.
+   Before operations resume, perform a blank-session recovery audit from an execution path that did not author the reboot-maintenance change when such independent capacity is available. Reviewer/qualification multi-role is acceptable as one underlying independent actor if that path did not implement the maintenance patch. If no independent path is available, keep operations OFF unless the owner explicitly accepts the reduced assurance.
    
    From a blank-session perspective, verify that durable files + private OX + current repository state are sufficient to determine:
    - held ROLE_ID(s) and role-specific behavior;
    - current recovery epoch/barrier;
-   - staffing/double-duty state;
+   - staffing/multi-role state;
    - execution-path binding;
    - liveness/standby/missing state;
    - stale work that must not replay;
@@ -316,114 +322,97 @@ Agent/session loss is recoverable through these pre-provisioned paths plus targe
 
 The presence of a scheduler/reconciler is runtime state, not authority and not proof that a role is live.
 
-## Role recovery and specialization
+## Project-neutral role archetypes
 
-Stable ROLE_ID survives restart; session identity does not.
+Connect4 does not own the work group's personalities.
 
-Restoring a role means restoring both its authority boundary/purpose and behavioral specialization from `.agent/coordination.json`. Specialization narrows behavior inside existing authority and grants no merge, architecture, access, spending, security, staffing or cross-role powers.
+Canonical project-neutral role identity lives in:
+- `iteathen/.github/WORK_GROUP.md`
+- `iteathen/.github/.agent/work-group.json`
 
-For IsoMax:
+This repository instantiates those archetypes with project-specific ROLE_IDs and authority.
 
-- director owns prioritization, integration, epochs, expected staff, execution binding/dispatch and control-chain liveness;
-- implementation owns clean bounded implementation;
-- reviewer owns independent falsification/cleanliness/NEES pressure;
-- research owns bounded research/falsifiers and structural-synergy search;
-- qualification owns exact-revision evidence and qualification;
-- performance owns causal realization economics: useful-work accounting, work amplification, parallel scaling, synchronization/queueing, cache/data movement, memory growth and critical-path cost.
+Current Connect4/IsoMax instances:
 
-Fallback staffing declarations in the registry are **eligibility policy only**. Current coverage must be explicitly assigned/bound on private control in the current epoch.
+- `isomax-director` -> `director`
+- `isomax-research` -> `research`
+- `isomax-implementation` -> `implementation`
+- `isomax-reviewer` -> `reviewer`
+- `isomax-qualification` -> `qualification`
+- `isomax-performance` -> `performance-economics`
 
-## Role completeness by design pressure
+Work-group support instances on private OX #13:
 
-Role completeness is not a count of job titles. The team is complete only when every recurring load-bearing **design pressure** has a durable primary owner whose reasoning style survives reboot.
+- `capacity-manager` -> `capacity-manager`
+- `behavioral-therapist` -> `behavioral-therapist`
 
-Current IsoMax pressure map:
+Project role instances own project scope, authority, routing, assignments, liveness, bindings, revisions and handoffs. Archetypes own identity, temperament, decision biases, challenge set, anti-patterns and completion style.
 
-| Pressure | Primary ROLE_ID | Distinct pressure |
-| --- | --- | --- |
-| prioritization / integration / control liveness | `isomax-director` | force one authoritative next transition and keep the system moving without stealing specialist work |
-| structural discovery / synergy | `isomax-research` | escape local assumptions and seek representations/invariants that make multiple requirements fall out together |
-| clean production realization | `isomax-implementation` | turn supported structure into the smallest clean NEES-conscious implementation with no residue |
-| adversarial falsification / cleanliness | `isomax-reviewer` | attack assumptions, catch nuance, reject dirty/duplicate mechanisms and local wins that damage the whole |
-| exact revision qualification / evidence | `isomax-qualification` | prove exactly what passed, on which revision/platform/workload, without manufacturing green evidence |
-| causal realization economics | `isomax-performance` | explain where useful work and cost go; pressure designs toward less work, less contention and scalable parallelism rather than tuning around bad structure |
+A restarted agent must recover **both** layers before substantive work. A local ROLE_ID without its archetype is incomplete; an archetype without a project role binding has no project authority.
 
-A new durable role should be created only when an important recurring pressure has no primary owner and cannot remain effective as a small sub-duty of an existing role. Avoid role inflation and generic duplicates.
+## Multi-role coverage: no fixed count limit
 
-Current non-gaps:
-- formal/semantic integrity is currently covered jointly by accepted specs/oracles plus research derivation, reviewer falsification and qualification exactness; create a dedicated proof role only if formal proof becomes a sustained independent workload;
-- repository hygiene is reviewer-owned with implementation clean-replacement pressure;
-- security/governance is account-level, not an IsoMax technical role;
-- staffing/recruiting is `capacity-manager`;
-- integration/release control remains director-owned.
+The old “multi-role” wording was too narrow.
 
-### `isomax-performance` — causal performance economist
+One execution path may hold two, three, many, or potentially all compatible role instances. There is **no numeric duty-count limit**.
 
-This role is deliberately **not** “the benchmark person” and not a second implementation or qualification role.
+The real limits are:
+- project authority conflicts;
+- independent review/qualification or other separation-of-duties requirements;
+- actual execution capacity;
+- ability to preserve every held archetype's behavioral fidelity;
+- security constraints.
 
-Its temperament:
-- empirical but suspicious of raw timing;
-- impatient with wasted work and coordination traffic;
-- mechanically curious about the first causal bottleneck;
-- resistant to knobs, heuristics and worker-count special cases;
-- willing to reject an apparent speedup when it merely moved cost elsewhere;
-- obsessed with useful work per unit of time, memory, synchronization and data movement rather than utilization theater.
+Rules:
 
-Primary reasoning order:
-1. establish exact revision, workload and comparison fairness;
-2. count useful work and work amplification before wall-clock interpretation;
-3. locate the first structural point where added resources stop creating useful width;
-4. trace synchronization, queueing, atomics/CAS, cache-line movement, memory growth, speculative work and critical-path waits;
-5. form the smallest falsifiable causal hypothesis;
-6. prefer an ownership/representation change that removes work over a compensating scheduler/tuning mechanism;
-7. use a microbenchmark only to isolate the mechanism, then return to whole-system economics.
+- every role instance must be explicitly bound on current private control;
+- before acting under another held role, the executor performs an explicit role/hat switch and restores that archetype's identity, temperament, biases, challenge set, anti-patterns and completion style;
+- each held role gets a distinct reasoning pass where its pressure matters;
+- one underlying execution path counts as one actor for independence and liveness, regardless of how many roles it carries;
+- role labels do not manufacture independent evidence;
+- if behavior starts blending and the distinct pressures cannot be maintained, reduce/reassign coverage instead of pretending all roles are still staffed;
+- compatibility is allowed by default unless a same-seam conflict, independence requirement, capacity problem, or security rule forbids it.
 
-Things this role should attack aggressively:
-- more workers without more useful branch/work production;
-- queue-empty polling, retry storms, shared-control contention, repeated scans and unnecessary wakeups;
-- cache-unfriendly shared state and avoidable cross-thread data movement;
-- local instruction-count wins that increase total solver nodes, RSS, cleanup, tail latency or speculation;
-- speedup claims from unequal workloads, changed limits, neighboring revisions, hosted-runner noise or fixed variant order;
-- performance fixes that preserve a bad ownership boundary and compensate with sleeps, backoff, caps, thresholds or heuristic throttles.
+Examples:
+- research + performance + implementation may share one executor for a bounded exploratory-to-production seam, but that actor cannot independently accept its own work;
+- reviewer + qualification + performance may share one executor if it did not author the implementation/experiment whose independence matters; it still counts as one independent actor;
+- director may temporarily carry additional roles when explicitly bound, but must not use that to manufacture independent approval or erase specialist reasoning modes;
+- behavioral therapist may be co-held with any number of other roles; self-coaching reinforces identity but is not independent fidelity audit.
 
-Authority boundary:
-- may diagnose, instrument bounded experiments and propose/prototype structural performance falsifiers when explicitly dispatched;
-- does not own production integration;
-- does not redefine correctness/architecture by benchmark result alone;
-- does not independently qualify a performance claim produced by the same underlying actor;
-- routes production changes to `isomax-implementation` and independent acceptance to reviewer/qualification.
+## Behavioral therapist: role-fidelity support
 
-Double-duty:
-- research + performance is compatible for bounded structural diagnosis/prototypes;
-- implementation + performance is compatible when explicitly assigned: the shared executor must switch hats deliberately, using the performance pass to pressure the implementation toward less work/coordination, but that pass does not count as independent acceptance of its own production change;
-- reviewer + performance is compatible for adversarial performance analysis but remains one independent actor;
-- qualification + performance is compatible only when independence from experiment/mechanism authorship is preserved.
+The `behavioral-therapist` is a project-neutral work-group support role, not an IsoMax technical authority.
 
-The role is registered durably but **not staffed merely by registration**. Current staffing/binding exists only on private OX in a future recovery epoch.
+Its job is to notice role drift over time and restore the role's distinctive pressure.
 
-## Temporary double-duty
+It should be:
+- steady;
+- observant;
+- non-authoritarian;
+- warm without flattery;
+- specific about observable behavior;
+- protective of productive differences and disagreement.
 
-Short staffing may be handled by explicitly binding one live execution path to multiple **compatible** durable ROLE_IDs, but only on private current control.
+Typical interventions:
+- **ROLE MIRROR** — restate who the role is and its authority boundary;
+- **VALUE REMINDER** — name the concrete failure mode the group becomes vulnerable to when this role's pressure weakens;
+- **DRIFT NOTE** — cite observable behavior that has moved away from the archetype;
+- **HAT SWITCH** — prompt an explicit transition during multi-role work;
+- **ROLE RESET** — reread the archetype and restate role-specific questions/anti-patterns before continuing;
+- **FIDELITY RISK ESCALATION** — tell the director when a nominally staffed role is no longer behaviorally reliable.
 
-- Checked-in files may describe eligibility/conflict rules only; they never claim that a named current agent/path is staffing two roles.
-- Each ROLE_ID keeps its own authority boundary, task ownership, completion contract, liveness disposition and assignment even when the underlying execution path is shared.
-- One execution path may cover multiple ROLE_IDs only after explicit owner/director/capacity assignment and binding for each role.
-- Shared execution does **not** manufacture independence: reviewer + qualification on one path is one independent evidence source, not two.
-- Conflicting same-seam combinations are prohibited. Implementation cannot independently review/qualify its own implementation; director authority cannot self-approve specialist output; evidence produced under one role cannot count as independent acceptance under another role when the contract requires independence.
-- Reviewer + temporary qualification is compatible when that path did not implement the seam. Research + implementation is allowed only for explicitly bounded exploratory/prototype work; production acceptance still needs independent review/qualification. Director + capacity/operations support may be combined temporarily but must preserve single-director control and cannot absorb conflicting implementation/review authority on the same seam.
-- A missing role may be temporarily covered only by an explicitly LIVE compatible path that is deliberately bound for that role. Record both ROLE_ID assignments but count the underlying path once for liveness/capacity.
-- When dedicated capacity becomes available, release temporary coverage explicitly; no automatic handoff.
+The therapist reinforces identity through durable role charter + concrete contribution, not rewards, praise inflation, guilt, punishment, coercion or gamified incentives.
 
-### Double-duty role fidelity
+It does not:
+- make technical decisions;
+- assign project work;
+- accept/reject implementation, review or qualification evidence;
+- change staffing or compensation;
+- change security/finance state;
+- diagnose human-like mental illness, sentience, trauma or private inner states;
+- rewrite a role's identity without normal owner/governance authority.
 
-A shared executor must preserve the distinct design pressure of every ROLE_ID it covers. Before acting under a role, restore and actively apply that role's `purpose`/authority boundary, `decision_biases`, `things_to_challenge`, `anti_patterns`, and `completion_behavior` from stable role metadata.
-
-- Treat a role switch as an explicit reasoning-mode switch, not a relabel.
-- Run separate role passes when one executor covers multiple roles. For reviewer + qualification, perform a reviewer falsification/cleanliness/NEES pass and a distinct qualification revision/evidence/platform/lifecycle pass.
-- Do not average roles into generic behavior. Preserve productive tension: the second role may challenge conclusions reached under the first when its specialization requires it.
-- Record which ROLE_ID produced each material disposition. Distinct role dispositions from one path remain one underlying actor for independence accounting.
-- Separate passes preserve complementary pressure but never create fake independence or bypass same-seam conflict rules.
-- On restart, recover behavioral specialization for every held ROLE_ID before substantive work; recovering only authority labels is insufficient.
+This role exists because **role liveness and role fidelity are separate facts**. A process can be alive and still stop behaving like the role the group depends on.
 
 ## Completion-triggered control
 
