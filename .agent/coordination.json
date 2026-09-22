@@ -608,7 +608,8 @@
       "exact_revision_or_base_pin"
     ],
     "duplicate_execution_rule": "Unbound duplicate paths no-op. Bound recurring runs re-fetch private control and no-op if assignment is already claimed/terminal/superseded or the execution key changed.",
-    "external_liveness_root": "Scheduler/reconciler infrastructure loss or disablement requires platform/owner recovery and is not self-healing from OX history alone."
+    "external_liveness_root": "Scheduler/reconciler infrastructure loss or disablement requires platform/owner recovery and is not self-healing from OX history alone.",
+    "liveness_goal": "completion triggers drive normal progress; sparse reconciliation detects missed triggers/stalls; neither creates authority"
   },
   "control_model": {
     "public_surfaces": "information_evidence_or_wake_only",
@@ -627,7 +628,8 @@
       "repository_stable": "policy_role_authority_routes_recovery_and_execution_contract",
       "private_control_dynamic": "epoch_barrier_staffing_assignment_liveness_execution_binding_tasks_revisions_blockers_handoffs",
       "runtime_disposable": "session_process_scheduler_automation_timer_cursor_cache"
-    }
+    },
+    "primary_goal": "continuous_authorized_forward_progress_without_manual_owner_nudges"
   },
   "role_specialization_contract": {
     "canonical_source": "iteathen/.github/.agent/work-group.json",
@@ -767,5 +769,42 @@
     "project_role_instance_required_for_security_authority": false,
     "authority_rule": "The global security researcher operates only within current security-policy/owner delegation; presence of the archetype does not grant Connect4 technical or merge authority.",
     "current_staffing_liveness_binding_source": "private security control / runtime state, never this registry"
+  },
+  "primary_operating_objective": {
+    "name": "continuous_authorized_forward_progress",
+    "primary_goal": "Keep the work group from silently stalling: whenever a useful authorized next transition exists, a current bound execution path owns consuming it without requiring a new owner prompt.",
+    "never_stalls_semantics": "Not constant activity. Waiting is valid only when the dependency is explicit, owned, and has a trigger/reconciliation path for the condition changing.",
+    "stall_conditions": [
+      "terminal_handoff_unconsumed_by_director",
+      "completed_external_or_CI_gate_still_recorded_as_waiting",
+      "idle_frontier_with_valid_next_unit_but_no_assignment",
+      "missing_or_stale_bound_role_without_targeted_recovery_or_UNEXECUTED_disposition",
+      "cleared_blocker_without_continuation",
+      "expected_self_prompting_transport_disabled_stale_or_bypassed_without_equivalent_current_binding"
+    ],
+    "legitimate_wait_conditions": [
+      "genuinely_in_progress_external_gate",
+      "explicit_owner_only_decision",
+      "required_independent_verification_unavailable_without_owner_acceptance_of_reduced_assurance",
+      "verified_PAUSE_FULL_STOP_or_RECOVERY_ONLY",
+      "no_useful_authorized_transition_exists"
+    ],
+    "liveness_mechanism_preference": [
+      "completion_or_event_trigger",
+      "durable_private_control_handoff",
+      "bound_self_prompting_execution_transport",
+      "sparse_monitor_or_reconciliation_loop",
+      "targeted_role_or_transport_recovery",
+      "owner_or_platform_escalation_for_irreducible_external_boundary"
+    ],
+    "anti_churn": [
+      "no_manufactured_work",
+      "no_duplicate_execution_paths",
+      "no_tight_polling_when_event_or_sparse_reconciliation_suffices",
+      "no_repeated_noop_control_noise",
+      "no_gate_weakening_for_liveness",
+      "no_authority_expansion_for_liveness"
+    ],
+    "owner_prompt_dependency_is_failure_when": "a valid next transition exists and durable control plus available execution transport could have advanced it automatically"
   }
 }
