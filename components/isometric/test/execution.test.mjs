@@ -280,26 +280,12 @@ test('shared-TT capacity exhaustion fails closed instead of manufacturing WDL',
       classReserve: 65536,
       entryReserve: 131072,
     });
-    const diagnosticTimer = setTimeout(() => {
-      const session = manager.session;
-      console.error('ISOMAX_B_LIFECYCLE_DIAG ' + JSON.stringify({
-        started: manager.started,
-        busy: manager.busy,
-        hasSession: session !== null,
-        failure: session?.failure?.message ?? null,
-        evaluatorThread: manager.workers[0]?.threadId ?? null,
-        evaluatorReadyPending: manager.readyResolve[0] !== null,
-        managerThread: session?.managerWorker?.threadId ?? null,
-        workerDoneCount: session?.workerDoneCount ?? null,
-      }));
-    }, 5500);
     try {
       await assert.rejects(
         manager.solveMoves([], { timeoutMs: 5000 }),
         /CAPACITY|failed|aborted/i,
       );
     } finally {
-      clearTimeout(diagnosticTimer);
       await manager.close();
     }
   });

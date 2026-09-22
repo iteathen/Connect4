@@ -377,7 +377,6 @@ export class IsoMaxBranchManager {
         settleReady(error);
         worker.removeAllListeners('message');
         worker.removeAllListeners('error');
-        worker.removeAllListeners('exit');
         if (error) reject(error);
         else resolve(metrics);
       };
