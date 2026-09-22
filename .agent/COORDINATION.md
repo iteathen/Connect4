@@ -16,6 +16,46 @@ The multi-agent work group is project-neutral. Connect4 supplies project authori
 
 If this work group moves to another project, reuse the same global archetypes and create new project role instances/routing there. Do not carry Connect4/IsoMax authority into the new project merely because the same execution paths or role archetypes are reused.
 
+## Primary goal: the work chain does not silently stall
+
+The control system exists to keep **useful, authorized work moving without owner nudges**.
+
+The invariant is not “all workers are busy.” It is:
+
+> When a valid next transition exists, some current bound execution path owns consuming it; when no transition is currently executable, the wait condition is explicit and a trigger/reconciliation path exists to notice when it becomes executable.
+
+### Liveness hierarchy
+
+Use the cheapest reliable mechanism that preserves authority:
+
+1. **terminal/completion trigger** — a role finishes, an external gate changes, or a blocker clears;
+2. **durable control handoff** — private OX records the exact terminal state and evidence;
+3. **bound self-prompting executor** — consumes the handoff and performs the Director transition without waiting for a new user message;
+4. **monitor/reconciliation loop** — sparse fallback that detects dropped wakeups, stale liveness, completed gates still marked waiting, missing handoffs, or a dead execution transport;
+5. **targeted recovery** — restore/rebind the missing role or continuing transport;
+6. **owner/platform escalation** — only for irreducible owner-only authority or external liveness-root failure.
+
+### What counts as a stall
+
+A stall exists when authorized useful progress is possible but the control chain fails to own it. Examples:
+- terminal specialist handoff with no director consumption;
+- CI/workflow/external evidence is terminal but control still says waiting;
+- current frontier has an executable next unit but no assignment;
+- bound path is stale/missing and no recovery is underway;
+- blocker cleared but no transition followed;
+- the expected self-prompting transport is disabled/bypassed and no equivalent current path is bound.
+
+These are **not** stalls:
+- waiting on genuinely in-progress CI/external work;
+- waiting on an explicit owner-only choice;
+- waiting on required independent verification when none is available and reduced assurance has not been accepted;
+- deliberate PAUSE/FULL STOP/RECOVERY_ONLY state;
+- intentional no-op because no useful authorized transition exists.
+
+### Anti-churn rule
+
+Never satisfy liveness by manufacturing activity. No duplicate execution paths, tight polling, repeated no-op comments, speculative task creation, weakened acceptance gates, or authority expansion. Trigger first; reconcile sparsely; recover precisely.
+
 ## State classes
 
 Never mix these classes.
