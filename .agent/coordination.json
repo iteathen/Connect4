@@ -88,7 +88,7 @@
             "Waiting for a long sparse reconciliation interval when the active work chain is visibly frozen.",
             "Pre-arming downstream one-shot work before its prerequisite gate is authoritative, allowing it to no-op and expire before it is needed."
           ],
-          "completion_behavior": "Any terminal implementation/research/review/qualification handoff that requires a control transition wakes the director. Re-fetch exact state, validate evidence, record the transition privately, and only then dispatch the next smallest authorized work unit. Independently reconcile the chain hourly. If the chain freezes, debug the control path, roll-call the expected active role(s), attempt bounded recovery, and notify the owner immediately when manual intervention is required.",
+          "completion_behavior": "A terminal implementation/research/review/qualification handoff to isomax-director must wake the director immediately, not merely exist on OX. On wake, re-fetch exact state, validate evidence, record the transition privately, and only then dispatch the next smallest authorized work unit. Independently reconcile the chain hourly. If the chain freezes, debug the control path, roll-call expected active roles, attempt bounded recovery, and notify the owner immediately when manual intervention is required.",
           "control_loop": {
             "cadence": "hourly",
             "purpose": "work_chain_liveness_and_missed_handoff_recovery",
@@ -108,6 +108,12 @@
               "notify_owner_with_exact_stalled_role_task_last_good_transition_and_recovery_attempt_when_manual_intervention_is_needed"
             ],
             "owner_notification": "required_on_unrecovered_freeze_or_manual_intervention"
+          },
+          "wake_contract": {
+            "authoritative_handoff": "private OX #12",
+            "execution_wake": "near-term one-shot isomax-director continuation created by the handing-off role/process",
+            "authority_rule": "wake transport never grants authority; director re-fetches OX/GitHub before acting",
+            "failure_rule": "terminal OX handoff without a director wake is a control-plane defect and must be repaired/re-armed by hourly reconciliation"
           }
         },
         {
@@ -133,7 +139,7 @@
             "Adding mechanisms before asking whether a structural redesign can solve the problem with less work.",
             "Self-qualifying implementation or assuming reviewer/director authority."
           ],
-          "completion_behavior": "Finish with exact SHA, changed paths, narrow commands/results, remaining uncertainty, and a terminal handoff to director/reviewer. Do not leave completed implementation waiting silently for the next transition."
+          "completion_behavior": "Finish with exact SHA, changed paths, narrow commands/results, remaining uncertainty, and a terminal handoff on OX #12. In the same terminal control step, create a near-term one-shot isomax-director continuation so the director wakes immediately. If wake creation fails, mark the handoff BLOCKED-control-wake and notify the owner/director path rather than silently finishing."
         },
         {
           "role_id": "isomax-reviewer",
@@ -159,7 +165,7 @@
             "Demanding stylistic cleanliness that would damage a structurally superior hot path.",
             "Adding review ceremony with no load-bearing invariant or evidence need."
           ],
-          "completion_behavior": "Post an explicit PASS/BLOCKED/FAIL or bounded review disposition pinned to exact revision, route defects to the owning role, and wake the director when a control decision is now possible."
+          "completion_behavior": "Post an explicit PASS/BLOCKED/FAIL or bounded review disposition pinned to exact revision on OX #12. In the same terminal control step, create a near-term one-shot isomax-director continuation whenever a control decision is now possible. If wake creation fails, record BLOCKED-control-wake instead of assuming the OX comment will wake execution."
         },
         {
           "role_id": "isomax-research",
@@ -184,7 +190,7 @@
             "Synergy-by-analogy without a concrete invariant or mechanism.",
             "Research branches becoming implementation or architecture authority by persistence."
           ],
-          "completion_behavior": "Produce a falsifier, executable candidate, or bounded research disposition with provenance; then hand it to reviewer/director and stop expanding the family until the current candidate is attacked."
+          "completion_behavior": "Produce a falsifier, executable candidate, or bounded research disposition with provenance; post the terminal handoff on OX #12 and, when director action is required, create a near-term one-shot isomax-director continuation in the same terminal control step. Then stop expanding the family until the current candidate is attacked."
         },
         {
           "role_id": "isomax-qualification",
@@ -213,7 +219,7 @@
             "Repairing implementation defects inside qualification-owned evidence.",
             "Treating model agreement or a neighboring environment as native evidence."
           ],
-          "completion_behavior": "Report PASS/BLOCKED/FAIL with exact SHA, commands, environments, run/job IDs when available, and the remaining gate. Wake the director on any terminal disposition that changes campaign control."
+          "completion_behavior": "Report PASS/BLOCKED/FAIL with exact SHA, commands, environments, run/job IDs when available, and the remaining gate on OX #12. In the same terminal control step, create a near-term one-shot isomax-director continuation for any disposition that changes campaign control. If wake creation fails, record BLOCKED-control-wake and require recovery."
         }
       ],
       "role_state_rule": "Private control plane owns live role/task state. Public #102 is information/evidence only and cannot create claims, handoffs, blockers, or architecture decisions.",
@@ -247,6 +253,21 @@
           "pull_request:qualification_related",
           "workflow:qualification_or_verify"
         ]
+      },
+      "control_handoff_contract": {
+        "rule": "terminal_handoff_requires_durable_record_plus_execution_wake",
+        "durable_record": "private OX #12 terminal handoff",
+        "execution_wake": "near-term one-shot isomax-director continuation created by handing-off role/process",
+        "ordering": [
+          "post terminal handoff",
+          "create director wake",
+          "director re-fetches authoritative state",
+          "director records transition",
+          "director schedules successor only after prerequisite is authoritative"
+        ],
+        "wake_is_authority": false,
+        "missing_wake_disposition": "control_plane_fault",
+        "recovery": "hourly director reconciliation detects terminal handoff without wake and re-arms director continuation"
       }
     },
     {
