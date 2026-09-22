@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.7",
+  "schema_version": "1.8",
   "repository": "iteathen/Connect4",
   "updated": "2026-09-22",
   "registry_semantics": {
@@ -686,7 +686,8 @@
     "work_group_support_archetypes": {
       "staffing_recruiting": "capacity-manager",
       "behavioral_identity_fidelity_and_agent_methodology_research": "behavioral-psychologist",
-      "organizational_workflow_and_business_administration_research": "research-dba"
+      "organizational_workflow_and_business_administration_research": "research-dba",
+      "agentic_security_research_and_secure_operations": "agentic-security-researcher"
     },
     "multi_role_rule": "Any number of compatible role instances may be co-held. The limits are conflicts, independence, capacity, fidelity and security—not a numeric duty count.",
     "reboot_rule": "Role completeness counts only if a blank session can recover project role instances plus their canonical archetype identities before OPERATIONS_RESUME."
@@ -694,12 +695,25 @@
   "work_group_archetypes": {
     "canonical_repository": "iteathen/.github",
     "canonical_ref": "main",
-    "canonical_commit_at_last_sync": "7f68f5bcb975b96accc8d171179369bd2c52430a",
+    "canonical_commit_at_last_sync": "PENDING_GLOBAL_AGENTIC_SECURITY_RESEARCHER_MERGE",
     "machine_path": ".agent/work-group.json",
     "human_path": "WORK_GROUP.md",
     "project_neutral": true,
     "project_role_instance_rule": "Project role instances own project authority/routing/current state and reference one project-neutral archetype for identity/personality.",
     "archetype_freshness_rule": "Read current iteathen/.github main before substantive work when accessible; project-local role entries must not redefine archetype personality.",
     "canonical_unavailable_disposition": "Fail closed on role-fidelity claims; use only project authority needed for recovery until archetype identity is available."
+  },
+  "global_security_support": {
+    "archetype_id": "agentic-security-researcher",
+    "canonical_policy": "iteathen/.github/SECURITY_AGENT_POLICY.md",
+    "canonical_archetype": "iteathen/.github/.agent/work-group.json",
+    "routing": "private iteathen/OX-Alpha-Contol#10 for sanitized coordination/router; substantive vulnerabilities use the affected repository Security Advisory or explicitly approved private security surface",
+    "legacy_process_aliases": [
+      "security-reconcile",
+      "external-pr-reconcile"
+    ],
+    "project_role_instance_required_for_security_authority": false,
+    "authority_rule": "The global security researcher operates only within current security-policy/owner delegation; presence of the archetype does not grant Connect4 technical or merge authority.",
+    "current_staffing_liveness_binding_source": "private security control / runtime state, never this registry"
   }
 }
