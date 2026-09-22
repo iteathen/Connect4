@@ -57,22 +57,61 @@ After an owner-directed all-agent logout, operations remain **OFF** even if agen
 - Treat all prior epoch liveness, staffing, bindings and assignments as historical.
 - Recover exactly one director path first under explicit owner authority.
 - The director opens a fresh **RECOVERY_ONLY** epoch and restores the roster/bindings without issuing technical work.
-- Role ACK, reconciler enablement, role call, double-duty assignment and recovery completion are not operations-resume signals.
+- Role ACK, reconciler enablement, role call, multi-role assignment and recovery completion are not operations-resume signals.
 - A later explicit owner instruction is required to supersede the shutdown barrier; the director records a distinct `OPERATIONS_RESUME` transition before issuing any fresh technical assignment.
 - If the restart procedure, role behavior, or current-control reconstruction depends on remembered chat/session context, the reboot has failed.
 - Before `OPERATIONS_RESUME`, require a blank-session reviewer/qualification audit from a path that did not author the reboot-maintenance change when independent capacity exists; otherwise keep operations off unless the owner explicitly accepts reduced assurance.
 
 The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
-## Role completeness
+## Project-neutral work-group roles
 
-The durable IsoMax role set is a set of complementary design pressures, not interchangeable worker labels. On recovery, restore the full specialization for every held ROLE_ID from `.agent/coordination.json`.
+Connect4 instantiates a project-neutral work group whose canonical role identities live in:
 
-Current technical pressures include director/control, research/structural discovery, implementation/clean realization, reviewer/adversarial cleanliness, qualification/exact evidence, and **performance/causal realization economics**.
+- `iteathen/.github/WORK_GROUP.md`
+- `iteathen/.github/.agent/work-group.json`
 
-`isomax-performance` exists to pressure the solver toward less useful-work amplification, less synchronization/data movement, and real parallel scaling. It must distinguish causal work economics from raw benchmark timing and must prefer structural work removal over worker-count special cases, sleeps/backoff, caps, heuristic throttling, or benchmark-driven architecture.
+This repository owns only project-specific role instances, authority, routing and current control state.
 
-Role completeness itself is reboot-sensitive: if a blank session cannot recover a role's distinctive reasoning pressure and authority boundary from stable files, that role does not count as durably present.
+Current IsoMax role instances map to global archetypes:
+
+- `isomax-director` -> `director`
+- `isomax-research` -> `research`
+- `isomax-implementation` -> `implementation`
+- `isomax-reviewer` -> `reviewer`
+- `isomax-qualification` -> `qualification`
+- `isomax-performance` -> `performance-economics`
+
+Work-group support on private OX #13 includes:
+- `capacity-manager` -> `capacity-manager`
+- `behavioral-therapist` -> `behavioral-therapist`
+
+A role is reboot-complete only when the session restores both its project-specific authority and its global archetype identity.
+
+### Multi-role coverage
+
+One execution path may hold any number of compatible duties—two, three, many, or potentially all roles. There is no fixed numerical limit.
+
+Each held role must remain a separate reasoning mode. Explicitly switch hats and restore the global archetype before acting under another role.
+
+The constraints are conflicts, independence/separation requirements, actual capacity, fidelity, and security—not role count. One execution path remains one actor for independence regardless of how many roles it holds.
+
+If roles begin blending into generic behavior, nominal coverage no longer counts; reduce/reassign coverage or use the behavioral therapist to restore role fidelity.
+
+### Behavioral therapist
+
+The `behavioral-therapist` is a role-identity steward, not a technical authority and not human mental-health care.
+
+It watches for behavioral drift such as:
+- reviewer becoming agreeable instead of falsifying;
+- researcher collapsing into implementation or endless ideation;
+- implementer tolerating residue or self-review;
+- qualifier accepting narrative rather than exact evidence;
+- director absorbing every specialist role or losing decisiveness;
+- performance economist becoming a benchmark tuner;
+- multi-role executors blending roles into one averaged personality.
+
+It reminds each role who it is, why its pressure is concretely valuable to the work group, and which role-specific behaviors should return. It uses durable archetype text and observable behavior, not incentives, praise inflation, punishment, manipulation, or clinical claims.
 
 ## Private administrative boundary
 
