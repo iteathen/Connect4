@@ -250,3 +250,21 @@ Before retiring one, preserve useful implementation in its solver owner and pres
 Maintained source is JavaScript/Node.js plus product Device-JS through public CUDA contracts. No Python, direct CUDA FFI, C/C++/CUDA C++, hand PTX, or native-addon escape path. Benchmark correctness/fairness semantics remain Connect4-owned.
 
 Before mutating a lane, read that lane's exact branch state and governing specifications. Treat historical branches, PR descriptions and research summaries as evidence until their relationship to the durable owner is verified.
+
+## Mandatory completion-trigger contract
+
+A durable handoff is **not sufficient by itself** to satisfy liveness. Every bound role participates in an event-driven continuation chain.
+
+For **every ROLE_ID**, when a meaningful work unit reaches a terminal state (`PASS`, `FAIL`, `BLOCKED`, completed handoff, cleared blocker, or completed external gate), the current bound execution path must do one of these **before ending the execution turn**:
+
+1. consume the resulting Director/next-role transition in the same execution turn; or
+2. arm/re-arm the **same currently bound execution path** for the nearest supported continuation so the Director consumes the terminal state promptly.
+
+Likewise, when the Director records a fresh assignment, the Director must arm/re-arm the same bound execution path so the selected receiving role begins promptly. The receiving wake grants no new authority; it must re-fetch private control and pass the normal freshness fence before acting.
+
+This rule applies individually to Director, Researcher, Implementer, Reviewer, Qualifier, Performance Economist, Workforce Researcher, Behavioral Psychologist, Research DBA, Security Researcher, Finance Researcher, and any future bound role instance. A role is not complete merely because it wrote its terminal handoff; completion includes delivery of the next authorized control transition when one exists.
+
+The recurring/hourly reconciliation cadence is **fallback recovery only** for a missed/dropped completion trigger, scheduler fault, stale binding, or externally completed condition. It is not the normal mechanism for advancing a completed handoff. Do not intentionally defer an executable transition to the next hourly sweep.
+
+Completion triggers must preserve single-executor semantics. Do not create a second independently authoritative worker merely to wake the chain. Wake/re-arm the currently bound execution path, or explicitly `REBIND`/`REPLACE` it through current private control if that path is unavailable.
+
