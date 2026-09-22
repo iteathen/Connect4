@@ -163,6 +163,30 @@ When a role reaches a terminal work state that can change campaign control—imp
 
 For IsoMax, a terminal handoff requiring prioritization/integration wakes `isomax-director`. The director re-fetches exact repository/CI/control state, validates the evidence, records the next control transition privately, and dispatches the smallest authorized next unit. Idle time is acceptable only when the next load-bearing transition is genuinely blocked on an external gate such as running CI/actions or missing owner authority.
 
+## Immediate director wake on handoff
+
+A terminal IsoMax handoff is not complete merely because an OX comment exists. The handing-off role/process must complete a two-part control action:
+
+1. write the terminal handoff to private OX #12, including exact revision/evidence and terminal state;
+2. create a near-term one-shot `isomax-director` continuation.
+
+The wake is execution transport only. It grants no authority. The director must re-fetch OX #12 and exact GitHub state before acting.
+
+Required ordering:
+
+```text
+specialist terminal state
+    -> OX #12 terminal handoff
+    -> immediate director wake
+    -> director re-fetch / validate
+    -> director records control transition
+    -> successor role scheduled
+```
+
+A terminal OX handoff without its director wake is a **control-plane fault**, not a successful completion. The hourly director loop must detect this shape and re-arm the director continuation. If wake creation itself fails in a specialist run, the specialist records `BLOCKED-control-wake` rather than silently assuming OX will wake execution.
+
+Do not pre-arm the successor specialist before the director has recorded the prerequisite transition.
+
 ## Director work-chain liveness and freeze recovery
 
 The `isomax-director` owns **control-chain liveness** in addition to technical prioritization. This does not grant implementation/review/research/qualification authority; it owns the transitions between those roles.
