@@ -1,0 +1,246 @@
+name: isomax-external-published-protocol-r2
+
+on:
+  push:
+    branches:
+      - experiment/isomax-external-calibration-r2
+    paths:
+      - '.github/workflows/isomax-external-published-protocol-r2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isomax-external-published-protocol-r2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  published-protocol-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PONS_SHA: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+      BEN_SHA: 28a112adaf3ff89ee23fb09411fa592b6597010e
+    steps:
+      - name: Setup exact Node runtime for summary
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Record runner and toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== PUBLISHED_CALIBRATION_ENV ==='
+          uname -a
+          echo "nproc=$(nproc)"
+          lscpu
+          echo "node=$(node --version)"
+          echo "gcc=$(gcc --version | head -1)"
+          echo "g++=$(g++ --version | head -1)"
+          echo "rustc=$(rustc --version)"
+          echo "cargo=$(cargo --version)"
+          echo "git=$(git --version)"
+
+      - name: Fetch exact external sources without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -c credential.helper= clone --no-tags https://github.com/PascalPons/connect4.git "$RUNNER_TEMP/pons"
+          git -C "$RUNNER_TEMP/pons" checkout --detach "$PONS_SHA"
+          test "$(git -C "$RUNNER_TEMP/pons" rev-parse HEAD)" = "$PONS_SHA"
+
+          git -c credential.helper= clone --no-tags https://github.com/benjaminrall/connect-four-ai.git "$RUNNER_TEMP/ben"
+          git -C "$RUNNER_TEMP/ben" checkout --detach "$BEN_SHA"
+          test "$(git -C "$RUNNER_TEMP/ben" rev-parse HEAD)" = "$BEN_SHA"
+
+          echo "pons=$(git -C "$RUNNER_TEMP/pons" rev-parse HEAD)"
+          echo "ben=$(git -C "$RUNNER_TEMP/ben" rev-parse HEAD)"
+          sha256sum "$RUNNER_TEMP/ben/crates/test-data/end-easy" \
+                    "$RUNNER_TEMP/ben/crates/test-data/middle-easy" \
+                    "$RUNNER_TEMP/ben/crates/test-data/begin-easy"
+
+      - name: Build exact Pascal weak and Ben no-book harnesses
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/pons-protocol.cpp" <<'CPP'
+          #include "Solver.hpp"
+          #include <chrono>
+          #include <fstream>
+          #include <iostream>
+          #include <sstream>
+          #include <string>
+          using namespace GameSolver::Connect4;
+          int main(int argc, char** argv) {
+            if (argc != 2) return 2;
+            std::ifstream input(argv[1]);
+            if (!input) return 3;
+            Solver solver;
+            unsigned long long total_nodes = 0;
+            long long total_ns = 0;
+            unsigned long long count = 0;
+            unsigned long long correct = 0;
+            std::string line;
+            while (std::getline(input, line)) {
+              if (line.empty()) continue;
+              std::istringstream in(line);
+              std::string moves;
+              int expected = 0;
+              if (!(in >> moves >> expected)) return 4;
+              Position p;
+              if (p.play(moves) != moves.size()) return 5;
+              solver.reset();
+              const auto t0 = std::chrono::steady_clock::now();
+              const int score = solver.solve(p, true);
+              const auto dt = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::steady_clock::now() - t0).count();
+              const int expected_wdl = expected > 0 ? 1 : expected < 0 ? -1 : 0;
+              const int actual_wdl = score > 0 ? 1 : score < 0 ? -1 : 0;
+              if (actual_wdl == expected_wdl) ++correct;
+              total_nodes += solver.getNodeCount();
+              total_ns += dt;
+              ++count;
+            }
+            std::cout << "RESULT pons " << argv[1] << ' ' << count << ' ' << correct << ' '
+                      << total_nodes << ' ' << total_ns << '\n';
+            return correct == count ? 0 : 6;
+          }
+          CPP
+          g++ --std=c++11 -O3 -DNDEBUG -W -Wall \
+            -I "$RUNNER_TEMP/pons" \
+            "$RUNNER_TEMP/pons-protocol.cpp" "$RUNNER_TEMP/pons/Solver.cpp" \
+            -o "$RUNNER_TEMP/pons-protocol"
+
+          cat > "$RUNNER_TEMP/ben/crates/core/src/bin/calibrate_nobook.rs" <<'RS'
+          use connect_four_ai::{Position, Solver};
+          use std::env;
+          use std::fs::File;
+          use std::io::{BufRead, BufReader};
+          use std::time::Instant;
+          fn main() {
+              let path = env::args().nth(1).expect("data path");
+              let file = File::open(&path).expect("open data");
+              let mut solver = Solver::empty();
+              let mut count: u64 = 0;
+              let mut correct: u64 = 0;
+              let mut total_nodes: u64 = 0;
+              let mut total_ns: u128 = 0;
+              for line in BufReader::new(file).lines() {
+                  let line = line.expect("line");
+                  if line.trim().is_empty() { continue; }
+                  let mut fields = line.split_whitespace();
+                  let moves = fields.next().expect("moves");
+                  let expected: i8 = fields.next().expect("expected").parse().expect("score");
+                  let position = Position::from_moves(moves).expect("position");
+                  solver.reset();
+                  let t0 = Instant::now();
+                  let actual = solver.solve(&position);
+                  total_ns += t0.elapsed().as_nanos();
+                  total_nodes += solver.explored_positions as u64;
+                  count += 1;
+                  if actual == expected { correct += 1; }
+              }
+              println!("RESULT ben {} {} {} {} {}", path, count, correct, total_nodes, total_ns);
+              if correct != count { std::process::exit(6); }
+          }
+          RS
+          cargo build --manifest-path "$RUNNER_TEMP/ben/crates/core/Cargo.toml" \
+            --release --locked --bin calibrate_nobook
+          echo '=== BUILD_FLAGS ==='
+          echo 'PascalPons: g++ --std=c++11 -O3 -DNDEBUG -W -Wall; weak solve; reset per position'
+          echo 'connect-four-ai: cargo build --release --locked; Solver::empty(); strong solve; reset per position'
+
+      - name: Published-protocol interleaved samples
+        shell: bash
+        run: |
+          set -euo pipefail
+          datasets=(end-easy middle-easy begin-easy)
+          run_pons() {
+            local dataset="$1" round="$2"
+            local data="$RUNNER_TEMP/ben/crates/test-data/$dataset"
+            /usr/bin/time -v -o "$RUNNER_TEMP/pons-${dataset}-${round}.time" \
+              "$RUNNER_TEMP/pons-protocol" "$data" \
+              | tee "$RUNNER_TEMP/pons-${dataset}-${round}.out"
+            echo "=== PONS_TIME_${dataset}_${round} ==="
+            cat "$RUNNER_TEMP/pons-${dataset}-${round}.time"
+          }
+          run_ben() {
+            local dataset="$1" round="$2"
+            local data="$RUNNER_TEMP/ben/crates/test-data/$dataset"
+            /usr/bin/time -v -o "$RUNNER_TEMP/ben-${dataset}-${round}.time" \
+              "$RUNNER_TEMP/ben/target/release/calibrate_nobook" "$data" \
+              | tee "$RUNNER_TEMP/ben-${dataset}-${round}.out"
+            echo "=== BEN_TIME_${dataset}_${round} ==="
+            cat "$RUNNER_TEMP/ben-${dataset}-${round}.time"
+          }
+          for dataset in "${datasets[@]}"; do
+            echo "=== DATASET_${dataset}_ROUND_1 PONS BEN ==="
+            run_pons "$dataset" 1
+            run_ben "$dataset" 1
+            echo "=== DATASET_${dataset}_ROUND_2 BEN PONS ==="
+            run_ben "$dataset" 2
+            run_pons "$dataset" 2
+            echo "=== DATASET_${dataset}_ROUND_3 PONS BEN ==="
+            run_pons "$dataset" 3
+            run_ben "$dataset" 3
+          done
+
+      - name: Summarize published-protocol runner ratios
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const dir = process.env.RUNNER_TEMP;
+          const datasets = ['end-easy', 'middle-easy', 'begin-easy'];
+          const published = {
+            pons: {
+              // Pascal Pons lower-bound-TT tutorial weak-solver reference.
+              'end-easy': 3.217,
+              'middle-easy': 47.73,
+              'begin-easy': 3332,
+            },
+            ben: {
+              // connect-four-ai README no-book strong-solver reference at BEN_SHA.
+              'end-easy': 3.32,
+              'middle-easy': 32.2,
+              'begin-easy': 222,
+            },
+          };
+          const parse = (solver, dataset, round) => {
+            const line = fs.readFileSync(`${dir}/${solver}-${dataset}-${round}.out`, 'utf8')
+              .trim().split(/\n+/).find(x => x.startsWith('RESULT '));
+            if (!line) throw new Error(`missing result ${solver} ${dataset} ${round}`);
+            const fields = line.split(/\s+/);
+            const count = Number(fields.at(-4));
+            const correct = Number(fields.at(-3));
+            const nodes = Number(fields.at(-2));
+            const ns = Number(fields.at(-1));
+            return { count, correct, nodes, ns, meanUs: ns / count / 1000 };
+          };
+          const out = { kind: 'published-protocol-runner-calibration', datasets: {} };
+          for (const dataset of datasets) {
+            out.datasets[dataset] = {};
+            for (const solver of ['pons', 'ben']) {
+              const samples = [1, 2, 3].map(r => parse(solver, dataset, r));
+              const meanUs = samples.reduce((a, x) => a + x.meanUs, 0) / samples.length;
+              const minUs = Math.min(...samples.map(x => x.meanUs));
+              const maxUs = Math.max(...samples.map(x => x.meanUs));
+              const pubUs = published[solver][dataset];
+              out.datasets[dataset][solver] = {
+                publishedMeanUs: pubUs,
+                runnerSamplesMeanUs: samples.map(x => x.meanUs),
+                runnerMeanUs: meanUs,
+                runnerMinUs: minUs,
+                runnerMaxUs: maxUs,
+                runnerToPublished: meanUs / pubUs,
+                nodesPerPosition: samples[0].nodes / samples[0].count,
+                correct: samples.every(x => x.correct === x.count),
+              };
+            }
+          }
+          console.log('=== PUBLISHED_PROTOCOL_SUMMARY ===');
+          console.log(JSON.stringify(out));
+          NODE
