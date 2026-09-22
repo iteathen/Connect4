@@ -153,7 +153,8 @@ export class IsoMaxTransitionCache {
   // Do not replace them with string keys, signature objects/temporary arrays,
   // hash-only equality, or coarse WSL/proof identity. Sealed worker recursion
   // cannot grow/rehash; reserve at task entry. Rehash scratch must not alias a
-  // live insertion key. Keep collision/resize/reflection controls effective.
+  // live insertion key. This research branch deliberately removes local-cache
+  // mirror canonicalization so exact maintained state is used directly.
   constructor({ pool, initialCapacity = 1024 } = {}) {
     if (!pool) throw new TypeError('IsoMaxTransitionCache requires its ResidualPool');
     this.pool = pool;
@@ -232,7 +233,10 @@ export class IsoMaxTransitionCache {
     // Derive q into owned scratch; never return/retain that borrowed buffer as a recursive key.
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
-    const signature = state.gameplayKey(this.scratch);
+    const signature = this.scratch;
+    signature[0] = state.p0Class;
+    signature[1] = state.p1Class;
+    signature[2] = state.supportCode;
     const slot = this.findSlot(signature);
     return this.used[slot] === 0 ? undefined : this.values[slot];
   }
@@ -247,7 +251,9 @@ export class IsoMaxTransitionCache {
     // above INT32_MAX otherwise box as HeapNumbers in this Node/V8 profile.
     // Addressing still uses hash & mask; exact q coordinates decide equality.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
-    state.gameplayKey(this.scratch);
+    this.scratch[0] = state.p0Class;
+    this.scratch[1] = state.p1Class;
+    this.scratch[2] = state.supportCode;
     return hashSignature(this.scratch) | 0;
   }
 
@@ -307,7 +313,10 @@ export class IsoMaxTransitionCache {
     // Inherit the hot-path contract in solver.mjs; qualify changes in the real caller.
     if (state.pool !== this.pool) throw new Error('state residual pool does not belong to this gameplay cache');
     if (value === undefined) throw new TypeError('transition cache cannot store undefined');
-    const signature = state.gameplayKey(this.scratch);
+    const signature = this.scratch;
+    signature[0] = state.p0Class;
+    signature[1] = state.p1Class;
+    signature[2] = state.supportCode;
     return this.#setKey(signature, value);
   }
 
