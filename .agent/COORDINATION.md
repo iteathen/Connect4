@@ -66,6 +66,18 @@ missed event / restart
 
 Do not claim continuous monitoring or native event delivery when the runtime does not provide it.
 
+## Canonical live-control issue routing
+
+The machine-readable `.agent/coordination.json` `communication` object must point directly at the **live private control issue**, not at the public evidence issue.
+
+Current canonical routes:
+
+- IsoMax: **`iteathen/OX-Alpha-Contol#12`** is the only live agent-control issue. Connect4 #102 is evidence/information only.
+- Project Operations / capacity: **`iteathen/OX-Alpha-Contol#13`** is the only live staffing/recruiting control issue. Connect4 #126 is evidence/information only.
+- OX #10 is an index/router, not a substitute for #12 or #13.
+
+A restarted worker must open the matching OX issue first to recover role/task state. Do not announce rejoin, claim work, post handoffs, answer roll calls, or recover blockers from public #102/#126.
+
 ## Private control authority
 
 Public Connect4 issues remain developer-facing information/evidence surfaces. They are not live agent-control surfaces.
@@ -98,12 +110,12 @@ If no role has been assigned after restart:
 
 Campaigns may use Agent X-Change semantics over an ordinary transport such as a GitHub issue.
 
-For the current Connect4 IsoMax campaign, substantive coordination messages use the `AX/GH-102` profile declared on the live issue. The profile and ROLE_ID are **message structure, not authentication**: state-changing authority also requires the actor provenance gate declared in `.agent/coordination.json`. A restarted agent should use a fresh session handle and include its durable `ROLE_ID` in the first rejoin exchange.
+For the current Connect4 IsoMax campaign, the **live coordination issue is private `iteathen/OX-Alpha-Contol#12`** and substantive coordination messages use the `AX/GH-PRIVATE` profile there. Public Connect4 #102 is evidence-only and must not be used for rejoin, claims, handoffs, roll calls, blockers, releases, or director decisions. The profile and ROLE_ID are **message structure, not authentication**: state-changing authority also requires the actor provenance gate declared in `.agent/coordination.json`. A restarted agent should use a fresh session handle and include its durable `ROLE_ID` in the first rejoin exchange.
 
 Suggested rejoin shape:
 
 ```text
-AX/GH-102
+AX/GH-PRIVATE
 EXCHANGE: <new exchange id>
 FROM: IX-<new session handle>
 ROLE_ID: <stable role id>
