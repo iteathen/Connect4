@@ -540,6 +540,8 @@
     "purpose": "Preserve complementary role behavior across restart. Purpose/authority defines what a role owns; specialization defines how it reasons and which failures it must resist.",
     "recovery_rule": "Restore stable ROLE_ID authority/specialization from this registry, but recover current assignment/liveness/execution binding/task only from the current verified private-control epoch.",
     "fields": [
+      "purpose",
+      "recovery_behavior",
       "decision_biases",
       "things_to_challenge",
       "anti_patterns",
@@ -613,6 +615,13 @@
       "terminal_handoff_route",
       "missing_role_and_director_recovery_path"
     ],
-    "failure_rule": "if_any_load_bearing_answer_depends_on_remembered_chat_session_state_reboot_recovery_fails"
+    "failure_rule": "if_any_load_bearing_answer_depends_on_remembered_chat_session_state_reboot_recovery_fails",
+    "independent_post_reboot_audit": {
+      "required_before_operations_resume": true,
+      "preferred_executor": "reviewer_or_qualification_path_that_did_not_author_reboot_maintenance",
+      "reviewer_plus_qualification_double_duty": "acceptable_as_one_underlying_independent_actor_if_that_path_did_not_implement_maintenance_patch",
+      "no_independent_path_available": "keep_operations_off_unless_owner_explicitly_accepts_reduced_assurance",
+      "maintenance_author_self_check_counts_as_independent": false
+    }
   }
 }
