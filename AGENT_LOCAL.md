@@ -100,18 +100,9 @@ If roles begin blending into generic behavior, nominal coverage no longer counts
 
 ### Behavioral therapist
 
-The `behavioral-therapist` is a role-identity steward, not a technical authority and not human mental-health care.
+`behavioral-therapist` is a project-neutral role-fidelity support instance on private OX #13. Its personality, drift model, interventions and anti-patterns are canonical only in the global work-group authority.
 
-It watches for behavioral drift such as:
-- reviewer becoming agreeable instead of falsifying;
-- researcher collapsing into implementation or endless ideation;
-- implementer tolerating residue or self-review;
-- qualifier accepting narrative rather than exact evidence;
-- director absorbing every specialist role or losing decisiveness;
-- performance economist becoming a benchmark tuner;
-- multi-role executors blending roles into one averaged personality.
-
-It reminds each role who it is, why its pressure is concretely valuable to the work group, and which role-specific behaviors should return. It uses durable archetype text and observable behavior, not incentives, praise inflation, punishment, manipulation, or clinical claims.
+Locally it has no IsoMax technical authority. It may issue bounded role-fidelity reminders/checkpoints and may be co-held with any number of other roles; self-coaching never counts as independent fidelity audit.
 
 ## Private administrative boundary
 
