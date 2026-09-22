@@ -1,4 +1,35 @@
 import { FRONTIER_WORDS } from '../profile.mjs';
+import {
+  EXEC_KIND_ACTIVE,
+  EXEC_KIND_SCHED,
+  EXEC_NONE,
+  EXEC_QUEUED,
+  EXPOSURE_GRANTED,
+  claimExecution,
+  emitClaimVector,
+  executionClaimParity,
+  executionIsClaim,
+  executionIsRunning,
+  executionKind,
+  executionWorker,
+  initializeWorkerLedger,
+  runExecution,
+  workerClaimHasRoom,
+  workerLedgerParity,
+} from './conserved-delta.mjs';
+
+export {
+  EXEC_KIND_ACTIVE,
+  EXEC_KIND_SCHED,
+  EXEC_NONE,
+  EXEC_QUEUED,
+  executionClaimParity,
+  executionIsClaim,
+  executionIsRunning,
+  executionKind,
+  executionWorker,
+  runExecution,
+};
 
 export const MAX_MOVES = 42;
 export const MAX_ACTIONS = 7;
@@ -7,10 +38,6 @@ export const Q_IDENTITY_WORDS = FRONTIER_WORDS * 2;
 export const PRIORITY_BANDS = 8;
 
 export const Q_EXACT_UNKNOWN = 2;
-
-export const EXEC_NONE = 0;
-export const EXEC_QUEUED = 1;
-export const EXEC_RUNNING_BASE = 2;
 
 export const CTRL_ABORT = 0;
 export const CTRL_SESSION = 1;
@@ -30,8 +57,6 @@ export const CTRL_Q_HIGH_WATER = 14;
 export const CTRL_EDGE_NEXT = 15;
 export const CTRL_EDGE_FREE_HEAD = 16;
 export const CTRL_ROOT_MOVE_READY = 17;
-export const CTRL_READY_COUNT = 18;
-export const CTRL_EXPOSURE_STATE = 19;
 export const CTRL_WORDS = 32;
 
 export const WORKER_COUNTER_WORDS = 32;
@@ -112,14 +137,6 @@ export function hashPortableQ(words, support, flags) {
   return mix32(hash ^ Q_IDENTITY_WORDS);
 }
 
-export function runningExecution(workerId) {
-  return EXEC_RUNNING_BASE + workerId;
-}
-
-export function executionWorker(execution) {
-  return execution >= EXEC_RUNNING_BASE ? execution - EXEC_RUNNING_BASE : -1;
-}
-
 export function createSharedTT({
   qCapacity = 65536,
   workerCount = 4,
@@ -182,7 +199,8 @@ export function createSharedTT({
     workerReset: sab(Int32Array, workerCount),
     workerDeath: sab(Int32Array, workerCount),
     workerRecovery: sab(Int32Array, workerCount),
-    workerIdle: sab(Int32Array, workerCount),
+    workerLedger: sab(Int32Array, workerCount),
+    workerExposure: sab(Int32Array, workerCount),
     workerCounters: sab(Int32Array, workerCount * WORKER_COUNTER_WORDS),
   };
 
@@ -204,6 +222,7 @@ export function createSharedTT({
   Atomics.store(shared.control, CTRL_ROOT_VALUE, Q_EXACT_UNKNOWN);
   Atomics.store(shared.control, CTRL_ROOT_MOVE, -1);
   Atomics.store(shared.control, CTRL_ROOT_MOVE_READY, 0);
+  for (let worker = 0; worker < workerCount; worker++) initializeWorkerLedger(shared, worker, true);
   for (let band = 0; band < PRIORITY_BANDS; band++) {
     const base = band * queueCapacity;
     for (let offset = 0; offset < queueCapacity; offset++) {
@@ -262,7 +281,8 @@ export function openSharedTT(descriptor) {
     workerReset: view(Int32Array, descriptor.workerReset),
     workerDeath: view(Int32Array, descriptor.workerDeath),
     workerRecovery: view(Int32Array, descriptor.workerRecovery),
-    workerIdle: view(Int32Array, descriptor.workerIdle),
+    workerLedger: view(Int32Array, descriptor.workerLedger),
+    workerExposure: view(Int32Array, descriptor.workerExposure),
     workerCounters: view(Int32Array, descriptor.workerCounters),
   };
 }
@@ -624,20 +644,14 @@ export function enqueueQ(shared, qIndex, generation, priorityClass) {
   if (Atomics.compareExchange(shared.qExecution, qIndex, EXEC_NONE, EXEC_QUEUED) !== EXEC_NONE) {
     return false;
   }
-  if (queueTryEnqueue(shared, band, qIndex, generation)) {
-    Atomics.add(shared.control, CTRL_READY_COUNT, 1);
-    return true;
-  }
+  if (queueTryEnqueue(shared, band, qIndex, generation)) return true;
 
   // qExecution is the authority. The ring may contain lazy stale references
   // from exact completion or recycled generations; reclaim only stale heads.
   for (let recovery = 0; recovery < shared.queueCapacity + 32; recovery++) {
     const reclaimed = reclaimStaleQueueHead(shared, band);
     if (reclaimed < 0) break;
-    if (queueTryEnqueue(shared, band, qIndex, generation)) {
-      Atomics.add(shared.control, CTRL_READY_COUNT, 1);
-      return true;
-    }
+    if (queueTryEnqueue(shared, band, qIndex, generation)) return true;
     if (reclaimed === 0) {
       const position = Atomics.load(shared.queueEnqueue, band);
       const slot = band * shared.queueCapacity + (position & (shared.queueCapacity - 1));
@@ -650,32 +664,65 @@ export function enqueueQ(shared, qIndex, generation, priorityClass) {
   throw new Error('ISOMAX_SHARED_QUEUE_CAPACITY');
 }
 
+function wakeManagerForLedger(shared) {
+  Atomics.add(shared.control, CTRL_MANAGER_WAKE, 1);
+  Atomics.notify(shared.control, CTRL_MANAGER_WAKE, 1);
+}
+
+function finalizeQueuedClaim(shared, qIndex, generation, workerId, kind, claimWord) {
+  const parity = executionClaimParity(claimWord);
+  emitClaimVector(shared, workerId, kind, parity);
+  wakeManagerForLedger(shared);
+  const run = runExecution(kind, workerId);
+  if (Atomics.compareExchange(shared.qExecution, qIndex, claimWord, run) !== claimWord) return -1;
+  if (!qIsCurrent(shared, qIndex, generation)
+      || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) {
+    Atomics.compareExchange(shared.qExecution, qIndex, run, EXEC_NONE);
+    return -1;
+  }
+  return workerId;
+}
+
+function claimQueuedQ(shared, qIndex, generation, workerId, kind) {
+  if (!qIsCurrent(shared, qIndex, generation)
+      || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
+  if (!workerClaimHasRoom(shared, workerId, kind)) {
+    wakeManagerForLedger(shared);
+    return -1;
+  }
+  const parity = workerLedgerParity(shared, workerId) ^ 1;
+  const claim = claimExecution(kind, parity, workerId);
+  const prior = Atomics.compareExchange(shared.qExecution, qIndex, EXEC_QUEUED, claim);
+  if (prior !== EXEC_QUEUED) {
+    if (executionIsRunning(prior) || executionIsClaim(prior)) return executionWorker(prior);
+    return -1;
+  }
+  return finalizeQueuedClaim(shared, qIndex, generation, workerId, kind, claim);
+}
+
 /** out[0]=qIndex,out[1]=generation,out[2]=priorityBand. */
 export function claimHighestQ(shared, workerId, out, queueScratch) {
   if (!Number.isInteger(workerId) || workerId < 0 || workerId >= shared.workerCount) {
     throw new RangeError('invalid worker id');
+  }
+  // A manager-reserved exposure grant belongs to this worker's current BUSY
+  // producer phase. Do not consume scheduled work until the manager revokes an
+  // obsolete idle-side grant. Signal it directly; no drain polling is added.
+  if (Atomics.load(shared.workerExposure, workerId) === EXPOSURE_GRANTED
+      || !workerClaimHasRoom(shared, workerId, EXEC_KIND_SCHED)) {
+    wakeManagerForLedger(shared);
+    return false;
   }
   for (let band = PRIORITY_BANDS - 1; band >= 0; band--) {
     while (queueTryDequeue(shared, band, queueScratch)) {
       const qIndex = queueScratch[0], generation = queueScratch[1];
       if (!qIsCurrent(shared, qIndex, generation)) continue;
       if (Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) {
-        if (Atomics.compareExchange(
-          shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE,
-        ) === EXEC_QUEUED) Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
+        Atomics.compareExchange(shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE);
         continue;
       }
-      if (Atomics.compareExchange(
-        shared.qExecution, qIndex, EXEC_QUEUED, runningExecution(workerId),
-      ) !== EXEC_QUEUED) continue;
-      Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
-      if (!qIsCurrent(shared, qIndex, generation)
-          || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) {
-        Atomics.compareExchange(
-          shared.qExecution, qIndex, runningExecution(workerId), EXEC_NONE,
-        );
-        continue;
-      }
+      const owner = claimQueuedQ(shared, qIndex, generation, workerId, EXEC_KIND_SCHED);
+      if (owner !== workerId) continue;
       out[0] = qIndex;
       out[1] = generation;
       out[2] = band;
@@ -688,20 +735,26 @@ export function claimHighestQ(shared, workerId, out, queueScratch) {
 /**
  * Try to make a locally retained q the execution leader.
  * Returns workerId when this worker owns it, another worker id when duplicate,
- * -1 when exact/stale.
+ * -1 when exact/stale/deferred.
  */
 export function enterLocalQ(shared, qIndex, generation, workerId) {
   if (!qIsCurrent(shared, qIndex, generation)
       || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
-  const desired = runningExecution(workerId);
+  const desired = runExecution(EXEC_KIND_ACTIVE, workerId);
   while (true) {
     const execution = Atomics.load(shared.qExecution, qIndex);
     if (execution === desired) return workerId;
-    if (execution >= EXEC_RUNNING_BASE) return executionWorker(execution);
-    if (execution !== EXEC_NONE && execution !== EXEC_QUEUED) return -1;
-    if (Atomics.compareExchange(shared.qExecution, qIndex, execution, desired) === execution) {
-      if (execution === EXEC_QUEUED) Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
-      return workerId;
+    if (executionIsRunning(execution) || executionIsClaim(execution)) {
+      return executionWorker(execution);
+    }
+    if (execution === EXEC_NONE) {
+      if (Atomics.compareExchange(shared.qExecution, qIndex, EXEC_NONE, desired) === EXEC_NONE) {
+        return workerId;
+      }
+    } else if (execution === EXEC_QUEUED) {
+      return claimQueuedQ(shared, qIndex, generation, workerId, EXEC_KIND_ACTIVE);
+    } else {
+      return -1;
     }
     if (!qIsCurrent(shared, qIndex, generation)
         || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
@@ -712,95 +765,21 @@ export function enterLocalQ(shared, qIndex, generation, workerId) {
  * Reclaim a surplus q only after BranchManager has admitted it to the global
  * queue. This preserves manager-owned scheduling while allowing the discovering
  * worker to consume an unclaimed sibling directly from its live parent frame.
- * Returns workerId when claimed, another worker id when already RUNNING, and
- * -1 when exact/stale/not-yet-admitted.
  */
-const EXPOSURE_COUNT_MASK = 0xffff;
-const EXPOSURE_INFLIGHT_SHIFT = 16;
-
-function packExposureState(permits, inflight) {
-  if (permits < 0 || permits > EXPOSURE_COUNT_MASK
-      || inflight < 0 || inflight > EXPOSURE_COUNT_MASK) {
-    throw new Error('IsoMax exposure state overflow');
-  }
-  return ((inflight << EXPOSURE_INFLIGHT_SHIFT) | permits) | 0;
-}
-
-export function exposureOutstanding(shared) {
-  const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
-  return (state & EXPOSURE_COUNT_MASK)
-    + ((state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK);
-}
-
-export function grantExposurePermits(shared, count) {
-  if (!Number.isInteger(count) || count <= 0) return 0;
-  while (true) {
-    const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
-    const permits = state & EXPOSURE_COUNT_MASK;
-    const inflight = (state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK;
-    const grant = Math.min(count, EXPOSURE_COUNT_MASK - permits);
-    if (grant <= 0) return 0;
-    const next = packExposureState(permits + grant, inflight);
-    if (Atomics.compareExchange(
-      shared.control, CTRL_EXPOSURE_STATE, state, next,
-    ) === state) return grant;
-  }
-}
-
-export function tryConsumeExposurePermit(shared) {
-  while (true) {
-    const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
-    const permits = state & EXPOSURE_COUNT_MASK;
-    const inflight = (state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK;
-    if (permits <= 0) return false;
-    const next = packExposureState(permits - 1, inflight + 1);
-    if (Atomics.compareExchange(
-      shared.control, CTRL_EXPOSURE_STATE, state, next,
-    ) === state) return true;
-  }
-}
-
-export function completeExposure(shared) {
-  while (true) {
-    const state = Atomics.load(shared.control, CTRL_EXPOSURE_STATE);
-    const permits = state & EXPOSURE_COUNT_MASK;
-    const inflight = (state >>> EXPOSURE_INFLIGHT_SHIFT) & EXPOSURE_COUNT_MASK;
-    if (inflight <= 0) throw new Error('IsoMax exposure inflight underflow');
-    const next = packExposureState(permits, inflight - 1);
-    if (Atomics.compareExchange(
-      shared.control, CTRL_EXPOSURE_STATE, state, next,
-    ) === state) return;
-  }
-}
-
 export function enterQueuedQ(shared, qIndex, generation, workerId) {
-  if (!qIsCurrent(shared, qIndex, generation)
-      || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
-  const desired = runningExecution(workerId);
-  while (true) {
-    const execution = Atomics.load(shared.qExecution, qIndex);
-    if (execution === desired) return workerId;
-    if (execution >= EXEC_RUNNING_BASE) return executionWorker(execution);
-    if (execution !== EXEC_QUEUED) return -1;
-    if (Atomics.compareExchange(
-      shared.qExecution, qIndex, EXEC_QUEUED, desired,
-    ) === EXEC_QUEUED) {
-      Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
-      return workerId;
-    }
-    if (!qIsCurrent(shared, qIndex, generation)
-        || Atomics.load(shared.qExact, qIndex) !== Q_EXACT_UNKNOWN) return -1;
-  }
+  return claimQueuedQ(shared, qIndex, generation, workerId, EXEC_KIND_ACTIVE);
 }
 
 export function releaseRunningQ(shared, qIndex, generation, workerId) {
   if (!qIsCurrent(shared, qIndex, generation)) return false;
-  return Atomics.compareExchange(
-    shared.qExecution, qIndex, runningExecution(workerId), EXEC_NONE,
-  ) === runningExecution(workerId);
+  while (true) {
+    const execution = Atomics.load(shared.qExecution, qIndex);
+    if (!executionIsRunning(execution) || executionWorker(execution) !== workerId) return false;
+    if (Atomics.compareExchange(shared.qExecution, qIndex, execution, EXEC_NONE) === execution) return true;
+  }
 }
 
-/** Returns prior execution owner word. */
+/** Returns prior execution owner word. Manager-owned READY accounting interprets it. */
 export function publishExactQ(shared, qIndex, generation, value) {
   if (value !== -1 && value !== 0 && value !== 1) throw new TypeError('invalid exact q WDL');
   if (!qIsCurrent(shared, qIndex, generation)) return -1;
@@ -808,25 +787,20 @@ export function publishExactQ(shared, qIndex, generation, value) {
   if (prior !== Q_EXACT_UNKNOWN && prior !== value) {
     throw new Error('conflicting shared q exact values');
   }
-  const execution = Atomics.exchange(shared.qExecution, qIndex, EXEC_NONE);
-  if (execution === EXEC_QUEUED) Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
-  return execution;
+  return Atomics.exchange(shared.qExecution, qIndex, EXEC_NONE);
 }
 
 export function cancelQueuedQ(shared, qIndex, generation) {
   if (!qIsCurrent(shared, qIndex, generation)) return false;
-  if (Atomics.compareExchange(
+  return Atomics.compareExchange(
     shared.qExecution, qIndex, EXEC_QUEUED, EXEC_NONE,
-  ) !== EXEC_QUEUED) return false;
-  Atomics.sub(shared.control, CTRL_READY_COUNT, 1);
-  return true;
+  ) === EXEC_QUEUED;
 }
 
 export function readExactQ(shared, qIndex, generation) {
   if (!qIsCurrent(shared, qIndex, generation)) return Q_EXACT_UNKNOWN;
   return Atomics.load(shared.qExact, qIndex);
 }
-
 
 /** BranchManager-only bounded relationship allocation. Parent edges are
  * topology, never work authority; only q records own execution lifecycle. */
