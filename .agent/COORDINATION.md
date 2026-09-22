@@ -344,7 +344,7 @@ Current Connect4/IsoMax instances:
 Work-group support instances on private OX #13:
 
 - `capacity-manager` -> `capacity-manager`
-- `behavioral-therapist` -> `behavioral-therapist`
+- `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
 
 Project role instances own project scope, authority, routing, assignments, liveness, bindings, revisions and handoffs. Archetypes own identity, temperament, decision biases, challenge set, anti-patterns and completion style.
 
@@ -377,24 +377,31 @@ Examples:
 - research + performance + implementation may share one executor for a bounded exploratory-to-production seam, but that actor cannot independently accept its own work;
 - reviewer + qualification + performance may share one executor if it did not author the implementation/experiment whose independence matters; it still counts as one independent actor;
 - director may temporarily carry additional roles when explicitly bound, but must not use that to manufacture independent approval or erase specialist reasoning modes;
-- behavioral therapist may be co-held with any number of other roles; self-coaching reinforces identity but is not independent fidelity audit.
+- behavioral psychologist may be co-held with any number of other roles; self-coaching or self-research can reinforce/explore behavior but does not count as independent fidelity or methodology validation.
 
-## Behavioral therapist: role-fidelity support
+## Behavioral psychologist: agent behavior and role-fidelity support
 
-`behavioral-therapist` is a project-neutral work-group support role instantiated on private OX #13.
+`behavioral-psychologist` is the project-neutral work-group support role instantiated on private OX #13. `behavioral-therapist` is a legacy alias for recovery/history only.
 
-Its canonical identity, temperament, drift patterns, interventions and anti-patterns live only in `iteathen/.github/WORK_GROUP.md` and `iteathen/.github/.agent/work-group.json`.
+Its canonical identity, research domains, conditioning analogues, interventions and anti-patterns live in:
+- `iteathen/.github/WORK_GROUP.md`
+- `iteathen/.github/.agent/work-group.json`
 
-Connect4-specific rules are only:
+Connect4-specific authority is limited to:
 
-- it has no IsoMax technical authority;
-- it may observe authorized project/control output for role-fidelity purposes;
-- it may post bounded role-fidelity reminders/checkpoints through work-group support control;
-- it may be co-held with any number of other roles;
-- self-coaching does not count as independent fidelity audit;
-- persistent fidelity risk may be escalated to the director, but the therapist does not assign work or decide technical gates.
+- no IsoMax technical authority;
+- may observe authorized project/control outputs for role-fidelity or explicitly assigned agent-behavior research;
+- may post bounded role-fidelity reminders/checkpoints through work-group support control;
+- may run bounded behavioral-methodology experiments only when explicitly assigned;
+- may be co-held with any number of other roles;
+- self-coaching/self-research is exploratory only and does not count as independent validation;
+- persistent fidelity or methodology risk may be escalated to the director, but the psychologist does not decide unrelated technical gates.
 
-Role liveness and role fidelity are separate facts: a process can be alive while no longer applying the distinctive pressure its archetype exists to provide.
+Research may examine transparent agent analogues of reinforcement and conditioning, including cues/role-switch markers, acceptance/rejection signals, feedback timing, reinforcement schedules, shaping, extinction/deconditioning, persistence, transfer across sessions/projects/models when authorized, and side effects such as sycophancy, reward hacking, cue overfitting or authority drift.
+
+Behavioral research must be reproducible: exact hypothesis, intervention/cue/reinforcer, comparator/baseline when practical, observations, persistence/transfer, side effects, limitations, and proposed methodology change.
+
+Role liveness and behavioral fidelity remain separate facts: a process can be alive while no longer applying the distinctive pressure its archetype exists to provide.
 
 ## Completion-triggered control
 
