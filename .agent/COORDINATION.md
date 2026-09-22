@@ -155,7 +155,7 @@ A deliberate restart after all agents were logged out uses these phases in order
    Re-read branches, PRs, exact SHAs, CI/evidence, terminal handoffs and blockers as evidence. Old assignments are never revived. The director decides which frontier remains relevant and records any future re-dispatch explicitly.
 
 8. **ROLE CALL / ROSTER GATE.**
-   Recovery cannot be declared complete until the expected roster is explicit: LIVE, deliberately double-covered, or MISSING/UNSTAFFED. Missing roles are not silently treated as staffed. If a load-bearing missing role has safe compatible coverage, bind it explicitly; otherwise keep affected work unexecuted.
+   Recovery cannot be declared complete until the expected roster is explicit: LIVE, deliberately multi-covered, or MISSING/UNSTAFFED. Missing roles are not silently treated as staffed. If a load-bearing missing role has safe compatible coverage, bind it explicitly; otherwise keep affected work unexecuted.
 
 9. **REBOOT QUALIFICATION.**
    Before operations resume, perform a blank-session recovery audit from an execution path that did not author the reboot-maintenance change when such independent capacity is available. Reviewer/qualification multi-role is acceptable as one underlying independent actor if that path did not implement the maintenance patch. If no independent path is available, keep operations OFF unless the owner explicitly accepts the reduced assurance.
@@ -352,7 +352,7 @@ A restarted agent must recover **both** layers before substantive work. A local 
 
 ## Multi-role coverage: no fixed count limit
 
-The old “multi-role” wording was too narrow.
+The old “double-duty” wording was too narrow.
 
 One execution path may hold two, three, many, or potentially all compatible role instances. There is **no numeric duty-count limit**.
 
