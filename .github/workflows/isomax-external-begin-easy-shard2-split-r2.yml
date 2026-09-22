@@ -1,0 +1,135 @@
+name: isomax-external-begin-easy-shard2-split-r2
+
+on:
+  push:
+    branches:
+      - experiment/isomax-external-calibration-r2
+    paths:
+      - '.github/workflows/isomax-external-begin-easy-shard2-split-r2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isomax-external-begin-easy-shard2-split-r2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  begin-easy-shard2-split:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [2, 6]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      ISOMAX_SHA: a26ef2254c850243f68505eeff1d849ad0f4f0c0
+      PONS_SHA: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+      BEN_SHA: 28a112adaf3ff89ee23fb09411fa592b6597010e
+      SHARD: ${{ matrix.shard }}
+    steps:
+      - name: Setup exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Record runner and fetch exact sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== SHARD_ENV ==='
+          uname -a
+          echo "nproc=$(nproc)"
+          lscpu
+          echo "node=$(node --version)"
+          echo "g++=$(g++ --version | head -1)"
+          echo "rustc=$(rustc --version)"
+          for spec in \
+            "isomax https://github.com/iteathen/Connect4.git $ISOMAX_SHA" \
+            "pons https://github.com/PascalPons/connect4.git $PONS_SHA" \
+            "ben https://github.com/benjaminrall/connect-four-ai.git $BEN_SHA"; do
+            set -- $spec
+            name="$1"; url="$2"; sha="$3"
+            git -c credential.helper= clone --no-tags "$url" "$RUNNER_TEMP/$name"
+            git -C "$RUNNER_TEMP/$name" checkout --detach "$sha"
+            test "$(git -C "$RUNNER_TEMP/$name" rev-parse HEAD)" = "$sha"
+            echo "$name=$(git -C "$RUNNER_TEMP/$name" rev-parse HEAD)"
+          done
+          source_data="$RUNNER_TEMP/ben/crates/test-data/begin-easy"
+          sha256sum "$source_data"
+          awk -v shard="$SHARD" '((NR-1)%8)==shard' "$source_data" > "$RUNNER_TEMP/begin-easy-shard.txt"
+          test "$(wc -l < "$RUNNER_TEMP/begin-easy-shard.txt")" -eq 125
+          echo "shard=$SHARD count=$(wc -l < "$RUNNER_TEMP/begin-easy-shard.txt")"
+          sha256sum "$RUNNER_TEMP/begin-easy-shard.txt"
+
+      - name: Build exact external and IsoMax harnesses
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/pons.cpp" <<'CPP'
+          #include "Solver.hpp"
+          #include <chrono>
+          #include <fstream>
+          #include <iostream>
+          #include <sstream>
+          #include <string>
+          using namespace GameSolver::Connect4;
+          int main(int argc,char**argv){
+            if(argc!=2)return 2; std::ifstream input(argv[1]); if(!input)return 3;
+            Solver solver; unsigned long long count=0,correct=0,nodes=0; long long ns=0; std::string line;
+            while(std::getline(input,line)){if(line.empty())continue;std::istringstream in(line);std::string moves;int expected=0;
+              if(!(in>>moves>>expected))return 4;Position p;if(p.play(moves)!=moves.size())return 5;solver.reset();
+              auto t0=std::chrono::steady_clock::now();int score=solver.solve(p,true);
+              ns+=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-t0).count();
+              int want=expected>0?1:expected<0?-1:0,got=score>0?1:score<0?-1:0;correct+=got==want;nodes+=solver.getNodeCount();++count;
+            }
+            std::cout<<"RESULT pons "<<count<<' '<<correct<<' '<<nodes<<' '<<ns<<'\n';return correct==count?0:6;
+          }
+          CPP
+          g++ --std=c++11 -O3 -DNDEBUG -W -Wall -I "$RUNNER_TEMP/pons" "$RUNNER_TEMP/pons.cpp" "$RUNNER_TEMP/pons/Solver.cpp" -o "$RUNNER_TEMP/pons-bin"
+
+          cat > "$RUNNER_TEMP/ben/crates/core/src/bin/calibrate_nobook.rs" <<'RS'
+          use connect_four_ai::{Position,Solver};use std::{env,fs::File,io::{BufRead,BufReader},time::Instant};
+          fn main(){let path=env::args().nth(1).unwrap();let mut s=Solver::empty();let(mut count,mut correct,mut nodes,mut ns)=(0u64,0u64,0u64,0u128);
+            for line in BufReader::new(File::open(path).unwrap()).lines(){let line=line.unwrap();if line.trim().is_empty(){continue}let mut f=line.split_whitespace();let moves=f.next().unwrap();let expected:i8=f.next().unwrap().parse().unwrap();let p=Position::from_moves(moves).unwrap();s.reset();let t=Instant::now();let actual=s.solve(&p);ns+=t.elapsed().as_nanos();nodes+=s.explored_positions as u64;count+=1;correct+=(actual==expected)as u64;}
+            println!("RESULT ben {} {} {} {}",count,correct,nodes,ns);if correct!=count{std::process::exit(6)}}
+          RS
+          cargo build --manifest-path "$RUNNER_TEMP/ben/crates/core/Cargo.toml" --target-dir "$RUNNER_TEMP/ben-target" --release --locked --bin calibrate_nobook
+
+          cat > "$RUNNER_TEMP/isomax-run.mjs" <<'NODE'
+          import fs from 'node:fs';import {pathToFileURL} from 'node:url';
+          const dataPath=process.argv[2];const {IsoMaxSolver}=await import(pathToFileURL(process.env.RUNNER_TEMP+'/isomax/components/isometric/solver.mjs').href);
+          const lines=fs.readFileSync(dataPath,'utf8').trim().split(/\n+/);const solver=new IsoMaxSolver();let count=0,correct=0,nodes=0,ns=0n;
+          for(const line of lines){const [movesText,expectedText]=line.trim().split(/\s+/);const moves=[...movesText].map(c=>Number(c)-1),expected=Number(expectedText);solver.resetSearchMemory();const state=solver.createState(moves);const t=process.hrtime.bigint();const result=solver.solve(state);ns+=process.hrtime.bigint()-t;const currentPlayerWdl=expected>0?1:expected<0?-1:0;const want=moves.length%2===0?currentPlayerWdl:-currentPlayerWdl;correct+=Number(result.value===want);nodes+=result.metrics.nodes;count++;}
+          console.log(`RESULT isomax ${count} ${correct} ${nodes} ${ns}`);if(correct!==count)process.exitCode=6;
+          NODE
+
+      - name: Interleaved paired shard samples
+        shell: bash
+        run: |
+          set -euo pipefail
+          data="$RUNNER_TEMP/begin-easy-shard.txt"
+          run_one(){ local s="$1" r="$2"; case "$s" in pons) cmd=("$RUNNER_TEMP/pons-bin" "$data");; ben) cmd=("$RUNNER_TEMP/ben-target/release/calibrate_nobook" "$data");; isomax) cmd=(node "$RUNNER_TEMP/isomax-run.mjs" "$data");; esac; /usr/bin/time -v -o "$RUNNER_TEMP/${s}-${r}.time" "${cmd[@]}" | tee "$RUNNER_TEMP/${s}-${r}.out"; }
+          echo "=== SHARD $SHARD ROUND1 PONS ISOMAX BEN ==="
+          run_one pons 1
+          run_one isomax 1
+          run_one ben 1
+          echo "=== SHARD $SHARD ROUND2 BEN ISOMAX PONS ==="
+          run_one ben 2
+          run_one isomax 2
+          run_one pons 2
+          for s in pons ben isomax; do for r in 1 2; do echo "=== TIME $s $r ==="; cat "$RUNNER_TEMP/${s}-${r}.time"; done; done
+
+      - name: Summarize paired shard ratios
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';const dir=process.env.RUNNER_TEMP,solvers=['pons','ben','isomax'];
+          const parse=(s,r)=>{const line=fs.readFileSync(`${dir}/${s}-${r}.out`,'utf8').trim().split(/\n+/).find(x=>x.startsWith('RESULT '));if(!line)throw new Error(`missing ${s}/${r}`);const f=line.split(/\s+/);const count=+f.at(-4),correct=+f.at(-3),nodes=+f.at(-2),ns=Number(f.at(-1));return{count,correct,nodes,meanUs:ns/count/1000};};
+          const out={kind:'begin-easy-shard2-split',shard:Number(process.env.SHARD),sourceRevision:process.env.ISOMAX_SHA,external:{pons:process.env.PONS_SHA,ben:process.env.BEN_SHA},semantics:{pons:'weak WDL/current-player',ben:'strong score/current-player',isomax:'WDL plus deterministic root move/P0 perspective; expected sign parity-normalized'},solvers:{}};
+          for(const s of solvers){const xs=[1,2].map(r=>parse(s,r));out.solvers[s]={samplesMeanUs:xs.map(x=>x.meanUs),meanUs:xs.reduce((a,x)=>a+x.meanUs,0)/2,nodesPerPosition:xs[0].nodes/xs[0].count,correct:xs.every(x=>x.correct===x.count),count:xs[0].count};}
+          out.ratios={isomaxToPons:out.solvers.isomax.meanUs/out.solvers.pons.meanUs,isomaxToBen:out.solvers.isomax.meanUs/out.solvers.ben.meanUs,nodeRatioToPons:out.solvers.isomax.nodesPerPosition/out.solvers.pons.nodesPerPosition,nodeRatioToBen:out.solvers.isomax.nodesPerPosition/out.solvers.ben.nodesPerPosition};
+          console.log('=== SHARD_SUMMARY ===');console.log(JSON.stringify(out));
+          NODE
