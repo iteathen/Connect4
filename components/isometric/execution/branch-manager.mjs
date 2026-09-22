@@ -46,10 +46,8 @@ import {
   WC_SOLVER_NODES,
   WORKER_COUNTER_WORDS,
   createSharedTT,
-  enqueueQ,
   openSharedTT,
   probeOrInsertQ,
-  qIsCurrent,
 } from './shared-tt.mjs';
 import { createSharedEvents, openSharedEvents } from './shared-events.mjs';
 
@@ -267,10 +265,6 @@ export class IsoMaxBranchManager {
     });
     const shared = openSharedTT(ttDescriptor);
     const events = openSharedEvents(eventDescriptor);
-    // Persistent evaluator workers are available before a new session starts.
-    // Mark that availability before the independent manager loop initializes
-    // global exposure demand; evaluators clear their own bit when they claim.
-    shared.workerIdle.fill(1);
 
     const rootSolver = new IsoMaxSolver();
     const rootState = rootSolver.createState(moves);
@@ -297,7 +291,6 @@ export class IsoMaxBranchManager {
     Atomics.store(shared.control, CTRL_ABORT, 0);
     Atomics.store(shared.control, CTRL_ERROR, 0);
     Atomics.store(shared.control, CTRL_SESSION, SESSION_RUNNING);
-    enqueueQ(shared, rootQ, rootGeneration, 7);
 
     let resolveWorkers;
     const workersDone = new Promise(resolve => { resolveWorkers = resolve; });
@@ -498,9 +491,9 @@ export class IsoMaxBranchManager {
         throw error;
       });
 
-      // Session-start ordering only: let the independent manager establish the
-      // initial global helper-demand permit before persistent evaluators begin
-      // recursive work. No evaluator waits on manager approval in recursion.
+      // Session-start ordering only: let the independent manager establish root
+      // READY through reserve→commit and initial helper-demand reservations
+      // before persistent evaluators begin recursive work.
       await Promise.race([managerRun.ready, session.failureSignal]);
       if (session.failure) throw session.failure;
 
