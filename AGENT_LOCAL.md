@@ -267,4 +267,13 @@ This rule applies individually to Director, Researcher, Implementer, Reviewer, Q
 The recurring/hourly reconciliation cadence is **fallback recovery only** for a missed/dropped completion trigger, scheduler fault, stale binding, or externally completed condition. It is not the normal mechanism for advancing a completed handoff. Do not intentionally defer an executable transition to the next hourly sweep.
 
 Completion triggers must preserve single-executor semantics. Do not create a second independently authoritative worker merely to wake the chain. Wake/re-arm the currently bound execution path, or explicitly `REBIND`/`REPLACE` it through current private control if that path is unavailable.
+### Ephemeral event-wake instances
+
+The authoritative execution binding and an event-delivery instance are different things. When same-run continuation is not possible, a terminal/dispatch event may create a **one-shot wake instance** whose sole purpose is to deliver that event to the currently bound execution path.
+
+A wake instance is not a new ROLE_ID binding or independently authoritative executor. It must name its parent bound execution path, current epoch, triggering exchange/event, receiving ROLE_ID, and revision/base when applicable; re-fetch private control before acting; no-op if the event was already consumed or superseded; and terminate after the event is consumed.
+
+Use the idempotency key `(epoch, parent_execution_path, triggering_exchange_or_event, receiving_role_id, revision_or_base_pin)` and never arm two live wake instances for the same key.
+
+Director dispatch arms the receiving-role wake when it cannot begin that role in the same run. A role terminal handoff arms the Director wake when the Director transition is not consumed in the same run. The hourly reconciler remains missed-event recovery only.
 
