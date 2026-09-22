@@ -50,6 +50,8 @@ import {
   releaseRunningQ,
 } from './shared-tt.mjs';
 import {
+  EXPOSURE_GRANTED,
+  EXPOSURE_NONE,
   returnExposureGrant,
   tryAdvertiseAvailability,
   tryConsumeExposureGrant,
@@ -209,9 +211,18 @@ class SharedBranchDistributor {
 
     // Exposure demand is manager-reserved and assigned to producer workers.
     // A worker consumes only its own per-worker grant, so the claim path never
-    // serializes on a globally packed authority word.
-    const exposurePermitted = this.visibilityBarrierDepth === 0
+    // serializes on a globally packed authority word. At the first genuine
+    // multiworker root frontier, synchronize once with the manager so thread
+    // scheduling cannot accidentally make the entire root search private.
+    let exposurePermitted = this.visibilityBarrierDepth === 0
       && tryConsumeExposureGrant(shared, workerId);
+    if (!exposurePermitted
+        && this.visibilityBarrierDepth === 0
+        && runtime.isRootExecution()) {
+      runtime.awaitRootExposureGrant();
+      exposurePermitted = tryConsumeExposureGrant(shared, workerId);
+      if (!exposurePermitted) throw new Error('IsoMax root exposure grant disappeared');
+    }
     if (!exposurePermitted) {
       runtime.count(WC_PRIVATE_BRANCHES);
       this.visibilityBarrierDepth++;
@@ -469,6 +480,21 @@ class RetainedPullWorker {
   wakeManager() {
     Atomics.add(this.shared.control, CTRL_MANAGER_WAKE, 1);
     Atomics.notify(this.shared.control, CTRL_MANAGER_WAKE, 1);
+  }
+
+  isRootExecution() {
+    return workerCount > 1
+      && this.activeQ === Atomics.load(this.shared.control, CTRL_ROOT_Q)
+      && this.activeGeneration === Atomics.load(this.shared.control, CTRL_ROOT_GENERATION);
+  }
+
+  awaitRootExposureGrant() {
+    while (Atomics.load(this.shared.workerExposure, workerId) !== EXPOSURE_GRANTED) {
+      if (Atomics.load(this.shared.control, CTRL_ABORT)) throw new Error('ISOMAX_ABORTED');
+      if (Atomics.load(this.shared.control, CTRL_SESSION) !== SESSION_RUNNING) throw sessionStopped;
+      this.wakeManager();
+      Atomics.wait(this.shared.workerExposure, workerId, EXPOSURE_NONE);
+    }
   }
 
   publishEvent(kind, qIndex, generation, value, aux) {
