@@ -351,7 +351,7 @@ Cross-project security support is separate from OX #13:
 - `SECURITY_AGENT_POLICY.md` remains superior authority;
 - the role has no Connect4 solver/merge authority by registration alone.
 
-- `capacity-manager` -> `capacity-manager`
+- `agentic-workforce-researcher` -> `agentic-workforce-researcher` (legacy alias: `capacity-manager`)
 - `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
 - `research-dba` -> `research-dba` (Doctor of Business Administration / organizational research)
 
@@ -402,6 +402,18 @@ Connect4-specific rules:
 - substantive vulnerability details use the repository Security Advisory or another explicitly approved private security surface;
 - security findings/recommendations do not self-promote into policy or project authority;
 - same-actor implementation plus security research does not count as independent security acceptance when independence is required.
+
+## Agentic workforce researcher: HR and capacity research
+
+`agentic-workforce-researcher` is the project-neutral workforce/HR research and staffing-support role on private OX #13. `capacity-manager` is a legacy alias only.
+
+Its canonical identity and research methods live in the global work-group authority. Connect4-specific rules:
+
+- may study capability, role fit, staffing topology, recruitment/probation, onboarding/rejoin, succession, multi-role load, training, cross-project transfer and resilience;
+- current staffing decisions/actions exist only under explicit current private-control delegation;
+- no repository access, compensation, paid commitment, legal hiring terms, technical authority, security authority, finance authority or director authority is implied;
+- one underlying actor remains one source for independence even when covering multiple workforce/technical roles;
+- self-assessed role fit does not count as independent qualification where independence matters.
 
 ## Research DBA: organizational research and workflow improvement
 

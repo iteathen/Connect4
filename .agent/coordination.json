@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8",
+  "schema_version": "1.9",
   "repository": "iteathen/Connect4",
   "updated": "2026-09-22",
   "registry_semantics": {
@@ -305,7 +305,8 @@
           "capacity_recruiting",
           "role_identity_fidelity",
           "agent_behavior_research_methodology",
-          "business_administration_research_and_operating_model"
+          "business_administration_research_and_operating_model",
+          "workforce_research_and_capacity"
         ],
         "project_specific_evidence_surfaces_may_be_attached": true,
         "public_boundary": "financial_budget_treasury_trading_and_revenue_state_is_private_administration"
@@ -360,24 +361,55 @@
       },
       "roles": [
         {
-          "role_id": "capacity-manager",
-          "role": "agent-capacity-and-recruiting",
+          "role_id": "agentic-workforce-researcher",
+          "legacy_role_ids": [
+            "capacity-manager"
+          ],
+          "archetype_id": "agentic-workforce-researcher",
+          "role": "workforce-research-and-capacity",
+          "project_purpose": "Research and improve agent workforce capability, role fit, staffing topology, recruitment/probation, onboarding/rejoin, succession, multi-role load, training, cross-project deployment, and resilience; retain bounded current staffing/recruiting authority only when explicitly delegated on private OX #13.",
           "authority_limits": [
             "no repository access grants without owner approval",
-            "no paid commitments without owner approval",
-            "no reassignment of technical authority",
-            "no recruitment that creates overlapping write ownership"
+            "no compensation or paid commitments without owner approval",
+            "no legal or external hiring terms without owner approval",
+            "no reassignment of technical authority outside current delegated staffing control",
+            "no staffing that creates conflicting same-seam write/acceptance ownership",
+            "no project-director authority merely from workforce research"
           ],
-          "archetype_id": "capacity-manager",
-          "project_purpose": "Continuously identify and qualify runnable agent capacity, free/low-cost resources, collaborators, and role gaps; recruit only into bounded independent seams with an integration owner.",
-          "project_recovery_behavior": "Recover current staffing/probation/candidate state from private OX #13, require fresh presence plus current execution-path binding before state-changing action, then consult public Connect4 #126 only for sanitized evidence.",
-          "project_completion_contract": "After freshness fence, record terminal staffing/capacity state on private OX #13 and notify the relevant director/owner when a staffing transition is actionable.",
+          "project_recovery_behavior": "Recover current staffing/probation/candidate state from private OX #13, load the canonical agentic-workforce-researcher archetype, require fresh presence plus current execution-path binding before state-changing staffing action, and treat historical capacity-manager records as legacy provenance.",
+          "research_scope": [
+            "agent_capability_mapping",
+            "role_fit_and_specialization",
+            "staffing_topology",
+            "recruitment_and_probation_methodology",
+            "onboarding_rejoin_and_reboot_effectiveness",
+            "succession_and_recovery_staffing",
+            "multi_role_capacity_and_overload",
+            "training_and_capability_development",
+            "cross_project_deployment_and_transfer",
+            "workforce_resilience_and_concentration_risk",
+            "role_coverage_and_independence_economics",
+            "capacity_forecasting"
+          ],
+          "staffing_practice": {
+            "research_findings_self_promote_to_staffing": false,
+            "current_staffing_authority_source": "private OX #13",
+            "may_execute_bounded_staffing_actions_when_currently_delegated": true,
+            "access_compensation_terms_require_owner": true
+          },
           "multi_role_eligibility": {
             "default": "allowed",
             "count_limit": null,
             "current_binding_source": "private OX #13",
-            "note": "May be co-held with director or any other compatible work-group role; role count itself is not a restriction."
-          }
+            "especially_complementary_with": [
+              "director",
+              "research-dba",
+              "behavioral-psychologist",
+              "agentic-security-researcher"
+            ],
+            "note": "May be co-held with any compatible roles, but one actor still counts once for independence and self-assessed role fit is not independent validation."
+          },
+          "project_completion_contract": "For workforce research, record the capability/staffing gap, evidence, role-fit/topology hypothesis, bounded trial/probation, independence/conflict implications, metrics, succession/release plan, and adoption authority. For delegated staffing action, record exact current staffing disposition on private OX #13 and notify the relevant director/owner."
         },
         {
           "role_id": "behavioral-psychologist",
@@ -482,14 +514,8 @@
           "project_completion_contract": "Produce an operating-study handoff: current workflow/bottleneck, evidence, organizational hypothesis, candidate changes, predicted benefits/costs, affected decision rights, adoption authority, reversible pilot/falsifier, metrics, side effects, and rollback/retirement conditions. Approved administrative procedures may then be documented/maintained without claiming unrelated project authority."
         }
       ],
-      "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, capacity, behavioral-research state, business-administration research/process pilots, and role-fidelity support state. Canonical support-role personalities and methods come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
+      "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, workforce research/staffing state, business-administration research/process pilots, behavioral research/fidelity state, and capacity. Canonical support-role personalities/methods come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
       "event_interests": {
-        "capacity-manager": [
-          "control_issue:iteathen/OX-Alpha-Contol#13",
-          "pull_request:external_or_coordination",
-          "security:external_contribution",
-          "public_evidence_issue:Connect4#126"
-        ],
         "behavioral-psychologist": [
           "control_issue:iteathen/OX-Alpha-Contol#13",
           "active_project_control_surfaces:role_behavior_observation_only",
@@ -506,6 +532,15 @@
           "repeated_coordination_failure_or_postmortem",
           "role_or_queue_overload_signal",
           "workflow_or_governance_experiment"
+        ],
+        "agentic-workforce-researcher": [
+          "control_issue:iteathen/OX-Alpha-Contol#13",
+          "pull_request:external_or_coordination",
+          "security:external_contribution",
+          "public_evidence_issue:Connect4#126",
+          "role_rejoin_or_recovery",
+          "staffing_gap_or_overload",
+          "cross_project_capacity_change"
         ]
       },
       "subordinate_processes": [
@@ -684,10 +719,10 @@
       "causal_realization_economics": "isomax-performance -> performance-economics"
     },
     "work_group_support_archetypes": {
-      "staffing_recruiting": "capacity-manager",
       "behavioral_identity_fidelity_and_agent_methodology_research": "behavioral-psychologist",
       "organizational_workflow_and_business_administration_research": "research-dba",
-      "agentic_security_research_and_secure_operations": "agentic-security-researcher"
+      "agentic_security_research_and_secure_operations": "agentic-security-researcher",
+      "workforce_hr_research_and_staffing": "agentic-workforce-researcher"
     },
     "multi_role_rule": "Any number of compatible role instances may be co-held. The limits are conflicts, independence, capacity, fidelity and security—not a numeric duty count.",
     "reboot_rule": "Role completeness counts only if a blank session can recover project role instances plus their canonical archetype identities before OPERATIONS_RESUME."
@@ -695,7 +730,7 @@
   "work_group_archetypes": {
     "canonical_repository": "iteathen/.github",
     "canonical_ref": "main",
-    "canonical_commit_at_last_sync": "e85d03cfa0fb29f540e134dd435c5ffed523fee8",
+    "canonical_commit_at_last_sync": "6888a879995eec2a4130fe4854480a030405e841",
     "machine_path": ".agent/work-group.json",
     "human_path": "WORK_GROUP.md",
     "project_neutral": true,
