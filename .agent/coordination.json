@@ -805,6 +805,36 @@
       "no_gate_weakening_for_liveness",
       "no_authority_expansion_for_liveness"
     ],
-    "owner_prompt_dependency_is_failure_when": "a valid next transition exists and durable control plus available execution transport could have advanced it automatically"
+    "owner_prompt_dependency_is_failure_when": "a valid next transition exists and durable control plus available execution transport could have advanced it automatically",
+    "completion_trigger_contract": {
+      "applies_to_every_bound_role": true,
+      "terminal_events": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "terminal_handoff",
+        "completed_external_or_CI_gate",
+        "cleared_blocker"
+      ],
+      "terminal_role_obligation": "Before ending the execution turn, either consume the next authorized transition in the same turn or arm/re-arm the same currently bound execution path for the nearest supported continuation.",
+      "director_dispatch_obligation": "Every fresh Director assignment must arm/re-arm the same bound execution path so the selected receiving ROLE_ID begins promptly.",
+      "durable_handoff_alone_is_complete": false,
+      "wake_authority_semantics": "A wake grants no authority. The awakened bound path must re-fetch private control and pass the normal freshness fence before acting.",
+      "executor_identity": "Completion wakes preserve the existing bound execution path; they do not create a second authoritative executor. A different path requires explicit REBIND/REPLACE.",
+      "reconciliation_semantics": "Hourly/recurring reconciliation is missed-trigger recovery only, not the normal handoff-to-next-operation path.",
+      "role_scope": [
+        "isomax-director",
+        "isomax-research",
+        "isomax-implementation",
+        "isomax-reviewer",
+        "isomax-qualification",
+        "isomax-performance",
+        "agentic-workforce-researcher",
+        "behavioral-psychologist",
+        "research-dba",
+        "agentic-security-researcher",
+        "agentic-finance-researcher"
+      ]
+    }
   }
 }
