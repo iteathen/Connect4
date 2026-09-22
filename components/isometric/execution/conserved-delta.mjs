@@ -335,6 +335,7 @@ export class ConservedDeltaManager {
     ) !== EXPOSURE_NONE) return false;
     this.deficit--;
     this.exposure++;
+    Atomics.notify(this.shared.workerExposure, workerId, 1);
     return true;
   }
 
