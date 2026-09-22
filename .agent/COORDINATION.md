@@ -262,6 +262,17 @@ Short staffing may be handled by explicitly binding one live execution path to m
 - A missing role may be temporarily covered only by an explicitly LIVE compatible path that is deliberately bound for that role. Record both ROLE_ID assignments but count the underlying path once for liveness/capacity.
 - When dedicated capacity becomes available, release temporary coverage explicitly; no automatic handoff.
 
+### Double-duty role fidelity
+
+A shared executor must preserve the distinct design pressure of every ROLE_ID it covers. Before acting under a role, restore and actively apply that role's `purpose`/authority boundary, `decision_biases`, `things_to_challenge`, `anti_patterns`, and `completion_behavior` from stable role metadata.
+
+- Treat a role switch as an explicit reasoning-mode switch, not a relabel.
+- Run separate role passes when one executor covers multiple roles. For reviewer + qualification, perform a reviewer falsification/cleanliness/NEES pass and a distinct qualification revision/evidence/platform/lifecycle pass.
+- Do not average roles into generic behavior. Preserve productive tension: the second role may challenge conclusions reached under the first when its specialization requires it.
+- Record which ROLE_ID produced each material disposition. Distinct role dispositions from one path remain one underlying actor for independence accounting.
+- Separate passes preserve complementary pressure but never create fake independence or bypass same-seam conflict rules.
+- On restart, recover behavioral specialization for every held ROLE_ID before substantive work; recovering only authority labels is insufficient.
+
 ## Completion-triggered control
 
 When a bound role reaches a terminal state that can change campaign control:
@@ -308,7 +319,7 @@ A recovery change does not qualify merely because the happy path reads well. Ver
 - private OX handoff exists but no runtime consumed it;
 - public #139 wake exists without a control transition or native consumer;
 - fallback/capacity staffing changes during recovery;
-- one live path is deliberately bound to two compatible ROLE_IDs without double-counting independence/liveness;
+- one live path is deliberately bound to two compatible ROLE_IDs without double-counting independence/liveness and preserves each role's specialization in separate passes;
 - scheduler/reconciler infrastructure itself is disabled/lost.
 
 PASS requires no invented authority, no stale-work replay, no duplicate current-state authority, no second live-state/lease registry, no dependence on unavailable native delivery, and a pre-effect fence that prevents stale-session mutation.
