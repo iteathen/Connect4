@@ -342,17 +342,15 @@
           "double_duty_compatibility": {
             "compatible_role_ids": [
               "isomax-research",
+              "isomax-implementation",
               "isomax-reviewer",
               "isomax-qualification"
             ],
             "conditions": [
               "research plus performance is suitable for bounded structural diagnosis/prototype work, but production acceptance remains independent",
+              "implementation plus performance may share one path for iterative profiling/causal diagnosis and production realization when explicitly assigned; the executor must switch roles deliberately and the performance pass does not count as independent acceptance of its own implementation",
               "reviewer plus performance may challenge a performance proposal, but one underlying actor is still one independent source",
-              "qualification plus performance may measure/qualify only when it did not author the mechanism or performance experiment whose independence is required",
-              "implementation may perform ordinary profiling inside its own seam but may not count as independent isomax-performance acceptance for that same production change"
-            ],
-            "conflicting_same_seam_role_ids": [
-              "isomax-implementation"
+              "qualification plus performance may measure/qualify only when it did not author the mechanism or performance experiment whose independence is required"
             ]
           }
         }
