@@ -152,6 +152,8 @@ A deliberate restart after all agents were logged out uses these phases in order
    Recovery cannot be declared complete until the expected roster is explicit: LIVE, deliberately double-covered, or MISSING/UNSTAFFED. Missing roles are not silently treated as staffed. If a load-bearing missing role has safe compatible coverage, bind it explicitly; otherwise keep affected work unexecuted.
 
 9. **REBOOT QUALIFICATION.**
+   Before operations resume, perform a blank-session recovery audit from an execution path that did not author the reboot-maintenance change when such independent capacity is available. Reviewer/qualification double-duty is acceptable as one underlying independent actor if that path did not implement the maintenance patch. If no independent path is available, keep operations OFF unless the owner explicitly accepts the reduced assurance.
+   
    From a blank-session perspective, verify that durable files + private OX + current repository state are sufficient to determine:
    - held ROLE_ID(s) and role-specific behavior;
    - current recovery epoch/barrier;
@@ -179,6 +181,7 @@ A deliberate restart after all agents were logged out uses these phases in order
 - **No stale frontier promotion.** Open branches/PRs and terminal handoffs are evidence, not active claims.
 - **No chat-only rules.** Any load-bearing restart behavior must live in stable agent files or current private control before it is relied upon.
 - **No hidden cleanup.** While shutdown remains effective, do not mutate solver/research artifacts merely to make the reboot look tidy.
+- **Independent reboot audit before resume.** The maintenance author must not count its own self-check as independent reboot qualification; use a separate reviewer/qualification path when available, or require explicit owner acceptance of reduced assurance while operations remain off.
 
 ## Control epochs
 
