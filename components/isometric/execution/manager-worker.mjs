@@ -11,12 +11,10 @@ import {
   CTRL_ROOT_ORIENTATION,
   CTRL_ROOT_Q,
   CTRL_ROOT_VALUE,
-  CTRL_READY_COUNT,
   CTRL_SESSION,
   CTRL_WORKER_WAKE,
   EXEC_NONE,
   EXEC_QUEUED,
-  EXEC_RUNNING_BASE,
   Q_EXACT_UNKNOWN,
   SESSION_DONE,
   SESSION_FAILED,
@@ -24,11 +22,11 @@ import {
   addQRef,
   allocateParentEdge,
   cancelQueuedQ,
-  completeExposure,
   enqueueQ,
+  executionClaimParity,
+  executionIsClaim,
+  executionIsRunning,
   executionWorker,
-  exposureOutstanding,
-  grantExposurePermits,
   openSharedTT,
   publishExactQ,
   qIsCurrent,
@@ -39,6 +37,11 @@ import {
   releaseParentEdge,
   releaseQRef,
 } from './shared-tt.mjs';
+import {
+  ConservedDeltaManager,
+  workerIsAvailable,
+  workerLedgerParity,
+} from './conserved-delta.mjs';
 import {
   EVENT_DUPLICATE,
   EVENT_EXACT,
@@ -100,6 +103,7 @@ class SharedBranchManagerLoop {
     this.candidateHead = new Int32Array(8); this.candidateHead.fill(-1);
     this.candidateTail = new Int32Array(8); this.candidateTail.fill(-1);
     this.readyTarget = Math.max(workerCount, workerCount * 4);
+    this.delta = new ConservedDeltaManager(tt, workerCount);
   }
 
   bump(index, delta = 1) {
@@ -177,12 +181,26 @@ class SharedBranchManagerLoop {
     return null;
   }
 
+  admitReady(qIndex, generation, priority) {
+    if (!this.delta.beginReadyTransfer()) return false;
+    let committed = false;
+    try {
+      committed = enqueueQ(tt, qIndex, generation, priority);
+      if (committed) this.delta.commitReadyTransfer();
+      else this.delta.refundReadyTransfer();
+      return committed;
+    } catch (error) {
+      this.delta.refundReadyTransfer();
+      throw error;
+    }
+  }
+
   refillReady() {
     let admitted = 0;
-    while (Atomics.load(tt.control, CTRL_READY_COUNT) < this.readyTarget) {
+    while (this.delta.ready < this.readyTarget && this.delta.deficit > 0) {
       const candidate = this.popCandidate();
       if (candidate === null) break;
-      if (enqueueQ(tt, candidate[0], candidate[1], candidate[2])) {
+      if (this.admitReady(candidate[0], candidate[1], candidate[2])) {
         this.bump(MC_QUEUE_ADMISSIONS);
         admitted++;
       }
@@ -191,17 +209,23 @@ class SharedBranchManagerLoop {
   }
 
   refreshExposureDemand() {
-    if (Atomics.load(tt.control, CTRL_SESSION) !== SESSION_RUNNING) return 0;
-    let idle = 0;
+    let changed = 0;
+    // A producer grant is meaningful only while that worker is BUSY. If it
+    // returns to the scheduler boundary before using the grant, refund it here.
     for (let worker = 0; worker < workerCount; worker++) {
-      if (Atomics.load(tt.workerIdle, worker) !== 0) idle++;
+      if (this.delta.revokeIdleGrant(worker)) changed++;
     }
-    const ready = Math.max(0, Atomics.load(tt.control, CTRL_READY_COUNT));
-    const uncovered = idle - ready - exposureOutstanding(tt);
-    if (uncovered <= 0) return 0;
-    const granted = grantExposurePermits(tt, uncovered);
-    if (granted > 0) this.bump(MC_EXPOSURE_GRANTS, granted);
-    return granted;
+    if (changed > 0) this.wakeWorkers();
+    if (Atomics.load(tt.control, CTRL_SESSION) !== SESSION_RUNNING) return changed;
+
+    for (let worker = 0; worker < workerCount && this.delta.deficit > 0; worker++) {
+      if (workerIsAvailable(tt, worker)) continue;
+      if (this.delta.grantExposure(worker)) {
+        this.bump(MC_EXPOSURE_GRANTS);
+        changed++;
+      }
+    }
+    return changed;
   }
 
   pushOrphan(qIndex, generation) {
@@ -277,12 +301,12 @@ class SharedBranchManagerLoop {
       this.unlinkCandidate(qIndex);
 
       let execution = Atomics.load(tt.qExecution, qIndex);
-      if (execution >= EXEC_RUNNING_BASE) {
+      if (executionIsRunning(execution) || executionIsClaim(execution)) {
         this.requestReset(executionWorker(execution));
         continue;
       }
       if (execution === EXEC_QUEUED) {
-        cancelQueuedQ(tt, qIndex, generation);
+        if (cancelQueuedQ(tt, qIndex, generation)) this.delta.retireReady();
         execution = Atomics.load(tt.qExecution, qIndex);
       }
       if (execution !== EXEC_NONE) continue;
@@ -321,8 +345,6 @@ class SharedBranchManagerLoop {
 
   attachPassthrough(startQ, startGeneration, decisionQ, decisionGeneration, firstAction) {
     if (startQ === decisionQ && startGeneration === decisionGeneration) {
-      // The decision descriptor carries one temporary q pin even when the
-      // decision endpoint is the already-running q. No new topology owns it.
       this.releaseDescriptorRef(decisionQ, decisionGeneration);
       return true;
     }
@@ -406,8 +428,6 @@ class SharedBranchManagerLoop {
     const parentExact = readExactQ(tt, parentQ, parentGeneration);
     const existingMask = Atomics.load(tt.qChildMask, parentQ);
 
-    // mask=0 is a pure deterministic-link descriptor. The endpoint may already
-    // be exact or may already have canonical topology from another worker.
     if (mask === 0) {
       if (parentExact !== Q_EXACT_UNKNOWN) {
         this.scheduleFinalize(parentQ, parentGeneration);
@@ -458,8 +478,6 @@ class SharedBranchManagerLoop {
         throw new Error('branch descriptor contains stale child q');
       }
 
-      // The descriptor's probe pin transfers directly into this edge. Do not
-      // add another q ref: one relationship has exactly one ownership pin.
       tt.qChildIndex[base + action] = childQ;
       tt.qChildGeneration[base + action] = childGeneration;
       tt.qChildEval[base + action] = this.branchChildEval[action];
@@ -510,7 +528,11 @@ class SharedBranchManagerLoop {
   managerPublishExact(qIndex, generation, value) {
     const priorExecution = publishExactQ(tt, qIndex, generation, value);
     if (priorExecution < 0) return;
-    if (priorExecution >= EXEC_RUNNING_BASE) this.requestReset(executionWorker(priorExecution));
+    if (priorExecution === EXEC_QUEUED) this.delta.retireReady();
+    else if (executionIsRunning(priorExecution)) this.requestReset(executionWorker(priorExecution));
+    // CLAIM accounting is deliberately not guessed here. A live claimer emits
+    // its vector after claim linearization; a dead claimer is classified by
+    // expected parity during deterministic recovery.
     this.scheduleFinalize(qIndex, generation);
   }
 
@@ -593,7 +615,7 @@ class SharedBranchManagerLoop {
 
     if (kind === EVENT_EXACT) {
       this.bump(MC_EXACT_EVENTS);
-      if (aux >= EXEC_RUNNING_BASE) {
+      if (executionIsRunning(aux)) {
         const owner = executionWorker(aux);
         if (owner !== worker) this.requestReset(owner);
       }
@@ -684,43 +706,63 @@ class SharedBranchManagerLoop {
       const deathGeneration = Atomics.load(tt.workerDeath, worker);
       if (deathGeneration === Atomics.load(tt.workerRecovery, worker)) continue;
 
-      // BranchManager owns failure recovery. A worker ID is not reusable until
-      // every lock/reservation/publication owned by its dead generation has a
-      // deterministic disposition here.
-      Atomics.store(tt.workerIdle, worker, 0);
+      // Published branch descriptors are drained before this method. Any
+      // remaining worker exposure state is therefore an unpublished/dead
+      // reservation and can be refunded deterministically here.
       recoverWorkerBucketLocks(tt, worker);
       recoverWorkerTTReservations(tt, worker);
       recoverUnpublishedBranch(events, tt, worker);
+      this.delta.recoverExposure(worker);
+      this.delta.harvest(worker);
+      const actualParity = workerLedgerParity(tt, worker);
 
+      let transientClaims = 0;
       const high = Math.min(
         tt.qCapacity,
         Atomics.load(tt.control, CTRL_Q_HIGH_WATER),
       );
       for (let qIndex = 0; qIndex < high; qIndex++) {
         if (Atomics.load(tt.qLive, qIndex) === 0) continue;
-        if (Atomics.compareExchange(
-          tt.qExecution,
-          qIndex,
-          EXEC_RUNNING_BASE + worker,
-          EXEC_NONE,
-        ) !== EXEC_RUNNING_BASE + worker) continue;
-
+        const execution = Atomics.load(tt.qExecution, qIndex);
+        if (executionWorker(execution) !== worker) continue;
         const generation = Atomics.load(tt.qGeneration, qIndex);
-        if (readExactQ(tt, qIndex, generation) !== Q_EXACT_UNKNOWN) {
-          this.scheduleFinalize(qIndex, generation);
+        const exact = readExactQ(tt, qIndex, generation);
+
+        if (executionIsClaim(execution)) {
+          transientClaims++;
+          if (transientClaims > 1) throw new Error('IsoMax dead worker owns multiple transient claims');
+          const emitted = actualParity === executionClaimParity(execution);
+          if (Atomics.compareExchange(tt.qExecution, qIndex, execution, EXEC_NONE) !== execution) continue;
+          if (!emitted) {
+            // The ring occurrence was physically consumed but READY coverage was
+            // never emitted by the dead worker. Retire that represented READY
+            // before putting the q back through normal reserve→commit admission.
+            this.delta.retireReady();
+          }
+          if (exact !== Q_EXACT_UNKNOWN) {
+            this.scheduleFinalize(qIndex, generation);
+          } else if (Atomics.load(tt.qRefCount, qIndex) > 0) {
+            if (this.queueIfNeeded(qIndex, generation)) this.bump(MC_WORKER_DEATH_REQUEUES);
+          } else {
+            this.pushOrphan(qIndex, generation);
+          }
           continue;
         }
-        if (Atomics.load(tt.qRefCount, qIndex) > 0) {
-          if (this.queueIfNeeded(
-            qIndex,
-            generation,
-            Atomics.load(tt.qPriorityClass, qIndex),
-          )) this.bump(MC_WORKER_DEATH_REQUEUES);
+
+        if (!executionIsRunning(execution)) continue;
+        if (Atomics.compareExchange(tt.qExecution, qIndex, execution, EXEC_NONE) !== execution) continue;
+        if (exact !== Q_EXACT_UNKNOWN) {
+          this.scheduleFinalize(qIndex, generation);
+        } else if (Atomics.load(tt.qRefCount, qIndex) > 0) {
+          if (this.queueIfNeeded(qIndex, generation)) this.bump(MC_WORKER_DEATH_REQUEUES);
         } else {
           this.pushOrphan(qIndex, generation);
         }
       }
 
+      // Replacement availability is introduced only after every dead-owner q
+      // has a deterministic disposition and before this worker ID is reusable.
+      this.delta.recoverWorker(worker);
       Atomics.store(tt.workerRecovery, worker, deathGeneration);
       Atomics.notify(tt.workerRecovery, worker, Infinity);
       this.bump(MC_WORKER_DEATH_RECOVERIES);
@@ -730,8 +772,12 @@ class SharedBranchManagerLoop {
   }
 
   drainOnce() {
-    let progress = this.recoverDeadWorkers();
+    let progress = this.delta.harvestAll();
+    if (progress) this.wakeWorkers();
 
+    // A published branch owns its inflight exposure reservation. Consume those
+    // before dead-worker recovery so recovery can refund only truly unpublished
+    // exposure state without double-completing a published descriptor.
     for (let worker = 0; worker < workerCount; worker++) {
       while (consumeBranch(
         events,
@@ -745,11 +791,13 @@ class SharedBranchManagerLoop {
         try {
           this.attachBranch(worker);
         } finally {
-          completeExposure(tt);
+          this.delta.completeExposure(worker);
           this.bump(MC_EXPOSURES_COMPLETED);
         }
       }
     }
+
+    if (this.recoverDeadWorkers()) progress = true;
 
     for (let worker = 0; worker < workerCount; worker++) {
       while (consumeEvent(events, worker, this.event)) {
@@ -761,6 +809,14 @@ class SharedBranchManagerLoop {
     this.drainFinalization();
     this.drainOrphans();
     if (this.tryCompleteRoot()) progress = true;
+
+    // Re-harvest after descriptor/event processing before any new allocation of
+    // D. This is the production manager cadence; races remain one-sided
+    // conservative between harvests and never authorize excess READY/exposure.
+    if (this.delta.harvestAll()) {
+      progress = true;
+      this.wakeWorkers();
+    }
     if (this.refillReady() > 0) progress = true;
     if (this.refreshExposureDemand() > 0) progress = true;
     return progress;
@@ -786,6 +842,7 @@ class SharedBranchManagerLoop {
       this.wakeWorkers();
     }
 
+    const delta = this.delta.snapshot();
     return {
       branches: this.metrics[MC_BRANCHES],
       duplicateBranches: this.metrics[MC_DUPLICATE_BRANCHES],
@@ -803,16 +860,22 @@ class SharedBranchManagerLoop {
       workerDeathRequeues: this.metrics[MC_WORKER_DEATH_REQUEUES],
       exposureGrants: this.metrics[MC_EXPOSURE_GRANTS],
       exposuresCompleted: this.metrics[MC_EXPOSURES_COMPLETED],
-      exposureOutstanding: exposureOutstanding(tt),
+      exposureOutstanding: delta.exposure,
+      deficit: delta.deficit,
+      ready: delta.ready,
     };
   }
 }
 
 try {
   const manager = new SharedBranchManagerLoop();
-  // Establish initial global helper demand before the host releases evaluator
-  // session messages. This removes a startup race without introducing a
-  // recursive worker<->manager handshake.
+  // Root admission is the first manager-owned READY transfer. D is reserved
+  // before qExecution/ring publication, eliminating the startup exception to the
+  // same reserve→commit/refund rule used for all later admissions/requeues.
+  const rootQ = Atomics.load(tt.control, CTRL_ROOT_Q);
+  const rootGeneration = Atomics.load(tt.control, CTRL_ROOT_GENERATION);
+  manager.queueIfNeeded(rootQ, rootGeneration, 7);
+  manager.refillReady();
   manager.refreshExposureDemand();
   parentPort.postMessage({ type: 'manager-ready' });
   const metrics = manager.run();
