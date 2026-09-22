@@ -36,61 +36,21 @@ If provenance is ambiguous, fail closed and keep the comment non-authoritative u
 
 ## Restart-safe active coordination
 
-Before substantive work, inspect `.agent/coordination.json` when it exists, then read `.agent/COORDINATION.md`.
+Before substantive campaign work, read `.agent/coordination.json` and `.agent/COORDINATION.md`, then recover live state only from the canonical private OX issue declared there.
 
-The registry is **durable bootstrap policy**, not a live-state snapshot. Keep three state classes separate:
+The load-bearing invariants are:
 
-1. **Repository-stable:** durable ROLE_ID authority/specialization, campaign/control route, security/provenance policy, recovery algorithm, and event/reconciliation semantics.
-2. **Private-control dynamic:** current control epoch, pause/resume gate, expected staff, fresh role/session ACKs, current staffing/fallback assignment, current task/claim/branch/PR/SHA/blocker/handoff, director transitions and releases.
-3. **Disposable runtime:** process/session handles, actual process/scheduler/automation existence, timers, local cursors, and caches.
+- checked-in agent files contain durable role/policy/routing/recovery semantics only; current epoch, roster, staffing, assignments, branch/PR/SHA frontier, liveness, execution binding, blockers and handoffs are private-control state;
+- `ROLE AUTHORITY`, `ASSIGNMENT`, `LIVENESS`, and `EXECUTOR OWNERSHIP` are distinct facts;
+- rejoin is presence only; a state-changing executor must be on the one current execution-path binding for its ROLE_ID/epoch and must hold a current assignment descending from the active owner/director barrier;
+- liveness is renewable positive current-epoch evidence, not an enabled automation or historical `ACTIVE`: stale liveness becomes `SUSPECT/VERIFYING`, then `MISSING/UNSTAFFED` if targeted recovery receives no valid ACK; assignments owned by a missing role/path are `UNEXECUTED` until deliberately resumed or reassigned;
+- a PAUSE/FULL STOP or newer activation/reassignment fences older work; pre-barrier and pre-rejoin tasks/handoffs never auto-replay;
+- immediately before repository/control mutation and terminal handoff, re-fetch private OX and revalidate `(epoch, role_id, execution_path_binding, assignment_exchange, revision/base pin)` plus absence of a newer pause/stop/rebind/supersession;
+- normal specialist execution uses one pre-provisioned reconciler path per role; individual recurring runs are provenance instances of that bound path, while redundant one-shots/secondary reconcilers are unbound and must no-op unless explicitly `REBIND`/`REPLACE`d;
+- private OX records durable control; public #102/#126 are evidence-only and #139 is wake/evidence metadata only unless a separately qualified native consumer exists;
+- agent/session loss is recoverable through targeted roll call and the pre-provisioned reconcilers, but loss/disablement of the scheduler/reconciler infrastructure itself is an external liveness root requiring owner/platform recovery; do not add a second heartbeat/TTL/live-roster store.
 
-Only class 1 belongs in checked-in agent/bootstrap files. Class 2 belongs on the verified private OX control issue. Class 3 is never reconstructed as authority.
-
-### Canonical live-control routes
-
-For restart/rejoin and all live agent coordination, use the private OX control issue directly:
-
-- IsoMax: `iteathen/OX-Alpha-Contol#12`.
-- Project Operations/capacity: `iteathen/OX-Alpha-Contol#13`.
-
-Public Connect4 #102 and #126 are evidence/information surfaces only. Connect4 #139 is wake-only transport. None may create live control state.
-
-### Role authority, assignment, and liveness
-
-These are separate facts:
-
-- a registered ROLE_ID defines durable authority and specialization;
-- a verified private-control dispatch defines current assignment;
-- only a fresh verified ACK/check-in in the **current control epoch** establishes role availability/liveness.
-
-None implies another. A campaign being registered/active in bootstrap metadata means only that it has a recoverable control route; it does not prove workers are executing.
-
-A new verified control epoch invalidates prior liveness. Old session handles, `STATE: active` comments, task claims, branches, PRs, SHAs, and staffing from an earlier epoch are historical evidence only until the current private-control frontier explicitly re-establishes them.
-
-### Cold-start algorithm
-
-Start with zero assumed runtime state:
-
-1. Read current security policy, this file, `.agent/coordination.json`, and `.agent/COORDINATION.md`.
-2. Open the campaign's canonical private OX control issue and apply the provenance gate.
-3. Reduce verified control events to the current pause/resume gate and control epoch. A FULL STOP/PAUSE fences earlier task/liveness claims.
-4. Restore only the durable ROLE_ID authority/specialization from repository files.
-5. Rejoin with a fresh session identity. Rejoin is presence only; it never revives an old task.
-6. If a specialist returns before the director, ACK presence and remain read-only until a current director dispatch.
-7. If the director returns first, reconstruct the verified frontier, establish/refresh the recovery epoch when needed, record expected staff, roll call missing roles, and dispatch only to roles with fresh current-epoch ACKs.
-8. An assignment to a role without a fresh ACK is `unexecuted/unavailable`, not active.
-9. For partial loss, use targeted roll call/recovery. Use FULL STOP only when broader uncertainty requires containment.
-10. After total restart, re-dispatch only from the verified current frontier. Never auto-replay old tasks.
-
-### Execution transport
-
-Durable private OX handoffs and runtime wake/delivery are separate.
-
-A terminal handoff changes control state only on the authoritative private issue. Delivery may be provided by a native runtime event or a pre-provisioned role/director reconciler when available. The existence of a scheduler, recurring reconciler, wake event, or OX comment never grants authority or proves a role is live.
-
-Do not require specialists to create child automations. Reconciliation transport must re-fetch private control before acting and be idempotent by current control epoch, authoritative exchange/task, and exact revision/event identity. Duplicate executions no-op when the assignment is already claimed or terminally disposed.
-
-The coordination registry is discovery/recovery metadata, not solver/specification authority.
+The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
 ## Private administrative boundary
 
