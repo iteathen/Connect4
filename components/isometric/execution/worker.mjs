@@ -677,19 +677,13 @@ class RetainedPullWorker {
 }
 
 const runtime = new RetainedPullWorker();
-let poisoned = false;
 
 parentPort.on('message', message => {
   if (message?.type !== 'session') return;
-  if (poisoned) {
-    parentPort.postMessage({ type: 'error', sessionId: message.sessionId, workerId, message: 'worker poisoned' });
-    return;
-  }
   try {
     runtime.runSession(message);
     parentPort.postMessage({ type: 'session-done', sessionId: message.sessionId, workerId });
   } catch (error) {
-    poisoned = true;
     try {
       if (runtime.shared && runtime.events) {
         recoverUnpublishedBranch(runtime.events, runtime.shared, workerId);
@@ -709,6 +703,7 @@ parentPort.on('message', message => {
       message: error?.message ?? String(error),
       stack: error?.stack,
     });
+    parentPort.close();
   }
 });
 
