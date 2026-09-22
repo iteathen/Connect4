@@ -562,5 +562,57 @@
     "public_event_bus_wake_exists_without_control_transition_or_native_consumer",
     "fallback_staffing_changes_during_recovery",
     "scheduler_or_reconciler_infrastructure_is_disabled_or_lost"
-  ]
+  ],
+  "reboot_contract": {
+    "deliberate_logout": {
+      "semantics": "owner_logout_is_a_control_barrier_not_an_ordinary_liveness_failure",
+      "closes_current_epoch_for_effects": true,
+      "prior_liveness_bindings_staffing_assignments_become": "historical_provenance_only",
+      "disable_execution_transports_when_platform_allows": true,
+      "preserve_branches_prs_evidence": true,
+      "maintenance_exception": "only_explicit_owner_authorized_recovery_bootstrap_docs_or_metadata; does_not_resume_operations"
+    },
+    "startup_mode_after_all_agent_logout": "RECOVERY_ONLY",
+    "restart_sequence": [
+      "BOOTSTRAP_zero_runtime_assumptions",
+      "CONTROL_recover_latest_owner_shutdown_barrier_first",
+      "DIRECTOR_RESTORE_owner_explicitly_assigns_exactly_one_director_execution_path",
+      "NEW_RECOVERY_EPOCH_director_opens_fresh_epoch_without_resuming_technical_work",
+      "STAGED_ROLE_REJOIN_restore_role_authority_specialization_fresh_identity_and_ACK_without_technical_assignment",
+      "BIND_EXECUTION_PATHS_at_most_one_current_path_per_ROLE_ID",
+      "RECONSTRUCT_FRONTIER_from_repo_and_OX_as_evidence_without_task_replay",
+      "ROLE_CALL_ROSTER_GATE_each_expected_role_is_LIVE_double_covered_or_MISSING",
+      "REBOOT_QUALIFICATION_blank_session_must_reconstruct_control_from_durable_files_plus_private_OX_plus_repo_state",
+      "OPERATIONS_RESUME_GATE_requires_later_explicit_owner_instruction_after_all_agent_logout",
+      "FRESH_DISPATCH_only_post_resume_current_epoch_assignments_may_start_technical_work"
+    ],
+    "recovery_does_not_authorize_operations": true,
+    "recovery_transport_does_not_authorize_technical_work": true,
+    "role_ack_does_not_authorize_technical_work": true,
+    "old_assignments_auto_replay": false,
+    "old_branches_prs_handoffs_are": "evidence_not_active_claims",
+    "double_duty_recovery": {
+      "allowed_when_explicitly_assigned": true,
+      "separate_ROLE_ID_reasoning_modes_required": true,
+      "single_underlying_actor_for_independence_and_liveness": true,
+      "same_seam_conflicting_roles_prohibited": true
+    },
+    "operations_resume_after_owner_logout": {
+      "authority": "explicit_owner_instruction_required",
+      "control_transition": "OPERATIONS_RESUME",
+      "director_may_self_resume_without_owner": false
+    },
+    "reboot_qualification_requires_reconstruction_of": [
+      "held_role_ids_and_role_specific_behavior",
+      "current_recovery_epoch_and_barrier",
+      "staffing_and_double_duty_state",
+      "execution_path_binding",
+      "liveness_standby_missing_state",
+      "stale_work_that_must_not_replay",
+      "current_branch_pr_sha_evidence_frontier",
+      "terminal_handoff_route",
+      "missing_role_and_director_recovery_path"
+    ],
+    "failure_rule": "if_any_load_bearing_answer_depends_on_remembered_chat_session_state_reboot_recovery_fails"
+  }
 }
