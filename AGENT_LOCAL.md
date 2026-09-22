@@ -83,7 +83,7 @@ Current IsoMax role instances map to global archetypes:
 - `isomax-performance` -> `performance-economics`
 
 Work-group support on private OX #13 includes:
-- `capacity-manager` -> `capacity-manager`
+- `agentic-workforce-researcher` -> `agentic-workforce-researcher` (legacy alias: `capacity-manager`)
 - `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
 - `research-dba` -> `research-dba` (Doctor of Business Administration / organizational research)
 
@@ -113,6 +113,14 @@ If roles begin blending into generic behavior, nominal coverage no longer counts
 For Connect4 it may research provenance, prompt/coordination poisoning, delegation/capability boundaries, tool/connector abuse, stale/replay authority, duplicate execution, secret flow, autonomous blast radius and secure recovery. Sensitive findings stay off public coordination surfaces.
 
 It may recommend mitigations or capability reductions, but it does not acquire solver, merge, staffing, finance or unrelated project-direction authority.
+
+### Agentic workforce researcher
+
+`agentic-workforce-researcher` is the project-neutral HR/workforce research and capacity-support instance on private OX #13. `capacity-manager` is a legacy alias for historical control and scheduler records.
+
+The global work-group authority owns its personality and research methodology. Locally it may research capability, role fit, staffing topology, recruitment/probation, onboarding/rejoin, succession, multi-role load, training, cross-project deployment and workforce resilience.
+
+Current staffing actions still require explicit private-control delegation. The role does not gain repository access, compensation, hiring-terms, technical, security, finance or director authority merely from workforce research.
 
 ### Research DBA
 
