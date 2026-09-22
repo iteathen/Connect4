@@ -98,7 +98,18 @@
       "public_event_bus": "wake_or_evidence_metadata_only_unless_a_future_runtime_has_a_separately_qualified_native_consumer",
       "child_automation_required": false,
       "redundant_one_shot_execution_paths": false,
-      "external_liveness_root": "Loss or disablement of scheduler/reconciler infrastructure is not self-healing inside this protocol and requires platform/owner recovery."
+      "external_liveness_root": "Loss or disablement of scheduler/reconciler infrastructure is not self-healing inside this protocol and requires platform/owner recovery.",
+      "authoritative_execution_binding": "private_control_parent_execution_path_only",
+      "ephemeral_event_wakes": {
+        "allowed": true,
+        "semantics": "authority_less_delivery_instances_of_currently_bound_parent_path",
+        "role_binding": false,
+        "authority": false,
+        "independence": "same_underlying_actor",
+        "terminal_after_delivery": true,
+        "separate_authoritative_executor": false
+      },
+      "one_shot_delivery_instances_are_not_execution_paths": true
     },
     "director_standby": {
       "rule": "When another director execution path is currently bound, the recurring director reconciler is standby health/recovery transport and must not independently mutate control.",
@@ -816,25 +827,39 @@
         "completed_external_or_CI_gate",
         "cleared_blocker"
       ],
-      "terminal_role_obligation": "Before ending the execution turn, either consume the next authorized transition in the same turn or arm/re-arm the same currently bound execution path for the nearest supported continuation.",
-      "director_dispatch_obligation": "Every fresh Director assignment must arm/re-arm the same bound execution path so the selected receiving ROLE_ID begins promptly.",
-      "durable_handoff_alone_is_complete": false,
-      "wake_authority_semantics": "A wake grants no authority. The awakened bound path must re-fetch private control and pass the normal freshness fence before acting.",
-      "executor_identity": "Completion wakes preserve the existing bound execution path; they do not create a second authoritative executor. A different path requires explicit REBIND/REPLACE.",
-      "reconciliation_semantics": "Hourly/recurring reconciliation is missed-trigger recovery only, not the normal handoff-to-next-operation path.",
-      "role_scope": [
-        "isomax-director",
-        "isomax-research",
-        "isomax-implementation",
-        "isomax-reviewer",
-        "isomax-qualification",
-        "isomax-performance",
-        "agentic-workforce-researcher",
-        "behavioral-psychologist",
-        "research-dba",
-        "agentic-security-researcher",
-        "agentic-finance-researcher"
-      ]
+      "same_run_preferred": true,
+      "delivery_instance_kind": "ephemeral_one_shot_wake",
+      "delivery_instance_is_role_binding": false,
+      "delivery_instance_is_authority": false,
+      "delivery_instance_counts_as_same_underlying_actor": true,
+      "wake_instance_requires_parent_binding": true,
+      "wake_instance_requirements": [
+        "parent_execution_path",
+        "current_epoch",
+        "triggering_exchange_or_event",
+        "receiving_role_id",
+        "revision_or_base_pin_when_applicable",
+        "fresh_private_control_refetch_before_acting"
+      ],
+      "idempotency_key": [
+        "epoch",
+        "parent_execution_path",
+        "triggering_exchange_or_event",
+        "receiving_role_id",
+        "revision_or_base_pin_when_applicable"
+      ],
+      "duplicate_live_wake_instances_for_same_key": false,
+      "terminal_role_obligation": "Consume the next Director transition in the same run or arm exactly one authority-less one-shot Director wake delivery instance before exit.",
+      "director_dispatch_obligation": "Begin the receiving role in the same run or arm exactly one authority-less one-shot receiving-role wake delivery instance before exit.",
+      "wake_noop_conditions": [
+        "event_already_consumed",
+        "newer_PAUSE_or_FULL_STOP_or_LOGOUT",
+        "newer_REBIND_or_REPLACE",
+        "newer_reassignment_or_supersession",
+        "parent_execution_path_no_longer_bound"
+      ],
+      "recurring_reconciler_role": "missed_or_dropped_event_recovery_only",
+      "durable_handoff_alone_is_complete": false
     }
   }
 }
