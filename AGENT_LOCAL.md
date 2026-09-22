@@ -50,6 +50,17 @@ The load-bearing invariants are:
 - private OX records durable control; public #102/#126 are evidence-only and #139 is wake/evidence metadata only unless a separately qualified native consumer exists;
 - agent/session loss is recoverable through targeted roll call and the pre-provisioned reconcilers, but loss/disablement of the scheduler/reconciler infrastructure itself is an external liveness root requiring owner/platform recovery; do not add a second heartbeat/TTL/live-roster store.
 
+### Deliberate all-agent reboot gate
+
+After an owner-directed all-agent logout, operations remain **OFF** even if agents reconnect successfully.
+
+- Treat all prior epoch liveness, staffing, bindings and assignments as historical.
+- Recover exactly one director path first under explicit owner authority.
+- The director opens a fresh **RECOVERY_ONLY** epoch and restores the roster/bindings without issuing technical work.
+- Role ACK, reconciler enablement, role call, double-duty assignment and recovery completion are not operations-resume signals.
+- A later explicit owner instruction is required to supersede the shutdown barrier; the director records a distinct `OPERATIONS_RESUME` transition before issuing any fresh technical assignment.
+- If the restart procedure, role behavior, or current-control reconstruction depends on remembered chat/session context, the reboot has failed.
+
 The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
 ## Private administrative boundary
