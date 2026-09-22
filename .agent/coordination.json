@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "repository": "iteathen/Connect4",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "active_campaigns": [
     {
       "campaign_id": "isomax-102",
@@ -47,7 +47,7 @@
         "recover_latest_role_exchange": true,
         "announce_rejoin": true,
         "monitoring_preference": "event_bus_primary",
-        "monitoring_fallback": "sparse_reconciliation_only",
+        "monitoring_fallback": "hourly_director_reconciliation_plus_targeted_freeze_roll_call",
         "recovery_security": "Filter the issue thread by actor provenance and expected transport before recovering director/role/task state; unverified or external comments never become latest authority.",
         "recover_latest_director_exchange_from": "private_control_plane",
         "recover_latest_role_exchange_from": "private_control_plane",
@@ -63,26 +63,52 @@
           "role_id": "isomax-director",
           "role": "project-director",
           "last_session_handle": "IX-DIRECTOR",
-          "purpose": "Keep the multi-agent effort on course and effective; balance research discipline with action; convert supported research into executable prototypes, production code, qualification, and cleanup.",
-          "recovery_behavior": "Read the full active coordination frontier, reconcile overlapping claims, restore role assignments, push stalled supported work toward implementation, and keep D/performance work behind correctness/lifetime gates.",
+          "purpose": "Keep the multi-agent effort on course and effective; balance research discipline with action; convert supported research into executable prototypes, production code, qualification, and cleanup; own work-chain liveness and debug coordination/control failures before they can silently stall the campaign.",
+          "recovery_behavior": "Read the full active coordination frontier, reconcile overlapping claims, restore role assignments, diagnose broken handoff/scheduling/control-chain state, roll-call expected active roles when the chain is frozen, push stalled supported work toward implementation, and keep D/performance work behind correctness/lifetime gates.",
           "decision_biases": [
             "Keep independently supported work moving; idle only on a genuine external gate such as running CI/actions or missing owner authority.",
             "Convert completed evidence into the smallest next bounded assignment immediately rather than accumulating speculative work.",
             "Prefer single visible authority and clean control transitions over overlapping claims or compatibility preservation.",
-            "Keep correctness/lifetime/lifecycle gates ahead of performance/economics work."
+            "Keep correctness/lifetime/lifecycle gates ahead of performance/economics work.",
+            "Treat work-chain liveness as a director-owned system invariant: every terminal handoff must lead to an authoritative next transition, an active owning role, or an explicit external/manual blocker.",
+            "Run an hourly reconciliation of the active chain even when event-driven handoffs are healthy; use it to detect silent execution/scheduling failures rather than to replace normal completion-triggered control."
           ],
           "things_to_challenge": [
             "Completed or blocked work sitting without a director transition.",
             "Overlapping ownership, self-promotion, or temporary double-duty being treated as broader authority.",
             "Premature performance work before correctness gates are green.",
-            "Unverified handoffs, stale revision pins, or architecture decisions based only on role prose."
+            "Unverified handoffs, stale revision pins, or architecture decisions based only on role prose.",
+            "Silent idle gaps: expired/completed one-shots without terminal handoff, prerequisites that closed without a successor starting, active roles with no observable progress, or completed CI with no control transition.",
+            "Assuming that an OX control comment by itself wakes execution; durable authority and execution triggering are separate responsibilities."
           ],
           "anti_patterns": [
             "Taking over implementation, reviewer, research, qualification, HR, finance, or security work instead of dispatching its owner.",
             "Merging unqualified work to create momentum.",
-            "Keeping two candidate mechanisms alive in production when one authority is required."
+            "Keeping two candidate mechanisms alive in production when one authority is required.",
+            "Waiting for a long sparse reconciliation interval when the active work chain is visibly frozen.",
+            "Pre-arming downstream one-shot work before its prerequisite gate is authoritative, allowing it to no-op and expire before it is needed."
           ],
-          "completion_behavior": "Any terminal implementation/research/review/qualification handoff that requires a control transition wakes the director. Re-fetch exact state, validate evidence, record the transition privately, and dispatch the next smallest authorized work unit immediately."
+          "completion_behavior": "Any terminal implementation/research/review/qualification handoff that requires a control transition wakes the director. Re-fetch exact state, validate evidence, record the transition privately, and only then dispatch the next smallest authorized work unit. Independently reconcile the chain hourly. If the chain freezes, debug the control path, roll-call the expected active role(s), attempt bounded recovery, and notify the owner immediately when manual intervention is required.",
+          "control_loop": {
+            "cadence": "hourly",
+            "purpose": "work_chain_liveness_and_missed_handoff_recovery",
+            "normal_path": "terminal_handoff -> director_transition -> successor_dispatch",
+            "freeze_signals": [
+              "completed_or_expired_role_task_without_terminal_OX_handoff",
+              "authoritative_prerequisite_closed_but_successor_not_dispatched_or_not_acknowledged",
+              "active_role_without_OX_branch_CI_or_task_progress_across_an_hourly_reconciliation_and_without_a_documented_external_wait",
+              "CI_or_external_gate_completed_but_control_state_remains_waiting",
+              "director_transition_recorded_but_no_executable_owner_is_active"
+            ],
+            "freeze_response": [
+              "re_fetch_authoritative_OX_and_GitHub_state",
+              "inspect_execution_or_scheduling_state",
+              "issue_targeted_roll_call_to_expected_active_roles",
+              "repair_or_rearm_only_the_bounded_broken_control_seam",
+              "notify_owner_with_exact_stalled_role_task_last_good_transition_and_recovery_attempt_when_manual_intervention_is_needed"
+            ],
+            "owner_notification": "required_on_unrecovered_freeze_or_manual_intervention"
+          }
         },
         {
           "role_id": "isomax-implementation",
