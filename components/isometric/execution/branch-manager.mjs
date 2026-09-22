@@ -128,9 +128,13 @@ export class IsoMaxBranchManager {
     worker.on('error', error => this.handleWorkerFailure(id, generation, error));
     worker.on('exit', code => {
       if (generation !== this.workerGeneration[id]) return;
+      const error = new Error('IsoMax worker exited: ' + code);
+      this.readyReject[id]?.(error);
+      this.readyResolve[id] = null;
+      this.readyReject[id] = null;
       this.workers[id] = null;
       if (!this.suppressRecovery && !this.closing && !this.closed) {
-        void this.recoverDeadWorker(id, generation, new Error('IsoMax worker exited: ' + code));
+        void this.recoverDeadWorker(id, generation, error);
       }
     });
     return ready;
@@ -370,7 +374,7 @@ export class IsoMaxBranchManager {
       const finish = (error, metrics) => {
         if (settled) return;
         settled = true;
-        if (error) settleReady(error);
+        settleReady(error);
         worker.removeAllListeners('message');
         worker.removeAllListeners('error');
         worker.removeAllListeners('exit');
@@ -391,7 +395,9 @@ export class IsoMaxBranchManager {
       });
       worker.on('error', error => finish(error));
       worker.on('exit', code => {
-        if (!settled && code !== 0) finish(new Error('IsoMax BranchManager worker exited: ' + code));
+        if (!settled) {
+          finish(new Error('IsoMax BranchManager worker exited before completion: ' + code));
+        }
       });
     });
 
