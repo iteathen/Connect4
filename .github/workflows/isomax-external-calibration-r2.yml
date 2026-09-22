@@ -1,0 +1,195 @@
+name: isomax-external-calibration-r2
+
+on:
+  push:
+    branches:
+      - experiment/isomax-external-calibration-r2
+    paths:
+      - '.github/workflows/isomax-external-calibration-r2.yml'
+      - 'benchmarks/isomax-workers/retained-pull-comparison.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isomax-external-calibration-r2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  same-runner-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      ISOMAX_SOURCE_SHA: a26ef2254c850243f68505eeff1d849ad0f4f0c0
+      PONS_SHA: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+      FHOURSTONES_SHA: e979696cbba3ac9f9c2895bcae9429bfa8597175
+      ISOMAX_RETAINED_PULL_CORPUS: hard
+      ISOMAX_RETAINED_PULL_SUMMARY_ONLY: '1'
+      ISOMAX_RETAINED_PULL_EXECUTION_FACTOR: '1'
+    steps:
+      - name: Checkout exact IsoMax research source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: a26ef2254c850243f68505eeff1d849ad0f4f0c0
+          persist-credentials: false
+
+      - name: Setup exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Record runner and toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== CALIBRATION_ENV ==='
+          uname -a
+          echo "nproc=$(nproc)"
+          lscpu
+          echo "node=$(node --version)"
+          echo "gcc=$(gcc --version | head -1)"
+          echo "g++=$(g++ --version | head -1)"
+          echo "git=$(git --version)"
+          echo "isomax=$(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "$ISOMAX_SOURCE_SHA"
+
+      - name: Fetch pinned external solvers without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -c credential.helper= clone --no-tags https://github.com/PascalPons/connect4.git "$RUNNER_TEMP/pons"
+          git -C "$RUNNER_TEMP/pons" checkout --detach "$PONS_SHA"
+          test "$(git -C "$RUNNER_TEMP/pons" rev-parse HEAD)" = "$PONS_SHA"
+
+          git -c credential.helper= clone --no-tags https://github.com/gamesolver/fhourstones.git "$RUNNER_TEMP/fhourstones"
+          git -C "$RUNNER_TEMP/fhourstones" checkout --detach "$FHOURSTONES_SHA"
+          test "$(git -C "$RUNNER_TEMP/fhourstones" rev-parse HEAD)" = "$FHOURSTONES_SHA"
+
+          echo "pons=$(git -C "$RUNNER_TEMP/pons" rev-parse HEAD)"
+          echo "fhourstones=$(git -C "$RUNNER_TEMP/fhourstones" rev-parse HEAD)"
+
+      - name: Build pinned external solvers
+        shell: bash
+        run: |
+          set -euo pipefail
+          make -C "$RUNNER_TEMP/fhourstones" clean SearchGame CC=gcc
+          cat > "$RUNNER_TEMP/pons-weak-bench.cpp" <<'CPP'
+          #include "Solver.hpp"
+          #include <chrono>
+          #include <iostream>
+          #include <string>
+          using namespace GameSolver::Connect4;
+          int main() {
+            std::string line;
+            while (std::getline(std::cin, line)) {
+              Position p;
+              if (p.play(line) != line.size()) return 2;
+              Solver solver;
+              solver.reset();
+              const auto t0 = std::chrono::steady_clock::now();
+              const int score = solver.solve(p, true);
+              const auto us = std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::steady_clock::now() - t0).count();
+              const int wdl = score > 0 ? 1 : score < 0 ? -1 : 0;
+              std::cout << line << ' ' << wdl << ' ' << solver.getNodeCount() << ' ' << us << '\n';
+            }
+          }
+          CPP
+          g++ --std=c++11 -O3 -DNDEBUG -W -Wall \
+            -I "$RUNNER_TEMP/pons" \
+            "$RUNNER_TEMP/pons-weak-bench.cpp" "$RUNNER_TEMP/pons/Solver.cpp" \
+            -o "$RUNNER_TEMP/pons-weak-bench"
+          echo '=== BUILD_FLAGS ==='
+          echo 'Fhourstones: gcc -O3 -Wextra -Wall (upstream Makefile)'
+          echo 'PascalPons weak wrapper: g++ --std=c++11 -O3 -DNDEBUG -W -Wall'
+
+      - name: Prepare unchanged hard exact corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/hard.txt" <<'EOF'
+          717657616532237625
+          466537327657277224
+          616767454664457417
+          EOF
+          cat "$RUNNER_TEMP/hard.txt"
+
+      - name: Same-runner interleaved calibration
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_fhourstones() {
+            local round="$1"
+            /usr/bin/time -v -o "$RUNNER_TEMP/fhourstones-${round}.time" \
+              "$RUNNER_TEMP/fhourstones/SearchGame" < "$RUNNER_TEMP/hard.txt" \
+              | tee "$RUNNER_TEMP/fhourstones-${round}.out"
+            echo "=== FHOURSTONES_TIME_${round} ==="
+            cat "$RUNNER_TEMP/fhourstones-${round}.time"
+          }
+          run_pons() {
+            local round="$1"
+            /usr/bin/time -v -o "$RUNNER_TEMP/pons-${round}.time" \
+              "$RUNNER_TEMP/pons-weak-bench" < "$RUNNER_TEMP/hard.txt" \
+              | tee "$RUNNER_TEMP/pons-${round}.out"
+            echo "=== PONS_TIME_${round} ==="
+            cat "$RUNNER_TEMP/pons-${round}.time"
+          }
+          run_isomax() {
+            local round="$1"
+            /usr/bin/time -v -o "$RUNNER_TEMP/isomax-${round}.time" \
+              env ISOMAX_RETAINED_PULL_CORPUS=hard \
+                  ISOMAX_RETAINED_PULL_SUMMARY_ONLY=1 \
+                  ISOMAX_RETAINED_PULL_EXECUTION_FACTOR=1 \
+                  ISOMAX_SOURCE_SHA="$ISOMAX_SOURCE_SHA" \
+              node benchmarks/isomax-workers/retained-pull-comparison.mjs \
+              | tee "$RUNNER_TEMP/isomax-${round}.json"
+            echo "=== ISOMAX_TIME_${round} ==="
+            cat "$RUNNER_TEMP/isomax-${round}.time"
+          }
+
+          echo '=== ROUND_1_ORDER Fhourstones PascalPons IsoMax ==='
+          run_fhourstones 1
+          run_pons 1
+          run_isomax 1
+
+          echo '=== ROUND_2_ORDER IsoMax PascalPons Fhourstones ==='
+          run_isomax 2
+          run_pons 2
+          run_fhourstones 2
+
+          echo '=== ROUND_3_ORDER PascalPons Fhourstones IsoMax ==='
+          run_pons 3
+          run_fhourstones 3
+          run_isomax 3
+
+      - name: Verify equivalent WDL decisions and summarize external work
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const dir = process.env.RUNNER_TEMP;
+          const readExternal = path => new Map(
+            fs.readFileSync(path, 'utf8').trim().split(/\n+/).map(line => {
+              const [sequence, value, nodes, micros] = line.trim().split(/\s+/);
+              return [sequence, { value: Number(value), nodes: Number(nodes), micros: Number(micros) }];
+            })
+          );
+          const f = readExternal(`${dir}/fhourstones-1.out`);
+          const p = readExternal(`${dir}/pons-1.out`);
+          const report = JSON.parse(fs.readFileSync(`${dir}/isomax-1.json`, 'utf8').trim().split(/\n+/).at(-1));
+          const serial = new Map(report.variants.serial.values.map(([s, value]) => [s, value]));
+          for (const [sequence, value] of serial) {
+            if (f.get(sequence)?.value !== value) throw new Error(`Fhourstones WDL mismatch ${sequence}`);
+            if (p.get(sequence)?.value !== value) throw new Error(`PascalPons WDL mismatch ${sequence}`);
+          }
+          const aggregate = m => [...m.values()].reduce((a, x) => ({
+            nodes: a.nodes + x.nodes,
+            micros: a.micros + x.micros,
+          }), { nodes: 0, micros: 0 });
+          console.log('=== CALIBRATION_DECISION_CHECK ===');
+          console.log(JSON.stringify({ sameWdl: true, roots: [...serial.keys()] }));
+          console.log('=== EXTERNAL_ROUND1_AGGREGATE ===');
+          console.log(JSON.stringify({ fhourstones: aggregate(f), pascalPonsWeak: aggregate(p) }));
+          NODE
