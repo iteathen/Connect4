@@ -100,6 +100,86 @@ COLD -> POLICY -> CONTROL -> GATE/BARRIER -> REJOIN -> ACTIVATE -> EXECUTOR-CLAI
 
 Old pre-barrier, pre-epoch or pre-rejoin ACTIVE/task/handoff state never auto-replays.
 
+## Deliberate full logout and reboot sequence
+
+A deliberate owner-directed logout is a **control barrier**, not an ordinary liveness failure.
+
+When the latest verified owner transition orders all agents to log out:
+
+- the current execution epoch is closed for effects;
+- all prior liveness, staffing, assignments, execution-path bindings, claims and task activations become historical provenance only;
+- execution transports/reconcilers should be disabled or otherwise rendered non-executable where the platform allows;
+- in-flight agents must fail closed at their next private-control freshness fence;
+- no old task, terminal handoff, branch, PR, CI result or automation is permission to continue;
+- repository branches, PRs and evidence are preserved in place unless the owner separately authorizes maintenance;
+- logout does **not** erase durable ROLE_ID definitions, role specializations, evidence, or control history.
+
+A bounded owner-authorized maintenance exception may modify only the explicitly named recovery/bootstrap documentation or metadata while the operation remains shut down. Maintenance does not reopen an epoch, establish liveness, bind specialist execution paths, or authorize technical work.
+
+### Reboot phases
+
+A deliberate restart after all agents were logged out uses these phases in order:
+
+1. **BOOTSTRAP — zero runtime assumptions.**
+   Read current account-global agent/security authority, `AGENT_LOCAL.md`, `.agent/coordination.json`, and this document. Assume every prior process/session/reconciler binding is dead or disabled.
+
+2. **CONTROL — recover the shutdown barrier first.**
+   Read the canonical private OX control issue and provenance-filter verified authority. If the latest owner barrier is LOGOUT/SHUTDOWN/PAUSE/FULL STOP, preserve it. A fresh agent may recover context but may not infer that operations resumed.
+
+3. **DIRECTOR RESTORE — owner establishes one director path.**
+   A deliberate all-agent logout invalidates the prior director binding. The owner explicitly restores or assigns exactly one `isomax-director` execution path. A specialist returning first may announce presence only; it may not self-promote or replay work.
+
+4. **NEW RECOVERY EPOCH — still not operations.**
+   The restored director opens a fresh control epoch in **RECOVERY_ONLY** state. This invalidates old liveness/bindings and publishes the expected durable role set. Opening the recovery epoch is not an IsoMax technical-work resume.
+
+5. **STAGED ROLE REJOIN.**
+   Restore execution transport only as needed for role recovery. Each expected role:
+   - reads stable role authority and specialization;
+   - restores the role's characteristic decision biases, challenge set, anti-patterns and completion behavior;
+   - uses a fresh session identity;
+   - ACKs the new epoch;
+   - reports availability/capabilities and authority boundary;
+   - receives no technical assignment merely because it ACKed.
+   When short staffed, compatible double-duty may be explicitly assigned, but each ROLE_ID is restored as a separate reasoning mode and one underlying path counts once for independence/liveness.
+
+6. **BIND EXECUTION PATHS.**
+   Director records at most one current execution-path binding per ROLE_ID. Role presence is not binding. Redundant sessions/reconcilers remain unbound and must no-op on state-changing effects.
+
+7. **RECONSTRUCT THE FRONTIER WITHOUT REPLAY.**
+   Re-read branches, PRs, exact SHAs, CI/evidence, terminal handoffs and blockers as evidence. Old assignments are never revived. The director decides which frontier remains relevant and records any future re-dispatch explicitly.
+
+8. **ROLE CALL / ROSTER GATE.**
+   Recovery cannot be declared complete until the expected roster is explicit: LIVE, deliberately double-covered, or MISSING/UNSTAFFED. Missing roles are not silently treated as staffed. If a load-bearing missing role has safe compatible coverage, bind it explicitly; otherwise keep affected work unexecuted.
+
+9. **REBOOT QUALIFICATION.**
+   From a blank-session perspective, verify that durable files + private OX + current repository state are sufficient to determine:
+   - held ROLE_ID(s) and role-specific behavior;
+   - current recovery epoch/barrier;
+   - staffing/double-duty state;
+   - execution-path binding;
+   - liveness/standby/missing state;
+   - stale work that must not replay;
+   - current branch/PR/SHA evidence frontier;
+   - terminal handoff route;
+   - missing-role/director recovery path.
+   If any answer depends on remembered chat/session state, reboot recovery has failed.
+
+10. **OPERATIONS-RESUME GATE — separate owner transition.**
+    Recovery completion does not start IsoMax work. After an all-agent owner logout, only a later explicit owner instruction may supersede the shutdown barrier and authorize operations to resume. The director records that as a separate `OPERATIONS_RESUME` transition. Only after that transition may the director issue fresh technical assignments.
+
+11. **FRESH DISPATCH.**
+    Technical work starts only from new post-resume director assignments with current epoch, ROLE_ID, bound execution path and exact revision/base pins. Pre-logout or pre-reboot assignments remain historical forever unless their evidence is deliberately used to construct a new assignment.
+
+### Reboot safety rules
+
+- **Recovery transport != operations.** Enabling a reconciler or accepting a role ACK solely to rebuild the roster does not authorize technical work.
+- **Recovery epoch != operations resume.** The recovery epoch exists to reconstruct trustworthy control.
+- **Owner logout barrier wins.** Director or specialist agents may not self-resume past an owner shutdown.
+- **No bulk automatic wake.** Bring paths back in a controlled order so duplicate same-role executors cannot consume one assignment.
+- **No stale frontier promotion.** Open branches/PRs and terminal handoffs are evidence, not active claims.
+- **No chat-only rules.** Any load-bearing restart behavior must live in stable agent files or current private control before it is relied upon.
+- **No hidden cleanup.** While shutdown remains effective, do not mutate solver/research artifacts merely to make the reboot look tidy.
+
 ## Control epochs
 
 A control epoch fences liveness and execution generation. The current epoch value lives only on private control.
