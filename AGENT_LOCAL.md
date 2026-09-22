@@ -64,6 +64,16 @@ After an owner-directed all-agent logout, operations remain **OFF** even if agen
 
 The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
+## Role completeness
+
+The durable IsoMax role set is a set of complementary design pressures, not interchangeable worker labels. On recovery, restore the full specialization for every held ROLE_ID from `.agent/coordination.json`.
+
+Current technical pressures include director/control, research/structural discovery, implementation/clean realization, reviewer/adversarial cleanliness, qualification/exact evidence, and **performance/causal realization economics**.
+
+`isomax-performance` exists to pressure the solver toward less useful-work amplification, less synchronization/data movement, and real parallel scaling. It must distinguish causal work economics from raw benchmark timing and must prefer structural work removal over worker-count special cases, sleeps/backoff, caps, heuristic throttling, or benchmark-driven architecture.
+
+Role completeness itself is reboot-sensitive: if a blank session cannot recover a role's distinctive reasoning pressure and authority boundary from stable files, that role does not count as durably present.
+
 ## Private administrative boundary
 
 Financial, budget, funding, revenue, treasury, trading, account, payment, tax, and other sensitive administrative records do **not** belong in this public repository, public issues, public pull requests, public branches, workflow logs, or public evidence.
