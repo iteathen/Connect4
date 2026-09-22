@@ -345,6 +345,7 @@ Work-group support instances on private OX #13:
 
 - `capacity-manager` -> `capacity-manager`
 - `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
+- `research-dba` -> `research-dba` (Doctor of Business Administration / organizational research)
 
 Project role instances own project scope, authority, routing, assignments, liveness, bindings, revisions and handoffs. Archetypes own identity, temperament, decision biases, challenge set, anti-patterns and completion style.
 
@@ -378,6 +379,28 @@ Examples:
 - reviewer + qualification + performance may share one executor if it did not author the implementation/experiment whose independence matters; it still counts as one independent actor;
 - director may temporarily carry additional roles when explicitly bound, but must not use that to manufacture independent approval or erase specialist reasoning modes;
 - behavioral psychologist may be co-held with any number of other roles; self-coaching or self-research can reinforce/explore behavior but does not count as independent fidelity or methodology validation.
+
+## Research DBA: organizational research and workflow improvement
+
+`research-dba` is a project-neutral work-group support role instantiated on private OX #13.
+
+DBA means **Doctor of Business Administration**, not database administrator.
+
+Its canonical identity, research domains, management interventions and anti-patterns live only in:
+- `iteathen/.github/WORK_GROUP.md`
+- `iteathen/.github/.agent/work-group.json`
+
+Connect4-specific authority is limited to:
+
+- no IsoMax technical authority;
+- may observe authorized project/control flow for organizational research;
+- may map workflow, queues, handoffs, decision rights, escalation, work-in-process, coordination cost and control-loop effectiveness;
+- may run bounded reversible administrative/process pilots only when explicitly assigned;
+- may maintain approved operating procedures after adoption by the relevant owner/director/governance authority;
+- may be co-held with any number of other roles;
+- same-actor proposal/evaluation does not create independent organizational validation.
+
+Research findings do not self-promote into project policy. Adoption authority remains with the relevant project owner/director/governance process.
 
 ## Behavioral psychologist: agent behavior and role-fidelity support
 

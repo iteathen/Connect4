@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.6",
+  "schema_version": "1.7",
   "repository": "iteathen/Connect4",
   "updated": "2026-09-22",
   "registry_semantics": {
@@ -304,7 +304,8 @@
         "supported_functions": [
           "capacity_recruiting",
           "role_identity_fidelity",
-          "agent_behavior_research_methodology"
+          "agent_behavior_research_methodology",
+          "business_administration_research_and_operating_model"
         ],
         "project_specific_evidence_surfaces_may_be_attached": true,
         "public_boundary": "financial_budget_treasury_trading_and_revenue_state_is_private_administration"
@@ -423,9 +424,65 @@
             "note": "May be carried alongside any set of roles. Same-actor coaching/research is exploratory evidence only when independence matters."
           },
           "project_completion_contract": "For fidelity work, record a concise role-fidelity checkpoint. For research, record a reproducible behavioral-methodology handoff with hypothesis, exact cue/reinforcer/intervention, baseline/comparator, observations, persistence/transfer, side effects, limitations, and any proposed durable methodology change. Do not decide unrelated technical work."
+        },
+        {
+          "role_id": "research-dba",
+          "archetype_id": "research-dba",
+          "role": "business-administration-research-and-operating-model",
+          "project_purpose": "Research and improve the work group's operating model across projects: workflow, queues, handoffs, decision rights, escalation, process cost, resource allocation, management information, governance mechanics, standard operating procedures, continuous improvement and change adoption.",
+          "authority_limits": [
+            "no automatic project-director authority",
+            "no technical architecture or implementation authority merely from workflow research",
+            "no independent review or qualification acceptance authority",
+            "no staffing or compensation authority",
+            "no finance/spending authority",
+            "no security-policy authority",
+            "no behavioral-psychology authority",
+            "no unilateral workflow/governance adoption",
+            "no destructive administrative migration without relevant owner authority and recovery plan"
+          ],
+          "project_recovery_behavior": "Recover current work-group support state from private OX #13 and project-specific operating evidence only as authorized; load the canonical research-dba archetype from iteathen/.github; reconstruct the current workflow/process question without reviving historical proposals as adopted policy.",
+          "research_scope": [
+            "workflow_and_operating_model_design",
+            "organizational_structure_and_role_topology",
+            "decision_rights_and_escalation",
+            "handoff_and_coordination_cost",
+            "queueing_work_in_process_and_bottlenecks",
+            "portfolio_and_priority_methodology",
+            "review_and_control_loop_effectiveness",
+            "standard_operating_procedures_and_exception_handling",
+            "resource_allocation_and_capacity_economics",
+            "management_information_and_operational_metrics",
+            "cross_project_operating_consistency",
+            "change_management_and_process_adoption",
+            "postmortem_to_process_learning",
+            "governance_process_design",
+            "incentive_and_measurement_side_effects",
+            "knowledge_flow_and_decision_reconstruction_cost"
+          ],
+          "administrative_practice": {
+            "may_maintain_approved_process_docs": true,
+            "may_run_bounded_reversible_process_pilots_when_explicitly_assigned": true,
+            "findings_self_promote_to_policy": false,
+            "adoption_authority": "relevant owner_or_director_or_governance_process"
+          },
+          "multi_role_eligibility": {
+            "default": "allowed_with_any_number_of_other_roles",
+            "count_limit": null,
+            "explicit_binding_required": true,
+            "especially_complementary_with": [
+              "director",
+              "capacity-manager",
+              "behavioral-psychologist",
+              "research"
+            ],
+            "same_actor_process_research_independent": false,
+            "note": "May help a director study and improve workflow, but co-holding director does not create independent validation of management changes."
+          },
+          "project_completion_contract": "Produce an operating-study handoff: current workflow/bottleneck, evidence, organizational hypothesis, candidate changes, predicted benefits/costs, affected decision rights, adoption authority, reversible pilot/falsifier, metrics, side effects, and rollback/retirement conditions. Approved administrative procedures may then be documented/maintained without claiming unrelated project authority."
         }
       ],
-      "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, capacity, behavioral-research assignments/evidence routing, and role-fidelity support state. Canonical support-role personalities and behavioral research methodology come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
+      "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, capacity, behavioral-research state, business-administration research/process pilots, and role-fidelity support state. Canonical support-role personalities and methods come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
       "event_interests": {
         "capacity-manager": [
           "control_issue:iteathen/OX-Alpha-Contol#13",
@@ -441,6 +498,14 @@
           "persistent_role_fidelity_risk",
           "behavioral_methodology_experiment",
           "role_cue_or_reinforcement_experiment"
+        ],
+        "research-dba": [
+          "control_issue:iteathen/OX-Alpha-Contol#13",
+          "active_project_control_surfaces:workflow_observation_only",
+          "cross_project_handoff_or_process_change",
+          "repeated_coordination_failure_or_postmortem",
+          "role_or_queue_overload_signal",
+          "workflow_or_governance_experiment"
         ]
       },
       "subordinate_processes": [
@@ -620,7 +685,8 @@
     },
     "work_group_support_archetypes": {
       "staffing_recruiting": "capacity-manager",
-      "behavioral_identity_fidelity_and_agent_methodology_research": "behavioral-psychologist"
+      "behavioral_identity_fidelity_and_agent_methodology_research": "behavioral-psychologist",
+      "organizational_workflow_and_business_administration_research": "research-dba"
     },
     "multi_role_rule": "Any number of compatible role instances may be co-held. The limits are conflicts, independence, capacity, fidelity and security—not a numeric duty count.",
     "reboot_rule": "Role completeness counts only if a blank session can recover project role instances plus their canonical archetype identities before OPERATIONS_RESUME."
@@ -628,7 +694,7 @@
   "work_group_archetypes": {
     "canonical_repository": "iteathen/.github",
     "canonical_ref": "main",
-    "canonical_commit_at_last_sync": "f14ffd4573d9c2ebc6dd14a381594279dc7f8a01",
+    "canonical_commit_at_last_sync": "7f68f5bcb975b96accc8d171179369bd2c52430a",
     "machine_path": ".agent/work-group.json",
     "human_path": "WORK_GROUP.md",
     "project_neutral": true,
