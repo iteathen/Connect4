@@ -93,7 +93,7 @@ jobs:
           import fs from 'node:fs'; import {pathToFileURL} from 'node:url';
           const dataPath=process.argv[2]; const {IsoMaxSolver}=await import(pathToFileURL(process.env.RUNNER_TEMP+'/isomax/components/isometric/solver.mjs').href);
           const lines=fs.readFileSync(dataPath,'utf8').trim().split(/\n+/); const solver=new IsoMaxSolver(); let count=0,correct=0,nodes=0,ns=0n;
-          for(const line of lines){const [movesText,expectedText]=line.trim().split(/\s+/);const moves=[...movesText].map(c=>Number(c)-1),expected=Number(expectedText);solver.resetSearchMemory();const state=solver.createState(moves);const t=process.hrtime.bigint();const result=solver.solve(state);ns+=process.hrtime.bigint()-t;const want=expected>0?1:expected<0?-1:0;correct+=Number(result.value===want);nodes+=result.metrics.nodes;count++;}
+          for(const line of lines){const [movesText,expectedText]=line.trim().split(/\s+/);const moves=[...movesText].map(c=>Number(c)-1),expected=Number(expectedText);solver.resetSearchMemory();const state=solver.createState(moves);const t=process.hrtime.bigint();const result=solver.solve(state);ns+=process.hrtime.bigint()-t;const currentPlayerWdl=expected>0?1:expected<0?-1:0;const want=moves.length%2===0?currentPlayerWdl:-currentPlayerWdl;correct+=Number(result.value===want);nodes+=result.metrics.nodes;count++;}
           console.log(`RESULT isomax ${count} ${correct} ${nodes} ${ns}`); if(correct!==count)process.exitCode=6;
           NODE
 
@@ -116,7 +116,7 @@ jobs:
           import fs from 'node:fs'; const dir=process.env.RUNNER_TEMP,datasets=['end-easy','middle-easy','begin-easy'],solvers=['pons','ben','isomax'];
           const pub={pons:{'end-easy':3.217,'middle-easy':47.73,'begin-easy':1870},ben:{'end-easy':3.32,'middle-easy':32.2,'begin-easy':222}};
           const parse=(s,d,r)=>{const line=fs.readFileSync(`${dir}/${s}-${d}-${r}.out`,'utf8').trim().split(/\n+/).find(x=>x.startsWith('RESULT '));if(!line)throw new Error(`missing ${s}/${d}/${r}`);const f=line.split(/\s+/),count=+f.at(-4),correct=+f.at(-3),nodes=+f.at(-2),ns=Number(f.at(-1));return{count,correct,nodes,meanUs:ns/count/1000};};
-          const out={kind:'published-protocol-and-same-corpus',semantics:{pons:'weak WDL score only',ben:'strong score only',isomax:'WDL plus deterministic root move'},datasets:{}};
+          const out={kind:'published-protocol-and-same-corpus',semantics:{pons:'weak WDL score only/current-player perspective',ben:'strong score only/current-player perspective',isomax:'WDL plus deterministic root move/P0 perspective; expected sign parity-normalized'},datasets:{}};
           for(const d of datasets){out.datasets[d]={};for(const s of solvers){const xs=[1,2].map(r=>parse(s,d,r)),mean=xs.reduce((a,x)=>a+x.meanUs,0)/2;out.datasets[d][s]={samplesMeanUs:xs.map(x=>x.meanUs),meanUs:mean,nodesPerPosition:xs[0].nodes/xs[0].count,correct:xs.every(x=>x.correct===x.count),runnerToPublished:pub[s]?.[d]?mean/pub[s][d]:null};}out.datasets[d].ratios={isomaxToPons:out.datasets[d].isomax.meanUs/out.datasets[d].pons.meanUs,isomaxToBen:out.datasets[d].isomax.meanUs/out.datasets[d].ben.meanUs,nodeRatioToPons:out.datasets[d].isomax.nodesPerPosition/out.datasets[d].pons.nodesPerPosition,nodeRatioToBen:out.datasets[d].isomax.nodesPerPosition/out.datasets[d].ben.nodesPerPosition};}
           console.log('=== CALIBRATION_SUMMARY ==='); console.log(JSON.stringify(out));
           NODE
