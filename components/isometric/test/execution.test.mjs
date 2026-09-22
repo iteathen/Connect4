@@ -10,7 +10,9 @@ import {
   claimHighestQ,
   createSharedTT,
   enqueueQ,
-  exposureOutstanding,
+  executionIsClaim,
+  executionIsRunning,
+  executionWorker,
   openSharedTT,
   probeOrInsertQ,
   recycleQIfDead,
@@ -40,9 +42,9 @@ test('untouched worker branch ledger has no exposure transaction to recover', ()
   const events = openSharedEvents(eventDescriptor);
 
   assert.equal(Atomics.load(events.pendingBranchPosition, 0), -1);
-  assert.equal(exposureOutstanding(shared), 0);
+  assert.equal(Atomics.load(shared.workerExposure, 0), 0);
   assert.equal(recoverUnpublishedBranch(events, shared, 0), 0);
-  assert.equal(exposureOutstanding(shared), 0);
+  assert.equal(Atomics.load(shared.workerExposure, 0), 0);
 });
 
 test('portable shared q identity converges mirrors by exact residual content', () => {
@@ -247,8 +249,8 @@ test('dead evaluator reservations are recovered from the shared q authority',
           const high = Math.min(shared.qCapacity, Atomics.load(shared.control, 14));
           for (let qIndex = 0; qIndex < high; qIndex++) {
             const execution = Atomics.load(shared.qExecution, qIndex);
-            if (execution >= 2) {
-              victim = execution - 2;
+            if (executionIsRunning(execution) || executionIsClaim(execution)) {
+              victim = executionWorker(execution);
               break;
             }
           }
