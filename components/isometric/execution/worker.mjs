@@ -11,7 +11,6 @@ import {
   CTRL_ROOT_Q,
   CTRL_SESSION,
   CTRL_WORKER_WAKE,
-  EXEC_RUNNING_BASE,
   Q_EXACT_UNKNOWN,
   SESSION_RUNNING,
   WC_BRANCH_DESCRIPTORS,
@@ -42,7 +41,6 @@ import {
   WORKER_COUNTER_WORDS,
   addQRef,
   claimHighestQ,
-  completeExposure,
   enterLocalQ,
   enterQueuedQ,
   openSharedTT,
@@ -50,8 +48,13 @@ import {
   publishExactQ,
   readExactQ,
   releaseRunningQ,
-  tryConsumeExposurePermit,
 } from './shared-tt.mjs';
+import {
+  returnExposureGrant,
+  tryAdvertiseAvailability,
+  tryConsumeExposureGrant,
+  workerIsAvailable,
+} from './conserved-delta.mjs';
 import {
   EVENT_DUPLICATE,
   EVENT_EXACT,
@@ -204,13 +207,11 @@ class SharedBranchDistributor {
       }
     }
 
-    // Branch exposure is globally demand-issued, but a genuine branch that
-    // remains private is also a semantic visibility barrier. A later descendant
-    // must not be attached to the current shared q as though the skipped branch
-    // were deterministic. Permit eligibility resumes only after this private
-    // branch has fully unwound to its prior shared-semantic boundary.
+    // Exposure demand is manager-reserved and assigned to producer workers.
+    // A worker consumes only its own per-worker grant, so the claim path never
+    // serializes on a globally packed authority word.
     const exposurePermitted = this.visibilityBarrierDepth === 0
-      && tryConsumeExposurePermit(shared);
+      && tryConsumeExposureGrant(shared, workerId);
     if (!exposurePermitted) {
       runtime.count(WC_PRIVATE_BRANCHES);
       this.visibilityBarrierDepth++;
@@ -257,7 +258,10 @@ class SharedBranchDistributor {
     try {
       branchPosition = beginBranch(runtime.events, workerId);
     } catch (error) {
-      completeExposure(shared);
+      // No branch was published. Return the same manager reservation to this
+      // producer rather than inventing worker-side coverage authority.
+      returnExposureGrant(shared, workerId);
+      runtime.wakeManager();
       throw error;
     }
 
@@ -523,7 +527,6 @@ class RetainedPullWorker {
   }
 
   finishSession() {
-    if (this.shared) Atomics.store(this.shared.workerIdle, workerId, 0);
     while (this.state.ply > 0) this.state.undo();
     this.solver.nextControlNode = Infinity;
     this.solver.pool.releaseSearchStorage();
@@ -645,27 +648,40 @@ class RetainedPullWorker {
   runSession(message) {
     this.prepareSession(message);
     const shared = this.shared;
-    Atomics.store(shared.workerIdle, workerId, 0);
     try {
       while (Atomics.load(shared.control, CTRL_SESSION) === SESSION_RUNNING
           && !Atomics.load(shared.control, CTRL_ABORT)) {
+        // Scheduler-boundary availability is represented in the same per-worker
+        // ledger as claim vectors. Saturation leaves the worker BUSY, signals the
+        // manager, and retries only after the ordinary worker wake boundary.
+        if (!workerIsAvailable(shared, workerId)) {
+          if (!tryAdvertiseAvailability(shared, workerId)) {
+            const wake = Atomics.load(shared.control, CTRL_WORKER_WAKE);
+            this.wakeManager();
+            if (Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING
+                || Atomics.load(shared.control, CTRL_ABORT)) break;
+            Atomics.wait(shared.control, CTRL_WORKER_WAKE, wake, 10);
+            continue;
+          }
+          this.wakeManager();
+        }
+
         // Sample wake before inspection so an enqueue racing the empty probe
         // makes the subsequent wait return immediately.
         const wake = Atomics.load(shared.control, CTRL_WORKER_WAKE);
         if (claimHighestQ(shared, workerId, this.claim, this.queueScratch)) {
-          if (Atomics.exchange(shared.workerIdle, workerId, 0) !== 0) {
-            this.wakeManager();
-          }
           this.count(WC_CLAIMS);
           this.count(WC_CLAIM_BAND_BASE + this.claim[2]);
           this.runClaim(this.claim[0], this.claim[1], this.claim[2]);
           continue;
         }
 
+        // An exact/claim race can consume scheduler availability while returning
+        // no runnable q. Re-enter the loop immediately so its availability vector
+        // is emitted before sleeping.
+        if (!workerIsAvailable(shared, workerId)) continue;
+
         this.count(WC_QUEUE_EMPTY);
-        if (Atomics.exchange(shared.workerIdle, workerId, 1) === 0) {
-          this.wakeManager();
-        }
         if (Atomics.load(shared.control, CTRL_SESSION) !== SESSION_RUNNING
             || Atomics.load(shared.control, CTRL_ABORT)) break;
         Atomics.wait(shared.control, CTRL_WORKER_WAKE, wake, 10);
