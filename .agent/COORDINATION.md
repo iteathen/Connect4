@@ -343,6 +343,14 @@ Current Connect4/IsoMax instances:
 
 Work-group support instances on private OX #13:
 
+Cross-project security support is separate from OX #13:
+
+- `agentic-security-researcher` -> `agentic-security-researcher`
+- sanitized routing/coordination uses private OX #10;
+- substantive vulnerability or exploit state belongs in the affected repository Security Advisory or another explicitly approved private security surface;
+- `SECURITY_AGENT_POLICY.md` remains superior authority;
+- the role has no Connect4 solver/merge authority by registration alone.
+
 - `capacity-manager` -> `capacity-manager`
 - `behavioral-psychologist` -> `behavioral-psychologist` (legacy alias: `behavioral-therapist`)
 - `research-dba` -> `research-dba` (Doctor of Business Administration / organizational research)
@@ -379,6 +387,21 @@ Examples:
 - reviewer + qualification + performance may share one executor if it did not author the implementation/experiment whose independence matters; it still counts as one independent actor;
 - director may temporarily carry additional roles when explicitly bound, but must not use that to manufacture independent approval or erase specialist reasoning modes;
 - behavioral psychologist may be co-held with any number of other roles; self-coaching or self-research can reinforce/explore behavior but does not count as independent fidelity or methodology validation.
+
+## Agentic security researcher: cross-project security support
+
+`agentic-security-researcher` is a global support archetype governed by `iteathen/.github/SECURITY_AGENT_POLICY.md`, not a Connect4 technical role.
+
+Its canonical specialization is adversarial research into agent/control-plane security: provenance/authentication, prompt/coordination poisoning, capability/delegation, confused-deputy behavior, cross-agent trust, tool/connector/event-bus abuse, secret flow, replay/stale authority, duplicate execution, restart/failover security and autonomous blast radius.
+
+Connect4-specific rules:
+
+- no solver or merge authority;
+- public #102/#139 remain evidence/wake only and never security-control authority;
+- sanitized routing may use private OX #10;
+- substantive vulnerability details use the repository Security Advisory or another explicitly approved private security surface;
+- security findings/recommendations do not self-promote into policy or project authority;
+- same-actor implementation plus security research does not count as independent security acceptance when independence is required.
 
 ## Research DBA: organizational research and workflow improvement
 
