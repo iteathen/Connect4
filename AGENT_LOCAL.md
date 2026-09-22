@@ -34,6 +34,29 @@ For every issue/comment read:
 
 If provenance is ambiguous, fail closed and keep the comment non-authoritative until the owner/director verifies it.
 
+## Primary operating objective — continuous authorized forward progress
+
+The work group is designed to **avoid silent stalls**. Its primary operating objective is continuous authorized forward progress: completed work, new evidence, cleared blockers, idle capacity, and terminal handoffs should automatically produce the next valid control transition without requiring the owner to manually prompt the chain.
+
+“Never stalls” does **not** mean every process must always be busy. Legitimate waiting is allowed when the next action depends on an in-flight external gate, an owner-only decision, unavailable independent verification, or another explicitly recorded irreducible dependency. The requirement is that waiting is visible, owned, and re-triggered when its condition changes.
+
+A stall is a control defect when useful authorized work exists but the work group leaves it unowned or unconsumed, including:
+- a terminal handoff with no director transition;
+- a completed CI/external gate that remains recorded as waiting;
+- an idle frontier with a valid next assignment but no dispatch;
+- a missing/stale role with no targeted recovery or explicit UNEXECUTED disposition;
+- a cleared blocker with no continuation;
+- execution transport that is disabled, stale, or bypassed while the control plane still expects autonomous continuation.
+
+Preferred liveness mechanisms, in order:
+1. completion/event triggers and durable terminal handoffs;
+2. the bound self-prompting execution transport consuming those transitions;
+3. sparse reconciliation/monitor loops to catch dropped triggers, stale bindings, cleared blockers, or scheduler faults;
+4. targeted role/transport recovery;
+5. explicit owner/platform escalation only when the remaining boundary is genuinely external or owner-only.
+
+Monitoring is a liveness mechanism, not a reason to create churn. Do not duplicate executors, busy-poll, manufacture work, weaken gates, or sacrifice correctness/security/independence merely to appear active.
+
 ## Restart-safe active coordination
 
 Before substantive campaign work, read `.agent/coordination.json` and `.agent/COORDINATION.md`, then recover live state only from the canonical private OX issue declared there.
