@@ -16,6 +16,46 @@ The multi-agent work group is project-neutral. Connect4 supplies project authori
 
 If this work group moves to another project, reuse the same global archetypes and create new project role instances/routing there. Do not carry Connect4/IsoMax authority into the new project merely because the same execution paths or role archetypes are reused.
 
+## Primary goal: the work chain does not silently stall
+
+The control system exists to keep **useful, authorized work moving without owner nudges**.
+
+The invariant is not “all workers are busy.” It is:
+
+> When a valid next transition exists, some current bound execution path owns consuming it; when no transition is currently executable, the wait condition is explicit and a trigger/reconciliation path exists to notice when it becomes executable.
+
+### Liveness hierarchy
+
+Use the cheapest reliable mechanism that preserves authority:
+
+1. **terminal/completion trigger** — a role finishes, an external gate changes, or a blocker clears;
+2. **durable control handoff** — private OX records the exact terminal state and evidence;
+3. **bound self-prompting executor** — consumes the handoff and performs the Director transition without waiting for a new user message;
+4. **monitor/reconciliation loop** — sparse fallback that detects dropped wakeups, stale liveness, completed gates still marked waiting, missing handoffs, or a dead execution transport;
+5. **targeted recovery** — restore/rebind the missing role or continuing transport;
+6. **owner/platform escalation** — only for irreducible owner-only authority or external liveness-root failure.
+
+### What counts as a stall
+
+A stall exists when authorized useful progress is possible but the control chain fails to own it. Examples:
+- terminal specialist handoff with no director consumption;
+- CI/workflow/external evidence is terminal but control still says waiting;
+- current frontier has an executable next unit but no assignment;
+- bound path is stale/missing and no recovery is underway;
+- blocker cleared but no transition followed;
+- the expected self-prompting transport is disabled/bypassed and no equivalent current path is bound.
+
+These are **not** stalls:
+- waiting on genuinely in-progress CI/external work;
+- waiting on an explicit owner-only choice;
+- waiting on required independent verification when none is available and reduced assurance has not been accepted;
+- deliberate PAUSE/FULL STOP/RECOVERY_ONLY state;
+- intentional no-op because no useful authorized transition exists.
+
+### Anti-churn rule
+
+Never satisfy liveness by manufacturing activity. No duplicate execution paths, tight polling, repeated no-op comments, speculative task creation, weakened acceptance gates, or authority expansion. Trigger first; reconcile sparsely; recover precisely.
+
 ## State classes
 
 Never mix these classes.
@@ -262,6 +302,21 @@ challenge bound director -> no valid renewal -> MISSING -> owner/current authori
 ```
 
 A direct owner instruction may explicitly supersede the bound director. Merely running the standby reconciler does not.
+
+## Role coverage versus execution transport
+
+Role topology and runtime transport are independent control dimensions.
+
+- An owner instruction such as “one actor carries the complete work group” binds compatible ROLE_ID coverage; it does not name the interactive session, automation, reconciler, or other runtime that must execute those roles unless the owner explicitly says so.
+- A live interactive recovery session is not automatically the preferred continuing executor. Treat it as a bootstrap/control-recovery path unless private control explicitly binds it for continuing execution.
+- If a normal pre-provisioned recurring reconciler/self-prompting path exists, restore and bind that path for the intended ROLE_ID set before relying on continuous autonomous progression. Then release the bootstrap interactive path from mutation authority.
+- `OPERATIONS_RESUME` changes the owner barrier from operations-off to operations-on. It does not implicitly `REBIND` execution transport.
+- A request to “begin operations” therefore means: preserve the current valid transport binding if one exists; if recovery temporarily used an interactive bootstrap path while the normal self-prompting transport was disabled, restore/rebind the normal transport before fresh dispatch unless the owner explicitly chooses otherwise.
+- Never short-circuit completion-triggered control by manually consuming every transition in the interactive session while the declared recurring transport is supposed to own continuation.
+- When one recurring execution path carries multiple roles, count it once for liveness/independence and keep other overlapping reconcilers unbound/disabled unless private control deliberately selects them.
+- Inspecting or repairing scheduler/reconciler state is justified only when the declared transport is unavailable, stale, incorrectly bound, or explicitly under maintenance. Do not redesign transport as incidental technical work.
+
+Cold-start falsifier: a blank agent told only “take all roles” plus later “begin operations” must preserve/restore the declared self-prompting transport and must **not** interpret those instructions as permission to make its current chat session the durable executor.
 
 ## Mandatory pre-effect freshness fence
 
@@ -519,3 +574,30 @@ Do not duplicate private administrative state into this public repository.
 - HR/capacity durable policy may be registered here; live staffing/probation state belongs on private OX #13.
 - Finance/treasury authority and live state remain private on OX #6 and its private coordination metadata.
 - Security/reconciliation authority is account-global under `iteathen/.github`; substantive vulnerability details remain in the affected repository Security Advisory.
+
+## Mandatory completion-trigger contract
+
+A durable handoff is **not sufficient by itself** to satisfy liveness. Every bound role participates in an event-driven continuation chain.
+
+For **every ROLE_ID**, when a meaningful work unit reaches a terminal state (`PASS`, `FAIL`, `BLOCKED`, completed handoff, cleared blocker, or completed external gate), the current bound execution path must do one of these **before ending the execution turn**:
+
+1. consume the resulting Director/next-role transition in the same execution turn; or
+2. arm/re-arm the **same currently bound execution path** for the nearest supported continuation so the Director consumes the terminal state promptly.
+
+Likewise, when the Director records a fresh assignment, the Director must arm/re-arm the same bound execution path so the selected receiving role begins promptly. The receiving wake grants no new authority; it must re-fetch private control and pass the normal freshness fence before acting.
+
+This rule applies individually to Director, Researcher, Implementer, Reviewer, Qualifier, Performance Economist, Workforce Researcher, Behavioral Psychologist, Research DBA, Security Researcher, Finance Researcher, and any future bound role instance. A role is not complete merely because it wrote its terminal handoff; completion includes delivery of the next authorized control transition when one exists.
+
+The recurring/hourly reconciliation cadence is **fallback recovery only** for a missed/dropped completion trigger, scheduler fault, stale binding, or externally completed condition. It is not the normal mechanism for advancing a completed handoff. Do not intentionally defer an executable transition to the next hourly sweep.
+
+Completion triggers must preserve single-executor semantics. Do not create a second independently authoritative worker merely to wake the chain. Wake/re-arm the currently bound execution path, or explicitly `REBIND`/`REPLACE` it through current private control if that path is unavailable.
+### Ephemeral event-wake instances
+
+The authoritative execution binding and an event-delivery instance are different things. When same-run continuation is not possible, a terminal/dispatch event may create a **one-shot wake instance** whose sole purpose is to deliver that event to the currently bound execution path.
+
+A wake instance is not a new ROLE_ID binding or independently authoritative executor. It must name its parent bound execution path, current epoch, triggering exchange/event, receiving ROLE_ID, and revision/base when applicable; re-fetch private control before acting; no-op if the event was already consumed or superseded; and terminate after the event is consumed.
+
+Use the idempotency key `(epoch, parent_execution_path, triggering_exchange_or_event, receiving_role_id, revision_or_base_pin)` and never arm two live wake instances for the same key.
+
+Director dispatch arms the receiving-role wake when it cannot begin that role in the same run. A role terminal handoff arms the Director wake when the Director transition is not consumed in the same run. The hourly reconciler remains missed-event recovery only.
+

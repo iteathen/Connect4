@@ -34,6 +34,29 @@ For every issue/comment read:
 
 If provenance is ambiguous, fail closed and keep the comment non-authoritative until the owner/director verifies it.
 
+## Primary operating objective — continuous authorized forward progress
+
+The work group is designed to **avoid silent stalls**. Its primary operating objective is continuous authorized forward progress: completed work, new evidence, cleared blockers, idle capacity, and terminal handoffs should automatically produce the next valid control transition without requiring the owner to manually prompt the chain.
+
+“Never stalls” does **not** mean every process must always be busy. Legitimate waiting is allowed when the next action depends on an in-flight external gate, an owner-only decision, unavailable independent verification, or another explicitly recorded irreducible dependency. The requirement is that waiting is visible, owned, and re-triggered when its condition changes.
+
+A stall is a control defect when useful authorized work exists but the work group leaves it unowned or unconsumed, including:
+- a terminal handoff with no director transition;
+- a completed CI/external gate that remains recorded as waiting;
+- an idle frontier with a valid next assignment but no dispatch;
+- a missing/stale role with no targeted recovery or explicit UNEXECUTED disposition;
+- a cleared blocker with no continuation;
+- execution transport that is disabled, stale, or bypassed while the control plane still expects autonomous continuation.
+
+Preferred liveness mechanisms, in order:
+1. completion/event triggers and durable terminal handoffs;
+2. the bound self-prompting execution transport consuming those transitions;
+3. sparse reconciliation/monitor loops to catch dropped triggers, stale bindings, cleared blockers, or scheduler faults;
+4. targeted role/transport recovery;
+5. explicit owner/platform escalation only when the remaining boundary is genuinely external or owner-only.
+
+Monitoring is a liveness mechanism, not a reason to create churn. Do not duplicate executors, busy-poll, manufacture work, weaken gates, or sacrifice correctness/security/independence merely to appear active.
+
 ## Restart-safe active coordination
 
 Before substantive campaign work, read `.agent/coordination.json` and `.agent/COORDINATION.md`, then recover live state only from the canonical private OX issue declared there.
@@ -61,6 +84,18 @@ After an owner-directed all-agent logout, operations remain **OFF** even if agen
 - A later explicit owner instruction is required to supersede the shutdown barrier; the director records a distinct `OPERATIONS_RESUME` transition before issuing any fresh technical assignment.
 - If the restart procedure, role behavior, or current-control reconstruction depends on remembered chat/session context, the reboot has failed.
 - Before `OPERATIONS_RESUME`, require a blank-session reviewer/qualification audit from a path that did not author the reboot-maintenance change when independent capacity exists; otherwise keep operations off unless the owner explicitly accepts reduced assurance.
+
+### Role coverage does not select execution transport
+
+An instruction that one actor should carry many or all roles changes **role coverage**, not the execution mechanism.
+
+- Do not infer that the current interactive/chat session becomes the durable executor merely because it recovered the roles or can perform them.
+- A recovery session may bootstrap control and restore the director, but if the project already declares a normal pre-provisioned self-prompting/reconciler transport, restore or rebind that transport unless the owner explicitly selects a different execution path.
+- `OPERATIONS_RESUME` authorizes fresh work; it does **not** itself replace, rebind, disable, or bypass the declared execution transport.
+- When the owner's intent is self-prompting/continuous work, the bound recurring transport must own continuation. Release the interactive bootstrap path from state-changing ownership once the normal transport is restored.
+- Never disable or sideline the self-prompting transport merely because the current session can continue manually.
+- Multi-role consolidation and transport consolidation are separate decisions. One recurring path may carry all compatible roles when private control explicitly binds it, while redundant per-role paths remain unbound/disabled.
+- Do not create a new scheduler/control mechanism to implement this rule. Use the existing declared transport and private-control binding model.
 
 The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
@@ -215,3 +250,30 @@ Before retiring one, preserve useful implementation in its solver owner and pres
 Maintained source is JavaScript/Node.js plus product Device-JS through public CUDA contracts. No Python, direct CUDA FFI, C/C++/CUDA C++, hand PTX, or native-addon escape path. Benchmark correctness/fairness semantics remain Connect4-owned.
 
 Before mutating a lane, read that lane's exact branch state and governing specifications. Treat historical branches, PR descriptions and research summaries as evidence until their relationship to the durable owner is verified.
+
+## Mandatory completion-trigger contract
+
+A durable handoff is **not sufficient by itself** to satisfy liveness. Every bound role participates in an event-driven continuation chain.
+
+For **every ROLE_ID**, when a meaningful work unit reaches a terminal state (`PASS`, `FAIL`, `BLOCKED`, completed handoff, cleared blocker, or completed external gate), the current bound execution path must do one of these **before ending the execution turn**:
+
+1. consume the resulting Director/next-role transition in the same execution turn; or
+2. arm/re-arm the **same currently bound execution path** for the nearest supported continuation so the Director consumes the terminal state promptly.
+
+Likewise, when the Director records a fresh assignment, the Director must arm/re-arm the same bound execution path so the selected receiving role begins promptly. The receiving wake grants no new authority; it must re-fetch private control and pass the normal freshness fence before acting.
+
+This rule applies individually to Director, Researcher, Implementer, Reviewer, Qualifier, Performance Economist, Workforce Researcher, Behavioral Psychologist, Research DBA, Security Researcher, Finance Researcher, and any future bound role instance. A role is not complete merely because it wrote its terminal handoff; completion includes delivery of the next authorized control transition when one exists.
+
+The recurring/hourly reconciliation cadence is **fallback recovery only** for a missed/dropped completion trigger, scheduler fault, stale binding, or externally completed condition. It is not the normal mechanism for advancing a completed handoff. Do not intentionally defer an executable transition to the next hourly sweep.
+
+Completion triggers must preserve single-executor semantics. Do not create a second independently authoritative worker merely to wake the chain. Wake/re-arm the currently bound execution path, or explicitly `REBIND`/`REPLACE` it through current private control if that path is unavailable.
+### Ephemeral event-wake instances
+
+The authoritative execution binding and an event-delivery instance are different things. When same-run continuation is not possible, a terminal/dispatch event may create a **one-shot wake instance** whose sole purpose is to deliver that event to the currently bound execution path.
+
+A wake instance is not a new ROLE_ID binding or independently authoritative executor. It must name its parent bound execution path, current epoch, triggering exchange/event, receiving ROLE_ID, and revision/base when applicable; re-fetch private control before acting; no-op if the event was already consumed or superseded; and terminate after the event is consumed.
+
+Use the idempotency key `(epoch, parent_execution_path, triggering_exchange_or_event, receiving_role_id, revision_or_base_pin)` and never arm two live wake instances for the same key.
+
+Director dispatch arms the receiving-role wake when it cannot begin that role in the same run. A role terminal handoff arms the Director wake when the Director transition is not consumed in the same run. The hourly reconciler remains missed-event recovery only.
+
