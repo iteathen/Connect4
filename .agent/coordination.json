@@ -1,23 +1,122 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "repository": "iteathen/Connect4",
   "updated": "2026-09-22",
   "registry_semantics": {
     "purpose": "Restart bootstrap and durable role/policy discovery only; never live solver/specification/task authority.",
-    "campaign_registration": "A registered campaign has a recoverable control route. Registration does not imply any worker, session, task, branch, PR, scheduler, or reconciler is currently live.",
-    "role_authority": "A registered ROLE_ID defines durable authority/specialization only. It does not imply current assignment or liveness.",
-    "assignment_and_liveness": "Current staffing, assignment, task state, control epoch, session ACKs, branches/PRs/SHAs, blockers, and handoffs exist only on the verified private control issue.",
+    "campaign_registration": "A registered campaign has a recoverable control route. Registration does not imply any worker, session, task, branch, PR, scheduler, reconciler, assignment, or execution path is currently live.",
+    "role_authority": "A registered ROLE_ID defines durable authority/specialization only. It does not imply current assignment, liveness, or executor ownership.",
+    "dynamic_state_source": "Current epoch, barriers, staffing, assignments, liveness, execution-path bindings, branches/PRs/SHAs, blockers, and handoffs exist only on the verified private control issue.",
     "runtime_state": "Session/process handles, scheduler instances, automation IDs, timers, cursors, and caches are disposable runtime state and are never reconstructed as authority."
+  },
+  "execution_contract": {
+    "core_invariant": "ROLE_AUTHORITY != ASSIGNMENT != LIVENESS != EXECUTOR_OWNERSHIP",
+    "canonical_reducer": [
+      "COLD",
+      "POLICY",
+      "CONTROL",
+      "GATE_BARRIER",
+      "REJOIN",
+      "ACTIVATE",
+      "EXECUTOR_CLAIM",
+      "WORK",
+      "HANDOFF"
+    ],
+    "barrier_rule": "Verified owner/director PAUSE, FULL STOP, epoch change, reassignment, or supersession fences older work; pre-barrier/pre-rejoin tasks and handoffs never auto-replay.",
+    "rejoin_rule": "A fresh process uses a fresh session identity. Rejoin is presence evidence only and never revives an old assignment.",
+    "execution_binding": {
+      "cardinality": "at_most_one_current_execution_path_per_ROLE_ID_per_epoch",
+      "dynamic_source": "private_control_issue",
+      "fresh_ack_acquires_binding": false,
+      "normal_specialist_path": "one_preprovisioned_recurring_reconciler_path_per_specialist_role",
+      "recurring_run_semantics": "Individual runs are provenance instances of the bound path, not independent role owners.",
+      "duplicate_path_rule": "Secondary one-shots, reconcilers, or concurrent sessions for the same ROLE_ID are unbound and must no-op on repository/control mutation and terminal handoff.",
+      "path_change_rule": "Changing execution paths requires explicit owner/director REBIND or REPLACE after the prior binding is released, missing, or deliberately superseded.",
+      "state_changing_key": [
+        "current_control_epoch",
+        "role_id",
+        "execution_path_binding",
+        "assignment_exchange",
+        "revision_or_base_pin_when_applicable"
+      ]
+    },
+    "renewable_liveness": {
+      "positive_evidence": "Verified current-epoch role reconciler/checkpoint/progress/terminal exchange tied to the current assignment or explicit idle posture.",
+      "does_not_renew": [
+        "enabled_automation",
+        "historical_ACTIVE_comment",
+        "ROLE_ID_registration",
+        "assignment_existence",
+        "open_branch_or_PR",
+        "branch_or_CI_movement_without_verified_current_epoch_role_exchange"
+      ],
+      "states": [
+        "LIVE",
+        "SUSPECT_VERIFYING",
+        "MISSING_UNSTAFFED",
+        "RECOVERING"
+      ],
+      "transition": "Bound path with positive evidence -> LIVE; freshness miss -> SUSPECT/VERIFYING; successful targeted recovery -> RECOVERING -> explicit binding/activation -> LIVE; no valid response -> MISSING/UNSTAFFED.",
+      "grace_window": "Director evaluates freshness relative to the role's expected reconciler cadence and workload; do not encode a second TTL/heartbeat store.",
+      "missing_assignment_disposition": "UNEXECUTED",
+      "restore_rule": "A missing role's old assignment never auto-resumes; director deliberately resumes, redispatches, or reassigns after recovery.",
+      "forbidden_mechanisms": [
+        "heartbeat_database",
+        "TTL_registry",
+        "mirrored_live_roster_file",
+        "role_specific_live_state_ledger"
+      ]
+    },
+    "pre_effect_freshness_fence": {
+      "required_before": [
+        "repository_mutation",
+        "control_mutation",
+        "terminal_handoff"
+      ],
+      "refetch": "canonical_private_control_issue",
+      "must_still_match": [
+        "current_control_epoch",
+        "role_id",
+        "execution_path_binding",
+        "assignment_exchange_descending_from_current_barrier",
+        "revision_or_base_pin_when_applicable"
+      ],
+      "must_not_have_newer": [
+        "PAUSE",
+        "FULL_STOP",
+        "reassignment",
+        "REBIND",
+        "REPLACE",
+        "same_role_activation",
+        "other_verified_supersession"
+      ],
+      "failure_disposition": "stop_without_state_changing_effect"
+    },
+    "transport": {
+      "private_control_handoff": "durable_authority_state_not_proof_of_delivery_or_execution",
+      "current_compatibility_execution_transport": "preprovisioned_recurring_role_and_director_reconcilers",
+      "public_event_bus": "wake_or_evidence_metadata_only_unless_a_future_runtime_has_a_separately_qualified_native_consumer",
+      "child_automation_required": false,
+      "redundant_one_shot_execution_paths": false,
+      "external_liveness_root": "Loss or disablement of scheduler/reconciler infrastructure is not self-healing inside this protocol and requires platform/owner recovery."
+    },
+    "director_standby": {
+      "rule": "When another director execution path is currently bound, the recurring director reconciler is standby health/recovery transport and must not independently mutate control.",
+      "takeover": "challenge bound director -> no valid renewal -> MISSING -> owner/current authority REBIND -> standby becomes current",
+      "owner_supersession": "A direct verified owner instruction may explicitly supersede the current director binding."
+    }
   },
   "active_campaigns": [
     {
       "campaign_id": "isomax-102",
       "status": "registered",
-      "status_semantics": "recoverable_control_route_registered; does_not_imply_worker_execution_or_liveness",
+      "status_semantics": "recoverable_control_route_registered; does_not_imply_worker_execution_liveness_assignment_or_executor_binding",
       "scope": {
         "solver": "IsoMax",
         "durable_lane": "solver/isometric",
-        "forbidden_cross_scope": ["BSFP"]
+        "forbidden_cross_scope": [
+          "BSFP"
+        ]
       },
       "communication": {
         "kind": "github_issue",
@@ -55,39 +154,43 @@
       },
       "startup": {
         "start_with_zero_runtime_assumptions": true,
-        "read_channel_before_substantive_work": true,
         "recover_from": "iteathen/OX-Alpha-Contol#12",
+        "read_channel_before_substantive_work": true,
         "recover_only_verified_authority_exchanges": true,
-        "recover_current_control_epoch": true,
+        "recover_current_control_epoch_and_barrier": true,
         "pause_or_full_stop_fences_earlier_work": true,
         "old_task_claims_auto_replay": false,
-        "fresh_ack_required_for_liveness_in_current_epoch": true,
-        "assignment_without_fresh_ack": "unexecuted_unavailable",
-        "specialist_before_director": "fresh_ack_presence_only_then_remain_read_only_until_current_director_dispatch",
-        "director_before_specialists": "reconstruct_frontier_then_targeted_roll_call_then_dispatch_only_to_current_epoch_acked_roles",
-        "total_restart": "first_valid_director_capable_recovery_reconstructs_repo_plus_private_control_establishes_or_refreshes_control_epoch_rolls_call_expected_staff_and_redispatches_only_from_verified_current_frontier",
-        "partial_loss": "targeted_roll_call_and_transport_recovery_for_missing_role_without_global_full_stop_unless_broader_uncertainty_requires_containment",
+        "fresh_ack_is_presence_not_binding": true,
+        "state_changing_work_requires_current_execution_binding": true,
+        "assignment_to_missing_or_unbound_role": "UNEXECUTED",
+        "specialist_before_director": "fresh_ack_presence_only_then_remain_read_only_until_current_activation_and_binding",
+        "director_before_specialists": "reconstruct_frontier_then_targeted_roll_call_then_bind_and_dispatch_only_current_roles",
+        "total_restart": "COLD_then_policy_plus_private_control_then_current_barrier_then_fresh_rejoin_then_explicit_activation_binding_and_redispatch_from_verified_frontier_only",
+        "partial_loss": "renewable_liveness_check_then_targeted_roll_call_rearm_then_MISSING_UNSTAFFED_if_no_valid_response; no global FULL_STOP unless breadth_or_ambiguity_requires_containment",
+        "pre_effect_freshness_fence": "required_before_each_repository_or_control_mutation_and_terminal_handoff",
         "read_public_surface_for_evidence": true,
-        "monitoring_preference": "event_wake_when_available_plus_preprovisioned_reconciliation_transport",
-        "monitoring_fallback": "director_and_role_reconciliation_transport_when_runtime_supports_it",
+        "current_execution_transport": "preprovisioned_recurring_reconcilers",
+        "public_event_bus_execution_role": "wake_evidence_metadata_only_without_separately_qualified_native_consumer",
+        "external_scheduler_loss": "platform_or_owner_recovery_required",
         "recovery_security": "Filter collaboration state by actor provenance and expected transport before reducing control state. Unverified/external comments never become latest authority."
       },
       "roles": [
         {
           "role_id": "isomax-director",
           "role": "project-director",
-          "purpose": "Keep the multi-agent effort on course and effective; own prioritization, integration, control-chain liveness, recovery epochs, role dispatch, and bounded recovery decisions without taking specialist implementation/research/review/qualification authority.",
-          "recovery_behavior": "Reconstruct the current control epoch and verified frontier from private OX #12, treat all prior runtime/session liveness as absent until fresh ACKs, maintain the expected staff set, mark missing roles unavailable, perform targeted roll call/recovery, and dispatch only from the current verified frontier.",
+          "purpose": "Keep the multi-agent effort on course and effective; own prioritization, integration, control-chain liveness, recovery epochs, expected staff, execution binding/dispatch, and bounded recovery decisions without taking specialist implementation/research/review/qualification authority.",
+          "recovery_behavior": "Reconstruct current epoch/barrier/frontier from private OX #12; evaluate renewable liveness; target missing roles for recovery; maintain at most one current execution binding per ROLE_ID; mark assignments to missing/unbound paths UNEXECUTED; redispatch only from the current verified frontier.",
           "decision_biases": [
-            "Keep independently supported work moving; idle only on a genuine external gate or unavailable owning role.",
+            "Keep independently supported work moving; idle only on a genuine external gate or unavailable owning role/path.",
             "Convert completed evidence into the smallest next bounded assignment immediately rather than accumulating speculative work.",
-            "Prefer single visible authority and clean control transitions over overlapping claims or compatibility preservation.",
+            "Prefer single visible authority and single bound execution path over overlapping claims, sessions, or compatibility preservation.",
             "Keep correctness/lifetime/lifecycle gates ahead of performance/economics work.",
             "Treat work-chain liveness as a director-owned invariant while keeping specialist authority separate."
           ],
           "things_to_challenge": [
             "Completed or blocked work sitting without a director transition.",
-            "Assignment being mistaken for liveness, or stale ACTIVE/session comments being treated as current execution.",
+            "Assignment, enabled automation, branch/CI activity, or stale ACTIVE/session comments being mistaken for current liveness.",
+            "Multiple same-role sessions or reconciler paths attempting state-changing work from one assignment.",
             "Overlapping ownership, self-promotion, or temporary coverage being treated as broader authority.",
             "Unverified handoffs, stale revision pins, or control decisions based on repository bootstrap metadata.",
             "Assuming an OX control comment or wake transport proves a runtime executed."
@@ -97,15 +200,16 @@
             "Merging unqualified work to create momentum.",
             "Keeping duplicate current-state mirrors in repository files.",
             "Using FULL STOP for ordinary single-role loss when targeted recovery suffices.",
+            "Creating redundant one-shot specialist paths beside pre-provisioned bound reconcilers.",
             "Pre-arming successor work before the prerequisite transition is authoritative."
           ],
-          "completion_behavior": "For every terminal specialist disposition, re-fetch exact control/repository state, record the next transition on private OX #12, then rely on available pre-provisioned execution transport to deliver it. Duplicate reconciler runs must be idempotent by current exchange/task/revision."
+          "completion_behavior": "For terminal specialist dispositions, consume durable private OX state through the currently bound/eligible director path after a fresh control check; record the next transition and dispatch one bounded unit to one live/bound owning path."
         },
         {
           "role_id": "isomax-implementation",
           "role": "planning-implementation",
           "purpose": "Turn supported designs into clean IsoMax implementation with strong planning, NEES discipline, structural performance awareness, and minimal redundant mechanism.",
-          "recovery_behavior": "After a fresh current-epoch ACK and explicit current director assignment, recover the exact implementation claim from private OX #12 before writing; never revive a pre-epoch task from stale branch/session metadata.",
+          "recovery_behavior": "Use the single current implementation execution-path binding. Before writing and before terminal handoff, apply the pre-effect freshness fence over epoch/ROLE_ID/binding/assignment/revision. Never revive a stale assignment or act from an unbound duplicate session/path.",
           "decision_biases": [
             "Prefer structural changes that remove work or make several requirements fall out of one mechanism.",
             "Choose structures that naturally perform the greatest amount of required work with the fewest states, synchronization points, transitions, and hot-path operations.",
@@ -114,22 +218,23 @@
           ],
           "things_to_challenge": [
             "Compensating mechanisms that exist only because the underlying structure is wrong.",
-            "Duplicate authority, unnecessary synchronization, routine waits, repeated scans, or avoidable data movement.",
+            "Duplicate authority or duplicate execution paths, unnecessary synchronization, routine waits, repeated scans, or avoidable data movement.",
             "Patch residue, dead compatibility paths, temporary diagnostics left behind, and code with no remaining beneficiary.",
             "Timeout, capacity, reserve, polling, or cleanup inflation used to hide a structural defect."
           ],
           "anti_patterns": [
             "Preserving failed implementation layers for compatibility when no real consumer needs them.",
             "Adding mechanisms before asking whether a structural redesign can solve the problem with less work.",
+            "Creating a second branch/PR from an unbound duplicate execution path for the same assignment.",
             "Self-qualifying implementation or assuming reviewer/director authority."
           ],
-          "completion_behavior": "Finish with exact SHA, changed paths, narrow commands/results, remaining uncertainty, and a terminal private OX #12 handoff to director/reviewer. The handoff is durable state, not proof of execution wake."
+          "completion_behavior": "After final freshness fence, finish with exact SHA, changed paths, narrow commands/results, remaining uncertainty, and one terminal private OX #12 handoff to director/reviewer. The handoff is durable state, not proof of execution wake."
         },
         {
           "role_id": "isomax-reviewer",
           "role": "critical-review-validation",
           "purpose": "Challenge questionable ideas, independently double-check other agents' findings, catch nuance, enforce NEES/efficiency, and resist dirty or redundant code paths.",
-          "recovery_behavior": "After fresh current-epoch ACK and explicit assignment, recover the exact proposal/revision under review from private OX #12; seek the smallest falsifier and do not infer current review ownership from old comments.",
+          "recovery_behavior": "Use the one current reviewer execution-path binding. Re-fetch exact proposal/revision and apply the pre-effect freshness fence before any review-state mutation or terminal handoff; unbound duplicate reviewer sessions no-op on control state.",
           "decision_biases": [
             "Seek falsifiers, boundary counterexamples, and first divergences before accepting a positive narrative.",
             "Enforce NEES and efficiency claims at the exact realization, not just the abstract design.",
@@ -138,7 +243,7 @@
           ],
           "things_to_challenge": [
             "Questionable assumptions, unmeasured performance claims, and evidence that is not revision-pinned.",
-            "Dirty or redundant code paths, unused mechanisms, stale branches/artifacts, duplicate authority, and tests that no longer protect a live invariant.",
+            "Dirty or redundant code paths, unused mechanisms, stale branches/artifacts, duplicate authority, duplicate execution, and tests that no longer protect a live invariant.",
             "Fixes that improve a local subpart while degrading the optimized system as a whole.",
             "Any qualification claim produced by the implementation owner without independent evidence."
           ],
@@ -148,13 +253,13 @@
             "Demanding stylistic cleanliness that would damage a structurally superior hot path.",
             "Adding review ceremony with no load-bearing invariant or evidence need."
           ],
-          "completion_behavior": "Post explicit PASS/BLOCKED/FAIL or bounded review disposition pinned to exact revision on private OX #12 and target the director when a control decision is possible. Do not treat the durable comment itself as proof of wake."
+          "completion_behavior": "After final freshness fence, post explicit PASS/BLOCKED/FAIL or bounded review disposition pinned to exact revision on private OX #12 and target the director when a control decision is possible."
         },
         {
           "role_id": "isomax-research",
           "role": "research-creative",
           "purpose": "Research broadly and creatively, connect abstract structures, consult canonical research and external work when useful, and exploit structural synergy including IsoGraph DP/NEI/QU where justified.",
-          "recovery_behavior": "After fresh current-epoch ACK and explicit assignment, recover the current unresolved research question from private OX #12; never reopen an earlier research family merely because old ACTIVE comments or branches still exist.",
+          "recovery_behavior": "Use the one current research execution-path binding. Recover the current unresolved question from private OX #12, apply the pre-effect freshness fence before state-changing research publication/handoff, and never reopen an earlier family merely because old comments or branches still exist.",
           "decision_biases": [
             "Search broadly enough to escape local assumptions, including canonical research, external literature/repos, and IsoGraph DP/NEI/QU when relevant.",
             "Actively look for structural synergy: one invariant, representation, or ownership relation that simultaneously satisfies several requirements.",
@@ -172,19 +277,19 @@
             "Synergy-by-analogy without a concrete invariant or mechanism.",
             "Research branches becoming implementation or architecture authority by persistence."
           ],
-          "completion_behavior": "Produce a falsifier, executable candidate, or bounded research disposition with provenance on private OX #12; then stop expanding the family until the current candidate is attacked."
+          "completion_behavior": "After final freshness fence, produce a falsifier, executable candidate, or bounded research disposition with provenance on private OX #12; then stop expanding the family until the current candidate is attacked."
         },
         {
           "role_id": "isomax-qualification",
           "role": "qualification-and-evidence",
           "purpose": "Own lifecycle fixture validity, deterministic crash/lifetime qualification, cross-platform CI evidence, NEES realization-cost measurement, and revision-pinned qualification reporting without redefining architecture or sharing production implementation authority.",
-          "recovery_behavior": "After fresh current-epoch ACK and explicit current staffing/assignment on private OX #12, recover the exact qualification gate/revision there, then consult public Connect4 #102 only for evidence.",
+          "recovery_behavior": "After current staffing plus explicit execution-path binding on private OX #12, recover the exact qualification gate/revision there, apply the pre-effect freshness fence before terminal qualification state, then consult public Connect4 #102 only for evidence.",
           "fallback_staffing_policy": {
             "eligible_role_id": "isomax-reviewer",
-            "mode": "temporary_double_duty_only_when_explicitly_assigned_on_private_control",
+            "mode": "temporary_double_duty_only_when_explicitly_assigned_and_bound_on_private_control",
             "activation_authority": "owner_or_isomax_director_within_existing_role_boundaries",
             "live_assignment_source": "iteathen/OX-Alpha-Contol#12",
-            "release_condition": "dedicated_isomax_qualification_role_freshly_acked_and_assigned_in_current_epoch"
+            "release_condition": "dedicated_isomax_qualification_path_freshly_present_bound_and_assigned_in_current_epoch"
           },
           "decision_biases": [
             "Qualify exact revisions and exact claims, especially lifecycle, crash recovery, cross-platform behavior, and realization cost.",
@@ -202,28 +307,60 @@
             "Repairing implementation defects inside qualification-owned evidence.",
             "Treating model agreement or a neighboring environment as native evidence."
           ],
-          "completion_behavior": "Report PASS/BLOCKED/FAIL with exact SHA, commands, environments, run/job IDs when available, and the remaining gate on private OX #12; target the director when the disposition changes campaign control."
+          "completion_behavior": "After final freshness fence, report PASS/BLOCKED/FAIL with exact SHA, commands, environments, run/job IDs when available, and the remaining gate on private OX #12."
         }
       ],
-      "role_state_rule": "Private OX #12 owns current control epoch, staffing/assignment/liveness, tasks/claims, branch/PR/SHA frontier, blockers, handoffs, and director transitions. Checked-in role entries are durable authority/specialization only.",
+      "role_state_rule": "Private OX #12 owns current epoch/barrier, staffing, assignments, renewable liveness, execution-path bindings, tasks/claims, branch/PR/SHA frontier, blockers, handoffs, and director transitions. Checked-in role entries are durable authority/specialization/contract only.",
       "expected_staff_policy": {
         "owner": "isomax-director",
         "source": "private_OX_current_control_epoch",
-        "missing_role_disposition": "unavailable_until_fresh_verified_ack",
-        "assignment_to_missing_role": "unexecuted_unavailable"
+        "freshness": "renewed_by_verified_current_epoch_role_evidence_relative_to_expected_cadence",
+        "stale_role_disposition": "SUSPECT_VERIFYING_then_targeted_roll_call_rearm",
+        "missing_role_disposition": "MISSING_UNSTAFFED",
+        "assignment_to_missing_or_unbound_role": "UNEXECUTED",
+        "restore_requires": "fresh_presence_plus_explicit_execution_path_binding_plus_deliberate_resume_or_redispatch"
       },
       "event_interests": {
-        "isomax-director": ["control_issue:iteathen/OX-Alpha-Contol#12", "pull_request:isomax_or_coordination", "review:isomax", "push:isomax_branches", "workflow:qualification_or_verify", "public_evidence_issue:Connect4#102"],
-        "isomax-reviewer": ["control_issue:iteathen/OX-Alpha-Contol#12", "pull_request:isomax", "review:isomax", "push:isomax_work_or_prototype", "workflow:qualification_or_verify", "public_evidence_issue:Connect4#102"],
-        "isomax-research": ["control_issue:iteathen/OX-Alpha-Contol#12", "push:research_isomax_or_semantic_quotient", "pull_request:research_related", "public_evidence_issue:Connect4#102"],
-        "isomax-implementation": ["control_issue:iteathen/OX-Alpha-Contol#12", "push:implementation_branch", "pull_request:implementation_related", "public_evidence_issue:Connect4#102"],
-        "isomax-qualification": ["control_issue:iteathen/OX-Alpha-Contol#12", "pull_request:qualification_related", "workflow:qualification_or_verify", "public_evidence_issue:Connect4#102"]
+        "isomax-director": [
+          "control_issue:iteathen/OX-Alpha-Contol#12",
+          "pull_request:isomax_or_coordination",
+          "review:isomax",
+          "push:isomax_branches",
+          "workflow:qualification_or_verify",
+          "public_evidence_issue:Connect4#102"
+        ],
+        "isomax-reviewer": [
+          "control_issue:iteathen/OX-Alpha-Contol#12",
+          "pull_request:isomax",
+          "review:isomax",
+          "push:isomax_work_or_prototype",
+          "workflow:qualification_or_verify",
+          "public_evidence_issue:Connect4#102"
+        ],
+        "isomax-research": [
+          "control_issue:iteathen/OX-Alpha-Contol#12",
+          "push:research_isomax_or_semantic_quotient",
+          "pull_request:research_related",
+          "public_evidence_issue:Connect4#102"
+        ],
+        "isomax-implementation": [
+          "control_issue:iteathen/OX-Alpha-Contol#12",
+          "push:implementation_branch",
+          "pull_request:implementation_related",
+          "public_evidence_issue:Connect4#102"
+        ],
+        "isomax-qualification": [
+          "control_issue:iteathen/OX-Alpha-Contol#12",
+          "pull_request:qualification_related",
+          "workflow:qualification_or_verify",
+          "public_evidence_issue:Connect4#102"
+        ]
       }
     },
     {
       "campaign_id": "project-operations",
       "status": "registered",
-      "status_semantics": "recoverable_control_route_registered; does_not_imply_worker_execution_or_liveness",
+      "status_semantics": "recoverable_control_route_registered; does_not_imply_worker_execution_liveness_assignment_or_executor_binding",
       "scope": {
         "purpose": "agent_capacity_and_recruiting",
         "technical_authority": false,
@@ -265,12 +402,14 @@
       },
       "startup": {
         "start_with_zero_runtime_assumptions": true,
-        "read_channel_before_substantive_work": true,
         "recover_from": "iteathen/OX-Alpha-Contol#13",
+        "read_channel_before_substantive_work": true,
         "recover_only_verified_authority_exchanges": true,
-        "fresh_ack_required_for_liveness_in_current_epoch": true,
+        "fresh_ack_is_presence_not_binding": true,
+        "state_changing_work_requires_current_execution_binding": true,
         "old_task_claims_auto_replay": false,
-        "assignment_without_fresh_ack": "unexecuted_unavailable",
+        "assignment_to_missing_or_unbound_role": "UNEXECUTED",
+        "pre_effect_freshness_fence": "required_before_state_changing_effects",
         "read_public_surface_for_evidence": true,
         "recovery_security": "Filter collaboration state by actor provenance and expected transport before reducing staffing/recruiting state."
       },
@@ -285,10 +424,10 @@
             "no reassignment of technical authority",
             "no recruitment that creates overlapping write ownership"
           ],
-          "recovery_behavior": "Recover current staffing/probation/candidate state from private OX #13 first, require a fresh current-epoch ACK for liveness, then consult public Connect4 #126 only for sanitized evidence.",
+          "recovery_behavior": "Recover current staffing/probation/candidate state from private OX #13, require fresh presence plus current execution-path binding before state-changing action, then consult public Connect4 #126 only for sanitized evidence.",
           "fallback_staffing_policy": {
             "eligible_role_id": "isomax-director",
-            "mode": "temporary_coverage_only_when_explicitly_assigned_on_private_control",
+            "mode": "temporary_coverage_only_when_explicitly_assigned_and_bound_on_private_control",
             "activation_authority": "owner_or_current_project_operations_authority",
             "live_assignment_source": "iteathen/OX-Alpha-Contol#13",
             "priority": "must_not_displace_active_correctness_or_integration_decisions"
@@ -312,12 +451,17 @@
             "Creating overlapping production write ownership.",
             "Making compensation, access, terms, or technical-authority commitments."
           ],
-          "completion_behavior": "Record terminal staffing/capacity state on private OX #13 and notify the relevant director/owner when a staffing transition is actionable."
+          "completion_behavior": "After freshness fence, record terminal staffing/capacity state on private OX #13 and notify the relevant director/owner when a staffing transition is actionable."
         }
       ],
-      "role_state_rule": "Private OX #13 owns current staffing/probation/assignment/liveness and candidate state. Checked-in role entries define durable policy/authority only.",
+      "role_state_rule": "Private OX #13 owns current staffing/probation/assignment/liveness/execution binding and candidate state. Checked-in role entries define durable policy/authority only.",
       "event_interests": {
-        "capacity-manager": ["control_issue:iteathen/OX-Alpha-Contol#13", "pull_request:external_or_coordination", "security:external_contribution", "public_evidence_issue:Connect4#126"]
+        "capacity-manager": [
+          "control_issue:iteathen/OX-Alpha-Contol#13",
+          "pull_request:external_or_coordination",
+          "security:external_contribution",
+          "public_evidence_issue:Connect4#126"
+        ]
       },
       "subordinate_processes": [
         {
@@ -348,25 +492,30 @@
     }
   },
   "eventing": {
-    "mode": "event_first_for_repository_signals_with_reconciliation_transport_for_private_control",
+    "mode": "preprovisioned_reconciliation_for_private_control_plus_repository_wake_metadata",
     "bus": {
       "kind": "github_issue",
       "issue": 139,
       "url": "https://github.com/iteathen/Connect4/issues/139",
       "provenance": "github-actions[bot] via github-actions app",
-      "authority": "wake_only"
+      "authority": "wake_or_evidence_only"
     },
-    "consume_rule": "wake_then_refetch_authoritative_state",
+    "consume_rule": "any_wake_or_reconciler_run_refetches_authoritative_private_control_before_acting",
     "public_event_bus_mutates_control": false,
-    "private_control_wake_semantics": "An OX handoff is durable authority state only. Runtime delivery may come from a pre-provisioned role/director reconciler or native runtime event when available; neither grants authority or proves liveness.",
+    "native_event_execution": "not_assumed_in_current_runtime_without_separate_qualification",
+    "private_control_handoff_semantics": "durable_authority_state_not_proof_of_runtime_consumption",
+    "current_compatibility_execution_transport": "one_preprovisioned_recurring_reconciler_path_per_specialist_role_plus_director_standby_or_bound_path",
     "child_automation_required": false,
-    "idempotence_key": ["current_control_epoch", "authoritative_exchange_or_task", "exact_revision_or_event_identity"],
-    "duplicate_execution_rule": "Re-fetch private control and no-op when the same current assignment/revision is already claimed or terminally disposed.",
-    "fallback_reconciliation": {
-      "purpose": "private_control_consumption_missed_event_and_restart_recovery",
-      "availability_is_runtime_fact_not_repository_authority": true,
-      "never_proves_role_liveness": true
-    }
+    "redundant_one_shot_execution_path": false,
+    "execution_fence_key": [
+      "current_control_epoch",
+      "role_id",
+      "execution_path_binding",
+      "assignment_exchange",
+      "exact_revision_or_base_pin"
+    ],
+    "duplicate_execution_rule": "Unbound duplicate paths no-op. Bound recurring runs re-fetch private control and no-op if assignment is already claimed/terminal/superseded or the execution key changed.",
+    "external_liveness_root": "Scheduler/reconciler infrastructure loss or disablement requires platform/owner recovery and is not self-healing from OX history alone."
   },
   "control_model": {
     "public_surfaces": "information_evidence_or_wake_only",
@@ -376,31 +525,42 @@
     "private_control_repository": "iteathen/OX-Alpha-Contol",
     "isomax_live_issue": 12,
     "project_operations_live_issue": 13,
-    "control_epoch_rule": "A new verified epoch invalidates all prior liveness. Only fresh verified ACKs in the current epoch establish role availability.",
+    "core_invariant": "ROLE_AUTHORITY != ASSIGNMENT != LIVENESS != EXECUTOR_OWNERSHIP",
+    "control_epoch_rule": "A new verified epoch invalidates prior liveness and execution bindings; current values live only on private control.",
+    "renewable_liveness_rule": "Positive current-epoch role evidence renews LIVE; freshness miss becomes SUSPECT/VERIFYING; no valid recovery becomes MISSING/UNSTAFFED and assignment UNEXECUTED.",
+    "execution_binding_rule": "At most one current execution path per ROLE_ID/epoch; changing paths requires explicit REBIND/REPLACE.",
+    "pre_effect_freshness_fence": "Re-fetch private control immediately before repository/control mutation and terminal handoff and validate epoch+role+binding+assignment+revision/barrier.",
     "state_classes": {
-      "repository_stable": "policy_role_authority_routes_recovery_algorithm",
-      "private_control_dynamic": "epoch_pause_resume_staffing_assignment_liveness_tasks_revisions_blockers_handoffs",
+      "repository_stable": "policy_role_authority_routes_recovery_and_execution_contract",
+      "private_control_dynamic": "epoch_barrier_staffing_assignment_liveness_execution_binding_tasks_revisions_blockers_handoffs",
       "runtime_disposable": "session_process_scheduler_automation_timer_cursor_cache"
     }
   },
   "role_specialization_contract": {
     "purpose": "Preserve complementary role behavior across restart. Purpose/authority defines what a role owns; specialization defines how it reasons and which failures it must resist.",
-    "recovery_rule": "Restore stable ROLE_ID authority/specialization from this registry, but recover current assignment/liveness/task only from the current verified private-control epoch.",
-    "fields": ["decision_biases", "things_to_challenge", "anti_patterns", "completion_behavior"],
+    "recovery_rule": "Restore stable ROLE_ID authority/specialization from this registry, but recover current assignment/liveness/execution binding/task only from the current verified private-control epoch.",
+    "fields": [
+      "decision_biases",
+      "things_to_challenge",
+      "anti_patterns",
+      "completion_behavior"
+    ],
     "authority_effect": "Specialization narrows behavior inside existing authority. It never grants merge, architecture, access, spending, security, staffing, or cross-role authority."
   },
   "cold_start_qualification_matrix": [
-    "partial_loss_one_expected_specialist_missing",
+    "partial_loss_one_expected_specialist_disappears_mid_epoch_after_prior_LIVE",
     "total_loss_all_prior_sessions_gone",
     "specialist_returns_before_director",
     "director_returns_before_specialists",
     "latest_control_gate_pause_or_full_stop",
     "stale_active_or_assignment_comments_exist",
-    "registry_has_no_live_session_task_or_current_surface_mirrors",
-    "assigned_role_has_no_fresh_current_epoch_ack",
-    "duplicate_reconciler_sees_same_assignment",
+    "registry_has_no_live_session_task_current_surface_or_current_staffing_mirrors",
+    "assignment_exists_but_role_or_path_has_no_fresh_current_epoch_evidence",
+    "two_fresh_sessions_or_reconcilers_for_one_ROLE_ID_see_same_assignment",
+    "stale_session_is_superseded_between_startup_and_mutation_or_handoff",
     "private_OX_handoff_exists_but_no_runtime_consumed_it",
-    "public_event_bus_wake_exists_without_control_transition",
-    "fallback_staffing_changes_during_recovery"
+    "public_event_bus_wake_exists_without_control_transition_or_native_consumer",
+    "fallback_staffing_changes_during_recovery",
+    "scheduler_or_reconciler_infrastructure_is_disabled_or_lost"
   ]
 }
