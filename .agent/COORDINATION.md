@@ -395,9 +395,9 @@ Authority boundary:
 
 Double-duty:
 - research + performance is compatible for bounded structural diagnosis/prototypes;
+- implementation + performance is compatible when explicitly assigned: the shared executor must switch hats deliberately, using the performance pass to pressure the implementation toward less work/coordination, but that pass does not count as independent acceptance of its own production change;
 - reviewer + performance is compatible for adversarial performance analysis but remains one independent actor;
-- qualification + performance is compatible only when independence from experiment/mechanism authorship is preserved;
-- implementation may profile its own seam, but implementation + performance on that same production change does not count as independent performance acceptance.
+- qualification + performance is compatible only when independence from experiment/mechanism authorship is preserved.
 
 The role is registered durably but **not staffed merely by registration**. Current staffing/binding exists only on private OX in a future recovery epoch.
 
