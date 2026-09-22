@@ -40,6 +40,15 @@ Before substantive work, inspect `.agent/coordination.json` when it exists. If i
 
 A durable `role_id` survives agent/session restart; a prior session handle does not. After the owner/director reassigns a role to a restarted agent, recover the role's latest state from the live channel, announce the rejoin using the campaign transport profile, and resume channel monitoring. Prefer a runtime-supported conditional/scheduled watch when available; otherwise refresh the channel before and after each substantive work unit. Do not claim monitoring while disconnected.
 
+### Canonical live-control routes
+
+For restart/rejoin and all live agent coordination, use the private OX control issue directly:
+
+- IsoMax: `iteathen/OX-Alpha-Contol#12`.
+- Project Operations/capacity: `iteathen/OX-Alpha-Contol#13`.
+
+Public Connect4 #102 and #126 are evidence/information surfaces only. Do **not** use them for role recovery, rejoin announcements, task claims, handoffs, roll calls, blockers, releases, staffing state, or director control. If any registry/prose appears to disagree, fail closed and prefer the explicit private OX route above until the routing metadata is repaired.
+
 The coordination registry is discovery/recovery metadata, not solver/specification authority. Live task/claim state belongs to the declared communication channel, and normal repository authority continues to govern implementation and qualification.
 
 ## Private administrative boundary
