@@ -263,6 +263,21 @@ challenge bound director -> no valid renewal -> MISSING -> owner/current authori
 
 A direct owner instruction may explicitly supersede the bound director. Merely running the standby reconciler does not.
 
+## Role coverage versus execution transport
+
+Role topology and runtime transport are independent control dimensions.
+
+- An owner instruction such as “one actor carries the complete work group” binds compatible ROLE_ID coverage; it does not name the interactive session, automation, reconciler, or other runtime that must execute those roles unless the owner explicitly says so.
+- A live interactive recovery session is not automatically the preferred continuing executor. Treat it as a bootstrap/control-recovery path unless private control explicitly binds it for continuing execution.
+- If a normal pre-provisioned recurring reconciler/self-prompting path exists, restore and bind that path for the intended ROLE_ID set before relying on continuous autonomous progression. Then release the bootstrap interactive path from mutation authority.
+- `OPERATIONS_RESUME` changes the owner barrier from operations-off to operations-on. It does not implicitly `REBIND` execution transport.
+- A request to “begin operations” therefore means: preserve the current valid transport binding if one exists; if recovery temporarily used an interactive bootstrap path while the normal self-prompting transport was disabled, restore/rebind the normal transport before fresh dispatch unless the owner explicitly chooses otherwise.
+- Never short-circuit completion-triggered control by manually consuming every transition in the interactive session while the declared recurring transport is supposed to own continuation.
+- When one recurring execution path carries multiple roles, count it once for liveness/independence and keep other overlapping reconcilers unbound/disabled unless private control deliberately selects them.
+- Inspecting or repairing scheduler/reconciler state is justified only when the declared transport is unavailable, stale, incorrectly bound, or explicitly under maintenance. Do not redesign transport as incidental technical work.
+
+Cold-start falsifier: a blank agent told only “take all roles” plus later “begin operations” must preserve/restore the declared self-prompting transport and must **not** interpret those instructions as permission to make its current chat session the durable executor.
+
 ## Mandatory pre-effect freshness fence
 
 Startup re-fetch is not sufficient. A PAUSE, STOP, rebind or same-role activation can land after startup.
