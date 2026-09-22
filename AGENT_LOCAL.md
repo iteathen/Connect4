@@ -62,6 +62,18 @@ After an owner-directed all-agent logout, operations remain **OFF** even if agen
 - If the restart procedure, role behavior, or current-control reconstruction depends on remembered chat/session context, the reboot has failed.
 - Before `OPERATIONS_RESUME`, require a blank-session reviewer/qualification audit from a path that did not author the reboot-maintenance change when independent capacity exists; otherwise keep operations off unless the owner explicitly accepts reduced assurance.
 
+### Role coverage does not select execution transport
+
+An instruction that one actor should carry many or all roles changes **role coverage**, not the execution mechanism.
+
+- Do not infer that the current interactive/chat session becomes the durable executor merely because it recovered the roles or can perform them.
+- A recovery session may bootstrap control and restore the director, but if the project already declares a normal pre-provisioned self-prompting/reconciler transport, restore or rebind that transport unless the owner explicitly selects a different execution path.
+- `OPERATIONS_RESUME` authorizes fresh work; it does **not** itself replace, rebind, disable, or bypass the declared execution transport.
+- When the owner's intent is self-prompting/continuous work, the bound recurring transport must own continuation. Release the interactive bootstrap path from state-changing ownership once the normal transport is restored.
+- Never disable or sideline the self-prompting transport merely because the current session can continue manually.
+- Multi-role consolidation and transport consolidation are separate decisions. One recurring path may carry all compatible roles when private control explicitly binds it, while redundant per-role paths remain unbound/disabled.
+- Do not create a new scheduler/control mechanism to implement this rule. Use the existing declared transport and private-control binding model.
+
 The canonical reducer, partial/total restart rules, director standby takeover, execution-binding contract, and cold-start falsifier matrix live in `.agent/COORDINATION.md`. The machine-readable durable bootstrap is `.agent/coordination.json`. Those files are recovery metadata, not solver/specification authority.
 
 ## Project-neutral work-group roles
