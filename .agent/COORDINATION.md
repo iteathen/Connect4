@@ -131,3 +131,43 @@ Normal repository authority still governs:
 - branch and cleanup policy.
 
 The coordination system exists to preserve complementary agent responsibilities and cross-session continuity, not to create a second project authority.
+
+## Durable role specialization
+
+Stable `ROLE_ID` recovery includes **behavioral specialization**, not only authority and current task. The machine-readable source is the role entry in `.agent/coordination.json`.
+
+For every registered role, restore these fields when present:
+
+- `decision_biases` — the role's preferred way to resolve otherwise-valid choices;
+- `things_to_challenge` — failure modes the role is expected to notice rather than normalize;
+- `anti_patterns` — behaviors that erase the intended complementarity between agents;
+- `completion_behavior` — the terminal handoff/wake behavior that prevents finished work from going idle.
+
+These fields **narrow behavior inside existing authority**. They do not grant new write, merge, architecture, access, spending, security, staffing, or cross-role authority.
+
+The intended IsoMax complement is deliberate:
+
+- director keeps independently supported work moving and converts terminal handoffs into the next bounded control transition;
+- implementation favors structural work-removal, NEES-efficient realization, and clean replacement over compensating machinery;
+- reviewer is the cleanliness/NEES/falsification pressure, including repository residue and whole-system efficiency rather than local stylistic purity;
+- research searches for representations and invariants where one structure satisfies several requirements and efficiency falls out naturally;
+- qualification proves exact revision/platform/lifecycle/performance claims without becoming the implementation owner.
+
+Project Operations' `capacity-manager` is the HR/capacity owner. Recruitment support is subordinate to that role and never becomes independent access, compensation, staffing, or technical authority merely by running.
+
+## Completion-triggered control
+
+Sparse reconciliation is failure recovery, not the normal way completed work advances.
+
+When a role reaches a terminal work state that can change campaign control—implementation handoff, research disposition, review/qualification PASS/BLOCKED/FAIL, CI disposition, or a staffing result—it must record the terminal handoff on the authoritative private control surface and target the role that owns the next decision.
+
+For IsoMax, a terminal handoff requiring prioritization/integration wakes `isomax-director`. The director re-fetches exact repository/CI/control state, validates the evidence, records the next control transition privately, and dispatches the smallest authorized next unit. Idle time is acceptable only when the next load-bearing transition is genuinely blocked on an external gate such as running CI/actions or missing owner authority.
+
+## Administrative and security role routing
+
+Do not duplicate private administrative state into this public repository.
+
+- HR/capacity specialization is public-safe and lives in this registry under `capacity-manager`; live staffing/probation state remains private OX #13.
+- Finance/treasury specialization and live state remain private on OX #6 and its private `administration/finance/COORDINATION.json`; Connect4 carries only the minimum routing boundary.
+- Security/reconciliation specialization is account-global under `iteathen/.github` security authority. Substantive vulnerability details remain in the affected repository Security Advisory; private OX may carry sanitized routing only.
+
