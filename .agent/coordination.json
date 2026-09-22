@@ -202,7 +202,18 @@
           "archetype_id": "director",
           "project_purpose": "Keep the multi-agent effort on course and effective; own prioritization, integration, control-chain liveness, recovery epochs, expected staff, execution binding/dispatch, and bounded recovery decisions without taking specialist implementation/research/review/qualification authority.",
           "project_recovery_behavior": "Reconstruct current epoch/barrier/frontier from private OX #12; evaluate renewable liveness; target missing roles for recovery; maintain at most one current execution binding per ROLE_ID; mark assignments to missing/unbound paths UNEXECUTED; redispatch only from the current verified frontier.",
-          "project_completion_contract": "For terminal specialist dispositions, consume durable private OX state through the currently bound/eligible director path after a fresh control check; record the next transition and dispatch one bounded unit to one live/bound owning path."
+          "project_completion_contract": "For terminal specialist dispositions, consume durable private OX state through the currently bound/eligible director path after a fresh control check; record the next transition and dispatch one bounded unit to one live/bound owning path.",
+          "completion_trigger": {
+            "on": [
+              "fresh_dispatch",
+              "terminal_handoff_consumed",
+              "cleared_blocker",
+              "completed_external_or_CI_gate"
+            ],
+            "action": "Continue in-run if possible; otherwise arm exactly one authority-less one-shot wake for the freshly selected receiving ROLE_ID before ending.",
+            "callback_target": "selected_receiving_role",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "isomax-implementation",
@@ -210,7 +221,18 @@
           "archetype_id": "implementation",
           "project_purpose": "Turn supported designs into clean IsoMax implementation with strong planning, NEES discipline, structural performance awareness, and minimal redundant mechanism.",
           "project_recovery_behavior": "Use the single current implementation execution-path binding. Before writing and before terminal handoff, apply the pre-effect freshness fence over epoch/ROLE_ID/binding/assignment/revision. Never revive a stale assignment or act from an unbound duplicate session/path.",
-          "project_completion_contract": "After final freshness fence, finish with exact SHA, changed paths, narrow commands/results, remaining uncertainty, and one terminal private OX #12 handoff to director/reviewer. The handoff is durable state, not proof of execution wake."
+          "project_completion_contract": "After final freshness fence, finish with exact SHA, changed paths, narrow commands/results, remaining uncertainty, and one terminal private OX #12 handoff to director/reviewer. The handoff is durable state, not proof of execution wake.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "isomax-reviewer",
@@ -218,7 +240,18 @@
           "archetype_id": "reviewer",
           "project_purpose": "Challenge questionable ideas, independently double-check other agents' findings, catch nuance, enforce NEES/efficiency, and resist dirty or redundant code paths.",
           "project_recovery_behavior": "Use the one current reviewer execution-path binding. Re-fetch exact proposal/revision and apply the pre-effect freshness fence before any review-state mutation or terminal handoff; unbound duplicate reviewer sessions no-op on control state.",
-          "project_completion_contract": "After final freshness fence, post explicit PASS/BLOCKED/FAIL or bounded review disposition pinned to exact revision on private OX #12 and target the director when a control decision is possible."
+          "project_completion_contract": "After final freshness fence, post explicit PASS/BLOCKED/FAIL or bounded review disposition pinned to exact revision on private OX #12 and target the director when a control decision is possible.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "isomax-research",
@@ -226,7 +259,18 @@
           "archetype_id": "research",
           "project_purpose": "Research broadly and creatively, connect abstract structures, consult canonical research and external work when useful, and exploit structural synergy including IsoGraph DP/NEI/QU where justified.",
           "project_recovery_behavior": "Use the one current research execution-path binding. Recover the current unresolved question from private OX #12, apply the pre-effect freshness fence before state-changing research publication/handoff, and never reopen an earlier family merely because old comments or branches still exist.",
-          "project_completion_contract": "After final freshness fence, produce a falsifier, executable candidate, or bounded research disposition with provenance on private OX #12; then stop expanding the family until the current candidate is attacked."
+          "project_completion_contract": "After final freshness fence, produce a falsifier, executable candidate, or bounded research disposition with provenance on private OX #12; then stop expanding the family until the current candidate is attacked.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "isomax-qualification",
@@ -241,7 +285,18 @@
           "archetype_id": "qualification",
           "project_purpose": "Own lifecycle fixture validity, deterministic crash/lifetime qualification, cross-platform CI evidence, NEES realization-cost measurement, and revision-pinned qualification reporting without redefining architecture or sharing production implementation authority.",
           "project_recovery_behavior": "After current staffing plus explicit execution-path binding on private OX #12, recover the exact qualification gate/revision there, apply the pre-effect freshness fence before terminal qualification state, then consult public Connect4 #102 only for evidence.",
-          "project_completion_contract": "After final freshness fence, report PASS/BLOCKED/FAIL with exact SHA, commands, environments, run/job IDs when available, and the remaining gate on private OX #12."
+          "project_completion_contract": "After final freshness fence, report PASS/BLOCKED/FAIL with exact SHA, commands, environments, run/job IDs when available, and the remaining gate on private OX #12.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "isomax-performance",
@@ -249,7 +304,18 @@
           "archetype_id": "performance-economics",
           "project_purpose": "Own causal realization-performance diagnosis for IsoMax: distinguish useful work from work amplification; explain parallel scaling, synchronization/queueing, cache/data movement, memory growth, scheduler/control overhead, and critical-path cost; propose bounded structural falsifiers without taking correctness, production implementation, qualification, or director authority.",
           "project_recovery_behavior": "Use the one current performance execution-path binding. Recover the current performance/economics question and exact revision/evidence frontier from private OX #12; restore this role's causal-cost reasoning style before analysis; apply the pre-effect freshness fence before experiment publication or terminal handoff; never treat an old benchmark or branch as a current assignment.",
-          "project_completion_contract": "After the final freshness fence, post a causal performance disposition on private OX #12 pinned to exact revision/workload/environment: useful-work and work-amplification findings, critical bottleneck, decisive counters, uncertainty/noise bounds, and the smallest structural falsifier or implementation handoff. Route production changes to isomax-implementation and independent acceptance to isomax-qualification/reviewer; do not merge or self-qualify."
+          "project_completion_contract": "After the final freshness fence, post a causal performance disposition on private OX #12 pinned to exact revision/workload/environment: useful-work and work-amplification findings, critical bottleneck, decisive counters, uncertainty/noise bounds, and the smallest structural falsifier or implementation handoff. Route production changes to isomax-implementation and independent acceptance to isomax-qualification/reviewer; do not merge or self-qualify.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         }
       ],
       "role_state_rule": "Private OX #12 owns current epoch/barrier, staffing, assignments, renewable liveness, execution-path bindings, tasks/claims, branch/PR/SHA frontier, blockers, handoffs, and director transitions. Checked-in role entries are durable authority/specialization/contract only.",
@@ -430,7 +496,18 @@
             ],
             "note": "May be co-held with any compatible roles, but one actor still counts once for independence and self-assessed role fit is not independent validation."
           },
-          "project_completion_contract": "For workforce research, record the capability/staffing gap, evidence, role-fit/topology hypothesis, bounded trial/probation, independence/conflict implications, metrics, succession/release plan, and adoption authority. For delegated staffing action, record exact current staffing disposition on private OX #13 and notify the relevant director/owner."
+          "project_completion_contract": "For workforce research, record the capability/staffing gap, evidence, role-fit/topology hypothesis, bounded trial/probation, independence/conflict implications, metrics, succession/release plan, and adoption authority. For delegated staffing action, record exact current staffing disposition on private OX #13 and notify the relevant director/owner.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "behavioral-psychologist",
@@ -476,7 +553,18 @@
             "self_research_independent_validation": false,
             "note": "May be carried alongside any set of roles. Same-actor coaching/research is exploratory evidence only when independence matters."
           },
-          "project_completion_contract": "For fidelity work, record a concise role-fidelity checkpoint. For research, record a reproducible behavioral-methodology handoff with hypothesis, exact cue/reinforcer/intervention, baseline/comparator, observations, persistence/transfer, side effects, limitations, and any proposed durable methodology change. Do not decide unrelated technical work."
+          "project_completion_contract": "For fidelity work, record a concise role-fidelity checkpoint. For research, record a reproducible behavioral-methodology handoff with hypothesis, exact cue/reinforcer/intervention, baseline/comparator, observations, persistence/transfer, side effects, limitations, and any proposed durable methodology change. Do not decide unrelated technical work.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         },
         {
           "role_id": "research-dba",
@@ -532,7 +620,18 @@
             "same_actor_process_research_independent": false,
             "note": "May help a director study and improve workflow, but co-holding director does not create independent validation of management changes."
           },
-          "project_completion_contract": "Produce an operating-study handoff: current workflow/bottleneck, evidence, organizational hypothesis, candidate changes, predicted benefits/costs, affected decision rights, adoption authority, reversible pilot/falsifier, metrics, side effects, and rollback/retirement conditions. Approved administrative procedures may then be documented/maintained without claiming unrelated project authority."
+          "project_completion_contract": "Produce an operating-study handoff: current workflow/bottleneck, evidence, organizational hypothesis, candidate changes, predicted benefits/costs, affected decision rights, adoption authority, reversible pilot/falsifier, metrics, side effects, and rollback/retirement conditions. Approved administrative procedures may then be documented/maintained without claiming unrelated project authority.",
+          "completion_trigger": {
+            "on": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "terminal_handoff"
+            ],
+            "action": "Continue into Director in-run if possible; otherwise arm exactly one authority-less one-shot Director wake before ending.",
+            "callback_target": "isomax-director",
+            "hourly_reconciler": "fallback_only"
+          }
         }
       ],
       "role_state_rule": "Private OX #13 owns current work-group support staffing, assignments, liveness, bindings, workforce research/staffing state, business-administration research/process pilots, behavioral research/fidelity state, and capacity. Canonical support-role personalities/methods come from iteathen/.github .agent/work-group.json; this registry supplies only project/control instantiation.",
