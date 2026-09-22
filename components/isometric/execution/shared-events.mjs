@@ -1,6 +1,5 @@
 import {
   MAX_ACTIONS,
-  completeExposure,
   releaseQRef,
   recycleQIfDead,
 } from './shared-tt.mjs';
@@ -182,14 +181,15 @@ export function consumeBranch(events,workerId,out,childQ,childGeneration,childEv
   return true;
 }
 
-/** Release only q pins from a branch that never became visible. */
+/** Release only q pins from a branch that never became visible. Exposure/D is
+ * manager-owned and is recovered by the conserved-Δ manager after this cleanup. */
 export function recoverUnpublishedBranch(events,tt,workerId){
   const position=Atomics.load(events.pendingBranchPosition,workerId);
   if(position<0)return 0;
   const count=Atomics.load(events.pendingRefCount,workerId);
   if(Atomics.load(events.branchWrite,workerId)>position){
     // Published descriptors remain manager-visible; normal consumption owns
-    // the exposure-inflight release.
+    // their inflight exposure completion.
     Atomics.store(events.pendingRefCount,workerId,0);
     Atomics.store(events.pendingBranchPosition,workerId,-1);
     return 0;
@@ -205,7 +205,6 @@ export function recoverUnpublishedBranch(events,tt,workerId){
   }
   Atomics.store(events.pendingRefCount,workerId,0);
   Atomics.store(events.pendingBranchPosition,workerId,-1);
-  completeExposure(tt);
   return released;
 }
 
