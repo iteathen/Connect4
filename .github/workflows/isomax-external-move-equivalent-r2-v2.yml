@@ -1,0 +1,139 @@
+name: isomax-external-move-equivalent-r2-v2
+
+on:
+  push:
+    branches:
+      - experiment/isomax-external-calibration-r2
+    paths:
+      - '.github/workflows/isomax-external-move-equivalent-r2-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isomax-external-move-equivalent-r2-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wdl-root-action-equivalent:
+    strategy:
+      fail-fast: false
+      matrix:
+        dataset: [end-easy, middle-easy, begin-easy, hard]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DATASET: ${{ matrix.dataset }}
+      SAMPLE_COUNT: '16'
+      ISOMAX_SHA: a26ef2254c850243f68505eeff1d849ad0f4f0c0
+      PONS_SHA: d6ba50d8aaf2308c769d9bf2abd42d90f34baf41
+      BEN_SHA: 28a112adaf3ff89ee23fb09411fa592b6597010e
+    steps:
+      - name: Setup exact Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 26.7.0
+
+      - name: Record runner and fetch exact sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          uname -a
+          echo "dataset=$DATASET nproc=$(nproc) node=$(node --version)"
+          lscpu
+          echo "g++=$(g++ --version | head -1)"
+          echo "rustc=$(rustc --version)"
+          for spec in \
+            "isomax https://github.com/iteathen/Connect4.git $ISOMAX_SHA" \
+            "pons https://github.com/PascalPons/connect4.git $PONS_SHA" \
+            "ben https://github.com/benjaminrall/connect-four-ai.git $BEN_SHA"; do
+            set -- $spec; name="$1"; url="$2"; sha="$3"
+            git -c credential.helper= clone --no-tags "$url" "$RUNNER_TEMP/$name"
+            git -C "$RUNNER_TEMP/$name" checkout --detach "$sha"
+            test "$(git -C "$RUNNER_TEMP/$name" rev-parse HEAD)" = "$sha"
+          done
+
+      - name: Prepare deterministic stratified corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          selected="$RUNNER_TEMP/selected.txt"
+          if [ "$DATASET" = hard ]; then
+            cat > "$selected" <<'EOF'
+          1 717657616532237625 x
+          2 466537327657277224 x
+          3 616767454664457417 x
+          EOF
+          else
+            source_data="$RUNNER_TEMP/ben/crates/test-data/$DATASET"
+            sha256sum "$source_data"
+            node --input-type=module - "$source_data" "$selected" "$SAMPLE_COUNT" <<'NODE'
+          import fs from 'node:fs';
+          const [source,out,countText]=process.argv.slice(2);
+          const lines=fs.readFileSync(source,'utf8').trim().split(/\n+/);const count=Number(countText);const indexes=[];
+          for(let i=0;i<count;i++)indexes.push(Math.round(i*(lines.length-1)/(count-1)));
+          if(new Set(indexes).size!==indexes.length)throw new Error('duplicate deterministic sample index');
+          fs.writeFileSync(out,indexes.map(i=>`${i+1} ${lines[i]}`).join('\n')+'\n');
+          console.log(JSON.stringify({sourceLines:lines.length,indexes:indexes.map(i=>i+1)}));
+          NODE
+          fi
+          cat "$selected"
+          sha256sum "$selected"
+
+      - name: Build strong all-root-move comparators
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/pons-all.cpp" <<'CPP'
+          #include "Solver.hpp"
+          #include <chrono>
+          #include <fstream>
+          #include <iostream>
+          #include <sstream>
+          #include <string>
+          using namespace GameSolver::Connect4;
+          static int sign(int x){return x>0?1:x<0?-1:0;}
+          int main(int argc,char**argv){if(argc!=2)return 2;std::ifstream input(argv[1]);if(!input)return 3;std::string line;
+            while(std::getline(input,line)){if(line.empty())continue;std::istringstream in(line);int idx;std::string moves,expected;if(!(in>>idx>>moves>>expected))return 4;
+              Position p;if(p.play(moves)!=moves.size())return 5;Solver solver;solver.reset();const auto t0=std::chrono::steady_clock::now();const auto scores=solver.analyze(p,false);const auto ns=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-t0).count();
+              int best=Solver::INVALID_MOVE;for(int c=0;c<Position::WIDTH;c++){const int s=scores[c];if(s!=Solver::INVALID_MOVE&&(best==Solver::INVALID_MOVE||s>best))best=s;}if(best==Solver::INVALID_MOVE)return 6;const int wdl=sign(best);int mask=0;for(int c=0;c<Position::WIDTH;c++){const int s=scores[c];if(s!=Solver::INVALID_MOVE&&sign(s)==wdl)mask|=1<<c;}
+              std::cout<<"P "<<idx<<' '<<moves<<' '<<expected<<' '<<wdl<<' '<<mask<<' '<<solver.getNodeCount()<<' '<<ns<<'\n';
+            }return 0;}
+          CPP
+          g++ --std=c++11 -O3 -DNDEBUG -W -Wall -I "$RUNNER_TEMP/pons" "$RUNNER_TEMP/pons-all.cpp" "$RUNNER_TEMP/pons/Solver.cpp" -o "$RUNNER_TEMP/pons-all"
+
+          cat > "$RUNNER_TEMP/ben/crates/core/src/bin/calibrate_all_moves.rs" <<'RS'
+          use connect_four_ai::{Position,Solver};use std::{env,fs::File,io::{BufRead,BufReader},time::Instant};
+          fn sign(x:i8)->i8{if x>0{1}else if x<0{-1}else{0}}
+          fn node_count_all_moves(s:&mut Solver,p:&Position)->u64{s.reset();let mut total=0u64;for &column in Solver::COLUMNS.iter(){if !p.is_playable(column){continue}if p.is_winning_move(column){continue}let mut q=*p;q.play(column);let _=s.solve(&q);total+=s.explored_positions as u64;}total}
+          fn main(){let path=env::args().nth(1).unwrap();for line in BufReader::new(File::open(path).unwrap()).lines(){let line=line.unwrap();if line.trim().is_empty(){continue}let mut f=line.split_whitespace();let idx:usize=f.next().unwrap().parse().unwrap();let moves=f.next().unwrap();let expected=f.next().unwrap();let p=Position::from_moves(moves).unwrap();let mut s=Solver::empty();s.reset();let t=Instant::now();let scores=s.get_all_move_scores(&p);let ns=t.elapsed().as_nanos();let best=scores.iter().filter_map(|x|*x).max().unwrap();let wdl=sign(best);let mut mask:u32=0;for(c,x)in scores.iter().enumerate(){if let Some(v)=x{if sign(*v)==wdl{mask|=1u32<<c}}}let nodes=node_count_all_moves(&mut s,&p);println!("B {} {} {} {} {} {} {}",idx,moves,expected,wdl,mask,nodes,ns);}}
+          RS
+          cargo build --manifest-path "$RUNNER_TEMP/ben/crates/core/Cargo.toml" --target-dir "$RUNNER_TEMP/ben-target" --release --locked --bin calibrate_all_moves
+
+          cat > "$RUNNER_TEMP/isomax-all.mjs" <<'NODE'
+          import fs from 'node:fs';import {pathToFileURL} from 'node:url';const path=process.argv[2];const {IsoMaxSolver}=await import(pathToFileURL(process.env.RUNNER_TEMP+'/isomax/components/isometric/solver.mjs').href);const solver=new IsoMaxSolver();
+          for(const line of fs.readFileSync(path,'utf8').trim().split(/\n+/)){const [idx,movesText,expected]=line.trim().split(/\s+/);const moves=[...movesText].map(c=>Number(c)-1);solver.resetSearchMemory();const state=solver.createState(moves);const t=process.hrtime.bigint();const result=solver.solve(state);const ns=process.hrtime.bigint()-t;const currentWdl=moves.length%2===0?result.value:-result.value;if(result.move===null)throw new Error('nonterminal root has no move');console.log(`I ${idx} ${movesText} ${expected} ${currentWdl} ${result.move} ${result.metrics.nodes} ${ns}`);}
+          NODE
+
+      - name: Interleaved WDL-root-action samples
+        shell: bash
+        run: |
+          set -euo pipefail
+          data="$RUNNER_TEMP/selected.txt"
+          run_one(){ local s="$1" r="$2";case "$s" in pons)cmd=("$RUNNER_TEMP/pons-all" "$data");;ben)cmd=("$RUNNER_TEMP/ben-target/release/calibrate_all_moves" "$data");;isomax)cmd=(node "$RUNNER_TEMP/isomax-all.mjs" "$data");;esac;/usr/bin/time -v -o "$RUNNER_TEMP/${s}-${r}.time" "${cmd[@]}" | tee "$RUNNER_TEMP/${s}-${r}.out"; }
+          run_one pons 1;run_one isomax 1;run_one ben 1
+          run_one ben 2;run_one isomax 2;run_one pons 2
+
+      - name: Validate WDL move equivalence and summarize
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';const dir=process.env.RUNNER_TEMP;
+          const parse=(solver,r)=>{const prefix=solver==='pons'?'P':solver==='ben'?'B':'I',m=new Map();for(const line of fs.readFileSync(`${dir}/${solver}-${r}.out`,'utf8').trim().split(/\n+/)){const f=line.split(/\s+/);if(f[0]!==prefix)continue;const idx=+f[1];m.set(idx,solver==='isomax'?{moves:f[2],expected:f[3],wdl:+f[4],move:+f[5],nodes:+f[6],ns:+f[7]}:{moves:f[2],expected:f[3],wdl:+f[4],mask:+f[5],nodes:+f[6],ns:+f[7]});}return m;};
+          const rss=(s,r)=>{const t=fs.readFileSync(`${dir}/${s}-${r}.time`,'utf8'),m=t.match(/Maximum resident set size \(kbytes\):\s*(\d+)/);return m?+m[1]:null;};
+          const rounds={};for(const s of ['pons','ben','isomax'])rounds[s]=[parse(s,1),parse(s,2)];const ids=[...rounds.pons[0].keys()];if(!ids.length)throw new Error('empty corpus');const totalNodes={pons:0,ben:0,isomax:0},totalNs={pons:[0,0],ben:[0,0],isomax:[0,0]};
+          for(const idx of ids){const p=rounds.pons[0].get(idx),b=rounds.ben[0].get(idx),i=rounds.isomax[0].get(idx);if(!p||!b||!i)throw new Error(`missing ${idx}`);if(p.wdl!==b.wdl||p.wdl!==i.wdl)throw new Error(`WDL mismatch ${idx}`);if(p.expected!=='x'){const e=+p.expected>0?1:+p.expected<0?-1:0;if(p.wdl!==e)throw new Error(`corpus WDL mismatch ${idx}`);}const bit=1<<i.move;if(!(p.mask&bit))throw new Error(`IsoMax move ${i.move} not Pons WDL-optimal ${idx}`);if(!(b.mask&bit))throw new Error(`IsoMax move ${i.move} not Ben WDL-optimal ${idx}`);for(const s of ['pons','ben','isomax']){const a=rounds[s][0].get(idx),z=rounds[s][1].get(idx);if(!z||a.wdl!==z.wdl||a.nodes!==z.nodes)throw new Error(`${s} nondeterministic result/work ${idx}`);if(s!=='isomax'&&a.mask!==z.mask)throw new Error(`${s} nondeterministic WDL mask ${idx}`);if(s==='isomax'&&a.move!==z.move)throw new Error(`IsoMax nondeterministic move ${idx}`);totalNs[s][0]+=a.ns;totalNs[s][1]+=z.ns;}totalNodes.pons+=p.nodes;totalNodes.ben+=b.nodes;totalNodes.isomax+=i.nodes;}
+          const count=ids.length,meanUs={};for(const s of ['pons','ben','isomax'])meanUs[s]=((totalNs[s][0]+totalNs[s][1])/2)/count/1000;const out={kind:'wdl-root-action-equivalent',dataset:process.env.DATASET,count,sourceRevision:process.env.ISOMAX_SHA,external:{pons:process.env.PONS_SHA,ben:process.env.BEN_SHA},sameWdl:true,isomaxMoveWdlOptimalForEveryRoot:true,meanUs,nodesPerPosition:{pons:totalNodes.pons/count,ben:totalNodes.ben/count,isomax:totalNodes.isomax/count},ratios:{isomaxToPonsTime:meanUs.isomax/meanUs.pons,isomaxToBenTime:meanUs.isomax/meanUs.ben,isomaxToPonsWork:totalNodes.isomax/totalNodes.pons,isomaxToBenWork:totalNodes.isomax/totalNodes.ben},maxRssKiB:{pons:Math.max(rss('pons',1)||0,rss('pons',2)||0),ben:Math.max(rss('ben',1)||0,rss('ben',2)||0),isomax:Math.max(rss('isomax',1)||0,rss('isomax',2)||0)}};console.log('=== MOVE_EQ_V2_SUMMARY ===');console.log(JSON.stringify(out));
+          NODE
