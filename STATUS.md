@@ -4,71 +4,83 @@ Active rebuild branch: `work/isomax-jsminsys-rebuild`.
 
 ## Current IsoMax implementation
 
-The public standard-7x6 solver now uses the merged JSMinSys CPC-first implementation.
+The public standard-7x6 solver now uses the merged JSMinSys shared-TT branch-manager execution path.
 
 Pinned dependency:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@25aeb13744a2ed413e660b16b8f3ec2332ae58ec`
+`vendor/jsminsys` -> `iteathen/JSMinSys@d176330ebed2c29d8b71f290f95734b107817d3e`
 
 Public execution:
 
 ```text
 solve7x6 legal replay
-  -> managed JSMinSys file worker
   -> runtime-configured 7x6 RBA geometry
-  -> canonical q
-  -> CPC/NDC exact/bound/restriction closure
-  -> one-ply RBA cofactor
-  -> exact negamax/alpha-beta
-  -> exact cache
+  -> canonical root q
+  -> shared exact RBA TT
+  -> Branch Manager thread
+       -> dependency attachment / Bellman reconciliation / surplus exposure
+  -> N evaluator workers
+       -> direct q claim
+       -> CPC-first structural evaluation
+       -> one-ply RBA cofactor/canonicalization
+       -> exact/scalar publication
+       -> retained first unresolved child
+       -> surplus children through shared ready queue
   -> P0-oriented W/D/L + caller-frame move
 ```
 
-The production search mode is `RBA_AB_CPC_ONLY`. Recursive Four-Front is not
-on the production search path. The pooled/synchronized frontier-response
-extension remains disabled by default because it has not demonstrated additional
-standard-7x6 closure on the maintained controls.
+The TT owns q identity, exact/bound evidence, dependency topology, lifetime,
+ready-queue membership and event membership. The Branch Manager has no separate
+branch table and workers do not request work via per-branch messages.
 
-The current host profile admits exactly one search worker. Requests for more
-workers fail explicitly. Timeout, cancellation or worker failure returns no W/D/L.
+The current shared ready queue is FIFO across q arrivals. Prepared action order
+and CPC evidence determine local retained/surplus order. Global value-priority
+queueing remains an unimplemented optimization.
+
+Public execution supports 1..64 evaluator workers plus one manager thread.
+Worker/core affinity is not fixed by the solver.
 
 ## Qualification
 
-GitHub Actions run `35927386403` passed:
+Connect4 CI run `35930426403` passed:
 
 - Connect4: 57/57 tests;
-- pinned JSMinSys: 122/122 tests;
+- pinned JSMinSys: 125/125 tests;
 - independent physical-oracle W/D/L and deterministic caller-frame move controls;
+- exact agreement at 1/2/4 evaluator workers;
 - reflection controls;
-- genuine CPC-unresolved traversal with Four-Front metrics remaining zero;
-- managed-worker cancellation/deadline cleanup.
+- shared branch-queue activity;
+- managed cancellation/deadline cleanup.
 
-This qualifies the implemented control set. It is not an exhaustive proof over
-all reachable standard states.
+This qualifies the maintained control set. It is not exhaustive proof over all
+reachable standard positions.
 
-The standard Fhourstones harness at `tools/bench-fhourstones.mjs` has now been
-run against this implementation. GitHub Actions run `35927770000` completed
-1/4 official cases: `45461667` returned exact P0 win in 2.722 s with
-1,590,668 search nodes and 1,596,122 cofactors; `35333571`, `13333111`,
-and the empty root each hit the retained 120-second cap and returned no W/D/L.
-The standard benchmark therefore remains incomplete. Evidence is in
-`docs/qualification/2026-09-23-jsminsys-fhourstones.md` and
-`docs/qualification/fhourstones-isomax-jsminsys.json`.
+## Benchmark state
 
-## Legacy rebuild code
+The previously recorded Fhourstones run `35927770000` was produced by the
+superseded one-worker private CPC alpha-beta wrapper. It solved 1/4 official
+cases and is retained only as historical comparison evidence.
 
-The earlier shared-TT / recursive Four-Front RBA implementation remains in
-`components/isometric/execution/**` and `components/isometric/rba/**` only as
-existing differential/component evidence. `components/isometric/solve.mjs`
-does not import or execute that path. It is not the current production solver.
-A later cleanup may archive/remove it after any remaining useful qualification
-coverage is migrated.
+The current Branch Manager/shared-queue implementation has not yet inherited
+that score. Re-run `tools/bench-fhourstones.mjs` before making a current
+Fhourstones claim.
+
+## Legacy code
+
+The older pre-JSMinSys shared-TT / recursive Four-Front implementation remains
+under `components/isometric/execution/**` and `components/isometric/rba/**`
+for differential/component evidence. `components/isometric/solve.mjs` does
+not import or execute it.
+
+Recursive Four-Front is not in the current JSMinSys production evaluator.
+The deleted `components/isometric/jsminsys/solver.mjs` private-alpha-beta
+wrapper is no longer an active second implementation.
 
 ## Claims not yet made
 
 - full empty-root completion;
-- full Fhourstones qualification;
-- multiworker CPC-first search;
+- Branch Manager Fhourstones qualification;
 - performance superiority over external solvers;
+- global highest-value work-queue priority;
 - exhaustive all-state implementation verification;
 - NEES-EXTREME / JMS-SEALED conformance.
