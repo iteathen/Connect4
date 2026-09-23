@@ -22,7 +22,7 @@ old machinery when a simpler realization preserves the required semantics.
 The owner explicitly selects the latest NEES and JSMinSys for this rebuild:
 
 - NEES Draft 0.5: `7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
-- Merged JSMinSys Draft 0.2: `617c5172a938e8df665671919462cb37797043ff`.
+- Merged JSMinSys Draft 0.2: `64ba37a11522b533a1de87942a14921fe690ef86`.
 
 These pins replace older performance-standard pins for the new implementation;
 they do not change game meaning. Dependencies must be reproducibly pinned, not
@@ -48,6 +48,13 @@ The standard-board q content is canonical packed support and both exact
 admitted boundary. Geometry IDs, cell coordinates, row/column and parity remain
 globally meaningful; local pool IDs are never substituted for content equality.
 Hash and slot are locators. Full authoritative content decides equality.
+
+This describes the implemented execution-fixture ABI. The revised native RBA
+layout, deterministic support-local basis, reflection/action transport and
+numeric outcome contract are specified in
+`docs/design/rba-native-integration.md`. Replace all 42-word consumers together
+after coordinate qualification; do not interpret local coordinates as this
+original payload. The current executor assumes canonical q input.
 
 Storage is prepared numeric arrays. Configuration and view construction happen
 before hot execution. Capacity exhaustion is explicit, never a draw, lossy
@@ -157,6 +164,14 @@ Cost records include probes, compared words, memory traffic, atomic operations,
 blocking, copies and generated-code uncertainty. The available NEES Zen 3 cost
 profile must not be reported as measured cycles for this Intel i5-12600K host.
 Unknown costs remain symbolic; blocking has no invented finite cycle cost.
+
+The owner requires total-cycle ledgers for every hot function/loop and the
+composed operation, including all transitive callees and actual loop/path
+counts. Strict JSMinSys applies throughout. Static serial cost, measured
+active CPU cycles and elapsed time are distinct reporting fields. A partly
+symbolic ledger is incomplete cycle qualification, never a fabricated numeric
+total or evidence of speed. Native implementation checkpoints must include
+this accounting alongside semantic qualification.
 
 ## Acceptance and implementation sequence
 

@@ -7,7 +7,7 @@ The owner authorized starting IsoMax implementation from scratch on
 contains only the new worker/TT/BranchManager and their qualification fixtures.
 Read `STATUS.md`, `components/isometric/execution/README.md` and
 `components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
-and pinned merged JSMinSys `617c5172`; these supersede the older runtime-standard
+and pinned merged JSMinSys round 100 `64ba37a1`; these supersede the older runtime-standard
 pin below for this rebuild. Historical routing/implementation descriptions below
 do not authorize importing the old solver or claiming fixtures are game solves.
 Do not modify BSFP. This bounded rebuild branch has the Isometric solver lane as

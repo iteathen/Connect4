@@ -12,7 +12,7 @@ node tools/check-hot-scope.mjs
 ```
 
 Use Node 26.7.0 for the recorded qualification. JSMinSys is pinned as a git
-submodule to `617c5172a938e8df665671919462cb37797043ff`.
+submodule to `64ba37a11522b533a1de87942a14921fe690ef86`.
 The governing performance reference is NEES Draft 0.5 at
 `7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
 

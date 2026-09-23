@@ -1,7 +1,12 @@
 # Native RBA integration — directional review
 
-Status: proposed implementation direction, committed for owner review before
-product implementation. No new RBA code or qualification is claimed here.
+Status: revised after owner review; implementation contract for the first RBA
+checkpoint. The current executor still uses its original 42-word fixture ABI.
+No native RBA code, cycle total or RBA qualification is claimed by this document.
+
+Execution substrate: JSMinSys round 100 at
+`64ba37a11522b533a1de87942a14921fe690ef86`, under NEES Draft 0.5 at
+`7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
 
 ## Intended result
 
@@ -46,27 +51,101 @@ requirement antichain A denotes the upset Up(A). The native coordinate algebra
 is therefore the distributive lattice Upsets(P(S)). A q retains BOTH players'
 coordinates and support, with first-win terminal distinctions.
 
-The current TT stores 20 words per player but does not prescribe an executable
-RBA layout yet. We must not freeze that storage merely because it exists.
-The proposed RBA-native carrier is upset membership in the globally numbered
-standard residual-shape vocabulary, with support determining valid shapes.
-This reuses global shape IDs across workers and avoids translating local pool
-IDs or rebuilding a conventional board. Minimal antichains are an equivalent
-boundary presentation, not another independently maintained game state.
+RBA v0 explicitly selects standard 7x6. Its stable global vocabulary is the
+625 distinct nonempty subsets of the 69 winning lines. Global IDs describe
+meaning; they do not prescribe 625-bit hot coordinates. Freeze the deterministic
+ID ordering in the selected profile and qualify it independently.
 
-Before changing the TT payload meaning, prove/test the normalization mapping
-and transition commutation. Update its contract and all consumers together;
-do not leave two parallel key interpretations. If support-local packing is
-later worthwhile, its basis mapping must be deterministic and qualified.
+The executable basis is support-local. Specifically, P(S) consists of distinct
+nonempty `line minus occupied support` residuals of the 69 lines, ordered by
+global shape ID. It is NOT every globally enumerated shape disjoint from S.
+This distinction is present in the native research prototype
+`rank33-lattice-boundary-control.mjs`. Therefore the basis has at most 69
+elements, needs at most three uint32 lanes per player, and is determined solely
+by S. The observed 21–40-element late fibers are examples, not a universal bound.
+No worker-local pool/class ID contributes to q equality.
 
-Two 32-bit lanes suffice for physical cell masks; they do not suffice for an
-arbitrary residual-lattice coordinate or boundary. Compose as many uint32 lanes
-as the configured domain requires. No accidental 32-shape/64-bit ceiling.
-No BigInt, text identity, per-node aggregate allocation or hot storage growth.
+A cofactor S -> S' maps directly between these deterministic bases. Reflection
+maps global shape IDs and then their local positions. Neither operation
+reconstructs a colored board. Prepare immutable incidence, principal-upset,
+cofactor and reflection data before the hot operation that consumes them.
+Preparation capacity and cost remain visible; do not assume that preparing
+the entire empty-root support cone is free or accept hidden hot preparation.
+
+Qualification must compare local packing with the global-width control at the
+whole operation. Local packing is the first implementation candidate, not an
+unmeasured claim of a 10–20x speedup. Two uint32 lanes suffice for a physical
+cell mask, but not for all q coordinates or boundary artifacts. No BigInt,
+text identity, per-node aggregate allocation or hot storage growth is admitted.
 
 q identity, value-boundary identity, proof identity and execution generation
 remain distinct. A favorable-state comparison must preserve the paired player
 coordinates; independent projections cannot discard their correlation.
+
+### Semantic types (not hot object constructors)
+
+- `ResidualCoord`: one upset of P(S), equivalently one minimal residual
+  requirement antichain. Its elements are residual shapes.
+- `QCoord`: support, both player coordinates and required terminal distinctions.
+- `FrontGenerator`: one paired q coordinate at a fixed support, in favorable
+  P0 order; it is not a single residual requirement.
+- `Front`: the minimal generators of an upward region of paired q coordinates.
+- `FourFront`: LD, LW, UD, UW at one support, all in fixed P0 value coordinates.
+- `ActionFourFront`: those regions indexed by actions in the parent canonical
+  frame; action information survives value closure.
+
+These names specify meanings and prepared numeric spans. They do not authorize
+hot objects, classes or dynamic aggregate construction. Semiring products act
+on FrontGenerators, never on the residual-requirement antichain as though it
+were a value front.
+
+### Cold-selected q-layout contract
+
+Before replacing the payload, one selected standard-7x6 layout owns all offsets,
+lane bounds, support/rank encoding, flag meanings, reflection permutations,
+hash/equality spans and child-output stride. Bind it at preparation, with
+constant-specialized hot functions rather than per-node generic dispatch.
+
+The initial candidate is an eight-word fixed TT envelope: word 0 holds seven
+3-bit heights in bits 0..20 and validated derived rank in bits 21..26; word 1
+holds declared terminal/sentinel flags; words 2..4 and 5..7 hold P0 and P1 local
+coordinates. Rank equals the sum of heights; side is rank parity for admitted
+legal roots. Invalid ranks, padding or flags are rejected at cold ingress.
+Unused coordinate words/tail bits and reserved header bits are zero. TT hashing
+and exact comparison cover all eight words; front operators visit only the
+active `ceil(|P(S)|/32)` lanes. Hash remains only a locator. Basis/version is a
+session-level invariant, not a second mutable q authority.
+
+This candidate replaces 42 everywhere in one qualified payload change: TT,
+worker `7 * stride` scratch, root ingress, rank extraction, manager polarity,
+fixtures and reporting. No mixed old/new interpretation or compatibility shim.
+The fixed envelope avoids per-row allocation while local front operators avoid
+global-width work; its retained padding cost must still be measured.
+
+### Canonical frame and action transport
+
+The existing executor expects canonical input; it does not canonicalize q.
+Root ingress and the native kernel must establish this precondition. Compare
+packed support first as in JSMinSys round 098. If support ties, compare complete
+reflected P0 then P1 coordinates in their deterministic local bases. Exact
+full-q ties select orientation 0. Flags reflect according to their semantics.
+Do not use proof/retrieval orientation as gameplay orientation.
+
+Columns are 0..6 in the parent canonical frame. An edge action and every
+ActionFourFront index use that frame. A child canonicalization flip transports
+subsequent child actions by `c -> 6-c`; it does not change the parent edge's
+landing column. Macro continuations compose orientation flips by XOR. Support
+ties require the secondary coordinate comparison, not an arbitrary worker choice.
+
+At an external root, transport candidate actions back to the caller frame
+BEFORE applying the required center-first tie order `[3,2,4,1,5,0,6]`. Merely
+mirroring one canonical tie-selected witness is insufficient. Store root
+orientation as execution context and let witness reconciliation account for
+caller-frame priority; q equality remains unchanged. Fully symmetric roots
+can have tied moves: require deterministic caller-frame selection and correct
+value, not impossible strict reflection covariance of a chosen off-center tie.
+The current executor's final-only witness mirror needs qualification/repair
+when this native contract is integrated.
 
 ## Algebra to implement
 
@@ -98,6 +177,64 @@ coordinates; independent projections cannot discard their correlation.
 Ordinary value closure is not NDC proof closure. Reservation, deadline,
 intervention and realizability premises are not erased by an RBA value result.
 
+### Fixed polarity and four-front diamond
+
+All values are P0-valued (-1 loss, 0 draw, +1 win), independent of mover.
+Favorable order at the same support is `U0 subset U0'` and `U1 superset U1'`.
+Join is `(U0 union U0', U1 intersection U1')`; meet is its dual. Complementing
+P1 within the valid basis mask converts this to ordinary subset bit order,
+provided padding is masked. Both coordinates retain their correlation.
+
+LD means lower >= DRAW; LW lower >= WIN; UD upper >= DRAW; UW upper >= WIN.
+Required inclusions are `LW subset LD`, `LW subset UW`, `LD subset UD`, and
+`UW subset UD`. LD and UW are generally incomparable. Test this diamond rather
+than imposing a four-element chain. P0 choice takes componentwise maxima of
+scalar interval endpoints (union of threshold regions); P1 takes minima
+(intersection). There is no implicit mover-relative negation.
+
+### Terminal-extended cofactor
+
+The coordinate cofactor is total into the child upset lattice extended by a
+fresh WIN_NOW top, distinct from the ordinary full upset. Own singleton
+completion maps there. On a legal paired transition it short-circuits the game
+immediately: no ordinary child q is interned and no opposite-coordinate later
+completion competes with it. Already terminal roots cannot produce moves.
+
+For an ordinary child target V, the right adjoint joins parent principals whose
+cofactor image is <= V; terminal-producing principals are excluded by that
+inequality. For target WIN_NOW, the right adjoint is the full parent upset.
+For >= principal covers, a terminal-producing principal covers every ordinary
+target and WIN_NOW. No union of exclusively nonterminal images reaches WIN_NOW.
+An empty ordinary target has the empty-coordinate cover. Absorb minimal covers
+with these rules, never by silently treating full ordinary membership as top.
+
+### Boundary storage and kernel outcomes
+
+The first producer uses worker-private, preallocated boundary arenas. A worker
+owns reservation, construction and reuse; live continuation/front references
+prevent reuse until released. Cancellation discards only worker-owned artifacts.
+No arena reference is published in TT topology. The TT owns q and exact values;
+an arena owns derived boundary artifacts, not a second q identity/value authority.
+Duplicate construction is measured before considering shared immutable arenas.
+
+Before attaching an RBA producer, extend the numeric kernel protocol explicitly:
+
+| Outcome | Meaning and disposition |
+|---|---|
+| EXACT_P1 / EXACT_DRAW / EXACT_P0 | Exact value, only after semantic closure |
+| BRANCH | Genuine unresolved choice, published through existing ownership |
+| CONTINUE | Retained local execution with a valid next step |
+| BOUNDARY_INCOMPLETE | Bounded producer stopped before coverage; no exact value |
+| BOUNDARY_CAPACITY | Arena exhausted; explicit failure or declared fallback |
+| QUERY_UNCOVERED | Valid completed artifact does not cover this query |
+| FALLBACK_REQUIRED / FALLBACK_SELECTED | Explicit policy decision and separate work attribution |
+| CANCELLED / INTERRUPTED | Stop or discard private continuation at its control boundary |
+
+Assign distinct numeric codes and test worker/manager/host handling together.
+The existing 1..5 protocol is not yet this extension. Non-WDL outcomes cannot
+be coerced into CONTINUE, CONTRACT, a draw or a retry that resets the deadline.
+Fallback requires explicit admission and uses these same native coordinates.
+
 ## Execution integration
 
 Workers read their claimed q directly from shared TT storage. The native kernel
@@ -115,6 +252,39 @@ Boundary-construction capacity and q execution capacity are separate resources.
 Prepare both before entry and preserve explicit incomplete/failure outcomes.
 Do not increase the 120-second solve ceiling to conceal an algebraic or
 representation explosion.
+
+## Strict JSMinSys and total-cycle qualification
+
+Every E0/E1/E2 path and transitive helper must use only the pinned JSMinSys
+admitted data, operations and blocks. Compose domain operations from that
+substrate; no unrestricted helper escape, hand-written native escape or silent
+deviation. Cold preparation/reporting is explicitly outside this scope. Extend
+the mechanical call-graph check to the actual kernel; an open call boundary is
+not a JSMinSys seal. Preserve hot-contract comments through all callees.
+
+Each hot function, loop and complete operation requires a NEES cycle ledger:
+executed operation counts, loop trip counts, conditional/short-circuit paths,
+transitive calls, loads/stores, address work, branches, atomics, failed claims,
+publication, retirement and reclamation. Produce path totals and the whole
+worker–TT–manager total, without counting a helper both inline and as a call
+body. Report fixed/ranged terms, unresolved symbols and unbounded waits.
+Unknown cost is never zero. Lowering must be supported on the stated Node/V8,
+CPU and locality/contention scenario; Zen 3 reference costs are not measured
+Intel i5-12600K cycles.
+
+Record both the NEES static serial total and, where hardware/OS support allows,
+measured active CPU cycles for the complete operation. Sum active cycles across
+workers and manager separately from critical-path elapsed time and blocked
+time. Do not derive actual cycles by multiplying wall time by nominal GHz.
+Unavailable counters or unresolved lowering mean an incomplete cycle result,
+not permission to claim a closed total. Record instrumentation overhead and use
+uninstrumented timing controls; no per-node clock calls or rich hot reporting.
+
+Compare cycles per operation AND total qualified work/cycles, so reduced
+enumeration can justify a locally dearer operation. Cycle accounting is part
+of each implementation checkpoint, not a deferred documentation exercise.
+The current executor has only symbolic accounting; total-cycle qualification
+remains outstanding and is not established by repinning JSMinSys.
 
 ## Implementation and qualification sequence
 
@@ -137,9 +307,13 @@ representation explosion.
    transitive helpers; qualify the complete unit under NEES Draft 0.5 and
    JSMinSys, without treating fixture tests as full conformance.
 
-The first code checkpoint should establish the native coordinate/cofactor
-representation and its independent tests. It must not be presented as completion
-of the four-front boundary producer. Each subsequent coherent unit is committed.
+The first code checkpoint is native coordinates and cofactors only, with
+independent physical-line differential tests, full first-win controls, reflection,
+cross-worker deterministic bases, padding/bit-31/>64-bit cases, exact equality
+and cycle accounting. Prove transition commutation before changing the active
+TT payload. When changing that payload, qualify every consumer together. Do not
+start four-front construction until this representation checkpoint passes;
+implement the numeric protocol before its producer. Commit each coherent unit.
 
 ## Decisions this review should catch
 

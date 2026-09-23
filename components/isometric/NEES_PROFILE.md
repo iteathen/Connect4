@@ -1,7 +1,7 @@
 # NEES Draft 0.5 — fresh execution components
 
 NEES revision: `7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
-JSMinSys revision: `617c5172a938e8df665671919462cb37797043ff`.
+JSMinSys revision: `64ba37a11522b533a1de87942a14921fe690ef86`.
 Runtime: Node 26.7.0, V8 14.6.202.34-node.28, Windows x64, Intel i5-12600K.
 Semantic owner: retained C4 gameplay specifications plus current execution API.
 
@@ -63,6 +63,24 @@ are candidates, not assertions that a rewrite would improve elapsed time.
 
 ## Symbolic operation accounting
 
+Owner requirement for the native rebuild: total-cycle accounting covers every
+hot function/loop and its transitive helpers, composed over worker, TT, manager
+and native kernel. Strict pinned JSMinSys vocabulary applies to that whole scope.
+The current symbolic baseline below is incomplete, not satisfaction of this
+requirement. See `docs/design/rba-native-integration.md` for the checkpoint
+contract. Keep NEES serial-ledger totals distinct from measured active CPU
+cycles, total parallel CPU work, blocked time and critical-path elapsed time.
+Unknowns cannot be zeroed to produce a numeric total. No per-node timing or
+rich diagnostic work may be introduced to collect these measurements.
+
+JSMinSys was repinned from round 096 to round 100 before native RBA work.
+Round 098 support-first canonicalization applies to the new q design. Round
+097 immutable grouped-word reuse is conditional on actual incidence runs.
+Round 099's global singleton-prefix projection cannot be applied directly to
+local upset bit positions; singleton indices require the prepared local basis.
+Round 100 does not establish additional performance gains. Historical evidence
+retains the revision it actually tested.
+
 No source operator has been assigned a fabricated native instruction latency.
 For an intern with P candidate rows and C compared words, key work is 42 mix
 iterations, 42 input-word reads for hashing, C key comparisons (up to 42P),
@@ -89,3 +107,9 @@ roots, hard roots, contention, memory pressure and failure cleanup.
 `node tools/check-hot-scope.mjs`: no forbidden materialization/calls found in
 the declared component traversal; the deliberate transitive allocation is caught.
 `node tools/bench-execution.mjs`: cold ranked-DAG baseline, not a solver score.
+
+Round-100 repin check (2026-09-23, runtime above): 26/26 executor tests and
+75/75 pinned JSMinSys tests passed. The detector visited 23 functions with no
+reported violations and still reported the open native `evaluate` boundary.
+These results qualify the dependency update at the existing fixture scope;
+they establish neither RBA performance nor closed total-cycle accounting.
