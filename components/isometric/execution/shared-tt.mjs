@@ -10,6 +10,7 @@ export const READY_COUNT = 13;
 export const ROOT_REFLECTED = 14;
 export const CAPACITY = 1, CONFLICT = 2, GENERATION = 3, CONTRACT = 4;
 export const WORKER_DIED = 5, DEADLINE = 6, CANCELLED = 7;
+export const BOUND_UPDATES=0, PRUNED_EDGES=1, TT_HITS=2, TT_INSERTS=3, TT_HIGH_WATER=4;
 
 // COLD: all view/object construction and initialization precedes execution.
 export function createTT7x6(capacity = 4096, bucketCount = 4096) {
@@ -22,15 +23,16 @@ export function createTT7x6(capacity = 4096, bucketCount = 4096) {
   const i32 = n => new Int32Array(new SharedArrayBuffer(n * 4));
   const t = {
     capacity, bucketMask: bucketCount - 1,
-    control: i32(16), buckets: i32(bucketCount), keys: u32(capacity * KEY_WORDS),
+    control: i32(16), stats:u32(5), buckets: i32(bucketCount), keys: u32(capacity * KEY_WORDS),
     generation: u32(capacity), live: u32(capacity), refs: u32(capacity),
-    execution: u32(capacity), exact: u32(capacity), phase: u32(capacity),
+    execution: u32(capacity), exact: u32(capacity), lower:u32(capacity), upper:u32(capacity), phase: u32(capacity),
     link: i32(capacity), bucket: u32(capacity), readyNext: i32(capacity), readyPrev: i32(capacity),
     readyGeneration: u32(capacity), eventNext: i32(capacity), event: u32(capacity),
     count: u32(capacity), parentHead: i32(capacity), witness: i32(capacity),
     child: i32(capacity * ACTIONS), childGeneration: u32(capacity * ACTIONS),
     edgeNext: i32(capacity * ACTIONS), edgePrev: i32(capacity * ACTIONS),
     edgeAction: u32(capacity * ACTIONS), edgeAttached: u32(capacity * ACTIONS),
+    edgeLower:u32(capacity*ACTIONS), edgeUpper:u32(capacity*ACTIONS),
   };
   t.buckets.fill(-1); t.parentHead.fill(-1); t.witness.fill(-1); t.child.fill(-1);
   t.control[READY_HEAD] = t.control[READY_TAIL] = -1;
@@ -75,6 +77,7 @@ export function intern7x6(t, words, offset) {
     if (w === KEY_WORDS) {
       if (t.refs[q] === 0xffffffff) { fail(t, CAPACITY); return -1; }
       t.refs[q]++;
+      t.stats[TT_HITS]++;
       return q;
     }
   }
@@ -88,10 +91,13 @@ export function intern7x6(t, words, offset) {
   for (let w = 0; w < KEY_WORDS; w++) t.keys[base + w] = words[offset + w];
   t.generation[q]++;
   t.live[q] = 1; t.refs[q] = 1; t.exact[q] = 0; t.phase[q] = 0;
+  t.lower[q]=1;t.upper[q]=3;
   t.execution[q] = 0; t.count[q] = 0; t.parentHead[q] = -1;
   t.event[q] = 0; t.witness[q] = -1;
   t.bucket[q] = bucket; t.link[q] = t.buckets[bucket]; t.buckets[bucket] = q;
   t.control[LIVE]++;
+  t.stats[TT_INSERTS]++;
+  if(t.control[LIVE]>t.stats[TT_HIGH_WATER])t.stats[TT_HIGH_WATER]=t.control[LIVE];
   return q;
 }
 export function retain(t, q, generation) {
@@ -186,10 +192,21 @@ export function takeEvent(t) {
   return q;
 }
 export function setExact(t, q, code) {
-  if (code < 1 || code > 3) return fail(t, CONTRACT);
-  if (t.exact[q] && t.exact[q] !== code) return fail(t, CONFLICT);
-  if (t.exact[q] === code) return 1;
-  t.exact[q] = code;
+  return tighten7x6(t,q,code,code);
+}
+
+// Exact evidence only: these are P0 value bounds, never alpha/beta windows.
+// Shared q is the sole authority. Full identity permits intersection across
+// every incoming dependency; disjoint evidence fails, never overwrites a fact.
+export function tighten7x6(t,q,lower,upper){
+  if(lower<1||upper>3||lower>upper||(lower|0)!==lower||(upper|0)!==upper)return fail(t,CONTRACT);
+  if(lower<t.lower[q])lower=t.lower[q];
+  if(upper>t.upper[q])upper=t.upper[q];
+  if(lower>upper)return fail(t,CONFLICT);
+  if(lower===t.lower[q]&&upper===t.upper[q])return 1;
+  t.lower[q]=lower;t.upper[q]=upper;
+  if(lower===upper)t.exact[q]=lower;
+  t.stats[BOUND_UPDATES]++;
   signal(t, q);
   return 1;
 }

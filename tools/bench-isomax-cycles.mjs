@@ -55,7 +55,7 @@ try{
   batch('two-ply four-front construction',100,()=>buildFour7x6(g,arena,root.words[0],0,2));
   batch('four-front query',20000,()=>queryFour7x6(arena,0,root.words,0));
   const preparedSolve=()=>{
-    table.exact[q]=0;table.phase[q]=0;table.control[tt.DONE]=0;
+    table.exact[q]=0;table.lower[q]=1;table.upper[q]=3;table.phase[q]=0;table.control[tt.DONE]=0;
     tt.enqueue(table,q);
     while(!table.control[tt.DONE]&&!table.control[tt.STOP]){workerStep7x6(table,worker,evaluate);managerStep7x6(table);}
     if(table.control[tt.ERROR])throw Error(`prepared RBA closure failed: ${table.control[tt.ERROR]}`);
