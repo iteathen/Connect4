@@ -3,7 +3,7 @@ import {
   prepareConnect4RbaGeometry,
   prepareConnect4CpcRbaEvaluator,
   evaluateConnect4CpcRbaTt32,
-  publishConnect4RbaEvaluation32,
+  publishConnect4CpcRbaEvaluation32,
   prepareRbaBranchWorker32,
   runRbaBranchWorkerLoop32,
   RBA_TT_ROOT,
@@ -13,6 +13,7 @@ const table=workerData.table;
 const g=prepareConnect4RbaGeometry({columns:7,rows:6});
 const witness=new Int32Array(workerData.witnessBuffer);
 const metrics=new Float64Array(workerData.metricsBuffer);
+const resetTargets=new Int32Array(workerData.resetBuffer);
 const state=prepareConnect4CpcRbaEvaluator({
   geometry:g,
   cpcFrontierResponse:!!workerData.cpcFrontierResponse,
@@ -23,6 +24,7 @@ const worker=prepareRbaBranchWorker32({
   workerCount:workerData.workers,
   readyTarget:workerData.readyTarget??workerData.workers*2,
   state,
+  resetTargets,
 });
 const context={
   rootQ:table.control[RBA_TT_ROOT],
@@ -49,7 +51,7 @@ const evaluate=(t,q,s,expose,c)=>{
   return code;
 };
 const publish=(t,q,owner,s,code,c)=>
-  publishConnect4RbaEvaluation32(
+  publishConnect4CpcRbaEvaluation32(
     t,q,owner,s,code,c.rootQ,c.witness,0,
   );
 
