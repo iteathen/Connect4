@@ -69,6 +69,8 @@ export async function solve7x6(moves,{
 
   const witness=new Int32Array(new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT));
   witness[0]=-2;
+  const resetTargets=new Int32Array(new SharedArrayBuffer(workers*Int32Array.BYTES_PER_ELEMENT));
+  resetTargets.fill(-2);
   const metricViews=createMetricViews32(workers,METRIC_WIDTH);
   const metricOut=new Float64Array(METRIC_WIDTH);
   const session=createManagedThreadSession32({
@@ -90,6 +92,7 @@ export async function solve7x6(moves,{
       {
         table,
         witnessBuffer:witness.buffer,
+        resetBuffer:resetTargets.buffer,
         rootReflected:root.reflected,
         budget:managerBudget,
       },
@@ -102,6 +105,7 @@ export async function solve7x6(moves,{
         {
           table,
           witnessBuffer:witness.buffer,
+          resetBuffer:resetTargets.buffer,
           metricsBuffer:metricViews[i].buffer,
           owner:i+2,
           workers,
@@ -156,6 +160,7 @@ export async function solve7x6(moves,{
     workersExited:host.workersExited,
     sharedBytes:sharedViewBytes32(table)+
       witness.byteLength+
+      resetTargets.byteLength+
       metricViews.reduce((n,v)=>n+v.byteLength,0),
     requestedWorkers:workers,
     workersUsed:workers,
