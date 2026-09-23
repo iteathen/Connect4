@@ -1,43 +1,84 @@
 # IsoMax JSMinSys implementation
 
 This directory is the current Connect4 application adapter for the merged
-JSMinSys CPC-first IsoMax search.
+JSMinSys shared-TT CPC-first IsoMax execution path.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@25aeb13744a2ed413e660b16b8f3ec2332ae58ec`
+`vendor/jsminsys` -> `iteathen/JSMinSys@d176330ebed2c29d8b71f290f95734b107817d3e`
 
-## Execution path
+## Execution topology
 
 ```text
 solve7x6 legal replay
-  -> JSMinSys managed file-worker lifecycle
   -> runtime-configured 7x6 RBA geometry
-  -> replay -> canonical RBA q
-  -> CPC/NDC exact/bound/restriction closure
-  -> one-ply RBA cofactor
-  -> exact negamax/alpha-beta
-  -> exact direct-mapped cache
-  -> caller-frame W/D/L + move
+  -> canonical root q + basis
+  -> shared RBA TT
+       ├─ exact q identity / bounds / dependencies
+       ├─ ready work queue
+       └─ event queue
+  -> one Branch Manager thread
+       └─ attach/reconcile events; expose surplus dependencies
+  -> N evaluator workers
+       ├─ claim ready q directly
+       ├─ CPC-first structural evaluation
+       ├─ one-ply RBA cofactors
+       ├─ publish exact/scalar child evidence
+       ├─ retain at most one unresolved child directly
+       └─ leave surplus unresolved children for manager exposure
+  -> exact root W/D/L + deterministic caller-frame move
 ```
 
-Production mode is `RBA_AB_CPC_ONLY`. Recursive Four-Front and the optional
-pooled/synchronized frontier-response extension remain library qualification
-paths and are not enabled by the default Connect4 solver.
+There is no per-branch worker message/RPC. The TT is the sole q/work/dependency
+authority. The Branch Manager does not manufacture game work and does not own a
+second task table.
 
-Connect4 owns legal replay ingress semantics, public result orientation,
-benchmark/oracle expectations and the 120-second host deadline. JSMinSys owns
-the reusable geometry, q/cofactor/canonicalization, CPC closure, alpha-beta,
-exact cache and managed thread lifecycle used here.
+## Work queue
 
-## Current execution profile
+The shared queue is the intrusive ready-q list inside JSMinSys
+`addons/rba-tt32.mjs`. Generation, refs, execution ownership, queue membership
+and q lifetime are carried by the same TT row.
 
-The implementation currently uses one exact search worker. `workers:1` is the
-only admitted public profile. Requests for more workers fail explicitly rather
-than silently duplicating search or pretending to provide shared parallel
-execution.
+The publishing worker retains the first runnable child in prepared action order.
+After manager attachment/reconciliation, remaining unresolved children are
+eligible for the shared ready queue and may be claimed by any evaluator worker.
 
-Public W/D/L is P0-oriented:
+The current queue is FIFO across published q arrivals. Prepared action order and
+CPC bounds determine local publication/retained-child order. A stronger global
+value-priority queue is a future optimization, not claimed by this checkpoint.
+
+## Branch Manager ownership
+
+Reusable scheduling mechanics live in JSMinSys
+`addons/rba-branch-manager.mjs`.
+
+Connect4 supplies only its domain callbacks:
+
+- `evaluateConnect4CpcRbaTt32`;
+- `publishConnect4RbaEvaluation32`;
+- `reconcileConnect4RbaEvent32`.
+
+The manager executes reconciliation under the TT transaction. CPC/RBA game
+evaluation runs outside that transaction.
+
+## Current profile
+
+Public `solve7x6` supports 1..64 evaluator workers. The manager is a separate
+thread and worker IDs are execution ownership only; they are not tied to fixed
+cores or semantic branches.
+
+Default shared TT:
+
+```text
+capacity    65,536 q rows
+buckets     65,536
+manager turn budget 64 events
+ready target        2 * workers
+```
+
+These are resource/scheduling defaults, not semantic limits.
+
+Public W/D/L remains P0-oriented:
 
 ```text
 +1 = P0 win
@@ -45,21 +86,20 @@ Public W/D/L is P0-oriented:
 -1 = P1 win
 ```
 
-Timeout, cancellation and worker failure return no W/D/L.
+Timeout, cancellation, capacity/contract failure and worker failure return no
+W/D/L.
 
 ## Qualification
 
-GitHub Actions run `35927386403`:
+Connect4 CI run `35930426403`:
 
 - Connect4: 57/57 tests passed.
-- Pinned JSMinSys: 122/122 tests passed.
-- Independent physical-oracle controls agree on late 7x6 positions and mirrored
-  caller-frame witnesses.
-- A genuinely CPC-unresolved rank-28 control traverses the exact alpha-beta path
-  with Four-Front calls remaining zero.
-- Cancellation/deadline cleanup is fail-closed and returns no value.
+- Pinned JSMinSys: 125/125 tests passed.
+- Maintained late 7x6 oracle controls agree at 1/2/4 evaluator workers.
+- Mirrored caller-frame witnesses agree.
+- Shared branch queue is exercised by real workers.
+- Deadline/cancellation cleanup is fail-closed.
 
-The standard Fhourstones harness is `tools/bench-fhourstones.mjs`. It now
-targets this implementation and requires all four official positions to return
-`EXACT` with the retained expected W/D/L values. A full Fhourstones result is
-not claimed until that harness completes.
+The earlier single-worker private-alpha-beta Fhourstones result remains historical
+comparison evidence only. The branch-manager implementation must be benchmarked
+separately before assigning it that result.
