@@ -4,10 +4,10 @@ import {readFileSync} from 'node:fs';
 import {solve7x6} from '../components/isometric/solve.mjs';
 
 test('unresolved IsoMax positions continue only through CPC-first exact alpha-beta',async()=>{
-  const moves=[1,3,2,0,4,6,1,0,2,4,5,2,2,3,1,1,1,5,1,3,2,4,6,0,4,4,6,2,0,4,3,3];
+  const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const r=await solve7x6(moves,{workers:1,timeoutMs:5000});
   assert.equal(r.status,'EXACT',JSON.stringify(r));
-  assert.equal(r.rootWdl,-1);
+  assert.equal(r.rootWdl,1);
   assert.equal(r.cleanup,true);
   assert.ok(r.metrics.nodes>0);
   assert.ok(r.metrics.cofactors>0);
