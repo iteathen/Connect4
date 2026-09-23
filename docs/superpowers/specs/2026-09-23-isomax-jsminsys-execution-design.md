@@ -1,8 +1,9 @@
 # IsoMax JSMinSys execution rebuild
 
 Status: execution components implemented under the owner's build instruction.
-Native-kernel integration and complete conformance remain unqualified; see
-`components/isometric/NEES_PROFILE.md` for evidence and limits.
+Native RBA integration now exists; see
+`docs/qualification/2026-09-23-native-rba.md` for evidence and limits.
+Complete NEES/JMS certification remains unclaimed.
 
 ## Purpose and retained authority
 
@@ -44,17 +45,17 @@ execution ownership, and the lifetime of each addressable slot. There is no
 manager-private q dictionary, occurrence pool or independent work-slot state.
 
 The standard-board q content is canonical packed support and both exact
-20-word residual sets, plus terminal/sentinel distinctions required at the
+three-word local-upset coordinates, plus terminal/sentinel distinctions required at the
 admitted boundary. Geometry IDs, cell coordinates, row/column and parity remain
 globally meaningful; local pool IDs are never substituted for content equality.
 Hash and slot are locators. Full authoritative content decides equality.
 
-This describes the implemented execution-fixture ABI. The revised native RBA
+The native RBA
 layout, deterministic support-local basis, reflection/action transport and
 numeric outcome contract are specified in
-`docs/design/rba-native-integration.md`. Replace all 42-word consumers together
-after coordinate qualification; do not interpret local coordinates as this
-original payload. The current executor assumes canonical q input.
+`docs/design/rba-native-integration.md`. The original 42-word fixture ABI was
+replaced across all consumers after coordinate qualification. The executor
+assumes canonical q input; native ingress and child publication establish it.
 
 Storage is prepared numeric arrays. Configuration and view construction happen
 before hot execution. Capacity exhaustion is explicit, never a draw, lossy

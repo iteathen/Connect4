@@ -4,7 +4,9 @@
 
 The owner authorized starting IsoMax implementation from scratch on
 `work/isomax-jsminsys-rebuild`, preserving gameplay specs. This branch currently
-contains only the new worker/TT/BranchManager and their qualification fixtures.
+contains the new worker/TT/BranchManager and native RBA solver. Read
+`docs/qualification/2026-09-23-native-rba.md` for measured cycle totals and the
+limits of its semantic/performance qualification.
 Read `STATUS.md`, `components/isometric/execution/README.md` and
 `components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
 and pinned merged JSMinSys round 100 `64ba37a1`; these supersede the older runtime-standard

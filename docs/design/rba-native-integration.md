@@ -147,8 +147,8 @@ orientation as execution context and let witness reconciliation account for
 caller-frame priority; q equality remains unchanged. Fully symmetric roots
 can have tied moves: require deterministic caller-frame selection and correct
 value, not impossible strict reflection covariance of a chosen off-center tie.
-The current executor's final-only witness mirror needs qualification/repair
-when this native contract is integrated.
+The executor now applies caller-frame priority before final witness transport;
+a regression test covers the formerly incorrect final-only mirror behavior.
 
 ## Algebra to implement
 
@@ -289,8 +289,9 @@ uninstrumented timing controls; no per-node clock calls or rich hot reporting.
 Compare cycles per operation AND total qualified work/cycles, so reduced
 enumeration can justify a locally dearer operation. Cycle accounting is part
 of each implementation checkpoint, not a deferred documentation exercise.
-The current executor has only symbolic accounting; total-cycle qualification
-remains outstanding and is not established by repinning JSMinSys.
+The executor now has measured total-cycle qualification for declared native
+scenarios, alongside the analytical symbolic ledger. See the native qualification
+report; neither repinning JSMinSys nor timing one fixture certifies every path.
 
 ## Implementation and qualification sequence
 

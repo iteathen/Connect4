@@ -26,10 +26,13 @@ Substrate: Node 26.7, JSMinSys round 100, NEES Draft 0.5.
   No manager evaluation or conventional board recursion. Test legal late roots
   with an independent oracle at 1/2/4 workers, first-win/mirror/tie behavior,
   boundary exhaustion, cancellation and unchanged <=120s deadline.
-- [ ] Qualification: complete transitive JSMinSys check, per-operation cycle
+- [x] Qualification: complete transitive structural JSMinSys check, per-operation cycle
   ledger and whole-operation CPU-cycle measurement where supported. Distinguish
   actual hardware counts, static reference estimates, unresolved terms and
   elapsed time. Include charged basis derivation, contention and cleanup.
+  Evidence: `docs/qualification/2026-09-23-native-rba.md`. Numeric measured totals
+  are complete for the reported operations; analytical lowering terms remain
+  explicit unknowns. Full NEES/JMS certification is not claimed.
 
 Each unit: write behavioral tests, observe missing behavior, implement, run
 targeted tests then complete suite, review, document, commit and push after a
