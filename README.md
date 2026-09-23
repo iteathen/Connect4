@@ -25,10 +25,10 @@ The governing performance reference is NEES Draft 0.5 at
 See [execution API](components/isometric/execution/README.md) and
 [NEES scope and outstanding qualification](components/isometric/NEES_PROFILE.md).
 Move columns are zero-based. The solve timeout is at most 120 seconds. The
-default boundary horizon is two plies. Uncovered queries and construction budget
-exhaustion return INCOMPLETE with no WDL; arena exhaustion fails explicitly.
-General retained RBA refinement/closure is still missing. This is a bounded
-RBA solver implementation, not a completed full-game solver.
+default boundary horizon is two plies. Nonclosing queries continue through native
+RBA cofactors and shared-TT value intervals; no alternate solver is used.
+Construction budget/capacity exhaustion remains explicit. Full boundary-artifact
+refinement/recomposition is still missing; empty-board completion is unproven.
 Oracle qualification currently covers bounded legal positions and finite RBA
 fibers; an empty-board solve or general performance superiority is not claimed.
 The tests' separate ranked-DAG kernel remains execution infrastructure only.

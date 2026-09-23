@@ -241,14 +241,15 @@ There is no fallback admission or selection outcome.
 
 Workers read their claimed q directly from shared TT storage. The native kernel
 uses exact terminal/boundary consequences. The manager does not evaluate the game
-or reconstruct q. The current bounded native kernel stops incomplete when a
-query is not closed; it does not manufacture search tasks to recover coverage.
+or reconstruct q. Nonclosing queries retain state/action intervals and continue
+via exact native cofactors and shared-TT dependencies. This is the primary RBA
+solver, not an alternate solver or representation. See rba-native-continuation.md.
 
 Owner direction supersedes the historical permission for recursive fallback.
-Recursive reference solving is test-only. General production continuation must
-retain and compose qualified RBA partial bounds/action fronts under their exact
-ownership and identity contracts; that integration is still missing. Returning
-INCOMPLETE exposes this gap and does not itself implement the missing solver.
+Independent recursive reference solving is test-only. Production continuation
+retains scalar state/action bounds in the existing shared TT and propagates them
+through RBA child q dependencies. Full boundary-artifact retention/recomposition
+remains unimplemented; no claim is made that scalar propagation implements it.
 
 Boundary-construction capacity and q execution capacity are separate resources.
 Prepare both before entry and preserve explicit incomplete/failure outcomes.

@@ -33,7 +33,7 @@ export class IsoMaxBranchManager {
     t.control[ROOT_REFLECTED] = reflected ? 1 : 0;
     enqueue(t, root);
     const threads = [], exits = [], errors = [];
-    const metricViews=Array.from({length:o.workers},()=>new Float64Array(new SharedArrayBuffer(7*8)));
+    const metricViews=Array.from({length:o.workers},()=>new Float64Array(new SharedArrayBuffer(10*8)));
     let exited = 0, finished = false;
     let timer, poll;
     const abort = () => fail(t, CANCELLED);
@@ -103,7 +103,7 @@ export class IsoMaxBranchManager {
       errorCode, errors, elapsedMs: performance.now() - start,
       metrics:metricViews.reduce((sum,v)=>{
         const names=['claims','branches','continuations',
-          'boundaryCalls','boundaryClosures','boundarySteps','boundaryFailures'];
+          'boundaryCalls','boundaryClosures','boundarySteps','boundaryFailures','transitions','actionClosures','actionsPruned'];
         names.forEach((name,i)=>{sum[name]=(sum[name]??0)+v[i];});return sum;
       },{boundsUpdates:t.stats[BOUND_UPDATES],prunedEdges:t.stats[PRUNED_EDGES],
         ttHits:t.stats[TT_HITS],ttInserts:t.stats[TT_INSERTS],ttHighWater:t.stats[TT_HIGH_WATER]}),

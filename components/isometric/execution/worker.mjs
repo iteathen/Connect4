@@ -12,7 +12,8 @@ export function prepareWorker7x6(owner, workerCount) {
     lower:1,upper:3,childMask:127,
     actionLower:new Uint32Array(ACTIONS).fill(1),actionUpper:new Uint32Array(ACTIONS).fill(3),
     actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0,
-    boundaryCalls:0,boundaryClosures:0,boundarySteps:0,boundaryFailures:0,boundaryStatus:0 };
+    boundaryCalls:0,boundaryClosures:0,boundarySteps:0,boundaryFailures:0,boundaryStatus:0,
+    transitions:0,actionClosures:0,actionsPruned:0 };
 }
 
 // E2 + trusted native-kernel boundary. PRESERVE this contract in callees.
@@ -118,5 +119,6 @@ export function runWorkerLoop7x6(t,w,evaluate,metrics){
     metrics[0]=w.claims;metrics[1]=w.branches;metrics[2]=w.continuations;
     metrics[3]=w.boundaryCalls;metrics[4]=w.boundaryClosures;
     metrics[5]=w.boundarySteps;metrics[6]=w.boundaryFailures;
+    metrics[7]=w.transitions;metrics[8]=w.actionClosures;metrics[9]=w.actionsPruned;
   }
 }

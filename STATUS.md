@@ -12,8 +12,9 @@ oracle comparison, abort/death/deadline/capacity controls, static hot-call-graph
 detector and deliberately bad detector control.
 
 Native standard-7x6 RBA coordinates/cofactors and bounded four-front closure are
-implemented. Production fallback has been removed by owner direction; no switch
-can enable recursive game search. Real covered late-root oracle tests pass at 1/2/4 workers. The selected
+implemented. Production fallback remains removed; unresolved queries now continue
+through RBA cofactors and shared-TT interval dependencies. Real late-root oracle
+tests, including continued traversal, pass at 1/2/4 workers. The selected
 eight-word q layout replaces all executor payload consumers; external root
 tie priority is applied in caller orientation. Native static traversal has no
 open call boundary or detected forbidden materialization/text (not a JMS seal).
@@ -22,9 +23,10 @@ The worker-private bounded four-front producer is implemented: exact principal
 preimages/right adjoints, terminal guards, streamed local/global skyline
 composition, action fronts and exact interval query. Complete small-support
 fibers pass an independent residual-array oracle. A complete-horizon native
-solve test closes through the fronts. Uncovered queries and exhausted construction
-budgets return INCOMPLETE; capacity exhaustion fails explicitly, never WDL.
-General retained RBA refinement and full-game closure are NOT implemented.
+solve test closes through the fronts. Nonclosing queries retain state/action
+bounds and publish relevant RBA children. Exhausted construction budgets return
+INCOMPLETE; capacity exhaustion fails explicitly, never WDL. Full boundary-artifact
+refinement/recomposition is NOT implemented. Empty-board completion is unproven.
 
 Not yet claimed: empty-root completion, full-game exhaustive qualification,
 performance superiority, JMS-SEALED or complete NEES-EXTREME conformance.

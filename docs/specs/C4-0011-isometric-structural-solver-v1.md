@@ -7,18 +7,19 @@
 ## Active scratch-rebuild profile — 2026-09-23 owner correction
 
 On `work/isomax-jsminsys-rebuild`, production recursive fallback is forbidden.
-No uncovered RBA query, construction budget exhaustion or arena failure may
-switch to enumerative game search, even on native RBA coordinates. Independent
-recursive solving belongs only in test oracles. This supersedes every fallback
-permission and recursive-backend requirement in the inherited text below for
+No RBA query may switch representation or invoke an alternate production solver.
+RBA-native cofactor traversal, shared-q dependencies and interval propagation are
+primary solving, not fallback. Independent reference solving is test-only.
+This supersedes every fallback permission and recursive-backend requirement in the inherited text below for
 this profile; the inherited implementation/NEES descriptions are historical,
 not assertions about the scratch rebuild.
 
 The current kernel performs bounded RBA four-front construction/query. It returns
-EXACT only for a proved value and required action witness; uncovered queries or
-budget exhaustion return INCOMPLETE, capacity exhaustion returns FAILED, all
-without fabricated WDL. General retained RBA refinement and full-game closure
-remain unimplemented. Removing fallback does not establish solver completeness.
+EXACT only for a proved value and required action witness. Nonclosing queries
+continue through RBA-native dependency solving. Construction budget exhaustion
+returns INCOMPLETE, capacity exhaustion FAILED, without fabricated WDL.
+Full boundary-artifact refinement/recomposition remains unimplemented and
+empty-board completion is unproven. Removing fallback alone proves neither.
 Current eight-word ABI, shared-TT execution and JSMinSys/NEES pins are defined by
 `docs/design/rba-native-integration.md`, `components/isometric/execution/README.md`
 and `components/isometric/NEES_PROFILE.md`. Historical qualification remains

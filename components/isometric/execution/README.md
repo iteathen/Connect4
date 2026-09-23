@@ -60,11 +60,12 @@ Return codes:
 | 9 | interruption; cancellation without WDL |
 
 The native RBA kernel has no search fallback, no search stack and no fallback
-configuration switch. Codes 22 and 24 produce host status INCOMPLETE, code 23
-produces FAILED. All have null WDL and no move. Generic BRANCH/CONTINUE support
-remains executor infrastructure, not an alternate native solving algorithm.
+configuration switch. Code 22 produces host status INCOMPLETE and code 23 FAILED.
+All nonexact outcomes have null WDL and no move. A completed but nonclosing native
+query publishes BRANCH dependencies in RBA; it does not return QUERY_UNCOVERED.
+The latter remains a non-WDL protocol outcome for a producer unable to continue.
 
-For 4, set `worker.count` to 2..7 and write each complete canonical child key
+For 4, set `worker.count` to 1..7 and write each complete canonical child key
 into `worker.keys[i * 8 .. i * 8 + 7]`, and its parent-canonical physical
 column into `worker.actions[i]`. Children must advance rank and actions must
 be unique. First child is advisory-best and remains locally owned when free.
