@@ -16,7 +16,7 @@ import {prepare,evaluate} from '../components/isometric/rba/kernel.mjs';
 
 // Cold driver. Snapshots bracket batches, never individual native nodes.
 // Raw totals include the batch loop/call and accounting overhead, not just body.
-const moves=[6,1,2,4,0,4,5,5,1,5,1,6,1,2,4,2,4,1,5,1,6,5,2,0,2,5,2,0,6,4,3,4,6,0,0];
+const moves=[1,3,2,0,4,6,1,0,2,4,5,2,2,3,1,1,1,5,1,3,2,4,6,0,4,4,6,2,0,4,3,3];
 const g=prepareRba7x6(),root=fromMoves7x6(moves,{geometry:g}),scratch=prepareCoordinateScratch7x6();
 const basis=new Uint32Array(69),childBasis=new Uint32Array(69),out=new Uint32Array(8);
 const n=basis7x6(g,root.words[0],basis,0,scratch.seen),arena=prepareFrontArena7x6();

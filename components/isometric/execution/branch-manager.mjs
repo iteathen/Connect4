@@ -42,7 +42,14 @@ export class IsoMaxBranchManager {
       // One manager plus N evaluators. Only this setup clones view descriptors;
       // backing storage is shared and no per-branch structured clone occurs.
       const spawn = (file, data) => {
-        const worker = new Worker(new URL(file, import.meta.url), { workerData: data });
+        // COLD: stdin/eval input-type is invalid for a file worker. Preserve all
+        // other runtime options instead of discarding the caller's configuration.
+        // Keep Node's implicit inheritance/filtering unless this repair is
+        // needed: test-runner internal flags are not valid explicit execArgv.
+        const hasInputType=process.execArgv.some(arg=>arg==='--input-type'||arg.startsWith('--input-type='));
+        const execArgv=hasInputType?process.execArgv.filter((arg,i,args)=>arg!=='--input-type' &&
+          !arg.startsWith('--input-type=') && args[i-1]!=='--input-type'):undefined;
+        const worker = new Worker(new URL(file, import.meta.url), { workerData: data, execArgv });
         threads.push(worker);
         exits.push(new Promise(resolve => {
           worker.once('error', error => {
