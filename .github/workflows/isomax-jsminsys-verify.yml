@@ -1,0 +1,30 @@
+name: IsoMax JSMinSys Verify
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-rebuild
+  pull_request:
+    paths:
+      - 'components/isometric/**'
+      - 'test/**'
+      - 'tools/**'
+      - 'vendor/jsminsys'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/isomax-jsminsys-verify.yml'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: node --test vendor/jsminsys/test/*.test.mjs
