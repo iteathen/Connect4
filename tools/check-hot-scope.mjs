@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const files = ['shared-tt.mjs', 'worker.mjs', 'manager.mjs'].map(name =>
   resolve(root, 'components/isometric/execution', name));
-const cold = new Set(['createTT', 'prepareWorker']);
+const cold = new Set(['createTT7x6', 'prepareWorker7x6']);
 const atomic = new Set(['load', 'store', 'compareExchange', 'exchange', 'add', 'sub', 'wait', 'notify']);
 const math = new Set(['imul', 'clz32', 'floor', 'trunc', 'ceil', 'round', 'min', 'max']);
 const forbidden = new Set(['NewExpression', 'ObjectExpression', 'ArrayExpression',
@@ -45,7 +45,7 @@ export function auditHotScope(overrides = new Map()) {
       if (node.type === 'CallExpression') {
         const call = node.callee;
         if (call.type === 'Identifier') {
-          if (call.name === 'evaluate' && file === files[1] && name === 'workerStep') boundaries.add('prepared native kernel evaluate');
+          if (call.name === 'evaluate' && file === files[1] && name === 'workerStep7x6') boundaries.add('prepared native kernel evaluate');
           else if (module.functions.has(call.name)) visitFunction(file, call.name);
           else if (module.imports.has(call.name)) visitFunction(...module.imports.get(call.name));
           else bad(node, `unresolved call ${call.name}`);

@@ -1,6 +1,6 @@
 import { Worker } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
-import { createTT, intern, enqueue, fail, ROOT, ROOT_GENERATION, DONE, ERROR,
+import { createTT7x6, intern7x6, enqueue, fail, ROOT, ROOT_GENERATION, DONE, ERROR,
   STOP, WAKE, WORKER_DIED, DEADLINE, CANCELLED } from './shared-tt.mjs';
 
 // COLD HOST LIFECYCLE ONLY. This object is not the execution manager's q
@@ -25,9 +25,9 @@ export class IsoMaxBranchManager {
         (rootWords[0] >>> 21) > 42) throw new TypeError('canonical standard q required');
     const start = performance.now();
     const o = this.options;
-    const t = createTT(o.capacity, o.buckets);
+    const t = createTT7x6(o.capacity, o.buckets);
     this.running = true;
-    const root = intern(t, rootWords, 0);
+    const root = intern7x6(t, rootWords, 0);
     t.control[ROOT] = root; t.control[ROOT_GENERATION] = t.generation[root];
     enqueue(t, root);
     const threads = [], exits = [], errors = [];

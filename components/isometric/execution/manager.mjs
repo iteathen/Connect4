@@ -5,7 +5,7 @@ import { enter, leave, valid, release, recycle, enqueue, signal, takeEvent,
 // No game evaluation, private identity table, replay, dynamic aggregate, or
 // per-node message. Canonical topology is the same storage workers publish.
 // An edge owns exactly one child pin, pending or attached, never both.
-function detach(t, q) {
+function detach7x6(t, q) {
   const base = q * ACTIONS;
   const count = t.count[q];
   t.count[q] = 0;
@@ -24,14 +24,14 @@ function detach(t, q) {
   t.phase[q] = 4;
 }
 
-// Center-first tie priority is physical-action interpretation, not q identity.
-function priority(action) {
+// Center-first tie priority7x6 is physical-action interpretation, not q identity.
+function priority7x6(action) {
   return action < 3 ? (3 - action) * 2 - 1 : (action - 3) * 2;
 }
 
-function reconcile(t, q) {
+function reconcile7x6(t, q) {
   if (!t.refs[q]) {
-    if (t.count[q]) detach(t, q);
+    if (t.count[q]) detach7x6(t, q);
     recycle(t, q);
     return;
   }
@@ -55,7 +55,7 @@ function reconcile(t, q) {
     let unknown = 0, firstUnknown = 7, bestPriority = 7, action = -1;
     for (let i = 0; i < t.count[q]; i++) {
       const e = base + i, value = t.exact[t.child[e]];
-      const order = priority(t.edgeAction[e]);
+      const order = priority7x6(t.edgeAction[e]);
       if (!value) { unknown++; if (order < firstUnknown) firstUnknown = order; }
       else if ((minimize ? value < best : value > best) ||
                (value === best && order < bestPriority)) {
@@ -68,7 +68,7 @@ function reconcile(t, q) {
       // necessary topology until earlier tied actions are ruled out.
       if (!root || firstUnknown > bestPriority) {
         t.witness[q] = action;
-        detach(t, q);
+        detach7x6(t, q);
       }
     }
   }
@@ -81,13 +81,13 @@ function reconcile(t, q) {
   recycle(t, q);
 }
 
-export function managerStep(t, budget = 64) {
+export function managerStep7x6(t, budget = 64) {
   if (!enter(t, 1)) return 0;
   let processed = 0;
   while (processed < budget && !Atomics.load(t.control, STOP)) {
     const q = takeEvent(t);
     if (q === -1) break;
-    reconcile(t, q); processed++;
+    reconcile7x6(t, q); processed++;
   }
   leave(t);
   if (processed) { Atomics.add(t.control, WAKE, 1); Atomics.notify(t.control, WAKE); }

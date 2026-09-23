@@ -1,8 +1,8 @@
-import { enter, leave, take, intern, signal, setExact, releaseExecution,
+import { enter, leave, take, intern7x6, signal, setExact, releaseExecution,
   fail, CONTRACT, KEY_WORDS, ACTIONS, WAKE, READY_COUNT } from './shared-tt.mjs';
 
 // COLD. The prepared kernel may add its private numeric storage here once.
-export function prepareWorker(owner, workerCount) {
+export function prepareWorker7x6(owner, workerCount) {
   if (!Number.isInteger(owner) || owner < 2 || owner > 0x7fffffff ||
       !Number.isInteger(workerCount) || workerCount < 1) throw new RangeError('worker configuration');
   return { owner, allowExpose: workerCount > 1 ? 1 : 0, readyTarget: workerCount * 2,
@@ -18,7 +18,7 @@ export function prepareWorker(owner, workerCount) {
 // No per-call object/view/string, message, promise, replay, or unwind is allowed.
 // A completed result remains in this worker's prepared region if lock is busy;
 // it is not computed again. New child keys alone require insertion writes.
-export function workerStep(t, w, evaluate) {
+export function workerStep7x6(t, w, evaluate) {
   if (w.q === -1) {
     if (!enter(t, w.owner)) return 0;
     w.q = take(t, w.owner);
@@ -64,7 +64,7 @@ export function workerStep(t, w, evaluate) {
     else {
       const base = q * ACTIONS;
       for (let i = 0; i < w.count; i++) {
-        const child = intern(t, w.keys, i * KEY_WORDS);
+        const child = intern7x6(t, w.keys, i * KEY_WORDS);
         if (child < 0) { good = 0; break; }
         const edge = base + i;
         // Pin acquired and installed in one transaction. Never leave a child

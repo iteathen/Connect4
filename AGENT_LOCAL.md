@@ -1,5 +1,18 @@
 # Repository context: Connect4
 
+## Fresh rebuild checkpoint — 2026-09-23
+
+The owner authorized starting IsoMax implementation from scratch on
+`work/isomax-jsminsys-rebuild`, preserving gameplay specs. This branch currently
+contains only the new worker/TT/BranchManager and their qualification fixtures.
+Read `STATUS.md`, `components/isometric/execution/README.md` and
+`components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
+and pinned merged JSMinSys `617c5172`; these supersede the older runtime-standard
+pin below for this rebuild. Historical routing/implementation descriptions below
+do not authorize importing the old solver or claiming fixtures are game solves.
+Do not modify BSFP. This bounded rebuild branch has the Isometric solver lane as
+its integration owner; it has not been promoted or merged.
+
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
 ## Crash-safe runner checkpoint discipline

@@ -1,7 +1,8 @@
 # IsoMax JSMinSys execution rebuild
 
-Status: implementation design awaiting owner review. No implementation or
-conformance claim is implied by this document.
+Status: execution components implemented under the owner's build instruction.
+Native-kernel integration and complete conformance remain unqualified; see
+`components/isometric/NEES_PROFILE.md` for evidence and limits.
 
 ## Purpose and retained authority
 

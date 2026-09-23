@@ -10,7 +10,7 @@ export const WORKER_DIED = 5, DEADLINE = 6, CANCELLED = 7;
 export const KEY_WORDS = 42, ACTIONS = 7;
 
 // COLD: all view/object construction and initialization precedes execution.
-export function createTT(capacity = 4096, bucketCount = 4096) {
+export function createTT7x6(capacity = 4096, bucketCount = 4096) {
   if (!Number.isSafeInteger(capacity) || capacity < 1 || capacity > 0x1000000 ||
       !Number.isSafeInteger(bucketCount) || bucketCount < 1 ||
       bucketCount > 0x1000000 || (bucketCount & (bucketCount - 1))) {
@@ -62,7 +62,7 @@ export function valid(t, q, generation) {
 
 // Input: canonical standard-7x6 q, support/flags/20+20 residual words.
 // Returns one OWNED pin, including hits. Hash locates; every word decides equality.
-export function intern(t, words, offset) {
+export function intern7x6(t, words, offset) {
   let hash = 0;
   for (let w = 0; w < KEY_WORDS; w++) hash = mix32(hash ^ words[offset + w]);
   const bucket = hash & t.bucketMask;
