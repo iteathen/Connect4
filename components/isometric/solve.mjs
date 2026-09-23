@@ -137,6 +137,7 @@ export async function solve7x6(moves,{
     move,
     errorCode,
     errors:host.errors,
+    fault:Array.from(table.fault),
     metrics:{
       claims:metricOut[0],
       branches:metricOut[1],
