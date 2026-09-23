@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const files = ['shared-tt.mjs', 'worker.mjs', 'manager.mjs'].map(name =>
   resolve(root, 'components/isometric/execution', name));
+files.push(resolve(root, 'components/isometric/rba/coordinate.mjs'));
 const cold = new Set(['createTT7x6', 'prepareWorker7x6']);
 const atomic = new Set(['load', 'store', 'compareExchange', 'exchange', 'add', 'sub', 'wait', 'notify']);
 const math = new Set(['imul', 'clz32', 'floor', 'trunc', 'ceil', 'round', 'min', 'max']);

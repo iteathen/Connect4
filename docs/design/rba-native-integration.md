@@ -69,6 +69,8 @@ A cofactor S -> S' maps directly between these deterministic bases. Reflection
 maps global shape IDs and then their local positions. Neither operation
 reconstructs a colored board. Prepare immutable incidence, principal-upset,
 cofactor and reflection data before the hot operation that consumes them.
+Derive the selected local basis into fixed scratch within the cofactor when
+needed; charge this work explicitly rather than allocating a per-support cache.
 Preparation capacity and cost remain visible; do not assume that preparing
 the entire empty-root support cone is free or accept hidden hot preparation.
 
@@ -261,6 +263,9 @@ substrate; no unrestricted helper escape, hand-written native escape or silent
 deviation. Cold preparation/reporting is explicitly outside this scope. Extend
 the mechanical call-graph check to the actual kernel; an open call boundary is
 not a JSMinSys seal. Preserve hot-contract comments through all callees.
+Strings, string indexing/conversion and formatting are forbidden throughout
+the hot call graph. If character data is necessary, use preallocated indexed
+numeric character-code arrays; rendering belongs to cold reporting.
 
 Each hot function, loop and complete operation requires a NEES cycle ledger:
 executed operation counts, loop trip counts, conditional/short-circuit paths,
