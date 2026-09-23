@@ -33,3 +33,28 @@ explicit interval baseline [LOSS,WIN], not an uninitialized action-front query.
 Full child-front retention/recomposition is a separate unimplemented route.
 This unit preserves scalar query consequences in shared q/action bounds; it
 does not claim to retain or share full four-front arenas across workers.
+
+## Closed RBA execution invariant
+
+`solve7x6()` invokes external `fromMoves7x6()` once. After that boundary every q,
+transition, task, publication, claim and resume uses native RBA. No execution
+module may import ingress, replay/history reconstruction, a physical oracle,
+or legacy state. Action labels 0..6 transport physical moves, not board state.
+The transitive structural checker rejects these dependencies and hot calls to
+the cold geometric basis builder; negative mutations protect those prohibitions.
+
+The deterministic basis satisfies
+`P(S + cell) = distinct nonempty { requirement - cell : requirement in P(S) }`.
+The implementation restores global shape-ID order through a prepared bitset.
+Reflection permutes those same IDs. Independent geometric derivation checks the
+mapping over randomized supports and all legal actions. Geometric line readers
+are poisoned in tests exercising cofactor, reflection and front construction.
+
+A q row carries its immutable derived basis and size under the same generation,
+reference and execution lifetime as its eight identity words. Basis content is
+not additional q identity: equal canonical support determines the same basis.
+New insertion writes that basis once; TT hits reuse it. These scalar publication
+writes and the larger fixed table are measured costs, not claimed zero-copy.
+No bulk copy API, board replay, or 69-line rescan occurs in native execution.
+Workers query the carried TT basis directly; front construction derives child
+bases from its parent basis in prepared per-depth arena regions.

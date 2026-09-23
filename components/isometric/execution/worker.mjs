@@ -11,6 +11,7 @@ export function prepareWorker7x6(owner, workerCount) {
     count: 0, witness: -1, keys: new Uint32Array(ACTIONS * KEY_WORDS),
     lower:1,upper:3,childMask:127,
     actionLower:new Uint32Array(ACTIONS).fill(1),actionUpper:new Uint32Array(ACTIONS).fill(3),
+    childBasis:new Uint32Array(ACTIONS*69),childBasisSize:new Uint32Array(ACTIONS),
     actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0,
     boundaryCalls:0,boundaryClosures:0,boundarySteps:0,boundaryFailures:0,boundaryStatus:0,
     transitions:0,actionClosures:0,actionsPruned:0 };
@@ -77,7 +78,7 @@ export function workerStep7x6(t, w, evaluate) {
       const base = q * ACTIONS;
       if(!tighten7x6(t,q,w.lower,w.upper))good=0;
       for (let i = 0; good && i < w.count; i++) {
-        const child = (w.childMask&(1<<i))?intern7x6(t, w.keys, i * KEY_WORDS):-1;
+        const child = (w.childMask&(1<<i))?intern7x6(t, w.keys, i * KEY_WORDS,w.childBasis,i*69,w.childBasisSize[i]):-1;
         if (child < 0 && (w.childMask&(1<<i))) { good = 0; break; }
         const edge = base + i;
         // Pin acquired and installed in one transaction. Never leave a child

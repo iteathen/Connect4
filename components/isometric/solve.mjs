@@ -9,5 +9,5 @@ export async function solve7x6(moves,{workers=1,capacity=4096,buckets=4096,
   const manager=new IsoMaxBranchManager({workers,capacity,buckets,timeoutMs,
     kernelURL:new URL('./rba/kernel.mjs',import.meta.url).href,
     kernelData:{boundaryDepth,boundaryCapacity,boundaryBudget}});
-  return manager.run(root.words,{reflected:!!root.reflected,signal});
+  return manager.run(root.words,{reflected:!!root.reflected,signal,basis:root.basis});
 }

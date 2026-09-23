@@ -1,4 +1,4 @@
-import {basis7x6} from './coordinate.mjs';
+import {cofactorBasis7x6} from './coordinate.mjs';
 import {firstSetBitIndex32} from '../../../vendor/jsminsys/src/word32.mjs';
 
 // COLD worker-private arena. Slots hold FrontGenerators (paired favorable q),
@@ -75,10 +75,10 @@ export function combineFront7x6(a,left,right,out,intersect){
   }
   return 0;
 }
-function prepareImages(g,a,d,cell,mover){
+function prepareImages(g,a,d,cell,mover,basis,bi){
   const n=a.size[d],cn=a.size[d+1];
   for(let i=0;i<n;i++){
-    const id=a.basis[d*69+i];
+    const id=basis[bi+i];
     for(let k=0;k<3;k++){a.image0[i*3+k]=0;a.image1[i*3+k]=0;}
     a.top1[i]=0;
     for(let p=0;p<2;p++){
@@ -119,7 +119,7 @@ function covers(a,d,childBase,out){
   }
   return 0;
 }
-function preimage(a,d,child,out,cell,mover){
+function preimage(a,d,child,out,cell,mover,basis,bi){
   a.count[out]=0;
   for(let j=0;j<a.count[child];j++){
     const cb=a.base[child]+j*6;
@@ -133,7 +133,7 @@ function preimage(a,d,child,out,cell,mover){
     if(covers(a,d,cb,out))return a.error;
   }
   if(mover===0){
-    for(let i=0;i<a.size[d];i++)if(a.basis[d*69+i]===cell){
+    for(let i=0;i<a.size[d];i++)if(basis[bi+i]===cell){
       for(let k=0;k<3;k++){a.temp[k]=a.up[(d*69+i)*3+k];a.temp[3+k]=0;}
       if(insertFront7x6(a,out))return a.error;
       break;
@@ -141,15 +141,15 @@ function preimage(a,d,child,out,cell,mover){
   }
   return 0;
 }
-export function buildFour7x6(g,a,support,d,remaining){
+export function buildFour7x6(g,a,support,d,remaining,basis,bi,n){
   if(d===0){a.steps=0;a.error=0;for(let s=0;s<28;s++)a.count[a.actionBase+s]=0;}
   if(!spend(a))return a.error;
-  const slot=d*12,n=basis7x6(g,support,a.basis,d*69,a.seen);
+  const slot=d*12;
   a.size[d]=n;
   for(let k=0;k<3;k++)a.valid[d*3+k]=n>=32*(k+1)?0xffffffff:n>32*k?(0xffffffff>>>(32-(n-32*k))):0;
   for(let i=0;i<n;i++){
     for(let k=0;k<3;k++)a.up[(d*69+i)*3+k]=0;
-    for(let j=0;j<n;j++)if(g.subset[a.basis[d*69+j]*625+a.basis[d*69+i]])a.up[(d*69+i)*3+(j>>>5)]|=1<<(j&31);
+    for(let j=0;j<n;j++)if(g.subset[basis[bi+j]*625+basis[bi+i]])a.up[(d*69+i)*3+(j>>>5)]|=1<<(j&31);
   }
   if((support>>>21)===42){
     universal(a,slot);a.count[slot+1]=0;universal(a,slot+2);a.count[slot+3]=0;return 0;
@@ -159,10 +159,12 @@ export function buildFour7x6(g,a,support,d,remaining){
   for(let h=0;h<4;h++){if(mover)universal(a,slot+h);else a.count[slot+h]=0;}
   for(let c=0;c<7;c++){
     const height=(support>>>(c*3))&7;if(height===6)continue;
-    if(buildFour7x6(g,a,support+(1<<(c*3))+(1<<21),d+1,remaining-1))return a.error;
-    const cell=height*7+c;prepareImages(g,a,d,cell,mover);
+    const cell=height*7+c;
+    const cn=cofactorBasis7x6(g,basis,bi,n,cell,a.basis,(d+1)*69,a.seen);
+    if(buildFour7x6(g,a,support+(1<<(c*3))+(1<<21),d+1,remaining-1,a.basis,(d+1)*69,cn))return a.error;
+    prepareImages(g,a,d,cell,mover,basis,bi);
     for(let h=0;h<4;h++){
-      if(preimage(a,d,(d+1)*12+h,slot+4+h,cell,mover))return a.error;
+      if(preimage(a,d,(d+1)*12+h,slot+4+h,cell,mover,basis,bi))return a.error;
       if(combineFront7x6(a,slot+h,slot+4+h,slot+8+h,mover))return a.error;
       swapFront7x6(a,slot+8+h,slot+h);
       if(d===0)swapFront7x6(a,slot+4+h,a.actionBase+c*4+h);

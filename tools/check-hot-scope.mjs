@@ -9,7 +9,7 @@ const files = ['shared-tt.mjs', 'worker.mjs', 'manager.mjs'].map(name =>
 files.push(resolve(root, 'components/isometric/rba/coordinate.mjs'));
 files.push(resolve(root, 'components/isometric/rba/kernel.mjs'));
 files.push(resolve(root, 'components/isometric/rba/front.mjs'));
-const cold = new Set(['createTT7x6', 'prepareWorker7x6', 'prepare', 'prepareFrontArena7x6']);
+const cold = new Set(['createTT7x6', 'prepareWorker7x6', 'prepare', 'prepareFrontArena7x6','basis7x6']);
 const atomic = new Set(['load', 'store', 'compareExchange', 'exchange', 'add', 'sub', 'wait', 'notify']);
 const math = new Set(['imul', 'clz32', 'floor', 'trunc', 'ceil', 'round', 'min', 'max']);
 const forbidden = new Set(['NewExpression', 'ObjectExpression', 'ArrayExpression',
@@ -28,6 +28,11 @@ export function auditHotScope(overrides = new Map(), nativeRba = false) {
     for (const top of ast.body) {
       const node = top.type === 'ExportNamedDeclaration' ? top.declaration : top;
       if (node?.type === 'FunctionDeclaration') functions.set(node.id.name, node);
+      if(top.type==='ImportDeclaration'){
+        const dependency=resolve(dirname(file),top.source.value).replaceAll('\\','/');
+        if(/\/(?:ingress|state|replay[^/]*)\.mjs$|\/test\/|\/legacy[^/]*\//i.test(dependency))
+          violations.push(`${file}: forbidden execution dependency ${top.source.value}`);
+      }
       if (top.type === 'ImportDeclaration') for (const item of top.specifiers) {
         imports.set(item.local.name, [resolve(dirname(file), top.source.value), item.imported?.name]);
       }
@@ -38,6 +43,9 @@ export function auditHotScope(overrides = new Map(), nativeRba = false) {
     const identity = `${file}#${name}`;
     if (checked.has(identity)) return;
     checked.add(identity);
+    if(name==='basis7x6'||/^(fromMoves|replay|reconstructBoard)/i.test(name)){
+      violations.push(`${identity}: forbidden cold ingress/geometry reconstruction in execution`);return;
+    }
     const module = load(file), fn = module.functions.get(name);
     if (!fn) { violations.push(`${identity}: unresolved function`); return; }
     function bad(node, reason) { violations.push(`${identity}:${node.loc.start.line}: ${reason}`); }
@@ -45,6 +53,7 @@ export function auditHotScope(overrides = new Map(), nativeRba = false) {
       if (!node || typeof node !== 'object') return;
       if (forbidden.has(node.type)) bad(node, node.type);
       if (node.type === 'Literal' && (typeof node.value === 'string' || typeof node.value === 'bigint')) bad(node, 'hot text/BigInt');
+      if(node.type==='MemberExpression'&&!node.computed&&/^(lineShift|lineRow|lineShape)$/.test(node.property.name))bad(node,'cold geometry read in execution');
       if (node.type === 'CallExpression') {
         const call = node.callee;
         if (call.type === 'Identifier') {

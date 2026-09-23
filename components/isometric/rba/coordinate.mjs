@@ -5,6 +5,7 @@ import { canonicalPrimaryCompare32 } from '../../../vendor/jsminsys/src/mix32.mj
 // explicit offsets, no arrays/objects/strings/allocation/resize in these paths.
 // Geometry is immutable and cold-prepared. Scratch is exclusively caller-owned.
 // Local basis derivation is real charged transition work, never hidden setup.
+// COLD ingress/reference only. Production execution carries its native basis.
 export function basis7x6(g, support, out, offset, seen) {
   for(let w=0;w<20;w++)seen[w]=0;
   for(let l=0;l<69;l++) {
@@ -23,14 +24,31 @@ export function basis7x6(g, support, out, offset, seen) {
   return n;
 }
 
+// P(S + cell) = distinct nonempty images of P(S) under requirement deletion.
+// Global ID order is restored by the fixed bitset. No geometric-line rescan.
+export function cofactorBasis7x6(g,parent,bi,n,cell,out,offset,seen){
+  for(let w=0;w<20;w++)seen[w]=0;
+  for(let i=0;i<n;i++){
+    const id=g.remove[parent[bi+i]*42+cell];
+    if(id>=0)seen[id>>>5]|=1<<(id&31);
+  }
+  let count=0;
+  for(let w=0;w<20;w++){
+    let bits=seen[w];
+    while(bits){const bit=firstSetBitIndex32(bits);out[offset+count++]=w*32+bit;bits&=bits-1;}
+  }
+  return count;
+}
+
 // Return -1 for an inadmissible move; 0 ordinary child; 1/2/3 terminal WDL code.
 // Input/output/basis regions must not overlap. No conventional board exists.
 export function cofactor7x6(g, source, src, basis, bi, n, column, target, dst,
-  childBasis, ci, seen) {
+  childBasis, ci, seen, sizes, sizeIndex) {
   const meta=source[src],height=(meta>>>(column*3))&7;
   if(source[src+1] || column<0 || column>6 || height>=6)return -1;
   const cell=height*7+column,player=(meta>>>21)&1;
   target[dst]=meta+(1<<(column*3))+(1<<21);
+  sizes[sizeIndex]=0;
   for(let w=1;w<8;w++)target[dst+w]=0;
   for(let i=0;i<n;i++) {
     if(basis[bi+i]===cell && (source[src+2+player*3+(i>>>5)]&(1<<(i&31)))) {
@@ -38,7 +56,8 @@ export function cofactor7x6(g, source, src, basis, bi, n, column, target, dst,
     }
   }
   if((target[dst]>>>21)===42){target[dst+1]=2;return 2;}
-  const cn=basis7x6(g,target[dst],childBasis,ci,seen);
+  const cn=cofactorBasis7x6(g,basis,bi,n,cell,childBasis,ci,seen);
+  sizes[sizeIndex]=cn;
   for(let p=0;p<2;p++)for(let i=0;i<n;i++) {
     if(!(source[src+2+p*3+(i>>>5)]&(1<<(i&31))))continue;
     const id=basis[bi+i];
@@ -58,17 +77,22 @@ export function reflectSupport7x6(meta) {
 
 // Canonicalize in place. The flip result transports actions, never q identity.
 // Compare support first; full ties select original orientation deterministically.
-export function canonicalize7x6(g,words,offset,scratch) {
+export function canonicalize7x6(g,words,offset,basis,bi,n,scratch) {
   const meta=words[offset],reflected=reflectSupport7x6(meta);
   const primary=canonicalPrimaryCompare32(meta,reflected);
   if(primary<0)return 0;
-  const n=basis7x6(g,meta,scratch.basis,0,scratch.seen);
-  const rn=basis7x6(g,reflected,scratch.mirrorBasis,0,scratch.seen);
+  for(let w=0;w<20;w++)scratch.seen[w]=0;
+  for(let i=0;i<n;i++){const id=g.reflect[basis[bi+i]];scratch.seen[id>>>5]|=1<<(id&31);}
+  let rn=0;
+  for(let w=0;w<20;w++){
+    let bits=scratch.seen[w];
+    while(bits){const bit=firstSetBitIndex32(bits);scratch.mirrorBasis[rn++]=w*32+bit;bits&=bits-1;}
+  }
   for(let i=0;i<rn;i++)scratch.inverse[scratch.mirrorBasis[i]]=i;
   scratch.mirror[0]=reflected;scratch.mirror[1]=words[offset+1];
   for(let w=2;w<8;w++)scratch.mirror[w]=0;
   for(let p=0;p<2;p++)for(let i=0;i<n;i++)if(words[offset+2+p*3+(i>>>5)]&(1<<(i&31))) {
-    const j=scratch.inverse[g.reflect[scratch.basis[i]]];
+    const j=scratch.inverse[g.reflect[basis[bi+i]]];
     scratch.mirror[2+p*3+(j>>>5)]|=1<<(j&31);
   }
   if(primary===0){
@@ -76,5 +100,6 @@ export function canonicalize7x6(g,words,offset,scratch) {
     if(w===8 || words[offset+w]<scratch.mirror[w])return 0;
   }
   for(let w=0;w<8;w++)words[offset+w]=scratch.mirror[w];
+  for(let i=0;i<n;i++)basis[bi+i]=scratch.mirrorBasis[i];
   return 1;
 }

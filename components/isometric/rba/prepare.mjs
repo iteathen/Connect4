@@ -44,5 +44,5 @@ export function prepareRba7x6() {
 
 export function prepareCoordinateScratch7x6() {
   return {seen:new Uint32Array(20),basis:new Uint32Array(69),
-    mirrorBasis:new Uint32Array(69),inverse:new Uint32Array(625),mirror:new Uint32Array(8)};
+    mirrorBasis:new Uint32Array(69),inverse:new Uint32Array(625),mirror:new Uint32Array(8),size:new Uint32Array(1)};
 }

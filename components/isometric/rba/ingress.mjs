@@ -13,12 +13,11 @@ export function fromMoves7x6(moves,{geometry=prepareRba7x6(),canonical=true}={})
     if(!Number.isInteger(c)||c<0||c>6)throw new RangeError('invalid column');
     if(words[src+1])throw new RangeError('move after terminal');
     if(((words[src]>>>(c*3))&7)===6)throw new RangeError('column full');
-    cofactor7x6(geometry,words,src,basis,bi,n,c,words,dst,basis,ci,scratch.seen);
+    cofactor7x6(geometry,words,src,basis,bi,n,c,words,dst,basis,ci,scratch.seen,scratch.size,0);
     src^=8;dst^=8;bi=69-bi;ci=69-ci;
-    n=basis7x6(geometry,words[src],basis,bi,scratch.seen);
+    n=scratch.size[0];
   }
   const result=words.slice(src,src+8);
-  const reflected=canonical?canonicalize7x6(geometry,result,0,scratch):0;
-  n=basis7x6(geometry,result[0],basis,0,scratch.seen);
-  return {words:result,basis:basis.slice(0,n),reflected};
+  const reflected=canonical?canonicalize7x6(geometry,result,0,basis,bi,n,scratch):0;
+  return {words:result,basis:basis.slice(bi,bi+n),reflected};
 }

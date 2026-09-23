@@ -2,7 +2,7 @@ import { Worker } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 import { createTT7x6, intern7x6, enqueue, fail, ROOT, ROOT_GENERATION, DONE, ERROR,
   STOP, WAKE, WORKER_DIED, DEADLINE, CANCELLED, KEY_WORDS, ROOT_REFLECTED,
-  BOUND_UPDATES,PRUNED_EDGES,TT_HITS,TT_INSERTS,TT_HIGH_WATER } from './shared-tt.mjs';
+  BOUND_UPDATES,PRUNED_EDGES,TT_HITS,TT_INSERTS,TT_HIGH_WATER,BASIS_WRITES } from './shared-tt.mjs';
 
 // COLD HOST LIFECYCLE ONLY. This object is not the execution manager's q
 // authority. The manager thread operates directly on the shared TT rows.
@@ -20,15 +20,16 @@ export class IsoMaxBranchManager {
     this.running = false;
   }
 
-  async run(rootWords, { reflected = false, signal } = {}) {
+  async run(rootWords, { reflected = false, signal, basis } = {}) {
     if (this.running) throw new Error('session already running');
     if (!(rootWords instanceof Uint32Array) || rootWords.length !== KEY_WORDS ||
         (rootWords[0] >>> 21) > 42) throw new TypeError('canonical standard q required');
     const start = performance.now();
     const o = this.options;
     const t = createTT7x6(o.capacity, o.buckets);
+    if(basis!==undefined && (!(basis instanceof Uint32Array)||basis.length>69))throw new TypeError('native root basis required');
     this.running = true;
-    const root = intern7x6(t, rootWords, 0);
+    const root = intern7x6(t, rootWords, 0,basis,0,basis?.length??0);
     t.control[ROOT] = root; t.control[ROOT_GENERATION] = t.generation[root];
     t.control[ROOT_REFLECTED] = reflected ? 1 : 0;
     enqueue(t, root);
@@ -106,7 +107,7 @@ export class IsoMaxBranchManager {
           'boundaryCalls','boundaryClosures','boundarySteps','boundaryFailures','transitions','actionClosures','actionsPruned'];
         names.forEach((name,i)=>{sum[name]=(sum[name]??0)+v[i];});return sum;
       },{boundsUpdates:t.stats[BOUND_UPDATES],prunedEdges:t.stats[PRUNED_EDGES],
-        ttHits:t.stats[TT_HITS],ttInserts:t.stats[TT_INSERTS],ttHighWater:t.stats[TT_HIGH_WATER]}),
+        ttHits:t.stats[TT_HITS],ttInserts:t.stats[TT_INSERTS],ttHighWater:t.stats[TT_HIGH_WATER],basisWordsWritten:t.stats[BASIS_WRITES]}),
       cleanup: exited === threads.length, workersExited: exited,
       sharedBytes: Object.values(t).reduce((n, v) => n + (ArrayBuffer.isView(v) ? v.byteLength : 0), 0),
     };

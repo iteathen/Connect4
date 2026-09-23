@@ -27,7 +27,8 @@ export function evaluate(t,q,w){
   const base=q*8;
   if(t.keys[base+1]){w.witness=-1;return t.keys[base+1];}
   w.boundaryCalls++;
-  const outcome=buildFour7x6(w.g,w.boundary,t.keys[base],0,w.boundary.depth);
+  const n=t.basisSize[q];if(!n)return 0;
+  const outcome=buildFour7x6(w.g,w.boundary,t.keys[base],0,w.boundary.depth,t.basis,q*69,n);
   w.boundarySteps+=w.boundary.steps;w.boundaryStatus=outcome;
   if(outcome){w.boundaryFailures++;return outcome;}
   const interval=queryFour7x6(w.boundary,0,t.keys,base),value=interval&3;
@@ -58,12 +59,12 @@ export function evaluate(t,q,w){
     if(low===high)w.actionClosures++;
     else if(mover?low>w.upper:high<w.lower)w.actionsPruned++;
     else{
-      const terminal=cofactor7x6(w.g,t.keys,base,w.boundary.basis,0,w.boundary.size[0],c,
-        w.keys,count*8,w.scratch.basis,0,w.scratch.seen);
+      const terminal=cofactor7x6(w.g,t.keys,base,t.basis,q*69,n,c,
+        w.keys,count*8,w.childBasis,count*69,w.scratch.seen,w.childBasisSize,count);
       w.transitions++;
       if(terminal<0 || (terminal && (terminal<low||terminal>high)))return 0;
       if(terminal){low=terminal;high=terminal;w.actionClosures++;}
-      else{canonicalize7x6(w.g,w.keys,count*8,w.scratch);mask|=1<<count;}
+      else{canonicalize7x6(w.g,w.keys,count*8,w.childBasis,count*69,w.childBasisSize[count],w.scratch);mask|=1<<count;}
     }
     w.actionLower[count]=low;w.actionUpper[count]=high;count++;
   }

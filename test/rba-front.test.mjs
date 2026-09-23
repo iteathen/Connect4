@@ -1,3 +1,9 @@
+import {buildFour7x6 as nativeBuild} from '../components/isometric/rba/front.mjs';
+// Cold fixture ingress only. Production supplies the carried TT basis.
+function build(g,a,support,depth){
+  const basis=new Uint32Array(69),n=basis7x6(g,support,basis,0,new Uint32Array(20));
+  return nativeBuild(g,a,support,0,depth,basis,0,n);
+}
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {fromMoves7x6,prepareRba7x6} from '../components/isometric/rba/ingress.mjs';
@@ -25,7 +31,7 @@ test('bounded symbolic fronts agree with independent physical interval propagati
     const q=fromMoves7x6(moves,{geometry:g,canonical:false}).words;
     for(const depth of [1,2]){
       const a=prepareFrontArena7x6(depth,2048,2000000);
-      assert.equal(buildFour7x6(g,a,q[0],0,depth),0);
+      assert.equal(build(g,a,q[0],depth),0);
       const packed=queryFour7x6(a,0,q,0);
       assert.deepEqual([packed&3,packed>>>2],bounds(moves,depth));
       // LW ⊆ LD, LW ⊆ UW, LD ⊆ UD, UW ⊆ UD at the actual query.
@@ -35,7 +41,7 @@ test('bounded symbolic fronts agree with independent physical interval propagati
 });
 test('front construction budget fails explicitly without turning incomplete into WDL',async()=>{
   const {prepareFrontArena7x6,buildFour7x6}=await import(url.href);
-  assert.equal(buildFour7x6(prepareRba7x6(),prepareFrontArena7x6(2,1,1),0,0,2),6);
+  assert.equal(build(prepareRba7x6(),prepareFrontArena7x6(2,1,1),0,2),6);
 });
 
 test('streamed front product preserves mixed covers and absorbs before capacity admission',async()=>{
@@ -98,7 +104,7 @@ test('complete small support fibers agree with independent residual-array game i
       return value;
     }
     const depth=42-(support>>>21),arena=prepareFrontArena7x6(depth,2048,2000000);
-    assert.equal(buildFour7x6(g,arena,support,0,depth),0);
+    assert.equal(build(g,arena,support,depth),0);
     for(const p0 of upsets)for(const p1 of upsets){
       const q=new Uint32Array([support,0,p0,0,0,p1,0,0]);
       const result=queryFour7x6(arena,0,q,0),expected=oracle(heights,residual(p0),residual(p1),support>>>21);

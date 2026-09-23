@@ -24,7 +24,7 @@ let column=0;while(((root.words[0]>>>(column*3))&7)===6)column++;
 const meter=await processCycleCounter();
 const table=tt.createTT7x6(),worker=prepareWorker7x6(2,1);
 prepare(worker,{boundaryDepth:2});
-const q=tt.intern7x6(table,root.words,0);table.control[tt.ROOT]=q;table.control[tt.ROOT_REFLECTED]=root.reflected;
+const q=tt.intern7x6(table,root.words,0,root.basis,0,root.basis.length);table.control[tt.ROOT]=q;table.control[tt.ROOT_REFLECTED]=root.reflected;
 const data={sha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
   sourceDirty:!!execFileSync('git',['status','--porcelain','--','components','tools','vendor','test','package.json','package-lock.json'],{encoding:'utf8'}).trim(),
   date:new Date().toISOString(),node:process.version,v8:process.versions.v8,cpu:cpus()[0].model,
@@ -50,9 +50,9 @@ function batch(name,count,operation){
 try{
   batch('empty batch control',20000,()=>1);
   batch('support-local basis',20000,()=>basis7x6(g,root.words[0],basis,0,scratch.seen));
-  batch('native cofactor including child basis',20000,()=>cofactor7x6(g,root.words,0,basis,0,n,column,out,0,childBasis,0,scratch.seen));
-  batch('canonicalization early/secondary path on fixed root',20000,()=>canonicalize7x6(g,root.words,0,scratch));
-  batch('two-ply four-front construction',100,()=>buildFour7x6(g,arena,root.words[0],0,2));
+  batch('native cofactor including child basis',20000,()=>cofactor7x6(g,root.words,0,basis,0,n,column,out,0,childBasis,0,scratch.seen,scratch.size,0));
+  batch('canonicalization early/secondary path on fixed root',20000,()=>canonicalize7x6(g,root.words,0,basis,0,n,scratch));
+  batch('two-ply four-front construction',100,()=>buildFour7x6(g,arena,root.words[0],0,2,basis,0,n));
   batch('four-front query',20000,()=>queryFour7x6(arena,0,root.words,0));
   const preparedSolve=()=>{
     table.exact[q]=0;table.lower[q]=1;table.upper[q]=3;table.phase[q]=0;table.control[tt.DONE]=0;

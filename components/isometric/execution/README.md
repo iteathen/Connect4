@@ -16,6 +16,13 @@ This admission applies to valid standard-play canonical keys; arbitrary side
 overrides or unproved imports are not supported by the kernel contract.
 Proof/certificate identity is not represented by this ordinary-value table.
 
+Each row also carries the deterministic support-local basis (up to 69 global
+shape IDs) and size. This is immutable derived execution data, outside key
+equality, with the same lifetime/generation as q. Insertion writes it once;
+hits and worker claims reuse it. Neither transitions nor front construction nor
+reflection rescan geometric lines. Cold root ingress alone constructs a basis
+geometrically; all descendants use the basis cofactor or reflection permutation.
+
 Every hot TT function requires the caller to hold `enter(table, owner)` or
 exclusive cold ownership. Owner 1 is the manager; evaluator owners start at 2.
 No game computation runs inside a TT transaction. The mutex protects complete
@@ -36,7 +43,7 @@ Generation overflow and capacity fail closed, without changing limits.
 ## Kernel interface
 
 `IsoMaxBranchManager({workers, capacity, buckets, kernelURL, kernelData,
-timeoutMs}).run(rootWords, {reflected, signal})` starts one bounded root session.
+timeoutMs}).run(rootWords, {reflected, signal, basis})` starts one bounded root session.
 The supplied file module exports:
 
 ```js
@@ -76,11 +83,14 @@ For exact closure set `worker.witness` when an action witness exists; use -1
 for an already-terminal root. The kernel must respect first-win stopping and
 the exact gameplay specification. Unsupported outcomes must not become WDL.
 
-`expose=0` requires local kernel continuation/closure. It is always 0 with one
-worker, and becomes 0 when the ready reservoir contains at least twice the
-evaluator count. Exposure is checked at control boundaries, not at every native
-node; in-flight publications can overshoot that soft reservoir target. Capacity
-is a separate hard bound. No worker observes peer-idle state or assigns peers.
+`expose` is scheduling advice, not permission to continue primary RBA solving.
+The native kernel publishes unresolved dependencies with any worker count,
+including one; it has no private game-search stack. BRANCH outputs carry state
+`lower/upper`, `actionLower/actionUpper`, and a `childMask`. Materialized children
+carry canonical eight-word keys plus `childBasis/childBasisSize`; exact or strictly
+irrelevant action slots retain scalar bounds without a child pin. Worker and
+manager preserve partial bounds through every incoming q reference. Capacity
+is a hard bound. No worker observes peer-idle state or assigns peers.
 
 ## Manager and failure semantics
 
@@ -90,7 +100,11 @@ permits value cutoff. A child still needed by another parent remains alive.
 Root value and deterministic center-first action witness close separately;
 completion order cannot choose the root move. Root reflection is transported
 into caller-frame tie priority and at the external witness boundary. No alpha/beta cutoff is labelled exact.
-General non-exact interval/window propagation is not implemented here.
+Monotone P0 value intervals propagate through the same topology. They are exact
+RBA evidence, never alpha/beta search windows. Max lower/upper or min lower/upper
+reduce the action bounds; contradictions fail closed. Exact/pruned dependencies
+release their child pins while retaining scalar action evidence for reconciliation.
+Root value and caller-frame witness can close at different times.
 
 On retirement a worker abandons its private continuation at its next control
 boundary and polls again. It does not unwind merely to change ownership.

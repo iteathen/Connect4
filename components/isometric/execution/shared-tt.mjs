@@ -10,7 +10,7 @@ export const READY_COUNT = 13;
 export const ROOT_REFLECTED = 14;
 export const CAPACITY = 1, CONFLICT = 2, GENERATION = 3, CONTRACT = 4;
 export const WORKER_DIED = 5, DEADLINE = 6, CANCELLED = 7;
-export const BOUND_UPDATES=0, PRUNED_EDGES=1, TT_HITS=2, TT_INSERTS=3, TT_HIGH_WATER=4;
+export const BOUND_UPDATES=0, PRUNED_EDGES=1, TT_HITS=2, TT_INSERTS=3, TT_HIGH_WATER=4, BASIS_WRITES=5;
 
 // COLD: all view/object construction and initialization precedes execution.
 export function createTT7x6(capacity = 4096, bucketCount = 4096) {
@@ -23,7 +23,8 @@ export function createTT7x6(capacity = 4096, bucketCount = 4096) {
   const i32 = n => new Int32Array(new SharedArrayBuffer(n * 4));
   const t = {
     capacity, bucketMask: bucketCount - 1,
-    control: i32(16), stats:u32(5), buckets: i32(bucketCount), keys: u32(capacity * KEY_WORDS),
+    control: i32(16), stats:u32(6), buckets: i32(bucketCount), keys: u32(capacity * KEY_WORDS),
+    basis:u32(capacity*69),basisSize:u32(capacity),
     generation: u32(capacity), live: u32(capacity), refs: u32(capacity),
     execution: u32(capacity), exact: u32(capacity), lower:u32(capacity), upper:u32(capacity), phase: u32(capacity),
     link: i32(capacity), bucket: u32(capacity), readyNext: i32(capacity), readyPrev: i32(capacity),
@@ -66,7 +67,8 @@ export function valid(t, q, generation) {
 
 // Input: canonical standard-7x6 q, support/flags/3+3 local upset words.
 // Returns one OWNED pin, including hits. Hash locates; every word decides equality.
-export function intern7x6(t, words, offset) {
+export function intern7x6(t, words, offset, basis, bi=0, n=0) {
+  if(n<0||n>69||(n|0)!==n){fail(t,CONTRACT);return -1;}
   let hash = 0;
   for (let w = 0; w < KEY_WORDS; w++) hash = mix32(hash ^ words[offset + w]);
   const bucket = hash & t.bucketMask;
@@ -89,6 +91,11 @@ export function intern7x6(t, words, offset) {
   // Necessary new-key insertion writes authoritative content once. No manager
   // copy, replay, serialized identity, or second q payload is created.
   for (let w = 0; w < KEY_WORDS; w++) t.keys[base + w] = words[offset + w];
+  // Immutable derived native basis, generation/lifetime owned by this q row.
+  // Stored only on insertion; TT hits neither reconstruct nor rewrite it.
+  // These measured publication writes replace geometry rescans on every claim.
+  for(let i=0;i<n;i++)t.basis[q*69+i]=basis[bi+i];
+  t.basisSize[q]=n;t.stats[BASIS_WRITES]+=n;
   t.generation[q]++;
   t.live[q] = 1; t.refs[q] = 1; t.exact[q] = 0; t.phase[q] = 0;
   t.lower[q]=1;t.upper[q]=3;
