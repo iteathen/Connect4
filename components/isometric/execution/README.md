@@ -6,8 +6,8 @@ named `*7x6`; they do not advertise a general board-family API.
 ## Authority and representation
 
 Shared TT is the sole q identity, exact-value, topology and execution authority.
-Keys contain 42 uint32 words: packed support/rank, required terminal/sentinel
-flags, 20 P0 residual words and 20 P1 residual words. The kernel supplies a
+Keys contain 8 uint32 words: packed support/rank, required terminal/sentinel
+flags, 3 P0 local-upset words and 3 P1 local-upset words. The kernel supplies a
 canonical normalized key. Hash is a locator only; every key word participates
 in exact equality. No worker-local residual ID substitutes for that content.
 
@@ -44,7 +44,7 @@ export function prepare(worker, data) { /* cold, allocate private state once */ 
 export function evaluate(table, q, worker, expose) { /* trusted native kernel */ }
 ```
 
-The kernel reads immutable input directly at `table.keys[q * 42]` while the
+The kernel reads immutable input directly at `table.keys[q * 8]` while the
 worker owns execution. No input copy/replay is required. `worker.started` is 1
 on entry to a new task and 0 for its retained continuation. Private continuation
 storage must reset logically on a new task, without a compulsory unwind.
@@ -58,7 +58,7 @@ Return codes:
 | 5 | private continuation retained, at an amortized control boundary |
 
 For 4, set `worker.count` to 2..7 and write each complete canonical child key
-into `worker.keys[i * 42 .. i * 42 + 41]`, and its parent-canonical physical
+into `worker.keys[i * 8 .. i * 8 + 7]`, and its parent-canonical physical
 column into `worker.actions[i]`. Children must advance rank and actions must
 be unique. First child is advisory-best and remains locally owned when free.
 The parent publication region is the TT itself; no copied wire descriptor.
@@ -81,7 +81,7 @@ exact max/min closure and releases unneeded edges. An extreme exact child
 permits value cutoff. A child still needed by another parent remains alive.
 Root value and deterministic center-first action witness close separately;
 completion order cannot choose the root move. Root reflection is transported
-only at the external witness boundary. No alpha/beta cutoff is labelled exact.
+into caller-frame tie priority and at the external witness boundary. No alpha/beta cutoff is labelled exact.
 General non-exact interval/window propagation is not implemented here.
 
 On retirement a worker abandons its private continuation at its next control

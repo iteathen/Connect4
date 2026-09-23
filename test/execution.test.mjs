@@ -5,7 +5,7 @@ import { prepareWorker7x6, workerStep7x6 } from '../components/isometric/executi
 import { managerStep7x6 } from '../components/isometric/execution/manager.mjs';
 
 function key(id, rank) {
-  const k = new Uint32Array(42); k[0] = rank << 21; k[41] = id; return k;
+  const k = new Uint32Array(8); k[0] = rank << 21; k[7] = id; return k;
 }
 function setup() {
   const t = tt.createTT7x6(32, 1);
@@ -15,12 +15,12 @@ function setup() {
   return t;
 }
 function evaluate(t, q, s, expose) {
-  const id = t.keys[q * 42 + 41];
+  const id = t.keys[q * 8 + 7];
   if (id !== 1) return id === 2 ? 3 : 1;
   if (!expose) { s.witness = 3; return 3; }
   s.count = 2;
-  s.keys[0] = 1 << 21; s.keys[41] = 2; s.actions[0] = 3;
-  s.keys[42] = 1 << 21; s.keys[83] = 3; s.actions[1] = 2;
+  s.keys[0] = 1 << 21; s.keys[7] = 2; s.actions[0] = 3;
+  s.keys[8] = 1 << 21; s.keys[15] = 3; s.actions[1] = 2;
   return 4;
 }
 
@@ -103,12 +103,12 @@ test('retiring a local continuation releases ownership before polling another q'
 test('pruning one parent preserves a transposed child still needed by another', () => {
   const t = setup(), a = prepareWorker7x6(2, 2), b = prepareWorker7x6(3, 2);
   const emit = (table, q, w) => {
-    const id = table.keys[q * 42 + 41];
-    const rank = table.keys[q * 42] >>> 21;
+    const id = table.keys[q * 8 + 7];
+    const rank = table.keys[q * 8] >>> 21;
     w.count = 2; w.actions[0] = 3; w.actions[1] = 2;
-    w.keys[0] = w.keys[42] = (rank + 1) << 21;
-    if (id === 1) { w.keys[41] = 2; w.keys[83] = 3; }
-    else { w.keys[41] = 4; w.keys[83] = id === 2 ? 5 : 6; }
+    w.keys[0] = w.keys[8] = (rank + 1) << 21;
+    if (id === 1) { w.keys[7] = 2; w.keys[15] = 3; }
+    else { w.keys[7] = 4; w.keys[15] = id === 2 ? 5 : 6; }
     return 4;
   };
   workerStep7x6(t, a, emit); managerStep7x6(t);

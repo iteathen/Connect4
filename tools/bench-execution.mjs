@@ -22,7 +22,7 @@ function oracle(id) {
 }
 const expected = oracle(1);
 const expectedMove = graph[1].children.find(([, child]) => oracle(child) === expected)[0];
-const root = new Uint32Array(42); root[41] = 1;
+const root = new Uint32Array(8); root[7] = 1;
 const samples = [];
 // Rotate order so one worker count does not always receive earliest host state.
 for (let repeat = 0; repeat < 7; repeat++) for (let i = 0; i < 3; i++) {

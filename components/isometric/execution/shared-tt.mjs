@@ -1,13 +1,15 @@
 import { mix32 } from '../../../vendor/jsminsys/src/mix32.mjs';
 import { atomicTryClaim32, atomicReleaseNoNotify32 } from '../../../vendor/jsminsys/src/atomic32.mjs';
+import {KEY_WORDS,ACTIONS} from '../rba/layout.mjs';
+export {KEY_WORDS,ACTIONS};
 
 export const LOCK = 0, ERROR = 1, STOP = 2, FREE = 3, LIVE = 4;
 export const READY_HEAD = 5, READY_TAIL = 6, EVENT_HEAD = 7, EVENT_TAIL = 8;
 export const DONE = 9, ROOT = 10, ROOT_GENERATION = 11, WAKE = 12;
 export const READY_COUNT = 13;
+export const ROOT_REFLECTED = 14;
 export const CAPACITY = 1, CONFLICT = 2, GENERATION = 3, CONTRACT = 4;
 export const WORKER_DIED = 5, DEADLINE = 6, CANCELLED = 7;
-export const KEY_WORDS = 42, ACTIONS = 7;
 
 // COLD: all view/object construction and initialization precedes execution.
 export function createTT7x6(capacity = 4096, bucketCount = 4096) {
@@ -60,7 +62,7 @@ export function valid(t, q, generation) {
   return q >= 0 && q < t.capacity && t.live[q] && t.generation[q] === generation;
 }
 
-// Input: canonical standard-7x6 q, support/flags/20+20 residual words.
+// Input: canonical standard-7x6 q, support/flags/3+3 local upset words.
 // Returns one OWNED pin, including hits. Hash locates; every word decides equality.
 export function intern7x6(t, words, offset) {
   let hash = 0;

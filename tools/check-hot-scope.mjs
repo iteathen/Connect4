@@ -7,7 +7,8 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const files = ['shared-tt.mjs', 'worker.mjs', 'manager.mjs'].map(name =>
   resolve(root, 'components/isometric/execution', name));
 files.push(resolve(root, 'components/isometric/rba/coordinate.mjs'));
-const cold = new Set(['createTT7x6', 'prepareWorker7x6']);
+files.push(resolve(root, 'components/isometric/rba/kernel.mjs'));
+const cold = new Set(['createTT7x6', 'prepareWorker7x6', 'prepare']);
 const atomic = new Set(['load', 'store', 'compareExchange', 'exchange', 'add', 'sub', 'wait', 'notify']);
 const math = new Set(['imul', 'clz32', 'floor', 'trunc', 'ceil', 'round', 'min', 'max']);
 const forbidden = new Set(['NewExpression', 'ObjectExpression', 'ArrayExpression',
@@ -16,7 +17,7 @@ const forbidden = new Set(['NewExpression', 'ObjectExpression', 'ArrayExpression
 
 // COLD structural detector, not a JS semantics/aliasing proof or JMS seal.
 // Resolve statically named transitive helpers, including pinned library calls.
-export function auditHotScope(overrides = new Map()) {
+export function auditHotScope(overrides = new Map(), nativeRba = false) {
   const modules = new Map(), checked = new Set(), violations = [], boundaries = new Set();
   function load(file) {
     if (modules.has(file)) return modules.get(file);
@@ -46,7 +47,10 @@ export function auditHotScope(overrides = new Map()) {
       if (node.type === 'CallExpression') {
         const call = node.callee;
         if (call.type === 'Identifier') {
-          if (call.name === 'evaluate' && file === files[1] && name === 'workerStep7x6') boundaries.add('prepared native kernel evaluate');
+          if (call.name === 'evaluate' && file === files[1] && name === 'workerStep7x6') {
+            if (nativeRba) visitFunction(resolve(root,'components/isometric/rba/kernel.mjs'),'evaluate');
+            else boundaries.add('prepared native kernel evaluate');
+          }
           else if (module.functions.has(call.name)) visitFunction(file, call.name);
           else if (module.imports.has(call.name)) visitFunction(...module.imports.get(call.name));
           else bad(node, `unresolved call ${call.name}`);
@@ -71,6 +75,6 @@ export function auditHotScope(overrides = new Map()) {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const result = auditHotScope(); console.log(JSON.stringify(result, null, 2));
+  const result = auditHotScope(new Map(),process.argv.includes('--native-rba')); console.log(JSON.stringify(result, null, 2));
   if (result.violations.length) process.exitCode = 1;
 }

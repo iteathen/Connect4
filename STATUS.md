@@ -11,7 +11,13 @@ Qualified so far: component tests, real 1/2/4-worker ranked DAGs, randomized
 oracle comparison, abort/death/deadline/capacity controls, static hot-call-graph
 detector and deliberately bad detector control.
 
-Not yet claimed: native Connect Four kernel integration, full-game correctness,
+Native standard-7x6 RBA coordinates/cofactors and retained exact fallback are
+implemented. Real late-root oracle tests pass at 1/2/4 workers. The selected
+eight-word q layout replaces all executor payload consumers; external root
+tie priority is applied in caller orientation. Native static traversal has no
+open call boundary or detected forbidden materialization/text (not a JMS seal).
+
+Not yet claimed: complete four-front boundary producer, full-game qualification,
 performance superiority, JMS-SEALED or complete NEES-EXTREME conformance.
 The dynamic kernel boundary remains unqualified. The benchmark is an execution
 fixture baseline only. See the NEES profile for the explicit remaining debt.
@@ -20,11 +26,10 @@ Native RBA design has been revised following owner review. JSMinSys is pinned
 to round 100 (`64ba37a1`). See `docs/design/rba-native-integration.md` for the
 support-local coordinate, action transport, q-layout, arena and outcome contracts.
 
-Next implementation unit: native standard-7x6 RBA coordinates and cofactors,
-independent differential tests and complete hot-operation cycle accounting.
-Do not start four-front construction before representation qualification.
-The existing executor still has its 42-word fixture payload and 1..5 protocol;
-replace all consumers coherently when integrating the qualified native layout.
+Next implementation unit: worker-private symbolic four-front producer and
+complete hot-operation cycle accounting. Coordinates have passed independent
+physical-line differential qualification. Extended non-WDL outcomes distinguish
+incomplete/capacity/uncovered/fallback/interruption from exact values.
 Strict JSMinSys extends through every hot helper. Full cycle totals and full
 transitive conformance remain outstanding; current symbolic accounting is not
 completion of either requirement. Qualify the complete kernel + worker/TT/manager

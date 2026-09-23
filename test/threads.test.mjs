@@ -11,7 +11,7 @@ const graph = [null,
   { rank: 2, value: 1 }, { rank: 2, value: 3 },
   { rank: 3, value: 1 }, { rank: 3, value: 2 },
 ];
-const root = new Uint32Array(42); root[41] = 1;
+const root = new Uint32Array(8); root[7] = 1;
 
 // Hand solution: q4=max(loss,draw)=draw; q2=min(draw,loss)=loss;
 // q3=min(draw,win)=draw; q1=max(loss,draw)=draw, best physical column 2.

@@ -13,7 +13,7 @@ Substrate: Node 26.7, JSMinSys round 100, NEES Draft 0.5.
   first-win stopping, singleton completion, padding and reflected equality.
   Files: `components/isometric/rba/{prepare,coordinate,ingress}.mjs`,
   `test/rba-coordinate.test.mjs`, `test/helpers/physical-oracle.mjs`.
-- [ ] Executor integration: replace the complete 42-word ABI with selected
+- [x] Executor integration: replace the complete 42-word ABI with selected
   eight-word q layout. Extend numeric outcomes and fix external-frame root tie
   selection. Test exact collisions, failure/lifetime fixtures and both root
   orientations; update every production and fixture consumer simultaneously.

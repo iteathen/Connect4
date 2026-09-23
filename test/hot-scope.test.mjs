@@ -17,3 +17,11 @@ test('hot-scope detector catches a deliberate allocation in a transitive JSMinSy
   const result = auditHotScope(new Map([[path, mutant]]));
   assert.ok(result.violations.some(v => v.includes('ArrayExpression')));
 });
+
+test('native RBA binding closes the call graph and rejects transitive text',()=>{
+  const good=auditHotScope(new Map(),true);
+  assert.deepEqual(good.violations,[]);assert.deepEqual(good.openBoundaries,[]);
+  const path=fileURLToPath(new URL('../components/isometric/rba/coordinate.mjs',import.meta.url));
+  const source=readFileSync(path,'utf8').replace('let n=0;',"const text='bad'; let n=0;");
+  assert.ok(auditHotScope(new Map([[path,source]]),true).violations.some(v=>v.includes('hot text')));
+});

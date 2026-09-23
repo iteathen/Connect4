@@ -1,7 +1,7 @@
 import { Worker } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 import { createTT7x6, intern7x6, enqueue, fail, ROOT, ROOT_GENERATION, DONE, ERROR,
-  STOP, WAKE, WORKER_DIED, DEADLINE, CANCELLED } from './shared-tt.mjs';
+  STOP, WAKE, WORKER_DIED, DEADLINE, CANCELLED, KEY_WORDS, ROOT_REFLECTED } from './shared-tt.mjs';
 
 // COLD HOST LIFECYCLE ONLY. This object is not the execution manager's q
 // authority. The manager thread operates directly on the shared TT rows.
@@ -21,7 +21,7 @@ export class IsoMaxBranchManager {
 
   async run(rootWords, { reflected = false, signal } = {}) {
     if (this.running) throw new Error('session already running');
-    if (!(rootWords instanceof Uint32Array) || rootWords.length !== 42 ||
+    if (!(rootWords instanceof Uint32Array) || rootWords.length !== KEY_WORDS ||
         (rootWords[0] >>> 21) > 42) throw new TypeError('canonical standard q required');
     const start = performance.now();
     const o = this.options;
@@ -29,6 +29,7 @@ export class IsoMaxBranchManager {
     this.running = true;
     const root = intern7x6(t, rootWords, 0);
     t.control[ROOT] = root; t.control[ROOT_GENERATION] = t.generation[root];
+    t.control[ROOT_REFLECTED] = reflected ? 1 : 0;
     enqueue(t, root);
     const threads = [], exits = [], errors = [];
     let exited = 0, finished = false;

@@ -1,5 +1,5 @@
 import { enter, leave, valid, release, recycle, enqueue, signal, takeEvent,
-  setExact, fail, CONTRACT, ROOT, DONE, STOP, WAKE, ACTIONS, KEY_WORDS } from './shared-tt.mjs';
+  setExact, fail, CONTRACT, ROOT, ROOT_REFLECTED, DONE, STOP, WAKE, ACTIONS, KEY_WORDS } from './shared-tt.mjs';
 
 // E2, manager-only under the TT transaction. PRESERVE THROUGH ALL CALLEES.
 // No game evaluation, private identity table, replay, dynamic aggregate, or
@@ -55,7 +55,7 @@ function reconcile7x6(t, q) {
     let unknown = 0, firstUnknown = 7, bestPriority = 7, action = -1;
     for (let i = 0; i < t.count[q]; i++) {
       const e = base + i, value = t.exact[t.child[e]];
-      const order = priority7x6(t.edgeAction[e]);
+      const order = priority7x6(root && t.control[ROOT_REFLECTED] ? 6-t.edgeAction[e] : t.edgeAction[e]);
       if (!value) { unknown++; if (order < firstUnknown) firstUnknown = order; }
       else if ((minimize ? value < best : value > best) ||
                (value === best && order < bestPriority)) {

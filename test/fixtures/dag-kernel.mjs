@@ -37,7 +37,7 @@ export function evaluate(t, q, w, expose) {
   }
   if (w.die) process.exit(19);
   if (w.hang) { for (;;) {} }
-  const id = t.keys[q * 42 + 41];
+  const id = t.keys[q * 8 + 7];
   if (w.graphValue[id]) return w.graphValue[id];
   if (!expose) {
     const value = close(w, id);
@@ -53,8 +53,8 @@ export function evaluate(t, q, w, expose) {
   w.count = w.graphCount[id];
   for (let i = 0; i < w.count; i++) {
     const child = w.graphChild[id * 7 + i];
-    w.keys[i * 42] = w.graphRank[child] << 21;
-    w.keys[i * 42 + 41] = child;
+    w.keys[i * 8] = w.graphRank[child] << 21;
+    w.keys[i * 8 + 7] = child;
     w.actions[i] = w.graphAction[id * 7 + i];
   }
   return 4;

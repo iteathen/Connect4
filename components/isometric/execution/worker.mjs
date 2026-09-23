@@ -1,5 +1,6 @@
 import { enter, leave, take, intern7x6, signal, setExact, releaseExecution,
-  fail, CONTRACT, KEY_WORDS, ACTIONS, WAKE, READY_COUNT } from './shared-tt.mjs';
+  fail, CONTRACT, CANCELLED, KEY_WORDS, ACTIONS, WAKE, READY_COUNT } from './shared-tt.mjs';
+import {BOUNDARY_INCOMPLETE, FALLBACK_REQUIRED, FALLBACK_SELECTED, INTERRUPTED} from '../rba/layout.mjs';
 
 // COLD. The prepared kernel may add its private numeric storage here once.
 export function prepareWorker7x6(owner, workerCount) {
@@ -8,7 +9,7 @@ export function prepareWorker7x6(owner, workerCount) {
   return { owner, allowExpose: workerCount > 1 ? 1 : 0, readyTarget: workerCount * 2,
     expose: 0, q: -1, code: 0,
     count: 0, witness: -1, keys: new Uint32Array(ACTIONS * KEY_WORDS),
-    actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0 };
+    actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0, fallbacks: 0 };
 }
 
 // E2 + trusted native-kernel boundary. PRESERVE this contract in callees.
@@ -39,6 +40,7 @@ export function workerStep7x6(t, w, evaluate) {
   }
   if (w.code === 0) { w.code = evaluate(t, w.q, w, w.expose); w.started = 0; }
   if (w.code === 5) { w.code = 0; w.continuations++; return 1; }
+  if (w.code === FALLBACK_SELECTED) { w.code = 0; w.fallbacks++; return 1; }
   if (!enter(t, w.owner)) return 0;
   const q = w.q;
   let next = -1;
@@ -82,6 +84,10 @@ export function workerStep7x6(t, w, evaluate) {
         releaseExecution(t, q, w.owner);
       }
     }
+  } else if (w.code >= BOUNDARY_INCOMPLETE && w.code <= FALLBACK_REQUIRED && (w.code|0)===w.code) {
+    fail(t,16+w.code); releaseExecution(t,q,w.owner);
+  } else if (w.code === INTERRUPTED) {
+    fail(t,CANCELLED); releaseExecution(t,q,w.owner);
   } else fail(t, CONTRACT);
   leave(t);
   w.q = next; w.code = 0; w.count = 0; w.witness = -1; w.started = 1;

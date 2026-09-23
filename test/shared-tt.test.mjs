@@ -5,10 +5,10 @@ import * as tt from '../components/isometric/execution/shared-tt.mjs';
 // Hand-written keys differ in their last residual word: ignoring any tail word
 // or treating the single bucket as equality must fail these tests.
 function key(id, rank = 0, flags = 0) {
-  const words = new Uint32Array(42);
+  const words = new Uint32Array(8);
   words[0] = rank << 21;
   words[1] = flags;
-  words[41] = id;
+  words[7] = id;
   return words;
 }
 
