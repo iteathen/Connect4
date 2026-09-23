@@ -173,6 +173,7 @@ export function takeEvent(t) {
 export function setExact(t, q, code) {
   if (code < 1 || code > 3) return fail(t, CONTRACT);
   if (t.exact[q] && t.exact[q] !== code) return fail(t, CONFLICT);
+  if (t.exact[q] === code) return 1;
   t.exact[q] = code;
   signal(t, q);
   return 1;
