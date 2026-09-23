@@ -1,98 +1,102 @@
-# NEES Draft 0.5 — JSMinSys CPC-first IsoMax
+# NEES Draft 0.5 — JSMinSys shared-TT IsoMax
 
 NEES revision: `7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
-JSMinSys revision: `25aeb13744a2ed413e660b16b8f3ec2332ae58ec`.
+JSMinSys revision: `d176330ebed2c29d8b71f290f95734b107817d3e`.
 
-Semantic owner: retained Connect4 gameplay specifications and the accepted
-Isometric/IsoMax solver contract. Reusable execution primitives are consumed from
-the pinned merged JSMinSys library.
+Semantic owner: retained Connect4 gameplay specifications and the active
+Isometric/IsoMax solver contract. Reusable TT, queue, worker and manager
+mechanics are consumed from the pinned merged JSMinSys library.
 
 **Conformance status: partial qualification; no NEES-EXTREME, JMS-RESTRICTED or
 JMS-SEALED claim.**
 
 ## Current execution scope
 
-Public execution is:
-
 ```text
 Connect4 legal replay ingress
-  -> cold managed worker lifecycle
-  -> JSMinSys runtime-configured 7x6 geometry
-  -> canonical RBA q
-  -> CPC/NDC closure
-  -> exact RBA cofactor / canonicalization
-  -> exact negamax/alpha-beta
-  -> exact direct-mapped cache
+  -> cold root q preparation
+  -> shared JSMinSys RBA TT
+  -> one manager thread
+  -> N evaluator workers
+       -> CPC-first q evaluation
+       -> RBA cofactor/canonicalization
+       -> exact/scalar child publication
+       -> retained first child
+       -> surplus through shared ready queue
+  -> manager dependency attachment/reconciliation
+  -> exact root result
 ```
 
-The production mode is `RBA_AB_CPC_ONLY`. Recursive Four-Front is not on the
-production hot path. Optional pooled/synchronized frontier-response logic is
-disabled by default.
+The TT is the sole authority for q identity, exact/bound evidence, references,
+generation, dependency topology, ready membership, event membership and recycle
+eligibility.
 
-The current execution profile uses one search worker. This is explicit rather
-than pretending that independent duplicated searches form a shared multiworker
-solver.
+The Branch Manager does not evaluate the game and has no second branch table.
+It drains bounded event batches, attaches/reconciles dependency evidence and
+exposes unresolved surplus q through the TT ready queue.
 
-## Ownership and lifecycle
+Workers do not RPC the manager for work. They claim q directly under the TT
+transaction, evaluate outside the transaction, publish once, retain at most one
+runnable child directly, and return surplus ownership to shared topology.
 
-Connect4 owns:
+## Synchronization
 
-- legal replay and standard 7x6 product entry;
-- P0-oriented result semantics and deterministic external move meaning;
-- benchmark/oracle expectations;
-- the public 120-second deadline.
+- One TT transaction serializes topology/ref/queue mutation.
+- Game evaluation never runs while that transaction is held.
+- STOP/DONE/ERROR/WAKE are atomic cross-thread control words.
+- Ready/event intrusive lists are fields of q rows; generation stamps reject
+  stale tickets.
+- Execution ownership pins active q against recycle.
+- Failure/timeout/cancellation is fail-closed and publishes no W/D/L.
+- Host cleanup terminates and joins the manager plus all evaluator workers.
 
-JSMinSys owns:
-
-- runtime geometry and execution-profile specialization;
-- support-local q/basis/cofactor/canonicalization;
-- CPC exact/bound/restriction closure;
-- alpha-beta traversal and exact-cache discipline;
-- generic managed worker/session lifecycle.
-
-The search worker is disposable per solve. Timeout, cancellation or worker
-failure terminates and joins it before public completion. No interrupted run
-publishes W/D/L.
+The current queue is FIFO across q arrivals. Prepared action order and CPC
+evidence influence which child is retained/published first. Global highest-value
+queue ordering is not yet implemented and is explicit optimization debt.
 
 ## Hot-path policy
 
-After worker preparation, the recursive search uses preallocated typed storage.
-Exact cache publication is restricted to globally exact values; narrow
-alpha/beta returns remain local search control. Hashes are locators only.
+After worker preparation, evaluator storage is fixed typed storage. CPC/RBA
+evaluation is allocation-free at the qualified source level. Exact child
+evidence may remain scalar without interning a q. Unresolved canonical children
+are interned exactly and share identity across parents.
 
-CPC may return exact W/D/L, tighten an exact interval, or restrict legal actions
-only under qualified guards. Advisory projected CPC facts remain non-authoritative.
-Ordinary first-win timing is supplied by traversal unless a certificate
-explicitly proves a skipped temporal interval.
+The manager is intentionally outside the game-evaluation hot loop. Its work is
+bounded by event/dependency topology. It may become a synchronization bottleneck;
+that is a measurable economics question, not permission to duplicate q authority.
 
-No conventional colored-board reconstruction, BigInt gameplay state, recursive
-Four-Front fallback, or alternate solver is on the production path.
+No recursive Four-Front production path, conventional colored-board rebuild,
+BigInt gameplay state, or alternate fallback solver is active.
 
 ## Qualification
 
-GitHub Actions run `35927386403`:
+Connect4 CI run `35930426403`:
 
-- Connect4: 57/57 tests passed;
-- pinned JSMinSys: 122/122 tests passed;
-- independent physical-oracle agreement on maintained late 7x6 controls;
-- mirrored caller-frame witness agreement;
-- genuinely CPC-unresolved rank-28 control traverses alpha-beta with
-  `frontCalls=0` and `frontSteps=0`;
-- deadline/cancellation cleanup returns no W/D/L.
+- Connect4 57/57 tests passed;
+- pinned JSMinSys 125/125 tests passed;
+- 1/2/4 evaluator workers agree with independent late-position oracles;
+- caller-frame reflection/witness controls pass;
+- shared ready queue and surplus publication are exercised;
+- cancellation/deadline cleanup returns no W/D/L.
 
-These tests qualify the implemented controls. They do not establish a complete
-NEES cycle model, emitted-assembly optimality, all-state exhaustive verification,
-multiworker scaling, or empty-board completion.
+JSMinSys PR #4 additionally qualified retained-child/surplus behavior and
+CPC-first shared-TT traversal against the existing exact CPC alpha-beta control.
 
-## Remaining qualification debt
+## Measurement/optimization debt
 
-- complete standard Fhourstones run using `tools/bench-fhourstones.mjs`;
-- whole-operation CPU-cycle and elapsed measurements for the new managed-worker
-  CPC-first path;
-- representative V8/JIT lowering inspection if NEES-EXTREME promotion is sought;
-- a real shared/distributed CPC-first design before admitting workers > 1;
-- full all-state or stronger exhaustive differential qualification if required.
+The previous standard Fhourstones result belongs to the superseded private
+single-worker alpha-beta wrapper and is not transferred to this topology.
 
-Historical measurements for the superseded shared-TT/Four-Front implementation
-remain historical evidence only and must not be presented as measurements of
-this implementation.
+Required next measurements:
+
+- standard Fhourstones qualification at one evaluator;
+- paired 1/2/4-worker benchmark on the same official first case;
+- TT lock contention / manager event throughput;
+- ready-queue occupancy and idle-worker time;
+- whole-operation CPU cycles and wall time;
+- comparison against the prior private alpha-beta control with semantic work
+  units kept distinct.
+
+A global value-priority queue, retained cross-root worker pool, lock sharding,
+manager batching changes or alternate wake policies require measured evidence
+before promotion.
