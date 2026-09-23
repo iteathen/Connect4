@@ -46,12 +46,24 @@ test('streamed front product preserves mixed covers and absorbs before capacity 
   assert.equal(combineFront7x6(a,0,1,2,1),0);
   const raw=[...new Set(left.flatMap(x=>right.map(y=>x|y)))];
   const expected=raw.filter(x=>!raw.some(y=>y!==x && (y&~x)===0)).sort((x,y)=>x-y);
-  const actual=Array.from({length:a.count[2]},(_,i)=>a.words[(2*a.capacity+i)*6]).sort((x,y)=>x-y);
+  const actual=Array.from({length:a.count[2]},(_,i)=>a.words[a.base[2]+i*6]).sort((x,y)=>x-y);
   assert.deepEqual(actual,expected);
   const small=prepareFrontArena7x6(1,1,1000);
   small.temp[0]=3;assert.equal(insertFront7x6(small,0),0);
   small.temp[0]=1;assert.equal(insertFront7x6(small,0),0); // subsumes full slot
   small.temp[0]=2;assert.equal(insertFront7x6(small,0),7); // incomparable: capacity
+});
+
+test('front arena transfers ownership without copying published boundary words',async()=>{
+  const {prepareFrontArena7x6,swapFront7x6}=await import(url.href);
+  assert.equal(typeof swapFront7x6,'function');
+  const a=prepareFrontArena7x6(1,4,1000);
+  a.words[a.base[0]]=7;a.count[0]=1;
+  const before=a.words.slice(),original=a.base[0];
+  swapFront7x6(a,0,1);
+  assert.equal(a.base[1],original);assert.equal(a.count[1],1);assert.equal(a.count[0],0);
+  assert.deepEqual(a.words,before);
+  assert.equal(new Set(a.base).size,a.base.length,'every arena region retains one owner');
 });
 
 test('complete small support fibers agree with independent residual-array game including first-win guards',async()=>{

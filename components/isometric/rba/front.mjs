@@ -7,8 +7,9 @@ export function prepareFrontArena7x6(depth=2,capacity=256,budget=100000){
   if(!Number.isInteger(depth)||depth<0||depth>4||!Number.isInteger(capacity)||capacity<1||capacity>8192||
     !Number.isInteger(budget)||budget<1||budget>10000000)throw new RangeError('front arena bounds');
   const slots=(depth+1)*12+29;
+  const base=Uint32Array.from({length:slots},(_,slot)=>slot*capacity*6);
   return {depth,capacity,budget,steps:0,error:0,actionBase:(depth+1)*12,local:slots-1,
-    words:new Uint32Array(slots*capacity*6),count:new Uint32Array(slots),
+    words:new Uint32Array(slots*capacity*6),count:new Uint32Array(slots),base,
     basis:new Uint32Array((depth+1)*69),size:new Uint32Array(depth+1),valid:new Uint32Array((depth+1)*3),
     up:new Uint32Array((depth+1)*69*3),seen:new Uint32Array(20),temp:new Uint32Array(6),
     image0:new Uint32Array(69*3),image1:new Uint32Array(69*3),top1:new Uint32Array(69),
@@ -22,7 +23,7 @@ export function prepareFrontArena7x6(depth=2,capacity=256,budget=100000){
 function spend(a){if(++a.steps>a.budget){a.error=6;return 0;}return 1;}
 export function insertFront7x6(a,slot){
   if(!spend(a))return a.error;
-  const base=slot*a.capacity*6;
+  const base=a.base[slot];
   // Compare the candidate before mutation: a dominated insert costs no capacity.
   for(let i=0;i<a.count[slot];i++){
     if(!spend(a))return a.error;
@@ -40,18 +41,20 @@ export function insertFront7x6(a,slot){
   const dst=base+a.count[slot]++*6;for(let k=0;k<6;k++)a.words[dst+k]=a.temp[k];
   return 0;
 }
-function copyFront(a,from,to){
-  a.count[to]=a.count[from];
-  const src=from*a.capacity*6,dst=to*a.capacity*6;
-  for(let i=0;i<a.count[from]*6;i++)a.words[dst+i]=a.words[src+i];
+// Transfer exclusive arena-region ownership, not boundary payload. No memcopy.
+export function swapFront7x6(a,left,right){
+  const base=a.base[left],count=a.count[left];
+  a.base[left]=a.base[right];a.count[left]=a.count[right];
+  a.base[right]=base;a.count[right]=count;
 }
-function universal(a,slot){a.count[slot]=1;for(let k=0;k<6;k++)a.words[slot*a.capacity*6+k]=0;}
+function universal(a,slot){a.count[slot]=1;for(let k=0;k<6;k++)a.words[a.base[slot]+k]=0;}
 export function combineFront7x6(a,left,right,out,intersect){
   a.count[out]=0;
   if(!intersect){
-    copyFront(a,left,out);
+    // Union consumes the left region; insert only right-side generators.
+    swapFront7x6(a,left,out);
     for(let j=0;j<a.count[right];j++){
-      for(let k=0;k<6;k++)a.temp[k]=a.words[(right*a.capacity+j)*6+k];
+      for(let k=0;k<6;k++)a.temp[k]=a.words[a.base[right]+j*6+k];
       if(insertFront7x6(a,out))return a.error;
     }
   }else{
@@ -61,11 +64,11 @@ export function combineFront7x6(a,left,right,out,intersect){
     for(let i=0;i<a.count[left];i++){
       a.count[a.local]=0;
       for(let j=0;j<a.count[right];j++){
-        for(let k=0;k<6;k++)a.temp[k]=a.words[(left*a.capacity+i)*6+k]|a.words[(right*a.capacity+j)*6+k];
+        for(let k=0;k<6;k++)a.temp[k]=a.words[a.base[left]+i*6+k]|a.words[a.base[right]+j*6+k];
         if(insertFront7x6(a,a.local))return a.error;
       }
       for(let j=0;j<a.count[a.local];j++){
-        for(let k=0;k<6;k++)a.temp[k]=a.words[(a.local*a.capacity+j)*6+k];
+        for(let k=0;k<6;k++)a.temp[k]=a.words[a.base[a.local]+j*6+k];
         if(insertFront7x6(a,out))return a.error;
       }
     }
@@ -119,7 +122,7 @@ function covers(a,d,childBase,out){
 function preimage(a,d,child,out,cell,mover){
   a.count[out]=0;
   for(let j=0;j<a.count[child];j++){
-    const cb=(child*a.capacity+j)*6;
+    const cb=a.base[child]+j*6;
     for(let k=0;k<3;k++)a.adjoint[k]=0;
     for(let i=0;i<a.size[d];i++){
       if(a.top1[i])continue; // Fresh WIN_NOW is above the full ordinary upset.
@@ -160,16 +163,16 @@ export function buildFour7x6(g,a,support,d,remaining){
     const cell=height*7+c;prepareImages(g,a,d,cell,mover);
     for(let h=0;h<4;h++){
       if(preimage(a,d,(d+1)*12+h,slot+4+h,cell,mover))return a.error;
-      if(d===0)copyFront(a,slot+4+h,a.actionBase+c*4+h);
       if(combineFront7x6(a,slot+h,slot+4+h,slot+8+h,mover))return a.error;
-      copyFront(a,slot+8+h,slot+h);
+      swapFront7x6(a,slot+8+h,slot+h);
+      if(d===0)swapFront7x6(a,slot+4+h,a.actionBase+c*4+h);
     }
   }
   return 0;
 }
 function member(a,slot,words,offset){
   for(let i=0;i<a.count[slot];i++){
-    const b=(slot*a.capacity+i)*6;let ok=1;
+    const b=a.base[slot]+i*6;let ok=1;
     for(let k=0;k<3;k++)if((a.words[b+k]&~words[offset+2+k])||(a.words[b+3+k]&words[offset+5+k])){ok=0;break;}
     if(ok)return 1;
   }
