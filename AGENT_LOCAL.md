@@ -3,15 +3,15 @@
 ## Fresh rebuild checkpoint — 2026-09-23
 
 The owner authorized starting IsoMax implementation from scratch on
-`work/isomax-jsminsys-rebuild`, preserving gameplay specs. This branch currently
-contains the new worker/TT/BranchManager and native RBA solver. Read
-`docs/qualification/2026-09-23-native-rba.md` for measured cycle totals and the
-limits of its semantic/performance qualification.
-Read `STATUS.md`, `components/isometric/execution/README.md` and
+`work/isomax-jsminsys-rebuild`, preserving gameplay specs. The current public
+solver is the thin JSMinSys CPC-first adapter documented in
+`components/isometric/jsminsys/README.md`; the earlier worker/shared-TT/Four-Front
+implementation is not the public solve path.
+Read `STATUS.md`, `components/isometric/jsminsys/README.md` and
 `components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
-and pinned merged JSMinSys round 100 `64ba37a1`; these supersede the older runtime-standard
-pin below for this rebuild. Historical routing/implementation descriptions below
-do not authorize importing the old solver or claiming fixtures are game solves.
+and pinned merged JSMinSys main `25aeb13744a2ed413e660b16b8f3ec2332ae58ec`.
+Historical routing/implementation descriptions below do not authorize restoring
+the superseded solver path or claiming fixtures are full-game solves.
 Do not modify BSFP. This bounded rebuild branch has the Isometric solver lane as
 its integration owner; it has not been promoted or merged.
 
