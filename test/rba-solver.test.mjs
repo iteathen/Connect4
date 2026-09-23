@@ -27,13 +27,16 @@ test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',as
   ];
   for(const moves of fixtures){
     const control=exact(moves);
-    const result=await solve7x6(moves,{workers:1,timeoutMs:5000});
-    assert.equal(result.status,'EXACT',JSON.stringify({moves,result}));
-    assert.equal(result.rootWdl,control.value-2);
-    assert.equal(result.move,control.move);
-    assert.equal(result.cleanup,true);
-    assert.equal(result.workersUsed,1);
-    assert.ok(result.metrics);
+    for(const workers of [1,2,4]){
+      const result=await solve7x6(moves,{workers,timeoutMs:5000});
+      assert.equal(result.status,'EXACT',JSON.stringify({moves,workers,result}));
+      assert.equal(result.rootWdl,control.value-2);
+      assert.equal(result.move,control.move);
+      assert.equal(result.cleanup,true);
+      assert.equal(result.workersUsed,workers);
+      assert.equal(result.workersExited,workers+1);
+      assert.ok(result.metrics.evaluations>0);
+    }
   }
 });
 
@@ -42,7 +45,7 @@ test('JSMinSys IsoMax preserves caller-frame witness under reflection',async()=>
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   for(const replay of [moves,moves.map(c=>6-c)]){
     const control=exact(replay);
-    const result=await solve7x6(replay,{timeoutMs:5000});
+    const result=await solve7x6(replay,{workers:2,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({replay,result}));
     assert.equal(result.rootWdl,control.value-2);
     assert.equal(result.move,control.move);
@@ -58,16 +61,26 @@ test('terminal roots return exact WDL with no move',async()=>{
   assert.equal(result.cleanup,true);
 });
 
-test('unsupported multiworker profile fails explicitly',async()=>{
+test('shared branch queue supports multiple evaluator workers',async()=>{
   const {solve7x6}=await import(apiURL.href);
-  await assert.rejects(()=>solve7x6([],{workers:2}),/requires workers=1/);
+  const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
+  const control=exact(moves);
+  for(const workers of [1,2,4]){
+    const result=await solve7x6(moves,{workers,timeoutMs:5000});
+    assert.equal(result.status,'EXACT',JSON.stringify({workers,result}));
+    assert.equal(result.rootWdl,control.value-2);
+    assert.equal(result.move,control.move);
+    assert.equal(result.workersExited,workers+1);
+    assert.ok(result.metrics.branches>0);
+    assert.ok(result.metrics.claims>=result.metrics.branches);
+  }
 });
 
 test('cancellation terminates the managed search worker without WDL',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const controller=new AbortController();
   controller.abort();
-  const result=await solve7x6([],{workers:1,timeoutMs:5000,signal:controller.signal});
+  const result=await solve7x6([],{workers:2,timeoutMs:5000,signal:controller.signal});
   assert.equal(result.status,'INTERRUPTED',JSON.stringify(result));
   assert.equal(result.rootWdl,null);
   assert.equal(result.move,-1);
