@@ -11,7 +11,7 @@ import {solve7x6} from '../components/isometric/solve.mjs';
 const inputs=['45461667','35333571','13333111',''];
 const expected=[1,-1,0,1]; // P0 == mover at these even-rank roots.
 const referenceNodes=[51596,8716732,169704432,1479113766];
-const output=process.argv[2]??'docs/qualification/fhourstones-isomax-rba-only.json';
+const output=process.argv[2]??'docs/qualification/fhourstones-isomax-jsminsys.json';
 const journal=output+'.jsonl';
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
 const report={
@@ -24,10 +24,10 @@ const report={
   inputSource:'https://github.com/tromp/fhourstones/blob/7ddf48dc70931eaa9c07904e12424960c3a019a1/inputs',
   inputGitBlob:'a8036a915ad1a3568762c269844cfd2ded7df3d3',
   inputs,expected,referenceNodes,
-  config:{workers:1,capacity:4096,buckets:4096,timeoutMs:120000,
-    boundaryDepth:2,boundaryCapacity:256,boundaryBudget:100000},
+  config:{workers:1,cacheCapacity:65536,timeoutMs:120000,
+    cpcFrontierResponse:false,cpcProjectedAdvisory:false},
   protocol:'Official four inputs in order, one attempt each. Existing solver 120-second cap preserved. Fresh solver session per input. No extra warmup or retry.',
-  interpretation:'Only EXACT with matching WDL qualifies. INCOMPLETE and TIMEOUT are not completed Fhourstones scores. boundarySteps counts algebra operations, not Fhourstones ab nodes. Whole-operation wall/CPU/cycles include ingress, preparation, worker startup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
+  interpretation:'Only EXACT with matching WDL qualifies. TIMEOUT, INTERRUPTED and FAILED are not completed Fhourstones scores. JSMinSys metrics report CPC-first RBA alpha-beta work units; they are not Fhourstones reference-node counts. Whole-operation wall/CPU/cycles include ingress, geometry/search preparation, worker startup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
   cases:[],completed:false,
 };
 writeFileSync(output,JSON.stringify(report,null,2)+'\n');
