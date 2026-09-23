@@ -66,3 +66,54 @@ test('fixed capacity failure reports failure, never a smaller substituted solve'
   assert.equal(result.rootWdl, null);
   assert.equal(result.cleanup, true);
 });
+
+test('death inside the TT transaction fails closed without lock takeover or deadlock', async () => {
+  const manager = new IsoMaxBranchManager({ workers: 2, capacity: 32,
+    kernelURL, kernelData: { graph, dieInLock: true }, timeoutMs: 5000 });
+  const result = await manager.run(root);
+  assert.equal(result.errorCode, 5);
+  assert.equal(result.rootWdl, null);
+  assert.equal(result.cleanup, true);
+});
+
+test('pre-aborted execution produces no value and cleans up', async () => {
+  const controller = new AbortController(); controller.abort();
+  const manager = new IsoMaxBranchManager({ workers: 2, capacity: 32,
+    kernelURL, kernelData: { graph }, timeoutMs: 5000 });
+  const result = await manager.run(root, { signal: controller.signal });
+  assert.equal(result.errorCode, 7);
+  assert.equal(result.rootWdl, null);
+  assert.equal(result.cleanup, true);
+});
+
+test('seeded transposed DAGs agree with an independent oracle at 1/2/4 workers', async () => {
+  let seed = 0x98736;
+  const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed; };
+  const order = [3, 2, 4, 1, 5, 0, 6];
+  function oracle(g, id) {
+    const n = g[id];
+    if (n.value) return n.value;
+    const values = n.children.map(([, child]) => oracle(g, child));
+    return n.rank & 1 ? Math.min(...values) : Math.max(...values);
+  }
+  for (let sample = 0; sample < 4; sample++) {
+    const g = [null];
+    for (let rank = 0; rank < 5; rank++) {
+      for (let column = 0; column < 5; column++) {
+        g.push(rank === 4 ? { rank, value: random() % 3 + 1 } : {
+          rank, children: order.slice(0, 3).map(action => [action, (rank + 1) * 5 + 1 + random() % 5]),
+        });
+      }
+    }
+    const expected = oracle(g, 1);
+    const move = g[1].children.find(([, child]) => oracle(g, child) === expected)[0];
+    for (const workers of [1, 2, 4]) {
+      const result = await new IsoMaxBranchManager({ workers, capacity: 128, buckets: 1,
+        kernelURL, kernelData: { graph: g }, timeoutMs: 5000 }).run(root);
+      assert.equal(result.status, 'EXACT', JSON.stringify(result));
+      assert.equal(result.rootWdl, expected - 2);
+      assert.equal(result.move, move);
+      assert.equal(result.cleanup, true);
+    }
+  }
+});

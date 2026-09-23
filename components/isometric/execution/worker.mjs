@@ -1,11 +1,12 @@
 import { enter, leave, take, intern, signal, setExact, releaseExecution,
-  fail, CONTRACT, KEY_WORDS, ACTIONS, WAKE } from './shared-tt.mjs';
+  fail, CONTRACT, KEY_WORDS, ACTIONS, WAKE, READY_COUNT } from './shared-tt.mjs';
 
 // COLD. The prepared kernel may add its private numeric storage here once.
 export function prepareWorker(owner, workerCount) {
   if (!Number.isInteger(owner) || owner < 2 || owner > 0x7fffffff ||
       !Number.isInteger(workerCount) || workerCount < 1) throw new RangeError('worker configuration');
-  return { owner, expose: workerCount > 1 ? 1 : 0, q: -1, code: 0,
+  return { owner, allowExpose: workerCount > 1 ? 1 : 0, readyTarget: workerCount * 2,
+    expose: 0, q: -1, code: 0,
     count: 0, witness: -1, keys: new Uint32Array(ACTIONS * KEY_WORDS),
     actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0 };
 }
@@ -21,6 +22,7 @@ export function workerStep(t, w, evaluate) {
   if (w.q === -1) {
     if (!enter(t, w.owner)) return 0;
     w.q = take(t, w.owner);
+    w.expose = w.allowExpose && t.control[READY_COUNT] < w.readyTarget ? 1 : 0;
     leave(t);
     if (w.q === -1) return 0;
     w.count = 0; w.witness = -1; w.code = 0; w.started = 1; w.claims++;
@@ -31,6 +33,7 @@ export function workerStep(t, w, evaluate) {
     if (!t.refs[w.q] || t.exact[w.q]) {
       releaseExecution(t, w.q, w.owner); w.q = -1;
     }
+    w.expose = w.allowExpose && t.control[READY_COUNT] < w.readyTarget ? 1 : 0;
     leave(t);
     if (w.q === -1) return 1;
   }

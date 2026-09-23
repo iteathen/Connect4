@@ -4,6 +4,7 @@ import { atomicTryClaim32, atomicReleaseNoNotify32 } from '../../../vendor/jsmin
 export const LOCK = 0, ERROR = 1, STOP = 2, FREE = 3, LIVE = 4;
 export const READY_HEAD = 5, READY_TAIL = 6, EVENT_HEAD = 7, EVENT_TAIL = 8;
 export const DONE = 9, ROOT = 10, ROOT_GENERATION = 11, WAKE = 12;
+export const READY_COUNT = 13;
 export const CAPACITY = 1, CONFLICT = 2, GENERATION = 3, CONTRACT = 4;
 export const WORKER_DIED = 5, DEADLINE = 6, CANCELLED = 7;
 export const KEY_WORDS = 42, ACTIONS = 7;
@@ -131,6 +132,7 @@ export function enqueue(t, q) {
   if (tail === -1) t.control[READY_HEAD] = q;
   else t.readyNext[tail] = q;
   t.control[READY_TAIL] = q;
+  t.control[READY_COUNT]++;
   return 1;
 }
 // A queued row has no evaluator access. Retirement removes membership in O(1),
@@ -142,6 +144,7 @@ function unqueue(t, q) {
   if (next === -1) t.control[READY_TAIL] = previous;
   else t.readyPrev[next] = previous;
   t.execution[q] = 0;
+  t.control[READY_COUNT]--;
 }
 export function take(t, owner) {
   let q = t.control[READY_HEAD];

@@ -99,3 +99,42 @@ test('retiring a local continuation releases ownership before polling another q'
   assert.equal(w.q, -1);
   assert.equal(t.live[root], 0);
 });
+
+test('pruning one parent preserves a transposed child still needed by another', () => {
+  const t = setup(), a = prepareWorker(2, 2), b = prepareWorker(3, 2);
+  const emit = (table, q, w) => {
+    const id = table.keys[q * 42 + 41];
+    const rank = table.keys[q * 42] >>> 21;
+    w.count = 2; w.actions[0] = 3; w.actions[1] = 2;
+    w.keys[0] = w.keys[42] = (rank + 1) << 21;
+    if (id === 1) { w.keys[41] = 2; w.keys[83] = 3; }
+    else { w.keys[41] = 4; w.keys[83] = id === 2 ? 5 : 6; }
+    return 4;
+  };
+  workerStep(t, a, emit); managerStep(t);
+  const root = t.control[tt.ROOT], left = t.child[root * 7], right = t.child[root * 7 + 1];
+  workerStep(t, b, emit); managerStep(t); // b takes right and retains shared child
+  workerStep(t, a, emit); managerStep(t); // left also references same child
+  const shared = t.child[left * 7];
+  assert.equal(t.child[right * 7], shared);
+  assert.equal(t.refs[shared], 2);
+  tt.setExact(t, t.child[left * 7 + 1], 1); managerStep(t);
+  assert.equal(t.exact[left], 1);
+  assert.equal(t.refs[shared], 1);
+  assert.equal(t.live[shared], 1);
+  assert.equal(t.execution[shared], b.owner);
+  tt.setExact(t, shared, 2);
+  tt.setExact(t, t.child[right * 7 + 1], 3);
+  managerStep(t, 64);
+  assert.equal(t.exact[root], 2);
+  assert.equal(t.witness[root], 2);
+  assert.equal(t.control[tt.DONE], 1);
+});
+
+test('ready-reservoir pressure requests local closure instead of exposing every branch', () => {
+  const t = setup(), w = prepareWorker(2, 2);
+  for (let id = 10; id < 14; id++) tt.enqueue(t, tt.intern(t, key(id, 1), 0));
+  let admitted = -1;
+  workerStep(t, w, (table, q, s, expose) => { admitted = expose; return 2; });
+  assert.equal(admitted, 0);
+});

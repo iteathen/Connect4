@@ -8,6 +8,7 @@ export function prepare(w, data) {
   w.graphChild = new Uint32Array(graph.length * 7);
   w.graphAction = new Uint32Array(graph.length * 7);
   w.die = data.die ? 1 : 0; w.hang = data.hang ? 1 : 0;
+  w.dieInLock = data.dieInLock ? 1 : 0;
   for (let q = 1; q < graph.length; q++) {
     const node = graph[q];
     w.graphRank[q] = node.rank; w.graphValue[q] = node.value ?? 0;
@@ -30,6 +31,10 @@ function close(w, id) {
 }
 function priority(action) { return action < 3 ? (3 - action) * 2 - 1 : (action - 3) * 2; }
 export function evaluate(t, q, w, expose) {
+  if (w.dieInLock) {
+    while (Atomics.compareExchange(t.control, 0, 0, w.owner) !== 0) {}
+    process.exit(23);
+  }
   if (w.die) process.exit(19);
   if (w.hang) { for (;;) {} }
   const id = t.keys[q * 42 + 41];
