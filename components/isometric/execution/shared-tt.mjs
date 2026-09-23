@@ -22,7 +22,7 @@ export function createTT(capacity = 4096, bucketCount = 4096) {
     control: i32(16), buckets: i32(bucketCount), keys: u32(capacity * KEY_WORDS),
     generation: u32(capacity), live: u32(capacity), refs: u32(capacity),
     execution: u32(capacity), exact: u32(capacity), phase: u32(capacity),
-    link: i32(capacity), bucket: u32(capacity), readyNext: i32(capacity),
+    link: i32(capacity), bucket: u32(capacity), readyNext: i32(capacity), readyPrev: i32(capacity),
     readyGeneration: u32(capacity), eventNext: i32(capacity), event: u32(capacity),
     count: u32(capacity), parentHead: i32(capacity), witness: i32(capacity),
     child: i32(capacity * ACTIONS), childGeneration: u32(capacity * ACTIONS),
@@ -100,6 +100,7 @@ export function retain(t, q, generation) {
 export function release(t, q, generation) {
   if (!valid(t, q, generation) || t.refs[q] === 0) return 0;
   t.refs[q]--;
+  if (t.refs[q] === 0 && t.execution[q] === 1) unqueue(t, q);
   if (t.refs[q] === 0 && t.count[q]) signal(t, q);
   recycle(t, q);
   return 1;
@@ -126,20 +127,29 @@ export function enqueue(t, q) {
   t.execution[q] = 1;
   t.readyGeneration[q] = t.generation[q]; t.readyNext[q] = -1;
   const tail = t.control[READY_TAIL];
+  t.readyPrev[q] = tail;
   if (tail === -1) t.control[READY_HEAD] = q;
   else t.readyNext[tail] = q;
   t.control[READY_TAIL] = q;
   return 1;
 }
+// A queued row has no evaluator access. Retirement removes membership in O(1),
+// so dead tickets cannot exhaust q capacity while workers are otherwise busy.
+function unqueue(t, q) {
+  const previous = t.readyPrev[q], next = t.readyNext[q];
+  if (previous === -1) t.control[READY_HEAD] = next;
+  else t.readyNext[previous] = next;
+  if (next === -1) t.control[READY_TAIL] = previous;
+  else t.readyPrev[next] = previous;
+  t.execution[q] = 0;
+}
 export function take(t, owner) {
   let q = t.control[READY_HEAD];
   while (q !== -1) {
-    t.control[READY_HEAD] = t.readyNext[q];
-    if (t.control[READY_HEAD] === -1) t.control[READY_TAIL] = -1;
     if (!valid(t, q, t.readyGeneration[q]) || t.execution[q] !== 1) {
       fail(t, CONTRACT); return -1;
     }
-    t.execution[q] = 0;
+    unqueue(t, q);
     if (t.refs[q] && !t.exact[q]) { t.execution[q] = owner; return q; }
     recycle(t, q);
     q = t.control[READY_HEAD];

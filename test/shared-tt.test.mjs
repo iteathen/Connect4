@@ -73,3 +73,13 @@ test('generation exhaustion cannot alias a historic q reference', () => {
   assert.equal(tt.intern(t, key(1), 0), -1);
   assert.equal(t.control[tt.ERROR], tt.GENERATION);
 });
+
+test('retired queued rows release bounded capacity without requiring a worker dequeue', () => {
+  const t = tt.createTT(2, 1);
+  const a = tt.intern(t, key(1), 0), b = tt.intern(t, key(2), 0);
+  tt.enqueue(t, a); tt.enqueue(t, b);
+  tt.release(t, a, t.generation[a]);
+  assert.notEqual(tt.intern(t, key(3), 0), -1);
+  assert.equal(tt.take(t, 2), b);
+  assert.equal(t.control[tt.ERROR], 0);
+});
