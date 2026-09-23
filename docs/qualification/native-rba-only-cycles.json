@@ -1,0 +1,697 @@
+{
+  "sha": "ab30058758c0e9acb97af6b36d87ab2078b93e1d",
+  "sourceDirty": false,
+  "date": "2026-09-23T15:05:52.988Z",
+  "node": "v26.7.0",
+  "v8": "14.6.202.34-node.28",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "jsminsys": "64ba37a11522b533a1de87942a14921fe690ef86",
+  "nees": "7650bef0aecc0d2b226ecf253a1f8937ccf89d69",
+  "metric": "Windows QueryProcessCycleTime: sum of all process-thread user+kernel CPU cycles",
+  "limits": "Measured scenario totals, not per-instruction latency or an analytical total for every possible path. No GHz conversion. Whole solves include ingress, preparation, startup and cleanup. Hot batches exclude preparation, include loop/call overhead. Concurrent V8/background work remains included.",
+  "moves": [
+    1,
+    3,
+    2,
+    0,
+    4,
+    6,
+    1,
+    0,
+    2,
+    4,
+    5,
+    2,
+    2,
+    3,
+    1,
+    1,
+    1,
+    5,
+    1,
+    3,
+    2,
+    4,
+    6,
+    0,
+    4,
+    4,
+    6,
+    2,
+    0,
+    4,
+    3,
+    3
+  ],
+  "oracle": {
+    "value": 1,
+    "move": 3
+  },
+  "sink": 3737912,
+  "hot": [
+    {
+      "name": "empty batch control",
+      "iterations": 20000,
+      "medianTotalCycles": 2621113,
+      "medianCyclesPerOperation": 131.05565,
+      "samples": [
+        {
+          "cycles": 1882808,
+          "elapsedMs": 0.32389999999998054
+        },
+        {
+          "cycles": 516777,
+          "elapsedMs": 0.13450000000000273
+        },
+        {
+          "cycles": 2621113,
+          "elapsedMs": 0.3442000000000007
+        },
+        {
+          "cycles": 2689674,
+          "elapsedMs": 0.4455000000000098
+        },
+        {
+          "cycles": 2827530,
+          "elapsedMs": 0.4216000000000122
+        },
+        {
+          "cycles": 3276854,
+          "elapsedMs": 0.5855999999999995
+        },
+        {
+          "cycles": 2026932,
+          "elapsedMs": 0.3721000000000174
+        }
+      ]
+    },
+    {
+      "name": "support-local basis",
+      "iterations": 20000,
+      "medianTotalCycles": 15679139,
+      "medianCyclesPerOperation": 783.95695,
+      "samples": [
+        {
+          "cycles": 42115130,
+          "elapsedMs": 6.092800000000011
+        },
+        {
+          "cycles": 28155510,
+          "elapsedMs": 4.427799999999991
+        },
+        {
+          "cycles": 15291740,
+          "elapsedMs": 4.155000000000001
+        },
+        {
+          "cycles": 15679139,
+          "elapsedMs": 4.258400000000023
+        },
+        {
+          "cycles": 15738480,
+          "elapsedMs": 4.305099999999982
+        },
+        {
+          "cycles": 15644860,
+          "elapsedMs": 4.282199999999989
+        },
+        {
+          "cycles": 15506633,
+          "elapsedMs": 4.222399999999993
+        }
+      ]
+    },
+    {
+      "name": "native cofactor including child basis",
+      "iterations": 20000,
+      "medianTotalCycles": 60889400,
+      "medianCyclesPerOperation": 3044.47,
+      "samples": [
+        {
+          "cycles": 75440257,
+          "elapsedMs": 17.88500000000002
+        },
+        {
+          "cycles": 62933288,
+          "elapsedMs": 17.098000000000013
+        },
+        {
+          "cycles": 62107994,
+          "elapsedMs": 16.97829999999999
+        },
+        {
+          "cycles": 60531124,
+          "elapsedMs": 16.49279999999999
+        },
+        {
+          "cycles": 60764815,
+          "elapsedMs": 16.54449999999997
+        },
+        {
+          "cycles": 60889400,
+          "elapsedMs": 16.537500000000023
+        },
+        {
+          "cycles": 59524846,
+          "elapsedMs": 16.285500000000013
+        }
+      ]
+    },
+    {
+      "name": "canonicalization early/secondary path on fixed root",
+      "iterations": 20000,
+      "medianTotalCycles": 1753430,
+      "medianCyclesPerOperation": 87.6715,
+      "samples": [
+        {
+          "cycles": 4678640,
+          "elapsedMs": 0.6791999999999803
+        },
+        {
+          "cycles": 1753430,
+          "elapsedMs": 0.469099999999969
+        },
+        {
+          "cycles": 1732051,
+          "elapsedMs": 0.46860000000003765
+        },
+        {
+          "cycles": 1771492,
+          "elapsedMs": 0.48399999999998045
+        },
+        {
+          "cycles": 1758959,
+          "elapsedMs": 0.4774999999999636
+        },
+        {
+          "cycles": 1584980,
+          "elapsedMs": 0.4311000000000149
+        },
+        {
+          "cycles": 1563233,
+          "elapsedMs": 0.4257000000000062
+        }
+      ]
+    },
+    {
+      "name": "two-ply four-front construction",
+      "iterations": 100,
+      "medianTotalCycles": 16373949,
+      "medianCyclesPerOperation": 163739.49,
+      "samples": [
+        {
+          "cycles": 15543863,
+          "elapsedMs": 4.209699999999998
+        },
+        {
+          "cycles": 16373949,
+          "elapsedMs": 4.558800000000019
+        },
+        {
+          "cycles": 16330824,
+          "elapsedMs": 4.483400000000017
+        },
+        {
+          "cycles": 16492271,
+          "elapsedMs": 4.541300000000035
+        },
+        {
+          "cycles": 20433711,
+          "elapsedMs": 5.8186999999999784
+        },
+        {
+          "cycles": 15314593,
+          "elapsedMs": 4.159800000000018
+        },
+        {
+          "cycles": 16696473,
+          "elapsedMs": 4.66719999999998
+        }
+      ]
+    },
+    {
+      "name": "four-front query",
+      "iterations": 20000,
+      "medianTotalCycles": 2841169,
+      "medianCyclesPerOperation": 142.05845,
+      "samples": [
+        {
+          "cycles": 10890288,
+          "elapsedMs": 1.6938000000000102
+        },
+        {
+          "cycles": 13955564,
+          "elapsedMs": 1.4308000000000334
+        },
+        {
+          "cycles": 2676773,
+          "elapsedMs": 0.7273999999999887
+        },
+        {
+          "cycles": 2650234,
+          "elapsedMs": 0.7194999999999823
+        },
+        {
+          "cycles": 2990821,
+          "elapsedMs": 0.8505999999999858
+        },
+        {
+          "cycles": 2770029,
+          "elapsedMs": 0.7525999999999726
+        },
+        {
+          "cycles": 2841169,
+          "elapsedMs": 0.7590999999999894
+        }
+      ]
+    },
+    {
+      "name": "prepared complete worker-TT-manager closure including rearm",
+      "iterations": 1000,
+      "medianTotalCycles": 158310384,
+      "medianCyclesPerOperation": 158310.384,
+      "samples": [
+        {
+          "cycles": 158310384,
+          "elapsedMs": 44.101999999999975
+        },
+        {
+          "cycles": 158230396,
+          "elapsedMs": 43.55880000000002
+        },
+        {
+          "cycles": 158723950,
+          "elapsedMs": 43.58159999999998
+        },
+        {
+          "cycles": 161521625,
+          "elapsedMs": 45.072900000000004
+        },
+        {
+          "cycles": 158224865,
+          "elapsedMs": 45.043499999999995
+        },
+        {
+          "cycles": 159648403,
+          "elapsedMs": 45.516700000000014
+        },
+        {
+          "cycles": 155081072,
+          "elapsedMs": 42.52080000000001
+        }
+      ]
+    }
+  ],
+  "solves": [
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 0,
+      "totalCpuCycles": 350469313,
+      "totalElapsedMs": 53.76220000000001,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 44.49649999999997,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 1,
+      "totalCpuCycles": 313827141,
+      "totalElapsedMs": 50.9523999999999,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 39.24390000000005,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 2,
+      "totalCpuCycles": 414958808,
+      "totalElapsedMs": 54.8673,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.39519999999993,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 3,
+      "totalCpuCycles": 317894276,
+      "totalElapsedMs": 49.155300000000125,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 39.759500000000116,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 4,
+      "totalCpuCycles": 310502012,
+      "totalElapsedMs": 48.60100000000011,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 39.63169999999991,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 0,
+      "totalCpuCycles": 499243638,
+      "totalElapsedMs": 51.52580000000012,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 43.139000000000124,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 1,
+      "totalCpuCycles": 496400623,
+      "totalElapsedMs": 50.98059999999987,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.03500000000008,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 2,
+      "totalCpuCycles": 492730832,
+      "totalElapsedMs": 51.305500000000166,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.01779999999985,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 3,
+      "totalCpuCycles": 484913949,
+      "totalElapsedMs": 50.63550000000009,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.739900000000034,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 4,
+      "totalCpuCycles": 481396390,
+      "totalElapsedMs": 50.27630000000022,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.46690000000012,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 0,
+      "totalCpuCycles": 904241037,
+      "totalElapsedMs": 54.81960000000004,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 45.978799999999865,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 1,
+      "totalCpuCycles": 887587688,
+      "totalElapsedMs": 52.883099999999786,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 44.350599999999986,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 2,
+      "totalCpuCycles": 869961594,
+      "totalElapsedMs": 51.97590000000014,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 43.446500000000015,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 3,
+      "totalCpuCycles": 854652908,
+      "totalElapsedMs": 51.17669999999998,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.67020000000002,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 4,
+      "totalCpuCycles": 880290511,
+      "totalElapsedMs": 61.69069999999988,
+      "status": "EXACT",
+      "reason": null,
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 53.19769999999994,
+      "metrics": {
+        "claims": 1,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    }
+  ]
+}
