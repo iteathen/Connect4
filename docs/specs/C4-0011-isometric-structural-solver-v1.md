@@ -4,6 +4,26 @@
 
 **Research direction / structural architecture:** Josh Oshiro
 
+## Active scratch-rebuild profile — 2026-09-23 owner correction
+
+On `work/isomax-jsminsys-rebuild`, production recursive fallback is forbidden.
+No uncovered RBA query, construction budget exhaustion or arena failure may
+switch to enumerative game search, even on native RBA coordinates. Independent
+recursive solving belongs only in test oracles. This supersedes every fallback
+permission and recursive-backend requirement in the inherited text below for
+this profile; the inherited implementation/NEES descriptions are historical,
+not assertions about the scratch rebuild.
+
+The current kernel performs bounded RBA four-front construction/query. It returns
+EXACT only for a proved value and required action witness; uncovered queries or
+budget exhaustion return INCOMPLETE, capacity exhaustion returns FAILED, all
+without fabricated WDL. General retained RBA refinement and full-game closure
+remain unimplemented. Removing fallback does not establish solver completeness.
+Current eight-word ABI, shared-TT execution and JSMinSys/NEES pins are defined by
+`docs/design/rba-native-integration.md`, `components/isometric/execution/README.md`
+and `components/isometric/NEES_PROFILE.md`. Historical qualification remains
+evidence for its exact tested source, not current-profile conformance.
+
 ## Purpose
 
 Define the Connect4-owned **Isometric / IsoMax** solver family: the structural-calculus line that grew out of the terminal-frontier experiment but is now independent of Negamax and of the historical incumbent representation.

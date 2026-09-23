@@ -11,8 +11,9 @@ Qualified so far: component tests, real 1/2/4-worker ranked DAGs, randomized
 oracle comparison, abort/death/deadline/capacity controls, static hot-call-graph
 detector and deliberately bad detector control.
 
-Native standard-7x6 RBA coordinates/cofactors and retained exact fallback are
-implemented. Real late-root oracle tests pass at 1/2/4 workers. The selected
+Native standard-7x6 RBA coordinates/cofactors and bounded four-front closure are
+implemented. Production fallback has been removed by owner direction; no switch
+can enable recursive game search. Real covered late-root oracle tests pass at 1/2/4 workers. The selected
 eight-word q layout replaces all executor payload consumers; external root
 tie priority is applied in caller orientation. Native static traversal has no
 open call boundary or detected forbidden materialization/text (not a JMS seal).
@@ -21,7 +22,9 @@ The worker-private bounded four-front producer is implemented: exact principal
 preimages/right adjoints, terminal guards, streamed local/global skyline
 composition, action fronts and exact interval query. Complete small-support
 fibers pass an independent residual-array oracle. A complete-horizon native
-solve test closes through the fronts with zero fallback nodes.
+solve test closes through the fronts. Uncovered queries and exhausted construction
+budgets return INCOMPLETE; capacity exhaustion fails explicitly, never WDL.
+General retained RBA refinement and full-game closure are NOT implemented.
 
 Not yet claimed: empty-root completion, full-game exhaustive qualification,
 performance superiority, JMS-SEALED or complete NEES-EXTREME conformance.
@@ -35,10 +38,12 @@ support-local coordinate, action transport, q-layout, arena and outcome contract
 
 Coordinates have passed independent physical-line differential qualification.
 Extended non-WDL outcomes distinguish
-incomplete/capacity/uncovered/fallback/interruption from exact values.
+incomplete/capacity/uncovered/interruption from exact values.
 Strict JSMinSys extends through every hot helper and enclosing worker/manager
 loop. `tools/bench-isomax-cycles.mjs` measures process CPU-cycle totals around
-prepared hot batches and real 1/2/4-worker solves, including a boundary-disabled
-control. Numeric measurements are scenario evidence, not a closed analytical
+prepared hot batches and covered real 1/2/4-worker solves. Numeric measurements
+are scenario evidence, not a closed analytical
 cycle formula for every possible path. Qualification evidence is persisted under
 `docs/qualification/`; no empty-board result follows from late-root measurements.
+The earlier Fhourstones evidence remains historical: all four inputs timed out
+on the removed fallback. Removal alone is not a solve or a performance win.

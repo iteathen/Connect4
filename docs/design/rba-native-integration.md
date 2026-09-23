@@ -1,8 +1,8 @@
 # Native RBA integration — directional review
 
 Status: implementation contract, revised after owner review. Coordinates,
-cofactors, the eight-word ABI, bounded four-front construction and retained
-exact fallback now exist. See STATUS.md and native qualification evidence for
+cofactors, the eight-word ABI and bounded four-front construction exist.
+Production fallback is forbidden and removed. See STATUS.md and native qualification evidence for
 coverage and limits; design statements alone are not qualification evidence.
 
 Execution substrate: JSMinSys round 100 at
@@ -228,28 +228,27 @@ Before attaching an RBA producer, extend the numeric kernel protocol explicitly:
 | BRANCH | Genuine unresolved choice, published through existing ownership |
 | CONTINUE | Retained local execution with a valid next step |
 | BOUNDARY_INCOMPLETE | Bounded producer stopped before coverage; no exact value |
-| BOUNDARY_CAPACITY | Arena exhausted; explicit failure or declared fallback |
+| BOUNDARY_CAPACITY | Arena exhausted; explicit failure, no alternate solver |
 | QUERY_UNCOVERED | Valid completed artifact does not cover this query |
-| FALLBACK_REQUIRED / FALLBACK_SELECTED | Explicit policy decision and separate work attribution |
 | CANCELLED / INTERRUPTED | Stop or discard private continuation at its control boundary |
 
 Assign distinct numeric codes and test worker/manager/host handling together.
-The implementation extends the original 1..5 protocol with 6..11. Non-WDL outcomes cannot
+The implementation extends the original 1..5 protocol with 6..9. Non-WDL outcomes cannot
 be coerced into CONTINUE, CONTRACT, a draw or a retry that resets the deadline.
-Fallback requires explicit admission and uses these same native coordinates.
+There is no fallback admission or selection outcome.
 
 ## Execution integration
 
 Workers read their claimed q directly from shared TT storage. The native kernel
-uses exact terminal/cofactor/boundary consequences first. Forced progress stays
-local. Unresolved choices use the existing retained continuation and bounded
-surplus publication; the manager does not evaluate the game or reconstruct q.
+uses exact terminal/boundary consequences. The manager does not evaluate the game
+or reconstruct q. The current bounded native kernel stops incomplete when a
+query is not closed; it does not manufacture search tasks to recover coverage.
 
-The existing specs permit exact native recursion as a fallback/control while
-boundary coverage and economics are qualified. That fallback must operate on
-the same RBA-native coordinates, not a bitboard adapter. Its node enumeration
-must be reported separately from algebraic boundary closure; it is not evidence
-that the nonrecursive RBA system has solved the state.
+Owner direction supersedes the historical permission for recursive fallback.
+Recursive reference solving is test-only. General production continuation must
+retain and compose qualified RBA partial bounds/action fronts under their exact
+ownership and identity contracts; that integration is still missing. Returning
+INCOMPLETE exposes this gap and does not itself implement the missing solver.
 
 Boundary-construction capacity and q execution capacity are separate resources.
 Prepare both before entry and preserve explicit incomplete/failure outcomes.
@@ -309,7 +308,7 @@ report; neither repinning JSMinSys nor timing one fixture certifies every path.
    on bounded legal late positions. Preserve the existing lifetime/failure tests.
 6. Reproduce selected persisted boundary controls before claiming research
    algorithm parity. Measure construction, query, residual transitions,
-   fallback work, memory, contention and total operation separately.
+   incomplete outcomes, memory, contention and total operation separately.
 7. Extend the hot-call-graph audit through the actual native kernel and its
    transitive helpers; qualify the complete unit under NEES Draft 0.5 and
    JSMinSys, without treating fixture tests as full conformance.

@@ -44,30 +44,33 @@ test('native terminal and bounded unfinished runs do not invent moves or results
   const {solve7x6}=await import(apiURL.href);
   const won=await solve7x6([0,1,0,1,0,1,0],{workers:1,timeoutMs:5000});
   assert.equal(won.rootWdl,1);assert.equal(won.move,-1);
-  const bounded=await solve7x6([],{workers:1,timeoutMs:100});
-  assert.equal(bounded.status,'TIMEOUT');assert.equal(bounded.rootWdl,null);assert.equal(bounded.cleanup,true);
+  const bounded=await solve7x6([],{workers:1,timeoutMs:5000});
+  assert.equal(bounded.status,'INCOMPLETE');assert.equal(bounded.reason,'QUERY_UNCOVERED');
+  assert.equal(bounded.rootWdl,null);assert.equal(bounded.cleanup,true);
 });
 
 test('four-front-only complete horizon solves without recursive fallback; construction failure stays explicit',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const moves=late(874,40),control=exact(moves);
-  const result=await solve7x6(moves,{workers:1,allowFallback:false,timeoutMs:5000});
+  const result=await solve7x6(moves,{workers:1,timeoutMs:5000});
   assert.equal(result.status,'EXACT',JSON.stringify(result));
   assert.equal(result.rootWdl,control.value-2);assert.equal(result.move,control.move);
-  assert.equal(result.metrics.fallbackNodes,0);
   assert.ok(result.metrics.boundaryClosures>0);
-  const failed=await solve7x6(moves,{workers:1,boundaryBudget:1,allowFallback:false,timeoutMs:5000});
-  assert.equal(failed.status,'FAILED');assert.equal(failed.rootWdl,null);assert.equal(failed.errorCode,22);
+  const failed=await solve7x6(moves,{workers:1,boundaryBudget:1,timeoutMs:5000});
+  assert.equal(failed.status,'INCOMPLETE');assert.equal(failed.rootWdl,null);assert.equal(failed.errorCode,22);
 });
 
-test('native surplus and retained fallback agree through genuine losing branches',async()=>{
+test('native losing root closes through RBA; an uncovered horizon stays incomplete',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const moves=[1,3,2,0,4,6,1,0,2,4,5,2,2,3,1,1,1,5,1,3,2,4,6,0,4,4,6,2,0,4,3,3];
   const control=exact(moves);
   for(const workers of [1,2,4]){
-    const result=await solve7x6(moves,{workers,boundaryDepth:0,timeoutMs:5000});
+    const result=await solve7x6(moves,{workers,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify(result));assert.equal(result.rootWdl,control.value-2);
     assert.equal(result.move,control.move);assert.equal(result.cleanup,true);
-    assert.ok(workers===1?result.metrics.fallbackNodes>100:result.metrics.branches>0);
+    assert.equal(result.metrics.boundaryClosures,1);
+    const uncovered=await solve7x6(moves,{workers,boundaryDepth:0,timeoutMs:5000});
+    assert.equal(uncovered.status,'INCOMPLETE');assert.equal(uncovered.rootWdl,null);
+    assert.equal(uncovered.metrics.branches,0);assert.equal(uncovered.cleanup,true);
   }
 });

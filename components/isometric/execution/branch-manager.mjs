@@ -32,7 +32,7 @@ export class IsoMaxBranchManager {
     t.control[ROOT_REFLECTED] = reflected ? 1 : 0;
     enqueue(t, root);
     const threads = [], exits = [], errors = [];
-    const metricViews=Array.from({length:o.workers},()=>new Float64Array(new SharedArrayBuffer(16*8)));
+    const metricViews=Array.from({length:o.workers},()=>new Float64Array(new SharedArrayBuffer(7*8)));
     let exited = 0, finished = false;
     let timer, poll;
     const abort = () => fail(t, CANCELLED);
@@ -93,12 +93,15 @@ export class IsoMaxBranchManager {
     const exact = !errorCode && Atomics.load(t.control, DONE) === 1;
     const move = exact ? t.witness[root] : -1;
     return {
-      status: exact ? 'EXACT' : errorCode === DEADLINE ? 'TIMEOUT' : 'FAILED',
+      status: exact ? 'EXACT' : errorCode === DEADLINE ? 'TIMEOUT' :
+        errorCode === 22 || errorCode === 24 ? 'INCOMPLETE' : 'FAILED',
+      reason: errorCode === 22 ? 'BOUNDARY_INCOMPLETE' : errorCode === 23 ? 'BOUNDARY_CAPACITY' :
+        errorCode === 24 ? 'QUERY_UNCOVERED' : null,
       rootWdl: exact ? t.exact[root] - 2 : null,
       move: reflected && move >= 0 ? 6 - move : move,
       errorCode, errors, elapsedMs: performance.now() - start,
       metrics:metricViews.reduce((sum,v)=>{
-        const names=['fallbackNodes','transitions','claims','fallbackSelections','branches','continuations',
+        const names=['claims','branches','continuations',
           'boundaryCalls','boundaryClosures','boundarySteps','boundaryFailures'];
         names.forEach((name,i)=>{sum[name]=(sum[name]??0)+v[i];});return sum;
       },{}),

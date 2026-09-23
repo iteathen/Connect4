@@ -1,8 +1,8 @@
 # IsoMax — fresh JSMinSys execution rebuild
 
 This branch implements a native standard-7x6 RBA solver with a shared TT,
-retained worker and BranchManager. Worker-private four-front construction runs
-before an explicitly counted exact fallback on the same native coordinates.
+retained worker and BranchManager. Worker-private four-front construction is
+the native value path. There is no production search fallback.
 It contains no inherited solver implementation and no BSFP implementation.
 The retained gameplay specifications are under `docs/specs/`.
 
@@ -25,8 +25,10 @@ The governing performance reference is NEES Draft 0.5 at
 See [execution API](components/isometric/execution/README.md) and
 [NEES scope and outstanding qualification](components/isometric/NEES_PROFILE.md).
 Move columns are zero-based. The solve timeout is at most 120 seconds. The
-default boundary horizon is two plies; an uncovered query or bounded construction
-failure selects explicit fallback. `--no-fallback` fails closed instead.
+default boundary horizon is two plies. Uncovered queries and construction budget
+exhaustion return INCOMPLETE with no WDL; arena exhaustion fails explicitly.
+General retained RBA refinement/closure is still missing. This is a bounded
+RBA solver implementation, not a completed full-game solver.
 Oracle qualification currently covers bounded legal positions and finite RBA
 fibers; an empty-board solve or general performance superiority is not claimed.
 The tests' separate ranked-DAG kernel remains execution infrastructure only.

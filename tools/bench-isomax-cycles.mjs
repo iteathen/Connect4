@@ -57,13 +57,12 @@ try{
   const preparedSolve=()=>{
     table.exact[q]=0;table.phase[q]=0;table.control[tt.DONE]=0;
     tt.enqueue(table,q);
-    while(!table.control[tt.DONE]){workerStep7x6(table,worker,evaluate);managerStep7x6(table);}
+    while(!table.control[tt.DONE]&&!table.control[tt.STOP]){workerStep7x6(table,worker,evaluate);managerStep7x6(table);}
+    if(table.control[tt.ERROR])throw Error(`prepared RBA closure failed: ${table.control[tt.ERROR]}`);
     return table.exact[q];
   };
   batch('prepared complete worker-TT-manager closure including rearm',1000,preparedSolve);
-  worker.boundary=prepareFrontArena7x6(0);
-  batch('prepared complete worker-TT-manager fallback control including rearm',1000,preparedSolve);
-  for(const boundaryDepth of [2,0])for(const workers of [1,2,4])for(let repetition=0;repetition<5;repetition++){
+  for(const boundaryDepth of [2])for(const workers of [1,2,4])for(let repetition=0;repetition<5;repetition++){
     const start=performance.now(),before=meter.read();
     const result=await solve7x6(moves,{workers,timeoutMs:5000,boundaryDepth});
     const after=meter.read();
@@ -71,9 +70,9 @@ try{
     data.solves.push({boundaryDepth,workers,repetition,totalCpuCycles:Number(after-before),totalElapsedMs:performance.now()-start,...result});
   }
 }finally{meter.close();}
-const destination=process.argv[2]??'docs/qualification/native-rba-cycles.json';
+const destination=process.argv[2]??'docs/qualification/native-rba-only-cycles.json';
 writeFileSync(destination,JSON.stringify(data,null,2)+'\n');
-console.log(JSON.stringify({destination,hot:data.hot.map(({samples,...rest})=>rest),solves:[2,0].flatMap(boundaryDepth=>[1,2,4].map(workers=>{
+console.log(JSON.stringify({destination,hot:data.hot.map(({samples,...rest})=>rest),solves:[2].flatMap(boundaryDepth=>[1,2,4].map(workers=>{
   const cases=data.solves.filter(s=>s.workers===workers&&s.boundaryDepth===boundaryDepth),cycles=cases.map(s=>s.totalCpuCycles).sort((a,b)=>a-b),times=cases.map(s=>s.totalElapsedMs).sort((a,b)=>a-b);
   return {boundaryDepth,workers,medianTotalCpuCycles:cycles[2],medianElapsedMs:times[2],metrics:cases[2].metrics};
 }))},null,2));

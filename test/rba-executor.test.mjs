@@ -5,11 +5,11 @@ import {IsoMaxBranchManager} from '../components/isometric/execution/branch-mana
 import * as tt from '../components/isometric/execution/shared-tt.mjs';
 import {prepareWorker7x6,workerStep7x6} from '../components/isometric/execution/worker.mjs';
 test('non-WDL RBA boundaries retain distinct numeric failures without an exact value',()=>{
-  for(const code of [6,7,8,9,11]){
+  for(const code of [6,7,8,9,10,11]){
     const t=tt.createTT7x6(4,4),root=tt.intern7x6(t,new Uint32Array(8),0);
     tt.enqueue(t,root); const w=prepareWorker7x6(2,1);
     workerStep7x6(t,w,()=>code);
-    assert.equal(t.control[tt.ERROR],code===11?tt.CANCELLED:16+code);
+    assert.equal(t.control[tt.ERROR],code===9?tt.CANCELLED:code>=10?tt.CONTRACT:16+code);
     assert.equal(t.exact[root],0);
   }
 });

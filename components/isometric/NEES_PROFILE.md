@@ -12,7 +12,7 @@ No runtime lowering, assembly optimality or zero-GC claim is made.
 
 ## Scope and synchronization audit
 
-E0/E1: native RBA coordinates, cofactors, fronts and retained fallback. E2: all
+E0/E1: native RBA coordinates, cofactors and fronts. No production search fallback. E2: all
 hot functions and enclosing loops in shared-tt, worker and manager, including
 transitive JSMinSys helpers. COLD: preparation,
 module import, thread startup, reporting and host teardown. The governing
