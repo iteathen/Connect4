@@ -1,51 +1,69 @@
 # Current state
 
-Owner-authorized fresh branch: `work/isomax-jsminsys-rebuild`.
-The former execution implementation remains in its historical branches.
+Active rebuild branch: `work/isomax-jsminsys-rebuild`.
 
-Implemented: exact shared TT; in-place branch publication; retained worker
-continuation; exact max/min branch reconciliation; deterministic root witness;
-global edge retirement; bounded host/thread lifecycle and failure cleanup.
+## Current IsoMax implementation
 
-Qualified so far: component tests, real 1/2/4-worker ranked DAGs, randomized
-oracle comparison, abort/death/deadline/capacity controls, static hot-call-graph
-detector and deliberately bad detector control.
+The public standard-7x6 solver now uses the merged JSMinSys CPC-first implementation.
 
-Native standard-7x6 RBA coordinates/cofactors and bounded four-front closure are
-implemented. Production fallback remains removed; unresolved queries now continue
-through RBA cofactors and shared-TT interval dependencies. Real late-root oracle
-tests, including continued traversal, pass at 1/2/4 workers. The selected
-eight-word q layout replaces all executor payload consumers; external root
-tie priority is applied in caller orientation. Native static traversal has no
-open call boundary or detected forbidden materialization/text (not a JMS seal).
+Pinned dependency:
 
-The worker-private bounded four-front producer is implemented: exact principal
-preimages/right adjoints, terminal guards, streamed local/global skyline
-composition, action fronts and exact interval query. Complete small-support
-fibers pass an independent residual-array oracle. A complete-horizon native
-solve test closes through the fronts. Nonclosing queries retain state/action
-bounds and publish relevant RBA children. Exhausted construction budgets return
-INCOMPLETE; capacity exhaustion fails explicitly, never WDL. Full boundary-artifact
-refinement/recomposition is NOT implemented. Empty-board completion is unproven.
+`vendor/jsminsys` -> `iteathen/JSMinSys@25aeb13744a2ed413e660b16b8f3ec2332ae58ec`
 
-Not yet claimed: empty-root completion, full-game exhaustive qualification,
-performance superiority, JMS-SEALED or complete NEES-EXTREME conformance.
-The bound native kernel has a closed structural traversal; generic caller kernels
-remain open. Full semantic/runtime JMS/NEES conformance is a stronger uncompleted
-claim. See the NEES profile for measurement limits and remaining debt.
+Public execution:
 
-Native RBA design has been revised following owner review. JSMinSys is pinned
-to round 100 (`64ba37a1`). See `docs/design/rba-native-integration.md` for the
-support-local coordinate, action transport, q-layout, arena and outcome contracts.
+```text
+solve7x6 legal replay
+  -> managed JSMinSys file worker
+  -> runtime-configured 7x6 RBA geometry
+  -> canonical q
+  -> CPC/NDC exact/bound/restriction closure
+  -> one-ply RBA cofactor
+  -> exact negamax/alpha-beta
+  -> exact cache
+  -> P0-oriented W/D/L + caller-frame move
+```
 
-Coordinates have passed independent physical-line differential qualification.
-Extended non-WDL outcomes distinguish
-incomplete/capacity/uncovered/interruption from exact values.
-Strict JSMinSys extends through every hot helper and enclosing worker/manager
-loop. `tools/bench-isomax-cycles.mjs` measures process CPU-cycle totals around
-prepared hot batches and covered real 1/2/4-worker solves. Numeric measurements
-are scenario evidence, not a closed analytical
-cycle formula for every possible path. Qualification evidence is persisted under
-`docs/qualification/`; no empty-board result follows from late-root measurements.
-The earlier Fhourstones evidence remains historical: all four inputs timed out
-on the removed fallback. Removal alone is not a solve or a performance win.
+The production search mode is `RBA_AB_CPC_ONLY`. Recursive Four-Front is not
+on the production search path. The pooled/synchronized frontier-response
+extension remains disabled by default because it has not demonstrated additional
+standard-7x6 closure on the maintained controls.
+
+The current host profile admits exactly one search worker. Requests for more
+workers fail explicitly. Timeout, cancellation or worker failure returns no W/D/L.
+
+## Qualification
+
+GitHub Actions run `35927386403` passed:
+
+- Connect4: 57/57 tests;
+- pinned JSMinSys: 122/122 tests;
+- independent physical-oracle W/D/L and deterministic caller-frame move controls;
+- reflection controls;
+- genuine CPC-unresolved traversal with Four-Front metrics remaining zero;
+- managed-worker cancellation/deadline cleanup.
+
+This qualifies the implemented control set. It is not an exhaustive proof over
+all reachable standard states and is not a completed Fhourstones score.
+
+The standard Fhourstones harness at `tools/bench-fhourstones.mjs` now targets
+this implementation. Qualification requires all four official inputs to return
+`EXACT` with expected P0-oriented values `[1,-1,0,1]`.
+
+## Legacy rebuild code
+
+The earlier shared-TT / recursive Four-Front RBA implementation remains in
+`components/isometric/execution/**` and `components/isometric/rba/**` only as
+existing differential/component evidence. `components/isometric/solve.mjs`
+does not import or execute that path. It is not the current production solver.
+A later cleanup may archive/remove it after any remaining useful qualification
+coverage is migrated.
+
+## Claims not yet made
+
+- full empty-root completion;
+- full Fhourstones qualification;
+- multiworker CPC-first search;
+- performance superiority over external solvers;
+- exhaustive all-state implementation verification;
+- NEES-EXTREME / JMS-SEALED conformance.
