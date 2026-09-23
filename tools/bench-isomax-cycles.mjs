@@ -54,12 +54,15 @@ try{
   batch('canonicalization early/secondary path on fixed root',20000,()=>canonicalize7x6(g,root.words,0,scratch));
   batch('two-ply four-front construction',100,()=>buildFour7x6(g,arena,root.words[0],0,2));
   batch('four-front query',20000,()=>queryFour7x6(arena,0,root.words,0));
-  batch('prepared complete worker-TT-manager closure including rearm',1000,()=>{
+  const preparedSolve=()=>{
     table.exact[q]=0;table.phase[q]=0;table.control[tt.DONE]=0;
     tt.enqueue(table,q);
     while(!table.control[tt.DONE]){workerStep7x6(table,worker,evaluate);managerStep7x6(table);}
     return table.exact[q];
-  });
+  };
+  batch('prepared complete worker-TT-manager closure including rearm',1000,preparedSolve);
+  worker.boundary=prepareFrontArena7x6(0);
+  batch('prepared complete worker-TT-manager fallback control including rearm',1000,preparedSolve);
   for(const boundaryDepth of [2,0])for(const workers of [1,2,4])for(let repetition=0;repetition<5;repetition++){
     const start=performance.now(),before=meter.read();
     const result=await solve7x6(moves,{workers,timeoutMs:5000,boundaryDepth});
