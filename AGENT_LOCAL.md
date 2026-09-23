@@ -4,14 +4,16 @@
 
 The owner authorized starting IsoMax implementation from scratch on
 `work/isomax-jsminsys-rebuild`, preserving gameplay specs. The current public
-solver is the thin JSMinSys CPC-first adapter documented in
-`components/isometric/jsminsys/README.md`; the earlier worker/shared-TT/Four-Front
-implementation is not the public solve path.
+solver is the JSMinSys shared-TT CPC-first Branch Manager implementation
+documented in `components/isometric/jsminsys/README.md`; the earlier
+pre-JSMinSys worker/shared-TT/Four-Front implementation is not the public solve path.
 Read `STATUS.md`, `components/isometric/jsminsys/README.md` and
 `components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
-and pinned merged JSMinSys main `25aeb13744a2ed413e660b16b8f3ec2332ae58ec`.
-Historical routing/implementation descriptions below do not authorize restoring
-the superseded solver path or claiming fixtures are full-game solves.
+and pinned merged JSMinSys main `d176330ebed2c29d8b71f290f95734b107817d3e`.
+The JSMinSys TT ready queue is the sole shared work queue; do not introduce a
+second branch/task authority. Historical routing/implementation descriptions
+below do not authorize restoring superseded solver paths or claiming fixtures
+are full-game solves.
 Do not modify BSFP. This bounded rebuild branch has the Isometric solver lane as
 its integration owner; it has not been promoted or merged.
 
