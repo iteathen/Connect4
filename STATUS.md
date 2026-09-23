@@ -44,11 +44,16 @@ GitHub Actions run `35927386403` passed:
 - managed-worker cancellation/deadline cleanup.
 
 This qualifies the implemented control set. It is not an exhaustive proof over
-all reachable standard states and is not a completed Fhourstones score.
+all reachable standard states.
 
-The standard Fhourstones harness at `tools/bench-fhourstones.mjs` now targets
-this implementation. Qualification requires all four official inputs to return
-`EXACT` with expected P0-oriented values `[1,-1,0,1]`.
+The standard Fhourstones harness at `tools/bench-fhourstones.mjs` has now been
+run against this implementation. GitHub Actions run `35927770000` completed
+1/4 official cases: `45461667` returned exact P0 win in 2.722 s with
+1,590,668 search nodes and 1,596,122 cofactors; `35333571`, `13333111`,
+and the empty root each hit the retained 120-second cap and returned no W/D/L.
+The standard benchmark therefore remains incomplete. Evidence is in
+`docs/qualification/2026-09-23-jsminsys-fhourstones.md` and
+`docs/qualification/fhourstones-isomax-jsminsys.json`.
 
 ## Legacy rebuild code
 
