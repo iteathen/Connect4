@@ -1,8 +1,9 @@
 # Native RBA integration — directional review
 
-Status: revised after owner review; implementation contract for the first RBA
-checkpoint. The current executor still uses its original 42-word fixture ABI.
-No native RBA code, cycle total or RBA qualification is claimed by this document.
+Status: implementation contract, revised after owner review. Coordinates,
+cofactors, the eight-word ABI, bounded four-front construction and retained
+exact fallback now exist. See STATUS.md and native qualification evidence for
+coverage and limits; design statements alone are not qualification evidence.
 
 Execution substrate: JSMinSys round 100 at
 `64ba37a11522b533a1de87942a14921fe690ef86`, under NEES Draft 0.5 at
@@ -118,7 +119,7 @@ and exact comparison cover all eight words; front operators visit only the
 active `ceil(|P(S)|/32)` lanes. Hash remains only a locator. Basis/version is a
 session-level invariant, not a second mutable q authority.
 
-This candidate replaces 42 everywhere in one qualified payload change: TT,
+This layout replaced 42 everywhere in one qualified payload change: TT,
 worker `7 * stride` scratch, root ingress, rank extraction, manager polarity,
 fixtures and reporting. No mixed old/new interpretation or compatibility shim.
 The fixed envelope avoids per-row allocation while local front operators avoid
@@ -233,7 +234,7 @@ Before attaching an RBA producer, extend the numeric kernel protocol explicitly:
 | CANCELLED / INTERRUPTED | Stop or discard private continuation at its control boundary |
 
 Assign distinct numeric codes and test worker/manager/host handling together.
-The existing 1..5 protocol is not yet this extension. Non-WDL outcomes cannot
+The implementation extends the original 1..5 protocol with 6..11. Non-WDL outcomes cannot
 be coerced into CONTINUE, CONTRACT, a draw or a retry that resets the deadline.
 Fallback requires explicit admission and uses these same native coordinates.
 

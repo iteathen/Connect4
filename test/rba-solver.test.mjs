@@ -41,3 +41,15 @@ test('native terminal and bounded unfinished runs do not invent moves or results
   const bounded=await solve7x6([],{workers:1,timeoutMs:100});
   assert.equal(bounded.status,'TIMEOUT');assert.equal(bounded.rootWdl,null);assert.equal(bounded.cleanup,true);
 });
+
+test('four-front-only complete horizon solves without recursive fallback; construction failure stays explicit',async()=>{
+  const {solve7x6}=await import(apiURL.href);
+  const moves=late(874,40),control=exact(moves);
+  const result=await solve7x6(moves,{workers:1,allowFallback:false,timeoutMs:5000});
+  assert.equal(result.status,'EXACT',JSON.stringify(result));
+  assert.equal(result.rootWdl,control.value-2);assert.equal(result.move,control.move);
+  assert.equal(result.metrics.fallbackNodes,0);
+  assert.ok(result.metrics.boundaryClosures>0);
+  const failed=await solve7x6(moves,{workers:1,boundaryBudget:1,allowFallback:false,timeoutMs:5000});
+  assert.equal(failed.status,'FAILED');assert.equal(failed.rootWdl,null);assert.equal(failed.errorCode,22);
+});

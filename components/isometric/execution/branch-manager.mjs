@@ -32,6 +32,7 @@ export class IsoMaxBranchManager {
     t.control[ROOT_REFLECTED] = reflected ? 1 : 0;
     enqueue(t, root);
     const threads = [], exits = [], errors = [];
+    const metricViews=Array.from({length:o.workers},()=>new Float64Array(new SharedArrayBuffer(16*8)));
     let exited = 0, finished = false;
     let timer, poll;
     const abort = () => fail(t, CANCELLED);
@@ -59,6 +60,7 @@ export class IsoMaxBranchManager {
       spawn('./manager-worker.mjs', { table: t });
       for (let i = 0; i < o.workers; i++) spawn('./worker-thread.mjs', {
         table: t, owner: i + 2, workers: o.workers, kernelURL: o.kernelURL, kernelData: o.kernelData,
+        metrics:metricViews[i],
       });
       await new Promise(resolve => {
         timer = setTimeout(() => { fail(t, DEADLINE); resolve(); }, o.timeoutMs);
@@ -88,6 +90,11 @@ export class IsoMaxBranchManager {
       rootWdl: exact ? t.exact[root] - 2 : null,
       move: reflected && move >= 0 ? 6 - move : move,
       errorCode, errors, elapsedMs: performance.now() - start,
+      metrics:metricViews.reduce((sum,v)=>{
+        const names=['fallbackNodes','transitions','claims','fallbackSelections','branches','continuations',
+          'boundaryCalls','boundaryClosures','boundarySteps','boundaryFailures'];
+        names.forEach((name,i)=>{sum[name]=(sum[name]??0)+v[i];});return sum;
+      },{}),
       cleanup: exited === threads.length, workersExited: exited,
       sharedBytes: Object.values(t).reduce((n, v) => n + (ArrayBuffer.isView(v) ? v.byteLength : 0), 0),
     };

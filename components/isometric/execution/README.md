@@ -56,6 +56,9 @@ Return codes:
 | 1 / 2 / 3 | exact P0-oriented loss / draw / win |
 | 4 | genuine branch prepared in fixed worker output storage |
 | 5 | private continuation retained, at an amortized control boundary |
+| 6 / 7 / 8 / 9 | incomplete boundary / arena capacity / uncovered query / fallback required; fail with distinct error 22 / 23 / 24 / 25 if returned to executor |
+| 10 | explicit native fallback selected; retains continuation and increments its counter |
+| 11 | interruption; cancellation without WDL |
 
 For 4, set `worker.count` to 2..7 and write each complete canonical child key
 into `worker.keys[i * 8 .. i * 8 + 7]`, and its parent-canonical physical

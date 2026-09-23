@@ -93,3 +93,11 @@ export function managerStep7x6(t, budget = 64) {
   if (processed) { Atomics.add(t.control, WAKE, 1); Atomics.notify(t.control, WAKE); }
   return processed;
 }
+
+// E2 enclosing loop, included in the transitive hot audit and cycle measurement.
+export function runManagerLoop7x6(t){
+  while(!Atomics.load(t.control,STOP)&&!Atomics.load(t.control,DONE)){
+    const observed=Atomics.load(t.control,WAKE);
+    if(!managerStep7x6(t))Atomics.wait(t.control,WAKE,observed,1);
+  }
+}

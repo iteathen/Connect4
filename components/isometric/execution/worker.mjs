@@ -1,5 +1,5 @@
 import { enter, leave, take, intern7x6, signal, setExact, releaseExecution,
-  fail, CONTRACT, CANCELLED, KEY_WORDS, ACTIONS, WAKE, READY_COUNT } from './shared-tt.mjs';
+  fail, CONTRACT, CANCELLED, KEY_WORDS, ACTIONS, WAKE, READY_COUNT, STOP, DONE } from './shared-tt.mjs';
 import {BOUNDARY_INCOMPLETE, FALLBACK_REQUIRED, FALLBACK_SELECTED, INTERRUPTED} from '../rba/layout.mjs';
 
 // COLD. The prepared kernel may add its private numeric storage here once.
@@ -9,7 +9,8 @@ export function prepareWorker7x6(owner, workerCount) {
   return { owner, allowExpose: workerCount > 1 ? 1 : 0, readyTarget: workerCount * 2,
     expose: 0, q: -1, code: 0,
     count: 0, witness: -1, keys: new Uint32Array(ACTIONS * KEY_WORDS),
-    actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0, fallbacks: 0 };
+    actions: new Uint32Array(ACTIONS), started: 1, claims: 0, continuations: 0, branches: 0, fallbacks: 0,
+    nodes:0,transitions:0,boundaryCalls:0,boundaryClosures:0,boundarySteps:0,boundaryFailures:0,boundaryStatus:0 };
 }
 
 // E2 + trusted native-kernel boundary. PRESERVE this contract in callees.
@@ -93,4 +94,17 @@ export function workerStep7x6(t, w, evaluate) {
   w.q = next; w.code = 0; w.count = 0; w.witness = -1; w.started = 1;
   Atomics.add(t.control, WAKE, 1); Atomics.notify(t.control, WAKE);
   return 1;
+}
+
+// E2 enclosing loop is part of the same restricted/measured scope. Telemetry is
+// numeric fixed storage at an amortized boundary, never formatted per node.
+export function runWorkerLoop7x6(t,w,evaluate,metrics){
+  while(!Atomics.load(t.control,STOP)&&!Atomics.load(t.control,DONE)){
+    const observed=Atomics.load(t.control,WAKE);
+    if(!workerStep7x6(t,w,evaluate))Atomics.wait(t.control,WAKE,observed,1);
+    metrics[0]=w.nodes;metrics[1]=w.transitions;metrics[2]=w.claims;
+    metrics[3]=w.fallbacks;metrics[4]=w.branches;metrics[5]=w.continuations;
+    metrics[6]=w.boundaryCalls;metrics[7]=w.boundaryClosures;
+    metrics[8]=w.boundarySteps;metrics[9]=w.boundaryFailures;metrics[10]=w.boundaryStatus;
+  }
 }

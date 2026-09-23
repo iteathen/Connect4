@@ -17,20 +17,28 @@ eight-word q layout replaces all executor payload consumers; external root
 tie priority is applied in caller orientation. Native static traversal has no
 open call boundary or detected forbidden materialization/text (not a JMS seal).
 
-Not yet claimed: complete four-front boundary producer, full-game qualification,
+The worker-private bounded four-front producer is implemented: exact principal
+preimages/right adjoints, terminal guards, streamed local/global skyline
+composition, action fronts and exact interval query. Complete small-support
+fibers pass an independent residual-array oracle. A complete-horizon native
+solve test closes through the fronts with zero fallback nodes.
+
+Not yet claimed: empty-root completion, full-game exhaustive qualification,
 performance superiority, JMS-SEALED or complete NEES-EXTREME conformance.
-The dynamic kernel boundary remains unqualified. The benchmark is an execution
-fixture baseline only. See the NEES profile for the explicit remaining debt.
+The bound native kernel has a closed structural traversal; generic caller kernels
+remain open. Full semantic/runtime JMS/NEES conformance is a stronger uncompleted
+claim. See the NEES profile for measurement limits and remaining debt.
 
 Native RBA design has been revised following owner review. JSMinSys is pinned
 to round 100 (`64ba37a1`). See `docs/design/rba-native-integration.md` for the
 support-local coordinate, action transport, q-layout, arena and outcome contracts.
 
-Next implementation unit: worker-private symbolic four-front producer and
-complete hot-operation cycle accounting. Coordinates have passed independent
-physical-line differential qualification. Extended non-WDL outcomes distinguish
+Coordinates have passed independent physical-line differential qualification.
+Extended non-WDL outcomes distinguish
 incomplete/capacity/uncovered/fallback/interruption from exact values.
-Strict JSMinSys extends through every hot helper. Full cycle totals and full
-transitive conformance remain outstanding; current symbolic accounting is not
-completion of either requirement. Qualify the complete kernel + worker/TT/manager
-unit before presenting measurements as IsoMax solve scores.
+Strict JSMinSys extends through every hot helper and enclosing worker/manager
+loop. `tools/bench-isomax-cycles.mjs` measures process CPU-cycle totals around
+prepared hot batches and real 1/2/4-worker solves, including a boundary-disabled
+control. Numeric measurements are scenario evidence, not a closed analytical
+cycle formula for every possible path. Qualification evidence is persisted under
+`docs/qualification/`; no empty-board result follows from late-root measurements.

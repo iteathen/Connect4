@@ -17,11 +17,11 @@ Substrate: Node 26.7, JSMinSys round 100, NEES Draft 0.5.
   eight-word q layout. Extend numeric outcomes and fix external-frame root tie
   selection. Test exact collisions, failure/lifetime fixtures and both root
   orientations; update every production and fixture consumer simultaneously.
-- [ ] Algebra: prepared numeric front arena, streamed absorption/semiring,
+- [x] Algebra: prepared numeric front arena, streamed absorption/semiring,
   terminal-extended cofactor preimages and four-front/action composition.
   Exhaustive small-support lattice controls and independent interval oracle
   must pass before using boundary closure for game results.
-- [ ] Kernel: bounded native algebra plus explicit same-coordinate exact
+- [x] Kernel: bounded native algebra plus explicit same-coordinate exact
   fallback, retained private continuation and shared surplus publication.
   No manager evaluation or conventional board recursion. Test legal late roots
   with an independent oracle at 1/2/4 workers, first-win/mirror/tie behavior,
