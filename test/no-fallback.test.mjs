@@ -3,15 +3,18 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {solve7x6} from '../components/isometric/solve.mjs';
 
-test('unresolved IsoMax positions continue through shared CPC-first q traversal',async()=>{
+test('unresolved IsoMax positions continue through managed CPC-first Negamax search',async()=>{
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const r=await solve7x6(moves,{workers:2,timeoutMs:5000});
   assert.equal(r.status,'EXACT',JSON.stringify(r));
   assert.equal(r.rootWdl,1);
   assert.equal(r.cleanup,true);
   assert.ok(r.metrics.evaluations>0);
-  assert.ok(r.metrics.branches>0);
-  assert.ok(r.metrics.claims>0);
+  assert.equal(r.metrics.branches,0);
+  assert.equal(r.metrics.claims,1);
+  assert.ok(r.metrics.alphaBetaNodes>0);
+  assert.ok(r.metrics.cutoffs>0);
+  assert.equal(r.metrics.ttLive,1);
   assert.equal('fallbackNodes' in r.metrics,false);
   assert.equal('fallbackSelections' in r.metrics,false);
   assert.equal('frontCalls' in r.metrics,false);

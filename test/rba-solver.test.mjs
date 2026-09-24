@@ -35,7 +35,11 @@ test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',as
       assert.equal(result.cleanup,true);
       assert.equal(result.workersUsed,workers);
       assert.equal(result.workersExited,workers+1);
-      // Sampled worker telemetry may remain zero when DONE precedes the final cold metric publication.
+      assert.equal(result.metrics.branches,0);
+      assert.equal(result.metrics.claims,1);
+      assert.equal(result.metrics.evaluations,1);
+      assert.equal(result.metrics.ttLive,1);
+      assert.ok(result.metrics.alphaBetaNodes>=0);
     }
   }
 });
@@ -61,7 +65,7 @@ test('terminal roots return exact WDL with no move',async()=>{
   assert.equal(result.cleanup,true);
 });
 
-test('shared branch queue supports multiple evaluator workers',async()=>{
+test('managed Negamax root claim remains single-owner across worker counts',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const control=exact(moves);
@@ -71,8 +75,11 @@ test('shared branch queue supports multiple evaluator workers',async()=>{
     assert.equal(result.rootWdl,control.value-2);
     assert.equal(result.move,control.move);
     assert.equal(result.workersExited,workers+1);
-    assert.ok(result.metrics.branches>0);
-    assert.ok(result.metrics.claims>=result.metrics.branches);
+    assert.equal(result.metrics.branches,0);
+    assert.equal(result.metrics.claims,1);
+    assert.equal(result.metrics.evaluations,1);
+    assert.equal(result.metrics.ttLive,1);
+    assert.ok(result.metrics.alphaBetaNodes>0);
   }
 });
 
