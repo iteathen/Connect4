@@ -1,0 +1,219 @@
+import { mix32 } from '../../../vendor/jsminsys/src/mix32.mjs';
+import { atomicTryClaim32, atomicReleaseNoNotify32 } from '../../../vendor/jsminsys/src/atomic32.mjs';
+import {KEY_WORDS,ACTIONS} from '../rba/layout.mjs';
+export {KEY_WORDS,ACTIONS};
+
+export const LOCK = 0, ERROR = 1, STOP = 2, FREE = 3, LIVE = 4;
+export const READY_HEAD = 5, READY_TAIL = 6, EVENT_HEAD = 7, EVENT_TAIL = 8;
+export const DONE = 9, ROOT = 10, ROOT_GENERATION = 11, WAKE = 12;
+export const READY_COUNT = 13;
+export const ROOT_REFLECTED = 14;
+export const CAPACITY = 1, CONFLICT = 2, GENERATION = 3, CONTRACT = 4;
+export const WORKER_DIED = 5, DEADLINE = 6, CANCELLED = 7;
+export const BOUND_UPDATES=0, PRUNED_EDGES=1, TT_HITS=2, TT_INSERTS=3, TT_HIGH_WATER=4, BASIS_WRITES=5;
+
+// COLD: all view/object construction and initialization precedes execution.
+export function createTT7x6(capacity = 4096, bucketCount = 4096) {
+  if (!Number.isSafeInteger(capacity) || capacity < 1 || capacity > 0x1000000 ||
+      !Number.isSafeInteger(bucketCount) || bucketCount < 1 ||
+      bucketCount > 0x1000000 || (bucketCount & (bucketCount - 1))) {
+    throw new RangeError('invalid fixed TT capacity/bucket count');
+  }
+  const u32 = n => new Uint32Array(new SharedArrayBuffer(n * 4));
+  const i32 = n => new Int32Array(new SharedArrayBuffer(n * 4));
+  const t = {
+    capacity, bucketMask: bucketCount - 1,
+    control: i32(16), stats:u32(6), buckets: i32(bucketCount), keys: u32(capacity * KEY_WORDS),
+    basis:u32(capacity*69),basisSize:u32(capacity),
+    generation: u32(capacity), live: u32(capacity), refs: u32(capacity),
+    execution: u32(capacity), exact: u32(capacity), lower:u32(capacity), upper:u32(capacity), phase: u32(capacity),
+    link: i32(capacity), bucket: u32(capacity), readyNext: i32(capacity), readyPrev: i32(capacity),
+    readyGeneration: u32(capacity), eventNext: i32(capacity), event: u32(capacity),
+    count: u32(capacity), parentHead: i32(capacity), witness: i32(capacity),
+    child: i32(capacity * ACTIONS), childGeneration: u32(capacity * ACTIONS),
+    edgeNext: i32(capacity * ACTIONS), edgePrev: i32(capacity * ACTIONS),
+    edgeAction: u32(capacity * ACTIONS), edgeAttached: u32(capacity * ACTIONS),
+    edgeLower:u32(capacity*ACTIONS), edgeUpper:u32(capacity*ACTIONS),
+  };
+  t.buckets.fill(-1); t.parentHead.fill(-1); t.witness.fill(-1); t.child.fill(-1);
+  t.control[READY_HEAD] = t.control[READY_TAIL] = -1;
+  t.control[EVENT_HEAD] = t.control[EVENT_TAIL] = -1;
+  t.control[ROOT] = -1;
+  for (let q = 0; q < capacity; q++) t.link[q] = q + 1;
+  t.link[capacity - 1] = -1;
+  return t;
+}
+
+// E2 CONTRACT — KEEP THESE COMMENTS AND THEIR TRANSITIVE HELPER CONTRACTS.
+// Every mutation below requires sole transaction ownership (enter/leave), or
+// exclusive cold setup. Kernel computation NEVER runs under this lock. No
+// dynamic aggregate, string, callback, copying API, or hidden resize belongs
+// here. Failure is numeric. A dead lock owner fails the session; no takeover.
+export function enter(t, owner) {
+  if (Atomics.load(t.control, STOP)) return 0;
+  return atomicTryClaim32(t.control, LOCK, 0, owner) ? 1 : 0;
+}
+export function leave(t) { atomicReleaseNoNotify32(t.control, LOCK, 0); }
+export function fail(t, code) {
+  Atomics.compareExchange(t.control, ERROR, 0, code);
+  Atomics.store(t.control, STOP, 1);
+  Atomics.add(t.control, WAKE, 1);
+  Atomics.notify(t.control, WAKE);
+  return 0;
+}
+export function valid(t, q, generation) {
+  return q >= 0 && q < t.capacity && t.live[q] && t.generation[q] === generation;
+}
+
+// Input: canonical standard-7x6 q, support/flags/3+3 local upset words.
+// Returns one OWNED pin, including hits. Hash locates; every word decides equality.
+export function intern7x6(t, words, offset, basis, bi=0, n=0) {
+  if(n<0||n>69||(n|0)!==n){fail(t,CONTRACT);return -1;}
+  let hash = 0;
+  for (let w = 0; w < KEY_WORDS; w++) hash = mix32(hash ^ words[offset + w]);
+  const bucket = hash & t.bucketMask;
+  for (let q = t.buckets[bucket]; q !== -1; q = t.link[q]) {
+    const base = q * KEY_WORDS;
+    let w = 0;
+    while (w < KEY_WORDS && t.keys[base + w] === words[offset + w]) w++;
+    if (w === KEY_WORDS) {
+      if (t.refs[q] === 0xffffffff) { fail(t, CAPACITY); return -1; }
+      t.refs[q]++;
+      t.stats[TT_HITS]++;
+      return q;
+    }
+  }
+  const q = t.control[FREE];
+  if (q < 0) { fail(t, CAPACITY); return -1; }
+  if (t.generation[q] === 0xffffffff) { fail(t, GENERATION); return -1; }
+  t.control[FREE] = t.link[q];
+  const base = q * KEY_WORDS;
+  // Necessary new-key insertion writes authoritative content once. No manager
+  // copy, replay, serialized identity, or second q payload is created.
+  for (let w = 0; w < KEY_WORDS; w++) t.keys[base + w] = words[offset + w];
+  // Immutable derived native basis, generation/lifetime owned by this q row.
+  // Stored only on insertion; TT hits neither reconstruct nor rewrite it.
+  // These measured publication writes replace geometry rescans on every claim.
+  for(let i=0;i<n;i++)t.basis[q*69+i]=basis[bi+i];
+  t.basisSize[q]=n;t.stats[BASIS_WRITES]+=n;
+  t.generation[q]++;
+  t.live[q] = 1; t.refs[q] = 1; t.exact[q] = 0; t.phase[q] = 0;
+  t.lower[q]=1;t.upper[q]=3;
+  t.execution[q] = 0; t.count[q] = 0; t.parentHead[q] = -1;
+  t.event[q] = 0; t.witness[q] = -1;
+  t.bucket[q] = bucket; t.link[q] = t.buckets[bucket]; t.buckets[bucket] = q;
+  t.control[LIVE]++;
+  t.stats[TT_INSERTS]++;
+  if(t.control[LIVE]>t.stats[TT_HIGH_WATER])t.stats[TT_HIGH_WATER]=t.control[LIVE];
+  return q;
+}
+export function retain(t, q, generation) {
+  if (!valid(t, q, generation)) return 0;
+  if (t.refs[q] === 0xffffffff) return fail(t, CAPACITY);
+  t.refs[q]++;
+  return 1;
+}
+export function release(t, q, generation) {
+  if (!valid(t, q, generation) || t.refs[q] === 0) return 0;
+  t.refs[q]--;
+  if (t.refs[q] === 0 && t.execution[q] === 1) unqueue(t, q);
+  if (t.refs[q] === 0 && t.count[q]) signal(t, q);
+  recycle(t, q);
+  return 1;
+}
+export function recycle(t, q) {
+  if (!t.live[q] || t.refs[q] || t.execution[q] || t.event[q] ||
+      t.count[q] || t.parentHead[q] !== -1) return 0;
+  const bucket = t.bucket[q];
+  let previous = -1;
+  let scan = t.buckets[bucket];
+  while (scan !== q && scan !== -1) { previous = scan; scan = t.link[scan]; }
+  if (scan === -1) return fail(t, CONTRACT);
+  if (previous === -1) t.buckets[bucket] = t.link[q];
+  else t.link[previous] = t.link[q];
+  t.live[q] = 0; t.link[q] = t.control[FREE]; t.control[FREE] = q;
+  t.control[LIVE]--;
+  return 1;
+}
+
+// Intrusive queue fields live in q; queued execution prevents reuse. Ticket
+// generation is checked before claim. No independently authoritative work row.
+export function enqueue(t, q) {
+  if (!t.live[q] || !t.refs[q] || t.execution[q] || t.exact[q] || t.phase[q]) return 0;
+  t.execution[q] = 1;
+  t.readyGeneration[q] = t.generation[q]; t.readyNext[q] = -1;
+  const tail = t.control[READY_TAIL];
+  t.readyPrev[q] = tail;
+  if (tail === -1) t.control[READY_HEAD] = q;
+  else t.readyNext[tail] = q;
+  t.control[READY_TAIL] = q;
+  t.control[READY_COUNT]++;
+  return 1;
+}
+// A queued row has no evaluator access. Retirement removes membership in O(1),
+// so dead tickets cannot exhaust q capacity while workers are otherwise busy.
+function unqueue(t, q) {
+  const previous = t.readyPrev[q], next = t.readyNext[q];
+  if (previous === -1) t.control[READY_HEAD] = next;
+  else t.readyNext[previous] = next;
+  if (next === -1) t.control[READY_TAIL] = previous;
+  else t.readyPrev[next] = previous;
+  t.execution[q] = 0;
+  t.control[READY_COUNT]--;
+}
+export function take(t, owner) {
+  let q = t.control[READY_HEAD];
+  while (q !== -1) {
+    if (!valid(t, q, t.readyGeneration[q]) || t.execution[q] !== 1) {
+      fail(t, CONTRACT); return -1;
+    }
+    unqueue(t, q);
+    if (t.refs[q] && !t.exact[q]) { t.execution[q] = owner; return q; }
+    recycle(t, q);
+    q = t.control[READY_HEAD];
+  }
+  return -1;
+}
+export function releaseExecution(t, q, owner) {
+  if (t.execution[q] !== owner) return fail(t, CONTRACT);
+  t.execution[q] = 0;
+  recycle(t, q);
+  return 1;
+}
+
+// Event membership pins q. Exact publication does NOT end worker access.
+export function signal(t, q) {
+  if (t.event[q]) return;
+  t.event[q] = 1; t.eventNext[q] = -1;
+  const tail = t.control[EVENT_TAIL];
+  if (tail === -1) t.control[EVENT_HEAD] = q;
+  else t.eventNext[tail] = q;
+  t.control[EVENT_TAIL] = q;
+}
+export function takeEvent(t) {
+  const q = t.control[EVENT_HEAD];
+  if (q === -1) return -1;
+  t.control[EVENT_HEAD] = t.eventNext[q];
+  if (t.control[EVENT_HEAD] === -1) t.control[EVENT_TAIL] = -1;
+  t.event[q] = 0;
+  return q;
+}
+export function setExact(t, q, code) {
+  return tighten7x6(t,q,code,code);
+}
+
+// Exact evidence only: these are P0 value bounds, never alpha/beta windows.
+// Shared q is the sole authority. Full identity permits intersection across
+// every incoming dependency; disjoint evidence fails, never overwrites a fact.
+export function tighten7x6(t,q,lower,upper){
+  if(lower<1||upper>3||lower>upper||(lower|0)!==lower||(upper|0)!==upper)return fail(t,CONTRACT);
+  if(lower<t.lower[q])lower=t.lower[q];
+  if(upper>t.upper[q])upper=t.upper[q];
+  if(lower>upper)return fail(t,CONFLICT);
+  if(lower===t.lower[q]&&upper===t.upper[q])return 1;
+  t.lower[q]=lower;t.upper[q]=upper;
+  if(lower===upper)t.exact[q]=lower;
+  t.stats[BOUND_UPDATES]++;
+  signal(t, q);
+  return 1;
+}

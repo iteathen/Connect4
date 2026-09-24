@@ -1,0 +1,1183 @@
+{
+  "sha": "203235120967f8958a19941c0209cd49aaf68bd2",
+  "sourceDirty": false,
+  "date": "2026-09-23T11:15:46.765Z",
+  "node": "v26.7.0",
+  "v8": "14.6.202.34-node.28",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+  "jsminsys": "64ba37a11522b533a1de87942a14921fe690ef86",
+  "nees": "7650bef0aecc0d2b226ecf253a1f8937ccf89d69",
+  "metric": "Windows QueryProcessCycleTime: sum of all process-thread user+kernel CPU cycles",
+  "limits": "Measured scenario totals, not per-instruction latency or an analytical total for every possible path. No GHz conversion. Whole solves include ingress, preparation, startup and cleanup. Hot batches exclude preparation, include loop/call overhead. Concurrent V8/background work remains included.",
+  "moves": [
+    1,
+    3,
+    2,
+    0,
+    4,
+    6,
+    1,
+    0,
+    2,
+    4,
+    5,
+    2,
+    2,
+    3,
+    1,
+    1,
+    1,
+    5,
+    1,
+    3,
+    2,
+    4,
+    6,
+    0,
+    4,
+    4,
+    6,
+    2,
+    0,
+    4,
+    3,
+    3
+  ],
+  "oracle": {
+    "value": 1,
+    "move": 3
+  },
+  "sink": 3746320,
+  "hot": [
+    {
+      "name": "empty batch control",
+      "iterations": 20000,
+      "medianTotalCycles": 1695929,
+      "medianCyclesPerOperation": 84.79645,
+      "samples": [
+        {
+          "cycles": 1993389,
+          "elapsedMs": 0.3312999999999988
+        },
+        {
+          "cycles": 724667,
+          "elapsedMs": 0.11299999999999955
+        },
+        {
+          "cycles": 2807257,
+          "elapsedMs": 0.2874999999999943
+        },
+        {
+          "cycles": 1695929,
+          "elapsedMs": 0.24689999999998236
+        },
+        {
+          "cycles": 2012187,
+          "elapsedMs": 0.2675999999999874
+        },
+        {
+          "cycles": 1584611,
+          "elapsedMs": 0.2148000000000252
+        },
+        {
+          "cycles": 1540747,
+          "elapsedMs": 0.2102000000000146
+        }
+      ]
+    },
+    {
+      "name": "support-local basis",
+      "iterations": 20000,
+      "medianTotalCycles": 15322703,
+      "medianCyclesPerOperation": 766.13515,
+      "samples": [
+        {
+          "cycles": 46029660,
+          "elapsedMs": 6.37530000000001
+        },
+        {
+          "cycles": 29227401,
+          "elapsedMs": 4.440100000000001
+        },
+        {
+          "cycles": 15357718,
+          "elapsedMs": 4.182900000000018
+        },
+        {
+          "cycles": 15322703,
+          "elapsedMs": 4.164799999999985
+        },
+        {
+          "cycles": 15316066,
+          "elapsedMs": 4.165199999999999
+        },
+        {
+          "cycles": 15254879,
+          "elapsedMs": 4.145800000000008
+        },
+        {
+          "cycles": 15310538,
+          "elapsedMs": 4.159299999999973
+        }
+      ]
+    },
+    {
+      "name": "native cofactor including child basis",
+      "iterations": 20000,
+      "medianTotalCycles": 61289332,
+      "medianCyclesPerOperation": 3064.4666,
+      "samples": [
+        {
+          "cycles": 75495545,
+          "elapsedMs": 17.769199999999955
+        },
+        {
+          "cycles": 62538518,
+          "elapsedMs": 16.981599999999958
+        },
+        {
+          "cycles": 61107245,
+          "elapsedMs": 16.623500000000035
+        },
+        {
+          "cycles": 61706958,
+          "elapsedMs": 16.75600000000003
+        },
+        {
+          "cycles": 61289332,
+          "elapsedMs": 16.651700000000005
+        },
+        {
+          "cycles": 61180227,
+          "elapsedMs": 16.611199999999997
+        },
+        {
+          "cycles": 59107962,
+          "elapsedMs": 16.152499999999975
+        }
+      ]
+    },
+    {
+      "name": "canonicalization early/secondary path on fixed root",
+      "iterations": 20000,
+      "medianTotalCycles": 1521580,
+      "medianCyclesPerOperation": 76.079,
+      "samples": [
+        {
+          "cycles": 4418408,
+          "elapsedMs": 0.6111000000000217
+        },
+        {
+          "cycles": 2678985,
+          "elapsedMs": 0.45659999999998035
+        },
+        {
+          "cycles": 1608939,
+          "elapsedMs": 0.43669999999997344
+        },
+        {
+          "cycles": 1438646,
+          "elapsedMs": 0.3906000000000063
+        },
+        {
+          "cycles": 1521580,
+          "elapsedMs": 0.41540000000003374
+        },
+        {
+          "cycles": 1479929,
+          "elapsedMs": 0.401800000000037
+        },
+        {
+          "cycles": 1458181,
+          "elapsedMs": 0.39589999999998327
+        }
+      ]
+    },
+    {
+      "name": "two-ply four-front construction",
+      "iterations": 100,
+      "medianTotalCycles": 15598783,
+      "medianCyclesPerOperation": 155987.83,
+      "samples": [
+        {
+          "cycles": 15141352,
+          "elapsedMs": 4.1001999999999725
+        },
+        {
+          "cycles": 15299112,
+          "elapsedMs": 4.1539000000000215
+        },
+        {
+          "cycles": 15024873,
+          "elapsedMs": 4.0797999999999774
+        },
+        {
+          "cycles": 16198496,
+          "elapsedMs": 4.43670000000003
+        },
+        {
+          "cycles": 16105608,
+          "elapsedMs": 4.37360000000001
+        },
+        {
+          "cycles": 16062483,
+          "elapsedMs": 4.36099999999999
+        },
+        {
+          "cycles": 15598783,
+          "elapsedMs": 4.233699999999942
+        }
+      ]
+    },
+    {
+      "name": "four-front query",
+      "iterations": 20000,
+      "medianTotalCycles": 3255107,
+      "medianCyclesPerOperation": 162.75535,
+      "samples": [
+        {
+          "cycles": 12000510,
+          "elapsedMs": 1.9622000000000526
+        },
+        {
+          "cycles": 13861940,
+          "elapsedMs": 1.4850999999999885
+        },
+        {
+          "cycles": 3253264,
+          "elapsedMs": 0.9120999999998958
+        },
+        {
+          "cycles": 3252895,
+          "elapsedMs": 0.8831000000000131
+        },
+        {
+          "cycles": 3198711,
+          "elapsedMs": 0.8690000000000282
+        },
+        {
+          "cycles": 3625181,
+          "elapsedMs": 0.8799999999999955
+        },
+        {
+          "cycles": 3255107,
+          "elapsedMs": 0.8847000000000662
+        }
+      ]
+    },
+    {
+      "name": "prepared complete worker-TT-manager closure including rearm",
+      "iterations": 1000,
+      "medianTotalCycles": 154310333,
+      "medianCyclesPerOperation": 154310.333,
+      "samples": [
+        {
+          "cycles": 154310333,
+          "elapsedMs": 42.037700000000086
+        },
+        {
+          "cycles": 150637236,
+          "elapsedMs": 40.92419999999993
+        },
+        {
+          "cycles": 156950621,
+          "elapsedMs": 43.32529999999997
+        },
+        {
+          "cycles": 156120528,
+          "elapsedMs": 41.95010000000002
+        },
+        {
+          "cycles": 153564291,
+          "elapsedMs": 41.746200000000044
+        },
+        {
+          "cycles": 156587546,
+          "elapsedMs": 42.65390000000002
+        },
+        {
+          "cycles": 154029088,
+          "elapsedMs": 41.91790000000003
+        }
+      ]
+    },
+    {
+      "name": "prepared complete worker-TT-manager fallback control including rearm",
+      "iterations": 1000,
+      "medianTotalCycles": 410932237,
+      "medianCyclesPerOperation": 410932.237,
+      "samples": [
+        {
+          "cycles": 396442934,
+          "elapsedMs": 106.20860000000016
+        },
+        {
+          "cycles": 402194571,
+          "elapsedMs": 110.74349999999981
+        },
+        {
+          "cycles": 415036963,
+          "elapsedMs": 112.68239999999992
+        },
+        {
+          "cycles": 410932237,
+          "elapsedMs": 111.67160000000013
+        },
+        {
+          "cycles": 417006022,
+          "elapsedMs": 115.30280000000016
+        },
+        {
+          "cycles": 420468290,
+          "elapsedMs": 111.59339999999997
+        },
+        {
+          "cycles": 407091789,
+          "elapsedMs": 111.11889999999994
+        }
+      ]
+    }
+  ],
+  "solves": [
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 0,
+      "totalCpuCycles": 371539588,
+      "totalElapsedMs": 56.843500000000176,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 46.9978000000001,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 1,
+      "totalCpuCycles": 336485720,
+      "totalElapsedMs": 55.34790000000021,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.377100000000155,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 2,
+      "totalCpuCycles": 420311265,
+      "totalElapsedMs": 56.23720000000003,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 43.67919999999981,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 3,
+      "totalCpuCycles": 318179584,
+      "totalElapsedMs": 50.18229999999994,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.11929999999984,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 1,
+      "repetition": 4,
+      "totalCpuCycles": 316050166,
+      "totalElapsedMs": 49.259500000000116,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 40.195000000000164,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 0,
+      "totalCpuCycles": 492539170,
+      "totalElapsedMs": 50.69219999999996,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.23109999999997,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 1,
+      "totalCpuCycles": 493616583,
+      "totalElapsedMs": 50.95650000000023,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.2184000000002,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 2,
+      "totalCpuCycles": 492771755,
+      "totalElapsedMs": 50.99609999999984,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.21109999999999,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 3,
+      "totalCpuCycles": 487383190,
+      "totalElapsedMs": 50.91870000000017,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.980499999999665,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 2,
+      "repetition": 4,
+      "totalCpuCycles": 486625717,
+      "totalElapsedMs": 50.17450000000008,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.440900000000056,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 0,
+      "totalCpuCycles": 996635804,
+      "totalElapsedMs": 59.311699999999746,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 50.221700000000055,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 1,
+      "totalCpuCycles": 885457929,
+      "totalElapsedMs": 53.57099999999991,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 44.78930000000037,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 2,
+      "totalCpuCycles": 879931129,
+      "totalElapsedMs": 52.15300000000025,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 43.68209999999999,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 3,
+      "totalCpuCycles": 888316788,
+      "totalElapsedMs": 54.179099999999835,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 45.64309999999978,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 2,
+      "workers": 4,
+      "repetition": 4,
+      "totalCpuCycles": 888450596,
+      "totalElapsedMs": 56.5925000000002,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 47.92100000000028,
+      "metrics": {
+        "fallbackNodes": 0,
+        "transitions": 0,
+        "claims": 1,
+        "fallbackSelections": 0,
+        "branches": 0,
+        "continuations": 0,
+        "boundaryCalls": 1,
+        "boundaryClosures": 1,
+        "boundarySteps": 348,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 1,
+      "repetition": 0,
+      "totalCpuCycles": 305498995,
+      "totalElapsedMs": 49.01290000000017,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 40.46719999999959,
+      "metrics": {
+        "fallbackNodes": 248,
+        "transitions": 247,
+        "claims": 1,
+        "fallbackSelections": 1,
+        "branches": 0,
+        "continuations": 1,
+        "boundaryCalls": 1,
+        "boundaryClosures": 0,
+        "boundarySteps": 1,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 1,
+      "repetition": 1,
+      "totalCpuCycles": 297417072,
+      "totalElapsedMs": 48.048499999999876,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 39.40520000000015,
+      "metrics": {
+        "fallbackNodes": 248,
+        "transitions": 247,
+        "claims": 1,
+        "fallbackSelections": 1,
+        "branches": 0,
+        "continuations": 1,
+        "boundaryCalls": 1,
+        "boundaryClosures": 0,
+        "boundarySteps": 1,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 1,
+      "repetition": 2,
+      "totalCpuCycles": 287221222,
+      "totalElapsedMs": 46.29059999999981,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 37.89939999999979,
+      "metrics": {
+        "fallbackNodes": 248,
+        "transitions": 247,
+        "claims": 1,
+        "fallbackSelections": 1,
+        "branches": 0,
+        "continuations": 1,
+        "boundaryCalls": 1,
+        "boundaryClosures": 0,
+        "boundarySteps": 1,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 1,
+      "repetition": 3,
+      "totalCpuCycles": 291417744,
+      "totalElapsedMs": 46.70060000000012,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 37.835999999999785,
+      "metrics": {
+        "fallbackNodes": 248,
+        "transitions": 247,
+        "claims": 1,
+        "fallbackSelections": 1,
+        "branches": 0,
+        "continuations": 1,
+        "boundaryCalls": 1,
+        "boundaryClosures": 0,
+        "boundarySteps": 1,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 1,
+      "repetition": 4,
+      "totalCpuCycles": 300272984,
+      "totalElapsedMs": 47.79790000000003,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 39.11900000000014,
+      "metrics": {
+        "fallbackNodes": 248,
+        "transitions": 247,
+        "claims": 1,
+        "fallbackSelections": 1,
+        "branches": 0,
+        "continuations": 1,
+        "boundaryCalls": 1,
+        "boundaryClosures": 0,
+        "boundarySteps": 1,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 2,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 2,
+      "repetition": 0,
+      "totalCpuCycles": 479766821,
+      "totalElapsedMs": 49.73900000000003,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.23720000000003,
+      "metrics": {
+        "fallbackNodes": 201,
+        "transitions": 213,
+        "claims": 6,
+        "fallbackSelections": 3,
+        "branches": 4,
+        "continuations": 1,
+        "boundaryCalls": 7,
+        "boundaryClosures": 0,
+        "boundarySteps": 7,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 2,
+      "repetition": 1,
+      "totalCpuCycles": 494689960,
+      "totalElapsedMs": 51.254799999999705,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 42.759500000000116,
+      "metrics": {
+        "fallbackNodes": 297,
+        "transitions": 323,
+        "claims": 14,
+        "fallbackSelections": 5,
+        "branches": 8,
+        "continuations": 1,
+        "boundaryCalls": 14,
+        "boundaryClosures": 0,
+        "boundarySteps": 14,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 2,
+      "repetition": 2,
+      "totalCpuCycles": 483913924,
+      "totalElapsedMs": 49.998499999999694,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.34349999999995,
+      "metrics": {
+        "fallbackNodes": 186,
+        "transitions": 200,
+        "claims": 6,
+        "fallbackSelections": 4,
+        "branches": 5,
+        "continuations": 0,
+        "boundaryCalls": 9,
+        "boundaryClosures": 0,
+        "boundarySteps": 9,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 2,
+      "repetition": 3,
+      "totalCpuCycles": 483922045,
+      "totalElapsedMs": 50.47829999999976,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.74330000000009,
+      "metrics": {
+        "fallbackNodes": 70,
+        "transitions": 96,
+        "claims": 7,
+        "fallbackSelections": 2,
+        "branches": 6,
+        "continuations": 0,
+        "boundaryCalls": 10,
+        "boundaryClosures": 0,
+        "boundarySteps": 10,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 2,
+      "repetition": 4,
+      "totalCpuCycles": 486469055,
+      "totalElapsedMs": 49.89200000000028,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 41.35699999999997,
+      "metrics": {
+        "fallbackNodes": 199,
+        "transitions": 223,
+        "claims": 10,
+        "fallbackSelections": 3,
+        "branches": 5,
+        "continuations": 1,
+        "boundaryCalls": 10,
+        "boundaryClosures": 0,
+        "boundarySteps": 10,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 3,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 4,
+      "repetition": 0,
+      "totalCpuCycles": 926678804,
+      "totalElapsedMs": 55.65779999999995,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 47.032500000000255,
+      "metrics": {
+        "fallbackNodes": 189,
+        "transitions": 215,
+        "claims": 9,
+        "fallbackSelections": 4,
+        "branches": 8,
+        "continuations": 1,
+        "boundaryCalls": 12,
+        "boundaryClosures": 0,
+        "boundarySteps": 12,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 4,
+      "repetition": 1,
+      "totalCpuCycles": 954800052,
+      "totalElapsedMs": 56.63000000000011,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 48.04399999999987,
+      "metrics": {
+        "fallbackNodes": 83,
+        "transitions": 145,
+        "claims": 12,
+        "fallbackSelections": 1,
+        "branches": 14,
+        "continuations": 0,
+        "boundaryCalls": 20,
+        "boundaryClosures": 0,
+        "boundarySteps": 20,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 4,
+      "repetition": 2,
+      "totalCpuCycles": 916359502,
+      "totalElapsedMs": 53.19210000000021,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 44.47659999999996,
+      "metrics": {
+        "fallbackNodes": 235,
+        "transitions": 260,
+        "claims": 7,
+        "fallbackSelections": 3,
+        "branches": 7,
+        "continuations": 1,
+        "boundaryCalls": 11,
+        "boundaryClosures": 0,
+        "boundarySteps": 11,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 4,
+      "repetition": 3,
+      "totalCpuCycles": 972878419,
+      "totalElapsedMs": 56.67639999999983,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 46.33069999999998,
+      "metrics": {
+        "fallbackNodes": 139,
+        "transitions": 184,
+        "claims": 14,
+        "fallbackSelections": 4,
+        "branches": 11,
+        "continuations": 0,
+        "boundaryCalls": 18,
+        "boundaryClosures": 0,
+        "boundarySteps": 18,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    },
+    {
+      "boundaryDepth": 0,
+      "workers": 4,
+      "repetition": 4,
+      "totalCpuCycles": 918027802,
+      "totalElapsedMs": 53.503600000000006,
+      "status": "EXACT",
+      "rootWdl": -1,
+      "move": 3,
+      "errorCode": 0,
+      "errors": [],
+      "elapsedMs": 44.93809999999985,
+      "metrics": {
+        "fallbackNodes": 120,
+        "transitions": 148,
+        "claims": 7,
+        "fallbackSelections": 4,
+        "branches": 9,
+        "continuations": 0,
+        "boundaryCalls": 13,
+        "boundaryClosures": 0,
+        "boundarySteps": 13,
+        "boundaryFailures": 0
+      },
+      "cleanup": true,
+      "workersExited": 5,
+      "sharedBytes": 1097792
+    }
+  ]
+}
