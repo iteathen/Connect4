@@ -39,25 +39,36 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
+          function Use-IsoMaxAdapter([string]$sha) {
+            git checkout $sha -- components/isometric/solve.mjs
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            Write-Host "ISOMAX_ADAPTER $sha"
+          }
+          $baselineAdapter='9a3ffe49f72b15429411409133ab99cb8a07c090'
           $baseline='24ef9b4dff33be85af6b403d563294983662fb78'
+          $candidateAdapter=$env:GITHUB_SHA
           $candidate='67ecf83c1e0789a230afe1261464c23d217e9757'
 
-          Write-Host "AB_PHASE baseline-1 $baseline"
+          Write-Host "AB_PHASE baseline-1 $baselineAdapter $baseline"
+          Use-IsoMaxAdapter $baselineAdapter
           Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          Write-Host "AB_PHASE candidate-1 $candidate"
+          Write-Host "AB_PHASE candidate-1 $candidateAdapter $candidate"
+          Use-IsoMaxAdapter $candidateAdapter
           Use-JSMinSys $candidate
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          Write-Host "AB_PHASE candidate-2 $candidate"
+          Write-Host "AB_PHASE candidate-2 $candidateAdapter $candidate"
+          Use-IsoMaxAdapter $candidateAdapter
           Use-JSMinSys $candidate
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          Write-Host "AB_PHASE baseline-2 $baseline"
+          Write-Host "AB_PHASE baseline-2 $baselineAdapter $baseline"
+          Use-IsoMaxAdapter $baselineAdapter
           Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
