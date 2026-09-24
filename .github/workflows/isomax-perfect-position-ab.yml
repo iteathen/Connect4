@@ -26,20 +26,50 @@ jobs:
       - name: Candidate integration gate
         shell: pwsh
         run: |
-          git -C vendor/jsminsys checkout 8a928d987a2f9595bffcda8565f7c32a19421226
+          $ErrorActionPreference = 'Stop'
+          $candidate='8a928d987a2f9595bffcda8565f7c32a19421226'
+          git -C vendor/jsminsys checkout --detach $candidate
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($actual -ne $candidate) { throw "JSMinSys HEAD mismatch: $actual != $candidate" }
+          Write-Host "JSMS_HEAD $actual"
           npm test
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --test vendor/jsminsys/test/*.test.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Same-runner baseline-candidate-candidate-baseline
         shell: pwsh
         run: |
-          Write-Host 'AB_PHASE baseline-1 01026e1efcb6019248fa15860ba3c0c32e9b5be9'
-          git -C vendor/jsminsys checkout 01026e1efcb6019248fa15860ba3c0c32e9b5be9
+          $ErrorActionPreference = 'Stop'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
+            Write-Host "JSMS_HEAD $actual"
+          }
+          $baseline='01026e1efcb6019248fa15860ba3c0c32e9b5be9'
+          $candidate='8a928d987a2f9595bffcda8565f7c32a19421226'
+          Write-Host "AB_PHASE baseline-1 $baseline"
+          Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          Write-Host 'AB_PHASE candidate-1 8a928d987a2f9595bffcda8565f7c32a19421226'
-          git -C vendor/jsminsys checkout 8a928d987a2f9595bffcda8565f7c32a19421226
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "AB_PHASE candidate-1 $candidate"
+          Use-JSMinSys $candidate
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          Write-Host 'AB_PHASE candidate-2 8a928d987a2f9595bffcda8565f7c32a19421226'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "AB_PHASE candidate-2 $candidate"
+          Use-JSMinSys $candidate
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          Write-Host 'AB_PHASE baseline-2 01026e1efcb6019248fa15860ba3c0c32e9b5be9'
-          git -C vendor/jsminsys checkout 01026e1efcb6019248fa15860ba3c0c32e9b5be9
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "AB_PHASE baseline-2 $baseline"
+          Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
