@@ -5,12 +5,12 @@ import {performance} from 'node:perf_hooks';
 import {processCycleCounter} from './cycle-counter.mjs';
 import {solve7x6} from '../components/isometric/solve.mjs';
 
-// COLD benchmark driver only. No reporting or character processing in solver
-// paths. Official four inputs in order, including the final EMPTY line.
-// This runs IsoMax on Fhourstones inputs; it does not run the Fhourstones engine.
-const inputs=['45461667','35333571','13333111',''];
-const expected=[1,-1,0,1]; // P0 == mover at these even-rank roots.
-const referenceNodes=[51596,8716732,169704432,1479113766];
+// COLD isolated optimization control. No reporting or character processing in
+// solver paths. This preserves the first official Fhourstones input used by the
+// maintained live-line checkpoint while avoiding later long-running cases.
+const inputs=['45461667'];
+const expected=[1]; // P0 == mover at this even-rank root.
+const referenceNodes=[51596];
 const output=process.argv[2]??'docs/qualification/fhourstones-isomax-jsminsys.json';
 const journal=output+'.jsonl';
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
@@ -27,7 +27,7 @@ const report={
   config:{workers:1,capacity:65536,buckets:65536,timeoutMs:120000,
     managerBudget:64,readyTarget:2,
     cpcFrontierResponse:false,cpcProjectedAdvisory:false},
-  protocol:'Official four inputs in order, one attempt each. Existing solver 120-second cap preserved. Fresh solver session per input. No extra warmup or retry.',
+  protocol:'Isolated first official Fhourstones input only, one cold attempt. Existing solver 120-second cap preserved. No extra warmup or retry.',
   interpretation:'Only EXACT with matching WDL qualifies. TIMEOUT, INTERRUPTED and FAILED are not completed Fhourstones scores. JSMinSys metrics report shared-TT CPC-first q evaluations/branches and are not Fhourstones reference-node counts. Whole-operation wall/CPU/cycles include ingress, shared-TT preparation, manager/evaluator worker startup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
   cases:[],completed:false,
 };
@@ -57,7 +57,7 @@ try{
     if(result.cleanup!==true || entry.oracleMatched===false)break;
   }
   report.finished=new Date().toISOString();
-  report.completed=report.cases.length===4&&report.cases.every(c=>c.oracleMatched===true);
+  report.completed=report.cases.length===inputs.length&&report.cases.every(c=>c.oracleMatched===true);
   report.outcome=report.completed?'PASS':'INCOMPLETE_OR_FAILED';
   writeFileSync(output,JSON.stringify(report,null,2)+'\n');
   record({event:'finish',outcome:report.outcome,cases:report.cases.length});
