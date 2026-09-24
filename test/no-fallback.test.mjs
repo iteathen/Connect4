@@ -26,12 +26,19 @@ test('deadline interruption never invents WDL',async()=>{
   assert.equal(r.cleanup,true);
 });
 
-test('public IsoMax entrypoint uses JSMinSys branch manager, not legacy execution',()=>{
+test('public IsoMax entrypoint delegates managed execution ownership to JSMinSys',()=>{
   const source=readFileSync(new URL('../components/isometric/solve.mjs',import.meta.url),'utf8');
-  const worker=readFileSync(new URL('../components/isometric/jsminsys/worker.mjs',import.meta.url),'utf8');
-  const manager=readFileSync(new URL('../components/isometric/jsminsys/manager-worker.mjs',import.meta.url),'utf8');
+  const host=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-host.mjs',import.meta.url),'utf8');
+  const worker=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-worker.mjs',import.meta.url),'utf8');
+  const manager=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-manager.mjs',import.meta.url),'utf8');
   assert.equal(source.includes('./rba/kernel.mjs'),false);
   assert.equal(source.includes('./execution/branch-manager.mjs'),false);
+  assert.equal(source.includes('runManagedConnect4CpcRba32'),true);
+  assert.equal(source.includes('spawnManagedFileWorker32'),false);
+  assert.equal(source.includes('runRbaBranchWorkerLoop32'),false);
+  assert.equal(source.includes('runRbaBranchManagerLoop32'),false);
+  assert.equal(host.includes('rba-connect4-managed-worker.mjs'),true);
+  assert.equal(host.includes('rba-connect4-managed-manager.mjs'),true);
   assert.equal(worker.includes('runRbaBranchWorkerLoop32'),true);
   assert.equal(manager.includes('runRbaBranchManagerLoop32'),true);
 });
