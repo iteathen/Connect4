@@ -35,6 +35,7 @@ export async function solve7x6(moves,{
   workers=1,
   capacity=65536,
   buckets=65536,
+  basisElementBits=32,
   timeoutMs=MAX_TIMEOUT_MS,
   signal,
   managerBudget=64,
@@ -47,6 +48,8 @@ export async function solve7x6(moves,{
   if(!Number.isSafeInteger(capacity)||capacity<1||
      !Number.isSafeInteger(buckets)||buckets<1||(buckets&(buckets-1)))
     throw new RangeError('invalid IsoMax shared TT capacity');
+  if(basisElementBits!==16&&basisElementBits!==32)
+    throw new RangeError('invalid IsoMax basis element width');
   if(!Number.isFinite(timeoutMs)||timeoutMs<=0||timeoutMs>MAX_TIMEOUT_MS)
     throw new RangeError('invalid IsoMax timeout');
   if(!Number.isInteger(managerBudget)||managerBudget<1||
@@ -59,6 +62,7 @@ export async function solve7x6(moves,{
     bucketCount:buckets,
     keyWords:geometry.keyWords,
     basisCapacity:geometry.maxBasis,
+    basisElementBits,
     edgeCapacity:geometry.columns,
   });
   const rootQ=rbaTtIntern32(
@@ -170,5 +174,6 @@ export async function solve7x6(moves,{
       metricViews.reduce((n,v)=>n+v.byteLength,0),
     requestedWorkers:workers,
     workersUsed:workers,
+    basisElementBits,
   };
 }
