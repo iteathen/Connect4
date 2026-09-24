@@ -1,3 +1,4 @@
+import * as jsmin from '../../vendor/jsminsys/addons/index.mjs';
 import {performance} from 'node:perf_hooks';
 import {
   prepareConnect4RbaGeometry,
@@ -64,6 +65,8 @@ export async function solve7x6(moves,{
     table,root.words,0,root.basis,0,root.basis.length,
   );
   if(rootQ<0)throw new Error('failed to intern IsoMax root');
+  if(jsmin.rbaTtSetPositionCode32&&((root.positionLo|root.positionHi)!==0))
+    jsmin.rbaTtSetPositionCode32(table,rootQ,root.positionLo,root.positionHi);
   rbaTtSetRoot32(table,rootQ);
   rbaTtEnqueue32(table,rootQ);
 
@@ -154,6 +157,8 @@ export async function solve7x6(moves,{
       ttLive:table.control[RBA_TT_LIVE],
       readyCount:table.control[RBA_TT_READY_COUNT],
       eventCount:table.control[RBA_TT_EVENT_COUNT],
+      exactPositionMerges:jsmin.RBA_TT_EXACT_POSITION_MERGES===undefined?
+        0:table.control[jsmin.RBA_TT_EXACT_POSITION_MERGES],
     },
     reflected:root.reflected,
     elapsedMs,
