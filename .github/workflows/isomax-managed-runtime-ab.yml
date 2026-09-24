@@ -1,0 +1,63 @@
+name: IsoMax Managed Runtime A-B
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-managed-runtime-ab.yml'
+      - 'components/isometric/**'
+      - 'vendor/jsminsys'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner managed-runtime baseline-candidate-candidate-baseline
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
+            if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
+            Write-Host "JSMS_HEAD $actual"
+          }
+          $baseline='218aea188197cce74cbf405283e73abb1c1484e1'
+          $candidate='efc52087be9fb75f2a539f2dfc3709fa41baa1ff'
+
+          Write-Host "AB_PHASE baseline-1 $baseline"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "AB_PHASE candidate-1 $candidate"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "AB_PHASE candidate-2 $candidate"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "AB_PHASE baseline-2 $baseline"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
