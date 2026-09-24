@@ -556,3 +556,36 @@ On `45461667`, compared with the retained fused-transition baseline:
 
 The candidate is retained. The next optimization target is the standard-7x6 live-line scorer itself: every scored cell currently executes three SWAR `popcount32` calls. Any sparse or specialized replacement must be selected from actual line-mask/live-mask economics and measured, not assumed.
 
+## 15. Optimization batch 3 — fused live-line popcount
+
+**Disposition:** retained.
+
+A branchy attempt to skip prepared zero incidence words (`70d11cd9741ed7544603f8840fb83ed29f9d925f`) was first rejected. Same-runner search A/B `36067824594` preserved identical work but regressed production warm time about **28.77%** and cold elapsed about **25.15%**. The result is durably recorded as JSMinSys cycle reduction 110: do not add per-word zero branches to this scorer.
+
+The retained branchless replacement is:
+
+`aa96599752181fea7c4e124b3fdf1f0e4baa8e3a`
+
+It replaces three independent `popcount32` calls with the already-qualified two-lane fused `popcount2x32` on the first two line words plus one `popcount32` on the third. Exact score semantics are unchanged.
+
+Qualification:
+
+- JSMinSys Verify `36068047291`: success;
+- search B/C/C/B `36068041569`: identical nodes/cofactors; CPC-only warm sum **-7.25%**, cold elapsed sum **-7.34%**;
+- whole-solver same-runner B/C/C/B: Connect4 branch `benchmark/isomax-fhourstones-live-line-popcount-ab-20260924`, commit `563901ce1700f49c46f4dd773cd8ff491aa7251e`, run `36068345692`.
+
+All whole-solver phases on `45461667` retained exact `+1`, move 3, 806,844 nodes and 807,290 cofactors.
+
+Same-runner B/C means:
+
+| Metric | baseline | candidate | effect |
+|---|---:|---:|---:|
+| wall | 1266.7548 ms | 1230.6091 ms | **-2.85%** |
+| CPU ms | 1446.0 | 1445.5 | flat |
+| CPU cycles | 3,829,810,140.5 | 3,708,753,715 | **-3.16%** |
+| cycles / node | 4746.66 | 4596.62 | **-3.16%** |
+
+Pair-level cycle variance remained visible (+0.50% candidate in the first pair, -6.45% in the second). Retention is supported by the aggregate same-runner control plus the consistent search-level A/B, not by a universal timing claim.
+
+The next candidate is a fully fused three-lane SWAR exact-popcount primitive. Three nibble-count lanes sum to at most 12 per nibble, so they can share one byte-collapse and final accumulation without cross-nibble carry.
+
