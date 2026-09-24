@@ -39,8 +39,8 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          $baseline='57ddc70677552b7a5e744711e9a55dd9ed54bb72'
-          $candidate='f63f9fdfccb6cb8eebdf0204c63ca18fdc642efd'
+          $baseline='f63f9fdfccb6cb8eebdf0204c63ca18fdc642efd'
+          $candidate='8cce757761084847ce6cc85c656073828ab7955b'
 
           Write-Host "AB_PHASE baseline-1 $baseline"
           Use-JSMinSys $baseline
