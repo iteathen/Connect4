@@ -11,15 +11,9 @@ export async function solve7x6(moves,options={}){
   if(!Number.isFinite(timeoutMs)||timeoutMs<=0||timeoutMs>MAX_TIMEOUT_MS)
     throw new RangeError('invalid IsoMax timeout');
 
-  const managed=await runManagedConnect4CpcRba32(moves,{
+  return runManagedConnect4CpcRba32(moves,{
     ...options,
     geometry,
     timeoutMs,
   });
-  const {absoluteValue,witness,...result}=managed;
-  return {
-    ...result,
-    rootWdl:managed.status==='EXACT'?absoluteValue-2:null,
-    move:managed.status==='EXACT'?witness:-1,
-  };
 }
