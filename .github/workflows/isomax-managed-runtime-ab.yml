@@ -40,6 +40,11 @@ jobs:
             Write-Host "JSMS_HEAD $actual"
           }
           function Use-IsoMaxAdapter([string]$sha) {
+            git cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
             git checkout $sha -- components/isometric/solve.mjs
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
             Write-Host "ISOMAX_ADAPTER $sha"
