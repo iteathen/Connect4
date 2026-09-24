@@ -5,7 +5,7 @@ IsoMax no longer owns an independent hot execution kernel or result translator.
 Cost and hot-path authority for the managed Connect4 runtime lives in JSMinSys,
 pinned at:
 
-`67ecf83c1e0789a230afe1261464c23d217e9757`
+`f191c5f2885d9ae0a966096c1616d597f7fbc58c`
 
 NEES remains the parent cost authority used by JSMinSys. IsoMax itself retains
 only cold application policy around `runManagedConnect4CpcRba32`.
@@ -14,6 +14,7 @@ Therefore:
 
 - worker, Branch Manager and managed-session class construction is cold/init-time;
 - recurring worker/manager/search operations are accounted in JSMinSys;
+- production CPC-only move ordering uses JSMinSys live winning-line contribution scoring after exact CPC restrictions; static geometry order is tie-break only;
 - final exact-value/WDL and witness/move result translation is performed and
   cycle-accounted in JSMinSys;
 - IsoMax must not recreate local TT, RBA, evaluator, worker, manager, or result

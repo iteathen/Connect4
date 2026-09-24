@@ -4,7 +4,7 @@ IsoMax is now a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@67ecf83c1e0789a230afe1261464c23d217e9757`
+`vendor/jsminsys` -> `iteathen/JSMinSys@f191c5f2885d9ae0a966096c1616d597f7fbc58c`
 
 ## Ownership boundary
 
@@ -23,7 +23,7 @@ JSMinSys owns the reusable execution and Connect4 machinery:
 - managed worker/manager/host composition;
 - shared RBA TT and work queues;
 - Connect4 RBA geometry, coordinates, cofactors and fronts;
-- CPC and live-line evaluators;
+- CPC and live-line evaluators, with live winning-line contribution wired into production move ordering;
 - CPC-first local Negamax/alpha-beta;
 - final managed Connect4 result construction, including exact-value to `rootWdl` conversion and witness to `move`;
 - lifecycle, cancellation, cleanup and telemetry;
