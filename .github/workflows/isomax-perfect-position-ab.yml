@@ -26,7 +26,7 @@ jobs:
       - name: Candidate integration gate
         shell: pwsh
         run: |
-          git -C vendor/jsminsys checkout 414e6bf796fac300d18bc9495aa18270473f0ffe
+          git -C vendor/jsminsys checkout 8a928d987a2f9595bffcda8565f7c32a19421226
           npm test
           node --test vendor/jsminsys/test/*.test.mjs
       - name: Same-runner baseline-candidate-candidate-baseline
@@ -35,10 +35,10 @@ jobs:
           Write-Host 'AB_PHASE baseline-1 01026e1efcb6019248fa15860ba3c0c32e9b5be9'
           git -C vendor/jsminsys checkout 01026e1efcb6019248fa15860ba3c0c32e9b5be9
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          Write-Host 'AB_PHASE candidate-1 414e6bf796fac300d18bc9495aa18270473f0ffe'
-          git -C vendor/jsminsys checkout 414e6bf796fac300d18bc9495aa18270473f0ffe
+          Write-Host 'AB_PHASE candidate-1 8a928d987a2f9595bffcda8565f7c32a19421226'
+          git -C vendor/jsminsys checkout 8a928d987a2f9595bffcda8565f7c32a19421226
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          Write-Host 'AB_PHASE candidate-2 414e6bf796fac300d18bc9495aa18270473f0ffe'
+          Write-Host 'AB_PHASE candidate-2 8a928d987a2f9595bffcda8565f7c32a19421226'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           Write-Host 'AB_PHASE baseline-2 01026e1efcb6019248fa15860ba3c0c32e9b5be9'
           git -C vendor/jsminsys checkout 01026e1efcb6019248fa15860ba3c0c32e9b5be9
