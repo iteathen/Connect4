@@ -471,3 +471,51 @@ At the time of this expanded recovery, implementation heads were re-read as:
 - research authority before this documentation update: `b6b57b4b741037babe33e692b46d6609cc9d9724`.
 
 No solver/evaluator behavior is changed by this research-note update.
+
+## 13. Optimization batch 1 — recovered fused transition
+
+**Disposition:** retained after exact qualification.
+
+The first post-lineage optimization deliberately requalified an already-recovered idea rather than inventing a new evaluator.
+
+JSMinSys candidate:
+
+`b84a5a6e50ce8b18fd8dc4586c0890b690288bf1` — `perf(evaluator): fuse live-line copy and cancellation`
+
+Historical source:
+
+`44a1a2c572fff2cd9dfe931077f275e5836a2956`
+
+The current JSMinSys transition contract permits exactly in-place root replay and disjoint recursive frames while excluding unequal partial overlap. Under that narrower contract, one loop safely copies the mover slice and writes the opponent slice already masked, removing the second opponent reread/rewrite pass.
+
+JSMinSys Verify run `36064033790` passed. Same-runner B/C/C/B run `36064027070` preserved identical production CPC-only search work and reduced the aggregate warm-median sum by about **8.17%**; both paired warm comparisons favored the candidate.
+
+The isolated whole-solver Fhourstones control was run from Connect4 benchmark commit `fda89b0e7758497c0b6d85f4fdb5f92efc62159a`, workflow run `36064287955`.
+
+On input `45461667`:
+
+| Metric | prior live-line checkpoint | fused transition | effect |
+|---|---:|---:|---:|
+| exact W/D/L | +1 | +1 | unchanged |
+| selected move | 3 | 3 | unchanged |
+| alpha-beta nodes | 806,844 | 806,844 | unchanged |
+| cofactors | 807,290 | 807,290 | unchanged |
+| cutoffs | 274,452 | 274,452 | unchanged |
+| cache hits | 351,277 | 351,277 | unchanged |
+| wall | 1820.8976 ms | 1684.572 ms | **-7.49%** |
+| CPU ms | 2032 | 1968 | **-3.15%** |
+| CPU cycles | 5,144,835,720 | 4,757,539,666 | **-7.53%** |
+| cycles / alpha-beta node | 6376.49 | 5896.48 | **-7.53%** |
+
+This directly confirms the lineage diagnosis: the current JSMinSys implementation had regressed a retained Sep. 12 fast path. Restoring the fused transition preserves the live-line tree reduction exactly while removing implementation cost.
+
+### Next recovered target
+
+The next experiment is **partial/best-first live-line ordering** versus full sibling-order materialization. It must:
+
+- keep exact cache and CPC restriction before advisory scoring;
+- preserve the current landing-cell score semantics;
+- leave equal-score center order deterministic;
+- avoid recomputing RBA child transitions solely for move scoring;
+- compare node count, total cycles and cycles/node against the retained fused baseline.
+
