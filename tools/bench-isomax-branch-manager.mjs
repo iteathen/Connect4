@@ -7,6 +7,8 @@ const input='45461667';
 const expected=1;
 const moves=Array.from(input,c=>c.charCodeAt(0)-49);
 const profiles=[1,2,4];
+const basisElementBits=process.env.ISOMAX_BASIS_ELEMENT_BITS===undefined?32:Number(process.env.ISOMAX_BASIS_ELEMENT_BITS);
+if(basisElementBits!==16&&basisElementBits!==32)throw new RangeError('invalid ISOMAX_BASIS_ELEMENT_BITS');
 const meter=await processCycleCounter();
 try{
   console.log(JSON.stringify({
@@ -20,7 +22,7 @@ try{
     node:process.version,
     v8:process.versions.v8,
     profiles,
-    config:{capacity:65536,buckets:65536,timeoutMs:30000,managerBudget:64},
+    config:{capacity:65536,buckets:65536,basisElementBits,timeoutMs:30000,managerBudget:64},
   }));
   for(const workers of profiles){
     const before=meter.read(),cpuBefore=process.cpuUsage(),start=performance.now();
@@ -28,6 +30,7 @@ try{
       workers,
       capacity:65536,
       buckets:65536,
+      basisElementBits,
       timeoutMs:30000,
       managerBudget:64,
       readyTarget:workers*2,
