@@ -7,6 +7,7 @@ const input='45461667';
 const expected=1;
 const moves=Array.from(input,c=>c.charCodeAt(0)-49);
 const profiles=[1,2,4];
+const surplusFightSpike=process.env.ISOMAX_SURPLUS_FIGHT_SPIKE==='1';
 const meter=await processCycleCounter();
 try{
   console.log(JSON.stringify({
@@ -20,7 +21,7 @@ try{
     node:process.version,
     v8:process.versions.v8,
     profiles,
-    config:{capacity:65536,buckets:65536,timeoutMs:30000,managerBudget:64},
+    config:{capacity:65536,buckets:65536,timeoutMs:30000,managerBudget:64,surplusFightSpike},
   }));
   for(const workers of profiles){
     const before=meter.read(),cpuBefore=process.cpuUsage(),start=performance.now();
@@ -31,6 +32,7 @@ try{
       timeoutMs:30000,
       managerBudget:64,
       readyTarget:workers*2,
+      surplusFightSpike,
     });
     const cycles=meter.read()-before,wallMs=performance.now()-start,cpu=process.cpuUsage(cpuBefore);
     console.log(JSON.stringify({

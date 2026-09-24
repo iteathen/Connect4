@@ -3,7 +3,7 @@ name: IsoMax Managed Runtime A-B
 on:
   push:
     branches:
-      - work/isomax-jsminsys-boundary-cleanup
+      - experiment/isomax-surplus-fight-spike
     paths:
       - '.github/workflows/isomax-managed-runtime-ab.yml'
       - 'components/isometric/**'
@@ -39,25 +39,29 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          $baseline='f63f9fdfccb6cb8eebdf0204c63ca18fdc642efd'
-          $candidate='c26928df2c97d2ed56ce546fd4a074bff97f14d3'
+          $baseline='c26928df2c97d2ed56ce546fd4a074bff97f14d3'
+          $candidate='0f9c551acaa812a9d5ffc523b8e1149ae12eb684'
 
           Write-Host "AB_PHASE baseline-1 $baseline"
           Use-JSMinSys $baseline
+          $env:ISOMAX_SURPLUS_FIGHT_SPIKE='0'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           Write-Host "AB_PHASE candidate-1 $candidate"
           Use-JSMinSys $candidate
+          $env:ISOMAX_SURPLUS_FIGHT_SPIKE='1'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           Write-Host "AB_PHASE candidate-2 $candidate"
           Use-JSMinSys $candidate
+          $env:ISOMAX_SURPLUS_FIGHT_SPIKE='1'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           Write-Host "AB_PHASE baseline-2 $baseline"
           Use-JSMinSys $baseline
+          $env:ISOMAX_SURPLUS_FIGHT_SPIKE='0'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
