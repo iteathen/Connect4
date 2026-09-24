@@ -41,6 +41,11 @@ test('public IsoMax entrypoint delegates execution roles and lifecycle to JSMinS
   assert.equal(source.includes('./rba/'),false);
   assert.equal(source.includes('./execution/'),false);
   assert.equal(source.includes('runManagedConnect4CpcRba32'),true);
+  assert.equal(source.includes('absoluteValue'),false);
+  assert.equal(source.includes('witness'),false);
+  assert.equal(source.includes('...result'),false);
+  assert.equal(host.includes('rootWdl:exact?table.exact[rootQ]-2:null'),true);
+  assert.equal(host.includes('move:exact?runtime.witness[0]:-1'),true);
 
   assert.equal(workerBase.includes('export class Worker'),true);
   assert.equal(managerBase.includes('export class BranchManager'),true);
