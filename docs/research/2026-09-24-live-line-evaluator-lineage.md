@@ -519,3 +519,40 @@ The next experiment is **partial/best-first live-line ordering** versus full sib
 - avoid recomputing RBA child transitions solely for move scoring;
 - compare node count, total cycles and cycles/node against the retained fused baseline.
 
+## 14. Optimization batch 2 — insertion-order materialization
+
+**Disposition:** retained.
+
+The recovered best-first-only form was first tested at JSMinSys `a32ad36a08c15bb50e2a7050229a64c0d05daa6d`. It reduced the small production A/B cohort from 1,525 to 1,493 nodes, but CPC-only warm time regressed about **20.68%** and both paired warm comparisons were adverse. That exact two-pass best-first form is rejected and recorded in JSMinSys `research/cycle-reduction-108-best-first-live-line-order.md`.
+
+The next recovered form used the Sep. 8 fixed-width exact-solver pattern: stably insertion-order every move as its live-line score is computed, preserving the **complete** live-line ranking and center-first tie order while removing the repeated full-width argmax materialization pass.
+
+JSMinSys candidate:
+
+`bd53c725649ee61c336fb9b1d438afa99841765b`
+
+Qualification:
+
+- JSMinSys Verify `36067316744`: success;
+- same-runner B/C/C/B `36067310924`: identical production nodes/cofactors, aggregate warm-median sum **-19.89%**;
+- isolated Fhourstones branch `benchmark/isomax-fhourstones-live-line-insertion-20260924`;
+- benchmark commit `d30c03229c619c7cd0999a739e869f09a0752aef`;
+- benchmark run `36067437196`.
+
+On `45461667`, compared with the retained fused-transition baseline:
+
+| Metric | fused baseline | insertion-order candidate | effect |
+|---|---:|---:|---:|
+| exact W/D/L | +1 | +1 | unchanged |
+| selected move | 3 | 3 | unchanged |
+| nodes | 806,844 | 806,844 | unchanged |
+| cofactors | 807,290 | 807,290 | unchanged |
+| cutoffs | 274,452 | 274,452 | unchanged |
+| cache hits | 351,277 | 351,277 | unchanged |
+| wall | 1684.572 ms | 1680.5991 ms | -0.24% |
+| CPU ms | 1968 | 1890 | **-3.96%** |
+| CPU cycles | 4,757,539,666 | 4,682,849,593 | **-1.57%** |
+| cycles / node | 5896.48 | 5803.91 | **-1.57%** |
+
+The candidate is retained. The next optimization target is the standard-7x6 live-line scorer itself: every scored cell currently executes three SWAR `popcount32` calls. Any sparse or specialized replacement must be selected from actual line-mask/live-mask economics and measured, not assumed.
+
