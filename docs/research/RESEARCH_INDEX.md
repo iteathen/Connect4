@@ -402,6 +402,8 @@ Failed implementations with a durable causal lesson should remain in their ownin
 
 ## 9. Current side research and design-only work
 
+- [`2026-09-24-live-line-evaluator-lineage.md`](2026-09-24-live-line-evaluator-lineage.md) recovers the incumbent/minimax/quotient live-line evaluator lineage, prior optimization results, known regressions, and the do-not-repeat list required before further IsoMax evaluator optimization.
+
 - `research/connect-k-derivative-classification` remains isolated. Its predicate/axiom ledger is compatible with the current “derive connections before primitives” classification but has not solved the guarded temporal seam.
 - GitHub issue **#43 — `Design-only: theorem-tiered packed structural key for frontier-native Negamax ordering`** owns the structural ordering/evaluation design. It is design-only and must not be treated as implementation, pruning, or exact-value authority.
 
