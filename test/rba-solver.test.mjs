@@ -5,6 +5,12 @@ import {exact} from './helpers/physical-oracle.mjs';
 
 const apiURL=new URL('../components/isometric/solve.mjs',import.meta.url);
 
+function assertOptimalCallerMove(moves,result,control){
+  assert.ok(Number.isInteger(result.move)&&result.move>=0&&result.move<7,JSON.stringify({moves,result}));
+  const child=exact([...moves,result.move]);
+  assert.equal(child.value,control.value,JSON.stringify({moves,result,control,child}));
+}
+
 test('JSMinSys IsoMax solver API exists',async()=>{
   const api=await import(apiURL.href).catch(()=>null);
   assert.ok(api?.solve7x6,'IsoMax solver missing');
@@ -31,7 +37,7 @@ test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',as
       const result=await solve7x6(moves,{workers,timeoutMs:5000});
       assert.equal(result.status,'EXACT',JSON.stringify({moves,workers,result}));
       assert.equal(result.rootWdl,control.value-2);
-      assert.equal(result.move,control.move);
+      assertOptimalCallerMove(moves,result,control);
       assert.equal(result.cleanup,true);
       assert.equal(result.workersUsed,workers);
       assert.equal(result.workersExited,workers+1);
@@ -52,7 +58,7 @@ test('JSMinSys IsoMax preserves caller-frame witness under reflection',async()=>
     const result=await solve7x6(replay,{workers:2,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({replay,result}));
     assert.equal(result.rootWdl,control.value-2);
-    assert.equal(result.move,control.move);
+    assertOptimalCallerMove(replay,result,control);
   }
 });
 
