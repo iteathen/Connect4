@@ -28,7 +28,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $candidate='c5643ef6c06f7e9d95b7b4bce44c85012c02e174'
+          $candidate='a36515a234609af1bef8c57c5dd90d7deab71fdb'
           git -C vendor/jsminsys checkout --detach $candidate
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
@@ -56,8 +56,8 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          $baseline='c5643ef6c06f7e9d95b7b4bce44c85012c02e174'
-          $candidate='c5643ef6c06f7e9d95b7b4bce44c85012c02e174'
+          $baseline='a36515a234609af1bef8c57c5dd90d7deab71fdb'
+          $candidate='a36515a234609af1bef8c57c5dd90d7deab71fdb'
           Use-JSMinSys $candidate
           Write-Host "AB_PHASE baseline-1 stored-basis"
           $env:ISOMAX_BASIS_SET_WORDS='0'
