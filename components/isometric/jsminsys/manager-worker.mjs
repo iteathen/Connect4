@@ -9,7 +9,8 @@ import {
 const g=prepareConnect4RbaGeometry({columns:7,rows:6});
 const witness=new Int32Array(workerData.witnessBuffer);
 const resetTargets=new Int32Array(workerData.resetBuffer);
-const manager=prepareRbaBranchManager32({capacity:workerData.table.capacity,resetTargets});
+const budget=workerData.budget??64;
+const manager=prepareRbaBranchManager32({capacity:workerData.table.capacity,resetTargets,budget});
 const context={
   g,
   rootReflected:workerData.rootReflected?1:0,
@@ -27,7 +28,7 @@ runRbaBranchManagerLoop32(
   reconcile,
   {
     owner:1,
-    budget:workerData.budget??64,
+    budget,
     context,
     manager,
     waitMs:1,
