@@ -1,27 +1,41 @@
-# Branch Manager benchmark trigger: corrected manager-owned dedupe/cleanup
-name: IsoMax Fhourstones Benchmark
+name: IsoMax Fhourstones Live-Line A-B
 
 on:
   push:
     branches:
-      - benchmark/isomax-fhourstones-live-line-insertion-20260924
+      - benchmark/isomax-fhourstones-live-line-popcount-ab-20260924
     paths:
       - '.github/workflows/isomax-fhourstones-benchmark.yml'
   workflow_dispatch:
 
 jobs:
-  fhourstones:
+  fhourstones-ab:
     runs-on: windows-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           submodules: recursive
+          fetch-depth: 0
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
         with:
           node-version: '26.7.0'
           cache: npm
       - run: npm ci
-      - name: Standard Fhourstones qualification
+      - name: Same-runner fused-popcount baseline-candidate-candidate-baseline
         shell: pwsh
-        run: node --experimental-ffi tools/bench-fhourstones.mjs
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $baseline = 'bd53c725649ee61c336fb9b1d438afa99841765b'
+          $candidate = 'aa96599752181fea7c4e124b3fdf1f0e4baa8e3a'
+          function Run-Phase([string]$label, [string]$sha) {
+            Write-Output "AB_PHASE $label $sha"
+            git -C vendor/jsminsys fetch origin $sha
+            git -C vendor/jsminsys checkout --detach $sha
+            Write-Output "JSMS_HEAD $(git -C vendor/jsminsys rev-parse HEAD)"
+            node --experimental-ffi tools/bench-fhourstones.mjs "docs/qualification/fhourstones-$label.json"
+          }
+          Run-Phase 'baseline-1' $baseline
+          Run-Phase 'candidate-1' $candidate
+          Run-Phase 'candidate-2' $candidate
+          Run-Phase 'baseline-2' $baseline
