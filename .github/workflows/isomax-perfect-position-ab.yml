@@ -1,9 +1,9 @@
-name: IsoMax Assertion Closure A-B
+name: IsoMax Compact Basis A-B
 
 on:
   push:
     branches:
-      - experiment/isomax-assertion-closure-v1
+      - experiment/isomax-assertion-basis-bitset-v1
     paths:
       - '.github/workflows/isomax-perfect-position-ab.yml'
       - 'components/isometric/solve.mjs'
@@ -28,7 +28,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $candidate='f62aa56e671c54582b2b7133ad18b505db1c8458'
+          $candidate='c5643ef6c06f7e9d95b7b4bce44c85012c02e174'
           git -C vendor/jsminsys checkout --detach $candidate
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
@@ -56,21 +56,22 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          $baseline='048b51cfc473b700f315776b81e38e5f1e08c79d'
-          $candidate='f62aa56e671c54582b2b7133ad18b505db1c8458'
-          Write-Host "AB_PHASE baseline-1 $baseline"
-          Use-JSMinSys $baseline
-          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          Write-Host "AB_PHASE candidate-1 $candidate"
+          $baseline='c5643ef6c06f7e9d95b7b4bce44c85012c02e174'
+          $candidate='c5643ef6c06f7e9d95b7b4bce44c85012c02e174'
           Use-JSMinSys $candidate
+          Write-Host "AB_PHASE baseline-1 stored-basis"
+          $env:ISOMAX_BASIS_SET_WORDS='0'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          Write-Host "AB_PHASE candidate-2 $candidate"
-          Use-JSMinSys $candidate
+          Write-Host "AB_PHASE candidate-1 compact-basis"
+          $env:ISOMAX_BASIS_SET_WORDS='20'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          Write-Host "AB_PHASE baseline-2 $baseline"
-          Use-JSMinSys $baseline
+          Write-Host "AB_PHASE candidate-2 compact-basis"
+          $env:ISOMAX_BASIS_SET_WORDS='20'
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "AB_PHASE baseline-2 stored-basis"
+          $env:ISOMAX_BASIS_SET_WORDS='0'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
