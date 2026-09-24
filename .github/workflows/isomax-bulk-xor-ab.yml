@@ -1,0 +1,37 @@
+name: IsoMax Bulk XOR A-B
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-rebuild
+    paths:
+      - '.github/workflows/isomax-bulk-xor-ab.yml'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner baseline-candidate-candidate-baseline
+        shell: pwsh
+        run: |
+          Write-Host 'AB_PHASE baseline-1 bb85ae478fa5a1fda37b969dd291367414e4cc07'
+          git -C vendor/jsminsys checkout bb85ae478fa5a1fda37b969dd291367414e4cc07
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          Write-Host 'AB_PHASE candidate-1 01026e1efcb6019248fa15860ba3c0c32e9b5be9'
+          git -C vendor/jsminsys checkout 01026e1efcb6019248fa15860ba3c0c32e9b5be9
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          Write-Host 'AB_PHASE candidate-2 01026e1efcb6019248fa15860ba3c0c32e9b5be9'
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          Write-Host 'AB_PHASE baseline-2 bb85ae478fa5a1fda37b969dd291367414e4cc07'
+          git -C vendor/jsminsys checkout bb85ae478fa5a1fda37b969dd291367414e4cc07
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
