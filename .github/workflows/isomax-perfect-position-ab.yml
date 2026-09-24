@@ -56,22 +56,25 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          $baseline='cd68a969c038b8ca137fa3c610854d9fbfa9c13d'
+          $baseline='64ae0dc1480fc03cc13864446f0e632e31b7033b'
           $candidate='cd68a969c038b8ca137fa3c610854d9fbfa9c13d'
+          Write-Host "AB_PHASE baseline-1 compact-encoded"
+          Use-JSMinSys $baseline
+          $env:ISOMAX_BASIS_SET_WORDS='20'
+          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "AB_PHASE candidate-1 compact-direct"
           Use-JSMinSys $candidate
-          Write-Host "AB_PHASE baseline-1 stored-basis"
-          $env:ISOMAX_BASIS_SET_WORDS='0'
-          node --experimental-ffi tools/bench-isomax-branch-manager.mjs
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          Write-Host "AB_PHASE candidate-1 compact-basis"
           $env:ISOMAX_BASIS_SET_WORDS='20'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          Write-Host "AB_PHASE candidate-2 compact-basis"
+          Write-Host "AB_PHASE candidate-2 compact-direct"
+          Use-JSMinSys $candidate
           $env:ISOMAX_BASIS_SET_WORDS='20'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          Write-Host "AB_PHASE baseline-2 stored-basis"
-          $env:ISOMAX_BASIS_SET_WORDS='0'
+          Write-Host "AB_PHASE baseline-2 compact-encoded"
+          Use-JSMinSys $baseline
+          $env:ISOMAX_BASIS_SET_WORDS='20'
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
