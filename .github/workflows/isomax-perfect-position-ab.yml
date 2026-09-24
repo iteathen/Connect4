@@ -1,9 +1,9 @@
-name: IsoMax Add-on Optimized Position Code A-B
+name: IsoMax Assertion Closure A-B
 
 on:
   push:
     branches:
-      - experiment/isomax-addon-optimized-position-code-v1
+      - experiment/isomax-assertion-closure-v1
     paths:
       - '.github/workflows/isomax-perfect-position-ab.yml'
       - 'components/isometric/solve.mjs'
@@ -27,7 +27,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $candidate='048b51cfc473b700f315776b81e38e5f1e08c79d'
+          $candidate='f62aa56e671c54582b2b7133ad18b505db1c8458'
           git -C vendor/jsminsys checkout --detach $candidate
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
@@ -55,8 +55,8 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          $baseline='01026e1efcb6019248fa15860ba3c0c32e9b5be9'
-          $candidate='048b51cfc473b700f315776b81e38e5f1e08c79d'
+          $baseline='048b51cfc473b700f315776b81e38e5f1e08c79d'
+          $candidate='f62aa56e671c54582b2b7133ad18b505db1c8458'
           Write-Host "AB_PHASE baseline-1 $baseline"
           Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
