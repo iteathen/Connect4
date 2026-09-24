@@ -4,7 +4,7 @@ IsoMax is now a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@bd53c725649ee61c336fb9b1d438afa99841765b`
+`vendor/jsminsys` -> `iteathen/JSMinSys@aa96599752181fea7c4e124b3fdf1f0e4baa8e3a`
 
 ## Ownership boundary
 
