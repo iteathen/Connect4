@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {existsSync,readFileSync} from 'node:fs';
 import {solve7x6} from '../components/isometric/solve.mjs';
 
 test('unresolved IsoMax positions continue through managed CPC-first Negamax search',async()=>{
@@ -29,19 +29,29 @@ test('deadline interruption never invents WDL',async()=>{
   assert.equal(r.cleanup,true);
 });
 
-test('public IsoMax entrypoint delegates managed execution ownership to JSMinSys',()=>{
+test('public IsoMax entrypoint delegates execution roles and lifecycle to JSMinSys',()=>{
   const source=readFileSync(new URL('../components/isometric/solve.mjs',import.meta.url),'utf8');
-  const host=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-host.mjs',import.meta.url),'utf8');
+  const workerBase=readFileSync(new URL('../vendor/jsminsys/addons/worker.mjs',import.meta.url),'utf8');
+  const managerBase=readFileSync(new URL('../vendor/jsminsys/addons/branch-manager.mjs',import.meta.url),'utf8');
+  const hostBase=readFileSync(new URL('../vendor/jsminsys/addons/branch-manager-host.mjs',import.meta.url),'utf8');
   const worker=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-worker.mjs',import.meta.url),'utf8');
   const manager=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-manager.mjs',import.meta.url),'utf8');
-  assert.equal(source.includes('./rba/kernel.mjs'),false);
-  assert.equal(source.includes('./execution/branch-manager.mjs'),false);
+  const host=readFileSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-host.mjs',import.meta.url),'utf8');
+
+  assert.equal(source.includes('./rba/'),false);
+  assert.equal(source.includes('./execution/'),false);
   assert.equal(source.includes('runManagedConnect4CpcRba32'),true);
-  assert.equal(source.includes('spawnManagedFileWorker32'),false);
-  assert.equal(source.includes('runRbaBranchWorkerLoop32'),false);
-  assert.equal(source.includes('runRbaBranchManagerLoop32'),false);
-  assert.equal(host.includes('rba-connect4-managed-worker.mjs'),true);
-  assert.equal(host.includes('rba-connect4-managed-manager.mjs'),true);
-  assert.equal(worker.includes('runRbaBranchWorkerLoop32'),true);
-  assert.equal(manager.includes('runRbaBranchManagerLoop32'),true);
+
+  assert.equal(workerBase.includes('export class Worker'),true);
+  assert.equal(managerBase.includes('export class BranchManager'),true);
+  assert.equal(hostBase.includes('export class ManagedThreadSession'),true);
+  assert.equal(worker.includes('worker.run('),true);
+  assert.equal(manager.includes('manager.run('),true);
+  assert.equal(host.includes('session.spawn('),true);
+  assert.equal(host.includes('session.wait('),true);
+  assert.equal(host.includes('session.close('),true);
+  assert.equal(host.includes('session.state()'),true);
+
+  assert.equal(existsSync(new URL('../components/isometric/execution/',import.meta.url)),false);
+  assert.equal(existsSync(new URL('../components/isometric/rba/',import.meta.url)),false);
 });
