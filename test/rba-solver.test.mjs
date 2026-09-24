@@ -79,7 +79,7 @@ test('managed Negamax root claim remains single-owner across worker counts',asyn
     const result=await solve7x6(moves,{workers,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({workers,result}));
     assert.equal(result.rootWdl,control.value-2);
-    assert.equal(result.move,control.move);
+    assertOptimalCallerMove(moves,result,control);
     assert.equal(result.workersExited,workers+1);
     assert.equal(result.metrics.branches,0);
     assert.equal(result.metrics.claims,1);
