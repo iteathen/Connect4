@@ -39,7 +39,7 @@ jobs:
             Write-Host "JSMS_HEAD $actual"
           }
           $baseline='19a96823cad46c7e5e9e70e0d68079d5574f92a3'
-          $candidate='2f3435c7483f03f61f1ab55c3bb37aa0cffc20df'
+          $candidate='5ff7d97bd1a26d8e3ad35cf4cbd3a41ebcde5648'
 
           Write-Host "AB_PHASE baseline-1 $baseline"
           Use-JSMinSys $baseline
@@ -48,12 +48,12 @@ jobs:
 
           Write-Host "AB_PHASE candidate-1 $candidate"
           Use-JSMinSys $candidate
-          node --experimental-ffi tools/bench-lazy-smp-control.mjs
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           Write-Host "AB_PHASE candidate-2 $candidate"
           Use-JSMinSys $candidate
-          node --experimental-ffi tools/bench-lazy-smp-control.mjs
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           Write-Host "AB_PHASE baseline-2 $baseline"
