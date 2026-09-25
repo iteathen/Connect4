@@ -25,7 +25,7 @@ jobs:
       - name: Checkout measurement-only JSMinSys census
         shell: pwsh
         run: |
-          $sha='4e38335993b6900759dbac7cb09a0ada31190ff9'
+          $sha='1b882b39a412f11fef5cdedafadfbbe6d4eac6f5'
           git -C vendor/jsminsys fetch --no-tags origin $sha
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           git -C vendor/jsminsys checkout --detach $sha
