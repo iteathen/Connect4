@@ -62,3 +62,17 @@ Reject if any CPC kind/interval/preemption result differs, if production node/co
 3. Only then consider stronger CPC theorem additions.
 
 Do not promote the opt-in synchronized frontier-response scan to standard 7x6 production merely because it is exact: maintained standard-board prefix controls previously showed zero additional interval/kind closure, so its recurring scan cost remains unjustified.
+## Qualified optimization result: singleton dedupe
+
+JSMinSys `a32a23de4188237b17edbe94ebe8558e54d61396` removes the impossible duplicate-cell guard in `collectPlayerSingletons`. The proof is structural: basis IDs are unique and singleton shape ID equals cell ID.
+
+Qualification preserved every search/CPC counter. Same-runner search B/C/C/B improved CPC-only warm medians by 12.72%. Same-runner Fhourstones B/C/C/B on `45461667` (Connect4 run `36080807337`) preserved 806,844 nodes and 455,568 CPC calls while mean total cycles fell from 4,590,139,471.5 to 4,531,617,656.5 (**-1.27%**), about 5689.00 -> 5616.47 cycles/node. Wall improved 0.79%.
+
+Disposition: **retained**.
+
+Two preceding source-level CPC candidates were rejected and preserved in JSMinSys:
+
+- cycle reduction 112: active-pair fork traversal; warm production regression despite identical semantics/counters;
+- cycle reduction 113: duplicate fork-output reset removal; fewer stores but adverse V8 timing.
+
+The next experiment is the historically promoted forced-chain macro: eliminate deterministic CPC forced transit states as ordinary recursive/TT nodes, following the Sep. 9 residual solver and Sep. 12 quotient-native Negamax evidence.
