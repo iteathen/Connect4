@@ -1,0 +1,86 @@
+{
+  "campaign": "2026-09-25-lazy-smp-dts-0.1",
+  "result": "pre-publication-overlap-census-0.1",
+  "status": "complete",
+  "anchors": {
+    "jsminsys_baseline": "04d37498607ace16dae33c79462ddfe1503c8a0d",
+    "jsminsys_measurement": "dd343f3edd7e83c18f87741da53ca8e0eac9bde7",
+    "jsminsys_pr": 47,
+    "jsminsys_verify_run": "36200737547",
+    "connect4_measurement": "292a342129aa751bf064f9ac5cae1a0e1501bb99",
+    "census_run": "36200817878"
+  },
+  "trace": {
+    "workers": 4,
+    "sharedSampleMask": 7,
+    "overlapSampleMask": 255,
+    "sampleFraction": 0.00390625,
+    "capacityPerWorker": 32768,
+    "identity": "full qualified q_r key"
+  },
+  "runs": [
+    {
+      "input": "45461667",
+      "status": "EXACT",
+      "recorded": 7443,
+      "keys": 345,
+      "crossWorkerKeys": 143,
+      "overlapKeys": 4,
+      "overlapPairs": 19,
+      "windowVariantOverlapKeys": 0,
+      "maxInclusiveNodes": 378
+    },
+    {
+      "input": "45461667",
+      "status": "EXACT",
+      "recorded": 7523,
+      "keys": 345,
+      "crossWorkerKeys": 143,
+      "overlapKeys": 4,
+      "overlapPairs": 6,
+      "windowVariantOverlapKeys": 0,
+      "maxInclusiveNodes": 496
+    },
+    {
+      "input": "45461667",
+      "status": "EXACT",
+      "recorded": 7414,
+      "keys": 345,
+      "crossWorkerKeys": 143,
+      "overlapKeys": 7,
+      "overlapPairs": 15,
+      "windowVariantOverlapKeys": 0,
+      "maxInclusiveNodes": 375
+    },
+    {
+      "input": "13333111",
+      "status": "TIMEOUT",
+      "recorded": 52987,
+      "keys": 2260,
+      "crossWorkerKeys": 328,
+      "overlapKeys": 3,
+      "overlapPairs": 16,
+      "windowVariantOverlapKeys": 1,
+      "maxInclusiveNodes": 347
+    },
+    {
+      "input": "EMPTY",
+      "status": "TIMEOUT",
+      "recorded": 39997,
+      "keys": 1162,
+      "crossWorkerKeys": 446,
+      "overlapKeys": 14,
+      "overlapPairs": 84,
+      "windowVariantOverlapKeys": 9,
+      "maxInclusiveNodes": 1599
+    }
+  ],
+  "dispositions": {
+    "prepublicationOverlap": "STRUCTURE_ESTABLISHED",
+    "overlapPrevalence": "SPARSE_IN_FIRST_DETERMINISTIC_SAMPLE_WORKLOAD_DEPENDENT",
+    "overlapCost": "HETEROGENEOUS_MATERIAL_OUTLIERS",
+    "sameQrDifferentWindow": "ESTABLISHED",
+    "inflightOwnershipOptimization": "NOT_YET_JUSTIFIED"
+  },
+  "next": "exact-result producer provenance and consumed shared-hit provenance census"
+}
