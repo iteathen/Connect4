@@ -58,6 +58,26 @@ The intended architecture preserves worker-local recursive continuity while expo
 
 
 
+### Current Lazy SMP search-method IsoGraph overlay
+
+The active IsoMax parallel **search/execution method** is represented as successor IsoGraph research without changing the solver method or Connect4 game semantics:
+
+- `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_0_1.*`
+- `isograph/discovery/2026-09-25-lazy-smp-nei-qu-dp/`
+
+The complete DP-01..DP-45 pass uses NEI and QU explicitly.
+
+```text
+one exact value-dependency relation
++ multiple complete private demand traversals
++ optional exact-fact shared materialization
++ first-exact-finisher termination
+```
+
+The shared cache is an acceleration layer, not a completeness owner. Worker occurrence identity, cache occurrence identity, q identity, scalar W/D/L and move/proof witness identity remain separate.
+
+The older Surplus/Branch-Manager work-distribution records above remain historical implementation research; they are not the active Lazy-SMP search architecture.
+
 ### Post-1.1 derived successor claims
 
 Confirmed research that occurred after the frozen 1.1 authority is recorded without mutating that authority.

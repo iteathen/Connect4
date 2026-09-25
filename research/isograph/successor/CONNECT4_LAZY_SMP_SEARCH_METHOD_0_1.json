@@ -1,0 +1,132 @@
+{
+  "artifact": "CONNECT4_LAZY_SMP_SEARCH_METHOD_0_1",
+  "status": "derived_successor_operational_search_method_overlay_unqualified",
+  "authority_effect": "none",
+  "solver_method_changed": false,
+  "semantic_base": "Connect4 logic authority 1.2",
+  "implementation": {
+    "repo": "iteathen/JSMinSys",
+    "revision": "04d37498607ace16dae33c79462ddfe1503c8a0d"
+  },
+  "nei": [
+    {
+      "id": "NEI-LSMP-01",
+      "carrier": "execution occurrence",
+      "result": "DISTINCT",
+      "subjects": [
+        "worker A",
+        "worker B"
+      ]
+    },
+    {
+      "id": "NEI-LSMP-02",
+      "carrier": "implementation key content",
+      "result": "SCOPED_SAME_WHEN_EQUAL",
+      "note": "not q_o/q_r authority"
+    },
+    {
+      "id": "NEI-LSMP-03",
+      "carrier": "storage occurrence",
+      "result": "DISTINCT",
+      "subjects": [
+        "local cache entry",
+        "shared cache entry"
+      ]
+    },
+    {
+      "id": "NEI-LSMP-04",
+      "carrier": "move witness",
+      "result": "NO_COLLAPSE_FROM_EQUAL_WDL"
+    },
+    {
+      "id": "NEI-LSMP-05",
+      "carrier": "action-order policy",
+      "result": "SAME_POLICY_CAN_COEXIST_WITH_DISTINCT_WORKERS"
+    },
+    {
+      "id": "NEI-LSMP-06",
+      "carrier": "cache slot over time",
+      "result": "RAW_SLOT_NOT_IDENTITY_AUTHORITY"
+    }
+  ],
+  "qu": [
+    {
+      "id": "QU-LSMP-01",
+      "name": "worker diversity economics",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-02",
+      "name": "shared evidence density and capacity",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-03",
+      "name": "duplicate-work topology",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-04",
+      "name": "first-finisher witness distribution",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-05",
+      "name": "worker-count scaling",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-06",
+      "name": "lossy cache materialization economics",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-07",
+      "name": "implementation key to q_o/q_r correspondence",
+      "state": "OPEN"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-LSMP-001",
+      "class": "established_structural_interpretation",
+      "statement": "Many operational traversals realize one exact value-dependency relation; worker multiplicity is not solver-semantic multiplicity."
+    },
+    {
+      "id": "F-LSMP-002",
+      "class": "established_correctness_factorization",
+      "statement": "Shared exact cache is optional acceleration because every worker owns a complete private exact solve."
+    },
+    {
+      "id": "F-LSMP-003",
+      "class": "established_representation_distinction",
+      "statement": "Logical exact-fact stability is distinct from bounded lossy shared-cache materialization."
+    },
+    {
+      "id": "F-LSMP-004",
+      "class": "established_identity_boundary",
+      "statement": "Workers are role-equivalent but NEI-distinct execution occurrences."
+    },
+    {
+      "id": "F-LSMP-005",
+      "class": "established_identity_boundary",
+      "statement": "Exact scalar W/D/L does not establish move/proof witness identity."
+    },
+    {
+      "id": "F-LSMP-006",
+      "class": "implementation_observation",
+      "statement": "orderOffset repeats modulo columns, so policy multiplicity can be lower than worker multiplicity."
+    },
+    {
+      "id": "F-LSMP-007",
+      "class": "empirically_supported_scoped",
+      "statement": "On the 2026-09-25 official-control CPU census, solver-kernel work dominated while shared-cache and host self time were comparatively small."
+    },
+    {
+      "id": "F-LSMP-008",
+      "class": "open_mapping_question",
+      "statement": "Implementation cache-key identity is not promoted to q_o/q_r without a separate exact mapping theorem.",
+      "qu": "QU-LSMP-07"
+    }
+  ]
+}
