@@ -1,0 +1,71 @@
+name: IsoMax Lazy SMP Harder Qualification
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-lazy-smp-hard.yml'
+      - 'tools/bench-lazy-smp-hard.mjs'
+  workflow_dispatch:
+
+jobs:
+  hard-qualification:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Four-worker Lazy SMP harder-position qualification
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            Write-Host "JSMS_HEAD $((git -C vendor/jsminsys rev-parse HEAD).Trim())"
+          }
+
+          function Run-Sample(
+            [string]$label,
+            [string]$sha,
+            [string]$input,
+            [int]$expected,
+            [int]$mask,
+            [int]$timeoutMs
+          ) {
+            Write-Host "HARD_PHASE $label input=$input expected=$expected mask=$mask timeoutMs=$timeoutMs"
+            Use-JSMinSys $sha
+            node --experimental-ffi tools/bench-lazy-smp-hard.mjs $input $expected $mask $timeoutMs $label
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+
+          $baseline='19a96823cad46c7e5e9e70e0d68079d5574f92a3'
+          $candidate='5ff7d97bd1a26d8e3ad35cf4cbd3a41ebcde5648'
+
+          # Primary hard official Fhourstones position: full unchanged 120 s ceiling,
+          # same-runner B/C/C/B.
+          Run-Sample '35333571-baseline-1' $baseline '35333571' -1 0 120000
+          Run-Sample '35333571-candidate-1' $candidate '35333571' -1 7 120000
+          Run-Sample '35333571-candidate-2' $candidate '35333571' -1 7 120000
+          Run-Sample '35333571-baseline-2' $baseline '35333571' -1 0 120000
+
+          # The remaining official Fhourstones positions are substantially harder.
+          # Use bounded same-runner B/C progress probes to compare CPU/cycles and
+          # shared exact evidence without changing their position semantics.
+          Run-Sample '13333111-baseline' $baseline '13333111' 0 0 30000
+          Run-Sample '13333111-candidate' $candidate '13333111' 0 7 30000
+          Run-Sample 'empty-baseline' $baseline 'EMPTY' 1 0 30000
+          Run-Sample 'empty-candidate' $candidate 'EMPTY' 1 7 30000
