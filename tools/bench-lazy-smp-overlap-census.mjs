@@ -148,6 +148,7 @@ try{
     sharedSampleMask,
     diagnosticOverlapSampleMask:overlapSampleMask,
     diagnosticOverlapCapacity:overlapCapacity,
+    diagnosticProvenance:1,
     timeoutMs,
     cpcFrontierResponse:false,
     cpcProjectedAdvisory:false,
@@ -166,6 +167,15 @@ try{
     overlapCapacity,
     ...publicResult,
     overlap,
+    provenance:{
+      labels:['unclassified','cpcExact','intervalExact','forcedTerminal','recursiveFullWindow'],
+      hits:publicResult.diagnosticProvenanceHits,
+      stores:publicResult.diagnosticProvenanceStores,
+      hitsPerStore:publicResult.diagnosticProvenanceHits.map((hits,i)=>{
+        const stores=publicResult.diagnosticProvenanceStores[i];
+        return stores?hits/stores:0;
+      }),
+    },
     wallMs,
     cpuMs:(cpu.user+cpu.system)/1000,
     cpuCycles:cycles.toString(),
