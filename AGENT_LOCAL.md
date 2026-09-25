@@ -9,9 +9,11 @@ documented in `components/isometric/jsminsys/README.md`; the earlier
 pre-JSMinSys worker/shared-TT/Four-Front implementation is not the public solve path.
 Read `STATUS.md`, `components/isometric/jsminsys/README.md` and
 `components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
-and pinned merged JSMinSys main `7f866a87d0fc0662529621590c02b9832f685c6c`.
+and pinned merged JSMinSys main `51bd9bc09b2c50b84619bc7efa953ad9c1e0302a`.
 The JSMinSys TT ready queue is the sole shared work queue; do not introduce a
-second branch/task authority. Historical routing/implementation descriptions
+second branch/task authority. Single-worker IsoMax execution is forbidden until
+the owner explicitly revokes that constraint; all benchmarks, qualification and
+experiments must use at least two search workers plus the Branch Manager. Historical routing/implementation descriptions
 below do not authorize restoring superseded solver paths or claiming fixtures
 are full-game solves.
 Do not modify BSFP. This bounded rebuild branch has the Isometric solver lane as

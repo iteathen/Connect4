@@ -6,7 +6,7 @@ Active IsoMax integration branch: `work/isomax-jsminsys-boundary-cleanup`.
 
 Pinned dependency:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@7f866a87d0fc0662529621590c02b9832f685c6c`
+`vendor/jsminsys` -> `iteathen/JSMinSys@51bd9bc09b2c50b84619bc7efa953ad9c1e0302a`
 
 Current public execution:
 
@@ -38,24 +38,29 @@ has been transferred safely.
 
 ## Qualification
 
-Connect4 CI run `35933307127` passed:
+Current JSMinSys restoration PR #28 merged as `51bd9bc09b2c50b84619bc7efa953ad9c1e0302a` after 157/157 JSMinSys tests passed with schema and Node compatibility green.
 
-- Connect4 57/57;
-- pinned JSMinSys 128/128;
-- exact 1/2/4-worker oracle agreement;
-- caller-frame reflection/witness controls;
-- worker-published surplus / manager-only dedupe controls;
-- manager worker-reset controls;
-- redirect-lifetime concurrency regression;
-- fail-closed deadline/cancellation cleanup.
+The managed worker again follows the required distributed topology:
+
+```text
+claim q
+  -> CPC/RBA evaluate q
+  -> retain at most one continuation
+  -> publish unresolved siblings as surplus to the shared ready queue
+  -> continue retained q immediately
+```
+
+The Branch Manager remains independent and off the worker evaluation hot loop. Managed Connect4 requires at least two search workers, and per-worker claim/evaluation counters are returned so idle-worker regressions are observable.
+
+A fresh two-worker Fhourstones benchmark is required for this restored topology before making a current performance claim.
 
 ## Benchmark state
 
 Current pinned dependency:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@7f866a87d0fc0662529621590c02b9832f685c6c`
+`vendor/jsminsys` -> `iteathen/JSMinSys@51bd9bc09b2c50b84619bc7efa953ad9c1e0302a`
 
-Current official Fhourstones qualification:
+Historical pre-restoration Fhourstones qualification (single-worker execution is no longer permitted):
 
 - Connect4 commit: `fa6c8340e95c5da7f05641850bc9eb30c0f4b25b`;
 - workflow run: `36086563243`;
@@ -89,7 +94,7 @@ Two-worker comparison run `36087647926` used the same pinned JSMinSys and offici
 - approximately 6,070.49 cycles / alpha-beta node;
 - remaining three official inputs again reached the 120-second ceiling with clean TIMEOUT exits.
 
-Against the preceding one-worker run, the completed control was +38.44% wall, +50.54% CPU, and +33.98% process cycles. These were separate GitHub-hosted runner executions, so treat that delta as directional rather than a same-runner scaling A/B. The maintained benchmark harness is restored to one worker after this comparison.
+That historical two-worker run was performed while the managed worker still serialized the entire tree inside one private Negamax call, so worker 2 had no surplus to claim. It is retained only as regression evidence. The maintained benchmark harness now requires two workers and will not be restored to one.
 
 ## Legacy code
 

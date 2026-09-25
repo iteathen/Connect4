@@ -24,10 +24,10 @@ const report={
   inputSource:'https://github.com/tromp/fhourstones/blob/7ddf48dc70931eaa9c07904e12424960c3a019a1/inputs',
   inputGitBlob:'a8036a915ad1a3568762c269844cfd2ded7df3d3',
   inputs,expected,referenceNodes,
-  config:{workers:1,capacity:65536,buckets:65536,timeoutMs:120000,
+  config:{workers:2,capacity:65536,buckets:65536,timeoutMs:120000,
     managerBudget:64,readyTarget:2,
     cpcFrontierResponse:false,cpcProjectedAdvisory:false},
-  protocol:'Official four inputs in order, one attempt each. Existing solver 120-second cap preserved. Fresh solver session per input. No extra warmup or retry.',
+  protocol:'Official four inputs in order, two search workers plus Branch Manager, one attempt each. Existing solver 120-second cap preserved. Fresh solver session per input. No extra warmup or retry.',
   interpretation:'Only EXACT with matching WDL qualifies. TIMEOUT, INTERRUPTED and FAILED are not completed Fhourstones scores. JSMinSys metrics report shared-TT CPC-first q evaluations/branches and are not Fhourstones reference-node counts. Whole-operation wall/CPU/cycles include ingress, shared-TT preparation, manager/evaluator worker startup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
   cases:[],completed:false,
 };
