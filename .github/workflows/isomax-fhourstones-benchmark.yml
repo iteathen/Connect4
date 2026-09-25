@@ -1,9 +1,9 @@
-name: IsoMax Fhourstones Live-Line A-B
+name: IsoMax Fhourstones CPC Forced Macro A-B
 
 on:
   push:
     branches:
-      - benchmark/isomax-fhourstones-live-line-popcount-ab-20260924
+      - benchmark/isomax-cpc-forced-macro-ab-20260924
     paths:
       - '.github/workflows/isomax-fhourstones-benchmark.yml'
   workflow_dispatch:
@@ -22,12 +22,12 @@ jobs:
           node-version: '26.7.0'
           cache: npm
       - run: npm ci
-      - name: Same-runner fused-popcount baseline-candidate-candidate-baseline
+      - name: Same-runner CPC forced-macro baseline-candidate-candidate-baseline
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $baseline = 'bd53c725649ee61c336fb9b1d438afa99841765b'
-          $candidate = 'aa96599752181fea7c4e124b3fdf1f0e4baa8e3a'
+          $baseline = '70ada3430dc733abe518b64143422ecd03dd3384'
+          $candidate = 'd60616f9993fc3fed24e7adb0dec89ccde8ca03d'
           function Run-Phase([string]$label, [string]$sha) {
             Write-Output "AB_PHASE $label $sha"
             git -C vendor/jsminsys fetch origin $sha
