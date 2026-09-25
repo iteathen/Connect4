@@ -1,0 +1,54 @@
+name: IsoMax Lazy SMP Empty-Board A-B
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-lazy-smp-empty-ab.yml'
+  workflow_dispatch:
+
+jobs:
+  empty-ab:
+    runs-on: windows-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner four-worker empty-board B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
+            if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
+            Write-Host "JSMS_HEAD $actual"
+          }
+
+          function Run-Sample([string]$label,[string]$sha,[int]$mask) {
+            Write-Host "EMPTY_AB_PHASE $label mask=$mask"
+            Use-JSMinSys $sha
+            node --experimental-ffi tools/bench-lazy-smp-hard.mjs EMPTY 1 $mask 30000 $label
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+
+          $baseline='19a96823cad46c7e5e9e70e0d68079d5574f92a3'
+          $candidate='3966486bf6c630ff017d30f855bcf7bdfa6645c8'
+
+          Run-Sample 'empty-baseline-1' $baseline 0
+          Run-Sample 'empty-candidate-1' $candidate 7
+          Run-Sample 'empty-candidate-2' $candidate 7
+          Run-Sample 'empty-baseline-2' $baseline 0
