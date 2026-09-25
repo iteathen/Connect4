@@ -1,9 +1,9 @@
-name: IsoMax Fhourstones Live-Line A-B
+name: IsoMax Fhourstones CPC Singleton A-B
 
 on:
   push:
     branches:
-      - benchmark/isomax-fhourstones-live-line-popcount-ab-20260924
+      - benchmark/isomax-cpc-singleton-dedupe-ab-20260924
     paths:
       - '.github/workflows/isomax-fhourstones-benchmark.yml'
   workflow_dispatch:
@@ -22,12 +22,12 @@ jobs:
           node-version: '26.7.0'
           cache: npm
       - run: npm ci
-      - name: Same-runner fused-popcount baseline-candidate-candidate-baseline
+      - name: Same-runner CPC singleton baseline-candidate-candidate-baseline
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $baseline = 'bd53c725649ee61c336fb9b1d438afa99841765b'
-          $candidate = 'aa96599752181fea7c4e124b3fdf1f0e4baa8e3a'
+          $baseline = '3329a3ac3faa5179b64ff12b50cc04c86ce4f8f2'
+          $candidate = 'a32a23de4188237b17edbe94ebe8558e54d61396'
           function Run-Phase([string]$label, [string]$sha) {
             Write-Output "AB_PHASE $label $sha"
             git -C vendor/jsminsys fetch origin $sha
