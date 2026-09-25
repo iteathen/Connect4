@@ -1,0 +1,55 @@
+name: IsoMax Lazy SMP Empty Shared Cache Capacity A-B
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-lazy-smp-empty-capacity-ab.yml'
+      - 'tools/bench-lazy-smp-empty-capacity.mjs'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    runs-on: windows-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner empty-board 64K-vs-16K B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+
+          Use-JSMinSys '3966486bf6c630ff017d30f855bcf7bdfa6645c8'
+
+          Write-Host "EMPTY_CAPACITY_AB_PHASE baseline-1 capacity=65536"
+          node --experimental-ffi tools/bench-lazy-smp-empty-capacity.mjs 65536
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "EMPTY_CAPACITY_AB_PHASE candidate-1 capacity=16384"
+          node --experimental-ffi tools/bench-lazy-smp-empty-capacity.mjs 16384
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "EMPTY_CAPACITY_AB_PHASE candidate-2 capacity=16384"
+          node --experimental-ffi tools/bench-lazy-smp-empty-capacity.mjs 16384
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "EMPTY_CAPACITY_AB_PHASE baseline-2 capacity=65536"
+          node --experimental-ffi tools/bench-lazy-smp-empty-capacity.mjs 65536
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
