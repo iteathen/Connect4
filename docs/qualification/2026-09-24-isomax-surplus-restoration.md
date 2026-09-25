@@ -116,3 +116,16 @@ The allowed optimization direction is to reduce live frontier/TT pressure while 
 - per-worker participation visibility.
 
 Private root-only recursion and single-worker qualification are explicitly not valid fixes.
+## Fresh two-worker rerun
+
+Workflow `36090243769` at Connect4 `472521316c20f3c070e0fca94178e6836005aea5` reran the maintained official Fhourstones protocol with exactly two search workers plus Branch Manager.
+
+Results:
+
+- `45461667`: TT capacity failure after 50.196 s wall; 88,867 claims, 88,784 branches; worker claims **43,264 / 45,603**; TT live 65,536; ready 33,599; cleanup true.
+- `35333571`: TT capacity failure after 25.024 s; worker claims **34,009 / 32,913**; 66,922 total claims; 66,777 branches; ready 34,488; cleanup true.
+- `13333111`: TT capacity failure after 24.851 s; worker claims **29,086 / 27,967**; 57,053 total claims; 56,993 branches; ready 36,106; cleanup true.
+- empty root: TT capacity failure after 25.732 s; worker claims **28,990 / 28,494**; 57,484 total claims; 57,289 branches; ready 33,967; cleanup true.
+
+The rerun again confirms balanced participation by both workers. No case reached an oracle result because the configured 65,536-row TT filled first. The current blocker remains shared-frontier/TT pressure, not worker starvation.
+
