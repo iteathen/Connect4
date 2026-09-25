@@ -32,6 +32,36 @@ function summarize(values){
   };
 }
 
+function analyzeRouteReplacement(values){
+  const routeCount=12,refresh=Array.from({length:routeCount},()=>Array(routeCount).fill(0)),
+    collision=Array.from({length:routeCount},()=>Array(routeCount).fill(0)),
+    incomingCollisionTotals=Array(routeCount).fill(0),
+    displacedCollisionTotals=Array(routeCount).fill(0),top=[];
+  let sameKeyRefresh=0,differentKeyCollision=0;
+  if(!Array.isArray(values))return {available:false,sameKeyRefresh,differentKeyCollision,refresh,collision,incomingCollisionTotals,displacedCollisionTotals,topCollisions:top};
+  for(let incoming=0;incoming<routeCount;incoming+=1){
+    for(let displaced=0;displaced<routeCount;displaced+=1){
+      const base=((incoming*routeCount+displaced)<<1),
+        r=values[base]??0,x=values[base+1]??0;
+      refresh[incoming][displaced]=r;collision[incoming][displaced]=x;
+      sameKeyRefresh+=r;differentKeyCollision+=x;
+      incomingCollisionTotals[incoming]+=x;displacedCollisionTotals[displaced]+=x;
+      if(x)top.push({incoming,displaced,count:x});
+    }
+  }
+  top.sort((a,b)=>b.count-a.count||a.incoming-b.incoming||a.displaced-b.displaced);
+  return {
+    available:true,
+    sameKeyRefresh,
+    differentKeyCollision,
+    refresh,
+    collision,
+    incomingCollisionTotals,
+    displacedCollisionTotals,
+    topCollisions:top.slice(0,24),
+  };
+}
+
 function analyzeOverlapTrace(trace,workerCount,traceEndMs){
   const counts=trace.counts,records=trace.records,meta=trace.meta,keys=trace.keys,
     cap=trace.capacityPerWorker,keyWords=trace.keyWords,
@@ -155,7 +185,8 @@ try{
   });
   const traceEndMs=performance.timeOrigin+performance.now(),
     cycles=meter.read()-before,wallMs=performance.now()-start,cpu=process.cpuUsage(cpuBefore),
-    overlap=analyzeOverlapTrace(result.diagnosticOverlapTrace,workers,traceEndMs);
+    overlap=analyzeOverlapTrace(result.diagnosticOverlapTrace,workers,traceEndMs),
+    routeReplacement=analyzeRouteReplacement(result.diagnosticRouteReplacementStats);
   const {diagnosticOverlapTrace,...publicResult}=result;
   console.log(JSON.stringify({
     event:'lazy-smp-dts-overlap-census',
@@ -167,6 +198,7 @@ try{
     overlapCapacity,
     ...publicResult,
     overlap,
+    routeReplacement,
     provenance:{
       labels:[
         'unclassified',
