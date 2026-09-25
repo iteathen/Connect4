@@ -76,3 +76,12 @@ Two preceding source-level CPC candidates were rejected and preserved in JSMinSy
 - cycle reduction 113: duplicate fork-output reset removal; fewer stores but adverse V8 timing.
 
 The next experiment is the historically promoted forced-chain macro: eliminate deterministic CPC forced transit states as ordinary recursive/TT nodes, following the Sep. 9 residual solver and Sep. 12 quotient-native Negamax evidence.
+## Qualified optimization result: combined singleton profiles
+
+JSMinSys `c65485b9f461cf01d2f12fd57944e31a31460b8e` replaces the two player-local singleton-prefix scans with one combined mover/opponent pass. The change preserves current-player immediate-terminal priority, opponent two-threat exact-loss semantics, both active singleton-cell bitsets, support-lift closure and fork-preemption inputs.
+
+Same-runner Fhourstones B/C/C/B on `45461667` (Connect4 run `36081200321`) preserved all search/CPC counters and reduced mean CPU cycles from 4,633,680,970 to 4,530,693,410 (**-2.22%**) and wall from 1762.1372 to 1727.4714 ms (**-1.97%**), about 5742.97 -> 5615.33 cycles/node.
+
+Disposition: **retained**.
+
+This result validates the transferable historical minimax principle: when tactical assertions for both sides are indexed by one state vocabulary, share the vocabulary traversal and decode active facts together rather than rescan it per player.
