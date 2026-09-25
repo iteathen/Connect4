@@ -85,3 +85,12 @@ Same-runner Fhourstones B/C/C/B on `45461667` (Connect4 run `36081200321`) prese
 Disposition: **retained**.
 
 This result validates the transferable historical minimax principle: when tactical assertions for both sides are indexed by one state vocabulary, share the vocabulary traversal and decode active facts together rather than rescan it per player.
+## Qualified optimization result: forced transit macro
+
+JSMinSys `d60616f9993fc3fed24e7adb0dec89ccde8ca03d` implements the historically promoted forced-chain form. CPC-proved forced states remain cache-probed and CPC-evaluated, but nonterminal forced children advance in-loop rather than recursively returning through and publishing every deterministic parent.
+
+Same-runner Fhourstones B/C/C/B on `45461667` (Connect4 run `36081956625`) preserved exact result, selected move, 806,844 nodes, 807,290 cofactors, 351,277 cache hits, 455,568 CPC calls, 100,640 CPC forced events and 65 precursors. Mean total cycles fell from 4,771,641,575.5 to 4,655,640,767 (**-2.43%**) and wall fell **4.16%**. Cutoff count fell 16.10% because forced-parent return frames no longer exist.
+
+Disposition: **retained**.
+
+The immediately preceding direct one-child fast path was rejected. This reproduces the historical lesson: the benefit comes from eliminating deterministic search/cache topology, not from merely rewriting the same one-child recursion.
