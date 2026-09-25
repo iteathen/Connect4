@@ -65,6 +65,7 @@ The active IsoMax parallel **search/execution method** is fully decoded in the 0
 - `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_VOCAB_0_2.*`
 - `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_0_2.*`
 - `isograph/discovery/2026-09-25-lazy-smp-full-decode-nei-qu-dp/`
+- `isograph/discovery/2026-09-25-lazy-smp-all-leads-investigation/` — completed causal investigation of every lead from the full Lazy-SMP DP pass; most simple coordination/cache candidates were rejected, leaving leverage-aware exact-fact selection and current-key q_r mechanical qualification as the principal open research.
   - latest full-translation DP rerun: `DP_RERUN_0_3.md` / `FINAL_REPORT_0_3.md`
 
 0.2 supersedes 0.1 for active Lazy-SMP search-method interpretation. 0.1 remains provenance for the first summary-level rendering.

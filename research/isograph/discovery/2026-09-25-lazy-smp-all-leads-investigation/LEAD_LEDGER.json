@@ -1,0 +1,188 @@
+{
+  "campaign": "2026-09-25-lazy-smp-all-leads-investigation",
+  "status": "complete",
+  "authority_effect": "none",
+  "baseline_jsminsys": "04d37498607ace16dae33c79462ddfe1503c8a0d",
+  "constraints": {
+    "workers": 4,
+    "single_worker_forbidden": true,
+    "solver_method_changed": false
+  },
+  "evidence_runs": {
+    "measurement": [
+      "36159882004",
+      "36161559144"
+    ],
+    "lead_ab": "36160377796",
+    "remaining_leads": "36161121512",
+    "shifted_slot_hard": "36161744696"
+  },
+  "leads": [
+    {
+      "id": "L-BLIND",
+      "name": "share-ineligible blind region / leverage",
+      "status": "STRUCTURE_ESTABLISHED_OPEN_LEVERAGE",
+      "facts": {
+        "control_mask7_eligible_hit_fraction": 0.1155,
+        "control_eligible_avg_rank": 32.36,
+        "control_excluded_avg_rank": 32.17,
+        "conclusion": "hash partition is approximately rank-neutral; raw hit count is not leverage"
+      },
+      "next": "only pursue with a cheap dependency-leverage signal"
+    },
+    {
+      "id": "L-BACKFILL",
+      "name": "shared hit local backfill",
+      "status": "REJECTED",
+      "candidate": "a08f47601c467f82bd6663d5457eb4feea56e963",
+      "pr": 35,
+      "delta": {
+        "wall_percent": 0.92,
+        "cpu_percent": 0.14,
+        "cycles_percent": 0.48
+      },
+      "note": "shared hits fell ~102k -> ~7.5k, but local replacement cost outweighed saved shared probes"
+    },
+    {
+      "id": "L-COLLISION",
+      "name": "local/shared collision coupling",
+      "status": "STRUCTURE_ESTABLISHED_SIMPLE_DECORRELATION_REJECTED",
+      "replacement_rates": {
+        "shared_32k": 0.133,
+        "shared_64k": 0.077,
+        "shared_128k": 0.044
+      },
+      "candidate": "cb93c196b458b1a249f8dc5dfda1b1bd26ef3bc9",
+      "pr": 40,
+      "control_delta": {
+        "wall_percent": -2.69,
+        "cpu_percent": -0.28,
+        "cycles_percent": -0.06
+      },
+      "hard_delta": {
+        "input": "13333111",
+        "cpu_percent": 10.61,
+        "cycles_percent": 9.87
+      },
+      "empty_delta": {
+        "cpu_percent": 0.71,
+        "cycles_percent": 0.71
+      },
+      "disposition": "reject globally due hard-workload regression"
+    },
+    {
+      "id": "L-TIMING",
+      "name": "winner publication / host observation / cleanup",
+      "status": "MEASURED_NOT_PRIMARY",
+      "typical_ms": {
+        "solve_to_publish": 0.014,
+        "publish_to_cas": 0.002,
+        "cas_to_signal": 0.03,
+        "signal_to_host": "few ms",
+        "host_to_cleanup": "~4-6 ms"
+      },
+      "wake_candidate": "adcc8a0d5eb565218bc69e1089bf3620e1a81d0a",
+      "pr": 37,
+      "wake_delta": {
+        "wall_percent": 6.66,
+        "cpu_percent": 0.78,
+        "cycles_percent": 0.14
+      },
+      "disposition": "reject waitAsync replacement"
+    },
+    {
+      "id": "L-DIVERSITY-ROOT",
+      "name": "root worker-order diversity",
+      "status": "REJECTED_CONTRACT_VIOLATION",
+      "candidate": "edacf7d8f188e4961893489d3fd33cd19d645c92",
+      "pr": 36,
+      "reason": "failed required serial move-witness equality"
+    },
+    {
+      "id": "L-DIVERSITY-SPREAD",
+      "name": "spread recursive offsets",
+      "status": "REJECTED",
+      "candidate": "2dcd6ab2a4b4c456cdd0985bf039713c4b1c905f",
+      "pr": 39,
+      "delta": {
+        "wall_percent": -1.98,
+        "cpu_percent": 2.65,
+        "cycles_percent": 3.02
+      }
+    },
+    {
+      "id": "L-PERSISTENCE",
+      "name": "cross-invocation shared exact cache",
+      "status": "REJECTED",
+      "candidate": "2a63ee02026d1f3394e00d5f6f4dd1412ca35594",
+      "pr": 38,
+      "second_solve_delta": {
+        "wall_percent": 6.34,
+        "cpu_percent": 2.28,
+        "cycles_percent": 2.62
+      },
+      "note": "reuse rose strongly but dominant winning search tree did not collapse"
+    },
+    {
+      "id": "L-POSTDONE",
+      "name": "post-DONE loser fault policy",
+      "status": "CONFIRMED_FAIL_CLOSED_CONTRACT",
+      "evidence": {
+        "loser_error_after_done": {
+          "done": true,
+          "errorCode": 101,
+          "stopped": true
+        },
+        "loser_clean_exit_after_done": {
+          "done": true,
+          "errorCode": 0,
+          "stopped": false
+        }
+      },
+      "disposition": "do not change as performance optimization"
+    },
+    {
+      "id": "L-CONTENTION",
+      "name": "shared writer contention/replacement",
+      "status": "CONTENTION_LOW_VALUE_REPLACEMENT_SECONDARY",
+      "note": "mask7 contention usually 0-1; replacement does not monotonically predict runtime"
+    },
+    {
+      "id": "L-SCALAR",
+      "name": "scalar-only shared evidence",
+      "status": "RETAIN",
+      "note": "exact hit immediately returns; witness/proof payload adds traffic and identity burden without demonstrated saved work"
+    },
+    {
+      "id": "L-KEY-Q",
+      "name": "JSMinSys key to q_o/q_r",
+      "status": "NARROWED_TO_REVISION_QUALIFICATION_GAP",
+      "result": "current reflection-canonical full exact key structurally realizes q_r scalar-value cache role; fresh mechanical qualification still required before promotion"
+    }
+  ],
+  "surviving_research": [
+    {
+      "id": "R-LSMP-LEVERAGE",
+      "question": "Can a cheap exact-state feature predict cross-worker critical-path leverage well enough to outperform rank-neutral hash thinning?",
+      "exclusions": [
+        "raw shared-hit count",
+        "rank alone",
+        "share more globally"
+      ]
+    },
+    {
+      "id": "R-LSMP-QR-QUAL",
+      "question": "Mechanically qualify the current JSMinSys reflection-canonical RBA key as the authority-1.2 q_r scalar-value cache realization."
+    }
+  ],
+  "negative_results": [
+    "Shared-hit local backfill reduces shared traffic dramatically but regresses end-to-end cost.",
+    "Wake-driven waiting does not outperform polling.",
+    "Root-level order diversification violates the current move-witness contract.",
+    "More widely spread recursive order offsets increase total CPU/cycles.",
+    "Persistent shared cache greatly increases reuse but regresses repeated-solve economics.",
+    "Simple shifted shared-slot decorrelation is workload-dependent and regresses a hard probe.",
+    "Shared writer contention is negligible at current mask 7.",
+    "Lower direct-map replacement is not sufficient to predict lower runtime."
+  ]
+}
