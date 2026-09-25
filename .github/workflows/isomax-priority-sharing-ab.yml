@@ -1,0 +1,88 @@
+name: IsoMax Priority Sharing A-B
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-priority-sharing-ab.yml'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: rank36
+            candidate: ec1977f5bc072d891208615a336968e2925f9194
+          - name: lowlegal
+            candidate: 1b4b2abd42de8a5f4ce921301d2b98250f2bc765
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner solved-control B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='${{ matrix.candidate }}'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          Write-Host "PRIORITY_AB ${{ matrix.name }} baseline-1"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "PRIORITY_AB ${{ matrix.name }} candidate-1"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "PRIORITY_AB ${{ matrix.name }} candidate-2"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "PRIORITY_AB ${{ matrix.name }} baseline-2"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Hard same-runner falsification
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='${{ matrix.candidate }}'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          Write-Host "PRIORITY_HARD ${{ matrix.name }} baseline-13333111"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs 13333111 7 7 65536 65536 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "PRIORITY_HARD ${{ matrix.name }} candidate-13333111"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs 13333111 7 7 65536 65536 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "PRIORITY_HARD ${{ matrix.name }} baseline-empty"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs EMPTY 7 7 65536 65536 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "PRIORITY_HARD ${{ matrix.name }} candidate-empty"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs EMPTY 7 7 65536 65536 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
