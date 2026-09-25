@@ -168,7 +168,20 @@ try{
     ...publicResult,
     overlap,
     provenance:{
-      labels:['unclassified','cpcExact','intervalExact','forcedTerminal','recursiveFullWindow'],
+      labels:[
+        'unclassified',
+        'cpcNoResiduals',
+        'cpcResidualExhaustion',
+        'cpcMoverImmediateSingleton',
+        'cpcMultipleOpponentThreats',
+        'cpcStackedThreat',
+        'cpcAllLift',
+        'cpcForkPrecursor',
+        'cpcLongRangeResponse',
+        'intervalExact',
+        'forcedTerminal',
+        'recursiveFullWindow',
+      ],
       hits:publicResult.diagnosticProvenanceHits,
       stores:publicResult.diagnosticProvenanceStores,
       hitsPerStore:publicResult.diagnosticProvenanceHits.map((hits,i)=>{
