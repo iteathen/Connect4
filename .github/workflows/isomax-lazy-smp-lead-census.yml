@@ -1,0 +1,55 @@
+name: IsoMax Lazy SMP Lead Census
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-lazy-smp-lead-census.yml'
+      - 'tools/bench-lazy-smp-lead-census.mjs'
+  workflow_dispatch:
+
+jobs:
+  census:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Checkout measurement-only JSMinSys census
+        shell: pwsh
+        run: |
+          $sha='4e38335993b6900759dbac7cb09a0ada31190ff9'
+          git -C vendor/jsminsys fetch --no-tags origin $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C vendor/jsminsys checkout --detach $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Full-sharing shadow mask-7 leverage
+        shell: pwsh
+        run: |
+          1..4 | ForEach-Object {
+            node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs 45461667 0 7 65536 65536 30000
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Shared-capacity collision census
+        shell: pwsh
+        run: |
+          foreach ($cap in 32768,65536,131072) {
+            1..2 | ForEach-Object {
+              node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs 45461667 7 7 $cap 65536 30000
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+          }
+      - name: Hard-position shadow leverage
+        shell: pwsh
+        run: |
+          node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs 13333111 0 7 65536 65536 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs EMPTY 0 7 65536 65536 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
