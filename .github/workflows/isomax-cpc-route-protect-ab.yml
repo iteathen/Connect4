@@ -1,0 +1,96 @@
+name: IsoMax CPC Route Protect A-B
+
+on:
+  push:
+    branches:
+      - experiment/isomax-lazy-smp-cpc-route-protect-v1
+    paths:
+      - '.github/workflows/isomax-cpc-route-protect-ab.yml'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner solved-control B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='05a699b575e15d4039d835af61aa5c35b00822e1'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          Write-Host "ROUTE_PROTECT solved baseline-1"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "ROUTE_PROTECT solved candidate-1"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "ROUTE_PROTECT solved candidate-2"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "ROUTE_PROTECT solved baseline-2"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Hard 13333111 B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='05a699b575e15d4039d835af61aa5c35b00822e1'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          foreach ($item in @(
+            @{tag='baseline-1';sha=$baseline},
+            @{tag='candidate-1';sha=$candidate},
+            @{tag='candidate-2';sha=$candidate},
+            @{tag='baseline-2';sha=$baseline}
+          )) {
+            Write-Host "ROUTE_PROTECT hard $($item.tag)"
+            Use-JSMinSys $item.sha
+            node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs 13333111 7 7 65536 65536 15000
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Empty-board B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='05a699b575e15d4039d835af61aa5c35b00822e1'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          foreach ($item in @(
+            @{tag='baseline-1';sha=$baseline},
+            @{tag='candidate-1';sha=$candidate},
+            @{tag='candidate-2';sha=$candidate},
+            @{tag='baseline-2';sha=$baseline}
+          )) {
+            Write-Host "ROUTE_PROTECT empty $($item.tag)"
+            Use-JSMinSys $item.sha
+            node --experimental-ffi tools/bench-lazy-smp-lead-census.mjs EMPTY 7 7 65536 65536 15000
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
