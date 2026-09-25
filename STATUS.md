@@ -79,6 +79,18 @@ The remaining official inputs `35333571`, `13333111`, and the empty board each r
 
 The workflow outcome is therefore `INCOMPLETE_OR_FAILED` only because the four-case qualification did not complete; it is not an oracle/correctness failure.
 
+
+Two-worker comparison run `36087647926` used the same pinned JSMinSys and official four-input protocol with only `workers: 2` changed:
+
+- `45461667`: EXACT +1, move 3, oracle matched, same 806,844-node tree;
+- wall 1,651.8195 ms;
+- CPU 2,094 ms;
+- 4,897,937,681 process CPU cycles;
+- approximately 6,070.49 cycles / alpha-beta node;
+- remaining three official inputs again reached the 120-second ceiling with clean TIMEOUT exits.
+
+Against the preceding one-worker run, the completed control was +38.44% wall, +50.54% CPU, and +33.98% process cycles. These were separate GitHub-hosted runner executions, so treat that delta as directional rather than a same-runner scaling A/B. The maintained benchmark harness is restored to one worker after this comparison.
+
 ## Legacy code
 
 The pre-JSMinSys execution/RBA implementation remains only for component and
