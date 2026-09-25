@@ -39,41 +39,25 @@ jobs:
             if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
             Write-Host "JSMS_HEAD $actual"
           }
-          function Use-IsoMaxAdapter([string]$sha) {
-            git cat-file -e "$sha^{commit}" 2>$null
-            if ($LASTEXITCODE -ne 0) {
-              git fetch --no-tags origin $sha
-              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-            }
-            git checkout $sha -- components/isometric/solve.mjs
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-            Write-Host "ISOMAX_ADAPTER $sha"
-          }
-          $baselineAdapter='9a3ffe49f72b15429411409133ab99cb8a07c090'
-          $baseline='24ef9b4dff33be85af6b403d563294983662fb78'
-          $candidateAdapter=$env:GITHUB_SHA
-          $candidate='f191c5f2885d9ae0a966096c1616d597f7fbc58c'
+          $baseline='7f866a87d0fc0662529621590c02b9832f685c6c'
+          $candidate='51bd9bc09b2c50b84619bc7efa953ad9c1e0302a'
 
-          Write-Host "AB_PHASE baseline-1 $baselineAdapter $baseline"
-          Use-IsoMaxAdapter $baselineAdapter
+          Write-Host "AB_PHASE baseline-1 $baseline"
           Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          Write-Host "AB_PHASE candidate-1 $candidateAdapter $candidate"
-          Use-IsoMaxAdapter $candidateAdapter
+          Write-Host "AB_PHASE candidate-1 $candidate"
           Use-JSMinSys $candidate
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          Write-Host "AB_PHASE candidate-2 $candidateAdapter $candidate"
-          Use-IsoMaxAdapter $candidateAdapter
+          Write-Host "AB_PHASE candidate-2 $candidate"
           Use-JSMinSys $candidate
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          Write-Host "AB_PHASE baseline-2 $baselineAdapter $baseline"
-          Use-IsoMaxAdapter $baselineAdapter
+          Write-Host "AB_PHASE baseline-2 $baseline"
           Use-JSMinSys $baseline
           node --experimental-ffi tools/bench-isomax-branch-manager.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

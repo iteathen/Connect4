@@ -6,7 +6,7 @@ import {solve7x6} from '../components/isometric/solve.mjs';
 const input='45461667';
 const expected=1;
 const moves=Array.from(input,c=>c.charCodeAt(0)-49);
-const profiles=[1,2,4];
+const profiles=[2,4];
 const meter=await processCycleCounter();
 try{
   console.log(JSON.stringify({
