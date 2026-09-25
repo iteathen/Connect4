@@ -1,0 +1,302 @@
+{
+  "campaign": "2026-09-25-lazy-smp-dts-0.1",
+  "status": "active",
+  "authority_effect": "none",
+  "anchors": {
+    "isograph": "iteathen/IsoGraph@419f3d13ab5480d72fcd78f51502e5928bf5280f",
+    "jsminsys": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d",
+    "q_r_qualification": "research/isograph/qualification/JSMINSYS_QR_KEY_QUALIFICATION_0_1.md"
+  },
+  "transitions": [
+    {
+      "id": "LSMP-DTS-T01-local-probe",
+      "source": "worker_occurrence_at_q_r_entry",
+      "target": "local_exact_hit_or_local_miss",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "JSMinSys rba-connect4-alphabeta.mjs exact-key probe"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "qualified JSMinSys q_r full-key binding"
+        },
+        "decomposition": {
+          "state": "fixed",
+          "authority": "local-first cache integration in Lazy SMP decode 0.2"
+        },
+        "ordering": {
+          "state": "fixed",
+          "authority": "source order: local probe precedes shared probe and CPC"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T02-shared-probe",
+      "source": "local_exact_miss_and_share_eligible_q_r_occurrence",
+      "target": "shared_exact_hit_or_shared_miss",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "full q_r key equality is checked after slot addressing"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "shared exact-cache seqlock/direct-map boundary"
+        },
+        "decomposition": {
+          "state": "fixed",
+          "authority": "probe sequence: hash/slot -> sequence -> full key -> value -> sequence"
+        },
+        "ordering": {
+          "state": "fixed",
+          "authority": "shared probe precedes CPC in current implementation"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "rba-connect4-shared-exact-cache.mjs + rba-connect4-alphabeta.mjs"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T03-cpc-resolution",
+      "source": "cache_miss_q_r_occurrence",
+      "target": "cpc_exact_bound_restrict_or_unresolved",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "same q_r state and mover semantics"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "CPC evaluator boundary"
+        },
+        "decomposition": {
+          "state": "fixed",
+          "authority": "evaluateConnect4CpcNonterminal32 call sites"
+        },
+        "ordering": {
+          "state": "fixed",
+          "authority": "CPC follows cache probe in current implementation"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "rba-connect4-alphabeta.mjs"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T04-recursive-resolution",
+      "source": "post_cpc_unresolved_q_r_occurrence",
+      "target": "exact_or_bound_search_return",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "qualified q_r state/value scope"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "alpha/beta recursive search boundary"
+        },
+        "decomposition": {
+          "state": "qu",
+          "ref": "QU-DTS-LSMP-02-counterfactual-descendant-work"
+        },
+        "ordering": {
+          "state": "qu",
+          "ref": "QU-DTS-LSMP-04-consumer-context"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "rba-connect4-alphabeta.mjs"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T05-shared-publication",
+      "source": "worker_private_exact_fact",
+      "target": "committed_shared_slot_generation",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "exact scalar W/D/L fact content"
+        },
+        "introduced": {
+          "state": "fixed",
+          "authority": "committed shared slot generation with full key/value"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "shared seqlock/direct-map store boundary"
+        },
+        "decomposition": {
+          "state": "fixed",
+          "authority": "local publish -> share gate -> optional shared store"
+        },
+        "ordering": {
+          "state": "fixed",
+          "authority": "private exact store occurs before shared publication attempt"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "storeConnect4RbaExactCacheSlot32 + storeConnect4RbaSharedExactCache32"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T06-shared-consumption",
+      "source": "consumer_local_miss_with_committed_matching_shared_fact",
+      "target": "consumer_exact_return_without_cpc_or_descendant_search",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "same qualified q_r exact scalar fact"
+        },
+        "removed": {
+          "state": "qu",
+          "ref": "QU-DTS-LSMP-02-counterfactual-descendant-work"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "shared hit return boundary"
+        },
+        "decomposition": {
+          "state": "fixed",
+          "authority": "shared exact hit immediately returns before CPC"
+        },
+        "ordering": {
+          "state": "fixed",
+          "authority": "local miss -> shared hit -> return"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "probeConnect4RbaExactCacheSlot32 call sites"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T07-prepublication-overlap",
+      "source": "multiple_workers_enter_same_q_r_before_first_exact_publication",
+      "target": "concurrent_private_resolution_work_for_same_q_r",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "qualified q_r equality defines same scalar-value cache class"
+        },
+        "introduced": {
+          "state": "qu",
+          "ref": "QU-DTS-LSMP-03-inflight-overlap"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "current shared cache has no search-in-flight ownership state"
+        },
+        "decomposition": {
+          "state": "qu",
+          "ref": "QU-DTS-LSMP-03-inflight-overlap"
+        },
+        "ordering": {
+          "state": "qu",
+          "ref": "QU-DTS-LSMP-03-inflight-overlap"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "current shared sequence odd state covers store write only, not search lifetime"
+        }
+      }
+    },
+    {
+      "id": "LSMP-DTS-T08-winner-publication",
+      "source": "worker_solver_return",
+      "target": "winner_done_or_completed_loser",
+      "roles": {
+        "preserved": {
+          "state": "fixed",
+          "authority": "worker exact result fields"
+        },
+        "introduced": {
+          "state": "fixed",
+          "authority": "completion row and optional WINNER/DONE state"
+        },
+        "boundary": {
+          "state": "fixed",
+          "authority": "control/result/metric SAB"
+        },
+        "decomposition": {
+          "state": "fixed",
+          "authority": "metrics/results -> completion -> WINNER CAS -> DONE/WAKE"
+        },
+        "ordering": {
+          "state": "fixed",
+          "authority": "Lazy SMP worker source"
+        },
+        "evidence": {
+          "state": "fixed",
+          "authority": "rba-connect4-lazy-smp-worker.mjs"
+        }
+      }
+    }
+  ],
+  "views": [
+    {
+      "id": "C-LSMP-value-effect",
+      "authority": "qualified q_r scalar-value cache scope + current exactness contract",
+      "loadBearingRoles": [
+        "preserved",
+        "boundary"
+      ],
+      "irrelevantRoles": [
+        {
+          "role": "decomposition",
+          "authority": "value-effect view intentionally does not claim process equivalence"
+        },
+        {
+          "role": "ordering",
+          "authority": "value-effect view intentionally does not claim process equivalence"
+        }
+      ]
+    },
+    {
+      "id": "C-LSMP-process-leverage",
+      "authority": "DTS discovery view for this campaign; discovery only, not proof authority",
+      "loadBearingRoles": [
+        "preserved",
+        "boundary",
+        "decomposition",
+        "ordering"
+      ],
+      "irrelevantRoles": []
+    }
+  ],
+  "qu": [
+    {
+      "id": "QU-DTS-LSMP-01-resolution-provenance",
+      "state": "OPEN",
+      "question": "Which exact-result provenance classes dominate shared stores and consumed shared hits?"
+    },
+    {
+      "id": "QU-DTS-LSMP-02-counterfactual-descendant-work",
+      "state": "OPEN",
+      "question": "How much descendant transition work does each consumed shared hit actually avoid?"
+    },
+    {
+      "id": "QU-DTS-LSMP-03-inflight-overlap",
+      "state": "OPEN",
+      "question": "How much same-q_r work overlaps across workers before first exact publication, and how much of it is expensive?"
+    },
+    {
+      "id": "QU-DTS-LSMP-04-consumer-context",
+      "state": "OPEN",
+      "question": "How strongly does alpha/beta window and other occurrence context change avoided work for the same q_r fact?"
+    },
+    {
+      "id": "QU-DTS-LSMP-05-asymmetric-gating",
+      "state": "OPEN",
+      "question": "Can publication and consumption gates use different already-available context with net lower CPU/cycles?"
+    }
+  ]
+}
