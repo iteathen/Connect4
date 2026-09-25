@@ -4,7 +4,7 @@ IsoMax is now a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@51bd9bc09b2c50b84619bc7efa953ad9c1e0302a`
+`vendor/jsminsys` -> `iteathen/JSMinSys@19a96823cad46c7e5e9e70e0d68079d5574f92a3`
 
 ## Ownership boundary
 
@@ -47,3 +47,7 @@ recoverable from Git history.
 Connect4 keeps application-level oracle and lifecycle tests. JSMinSys keeps the
 unit/structural/cycle qualification for the machinery it owns. Connect4 CI runs
 both suites against the pinned submodule revision.
+
+## Alternate execution option
+
+Lazy SMP is available as an alternate JSMinSys execution option through `runLazySmpConnect4Rba32`. It does not replace the current public Surplus + Branch Manager path. Benchmarking may invoke Lazy SMP directly through a dedicated harness.
