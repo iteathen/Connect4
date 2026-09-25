@@ -1,0 +1,46 @@
+name: IsoMax Lazy SMP DTS Overlap Census
+
+on:
+  push:
+    branches:
+      - experiment/isomax-lazy-smp-dts-overlap-v1
+    paths:
+      - '.github/workflows/isomax-lazy-smp-dts-overlap.yml'
+      - 'tools/bench-lazy-smp-overlap-census.mjs'
+  workflow_dispatch:
+
+jobs:
+  census:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Checkout DTS overlap measurement JSMinSys
+        shell: pwsh
+        run: |
+          $sha='dd343f3edd7e83c18f87741da53ca8e0eac9bde7'
+          git -C vendor/jsminsys fetch --no-tags origin $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C vendor/jsminsys checkout --detach $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Solved-control overlap census
+        shell: pwsh
+        run: |
+          1..3 | ForEach-Object {
+            node --experimental-ffi tools/bench-lazy-smp-overlap-census.mjs 45461667 7 255 32768 30000
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Hard-position overlap census
+        shell: pwsh
+        run: |
+          node --experimental-ffi tools/bench-lazy-smp-overlap-census.mjs 13333111 7 255 32768 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --experimental-ffi tools/bench-lazy-smp-overlap-census.mjs EMPTY 7 255 32768 15000
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
