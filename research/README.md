@@ -60,6 +60,13 @@ The intended architecture preserves worker-local recursive continuity while expo
 
 ### Current Lazy SMP search-method IsoGraph overlay
 
+Current JSMinSys q_r implementation binding is qualified at `04d37498607ace16dae33c79462ddfe1503c8a0d`:
+
+- `isograph/qualification/JSMINSYS_QR_KEY_QUALIFICATION_0_1.md`
+- workflow run `36165229049`
+
+This closes the revision-specific key -> q_r mapping gap without changing authority 1.2.
+
 The active IsoMax parallel **search/execution method** is fully decoded in the 0.2 successor graph:
 
 - `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_VOCAB_0_2.*`
