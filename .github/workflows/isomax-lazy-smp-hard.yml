@@ -41,19 +41,19 @@ jobs:
           function Run-Sample(
             [string]$label,
             [string]$sha,
-            [string]$input,
+            [string]$position,
             [int]$expected,
             [int]$mask,
             [int]$timeoutMs
           ) {
-            Write-Host "HARD_PHASE $label input=$input expected=$expected mask=$mask timeoutMs=$timeoutMs"
+            Write-Host "HARD_PHASE $label input=$position expected=$expected mask=$mask timeoutMs=$timeoutMs"
             Use-JSMinSys $sha
-            node --experimental-ffi tools/bench-lazy-smp-hard.mjs $input $expected $mask $timeoutMs $label
+            node --experimental-ffi tools/bench-lazy-smp-hard.mjs $position $expected $mask $timeoutMs $label
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
 
           $baseline='19a96823cad46c7e5e9e70e0d68079d5574f92a3'
-          $candidate='a46d1312f9f5a659c22f33f553d2dbe8bd1da303'
+          $candidate='6a861d661c6a2bf04005fa20da54e5e588b51ad3'
 
           Run-Sample '35333571-baseline-1' $baseline '35333571' -1 0 120000
           Run-Sample '35333571-candidate-1' $candidate '35333571' -1 7 120000
