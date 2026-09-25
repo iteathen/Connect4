@@ -60,21 +60,25 @@ The intended architecture preserves worker-local recursive continuity while expo
 
 ### Current Lazy SMP search-method IsoGraph overlay
 
-The active IsoMax parallel **search/execution method** is represented as successor IsoGraph research without changing the solver method or Connect4 game semantics:
+The active IsoMax parallel **search/execution method** is fully decoded in the 0.2 successor graph:
 
-- `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_0_1.*`
-- `isograph/discovery/2026-09-25-lazy-smp-nei-qu-dp/`
+- `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_VOCAB_0_2.*`
+- `isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_0_2.*`
+- `isograph/discovery/2026-09-25-lazy-smp-full-decode-nei-qu-dp/`
 
-The complete DP-01..DP-45 pass uses NEI and QU explicitly.
+0.2 supersedes 0.1 for active Lazy-SMP search-method interpretation. 0.1 remains provenance for the first summary-level rendering.
+
+0.2 explicitly represents local-first cache integration, deterministic hash-key share eligibility, shared-slot sequence generations, exact-publication gates, winner arbitration, completion multiplicity, failure/cleanup state, external loser termination, invocation-local cache lifetime, NEI boundaries, QU regions, and source coverage.
 
 ```text
 one exact value-dependency relation
 + multiple complete private demand traversals
-+ optional exact-fact shared materialization
-+ first-exact-finisher termination
++ deterministic optional exact-fact shared subgraph
++ first-exact-finisher arbitration
++ external loser teardown
 ```
 
-The shared cache is an acceleration layer, not a completeness owner. Worker occurrence identity, cache occurrence identity, q identity, scalar W/D/L and move/proof witness identity remain separate.
+The shared cache is acceleration, not completeness ownership. The solver method and game-theory authority remain unchanged.
 
 The older Surplus/Branch-Manager work-distribution records above remain historical implementation research; they are not the active Lazy-SMP search architecture.
 

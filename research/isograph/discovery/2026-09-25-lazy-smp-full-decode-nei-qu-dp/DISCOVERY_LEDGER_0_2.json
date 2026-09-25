@@ -1,0 +1,112 @@
+{
+  "campaign": "2026-09-25-lazy-smp-full-decode-nei-qu-dp",
+  "status": "complete",
+  "authority_effect": "none",
+  "graph": "research/isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_0_2.*",
+  "vocabulary": "research/isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_VOCAB_0_2.*",
+  "source_revision": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d",
+  "findings": [
+    {
+      "id": "FD-001",
+      "name": "deterministic share-key subgraph",
+      "class": "established_implementation_structure"
+    },
+    {
+      "id": "FD-002",
+      "name": "result-before-race exactness",
+      "class": "established_implementation_structure"
+    },
+    {
+      "id": "FD-003",
+      "name": "ephemeral invocation-local knowledge",
+      "class": "established_implementation_structure"
+    },
+    {
+      "id": "FD-004",
+      "name": "hard loser termination",
+      "class": "established_structure_economics_open"
+    },
+    {
+      "id": "FD-005",
+      "name": "nonblocking contention semantics",
+      "class": "established_implementation_structure"
+    },
+    {
+      "id": "FD-006",
+      "name": "completion winner split",
+      "class": "established_identity_boundary"
+    },
+    {
+      "id": "FD-007",
+      "name": "committed generation identity",
+      "class": "established_identity_boundary"
+    }
+  ],
+  "qu": [
+    "QU-LSMP-01 worker diversity economics",
+    "QU-LSMP-02 shared density/capacity/replacement",
+    "QU-LSMP-03 duplicate-work topology before publication",
+    "QU-LSMP-04 first-finisher witness distribution",
+    "QU-LSMP-05 worker-count scaling",
+    "QU-LSMP-06 lossy materialization economics",
+    "QU-LSMP-07 key to q_o/q_r mapping",
+    "QU-LSMP-08 deterministic share-key partition leverage",
+    "QU-LSMP-09 winner-to-termination tail and discarded loser-private exact state",
+    "QU-LSMP-10 cross-invocation persistence economics",
+    "QU-LSMP-11 contention/replacement distribution"
+  ],
+  "protocols": {
+    "DP-01": "PASS",
+    "DP-02": "PASS",
+    "DP-03": "PASS",
+    "DP-04": "PASS",
+    "DP-05": "PASS",
+    "DP-06": "PASS",
+    "DP-07": "PASS",
+    "DP-08": "PASS",
+    "DP-09": "PASS",
+    "DP-10": "PASS",
+    "DP-11": "PASS",
+    "DP-12": "PASS",
+    "DP-13": "PASS",
+    "DP-14": "PASS",
+    "DP-15": "PASS",
+    "DP-16": "PASS",
+    "DP-17": "PASS",
+    "DP-18": "PASS",
+    "DP-19": "PASS",
+    "DP-20": "PASS",
+    "DP-21": "PASS",
+    "DP-22": "PASS",
+    "DP-23": "PASS",
+    "DP-24": "PASS",
+    "DP-25": "PASS",
+    "DP-26": "PASS",
+    "DP-27": "PASS",
+    "DP-28": "PASS",
+    "DP-29": "PASS",
+    "DP-30": "PASS",
+    "DP-31": "PASS",
+    "DP-32": "PASS",
+    "DP-33": "PASS",
+    "DP-34": "PASS",
+    "DP-35": "PASS",
+    "DP-36": "PASS",
+    "DP-37": "PASS",
+    "DP-38": "PASS",
+    "DP-39": "PASS",
+    "DP-40": "PASS",
+    "DP-41": "PASS",
+    "DP-42": "PASS",
+    "DP-43": "PASS",
+    "DP-44": "PASS",
+    "DP-45": "PASS"
+  },
+  "corrections": [
+    "0.1 was a structural summary, not a full native decode.",
+    "sharedSampleMask defines deterministic key eligibility rather than random per-access sampling.",
+    "STOP is not cooperatively polled by current recursive Lazy-SMP worker search.",
+    "completion and winner are distinct predicates.",
+    "shared slot identity requires sequence-generation context."
+  ]
+}

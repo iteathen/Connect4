@@ -1,0 +1,60 @@
+{
+  "id": "lazy-smp-full-decode-coverage-0.2",
+  "status": "complete_for_declared_search_method_scope",
+  "source_revision": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d",
+  "inventory": [
+    {
+      "path": "addons/rba-connect4-lazy-smp-host.mjs",
+      "units": [
+        "runLazySmpConnect4Rba32"
+      ],
+      "coverage": "full method-specific decode"
+    },
+    {
+      "path": "addons/rba-connect4-lazy-smp-worker.mjs",
+      "units": [
+        "<module-main>"
+      ],
+      "coverage": "full method-specific decode"
+    },
+    {
+      "path": "addons/rba-connect4-shared-exact-cache.mjs",
+      "units": [
+        "createConnect4RbaSharedExactCache32",
+        "probeConnect4RbaSharedExactCache32",
+        "storeConnect4RbaSharedExactCache32"
+      ],
+      "coverage": "full"
+    },
+    {
+      "path": "addons/rba-connect4-alphabeta.mjs",
+      "units": [
+        "prepareConnect4RbaAlphaBeta",
+        "probeConnect4RbaExactCacheSlot32",
+        "storeConnect4RbaExactCacheSlot32"
+      ],
+      "coverage": "Lazy-SMP cache/order integration only"
+    },
+    {
+      "path": "addons/branch-manager-host.mjs",
+      "units": [
+        "createManagedThreadSession32",
+        "failManagedThreadSession32",
+        "spawnManagedFileWorker32",
+        "waitManagedThreadSession32",
+        "closeManagedThreadSession32",
+        "managedThreadSessionState32"
+      ],
+      "coverage": "full lifecycle semantics consumed by Lazy SMP",
+      "note": "generic lifecycle utility; no Branch Manager search role"
+    },
+    {
+      "path": "test/rba-connect4-lazy-smp.test.mjs",
+      "coverage": "qualification evidence"
+    }
+  ],
+  "deliberately_referenced_not_redecoded": [
+    "CPC/RBA/Negamax recursion below exact-cache integration boundary",
+    "Connect4 gameplay semantics in logic authority 1.2"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "schema": 2,
+  "id": "connect4-lazy-smp-search-method-0.2",
+  "status": "full_decode_successor_candidate_unqualified",
+  "supersedes_for_active_interpretation": "CONNECT4_LAZY_SMP_SEARCH_METHOD_0_1.*",
+  "authority_effect": "none",
+  "solver_method_changed": false,
+  "source_revision": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d",
+  "configuration_gates": [
+    "2<=workers<=64",
+    "shared/local capacities positive powers of two",
+    "sharedSampleMask is Mersenne in [0,255]",
+    "timeout finite and >0",
+    "shared keyWords matches geometry.keyWords"
+  ],
+  "worker": {
+    "private": [
+      "exact search state",
+      "local exact cache",
+      "recursive scratch",
+      "rotated action order"
+    ],
+    "shared": [
+      "geometry",
+      "shared exact cache",
+      "control",
+      "results",
+      "metrics"
+    ],
+    "order_offset": "workerIndex % columns",
+    "publication_order": [
+      "metrics",
+      "value",
+      "relative",
+      "move",
+      "completion",
+      "winner CAS",
+      "DONE/WAKE if winner"
+    ]
+  },
+  "local_cache": {
+    "probe": "local exact hit first; shared probe only after local miss and share gate",
+    "store": "local exact publication first; optional shared store after share gate",
+    "sample_bits": "(sharedSampleMask<<24)>>>0",
+    "share_gate": "(hash & sharedSampleBits)==0",
+    "sample_semantics": "deterministic key-space partition"
+  },
+  "shared_cache": {
+    "lifetime": "one solve invocation",
+    "topology": "bounded direct mapped",
+    "states": {
+      "empty": "sequence==0",
+      "writing": "sequence odd",
+      "committed": "sequence even nonzero"
+    },
+    "probe": [
+      "load before",
+      "reject zero/odd",
+      "compare all key words",
+      "load value",
+      "load after",
+      "reject changed/odd/zero value",
+      "hit"
+    ],
+    "store": [
+      "load current",
+      "drop if odd",
+      "single CAS current->odd",
+      "drop on CAS fail",
+      "write keys",
+      "write value",
+      "commit even sequence",
+      "store stat"
+    ],
+    "retry": false,
+    "replacement": true
+  },
+  "lifecycle": {
+    "winner": "CAS WINNER -1->workerIndex after exact result publication",
+    "failure": "first ERROR CAS then STOP/WAKE/notify",
+    "wait": "poll STOP or DONE with deadline/abort",
+    "close": "STOP/WAKE/notify then external Worker.terminate on all threads",
+    "cooperative_stop_poll_in_recursive_search": false
+  },
+  "persistence": {
+    "local_cache": "ephemeral",
+    "shared_cache": "ephemeral",
+    "cross_invocation_reuse": false
+  },
+  "exact_gate": "ERROR==0 && DONE==1 && WINNER>=0",
+  "non_relations": [
+    "completion != winner",
+    "winner != exactness creation",
+    "cache miss != semantic ignorance",
+    "contention drop != solver failure",
+    "slot index != exact-fact identity",
+    "equal WDL != witness identity"
+  ]
+}
