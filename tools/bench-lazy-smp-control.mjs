@@ -7,12 +7,13 @@ import {
 } from '../vendor/jsminsys/addons/index.mjs';
 
 const input='45461667',expected=1,moves=Array.from(input,c=>c.charCodeAt(0)-49);
+const sharedSampleMask=Number(process.argv[2]??0);
 const geometry=prepareConnect4RbaGeometry({columns:7,rows:6});
 const meter=await processCycleCounter();
 try{
   const before=meter.read(),cpuBefore=process.cpuUsage(),start=performance.now();
   const result=await runLazySmpConnect4Rba32(moves,{
-    geometry,workers:4,sharedCacheCapacity:65536,localCacheCapacity:65536,timeoutMs:30000,
+    geometry,workers:4,sharedCacheCapacity:65536,localCacheCapacity:65536,sharedSampleMask,timeoutMs:30000,
     cpcFrontierResponse:false,cpcProjectedAdvisory:false,
   });
   const cycles=meter.read()-before,wallMs=performance.now()-start,cpu=process.cpuUsage(cpuBefore);
