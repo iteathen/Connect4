@@ -5,7 +5,7 @@ IsoMax no longer owns an independent hot execution kernel or result translator.
 Cost and hot-path authority for the managed Connect4 runtime lives in JSMinSys,
 pinned at:
 
-`f191c5f2885d9ae0a966096c1616d597f7fbc58c`
+`7f866a87d0fc0662529621590c02b9832f685c6c`
 
 NEES remains the parent cost authority used by JSMinSys. IsoMax itself retains
 only cold application policy around `runManagedConnect4CpcRba32`.

@@ -1,12 +1,12 @@
 # Current state
 
-Active rebuild branch: `work/isomax-jsminsys-rebuild`.
+Active IsoMax integration branch: `work/isomax-jsminsys-boundary-cleanup`.
 
 ## Current IsoMax implementation
 
 Pinned dependency:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@3a8f8fa5d27ab7b28579aee460eed43eda1c0e48`
+`vendor/jsminsys` -> `iteathen/JSMinSys@7f866a87d0fc0662529621590c02b9832f685c6c`
 
 Current public execution:
 
