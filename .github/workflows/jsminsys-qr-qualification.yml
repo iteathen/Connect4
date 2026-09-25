@@ -1,0 +1,31 @@
+name: JSMinSys q_r Qualification
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/jsminsys-qr-qualification.yml'
+      - 'tools/qualify-jsminsys-qr.mjs'
+  workflow_dispatch:
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Assert qualified JSMinSys revision
+        shell: bash
+        run: |
+          actual="$(git -C vendor/jsminsys rev-parse HEAD)"
+          test "$actual" = "04d37498607ace16dae33c79462ddfe1503c8a0d"
+      - name: Qualify current exact key against q_r
+        run: node tools/qualify-jsminsys-qr.mjs
