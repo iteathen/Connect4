@@ -43,7 +43,7 @@ jobs:
 
           Write-Host "AB_PHASE baseline-1 $baseline"
           Use-JSMinSys $baseline
-          node --experimental-ffi tools/bench-lazy-smp-control.mjs
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           Write-Host "AB_PHASE candidate-1 $candidate"
@@ -58,5 +58,5 @@ jobs:
 
           Write-Host "AB_PHASE baseline-2 $baseline"
           Use-JSMinSys $baseline
-          node --experimental-ffi tools/bench-lazy-smp-control.mjs
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
