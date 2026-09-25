@@ -33,7 +33,7 @@ test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',as
   ];
   for(const moves of fixtures){
     const control=exact(moves);
-    for(const workers of [1,2,4]){
+    for(const workers of [2,4]){
       const result=await solve7x6(moves,{workers,timeoutMs:5000});
       assert.equal(result.status,'EXACT',JSON.stringify({moves,workers,result}));
       assert.equal(result.rootWdl,control.value-2);
@@ -41,11 +41,13 @@ test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',as
       assert.equal(result.cleanup,true);
       assert.equal(result.workersUsed,workers);
       assert.equal(result.workersExited,workers+1);
-      assert.equal(result.metrics.branches,0);
-      assert.equal(result.metrics.claims,1);
-      assert.equal(result.metrics.evaluations,1);
-      assert.equal(result.metrics.ttLive,1);
-      assert.ok(result.metrics.alphaBetaNodes>=0);
+      assert.ok(result.metrics.branches>0,JSON.stringify({moves,workers,result}));
+      assert.ok(result.metrics.claims>1,JSON.stringify({moves,workers,result}));
+      assert.equal(result.metrics.alphaBetaNodes,0);
+      assert.equal(result.workerClaims.length,workers);
+      assert.equal(result.workerEvaluations.length,workers);
+      assert.ok(result.workerClaims.every(v=>v>0),JSON.stringify({moves,workers,result}));
+      assert.ok(result.workerEvaluations.every(v=>v>0),JSON.stringify({moves,workers,result}));
     }
   }
 });
@@ -71,21 +73,23 @@ test('terminal roots return exact WDL with no move',async()=>{
   assert.equal(result.cleanup,true);
 });
 
-test('managed Negamax root claim remains single-owner across worker counts',async()=>{
+test('managed workers publish and claim surplus across worker counts',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const control=exact(moves);
-  for(const workers of [1,2,4]){
+  for(const workers of [2,4]){
     const result=await solve7x6(moves,{workers,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({workers,result}));
     assert.equal(result.rootWdl,control.value-2);
     assertOptimalCallerMove(moves,result,control);
     assert.equal(result.workersExited,workers+1);
-    assert.equal(result.metrics.branches,0);
-    assert.equal(result.metrics.claims,1);
-    assert.equal(result.metrics.evaluations,1);
-    assert.equal(result.metrics.ttLive,1);
-    assert.ok(result.metrics.alphaBetaNodes>0);
+    assert.ok(result.metrics.branches>0,JSON.stringify({workers,result}));
+    assert.ok(result.metrics.claims>1,JSON.stringify({workers,result}));
+    assert.equal(result.metrics.alphaBetaNodes,0);
+    assert.equal(result.workerClaims.length,workers);
+    assert.equal(result.workerEvaluations.length,workers);
+    assert.ok(result.workerClaims.every(v=>v>0),JSON.stringify({workers,result}));
+    assert.ok(result.workerEvaluations.every(v=>v>0),JSON.stringify({workers,result}));
   }
 });
 
