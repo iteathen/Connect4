@@ -52,13 +52,39 @@ claim q
 
 The Branch Manager remains independent and off the worker evaluation hot loop. Managed Connect4 requires at least two search workers, and per-worker claim/evaluation counters are returned so idle-worker regressions are observable.
 
-A fresh two-worker Fhourstones benchmark is required for this restored topology before making a current performance claim.
+Connect4 verification run `36089752607` passed on `340920833a4c8bc2d0e75eb006ac22469fde9efb`, including exact oracle/witness controls and dedicated 2/4-worker Surplus-participation checks.
+
+The restored topology has also been exercised on the maintained Fhourstones workload. Workers now participate correctly; the current blocker is TT/frontier capacity rather than idle-worker serialization.
 
 ## Benchmark state
 
 Current pinned dependency:
 
 `vendor/jsminsys` -> `iteathen/JSMinSys@51bd9bc09b2c50b84619bc7efa953ad9c1e0302a`
+
+Current restored multi-worker qualification:
+
+- JSMinSys: `51bd9bc09b2c50b84619bc7efa953ad9c1e0302a`;
+- two-worker Fhourstones run: `36089367414` on Connect4 `fb8d0d50d037f8d48b37be0541bcf27a6115307d`;
+- same restored production code remains pinned at the current branch head; later commits only repaired benchmark/test authority;
+- corrected 2/4-worker same-runner A/B: `36089466712`;
+- current Connect4 verification: `36089752607` — success.
+
+On official input `45461667`, the restored 2-worker topology produced:
+
+- 73,427 total q claims;
+- 73,329 shared branches;
+- worker claims: **36,596 / 36,831**;
+- worker evaluations: **36,596 / 36,831**;
+- 200,743 cofactor transitions;
+- only 2 idle polls total;
+- clean worker/manager shutdown.
+
+The run did not reach an oracle result because the shared TT reached its configured 65,536-row capacity after about 33 seconds, with 33,598 ready q still outstanding. The other three official inputs also reached TT capacity before completion, with similarly balanced worker participation. This is a capacity/frontier-pressure failure, not a return to single-worker execution.
+
+The corrected 2/4-worker A/B independently confirmed the topology. At 4 workers the restored candidate distributed claims approximately evenly across all workers (for example 38,530 / 39,430 / 39,500 / 39,174 in one run) before reaching TT capacity. The pre-restoration baseline still showed `claims=1`, `branches=0`, proving the regression seam was removed.
+
+**Current next bottleneck:** reduce live TT/frontier pressure while preserving the required worker invariant: retain at most one continuation and publish unresolved viable Surplus. Reverting to private root-only Negamax or single-worker qualification is forbidden.
 
 Historical pre-restoration Fhourstones qualification (single-worker execution is no longer permitted):
 
