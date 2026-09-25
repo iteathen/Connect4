@@ -82,6 +82,25 @@ This is not a same-runner A/B: the two measurements came from separate GitHub-ho
 
 The remaining three positions timed out in both worker configurations. Timeout telemetry still zeros completed search counters, so those cases cannot support node-rate or cycles/node scaling analysis.
 
+## Root-cause analysis: second worker idle
+
+This result is explained by the current managed-worker architecture, not by a failed worker claim or Branch Manager scheduling defect.
+
+At pinned JSMinSys `7f866a87d0fc0662529621590c02b9832f685c6c`:
+
+1. `runManagedConnect4CpcRba32` interns and enqueues only the root q before spawning workers.
+2. The first worker that claims that root enters `addons/rba-connect4-managed-worker.mjs#evaluate`.
+3. That callback explicitly asserts `q === rootQ` and then calls `solveConnect4RbaAlphaBeta(workerData.root, ...)`.
+4. The entire 806,844-node CPC-first Negamax/alpha-beta tree is therefore searched recursively inside that one worker.
+5. Only after the local solve returns does the worker call `publishConnect4CpcRbaEvaluation32`, and the returned code is exact (1..3), so the `RBA_BRANCH` / `rbaTtPublishSurplus32` path is never entered.
+6. No child/sibling q is published to the shared ready queue. The second worker can only poll the empty queue and idle.
+
+The two-worker metrics match this exactly: `claims=1`, `branches=0`, `evaluations=1`, `alphaBetaNodes=806844`, and nonzero idle polling.
+
+This is the documented Phase-1 restoration contract in JSMinSys: restore local Negamax authority first, with no new parallel surplus, then implement Phase 2 by exposing only surviving useful siblings after local first-child/PV search fails to cut.
+
+Therefore the two-worker slowdown measures idle-worker/runtime overhead, not failed parallel scaling of an active split-search implementation. Multi-worker speedup cannot occur until Phase 2 surplus splitting is implemented and qualified.
+
 ## Disposition
 
 The two-worker configuration does not show a benefit on the completed official control in this run. The maintained benchmark harness is restored to the canonical one-worker configuration after recording this comparison.
