@@ -51,15 +51,33 @@ Connect4 CI run `35933307127` passed:
 
 ## Benchmark state
 
-Two prior results are historical controls:
+Current pinned dependency:
 
-- private one-worker CPC alpha-beta: 1/4 Fhourstones cases, first case 2.72 s;
-- incorrectly wired Branch Manager: all official cases hit 65,536 live TT rows
-  within seconds because manager-side work exposure and missing cleanup caused
-  capacity exhaustion.
+`vendor/jsminsys` -> `iteathen/JSMinSys@7f866a87d0fc0662529621590c02b9832f685c6c`
 
-The corrected ownership/cleanup implementation requires a fresh benchmark before
-any current performance claim.
+Current official Fhourstones qualification:
+
+- Connect4 commit: `fa6c8340e95c5da7f05641850bc9eb30c0f4b25b`;
+- workflow run: `36086563243`;
+- protocol: official four inputs, one worker, one fresh solver session per input, 120-second per-case ceiling;
+- result: 1/4 completed EXACT with matching oracle; remaining three timed out cleanly; no oracle mismatch.
+
+Completed first input `45461667`:
+
+- EXACT P0 win, move 3;
+- 806,844 alpha-beta nodes;
+- 807,290 cofactors/transitions;
+- 230,273 cutoffs;
+- 351,277 exact-cache hits;
+- 455,568 CPC calls;
+- wall 1,193.1766 ms;
+- CPU 1,391 ms;
+- 3,655,632,937 process CPU cycles;
+- approximately 4,530.78 process cycles / alpha-beta node.
+
+The remaining official inputs `35333571`, `13333111`, and the empty board each reached the unchanged 120-second ceiling and exited TIMEOUT with cleanup=true. Timeout reporting still does not preserve completed worker search counters, so nodes/cycles-per-node are unavailable for those cases.
+
+The workflow outcome is therefore `INCOMPLETE_OR_FAILED` only because the four-case qualification did not complete; it is not an oracle/correctness failure.
 
 ## Legacy code
 
