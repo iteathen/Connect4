@@ -25,7 +25,7 @@ jobs:
       - name: Checkout DTS overlap measurement JSMinSys
         shell: pwsh
         run: |
-          $sha='dd343f3edd7e83c18f87741da53ca8e0eac9bde7'
+          $sha='12d4fd8367f1c9f39b121a28382df3efb94649dc'
           git -C vendor/jsminsys fetch --no-tags origin $sha
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           git -C vendor/jsminsys checkout --detach $sha
