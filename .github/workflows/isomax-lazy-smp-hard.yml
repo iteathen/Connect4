@@ -53,18 +53,13 @@ jobs:
           }
 
           $baseline='19a96823cad46c7e5e9e70e0d68079d5574f92a3'
-          $candidate='5ff7d97bd1a26d8e3ad35cf4cbd3a41ebcde5648'
+          $candidate='a46d1312f9f5a659c22f33f553d2dbe8bd1da303'
 
-          # Primary hard official Fhourstones position: full unchanged 120 s ceiling,
-          # same-runner B/C/C/B.
           Run-Sample '35333571-baseline-1' $baseline '35333571' -1 0 120000
           Run-Sample '35333571-candidate-1' $candidate '35333571' -1 7 120000
           Run-Sample '35333571-candidate-2' $candidate '35333571' -1 7 120000
           Run-Sample '35333571-baseline-2' $baseline '35333571' -1 0 120000
 
-          # The remaining official Fhourstones positions are substantially harder.
-          # Use bounded same-runner B/C progress probes to compare CPU/cycles and
-          # shared exact evidence without changing their position semantics.
           Run-Sample '13333111-baseline' $baseline '13333111' 0 0 30000
           Run-Sample '13333111-candidate' $candidate '13333111' 0 7 30000
           Run-Sample 'empty-baseline' $baseline 'EMPTY' 1 0 30000

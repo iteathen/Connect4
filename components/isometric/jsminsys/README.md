@@ -1,53 +1,50 @@
 # IsoMax JSMinSys adapter
 
-IsoMax is now a thin Connect4 application adapter over JSMinSys.
+IsoMax is a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@19a96823cad46c7e5e9e70e0d68079d5574f92a3`
+`vendor/jsminsys` -> `iteathen/JSMinSys@a46d1312f9f5a659c22f33f553d2dbe8bd1da303`
 
 ## Ownership boundary
 
 IsoMax owns only application-facing policy:
 
 - the public standard 7x6 `solve7x6` API;
-- the standard-geometry selection;
+- standard-geometry selection;
 - the 120-second application timeout ceiling;
+- the two-worker minimum;
+- the current default Lazy-SMP shared sampling mask;
 - CLI, integration/oracle qualification, and benchmark reporting.
 
 JSMinSys owns the reusable execution and Connect4 machinery:
 
-- `Worker` and `RbaBranchWorker`;
-- `BranchManager` and `RbaBranchManager`;
-- `ManagedThreadSession`;
-- managed worker/manager/host composition;
-- shared RBA TT and work queues;
-- Connect4 RBA geometry, coordinates, cofactors and fronts;
-- CPC and live-line evaluators, with live winning-line contribution wired into production move ordering;
-- CPC/RBA worker traversal with worker-owned surplus publication: retain one continuation locally and publish unresolved siblings to the shared ready queue;
-- final managed Connect4 result construction, including exact-value to `rootWdl` conversion and witness to `move`;
-- lifecycle, cancellation, cleanup and telemetry;
-- complete operation/cycle accounting for the managed execution graph.
+- `ManagedThreadSession` lifecycle/cleanup support;
+- Lazy-SMP host and worker composition;
+- private CPC/Negamax search state and private exact caches per worker;
+- the shared exact W/D/L cache;
+- Connect4 RBA geometry, coordinates and cofactors;
+- CPC and live-line evaluators;
+- deterministic caller-frame result/witness handling;
+- cancellation, timeout, cleanup and telemetry; and
+- operation/cycle accounting for the active Lazy-SMP execution graph.
 
 The active IsoMax solve path is:
 
 ```text
 components/isometric/solve.mjs
   -> vendor/jsminsys/addons/prepareConnect4RbaGeometry
-  -> vendor/jsminsys/addons/runManagedConnect4CpcRba32
-  -> return the JSMinSys-managed result directly
+  -> vendor/jsminsys/addons/runLazySmpConnect4Rba32
+  -> return the JSMinSys Lazy-SMP result directly
 ```
 
-There is intentionally no second IsoMax-local worker, manager, TT, RBA kernel,
-result translator, or hot-loop implementation. Historical versions remain
-recoverable from Git history.
+There is no supported Connect4 Surplus + Branch Manager composition and no
+IsoMax-local worker, manager, TT, RBA kernel, result translator, or hot-loop
+implementation. Historical implementations remain recoverable from Git history.
 
 ## Qualification
 
-Connect4 keeps application-level oracle and lifecycle tests. JSMinSys keeps the
-unit/structural/cycle qualification for the machinery it owns. Connect4 CI runs
-both suites against the pinned submodule revision.
-
-## Alternate execution option
-
-Lazy SMP is available as an alternate JSMinSys execution option through `runLazySmpConnect4Rba32`. It does not replace the current public Surplus + Branch Manager path. Benchmarking may invoke Lazy SMP directly through a dedicated harness.
+Connect4 keeps application-level oracle, reflection/witness, lifecycle,
+multi-worker and Fhourstones qualification. JSMinSys keeps unit, structural and
+cycle-ledger qualification for the machinery it owns. Single-worker execution
+is not a valid qualification mode.

@@ -24,11 +24,10 @@ const report={
   inputSource:'https://github.com/tromp/fhourstones/blob/7ddf48dc70931eaa9c07904e12424960c3a019a1/inputs',
   inputGitBlob:'a8036a915ad1a3568762c269844cfd2ded7df3d3',
   inputs,expected,referenceNodes,
-  config:{workers:2,capacity:65536,buckets:65536,timeoutMs:120000,
-    managerBudget:64,readyTarget:2,
+  config:{workers:4,sharedCacheCapacity:65536,localCacheCapacity:65536,sharedSampleMask:7,timeoutMs:120000,
     cpcFrontierResponse:false,cpcProjectedAdvisory:false},
-  protocol:'Official four inputs in order, two search workers plus Branch Manager, one attempt each. Existing solver 120-second cap preserved. Fresh solver session per input. No extra warmup or retry.',
-  interpretation:'Only EXACT with matching WDL qualifies. TIMEOUT, INTERRUPTED and FAILED are not completed Fhourstones scores. JSMinSys metrics report shared-TT CPC-first q evaluations/branches and are not Fhourstones reference-node counts. Whole-operation wall/CPU/cycles include ingress, shared-TT preparation, manager/evaluator worker startup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
+  protocol:'Official four inputs in order, Lazy SMP with exactly four search workers, one attempt each. Existing 120-second per-case ceiling preserved. Fresh solver session per input. No extra warmup or retry.',
+  interpretation:'Only EXACT with matching WDL qualifies. TIMEOUT, INTERRUPTED and FAILED are not completed Fhourstones scores. Each Lazy-SMP worker owns a complete private CPC/Negamax search and private exact cache; only committed exact W/D/L cache evidence is shared. Whole-operation wall/CPU/cycles include ingress, worker startup, shared-cache setup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
   cases:[],completed:false,
 };
 writeFileSync(output,JSON.stringify(report,null,2)+'\n');

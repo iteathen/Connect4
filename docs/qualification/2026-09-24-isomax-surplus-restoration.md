@@ -1,4 +1,4 @@
-# IsoMax worker Surplus restoration qualification
+> **RETIRED 2026-09-24:** This document records historical Surplus + Branch Manager qualification only. The owner retired that Connect4 execution method; Lazy SMP is now the sole active Connect4 execution composition. The evidence below is retained as historical/negative engineering record.\n\n# IsoMax worker Surplus restoration qualification
 
 **Date:** 2026-09-24 (America/Los_Angeles)  
 **Connect4 branch:** `work/isomax-jsminsys-boundary-cleanup`  
