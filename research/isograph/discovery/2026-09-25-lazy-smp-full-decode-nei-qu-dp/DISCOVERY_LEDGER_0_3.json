@@ -1,0 +1,152 @@
+{
+  "campaign": "lazy-smp-full-translation-dp-rerun-0.3",
+  "date": "2026-09-25",
+  "subject": "CONNECT4_LAZY_SMP_SEARCH_METHOD_0_2 full translation",
+  "status": "complete",
+  "authority_effect": "none",
+  "solver_method_changed": false,
+  "source_revision": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d",
+  "findings": [
+    {
+      "id": "DP3-F01",
+      "name": "share-ineligible blind region",
+      "status": "established_implementation_structure",
+      "statement": "For a fixed mask, an exact key failing the hash gate cannot be published/shared by any worker in that invocation."
+    },
+    {
+      "id": "DP3-F02",
+      "name": "shared-hit local retention gap",
+      "status": "established_implementation_structure_economics_open",
+      "statement": "A shared exact hit returns directly without backfilling the worker local exact cache."
+    },
+    {
+      "id": "DP3-F03",
+      "name": "collision-class coupling",
+      "status": "established_when_capacities_equal",
+      "statement": "When local and shared capacities match, both direct maps use the same low hash bits and therefore the same collision partition."
+    },
+    {
+      "id": "DP3-F04",
+      "name": "cyclic policy orbit",
+      "status": "established_implementation_structure",
+      "statement": "Worker action-order diversity is a cyclic rotation of one base order, applied uniformly at every node, and repeats modulo columns."
+    },
+    {
+      "id": "DP3-F05",
+      "name": "publication-delayed winner arbitration",
+      "status": "established_implementation_structure",
+      "statement": "A worker publishes 15 metrics and 4 atomic result fields before attempting WINNER CAS; winner is not strictly earliest solver-return occurrence."
+    },
+    {
+      "id": "DP3-F06",
+      "name": "unconsumed wake signal",
+      "status": "established_current_composition",
+      "statement": "Current Lazy-SMP wait polls STOP/DONE; WAKE Atomics.notify has no consumer in the current composition."
+    },
+    {
+      "id": "DP3-F07",
+      "name": "post-DONE error/exit asymmetry",
+      "status": "established_policy_distinction_open",
+      "statement": "Worker error always fails the session, whereas clean exit after DONE/STOP/finished is accepted."
+    },
+    {
+      "id": "DP3-F08",
+      "name": "poll observation tail",
+      "status": "established_implementation_structure_economics_open",
+      "statement": "DONE/STOP is observed through setInterval polling (default 2ms cadence) rather than WAKE-driven blocking wakeup."
+    },
+    {
+      "id": "DP3-F09",
+      "name": "scalar-only shared evidence",
+      "status": "established_boundary",
+      "statement": "Shared cache transports exact scalar W/D/L only; no move witness/proof/best-action information is shared."
+    }
+  ],
+  "qu": [
+    {
+      "id": "QU-LSMP-12",
+      "name": "share-ineligible blind-region leverage",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-13",
+      "name": "shared-hit local-retention economics",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-14",
+      "name": "local/shared collision coupling",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-15",
+      "name": "winner-publication and host-observation latency",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-16",
+      "name": "post-DONE loser-fault policy",
+      "state": "OPEN"
+    },
+    {
+      "id": "QU-LSMP-17",
+      "name": "cyclic policy-orbit diversity rank",
+      "state": "OPEN"
+    }
+  ],
+  "strongest_experiments": [
+    "instrument share eligibility by depth/rank and subsequent cross-worker demand",
+    "count repeated shared hits per exact key/worker and A/B local backfill",
+    "measure local/shared collision churn under equal and unequal capacities",
+    "timestamp solver return, result publication, winner CAS, host DONE observation and cleanup completion",
+    "compare current cyclic rotations with precomputed exact-preserving diverse order policies at equal hot-loop overhead",
+    "inject loser error after DONE to qualify intended fail-closed policy"
+  ],
+  "protocols": {
+    "DP-01": "PASS",
+    "DP-02": "PASS",
+    "DP-03": "PASS",
+    "DP-04": "PASS",
+    "DP-05": "PASS",
+    "DP-06": "PASS",
+    "DP-07": "PASS",
+    "DP-08": "PASS",
+    "DP-09": "PASS",
+    "DP-10": "PASS",
+    "DP-11": "PASS",
+    "DP-12": "PASS",
+    "DP-13": "PASS",
+    "DP-14": "PASS",
+    "DP-15": "PASS",
+    "DP-16": "PASS",
+    "DP-17": "PASS",
+    "DP-18": "PASS",
+    "DP-19": "PASS",
+    "DP-20": "PASS",
+    "DP-21": "PASS",
+    "DP-22": "PASS",
+    "DP-23": "PASS",
+    "DP-24": "PASS",
+    "DP-25": "PASS",
+    "DP-26": "PASS",
+    "DP-27": "PASS",
+    "DP-28": "PASS",
+    "DP-29": "PASS",
+    "DP-30": "PASS",
+    "DP-31": "PASS",
+    "DP-32": "PASS",
+    "DP-33": "PASS",
+    "DP-34": "PASS",
+    "DP-35": "PASS",
+    "DP-36": "PASS",
+    "DP-37": "PASS",
+    "DP-38": "PASS",
+    "DP-39": "PASS",
+    "DP-40": "PASS",
+    "DP-41": "PASS",
+    "DP-42": "PASS",
+    "DP-43": "PASS",
+    "DP-44": "PASS",
+    "DP-45": "PASS"
+  }
+}
