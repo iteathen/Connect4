@@ -4,15 +4,17 @@ import {resolve,dirname} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawnSync,execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {cpus,platform,release} from 'node:os';
-import {validateCycleSample,summarizeCycleBlocks} from './isomax-cycle-analysis.mjs';
+import {cpus,platform,release,freemem} from 'node:os';
+import {validateCycleSample,summarizeCycleBlocks,validateMemoryConfig} from './isomax-cycle-analysis.mjs';
 
 const [mode,outputArg,baselineArg,candidateArg,blocksArg='4']=process.argv.slice(2);
-if(!['noise','instrumentation','candidate'].includes(mode)||!outputArg||!baselineArg)
+if(!['noise','instrumentation','candidate','memory'].includes(mode)||!outputArg||!baselineArg)
   throw Error('usage: node tools/isomax-cycle-campaign.mjs noise|instrumentation|candidate OUTPUT BASELINE [CANDIDATE] [BLOCKS=4]');
-const output=resolve(outputArg),baseline=resolve(baselineArg),candidate=resolve(candidateArg??baselineArg),blocks=Number(blocksArg);
+const output=resolve(outputArg),baseline=resolve(baselineArg),candidate=mode==='memory'?baseline:resolve(candidateArg??baselineArg),blocks=Number(blocksArg);
 if(!Number.isInteger(blocks)||blocks<2||blocks>16)throw Error('blocks must be 2..16');
-if(mode!=='candidate'&&baseline!==candidate)throw Error('calibration requires identical library paths');
+if(mode!=='candidate'&&mode!=='memory'&&baseline!==candidate)throw Error('calibration requires identical library paths');
+const memory=mode==='memory'?JSON.parse(readFileSync(candidateArg,'utf8')):null;
+if(memory){validateMemoryConfig(memory.baseline);validateMemoryConfig(memory.candidate);}
 const here=dirname(fileURLToPath(import.meta.url)),sample=resolve(here,'isomax-cycle-sample.mjs'),
   hook=resolve(here,'isomax-node-counts.mjs'),journal=resolve(output,'samples.jsonl'),samples=[];
 // Fails if OUTPUT already exists; no prior evidence can be overwritten.
@@ -30,10 +32,12 @@ writeFileSync(resolve(output,'manifest.json'),JSON.stringify({mode,blocks,baseli
   sampleSha256:hash(sample),hookSha256:hash(hook),analysisSha256:hash(resolve(here,'isomax-cycle-analysis.mjs')),
   controllerSha256:hash(fileURLToPath(import.meta.url)),counterSha256:hash(resolve(here,'cycle-counter.mjs')),
   boundary:'Process creation through joined native solve. Setup+bootstrap+solve cycles close exactly. Excludes subsequent report output and parent harness.',
-  sequence:'ABBA',input:'45461667',workers:4},null,2)+'\n',{flag:'wx'});
+  sequence:'ABBA',input:memory?.input??'45461667',workers:4,memory},null,2)+'\n',{flag:'wx'});
 if(baselineSource.dirty||candidateSource.dirty)throw Error('dirty library cannot start qualification; manifest preserved');
 for(let block=0;block<blocks;block++)for(const arm of ['A','B','B','A']){
-  const instrumented=mode==='instrumentation'&&arm==='B';
+  const instrumented=!!memory?.instrumented||(mode==='instrumentation'&&arm==='B');
+  if(freemem()<4*1024**3)throw Error('memory admission failed: less than 4 GiB free');
+  const caseConfig=memory?(arm==='A'?memory.baseline:memory.candidate):null;
   const startedAt=new Date().toISOString();
   const expectedSource=arm==='B'?candidateSource:baselineSource;
   const currentSource=snapshot(expectedSource.path);
@@ -43,7 +47,7 @@ for(let block=0;block<blocks;block++)for(const arm of ['A','B','B','A']){
     throw Error('library changed before launch; no retry');
   }
   const args=['--experimental-ffi',...(instrumented?['--import',pathToFileURL(hook).href]:[]),sample,
-    arm==='B'?candidate:baseline,'45461667'];
+    arm==='B'?candidate:baseline,memory?.input??'45461667',...(caseConfig?[JSON.stringify(caseConfig)]:[])];
   const child=spawnSync(process.execPath,args,{encoding:'utf8',timeout:45000,maxBuffer:4*1024*1024});
   const raw={block,arm,index:samples.length,expectedSource,startedAt,finishedAt:new Date().toISOString(),exitCode:child.status,
     signal:child.signal,error:child.error?.message??null,stdout:child.stdout,stderr:child.stderr};
@@ -51,9 +55,11 @@ for(let block=0;block<blocks;block++)for(const arm of ['A','B','B','A']){
   if(child.status!==0)throw Error('sample failed; raw outcome preserved; no retry');
   const s={...JSON.parse(child.stdout.trim()),block,arm};
   appendFileSync(journal,JSON.stringify(s)+'\n');
+  if(caseConfig&&(s.sharedCacheCapacity!==caseConfig.sharedCacheCapacity||s.localCacheCapacity!==caseConfig.localCacheCapacity))throw Error('memory configuration mismatch');
+  if(memory&&s.status==='TIMEOUT'){if(!s.cleanup||s.workersExited!==4||s.rootWdl!==null||BigInt(s.bootstrapCycles)+BigInt(s.setupCycles)+BigInt(s.solveCycles)!==BigInt(s.totalProcessCycles))throw Error('invalid timeout cleanup/accounting');console.log(JSON.stringify({block,arm,status:'TIMEOUT'}));continue;}
   validateCycleSample(s,expectedSource.sha,instrumented?'all-worker-node-instrumentation':'production');samples.push(s);
   console.log(JSON.stringify({block,arm,measurement:s.measurement,cycles:s.totalProcessCycles,ms:s.wallMs,nodes:s.totalNodes}));
 }
-const summary=summarizeCycleBlocks(samples,mode);
+const summary=samples.length===blocks*4?summarizeCycleBlocks(samples,mode):{mode,status:'CENSORED',completedSamples:samples.length,totalSamples:blocks*4,promotion:'NOT_QUALIFIED'};
 writeFileSync(resolve(output,'summary.json'),JSON.stringify(summary,null,2)+'\n',{flag:'wx'});
 console.log(JSON.stringify(summary));
