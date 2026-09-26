@@ -10,6 +10,11 @@ test('cycle accounting closes and cannot use winner-only nodes as all-worker vis
   assert.throws(()=>validateCycleSample({...sample(),totalProcessCycles:'101'}),/partition/);
   assert.throws(()=>validateCycleSample({...sample(),totalNodes:40}),/node total/);
   assert.throws(()=>validateCycleSample({...sample(),workersExited:3}),/cleanup/);
+  assert.throws(()=>validateCycleSample({...sample(),librarySha:'changed'},'pinned'),/revision changed/);
+  validateCycleSample({...sample(),librarySha:'pinned'},'pinned');
+  assert.throws(()=>validateCycleSample({...sample(),measurement:'all-worker-node-instrumentation'},undefined,'production'),/measurement mode/);
+  assert.throws(()=>validateCycleSample({...sample(),measurement:'all-worker-node-instrumentation',totalNodes:null},undefined,'all-worker-node-instrumentation'),/missing all-worker/);
+  validateCycleSample({...sample(),measurement:'production',totalNodes:null},undefined,'production');
   validateCycleSample({...sample(),totalNodes:null});
 });
 test('paired screening exposes larger total-cycle cost despite a local saving',()=>{

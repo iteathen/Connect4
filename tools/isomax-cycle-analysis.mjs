@@ -1,8 +1,13 @@
 // COLD analysis only. Ratios are block-paired; different cost denominators stay separate.
-export function validateCycleSample(s){
+export function validateCycleSample(s,expectedLibrarySha,expectedMeasurement){
   const sum=BigInt(s.bootstrapCycles)+BigInt(s.setupCycles)+BigInt(s.solveCycles);
   if(sum!==BigInt(s.totalProcessCycles))throw Error('cycle partition does not close');
   if(s.libraryDirty)throw Error('dirty library cannot qualify');
+  if(expectedLibrarySha&&s.librarySha!==expectedLibrarySha)throw Error('library revision changed during campaign');
+  if(expectedMeasurement&&s.measurement!==expectedMeasurement)throw Error('unexpected measurement mode');
+  if(expectedMeasurement==='production'&&s.totalNodes!==null)throw Error('production sample was instrumented');
+  if(expectedMeasurement==='all-worker-node-instrumentation'&&s.totalNodes===null)
+    throw Error('instrumented sample is missing all-worker counters');
   if(!s.oracleMatched||!s.cleanup||s.workersExited!==s.workers||s.errors.length)
     throw Error('incorrect/incomplete sample or cleanup');
   if(s.totalNodes!==null){
