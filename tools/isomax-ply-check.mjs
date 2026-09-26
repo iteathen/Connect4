@@ -3,7 +3,7 @@
 import {spawnSync,execFileSync} from 'node:child_process';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {validateCycleSample,summarizeCycleBlocks} from './isomax-cycle-analysis.mjs';
 const repo=fileURLToPath(new URL('../',import.meta.url)),library=resolve(process.argv[2]),output=resolve(process.argv[3]);
@@ -16,7 +16,7 @@ writeFileSync(resolve(output,'manifest.json'),JSON.stringify({harnessSha:sha(rep
 function run(name,input,recordPly,timeoutMs,expectedMove){
   const config={sharedCacheCapacity:65536,localCacheCapacity:65536,timeoutMs,expectedWdl:1,
     ...(expectedMove===undefined?{}:{expectedMove}),recordPly,progress:true,plyReportMs:1000};
-  const args=['--experimental-ffi','--import',resolve(repo,'tools/isomax-node-counts.mjs'),
+  const args=['--experimental-ffi','--import',pathToFileURL(resolve(repo,'tools/isomax-node-counts.mjs')).href,
     resolve(repo,'tools/isomax-cycle-sample.mjs'),library,input,JSON.stringify(config)],
     result=spawnSync(process.execPath,args,{cwd:repo,encoding:'utf8',timeout:timeoutMs+15000,maxBuffer:4*1024*1024});
   writeFileSync(resolve(output,`${name}.stdout`),result.stdout??'');
