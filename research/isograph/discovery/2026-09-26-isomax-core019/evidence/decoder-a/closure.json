@@ -1,0 +1,708 @@
+{
+  "moduleCount": 26,
+  "totalAstNodes": 37249,
+  "nodeKinds": 51,
+  "derivedEdges": 58,
+  "declaredEdges": 58,
+  "externalEdges": [
+    {
+      "from": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "to": "node:worker_threads",
+      "kind": "external"
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "to": "node:perf_hooks",
+      "kind": "external"
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "to": "node:worker_threads",
+      "kind": "external"
+    }
+  ],
+  "mismatches": {
+    "onlyDerived": [],
+    "onlyDeclared": []
+  },
+  "unresolvedInternal": [],
+  "missingEntries": [],
+  "notStaticallyReached": [],
+  "effects": [
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.0.specifiers.0.imported",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.0.specifiers.0.local",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.2.declaration.body.body.2.body.expression.right.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.3.declaration.body.body.0.value.params.0.left.properties.8.value.right.object",
+      "name": "process"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.3.declaration.body.body.2.value.params.1",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.3.declaration.body.body.2.value.body.body.0.argument.arguments.2",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.5.declaration.body.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.5.declaration.body.body.1.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.5.declaration.body.body.2.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.5.declaration.body.body.3.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.6.declaration.params.2",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.6.declaration.body.body.0.declarations.0.init.properties.0.key",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.6.declaration.body.body.0.declarations.0.init.properties.0.value",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.6.declaration.body.body.2.declarations.0.init.callee",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.6.declaration.body.body.4.expression.arguments.0.arguments.0.body.body.1.expression.arguments.1.body.body.1.test.left.right.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.6.declaration.body.body.4.expression.arguments.0.arguments.0.body.body.1.expression.arguments.1.body.body.1.test.right.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.6.block.body.0.expression.argument.arguments.0.body.body.0.expression.right.callee",
+      "name": "setTimeout"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.6.block.body.0.expression.argument.arguments.0.body.body.1.expression.right.callee",
+      "name": "setInterval"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.6.block.body.0.expression.argument.arguments.0.body.body.1.expression.right.arguments.0.body.body.0.test.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.6.block.body.0.expression.argument.arguments.0.body.body.1.expression.right.arguments.0.body.body.0.test.right.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.6.finalizer.body.0.expression.callee",
+      "name": "clearTimeout"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.6.finalizer.body.1.expression.callee",
+      "name": "clearInterval"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.7.declaration.body.body.7.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.8.declaration.body.body.1.consequent.expression.callee",
+      "name": "clearTimeout"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.8.declaration.body.body.2.consequent.expression.callee",
+      "name": "clearInterval"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.8.declaration.body.body.4.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.8.declaration.body.body.5.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.8.declaration.body.body.6.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.9.declaration.body.body.0.argument.properties.0.value.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.9.declaration.body.body.0.argument.properties.1.value.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "path": "program.body.9.declaration.body.body.0.argument.properties.2.value.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.0.specifiers.0.imported",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.0.specifiers.0.local",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.3.declaration.superClass",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.8.body.body.1.test.right.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.8.body.body.3.block.body.3.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.8.body.body.4.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.8.body.body.5.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.9.body.body.2.block.body.0.test.right.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.9.body.body.3.consequent.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.9.body.body.3.consequent.body.1.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.11.declaration.body.body.3.test.left.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.11.declaration.body.body.3.test.right.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.11.declaration.body.body.3.body.body.0.declarations.0.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.11.declaration.body.body.3.body.body.1.consequent.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.11.declaration.body.body.4.argument.test.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.12.body.body.8.block.body.0.consequent.body.1.consequent.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.12.body.body.13.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.12.body.body.14.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.14.declaration.body.body.4.test.left.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.14.declaration.body.body.4.test.right.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.14.declaration.body.body.4.body.body.0.declarations.0.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.14.declaration.body.body.4.body.body.1.consequent.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "path": "program.body.14.declaration.body.body.6.argument.test.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "path": "program.body.1.declaration.body.body.2.body.body.2.test.right",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "path": "program.body.1.declaration.body.body.2.body.body.3.declarations.0.init.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.0.specifiers.0.imported",
+      "name": "performance"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.0.specifiers.0.local",
+      "name": "performance"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.6.declarations.3.init.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.6.declarations.4.init.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.6.declarations.5.init.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.8.declarations.0.init.callee.object",
+      "name": "performance"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.9.block.body.0.body.expression.arguments.0.callee",
+      "name": "URL"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.10.declarations.0.init.left.callee.object",
+      "name": "performance"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.10.declarations.2.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.10.declarations.4.init.left.right.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.11.body.expression.right.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.14.argument.properties.1.value.consequent.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.14.argument.properties.2.value.consequent.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.14.argument.properties.5.value.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.14.argument.properties.6.value.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "path": "program.body.6.declaration.body.body.14.argument.properties.7.value.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.0.specifiers.0.imported",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.0.specifiers.0.local",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.5.init.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.8.init.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.9.init.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.10.init.arguments.0.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.0.value.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.2.value.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.3.value.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.4.value.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.5.value.right.object.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.6.value.argument.argument.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.11.init.arguments.0.properties.7.value.argument.argument.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.12.init.arguments.0.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.2.declarations.12.init.arguments.1.properties.1.value.test.object",
+      "name": "workerData"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.18.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.19.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.20.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.21.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.22.test.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.22.consequent.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.22.consequent.body.1.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "path": "program.body.22.consequent.body.2.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.1.declaration.body.body.1.argument.properties.2.value.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.1.declaration.body.body.1.argument.properties.3.value.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.1.declaration.body.body.1.argument.properties.4.value.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.1.declaration.body.body.1.argument.properties.5.value.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.2.declaration.body.body.0.declarations.1.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.2.declaration.body.body.3.body.test.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.2.declaration.body.body.4.declarations.0.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.2.declaration.body.body.4.declarations.1.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.2.declaration.body.body.6.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.0.declarations.1.init.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.1.consequent.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.3.test.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.3.consequent.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.5.body.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.6.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.7.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "path": "program.body.3.declaration.body.body.8.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "path": "program.body.18.declaration.body.body.0.test.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "path": "program.body.21.declaration.body.body.1.consequent.body.1.test.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.13.declaration.body.body.1.declarations.0.init.body.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.13.declaration.body.body.2.declarations.0.init.body.arguments.0.callee",
+      "name": "SharedArrayBuffer"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.14.declaration.body.body.0.test.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.16.declaration.body.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.16.declaration.body.body.1.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.16.declaration.body.body.2.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.16.declaration.body.body.3.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.47.body.body.9.consequent.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.67.declaration.body.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.67.declaration.body.body.1.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "path": "program.body.67.declaration.body.body.2.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/addons/worker.mjs",
+      "path": "program.body.0.declaration.id",
+      "name": "Worker"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.0.declaration.body.body.0.argument.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.1.declaration.body.body.0.test.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.1.declaration.body.body.1.argument.left.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.2.declaration.body.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.2.declaration.body.body.1.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.3.declaration.body.body.0.expression.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.4.declaration.body.body.0.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.5.declaration.body.body.0.argument.callee.object",
+      "name": "Atomics"
+    },
+    {
+      "module": "vendor/jsminsys/src/atomic32.mjs",
+      "path": "program.body.6.declaration.body.body.0.argument.callee.object",
+      "name": "Atomics"
+    }
+  ]
+}

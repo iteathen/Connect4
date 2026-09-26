@@ -5,8 +5,10 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {parse} from 'acorn';
 import {encode,decode} from './native-tree.mjs';
+import {semanticBridge} from './semantic-bridge.mjs';
+import {controls} from './controls.mjs';
 
-const root=path.resolve(process.argv[2]),out=path.resolve(import.meta.dirname,'packet');
+const root=path.resolve(process.argv[2]),revision=process.argv[3]||'packet',out=path.resolve(import.meta.dirname,revision);
 const c4='2ed88683ba46fc4d99790414ad99a2e409acf400',jms='04d37498607ace16dae33c79462ddfe1503c8a0d';
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const git=(cwd,...args)=>execFileSync('git',['-C',cwd,...args],{encoding:'utf8',maxBuffer:32*1024*1024});
@@ -58,6 +60,13 @@ const program={
   entries:['components/isometric/solve.mjs','vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs'],
   imports,modules,
 };
+if(revision==='packet-v2'){
+  program.format='IsoMax executable-source structural rendering candidate 0.4';
+  program.interpretation.ecma262Revision='84b38ad852ff426795fa29cebc06949027336c64';
+  program.interpretation.unresolved=['environment traces within pinned runtime contracts','JIT lowering and instruction costs; no cost theorem claimed'];
+  program.semanticBridge=semanticBridge(counts);
+  program.controls=controls.map(([id,text])=>({id,program:clean(parse(text,{ecmaVersion:2025,sourceType:'module',preserveParens:true}))}));
+}
 fs.mkdirSync(out,{recursive:true});
 const native=encode(program)+'\n';
 assert.deepEqual(decode(native),program);
@@ -66,5 +75,5 @@ fs.writeFileSync(path.join(out,'MANIFEST.json'),JSON.stringify({status:'CANDIDAT
   semanticOracleSha256:hash(JSON.stringify(program)),sourceInventory,external:[...external].sort(),counts,
   totalSyntaxNodes:Object.values(counts).reduce((a,b)=>a+b,0)},null,2)+'\n');
 fs.mkdirSync('author-only',{recursive:true});
-fs.writeFileSync('author-only/source-oracle.json',JSON.stringify(program));
+fs.writeFileSync(`author-only/${revision}-source-oracle.json`,JSON.stringify(program));
 console.log(JSON.stringify({modules:modules.length,nodes:Object.values(counts).reduce((a,b)=>a+b,0),bytes:native.length,external:[...external],hash:hash(native)},null,2));
