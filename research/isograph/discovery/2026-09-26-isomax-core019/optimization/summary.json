@@ -1,0 +1,160 @@
+{
+  "sampleCount": 36,
+  "allExpectedResults": true,
+  "revisions": {
+    "a": "04d37498607ace16dae33c79462ddfe1503c8a0d",
+    "b": "393b8a1ac98d13ece5109246620b072ee92878dd"
+  },
+  "coordinateSha256": {
+    "a": "1c8aeade55b67410c81757cced4ba3086b454810b6ec433c7250590becf68660",
+    "b": "97ba78c84994c332d27788710e520434e0e593ed9bd81bc6edb510bd227d1cda"
+  },
+  "scope": "Four-worker short solved controls; cycles sum all process threads. Winner nodes are NOT total work.",
+  "dirtyStatusDisposition": "Candidate raw snapshots report stale CRLF index-stat dirtiness. See C1_RESULTS.md and source-byte verification; evidence was not rewritten.",
+  "rows": [
+    {
+      "input": "45461667",
+      "baseline": {
+        "samples": 6,
+        "meanWallMs": 1116.6204333333333,
+        "meanProcessCycles": 18460174997.833332,
+        "winnerNodes": [
+          708500,
+          716450,
+          716450,
+          708500,
+          716450,
+          716450
+        ]
+      },
+      "candidate": {
+        "samples": 6,
+        "meanWallMs": 1053.2711166666666,
+        "meanProcessCycles": 17541083126.333332,
+        "winnerNodes": [
+          716450,
+          708500,
+          708500,
+          708500,
+          708500,
+          716450
+        ]
+      },
+      "wallChangePercent": -5.673308026215896,
+      "cyclesChangePercent": -4.978782008338889,
+      "blocks": [
+        {
+          "block": 0,
+          "wallChangePercent": -7.549728451953131,
+          "cyclesChangePercent": -6.199857431136923
+        },
+        {
+          "block": 1,
+          "wallChangePercent": -5.662821771053661,
+          "cyclesChangePercent": -4.963215014269496
+        },
+        {
+          "block": 2,
+          "wallChangePercent": -3.815006609973881,
+          "cyclesChangePercent": -3.7861392664314875
+        }
+      ]
+    },
+    {
+      "input": "13333111271421",
+      "baseline": {
+        "samples": 6,
+        "meanWallMs": 928.8543833333333,
+        "meanProcessCycles": 15206157608.833334,
+        "winnerNodes": [
+          914814,
+          914814,
+          914814,
+          914814,
+          914814,
+          914814
+        ]
+      },
+      "candidate": {
+        "samples": 6,
+        "meanWallMs": 883.47325,
+        "meanProcessCycles": 14563022062.833334,
+        "winnerNodes": [
+          914814,
+          914814,
+          914814,
+          914814,
+          914814,
+          914814
+        ]
+      },
+      "wallChangePercent": -4.885710198241866,
+      "cyclesChangePercent": -4.229441536410217,
+      "blocks": [
+        {
+          "block": 0,
+          "wallChangePercent": -9.154661152435285,
+          "cyclesChangePercent": -8.12581734642902
+        },
+        {
+          "block": 1,
+          "wallChangePercent": -1.9373170137131246,
+          "cyclesChangePercent": -1.659264612083533
+        },
+        {
+          "block": 2,
+          "wallChangePercent": -3.2996688576501287,
+          "cyclesChangePercent": -2.6945902456247617
+        }
+      ]
+    },
+    {
+      "input": "13333111444444",
+      "baseline": {
+        "samples": 6,
+        "meanWallMs": 2045.44535,
+        "meanProcessCycles": 31502592588.166668,
+        "winnerNodes": [
+          1972145,
+          1972145,
+          1972145,
+          1972145,
+          1972145,
+          1972145
+        ]
+      },
+      "candidate": {
+        "samples": 6,
+        "meanWallMs": 1980.04375,
+        "meanProcessCycles": 30490548316.333332,
+        "winnerNodes": [
+          1972145,
+          1972145,
+          1972145,
+          1972145,
+          1972145,
+          1972145
+        ]
+      },
+      "wallChangePercent": -3.197425929761455,
+      "cyclesChangePercent": -3.212574549224534,
+      "blocks": [
+        {
+          "block": 0,
+          "wallChangePercent": -5.040347824019542,
+          "cyclesChangePercent": -4.662082891337215
+        },
+        {
+          "block": 1,
+          "wallChangePercent": -1.4700513389445669,
+          "cyclesChangePercent": -1.5829921613180642
+        },
+        {
+          "block": 2,
+          "wallChangePercent": -3.0699718345230553,
+          "cyclesChangePercent": -3.3861464122533214
+        }
+      ]
+    }
+  ]
+}
