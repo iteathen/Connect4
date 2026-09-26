@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "id": "connect4-game-theory-core019-support-0.1",
+  "status": "unqualified_derived_support_overlay",
+  "gameplay_authority_effect": "none",
+  "base_game_theory_authority": {
+    "id": "connect4-isograph-logic-1.2",
+    "authority_root": "research/isograph/CONNECT4_LOGIC_AUTHORITY_1_2.md",
+    "manifest_blob": "5f401c93f8ea653fd3bc96e386b08ef7d92c519e"
+  },
+  "core019_authority": {
+    "repository": "iteathen/IsoGraph",
+    "semantic_sha256": "8db3f6554afb12d3f6de78789f771bb09484d27babd7fd98782cb92d704402c2",
+    "role": "implicit_assertion_support_contract"
+  },
+  "premises": [
+    {
+      "id": "P-WDL-DOMAIN",
+      "source": "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json#value_dependency.order",
+      "fact": "ordinary exact P0-oriented game value has domain {-1,0,+1}"
+    },
+    {
+      "id": "P-FIRST-WIN",
+      "source": "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json#physical_game.first_win_stops",
+      "fact": "first completed Connect-4 terminates immediately"
+    },
+    {
+      "id": "P-FULL-NONWIN-DRAW",
+      "source": "CONNECT4_GAME_THEORY_1_2_CANDIDATE.json#physical_game.full_nonwinning_board",
+      "fact": "a full non-winning board is draw"
+    }
+  ],
+  "outcome_partition": {
+    "scope": "exact completed ordinary WDL classification",
+    "classes": [
+      {"id":"P0_WIN","value":1},
+      {"id":"DRAW","value":0},
+      {"id":"P0_LOSS","value":-1}
+    ],
+    "mutually_exclusive": true,
+    "collectively_exhaustive": true
+  },
+  "implicit_support": [
+    {
+      "id": "IA-DRAW-RESIDUAL",
+      "mode": "EXACT",
+      "scope": "exact completed ordinary WDL classification",
+      "premises": [
+        "outcome_partition",
+        "not P0_WIN",
+        "not P0_LOSS"
+      ],
+      "result": "DRAW",
+      "witness": "finite exclusive/exhaustive three-value partition residual"
+    },
+    {
+      "id": "IA-WIN-EXCLUSION",
+      "mode": "EXACT",
+      "scope": "exact completed ordinary WDL classification",
+      "premises":["P0_WIN","outcome_partition"],
+      "result":["not DRAW","not P0_LOSS"]
+    },
+    {
+      "id": "IA-LOSS-EXCLUSION",
+      "mode": "EXACT",
+      "scope": "exact completed ordinary WDL classification",
+      "premises":["P0_LOSS","outcome_partition"],
+      "result":["not DRAW","not P0_WIN"]
+    }
+  ],
+  "nonconsequence": {
+    "id": "NC-PARTIAL-CPC",
+    "input": "a partial nonterminal CPC pass does not detect a tactical win or loss",
+    "does_not_imply": "DRAW",
+    "reason": "partial detector failure may remain unresolved; exact outcome classification has not closed"
+  }
+}
