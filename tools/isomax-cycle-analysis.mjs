@@ -47,7 +47,7 @@ export function summarizeCycleBlocks(samples,mode){
 
 export function validateMemoryConfig(c){
   for(const key of ['sharedCacheCapacity','localCacheCapacity']){
-    const n=c[key];if(!Number.isInteger(n)||n<1||n>1048576||(n&(n-1)))throw Error('invalid memory capacity');
+    const n=c[key];if(!Number.isInteger(n)||n<1||n>2097152||(n&(n-1)))throw Error('invalid memory capacity');
   }
   if(!Number.isFinite(c.timeoutMs)||c.timeoutMs<=0||c.timeoutMs>300000)throw Error('invalid timeout');
   return c;
