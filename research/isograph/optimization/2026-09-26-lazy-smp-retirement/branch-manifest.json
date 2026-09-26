@@ -152,7 +152,11 @@
         "experiment/isomax-surplus-fight-spike",
         "experiment/rba-hashless-surplus-scan-v1"
       ],
-      "unselectedChanges": []
+      "unselectedChanges": [],
+      "finalAudit": {
+        "retiredBranchesAbsent": 9,
+        "exactRemoteArchivesVerified": 9
+      }
     },
     {
       "repo": "iteathen/Connect4",
@@ -588,6 +592,13 @@
           "archive": "archive/lazy-smp-retirement-20260926/work/research-isomax-pull-102-final",
           "subject": "research: record occurrence versus execution storage separation",
           "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "solver/isometric",
+          "sha": "1f98d7b15eefdc5cf032f6f6bcb4bb71b51a02b1",
+          "archive": "archive/lazy-smp-retirement-20260926/solver/isometric",
+          "subject": "evidence: run unbiased Pons L1 first-32 IsoMax campaign (#122)",
+          "reason": "Legacy pre-JSMinSys IsoMax implementation retired; current sole owner work/isomax-jsminsys-rebuild."
         }
       ],
       "deleted": [
@@ -621,14 +632,39 @@
         "research/isomax-deficit-credit-ledger-102",
         "work/isomax-decentralized-pull-102",
         "work/isomax-qualification-ox-staffing",
-        "work/research-isomax-pull-102-final"
+        "work/research-isomax-pull-102-final",
+        "solver/isometric"
       ],
       "unselectedChanges": [
         {
           "branch": "research/semantic-quotient",
           "sha": "05131a7f122f8baa02faa2b2e83977d52b45cd64"
         }
-      ]
+      ],
+      "finalAudit": {
+        "retiredBranchesAbsent": 32,
+        "exactRemoteArchivesVerified": 32
+      }
     }
-  ]
+  ],
+  "integration": {
+    "connect4": "afbb8baa2a504790319890d935f641b3e4087e4b",
+    "branch": "work/isomax-jsminsys-rebuild",
+    "jsminsys": "93aca1758718bcbf0635c11a957a67ca6387d50c",
+    "mergedPRs": [
+      "iteathen/JSMinSys#50",
+      "iteathen/Connect4#166",
+      "iteathen/Connect4#163"
+    ],
+    "automaticMergedBranchRemoval": [
+      "iteathen/JSMinSys:cleanup/lazy-smp-only-20260926",
+      "iteathen/Connect4:cleanup/isomax-lazy-smp-only-20260926",
+      "iteathen/Connect4:work/isomax-jsminsys-boundary-cleanup"
+    ],
+    "sourceArchives": [
+      "iteathen/JSMinSys:archive/pr-50-20260926",
+      "iteathen/Connect4:archive/pr-166-20260926",
+      "iteathen/Connect4:archive/pr-163-20260926"
+    ]
+  }
 }
