@@ -1,3 +1,22 @@
+## Owner disposition: move-order experiments withdrawn (2026-09-26)
+
+The owner requested retracting all move-order work and returning to the state
+before that campaign. The active JSMinSys worktree has been restored to
+`experiment/cpc-owned-win-20260926` at
+`49f88b2b0cd45ae427f43ceece568a4895953e5f`, matching the live remote.
+This retains the earlier CPC no-predictive-draw and CPC-owned immediate-win
+changes, original recursive score sort, center-out ties, worker rotation,
+CPC move restrictions and forced transit.
+
+Withdrawn candidates: combined strict live-line-only (`2b0cb68`, measured
+`151b7ae`), isolated lazy selector (`97d1f4c`), natural ties (`f69d018`),
+same worker order (`42011bc`), CPC filters off (`75be013`), and score-only
+sort (`e016360`). None is selected for integration. Their experimental refs,
+worktrees and evidence remain historical records, not active solver authority.
+No move-order candidate was promoted into JSMinSys main or the Connect4
+production dependency pin; those refs require no code rollback. No benchmark
+result is erased or reclassified as passing. The move-order campaign is closed.
+
 # IsoMax total-cycle optimization campaign
 
 Owner request: plan and start optimization, with full cycle accounting so a
