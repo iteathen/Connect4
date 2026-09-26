@@ -1,0 +1,239 @@
+{
+  "campaign": "2026-09-25-lazy-smp-implicit-assertions-core-0.19",
+  "core_candidate": {
+    "repo": "iteathen/IsoGraph",
+    "branch": "research/core-0.19-implicit-assertions",
+    "commit": "426a808ac212441dbd718d348977eff0172e6fc6",
+    "status": "unqualified_candidate"
+  },
+  "subject": {
+    "repo": "iteathen/Connect4",
+    "research_head": "71e09504b706d6b7aea6e2c926345526825ef8f5",
+    "rendering": "research/isograph/successor/CONNECT4_LAZY_SMP_SEARCH_METHOD_0_2.*",
+    "implementation_anchor": "iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d"
+  },
+  "assertions": [
+    {
+      "id": "IA-G01",
+      "pass": 1,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "implicit_control",
+      "assertion": "If no committed matching shared-slot generation exists when an occurrence performs its shared probe, the shared exact cache cannot supply that occurrence's exact result.",
+      "supports": [
+        "shared probe rejects EMPTY/WRITING/nonmatching generations",
+        "shared cache begins invocation-local and has no cross-invocation persistence"
+      ],
+      "scope": "shared exact cache only; local exact cache is separate"
+    },
+    {
+      "id": "IA-G02",
+      "pass": 1,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_explicitly_recoverable_statement",
+      "assertion": "A shared publication cannot reduce the producer occurrence's already-completed exact-resolution work; its possible reuse benefit begins only with later occurrences after commit.",
+      "supports": [
+        "exact result is established before local publication",
+        "private exact store precedes optional shared-store attempt",
+        "shared readers require a committed generation"
+      ]
+    },
+    {
+      "id": "IA-G03",
+      "pass": 1,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_explicitly_recoverable_statement",
+      "assertion": "For a committed shared exact fact, the reuse opportunity window is bounded after commit and before invocation teardown.",
+      "supports": [
+        "shared cache lifetime is one solve invocation",
+        "cache is created for invocation and disappears at teardown"
+      ]
+    },
+    {
+      "id": "IA-G04",
+      "pass": 1,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_assertion",
+      "assertion": "The current shared exact-cache protocol cannot coordinate same-q_r resolution occurrences that are already active before the first matching exact commit, because it represents store state but no search-in-flight ownership/state.",
+      "supports": [
+        "slot states are EMPTY/WRITING-store/COMMITTED",
+        "WRITING denotes store publication only",
+        "no search-in-flight state exists",
+        "shared hits require committed matching exact facts"
+      ]
+    },
+    {
+      "id": "IA-G05",
+      "pass": 1,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "prior_structure_recovered",
+      "assertion": "Within one exact q_r key, current share eligibility is occurrence-blind: worker, alpha/beta window, route, timing and already-paid work cannot alter the share decision.",
+      "supports": [
+        "share(key) iff hash(key) & sharedSampleBits == 0",
+        "fixed key/mask/hash gives the same share decision for all workers"
+      ]
+    },
+    {
+      "id": "IA-G06",
+      "pass": 1,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "prior_explicit_restated",
+      "assertion": "Winner arbitration selects a completed exact-result occurrence; it does not create the result's exactness.",
+      "supports": [
+        "worker publishes exact result and completion before winner CAS",
+        "exactness exists before winner arbitration"
+      ]
+    },
+    {
+      "id": "IA-G07",
+      "pass": 2,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "Lazy SMP duplicate-work coordination has two structurally distinct temporal phases relative to the first committed exact fact for a key: pre-commit duplicate resolution and post-commit exact-value reuse.",
+      "supports": [
+        "IA-G01",
+        "IA-G02",
+        "IA-G04"
+      ]
+    },
+    {
+      "id": "IA-G08",
+      "pass": 2,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "A mechanism confined to committed-row residency/replacement can change post-commit reuse but cannot eliminate same-key work already underway in the pre-commit phase.",
+      "supports": [
+        "IA-G04",
+        "IA-G07"
+      ]
+    },
+    {
+      "id": "IA-G09",
+      "pass": 2,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "The current key-hash sharing gate cannot express transition-selective treatment among different occurrences of the same q_r state; any such selection requires additional occurrence/transition information or a different boundary.",
+      "supports": [
+        "IA-G05"
+      ]
+    },
+    {
+      "id": "IA-E01",
+      "pass": 2,
+      "layer": "evidence_enriched",
+      "support_mode": "EXACT_WITHIN_MEASURED_SCOPE",
+      "novelty": "prior_explicit_restated",
+      "assertion": "For the measured production workloads, the post-commit shared exact-cache channel is empirically a cross-worker CPC_EXACT memoizer.",
+      "supports": [
+        "PROVENANCE_CENSUS_0_1: 100% of committed shared stores and consumed hits are CPC_EXACT"
+      ]
+    },
+    {
+      "id": "IA-E02",
+      "pass": 2,
+      "layer": "evidence_enriched",
+      "support_mode": "EXACT",
+      "novelty": "new_cross_record_synthesis",
+      "assertion": "Route-6/8 protected residency acts only on the post-commit phase; it cannot alter the pre-commit overlap class measured by the overlap census.",
+      "supports": [
+        "IA-G08",
+        "ROUTE_REPLACEMENT_MATRIX_RESULT_0_1",
+        "ROUTE8_EXACT_AB_RESULT_0_8"
+      ]
+    },
+    {
+      "id": "IA-E03",
+      "pass": 3,
+      "layer": "evidence_enriched",
+      "support_mode": "EXACT_WITHIN_RECORDED_MECHANISMS",
+      "novelty": "new_structural_synthesis",
+      "assertion": "The measured Lazy SMP sharing problem contains at least two independent optimization regimes: pre-commit overlap and post-commit CPC-exact residency/reuse.",
+      "supports": [
+        "IA-G07",
+        "IA-E01",
+        "OVERLAP_CENSUS_0_1",
+        "ROUTE8_EXACT_AB_RESULT_0_8"
+      ]
+    },
+    {
+      "id": "IA-E04",
+      "pass": 3,
+      "layer": "evidence_enriched",
+      "support_mode": "EXACT",
+      "novelty": "prior_structure_recovered",
+      "assertion": "Raw shared-hit count is incomplete telemetry for total cross-worker duplicate-resolution opportunity because pre-commit overlapping same-q_r work produces no shared hit by construction.",
+      "supports": [
+        "IA-G04",
+        "OVERLAP_CENSUS_0_1"
+      ]
+    },
+    {
+      "id": "IA-E05",
+      "pass": 3,
+      "layer": "evidence_enriched",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "A positive route-residency A/B result is evidence only about post-commit reuse economics and cannot, by itself, validate or falsify an in-flight duplicate-suppression mechanism.",
+      "supports": [
+        "IA-E02",
+        "IA-E03"
+      ]
+    },
+    {
+      "id": "IA-E06",
+      "pass": 3,
+      "layer": "evidence_enriched",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "Any optimization restricted to the current direct-mapped committed exact-cache state machine has a structural ceiling: it cannot remove first-wave same-key overlap before an exact fact is committed.",
+      "supports": [
+        "IA-G04",
+        "IA-G08",
+        "IA-E03"
+      ]
+    }
+  ],
+  "passes": {
+    "1": {
+      "new_assertions": [
+        "IA-G01",
+        "IA-G02",
+        "IA-G03",
+        "IA-G04",
+        "IA-G05",
+        "IA-G06"
+      ]
+    },
+    "2": {
+      "new_assertions": [
+        "IA-G07",
+        "IA-G08",
+        "IA-G09",
+        "IA-E01",
+        "IA-E02"
+      ]
+    },
+    "3": {
+      "new_assertions": [
+        "IA-E03",
+        "IA-E04",
+        "IA-E05",
+        "IA-E06"
+      ]
+    },
+    "4": {
+      "new_assertions": [],
+      "material_support_refinements": [],
+      "operational_fixed_point": true
+    }
+  },
+  "closure_status": "BOUNDED_OPERATIONAL_FIXED_POINT_NOT_UNIVERSAL_SEMANTIC_CLOSURE"
+}
