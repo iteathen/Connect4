@@ -1,17 +1,18 @@
-// Exactly two owner-authorized diagnostic runs, sequential; no retries.
+// Owner-authorized diagnostic runs, sequential; optional single capacity, no retries.
 import {mkdirSync,writeFileSync,readFileSync,openSync,closeSync,appendFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {spawnSync,execFileSync} from 'node:child_process';
 import {freemem,cpus} from 'node:os';
 import {createHash} from 'node:crypto';
-const [harness,library,output]=process.argv.slice(2);
+const [harness,library,output,singleCapacity]=process.argv.slice(2);
+if(singleCapacity!==undefined&&Number(singleCapacity)!==2097152)throw Error('only requested 2M follow-up admitted');
 const git=(p,...a)=>execFileSync('git',['-C',p,...a],{encoding:'utf8'}).trim();
 const snap=p=>({sha:git(p,'rev-parse','HEAD'),dirty:git(p,'status','--porcelain')});
 const libraryState=snap(library),harnessState=snap(harness);
 if(libraryState.dirty||harnessState.dirty)throw Error('dirty source');
 const sample=resolve(harness,'tools/isomax-cycle-sample.mjs'),hook=resolve(harness,'tools/isomax-node-counts.mjs');
-const arms=[{id:'baseline',capacity:65536},{id:'large',capacity:1048576}];
+const arms=singleCapacity===undefined?[{id:'baseline',capacity:65536},{id:'large',capacity:1048576}]:[{id:'double',capacity:Number(singleCapacity)}];
 mkdirSync(output);
 writeFileSync(resolve(output,'manifest.json'),JSON.stringify({library:libraryState,harness:harnessState,arms,workers:4,input:'',timeoutMs:300000,mask:7,instrumented:true,sourceHashes:Object.fromEntries([sample,hook].map(p=>[p,createHash('sha256').update(readFileSync(p)).digest('hex')])),cpu:cpus()[0].model,node:process.version,started:new Date().toISOString()},null,2)+'\n');
 for(const arm of arms){
