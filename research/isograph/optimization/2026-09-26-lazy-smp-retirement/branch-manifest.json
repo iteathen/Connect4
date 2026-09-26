@@ -1,0 +1,583 @@
+{
+  "date": "2026-09-26",
+  "status": "planned",
+  "policy": "Preserve exact unique source and evidence in annotated remote archive tags; delete only unchanged selected branches; retain Lazy SMP candidates, canonical research, shared main and other solver lanes.",
+  "repos": [
+    {
+      "repo": "iteathen/JSMinSys",
+      "dir": "C:/r/jsminsys-c1",
+      "before": [
+        {
+          "branch": "experiment/assertion-basis-boundaries-v1",
+          "sha": "b3a79df0a17fccbb26265d695b4054f59a667842"
+        },
+        {
+          "branch": "experiment/assertion-basis-u16-v1",
+          "sha": "ff7fc0c4dde5a5efeb38625314881e33b5a74b8d"
+        },
+        {
+          "branch": "experiment/assertion-cpc-basis-boundary-v1",
+          "sha": "7438cf5be969f6ba7b3f6b6f3dbb7f97f75b4076"
+        },
+        {
+          "branch": "experiment/assertion-derived-basis-v1",
+          "sha": "0ade153d956cf505a018222282cd4dad6a14e909"
+        },
+        {
+          "branch": "experiment/assertion-derived-basis-v2",
+          "sha": "bad9c4f2852aace84f642f8ed1bd6618bd611387"
+        },
+        {
+          "branch": "experiment/assertion-known-new-enqueue-v1",
+          "sha": "0c6e6f9518c07652316f541ee676a2fc4c684d8f"
+        },
+        {
+          "branch": "experiment/assertion-retained-basis-v1",
+          "sha": "35d830f92491ba06c7aac4f021f1106bfd47444a"
+        },
+        {
+          "branch": "experiment/isomax-surplus-fight-spike",
+          "sha": "0f9c551acaa812a9d5ffc523b8e1149ae12eb684"
+        },
+        {
+          "branch": "experiment/lazy-smp-cpc-route8-only-v2",
+          "sha": "3855615e4a30a817202bdba37c5b409f3c8a2f46"
+        },
+        {
+          "branch": "experiment/lazy-smp-dts-overlap-census-v1",
+          "sha": "0bb979c61c012290fdbd4d69dd845f4896f70877"
+        },
+        {
+          "branch": "experiment/lazy-smp-leverage-features-v1",
+          "sha": "79a54026ded43d36e917a40d0513adf6154b01af"
+        },
+        {
+          "branch": "experiment/lazy-smp-rank40-offset-v1",
+          "sha": "2afb6690984d33e3593f2ccc072a43bb082a0e9f"
+        },
+        {
+          "branch": "experiment/lazy-smp-rank41-offset-v1",
+          "sha": "c7dd91b4bcec0d8a93b4b158a3e27a70f2a7d645"
+        },
+        {
+          "branch": "experiment/rba-hashless-surplus-scan-v1",
+          "sha": "97989e4a43f3a30d4ccdcd46bfb4346c05a9da2e"
+        },
+        {
+          "branch": "main",
+          "sha": "93aca1758718bcbf0635c11a957a67ca6387d50c"
+        },
+        {
+          "branch": "perf/connect4-cofactor-supersets-v1",
+          "sha": "1921368c017dbd468ad71d5e80be4aefda43ff8c"
+        },
+        {
+          "branch": "perf/connect4-lazy-smp-v2",
+          "sha": "2f3435c7483f03f61f1ab55c3bb37aa0cffc20df"
+        }
+      ],
+      "selected": [
+        {
+          "branch": "experiment/assertion-basis-boundaries-v1",
+          "sha": "b3a79df0a17fccbb26265d695b4054f59a667842",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-basis-boundaries-v1",
+          "subject": "cleanup(assertions): drop superseded known-legal import",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/assertion-basis-u16-v1",
+          "sha": "ff7fc0c4dde5a5efeb38625314881e33b5a74b8d",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-basis-u16-v1",
+          "subject": "test(assertions): qualify 16-bit basis carrier",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/assertion-cpc-basis-boundary-v1",
+          "sha": "7438cf5be969f6ba7b3f6b6f3dbb7f97f75b4076",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-cpc-basis-boundary-v1",
+          "subject": "bench(assertions): measure CPC basis-boundary reuse",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/assertion-derived-basis-v1",
+          "sha": "0ade153d956cf505a018222282cd4dad6a14e909",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-derived-basis-v1",
+          "subject": "ci(assertions): verify derived-basis experiment head",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/assertion-derived-basis-v2",
+          "sha": "bad9c4f2852aace84f642f8ed1bd6618bd611387",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-derived-basis-v2",
+          "subject": "test(assertions): rebase derived-basis exact controls",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/assertion-known-new-enqueue-v1",
+          "sha": "0c6e6f9518c07652316f541ee676a2fc4c684d8f",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-known-new-enqueue-v1",
+          "subject": "perf(assertions): enqueue known-new surplus without revalidation",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/assertion-retained-basis-v1",
+          "sha": "35d830f92491ba06c7aac4f021f1106bfd47444a",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/assertion-retained-basis-v1",
+          "subject": "fix(assertions): consume retained basis in CPC evaluator",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-surplus-fight-spike",
+          "sha": "0f9c551acaa812a9d5ffc523b8e1149ae12eb684",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-surplus-fight-spike",
+          "subject": "spike: run nonblocking surplus fight propagation",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/rba-hashless-surplus-scan-v1",
+          "sha": "97989e4a43f3a30d4ccdcd46bfb4346c05a9da2e",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/rba-hashless-surplus-scan-v1",
+          "subject": "perf: reuse prepared routing scratch for hashless batches",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        }
+      ]
+    },
+    {
+      "repo": "iteathen/Connect4",
+      "dir": "C:/r/isomax-lazy-smoke",
+      "before": [
+        {
+          "branch": "ai/ox-alpha-35643802229-1",
+          "sha": "9d9e91ef4f02b9a2964949eaf9f475e53428d3fe"
+        },
+        {
+          "branch": "benchmark/isomax-cpc-combined-singletons-ab-20260924",
+          "sha": "8e192ecacb57e96ce2c81c6de5b7b34caa726693"
+        },
+        {
+          "branch": "benchmark/isomax-cpc-forced-macro-ab-20260924",
+          "sha": "77083f4ec26a3d1c5cbffc5c163d77d44953c9dc"
+        },
+        {
+          "branch": "benchmark/isomax-cpc-singleton-dedupe-ab-20260924",
+          "sha": "90ad109d3e66ebd38fbbb595912400c9a2a5e27a"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-current-20260924",
+          "sha": "a9c37ab7a5141a9bcef2b221913fbfe8419acea8"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-20260924",
+          "sha": "b1286a3c6b934e67918aa26950f93a5001a11546"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-fused-20260924",
+          "sha": "7b54bdde35b3c0e03bec9eae8c7e91d2112315d7"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-fused-first-20260924",
+          "sha": "fda89b0e7758497c0b6d85f4fdb5f92efc62159a"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-insertion-20260924",
+          "sha": "d30c03229c619c7cd0999a739e869f09a0752aef"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-popcount-ab-20260924",
+          "sha": "563901ce1700f49c46f4dd773cd8ff491aa7251e"
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-popcount2-20260924",
+          "sha": "ecc0edc6ecc4b2f093d46fe07e305f330c75cb3a"
+        },
+        {
+          "branch": "experiment/bsfp-rank-slice-compact42",
+          "sha": "8555e47d853dcefb4731bc45d282e0ffe8b1e87a"
+        },
+        {
+          "branch": "experiment/isomax-addon-optimized-position-code-v1",
+          "sha": "c5c75b6778aaf227472debdcd36bc9f19caab77a"
+        },
+        {
+          "branch": "experiment/isomax-assertion-basis-bitset-v1",
+          "sha": "deaea93e4f4cacf0f5dc5769adb71fcdc289a531"
+        },
+        {
+          "branch": "experiment/isomax-assertion-basis-u16-v1",
+          "sha": "f23313c9ffbdbd3271ebf2b9a9919b8f135e3fe2"
+        },
+        {
+          "branch": "experiment/isomax-assertion-closure-v1",
+          "sha": "83751682c125f7dbac32d6833f794b8cc98ecbd6"
+        },
+        {
+          "branch": "experiment/isomax-assertion-derived-basis-v1",
+          "sha": "8d04d3ed0f1d74d0f9fd1d0f154e19de5e01e338"
+        },
+        {
+          "branch": "experiment/isomax-assertion-fresh-child-bounds-v1",
+          "sha": "39b4002defdd3e2befcdfd090d472eb9d1a4c503"
+        },
+        {
+          "branch": "experiment/isomax-assertion-known-new-enqueue-v1",
+          "sha": "c3530c2b5b2e8e77062d7f9ea64e34c26f7e8145"
+        },
+        {
+          "branch": "experiment/isomax-assertion-retained-basis-v1",
+          "sha": "8d04d3ed0f1d74d0f9fd1d0f154e19de5e01e338"
+        },
+        {
+          "branch": "experiment/isomax-external-calibration-r2",
+          "sha": "f138c998715fba5681c574c55de097682e3f9ac5"
+        },
+        {
+          "branch": "experiment/isomax-hashless-surplus-scan-v1",
+          "sha": "5e31181baf992867f468db703e47b74059f5ff5c"
+        },
+        {
+          "branch": "experiment/isomax-lazy-smp-cpc-route-protect-v1",
+          "sha": "0e1fe8d6ea9dea3fe93ab4ac8b2cf7f9566e976e"
+        },
+        {
+          "branch": "experiment/isomax-lazy-smp-dts-overlap-v1",
+          "sha": "108df23541c5f3b7544e4d2b5983f45999536a88"
+        },
+        {
+          "branch": "experiment/isomax-parent-necessity-r2",
+          "sha": "8ff407b613e77091059a6e506e3b73cc98f4dc34"
+        },
+        {
+          "branch": "experiment/isomax-perfect-position-code-v1",
+          "sha": "140b3c050aec898ec3f26df91e7497ff413485d7"
+        },
+        {
+          "branch": "experiment/isomax-subtractive-cache-key-r2",
+          "sha": "6d97e46e8ff9cbe7a8c44ac4d24a07bf22faa2b2"
+        },
+        {
+          "branch": "experiment/lazy-smp-implicit-assertions-v1",
+          "sha": "cd37058215cd6886564c63f0f35adeea86859c74"
+        },
+        {
+          "branch": "main",
+          "sha": "095d26863d30e805309d26a43ec9afa0f4ec5ab4"
+        },
+        {
+          "branch": "measure/isomax-d-econ-baseline-30900982",
+          "sha": "59166a4024ff2f415466b15a6e7ffaf92d885b62"
+        },
+        {
+          "branch": "measure/isomax-d-econ-candidate-a26ef225",
+          "sha": "f0bb72d9b37516cf10063c3db3cc26f6e06e9a98"
+        },
+        {
+          "branch": "prototype/isomax-exposure-deficit-latch-102",
+          "sha": "604a130e8d554a1f9ca0a80bdeeac25760b9cb94"
+        },
+        {
+          "branch": "qualification/isomax-qr-transport-20260919",
+          "sha": "eb8928fe6f4c4b3dba6ad3e2d42f186947a6ebf2"
+        },
+        {
+          "branch": "research/isomax-deficit-credit-ledger-102",
+          "sha": "dcf5e787bc5d5c0beff6bef3bdcbe695ccc0f8f9"
+        },
+        {
+          "branch": "research/semantic-quotient",
+          "sha": "05131a7f122f8baa02faa2b2e83977d52b45cd64"
+        },
+        {
+          "branch": "solver/cuda-bsfp",
+          "sha": "abdf7b0993f07bd6087669848c2dda91dff65608"
+        },
+        {
+          "branch": "solver/hybrid-confluence",
+          "sha": "39e5df3aa3e1818acb1adcd1e6e2a69f02046c06"
+        },
+        {
+          "branch": "solver/isometric",
+          "sha": "1f98d7b15eefdc5cf032f6f6bcb4bb71b51a02b1"
+        },
+        {
+          "branch": "solver/minimax-alpha-beta",
+          "sha": "3c7524321d49c11c3cb6c519425e3bd0ed4bb42b"
+        },
+        {
+          "branch": "solver/sut",
+          "sha": "6b7105cd3957a5398f70571f6c59a85eb138d6a6"
+        },
+        {
+          "branch": "work/dev-budget-trading-agent",
+          "sha": "0201bb67cca7b583873da6bcc979b116feba6ea9"
+        },
+        {
+          "branch": "work/director-immediate-handoff-wake-20260922",
+          "sha": "206bc29f798637a833c1762240ea0f06da5879b2"
+        },
+        {
+          "branch": "work/isograph-1-1-core-0-18-sanity-20260918",
+          "sha": "49d94cdd56f5a85a8c74e18a099cd559466d9aa5"
+        },
+        {
+          "branch": "work/isograph-logic-authority-1-1-rebuild-20260918",
+          "sha": "ab638ed92b3082dd0fdd0918869c5cc91f2465f5"
+        },
+        {
+          "branch": "work/isograph-logic-authority-20260918",
+          "sha": "8c14480068ead1a468ea53cd2f5ffa2eb358d63d"
+        },
+        {
+          "branch": "work/isomax-decentralized-pull-102",
+          "sha": "fe52e56c6561b394c92b1071323a60ba35478bb4"
+        },
+        {
+          "branch": "work/isomax-jsminsys-boundary-cleanup",
+          "sha": "7db9b5c3d31d86e7cfee84d02c551a96c892d0cb"
+        },
+        {
+          "branch": "work/isomax-jsminsys-rebuild",
+          "sha": "f5e72cd33d4e469a52ecc45bb36f7e234bec02c5"
+        },
+        {
+          "branch": "work/isomax-qualification-ox-staffing",
+          "sha": "7293fd09d379b481231435d2eb0272de8a9e7d0a"
+        },
+        {
+          "branch": "work/recovery-bootstrap-durability-20260922",
+          "sha": "b17ca561d832e6c79fdf559c37919f12ef9c00d2"
+        },
+        {
+          "branch": "work/recovery-epoch-hardening",
+          "sha": "cb6655b23a49fcd41f244d59fb027bd3c9dd6917"
+        },
+        {
+          "branch": "work/recovery-transport-separation-20260922",
+          "sha": "6768b5ed0e1043891f9644fda02cd187aac481ab"
+        },
+        {
+          "branch": "work/research-isomax-pull-102-final",
+          "sha": "f1affd81cb2e19ad3cab2286585e8c4569994249"
+        }
+      ],
+      "selected": [
+        {
+          "branch": "benchmark/isomax-cpc-combined-singletons-ab-20260924",
+          "sha": "8e192ecacb57e96ce2c81c6de5b7b34caa726693",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-cpc-combined-singletons-ab-20260924",
+          "subject": "bench(isomax): compare combined CPC singleton scan",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-cpc-forced-macro-ab-20260924",
+          "sha": "77083f4ec26a3d1c5cbffc5c163d77d44953c9dc",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-cpc-forced-macro-ab-20260924",
+          "subject": "bench(isomax): compare CPC forced macro",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-cpc-singleton-dedupe-ab-20260924",
+          "sha": "90ad109d3e66ebd38fbbb595912400c9a2a5e27a",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-cpc-singleton-dedupe-ab-20260924",
+          "subject": "bench(isomax): compare CPC singleton dedupe",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-current-20260924",
+          "sha": "a9c37ab7a5141a9bcef2b221913fbfe8419acea8",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-current-20260924",
+          "subject": "bench(isomax): run current Fhourstones cycle baseline",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-20260924",
+          "sha": "b1286a3c6b934e67918aa26950f93a5001a11546",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-live-line-20260924",
+          "subject": "bench(isomax): run live-line Fhourstones baseline",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-fused-20260924",
+          "sha": "7b54bdde35b3c0e03bec9eae8c7e91d2112315d7",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-live-line-fused-20260924",
+          "subject": "bench(isomax): measure fused live-line transition",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-fused-first-20260924",
+          "sha": "fda89b0e7758497c0b6d85f4fdb5f92efc62159a",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-live-line-fused-first-20260924",
+          "subject": "bench(isomax): isolate fused live-line control",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-insertion-20260924",
+          "sha": "d30c03229c619c7cd0999a739e869f09a0752aef",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-live-line-insertion-20260924",
+          "subject": "bench(isomax): measure insertion live-line ordering",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-popcount-ab-20260924",
+          "sha": "563901ce1700f49c46f4dd773cd8ff491aa7251e",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-live-line-popcount-ab-20260924",
+          "subject": "bench(isomax): add same-runner live-line popcount A-B",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "benchmark/isomax-fhourstones-live-line-popcount2-20260924",
+          "sha": "ecc0edc6ecc4b2f093d46fe07e305f330c75cb3a",
+          "archive": "archive/lazy-smp-retirement-20260926/benchmark/isomax-fhourstones-live-line-popcount2-20260924",
+          "subject": "bench(isomax): measure fused live-line popcount",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-addon-optimized-position-code-v1",
+          "sha": "c5c75b6778aaf227472debdcd36bc9f19caab77a",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-addon-optimized-position-code-v1",
+          "subject": "bench(isomax): qualify fully packed add-on optimization",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-basis-bitset-v1",
+          "sha": "deaea93e4f4cacf0f5dc5769adb71fcdc289a531",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-basis-bitset-v1",
+          "subject": "bench(isomax): isolate direct compact-basis publication",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-basis-u16-v1",
+          "sha": "f23313c9ffbdbd3271ebf2b9a9919b8f135e3fe2",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-basis-u16-v1",
+          "subject": "bench(isomax): pin 16-bit basis candidate",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-closure-v1",
+          "sha": "83751682c125f7dbac32d6833f794b8cc98ecbd6",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-closure-v1",
+          "subject": "bench(isomax): retrigger assertion qualification on test repair",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-derived-basis-v1",
+          "sha": "8d04d3ed0f1d74d0f9fd1d0f154e19de5e01e338",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-derived-basis-v1",
+          "subject": "bench(isomax): compare stored versus support-derived basis",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-fresh-child-bounds-v1",
+          "sha": "39b4002defdd3e2befcdfd090d472eb9d1a4c503",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-fresh-child-bounds-v1",
+          "subject": "bench(isomax): pin fresh child bounds candidate",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-known-new-enqueue-v1",
+          "sha": "c3530c2b5b2e8e77062d7f9ea64e34c26f7e8145",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-known-new-enqueue-v1",
+          "subject": "bench(isomax): pin known-new enqueue candidate",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-assertion-retained-basis-v1",
+          "sha": "8d04d3ed0f1d74d0f9fd1d0f154e19de5e01e338",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-assertion-retained-basis-v1",
+          "subject": "bench(isomax): compare stored versus support-derived basis",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-external-calibration-r2",
+          "sha": "f138c998715fba5681c574c55de097682e3f9ac5",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-external-calibration-r2",
+          "subject": "research: correct move-equivalent calibration semantics",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-hashless-surplus-scan-v1",
+          "sha": "5e31181baf992867f468db703e47b74059f5ff5c",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-hashless-surplus-scan-v1",
+          "subject": "bench(isomax): measure routed hashless scan candidate",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-parent-necessity-r2",
+          "sha": "8ff407b613e77091059a6e506e3b73cc98f4dc34",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-parent-necessity-r2",
+          "subject": "research: run parent-necessity prototype in disposable tree",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-perfect-position-code-v1",
+          "sha": "140b3c050aec898ec3f26df91e7497ff413485d7",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-perfect-position-code-v1",
+          "subject": "fix(bench): restore full experiment tree",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "experiment/isomax-subtractive-cache-key-r2",
+          "sha": "6d97e46e8ff9cbe7a8c44ac4d24a07bf22faa2b2",
+          "archive": "archive/lazy-smp-retirement-20260926/experiment/isomax-subtractive-cache-key-r2",
+          "subject": "research: measure subtractive cache key",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "measure/isomax-d-econ-baseline-30900982",
+          "sha": "59166a4024ff2f415466b15a6e7ffaf92d885b62",
+          "archive": "archive/lazy-smp-retirement-20260926/measure/isomax-d-econ-baseline-30900982",
+          "subject": "ci(isomax): measure exact 30900982 economics",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "measure/isomax-d-econ-candidate-a26ef225",
+          "sha": "f0bb72d9b37516cf10063c3db3cc26f6e06e9a98",
+          "archive": "archive/lazy-smp-retirement-20260926/measure/isomax-d-econ-candidate-a26ef225",
+          "subject": "ci(isomax): measure exact a26ef225 economics",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "prototype/isomax-exposure-deficit-latch-102",
+          "sha": "604a130e8d554a1f9ca0a80bdeeac25760b9cb94",
+          "archive": "archive/lazy-smp-retirement-20260926/prototype/isomax-exposure-deficit-latch-102",
+          "subject": "test(isomax): model deficit crash detectability",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "qualification/isomax-qr-transport-20260919",
+          "sha": "eb8928fe6f4c4b3dba6ad3e2d42f186947a6ebf2",
+          "archive": "archive/lazy-smp-retirement-20260926/qualification/isomax-qr-transport-20260919",
+          "subject": "test(isomax): qualify q_r action transport across reflection",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "research/isomax-deficit-credit-ledger-102",
+          "sha": "dcf5e787bc5d5c0beff6bef3bdcbe695ccc0f8f9",
+          "archive": "archive/lazy-smp-retirement-20260926/research/isomax-deficit-credit-ledger-102",
+          "subject": "test(isomax): model READY transfer conservation",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "work/isomax-decentralized-pull-102",
+          "sha": "fe52e56c6561b394c92b1071323a60ba35478bb4",
+          "archive": "archive/lazy-smp-retirement-20260926/work/isomax-decentralized-pull-102",
+          "subject": "ci(isomax): qualify tight pull admission on hard roots",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "work/isomax-qualification-ox-staffing",
+          "sha": "7293fd09d379b481231435d2eb0272de8a9e7d0a",
+          "archive": "archive/lazy-smp-retirement-20260926/work/isomax-qualification-ox-staffing",
+          "subject": "Agents: keep finance administration private (#130)",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        },
+        {
+          "branch": "work/research-isomax-pull-102-final",
+          "sha": "f1affd81cb2e19ad3cab2286585e8c4569994249",
+          "archive": "archive/lazy-smp-retirement-20260926/work/research-isomax-pull-102-final",
+          "subject": "research: record occurrence versus execution storage separation",
+          "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        }
+      ]
+    }
+  ]
+}
