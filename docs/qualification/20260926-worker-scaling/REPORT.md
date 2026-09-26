@@ -67,6 +67,8 @@ From this checkout, use Node 26.7.0:
 node --experimental-ffi --import ./docs/qualification/20260926-worker-scaling/node-counter-hook.mjs docs/qualification/20260926-worker-scaling/run-eight.mjs
 ```
 
-The driver refuses to overwrite existing eight-worker evidence. For a future rerun, copy the harness files into a new qualification directory at the same depth. The original four-worker command was node --experimental-ffi docs/qualification/20260926-worker-scaling/run.mjs 4.
+Both drivers refuse to overwrite existing evidence. For a future rerun, copy the harness files into a new qualification directory at the same depth. The original four-worker command was node --experimental-ffi docs/qualification/20260926-worker-scaling/run.mjs 4.
+
+PR review added the same overwrite guard to the original `run.mjs`; no result or journal was changed. The historical measurement harness remains recoverable at `b3d487f89737aaf50f85cc3b280827e5cf5e9464`, with SHA-256 `7df4ae55cd7f055b4b78898004dcea9ed313687d5f3e2c60f1829ee3fa489f3d`. The current artifact manifest pins the guarded reproducer.
 
 Raw per-case outcomes are in workers-8.json; periodic samples in workers-8.jsonl; earlier evidence in workers-4.json/jsonl and the explicitly stopped workers-5.json/jsonl. artifact-hashes.json pins these files and the measurement harnesses. Historical evidence is not overwritten.

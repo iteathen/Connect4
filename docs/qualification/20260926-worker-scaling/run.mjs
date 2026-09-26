@@ -1,7 +1,7 @@
 // Cold measurement harness. No solver, library, or hot-path modifications.
 // One-worker control launches the identical library worker directly, because
 // the production Lazy SMP host rejects one worker. All other counts use it.
-import {appendFileSync, writeFileSync} from 'node:fs';
+import {appendFileSync, existsSync, writeFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {cpus} from 'node:os';
 import {performance} from 'node:perf_hooks';
@@ -48,6 +48,7 @@ async function oneWorker(moves){
 }
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
 const output=new URL(`./workers-${workers}.json`,import.meta.url),journal=new URL(`./workers-${workers}.jsonl`,import.meta.url);
+if(existsSync(output)||existsSync(journal))throw Error('Refuse to overwrite existing qualification evidence; use a new qualification directory');
 const report={started:new Date().toISOString(),sha:git('rev-parse','HEAD'),jsminsys:git('-C','vendor/jsminsys','rev-parse','HEAD'),
   sourceDirty:!!git('status','--porcelain','--','components','tools','vendor','test','package.json'),
   node:process.version,v8:process.versions.v8,cpu:cpus()[0].model,logicalCpus:cpus().length,config,
