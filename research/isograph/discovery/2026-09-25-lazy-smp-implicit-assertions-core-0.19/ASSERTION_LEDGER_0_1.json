@@ -199,6 +199,31 @@
         "IA-G08",
         "IA-E03"
       ]
+    },
+    {
+      "id": "IA-G10",
+      "pass": 4,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "For a share-eligible key before the first matching exact commit, the shared probe cannot yield a matching exact hit; after commit, the same key gate can yield post-commit reuse. The current gate therefore couples unavoidable pre-commit probe-miss overhead to possible post-commit reuse.",
+      "supports": [
+        "IA-G01",
+        "IA-G05",
+        "IA-G07"
+      ]
+    },
+    {
+      "id": "IA-G11",
+      "pass": 5,
+      "layer": "graph_only",
+      "support_mode": "EXACT",
+      "novelty": "new_structural_synthesis",
+      "assertion": "Because the same deterministic key partition controls shared probing and shared publication, changing shared density changes pre-commit eligible probe misses, post-commit reuse opportunities, and shared publication opportunities together; the current architecture cannot tune these event classes independently with the mask alone.",
+      "supports": [
+        "IA-G10",
+        "share gate is reused by probe and store"
+      ]
     }
   ],
   "passes": {
@@ -230,10 +255,21 @@
       ]
     },
     "4": {
+      "new_assertions": [
+        "IA-G10"
+      ],
+      "note": "found after provisional stop while preparing DP rerun"
+    },
+    "5": {
+      "new_assertions": [
+        "IA-G11"
+      ]
+    },
+    "6": {
       "new_assertions": [],
       "material_support_refinements": [],
       "operational_fixed_point": true
     }
   },
-  "closure_status": "BOUNDED_OPERATIONAL_FIXED_POINT_NOT_UNIVERSAL_SEMANTIC_CLOSURE"
+  "closure_status": "BOUNDED_OPERATIONAL_FIXED_POINT_AT_PASS_6_NOT_UNIVERSAL_SEMANTIC_CLOSURE"
 }
