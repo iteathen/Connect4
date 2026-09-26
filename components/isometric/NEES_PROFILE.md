@@ -5,7 +5,7 @@ IsoMax no longer owns an independent hot execution kernel or result translator.
 Cost and hot-path authority for the active Connect4 Lazy-SMP runtime lives in
 JSMinSys, pinned at:
 
-`04d37498607ace16dae33c79462ddfe1503c8a0d`
+`93aca1758718bcbf0635c11a957a67ca6387d50c`
 
 NEES remains the parent cost authority used by JSMinSys. IsoMax retains only
 cold application policy around `runLazySmpConnect4Rba32`.

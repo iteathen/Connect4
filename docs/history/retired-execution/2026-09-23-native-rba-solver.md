@@ -1,3 +1,6 @@
+> HISTORICAL execution plan, superseded by Lazy SMP. Not active authority.
+> Original source: Connect4 7db9b5c3d31d86e7cfee84d02c551a96c892d0cb.
+
 # Native RBA solver implementation plan
 
 Goal: implement the reviewed standard-7x6 native solver on the rebuilt executor.

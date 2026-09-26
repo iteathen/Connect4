@@ -49,6 +49,9 @@ test('public IsoMax entrypoint delegates exclusively to JSMinSys Lazy SMP',()=>{
   assert.equal(host.includes('rbaTtPublishSurplus32'),false);
   assert.equal(worker.includes('solveConnect4RbaAlphaBeta('),true);
 
+  assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-tt32.mjs',import.meta.url)),false);
+  assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-branch-manager.mjs',import.meta.url)),false);
+  assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-connect4-solver.mjs',import.meta.url)),false);
   assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-host.mjs',import.meta.url)),false);
   assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-worker.mjs',import.meta.url)),false);
   assert.equal(existsSync(new URL('../vendor/jsminsys/addons/rba-connect4-managed-manager.mjs',import.meta.url)),false);

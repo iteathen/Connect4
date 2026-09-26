@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import {
   prepareConnect4RbaGeometry,
   prepareConnect4RbaCoordinateScratch,
@@ -9,7 +11,7 @@ import {
 import {
   connect4RbaFromMoves,
   connect4PositionCode64FromMoves,
-} from '../vendor/jsminsys/addons/rba-connect4-solver.mjs';
+} from '../vendor/jsminsys/addons/rba-connect4-ingress.mjs';
 
 function equalU32(a,b,label){
   assert.equal(a.length,b.length,`${label}: length`);
@@ -187,7 +189,7 @@ function standard7x6(){
 const bounded=exhaustive4x4(),standard=standard7x6();
 const result={
   event:'jsminsys-qr-qualification',
-  jsminsys:'04d37498607ace16dae33c79462ddfe1503c8a0d',
+  jsminsys:execFileSync('git',['-C',fileURLToPath(new URL('../vendor/jsminsys',import.meta.url)),'rev-parse','HEAD'],{encoding:'utf8'}).trim(),
   theoremScope:'current JSMinSys exact key as reflection-orbit scalar-value cache realization',
   bounded,
   standard,

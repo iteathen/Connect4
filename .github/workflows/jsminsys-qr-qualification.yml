@@ -26,6 +26,6 @@ jobs:
         shell: bash
         run: |
           actual="$(git -C vendor/jsminsys rev-parse HEAD)"
-          test "$actual" = "04d37498607ace16dae33c79462ddfe1503c8a0d"
+          test "$actual" = "93aca1758718bcbf0635c11a957a67ca6387d50c"
       - name: Qualify current exact key against q_r
         run: node tools/qualify-jsminsys-qr.mjs

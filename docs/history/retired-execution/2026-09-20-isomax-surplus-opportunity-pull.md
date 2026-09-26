@@ -1,3 +1,7 @@
+> HISTORICAL SNAPSHOT at Connect4 `7db9b5c3d31d86e7cfee84d02c551a96c892d0cb`.
+> Retired execution design/evidence; not current implementation authority.
+> See ../../decisions/2026-09-24-isomax-lazy-smp-only.md.
+
 # IsoMax decentralized retained-pull / shared-TT execution
 
 **Status:** active implementation contract for issue #102  

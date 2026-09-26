@@ -18,7 +18,7 @@ node --experimental-ffi tools/bench-fhourstones.mjs
 ```
 
 Use Node 26.7.0 for the recorded qualification. JSMinSys is pinned as a git
-submodule to `04d37498607ace16dae33c79462ddfe1503c8a0d`. The governing performance reference is NEES Draft 0.5
+submodule to `93aca1758718bcbf0635c11a957a67ca6387d50c`. The governing performance reference is NEES Draft 0.5
 at `7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
 
 The active application path is
