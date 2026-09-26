@@ -12,14 +12,18 @@
 
 Core 0.19 produced useful structure on the existing Lazy SMP rendering without modifying the rendering or importing a new premise.
 
-The operational expansion reached a fixed point after three productive passes:
+The operational expansion reached a bounded fixed point only after five productive passes:
 
 ```text
 pass 1: 6 assertions
 pass 2: 5 assertions
 pass 3: 4 assertions
-pass 4: 0 new assertions
+pass 4: 1 assertion
+pass 5: 1 assertion
+pass 6: 0 new assertions
 ```
+
+A provisional stop after pass 3 was deliberately reopened while preparing the DP rerun. That additional reasoning exposed two further forced assertions. This is useful negative evidence against treating an AI's first "nothing else follows" judgment as semantic completeness.
 
 This is a bounded operational fixed point over the frozen inputs, not a claim of universal semantic closure.
 
@@ -261,9 +265,53 @@ No claim is made that such a mechanism would be profitable.
 
 ---
 
-# Pass 4 — operational fixed point
+# Pass 4 — phase-asymmetric gate cost
 
-The new assertions from passes 1-3 were reintroduced as premises.
+## IA-G10 — pre-commit probe miss versus post-commit reuse
+
+IA-G01, IA-G05 and IA-G07 jointly force another distinction.
+
+For a share-eligible key before its first matching exact commit:
+
+```text
+shared probe
+    -> cannot return matching exact truth
+    -> miss
+```
+
+After commit, the same deterministic key gate can lead to a valid exact hit.
+
+Therefore the current gate couples:
+
+```text
+pre-commit probe-miss overhead
+    with
+post-commit exact-reuse opportunity
+```
+
+for the same selected key population.
+
+This assertion was found only after a provisional stop, demonstrating why operational fixed points must remain explicitly bounded.
+
+# Pass 5 — mask-coupled event classes
+
+## IA-G11 — one mask couples three event populations
+
+The same deterministic partition is used for shared probing and optional shared publication.
+
+Therefore changing `sharedSampleMask` changes together:
+
+1. pre-commit eligible shared probes that cannot yet hit the matching key;
+2. post-commit eligible shared probes that may reuse a committed exact fact;
+3. exact-result shared publication opportunities.
+
+The mask alone cannot tune those event classes independently.
+
+This is an architectural consequence, not a claim that asymmetric gating would be profitable.
+
+# Pass 6 — bounded operational fixed point
+
+All assertions from passes 1-5 were reintroduced as premises.
 
 No additional materially distinct assertion was found without:
 
@@ -275,7 +323,7 @@ No additional materially distinct assertion was found without:
 Disposition:
 
 ```text
-bounded operational fixed point: REACHED
+bounded operational fixed point: REACHED AT PASS 6
 universal implicit closure:       NOT CLAIMED
 ```
 
@@ -288,7 +336,7 @@ universal implicit closure:       NOT CLAIMED
 The candidate successfully preserved:
 
 - explicit versus implicit support;
-- multi-pass lineage;
+- multi-pass lineage, including a useful correction where a provisional stop was reopened;
 - graph-only versus evidence-enriched support;
 - QU boundaries;
 - grounded inference without a prescribed inference catalogue;
