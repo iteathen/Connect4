@@ -1,7 +1,7 @@
 // COLD sequential campaign. Run one sample at a time; append outcomes before analysis.
 import {mkdirSync,writeFileSync,appendFileSync,readFileSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawnSync,execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {validateCycleSample,summarizeCycleBlocks} from './isomax-cycle-analysis.mjs';
@@ -25,10 +25,11 @@ writeFileSync(resolve(output,'manifest.json'),JSON.stringify({mode,blocks,baseli
   sequence:'ABBA',input:'45461667',workers:4},null,2)+'\n',{flag:'wx'});
 for(let block=0;block<blocks;block++)for(const arm of ['A','B','B','A']){
   const instrumented=mode==='instrumentation'&&arm==='B';
-  const args=['--experimental-ffi',...(instrumented?['--import',hook]:[]),sample,
+  const startedAt=new Date().toISOString();
+  const args=['--experimental-ffi',...(instrumented?['--import',pathToFileURL(hook).href]:[]),sample,
     arm==='B'?candidate:baseline,'45461667'];
   const child=spawnSync(process.execPath,args,{encoding:'utf8',timeout:45000,maxBuffer:4*1024*1024});
-  const raw={block,arm,index:samples.length,startedAt:new Date().toISOString(),exitCode:child.status,
+  const raw={block,arm,index:samples.length,startedAt,finishedAt:new Date().toISOString(),exitCode:child.status,
     signal:child.signal,error:child.error?.message??null,stdout:child.stdout,stderr:child.stderr};
   appendFileSync(resolve(output,'processes.jsonl'),JSON.stringify(raw)+'\n');
   if(child.status!==0)throw Error('sample failed; raw outcome preserved; no retry');
