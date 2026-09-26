@@ -1,0 +1,42 @@
+{
+  "staticImportEdges": 57,
+  "extraManifestEdges": [
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "to": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "kind": "workerURL"
+    }
+  ],
+  "missingImports": [],
+  "absentTargets": [],
+  "scopes": 1388,
+  "resolvedUses": 10220,
+  "externalNames": {
+    "undefined": 8,
+    "Number": 59,
+    "RangeError": 33,
+    "Array": 4,
+    "Float64Array": 4,
+    "SharedArrayBuffer": 12,
+    "process": 1,
+    "Int32Array": 14,
+    "TypeError": 18,
+    "Atomics": 84,
+    "Promise": 4,
+    "String": 1,
+    "setTimeout": 1,
+    "setInterval": 1,
+    "clearTimeout": 2,
+    "clearInterval": 2,
+    "ArrayBuffer": 2,
+    "Uint32Array": 92,
+    "Math": 25,
+    "Uint8Array": 4,
+    "Int8Array": 2,
+    "Map": 1,
+    "URL": 1
+  },
+  "numericRoundtrip": "2861 binary64 bit payloads unchanged",
+  "nativeRoundtrip": "exact after trimming trailing whitespace",
+  "limitation": "Binding navigation checks nearest represented lexical ownership; it is not a full ECMAScript early-error/linker or runtime evaluator. TDZ/default-parameter initialization and per-iteration environment semantics remain governed by the pinned ECMA authority."
+}

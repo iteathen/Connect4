@@ -1,0 +1,351 @@
+{
+  "status": "CANDIDATE_REQUIRES_COLD_ADMISSION",
+  "claim": "source-faithful executable algorithm structure under declared ECMAScript/Node model; not theorem of solver correctness, timing or optimizer benefit",
+  "modelAuthority": {
+    "category": "stipulated source model / frozen implementation environment",
+    "language": {
+      "repository": "tc39/ecma262",
+      "revision": "84b38ad852ff426795fa29cebc06949027336c64",
+      "path": "spec.html",
+      "sha256": "525626fffc5737ad2eab8898f36e2a29189ada2d31316cc5beffeea1b4122321"
+    },
+    "runtime": {
+      "repository": "nodejs/node",
+      "revision": "b4f23d3619c98bed09af93a21192f6080197a8c6",
+      "version": "26.7.0",
+      "interfaces": [
+        "doc/api/worker_threads.md",
+        "doc/api/perf_hooks.md",
+        "doc/api/timers.md",
+        "doc/api/globals.md",
+        "doc/api/url.md",
+        "doc/api/process.md",
+        "doc/api/events.md"
+      ]
+    },
+    "parser": {
+      "name": "acorn",
+      "version": "8.15.0",
+      "integrity": "sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg=="
+    }
+  },
+  "nodeBindings": [
+    {
+      "type": "Program",
+      "section": "sec-module-semantics",
+      "fieldRoles": "body: ordered ModuleItemList; sourceType=module"
+    },
+    {
+      "type": "ImportDeclaration",
+      "section": "sec-imports",
+      "fieldRoles": "source: ModuleSpecifier; specifiers: ordered ImportClause"
+    },
+    {
+      "type": "ImportSpecifier",
+      "section": "sec-imports",
+      "fieldRoles": "imported: ImportName; local: BindingIdentifier"
+    },
+    {
+      "type": "ExportNamedDeclaration",
+      "section": "sec-exports",
+      "fieldRoles": "declaration or ordered specifiers; optional source ModuleSpecifier"
+    },
+    {
+      "type": "ExportAllDeclaration",
+      "section": "sec-exports",
+      "fieldRoles": "source ModuleSpecifier; exported null means star export"
+    },
+    {
+      "type": "ExportSpecifier",
+      "section": "sec-exports",
+      "fieldRoles": "local binding; exported ExportName"
+    },
+    {
+      "type": "Identifier",
+      "section": "sec-identifiers",
+      "fieldRoles": "name is exact IdentifierName; declaration/use role follows enclosing production, not spelling alone"
+    },
+    {
+      "type": "Literal",
+      "section": "sec-primary-expression-literals",
+      "fieldRoles": "raw preserves lexical token; value preserves decoded value; regex/bigint fields select their literal production"
+    },
+    {
+      "type": "VariableDeclaration",
+      "section": "sec-let-and-const-declarations",
+      "fieldRoles": "kind selects var/let/const; declarations preserve ordered binding/initializer pairs"
+    },
+    {
+      "type": "VariableDeclarator",
+      "section": "sec-destructuring-binding-patterns",
+      "fieldRoles": "id is BindingIdentifier or BindingPattern; init null means absent initializer"
+    },
+    {
+      "type": "ObjectPattern",
+      "section": "sec-destructuring-binding-patterns",
+      "fieldRoles": "ordered binding properties and defaults, not an object value"
+    },
+    {
+      "type": "AssignmentPattern",
+      "section": "sec-destructuring-binding-patterns",
+      "fieldRoles": "left binding target; right default expression evaluated only when required"
+    },
+    {
+      "type": "FunctionDeclaration",
+      "section": "sec-function-definitions",
+      "fieldRoles": "id binding; ordered params; body; async/generator flags select corresponding productions"
+    },
+    {
+      "type": "FunctionExpression",
+      "section": "sec-function-definitions",
+      "fieldRoles": "optional local id; ordered params; body; async/generator flags retained"
+    },
+    {
+      "type": "ArrowFunctionExpression",
+      "section": "sec-arrow-function-definitions",
+      "fieldRoles": "params, body, expression flag, async flag; lexical this, not ordinary FunctionExpression"
+    },
+    {
+      "type": "BlockStatement",
+      "section": "sec-block",
+      "fieldRoles": "body is ordered StatementList and lexical scope; not unordered conjunction"
+    },
+    {
+      "type": "ExpressionStatement",
+      "section": "sec-expression-statement",
+      "fieldRoles": "expression evaluated for effects; directive preserved if supplied"
+    },
+    {
+      "type": "IfStatement",
+      "section": "sec-if-statement",
+      "fieldRoles": "test; consequent iff ToBoolean(test); alternate otherwise, null means absent"
+    },
+    {
+      "type": "ConditionalExpression",
+      "section": "sec-conditional-operator",
+      "fieldRoles": "test; evaluate only selected consequent/alternate expression"
+    },
+    {
+      "type": "ForStatement",
+      "section": "sec-for-statement",
+      "fieldRoles": "init once, test before body when present, update after body/continue; break exits"
+    },
+    {
+      "type": "WhileStatement",
+      "section": "sec-while-statement",
+      "fieldRoles": "test before each body; abrupt completion and continue/break preserved"
+    },
+    {
+      "type": "ForInStatement",
+      "section": "sec-for-in-and-for-of-statements",
+      "fieldRoles": "left binding/target; right object; property-key enumeration; body"
+    },
+    {
+      "type": "ForOfStatement",
+      "section": "sec-for-in-and-for-of-statements",
+      "fieldRoles": "left binding/target; right iterable; body; await flag retained; iterator close semantics"
+    },
+    {
+      "type": "ContinueStatement",
+      "section": "sec-continue-statement",
+      "fieldRoles": "label null or exact label; abrupt continue completion"
+    },
+    {
+      "type": "BreakStatement",
+      "section": "sec-break-statement",
+      "fieldRoles": "label null or exact label; abrupt break completion"
+    },
+    {
+      "type": "ReturnStatement",
+      "section": "sec-return-statement",
+      "fieldRoles": "argument nullable; abrupt return completion to current function"
+    },
+    {
+      "type": "ThrowStatement",
+      "section": "sec-throw-statement",
+      "fieldRoles": "argument evaluated then abrupt throw completion"
+    },
+    {
+      "type": "TryStatement",
+      "section": "sec-try-statement",
+      "fieldRoles": "block; handler nullable; finalizer nullable; completion replacement/order retained"
+    },
+    {
+      "type": "CallExpression",
+      "section": "sec-function-calls",
+      "fieldRoles": "callee Reference then ordered arguments; optional flag; receiver preserved for property calls"
+    },
+    {
+      "type": "NewExpression",
+      "section": "sec-new-operator",
+      "fieldRoles": "callee constructor and ordered arguments; new instance and abrupt completion"
+    },
+    {
+      "type": "MemberExpression",
+      "section": "sec-property-accessors",
+      "fieldRoles": "object before property; computed selects bracket expression versus literal property name; optional flag retained"
+    },
+    {
+      "type": "ChainExpression",
+      "section": "sec-optional-chains",
+      "fieldRoles": "expression carries optional-chain short circuit boundary"
+    },
+    {
+      "type": "ParenthesizedExpression",
+      "section": "sec-grouping-operator",
+      "fieldRoles": "expression preserves grouping without introducing binding scope"
+    },
+    {
+      "type": "BinaryExpression",
+      "section": "sec-ecmascript-language-expressions",
+      "fieldRoles": "operator selects numeric/bitwise/relational/equality production; left and right ordered; coercion and exceptions retained"
+    },
+    {
+      "type": "LogicalExpression",
+      "section": "sec-binary-logical-operators",
+      "fieldRoles": "operator &&/||/?? selects short-circuit semantics; right conditional, not eager"
+    },
+    {
+      "type": "UnaryExpression",
+      "section": "sec-unary-operators",
+      "fieldRoles": "operator, prefix, argument; operator selects typeof/!/~/unary +/-/void/delete semantics"
+    },
+    {
+      "type": "UpdateExpression",
+      "section": "sec-update-expressions",
+      "fieldRoles": "operator and prefix distinguish value before/after update; argument is assignment target"
+    },
+    {
+      "type": "AssignmentExpression",
+      "section": "sec-assignment-operators",
+      "fieldRoles": "operator; left reference once; right; conversion/read-modify-write follows chosen operator"
+    },
+    {
+      "type": "ArrayExpression",
+      "section": "sec-array-initializer",
+      "fieldRoles": "ordered elements, holes=null; spread selected by element node kind"
+    },
+    {
+      "type": "ObjectExpression",
+      "section": "sec-object-initializer",
+      "fieldRoles": "ordered properties; evaluation order and duplicate property overwrite retained"
+    },
+    {
+      "type": "Property",
+      "section": "sec-object-initializer",
+      "fieldRoles": "key,value,kind,method,shorthand,computed; enclosing ObjectPattern changes binding interpretation"
+    },
+    {
+      "type": "SpreadElement",
+      "section": "sec-object-initializer",
+      "fieldRoles": "argument; parent production selects object spread or argument/array iterator spread"
+    },
+    {
+      "type": "ClassDeclaration",
+      "section": "sec-class-definitions",
+      "fieldRoles": "id,superClass,body; lexical class binding and inheritance"
+    },
+    {
+      "type": "ClassBody",
+      "section": "sec-class-definitions",
+      "fieldRoles": "ordered method definitions"
+    },
+    {
+      "type": "MethodDefinition",
+      "section": "sec-class-definitions",
+      "fieldRoles": "key,value,kind,computed,static; method receiver and constructor semantics"
+    },
+    {
+      "type": "ThisExpression",
+      "section": "sec-this-keyword",
+      "fieldRoles": "ResolveThisBinding from execution environment"
+    },
+    {
+      "type": "Super",
+      "section": "sec-super-keyword",
+      "fieldRoles": "super binding under method/derived-constructor environment"
+    },
+    {
+      "type": "AwaitExpression",
+      "section": "sec-async-function-definitions",
+      "fieldRoles": "argument; suspend and resume with fulfilled/rejected completion"
+    },
+    {
+      "type": "MetaProperty",
+      "section": "sec-meta-properties",
+      "fieldRoles": "meta/property exact names distinguish import.meta/new.target"
+    },
+    {
+      "type": "TemplateLiteral",
+      "section": "sec-template-literals",
+      "fieldRoles": "ordered quasis interleaved with ordered expressions; raw/cooked distinctions preserved"
+    },
+    {
+      "type": "TemplateElement",
+      "section": "sec-template-literals",
+      "fieldRoles": "value.raw,value.cooked,tail preserved"
+    }
+  ],
+  "environment": [
+    "sec-environment-records",
+    "sec-execution-contexts",
+    "sec-static-semantics-boundnames",
+    "sec-functiondeclarationinstantiation",
+    "sec-module-semantics"
+  ],
+  "numbers": [
+    "sec-ecmascript-language-types-number-type",
+    "sec-numeric-types-number-bitwiseNOT",
+    "sec-type-conversion",
+    "sec-math.imul"
+  ],
+  "memory": [
+    "sec-typedarray-objects",
+    "sec-typedarray-exotic-objects",
+    "sec-atomics-object",
+    "sec-memory-model"
+  ],
+  "binding": "Resolve syntax names in owning ECMAScript module/function/block environments. Identifier spelling is not a cross-scope/global semantic identity. Member names are property keys, not lexical variables. Import/export bindings connect modules at represented source paths. No alpha renaming.",
+  "execution": "Interpret each reconstructed production under referenced ECMAScript static/runtime semantics. Propagate Reference and Completion records; preserve short circuit, ordered operand effects, lexical captures, receivers, abrupt exits, await and finalization. No executable branch is deleted merely because a current profile makes it unreachable.",
+  "runtimeBoundary": {
+    "Worker": "Node Worker from worker_threads: module URL plus structured workerData; typed shared views retain underlying SharedArrayBuffer sharing; separate isolates and private state; error/exit events and terminate Promise under pinned Node contract.",
+    "timers": "Node setTimeout/setInterval/clearTimeout/clearInterval. Delay is requested scheduling threshold, not an exact wall-time guarantee; event ordering constrained by Node, not by source listing across agents.",
+    "Atomics": "All represented operations retain ECMAScript shared-memory/Atomics semantics; no data-race-freedom or unique-work theorem inferred from syntax.",
+    "performance": "performance.now is external elapsed-time observation; no static cycles or latency assigned.",
+    "AbortSignal": "Externally supplied cancellation/event object under Node AbortSignal contract. Access and event effects remain calls in native tree.",
+    "process": "process.execArgv is external launch configuration; source filtering remains represented. Launch flags and scheduling are not guessed."
+  },
+  "unknownFamily": {
+    "carrier": "environment traces consistent with pinned Node and ECMAScript agent/shared-memory contracts",
+    "parameters": [
+      "worker scheduling",
+      "event delivery timing",
+      "failure occurrence and diagnostic text",
+      "clock readings",
+      "JIT lowering",
+      "hardware resource costs"
+    ],
+    "exclusions": [
+      "no fabricated deterministic scheduling",
+      "no invented probability measure",
+      "no timing bound stronger than the runtime guarantees"
+    ],
+    "downstream": "Any candidate depending on cost, overlap, fairness, failure ordering or unqualified memory-policy assumptions remains open until corresponding evidence is supplied."
+  },
+  "normalization": {
+    "removed": [
+      "comments",
+      "source offsets"
+    ],
+    "preserved": [
+      "all AST fields otherwise",
+      "raw literal spelling",
+      "parentheses",
+      "binder/use spellings",
+      "operator order",
+      "statement order",
+      "module boundaries"
+    ],
+    "claimBoundary": "algorithm/control/data effects; excludes byte-identical source introspection and stack-trace formatting; neither is used as performance-discovery evidence"
+  }
+}

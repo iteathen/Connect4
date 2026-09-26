@@ -1,0 +1,714 @@
+{
+  "note": "Export-name fixed point verifies imported names are provided; ordered module instantiation/evaluation and ambiguous-star handling remain ECMAScript governed.",
+  "internalNamedImports": 101,
+  "missing": [],
+  "imports": [
+    {
+      "from": "components/isometric/solve.mjs",
+      "target": "vendor/jsminsys/addons/index.mjs",
+      "imported": "prepareConnect4RbaGeometry",
+      "local": "prepareConnect4RbaGeometry",
+      "present": true
+    },
+    {
+      "from": "components/isometric/solve.mjs",
+      "target": "vendor/jsminsys/addons/index.mjs",
+      "imported": "runLazySmpConnect4Rba32",
+      "local": "runLazySmpConnect4Rba32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "target": "vendor/jsminsys/src/word32.mjs",
+      "imported": "popcount32",
+      "local": "popcount32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "target": "vendor/jsminsys/src/word64x32.mjs",
+      "imported": "popcount3x32",
+      "local": "popcount3x32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "target": "vendor/jsminsys/src/word32.mjs",
+      "imported": "firstSetBitIndex32",
+      "local": "firstSetBitIndex32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "target": "vendor/jsminsys/src/word32.mjs",
+      "imported": "popcount32",
+      "local": "popcount32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/worker.mjs",
+      "imported": "Worker",
+      "local": "Worker",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/branch-manager.mjs",
+      "imported": "BranchManager",
+      "local": "BranchManager",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtEnter32",
+      "local": "rbaTtEnter32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtLeave32",
+      "local": "rbaTtLeave32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtTake32",
+      "local": "rbaTtTake32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtTakeEvent32",
+      "local": "rbaTtTakeEvent32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtReleaseExecution32",
+      "local": "rbaTtReleaseExecution32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtManagerInspectReady32",
+      "local": "rbaTtManagerInspectReady32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtManagerClean32",
+      "local": "rbaTtManagerClean32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtFail32",
+      "local": "rbaTtFail32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_STOP",
+      "local": "RBA_TT_STOP",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_DONE",
+      "local": "RBA_TT_DONE",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_WAKE",
+      "local": "RBA_TT_WAKE",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_READY_COUNT",
+      "local": "RBA_TT_READY_COUNT",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-branch-manager.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_ERR_CONTRACT",
+      "local": "RBA_TT_ERR_CONTRACT",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/src/widekey32.mjs",
+      "imported": "mixSpan32Locator32",
+      "local": "mixSpan32Locator32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/src/widekey32.mjs",
+      "imported": "publishSpan32",
+      "local": "publishSpan32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "imported": "prepareConnect4RbaExecutionProfile",
+      "local": "prepareConnect4RbaExecutionProfile",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "imported": "prepareConnect4RbaCoordinateScratch",
+      "local": "prepareConnect4RbaCoordinateScratch",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaCofactorKnownHeight",
+      "local": "connect4RbaCofactorKnownHeight",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaCanonicalize",
+      "local": "connect4RbaCanonicalize",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaTerminal",
+      "local": "connect4RbaTerminal",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaRank",
+      "local": "connect4RbaRank",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "prepareConnect4RbaFrontArena",
+      "local": "prepareConnect4RbaFrontArena",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "buildConnect4RbaFourFront",
+      "local": "buildConnect4RbaFourFront",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "queryConnect4RbaFourFront",
+      "local": "queryConnect4RbaFourFront",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "imported": "prepareConnect4CpcScratch",
+      "local": "prepareConnect4CpcScratch",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "imported": "evaluateConnect4CpcNonterminal32",
+      "local": "evaluateConnect4CpcNonterminal32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "imported": "CPC_EXACT",
+      "local": "CPC_EXACT",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "imported": "CPC_BOUND",
+      "local": "CPC_BOUND",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/cpc-connect4.mjs",
+      "imported": "CPC_RESTRICT",
+      "local": "CPC_RESTRICT",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "imported": "prepareConnect4LiveLineEvaluator32",
+      "local": "prepareConnect4LiveLineEvaluator32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "imported": "resetConnect4LiveLineState32",
+      "local": "resetConnect4LiveLineState32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "imported": "advanceConnect4LiveLineState32",
+      "local": "advanceConnect4LiveLineState32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "imported": "evaluateConnect4LiveLineCell32",
+      "local": "evaluateConnect4LiveLineCell32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/connect4-live-line-evaluator.mjs",
+      "imported": "evaluateConnect4LiveLine3x32",
+      "local": "evaluateConnect4LiveLine3x32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/src/search32.mjs",
+      "imported": "argMaxPlayableSlot32",
+      "local": "argMaxPlayableSlot32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/src/search32.mjs",
+      "imported": "argMaxPlayableSlot7Nonempty32",
+      "local": "argMaxPlayableSlot7Nonempty32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "imported": "probeConnect4RbaSharedExactCache32",
+      "local": "probeConnect4RbaSharedExactCache32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "imported": "storeConnect4RbaSharedExactCache32",
+      "local": "storeConnect4RbaSharedExactCache32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "target": "vendor/jsminsys/src/basis32.mjs",
+      "imported": "emitSortedSetBits32",
+      "local": "emitSortedSetBits32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "target": "vendor/jsminsys/src/basis32.mjs",
+      "imported": "emitSortedSetBitsAt32",
+      "local": "emitSortedSetBitsAt32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "target": "vendor/jsminsys/src/widekey32.mjs",
+      "imported": "publishSpan32",
+      "local": "publishSpan32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "imported": "connect4RbaShapeContains",
+      "local": "connect4RbaShapeContains",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "target": "vendor/jsminsys/src/word32.mjs",
+      "imported": "firstSetBitIndex32",
+      "local": "firstSetBitIndex32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaCofactorBasis",
+      "local": "connect4RbaCofactorBasis",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "imported": "prepareConnect4RbaExecutionProfile",
+      "local": "prepareConnect4RbaExecutionProfile",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "target": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "imported": "createManagedThreadSession32",
+      "local": "createManagedThreadSession32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "target": "vendor/jsminsys/addons/branch-manager-host.mjs",
+      "imported": "sharedViewBytes32",
+      "local": "sharedViewBytes32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "imported": "connect4RbaFromMoves",
+      "local": "connect4RbaFromMoves",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "imported": "shareConnect4RbaGeometry32",
+      "local": "shareConnect4RbaGeometry32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-host.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "imported": "createConnect4RbaSharedExactCache32",
+      "local": "createConnect4RbaSharedExactCache32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "imported": "prepareConnect4RbaAlphaBeta",
+      "local": "prepareConnect4RbaAlphaBeta",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "imported": "solveConnect4RbaAlphaBeta",
+      "local": "solveConnect4RbaAlphaBeta",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-lazy-smp-worker.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-alphabeta.mjs",
+      "imported": "RBA_AB_CPC_ONLY",
+      "local": "RBA_AB_CPC_ONLY",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "target": "vendor/jsminsys/src/relational32.mjs",
+      "imported": "insertMinimal6x32InPlace",
+      "local": "insertMinimal6x32InPlace",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "target": "vendor/jsminsys/src/relational32.mjs",
+      "imported": "productJoinMinimal6x32Into",
+      "local": "productJoinMinimal6x32Into",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "target": "vendor/jsminsys/src/relational32.mjs",
+      "imported": "insertMinimalSpan32InPlace",
+      "local": "insertMinimalSpan32InPlace",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "target": "vendor/jsminsys/src/relational32.mjs",
+      "imported": "productJoinMinimalSpan32Into",
+      "local": "productJoinMinimalSpan32Into",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "imported": "connect4RbaRemoveCell",
+      "local": "connect4RbaRemoveCell",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "imported": "connect4RbaShapeSubset",
+      "local": "connect4RbaShapeSubset",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-shared-exact-cache.mjs",
+      "target": "vendor/jsminsys/src/widekey32.mjs",
+      "imported": "mixSpan32Locator32",
+      "local": "mixSpan32Locator32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/src/basis32.mjs",
+      "imported": "emitSortedSetBitsAt32",
+      "local": "emitSortedSetBitsAt32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-geometry.mjs",
+      "imported": "prepareConnect4RbaCoordinateScratch",
+      "local": "prepareConnect4RbaCoordinateScratch",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-profile.mjs",
+      "imported": "prepareConnect4RbaExecutionProfile",
+      "local": "prepareConnect4RbaExecutionProfile",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaBasisFromSupport",
+      "local": "connect4RbaBasisFromSupport",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaCofactorKnownHeight",
+      "local": "connect4RbaCofactorKnownHeight",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaCanonicalize",
+      "local": "connect4RbaCanonicalize",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaTerminal",
+      "local": "connect4RbaTerminal",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-coordinate.mjs",
+      "imported": "connect4RbaRank",
+      "local": "connect4RbaRank",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "prepareConnect4RbaFrontArena",
+      "local": "prepareConnect4RbaFrontArena",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "buildConnect4RbaFourFront",
+      "local": "buildConnect4RbaFourFront",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "queryConnect4RbaFourFront",
+      "local": "queryConnect4RbaFourFront",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "RBA_BOUNDARY_INCOMPLETE",
+      "local": "RBA_BOUNDARY_INCOMPLETE",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-connect4-front.mjs",
+      "imported": "RBA_BOUNDARY_CAPACITY",
+      "local": "RBA_BOUNDARY_CAPACITY",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtPublishPrepared32",
+      "local": "rbaTtPublishPrepared32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtPublishExactOwned32",
+      "local": "rbaTtPublishExactOwned32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtAttachDependencies32",
+      "local": "rbaTtAttachDependencies32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtReconcile32",
+      "local": "rbaTtReconcile32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtSignalParents32",
+      "local": "rbaTtSignalParents32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtEnqueueDependencies32",
+      "local": "rbaTtEnqueueDependencies32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtDetachDependencies32",
+      "local": "rbaTtDetachDependencies32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "rbaTtMarkDone32",
+      "local": "rbaTtMarkDone32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_ROOT",
+      "local": "RBA_TT_ROOT",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_PHASE_PENDING_ATTACH",
+      "local": "RBA_TT_PHASE_PENDING_ATTACH",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_PHASE_ATTACHED",
+      "local": "RBA_TT_PHASE_ATTACHED",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-connect4-solver.mjs",
+      "target": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "imported": "RBA_TT_STOP",
+      "local": "RBA_TT_STOP",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/widekey32.mjs",
+      "imported": "mixSpan32Locator32",
+      "local": "mixSpan32Locator32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/widekey32.mjs",
+      "imported": "publishSpan32",
+      "local": "publishSpan32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/atomic32.mjs",
+      "imported": "atomicTryClaimLoadFirst32",
+      "local": "atomicTryClaimLoadFirst32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/atomic32.mjs",
+      "imported": "atomicReleaseNoNotify32",
+      "local": "atomicReleaseNoNotify32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/intrusive32.mjs",
+      "imported": "intrusiveEnqueueTailStamped32",
+      "local": "intrusiveEnqueueTailStamped32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/intrusive32.mjs",
+      "imported": "intrusiveEnqueueOnceTailStamped32",
+      "local": "intrusiveEnqueueOnceTailStamped32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/intrusive32.mjs",
+      "imported": "intrusiveRemove32",
+      "local": "intrusiveRemove32",
+      "present": true
+    },
+    {
+      "from": "vendor/jsminsys/addons/rba-tt32.mjs",
+      "target": "vendor/jsminsys/src/intrusive32.mjs",
+      "imported": "intrusivePopHeadStamped32",
+      "local": "intrusivePopHeadStamped32",
+      "present": true
+    }
+  ]
+}
