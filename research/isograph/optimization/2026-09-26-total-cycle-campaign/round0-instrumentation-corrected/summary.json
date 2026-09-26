@@ -1,0 +1,87 @@
+{
+  "mode": "instrumentation",
+  "blocks": 4,
+  "samples": 16,
+  "stats": {
+    "totalProcessCycles": {
+      "blockRatios": [
+        1.0151686461003038,
+        1.003717435220725,
+        0.9895358609920526,
+        1.0321321764844884
+      ],
+      "meanDeltaPct": 1.013852969939233,
+      "interval95Pct": [
+        -1.8539555806263763,
+        3.881661520504842
+      ]
+    },
+    "solveCycles": {
+      "blockRatios": [
+        1.0149008105724833,
+        1.0031594800652557,
+        0.9892625881733504,
+        1.0320033348591666
+      ],
+      "meanDeltaPct": 0.9831553417563921,
+      "interval95Pct": [
+        -1.899562442625602,
+        3.865873126138397
+      ]
+    },
+    "bootstrapCycles": {
+      "blockRatios": [
+        1.056575504409403,
+        1.0349251433286624,
+        1.011069977551599,
+        1.051578949536199
+      ],
+      "meanDeltaPct": 3.8537393706465917,
+      "interval95Pct": [
+        0.5893282235962971,
+        7.118150517696886
+      ]
+    },
+    "setupCycles": {
+      "blockRatios": [
+        1.0013729182847384,
+        1.0686325210371546,
+        1.0085850980576623,
+        1.0265797102385663
+      ],
+      "meanDeltaPct": 2.6292561904530443,
+      "interval95Pct": [
+        -2.167811094945571,
+        7.426323475851659
+      ]
+    },
+    "wallMs": {
+      "blockRatios": [
+        1.0206247316657318,
+        0.9964894551157354,
+        0.9843706049348389,
+        1.0362506503249658
+      ],
+      "meanDeltaPct": 0.9433860510317915,
+      "interval95Pct": [
+        -2.776629421927679,
+        4.663401523991273
+      ]
+    },
+    "cpuMs": {
+      "blockRatios": [
+        1.0169269411379274,
+        0.9888205128205129,
+        0.9834537647921249,
+        1.0145681581685744
+      ],
+      "meanDeltaPct": 0.09423442297848972,
+      "interval95Pct": [
+        -2.6521949684607082,
+        2.8406638144176766
+      ]
+    }
+  },
+  "promotion": "NOT_QUALIFIED_BY_SCREEN",
+  "rule": "No production acceptance from calibration or one fixture. Repeatable >1% total-cycle regression blocks promotion; noisy results remain unqualified."
+}
