@@ -13,7 +13,7 @@ const library=resolve(process.argv[2]),input=process.argv[3]??'45461667',
 // The first read is already cumulative from process creation, including Node,
 // loader, FFI meter initialization and all static imports above. Do not subtract it.
 const bootstrapCycles=meter.read(),setupStarted=performance.now();
-let beforeSolve,afterSolve,result;
+let beforeSolve,afterSolve,result,pulse,sampledPeakRssBytes=0;
 try{
   const {prepareConnect4RbaGeometry,runLazySmpConnect4Rba32}=
     await import(pathToFileURL(resolve(library,'addons/index.mjs')).href);
@@ -23,7 +23,15 @@ try{
       sharedSampleMask:7,timeoutMs,cpcFrontierResponse:false,cpcProjectedAdvisory:false};
   beforeSolve=meter.read();
   const setupMs=performance.now()-setupStarted,start=performance.now(),cpuBefore=process.cpuUsage();
+  if(caseConfig.progress){
+    sampledPeakRssBytes=process.memoryUsage().rss;
+    pulse=setInterval(()=>{
+      const rssBytes=process.memoryUsage().rss;sampledPeakRssBytes=Math.max(sampledPeakRssBytes,rssBytes);
+      console.error(JSON.stringify({event:'progress',elapsedMs:performance.now()-start,totalProcessCycles:meter.read().toString(),rssBytes,freeRamBytes:freemem()}));
+    },30000);
+  }
   result=await runLazySmpConnect4Rba32(moves,config);
+  if(pulse)clearInterval(pulse);
   afterSolve=meter.read();
   const wallMs=performance.now()-start,cpu=process.cpuUsage(cpuBefore),
     totalNodes=result.benchmarkNodeCounts?.reduce((a,b)=>a+b,0)??null;
@@ -35,13 +43,13 @@ try{
     cpu:cpus()[0].model,node:process.version,v8:process.versions.v8,
     bootstrapCycles:bootstrapCycles.toString(),setupCycles:(beforeSolve-bootstrapCycles).toString(),
     solveCycles:(afterSolve-beforeSolve).toString(),totalProcessCycles:afterSolve.toString(),
-    setupMs,wallMs,cpuMs:(cpu.user+cpu.system)/1000,rssAfterBytes:process.memoryUsage().rss,
+    sampledPeakRssBytes:sampledPeakRssBytes||null,setupMs,wallMs,cpuMs:(cpu.user+cpu.system)/1000,rssAfterBytes:process.memoryUsage().rss,
     measurement:totalNodes===null?'production':'all-worker-node-instrumentation',
     totalNodes,cyclesPerVisit:totalNodes?Number(afterSolve)/totalNodes:null,
     visitsPerSecond:totalNodes?totalNodes/(wallMs/1000):null,
     expectedWdl:caseConfig.expectedWdl??1,expectedMove:caseConfig.expectedMove??null,
     outcome:result.status==='TIMEOUT'?'CENSORED':result.status,
-    oracleMatched:result.status==='EXACT'&&result.rootWdl===(caseConfig.expectedWdl??1)&&(caseConfig.expectedMove===undefined||result.move===caseConfig.expectedMove),
+    oracleMatched:result.status==='EXACT'?result.rootWdl===(caseConfig.expectedWdl??1)&&(caseConfig.expectedMove===undefined||result.move===caseConfig.expectedMove):null,
     ...result}));
 }catch(error){
   const final=meter.read();
@@ -49,4 +57,4 @@ try{
     totalProcessCycles:final.toString(),bootstrapCycles:bootstrapCycles.toString(),
     error:error.stack??String(error)}));
   process.exitCode=1;
-}finally{meter.close();}
+}finally{if(pulse)clearInterval(pulse);meter.close();}
