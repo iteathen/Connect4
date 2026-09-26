@@ -1,0 +1,94 @@
+{
+  "status": "PREPARED_NOT_RUN",
+  "librarySha": "ec6a602268e5dd281db9cb29b2f4defd47c6d325",
+  "harnessBase": "6f5828c7d9a5fefde14b77567a6b8198574aa371",
+  "keyWords": 14,
+  "sharedSampleMask": 7,
+  "screenInput": "45461667",
+  "screenTimeoutMs": 30000,
+  "blocks": 4,
+  "sequence": "ABBA",
+  "arms": [
+    {
+      "id": "baseline",
+      "shared": 65536,
+      "privatePerWorker": 65536,
+      "workers": 4,
+      "sharedBytes": 4194316,
+      "privateCacheBytesPerWorker": 3997696,
+      "totalCacheBytes": 20185100
+    },
+    {
+      "id": "shared-16384",
+      "shared": 16384,
+      "privatePerWorker": 65536,
+      "workers": 4,
+      "sharedBytes": 1048588,
+      "privateCacheBytesPerWorker": 3997696,
+      "totalCacheBytes": 17039372
+    },
+    {
+      "id": "shared-131072",
+      "shared": 131072,
+      "privatePerWorker": 65536,
+      "workers": 4,
+      "sharedBytes": 8388620,
+      "privateCacheBytesPerWorker": 3997696,
+      "totalCacheBytes": 24379404
+    },
+    {
+      "id": "shared-262144",
+      "shared": 262144,
+      "privatePerWorker": 65536,
+      "workers": 4,
+      "sharedBytes": 16777228,
+      "privateCacheBytesPerWorker": 3997696,
+      "totalCacheBytes": 32768012
+    },
+    {
+      "id": "shared-1048576",
+      "shared": 1048576,
+      "privatePerWorker": 65536,
+      "workers": 4,
+      "sharedBytes": 67108876,
+      "privateCacheBytesPerWorker": 3997696,
+      "totalCacheBytes": 83099660
+    },
+    {
+      "id": "private-16384",
+      "shared": 65536,
+      "privatePerWorker": 16384,
+      "workers": 4,
+      "sharedBytes": 4194316,
+      "privateCacheBytesPerWorker": 999424,
+      "totalCacheBytes": 8192012
+    },
+    {
+      "id": "private-131072",
+      "shared": 65536,
+      "privatePerWorker": 131072,
+      "workers": 4,
+      "sharedBytes": 4194316,
+      "privateCacheBytesPerWorker": 7995392,
+      "totalCacheBytes": 36175884
+    },
+    {
+      "id": "private-262144",
+      "shared": 65536,
+      "privatePerWorker": 262144,
+      "workers": 4,
+      "sharedBytes": 4194316,
+      "privateCacheBytesPerWorker": 15990784,
+      "totalCacheBytes": 68157452
+    },
+    {
+      "id": "private-1048576",
+      "shared": 65536,
+      "privatePerWorker": 1048576,
+      "workers": 4,
+      "sharedBytes": 4194316,
+      "privateCacheBytesPerWorker": 63963136,
+      "totalCacheBytes": 260046860
+    }
+  ]
+}
