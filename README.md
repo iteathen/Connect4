@@ -29,3 +29,7 @@ consultation/publication), based on the current Lazy-SMP density campaign.
 The retained gameplay specifications are under `docs/specs/`. Historical
 Surplus/Branch-Manager experiments remain available through Git history and
 historical qualification documents, but they are not an active execution path.
+
+Current IsoMax implementation branch: `work/isomax-jsminsys-rebuild`.
+The retired `solver/isometric` lineage is preserved under
+`archive/lazy-smp-retirement-20260926/solver/isometric`, not another active model.

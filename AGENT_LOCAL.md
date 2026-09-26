@@ -48,7 +48,10 @@ See `docs/decisions/2026-09-17-single-research-owner.md`.
 
 ## Current durable topology authority
 
-This branch is the **durable active Isometric/IsoMax solver head** under `docs/decisions/2026-09-18-three-active-solver-topology.md`.
+The current active IsoMax implementation owner is `work/isomax-jsminsys-rebuild`.
+The owner-authorized Lazy SMP cleanup retires the old `solver/isometric` head
+to its exact archive tag; it is not another live implementation.
+See `docs/history/2026-09-26-lazy-smp-cleanup.md`.
 
 The durable set is closed. Do not create or promote another continuity branch without explicit owner instruction. Any `work/*`, `experiment/*`, noncanonical `research/*`, `feature/*`, handoff, staging or evidence ref created from this lane must name this or another durable owner, preserve useful results back to that owner or an immutable archive, and retire when its bounded purpose ends.
 

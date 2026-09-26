@@ -21,3 +21,7 @@ Retired model descriptions and qualification failures are preserved in
 docs/history/retired-execution and the exact archived Git refs. They are not
 alternate executable configurations. Canonical research remains owned by
 research/semantic-quotient. BSFP remains separate and unchanged.
+
+Current IsoMax implementation branch: `work/isomax-jsminsys-rebuild`.
+The retired `solver/isometric` lineage is preserved under
+`archive/lazy-smp-retirement-20260926/solver/isometric`, not another active model.

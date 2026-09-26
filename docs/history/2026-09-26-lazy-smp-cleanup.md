@@ -37,3 +37,12 @@ matched, wall 1056.3568 ms, process CPU 4719 ms, process cycles 17,603,717,519,
 all four workers exited and cleanup=true. Winner-only nodes=708,500; this is
 not all-worker work, so cycles/node is intentionally not derived from it.
 One bounded smoke is not a comparative speedup claim or full Fhourstones score.
+
+Integration: PR166 merged as1522943f; PR163 then merged as0c8824c0,
+preserving the eight independently added local benchmark evidence files.
+The sole current implementation branch is work/isomax-jsminsys-rebuild. The
+former solver/isometric tip1f98d7b15eefdc5cf032f6f6bcb4bb71b51a02b1 is retired
+under archive/lazy-smp-retirement-20260926/solver/isometric, preserving the full
+older implementation/research lineage. Current verify, q_r and Fhourstones
+workflow push routing follows the surviving branch. Archived old experimental
+workflow comparisons remain manual/revision-scoped, not production routing.
