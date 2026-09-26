@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "connect4-lazy-smp-search-method-0.3",
+  "status": "unqualified_dp08_successor_view",
+  "authority_effect": "none",
+  "solver_method_changed": false,
+  "predecessor": "CONNECT4_LAZY_SMP_SEARCH_METHOD_0_2.*",
+  "source_rendering_authority": {
+    "path": "research/isograph/discovery/2026-09-26-isomax-core019/RENDERING_QUALIFICATION.md",
+    "jsminsys_revision": "04d37498607ace16dae33c79462ddfe1503c8a0d",
+    "scope": "complete static source-module closure of public solve7x6 and Lazy SMP worker entry",
+    "status": "EXACT_SOURCE_RENDERING_QUALIFIED"
+  },
+  "declared_target": [
+    "exact Lazy SMP solve result under the 0.2 exact gate",
+    "clean invocation termination under the current host contract"
+  ],
+  "support_findings": [
+    {
+      "id": "L3-WAKE",
+      "subject": "WAKE increment/notify path",
+      "observed_producers": [
+        "winner publication",
+        "failure",
+        "session close"
+      ],
+      "current_host_consumer": "none; host polls STOP/DONE on interval",
+      "disposition": "NONESSENTIAL_FOR_SUFFICIENCY_CANDIDATE",
+      "scope": "current Lazy SMP host observation of exact result / termination",
+      "nonconsequence": "not globally removable from generic ManagedThreadSession or other compositions without consumer audit",
+      "valuation": "not measured"
+    },
+    {
+      "id": "L3-SHARED-PROVENANCE",
+      "subject": "shared exact cache",
+      "observed_workload_result": "100% measured shared stores and hits were CPC_EXACT in the provenance census",
+      "reuse_observations": {
+        "45461667_hits_per_store_range": [21.53,22.58],
+        "13333111_hits_per_store": 19.31,
+        "empty_board_hits_per_store": 43.22
+      },
+      "disposition": "STRUCTURE_ESTABLISHED_FOR_MEASURED_WORKLOADS",
+      "nonconsequence": "does not establish that every future shared result is CPC_EXACT or that shared caching is globally optimal"
+    },
+    {
+      "id": "L3-METRICS-BEFORE-WINNER",
+      "subject": "metrics/result publication before WINNER CAS",
+      "effect": "winner means first worker to win CAS after publication, not necessarily first solver computation to finish",
+      "sufficiency_disposition": "OBJECTIVE_DEPENDENT",
+      "reason": "metrics and result rows may be externally required outputs; target contract must state whether they may change",
+      "valuation": "publication-delay decomposition not supplied here"
+    }
+  ],
+  "valuation_profile": null,
+  "valuation_rule": "no implementation preference is selected without represented/derived/measured valuation evidence",
+  "dp08_boundaries": [
+    "locally unused WAKE does not imply global irrelevance",
+    "exact-result sufficiency does not permit dropping required metrics/provenance outputs",
+    "measured CPC_EXACT-only sharing is workload-scoped evidence",
+    "no value system is inferred from graph size or transition count"
+  ]
+}
