@@ -1,72 +1,50 @@
-# IsoMax JSMinSys implementation
+# IsoMax JSMinSys adapter
 
-This directory is the current Connect4 adapter for the merged JSMinSys
-shared-TT CPC-first Surplus execution path.
+IsoMax is a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@3a8f8fa5d27ab7b28579aee460eed43eda1c0e48`
+`vendor/jsminsys` -> `iteathen/JSMinSys@93aca1758718bcbf0635c11a957a67ca6387d50c`
 
-## Execution topology
+## Ownership boundary
+
+IsoMax owns only application-facing policy:
+
+- the public standard 7x6 `solve7x6` API;
+- standard-geometry selection;
+- the 120-second application timeout ceiling;
+- the two-worker minimum;
+- the current default Lazy-SMP shared sampling mask;
+- CLI, integration/oracle qualification, and benchmark reporting.
+
+JSMinSys owns the reusable execution and Connect4 machinery:
+
+- `ManagedThreadSession` lifecycle/cleanup support;
+- Lazy-SMP host and worker composition;
+- private CPC/Negamax search state and private exact caches per worker;
+- the shared exact W/D/L cache;
+- Connect4 RBA geometry, coordinates and cofactors;
+- CPC and live-line evaluators;
+- deterministic caller-frame result/witness handling;
+- cancellation, timeout, cleanup and telemetry; and
+- operation/cycle accounting for the active Lazy-SMP execution graph.
+
+The active IsoMax solve path is:
 
 ```text
-solve7x6 legal replay
-  -> runtime-configured 7x6 RBA geometry
-  -> canonical root q + basis
-  -> shared RBA TT + ready queue
-  -> N evaluator workers
-       -> claim ready q directly
-       -> CPC/RBA evaluation
-       -> retain one unresolved continuation
-       -> publish all remaining unresolved children directly as surplus
-       -> NO dedupe / NO transposition merge / NO TT cleanup
-  -> independent Branch Manager
-       -> inspect shared surplus
-       -> dedupe equivalent queued branches
-       -> merge duplicate/transposed q
-       -> maintain TT dependency/evidence topology
-       -> clean dead/resolved/stale TT and queue state
-       -> reprioritize inspected ready work
-       -> reset workers whose retained q became redundant
-  -> exact root W/D/L + deterministic caller-frame move
+components/isometric/solve.mjs
+  -> vendor/jsminsys/addons/prepareConnect4RbaGeometry
+  -> vendor/jsminsys/addons/runLazySmpConnect4Rba32
+  -> return the JSMinSys Lazy-SMP result directly
 ```
 
-Workers do not round-trip through the manager to continue or publish work.
-The manager does not consume surplus and does not generate branches.
-
-## Work queue and TT ownership
-
-Workers publish unresolved surplus directly to the shared intrusive ready-q
-queue. Worker publication uses blind TT allocation: it deliberately does not
-probe for an equivalent q first.
-
-The Branch Manager alone performs shared duplicate/transposition discovery and
-merge. Duplicate redirects carry a temporary canonical lifetime pin so pending
-parent edges cannot observe a recycled canonical row.
-
-The manager also removes stale/redundant queue membership and sweeps reclaimable
-TT state. Reference/pin updates are bookkeeping beneath those topology changes,
-not an independent worker responsibility.
-
-## Priority
-
-Workers attach CPC-derived usefulness priority to surplus. The manager inspects
-a bounded ready-queue window each maintenance turn and fronts the highest
-priority inspected item. This is bounded asynchronous prioritization, not a
-claim that the entire queue is globally sorted on every mutation.
+There is no supported Connect4 Surplus + Branch Manager composition and no
+IsoMax-local worker, manager, TT, RBA kernel, result translator, or hot-loop
+implementation. Historical implementations remain recoverable from Git history.
 
 ## Qualification
 
-Connect4 CI run `35933307127`:
-
-- Connect4: 57/57 tests passed.
-- Pinned JSMinSys: 128/128 tests passed.
-- Maintained late 7x6 oracle controls agree at 1/2/4 evaluator workers.
-- Mirrored caller-frame witnesses agree.
-- Worker-side surplus publication and manager-only dedupe are qualified.
-- Redundant retained work triggers manager reset rather than worker retirement.
-- Redirect lifetime is pinned through pending-edge transfer.
-- Deadline/cancellation cleanup remains fail-closed.
-
-The earlier capacity-filling Branch Manager benchmark predates these ownership
-and cleanup corrections and is historical evidence only.
+Connect4 keeps application-level oracle, reflection/witness, lifecycle,
+multi-worker and Fhourstones qualification. JSMinSys keeps unit, structural and
+cycle-ledger qualification for the machinery it owns. Single-worker execution
+is not a valid qualification mode.

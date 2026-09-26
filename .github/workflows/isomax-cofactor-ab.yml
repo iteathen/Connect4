@@ -1,0 +1,62 @@
+name: IsoMax Cofactor Optimization A-B
+
+on:
+  push:
+    branches:
+      - work/isomax-jsminsys-boundary-cleanup
+    paths:
+      - '.github/workflows/isomax-cofactor-ab.yml'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Same-runner four-worker cofactor B-C-C-B
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            $actual=(git -C vendor/jsminsys rev-parse HEAD).Trim()
+            if ($actual -ne $sha) { throw "JSMinSys HEAD mismatch: $actual != $sha" }
+            Write-Host "JSMS_HEAD $actual"
+          }
+
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='7f0c47b0e38d37846ff73bcda699b4c8c4040545'
+
+          Write-Host "COFACTOR_AB_PHASE baseline-1 $baseline"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "COFACTOR_AB_PHASE candidate-1 $candidate"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "COFACTOR_AB_PHASE candidate-2 $candidate"
+          Use-JSMinSys $candidate
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "COFACTOR_AB_PHASE baseline-2 $baseline"
+          Use-JSMinSys $baseline
+          node --experimental-ffi tools/bench-lazy-smp-control.mjs 7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -1,34 +1,31 @@
-# IsoMax — fresh JSMinSys execution rebuild
+# IsoMax — JSMinSys Lazy SMP Connect4
 
-This branch implements a native standard-7x6 RBA solver with a shared TT,
-retained worker and BranchManager. Worker-private four-front construction is
-the native value path. There is no production search fallback.
-It contains no inherited solver implementation and no BSFP implementation.
-The retained gameplay specifications are under `docs/specs/`.
+This branch uses JSMinSys Lazy SMP as the sole active Connect4 execution
+composition. Each search worker owns a complete private CPC/Negamax search and
+private exact cache. Workers share only exact W/D/L cache evidence. There is no
+Connect4 Surplus queue and no Branch Manager execution role.
+
+Single-worker execution is forbidden. The public API defaults to two workers;
+performance qualification uses four workers where specified.
 
 ```sh
 git submodule update --init
 npm ci
 npm test
-node tools/check-hot-scope.mjs
-node tools/check-hot-scope.mjs --native-rba
-node tools/solve-isomax.mjs --moves 0,1,0,1,0,1,0 --workers 1
+node tools/solve-isomax.mjs --moves 0,1,0,1,0,1,0 --workers 2
 # Windows, cold measurement only; FFI is never used to execute solver logic:
-node --experimental-ffi tools/bench-isomax-cycles.mjs
+node --experimental-ffi tools/bench-fhourstones.mjs
 ```
 
 Use Node 26.7.0 for the recorded qualification. JSMinSys is pinned as a git
-submodule to `64ba37a11522b533a1de87942a14921fe690ef86`.
-The governing performance reference is NEES Draft 0.5 at
-`7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
+submodule to `93aca1758718bcbf0635c11a957a67ca6387d50c`. The governing performance reference is NEES Draft 0.5
+at `7650bef0aecc0d2b226ecf253a1f8937ccf89d69`.
 
-See [execution API](components/isometric/execution/README.md) and
-[NEES scope and outstanding qualification](components/isometric/NEES_PROFILE.md).
-Move columns are zero-based. The solve timeout is at most 120 seconds. The
-default boundary horizon is two plies. Nonclosing queries continue through native
-RBA cofactors and shared-TT value intervals; no alternate solver is used.
-Construction budget/capacity exhaustion remains explicit. Full boundary-artifact
-refinement/recomposition is still missing; empty-board completion is unproven.
-Oracle qualification currently covers bounded legal positions and finite RBA
-fibers; an empty-board solve or general performance superiority is not claimed.
-The tests' separate ranked-DAG kernel remains execution infrastructure only.
+The active application path is
+`components/isometric/solve.mjs -> runLazySmpConnect4Rba32()`.
+The current default shared-cache sampling mask is 7 (one-eighth eligible shared
+consultation/publication), based on the current Lazy-SMP density campaign.
+
+The retained gameplay specifications are under `docs/specs/`. Historical
+Surplus/Branch-Manager experiments remain available through Git history and
+historical qualification documents, but they are not an active execution path.

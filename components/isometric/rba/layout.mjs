@@ -1,5 +1,0 @@
-// Cold-selected standard 7x6 ABI. Import constants; no hot generic dispatch.
-export const KEY_WORDS=8, ACTIONS=7, SUPPORT=0, FLAGS=1, P0=2, P1=5;
-export const EXACT_P1=1, EXACT_DRAW=2, EXACT_P0=3, BRANCH=4, CONTINUE=5;
-export const BOUNDARY_INCOMPLETE=6, BOUNDARY_CAPACITY=7, QUERY_UNCOVERED=8;
-export const INTERRUPTED=9;

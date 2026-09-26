@@ -1,11 +1,15 @@
-# Branch Manager benchmark trigger: corrected manager-owned dedupe/cleanup
-name: IsoMax Fhourstones Benchmark
+name: IsoMax Lazy SMP Fhourstones Benchmark
 
 on:
   push:
     branches:
-      - work/isomax-jsminsys-rebuild
+      - work/isomax-jsminsys-boundary-cleanup
     paths:
+      - 'vendor/jsminsys'
+      - 'components/isometric/jsminsys/README.md'
+      - 'components/isometric/NEES_PROFILE.md'
+      - 'components/isometric/solve.mjs'
+      - 'tools/bench-fhourstones.mjs'
       - '.github/workflows/isomax-fhourstones-benchmark.yml'
   workflow_dispatch:
 
@@ -22,6 +26,6 @@ jobs:
           node-version: '26.7.0'
           cache: npm
       - run: npm ci
-      - name: Standard Fhourstones qualification
+      - name: Four-worker Lazy SMP Fhourstones qualification
         shell: pwsh
         run: node --experimental-ffi tools/bench-fhourstones.mjs

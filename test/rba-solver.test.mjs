@@ -5,12 +5,18 @@ import {exact} from './helpers/physical-oracle.mjs';
 
 const apiURL=new URL('../components/isometric/solve.mjs',import.meta.url);
 
+function assertOptimalCallerMove(moves,result,control){
+  assert.ok(Number.isInteger(result.move)&&result.move>=0&&result.move<7,JSON.stringify({moves,result}));
+  const child=exact([...moves,result.move]);
+  assert.equal(child.value,control.value,JSON.stringify({moves,result,control,child}));
+}
+
 test('JSMinSys IsoMax solver API exists',async()=>{
   const api=await import(apiURL.href).catch(()=>null);
   assert.ok(api?.solve7x6,'IsoMax solver missing');
 });
 
-test('stdin/eval module host flags do not poison managed search worker',()=>{
+test('stdin/eval module host flags do not poison Lazy SMP search workers',()=>{
   const code=`import {solve7x6} from ${JSON.stringify(apiURL.href)};console.log(JSON.stringify(await solve7x6([0,1,0,1,0,1,0],{timeoutMs:3000})));`;
   const result=JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',code],{encoding:'utf8',timeout:5000}));
   assert.equal(result.status,'EXACT',JSON.stringify(result));
@@ -19,7 +25,7 @@ test('stdin/eval module host flags do not poison managed search worker',()=>{
   assert.equal(result.cleanup,true);
 });
 
-test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',async()=>{
+test('JSMinSys Lazy SMP IsoMax agrees with independent late-position oracle',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const fixtures=[
     [4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4],
@@ -27,15 +33,18 @@ test('JSMinSys CPC-first IsoMax agrees with independent late-position oracle',as
   ];
   for(const moves of fixtures){
     const control=exact(moves);
-    for(const workers of [1,2,4]){
+    for(const workers of [2,4]){
       const result=await solve7x6(moves,{workers,timeoutMs:5000});
       assert.equal(result.status,'EXACT',JSON.stringify({moves,workers,result}));
       assert.equal(result.rootWdl,control.value-2);
-      assert.equal(result.move,control.move);
+      assertOptimalCallerMove(moves,result,control);
       assert.equal(result.cleanup,true);
       assert.equal(result.workersUsed,workers);
-      assert.equal(result.workersExited,workers+1);
-      // Sampled worker telemetry may remain zero when DONE precedes the final cold metric publication.
+      assert.equal(result.workersExited,workers);
+      assert.ok(result.winner>=0&&result.winner<workers,JSON.stringify(result));
+      assert.equal(result.completedWorkers.length,workers);
+      assert.ok(result.completedWorkers.some(Boolean),JSON.stringify(result));
+      assert.ok(result.winnerMetrics&&result.winnerMetrics.nodes>=0,JSON.stringify(result));
     }
   }
 });
@@ -48,7 +57,7 @@ test('JSMinSys IsoMax preserves caller-frame witness under reflection',async()=>
     const result=await solve7x6(replay,{workers:2,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({replay,result}));
     assert.equal(result.rootWdl,control.value-2);
-    assert.equal(result.move,control.move);
+    assertOptimalCallerMove(replay,result,control);
   }
 });
 
@@ -61,22 +70,31 @@ test('terminal roots return exact WDL with no move',async()=>{
   assert.equal(result.cleanup,true);
 });
 
-test('shared branch queue supports multiple evaluator workers',async()=>{
+test('Lazy SMP remains exact across supported qualification worker counts',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
   const control=exact(moves);
-  for(const workers of [1,2,4]){
+  for(const workers of [2,4]){
     const result=await solve7x6(moves,{workers,timeoutMs:5000});
     assert.equal(result.status,'EXACT',JSON.stringify({workers,result}));
     assert.equal(result.rootWdl,control.value-2);
-    assert.equal(result.move,control.move);
-    assert.equal(result.workersExited,workers+1);
-    assert.ok(result.metrics.branches>0);
-    assert.ok(result.metrics.claims>=result.metrics.branches);
+    assertOptimalCallerMove(moves,result,control);
+    assert.equal(result.workersExited,workers);
+    assert.equal(result.workersUsed,workers);
+    assert.ok(result.winner>=0&&result.winner<workers,JSON.stringify(result));
+    assert.ok(result.winnerMetrics&&result.winnerMetrics.nodes>=0,JSON.stringify(result));
   }
 });
 
-test('cancellation terminates the managed search worker without WDL',async()=>{
+test('single-worker IsoMax execution remains forbidden',async()=>{
+  const {solve7x6}=await import(apiURL.href);
+  await assert.rejects(
+    ()=>solve7x6([0,1,0,1],{workers:1,timeoutMs:1000}),
+    /at least two search workers/,
+  );
+});
+
+test('cancellation terminates Lazy SMP workers without WDL',async()=>{
   const {solve7x6}=await import(apiURL.href);
   const controller=new AbortController();
   controller.abort();

@@ -1,21 +1,19 @@
 # Repository context: Connect4
 
-## Fresh rebuild checkpoint — 2026-09-23
+## Current IsoMax execution — 2026-09-26
 
-The owner authorized starting IsoMax implementation from scratch on
-`work/isomax-jsminsys-rebuild`, preserving gameplay specs. The current public
-solver is the JSMinSys shared-TT CPC-first Branch Manager implementation
-documented in `components/isometric/jsminsys/README.md`; the earlier
-pre-JSMinSys worker/shared-TT/Four-Front implementation is not the public solve path.
-Read `STATUS.md`, `components/isometric/jsminsys/README.md` and
-`components/isometric/NEES_PROFILE.md` first. Use NEES Draft 0.5 at `7650bef0`
-and pinned merged JSMinSys main `d176330ebed2c29d8b71f290f95734b107817d3e`.
-The JSMinSys TT ready queue is the sole shared work queue; do not introduce a
-second branch/task authority. Historical routing/implementation descriptions
-below do not authorize restoring superseded solver paths or claiming fixtures
-are full-game solves.
-Do not modify BSFP. This bounded rebuild branch has the Isometric solver lane as
-its integration owner; it has not been promoted or merged.
+Lazy SMP is the sole active IsoMax execution composition. Read STATUS.md,
+docs/decisions/2026-09-24-isomax-lazy-smp-only.md,
+components/isometric/jsminsys/README.md and components/isometric/NEES_PROFILE.md.
+The vendor/jsminsys gitlink owns the exact dependency revision. NEES Draft 0.5
+at 7650bef0aecc0d2b226ecf253a1f8937ccf89d69 is the realization reference.
+Each worker owns a private RBA/CPC exact search; only committed exact W/D/L
+cache evidence is shared. At least two search workers are required. There is no
+shared work queue, RBA execution TT, dependency scheduler or Branch Manager.
+Do not restore them, including through aliases or optional runtime modes.
+RBA coordinates/cofactors, first-win semantics and exact q equality remain.
+Historical designs and failed qualifications remain evidence in docs/history
+and Git history; they do not prescribe current execution. Do not modify BSFP.
 
 Universal engineering and design guidance comes from the account-global `AGENTS.md`.
 
@@ -74,9 +72,9 @@ Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thre
 
 Acceptance status is part of authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
 
-- `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
-- `docs/decisions/2026-09-18-isometric-isograph-realignment.md` — q/gameplay/proof identity alignment after IsoGraph/NEI discovery.
-- `docs/decisions/2026-09-19-isomax-rba-update-alignment.md` — current research-coupled update alignment: qualified q/RBA ordinary-value closure may run before recursive fallback; guarded-obligation/NDC proof closure remains a separate side seam.
+- `STATUS.md` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
+- `docs/specs/C4-0011-isometric-structural-solver-v1.md` — current Candidate IsoMax semantic and execution profile.
+- `docs/decisions/2026-09-24-isomax-lazy-smp-only.md` — sole active parallel composition.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
 - `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — **Candidate structural research specification** for shared Connect4 mathematics: CPC event/control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics. Its definitions and qualified theorem instances may be used explicitly in research controls, but it is not Accepted authority until its own status changes.
 - `docs/specs/C4-0007-nested-dependency-closure-v1.md` — **Candidate proof/certificate research specification** for NDC dependency/certificate/timing/fixed-point semantics. Research consuming these clauses must identify the dependency and qualification evidence; using the file does not change its Candidate status.
@@ -98,9 +96,11 @@ For BSFP work, read:
 
 **C4-0001 → C4-0006 → C4-0007 → C4-0008 → C4-0009 → selected profile**.
 
-For quotient-native Negamax work, read:
+For current IsoMax work, read:
 
-**C4-0001 → C4-0006 → C4-0010 → STATUS.md → next_step.yaml**.
+**C4-0001 → C4-0006 → C4-0011 → STATUS.md → NEES_PROFILE.md**.
+Historical/cross-lane paths below may live only at their recorded revisions or
+on canonical research; they do not require recreating retired execution models.
 
 If the forward lane touches parity/Zugzwang control, blockers, strategic terminalization, event-frontier compression, race/deadline facts, or nested certificates, also read **C4-0007** and the relevant 2026-09-09 research notes above before changing semantics.
 
@@ -202,8 +202,8 @@ For the quotient-native forward lane:
 - the Negamax engine owns recursive W/D/L proof policy over unresolved decisions;
 - canonical shared identity is semantic content, never worker-local qID/classID or a hash alone;
 - search workers own their synchronous active task and are not interrupted for new work;
-- **Branch Manager** is an execution role for proactive branch/frontier work supply and hosted background services, not a semantic owner of every hosted concern;
-- no per-node Branch-Manager RPC belongs in recursive search.
+- shared exact evidence is not shared execution ownership;
+- no manager RPC or shared work scheduler belongs in the solve path.
 
 Execution locality is not semantic ownership.
 
@@ -225,7 +225,7 @@ If this original-line multiplicity is used for ordering, carry an incremental li
 
 Fixed center order, reversed worker order, history/killer tables and similar conventional search policies have no default authority here. They may exist as explicit controls or survive only by measurement.
 
-## Forced work and Branch Manager
+## Forced-response semantics
 
 One exact forced response is not a decision branch. Repeated forced responses may be collapsed into a deterministic macro-edge when semantics remain exact.
 
@@ -238,7 +238,7 @@ When the side to move faces enabled opponent singleton obligations, **response-c
 
 A failed progress theorem remains unknown unless a separate exact loss certificate applies.
 
-Branch Manager should proactively maintain a bounded ready reservoir. Workers do not request work and wait. An idle worker consumes already-ready work with authoritative dependency-qualified proof work ahead of structural exploration.
+Lazy SMP workers search independently and share only committed exact values. Forced-response classification restricts native local traversal; it does not create a shared work reservoir.
 
 Exploration discovers frontier structure; it does not independently invent an alpha/beta proof obligation.
 
@@ -252,11 +252,9 @@ Reserve **gate** language for an actually blocking condition. Ordinary benchmark
 
 ## Frontier hot-path specialization
 
-The IsoMax hot loop is governed by NEES Draft 0.3 at
-`iteathen/NEES@3a78310a3ba14fb3acb4046c8dffd396209c213c`.
-Use `components/isometric/NEES_PROFILE.md` as the repository-local mapping.
-Draft 0.3's first adoption requires a complete declared E0-E2 maximal-effort cost/debt baseline; the prior 0.2 audit is inherited evidence, not completion of that stronger requirement.
-NEES governs realization only; Connect4/IsoGraph/C4-0011 retain semantic authority.
+The IsoMax hot path uses the JSMinSys cycle catalog under NEES Draft 0.5.
+See components/isometric/NEES_PROFILE.md. Historical Draft 0.3 audits are not
+current conformance evidence. NEES governs realization only; Connect4/IsoGraph/C4-0011 retain semantic authority.
 
 Apply the account-global compute-synergy doctrine aggressively to the quotient-native solver hot path.
 
