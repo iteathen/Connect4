@@ -1,0 +1,57 @@
+name: IsoMax Route8 Exact Continuation Scan
+
+on:
+  push:
+    branches:
+      - experiment/isomax-lazy-smp-dts-overlap-v1
+    paths:
+      - '.github/workflows/isomax-route8-exact-scan.yml'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Checkout route-displacement JSMinSys
+        shell: pwsh
+        run: |
+          $sha='0bb979c61c012290fdbd4d69dd845f4896f70877'
+          git -C vendor/jsminsys fetch --no-tags origin $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C vendor/jsminsys checkout --detach $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Scan route8 seed continuations
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $positions=@(
+            '13333111271412',
+            '13333111271415',
+            '13333111271421',
+            '13333111271424',
+            '13333111271431',
+            '13333111271434',
+            '13333111271437',
+            '13333111271443',
+            '13333111271446',
+            '13333111271452',
+            '13333111271455',
+            '13333111271461',
+            '13333111271465',
+            '13333111271471',
+            '13333111271474',
+            '13333111271477'
+          )
+          foreach($position in $positions){
+            node --experimental-ffi tools/bench-lazy-smp-route-scan.mjs $position 8000
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
