@@ -1,0 +1,63 @@
+name: IsoMax CPC Route8 Exact A-B
+
+on:
+  push:
+    branches:
+      - experiment/isomax-lazy-smp-cpc-route-protect-v1
+    paths:
+      - '.github/workflows/isomax-cpc-route-protect-exact-route8.yml'
+  workflow_dispatch:
+
+jobs:
+  ab:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: route8-25-displacements
+            position: '13333111271421'
+            expected: 1
+          - name: route8-5-displacements
+            position: '13333111271415'
+            expected: -1
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Exact route8 B-C-C-B repeated
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $baseline='04d37498607ace16dae33c79462ddfe1503c8a0d'
+          $candidate='05a699b575e15d4039d835af61aa5c35b00822e1'
+          $position='${{ matrix.position }}'
+          $expected='${{ matrix.expected }}'
+          function Use-JSMinSys([string]$sha) {
+            git -C vendor/jsminsys cat-file -e "$sha^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git -C vendor/jsminsys fetch --no-tags origin $sha
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            git -C vendor/jsminsys checkout --detach $sha
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          1..3 | ForEach-Object {
+            foreach ($item in @(
+              @{tag='baseline';sha=$baseline},
+              @{tag='candidate';sha=$candidate},
+              @{tag='candidate';sha=$candidate},
+              @{tag='baseline';sha=$baseline}
+            )) {
+              Write-Host "ROUTE8_EXACT ${{ matrix.name }} $($item.tag)"
+              Use-JSMinSys $item.sha
+              node --experimental-ffi tools/bench-lazy-smp-hard.mjs $position $expected 7 30000 ${{ matrix.name }}
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+          }
