@@ -61,13 +61,16 @@ The eight-worker ordering uses index modulo seven columns, so workers 0 and 7 ha
 
 Before the full run, instrumented eight-worker late-position, reflected-position, and terminal-position checks matched the independent physical oracle; winner counters matched reported winner metrics. A separate 100ms empty-root timeout check retained all eight counters and joined all workers. Full benchmark ran in a fresh Node process after those checks. No full-benchmark warmup, retry, or timeout increase.
 
-From this checkout, use Node 26.7.0:
+For historical reproduction, use an isolated checkout of Connect4
+`7db9b5c3d31d86e7cfee84d02c551a96c892d0cb`, initialize its pinned JSMinSys
+`04d37498607ace16dae33c79462ddfe1503c8a0d`, and use Node 26.7.0. The retained
+harness imports that revision's API; it is not a current-library benchmark:
 
 ```powershell
 node --experimental-ffi --import ./docs/qualification/20260926-worker-scaling/node-counter-hook.mjs docs/qualification/20260926-worker-scaling/run-eight.mjs
 ```
 
-Both drivers refuse to overwrite existing evidence. For a future rerun, copy the harness files into a new qualification directory at the same depth. The original four-worker command was node --experimental-ffi docs/qualification/20260926-worker-scaling/run.mjs 4.
+Both drivers refuse to overwrite existing evidence. For a historical rerun in that isolated checkout, copy the harness files into a new qualification directory at the same depth. The original four-worker command was node --experimental-ffi docs/qualification/20260926-worker-scaling/run.mjs 4.
 
 PR review added the same overwrite guard to the original `run.mjs`; no result or journal was changed. The historical measurement harness remains recoverable at `b3d487f89737aaf50f85cc3b280827e5cf5e9464`, with SHA-256 `7df4ae55cd7f055b4b78898004dcea9ed313687d5f3e2c60f1829ee3fa489f3d`. The current artifact manifest pins the guarded reproducer.
 

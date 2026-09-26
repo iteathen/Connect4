@@ -1,3 +1,6 @@
+> HISTORICAL execution plan, superseded by Lazy SMP. Not active authority.
+> Original source: Connect4 7db9b5c3d31d86e7cfee84d02c551a96c892d0cb.
+
 # IsoMax JSMinSys execution rebuild
 
 Status: execution components implemented under the owner's build instruction.

@@ -72,9 +72,9 @@ Consumer-neutral worker/session scheduling, CPU topology, affinity, runtime thre
 
 Acceptance status is part of authority. A required reading order does **not** silently promote a Candidate specification to Accepted.
 
-- `STATUS.md` and `next_step.yaml` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
-- `docs/decisions/2026-09-18-isometric-isograph-realignment.md` — q/gameplay/proof identity alignment after IsoGraph/NEI discovery.
-- `docs/decisions/2026-09-19-isomax-rba-update-alignment.md` — current research-coupled update alignment: qualified q/RBA ordinary-value closure may run before recursive fallback; guarded-obligation/NDC proof closure remains a separate side seam.
+- `STATUS.md` — current workstream state/router; keep them current-state artifacts rather than historical ledgers.
+- `docs/specs/C4-0011-isometric-structural-solver-v1.md` — current Candidate IsoMax semantic and execution profile.
+- `docs/decisions/2026-09-24-isomax-lazy-smp-only.md` — sole active parallel composition.
 - C4-0001 through C4-0005 — protected baseline domain/incumbent/benchmark/oracle authority within their scopes.
 - `docs/specs/C4-0006-control-parity-and-winspace-v1.md` — **Candidate structural research specification** for shared Connect4 mathematics: CPC event/control parity, support/event semantics, WSL-625 residual requirements/blockers, antichain/exhaustion semantics. Its definitions and qualified theorem instances may be used explicitly in research controls, but it is not Accepted authority until its own status changes.
 - `docs/specs/C4-0007-nested-dependency-closure-v1.md` — **Candidate proof/certificate research specification** for NDC dependency/certificate/timing/fixed-point semantics. Research consuming these clauses must identify the dependency and qualification evidence; using the file does not change its Candidate status.
@@ -96,9 +96,11 @@ For BSFP work, read:
 
 **C4-0001 → C4-0006 → C4-0007 → C4-0008 → C4-0009 → selected profile**.
 
-For quotient-native Negamax work, read:
+For current IsoMax work, read:
 
-**C4-0001 → C4-0006 → C4-0010 → STATUS.md → next_step.yaml**.
+**C4-0001 → C4-0006 → C4-0011 → STATUS.md → NEES_PROFILE.md**.
+Historical/cross-lane paths below may live only at their recorded revisions or
+on canonical research; they do not require recreating retired execution models.
 
 If the forward lane touches parity/Zugzwang control, blockers, strategic terminalization, event-frontier compression, race/deadline facts, or nested certificates, also read **C4-0007** and the relevant 2026-09-09 research notes above before changing semantics.
 
