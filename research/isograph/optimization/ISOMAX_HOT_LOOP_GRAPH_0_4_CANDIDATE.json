@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "id": "isomax-hot-loop-graph-0.4",
+  "status": "unqualified_successor_candidate",
+  "gameplay_authority_effect": "none",
+  "supersedes_if_qualified": "ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.*",
+  "current_qualified_predecessor": "ISOMAX_HOT_LOOP_GRAPH_AUTHORITY_0_3.md",
+  "dp08_guidance": {
+    "repository": "iteathen/IsoGraph",
+    "revision": "03318348a4363019d37dd2aa0d80aba2b75c8958",
+    "status": "unqualified_successor_guidance"
+  },
+  "semantic_dependencies": {
+    "game_theory": "CONNECT4_LOGIC_AUTHORITY_1_2",
+    "derived_outcome_support": "CONNECT4_GAME_THEORY_CORE019_SUPPORT_0_1",
+    "core019_executable_source_rendering": "research/isograph/discovery/2026-09-26-isomax-core019/RENDERING_QUALIFICATION.md"
+  },
+  "selected_composition": {
+    "implementation_family": "JSMinSys CPC/RBA alpha-beta inside Lazy SMP",
+    "exact_fallback": "ordinary exact recursive alpha-beta plus retained RBA terminal handling",
+    "cpc_roles": {
+      "tactical": [
+        "immediate mover win",
+        "opponent double threat",
+        "forced block",
+        "support-lift loss",
+        "fork-preemption loss",
+        "action restriction"
+      ],
+      "predictive_bounds": [
+        "initial residual-exhaustion/no-win bounds",
+        "long-range response no-win bounds"
+      ],
+      "terminal_draw": "retained outside removed predictive-bound family"
+    }
+  },
+  "sufficiency_analysis": [
+    {
+      "id": "S-NO-DRAW",
+      "subject": "predictive CPC no-win/exhaustion bound family",
+      "disposition": "NONESSENTIAL_FOR_SUFFICIENCY_CANDIDATE",
+      "scope": "selected exact CPC/RBA alpha-beta composition",
+      "reason": "removed bounds weaken/tighten search intervals but retained exact fallback and terminal semantics remain",
+      "qualification_limit": "selected tests/oracles and independent review; no full-suite/final solver qualification"
+    },
+    {
+      "id": "S-TACTICAL",
+      "subject": "tactical CPC win/loss/restriction family",
+      "disposition": "SUFFICIENCY_AND_ECONOMIC_VALUE_NOT_REDUCED_BY_WIN_ONLY_ABLATION",
+      "scope": "tested workload",
+      "reason": "win-only combined removal preserved sampled solve result but caused much larger search and 45.46% cycle regression"
+    },
+    {
+      "id": "S-OWNED-WIN-TRANSITION",
+      "subject": "duplicate immediate-win test in recursive transitions after CPC ownership",
+      "disposition": "NONESSENTIAL_FOR_SCOPED_PATH_CANDIDATE",
+      "scope": "forced and ordinary CPC-only recursive calls after CPC has proved no immediate mover win",
+      "preserved_checks": [
+        "CPC immediate-win priority",
+        "root witness checks",
+        "checked ingress/four-front entry",
+        "full-board detection"
+      ]
+    }
+  ],
+  "valuation_profiles": [
+    {
+      "id": "V-CYCLES-45461667",
+      "objective": "minimize total process cycles",
+      "environment": "Intel i5-12600K; Windows; Node 26.7.0/V8 14.6.202.34-node.28; four Lazy SMP workers; input 45461667; mask 7; 65536 local/shared entries",
+      "evidence_scope": "same-host fresh-process ABBA screens",
+      "results": [
+        {
+          "candidate": "cpc-no-draw",
+          "initial_paired_change_percent": -3.093,
+          "initial_interval_percent": [-5.776,-0.410],
+          "confirmation_paired_change_percent": -3.768,
+          "confirmation_interval_percent": [-7.333,-0.202],
+          "preference": "candidate favored for total cycles on all eight paired blocks"
+        },
+        {
+          "candidate": "cpc-win-only",
+          "paired_change_percent": 45.46,
+          "interval_percent": [39.29,51.62],
+          "preference": "candidate rejected under this valuation"
+        },
+        {
+          "candidate": "cpc-owned-win-transition",
+          "confirmation_paired_change_percent": -1.825,
+          "confirmation_interval_percent": [-2.867,-0.784],
+          "preference": "candidate favored in confirmation; broader qualification pending"
+        }
+      ]
+    }
+  ],
+  "measurement_boundaries": [
+    "no-draw wall-time intervals span zero in both reported screens",
+    "one host and one principal workload do not establish universal performance ordering",
+    "instrumented per-visit diagnostics are not substituted for uninstrumented whole-operation evidence",
+    "none of these candidates is production-promoted by this graph"
+  ],
+  "logic_boundaries": [
+    "terminal/exact WDL draw can be a residual class after exact WIN and LOSS exclusion",
+    "partial CPC failure to detect win/loss does not imply draw",
+    "predictive no-win bounds are not all exact draw detections",
+    "semantic DRAW remains represented even when predictive draw/no-win machinery is omitted from a selected hot path"
+  ]
+}
