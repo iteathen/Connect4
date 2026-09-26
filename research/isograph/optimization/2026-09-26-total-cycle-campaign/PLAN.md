@@ -3,6 +3,27 @@
 Owner request: plan and start optimization, with full cycle accounting so a
 local one-percent saving cannot conceal a larger cost elsewhere.
 
+## Selected candidate — owner decision, 2026-09-26
+
+The owner selected the combined no-predictive-draw / CPC-owned-win candidate:
+JSMinSys `experiment/cpc-owned-win-20260926` at
+`49f88b2b0cd45ae427f43ceece568a4895953e5f`.
+This is the next qualification target, ahead of the original C2 sequence below.
+
+It retains CPC immediate wins, tactical losses and restrictions; omits residual
+exhaustion and response no-win bounds; and reuses CPC's no-immediate-win proof
+to skip duplicate checks in recursive transitions. Root witness and ingress
+checks remain, as does stone-count full-board detection.
+
+See NO_DRAW_RESULT.md and CPC_OWNED_WIN_RESULT.md for separate incremental
+measurements. Do not add their percentages into a claimed combined speedup.
+The combined candidate still needs direct comparison with production over a
+broader corpus and final qualification. Owner selection is not production
+promotion; dependency pins and historical evidence remain unchanged.
+
+The original ordered list below is retained as planning history. Qualify this
+selected candidate before stacking C2 or other optimization changes onto it.
+
 Baseline: Connect4 afbb8baa2a504790319890d935f641b3e4087e4b;
 JSMinSys 93aca1758718bcbf0635c11a957a67ca6387d50c. Four workers, Lazy SMP,
 mask 7, local/shared capacity 65,536, native RBA/CPC, exact-only shared evidence.
