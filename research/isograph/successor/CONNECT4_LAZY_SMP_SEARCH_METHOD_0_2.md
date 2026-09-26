@@ -6,6 +6,11 @@
 **Solver-method effect:** none  
 **Implementation anchor:** `iteathen/JSMinSys@04d37498607ace16dae33c79462ddfe1503c8a0d`
 
+**2026-09-26 continuation:** the [Core 0.19 exact-source rendering and DP campaign](../discovery/2026-09-26-isomax-core019/DP_REPORT.md)
+extends this orchestration view through the complete current executable source
+closure. Its separate qualification record does not retroactively change this
+0.2 candidate's historical disposition.
+
 ## Why 0.2 exists
 
 0.1 captured the high-level topology but did not fully decode the mechanism. It compressed the cache protocol, winner protocol, sampling gate, lifecycle and teardown into summary nodes.

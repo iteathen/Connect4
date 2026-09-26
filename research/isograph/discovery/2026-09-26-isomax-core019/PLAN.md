@@ -1,6 +1,8 @@
 # IsoMax Core 0.19 rendering and discovery campaign
 
-Status: IN PROGRESS. Durable owner: research/semantic-quotient.
+Status: COMPLETE for the declared rendering and scoped discovery campaign.
+Durable owner: research/semantic-quotient. See RENDERING_QUALIFICATION.md and
+DP_REPORT.md. Optimization candidates are not implemented or benchmark-qualified.
 
 The owner requested the current IsoMax rendered under the newest qualified
 IsoGraph Core, followed by a DP campaign. Locating the previous representation
