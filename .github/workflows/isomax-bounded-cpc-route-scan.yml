@@ -1,0 +1,54 @@
+name: IsoMax Bounded CPC Route Scan
+
+on:
+  push:
+    branches:
+      - experiment/isomax-lazy-smp-dts-overlap-v1
+    paths:
+      - '.github/workflows/isomax-bounded-cpc-route-scan.yml'
+      - 'tools/bench-lazy-smp-route-scan.mjs'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        with:
+          node-version: '26.7.0'
+          cache: npm
+      - run: npm ci
+      - name: Checkout route-displacement JSMinSys
+        shell: pwsh
+        run: |
+          $sha='0bb979c61c012290fdbd4d69dd845f4896f70877'
+          git -C vendor/jsminsys fetch --no-tags origin $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -C vendor/jsminsys checkout --detach $sha
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Scan deterministic hard-seed continuations
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $positions=@(
+            '133331114444',
+            '133331115445',
+            '133331112714',
+            '13333111444444',
+            '13333111345417',
+            '13333111536754',
+            '1333311144444433',
+            '1333311146431755',
+            '1333311133765724',
+            '133331114444443355',
+            '133331114527421665',
+            '133331114617421747'
+          )
+          foreach($position in $positions){
+            node --experimental-ffi tools/bench-lazy-smp-route-scan.mjs $position 8000
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
