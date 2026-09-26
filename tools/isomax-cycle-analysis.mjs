@@ -6,7 +6,7 @@ export function validateCycleSample(s,expectedLibrarySha,expectedMeasurement){
   if(expectedLibrarySha&&s.librarySha!==expectedLibrarySha)throw Error('library revision changed during campaign');
   if(expectedMeasurement&&s.measurement!==expectedMeasurement)throw Error('unexpected measurement mode');
   if(expectedMeasurement==='production'&&s.totalNodes!==null)throw Error('production sample was instrumented');
-  if(expectedMeasurement==='all-worker-node-instrumentation'&&s.totalNodes===null)
+  if(expectedMeasurement?.startsWith('all-worker-node-')&&s.totalNodes===null)
     throw Error('instrumented sample is missing all-worker counters');
   if(!s.oracleMatched||!s.cleanup||s.workersExited!==s.workers||s.errors.length)
     throw Error('incorrect/incomplete sample or cleanup');
@@ -50,5 +50,8 @@ export function validateMemoryConfig(c){
     const n=c[key];if(!Number.isInteger(n)||n<1||n>2097152||(n&(n-1)))throw Error('invalid memory capacity');
   }
   if(!Number.isFinite(c.timeoutMs)||c.timeoutMs<=0||c.timeoutMs>300000)throw Error('invalid timeout');
+  if(c.recordPly!==undefined&&typeof c.recordPly!=='boolean')throw Error('invalid recordPly');
+  if(c.plySampleMs!==undefined&&(!Number.isInteger(c.plySampleMs)||c.plySampleMs<5||c.plySampleMs>1000))throw Error('invalid plySampleMs');
+  if(c.plyReportMs!==undefined&&(!Number.isInteger(c.plyReportMs)||c.plyReportMs<(c.plySampleMs??100)||c.plyReportMs>30000))throw Error('invalid plyReportMs');
   return c;
 }

@@ -13,17 +13,29 @@ const library=resolve(process.argv[2]),input=process.argv[3]??'45461667',
 // The first read is already cumulative from process creation, including Node,
 // loader, FFI meter initialization and all static imports above. Do not subtract it.
 const bootstrapCycles=meter.read(),setupStarted=performance.now();
-let beforeSolve,afterSolve,result,pulse,sampledPeakRssBytes=0;
+let beforeSolve,afterSolve,result,pulse,plyReporter,plyTelemetry,sampledPeakRssBytes=0;
 try{
+  // Select instrumentation cold, before either library or worker modules load.
+  // The loader must also be inherited by search workers via --import.
+  delete process.env.ISOMAX_RECORD_PLY;
+  if(caseConfig.recordPly){
+    if(!process.execArgv.some(arg=>/isomax-node-counts\.mjs$/.test(arg)))
+      throw Error('recordPly requires --import ./tools/isomax-node-counts.mjs');
+    process.env.ISOMAX_RECORD_PLY='1';
+    const {startPlyReporter}=await import('./isomax-ply-reporter.mjs');
+    plyReporter=await startPlyReporter({workers,sampleMs:caseConfig.plySampleMs??100,
+      reportMs:caseConfig.plyReportMs??30000,progress:!!caseConfig.progress});
+  }
   const {prepareConnect4RbaGeometry,runLazySmpConnect4Rba32}=
     await import(pathToFileURL(resolve(library,'addons/index.mjs')).href);
   const geometry=prepareConnect4RbaGeometry({columns:7,rows:6}),
     moves=Array.from(input,c=>c.charCodeAt(0)-49),
     config={geometry,workers,sharedCacheCapacity,localCacheCapacity,
-      sharedSampleMask:7,timeoutMs,cpcFrontierResponse:false,cpcProjectedAdvisory:false};
+      sharedSampleMask:7,timeoutMs,cpcFrontierResponse:false,cpcProjectedAdvisory:false,
+      ...(plyReporter?{benchmarkPlyBuffer:plyReporter.buffer}:{})};
   beforeSolve=meter.read();
   const setupMs=performance.now()-setupStarted,start=performance.now(),cpuBefore=process.cpuUsage();
-  if(caseConfig.progress){
+  if(caseConfig.progress&&!plyReporter){
     sampledPeakRssBytes=process.memoryUsage().rss;
     pulse=setInterval(()=>{
       const rssBytes=process.memoryUsage().rss;sampledPeakRssBytes=Math.max(sampledPeakRssBytes,rssBytes);
@@ -32,6 +44,12 @@ try{
   }
   result=await runLazySmpConnect4Rba32(moves,config);
   if(pulse)clearInterval(pulse);
+  if(plyReporter){
+    plyTelemetry=await plyReporter.stop();
+    if(!result.benchmarkPlyEnabled)throw Error('ply instrumentation was not activated');
+    if(plyTelemetry.invalidSamples)throw Error('invalid observed ply');
+    sampledPeakRssBytes=plyTelemetry.sampledPeakRssBytes;
+  }
   afterSolve=meter.read();
   const wallMs=performance.now()-start,cpu=process.cpuUsage(cpuBefore),
     totalNodes=result.benchmarkNodeCounts?.reduce((a,b)=>a+b,0)??null;
@@ -44,7 +62,8 @@ try{
     bootstrapCycles:bootstrapCycles.toString(),setupCycles:(beforeSolve-bootstrapCycles).toString(),
     solveCycles:(afterSolve-beforeSolve).toString(),totalProcessCycles:afterSolve.toString(),
     sampledPeakRssBytes:sampledPeakRssBytes||null,setupMs,wallMs,cpuMs:(cpu.user+cpu.system)/1000,rssAfterBytes:process.memoryUsage().rss,
-    measurement:totalNodes===null?'production':'all-worker-node-instrumentation',
+    measurement:plyReporter?'all-worker-node-and-ply-instrumentation':totalNodes===null?'production':'all-worker-node-instrumentation',
+    ...(plyTelemetry?{plyTelemetry}:{}),
     totalNodes,cyclesPerVisit:totalNodes?Number(afterSolve)/totalNodes:null,
     visitsPerSecond:totalNodes?totalNodes/(wallMs/1000):null,
     expectedWdl:caseConfig.expectedWdl??1,expectedMove:caseConfig.expectedMove??null,
@@ -57,4 +76,8 @@ try{
     totalProcessCycles:final.toString(),bootstrapCycles:bootstrapCycles.toString(),
     error:error.stack??String(error)}));
   process.exitCode=1;
-}finally{if(pulse)clearInterval(pulse);meter.close();}
+}finally{
+  if(pulse)clearInterval(pulse);
+  if(plyReporter)await plyReporter.stop().catch(()=>{process.exitCode=1;});
+  meter.close();
+}
