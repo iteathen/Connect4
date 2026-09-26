@@ -1,5 +1,5 @@
 // TEST ONLY. Independent cell-array domain; never imported by production.
-export function lines() {
+function lines() {
   const result = [];
   for (let r = 0; r < 6; r++) for (let c = 0; c < 7; c++) {
     for (const [dc, dr] of [[1,0],[0,1],[1,1],[1,-1]]) {
@@ -10,7 +10,7 @@ export function lines() {
   return result;
 }
 const winning = lines();
-export function position(moves = []) {
+function position(moves = []) {
   const board = Array(42).fill(-1), heights = Array(7).fill(0);
   let ply = 0, terminal = 0;
   for (const c of moves) {
@@ -21,10 +21,6 @@ export function position(moves = []) {
     else if (ply === 42) terminal = 2;
   }
   return {board, heights, ply, terminal};
-}
-export function residuals(p, player) {
-  return winning.filter(line => line.every(cell => p.board[cell] !== (player ^ 1)))
-    .map(line => line.filter(cell => p.board[cell] === -1));
 }
 export function exact(moves) {
   const p = position(moves);

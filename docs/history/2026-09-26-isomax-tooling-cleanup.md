@@ -45,6 +45,7 @@ Historical evidence and research are not unused executable code and remain.
 
 Validation: 13/13 Connect4 tests pass; 19 retained JavaScript modules pass
 syntax checks; retained IsoMax workflow tool references resolve; no references
-to removed diagnostic runners remain in active tools/tests/workflows. A named
-function reference scan found no unreferenced declarations in that scope.
+to removed diagnostic runners remain in active tools/tests/workflows. The named
+function reference scan found an unused residuals() oracle helper; it was removed,
+and internal lines()/position() helpers are no longer exported.
 This is a scoped audit, not a formal proof of absence of all unreachable code.
