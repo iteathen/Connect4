@@ -27,3 +27,8 @@ research, other solver lanes and main are outside this retirement list.
 A branch is removed only after its exact tip is verified under its remote tag;
 expected-head leases reject any intervening updates. Original qualification
 failures and timings are unchanged. See manifest status for execution completion.
+
+Completed: nine JSMinSys and31 Connect4 branch tips verified under remote
+annotated archive tags, then removed with exact-head leases. The only unselected
+Connect4 change during this procedure was our own prior history checkpoint on
+research/semantic-quotient; no unrelated solver or candidate branch changed.

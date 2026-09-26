@@ -1,6 +1,6 @@
 {
   "date": "2026-09-26",
-  "status": "planned",
+  "status": "completed",
   "policy": "Preserve exact unique source and evidence in annotated remote archive tags; delete only unchanged selected branches; retain Lazy SMP candidates, canonical research, shared main and other solver lanes.",
   "repos": [
     {
@@ -140,7 +140,19 @@
           "subject": "perf: reuse prepared routing scratch for hashless batches",
           "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
         }
-      ]
+      ],
+      "deleted": [
+        "experiment/assertion-basis-boundaries-v1",
+        "experiment/assertion-basis-u16-v1",
+        "experiment/assertion-cpc-basis-boundary-v1",
+        "experiment/assertion-derived-basis-v1",
+        "experiment/assertion-derived-basis-v2",
+        "experiment/assertion-known-new-enqueue-v1",
+        "experiment/assertion-retained-basis-v1",
+        "experiment/isomax-surplus-fight-spike",
+        "experiment/rba-hashless-surplus-scan-v1"
+      ],
+      "unselectedChanges": []
     },
     {
       "repo": "iteathen/Connect4",
@@ -576,6 +588,45 @@
           "archive": "archive/lazy-smp-retirement-20260926/work/research-isomax-pull-102-final",
           "subject": "research: record occurrence versus execution storage separation",
           "reason": "Retired pre-Lazy-SMP execution experiment or its qualification; exact tip retained before branch removal."
+        }
+      ],
+      "deleted": [
+        "benchmark/isomax-cpc-combined-singletons-ab-20260924",
+        "benchmark/isomax-cpc-forced-macro-ab-20260924",
+        "benchmark/isomax-cpc-singleton-dedupe-ab-20260924",
+        "benchmark/isomax-fhourstones-current-20260924",
+        "benchmark/isomax-fhourstones-live-line-20260924",
+        "benchmark/isomax-fhourstones-live-line-fused-20260924",
+        "benchmark/isomax-fhourstones-live-line-fused-first-20260924",
+        "benchmark/isomax-fhourstones-live-line-insertion-20260924",
+        "benchmark/isomax-fhourstones-live-line-popcount-ab-20260924",
+        "benchmark/isomax-fhourstones-live-line-popcount2-20260924",
+        "experiment/isomax-addon-optimized-position-code-v1",
+        "experiment/isomax-assertion-basis-bitset-v1",
+        "experiment/isomax-assertion-basis-u16-v1",
+        "experiment/isomax-assertion-closure-v1",
+        "experiment/isomax-assertion-derived-basis-v1",
+        "experiment/isomax-assertion-fresh-child-bounds-v1",
+        "experiment/isomax-assertion-known-new-enqueue-v1",
+        "experiment/isomax-assertion-retained-basis-v1",
+        "experiment/isomax-external-calibration-r2",
+        "experiment/isomax-hashless-surplus-scan-v1",
+        "experiment/isomax-parent-necessity-r2",
+        "experiment/isomax-perfect-position-code-v1",
+        "experiment/isomax-subtractive-cache-key-r2",
+        "measure/isomax-d-econ-baseline-30900982",
+        "measure/isomax-d-econ-candidate-a26ef225",
+        "prototype/isomax-exposure-deficit-latch-102",
+        "qualification/isomax-qr-transport-20260919",
+        "research/isomax-deficit-credit-ledger-102",
+        "work/isomax-decentralized-pull-102",
+        "work/isomax-qualification-ox-staffing",
+        "work/research-isomax-pull-102-final"
+      ],
+      "unselectedChanges": [
+        {
+          "branch": "research/semantic-quotient",
+          "sha": "05131a7f122f8baa02faa2b2e83977d52b45cd64"
         }
       ]
     }
