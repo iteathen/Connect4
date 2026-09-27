@@ -27,4 +27,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - run: node --test vendor/jsminsys/test/*.test.mjs
+      - run: node --test test/*.test.mjs
+        working-directory: vendor/jsminsys
+      - run: node tools/verify-catalog.mjs && node tools/build-behavior-search.mjs --check && node tools/build-root-frontier.mjs --check && node tools/audit-root-frontier.mjs && node tools/audit-runtime-geometry.mjs
+        working-directory: vendor/jsminsys
