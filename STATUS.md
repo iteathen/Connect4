@@ -7,10 +7,13 @@ There is no shared-work TT, Branch Manager, surplus queue or dependency schedule
 
 The exact dependency is the vendor/jsminsys gitlink, also recorded in
 components/isometric/NEES_PROFILE.md. The application timeout stays <=120 seconds
-and the default shared sampling mask stays 7. Root conversion is cold and occurs
+with six deep + one wide worker, 4M shared entries, 1M private entries per worker
+and full exact sharing (mask 0). Root conversion is cold and occurs
 once; internal transitions remain native RBA cofactors.
 
-This cleanup removes retired implementations and conflicting instructions. It
+The 2026-09-27 selected version uses native root-frontier execution and int32
+polarity transport from the pinned JSMinSys profile. Its qualification record is
+docs/qualification/20260927-selected-isomax.md. This promotion
 does not claim a new speedup, empty-board solve, exhaustive exactness proof, or
 whole-system NEES certification. Current implementation qualification is recorded
 in docs/history/2026-09-26-lazy-smp-cleanup.md; older measurements remain scoped to

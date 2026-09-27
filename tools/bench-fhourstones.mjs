@@ -4,6 +4,7 @@ import {cpus} from 'node:os';
 import {performance} from 'node:perf_hooks';
 import {processCycleCounter} from './cycle-counter.mjs';
 import {solve7x6} from '../components/isometric/solve.mjs';
+import profile from '../vendor/jsminsys/profiles/isomax-i5-12600k.json' with {type:'json'};
 
 // COLD benchmark driver only. No reporting or character processing in solver
 // paths. Official four inputs in order, including the final EMPTY line.
@@ -24,9 +25,9 @@ const report={
   inputSource:'https://github.com/tromp/fhourstones/blob/7ddf48dc70931eaa9c07904e12424960c3a019a1/inputs',
   inputGitBlob:'a8036a915ad1a3568762c269844cfd2ded7df3d3',
   inputs,expected,referenceNodes,
-  config:{workers:4,sharedCacheCapacity:65536,localCacheCapacity:65536,sharedSampleMask:7,timeoutMs:120000,
+  config:{...profile.options,timeoutMs:120000,
     cpcFrontierResponse:false,cpcProjectedAdvisory:false},
-  protocol:'Official four inputs in order, Lazy SMP with exactly four search workers, one attempt each. Existing 120-second per-case ceiling preserved. Fresh solver session per input. No extra warmup or retry.',
+  protocol:'Official four inputs in order, selected six-deep/one-wide Lazy SMP profile, one attempt each. Existing 120-second per-case ceiling preserved. Fresh solver session per input. No extra warmup or retry.',
   interpretation:'Only EXACT with matching WDL qualifies. TIMEOUT, INTERRUPTED and FAILED are not completed Fhourstones scores. Each Lazy-SMP worker owns a complete private CPC/Negamax search and private exact cache; only committed exact W/D/L cache evidence is shared. Whole-operation wall/CPU/cycles include ingress, worker startup, shared-cache setup, cleanup and cold periodic measurement. CPU cycles sum all process threads; no nominal-GHz conversion. This is not full NEES/JMS certification.',
   cases:[],completed:false,
 };
@@ -47,8 +48,11 @@ try{
     finally{clearInterval(pulse);}
     const cpuCycles=meter.read()-before,wallMs=performance.now()-start,cpu=process.cpuUsage(cpuBefore);
     const cpuMs=(cpu.user+cpu.system)/1000;
+    const totalNodes=result.nodeCounts?.reduce((sum,n)=>sum+n,0)??null;
     const entry={index:i,input:inputs[i],expectedWdl:expected[i],...result,wallMs,cpuMs,
       cpuCycles:cpuCycles.toString(),rssBytes:process.memoryUsage().rss,
+      totalNodes,nodesPerSecond:totalNodes===null?null:totalNodes/(wallMs/1000),
+      cyclesPerNode:totalNodes?Number(cpuCycles)/totalNodes:null,
       oracleMatched:result.status==='EXACT'?result.rootWdl===expected[i]:null};
     report.cases.push(entry);
     writeFileSync(output,JSON.stringify(report,null,2)+'\n');

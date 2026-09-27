@@ -11,7 +11,7 @@ The Connect4 Surplus + Branch Manager execution composition is retired.
 - Each worker performs a complete private CPC/Negamax exact search.
 - Workers share only committed exact W/D/L cache evidence.
 - No shared Surplus queue or Connect4 Branch Manager participates.
-- The current default shared-cache sampling mask is `7` (one-eighth eligible traffic), subject to continued performance qualification.
+- The owner-selected 2026-09-27 profile uses six deep workers and one native root-frontier worker, 4M shared/1M private cache entries and full exact sharing (mask `0`). Historical mask-7 evidence remains revision-scoped.
 
 ## Code ownership
 

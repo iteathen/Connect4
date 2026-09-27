@@ -79,7 +79,12 @@ must be qualified; worker completion order cannot authorize an invalid witness.
 
 ## Lifecycle and cost boundary
 
-Default workers=2 and shared sampling mask=7. More workers do not imply speedup.
+The selected default has seven workers: six deep and one iterative root-frontier
+worker. Shared/private cache capacities are 4M/1M entries and sampling mask=0.
+The library profile owns these prepared defaults; explicit worker/cache overrides
+are separate configurations, not covered by the hardware-profile performance claim.
+The wide worker uses numeric incomplete horizons, never fabricated WDL, and releases
+to deep traversal at one unresolved root action. More workers do not imply speedup.
 The deadline stays <=120 seconds. Timeout, cancellation, capacity failure and
 worker death cannot fabricate WDL. All owned workers must exit or be terminated
 and joined before cleanup is complete.

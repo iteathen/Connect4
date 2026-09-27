@@ -4,7 +4,7 @@ IsoMax is a thin Connect4 application adapter over JSMinSys.
 
 Pinned library:
 
-`vendor/jsminsys` -> `iteathen/JSMinSys@93aca1758718bcbf0635c11a957a67ca6387d50c`
+`vendor/jsminsys` -> `iteathen/JSMinSys@a3cf7f9ca5c90e5025542c3b27ab0b735a610e9a`
 
 ## Ownership boundary
 
@@ -14,7 +14,8 @@ IsoMax owns only application-facing policy:
 - standard-geometry selection;
 - the 120-second application timeout ceiling;
 - the two-worker minimum;
-- the current default Lazy-SMP shared sampling mask;
+- consumption of the pinned six-deep/one-wide library profile (4M shared, 1M
+  private entries per worker, full exact sharing);
 - CLI, integration/oracle qualification, and benchmark reporting.
 
 JSMinSys owns the reusable execution and Connect4 machinery:

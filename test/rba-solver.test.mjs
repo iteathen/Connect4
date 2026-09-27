@@ -2,8 +2,26 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {exact} from './helpers/physical-oracle.mjs';
+import profile from '../vendor/jsminsys/profiles/isomax-i5-12600k.json' with {type:'json'};
 
 const apiURL=new URL('../components/isometric/solve.mjs',import.meta.url);
+
+test('default IsoMax uses the promoted six-deep one-wide profile',async()=>{
+  const {solve7x6}=await import(apiURL.href);
+  assert.equal(profile.options.workers,7);
+  assert.equal(profile.options.sharedCacheCapacity,4194304);
+  assert.equal(profile.options.localCacheCapacity,1048576);
+  assert.equal(profile.options.sharedSampleMask,0);
+  assert.equal(profile.options.rootFrontier,true);
+  const moves=[4,0,0,0,3,3,0,0,6,2,3,0,2,3,6,3,6,3,4,6,2,2,6,1,2,5,6,4];
+  const result=await solve7x6(moves,{timeoutMs:5000});
+  assert.equal(result.status,'EXACT');assert.equal(result.rootWdl,exact(moves).value-2);
+  assert.equal(result.workersUsed,7);assert.equal(result.workersExited,7);
+  assert.equal(result.sharedSampleMask,0);
+  assert.equal(result.nodeCounts.length,7);assert.equal(result.frontierMetrics.length,7);
+  assert.ok(result.frontierMetrics.slice(1).every(m=>m[1]===0));
+  assert.equal(result.cleanup,true);
+});
 
 function assertOptimalCallerMove(moves,result,control){
   assert.ok(Number.isInteger(result.move)&&result.move>=0&&result.move<7,JSON.stringify({moves,result}));
