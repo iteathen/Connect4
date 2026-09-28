@@ -324,7 +324,9 @@
     "adversarial_derived_relabel_invariance": "REQUIRED",
     "semantic_primitive_closure": "BLOCKED_UNTIL_ALL_LOAD_BEARING_QU_CLOSED",
     "core020_qualification": "NOT_CLAIMED",
-    "raw_token_derived_semantics_separation": "REQUIRED"
+    "raw_token_derived_semantics_separation": "REQUIRED",
+    "exhaustive_predecessor_json_leaf_coverage": "REQUIRED",
+    "load_bearing_json_semantics_must_not_be_sidecar_promoted": "REQUIRED"
   },
   "native_successor": {
     "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_4_CANDIDATE.isg",
@@ -333,5 +335,12 @@
     "derived_view_rule": "domain meanings use separate 994xxx view nodes",
     "closure_root_rule": "each 994xxx view maps through DERIVED_VIEW_OF to a separate 995xxx root marked QU_UNEXPANDED",
     "firewall_rule": "removing all 994xxx derived views and 995xxx semantic roots leaves the predecessor tuple topology recoverable from 996xxx raw tokens and RAW_EXTENSION_TUPLE incidences"
+  },
+  "predecessor_assertion_inventory": {
+    "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_CORE020_ASSERTION_INVENTORY_0_1.json",
+    "predecessor_json_leaf_count": 195,
+    "load_bearing_leaf_count": 156,
+    "non_load_bearing_leaf_count": 39,
+    "rule": "every qualified 0.3 JSON leaf is frozen and classified; no load-bearing JSON assertion is considered primitive-closed in 0.4"
   }
 }
