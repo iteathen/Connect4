@@ -56,3 +56,9 @@ Full combined report and complete raw data committed/pushed in JSMinSys fdb4f805
 [Ten-GiB continuation report](https://github.com/iteathen/JSMinSys/blob/fdb4f805c6a3668cffd9cbdc11e851ba2276b7f2/evidence/isomax-memory-affinity-20260928/CONTINUATION_REPORT.md).
 
 The measured placement gain is not proof of L2 residency or a diagnosis of the specific Windows scheduling mechanism; unpinned residency was not traced. Smaller tables improve per-node cost but lose whole-solve economics on35333571. The tested10GiB setting remains owner-selected,not globally optimal by these results. No benchmark processes remained after completion.
+
+## Candidate-only18/72MiB curve extension
+
+Owner requested approximately15/100MiB and no repeated baseline. Native power-of-two capacities select18/72MiB;100MiB itself was NOT tested. Two new samples on same6bbba7c/nightly/4pinned workers/10GiB shared/hard35333571. Both EXACT(-1,move4),clean exit.18MiB:66.546s,972150131798cycles,196946287nodes.72MiB:40.683s,595178346882cycles,87351245nodes. Relative to existing four-run36MiB pinned mean:18MiB cycles+18.171%,72MiB-27.652%;72MiB nodes-40.670%. Historical-baseline descriptive comparisons only,not fresh paired qualification; no singleton confidence interval.72MiB is promising,not a proven global/empty-board optimum. No new baseline runs or global-default change.
+
+Raw/report pushed: JSMinSys da5c391c315812d1718b4df63cf3faf2ff14f0e1, evidence/isomax-memory-affinity-20260928/PRIVATE_CURVE_RESULT.md.
