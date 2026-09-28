@@ -1,0 +1,105 @@
+{
+  "schema": "isomax.core020.dp_dts.leads.v1",
+  "date_author_local": "2026-09-27",
+  "frozen_base": "4cecb8f4f626bd701548c0951f36cec12d5c4ab5",
+  "status": "DISCOVERY_PASS_COMPLETE__EXPERIMENTS_NOT_YET_RUN",
+  "leads": [
+    {
+      "id": "L1-CPC-CLOSE-ONLY",
+      "priority": 1,
+      "novelty": "NEW_CURRENT-CAMPAIGN_COMPOSITION",
+      "semantic_status": "EXACT_RULE",
+      "implementation_status": "UNTESTED",
+      "statement": "When a fully verified local same-q search-derived weak bound is present and already-computed CPC supplies the opposite weak interval, refine directly to exact draw and optionally publish exact draw; do not re-enable general CPC weak-bound stores.",
+      "exact_support": [
+        "WDL domain {-1,0,+1}",
+        "LOWER0={0,+1}",
+        "UPPER0={-1,0}",
+        "intersection={0}",
+        "existing local full-q equality",
+        "existing CPC interval already computed on non-cutoff path"
+      ],
+      "expected_added_machinery": "two weak-direction checks plus existing exact-draw store/publication path; no new table, no extra CPC call",
+      "primary_falsifier": "opposite-bound CPC closure count too small to repay checks or whole-solve cycles regress",
+      "measurement": [
+        "cpcOppositeWeakExactDrawPromotions",
+        "cpcSameWeakStutters",
+        "cpcWeakNoLocalIgnored",
+        "process cycles",
+        "wall",
+        "nodes/cofactors",
+        "shared exact stores/hits/contention"
+      ]
+    },
+    {
+      "id": "L2-PROOF-TRANSITION-CENSUS",
+      "priority": 2,
+      "novelty": "NEW_DIAGNOSTIC_VIEW",
+      "semantic_status": "EXACT_CLASSIFICATION",
+      "implementation_status": "UNRUN",
+      "statement": "Classify every same-q proof update as strict refinement, semantic stutter, or contradiction and attribute it to search/CPC/local exact/shared exact.",
+      "exact_support": [
+        "six-state WDL interval carrier",
+        "refinement height two",
+        "intersection algebra"
+      ],
+      "primary_falsifier": "none for semantics; diagnostic is unhelpful only if transition classes are too rare/small to guide optimization"
+    },
+    {
+      "id": "L3-SHARED-MISS-STUTTER",
+      "priority": 3,
+      "novelty": "NEW_CURRENT-CAMPAIGN_CANDIDATE",
+      "semantic_status": "OPTIONAL_OBSERVATION_OPTIMIZATION",
+      "implementation_status": "DIAGNOSTIC_REQUIRED",
+      "statement": "Repeated shared-exact misses on the same resident q and unchanged local weak proof are semantic/proof stutters; measure them before testing one-bit miss memoization.",
+      "correctness_boundary": "skipping an optional later fallback probe can lose a reuse opportunity but cannot change exact game semantics",
+      "primary_falsifier": "later exact hits after an earlier miss are frequent enough that memoization loses more search than it saves",
+      "measurement": [
+        "firstWeakSharedMiss",
+        "repeatWeakSharedMiss",
+        "laterHitAfterWeakMiss",
+        "localRefinementAfterMiss",
+        "slotReplacementAfterMiss",
+        "atomic/key-load cost"
+      ]
+    },
+    {
+      "id": "L4-3BIT-WDL-PROOF-MASK",
+      "priority": 4,
+      "novelty": "NEW_REPRESENTATION_CORRESPONDENCE_IN_SEARCHED_CORPUS",
+      "semantic_status": "EXACT_REPRESENTATION_EQUIVALENCE",
+      "implementation_status": "BENCHMARK_REQUIRED",
+      "statement": "Encode the six nonempty WDL proof intervals as 3-bit possibility masks; same-q proof refinement is bitwise AND, exactness is power-of-two, contradiction is zero.",
+      "historical_boundary": "Generic lower/upper monotone proof publication is not new and already exists in C4-0010/historical packed proof store.",
+      "primary_falsifier": "V8/code-size/load/store realization is no faster than current byte-code branches",
+      "control": "wdl-proof-refinement-control.mjs"
+    },
+    {
+      "id": "L5-EXTENSIONAL-COMPREHENSION",
+      "priority": 5,
+      "novelty": "EXISTING_FIXED_POINT_RESIDUAL",
+      "semantic_status": "AUTHORITY_GAP",
+      "implementation_status": "SEPARATE_SEMANTIC_WORKSTREAM",
+      "statement": "Represent/qualify carrier comprehension if unconditional Q_STEP/VALUE totality is required by the Core-0.20 semantic qualification.",
+      "relation_to_performance": "not an optimization premise"
+    }
+  ],
+  "not_promoted": [
+    {
+      "id": "N1-CPC-WEAK-GENERAL",
+      "reason": "Prior realized CPC-derived weak stores were economically rejected; L1 consumes CPC only when it immediately closes an existing weak state to exact."
+    },
+    {
+      "id": "N2-SHARED-WEAK-TABLE",
+      "reason": "No need for a new broad shared weak-bound table."
+    },
+    {
+      "id": "N3-GLOBAL-NEI",
+      "reason": "No identity theorem is needed for proof refinement or cache correctness."
+    },
+    {
+      "id": "N4-3BIT-AUTOMATIC-WIN",
+      "reason": "Exact representation equivalence is not performance evidence."
+    }
+  ]
+}
