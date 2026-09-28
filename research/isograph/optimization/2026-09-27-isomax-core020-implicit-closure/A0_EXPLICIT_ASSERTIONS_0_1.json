@@ -1,0 +1,919 @@
+{
+  "schema": "isomax.core020.implicit_closure.a0.v1",
+  "campaign": "2026-09-27-isomax-core020-implicit-closure",
+  "round": 0,
+  "status": "FROZEN_EXPLICIT_BASE",
+  "count": 70,
+  "entries": [
+    {
+      "id": "E001",
+      "title": "finite column carrier",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Exactly seven raw column values c0..c6 are represented.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E002",
+      "title": "finite height and row carriers",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Heights are exactly 0..6 and rows exactly 0..5.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E003",
+      "title": "cell-coordinate extension",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Exactly 42 raw cells have the complete CELL_COORD extension over 7 columns x 6 rows.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E004",
+      "title": "column reflection extension",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_COLUMN is exactly 0<->6, 1<->5, 2<->4, 3<->3.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E005",
+      "title": "above-cell extension",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "ABOVE is exactly the 35 same-column next-row incidences.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E006",
+      "title": "winning-line extension",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "The raw domain freezes exactly 69 standard four-cell winning lines and their memberships.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E007",
+      "title": "residual-term universe",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "The raw domain freezes exactly 625 distinct nonempty residual terms and TERM_HAS membership.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E008",
+      "title": "pair-incidence extension",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "PAIR_INCIDENCE freezes both orientations of every represented two-cell residual term.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E009",
+      "title": "bit and cell-mask extension",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Thirty-two bit positions, zero/one-hot words, BIT_OF, and 42 two-half cell masks are frozen extensionally.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_RAW_DOMAIN_0_1.isg",
+        "git_blob": "e2a3da5e806ee2dbd5424a17ed0b305a166c41a6"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E010",
+      "title": "Peano numerals 0..512",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Natural terms through 512 have explicit successor constructor chains.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_NATURAL_NUMERALS_0_1.isg",
+        "git_blob": "33478c141519c645aecee4df26586068e12d638c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E011",
+      "title": "primitive arithmetic relations",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Pinned arithmetic support expands addition, multiplication, exponentiation, order, polynomial and related natural relations into primitive logic.",
+      "source": {
+        "path": "research/isograph/optimization/core020-support/PRIMITIVE_NATURAL_ARITHMETIC_0_5_PIN.isg",
+        "git_blob": "fde4915b3a056430e0cb7a3a327e26abc1c7b09b"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E012",
+      "title": "finite data constructors",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Pinned finite-data support expands finite list/constructor structure into primitive logic.",
+      "source": {
+        "path": "research/isograph/optimization/core020-support/PRIMITIVE_DATA_CONSTRUCTORS_0_5_PIN.isg",
+        "git_blob": "c0479ac1de1a1c8ff5737221133601618b1a56cf"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E013",
+      "title": "support validity",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SUPPORT_VALID is defined by a support tag plus exactly one height field per physical column.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E014",
+      "title": "support-at relation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SUPPORT_AT selects the unique field corresponding to a raw column.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E015",
+      "title": "support equality",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SUPPORT_EQ is extensional equality of all represented column heights.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E016",
+      "title": "landing relation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "LANDING holds exactly at the cell whose row equals the selected playable column height.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E017",
+      "title": "playable-cell relation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "PLAYABLE holds exactly for a current landing cell of some column.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E018",
+      "title": "support step",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SUPPORT_STEP increments the selected column height and preserves every other column height.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E019",
+      "title": "support rank",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "RANK is the exact sum of the seven support heights.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E020",
+      "title": "side-to-move",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SIDE is P0 on even support rank and P1 on odd support rank.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E021",
+      "title": "term equality",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "TERM_EQ is extensional equality over TERM_HAS.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E022",
+      "title": "term subset",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "TERM_SUBSET is extensional subset over TERM_HAS.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E023",
+      "title": "strict term subset",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "TERM_STRICT_SUBSET is subset plus non-equality.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E024",
+      "title": "term removal",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "TERM_REMOVE(t,x,u) removes exactly x from t.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E025",
+      "title": "singleton term",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SINGLETON(t,x) means x is the unique cell in t.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E026",
+      "title": "degree-two term",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "DEGREE2(t,x,y) means x,y are distinct and exactly the members of t.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E027",
+      "title": "residual validity",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "RESIDUAL_VALID is pairwise antichain validity over represented terms.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E028",
+      "title": "residual equality",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "RESIDUAL_EQ is extensional equality of term incidence.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E029",
+      "title": "own immediate win",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "OWN_WIN(A,x) holds exactly when A contains the singleton term at x.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E030",
+      "title": "own cofactor candidates",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "OWN_CANDIDATE keeps terms not containing x and non-singletons containing x after exact removal of x.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E031",
+      "title": "own transition",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "OWN_TRANSITION is the inclusion-minimal antichain of OWN_CANDIDATE when OWN_WIN is false.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E032",
+      "title": "block transition",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "BLOCK_TRANSITION removes exactly all residual terms containing the occupied cell.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E033",
+      "title": "q validity",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Q_VALID requires support plus P0/P1 residual fields, each valid.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E034",
+      "title": "q_o equality",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "QO_EQ is extensional equality of support and both residual fields.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E035",
+      "title": "q side",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "QSIDE projects SIDE through the q support field.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E036",
+      "title": "legal action",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "LEGAL(q,c) holds exactly when q has a landing cell in column c.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E037",
+      "title": "immediate outcome",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "IMMEDIATE gives +1 for a P0 OWN_WIN and -1 for a P1 OWN_WIN on the landing cell.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E038",
+      "title": "q transition",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Q_STEP applies support step, mover OWN_TRANSITION, opponent BLOCK_TRANSITION, and forbids continuation after OWN_WIN.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E039",
+      "title": "no legal action",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "NO_LEGAL holds exactly when no column is LEGAL.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E040",
+      "title": "action outcome",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "OUTCOME is immediate terminal value or the VALUE of the unique q successor.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E041",
+      "title": "ordinary WDL recurrence",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "VALUE is draw on NO_LEGAL, otherwise max outcome for P0 or min outcome for P1 over {-1,0,+1}.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E042",
+      "title": "q-step rank increment",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Every Q_STEP successor rank is the Peano successor of the source rank.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E043",
+      "title": "q rank bound",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Every Q_VALID rank is <= 42.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E044",
+      "title": "cell reflection",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_CELL transports CELL_COORD through REFLECT_COLUMN at the same row.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E045",
+      "title": "support reflection",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_SUPPORT transports all support heights through column reflection.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E046",
+      "title": "term reflection",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_TERM transports every TERM_HAS cell through REFLECT_CELL.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E047",
+      "title": "residual reflection",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_RESIDUAL transports residual term membership through REFLECT_TERM.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E048",
+      "title": "q reflection",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_Q reflects support and both residual fields.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E049",
+      "title": "q_r orbit equivalence definition",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "QR_EQ is QO_EQ or QO_EQ after reflecting the second q.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E050",
+      "title": "q reflection involution support",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "The native game slice explicitly supports REFLECT_Q twice implying QO_EQ with the original q.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E051",
+      "title": "reflected transition transport",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "A Q_STEP transports under REFLECT_Q and REFLECT_COLUMN to a reflected Q_STEP.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E052",
+      "title": "reflected immediate transport",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "An IMMEDIATE outcome transports under REFLECT_Q and REFLECT_COLUMN with unchanged WDL token.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E053",
+      "title": "reflection rank preservation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "REFLECT_Q preserves exact support rank.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E054",
+      "title": "q_r scalar-value support",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "QR_EQ plus VALUE(q,v) implies VALUE(t,v) in the represented primitive game slice.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg",
+        "git_blob": "7597f687f2df302acec35d950402d63b18646e38"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E055",
+      "title": "pair incidence interpretation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "PAIR_INCIDENCE is identified exactly with DEGREE2 membership in either orientation.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E056",
+      "title": "singleton projection",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "SINGLE_AT(A,x) holds exactly when residual A contains a singleton term at x.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E057",
+      "title": "completion-cell relation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "COMPLETE collects own immediate-above singleton and degree-two other-cell completion candidates.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E058",
+      "title": "opponent exposure veto",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "OPP_VETO holds exactly when the cell immediately above the landing cell is an opponent singleton.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E059",
+      "title": "effect-class relation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "EFFECT classifies each legal action into 0,1,2 using veto and the number of distinct completion cells.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E060",
+      "title": "center-order precedence",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "BEFORE is the exact finite precedence 3,2,4,1,5,0,6.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E061",
+      "title": "promoted-column relation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "PROMOTE selects a legal nonzero-effect column with maximal effect and no earlier equal-or-better center-order rival.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_ORDERING_0_1.isg",
+        "git_blob": "fe9affc47400697bca81dfc13984395f9078b446"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E062",
+      "title": "task-control carrier",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "A task-control object has abort, needed, node-count and node-budget fields with represented domains.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E063",
+      "title": "task result carrier",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Task-control outcomes are exactly ABORTED, RETIRED, SPLIT and CONTINUE.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E064",
+      "title": "task-control precedence",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "TASK_CONTROL_RESULT prioritizes abort, then unneeded retirement, then budget split, else continue.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E065",
+      "title": "next control threshold",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "For CONTINUE, NEXT_CONTROL is min(nodeBudget, nodes+512) using primitive arithmetic/order.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E066",
+      "title": "ranked q dependency edge",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Q_DEPENDENCY(q,qp) holds when some represented column supplies Q_STEP(q,c,qp).",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E067",
+      "title": "dependency rank increment",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Every Q_DEPENDENCY edge increases q rank by exactly one.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E068",
+      "title": "execution consumes q_r scalar value",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "The execution slice preserves QR_EQ scalar VALUE implication.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E069",
+      "title": "task occurrence separation",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "Two task occurrences can project to the same q while remaining equal or distinct task occurrences; q projection does not identify them.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    },
+    {
+      "id": "E070",
+      "title": "runtime scheduling QU",
+      "kind": "EXPLICIT_ASSERTION_SCHEMA",
+      "support_mode": "EXACT",
+      "body": "External scheduling/runtime distribution remains represented as QU rather than a semantic game relation.",
+      "source": {
+        "path": "research/isograph/optimization/ISOMAX_CORE020_PRIMITIVE_EXECUTION_0_1.isg",
+        "git_blob": "7d4bc3358fc42ae761d4c54f60beb7c8750fa82c"
+      },
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "provenance": "source-explicit represented structure"
+    }
+  ]
+}
