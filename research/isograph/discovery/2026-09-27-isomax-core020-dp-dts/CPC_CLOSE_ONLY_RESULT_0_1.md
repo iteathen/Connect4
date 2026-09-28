@@ -158,3 +158,71 @@ already-proved same-q proof refinement.
 
 V2 must receive its own NEES accounting and completed exact A/B before any
 promotion.
+
+
+## V2 — value-only in-place exact promotion
+
+V2 removed the V1 representation redundancy.
+
+For a verified same-q local weak row, exact-draw promotion became:
+
+~~~text
+cache.value[slot] = exact draw
+~~~
+
+with:
+- no local key republication;
+- no local stamp rewrite;
+- optional existing shared-exact publication retained;
+- full shared key/sequence validation unchanged.
+
+Full JSMinSys Verify:
+- run `36382971575`;
+- PASS.
+
+Eight-block exact confirmation:
+- run `36382971576`;
+- artifact `10952673645`;
+- digest `sha256:71891b328eb1db6e498061835cdac5c46344b115f5deb61ca6c1b46baf4f0d21`;
+- hosted Windows, 4 workers, 1 wide + 3 deep;
+- all 16 processes exact;
+- root WDL -1 / move 4 unchanged.
+
+V2 versus frozen control:
+
+~~~text
+process cycles      +0.021%
+95% interval        [-0.596%, +0.638%]
+
+nodes               -0.241%
+95% interval        [-0.776%, +0.293%]
+
+cycles/node         +0.263%
+95% interval        [-0.065%, +0.591%]
+
+shared hits         +1.464%
+95% interval        [+0.920%, +2.007%]
+
+shared stores       -0.049%
+95% interval        [-0.296%, +0.198%]
+~~~
+
+## Final lead disposition
+
+`CPC_CLOSE_ONLY_REJECTED_AS_WHOLE_SOLVE_OPTIMIZATION`
+
+The exact proof refinement is correct and V2 removes the obvious redundant
+local-key work, but neither realization demonstrates a completed exact
+whole-solve cycle improvement.
+
+This is useful negative evidence:
+
+- opposite CPC weak closures occur and can reduce some search work;
+- the effect is too small to pay reliably for the extra close-only control path;
+- additional shared exact hits do not produce a measurable net win here.
+
+Do not carry CPC close-only into the preferred production path.
+
+The semantic six-state proof-refinement model remains valid and continues to
+motivate diagnostics that target **stutter work** without adding per-node
+proof checks.
