@@ -135,3 +135,82 @@ response resources, first-win timing and deadlines are load-bearing.
 
 The solved map remains unnecessary for this proof and should be used only as a
 post-hoc external control if desired.
+
+
+## Independent second-engine verification
+
+A second exact implementation was run after the primary proof was frozen.
+
+Workflow:
+
+`36499229413`
+
+Head:
+
+`13b15db6ce4ff7d9df96f01c18d34482dcb8081d`
+
+Representation:
+
+- independent 49-bit Connect Four bitboards;
+- exact negamax strong-score recurrence;
+- fixed-size two-way typed-array TT;
+- replacement/collisions affect reuse only and cannot inject a value;
+- no import from the repository oracle implementation;
+- no solved-action corpus, opening book, BDD, or perfect-play map.
+
+The returned strong score is from the side-to-move perspective. At every
+three-ply child `44c`, P1 is to move.
+
+| Child | Side-to-move strong score | Absolute interpretation | Nodes | Artifact | Digest |
+|---|---:|---|---:|---:|---|
+| 441 | +3 | P1 win / P0 loss | 68,356,588 | 11004079579 | sha256:4442d3d6f11c092cc02396c0785f848635d5316ef42c4df162eaba9843af9248 |
+| 442 | +3 | P1 win / P0 loss | 42,126,319 | 11004054408 | sha256:e2bf8026f91bf9ed01d592b09795a1593f442c1cb5906ceb6da64c8d9bb43c0a |
+| 443 | +2 | P1 win / P0 loss | 58,368,689 | 11004578097 | sha256:d503b940b42f01f3fe9b057b22dc3a6a5878d0bd8befbbb94f18f7f6f07fe405 |
+| 444 | -1 | P1 loss / P0 win | 348,760,537 | 11004484377 | sha256:3e94db4381ad52ca82d1afa67069807335e53db6da5c2b7880038559a2181535 |
+
+Thus the independent bitboard engine reproduces the same W/D/L partition as
+IsoMax for all four reflection-distinct children.
+
+This materially strengthens the proof because the two exact calculations do not
+share the same state representation, TT structure, CPC machinery, RBA
+canonicalization, or worker/search implementation.
+
+### Exact conclusion
+
+From game rules alone:
+
+```
+441 = P0 loss
+442 = P0 loss
+443 = P0 loss
+444 = P0 win
+```
+
+Reflection gives:
+
+```
+445 = P0 loss
+446 = P0 loss
+447 = P0 loss
+```
+
+Therefore `4` is the unique W/D/L-preserving move after `44`.
+
+No strong-distance tie breaker is required because no second move shares the
+winning result class.
+
+## Searchless-formula boundary
+
+This two-engine proof establishes the truth of `44 -> 4` without prior solve
+knowledge. It does **not** authorize hard-coding `44 -> 4` into a production
+solver.
+
+The intended optimization target remains a generic theorem/certificate computed
+from current geometry and game-rule structure. The residual-line experiment is
+a discovery clue only. Current evidence specifically rules out treating raw
+residual count/literal mass as a proven value order.
+
+The next structural route should use the already-qualified recursive
+proof-frontier antichain theorem with typed support/deadline/resource context,
+or another generic rule whose soundness is independently proved before the
+`44` result is used as validation.
