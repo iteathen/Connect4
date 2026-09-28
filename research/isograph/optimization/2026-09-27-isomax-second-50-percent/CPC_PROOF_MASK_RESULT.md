@@ -54,8 +54,10 @@ selected K/STOP_TEST repair remains intact.
 
 [JSMinSys full report, raw samples, environment and blob hashes](https://github.com/iteathen/JSMinSys/tree/1aa2159/evidence/isomax-phase2-cpc-proof-mask-20260928).
 Source7f74e32; harnessc6e2fda; raw36022ca; analyzed result1aa2159.
-PR118 is to be closed as a rejected runtime experiment; preserve its branch and
-RED/GREEN history. PR84 remains outside this experiment and must not be merged.
+PR118 was [closed without merge](https://github.com/iteathen/JSMinSys/pull/118#issuecomment-5876061951)
+as a rejected runtime experiment. Its branch and RED/GREEN history are retained;
+final evidence checkpoint acf9639 reconciles the plan/progress status.
+PR84 remains outside this experiment and must not be merged.
 
 Next bounded hypothesis: [prepared private epoch prefix](PRIVATE_EPOCH_PREFIX_PLAN.md).
 It starts from be7c2887, not this rejected candidate, and has no performance claim.
