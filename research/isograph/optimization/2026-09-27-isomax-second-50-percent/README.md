@@ -20,6 +20,12 @@ Accepted mechanisms include, without preference:
 The research question is total exact-solve effectiveness, not any one local
 metric.
 
+Latest local official-hard follow-up:
+[selected-production local result](SELECTED_PRODUCTION_LOCAL_HARD_RESULT.md).
+Both arms timed out in all eight planned samples; results are explicitly
+**suspicious and require investigation**. The official-hard promotion gate
+remains unmet. Earlier completed-control results remain separate evidence.
+
 ## Qualification discipline
 
 - Freeze the exact qualified Phase-1 SHA before Phase 2 gets a permanent
