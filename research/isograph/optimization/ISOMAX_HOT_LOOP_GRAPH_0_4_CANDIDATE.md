@@ -107,7 +107,20 @@ relabeling requirements for the exact claim currently made by this successor.
 
 The current ledger contains 24 semantic surfaces.
 
-All 24 are presently:
+The qualified 0.3 JSON surface is also exhaustively frozen and classified:
+
+```text
+JSON leaf assertions:       195
+load-bearing assertions:    156
+provenance/navigation:       39
+```
+
+All 156 load-bearing JSON assertions remain `QU_UNEXPANDED` until their
+meaning is supplied by native primitive support. This prevents the JSON/Markdown
+sidecars from silently restoring semantics removed from the native graph and
+closes the implicit-assertion escape path under Core 0.20.
+
+All 24 native semantic surfaces are presently:
 
 ```text
 source token: RAW_DATA_ATOM
