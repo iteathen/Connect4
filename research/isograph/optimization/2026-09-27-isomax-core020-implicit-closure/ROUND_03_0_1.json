@@ -1,8 +1,8 @@
 {
   "schema": "isomax.core020.implicit_closure.round.v1",
   "round": 3,
-  "status": "ADMITTED",
-  "new_assertions": 45,
+  "status": "REVIEWED_AFTER_NEI_0_4__43_ADMITTED_2_REJECTED",
+  "new_assertions": 43,
   "support_refinements": 0,
   "entries": [
     {
@@ -1112,9 +1112,11 @@
       "NEI_scope": "as stated in assertion body",
       "provenance": "round-3 consequence over A0 + rounds 1-2",
       "side_conditions": [],
-      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "downstream_relevance": "historical generated candidate preserved; do not consume as admitted support",
       "normalized_depth": 9,
-      "admitted": true
+      "admitted": false,
+      "disposition": "REJECTED_AFTER_NEI_0_4_REEVALUATION",
+      "rejection_reason": "Exact structural/scoped quotient correspondence is identity evidence, not an automatic NEI SAME result. The primitive successor does not yet represent an identity-model family/extensional identity theorem that forces coidentity."
     },
     {
       "id": "IA-I137",
@@ -1138,9 +1140,11 @@
       "NEI_scope": "as stated in assertion body",
       "provenance": "round-3 consequence over A0 + rounds 1-2",
       "side_conditions": [],
-      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "downstream_relevance": "historical generated candidate preserved; do not consume as admitted support",
       "normalized_depth": 11,
-      "admitted": true
+      "admitted": false,
+      "disposition": "REJECTED_AFTER_NEI_0_4_REEVALUATION",
+      "rejection_reason": "Exact structural/scoped quotient correspondence is identity evidence, not an automatic NEI SAME result. The primitive successor does not yet represent an identity-model family/extensional identity theorem that forces coidentity."
     },
     {
       "id": "IA-I138",
@@ -1203,8 +1207,7 @@
       "scope": "IsoMax Core-0.20 primitive successor",
       "premises": [
         "IA-I122",
-        "IA-I123",
-        "IA-I137"
+        "IA-I123"
       ],
       "governing_authority": [
         "Core 0.19 implicit assertions",
@@ -1212,7 +1215,7 @@
         "NEI 0.4 where identity scope is stated"
       ],
       "derivation_family": "N",
-      "witness": "Identity scope is explicit: semantic future behavior and task occurrence are different queries.",
+      "witness": "QR_EQ/value equivalence and explicit task-occurrence separation answer different scopes; no NEI SAME premise is required.",
       "QU_dependencies": [],
       "NEI_scope": "as stated in assertion body",
       "provenance": "round-3 consequence over A0 + rounds 1-2",
@@ -1223,5 +1226,6 @@
     }
   ],
   "depth_semantics": "longest admitted IA-premise chain from the frozen explicit A0 base; checkpoint round is not assumed equal to derivation depth",
-  "max_normalized_depth": 13
+  "max_normalized_depth": 13,
+  "rejected_assertions": 2
 }
