@@ -1,0 +1,34 @@
+name: Oracle-blind 444 safety-cover test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/44-geometry-blind-20260928
+    paths:
+      - "research/isograph/discovery/2026-09-28-44-geometry-blind/444-safety-cover.mjs"
+      - ".github/workflows/444-safety-cover.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Guard solved-data boundary
+        run: |
+          set -euo pipefail
+          ! grep -E "solved-actions|openingbook|bdd_w7_h6|solution_w7_h6|ExactConnect4Oracle" research/isograph/discovery/2026-09-28-44-geometry-blind/444-safety-cover.mjs
+      - name: Run certificate compatibility
+        run: node research/isograph/discovery/2026-09-28-44-geometry-blind/444-safety-cover.mjs > 444-safety-cover.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: connect4-444-safety-cover
+          path: 444-safety-cover.json
+          if-no-files-found: error
