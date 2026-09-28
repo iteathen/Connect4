@@ -214,3 +214,48 @@ The next structural route should use the already-qualified recursive
 proof-frontier antichain theorem with typed support/deadline/resource context,
 or another generic rule whose soundness is independently proved before the
 `44` result is used as validation.
+
+
+## Independent bounded-bitboard verification
+
+A second implementation was written on this branch rather than importing the
+repository exact-oracle module. It uses:
+
+- a 49-bit Connect Four bitboard representation;
+- direct rule-derived legal/terminal predicates;
+- exact negamax/alpha-beta recurrence;
+- a fixed-size two-way transposition table.
+
+The table is a cache only. Replacement can discard reusable bounds and make the
+run slower, but cannot create a game value: every admitted bound originates in
+the recursive game-rule recurrence.
+
+Workflow:
+
+`36499229413`
+
+Source head:
+
+`13b15db6ce4ff7d9df96f01c18d34482dcb8081d`
+
+The source is guarded against imports/references to repository solved corpora,
+opening books, external BDDs, and `components/oracle`.
+
+This verifier reports strong score from the **side-to-move** perspective. After
+every three-ply sequence `44x`, P1 is to move. Its exact results are therefore:
+
+| Child | side-to-move strong score | Absolute interpretation | Artifact | Digest |
+|---|---:|---|---:|---|
+| 441 | +3 | P1 wins / P0 loses | 11004079579 | sha256:4442d3d6f11c092cc02396c0785f848635d5316ef42c4df162eaba9843af9248 |
+| 442 | +3 | P1 wins / P0 loses | 11004054408 | sha256:e2bf8026f91bf9ed01d592b09795a1593f442c1cb5906ceb6da64c8d9bb43c0a |
+| 443 | +2 | P1 wins / P0 loses | 11004578097 | sha256:d503b940b42f01f3fe9b057b22dc3a6a5878d0bd8befbbb94f18f7f6f07fe405 |
+| 444 | -1 | P1 loses / P0 wins | 11004484377 | sha256:3e94db4381ad52ca82d1afa67069807335e53db6da5c2b7880038559a2181535 |
+
+The bitboard verifier and IsoMax differ materially in state representation,
+cache layout, search implementation, CPC usage, concurrency, and result
+orientation, yet agree on the W/D/L class of every representative child.
+
+Thus the unique-move conclusion does not depend on one solver implementation.
+
+The independent verifier required substantially more work on `444`
+(348,760,537 recursive nodes) but still completed from the rules alone.
