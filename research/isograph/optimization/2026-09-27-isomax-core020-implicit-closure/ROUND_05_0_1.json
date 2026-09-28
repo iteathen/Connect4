@@ -1,0 +1,830 @@
+{
+  "schema": "isomax.core020.implicit_closure.round.v1",
+  "round": 5,
+  "status": "ADMITTED",
+  "new_assertions": 30,
+  "support_refinements": 0,
+  "entries": [
+    {
+      "id": "IA-I181",
+      "round": 5,
+      "title": "q_o preserves the literal action-outcome profile",
+      "body": "QO_EQ(q,t) implies the exact set of represented pairs (literal column c, OUTCOME value v) is identical.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I056",
+        "IA-I059"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Both legality and each literal action outcome are invariant under QO_EQ.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I182",
+      "round": 5,
+      "title": "q_r preserves the action-outcome profile under transport",
+      "body": "QR_EQ(q,t) preserves the represented action/outcome profile after applying the identity-or-reflection column transporter.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I076",
+        "IA-I097",
+        "IA-I181"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The q_r future equivalence is action-transported and WDL tokens are unchanged.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I183",
+      "round": 5,
+      "title": "a represented nonterminal value has a value-preserving action witness",
+      "body": "If VALUE(q,v) holds and NO_LEGAL(q) is false, at least one legal column c satisfies OUTCOME(q,c,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E041"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "L",
+      "witness": "This existential witness is a conjunct of both the P0 max and P1 min VALUE clauses.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I184",
+      "round": 5,
+      "title": "value-preserving literal actions are q_o-invariant",
+      "body": "QO_EQ(q,t) preserves exactly the literal columns c for which OUTCOME(q,c,v) equals the node VALUE v.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I060",
+        "IA-I181",
+        "IA-I183"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Node value and literal action outcomes are both QO invariant.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I185",
+      "round": 5,
+      "title": "value-preserving actions transport across q_r",
+      "body": "QR_EQ(q,t) transports the set of exact value-preserving actions by c->c or c->6-c.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I142",
+        "IA-I182",
+        "IA-I183"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Scalar value is constant on the q_r class and the action/outcome profile transports.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I186",
+      "round": 5,
+      "title": "exact root action witnesses can be reused across q_r with orientation transport",
+      "body": "An established exact action c satisfying OUTCOME(q,c,VALUE(q)) may be reused for a QR_EQ state only after applying the q_r action transporter.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I185",
+        "IA-I117"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The transported action preserves its exact outcome/value witness.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I187",
+      "round": 5,
+      "title": "advisory promotion need not be value-preserving",
+      "body": "PROMOTE(q,c) does not by itself imply OUTCOME(q,c,VALUE(q)).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I178"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "PROMOTE has no primitive VALUE support path; an admissible model may assign the promoted action a nonoptimal represented outcome.",
+      "QU_dependencies": [],
+      "NEI_scope": "scope stated by assertion; non-entailment where applicable",
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I188",
+      "round": 5,
+      "title": "promotion is correctness-neutral only as an advisory hint",
+      "body": "PROMOTE may influence evaluation order, but it may be used as an exact root action only after a separate value-preserving action witness is established.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I175",
+        "IA-I178",
+        "IA-I183",
+        "IA-I187"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Ordering safety is permutation safety, not proof that the promoted action attains the optimum.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I189",
+      "round": 5,
+      "title": "action-bearing q_r cache is sound with transporter plus value witness",
+      "body": "A cached literal action under q_r is correctness-safe when the entry also represents that the action attains the cached scalar value and lookup applies the orientation transporter.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I117",
+        "IA-I186"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Both missing burdens—value preservation and physical-column transport—are discharged.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I190",
+      "round": 5,
+      "title": "scalar and action payloads have different q_r reuse contracts",
+      "body": "A q_r cache may reuse scalar WDL unconditionally within the verified class, while any literal action payload carries an additional transporter/value-witness obligation.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I116",
+        "IA-I117",
+        "IA-I189"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Scalar invariance is stronger than literal-coordinate invariance.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I191",
+      "round": 5,
+      "title": "reflection-fixed q has a reflection-symmetric action-outcome profile",
+      "body": "If REFLECT_Q(q,rq) and QO_EQ(q,rq), then OUTCOME(q,c,v) iff OUTCOME(q,6-c,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I069",
+        "IA-I030",
+        "IA-I181"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The reflected state is QO-equivalent to q, so the transported action profile returns to the same q content.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I192",
+      "round": 5,
+      "title": "reflection-fixed q has mirrored value-preserving actions",
+      "body": "For a reflection-fixed q with VALUE(q,v), every value-preserving action c has reflected action 6-c also value-preserving.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I191",
+        "IA-I183"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The action-outcome profile is symmetric at the node value.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I193",
+      "round": 5,
+      "title": "advisory promotion may break symmetry that exact action values preserve",
+      "body": "A reflection-fixed q can have a symmetric exact action/outcome profile while PROMOTE selects only one side of an equal-effect pair.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I112",
+        "IA-I191",
+        "IA-I192"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "CENTER_ORDER is an orientation-sensitive tie break layered over reflection-equivariant game/effect structure.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I194",
+      "round": 5,
+      "title": "q-step target identity is semantic, not raw occurrence identity",
+      "body": "Q_STEP(q,c,u) and Q_STEP(q,c,v) force QO_EQ(u,v) but do not force raw EQUAL(u,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I034",
+        "IA-I104"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "Successor functionality is extensional; the raw object carrier has no extensional-object collapse axiom.",
+      "QU_dependencies": [],
+      "NEI_scope": "scope stated by assertion; non-entailment where applicable",
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I195",
+      "round": 5,
+      "title": "semantic dependency dedup does not collapse execution occurrences",
+      "body": "Deduplicating q dependencies by QO_EQ or QR_EQ can preserve semantic value work while task occurrences remain separately addressable.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I148",
+        "IA-I194"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Semantic target multiplicity and execution occurrence multiplicity are distinct layers.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I196",
+      "round": 5,
+      "title": "every valid residual has at most 625 term members",
+      "body": "RESIDUAL_VALID(A) can contain no more than the 625 frozen residual terms.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E007",
+        "E027"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "D",
+      "witness": "Residual membership ranges over a finite 625-element term carrier.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I197",
+      "round": 5,
+      "title": "the q_o semantic-content space is finite",
+      "body": "There are at most 7^7 * 2^625 * 2^625 distinct q_o content classes before applying residual-antichain restrictions.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E002",
+        "E007",
+        "E013",
+        "E033",
+        "E034",
+        "IA-I196"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "D",
+      "witness": "A support has seven fields each in seven heights; each residual extension is a subset of the 625-term carrier.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I198",
+      "round": 5,
+      "title": "the q_r semantic-content space is finite",
+      "body": "The number of q_r classes is finite and no greater than the number of q_o classes.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I141",
+        "IA-I197"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "D",
+      "witness": "q_r is a quotient of the finite q_o content space.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I199",
+      "round": 5,
+      "title": "the semantic q dependency DAG is finite and acyclic",
+      "body": "On semantic q_o or q_r content classes, Q_DEPENDENCY forms a finite rank-stratified DAG.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I049",
+        "IA-I118",
+        "IA-I197",
+        "IA-I198"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Finiteness comes from finite content; acyclicity comes from strict rank increase.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I200",
+      "round": 5,
+      "title": "finite acyclicity does not prove current VALUE totality",
+      "body": "The current relational theory's finite acyclic semantic dependency structure does not by itself establish that every Q_VALID carrier object has a VALUE witness.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I199"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "The theory lacks an extensional-comprehension axiom guaranteeing carrier objects for every support/residual/q successor content; well-foundedness cannot create missing relation witnesses.",
+      "QU_dependencies": [],
+      "NEI_scope": "scope stated by assertion; non-entailment where applicable",
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I201",
+      "round": 5,
+      "title": "current totality gap is representational existence, not recursive cycling",
+      "body": "The identified obstruction to deriving total Q_STEP/VALUE from the present primitive theory is missing carrier-object comprehension for defined extensional outputs, not a cycle in the dependency relation.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I016",
+        "IA-I024",
+        "IA-I025",
+        "IA-I034",
+        "IA-I052",
+        "IA-I200"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Local transformations are functional up to extensional equality and recursion is well-founded, but existence of target carrier witnesses is not universally asserted.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I202",
+      "round": 5,
+      "title": "extensional comprehension would make guarded primitive transitions total",
+      "body": "Conditional on an explicit axiom that every valid support/residual/q extensional content has a carrier object, SUPPORT_STEP, BLOCK_TRANSITION, guarded OWN_TRANSITION and non-immediate Q_STEP each have a target witness.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E018",
+        "E031",
+        "E032",
+        "E038",
+        "IA-I016",
+        "IA-I024",
+        "IA-I025"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "R",
+      "witness": "Each definition uniquely determines valid extensional target content; comprehension supplies a carrier for that content.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [
+        "explicit extensional-comprehension premise is conditional and not asserted true by current theory"
+      ],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I203",
+      "round": 5,
+      "title": "extensional comprehension would make every legal non-immediate action have a q successor",
+      "body": "Under the comprehension condition of IA-I202, LEGAL(q,c) and absence of IMMEDIATE imply existence of qp with Q_STEP(q,c,qp).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I032",
+        "IA-I033",
+        "IA-I202"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Landing is unique, mover/block transformations have represented extensional results, and comprehension supplies q target objects.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [
+        "explicit extensional-comprehension premise is conditional and not asserted true by current theory"
+      ],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I204",
+      "round": 5,
+      "title": "extensional comprehension would make VALUE total by backward induction",
+      "body": "Under IA-I202's comprehension condition, every Q_VALID q has exactly one VALUE token.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I019",
+        "IA-I043",
+        "IA-I054",
+        "IA-I183",
+        "IA-I203",
+        "IA-I053"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Induct on 42-rank: no-legal states yield zero; otherwise every legal action has immediate or lower-rank successor outcome, so finite max/min exists and is unique.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [
+        "explicit extensional-comprehension premise is conditional and not asserted true by current theory"
+      ],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I205",
+      "round": 5,
+      "title": "VALUE totality remains unadmitted without comprehension",
+      "body": "Without adding and qualifying the extensional-comprehension premise, the unconditional assertion 'every Q_VALID q has a VALUE' is not admitted by this closure campaign.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I200",
+        "IA-I201",
+        "IA-I204"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "The conditional proof identifies the exact missing premise; Core 0.19 forbids importing it silently.",
+      "QU_dependencies": [],
+      "NEI_scope": "scope stated by assertion; non-entailment where applicable",
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I206",
+      "round": 5,
+      "title": "task budget is independent of semantic rank",
+      "body": "The SPLIT predicate is determined by node-count budget, not q rank; equal-rank tasks can split at different execution times/counts.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I092",
+        "IA-I179"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Budget comparison lives entirely in task-control state.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I207",
+      "round": 5,
+      "title": "semantic q_r sharing opportunity can exist across tasks",
+      "body": "Distinct task occurrences may project to the same q_r class and therefore have a sound scalar VALUE-sharing opportunity.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I122",
+        "IA-I123",
+        "IA-I142"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Occurrence multiplicity and q_r value equivalence can coexist.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I208",
+      "round": 5,
+      "title": "sound semantic sharing does not imply a performance win",
+      "body": "The existence of an exact q_r reuse relation is insufficient to conclude that implementing or increasing sharing reduces total cycles or latency.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I207",
+        "IA-I129"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "Publication/probe/coherence/displacement and overlap costs remain outside semantic equivalence.",
+      "QU_dependencies": [
+        "runtime/JIT/work-distribution QU"
+      ],
+      "NEI_scope": "scope stated by assertion; non-entailment where applicable",
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I209",
+      "round": 5,
+      "title": "workload-distribution QU remains load-bearing for sharing economics",
+      "body": "Any claim about net benefit from cross-task/q_r sharing retains the runtime workload-distribution QU dependency.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E070",
+        "IA-I208"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "The semantic graph supplies correctness, while duplicate frequency, avoided work and sharing cost remain unresolved runtime quantities.",
+      "QU_dependencies": [
+        "runtime/JIT/work-distribution QU"
+      ],
+      "NEI_scope": null,
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    },
+    {
+      "id": "IA-I210",
+      "round": 5,
+      "title": "semantic closure and performance closure are separate fixed points",
+      "body": "Reaching an implicit-assertion fixed point for q/value semantics cannot discharge runtime/JIT/work-distribution QU or establish performance optimality.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I128",
+        "IA-I129",
+        "IA-I208",
+        "IA-I209"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "The semantic and execution-economic dependency graphs have intentionally separate unresolved regions.",
+      "QU_dependencies": [
+        "runtime/JIT/work-distribution QU"
+      ],
+      "NEI_scope": "scope stated by assertion; non-entailment where applicable",
+      "provenance": "round-5 consequence over A0 + rounds 1-4",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 5,
+      "admitted": true
+    }
+  ]
+}
