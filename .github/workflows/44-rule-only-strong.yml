@@ -7,7 +7,6 @@ on:
       - research/44-geometry-blind-20260928
     paths:
       - "research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs"
-      - "research/isograph/discovery/2026-09-28-44-geometry-blind/STRONG_PROOF.md"
       - ".github/workflows/44-rule-only-strong.yml"
 
 permissions:
@@ -15,8 +14,12 @@ permissions:
 
 jobs:
   strong:
+    strategy:
+      fail-fast: false
+      matrix:
+        sequence: ["441","442","443","444"]
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
@@ -25,11 +28,14 @@ jobs:
       - name: Guard against solved-data imports
         run: |
           set -euo pipefail
-          ! grep -E "reference/oracles/|beginning-spotchecks|openingbook|solution_w7_h6|bdd_w7_h6" research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs
-      - name: Compute exact strong child scores from rules
-        run: node research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs > strong.json
+          ! grep -E "reference/oracles/|beginning-spotchecks|openingbook|solution_w7_h6|bdd_w7_h6|solved-actions" research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs
+      - name: Compute exact strong score from rules
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+        run: node research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs > strong-${{ matrix.sequence }}.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
         with:
-          name: connect4-44-rule-only-strong
-          path: strong.json
-          if-no-files-found: error
+          name: connect4-44-strong-${{ matrix.sequence }}
+          path: strong-${{ matrix.sequence }}.json
+          if-no-files-found: warn
