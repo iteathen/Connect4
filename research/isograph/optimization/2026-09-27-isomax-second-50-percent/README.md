@@ -20,6 +20,13 @@ Accepted mechanisms include, without preference:
 The research question is total exact-solve effectiveness, not any one local
 metric.
 
+Latest Phase-2 local experiment (2026-09-28):
+[packed recursive move rows](PACKED_MOVE_ORDER_RESULT.md) did not qualify:
+cycles +0.302%, 95% interval [-0.660%, +1.264%], 16/16 exact.
+Selected experimental solver remains `f2d56c2788ef3a4c49fc4bef9d447c5be3184059`.
+The concurrent packed-row branch is a separate realization; do not conflate its
+source with this fixed-SHA comparison or silently repeat the same mechanism.
+
 Latest local official-hard follow-up:
 [selected-production local result](SELECTED_PRODUCTION_LOCAL_HARD_RESULT.md).
 Both arms timed out in all eight planned samples; results are explicitly
