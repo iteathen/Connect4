@@ -112,7 +112,23 @@
       "statement": "Encode the six nonempty WDL proof intervals as 3-bit possibility masks; same-q proof refinement is bitwise AND, exactness is power-of-two, contradiction is zero.",
       "historical_boundary": "Generic lower/upper monotone proof publication is not new and already exists in C4-0010/historical packed proof store.",
       "primary_falsifier": "V8/code-size/load/store realization is no faster than current byte-code branches",
-      "control": "wdl-proof-refinement-control.mjs"
+      "control": "wdl-proof-refinement-control.mjs",
+      "current_cpc_realization": {
+        "date": "2026-09-28",
+        "pr": 118,
+        "baseline": "be7c2887defcefb37080fa61de7ce1dc38dc2990",
+        "candidate": "7f74e324457c4237590bc6b0f924852f6d728e4c",
+        "verify_run": 36464380804,
+        "exact_samples": 16,
+        "cycles_delta_pct": 0.8320981237084135,
+        "interval95_pct": [
+          -1.2282930753867993,
+          2.8924893228036153
+        ],
+        "disposition": "CPC_PROOF_MASK_REJECTED_LOCAL_WHOLE_SOLVE",
+        "result": "../../optimization/2026-09-27-isomax-second-50-percent/CPC_PROOF_MASK_RESULT.md",
+        "scope": "CPC scratch representation only; six-state algebra retained; other realizations untested"
+      }
     },
     {
       "id": "L5-EXTENSIONAL-COMPREHENSION",
