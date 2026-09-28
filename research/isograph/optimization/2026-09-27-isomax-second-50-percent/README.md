@@ -65,3 +65,8 @@ less total work.
 Standard-input follow-up: [CPC proof-mask Fhourstones comparison](CPC_PROOF_MASK_RESULT.md#owner-requested-standard-fhourstones-follow-up).
 Both revisions solved1/4 and timed out3/4 under the unchanged120-second limit;
 raw and summarized evidence is published. No selected-baseline change.
+
+Next prepared campaign: [shared-TT capacity, affinity and L2-sized private caches](SHARED_TT_L2_EXPERIMENT_PLAN.md).
+Declarative configurations: [TT_L2_MATRIX.json](TT_L2_MATRIX.json).
+First packet is the requested16x shared-TT empty-board attempt; not yet run.
+Pinning is an implementation prerequisite for the later private-cache stage.

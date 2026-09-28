@@ -105,3 +105,13 @@ this is a complete WDL solve from ply8,not an empty-board solve.
 [Raw records, full report and analysis at JSMinSys157863f](https://github.com/iteathen/JSMinSys/tree/157863f/evidence/isomax-phase2-proof-mask-long-hard-20260928).
 Owner next requested official Node nightly and then empty-board attempts with
 600000ms per run. Keep that runtime population separate from this comparison.
+
+## Nightly follow-up disposition and memory preparation
+
+Nightly27.0.0-nightly20260928b59840b593 passed both fixed-source correctness suites.
+Eight fixed-baseline runtime samples had cycle delta-0.665%,95%[-2.570%,+1.240%];
+no runtime speedup established. Empty baseline reached600s with1478258352visits,
+no WDL,clean shutdown. Owner cancelled candidate; no candidate result or full-game
+A/B comparison exists. [Evidence](https://github.com/iteathen/JSMinSys/tree/e69cabd/evidence/isomax-phase2-nightly-empty-20260928).
+The next prepared experiment is [16x shared capacity followed by isolated pinning/private-L2 tests](SHARED_TT_L2_EXPERIMENT_PLAN.md).
+No solver promotion,cache-residency theorem or new gameplay claim is introduced.
