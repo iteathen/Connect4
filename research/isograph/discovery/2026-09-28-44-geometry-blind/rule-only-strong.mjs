@@ -1,4 +1,4 @@
-import {ExactConnect4Oracle} from '../../../components/oracle/exact7x6.mjs';
+import {ExactConnect4Oracle} from '../../../../components/oracle/exact7x6.mjs';
 
 const solver=new ExactConnect4Oracle();
 const start=performance.now();
