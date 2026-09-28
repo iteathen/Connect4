@@ -9,7 +9,7 @@
       "priority": 1,
       "novelty": "NEW_CURRENT-CAMPAIGN_COMPOSITION",
       "semantic_status": "EXACT_RULE",
-      "implementation_status": "UNTESTED",
+      "implementation_status": "V1_NEUTRAL_REJECTED__V2_VALUE_ONLY_PENDING",
       "statement": "When a fully verified local same-q search-derived weak bound is present and already-computed CPC supplies the opposite weak interval, refine directly to exact draw and optionally publish exact draw; do not re-enable general CPC weak-bound stores.",
       "exact_support": [
         "WDL domain {-1,0,+1}",
@@ -29,7 +29,27 @@
         "wall",
         "nodes/cofactors",
         "shared exact stores/hits/contention"
-      ]
+      ],
+      "v1_result": {
+        "jsminsys_pr": 95,
+        "exact_confirm_run": 36382508117,
+        "exact_confirm_artifact": 10952613302,
+        "exact_confirm_digest": "sha256:e612e80430f45d1a01ee5a339b80b6a6db3839aa9ac4fc5d6809a0dae6cf27f9",
+        "process_cycles_delta_pct": 0.06842288420954024,
+        "process_cycles_interval95_pct": [
+          -0.6422485046966742,
+          0.7790942731157546
+        ],
+        "nodes_delta_pct": -0.2944871652963421,
+        "cycles_per_node_delta_pct": 0.3627114962236222,
+        "cycles_per_node_interval95_pct": [
+          0.08402726360718926,
+          0.6413957288400551
+        ],
+        "disposition": "REJECT_V1_PRODUCTION"
+      },
+      "next_realization": "same-q value-only exact-draw promotion: update local value byte in place; preserve optional shared exact publication; do not republish local key/stamp",
+      "result_document": "CPC_CLOSE_ONLY_RESULT_0_1.md"
     },
     {
       "id": "L2-PROOF-TRANSITION-CENSUS",
