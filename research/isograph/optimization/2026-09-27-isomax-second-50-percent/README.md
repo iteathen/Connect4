@@ -61,3 +61,7 @@ Do not allow chat state to be the sole record of a material result.
 The target may be reached by reducing per-node cost, reducing the number of
 nodes, or changing the solver structure/algorithm so the exact result requires
 less total work.
+
+Standard-input follow-up: [CPC proof-mask Fhourstones comparison](CPC_PROOF_MASK_RESULT.md#owner-requested-standard-fhourstones-follow-up).
+Both revisions solved1/4 and timed out3/4 under the unchanged120-second limit;
+raw and summarized evidence is published. No selected-baseline change.

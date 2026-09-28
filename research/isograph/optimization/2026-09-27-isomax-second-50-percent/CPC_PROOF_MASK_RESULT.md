@@ -61,3 +61,28 @@ PR84 remains outside this experiment and must not be merged.
 
 Next bounded hypothesis: [prepared private epoch prefix](PRIVATE_EPOCH_PREFIX_PLAN.md).
 It starts from be7c2887, not this rejected candidate, and has no performance claim.
+
+## Owner-requested standard Fhourstones follow-up
+
+2026-09-28: all four official inputs tested once per arm with the same fixed
+A/B sources above. Four workers (one wide + three deep), same caches/runtime,
+120000ms per input. Eight fresh processes; both arms solved1/4, timed out3/4.
+All four workers performed work in every run and every shutdown was clean.
+
+| Input | A wall seconds | B wall seconds | Result both | A visits | B visits |
+|---|---:|---:|---|---:|---:|
+|45461667|0.170|0.169|EXACT WDL1,move3|121210|119404|
+|35333571|120.029|120.036|TIMEOUT|216797914|218238709|
+|13333111|120.044|120.056|TIMEOUT|197370374|198451015|
+|Empty|120.026|120.044|TIMEOUT|258629043|263558413|
+
+Only the first pair completed; its cycle delta was +0.140%, wall -0.936%.
+Single pairs do not establish a confidence interval or promotion. Timeout
+throughput is descriptive only; no exact solve-speed ratio or completed
+Fhourstones score. The earlier repeated exact qualification rejection remains.
+
+[Full report and raw evidence at JSMinSys105cf98727f01d4a79560c64656bf9f27f7c8105](https://github.com/iteathen/JSMinSys/tree/105cf98727f01d4a79560c64656bf9f27f7c8105/evidence/isomax-phase2-proof-mask-fhourstones-20260928).
+Includes cycles,cycles/visit,CPU,throughput,per-worker data,hardware,source SHAs
+and hashes. Solver source unchanged. The old exact harness rejected the normal
+TIMEOUT/102 result after baseline35333571; raw evidence was retained, only cold
+timeout classification/resumption corrected, and no sample was rerun.
