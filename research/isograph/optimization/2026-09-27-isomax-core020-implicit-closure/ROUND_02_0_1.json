@@ -1,0 +1,1202 @@
+{
+  "schema": "isomax.core020.implicit_closure.round.v1",
+  "round": 2,
+  "status": "ADMITTED",
+  "new_assertions": 45,
+  "support_refinements": 0,
+  "entries": [
+    {
+      "id": "IA-I051",
+      "round": 2,
+      "title": "q step alternates side to move",
+      "body": "Q_STEP(q,c,qp) implies QSIDE(q,P0) iff QSIDE(qp,P1), and conversely P1 to P0.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E038",
+        "IA-I022",
+        "IA-I031"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Q_STEP contains SUPPORT_STEP; support successor flips rank parity.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I052",
+      "round": 2,
+      "title": "q-step relation is acyclic",
+      "body": "There is no nonempty directed cycle consisting only of Q_STEP edges.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E066",
+        "IA-I049"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "Every Q_STEP is a Q_DEPENDENCY edge and dependency rank strictly increases.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I053",
+      "round": 2,
+      "title": "q-step path length is bounded",
+      "body": "A Q_STEP path starting at rank n has at most 42-n edges.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I050",
+        "E066"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "Q_STEP paths are dependency paths.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I054",
+      "round": 2,
+      "title": "ordinary value is functional when it exists",
+      "body": "VALUE(q,v) and VALUE(q,w) imply v=w.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E041",
+        "E036",
+        "IA-I036"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "O",
+      "witness": "For a fixed side, VALUE selects the unique maximum/minimum element of the represented nonempty OUTCOME set; NO_LEGAL selects only zero.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I055",
+      "round": 2,
+      "title": "q_o equality preserves side",
+      "body": "QO_EQ(q,t) implies QSIDE(q,p) iff QSIDE(t,p).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E034",
+        "E035",
+        "IA-I030",
+        "IA-I020"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Equal support fields have equal rank parity.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I056",
+      "round": 2,
+      "title": "q_o equality preserves literal legality",
+      "body": "QO_EQ(q,t) implies LEGAL(q,c) iff LEGAL(t,c) for every literal column c.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E034",
+        "E036",
+        "IA-I017",
+        "IA-I014"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Literal legality depends only on the extensionally equal support field.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I057",
+      "round": 2,
+      "title": "q_o equality preserves immediate outcomes",
+      "body": "QO_EQ(q,t) implies IMMEDIATE(q,c,v) iff IMMEDIATE(t,c,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E034",
+        "E037",
+        "IA-I023",
+        "IA-I042",
+        "IA-I055",
+        "IA-I056"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Equal mover residual content and equal landing cell preserve OWN_WIN and its side-selected WDL token.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I058",
+      "round": 2,
+      "title": "q_o equality is a q-step right congruence",
+      "body": "QO_EQ(q,t) and Q_STEP(q,c,u) imply Q_STEP(t,c,u); symmetrically, every literal successor relation is shared.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E034",
+        "E038",
+        "IA-I024",
+        "IA-I025",
+        "IA-I055",
+        "IA-I056"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "The same existing target object u satisfies the same extensional support/cofactor clauses from equal source content.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I059",
+      "round": 2,
+      "title": "q_o equality preserves action outcomes",
+      "body": "QO_EQ(q,t) implies OUTCOME(q,c,v) iff OUTCOME(t,c,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E040",
+        "IA-I057",
+        "IA-I058"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Immediate branches are preserved and recursive branches can reuse the identical represented successor/value witness.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I060",
+      "round": 2,
+      "title": "q_o equality preserves scalar value",
+      "body": "QO_EQ(q,t) and VALUE(q,v) imply VALUE(t,v), and conversely.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E041",
+        "IA-I055",
+        "IA-I056",
+        "IA-I059",
+        "IA-I054"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "O",
+      "witness": "The two q objects have identical side, legal-action and outcome relations, so the same finite max/min witness satisfies VALUE.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I061",
+      "round": 2,
+      "title": "q_o is a literal-action one-step congruence",
+      "body": "Within the represented ordinary game, QO_EQ preserves side, every literal legal column, immediate terminal token, and every literal-column successor relation.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I055",
+        "IA-I056",
+        "IA-I057",
+        "IA-I058"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Collect the already-established literal-action-preservation consequences without adding identity scope.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I062",
+      "round": 2,
+      "title": "reflection transports landing and playability",
+      "body": "REFLECT_SUPPORT(S,T), REFLECT_COLUMN(c,d), and LANDING(S,c,x) imply a unique reflected cell y with REFLECT_CELL(x,y) and LANDING(T,d,y); PLAYABLE transports likewise.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E044",
+        "E045",
+        "E016",
+        "E017",
+        "IA-I003",
+        "IA-I014"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Reflection preserves row and maps only the column coordinate.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I063",
+      "round": 2,
+      "title": "reflection preserves side to move",
+      "body": "REFLECT_Q(q,rq) implies QSIDE(q,p) iff QSIDE(rq,p).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E048",
+        "E053",
+        "E020",
+        "IA-I031"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Reflection preserves support rank and therefore parity.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I064",
+      "round": 2,
+      "title": "reflection transports legal actions",
+      "body": "REFLECT_Q(q,rq) and REFLECT_COLUMN(c,rc) imply LEGAL(q,c) iff LEGAL(rq,rc).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E048",
+        "E036",
+        "IA-I062"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Legal landing transports through reflected support and column.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I065",
+      "round": 2,
+      "title": "reflection transports singleton/own-win facts",
+      "body": "REFLECT_RESIDUAL(A,B), REFLECT_CELL(x,y) implies SINGLE_AT(A,x) iff SINGLE_AT(B,y), hence OWN_WIN(A,x) iff OWN_WIN(B,y).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E046",
+        "E047",
+        "IA-I038",
+        "IA-I042"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Singleton membership is extensional and term reflection maps the unique cell.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I066",
+      "round": 2,
+      "title": "reflection commutes with block cofactor",
+      "body": "If REFLECT_RESIDUAL(A,RA), REFLECT_CELL(x,rx), BLOCK_TRANSITION(A,x,B), and REFLECT_RESIDUAL(B,RB), then BLOCK_TRANSITION(RA,rx,RB).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E032",
+        "E046",
+        "E047",
+        "IA-I003",
+        "IA-I038"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Filtering terms by non-membership of x is preserved under the cell/term bijection.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I067",
+      "round": 2,
+      "title": "reflection commutes with own cofactor",
+      "body": "Under the analogous reflected source/cell/target witnesses, OWN_TRANSITION(A,x,B) implies OWN_TRANSITION(RA,rx,RB).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E030",
+        "E031",
+        "E046",
+        "E047",
+        "IA-I008",
+        "IA-I038",
+        "IA-I065"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Reflection preserves membership, removal, strict subset and candidate minimality; OWN_WIN exclusion transports.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I068",
+      "round": 2,
+      "title": "q-step transport is bidirectional under reflection",
+      "body": "For reflected q/rq, column c/rc and successor u/ru, Q_STEP(q,c,u) iff Q_STEP(rq,rc,ru) whenever REFLECT_Q(u,ru).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E051",
+        "IA-I040"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "The native forward transport plus involution supplies the reverse direction.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I069",
+      "round": 2,
+      "title": "reflection transports action outcomes",
+      "body": "REFLECT_Q(q,rq) and REFLECT_COLUMN(c,rc) imply OUTCOME(q,c,v) iff OUTCOME(rq,rc,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E040",
+        "E052",
+        "IA-I068"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Immediate values are invariant; recursive successors/value witnesses transport through the same represented value theorem.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I070",
+      "round": 2,
+      "title": "reflection preserves scalar value",
+      "body": "REFLECT_Q(q,rq) implies VALUE(q,v) iff VALUE(rq,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E041",
+        "IA-I063",
+        "IA-I064",
+        "IA-I069",
+        "IA-I054"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "O",
+      "witness": "Reflected nodes have the same side and transported outcome multiset, so finite max/min agrees.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I071",
+      "round": 2,
+      "title": "q_r is symmetric",
+      "body": "QR_EQ(q,t) implies QR_EQ(t,q).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E049",
+        "IA-I030",
+        "IA-I040"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "The QO_EQ branch is symmetric; the reflected branch reverses using reflection involution.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I072",
+      "round": 2,
+      "title": "q_r is transitive",
+      "body": "QR_EQ(q,t) and QR_EQ(t,u) imply QR_EQ(q,u).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E049",
+        "IA-I030",
+        "IA-I040",
+        "IA-I071"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Composition of identity/reflection choices is again identity or one reflection because reflection is an involution.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I073",
+      "round": 2,
+      "title": "q_r is an equivalence relation",
+      "body": "QR_EQ is reflexive, symmetric and transitive on Q_VALID objects.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I041",
+        "IA-I071",
+        "IA-I072"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Collect the three established equivalence laws.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I074",
+      "round": 2,
+      "title": "q_r preserves rank",
+      "body": "QR_EQ(q,t) implies q and t have equal support rank.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E049",
+        "E053",
+        "IA-I030"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "QO_EQ preserves support; the alternate branch differs only by rank-preserving reflection.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I075",
+      "round": 2,
+      "title": "q_r preserves side to move",
+      "body": "QR_EQ(q,t) implies QSIDE(q,p) iff QSIDE(t,p).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I074",
+        "E020",
+        "IA-I031"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Equal rank parity gives the same side.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I076",
+      "round": 2,
+      "title": "q_r is an action-transported one-step bisimulation",
+      "body": "QR_EQ(q,t) supplies either literal action correspondence c<->c or reflected correspondence c<->6-c preserving legality, immediate token, and successor QR_EQ.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E049",
+        "IA-I061",
+        "IA-I064",
+        "IA-I068",
+        "IA-I073"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Case split on the identity versus reflection branch of QR_EQ.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I077",
+      "round": 2,
+      "title": "block cofactor is idempotent when repeated",
+      "body": "BLOCK_TRANSITION(A,x,B) and BLOCK_TRANSITION(B,x,C) imply RESIDUAL_EQ(B,C).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E032",
+        "IA-I024",
+        "IA-I023"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "After the first filter no retained term contains x; filtering again changes no membership.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I078",
+      "round": 2,
+      "title": "distinct block cofactors commute",
+      "body": "For x!=y, if A block-x -> B block-y -> C and A block-y -> D block-x -> E, then RESIDUAL_EQ(C,E).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E032",
+        "IA-I023",
+        "IA-I024"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both paths retain exactly A terms containing neither x nor y.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I079",
+      "round": 2,
+      "title": "own cofactor is idempotent when a second transition is defined",
+      "body": "OWN_TRANSITION(A,x,B) and OWN_TRANSITION(B,x,C) imply RESIDUAL_EQ(B,C).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E030",
+        "E031",
+        "IA-I025",
+        "IA-I029"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Every surviving candidate after the first own cofactor omits x, so a second defined cofactor has identical candidate content.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I080",
+      "round": 2,
+      "title": "distinct own cofactors commute under nonterminal composition",
+      "body": "For x!=y, when both two-step OWN_TRANSITION compositions are defined without an intermediate OWN_WIN, their final residuals are RESIDUAL_EQ.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E030",
+        "E031",
+        "E024",
+        "IA-I008",
+        "IA-I025"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both paths remove the same subset of {x,y} from each source term and take the same inclusion-minimal image antichain.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I081",
+      "round": 2,
+      "title": "own and block cofactors commute on distinct cells under defined paths",
+      "body": "For x!=y, OWN_TRANSITION at x followed by BLOCK_TRANSITION at y equals, up to RESIDUAL_EQ, BLOCK_TRANSITION at y followed by OWN_TRANSITION at x whenever both paths are defined.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E030",
+        "E031",
+        "E032",
+        "IA-I008",
+        "IA-I024",
+        "IA-I025"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Terms containing y vanish on either path; remaining terms undergo the same x-removal and minimalization.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I082",
+      "round": 2,
+      "title": "reflection is an automorphism of block-cofactor algebra",
+      "body": "Block-cofactor compositions and their RESIDUAL_EQ results are preserved under simultaneous cell/residual reflection.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I066",
+        "IA-I039",
+        "IA-I078"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Reflection transports each block step and preserves extensional equality.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I083",
+      "round": 2,
+      "title": "reflection is an automorphism of guarded own-cofactor algebra",
+      "body": "Defined nonterminal own-cofactor compositions and their RESIDUAL_EQ results are preserved under simultaneous reflection.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I067",
+        "IA-I039",
+        "IA-I080"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Reflection transports each guarded own step, subset order and minimalization.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I084",
+      "round": 2,
+      "title": "effect class two characterization",
+      "body": "EFFECT(q,c,2) iff c is legal, there is no opponent exposure veto, and at least two distinct COMPLETE cells exist.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E059"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Extract the unique two-or-more case from the exact four-way effect definition.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I085",
+      "round": 2,
+      "title": "effect class one characterization",
+      "body": "EFFECT(q,c,1) iff c is legal, there is no opponent exposure veto, at least one COMPLETE cell exists, and no two distinct COMPLETE cells exist.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E059"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Extract the exact one-completion case.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I086",
+      "round": 2,
+      "title": "effect class zero characterization",
+      "body": "EFFECT(q,c,0) iff c is legal and either OPP_VETO holds or no COMPLETE cell exists.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E059"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The two zero-valued branches of the effect definition combine under normalization.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I087",
+      "round": 2,
+      "title": "promotion has maximal effect",
+      "body": "PROMOTE(q,c) implies every legal d has EFFECT(d)<=EFFECT(c).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E061",
+        "IA-I043",
+        "IA-I044"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "The PROMOTE witness explicitly quantifies all legal competitors under the finite effect order.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I088",
+      "round": 2,
+      "title": "promotion is earliest among maximal positive effects",
+      "body": "PROMOTE(q,c) implies c has positive effect and no earlier center-order column has an equal maximal effect.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E060",
+        "E061",
+        "IA-I087"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Direct consequence of the positive-effect and BEFORE tie guard.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I089",
+      "round": 2,
+      "title": "zero-effect frontier has no promotion",
+      "body": "If every legal column has effect class 0, then no PROMOTE(q,c) holds.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E061",
+        "IA-I086"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "PROMOTE requires a nonzero effect witness.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I090",
+      "round": 2,
+      "title": "abort dominates task control",
+      "body": "If the abort flag is true in a valid task-control state, its unique result is ABORTED regardless of needed or budget comparison.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E064",
+        "IA-I046",
+        "IA-I047"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "The first precedence branch is selected before every later branch.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I091",
+      "round": 2,
+      "title": "unneeded task retires when not aborted",
+      "body": "If abort=false and needed=false, the unique task-control result is RETIRED.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E064",
+        "IA-I046",
+        "IA-I047"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "The second precedence branch applies exactly after abort is excluded.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I092",
+      "round": 2,
+      "title": "budget exhaustion splits a still-needed task",
+      "body": "If abort=false, needed=true, and budget<=nodes, the unique result is SPLIT.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E064",
+        "IA-I046",
+        "IA-I047"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "The third precedence branch applies after abort and retirement are excluded.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I093",
+      "round": 2,
+      "title": "continue condition is exact",
+      "body": "CONTINUE holds exactly when abort=false, needed=true, and nodes<budget.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E064",
+        "IA-I046",
+        "IA-I047"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "It is the logical complement of the first three exhaustive precedence cases.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I094",
+      "round": 2,
+      "title": "continue advances the next control threshold",
+      "body": "CONTINUE with node count n and budget b yields a unique next threshold k with n<k<=b.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E065",
+        "IA-I048",
+        "IA-I093",
+        "E010",
+        "E011"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "k=min(b,n+512); both b and n+512 are strictly above n in the CONTINUE scope.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    },
+    {
+      "id": "IA-I095",
+      "round": 2,
+      "title": "continue polling cannot self-loop at one node count",
+      "body": "Under unchanged task flags, a CONTINUE check cannot schedule the next check at the same node count.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I094"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "NEXT_CONTROL is strictly greater than the current node count.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-2 consequence over A0 + round 1",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 2,
+      "admitted": true
+    }
+  ]
+}
