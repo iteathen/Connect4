@@ -1,0 +1,114 @@
+{
+  "schema": "isomax.core020.implicit_closure.residuals.v1",
+  "date_author_local": "2026-09-27",
+  "status": "PRESERVED_NOT_ADMITTED",
+  "count": 13,
+  "rule": "Residuals are not negative assertions unless explicitly falsified. Missing authority and QU remain unresolved rather than being promoted.",
+  "entries": [
+    {
+      "id": "RES-001",
+      "title": "extensional carrier comprehension",
+      "disposition": "AUTHORITY_GAP",
+      "assertion": "Every valid extensional support/residual/q content has a carrier object.",
+      "blocks": [
+        "unconditional transition totality",
+        "unconditional VALUE totality"
+      ],
+      "reason": "Current primitive formulas define target content but do not assert object comprehension.",
+      "falsifier_or_closer": "Represent and qualify an exact comprehension/construction authority, or prove totality by another represented witness construction."
+    },
+    {
+      "id": "RES-002",
+      "title": "unconditional non-immediate Q_STEP totality",
+      "disposition": "NOT_ADMITTED",
+      "assertion": "Every legal non-immediate action has a Q_STEP successor object.",
+      "depends_on": [
+        "RES-001"
+      ],
+      "reason": "Functionality is proved up to extensional equality; target carrier existence is not."
+    },
+    {
+      "id": "RES-003",
+      "title": "unconditional VALUE totality",
+      "disposition": "NOT_ADMITTED",
+      "assertion": "Every Q_VALID q has exactly one VALUE token.",
+      "depends_on": [
+        "RES-001",
+        "RES-002"
+      ],
+      "reason": "Uniqueness and well-founded recurrence are established, but existence still requires successor carrier witnesses."
+    },
+    {
+      "id": "RES-004",
+      "title": "NEI classification for q_o/q_r referents",
+      "disposition": "INCOMPLETE_UNQUALIFIED",
+      "assertion": "QO_EQ or QR_EQ implies NEI SAME/DISTINCT/UNKNOWN under a future-behavior identity query.",
+      "reason": "Structural equivalence is exact evidence, but no admissible identity-model family/extensional identity theorem is represented.",
+      "falsifier_or_closer": "Represent the identity query/model family and independently qualify the theorem that forces an exact NEI result."
+    },
+    {
+      "id": "RES-005",
+      "title": "Bayesian identity weight",
+      "disposition": "NOT_AUTHORIZED",
+      "assertion": "Controls, benchmark repetitions, q congruence or DP recurrence provide a Bayes factor/posterior for identity.",
+      "reason": "No qualified likelihood/prior/dependence model exists."
+    },
+    {
+      "id": "RES-006",
+      "title": "runtime fairness and completion",
+      "disposition": "QU",
+      "assertion": "Workers eventually execute every needed semantic dependency or the solver necessarily returns.",
+      "reason": "OS scheduling, event delivery, task retirement and related runtime realization remain unresolved; acyclic q semantics does not prove execution fairness."
+    },
+    {
+      "id": "RES-007",
+      "title": "net performance benefit of q_r sharing",
+      "disposition": "QU",
+      "assertion": "Increasing cross-task q_r sharing reduces total cycles or wall time.",
+      "reason": "Duplicate frequency, work avoided, publication/probe/coherence cost, displacement and scheduling remain unresolved execution economics."
+    },
+    {
+      "id": "RES-008",
+      "title": "literal PROMOTE reflection transport",
+      "disposition": "FALSIFIED_AS_GENERAL_CLAIM",
+      "assertion": "QR_EQ(q,t) makes PROMOTE columns transport by c->6-c.",
+      "reason": "Reflection-equivariant effect classes plus the fixed asymmetric tie order admit a reflection-fixed countermodel where column 2 is promoted but reflected column 4 is not."
+    },
+    {
+      "id": "RES-009",
+      "title": "full game-move commutation from cofactor/support commutation",
+      "disposition": "NOT_ENTAILED",
+      "assertion": "Distinct legal Q_STEP moves may be freely reordered because support/cofactor suboperations commute.",
+      "reason": "Alternating mover polarity and first-win stopping are load-bearing barriers."
+    },
+    {
+      "id": "RES-010",
+      "title": "remaining 0.3 representation-equivalence primitive closures",
+      "disposition": "CORE_0_20_INCOMPLETE",
+      "assertion": "All seven retained representation-equivalence claims are fully native primitive support.",
+      "reason": "Pair incidence/singleton/raw cell-mask structure are partially expanded, but prepared pi32 hash carriage, isolated-bit operation semantics, helper relocation and grow/widen order equivalence are not yet all represented natively below their domain labels."
+    },
+    {
+      "id": "RES-011",
+      "title": "supporting primitive-theory qualification",
+      "disposition": "QUALIFICATION_BURDEN",
+      "assertion": "Vendored primitive arithmetic/data supporting candidates are independently promoted authority.",
+      "reason": "Their exact clauses are embedded/pinned for this successor but their qualification burden is inherited by the successor rather than silently upgraded."
+    },
+    {
+      "id": "RES-012",
+      "title": "physical-domain reachability bridge",
+      "disposition": "AUTHORITY_GAP",
+      "assertion": "Every Q_VALID semantic object corresponds to a legally reachable standard Connect4 history, or the exact reachable subset is fully characterized.",
+      "reason": "The current primitive slice models ordinary q semantics but does not yet supply a complete initial-state/reachability bridge from C4-0001 physical histories."
+    },
+    {
+      "id": "RES-013",
+      "title": "concurrent second-50-percent optimization evidence",
+      "disposition": "OUTSIDE_FROZEN_CLOSURE_SCOPE",
+      "assertion": "New wide/deep, bound-split, coalescing or selective-sharing benchmark findings alter this IA fixed point.",
+      "reason": "Those owner-branch commits were produced concurrently after the frozen primitive assertion base and are execution research, not premises of this semantic closure run.",
+      "next_action": "Re-enter them only through a separately frozen successor/re-evaluation if their semantics are incorporated into the primitive graph."
+    }
+  ]
+}
