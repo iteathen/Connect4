@@ -70,3 +70,5 @@ Next prepared campaign: [shared-TT capacity, affinity and L2-sized private cache
 Declarative configurations: [TT_L2_MATRIX.json](TT_L2_MATRIX.json).
 First packet is the requested16x shared-TT empty-board attempt; not yet run.
 Pinning is an implementation prerequisite for the later private-cache stage.
+
+Execution checkpoint: [shared-TT/L2 results](SHARED_TT_L2_RESULT.md).
