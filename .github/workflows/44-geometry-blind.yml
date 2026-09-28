@@ -1,0 +1,31 @@
+name: Oracle-blind 44 structural experiment
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/44-geometry-blind-20260928
+    paths:
+      - "research/isograph/discovery/2026-09-28-44-geometry-blind/**"
+      - ".github/workflows/44-geometry-blind.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Assert runtime
+        run: node -e "if(process.version!=='v26.7.0')throw Error(process.version)"
+      - name: Run oracle-blind experiment
+        run: node research/isograph/discovery/2026-09-28-44-geometry-blind/run.mjs result.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: connect4-44-geometry-blind
+          path: result.json
+          if-no-files-found: error
