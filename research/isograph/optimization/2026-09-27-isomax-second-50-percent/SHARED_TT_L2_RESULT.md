@@ -47,3 +47,12 @@ Source6bbba7c repairs startup typed-array view truncation after worker transport
 Startup control completed: preload-off-v2 ABBA, all4 EXACT(-1,move4),10GiB shared,private1M,source6bbba7c. Mean process cycles no-preload1244456764538 versus disabled preload1243962372516.5 (-0.040%). Two pairs only; no speed qualification claimed. Raw data/summary pushed in JSMinSys1c6aa84. Placement8-process comparison now running; private-cache screens follow.
 
 Placement ABBAABBA complete:8/8EXACT(-1,move4),all4workers active/clean,10GiB shared/1M private. Pinning to4distinct P-cores versus unpinned: process cycles -33.6748% [95% paired -35.4091%,-31.9406%]; wall -38.2633%; nodes +2.6851%. Means cycles1.240338T versus0.822664T; wall91.1196s versus56.2547s. This qualifies placement for this host/fixture/profile,not universal hardware or L2-residency proof. Raw/analysis JSMinSys0271766. Private-cache screens now hold placement pinned in both arms.
+
+## Continuation complete: private-cache screens and placement
+
+All18 continuation samples (4disabled-loader,8placement,6private-screen) returned EXACT(-1,move4),all4workers active/exited,cleanup=true. Shared10GiB remained fixed. Private576KiB,1.125MiB,2.25MiB each lost against36MiB: process cycles +35.848%,+35.140%,+33.723%; nodes +66.875%,+65.518%,+61.209%. Each is one AB screen; no interval/universal optimum inferred. No smaller candidate merits confirmation. Retain1M private entries and qualified optional P-core placement for this host/profile. No additional empty-board test,production merge or cross-hardware default change.
+
+Full combined report and complete raw data committed/pushed in JSMinSys fdb4f805c6a3668cffd9cbdc11e851ba2276b7f2:
+[Ten-GiB continuation report](https://github.com/iteathen/JSMinSys/blob/fdb4f805c6a3668cffd9cbdc11e851ba2276b7f2/evidence/isomax-memory-affinity-20260928/CONTINUATION_REPORT.md).
+
+The measured placement gain is not proof of L2 residency or a diagnosis of the specific Windows scheduling mechanism; unpinned residency was not traced. Smaller tables improve per-node cost but lose whole-solve economics on35333571. The tested10GiB setting remains owner-selected,not globally optimal by these results. No benchmark processes remained after completion.
