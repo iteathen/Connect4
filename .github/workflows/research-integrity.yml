@@ -27,3 +27,5 @@ jobs:
         run: node tools/verify-research-integrity.mjs
       - name: Verify IsoMax Core 0.20 strict closure
         run: node research/isograph/optimization/verify-isomax-core020.mjs
+      - name: Verify IsoMax recursive implicit-assertion fixed point
+        run: node research/isograph/optimization/verify-isomax-core020-implicit-closure.mjs
