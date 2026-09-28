@@ -29,3 +29,7 @@ jobs:
         run: node research/isograph/optimization/verify-isomax-core020.mjs
       - name: Verify IsoMax recursive implicit-assertion fixed point
         run: node research/isograph/optimization/verify-isomax-core020-implicit-closure.mjs
+      - name: Verify IsoMax WDL proof-refinement algebra
+        run: node research/isograph/discovery/2026-09-27-isomax-core020-dp-dts/wdl-proof-refinement-control.mjs
+      - name: Verify IsoMax DP DTS discovery package
+        run: node research/isograph/discovery/2026-09-27-isomax-core020-dp-dts/verify-dp-dts.mjs
