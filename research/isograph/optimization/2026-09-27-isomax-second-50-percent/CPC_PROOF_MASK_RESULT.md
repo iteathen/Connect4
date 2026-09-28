@@ -86,3 +86,22 @@ Includes cycles,cycles/visit,CPU,throughput,per-worker data,hardware,source SHAs
 and hashes. Solver source unchanged. The old exact harness rejected the normal
 TIMEOUT/102 result after baseline35333571; raw evidence was retained, only cold
 timeout classification/resumption corrected, and no sample was rerun.
+
+## Completed long hard comparison (owner-authorized five-minute ceiling)
+
+All8 ABBAABBA runs of35333571 completed EXACT,WDL=-1,move=4 on Node26.7.0.
+Same A/B sources and four-worker/cache configuration as above. Actual solves
+124.39-125.50seconds; no ten-minute extension needed. About229M visits per solve.
+The previous120-second ceiling censored this fixture just before completion.
+
+Mean A/B process cycles:1705955161423 /1703222391654.
+Mean A/B wall:124.944s /125.196s; nodes:228976600 /228474673.
+Four adjacent paired cycle delta:-0.160%,descriptive95% t(df3) interval
+[-0.738%,+0.419%]. Wall:+0.202%,interval[-0.319%,+0.724%].
+All workers active,clean shutdowns. No performance improvement established.
+No source changes or proof-mask promotion. No live ply histogram was collected;
+this is a complete WDL solve from ply8,not an empty-board solve.
+
+[Raw records, full report and analysis at JSMinSys157863f](https://github.com/iteathen/JSMinSys/tree/157863f/evidence/isomax-phase2-proof-mask-long-hard-20260928).
+Owner next requested official Node nightly and then empty-board attempts with
+600000ms per run. Keep that runtime population separate from this comparison.
