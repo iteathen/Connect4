@@ -39,7 +39,8 @@ Means of four fixed-window samples per arm, **not whole-solve costs**:
 All eight samples: rootWdl=null, move=-1 (no result), errorCode=102 documented
 deadline, errors=[], cleanup=true, workersExited=7. All seven workers did
 meaningful work; minimum individual count 13.312M. No idle-worker regression or
-leftover benchmark process found. Exact expected WDL=-1/move=4 from prior qualified
+leftover process under the known benchmark Node executable was found at the
+checked timestamps; other runtimes were not covered. Expected WDL=-1/move=4 from prior qualified
 evidence was a cold validation condition only; no sample produced it here.
 
 Fixed-window descriptive candidate changes: nodes -13.636%, shared hits -15.998%,
@@ -61,7 +62,7 @@ execution discrepancy, not established evidence of a code regression. Complete
 versus censored work scopes differ. No normalization or cause attribution is made.
 
 Read-only checks found normal priority, full 16-processor affinity, no orphan
-solver, and tiny cold-controller CPU consumption. They do not exclude scheduling,
+under the known Node executable, and tiny cold-controller CPU consumption. They do not exclude scheduling,
 throttling/QoS, contention, launch environment, or measurement-attribution effects.
 Harness interference has neither been demonstrated nor completely ruled out.
 
@@ -72,9 +73,10 @@ sample deletion. This interruption is not a solver failure.
 
 ## Durable evidence and disposition
 
-- [JSMinSys report and evidence](https://github.com/iteathen/JSMinSys/tree/dcbc01088e8ab4af9bff9e78afde0307e44e2d43/evidence/isomax-phase2-selected-production-local-hard-20260927).
+- [JSMinSys report and evidence](https://github.com/iteathen/JSMinSys/tree/72c37a72387779ddd206f928abd4a7796d2657c9/evidence/isomax-phase2-selected-production-local-hard-20260927).
 - Raw eight-sample commit: `a1efbff19c4bc15398f91162423209b6edccbb2e`.
 - Analyzed report commit: `dcbc01088e8ab4af9bff9e78afde0307e44e2d43`.
+- Process-observation scope clarification: `72c37a72387779ddd206f928abd4a7796d2657c9`.
 - Contains complete runner stdout/stderr, samples.jsonl, environment, commands,
   timestamps, manifest, analysis, preflight logs and bounded source review.
 - Candidate preflight: 29 correctness tests; generated mirrors, catalog and
