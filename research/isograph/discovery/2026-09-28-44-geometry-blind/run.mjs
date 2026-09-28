@@ -100,7 +100,18 @@ for(let c=0;c<W;c++){
 }
 
 const reps=[4,3,2,1].map(m=>candidates[m-1]);
-for(const m of [1,2,3])assert.deepEqual(candidates[m-1].post,candidates[7-m].post,'reflection class mismatch');
+function reflectedSummary(x){
+  return {
+    p0:x.p0,
+    p1:x.p1,
+    heights:[...x.heights].reverse(),
+  };
+}
+for(const m of [1,2,3])assert.deepEqual(
+  candidates[m-1].post,
+  reflectedSummary(candidates[7-m].post),
+  'reflection class mismatch'
+);
 
 function replywiseRelaxedDominates(a,b){
   const rows=[];
