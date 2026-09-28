@@ -1,0 +1,1316 @@
+{
+  "schema": "isomax.core020.implicit_closure.round.v1",
+  "round": 1,
+  "status": "ADMITTED",
+  "new_assertions": 50,
+  "support_refinements": 0,
+  "entries": [
+    {
+      "id": "IA-I001",
+      "round": 1,
+      "title": "cell-coordinate bijection",
+      "body": "Each represented cell has exactly one column/row pair, and each represented column/row pair has exactly one represented cell.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E001",
+        "E002",
+        "E003"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "D",
+      "witness": "Exhaust the frozen 42 CELL_COORD tuples; no duplicate cell or coordinate pair occurs.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I002",
+      "round": 1,
+      "title": "column reflection is an involutive bijection",
+      "body": "REFLECT_COLUMN is single-valued, total on columns, bijective, and applying it twice returns the original column.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E001",
+        "E004"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "D",
+      "witness": "The exact seven-pair extension consists of three swaps plus the fixed center.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I003",
+      "round": 1,
+      "title": "cell reflection is an involutive bijection",
+      "body": "REFLECT_CELL is single-valued and total on cells, and reflecting twice returns the original cell.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E003",
+        "E004",
+        "E044",
+        "IA-I001",
+        "IA-I002"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Transport unique CELL_COORD through involutive REFLECT_COLUMN at fixed row.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I004",
+      "round": 1,
+      "title": "above-cell relation is reflection-equivariant",
+      "body": "If ABOVE(x,y), REFLECT_CELL(x,rx), and REFLECT_CELL(y,ry), then ABOVE(rx,ry).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E005",
+        "IA-I003"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "ABOVE preserves row increment and column equality; reflection changes only column.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I005",
+      "round": 1,
+      "title": "singleton residual term is unique per cell",
+      "body": "For every represented cell x there is exactly one represented term t with SINGLETON(t,x).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E003",
+        "E006",
+        "E007",
+        "E021",
+        "E025"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "D",
+      "witness": "Every cell occurs in at least one frozen winning line; singleton subsets are deduplicated extensionally.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I006",
+      "round": 1,
+      "title": "term equality is an equivalence relation",
+      "body": "TERM_EQ is reflexive, symmetric, and transitive on represented terms.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E021"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Extensional biconditional equality over TERM_HAS has the three equality laws.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I007",
+      "round": 1,
+      "title": "term subset is reflexive and transitive",
+      "body": "TERM_SUBSET(t,t), and TERM_SUBSET(t,u) with TERM_SUBSET(u,v) implies TERM_SUBSET(t,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E022"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Pointwise implication over TERM_HAS composes.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I008",
+      "round": 1,
+      "title": "strict term subset is a strict partial order",
+      "body": "TERM_STRICT_SUBSET is irreflexive, asymmetric, and transitive.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E021",
+        "E022",
+        "E023",
+        "IA-I006",
+        "IA-I007"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Strict subset is subset plus extensional non-equality.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I009",
+      "round": 1,
+      "title": "term removal is unique when a represented result exists",
+      "body": "If TERM_REMOVE(t,x,u) and TERM_REMOVE(t,x,v), then TERM_EQ(u,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E024",
+        "E021",
+        "IA-I006"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both results have the same pointwise membership formula.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I010",
+      "round": 1,
+      "title": "degree-two term endpoints are symmetric",
+      "body": "DEGREE2(t,x,y) iff DEGREE2(t,y,x).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E026"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The definition is invariant under swapping its two distinct endpoint variables.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I011",
+      "round": 1,
+      "title": "pair incidence is symmetric",
+      "body": "PAIR_INCIDENCE(x,t,y) iff PAIR_INCIDENCE(y,t,x).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E008",
+        "E055",
+        "IA-I010"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "PAIR_INCIDENCE is exactly DEGREE2 in either endpoint orientation.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I012",
+      "round": 1,
+      "title": "cell masks are one-hot and injective",
+      "body": "Each represented cell mask contains exactly one set bit across its two 32-bit halves, and distinct cells have distinct mask pairs.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E003",
+        "E009"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "D",
+      "witness": "The frozen CELL_MASK extension maps cells 0..41 to unique one-hot low/high words.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I013",
+      "round": 1,
+      "title": "support height is functional",
+      "body": "For SUPPORT_VALID(S) and any represented column c, exactly one represented height h satisfies SUPPORT_AT(S,c,h).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E013",
+        "E014"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "D",
+      "witness": "SUPPORT_VALID supplies one field per column and field functionality collapses duplicates.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I014",
+      "round": 1,
+      "title": "landing cell is functional on a playable column",
+      "body": "For SUPPORT_VALID(S) and a column whose height is a represented row 0..5, exactly one cell x satisfies LANDING(S,c,x).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E002",
+        "E003",
+        "E013",
+        "E014",
+        "E016",
+        "IA-I001",
+        "IA-I013"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Unique support height plus CELL_COORD bijection gives a unique landing cell.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I015",
+      "round": 1,
+      "title": "playable frontier has at most one cell per column",
+      "body": "For a valid support, each non-full column contributes exactly one PLAYABLE cell and a height-6 column contributes none.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E002",
+        "E016",
+        "E017",
+        "IA-I014"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "PLAYABLE is existential LANDING and LANDING is unique exactly for row heights.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I016",
+      "round": 1,
+      "title": "support step is functional up to support equality",
+      "body": "If SUPPORT_STEP(S,c,T) and SUPPORT_STEP(S,c,U), then SUPPORT_EQ(T,U).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E018",
+        "E015",
+        "IA-I013"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both targets increment the same unique field and preserve every other field.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I017",
+      "round": 1,
+      "title": "support equality is an equivalence relation",
+      "body": "SUPPORT_EQ is reflexive, symmetric, and transitive.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E015"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Extensional equality of the seven height fields.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I018",
+      "round": 1,
+      "title": "support rank is functional",
+      "body": "If RANK(S,n) and RANK(S,m), then n=m.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E019",
+        "E011",
+        "IA-I013"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "The seven unique heights feed functional primitive addition composition.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I019",
+      "round": 1,
+      "title": "valid-support rank lies in 0..42",
+      "body": "Every SUPPORT_VALID support has a unique rank n with 0 <= n <= 42.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E002",
+        "E010",
+        "E011",
+        "E013",
+        "E019",
+        "IA-I018"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Seven heights each lie in 0..6; their represented natural sum is bounded by 42.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I020",
+      "round": 1,
+      "title": "side to move is total and exclusive",
+      "body": "For every valid support exactly one of SIDE(S,P0) or SIDE(S,P1) holds.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E020",
+        "IA-I019",
+        "E010",
+        "E011"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Every natural rank 0..42 has exactly one parity.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I021",
+      "round": 1,
+      "title": "support step increments rank",
+      "body": "SUPPORT_STEP(S,c,T), RANK(S,n), and RANK(T,m) imply m=succ(n).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E018",
+        "E019",
+        "E011",
+        "IA-I013",
+        "IA-I018"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Exactly one height increases by one and all others are fixed.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I022",
+      "round": 1,
+      "title": "support step alternates side to move",
+      "body": "SUPPORT_STEP(S,c,T) implies SIDE(S,P0) iff SIDE(T,P1), and SIDE(S,P1) iff SIDE(T,P0).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E020",
+        "IA-I021",
+        "IA-I020"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Successor rank flips parity.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I023",
+      "round": 1,
+      "title": "residual equality is an equivalence relation",
+      "body": "RESIDUAL_EQ is reflexive, symmetric, and transitive on valid residuals.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E028"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Extensional biconditional equality over term membership.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I024",
+      "round": 1,
+      "title": "block transition is functional up to residual equality",
+      "body": "If BLOCK_TRANSITION(A,x,B) and BLOCK_TRANSITION(A,x,C), then RESIDUAL_EQ(B,C).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E032",
+        "E028",
+        "IA-I023"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both outputs contain exactly the A terms not containing x.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I025",
+      "round": 1,
+      "title": "own transition is functional up to residual equality",
+      "body": "If OWN_TRANSITION(A,x,B) and OWN_TRANSITION(A,x,C), then RESIDUAL_EQ(B,C).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E030",
+        "E031",
+        "E028",
+        "IA-I008",
+        "IA-I023"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both outputs are exactly the strict-subset-minimal OWN_CANDIDATE terms.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I026",
+      "round": 1,
+      "title": "own win excludes own transition",
+      "body": "OWN_WIN(A,x) implies there is no B with OWN_TRANSITION(A,x,B).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E029",
+        "E031"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "OWN_TRANSITION explicitly requires NOT OWN_WIN.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I027",
+      "round": 1,
+      "title": "block transition preserves residual validity",
+      "body": "BLOCK_TRANSITION(A,x,B) implies RESIDUAL_VALID(B).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E032"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Target validity is a conjunct of the exact transition definition.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I028",
+      "round": 1,
+      "title": "own transition preserves residual validity",
+      "body": "OWN_TRANSITION(A,x,B) implies RESIDUAL_VALID(B).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E031"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Target validity is a conjunct of the exact transition definition.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I029",
+      "round": 1,
+      "title": "own-transition output is candidate-minimal",
+      "body": "OWN_TRANSITION(A,x,B) and B(u) imply OWN_CANDIDATE(A,x,u) and no strict-subset OWN_CANDIDATE(A,x,v) exists.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E030",
+        "E031"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Direct biconditional elimination from the target-membership definition.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I030",
+      "round": 1,
+      "title": "q_o equality is an equivalence relation",
+      "body": "QO_EQ is reflexive, symmetric, and transitive on Q_VALID objects.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E033",
+        "E034",
+        "IA-I017",
+        "IA-I023"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "QO_EQ is product extensional equality of support and two residuals.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I031",
+      "round": 1,
+      "title": "q side is total and exclusive",
+      "body": "For Q_VALID(q), exactly one of QSIDE(q,P0) or QSIDE(q,P1) holds.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E033",
+        "E035",
+        "IA-I020"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "QSIDE projects the unique support SIDE.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I032",
+      "round": 1,
+      "title": "legal landing is unique",
+      "body": "For Q_VALID(q) and LEGAL(q,c), the q support has exactly one landing cell x for c.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E033",
+        "E036",
+        "IA-I014"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "LEGAL is defined by existence of LANDING; LANDING is functional.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I033",
+      "round": 1,
+      "title": "immediate outcome and q successor are mutually exclusive",
+      "body": "For the same Q_VALID q and legal c, IMMEDIATE(q,c,v) excludes every Q_STEP(q,c,qp).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E037",
+        "E038",
+        "E029",
+        "E031",
+        "IA-I026",
+        "IA-I031",
+        "IA-I032"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "IMMEDIATE requires mover OWN_WIN; Q_STEP requires its negation before OWN_TRANSITION.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I034",
+      "round": 1,
+      "title": "q successor is functional up to q_o equality",
+      "body": "If Q_STEP(q,c,u) and Q_STEP(q,c,v), then QO_EQ(u,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E038",
+        "IA-I016",
+        "IA-I024",
+        "IA-I025",
+        "IA-I030",
+        "IA-I031",
+        "IA-I032"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Side selects one mover; support and both residual outputs are each functional up to extensional equality.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I035",
+      "round": 1,
+      "title": "no-legal state is exactly all columns full",
+      "body": "For Q_VALID(q), NO_LEGAL(q) iff each support column has height 6.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E002",
+        "E014",
+        "E036",
+        "E039",
+        "IA-I015"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "A column is LEGAL exactly when its support height is a row 0..5.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I036",
+      "round": 1,
+      "title": "value range is exactly WDL",
+      "body": "VALUE(q,v) implies v is one of {-1,0,+1}.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E041"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The value variable is quantified over the finite WDL carrier.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I037",
+      "round": 1,
+      "title": "support reflection is involutive up to support equality",
+      "body": "REFLECT_SUPPORT(S,T) and REFLECT_SUPPORT(T,U) imply SUPPORT_EQ(S,U).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E045",
+        "IA-I002",
+        "IA-I017"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Each support field is transported by an involutive column map.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I038",
+      "round": 1,
+      "title": "term reflection is involutive up to term equality",
+      "body": "REFLECT_TERM(t,u) and REFLECT_TERM(u,v) imply TERM_EQ(t,v).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E046",
+        "IA-I003",
+        "IA-I006"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "TERM_HAS membership is transported by an involutive cell map.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I039",
+      "round": 1,
+      "title": "residual reflection is involutive up to residual equality",
+      "body": "REFLECT_RESIDUAL(A,B) and REFLECT_RESIDUAL(B,C) imply RESIDUAL_EQ(A,C).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E047",
+        "IA-I038",
+        "IA-I023"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Residual membership is transported by involutive term reflection.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I040",
+      "round": 1,
+      "title": "q reflection is involutive up to q_o equality",
+      "body": "REFLECT_Q(q,r) and REFLECT_Q(r,s) imply QO_EQ(q,s).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E048",
+        "IA-I037",
+        "IA-I039",
+        "IA-I030"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "All three q fields return extensionally after two reflections.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I041",
+      "round": 1,
+      "title": "q_r is reflexive",
+      "body": "Q_VALID(q) implies QR_EQ(q,q).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E049",
+        "IA-I030"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The first disjunct of QR_EQ is QO_EQ.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I042",
+      "round": 1,
+      "title": "own win and singleton projection coincide",
+      "body": "For a valid residual A, OWN_WIN(A,x) iff SINGLE_AT(A,x).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E029",
+        "E056"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Both relations quantify the same singleton residual witness.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I043",
+      "round": 1,
+      "title": "effect class is functional",
+      "body": "For legal (q,c), EFFECT(q,c,e1) and EFFECT(q,c,e2) imply e1=e2.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E059"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The veto/zero/one/two-or-more cases are mutually exclusive and each selects one raw effect token.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I044",
+      "round": 1,
+      "title": "effect class is total on legal actions",
+      "body": "For Q_VALID(q) and LEGAL(q,c), exactly one effect class 0,1,2 is related by EFFECT.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E059",
+        "IA-I043"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The represented cases exhaust veto versus non-veto and zero/one/two-or-more completion witnesses.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I045",
+      "round": 1,
+      "title": "promoted column is unique when it exists",
+      "body": "PROMOTE(q,c) and PROMOTE(q,d) imply c=d.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E060",
+        "E061",
+        "IA-I043",
+        "IA-I044"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "R",
+      "witness": "Finite BEFORE is a strict total order and PROMOTE forbids an earlier tied/maximal competitor.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I046",
+      "round": 1,
+      "title": "task-control result is functional",
+      "body": "A valid task-control state has at most one represented task-control result.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E062",
+        "E063",
+        "E064"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "Abort, retirement, split, and continue guards are pairwise exclusive by precedence.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I047",
+      "round": 1,
+      "title": "task-control result is total",
+      "body": "A valid task-control state has exactly one of ABORTED, RETIRED, SPLIT, CONTINUE.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E062",
+        "E063",
+        "E064",
+        "IA-I046"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "L",
+      "witness": "The four precedence cases exhaust Boolean abort/needed and the budget comparison.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I048",
+      "round": 1,
+      "title": "next control threshold is functional",
+      "body": "For a CONTINUE task-control state, NEXT_CONTROL has exactly one natural result.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E065",
+        "E011"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "A",
+      "witness": "Primitive addition and order select the unique minimum of budget and nodes+512.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I049",
+      "round": 1,
+      "title": "q dependency graph is acyclic",
+      "body": "There is no nonempty directed Q_DEPENDENCY cycle.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E043",
+        "E066",
+        "E067",
+        "E010",
+        "E011"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "Every edge strictly increments bounded natural rank.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    },
+    {
+      "id": "IA-I050",
+      "round": 1,
+      "title": "q dependency path length is bounded",
+      "body": "Every Q_DEPENDENCY path from rank n contains at most 42-n edges.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E043",
+        "E067",
+        "IA-I049"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure"
+      ],
+      "derivation_family": "C",
+      "witness": "Each edge consumes one remaining rank and rank cannot exceed 42.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "derived from frozen A0 assertion base",
+      "side_conditions": [],
+      "downstream_relevance": "feeds recursive implicit-assertion closure",
+      "normalized_depth": 1,
+      "admitted": true
+    }
+  ]
+}
