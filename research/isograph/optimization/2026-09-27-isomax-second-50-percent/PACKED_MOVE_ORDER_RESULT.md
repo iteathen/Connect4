@@ -39,6 +39,13 @@ exposed an inherited cycle-ledger K alias between insertion shifts and
 cancellation checks. That accounting correction is independently useful and
 does not justify promoting the runtime experiment.
 
+The correction was separately committed as JSMinSys `25efbfafaaf4b6bd0ff82c37d5950ca1c64378df`
+and submitted in [PR116](https://github.com/iteathen/JSMinSys/pull/116), based on
+PR114's experimental branch. Only ledger data and its regression test changed;
+runtime source and seals remain identical. The regression failed before the
+repair, passed after, and catalog/generator checks passed. Independent review
+found no blockers. No runtime speed claim attaches to this accounting repair.
+
 Full report, environment, every sample, raw child output and Git-blob SHA-256
 manifest are committed in JSMinSys:
 
@@ -53,6 +60,10 @@ It pursues the same packing hypothesis but is a separate implementation; this
 result does not qualify or reject its exact source. A further test should name
 its materially different realization rather than repeat this experiment.
 That branch has not been overwritten or deleted.
+
+The concurrent implementation is now PR115. This result was posted there as
+[review evidence](https://github.com/iteathen/JSMinSys/pull/115#issuecomment-5875264996)
+and on [PR114](https://github.com/iteathen/JSMinSys/pull/114#issuecomment-5875234203).
 
 PR84 and PR114 remain open/draft; neither was merged. The newer packed-tag hosted
 repeat36455549930 has cycle delta -0.761%, interval[-1.647%,+0.125%]. Preserve it
