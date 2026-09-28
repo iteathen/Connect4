@@ -1,0 +1,59 @@
+{
+  "schema": "isomax.core020.implicit_closure.fixed_point_pass.v1",
+  "round": 8,
+  "date_author_local": "2026-09-27",
+  "status": "OPERATIONAL_FIXED_POINT",
+  "input": {
+    "explicit_assertions": 70,
+    "admitted_implicit_assertions": 236,
+    "rejected_generated_candidates": 2,
+    "residual_candidates": 13,
+    "max_normalized_dependency_depth": 18
+  },
+  "new_assertions": 0,
+  "support_refinements": 0,
+  "family_results": {
+    "L": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_UNDER_NORMALIZATION",
+      "note": "Further implication/equality/quantifier packaging either reproduces admitted bodies, their already-recorded support paths, or non-material syntactic variants."
+    },
+    "D": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_UNDER_FROZEN_FINITE_CARRIERS",
+      "note": "Finite geometry, term/bit extensions, extensional equalities, residual bound, q-space finiteness and reflection-orbit counts are already represented. Additional raw counts are source facts, not new semantic assertions."
+    },
+    "R": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_CURRENT_RELATIONS",
+      "note": "Support/cofactor functionality, guarded commutation/idempotence, reflection automorphisms, q_o congruence and q_r transport close the current relation-composition leads. Unconditional target existence is blocked by RES-001 rather than inferred."
+    },
+    "A": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_MATERIAL_ARITHMETIC",
+      "note": "Rank, parity, path length, orbit-count bounds and polling-threshold consequences are represented. Further arithmetic rearrangements normalize to existing assertions."
+    },
+    "C": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_WITH_QU_AND_EXISTENCE_BARRIERS",
+      "note": "Finite rank DAG, first-win stopping, task-control precedence and semantic/execution separation are closed. Runtime fairness/completion is QU (RES-006); VALUE totality is blocked by carrier comprehension (RES-001..003)."
+    },
+    "N": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_WITH_NEI_FAIL_CLOSED",
+      "note": "q_o/q_r provide exact scoped identity evidence only. Automatic SAME was rejected; the NEI query remains incomplete until identity-model authority exists (RES-004). No Bayesian authority exists (RES-005)."
+    },
+    "O": {
+      "new_assertions": 0,
+      "disposition": "SATURATED_FOR_CURRENT_VALUE_AND_CACHE_SCOPE",
+      "note": "Scalar/action/value-preserving witness, q_o/q_r cache contracts, ordering scope and quotient hierarchy are represented. Net performance remains QU (RES-007)."
+    }
+  },
+  "nei_dp_recheck": {
+    "new_exact_ia": 0,
+    "new_support_refinement": 0,
+    "note": "All surviving NEI/DP leads map to already-admitted corrected assertions or preserved residuals."
+  },
+  "stop_rule": "A complete selected-family pass added no distinct material semantic assertion body and no material support refinement.",
+  "completeness_claim": "OPERATIONAL_ONLY__NOT_UNIVERSAL_THEOREM_PROVING_COMPLETENESS"
+}
