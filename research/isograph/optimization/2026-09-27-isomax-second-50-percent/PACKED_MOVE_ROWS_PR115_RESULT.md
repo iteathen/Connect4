@@ -174,3 +174,15 @@ merge authorization.
 
 PR #84 remains draft/open because its separate official-hard production
 promotion gate remains unresolved.
+
+
+## Accounting-corrected continuation baseline
+
+Future Phase-2 experiments should branch from JSMinSys
+`19b80c7877305a6de8ec5c29e4b8d6c61a335381`.
+
+Full Verify `36460304917` passed. The solver/runtime blobs are byte-identical to
+performance-qualified source `7b1cbf0d...`; the difference is the independent
+source-neutral PR #116 `K` / `STOP_TEST` generated-ledger repair and its
+regression test. Therefore performance authority remains the fixed `7b1cbf0d...`
+artifact, while `19b80c78...` is the clean ancestry/accounting parent.
