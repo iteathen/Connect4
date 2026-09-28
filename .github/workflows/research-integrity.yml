@@ -25,3 +25,5 @@ jobs:
         run: node -e "if (process.version !== 'v26.7.0') throw new Error('expected Node v26.7.0, got ' + process.version)"
       - name: Verify canonical research graph and ownership
         run: node tools/verify-research-integrity.mjs
+      - name: Verify IsoMax Core 0.20 strict closure
+        run: node research/isograph/optimization/verify-isomax-core020.mjs
