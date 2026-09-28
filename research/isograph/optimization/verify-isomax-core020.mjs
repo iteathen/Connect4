@@ -11,17 +11,20 @@ const predecessorNative=path.join(dir,'ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.isg')
 const predecessorJson=path.join(dir,'ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json');
 const successorNative=path.join(dir,'ISOMAX_HOT_LOOP_GRAPH_0_4_CANDIDATE.isg');
 const ledgerPath=path.join(dir,'ISOMAX_HOT_LOOP_CORE020_CLOSURE_0_1.json');
+const assertionInventoryPath=path.join(dir,'ISOMAX_HOT_LOOP_CORE020_ASSERTION_INVENTORY_0_1.json');
 const gameTheoryNative=path.join(root,'research','isograph','successor','CONNECT4_GAME_THEORY_1_2_CANDIDATE.isg');
 
 const blob=file=>execFileSync('git',['hash-object',path.relative(root,file)],{cwd:root,encoding:'utf8'}).trim();
 const sha256=text=>createHash('sha256').update(text).digest('hex');
 const read=file=>fs.readFileSync(file,'utf8');
 const ledger=JSON.parse(read(ledgerPath));
+const assertionInventory=JSON.parse(read(assertionInventoryPath));
 const oldText=read(predecessorNative);
 const nextText=read(successorNative);
 
 assert.equal(blob(predecessorNative),ledger.predecessor.native_git_blob,'predecessor native changed');
 assert.equal(blob(predecessorJson),ledger.predecessor.json_git_blob,'predecessor JSON changed');
+assert.equal(assertionInventory.predecessor_json.git_blob,ledger.predecessor.json_git_blob,'assertion inventory pins another predecessor JSON');
 assert.equal(blob(gameTheoryNative),ledger.upstream_game_theory.git_blob,'upstream game-theory native changed');
 assert.equal(blob(successorNative),ledger.native_successor.git_blob,'successor native does not match closure ledger');
 assert.equal(ledger.core_0_20.sha256,'9a619b552a6ef7719e5b4b5f3a9df4a732ff4377b9bc7b86c385ed5c992b88e7');
@@ -105,6 +108,56 @@ const relabeledTuples=[...relabeled.matchAll(/\(\^150024\s+(99608[0-5])([^()]*)\
   .map(m=>norm(m[1]+' '+m[2]));
 assert.equal(sha256(relabeledTuples.join('\n')),topologyDigest,'derived relabeling changed primitive topology');
 
+// Exhaustive Core-0.20 implicit-assertion coverage of the qualified 0.3 JSON surface.
+const predecessorObject=JSON.parse(read(predecessorJson));
+const jsonLeaves=[];
+function flattenJson(x,p=''){
+  if(Array.isArray(x)){x.forEach((v,i)=>flattenJson(v,p+'/'+i));return;}
+  if(x&&typeof x==='object'){for(const [k,v] of Object.entries(x))flattenJson(v,p+'/'+k);return;}
+  jsonLeaves.push({path:p,value:x});
+}
+function expectedLeafClass(p){
+  if(/^\/(schema|id|status|owner_branch|solver_revision|authority_effect)$/.test(p) ||
+     p.startsWith('/nei_dependency/') || p.startsWith('/supersedes_for_active_interpretation/'))
+    return {category:'PROVENANCE_OR_ROUTING',load_bearing:false,closure:'RAW_DATA_ATOM_OR_PROVENANCE'};
+  if(p.startsWith('/current_candidates/'))
+    return {category:'RESEARCH_NAVIGATION',load_bearing:false,closure:'RAW_DATA_ATOM'};
+  if(p.startsWith('/semantic_parents/'))
+    return {category:'SEMANTIC_PARENT_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  if(p.startsWith('/exact_scoped_equivalences/'))
+    return {category:'EXACT_EQUIVALENCE_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  if(p.startsWith('/identity_boundaries/'))
+    return {category:'IDENTITY_BOUNDARY_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  if(p.startsWith('/identity_evidence/'))
+    return {category:'IDENTITY_EVIDENCE_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  if(p.startsWith('/qu_regions/')){
+    if(/\/candidates\/\d+$/.test(p))
+      return {category:'RESEARCH_NAVIGATION',load_bearing:false,closure:'RAW_DATA_ATOM'};
+    return {category:'QU_REGION_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  }
+  if(p.startsWith('/retained_performance/'))
+    return {category:'PERFORMANCE_EVIDENCE_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  if(p.startsWith('/relations/'))
+    return {category:'SEMANTIC_RELATION_VIEW',load_bearing:true,closure:'QU_UNEXPANDED'};
+  throw new Error('unclassified predecessor JSON leaf '+p);
+}
+flattenJson(predecessorObject);
+assert.equal(jsonLeaves.length,195,'qualified 0.3 JSON leaf count changed');
+assert.equal(assertionInventory.leaf_count,jsonLeaves.length,'assertion inventory leaf count mismatch');
+assert.equal(assertionInventory.entries.length,jsonLeaves.length,'assertion inventory entry count mismatch');
+for(let i=0;i<jsonLeaves.length;i++){
+  const source=jsonLeaves[i], recorded=assertionInventory.entries[i], expected=expectedLeafClass(source.path);
+  assert.equal(recorded.path,source.path,'assertion inventory path drift at '+i);
+  assert.deepEqual(recorded.value,source.value,'assertion inventory value drift '+source.path);
+  assert.equal(recorded.category,expected.category,'assertion category drift '+source.path);
+  assert.equal(recorded.load_bearing,expected.load_bearing,'assertion load-bearing drift '+source.path);
+  assert.equal(recorded.closure,expected.closure,'assertion closure drift '+source.path);
+}
+const loadBearingAssertions=assertionInventory.entries.filter(e=>e.load_bearing);
+assert.equal(loadBearingAssertions.length,156,'load-bearing assertion count changed');
+assert.ok(loadBearingAssertions.every(e=>e.closure==='QU_UNEXPANDED'),
+  'a load-bearing JSON assertion was silently treated as primitive-closed');
+
 const unresolved=classifications.filter(c=>c.closure==='QU_UNEXPANDED');
 assert.equal(unresolved.length,24);
 assert.equal(ledger.gates.core020_qualification,'NOT_CLAIMED');
@@ -122,6 +175,9 @@ console.log(JSON.stringify({
   illegalNonKernelOperators:illegalOperators.length,
   deletionFirewall:'PASS',
   adversarialDerivedRelabel:'PASS',
+  predecessorJsonLeaves:jsonLeaves.length,
+  loadBearingJsonAssertions:loadBearingAssertions.length,
+  implicitAssertionCoverage:'PASS',
   semanticPrimitiveClosure:'INCOMPLETE',
   core020Qualification:'NOT_CLAIMED'
 },null,2));
