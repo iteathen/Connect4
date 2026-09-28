@@ -9,7 +9,7 @@
       "priority": 1,
       "novelty": "NEW_CURRENT-CAMPAIGN_COMPOSITION",
       "semantic_status": "EXACT_RULE",
-      "implementation_status": "V1_NEUTRAL_REJECTED__V2_VALUE_ONLY_PENDING",
+      "implementation_status": "REJECTED_AFTER_V1_AND_V2_EXACT_CONTROLS",
       "statement": "When a fully verified local same-q search-derived weak bound is present and already-computed CPC supplies the opposite weak interval, refine directly to exact draw and optionally publish exact draw; do not re-enable general CPC weak-bound stores.",
       "exact_support": [
         "WDL domain {-1,0,+1}",
@@ -48,12 +48,32 @@
         ],
         "disposition": "REJECT_V1_PRODUCTION"
       },
-      "next_realization": "same-q value-only exact-draw promotion: update local value byte in place; preserve optional shared exact publication; do not republish local key/stamp",
-      "result_document": "CPC_CLOSE_ONLY_RESULT_0_1.md"
+      "next_realization": null,
+      "result_document": "CPC_CLOSE_ONLY_RESULT_0_1.md",
+      "v2_result": {
+        "verify_run": 36382971575,
+        "exact_confirm_run": 36382971576,
+        "exact_confirm_artifact": 10952673645,
+        "exact_confirm_digest": "sha256:71891b328eb1db6e498061835cdac5c46344b115f5deb61ca6c1b46baf4f0d21",
+        "process_cycles_delta_pct": 0.021292860557498017,
+        "process_cycles_interval95_pct": [
+          -0.595847683959394,
+          0.6384334050743901
+        ],
+        "nodes_delta_pct": -0.24103370093208065,
+        "cycles_per_node_delta_pct": 0.2630473341325379,
+        "cycles_per_node_interval95_pct": [
+          -0.06461341396923892,
+          0.5907080822343147
+        ],
+        "shared_hits_delta_pct": 1.4638687945488726,
+        "disposition": "REJECT_PRODUCTION"
+      },
+      "final_disposition": "semantic rule retained; production optimization rejected"
     },
     {
       "id": "L2-PROOF-TRANSITION-CENSUS",
-      "priority": 2,
+      "priority": 1,
       "novelty": "NEW_DIAGNOSTIC_VIEW",
       "semantic_status": "EXACT_CLASSIFICATION",
       "implementation_status": "UNRUN",
@@ -67,7 +87,7 @@
     },
     {
       "id": "L3-SHARED-MISS-STUTTER",
-      "priority": 3,
+      "priority": 2,
       "novelty": "NEW_CURRENT-CAMPAIGN_CANDIDATE",
       "semantic_status": "OPTIONAL_OBSERVATION_OPTIMIZATION",
       "implementation_status": "DIAGNOSTIC_REQUIRED",
@@ -85,7 +105,7 @@
     },
     {
       "id": "L4-3BIT-WDL-PROOF-MASK",
-      "priority": 4,
+      "priority": 3,
       "novelty": "NEW_REPRESENTATION_CORRESPONDENCE_IN_SEARCHED_CORPUS",
       "semantic_status": "EXACT_REPRESENTATION_EQUIVALENCE",
       "implementation_status": "BENCHMARK_REQUIRED",
