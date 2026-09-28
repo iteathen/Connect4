@@ -1,0 +1,42 @@
+name: Independent bounded-bitboard 44 proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/44-geometry-blind-20260928
+    paths:
+      - "research/isograph/discovery/2026-09-28-44-geometry-blind/bounded-bitboard-strong.mjs"
+      - ".github/workflows/44-bounded-bitboard.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        sequence: ["441","442","443","444"]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "26.7.0"
+      - name: Guard against solved-data inputs
+        run: |
+          set -euo pipefail
+          ! grep -E "reference/oracles|openingbook|bdd_w7_h6|solution_w7_h6|solved-actions|components/oracle" research/isograph/discovery/2026-09-28-44-geometry-blind/bounded-bitboard-strong.mjs
+      - name: Solve from rules with independent bitboard engine
+        env:
+          SEQUENCE: ${{ matrix.sequence }}
+          TT_BITS: "24"
+        run: node research/isograph/discovery/2026-09-28-44-geometry-blind/bounded-bitboard-strong.mjs > bounded-${{ matrix.sequence }}.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: connect4-44-bounded-${{ matrix.sequence }}
+          path: bounded-${{ matrix.sequence }}.json
+          if-no-files-found: warn
