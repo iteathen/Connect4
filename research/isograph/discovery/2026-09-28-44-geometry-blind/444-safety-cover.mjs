@@ -225,6 +225,27 @@ function satisfiable(indices){const need=new Set(indices);function rec(forbidden
 const all=[...targets.keys()];const fullSat=satisfiable(all);let core=[];if(!fullSat){core=[...all];let progress=true;while(progress){progress=false;for(let i=0;i<core.length;i++){const t=core.slice(0,i).concat(core.slice(i+1));if(!satisfiable(t)){core=t;progress=true;break;}}}for(let i=0;i<core.length;i++)assert(satisfiable(core.slice(0,i).concat(core.slice(i+1))));}
 
 
+const coreSet=new Set(core);
+const coreLabels=core.map(i=>label(targets[i]));
+const coreDiagnostics=core.map(i=>{
+  const opts=coverers[i].map(c=>({
+    id:c.id,
+    type:c.type,
+    name:c.name,
+    resources:[...c.resources].sort(),
+    solvesCore:core.filter(j=>((c.cover>>BigInt(j))&1n)!==0n).map(j=>label(targets[j])),
+  }));
+  const minResourceCount=Math.min(...opts.map(o=>o.resources.length));
+  return {
+    requirement:label(targets[i]),
+    covererCount:opts.length,
+    byType:Object.fromEntries([...new Set(opts.map(o=>o.type))].sort().map(t=>[t,opts.filter(o=>o.type===t).length])),
+    minResourceCount,
+    minimumResourceCoverers:opts.filter(o=>o.resources.length===minResourceCount),
+    coverers:opts,
+  };
+});
+
 return {
   name,
   survivingP0Requirements: targets.length,
@@ -233,7 +254,8 @@ return {
   completeCoverSatisfiable: fullSat,
   maximumCompatibleCoverage: best.covered + '/' + targets.length,
   uncoveredAtBest: targets.filter((_,i)=>((best.mask>>BigInt(i))&1n)===0n).map(label),
-  inclusionMinimalCore: core.map(i=>label(targets[i])),
+  inclusionMinimalCore: coreLabels,
+  coreDiagnostics,
 };
 }
 
