@@ -37,3 +37,9 @@ No claim of L2 residency/exclusivity or performance promotion.
 Next: shared-capacity ABBAABBA on35333571 at300000ms,then separately default-off
 preload,placement and private-cache stages. Do not interpret a short preflight
 as memory qualification. Preserve all raw samples and censored controls.
+
+## Owner-selected continuation
+
+Shared TT is now fixed at10GiB(268435456entries) for remaining tests. This is an owner-selected testing configuration,not an inferred optimum. The final same-source hard pair on35333571 completed exactly(-1,move4):2.5GiB90.4928611s/1233665886145cycles/147074193nodes;10GiB91.0900836s/1239509668337cycles/143525402nodes. One pair cannot establish broader capacity economics,especially empty-board search. Owner explicitly rejected generalizing this to a2.5GiB optimum and selected10GiB; no additional empty-board run now.
+
+Source6bbba7c repairs startup typed-array view truncation after worker transport of4/8GiB views; SAB backing was preserved. Restore header once,no copies/growth/hot-loop changes.180tests/catalog/generated audits passed; accounting-only correction a1c6aa7. Failed and harness-interrupted attempts remain preserved. Evidence at JSMinSys experiment/isomax-memory-affinity-20260928/evidence/isomax-memory-affinity-20260928/. Continue default-off,placement and private-cache experiments with10GiB fixed.
