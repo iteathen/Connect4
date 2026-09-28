@@ -25,7 +25,7 @@ jobs:
       - name: Guard against solved-data imports
         run: |
           set -euo pipefail
-          ! grep -E "solved-actions|beginning-spotchecks|openingbook|solution_w7_h6|bdd_w7_h6" research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs
+          ! grep -E "reference/oracles/|beginning-spotchecks|openingbook|solution_w7_h6|bdd_w7_h6" research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs
       - name: Compute exact strong child scores from rules
         run: node research/isograph/discovery/2026-09-28-44-geometry-blind/rule-only-strong.mjs > strong.json
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
