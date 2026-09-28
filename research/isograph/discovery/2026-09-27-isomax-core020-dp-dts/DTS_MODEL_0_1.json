@@ -1,0 +1,410 @@
+{
+  "campaign": "2026-09-27-isomax-core020-dp-dts",
+  "status": "active_discovery",
+  "authority_effect": "none",
+  "frozen_base": "4cecb8f4f626bd701548c0951f36cec12d5c4ab5",
+  "state_spaces": {
+    "game_q": {
+      "description": "primitive q_o/q_r ordinary-game state",
+      "rank_change": "Q_STEP increments rank by one",
+      "terminal_rule": "IMMEDIATE ends branch; no Q_STEP target"
+    },
+    "proof": {
+      "description": "same-q mover-relative WDL possibility interval",
+      "states": [
+        {
+          "id": "UNKNOWN",
+          "interval": [
+            -1,
+            1
+          ],
+          "mask": 7
+        },
+        {
+          "id": "LOWER0",
+          "interval": [
+            0,
+            1
+          ],
+          "mask": 3
+        },
+        {
+          "id": "UPPER0",
+          "interval": [
+            -1,
+            0
+          ],
+          "mask": 6
+        },
+        {
+          "id": "EXACT_LOSS",
+          "interval": [
+            -1,
+            -1
+          ],
+          "mask": 4
+        },
+        {
+          "id": "EXACT_DRAW",
+          "interval": [
+            0,
+            0
+          ],
+          "mask": 2
+        },
+        {
+          "id": "EXACT_WIN",
+          "interval": [
+            1,
+            1
+          ],
+          "mask": 1
+        }
+      ],
+      "invalid": {
+        "id": "CONTRADICTION",
+        "mask": 0
+      },
+      "refinement": "intersection of possible-value sets; equivalent to max lower / min upper; mask realization is bitwise AND",
+      "max_strict_refinements_from_unknown": 2
+    },
+    "task_occurrence": {
+      "description": "worker/task execution occurrence with control/provenance",
+      "identity": "distinct from q_o/q_r and proof-state equality"
+    },
+    "advisory_order": {
+      "description": "move evaluation order only",
+      "semantic_value_effect": "none when complete legal action/outcome set is preserved"
+    }
+  },
+  "transitions": [
+    {
+      "id": "DTS-T01-game-step",
+      "source": "q at rank n",
+      "target": "q' at rank n+1",
+      "roles": {
+        "preserved": [
+          "ordinary game authority",
+          "q relation scope"
+        ],
+        "introduced": [
+          "new support/residual q content"
+        ],
+        "removed": [
+          "one unit of remaining rank"
+        ],
+        "boundary": [
+          "first-win blocks this transition when IMMEDIATE holds"
+        ],
+        "ordering": [
+          "literal action / reflection transporter"
+        ],
+        "evidence": [
+          "primitive Q_STEP"
+        ]
+      }
+    },
+    {
+      "id": "DTS-T02-search-proof-refine",
+      "source": "same q + current proof interval",
+      "target": "same q + intersection with search-derived LOWER0/UPPER0/exact evidence",
+      "roles": {
+        "preserved": [
+          "q identity",
+          "rank",
+          "task occurrence"
+        ],
+        "introduced": [
+          "stronger proof information when intersection is strict"
+        ],
+        "boundary": [
+          "full q-key equality before reuse/update"
+        ],
+        "ordering": [
+          "evidence arrives after search return/cutoff"
+        ],
+        "evidence": [
+          "search-derived online proof"
+        ]
+      }
+    },
+    {
+      "id": "DTS-T03-cpc-proof-refine",
+      "source": "same q + current proof interval",
+      "target": "same q + intersection with CPC exact/bound interval",
+      "roles": {
+        "preserved": [
+          "q identity",
+          "rank",
+          "task occurrence"
+        ],
+        "introduced": [
+          "stronger proof information when intersection is strict"
+        ],
+        "boundary": [
+          "CPC interval source and mover-relative conversion"
+        ],
+        "ordering": [
+          "CPC is evaluated after the local probe on current search path"
+        ],
+        "evidence": [
+          "CPC interval"
+        ]
+      }
+    },
+    {
+      "id": "DTS-T04-shared-exact-refine",
+      "source": "same q local weak/unknown occurrence",
+      "target": "same q exact proof state",
+      "roles": {
+        "preserved": [
+          "q identity",
+          "rank",
+          "consumer task occurrence"
+        ],
+        "introduced": [
+          "exact shared WDL fact"
+        ],
+        "boundary": [
+          "share eligibility + full key/sequence validation"
+        ],
+        "ordering": [
+          "local weak may currently be observed before optional shared exact fallback"
+        ],
+        "evidence": [
+          "shared exact cache"
+        ]
+      }
+    },
+    {
+      "id": "DTS-T05-proof-stutter",
+      "source": "same q + proof state P",
+      "target": "same q + same proof state P",
+      "roles": {
+        "preserved": [
+          "q",
+          "rank",
+          "proof state"
+        ],
+        "introduced": [],
+        "boundary": [
+          "same verified q"
+        ],
+        "ordering": [
+          "may arise from repeated same-bound evidence"
+        ],
+        "evidence": [
+          "redundant evidence"
+        ]
+      },
+      "discovery": "machine work with zero semantic/proof change is a stutter-cost target"
+    },
+    {
+      "id": "DTS-T06-opposite-weak-promote",
+      "source": "same q + LOWER0 or UPPER0",
+      "target": "same q + EXACT_DRAW",
+      "roles": {
+        "preserved": [
+          "q",
+          "rank",
+          "occurrence identity"
+        ],
+        "introduced": [
+          "exact draw proof"
+        ],
+        "boundary": [
+          "opposite weak evidence for same fully verified q"
+        ],
+        "ordering": [
+          "evidence sources may be search/search or search/CPC"
+        ],
+        "evidence": [
+          "LOWER0 AND UPPER0"
+        ]
+      },
+      "exact_rule": "011 AND 110 = 010"
+    },
+    {
+      "id": "DTS-T07-shared-miss-observation",
+      "source": "local non-cutoff weak hit",
+      "target": "shared exact hit or miss observation",
+      "roles": {
+        "preserved": [
+          "q",
+          "local proof state"
+        ],
+        "boundary": [
+          "share sampling + shared slot sequence/full key"
+        ],
+        "ordering": [
+          "after weak hit when fallback enabled"
+        ],
+        "evidence": [
+          "shared cache observation"
+        ]
+      }
+    },
+    {
+      "id": "DTS-T08-repeated-shared-miss-stutter",
+      "source": "same resident q + same weak proof + previous shared miss",
+      "target": "same resident q + same weak proof + another shared miss",
+      "roles": {
+        "preserved": [
+          "q",
+          "rank",
+          "proof state"
+        ],
+        "introduced": [],
+        "boundary": [
+          "no local refinement/replacement between observations"
+        ],
+        "ordering": [
+          "later fallback probe repeats earlier miss"
+        ],
+        "evidence": [
+          "shared exact miss"
+        ]
+      },
+      "discovery": "candidate for observation-stutter suppression; later shared publication opportunity is QU"
+    },
+    {
+      "id": "DTS-T09-task-control",
+      "source": "task occurrence at q",
+      "target": "ABORTED / RETIRED / SPLIT / CONTINUE occurrence state",
+      "roles": {
+        "preserved": [
+          "semantic q"
+        ],
+        "boundary": [
+          "abort/needed/node-budget control"
+        ],
+        "ordering": [
+          "control precedence"
+        ],
+        "evidence": [
+          "task-control fields"
+        ]
+      },
+      "nonconsequence": "does not create or negate WDL proof"
+    },
+    {
+      "id": "DTS-T10-advisory-order",
+      "source": "q + legal action set",
+      "target": "ordered action sequence",
+      "roles": {
+        "preserved": [
+          "q",
+          "legal action/outcome semantics"
+        ],
+        "introduced": [
+          "evaluation schedule"
+        ],
+        "boundary": [
+          "EFFECT + literal tie policy"
+        ],
+        "ordering": [
+          "advisory"
+        ],
+        "evidence": [
+          "ordering view"
+        ]
+      },
+      "nonconsequence": "not a game transition or proof refinement"
+    }
+  ],
+  "transition_isomorphs": [
+    {
+      "id": "TI-PROOF-SOURCE",
+      "view": "semantic proof effect",
+      "members": [
+        "DTS-T02-search-proof-refine",
+        "DTS-T03-cpc-proof-refine",
+        "DTS-T04-shared-exact-refine"
+      ],
+      "result": "SUPPORTED_SCOPED",
+      "reason": "all are same-q intersection refinements; provenance/cost differ and remain residual outside this view"
+    },
+    {
+      "id": "TI-STUTTER",
+      "view": "q+proof semantic effect",
+      "members": [
+        "DTS-T05-proof-stutter",
+        "DTS-T08-repeated-shared-miss-stutter"
+      ],
+      "result": "SUPPORTED_SCOPED",
+      "reason": "both preserve q and proof state exactly; machine operation count/evidence history differ"
+    },
+    {
+      "id": "TI-GAME-VS-PROOF",
+      "view": "state transition",
+      "members": [
+        "DTS-T01-game-step",
+        "DTS-T02-search-proof-refine"
+      ],
+      "result": "REJECTED",
+      "reason": "game step changes q/rank; proof refinement preserves q/rank"
+    },
+    {
+      "id": "TI-TASK-VS-PROOF",
+      "view": "semantic proof effect",
+      "members": [
+        "DTS-T09-task-control",
+        "DTS-T02-search-proof-refine"
+      ],
+      "result": "REJECTED",
+      "reason": "task control changes occurrence execution state and supplies no proof refinement"
+    }
+  ],
+  "qu": [
+    {
+      "id": "QU-DTS-01-shared-later-hit",
+      "state": "OPEN",
+      "question": "After a shared miss on a resident weak q, how often does a later repeated fallback probe hit a newly published exact value before the local row changes?"
+    },
+    {
+      "id": "QU-DTS-02-stutter-cost",
+      "state": "OPEN",
+      "question": "How many same-q same-bound publications and repeated shared misses occur, and what cycles do they consume?"
+    },
+    {
+      "id": "QU-DTS-03-cpc-close-rate",
+      "state": "OPEN",
+      "question": "How often does CPC supply the opposite weak interval for an already-present search-derived local weak q, producing an immediate exact-draw promotion?"
+    },
+    {
+      "id": "QU-DTS-04-mask-economics",
+      "state": "OPEN",
+      "question": "Does a 3-bit AND refinement realization reduce whole-solve cost versus current byte-code branches after JIT/code-size effects?"
+    }
+  ],
+  "leads": [
+    {
+      "id": "LEAD-CPC-CLOSE-ONLY",
+      "priority": 1,
+      "semantic_status": "EXACT_TRANSITION_RULE",
+      "implementation_status": "UNTESTED",
+      "rule": "existing verified local weak + already-computed opposite CPC weak => EXACT_DRAW; do not store CPC weak evidence otherwise"
+    },
+    {
+      "id": "LEAD-PROOF-TRANSITION-CENSUS",
+      "priority": 2,
+      "semantic_status": "DIAGNOSTIC",
+      "implementation_status": "UNRUN",
+      "rule": "count strict/stutter/contradiction refinements by evidence source plus exact-draw promotions"
+    },
+    {
+      "id": "LEAD-SHARED-MISS-STUTTER",
+      "priority": 3,
+      "semantic_status": "SAFE_OPTIONAL_OBSERVATION_OPTIMIZATION",
+      "implementation_status": "DIAGNOSTIC_FIRST",
+      "rule": "measure repeat misses before adding one-bit per-resident-weak-state miss memoization"
+    },
+    {
+      "id": "LEAD-3BIT-PROOF-MASK",
+      "priority": 4,
+      "semantic_status": "EXACT_REPRESENTATION_EQUIVALENCE",
+      "implementation_status": "BENCHMARK_REQUIRED",
+      "rule": "represent six WDL proof intervals as masks; refine with bitwise AND"
+    }
+  ]
+}
