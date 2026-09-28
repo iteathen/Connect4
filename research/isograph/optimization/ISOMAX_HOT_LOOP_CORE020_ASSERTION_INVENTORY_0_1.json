@@ -1,0 +1,1392 @@
+{
+  "schema": "isomax.hot_loop.core020_assertion_inventory.v1",
+  "id": "isomax-hot-loop-core020-assertion-inventory-0.1",
+  "date_author_local": "2026-09-27",
+  "predecessor_json": {
+    "path": "research/isograph/optimization/ISOMAX_HOT_LOOP_GRAPH_0_3_CANDIDATE.json",
+    "git_blob": "8df8c19f13892adcb8476e638c4b2e900bf7ec08"
+  },
+  "purpose": "Exhaustive leaf-level inventory of the qualified 0.3 JSON surface so Core 0.20 modernization cannot omit implicit/load-bearing assertions hidden outside the native tuple vocabulary.",
+  "rule": "Leaf values are frozen source observations. Category names are audit classifications. A load-bearing semantic leaf remains QU_UNEXPANDED until its native primitive expansion exists; sidecar text does not close it.",
+  "leaf_count": 195,
+  "load_bearing_count": 156,
+  "non_load_bearing_count": 39,
+  "category_counts": {
+    "PROVENANCE_OR_ROUTING": 17,
+    "SEMANTIC_PARENT_VIEW": 17,
+    "EXACT_EQUIVALENCE_VIEW": 29,
+    "IDENTITY_BOUNDARY_VIEW": 22,
+    "IDENTITY_EVIDENCE_VIEW": 2,
+    "QU_REGION_VIEW": 31,
+    "RESEARCH_NAVIGATION": 22,
+    "PERFORMANCE_EVIDENCE_VIEW": 11,
+    "SEMANTIC_RELATION_VIEW": 44
+  },
+  "entries": [
+    {
+      "path": "/schema",
+      "value": 3,
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/id",
+      "value": "isomax-hot-loop-graph-0.3",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/status",
+      "value": "active_successor_candidate",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/owner_branch",
+      "value": "research/semantic-quotient",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/solver_revision",
+      "value": "69a1ae0929b934682d475b31cdd4a38fac77fc12",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/nei_dependency/repository",
+      "value": "iteathen/isograph",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/nei_dependency/revision",
+      "value": "55c98d31dd2715cdb48abe4f8e313fd72d0dabba",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/nei_dependency/path",
+      "value": "extensions/nei/NATURAL_ENTROPIC_IDENTITY_SPEC_0_4_CANDIDATE.md",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/nei_dependency/status",
+      "value": "qualified_authority",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/nei_dependency/semantic_sha256",
+      "value": "6e2f0efb1f4bfbfa55bc2c5597f1ecc5b4d7bb734216543c21ba72089b0aacee",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/authority_effect",
+      "value": "none",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/supersedes_for_active_interpretation/0",
+      "value": "ISOMAX_HOT_LOOP_OPTIMIZATION_GRAPH_0_1.*",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/supersedes_for_active_interpretation/1",
+      "value": "ISOMAX_HOT_LOOP_NEI_APPLICATION_0_2.*",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/supersedes_for_active_interpretation/2",
+      "value": "ISOMAX_HOT_LOOP_DISCOVERY_PROTOCOL_0_1.md",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/supersedes_for_active_interpretation/3",
+      "value": "ISOMAX_HOT_LOOP_FULL_DISCOVERY_0_2.*",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/supersedes_for_active_interpretation/4",
+      "value": "ISOMAX_HOT_LOOP_QUALIFICATION_0_1.md",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/supersedes_for_active_interpretation/5",
+      "value": "ISOMAX_HOT_LOOP_QUALIFICATION_0_2.md",
+      "category": "PROVENANCE_OR_ROUTING",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM_OR_PROVENANCE"
+    },
+    {
+      "path": "/semantic_parents/0/id",
+      "value": 996001,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/0/name",
+      "value": "ordinary_value_dependency",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/1/id",
+      "value": 996002,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/1/name",
+      "value": "exact_qr_cache_identity",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/1/game_theory_owner",
+      "value": "q_r horizontal-reflection orbit quotient",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/2/id",
+      "value": 996003,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/2/name",
+      "value": "own_residual_cofactor",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/3/id",
+      "value": 996004,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/3/name",
+      "value": "block_residual_cofactor",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/4/id",
+      "value": 996005,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/4/name",
+      "value": "support_transition",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/5/id",
+      "value": 996006,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/5/name",
+      "value": "advisory_move_order",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/6/id",
+      "value": 996007,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/6/name",
+      "value": "task_necessity",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/7/id",
+      "value": 996008,
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/semantic_parents/7/name",
+      "value": "ranked_q_dependency_dag",
+      "category": "SEMANTIC_PARENT_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/id",
+      "value": 996020,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/name",
+      "value": "prepared_hash_pi32_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/scope",
+      "value": "q locator bitwise addressing",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/left",
+      "value": "unsigned Number hash carrier",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/right",
+      "value": "signed int32 hash carrier",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/invariant",
+      "value": "identical low 32 bits under pi32",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/0/nei_result",
+      "value": "not_required",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/id",
+      "value": 996021,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/name",
+      "value": "isolated_bit_pi32_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/scope",
+      "value": "Math.clz32 / bit-index input",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/left",
+      "value": "unsigned Number isolated bit",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/right",
+      "value": "signed int32 isolated bit",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/invariant",
+      "value": "identical low 32 bits under pi32",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/1/nei_result",
+      "value": "not_required",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/2/id",
+      "value": 996022,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/2/name",
+      "value": "cell_mask_precomputation_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/2/scope",
+      "value": "42-cell mask lookup",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/3/id",
+      "value": 996023,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/3/name",
+      "value": "flat_pair_incidence_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/3/scope",
+      "value": "advisory singleton-effect classifier",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/4/id",
+      "value": 996024,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/4/name",
+      "value": "singleton_projection_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/4/scope",
+      "value": "singleton metadata projection",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/5/id",
+      "value": 996025,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/5/name",
+      "value": "cold_helper_boundary_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/5/scope",
+      "value": "growth semantics",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/6/id",
+      "value": 996026,
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/6/name",
+      "value": "preparation_order_equivalence",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/exact_scoped_equivalences/6/scope",
+      "value": "final prepared storage semantics",
+      "category": "EXACT_EQUIVALENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/kind",
+      "value": "implementation_exact_qr_equality",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/semantic_owner",
+      "value": "Connect4 game-theory IsoGraph q_r",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/coordinates/0",
+      "value": "reflection-canonical p0 residual class",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/coordinates/1",
+      "value": "reflection-canonical p1 residual class",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/coordinates/2",
+      "value": "reflection-canonical packed support",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/transporter",
+      "value": "identity or horizontal reflection; action c maps to 6-c when orientations differ",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/exact_scope/0",
+      "value": "scalar WDL/value cache reuse",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/exact_scope/1",
+      "value": "reflection-transported future-game equivalence",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/nonconsequence/0",
+      "value": "literal action-label identity",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/nonconsequence/1",
+      "value": "physical occurrence identity",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/nonconsequence/2",
+      "value": "proof/certificate identity",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/exclusions/0",
+      "value": "hash",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/exclusions/1",
+      "value": "slot",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/q_cache/exclusions/2",
+      "value": "worker-local class ID",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/task_occurrence/kind",
+      "value": "contextual_occurrence",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/task_occurrence/occurrence_identity_preserved",
+      "value": true,
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/task_occurrence/future_behavior_identity_owner",
+      "value": "Connect4 game-theory IsoGraph q_o/q_r distinction",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/task_occurrence/may_project_to_same_q_r",
+      "value": true,
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/nei/rule",
+      "value": "invoke only for genuine identity questions; exact scoped equivalence is not automatically NEI SAME",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/game_theory_dependency/q_o",
+      "value": "orientation-sensitive ordinary future-behavior carrier",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/game_theory_dependency/q_r",
+      "value": "horizontal-reflection orbit quotient used by current cache",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_boundaries/game_theory_dependency/review",
+      "value": "research/isograph/qualification/Q_CONGRUENCE_INDEPENDENT_REVIEW_0_1.md",
+      "category": "IDENTITY_BOUNDARY_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_evidence/bayes_factors_present",
+      "value": false,
+      "category": "IDENTITY_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/identity_evidence/reason",
+      "value": "no qualified likelihood model; benchmark repetition is not converted into identity evidence weight",
+      "category": "IDENTITY_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/id",
+      "value": "QU-HOT-01",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/node",
+      "value": 996040,
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/name",
+      "value": "v8_lowering",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/known/0",
+      "value": "pinned source/runtime/cpu",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/known/1",
+      "value": "generated-code summaries",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/known/2",
+      "value": "allocation/map/call observations",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/known/3",
+      "value": "exact A/B controls",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/open/0",
+      "value": "tier/version stability",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/open/1",
+      "value": "remaining hidden deopts/allocations",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/0/open/2",
+      "value": "dynamic site frequency",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/id",
+      "value": "QU-HOT-02",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/node",
+      "value": 996041,
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/name",
+      "value": "dynamic_machine_cost",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/known/0",
+      "value": "statistical CPU profile",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/known/1",
+      "value": "sampled allocation",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/known/2",
+      "value": "wall time",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/open/0",
+      "value": "branch misses",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/open/1",
+      "value": "cache misses",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/1/open/2",
+      "value": "retired instruction counts",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/id",
+      "value": "QU-HOT-03",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/node",
+      "value": 996042,
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/name",
+      "value": "workload_distribution",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/known/0",
+      "value": "manager q reuse",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/known/1",
+      "value": "private worker TT",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/known/2",
+      "value": "cross-worker q overlap",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/known/3",
+      "value": "four-worker excess work",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/known/4",
+      "value": "busy retirement benefit",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/open/0",
+      "value": "avoidable work per duplicate",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/open/1",
+      "value": "best publication boundary",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/open/2",
+      "value": "affinity/priority/frontier economics",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/open/3",
+      "value": "memory/task-entry interaction",
+      "category": "QU_REGION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/qu_regions/2/candidates/0",
+      "value": 78,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/1",
+      "value": 89,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/2",
+      "value": 90,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/3",
+      "value": 91,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/4",
+      "value": 92,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/5",
+      "value": 93,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/6",
+      "value": 94,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/qu_regions/2/candidates/7",
+      "value": 95,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/0",
+      "value": 96,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/1",
+      "value": 97,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/2",
+      "value": 98,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/3",
+      "value": 99,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/4",
+      "value": 100,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/5",
+      "value": 101,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/6",
+      "value": 78,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/7",
+      "value": 89,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/8",
+      "value": 90,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/9",
+      "value": 91,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/10",
+      "value": 92,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/11",
+      "value": 93,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/12",
+      "value": 94,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/current_candidates/13",
+      "value": 95,
+      "category": "RESEARCH_NAVIGATION",
+      "load_bearing": false,
+      "closure": "RAW_DATA_ATOM"
+    },
+    {
+      "path": "/retained_performance/serial/baseline_ms",
+      "value": 2379.87,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/serial/final_ms",
+      "value": 1709.77,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/serial/reduction_percent",
+      "value": 28.16,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/serial/calls",
+      "value": 2643905,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/one_worker/baseline_ms",
+      "value": 2761.83,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/one_worker/final_ms",
+      "value": 2052.99,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/one_worker/reduction_percent",
+      "value": 25.67,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/four_worker/baseline_ms",
+      "value": 2429.99,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/four_worker/final_ms",
+      "value": 1779.85,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/four_worker/reduction_percent",
+      "value": 26.75,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/retained_performance/exact_decisions_agree",
+      "value": true,
+      "category": "PERFORMANCE_EVIDENCE_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/0/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/0/from",
+      "value": 996002,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/0/to",
+      "value": "components/isometric/isomax-index.mjs",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/1/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/1/from",
+      "value": 996003,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/1/to",
+      "value": "components/isometric/residual-pool.mjs#ownTransition",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/2/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/2/from",
+      "value": 996004,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/2/to",
+      "value": "components/isometric/residual-pool.mjs#blockTransition",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/3/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/3/from",
+      "value": 996005,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/3/to",
+      "value": "components/isometric/state.mjs#applyUnchecked/undo",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/4/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/4/from",
+      "value": 996006,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/4/to",
+      "value": "components/isometric/move-order.mjs",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/5/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/5/from",
+      "value": 996007,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/5/to",
+      "value": "components/isometric/execution/task.mjs",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/6/type",
+      "value": "realizes",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/6/from",
+      "value": 996008,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/6/to",
+      "value": "components/isometric/execution/branch-manager.mjs",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/7/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/7/node",
+      "value": 996020,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/8/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/8/node",
+      "value": 996021,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/9/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/9/node",
+      "value": 996022,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/10/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/10/node",
+      "value": 996023,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/11/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/11/node",
+      "value": 996024,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/12/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/12/node",
+      "value": 996025,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/13/type",
+      "value": "exact_scoped_equivalence",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/13/node",
+      "value": 996026,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/14/type",
+      "value": "unresolved_as",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/14/from",
+      "value": 996001,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/14/to",
+      "value": 996040,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/15/type",
+      "value": "unresolved_as",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/15/from",
+      "value": 996001,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/15/to",
+      "value": 996041,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/16/type",
+      "value": "unresolved_as",
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/16/from",
+      "value": 996008,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    },
+    {
+      "path": "/relations/16/to",
+      "value": 996042,
+      "category": "SEMANTIC_RELATION_VIEW",
+      "load_bearing": true,
+      "closure": "QU_UNEXPANDED"
+    }
+  ]
+}
