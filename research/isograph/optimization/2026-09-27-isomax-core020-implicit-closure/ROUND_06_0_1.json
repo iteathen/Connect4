@@ -1,0 +1,538 @@
+{
+  "schema": "isomax.core020.implicit_closure.round.v1",
+  "round": 6,
+  "status": "ADMITTED",
+  "new_assertions": 20,
+  "support_refinements": 0,
+  "entries": [
+    {
+      "id": "IA-I211",
+      "round": 6,
+      "title": "finite q_r orbit-count formula",
+      "body": "Let N_o be the number of represented q_o content classes and F the number fixed by reflection up to QO_EQ. Then the number N_r of q_r classes is (N_o+F)/2.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I098",
+        "IA-I099",
+        "IA-I197"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "D",
+      "witness": "Partition the finite q_o classes into F singleton reflection orbits and (N_o-F)/2 two-class orbits.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I212",
+      "round": 6,
+      "title": "q_r class count bounds",
+      "body": "ceil(N_o/2) <= N_r <= N_o.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I211"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "A",
+      "witness": "The fixed-point count satisfies 0<=F<=N_o.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I213",
+      "round": 6,
+      "title": "reflection quotient gives at most factor-two semantic-class compression",
+      "body": "Passing from q_o classes to q_r classes can reduce the number of semantic state classes by no more than a factor of two.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I212"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Every q_r orbit contains one or two q_o classes.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I214",
+      "round": 6,
+      "title": "task deduplication multiplicity is independent of q_r orbit size",
+      "body": "Arbitrarily many task occurrences may project to one q_r class even though that class contains at most two q_o classes.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I098",
+        "IA-I123",
+        "IA-I147"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Occurrence identity is a separate carrier and is not bounded by the size of the semantic reflection orbit.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I215",
+      "round": 6,
+      "title": "q_r alone cannot explain a semantic-class reduction larger than two",
+      "body": "Any reduction of distinct semantic q classes by more than a factor of two requires an equivalence other than the q_o->q_r horizontal-reflection orbit quotient.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I213"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The exact orbit-size bound is structural.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I216",
+      "round": 6,
+      "title": "effect-class histogram is q_r-invariant",
+      "body": "The counts of legal actions in effect classes 0,1,2 are constant on each q_r class.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I101",
+        "IA-I110"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Reflection bijects legal actions and preserves each effect token.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I217",
+      "round": 6,
+      "title": "orientation-free effect histograms may be shared by q_r",
+      "body": "An effect-class histogram, unlike literal per-column effect labels, can be reused across QR_EQ states without orientation metadata.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I216"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The histogram discards literal column coordinates and retains only q_r-invariant counts.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I218",
+      "round": 6,
+      "title": "literal per-column effect data requires the q_r transporter",
+      "body": "A cached mapping from literal column to EFFECT under q_r requires identity/reflection transport on lookup.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I171",
+        "IA-I143"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Effect tokens are equivariant, not literal-column invariant.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I219",
+      "round": 6,
+      "title": "promoted literal column is not an orientation-free q_r payload",
+      "body": "PROMOTE cannot be cached as a literal q_r-class property without preserving orientation/tie context.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I144",
+        "IA-I172",
+        "IA-I193"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The fixed center-order tie break prevents q_r invariance.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I220",
+      "round": 6,
+      "title": "q-step paths contain only non-immediate actions",
+      "body": "Every edge on a Q_STEP path represents an action for which the mover did not have OWN_WIN at the landing cell.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E038",
+        "IA-I033"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Q_STEP explicitly contains NOT OWN_WIN; immediate actions are represented by IMMEDIATE instead.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I221",
+      "round": 6,
+      "title": "an immediate winning action has no ordinary q successor",
+      "body": "IMMEDIATE(q,c,v) implies there is no qp with Q_STEP(q,c,qp).",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I033"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Immediate and successor branches are mutually exclusive.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I222",
+      "round": 6,
+      "title": "recursive VALUE descent crosses no represented first-win boundary",
+      "body": "Every recursive OUTCOME->Q_STEP->VALUE descent consists only of non-immediate actions; an immediate terminal action contributes its WDL directly and ends that branch.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "E040",
+        "IA-I220",
+        "IA-I221"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "OUTCOME is an exclusive immediate-or-successor case under the Q_STEP guard.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I223",
+      "round": 6,
+      "title": "with extensional comprehension, rank-by-rank dynamic evaluation is exact",
+      "body": "Under the comprehension condition of IA-I202, VALUE can be evaluated from rank 42 downward because every dependency goes to the next rank and every q has a unique value.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I199",
+        "IA-I204"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "C",
+      "witness": "Finite DAG plus total functional value supports exact reverse-rank evaluation.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [
+        "extensional-comprehension premise remains conditional"
+      ],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I224",
+      "round": 6,
+      "title": "finite exact evaluation does not imply a small state space",
+      "body": "The existence of a finite rank-by-rank evaluation does not imply that the represented q_o or q_r content space is small.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I197",
+        "IA-I198",
+        "IA-I223"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "The coarse finite q_o bound already contains two independent 625-bit residual membership spaces before antichain restrictions.",
+      "QU_dependencies": [],
+      "NEI_scope": "non-entailment/identity boundary as stated",
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I225",
+      "round": 6,
+      "title": "q_r at most halves the q_o state-count bound",
+      "body": "Replacing q_o by q_r can at most halve any exact q_o class count; it does not supply further semantic state collapse by itself.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I213",
+        "IA-I224"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "This is the orbit-size bound applied to the finite semantic state space.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I226",
+      "round": 6,
+      "title": "conditional VALUE totality descends to q_r",
+      "body": "Under extensional comprehension, every q_r class has exactly one scalar VALUE token.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I204",
+        "IA-I142"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "Every represented q has one value and that value is constant on q_r equivalence classes.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [
+        "extensional-comprehension premise remains conditional"
+      ],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I227",
+      "round": 6,
+      "title": "scalar-plus-transporter is sufficient for q_r action/value reuse",
+      "body": "For an exact value-bearing action cache, the pair {q_r scalar value, orientation/action transporter applied to a value-preserving action witness} is sufficient to reuse both scalar and physical action semantics.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I186",
+        "IA-I189",
+        "IA-I190"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The scalar handles orbit-invariant value; the transporter handles the only represented coordinate change.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I228",
+      "round": 6,
+      "title": "scalar and oriented-action cache layers can be separated without semantic loss",
+      "body": "A cache may store q_r scalar VALUE independently from an optional orientation-sensitive exact action witness, provided the witness keeps its value proof and transporter context.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I190",
+        "IA-I227"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "The two payloads have distinct but composable semantic reuse contracts.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I229",
+      "round": 6,
+      "title": "q_o action caches need no reflection transporter",
+      "body": "Within QO_EQ, an exact literal action/value witness may be reused with the same literal column label.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I184",
+        "IA-I096"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "O",
+      "witness": "q_o future congruence preserves literal action labels by identity rather than reflection.",
+      "QU_dependencies": [],
+      "NEI_scope": null,
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    },
+    {
+      "id": "IA-I230",
+      "round": 6,
+      "title": "remaining open regions are not implicit-assertion consequences",
+      "body": "The current exact IA closure does not derive extensional carrier comprehension, runtime fairness/termination, net sharing speedup, or unrendered representation-equivalence semantics.",
+      "support_mode": "EXACT",
+      "scope": "IsoMax Core-0.20 primitive successor",
+      "premises": [
+        "IA-I205",
+        "IA-I208",
+        "IA-I209",
+        "IA-I210"
+      ],
+      "governing_authority": [
+        "Core 0.19 implicit assertions",
+        "Core 0.20 primitive closure",
+        "NEI 0.4 where identity scope is stated"
+      ],
+      "derivation_family": "N",
+      "witness": "Each item still has an explicit missing premise or QU boundary; admitting it would violate no-hidden-premise discipline.",
+      "QU_dependencies": [
+        "runtime/JIT/work-distribution QU retained"
+      ],
+      "NEI_scope": "non-entailment/identity boundary as stated",
+      "provenance": "round-6 consequence over A0 + rounds 1-5",
+      "side_conditions": [],
+      "downstream_relevance": "final material assertions before fixed-point pass",
+      "normalized_depth": 6,
+      "admitted": true
+    }
+  ]
+}
