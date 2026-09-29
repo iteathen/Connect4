@@ -1407,7 +1407,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
     let reconvergentPairs=0,pathIndependentReconvergences=0,
       contradictoryReconvergences=0,topologicalReconvergences=0,
       maxPathMultiplicity=1;
-    const examples=[];
+    const examples=[],contradictoryExamples=[];
 
     for(const source of ordered){
       const stats=new Map(),start={
@@ -1462,7 +1462,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           ].join('>'))),
           topological=routeSignatures.size>1;
         if(topological)topologicalReconvergences++;
-        if(examples.length<32)examples.push({
+        const example={
           source,target,multiplicity,
           parityPathCounts:[...row.counts],
           minPathEdges:Math.min(...row.min.filter(Number.isFinite)),
@@ -1470,7 +1470,10 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
           contradictory,topological,
           witnessEdgeIdsByParity:row.witnesses.map(list=>
             list.slice(0,2).map(witness=>[...witness])),
-        });
+        };
+        if(examples.length<32)examples.push(example);
+        if(contradictory&&contradictoryExamples.length<32)
+          contradictoryExamples.push(example);
       }
     }
 
@@ -1481,6 +1484,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       topologicalReconvergences,
       maxPathMultiplicity,
       examples,
+      contradictoryExamples,
     };
   }
 
@@ -1497,7 +1501,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       return [root,parity];
     }
     let zeroCycleSyndromes=0,nonzeroCycleSyndromes=0;
-    const syndromeExamples=[];
+    const syndromeExamples=[],nonzeroSyndromeExamples=[];
     for(const edge of edgeRows){
       let [rootA,phaseA]=find(edge.from),
         [rootB,phaseB]=find(edge.to);
@@ -1505,10 +1509,13 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         const syndrome=phaseA^phaseB^edge.delta;
         if(syndrome===0)zeroCycleSyndromes++;
         else nonzeroCycleSyndromes++;
-        if(syndromeExamples.length<32)syndromeExamples.push({
+        const example={
           closingEdgeId:edge.id,from:edge.from,to:edge.to,
           delta:edge.delta,syndrome,
-        });
+        };
+        if(syndromeExamples.length<32)syndromeExamples.push(example);
+        if(syndrome!==0&&nonzeroSyndromeExamples.length<32)
+          nonzeroSyndromeExamples.push(example);
         continue;
       }
       const bridge=phaseA^phaseB^edge.delta;
@@ -1537,6 +1544,7 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
       nonzeroCycleSyndromes,
       globalPhasePotentialExists:nonzeroCycleSyndromes===0,
       syndromeExamples,
+      nonzeroSyndromeExamples,
     };
   }
 
@@ -1704,7 +1712,9 @@ export function analyzeDirectResidualOrbitGraph({width,height,k,universalFrontie
         columns:rows.map(row=>row.column),
       })),
     reconvergenceExamples:pathAudit.examples,
+    contradictoryReconvergenceExamples:pathAudit.contradictoryExamples,
     cycleSyndromeExamples:integrabilityAudit.syndromeExamples,
+    nonzeroCycleSyndromeExamples:integrabilityAudit.nonzeroSyndromeExamples,
     edgeExamples:binaryInheritanceEdges.slice(0,64),
   };
 
