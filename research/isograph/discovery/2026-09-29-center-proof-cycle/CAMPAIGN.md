@@ -9,6 +9,8 @@ It supersedes further full-solve timing expansion as the immediate next task.
 
 Latest research checkpoint: [dimension/parity and shared center-boundary obligation](PARITY_DIMENSION_RESULT.md).
 
+Active algebraic hypothesis: [nim-like control-parity algebra](../../../hypotheses/NIM_LIKE_CONTROL_PARITY_ALGEBRA.md). The latent value may be complex; only its possible composition/cancellation law is conjectured to be XOR/GF(2)-like.
+
 ## Questions and frozen boundaries
 
 For one-based prefixes `44`, `444`, `4444`, construct a small rule-derived
@@ -100,6 +102,13 @@ change or a claim that finding a policy is polynomial. No precomputed outcomes.
 
 No gray/column masks, support pooling, new TT identity, BSFP changes or PR #84
 merge. Original owner-neutrality already costs zero additional worker work.
+
+P4 is a cold rule-only algebra probe. Reproduce the center-boundary GF(2)
+transition relations, test whether an unmatched control defect lies outside the
+paired-response span, derive the minimum degree of nontrivial Boolean-polynomial
+identities on the 2,108 unresolved boundary, factor simple identities back into
+winning-line/support geometry, then perturb board dimensions blind to their
+known outcomes. Negative results are required evidence. No runtime adoption.
 
 ## Durability
 
