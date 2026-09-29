@@ -3,8 +3,8 @@
 **Status:** bounded exact rule-derived evidence  
 **Research direction:** Joshua Oshiro  
 **Branch:** `research/nim-control-parity-algebra-20260929`  
-**Tested head:** `1d0a94cfb4736754140a83b7b5c26d4ee1552cb6`  
-**Workflow:** `36548469291` — success  
+**Tested head:** `d69767b3ae1890a705e607c9edead28f8a9e0787`  
+**Workflow:** `36548797735` — success  
 **Solved/outcome labels used by producer:** no  
 **Physical board states enumerated by producer:** no  
 **Gameplay-authority effect:** none  
@@ -139,6 +139,38 @@ polynomial generalized construction
 
 The next burden is cross-dimension growth of the direct structural graph and a
 compact canonical/refinement rule that avoids factorial action relabeling.
+
+## Cross-dimension reconstruction
+
+The same direct producer was compared against the independently enumerated
+physical recursive quotient on every small-board control in the current matrix.
+
+| Board | Physical states | Direct residual-orbit states | Direct action edges | Recursive classes |
+|---|---:|---:|---:|---:|
+| 3x3 C3 | 694 | 197 | 404 | 130 |
+| 4x3 C3 | 7,157 | 1,656 | 4,603 | 1,002 |
+| 3x4 C3 | 2,715 | 690 | 1,528 | 406 |
+| 4x4 C3 | 41,750 | 8,898 | 26,400 | 4,384 |
+| 4x4 C4 | 161,029 | 10,507 | 31,669 | 8,242 |
+
+For all five boards:
+
+~~~text
+direct recursive class count
+=
+physical recursive class count
+~~~
+
+and the separately derived root W/D/L values also match.
+
+The direct residual graph uses between about 21% and 28% as many state nodes as
+the physical graph on the tested Connect-3 controls, and only about 6.5% on
+4x4 Connect-4. The result therefore survives width/height/K perturbation and is
+not peculiar to one 4x4 C4 graph.
+
+The gravity-orientation distinction is also preserved: 4x3 C3 and 3x4 C3 have
+the same board area and raw winning-line count but produce different direct
+residual-orbit graphs and different recursive class counts.
 
 ## Branch-local equivalence
 
