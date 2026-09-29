@@ -1,0 +1,174 @@
+{
+  "schema": "isomax.core020.structural_control.primitive_closure_ledger.v1",
+  "date_author_local": "2026-09-29",
+  "core": "0.20 qualified clarification",
+  "entries": [
+    {
+      "id": "PC-001",
+      "node": "predecessor support/gravity semantics",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg"
+    },
+    {
+      "id": "PC-002",
+      "node": "predecessor residual term/antichain semantics",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg"
+    },
+    {
+      "id": "PC-003",
+      "node": "predecessor mover/blocker cofactor semantics",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "ISOMAX_CORE020_PRIMITIVE_GAME_0_1.isg"
+    },
+    {
+      "id": "PC-004",
+      "node": "Boolean XOR used by concrete phase witnesses",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196100 exact four-tuple truth table"
+    },
+    {
+      "id": "PC-005",
+      "node": "5x4 shortest contradictory edge/path witness",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196101/196102 raw edge/path incidence + 196104"
+    },
+    {
+      "id": "PC-006",
+      "node": "5x4 scalar node-bit equation unsatisfiability",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "native NOT EXISTS Boolean formula"
+    },
+    {
+      "id": "PC-007",
+      "node": "4x4 two-route zero-delta witness",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196101/196103 + native existential Boolean formula"
+    },
+    {
+      "id": "PC-008",
+      "node": "5x4 source-sheet shared support observation",
+      "status": "RAW_DATA_ATOM",
+      "support": "196107 raw extension"
+    },
+    {
+      "id": "PC-009",
+      "node": "5x4 source/final residual membership observations",
+      "status": "RAW_DATA_ATOM",
+      "support": "196108 raw extension"
+    },
+    {
+      "id": "PC-010",
+      "node": "5x4 route phase/sign/transporter/action-sequence observation",
+      "status": "RAW_DATA_ATOM",
+      "support": "196106 raw extension"
+    },
+    {
+      "id": "PC-011",
+      "node": "binary-tie allowed orientation pairs",
+      "status": "CLOSED_PRIMITIVE",
+      "support": "196109 exact extension IFF 196110/XOR truth table"
+    },
+    {
+      "id": "PC-012",
+      "node": "direct residual-orbit graph aggregate",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "DIRECT_RESIDUAL_ORBIT_GRAPH_RESULT.md"
+    },
+    {
+      "id": "PC-013",
+      "node": "action-labelled/unlabelled aggregate quotient counts",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "LATE_ACTION_PARITY_RESULT.md"
+    },
+    {
+      "id": "PC-014",
+      "node": "deeper continuation group census",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "DEEPER_CONTINUATION_PHASE_RESULT.md"
+    },
+    {
+      "id": "PC-015",
+      "node": "4x4 full binary-cocycle census",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "PHASE_COCYCLE_RESULT.md"
+    },
+    {
+      "id": "PC-016",
+      "node": "4x5 full binary-cocycle census",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "PHASE_COCYCLE_4X5_RESULT.md"
+    },
+    {
+      "id": "PC-017",
+      "node": "5x4 full binary-cocycle census",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "PHASE_COCYCLE_5X4_RESULT.md"
+    },
+    {
+      "id": "PC-018",
+      "node": "ordinary permutation-sign generic theorem",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "LATE_ACTION_PARITY_RESULT.md"
+    },
+    {
+      "id": "PC-019",
+      "node": "response-incidence rank/nullity and polynomial-identity census",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "CONTROL_ALGEBRA_RESULT.md"
+    },
+    {
+      "id": "PC-020",
+      "node": "legal-vs-optimal partial2 delta-space census",
+      "status": "DERIVED_VIEW",
+      "load_bearing_for_ia": false,
+      "source": "BRANCH_COLLAPSE_RESULT.md"
+    },
+    {
+      "id": "PC-021",
+      "node": "intrinsic state coordinate explaining 5x4 obstruction",
+      "status": "QU_UNEXPANDED",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "PC-022",
+      "node": "general width-4 scalar-phase theorem beyond measured boards",
+      "status": "QU_UNEXPANDED",
+      "qu": "QU-SC-002"
+    },
+    {
+      "id": "PC-023",
+      "node": "bridge from structural phase to W/D/L or nimber",
+      "status": "QU_UNEXPANDED",
+      "qu": "QU-SC-003"
+    },
+    {
+      "id": "PC-024",
+      "node": "intrinsic state replacement for history-dependent transporter",
+      "status": "QU_UNEXPANDED",
+      "qu": "QU-SC-004"
+    },
+    {
+      "id": "PC-025",
+      "node": "generalized phase codomain if scalar GF2 is insufficient",
+      "status": "QU_UNEXPANDED",
+      "qu": "QU-SC-005"
+    }
+  ],
+  "primitive_complete_scope": [
+    "Boolean phase arithmetic for the explicit 4x4 and 5x4 witnesses",
+    "concrete edge/path incidences",
+    "shared-support and residual-membership witness facts",
+    "route phase/sign/transporter observations as exact source facts",
+    "binary-tie two-bit orientation relation"
+  ],
+  "completeness_nonclaim": "No claim that all aggregate carrier enumerations have been primitive-expanded into this compact successor packet."
+}
