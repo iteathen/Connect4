@@ -218,12 +218,53 @@ x_1 xor x_2 = 0.
 
 This is an exact place where XOR composition is derived rather than assumed.
 
-The remaining complexity question is constructive. Existence of `A_s` does
-not by itself provide a polynomial procedure for deriving `A_s` from the
-residual/support incidence without enumerating `2^m` orientations. Nor does
-it address unresolved tie classes of size greater than two, whose internal
-permutation groups are generally non-abelian symmetric groups rather than
-binary vector spaces.
+The constructive stabilizer question has now been closed under the same
+binary-tie guard.
+
+For each residual requirement, the implementation records only:
+
+- its player;
+- its orbit-invariant unordered row-pattern pair in each two-column class;
+- the orientation bit for each asymmetric pair.
+
+Requirements with the same invariant data form an explicit orientation block
+`S_B <= GF(2)^m` on the coordinates they actually use. To recover the exact
+translation stabilizer of one block, it is sufficient to choose one
+`t_0 in S_B` and test only differences
+
+~~~text
+h = t xor t_0,  t in S_B
+~~~
+
+because any translation preserving `S_B` must send `t_0` to another member
+of `S_B`. Valid translations are row-reduced over GF(2); inactive
+coordinates are free; parity checks from all blocks are then intersected by
+ordinary GF(2) elimination.
+
+Thus the constructive method is polynomial in the explicitly represented
+residual family and the number of binary tie coordinates. It does **not**
+enumerate all `2^m` orientation assignments.
+
+Exact 4x4 qualification over the complete 18-state fallback family produced:
+
+~~~text
+fallback states                 18
+pair-count set                 [2]
+stabilizer dimensions          [1]
+parity-check sets             [11_2]
+exact orientation sets        [{00,11}]
+constructive matches exact     true
+unrepresented exact autos         0
+~~~
+
+So the derived incidence construction independently recovers the same
+`x_1 xor x_2 = 0` stabilizer on every fallback.
+
+The remaining canonicalization question is narrower: use these affine
+constraints to select an exact canonical orientation without binary
+orientation enumeration, and retain an exact fallback for unresolved classes
+larger than two. Tie classes larger than two remain non-abelian symmetric-group
+problems in the general case.
 
 ## Non-claims
 
@@ -274,10 +315,11 @@ additional proof.
 
 Open questions now include whether:
 
-- analogous fallback components on larger widths decompose into binary
-  orientation variables plus linear GF(2) constraints;
-- the constraint graph has polynomially bounded rank/size;
-- solving those constraints can replace factorial tie-class enumeration while
+- analogous fallback components on larger widths remain binary after
+  refinement often enough to dominate the practical canonicalization cost;
+- the number and size of nonbinary tie classes admit a useful generalized
+  bound;
+- affine GF(2) canonical orientation can replace binary tie enumeration while
   preserving exact residual-state canonicalization.
 
 Negative evidence remains important: the second-order local refinement resolved
