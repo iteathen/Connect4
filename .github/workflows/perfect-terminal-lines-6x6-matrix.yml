@@ -1,0 +1,38 @@
+name: perfect-terminal-lines-6x6-matrix
+
+on:
+  push:
+    branches:
+      - experiment/perfect-terminal-lines-6x6-matrix-20260928
+
+permissions:
+  contents: read
+
+jobs:
+  witness:
+    strategy:
+      fail-fast: false
+      matrix:
+        rep: [0,1,2,3,4,5,6,7]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Search symmetry class
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git clone --depth 1 https://github.com/ChristopheSteininger/c4.git upstream
+          cd upstream
+          sed -i 's/inline constexpr int BOARD_WIDTH = 7;/inline constexpr int BOARD_WIDTH = 6;/' src/solver/settings.h
+          sed -i 's/inline constexpr int BOARD_HEIGHT = 6;/inline constexpr int BOARD_HEIGHT = 6;/' src/solver/settings.h
+          sed -i 's/inline constexpr int NUM_THREADS = 0;/inline constexpr int NUM_THREADS = 2;/' src/solver/settings.h
+          sed -i 's/inline constexpr uint64_t NUM_TABLE_ENTRIES = 134217757;/inline constexpr uint64_t NUM_TABLE_ENTRIES = 16777259;/' src/solver/settings.h
+          cp "$GITHUB_WORKSPACE/research/perfect-play-terminal-lines/find-6x6-witnesses.cpp" src/find-6x6-witnesses.cpp
+          cat >> CMakeLists.txt <<'EOF'
+          add_executable(find6x6 "${CMAKE_SOURCE_DIR}/src/find-6x6-witnesses.cpp")
+          target_link_libraries(find6x6 PRIVATE solver)
+          EOF
+          CC=clang CXX=clang++ cmake --preset optimise
+          CC=clang CXX=clang++ cmake --build --preset optimise --target find6x6 -j2
+          timeout 180s ./out/optimise/find6x6 ${{ matrix.rep }}
