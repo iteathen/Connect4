@@ -1,0 +1,132 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 4,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA025",
+      "family": "Q",
+      "support_mode": "EXACT",
+      "title": "one represented target residual bit defines a strict local refinement",
+      "body": "Within target quotient node 197002, the predicate 'P0 residual token 197700 has membership bit 1' separates final state 197403 from final state 197402, so adjoining that represented bit to target identity strictly refines this quotient fiber.",
+      "normalized_body": "residual_197700_membership_strictly_refines_shortest_witness_target_quotient",
+      "premises": [
+        "SC-E011",
+        "SC-E012",
+        "SC-IA004",
+        "SC-IA014"
+      ],
+      "rule": "Q",
+      "scope": "target fiber of shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA026",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "the residual-bit target refinement repairs the shortest scalar constraint system",
+      "body": "Keep the four shortest-witness edge deltas and one Boolean phase value per refined node, but replace the merged target by two refined targets distinguished by the represented 197700 membership bit. The resulting constraints are satisfiable; exactly two Boolean assignments exist, related by simultaneous complement.",
+      "normalized_body": "residual_197700_target_refinement_makes_shortest_5x4_scalar_constraints_satisfiable",
+      "premises": [
+        "SC-E001",
+        "SC-E002",
+        "SC-E003",
+        "SC-E005",
+        "SC-E006",
+        "SC-E011",
+        "SC-E012",
+        "SC-IA025"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 obstruction only; refined target split by represented residual membership",
+      "qu_dependencies": [
+        "QU-SC-001",
+        "QU-SC-005"
+      ],
+      "derivation_witness": "Let source=a, route-A intermediate=b, route-B intermediate=c, refined target for route A=d0, refined target for route B=d1. Constraints a xor b=0, b xor d0=0, a xor c=0, c xor d1=1 have exactly assignments (0,0,0,0,1) and (1,1,1,1,0)."
+    },
+    {
+      "id": "SC-IA027",
+      "family": "S",
+      "support_mode": "EXACT",
+      "title": "full transporter history is not necessary for local repair of the shortest obstruction",
+      "body": "The shortest 5x4 scalar contradiction can be removed while retaining the scalar Boolean codomain and all four edge deltas by refining the target with represented residual-state information; carrying the full accumulated transporter is therefore not necessary to repair this one witness.",
+      "normalized_body": "full_transporter_history_not_necessary_for_local_shortest_witness_scalar_repair",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026",
+        "SC-E015"
+      ],
+      "rule": "S",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-004"
+      ],
+      "note": "This is an existence/non-necessity result for one witness, not a generalized corrected carrier."
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR003",
+      "target": "QU-SC-001",
+      "rule": "U",
+      "premises": [
+        "SC-IA025",
+        "SC-IA026"
+      ],
+      "add_fixed": [
+        "a represented residual-membership bit supplies an exact state-local refinement that repairs the shortest contradictory scalar constraint system"
+      ],
+      "retain_open": [
+        "whether one intrinsic residual/incidence law repairs all 25 nonzero syndromes",
+        "whether a realizability/deadline coordinate is additionally required",
+        "whether a higher-dimensional/non-binary phase is still required on other obstructions",
+        "whether the local residual bit has a relabeling-invariant generalized formulation"
+      ],
+      "probability_added": false
+    },
+    {
+      "id": "SC-QR004",
+      "target": "QU-SC-004",
+      "rule": "U",
+      "premises": [
+        "SC-IA027"
+      ],
+      "remove_alternatives": [
+        "full accumulated transporter history is necessary to repair the shortest contradictory witness"
+      ],
+      "retain_open": [
+        "some other 5x4 obstructions require transition orientation",
+        "an intrinsic endpoint/residual coordinate reconstructs all needed distinctions",
+        "a transition-local orientation coordinate is still required beyond the shortest witness",
+        "history dependence is irreducible elsewhere in the present quotient"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ008",
+      "body": "P0 residual token 197700 membership repairs every 5x4 nonzero syndrome.",
+      "reason": "Only the shortest witness is primitive-expanded and proven repaired in this packet.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ009",
+      "body": "The corrected generalized phase remains scalar GF(2).",
+      "reason": "One locally repaired witness does not discharge the other 24 nonzero syndrome constraints or generalized dimensions.",
+      "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
+      "qu": "QU-SC-005"
+    }
+  ]
+}
