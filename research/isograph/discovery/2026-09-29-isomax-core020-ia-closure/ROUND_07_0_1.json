@@ -1,0 +1,159 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 7,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json",
+    "ROUND_05_0_1.json",
+    "ROUND_06_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA036",
+      "family": "Q",
+      "support_mode": "EXACT",
+      "title": "current target quotient erases a locally phase-determining endpoint coordinate",
+      "body": "On the shortest two-route family, target residual-token-197700 membership determines the observed route phase, yet the current target quotient merges the two final states with opposite values of that bit.",
+      "normalized_body": "current_target_quotient_erases_locally_phase_determining_residual_bit_on_shortest_family",
+      "premises": [
+        "SC-E011",
+        "SC-IA025",
+        "SC-IA032",
+        "SC-IA035"
+      ],
+      "rule": "Q",
+      "scope": "shortest two-route 5x4 family only",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA037",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "target-only state refinement is sufficient for local satisfiability",
+      "body": "For the shortest 5x4 witness, the source quotient node and both intermediate nodes may remain unchanged; splitting only the merged target by residual-token-197700 membership is sufficient to make the scalar Boolean edge equations satisfiable.",
+      "normalized_body": "target_only_residual_bit_refinement_suffices_for_shortest_5x4_scalar_satisfiability",
+      "premises": [
+        "SC-E002",
+        "SC-E003",
+        "SC-IA025",
+        "SC-IA026"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA038",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "refined shortest witness has exactly global-complement gauge freedom",
+      "body": "The residual-bit-refined shortest-witness constraint system has exactly two Boolean node assignments, and one is obtained from the other by complementing every node phase bit.",
+      "normalized_body": "refined_shortest_5x4_scalar_system_has_exactly_two_global_complement_assignments",
+      "premises": [
+        "SC-E001",
+        "SC-IA026"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined system",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA039",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "fixing source phase uniquely fixes the refined shortest witness",
+      "body": "In the residual-bit-refined shortest system, choosing the source node phase bit fixes every intermediate and target phase bit uniquely.",
+      "normalized_body": "fixing_source_phase_uniquely_determines_refined_shortest_5x4_assignment",
+      "premises": [
+        "SC-IA038"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined system",
+      "qu_dependencies": []
+    },
+    {
+      "id": "SC-IA040",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "refined target potential equals source potential XOR residual bit",
+      "body": "For each shortest route in every satisfying refined assignment, target_phase = source_phase XOR final_P0_residual_197700_membership.",
+      "normalized_body": "refined_shortest_target_phase_equals_source_phase_xor_final_residual_197700_bit",
+      "premises": [
+        "SC-E001",
+        "SC-E012",
+        "SC-IA032",
+        "SC-IA038",
+        "SC-IA039"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined system",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA041",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "final residual bit is an exact local phase correction term",
+      "body": "For both shortest routes, observed_route_phase XOR final_P0_residual_197700_membership = 0.",
+      "normalized_body": "shortest_route_phase_xor_final_residual_197700_bit_equals_zero_on_both_routes",
+      "premises": [
+        "SC-E001",
+        "SC-IA032"
+      ],
+      "rule": "B",
+      "scope": "exactly the two shortest 5x4 routes",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR007",
+      "target": "QU-SC-001",
+      "rule": "U",
+      "premises": [
+        "SC-IA036",
+        "SC-IA040",
+        "SC-IA041"
+      ],
+      "add_fixed": [
+        "the shortest target quotient erases a represented endpoint bit that determines route phase on the two-route family",
+        "on that family, route_phase XOR final_residual_bit is identically zero"
+      ],
+      "retain_open": [
+        "whether an invariant version of this correction term exists over the complete 5x4 carrier",
+        "whether the same or a related residual predicate closes all obstruction cycles",
+        "whether multiple coordinates are required after quotient refinement"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ014",
+      "body": "The literal residual token 197700 is the unique correction term.",
+      "reason": "Local exact fit does not prove uniqueness; alternative refinements may also separate the target states.",
+      "disposition": "REJECTED_UNIQUENESS_OVERREACH",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ015",
+      "body": "A target-only refinement suffices for the entire 5x4 carrier.",
+      "reason": "SC-IA037 is restricted to one concrete obstruction.",
+      "disposition": "REJECTED_SCOPE_WIDENING",
+      "qu": "QU-SC-001"
+    }
+  ]
+}
