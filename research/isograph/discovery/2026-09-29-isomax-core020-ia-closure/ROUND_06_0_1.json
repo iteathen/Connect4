@@ -1,0 +1,129 @@
+{
+  "schema": "isomax.core020.structural_control.implicit_assertion_round.v1",
+  "round": 6,
+  "date_author_local": "2026-09-29",
+  "input": [
+    "A0_EXPLICIT_ASSERTIONS_0_1.json",
+    "ROUND_01_0_1.json",
+    "ROUND_02_0_1.json",
+    "ROUND_03_0_1.json",
+    "ROUND_04_0_1.json",
+    "ROUND_05_0_1.json"
+  ],
+  "new_assertions": [
+    {
+      "id": "SC-IA032",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "shortest-route phase equals the distinguished final residual bit",
+      "body": "For each of the two shortest 5x4 routes, the observed route phase bit equals the P0 membership bit of residual token 197700 in that route's represented final exact residual state: route A gives 0=0 and route B gives 1=1.",
+      "normalized_body": "shortest_5x4_route_phase_equals_final_residual_197700_membership_on_both_routes",
+      "premises": [
+        "SC-E005",
+        "SC-E006",
+        "SC-E012"
+      ],
+      "rule": "C",
+      "scope": "exactly the two shortest 5x4 routes represented in the packet",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ],
+      "note": "No extension to other routes or a coordinate-free mask identity is asserted."
+    },
+    {
+      "id": "SC-IA033",
+      "family": "B",
+      "support_mode": "EXACT",
+      "title": "required target phase difference equals residual-bit difference",
+      "body": "In every satisfying scalar assignment of the residual-bit-refined shortest witness, the two refined target phase values differ by XOR 1, and the two represented target residual-membership bits also differ by XOR 1.",
+      "normalized_body": "refined_shortest_witness_target_phase_difference_equals_residual_197700_bit_difference",
+      "premises": [
+        "SC-E001",
+        "SC-E012",
+        "SC-IA026"
+      ],
+      "rule": "B",
+      "scope": "shortest 5x4 residual-bit-refined witness",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA034",
+      "family": "R",
+      "support_mode": "EXACT",
+      "title": "the coarse target merge identifies values forced to differ",
+      "body": "The current target quotient merge identifies the two final states even though every satisfying refinement-level scalar assignment requires their target phase values to differ; imposing one shared target phase value is therefore exactly the additional equality that makes the shortest constraint system inconsistent.",
+      "normalized_body": "coarse_target_merge_identifies_refined_target_phase_values_forced_to_differ",
+      "premises": [
+        "SC-E011",
+        "SC-E013",
+        "SC-IA026",
+        "SC-IA033"
+      ],
+      "rule": "R",
+      "scope": "shortest 5x4 obstruction only",
+      "qu_dependencies": [
+        "QU-SC-001"
+      ]
+    },
+    {
+      "id": "SC-IA035",
+      "family": "C",
+      "support_mode": "EXACT",
+      "title": "a local endpoint residual coordinate reproduces route phase",
+      "body": "On the represented two-route shortest-witness family, after refining the target by residual-token-197700 membership, route phase is an endpoint function of that refined residual bit; no route-history variable is needed to distinguish phase 0 from phase 1 for these two routes.",
+      "normalized_body": "residual_197700_refined_target_bit_is_local_endpoint_function_for_shortest_route_phase",
+      "premises": [
+        "SC-IA025",
+        "SC-IA032",
+        "SC-IA033"
+      ],
+      "rule": "C",
+      "scope": "two-route shortest 5x4 witness only",
+      "qu_dependencies": [
+        "QU-SC-001",
+        "QU-SC-004"
+      ]
+    }
+  ],
+  "support_refinements": [],
+  "qu_refinements": [
+    {
+      "id": "SC-QR006",
+      "target": "QU-SC-001",
+      "rule": "U",
+      "premises": [
+        "SC-IA032",
+        "SC-IA033",
+        "SC-IA035"
+      ],
+      "add_fixed": [
+        "on the shortest two-route witness, route phase equals one represented final residual-membership bit",
+        "the residual-bit difference equals the required relative target phase difference"
+      ],
+      "retain_open": [
+        "whether an invariant residual/incidence formulation predicts every nonzero syndrome",
+        "whether the same coordinate transports lawfully under arbitrary column relabeling",
+        "whether additional coordinates are required on other obstruction components"
+      ],
+      "probability_added": false
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "id": "SC-RJ012",
+      "body": "Residual mask 884736 is a globally meaningful physical-coordinate phase bit.",
+      "reason": "The source explicitly warns that canonical slot/mask coordinates transport under column relabeling; only the frozen representative relation is proven here.",
+      "disposition": "REJECTED_COORDINATE_OVERREACH",
+      "qu": "QU-SC-001"
+    },
+    {
+      "id": "SC-RJ013",
+      "body": "P0 residual-count parity is the generalized phase.",
+      "reason": "The current primitive packet has not rendered or tested a generalized residual-count-parity law; the exact two-route bit equality does not justify that extrapolation.",
+      "disposition": "REJECTED_AS_UNSUPPORTED_EXACT_IA",
+      "qu": "QU-SC-001"
+    }
+  ]
+}
